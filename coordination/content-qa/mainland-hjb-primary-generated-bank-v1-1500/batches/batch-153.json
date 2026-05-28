@@ -1,0 +1,289 @@
+{
+  "batchId": "batch-153",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p4-011",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-review-operations-fractions",
+      "unitTitle": "复习与提高",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "p4-upper-review",
+        "operation-relationships",
+        "fraction-review",
+        "两位数乘除",
+        "分数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "反思整理"
+      ],
+      "skillTags": [
+        "加减关系",
+        "乘除关系",
+        "两位数乘除",
+        "分数意义",
+        "错因检查"
+      ],
+      "misconceptionTags": [
+        "inverse relationship used only after an error",
+        "fraction denominator read as a count to add",
+        "review facts applied without context check"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-review-operations-fractions"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-review-operations-fractions",
+        "hjb-primary-p4-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小马虎计算 84 ÷ □ = 7，他错误地用 84 × 7 得到了 588。请你写出正确的逆运算关系，再求出方框里的数。",
+      "optionsZhHans": [],
+      "answer": "84 ÷ 7 = 12",
+      "acceptedAnswers": [
+        "84 ÷ 7 = 12",
+        "12"
+      ],
+      "explanationZhHans": "除法是乘法的逆运算。已知被除数和商，求除数用被除数除以商：84 ÷ 7 = 12。小马虎错用了乘法。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-012",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-review-operations-fractions",
+      "unitTitle": "复习与提高",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "p4-upper-review",
+        "operation-relationships",
+        "fraction-review",
+        "两位数乘除",
+        "分数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "反思整理"
+      ],
+      "skillTags": [
+        "加减关系",
+        "乘除关系",
+        "两位数乘除",
+        "分数意义",
+        "错因检查"
+      ],
+      "misconceptionTags": [
+        "inverse relationship used only after an error",
+        "fraction denominator read as a count to add",
+        "review facts applied without context check"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-review-operations-fractions"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-review-operations-fractions",
+        "hjb-primary-p4-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明把一根绳子平均分成 8 段，每段是这根绳子的几分之几？他取了其中的 3 段，是这根绳子的几分之几？请写出你的思考过程。",
+      "optionsZhHans": [],
+      "answer": "每段是 1/8，3 段是 3/8。",
+      "acceptedAnswers": [
+        "每段是 1/8，3 段是 3/8。",
+        "1/8 和 3/8",
+        "1/8, 3/8"
+      ],
+      "explanationZhHans": "把绳子平均分成 8 段，每段就是 1/8。取 3 段就是 3 个 1/8，即 3/8。分母表示总份数，分子表示取的份数。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-013",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-review-operations-fractions",
+      "unitTitle": "复习与提高",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "p4-upper-review",
+        "operation-relationships",
+        "fraction-review",
+        "两位数乘除",
+        "分数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "反思整理"
+      ],
+      "skillTags": [
+        "加减关系",
+        "乘除关系",
+        "两位数乘除",
+        "分数意义",
+        "错因检查"
+      ],
+      "misconceptionTags": [
+        "inverse relationship used only after an error",
+        "fraction denominator read as a count to add",
+        "review facts applied without context check"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-review-operations-fractions"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-review-operations-fractions",
+        "hjb-primary-p4-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "S18 remediated after DeepSeek-v4-pro QA on 2026-05-25; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个算式中的□代表的数最大？",
+      "optionsZhHans": [
+        "A. 72 ÷ □ = 8",
+        "B. 96 ÷ □ = 12",
+        "C. 84 ÷ □ = 7",
+        "D. 99 ÷ □ = 9"
+      ],
+      "answer": "C. 84 ÷ □ = 7",
+      "acceptedAnswers": [
+        "C. 84 ÷ □ = 7"
+      ],
+      "explanationZhHans": "根据除法关系，□=被除数÷商。A中□=9，B中□=8，C中□=12，D中□=11，所以C中的□代表的数最大。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-014",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-review-operations-fractions",
+      "unitTitle": "复习与提高",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "p4-upper-review",
+        "operation-relationships",
+        "fraction-review",
+        "两位数乘除",
+        "分数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "反思整理"
+      ],
+      "skillTags": [
+        "加减关系",
+        "乘除关系",
+        "两位数乘除",
+        "分数意义",
+        "错因检查"
+      ],
+      "misconceptionTags": [
+        "inverse relationship used only after an error",
+        "fraction denominator read as a count to add",
+        "review facts applied without context check"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-review-operations-fractions"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-review-operations-fractions",
+        "hjb-primary-p4-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "根据 23 × 15 = 345，直接写出 345 ÷ 23 = □，□ 里应填（ ）。",
+      "optionsZhHans": [],
+      "answer": "15",
+      "acceptedAnswers": [
+        "15"
+      ],
+      "explanationZhHans": "乘法与除法互为逆运算。已知积和一个因数，求另一个因数用除法：345 ÷ 23 = 15。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-015",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-review-operations-fractions",
+      "unitTitle": "复习与提高",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "p4-upper-review",
+        "operation-relationships",
+        "fraction-review",
+        "两位数乘除",
+        "分数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "反思整理"
+      ],
+      "skillTags": [
+        "加减关系",
+        "乘除关系",
+        "两位数乘除",
+        "分数意义",
+        "错因检查"
+      ],
+      "misconceptionTags": [
+        "inverse relationship used only after an error",
+        "fraction denominator read as a count to add",
+        "review facts applied without context check"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-review-operations-fractions"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-review-operations-fractions",
+        "hjb-primary-p4-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丽说：“因为 1/4 的分母是 4，所以 1/4 比 1/3 大。” 你同意吗？请用画图或文字说明理由。",
+      "optionsZhHans": [],
+      "answer": "不同意。1/4 小于 1/3。因为平均分的份数越多，每份越小。",
+      "acceptedAnswers": [
+        "不同意。1/4 小于 1/3。因为平均分的份数越多，每份越小。",
+        "不同意，1/4 < 1/3，分母大反而小。"
+      ],
+      "explanationZhHans": "分数比较大小，分子相同时，分母越大，分数越小。1/4 表示平均分成 4 份取 1 份，1/3 表示平均分成 3 份取 1 份，所以 1/4 < 1/3。"
+    }
+  ]
+}

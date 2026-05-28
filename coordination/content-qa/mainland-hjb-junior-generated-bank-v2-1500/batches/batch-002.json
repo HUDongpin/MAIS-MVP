@@ -1,0 +1,332 @@
+{
+  "batchId": "batch-002",
+  "questions": [
+    {
+      "id": "hjb-junior-ds-v2-s1-006",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "hjb-junior-s1-upper-polynomial-add-subtract",
+      "unitTitle": "整式的加减",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "algebraic-expressions",
+        "polynomials",
+        "like-terms",
+        "polynomial-addition-subtraction",
+        "整式",
+        "同类项"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "数学表达"
+      ],
+      "skillTags": [
+        "代数式意义",
+        "整式识别",
+        "合并同类项",
+        "去括号",
+        "整式加减"
+      ],
+      "misconceptionTags": [
+        "like terms judged by coefficient only",
+        "minus sign lost before brackets",
+        "variable part changed during simplification"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s1-upper-polynomial-add-subtract"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-linear-inequalities",
+        "hjb-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知多项式 A = 3x² - 2xy + 5，B = -x² + 4xy - 3。求 2A - B 的结果，并指出化简后的多项式中常数项的值。",
+      "optionsZhHans": [],
+      "answer": "7x² - 8xy + 13，常数项为13",
+      "acceptedAnswers": [
+        "7x² - 8xy + 13，常数项为13",
+        "7x²-8xy+13，常数项为13"
+      ],
+      "explanationZhHans": "2A - B = 2(3x² - 2xy + 5) - (-x² + 4xy - 3) = 6x² - 4xy + 10 + x² - 4xy + 3 = 7x² - 8xy + 13。常数项为13。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-007",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "hjb-junior-s1-upper-polynomial-add-subtract",
+      "unitTitle": "整式的加减",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "algebraic-expressions",
+        "polynomials",
+        "like-terms",
+        "polynomial-addition-subtraction",
+        "整式",
+        "同类项"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "数学表达"
+      ],
+      "skillTags": [
+        "代数式意义",
+        "整式识别",
+        "合并同类项",
+        "去括号",
+        "整式加减"
+      ],
+      "misconceptionTags": [
+        "like terms judged by coefficient only",
+        "minus sign lost before brackets",
+        "variable part changed during simplification"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s1-upper-polynomial-add-subtract"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-linear-inequalities",
+        "hjb-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "化简 4x - [2y - (3x + y) - 5x] 的结果是（ ）",
+      "optionsZhHans": [
+        "2x - y",
+        "12x - y",
+        "2x - 3y",
+        "12x - 3y"
+      ],
+      "answer": "12x - y",
+      "acceptedAnswers": [
+        "12x - y"
+      ],
+      "explanationZhHans": "原式 = 4x - [2y - 3x - y - 5x] = 4x - [y - 8x] = 4x - y + 8x = 12x - y。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-008",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "hjb-junior-s1-upper-polynomial-add-subtract",
+      "unitTitle": "整式的加减",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "algebraic-expressions",
+        "polynomials",
+        "like-terms",
+        "polynomial-addition-subtraction",
+        "整式",
+        "同类项"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "数学表达"
+      ],
+      "skillTags": [
+        "代数式意义",
+        "整式识别",
+        "合并同类项",
+        "去括号",
+        "整式加减"
+      ],
+      "misconceptionTags": [
+        "like terms judged by coefficient only",
+        "minus sign lost before brackets",
+        "variable part changed during simplification"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-junior-s1-upper-polynomial-add-subtract"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-linear-inequalities",
+        "hjb-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "若单项式 3x^{m+1}y² 与 -2x³y^{n} 是同类项，则 m+n = ______。",
+      "optionsZhHans": [],
+      "answer": "4",
+      "acceptedAnswers": [
+        "4"
+      ],
+      "explanationZhHans": "由同类项定义，相同字母的指数分别相等：m+1=3，得m=2；n=2。所以m+n=4。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-009",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "hjb-junior-s1-upper-polynomial-add-subtract",
+      "unitTitle": "整式的加减",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "algebraic-expressions",
+        "polynomials",
+        "like-terms",
+        "polynomial-addition-subtraction",
+        "整式",
+        "同类项"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "数学表达"
+      ],
+      "skillTags": [
+        "代数式意义",
+        "整式识别",
+        "合并同类项",
+        "去括号",
+        "整式加减"
+      ],
+      "misconceptionTags": [
+        "like terms judged by coefficient only",
+        "minus sign lost before brackets",
+        "variable part changed during simplification"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s1-upper-polynomial-add-subtract"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-linear-inequalities",
+        "hjb-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "先化简，再求值：3(x² - 2x + 1) - 2(2x² - x - 3)，其中 x = -1。",
+      "optionsZhHans": [],
+      "answer": "-x² - 4x + 9，当x=-1时值为12",
+      "acceptedAnswers": [
+        "-x² - 4x + 9，当x=-1时值为12",
+        "-x²-4x+9，当x=-1时值为12"
+      ],
+      "explanationZhHans": "原式=3x²-6x+3-4x²+2x+6=-x²-4x+9。代入x=-1：-(-1)²-4×(-1)+9=-1+4+9=12。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-010",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "hjb-junior-s1-upper-polynomial-add-subtract",
+      "unitTitle": "整式的加减",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "algebraic-expressions",
+        "polynomials",
+        "like-terms",
+        "polynomial-addition-subtraction",
+        "整式",
+        "同类项"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "数学表达"
+      ],
+      "skillTags": [
+        "代数式意义",
+        "整式识别",
+        "合并同类项",
+        "去括号",
+        "整式加减"
+      ],
+      "misconceptionTags": [
+        "like terms judged by coefficient only",
+        "minus sign lost before brackets",
+        "variable part changed during simplification"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s1-upper-polynomial-add-subtract"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-linear-inequalities",
+        "hjb-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个多项式减去 2x² - 3x + 1 等于 5x² + 2x - 4，则这个多项式是（ ）",
+      "optionsZhHans": [
+        "A. 3x² - x - 3",
+        "B. 7x² - x - 3",
+        "C. 7x² + 5x - 5",
+        "D. 3x² + 5x - 5"
+      ],
+      "answer": "B. 7x² - x - 3",
+      "acceptedAnswers": [
+        "B. 7x² - x - 3"
+      ],
+      "explanationZhHans": "设多项式为M，则M - (2x²-3x+1) = 5x²+2x-4，所以M = (5x²+2x-4)+(2x²-3x+1)=7x²-x-3。"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-429",
+  "startedAt": "2026-05-28T01:59:29.243Z",
+  "completedAt": "2026-05-28T01:59:33.025Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-429"
+  ],
+  "usage": {
+    "prompt_tokens": 2070,
+    "completion_tokens": 233,
+    "total_tokens": 2303,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1686
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-429",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "-1/4",
+        "correctedAnswer": "-1/4",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案1/4与独立解-1/4符号相反，解析中sinαsinβ计算错误导致最终答案错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1题答案错误，解析中符号计算有误，应修正为-1/4。"
+    }
+  }
+}

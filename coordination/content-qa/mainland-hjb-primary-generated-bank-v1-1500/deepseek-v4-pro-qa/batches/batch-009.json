@@ -1,0 +1,191 @@
+{
+  "batchNumber": 9,
+  "startedAt": "2026-05-25T01:49:01.577Z",
+  "completedAt": "2026-05-25T01:49:19.813Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p1-145",
+    "hjb-primary-ds-v1-p1-146",
+    "hjb-primary-ds-v1-p1-147",
+    "hjb-primary-ds-v1-p1-148",
+    "hjb-primary-ds-v1-p1-149",
+    "hjb-primary-ds-v1-p1-150",
+    "hjb-primary-ds-v1-p1-151",
+    "hjb-primary-ds-v1-p1-152",
+    "hjb-primary-ds-v1-p1-153",
+    "hjb-primary-ds-v1-p1-154",
+    "hjb-primary-ds-v1-p1-155",
+    "hjb-primary-ds-v1-p1-156",
+    "hjb-primary-ds-v1-p1-157",
+    "hjb-primary-ds-v1-p1-158",
+    "hjb-primary-ds-v1-p1-159",
+    "hjb-primary-ds-v1-p1-160",
+    "hjb-primary-ds-v1-p1-161",
+    "hjb-primary-ds-v1-p1-162"
+  ],
+  "usage": {
+    "prompt_tokens": 3172,
+    "completion_tokens": 1297,
+    "total_tokens": 4469,
+    "prompt_tokens_details": {
+      "cached_tokens": 3072
+    },
+    "prompt_cache_hit_tokens": 3072,
+    "prompt_cache_miss_tokens": 100
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p1-145",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，选项清晰，答案唯一，符合一年级数感要求。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-146",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案53无误，符合数的组成。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-147",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案49及组成描述准确，acceptedAnswers覆盖合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-148",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，选项62无误，其他选项干扰有效。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-149",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "规律正确，答案76无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-150",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比较大小正确，解释合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-151",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，3捆5根为35，选项无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-152",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案62无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-153",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "递减规律正确，答案72无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-154",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，47在45和50之间，选项唯一。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-155",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计数器表示正确，答案49无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-156",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "连减计算正确，答案20张，acceptedAnswers合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-157",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "算法正确，选项唯一，符合两位数加整十数的方法。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-158",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "减法计算正确，答案28无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-159",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "加减混合计算正确，答案42本，acceptedAnswers合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-160",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算比较正确，90-50=40最小，选项无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-161",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方法应用正确，答案76，acceptedAnswers覆盖合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-162",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "加法计算正确，答案28本，acceptedAnswers合理。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合沪教版一年级数学要求，答案正确，无歧义或错误。"
+    }
+  }
+}

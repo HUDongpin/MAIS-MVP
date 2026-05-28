@@ -1,0 +1,41 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-049-item-bnu-high-ds-v1-s4-386",
+  "startedAt": "2026-05-28T02:30:02.121Z",
+  "completedAt": "2026-05-28T02:30:10.049Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-386"
+  ],
+  "usage": {
+    "prompt_tokens": 1662,
+    "completion_tokens": 231,
+    "total_tokens": 1893,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1278
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-386",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "河宽为 25(3+√3) 米，约 118.3 米。",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可解。在△ABC中，AB=50，∠CAB=105°，∠CBA=45°，得∠ACB=30°。由正弦定理求AC=50√2，河宽为点C到AB的距离，即AC·sin(180°-105°)=50√2·sin75°=25(3+√3)。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 1,
+      "warn": 0,
+      "fail": 0,
+      "notes": "1题全部通过，无问题。"
+    }
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "batchId": "model-qa-0135",
+  "ids": [
+    "hjb-junior-ds-v2-s3-073",
+    "hjb-junior-ds-v2-s3-074",
+    "hjb-junior-ds-v2-s3-075",
+    "hjb-junior-ds-v2-s3-076",
+    "hjb-junior-ds-v2-s3-077",
+    "hjb-junior-ds-v2-s3-078",
+    "hjb-junior-ds-v2-s3-079",
+    "hjb-junior-ds-v2-s3-080"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-073",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "multiple-correct-options"
+      ],
+      "issueDetailsZhHans": "选项D 'AB/DE=AC/DF' 也成立（均为2/3），且结合已知三边比例相等可判定相似，因此存在多个正确选项。",
+      "independentAnswerZhHans": "选项B和D均能判定相似。",
+      "answerCheckZhHans": "标准答案仅给出B，但D也正确。",
+      "recommendedActionZhHans": "修改选项D或题干，确保唯一正确选项。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-074",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "6",
+      "answerCheckZhHans": "标准答案6正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-075",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "48/5",
+      "answerCheckZhHans": "标准答案48/5正确，acceptedAnswers覆盖了48/5和9.6。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-076",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "8",
+      "answerCheckZhHans": "标准答案8正确，解析无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-077",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "8 cm",
+      "answerCheckZhHans": "标准答案8 cm正确，acceptedAnswers覆盖了多种格式。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-078",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "5 cm",
+      "answerCheckZhHans": "标准答案5 cm正确，acceptedAnswers覆盖了多种格式。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-079",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "7.5",
+      "answerCheckZhHans": "标准答案7.5正确，解析无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-080",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "4",
+      "answerCheckZhHans": "标准答案4正确，解析无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

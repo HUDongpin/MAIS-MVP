@@ -1,0 +1,141 @@
+{
+  "startedAt": "2026-05-26T06:17:44.984Z",
+  "completedAt": "2026-05-26T06:18:00.716Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "usage": {
+    "prompt_tokens": 1515,
+    "completion_tokens": 1217,
+    "total_tokens": 2732,
+    "prompt_tokens_details": {
+      "cached_tokens": 128
+    },
+    "prompt_cache_hit_tokens": 128,
+    "prompt_cache_miss_tokens": 1387
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "questionId": "pep-primary-p6-l-sa-141",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案'9'与题库答案'9升'数值一致，单位'升'为默认单位，匹配通过。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-142",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案'12'与题库答案'12升'数值一致，匹配通过。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-143",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案'15'与题库答案'15升'数值一致，匹配通过。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-144",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案'18'与题库答案'18升'数值一致，匹配通过。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-145",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案'6'与题库答案'6升'数值一致，匹配通过。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-146",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案'9'与题库答案'9升'数值一致，匹配通过。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-147",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案'12'与题库答案'12升'数值一致，匹配通过。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-148",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案'15'与题库答案'15升'数值一致，匹配通过。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-149",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案'18'与题库答案'18升'数值一致，匹配通过。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-150",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案'6'与题库答案'6升'数值一致，匹配通过。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-151",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案'6'在可接受答案列表中，匹配通过。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-152",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案'1'在可接受答案列表中，匹配通过。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-153",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案'4'在可接受答案列表中，匹配通过。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-154",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案'7'在可接受答案列表中，匹配通过。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-155",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案'10'在可接受答案列表中，匹配通过。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-156",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案'-7'在可接受答案列表中，匹配通过。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-157",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案'-4'在可接受答案列表中，匹配通过。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-158",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案'-1'在可接受答案列表中，匹配通过。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-159",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案'2'在可接受答案列表中，匹配通过。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-160",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案'-3'在可接受答案列表中，匹配通过。"
+      }
+    ]
+  }
+}

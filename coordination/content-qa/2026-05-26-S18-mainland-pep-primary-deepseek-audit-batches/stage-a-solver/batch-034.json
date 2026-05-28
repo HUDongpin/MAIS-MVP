@@ -1,0 +1,181 @@
+{
+  "startedAt": "2026-05-26T06:05:00.929Z",
+  "completedAt": "2026-05-26T06:05:18.413Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "usage": {
+    "prompt_tokens": 2978,
+    "completion_tokens": 1410,
+    "total_tokens": 4388,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 2978
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "questionId": "pep-primary-p4-u-mc-061",
+        "solvableStatus": "pass",
+        "independentAnswer": "90°",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "平角180°，180-90=90，选项A正确。"
+      },
+      {
+        "questionId": "pep-primary-p4-u-mc-062",
+        "solvableStatus": "pass",
+        "independentAnswer": "85°",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "180-95=85，选项D正确。"
+      },
+      {
+        "questionId": "pep-primary-p4-u-mc-063",
+        "solvableStatus": "pass",
+        "independentAnswer": "80°",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "180-100=80，选项C正确。"
+      },
+      {
+        "questionId": "pep-primary-p4-u-mc-064",
+        "solvableStatus": "pass",
+        "independentAnswer": "75°",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "180-105=75，选项B正确。"
+      },
+      {
+        "questionId": "pep-primary-p4-u-mc-065",
+        "solvableStatus": "pass",
+        "independentAnswer": "70°",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "180-110=70，选项A正确。"
+      },
+      {
+        "questionId": "pep-primary-p4-u-mc-066",
+        "solvableStatus": "pass",
+        "independentAnswer": "65°",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "180-115=65，选项D正确。"
+      },
+      {
+        "questionId": "pep-primary-p4-u-mc-067",
+        "solvableStatus": "pass",
+        "independentAnswer": "60°",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "180-120=60，选项C正确。"
+      },
+      {
+        "questionId": "pep-primary-p4-u-mc-068",
+        "solvableStatus": "pass",
+        "independentAnswer": "55°",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "180-125=55，选项B正确。"
+      },
+      {
+        "questionId": "pep-primary-p4-u-mc-069",
+        "solvableStatus": "pass",
+        "independentAnswer": "50°",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "180-130=50，选项A正确。"
+      },
+      {
+        "questionId": "pep-primary-p4-u-mc-070",
+        "solvableStatus": "pass",
+        "independentAnswer": "45°",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "180-135=45，选项D正确。"
+      },
+      {
+        "questionId": "pep-primary-p4-u-mc-071",
+        "solvableStatus": "pass",
+        "independentAnswer": "40°",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "180-140=40，选项C正确。"
+      },
+      {
+        "questionId": "pep-primary-p4-u-mc-072",
+        "solvableStatus": "pass",
+        "independentAnswer": "155°",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "180-25=155，选项B正确。"
+      },
+      {
+        "questionId": "pep-primary-p4-u-mc-073",
+        "solvableStatus": "pass",
+        "independentAnswer": "150°",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "180-30=150，选项A正确。"
+      },
+      {
+        "questionId": "pep-primary-p4-u-mc-074",
+        "solvableStatus": "pass",
+        "independentAnswer": "145°",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "180-35=145，选项D正确。"
+      },
+      {
+        "questionId": "pep-primary-p4-u-mc-075",
+        "solvableStatus": "pass",
+        "independentAnswer": "141°",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "邻补角即补角，180-39=141，选项C正确。"
+      },
+      {
+        "questionId": "pep-primary-p4-u-fi-076",
+        "solvableStatus": "pass",
+        "independentAnswer": "135°",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "180-45=135，填空题答案。"
+      },
+      {
+        "questionId": "pep-primary-p4-u-fi-077",
+        "solvableStatus": "pass",
+        "independentAnswer": "129°",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "180-51=129，填空题答案。"
+      },
+      {
+        "questionId": "pep-primary-p4-u-fi-078",
+        "solvableStatus": "pass",
+        "independentAnswer": "123°",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "180-57=123，填空题答案。"
+      },
+      {
+        "questionId": "pep-primary-p4-u-fi-079",
+        "solvableStatus": "pass",
+        "independentAnswer": "120°",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "180-60=120，填空题答案。"
+      },
+      {
+        "questionId": "pep-primary-p4-u-fi-080",
+        "solvableStatus": "pass",
+        "independentAnswer": "115°",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "180-65=115，填空题答案。"
+      }
+    ]
+  }
+}

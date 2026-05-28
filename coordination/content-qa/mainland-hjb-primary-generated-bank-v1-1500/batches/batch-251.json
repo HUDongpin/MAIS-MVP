@@ -1,0 +1,295 @@
+{
+  "batchId": "batch-251",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p6-001",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "hjb-primary-p6-upper-divisibility",
+      "unitTitle": "数的整除",
+      "volume": "6年级上册",
+      "conceptIds": [
+        "divisibility",
+        "factors-multiples",
+        "prime-composite",
+        "common-factor-multiple",
+        "数的整除",
+        "因数倍数"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "推理意识"
+      ],
+      "skillTags": [
+        "整除判断",
+        "因数与倍数",
+        "质数合数",
+        "公因数公倍数",
+        "数的分类"
+      ],
+      "misconceptionTags": [
+        "factor and multiple reversed",
+        "prime number treated as any odd number",
+        "common multiple found before checking common factor need"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p6-upper-divisibility"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-ratio-proportion",
+        "hjb-primary-p6-lower-assessment-circle-sector"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在下列各数中，哪一个数既是 24 的因数，又是 36 的因数？",
+      "optionsZhHans": [
+        "8",
+        "12",
+        "16",
+        "18"
+      ],
+      "answer": "12",
+      "acceptedAnswers": [
+        "12"
+      ],
+      "explanationZhHans": "分别找出 24 和 36 的因数。24 的因数有 1,2,3,4,6,8,12,24；36 的因数有 1,2,3,4,6,9,12,18,36。公因数有 1,2,3,4,6,12，其中 12 在选项中。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-002",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "hjb-primary-p6-upper-divisibility",
+      "unitTitle": "数的整除",
+      "volume": "6年级上册",
+      "conceptIds": [
+        "divisibility",
+        "factors-multiples",
+        "prime-composite",
+        "common-factor-multiple",
+        "数的整除",
+        "因数倍数"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "推理意识"
+      ],
+      "skillTags": [
+        "整除判断",
+        "因数与倍数",
+        "质数合数",
+        "公因数公倍数",
+        "数的分类"
+      ],
+      "misconceptionTags": [
+        "factor and multiple reversed",
+        "prime number treated as any odd number",
+        "common multiple found before checking common factor need"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p6-upper-divisibility"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-ratio-proportion",
+        "hjb-primary-p6-lower-assessment-circle-sector"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在 1 到 20 的自然数中，既是质数又是偶数的数是______。",
+      "optionsZhHans": [],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2"
+      ],
+      "explanationZhHans": "质数是只有 1 和它本身两个因数的数。偶数中只有 2 是质数，其他偶数都有 2 这个因数，所以答案是 2。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-003",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "hjb-primary-p6-upper-divisibility",
+      "unitTitle": "数的整除",
+      "volume": "6年级上册",
+      "conceptIds": [
+        "divisibility",
+        "factors-multiples",
+        "prime-composite",
+        "common-factor-multiple",
+        "数的整除",
+        "因数倍数"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "推理意识"
+      ],
+      "skillTags": [
+        "整除判断",
+        "因数与倍数",
+        "质数合数",
+        "公因数公倍数",
+        "数的分类"
+      ],
+      "misconceptionTags": [
+        "factor and multiple reversed",
+        "prime number treated as any odd number",
+        "common multiple found before checking common factor need"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p6-upper-divisibility"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-ratio-proportion",
+        "hjb-primary-p6-lower-assessment-circle-sector"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个数除以 5 余 3，除以 6 余 4，除以 7 余 5。这个数最小是多少？",
+      "optionsZhHans": [],
+      "answer": "208",
+      "acceptedAnswers": [
+        "208"
+      ],
+      "explanationZhHans": "这个数加上 2 就能同时被 5、6、7 整除。5、6、7 的最小公倍数是 210，所以这个数最小是 210−2=208。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-004",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "hjb-primary-p6-upper-divisibility",
+      "unitTitle": "数的整除",
+      "volume": "6年级上册",
+      "conceptIds": [
+        "divisibility",
+        "factors-multiples",
+        "prime-composite",
+        "common-factor-multiple",
+        "数的整除",
+        "因数倍数"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "推理意识"
+      ],
+      "skillTags": [
+        "整除判断",
+        "因数与倍数",
+        "质数合数",
+        "公因数公倍数",
+        "数的分类"
+      ],
+      "misconceptionTags": [
+        "factor and multiple reversed",
+        "prime number treated as any odd number",
+        "common multiple found before checking common factor need"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p6-upper-divisibility"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-ratio-proportion",
+        "hjb-primary-p6-lower-assessment-circle-sector"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面说法中，正确的是（ ）。",
+      "optionsZhHans": [
+        "两个质数的和一定是偶数",
+        "一个自然数不是质数就是合数",
+        "一个数的倍数一定比它的因数大",
+        "两个相邻自然数的最大公因数是 1"
+      ],
+      "answer": "两个相邻自然数的最大公因数是 1",
+      "acceptedAnswers": [
+        "两个相邻自然数的最大公因数是 1"
+      ],
+      "explanationZhHans": "A 错，如 2+3=5 是奇数；B 错，1 既不是质数也不是合数；C 错，一个数最大的因数和最小的倍数都是它本身；D 对，相邻自然数互质。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-005",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "hjb-primary-p6-upper-divisibility",
+      "unitTitle": "数的整除",
+      "volume": "6年级上册",
+      "conceptIds": [
+        "divisibility",
+        "factors-multiples",
+        "prime-composite",
+        "common-factor-multiple",
+        "数的整除",
+        "因数倍数"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "推理意识"
+      ],
+      "skillTags": [
+        "整除判断",
+        "因数与倍数",
+        "质数合数",
+        "公因数公倍数",
+        "数的分类"
+      ],
+      "misconceptionTags": [
+        "factor and multiple reversed",
+        "prime number treated as any odd number",
+        "common multiple found before checking common factor need"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p6-upper-divisibility"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-ratio-proportion",
+        "hjb-primary-p6-lower-assessment-circle-sector"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "两个数的最大公因数是 6，最小公倍数是 36，其中一个数是 12，另一个数是______。",
+      "optionsZhHans": [],
+      "answer": "18",
+      "acceptedAnswers": [
+        "18"
+      ],
+      "explanationZhHans": "利用公式：甲数×乙数=最大公因数×最小公倍数。12×乙数=6×36，乙数=216÷12=18。"
+    }
+  ]
+}

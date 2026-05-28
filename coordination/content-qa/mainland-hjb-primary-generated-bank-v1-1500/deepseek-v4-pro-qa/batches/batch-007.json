@@ -1,0 +1,191 @@
+{
+  "batchNumber": 7,
+  "startedAt": "2026-05-25T01:48:13.085Z",
+  "completedAt": "2026-05-25T01:48:33.547Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p1-109",
+    "hjb-primary-ds-v1-p1-110",
+    "hjb-primary-ds-v1-p1-111",
+    "hjb-primary-ds-v1-p1-112",
+    "hjb-primary-ds-v1-p1-113",
+    "hjb-primary-ds-v1-p1-114",
+    "hjb-primary-ds-v1-p1-115",
+    "hjb-primary-ds-v1-p1-116",
+    "hjb-primary-ds-v1-p1-117",
+    "hjb-primary-ds-v1-p1-118",
+    "hjb-primary-ds-v1-p1-119",
+    "hjb-primary-ds-v1-p1-120",
+    "hjb-primary-ds-v1-p1-121",
+    "hjb-primary-ds-v1-p1-122",
+    "hjb-primary-ds-v1-p1-123",
+    "hjb-primary-ds-v1-p1-124",
+    "hjb-primary-ds-v1-p1-125",
+    "hjb-primary-ds-v1-p1-126"
+  ],
+  "usage": {
+    "prompt_tokens": 4096,
+    "completion_tokens": 1347,
+    "total_tokens": 5443,
+    "prompt_tokens_details": {
+      "cached_tokens": 3968
+    },
+    "prompt_cache_hit_tokens": 3968,
+    "prompt_cache_miss_tokens": 128
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p1-109",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，选项无歧义，答案正确，符合一年级整理与复习要求。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-110",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计数器拨珠问题，答案4正确，接受答案覆盖了数字和带单位形式。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-111",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分类判断合理，答案和解释一致，接受答案覆盖了多种表述。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-112",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项区分度好，答案正确，解释合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-113",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "简单口算改错，答案15正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-114",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "立体图形特征判断，答案正确，解释合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-115",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "区分加减法情境，选项B为减法，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-116",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分类纠错，答案指出图形应单独分类，正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-117",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "改错并分析错误原因，答案正确，解释合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-118",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "多种退位减法策略，选项均正确，答案“以上都对”无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-119",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "凑十法填空，答案顺序正确，接受答案覆盖了分号与逗号分隔。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-120",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "要求两种方法计算，答案提供了分拆减数和想加算减，正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-121",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方法识别，破十法正确，选项无歧义。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-122",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "凑十法填空，答案“凑十”或“凑十法”均可。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-123",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算并写出过程，答案6正确，解释提供了两种方法。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-124",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "想加算减方法识别，选项B正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-125",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分拆减数法填空，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-126",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "破十法计算过程，答案正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合沪教版一年级数学要求，答案正确，解释合理，无歧义或错误。"
+    }
+  }
+}

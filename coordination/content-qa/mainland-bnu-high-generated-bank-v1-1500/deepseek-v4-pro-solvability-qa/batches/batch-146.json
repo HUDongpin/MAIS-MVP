@@ -1,0 +1,141 @@
+{
+  "batchNumber": 146,
+  "startedAt": "2026-05-27T14:08:02.593Z",
+  "completedAt": "2026-05-27T14:08:24.963Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-161",
+    "bnu-high-ds-v1-s6-162",
+    "bnu-high-ds-v1-s6-163",
+    "bnu-high-ds-v1-s6-164",
+    "bnu-high-ds-v1-s6-165",
+    "bnu-high-ds-v1-s6-166",
+    "bnu-high-ds-v1-s6-167",
+    "bnu-high-ds-v1-s6-168"
+  ],
+  "usage": {
+    "prompt_tokens": 11897,
+    "completion_tokens": 1495,
+    "total_tokens": 13392,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 11385
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-161",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "(1) 证明：由 a_{n+1} = 3a_n + 4 得 a_{n+1} + 2 = 3(a_n + 2)，又 a_1 + 2 = 4 ≠ 0，故 {a_n + 2} 是首项为 4，公比为 3 的等比数列。\n(2) a_n = 4·3^{n-1} - 2。\n(3) S_n = n log_3 4 + n(n-1)/2。",
+        "correctedAnswer": "(1) 证明：由 a_{n+1} = 3a_n + 4 得 a_{n+1} + 2 = 3(a_n + 2)，又 a_1 + 2 = 4 ≠ 0，故 {a_n + 2} 是首项为 4，公比为 3 的等比数列。\n(2) a_n = 4·3^{n-1} - 2。\n(3) S_n = n log_3 4 + n(n-1)/2。",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "第(3)问答案错误：b_n = log_3(4·3^{n-1}) = log_3 4 + (n-1)，前n项和应为 n log_3 4 + n(n-1)/2，而非 (n^2+3n)/2。解析中正确给出 S_n = n log_3 4 + n(n-1)/2，与答案矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-162",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": null,
+        "correctedAnswer": null,
+        "issueTags": [
+          "unsolvable",
+          "missing_condition",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件矛盾：由 a_3+a_7=20 得 2a_5=20，a_5=10，与已知 a_5=12 冲突，无解。解析也指出矛盾，但最终未给出有效题目。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-163",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "A. a_n = 3^n - 2^n",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "递推式可解，通项为 a_n = 3^n - 2^n，选项A正确，解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-164",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(1) a_1 = 3，a_2 = 5。\n(2) a_n = 2n+1。\n(3) 是等差数列，公差为2。",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由 S_n 求通项，计算正确，判断合理，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-165",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "24",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "等比数列通项公式直接计算，a_4=3·2^3=24，正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-166",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "B. 2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由 S_5=5a_1+10d=30 解得 d=2，选项B正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-167",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(1) a_2=4，a_3=9，a_4=16。\n(2) 猜想 a_n=n^2，证明见解析。",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "递推计算、猜想、数学归纳法证明均正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-168",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "9",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "代入 n=5 得 a_5=9，简单正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 0,
+      "fail": 2,
+      "notes": "8题中6题通过，2题失败：bnu-high-ds-v1-s6-161第(3)问答案错误，bnu-high-ds-v1-s6-162条件矛盾无解。"
+    }
+  }
+}

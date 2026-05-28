@@ -1,0 +1,173 @@
+{
+  "batchNumber": 61,
+  "startedAt": "2026-05-27T17:39:56.646Z",
+  "completedAt": "2026-05-27T17:40:12.312Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s2-221",
+    "bnu-junior-ds-v1-s2-222",
+    "bnu-junior-ds-v1-s2-223",
+    "bnu-junior-ds-v1-s2-224",
+    "bnu-junior-ds-v1-s2-225",
+    "bnu-junior-ds-v1-s2-226",
+    "bnu-junior-ds-v1-s2-227",
+    "bnu-junior-ds-v1-s2-228",
+    "bnu-junior-ds-v1-s2-229",
+    "bnu-junior-ds-v1-s2-230",
+    "bnu-junior-ds-v1-s2-231",
+    "bnu-junior-ds-v1-s2-232"
+  ],
+  "usage": {
+    "prompt_tokens": 8099,
+    "completion_tokens": 1221,
+    "total_tokens": 9320,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 7587
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s2-221",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目数据完整，计算正确，答案与解释一致，符合北师大版八年级数据分析要求。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-222",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数据清晰，平均数和方差计算正确，答案与解释匹配，决策理由合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-223",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选择题选项唯一正确，方差计算无误，答案与解释一致，符合稳定性判断标准。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-224",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均数、中位数、方差计算正确，决策理由充分，答案与解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-225",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方差计算正确，答案与解释一致，决策依据合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-226",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选择题选项唯一正确，方差计算无误，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-227",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均数、中位数、方差计算正确，决策理由合理，答案与解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-228",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方差计算正确，答案与解释一致，决策依据合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-229",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选择题选项唯一正确，方差计算无误，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-230",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方差计算正确，答案与解释一致，决策理由合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-231",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均数、中位数、方差计算正确，答案与解释匹配，决策理由合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-232",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选择题选项唯一正确，方差计算无误，答案与解释一致。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均数据完整、计算正确、答案与解释匹配，符合北师大版八年级数据分析要求，无任何问题。"
+    }
+  }
+}

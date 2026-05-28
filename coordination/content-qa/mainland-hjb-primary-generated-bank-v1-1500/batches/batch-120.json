@@ -1,0 +1,294 @@
+{
+  "batchId": "batch-120",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p3-096",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-rectangle-square-geometry",
+      "unitTitle": "长方形与正方形",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "rectangle-square-properties",
+        "perimeter-introduction",
+        "shape-features",
+        "长方形正方形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "边与角",
+        "图形分类",
+        "周长理解",
+        "画图说明",
+        "长度单位"
+      ],
+      "misconceptionTags": [
+        "orientation treated as a different shape",
+        "perimeter confused with inside space",
+        "opposite sides not linked in rectangle reasoning"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-rectangle-square-geometry"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-rectangle-square-perimeter",
+        "hjb-primary-p3-upper-assessment-review-operations"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小宇用一根长36厘米的绳子在钉板上围图形。他先围成一个长方形，长是10厘米。接着他把绳子拉直，重新围成一个正方形。这个正方形的边长是多少厘米？请写出你的思考过程。",
+      "optionsZhHans": [],
+      "answer": "9厘米",
+      "acceptedAnswers": [
+        "9厘米",
+        "9cm",
+        "9"
+      ],
+      "explanationZhHans": "绳子长度就是周长，长方形周长=36厘米。由长10厘米，可求宽：(36-10×2)÷2=8厘米。重新围正方形时周长不变，仍为36厘米，正方形边长=36÷4=9厘米。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-097",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-rectangle-square-geometry",
+      "unitTitle": "长方形与正方形",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "rectangle-square-properties",
+        "perimeter-introduction",
+        "shape-features",
+        "长方形正方形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "边与角",
+        "图形分类",
+        "周长理解",
+        "画图说明",
+        "长度单位"
+      ],
+      "misconceptionTags": [
+        "orientation treated as a different shape",
+        "perimeter confused with inside space",
+        "opposite sides not linked in rectangle reasoning"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-rectangle-square-geometry"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-rectangle-square-perimeter",
+        "hjb-primary-p3-upper-assessment-review-operations"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个图形的周长最长？四个图形都是用同样长的小棒拼成的：A. 一个长方形，长边用4根小棒，短边用2根小棒；B. 一个正方形，每边用3根小棒；C. 一个长方形，长边用5根小棒，短边用1根小棒；D. 一个正方形，每边用4根小棒。",
+      "optionsZhHans": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "D",
+      "acceptedAnswers": [
+        "D"
+      ],
+      "explanationZhHans": "小棒根数代表周长。A: (4+2)×2=12根；B: 3×4=12根；C: (5+1)×2=12根；D: 4×4=16根。D的周长最长。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-098",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-rectangle-square-geometry",
+      "unitTitle": "长方形与正方形",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "rectangle-square-properties",
+        "perimeter-introduction",
+        "shape-features",
+        "长方形正方形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "边与角",
+        "图形分类",
+        "周长理解",
+        "画图说明",
+        "长度单位"
+      ],
+      "misconceptionTags": [
+        "orientation treated as a different shape",
+        "perimeter confused with inside space",
+        "opposite sides not linked in rectangle reasoning"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-rectangle-square-geometry"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-rectangle-square-perimeter",
+        "hjb-primary-p3-upper-assessment-review-operations"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方形的长是8厘米，宽是5厘米，它的周长是______厘米。",
+      "optionsZhHans": [],
+      "answer": "26",
+      "acceptedAnswers": [
+        "26",
+        "26厘米",
+        "26cm"
+      ],
+      "explanationZhHans": "长方形周长=(长+宽)×2，所以(8+5)×2=26厘米。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-099",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-fraction-introduction",
+      "unitTitle": "分数的初步认识",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "fraction-introduction",
+        "equal-parts",
+        "unit-fraction",
+        "proper-fractions",
+        "几分之一",
+        "几分之几"
+      ],
+      "competencyTags": [
+        "数感",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均分",
+        "几分之一",
+        "几分之几",
+        "分数读写",
+        "整体意识"
+      ],
+      "misconceptionTags": [
+        "whole not identified",
+        "unequal parts named as fractions",
+        "denominator treated as numerator size"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-fraction-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-fraction-introduction",
+        "hjb-primary-p3-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈把一张圆饼平均分成了8块。弟弟吃了其中的3块。弟弟吃了这张饼的几分之几？请用分数表示，并说明分母和分子各表示什么。",
+      "optionsZhHans": [],
+      "answer": "3/8",
+      "acceptedAnswers": [
+        "3/8",
+        "八分之三"
+      ],
+      "explanationZhHans": "圆饼被平均分成8块，分母是8；弟弟吃了3块，分子是3，所以是3/8。分母8表示平均分的总份数，分子3表示吃的份数。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-100",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-fraction-introduction",
+      "unitTitle": "分数的初步认识",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "fraction-introduction",
+        "equal-parts",
+        "unit-fraction",
+        "proper-fractions",
+        "几分之一",
+        "几分之几"
+      ],
+      "competencyTags": [
+        "数感",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均分",
+        "几分之一",
+        "几分之几",
+        "分数读写",
+        "整体意识"
+      ],
+      "misconceptionTags": [
+        "whole not identified",
+        "unequal parts named as fractions",
+        "denominator treated as numerator size"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-fraction-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-fraction-introduction",
+        "hjb-primary-p3-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪幅图里的涂色部分可以用1/4表示？A. 一个正方形被分成4个大小不同的小块，涂了其中1块；B. 一个圆形被平均分成4份，涂了其中1份；C. 一个长方形被分成4个三角形，其中1个三角形涂色，但这4个三角形大小不完全相同；D. 一条线段被分成4段，其中1段涂色，但4段长度不相等。",
+      "optionsZhHans": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "B",
+      "acceptedAnswers": [
+        "B"
+      ],
+      "explanationZhHans": "分数要求平均分。只有B选项是平均分成4份，涂了1份，可以用1/4表示。其他选项都不是平均分。"
+    }
+  ]
+}

@@ -1,0 +1,387 @@
+{
+  "batchId": "batch-051",
+  "generationMode": "batch-fallback",
+  "fallbackReason": "fill-missing-local",
+  "questions": [
+    {
+      "id": "hjb-high-ds-v2-s5-001",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-空间直线与平面",
+      "topicTitleZhHans": "空间直线与平面",
+      "volume": "必修 第三册",
+      "chapter": "空间直线与平面",
+      "conceptIds": [
+        "solid-geometry",
+        "spatial-lines-planes",
+        "parallel-perpendicular",
+        "line-plane-angle",
+        "distance-in-space"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-3-spatial-lines-planes"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-3-spatial-lines-planes-unit-core",
+        "hjb-high-compulsory-3-spatial-lines-planes-unit-challenge",
+        "pep-high-exam-space-vectors-geometry"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0501：选择：长方体中同一顶点出发的两条互相垂直棱长分别为 5 和 17，这两条棱围成的矩形面积是多少？",
+      "optionsZhHans": [
+        "85",
+        "90",
+        "80",
+        "95"
+      ],
+      "answer": "85",
+      "acceptedAnswers": [
+        "85"
+      ],
+      "explanationZhHans": "相邻垂直棱围成矩形，面积=5×17=85。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-002",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-空间直线与平面",
+      "topicTitleZhHans": "空间直线与平面",
+      "volume": "必修 第三册",
+      "chapter": "空间直线与平面",
+      "conceptIds": [
+        "solid-geometry",
+        "spatial-lines-planes",
+        "parallel-perpendicular",
+        "line-plane-angle",
+        "distance-in-space"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-3-spatial-lines-planes"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-3-spatial-lines-planes-unit-core",
+        "hjb-high-compulsory-3-spatial-lines-planes-unit-challenge",
+        "pep-high-exam-space-vectors-geometry"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0502：填空：长方体中同一顶点出发的两条互相垂直棱长分别为 3 和 13，这两条棱围成的矩形面积是多少？",
+      "optionsZhHans": [],
+      "answer": "39",
+      "acceptedAnswers": [
+        "39"
+      ],
+      "explanationZhHans": "相邻垂直棱围成矩形，面积=3×13=39。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-003",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-空间直线与平面",
+      "topicTitleZhHans": "空间直线与平面",
+      "volume": "必修 第三册",
+      "chapter": "空间直线与平面",
+      "conceptIds": [
+        "solid-geometry",
+        "spatial-lines-planes",
+        "parallel-perpendicular",
+        "line-plane-angle",
+        "distance-in-space"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-3-spatial-lines-planes"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-3-spatial-lines-planes-unit-core",
+        "hjb-high-compulsory-3-spatial-lines-planes-unit-challenge",
+        "pep-high-exam-space-vectors-geometry"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0503：解答：长方体中同一顶点出发的两条互相垂直棱长分别为 12 和 14，这两条棱围成的矩形面积是多少？",
+      "optionsZhHans": [],
+      "answer": "168",
+      "acceptedAnswers": [
+        "168"
+      ],
+      "explanationZhHans": "相邻垂直棱围成矩形，面积=12×14=168。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-004",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-空间直线与平面",
+      "topicTitleZhHans": "空间直线与平面",
+      "volume": "必修 第三册",
+      "chapter": "空间直线与平面",
+      "conceptIds": [
+        "solid-geometry",
+        "spatial-lines-planes",
+        "parallel-perpendicular",
+        "line-plane-angle",
+        "distance-in-space"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-3-spatial-lines-planes"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-3-spatial-lines-planes-unit-core",
+        "hjb-high-compulsory-3-spatial-lines-planes-unit-challenge",
+        "pep-high-exam-space-vectors-geometry"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0504：选择：长方体中同一顶点出发的两条互相垂直棱长分别为 8 和 4，这两条棱围成的矩形面积是多少？",
+      "optionsZhHans": [
+        "40",
+        "24",
+        "48",
+        "32"
+      ],
+      "answer": "32",
+      "acceptedAnswers": [
+        "32"
+      ],
+      "explanationZhHans": "相邻垂直棱围成矩形，面积=8×4=32。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-005",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-空间直线与平面",
+      "topicTitleZhHans": "空间直线与平面",
+      "volume": "必修 第三册",
+      "chapter": "空间直线与平面",
+      "conceptIds": [
+        "solid-geometry",
+        "spatial-lines-planes",
+        "parallel-perpendicular",
+        "line-plane-angle",
+        "distance-in-space"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-3-spatial-lines-planes"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-3-spatial-lines-planes-unit-core",
+        "hjb-high-compulsory-3-spatial-lines-planes-unit-challenge",
+        "pep-high-exam-space-vectors-geometry"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0505：填空：长方体中同一顶点出发的两条互相垂直棱长分别为 8 和 13，这两条棱围成的矩形面积是多少？",
+      "optionsZhHans": [],
+      "answer": "104",
+      "acceptedAnswers": [
+        "104"
+      ],
+      "explanationZhHans": "相邻垂直棱围成矩形，面积=8×13=104。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-006",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-空间直线与平面",
+      "topicTitleZhHans": "空间直线与平面",
+      "volume": "必修 第三册",
+      "chapter": "空间直线与平面",
+      "conceptIds": [
+        "solid-geometry",
+        "spatial-lines-planes",
+        "parallel-perpendicular",
+        "line-plane-angle",
+        "distance-in-space"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-3-spatial-lines-planes"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-3-spatial-lines-planes-unit-core",
+        "hjb-high-compulsory-3-spatial-lines-planes-unit-challenge",
+        "pep-high-exam-space-vectors-geometry"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0506：解答：长方体中同一顶点出发的两条互相垂直棱长分别为 6 和 19，这两条棱围成的矩形面积是多少？",
+      "optionsZhHans": [],
+      "answer": "114",
+      "acceptedAnswers": [
+        "114"
+      ],
+      "explanationZhHans": "相邻垂直棱围成矩形，面积=6×19=114。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-007",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-空间直线与平面",
+      "topicTitleZhHans": "空间直线与平面",
+      "volume": "必修 第三册",
+      "chapter": "空间直线与平面",
+      "conceptIds": [
+        "solid-geometry",
+        "spatial-lines-planes",
+        "parallel-perpendicular",
+        "line-plane-angle",
+        "distance-in-space"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-3-spatial-lines-planes"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-3-spatial-lines-planes-unit-core",
+        "hjb-high-compulsory-3-spatial-lines-planes-unit-challenge",
+        "pep-high-exam-space-vectors-geometry"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0507：选择：长方体中同一顶点出发的两条互相垂直棱长分别为 6 和 20，这两条棱围成的矩形面积是多少？",
+      "optionsZhHans": [
+        "126",
+        "114",
+        "120",
+        "132"
+      ],
+      "answer": "120",
+      "acceptedAnswers": [
+        "120"
+      ],
+      "explanationZhHans": "相邻垂直棱围成矩形，面积=6×20=120。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-008",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-空间直线与平面",
+      "topicTitleZhHans": "空间直线与平面",
+      "volume": "必修 第三册",
+      "chapter": "空间直线与平面",
+      "conceptIds": [
+        "solid-geometry",
+        "spatial-lines-planes",
+        "parallel-perpendicular",
+        "line-plane-angle",
+        "distance-in-space"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-3-spatial-lines-planes"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-3-spatial-lines-planes-unit-core",
+        "hjb-high-compulsory-3-spatial-lines-planes-unit-challenge",
+        "pep-high-exam-space-vectors-geometry"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0508：填空：长方体中同一顶点出发的两条互相垂直棱长分别为 3 和 14，这两条棱围成的矩形面积是多少？",
+      "optionsZhHans": [],
+      "answer": "42",
+      "acceptedAnswers": [
+        "42"
+      ],
+      "explanationZhHans": "相邻垂直棱围成矩形，面积=3×14=42。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-009",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-空间直线与平面",
+      "topicTitleZhHans": "空间直线与平面",
+      "volume": "必修 第三册",
+      "chapter": "空间直线与平面",
+      "conceptIds": [
+        "solid-geometry",
+        "spatial-lines-planes",
+        "parallel-perpendicular",
+        "line-plane-angle",
+        "distance-in-space"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-3-spatial-lines-planes"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-3-spatial-lines-planes-unit-core",
+        "hjb-high-compulsory-3-spatial-lines-planes-unit-challenge",
+        "pep-high-exam-space-vectors-geometry"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0509：解答：长方体中同一顶点出发的两条互相垂直棱长分别为 5 和 6，这两条棱围成的矩形面积是多少？",
+      "optionsZhHans": [],
+      "answer": "30",
+      "acceptedAnswers": [
+        "30"
+      ],
+      "explanationZhHans": "相邻垂直棱围成矩形，面积=5×6=30。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-010",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-空间直线与平面",
+      "topicTitleZhHans": "空间直线与平面",
+      "volume": "必修 第三册",
+      "chapter": "空间直线与平面",
+      "conceptIds": [
+        "solid-geometry",
+        "spatial-lines-planes",
+        "parallel-perpendicular",
+        "line-plane-angle",
+        "distance-in-space"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-3-spatial-lines-planes"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-3-spatial-lines-planes-unit-core",
+        "hjb-high-compulsory-3-spatial-lines-planes-unit-challenge",
+        "pep-high-exam-space-vectors-geometry"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0510：选择：长方体中同一顶点出发的两条互相垂直棱长分别为 4 和 19，这两条棱围成的矩形面积是多少？",
+      "optionsZhHans": [
+        "80",
+        "72",
+        "76",
+        "84"
+      ],
+      "answer": "76",
+      "acceptedAnswers": [
+        "76"
+      ],
+      "explanationZhHans": "相邻垂直棱围成矩形，面积=4×19=76。"
+    }
+  ]
+}

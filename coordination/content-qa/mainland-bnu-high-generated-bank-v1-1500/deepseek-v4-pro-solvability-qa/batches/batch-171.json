@@ -1,0 +1,138 @@
+{
+  "batchNumber": 171,
+  "startedAt": "2026-05-27T14:12:49.251Z",
+  "completedAt": "2026-05-27T14:13:04.957Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-361",
+    "bnu-high-ds-v1-s6-362",
+    "bnu-high-ds-v1-s6-363",
+    "bnu-high-ds-v1-s6-364",
+    "bnu-high-ds-v1-s6-365",
+    "bnu-high-ds-v1-s6-366",
+    "bnu-high-ds-v1-s6-367",
+    "bnu-high-ds-v1-s6-368"
+  ],
+  "usage": {
+    "prompt_tokens": 11090,
+    "completion_tokens": 1047,
+    "total_tokens": 12137,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10578
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-361",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "4",
+        "correctedAnswer": "4",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "bad_options",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立求解得a=4，但选项无4，且答案给出2，解析混乱，题目不可解。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-362",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "最大值为5，最小值为1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导得临界点，计算端点及临界点函数值，最大5最小1，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-363",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "y = -2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导得斜率0，切线为y=-2，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-364",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "independentAnswer": "a = -3, b = 3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由条件列方程组解得a=-3,b=3，答案正确；解析中二阶导验证不充分但无矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-365",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(-1, 3)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导解不等式得递减区间(-1,3)，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-366",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "计算临界点及端点函数值得最大值2，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-367",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "-3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由f'(2)=0解得a=-3，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-368",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "极大值为2，极小值为-2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导得临界点，二阶导判断极值，极大2极小-2，答案与解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第361题因选项不含正确答案且解析矛盾，判定为不可解；其余题目均通过审核。"
+    }
+  }
+}

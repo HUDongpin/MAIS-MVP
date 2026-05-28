@@ -1,0 +1,583 @@
+{
+  "batchId": "batch-117",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p5-161",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-fraction-multiplication",
+      "unitTitle": "分数乘法",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-multiplication",
+        "part-of-part",
+        "scaling",
+        "area-model-fractions",
+        "分数乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "分数乘整数",
+        "整数乘分数",
+        "分数乘分数",
+        "约分计算",
+        "倍数关系"
+      ],
+      "misconceptionTags": [
+        "multiplication always expected to make larger",
+        "cross-simplification used without factor meaning",
+        "whole and part units mixed"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-fraction-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-fraction-multiplication-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一桶食用油净重 3/4 千克。妈妈做饭用去了这桶油的 2/5。用去的油有多少千克？",
+      "optionsZhHans": [],
+      "answer": "3/10 千克",
+      "acceptedAnswers": [
+        "3/10 千克",
+        "0.3 千克"
+      ],
+      "explanationZhHans": "求一个数的几分之几用乘法。3/4 × 2/5 = (3×2)/(4×5) = 6/20 = 3/10（千克）。注意约分，最后结果要带单位。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-162",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-fraction-multiplication",
+      "unitTitle": "分数乘法",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-multiplication",
+        "part-of-part",
+        "scaling",
+        "area-model-fractions",
+        "分数乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "分数乘整数",
+        "整数乘分数",
+        "分数乘分数",
+        "约分计算",
+        "倍数关系"
+      ],
+      "misconceptionTags": [
+        "multiplication always expected to make larger",
+        "cross-simplification used without factor meaning",
+        "whole and part units mixed"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-fraction-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-fraction-multiplication-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校合唱队有 48 人，其中女生人数占 5/8。女生有多少人？请写出计算过程。",
+      "optionsZhHans": [],
+      "answer": "30 人",
+      "acceptedAnswers": [
+        "30 人",
+        "30"
+      ],
+      "explanationZhHans": "求一个数的几分之几用乘法。48 × 5/8 = 48÷8×5 = 6×5 = 30（人）。注意整数乘分数时，可以先约分再计算。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-163",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-fraction-multiplication",
+      "unitTitle": "分数乘法",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-multiplication",
+        "part-of-part",
+        "scaling",
+        "area-model-fractions",
+        "分数乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "分数乘整数",
+        "整数乘分数",
+        "分数乘分数",
+        "约分计算",
+        "倍数关系"
+      ],
+      "misconceptionTags": [
+        "multiplication always expected to make larger",
+        "cross-simplification used without factor meaning",
+        "whole and part units mixed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-fraction-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-fraction-multiplication-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个算式的积小于 3/4？",
+      "optionsZhHans": [
+        "3/4 × 5/4",
+        "3/4 × 1",
+        "3/4 × 4/5",
+        "3/4 × 3/2"
+      ],
+      "answer": "3/4 × 4/5",
+      "acceptedAnswers": [
+        "3/4 × 4/5"
+      ],
+      "explanationZhHans": "一个数（0除外）乘小于1的数，积小于原数。4/5<1，所以3/4×4/5<3/4。其他选项乘数都≥1，积大于或等于3/4。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-164",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-fraction-multiplication",
+      "unitTitle": "分数乘法",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-multiplication",
+        "part-of-part",
+        "scaling",
+        "area-model-fractions",
+        "分数乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "分数乘整数",
+        "整数乘分数",
+        "分数乘分数",
+        "约分计算",
+        "倍数关系"
+      ],
+      "misconceptionTags": [
+        "multiplication always expected to make larger",
+        "cross-simplification used without factor meaning",
+        "whole and part units mixed"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-fraction-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-fraction-multiplication-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一根绳子长 5/6 米，截去它的 1/3，截去了多少米？",
+      "optionsZhHans": [],
+      "answer": "5/18 米",
+      "acceptedAnswers": [
+        "5/18 米",
+        "5/18"
+      ],
+      "explanationZhHans": "求一个数的几分之几用乘法。5/6 × 1/3 = (5×1)/(6×3) = 5/18（米）。计算时分子乘分子，分母乘分母，能约分的先约分。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-165",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-fraction-multiplication",
+      "unitTitle": "分数乘法",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-multiplication",
+        "part-of-part",
+        "scaling",
+        "area-model-fractions",
+        "分数乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "分数乘整数",
+        "整数乘分数",
+        "分数乘分数",
+        "约分计算",
+        "倍数关系"
+      ],
+      "misconceptionTags": [
+        "multiplication always expected to make larger",
+        "cross-simplification used without factor meaning",
+        "whole and part units mixed"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-fraction-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-fraction-multiplication-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一块长方形菜地，长 3/2 米，宽是长的 2/3。这块菜地的面积是多少平方米？请写出计算过程。",
+      "optionsZhHans": [],
+      "answer": "3/2 平方米",
+      "acceptedAnswers": [
+        "3/2 平方米",
+        "1.5 平方米",
+        "1又1/2平方米"
+      ],
+      "explanationZhHans": "先求宽：3/2 × 2/3 = 1（米）。再求面积：长×宽 = 3/2 × 1 = 3/2（平方米）。注意宽是长的几分之几，先算宽再算面积。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-166",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-cuboid-volume",
+      "unitTitle": "长方体（二）",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "volume",
+        "cuboid-volume",
+        "cube-volume",
+        "volume-units",
+        "capacity-connection",
+        "长方体体积"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "模型意识"
+      ],
+      "skillTags": [
+        "认识体积",
+        "体积单位",
+        "长方体体积",
+        "正方体体积",
+        "容积与体积"
+      ],
+      "misconceptionTags": [
+        "surface-area formula used for volume",
+        "cubic units omitted",
+        "capacity and volume units converted without meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-cuboid-volume"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-cuboid-volume-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个正方体纸盒的棱长是 4 厘米，它的体积是多少？",
+      "optionsZhHans": [
+        "16 立方厘米",
+        "64 立方厘米",
+        "96 立方厘米",
+        "24 立方厘米"
+      ],
+      "answer": "64 立方厘米",
+      "acceptedAnswers": [
+        "64 立方厘米"
+      ],
+      "explanationZhHans": "正方体体积=棱长×棱长×棱长。4×4×4=64（立方厘米）。注意体积单位是立方厘米，不要与表面积混淆。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-167",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-cuboid-volume",
+      "unitTitle": "长方体（二）",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "volume",
+        "cuboid-volume",
+        "cube-volume",
+        "volume-units",
+        "capacity-connection",
+        "长方体体积"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "模型意识"
+      ],
+      "skillTags": [
+        "认识体积",
+        "体积单位",
+        "长方体体积",
+        "正方体体积",
+        "容积与体积"
+      ],
+      "misconceptionTags": [
+        "surface-area formula used for volume",
+        "cubic units omitted",
+        "capacity and volume units converted without meaning"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-cuboid-volume"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-cuboid-volume-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方体水箱，从里面量长 5 分米，宽 4 分米，高 3 分米。这个水箱的容积是多少升？",
+      "optionsZhHans": [],
+      "answer": "60 升",
+      "acceptedAnswers": [
+        "60 升",
+        "60"
+      ],
+      "explanationZhHans": "容积就是内部体积。5×4×3=60（立方分米）。1立方分米=1升，所以是60升。注意容积单位与体积单位的换算。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-168",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-cuboid-volume",
+      "unitTitle": "长方体（二）",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "volume",
+        "cuboid-volume",
+        "cube-volume",
+        "volume-units",
+        "capacity-connection",
+        "长方体体积"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "模型意识"
+      ],
+      "skillTags": [
+        "认识体积",
+        "体积单位",
+        "长方体体积",
+        "正方体体积",
+        "容积与体积"
+      ],
+      "misconceptionTags": [
+        "surface-area formula used for volume",
+        "cubic units omitted",
+        "capacity and volume units converted without meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-cuboid-volume"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-cuboid-volume-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用棱长 1 厘米的小正方体搭成一个长方体，长 6 厘米，宽 3 厘米，高 2 厘米。一共用了多少个小正方体？请写出思考过程。",
+      "optionsZhHans": [],
+      "answer": "36 个",
+      "acceptedAnswers": [
+        "36 个",
+        "36"
+      ],
+      "explanationZhHans": "小正方体个数就是长方体的体积。6×3×2=36（立方厘米），每个小正方体体积1立方厘米，所以需要36个。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-169",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-cuboid-volume",
+      "unitTitle": "长方体（二）",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "volume",
+        "cuboid-volume",
+        "cube-volume",
+        "volume-units",
+        "capacity-connection",
+        "长方体体积"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "模型意识"
+      ],
+      "skillTags": [
+        "认识体积",
+        "体积单位",
+        "长方体体积",
+        "正方体体积",
+        "容积与体积"
+      ],
+      "misconceptionTags": [
+        "surface-area formula used for volume",
+        "cubic units omitted",
+        "capacity and volume units converted without meaning"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-cuboid-volume"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-cuboid-volume-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个物体的体积最接近 1 立方分米？",
+      "optionsZhHans": [
+        "一个粉笔盒",
+        "一个冰箱",
+        "一个乒乓球",
+        "一个教室"
+      ],
+      "answer": "一个粉笔盒",
+      "acceptedAnswers": [
+        "一个粉笔盒"
+      ],
+      "explanationZhHans": "1立方分米大约是一个粉笔盒的大小。冰箱体积远大于1立方分米，乒乓球体积约几立方厘米，教室体积更大。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-170",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-cuboid-volume",
+      "unitTitle": "长方体（二）",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "volume",
+        "cuboid-volume",
+        "cube-volume",
+        "volume-units",
+        "capacity-connection",
+        "长方体体积"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "模型意识"
+      ],
+      "skillTags": [
+        "认识体积",
+        "体积单位",
+        "长方体体积",
+        "正方体体积",
+        "容积与体积"
+      ],
+      "misconceptionTags": [
+        "surface-area formula used for volume",
+        "cubic units omitted",
+        "capacity and volume units converted without meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-cuboid-volume"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-cuboid-volume-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方体木块，长 8 厘米，宽 5 厘米，高 4 厘米。它的体积是______立方厘米。",
+      "optionsZhHans": [],
+      "answer": "160 立方厘米",
+      "acceptedAnswers": [
+        "160 立方厘米",
+        "160"
+      ],
+      "explanationZhHans": "长方体体积=长×宽×高。8×5×4=160（立方厘米）。计算时注意单位，体积单位是立方厘米。"
+    }
+  ]
+}

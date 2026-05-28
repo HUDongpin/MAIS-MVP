@@ -1,0 +1,137 @@
+{
+  "batchNumber": 7,
+  "startedAt": "2026-05-25T02:47:00.941Z",
+  "completedAt": "2026-05-25T02:47:16.557Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s1-k02-mc-005",
+    "pep-junior-v3-s1-k02-mc-006",
+    "pep-junior-v3-s1-k02-mc-007",
+    "pep-junior-v3-s1-k02-mc-008",
+    "pep-junior-v3-s1-k02-mc-009",
+    "pep-junior-v3-s1-k02-mc-010",
+    "pep-junior-v3-s1-k02-mc-011",
+    "pep-junior-v3-s1-k02-mc-012",
+    "pep-junior-v3-s1-k02-mc-013",
+    "pep-junior-v3-s1-k02-mc-014",
+    "pep-junior-v3-s1-k02-mc-015",
+    "pep-junior-v3-s1-k02-mc-016"
+  ],
+  "usage": {
+    "prompt_tokens": 3679,
+    "completion_tokens": 1054,
+    "total_tokens": 4733,
+    "prompt_tokens_details": {
+      "cached_tokens": 3584
+    },
+    "prompt_cache_hit_tokens": 3584,
+    "prompt_cache_miss_tokens": 95
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s1-k02-mc-005",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "同类项判断正确，选项C符合条件，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k02-mc-006",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "多项式乘法计算正确，结果为x²-x-6，选项A正确。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k02-mc-007",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "移项变号正确，得到2x-5x=6+3，选项B正确。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k02-mc-008",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "同类项条件得出n=2,m=3，和为5，选项A正确。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k02-mc-009",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "周长30得宽15-x，正方形条件列方程正确，选项A正确。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k02-mc-010",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "相反数、倒数、绝对值条件应用正确，结果为1，选项B正确。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k02-mc-011",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "学生总数不变列方程正确，45x+15=60(x-1)，选项A正确。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k02-mc-012",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "代入x=-2解得a=8，选项D正确。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k02-mc-013",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "设A型x辆，方程45x+30(6-x)=240，解得x=4，选项C正确。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k02-mc-014",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "代入x=4得6+3a=5，a=-1，选项A正确。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k02-mc-015",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "原数10(x+3)+x，新数10x+(x+3)，新数比原数小27得方程正确，选项C正确。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k02-mc-016",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "售价0.8x，利润0.8x-80，获利20%即利润=进价×20%，方程正确，选项A正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部12道题均通过审核，数学正确，答案与解释一致，选项无歧义，适合人教版初中数学基础练习。"
+    }
+  }
+}

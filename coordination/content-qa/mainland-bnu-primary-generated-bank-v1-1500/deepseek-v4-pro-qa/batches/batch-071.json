@@ -1,0 +1,191 @@
+{
+  "batchNumber": 71,
+  "startedAt": "2026-05-27T13:30:21.733Z",
+  "completedAt": "2026-05-27T13:30:40.213Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p6-011",
+    "bnu-primary-ds-v1-p6-012",
+    "bnu-primary-ds-v1-p6-013",
+    "bnu-primary-ds-v1-p6-014",
+    "bnu-primary-ds-v1-p6-015",
+    "bnu-primary-ds-v1-p6-016",
+    "bnu-primary-ds-v1-p6-017",
+    "bnu-primary-ds-v1-p6-018",
+    "bnu-primary-ds-v1-p6-019",
+    "bnu-primary-ds-v1-p6-020",
+    "bnu-primary-ds-v1-p6-021",
+    "bnu-primary-ds-v1-p6-022",
+    "bnu-primary-ds-v1-p6-023",
+    "bnu-primary-ds-v1-p6-024",
+    "bnu-primary-ds-v1-p6-025",
+    "bnu-primary-ds-v1-p6-026",
+    "bnu-primary-ds-v1-p6-027",
+    "bnu-primary-ds-v1-p6-028"
+  ],
+  "usage": {
+    "prompt_tokens": 3472,
+    "completion_tokens": 1319,
+    "total_tokens": 4791,
+    "prompt_tokens_details": {
+      "cached_tokens": 3456
+    },
+    "prompt_cache_hit_tokens": 3456,
+    "prompt_cache_miss_tokens": 16
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p6-011",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案与解释一致，适合六年级圆环面积。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-012",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案2分钟，解释清晰，适合六年级圆周长应用。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-013",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项唯一正确，面积扩大9倍，符合六年级圆面积性质。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-014",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "周长计算正确，答案37.68，适合基础练习。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-015",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "面积计算正确，答案78.5，适合基础练习。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-016",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由周长求面积，计算正确，选项唯一，适合六年级。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-017",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "半圆周长计算正确，答案15.42，适合六年级。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-018",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "圆环面积计算正确，答案87.92，适合六年级。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-019",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分数应用计算正确，选项唯一，适合六年级。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-020",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分数逆推正确，答案720，适合六年级。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-021",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分数应用计算正确，答案400，适合六年级。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-022",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分数应用计算正确，选项唯一，适合六年级。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-023",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分数混合运算正确，答案9/10，适合六年级。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-024",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分数逆推正确，答案200，适合六年级。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-025",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分数应用计算正确，选项唯一，适合六年级。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-026",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "运算顺序和结果正确，答案格式合理，适合六年级。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-027",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分数应用计算正确，答案400，适合六年级。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-028",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项B与原式相等，其他错误，适合六年级分数混合运算。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案匹配，无歧义，适合北师大版六年级。"
+    }
+  }
+}

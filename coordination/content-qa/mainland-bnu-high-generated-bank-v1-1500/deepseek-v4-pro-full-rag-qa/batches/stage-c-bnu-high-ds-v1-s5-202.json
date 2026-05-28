@@ -1,0 +1,48 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-202",
+  "startedAt": "2026-05-28T02:56:02.448Z",
+  "completedAt": "2026-05-28T02:56:06.907Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-202"
+  ],
+  "usage": {
+    "prompt_tokens": 2096,
+    "completion_tokens": 238,
+    "total_tokens": 2334,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1712
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-202",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "√3/3",
+        "correctedAnswer": "√3/3",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立计算得线面角正弦为√3/3，而存储答案√6/3错误。解析中法向量计算有误，导致答案不匹配，需修正。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目可解，但答案错误，解析矛盾，判定为阻断性问题。"
+    }
+  }
+}

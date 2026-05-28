@@ -1,0 +1,191 @@
+{
+  "batchNumber": 41,
+  "startedAt": "2026-05-25T02:06:57.019Z",
+  "completedAt": "2026-05-25T02:07:17.220Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p3-221",
+    "hjb-primary-ds-v1-p3-222",
+    "hjb-primary-ds-v1-p3-223",
+    "hjb-primary-ds-v1-p3-224",
+    "hjb-primary-ds-v1-p3-225",
+    "hjb-primary-ds-v1-p3-226",
+    "hjb-primary-ds-v1-p3-227",
+    "hjb-primary-ds-v1-p3-228",
+    "hjb-primary-ds-v1-p3-229",
+    "hjb-primary-ds-v1-p3-230",
+    "hjb-primary-ds-v1-p3-231",
+    "hjb-primary-ds-v1-p3-232",
+    "hjb-primary-ds-v1-p3-233",
+    "hjb-primary-ds-v1-p3-234",
+    "hjb-primary-ds-v1-p3-235",
+    "hjb-primary-ds-v1-p3-236",
+    "hjb-primary-ds-v1-p3-237",
+    "hjb-primary-ds-v1-p3-238"
+  ],
+  "usage": {
+    "prompt_tokens": 3919,
+    "completion_tokens": 1302,
+    "total_tokens": 5221,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 3663
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p3-221",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数据正确，答案唯一，选项无歧义，适合三年级数据统计。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-222",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "填空答案明确，acceptedAnswers覆盖多种写法，无错误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-223",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项分析正确，合唱组人数最多，其他选项均错误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-224",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "故事书18本最多，答案准确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-225",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数据比较正确，小红跳得最多，其他选项错误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-226",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "香蕉12人最多，填空答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-227",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "书法小组9人最少，其他选项差值计算错误，答案唯一。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-228",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "差值计算正确，均为5本。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-229",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "跳绳30人最多，其他选项人数比较错误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-230",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "24-18=6，计算正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-231",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "草莓15人最多，其他选项人数差值错误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-232",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "规律明显，5×9=45，适合三年级。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-233",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项B符合先求和再平均分，其他选项为一步运算。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-234",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "正确结果5.7，acceptedAnswers覆盖多种表述。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-235",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "小宇148下最多，其他选项差值错误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-236",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "正确结果15.5，解释合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-237",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "周长26米正确，面积40平方米，选项区分清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-238",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "总人数45，18人不到一半，答案正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案匹配，无歧义，适合沪教版三年级。"
+    }
+  }
+}

@@ -1,0 +1,581 @@
+{
+  "batchId": "batch-124",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p5-231",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-data-analysis",
+      "unitTitle": "数据的表示和分析",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "data-representation-analysis",
+        "statistical-charts",
+        "average",
+        "data-comparison",
+        "数据表示分析"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "选择统计图",
+        "读统计图",
+        "比较数据",
+        "平均数",
+        "解释结论"
+      ],
+      "misconceptionTags": [
+        "chart scale ignored",
+        "average treated as a required actual value",
+        "conclusion not supported by the displayed data"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-data-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-data-analysis-unit",
+        "bnu-primary-p4-lower-assessment-data-representation-analysis-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是五年级一班同学最喜欢的水果统计表。\n苹果：12人\n香蕉：8人\n橘子：10人\n葡萄：6人\n如果要直观地比较喜欢每种水果的人数，最适合用哪种统计图？",
+      "optionsZhHans": [
+        "条形统计图",
+        "折线统计图",
+        "扇形统计图",
+        "复式条形统计图"
+      ],
+      "answer": "条形统计图",
+      "acceptedAnswers": [
+        "条形统计图"
+      ],
+      "explanationZhHans": "比较不同类别的数量，用条形统计图最直观，能清楚看出数量的多少。折线图适合表示变化趋势，扇形图适合表示部分与整体的关系，复式条形图用于比较两组数据。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-232",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-data-analysis",
+      "unitTitle": "数据的表示和分析",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "data-representation-analysis",
+        "statistical-charts",
+        "average",
+        "data-comparison",
+        "数据表示分析"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "选择统计图",
+        "读统计图",
+        "比较数据",
+        "平均数",
+        "解释结论"
+      ],
+      "misconceptionTags": [
+        "chart scale ignored",
+        "average treated as a required actual value",
+        "conclusion not supported by the displayed data"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-data-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-data-analysis-unit",
+        "bnu-primary-p4-lower-assessment-data-representation-analysis-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是某小组5名同学的跳绳成绩（单位：下/分）：120、135、110、125、130。这组数据的平均数是多少？",
+      "optionsZhHans": [],
+      "answer": "124",
+      "acceptedAnswers": [
+        "124"
+      ],
+      "explanationZhHans": "平均数 = 总数量 ÷ 总份数。先求和：120+135+110+125+130=620，再除以5，620÷5=124。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-233",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-data-analysis",
+      "unitTitle": "数据的表示和分析",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "data-representation-analysis",
+        "statistical-charts",
+        "average",
+        "data-comparison",
+        "数据表示分析"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "选择统计图",
+        "读统计图",
+        "比较数据",
+        "平均数",
+        "解释结论"
+      ],
+      "misconceptionTags": [
+        "chart scale ignored",
+        "average treated as a required actual value",
+        "conclusion not supported by the displayed data"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-data-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-data-analysis-unit",
+        "bnu-primary-p4-lower-assessment-data-representation-analysis-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是某地一周每天的最高气温记录：\n周一：28℃\n周二：30℃\n周三：29℃\n周四：31℃\n周五：32℃\n周六：33℃\n周日：34℃\n根据以上数据，下面哪种说法是正确的？",
+      "optionsZhHans": [
+        "这周最高气温是34℃",
+        "这周每天气温都在上升",
+        "这周平均气温是30℃",
+        "周三气温比周一低"
+      ],
+      "answer": "这周最高气温是34℃",
+      "acceptedAnswers": [
+        "这周最高气温是34℃"
+      ],
+      "explanationZhHans": "从数据看出周日34℃最高，A正确。B错误，周二到周三下降。C错误，平均数约为31℃。D错误，周三29℃高于周一28℃。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-234",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-data-analysis",
+      "unitTitle": "数据的表示和分析",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "data-representation-analysis",
+        "statistical-charts",
+        "average",
+        "data-comparison",
+        "数据表示分析"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "选择统计图",
+        "读统计图",
+        "比较数据",
+        "平均数",
+        "解释结论"
+      ],
+      "misconceptionTags": [
+        "chart scale ignored",
+        "average treated as a required actual value",
+        "conclusion not supported by the displayed data"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-data-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-data-analysis-unit",
+        "bnu-primary-p4-lower-assessment-data-representation-analysis-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是某班同学参加兴趣小组的情况：\n美术组：8人\n音乐组：10人\n体育组：15人\n科技组：7人\n参加兴趣小组的同学一共有多少人？",
+      "optionsZhHans": [],
+      "answer": "40",
+      "acceptedAnswers": [
+        "40"
+      ],
+      "explanationZhHans": "求总人数，把四个组的人数相加：8+10+15+7=40（人）。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-235",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-data-analysis",
+      "unitTitle": "数据的表示和分析",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "data-representation-analysis",
+        "statistical-charts",
+        "average",
+        "data-comparison",
+        "数据表示分析"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "选择统计图",
+        "读统计图",
+        "比较数据",
+        "平均数",
+        "解释结论"
+      ],
+      "misconceptionTags": [
+        "chart scale ignored",
+        "average treated as a required actual value",
+        "conclusion not supported by the displayed data"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-data-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-data-analysis-unit",
+        "bnu-primary-p4-lower-assessment-data-representation-analysis-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是某书店一周的图书销售量统计表。\n周一：50本\n周二：60本\n周三：45本\n周四：70本\n周五：80本\n周六：100本\n周日：90本\n要表示这一周图书销售量的变化趋势，最适合用哪种统计图？",
+      "optionsZhHans": [
+        "条形统计图",
+        "折线统计图",
+        "扇形统计图",
+        "复式条形统计图"
+      ],
+      "answer": "折线统计图",
+      "acceptedAnswers": [
+        "折线统计图"
+      ],
+      "explanationZhHans": "折线统计图不仅能表示数量的多少，还能清楚地反映数量的增减变化趋势。这里需要看一周销售量的变化，所以选折线统计图。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-236",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-data-analysis",
+      "unitTitle": "数据的表示和分析",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "data-representation-analysis",
+        "statistical-charts",
+        "average",
+        "data-comparison",
+        "数据表示分析"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "选择统计图",
+        "读统计图",
+        "比较数据",
+        "平均数",
+        "解释结论"
+      ],
+      "misconceptionTags": [
+        "chart scale ignored",
+        "average treated as a required actual value",
+        "conclusion not supported by the displayed data"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-data-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-data-analysis-unit",
+        "bnu-primary-p4-lower-assessment-data-representation-analysis-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是某小学四年级三个班在植树节植树的棵数：\n四（1）班：45棵\n四（2）班：50棵\n四（3）班：55棵\n平均每个班植树多少棵？",
+      "optionsZhHans": [],
+      "answer": "50",
+      "acceptedAnswers": [
+        "50"
+      ],
+      "explanationZhHans": "平均数 = 总棵数 ÷ 班级数。总棵数：45+50+55=150，班级数3，150÷3=50（棵）。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-237",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "p5-lower-review",
+        "integrated-application",
+        "mathematical-activity",
+        "model-selection",
+        "五年级下册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "模型选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "model chosen from keyword alone",
+        "units dropped in geometry tasks",
+        "answer accepted without context check"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-final-topic-drill",
+        "bnu-primary-p5-lower-assessment-fraction-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方体水箱，从里面量长5分米，宽4分米，高3分米。水箱中水深2分米。水箱中的水有多少升？",
+      "optionsZhHans": [
+        "40升",
+        "60升",
+        "30升",
+        "20升"
+      ],
+      "answer": "40升",
+      "acceptedAnswers": [
+        "40升"
+      ],
+      "explanationZhHans": "水的体积 = 长 × 宽 × 水深 = 5×4×2=40（立方分米）。1立方分米=1升，所以是40升。注意水深2分米，不是水箱的高。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-238",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "p5-lower-review",
+        "integrated-application",
+        "mathematical-activity",
+        "model-selection",
+        "五年级下册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "模型选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "model chosen from keyword alone",
+        "units dropped in geometry tasks",
+        "answer accepted without context check"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-final-topic-drill",
+        "bnu-primary-p5-lower-assessment-fraction-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "解方程：3x + 5 = 20。x等于多少？",
+      "optionsZhHans": [],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5"
+      ],
+      "explanationZhHans": "根据等式的性质，两边同时减5：3x+5-5=20-5，得3x=15。两边再同时除以3：3x÷3=15÷3，x=5。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-239",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "p5-lower-review",
+        "integrated-application",
+        "mathematical-activity",
+        "model-selection",
+        "五年级下册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "模型选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "model chosen from keyword alone",
+        "units dropped in geometry tasks",
+        "answer accepted without context check"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-final-topic-drill",
+        "bnu-primary-p5-lower-assessment-fraction-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方体长5厘米、宽3厘米、高2厘米，它的表面积是多少平方厘米？",
+      "optionsZhHans": [
+        "31平方厘米",
+        "62平方厘米",
+        "30平方厘米",
+        "52平方厘米"
+      ],
+      "answer": "62平方厘米",
+      "acceptedAnswers": [
+        "62平方厘米",
+        "62"
+      ],
+      "explanationZhHans": "表面积＝2×(5×3＋5×2＋3×2)＝2×(15＋10＋6)＝62平方厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-240",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "p5-lower-review",
+        "integrated-application",
+        "mathematical-activity",
+        "model-selection",
+        "五年级下册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "模型选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "model chosen from keyword alone",
+        "units dropped in geometry tasks",
+        "answer accepted without context check"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-final-topic-drill",
+        "bnu-primary-p5-lower-assessment-fraction-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把一根长3米的绳子平均分成5段，每段长多少米？用分数表示。",
+      "optionsZhHans": [],
+      "answer": "3/5",
+      "acceptedAnswers": [
+        "3/5"
+      ],
+      "explanationZhHans": "把3米平均分成5份，求每份是多少，用除法：3÷5=3/5（米）。"
+    }
+  ]
+}

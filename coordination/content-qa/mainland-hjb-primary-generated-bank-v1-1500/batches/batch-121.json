@@ -1,0 +1,298 @@
+{
+  "batchId": "batch-121",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p3-101",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-fraction-introduction",
+      "unitTitle": "分数的初步认识",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "fraction-introduction",
+        "equal-parts",
+        "unit-fraction",
+        "proper-fractions",
+        "几分之一",
+        "几分之几"
+      ],
+      "competencyTags": [
+        "数感",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均分",
+        "几分之一",
+        "几分之几",
+        "分数读写",
+        "整体意识"
+      ],
+      "misconceptionTags": [
+        "whole not identified",
+        "unequal parts named as fractions",
+        "denominator treated as numerator size"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-fraction-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-fraction-introduction",
+        "hjb-primary-p3-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把一张圆形纸片对折两次，沿折痕剪开，得到大小一样的4份。每份是这张纸的（    ），读作（    ）。",
+      "optionsZhHans": [],
+      "answer": "四分之一，四分之一",
+      "acceptedAnswers": [
+        "四分之一，四分之一",
+        "1/4，四分之一",
+        "四分之一，1/4",
+        "1/4，1/4"
+      ],
+      "explanationZhHans": "对折两次平均分成4份，每份是整体的1/4，写作1/4，读作四分之一。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-102",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-fraction-introduction",
+      "unitTitle": "分数的初步认识",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "fraction-introduction",
+        "equal-parts",
+        "unit-fraction",
+        "proper-fractions",
+        "几分之一",
+        "几分之几"
+      ],
+      "competencyTags": [
+        "数感",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均分",
+        "几分之一",
+        "几分之几",
+        "分数读写",
+        "整体意识"
+      ],
+      "misconceptionTags": [
+        "whole not identified",
+        "unequal parts named as fractions",
+        "denominator treated as numerator size"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-fraction-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-fraction-introduction",
+        "hjb-primary-p3-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈买回12个同样大小的橘子，全部分给小红和小明。小红分到5个，小明分到7个。小红分到的橘子占全部的几分之几？小明分到的占全部的几分之几？请写出分数并说明理由。",
+      "optionsZhHans": [],
+      "answer": "小红分到5/12，小明分到7/12。理由：整体是12个橘子，平均分成12份，每份1个。小红分到5个，就是5份，所以是5/12；小明分到7个，就是7份，所以是7/12。",
+      "acceptedAnswers": [
+        "小红分到5/12，小明分到7/12。理由：整体是12个橘子，平均分成12份，每份1个。小红分到5个，就是5份，所以是5/12；小明分到7个，就是7份，所以是7/12。",
+        "5/12和7/12。因为把12个橘子看作一个整体，平均分成12份，每份是1个。小红分到5个，占5份，是5/12；小明分到7个，占7份，是7/12。"
+      ],
+      "explanationZhHans": "整体是12个橘子，平均分成12份，每份1个。小红分到5个，占5份，即5/12；小明分到7个，占7份，即7/12。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-103",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-fraction-introduction",
+      "unitTitle": "分数的初步认识",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "fraction-introduction",
+        "equal-parts",
+        "unit-fraction",
+        "proper-fractions",
+        "几分之一",
+        "几分之几"
+      ],
+      "competencyTags": [
+        "数感",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均分",
+        "几分之一",
+        "几分之几",
+        "分数读写",
+        "整体意识"
+      ],
+      "misconceptionTags": [
+        "whole not identified",
+        "unequal parts named as fractions",
+        "denominator treated as numerator size"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-fraction-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-fraction-introduction",
+        "hjb-primary-p3-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪种情况可以用1/4表示？",
+      "optionsZhHans": [
+        "把一个西瓜分成4份，吃掉1份。",
+        "把一张长方形纸对折两次，沿折痕剪开，取其中1份。",
+        "把10块糖分成4堆，取其中1堆。",
+        "把一根绳子剪成4段，取其中1段。"
+      ],
+      "answer": "把一张长方形纸对折两次，沿折痕剪开，取其中1份。",
+      "acceptedAnswers": [
+        "把一张长方形纸对折两次，沿折痕剪开，取其中1份。"
+      ],
+      "explanationZhHans": "只有平均分成4份，取1份才是1/4。对折两次得到4个同样大小的部分，是平均分。其他选项未说明是否平均分。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-104",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-fraction-introduction",
+      "unitTitle": "分数的初步认识",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "fraction-introduction",
+        "equal-parts",
+        "unit-fraction",
+        "proper-fractions",
+        "几分之一",
+        "几分之几"
+      ],
+      "competencyTags": [
+        "数感",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均分",
+        "几分之一",
+        "几分之几",
+        "分数读写",
+        "整体意识"
+      ],
+      "misconceptionTags": [
+        "whole not identified",
+        "unequal parts named as fractions",
+        "denominator treated as numerator size"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-fraction-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-fraction-introduction",
+        "hjb-primary-p3-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用分数表示涂色部分。\n一个正方形被平均分成9个小方格，其中4个小方格涂色。涂色部分占整个正方形的（    ），这个分数读作（    ）。",
+      "optionsZhHans": [],
+      "answer": "九分之四，九分之四",
+      "acceptedAnswers": [
+        "九分之四，九分之四",
+        "4/9，九分之四",
+        "九分之四，4/9",
+        "4/9，4/9"
+      ],
+      "explanationZhHans": "整体平均分成9份，涂色部分占4份，所以是4/9，读作九分之四。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-105",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-fraction-introduction",
+      "unitTitle": "分数的初步认识",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "fraction-introduction",
+        "equal-parts",
+        "unit-fraction",
+        "proper-fractions",
+        "几分之一",
+        "几分之几"
+      ],
+      "competencyTags": [
+        "数感",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均分",
+        "几分之一",
+        "几分之几",
+        "分数读写",
+        "整体意识"
+      ],
+      "misconceptionTags": [
+        "whole not identified",
+        "unequal parts named as fractions",
+        "denominator treated as numerator size"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-fraction-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-fraction-introduction",
+        "hjb-primary-p3-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小华有一根彩带，他先把彩带平均分成6段，取走2段；又把剩下的部分平均分成2段，取走1段。小华两次一共取走的彩带占原来整根彩带的几分之几？请写出你的思考过程。",
+      "optionsZhHans": [],
+      "answer": "第一次取走2/6，即1/3。剩下4/6，即2/3。第二次取走剩下的一半，即2/3的一半，是1/3。两次一共取走1/3+1/3=2/3。所以一共取走2/3。",
+      "acceptedAnswers": [
+        "第一次取走2/6，即1/3。剩下4/6，即2/3。第二次取走剩下的一半，即2/3的一半，是1/3。两次一共取走1/3+1/3=2/3。所以一共取走2/3。",
+        "2/3。第一次取走2/6=1/3，剩下4/6=2/3。第二次取走剩下的一半，即2/3÷2=1/3。一共1/3+1/3=2/3。"
+      ],
+      "explanationZhHans": "把彩带看作整体1。第一次取走2/6=1/3，剩2/3。第二次取走剩下的一半，即1/3。两次共取走2/3。"
+    }
+  ]
+}

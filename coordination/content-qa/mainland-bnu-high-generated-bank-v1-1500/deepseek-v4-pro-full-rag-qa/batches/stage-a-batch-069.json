@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-069",
+  "startedAt": "2026-05-28T01:14:00.561Z",
+  "completedAt": "2026-05-28T01:14:18.394Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-045",
+    "bnu-high-ds-v1-s5-046",
+    "bnu-high-ds-v1-s5-047",
+    "bnu-high-ds-v1-s5-048",
+    "bnu-high-ds-v1-s5-049",
+    "bnu-high-ds-v1-s5-050",
+    "bnu-high-ds-v1-s5-051",
+    "bnu-high-ds-v1-s5-052"
+  ],
+  "usage": {
+    "prompt_tokens": 10454,
+    "completion_tokens": 1034,
+    "total_tokens": 11488,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 10070
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-045",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "2x + y - 5 = 0 或 x - 2y = 0",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "点P在圆上，切线唯一，但需考虑斜率不存在情况。设切线方程，利用圆心到直线距离等于半径，解得两条切线，其中一条为过P的半径垂直方向，另一条为x-2y=0。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-046",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "k ≤ -√3 或 k ≥ √3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "直线过定点(0,2)，圆半径为1，有公共点等价于圆心到直线距离≤1，解得k²≥3。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-047",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "4x + 3y - 11 = 0",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "先求交点(1,1)，垂直得斜率-4/3，点斜式化简得一般式。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-048",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "k = 0 或 k = 4/3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "设直线方程，利用弦长公式，圆心到直线距离为1，解出斜率。注意斜率不存在时弦长为2，不符合。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-049",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(2, -3), 5",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "配方得(x-2)²+(y+3)²=25，圆心(2,-3)，半径5。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-050",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "2√5",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "圆标准方程(x-1)²+(y-2)²=5，圆心到直线距离d=0，直线过圆心，弦长为直径2√5。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-051",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "4x + 3y - 5 = 0",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "垂直得斜率-4/3，点斜式化简得一般式。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-052",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "k = -2 或 k = 1/2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "圆配方得(x-2)²+(y+3)²=25，圆心(2,-3)，半径5。直线y=kx+3，相切时圆心到直线距离等于半径，解得k=-2或1/2。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，无数学错误、歧义或缺失条件，符合北师大版高中直线与圆章节要求。"
+    }
+  }
+}

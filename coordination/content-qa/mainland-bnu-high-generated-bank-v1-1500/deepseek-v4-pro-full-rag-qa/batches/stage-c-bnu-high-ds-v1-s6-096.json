@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-096",
+  "startedAt": "2026-05-28T01:39:22.459Z",
+  "completedAt": "2026-05-28T01:39:26.233Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-096"
+  ],
+  "usage": {
+    "prompt_tokens": 2030,
+    "completion_tokens": 235,
+    "total_tokens": 2265,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1646
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-096",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "24",
+        "correctedAnswer": "24",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，正确结果为24。存储答案15错误，解析中计算S6-S4得24，但最终答案写为15，自相矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1题答案错误，解析矛盾，判定为blocker。"
+    }
+  }
+}

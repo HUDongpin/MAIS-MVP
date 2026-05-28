@@ -1,0 +1,191 @@
+{
+  "batchNumber": 32,
+  "startedAt": "2026-05-27T13:49:18.208Z",
+  "completedAt": "2026-05-27T13:49:36.435Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p3-059",
+    "bnu-primary-ds-v2-p3-060",
+    "bnu-primary-ds-v2-p3-061",
+    "bnu-primary-ds-v2-p3-062",
+    "bnu-primary-ds-v2-p3-063",
+    "bnu-primary-ds-v2-p3-064",
+    "bnu-primary-ds-v2-p3-065",
+    "bnu-primary-ds-v2-p3-066",
+    "bnu-primary-ds-v2-p3-067",
+    "bnu-primary-ds-v2-p3-068",
+    "bnu-primary-ds-v2-p3-069",
+    "bnu-primary-ds-v2-p3-070",
+    "bnu-primary-ds-v2-p3-071",
+    "bnu-primary-ds-v2-p3-072",
+    "bnu-primary-ds-v2-p3-073",
+    "bnu-primary-ds-v2-p3-074",
+    "bnu-primary-ds-v2-p3-075",
+    "bnu-primary-ds-v2-p3-076"
+  ],
+  "usage": {
+    "prompt_tokens": 3563,
+    "completion_tokens": 1326,
+    "total_tokens": 4889,
+    "prompt_tokens_details": {
+      "cached_tokens": 3456
+    },
+    "prompt_cache_hit_tokens": 3456,
+    "prompt_cache_miss_tokens": 107
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p3-059",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，符合P3乘除法要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-060",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目合理，答案正确，有余数除法符合P3挑战难度。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-061",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，选项无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-062",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，符合周长基础题要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-063",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，与061类似但数值不同，无问题。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-064",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，选项设置合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-065",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，与062、064类似，无问题。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-066",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，与063类似，无问题。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-067",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，两步计算符合P3核心难度。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-068",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，与周长基础题一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-069",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，与063、066类似，无问题。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-070",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，选项设置合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-071",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，与065类似，无问题。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-072",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，逆向思维符合挑战难度。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-073",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，封闭图形植树问题合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-074",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，三角形周长基础题。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-075",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，两种拼法符合挑战要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-076",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，连乘列式符合P3乘法单元。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均通过审核，无数学错误、答案不匹配、歧义或年级不匹配等问题。"
+    }
+  }
+}

@@ -1,0 +1,191 @@
+{
+  "batchNumber": 79,
+  "startedAt": "2026-05-27T14:03:55.367Z",
+  "completedAt": "2026-05-27T14:04:13.398Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p6-155",
+    "bnu-primary-ds-v2-p6-156",
+    "bnu-primary-ds-v2-p6-157",
+    "bnu-primary-ds-v2-p6-158",
+    "bnu-primary-ds-v2-p6-159",
+    "bnu-primary-ds-v2-p6-160",
+    "bnu-primary-ds-v2-p6-161",
+    "bnu-primary-ds-v2-p6-162",
+    "bnu-primary-ds-v2-p6-163",
+    "bnu-primary-ds-v2-p6-164",
+    "bnu-primary-ds-v2-p6-165",
+    "bnu-primary-ds-v2-p6-166",
+    "bnu-primary-ds-v2-p6-167",
+    "bnu-primary-ds-v2-p6-168",
+    "bnu-primary-ds-v2-p6-169",
+    "bnu-primary-ds-v2-p6-170",
+    "bnu-primary-ds-v2-p6-171",
+    "bnu-primary-ds-v2-p6-172"
+  ],
+  "usage": {
+    "prompt_tokens": 3324,
+    "completion_tokens": 1283,
+    "total_tokens": 4607,
+    "prompt_tokens_details": {
+      "cached_tokens": 3200
+    },
+    "prompt_cache_hit_tokens": 3200,
+    "prompt_cache_miss_tokens": 124
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p6-155",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，单位换算合理，答案与解释一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-156",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，抹水泥面积包括侧面积和底面积，答案准确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-157",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项唯一正确，解释清晰，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-158",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案与解释一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-159",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，单位换算合理，答案准确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-160",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项唯一正确，解释清晰，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-161",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案与解释一致，单位已注明。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-162",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，保留整数合理，答案准确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-163",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项唯一正确，解释清晰，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-164",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，单位换算合理，答案准确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-165",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，比例关系清晰，答案准确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-166",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，单位换算合理，选项唯一正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-167",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比例性质应用正确，答案准确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-168",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，比例尺格式规范，答案准确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-169",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项唯一正确，解释清晰，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-170",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "面积放大倍数正确，解释清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-171",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，单位换算合理，答案准确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-172",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项唯一正确，解释清晰。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均通过审核，无数学错误、答案不匹配、歧义或年级不匹配等问题。"
+    }
+  }
+}

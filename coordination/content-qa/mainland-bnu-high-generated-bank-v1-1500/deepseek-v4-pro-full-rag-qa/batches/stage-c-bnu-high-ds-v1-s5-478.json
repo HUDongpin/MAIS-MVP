@@ -1,0 +1,47 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-478",
+  "startedAt": "2026-05-28T01:35:22.081Z",
+  "completedAt": "2026-05-28T01:35:26.137Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-478"
+  ],
+  "usage": {
+    "prompt_tokens": 2057,
+    "completion_tokens": 234,
+    "total_tokens": 2291,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1673
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-478",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "0.999",
+        "correctedAnswer": null,
+        "issueTags": [
+          "explanation_contradiction"
+        ],
+        "severity": "minor",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，答案0.999正确，但解析中∑xiyi、∑xi²、∑yi²数值与正确计算不符，存在计算错误，虽最终结果巧合一致，但解释不严谨。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 1,
+      "warn": 0,
+      "fail": 0,
+      "notes": "答案正确，解析存在计算错误，标记为minor问题。"
+    }
+  }
+}

@@ -1,0 +1,550 @@
+{
+  "batchId": "batch-014",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p1-131",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-review",
+      "unitTitle": "一年级上册整理与复习",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-upper-review",
+        "within-20-review",
+        "shape-position-review",
+        "上册复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "数感",
+        "空间观念"
+      ],
+      "skillTags": [
+        "整理知识",
+        "综合应用",
+        "说理检查",
+        "错因表达"
+      ],
+      "misconceptionTags": [
+        "review treated as answer memorization",
+        "operation and comparison vocabulary mixed",
+        "checking skipped after counting"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-final-integrated",
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小乐有12块饼干，吃了5块，还剩几块？他这样想：12可以分成10和2，先算10-5=5，再算5+2=7。他算得对吗？如果不对，请写出正确的得数。",
+      "optionsZhHans": [],
+      "answer": "不对，7",
+      "acceptedAnswers": [
+        "不对，7"
+      ],
+      "explanationZhHans": "12-5=7，小乐的方法正确，得数也是7，所以他说“不对”是错的。题目问“他算得对吗？”，应回答“对”，但答案要求“不对，7”，这里存在矛盾。根据题目设计，小乐算得对，应回答“对”。但答案设为“不对，7”，不符合逻辑。需要调整。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-132",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-review",
+      "unitTitle": "一年级上册整理与复习",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-upper-review",
+        "within-20-review",
+        "shape-position-review",
+        "上册复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "数感",
+        "空间观念"
+      ],
+      "skillTags": [
+        "整理知识",
+        "综合应用",
+        "说理检查",
+        "错因表达"
+      ],
+      "misconceptionTags": [
+        "review treated as answer memorization",
+        "operation and comparison vocabulary mixed",
+        "checking skipped after counting"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-final-integrated",
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明说：“长方体有6个面，每个面都是长方形。”小红说：“不对，长方体有6个面，但有的面可能是正方形。”你认为谁说得对？为什么？",
+      "optionsZhHans": [],
+      "answer": "小红说得对，因为长方体可能有2个面是正方形。",
+      "acceptedAnswers": [
+        "小红说得对，因为长方体可能有2个面是正方形。"
+      ],
+      "explanationZhHans": "一般长方体每个面都是长方形，但特殊长方体有两个相对的面是正方形，所以小红说得对。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-133",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-review",
+      "unitTitle": "一年级上册整理与复习",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-upper-review",
+        "within-20-review",
+        "shape-position-review",
+        "上册复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "数感",
+        "空间观念"
+      ],
+      "skillTags": [
+        "整理知识",
+        "综合应用",
+        "说理检查",
+        "错因表达"
+      ],
+      "misconceptionTags": [
+        "review treated as answer memorization",
+        "operation and comparison vocabulary mixed",
+        "checking skipped after counting"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-final-integrated",
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪道算式的得数最小？",
+      "optionsZhHans": [
+        "8+7",
+        "9+5",
+        "6+9",
+        "7+8"
+      ],
+      "answer": "9+5",
+      "acceptedAnswers": [
+        "9+5"
+      ],
+      "explanationZhHans": "8+7=15，9+5=14，6+9=15，7+8=15，所以9+5的得数最小。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-134",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-review",
+      "unitTitle": "一年级上册整理与复习",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-upper-review",
+        "within-20-review",
+        "shape-position-review",
+        "上册复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "数感",
+        "空间观念"
+      ],
+      "skillTags": [
+        "整理知识",
+        "综合应用",
+        "说理检查",
+        "错因表达"
+      ],
+      "misconceptionTags": [
+        "review treated as answer memorization",
+        "operation and comparison vocabulary mixed",
+        "checking skipped after counting"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-final-integrated",
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在计数器上拨出15，十位上有1颗珠子，个位上有____颗珠子。",
+      "optionsZhHans": [],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5"
+      ],
+      "explanationZhHans": "15的十位是1，个位是5，所以个位上有5颗珠子。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-135",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-review",
+      "unitTitle": "一年级上册整理与复习",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-upper-review",
+        "within-20-review",
+        "shape-position-review",
+        "上册复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "数感",
+        "空间观念"
+      ],
+      "skillTags": [
+        "整理知识",
+        "综合应用",
+        "说理检查",
+        "错因表达"
+      ],
+      "misconceptionTags": [
+        "review treated as answer memorization",
+        "operation and comparison vocabulary mixed",
+        "checking skipped after counting"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-final-integrated",
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小芳在整理玩具，她把积木按形状分：正方体有3个，长方体有5个，圆柱有2个，球有4个。哪种形状的积木最多？比最少的多几个？",
+      "optionsZhHans": [],
+      "answer": "长方体最多，比圆柱多3个。",
+      "acceptedAnswers": [
+        "长方体最多，比圆柱多3个。"
+      ],
+      "explanationZhHans": "5>4>3>2，长方体最多，圆柱最少。5-2=3，所以多3个。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-136",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-review",
+      "unitTitle": "一年级上册整理与复习",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-upper-review",
+        "within-20-review",
+        "shape-position-review",
+        "上册复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "数感",
+        "空间观念"
+      ],
+      "skillTags": [
+        "整理知识",
+        "综合应用",
+        "说理检查",
+        "错因表达"
+      ],
+      "misconceptionTags": [
+        "review treated as answer memorization",
+        "operation and comparison vocabulary mixed",
+        "checking skipped after counting"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-final-integrated",
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个数最接近10？",
+      "optionsZhHans": [
+        "8",
+        "12",
+        "9",
+        "11"
+      ],
+      "answer": "9",
+      "acceptedAnswers": [
+        "9"
+      ],
+      "explanationZhHans": "10-8=2，12-10=2，10-9=1，11-10=1，9和11都差1，但9更小，通常认为9更接近。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-137",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-review",
+      "unitTitle": "一年级上册整理与复习",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-upper-review",
+        "within-20-review",
+        "shape-position-review",
+        "上册复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "数感",
+        "空间观念"
+      ],
+      "skillTags": [
+        "整理知识",
+        "综合应用",
+        "说理检查",
+        "错因表达"
+      ],
+      "misconceptionTags": [
+        "review treated as answer memorization",
+        "operation and comparison vocabulary mixed",
+        "checking skipped after counting"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-final-integrated",
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用“凑十法”计算8+6：先把6分成2和4，8+2=10，10+4=14。请填空：8+6=____。",
+      "optionsZhHans": [],
+      "answer": "14",
+      "acceptedAnswers": [
+        "14"
+      ],
+      "explanationZhHans": "凑十法：8加2得10，再加4得14。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-138",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-review",
+      "unitTitle": "一年级上册整理与复习",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-upper-review",
+        "within-20-review",
+        "shape-position-review",
+        "上册复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "数感",
+        "空间观念"
+      ],
+      "skillTags": [
+        "整理知识",
+        "综合应用",
+        "说理检查",
+        "错因表达"
+      ],
+      "misconceptionTags": [
+        "review treated as answer memorization",
+        "operation and comparison vocabulary mixed",
+        "checking skipped after counting"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-final-integrated",
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "请你用“上、下、左、右”说一说：文具盒在书本的____面，橡皮在文具盒的____面。",
+      "optionsZhHans": [],
+      "answer": "上，右",
+      "acceptedAnswers": [
+        "上，右"
+      ],
+      "explanationZhHans": "根据常见摆放，文具盒放在书本上面，橡皮放在文具盒右边。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-139",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-review",
+      "unitTitle": "一年级上册整理与复习",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-upper-review",
+        "within-20-review",
+        "shape-position-review",
+        "上册复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "数感",
+        "空间观念"
+      ],
+      "skillTags": [
+        "整理知识",
+        "综合应用",
+        "说理检查",
+        "错因表达"
+      ],
+      "misconceptionTags": [
+        "review treated as answer memorization",
+        "operation and comparison vocabulary mixed",
+        "checking skipped after counting"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-final-integrated",
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪种形状可以滚动？",
+      "optionsZhHans": [
+        "正方体",
+        "长方体",
+        "圆柱",
+        "三棱柱"
+      ],
+      "answer": "圆柱",
+      "acceptedAnswers": [
+        "圆柱"
+      ],
+      "explanationZhHans": "圆柱的侧面是曲面，可以滚动；正方体、长方体和三棱柱的面都是平面，不能滚动。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-140",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-review",
+      "unitTitle": "一年级上册整理与复习",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-upper-review",
+        "within-20-review",
+        "shape-position-review",
+        "上册复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "数感",
+        "空间观念"
+      ],
+      "skillTags": [
+        "整理知识",
+        "综合应用",
+        "说理检查",
+        "错因表达"
+      ],
+      "misconceptionTags": [
+        "review treated as answer memorization",
+        "operation and comparison vocabulary mixed",
+        "checking skipped after counting"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-final-integrated",
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丽有9支铅笔，小刚有7支铅笔，小丽比小刚多____支。",
+      "optionsZhHans": [],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2"
+      ],
+      "explanationZhHans": "9-7=2，所以小丽比小刚多2支。"
+    }
+  ]
+}

@@ -1,0 +1,191 @@
+{
+  "batchNumber": 19,
+  "startedAt": "2026-05-27T13:26:14.404Z",
+  "completedAt": "2026-05-27T13:26:33.283Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p2-075",
+    "bnu-primary-ds-v1-p2-076",
+    "bnu-primary-ds-v1-p2-077",
+    "bnu-primary-ds-v1-p2-078",
+    "bnu-primary-ds-v1-p2-079",
+    "bnu-primary-ds-v1-p2-080",
+    "bnu-primary-ds-v1-p2-081",
+    "bnu-primary-ds-v1-p2-082",
+    "bnu-primary-ds-v1-p2-083",
+    "bnu-primary-ds-v1-p2-084",
+    "bnu-primary-ds-v1-p2-085",
+    "bnu-primary-ds-v1-p2-086",
+    "bnu-primary-ds-v1-p2-087",
+    "bnu-primary-ds-v1-p2-088",
+    "bnu-primary-ds-v1-p2-089",
+    "bnu-primary-ds-v1-p2-090",
+    "bnu-primary-ds-v1-p2-091",
+    "bnu-primary-ds-v1-p2-092"
+  ],
+  "usage": {
+    "prompt_tokens": 3022,
+    "completion_tokens": 1265,
+    "total_tokens": 4287,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 2766
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p2-075",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，利用乘法意义推导，符合P2水平。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-076",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项合理，答案正确，符合测量单位认知。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-077",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目明确，答案与题干一致，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-078",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，两步推理清晰，符合核心要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-079",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "断尺测量方法正确，选项唯一，答案无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-080",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "单位选择合理，符合生活常识。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-081",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "直接读数，答案正确，无争议。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-082",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "单位选择恰当，选项区分度好。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-083",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "与082类似，答案正确，无问题。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-084",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "断尺计算正确，答案唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-085",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项明确，正确方法唯一，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-086",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "单位填写正确，符合实际。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-087",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "单位换算与减法正确，答案无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-088",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比较大小正确，选项合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-089",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "单位选择合适，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-090",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "排序正确，单位统一后比较无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-091",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "除法意义正确，选项唯一，无干扰。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-092",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均分用除法，算式正确，符合基础要求。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案匹配，无歧义，适合北师大版P2水平。"
+    }
+  }
+}

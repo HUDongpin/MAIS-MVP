@@ -1,0 +1,146 @@
+{
+  "batchNumber": 43,
+  "startedAt": "2026-05-25T03:00:21.330Z",
+  "completedAt": "2026-05-25T03:00:40.046Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s2-k07-mc-004",
+    "pep-junior-v3-s2-k07-mc-005",
+    "pep-junior-v3-s2-k07-mc-006",
+    "pep-junior-v3-s2-k07-mc-007",
+    "pep-junior-v3-s2-k07-mc-008",
+    "pep-junior-v3-s2-k07-mc-009",
+    "pep-junior-v3-s2-k07-mc-010",
+    "pep-junior-v3-s2-k07-mc-011",
+    "pep-junior-v3-s2-k07-mc-012",
+    "pep-junior-v3-s2-k07-mc-013",
+    "pep-junior-v3-s2-k07-mc-014",
+    "pep-junior-v3-s2-k07-mc-015"
+  ],
+  "usage": {
+    "prompt_tokens": 3937,
+    "completion_tokens": 1216,
+    "total_tokens": 5153,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 3681
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s2-k07-mc-004",
+        "status": "fail",
+        "severity": "blocker",
+        "issueTags": [
+          "grade_mismatch",
+          "missing_condition"
+        ],
+        "correctedAnswer": null,
+        "rationale": "题目为等腰三角形角度计算，属于几何内容，但知识标签为整式乘法/因式分解/分式，单元标题也为整式乘法、因式分解与分式，严重不匹配。且题目未明确说明三角形内角和定理等条件，但主要问题是知识点错位。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-mc-005",
+        "status": "fail",
+        "severity": "blocker",
+        "issueTags": [
+          "grade_mismatch",
+          "missing_condition"
+        ],
+        "correctedAnswer": null,
+        "rationale": "题目为三角形全等判定，属于几何内容，但知识标签为整式乘法/因式分解/分式，单元标题也为整式乘法、因式分解与分式，严重不匹配。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-mc-006",
+        "status": "fail",
+        "severity": "blocker",
+        "issueTags": [
+          "grade_mismatch",
+          "missing_condition"
+        ],
+        "correctedAnswer": null,
+        "rationale": "题目为轴对称图形判断，属于几何内容，但知识标签为整式乘法/因式分解/分式，单元标题也为整式乘法、因式分解与分式，严重不匹配。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-mc-007",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "因式分解判断正确，答案与解析一致，选项无歧义，符合代数知识标签。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-mc-008",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分式化简正确，答案与解析一致，选项无歧义，符合代数知识标签。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-mc-009",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "不等式列式正确，答案与解析一致，选项无歧义，符合代数知识标签。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-mc-010",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "因式分解判断正确，答案与解析一致，选项无歧义，符合代数知识标签。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-mc-011",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平方差公式计算正确，答案与解析一致，选项无歧义，符合代数知识标签。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-mc-012",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分式值为零的条件正确，答案与解析一致，选项无歧义，符合代数知识标签。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-mc-013",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "完全平方公式判断正确，答案与解析一致，选项无歧义，符合代数知识标签。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-mc-014",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分式化简正确，答案与解析一致，选项无歧义，符合代数知识标签。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-mc-015",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分式方程去分母正确，答案与解析一致，选项无歧义，符合代数知识标签。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 9,
+      "warn": 0,
+      "fail": 3,
+      "notes": "前三道题（004、005、006）为几何内容，但知识标签和单元标题均为代数（整式乘法/因式分解/分式），属于严重知识点错位，应归入相应几何单元。其余代数题目均正确。"
+    }
+  }
+}

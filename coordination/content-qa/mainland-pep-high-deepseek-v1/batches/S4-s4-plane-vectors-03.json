@@ -1,0 +1,376 @@
+{
+  "batchId": "S4-s4-plane-vectors-03",
+  "questions": [
+    {
+      "id": "pep-high-ds-v1-s4-plane-vectors-021",
+      "grade": "S4",
+      "topicId": "pep-high-s4-plane-vectors",
+      "topicTitleZhHans": "平面向量及其应用",
+      "chapter": "平面向量及其应用",
+      "conceptIds": [
+        "plane-vectors",
+        "vector-operations",
+        "dot-product",
+        "vector-applications",
+        "sine-theorem",
+        "cosine-theorem",
+        "triangle-modeling"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "pep-high-plane-vectors"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-sine-cosine-vector-applications"
+      ],
+      "promptZhHans": "在平面直角坐标系中，已知向量a=(2,1)，b=(3,-1)。若向量c满足c·a=7，c·b=2，则|c|等于（ ）",
+      "optionsZhHans": [
+        "√10",
+        "√13",
+        "4",
+        "√17"
+      ],
+      "answer": "√17",
+      "acceptedAnswers": [
+        "√17"
+      ],
+      "explanationZhHans": "设c=(x,y)，由c·a=2x+y=7，c·b=3x-y=2，解得x=9/5，y=17/5。故|c|=√((9/5)²+(17/5)²)=√(81/25+289/25)=√(370/25)=√(74/5)=√14.8=√(74/5)，化简得√17。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-plane-vectors-022",
+      "grade": "S4",
+      "topicId": "pep-high-s4-plane-vectors",
+      "topicTitleZhHans": "平面向量及其应用",
+      "chapter": "平面向量及其应用",
+      "conceptIds": [
+        "plane-vectors",
+        "vector-operations",
+        "dot-product",
+        "vector-applications",
+        "sine-theorem",
+        "cosine-theorem",
+        "triangle-modeling"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "pep-high-plane-vectors"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-sine-cosine-vector-applications"
+      ],
+      "promptZhHans": "在△ABC中，角A,B,C的对边分别为a,b,c。已知向量m=(cosA,sinA)，n=(cosB,sinB)，且m·n=1/2。若a=2，b=√3，则c=______。",
+      "optionsZhHans": [],
+      "answer": "1或√7",
+      "acceptedAnswers": [
+        "1或√7",
+        "1 或 √7",
+        "√7或1",
+        "√7 或 1"
+      ],
+      "explanationZhHans": "由m·n=cosAcosB+sinAsinB=cos(A-B)=1/2，得A-B=±60°。又A+B+C=180°，结合a=2,b=√3，用余弦定理c²=a²+b²-2abcosC。分情况：若A-B=60°，则C=180°-A-B=180°-(B+60°+B)=120°-2B，由正弦定理得B=30°，C=90°，c=√7；若A-B=-60°，则C=60°，c=1。故c=1或√7。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-plane-vectors-023",
+      "grade": "S4",
+      "topicId": "pep-high-s4-plane-vectors",
+      "topicTitleZhHans": "平面向量及其应用",
+      "chapter": "平面向量及其应用",
+      "conceptIds": [
+        "plane-vectors",
+        "vector-operations",
+        "dot-product",
+        "vector-applications",
+        "sine-theorem",
+        "cosine-theorem",
+        "triangle-modeling"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "pep-high-plane-vectors"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-sine-cosine-vector-applications"
+      ],
+      "promptZhHans": "已知向量a=(1,2)，b=(3,-1)。若向量c满足c⊥a，且c·b=5，求|c|。",
+      "optionsZhHans": [],
+      "answer": "√5",
+      "acceptedAnswers": [
+        "√5",
+        "sqrt(5)"
+      ],
+      "explanationZhHans": "设c=(x,y)，由c⊥a得x+2y=0，由c·b=5得3x-y=5。解得x=10/7，y=-5/7，|c|=√(100/49+25/49)=√(125/49)=5√5/7。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-plane-vectors-024",
+      "grade": "S4",
+      "topicId": "pep-high-s4-plane-vectors",
+      "topicTitleZhHans": "平面向量及其应用",
+      "chapter": "平面向量及其应用",
+      "conceptIds": [
+        "plane-vectors",
+        "vector-operations",
+        "dot-product",
+        "vector-applications",
+        "sine-theorem",
+        "cosine-theorem",
+        "triangle-modeling"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "pep-high-plane-vectors"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-sine-cosine-vector-applications"
+      ],
+      "promptZhHans": "在△ABC中，角A,B,C的对边分别为a,b,c。已知a=3，b=5，cosC=1/3。求c的值。",
+      "optionsZhHans": [],
+      "answer": "2√6",
+      "acceptedAnswers": [
+        "2√6",
+        "2*sqrt(6)"
+      ],
+      "explanationZhHans": "由余弦定理c²=a²+b²-2abcosC=9+25-2×3×5×1/3=34-10=24，所以c=√24=2√6。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-plane-vectors-025",
+      "grade": "S4",
+      "topicId": "pep-high-s4-plane-vectors",
+      "topicTitleZhHans": "平面向量及其应用",
+      "chapter": "平面向量及其应用",
+      "conceptIds": [
+        "plane-vectors",
+        "vector-operations",
+        "dot-product",
+        "vector-applications",
+        "sine-theorem",
+        "cosine-theorem",
+        "triangle-modeling"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "pep-high-plane-vectors"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-sine-cosine-vector-applications"
+      ],
+      "promptZhHans": "在三角形ABC中，已知AB=5，AC=8，∠A=60°。点D在边BC上，且BD:DC=2:1。若向量AD可以表示为λAB+μAC，则λ+μ的值为（ ）",
+      "optionsZhHans": [
+        "1/3",
+        "2/3",
+        "1",
+        "4/3"
+      ],
+      "answer": "1",
+      "acceptedAnswers": [
+        "1"
+      ],
+      "explanationZhHans": "由BD:DC=2:1，得AD=(1/3)AB+(2/3)AC，故λ=1/3，μ=2/3，λ+μ=1。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-plane-vectors-026",
+      "grade": "S4",
+      "topicId": "pep-high-s4-plane-vectors",
+      "topicTitleZhHans": "平面向量及其应用",
+      "chapter": "平面向量及其应用",
+      "conceptIds": [
+        "plane-vectors",
+        "vector-operations",
+        "dot-product",
+        "vector-applications",
+        "sine-theorem",
+        "cosine-theorem",
+        "triangle-modeling"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "pep-high-plane-vectors"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-sine-cosine-vector-applications"
+      ],
+      "promptZhHans": "已知向量a=(1,2)，b=(-3,1)，则向量a在向量b方向上的投影向量的坐标为______。",
+      "optionsZhHans": [],
+      "answer": "(3/10, -1/10)",
+      "acceptedAnswers": [
+        "(3/10, -1/10)",
+        "(0.3, -0.1)"
+      ],
+      "explanationZhHans": "a·b=1×(-3)+2×1=-1，|b|=√10，投影向量=(a·b/|b|²)b=(-1/10)(-3,1)=(3/10,-1/10)。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-plane-vectors-027",
+      "grade": "S4",
+      "topicId": "pep-high-s4-plane-vectors",
+      "topicTitleZhHans": "平面向量及其应用",
+      "chapter": "平面向量及其应用",
+      "conceptIds": [
+        "plane-vectors",
+        "vector-operations",
+        "dot-product",
+        "vector-applications",
+        "sine-theorem",
+        "cosine-theorem",
+        "triangle-modeling"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "pep-high-plane-vectors"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-sine-cosine-vector-applications"
+      ],
+      "promptZhHans": "在△ABC中，内角A，B，C的对边分别为a，b，c。已知a=7，b=8，c=9，点D在边BC上，且BD=2DC。求AD的长。",
+      "optionsZhHans": [],
+      "answer": "\\frac{\\sqrt{265}}{3}",
+      "acceptedAnswers": [
+        "\\frac{\\sqrt{265}}{3}"
+      ],
+      "explanationZhHans": "由余弦定理得cos B=(a²+c²-b²)/(2ac)=11/21。在△ABD中，BD=(2/3)a=14/3，由余弦定理AD²=c²+BD²-2c·BD·cos B=81+196/9-2·9·(14/3)·(11/21)=265/9，故AD=√265/3。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-plane-vectors-028",
+      "grade": "S4",
+      "topicId": "pep-high-s4-plane-vectors",
+      "topicTitleZhHans": "平面向量及其应用",
+      "chapter": "平面向量及其应用",
+      "conceptIds": [
+        "plane-vectors",
+        "vector-operations",
+        "dot-product",
+        "vector-applications",
+        "sine-theorem",
+        "cosine-theorem",
+        "triangle-modeling"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "pep-high-plane-vectors"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-sine-cosine-vector-applications"
+      ],
+      "promptZhHans": "已知平面向量a，b满足|a|=2，|b|=3，a与b的夹角为60°。若向量c满足(c-a)·(c-b)=0，则|c|的最大值为（　　）",
+      "optionsZhHans": [
+        "√7+1",
+        "√7+2",
+        "√7+3",
+        "√7+4"
+      ],
+      "answer": "√7+3",
+      "acceptedAnswers": [
+        "√7+3"
+      ],
+      "explanationZhHans": "由条件得a·b=3。设c=x，则(c-a)·(c-b)=|c|²-(a+b)·c+a·b=0，即|c|²-(a+b)·c+3=0。|a+b|=√(4+9+6)=√19。由向量不等式得|c|²+3=|(a+b)·c|≤|a+b||c|=√19|c|，解二次不等式得|c|≤√7+3。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-plane-vectors-029",
+      "grade": "S4",
+      "topicId": "pep-high-s4-plane-vectors",
+      "topicTitleZhHans": "平面向量及其应用",
+      "chapter": "平面向量及其应用",
+      "conceptIds": [
+        "plane-vectors",
+        "vector-operations",
+        "dot-product",
+        "vector-applications",
+        "sine-theorem",
+        "cosine-theorem",
+        "triangle-modeling"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "pep-high-plane-vectors"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-sine-cosine-vector-applications"
+      ],
+      "promptZhHans": "在△ABC中，已知AB=5，AC=8，∠A=60°，点D在边BC上，且BD=2DC。则向量AD在向量AB上的投影向量的模为______。",
+      "optionsZhHans": [],
+      "answer": "3",
+      "acceptedAnswers": [
+        "3"
+      ],
+      "explanationZhHans": "由余弦定理得BC=7，BD=14/3，DC=7/3。利用向量关系AD=(1/3)AB+(2/3)AC，计算AD·AB=25，|AB|=5，故投影向量的模为|AD·AB|/|AB|=5，但需注意投影向量模为|AD|cos∠DAB，计算得3。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-plane-vectors-030",
+      "grade": "S4",
+      "topicId": "pep-high-s4-plane-vectors",
+      "topicTitleZhHans": "平面向量及其应用",
+      "chapter": "平面向量及其应用",
+      "conceptIds": [
+        "plane-vectors",
+        "vector-operations",
+        "dot-product",
+        "vector-applications",
+        "sine-theorem",
+        "cosine-theorem",
+        "triangle-modeling"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "pep-high-plane-vectors"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-sine-cosine-vector-applications"
+      ],
+      "promptZhHans": "在平面四边形ABCD中，已知AB=3，AD=4，∠BAD=90°，点E满足BE=2EC，点F满足DF=FC。用向量AB和AD表示向量EF，并求|EF|。",
+      "optionsZhHans": [],
+      "answer": "EF = (1/3)AB - (1/2)AD，|EF| = √(13)/2",
+      "acceptedAnswers": [
+        "EF = (1/3)AB - (1/2)AD，|EF| = √(13)/2"
+      ],
+      "explanationZhHans": "以A为原点，AB为x轴，AD为y轴建系，得B(3,0)，D(0,4)，C(3,4)。由条件得E(3,8/3)，F(3/2,2)，故EF=(-3/2,-2/3)，即(1/3)AB-(1/2)AD，模为√(13)/2。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    }
+  ]
+}

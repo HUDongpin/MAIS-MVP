@@ -1,0 +1,153 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-092",
+  "startedAt": "2026-05-28T01:22:23.685Z",
+  "completedAt": "2026-05-28T01:22:47.233Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-229",
+    "bnu-high-ds-v1-s5-230",
+    "bnu-high-ds-v1-s5-231",
+    "bnu-high-ds-v1-s5-232",
+    "bnu-high-ds-v1-s5-233",
+    "bnu-high-ds-v1-s5-234",
+    "bnu-high-ds-v1-s5-235",
+    "bnu-high-ds-v1-s5-236"
+  ],
+  "usage": {
+    "prompt_tokens": 16318,
+    "completion_tokens": 1556,
+    "total_tokens": 17874,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 15934
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-229",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "ambiguous_mc",
+          "bad_options",
+          "explanation_contradiction",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "Stage A 独立解指出椭圆方程 x²/4+y²/3=1 与点 P(√3,1/2) 不匹配，且由中点条件解得 k=1/2 得直线 x-2y-1=0 与选项 A 一致，但存储答案 A 虽与独立解相同，解析中计算混乱且最终直线 3x+2y-3=0 与选项 A 矛盾，且题目数据存在矛盾（P 不在椭圆上），导致题目不可解，选项无正确对应。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-230",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "圆的方程：(x-5)²+(y-3)²=20，半径：2√5",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "Stage A 独立解求得圆心 (5,3)，半径 2√5，圆方程 (x-5)²+(y-3)²=20。存储答案圆心 (5,1) 半径 4 错误，解析中计算 b=1 但半径算得 4√2 与答案 4 矛盾，且正确圆心应为 (5,3)。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-231",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "3a-4b=0 或 3a+4b-24=0",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction",
+          "accepted_answer_gap"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "Stage A 独立解由点到两对角线距离相等得 |3a-4b|=|3a+4b-24|，化简得 3a-4b=0 或 3a+4b-24=0。存储答案 a-b=0 错误，解析中错误假设符号相反导致漏解。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-232",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "ambiguous_mc",
+          "bad_options",
+          "explanation_contradiction",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "Stage A 独立解指出由弦中点横坐标为 2 及直线过 A(1,0) 得中点 M(2,k)，代入圆方程得 k²=8，k=±2√2，但选项均为区间，无正确选项，题目不可解。存储答案 k≤-1 或 k≥1 错误，解析中计算混乱且与中点条件矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-233",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 (x-4)²+(y-3)²=5 与 Stage A 独立解一致，解析正确，无问题。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-234",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [
+          "explanation_contradiction"
+        ],
+        "severity": "major",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 (3,0) 或 (7,0) 与 Stage A 独立解一致，但解析中计算混乱，出现错误方程 t²-6t+17=0 并多次调整数据，最终未给出正确推导，解析与答案矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-235",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [
+          "explanation_contradiction"
+        ],
+        "severity": "major",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 k=-2 或 1/2 与 Stage A 独立解一致，但解析中计算混乱，得出 k=-3 或 -5/3 等错误值，且最终未给出正确推导，解析与答案矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-236",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 (x-4)²+(y-3)²=5 与 Stage A 独立解一致，解析正确，无问题。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 2,
+      "warn": 0,
+      "fail": 6,
+      "notes": "8 题中 2 题完全通过，6 题失败。失败原因包括：答案错误（230、231）、题目不可解或选项无正确对应（229、232）、解析与答案矛盾（234、235）。严重问题需修正。"
+    }
+  }
+}

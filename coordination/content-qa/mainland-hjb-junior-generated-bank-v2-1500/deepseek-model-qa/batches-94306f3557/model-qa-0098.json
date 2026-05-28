@@ -1,0 +1,113 @@
+{
+  "batchId": "model-qa-0098",
+  "ids": [
+    "hjb-junior-ds-v2-s2-277",
+    "hjb-junior-ds-v2-s2-278",
+    "hjb-junior-ds-v2-s2-279",
+    "hjb-junior-ds-v2-s2-280",
+    "hjb-junior-ds-v2-s2-281",
+    "hjb-junior-ds-v2-s2-282",
+    "hjb-junior-ds-v2-s2-283",
+    "hjb-junior-ds-v2-s2-284"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-277",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "条件④ AB∥CD，AD=BC 不能判定平行四边形，但题目问能判定的条件共有几组，标准答案3组，但条件② ∠A=∠C，∠B=∠D 在四边形中不一定能判定平行四边形（需考虑非凸四边形或凹四边形），沪教版教材中该判定定理通常要求四边形是凸四边形，但题目未明确，存在争议。独立验证后，条件①③正确，条件②有争议，条件④错误，故能判定的可能只有2组，答案应为2组而非3组。",
+      "independentAnswerZhHans": "2组",
+      "answerCheckZhHans": "标准答案为3组，但条件②在一般四边形中不一定成立，故答案可能错误。",
+      "recommendedActionZhHans": "请确认条件②在沪教版教材中的判定定理是否要求四边形为凸四边形，或修改题目明确四边形为凸四边形，或调整答案。",
+      "confidence": "medium"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-278",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析中计算S△DEF=1/4 S△ABC=6，但根据条件BF=1/3 BC，F不是BC中点，△DEF的面积不等于△ABC面积的1/4。正确解法：D、E为中点，DE=1/2 BC，DE∥BC，F到DE的距离等于点B到DE距离？解析错误。实际△DEF面积应为S△ABC - S△ADF - S△BDE - S△CEF，计算得S△DEF=4，而非6。",
+      "independentAnswerZhHans": "4",
+      "answerCheckZhHans": "标准答案为6，但独立计算得4，解析过程有误。",
+      "recommendedActionZhHans": "请重新计算△DEF的面积，或修改题目条件使答案合理。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-279",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析中直线AE方程错误：A(6,0)，E(0,4)，斜率应为(4-0)/(0-6) = -2/3，截距4，方程y=-2/3 x+4正确；直线OB：B(6,8)，O(0,0)，斜率8/6=4/3，方程y=4/3 x正确。联立得-2/3 x+4=4/3 x => 4=2x => x=2，y=8/3。但标准答案为(18/7, 24/7)，与解析计算不符。独立计算得F(2, 8/3)。",
+      "independentAnswerZhHans": "(2, 8/3)",
+      "answerCheckZhHans": "标准答案为(18/7, 24/7)，但解析过程得出(2, 8/3)，答案与解析矛盾。",
+      "recommendedActionZhHans": "请检查答案和解析，修正为一致的正确结果。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-280",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "对角线相等",
+      "answerCheckZhHans": "标准答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-281",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "矩形",
+      "answerCheckZhHans": "标准答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-282",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "0",
+      "answerCheckZhHans": "标准答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-283",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "multiple-correct-options"
+      ],
+      "issueDetailsZhHans": "由AB∥CD，AD∥BC得平行四边形，又AC⊥BD，对角线互相垂直的平行四边形是菱形，故B正确。但D选项“四边形ABCD是平行四边形”也正确，且题目问“一定正确的是”，菱形是特殊的平行四边形，但D选项也是正确的结论。通常选择题只有一个正确选项，但此处B和D都正确，存在多个正确选项。",
+      "independentAnswerZhHans": "四边形ABCD是菱形 和 四边形ABCD是平行四边形 均正确",
+      "answerCheckZhHans": "标准答案为B，但D也正确，题目设计不当。",
+      "recommendedActionZhHans": "请修改选项，使只有一个正确选项，或调整题目要求。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-284",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "10",
+      "answerCheckZhHans": "标准答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

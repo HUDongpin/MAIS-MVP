@@ -1,0 +1,631 @@
+{
+  "batchId": "batch-149",
+  "questions": [
+    {
+      "id": "bnu-junior-ds-v1-s3-481",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "bnu-junior-s3-lower-statistics-probability",
+      "unitTitle": "统计与概率",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "statistics-probability",
+        "data-analysis",
+        "probability",
+        "frequency",
+        "statistical-measures",
+        "统计",
+        "概率"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "数据整理分析",
+        "平均数中位数众数",
+        "方差波动",
+        "频率估计概率",
+        "随机事件判断"
+      ],
+      "misconceptionTags": [
+        "average used without checking distribution",
+        "frequency treated as exact probability",
+        "sample conclusion overgeneralized"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s3-lower-statistics-probability"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-lower-assessment-statistics-probability-unit",
+        "bnu-junior-s3-lower-assessment-stage-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校随机抽取九年级50名学生进行一分钟跳绳测试，记录数据如下：\n跳绳次数（次/分钟）：110, 115, 120, 125, 130, 135, 140, 145, 150, 155, 160, 165, 170, 175, 180\n对应人数：1, 2, 3, 5, 7, 8, 6, 5, 4, 3, 2, 2, 1, 0, 1\n根据以上数据，下列说法正确的是：",
+      "optionsZhHans": [
+        "这组数据的众数是135次",
+        "这组数据的中位数是130次",
+        "这组数据的平均数是140次",
+        "这组数据的方差为0"
+      ],
+      "answer": "这组数据的众数是135次",
+      "acceptedAnswers": [
+        "这组数据的众数是135次"
+      ],
+      "explanationZhHans": "总人数50，众数是出现次数最多的数据，135次出现8次，最多，故A正确。中位数是第25、26个数据的平均数，均为130次，中位数为130，B错误。计算平均数得(110×1+115×2+…+180×1)/50=134.6，C错误。数据有波动，方差不为0，D错误。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-482",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "bnu-junior-s3-lower-statistics-probability",
+      "unitTitle": "统计与概率",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "statistics-probability",
+        "data-analysis",
+        "probability",
+        "frequency",
+        "statistical-measures",
+        "统计",
+        "概率"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "数据整理分析",
+        "平均数中位数众数",
+        "方差波动",
+        "频率估计概率",
+        "随机事件判断"
+      ],
+      "misconceptionTags": [
+        "average used without checking distribution",
+        "frequency treated as exact probability",
+        "sample conclusion overgeneralized"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s3-lower-statistics-probability"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-lower-assessment-statistics-probability-unit",
+        "bnu-junior-s3-lower-assessment-stage-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校九年级（1）班20名学生参加一分钟跳绳测试，成绩（单位：次）如下：\n158, 162, 165, 168, 170, 172, 175, 175, 178, 180, 182, 185, 185, 185, 188, 190, 192, 195, 198, 200\n（1）求这组数据的平均数、中位数和众数。\n（2）若规定175次及以上为优秀，请估计该班学生跳绳的优秀率。\n（3）根据以上数据，你认为用平均数、中位数、众数中的哪一个来代表该班学生的跳绳水平更合适？请说明理由。",
+      "optionsZhHans": [],
+      "answer": "（1）平均数=180.5次，中位数=181次，众数=185次；（2）优秀率=60%；（3）用中位数代表更合适，理由：数据中存在极端值200和158，平均数受极端值影响较大，而中位数不受极端值影响，能更好地反映这组数据的集中趋势。",
+      "acceptedAnswers": [
+        "（1）平均数=180.5次，中位数=181次，众数=185次；（2）优秀率=60%；（3）用中位数代表更合适，理由：数据中存在极端值200和158，平均数受极端值影响较大，而中位数不受极端值影响，能更好地反映这组数据的集中趋势。"
+      ],
+      "explanationZhHans": "（1）平均数=(158+162+...+200)/20=180.5；中位数：排序后第10、11位为180和182，平均为181；众数：185出现3次最多。（2）优秀人数：175及以上共12人，优秀率=12/20=60%。（3）数据有极端值，中位数更稳健。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-483",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "bnu-junior-s3-lower-statistics-probability",
+      "unitTitle": "统计与概率",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "statistics-probability",
+        "data-analysis",
+        "probability",
+        "frequency",
+        "statistical-measures",
+        "统计",
+        "概率"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "数据整理分析",
+        "平均数中位数众数",
+        "方差波动",
+        "频率估计概率",
+        "随机事件判断"
+      ],
+      "misconceptionTags": [
+        "average used without checking distribution",
+        "frequency treated as exact probability",
+        "sample conclusion overgeneralized"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s3-lower-statistics-probability"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-lower-assessment-statistics-probability-unit",
+        "bnu-junior-s3-lower-assessment-stage-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校九年级共有300名学生，为了解学生每天完成家庭作业所用的时间，学校随机抽取了30名学生进行调查，收集到的数据（单位：分钟）如下：\n45, 50, 55, 60, 60, 65, 70, 70, 75, 75, 80, 80, 80, 85, 85, 90, 90, 90, 95, 95, 100, 100, 105, 110, 115, 120, 125, 130, 140, 150\n根据以上数据，下列说法正确的是：",
+      "optionsZhHans": [
+        "这30名学生完成作业时间的平均数是85分钟",
+        "这30名学生完成作业时间的中位数是85分钟",
+        "这30名学生完成作业时间的众数是80分钟",
+        "可以估计该校九年级学生完成作业时间的平均数一定是85分钟"
+      ],
+      "answer": "这30名学生完成作业时间的中位数是85分钟",
+      "acceptedAnswers": [
+        "这30名学生完成作业时间的中位数是85分钟"
+      ],
+      "explanationZhHans": "数据共30个，已排序。中位数为第15、16个数的平均数：第15个数是85，第16个数是85，中位数为85分钟。平均数为(45+50+55+60+60+65+70+70+75+75+80+80+80+85+85+90+90+90+95+95+100+100+105+110+115+120+125+130+140+150)÷30=87分钟，不是85。众数是80和90，都出现3次，不是唯一80。样本平均数不能作为总体平均数的确定值，只能估计。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-484",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "bnu-junior-s3-lower-statistics-probability",
+      "unitTitle": "统计与概率",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "statistics-probability",
+        "data-analysis",
+        "probability",
+        "frequency",
+        "statistical-measures",
+        "统计",
+        "概率"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "数据整理分析",
+        "平均数中位数众数",
+        "方差波动",
+        "频率估计概率",
+        "随机事件判断"
+      ],
+      "misconceptionTags": [
+        "average used without checking distribution",
+        "frequency treated as exact probability",
+        "sample conclusion overgeneralized"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s3-lower-statistics-probability"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-lower-assessment-statistics-probability-unit",
+        "bnu-junior-s3-lower-assessment-stage-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校九年级（1）班40名学生参加了一次数学测验，成绩（单位：分）整理如下：\n60, 65, 70, 72, 75, 75, 78, 80, 80, 80, 82, 82, 85, 85, 85, 85, 88, 88, 90, 90, 90, 90, 90, 92, 92, 92, 95, 95, 95, 95, 95, 98, 98, 98, 100, 100, 100, 100, 100, 100。\n（1）计算这组数据的平均数、中位数和众数。\n（2）小明说：“因为平均数是86.5分，所以大部分同学的成绩在86.5分左右。”你同意小明的说法吗？请结合（1）中计算出的统计量说明理由。",
+      "optionsZhHans": [],
+      "answer": "（1）平均数86.5分，中位数90分，众数100分。\n（2）不同意。理由：平均数86.5分受低分影响，低于中位数90分和众数100分，数据分布不均衡，大部分同学的成绩集中在高分段，并非在86.5分左右。",
+      "acceptedAnswers": [
+        "（1）平均数86.5分，中位数90分，众数100分。\n（2）不同意。理由：平均数86.5分受低分影响，低于中位数90分和众数100分，数据分布不均衡，大部分同学的成绩集中在高分段，并非在86.5分左右。"
+      ],
+      "explanationZhHans": "（1）平均数=总分/40=3460/40=86.5；中位数为第20、21个数的均值，排序后第20、21均为90，故中位数90；100出现6次最多，众数100。（2）平均数受极端低分拉低，中位数和众数更能反映集中趋势，多数成绩在90分及以上，故不同意。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-485",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "bnu-junior-s3-lower-statistics-probability",
+      "unitTitle": "统计与概率",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "statistics-probability",
+        "data-analysis",
+        "probability",
+        "frequency",
+        "statistical-measures",
+        "统计",
+        "概率"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "数据整理分析",
+        "平均数中位数众数",
+        "方差波动",
+        "频率估计概率",
+        "随机事件判断"
+      ],
+      "misconceptionTags": [
+        "average used without checking distribution",
+        "frequency treated as exact probability",
+        "sample conclusion overgeneralized"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s3-lower-statistics-probability"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-lower-assessment-statistics-probability-unit",
+        "bnu-junior-s3-lower-assessment-stage-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校九年级学生进行投篮测试，每人投10次，按投中次数统计如下：投中3次有5人，投中4次有10人，投中5次有15人，投中6次有12人，投中7次有8人。随机抽取一名学生，他投中次数超过5次的概率最接近下列哪个数值？",
+      "optionsZhHans": [
+        "0.20",
+        "0.30",
+        "0.40",
+        "0.50"
+      ],
+      "answer": "0.40",
+      "acceptedAnswers": [
+        "0.40"
+      ],
+      "explanationZhHans": "总人数为5+10+15+12+8=50人。投中次数超过5次即投中6次或7次，共12+8=20人。因此概率为20/50=0.40。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-486",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "bnu-junior-s3-lower-statistics-probability",
+      "unitTitle": "统计与概率",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "statistics-probability",
+        "data-analysis",
+        "probability",
+        "frequency",
+        "statistical-measures",
+        "统计",
+        "概率"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "数据整理分析",
+        "平均数中位数众数",
+        "方差波动",
+        "频率估计概率",
+        "随机事件判断"
+      ],
+      "misconceptionTags": [
+        "average used without checking distribution",
+        "frequency treated as exact probability",
+        "sample conclusion overgeneralized"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s3-lower-statistics-probability"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-lower-assessment-statistics-probability-unit",
+        "bnu-junior-s3-lower-assessment-stage-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校九年级（1）班20名学生参加环保知识竞赛，成绩（单位：分）如下：\n85, 90, 78, 92, 88, 95, 82, 80, 86, 91, 87, 83, 79, 84, 89, 93, 77, 81, 94, 76\n（1）计算这组数据的平均数和中位数。\n（2）小明说：“因为平均数是85.5分，所以有一半同学的成绩低于85.5分。”小明的说法正确吗？请结合中位数说明理由。",
+      "optionsZhHans": [],
+      "answer": "（1）平均数为85.5分，中位数为85.5分。\n（2）小明的说法不正确。因为中位数是85.5分，表示有一半同学的成绩不高于85.5分，而不是低于85.5分。",
+      "acceptedAnswers": [
+        "（1）平均数为85.5分，中位数为85.5分。\n（2）小明的说法不正确。因为中位数是85.5分，表示有一半同学的成绩不高于85.5分，而不是低于85.5分。"
+      ],
+      "explanationZhHans": "（1）平均数：总和1710÷20=85.5；排序后第10、11位均为85和86，中位数=(85+86)/2=85.5。\n（2）中位数85.5分意味着至少一半数据≤85.5，不能得出“低于”的结论，因此说法错误。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-487",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "bnu-junior-s3-lower-statistics-probability",
+      "unitTitle": "统计与概率",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "statistics-probability",
+        "data-analysis",
+        "probability",
+        "frequency",
+        "statistical-measures",
+        "统计",
+        "概率"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "数据整理分析",
+        "平均数中位数众数",
+        "方差波动",
+        "频率估计概率",
+        "随机事件判断"
+      ],
+      "misconceptionTags": [
+        "average used without checking distribution",
+        "frequency treated as exact probability",
+        "sample conclusion overgeneralized"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s3-lower-statistics-probability"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-lower-assessment-statistics-probability-unit",
+        "bnu-junior-s3-lower-assessment-stage-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校为了解九年级学生一周课外阅读时长，随机抽取了40名学生进行调查，整理得到如下数据（单位：小时）：\n\n时长分组  频数\n0～2       6\n2～4       10\n4～6       12\n6～8       8\n8～10      4\n\n根据以上数据，下列说法正确的是",
+      "optionsZhHans": [
+        "A. 这组数据的平均数为5小时",
+        "B. 这组数据的中位数落在4～6小时组内",
+        "C. 这组数据的众数为12",
+        "D. 由样本估计该校九年级学生一周课外阅读时长超过6小时的比例为30%"
+      ],
+      "answer": "B. 这组数据的中位数落在4～6小时组内",
+      "acceptedAnswers": [
+        "B. 这组数据的中位数落在4～6小时组内"
+      ],
+      "explanationZhHans": "总人数40，中位数为第20、21个数据的平均数。累计频数：0～2组6人，2～4组累计16人，4～6组累计28人，故第20、21个数据均在4～6组，中位数落在该组。平均数的计算需用组中值，约为4.8小时，故A错。众数为频数最高的组4～6，不是12，C错。超过6小时的人数为8+4=12，样本比例为30%，但用样本估计总体时不能直接说“为30%”，只能说“约为30%”或“估计为30%”，D表述不严谨。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-488",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "bnu-junior-s3-lower-statistics-probability",
+      "unitTitle": "统计与概率",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "statistics-probability",
+        "data-analysis",
+        "probability",
+        "frequency",
+        "statistical-measures",
+        "统计",
+        "概率"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "数据整理分析",
+        "平均数中位数众数",
+        "方差波动",
+        "频率估计概率",
+        "随机事件判断"
+      ],
+      "misconceptionTags": [
+        "average used without checking distribution",
+        "frequency treated as exact probability",
+        "sample conclusion overgeneralized"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s3-lower-statistics-probability"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-lower-assessment-statistics-probability-unit",
+        "bnu-junior-s3-lower-assessment-stage-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校九年级（1）班40名学生参加了一次数学测验，成绩（单位：分）如下：\n85, 92, 78, 88, 95, 82, 76, 89, 91, 84, 77, 93, 86, 80, 87, 94, 81, 79, 90, 83, 88, 92, 85, 76, 95, 82, 78, 89, 91, 84, 77, 93, 86, 80, 87, 94, 81, 79, 90, 83\n（1）计算这组数据的平均数、中位数和众数。\n（2）根据以上统计量，你认为哪个统计量能较好地反映该班学生的数学水平？请说明理由。",
+      "optionsZhHans": [],
+      "answer": "（1）平均数：85.5分；中位数：85.5分；众数：76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95（每个数据均出现2次，均为众数）\n（2）平均数或中位数均可，理由合理即可。例如：平均数能反映整体平均水平；中位数不受极端值影响，能代表中间水平。",
+      "acceptedAnswers": [
+        "（1）平均数：85.5分；中位数：85.5分；众数：76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95（每个数据均出现2次，均为众数）\n（2）平均数或中位数均可，理由合理即可。例如：平均数能反映整体平均水平；中位数不受极端值影响，能代表中间水平。"
+      ],
+      "explanationZhHans": "（1）平均数=总和÷40=3420÷40=85.5；排序后第20、21位均为85和86，中位数=(85+86)÷2=85.5；每个分数出现2次，故众数为所有分数。\n（2）数据分布对称，平均数与中位数相等，均可代表集中趋势；众数因每个值频数相同，参考价值低。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-489",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "bnu-junior-s3-lower-statistics-probability",
+      "unitTitle": "统计与概率",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "statistics-probability",
+        "data-analysis",
+        "probability",
+        "frequency",
+        "statistical-measures",
+        "统计",
+        "概率"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "数据整理分析",
+        "平均数中位数众数",
+        "方差波动",
+        "频率估计概率",
+        "随机事件判断"
+      ],
+      "misconceptionTags": [
+        "average used without checking distribution",
+        "frequency treated as exact probability",
+        "sample conclusion overgeneralized"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s3-lower-statistics-probability"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-lower-assessment-statistics-probability-unit",
+        "bnu-junior-s3-lower-assessment-stage-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校九年级进行了一次数学测验，随机抽取了甲、乙两个班级各20名学生的成绩（满分100分），整理数据如下：\n甲班：平均分85，中位数86，众数88，方差36；\n乙班：平均分85，中位数85，众数82，方差64。\n根据以上信息，下列推断最合理的是哪一项？",
+      "optionsZhHans": [
+        "甲班学生成绩的波动比乙班大",
+        "乙班学生成绩的波动比甲班大",
+        "甲班有一半学生的成绩低于86分",
+        "乙班有一半学生的成绩低于85分"
+      ],
+      "answer": "乙班学生成绩的波动比甲班大",
+      "acceptedAnswers": [
+        "乙班学生成绩的波动比甲班大"
+      ],
+      "explanationZhHans": "方差衡量数据波动大小，甲班方差36小于乙班方差64，故乙班成绩波动更大。中位数86表示甲班至少一半学生成绩不低于86分，并非一半低于86分；乙班中位数85，至少一半学生成绩不低于85分。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-490",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "bnu-junior-s3-lower-statistics-probability",
+      "unitTitle": "统计与概率",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "statistics-probability",
+        "data-analysis",
+        "probability",
+        "frequency",
+        "statistical-measures",
+        "统计",
+        "概率"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "数据整理分析",
+        "平均数中位数众数",
+        "方差波动",
+        "频率估计概率",
+        "随机事件判断"
+      ],
+      "misconceptionTags": [
+        "average used without checking distribution",
+        "frequency treated as exact probability",
+        "sample conclusion overgeneralized"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s3-lower-statistics-probability"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-lower-assessment-statistics-probability-unit",
+        "bnu-junior-s3-lower-assessment-stage-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校九年级进行一次数学测验，随机抽取了20名学生的成绩（满分100分），数据如下：\n78, 82, 85, 90, 92, 75, 88, 95, 80, 86, 84, 79, 91, 87, 83, 76, 89, 93, 81, 77\n（1）计算这20名学生成绩的平均数和中位数。\n（2）根据计算结果，你认为用哪个统计量更能反映这组学生的一般水平？简要说明理由。",
+      "optionsZhHans": [],
+      "answer": "（1）平均数为84.5，中位数为84.5；（2）平均数和中位数相等，都能较好地反映一般水平，但中位数不受极端值影响，若数据有极端值则中位数更合适。",
+      "acceptedAnswers": [
+        "（1）平均数为84.5，中位数为84.5；（2）平均数和中位数相等，都能较好地反映一般水平，但中位数不受极端值影响，若数据有极端值则中位数更合适。",
+        "（1）平均数为84.5，中位数为84.5；（2）平均数和中位数相等，都能反映一般水平，中位数更稳健。"
+      ],
+      "explanationZhHans": "平均数计算：总和1690除以20得84.5；中位数：排序后第10、11个数均为84和85，平均为84.5。两者相等，但中位数不受极端值影响，故在数据对称时均可，有偏时中位数更优。"
+    }
+  ]
+}

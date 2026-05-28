@@ -1,0 +1,284 @@
+{
+  "batchId": "batch-001",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p1-001",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "hjb-primary-p1-upper-school-math-habits",
+      "unitTitle": "我是小学生与数学学习习惯",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-school-readiness",
+        "math-talk-listening",
+        "classroom-routines",
+        "数学学习习惯"
+      ],
+      "competencyTags": [
+        "学习习惯",
+        "数学表达",
+        "合作交流"
+      ],
+      "skillTags": [
+        "听说规则",
+        "观察描述",
+        "游戏规则表达",
+        "课堂数学语言"
+      ],
+      "misconceptionTags": [
+        "answering without listening",
+        "counting words without quantity meaning",
+        "rule-following separated from math communication"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p1-upper-school-math-habits"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-upper-assessment-school-readiness",
+        "hjb-primary-p1-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "数学课上，老师说：“请每个小朋友从盒子里拿出5颗糖果，然后数一数，告诉同桌你拿了几颗。”下面哪个做法是正确的？",
+      "optionsZhHans": [
+        "A. 不数，直接说“我拿了5颗”",
+        "B. 一边拿一边大声唱歌",
+        "C. 先拿出糖果，一颗一颗数，然后告诉同桌“我拿了5颗”",
+        "D. 拿出糖果后，直接放回盒子"
+      ],
+      "answer": "C. 先拿出糖果，一颗一颗数，然后告诉同桌“我拿了5颗”",
+      "acceptedAnswers": [
+        "C. 先拿出糖果，一颗一颗数，然后告诉同桌“我拿了5颗”"
+      ],
+      "explanationZhHans": "听清老师要求，先拿再数，最后说出数量，这样才是认真完成数学任务。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-002",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "hjb-primary-p1-upper-school-math-habits",
+      "unitTitle": "我是小学生与数学学习习惯",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-school-readiness",
+        "math-talk-listening",
+        "classroom-routines",
+        "数学学习习惯"
+      ],
+      "competencyTags": [
+        "学习习惯",
+        "数学表达",
+        "合作交流"
+      ],
+      "skillTags": [
+        "听说规则",
+        "观察描述",
+        "游戏规则表达",
+        "课堂数学语言"
+      ],
+      "misconceptionTags": [
+        "answering without listening",
+        "counting words without quantity meaning",
+        "rule-following separated from math communication"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p1-upper-school-math-habits"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-upper-assessment-school-readiness",
+        "hjb-primary-p1-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "老师拍手，第一次拍3下，第二次拍5下。请你仔细听，然后回答：老师一共拍了______下。",
+      "optionsZhHans": [],
+      "answer": "8",
+      "acceptedAnswers": [
+        "8",
+        "八"
+      ],
+      "explanationZhHans": "第一次3下，第二次5下，合起来是8下。认真听并记住次数，再合起来。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-003",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "hjb-primary-p1-upper-school-math-habits",
+      "unitTitle": "我是小学生与数学学习习惯",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-school-readiness",
+        "math-talk-listening",
+        "classroom-routines",
+        "数学学习习惯"
+      ],
+      "competencyTags": [
+        "学习习惯",
+        "数学表达",
+        "合作交流"
+      ],
+      "skillTags": [
+        "听说规则",
+        "观察描述",
+        "游戏规则表达",
+        "课堂数学语言"
+      ],
+      "misconceptionTags": [
+        "answering without listening",
+        "counting words without quantity meaning",
+        "rule-following separated from math communication"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p1-upper-school-math-habits"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-upper-assessment-school-readiness",
+        "hjb-primary-p1-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明在数学游戏中说：“我看到的积木有红色、蓝色、黄色，红色积木最多。”请你写出小明用了哪些数学语言？",
+      "optionsZhHans": [],
+      "answer": "颜色、最多",
+      "acceptedAnswers": [
+        "颜色、最多",
+        "颜色和最多",
+        "红色、蓝色、黄色、最多"
+      ],
+      "explanationZhHans": "小明说了颜色（红、蓝、黄）和比较词“最多”，这些都是数学语言。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-004",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "hjb-primary-p1-upper-school-math-habits",
+      "unitTitle": "我是小学生与数学学习习惯",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-school-readiness",
+        "math-talk-listening",
+        "classroom-routines",
+        "数学学习习惯"
+      ],
+      "competencyTags": [
+        "学习习惯",
+        "数学表达",
+        "合作交流"
+      ],
+      "skillTags": [
+        "听说规则",
+        "观察描述",
+        "游戏规则表达",
+        "课堂数学语言"
+      ],
+      "misconceptionTags": [
+        "answering without listening",
+        "counting words without quantity meaning",
+        "rule-following separated from math communication"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p1-upper-school-math-habits"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-upper-assessment-school-readiness",
+        "hjb-primary-p1-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "老师让小朋友观察教室里的物品，然后说一个数学发现。下面哪个小朋友的发现最像数学发现？",
+      "optionsZhHans": [
+        "A. 小丽说：“教室里有桌子。”",
+        "B. 小刚说：“教室里有3扇窗户，比门多。”",
+        "C. 小芳说：“教室很漂亮。”",
+        "D. 小军说：“我喜欢教室。”"
+      ],
+      "answer": "B. 小刚说：“教室里有3扇窗户，比门多。”",
+      "acceptedAnswers": [
+        "B. 小刚说：“教室里有3扇窗户，比门多。”"
+      ],
+      "explanationZhHans": "小刚说出了数量3，还比较了窗户和门的多少，这是数学发现。其他小朋友没有用到数学语言。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-005",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "hjb-primary-p1-upper-school-math-habits",
+      "unitTitle": "我是小学生与数学学习习惯",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-school-readiness",
+        "math-talk-listening",
+        "classroom-routines",
+        "数学学习习惯"
+      ],
+      "competencyTags": [
+        "学习习惯",
+        "数学表达",
+        "合作交流"
+      ],
+      "skillTags": [
+        "听说规则",
+        "观察描述",
+        "游戏规则表达",
+        "课堂数学语言"
+      ],
+      "misconceptionTags": [
+        "answering without listening",
+        "counting words without quantity meaning",
+        "rule-following separated from math communication"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p1-upper-school-math-habits"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-upper-assessment-school-readiness",
+        "hjb-primary-p1-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "游戏规则：老师说“请你拿出比3多2的积木块数”。你应该拿出______块积木。",
+      "optionsZhHans": [],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5",
+        "五"
+      ],
+      "explanationZhHans": "比3多2，就是3再数2个，3、4、5，所以是5块。"
+    }
+  ]
+}

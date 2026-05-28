@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-031",
+  "startedAt": "2026-05-28T00:40:18.209Z",
+  "completedAt": "2026-05-28T00:40:36.223Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-241",
+    "bnu-high-ds-v1-s4-242",
+    "bnu-high-ds-v1-s4-243",
+    "bnu-high-ds-v1-s4-244",
+    "bnu-high-ds-v1-s4-245",
+    "bnu-high-ds-v1-s4-246",
+    "bnu-high-ds-v1-s4-247",
+    "bnu-high-ds-v1-s4-248"
+  ],
+  "usage": {
+    "prompt_tokens": 9612,
+    "completion_tokens": 1030,
+    "total_tokens": 10642,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9228
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-241",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "13/28",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "总共有C(8,2)=28种等可能摸法，颜色相同包括两红C(5,2)=10种或两蓝C(3,2)=3种，共13种，概率13/28。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-242",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "{(正,正), (正,反), (反,正), (反,反)}",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "两枚硬币有序，样本空间包含4个等可能结果。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-243",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "0.80",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "10场罚球命中总次数80，频率80/100=0.8，精确到0.01为0.80。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-244",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "1/2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "从1,2,3,4中选两个不同数字组成两位数，共A(4,2)=12个等可能结果。偶数的个位为2或4，个位2时十位有3种，个位4时十位有3种，共6个，概率6/12=1/2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-245",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "0.7",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "互斥事件和的概率为概率之和，0.3+0.4=0.7。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-246",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "1/2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "抛三次硬币共8种等可能结果，至少两次正面包括两正一反3种和三正1种，共4种，概率4/8=1/2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-247",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "1/2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "密码被译出即至少一人译出，概率为1-(1-1/3)(1-1/4)=1-(2/3)*(3/4)=1-1/2=1/2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-248",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "17/32",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "有放回取球，颜色相同包括两次白(5/8)*(5/8)=25/64或两次黑(3/8)*(3/8)=9/64，和为34/64=17/32。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，符合北师大版高中概率章节要求，无数学错误或歧义。"
+    }
+  }
+}

@@ -1,0 +1,181 @@
+{
+  "startedAt": "2026-05-26T05:53:59.157Z",
+  "completedAt": "2026-05-26T05:54:16.598Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "usage": {
+    "prompt_tokens": 2875,
+    "completion_tokens": 1389,
+    "total_tokens": 4264,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 2875
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "questionId": "pep-primary-p2-u-mc-021",
+        "solvableStatus": "pass",
+        "independentAnswer": "63",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "7×9=63，选项A正确。"
+      },
+      {
+        "questionId": "pep-primary-p2-u-mc-022",
+        "solvableStatus": "pass",
+        "independentAnswer": "32",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "8×4=32，选项D正确。"
+      },
+      {
+        "questionId": "pep-primary-p2-u-mc-023",
+        "solvableStatus": "pass",
+        "independentAnswer": "63",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "9×7=63，选项C正确。"
+      },
+      {
+        "questionId": "pep-primary-p2-u-mc-024",
+        "solvableStatus": "pass",
+        "independentAnswer": "4",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "2×2=4，选项B正确。"
+      },
+      {
+        "questionId": "pep-primary-p2-u-mc-025",
+        "solvableStatus": "pass",
+        "independentAnswer": "15",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "3×5=15，选项A正确。"
+      },
+      {
+        "questionId": "pep-primary-p2-u-mc-026",
+        "solvableStatus": "pass",
+        "independentAnswer": "32",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "4×8=32，选项D正确。"
+      },
+      {
+        "questionId": "pep-primary-p2-u-mc-027",
+        "solvableStatus": "pass",
+        "independentAnswer": "15",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "5×3=15，选项C正确。"
+      },
+      {
+        "questionId": "pep-primary-p2-u-mc-028",
+        "solvableStatus": "pass",
+        "independentAnswer": "36",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "6×6=36，选项B正确。"
+      },
+      {
+        "questionId": "pep-primary-p2-u-mc-029",
+        "solvableStatus": "pass",
+        "independentAnswer": "63",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "7×9=63，选项A正确。"
+      },
+      {
+        "questionId": "pep-primary-p2-u-mc-030",
+        "solvableStatus": "pass",
+        "independentAnswer": "32",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "8×4=32，选项D正确。"
+      },
+      {
+        "questionId": "pep-primary-p2-u-mc-031",
+        "solvableStatus": "pass",
+        "independentAnswer": "63",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "9×7=63，选项C正确。"
+      },
+      {
+        "questionId": "pep-primary-p2-u-mc-032",
+        "solvableStatus": "pass",
+        "independentAnswer": "4",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "2×2=4，选项B正确。"
+      },
+      {
+        "questionId": "pep-primary-p2-u-mc-033",
+        "solvableStatus": "pass",
+        "independentAnswer": "15",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "3×5=15，选项A正确。"
+      },
+      {
+        "questionId": "pep-primary-p2-u-mc-034",
+        "solvableStatus": "pass",
+        "independentAnswer": "32",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "4×8=32，选项D正确。"
+      },
+      {
+        "questionId": "pep-primary-p2-u-mc-035",
+        "solvableStatus": "pass",
+        "independentAnswer": "15",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "5×3=15，选项C正确。"
+      },
+      {
+        "questionId": "pep-primary-p2-u-mc-036",
+        "solvableStatus": "pass",
+        "independentAnswer": "36",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "6×6=36，选项B正确。"
+      },
+      {
+        "questionId": "pep-primary-p2-u-mc-037",
+        "solvableStatus": "pass",
+        "independentAnswer": "63",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "7×9=63，选项A正确。"
+      },
+      {
+        "questionId": "pep-primary-p2-u-mc-038",
+        "solvableStatus": "pass",
+        "independentAnswer": "32",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "8×4=32，选项D正确。"
+      },
+      {
+        "questionId": "pep-primary-p2-u-mc-039",
+        "solvableStatus": "pass",
+        "independentAnswer": "63",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "9×7=63，选项C正确。"
+      },
+      {
+        "questionId": "pep-primary-p2-u-mc-040",
+        "solvableStatus": "pass",
+        "independentAnswer": "4",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "2×2=4，选项B正确。"
+      }
+    ]
+  }
+}

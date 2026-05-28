@@ -1,0 +1,307 @@
+{
+  "batchId": "batch-060",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s2-k07-sa-024",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-axis-symmetry-isosceles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "promptZhHans": "计算：(3x - 2y)(2x + 5y)。",
+      "optionsZhHans": [],
+      "answer": "6x^2 + 11xy - 10y^2",
+      "acceptedAnswers": [
+        "6x^2 + 11xy - 10y^2",
+        "6x² + 11xy - 10y²"
+      ],
+      "explanationZhHans": "利用多项式乘法法则： (3x - 2y)(2x + 5y) = 3x·2x + 3x·5y - 2y·2x - 2y·5y = 6x^2 + 15xy - 4xy - 10y^2 = 6x^2 + 11xy - 10y^2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-sa-025",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-polynomial-multiplication-factorization"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "promptZhHans": "因式分解：4a^2 - 20a + 25。",
+      "optionsZhHans": [],
+      "answer": "(2a - 5)^2",
+      "acceptedAnswers": [
+        "(2a - 5)^2",
+        "(2a-5)^2",
+        "(2a-5)²",
+        "(2a - 5)²"
+      ],
+      "explanationZhHans": "观察多项式为完全平方式：首项 (2a)^2，末项 5^2，中间项 -2·2a·5 = -20a，符合 (A - B)^2 = A^2 - 2AB + B^2，所以 4a^2 - 20a + 25 = (2a - 5)^2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-sa-026",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-algebraic-fractions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean"
+      ],
+      "promptZhHans": "化简分式：\\frac{3x^2 - 12}{2x + 4}。",
+      "optionsZhHans": [],
+      "answer": "\\frac{3(x - 2)}{2}",
+      "acceptedAnswers": [
+        "\\frac{3(x - 2)}{2}",
+        "\\frac{3x-6}{2}",
+        "\\frac{3(x-2)}{2}",
+        "3(x-2)/2"
+      ],
+      "explanationZhHans": "分子提取公因式3：3(x^2 - 4) = 3(x - 2)(x + 2)；分母提取公因式2：2(x + 2)。约去公因式 (x + 2)（注意 x ≠ -2），得 \\frac{3(x - 2)}{2}。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-sa-027",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "先化简，再求值：(x + 3)(x - 3) - (x - 1)^2，其中 x = -2。",
+      "optionsZhHans": [],
+      "answer": "-14",
+      "acceptedAnswers": [
+        "-14"
+      ],
+      "explanationZhHans": "化简：原式 = (x^2 - 9) - (x^2 - 2x + 1) = x^2 - 9 - x^2 + 2x - 1 = 2x - 10。当 x = -2 时，2×(-2) - 10 = -4 - 10 = -14。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-sa-028",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-triangle-angle-relations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "已知一个三角形的三个内角度数之比为 2:3:4，求最大内角的度数。",
+      "optionsZhHans": [],
+      "answer": "80°",
+      "acceptedAnswers": [
+        "80°",
+        "80度",
+        "80"
+      ],
+      "explanationZhHans": "设三个内角分别为 2k, 3k, 4k，由三角形内角和定理得 2k + 3k + 4k = 180°，即 9k = 180°，k = 20°。最大角为 4k = 80°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-sa-029",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-congruence-proof"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "在 △ABC 中，AB = AC，D 为 BC 中点。求证：△ABD ≌ △ACD。",
+      "optionsZhHans": [],
+      "answer": "证明：∵ AB = AC（已知），D 为 BC 中点，∴ BD = CD。在 △ABD 和 △ACD 中，AB = AC，BD = CD，AD = AD（公共边），∴ △ABD ≌ △ACD（SSS）。",
+      "acceptedAnswers": [
+        "证明：∵ AB = AC（已知），D 为 BC 中点，∴ BD = CD。在 △ABD 和 △ACD 中，AB = AC，BD = CD，AD = AD（公共边），∴ △ABD ≌ △ACD（SSS）。"
+      ],
+      "explanationZhHans": "根据等腰三角形性质及中点定义，得到三边对应相等，利用 SSS 判定全等。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-sa-030",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-axis-symmetry-isosceles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-proof-calculation-integrated"
+      ],
+      "promptZhHans": "在平面直角坐标系中，点 A 的坐标为 (3, -2)，点 B 与点 A 关于 x 轴对称。求点 B 的坐标。",
+      "optionsZhHans": [],
+      "answer": "(3, 2)",
+      "acceptedAnswers": [
+        "(3, 2)",
+        "(3,2)"
+      ],
+      "explanationZhHans": "关于 x 轴对称的点横坐标相同，纵坐标互为相反数，所以点 B 的坐标为 (3, 2)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-sa-031",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-polynomial-multiplication-factorization"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions"
+      ],
+      "promptZhHans": "计算：(a + 2b)^2 - (a - 2b)^2。",
+      "optionsZhHans": [],
+      "answer": "8ab",
+      "acceptedAnswers": [
+        "8ab"
+      ],
+      "explanationZhHans": "利用平方差公式：原式 = [(a + 2b) + (a - 2b)][(a + 2b) - (a - 2b)] = (2a)(4b) = 8ab。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-sa-032",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-algebraic-fractions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "解分式方程：\\frac{1}{x - 2} = \\frac{3}{x}。",
+      "optionsZhHans": [],
+      "answer": "x = 3",
+      "acceptedAnswers": [
+        "x = 3",
+        "x=3",
+        "3"
+      ],
+      "explanationZhHans": "方程两边同乘 x(x - 2)，得 x = 3(x - 2)，即 x = 3x - 6，解得 x = 3。检验：当 x = 3 时，分母 x - 2 ≠ 0 且 x ≠ 0，所以 x = 3 是原方程的解。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-sa-033",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "已知 a + b = 5，ab = 6，求 a^2 + b^2 的值。",
+      "optionsZhHans": [],
+      "answer": "13",
+      "acceptedAnswers": [
+        "13"
+      ],
+      "explanationZhHans": "由完全平方公式变形：a^2 + b^2 = (a + b)^2 - 2ab = 5^2 - 2×6 = 25 - 12 = 13。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

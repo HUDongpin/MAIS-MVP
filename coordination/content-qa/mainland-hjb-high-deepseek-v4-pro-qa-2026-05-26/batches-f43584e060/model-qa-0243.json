@@ -1,0 +1,299 @@
+{
+  "batchId": "model-qa-0243",
+  "ids": [
+    "hjb-high-ds-v4-s4-341",
+    "hjb-high-ds-v4-s4-342",
+    "hjb-high-ds-v4-s4-343",
+    "hjb-high-ds-v4-s4-344",
+    "hjb-high-ds-v4-s4-345",
+    "hjb-high-ds-v4-s4-346",
+    "hjb-high-ds-v4-s4-347",
+    "hjb-high-ds-v4-s4-348",
+    "hjb-high-ds-v4-s4-349",
+    "hjb-high-ds-v4-s4-350",
+    "hjb-high-ds-v4-s4-351",
+    "hjb-high-ds-v4-s4-352",
+    "hjb-high-ds-v4-s4-353",
+    "hjb-high-ds-v4-s4-354",
+    "hjb-high-ds-v4-s4-355",
+    "hjb-high-ds-v4-s4-356",
+    "hjb-high-ds-v4-s4-357",
+    "hjb-high-ds-v4-s4-358",
+    "hjb-high-ds-v4-s4-359",
+    "hjb-high-ds-v4-s4-360"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-high-ds-v4-s4-341",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "π",
+      "answerCheckZhHans": "标准答案为π，acceptedAnswers包含π，解析正确推导出周期为π。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v4-s4-342",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "π",
+      "answerCheckZhHans": "标准答案为π，acceptedAnswers包含π，解析正确推导出周期为π。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v4-s4-343",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "解析中x=π(3-3)/12+kπ=0+kπ，在[0,2π]内k=0,1,2共3个，但选项3存在，答案应为3，但解析推导有误：3-3=0，x=kπ，k=0,1,2对应x=0,π,2π，但x=2π时2x+3π/6=4π+π/2=9π/2，sin=1，确实取得最大值，所以3次正确。但解析中x=π(3-3)/12+kπ表述不清，可能引起误解。答案3与选项匹配，但解析需修正。",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "标准答案为3，acceptedAnswers包含3，但解析推导过程有误，需修正。",
+      "recommendedActionZhHans": "修正解析，明确推导过程。",
+      "confidence": "medium"
+    },
+    {
+      "id": "hjb-high-ds-v4-s4-344",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "π",
+      "answerCheckZhHans": "标准答案为π，acceptedAnswers包含π，解析正确推导出周期为π。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v4-s4-345",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "π",
+      "answerCheckZhHans": "标准答案为π，acceptedAnswers包含π，解析正确推导出周期为π。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v4-s4-346",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "解析中x=π(3-9)/12+kπ=-π/2+kπ，在[0,2π]内k=1,2对应x=π/2,3π/2，共2次，答案2正确，但解析中x=π(3-9)/12+kπ表述有误，应为x=π(3-9)/12+kπ=-π/2+kπ，需修正。",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案为2，acceptedAnswers包含2，但解析推导过程有误，需修正。",
+      "recommendedActionZhHans": "修正解析，明确推导过程。",
+      "confidence": "medium"
+    },
+    {
+      "id": "hjb-high-ds-v4-s4-347",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "π",
+      "answerCheckZhHans": "标准答案为π，acceptedAnswers包含π，解析正确推导出周期为π。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v4-s4-348",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "π",
+      "answerCheckZhHans": "标准答案为π，acceptedAnswers包含π，解析正确推导出周期为π。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v4-s4-349",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "解析中x=π(3-13)/12+kπ=-5π/6+kπ，在[0,2π]内k=1,2对应x=π/6,7π/6，共2次，答案2正确，但解析中x=π(3-13)/12+kπ表述有误，应为x=π(3-13)/12+kπ=-5π/6+kπ，需修正。",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案为2，acceptedAnswers包含2，但解析推导过程有误，需修正。",
+      "recommendedActionZhHans": "修正解析，明确推导过程。",
+      "confidence": "medium"
+    },
+    {
+      "id": "hjb-high-ds-v4-s4-350",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "π",
+      "answerCheckZhHans": "标准答案为π，acceptedAnswers包含π，解析正确推导出周期为π。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v4-s4-351",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "π",
+      "answerCheckZhHans": "标准答案为π，acceptedAnswers包含π，解析正确推导出周期为π。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v4-s4-352",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "解析中x=π(3-7)/12+kπ=-π/3+kπ，在[0,2π]内k=1,2对应x=2π/3,5π/3，共2次，答案2正确，但解析中x=π(3-7)/12+kπ表述有误，应为x=π(3-7)/12+kπ=-π/3+kπ，需修正。",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案为2，acceptedAnswers包含2，但解析推导过程有误，需修正。",
+      "recommendedActionZhHans": "修正解析，明确推导过程。",
+      "confidence": "medium"
+    },
+    {
+      "id": "hjb-high-ds-v4-s4-353",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "π",
+      "answerCheckZhHans": "标准答案为π，acceptedAnswers包含π，解析正确推导出周期为π。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v4-s4-354",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "π",
+      "answerCheckZhHans": "标准答案为π，acceptedAnswers包含π，解析正确推导出周期为π。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v4-s4-355",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "解析中x=π(3-2)/12+kπ=π/12+kπ，在[0,2π]内k=0,1对应x=π/12,13π/12，共2次，答案2正确，但解析中x=π(3-2)/12+kπ表述有误，应为x=π(3-2)/12+kπ=π/12+kπ，需修正。",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案为2，acceptedAnswers包含2，但解析推导过程有误，需修正。",
+      "recommendedActionZhHans": "修正解析，明确推导过程。",
+      "confidence": "medium"
+    },
+    {
+      "id": "hjb-high-ds-v4-s4-356",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "π",
+      "answerCheckZhHans": "标准答案为π，acceptedAnswers包含π，解析正确推导出周期为π。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v4-s4-357",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "π",
+      "answerCheckZhHans": "标准答案为π，acceptedAnswers包含π，解析正确推导出周期为π。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v4-s4-358",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "解析中x=π(3-7)/12+kπ=-π/3+kπ，在[0,2π]内k=1,2对应x=2π/3,5π/3，共2次，答案2正确，但解析中x=π(3-7)/12+kπ表述有误，应为x=π(3-7)/12+kπ=-π/3+kπ，需修正。",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案为2，acceptedAnswers包含2，但解析推导过程有误，需修正。",
+      "recommendedActionZhHans": "修正解析，明确推导过程。",
+      "confidence": "medium"
+    },
+    {
+      "id": "hjb-high-ds-v4-s4-359",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "π",
+      "answerCheckZhHans": "标准答案为π，acceptedAnswers包含π，解析正确推导出周期为π。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v4-s4-360",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "π",
+      "answerCheckZhHans": "标准答案为π，acceptedAnswers包含π，解析正确推导出周期为π。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    }
+  ]
+}

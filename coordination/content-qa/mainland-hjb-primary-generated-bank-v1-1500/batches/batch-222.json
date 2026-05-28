@@ -1,0 +1,294 @@
+{
+  "batchId": "batch-222",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p5-106",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "hjb-primary-p5-upper-data-average",
+      "unitTitle": "数据整理与平均数",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "data-organization",
+        "average",
+        "statistical-displays",
+        "data-interpretation",
+        "平均数"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "量感",
+        "数学表达"
+      ],
+      "skillTags": [
+        "收集整理数据",
+        "统计表",
+        "统计图",
+        "平均数意义",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "average treated as the most common value",
+        "chart scale read incorrectly",
+        "conclusion not supported by data"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p5-upper-data-average"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-data-average-unit",
+        "hjb-primary-p5-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丁记录了五（1）班第一小组6名同学1分钟跳绳的次数：120、135、110、125、130、140。关于这组数据，下面哪种说法是正确的？",
+      "optionsZhHans": [
+        "这组数据的平均数是130次。",
+        "这组数据的平均数是125次。",
+        "这组数据的平均数是126次。",
+        "这组数据的平均数是128次。"
+      ],
+      "answer": "这组数据的平均数是126次。",
+      "acceptedAnswers": [
+        "这组数据的平均数是126次。"
+      ],
+      "explanationZhHans": "平均数=总次数÷人数。总次数=120+135+110+125+130+140=760次，人数=6，760÷6≈126.67，四舍五入为126次。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-107",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "hjb-primary-p5-upper-data-average",
+      "unitTitle": "数据整理与平均数",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "data-organization",
+        "average",
+        "statistical-displays",
+        "data-interpretation",
+        "平均数"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "量感",
+        "数学表达"
+      ],
+      "skillTags": [
+        "收集整理数据",
+        "统计表",
+        "统计图",
+        "平均数意义",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "average treated as the most common value",
+        "chart scale read incorrectly",
+        "conclusion not supported by data"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p5-upper-data-average"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-data-average-unit",
+        "hjb-primary-p5-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "五（2）班环保小队收集废电池，前4天共收集60节，后3天共收集45节。这一周平均每天收集废电池多少节？",
+      "optionsZhHans": [],
+      "answer": "15",
+      "acceptedAnswers": [
+        "15",
+        "15节"
+      ],
+      "explanationZhHans": "总节数=60+45=105节，总天数=4+3=7天，平均每天收集105÷7=15节。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-108",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "hjb-primary-p5-upper-data-average",
+      "unitTitle": "数据整理与平均数",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "data-organization",
+        "average",
+        "statistical-displays",
+        "data-interpretation",
+        "平均数"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "量感",
+        "数学表达"
+      ],
+      "skillTags": [
+        "收集整理数据",
+        "统计表",
+        "统计图",
+        "平均数意义",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "average treated as the most common value",
+        "chart scale read incorrectly",
+        "conclusion not supported by data"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p5-upper-data-average"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-data-average-unit",
+        "hjb-primary-p5-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是五（3）班第一小队5名同学的身高统计表：\n\n| 姓名 | 小杰 | 小芳 | 小军 | 小丽 | 小伟 |\n|------|------|------|------|------|------|\n| 身高（cm） | 152 | 148 | 155 | 150 | 145 |\n\n请计算这个小队同学的平均身高，并说明平均身高在这个小队中处于什么位置。",
+      "optionsZhHans": [],
+      "answer": "平均身高150厘米，处于中间位置。",
+      "acceptedAnswers": [
+        "平均身高150厘米，处于中间位置。",
+        "150厘米，中间位置",
+        "150，中间"
+      ],
+      "explanationZhHans": "总身高=152+148+155+150+145=750厘米，人数=5，平均身高=750÷5=150厘米。150厘米在5人中排第三，处于中间位置。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-109",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "hjb-primary-p5-upper-data-average",
+      "unitTitle": "数据整理与平均数",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "data-organization",
+        "average",
+        "statistical-displays",
+        "data-interpretation",
+        "平均数"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "量感",
+        "数学表达"
+      ],
+      "skillTags": [
+        "收集整理数据",
+        "统计表",
+        "统计图",
+        "平均数意义",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "average treated as the most common value",
+        "chart scale read incorrectly",
+        "conclusion not supported by data"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p5-upper-data-average"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-data-average-unit",
+        "hjb-primary-p5-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "五（4）班图书角有故事书、科技书和漫画书。故事书有40本，科技书有30本，漫画书有20本。下面哪幅统计图最能正确表示这三类图书的数量？",
+      "optionsZhHans": [
+        "统计图A：故事书40本、科技书30本、漫画书20本，条形高度依次为4格、3格、2格。",
+        "统计图B：故事书40本、科技书20本、漫画书30本，条形高度依次为4格、2格、3格。",
+        "统计图C：故事书30本、科技书40本、漫画书20本，条形高度依次为3格、4格、2格。",
+        "统计图D：故事书40本、科技书30本、漫画书10本，条形高度依次为4格、3格、1格。"
+      ],
+      "answer": "统计图A：故事书40本、科技书30本、漫画书20本，条形高度依次为4格、3格、2格。",
+      "acceptedAnswers": [
+        "统计图A：故事书40本、科技书30本、漫画书20本，条形高度依次为4格、3格、2格。"
+      ],
+      "explanationZhHans": "故事书40本、科技书30本、漫画书20本，条形高度应依次为4格、3格、2格，只有统计图A符合。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-110",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "hjb-primary-p5-upper-data-average",
+      "unitTitle": "数据整理与平均数",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "data-organization",
+        "average",
+        "statistical-displays",
+        "data-interpretation",
+        "平均数"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "量感",
+        "数学表达"
+      ],
+      "skillTags": [
+        "收集整理数据",
+        "统计表",
+        "统计图",
+        "平均数意义",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "average treated as the most common value",
+        "chart scale read incorrectly",
+        "conclusion not supported by data"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p5-upper-data-average"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-data-average-unit",
+        "hjb-primary-p5-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "五（5）班男生参加投篮比赛，每人投10次。投中次数如下：7、5、8、6、9、5、4、8、7、6。这组数据的平均数是几？",
+      "optionsZhHans": [],
+      "answer": "6.5",
+      "acceptedAnswers": [
+        "6.5",
+        "6.5次"
+      ],
+      "explanationZhHans": "总投中次数=7+5+8+6+9+5+4+8+7+6=65次，人数=10，平均投中次数=65÷10=6.5次。"
+    }
+  ]
+}

@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-033",
+  "startedAt": "2026-05-28T00:40:36.224Z",
+  "completedAt": "2026-05-28T00:40:59.463Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-257",
+    "bnu-high-ds-v1-s4-258",
+    "bnu-high-ds-v1-s4-259",
+    "bnu-high-ds-v1-s4-260",
+    "bnu-high-ds-v1-s4-261",
+    "bnu-high-ds-v1-s4-262",
+    "bnu-high-ds-v1-s4-263",
+    "bnu-high-ds-v1-s4-264"
+  ],
+  "usage": {
+    "prompt_tokens": 9889,
+    "completion_tokens": 1330,
+    "total_tokens": 11219,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9505
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-257",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "k=1.5, b=0; 在t=10秒时，v=15米/秒，模型可能不合理，因为实际速度可能受限于物理极限或电池电量，线性增长不能无限持续。",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "数据点(0,0),(2,3),(4,6),(6,9)完全共线，线性拟合得v=1.5t。t=10时v=15，但线性模型假设速度无限增长，实际遥控汽车有最大速度限制，故模型在t=10时可能不合理。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-258",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "r≈0.019; 2030年人口约108万; 局限性：指数增长模型假设增长率恒定，未考虑资源限制、政策变化等因素，长期预测可能偏差较大。",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由P(0)=80, P(5)=88得80e^(5r)=88，解得r=ln(1.1)/5≈0.019。2030年t=15，P(15)=80e^(0.019*15)≈108万。局限性合理。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-259",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "C",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "费用函数为分段线性：0<x≤1时y=10；1<x≤5时y=10+2(x-1)=2x+8；x>5时y=10+2*4+3(x-5)=3x+3。斜率依次为0,2,3，逐渐增大，图像为三段折线，斜率依次增大。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-260",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "a=100, b≈0.96; t=30时T≈29°C; 不适合预测t=60，因为指数衰减模型在长时间后趋近于室温，但实际冷却速度会变慢，且模型未考虑环境温度，预测值可能偏低。",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由t=0,T=100得a=100；由t=20,T=48得100b^20=48，b=(0.48)^(1/20)≈0.96。t=30时T=100*0.96^30≈29°C。模型未考虑室温，长时间后温度应趋近室温而非0，故不适合预测t=60。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-261",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "y=10+2.5(x-3)，定义域为(3,+∞)",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "起步价10元含3公里，超过3公里后每公里2.5元，故x>3时y=10+2.5(x-3)。定义域为x>3。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-262",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "x>40",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "利润P=R-C=100x-(2000+50x)=50x-2000，令P>0得50x>2000，x>40。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-263",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "ab/(a+b)小时",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "甲管每小时注水1/a，乙管每小时注水1/b，两管同时开每小时注水1/a+1/b=(a+b)/(ab)，注满所需时间为1/((a+b)/(ab))=ab/(a+b)小时。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-264",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "L=20x-5000，利润为零时x=250",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "总成本C=5000+20x，总收入R=40x，利润L=R-C=20x-5000。令L=0得20x=5000，x=250。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，无数学错误、歧义或缺失条件，符合北师大版高一数学建模活动要求。"
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-028",
+  "startedAt": "2026-05-28T02:02:23.235Z",
+  "completedAt": "2026-05-28T02:02:26.231Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-028"
+  ],
+  "usage": {
+    "prompt_tokens": 2062,
+    "completion_tokens": 209,
+    "total_tokens": 2271,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1678
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-028",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "[2, 2√2)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，曲线为上半圆，直线与上半圆有两个交点需满足2≤b<2√2，选项A正确且唯一，解析一致，无问题。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 1,
+      "warn": 0,
+      "fail": 0,
+      "notes": "题目无问题，通过复核。"
+    }
+  }
+}

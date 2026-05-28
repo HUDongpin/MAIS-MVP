@@ -1,0 +1,105 @@
+{
+  "batchId": "model-qa-0024",
+  "ids": [
+    "hjb-junior-ds-v2-s1-185",
+    "hjb-junior-ds-v2-s1-186",
+    "hjb-junior-ds-v2-s1-187",
+    "hjb-junior-ds-v2-s1-188",
+    "hjb-junior-ds-v2-s1-189",
+    "hjb-junior-ds-v2-s1-190",
+    "hjb-junior-ds-v2-s1-191",
+    "hjb-junior-ds-v2-s1-192"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-185",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x(x+2)(x-2)",
+      "answerCheckZhHans": "标准答案正确，解析推导一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-186",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "（1）x≠2；（2）2(x+2)/(x-2)；（3）10",
+      "answerCheckZhHans": "标准答案正确，解析推导一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-187",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "multiple-correct-options"
+      ],
+      "issueDetailsZhHans": "选项A 3a²/(2ab) 约分后为 3a/(2b)，但需 a≠0；选项C 6a/(4b) 约分后也为 3a/(2b)。在分式相等定义下，若考虑定义域，A 与 C 均与原分式相等，但通常初中阶段默认字母取值使分式有意义，因此 A 和 C 都可能被视为正确，导致多个正确选项。",
+      "independentAnswerZhHans": "C（但 A 在 a≠0 时也相等）",
+      "answerCheckZhHans": "标准答案选 C，但 A 在 a≠0 时与原式相等，存在歧义。",
+      "recommendedActionZhHans": "修改选项 A 或明确条件，确保唯一正确选项。",
+      "confidence": "medium"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-188",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "±1",
+      "answerCheckZhHans": "标准答案正确，解析推导一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-189",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "1",
+      "answerCheckZhHans": "标准答案正确，解析推导一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-190",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(5x-1)/(x²-1)",
+      "answerCheckZhHans": "标准答案正确，解析推导一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-191",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "5/2",
+      "answerCheckZhHans": "标准答案正确，解析推导一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-192",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "5/3",
+      "answerCheckZhHans": "标准答案正确，解析推导一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

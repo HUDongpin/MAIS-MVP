@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0183",
+  "ids": [
+    "hjb-junior-ds-v2-s3-457",
+    "hjb-junior-ds-v2-s3-458",
+    "hjb-junior-ds-v2-s3-459",
+    "hjb-junior-ds-v2-s3-460",
+    "hjb-junior-ds-v2-s3-461",
+    "hjb-junior-ds-v2-s3-462",
+    "hjb-junior-ds-v2-s3-463",
+    "hjb-junior-ds-v2-s3-464"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-457",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "方差计算错误。正确方差应为11（保留整数），而非10。解析中计算过程有误，导致结果错误。",
+      "independentAnswerZhHans": "11",
+      "answerCheckZhHans": "标准答案为10，但正确计算得11，答案错误。",
+      "recommendedActionZhHans": "修正方差计算，正确答案应为11。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-458",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "中位数",
+      "answerCheckZhHans": "标准答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-459",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "85",
+      "answerCheckZhHans": "标准答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-460",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "众数是85分",
+      "answerCheckZhHans": "标准答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-461",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "85",
+      "answerCheckZhHans": "标准答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-462",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "中位数",
+      "answerCheckZhHans": "标准答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-463",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "48.5",
+      "answerCheckZhHans": "标准答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-464",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "方差",
+      "answerCheckZhHans": "标准答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

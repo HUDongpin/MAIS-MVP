@@ -1,0 +1,133 @@
+{
+  "batchNumber": 27,
+  "startedAt": "2026-05-27T13:48:27.821Z",
+  "completedAt": "2026-05-27T13:48:45.086Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-209",
+    "bnu-high-ds-v1-s4-210",
+    "bnu-high-ds-v1-s4-211",
+    "bnu-high-ds-v1-s4-212",
+    "bnu-high-ds-v1-s4-213",
+    "bnu-high-ds-v1-s4-214",
+    "bnu-high-ds-v1-s4-215",
+    "bnu-high-ds-v1-s4-216"
+  ],
+  "usage": {
+    "prompt_tokens": 10236,
+    "completion_tokens": 1165,
+    "total_tokens": 11401,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 9724
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-209",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(1.70, 1.90)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件充分，可独立计算置信区间。标准误=0.5/√100=0.05，边际误差=1.96×0.05=0.098，区间为(1.702,1.898)≈(1.70,1.90)，与答案一致。解析步骤正确，与答案吻合。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-210",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "标准化得分定义明确，可解。标准化后数据均值为0，标准差为1，这是标准分数的性质。答案1正确，解析简洁准确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-211",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "该市高一学生的平均每天课外阅读时间约为0.8小时",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目考查样本与总体的关系，选项唯一正确。样本平均数是总体平均数的估计，约为0.8小时，其他选项均错误。解析合理，答案匹配。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-212",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "80.25",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "数据明确，可计算平均数。总和为3210，除以40得80.25，与答案一致。解析说明计算过程，正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-213",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "167.2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "分层抽样估计总体均值，权重为样本比例。男生权重30/50=0.6，女生0.4，加权平均=172×0.6+160×0.4=167.2，答案正确。解析清晰。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-214",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0.14",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "频率=频数/样本容量，第3组频数14，容量100，频率0.14。选项唯一，答案正确，解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-215",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "8",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "数据明确，众数为出现次数最多的8（4次）。答案8正确，解析统计频次准确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-216",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "18",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "方差性质：Var(aX+b)=a²Var(X)。a=3，原方差2，新方差=9×2=18。答案正确，解析准确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，答案与解析匹配，无错误或歧义，通过审核。"
+    }
+  }
+}

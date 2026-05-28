@@ -1,0 +1,137 @@
+{
+  "batchNumber": 21,
+  "startedAt": "2026-05-25T02:51:31.342Z",
+  "completedAt": "2026-05-25T02:51:46.608Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s1-k04-fi-007",
+    "pep-junior-v3-s1-k04-fi-008",
+    "pep-junior-v3-s1-k04-fi-009",
+    "pep-junior-v3-s1-k04-fi-010",
+    "pep-junior-v3-s1-k04-fi-011",
+    "pep-junior-v3-s1-k04-fi-012",
+    "pep-junior-v3-s1-k04-fi-013",
+    "pep-junior-v3-s1-k04-fi-014",
+    "pep-junior-v3-s1-k04-fi-015",
+    "pep-junior-v3-s1-k04-fi-016",
+    "pep-junior-v3-s1-k04-fi-017",
+    "pep-junior-v3-s1-k04-fi-018"
+  ],
+  "usage": {
+    "prompt_tokens": 3401,
+    "completion_tokens": 910,
+    "total_tokens": 4311,
+    "prompt_tokens_details": {
+      "cached_tokens": 3328
+    },
+    "prompt_cache_hit_tokens": 3328,
+    "prompt_cache_miss_tokens": 73
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s1-k04-fi-007",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解释一致，填空无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-fi-008",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案与解释一致，符合七年级水平。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-fi-009",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项分析正确，答案B无误，解释清晰。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-fi-010",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "函数关系式正确，利润计算无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-fi-011",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移坐标计算正确，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-fi-012",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程组求解正确，答案形式合理。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-fi-013",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "不等式建模与求解正确，答案16无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-fi-014",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "总体定义正确，答案表述准确。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-fi-015",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移规律推导正确，B'坐标计算无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-fi-016",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平行线性质应用正确，角度计算无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-fi-017",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "关于x轴对称坐标变换正确，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-fi-018",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "象限符号判断正确，绝对值取值无误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部12道题均通过审核，数学正确，答案与解释一致，无歧义或错误。"
+    }
+  }
+}

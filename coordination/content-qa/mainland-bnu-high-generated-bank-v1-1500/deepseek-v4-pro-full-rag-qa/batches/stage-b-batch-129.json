@@ -1,0 +1,129 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-129",
+  "startedAt": "2026-05-28T01:34:57.530Z",
+  "completedAt": "2026-05-28T01:35:10.637Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-025",
+    "bnu-high-ds-v1-s6-026",
+    "bnu-high-ds-v1-s6-027",
+    "bnu-high-ds-v1-s6-028",
+    "bnu-high-ds-v1-s6-029",
+    "bnu-high-ds-v1-s6-030",
+    "bnu-high-ds-v1-s6-031",
+    "bnu-high-ds-v1-s6-032"
+  ],
+  "usage": {
+    "prompt_tokens": 12287,
+    "completion_tokens": 965,
+    "total_tokens": 13252,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 11903
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-025",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案11与独立解一致，解析正确，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-026",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解推导一致，解析完整。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-027",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案a_n=3^n-2^n与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-028",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析正确，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-029",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案a_1=1,d=2与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-030",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案2或-3与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-031",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "medium",
+        "rationaleZhHans": "题目条件b_n=a_n+3^n为等比数列与递推a_{n+1}=2a_n+3^n矛盾，无法得到公比2，存储答案和解析均错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-032",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案20与独立解一致，解析正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第7题(bnu-high-ds-v1-s6-031)存在数学矛盾，存储答案和解析均错误，判定为失败。其余题目均通过。"
+    }
+  }
+}

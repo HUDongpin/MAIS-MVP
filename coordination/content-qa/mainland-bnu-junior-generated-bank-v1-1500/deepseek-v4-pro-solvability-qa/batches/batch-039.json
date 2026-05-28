@@ -1,0 +1,173 @@
+{
+  "batchNumber": 39,
+  "startedAt": "2026-05-27T17:33:14.711Z",
+  "completedAt": "2026-05-27T17:33:31.974Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s1-457",
+    "bnu-junior-ds-v1-s1-458",
+    "bnu-junior-ds-v1-s1-459",
+    "bnu-junior-ds-v1-s1-460",
+    "bnu-junior-ds-v1-s1-461",
+    "bnu-junior-ds-v1-s1-462",
+    "bnu-junior-ds-v1-s1-463",
+    "bnu-junior-ds-v1-s1-464",
+    "bnu-junior-ds-v1-s1-465",
+    "bnu-junior-ds-v1-s1-466",
+    "bnu-junior-ds-v1-s1-467",
+    "bnu-junior-ds-v1-s1-468"
+  ],
+  "usage": {
+    "prompt_tokens": 7455,
+    "completion_tokens": 1281,
+    "total_tokens": 8736,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 6943
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s1-457",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，对称轴为直线y=1，答案正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-458",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，通过垂直平分线求对称点，答案(4,-1)正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-459",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "关于x轴对称，横坐标不变，纵坐标变号，答案(2,-3)正确，选项唯一。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-460",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "放回摸球，总情况25种，两次红球9种，答案正确，解释清晰。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-461",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "总球数6，红球3，概率1/2，答案正确，选项唯一。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-462",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "8个扇形，偶数4个，概率1/2，答案正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-463",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "随机事件定义清晰，抛硬币正面朝上是随机事件，其他为必然事件，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-464",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "总球数8，绿球3，概率3/8，答案正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-465",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "总扇形6，黄色3，概率1/2，答案正确，选项唯一。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-466",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "骰子点数大于4有5、6，概率1/3，答案正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-467",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "总球数10，黑球4，概率2/5，答案正确，选项唯一。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-468",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "10个扇形，3的倍数有3个，概率3/10，答案正确，解释合理。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均条件充分、可解，答案与解释匹配，无错误或歧义，适合北师大版七年级下册使用。"
+    }
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0165",
+  "ids": [
+    "hjb-junior-ds-v2-s3-313",
+    "hjb-junior-ds-v2-s3-314",
+    "hjb-junior-ds-v2-s3-315",
+    "hjb-junior-ds-v2-s3-316",
+    "hjb-junior-ds-v2-s3-317",
+    "hjb-junior-ds-v2-s3-318",
+    "hjb-junior-ds-v2-s3-319",
+    "hjb-junior-ds-v2-s3-320"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-313",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为140°，但根据相交弦夹角公式，∠APC = (弧AC + 弧BD)/2。若弦AB=CD，则弧AB=弧CD，但无法直接推出弧AC=弧BD。解析中设∠AOC=∠BOD=α，但∠AOC和∠BOD并非对应弧AC和弧BD的圆心角，且解析自相矛盾：先解得α=70°，又得出∠AOC=140°。独立计算无法唯一确定∠AOC，题目条件不足。",
+      "independentAnswerZhHans": "无法唯一确定",
+      "answerCheckZhHans": "标准答案140°不正确，解析推导有误。",
+      "recommendedActionZhHans": "修改题目条件或答案，确保可唯一求解。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-314",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2√3 cm",
+      "answerCheckZhHans": "标准答案2√3正确，解析无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-315",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "√39 cm",
+      "answerCheckZhHans": "标准答案√39 cm正确，解析无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-316",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "12 cm",
+      "answerCheckZhHans": "标准答案12 cm正确，解析无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-317",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "12 cm",
+      "answerCheckZhHans": "标准答案12正确，acceptedAnswers覆盖了12、12 cm、12cm，解析无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-318",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "12 cm",
+      "answerCheckZhHans": "标准答案12 cm正确，acceptedAnswers覆盖了12 cm、12cm、12，解析无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-319",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "8 cm",
+      "answerCheckZhHans": "标准答案8 cm正确，解析无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-320",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2 cm",
+      "answerCheckZhHans": "标准答案2正确，acceptedAnswers覆盖了2和2 cm，解析无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

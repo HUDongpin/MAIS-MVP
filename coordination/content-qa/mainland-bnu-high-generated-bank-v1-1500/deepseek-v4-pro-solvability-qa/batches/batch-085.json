@@ -1,0 +1,136 @@
+{
+  "batchNumber": 85,
+  "startedAt": "2026-05-27T13:58:00.895Z",
+  "completedAt": "2026-05-27T13:58:21.462Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-173",
+    "bnu-high-ds-v1-s5-174",
+    "bnu-high-ds-v1-s5-175",
+    "bnu-high-ds-v1-s5-176",
+    "bnu-high-ds-v1-s5-177",
+    "bnu-high-ds-v1-s5-178",
+    "bnu-high-ds-v1-s5-179",
+    "bnu-high-ds-v1-s5-180"
+  ],
+  "usage": {
+    "prompt_tokens": 10739,
+    "completion_tokens": 1383,
+    "total_tokens": 12122,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10227
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-173",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "√3/3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可独立求解。平面ABC方程为x+y+z=2，点D(1,1,1)代入距离公式得1/√3=√3/3，与答案一致。解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-174",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "三点A(1,2,3), B(4,5,6), C(7,8,9)共线，三角形面积为0。向量AB=(3,3,3), AC=(6,6,6)共线，面积公式得0。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-175",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(1/√3, 1/√3, 1/√3)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "平面ABC方程为x+y+z=1，法向量(1,1,1)单位化得(1/√3,1/√3,1/√3)。选项A正确，无歧义。解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-176",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "是平行四边形，因为向量AB=DC=(3,3,3)且向量AD=BC=(9,9,9)，两组对边分别平行且相等。",
+        "correctedAnswer": "是平行四边形，因为向量AB=DC=(3,3,3)且向量AD=BC=(9,9,9)，两组对边分别平行且相等。",
+        "issueTags": [
+          "explanation_contradiction",
+          "answer_mismatch"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目中A(1,2,3), B(4,5,6), C(7,8,9), D(10,11,12)，计算得AB=(3,3,3), DC=(3,3,3), AD=(9,9,9), BC=(9,9,9)，满足平行四边形条件。但解析中错误地使用了向量(1,1,0)等，与题目坐标不符，且与答案矛盾。答案本身正确，但解析错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-177",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "√3/2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "A(1,0,0), B(0,1,0), C(0,0,1)，向量AB=(-1,1,0), AC=(-1,0,1)，叉乘得(1,1,1)，模√3，面积=√3/2。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-178",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "四点A(1,2,3), B(4,5,6), C(7,8,9), D(10,11,12)共线，AB与CD共线，异面直线距离为0。答案0正确，解析合理。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-179",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "√3/3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "平面ABC方程为x+y+z=1，原点代入距离公式得1/√3=√3/3。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-180",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "四点共线，不能构成四面体，体积为0。答案与解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第176题解析错误，使用了与题目坐标不符的向量，但答案本身正确，需修正解析。其余题目均通过审核。"
+    }
+  }
+}

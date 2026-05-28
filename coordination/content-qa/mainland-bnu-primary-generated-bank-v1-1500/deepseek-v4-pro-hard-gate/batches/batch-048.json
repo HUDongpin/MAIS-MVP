@@ -1,0 +1,330 @@
+{
+  "batchNumber": 48,
+  "startedAt": "2026-05-27T03:41:43.377Z",
+  "completedAt": "2026-05-27T03:42:12.481Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p6-161",
+    "bnu-primary-ds-v1-p6-162",
+    "bnu-primary-ds-v1-p6-163",
+    "bnu-primary-ds-v1-p6-164",
+    "bnu-primary-ds-v1-p6-165",
+    "bnu-primary-ds-v1-p6-166",
+    "bnu-primary-ds-v1-p6-167",
+    "bnu-primary-ds-v1-p6-168",
+    "bnu-primary-ds-v1-p6-169",
+    "bnu-primary-ds-v1-p6-170",
+    "bnu-primary-ds-v1-p6-171",
+    "bnu-primary-ds-v1-p6-172",
+    "bnu-primary-ds-v1-p6-173",
+    "bnu-primary-ds-v1-p6-174",
+    "bnu-primary-ds-v1-p6-175",
+    "bnu-primary-ds-v1-p6-176",
+    "bnu-primary-ds-v1-p6-177",
+    "bnu-primary-ds-v1-p6-178",
+    "bnu-primary-ds-v1-p6-179",
+    "bnu-primary-ds-v1-p6-180",
+    "bnu-primary-ds-v1-p6-181",
+    "bnu-primary-ds-v1-p6-182",
+    "bnu-primary-ds-v1-p6-183",
+    "bnu-primary-ds-v1-p6-184",
+    "bnu-primary-ds-v1-p6-185",
+    "bnu-primary-ds-v1-p6-186",
+    "bnu-primary-ds-v1-p6-187",
+    "bnu-primary-ds-v1-p6-188",
+    "bnu-primary-ds-v1-p6-189",
+    "bnu-primary-ds-v1-p6-190"
+  ],
+  "usage": {
+    "prompt_tokens": 5085,
+    "completion_tokens": 2348,
+    "total_tokens": 7433,
+    "prompt_tokens_details": {
+      "cached_tokens": 4992
+    },
+    "prompt_cache_hit_tokens": 4992,
+    "prompt_cache_miss_tokens": 93
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p6-161",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目明确求侧面积，条件充分，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-162",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "条件完整，计算正确，保留整数得11吨。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-163",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项清晰，6:10和9:15比值相等，唯一正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-164",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "内项定义明确，答案8和15正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-165",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "解比例步骤正确，x=3。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-166",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "比例尺计算正确，唯一选项240千米。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-167",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "图上距离计算正确，长4厘米宽3厘米。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-168",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "答案3:4=6:8是正确比例之一，符合要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-169",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "放大比例尺计算正确，30:1唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-170",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "比例性质应用正确，a:b=7:5。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-171",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "比例尺计算正确，1:3000000。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-172",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项6:10和9:15比值相等，唯一正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-173",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "解比例正确，x=1。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-174",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "答案3:4=6:8是正确比例之一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-175",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "放大性质正确，周长2倍面积4倍，唯一选项。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-176",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "实际距离计算正确，170千米。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-177",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "比例应用正确，需加水1800千克。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-178",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "比值计算正确，6:5唯一匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-179",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "比例尺计算正确，20:1。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-180",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "正比例判断正确，理由充分。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-181",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "旋转坐标变换正确，(3,-2)唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-182",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "平移合成方向为右下，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-183",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "旋转中心位置不变，唯一选项。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-184",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "旋转4次回到原位，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-185",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "平移坐标计算正确，(7,3)唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-186",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "旋转180°坐标变换正确，(-3,-4)。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-187",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "全等变换性质正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-188",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "旋转抵消，位置不变，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-189",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "旋转后坐标计算正确，(2,5)唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-190",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "平移距离等于对应点距离，6厘米正确。"
+      }
+    ],
+    "batchSummary": {
+      "solvableYes": 30,
+      "solvableNo": 0,
+      "answerMatchYes": 30,
+      "answerMatchNo": 0,
+      "notes": "全部30题均可解，答案匹配，无问题。"
+    }
+  }
+}

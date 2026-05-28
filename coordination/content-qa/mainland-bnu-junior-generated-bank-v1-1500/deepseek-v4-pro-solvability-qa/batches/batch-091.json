@@ -1,0 +1,173 @@
+{
+  "batchNumber": 91,
+  "startedAt": "2026-05-27T17:54:20.851Z",
+  "completedAt": "2026-05-27T17:54:35.658Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s3-081",
+    "bnu-junior-ds-v1-s3-082",
+    "bnu-junior-ds-v1-s3-083",
+    "bnu-junior-ds-v1-s3-084",
+    "bnu-junior-ds-v1-s3-085",
+    "bnu-junior-ds-v1-s3-086",
+    "bnu-junior-ds-v1-s3-087",
+    "bnu-junior-ds-v1-s3-088",
+    "bnu-junior-ds-v1-s3-089",
+    "bnu-junior-ds-v1-s3-090",
+    "bnu-junior-ds-v1-s3-091",
+    "bnu-junior-ds-v1-s3-092"
+  ],
+  "usage": {
+    "prompt_tokens": 6050,
+    "completion_tokens": 1270,
+    "total_tokens": 7320,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 5538
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s3-081",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，判别式求解正确，答案与解释一致，符合北师大版初三一元二次方程要求。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-082",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "配方法步骤正确，选项唯一且答案匹配，无歧义。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-083",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "利用根与系数关系求解，并检验判别式，答案m=-1正确，解释完整。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-084",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "因式分解法直接得解，答案与解释一致，acceptedAnswers覆盖常见写法。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-085",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "判别式≥0且二次项系数非零，选项A正确且唯一，解释无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-086",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "移项提取公因式正确，答案x=2或x=-2/3与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-087",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "利用根与系数关系计算a^3+b^3，结果80正确，解释清晰。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-088",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项D符合一元二次方程定义，其他选项化简后不是，答案唯一正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-089",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "利润问题建模正确，解得售价12元或14元，解释完整，答案匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-090",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "直接识别系数，答案2, -3, -5正确，解释无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-091",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "判别式>0且二次项系数非零，选项A正确且唯一，解释无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-092",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "判别式>0且二次项系数非零，答案k>2/3且k≠1正确，解释完整。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均条件充分、答案正确、解释匹配，符合北师大版初三一元二次方程要求，无风险。"
+    }
+  }
+}

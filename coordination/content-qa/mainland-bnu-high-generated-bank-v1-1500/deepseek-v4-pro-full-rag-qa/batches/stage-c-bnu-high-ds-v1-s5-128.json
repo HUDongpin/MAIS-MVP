@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-128",
+  "startedAt": "2026-05-28T02:08:40.644Z",
+  "completedAt": "2026-05-28T02:08:46.668Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-128"
+  ],
+  "usage": {
+    "prompt_tokens": 2267,
+    "completion_tokens": 323,
+    "total_tokens": 2590,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1883
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-128",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "y = -x + 2",
+        "correctedAnswer": "y = -x + 2",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "椭圆方程计算错误：由离心率√3/2和过点(2,√3)应得椭圆x²/8+y²/2=1，而非x²/16+y²/4=1。点差法得斜率-1，直线为y=-x+2。存储答案y=-1/2x+3/2错误，解析中k²=4错误，导致答案和解释均不正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目可解，但存储答案和解析存在数学错误，椭圆方程计算错误导致最终答案错误，需修正为y=-x+2。"
+    }
+  }
+}

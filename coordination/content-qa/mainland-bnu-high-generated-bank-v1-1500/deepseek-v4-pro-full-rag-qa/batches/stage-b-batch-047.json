@@ -1,0 +1,153 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-047",
+  "startedAt": "2026-05-28T02:40:49.930Z",
+  "completedAt": "2026-05-28T02:41:09.731Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-369",
+    "bnu-high-ds-v1-s4-370",
+    "bnu-high-ds-v1-s4-371",
+    "bnu-high-ds-v1-s4-372",
+    "bnu-high-ds-v1-s4-373",
+    "bnu-high-ds-v1-s4-374",
+    "bnu-high-ds-v1-s4-375",
+    "bnu-high-ds-v1-s4-376"
+  ],
+  "usage": {
+    "prompt_tokens": 15040,
+    "completion_tokens": 1307,
+    "total_tokens": 16347,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 14656
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-369",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案25(√3+1)米与独立解一致，解析正确推导出h=25(√3+1)。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-370",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "ambiguous_mc",
+          "bad_options",
+          "missing_condition",
+          "explanation_contradiction",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立解表明∠ACB=60°时h=50/√(4-√3)≈33.2，不在选项中；解析强行近似为25√2，计算错误且与选项不符，题目条件与选项矛盾，无唯一正确选项。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-371",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "12√39/13 米",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立解得高为12√39/13米，存储答案24√3/7错误；解析中12√3/√13=12√39/13，不等于24√3/7，计算矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-372",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "50/√(4-√3) 米",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立解得h=50/√(4-√3)，存储答案25√6错误；解析中2500/(4-√3)有理化后不是25√6，计算错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-373",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案100(√3+1)米与独立解一致，解析正确，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-374",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "missing_condition",
+          "explanation_contradiction",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立解指出∠CAB=60°时方程无实数解，题目条件矛盾；存储答案15.0米基于错误假设∠ACB=60°且计算有误，解析与条件不符。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-375",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "missing_condition",
+          "explanation_contradiction",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立解指出∠CAB=60°时方程无实数解，题目条件矛盾；存储答案20√3米基于错误计算，解析中方程求解错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-376",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "correctedAnswer": "35 m",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction",
+          "ambiguous_mc"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立解用正弦定理得h=25√2≈35.35，最接近35 m；存储答案35 m虽接近但解析用余弦定理且计算错误，且选项35 m非精确值，但作为近似可接受，然而解析错误导致fail。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 2,
+      "warn": 0,
+      "fail": 6,
+      "notes": "8题中2题通过，6题失败。失败原因包括：数学错误、条件矛盾导致无解、解析与答案不符、选项无正确值等。"
+    }
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-227",
+  "startedAt": "2026-05-28T01:24:09.695Z",
+  "completedAt": "2026-05-28T01:24:15.419Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-227"
+  ],
+  "usage": {
+    "prompt_tokens": 2341,
+    "completion_tokens": 414,
+    "total_tokens": 2755,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1957
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-227",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "(5-2√6, 5-2√6), (5+2√6, 5-2√6), (5+2√6, 5+2√6), (5-2√6, 5+2√6)",
+        "correctedAnswer": "(5-2√6, 5-2√6), (5+2√6, 5-2√6), (5+2√6, 5+2√6), (5-2√6, 5+2√6)",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction",
+          "accepted_answer_gap"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件“对角线分别与坐标轴平行”唯一确定矩形边与坐标轴成45°，面积48得半对角线长2√6，顶点坐标必含根号。存储答案(2,2)等为整数坐标，与正确解矛盾；解析中虽提及d=2√6却强行取整，自相矛盾。判定为数学错误，答案不匹配，解释矛盾，严重程度为阻断。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1题复核不通过：答案错误且解释自相矛盾，需修正为含根号的顶点坐标。"
+    }
+  }
+}

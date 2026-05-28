@@ -1,0 +1,191 @@
+{
+  "batchNumber": 15,
+  "startedAt": "2026-05-27T13:44:25.044Z",
+  "completedAt": "2026-05-27T13:44:41.740Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p2-003",
+    "bnu-primary-ds-v2-p2-004",
+    "bnu-primary-ds-v2-p2-005",
+    "bnu-primary-ds-v2-p2-006",
+    "bnu-primary-ds-v2-p2-007",
+    "bnu-primary-ds-v2-p2-008",
+    "bnu-primary-ds-v2-p2-009",
+    "bnu-primary-ds-v2-p2-010",
+    "bnu-primary-ds-v2-p2-011",
+    "bnu-primary-ds-v2-p2-012",
+    "bnu-primary-ds-v2-p2-013",
+    "bnu-primary-ds-v2-p2-014",
+    "bnu-primary-ds-v2-p2-015",
+    "bnu-primary-ds-v2-p2-016",
+    "bnu-primary-ds-v2-p2-017",
+    "bnu-primary-ds-v2-p2-018",
+    "bnu-primary-ds-v2-p2-019",
+    "bnu-primary-ds-v2-p2-020"
+  ],
+  "usage": {
+    "prompt_tokens": 3889,
+    "completion_tokens": 1265,
+    "total_tokens": 5154,
+    "prompt_tokens_details": {
+      "cached_tokens": 3840
+    },
+    "prompt_cache_hit_tokens": 3840,
+    "prompt_cache_miss_tokens": 49
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p2-003",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，符合P2难度。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-004",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项唯一，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-005",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，符合基础填空要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-006",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "减法应用题，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-007",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "看错加数问题，答案70正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-008",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "竖式计算，答案38正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-009",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "两步计算，答案31正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-010",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "求用去总长度，答案63米正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-011",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "人民币计算，答案1个10元正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-012",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估算、竖式、验算完整，答案54正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-013",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "看错加数，答案65正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-014",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "两步计算，答案91正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-015",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "看错加数，答案78正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-016",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "购物找零，答案19元正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-017",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "元角计算，答案11元3角正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-018",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "求书价，答案16元5角正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-019",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "购物找零，答案9元7角正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-020",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "购物找零，答案9元1角正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版P2要求，数学正确，答案匹配，无歧义或缺失条件。"
+    }
+  }
+}

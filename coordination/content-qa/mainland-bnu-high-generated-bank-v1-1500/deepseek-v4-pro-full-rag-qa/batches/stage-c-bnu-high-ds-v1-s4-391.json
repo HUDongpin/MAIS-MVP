@@ -1,0 +1,50 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-391",
+  "startedAt": "2026-05-28T02:38:45.282Z",
+  "completedAt": "2026-05-28T02:38:51.700Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-391"
+  ],
+  "usage": {
+    "prompt_tokens": 2452,
+    "completion_tokens": 291,
+    "total_tokens": 2743,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2068
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-391",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "independentAnswer": "56.57",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "bad_options",
+          "explanation_contradiction",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目数据矛盾：由正弦定理得AC=40√6≈97.96 m，塔高h=AC·tan30°=40√2≈56.57 m，与所有选项均不匹配。解释中错误地认为仰角应为20°才能得到35 m，但题面明确为30°，属于数学错误和选项设计缺陷，题目不可解。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目数据导致无正确选项，标记为不可解。"
+    }
+  }
+}

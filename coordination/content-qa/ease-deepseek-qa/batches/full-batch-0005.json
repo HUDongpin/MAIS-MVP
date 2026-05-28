@@ -1,0 +1,168 @@
+{
+  "scope": "full",
+  "batchIndex": 5,
+  "startedAt": "2026-05-28T03:37:21.847Z",
+  "completedAt": "2026-05-28T03:38:16.445Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "itemIds": [
+    "10659",
+    "10660",
+    "10661",
+    "10662",
+    "10338",
+    "10343",
+    "10344",
+    "10345",
+    "10358",
+    "10359"
+  ],
+  "usage": {
+    "prompt_tokens": 3683,
+    "completion_tokens": 3302,
+    "total_tokens": 6985,
+    "prompt_tokens_details": {
+      "cached_tokens": 3584
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1933
+    },
+    "prompt_cache_hit_tokens": 3584,
+    "prompt_cache_miss_tokens": 99
+  },
+  "finishReason": "stop",
+  "jsonModeFallback": false,
+  "result": {
+    "items": [
+      {
+        "questionId": "10659",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": ">",
+        "independentAnswer": ">",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "可解，答案匹配。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10660",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "$\\mathbf{\\frac{5}{12} < \\frac{5}{9} < \\frac{5}{6}}$",
+        "independentAnswer": "$\\frac{5}{12} < \\frac{5}{9} < \\frac{5}{6}$",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "可解，答案匹配。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10661",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "$\\frac{5}{10} = \\mathbf{\\frac{1}{2}}$",
+        "independentAnswer": "$\\frac{5}{10} = \\frac{1}{2}$",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "可解，答案匹配。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10662",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "(a) $\\frac{2}{9} + \\frac{1}{9} = \\mathbf{\\frac{3}{9}}$ (或 $\\mathbf{\\frac{1}{3}}$); (b) $\\frac{2}{9} + \\frac{3}{9} = \\mathbf{\\frac{5}{9}}$",
+        "independentAnswer": "(a) $\\frac{3}{9} = \\frac{1}{3}$; (b) $\\frac{5}{9}$",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "可解，答案匹配。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10338",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": null,
+        "solvabilityStatus": "ambiguous",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "題目僅陳述「一個藥水瓶的容量約是 60」，未明確提出問題或要求填寫單位，無法判斷應答。",
+        "recommendedAction": "需要明確問題要求，或提供完整題目與答案鍵。"
+      },
+      {
+        "questionId": "10343",
+        "questionType": "FRQ",
+        "hasImage": true,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": null,
+        "solvabilityStatus": "image-context-required",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "需從圖片讀取量杯刻度和水位，無法僅由文字求解。",
+        "recommendedAction": "提供圖片描述或直接查看圖片內容。"
+      },
+      {
+        "questionId": "10344",
+        "questionType": "FRQ",
+        "hasImage": true,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": null,
+        "solvabilityStatus": "image-context-required",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "需圖片顯示倒入水後的水位才能比較水杯容量。",
+        "recommendedAction": "提供圖片內容或直接查看圖片。"
+      },
+      {
+        "questionId": "10345",
+        "questionType": "FRQ",
+        "hasImage": true,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": null,
+        "solvabilityStatus": "image-context-required",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "需圖片顯示容器及刻度才能讀取容量。",
+        "recommendedAction": "提供圖片描述或直接查看圖片。"
+      },
+      {
+        "questionId": "10358",
+        "questionType": "FRQ",
+        "hasImage": true,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": null,
+        "solvabilityStatus": "image-context-required",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "題目僅為陳述句，未提出問題，且需圖片提供實驗結果數據。",
+        "recommendedAction": "補充完整問題並提供圖片內容。"
+      },
+      {
+        "questionId": "10359",
+        "questionType": "FRQ",
+        "hasImage": true,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": null,
+        "solvabilityStatus": "image-context-required",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "實為選擇題，需圖片顯示量杯讀數才能選出正確容量。",
+        "recommendedAction": "提供圖片描述或直接查看圖片以確認答案。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 4,
+      "unsolvable": 0,
+      "ambiguous": 1,
+      "imageContextRequired": 5,
+      "answerMismatch": 0,
+      "missingAnswerKey": 6,
+      "notes": "四題分數文字題可解且答案匹配；一題容量題目敘述不明確；五題需看圖片求解且未提供答案鍵。"
+    }
+  }
+}

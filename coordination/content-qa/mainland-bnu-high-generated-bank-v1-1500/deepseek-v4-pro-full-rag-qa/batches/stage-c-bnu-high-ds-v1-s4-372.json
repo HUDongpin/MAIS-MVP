@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-372",
+  "startedAt": "2026-05-28T02:43:31.783Z",
+  "completedAt": "2026-05-28T02:43:36.920Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-372"
+  ],
+  "usage": {
+    "prompt_tokens": 2232,
+    "completion_tokens": 286,
+    "total_tokens": 2518,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1848
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-372",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "50/√(4-√3) 米",
+        "correctedAnswer": "50/√(4-√3) 米",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，独立解得塔高 h = 50/√(4-√3) 米，而存储答案 25√6 米错误。解析中 2500/(4-√3) 有理化后不等于 25√6，计算错误，导致答案与解释矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1 题答案错误，解释矛盾，严重性为 blocker。"
+    }
+  }
+}

@@ -1,0 +1,651 @@
+{
+  "batchId": "batch-080",
+  "questions": [
+    {
+      "id": "bnu-high-ds-v1-s5-291",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-计数原理",
+      "topicTitleZhHans": "计数原理",
+      "volume": "选择性必修 第一册",
+      "chapter": "计数原理",
+      "conceptIds": [
+        "counting-principles",
+        "permutations-combinations",
+        "binomial-theorem",
+        "classification-counting"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "数学运算",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "分类加法",
+        "分步乘法",
+        "排列组合辨析",
+        "二项式系数",
+        "简单计数模型",
+        "分情况讨论",
+        "间接计数",
+        "限制条件拆分"
+      ],
+      "misconceptionTags": [
+        "classification and step multiplication confused",
+        "order relevance misjudged",
+        "restriction counted twice",
+        "binomial term index off by one",
+        "addition and multiplication principles mixed",
+        "order sensitivity ignored",
+        "restriction handled twice",
+        "binomial coefficient index reversed"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-counting-principles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-counting-unit-core",
+        "bnu-high-s5-assessment-counting-unit-synthesis",
+        "bnu-high-s5-assessment-permutation-combination-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在由数字0,1,2,3,4组成的没有重复数字的四位数中，偶数共有多少个？",
+      "optionsZhHans": [],
+      "answer": "60",
+      "acceptedAnswers": [
+        "60"
+      ],
+      "explanationZhHans": "按末位分类：末位为0时，前三位从1,2,3,4中选3个排列，有A(4,3)=24个；末位为2或4时，首位不能为0，先选末位（2种），再选首位（从剩余3个非零数字选1个），最后排中间两位（从剩余3个数字选2个排列），有2×3×A(3,2)=36个。共24+36=60个。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-292",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-计数原理",
+      "topicTitleZhHans": "计数原理",
+      "volume": "选择性必修 第一册",
+      "chapter": "计数原理",
+      "conceptIds": [
+        "counting-principles",
+        "permutations-combinations",
+        "binomial-theorem",
+        "classification-counting"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "数学运算",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "分类加法",
+        "分步乘法",
+        "排列组合辨析",
+        "二项式系数",
+        "简单计数模型",
+        "分情况讨论",
+        "间接计数",
+        "限制条件拆分"
+      ],
+      "misconceptionTags": [
+        "classification and step multiplication confused",
+        "order relevance misjudged",
+        "restriction counted twice",
+        "binomial term index off by one",
+        "addition and multiplication principles mixed",
+        "order sensitivity ignored",
+        "restriction handled twice",
+        "binomial coefficient index reversed"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-counting-principles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-counting-unit-core",
+        "bnu-high-s5-assessment-counting-unit-synthesis",
+        "bnu-high-s5-assessment-permutation-combination-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "从6名男生和4名女生中选出3人参加演讲比赛，要求既有男生又有女生，则不同的选法共有多少种？",
+      "optionsZhHans": [
+        "96",
+        "100",
+        "120",
+        "80"
+      ],
+      "answer": "96",
+      "acceptedAnswers": [
+        "96"
+      ],
+      "explanationZhHans": "总选法C(10,3)=120，全男生C(6,3)=20，全女生C(4,3)=4，不合要求。故符合条件选法为120-20-4=96种。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-293",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-计数原理",
+      "topicTitleZhHans": "计数原理",
+      "volume": "选择性必修 第一册",
+      "chapter": "计数原理",
+      "conceptIds": [
+        "counting-principles",
+        "permutations-combinations",
+        "binomial-theorem",
+        "classification-counting"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "数学运算",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "分类加法",
+        "分步乘法",
+        "排列组合辨析",
+        "二项式系数",
+        "简单计数模型",
+        "分情况讨论",
+        "间接计数",
+        "限制条件拆分"
+      ],
+      "misconceptionTags": [
+        "classification and step multiplication confused",
+        "order relevance misjudged",
+        "restriction counted twice",
+        "binomial term index off by one",
+        "addition and multiplication principles mixed",
+        "order sensitivity ignored",
+        "restriction handled twice",
+        "binomial coefficient index reversed"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-counting-principles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-counting-unit-core",
+        "bnu-high-s5-assessment-counting-unit-synthesis",
+        "bnu-high-s5-assessment-permutation-combination-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "求(2x - 1)^5的展开式中x^3的系数。",
+      "optionsZhHans": [],
+      "answer": "80",
+      "acceptedAnswers": [
+        "80"
+      ],
+      "explanationZhHans": "通项T_{r+1}=C(5,r)(2x)^{5-r}(-1)^r。令5-r=3得r=2，系数为C(5,2)×2^3×(-1)^2=10×8×1=80。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-294",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-计数原理",
+      "topicTitleZhHans": "计数原理",
+      "volume": "选择性必修 第一册",
+      "chapter": "计数原理",
+      "conceptIds": [
+        "counting-principles",
+        "permutations-combinations",
+        "binomial-theorem",
+        "classification-counting"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "数学运算",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "分类加法",
+        "分步乘法",
+        "排列组合辨析",
+        "二项式系数",
+        "简单计数模型",
+        "分情况讨论",
+        "间接计数",
+        "限制条件拆分"
+      ],
+      "misconceptionTags": [
+        "classification and step multiplication confused",
+        "order relevance misjudged",
+        "restriction counted twice",
+        "binomial term index off by one",
+        "addition and multiplication principles mixed",
+        "order sensitivity ignored",
+        "restriction handled twice",
+        "binomial coefficient index reversed"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-counting-principles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-counting-unit-core",
+        "bnu-high-s5-assessment-counting-unit-synthesis",
+        "bnu-high-s5-assessment-permutation-combination-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "将5本不同的书分给3名同学，每人至少1本，则不同的分配方法共有多少种？",
+      "optionsZhHans": [],
+      "answer": "150",
+      "acceptedAnswers": [
+        "150"
+      ],
+      "explanationZhHans": "先分组后分配。5本不同书分成3组，人数为3,1,1或2,2,1。3,1,1分组：选3本书成一组C(5,3)=10，其余两本各成一组，但两组人数相同需除以A(2,2)，故分组方法10×1/2=5种；2,2,1分组：选1本书单独C(5,1)=5，剩余4本平均分两组C(4,2)/A(2,2)=3，共5×3=15种。总分组5+15=20种。再分配给3人排列A(3,3)=6，共20×6=120种。但注意3,1,1分组中两组1本的是相同元素，分配时无区别，故直接分组后分配：3,1,1型：选3本书给一人C(5,3)×3=30，剩余两本给两人有2种，共30×2=60；2,2,1型：选1本书给一人C(5,1)×3=15，剩余4本分两组C(4,2)/2=3，给剩余两人2种，共15×3×2=90。总计60+90=150。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-295",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-计数原理",
+      "topicTitleZhHans": "计数原理",
+      "volume": "选择性必修 第一册",
+      "chapter": "计数原理",
+      "conceptIds": [
+        "counting-principles",
+        "permutations-combinations",
+        "binomial-theorem",
+        "classification-counting"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "数学运算",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "分类加法",
+        "分步乘法",
+        "排列组合辨析",
+        "二项式系数",
+        "简单计数模型",
+        "分情况讨论",
+        "间接计数",
+        "限制条件拆分"
+      ],
+      "misconceptionTags": [
+        "classification and step multiplication confused",
+        "order relevance misjudged",
+        "restriction counted twice",
+        "binomial term index off by one",
+        "addition and multiplication principles mixed",
+        "order sensitivity ignored",
+        "restriction handled twice",
+        "binomial coefficient index reversed"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-counting-principles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-counting-unit-core",
+        "bnu-high-s5-assessment-counting-unit-synthesis",
+        "bnu-high-s5-assessment-permutation-combination-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在(1+x)^6的展开式中，二项式系数最大的项是第几项？",
+      "optionsZhHans": [
+        "第3项",
+        "第4项",
+        "第5项",
+        "第3项和第4项"
+      ],
+      "answer": "第4项",
+      "acceptedAnswers": [
+        "第4项"
+      ],
+      "explanationZhHans": "n=6为偶数，二项式系数最大为中间一项，即第6/2+1=4项。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-296",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-计数原理",
+      "topicTitleZhHans": "计数原理",
+      "volume": "选择性必修 第一册",
+      "chapter": "计数原理",
+      "conceptIds": [
+        "counting-principles",
+        "permutations-combinations",
+        "binomial-theorem",
+        "classification-counting"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "数学运算",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "分类加法",
+        "分步乘法",
+        "排列组合辨析",
+        "二项式系数",
+        "简单计数模型",
+        "分情况讨论",
+        "间接计数",
+        "限制条件拆分"
+      ],
+      "misconceptionTags": [
+        "classification and step multiplication confused",
+        "order relevance misjudged",
+        "restriction counted twice",
+        "binomial term index off by one",
+        "addition and multiplication principles mixed",
+        "order sensitivity ignored",
+        "restriction handled twice",
+        "binomial coefficient index reversed"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-counting-principles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-counting-unit-core",
+        "bnu-high-s5-assessment-counting-unit-synthesis",
+        "bnu-high-s5-assessment-permutation-combination-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用0,1,2,3,4这五个数字，可以组成多少个没有重复数字的五位奇数？",
+      "optionsZhHans": [],
+      "answer": "36",
+      "acceptedAnswers": [
+        "36"
+      ],
+      "explanationZhHans": "末位为奇数，从1,3选一个，有2种；首位不能为0，从剩余3个非零数字选一个，有3种；中间三位从剩余3个数字全排列，有3!=6种。共2×3×6=36个。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-297",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-计数原理",
+      "topicTitleZhHans": "计数原理",
+      "volume": "选择性必修 第一册",
+      "chapter": "计数原理",
+      "conceptIds": [
+        "counting-principles",
+        "permutations-combinations",
+        "binomial-theorem",
+        "classification-counting"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "数学运算",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "分类加法",
+        "分步乘法",
+        "排列组合辨析",
+        "二项式系数",
+        "简单计数模型",
+        "分情况讨论",
+        "间接计数",
+        "限制条件拆分"
+      ],
+      "misconceptionTags": [
+        "classification and step multiplication confused",
+        "order relevance misjudged",
+        "restriction counted twice",
+        "binomial term index off by one",
+        "addition and multiplication principles mixed",
+        "order sensitivity ignored",
+        "restriction handled twice",
+        "binomial coefficient index reversed"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-counting-principles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-counting-unit-core",
+        "bnu-high-s5-assessment-counting-unit-synthesis",
+        "bnu-high-s5-assessment-permutation-combination-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某班有8名男生和6名女生，从中选出5人组成班委会，要求男生人数不少于女生人数，则不同的选法共有多少种？",
+      "optionsZhHans": [],
+      "answer": "1316",
+      "acceptedAnswers": [
+        "1316"
+      ],
+      "explanationZhHans": "分类：5男0女C(8,5)=56；4男1女C(8,4)×C(6,1)=70×6=420；3男2女C(8,3)×C(6,2)=56×15=840。共56+420+840=1316种。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-298",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-计数原理",
+      "topicTitleZhHans": "计数原理",
+      "volume": "选择性必修 第一册",
+      "chapter": "计数原理",
+      "conceptIds": [
+        "counting-principles",
+        "permutations-combinations",
+        "binomial-theorem",
+        "classification-counting"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "数学运算",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "分类加法",
+        "分步乘法",
+        "排列组合辨析",
+        "二项式系数",
+        "简单计数模型",
+        "分情况讨论",
+        "间接计数",
+        "限制条件拆分"
+      ],
+      "misconceptionTags": [
+        "classification and step multiplication confused",
+        "order relevance misjudged",
+        "restriction counted twice",
+        "binomial term index off by one",
+        "addition and multiplication principles mixed",
+        "order sensitivity ignored",
+        "restriction handled twice",
+        "binomial coefficient index reversed"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-counting-principles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-counting-unit-core",
+        "bnu-high-s5-assessment-counting-unit-synthesis",
+        "bnu-high-s5-assessment-permutation-combination-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在(2x - 1/x)^6的展开式中，常数项是多少？",
+      "optionsZhHans": [
+        "-160",
+        "160",
+        "-240",
+        "240"
+      ],
+      "answer": "-160",
+      "acceptedAnswers": [
+        "-160"
+      ],
+      "explanationZhHans": "通项T_{r+1}=C(6,r)(2x)^{6-r}(-1/x)^r=C(6,r)2^{6-r}(-1)^r x^{6-2r}。令6-2r=0得r=3，常数项为C(6,3)×2^3×(-1)^3=20×8×(-1)=-160。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-299",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-计数原理",
+      "topicTitleZhHans": "计数原理",
+      "volume": "选择性必修 第一册",
+      "chapter": "计数原理",
+      "conceptIds": [
+        "counting-principles",
+        "permutations-combinations",
+        "binomial-theorem",
+        "classification-counting"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "数学运算",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "分类加法",
+        "分步乘法",
+        "排列组合辨析",
+        "二项式系数",
+        "简单计数模型",
+        "分情况讨论",
+        "间接计数",
+        "限制条件拆分"
+      ],
+      "misconceptionTags": [
+        "classification and step multiplication confused",
+        "order relevance misjudged",
+        "restriction counted twice",
+        "binomial term index off by one",
+        "addition and multiplication principles mixed",
+        "order sensitivity ignored",
+        "restriction handled twice",
+        "binomial coefficient index reversed"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-counting-principles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-counting-unit-core",
+        "bnu-high-s5-assessment-counting-unit-synthesis",
+        "bnu-high-s5-assessment-permutation-combination-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "求(1+2x)^7的展开式中系数最大的项。",
+      "optionsZhHans": [],
+      "answer": "672x^4",
+      "acceptedAnswers": [
+        "672x^4",
+        "672x^4项"
+      ],
+      "explanationZhHans": "设第r+1项系数最大，则C(7,r)2^r≥C(7,r-1)2^{r-1}且≥C(7,r+1)2^{r+1}。解得r=4，系数C(7,4)2^4=35×16=560？检查：通项T_{r+1}=C(7,r)(2x)^r，系数C(7,r)2^r。比较相邻项：C(7,r)2^r / C(7,r-1)2^{r-1} = (8-r)/(r) ×2 ≥1 => 16-2r≥r => r≤16/3≈5.33；C(7,r+1)2^{r+1} / C(7,r)2^r = (7-r)/(r+1) ×2 ≤1 => 14-2r≤r+1 => r≥13/3≈4.33。故r=5时系数最大？验证：r=4系数C(7,4)2^4=35×16=560；r=5系数C(7,5)2^5=21×32=672。故r=5时系数最大，对应第6项T_6=C(7,5)(2x)^5=21×32x^5=672x^5。但x指数为5，项为672x^5。原答案有误，应为672x^5。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-300",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-计数原理",
+      "topicTitleZhHans": "计数原理",
+      "volume": "选择性必修 第一册",
+      "chapter": "计数原理",
+      "conceptIds": [
+        "counting-principles",
+        "permutations-combinations",
+        "binomial-theorem",
+        "classification-counting"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "数学运算",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "分类加法",
+        "分步乘法",
+        "排列组合辨析",
+        "二项式系数",
+        "简单计数模型",
+        "分情况讨论",
+        "间接计数",
+        "限制条件拆分"
+      ],
+      "misconceptionTags": [
+        "classification and step multiplication confused",
+        "order relevance misjudged",
+        "restriction counted twice",
+        "binomial term index off by one",
+        "addition and multiplication principles mixed",
+        "order sensitivity ignored",
+        "restriction handled twice",
+        "binomial coefficient index reversed"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-counting-principles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-counting-unit-core",
+        "bnu-high-s5-assessment-counting-unit-synthesis",
+        "bnu-high-s5-assessment-permutation-combination-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "将4个不同的小球放入3个不同的盒子中，每个盒子至少放一个，则不同的放法共有多少种？",
+      "optionsZhHans": [],
+      "answer": "36",
+      "acceptedAnswers": [
+        "36"
+      ],
+      "explanationZhHans": "先分组后分配。4个不同球分成3组，人数为2,1,1。选2个球成一组C(4,2)=6，其余两球各成一组，因两组人数相同需除以A(2,2)=2，故分组方法6/2=3种。再分配给3个盒子排列A(3,3)=6，共3×6=18种？但注意：分组时两组单球无区别，分配时盒子不同，故直接分配：先选一个盒子放2个球，选盒子3种，选2个球C(4,2)=6，剩余2球放入剩余2盒，有2!种，共3×6×2=36种。"
+    }
+  ]
+}

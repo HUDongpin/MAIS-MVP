@@ -1,0 +1,298 @@
+{
+  "batchId": "batch-258",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p6-036",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "hjb-primary-p6-upper-fractions",
+      "unitTitle": "分数",
+      "volume": "6年级上册",
+      "conceptIds": [
+        "fraction-equivalence",
+        "fraction-operations",
+        "mixed-numbers",
+        "fraction-comparison",
+        "分数",
+        "约分通分"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "数学表达"
+      ],
+      "skillTags": [
+        "分数意义",
+        "约分",
+        "通分",
+        "分数加减乘除",
+        "结果合理性检查"
+      ],
+      "misconceptionTags": [
+        "denominators added directly",
+        "whole not identified before interpreting fraction",
+        "mixed-number conversion error"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p6-upper-fractions"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-review-operations-fractions",
+        "hjb-primary-p4-upper-assessment-fraction-extension"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小杰有一盒彩笔，他先用去总数的 2/5，又用去剩下的 1/3，最后盒子里还剩 12 支彩笔。这盒彩笔原来有多少支？",
+      "optionsZhHans": [],
+      "answer": "30支",
+      "acceptedAnswers": [
+        "30支",
+        "30"
+      ],
+      "explanationZhHans": "把原来总数看作整体1。先用去2/5，剩下3/5。再用去剩下的1/3，即用去3/5×1/3=1/5。两次共用去2/5+1/5=3/5，剩下2/5。剩下12支对应2/5，所以原来有12÷2/5=30支。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-037",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "hjb-primary-p6-upper-ratio-proportion",
+      "unitTitle": "比和比例",
+      "volume": "6年级上册",
+      "conceptIds": [
+        "ratio",
+        "proportion",
+        "proportional-reasoning",
+        "scale",
+        "比",
+        "比例"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "比的意义",
+        "比的化简",
+        "比例关系",
+        "比例式",
+        "比例应用"
+      ],
+      "misconceptionTags": [
+        "ratio order reversed",
+        "any two changing quantities assumed proportional",
+        "units omitted when forming a comparison"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p6-upper-ratio-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-ratio-proportion",
+        "hjb-primary-p6-lower-assessment-stage-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一种混凝土由水泥、沙子和石子按质量比 2∶3∶5 搅拌而成。现在要配制 200 千克的这种混凝土，需要沙子多少千克？",
+      "optionsZhHans": [
+        "40千克",
+        "60千克",
+        "100千克",
+        "120千克"
+      ],
+      "answer": "60千克",
+      "acceptedAnswers": [
+        "60千克"
+      ],
+      "explanationZhHans": "总份数2+3+5=10，沙子占3份。每份质量200÷10=20千克，沙子质量20×3=60千克。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-038",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "hjb-primary-p6-upper-ratio-proportion",
+      "unitTitle": "比和比例",
+      "volume": "6年级上册",
+      "conceptIds": [
+        "ratio",
+        "proportion",
+        "proportional-reasoning",
+        "scale",
+        "比",
+        "比例"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "比的意义",
+        "比的化简",
+        "比例关系",
+        "比例式",
+        "比例应用"
+      ],
+      "misconceptionTags": [
+        "ratio order reversed",
+        "any two changing quantities assumed proportional",
+        "units omitted when forming a comparison"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p6-upper-ratio-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-ratio-proportion",
+        "hjb-primary-p6-lower-assessment-stage-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把 0.6∶1.2 化成最简单的整数比是______。",
+      "optionsZhHans": [],
+      "answer": "1∶2",
+      "acceptedAnswers": [
+        "1∶2",
+        "1:2"
+      ],
+      "explanationZhHans": "0.6∶1.2前后项同时乘10变成6∶12，再同时除以6得1∶2。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-039",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "hjb-primary-p6-upper-ratio-proportion",
+      "unitTitle": "比和比例",
+      "volume": "6年级上册",
+      "conceptIds": [
+        "ratio",
+        "proportion",
+        "proportional-reasoning",
+        "scale",
+        "比",
+        "比例"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "比的意义",
+        "比的化简",
+        "比例关系",
+        "比例式",
+        "比例应用"
+      ],
+      "misconceptionTags": [
+        "ratio order reversed",
+        "any two changing quantities assumed proportional",
+        "units omitted when forming a comparison"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p6-upper-ratio-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-ratio-proportion",
+        "hjb-primary-p6-lower-assessment-stage-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在比例尺为 1∶5000000 的地图上，量得甲、乙两城的距离是 6.4 厘米。一辆汽车以每小时 80 千米的速度从甲城开往乙城，需要多少小时到达？",
+      "optionsZhHans": [],
+      "answer": "4小时",
+      "acceptedAnswers": [
+        "4小时",
+        "4"
+      ],
+      "explanationZhHans": "实际距离=6.4×5000000=32000000厘米=320千米。时间=320÷80=4小时。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-040",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "hjb-primary-p6-upper-ratio-proportion",
+      "unitTitle": "比和比例",
+      "volume": "6年级上册",
+      "conceptIds": [
+        "ratio",
+        "proportion",
+        "proportional-reasoning",
+        "scale",
+        "比",
+        "比例"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "比的意义",
+        "比的化简",
+        "比例关系",
+        "比例式",
+        "比例应用"
+      ],
+      "misconceptionTags": [
+        "ratio order reversed",
+        "any two changing quantities assumed proportional",
+        "units omitted when forming a comparison"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p6-upper-ratio-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-ratio-proportion",
+        "hjb-primary-p6-lower-assessment-stage-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面各组中的两个比，能组成比例的是哪一组？",
+      "optionsZhHans": [
+        "3∶4 和 6∶9",
+        "0.2∶0.5 和 4∶10",
+        "1/2∶1/3 和 3∶2",
+        "5∶8 和 15∶20"
+      ],
+      "answer": "1/2∶1/3 和 3∶2",
+      "acceptedAnswers": [
+        "1/2∶1/3 和 3∶2"
+      ],
+      "explanationZhHans": "1/2∶1/3=3∶2，比值相等。其他选项：3∶4≠6∶9，0.2∶0.5=2∶5≠4∶10，5∶8≠15∶20。"
+    }
+  ]
+}

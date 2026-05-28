@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-130",
+  "startedAt": "2026-05-28T03:03:43.243Z",
+  "completedAt": "2026-05-28T03:03:48.638Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-130"
+  ],
+  "usage": {
+    "prompt_tokens": 2196,
+    "completion_tokens": 266,
+    "total_tokens": 2462,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1812
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-130",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "independentAnswer": null,
+        "correctedAnswer": null,
+        "issueTags": [
+          "ambiguous_mc",
+          "missing_condition",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目未指定a>1或0<a<1，f(1)=0无法确定a，导致解集不唯一。存储答案B仅对应a>1情形，忽略0<a<1时解集(0,1)，造成多解且选项不唯一，解析错误默认a>1。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目条件不足，无法唯一确定解集，选项不唯一，判定为不合格。"
+    }
+  }
+}

@@ -1,0 +1,137 @@
+{
+  "batchNumber": 128,
+  "startedAt": "2026-05-27T14:05:19.235Z",
+  "completedAt": "2026-05-27T14:05:35.563Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-017",
+    "bnu-high-ds-v1-s6-018",
+    "bnu-high-ds-v1-s6-019",
+    "bnu-high-ds-v1-s6-020",
+    "bnu-high-ds-v1-s6-021",
+    "bnu-high-ds-v1-s6-022",
+    "bnu-high-ds-v1-s6-023",
+    "bnu-high-ds-v1-s6-024"
+  ],
+  "usage": {
+    "prompt_tokens": 11022,
+    "completion_tokens": 1084,
+    "total_tokens": 12106,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10510
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-017",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "a_n = 2·3^{n-1} - 1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "递推式可解，答案正确，解析步骤无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-018",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由等比数列性质可解，答案正确，解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-019",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2^n - 1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "累加法可解，选项唯一正确，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-020",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "a_1 = 1, d = 2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由求和公式列方程组可解，答案正确，解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-021",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "a_n = (3^n + 4n - 3)/2",
+        "correctedAnswer": "a_n = (3^n + 4n - 3)/2",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，但答案 a_n = 3^{n-1} + 2n - 1 错误，正确通项为 (3^n + 4n - 3)/2。解析中虽指出错误但最终未修正答案，且解析自身矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-022",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由等差数列性质可解，选项唯一正确，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-023",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "a_n = 2^n - 1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "累加法可解，答案正确，解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-024",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "48",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "直接代入通项公式可解，答案正确，解析无误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第5题答案错误，正确通项为(3^n+4n-3)/2，解析虽指出错误但未修正，需更正。其余题目均通过。"
+    }
+  }
+}

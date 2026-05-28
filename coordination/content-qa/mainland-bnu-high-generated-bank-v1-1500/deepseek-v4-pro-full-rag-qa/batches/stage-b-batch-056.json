@@ -1,0 +1,130 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-056",
+  "startedAt": "2026-05-28T01:59:08.457Z",
+  "completedAt": "2026-05-28T01:59:21.204Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-441",
+    "bnu-high-ds-v1-s4-442",
+    "bnu-high-ds-v1-s4-443",
+    "bnu-high-ds-v1-s4-444",
+    "bnu-high-ds-v1-s4-445",
+    "bnu-high-ds-v1-s4-446",
+    "bnu-high-ds-v1-s4-447",
+    "bnu-high-ds-v1-s4-448"
+  ],
+  "usage": {
+    "prompt_tokens": 11260,
+    "completion_tokens": 986,
+    "total_tokens": 12246,
+    "prompt_tokens_details": {
+      "cached_tokens": 11136
+    },
+    "prompt_cache_hit_tokens": 11136,
+    "prompt_cache_miss_tokens": 124
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-441",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案3与独立解3一致，解析正确计算虚部为3。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-442",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案第二象限与独立解一致，解析正确指出实部负、虚部正。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-443",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "11 + 2i",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案11+2i与独立解11-2i矛盾；解析展开得11+2i，但独立解正确结果为11-2i，解析与正确答案不符。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-444",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案圆与独立解一致，解析正确解释为以(0,2)为圆心、3为半径的圆。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-445",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案(1/2)+(1/2)i与独立解一致，解析正确计算共轭。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-446",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案x=±2i与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-447",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案5与独立解一致，解析正确计算模。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-448",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案-i与独立解一致，解析正确利用周期。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第443题存储答案与独立解不符，解析也错误，其余题目均通过。"
+    }
+  }
+}

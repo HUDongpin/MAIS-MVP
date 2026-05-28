@@ -1,0 +1,177 @@
+{
+  "batchNumber": 57,
+  "startedAt": "2026-05-27T17:38:46.280Z",
+  "completedAt": "2026-05-27T17:39:03.542Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s2-173",
+    "bnu-junior-ds-v1-s2-174",
+    "bnu-junior-ds-v1-s2-175",
+    "bnu-junior-ds-v1-s2-176",
+    "bnu-junior-ds-v1-s2-177",
+    "bnu-junior-ds-v1-s2-178",
+    "bnu-junior-ds-v1-s2-179",
+    "bnu-junior-ds-v1-s2-180",
+    "bnu-junior-ds-v1-s2-181",
+    "bnu-junior-ds-v1-s2-182",
+    "bnu-junior-ds-v1-s2-183",
+    "bnu-junior-ds-v1-s2-184"
+  ],
+  "usage": {
+    "prompt_tokens": 6299,
+    "completion_tokens": 1256,
+    "total_tokens": 7555,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 5787
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s2-173",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程组可解，答案正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-174",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程组可解，答案正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-175",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项唯一正确，答案匹配，解释正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-176",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程组可解，答案正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-177",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程组可解，答案正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-178",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项唯一正确，答案匹配，解释正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-179",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程组可解，答案正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-180",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程组可解，答案正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-181",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项唯一正确，答案匹配，解释正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-182",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程组可解，答案正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-183",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": false,
+        "answerMatches": false,
+        "issueTags": [
+          "missing_condition",
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": null,
+        "rationale": "题目条件矛盾：已知每辆A型客车可坐45人，B型客车可坐30人，但后续条件要求求解座位数，且方程组3x+2y=195与2x+4y=210的解为x=45, y=30，与已知信息一致，但题目本身已给出座位数，导致条件冗余且问题不明确，无法构成有效求解。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-184",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项唯一正确，答案匹配，解释正确。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 11,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第183题因题目已给出客车座位数，导致条件冗余且问题不明确，无法构成有效求解，判定为失败。其余题目均通过。"
+    }
+  }
+}

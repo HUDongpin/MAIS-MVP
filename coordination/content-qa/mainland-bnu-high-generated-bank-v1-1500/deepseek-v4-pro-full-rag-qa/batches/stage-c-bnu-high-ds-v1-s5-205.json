@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-205",
+  "startedAt": "2026-05-28T02:56:11.887Z",
+  "completedAt": "2026-05-28T02:56:17.349Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-205"
+  ],
+  "usage": {
+    "prompt_tokens": 2386,
+    "completion_tokens": 267,
+    "total_tokens": 2653,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2002
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-205",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "1/3",
+        "correctedAnswer": "1/3",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合教材范围。独立计算得体积为1/3，选项B为1/3，选项唯一。但存储答案为1/6，解析中计算过程得1/3却强行改为1/6，存在数学错误、答案不匹配和解释矛盾，严重性为阻断。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "一题因答案错误、解析矛盾被判定为阻断。"
+    }
+  }
+}

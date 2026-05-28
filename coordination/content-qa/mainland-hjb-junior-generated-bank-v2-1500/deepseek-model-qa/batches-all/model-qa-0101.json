@@ -1,0 +1,112 @@
+{
+  "batchId": "model-qa-0101",
+  "ids": [
+    "hjb-junior-ds-v2-s2-301",
+    "hjb-junior-ds-v2-s2-302",
+    "hjb-junior-ds-v2-s2-303",
+    "hjb-junior-ds-v2-s2-304",
+    "hjb-junior-ds-v2-s2-305",
+    "hjb-junior-ds-v2-s2-306",
+    "hjb-junior-ds-v2-s2-307",
+    "hjb-junior-ds-v2-s2-308"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-301",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为4组，但实际能推出平行四边形的组合只有3组。组合③④（AB=CD且∠ABC=∠ADC）不能唯一推出平行四边形，因为存在等腰梯形等反例。解析中通过连接BD证明△ABD≌△CDB，但该全等需要AB=CD、∠ABC=∠ADC和BD=DB，而∠ABC=∠ADC不是夹角，无法直接使用SAS或SSS，全等不成立。因此③④不能作为判定条件。正确组合为①②、①③、②④，共3组。",
+      "independentAnswerZhHans": "3组",
+      "answerCheckZhHans": "标准答案为4组，但实际应为3组。组合③④不能唯一推出平行四边形。",
+      "recommendedActionZhHans": "将答案改为3组，并修正解析，删除组合③④的无效证明。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-302",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析称EF等于AC/2=5，但EF是连接平行四边形对边中点的线段，其长度应等于一组对边的长度，而非对角线的一半。在平行四边形中，连接对边中点的线段与另一组对边平行且相等。已知AB∥CD，AD∥BC，但未指定哪组对边，EF连接AB和CD的中点，则EF平行且等于AD或BC。题目未给出AD或BC的长度，无法求出EF。若默认EF等于对角线一半，则错误。",
+      "independentAnswerZhHans": "无法确定",
+      "answerCheckZhHans": "标准答案为5，但根据条件无法求出EF长度，解析错误。",
+      "recommendedActionZhHans": "修改题目，补充AD或BC的长度，或明确EF与对角线的关系。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-303",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析称菱形四边相等，AB=BC=CD=DA=10，但已知AB=10，BC=6，矛盾。若为菱形，则AB=BC，但10≠6，故条件矛盾。题目无法求解。",
+      "independentAnswerZhHans": "条件矛盾，无法求解",
+      "answerCheckZhHans": "标准答案为8，但AB=10与BC=6矛盾，无法构成菱形。",
+      "recommendedActionZhHans": "修改条件，使AB=BC或调整边长，确保一致性。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-304",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "C. AC = BD",
+      "answerCheckZhHans": "标准答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-305",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "24",
+      "answerCheckZhHans": "标准答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-306",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "70°",
+      "answerCheckZhHans": "标准答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-307",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "AC=BD",
+      "answerCheckZhHans": "标准答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-308",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "6",
+      "answerCheckZhHans": "标准答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

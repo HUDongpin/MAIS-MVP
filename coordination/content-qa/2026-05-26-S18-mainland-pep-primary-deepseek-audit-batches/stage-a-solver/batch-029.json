@@ -1,0 +1,181 @@
+{
+  "startedAt": "2026-05-26T06:02:38.509Z",
+  "completedAt": "2026-05-26T06:02:57.410Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "usage": {
+    "prompt_tokens": 2454,
+    "completion_tokens": 1529,
+    "total_tokens": 3983,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 2454
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "questionId": "pep-primary-p3-l-sa-161",
+        "solvableStatus": "pass",
+        "independentAnswer": "8",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "平均数=(6+8+10)/3=8，题目清晰可解。"
+      },
+      {
+        "questionId": "pep-primary-p3-l-sa-162",
+        "solvableStatus": "pass",
+        "independentAnswer": "10",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "平均数=(8+10+12)/3=10，题目清晰可解。"
+      },
+      {
+        "questionId": "pep-primary-p3-l-sa-163",
+        "solvableStatus": "pass",
+        "independentAnswer": "12",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "平均数=(10+12+14)/3=12，题目清晰可解。"
+      },
+      {
+        "questionId": "pep-primary-p3-l-sa-164",
+        "solvableStatus": "pass",
+        "independentAnswer": "10",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "平均数=(8+10+12)/3=10，题目清晰可解。"
+      },
+      {
+        "questionId": "pep-primary-p3-l-sa-165",
+        "solvableStatus": "pass",
+        "independentAnswer": "11",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "平均数=(9+11+13)/3=11，题目清晰可解。"
+      },
+      {
+        "questionId": "pep-primary-p3-l-sa-166",
+        "solvableStatus": "pass",
+        "independentAnswer": "12",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "平均数=(10+12+14)/3=12，题目清晰可解。"
+      },
+      {
+        "questionId": "pep-primary-p3-l-sa-167",
+        "solvableStatus": "pass",
+        "independentAnswer": "9",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "平均数=(7+9+11)/3=9，题目清晰可解。"
+      },
+      {
+        "questionId": "pep-primary-p3-l-sa-168",
+        "solvableStatus": "pass",
+        "independentAnswer": "10",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "平均数=(8+10+12)/3=10，题目清晰可解。"
+      },
+      {
+        "questionId": "pep-primary-p3-l-sa-169",
+        "solvableStatus": "pass",
+        "independentAnswer": "7",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "平均数=(5+7+9)/3=7，题目清晰可解。"
+      },
+      {
+        "questionId": "pep-primary-p3-l-sa-170",
+        "solvableStatus": "pass",
+        "independentAnswer": "8",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "平均数=(6+8+10)/3=8，题目清晰可解。"
+      },
+      {
+        "questionId": "pep-primary-p3-l-sa-171",
+        "solvableStatus": "pass",
+        "independentAnswer": "9",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "平均数=(7+9+11)/3=9，题目清晰可解。"
+      },
+      {
+        "questionId": "pep-primary-p3-l-sa-172",
+        "solvableStatus": "pass",
+        "independentAnswer": "10",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "平均数=(8+10+12)/3=10，题目清晰可解。"
+      },
+      {
+        "questionId": "pep-primary-p3-l-sa-173",
+        "solvableStatus": "pass",
+        "independentAnswer": "11",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "平均数=(9+11+13)/3=11，题目清晰可解。"
+      },
+      {
+        "questionId": "pep-primary-p3-l-sa-174",
+        "solvableStatus": "pass",
+        "independentAnswer": "12",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "平均数=(10+12+14)/3=12，题目清晰可解。"
+      },
+      {
+        "questionId": "pep-primary-p3-l-sa-175",
+        "solvableStatus": "pass",
+        "independentAnswer": "13",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "平均数=(11+13+15)/3=13，题目清晰可解。"
+      },
+      {
+        "questionId": "pep-primary-p3-l-sa-176",
+        "solvableStatus": "pass",
+        "independentAnswer": "6",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "平均数=(4+6+8)/3=6，题目清晰可解。"
+      },
+      {
+        "questionId": "pep-primary-p3-l-sa-177",
+        "solvableStatus": "pass",
+        "independentAnswer": "7",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "平均数=(5+7+9)/3=7，题目清晰可解。"
+      },
+      {
+        "questionId": "pep-primary-p3-l-sa-178",
+        "solvableStatus": "pass",
+        "independentAnswer": "8",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "平均数=(6+8+10)/3=8，题目清晰可解。"
+      },
+      {
+        "questionId": "pep-primary-p3-l-sa-179",
+        "solvableStatus": "pass",
+        "independentAnswer": "9",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "平均数=(7+9+11)/3=9，题目清晰可解。"
+      },
+      {
+        "questionId": "pep-primary-p3-l-sa-180",
+        "solvableStatus": "pass",
+        "independentAnswer": "10",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "平均数=(8+10+12)/3=10，题目清晰可解。"
+      }
+    ]
+  }
+}

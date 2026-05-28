@@ -1,0 +1,583 @@
+{
+  "batchId": "batch-120",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p5-191",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-fraction-division",
+      "unitTitle": "分数除法",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-division",
+        "reciprocal",
+        "measurement-division",
+        "partitive-division",
+        "分数除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "倒数",
+        "分数除以整数",
+        "整数除以分数",
+        "分数除以分数",
+        "方程联系"
+      ],
+      "misconceptionTags": [
+        "reciprocal applied to the wrong factor",
+        "division context ignored in word problems",
+        "quotient size judged from whole-number rules only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-fraction-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-fraction-division-unit",
+        "bnu-primary-p5-lower-assessment-fraction-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把一根长 5/8 米的绳子平均剪成 5 段，每段长多少米？下面列式正确的是（ ）。",
+      "optionsZhHans": [
+        "5/8 ÷ 5",
+        "5 ÷ 5/8",
+        "5/8 × 5",
+        "5/8 − 5"
+      ],
+      "answer": "5/8 ÷ 5",
+      "acceptedAnswers": [
+        "5/8 ÷ 5"
+      ],
+      "explanationZhHans": "把一根绳子平均剪成5段，求每段长度，属于平均分，用除法计算。总长度5/8米除以段数5，列式为5/8 ÷ 5。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-192",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-fraction-division",
+      "unitTitle": "分数除法",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-division",
+        "reciprocal",
+        "measurement-division",
+        "partitive-division",
+        "分数除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "倒数",
+        "分数除以整数",
+        "整数除以分数",
+        "分数除以分数",
+        "方程联系"
+      ],
+      "misconceptionTags": [
+        "reciprocal applied to the wrong factor",
+        "division context ignored in word problems",
+        "quotient size judged from whole-number rules only"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-fraction-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-fraction-division-unit",
+        "bnu-primary-p5-lower-assessment-fraction-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算：3/4 ÷ 6 = （ ）/（ ）。请将结果写成最简分数，分子填在第一个括号，分母填在第二个括号。",
+      "optionsZhHans": [],
+      "answer": "1/8",
+      "acceptedAnswers": [
+        "1/8"
+      ],
+      "explanationZhHans": "3/4 ÷ 6 = 3/4 × 1/6 = 3/24 = 1/8。除以一个整数等于乘它的倒数，最后约分成最简分数。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-193",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-fraction-division",
+      "unitTitle": "分数除法",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-division",
+        "reciprocal",
+        "measurement-division",
+        "partitive-division",
+        "分数除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "倒数",
+        "分数除以整数",
+        "整数除以分数",
+        "分数除以分数",
+        "方程联系"
+      ],
+      "misconceptionTags": [
+        "reciprocal applied to the wrong factor",
+        "division context ignored in word problems",
+        "quotient size judged from whole-number rules only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-fraction-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-fraction-division-unit",
+        "bnu-primary-p5-lower-assessment-fraction-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一辆汽车行驶 3/2 千米用了 3/10 升汽油，照这样计算，1 升汽油可以行驶多少千米？下面列式正确的是（ ）。",
+      "optionsZhHans": [
+        "3/2 ÷ 3/10",
+        "3/10 ÷ 3/2",
+        "3/2 × 3/10",
+        "3/2 − 3/10"
+      ],
+      "answer": "3/2 ÷ 3/10",
+      "acceptedAnswers": [
+        "3/2 ÷ 3/10"
+      ],
+      "explanationZhHans": "求1升汽油行驶的千米数，用行驶路程除以用油量。路程3/2千米，用油3/10升，列式为3/2 ÷ 3/10。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-194",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-fraction-division",
+      "unitTitle": "分数除法",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-division",
+        "reciprocal",
+        "measurement-division",
+        "partitive-division",
+        "分数除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "倒数",
+        "分数除以整数",
+        "整数除以分数",
+        "分数除以分数",
+        "方程联系"
+      ],
+      "misconceptionTags": [
+        "reciprocal applied to the wrong factor",
+        "division context ignored in word problems",
+        "quotient size judged from whole-number rules only"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-fraction-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-fraction-division-unit",
+        "bnu-primary-p5-lower-assessment-fraction-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "解方程：2/5 x = 4/15。x = （ ）/（ ）。请将结果写成最简分数，分子填在第一个括号，分母填在第二个括号。",
+      "optionsZhHans": [],
+      "answer": "2/3",
+      "acceptedAnswers": [
+        "2/3"
+      ],
+      "explanationZhHans": "方程两边同时除以2/5，即乘它的倒数5/2。x = 4/15 × 5/2 = 20/30 = 2/3。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-195",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-position",
+      "unitTitle": "确定位置",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "position-location",
+        "coordinate-like-representation",
+        "direction-distance",
+        "route-description",
+        "确定位置"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "模型意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "用方向确定位置",
+        "用距离确定位置",
+        "描述路线",
+        "读图定位",
+        "位置表达"
+      ],
+      "misconceptionTags": [
+        "reference point omitted",
+        "direction and distance swapped",
+        "route description changes when viewpoint is not stated"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-position"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-position-unit",
+        "bnu-primary-p5-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "以学校为观测点，书店在学校北偏东30°方向400米处。下面描述正确的是（ ）。",
+      "optionsZhHans": [
+        "学校在书店南偏西30°方向400米处",
+        "学校在书店北偏东30°方向400米处",
+        "学校在书店南偏东30°方向400米处",
+        "学校在书店西偏南30°方向400米处"
+      ],
+      "answer": "学校在书店南偏西30°方向400米处",
+      "acceptedAnswers": [
+        "学校在书店南偏西30°方向400米处"
+      ],
+      "explanationZhHans": "观测点互换，方向相反，角度和距离不变。北偏东的反方向是南偏西，所以学校在书店南偏西30°方向400米处。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-196",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-position",
+      "unitTitle": "确定位置",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "position-location",
+        "coordinate-like-representation",
+        "direction-distance",
+        "route-description",
+        "确定位置"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "模型意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "用方向确定位置",
+        "用距离确定位置",
+        "描述路线",
+        "读图定位",
+        "位置表达"
+      ],
+      "misconceptionTags": [
+        "reference point omitted",
+        "direction and distance swapped",
+        "route description changes when viewpoint is not stated"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-position"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-position-unit",
+        "bnu-primary-p5-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明从家出发，先向东走200米到超市，再向北偏东40°方向走300米到公园。小明从公园回家，应先向（ ）偏（ ）（ ）°方向走（ ）米到超市，再向（ ）走（ ）米到家。请按顺序填写方向、角度和距离。",
+      "optionsZhHans": [],
+      "answer": "南偏西40° 300 西 200",
+      "acceptedAnswers": [
+        "南偏西40° 300 西 200",
+        "南偏西 40 300 西 200"
+      ],
+      "explanationZhHans": "返回路线与去时方向相反，距离不变。从公园到超市：北偏东40°的反方向是南偏西40°，走300米；从超市到家：东的反方向是西，走200米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-197",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-position",
+      "unitTitle": "确定位置",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "position-location",
+        "coordinate-like-representation",
+        "direction-distance",
+        "route-description",
+        "确定位置"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "模型意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "用方向确定位置",
+        "用距离确定位置",
+        "描述路线",
+        "读图定位",
+        "位置表达"
+      ],
+      "misconceptionTags": [
+        "reference point omitted",
+        "direction and distance swapped",
+        "route description changes when viewpoint is not stated"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-position"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-position-unit",
+        "bnu-primary-p5-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "以灯塔为观测点，渔船在灯塔东偏南25°方向15千米处。下面描述正确的是（ ）。",
+      "optionsZhHans": [
+        "灯塔在渔船西偏北25°方向15千米处",
+        "灯塔在渔船东偏南25°方向15千米处",
+        "灯塔在渔船西偏南25°方向15千米处",
+        "灯塔在渔船北偏西25°方向15千米处"
+      ],
+      "answer": "灯塔在渔船西偏北25°方向15千米处",
+      "acceptedAnswers": [
+        "灯塔在渔船西偏北25°方向15千米处"
+      ],
+      "explanationZhHans": "观测点互换，方向相反。东偏南的反方向是西偏北，角度和距离不变，所以灯塔在渔船西偏北25°方向15千米处。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-198",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-position",
+      "unitTitle": "确定位置",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "position-location",
+        "coordinate-like-representation",
+        "direction-distance",
+        "route-description",
+        "确定位置"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "模型意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "用方向确定位置",
+        "用距离确定位置",
+        "描述路线",
+        "读图定位",
+        "位置表达"
+      ],
+      "misconceptionTags": [
+        "reference point omitted",
+        "direction and distance swapped",
+        "route description changes when viewpoint is not stated"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-position"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-position-unit",
+        "bnu-primary-p5-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小红从学校出发，先向南偏西50°方向走400米到图书馆，再向西走300米到家。小红从家到学校，应先向（ ）走（ ）米到图书馆，再向（ ）偏（ ）（ ）°方向走（ ）米到学校。请按顺序填写。",
+      "optionsZhHans": [],
+      "answer": "东 300 北偏东50° 400",
+      "acceptedAnswers": [
+        "东 300 北偏东50° 400",
+        "东 300 北偏东 50 400"
+      ],
+      "explanationZhHans": "返回路线方向相反。从家到图书馆：西的反方向是东，走300米；从图书馆到学校：南偏西50°的反方向是北偏东50°，走400米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-199",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-position",
+      "unitTitle": "确定位置",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "position-location",
+        "coordinate-like-representation",
+        "direction-distance",
+        "route-description",
+        "确定位置"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "模型意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "用方向确定位置",
+        "用距离确定位置",
+        "描述路线",
+        "读图定位",
+        "位置表达"
+      ],
+      "misconceptionTags": [
+        "reference point omitted",
+        "direction and distance swapped",
+        "route description changes when viewpoint is not stated"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-position"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-position-unit",
+        "bnu-primary-p5-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "以广场为观测点，电影院在广场北偏西60°方向800米处。下面描述正确的是（ ）。",
+      "optionsZhHans": [
+        "广场在电影院南偏东60°方向800米处",
+        "广场在电影院北偏西60°方向800米处",
+        "广场在电影院南偏西60°方向800米处",
+        "广场在电影院东偏南60°方向800米处"
+      ],
+      "answer": "广场在电影院南偏东60°方向800米处",
+      "acceptedAnswers": [
+        "广场在电影院南偏东60°方向800米处"
+      ],
+      "explanationZhHans": "观测点互换，方向相反。北偏西的反方向是南偏东，角度和距离不变，所以广场在电影院南偏东60°方向800米处。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-200",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-position",
+      "unitTitle": "确定位置",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "position-location",
+        "coordinate-like-representation",
+        "direction-distance",
+        "route-description",
+        "确定位置"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "模型意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "用方向确定位置",
+        "用距离确定位置",
+        "描述路线",
+        "读图定位",
+        "位置表达"
+      ],
+      "misconceptionTags": [
+        "reference point omitted",
+        "direction and distance swapped",
+        "route description changes when viewpoint is not stated"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-position"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-position-unit",
+        "bnu-primary-p5-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小刚从家出发，先向北走500米到邮局，再向东偏南30°方向走600米到学校。小刚从学校回家，应先向（ ）偏（ ）（ ）°方向走（ ）米到邮局，再向（ ）走（ ）米到家。请按顺序填写。",
+      "optionsZhHans": [],
+      "answer": "西偏北30° 600 南 500",
+      "acceptedAnswers": [
+        "西偏北30° 600 南 500",
+        "西偏北 30 600 南 500"
+      ],
+      "explanationZhHans": "返回路线方向相反。从学校到邮局：东偏南30°的反方向是西偏北30°，走600米；从邮局到家：北的反方向是南，走500米。"
+    }
+  ]
+}

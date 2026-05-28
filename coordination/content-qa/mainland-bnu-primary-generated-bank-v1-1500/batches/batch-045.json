@@ -1,0 +1,571 @@
+{
+  "batchId": "batch-045",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p2-191",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-measurement",
+      "unitTitle": "测量",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "length-measurement-extension",
+        "kilometer-decimeter-millimeter",
+        "unit-conversion",
+        "测量"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "空间观念"
+      ],
+      "skillTags": [
+        "毫米",
+        "分米",
+        "千米",
+        "单位换算",
+        "估测"
+      ],
+      "misconceptionTags": [
+        "unit relationship reversed",
+        "inappropriate unit chosen",
+        "conversion done without checking size"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-measurement",
+        "bnu-primary-p2-upper-assessment-measurement-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "体育课上，同学们练习立定跳远。小杰跳了1米2分米，小宇跳了13分米，小轩跳了1米15厘米。谁跳得最远？",
+      "optionsZhHans": [
+        "小杰",
+        "小宇",
+        "小轩",
+        "无法比较"
+      ],
+      "answer": "小宇",
+      "acceptedAnswers": [
+        "小宇"
+      ],
+      "explanationZhHans": "1米2分米=12分米，1米15厘米=115厘米=11.5分米。小宇13分米最大，所以小宇最远。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-192",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-measurement",
+      "unitTitle": "测量",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "length-measurement-extension",
+        "kilometer-decimeter-millimeter",
+        "unit-conversion",
+        "测量"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "空间观念"
+      ],
+      "skillTags": [
+        "毫米",
+        "分米",
+        "千米",
+        "单位换算",
+        "估测"
+      ],
+      "misconceptionTags": [
+        "unit relationship reversed",
+        "inappropriate unit chosen",
+        "conversion done without checking size"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-measurement",
+        "bnu-primary-p2-upper-assessment-measurement-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在括号里填上合适的数。\n5千米 = （ ）米",
+      "optionsZhHans": [],
+      "answer": "5000",
+      "acceptedAnswers": [
+        "5000"
+      ],
+      "explanationZhHans": "1千米=1000米，5千米就是5个1000米，等于5000米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-193",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-measurement",
+      "unitTitle": "测量",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "length-measurement-extension",
+        "kilometer-decimeter-millimeter",
+        "unit-conversion",
+        "测量"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "空间观念"
+      ],
+      "skillTags": [
+        "毫米",
+        "分米",
+        "千米",
+        "单位换算",
+        "估测"
+      ],
+      "misconceptionTags": [
+        "unit relationship reversed",
+        "inappropriate unit chosen",
+        "conversion done without checking size"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-measurement",
+        "bnu-primary-p2-upper-assessment-measurement-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪种物体的长度最接近1毫米？",
+      "optionsZhHans": [
+        "数学书的厚度",
+        "一枚5角硬币的厚度",
+        "课桌的高度",
+        "教室的长度"
+      ],
+      "answer": "一枚5角硬币的厚度",
+      "acceptedAnswers": [
+        "一枚5角硬币的厚度"
+      ],
+      "explanationZhHans": "1毫米大约是一枚5角硬币的厚度。数学书厚度约5毫米，课桌高度约70厘米，教室长度约8米，均不符合。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-194",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-measurement",
+      "unitTitle": "测量",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "length-measurement-extension",
+        "kilometer-decimeter-millimeter",
+        "unit-conversion",
+        "测量"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "空间观念"
+      ],
+      "skillTags": [
+        "毫米",
+        "分米",
+        "千米",
+        "单位换算",
+        "估测"
+      ],
+      "misconceptionTags": [
+        "unit relationship reversed",
+        "inappropriate unit chosen",
+        "conversion done without checking size"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-measurement",
+        "bnu-primary-p2-upper-assessment-measurement-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在括号里填上合适的单位。\n一根黄瓜长约 2（ ）。",
+      "optionsZhHans": [],
+      "answer": "分米",
+      "acceptedAnswers": [
+        "分米"
+      ],
+      "explanationZhHans": "黄瓜长度通常用分米作单位，2分米即20厘米，符合实际。若用厘米则2厘米太短，用米则2米太长。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-195",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-three-digit-add-sub",
+      "unitTitle": "加与减",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "three-digit-addition-subtraction",
+        "place-value-calculation",
+        "估算验算",
+        "三位数加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "三位数加法",
+        "三位数减法",
+        "连续进位退位",
+        "估算",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "columns misaligned",
+        "regrouping across zero mishandled",
+        "exact result not compared with estimate"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-three-digit-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-three-digit-add-sub",
+        "bnu-primary-p1-lower-assessment-within-100-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "图书馆原来有528本书，上午借出176本，下午还回239本。现在图书馆有多少本书？正确的算式是（ ）。",
+      "optionsZhHans": [
+        "528 - 176 + 239",
+        "528 + 176 - 239",
+        "528 - 176 - 239",
+        "528 + 176 + 239"
+      ],
+      "answer": "528 - 176 + 239",
+      "acceptedAnswers": [
+        "528 - 176 + 239"
+      ],
+      "explanationZhHans": "借出用减法，还回用加法。先算借出后剩余：528-176=352，再算还回后：352+239=591。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-196",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-three-digit-add-sub",
+      "unitTitle": "加与减",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "three-digit-addition-subtraction",
+        "place-value-calculation",
+        "估算验算",
+        "三位数加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "三位数加法",
+        "三位数减法",
+        "连续进位退位",
+        "估算",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "columns misaligned",
+        "regrouping across zero mishandled",
+        "exact result not compared with estimate"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-three-digit-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-three-digit-add-sub",
+        "bnu-primary-p1-lower-assessment-within-100-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算：703 - 258 = （ ）",
+      "optionsZhHans": [],
+      "answer": "445",
+      "acceptedAnswers": [
+        "445"
+      ],
+      "explanationZhHans": "个位3减8不够，向十位借1，十位为0向百位借1，百位7变6，十位变10，借给个位后十位变9，个位13-8=5，十位9-5=4，百位6-2=4，得445。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-197",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-three-digit-add-sub",
+      "unitTitle": "加与减",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "three-digit-addition-subtraction",
+        "place-value-calculation",
+        "估算验算",
+        "三位数加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "三位数加法",
+        "三位数减法",
+        "连续进位退位",
+        "估算",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "columns misaligned",
+        "regrouping across zero mishandled",
+        "exact result not compared with estimate"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-three-digit-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-three-digit-add-sub",
+        "bnu-primary-p1-lower-assessment-within-100-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪道题的计算结果大于500？",
+      "optionsZhHans": [
+        "900 - 399",
+        "256 + 189",
+        "723 - 248",
+        "345 + 178"
+      ],
+      "answer": "900 - 399",
+      "acceptedAnswers": [
+        "900 - 399"
+      ],
+      "explanationZhHans": "900-399=501>500；256+189=445<500；723-248=475<500；345+178=523>500，但只有A选项501大于500，注意C选项475小于500。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-198",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-three-digit-add-sub",
+      "unitTitle": "加与减",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "three-digit-addition-subtraction",
+        "place-value-calculation",
+        "估算验算",
+        "三位数加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "三位数加法",
+        "三位数减法",
+        "连续进位退位",
+        "估算",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "columns misaligned",
+        "regrouping across zero mishandled",
+        "exact result not compared with estimate"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-three-digit-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-three-digit-add-sub",
+        "bnu-primary-p1-lower-assessment-within-100-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "先估算，再计算。\n估算：598 + 204 ≈ （ ）\n计算：598 + 204 = （ ）",
+      "optionsZhHans": [],
+      "answer": "800,802",
+      "acceptedAnswers": [
+        "800,802",
+        "800 802"
+      ],
+      "explanationZhHans": "估算：598≈600，204≈200，600+200=800。计算：598+204=802。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-199",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-three-digit-add-sub",
+      "unitTitle": "加与减",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "three-digit-addition-subtraction",
+        "place-value-calculation",
+        "估算验算",
+        "三位数加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "三位数加法",
+        "三位数减法",
+        "连续进位退位",
+        "估算",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "columns misaligned",
+        "regrouping across zero mishandled",
+        "exact result not compared with estimate"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-three-digit-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-three-digit-add-sub",
+        "bnu-primary-p1-lower-assessment-within-100-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小马虎在计算一道减法题时，把减数236看成了263，算出的差是158。正确的差是多少？",
+      "optionsZhHans": [
+        "185",
+        "131",
+        "449",
+        "421"
+      ],
+      "answer": "185",
+      "acceptedAnswers": [
+        "185"
+      ],
+      "explanationZhHans": "减数看大，差变小。先求被减数：263+158=421。正确差：421-236=185。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-200",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-three-digit-add-sub",
+      "unitTitle": "加与减",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "three-digit-addition-subtraction",
+        "place-value-calculation",
+        "估算验算",
+        "三位数加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "三位数加法",
+        "三位数减法",
+        "连续进位退位",
+        "估算",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "columns misaligned",
+        "regrouping across zero mishandled",
+        "exact result not compared with estimate"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-three-digit-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-three-digit-add-sub",
+        "bnu-primary-p1-lower-assessment-within-100-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用竖式计算，并验算。\n476 + 389 = （ ）\n验算：",
+      "optionsZhHans": [],
+      "answer": "865",
+      "acceptedAnswers": [
+        "865"
+      ],
+      "explanationZhHans": "竖式：个位6+9=15写5进1，十位7+8+1=16写6进1，百位4+3+1=8，得865。验算：865-389=476或865-476=389。"
+    }
+  ]
+}

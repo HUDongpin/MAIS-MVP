@@ -1,0 +1,129 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-020",
+  "startedAt": "2026-05-28T01:00:29.336Z",
+  "completedAt": "2026-05-28T01:00:44.756Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-153",
+    "bnu-high-ds-v1-s4-154",
+    "bnu-high-ds-v1-s4-155",
+    "bnu-high-ds-v1-s4-156",
+    "bnu-high-ds-v1-s4-157",
+    "bnu-high-ds-v1-s4-158",
+    "bnu-high-ds-v1-s4-159",
+    "bnu-high-ds-v1-s4-160"
+  ],
+  "usage": {
+    "prompt_tokens": 11461,
+    "completion_tokens": 979,
+    "total_tokens": 12440,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 11077
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-153",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "[0,1]",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案[1,2]错误，Stage A独立解为[0,1]；解析也指出答案应为[0,1]，与存储答案矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-154",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案、解析与Stage A独立解一致，均为约4.6周，计算正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-155",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案、解析与Stage A独立解一致，均描述p减小趋近0.02且模型合理。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-156",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案[2,2.5]与Stage A独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-157",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案指数函数与Stage A独立解一致，解析拟合数据正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-158",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案约34.65年与Stage A独立解一致，解析计算正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-159",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案0.25与Stage A独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-160",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案25元与Stage A独立解一致，解析正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第153题存储答案错误，应为[0,1]而非[1,2]，其余题目均通过。"
+    }
+  }
+}

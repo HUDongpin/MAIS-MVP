@@ -1,0 +1,138 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-119",
+  "startedAt": "2026-05-28T01:30:40.315Z",
+  "completedAt": "2026-05-28T01:30:55.656Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-445",
+    "bnu-high-ds-v1-s5-446",
+    "bnu-high-ds-v1-s5-447",
+    "bnu-high-ds-v1-s5-448",
+    "bnu-high-ds-v1-s5-449",
+    "bnu-high-ds-v1-s5-450",
+    "bnu-high-ds-v1-s5-451",
+    "bnu-high-ds-v1-s5-452"
+  ],
+  "usage": {
+    "prompt_tokens": 12998,
+    "completion_tokens": 1089,
+    "total_tokens": 14087,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 12614
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-445",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案0.98与独立解一致，解析合理，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-446",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "χ²≈16.67>3.841，认为运动习惯与健康状况有关",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案χ²≈33.33计算错误，正确值为16.67；解析中计算过程有误，导致结论虽正确但数值错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-447",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "-71.5",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案-22.1错误，正确截距为-71.5；解析中计算过程最终得出-71.5，但与存储答案矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-448",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析正确，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-449",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-450",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案0.72与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-451",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析合理，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-452",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "（1）散点图呈正相关趋势；（2）r≈0.994；（3）身高与立定跳远成绩高度正相关。",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案r≈0.996与独立解r≈0.994不符，计算有误；解析未给出具体计算过程，无法验证。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 5,
+      "warn": 0,
+      "fail": 3,
+      "notes": "共8题，5题通过，3题失败：446题χ²计算错误，447题截距错误，452题相关系数计算错误。"
+    }
+  }
+}

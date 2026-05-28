@@ -1,0 +1,191 @@
+{
+  "batchNumber": 66,
+  "startedAt": "2026-05-27T13:59:50.445Z",
+  "completedAt": "2026-05-27T14:00:08.383Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p5-171",
+    "bnu-primary-ds-v2-p5-172",
+    "bnu-primary-ds-v2-p5-173",
+    "bnu-primary-ds-v2-p5-174",
+    "bnu-primary-ds-v2-p5-175",
+    "bnu-primary-ds-v2-p5-176",
+    "bnu-primary-ds-v2-p5-177",
+    "bnu-primary-ds-v2-p5-178",
+    "bnu-primary-ds-v2-p5-179",
+    "bnu-primary-ds-v2-p5-180",
+    "bnu-primary-ds-v2-p5-181",
+    "bnu-primary-ds-v2-p5-182",
+    "bnu-primary-ds-v2-p5-183",
+    "bnu-primary-ds-v2-p5-184",
+    "bnu-primary-ds-v2-p5-185",
+    "bnu-primary-ds-v2-p5-186",
+    "bnu-primary-ds-v2-p5-187",
+    "bnu-primary-ds-v2-p5-188"
+  ],
+  "usage": {
+    "prompt_tokens": 3399,
+    "completion_tokens": 1282,
+    "total_tokens": 4681,
+    "prompt_tokens_details": {
+      "cached_tokens": 3328
+    },
+    "prompt_cache_hit_tokens": 3328,
+    "prompt_cache_miss_tokens": 71
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p5-171",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，计算无误，符合五年级长方体体积知识点。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-172",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，选项设置合理，答案无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-173",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，容积计算与单位换算无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-174",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，体积计算无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-175",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，选项区分了体积与面积单位，答案无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-176",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，由棱长总和求体积，计算无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-177",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，容积计算与单位换算无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-178",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，体积单位换算无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-179",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，体积变形问题，计算无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-180",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，不规则体积计算无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-181",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，分数除法意义清晰，选项设置合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-182",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，倒数概念无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-183",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，分数除法应用，列式无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-184",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，分数除以整数计算无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-185",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，比较商的大小，答案无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-186",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，已知部分求整体，计算无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-187",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，分数除法应用，列式无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-188",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，商的变化规律应用无误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版小学数学五年级下册知识点，数学正确，答案匹配，无歧义或缺失条件，适合公共题库推广。"
+    }
+  }
+}

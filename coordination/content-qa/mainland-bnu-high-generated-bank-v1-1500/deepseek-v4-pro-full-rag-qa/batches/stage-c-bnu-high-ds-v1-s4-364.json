@@ -1,0 +1,50 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-364",
+  "startedAt": "2026-05-28T02:43:05.479Z",
+  "completedAt": "2026-05-28T02:43:11.138Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-364"
+  ],
+  "usage": {
+    "prompt_tokens": 3266,
+    "completion_tokens": 289,
+    "total_tokens": 3555,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2882
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-364",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "independentAnswer": null,
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "unsolvable",
+          "ambiguous_mc",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件矛盾：由仰角得AO=√3h，BO=h，在△AOB中已知AB=80，∠OAB=60°，用余弦定理求BO得方程2h²-80√3h+6400=0，判别式负，无实数解。存储答案56米基于错误余弦定理（用错边），且选项无正确值，题目不可解。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目数据矛盾导致无解，存储答案错误，判定为不可解。"
+    }
+  }
+}

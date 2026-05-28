@@ -1,0 +1,300 @@
+{
+  "batchId": "batch-037",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s1-k05-fi-027",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-real-numbers"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "某校七年级（1）班40名同学参加植树活动，统计结果如下：有2人每人植树3棵，有8人每人植树4棵，有15人每人植树5棵，有10人每人植树6棵，其余同学每人植树7棵。这40名同学植树棵数的众数是______。",
+      "optionsZhHans": [],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5"
+      ],
+      "explanationZhHans": "众数是一组数据中出现次数最多的数据。植树5棵的有15人，人数最多，所以众数是5。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-fi-028",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-coordinate-plane"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "在平面直角坐标系中，将点A（-3，2）先向右平移5个单位，再向下平移3个单位，得到点A'，则点A'的坐标是______。",
+      "optionsZhHans": [],
+      "answer": "(2, -1)",
+      "acceptedAnswers": [
+        "(2, -1)",
+        "（2，-1）"
+      ],
+      "explanationZhHans": "点A（-3，2）向右平移5个单位，横坐标加5得2；向下平移3个单位，纵坐标减3得-1。所以点A'的坐标是(2, -1)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-fi-029",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-linear-systems"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "已知二元一次方程组 2x + y = 7，x - 2y = 1，则 x + y 的值为______。",
+      "optionsZhHans": [],
+      "answer": "4",
+      "acceptedAnswers": [
+        "4"
+      ],
+      "explanationZhHans": "解方程组：由①得 y = 7 - 2x，代入②得 x - 2(7 - 2x) = 1，解得 x = 3，进而 y = 1。所以 x + y = 4。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-fi-030",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-inequalities"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "某商店开展促销活动，一种笔记本原价每本8元，现在买4本送1本。若小华需要15本笔记本，按此促销方式，他最少需要支付______元。",
+      "optionsZhHans": [],
+      "answer": "96",
+      "acceptedAnswers": [
+        "96"
+      ],
+      "explanationZhHans": "买4本送1本，即每5本只需付4本的钱。15本中有3组5本，每组支付4×8=32元，3组共支付96元。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-fi-031",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "已知直线AB平行于直线CD，直线EF与AB、CD分别相交于点G、H。若∠EGB=55°，则∠GHD的度数为______。",
+      "optionsZhHans": [],
+      "answer": "125°",
+      "acceptedAnswers": [
+        "125°",
+        "125度"
+      ],
+      "explanationZhHans": "因为AB∥CD，∠EGB与∠GHD是同旁内角，两直线平行时同旁内角互补，所以∠GHD = 180° - 55° = 125°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-fi-032",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-data-collection"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "为了解某小区居民对垃圾分类的知晓情况，从该小区1200户居民中随机抽取了100户进行问卷调查，发现有85户知晓垃圾分类。估计该小区知晓垃圾分类的居民户数约为______户。",
+      "optionsZhHans": [],
+      "answer": "1020",
+      "acceptedAnswers": [
+        "1020"
+      ],
+      "explanationZhHans": "样本中知晓率为85÷100=0.85，估计总体知晓户数为1200×0.85=1020户。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-fi-033",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "比较大小：√15 ______ 4。（填“>”“<”或“=”）",
+      "optionsZhHans": [],
+      "answer": "<",
+      "acceptedAnswers": [
+        "<"
+      ],
+      "explanationZhHans": "因为4=√16，而15<16，所以√15<√16，即√15<4。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-sa-001",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "short-answer",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-linear-systems"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "某校组织七年级师生共270人乘车去博物馆参观。客运公司提供两种客车：A型车每辆可乘45人，租金400元；B型车每辆可乘30人，租金300元。学校计划租用A型车和B型车共7辆，且所有师生恰好坐满。求A型车和B型车各租了多少辆？",
+      "optionsZhHans": [],
+      "answer": "A型车5辆，B型车2辆",
+      "acceptedAnswers": [
+        "A型车5辆，B型车2辆",
+        "5辆A型车，2辆B型车"
+      ],
+      "explanationZhHans": "设租用A型车x辆，B型车y辆。根据题意得方程组：x + y = 7，45x + 30y = 270。解得x = 5，y = 2。所以A型车5辆，B型车2辆。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-sa-002",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "short-answer",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-inequalities"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "某校七年级学生进行跳绳测试，以每分钟160次为达标标准。小明的成绩记录为+12次，小红的成绩记录为-5次，小刚的成绩记录为0次。\n（1）小明实际跳了多少次？\n（2）小红比小明少跳了多少次？",
+      "optionsZhHans": [],
+      "answer": "（1）172次；（2）17次",
+      "acceptedAnswers": [
+        "（1）172次；（2）17次",
+        "172次；17次"
+      ],
+      "explanationZhHans": "（1）小明成绩+12表示超过标准12次，实际为160+12=172次。\n（2）小红实际为160-5=155次，小明172次，小红比小明少跳172-155=17次。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-sa-003",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "short-answer",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "某水果店第一次用600元购进某种水果若干千克，第二次又用600元购进该品种水果，但这次每千克的进价比第一次提高了25%，购进数量比第一次少了20千克。求第一次购进水果的进价是每千克多少元？",
+      "optionsZhHans": [],
+      "answer": "6元",
+      "acceptedAnswers": [
+        "6元",
+        "6"
+      ],
+      "explanationZhHans": "设第一次进价为x元/千克，则第一次购进600/x千克。第二次进价为(1+25%)x=1.25x元/千克，购进600/(1.25x)千克。根据题意：600/x - 600/(1.25x) = 20，解得x=6。经检验符合题意。所以第一次进价为6元。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

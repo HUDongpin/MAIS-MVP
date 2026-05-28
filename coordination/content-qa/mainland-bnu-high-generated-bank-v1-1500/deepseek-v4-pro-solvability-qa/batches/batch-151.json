@@ -1,0 +1,133 @@
+{
+  "batchNumber": 151,
+  "startedAt": "2026-05-27T14:08:51.325Z",
+  "completedAt": "2026-05-27T14:09:07.172Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-201",
+    "bnu-high-ds-v1-s6-202",
+    "bnu-high-ds-v1-s6-203",
+    "bnu-high-ds-v1-s6-204",
+    "bnu-high-ds-v1-s6-205",
+    "bnu-high-ds-v1-s6-206",
+    "bnu-high-ds-v1-s6-207",
+    "bnu-high-ds-v1-s6-208"
+  ],
+  "usage": {
+    "prompt_tokens": 10456,
+    "completion_tokens": 998,
+    "total_tokens": 11454,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 9944
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-201",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "a_n = 5·2^{n-1} - 3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "递推关系明确，可独立求解；答案与独立求解结果一致；解析正确推导出等比数列并得到通项。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-202",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "条件充分，可解出a1=2；选项唯一正确；解析过程正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-203",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "a_n = n^2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "递推可解，通项为n^2；答案匹配；解析中归纳法步骤正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-204",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "24",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "直接代入等比通项得24；答案正确；解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-205",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "11",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由S_n求a_n得a_5=11；选项唯一；解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-206",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "a_n = 2·3^{n-1} - 1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "构造等比数列可解；答案匹配；解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-207",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "条件充分，解得d=2；答案正确；解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-208",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "两式相除得q=2；选项唯一；解析正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，答案与解析均正确匹配，无任何问题。"
+    }
+  }
+}

@@ -1,0 +1,131 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-177",
+  "startedAt": "2026-05-28T01:53:13.546Z",
+  "completedAt": "2026-05-28T01:53:27.540Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-409",
+    "bnu-high-ds-v1-s6-410",
+    "bnu-high-ds-v1-s6-411",
+    "bnu-high-ds-v1-s6-412",
+    "bnu-high-ds-v1-s6-413",
+    "bnu-high-ds-v1-s6-414",
+    "bnu-high-ds-v1-s6-415",
+    "bnu-high-ds-v1-s6-416"
+  ],
+  "usage": {
+    "prompt_tokens": 11824,
+    "completion_tokens": 1027,
+    "total_tokens": 12851,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 11440
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-409",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，均为 (-∞, -1) 和 (3, +∞)，解析正确，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-410",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 y = 9x - 16 与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-411",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 4 与独立解 a=4 一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-412",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "correctedAnswer": "(-1, 1)",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "ambiguous_mc",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立解得递减区间为 (-1,1)，选项 B 正确；存储答案 [-1,1] 错误，且与解析中 f'(x)≤0 的闭区间写法矛盾，导致选项 D 也正确，造成多解。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-413",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，最大值 10，最小值 -22，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-414",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 1 与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-415",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 -3 与独立解一致，解析正确，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-416",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，均为 (-∞, 0) 和 (2, +∞)，解析正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第412题存储答案错误，单调递减区间应为开区间 (-1,1)，存储为闭区间导致多解，其余题目均通过。"
+    }
+  }
+}

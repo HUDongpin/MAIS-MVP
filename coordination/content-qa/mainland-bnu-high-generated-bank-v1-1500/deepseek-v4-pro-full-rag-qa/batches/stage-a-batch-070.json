@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-070",
+  "startedAt": "2026-05-28T01:14:18.395Z",
+  "completedAt": "2026-05-28T01:14:38.149Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-053",
+    "bnu-high-ds-v1-s5-054",
+    "bnu-high-ds-v1-s5-055",
+    "bnu-high-ds-v1-s5-056",
+    "bnu-high-ds-v1-s5-057",
+    "bnu-high-ds-v1-s5-058",
+    "bnu-high-ds-v1-s5-059",
+    "bnu-high-ds-v1-s5-060"
+  ],
+  "usage": {
+    "prompt_tokens": 10364,
+    "completion_tokens": 1098,
+    "total_tokens": 11462,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9980
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-053",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "3x + 4y - 23 = 0",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "中点(2.5,4)，斜率(6-2)/(4-1)=4/3，垂直平分线斜率-3/4，点斜式得y-4=-3/4(x-2.5)，化为一般式3x+4y-23=0。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-054",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(x - 2)^2 + (y - 3)^2 = 5",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "设一般方程，代入三点解得D=-4,E=-6,F=8，配方得标准方程(x-2)^2+(y-3)^2=5。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-055",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "a = 2 或 a = -3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "平行条件a(a+1)=2×3，得a^2+a-6=0，解得a=2或a=-3，均不重合，选项C正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-056",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "±√2/2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "设直线y=k(x-3)，弦心距d=√(4-3)=1，圆心到直线距离|3k|/√(k^2+1)=1，解得k=±√2/2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-057",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "m = 2 或 m = -38",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "距离公式|3×2+4×3+m|/5=4，得|18+m|=20，解得m=2或m=-38。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-058",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "0",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "圆心距√(a^2+4)，半径和5差1，外切时√(a^2+4)=5得a=±√21，内切时√(a^2+4)=1无解，和0。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-059",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "x + y - 3 = 0 或 2x - y = 0",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "截距相等且不为0时设x/a+y/a=1代入得a=3；过原点时设y=kx代入得k=2，故两解。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-060",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "m = -1",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "直线过定点(2,1)，圆心(1,-2)，当直线与定点圆心连线垂直时弦最短，连线斜率3，故m=-1。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，无数学错误、歧义或缺失条件，符合北师大版高中直线与圆章节要求。"
+    }
+  }
+}

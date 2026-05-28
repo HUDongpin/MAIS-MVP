@@ -1,0 +1,50 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-283",
+  "startedAt": "2026-05-28T01:06:51.928Z",
+  "completedAt": "2026-05-28T01:06:58.448Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-283"
+  ],
+  "usage": {
+    "prompt_tokens": 2460,
+    "completion_tokens": 294,
+    "total_tokens": 2754,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2076
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-283",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "independentAnswer": "无正确选项",
+        "correctedAnswer": "无正确选项",
+        "issueTags": [
+          "math_error",
+          "bad_options",
+          "explanation_contradiction",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "模型 y=2·1.5ˣ+1，当 x=5 时，计算得 y=2×7.59375+1=16.1875≈16.2 万辆，选项 C 为 20.2 万辆，数值错误。其他选项均明显错误，导致无正确选项，题目不可解。解析中计算过程错误且与选项矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目选项 C 数值错误，无正确选项，不可解，判定为 blocker。"
+    }
+  }
+}

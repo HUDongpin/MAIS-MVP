@@ -1,0 +1,141 @@
+{
+  "batchNumber": 181,
+  "startedAt": "2026-05-27T14:14:13.441Z",
+  "completedAt": "2026-05-27T14:14:33.451Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-441",
+    "bnu-high-ds-v1-s6-442",
+    "bnu-high-ds-v1-s6-443",
+    "bnu-high-ds-v1-s6-444",
+    "bnu-high-ds-v1-s6-445",
+    "bnu-high-ds-v1-s6-446",
+    "bnu-high-ds-v1-s6-447",
+    "bnu-high-ds-v1-s6-448"
+  ],
+  "usage": {
+    "prompt_tokens": 10606,
+    "completion_tokens": 1300,
+    "total_tokens": 11906,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10094
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-441",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "a = 5",
+        "correctedAnswer": "5",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立求解：f'(x)=3x²-6x，驻点0,2。f(-1)=a-4，f(0)=a，f(2)=a-4，f(3)=a。最大值为a，由a=5得a=5。题目答案1错误，解析最后一步a=1矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-442",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(-1, 1)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x²-3，令f'(x)<0得-1<x<1，选项B正确。解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-443",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "最大值为10/3，最小值为2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=1-1/x²，驻点x=1。f(1/2)=2.5，f(1)=2，f(3)=10/3。最大值10/3，最小值2。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-444",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "y = x - 1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "y'=3x²-2，k=1，切线y=x-1。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-445",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "-6",
+        "correctedAnswer": "-6",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "由f'(-1)=0得3-2a+b=0，f(-1)=a-b=4。解得a=-1，b=-5，a+b=-6。题目答案-3错误，解析算出-6但选项无-6，且答案与解析矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-446",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "极大值为10，极小值为-22",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3(x-3)(x+1)，驻点-1,3。f''(-1)=-12<0极大值10，f''(3)=12>0极小值-22。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-447",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(0, 4)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x²-3，驻点±1。f(-1)=4极大，f(1)=0极小。三个不同实根需0<k<4。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-448",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(1, +∞)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "定义域x>0，f'(x)=2(x²-1)/x，令f'(x)>0得x>1。选项B正确。解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 0,
+      "fail": 2,
+      "notes": "441题答案应为5而非1，解析最后一步错误；445题答案应为-6而非-3，且选项无-6，解析与答案矛盾。其余题目均正确。"
+    }
+  }
+}

@@ -1,0 +1,565 @@
+{
+  "batchId": "batch-023",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p1-221",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-within-100-add-sub-integrated",
+      "unitTitle": "加与减（三）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-100-add-sub-application",
+        "strategy-choice",
+        "two-step-stories",
+        "100以内综合加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "应用意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "策略选择",
+        "综合应用",
+        "解决问题",
+        "估算检查"
+      ],
+      "misconceptionTags": [
+        "numbers combined without story meaning",
+        "operation direction not checked",
+        "estimate not connected to final answer"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-within-100-add-sub-integrated"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-20-addition",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小乐有36张贴纸，送给小文一些后还剩19张。小乐送给小文多少张贴纸？下面哪个算式正确？",
+      "optionsZhHans": [
+        "36 + 19 = 55（张）",
+        "36 - 19 = 17（张）",
+        "19 + 17 = 36（张）",
+        "36 - 17 = 19（张）"
+      ],
+      "answer": "36 - 19 = 17（张）",
+      "acceptedAnswers": [
+        "36 - 19 = 17（张）"
+      ],
+      "explanationZhHans": "原来有36张，送出一部分后剩19张，求送出的张数用减法：36 - 19 = 17（张）。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-222",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-within-100-add-sub-integrated",
+      "unitTitle": "加与减（三）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-100-add-sub-application",
+        "strategy-choice",
+        "two-step-stories",
+        "100以内综合加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "应用意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "策略选择",
+        "综合应用",
+        "解决问题",
+        "估算检查"
+      ],
+      "misconceptionTags": [
+        "numbers combined without story meaning",
+        "operation direction not checked",
+        "estimate not connected to final answer"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-within-100-add-sub-integrated"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-20-addition",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一（2）班图书角原来有54本书，同学们又捐了28本。现在图书角一共有多少本书？请列出算式并计算。",
+      "optionsZhHans": [],
+      "answer": "54 + 28 = 82（本）",
+      "acceptedAnswers": [
+        "54 + 28 = 82（本）",
+        "54+28=82（本）"
+      ],
+      "explanationZhHans": "求一共多少本，用加法：54 + 28 = 82（本）。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-223",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-within-100-add-sub-integrated",
+      "unitTitle": "加与减（三）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-100-add-sub-application",
+        "strategy-choice",
+        "two-step-stories",
+        "100以内综合加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "应用意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "策略选择",
+        "综合应用",
+        "解决问题",
+        "估算检查"
+      ],
+      "misconceptionTags": [
+        "numbers combined without story meaning",
+        "operation direction not checked",
+        "estimate not connected to final answer"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-within-100-add-sub-integrated"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-20-addition",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈买了45个鸡蛋，做蛋糕用了18个，剩下的放在冰箱里。冰箱里有多少个鸡蛋？下面哪个算式正确？",
+      "optionsZhHans": [
+        "45 + 18 = 63（个）",
+        "45 - 18 = 27（个）",
+        "18 + 27 = 45（个）",
+        "45 - 27 = 18（个）"
+      ],
+      "answer": "45 - 18 = 27（个）",
+      "acceptedAnswers": [
+        "45 - 18 = 27（个）"
+      ],
+      "explanationZhHans": "原来有45个，用去18个，求剩下的用减法：45 - 18 = 27（个）。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-224",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-within-100-add-sub-integrated",
+      "unitTitle": "加与减（三）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-100-add-sub-application",
+        "strategy-choice",
+        "two-step-stories",
+        "100以内综合加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "应用意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "策略选择",
+        "综合应用",
+        "解决问题",
+        "估算检查"
+      ],
+      "misconceptionTags": [
+        "numbers combined without story meaning",
+        "operation direction not checked",
+        "estimate not connected to final answer"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-within-100-add-sub-integrated"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-20-addition",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "公交车上原来有32人，到站后下去15人，又上来9人。现在车上有多少人？请列出算式并计算。",
+      "optionsZhHans": [],
+      "answer": "32 - 15 + 9 = 26（人）",
+      "acceptedAnswers": [
+        "32 - 15 + 9 = 26（人）",
+        "32-15+9=26（人）"
+      ],
+      "explanationZhHans": "先算下车后的人数：32 - 15 = 17（人），再算上车后：17 + 9 = 26（人）。综合算式：32 - 15 + 9 = 26（人）。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-225",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-within-100-add-sub-integrated",
+      "unitTitle": "加与减（三）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-100-add-sub-application",
+        "strategy-choice",
+        "two-step-stories",
+        "100以内综合加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "应用意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "策略选择",
+        "综合应用",
+        "解决问题",
+        "估算检查"
+      ],
+      "misconceptionTags": [
+        "numbers combined without story meaning",
+        "operation direction not checked",
+        "estimate not connected to final answer"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-within-100-add-sub-integrated"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-20-addition",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小东有50元，买一个书包花了35元，买文具盒花了8元。他一共花了多少钱？下面哪个算式正确？",
+      "optionsZhHans": [
+        "50 - 35 = 15（元）",
+        "35 + 8 = 43（元）",
+        "50 - 35 - 8 = 7（元）",
+        "35 - 8 = 27（元）"
+      ],
+      "answer": "35 + 8 = 43（元）",
+      "acceptedAnswers": [
+        "35 + 8 = 43（元）"
+      ],
+      "explanationZhHans": "求一共花的钱，把书包和文具盒的钱加起来：35 + 8 = 43（元）。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-226",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-within-100-add-sub-integrated",
+      "unitTitle": "加与减（三）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-100-add-sub-application",
+        "strategy-choice",
+        "two-step-stories",
+        "100以内综合加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "应用意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "策略选择",
+        "综合应用",
+        "解决问题",
+        "估算检查"
+      ],
+      "misconceptionTags": [
+        "numbers combined without story meaning",
+        "operation direction not checked",
+        "estimate not connected to final answer"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-within-100-add-sub-integrated"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-20-addition",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "果园里有苹果树63棵，梨树比苹果树少27棵。梨树有多少棵？请列出算式并计算。",
+      "optionsZhHans": [],
+      "answer": "63 - 27 = 36（棵）",
+      "acceptedAnswers": [
+        "63 - 27 = 36（棵）",
+        "63-27=36（棵）"
+      ],
+      "explanationZhHans": "梨树比苹果树少27棵，用减法：63 - 27 = 36（棵）。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-227",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-within-100-add-sub-integrated",
+      "unitTitle": "加与减（三）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-100-add-sub-application",
+        "strategy-choice",
+        "two-step-stories",
+        "100以内综合加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "应用意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "策略选择",
+        "综合应用",
+        "解决问题",
+        "估算检查"
+      ],
+      "misconceptionTags": [
+        "numbers combined without story meaning",
+        "operation direction not checked",
+        "estimate not connected to final answer"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-within-100-add-sub-integrated"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-20-addition",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一盒巧克力有40块，吃掉一些后还剩23块。吃掉了多少块？下面哪个算式正确？",
+      "optionsZhHans": [
+        "40 + 23 = 63（块）",
+        "40 - 23 = 17（块）",
+        "23 + 17 = 40（块）",
+        "40 - 17 = 23（块）"
+      ],
+      "answer": "40 - 23 = 17（块）",
+      "acceptedAnswers": [
+        "40 - 23 = 17（块）"
+      ],
+      "explanationZhHans": "原来有40块，剩下23块，求吃掉的部分用减法：40 - 23 = 17（块）。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-228",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-within-100-add-sub-integrated",
+      "unitTitle": "加与减（三）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-100-add-sub-application",
+        "strategy-choice",
+        "two-step-stories",
+        "100以内综合加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "应用意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "策略选择",
+        "综合应用",
+        "解决问题",
+        "估算检查"
+      ],
+      "misconceptionTags": [
+        "numbers combined without story meaning",
+        "operation direction not checked",
+        "estimate not connected to final answer"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-within-100-add-sub-integrated"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-20-addition",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丽折了24只纸鹤，小强折了19只。两人一共折了多少只？请列出算式并计算。",
+      "optionsZhHans": [],
+      "answer": "24 + 19 = 43（只）",
+      "acceptedAnswers": [
+        "24 + 19 = 43（只）",
+        "24+19=43（只）"
+      ],
+      "explanationZhHans": "求两人折的总数，用加法：24 + 19 = 43（只）。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-229",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-within-100-add-sub-integrated",
+      "unitTitle": "加与减（三）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-100-add-sub-application",
+        "strategy-choice",
+        "two-step-stories",
+        "100以内综合加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "应用意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "策略选择",
+        "综合应用",
+        "解决问题",
+        "估算检查"
+      ],
+      "misconceptionTags": [
+        "numbers combined without story meaning",
+        "operation direction not checked",
+        "estimate not connected to final answer"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-within-100-add-sub-integrated"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-20-addition",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "停车场原来有58辆车，开走26辆后，又开来14辆。现在停车场有多少辆车？下面哪个算式正确？",
+      "optionsZhHans": [
+        "58 + 26 = 84（辆）",
+        "58 - 26 + 14 = 46（辆）",
+        "58 - 26 - 14 = 18（辆）",
+        "26 + 14 = 40（辆）"
+      ],
+      "answer": "58 - 26 + 14 = 46（辆）",
+      "acceptedAnswers": [
+        "58 - 26 + 14 = 46（辆）"
+      ],
+      "explanationZhHans": "先算开走后的数量：58 - 26 = 32（辆），再算开来后的数量：32 + 14 = 46（辆）。综合算式：58 - 26 + 14 = 46（辆）。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-230",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-within-100-add-sub-integrated",
+      "unitTitle": "加与减（三）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-100-add-sub-application",
+        "strategy-choice",
+        "two-step-stories",
+        "100以内综合加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "应用意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "策略选择",
+        "综合应用",
+        "解决问题",
+        "估算检查"
+      ],
+      "misconceptionTags": [
+        "numbers combined without story meaning",
+        "operation direction not checked",
+        "estimate not connected to final answer"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-within-100-add-sub-integrated"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-20-addition",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明有72张卡片，送给小红25张，又送给小刚18张。小明还剩多少张卡片？请列出算式并计算。",
+      "optionsZhHans": [],
+      "answer": "72 - 25 - 18 = 29（张）",
+      "acceptedAnswers": [
+        "72 - 25 - 18 = 29（张）",
+        "72-25-18=29（张）"
+      ],
+      "explanationZhHans": "先算送小红后剩：72 - 25 = 47（张），再算送小刚后剩：47 - 18 = 29（张）。综合算式：72 - 25 - 18 = 29（张）。"
+    }
+  ]
+}

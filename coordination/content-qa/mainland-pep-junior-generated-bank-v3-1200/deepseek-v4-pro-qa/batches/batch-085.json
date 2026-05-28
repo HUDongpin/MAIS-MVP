@@ -1,0 +1,142 @@
+{
+  "batchNumber": 85,
+  "startedAt": "2026-05-24T23:02:25.848Z",
+  "completedAt": "2026-05-24T23:02:48.057Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s3-k11-mc-009",
+    "pep-junior-v3-s3-k11-mc-010",
+    "pep-junior-v3-s3-k11-mc-011",
+    "pep-junior-v3-s3-k11-mc-012",
+    "pep-junior-v3-s3-k11-mc-013",
+    "pep-junior-v3-s3-k11-mc-014",
+    "pep-junior-v3-s3-k11-mc-015",
+    "pep-junior-v3-s3-k11-mc-016",
+    "pep-junior-v3-s3-k11-mc-017",
+    "pep-junior-v3-s3-k11-mc-018",
+    "pep-junior-v3-s3-k11-mc-019",
+    "pep-junior-v3-s3-k11-mc-020"
+  ],
+  "usage": {
+    "prompt_tokens": 3524,
+    "completion_tokens": 1237,
+    "total_tokens": 4761,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 3268
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s3-k11-mc-009",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "勾股定理计算正确，选项唯一，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-mc-010",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "直径所对圆周角为90°，角度计算正确，选项无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-mc-011",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "正弦定义应用正确，勾股数3-4-5，答案3/5无误。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-mc-012",
+        "status": "fail",
+        "severity": "major",
+        "issueTags": [
+          "ambiguous_mc",
+          "missing_condition"
+        ],
+        "correctedAnswer": null,
+        "rationale": "俯视图描述不清晰，未明确小立方块的具体摆放方式，导致左视图可能不唯一，选项A不一定正确。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-mc-013",
+        "status": "fail",
+        "severity": "major",
+        "issueTags": [
+          "math_error"
+        ],
+        "correctedAnswer": "8",
+        "rationale": "面积计算中，点C在y轴上，C到AB的距离应为点C的横坐标绝对值，但解释中直接用了a，未说明C的坐标，且面积公式推导有误：△ABC以AB为底，高为点C到AB的距离，若C在y轴上，则高为|a|，面积=1/2 * (k/a) * a = k/2，但k可能为负，题目未限定k的正负，但选项有正负，需结合图象在x>0分支，k>0，故k=8正确。但解释中写AB=|k|/a，面积=k/2，不一致。实际应为AB=k/a（k>0），面积=1/2*(k/a)*a=k/2=4，k=8。解释有瑕疵，但答案正确，然而解释中AB=|k|/a与k/2矛盾，属于数学错误。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-mc-014",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分段计费问题，方程正确，答案12立方米无误。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-mc-015",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "相似三角形判定与性质应用正确，DE=4。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-mc-016",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "反比例函数图象性质，k<0得m<1，选项正确。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-mc-017",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "反比例函数应用，不等式求解正确，答案“不小于0.8m³”无误。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-mc-018",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "旋转体为圆锥，主视图为等腰三角形，底边6高4，正确。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-mc-019",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由二次函数性质推出a>0,b>0，一次函数不经过第四象限，正确。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-mc-020",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "相似判定条件分析正确，D选项不能判定相似。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 10,
+      "warn": 0,
+      "fail": 2,
+      "notes": "12道题中，2道不合格：mc-012俯视图描述不清导致左视图不唯一，mc-013解释中面积推导有矛盾。其余题目数学正确，答案与解释一致，无歧义。"
+    }
+  }
+}

@@ -1,0 +1,377 @@
+{
+  "batchId": "batch-133",
+  "generationMode": "batch-fallback",
+  "fallbackReason": "fill-missing-local",
+  "questions": [
+    {
+      "id": "hjb-high-ds-v2-s6-321",
+      "grade": "S6",
+      "topicId": "hjb-high-s6-数列综合复习",
+      "topicTitleZhHans": "数列综合复习",
+      "volume": "选择性必修 第一册复习",
+      "chapter": "数列",
+      "conceptIds": [
+        "sequences",
+        "arithmetic-sequences",
+        "geometric-sequences",
+        "recurrence",
+        "mathematical-induction"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-selective-1-sequences"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-1-sequences-unit-core",
+        "hjb-high-selective-1-sequences-unit-challenge",
+        "pep-high-exam-sequences-recursion"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式1321：解答：等差数列首项为 5，公差为 1，求第 6 项。",
+      "optionsZhHans": [],
+      "answer": "10",
+      "acceptedAnswers": [
+        "10"
+      ],
+      "explanationZhHans": "a_6=a_1+(6-1)d=5+5×1=10。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-322",
+      "grade": "S6",
+      "topicId": "hjb-high-s6-数列综合复习",
+      "topicTitleZhHans": "数列综合复习",
+      "volume": "选择性必修 第一册复习",
+      "chapter": "数列",
+      "conceptIds": [
+        "sequences",
+        "arithmetic-sequences",
+        "geometric-sequences",
+        "recurrence",
+        "mathematical-induction"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-selective-1-sequences"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-1-sequences-unit-core",
+        "hjb-high-selective-1-sequences-unit-challenge",
+        "pep-high-exam-sequences-recursion"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式1322：选择：等差数列首项为 10，公差为 10，求第 12 项。",
+      "optionsZhHans": [
+        "121",
+        "119",
+        "122",
+        "120"
+      ],
+      "answer": "120",
+      "acceptedAnswers": [
+        "120"
+      ],
+      "explanationZhHans": "a_12=a_1+(12-1)d=10+11×10=120。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-323",
+      "grade": "S6",
+      "topicId": "hjb-high-s6-数列综合复习",
+      "topicTitleZhHans": "数列综合复习",
+      "volume": "选择性必修 第一册复习",
+      "chapter": "数列",
+      "conceptIds": [
+        "sequences",
+        "arithmetic-sequences",
+        "geometric-sequences",
+        "recurrence",
+        "mathematical-induction"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-selective-1-sequences"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-1-sequences-unit-core",
+        "hjb-high-selective-1-sequences-unit-challenge",
+        "pep-high-exam-sequences-recursion"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式1323：填空：等差数列首项为 7，公差为 13，求第 7 项。",
+      "optionsZhHans": [],
+      "answer": "85",
+      "acceptedAnswers": [
+        "85"
+      ],
+      "explanationZhHans": "a_7=a_1+(7-1)d=7+6×13=85。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-324",
+      "grade": "S6",
+      "topicId": "hjb-high-s6-数列综合复习",
+      "topicTitleZhHans": "数列综合复习",
+      "volume": "选择性必修 第一册复习",
+      "chapter": "数列",
+      "conceptIds": [
+        "sequences",
+        "arithmetic-sequences",
+        "geometric-sequences",
+        "recurrence",
+        "mathematical-induction"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-selective-1-sequences"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-1-sequences-unit-core",
+        "hjb-high-selective-1-sequences-unit-challenge",
+        "pep-high-exam-sequences-recursion"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式1324：解答：等差数列首项为 2，公差为 8，求第 10 项。",
+      "optionsZhHans": [],
+      "answer": "74",
+      "acceptedAnswers": [
+        "74"
+      ],
+      "explanationZhHans": "a_10=a_1+(10-1)d=2+9×8=74。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-325",
+      "grade": "S6",
+      "topicId": "hjb-high-s6-数列综合复习",
+      "topicTitleZhHans": "数列综合复习",
+      "volume": "选择性必修 第一册复习",
+      "chapter": "数列",
+      "conceptIds": [
+        "sequences",
+        "arithmetic-sequences",
+        "geometric-sequences",
+        "recurrence",
+        "mathematical-induction"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-selective-1-sequences"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-1-sequences-unit-core",
+        "hjb-high-selective-1-sequences-unit-challenge",
+        "pep-high-exam-sequences-recursion"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式1325：选择：等差数列首项为 10，公差为 8，求第 12 项。",
+      "optionsZhHans": [
+        "99",
+        "97",
+        "98",
+        "100"
+      ],
+      "answer": "98",
+      "acceptedAnswers": [
+        "98"
+      ],
+      "explanationZhHans": "a_12=a_1+(12-1)d=10+11×8=98。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-326",
+      "grade": "S6",
+      "topicId": "hjb-high-s6-解析几何直线综合复习",
+      "topicTitleZhHans": "解析几何直线综合复习",
+      "volume": "选择性必修 第一册复习",
+      "chapter": "平面直角坐标系中的直线",
+      "conceptIds": [
+        "analytic-geometry",
+        "line-equations",
+        "slope",
+        "point-line-distance"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-selective-1-lines"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-1-lines-unit-core",
+        "hjb-high-selective-1-lines-unit-challenge",
+        "pep-high-exam-analytic-lines-circles"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式1326：填空：直线经过点 (8,7) 和 (9,20)，求斜率。",
+      "optionsZhHans": [],
+      "answer": "13",
+      "acceptedAnswers": [
+        "13"
+      ],
+      "explanationZhHans": "斜率=(20-7)/(9-8)=13。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-327",
+      "grade": "S6",
+      "topicId": "hjb-high-s6-解析几何直线综合复习",
+      "topicTitleZhHans": "解析几何直线综合复习",
+      "volume": "选择性必修 第一册复习",
+      "chapter": "平面直角坐标系中的直线",
+      "conceptIds": [
+        "analytic-geometry",
+        "line-equations",
+        "slope",
+        "point-line-distance"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-selective-1-lines"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-1-lines-unit-core",
+        "hjb-high-selective-1-lines-unit-challenge",
+        "pep-high-exam-analytic-lines-circles"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式1327：解答：直线经过点 (3,3) 和 (4,12)，求斜率。",
+      "optionsZhHans": [],
+      "answer": "9",
+      "acceptedAnswers": [
+        "9"
+      ],
+      "explanationZhHans": "斜率=(12-3)/(4-3)=9。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-328",
+      "grade": "S6",
+      "topicId": "hjb-high-s6-解析几何直线综合复习",
+      "topicTitleZhHans": "解析几何直线综合复习",
+      "volume": "选择性必修 第一册复习",
+      "chapter": "平面直角坐标系中的直线",
+      "conceptIds": [
+        "analytic-geometry",
+        "line-equations",
+        "slope",
+        "point-line-distance"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-selective-1-lines"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-1-lines-unit-core",
+        "hjb-high-selective-1-lines-unit-challenge",
+        "pep-high-exam-analytic-lines-circles"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式1328：选择：直线经过点 (4,4) 和 (5,24)，求斜率。",
+      "optionsZhHans": [
+        "21",
+        "20",
+        "19",
+        "22"
+      ],
+      "answer": "20",
+      "acceptedAnswers": [
+        "20"
+      ],
+      "explanationZhHans": "斜率=(24-4)/(5-4)=20。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-329",
+      "grade": "S6",
+      "topicId": "hjb-high-s6-解析几何直线综合复习",
+      "topicTitleZhHans": "解析几何直线综合复习",
+      "volume": "选择性必修 第一册复习",
+      "chapter": "平面直角坐标系中的直线",
+      "conceptIds": [
+        "analytic-geometry",
+        "line-equations",
+        "slope",
+        "point-line-distance"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-selective-1-lines"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-1-lines-unit-core",
+        "hjb-high-selective-1-lines-unit-challenge",
+        "pep-high-exam-analytic-lines-circles"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式1329：填空：直线经过点 (3,10) 和 (4,23)，求斜率。",
+      "optionsZhHans": [],
+      "answer": "13",
+      "acceptedAnswers": [
+        "13"
+      ],
+      "explanationZhHans": "斜率=(23-10)/(4-3)=13。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-330",
+      "grade": "S6",
+      "topicId": "hjb-high-s6-解析几何直线综合复习",
+      "topicTitleZhHans": "解析几何直线综合复习",
+      "volume": "选择性必修 第一册复习",
+      "chapter": "平面直角坐标系中的直线",
+      "conceptIds": [
+        "analytic-geometry",
+        "line-equations",
+        "slope",
+        "point-line-distance"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-selective-1-lines"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-1-lines-unit-core",
+        "hjb-high-selective-1-lines-unit-challenge",
+        "pep-high-exam-analytic-lines-circles"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式1330：解答：直线经过点 (7,1) 和 (8,21)，求斜率。",
+      "optionsZhHans": [],
+      "answer": "20",
+      "acceptedAnswers": [
+        "20"
+      ],
+      "explanationZhHans": "斜率=(21-1)/(8-7)=20。"
+    }
+  ]
+}

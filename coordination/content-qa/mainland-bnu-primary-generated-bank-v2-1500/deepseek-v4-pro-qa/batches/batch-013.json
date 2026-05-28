@@ -1,0 +1,191 @@
+{
+  "batchNumber": 13,
+  "startedAt": "2026-05-27T13:43:51.269Z",
+  "completedAt": "2026-05-27T13:44:08.470Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p1-217",
+    "bnu-primary-ds-v2-p1-218",
+    "bnu-primary-ds-v2-p1-219",
+    "bnu-primary-ds-v2-p1-220",
+    "bnu-primary-ds-v2-p1-221",
+    "bnu-primary-ds-v2-p1-222",
+    "bnu-primary-ds-v2-p1-223",
+    "bnu-primary-ds-v2-p1-224",
+    "bnu-primary-ds-v2-p1-225",
+    "bnu-primary-ds-v2-p1-226",
+    "bnu-primary-ds-v2-p1-227",
+    "bnu-primary-ds-v2-p1-228",
+    "bnu-primary-ds-v2-p1-229",
+    "bnu-primary-ds-v2-p1-230",
+    "bnu-primary-ds-v2-p1-231",
+    "bnu-primary-ds-v2-p1-232",
+    "bnu-primary-ds-v2-p1-233",
+    "bnu-primary-ds-v2-p1-234"
+  ],
+  "usage": {
+    "prompt_tokens": 3774,
+    "completion_tokens": 1249,
+    "total_tokens": 5023,
+    "prompt_tokens_details": {
+      "cached_tokens": 3712
+    },
+    "prompt_cache_hit_tokens": 3712,
+    "prompt_cache_miss_tokens": 62
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p1-217",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，计算正确，选项唯一，适合一年级。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-218",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "减法应用题，答案正确，接受答案合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-219",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "两步减法，计算正确，选项无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-220",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "简单加法，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-221",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "求减数，算式选择正确，选项区分度好。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-222",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "加法应用题，答案正确，接受答案合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-223",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "求剩余，算式选择正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-224",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "两步加减混合，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-225",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "求总花费，加法算式正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-226",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比多少减法，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-227",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "求吃掉部分，减法算式正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-228",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "加法求和，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-229",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "两步加减混合，算式选择正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-230",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "连减应用题，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-231",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "与221题类似，算式选择正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-232",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "逆向思考题，答案正确，接受答案合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-233",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "两步计算，选项B完整正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-234",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "减法应用题，答案正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合一年级下册100以内加减法要求，计算正确，选项合理，无歧义或错误。"
+    }
+  }
+}

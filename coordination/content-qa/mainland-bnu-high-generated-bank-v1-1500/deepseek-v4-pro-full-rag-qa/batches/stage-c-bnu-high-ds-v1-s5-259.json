@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-259",
+  "startedAt": "2026-05-28T01:25:07.474Z",
+  "completedAt": "2026-05-28T01:25:12.536Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-259"
+  ],
+  "usage": {
+    "prompt_tokens": 2373,
+    "completion_tokens": 277,
+    "total_tokens": 2650,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1989
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-259",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "曲线Γ是圆心在(0,2)、半径为2的圆",
+        "correctedAnswer": "曲线Γ是圆心在(0,2)、半径为2的圆",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "正确轨迹为圆心(0,2)半径2的圆，对应选项B。但存储答案为圆心(0,1)半径1，且解析中得出正确方程却错误选择，存在数学错误和答案矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目可解，但答案与解析均错误，正确选项为B，需修正。"
+    }
+  }
+}

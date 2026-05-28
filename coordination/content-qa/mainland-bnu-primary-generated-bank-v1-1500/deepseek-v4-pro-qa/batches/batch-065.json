@@ -1,0 +1,191 @@
+{
+  "batchNumber": 65,
+  "startedAt": "2026-05-27T13:29:57.383Z",
+  "completedAt": "2026-05-27T13:30:14.346Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p5-153",
+    "bnu-primary-ds-v1-p5-154",
+    "bnu-primary-ds-v1-p5-155",
+    "bnu-primary-ds-v1-p5-156",
+    "bnu-primary-ds-v1-p5-157",
+    "bnu-primary-ds-v1-p5-158",
+    "bnu-primary-ds-v1-p5-159",
+    "bnu-primary-ds-v1-p5-160",
+    "bnu-primary-ds-v1-p5-161",
+    "bnu-primary-ds-v1-p5-162",
+    "bnu-primary-ds-v1-p5-163",
+    "bnu-primary-ds-v1-p5-164",
+    "bnu-primary-ds-v1-p5-165",
+    "bnu-primary-ds-v1-p5-166",
+    "bnu-primary-ds-v1-p5-167",
+    "bnu-primary-ds-v1-p5-168",
+    "bnu-primary-ds-v1-p5-169",
+    "bnu-primary-ds-v1-p5-170"
+  ],
+  "usage": {
+    "prompt_tokens": 3399,
+    "completion_tokens": 1241,
+    "total_tokens": 4640,
+    "prompt_tokens_details": {
+      "cached_tokens": 3328
+    },
+    "prompt_cache_hit_tokens": 3328,
+    "prompt_cache_miss_tokens": 71
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p5-153",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，计算正确，答案与解释一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-154",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项明确，答案正确，解释合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-155",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案与解释一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-156",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，约分过程清晰，答案最简。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-157",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项唯一正确，计算无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-158",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "周长计算正确，答案与解释一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-159",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算过程正确，答案准确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-160",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项正确，乘法交换律应用恰当。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-161",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案带单位，解释清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-162",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，过程合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-163",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项唯一正确，解释合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-164",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案准确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-165",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案形式多样，解释清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-166",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "体积计算正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-167",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "容积计算正确，单位换算合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-168",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "体积计算正确，思考过程合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-169",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项贴近生活，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-170",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "体积计算正确，答案准确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均通过审核，无数学错误、答案不匹配、歧义或年级不匹配等问题。"
+    }
+  }
+}

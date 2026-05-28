@@ -1,0 +1,51 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-361",
+  "startedAt": "2026-05-28T01:53:44.324Z",
+  "completedAt": "2026-05-28T01:53:49.579Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-361"
+  ],
+  "usage": {
+    "prompt_tokens": 2906,
+    "completion_tokens": 320,
+    "total_tokens": 3226,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2522
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-361",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "independentAnswer": null,
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "bad_options",
+          "explanation_contradiction",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "函数 f(x)=x³-3x²+a 在 [0,3] 上，f'(x)=3x(x-2)，驻点 x=0,2。f(0)=a，f(2)=a-4，f(3)=a，最大值必为 a。由最大值为 4 得 a=4，但选项 {0,1,2,3} 无 4，题目不可解。存储答案 2 错误，解析强行凑 a=2 与条件矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目条件与选项矛盾，无正确选项，不可解。"
+    }
+  }
+}

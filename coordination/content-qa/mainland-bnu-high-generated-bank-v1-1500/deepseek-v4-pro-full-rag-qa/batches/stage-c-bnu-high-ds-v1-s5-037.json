@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-037",
+  "startedAt": "2026-05-28T02:02:43.873Z",
+  "completedAt": "2026-05-28T02:02:50.140Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-037"
+  ],
+  "usage": {
+    "prompt_tokens": 2354,
+    "completion_tokens": 404,
+    "total_tokens": 2758,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1970
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-037",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "x - y - 3 = 0",
+        "correctedAnswer": "x - y - 3 = 0",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "圆C标准方程为(x-2)²+(y+1)²=9，圆心C(2,-1)，半径3。点P(2,-1)恰为圆心，弦AB中点M横坐标为1，由垂径定理CM⊥AB，M在直线x=1上，且CM斜率为0，故AB斜率不存在，即直线l为x=2。但选项x=2代入验证，弦中点横坐标为2，与条件矛盾。重新分析：P(2,-1)在圆内，设直线l: y+1=k(x-2)，与圆联立，利用韦达定理和中点横坐标1，解得k=1，直线为x-y-3=0。存储答案x+y-1=0错误，解析中垂径定理应用有误，导致斜率符号错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目可解，但存储答案错误，解析过程存在数学错误，需修正为x-y-3=0。"
+    }
+  }
+}

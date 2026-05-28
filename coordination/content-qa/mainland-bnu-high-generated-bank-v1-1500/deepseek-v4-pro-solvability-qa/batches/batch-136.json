@@ -1,0 +1,137 @@
+{
+  "batchNumber": 136,
+  "startedAt": "2026-05-27T14:06:29.878Z",
+  "completedAt": "2026-05-27T14:06:48.896Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-081",
+    "bnu-high-ds-v1-s6-082",
+    "bnu-high-ds-v1-s6-083",
+    "bnu-high-ds-v1-s6-084",
+    "bnu-high-ds-v1-s6-085",
+    "bnu-high-ds-v1-s6-086",
+    "bnu-high-ds-v1-s6-087",
+    "bnu-high-ds-v1-s6-088"
+  ],
+  "usage": {
+    "prompt_tokens": 10412,
+    "completion_tokens": 1260,
+    "total_tokens": 11672,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 9900
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-081",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "146",
+        "correctedAnswer": "146",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "递推式 a_{n+1}=a_n+3n+1，累加得 a_n=2+∑_{k=1}^{n-1}(3k+1)=2+3·(n-1)n/2+(n-1)=(3n^2-n+2)/2，代入 n=10 得 a_{10}=146，而非 137。解析中计算过程正确但最终结果错误，答案与解析矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-082",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2 或 -3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由 S_3=2(1+q+q^2)=14 得 q^2+q-6=0，解得 q=2 或 q=-3，均满足等比数列定义。选项包含“2 或 -3”，答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-083",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(1) 证明见解析；(2) a_n = 3^n - 2^n",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "构造 b_n=a_n-3^n，得 b_{n+1}=2b_n，b_1=-2，故 b_n=-2^n，a_n=3^n-2^n。答案与解析一致，可解。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-084",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由 a_7-a_3=4d=8 得 d=2，答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-085",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "11",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "a_5=S_5-S_4=(25+10)-(16+8)=11，答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-086",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "a_n = 2n + 1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由 S_5=5a_1+10d=35 得 d=2，通项 a_n=3+2(n-1)=2n+1，答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-087",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "1/19",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "取倒数得等差数列，1/a_n=2n-1，a_n=1/(2n-1)，a_{10}=1/19，答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-088",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "该数列是等差数列",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "a_n=2n-1，差为常数2，是等差数列；比不为常数，不是等比数列。选项正确，解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第081题答案错误，应为146而非137，解析中计算过程正确但最终结果错误，需修正。其余7题均通过审核。"
+    }
+  }
+}

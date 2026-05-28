@@ -1,0 +1,181 @@
+{
+  "startedAt": "2026-05-26T06:06:54.825Z",
+  "completedAt": "2026-05-26T06:07:15.008Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "usage": {
+    "prompt_tokens": 2466,
+    "completion_tokens": 1533,
+    "total_tokens": 3999,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 2466
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "questionId": "pep-primary-p4-l-fi-141",
+        "solvableStatus": "pass",
+        "independentAnswer": "3.9",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "简单小数加法，1.6+2.3=3.9，条件充分。"
+      },
+      {
+        "questionId": "pep-primary-p4-l-fi-142",
+        "solvableStatus": "pass",
+        "independentAnswer": "4.2",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "简单小数加法，1.7+2.5=4.2，条件充分。"
+      },
+      {
+        "questionId": "pep-primary-p4-l-fi-143",
+        "solvableStatus": "pass",
+        "independentAnswer": "4.5",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "简单小数加法，1.8+2.7=4.5，条件充分。"
+      },
+      {
+        "questionId": "pep-primary-p4-l-fi-144",
+        "solvableStatus": "pass",
+        "independentAnswer": "4",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "两盒质量相加，1.5+2.5=4千克，条件充分。"
+      },
+      {
+        "questionId": "pep-primary-p4-l-fi-145",
+        "solvableStatus": "pass",
+        "independentAnswer": "3.3",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "简单小数加法，1.1+2.2=3.3，条件充分。"
+      },
+      {
+        "questionId": "pep-primary-p4-l-fi-146",
+        "solvableStatus": "pass",
+        "independentAnswer": "3.6",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "简单小数加法，1.2+2.4=3.6，条件充分。"
+      },
+      {
+        "questionId": "pep-primary-p4-l-fi-147",
+        "solvableStatus": "pass",
+        "independentAnswer": "3.9",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "简单小数加法，1.3+2.6=3.9，条件充分。"
+      },
+      {
+        "questionId": "pep-primary-p4-l-fi-148",
+        "solvableStatus": "pass",
+        "independentAnswer": "4.2",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "简单小数加法，1.4+2.8=4.2，条件充分。"
+      },
+      {
+        "questionId": "pep-primary-p4-l-fi-149",
+        "solvableStatus": "pass",
+        "independentAnswer": "3.6",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "简单小数加法，1.5+2.1=3.6，条件充分。"
+      },
+      {
+        "questionId": "pep-primary-p4-l-fi-150",
+        "solvableStatus": "pass",
+        "independentAnswer": "4",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "两盒质量相加，1.2+2.8=4千克，条件充分。"
+      },
+      {
+        "questionId": "pep-primary-p4-l-sa-151",
+        "solvableStatus": "pass",
+        "independentAnswer": "32",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "长方形周长=(9+7)×2=32厘米，条件充分。"
+      },
+      {
+        "questionId": "pep-primary-p4-l-sa-152",
+        "solvableStatus": "pass",
+        "independentAnswer": "28",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "长方形周长=(11+3)×2=28厘米，条件充分。"
+      },
+      {
+        "questionId": "pep-primary-p4-l-sa-153",
+        "solvableStatus": "pass",
+        "independentAnswer": "38",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "长方形周长=(13+6)×2=38厘米，条件充分。"
+      },
+      {
+        "questionId": "pep-primary-p4-l-sa-154",
+        "solvableStatus": "pass",
+        "independentAnswer": "18",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "长方形周长=(6+3)×2=18厘米，条件充分。"
+      },
+      {
+        "questionId": "pep-primary-p4-l-sa-155",
+        "solvableStatus": "pass",
+        "independentAnswer": "24",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "长方形周长=(7+5)×2=24厘米，条件充分。"
+      },
+      {
+        "questionId": "pep-primary-p4-l-sa-156",
+        "solvableStatus": "pass",
+        "independentAnswer": "30",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "长方形周长=(8+7)×2=30厘米，条件充分。"
+      },
+      {
+        "questionId": "pep-primary-p4-l-sa-157",
+        "solvableStatus": "pass",
+        "independentAnswer": "36",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "正方形周长=9×4=36厘米，条件充分。"
+      },
+      {
+        "questionId": "pep-primary-p4-l-sa-158",
+        "solvableStatus": "pass",
+        "independentAnswer": "28",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "长方形周长=(10+4)×2=28厘米，条件充分。"
+      },
+      {
+        "questionId": "pep-primary-p4-l-sa-159",
+        "solvableStatus": "pass",
+        "independentAnswer": "34",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "长方形周长=(11+6)×2=34厘米，条件充分。"
+      },
+      {
+        "questionId": "pep-primary-p4-l-sa-160",
+        "solvableStatus": "pass",
+        "independentAnswer": "40",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "长方形周长=(12+8)×2=40厘米，条件充分。"
+      }
+    ]
+  }
+}

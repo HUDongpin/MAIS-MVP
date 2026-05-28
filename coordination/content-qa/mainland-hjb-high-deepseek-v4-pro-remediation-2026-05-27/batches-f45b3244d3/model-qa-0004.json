@@ -1,0 +1,79 @@
+{
+  "batchId": "model-qa-0004",
+  "ids": [
+    "hjb-high-ds-v3-s4-346",
+    "hjb-high-ds-v3-s4-349",
+    "hjb-high-ds-v3-s4-352",
+    "hjb-high-ds-v3-s4-355",
+    "hjb-high-ds-v3-s4-358"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-high-ds-v3-s4-346",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "标准答案为2，但实际取得最大值的次数为3次。解析中k=1,2对应x=π/2, 3π/2，但k=0时x=-π/2不在区间内，k=3时x=5π/2>2π，然而k=2时x=3π/2在区间内，k=1时x=π/2在区间内，k=0时x=-π/2不在区间内，k=3时x=5π/2不在区间内，所以只有2次。但检查端点：x=0时，2x+9π/6=3π/2，sin值为-1，不是最大值；x=2π时，2x+9π/6=4π+3π/2=11π/2，sin值为-1，不是最大值。因此确实只有2次。但解析中x=-π/2+kπ，k=1,2给出x=π/2, 3π/2，正确。然而，最大值条件应为sin=1，即2x+9π/6=π/2+2kπ => 2x=π/2-3π/2+2kπ=-π+2kπ => x=-π/2+kπ。k=1: x=π/2; k=2: x=3π/2; k=3: x=5π/2>2π。所以2次。但选项中有2，答案匹配。等等，我重新计算：9π/6=3π/2。所以函数y=9sin(2x+3π/2)。最大值时sin=1，即2x+3π/2=π/2+2kπ => 2x=π/2-3π/2+2kπ=-π+2kπ => x=-π/2+kπ。k=1: x=π/2; k=2: x=3π/2; k=3: x=5π/2>2π。所以2次。答案正确。但解析说k=1,2，正确。所以这个题目没问题？我可能误判了。让我再仔细检查：区间[0,2π]，x=0和2π是否包含？通常闭区间包含端点。x=0: 2*0+3π/2=3π/2, sin=-1; x=2π: 4π+3π/2=11π/2, sin=-1。所以没有最大值。所以2次正确。因此这个题目应该是pass。但之前我可能想错了。实际上，对于正弦函数，最大值点每周期一个，周期为π，区间长度2π，所以大约2个周期，应该有2个最大值点。所以答案2正确。因此这个题目pass。",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案为2，计算得2，匹配。",
+      "recommendedActionZhHans": "无需修改，题目正确。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-349",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案为2，计算得2，匹配。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-352",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案为2，计算得2，匹配。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-355",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案为2，计算得2，匹配。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-358",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案为2，计算得2，匹配。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    }
+  ]
+}

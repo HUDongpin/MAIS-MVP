@@ -1,0 +1,134 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-073",
+  "startedAt": "2026-05-28T02:06:02.853Z",
+  "completedAt": "2026-05-28T02:06:21.266Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-077",
+    "bnu-high-ds-v1-s5-078",
+    "bnu-high-ds-v1-s5-079",
+    "bnu-high-ds-v1-s5-080",
+    "bnu-high-ds-v1-s5-081",
+    "bnu-high-ds-v1-s5-082",
+    "bnu-high-ds-v1-s5-083",
+    "bnu-high-ds-v1-s5-084"
+  ],
+  "usage": {
+    "prompt_tokens": 13936,
+    "completion_tokens": 1113,
+    "total_tokens": 15049,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 13552
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-077",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，均为 x^2/4 - y^2/8 = 1；解析过程正确，无矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-078",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "6",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案为4，但独立解为6；解析中计算过程得出p=6，却给出错误答案4，存在矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-079",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案3√3与独立解一致，且为唯一正确选项；解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-080",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "x^2/(6√2) + y^2/(3√2) = 1",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案为 x^2/8 + y^2/4 = 1，但独立解为 x^2/(6√2) + y^2/(3√2) = 1；解析中声称解得 a^2=8，与独立计算不符，存在错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-081",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 x^2/25 + y^2/16 = 1 与独立解一致；解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-082",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 x^2 - y^2/4 = 1 与独立解一致，且为唯一正确选项；解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-083",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案3与独立解一致；解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-084",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案30/7与独立解一致；解析正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 0,
+      "fail": 2,
+      "notes": "8题中6题通过，2题失败：078题答案应为6而非4，080题答案应为x^2/(6√2)+y^2/(3√2)=1而非x^2/8+y^2/4=1。"
+    }
+  }
+}

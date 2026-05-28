@@ -1,0 +1,137 @@
+{
+  "batchNumber": 142,
+  "startedAt": "2026-05-27T14:07:28.940Z",
+  "completedAt": "2026-05-27T14:07:44.116Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-129",
+    "bnu-high-ds-v1-s6-130",
+    "bnu-high-ds-v1-s6-131",
+    "bnu-high-ds-v1-s6-132",
+    "bnu-high-ds-v1-s6-133",
+    "bnu-high-ds-v1-s6-134",
+    "bnu-high-ds-v1-s6-135",
+    "bnu-high-ds-v1-s6-136"
+  ],
+  "usage": {
+    "prompt_tokens": 10665,
+    "completion_tokens": 1114,
+    "total_tokens": 11779,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10153
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-129",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "3^n - 2^n",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "递推式可解，独立求解得 a_n = 3^n - 2^n，与答案一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-130",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "a_n = 2^{n-1}",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由 S_n 求 a_n 得 a_n = 2^{n-1}，选项 C 正确，且 {a_n} 是等比数列，解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-131",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "a_n = 3^n - 2^n",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "递推式可解，独立求解得 a_n = 3^n - 2^n，与答案一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-132",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "无解",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "unsolvable",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "由 a_3+a_7=2a_5=20 得 a_5=10，与 a_5=9 矛盾，题目条件冲突无解，答案 2 错误，解析也指出矛盾但未修正。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-133",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由 S_3 和 S_6 可解出 q=2，选项 A 正确，解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-134",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "n^2 + 1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "累加法可解，得 a_n = n^2+1，与答案一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-135",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "构造 b_n = a_n+1 得等比数列，公比为 3，答案正确，解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-136",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由 S_5 和 a_1 可解出 d=2，选项 B 正确，解析无误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第132题条件矛盾无解，答案错误，其余题目均正确。"
+    }
+  }
+}

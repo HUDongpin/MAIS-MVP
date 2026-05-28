@@ -1,0 +1,133 @@
+{
+  "batchNumber": 183,
+  "startedAt": "2026-05-27T14:14:33.451Z",
+  "completedAt": "2026-05-27T14:14:51.266Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-457",
+    "bnu-high-ds-v1-s6-458",
+    "bnu-high-ds-v1-s6-459",
+    "bnu-high-ds-v1-s6-460",
+    "bnu-high-ds-v1-s6-461",
+    "bnu-high-ds-v1-s6-462",
+    "bnu-high-ds-v1-s6-463",
+    "bnu-high-ds-v1-s6-464"
+  ],
+  "usage": {
+    "prompt_tokens": 12731,
+    "completion_tokens": 1132,
+    "total_tokens": 13863,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 12219
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-457",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "a ≤ 1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "函数单调递增条件为导数非负，f'(x)=e^x-a≥0在[0,+∞)恒成立，e^x最小值为1，故a≤1。选项唯一，答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-458",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "假设当n=k时，等式成立，即1+3+5+...+(2k-1)=k^2。",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目要求写出归纳假设，标准表述为假设n=k时命题成立。答案与解析一致，可解。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-459",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "9",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由Sn=n^2+2n，a4=S4-S3=24-15=9。选项唯一，答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-460",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "最大值为2，最小值为-2。",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导得驻点±1，比较端点和驻点函数值得最大2最小-2。答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-461",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "数列 {b_n} 是公比为 2 的等比数列",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由递推构造b_n得b_{n+1}=2b_n，且b1≠0，故为等比数列。选项唯一，答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-462",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "a_n = 3n - 2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由a3和S6列方程组解得a1=1,d=3，通项正确。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-463",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "-22",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导得极小值f(3)=-22，端点值更大，故最小值为-22，m最大为-22。选项唯一，答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-464",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "100",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "累加得通项a_n=n^2，a_10=100。答案正确，解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可解，答案与解析匹配，无错误或歧义。"
+    }
+  }
+}

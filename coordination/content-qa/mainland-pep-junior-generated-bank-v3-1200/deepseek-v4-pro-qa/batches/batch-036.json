@@ -1,0 +1,139 @@
+{
+  "batchNumber": 36,
+  "startedAt": "2026-05-25T02:58:00.104Z",
+  "completedAt": "2026-05-25T02:58:15.404Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s2-k06-mc-021",
+    "pep-junior-v3-s2-k06-mc-022",
+    "pep-junior-v3-s2-k06-mc-023",
+    "pep-junior-v3-s2-k06-mc-024",
+    "pep-junior-v3-s2-k06-mc-025",
+    "pep-junior-v3-s2-k06-mc-026",
+    "pep-junior-v3-s2-k06-mc-027",
+    "pep-junior-v3-s2-k06-mc-028",
+    "pep-junior-v3-s2-k06-mc-029",
+    "pep-junior-v3-s2-k06-mc-030",
+    "pep-junior-v3-s2-k06-mc-031",
+    "pep-junior-v3-s2-k06-mc-032"
+  ],
+  "usage": {
+    "prompt_tokens": 3276,
+    "completion_tokens": 955,
+    "total_tokens": 4231,
+    "prompt_tokens_details": {
+      "cached_tokens": 3200
+    },
+    "prompt_cache_hit_tokens": 3200,
+    "prompt_cache_miss_tokens": 76
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s2-k06-mc-021",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，三角形内角和计算无误，选项唯一。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-mc-022",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "全等判定条件正确，SSA不能判定全等，选项清晰。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-mc-023",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "多项式乘法计算正确，选项无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-mc-024",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分式值为零条件考虑分母不为零，答案正确。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-mc-025",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "等腰三角形底角与顶角关系正确，计算无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-mc-026",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "全等判定说法正确，SSS是基本判定方法。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-mc-027",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "一次函数增减性条件正确，m<2无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-mc-028",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方差计算正确，平均数与方差步骤无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-mc-029",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "连续提价计算正确，1.21a无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-mc-030",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分式除法化简正确，结果为ac/b。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-mc-031",
+        "status": "warn",
+        "severity": "minor",
+        "issueTags": [
+          "template_repetition"
+        ],
+        "correctedAnswer": null,
+        "rationale": "与第022题高度重复，仅表述略有不同，建议合并或删除其一。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-mc-032",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "坐标平移计算正确，选项唯一。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 11,
+      "warn": 1,
+      "fail": 0,
+      "notes": "共12题，11题通过，1题因与第022题重复标记为warn，建议去重。"
+    }
+  }
+}

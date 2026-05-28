@@ -1,0 +1,176 @@
+{
+  "batchNumber": 72,
+  "startedAt": "2026-05-27T17:43:40.211Z",
+  "completedAt": "2026-05-27T17:43:57.377Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s2-353",
+    "bnu-junior-ds-v1-s2-354",
+    "bnu-junior-ds-v1-s2-355",
+    "bnu-junior-ds-v1-s2-356",
+    "bnu-junior-ds-v1-s2-357",
+    "bnu-junior-ds-v1-s2-358",
+    "bnu-junior-ds-v1-s2-359",
+    "bnu-junior-ds-v1-s2-360",
+    "bnu-junior-ds-v1-s2-361",
+    "bnu-junior-ds-v1-s2-362",
+    "bnu-junior-ds-v1-s2-363",
+    "bnu-junior-ds-v1-s2-364"
+  ],
+  "usage": {
+    "prompt_tokens": 5772,
+    "completion_tokens": 1356,
+    "total_tokens": 7128,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 5260
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s2-353",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，旋转规则明确，答案B'(2,-3)正确，形状大小不变符合旋转性质，解释无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-354",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移和对称步骤清晰，计算正确，答案(-5,-9)与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-355",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "逆时针旋转和平移规则正确，解得a=2,b=-2，a+b=0，选项唯一且正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-356",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "正方形对角线长4√2 cm，旋转不改变距离，答案正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-357",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移和绕点旋转计算正确，B''(1,4)无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-358",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移和旋转180°后与原点重合，方程正确，解得x=-1,y=1.5，选项匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-359",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "三角形内角和得∠ACB=70°，旋转不改变角的大小，答案70°正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-360",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "关于y轴对称和向上平移计算正确，C(-3,2)无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-361",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移后(6,3)，顺时针旋转90°得(3,-6)，选项A正确，无歧义。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-362",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "(-2, 2)",
+        "rationale": "点A(2,3)向左4得(-2,3)，向下1得A'(-2,2)。绕原点逆时针90°变换为(-y,x)，得A''(-2,2)，而非(-2,-2)。答案和解释均错误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-363",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移规则应用正确，P(2,3)向右3向下2得(5,1)，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-364",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移得B(6,3)，逆时针90°得C(-3,6)，选项A正确，无歧义。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 11,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第362题答案和解释错误，应为(-2,2)；其余题目均正确可解。"
+    }
+  }
+}

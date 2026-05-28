@@ -1,0 +1,312 @@
+{
+  "batchId": "batch-191",
+  "questions": [
+    {
+      "id": "hjb-junior-ds-v2-s2-451",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "hjb-junior-s2-lower-inverse-functions",
+      "unitTitle": "反比例函数",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "inverse-variation",
+        "inverse-functions",
+        "rational-function-graphs",
+        "function-applications",
+        "反比例函数"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "反比例函数概念",
+        "图像与性质",
+        "象限关系",
+        "待定系数法",
+        "实际应用"
+      ],
+      "misconceptionTags": [
+        "parameter sign ignored",
+        "branch behavior treated as linear",
+        "domain restriction omitted"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-junior-s2-lower-inverse-functions"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-lower-paper-inverse-functions-unit",
+        "hjb-junior-s2-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知反比例函数 y = k/x 的图像经过点 A(3, -2)，求 k 的值。",
+      "optionsZhHans": [],
+      "answer": "-6",
+      "acceptedAnswers": [
+        "-6"
+      ],
+      "explanationZhHans": "将点 A(3, -2) 代入 y = k/x，得 -2 = k/3，解得 k = -6。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-452",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "hjb-junior-s2-lower-inverse-functions",
+      "unitTitle": "反比例函数",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "inverse-variation",
+        "inverse-functions",
+        "rational-function-graphs",
+        "function-applications",
+        "反比例函数"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "反比例函数概念",
+        "图像与性质",
+        "象限关系",
+        "待定系数法",
+        "实际应用"
+      ],
+      "misconceptionTags": [
+        "parameter sign ignored",
+        "branch behavior treated as linear",
+        "domain restriction omitted"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s2-lower-inverse-functions"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-lower-paper-inverse-functions-unit",
+        "hjb-junior-s2-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "若反比例函数 y = (m-1)/x 的图像位于第一、三象限，则 m 的取值范围是？",
+      "optionsZhHans": [
+        "m > 1",
+        "m < 1",
+        "m > 0",
+        "m < 0"
+      ],
+      "answer": "m > 1",
+      "acceptedAnswers": [
+        "m > 1"
+      ],
+      "explanationZhHans": "反比例函数图像在第一、三象限时，比例系数大于 0，即 m-1 > 0，解得 m > 1。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-453",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "hjb-junior-s2-lower-inverse-functions",
+      "unitTitle": "反比例函数",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "inverse-variation",
+        "inverse-functions",
+        "rational-function-graphs",
+        "function-applications",
+        "反比例函数"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "反比例函数概念",
+        "图像与性质",
+        "象限关系",
+        "待定系数法",
+        "实际应用"
+      ],
+      "misconceptionTags": [
+        "parameter sign ignored",
+        "branch behavior treated as linear",
+        "domain restriction omitted"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-junior-s2-lower-inverse-functions"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-lower-paper-inverse-functions-unit",
+        "hjb-junior-s2-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某闭合电路中，电源电压 U = 12 V 保持不变，电流 I (A) 与电阻 R (Ω) 成反比例关系。当电阻 R = 4 Ω 时，电流 I = 3 A。请写出 I 关于 R 的函数解析式。",
+      "optionsZhHans": [],
+      "answer": "I = 12/R",
+      "acceptedAnswers": [
+        "I = 12/R",
+        "I=12/R"
+      ],
+      "explanationZhHans": "由 U = IR 得 I = U/R，代入 U = 12 V 得 I = 12/R。验证：当 R = 4 时，I = 12/4 = 3，符合条件。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-454",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "hjb-junior-s2-lower-inverse-functions",
+      "unitTitle": "反比例函数",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "inverse-variation",
+        "inverse-functions",
+        "rational-function-graphs",
+        "function-applications",
+        "反比例函数"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "反比例函数概念",
+        "图像与性质",
+        "象限关系",
+        "待定系数法",
+        "实际应用"
+      ],
+      "misconceptionTags": [
+        "parameter sign ignored",
+        "branch behavior treated as linear",
+        "domain restriction omitted"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s2-lower-inverse-functions"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-lower-paper-inverse-functions-unit",
+        "hjb-junior-s2-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知点 P(-2, 3) 在反比例函数 y = a/x 的图像上，则下列说法正确的是：",
+      "optionsZhHans": [
+        "a = 6，图像经过第一、三象限",
+        "a = -6，图像经过第二、四象限",
+        "a = 6，图像经过第二、四象限",
+        "a = -6，图像经过第一、三象限"
+      ],
+      "answer": "a = -6，图像经过第二、四象限",
+      "acceptedAnswers": [
+        "a = -6，图像经过第二、四象限"
+      ],
+      "explanationZhHans": "将 P(-2, 3) 代入得 3 = a/(-2)，解得 a = -6。因为 a < 0，图像位于第二、四象限。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-455",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "hjb-junior-s2-lower-inverse-functions",
+      "unitTitle": "反比例函数",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "inverse-variation",
+        "inverse-functions",
+        "rational-function-graphs",
+        "function-applications",
+        "反比例函数"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "反比例函数概念",
+        "图像与性质",
+        "象限关系",
+        "待定系数法",
+        "实际应用"
+      ],
+      "misconceptionTags": [
+        "parameter sign ignored",
+        "branch behavior treated as linear",
+        "domain restriction omitted"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-junior-s2-lower-inverse-functions"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-lower-paper-inverse-functions-unit",
+        "hjb-junior-s2-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "反比例函数 y = 8/x 的图像上有两点 A(2, y₁) 和 B(4, y₂)，比较 y₁ 与 y₂ 的大小。",
+      "optionsZhHans": [],
+      "answer": "y₁ > y₂",
+      "acceptedAnswers": [
+        "y₁ > y₂",
+        "y1 > y2"
+      ],
+      "explanationZhHans": "计算得 y₁ = 8/2 = 4，y₂ = 8/4 = 2，所以 y₁ > y₂。也可由 k > 0 时在每个象限内 y 随 x 增大而减小判断。"
+    }
+  ]
+}

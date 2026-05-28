@@ -1,0 +1,291 @@
+{
+  "batchId": "batch-129",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p3-141",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-review-multiplication-division",
+      "unitTitle": "三年级下册复习与乘除运算",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "p3-lower-review",
+        "multiplication-division-review",
+        "estimation-check",
+        "复习与提高"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "反思整理"
+      ],
+      "skillTags": [
+        "乘法复习",
+        "除法复习",
+        "估算",
+        "验算",
+        "错因说明"
+      ],
+      "misconceptionTags": [
+        "method selected without reading the unit",
+        "division checked with unrelated multiplication",
+        "estimate rounded in an unreasonable direction"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-review-multiplication-division"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-review-multiplication-division",
+        "hjb-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小杰计算 238 × 7 时，先估一估，他这样想：238 接近 240，240 × 7 = 1680，所以结果大约是 1680。接着他用竖式算出 238 × 7 = 1666。请你说一说，为什么他的估算结果比精确结果大一些？",
+      "optionsZhHans": [],
+      "answer": "因为把238看成了240，多算了2个7，也就是多算了14，所以估算结果比精确结果大14。",
+      "acceptedAnswers": [
+        "因为把238看成了240，多算了2个7，也就是多算了14，所以估算结果比精确结果大14。",
+        "238估成240，多算了2×7=14，所以估算结果大14。",
+        "把238看成240，多算了14，所以估算结果大一些。"
+      ],
+      "explanationZhHans": "估算时把238看作240，多算了2，再乘7就多算了14，因此1680比1666大14。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-142",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-review-multiplication-division",
+      "unitTitle": "三年级下册复习与乘除运算",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "p3-lower-review",
+        "multiplication-division-review",
+        "estimation-check",
+        "复习与提高"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "反思整理"
+      ],
+      "skillTags": [
+        "乘法复习",
+        "除法复习",
+        "估算",
+        "验算",
+        "错因说明"
+      ],
+      "misconceptionTags": [
+        "method selected without reading the unit",
+        "division checked with unrelated multiplication",
+        "estimate rounded in an unreasonable direction"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-review-multiplication-division"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-review-multiplication-division",
+        "hjb-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪一道题用“先估算，再精确计算”的方法最合适？",
+      "optionsZhHans": [
+        "A. 学校图书馆有6个书架，每个书架放128本书，大约有多少本书？",
+        "B. 妈妈买了3盒鸡蛋，每盒12个，一共买了多少个鸡蛋？",
+        "C. 一箱矿泉水24瓶，4箱一共有多少瓶？",
+        "D. 小明有45张邮票，小红的邮票数是小明的3倍，小红有多少张邮票？"
+      ],
+      "answer": "A. 学校图书馆有6个书架，每个书架放128本书，大约有多少本书？",
+      "acceptedAnswers": [
+        "A. 学校图书馆有6个书架，每个书架放128本书，大约有多少本书？"
+      ],
+      "explanationZhHans": "A题问“大约有多少本”，需要估算，其他题都是求精确数量，不需要估算。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-143",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-review-multiplication-division",
+      "unitTitle": "三年级下册复习与乘除运算",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "p3-lower-review",
+        "multiplication-division-review",
+        "estimation-check",
+        "复习与提高"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "反思整理"
+      ],
+      "skillTags": [
+        "乘法复习",
+        "除法复习",
+        "估算",
+        "验算",
+        "错因说明"
+      ],
+      "misconceptionTags": [
+        "method selected without reading the unit",
+        "division checked with unrelated multiplication",
+        "estimate rounded in an unreasonable direction"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-review-multiplication-division"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-review-multiplication-division",
+        "hjb-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算 456 ÷ 3，并验算。\n456 ÷ 3 = ______\n验算：______",
+      "optionsZhHans": [],
+      "answer": "152；152 × 3 = 456",
+      "acceptedAnswers": [
+        "152；152 × 3 = 456",
+        "152；152×3=456",
+        "152；3×152=456"
+      ],
+      "explanationZhHans": "456÷3=152，验算用商乘除数：152×3=456，等于被除数，说明计算正确。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-144",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-review-multiplication-division",
+      "unitTitle": "三年级下册复习与乘除运算",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "p3-lower-review",
+        "multiplication-division-review",
+        "estimation-check",
+        "复习与提高"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "反思整理"
+      ],
+      "skillTags": [
+        "乘法复习",
+        "除法复习",
+        "估算",
+        "验算",
+        "错因说明"
+      ],
+      "misconceptionTags": [
+        "method selected without reading the unit",
+        "division checked with unrelated multiplication",
+        "estimate rounded in an unreasonable direction"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-review-multiplication-division"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-review-multiplication-division",
+        "hjb-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小芳在计算 84 ÷ 4 时，想：80 ÷ 4 = 20，4 ÷ 4 = 1，所以 84 ÷ 4 = 21。她用的方法对吗？为什么？",
+      "optionsZhHans": [],
+      "answer": "对，因为她把84分成80和4，分别除以4，再把商加起来，就是21。",
+      "acceptedAnswers": [
+        "对，因为她把84分成80和4，分别除以4，再把商加起来，就是21。",
+        "对，把84拆成80和4，80÷4=20，4÷4=1，20+1=21。",
+        "对，这是分拆的方法，结果正确。"
+      ],
+      "explanationZhHans": "小芳把84拆成整十数和个位数，分别除以4，商相加得到21，方法正确。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-145",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-review-multiplication-division",
+      "unitTitle": "三年级下册复习与乘除运算",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "p3-lower-review",
+        "multiplication-division-review",
+        "estimation-check",
+        "复习与提高"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "反思整理"
+      ],
+      "skillTags": [
+        "乘法复习",
+        "除法复习",
+        "估算",
+        "验算",
+        "错因说明"
+      ],
+      "misconceptionTags": [
+        "method selected without reading the unit",
+        "division checked with unrelated multiplication",
+        "estimate rounded in an unreasonable direction"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-review-multiplication-division"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-review-multiplication-division",
+        "hjb-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个验算方法可以判断 315 ÷ 5 = 63 是否正确？",
+      "optionsZhHans": [
+        "A. 63 × 5 = 315",
+        "B. 63 + 5 = 68",
+        "C. 315 × 5 = 1575",
+        "D. 315 - 63 = 252"
+      ],
+      "answer": "A. 63 × 5 = 315",
+      "acceptedAnswers": [
+        "A. 63 × 5 = 315"
+      ],
+      "explanationZhHans": "除法可以用乘法验算：商×除数=被除数。63×5=315，与被除数相同，说明计算正确。"
+    }
+  ]
+}

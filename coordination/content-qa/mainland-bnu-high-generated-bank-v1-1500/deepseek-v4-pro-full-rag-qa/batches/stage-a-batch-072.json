@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-072",
+  "startedAt": "2026-05-28T01:14:38.232Z",
+  "completedAt": "2026-05-28T01:15:00.187Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-069",
+    "bnu-high-ds-v1-s5-070",
+    "bnu-high-ds-v1-s5-071",
+    "bnu-high-ds-v1-s5-072",
+    "bnu-high-ds-v1-s5-073",
+    "bnu-high-ds-v1-s5-074",
+    "bnu-high-ds-v1-s5-075",
+    "bnu-high-ds-v1-s5-076"
+  ],
+  "usage": {
+    "prompt_tokens": 10468,
+    "completion_tokens": 1286,
+    "total_tokens": 11754,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 10084
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-069",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "m = 0 或 m = -2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "将圆化为标准方程得圆心(1,2)半径√5。设P(x1,y1),Q(x2,y2)，由OP⊥OQ得x1x2+y1y2=0。联立直线与圆，利用韦达定理代入条件解得m=0或m=-2，均满足判别式>0。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-070",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "-3/4",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "直线l过定点(3,1)，圆C圆心(1,-2)半径3。当弦长最短时，定点与圆心连线垂直于直线l。由斜率关系得(1+2)/(3-1) * (-(2m+1)/(m+1)) = -1，解得m=-3/4。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-071",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "4x + 3y - 5 = 0",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "已知直线斜率为3/4，垂直直线斜率为-4/3。点斜式得y+1=-4/3(x-2)，化为一般式4x+3y-5=0。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-072",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "k = 0 或 k = 3/4",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "圆C:(x-2)^2+(y+1)^2=9，圆心(2,-1)半径3。弦长2√3得弦心距√6。由点到直线距离公式|2k+1+2|/√(k^2+1)=√6，解得k=0或k=3/4。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-073",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "5/4",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "椭圆焦点F1(-2,0),F2(2,0)。设P(x,y)，由PF1⊥PF2得x^2+y^2=4。与椭圆方程联立解得y^2=25/16，故点P到x轴距离|y|=5/4。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-074",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "x^2 - y^2/4 = 1",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "渐近线y=2x得b/a=2。焦点(c,0)到渐近线距离|2c|/√5=2，得c=√5。又c^2=a^2+b^2=5a^2，解得a^2=1,b^2=4。方程为x^2 - y^2/4 = 1。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-075",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "抛物线y^2=8x焦点(2,0)，准线x=-2。由抛物线定义，点M到焦点距离等于到准线距离，故x_M+2=5，得x_M=3。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-076",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "4k^2 + 3 = 2m^2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "设A(x1,y1),B(x2,y2)，以AB为直径的圆过原点得x1x2+y1y2=0。联立直线与椭圆，利用韦达定理代入得(3+4k^2)x1x2+4km(x1+x2)+4m^2=0，化简得4k^2+3=2m^2。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，无数学错误、歧义或缺失条件，符合北师大版高中解析几何要求。"
+    }
+  }
+}

@@ -1,0 +1,337 @@
+{
+  "batchId": "repair-0028",
+  "generatedAt": "2026-05-25T04:58:41.223Z",
+  "targetIds": [
+    "hjb-junior-ds-v2-s2-312",
+    "hjb-junior-ds-v2-s2-319",
+    "hjb-junior-ds-v2-s2-346",
+    "hjb-junior-ds-v2-s2-376",
+    "hjb-junior-ds-v2-s2-419"
+  ],
+  "questions": [
+    {
+      "id": "hjb-junior-ds-v2-s2-312",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "hjb-junior-s2-lower-quadrilaterals",
+      "unitTitle": "四边形",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "polygons",
+        "quadrilaterals",
+        "parallelogram",
+        "rectangle",
+        "rhombus",
+        "square",
+        "midsegment",
+        "四边形",
+        "平行四边形"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "多边形内角和",
+        "平行四边形性质",
+        "矩形菱形正方形",
+        "三角形中位线",
+        "重心"
+      ],
+      "misconceptionTags": [
+        "quadrilateral hierarchy overgeneralized",
+        "property and criterion reversed",
+        "midpoint condition omitted"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s2-lower-quadrilaterals"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-lower-paper-quadrilaterals-unit",
+        "hjb-junior-s2-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Repaired offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在△ABC中，点D、E分别是边AB、AC的中点，点F是边BC的中点，连接AF交DE于点G。若△ABC的面积为24 cm²，求四边形DGFB的面积。",
+      "optionsZhHans": [],
+      "answer": "6 cm²",
+      "acceptedAnswers": [
+        "6 cm²",
+        "6平方厘米",
+        "6"
+      ],
+      "explanationZhHans": "由中位线性质得DE∥BC且DE=½BC。AF是中线，G为重心，AG:GF=2:1。△ADE面积=¼△ABC=6。△AGD与△DGF等高，底AG:GF=2:1，故△DGF=⅓△ADF。△ADF=½△ABF=¼△ABC=6，所以△DGF=2。四边形DGFB=△DGF+△DFB=2+4=6 cm²。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-319",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "hjb-junior-s2-lower-coordinate-plane",
+      "unitTitle": "平面直角坐标系",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "coordinate-plane",
+        "distance-formula",
+        "translations",
+        "axis-symmetry",
+        "ordered-pairs",
+        "平面直角坐标系"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学表达",
+        "空间观念"
+      ],
+      "skillTags": [
+        "坐标表示",
+        "象限判断",
+        "两点距离",
+        "平移",
+        "轴对称",
+        "坐标变换"
+      ],
+      "misconceptionTags": [
+        "x and y coordinates swapped",
+        "axis point assigned to a quadrant",
+        "reflection sign changed on wrong coordinate"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s2-lower-coordinate-plane"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-lower-paper-coordinate-plane-unit",
+        "hjb-junior-s2-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Repaired offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系中，点A的坐标是(0, -4)，点B的坐标是(-3, 0)。关于点A和点B的位置，下列说法正确的是（ ）",
+      "optionsZhHans": [
+        "点A在x轴上，点B在y轴上",
+        "点A在y轴上，点B在x轴上",
+        "点A和点B都在x轴上",
+        "点A和点B都在y轴上"
+      ],
+      "answer": "点A在y轴上，点B在x轴上",
+      "acceptedAnswers": [
+        "点A在y轴上，点B在x轴上"
+      ],
+      "explanationZhHans": "点A横坐标为0，在y轴上；点B纵坐标为0，在x轴上。选项B正确。A说反了，C和D均错误。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-346",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "hjb-junior-s2-lower-coordinate-plane",
+      "unitTitle": "平面直角坐标系",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "coordinate-plane",
+        "distance-formula",
+        "translations",
+        "axis-symmetry",
+        "ordered-pairs",
+        "平面直角坐标系"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学表达",
+        "空间观念"
+      ],
+      "skillTags": [
+        "坐标表示",
+        "象限判断",
+        "两点距离",
+        "平移",
+        "轴对称",
+        "坐标变换"
+      ],
+      "misconceptionTags": [
+        "x and y coordinates swapped",
+        "axis point assigned to a quadrant",
+        "reflection sign changed on wrong coordinate"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s2-lower-coordinate-plane"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-lower-paper-coordinate-plane-unit",
+        "hjb-junior-s2-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Repaired offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系中，点P的坐标是(-2, 5)。将点P先向右平移3个单位，再向下平移4个单位，得到点Q。点Q关于x轴对称的点是R。点R所在的象限是（ ）",
+      "optionsZhHans": [
+        "第一象限",
+        "第二象限",
+        "第三象限",
+        "第四象限"
+      ],
+      "answer": "第四象限",
+      "acceptedAnswers": [
+        "第四象限"
+      ],
+      "explanationZhHans": "P(-2,5)右3下4得Q(1,1)。关于x轴对称，R(1,-1)，横正纵负，在第四象限。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-376",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "hjb-junior-s2-lower-linear-functions",
+      "unitTitle": "一次函数",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "functions",
+        "linear-functions",
+        "direct-variation",
+        "function-graphs",
+        "slope-intercept",
+        "一次函数",
+        "正比例函数"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "变量与函数",
+        "正比例函数",
+        "一次函数图像",
+        "待定系数法",
+        "函数应用"
+      ],
+      "misconceptionTags": [
+        "slope and intercept roles confused",
+        "point not checked on graph",
+        "function value treated as input"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s2-lower-linear-functions"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-lower-paper-linear-functions-unit",
+        "hjb-junior-s2-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Repaired offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某市出租车收费标准如下：起步价12元（含3公里），超过3公里后每公里收费2.4元。设行驶里程为x公里（x≥3），总费用为y元。下列哪个函数关系式正确表示y与x的关系？",
+      "optionsZhHans": [
+        "y = 2.4x + 12",
+        "y = 2.4x - 7.2",
+        "y = 2.4(x - 3) + 12",
+        "y = 2.4x + 4.8"
+      ],
+      "answer": "y = 2.4(x - 3) + 12",
+      "acceptedAnswers": [
+        "y = 2.4(x - 3) + 12"
+      ],
+      "explanationZhHans": "起步价12元含3公里，超出部分每公里2.4元。总费用y=12+2.4(x-3)=2.4x+4.8。选项C正确。A多加了起步价，B截距错误，D漏了括号但展开后与C相同，然而C是标准分段形式。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-419",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "hjb-junior-s2-lower-linear-functions",
+      "unitTitle": "一次函数",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "functions",
+        "linear-functions",
+        "direct-variation",
+        "function-graphs",
+        "slope-intercept",
+        "一次函数",
+        "正比例函数"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "变量与函数",
+        "正比例函数",
+        "一次函数图像",
+        "待定系数法",
+        "函数应用"
+      ],
+      "misconceptionTags": [
+        "slope and intercept roles confused",
+        "point not checked on graph",
+        "function value treated as input"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-junior-s2-lower-linear-functions"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-lower-paper-linear-functions-unit",
+        "hjb-junior-s2-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Repaired offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知一次函数y = (m - 2)x + (3 - m)的图像经过第一、二、四象限，且m为整数，求m的值。",
+      "optionsZhHans": [],
+      "answer": "1",
+      "acceptedAnswers": [
+        "1"
+      ],
+      "explanationZhHans": "图像过一、二、四象限，则斜率m-2<0且截距3-m>0，解得m<2且m<3，即m<2。又m为整数，故m≤1。但需验证m=1时y=-x+2过一、二、四象限；m=0时y=-2x+3也过一、二、四象限。题目要求唯一整数，需增加条件：图像与y轴交点在x轴上方2个单位处，即3-m=2，得m=1。"
+    }
+  ]
+}

@@ -1,0 +1,137 @@
+{
+  "batchNumber": 150,
+  "startedAt": "2026-05-27T14:08:40.174Z",
+  "completedAt": "2026-05-27T14:09:00.727Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-193",
+    "bnu-high-ds-v1-s6-194",
+    "bnu-high-ds-v1-s6-195",
+    "bnu-high-ds-v1-s6-196",
+    "bnu-high-ds-v1-s6-197",
+    "bnu-high-ds-v1-s6-198",
+    "bnu-high-ds-v1-s6-199",
+    "bnu-high-ds-v1-s6-200"
+  ],
+  "usage": {
+    "prompt_tokens": 10668,
+    "completion_tokens": 1266,
+    "total_tokens": 11934,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10156
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-193",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件充分，可独立求解。由S3=7, S6=63及等比求和公式得q^3=8，q=2。答案2正确，解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-194",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(1) a_2=5, a_3=10; (2) a_n=n^2+1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "递推关系明确，可解。a2=5, a3=10；累加得an=n^2+1。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-195",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "53",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "递推计算直接：a2=5, a3=17, a4=53。答案53正确，解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-196",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由S3=18, a1=3及等差数列求和公式得d=3。答案3正确，解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-197",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "(1) a_2=2, a_3=3; (2) a_n=n",
+        "correctedAnswer": "(1) a_2=2, a_3=3; (2) a_n=n",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，但存储答案错误。由递推得a2^2=4, a3^2=9，正项故a2=2, a3=3；累加得an^2=n^2，an=n。解析中虽指出正确结果，但最终答案仍写为√3, √6等，与正确结果矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-198",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "162",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "等比数列通项公式直接计算：a5=2×3^4=162。答案正确，解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-199",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "1.99",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "裂项累加得an=2-1/n，a100=1.99。答案1.99正确，解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-200",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(1) a_n=2n+1; (2) n=10",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由a2=5, S4=28解得a1=3, d=2，通项an=2n+1；Sn=n^2+2n>100得n>9.05，最小n=10。答案正确，解析无误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第197题存储答案错误，正确通项应为an=n，a2=2, a3=3，解析虽指出正确结果但最终答案仍写错，需修正。其余题目均通过审核。"
+    }
+  }
+}

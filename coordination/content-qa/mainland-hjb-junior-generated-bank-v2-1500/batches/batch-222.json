@@ -1,0 +1,345 @@
+{
+  "batchId": "batch-222",
+  "questions": [
+    {
+      "id": "hjb-junior-ds-v2-s3-106",
+      "batch": "hjb-junior-v2",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "hjb-junior-s3-upper-acute-trigonometry",
+      "unitTitle": "锐角的三角比",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "right-triangle-trigonometry",
+        "trigonometric-ratios",
+        "sine",
+        "cosine",
+        "tangent",
+        "solving-right-triangles",
+        "锐角三角比"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "运算能力",
+        "直观想象"
+      ],
+      "skillTags": [
+        "正弦",
+        "余弦",
+        "正切",
+        "解直角三角形",
+        "测量建模",
+        "三角比应用"
+      ],
+      "misconceptionTags": [
+        "opposite and adjacent sides swapped",
+        "hypotenuse not identified",
+        "degree-mode or rounding error"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s3-upper-acute-trigonometry"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s3-upper-paper-acute-trigonometry-unit",
+        "hjb-junior-s3-upper-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某数学兴趣小组测量学校旗杆的高度。已知旗杆垂直于地面，在距离旗杆底部12米的地面点A处，测得旗杆顶端B的仰角为35°。若测角仪的高度忽略不计，则旗杆的高度约为（参考数据：sin35°≈0.57，cos35°≈0.82，tan35°≈0.70）",
+      "optionsZhHans": [
+        "6.84米",
+        "8.4米",
+        "9.84米",
+        "17.14米"
+      ],
+      "answer": "8.4米",
+      "acceptedAnswers": [
+        "8.4米"
+      ],
+      "explanationZhHans": "由题意，旗杆底部为C，AC=12米，∠BAC=35°。在Rt△ABC中，BC为旗杆高，BC=AC·tan35°≈12×0.70=8.4米。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-107",
+      "batch": "hjb-junior-v2",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "hjb-junior-s3-upper-acute-trigonometry",
+      "unitTitle": "锐角的三角比",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "right-triangle-trigonometry",
+        "trigonometric-ratios",
+        "sine",
+        "cosine",
+        "tangent",
+        "solving-right-triangles",
+        "锐角三角比"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "运算能力",
+        "直观想象"
+      ],
+      "skillTags": [
+        "正弦",
+        "余弦",
+        "正切",
+        "解直角三角形",
+        "测量建模",
+        "三角比应用"
+      ],
+      "misconceptionTags": [
+        "opposite and adjacent sides swapped",
+        "hypotenuse not identified",
+        "degree-mode or rounding error"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-junior-s3-upper-acute-trigonometry"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s3-upper-paper-acute-trigonometry-unit",
+        "hjb-junior-s3-upper-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某数学兴趣小组测量学校旗杆的高度。已知旗杆垂直于地面，底部为点A，顶部为点B。在距离点A水平距离12米的地面点C处，用测角仪测得点B的仰角为35°。测角仪的高度忽略不计。求旗杆的高度AB。（结果精确到0.1米，参考数据：sin35°≈0.574，cos35°≈0.819，tan35°≈0.700）",
+      "optionsZhHans": [],
+      "answer": "8.4米",
+      "acceptedAnswers": [
+        "8.4米",
+        "8.4"
+      ],
+      "explanationZhHans": "在Rt△ABC中，∠C=35°，AC=12米，AB为旗杆高。由tanC=AB/AC，得AB=AC·tan35°≈12×0.700=8.4米。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-108",
+      "batch": "hjb-junior-v2",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "hjb-junior-s3-upper-acute-trigonometry",
+      "unitTitle": "锐角的三角比",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "right-triangle-trigonometry",
+        "trigonometric-ratios",
+        "sine",
+        "cosine",
+        "tangent",
+        "solving-right-triangles",
+        "锐角三角比"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "运算能力",
+        "直观想象"
+      ],
+      "skillTags": [
+        "正弦",
+        "余弦",
+        "正切",
+        "解直角三角形",
+        "测量建模",
+        "三角比应用"
+      ],
+      "misconceptionTags": [
+        "opposite and adjacent sides swapped",
+        "hypotenuse not identified",
+        "degree-mode or rounding error"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s3-upper-acute-trigonometry"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s3-upper-paper-acute-trigonometry-unit",
+        "hjb-junior-s3-upper-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "为了测量一条河的宽度，小明在河岸上选取点A，在对岸选取一棵树作为参照点C。他沿与AC垂直的方向走到点B，测得AB=30米，∠ABC=40°。求河的宽度AC。（结果精确到0.1米，参考数据：sin40°≈0.643，cos40°≈0.766，tan40°≈0.839）",
+      "optionsZhHans": [],
+      "answer": "25.2米",
+      "acceptedAnswers": [
+        "25.2米",
+        "25.2"
+      ],
+      "explanationZhHans": "在Rt△ABC中，∠A=90°，AB=30米，∠ABC=40°。AC为∠ABC的对边，AB为邻边，故tan∠ABC=AC/AB，即AC=AB·tan40°≈30×0.839=25.17≈25.2米。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-109",
+      "batch": "hjb-junior-v2",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "hjb-junior-s3-upper-acute-trigonometry",
+      "unitTitle": "锐角的三角比",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "right-triangle-trigonometry",
+        "trigonometric-ratios",
+        "sine",
+        "cosine",
+        "tangent",
+        "solving-right-triangles",
+        "锐角三角比"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "运算能力",
+        "直观想象"
+      ],
+      "skillTags": [
+        "正弦",
+        "余弦",
+        "正切",
+        "解直角三角形",
+        "测量建模",
+        "三角比应用"
+      ],
+      "misconceptionTags": [
+        "opposite and adjacent sides swapped",
+        "hypotenuse not identified",
+        "degree-mode or rounding error"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s3-upper-acute-trigonometry"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s3-upper-paper-acute-trigonometry-unit",
+        "hjb-junior-s3-upper-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校数学兴趣小组测量校园内旗杆的高度。他们在旗杆底部正东方向24米处的地面上选取一点A，在点A处测得旗杆顶端P的仰角为35°。已知测量仪器的高度忽略不计，旗杆垂直于地面，且点A、旗杆底部B、旗杆顶端P在同一竖直平面内。求旗杆的高度最接近下列哪个值？（参考数据：sin35°≈0.57，cos35°≈0.82，tan35°≈0.70）",
+      "optionsZhHans": [
+        "13.7米",
+        "16.8米",
+        "19.7米",
+        "29.3米"
+      ],
+      "answer": "16.8米",
+      "acceptedAnswers": [
+        "16.8米"
+      ],
+      "explanationZhHans": "由题意，AB=24米，仰角∠PAB=35°，旗杆PB⊥AB。在Rt△PAB中，tan35°=PB/AB，故PB=AB·tan35°≈24×0.70=16.8米。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-110",
+      "batch": "hjb-junior-v2",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "hjb-junior-s3-upper-acute-trigonometry",
+      "unitTitle": "锐角的三角比",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "right-triangle-trigonometry",
+        "trigonometric-ratios",
+        "sine",
+        "cosine",
+        "tangent",
+        "solving-right-triangles",
+        "锐角三角比"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "运算能力",
+        "直观想象"
+      ],
+      "skillTags": [
+        "正弦",
+        "余弦",
+        "正切",
+        "解直角三角形",
+        "测量建模",
+        "三角比应用"
+      ],
+      "misconceptionTags": [
+        "opposite and adjacent sides swapped",
+        "hypotenuse not identified",
+        "degree-mode or rounding error"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-junior-s3-upper-acute-trigonometry"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s3-upper-paper-acute-trigonometry-unit",
+        "hjb-junior-s3-upper-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某数学兴趣小组测量校园内一棵大树的高度。他们在点A处测得大树顶端D的仰角为30°，然后向大树方向前进20米到达点B，在点B处测得大树顶端D的仰角为45°。已知点A、点B和大树底部C在同一水平线上，大树垂直于地面，且测量仪器的高度忽略不计。求大树的高度CD。（结果保留根号）",
+      "optionsZhHans": [],
+      "answer": "10(√3+1)米",
+      "acceptedAnswers": [
+        "10(√3+1)米",
+        "10(√3+1)",
+        "10√3+10米",
+        "10√3+10"
+      ],
+      "explanationZhHans": "设CD=h，则BC=h。在Rt△ACD中，AC=20+h，tan30°=CD/AC=h/(20+h)=√3/3，解得h=10(√3+1)。"
+    }
+  ]
+}

@@ -1,0 +1,580 @@
+{
+  "batchId": "batch-065",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p3-141",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-division",
+      "unitTitle": "除法",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "multi-digit-division",
+        "division-with-remainder",
+        "division-estimation",
+        "除法",
+        "有余数除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "一位数除多位数",
+        "余数意义",
+        "估商",
+        "验算",
+        "除法应用"
+      ],
+      "misconceptionTags": [
+        "remainder larger than divisor accepted",
+        "quotient estimate disconnected from place value",
+        "remainder ignored in the story answer"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-division-unit",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校把185本故事书平均分给6个年级，每个年级能分到多少本？还剩多少本？",
+      "optionsZhHans": [],
+      "answer": "每个年级分到30本，还剩5本",
+      "acceptedAnswers": [
+        "每个年级分到30本，还剩5本",
+        "30本余5本",
+        "30本剩5本"
+      ],
+      "explanationZhHans": "185÷6，先看被除数前两位18，18÷6=3，商3在十位，表示30；余下5个一，5÷6不够商1，所以个位商0，余5。验算：30×6+5=185，符合。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-142",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-division",
+      "unitTitle": "除法",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "multi-digit-division",
+        "division-with-remainder",
+        "division-estimation",
+        "除法",
+        "有余数除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "一位数除多位数",
+        "余数意义",
+        "估商",
+        "验算",
+        "除法应用"
+      ],
+      "misconceptionTags": [
+        "remainder larger than divisor accepted",
+        "quotient estimate disconnected from place value",
+        "remainder ignored in the story answer"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-division-unit",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "有67个苹果，每8个装一盒，最多可以装满几盒？",
+      "optionsZhHans": [
+        "7盒",
+        "8盒",
+        "9盒",
+        "10盒"
+      ],
+      "answer": "8盒",
+      "acceptedAnswers": [
+        "8盒"
+      ],
+      "explanationZhHans": "67÷8=8（盒）……3（个），因为剩下的3个不够装满一盒，所以最多装满8盒。注意不要错误地选择9盒或忽略余数。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-143",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-division",
+      "unitTitle": "除法",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "multi-digit-division",
+        "division-with-remainder",
+        "division-estimation",
+        "除法",
+        "有余数除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "一位数除多位数",
+        "余数意义",
+        "估商",
+        "验算",
+        "除法应用"
+      ],
+      "misconceptionTags": [
+        "remainder larger than divisor accepted",
+        "quotient estimate disconnected from place value",
+        "remainder ignored in the story answer"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-division-unit",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在算式 □÷7=12……△ 中，△最大是______，这时□是______。",
+      "optionsZhHans": [],
+      "answer": "6，90",
+      "acceptedAnswers": [
+        "6，90",
+        "6 90",
+        "6和90"
+      ],
+      "explanationZhHans": "余数必须比除数小，除数是7，所以△最大是6。被除数=商×除数+余数，即12×7+6=84+6=90。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-144",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-division",
+      "unitTitle": "除法",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "multi-digit-division",
+        "division-with-remainder",
+        "division-estimation",
+        "除法",
+        "有余数除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "一位数除多位数",
+        "余数意义",
+        "估商",
+        "验算",
+        "除法应用"
+      ],
+      "misconceptionTags": [
+        "remainder larger than divisor accepted",
+        "quotient estimate disconnected from place value",
+        "remainder ignored in the story answer"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-division-unit",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "李老师买了4包同样的笔记本，付了100元，找回8元。每包笔记本多少元？",
+      "optionsZhHans": [],
+      "answer": "23元",
+      "acceptedAnswers": [
+        "23元",
+        "23"
+      ],
+      "explanationZhHans": "先求4包笔记本的总价：100-8=92（元）。再求每包价格：92÷4=23（元）。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-145",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-division",
+      "unitTitle": "除法",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "multi-digit-division",
+        "division-with-remainder",
+        "division-estimation",
+        "除法",
+        "有余数除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "一位数除多位数",
+        "余数意义",
+        "估商",
+        "验算",
+        "除法应用"
+      ],
+      "misconceptionTags": [
+        "remainder larger than divisor accepted",
+        "quotient estimate disconnected from place value",
+        "remainder ignored in the story answer"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-division-unit",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个算式的商最接近80？",
+      "optionsZhHans": [
+        "245÷3",
+        "322÷4",
+        "481÷6",
+        "567÷7"
+      ],
+      "answer": "481÷6",
+      "acceptedAnswers": [
+        "481÷6"
+      ],
+      "explanationZhHans": "估算：245÷3≈81.7，322÷4=80.5，481÷6≈80.2，567÷7=81。481÷6的商80.2最接近80。注意不要误选322÷4。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-146",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-division",
+      "unitTitle": "除法",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "multi-digit-division",
+        "division-with-remainder",
+        "division-estimation",
+        "除法",
+        "有余数除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "一位数除多位数",
+        "余数意义",
+        "估商",
+        "验算",
+        "除法应用"
+      ],
+      "misconceptionTags": [
+        "remainder larger than divisor accepted",
+        "quotient estimate disconnected from place value",
+        "remainder ignored in the story answer"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-division-unit",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在竖式计算 456÷5 时，十位上的5除以5商1，这一步表示分掉了______个十。",
+      "optionsZhHans": [],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5",
+        "5个"
+      ],
+      "explanationZhHans": "十位是5，除以5商1，1在十位上表示1个十，分掉了1×5=5个十，即50。这里填写数字5。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-147",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-division",
+      "unitTitle": "除法",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "multi-digit-division",
+        "division-with-remainder",
+        "division-estimation",
+        "除法",
+        "有余数除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "一位数除多位数",
+        "余数意义",
+        "估商",
+        "验算",
+        "除法应用"
+      ],
+      "misconceptionTags": [
+        "remainder larger than divisor accepted",
+        "quotient estimate disconnected from place value",
+        "remainder ignored in the story answer"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-division-unit",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "三年级有218人去春游，每辆客车限乘45人，至少需要租多少辆客车？",
+      "optionsZhHans": [],
+      "answer": "5辆",
+      "acceptedAnswers": [
+        "5辆",
+        "5"
+      ],
+      "explanationZhHans": "218÷45=4（辆）……38（人），余下的38人还需要1辆车，所以4+1=5（辆）。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-148",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-division",
+      "unitTitle": "除法",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "multi-digit-division",
+        "division-with-remainder",
+        "division-estimation",
+        "除法",
+        "有余数除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "一位数除多位数",
+        "余数意义",
+        "估商",
+        "验算",
+        "除法应用"
+      ],
+      "misconceptionTags": [
+        "remainder larger than divisor accepted",
+        "quotient estimate disconnected from place value",
+        "remainder ignored in the story answer"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-division-unit",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算 6□4÷6，要使商的中间有0，□里可以填的数字有几个？",
+      "optionsZhHans": [
+        "3个",
+        "4个",
+        "5个",
+        "6个"
+      ],
+      "answer": "6个",
+      "acceptedAnswers": [
+        "6个"
+      ],
+      "explanationZhHans": "被除数百位6÷6=1，要使十位商0，十位上的数必须小于6，即□可以填0、1、2、3、4、5，共6个数字。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-149",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-division",
+      "unitTitle": "除法",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "multi-digit-division",
+        "division-with-remainder",
+        "division-estimation",
+        "除法",
+        "有余数除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "一位数除多位数",
+        "余数意义",
+        "估商",
+        "验算",
+        "除法应用"
+      ],
+      "misconceptionTags": [
+        "remainder larger than divisor accepted",
+        "quotient estimate disconnected from place value",
+        "remainder ignored in the story answer"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-division-unit",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用一根长238厘米的彩带做蝴蝶结，每个蝴蝶结用9厘米，最多可以做______个蝴蝶结，还剩______厘米。",
+      "optionsZhHans": [],
+      "answer": "26，4",
+      "acceptedAnswers": [
+        "26，4",
+        "26 4",
+        "26个，4厘米"
+      ],
+      "explanationZhHans": "238÷9=26（个）……4（厘米），余数4小于除数9，所以最多做26个，还剩4厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-150",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-division",
+      "unitTitle": "除法",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "multi-digit-division",
+        "division-with-remainder",
+        "division-estimation",
+        "除法",
+        "有余数除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "一位数除多位数",
+        "余数意义",
+        "估商",
+        "验算",
+        "除法应用"
+      ],
+      "misconceptionTags": [
+        "remainder larger than divisor accepted",
+        "quotient estimate disconnected from place value",
+        "remainder ignored in the story answer"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-division-unit",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "王叔叔加工一批零件，每天加工8个，加工了15天后，还剩32个没有加工。这批零件一共有多少个？",
+      "optionsZhHans": [],
+      "answer": "152个",
+      "acceptedAnswers": [
+        "152个",
+        "152"
+      ],
+      "explanationZhHans": "已加工：8×15=120（个），加上剩下的32个，总数为120+32=152（个）。"
+    }
+  ]
+}

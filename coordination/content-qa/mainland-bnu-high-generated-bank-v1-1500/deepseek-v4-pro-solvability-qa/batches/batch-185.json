@@ -1,0 +1,133 @@
+{
+  "batchNumber": 185,
+  "startedAt": "2026-05-27T14:14:51.266Z",
+  "completedAt": "2026-05-27T14:15:07.825Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-473",
+    "bnu-high-ds-v1-s6-474",
+    "bnu-high-ds-v1-s6-475",
+    "bnu-high-ds-v1-s6-476",
+    "bnu-high-ds-v1-s6-477",
+    "bnu-high-ds-v1-s6-478",
+    "bnu-high-ds-v1-s6-479",
+    "bnu-high-ds-v1-s6-480"
+  ],
+  "usage": {
+    "prompt_tokens": 12839,
+    "completion_tokens": 1024,
+    "total_tokens": 13863,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 12327
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-473",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(-1, 3)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "导数计算正确，单调递减区间为(-1,3)，选项B匹配，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-474",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "等比数列条件充分，解得q=2，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-475",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "11",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由Sn求a5，计算得11，选项A匹配，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-476",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "a = 0, b = -3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "利用极值条件和导数条件解得a=0,b=-3，解析验证充分。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-477",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "100",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "递推数列累加得通项n^2，a10=100，选项A匹配，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-478",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "13/16",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由等比条件得a1=d，代入计算得13/16，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-479",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "y = -1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "切线斜率0，过点(1,-1)，方程为y=-1，选项B匹配，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-480",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "independentAnswer": "a_n = n^2 + n",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "通项公式正确，但解析中构造b_n后未完成累加，转而用猜测验证，虽结论正确但推导不严谨，标记为weak。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部题目可解，答案匹配，解析基本一致，仅最后一题解析推导不严谨但不影响正确性。"
+    }
+  }
+}

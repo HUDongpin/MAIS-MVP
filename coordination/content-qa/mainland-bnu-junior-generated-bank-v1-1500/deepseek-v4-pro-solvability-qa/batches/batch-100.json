@@ -1,0 +1,173 @@
+{
+  "batchNumber": 100,
+  "startedAt": "2026-05-27T17:57:07.647Z",
+  "completedAt": "2026-05-27T17:57:28.264Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s3-189",
+    "bnu-junior-ds-v1-s3-190",
+    "bnu-junior-ds-v1-s3-191",
+    "bnu-junior-ds-v1-s3-192",
+    "bnu-junior-ds-v1-s3-193",
+    "bnu-junior-ds-v1-s3-194",
+    "bnu-junior-ds-v1-s3-195",
+    "bnu-junior-ds-v1-s3-196",
+    "bnu-junior-ds-v1-s3-197",
+    "bnu-junior-ds-v1-s3-198",
+    "bnu-junior-ds-v1-s3-199",
+    "bnu-junior-ds-v1-s3-200"
+  ],
+  "usage": {
+    "prompt_tokens": 5513,
+    "completion_tokens": 1555,
+    "total_tokens": 7068,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 5001
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s3-189",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，由DE∥BC得△ADE∽△ABC，相似比k=AD/AB=2/5，面积比k²=4/25，△ABC面积=8÷(4/25)=50 cm²，答案50正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-190",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "△ABC周长=12+18+24=54 cm，最短边12对应8，相似比12:8=3:2，新周长=54×(2/3)=36 cm，选项唯一且答案36 cm正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-191",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由DE∥BC得△ADE∽△ABC，AD/AB=AE/AC，AB=10，AC=5+EC，4/10=5/(5+EC)，解得EC=7.5，答案7.5正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-192",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由DE∥BC得AD/DB=AE/EC，3/6=2/EC，EC=4 cm，答案4 cm正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-193",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "对应顶点顺序明确，△ABC三边6,8,10，最长边AC=10对应DF=15，相似比1.5，DE=9，EF=12，周长=9+12+15=36 cm，选项唯一且答案36 cm正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-194",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由DE∥BC得AD/DB=AE/EC，3/6=4/EC，EC=8 cm，答案8 cm正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-195",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由DE∥BC得AD/DB=AE/EC，3/6=2/EC，EC=4 cm，答案4 cm正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-196",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由DE∥BC得AD/DB=AE/EC，3/6=4/EC，EC=8，选项唯一且答案8正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-197",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由DE∥BC得△ADE∽△ABC，AD/AB=AE/AC，AB=9，3/9=2/(2+EC)，EC=4 cm，答案4 cm正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-198",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "对应关系明确，AB/DE=BC/EF，6/9=8/EF，EF=12 cm，答案12 cm正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-199",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由DE∥BC得AD/DB=AE/EC，4/6=5/EC，EC=7.5，选项唯一且答案7.5正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-200",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由DE∥BC得AD/DB=AE/EC，3/6=4/EC，EC=8 cm，答案8 cm正确，解释匹配。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部12道题均条件充分、可解，答案与解释匹配，无错误或歧义，适合北师大版九年级上册相似图形单元使用。"
+    }
+  }
+}

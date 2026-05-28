@@ -1,0 +1,83 @@
+{
+  "batchNumber": 84,
+  "startedAt": "2026-05-27T13:31:16.898Z",
+  "completedAt": "2026-05-27T13:31:24.727Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p6-245",
+    "bnu-primary-ds-v1-p6-246",
+    "bnu-primary-ds-v1-p6-247",
+    "bnu-primary-ds-v1-p6-248",
+    "bnu-primary-ds-v1-p6-249",
+    "bnu-primary-ds-v1-p6-250"
+  ],
+  "usage": {
+    "prompt_tokens": 1366,
+    "completion_tokens": 482,
+    "total_tokens": 1848,
+    "prompt_tokens_details": {
+      "cached_tokens": 1280
+    },
+    "prompt_cache_hit_tokens": 1280,
+    "prompt_cache_miss_tokens": 86
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p6-245",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "线段比例尺换算正确，选项唯一，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-246",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "圆锥体积与重量计算正确，选项唯一，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-247",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "反比例关系判断正确，选项唯一，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-248",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "圆柱展开图与比的计算正确，选项唯一，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-249",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "成活率与比的计算正确，选项唯一，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-250",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比例尺计算正确，选项唯一，答案匹配。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案匹配，选项无歧义，适合北师大版六年级总复习。"
+    }
+  }
+}

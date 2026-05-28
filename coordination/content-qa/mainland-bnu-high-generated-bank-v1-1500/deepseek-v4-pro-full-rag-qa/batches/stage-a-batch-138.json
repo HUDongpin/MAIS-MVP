@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-138",
+  "startedAt": "2026-05-28T01:37:01.800Z",
+  "completedAt": "2026-05-28T01:37:17.564Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-097",
+    "bnu-high-ds-v1-s6-098",
+    "bnu-high-ds-v1-s6-099",
+    "bnu-high-ds-v1-s6-100",
+    "bnu-high-ds-v1-s6-101",
+    "bnu-high-ds-v1-s6-102",
+    "bnu-high-ds-v1-s6-103",
+    "bnu-high-ds-v1-s6-104"
+  ],
+  "usage": {
+    "prompt_tokens": 10197,
+    "completion_tokens": 1122,
+    "total_tokens": 11319,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9813
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-097",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "B",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "数学归纳法第二步，从n=k到n=k+1，左边增加的最后一项是(k+1)(k+2)，故选B。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-098",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "10",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由等比数列性质得a1a10=a2a9=...=a5a6=9，所求对数和=log3(9^5)=log3(3^10)=10。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-099",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "b_n = 1",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由a_{n+1}=a_n^2-2a_n+2得b_{n+1}=b_n^2，且b_1=1，故b_n=1对所有n成立。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-100",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "B",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由S9=S17得a10+...+a17=0，即4(a13+a14)=0，故a13+a14=0，又a1=2023>0，公差d<0，所以a13>0，a14<0，S13最大。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-101",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(1) 证明略；(2) a_n = 3^n - 2^{n-1}；(3) S_n = (3^{n+1} - 3)/2 - (2^n - 1)",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "构造b_n=a_n-3^n，得b_{n+1}=2b_n，b_1=-1，故b_n=-2^{n-1}，a_n=3^n-2^{n-1}；求和分组用等比公式。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-102",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由a3+a7=2a5=20得a5=10，与已知a5=12矛盾，但按a5=12计算得d=2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-103",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "A",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由a_{n+1}=a_n+2n+1得b_{n+1}=b_n+2，且b_1=2，故{b_n}是公差为2的等差数列。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-104",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "q=2, a1=1",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由S3=7，S6=63，q≠1，得a1(1-q^3)/(1-q)=7，a1(1-q^6)/(1-q)=63，两式相除得1+q^3=9，q=2，a1=1。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，无数学错误、歧义或缺失条件，符合北师大版高中数列章节要求。"
+    }
+  }
+}

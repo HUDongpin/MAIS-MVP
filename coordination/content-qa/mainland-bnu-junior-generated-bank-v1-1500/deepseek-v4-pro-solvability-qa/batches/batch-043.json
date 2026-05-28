@@ -1,0 +1,179 @@
+{
+  "batchNumber": 43,
+  "startedAt": "2026-05-27T17:34:27.469Z",
+  "completedAt": "2026-05-27T17:34:49.359Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s2-005",
+    "bnu-junior-ds-v1-s2-006",
+    "bnu-junior-ds-v1-s2-007",
+    "bnu-junior-ds-v1-s2-008",
+    "bnu-junior-ds-v1-s2-009",
+    "bnu-junior-ds-v1-s2-010",
+    "bnu-junior-ds-v1-s2-011",
+    "bnu-junior-ds-v1-s2-012",
+    "bnu-junior-ds-v1-s2-013",
+    "bnu-junior-ds-v1-s2-014",
+    "bnu-junior-ds-v1-s2-015",
+    "bnu-junior-ds-v1-s2-016"
+  ],
+  "usage": {
+    "prompt_tokens": 5753,
+    "completion_tokens": 1502,
+    "total_tokens": 7255,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 5241
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s2-005",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，向东3km再向北4km构成直角三角形，直线距离为斜边，计算得5km，答案与解释正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-006",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "三边满足勾股定理逆定理，可判定为直角三角形，答案“直角”正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-007",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项B满足3²+4²=5²，其他选项不满足，答案唯一且正确，解释无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-008",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "梯子、墙、地面构成直角三角形，已知斜边和一直角边，求另一直角边，计算得8米，答案与解释正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-009",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "利用勾股定理分别求BD和CD，再相加得BC=25，条件充分，答案与解释正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-010",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "需分类讨论，第三边可能为斜边或直角边，答案“5或√7”正确，选项C唯一匹配，解释清晰。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-011",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "三边满足勾股定理逆定理，可判定为直角三角形，答案与解释正确，acceptedAnswers覆盖合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-012",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "√41",
+        "rationale": "题目可解，但答案错误。由5²+12²=13²知△ABC为直角三角形，∠B=90°。在Rt△ABD中，AB=5，BD=4，由勾股定理得AD=√(5²+4²)=√41，而非√65。解释中计算过程正确但最终结果写错，答案与解释矛盾。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-013",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "三角形ABC是直角三角形，且∠B是直角",
+        "rationale": "三边满足5²+12²=13²，最长边AC为斜边，直角应为∠B，而非∠C。选项A正确，答案与解释均错误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-014",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "三边满足勾股定理逆定理，可判定为直角三角形，答案与解释正确，acceptedAnswers覆盖合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-015",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "先求斜边13，再用面积法求高60/13，答案与解释正确，acceptedAnswers包含分数和小数形式。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-016",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "设C(x,0)，利用勾股定理建立方程，解得x=2或8，答案与解释正确，选项A匹配。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 10,
+      "warn": 0,
+      "fail": 2,
+      "notes": "12道题中10道通过，2道失败：bnu-junior-ds-v1-s2-012答案应为√41而非√65；bnu-junior-ds-v1-s2-013直角应为∠B而非∠C。"
+    }
+  }
+}

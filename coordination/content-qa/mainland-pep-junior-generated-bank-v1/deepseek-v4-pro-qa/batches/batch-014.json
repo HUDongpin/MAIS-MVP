@@ -1,0 +1,191 @@
+{
+  "batchNumber": 14,
+  "startedAt": "2026-05-24T17:26:24.805Z",
+  "completedAt": "2026-05-24T17:26:45.220Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-candidate-k03-sa-017",
+    "pep-junior-candidate-k03-sa-018",
+    "pep-junior-candidate-k03-sa-019",
+    "pep-junior-candidate-k03-sa-020",
+    "pep-junior-candidate-k03-sa-021",
+    "pep-junior-candidate-k03-sa-022",
+    "pep-junior-candidate-k03-sa-023",
+    "pep-junior-candidate-k03-sa-024",
+    "pep-junior-candidate-k03-sa-025",
+    "pep-junior-candidate-k03-sa-026",
+    "pep-junior-candidate-k03-sa-027",
+    "pep-junior-candidate-k03-sa-028",
+    "pep-junior-candidate-k04-mc-001",
+    "pep-junior-candidate-k04-mc-002",
+    "pep-junior-candidate-k04-mc-003",
+    "pep-junior-candidate-k04-mc-004",
+    "pep-junior-candidate-k04-mc-005",
+    "pep-junior-candidate-k04-mc-006"
+  ],
+  "usage": {
+    "prompt_tokens": 3005,
+    "completion_tokens": 1505,
+    "total_tokens": 4510,
+    "prompt_tokens_details": {
+      "cached_tokens": 2944
+    },
+    "prompt_cache_hit_tokens": 2944,
+    "prompt_cache_miss_tokens": 61
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-candidate-k03-sa-017",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，互余和为90°，90-83=7，答案与解释一致，无歧义，适合七年级上几何初步。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-sa-018",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，90-21=69，答案与解释一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-sa-019",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，90-28=62，答案与解释一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-sa-020",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，90-35=55，答案与解释一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-sa-021",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，90-42=48，答案与解释一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-sa-022",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，90-49=41，答案与解释一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-sa-023",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，90-56=34，答案与解释一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-sa-024",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，90-63=27，答案与解释一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-sa-025",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，90-70=20，答案与解释一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-sa-026",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，90-77=13，答案与解释一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-sa-027",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，90-84=6，答案与解释一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-sa-028",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，90-22=68，答案与解释一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k04-mc-001",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移计算正确，(4+3,1-3)=(7,-2)，选项D匹配，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k04-mc-002",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移计算正确，(5+4,4-1)=(9,3)，选项C匹配，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k04-mc-003",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移计算正确，(-5+5,-6-3)=(0,-9)，选项B匹配，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k04-mc-004",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移计算正确，(-4+6,-3-1)=(2,-4)，选项A匹配，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k04-mc-005",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移计算正确，(-3+2,0-3)=(-1,-3)，选项D匹配，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k04-mc-006",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移计算正确，(-2+3,3-1)=(1,2)，选项C匹配，无歧义。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案与解释一致，无歧义，适合人教版初中数学，可直接入库。"
+    }
+  }
+}

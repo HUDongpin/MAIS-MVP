@@ -1,0 +1,297 @@
+{
+  "batchId": "batch-139",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p3-191",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-decimal-introduction",
+      "unitTitle": "小数的初步认识",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "decimal-introduction",
+        "tenths-hundredths",
+        "decimal-reading-writing",
+        "decimal-comparison",
+        "小数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "量感"
+      ],
+      "skillTags": [
+        "小数读写",
+        "十分位",
+        "百分位",
+        "小数大小比较",
+        "数量表达"
+      ],
+      "misconceptionTags": [
+        "decimal point read as decoration",
+        "more decimal digits assumed larger",
+        "tenths and hundredths place values swapped"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-decimal-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-decimal-introduction",
+        "hjb-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丽测量一支铅笔的长度是0.18米，她读作“零点十八”。下面哪句话正确指出了她的错误？",
+      "optionsZhHans": [
+        "应该读作“零点一八”，百分位是8表示8个百分之一",
+        "应该读作“零点八”，因为小数部分只有两位",
+        "应该读作“零点一八”，十分位是1表示1个十分之一",
+        "应该读作“零点十八”，但单位是米所以没错"
+      ],
+      "answer": "应该读作“零点一八”，百分位是8表示8个百分之一",
+      "acceptedAnswers": [
+        "应该读作“零点一八”，百分位是8表示8个百分之一"
+      ],
+      "explanationZhHans": "0.18读作零点一八，小数部分按数字顺序读。百分位上的8表示8个0.01，不是“十八”。选项A正确指出了读法和位值含义。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-192",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-decimal-introduction",
+      "unitTitle": "小数的初步认识",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "decimal-introduction",
+        "tenths-hundredths",
+        "decimal-reading-writing",
+        "decimal-comparison",
+        "小数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "量感"
+      ],
+      "skillTags": [
+        "小数读写",
+        "十分位",
+        "百分位",
+        "小数大小比较",
+        "数量表达"
+      ],
+      "misconceptionTags": [
+        "decimal point read as decoration",
+        "more decimal digits assumed larger",
+        "tenths and hundredths place values swapped"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-decimal-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-decimal-introduction",
+        "hjb-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把3元4角5分写成以元为单位的小数。",
+      "optionsZhHans": [],
+      "answer": "3.45元",
+      "acceptedAnswers": [
+        "3.45元",
+        "3.45"
+      ],
+      "explanationZhHans": "3元不变，4角是0.4元，5分是0.05元，合起来是3.45元。注意元角分与小数位的关系：角是十分位，分是百分位。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-193",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-decimal-introduction",
+      "unitTitle": "小数的初步认识",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "decimal-introduction",
+        "tenths-hundredths",
+        "decimal-reading-writing",
+        "decimal-comparison",
+        "小数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "量感"
+      ],
+      "skillTags": [
+        "小数读写",
+        "十分位",
+        "百分位",
+        "小数大小比较",
+        "数量表达"
+      ],
+      "misconceptionTags": [
+        "decimal point read as decoration",
+        "more decimal digits assumed larger",
+        "tenths and hundredths place values swapped"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-decimal-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-decimal-introduction",
+        "hjb-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "比较0.6和0.59的大小，下面哪个说法正确？",
+      "optionsZhHans": [
+        "0.6 < 0.59，因为59比6大",
+        "0.6 > 0.59，因为十分位6大于5",
+        "0.6 = 0.59，因为小数末尾的0可以去掉",
+        "无法比较，因为小数位数不同"
+      ],
+      "answer": "0.6 > 0.59，因为十分位6大于5",
+      "acceptedAnswers": [
+        "0.6 > 0.59，因为十分位6大于5"
+      ],
+      "explanationZhHans": "比较小数从高位起，0.6的十分位是6，0.59的十分位是5，6>5，所以0.6>0.59。不能只看数字大小或位数。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-194",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-area-measurement",
+      "unitTitle": "面积与周长",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "area-measurement",
+        "unit-square",
+        "rectangle-square-area",
+        "perimeter-area-contrast",
+        "面积"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "几何直观"
+      ],
+      "skillTags": [
+        "面积单位",
+        "单位正方形",
+        "长方形面积",
+        "正方形面积",
+        "周长面积辨析"
+      ],
+      "misconceptionTags": [
+        "area and perimeter formulas swapped",
+        "square units omitted",
+        "multiplication used without explaining rows and columns"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-area-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-area-measurement",
+        "hjb-primary-p3-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方形花坛，长8米，宽5米。这个花坛的面积是多少平方米？",
+      "optionsZhHans": [],
+      "answer": "40平方米",
+      "acceptedAnswers": [
+        "40平方米",
+        "40"
+      ],
+      "explanationZhHans": "长方形面积=长×宽，8×5=40，单位是平方米。注意面积是覆盖的大小，用乘法计算，结果要带面积单位。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-195",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-area-measurement",
+      "unitTitle": "面积与周长",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "area-measurement",
+        "unit-square",
+        "rectangle-square-area",
+        "perimeter-area-contrast",
+        "面积"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "几何直观"
+      ],
+      "skillTags": [
+        "面积单位",
+        "单位正方形",
+        "长方形面积",
+        "正方形面积",
+        "周长面积辨析"
+      ],
+      "misconceptionTags": [
+        "area and perimeter formulas swapped",
+        "square units omitted",
+        "multiplication used without explaining rows and columns"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-area-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-area-measurement",
+        "hjb-primary-p3-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用12个边长1厘米的小正方形拼成一个长方形，下面哪种拼法得到的长方形周长最长？",
+      "optionsZhHans": [
+        "拼成一行，长12厘米、宽1厘米",
+        "拼成两行，每行6个，长6厘米、宽2厘米",
+        "拼成三行，每行4个，长4厘米、宽3厘米",
+        "拼成四行，每行3个，长3厘米、宽4厘米"
+      ],
+      "answer": "拼成一行，长12厘米、宽1厘米",
+      "acceptedAnswers": [
+        "拼成一行，长12厘米、宽1厘米"
+      ],
+      "explanationZhHans": "面积都是12平方厘米，但周长不同。一行排列时长12宽1，周长(12+1)×2=26厘米；其他拼法周长更小。面积相等时，越细长周长越大。"
+    }
+  ]
+}

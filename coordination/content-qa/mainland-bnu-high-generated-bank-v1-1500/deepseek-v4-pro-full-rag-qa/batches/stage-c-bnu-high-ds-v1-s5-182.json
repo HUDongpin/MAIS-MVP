@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-182",
+  "startedAt": "2026-05-28T02:54:47.302Z",
+  "completedAt": "2026-05-28T02:54:54.268Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-182"
+  ],
+  "usage": {
+    "prompt_tokens": 2978,
+    "completion_tokens": 386,
+    "total_tokens": 3364,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2594
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-182",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "(1) 2√3/3; (2) (3/2,1/2,5/2) 或 (-3/2,3/2,7/2)",
+        "correctedAnswer": "(1) 2√3/3; (2) (3/2,1/2,5/2) 或 (-3/2,3/2,7/2)",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合北师大版空间向量章节要求。但存储答案(1)√3/3错误，正确距离为2√3/3；(2)中P坐标错误，正确为(3/2,1/2,5/2)和(-3/2,3/2,7/2)；解析中t=1/2或-1/2与答案矛盾，且解析本身计算有误。存在数学错误、答案不匹配和解释矛盾，严重程度为阻断。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1题答案和解析均存在数学错误，判定为阻断。"
+    }
+  }
+}

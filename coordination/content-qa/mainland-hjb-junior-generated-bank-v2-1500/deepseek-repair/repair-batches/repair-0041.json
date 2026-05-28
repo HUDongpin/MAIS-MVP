@@ -1,0 +1,78 @@
+{
+  "batchId": "repair-0041",
+  "generatedAt": "2026-05-25T05:12:43.640Z",
+  "targetIds": [
+    "hjb-junior-ds-v2-s3-497"
+  ],
+  "questions": [
+    {
+      "id": "hjb-junior-ds-v2-s3-497",
+      "batch": "hjb-junior-v2",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "hjb-junior-s3-lower-statistics-introduction",
+      "unitTitle": "统计初步",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "statistics",
+        "data-representation",
+        "mean",
+        "median",
+        "mode",
+        "variance",
+        "statistical-distribution",
+        "统计"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "数学表达",
+        "模型意识"
+      ],
+      "skillTags": [
+        "数据整理",
+        "统计图表",
+        "平均数",
+        "中位数",
+        "众数",
+        "方差",
+        "统计实习"
+      ],
+      "misconceptionTags": [
+        "average chosen without context",
+        "variance interpreted as center",
+        "conclusion exceeds data"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s3-lower-statistics-introduction"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s3-lower-paper-statistics-introduction-unit",
+        "hjb-junior-s3-lower-paper-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Repaired offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校九年级（3）班15名同学参加社区环保知识竞赛，得分（单位：分）为：82, 85, 88, 90, 92, 85, 95, 88, 85, 90, 88, 92, 85, 95, 100。班主任想用一个统计量来代表该班此次竞赛的整体水平，并希望该统计量不受极端值的影响。下列统计量中最合适的是（ ）",
+      "optionsZhHans": [
+        "平均数",
+        "中位数",
+        "众数",
+        "方差"
+      ],
+      "answer": "中位数",
+      "acceptedAnswers": [
+        "中位数"
+      ],
+      "explanationZhHans": "数据中存在极端值100分，平均数会被拉高，不能真实反映整体水平；众数85分出现5次，但仅代表最常见分数，不能代表整体；方差衡量波动大小，不是代表值。中位数是排序后第8个数88分，不受极端值影响，最能代表整体水平。"
+    }
+  ]
+}

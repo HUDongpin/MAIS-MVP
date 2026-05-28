@@ -1,0 +1,314 @@
+{
+  "batchId": "batch-077",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s2-k09-fi-027",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "promptZhHans": "已知一次函数y=kx+b的图象经过点(2,5)和(-1,-4)，则k=____，b=____。",
+      "optionsZhHans": [],
+      "answer": "3,-1",
+      "acceptedAnswers": [
+        "3,-1",
+        "k=3,b=-1",
+        "3和-1",
+        "3, -1"
+      ],
+      "explanationZhHans": "将点(2,5)和(-1,-4)代入y=kx+b，得方程组：2k+b=5，-k+b=-4。两式相减得3k=9，所以k=3。代入2k+b=5得6+b=5，所以b=-1。因此答案为3,-1。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-fi-028",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-quadratic-radicals"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean"
+      ],
+      "promptZhHans": "一次函数 y=-2x+7 中，当 x=3 时，y 的值为____。",
+      "optionsZhHans": [],
+      "answer": "1",
+      "acceptedAnswers": [
+        "1"
+      ],
+      "explanationZhHans": "把 x=3 代入 y=-2x+7，得 y=-2×3+7=1。因此 y 的值为1。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-fi-029",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-pythagorean-theorem"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "在平面直角坐标系中，点A(3,-2)关于x轴对称的点A'的坐标是____。",
+      "optionsZhHans": [],
+      "answer": "(3,2)",
+      "acceptedAnswers": [
+        "(3,2)",
+        "3,2",
+        "(3, 2)"
+      ],
+      "explanationZhHans": "关于x轴对称的点，横坐标不变，纵坐标互为相反数。点A(3,-2)的对称点横坐标为3，纵坐标为2，即(3,2)。因此答案为(3,2)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-fi-030",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-quadrilaterals"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-proof-calculation-integrated"
+      ],
+      "promptZhHans": "在平行四边形ABCD中，∠A比∠B大40°，则∠C的度数为____°。",
+      "optionsZhHans": [],
+      "answer": "110",
+      "acceptedAnswers": [
+        "110",
+        "110°",
+        "110度"
+      ],
+      "explanationZhHans": "平行四边形邻角互补，即∠A+∠B=180°。又∠A-∠B=40°，解方程组得∠A=110°，∠B=70°。平行四边形对角相等，所以∠C=∠A=110°。因此答案为110。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-fi-031",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-linear-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "promptZhHans": "某快递公司收费标准如下：首重1千克内收费10元，续重每千克收费2元（不足1千克按1千克计）。若邮寄一件重3.2千克的物品，需付快递费____元。",
+      "optionsZhHans": [],
+      "answer": "16",
+      "acceptedAnswers": [
+        "16",
+        "16元",
+        "16.0"
+      ],
+      "explanationZhHans": "3.2千克按4千克计费。首重1千克收费10元，续重3千克收费3×2=6元，总计10+6=16元。因此答案为16。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-fi-032",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-data-analysis"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "某班5名同学的身高（单位：cm）分别为：162，165，158，170，165。这组数据的中位数是____cm。",
+      "optionsZhHans": [],
+      "answer": "165",
+      "acceptedAnswers": [
+        "165",
+        "165cm",
+        "165厘米"
+      ],
+      "explanationZhHans": "将数据从小到大排序：158，162，165，165，170。中间位置的数是165，所以中位数为165。因此答案为165。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-fi-033",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "某商店销售一种商品，成本为每件30元，售价为每件45元，每天可售出100件。若每降价1元，每天可多售出20件。为了每天获得最大利润，应将售价定为每件____元。",
+      "optionsZhHans": [],
+      "answer": "40",
+      "acceptedAnswers": [
+        "40",
+        "40元",
+        "40.0"
+      ],
+      "explanationZhHans": "设降价x元，则售价为(45-x)元，销量为(100+20x)件。利润y=(45-x-30)(100+20x)=(15-x)(100+20x)= -20x²+200x+1500。当x=-200/(2×(-20))=5时，y最大，此时售价为45-5=40元。因此答案为40。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-sa-001",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "short-answer",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-linear-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "promptZhHans": "已知一次函数y=kx+b的图象经过点(1,3)和(3,7)。求该函数的表达式，并说明当x=5时y的值。",
+      "optionsZhHans": [],
+      "answer": "y=2x+1；当x=5时，y=11",
+      "acceptedAnswers": [
+        "y=2x+1；当x=5时，y=11",
+        "y=2x+1, y=11",
+        "表达式为y=2x+1，x=5时y=11"
+      ],
+      "explanationZhHans": "将点(1,3)和(3,7)代入y=kx+b，得方程组：k+b=3，3k+b=7。解得k=2，b=1。所以表达式为y=2x+1。当x=5时，y=2×5+1=11。因此答案为y=2x+1；当x=5时，y=11。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-sa-002",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "short-answer",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-data-analysis"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "某校八年级两个班各10名学生的数学测验成绩（满分100分）如下：\n甲班：78, 85, 92, 67, 88, 75, 90, 83, 79, 81\n乙班：82, 86, 91, 73, 89, 80, 94, 77, 84, 88\n分别计算两个班的平均分，并说明哪个班的成绩更稳定。",
+      "optionsZhHans": [],
+      "answer": "甲班平均分81.8，乙班平均分84.4，乙班更稳定",
+      "acceptedAnswers": [
+        "甲班平均分81.8，乙班平均分84.4，乙班更稳定",
+        "甲班81.8，乙班84.4，乙班稳定",
+        "甲班81.8分，乙班84.4分，乙班更稳定"
+      ],
+      "explanationZhHans": "甲班总分为818，平均分为81.8；乙班总分为844，平均分为84.4。甲班方差为50.96，乙班方差为38.24。乙班方差较小，成绩波动更小，所以乙班更稳定。故答案为甲班平均分81.8，乙班平均分84.4，乙班更稳定。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-sa-003",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "short-answer",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "某市出租车收费标准为：起步价8元（含3千米），超过3千米后每千米收费1.5元（不足1千米按1千米计）。小明乘坐出租车行驶了x千米（x>3），应付车费y元。写出y与x的函数关系式，并计算当x=8.5时应付的车费。",
+      "optionsZhHans": [],
+      "answer": "y=8+1.5⌈x-3⌉；当x=8.5时，应付17元",
+      "acceptedAnswers": [
+        "y=8+1.5⌈x-3⌉；当x=8.5时，应付17元",
+        "y=8+1.5×ceil(x-3)；x=8.5时17元",
+        "y=8+1.5×向上取整(x-3)；当x=8.5时，应付17元"
+      ],
+      "explanationZhHans": "超过3千米的部分为(x-3)千米，不足1千米按1千米计，所以计费里程为向上取整⌈x-3⌉。车费y=8+1.5×⌈x-3⌉。当x=8.5时，x-3=5.5，向上取整为6，y=8+1.5×6=8+9=17元。因此答案为y=8+1.5⌈x-3⌉；当x=8.5时，应付17元。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

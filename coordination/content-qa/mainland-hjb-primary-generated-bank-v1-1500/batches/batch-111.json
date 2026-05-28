@@ -1,0 +1,296 @@
+{
+  "batchId": "batch-111",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p3-051",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-time-measurement",
+      "unitTitle": "时间与日程推理",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "time-duration",
+        "clock-reading-extension",
+        "elapsed-time",
+        "schedule-reasoning",
+        "时间"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "读钟表",
+        "经过时间",
+        "时间单位",
+        "日程排序",
+        "合理性检查"
+      ],
+      "misconceptionTags": [
+        "hour and minute units added as base-ten numbers",
+        "start and end times swapped",
+        "duration confused with clock time"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-time-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-time-calendar",
+        "hjb-primary-p3-upper-assessment-review-operations"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "S18 remediated after DeepSeek-v4-pro QA on 2026-05-25; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小杰从家走到学校需要15分钟。今天他7:25从家出发，走到一半发现忘带作业本，立即原路返回家拿作业本，然后再次出发去学校。如果返回和再次出发的速度与原来相同，且拿作业本用了2分钟，小杰今天到校的时间是几时几分？",
+      "optionsZhHans": [],
+      "answer": "7:57",
+      "acceptedAnswers": [
+        "7:57",
+        "7时57分",
+        "7点57分"
+      ],
+      "explanationZhHans": "走到一半用15÷2=7.5分钟，原路返回也用7.5分钟，拿作业本2分钟，再从家到学校用15分钟，总用时7.5+7.5+2+15=32分钟。7:25加32分钟是7:57。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-052",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-time-measurement",
+      "unitTitle": "时间与日程推理",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "time-duration",
+        "clock-reading-extension",
+        "elapsed-time",
+        "schedule-reasoning",
+        "时间"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "读钟表",
+        "经过时间",
+        "时间单位",
+        "日程排序",
+        "合理性检查"
+      ],
+      "misconceptionTags": [
+        "hour and minute units added as base-ten numbers",
+        "start and end times swapped",
+        "duration confused with clock time"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-time-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-time-calendar",
+        "hjb-primary-p3-upper-assessment-review-operations"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "S18 remediated after DeepSeek-v4-pro QA on 2026-05-25; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丽参加学校朗诵比赛，她的上场时间是上午10:45，朗诵时长8分钟。如果前一位选手10:38结束，中间有2分钟评委打分时间，小丽朗诵结束的时间是几时几分？",
+      "optionsZhHans": [
+        "10:53",
+        "10:55",
+        "10:57",
+        "11:00"
+      ],
+      "answer": "10:53",
+      "acceptedAnswers": [
+        "10:53",
+        "10时53分"
+      ],
+      "explanationZhHans": "题目已说明小丽的上场时间是10:45，朗诵时长8分钟，所以结束时间是10:45+8分钟=10:53。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-053",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-time-measurement",
+      "unitTitle": "时间与日程推理",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "time-duration",
+        "clock-reading-extension",
+        "elapsed-time",
+        "schedule-reasoning",
+        "时间"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "读钟表",
+        "经过时间",
+        "时间单位",
+        "日程排序",
+        "合理性检查"
+      ],
+      "misconceptionTags": [
+        "hour and minute units added as base-ten numbers",
+        "start and end times swapped",
+        "duration confused with clock time"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-time-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-time-calendar",
+        "hjb-primary-p3-upper-assessment-review-operations"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一集动画片从9:15开始播放，到9:37结束。这集动画片播放了______分钟。",
+      "optionsZhHans": [],
+      "answer": "22",
+      "acceptedAnswers": [
+        "22",
+        "22分钟"
+      ],
+      "explanationZhHans": "从9:15到9:37，分针从3走到7过2小格，走了22小格，即22分钟。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-054",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-time-measurement",
+      "unitTitle": "时间与日程推理",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "time-duration",
+        "clock-reading-extension",
+        "elapsed-time",
+        "schedule-reasoning",
+        "时间"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "读钟表",
+        "经过时间",
+        "时间单位",
+        "日程排序",
+        "合理性检查"
+      ],
+      "misconceptionTags": [
+        "hour and minute units added as base-ten numbers",
+        "start and end times swapped",
+        "duration confused with clock time"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-time-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-time-calendar",
+        "hjb-primary-p3-upper-assessment-review-operations"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小东每天下午3:50放学，他先参加30分钟的足球训练，再花15分钟走回家。今天训练提前5分钟结束，他到家时是下午几时几分？",
+      "optionsZhHans": [],
+      "answer": "4:30",
+      "acceptedAnswers": [
+        "4:30",
+        "4时30分",
+        "16:30"
+      ],
+      "explanationZhHans": "训练原30分钟，提前5分钟结束，实际训练25分钟。3:50放学，训练25分钟到4:15，再走15分钟到家，时间为4:30。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-055",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-time-measurement",
+      "unitTitle": "时间与日程推理",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "time-duration",
+        "clock-reading-extension",
+        "elapsed-time",
+        "schedule-reasoning",
+        "时间"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "读钟表",
+        "经过时间",
+        "时间单位",
+        "日程排序",
+        "合理性检查"
+      ],
+      "misconceptionTags": [
+        "hour and minute units added as base-ten numbers",
+        "start and end times swapped",
+        "duration confused with clock time"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-time-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-time-calendar",
+        "hjb-primary-p3-upper-assessment-review-operations"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈上午8:40出门买菜，9:15回到家。下面哪个说法是正确的？",
+      "optionsZhHans": [
+        "妈妈买菜用了35分钟",
+        "妈妈买菜用了25分钟",
+        "妈妈买菜用了1小时15分钟",
+        "妈妈买菜用了45分钟"
+      ],
+      "answer": "妈妈买菜用了35分钟",
+      "acceptedAnswers": [
+        "妈妈买菜用了35分钟"
+      ],
+      "explanationZhHans": "从8:40到9:15，分针从8走到3，走了7大格，是35分钟。"
+    }
+  ]
+}

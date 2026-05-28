@@ -1,0 +1,138 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-042",
+  "startedAt": "2026-05-28T02:39:27.342Z",
+  "completedAt": "2026-05-28T02:39:44.849Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-329",
+    "bnu-high-ds-v1-s4-330",
+    "bnu-high-ds-v1-s4-331",
+    "bnu-high-ds-v1-s4-332",
+    "bnu-high-ds-v1-s4-333",
+    "bnu-high-ds-v1-s4-334",
+    "bnu-high-ds-v1-s4-335",
+    "bnu-high-ds-v1-s4-336"
+  ],
+  "usage": {
+    "prompt_tokens": 12698,
+    "completion_tokens": 1112,
+    "total_tokens": 13810,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 12314
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-329",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析推导正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-330",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-331",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": "−1/4 a + 2/3 b",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，但解析中计算错误，得出EF=1/12 a+b，与答案矛盾，且最终声称选项−1/4 a+2/3 b最接近，实际应为该选项。解析不可用。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-332",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "x > 3/2",
+        "issueTags": [
+          "math_error"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案错误地排除了x≠−6，但x=−6不在x>3/2范围内，无需排除。独立解为x>3/2。解析正确但答案多余条件。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-333",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "7/3",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案为5/3，独立解为7/3。解析中计算得7/3但最终改为5/3，矛盾且错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-334",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "correctedAnswer": "−1",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction",
+          "ambiguous_mc"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案为−1，但解析解得m=1或2，与答案矛盾。独立解为−1，但解析错误。选项可能不唯一，但独立解确认−1正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-335",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-336",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 4,
+      "warn": 0,
+      "fail": 4,
+      "notes": "8题中4题通过，4题失败。失败原因：331解析错误且与答案矛盾；332答案多余排除条件；333答案错误且解析矛盾；334解析错误且与答案矛盾。"
+    }
+  }
+}

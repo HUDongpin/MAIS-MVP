@@ -1,0 +1,577 @@
+{
+  "batchId": "batch-131",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p6-051",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "viewpoints",
+        "three-dimensional-arrangements",
+        "spatial-visualization",
+        "front-side-top-views",
+        "观察物体"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "辨认不同视图",
+        "根据视图推断搭法",
+        "比较观察位置",
+        "空间想象",
+        "表达观察理由"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "hidden cubes counted as visible",
+        "left-right relations reversed after changing position"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-observe-objects-unit",
+        "bnu-primary-p6-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用5个同样的小正方体搭成一个立体图形。从正面看，看到的是横排3个正方形，中间一列有2层；从左面看，看到的是横排2个正方形，左边一列有2层；从上面看，看到的是前后两排，前排有3个正方形，后排有1个正方形，且后排的正方形位于前排最左边正方形的后面。请描述这个立体图形的搭法，并说明从上面看时，后排那个正方形对应的小正方体在立体图形中的位置。",
+      "optionsZhHans": [],
+      "answer": "前排从左到右依次放3个小正方体，其中前排中间的小正方体上面再放1个小正方体；后排在前排最左边小正方体的后面放1个小正方体。从上面看时，后排那个正方形对应的小正方体位于前排最左边小正方体的正后方。",
+      "acceptedAnswers": [
+        "前排从左到右依次放3个小正方体，其中前排中间的小正方体上面再放1个小正方体；后排在前排最左边小正方体的后面放1个小正方体。从上面看时，后排那个正方形对应的小正方体位于前排最左边小正方体的正后方。"
+      ],
+      "explanationZhHans": "根据三视图还原：从正面看中间列2层，说明前排中间有上下两个正方体；从左面看左边列2层，说明从左看时左侧有上下两个，对应前排中间位置；从上面看后排1个正方形在前排最左边后面，所以后排正方体放在前排最左正方体的正后方。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-052",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "viewpoints",
+        "three-dimensional-arrangements",
+        "spatial-visualization",
+        "front-side-top-views",
+        "观察物体"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "辨认不同视图",
+        "根据视图推断搭法",
+        "比较观察位置",
+        "空间想象",
+        "表达观察理由"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "hidden cubes counted as visible",
+        "left-right relations reversed after changing position"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-observe-objects-unit",
+        "bnu-primary-p6-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个立体图形由4个同样的小正方体搭成，从正面看是横排2个正方形，左边一列有2层；从上面看是前后两排，每排2个正方形，且前排的两个正方形与后排的两个正方形左右对齐。下面哪个选项是从左面看到的形状？",
+      "optionsZhHans": [
+        "横排2个正方形，左边一列有2层",
+        "横排2个正方形，右边一列有2层",
+        "横排2个正方形，左右两列都是1层",
+        "横排2个正方形，左右两列都是2层"
+      ],
+      "answer": "横排2个正方形，右边一列有2层",
+      "acceptedAnswers": [
+        "横排2个正方形，右边一列有2层"
+      ],
+      "explanationZhHans": "由上面看前后两排对齐，可知立体图形是2×2排列。从正面看左边列2层，说明前排左边或后排左边有上下两个正方体。假设前排左边上下两个，后排两个都是1层，则从左面看：前排左边2层在左面视图的右侧，后排左边1层在左侧，所以看到右边列2层。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-053",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "viewpoints",
+        "three-dimensional-arrangements",
+        "spatial-visualization",
+        "front-side-top-views",
+        "观察物体"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "辨认不同视图",
+        "根据视图推断搭法",
+        "比较观察位置",
+        "空间想象",
+        "表达观察理由"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "hidden cubes counted as visible",
+        "left-right relations reversed after changing position"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-observe-objects-unit",
+        "bnu-primary-p6-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用同样的小正方体搭成一个立体图形，从正面看是横排3个正方形，中间一列有2层；从左面看是横排2个正方形，左边一列有2层。搭成这个立体图形最少需要______个小正方体。",
+      "optionsZhHans": [],
+      "answer": "4",
+      "acceptedAnswers": [
+        "4",
+        "四个",
+        "4个"
+      ],
+      "explanationZhHans": "从正面看中间列2层，说明中间位置有上下两个正方体；从左面看左边列2层，说明从左看左侧有上下两个，对应中间位置。前排至少需要左、中、右三个，中间上面加一个，后排可省略，所以最少4个。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-054",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "viewpoints",
+        "three-dimensional-arrangements",
+        "spatial-visualization",
+        "front-side-top-views",
+        "观察物体"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "辨认不同视图",
+        "根据视图推断搭法",
+        "比较观察位置",
+        "空间想象",
+        "表达观察理由"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "hidden cubes counted as visible",
+        "left-right relations reversed after changing position"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-observe-objects-unit",
+        "bnu-primary-p6-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用4个同样的小正方体搭成一个立体图形。从正面看是横排2个正方形，右边一列有2层；从上面看是前后两排，前排有2个正方形，后排有1个正方形，且后排的正方形位于前排右边正方形的后面。请描述这个立体图形的搭法。",
+      "optionsZhHans": [],
+      "answer": "前排从左到右放2个小正方体，前排右边的小正方体上面再放1个小正方体；后排在前排右边小正方体的正后方放1个小正方体。",
+      "acceptedAnswers": [
+        "前排从左到右放2个小正方体，前排右边的小正方体上面再放1个小正方体；后排在前排右边小正方体的正后方放1个小正方体。"
+      ],
+      "explanationZhHans": "从正面看右边列2层，说明前排右边有上下两个正方体；从上面看后排1个正方形在前排右边后面，所以后排正方体放在前排右边正方体的正后方。前排左边放1个，右边上下两个，后排1个，共4个。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-055",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-percentage-meaning",
+      "unitTitle": "百分数",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "percentage-meaning",
+        "fraction-decimal-percent",
+        "percent-rate",
+        "百分数",
+        "百分率"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "认识百分数",
+        "分数小数百分数互化",
+        "解释百分率",
+        "比较百分数",
+        "用百分数表达关系"
+      ],
+      "misconceptionTags": [
+        "percent whole not identified",
+        "percent treated as a count rather than a rate",
+        "conversion done by moving digits without meaning"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-percentage-meaning"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-percentage-meaning-unit",
+        "bnu-primary-p6-upper-assessment-percentage-applications-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "六（1）班有40名学生，其中女生有18名。下面哪个百分数表示男生人数占全班人数的百分之几？",
+      "optionsZhHans": [
+        "45%",
+        "55%",
+        "40%",
+        "60%"
+      ],
+      "answer": "55%",
+      "acceptedAnswers": [
+        "55%"
+      ],
+      "explanationZhHans": "男生人数为40-18=22人，男生占全班人数的22÷40=0.55=55%。选项45%是女生占比，40%和60%是错误计算。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-056",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-percentage-meaning",
+      "unitTitle": "百分数",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "percentage-meaning",
+        "fraction-decimal-percent",
+        "percent-rate",
+        "百分数",
+        "百分率"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "认识百分数",
+        "分数小数百分数互化",
+        "解释百分率",
+        "比较百分数",
+        "用百分数表达关系"
+      ],
+      "misconceptionTags": [
+        "percent whole not identified",
+        "percent treated as a count rather than a rate",
+        "conversion done by moving digits without meaning"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-percentage-meaning"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-percentage-meaning-unit",
+        "bnu-primary-p6-upper-assessment-percentage-applications-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把0.65化成百分数是______%。",
+      "optionsZhHans": [],
+      "answer": "65",
+      "acceptedAnswers": [
+        "65",
+        "65%"
+      ],
+      "explanationZhHans": "小数化成百分数，小数点向右移动两位，加上百分号。0.65×100=65，所以是65%。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-057",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-percentage-meaning",
+      "unitTitle": "百分数",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "percentage-meaning",
+        "fraction-decimal-percent",
+        "percent-rate",
+        "百分数",
+        "百分率"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "认识百分数",
+        "分数小数百分数互化",
+        "解释百分率",
+        "比较百分数",
+        "用百分数表达关系"
+      ],
+      "misconceptionTags": [
+        "percent whole not identified",
+        "percent treated as a count rather than a rate",
+        "conversion done by moving digits without meaning"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-percentage-meaning"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-percentage-meaning-unit",
+        "bnu-primary-p6-upper-assessment-percentage-applications-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆有科技书300本，故事书的本数是科技书的80%。故事书有多少本？请写出计算过程。",
+      "optionsZhHans": [],
+      "answer": "240本",
+      "acceptedAnswers": [
+        "240本",
+        "240"
+      ],
+      "explanationZhHans": "求一个数的百分之几用乘法：300×80%=300×0.8=240（本）。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-058",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-percentage-meaning",
+      "unitTitle": "百分数",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "percentage-meaning",
+        "fraction-decimal-percent",
+        "percent-rate",
+        "百分数",
+        "百分率"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "认识百分数",
+        "分数小数百分数互化",
+        "解释百分率",
+        "比较百分数",
+        "用百分数表达关系"
+      ],
+      "misconceptionTags": [
+        "percent whole not identified",
+        "percent treated as a count rather than a rate",
+        "conversion done by moving digits without meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-percentage-meaning"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-percentage-meaning-unit",
+        "bnu-primary-p6-upper-assessment-percentage-applications-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个数可以写成百分数？",
+      "optionsZhHans": [
+        "一根绳子长0.8米",
+        "一本书看了0.5",
+        "男生人数是女生的1.2倍",
+        "一瓶饮料有500毫升"
+      ],
+      "answer": "一本书看了0.5",
+      "acceptedAnswers": [
+        "一本书看了0.5"
+      ],
+      "explanationZhHans": "百分数表示一个数是另一个数的百分之几，不能带单位。0.8米、1.2倍、500毫升都带有单位或表示倍数，而“看了0.5”可以理解为看了全书的50%，可以写成百分数。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-059",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-percentage-meaning",
+      "unitTitle": "百分数",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "percentage-meaning",
+        "fraction-decimal-percent",
+        "percent-rate",
+        "百分数",
+        "百分率"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "认识百分数",
+        "分数小数百分数互化",
+        "解释百分率",
+        "比较百分数",
+        "用百分数表达关系"
+      ],
+      "misconceptionTags": [
+        "percent whole not identified",
+        "percent treated as a count rather than a rate",
+        "conversion done by moving digits without meaning"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-percentage-meaning"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-percentage-meaning-unit",
+        "bnu-primary-p6-upper-assessment-percentage-applications-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "六（2）班今天出勤38人，缺勤2人。今天的出勤率是______%。（百分号前保留一位小数）",
+      "optionsZhHans": [],
+      "answer": "95.0",
+      "acceptedAnswers": [
+        "95.0",
+        "95.0%",
+        "95"
+      ],
+      "explanationZhHans": "出勤率=出勤人数÷总人数×100%。总人数38+2=40人，38÷40=0.95=95%。保留一位小数是95.0%。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-060",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-percentage-meaning",
+      "unitTitle": "百分数",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "percentage-meaning",
+        "fraction-decimal-percent",
+        "percent-rate",
+        "百分数",
+        "百分率"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "认识百分数",
+        "分数小数百分数互化",
+        "解释百分率",
+        "比较百分数",
+        "用百分数表达关系"
+      ],
+      "misconceptionTags": [
+        "percent whole not identified",
+        "percent treated as a count rather than a rate",
+        "conversion done by moving digits without meaning"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-percentage-meaning"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-percentage-meaning-unit",
+        "bnu-primary-p6-upper-assessment-percentage-applications-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一种商品原价200元，先涨价10%，再降价10%。现在的价格是多少元？请写出计算过程。",
+      "optionsZhHans": [],
+      "answer": "198元",
+      "acceptedAnswers": [
+        "198元",
+        "198"
+      ],
+      "explanationZhHans": "涨价后：200×(1+10%)=220元；再降价：220×(1-10%)=198元。注意两次变化的单位“1”不同，最终价格比原价低。"
+    }
+  ]
+}

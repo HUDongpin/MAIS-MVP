@@ -1,0 +1,45 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-255",
+  "startedAt": "2026-05-28T01:06:30.044Z",
+  "completedAt": "2026-05-28T01:06:36.203Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-255"
+  ],
+  "usage": {
+    "prompt_tokens": 2298,
+    "completion_tokens": 265,
+    "total_tokens": 2563,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1914
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-255",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "a=100, k≈0.22, 2024年底资产约374万元",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，模型参数由给定数据唯一确定，a=100，k=ln(2.4)/4≈0.22，预测2024年底资产约374万元。存储答案与独立解一致，解析过程正确，无数学错误或矛盾。符合BNU教材建模活动要求，无源距离风险。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 1,
+      "warn": 0,
+      "fail": 0,
+      "notes": "该题数学正确，答案匹配，解析一致，无风险，通过。"
+    }
+  }
+}

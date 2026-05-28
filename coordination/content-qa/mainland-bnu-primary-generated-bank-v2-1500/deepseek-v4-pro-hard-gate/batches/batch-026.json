@@ -1,0 +1,330 @@
+{
+  "batchNumber": 26,
+  "startedAt": "2026-05-26T16:59:25.851Z",
+  "completedAt": "2026-05-26T16:59:55.495Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p4-001",
+    "bnu-primary-ds-v2-p4-002",
+    "bnu-primary-ds-v2-p4-003",
+    "bnu-primary-ds-v2-p4-004",
+    "bnu-primary-ds-v2-p4-005",
+    "bnu-primary-ds-v2-p4-006",
+    "bnu-primary-ds-v2-p4-007",
+    "bnu-primary-ds-v2-p4-008",
+    "bnu-primary-ds-v2-p4-009",
+    "bnu-primary-ds-v2-p4-010",
+    "bnu-primary-ds-v2-p4-011",
+    "bnu-primary-ds-v2-p4-012",
+    "bnu-primary-ds-v2-p4-013",
+    "bnu-primary-ds-v2-p4-014",
+    "bnu-primary-ds-v2-p4-015",
+    "bnu-primary-ds-v2-p4-016",
+    "bnu-primary-ds-v2-p4-017",
+    "bnu-primary-ds-v2-p4-018",
+    "bnu-primary-ds-v2-p4-019",
+    "bnu-primary-ds-v2-p4-020",
+    "bnu-primary-ds-v2-p4-021",
+    "bnu-primary-ds-v2-p4-022",
+    "bnu-primary-ds-v2-p4-023",
+    "bnu-primary-ds-v2-p4-024",
+    "bnu-primary-ds-v2-p4-025",
+    "bnu-primary-ds-v2-p4-026",
+    "bnu-primary-ds-v2-p4-027",
+    "bnu-primary-ds-v2-p4-028",
+    "bnu-primary-ds-v2-p4-029",
+    "bnu-primary-ds-v2-p4-030"
+  ],
+  "usage": {
+    "prompt_tokens": 5573,
+    "completion_tokens": 2199,
+    "total_tokens": 7772,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 5189
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p4-001",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目清晰，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-002",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "改写和保留小数正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-003",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "推理正确，最大数710500符合条件。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-004",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "计算差值正确，800100最接近。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-005",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "四舍五入范围正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-006",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "比较大小正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-007",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "最大数正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-008",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "比较结果正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-009",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "最小数453678正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-010",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "只读一个零的是4000550。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-011",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "最大数850402符合条件。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-012",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "最大最小数正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-013",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "6060600读两个零。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-014",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "组合正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-015",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "和最大组合正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-016",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "排序正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-017",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "说法正确，理由合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-018",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "锐角和余角正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-019",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "正确选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-020",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "角度和类型正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-021",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "无数条射线正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-022",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "射线定义正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-023",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "钝角125°正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-024",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "钝角135°正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-025",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "平行线定义正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-026",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "直角90°正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-027",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "四种钝角度数正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-028",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "100°无法拼出，正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-029",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "直角和钝角正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-030",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "过直线外一点只能画一条平行线。"
+      }
+    ],
+    "batchSummary": {
+      "solvableYes": 30,
+      "solvableNo": 0,
+      "answerMatchYes": 30,
+      "answerMatchNo": 0,
+      "notes": "全部30道题均可解且答案匹配，无问题。"
+    }
+  }
+}

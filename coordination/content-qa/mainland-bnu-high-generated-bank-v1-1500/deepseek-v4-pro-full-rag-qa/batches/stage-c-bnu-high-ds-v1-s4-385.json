@@ -1,0 +1,47 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-385",
+  "startedAt": "2026-05-28T02:38:17.514Z",
+  "completedAt": "2026-05-28T02:38:22.633Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-385"
+  ],
+  "usage": {
+    "prompt_tokens": 2245,
+    "completion_tokens": 268,
+    "total_tokens": 2513,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1861
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-385",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "B",
+        "correctedAnswer": null,
+        "issueTags": [
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，唯一正确选项为B。解析错误声称A、C正确，与数学事实矛盾：A正确（最高25℃在t=12），但解析称“A正确但非选项”自相矛盾；C错误（[6,18]非单调递增）。解析存在严重错误，必须标记为fail。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "解析存在严重矛盾，声称A、C正确但实际C错误，且与单选设定冲突，判定为blocker。"
+    }
+  }
+}

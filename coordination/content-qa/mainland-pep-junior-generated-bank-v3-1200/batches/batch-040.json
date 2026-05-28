@@ -1,0 +1,309 @@
+{
+  "batchId": "batch-040",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s1-k05-sa-024",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "某校组织七年级学生参加社会实践活动，原计划租用45座客车若干辆，但有15人没有座位；若租用同样数量的60座客车，则多出一辆车，且其余客车恰好坐满。已知45座客车每辆租金为220元，60座客车每辆租金为300元。问：参加实践活动的学生共有多少人？若要使每位学生都有座位，且租车总费用最少，应选择哪种租车方案？请写出你的计算过程。",
+      "optionsZhHans": [],
+      "answer": "240人，租4辆60座客车",
+      "acceptedAnswers": [
+        "240人，租4辆60座客车",
+        "240人，租4辆60座客车。"
+      ],
+      "explanationZhHans": "设原计划租用45座客车x辆，则学生人数为45x+15。改用60座客车，租x-1辆，人数为60(x-1)。由45x+15=60(x-1)，解得x=5，学生人数为45×5+15=240人。若租45座客车，需6辆，费用为6×220=1320元；若租60座客车，需4辆，费用为4×300=1200元。比较可知，租4辆60座客车费用最少。因此答案为240人，租4辆60座客车。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-sa-025",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-data-collection"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "某社区对居民进行垃圾分类知识了解程度的调查，随机抽取了部分居民，将了解程度分为“非常了解”“比较了解”“基本了解”“不太了解”四个等级，并绘制了如下统计表（单位：人）：\n非常了解：18人；比较了解：30人；基本了解：12人；不太了解：m人。\n已知“比较了解”的人数占被调查总人数的40%。请回答：\n（1）求m的值和本次调查的总人数；\n（2）根据调查结果，能否认为该社区大多数居民对垃圾分类知识“比较了解”或“非常了解”？请说明理由。",
+      "optionsZhHans": [],
+      "answer": "（1）m=15，总人数75人；（2）不能，因为“比较了解”和“非常了解”的人数共48人，占总人数的64%，未超过三分之二，不能称为“大多数”。",
+      "acceptedAnswers": [
+        "（1）m=15，总人数75人；（2）不能，因为“比较了解”和“非常了解”的人数共48人，占总人数的64%，未超过三分之二，不能称为“大多数”。",
+        "（1）m=15，总人数75人。（2）不能，因为“比较了解”和“非常了解”的人数共48人，占总人数的64%，未超过三分之二，不能称为“大多数”。"
+      ],
+      "explanationZhHans": "（1）设总人数为n，则比较了解的30人占40%，即30=0.4n，解得n=75。非常了解18人，比较了解30人，基本了解12人，所以不太了解人数m=75-18-30-12=15。故m=15，总人数75人。（2）比较了解和非常了解共有18+30=48人，占总人数的48/75=0.64=64%。通常“大多数”指超过三分之二或至少70%，64%未达到此标准，因此不能认为大多数居民对垃圾分类知识“比较了解”或“非常了解”。因此答案为（1）m=15，总人数75人；（2）不能，因为“比较了解”和“非常了解”的人数共48人，占总人数的64%，未超过三分之二，不能称为“大多数”。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-sa-026",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "直线AB与CD相交于点O，OE平分∠AOD，OF平分∠BOD。若∠AOC=50°，求∠EOF的度数。请写出推理过程。",
+      "optionsZhHans": [],
+      "answer": "90°",
+      "acceptedAnswers": [
+        "90°",
+        "90°。",
+        "90度"
+      ],
+      "explanationZhHans": "由对顶角相等，∠BOD=∠AOC=50°。因为OF平分∠BOD，所以∠DOF=1/2×50°=25°。∠AOD与∠AOC互补，所以∠AOD=180°-50°=130°。因为OE平分∠AOD，所以∠DOE=1/2×130°=65°。∠EOF=∠DOE+∠DOF=65°+25°=90°。因此答案为90°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-sa-027",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-real-numbers"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "已知一个正数的两个平方根分别是2a-3和5-a，求这个正数的值。",
+      "optionsZhHans": [],
+      "answer": "49",
+      "acceptedAnswers": [
+        "49",
+        "49。"
+      ],
+      "explanationZhHans": "一个正数的两个平方根互为相反数，所以(2a-3)+(5-a)=0，解得a=-2。则平方根为2(-2)-3=-7和5-(-2)=7，所以这个正数为7²=49。因此答案为49。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-sa-028",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-coordinate-plane"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "在平面直角坐标系中，点A的坐标为(2, -3)，将点A先向右平移4个单位，再向上平移5个单位得到点B。点C与点B关于x轴对称。求点C的坐标。",
+      "optionsZhHans": [],
+      "answer": "(6, -2)",
+      "acceptedAnswers": [
+        "(6, -2)",
+        "（6，-2）",
+        "(6,-2)"
+      ],
+      "explanationZhHans": "点A(2,-3)向右平移4个单位，横坐标加4，得(6,-3)；再向上平移5个单位，纵坐标加5，得B(6,2)。点C与点B关于x轴对称，横坐标不变，纵坐标互为相反数，所以C(6,-2)。因此答案为(6, -2)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-sa-029",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-linear-systems"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "解方程组：\n2x + 3y = 7\n4x - y = -7",
+      "optionsZhHans": [],
+      "answer": "x=-1, y=3",
+      "acceptedAnswers": [
+        "x=-1, y=3",
+        "x=-1，y=3",
+        "x=-1,y=3"
+      ],
+      "explanationZhHans": "由第二个方程得y=4x+7，代入第一个方程：2x+3(4x+7)=7，即2x+12x+21=7，14x=-14，x=-1。代入y=4(-1)+7=3。所以方程组的解为x=-1, y=3。因此答案为x=-1, y=3。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-sa-030",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-inequalities"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "某商店购进一批单价为20元的商品，如果以单价30元销售，那么一个月内可售出400件。根据销售经验，提高销售单价会导致销售量的减少，即销售单价每提高1元，销售量相应减少20件。设销售单价为x元（x≥30），月销售利润为y元。\n（1）求y与x的函数关系式；\n（2）当销售单价定为多少元时，月销售利润最大？最大利润是多少？",
+      "optionsZhHans": [],
+      "answer": "（1）y=-20x²+1400x-24000；（2）35元，4500元",
+      "acceptedAnswers": [
+        "（1）y=-20x²+1400x-24000；（2）35元，4500元",
+        "（1）y=-20x²+1400x-24000。（2）35元，4500元。",
+        "（1）y=-20x²+1400x-24000；（2）35元，4500元。"
+      ],
+      "explanationZhHans": "（1）销售单价为x元，则每件利润为(x-20)元。销售量减少20(x-30)件，所以销售量为400-20(x-30)=1000-20x。利润y=(x-20)(1000-20x)=-20x²+1400x-24000。（2）y=-20(x²-70x)-24000=-20(x-35)²+4500。当x=35时，y有最大值4500。因此答案为（1）y=-20x²+1400x-24000；（2）35元，4500元。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-sa-031",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "已知关于x、y的方程组\n3x + 2y = m + 1\n2x + y = m - 1\n的解满足x > y，求m的取值范围。",
+      "optionsZhHans": [],
+      "answer": "m > 4",
+      "acceptedAnswers": [
+        "m > 4",
+        "m>4"
+      ],
+      "explanationZhHans": "解方程组：由2x+y=m-1得y=m-1-2x，代入3x+2y=m+1得3x+2(m-1-2x)=m+1，解得x=m-3，进而y=5-m。由x>y得m-3>5-m，解得m>4。因此答案为m>4。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-sa-032",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-data-collection"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "某校为了解七年级学生每天完成家庭作业所用的时间，从各班随机抽取了共50名学生进行调查，并将调查结果绘制成如下频数分布表（未完成）：\n\n时间x（小时）\t频数\n0≤x<0.5\t5\n0.5≤x<1\t10\n1≤x<1.5\ta\n1.5≤x<2\t12\n2≤x<2.5\t8\n\n已知时间在1≤x<1.5小时的频率为0.3。\n（1）求a的值，并补全表格；\n（2）请估计该校七年级学生每天完成家庭作业的平均时间（精确到0.1小时）。",
+      "optionsZhHans": [],
+      "answer": "（1）a=15；（2）1.3小时",
+      "acceptedAnswers": [
+        "（1）a=15；（2）1.3小时",
+        "（1）a=15。（2）1.3小时。"
+      ],
+      "explanationZhHans": "（1）频率0.3，总人数50，所以a=50×0.3=15。（2）各组组中值：0.25,0.75,1.25,1.75,2.25。平均时间=(5×0.25+10×0.75+15×1.25+12×1.75+8×2.25)/50=66.5/50=1.33≈1.3小时。因此答案为（1）a=15；（2）1.3小时。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-sa-033",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "已知a、b为两个连续整数，且a<√30<b，求a+b的值。",
+      "optionsZhHans": [],
+      "answer": "11",
+      "acceptedAnswers": [
+        "11",
+        "11。"
+      ],
+      "explanationZhHans": "因为25<30<36，所以5<√30<6，即a=5，b=6，a+b=11。因此答案为11。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

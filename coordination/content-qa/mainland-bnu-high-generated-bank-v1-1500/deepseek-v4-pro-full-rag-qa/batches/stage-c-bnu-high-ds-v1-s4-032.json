@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-032",
+  "startedAt": "2026-05-28T00:56:23.078Z",
+  "completedAt": "2026-05-28T00:56:28.797Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-032"
+  ],
+  "usage": {
+    "prompt_tokens": 1994,
+    "completion_tokens": 246,
+    "total_tokens": 2240,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1610
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-032",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "-14",
+        "correctedAnswer": "-14",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，独立解为-14。存储答案-10错误，解析中计算过程得出a=-12,b=-2，a+b=-14，但最终答案写为-10，自相矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1题答案错误且解析矛盾，判定为blocker。"
+    }
+  }
+}

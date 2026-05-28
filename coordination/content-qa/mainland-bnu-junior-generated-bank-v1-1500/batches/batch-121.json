@@ -1,0 +1,641 @@
+{
+  "batchId": "batch-121",
+  "questions": [
+    {
+      "id": "bnu-junior-ds-v1-s3-201",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-projection-views",
+      "unitTitle": "投影与视图",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "projection",
+        "orthographic-views",
+        "spatial-visualization",
+        "solid-geometry",
+        "投影",
+        "视图",
+        "三视图"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "应用意识"
+      ],
+      "skillTags": [
+        "平行投影",
+        "中心投影",
+        "正投影",
+        "主视图",
+        "俯视图",
+        "左视图"
+      ],
+      "misconceptionTags": [
+        "view direction ignored",
+        "hidden edges counted as visible",
+        "projection type confused"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-projection-views"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-projection-views-unit",
+        "bnu-junior-s3-upper-assessment-midterm-1-to-5-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方体形状的零件，长6 cm，宽4 cm，高3 cm。将该零件放置在水平桌面上，从正前方观察，看到的是一个矩形，其长为6 cm，宽为3 cm。请写出这个观察方向对应的视图名称。",
+      "optionsZhHans": [],
+      "answer": "主视图",
+      "acceptedAnswers": [
+        "主视图",
+        "正视图"
+      ],
+      "explanationZhHans": "从正前方观察物体得到的视图称为主视图（或正视图）。题目中从正前方看到长6 cm、宽3 cm的矩形，符合主视图的定义。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-202",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-projection-views",
+      "unitTitle": "投影与视图",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "projection",
+        "orthographic-views",
+        "spatial-visualization",
+        "solid-geometry",
+        "投影",
+        "视图",
+        "三视图"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "应用意识"
+      ],
+      "skillTags": [
+        "平行投影",
+        "中心投影",
+        "正投影",
+        "主视图",
+        "俯视图",
+        "左视图"
+      ],
+      "misconceptionTags": [
+        "view direction ignored",
+        "hidden edges counted as visible",
+        "projection type confused"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-projection-views"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-projection-views-unit",
+        "bnu-junior-s3-upper-assessment-midterm-1-to-5-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个由若干个相同的小立方块搭成的几何体，从正面、左面、上面观察这个几何体，看到的形状分别如下：\n正面：第一层有3个小正方形排成一排，第二层中间有1个小正方形；\n左面：第一层有2个小正方形排成一排，第二层左边有1个小正方形；\n上面：第一排有2个小正方形，第二排有2个小正方形，且第二排的左边与第一排的左边对齐。\n搭成这个几何体最少需要多少个小立方块？",
+      "optionsZhHans": [
+        "4个",
+        "5个",
+        "6个",
+        "7个"
+      ],
+      "answer": "5个",
+      "acceptedAnswers": [
+        "5个"
+      ],
+      "explanationZhHans": "由俯视图可知底层有4个位置。结合主视图和左视图，第二层至少有一个方块。主视图第二层中间有方块，左视图第二层左边有方块，因此这个方块必须在底层中间靠左的位置。最少需要底层4个加第二层1个，共5个。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-203",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-projection-views",
+      "unitTitle": "投影与视图",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "projection",
+        "orthographic-views",
+        "spatial-visualization",
+        "solid-geometry",
+        "投影",
+        "视图",
+        "三视图"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "应用意识"
+      ],
+      "skillTags": [
+        "平行投影",
+        "中心投影",
+        "正投影",
+        "主视图",
+        "俯视图",
+        "左视图"
+      ],
+      "misconceptionTags": [
+        "view direction ignored",
+        "hidden edges counted as visible",
+        "projection type confused"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-projection-views"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-projection-views-unit",
+        "bnu-junior-s3-upper-assessment-midterm-1-to-5-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个几何体由完全相同的小立方块搭成，从正面、左面、上面观察这个几何体，看到的形状分别如下：正面看到的是由3列组成，第1列有2个正方形，第2列有1个正方形，第3列有1个正方形，且第1列的正方形与第2列的正方形底部对齐，第3列的正方形底部与第2列的正方形底部对齐；左面看到的是由2列组成，第1列有2个正方形，第2列有1个正方形，且两列底部对齐；上面看到的是由3列组成，第1列有2个正方形，第2列有1个正方形，第3列有1个正方形，且第1列的正方形与第2列的正方形底部对齐，第3列的正方形底部与第2列的正方形底部对齐。请回答：搭成这个几何体最少需要多少个小立方块？最多需要多少个小立方块？",
+      "optionsZhHans": [],
+      "answer": "最少需要6个小立方块，最多需要8个小立方块",
+      "acceptedAnswers": [
+        "最少需要6个小立方块，最多需要8个小立方块",
+        "最少6个，最多8个",
+        "6个和8个",
+        "最少6块，最多8块"
+      ],
+      "explanationZhHans": "由三视图还原几何体：从俯视图看，底层至少有5个小立方块（第1列2个，第2列1个，第3列1个，且第1列的两个中有一个与第2列对齐）。结合主视图和左视图的高度，第1列最高2层，第2列最高1层，第3列最高1层。最少时，第1列只需1个2层，其余为1层，共6个；最多时，第1列两个都2层，第2、3列各1层，共8个。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-204",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-projection-views",
+      "unitTitle": "投影与视图",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "projection",
+        "orthographic-views",
+        "spatial-visualization",
+        "solid-geometry",
+        "投影",
+        "视图",
+        "三视图"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "应用意识"
+      ],
+      "skillTags": [
+        "平行投影",
+        "中心投影",
+        "正投影",
+        "主视图",
+        "俯视图",
+        "左视图"
+      ],
+      "misconceptionTags": [
+        "view direction ignored",
+        "hidden edges counted as visible",
+        "projection type confused"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-projection-views"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-projection-views-unit",
+        "bnu-junior-s3-upper-assessment-midterm-1-to-5-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个几何体由若干个大小相同的小立方块搭成。从正面看，看到3列，从左到右每列小立方块的个数依次为2、1、2；从左面看，看到2列，从左到右每列小立方块的个数依次为2、1。已知该几何体从上面看得到的形状是唯一的，请写出从上面看时，最中间位置的小立方块个数。",
+      "optionsZhHans": [],
+      "answer": "1",
+      "acceptedAnswers": [
+        "1"
+      ],
+      "explanationZhHans": "由主视图和左视图可还原几何体：共两层，第一层有4个小立方块排成2×2方阵，第二层在左上角和右上角各放1个，中间位置只有第一层1个。俯视图中间位置对应第一层中间，故个数为1。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-205",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-projection-views",
+      "unitTitle": "投影与视图",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "projection",
+        "orthographic-views",
+        "spatial-visualization",
+        "solid-geometry",
+        "投影",
+        "视图",
+        "三视图"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "应用意识"
+      ],
+      "skillTags": [
+        "平行投影",
+        "中心投影",
+        "正投影",
+        "主视图",
+        "俯视图",
+        "左视图"
+      ],
+      "misconceptionTags": [
+        "view direction ignored",
+        "hidden edges counted as visible",
+        "projection type confused"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-projection-views"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-projection-views-unit",
+        "bnu-junior-s3-upper-assessment-midterm-1-to-5-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个由相同小立方块搭成的几何体，从正面看得到的形状是3列，从左到右每列最高层数分别为2、1、2；从左面看得到的形状是2列，从左到右每列最高层数分别为2、1。已知每个小立方块的棱长为1，且该几何体在前后方向没有悬空部分（即从正面看每一列的小立方块都紧贴后排摆放）。这个几何体最少需要多少个小立方块？",
+      "optionsZhHans": [
+        "7",
+        "8",
+        "9",
+        "10"
+      ],
+      "answer": "7",
+      "acceptedAnswers": [
+        "7"
+      ],
+      "explanationZhHans": "由主视图3列（2,1,2）和左视图2列（2,1）确定空间布局。最少块数时，让前后排共享立方块：第1列前排2块、后排0块；第2列前排1块、后排0块；第3列前排2块、后排0块，但需满足左视图第2列高度1，故第3列后排需1块。总数=2+1+2+1+1=7。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-206",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-projection-views",
+      "unitTitle": "投影与视图",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "projection",
+        "orthographic-views",
+        "spatial-visualization",
+        "solid-geometry",
+        "投影",
+        "视图",
+        "三视图"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "应用意识"
+      ],
+      "skillTags": [
+        "平行投影",
+        "中心投影",
+        "正投影",
+        "主视图",
+        "俯视图",
+        "左视图"
+      ],
+      "misconceptionTags": [
+        "view direction ignored",
+        "hidden edges counted as visible",
+        "projection type confused"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-projection-views"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-projection-views-unit",
+        "bnu-junior-s3-upper-assessment-midterm-1-to-5-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个几何体由若干个完全相同的小立方块搭成。从正面看，看到的形状是：第一层有3个正方形，第二层中间有1个正方形；从左面看，看到的形状是：第一层有2个正方形，第二层左边有1个正方形。已知这个几何体所用小立方块的个数是正整数，且从上面看，看到的形状中至少有一个位置有2个小立方块。求这个几何体最少由多少个小立方块搭成。",
+      "optionsZhHans": [],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5",
+        "5个",
+        "5块"
+      ],
+      "explanationZhHans": "由主视图和左视图可推断俯视图为2行3列网格。主视图第一层3个，说明俯视图第一行3列均有方块；第二层中间1个，说明俯视图第二行中间列有2层。左视图第一层2个，说明俯视图第一列2行均有方块；第二层左边1个，说明俯视图第一列第二行有2层。综合得俯视图：第一行三列均至少1个，第二行中间列至少2个，第一列至少1个。最少方块数：第一行三列各1个，第二行第一列1个、中间列2个，共5个。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-207",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-projection-views",
+      "unitTitle": "投影与视图",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "projection",
+        "orthographic-views",
+        "spatial-visualization",
+        "solid-geometry",
+        "投影",
+        "视图",
+        "三视图"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "应用意识"
+      ],
+      "skillTags": [
+        "平行投影",
+        "中心投影",
+        "正投影",
+        "主视图",
+        "俯视图",
+        "左视图"
+      ],
+      "misconceptionTags": [
+        "view direction ignored",
+        "hidden edges counted as visible",
+        "projection type confused"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-projection-views"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-projection-views-unit",
+        "bnu-junior-s3-upper-assessment-midterm-1-to-5-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方体形状的储物箱，长60 cm、宽40 cm、高30 cm。在平行光照射下，光线方向垂直于储物箱的正面（即垂直于长和高所在的平面），将储物箱投影到其背后的墙壁上。请写出该正投影的形状名称，并计算投影的面积（单位：cm²）。",
+      "optionsZhHans": [],
+      "answer": "矩形，1800 cm²",
+      "acceptedAnswers": [
+        "矩形，1800 cm²",
+        "矩形 1800 cm²",
+        "长方形，1800 cm²",
+        "长方形 1800 cm²"
+      ],
+      "explanationZhHans": "光线垂直于正面，投影为正投影。正面是长60 cm、高30 cm的矩形，投影形状为矩形，面积=60×30=1800 cm²。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-208",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-projection-views",
+      "unitTitle": "投影与视图",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "projection",
+        "orthographic-views",
+        "spatial-visualization",
+        "solid-geometry",
+        "投影",
+        "视图",
+        "三视图"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "应用意识"
+      ],
+      "skillTags": [
+        "平行投影",
+        "中心投影",
+        "正投影",
+        "主视图",
+        "俯视图",
+        "左视图"
+      ],
+      "misconceptionTags": [
+        "view direction ignored",
+        "hidden edges counted as visible",
+        "projection type confused"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-projection-views"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-projection-views-unit",
+        "bnu-junior-s3-upper-assessment-midterm-1-to-5-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个几何体由若干个相同的小立方块搭成，从正面和左面观察该几何体，看到的形状分别如以下文字描述：正面看有2列，从左到右每列最高层数分别为2层和1层；左面看有2列，从左到右每列最高层数分别为2层和1层。已知该几何体从上面观察时，看到的是一个2行2列的网格，每个位置可能叠放小立方块。若该几何体所用小立方块的总数最少，则从上面观察时，各位置小立方块的个数分布是（ ）。",
+      "optionsZhHans": [
+        "第一行从左到右：2个、1个；第二行从左到右：1个、0个",
+        "第一行从左到右：2个、0个；第二行从左到右：1个、1个",
+        "第一行从左到右：1个、1个；第二行从左到右：2个、0个",
+        "第一行从左到右：1个、2个；第二行从左到右：1个、0个"
+      ],
+      "answer": "第一行从左到右：2个、1个；第二行从左到右：1个、0个",
+      "acceptedAnswers": [
+        "第一行从左到右：2个、1个；第二行从左到右：1个、0个"
+      ],
+      "explanationZhHans": "由正面看左列最高2层、右列最高1层；左面看左列最高2层、右列最高1层。俯视网格为2行2列，设第一行对应正面后方、左面后方。最少总数时，令正面左列后方为2，前方为1；正面右列后方为1，前方为0。验证左面：后方列2和1，前方列1和0，符合。故分布为第一行2、1，第二行1、0。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-209",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-projection-views",
+      "unitTitle": "投影与视图",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "projection",
+        "orthographic-views",
+        "spatial-visualization",
+        "solid-geometry",
+        "投影",
+        "视图",
+        "三视图"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "应用意识"
+      ],
+      "skillTags": [
+        "平行投影",
+        "中心投影",
+        "正投影",
+        "主视图",
+        "俯视图",
+        "左视图"
+      ],
+      "misconceptionTags": [
+        "view direction ignored",
+        "hidden edges counted as visible",
+        "projection type confused"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-projection-views"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-projection-views-unit",
+        "bnu-junior-s3-upper-assessment-midterm-1-to-5-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个几何体由若干个大小相同的小立方块搭成。从正面看，看到3列，从左到右每列小立方块的个数分别为2、1、2；从左面看，看到2列，从左到右每列小立方块的个数分别为2、1。已知该几何体从上面看时，看到的是一个3行2列的网格，每个位置可能叠放小立方块。请写出该几何体从上面看时，网格中每个位置的小立方块个数（用3行2列的数表表示），并说明这个几何体最少需要多少个小立方块，最多需要多少个小立方块。",
+      "optionsZhHans": [],
+      "answer": "从上面看：第一行从左到右：2,1；第二行从左到右：1,0；第三行从左到右：2,1。最少需要7个小立方块，最多需要7个小立方块。",
+      "acceptedAnswers": [
+        "从上面看：第一行从左到右：2,1；第二行从左到右：1,0；第三行从左到右：2,1。最少需要7个小立方块，最多需要7个小立方块。",
+        "俯视图：\n2 1\n1 0\n2 1\n最少7个，最多7个。",
+        "俯视图网格：\n2 1\n1 0\n2 1\n最少7个，最多7个。"
+      ],
+      "explanationZhHans": "由主视图左列2、中列1、右列2，左视图左列2、右列1，可确定俯视图3行2列。设第i行第j列个数为a_ij。主视图第1列最高2，故a_11和a_21中至少一个为2，且a_31≤2；第2列最高1，故a_12和a_22中至少一个为1，且a_32≤1；第3列最高2，故a_13和a_23中至少一个为2，且a_33≤2。左视图第1列最高2，故a_11和a_12中至少一个为2；第2列最高1，故a_21和a_22中至少一个为1。结合限制，唯一解：a_11=2,a_12=1; a_21=1,a_22=0; a_31=2,a_32=1。总数为7，故最少最多均为7。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-210",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-projection-views",
+      "unitTitle": "投影与视图",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "projection",
+        "orthographic-views",
+        "spatial-visualization",
+        "solid-geometry",
+        "投影",
+        "视图",
+        "三视图"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "应用意识"
+      ],
+      "skillTags": [
+        "平行投影",
+        "中心投影",
+        "正投影",
+        "主视图",
+        "俯视图",
+        "左视图"
+      ],
+      "misconceptionTags": [
+        "view direction ignored",
+        "hidden edges counted as visible",
+        "projection type confused"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-projection-views"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-projection-views-unit",
+        "bnu-junior-s3-upper-assessment-midterm-1-to-5-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个几何体由若干个大小相同的小立方块搭成，从正面和左面观察这个几何体，看到的形状都是两列，从左到右每列小立方块的个数分别为2和1。已知从上面观察这个几何体，看到的形状是两行两列，且第一行第一列位置有一个小立方块。请写出组成这个几何体的小立方块的总个数。",
+      "optionsZhHans": [],
+      "answer": "4",
+      "acceptedAnswers": [
+        "4"
+      ],
+      "explanationZhHans": "由主视图和左视图均为两列且列高为2和1，可知几何体最高处为2层。俯视图为2×2网格，第一行第一列有方块。结合三视图，唯一可能的结构是第一行第一列2层，第一行第二列1层，第二行第一列1层，第二行第二列0层，共4个小立方块。"
+    }
+  ]
+}

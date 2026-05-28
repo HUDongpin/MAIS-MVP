@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-099",
+  "startedAt": "2026-05-28T01:21:52.550Z",
+  "completedAt": "2026-05-28T01:22:09.112Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-285",
+    "bnu-high-ds-v1-s5-286",
+    "bnu-high-ds-v1-s5-287",
+    "bnu-high-ds-v1-s5-288",
+    "bnu-high-ds-v1-s5-289",
+    "bnu-high-ds-v1-s5-290",
+    "bnu-high-ds-v1-s5-291",
+    "bnu-high-ds-v1-s5-292"
+  ],
+  "usage": {
+    "prompt_tokens": 10309,
+    "completion_tokens": 1093,
+    "total_tokens": 11402,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9925
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-285",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(2,7) 或 (3,9)",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "设C(x,2x+3)，由AB为斜边得AC⊥BC，向量点积为零解得x=2或3，对应C(2,7)或(3,9)。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-286",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(-∞, -1] ∪ [1, +∞)",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "设直线l: y=kx+2，与圆联立得中点M坐标，代入y=x得k²≥1，故k≤-1或k≥1。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-287",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(1) 圆心(3,4)，半径2；(2) 距离3，大于半径，小路不穿过照明区域。",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "配方得圆心(3,4)，半径2；点到直线距离为3>2，故不相交。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-288",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "100",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "总选法C(10,3)=120，全男生C(6,3)=20，至少一女为120-20=100。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-289",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "65",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "分类讨论：不选双擅长者时C(3,1)C(4,3)+C(3,2)C(4,2)+C(3,3)C(4,1)=12+18+4=34；选双擅长者时C(3,1)C(4,2)+C(3,2)C(4,1)+C(3,3)C(4,0)=18+12+1=31；合计65。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-290",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "74",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "总选法C(9,3)=84，全男生C(5,3)=10，至少一女为84-10=74。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-291",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "60",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "个位为0时千位有4种，其余排列A(3,2)=6，共24；个位为2或4时千位不能为0，各有3×A(3,2)=18，共36；合计60。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-292",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "96",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "总选法C(10,3)=120，全男C(6,3)=20，全女C(4,3)=4，既有男又有女为120-20-4=96。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，无数学错误、歧义或缺失条件，符合北师大版高中对应章节要求。"
+    }
+  }
+}

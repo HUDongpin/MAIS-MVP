@@ -1,0 +1,48 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-185",
+  "startedAt": "2026-05-28T01:04:10.065Z",
+  "completedAt": "2026-05-28T01:04:15.959Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-185"
+  ],
+  "usage": {
+    "prompt_tokens": 2431,
+    "completion_tokens": 273,
+    "total_tokens": 2704,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2047
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-185",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "22",
+        "correctedAnswer": "22",
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "Stage A 独立答案字段为 22.4，与存储答案 22 不一致，且 22.4 无合理依据，属于错误。按北师大版教材常用方法，第 60 百分位数应为 22，存储答案正确，但独立答案与存储答案不匹配，解释也存在矛盾，判定为 fail。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "独立答案字段错误，与存储答案不匹配，解释矛盾，需修正独立答案。"
+    }
+  }
+}

@@ -1,0 +1,133 @@
+{
+  "batchNumber": 168,
+  "startedAt": "2026-05-27T14:12:14.995Z",
+  "completedAt": "2026-05-27T14:12:34.250Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-337",
+    "bnu-high-ds-v1-s6-338",
+    "bnu-high-ds-v1-s6-339",
+    "bnu-high-ds-v1-s6-340",
+    "bnu-high-ds-v1-s6-341",
+    "bnu-high-ds-v1-s6-342",
+    "bnu-high-ds-v1-s6-343",
+    "bnu-high-ds-v1-s6-344"
+  ],
+  "usage": {
+    "prompt_tokens": 10503,
+    "completion_tokens": 1196,
+    "total_tokens": 11699,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 9991
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-337",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "a ≤ 3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可独立求解。f'(x)=3x²-a，在[1,+∞)上需f'(x)≥0，即a≤3x²恒成立，x=1时最小值为3，故a≤3。选项B为a≤3，答案匹配。解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-338",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "极大值为4，极小值为0",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目明确，可解。f'(x)=3x²-12x+9=3(x-1)(x-3)，驻点1和3，f(1)=4为极大值，f(3)=0为极小值。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-339",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "可解。y'=3x²-6x，在x=2处斜率为0。答案0正确，解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-340",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "可解。f'(x)=3x²-3，驻点±1，计算端点及驻点函数值，最大值为2。选项C为2，答案匹配，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-341",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "最大值为10，最小值为-22",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "可解。f'(x)=3x²-6x-9=3(x-3)(x+1)，驻点-1和3，计算端点及驻点值，最大10，最小-22。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-342",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "y = x - 1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "可解。y'=3x²-2，在x=1处斜率1，切线方程y=x-1。答案匹配，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-343",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "C. 2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "与340题相同，可解。最大值为2，选项C正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-344",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(1, 2)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "可解。f'(x)=6x²-18x+12=6(x-1)(x-2)，1<x<2时f'(x)<0，递减区间(1,2)。答案匹配，解析正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，答案与解析均正确匹配，无任何问题。"
+    }
+  }
+}

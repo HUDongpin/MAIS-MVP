@@ -1,0 +1,50 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-111",
+  "startedAt": "2026-05-28T01:01:02.849Z",
+  "completedAt": "2026-05-28T01:01:18.169Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-111"
+  ],
+  "usage": {
+    "prompt_tokens": 2418,
+    "completion_tokens": 327,
+    "total_tokens": 2745,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2034
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-111",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "∅",
+        "correctedAnswer": "∅",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "真数 x²-2x+2=(x-1)²+1≥1，无法取遍所有正实数，故无论 a 取何正值且 a≠1，值域均非 R，满足条件的 a 不存在。存储答案“(0,1)∪(1,+∞)”错误，解析虽指出值域非 R 却给出空集，但存储答案仍为错误范围，题目条件无法满足，应判为不可解。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目条件“值域为 R”与真数最小值≥1 矛盾，无解，存储答案错误，解析与答案不一致，判定为 blocker。"
+    }
+  }
+}

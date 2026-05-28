@@ -1,0 +1,137 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-012",
+  "startedAt": "2026-05-28T00:58:42.333Z",
+  "completedAt": "2026-05-28T00:59:02.196Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-089",
+    "bnu-high-ds-v1-s4-090",
+    "bnu-high-ds-v1-s4-091",
+    "bnu-high-ds-v1-s4-092",
+    "bnu-high-ds-v1-s4-093",
+    "bnu-high-ds-v1-s4-094",
+    "bnu-high-ds-v1-s4-095",
+    "bnu-high-ds-v1-s4-096"
+  ],
+  "usage": {
+    "prompt_tokens": 13331,
+    "completion_tokens": 1097,
+    "total_tokens": 14428,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 12947
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-089",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "约13.51年",
+        "issueTags": [
+          "answer_mismatch"
+        ],
+        "severity": "major",
+        "confidence": "high",
+        "rationaleZhHans": "Stage A 独立解为约13.51年，存储答案为14，两者不一致。解析正确但答案取整未说明，导致答案不匹配。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-090",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "答案和解析均与 Stage A 一致，结果为1。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-091",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": "(-∞, log₂3 - 1)",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "Stage A 独立解得 m < log₂3 - 1，对应选项A。存储答案为选项B，解析中反函数推导有误且与答案矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-092",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "70/3天",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "Stage A 独立解得总天数为70/3天，存储答案为70，解析中计算过程矛盾且最终答案错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-093",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "答案和解析均与 Stage A 一致，结果为10。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-094",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": "(-∞, 1]",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "Stage A 独立解得递增区间为(-∞,1]，对应选项A。存储答案为选项B，解析中结论与推导矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-095",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "答案和解析均与 Stage A 一致，结果为1/2或3/2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-096",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "答案和解析均与 Stage A 一致，结果为18。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 4,
+      "warn": 0,
+      "fail": 4,
+      "notes": "8题中4题通过，4题失败。失败题目：089答案不匹配（取整未说明），091答案和解析错误（反函数推导有误），092答案和解析错误（总天数计算错误），094答案和解析错误（单调区间判断错误）。"
+    }
+  }
+}

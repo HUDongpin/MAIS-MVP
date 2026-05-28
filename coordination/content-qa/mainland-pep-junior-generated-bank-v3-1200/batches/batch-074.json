@@ -1,0 +1,325 @@
+{
+  "batchId": "batch-074",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s2-k09-mc-030",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-quadrilaterals"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-proof-calculation-integrated"
+      ],
+      "promptZhHans": "某快递公司推出两种寄件方案：方案A，首重1千克内12元，续重每千克8元；方案B，首重1千克内15元，续重每千克6元。设寄件质量为x千克（x>1），方案A的费用为y₁元，方案B的费用为y₂元。当y₁=y₂时，x的值为多少？",
+      "optionsZhHans": [
+        "2.5",
+        "3",
+        "3.5",
+        "4"
+      ],
+      "answer": "2.5",
+      "acceptedAnswers": [
+        "2.5",
+        "2.5千克",
+        "2.5kg"
+      ],
+      "explanationZhHans": "根据题意，方案A的费用y₁=12+8(x-1)=8x+4，方案B的费用y₂=15+6(x-1)=6x+9。由y₁=y₂得8x+4=6x+9，解得x=2.5。故答案为2.5。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-mc-031",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-linear-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "promptZhHans": "某蓄水池当前有水120 m³，每小时排水8 m³。若 t 小时后剩余水量为 y m³，则 y=120-8t。当剩余水量为72 m³时，t 的值是？",
+      "optionsZhHans": [
+        "4",
+        "6",
+        "8",
+        "10"
+      ],
+      "answer": "6",
+      "acceptedAnswers": [
+        "6",
+        "6小时"
+      ],
+      "explanationZhHans": "把 y=72 代入 y=120-8t，得72=120-8t，8t=48，t=6。因此 t 的值是6。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-mc-032",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-data-analysis"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "某校八年级5个班参加植树活动，各班植树棵数分别为：30，32，28，30，x。已知这组数据的众数只有30，则 x 的值不可能是以下哪个数？",
+      "optionsZhHans": [
+        "28",
+        "30",
+        "34",
+        "36"
+      ],
+      "answer": "28",
+      "acceptedAnswers": [
+        "28"
+      ],
+      "explanationZhHans": "已有数据中30出现2次，32和28各出现1次。若x=28，则28也出现2次，众数不是只有30；若x=30，30出现3次；若x=34或36，30仍是唯一出现2次的数。所以 x 的值不可能是28。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-mc-033",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "小明的妈妈准备购买一台空调，商场有两种优惠方案：方案一，按标价打九折；方案二，满2000元减200元。已知空调标价为x元（x>2000），方案一实际付款为y₁元，方案二实际付款为y₂元。当y₁<y₂时，x的取值范围是多少？",
+      "optionsZhHans": [
+        "x<2000",
+        "x>2000",
+        "x<4000",
+        "x>4000"
+      ],
+      "answer": "x>2000",
+      "acceptedAnswers": [
+        "x>2000",
+        "x>2000元"
+      ],
+      "explanationZhHans": "方案一：y₁=0.9x；方案二：y₂=x-200。由y₁<y₂得0.9x<x-200，移项得-0.1x<-200，两边除以-0.1，不等号方向改变，得x>2000。结合x>2000的前提，解为x>2000。故答案为x>2000。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-fi-001",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-linear-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "promptZhHans": "已知一次函数y=(2m-1)x+3中，y随x的增大而减小，则m的取值范围是______。",
+      "optionsZhHans": [],
+      "answer": "m<1/2",
+      "acceptedAnswers": [
+        "m<1/2",
+        "m<0.5",
+        "m<二分之一"
+      ],
+      "explanationZhHans": "对于一次函数y=kx+b，当k<0时，y随x的增大而减小。这里k=2m-1，所以2m-1<0，解得m<1/2。故答案为m<1/2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-fi-002",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-data-analysis"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "一组数据：5，7，8，a，9的众数是7，则这组数据的中位数是______。",
+      "optionsZhHans": [],
+      "answer": "7",
+      "acceptedAnswers": [
+        "7"
+      ],
+      "explanationZhHans": "众数是出现次数最多的数。已知众数是7，而5、8、9各出现一次，所以7必须出现至少两次，因此a=7。数据为5，7，7，8，9，排序后为5，7，7，8，9，中位数是第三个数据7。故答案为7。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-fi-003",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "某商店销售一种商品，成本为每件40元，售价为每件60元，每天可售出100件。经调查发现，售价每降低1元，每天多售出10件。设每件降价x元，每天利润为y元，则y与x的函数关系式为______。",
+      "optionsZhHans": [],
+      "answer": "y=-10x²+100x+2000",
+      "acceptedAnswers": [
+        "y=-10x²+100x+2000",
+        "y=-10x^2+100x+2000"
+      ],
+      "explanationZhHans": "降价后售价为(60-x)元，每件利润为(60-x-40)=(20-x)元，每天销售量为(100+10x)件。利润y=(20-x)(100+10x)=2000+200x-100x-10x²=-10x²+100x+2000。故答案为y=-10x²+100x+2000。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-fi-004",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-quadratic-radicals"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "若二次根式√(3x-6)有意义，则x的最小整数值是______。",
+      "optionsZhHans": [],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2"
+      ],
+      "explanationZhHans": "二次根式√(3x-6)有意义，需被开方数3x-6≥0，解得x≥2。最小整数值为2。故答案为2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-fi-005",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-pythagorean-theorem"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "一个直角三角形的两条直角边长分别为6 cm和8 cm，则斜边上的高为______ cm。",
+      "optionsZhHans": [],
+      "answer": "4.8",
+      "acceptedAnswers": [
+        "4.8",
+        "24/5",
+        "4.8cm"
+      ],
+      "explanationZhHans": "由勾股定理得斜边长=√(6²+8²)=10 cm。直角三角形面积=1/2×6×8=24 cm²，也等于1/2×斜边×斜边上的高，即1/2×10×h=24，解得h=4.8。故答案为4.8。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-fi-006",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-quadrilaterals"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions"
+      ],
+      "promptZhHans": "在平行四边形ABCD中，∠A=50°，则∠C=______°。",
+      "optionsZhHans": [],
+      "answer": "50",
+      "acceptedAnswers": [
+        "50",
+        "50°"
+      ],
+      "explanationZhHans": "平行四边形的对角相等，所以∠C=∠A=50°。故答案为50。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

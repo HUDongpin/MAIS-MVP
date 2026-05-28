@@ -1,0 +1,290 @@
+{
+  "batchId": "batch-130",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p3-146",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-review-multiplication-division",
+      "unitTitle": "三年级下册复习与乘除运算",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "p3-lower-review",
+        "multiplication-division-review",
+        "estimation-check",
+        "复习与提高"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "反思整理"
+      ],
+      "skillTags": [
+        "乘法复习",
+        "除法复习",
+        "估算",
+        "验算",
+        "错因说明"
+      ],
+      "misconceptionTags": [
+        "method selected without reading the unit",
+        "division checked with unrelated multiplication",
+        "estimate rounded in an unreasonable direction"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-review-multiplication-division"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-review-multiplication-division",
+        "hjb-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "S18 remediated after DeepSeek-v4-pro QA on 2026-05-25; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算48÷3时，可以想：3×（ ）=48，所以48÷3=（ ）。",
+      "optionsZhHans": [],
+      "answer": "16，16",
+      "acceptedAnswers": [
+        "16，16",
+        "16,16",
+        "16 16"
+      ],
+      "explanationZhHans": "因为3×16=48，所以48÷3=16。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-147",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-review-multiplication-division",
+      "unitTitle": "三年级下册复习与乘除运算",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "p3-lower-review",
+        "multiplication-division-review",
+        "estimation-check",
+        "复习与提高"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "反思整理"
+      ],
+      "skillTags": [
+        "乘法复习",
+        "除法复习",
+        "估算",
+        "验算",
+        "错因说明"
+      ],
+      "misconceptionTags": [
+        "method selected without reading the unit",
+        "division checked with unrelated multiplication",
+        "estimate rounded in an unreasonable direction"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-review-multiplication-division"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-review-multiplication-division",
+        "hjb-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丁计算 126 ÷ 7 时，用乘法验算：18 × 7 = 126，所以他认为自己算对了。他验算的方法对吗？为什么？",
+      "optionsZhHans": [],
+      "answer": "对，因为除法可以用乘法验算，商乘除数等于被除数。",
+      "acceptedAnswers": [
+        "对，因为除法可以用乘法验算，商乘除数等于被除数。",
+        "对，因为除法可以用乘法验算，商×除数=被除数。",
+        "对，因为除法可以用乘法验算，商乘除数等于被除数",
+        "对，因为除法可以用乘法验算，商×除数=被除数"
+      ],
+      "explanationZhHans": "验算除法时，用商乘除数，如果等于被除数，说明计算正确。18×7=126，所以126÷7=18是对的。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-148",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-review-multiplication-division",
+      "unitTitle": "三年级下册复习与乘除运算",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "p3-lower-review",
+        "multiplication-division-review",
+        "estimation-check",
+        "复习与提高"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "反思整理"
+      ],
+      "skillTags": [
+        "乘法复习",
+        "除法复习",
+        "估算",
+        "验算",
+        "错因说明"
+      ],
+      "misconceptionTags": [
+        "method selected without reading the unit",
+        "division checked with unrelated multiplication",
+        "estimate rounded in an unreasonable direction"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-review-multiplication-division"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-review-multiplication-division",
+        "hjb-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪道题的估算方法最合理？",
+      "optionsZhHans": [
+        "A. 估算 82 ÷ 4 时，把 82 看作 80，80 ÷ 4 = 20",
+        "B. 估算 82 ÷ 4 时，把 82 看作 90，90 ÷ 4 = 22……2",
+        "C. 估算 82 ÷ 4 时，把 82 看作 100，100 ÷ 4 = 25",
+        "D. 估算 82 ÷ 4 时，把 82 看作 70，70 ÷ 4 = 17……2"
+      ],
+      "answer": "A. 估算 82 ÷ 4 时，把 82 看作 80，80 ÷ 4 = 20",
+      "acceptedAnswers": [
+        "A. 估算 82 ÷ 4 时，把 82 看作 80，80 ÷ 4 = 20"
+      ],
+      "explanationZhHans": "估算时要把被除数看作接近的整十数，82最接近80，80÷4=20，估算结果最接近准确值。其他选项偏离较大。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-149",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-review-multiplication-division",
+      "unitTitle": "三年级下册复习与乘除运算",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "p3-lower-review",
+        "multiplication-division-review",
+        "estimation-check",
+        "复习与提高"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "反思整理"
+      ],
+      "skillTags": [
+        "乘法复习",
+        "除法复习",
+        "估算",
+        "验算",
+        "错因说明"
+      ],
+      "misconceptionTags": [
+        "method selected without reading the unit",
+        "division checked with unrelated multiplication",
+        "estimate rounded in an unreasonable direction"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-review-multiplication-division"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-review-multiplication-division",
+        "hjb-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在计算 75 × 6 时，小胖先算 70 × 6 = 420，再算 5 × 6 = 30，最后把两个积相加。他用的方法是（    ）。",
+      "optionsZhHans": [],
+      "answer": "拆分法",
+      "acceptedAnswers": [
+        "拆分法",
+        "分解法",
+        "分拆法"
+      ],
+      "explanationZhHans": "把75拆成70和5，分别乘6，再把积相加，这种方法叫拆分法，是乘法分配律的运用。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-150",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-review-multiplication-division",
+      "unitTitle": "三年级下册复习与乘除运算",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "p3-lower-review",
+        "multiplication-division-review",
+        "estimation-check",
+        "复习与提高"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "反思整理"
+      ],
+      "skillTags": [
+        "乘法复习",
+        "除法复习",
+        "估算",
+        "验算",
+        "错因说明"
+      ],
+      "misconceptionTags": [
+        "method selected without reading the unit",
+        "division checked with unrelated multiplication",
+        "estimate rounded in an unreasonable direction"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-review-multiplication-division"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-review-multiplication-division",
+        "hjb-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆有 168 本新书，平均分给 6 个年级，每个年级分到多少本？请写出计算过程并验算。",
+      "optionsZhHans": [],
+      "answer": "168 ÷ 6 = 28（本），验算：28 × 6 = 168",
+      "acceptedAnswers": [
+        "168 ÷ 6 = 28（本），验算：28 × 6 = 168",
+        "168÷6=28（本），验算：28×6=168",
+        "168 ÷ 6 = 28本，验算：28 × 6 = 168",
+        "168÷6=28本，验算：28×6=168"
+      ],
+      "explanationZhHans": "用除法计算：168÷6=28（本）。验算时用乘法：28×6=168，等于被除数，说明计算正确。"
+    }
+  ]
+}

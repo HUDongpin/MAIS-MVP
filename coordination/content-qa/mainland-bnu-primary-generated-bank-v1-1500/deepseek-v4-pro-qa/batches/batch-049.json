@@ -1,0 +1,191 @@
+{
+  "batchNumber": 49,
+  "startedAt": "2026-05-27T13:28:43.925Z",
+  "completedAt": "2026-05-27T13:29:03.867Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p4-115",
+    "bnu-primary-ds-v1-p4-116",
+    "bnu-primary-ds-v1-p4-117",
+    "bnu-primary-ds-v1-p4-118",
+    "bnu-primary-ds-v1-p4-119",
+    "bnu-primary-ds-v1-p4-120",
+    "bnu-primary-ds-v1-p4-121",
+    "bnu-primary-ds-v1-p4-122",
+    "bnu-primary-ds-v1-p4-123",
+    "bnu-primary-ds-v1-p4-124",
+    "bnu-primary-ds-v1-p4-125",
+    "bnu-primary-ds-v1-p4-126",
+    "bnu-primary-ds-v1-p4-127",
+    "bnu-primary-ds-v1-p4-128",
+    "bnu-primary-ds-v1-p4-129",
+    "bnu-primary-ds-v1-p4-130",
+    "bnu-primary-ds-v1-p4-131",
+    "bnu-primary-ds-v1-p4-132"
+  ],
+  "usage": {
+    "prompt_tokens": 4003,
+    "completion_tokens": 1301,
+    "total_tokens": 5304,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 3747
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p4-115",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目合理，选项清晰，答案正确，符合可能性初步认识要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-116",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "填空设计合理，答案准确，区分了确定与不确定事件。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-117",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "游戏公平性判断正确，理由充分，符合挑战难度。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-118",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "转盘可能性比较正确，选项无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-119",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "奇偶数可能性相等，答案准确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-120",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "游戏公平性分析及修改规则合理，答案开放但覆盖核心。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-121",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "摸球可能性大小判断正确，选项无干扰。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-122",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "转盘可能性填空简单明确，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-123",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "非标准骰子公平性分析正确，理由充分。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-124",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "单双数可能性相等，选项设置合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-125",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "天气预报可能性填空，答案“可能”准确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-126",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "根据实验数据推测数量关系，答案合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-127",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "硬币独立性考查正确，选项无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-128",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "扑克牌花色可能性相等，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-129",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "除法错中求解，计算正确，符合四年级要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-130",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估算应用场景选择合理，选项区分明确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-131",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "大数组成填空，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-132",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "乘法错中求解，过程清晰，答案正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版小学数学四年级上册要求，数学正确，答案匹配，无歧义或缺失条件，适合公共题库推广。"
+    }
+  }
+}

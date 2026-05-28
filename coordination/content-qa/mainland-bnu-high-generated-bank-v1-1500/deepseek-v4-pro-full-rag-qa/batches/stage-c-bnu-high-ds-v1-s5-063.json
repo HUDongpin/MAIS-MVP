@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-063",
+  "startedAt": "2026-05-28T02:07:20.556Z",
+  "completedAt": "2026-05-28T02:07:27.238Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-063"
+  ],
+  "usage": {
+    "prompt_tokens": 2043,
+    "completion_tokens": 324,
+    "total_tokens": 2367,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1659
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-063",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "k = -1 或 k = -21",
+        "correctedAnswer": "k = -1 或 k = -21",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "点(1,2)到直线3x+4y+k=0的距离为|3*1+4*2+k|/5=|11+k|/5=2，解得|11+k|=10，k=-1或k=-21。存储答案1或-19错误，解析中|11+k|=10却得出k=-1或-21，与存储答案矛盾。题目可解，RAG匹配，但答案和解析均错误，需修正。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "存储答案和解析均错误，正确解为k=-1或-21。"
+    }
+  }
+}

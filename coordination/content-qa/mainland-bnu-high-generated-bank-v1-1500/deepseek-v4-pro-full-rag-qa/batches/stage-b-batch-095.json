@@ -1,0 +1,151 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-095",
+  "startedAt": "2026-05-28T01:23:01.156Z",
+  "completedAt": "2026-05-28T01:23:20.446Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-253",
+    "bnu-high-ds-v1-s5-254",
+    "bnu-high-ds-v1-s5-255",
+    "bnu-high-ds-v1-s5-256",
+    "bnu-high-ds-v1-s5-257",
+    "bnu-high-ds-v1-s5-258",
+    "bnu-high-ds-v1-s5-259",
+    "bnu-high-ds-v1-s5-260"
+  ],
+  "usage": {
+    "prompt_tokens": 14818,
+    "completion_tokens": 1374,
+    "total_tokens": 16192,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 14434
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-253",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立答案一致，均为选项A。但解析中错误地解得k²=4/9，与最终答案矛盾，且推导过程有误，属于解析与答案严重矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-254",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "最小半径约为6.40 m",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案为5.00 m，但正确最小半径应为√41≈6.40 m。解析中也指出正确值为6.40 m，与存储答案矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-255",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "小路不完全位于公园内部，因为点A(1,2)在圆外。",
+        "issueTags": [
+          "answer_mismatch"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案错误地指出点B在圆外，但实际点A在圆外，点B在圆内。解析正确指出A在圆外，与存储答案矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-256",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立答案一致，均为选项A。但解析中解得k²=1/3，与最终答案k²≥1/3矛盾，且推导过程有误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-257",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "(1) 3x-4y+14=0\n(2) Q(0,3.5)\n(3) 2.80",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案(3)为2.40，但正确距离为2.80。解析中也指出正确值为2.80，与存储答案矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-258",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "0, -4/3",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案为0, -20/21，但正确解为0, -4/3。解析中方程整理错误，导致解错。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-259",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": "曲线Γ是圆心在(0,2)、半径为2的圆",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案为圆心(0,1)半径1，但正确轨迹为圆心(0,2)半径2。解析中得出圆心(0,2)半径2，却选择了不存在的选项，矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-260",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "（1）最小半径约为6.40 m，此时圆形区域经过点B和C，与花坛边界相交。\n（2）小路所在直线方程为x+y-7=0。",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案(1)最小半径5 m错误，正确为√41≈6.40 m；(2)直线方程错误，正确为x+y-7=0。解析中(1)指出正确半径但答案错误，(2)方程错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 8,
+      "notes": "全部8道题均存在严重错误：存储答案与独立答案不一致，或解析与答案矛盾，需修正。"
+    }
+  }
+}

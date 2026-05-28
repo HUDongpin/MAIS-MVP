@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0110",
+  "ids": [
+    "hjb-junior-ds-v2-s2-373",
+    "hjb-junior-ds-v2-s2-374",
+    "hjb-junior-ds-v2-s2-375",
+    "hjb-junior-ds-v2-s2-376",
+    "hjb-junior-ds-v2-s2-377",
+    "hjb-junior-ds-v2-s2-378",
+    "hjb-junior-ds-v2-s2-379",
+    "hjb-junior-ds-v2-s2-380"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-373",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "B",
+      "answerCheckZhHans": "标准答案B正确，点M(0,-3)在y轴上。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-374",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(1, 1)",
+      "answerCheckZhHans": "标准答案(1,1)正确，平移计算无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-375",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "点C的坐标为(3, -1)，点C到x轴的距离为1",
+      "answerCheckZhHans": "标准答案正确，中点坐标和距离计算无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-376",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "multiple-correct-options",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "选项C和D在数学上等价（y=2.4(x-3)+12展开为y=2.4x+4.8），但标准答案只选了C，解析中承认D展开后与C相同，却以“C是标准分段形式”为由排除D，这会导致两个正确选项。",
+      "independentAnswerZhHans": "C和D都正确",
+      "answerCheckZhHans": "标准答案不唯一，C和D均正确。",
+      "recommendedActionZhHans": "修改选项D使其与C不等价，或明确要求选择分段形式，否则需标记为多解。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-377",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "k=3, b=-1",
+      "answerCheckZhHans": "标准答案正确，解方程组无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-378",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-2",
+      "answerCheckZhHans": "标准答案-2正确，代入求解无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-379",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-1.5",
+      "answerCheckZhHans": "标准答案-1.5正确，计算无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-380",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(2/3, 0)",
+      "answerCheckZhHans": "标准答案(2/3,0)正确，与x轴交点计算无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

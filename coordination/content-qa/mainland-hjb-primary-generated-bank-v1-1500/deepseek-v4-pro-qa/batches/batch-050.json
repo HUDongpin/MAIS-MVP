@@ -1,0 +1,191 @@
+{
+  "batchNumber": 50,
+  "startedAt": "2026-05-25T02:14:25.094Z",
+  "completedAt": "2026-05-25T02:14:49.449Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p4-133",
+    "hjb-primary-ds-v1-p4-134",
+    "hjb-primary-ds-v1-p4-135",
+    "hjb-primary-ds-v1-p4-136",
+    "hjb-primary-ds-v1-p4-137",
+    "hjb-primary-ds-v1-p4-138",
+    "hjb-primary-ds-v1-p4-139",
+    "hjb-primary-ds-v1-p4-140",
+    "hjb-primary-ds-v1-p4-141",
+    "hjb-primary-ds-v1-p4-142",
+    "hjb-primary-ds-v1-p4-143",
+    "hjb-primary-ds-v1-p4-144",
+    "hjb-primary-ds-v1-p4-145",
+    "hjb-primary-ds-v1-p4-146",
+    "hjb-primary-ds-v1-p4-147",
+    "hjb-primary-ds-v1-p4-148",
+    "hjb-primary-ds-v1-p4-149",
+    "hjb-primary-ds-v1-p4-150"
+  ],
+  "usage": {
+    "prompt_tokens": 4287,
+    "completion_tokens": 1299,
+    "total_tokens": 5586,
+    "prompt_tokens_details": {
+      "cached_tokens": 4224
+    },
+    "prompt_cache_hit_tokens": 4224,
+    "prompt_cache_miss_tokens": 63
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p4-133",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，选项区分度好，答案正确，适合四年级整理与提高。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-134",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "基础题，答案正确，接受多种合理写法。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-135",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "步测估测合理，计算正确，答案接受带单位或不带单位。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-136",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项设计合理，答案唯一，解释清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-137",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分数概念题，答案正确，解释清楚分点含义。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-138",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "扇形半径与圆半径关系明确，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-139",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "乘法分配律辨析清晰，选项设计合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-140",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "两种方法对比合理，答案正确，接受多种写法。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-141",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "简便计算过程完整，解释正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-142",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项区分度好，答案唯一，解释准确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-143",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "填空设计合理，答案正确，接受多种分隔符。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-144",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数量关系清晰，列式解答正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-145",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "运算顺序易错题，答案正确，选项设计合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-146",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "填空答案明确，结合律运用正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-147",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "和倍问题典型，解答正确，验算合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-148",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分配律辨析清晰，选项设计合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-149",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "加法结合律填空，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-150",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "和倍问题，解答正确，验算步骤完整。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部18道题均通过审核，无数学错误、答案不匹配、歧义或年级不匹配等问题。"
+    }
+  }
+}

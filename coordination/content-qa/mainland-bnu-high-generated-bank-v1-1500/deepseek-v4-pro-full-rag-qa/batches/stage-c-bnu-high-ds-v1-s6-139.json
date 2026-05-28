@@ -1,0 +1,45 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-139",
+  "startedAt": "2026-05-28T01:43:07.991Z",
+  "completedAt": "2026-05-28T01:43:12.082Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-139"
+  ],
+  "usage": {
+    "prompt_tokens": 1923,
+    "completion_tokens": 237,
+    "total_tokens": 2160,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1539
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-139",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "2^n - 1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "递推式 a_{n+1}=a_n+2^n 可通过累加法求解，a_n = 1 + Σ_{k=1}^{n-1} 2^k = 2^n - 1，选项唯一，解析正确，无任何问题。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 1,
+      "warn": 0,
+      "fail": 0,
+      "notes": "题目可解，答案匹配，解析一致，选项唯一，无风险。"
+    }
+  }
+}

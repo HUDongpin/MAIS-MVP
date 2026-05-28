@@ -1,0 +1,173 @@
+{
+  "batchNumber": 69,
+  "startedAt": "2026-05-27T17:42:45.748Z",
+  "completedAt": "2026-05-27T17:43:03.468Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s2-317",
+    "bnu-junior-ds-v1-s2-318",
+    "bnu-junior-ds-v1-s2-319",
+    "bnu-junior-ds-v1-s2-320",
+    "bnu-junior-ds-v1-s2-321",
+    "bnu-junior-ds-v1-s2-322",
+    "bnu-junior-ds-v1-s2-323",
+    "bnu-junior-ds-v1-s2-324",
+    "bnu-junior-ds-v1-s2-325",
+    "bnu-junior-ds-v1-s2-326",
+    "bnu-junior-ds-v1-s2-327",
+    "bnu-junior-ds-v1-s2-328"
+  ],
+  "usage": {
+    "prompt_tokens": 5968,
+    "completion_tokens": 1284,
+    "total_tokens": 7252,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 5456
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s2-317",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，可解。答案与解析一致，函数关系式正确，x取值范围由销量非负得出30≤x≤50。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-318",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "不等式可解，最大整数解为2，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-319",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "不等式组可解，四个整数解为-2,-1,0,1，a的取值范围为-3<a≤-2，选项A正确，唯一。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-320",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "经典相遇问题，狗跑的时间等于两人相遇时间，路程20千米，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-321",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由方程解得学生240人，60座客车需4辆，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-322",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "不等式性质应用正确，选项C正确，其他选项错误，答案唯一。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-323",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "不等式组可解，解集2<x≤5，答案正确，数轴表示要求合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-324",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "不等式可解，解集x≥-2，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-325",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由一次函数不等式得x>1，选项A正确，唯一。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-326",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "函数关系式正确，顶点横坐标35，售价35元时利润最大，答案与解析一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-327",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "不等式组无解条件为a+1≥2a-1，解得a≤2，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-328",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数轴表示规则正确，D选项符合x>3的画法，其他选项有误，答案唯一。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部12道题均条件充分、可解，答案与解析匹配，无数学错误或歧义，符合北师大版初二下不等式单元要求。"
+    }
+  }
+}

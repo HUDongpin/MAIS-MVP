@@ -1,0 +1,137 @@
+{
+  "batchNumber": 91,
+  "startedAt": "2026-05-27T13:58:56.834Z",
+  "completedAt": "2026-05-27T13:59:14.341Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-221",
+    "bnu-high-ds-v1-s5-222",
+    "bnu-high-ds-v1-s5-223",
+    "bnu-high-ds-v1-s5-224",
+    "bnu-high-ds-v1-s5-225",
+    "bnu-high-ds-v1-s5-226",
+    "bnu-high-ds-v1-s5-227",
+    "bnu-high-ds-v1-s5-228"
+  ],
+  "usage": {
+    "prompt_tokens": 11928,
+    "completion_tokens": 1136,
+    "total_tokens": 13064,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 11416
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-221",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(6, 17/3)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可独立求解。答案(6,17/3)正确，解析过程与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-222",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "y=1 或 3x+4y-19=0",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，答案y=1是正确解之一，解析正确且与答案匹配。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-223",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "m=-1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，选项唯一正确，答案A正确，解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-224",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "直线方程：4x-3y=0，栈道长度：100米",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，答案正确，解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-225",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "2x-y-1=0 或 4x-3y+1=0",
+        "correctedAnswer": "2x-y-1=0 或 4x-3y+1=0",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，但答案x-2y+4=0错误，正确解为2x-y-1=0或4x-3y+1=0。解析自相矛盾，最终给出错误答案。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-226",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "k=±√5",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，答案D正确，解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-227",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "independentAnswer": "(2,2), (8,2), (8,8), (2,8)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，答案正确。解析中虽有冗余讨论，但最终给出正确答案，与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-228",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(x-2)²+(y-1)²=2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，答案正确，解析与答案一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第225题答案错误，正确解为2x-y-1=0或4x-3y+1=0，其余题目均通过审核。"
+    }
+  }
+}

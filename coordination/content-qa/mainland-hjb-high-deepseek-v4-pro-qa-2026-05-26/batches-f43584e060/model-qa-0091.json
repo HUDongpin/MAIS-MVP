@@ -1,0 +1,313 @@
+{
+  "batchId": "model-qa-0091",
+  "ids": [
+    "hjb-high-ds-v2-s4-301",
+    "hjb-high-ds-v2-s4-302",
+    "hjb-high-ds-v2-s4-303",
+    "hjb-high-ds-v2-s4-304",
+    "hjb-high-ds-v2-s4-305",
+    "hjb-high-ds-v2-s4-306",
+    "hjb-high-ds-v2-s4-307",
+    "hjb-high-ds-v2-s4-308",
+    "hjb-high-ds-v2-s4-309",
+    "hjb-high-ds-v2-s4-310",
+    "hjb-high-ds-v2-s4-311",
+    "hjb-high-ds-v2-s4-312",
+    "hjb-high-ds-v2-s4-313",
+    "hjb-high-ds-v2-s4-314",
+    "hjb-high-ds-v2-s4-315",
+    "hjb-high-ds-v2-s4-316",
+    "hjb-high-ds-v2-s4-317",
+    "hjb-high-ds-v2-s4-318",
+    "hjb-high-ds-v2-s4-319",
+    "hjb-high-ds-v2-s4-320"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-high-ds-v2-s4-301",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "题目中表达式 AB·AC 在三角形中通常表示向量的数量积，但解析和答案将其解释为两边长度的乘积。若按数量积计算，AB·AC = |AB|*|AC|*cos60° = 2*6*0.5 = 6，与给定答案12不符。题目未明确说明是长度乘积，存在歧义。",
+      "independentAnswerZhHans": "6",
+      "answerCheckZhHans": "给定答案为12，但按向量数量积应为6。",
+      "recommendedActionZhHans": "需明确表达式含义或修正答案。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-302",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "题目中表达式 AB·AC 在三角形中通常表示向量的数量积，但解析和答案将其解释为两边长度的乘积。若按数量积计算，AB·AC = 10*16*cos60° = 80，与给定答案160不符。",
+      "independentAnswerZhHans": "80",
+      "answerCheckZhHans": "给定答案为160，但按向量数量积应为80。",
+      "recommendedActionZhHans": "需明确表达式含义或修正答案。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-303",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "题目中表达式 AB·AC 在三角形中通常表示向量的数量积，但解析和答案将其解释为两边长度的乘积。若按数量积计算，AB·AC = 3*5*cos60° = 7.5，与给定答案15不符。",
+      "independentAnswerZhHans": "7.5",
+      "answerCheckZhHans": "给定答案为15，但按向量数量积应为7.5。",
+      "recommendedActionZhHans": "需明确表达式含义或修正答案。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-304",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "题目中表达式 AB·AC 在三角形中通常表示向量的数量积，但解析和答案将其解释为两边长度的乘积。若按数量积计算，AB·AC = 10*10*cos60° = 50，与给定答案100不符。",
+      "independentAnswerZhHans": "50",
+      "answerCheckZhHans": "给定答案为100，但按向量数量积应为50。",
+      "recommendedActionZhHans": "需明确表达式含义或修正答案。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-305",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "题目中表达式 AB·AC 在三角形中通常表示向量的数量积，但解析和答案将其解释为两边长度的乘积。若按数量积计算，AB·AC = 6*5*cos60° = 15，与给定答案30不符。",
+      "independentAnswerZhHans": "15",
+      "answerCheckZhHans": "给定答案为30，但按向量数量积应为15。",
+      "recommendedActionZhHans": "需明确表达式含义或修正答案。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-306",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "题目中表达式 AB·AC 在三角形中通常表示向量的数量积，但解析和答案将其解释为两边长度的乘积。若按数量积计算，AB·AC = 11*19*cos60° = 104.5，与给定答案209不符。",
+      "independentAnswerZhHans": "104.5",
+      "answerCheckZhHans": "给定答案为209，但按向量数量积应为104.5。",
+      "recommendedActionZhHans": "需明确表达式含义或修正答案。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-307",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "题目中表达式 AB·AC 在三角形中通常表示向量的数量积，但解析和答案将其解释为两边长度的乘积。若按数量积计算，AB·AC = 2*5*cos60° = 5，与给定答案10不符。",
+      "independentAnswerZhHans": "5",
+      "answerCheckZhHans": "给定答案为10，但按向量数量积应为5。",
+      "recommendedActionZhHans": "需明确表达式含义或修正答案。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-308",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "题目中表达式 AB·AC 在三角形中通常表示向量的数量积，但解析和答案将其解释为两边长度的乘积。若按数量积计算，AB·AC = 8*13*cos60° = 52，与给定答案104不符。",
+      "independentAnswerZhHans": "52",
+      "answerCheckZhHans": "给定答案为104，但按向量数量积应为52。",
+      "recommendedActionZhHans": "需明确表达式含义或修正答案。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-309",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "题目中表达式 AB·AC 在三角形中通常表示向量的数量积，但解析和答案将其解释为两边长度的乘积。若按数量积计算，AB·AC = 5*5*cos60° = 12.5，与给定答案25不符。",
+      "independentAnswerZhHans": "12.5",
+      "answerCheckZhHans": "给定答案为25，但按向量数量积应为12.5。",
+      "recommendedActionZhHans": "需明确表达式含义或修正答案。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-310",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "题目中表达式 AB·AC 在三角形中通常表示向量的数量积，但解析和答案将其解释为两边长度的乘积。若按数量积计算，AB·AC = 6*4*cos60° = 12，与给定答案24不符。",
+      "independentAnswerZhHans": "12",
+      "answerCheckZhHans": "给定答案为24，但按向量数量积应为12。",
+      "recommendedActionZhHans": "需明确表达式含义或修正答案。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-311",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "题目中表达式 AB·AC 在三角形中通常表示向量的数量积，但解析和答案将其解释为两边长度的乘积。若按数量积计算，AB·AC = 3*8*cos60° = 12，与给定答案24不符。",
+      "independentAnswerZhHans": "12",
+      "answerCheckZhHans": "给定答案为24，但按向量数量积应为12。",
+      "recommendedActionZhHans": "需明确表达式含义或修正答案。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-312",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "题目中表达式 AB·AC 在三角形中通常表示向量的数量积，但解析和答案将其解释为两边长度的乘积。若按数量积计算，AB·AC = 3*5*cos60° = 7.5，与给定答案15不符。",
+      "independentAnswerZhHans": "7.5",
+      "answerCheckZhHans": "给定答案为15，但按向量数量积应为7.5。",
+      "recommendedActionZhHans": "需明确表达式含义或修正答案。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-313",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "题目中表达式 AB·AC 在三角形中通常表示向量的数量积，但解析和答案将其解释为两边长度的乘积。若按数量积计算，AB·AC = 7*9*cos60° = 31.5，与给定答案63不符。",
+      "independentAnswerZhHans": "31.5",
+      "answerCheckZhHans": "给定答案为63，但按向量数量积应为31.5。",
+      "recommendedActionZhHans": "需明确表达式含义或修正答案。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-314",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "π",
+      "answerCheckZhHans": "周期为2π/2=π，答案正确。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-315",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "π",
+      "answerCheckZhHans": "周期为2π/2=π，答案正确。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-316",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "π",
+      "answerCheckZhHans": "周期为2π/2=π，选项C正确，唯一。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-317",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "π",
+      "answerCheckZhHans": "周期为2π/2=π，答案正确。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-318",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "π",
+      "answerCheckZhHans": "周期为2π/2=π，答案正确。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-319",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "π",
+      "answerCheckZhHans": "周期为2π/2=π，选项D正确，唯一。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-320",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "π",
+      "answerCheckZhHans": "周期为2π/2=π，答案正确。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    }
+  ]
+}

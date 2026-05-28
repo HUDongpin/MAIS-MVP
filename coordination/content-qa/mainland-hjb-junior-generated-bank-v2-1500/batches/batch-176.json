@@ -1,0 +1,329 @@
+{
+  "batchId": "batch-176",
+  "questions": [
+    {
+      "id": "hjb-junior-ds-v2-s2-376",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "hjb-junior-s2-lower-linear-functions",
+      "unitTitle": "一次函数",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "functions",
+        "linear-functions",
+        "direct-variation",
+        "function-graphs",
+        "slope-intercept",
+        "一次函数",
+        "正比例函数"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "变量与函数",
+        "正比例函数",
+        "一次函数图像",
+        "待定系数法",
+        "函数应用"
+      ],
+      "misconceptionTags": [
+        "slope and intercept roles confused",
+        "point not checked on graph",
+        "function value treated as input"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s2-lower-linear-functions"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-lower-paper-linear-functions-unit",
+        "hjb-junior-s2-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某市出租车收费标准如下：起步价10元（含3千米），超过3千米的部分每千米加收2.4元。设行驶路程为x千米（x≥3），应付车费为y元。下列y关于x的函数解析式正确的是（ ）。",
+      "optionsZhHans": [
+        "y = 2.4x + 10",
+        "y = 2.4x + 2.8",
+        "y = 2.4(x - 3) + 10",
+        "y = 2.4x - 7.2"
+      ],
+      "answer": "y = 2.4(x - 3) + 10",
+      "acceptedAnswers": [
+        "y = 2.4(x - 3) + 10"
+      ],
+      "explanationZhHans": "起步价10元覆盖前3千米，超出部分每千米2.4元，所以总费用为10 + 2.4(x - 3)，即y = 2.4(x - 3) + 10。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-377",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "hjb-junior-s2-lower-linear-functions",
+      "unitTitle": "一次函数",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "functions",
+        "linear-functions",
+        "direct-variation",
+        "function-graphs",
+        "slope-intercept",
+        "一次函数",
+        "正比例函数"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "变量与函数",
+        "正比例函数",
+        "一次函数图像",
+        "待定系数法",
+        "函数应用"
+      ],
+      "misconceptionTags": [
+        "slope and intercept roles confused",
+        "point not checked on graph",
+        "function value treated as input"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-junior-s2-lower-linear-functions"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-lower-paper-linear-functions-unit",
+        "hjb-junior-s2-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知一次函数y = kx + b，当x = 2时，y = 5；当x = -1时，y = -4。则k = ______，b = ______。",
+      "optionsZhHans": [],
+      "answer": "k = 3, b = -1",
+      "acceptedAnswers": [
+        "k = 3, b = -1",
+        "k=3, b=-1",
+        "k=3,b=-1"
+      ],
+      "explanationZhHans": "将两点(2,5)和(-1,-4)代入y = kx + b，得方程组：2k + b = 5，-k + b = -4。两式相减得3k = 9，k = 3；代入得b = -1。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-378",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "hjb-junior-s2-lower-linear-functions",
+      "unitTitle": "一次函数",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "functions",
+        "linear-functions",
+        "direct-variation",
+        "function-graphs",
+        "slope-intercept",
+        "一次函数",
+        "正比例函数"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "变量与函数",
+        "正比例函数",
+        "一次函数图像",
+        "待定系数法",
+        "函数应用"
+      ],
+      "misconceptionTags": [
+        "slope and intercept roles confused",
+        "point not checked on graph",
+        "function value treated as input"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s2-lower-linear-functions"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-lower-paper-linear-functions-unit",
+        "hjb-junior-s2-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一次函数y = -2x + 3的图像经过点A(m, 7)，则m的值为（ ）。",
+      "optionsZhHans": [
+        "-2",
+        "-1",
+        "2",
+        "5"
+      ],
+      "answer": "-2",
+      "acceptedAnswers": [
+        "-2"
+      ],
+      "explanationZhHans": "将点A(m,7)代入y = -2x + 3，得7 = -2m + 3，解得-2m = 4，m = -2。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-379",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "hjb-junior-s2-lower-linear-functions",
+      "unitTitle": "一次函数",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "functions",
+        "linear-functions",
+        "direct-variation",
+        "function-graphs",
+        "slope-intercept",
+        "一次函数",
+        "正比例函数"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "变量与函数",
+        "正比例函数",
+        "一次函数图像",
+        "待定系数法",
+        "函数应用"
+      ],
+      "misconceptionTags": [
+        "slope and intercept roles confused",
+        "point not checked on graph",
+        "function value treated as input"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-junior-s2-lower-linear-functions"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-lower-paper-linear-functions-unit",
+        "hjb-junior-s2-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知正比例函数y = kx的图像经过点(4, -6)，则k = ______。",
+      "optionsZhHans": [],
+      "answer": "-1.5",
+      "acceptedAnswers": [
+        "-1.5",
+        "-3/2",
+        "-\frac{3}{2}"
+      ],
+      "explanationZhHans": "将点(4,-6)代入y = kx，得-6 = 4k，解得k = -6/4 = -3/2 = -1.5。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-380",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "hjb-junior-s2-lower-linear-functions",
+      "unitTitle": "一次函数",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "functions",
+        "linear-functions",
+        "direct-variation",
+        "function-graphs",
+        "slope-intercept",
+        "一次函数",
+        "正比例函数"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "变量与函数",
+        "正比例函数",
+        "一次函数图像",
+        "待定系数法",
+        "函数应用"
+      ],
+      "misconceptionTags": [
+        "slope and intercept roles confused",
+        "point not checked on graph",
+        "function value treated as input"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s2-lower-linear-functions"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-lower-paper-linear-functions-unit",
+        "hjb-junior-s2-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一次函数y = 3x - 2的图像与x轴的交点坐标是（ ）。",
+      "optionsZhHans": [
+        "(0, -2)",
+        "(-2, 0)",
+        "(2/3, 0)",
+        "(0, 2/3)"
+      ],
+      "answer": "(2/3, 0)",
+      "acceptedAnswers": [
+        "(2/3, 0)"
+      ],
+      "explanationZhHans": "与x轴交点处y = 0，代入得0 = 3x - 2，解得x = 2/3，所以交点坐标为(2/3, 0)。"
+    }
+  ]
+}

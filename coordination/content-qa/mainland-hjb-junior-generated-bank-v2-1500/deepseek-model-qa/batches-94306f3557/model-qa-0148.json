@@ -1,0 +1,103 @@
+{
+  "batchId": "model-qa-0148",
+  "ids": [
+    "hjb-junior-ds-v2-s3-177",
+    "hjb-junior-ds-v2-s3-178",
+    "hjb-junior-ds-v2-s3-179",
+    "hjb-junior-ds-v2-s3-180",
+    "hjb-junior-ds-v2-s3-181",
+    "hjb-junior-ds-v2-s3-182",
+    "hjb-junior-ds-v2-s3-183",
+    "hjb-junior-ds-v2-s3-184"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-177",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(1) y = -5x^2 + 700x - 24000；(2) 售价 70 元，最大利润 2500 元",
+      "answerCheckZhHans": "标准答案与独立解题结果一致。解析正确推导出函数解析式和最大值。acceptedAnswers 覆盖了标准答案的常见变体。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-178",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "A. (3, -5)",
+      "answerCheckZhHans": "标准答案与独立解题结果一致。解析正确应用平移规律。选项互异，只有一个正确选项。acceptedAnswers 覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-179",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x = 1",
+      "answerCheckZhHans": "标准答案与独立解题结果一致。解析正确使用对称轴公式。acceptedAnswers 覆盖了标准答案及常见变体。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-180",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(1) (-1, 0) 和 (3, 0)；(2) -1 < x < 3",
+      "answerCheckZhHans": "标准答案与独立解题结果一致。解析正确求解交点并利用开口方向判断不等式解集。acceptedAnswers 覆盖了标准答案的常见变体。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-181",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "B. 抛物线开口向下，顶点坐标为 (-3, 5)",
+      "answerCheckZhHans": "标准答案与独立解题结果一致。解析正确识别顶点式参数。选项互异，只有一个正确选项。acceptedAnswers 覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-182",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案与独立解题结果一致。解析正确应用平移规律。acceptedAnswers 覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-183",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "（1）y = -10x^2 + 1200x - 27000，50 ≤ x ≤ 90；（2）售价定为 60 元时，月利润最大，最大利润为 9000 元",
+      "answerCheckZhHans": "标准答案与独立解题结果一致。解析正确推导函数解析式、定义域和最大值。acceptedAnswers 覆盖了标准答案的常见变体。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-184",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "B. a = -1，b = 2，c = 3",
+      "answerCheckZhHans": "标准答案与独立解题结果一致。解析正确利用交点式求解系数。选项互异，只有一个正确选项。acceptedAnswers 覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

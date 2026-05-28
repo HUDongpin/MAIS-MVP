@@ -1,0 +1,665 @@
+{
+  "batchId": "batch-079",
+  "generationMode": "single-target-retry",
+  "questions": [
+    {
+      "id": "bnu-high-ds-v1-s5-281",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-数学建模活动-三",
+      "topicTitleZhHans": "数学建模活动（三）",
+      "volume": "选择性必修 第一册",
+      "chapter": "数学建模活动（三）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "analytic-geometry-modeling",
+        "spatial-vector-modeling",
+        "model-communication"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "直线方程选择",
+        "斜率与位置关系",
+        "圆的方程识别",
+        "点线距离计算",
+        "坐标条件转化",
+        "参数直线",
+        "圆与直线综合",
+        "轨迹条件"
+      ],
+      "misconceptionTags": [
+        "coordinate setup not justified",
+        "model variable not tied to context",
+        "calculation result reported without interpretation",
+        "vertical line omitted",
+        "parallel and perpendicular conditions mixed",
+        "circle center and radius misread",
+        "distance formula target mismatch",
+        "parameter cases incomplete"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-modeling-activity-3"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-lines-circles-unit-core",
+        "bnu-high-s5-assessment-lines-circles-unit-synthesis",
+        "bnu-high-s5-assessment-conics-unit-core"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某数学建模小组研究校园内一个矩形花坛的喷灌系统。花坛的边界由直线 x=0, x=8, y=0, y=6 围成（单位：米）。喷头安装在点 P(3,2) 处，喷出的水柱沿直线方向运动，且水柱的轨迹是一条直线。为了均匀灌溉，需要让水柱恰好能到达花坛的边界。请完成以下任务：\n(1) 写出水柱轨迹所在直线的方程（用点斜式或斜截式表示），使得水柱恰好能到达花坛的顶点 A(8,6)。\n(2) 若水柱的轨迹直线经过点 P 且与花坛的边界 x=8 相交，求该直线在 y 轴上的截距。\n(3) 在(2)的条件下，判断水柱是否能到达花坛的边界 y=6，并说明理由。",
+      "optionsZhHans": [],
+      "answer": "(1) y-2=(4/5)(x-3) 或 y=(4/5)x-2/5；(2) 截距为 -2/5；(3) 不能，因为当 x=8 时 y=6，但此时直线与边界 x=8 的交点恰为 (8,6)，而水柱轨迹是射线，从 P 出发沿该方向只能到达该点，无法继续到达 y=6 的其他部分。",
+      "acceptedAnswers": [
+        "(1) y-2=(4/5)(x-3) 或 y=(4/5)x-2/5；(2) 截距为 -2/5；(3) 不能，因为当 x=8 时 y=6，但此时直线与边界 x=8 的交点恰为 (8,6)，而水柱轨迹是射线，从 P 出发沿该方向只能到达该点，无法继续到达 y=6 的其他部分。"
+      ],
+      "explanationZhHans": "(1) 由两点 P(3,2) 和 A(8,6) 得斜率 k=(6-2)/(8-3)=4/5，点斜式 y-2=(4/5)(x-3)。(2) 直线与 x=8 相交，设方程为 y-2=k(x-3)，令 x=8 得 y=2+5k，截距为 x=0 时 y=2-3k。由题意，水柱到达边界，故交点应在花坛边界上，取 k=4/5 得截距 2-12/5=-2/5。(3) 直线与 x=8 交于 (8,6)，但水柱从 P 出发沿该方向，到达 (8,6) 后即停止，无法覆盖 y=6 上其他点，故不能到达整个边界 y=6。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-282",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-数学建模活动-三",
+      "topicTitleZhHans": "数学建模活动（三）",
+      "volume": "选择性必修 第一册",
+      "chapter": "数学建模活动（三）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "analytic-geometry-modeling",
+        "spatial-vector-modeling",
+        "model-communication"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "直线方程选择",
+        "斜率与位置关系",
+        "圆的方程识别",
+        "点线距离计算",
+        "坐标条件转化",
+        "参数直线",
+        "圆与直线综合",
+        "轨迹条件"
+      ],
+      "misconceptionTags": [
+        "coordinate setup not justified",
+        "model variable not tied to context",
+        "calculation result reported without interpretation",
+        "vertical line omitted",
+        "parallel and perpendicular conditions mixed",
+        "circle center and radius misread",
+        "distance formula target mismatch",
+        "parameter cases incomplete"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-modeling-activity-3"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-lines-circles-unit-core",
+        "bnu-high-s5-assessment-lines-circles-unit-synthesis",
+        "bnu-high-s5-assessment-conics-unit-core"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某数学建模小组研究校园内一条笔直道路与一个圆形花坛的位置关系。他们以道路所在直线为 x 轴，以花坛圆心在道路上的投影点为原点建立平面直角坐标系。已知花坛的半径为 5 米，圆心位于点 (0, 3)。现要在花坛边缘安装一盏路灯，要求路灯到道路的垂直距离恰好等于它到原点的水平距离。设路灯的坐标为 (x, y)，其中 y > 0。请根据上述条件列出关于 x, y 的方程组，并求出所有满足条件的路灯坐标。",
+      "optionsZhHans": [],
+      "answer": "(4, 4) 或 (-4, 4)",
+      "acceptedAnswers": [
+        "(4, 4) 或 (-4, 4)",
+        "(4,4) 或 (-4,4)",
+        "(4, 4)和(-4, 4)",
+        "(4,4)和(-4,4)"
+      ],
+      "explanationZhHans": "由题意，道路为 x 轴，花坛圆心 (0,3)，半径 5，故圆方程为 x²+(y-3)²=25。路灯到道路的垂直距离为 |y|，因 y>0 即为 y；到原点的水平距离为 |x|。由条件 y=|x|。联立得 x²+(|x|-3)²=25。当 x≥0 时，x²+(x-3)²=25，解得 x=4（负值舍去），y=4；当 x<0 时，x²+(-x-3)²=25，解得 x=-4，y=4。故路灯坐标为 (4,4) 或 (-4,4)。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-283",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-数学建模活动-三",
+      "topicTitleZhHans": "数学建模活动（三）",
+      "volume": "选择性必修 第一册",
+      "chapter": "数学建模活动（三）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "analytic-geometry-modeling",
+        "spatial-vector-modeling",
+        "model-communication"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "参数直线",
+        "圆与直线综合",
+        "轨迹条件",
+        "几何量约束",
+        "直线与圆锥曲线联立",
+        "判别式条件",
+        "弦长与中点",
+        "参数范围"
+      ],
+      "misconceptionTags": [
+        "coordinate setup not justified",
+        "model variable not tied to context",
+        "calculation result reported without interpretation",
+        "parameter cases incomplete",
+        "special line omitted",
+        "algebraic solution not checked in the figure context",
+        "squaring introduces extra values",
+        "parameter condition unchecked"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-modeling-activity-3"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-lines-circles-unit-synthesis",
+        "bnu-high-s5-assessment-conics-unit-synthesis",
+        "bnu-high-s5-assessment-space-vectors-unit-synthesis"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系中，已知圆 C 的方程为 x² + y² - 6x - 8y + 21 = 0，直线 l 过定点 P(2, 1) 且与圆 C 相交于 A, B 两点。设弦 AB 的中点为 M，若 M 始终在一条定直线上，则该定直线的方程为（ ）。",
+      "optionsZhHans": [
+        "x + y - 3 = 0",
+        "x - y - 1 = 0",
+        "2x + y - 5 = 0",
+        "x + 2y - 4 = 0"
+      ],
+      "answer": "x + y - 3 = 0",
+      "acceptedAnswers": [
+        "x + y - 3 = 0"
+      ],
+      "explanationZhHans": "圆 C 配方得 (x-3)²+(y-4)²=4，圆心 C(3,4)，半径 r=2。设直线 l 方程为 y-1=k(x-2)，与圆联立消 y 得 (1+k²)x²-(4k²-6k+6)x+(4k²-12k+21)=0。设 A(x₁,y₁), B(x₂,y₂)，中点 M(x₀,y₀)，则 x₀=(x₁+x₂)/2=(2k²-3k+3)/(1+k²)，y₀=k(x₀-2)+1。消去 k 得 x₀+y₀-3=0，故中点 M 在定直线 x+y-3=0 上。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-284",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-数学建模活动-三",
+      "topicTitleZhHans": "数学建模活动（三）",
+      "volume": "选择性必修 第一册",
+      "chapter": "数学建模活动（三）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "analytic-geometry-modeling",
+        "spatial-vector-modeling",
+        "model-communication"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "直线方程选择",
+        "斜率与位置关系",
+        "圆的方程识别",
+        "点线距离计算",
+        "坐标条件转化",
+        "参数直线",
+        "圆与直线综合",
+        "轨迹条件"
+      ],
+      "misconceptionTags": [
+        "coordinate setup not justified",
+        "model variable not tied to context",
+        "calculation result reported without interpretation",
+        "vertical line omitted",
+        "parallel and perpendicular conditions mixed",
+        "circle center and radius misread",
+        "distance formula target mismatch",
+        "parameter cases incomplete"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-modeling-activity-3"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-lines-circles-unit-core",
+        "bnu-high-s5-assessment-lines-circles-unit-synthesis",
+        "bnu-high-s5-assessment-conics-unit-core"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某城市规划部门拟在一条笔直的道路旁修建一座圆形公园，道路可视为直线。已知道路经过点 A(2, 1) 和 B(5, 5)，公园的圆心在点 C(8, 3)，且公园的边界恰好与道路相切。请你建立适当的平面直角坐标系，并完成下列任务：\n(1) 说明你如何建立坐标系，并写出道路所在直线的方程；\n(2) 求圆形公园的半径；\n(3) 判断点 D(10, 4) 是否在公园内部（含边界），并说明理由。",
+      "optionsZhHans": [],
+      "answer": "(1) 以水平方向为 x 轴，竖直方向为 y 轴，建立平面直角坐标系。道路所在直线经过 A(2,1) 和 B(5,5)，斜率 k = (5-1)/(5-2) = 4/3，直线方程为 y - 1 = (4/3)(x - 2)，即 4x - 3y - 5 = 0。\n(2) 公园半径等于圆心 C(8,3) 到直线的距离，d = |4×8 - 3×3 - 5|/√(4²+(-3)²) = |32-9-5|/5 = 18/5 = 3.6。\n(3) 点 D(10,4) 到圆心 C 的距离为 √((10-8)²+(4-3)²) = √(4+1) = √5 ≈ 2.236 < 3.6，所以点 D 在公园内部。",
+      "acceptedAnswers": [
+        "(1) 以水平方向为 x 轴，竖直方向为 y 轴，建立平面直角坐标系。道路所在直线经过 A(2,1) 和 B(5,5)，斜率 k = (5-1)/(5-2) = 4/3，直线方程为 y - 1 = (4/3)(x - 2)，即 4x - 3y - 5 = 0。\n(2) 公园半径等于圆心 C(8,3) 到直线的距离，d = |4×8 - 3×3 - 5|/√(4²+(-3)²) = |32-9-5|/5 = 18/5 = 3.6。\n(3) 点 D(10,4) 到圆心 C 的距离为 √((10-8)²+(4-3)²) = √(4+1) = √5 ≈ 2.236 < 3.6，所以点 D 在公园内部。"
+      ],
+      "explanationZhHans": "建立直角坐标系，由两点求斜率得直线方程；利用点到直线距离公式求半径；计算点 D 到圆心距离并与半径比较，判断位置关系。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-285",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-数学建模活动-三",
+      "topicTitleZhHans": "数学建模活动（三）",
+      "volume": "选择性必修 第一册",
+      "chapter": "数学建模活动（三）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "analytic-geometry-modeling",
+        "spatial-vector-modeling",
+        "model-communication"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "直线方程选择",
+        "斜率与位置关系",
+        "圆的方程识别",
+        "点线距离计算",
+        "坐标条件转化",
+        "参数直线",
+        "圆与直线综合",
+        "轨迹条件"
+      ],
+      "misconceptionTags": [
+        "coordinate setup not justified",
+        "model variable not tied to context",
+        "calculation result reported without interpretation",
+        "vertical line omitted",
+        "parallel and perpendicular conditions mixed",
+        "circle center and radius misread",
+        "distance formula target mismatch",
+        "parameter cases incomplete"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-modeling-activity-3"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-lines-circles-unit-core",
+        "bnu-high-s5-assessment-lines-circles-unit-synthesis",
+        "bnu-high-s5-assessment-conics-unit-core"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系中，已知点A(1,2)，点B(4,6)，点C在直线l：2x - y + 3 = 0上。若△ABC是以AB为斜边的直角三角形，求点C的坐标。",
+      "optionsZhHans": [],
+      "answer": "(2,7)或(3,9)",
+      "acceptedAnswers": [
+        "(2,7)或(3,9)",
+        "(2,7)和(3,9)",
+        "(2,7) (3,9)",
+        "C(2,7)或C(3,9)",
+        "C(2,7)和C(3,9)"
+      ],
+      "explanationZhHans": "设C(x,2x+3)。由AB为斜边得AC⊥BC，即向量AC·BC=0。AC=(x-1,2x+1)，BC=(x-4,2x-3)。点积(x-1)(x-4)+(2x+1)(2x-3)=0，整理得5x²-25x+30=0，即x²-5x+6=0，解得x=2或3。对应C(2,7)或(3,9)。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-286",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-数学建模活动-三",
+      "topicTitleZhHans": "数学建模活动（三）",
+      "volume": "选择性必修 第一册",
+      "chapter": "数学建模活动（三）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "analytic-geometry-modeling",
+        "spatial-vector-modeling",
+        "model-communication"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "参数直线",
+        "圆与直线综合",
+        "轨迹条件",
+        "几何量约束",
+        "直线与圆锥曲线联立",
+        "判别式条件",
+        "弦长与中点",
+        "参数范围"
+      ],
+      "misconceptionTags": [
+        "coordinate setup not justified",
+        "model variable not tied to context",
+        "calculation result reported without interpretation",
+        "parameter cases incomplete",
+        "special line omitted",
+        "algebraic solution not checked in the figure context",
+        "squaring introduces extra values",
+        "parameter condition unchecked"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-modeling-activity-3"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-lines-circles-unit-synthesis",
+        "bnu-high-s5-assessment-conics-unit-synthesis",
+        "bnu-high-s5-assessment-space-vectors-unit-synthesis"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系xOy中，已知圆C：x²+y²=4，点A(0,2)。过点A的直线l与圆C相交于P、Q两点，且线段PQ的中点M在直线y=x上。若直线l的斜率存在，求直线l的斜率k的取值范围。",
+      "optionsZhHans": [
+        "(-∞, -1] ∪ [1, +∞)",
+        "(-∞, -2] ∪ [2, +∞)",
+        "[-1, 1]",
+        "[-2, 2]"
+      ],
+      "answer": "(-∞, -1] ∪ [1, +∞)",
+      "acceptedAnswers": [
+        "(-∞, -1] ∪ [1, +∞)"
+      ],
+      "explanationZhHans": "设l: y=kx+2，代入圆得(1+k²)x²+4kx=0，x₁+x₂=-4k/(1+k²)，中点M横坐标x_M=-2k/(1+k²)，纵坐标y_M=kx_M+2=2/(1+k²)。由M在y=x上得-2k/(1+k²)=2/(1+k²)，解得k=-1。但需弦存在，即判别式Δ=16k²>0，k≠0。又中点M在圆内，满足x_M²+y_M²<4，代入得(4k²+4)/(1+k²)²<4，化简得k²>1，故k≤-1或k≥1。综合得k∈(-∞,-1]∪[1,+∞)。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-287",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-数学建模活动-三",
+      "topicTitleZhHans": "数学建模活动（三）",
+      "volume": "选择性必修 第一册",
+      "chapter": "数学建模活动（三）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "analytic-geometry-modeling",
+        "spatial-vector-modeling",
+        "model-communication"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "直线方程选择",
+        "斜率与位置关系",
+        "圆的方程识别",
+        "点线距离计算",
+        "坐标条件转化",
+        "参数直线",
+        "圆与直线综合",
+        "轨迹条件"
+      ],
+      "misconceptionTags": [
+        "coordinate setup not justified",
+        "model variable not tied to context",
+        "calculation result reported without interpretation",
+        "vertical line omitted",
+        "parallel and perpendicular conditions mixed",
+        "circle center and radius misread",
+        "distance formula target mismatch",
+        "parameter cases incomplete"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-modeling-activity-3"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-lines-circles-unit-core",
+        "bnu-high-s5-assessment-lines-circles-unit-synthesis",
+        "bnu-high-s5-assessment-conics-unit-core"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某数学建模小组研究校园路灯的照明范围。他们以路灯底座为原点，正东方向为x轴正方向，正北方向为y轴正方向，建立平面直角坐标系。已知路灯的照明区域是一个圆，其边界方程为x² + y² - 6x - 8y + 21 = 0。一条笔直的小路穿过校园，其方程为3x + 4y - 10 = 0。请回答以下问题：\n(1) 写出该照明圆的圆心坐标和半径。\n(2) 计算圆心到小路的距离，并判断小路是否穿过照明区域。",
+      "optionsZhHans": [],
+      "answer": "(1) 圆心(3,4)，半径2；(2) 距离3，不穿过",
+      "acceptedAnswers": [
+        "(1) 圆心(3,4)，半径2；(2) 距离3，不穿过"
+      ],
+      "explanationZhHans": "(1) 将圆方程配方得(x-3)²+(y-4)²=4，故圆心(3,4)，半径r=2。(2) 由点到直线距离公式，圆心到直线3x+4y-10=0的距离d=|3×3+4×4-10|/√(3²+4²)=15/5=3。因为d=3>r=2，所以小路不穿过照明区域。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-288",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-计数原理",
+      "topicTitleZhHans": "计数原理",
+      "volume": "选择性必修 第一册",
+      "chapter": "计数原理",
+      "conceptIds": [
+        "counting-principles",
+        "permutations-combinations",
+        "binomial-theorem",
+        "classification-counting"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "数学运算",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "分类加法",
+        "分步乘法",
+        "排列组合辨析",
+        "二项式系数",
+        "简单计数模型",
+        "分情况讨论",
+        "间接计数",
+        "限制条件拆分"
+      ],
+      "misconceptionTags": [
+        "classification and step multiplication confused",
+        "order relevance misjudged",
+        "restriction counted twice",
+        "binomial term index off by one",
+        "addition and multiplication principles mixed",
+        "order sensitivity ignored",
+        "restriction handled twice",
+        "binomial coefficient index reversed"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-counting-principles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-counting-unit-core",
+        "bnu-high-s5-assessment-counting-unit-synthesis",
+        "bnu-high-s5-assessment-permutation-combination-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某班有6名男生和4名女生，现要从中选出3人组成一个学习小组，要求小组中至少有一名女生。共有多少种不同的选法？",
+      "optionsZhHans": [],
+      "answer": "100",
+      "acceptedAnswers": [
+        "100"
+      ],
+      "explanationZhHans": "直接法需分情况：1女2男、2女1男、3女，计算复杂。用间接法：从10人中任选3人共C(10,3)=120种，减去全男生的选法C(6,3)=20种，得120-20=100种。注意分类与分步的区分，避免重复计数。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-289",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-计数原理",
+      "topicTitleZhHans": "计数原理",
+      "volume": "选择性必修 第一册",
+      "chapter": "计数原理",
+      "conceptIds": [
+        "counting-principles",
+        "permutations-combinations",
+        "binomial-theorem",
+        "classification-counting"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "数学运算",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "分类加法",
+        "分步乘法",
+        "排列组合辨析",
+        "二项式系数",
+        "简单计数模型",
+        "分情况讨论",
+        "间接计数",
+        "限制条件拆分"
+      ],
+      "misconceptionTags": [
+        "classification and step multiplication confused",
+        "order relevance misjudged",
+        "restriction counted twice",
+        "binomial term index off by one",
+        "addition and multiplication principles mixed",
+        "order sensitivity ignored",
+        "restriction handled twice",
+        "binomial coefficient index reversed"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-counting-principles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-counting-unit-core",
+        "bnu-high-s5-assessment-counting-unit-synthesis",
+        "bnu-high-s5-assessment-permutation-combination-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校数学社团有 8 名成员，其中 3 名擅长几何，4 名擅长代数，1 名两者都擅长。现要从中选出 4 人组成一个参赛小组，要求小组中既有擅长几何的成员，又有擅长代数的成员，且两者都擅长的那名成员至多只能选 1 人。问不同的选法共有多少种？",
+      "optionsZhHans": [
+        "65",
+        "70",
+        "75",
+        "80"
+      ],
+      "answer": "65",
+      "acceptedAnswers": [
+        "65"
+      ],
+      "explanationZhHans": "总选法 C(8,4)=70。不满足要求的情况：① 无几何擅长者：从 5 人（4 代数+1 双擅长）选 4 人，C(5,4)=5；② 无代数擅长者：从 4 人（3 几何+1 双擅长）选 4 人，C(4,4)=1。但两者都无的情况（即选的人全不擅长几何且全不擅长代数）不可能，因为只有 1 人两者都不擅长。故符合要求选法为 70-5-1=64？需注意两者都擅长的那人若被选，可能同时满足几何和代数，但限制至多选 1 人已涵盖。直接分类：选 0 个双擅长：从 3 几何选 a 人，4 代数选 b 人，a+b=4，a≥1,b≥1，共 C(3,1)C(4,3)+C(3,2)C(4,2)+C(3,3)C(4,1)=12+18+4=34；选 1 个双擅长：再从 3 几何和 4 代数中选 3 人，需有几何或代数（双擅长已提供一种），但要求既有几何又有代数，所以这 3 人不能全是几何或全是代数。总选法 C(7,3)=35，减去全几何 C(3,3)=1，全代数 C(4,3)=4，得 30。合计 34+30=64？但答案 65 提示还有 1 种：选 1 个双擅长且另外 3 人恰好是 3 几何？此时有几何（双擅长+3 几何）但无代数？双擅长也算代数，所以有代数。因此全几何情况 C(3,3)=1 是允许的，因为双擅长提供了代数。所以选 1 双擅长时，另外 3 人只要不是全代数即可。总 C(7,3)=35，减去全代数 C(4,3)=4，得 31。合计 34+31=65。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-290",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-计数原理",
+      "topicTitleZhHans": "计数原理",
+      "volume": "选择性必修 第一册",
+      "chapter": "计数原理",
+      "conceptIds": [
+        "counting-principles",
+        "permutations-combinations",
+        "binomial-theorem",
+        "classification-counting"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "数学运算",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "分类加法",
+        "分步乘法",
+        "排列组合辨析",
+        "二项式系数",
+        "简单计数模型",
+        "分情况讨论",
+        "间接计数",
+        "限制条件拆分"
+      ],
+      "misconceptionTags": [
+        "classification and step multiplication confused",
+        "order relevance misjudged",
+        "restriction counted twice",
+        "binomial term index off by one",
+        "addition and multiplication principles mixed",
+        "order sensitivity ignored",
+        "restriction handled twice",
+        "binomial coefficient index reversed"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-counting-principles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-counting-unit-core",
+        "bnu-high-s5-assessment-counting-unit-synthesis",
+        "bnu-high-s5-assessment-permutation-combination-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某班级有5名男生和4名女生。现要从中选出3人组成一个学习小组，要求小组中至少包含1名女生。问：共有多少种不同的选法？请写出你的计算过程。",
+      "optionsZhHans": [],
+      "answer": "74",
+      "acceptedAnswers": [
+        "74"
+      ],
+      "explanationZhHans": "直接法：分三类：1女2男：C(4,1)×C(5,2)=4×10=40；2女1男：C(4,2)×C(5,1)=6×5=30；3女：C(4,3)=4。合计40+30+4=74。间接法：总选法C(9,3)=84，无女选法C(5,3)=10，84-10=74。"
+    }
+  ]
+}

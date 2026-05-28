@@ -1,0 +1,680 @@
+{
+  "batchId": "batch-099",
+  "questions": [
+    {
+      "id": "bnu-high-ds-v1-s5-481",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-统计案例",
+      "topicTitleZhHans": "统计案例",
+      "volume": "选择性必修 第一册",
+      "chapter": "统计案例",
+      "conceptIds": [
+        "bivariate-data",
+        "linear-regression",
+        "correlation",
+        "independence-test",
+        "statistical-inference"
+      ],
+      "competencyTags": [
+        "数据分析",
+        "数学建模",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "统计表读取",
+        "回归思想",
+        "相关性解释",
+        "独立性初步",
+        "结论边界",
+        "全卷结构",
+        "综合压轴",
+        "计数概率结合"
+      ],
+      "misconceptionTags": [
+        "correlation treated",
+        "regression direction reversed",
+        "outlier effect ignored",
+        "test conclusion overstated",
+        "table labels ignored",
+        "statistical conclusion overstated",
+        "units omitted",
+        "prerequisite omitted in synthesis"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-statistical-cases"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-statistics-case-unit",
+        "bnu-high-s5-assessment-final-integrated",
+        "bnu-high-s5-assessment-lines-circles-unit-core"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某研究小组收集了10个城市的空气污染指数（API）与呼吸道疾病发病率（每十万人）的数据，计算得到相关系数 r = 0.82。下列说法正确的是：",
+      "optionsZhHans": [
+        "API与发病率之间存在确定的因果关系",
+        "API与发病率之间存在较强的正相关关系",
+        "API与发病率之间不存在线性相关关系",
+        "API与发病率之间存在较强的负相关关系"
+      ],
+      "answer": "API与发病率之间存在较强的正相关关系",
+      "acceptedAnswers": [
+        "API与发病率之间存在较强的正相关关系"
+      ],
+      "explanationZhHans": "相关系数 r=0.82 接近 1，表明两个变量之间存在较强的正线性相关关系，但不能推断因果关系。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-482",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-统计案例",
+      "topicTitleZhHans": "统计案例",
+      "volume": "选择性必修 第一册",
+      "chapter": "统计案例",
+      "conceptIds": [
+        "bivariate-data",
+        "linear-regression",
+        "correlation",
+        "independence-test",
+        "statistical-inference"
+      ],
+      "competencyTags": [
+        "数据分析",
+        "数学建模",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "统计表读取",
+        "回归思想",
+        "相关性解释",
+        "独立性初步",
+        "结论边界",
+        "全卷结构",
+        "综合压轴",
+        "计数概率结合"
+      ],
+      "misconceptionTags": [
+        "correlation treated",
+        "regression direction reversed",
+        "outlier effect ignored",
+        "test conclusion overstated",
+        "table labels ignored",
+        "statistical conclusion overstated",
+        "units omitted",
+        "prerequisite omitted in synthesis"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-statistical-cases"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-statistics-case-unit",
+        "bnu-high-s5-assessment-final-integrated",
+        "bnu-high-s5-assessment-lines-circles-unit-core"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "为了解某地区居民收入与消费支出的关系，随机调查了8户家庭，得到月收入 x（千元）与月消费支出 y（千元）的数据如下：\n(5, 4), (7, 5), (8, 6), (10, 7), (12, 8), (14, 9), (16, 10), (18, 11)。\n（1）画出散点图，并判断两个变量之间是否存在线性相关关系；\n（2）如果存在线性相关关系，求 y 关于 x 的线性回归方程（系数精确到0.01）；\n（3）如果某家庭的月收入为20千元，预测其月消费支出。",
+      "optionsZhHans": [],
+      "answer": "（1）散点图略，存在线性相关关系；（2）y = 0.54x + 1.25；（3）12.05千元",
+      "acceptedAnswers": [
+        "（1）散点图略，存在线性相关关系；（2）y = 0.54x + 1.25；（3）12.05千元"
+      ],
+      "explanationZhHans": "计算得 x̄=11.25, ȳ=7.5, ∑(xi-x̄)(yi-ȳ)=97.5, ∑(xi-x̄)²=180, b=97.5/180≈0.54, a=7.5-0.54×11.25≈1.25，回归方程为 y=0.54x+1.25。当 x=20 时，y=0.54×20+1.25=12.05。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-483",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-统计案例",
+      "topicTitleZhHans": "统计案例",
+      "volume": "选择性必修 第一册",
+      "chapter": "统计案例",
+      "conceptIds": [
+        "bivariate-data",
+        "linear-regression",
+        "correlation",
+        "independence-test",
+        "statistical-inference"
+      ],
+      "competencyTags": [
+        "数据分析",
+        "数学建模",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "统计表读取",
+        "回归思想",
+        "相关性解释",
+        "独立性初步",
+        "结论边界",
+        "全卷结构",
+        "综合压轴",
+        "计数概率结合"
+      ],
+      "misconceptionTags": [
+        "correlation treated",
+        "regression direction reversed",
+        "outlier effect ignored",
+        "test conclusion overstated",
+        "table labels ignored",
+        "statistical conclusion overstated",
+        "units omitted",
+        "prerequisite omitted in synthesis"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-statistical-cases"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-statistics-case-unit",
+        "bnu-high-s5-assessment-final-integrated",
+        "bnu-high-s5-assessment-lines-circles-unit-core"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某学校调查了200名学生的课外阅读时间与语文成绩，得到如下2×2列联表：\n\n阅读时间≥5小时/周  阅读时间<5小时/周  总计\n语文成绩优秀        50               30           80\n语文成绩非优秀      70               50          120\n总计              120               80          200\n\n计算得 χ² ≈ 0.347。在显著性水平 α=0.05 下，正确的结论是：",
+      "optionsZhHans": [
+        "课外阅读时间与语文成绩有关",
+        "课外阅读时间与语文成绩无关",
+        "课外阅读时间与语文成绩有显著差异",
+        "课外阅读时间与语文成绩的相关系数为0.347"
+      ],
+      "answer": "课外阅读时间与语文成绩无关",
+      "acceptedAnswers": [
+        "课外阅读时间与语文成绩无关"
+      ],
+      "explanationZhHans": "χ²≈0.347 < 3.841（临界值），故没有充分证据认为课外阅读时间与语文成绩有关，即认为它们无关。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-484",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-统计案例",
+      "topicTitleZhHans": "统计案例",
+      "volume": "选择性必修 第一册",
+      "chapter": "统计案例",
+      "conceptIds": [
+        "bivariate-data",
+        "linear-regression",
+        "correlation",
+        "independence-test",
+        "statistical-inference"
+      ],
+      "competencyTags": [
+        "数据分析",
+        "数学建模",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "统计表读取",
+        "回归思想",
+        "相关性解释",
+        "独立性初步",
+        "结论边界",
+        "全卷结构",
+        "综合压轴",
+        "计数概率结合"
+      ],
+      "misconceptionTags": [
+        "correlation treated",
+        "regression direction reversed",
+        "outlier effect ignored",
+        "test conclusion overstated",
+        "table labels ignored",
+        "statistical conclusion overstated",
+        "units omitted",
+        "prerequisite omitted in synthesis"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-statistical-cases"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-statistics-case-unit",
+        "bnu-high-s5-assessment-final-integrated",
+        "bnu-high-s5-assessment-lines-circles-unit-core"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某农科所对一种新型肥料进行试验，得到小麦产量 y（千克/亩）与施肥量 x（千克/亩）的6组数据，经计算得：∑x=180, ∑y=3000, ∑x²=5850, ∑xy=94500。求 y 关于 x 的线性回归方程（系数精确到0.1）。",
+      "optionsZhHans": [],
+      "answer": "y = 5.0x + 350.0",
+      "acceptedAnswers": [
+        "y = 5.0x + 350.0"
+      ],
+      "explanationZhHans": "n=6, x̄=30, ȳ=500, b=(94500-6×30×500)/(5850-6×30²)=4500/900=5, a=500-5×30=350，故回归方程为 y=5x+350。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-485",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-统计案例",
+      "topicTitleZhHans": "统计案例",
+      "volume": "选择性必修 第一册",
+      "chapter": "统计案例",
+      "conceptIds": [
+        "bivariate-data",
+        "linear-regression",
+        "correlation",
+        "independence-test",
+        "statistical-inference"
+      ],
+      "competencyTags": [
+        "数据分析",
+        "数学建模",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "统计表读取",
+        "回归思想",
+        "相关性解释",
+        "独立性初步",
+        "结论边界",
+        "全卷结构",
+        "综合压轴",
+        "计数概率结合"
+      ],
+      "misconceptionTags": [
+        "correlation treated",
+        "regression direction reversed",
+        "outlier effect ignored",
+        "test conclusion overstated",
+        "table labels ignored",
+        "statistical conclusion overstated",
+        "units omitted",
+        "prerequisite omitted in synthesis"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-statistical-cases"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-statistics-case-unit",
+        "bnu-high-s5-assessment-final-integrated",
+        "bnu-high-s5-assessment-lines-circles-unit-core"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "对于线性回归模型 y = a + bx + ε，其中 ε 是随机误差。以下说法正确的是：",
+      "optionsZhHans": [
+        "b 的绝对值越大，说明 x 与 y 的线性关系越强",
+        "a 表示当 x=0 时 y 的精确值",
+        "ε 的方差越小，模型的拟合效果越好",
+        "b 的符号决定了 x 与 y 相关的方向"
+      ],
+      "answer": "b 的符号决定了 x 与 y 相关的方向",
+      "acceptedAnswers": [
+        "b 的符号决定了 x 与 y 相关的方向"
+      ],
+      "explanationZhHans": "b 的符号表示正相关或负相关，即相关的方向。b 的绝对值大小与关系强弱无直接关系，a 是估计值而非精确值，ε 的方差小说明拟合好，但选项 C 表述不严谨。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-486",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-统计案例",
+      "topicTitleZhHans": "统计案例",
+      "volume": "选择性必修 第一册",
+      "chapter": "统计案例",
+      "conceptIds": [
+        "bivariate-data",
+        "linear-regression",
+        "correlation",
+        "independence-test",
+        "statistical-inference"
+      ],
+      "competencyTags": [
+        "数据分析",
+        "数学建模",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "统计表读取",
+        "回归思想",
+        "相关性解释",
+        "独立性初步",
+        "结论边界",
+        "全卷结构",
+        "综合压轴",
+        "计数概率结合"
+      ],
+      "misconceptionTags": [
+        "correlation treated",
+        "regression direction reversed",
+        "outlier effect ignored",
+        "test conclusion overstated",
+        "table labels ignored",
+        "statistical conclusion overstated",
+        "units omitted",
+        "prerequisite omitted in synthesis"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-statistical-cases"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-statistics-case-unit",
+        "bnu-high-s5-assessment-final-integrated",
+        "bnu-high-s5-assessment-lines-circles-unit-core"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "为了研究某商品价格 x（元）与销售量 y（件）之间的关系，统计了5天的数据：\n(10, 50), (12, 45), (14, 40), (16, 35), (18, 30)。\n（1）计算相关系数 r（精确到0.001），并说明相关程度；\n（2）求 y 关于 x 的线性回归方程（系数精确到0.1）；\n（3）若价格定为20元，预测销售量。",
+      "optionsZhHans": [],
+      "answer": "（1）r ≈ -1.000，高度负相关；（2）y = -2.5x + 75.0；（3）25件",
+      "acceptedAnswers": [
+        "（1）r ≈ -1.000，高度负相关；（2）y = -2.5x + 75.0；（3）25件"
+      ],
+      "explanationZhHans": "计算得 x̄=14, ȳ=40, ∑(xi-x̄)(yi-ȳ)=-100, ∑(xi-x̄)²=40, ∑(yi-ȳ)²=250, r=-100/√(40×250)=-1。b=-100/40=-2.5, a=40-(-2.5)×14=75，回归方程 y=-2.5x+75。x=20时，y=25。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-487",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-统计案例",
+      "topicTitleZhHans": "统计案例",
+      "volume": "选择性必修 第一册",
+      "chapter": "统计案例",
+      "conceptIds": [
+        "bivariate-data",
+        "linear-regression",
+        "correlation",
+        "independence-test",
+        "statistical-inference"
+      ],
+      "competencyTags": [
+        "数据分析",
+        "数学建模",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "统计表读取",
+        "回归思想",
+        "相关性解释",
+        "独立性初步",
+        "结论边界",
+        "全卷结构",
+        "综合压轴",
+        "计数概率结合"
+      ],
+      "misconceptionTags": [
+        "correlation treated",
+        "regression direction reversed",
+        "outlier effect ignored",
+        "test conclusion overstated",
+        "table labels ignored",
+        "statistical conclusion overstated",
+        "units omitted",
+        "prerequisite omitted in synthesis"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-statistical-cases"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-statistics-case-unit",
+        "bnu-high-s5-assessment-final-integrated",
+        "bnu-high-s5-assessment-lines-circles-unit-core"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在独立性检验中，若计算得到的 χ² 值越大，则：",
+      "optionsZhHans": [
+        "两个分类变量无关的可能性越大",
+        "两个分类变量有关的可能性越大",
+        "两个分类变量一定有关",
+        "两个分类变量一定无关"
+      ],
+      "answer": "两个分类变量有关的可能性越大",
+      "acceptedAnswers": [
+        "两个分类变量有关的可能性越大"
+      ],
+      "explanationZhHans": "χ² 值越大，说明观测值与期望值的差异越大，越有理由认为两个分类变量有关，但不能说一定有关。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-488",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-统计案例",
+      "topicTitleZhHans": "统计案例",
+      "volume": "选择性必修 第一册",
+      "chapter": "统计案例",
+      "conceptIds": [
+        "bivariate-data",
+        "linear-regression",
+        "correlation",
+        "independence-test",
+        "statistical-inference"
+      ],
+      "competencyTags": [
+        "数据分析",
+        "数学建模",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "统计表读取",
+        "回归思想",
+        "相关性解释",
+        "独立性初步",
+        "结论边界",
+        "全卷结构",
+        "综合压轴",
+        "计数概率结合"
+      ],
+      "misconceptionTags": [
+        "correlation treated",
+        "regression direction reversed",
+        "outlier effect ignored",
+        "test conclusion overstated",
+        "table labels ignored",
+        "statistical conclusion overstated",
+        "units omitted",
+        "prerequisite omitted in synthesis"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-statistical-cases"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-statistics-case-unit",
+        "bnu-high-s5-assessment-final-integrated",
+        "bnu-high-s5-assessment-lines-circles-unit-core"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某地区10年间的人口数量 x（万人）与某种商品年销售量 y（万件）的数据如下表：\n\n年份   1   2   3   4   5   6   7   8   9  10\nx     50  52  55  58  60  63  65  68  70  72\ny     20  22  24  26  28  30  32  34  36  38\n\n（1）计算相关系数 r（精确到0.01）；\n（2）建立 y 关于 x 的线性回归方程（系数精确到0.01）；\n（3）若第11年人口数量预计达到75万人，预测该商品年销售量。",
+      "optionsZhHans": [],
+      "answer": "（1）r ≈ 0.99；（2）y = 0.80x - 19.60；（3）40.40万件",
+      "acceptedAnswers": [
+        "（1）r ≈ 0.99；（2）y = 0.80x - 19.60；（3）40.40万件"
+      ],
+      "explanationZhHans": "计算得 x̄=61.3, ȳ=29, ∑(xi-x̄)(yi-ȳ)=558.4, ∑(xi-x̄)²=698.1, ∑(yi-ȳ)²=448, r=558.4/√(698.1×448)≈0.99。b=558.4/698.1≈0.80, a=29-0.80×61.3≈-19.60，回归方程 y=0.80x-19.60。x=75时，y=40.40。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-489",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-统计案例",
+      "topicTitleZhHans": "统计案例",
+      "volume": "选择性必修 第一册",
+      "chapter": "统计案例",
+      "conceptIds": [
+        "bivariate-data",
+        "linear-regression",
+        "correlation",
+        "independence-test",
+        "statistical-inference"
+      ],
+      "competencyTags": [
+        "数据分析",
+        "数学建模",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "统计表读取",
+        "回归思想",
+        "相关性解释",
+        "独立性初步",
+        "结论边界",
+        "全卷结构",
+        "综合压轴",
+        "计数概率结合"
+      ],
+      "misconceptionTags": [
+        "correlation treated",
+        "regression direction reversed",
+        "outlier effect ignored",
+        "test conclusion overstated",
+        "table labels ignored",
+        "statistical conclusion overstated",
+        "units omitted",
+        "prerequisite omitted in synthesis"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-statistical-cases"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-statistics-case-unit",
+        "bnu-high-s5-assessment-final-integrated",
+        "bnu-high-s5-assessment-lines-circles-unit-core"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在一项关于吸烟与患肺癌关系的研究中，得到如下2×2列联表：\n\n        患肺癌  未患肺癌  总计\n吸烟     60      140      200\n不吸烟   30      270      300\n总计     90      410      500\n\n计算得 χ² ≈ 27.27。在 α=0.001 下，临界值为10.828，则结论是：",
+      "optionsZhHans": [
+        "吸烟与患肺癌无关",
+        "吸烟与患肺癌有关",
+        "吸烟一定导致肺癌",
+        "数据不足以判断"
+      ],
+      "answer": "吸烟与患肺癌有关",
+      "acceptedAnswers": [
+        "吸烟与患肺癌有关"
+      ],
+      "explanationZhHans": "χ²≈27.27 > 10.828，故在 α=0.001 下拒绝原假设，认为吸烟与患肺癌有关，但不能说一定导致肺癌。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-490",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-统计案例",
+      "topicTitleZhHans": "统计案例",
+      "volume": "选择性必修 第一册",
+      "chapter": "统计案例",
+      "conceptIds": [
+        "bivariate-data",
+        "linear-regression",
+        "correlation",
+        "independence-test",
+        "statistical-inference"
+      ],
+      "competencyTags": [
+        "数据分析",
+        "数学建模",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "统计表读取",
+        "回归思想",
+        "相关性解释",
+        "独立性初步",
+        "结论边界",
+        "全卷结构",
+        "综合压轴",
+        "计数概率结合"
+      ],
+      "misconceptionTags": [
+        "correlation treated",
+        "regression direction reversed",
+        "outlier effect ignored",
+        "test conclusion overstated",
+        "table labels ignored",
+        "statistical conclusion overstated",
+        "units omitted",
+        "prerequisite omitted in synthesis"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-statistical-cases"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-statistics-case-unit",
+        "bnu-high-s5-assessment-final-integrated",
+        "bnu-high-s5-assessment-lines-circles-unit-core"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某公司为了解广告费 x（万元）与销售额 y（万元）的关系，收集了7个月的数据：\n(2, 30), (3, 35), (4, 40), (5, 45), (6, 50), (7, 55), (8, 60)。\n（1）求相关系数 r（精确到0.001）；\n（2）求 y 关于 x 的线性回归方程（系数精确到0.1）；\n（3）若下月广告费预算为9万元，预测销售额。",
+      "optionsZhHans": [],
+      "answer": "（1）r = 1.000；（2）y = 5.0x + 20.0；（3）65.0万元",
+      "acceptedAnswers": [
+        "（1）r = 1.000；（2）y = 5.0x + 20.0；（3）65.0万元"
+      ],
+      "explanationZhHans": "数据完全在直线 y=5x+20 上，故 r=1。计算得 x̄=5, ȳ=45, b=5, a=20。x=9时，y=5×9+20=65。"
+    }
+  ]
+}

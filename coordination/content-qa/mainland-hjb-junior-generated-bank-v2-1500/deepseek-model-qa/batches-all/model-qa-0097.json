@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0097",
+  "ids": [
+    "hjb-junior-ds-v2-s2-269",
+    "hjb-junior-ds-v2-s2-270",
+    "hjb-junior-ds-v2-s2-271",
+    "hjb-junior-ds-v2-s2-272",
+    "hjb-junior-ds-v2-s2-273",
+    "hjb-junior-ds-v2-s2-274",
+    "hjb-junior-ds-v2-s2-275",
+    "hjb-junior-ds-v2-s2-276"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-269",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "50",
+      "answerCheckZhHans": "标准答案为50，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-270",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "标准答案为3，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-271",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "矩形",
+      "answerCheckZhHans": "标准答案为矩形，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-272",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "6",
+      "answerCheckZhHans": "标准答案为6，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-273",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "8",
+      "answerCheckZhHans": "标准答案为8，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-274",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "6",
+      "answerCheckZhHans": "标准答案为6，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-275",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "24",
+      "answerCheckZhHans": "标准答案为24，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-276",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为14，但独立解题得周长为20。解析中计算过程得出20，与答案14矛盾。题干条件可解，正确答案应为20。",
+      "independentAnswerZhHans": "20",
+      "answerCheckZhHans": "标准答案为14，但根据解析和独立计算，周长应为20。",
+      "recommendedActionZhHans": "修正答案为20，并更新acceptedAnswers。",
+      "confidence": "high"
+    }
+  ]
+}

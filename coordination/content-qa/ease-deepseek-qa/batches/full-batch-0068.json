@@ -1,0 +1,168 @@
+{
+  "scope": "full",
+  "batchIndex": 68,
+  "startedAt": "2026-05-28T03:57:09.737Z",
+  "completedAt": "2026-05-28T03:57:30.170Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "itemIds": [
+    "1245",
+    "1246",
+    "1247",
+    "1248",
+    "1249",
+    "1250",
+    "1251",
+    "1252",
+    "1253",
+    "1254"
+  ],
+  "usage": {
+    "prompt_tokens": 2454,
+    "completion_tokens": 1598,
+    "total_tokens": 4052,
+    "prompt_tokens_details": {
+      "cached_tokens": 2432
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 550
+    },
+    "prompt_cache_hit_tokens": 2432,
+    "prompt_cache_miss_tokens": 22
+  },
+  "finishReason": "stop",
+  "jsonModeFallback": false,
+  "result": {
+    "items": [
+      {
+        "questionId": "1245",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "13.34",
+        "independentAnswer": "13.34",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "无需图片，可直接计算，答案一致",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "1246",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "55.35",
+        "independentAnswer": "55.35",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "无需图片，可直接计算，答案一致",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "1247",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "8.792",
+        "independentAnswer": "8.792",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "无需图片，可直接计算，答案一致",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "1248",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "1.63",
+        "independentAnswer": "1.63",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "无需图片，可直接计算，答案一致",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "1249",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "1.25",
+        "independentAnswer": "1.25",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "无需图片，可直接计算，答案一致",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "1250",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "3.7",
+        "independentAnswer": "3.7",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "无需图片，可直接计算，答案一致",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "1251",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "5",
+        "independentAnswer": "5",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "无需图片，可直接计算，答案一致",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "1252",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "97.02",
+        "independentAnswer": "97.02",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "无需图片，可直接计算，答案一致",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "1253",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "5",
+        "independentAnswer": "5",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "无需图片，可直接计算，答案一致",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "1254",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "12.48",
+        "independentAnswer": "12.48",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "无需图片，可直接计算，答案一致",
+        "recommendedAction": "No blocking action."
+      }
+    ],
+    "batchSummary": {
+      "pass": 10,
+      "unsolvable": 0,
+      "ambiguous": 0,
+      "imageContextRequired": 0,
+      "answerMismatch": 0,
+      "missingAnswerKey": 0,
+      "notes": "所有题目均为无需图片的小数运算题，可独立求解且答案正确。"
+    }
+  }
+}

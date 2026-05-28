@@ -1,0 +1,313 @@
+{
+  "batchId": "batch-036",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s1-k05-fi-017",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "某校七年级组织植树活动，若每班分配5棵树苗，则剩余12棵；若每班分配7棵树苗，则缺8棵。该校七年级共有多少个班？",
+      "optionsZhHans": [],
+      "answer": "10",
+      "acceptedAnswers": [
+        "10",
+        "10个",
+        "10个班"
+      ],
+      "explanationZhHans": "设七年级有x个班。根据树苗总数不变，列出方程：5x+12=7x-8。移项得12+8=7x-5x，即20=2x，解得x=10。所以该校七年级共有10个班。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-fi-018",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-data-collection"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "为了解全校学生课外阅读时间，从每个年级随机抽取20名学生进行调查。这种调查方式属于哪种调查？若全校共1200名学生，样本容量是多少？",
+      "optionsZhHans": [],
+      "answer": "抽样调查，60",
+      "acceptedAnswers": [
+        "抽样调查，60",
+        "抽样调查,60",
+        "抽样调查 60"
+      ],
+      "explanationZhHans": "从每个年级抽取部分学生，属于抽样调查。三个年级共抽取3×20=60名学生，所以样本容量是60。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-fi-019",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "直线AB与CD相交于点O，OE平分∠AOD。若∠AOC=50°，求∠DOE的度数。",
+      "optionsZhHans": [],
+      "answer": "65°",
+      "acceptedAnswers": [
+        "65°",
+        "65度",
+        "65"
+      ],
+      "explanationZhHans": "因为∠AOC和∠AOD是邻补角，所以∠AOD=180°-50°=130°。OE平分∠AOD，所以∠DOE=½×130°=65°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-fi-020",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-real-numbers"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "某书店推出会员卡，办理会员卡需支付20元工本费，之后购书可享受8折优惠。设一年内购书原价为x元，办理会员卡后的总费用为y1元，不办会员卡的总费用为y2元。写出y1关于x的表达式。",
+      "optionsZhHans": [],
+      "answer": "y1=20+0.8x",
+      "acceptedAnswers": [
+        "y1=20+0.8x",
+        "y1=0.8x+20",
+        "y=20+0.8x"
+      ],
+      "explanationZhHans": "办理会员卡后，总费用包括工本费20元和购书原价的8折，即0.8x元。所以y1=20+0.8x。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-fi-021",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-coordinate-plane"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "在平面直角坐标系中，点A的坐标为(2, -3)，将点A先向右平移4个单位长度，再向上平移5个单位长度得到点B。求点B的坐标。",
+      "optionsZhHans": [],
+      "answer": "(6, 2)",
+      "acceptedAnswers": [
+        "(6, 2)",
+        "(6,2)",
+        "6,2"
+      ],
+      "explanationZhHans": "点A(2,-3)向右平移4个单位，横坐标加4得6；向上平移5个单位，纵坐标加5得2。所以点B的坐标为(6, 2)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-fi-022",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-linear-systems"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "解二元一次方程组：\n2x + y = 7\nx - y = 2\n求x的值。",
+      "optionsZhHans": [],
+      "answer": "3",
+      "acceptedAnswers": [
+        "3",
+        "x=3"
+      ],
+      "explanationZhHans": "两方程相加消去y：(2x+y)+(x-y)=7+2，得3x=9，解得x=3。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-fi-023",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-inequalities"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "不等式2x - 5 < 3的正整数解有哪些？",
+      "optionsZhHans": [],
+      "answer": "1,2,3",
+      "acceptedAnswers": [
+        "1,2,3",
+        "1, 2, 3",
+        "1、2、3"
+      ],
+      "explanationZhHans": "解不等式：2x<8，x<4。正整数的取值范围是x>0且x<4，所以正整数解为1,2,3。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-fi-024",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "已知点P(m+1, 2m-3)在x轴上，求m的值。",
+      "optionsZhHans": [],
+      "answer": "1.5",
+      "acceptedAnswers": [
+        "1.5",
+        "3/2",
+        "一又二分之一"
+      ],
+      "explanationZhHans": "点在x轴上，纵坐标为0，所以2m-3=0，解得m=1.5。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-fi-025",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-data-collection"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "某班40名学生的体重数据如下：45kg有8人，48kg有12人，50kg有10人，55kg有6人，60kg有4人。求该班学生体重的众数。",
+      "optionsZhHans": [],
+      "answer": "48",
+      "acceptedAnswers": [
+        "48",
+        "48kg"
+      ],
+      "explanationZhHans": "众数是出现次数最多的数据。48kg出现了12次，次数最多，所以众数是48。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-fi-026",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "已知AB∥CD，∠1=60°，∠2=45°，求∠3的度数。",
+      "optionsZhHans": [],
+      "answer": "105°",
+      "acceptedAnswers": [
+        "105°",
+        "105度",
+        "105"
+      ],
+      "explanationZhHans": "过点E作EF∥AB，则EF∥CD。∠AEF=∠1=60°（内错角），∠CEF=∠2=45°（内错角）。所以∠3=∠AEF+∠CEF=60°+45°=105°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

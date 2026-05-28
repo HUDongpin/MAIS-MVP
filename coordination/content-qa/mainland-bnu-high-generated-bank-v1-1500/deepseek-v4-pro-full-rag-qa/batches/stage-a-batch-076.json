@@ -1,0 +1,121 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-076",
+  "startedAt": "2026-05-28T01:15:47.370Z",
+  "completedAt": "2026-05-28T01:16:06.064Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-101",
+    "bnu-high-ds-v1-s5-102",
+    "bnu-high-ds-v1-s5-103",
+    "bnu-high-ds-v1-s5-104",
+    "bnu-high-ds-v1-s5-105",
+    "bnu-high-ds-v1-s5-106",
+    "bnu-high-ds-v1-s5-107",
+    "bnu-high-ds-v1-s5-108"
+  ],
+  "usage": {
+    "prompt_tokens": 10237,
+    "completion_tokens": 1095,
+    "total_tokens": 11332,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9853
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-101",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "x²/25 + y²/16 = 1",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由长轴长10得a=5，离心率e=c/a=3/5得c=3，b²=a²-c²=16，焦点在x轴，标准方程为x²/25+y²/16=1。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-102",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "x²/9 - y²/16 = 1",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "实轴在x轴，渐近线y=(4/3)x得b/a=4/3，焦距2c=10得c=5，又c²=a²+b²，解得a=3，b=4，标准方程为x²/9-y²/16=1。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-103",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "4",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "抛物线y²=8x中2p=8，p=4，焦点到准线距离为p=4。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-104",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "9x + 8y - 26 = 0",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "设A(x1,y1),B(x2,y2)，代入椭圆方程相减，利用中点坐标得斜率k=-9/8，点斜式得直线方程9x+8y-26=0。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-105",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "2 < k < 3.5",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "椭圆条件：k-2>0,5-k>0且焦点在y轴需5-k>k-2，解得2<k<3.5。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-106",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "independentAnswer": null,
+        "issueTags": [
+          "missing_condition",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "仅给出弦长|AB|=4无法唯一确定离心率，缺少a或b等条件，无法求解。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-107",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(3, 2√3) 或 (3, -2√3)",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由抛物线定义|PF|=|PQ|，正三角形得|PF|=|FQ|，设P(y²/4,y)，利用距离公式解得y=±2√3，x=3。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-108",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(3/5, 0)",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "medium",
+        "rationaleZhHans": "右顶点(3,0)，以AB为直径的圆过该点得向量垂直条件，联立直线与椭圆，利用韦达定理化简得m与k的关系，发现直线过定点(3/5,0)。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第6题因条件不足无法唯一确定离心率，标记为失败；其余题目均可独立求解。"
+    }
+  }
+}

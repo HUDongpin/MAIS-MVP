@@ -1,0 +1,179 @@
+{
+  "batchNumber": 95,
+  "startedAt": "2026-05-27T17:55:26.892Z",
+  "completedAt": "2026-05-27T17:55:44.568Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s3-129",
+    "bnu-junior-ds-v1-s3-130",
+    "bnu-junior-ds-v1-s3-131",
+    "bnu-junior-ds-v1-s3-132",
+    "bnu-junior-ds-v1-s3-133",
+    "bnu-junior-ds-v1-s3-134",
+    "bnu-junior-ds-v1-s3-135",
+    "bnu-junior-ds-v1-s3-136",
+    "bnu-junior-ds-v1-s3-137",
+    "bnu-junior-ds-v1-s3-138",
+    "bnu-junior-ds-v1-s3-139",
+    "bnu-junior-ds-v1-s3-140"
+  ],
+  "usage": {
+    "prompt_tokens": 6120,
+    "completion_tokens": 1447,
+    "total_tokens": 7567,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 5608
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s3-129",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，8个等面积扇形，奇数有4个，概率为1/2，答案和解释均正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-130",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "总人数12人，抽到第一个出场的概率为1/12，选项唯一且正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-131",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "11/18",
+        "rationale": "题目求颜色不同的概率，解释中正确算出不同情况为22种，概率应为22/36=11/18，但答案和acceptedAnswers均错误地写为13/18，与解释矛盾。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-132",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "一次性摸两个球，总组合6种，颜色不同有5种，概率5/6，答案和解释正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-133",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "每次摸球独立，小明得分概率3/5，期望得分更高，选项A正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-134",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "1/5",
+        "rationale": "解释中正确算出颜色相同有4种，总结果20种，概率为4/20=1/5，但答案和acceptedAnswers错误地写为4/15，与解释矛盾。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-135",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "根据频率稳定在0.30左右，估计概率为0.30，答案和解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-136",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由频率估计概率，3/(3+x)=0.6，解得x=2，选项B正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-137",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "有放回抽取，和为奇数的情况共8种，总16种，概率1/2，答案和解释正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-138",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "有放回摸球，相同颜色共9种，总25种，概率9/25，答案和解释正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-139",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "所有卡片数字均为质数，甲每次必然得分，游戏不公平，选项B正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-140",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "有放回摸球，颜色不同共12种，总25种，概率12/25，答案和解释正确。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 10,
+      "warn": 0,
+      "fail": 2,
+      "notes": "共12题，10题通过，2题失败。失败题目：bnu-junior-ds-v1-s3-131答案与解释不符，正确概率应为11/18；bnu-junior-ds-v1-s3-134答案与解释不符，正确概率应为1/5。"
+    }
+  }
+}

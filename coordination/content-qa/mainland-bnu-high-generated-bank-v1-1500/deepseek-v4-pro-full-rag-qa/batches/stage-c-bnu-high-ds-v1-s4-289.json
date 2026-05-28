@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-289",
+  "startedAt": "2026-05-28T01:07:05.148Z",
+  "completedAt": "2026-05-28T01:07:10.371Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-289"
+  ],
+  "usage": {
+    "prompt_tokens": 2924,
+    "completion_tokens": 238,
+    "total_tokens": 3162,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2540
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-289",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "independentAnswer": "D",
+        "correctedAnswer": null,
+        "issueTags": [
+          "ambiguous_mc",
+          "explanation_contradiction",
+          "answer_mismatch"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目为单选题，但选项C和D均正确，不满足唯一答案要求。存储答案D错误，解析声称所有选项正确，与Stage A独立解矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "单选题存在多个正确选项，答案不唯一，解析矛盾，判定为不合格。"
+    }
+  }
+}

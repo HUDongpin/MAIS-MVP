@@ -1,0 +1,107 @@
+{
+  "batchId": "model-qa-0082",
+  "ids": [
+    "hjb-junior-ds-v2-s2-149",
+    "hjb-junior-ds-v2-s2-150",
+    "hjb-junior-ds-v2-s2-151",
+    "hjb-junior-ds-v2-s2-152",
+    "hjb-junior-ds-v2-s2-153",
+    "hjb-junior-ds-v2-s2-154",
+    "hjb-junior-ds-v2-s2-155",
+    "hjb-junior-ds-v2-s2-156"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-149",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3/2",
+      "answerCheckZhHans": "标准答案 3/2 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-150",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "标准答案为 k=1，但独立求解得到 k=1 或 k=-3，且 k=-3 时判别式 Δ=49>0，方程有实根，不应舍去。因此正确答案应为 k=1 或 k=-3。",
+      "independentAnswerZhHans": "k=1 或 k=-3",
+      "answerCheckZhHans": "标准答案 k=1 不完整，遗漏了 k=-3。",
+      "recommendedActionZhHans": "修正答案为 k=1 或 k=-3，并更新解析。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-151",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2x² - 5x + 1 = 0",
+      "answerCheckZhHans": "标准答案与独立判断一致，且其他选项均不符合一元二次方程定义。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-152",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "12",
+      "answerCheckZhHans": "标准答案 12 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-153",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x₁=3, x₂=1/2",
+      "answerCheckZhHans": "标准答案与独立求解结果一致，acceptedAnswers 覆盖了常见写法。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-154",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "k < 1/4 且 k ≠ 0",
+      "answerCheckZhHans": "标准答案与独立计算结果一致，且选项互异，唯一正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-155",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "标准答案 3 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-156",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "第（2）问标准答案为 k=3，但独立求解得到 k=3 或 k=-1/2。经检验，k=-1/2 满足条件且方程有实根，不应舍去。",
+      "independentAnswerZhHans": "（1）证明略；（2）k=3 或 k=-1/2",
+      "answerCheckZhHans": "标准答案 k=3 不完整，遗漏了 k=-1/2。",
+      "recommendedActionZhHans": "修正答案为 k=3 或 k=-1/2，并更新解析。",
+      "confidence": "high"
+    }
+  ]
+}

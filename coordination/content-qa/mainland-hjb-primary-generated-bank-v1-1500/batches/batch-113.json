@@ -1,0 +1,288 @@
+{
+  "batchId": "batch-113",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p3-061",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-one-digit-multiplication",
+      "unitTitle": "用一位数乘",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "one-digit-multiplication",
+        "multi-digit-times-one-digit",
+        "regrouping-multiplication",
+        "一位数乘"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "符号意识"
+      ],
+      "skillTags": [
+        "口算乘法",
+        "竖式乘法",
+        "进位",
+        "估算",
+        "分步检查"
+      ],
+      "misconceptionTags": [
+        "regrouped value written in the wrong place",
+        "zero placeholder ignored",
+        "estimate not used to catch digit-size errors"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-one-digit-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-one-digit-multiplication",
+        "hjb-primary-p3-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算 247 × 3 时，下面哪种说法是正确的？",
+      "optionsZhHans": [
+        "个位 7×3=21，向十位进 2，十位 4×3=12，加进位 2 得 14，向百位进 1，百位 2×3=6，加进位 1 得 7，结果是 741",
+        "个位 7×3=21，向十位进 2，十位 4×3=12，加进位 2 得 14，向百位进 1，百位 2×3=6，结果是 614",
+        "个位 7×3=21，向十位进 2，十位 4×3=12，加进位 2 得 14，向百位进 1，百位 2×3=6，加进位 1 得 7，结果是 714",
+        "个位 7×3=21，向十位进 2，十位 4×3=12，加进位 2 得 14，向百位进 1，百位 2×3=6，结果是 641"
+      ],
+      "answer": "个位 7×3=21，向十位进 2，十位 4×3=12，加进位 2 得 14，向百位进 1，百位 2×3=6，加进位 1 得 7，结果是 741",
+      "acceptedAnswers": [
+        "个位 7×3=21，向十位进 2，十位 4×3=12，加进位 2 得 14，向百位进 1，百位 2×3=6，加进位 1 得 7，结果是 741"
+      ],
+      "explanationZhHans": "247×3：个位7×3=21，写1进2；十位4×3=12，加进位2得14，写4进1；百位2×3=6，加进位1得7，结果是741。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-062",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-one-digit-multiplication",
+      "unitTitle": "用一位数乘",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "one-digit-multiplication",
+        "multi-digit-times-one-digit",
+        "regrouping-multiplication",
+        "一位数乘"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "符号意识"
+      ],
+      "skillTags": [
+        "口算乘法",
+        "竖式乘法",
+        "进位",
+        "估算",
+        "分步检查"
+      ],
+      "misconceptionTags": [
+        "regrouped value written in the wrong place",
+        "zero placeholder ignored",
+        "estimate not used to catch digit-size errors"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-one-digit-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-one-digit-multiplication",
+        "hjb-primary-p3-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在竖式计算 305 × 4 时，十位上的 0 乘 4 得（ ），然后加上个位进上来的（ ），十位应写（ ）。",
+      "optionsZhHans": [],
+      "answer": "0，2，2",
+      "acceptedAnswers": [
+        "0，2，2",
+        "0 2 2"
+      ],
+      "explanationZhHans": "305×4：个位5×4=20，写0进2；十位0×4=0，加进位2得2，十位写2；百位3×4=12，结果是1220。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-063",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-one-digit-multiplication",
+      "unitTitle": "用一位数乘",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "one-digit-multiplication",
+        "multi-digit-times-one-digit",
+        "regrouping-multiplication",
+        "一位数乘"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "符号意识"
+      ],
+      "skillTags": [
+        "口算乘法",
+        "竖式乘法",
+        "进位",
+        "估算",
+        "分步检查"
+      ],
+      "misconceptionTags": [
+        "regrouped value written in the wrong place",
+        "zero placeholder ignored",
+        "estimate not used to catch digit-size errors"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-one-digit-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-one-digit-multiplication",
+        "hjb-primary-p3-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小马虎在计算 168 × 7 时，个位 8×7=56，向十位进 5，十位 6×7=42，他忘记加进位 5，直接写了 42，百位 1×7=7，最后得到 7426。请你写出正确的计算过程和结果。",
+      "optionsZhHans": [],
+      "answer": "个位8×7=56，写6进5；十位6×7=42，加进位5得47，写7进4；百位1×7=7，加进位4得11，结果是1176。",
+      "acceptedAnswers": [
+        "个位8×7=56，写6进5；十位6×7=42，加进位5得47，写7进4；百位1×7=7，加进位4得11，结果是1176。",
+        "1176"
+      ],
+      "explanationZhHans": "正确计算：168×7，个位8×7=56，写6进5；十位6×7=42，加进位5得47，写7进4；百位1×7=7，加进位4得11，结果是1176。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-064",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-one-digit-multiplication",
+      "unitTitle": "用一位数乘",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "one-digit-multiplication",
+        "multi-digit-times-one-digit",
+        "regrouping-multiplication",
+        "一位数乘"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "符号意识"
+      ],
+      "skillTags": [
+        "口算乘法",
+        "竖式乘法",
+        "进位",
+        "估算",
+        "分步检查"
+      ],
+      "misconceptionTags": [
+        "regrouped value written in the wrong place",
+        "zero placeholder ignored",
+        "estimate not used to catch digit-size errors"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-one-digit-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-one-digit-multiplication",
+        "hjb-primary-p3-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "估算 389 × 6 的结果，下面哪个估算最接近精确值？",
+      "optionsZhHans": [
+        "把 389 看作 400，400×6=2400",
+        "把 389 看作 390，390×6=2340",
+        "把 389 看作 380，380×6=2280",
+        "把 389 看作 300，300×6=1800"
+      ],
+      "answer": "把 389 看作 390，390×6=2340",
+      "acceptedAnswers": [
+        "把 389 看作 390，390×6=2340"
+      ],
+      "explanationZhHans": "389×6=2334。选项估算：400×6=2400，差66；390×6=2340，差6；380×6=2280，差54；300×6=1800，差534。390×6最接近。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-065",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-one-digit-multiplication",
+      "unitTitle": "用一位数乘",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "one-digit-multiplication",
+        "multi-digit-times-one-digit",
+        "regrouping-multiplication",
+        "一位数乘"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "符号意识"
+      ],
+      "skillTags": [
+        "口算乘法",
+        "竖式乘法",
+        "进位",
+        "估算",
+        "分步检查"
+      ],
+      "misconceptionTags": [
+        "regrouped value written in the wrong place",
+        "zero placeholder ignored",
+        "estimate not used to catch digit-size errors"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-one-digit-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-one-digit-multiplication",
+        "hjb-primary-p3-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一箱矿泉水有 24 瓶，学校买了 3 箱。一共买了多少瓶？列竖式计算 24 × 3，先算个位（ ）×（ ）=（ ），再算十位（ ）×（ ）=（ ），结果是（ ）。",
+      "optionsZhHans": [],
+      "answer": "4，3，12，2，3，6，72",
+      "acceptedAnswers": [
+        "4，3，12，2，3，6，72",
+        "4 3 12 2 3 6 72"
+      ],
+      "explanationZhHans": "24×3：个位4×3=12，写2进1；十位2×3=6，加进位1得7，结果是72。所以一共买了72瓶。"
+    }
+  ]
+}

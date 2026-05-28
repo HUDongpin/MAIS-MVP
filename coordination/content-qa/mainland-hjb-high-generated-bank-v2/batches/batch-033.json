@@ -1,0 +1,372 @@
+{
+  "batchId": "batch-033",
+  "generationMode": "batch-fallback",
+  "fallbackReason": "fill-missing-local",
+  "questions": [
+    {
+      "id": "hjb-high-ds-v2-s4-321",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-三角函数",
+      "topicTitleZhHans": "三角函数",
+      "volume": "必修 第二册",
+      "chapter": "三角函数",
+      "conceptIds": [
+        "trigonometric-functions",
+        "trigonometric-graphs",
+        "periodicity",
+        "trigonometric-transformations"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-2-trigonometric-functions"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-2-trig-functions-unit-core",
+        "hjb-high-compulsory-2-trig-functions-unit-challenge",
+        "pep-high-exam-trigonometric-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0321：解答：函数 y=4sin(2x+7π/6) 的最小正周期是多少？",
+      "optionsZhHans": [],
+      "answer": "π",
+      "acceptedAnswers": [
+        "π"
+      ],
+      "explanationZhHans": "sin(ωx+φ) 的周期为 2π/|ω|，这里 ω=2，所以周期为 π。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-322",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-三角函数",
+      "topicTitleZhHans": "三角函数",
+      "volume": "必修 第二册",
+      "chapter": "三角函数",
+      "conceptIds": [
+        "trigonometric-functions",
+        "trigonometric-graphs",
+        "periodicity",
+        "trigonometric-transformations"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-2-trigonometric-functions"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-2-trig-functions-unit-core",
+        "hjb-high-compulsory-2-trig-functions-unit-challenge",
+        "pep-high-exam-trigonometric-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0322：选择：函数 y=8sin(2x+10π/6) 的最小正周期是多少？",
+      "optionsZhHans": [
+        "2π",
+        "π",
+        "π/2",
+        "4π"
+      ],
+      "answer": "π",
+      "acceptedAnswers": [
+        "π"
+      ],
+      "explanationZhHans": "sin(ωx+φ) 的周期为 2π/|ω|，这里 ω=2，所以周期为 π。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-323",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-三角函数",
+      "topicTitleZhHans": "三角函数",
+      "volume": "必修 第二册",
+      "chapter": "三角函数",
+      "conceptIds": [
+        "trigonometric-functions",
+        "trigonometric-graphs",
+        "periodicity",
+        "trigonometric-transformations"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-2-trigonometric-functions"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-2-trig-functions-unit-core",
+        "hjb-high-compulsory-2-trig-functions-unit-challenge",
+        "pep-high-exam-trigonometric-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0323：填空：函数 y=9sin(2x+10π/6) 的最小正周期是多少？",
+      "optionsZhHans": [],
+      "answer": "π",
+      "acceptedAnswers": [
+        "π"
+      ],
+      "explanationZhHans": "sin(ωx+φ) 的周期为 2π/|ω|，这里 ω=2，所以周期为 π。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-324",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-三角函数",
+      "topicTitleZhHans": "三角函数",
+      "volume": "必修 第二册",
+      "chapter": "三角函数",
+      "conceptIds": [
+        "trigonometric-functions",
+        "trigonometric-graphs",
+        "periodicity",
+        "trigonometric-transformations"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-2-trigonometric-functions"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-2-trig-functions-unit-core",
+        "hjb-high-compulsory-2-trig-functions-unit-challenge",
+        "pep-high-exam-trigonometric-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0324：解答：函数 y=12sin(2x+10π/6) 的最小正周期是多少？",
+      "optionsZhHans": [],
+      "answer": "π",
+      "acceptedAnswers": [
+        "π"
+      ],
+      "explanationZhHans": "sin(ωx+φ) 的周期为 2π/|ω|，这里 ω=2，所以周期为 π。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-325",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-三角函数",
+      "topicTitleZhHans": "三角函数",
+      "volume": "必修 第二册",
+      "chapter": "三角函数",
+      "conceptIds": [
+        "trigonometric-functions",
+        "trigonometric-graphs",
+        "periodicity",
+        "trigonometric-transformations"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-2-trigonometric-functions"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-2-trig-functions-unit-core",
+        "hjb-high-compulsory-2-trig-functions-unit-challenge",
+        "pep-high-exam-trigonometric-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0325：选择：函数 y=5sin(2x+7π/6) 的最小正周期是多少？",
+      "optionsZhHans": [
+        "π",
+        "2π",
+        "π/2",
+        "4π"
+      ],
+      "answer": "π",
+      "acceptedAnswers": [
+        "π"
+      ],
+      "explanationZhHans": "sin(ωx+φ) 的周期为 2π/|ω|，这里 ω=2，所以周期为 π。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-326",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-三角函数",
+      "topicTitleZhHans": "三角函数",
+      "volume": "必修 第二册",
+      "chapter": "三角函数",
+      "conceptIds": [
+        "trigonometric-functions",
+        "trigonometric-graphs",
+        "periodicity",
+        "trigonometric-transformations"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-2-trigonometric-functions"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-2-trig-functions-unit-core",
+        "hjb-high-compulsory-2-trig-functions-unit-challenge",
+        "pep-high-exam-trigonometric-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0326：填空：函数 y=6sin(2x+5π/6) 的最小正周期是多少？",
+      "optionsZhHans": [],
+      "answer": "π",
+      "acceptedAnswers": [
+        "π"
+      ],
+      "explanationZhHans": "sin(ωx+φ) 的周期为 2π/|ω|，这里 ω=2，所以周期为 π。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-327",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-三角函数",
+      "topicTitleZhHans": "三角函数",
+      "volume": "必修 第二册",
+      "chapter": "三角函数",
+      "conceptIds": [
+        "trigonometric-functions",
+        "trigonometric-graphs",
+        "periodicity",
+        "trigonometric-transformations"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-2-trigonometric-functions"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-2-trig-functions-unit-core",
+        "hjb-high-compulsory-2-trig-functions-unit-challenge",
+        "pep-high-exam-trigonometric-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0327：解答：函数 y=6sin(2x+2π/6) 的最小正周期是多少？",
+      "optionsZhHans": [],
+      "answer": "π",
+      "acceptedAnswers": [
+        "π"
+      ],
+      "explanationZhHans": "sin(ωx+φ) 的周期为 2π/|ω|，这里 ω=2，所以周期为 π。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-328",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-三角函数",
+      "topicTitleZhHans": "三角函数",
+      "volume": "必修 第二册",
+      "chapter": "三角函数",
+      "conceptIds": [
+        "trigonometric-functions",
+        "trigonometric-graphs",
+        "periodicity",
+        "trigonometric-transformations"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-2-trigonometric-functions"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-2-trig-functions-unit-core",
+        "hjb-high-compulsory-2-trig-functions-unit-challenge",
+        "pep-high-exam-trigonometric-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0328：选择：函数 y=12sin(2x+3π/6) 的最小正周期是多少？",
+      "optionsZhHans": [
+        "2π",
+        "π/2",
+        "4π",
+        "π"
+      ],
+      "answer": "π",
+      "acceptedAnswers": [
+        "π"
+      ],
+      "explanationZhHans": "sin(ωx+φ) 的周期为 2π/|ω|，这里 ω=2，所以周期为 π。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-329",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-三角函数",
+      "topicTitleZhHans": "三角函数",
+      "volume": "必修 第二册",
+      "chapter": "三角函数",
+      "conceptIds": [
+        "trigonometric-functions",
+        "trigonometric-graphs",
+        "periodicity",
+        "trigonometric-transformations"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-2-trigonometric-functions"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-2-trig-functions-unit-core",
+        "hjb-high-compulsory-2-trig-functions-unit-challenge",
+        "pep-high-exam-trigonometric-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0329：填空：函数 y=11sin(2x+1π/6) 的最小正周期是多少？",
+      "optionsZhHans": [],
+      "answer": "π",
+      "acceptedAnswers": [
+        "π"
+      ],
+      "explanationZhHans": "sin(ωx+φ) 的周期为 2π/|ω|，这里 ω=2，所以周期为 π。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-330",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-三角函数",
+      "topicTitleZhHans": "三角函数",
+      "volume": "必修 第二册",
+      "chapter": "三角函数",
+      "conceptIds": [
+        "trigonometric-functions",
+        "trigonometric-graphs",
+        "periodicity",
+        "trigonometric-transformations"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-2-trigonometric-functions"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-2-trig-functions-unit-core",
+        "hjb-high-compulsory-2-trig-functions-unit-challenge",
+        "pep-high-exam-trigonometric-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0330：解答：函数 y=3sin(2x+12π/6) 的最小正周期是多少？",
+      "optionsZhHans": [],
+      "answer": "π",
+      "acceptedAnswers": [
+        "π"
+      ],
+      "explanationZhHans": "sin(ωx+φ) 的周期为 2π/|ω|，这里 ω=2，所以周期为 π。"
+    }
+  ]
+}

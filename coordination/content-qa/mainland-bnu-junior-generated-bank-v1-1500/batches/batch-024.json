@@ -1,0 +1,616 @@
+{
+  "batchId": "batch-024",
+  "questions": [
+    {
+      "id": "bnu-junior-ds-v1-s1-231",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-data-collection",
+      "unitTitle": "数据的收集与整理",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "data-collection",
+        "data-organization",
+        "statistical-charts",
+        "survey-design",
+        "数据收集",
+        "统计图表"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "确定调查问题",
+        "收集数据",
+        "整理分类",
+        "读统计图",
+        "解释数据"
+      ],
+      "misconceptionTags": [
+        "survey question not aligned with conclusion",
+        "frequency and category confused",
+        "single data point overgeneralized"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-data-collection"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-data-collection-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "七年级某班为了解同学们最喜爱的课外活动，设计了如下调查问题：“你最喜欢的课外活动是什么？A. 阅读 B. 运动 C. 绘画 D. 音乐”。全班40名同学每人选择一项，结果如下：阅读12人，运动15人，绘画8人，音乐5人。小明说：“因为选择运动的人数最多，所以全班同学都最喜欢运动。”小明的说法正确吗？如果不正确，请说明理由。",
+      "optionsZhHans": [],
+      "answer": "不正确。小明的说法犯了以偏概全的错误，因为选择运动的人数虽然最多，但仍有25人选择了其他活动，不能说明全班同学都最喜欢运动。",
+      "acceptedAnswers": [
+        "不正确。小明的说法犯了以偏概全的错误，因为选择运动的人数虽然最多，但仍有25人选择了其他活动，不能说明全班同学都最喜欢运动。",
+        "不正确，因为还有很多人喜欢别的活动。",
+        "不正确，不能因为运动人数最多就说全班都最喜欢运动。"
+      ],
+      "explanationZhHans": "从数据看，运动15人最多，但阅读12人、绘画8人、音乐5人，合计25人未选运动。因此不能由单一数据点推断全班偏好，小明的结论以偏概全。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-232",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-data-collection",
+      "unitTitle": "数据的收集与整理",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "data-collection",
+        "data-organization",
+        "statistical-charts",
+        "survey-design",
+        "数据收集",
+        "统计图表"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "确定调查问题",
+        "收集数据",
+        "整理分类",
+        "读统计图",
+        "解释数据"
+      ],
+      "misconceptionTags": [
+        "survey question not aligned with conclusion",
+        "frequency and category confused",
+        "single data point overgeneralized"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-data-collection"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-data-collection-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "为了了解全班同学最喜欢的课外活动类型，班长设计了以下四个调查问题。哪一个问题最合适？",
+      "optionsZhHans": [
+        "A. 你每天花多少时间在课外活动上？",
+        "B. 你最喜欢的课外活动类型是什么？",
+        "C. 你上学期参加了哪些课外活动？",
+        "D. 你认为课外活动对学习有帮助吗？"
+      ],
+      "answer": "B. 你最喜欢的课外活动类型是什么？",
+      "acceptedAnswers": [
+        "B. 你最喜欢的课外活动类型是什么？"
+      ],
+      "explanationZhHans": "调查目的是了解全班同学最喜欢的课外活动类型，因此问题应直接询问“最喜欢的类型”。选项A问的是时间，选项C问的是过去参加的活动，选项D问的是看法，都与目的不符。只有选项B直接对应调查目标，能收集到所需数据。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-233",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-data-collection",
+      "unitTitle": "数据的收集与整理",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "data-collection",
+        "data-organization",
+        "statistical-charts",
+        "survey-design",
+        "数据收集",
+        "统计图表"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "确定调查问题",
+        "收集数据",
+        "整理分类",
+        "读统计图",
+        "解释数据"
+      ],
+      "misconceptionTags": [
+        "survey question not aligned with conclusion",
+        "frequency and category confused",
+        "single data point overgeneralized"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-data-collection"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-data-collection-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某班同学想了解全班学生每周课外阅读时间的情况，设计了如下调查方案：\n方案一：询问班级图书管理员，记录他一周的阅读时间作为全班数据；\n方案二：请每位同学填写自己上周的课外阅读时间，然后汇总；\n方案三：在班级群发一个投票链接，只有喜欢阅读的同学自愿填报阅读时间。\n请回答：\n(1) 以上三种方案中，哪一种收集数据的方式最合理？请简要说明理由。\n(2) 如果采用方案二收集数据，得到40名学生的阅读时间（单位：小时）如下：\n3, 5, 2, 4, 6, 3, 5, 4, 3, 2, 5, 4, 6, 3, 5, 2, 4, 3, 5, 4, 6, 3, 5, 2, 4, 3, 5, 4, 6, 3, 5, 2, 4, 3, 5, 4, 6, 3, 5, 2\n请整理数据，完成下面的频数分布表：\n阅读时间2小时：___人；3小时：___人；4小时：___人；5小时：___人；6小时：___人。\n(3) 根据频数分布表，指出该班学生课外阅读时间的人数最多的时长是多少小时？",
+      "optionsZhHans": [],
+      "answer": "(1) 方案二最合理。理由：方案一仅调查一人，样本不具有代表性；方案三只收集了喜欢阅读的同学的数据，样本有偏差；方案二调查全班每位同学，数据全面且具有代表性。\n(2) 2小时：8人；3小时：10人；4小时：8人；5小时：10人；6小时：4人。\n(3) 3小时和5小时的人数最多，均为10人。",
+      "acceptedAnswers": [
+        "(1) 方案二最合理。理由：方案一仅调查一人，样本不具有代表性；方案三只收集了喜欢阅读的同学的数据，样本有偏差；方案二调查全班每位同学，数据全面且具有代表性。\n(2) 2小时：8人；3小时：10人；4小时：8人；5小时：10人；6小时：4人。\n(3) 3小时和5小时的人数最多，均为10人。"
+      ],
+      "explanationZhHans": "(1) 方案二对全班普查，数据可靠；方案一样本太小，方案三自愿填报有偏差。(2) 统计各数据出现次数：2出现8次，3出现10次，4出现8次，5出现10次，6出现4次。(3) 频数最高为10，对应3小时和5小时。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-234",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-data-collection",
+      "unitTitle": "数据的收集与整理",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "data-collection",
+        "data-organization",
+        "statistical-charts",
+        "survey-design",
+        "数据收集",
+        "统计图表"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "确定调查问题",
+        "收集数据",
+        "整理分类",
+        "读统计图",
+        "解释数据"
+      ],
+      "misconceptionTags": [
+        "survey question not aligned with conclusion",
+        "frequency and category confused",
+        "single data point overgeneralized"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-data-collection"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-data-collection-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校七年级（1）班为了解全班同学最喜爱的课外体育活动项目，对全班40名学生进行了问卷调查，每人只能选择一项。整理数据后得到如下统计表：\n\n| 项目 | 篮球 | 足球 | 乒乓球 | 羽毛球 | 跳绳 |\n|------|------|------|--------|--------|------|\n| 人数 | 12   | 8    | 10     | 6      | 4    |\n\n请回答：最喜爱篮球的人数占全班总人数的百分比是多少？",
+      "optionsZhHans": [],
+      "answer": "30%",
+      "acceptedAnswers": [
+        "30%",
+        "30％",
+        "0.3"
+      ],
+      "explanationZhHans": "全班总人数为40人，喜爱篮球的有12人。百分比 = (12 ÷ 40) × 100% = 0.3 × 100% = 30%。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-235",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-data-collection",
+      "unitTitle": "数据的收集与整理",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "data-collection",
+        "data-organization",
+        "statistical-charts",
+        "survey-design",
+        "数据收集",
+        "统计图表"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "确定调查问题",
+        "收集数据",
+        "整理分类",
+        "读统计图",
+        "解释数据"
+      ],
+      "misconceptionTags": [
+        "survey question not aligned with conclusion",
+        "frequency and category confused",
+        "single data point overgeneralized"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-data-collection"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-data-collection-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "为了解七年级学生每天的课外阅读时长，某班数学兴趣小组设计了以下四种调查方案：\n方案A：在图书馆门口随机询问30名同学；\n方案B：在七年级各班随机抽取学号尾数为3的5名同学；\n方案C：调查全班所有同学的阅读时长；\n方案D：让各班班长推荐5名爱读书的同学。\n为了获得能较好代表全年级情况的样本，应选择哪种方案？",
+      "optionsZhHans": [
+        "方案A",
+        "方案B",
+        "方案C",
+        "方案D"
+      ],
+      "answer": "方案B",
+      "acceptedAnswers": [
+        "方案B"
+      ],
+      "explanationZhHans": "方案B在七年级各班按学号随机抽取，样本覆盖全年级且随机，代表性较好。方案A仅在图书馆门口，可能遗漏不去图书馆的学生；方案C只调查一个班，不能代表全年级；方案D由班长推荐，主观性强，样本有偏差。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-236",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-data-collection",
+      "unitTitle": "数据的收集与整理",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "data-collection",
+        "data-organization",
+        "statistical-charts",
+        "survey-design",
+        "数据收集",
+        "统计图表"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "确定调查问题",
+        "收集数据",
+        "整理分类",
+        "读统计图",
+        "解释数据"
+      ],
+      "misconceptionTags": [
+        "survey question not aligned with conclusion",
+        "frequency and category confused",
+        "single data point overgeneralized"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-data-collection"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-data-collection-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某班为了解同学们最喜爱的课外活动，设计了以下调查问题：“你最喜欢的课外活动是什么？A. 阅读 B. 运动 C. 绘画 D. 音乐”。全班40名同学每人选择一项，结果记录如下：选择阅读的有12人，选择运动的有15人，选择绘画的有8人，选择音乐的有5人。小明根据这个结果得出结论：“全班同学都最喜欢运动。”你认为小明的结论是否合理？请说明理由。",
+      "optionsZhHans": [],
+      "answer": "不合理。因为选择运动的有15人，虽然人数最多，但只占总人数的15/40，并非全班同学都最喜欢运动，还有25人选择了其他活动。小明的结论以偏概全，忽略了其他同学的选择。",
+      "acceptedAnswers": [
+        "不合理。因为选择运动的有15人，虽然人数最多，但只占总人数的15/40，并非全班同学都最喜欢运动，还有25人选择了其他活动。小明的结论以偏概全，忽略了其他同学的选择。"
+      ],
+      "explanationZhHans": "调查结果显示运动是最受欢迎的活动，但仍有25人选择其他活动。小明的结论将多数人的选择推广为全体的选择，犯了以偏概全的错误。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-237",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-data-collection",
+      "unitTitle": "数据的收集与整理",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "data-collection",
+        "data-organization",
+        "statistical-charts",
+        "survey-design",
+        "数据收集",
+        "统计图表"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "确定调查问题",
+        "收集数据",
+        "整理分类",
+        "读统计图",
+        "解释数据"
+      ],
+      "misconceptionTags": [
+        "survey question not aligned with conclusion",
+        "frequency and category confused",
+        "single data point overgeneralized"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-data-collection"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-data-collection-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "为了解七年级学生每天完成家庭作业所需的时间，某校七年级数学兴趣小组设计了如下调查方案：从七年级每个班随机抽取5名学生，记录他们一周内每天完成作业的时间（单位：分钟），然后计算每个学生一周的平均作业时间。\n\n（1）该调查方案中，调查的总体是什么？\n（2）该调查方案中，个体是什么？\n（3）该调查方案中，样本是什么？\n（4）该调查方案中，样本容量是多少？",
+      "optionsZhHans": [],
+      "answer": "（1）总体：该校七年级全体学生每天完成家庭作业所需的时间；\n（2）个体：该校七年级每个学生每天完成家庭作业所需的时间；\n（3）样本：被抽取的学生的每天完成家庭作业所需的时间；\n（4）样本容量：抽取的学生人数乘以5（或抽取的学生人数×5）。",
+      "acceptedAnswers": [
+        "（1）总体：该校七年级全体学生每天完成家庭作业所需的时间；\n（2）个体：该校七年级每个学生每天完成家庭作业所需的时间；\n（3）样本：被抽取的学生的每天完成家庭作业所需的时间；\n（4）样本容量：抽取的学生人数乘以5（或抽取的学生人数×5）。"
+      ],
+      "explanationZhHans": "总体是所研究对象的全体，这里关注的是作业时间，所以是该校七年级全体学生每天完成作业的时间。个体是组成总体的每个对象，即每个学生每天完成作业的时间。样本是从总体中抽取的一部分个体，即被抽中学生的作业时间。样本容量是样本中个体的数目，每个班抽5名学生，若共有n个班，则样本容量为5n。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-238",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-data-collection",
+      "unitTitle": "数据的收集与整理",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "data-collection",
+        "data-organization",
+        "statistical-charts",
+        "survey-design",
+        "数据收集",
+        "统计图表"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "确定调查问题",
+        "收集数据",
+        "整理分类",
+        "读统计图",
+        "解释数据"
+      ],
+      "misconceptionTags": [
+        "survey question not aligned with conclusion",
+        "frequency and category confused",
+        "single data point overgeneralized"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-data-collection"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-data-collection-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校七年级（1）班为了了解全班同学最喜欢的课外活动类型，设计了如下调查方案：\n方案一：让每位同学在“阅读、运动、音乐、绘画、其他”五个选项中任选一项，然后统计各选项的人数。\n方案二：让每位同学写出自己最喜欢的课外活动，然后由班长分类整理。\n方案三：让每位同学在“阅读、运动、音乐”三个选项中任选一项，然后统计各选项的人数。\n方案四：让每位同学在“阅读、运动、音乐、绘画”四个选项中任选一项，然后统计各选项的人数。\n\n为了更全面地收集数据，避免遗漏同学们可能喜欢的其他活动，应该选择哪个方案？",
+      "optionsZhHans": [
+        "方案一",
+        "方案二",
+        "方案三",
+        "方案四"
+      ],
+      "answer": "方案二",
+      "acceptedAnswers": [
+        "方案二"
+      ],
+      "explanationZhHans": "方案二让同学自由填写，不限制选项，能收集到所有可能的活动类型，避免遗漏。方案一、三、四都限定了选项，可能漏掉某些活动。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-239",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-data-collection",
+      "unitTitle": "数据的收集与整理",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "data-collection",
+        "data-organization",
+        "statistical-charts",
+        "survey-design",
+        "数据收集",
+        "统计图表"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "确定调查问题",
+        "收集数据",
+        "整理分类",
+        "读统计图",
+        "解释数据"
+      ],
+      "misconceptionTags": [
+        "survey question not aligned with conclusion",
+        "frequency and category confused",
+        "single data point overgeneralized"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-data-collection"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-data-collection-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "七年级（1）班数学兴趣小组想了解全班同学每周课外阅读时间的情况。他们设计了以下四个调查问题：\n甲：你最喜欢哪一类课外书？\n乙：你每周课外阅读时间大约是多少小时？\n丙：你每天完成数学作业需要多少分钟？\n丁：你本学期读了几本课外书？\n请问，哪个问题最适合用来收集全班同学每周课外阅读时间的数据？请写出问题编号并简要说明理由。",
+      "optionsZhHans": [],
+      "answer": "乙；理由：问题乙直接询问每周课外阅读时间，与调查目的完全一致，而其他问题涉及阅读偏好、数学作业时间或阅读数量，不能直接获得每周阅读时间的数据。",
+      "acceptedAnswers": [
+        "乙；理由：问题乙直接询问每周课外阅读时间，与调查目的完全一致，而其他问题涉及阅读偏好、数学作业时间或阅读数量，不能直接获得每周阅读时间的数据。",
+        "乙；问题乙直接询问每周课外阅读时间，与调查目的完全一致，而其他问题涉及阅读偏好、数学作业时间或阅读数量，不能直接获得每周阅读时间的数据。",
+        "乙；因为问题乙直接询问每周课外阅读时间，与调查目的完全一致，而其他问题涉及阅读偏好、数学作业时间或阅读数量，不能直接获得每周阅读时间的数据。"
+      ],
+      "explanationZhHans": "调查目的是收集每周课外阅读时间，问题乙直接询问该数据，而甲问偏好、丙问数学作业、丁问数量，均不匹配。因此选乙。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-240",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-data-collection",
+      "unitTitle": "数据的收集与整理",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "data-collection",
+        "data-organization",
+        "statistical-charts",
+        "survey-design",
+        "数据收集",
+        "统计图表"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "确定调查问题",
+        "收集数据",
+        "整理分类",
+        "读统计图",
+        "解释数据"
+      ],
+      "misconceptionTags": [
+        "survey question not aligned with conclusion",
+        "frequency and category confused",
+        "single data point overgeneralized"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-data-collection"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-data-collection-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某班为了解同学们最喜欢的课外活动类型，设计了以下调查问题：“你最喜欢的课外活动是什么？A.阅读 B.运动 C.音乐 D.绘画”。全班40名同学每人选择一项，结果如下：阅读12人，运动15人，音乐8人，绘画5人。根据这个调查结果，能否得出“全班同学都认为运动是最受欢迎的课外活动”的结论？请说明理由。",
+      "optionsZhHans": [],
+      "answer": "不能。因为调查结果只反映了被调查的40名同学的情况，不能代表全班所有同学的意见；而且即使在这40人中，运动虽然人数最多，但仍有其他同学喜欢别的活动，不能说“全班同学都认为”。",
+      "acceptedAnswers": [
+        "不能。因为调查结果只反映了被调查的40名同学的情况，不能代表全班所有同学的意见；而且即使在这40人中，运动虽然人数最多，但仍有其他同学喜欢别的活动，不能说“全班同学都认为”。"
+      ],
+      "explanationZhHans": "调查结论必须与数据一致。数据只显示40人的选择，不能推广到全班；且运动仅占15人，并非全部，故结论不成立。"
+    }
+  ]
+}

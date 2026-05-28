@@ -1,0 +1,65 @@
+{
+  "generatedAt": "2026-05-16T03:55:22.846Z",
+  "baseURL": "http://127.0.0.1:3001",
+  "route": "/practice",
+  "filters": {
+    "grade": "S3",
+    "topicId": "polynomials",
+    "questionType": "short-answer"
+  },
+  "promptText": [
+    "Expand: (x+3)(x+2).",
+    "Short answer"
+  ],
+  "ui": {
+    "statusText": "Draw clearer handwriting, then convert again.",
+    "answerValue": ""
+  },
+  "api": {
+    "requests": [
+      {
+        "url": "http://127.0.0.1:3001/api/handwriting-recognition",
+        "method": "POST",
+        "strokesLength": 9,
+        "language": "en",
+        "imageDataUrlPrefix": "data:image/png;base64,iVBORw0K",
+        "imageDataUrlLength": 20166
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "text": "",
+          "confidence": 0,
+          "provider": "none",
+          "alternatives": [],
+          "accepted": false,
+          "reason": "Draw clearer handwriting, then convert again."
+        }
+      }
+    ]
+  },
+  "images": {
+    "rawPath": "/Users/dongpinhu/Desktop/MAIS-MVP/coordination/reports/handwriting-diagnostics-2026-05-16/raw-canvas.png",
+    "whitePath": "/Users/dongpinhu/Desktop/MAIS-MVP/coordination/reports/handwriting-diagnostics-2026-05-16/white-background.png",
+    "croppedPath": "/Users/dongpinhu/Desktop/MAIS-MVP/coordination/reports/handwriting-diagnostics-2026-05-16/cropped-padded-white.png",
+    "screenshotPath": "/Users/dongpinhu/Desktop/MAIS-MVP/coordination/reports/handwriting-diagnostics-2026-05-16/reproduction-page.png",
+    "bounds": {
+      "minX": 146,
+      "minY": 70,
+      "maxX": 1039,
+      "maxY": 211,
+      "sx": 0,
+      "sy": 0,
+      "sw": 1140,
+      "sh": 288,
+      "canvasWidth": 1140,
+      "canvasHeight": 288
+    }
+  },
+  "configObservedByShell": {
+    "simpletexUatInShellEnv": false,
+    "simpletexApiUrlInShellEnv": null
+  }
+}

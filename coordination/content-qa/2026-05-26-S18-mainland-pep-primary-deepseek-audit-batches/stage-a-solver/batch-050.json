@@ -1,0 +1,181 @@
+{
+  "startedAt": "2026-05-26T06:13:09.333Z",
+  "completedAt": "2026-05-26T06:13:26.099Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "usage": {
+    "prompt_tokens": 2740,
+    "completion_tokens": 1475,
+    "total_tokens": 4215,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 2740
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "questionId": "pep-primary-p5-l-sa-181",
+        "solvableStatus": "pass",
+        "independentAnswer": "80立方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "长方体体积=长×宽×高=4×4×5=80立方厘米"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-182",
+        "solvableStatus": "pass",
+        "independentAnswer": "120立方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "长方体体积=5×6×4=120立方厘米"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-183",
+        "solvableStatus": "pass",
+        "independentAnswer": "54立方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "长方体体积=6×3×3=54立方厘米"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-184",
+        "solvableStatus": "pass",
+        "independentAnswer": "70立方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "长方体体积=7×5×2=70立方厘米"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-185",
+        "solvableStatus": "pass",
+        "independentAnswer": "80立方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "长方体体积=8×2×5=80立方厘米"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-186",
+        "solvableStatus": "pass",
+        "independentAnswer": "48立方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "长方体体积=3×4×4=48立方厘米"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-187",
+        "solvableStatus": "pass",
+        "independentAnswer": "72立方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "长方体体积=4×6×3=72立方厘米"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-188",
+        "solvableStatus": "pass",
+        "independentAnswer": "30立方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "长方体体积=5×3×2=30立方厘米"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-189",
+        "solvableStatus": "pass",
+        "independentAnswer": "150立方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "长方体体积=6×5×5=150立方厘米"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-190",
+        "solvableStatus": "pass",
+        "independentAnswer": "56立方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "长方体体积=7×2×4=56立方厘米"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-191",
+        "solvableStatus": "pass",
+        "independentAnswer": "96立方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "长方体体积=8×4×3=96立方厘米"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-192",
+        "solvableStatus": "pass",
+        "independentAnswer": "36立方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "长方体体积=3×6×2=36立方厘米"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-193",
+        "solvableStatus": "pass",
+        "independentAnswer": "60立方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "长方体体积=4×3×5=60立方厘米"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-194",
+        "solvableStatus": "pass",
+        "independentAnswer": "100立方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "长方体体积=5×5×4=100立方厘米"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-195",
+        "solvableStatus": "pass",
+        "independentAnswer": "36立方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "长方体体积=6×2×3=36立方厘米"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-196",
+        "solvableStatus": "pass",
+        "independentAnswer": "56立方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "长方体体积=7×4×2=56立方厘米"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-197",
+        "solvableStatus": "pass",
+        "independentAnswer": "240立方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "长方体体积=8×6×5=240立方厘米"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-198",
+        "solvableStatus": "pass",
+        "independentAnswer": "36立方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "长方体体积=3×3×4=36立方厘米"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-199",
+        "solvableStatus": "pass",
+        "independentAnswer": "60立方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "长方体体积=4×5×3=60立方厘米"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-200",
+        "solvableStatus": "pass",
+        "independentAnswer": "42立方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "长方体体积=7×3×2=42立方厘米"
+      }
+    ]
+  }
+}

@@ -1,0 +1,191 @@
+{
+  "batchNumber": 49,
+  "startedAt": "2026-05-25T02:13:52.852Z",
+  "completedAt": "2026-05-25T02:14:19.955Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p4-115",
+    "hjb-primary-ds-v1-p4-116",
+    "hjb-primary-ds-v1-p4-117",
+    "hjb-primary-ds-v1-p4-118",
+    "hjb-primary-ds-v1-p4-119",
+    "hjb-primary-ds-v1-p4-120",
+    "hjb-primary-ds-v1-p4-121",
+    "hjb-primary-ds-v1-p4-122",
+    "hjb-primary-ds-v1-p4-123",
+    "hjb-primary-ds-v1-p4-124",
+    "hjb-primary-ds-v1-p4-125",
+    "hjb-primary-ds-v1-p4-126",
+    "hjb-primary-ds-v1-p4-127",
+    "hjb-primary-ds-v1-p4-128",
+    "hjb-primary-ds-v1-p4-129",
+    "hjb-primary-ds-v1-p4-130",
+    "hjb-primary-ds-v1-p4-131",
+    "hjb-primary-ds-v1-p4-132"
+  ],
+  "usage": {
+    "prompt_tokens": 4338,
+    "completion_tokens": 1611,
+    "total_tokens": 5949,
+    "prompt_tokens_details": {
+      "cached_tokens": 4224
+    },
+    "prompt_cache_hit_tokens": 4224,
+    "prompt_cache_miss_tokens": 114
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p4-115",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项A正确描述了线段、射线、直线的端点特征；B错误，射线AB与BA端点不同；C错误，两点之间线段最短；D错误，需在同圆或等圆中。答案与解析一致。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-116",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "四舍五入到万位，千位9≥5进1，得385万，答案正确，acceptedAnswers覆盖了带单位和不带单位的写法。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-117",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数的组成正确，四舍五入到十万位，万位8≥5进1，得50400000，答案与解析一致。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-118",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "四舍五入到亿位看千万位，B选项千万位5，入后约10亿，其余选项均不符合，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-119",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数射线0到1平均分10份，第3个点对应3/10，答案正确，acceptedAnswers包含分数和中文写法。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-120",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "60°占360°的1/6，扇形面积是圆面积的1/6，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-121",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估算适用于快速判断总量是否超限，购物总价是否超过500元是典型估算场景，其他选项需精确值，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-122",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "点A为3/8，点B为6/8，相差3/8，答案正确，acceptedAnswers覆盖多种合理表述。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-123",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "105°=60°+45°，15°=45°-30°或60°-45°，符合三角尺拼角方法，答案与解析一致。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-124",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "495001千位5进一得50万，504998千位4舍去得50万，其余选项不满足，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-125",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估测方法合理，结果在3-5平方米范围内，答案示例符合实际，acceptedAnswers覆盖多种表述。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-126",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "四舍五入和去尾法均得38万，400000-384592=15408，计算正确，答案与解析一致。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-127",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "0到1平均分10份，第3个分点为3/10，选项B正确，无歧义。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-128",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "5个百万、3个万、6个千组成5036000，答案正确，acceptedAnswers包含带空格的写法。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-129",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "OA=OB=半径，等腰三角形顶角60°则为等边三角形，答案与解析正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-130",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方法一将24拆为8×3，运用乘法结合律；方法二拆为20+4，运用乘法分配律，选项A正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-131",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "384720千位4舍去，得38万，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-132",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "0到1平均分10份，第3份为3/10，答案正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案与解析一致，选项无歧义，符合四年级上册沪教版要求，无风险。"
+    }
+  }
+}

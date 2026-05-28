@@ -1,0 +1,133 @@
+{
+  "batchNumber": 19,
+  "startedAt": "2026-05-27T13:47:19.139Z",
+  "completedAt": "2026-05-27T13:47:37.821Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-145",
+    "bnu-high-ds-v1-s4-146",
+    "bnu-high-ds-v1-s4-147",
+    "bnu-high-ds-v1-s4-148",
+    "bnu-high-ds-v1-s4-149",
+    "bnu-high-ds-v1-s4-150",
+    "bnu-high-ds-v1-s4-151",
+    "bnu-high-ds-v1-s4-152"
+  ],
+  "usage": {
+    "prompt_tokens": 10424,
+    "completion_tokens": 1270,
+    "total_tokens": 11694,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 9912
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-145",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "7",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可独立求解。由100×1.2^x>300得1.2^x>3，取对数x>lg3/lg1.2≈0.4771/0.0791≈6.03，最小整数为7，与答案一致。解析过程正确，无矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-146",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目明确，可解。f(0)=-2<0，f(1)=0，零点为1，在(0,1)内，故k=0。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-147",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "4",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "区间长度1，精确度0.1，需(1/2^n)≤0.1，即2^n≥10，n≥4。答案4正确，解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-148",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0.04",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由50e^{5k}=60得e^{5k}=1.2，5k=ln1.2≈0.1823，k≈0.0365，最接近0.04。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-149",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "y = (x - 60)(400 - 2x)，定义域为 [100, 200]",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "销量=200-20*(x-100)/10=400-2x，利润y=(x-60)(400-2x)。由销量≥0得x≤200，且x≥100，定义域[100,200]。答案与解析匹配。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-150",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f(x)=(x-1)^2+a-1，对称轴x=1在[0,3]内，最大值在端点。f(0)=a，f(3)=3+a，由3+a=4得a=1，此时f(0)=1<4，符合。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-151",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "车费22.5元，不存在零点",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "x=8时，超过3公里部分5公里，车费=10+5×2.5=22.5元。函数y在x≥0时始终大于0，无零点。选项匹配，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-152",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "S(p)=p(200-4p)，定义域为[20,50]",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "销售额S=单价×销售量=p(200-4p)，定义域由题意直接给出[20,50]。答案与解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，答案与解析均正确且一致，无任何问题。"
+    }
+  }
+}

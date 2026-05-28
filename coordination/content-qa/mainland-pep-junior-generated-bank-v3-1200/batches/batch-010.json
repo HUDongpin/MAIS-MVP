@@ -1,0 +1,304 @@
+{
+  "batchId": "batch-010",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s1-k02-fi-001",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-expression-simplification"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "化简：3a - (2a - 4b) + (-a + 5b)。",
+      "optionsZhHans": [],
+      "answer": "9b",
+      "acceptedAnswers": [
+        "9b",
+        "9 b"
+      ],
+      "explanationZhHans": "先去括号：3a - 2a + 4b - a + 5b。合并同类项：(3a - 2a - a) + (4b + 5b) = 0a + 9b = 9b。所以答案是9b。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-fi-002",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-linear-equation-modeling"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "小明用50元购买单价为3元的笔记本x本，找回2元。列出关于x的方程。",
+      "optionsZhHans": [],
+      "answer": "50 - 3x = 2",
+      "acceptedAnswers": [
+        "50 - 3x = 2",
+        "50-3x=2",
+        "3x + 2 = 50",
+        "3x+2=50"
+      ],
+      "explanationZhHans": "笔记本总价为3x元，付出的钱减去总价等于找回的钱，即50 - 3x = 2。所以答案是50 - 3x = 2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-fi-003",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "在数轴上，点A表示-3，点B表示5，则A、B两点间的距离为______。",
+      "optionsZhHans": [],
+      "answer": "8",
+      "acceptedAnswers": [
+        "8"
+      ],
+      "explanationZhHans": "数轴上两点距离等于右边点表示的数减去左边点表示的数：5 - (-3) = 5 + 3 = 8。所以答案是8。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-fi-004",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-rational-number-operations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "某班有40名学生，其中男生人数比女生人数的2倍少5人。设女生人数为x，列出方程。",
+      "optionsZhHans": [],
+      "answer": "x + (2x - 5) = 40",
+      "acceptedAnswers": [
+        "x + (2x - 5) = 40",
+        "x+2x-5=40",
+        "2x - 5 + x = 40",
+        "2x-5+x=40"
+      ],
+      "explanationZhHans": "女生人数为x，则男生人数为2x - 5，总人数为x + (2x - 5) = 40。所以答案是x + (2x - 5) = 40。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-fi-005",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-geometric-figures"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "一个角的补角比它的余角的3倍少20°，求这个角的度数。",
+      "optionsZhHans": [],
+      "answer": "35°",
+      "acceptedAnswers": [
+        "35°",
+        "35"
+      ],
+      "explanationZhHans": "设这个角为x°，则它的补角为180° - x°，余角为90° - x°。根据题意得：180 - x = 3(90 - x) - 20。解方程：180 - x = 270 - 3x - 20，180 - x = 250 - 3x，移项得2x = 70，x = 35。所以答案是35°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-fi-006",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-expression-simplification"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "合并同类项：3x² - 5x + 2x² + 4x - 3。",
+      "optionsZhHans": [],
+      "answer": "5x² - x - 3",
+      "acceptedAnswers": [
+        "5x² - x - 3",
+        "5x^2 - x - 3"
+      ],
+      "explanationZhHans": "3x²与2x²合并得5x²，-5x与4x合并得-x，常数项-3不变，结果为5x² - x - 3。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-fi-007",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-linear-equation-modeling"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "若x=2是方程3x + k = 0的解，则k的值为______。",
+      "optionsZhHans": [],
+      "answer": "-6",
+      "acceptedAnswers": [
+        "-6"
+      ],
+      "explanationZhHans": "将x=2代入方程得3×2 + k = 0，即6 + k = 0，解得k = -6。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-fi-008",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "一个两位数，十位数字与个位数字之和为7，若交换十位与个位数字，所得新数比原数大9，求原数的十位数字。",
+      "optionsZhHans": [],
+      "answer": "3",
+      "acceptedAnswers": [
+        "3"
+      ],
+      "explanationZhHans": "设原数十位数字为x，则个位数字为7-x。原数为10x+(7-x)=9x+7，新数为10(7-x)+x=70-9x。由题意70-9x=9x+7+9，解得x=3。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-fi-009",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-rational-number-operations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "已知关于x的方程2x - 4 = m的解为x=3，则m的值为______。",
+      "optionsZhHans": [],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2"
+      ],
+      "explanationZhHans": "将x=3代入方程得2×3 - 4 = m，即6-4=2，所以m=2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-fi-010",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-geometric-figures"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "先化简，再求值：\\(2(a^2 - 3ab) - (4a^2 - 7ab + 2)\\)，其中 \\(a = -1\\)，\\(b = 2\\)。",
+      "optionsZhHans": [],
+      "answer": "-4",
+      "acceptedAnswers": [
+        "-4"
+      ],
+      "explanationZhHans": "原式 \\(= 2a^2 - 6ab - 4a^2 + 7ab - 2 = (2a^2 - 4a^2) + (-6ab + 7ab) - 2 = -2a^2 + ab - 2\\)。代入 \\(a = -1\\)，\\(b = 2\\)：\\(-2 \\times (-1)^2 + (-1) \\times 2 - 2 = -2 \\times 1 - 2 - 2 = -2 - 2 - 2 = -6\\)。计算得 -6。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

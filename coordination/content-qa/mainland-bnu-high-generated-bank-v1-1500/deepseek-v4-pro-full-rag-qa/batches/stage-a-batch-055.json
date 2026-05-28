@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-055",
+  "startedAt": "2026-05-28T00:48:21.105Z",
+  "completedAt": "2026-05-28T00:48:44.999Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-433",
+    "bnu-high-ds-v1-s4-434",
+    "bnu-high-ds-v1-s4-435",
+    "bnu-high-ds-v1-s4-436",
+    "bnu-high-ds-v1-s4-437",
+    "bnu-high-ds-v1-s4-438",
+    "bnu-high-ds-v1-s4-439",
+    "bnu-high-ds-v1-s4-440"
+  ],
+  "usage": {
+    "prompt_tokens": 9972,
+    "completion_tokens": 1134,
+    "total_tokens": 11106,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9588
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-433",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "第三象限",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "化简得 z = -7/2 - 1/2 i，实部负、虚部负，对应第三象限。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-434",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "|z - 2i| = 1 表示以 (0,2) 为圆心、1 为半径的圆，|z| 的最大值为圆心到原点的距离加半径，即 2 + 1 = 3。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-435",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "-1",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "i 的幂以 4 为周期，2023 ÷ 4 = 505 余 3，前 2020 项和为 0，剩余 i + i² + i³ = i - 1 - i = -1。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-436",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "1/2 + 3/2 i",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "解方程得 z = (2 - i)/(1 + i) = 1/2 - 3/2 i，共轭为 1/2 + 3/2 i。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-437",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "2√5",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "两点 (3,4) 与 (-1,2) 的距离为 √((3+1)² + (4-2)²) = √(16+4) = √20 = 2√5。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-438",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "±3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由 |z| = 5 得 a² + (-4)² = 25，a² = 9，a = ±3。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-439",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "直线",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "设 z = x + yi，条件化为 (x-1)² + y² = x² + (y+1)²，整理得 x + y = 0，为直线。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-440",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "±1",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "设 z = a + bi，由 |z| = 2 得 a² + b² = 4。z + 1/z 为实数推出虚部 b - b/(a²+b²) = 0，代入得 b(1 - 1/4) = 0，故 b = 0，a = ±2，实部为 ±2。但需验证：若 b = 0，z 为实数，z + 1/z 为实数成立；若 b ≠ 0，则 1 - 1/4 = 0 不成立，故只有 b = 0。因此实部为 ±2。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部 8 题均可独立求解，无歧义或缺失条件，符合北师大版高中复数章节核心难度要求。"
+    }
+  }
+}

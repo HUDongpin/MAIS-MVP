@@ -1,0 +1,51 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-271",
+  "startedAt": "2026-05-28T01:25:32.307Z",
+  "completedAt": "2026-05-28T01:25:36.919Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-271"
+  ],
+  "usage": {
+    "prompt_tokens": 2317,
+    "completion_tokens": 314,
+    "total_tokens": 2631,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1933
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-271",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "independentAnswer": null,
+        "correctedAnswer": "(-∞, -√3) ∪ (√3, +∞)",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "ambiguous_mc",
+          "bad_options",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目要求直线与圆相交于两点，但 k=±√3 时直线与圆相切，弦退化为点，不满足条件。正确范围应为 (-∞, -√3) ∪ (√3, +∞)，四个选项均包含等号，无正确选项。存储答案与解析均未指出此缺陷，导致答案不匹配且选项无效。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目存在严重缺陷：正确取值范围应排除端点，但所有选项均含等号，无正确选项，判定为 blocker。"
+    }
+  }
+}

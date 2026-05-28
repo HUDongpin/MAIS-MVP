@@ -1,0 +1,87 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Next.js / React build output
+.next/
+out/
+dist/
+build/
+.turbo/
+
+# TypeScript and compiler cache
+*.tsbuildinfo
+tsconfig.tsbuildinfo
+
+# Test, coverage, and temporary output
+coverage/
+.nyc_output/
+playwright-report/
+test-results/
+.playwright-cli/
+.tmp/
+tmp/
+temp/
+.cache/
+.local/
+output/
+outputs/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Local environment and private configuration
+.env
+.env.*
+*.local
+!.env.example
+!.env.local.example
+default accounts.md
+
+# Vercel local state
+.vercel/
+
+# OS-generated files
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Editor and IDE local files
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.example.json
+.idea/
+.Rhistory
+*.swp
+*.swo
+*~
+
+# Compiled/intermediate artifacts
+*.class
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.dylib
+*.dll
+*.exe
+*.out
+*.wasm
+*.py[cod]
+__pycache__/
+
+# Local package/export artifacts
+*.tgz
+*.tar.gz

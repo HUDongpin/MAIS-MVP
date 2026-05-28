@@ -1,0 +1,182 @@
+{
+  "batchNumber": 119,
+  "startedAt": "2026-05-27T18:03:27.038Z",
+  "completedAt": "2026-05-27T18:03:50.662Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s3-417",
+    "bnu-junior-ds-v1-s3-418",
+    "bnu-junior-ds-v1-s3-419",
+    "bnu-junior-ds-v1-s3-420",
+    "bnu-junior-ds-v1-s3-421",
+    "bnu-junior-ds-v1-s3-422",
+    "bnu-junior-ds-v1-s3-423",
+    "bnu-junior-ds-v1-s3-424",
+    "bnu-junior-ds-v1-s3-425",
+    "bnu-junior-ds-v1-s3-426",
+    "bnu-junior-ds-v1-s3-427",
+    "bnu-junior-ds-v1-s3-428"
+  ],
+  "usage": {
+    "prompt_tokens": 5335,
+    "completion_tokens": 1581,
+    "total_tokens": 6916,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 4823
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s3-417",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，弦心距6，半径10，半弦长8，弦长16，答案正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-418",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "弦心距3，半弦长4，半径5，选项唯一正确，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-419",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "4",
+        "rationale": "题目求弦BC的长，由直径所对圆周角为直角，∠ACB=90°，AB=8，∠CAB=30°，则BC=AB·sin30°=4，而非4√3。解释中前半部分正确得出BC=4，但后半部分错误使用勾股定理得出4√3，且答案给出4√3，与正确结果矛盾。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-420",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "同弧所对圆周角等于圆心角一半，80°÷2=40°，答案正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-421",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "8√3",
+        "rationale": "题目条件充分，但解释中计算CD=5√3，却得出CD=8√3，逻辑矛盾。正确解法：由弦AB=8，半径5，得弦心距3，圆心角∠AOB=120°，∠ACB=60°为圆周角，C在优弧上，由切线性质及几何关系可求得CD=8√3，但解释过程错误，答案虽为8√3但解释不匹配。",
+        "confidence": "medium"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-422",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "相交弦定理应用正确，4×6=3×DE，DE=8，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-423",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "扇形面积公式正确，120×π×100/360=100π/3，答案与解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-424",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "切线长定理，勾股定理得PA=12，选项唯一正确，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-425",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "垂径定理得CE=4，半径5，OE=3，答案正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-426",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "弧长公式应用正确，解得圆心角120°，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-427",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "60°",
+        "rationale": "优弧所对圆周角30°，则优弧所对圆心角60°，劣弧所对圆心角为360°-60°=300°，但题目问劣弧所对的圆心角，应为300°，而答案给出60°，解释混乱且错误。正确选项应为300°，但选项中无300°，故题目选项设置错误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-428",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "圆周角30°得圆心角60°，等边三角形得AC=5，答案正确，解释匹配。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 9,
+      "warn": 0,
+      "fail": 3,
+      "notes": "共12题，9题通过，3题失败。失败原因：419题答案应为4而非4√3，解释矛盾；421题解释过程错误，答案虽为8√3但解释不匹配；427题劣弧所对圆心角应为300°，答案60°错误且选项无正确值。"
+    }
+  }
+}

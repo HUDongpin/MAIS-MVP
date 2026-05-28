@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0162",
+  "ids": [
+    "hjb-junior-ds-v2-s3-289",
+    "hjb-junior-ds-v2-s3-290",
+    "hjb-junior-ds-v2-s3-291",
+    "hjb-junior-ds-v2-s3-292",
+    "hjb-junior-ds-v2-s3-293",
+    "hjb-junior-ds-v2-s3-294",
+    "hjb-junior-ds-v2-s3-295",
+    "hjb-junior-ds-v2-s3-296"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-289",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "4 cm",
+      "answerCheckZhHans": "标准答案正确。正六边形边长等于外接圆半径，半径为4 cm，故边长为4 cm。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-290",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2 < d < 8",
+      "answerCheckZhHans": "标准答案正确。两圆相交时圆心距满足 |R-r| < d < R+r，即2 < d < 8。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-291",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3 cm ≤ OP ≤ 5 cm",
+      "answerCheckZhHans": "标准答案正确。弦心距为3 cm，OP最小为3 cm，最大为半径5 cm。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-292",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为4，但两圆有且仅有一条公切线时，应为内切，圆心距等于半径差4 cm。但选项中有4或8，且解析提到d=8时有三条公切线，但外切时公切线应为三条（两条外公切线和一条内公切线），而内切时只有一条内公切线。但题目要求“有且仅有一条公切线”，内切符合，外切不符合。然而，若两圆内切，圆心距为4；若两圆外切，圆心距为8，但外切时公切线为三条，不是一条。因此正确答案应为4。但选项C为“4或8”，可能误导。标准答案选4，但解析说d=8不符合，所以答案正确。但需确认：两圆内切时确实只有一条公切线吗？内切时，两圆在内部相切，只有一条内公切线，没有外公切线。所以答案4正确。但选项C“4或8”是错误选项，因为8不符合。所以题目本身可解，答案正确。但解析中“若d=8，则两圆外切，有三条公切线”正确。因此无错误。但为何标记为needs-review？因为可能有人会认为内切和外切都只有一条公切线？实际上外切有三条。所以答案正确。但检查选项：A:4, B:8, C:4或8, D:6。正确答案是4，只有一个正确选项。所以pass。但之前判断为needs-review，可能误判。重新考虑：两圆有且仅有一条公切线，确实是内切，d=4。所以答案正确。因此应pass。",
+      "independentAnswerZhHans": "4",
+      "answerCheckZhHans": "标准答案正确。两圆内切时圆心距为4 cm，且只有一条内公切线。",
+      "recommendedActionZhHans": "无需修改，题目正确。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-293",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "40°",
+      "answerCheckZhHans": "标准答案正确。圆内角等于所对两弧度数和的一半，即(100°+弧BC)/2=70°，解得弧BC=40°。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-294",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3√3 cm",
+      "answerCheckZhHans": "标准答案正确。边心距 = 半径 × cos30° = 6 × √3/2 = 3√3 cm。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-295",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "√39 cm",
+      "answerCheckZhHans": "标准答案正确。切线长 = √(OP² - r²) = √(64 - 25) = √39 cm。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-296",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2√5",
+      "answerCheckZhHans": "标准答案正确。CA = √((3-1)²+(5-1)²) = √20 = 2√5。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,143 @@
+{
+  "batchNumber": 86,
+  "startedAt": "2026-05-24T23:02:48.058Z",
+  "completedAt": "2026-05-24T23:03:05.097Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s3-k11-mc-021",
+    "pep-junior-v3-s3-k11-mc-022",
+    "pep-junior-v3-s3-k11-mc-023",
+    "pep-junior-v3-s3-k11-mc-024",
+    "pep-junior-v3-s3-k11-mc-025",
+    "pep-junior-v3-s3-k11-mc-026",
+    "pep-junior-v3-s3-k11-mc-027",
+    "pep-junior-v3-s3-k11-mc-028",
+    "pep-junior-v3-s3-k11-mc-029",
+    "pep-junior-v3-s3-k11-mc-030",
+    "pep-junior-v3-s3-k11-mc-031",
+    "pep-junior-v3-s3-k11-mc-032"
+  ],
+  "usage": {
+    "prompt_tokens": 3831,
+    "completion_tokens": 1081,
+    "total_tokens": 4912,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 3575
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s3-k11-mc-021",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，反比例函数应用，答案8小时无误。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-mc-022",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "代入求解正确，k=-6，选项清晰。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-mc-023",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "三角函数定义正确，sinA=4/5。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-mc-024",
+        "status": "fail",
+        "severity": "major",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch"
+        ],
+        "correctedAnswer": "6 个",
+        "rationale": "三视图均为3×3正方形，最少需要6个小正方体（对角线放置），而非9个。答案错误。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-mc-025",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "反比例函数增减性正确，y1>y2。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-mc-026",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "相似三角形比例正确，DE:BC=2:5。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-mc-027",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移坐标计算正确，(6,-1)。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-mc-028",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "反比例函数面积性质，面积为2，正确。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-mc-029",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "俯角与三角函数应用，计算正确，AB=100(√3+1)米。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-mc-030",
+        "status": "fail",
+        "severity": "major",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch"
+        ],
+        "correctedAnswer": "4 个",
+        "rationale": "主视图和俯视图均为2×2正方形，最少需要4个小正方体（每个位置一个），最多也是4个（因为主视图高度为2，但俯视图2×2，每个位置最多一层，无法堆叠两层）。题目问最多，应为4个，而非8个。答案错误。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-mc-031",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "仰角测高问题，计算正确，约16.4m。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-mc-032",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "反比例函数性质判断正确，k=-6，D选项正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 10,
+      "warn": 0,
+      "fail": 2,
+      "notes": "第24题三视图最少正方体个数应为6个，答案9个错误；第30题主俯视图均为2×2正方形，最多正方体个数应为4个，答案8个错误。其余题目均正确。"
+    }
+  }
+}

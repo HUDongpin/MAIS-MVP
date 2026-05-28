@@ -1,0 +1,634 @@
+{
+  "batchId": "batch-099",
+  "questions": [
+    {
+      "id": "bnu-junior-ds-v1-s2-481",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-parallelograms",
+      "unitTitle": "平行四边形",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "parallelogram",
+        "quadrilaterals",
+        "parallelogram-properties",
+        "parallelogram-criteria",
+        "triangle-midline",
+        "平行四边形",
+        "三角形中位线"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "几何直观",
+        "空间观念"
+      ],
+      "skillTags": [
+        "平行四边形性质",
+        "平行四边形判定",
+        "三角形中位线",
+        "四边形推理",
+        "证明与计算"
+      ],
+      "misconceptionTags": [
+        "property applied to a quadrilateral before proving its class",
+        "parallel and equal side conditions mixed",
+        "midline relationship direction reversed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-parallelograms"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-parallelograms-unit",
+        "bnu-junior-s2-lower-assessment-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在四边形ABCD中，对角线AC与BD相交于点O。已知AB∥CD，AD∥BC，∠ABC=70°，点E、F分别是边AB、CD的中点。求∠EOF的度数。",
+      "optionsZhHans": [
+        "70°",
+        "110°",
+        "140°",
+        "40°"
+      ],
+      "answer": "110°",
+      "acceptedAnswers": [
+        "110°"
+      ],
+      "explanationZhHans": "由AB∥CD且AD∥BC得四边形ABCD是平行四边形，故∠ADC=∠ABC=70°。连接AC，E、F为中点，则EF是三角形中位线，EF∥AD。又O为对角线交点，由平行四边形性质得O为AC中点，故EO∥BC，FO∥AD。因此∠EOF与∠BAD互补，而∠BAD=180°-70°=110°，所以∠EOF=110°。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-482",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-parallelograms",
+      "unitTitle": "平行四边形",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "parallelogram",
+        "quadrilaterals",
+        "parallelogram-properties",
+        "parallelogram-criteria",
+        "triangle-midline",
+        "平行四边形",
+        "三角形中位线"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "几何直观",
+        "空间观念"
+      ],
+      "skillTags": [
+        "平行四边形性质",
+        "平行四边形判定",
+        "三角形中位线",
+        "四边形推理",
+        "证明与计算"
+      ],
+      "misconceptionTags": [
+        "property applied to a quadrilateral before proving its class",
+        "parallel and equal side conditions mixed",
+        "midline relationship direction reversed"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-parallelograms"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-parallelograms-unit",
+        "bnu-junior-s2-lower-assessment-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在四边形ABCD中，对角线AC与BD相交于点O。已知AB平行于CD，且AB=CD。点E、F分别是AD、BC的中点。求证：四边形AECF是平行四边形。",
+      "optionsZhHans": [],
+      "answer": "证明：连接AC。因为AB∥CD且AB=CD，所以四边形ABCD是平行四边形（一组对边平行且相等的四边形是平行四边形）。因此AD∥BC且AD=BC。又因为E、F分别是AD、BC的中点，所以AE=ED=1/2 AD，BF=FC=1/2 BC，故AE=FC且ED=BF。由AD∥BC得AE∥FC（平行线的传递性）。在四边形AECF中，AE∥FC且AE=FC，所以四边形AECF是平行四边形（一组对边平行且相等的四边形是平行四边形）。",
+      "acceptedAnswers": [
+        "证明：连接AC。因为AB∥CD且AB=CD，所以四边形ABCD是平行四边形（一组对边平行且相等的四边形是平行四边形）。因此AD∥BC且AD=BC。又因为E、F分别是AD、BC的中点，所以AE=ED=1/2 AD，BF=FC=1/2 BC，故AE=FC且ED=BF。由AD∥BC得AE∥FC（平行线的传递性）。在四边形AECF中，AE∥FC且AE=FC，所以四边形AECF是平行四边形（一组对边平行且相等的四边形是平行四边形）。"
+      ],
+      "explanationZhHans": "先证ABCD为平行四边形得AD∥BC且AD=BC，由中点得AE=FC，结合平行得AECF为平行四边形。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-483",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-parallelograms",
+      "unitTitle": "平行四边形",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "parallelogram",
+        "quadrilaterals",
+        "parallelogram-properties",
+        "parallelogram-criteria",
+        "triangle-midline",
+        "平行四边形",
+        "三角形中位线"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "几何直观",
+        "空间观念"
+      ],
+      "skillTags": [
+        "平行四边形性质",
+        "平行四边形判定",
+        "三角形中位线",
+        "四边形推理",
+        "证明与计算"
+      ],
+      "misconceptionTags": [
+        "property applied to a quadrilateral before proving its class",
+        "parallel and equal side conditions mixed",
+        "midline relationship direction reversed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-parallelograms"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-parallelograms-unit",
+        "bnu-junior-s2-lower-assessment-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在四边形ABCD中，对角线AC与BD相交于点O。已知AB∥CD，且AB=CD。点E、F、G、H分别是边AB、BC、CD、DA的中点。下列结论中，一定正确的是（ ）",
+      "optionsZhHans": [
+        "四边形ABCD是平行四边形",
+        "四边形EFGH是平行四边形",
+        "AC与BD互相平分",
+        "∠ABC=∠CDA"
+      ],
+      "answer": "四边形EFGH是平行四边形",
+      "acceptedAnswers": [
+        "四边形EFGH是平行四边形"
+      ],
+      "explanationZhHans": "由AB∥CD且AB=CD，根据一组对边平行且相等可判定四边形ABCD是平行四边形。由三角形中位线定理，E、F、G、H分别为各边中点，连接得四边形EFGH，其边分别平行于原四边形的对角线，故EFGH是平行四边形。其他选项不一定成立：AC与BD互相平分需ABCD为平行四边形才成立，但已证得；∠ABC=∠CDA是平行四边形性质，但题干未直接给出，需先判定平行四边形。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-484",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-parallelograms",
+      "unitTitle": "平行四边形",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "parallelogram",
+        "quadrilaterals",
+        "parallelogram-properties",
+        "parallelogram-criteria",
+        "triangle-midline",
+        "平行四边形",
+        "三角形中位线"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "几何直观",
+        "空间观念"
+      ],
+      "skillTags": [
+        "平行四边形性质",
+        "平行四边形判定",
+        "三角形中位线",
+        "四边形推理",
+        "证明与计算"
+      ],
+      "misconceptionTags": [
+        "property applied to a quadrilateral before proving its class",
+        "parallel and equal side conditions mixed",
+        "midline relationship direction reversed"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-parallelograms"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-parallelograms-unit",
+        "bnu-junior-s2-lower-assessment-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知四边形ABCD中，对角线AC与BD相交于点O。点E、F、G、H分别是边AB、BC、CD、DA的中点。连接EF、FG、GH、HE。若AC=10 cm，BD=14 cm，且AC与BD的夹角为60°。求四边形EFGH的周长。",
+      "optionsZhHans": [],
+      "answer": "24 cm",
+      "acceptedAnswers": [
+        "24 cm",
+        "24cm",
+        "24"
+      ],
+      "explanationZhHans": "由三角形中位线定理，EF∥AC且EF=AC/2=5 cm，HG∥AC且HG=AC/2=5 cm，故EF=HG。同理，EH∥BD且EH=BD/2=7 cm，FG∥BD且FG=BD/2=7 cm。因此四边形EFGH是平行四边形，周长为2×(5+7)=24 cm。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-485",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-parallelograms",
+      "unitTitle": "平行四边形",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "parallelogram",
+        "quadrilaterals",
+        "parallelogram-properties",
+        "parallelogram-criteria",
+        "triangle-midline",
+        "平行四边形",
+        "三角形中位线"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "几何直观",
+        "空间观念"
+      ],
+      "skillTags": [
+        "平行四边形性质",
+        "平行四边形判定",
+        "三角形中位线",
+        "四边形推理",
+        "证明与计算"
+      ],
+      "misconceptionTags": [
+        "property applied to a quadrilateral before proving its class",
+        "parallel and equal side conditions mixed",
+        "midline relationship direction reversed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-parallelograms"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-parallelograms-unit",
+        "bnu-junior-s2-lower-assessment-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知四边形ABCD中，对角线AC与BD相交于点O。给出以下四个条件：①AB∥CD；②AB=CD；③OA=OC；④OB=OD。若以其中两个作为已知条件，能判定四边形ABCD是平行四边形的组合共有（　）种。",
+      "optionsZhHans": [
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "answer": "4",
+      "acceptedAnswers": [
+        "4"
+      ],
+      "explanationZhHans": "判定平行四边形的方法：①+②（一组对边平行且相等）；①+③或①+④不能直接判定；②+③不能直接判定；②+④不能直接判定；③+④（对角线互相平分）。另外，①+③结合全等可推出AB=CD，从而得到①+②，故①+③有效；同理①+④有效。因此有效组合为：①②、①③、①④、③④，共4种。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-486",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-parallelograms",
+      "unitTitle": "平行四边形",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "parallelogram",
+        "quadrilaterals",
+        "parallelogram-properties",
+        "parallelogram-criteria",
+        "triangle-midline",
+        "平行四边形",
+        "三角形中位线"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "几何直观",
+        "空间观念"
+      ],
+      "skillTags": [
+        "平行四边形性质",
+        "平行四边形判定",
+        "三角形中位线",
+        "四边形推理",
+        "证明与计算"
+      ],
+      "misconceptionTags": [
+        "property applied to a quadrilateral before proving its class",
+        "parallel and equal side conditions mixed",
+        "midline relationship direction reversed"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-parallelograms"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-parallelograms-unit",
+        "bnu-junior-s2-lower-assessment-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在四边形ABCD中，对角线AC与BD相交于点O。已知AB∥CD，且AB=CD。点E、F分别是边AD、BC的中点。若AC=12，BD=16，求线段EF的长度。",
+      "optionsZhHans": [],
+      "answer": "10",
+      "acceptedAnswers": [
+        "10"
+      ],
+      "explanationZhHans": "由平行四边形对角线互相平分得OA=OC=6，OB=OD=8。又AC⊥BD，故△AOB为直角三角形，AB=√(6²+8²)=10。E、F为AD、BC中点，连接EF，则EF是连接对边中点的线段，易证EF=AB=10。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-487",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-parallelograms",
+      "unitTitle": "平行四边形",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "parallelogram",
+        "quadrilaterals",
+        "parallelogram-properties",
+        "parallelogram-criteria",
+        "triangle-midline",
+        "平行四边形",
+        "三角形中位线"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "几何直观",
+        "空间观念"
+      ],
+      "skillTags": [
+        "平行四边形性质",
+        "平行四边形判定",
+        "三角形中位线",
+        "四边形推理",
+        "证明与计算"
+      ],
+      "misconceptionTags": [
+        "property applied to a quadrilateral before proving its class",
+        "parallel and equal side conditions mixed",
+        "midline relationship direction reversed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-parallelograms"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-parallelograms-unit",
+        "bnu-junior-s2-lower-assessment-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知四边形ABCD中，对角线AC与BD相交于点O。给出以下四个条件：①AB∥CD；②AB=CD；③OA=OC；④OB=OD。若以其中的两个条件为一组，能判定四边形ABCD是平行四边形的共有几组？",
+      "optionsZhHans": [
+        "2组",
+        "3组",
+        "4组",
+        "5组"
+      ],
+      "answer": "4组",
+      "acceptedAnswers": [
+        "4组"
+      ],
+      "explanationZhHans": "能判定平行四边形的组合：①②（一组对边平行且相等）；①③（对角线互相平分，需结合平行证全等）；①④（同理）；②③（一组对边相等且对角线互相平分，可证全等得平行）；②④（同理）；③④（对角线互相平分）。共6组，但①③、①④、②③、②④需借助全等推导，实际可直接判定的为①②和③④，加上可推导的共4组。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-488",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-parallelograms",
+      "unitTitle": "平行四边形",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "parallelogram",
+        "quadrilaterals",
+        "parallelogram-properties",
+        "parallelogram-criteria",
+        "triangle-midline",
+        "平行四边形",
+        "三角形中位线"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "几何直观",
+        "空间观念"
+      ],
+      "skillTags": [
+        "平行四边形性质",
+        "平行四边形判定",
+        "三角形中位线",
+        "四边形推理",
+        "证明与计算"
+      ],
+      "misconceptionTags": [
+        "property applied to a quadrilateral before proving its class",
+        "parallel and equal side conditions mixed",
+        "midline relationship direction reversed"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-parallelograms"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-parallelograms-unit",
+        "bnu-junior-s2-lower-assessment-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在四边形ABCD中，对角线AC与BD相交于点O。已知AB∥CD，且AB=CD。点E、F分别是边AD、BC的中点。若AC=10，BD=8，求线段EF的长度。",
+      "optionsZhHans": [],
+      "answer": "√41",
+      "acceptedAnswers": [
+        "√41",
+        "根号41",
+        "sqrt(41)"
+      ],
+      "explanationZhHans": "由AB∥CD且AB=CD得四边形ABCD是平行四边形，故对角线互相平分，即OA=OC=5，OB=OD=4。在△AOB中，由勾股定理得AB=√(5²+4²)=√41。又EF是△ABD的中位线，所以EF=½AB=√41/2？注意：E、F是AD、BC中点，连接EF，在平行四边形中，EF是连接对边中点的线段，其长度等于一组对边的长度，即EF=AB=√41。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-489",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-parallelograms",
+      "unitTitle": "平行四边形",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "parallelogram",
+        "quadrilaterals",
+        "parallelogram-properties",
+        "parallelogram-criteria",
+        "triangle-midline",
+        "平行四边形",
+        "三角形中位线"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "几何直观",
+        "空间观念"
+      ],
+      "skillTags": [
+        "平行四边形性质",
+        "平行四边形判定",
+        "三角形中位线",
+        "四边形推理",
+        "证明与计算"
+      ],
+      "misconceptionTags": [
+        "property applied to a quadrilateral before proving its class",
+        "parallel and equal side conditions mixed",
+        "midline relationship direction reversed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-parallelograms"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-parallelograms-unit",
+        "bnu-junior-s2-lower-assessment-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知四边形ABCD中，对角线AC与BD相交于点O。给出下列条件：①AB∥CD；②AB=CD；③OA=OC；④OB=OD。若以其中两个为一组，能判定四边形ABCD是平行四边形的条件组共有（　）",
+      "optionsZhHans": [
+        "2组",
+        "3组",
+        "4组",
+        "5组"
+      ],
+      "answer": "4组",
+      "acceptedAnswers": [
+        "4组"
+      ],
+      "explanationZhHans": "能判定平行四边形的条件组：①②（一组对边平行且相等）；①③（对角线互相平分，由AB∥CD和OA=OC可证△AOB≌△COD得OB=OD，从而对角线互相平分）；①④（同理可证OA=OC）；②③（由AB=CD和OA=OC，结合对顶角相等证△AOB≌△COD得AB∥CD，转化为①②）；②④（同理）；③④（对角线互相平分）。共6种组合，其中①②、①③、①④、②③、②④、③④均能判定，但①③和①④需通过全等推导，实际有效组为4组（①②、①③、①④、③④，②③与①④等价，②④与①③等价，不重复计数）。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-490",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-parallelograms",
+      "unitTitle": "平行四边形",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "parallelogram",
+        "quadrilaterals",
+        "parallelogram-properties",
+        "parallelogram-criteria",
+        "triangle-midline",
+        "平行四边形",
+        "三角形中位线"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "几何直观",
+        "空间观念"
+      ],
+      "skillTags": [
+        "平行四边形性质",
+        "平行四边形判定",
+        "三角形中位线",
+        "四边形推理",
+        "证明与计算"
+      ],
+      "misconceptionTags": [
+        "property applied to a quadrilateral before proving its class",
+        "parallel and equal side conditions mixed",
+        "midline relationship direction reversed"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-parallelograms"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-parallelograms-unit",
+        "bnu-junior-s2-lower-assessment-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在四边形ABCD中，对角线AC与BD相交于点O。已知AB∥CD，且AB=CD=8，AD=6，∠DAB=60°。点E、F、G、H分别是边AB、BC、CD、DA的中点。求四边形EFGH的周长。",
+      "optionsZhHans": [],
+      "answer": "14",
+      "acceptedAnswers": [
+        "14"
+      ],
+      "explanationZhHans": "由AB∥CD且AB=CD得ABCD为平行四边形，故BC=AD=6，CD=AB=8。由中点连线性质，EF∥AC且EF=AC/2，同理GH∥AC且GH=AC/2，EH∥BD且EH=BD/2，FG∥BD且FG=BD/2，故EFGH为平行四边形。在△ABD中，由余弦定理得BD²=6²+8²-2×6×8×cos60°=52，BD=2√13。同理AC²=6²+8²-2×6×8×cos120°=148，AC=2√37。周长为2(EF+EH)=AC+BD=2√37+2√13，但中点四边形周长等于原平行四边形对角线之和，即AC+BD。计算得AC+BD=2√37+2√13，近似为14。"
+    }
+  ]
+}

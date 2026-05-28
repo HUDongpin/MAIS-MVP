@@ -1,0 +1,380 @@
+{
+  "batchId": "batch-007",
+  "questions": [
+    {
+      "id": "hjb-high-ds-v2-s4-061",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-等式与不等式",
+      "topicTitleZhHans": "等式与不等式",
+      "volume": "必修 第一册",
+      "chapter": "等式与不等式",
+      "conceptIds": [
+        "inequality-properties",
+        "quadratic-equations",
+        "quadratic-inequalities",
+        "basic-inequality"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities-unit-core",
+        "hjb-high-compulsory-1-equations-inequalities-topic-review",
+        "pep-high-exam-basic-inequality-optimization"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "已知 a, b 为正实数，且 a + b = 4。设 M = a^2 + b^2，则 M 的最小值为（ ）。",
+      "optionsZhHans": [
+        "4",
+        "6",
+        "8",
+        "10"
+      ],
+      "answer": "8",
+      "acceptedAnswers": [
+        "8"
+      ],
+      "explanationZhHans": "由基本不等式，a^2 + b^2 ≥ (a+b)^2/2 = 16/2 = 8，当且仅当 a = b = 2 时取等，故最小值为 8。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-062",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-等式与不等式",
+      "topicTitleZhHans": "等式与不等式",
+      "volume": "必修 第一册",
+      "chapter": "等式与不等式",
+      "conceptIds": [
+        "inequality-properties",
+        "quadratic-equations",
+        "quadratic-inequalities",
+        "basic-inequality"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities-unit-core",
+        "hjb-high-compulsory-1-equations-inequalities-topic-review",
+        "pep-high-exam-basic-inequality-optimization"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "若关于 x 的不等式 x^2 - (m+1)x + m ≤ 0 的解集为 [1, 2]，则实数 m 的值为______。",
+      "optionsZhHans": [],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2"
+      ],
+      "explanationZhHans": "由解集端点知 1 和 2 是方程 x^2 - (m+1)x + m = 0 的两根，由韦达定理得 1+2 = m+1，故 m = 2。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-063",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-等式与不等式",
+      "topicTitleZhHans": "等式与不等式",
+      "volume": "必修 第一册",
+      "chapter": "等式与不等式",
+      "conceptIds": [
+        "inequality-properties",
+        "quadratic-equations",
+        "quadratic-inequalities",
+        "basic-inequality"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities-unit-core",
+        "hjb-high-compulsory-1-equations-inequalities-topic-review",
+        "pep-high-exam-basic-inequality-optimization"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "解不等式：|2x - 1| < 3。",
+      "optionsZhHans": [],
+      "answer": "(-1, 2)",
+      "acceptedAnswers": [
+        "(-1, 2)",
+        "-1 < x < 2"
+      ],
+      "explanationZhHans": "原不等式等价于 -3 < 2x - 1 < 3，解得 -2 < 2x < 4，即 -1 < x < 2，解集为 (-1, 2)。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-064",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-等式与不等式",
+      "topicTitleZhHans": "等式与不等式",
+      "volume": "必修 第一册",
+      "chapter": "等式与不等式",
+      "conceptIds": [
+        "inequality-properties",
+        "quadratic-equations",
+        "quadratic-inequalities",
+        "basic-inequality"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities-unit-core",
+        "hjb-high-compulsory-1-equations-inequalities-topic-review",
+        "pep-high-exam-basic-inequality-optimization"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "已知正数 x, y 满足 x + 2y = 1，则 1/x + 1/y 的最小值为（ ）。",
+      "optionsZhHans": [
+        "3 + 2√2",
+        "3 + √2",
+        "4√2",
+        "6"
+      ],
+      "answer": "3 + 2√2",
+      "acceptedAnswers": [
+        "3 + 2√2"
+      ],
+      "explanationZhHans": "1/x + 1/y = (x+2y)(1/x+1/y) = 3 + 2y/x + x/y ≥ 3 + 2√(2y/x·x/y) = 3 + 2√2，当且仅当 x = √2 y 时取等。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-065",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-等式与不等式",
+      "topicTitleZhHans": "等式与不等式",
+      "volume": "必修 第一册",
+      "chapter": "等式与不等式",
+      "conceptIds": [
+        "inequality-properties",
+        "quadratic-equations",
+        "quadratic-inequalities",
+        "basic-inequality"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities-unit-core",
+        "hjb-high-compulsory-1-equations-inequalities-topic-review",
+        "pep-high-exam-basic-inequality-optimization"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "不等式 x^2 - 5x + 6 > 0 的解集为______。",
+      "optionsZhHans": [],
+      "answer": "(-∞, 2) ∪ (3, +∞)",
+      "acceptedAnswers": [
+        "(-∞, 2) ∪ (3, +∞)",
+        "x < 2 或 x > 3"
+      ],
+      "explanationZhHans": "因式分解得 (x-2)(x-3) > 0，由二次函数图像开口向上，解集为两根之外，即 x < 2 或 x > 3。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-066",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-等式与不等式",
+      "topicTitleZhHans": "等式与不等式",
+      "volume": "必修 第一册",
+      "chapter": "等式与不等式",
+      "conceptIds": [
+        "inequality-properties",
+        "quadratic-equations",
+        "quadratic-inequalities",
+        "basic-inequality"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities-unit-core",
+        "hjb-high-compulsory-1-equations-inequalities-topic-review",
+        "pep-high-exam-basic-inequality-optimization"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "已知 a > 0, b > 0，且 ab = 4，求 a + 2b 的最小值，并指出取得最小值时 a, b 的值。",
+      "optionsZhHans": [],
+      "answer": "最小值为 4√2，此时 a = 2√2, b = √2",
+      "acceptedAnswers": [
+        "最小值为 4√2，此时 a = 2√2, b = √2",
+        "4√2，a=2√2，b=√2"
+      ],
+      "explanationZhHans": "由基本不等式，a + 2b ≥ 2√(2ab) = 2√8 = 4√2，当且仅当 a = 2b 时取等，结合 ab=4 解得 a=2√2, b=√2。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-067",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-等式与不等式",
+      "topicTitleZhHans": "等式与不等式",
+      "volume": "必修 第一册",
+      "chapter": "等式与不等式",
+      "conceptIds": [
+        "inequality-properties",
+        "quadratic-equations",
+        "quadratic-inequalities",
+        "basic-inequality"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities-unit-core",
+        "hjb-high-compulsory-1-equations-inequalities-topic-review",
+        "pep-high-exam-basic-inequality-optimization"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "若 a > b，则下列不等式一定成立的是（ ）。",
+      "optionsZhHans": [
+        "a^2 > b^2",
+        "1/a < 1/b",
+        "a|c| > b|c|",
+        "a - c > b - c"
+      ],
+      "answer": "a - c > b - c",
+      "acceptedAnswers": [
+        "a - c > b - c"
+      ],
+      "explanationZhHans": "根据不等式性质，a > b 两边同时减去 c 不等号方向不变，故 a - c > b - c 恒成立；其他选项需附加条件。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-068",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-等式与不等式",
+      "topicTitleZhHans": "等式与不等式",
+      "volume": "必修 第一册",
+      "chapter": "等式与不等式",
+      "conceptIds": [
+        "inequality-properties",
+        "quadratic-equations",
+        "quadratic-inequalities",
+        "basic-inequality"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities-unit-core",
+        "hjb-high-compulsory-1-equations-inequalities-topic-review",
+        "pep-high-exam-basic-inequality-optimization"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "若不等式 ax^2 + bx + 2 > 0 的解集为 (-1, 2)，则 a + b 的值为______。",
+      "optionsZhHans": [],
+      "answer": "-1",
+      "acceptedAnswers": [
+        "-1"
+      ],
+      "explanationZhHans": "由解集知 a < 0 且 -1, 2 是方程 ax^2+bx+2=0 的两根，由韦达定理得 -1+2 = -b/a，-1×2 = 2/a，解得 a=-1, b=1，故 a+b=0。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-069",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-等式与不等式",
+      "topicTitleZhHans": "等式与不等式",
+      "volume": "必修 第一册",
+      "chapter": "等式与不等式",
+      "conceptIds": [
+        "inequality-properties",
+        "quadratic-equations",
+        "quadratic-inequalities",
+        "basic-inequality"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities-unit-core",
+        "hjb-high-compulsory-1-equations-inequalities-topic-review",
+        "pep-high-exam-basic-inequality-optimization"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "用一段长为 36 m 的篱笆围成一个矩形菜园，其中一面靠墙（墙足够长），求菜园的最大面积。",
+      "optionsZhHans": [],
+      "answer": "162 m²",
+      "acceptedAnswers": [
+        "162 m²",
+        "162平方米",
+        "162"
+      ],
+      "explanationZhHans": "设垂直墙的边长为 x，则平行墙的边长为 36-2x，面积 S = x(36-2x) = -2x^2+36x，当 x=9 时 S 最大为 162 m²。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-070",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-等式与不等式",
+      "topicTitleZhHans": "等式与不等式",
+      "volume": "必修 第一册",
+      "chapter": "等式与不等式",
+      "conceptIds": [
+        "inequality-properties",
+        "quadratic-equations",
+        "quadratic-inequalities",
+        "basic-inequality"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities-unit-core",
+        "hjb-high-compulsory-1-equations-inequalities-topic-review",
+        "pep-high-exam-basic-inequality-optimization"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "已知关于 x 的不等式 x^2 - 2ax + a^2 - 1 ≤ 0 的解集为 A，且 A ⊆ [-1, 3]，则实数 a 的取值范围是（ ）。",
+      "optionsZhHans": [
+        "[0, 2]",
+        "[-1, 3]",
+        "[0, 1]",
+        "[1, 2]"
+      ],
+      "answer": "[0, 2]",
+      "acceptedAnswers": [
+        "[0, 2]"
+      ],
+      "explanationZhHans": "不等式化为 (x - a + 1)(x - a - 1) ≤ 0，解集为 [a-1, a+1]。由 A ⊆ [-1,3] 得 a-1 ≥ -1 且 a+1 ≤ 3，解得 0 ≤ a ≤ 2。"
+    }
+  ]
+}

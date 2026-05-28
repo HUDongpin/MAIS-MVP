@@ -1,0 +1,295 @@
+{
+  "batchId": "batch-207",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p5-031",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "hjb-primary-p5-upper-decimal-operations",
+      "unitTitle": "小数乘除法与估算",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "decimal-multiplication",
+        "decimal-division",
+        "decimal-estimation",
+        "place-value-decimals",
+        "小数乘除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "小数乘法",
+        "小数除法",
+        "积商估算",
+        "小数点位置",
+        "结果合理性检查"
+      ],
+      "misconceptionTags": [
+        "decimal point placed by counting digits only",
+        "quotient size judged without estimating",
+        "unit meaning lost after calculation"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p5-upper-decimal-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit",
+        "hjb-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小杰计算 0.48 × 2.5，他先算 48 × 25 = 1200，然后根据因数的小数位数确定积的小数点位置，得到 0.48 × 2.5 = 0.12。下面哪种说法正确？",
+      "optionsZhHans": [
+        "他算错了，因为 0.48 × 2.5 应该等于 1.2",
+        "他算对了，因为两个因数一共有三位小数，积也应有三位小数",
+        "他算错了，因为 0.48 × 2.5 应该等于 12",
+        "他算对了，因为 48 × 25 = 1200，去掉两个零就是 0.12"
+      ],
+      "answer": "他算错了，因为 0.48 × 2.5 应该等于 1.2",
+      "acceptedAnswers": [
+        "他算错了，因为 0.48 × 2.5 应该等于 1.2"
+      ],
+      "explanationZhHans": "估算：0.48接近0.5，0.5×2.5=1.25，所以积大约是1.2左右。正确计算：0.48×2.5=48×25÷1000=1200÷1000=1.2。小杰只数了小数位数，但没考虑末尾零的情况，得到0.12是错的。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-032",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "hjb-primary-p5-upper-decimal-operations",
+      "unitTitle": "小数乘除法与估算",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "decimal-multiplication",
+        "decimal-division",
+        "decimal-estimation",
+        "place-value-decimals",
+        "小数乘除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "小数乘法",
+        "小数除法",
+        "积商估算",
+        "小数点位置",
+        "结果合理性检查"
+      ],
+      "misconceptionTags": [
+        "decimal point placed by counting digits only",
+        "quotient size judged without estimating",
+        "unit meaning lost after calculation"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p5-upper-decimal-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit",
+        "hjb-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一瓶果汁有 1.5 升。妈妈用容量是 0.24 升的杯子倒果汁，最多能倒满几杯？还剩多少升？",
+      "optionsZhHans": [],
+      "answer": "6杯，还剩0.06升",
+      "acceptedAnswers": [
+        "6杯，还剩0.06升",
+        "6杯 0.06升",
+        "6杯，0.06升"
+      ],
+      "explanationZhHans": "1.5 ÷ 0.24 = 150 ÷ 24 = 6.25，所以能倒满6杯。6杯用去 6×0.24=1.44升，剩余 1.5−1.44=0.06升。注意商的小数部分表示不足一杯。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-033",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "hjb-primary-p5-upper-equations-relationships",
+      "unitTitle": "用字母表示数与简易方程",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "simple-equations",
+        "letters-as-variables",
+        "quantitative-relationships",
+        "equation-modeling",
+        "简易方程"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "模型意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "用字母表示数",
+        "等量关系",
+        "解简易方程",
+        "代入检验",
+        "问题建模"
+      ],
+      "misconceptionTags": [
+        "letter treated as a label only",
+        "equation balance not maintained",
+        "unknown not defined before modeling"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p5-upper-equations-relationships"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-equations-relationships-unit",
+        "hjb-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校买来一些足球和篮球，足球每个 a 元，买了 5 个；篮球每个 b 元，买了 3 个。用式子表示买足球比买篮球多付的钱数。当 a=68，b=85 时，买足球比买篮球多付多少元？",
+      "optionsZhHans": [],
+      "answer": "5a−3b；多付85元",
+      "acceptedAnswers": [
+        "5a−3b；多付85元",
+        "5a-3b；85元",
+        "5a−3b；85"
+      ],
+      "explanationZhHans": "足球总价5a元，篮球总价3b元，多付5a−3b元。代入a=68，b=85：5×68−3×85=340−255=85（元）。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-034",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "hjb-primary-p5-upper-equations-relationships",
+      "unitTitle": "用字母表示数与简易方程",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "simple-equations",
+        "letters-as-variables",
+        "quantitative-relationships",
+        "equation-modeling",
+        "简易方程"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "模型意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "用字母表示数",
+        "等量关系",
+        "解简易方程",
+        "代入检验",
+        "问题建模"
+      ],
+      "misconceptionTags": [
+        "letter treated as a label only",
+        "equation balance not maintained",
+        "unknown not defined before modeling"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p5-upper-equations-relationships"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-equations-relationships-unit",
+        "hjb-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个式子是方程？",
+      "optionsZhHans": [
+        "3x + 5 > 12",
+        "7y − 2 = 19",
+        "4 + 9 = 13",
+        "2a + 6"
+      ],
+      "answer": "7y − 2 = 19",
+      "acceptedAnswers": [
+        "7y − 2 = 19"
+      ],
+      "explanationZhHans": "方程是含有未知数的等式。选项A是不等式，C是等式但没有未知数，D是代数式不是等式。只有B是含有未知数y的等式。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-035",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "hjb-primary-p5-upper-equations-relationships",
+      "unitTitle": "用字母表示数与简易方程",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "simple-equations",
+        "letters-as-variables",
+        "quantitative-relationships",
+        "equation-modeling",
+        "简易方程"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "模型意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "用字母表示数",
+        "等量关系",
+        "解简易方程",
+        "代入检验",
+        "问题建模"
+      ],
+      "misconceptionTags": [
+        "letter treated as a label only",
+        "equation balance not maintained",
+        "unknown not defined before modeling"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p5-upper-equations-relationships"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-equations-relationships-unit",
+        "hjb-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知 x 的 3 倍加上 4 等于 19，求 x 的值。",
+      "optionsZhHans": [],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5",
+        "x=5"
+      ],
+      "explanationZhHans": "根据题意列方程：3x+4=19。两边减4得3x=15，两边除以3得x=5。检验：3×5+4=19，符合。"
+    }
+  ]
+}

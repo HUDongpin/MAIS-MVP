@@ -1,0 +1,50 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-374",
+  "startedAt": "2026-05-28T02:43:36.921Z",
+  "completedAt": "2026-05-28T02:43:42.065Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-374"
+  ],
+  "usage": {
+    "prompt_tokens": 2533,
+    "completion_tokens": 295,
+    "total_tokens": 2828,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2149
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-374",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": null,
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "missing_condition",
+          "explanation_contradiction",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件矛盾：由仰角得AC=√3h，BC=h，在△ABC中AB=30，∠CAB=60°，余弦定理得h²-15√3h+450=0，判别式<0无实数解，无法计算塔高。存储答案15.0米基于错误假设∠ACB=60°且计算有误，解析与条件不符。题目不可解。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目条件矛盾导致无解，存储答案错误，判定为blocker。"
+    }
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "batchId": "model-qa-0118",
+  "ids": [
+    "hjb-junior-ds-v2-s2-437",
+    "hjb-junior-ds-v2-s2-438",
+    "hjb-junior-ds-v2-s2-439",
+    "hjb-junior-ds-v2-s2-440",
+    "hjb-junior-ds-v2-s2-441",
+    "hjb-junior-ds-v2-s2-442",
+    "hjb-junior-ds-v2-s2-443",
+    "hjb-junior-ds-v2-s2-444"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-437",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-1",
+      "answerCheckZhHans": "标准答案 -1 与独立求解结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-438",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "16",
+      "answerCheckZhHans": "标准答案 16 与独立求解结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-439",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-6",
+      "answerCheckZhHans": "标准答案 -6 与独立求解结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-440",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "multiple-correct-options"
+      ],
+      "issueDetailsZhHans": "选项C和D均正确。反比例函数 y = -4/x 中 k<0，图像在二、四象限，在每个象限内 y 随 x 增大而增大，且图像关于原点对称。因此C和D都是正确说法，但题目为单选题，存在多个正确选项。",
+      "independentAnswerZhHans": "C和D均正确",
+      "answerCheckZhHans": "标准答案仅给出D，但C也正确，导致题目有多个正确选项。",
+      "recommendedActionZhHans": "修改选项C或D，确保只有一个正确选项；或改为多选题。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-441",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-6",
+      "answerCheckZhHans": "标准答案 -6 与独立求解结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-442",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "m < 1",
+      "answerCheckZhHans": "标准答案 m < 1 与独立求解结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-443",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "y = 12/x",
+      "answerCheckZhHans": "标准答案 y = 12/x 与独立求解结果一致，acceptedAnswers 覆盖了常见写法。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-444",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "增大",
+      "answerCheckZhHans": "标准答案 增大 与独立求解结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

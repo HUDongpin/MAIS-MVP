@@ -1,0 +1,191 @@
+{
+  "batchNumber": 64,
+  "startedAt": "2026-05-27T13:59:16.251Z",
+  "completedAt": "2026-05-27T13:59:33.417Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p5-135",
+    "bnu-primary-ds-v2-p5-136",
+    "bnu-primary-ds-v2-p5-137",
+    "bnu-primary-ds-v2-p5-138",
+    "bnu-primary-ds-v2-p5-139",
+    "bnu-primary-ds-v2-p5-140",
+    "bnu-primary-ds-v2-p5-141",
+    "bnu-primary-ds-v2-p5-142",
+    "bnu-primary-ds-v2-p5-143",
+    "bnu-primary-ds-v2-p5-144",
+    "bnu-primary-ds-v2-p5-145",
+    "bnu-primary-ds-v2-p5-146",
+    "bnu-primary-ds-v2-p5-147",
+    "bnu-primary-ds-v2-p5-148",
+    "bnu-primary-ds-v2-p5-149",
+    "bnu-primary-ds-v2-p5-150",
+    "bnu-primary-ds-v2-p5-151",
+    "bnu-primary-ds-v2-p5-152"
+  ],
+  "usage": {
+    "prompt_tokens": 4041,
+    "completion_tokens": 1309,
+    "total_tokens": 5350,
+    "prompt_tokens_details": {
+      "cached_tokens": 3968
+    },
+    "prompt_cache_hit_tokens": 3968,
+    "prompt_cache_miss_tokens": 73
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p5-135",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，符合分数加减法要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-136",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项描述清晰，答案正确，符合长方体展开图要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-137",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，符合长方体相对面面积计算。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-138",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，符合长方体表面积计算。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-139",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项描述清晰，答案正确，符合长方体展开图识别。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-140",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，符合切割长方体增加表面积最小值计算。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-141",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，符合长方体表面积计算。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-142",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，符合正方体表面积计算。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-143",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，符合正方体拼合减少表面积计算。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-144",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，符合无盖长方体表面积计算。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-145",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项描述清晰，答案正确，符合正方体展开图识别。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-146",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，符合长方体表面积变化规律。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-147",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，符合正方体棱长计算。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-148",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项清晰，答案正确，符合长方体表面积公式选择。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-149",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，符合正方体表面积计算。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-150",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，符合长方体侧面积计算。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-151",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，符合分数乘法应用。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-152",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，符合分数乘法计算。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版小学数学要求，无错误或风险。"
+    }
+  }
+}

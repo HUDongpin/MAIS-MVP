@@ -1,0 +1,885 @@
+{
+  "reportDate": "2026-05-24",
+  "packageVersion": "V2",
+  "physicalSourceDirectory": "mainland-hjb-high-generated-bank-v2",
+  "totalRows": 1500,
+  "remediatedRows": 32,
+  "gradeCounts": {
+    "S4": 500,
+    "S5": 500,
+    "S6": 500
+  },
+  "rows": [
+    {
+      "questionId": "hjb-high-ds-v2-s4-004",
+      "grade": "S4",
+      "chapter": "集合与逻辑",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "issueCode": "manual-answer-mismatch",
+      "remediationStrategy": "correct-answer-and-mc-options",
+      "oldPromptZhHans": "已知 p：|x - 2| < 1，q：x < a。若 p 是 q 的充分不必要条件，则实数 a 的取值范围是（　）",
+      "oldAnswer": "a > 3",
+      "oldAcceptedAnswers": [
+        "a > 3"
+      ],
+      "oldExplanationZhHans": "p：1 < x < 3。p⇒q 要求 (1,3) ⊆ (-∞,a)，得 a ≥ 3；q⇏p 要求 a 不能 ≤3，故 a > 3。",
+      "oldManualNotes": "p gives 1<x<3 and q gives x<a; p=>q allows a=3, so the stored strict endpoint a>3 is too narrow.",
+      "newPromptZhHans": "已知 p：|x - 2| < 1，q：x < a。若 p 是 q 的充分不必要条件，则实数 a 的取值范围是（　）",
+      "newAnswer": "a ≥ 3",
+      "newAcceptedAnswers": [
+        "a ≥ 3",
+        "a>=3"
+      ],
+      "newExplanationZhHans": "p 表示 1<x<3。要使 p⇒q，需 (1,3)⊆(-∞,a)，所以 a≥3；当 a≥3 时，q 中仍有不属于 p 的数，故 q 不能推出 p。",
+      "manualDecision": "approve",
+      "manualIndependentAnswer": "a ≥ 3",
+      "manualNotes": "Corrected the endpoint. Since q is x<a, a=3 still makes every x in (1,3) satisfy q.",
+      "manualRecommendedAction": "Approve remediated row for the V2 candidate release pool after aggregate QA gates pass."
+    },
+    {
+      "questionId": "hjb-high-ds-v2-s4-009",
+      "grade": "S4",
+      "chapter": "集合与逻辑",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "issueCode": "manual-answer-mismatch",
+      "remediationStrategy": "add-distinctness-and-correct-answer",
+      "oldPromptZhHans": "已知集合 A = {1, a, b}，B = {a, a², ab}，且 A = B，求 a²⁰²³ + b²⁰²⁴ 的值。",
+      "oldAnswer": "2",
+      "oldAcceptedAnswers": [
+        "2"
+      ],
+      "oldExplanationZhHans": "由集合相等及互异性，得 a=-1，b=0。则 a²⁰²³=-1，b²⁰²⁴=0，和为 -1？检查：A={1,-1,0}，B={-1,1,0}，相等。但 a²⁰²³=-1，b²⁰²⁴=0，和为 -1。原答案有误，应为 -1。",
+      "oldManualNotes": "Set equality forces a=-1 and b=0 under the intended distinct-element reading; the expression is -1, not 2.",
+      "newPromptZhHans": "已知 a、b、1 两两不同，集合 A = {1, a, b}，B = {a, a², ab}，且 A = B，求 a²⁰²³ + b²⁰²⁴ 的值。",
+      "newAnswer": "-1",
+      "newAcceptedAnswers": [
+        "-1"
+      ],
+      "newExplanationZhHans": "由 1∈B 且 a≠1，结合集合相等可得 a=-1；此时 B={-1,1,-b} 与 A={1,-1,b} 相等，故 b=0。于是 a²⁰²³+b²⁰²⁴=-1+0=-1。",
+      "manualDecision": "approve",
+      "manualIndependentAnswer": "-1",
+      "manualNotes": "Added distinctness to make the set-equality reading unique and corrected the stored answer.",
+      "manualRecommendedAction": "Approve remediated row for the V2 candidate release pool after aggregate QA gates pass."
+    },
+    {
+      "questionId": "hjb-high-ds-v2-s4-026",
+      "grade": "S4",
+      "chapter": "集合与逻辑",
+      "type": "fill-in",
+      "difficulty": "Challenge",
+      "issueCode": "manual-ambiguous-empty-set",
+      "remediationStrategy": "state-nonempty-interval-condition",
+      "oldPromptZhHans": "已知集合 A = { x | -2 ≤ x ≤ 5 }，B = { x | m ≤ x ≤ 2m + 1 }。若 B ⊆ A，求实数 m 的取值范围。",
+      "oldAnswer": "-1 ≤ m ≤ 2",
+      "oldAcceptedAnswers": [
+        "-1 ≤ m ≤ 2",
+        "-1<=m<=2"
+      ],
+      "oldExplanationZhHans": "B ⊆ A 需满足 m ≥ -2 且 2m+1 ≤ 5，且 m ≤ 2m+1。解得 m ≥ -1，m ≤ 2，且 m ≥ -1，综合得 -1 ≤ m ≤ 2。",
+      "oldManualNotes": "The prompt does not state whether B may be empty when m>2m+1, so the stored answer depends on an unstated convention.",
+      "newPromptZhHans": "已知集合 A = { x | -2 ≤ x ≤ 5 }，B = { x | m ≤ x ≤ 2m + 1 }，且 B 为非空区间。若 B ⊆ A，求实数 m 的取值范围。",
+      "newAnswer": "-1 ≤ m ≤ 2",
+      "newAcceptedAnswers": [
+        "-1 ≤ m ≤ 2",
+        "-1<=m<=2"
+      ],
+      "newExplanationZhHans": "B 非空需 m≤2m+1，即 m≥-1。又 B⊆A 需 m≥-2 且 2m+1≤5，即 m≤2。综合得 -1≤m≤2。",
+      "manualDecision": "approve",
+      "manualIndependentAnswer": "-1 ≤ m ≤ 2",
+      "manualNotes": "Added the nonempty interval condition so the answer no longer depends on an unstated convention.",
+      "manualRecommendedAction": "Approve remediated row for the V2 candidate release pool after aggregate QA gates pass."
+    },
+    {
+      "questionId": "hjb-high-ds-v2-s4-035",
+      "grade": "S4",
+      "chapter": "集合与逻辑",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "issueCode": "manual-answer-mismatch",
+      "remediationStrategy": "correct-answer",
+      "oldPromptZhHans": "已知集合 A = {1, 2, 3, 4, 5}，B = {3, 4, 5, 6, 7}。则 (A ∩ B) ∪ (∁_U (A ∪ B)) 中元素的个数为 ______。（其中 U = A ∪ B）",
+      "oldAnswer": "5",
+      "oldAcceptedAnswers": [
+        "5"
+      ],
+      "oldExplanationZhHans": "U=A∪B={1,2,3,4,5,6,7}，A∩B={3,4,5}，∁_U(A∪B)=∅，故并集为{3,4,5}，元素个数为3。注意全集为A∪B，补集为空。",
+      "oldManualNotes": "With U=A union B, the complement of A union B is empty; the requested set has elements {3,4,5}.",
+      "newPromptZhHans": "已知集合 A = {1, 2, 3, 4, 5}，B = {3, 4, 5, 6, 7}。则 (A ∩ B) ∪ (∁_U (A ∪ B)) 中元素的个数为 ______。（其中 U = A ∪ B）",
+      "newAnswer": "3",
+      "newAcceptedAnswers": [
+        "3"
+      ],
+      "newExplanationZhHans": "因为 U=A∪B，所以 ∁_U(A∪B)=∅；又 A∩B={3,4,5}。并集仍为 {3,4,5}，元素个数为 3。",
+      "manualDecision": "approve",
+      "manualIndependentAnswer": "3",
+      "manualNotes": "Corrected the count under the stated universe U=A∪B.",
+      "manualRecommendedAction": "Approve remediated row for the V2 candidate release pool after aggregate QA gates pass."
+    },
+    {
+      "questionId": "hjb-high-ds-v2-s4-036",
+      "grade": "S4",
+      "chapter": "集合与逻辑",
+      "type": "short-answer",
+      "difficulty": "Exam",
+      "issueCode": "manual-answer-mismatch",
+      "remediationStrategy": "correct-answer",
+      "oldPromptZhHans": "设 p：|x - 2| < 1，q：x^2 - 5x + 6 < 0。判断 p 是 q 的什么条件（充分不必要、必要不充分、充要、既不充分也不必要），并说明理由。",
+      "oldAnswer": "充分不必要条件",
+      "oldAcceptedAnswers": [
+        "充分不必要条件",
+        "充分不必要"
+      ],
+      "oldExplanationZhHans": "p：1<x<3；q：2<x<3。p 推不出 q（如 x=1.5），q 能推出 p，故 p 是 q 的必要不充分条件。注意解不等式和条件方向。",
+      "oldManualNotes": "p is (1,3), q is (2,3); q implies p, but p does not imply q.",
+      "newPromptZhHans": "设 p：|x - 2| < 1，q：x² - 5x + 6 < 0。判断 p 是 q 的什么条件（充分不必要、必要不充分、充要、既不充分也不必要），并说明理由。",
+      "newAnswer": "必要不充分条件",
+      "newAcceptedAnswers": [
+        "必要不充分条件",
+        "必要不充分"
+      ],
+      "newExplanationZhHans": "p 的解集为 (1,3)，q 的解集为 (2,3)。q⇒p，但 p 不能推出 q，例如 x=1.5 满足 p 不满足 q，所以 p 是 q 的必要不充分条件。",
+      "manualDecision": "approve",
+      "manualIndependentAnswer": "必要不充分条件",
+      "manualNotes": "Corrected the implication direction.",
+      "manualRecommendedAction": "Approve remediated row for the V2 candidate release pool after aggregate QA gates pass."
+    },
+    {
+      "questionId": "hjb-high-ds-v2-s4-037",
+      "grade": "S4",
+      "chapter": "集合与逻辑",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "issueCode": "missing-visual-reference",
+      "remediationStrategy": "remove-missing-visual-wording",
+      "oldPromptZhHans": "已知全集 U = R，集合 A = {x | x^2 - 3x ≤ 0}，B = {x | x > 1}。则图中阴影部分表示的集合是（ ）（阴影部分为 A 中去掉与 B 相交的部分）",
+      "oldAnswer": "{x | 0 ≤ x ≤ 1}",
+      "oldAcceptedAnswers": [
+        "{x | 0 ≤ x ≤ 1}"
+      ],
+      "oldExplanationZhHans": "A={x|0≤x≤3}，阴影为 A∩(∁_U B)，∁_U B={x|x≤1}，交集为 {x|0≤x≤1}。注意端点取值。",
+      "oldManualNotes": "Answer is inferable from the parenthetical text, but the item still references a shaded figure without diagramSpec; remove the figure wording or add a formal diagram specification.",
+      "newPromptZhHans": "已知全集 U = R，集合 A = {x | x² - 3x ≤ 0}，B = {x | x > 1}。求集合 A ∩ (∁_U B)（　）",
+      "newAnswer": "{x | 0 ≤ x ≤ 1}",
+      "newAcceptedAnswers": [
+        "{x | 0 ≤ x ≤ 1}",
+        "{x|0≤x≤1}",
+        "{x | 0 <= x <= 1}"
+      ],
+      "newExplanationZhHans": "A={x|0≤x≤3}，∁_U B={x|x≤1}，两者交集为 {x|0≤x≤1}。",
+      "manualDecision": "approve",
+      "manualIndependentAnswer": "{x | 0 ≤ x ≤ 1}",
+      "manualNotes": "Removed the unsupported shaded-region reference and made the requested set operation explicit.",
+      "manualRecommendedAction": "Approve remediated row for the V2 candidate release pool after aggregate QA gates pass."
+    },
+    {
+      "questionId": "hjb-high-ds-v2-s4-040",
+      "grade": "S4",
+      "chapter": "集合与逻辑",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "issueCode": "manual-answer-mismatch",
+      "remediationStrategy": "correct-answer-and-mc-options",
+      "oldPromptZhHans": "已知集合 A = {x | x^2 - (a+1)x + a ≤ 0}，B = {x | x^2 - 5x + 4 ≤ 0}。若“x ∈ A”是“x ∈ B”的充分不必要条件，则实数 a 的取值范围是（ ）",
+      "oldAnswer": "1 ≤ a ≤ 4",
+      "oldAcceptedAnswers": [
+        "1 ≤ a ≤ 4"
+      ],
+      "oldExplanationZhHans": "A={x|(x-1)(x-a)≤0}，B={x|1≤x≤4}。充分不必要即 A⊂B，需 A 非空且 A 的端点包含于 B 内。讨论 a 与 1 的大小，得 1≤a≤4。",
+      "oldManualNotes": "At a=4, A=B=[1,4], so the condition is not sufficient-but-not-necessary.",
+      "newPromptZhHans": "已知集合 A = {x | x² - (a+1)x + a ≤ 0}，B = {x | x² - 5x + 4 ≤ 0}。若“x ∈ A”是“x ∈ B”的充分不必要条件，则实数 a 的取值范围是（　）",
+      "newAnswer": "1 ≤ a < 4",
+      "newAcceptedAnswers": [
+        "1 ≤ a < 4",
+        "1<=a<4"
+      ],
+      "newExplanationZhHans": "B=[1,4]。A 的端点为 1 和 a，要使 A 是 B 的真子集，需 a 在 [1,4] 内且不能使 A=B，因此 1≤a<4。",
+      "manualDecision": "approve",
+      "manualIndependentAnswer": "1 ≤ a < 4",
+      "manualNotes": "Excluded a=4 because that makes A and B equal rather than sufficient-not-necessary.",
+      "manualRecommendedAction": "Approve remediated row for the V2 candidate release pool after aggregate QA gates pass."
+    },
+    {
+      "questionId": "hjb-high-ds-v2-s4-052",
+      "grade": "S4",
+      "chapter": "等式与不等式",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "issueCode": "manual-answer-mismatch",
+      "remediationStrategy": "correct-answer-and-mc-options",
+      "oldPromptZhHans": "若关于 x 的不等式 ax² + bx + c > 0 的解集为 (1, 2)，则关于 x 的不等式 cx² + bx + a < 0 的解集为（ ）。",
+      "oldAnswer": "(1/2, 1)",
+      "oldAcceptedAnswers": [
+        "(1/2, 1)"
+      ],
+      "oldExplanationZhHans": "由解集(1,2)知a<0且1,2是ax²+bx+c=0的根，故b=-3a，c=2a。代入cx²+bx+a<0得2ax²-3ax+a<0，除以a<0反向得2x²-3x+1>0，即(2x-1)(x-1)>0，解集为(-∞,1/2)∪(1,+∞)。注意原不等式是<0，除以负数a后方向改变，最终解集为(1/2,1)。",
+      "oldManualNotes": "After dividing by a<0, the inequality direction reverses; the stored final interval is the complement.",
+      "newPromptZhHans": "若关于 x 的不等式 ax² + bx + c > 0 的解集为 (1, 2)，则关于 x 的不等式 cx² + bx + a < 0 的解集为（　）。",
+      "newAnswer": "(-∞, 1/2) ∪ (1, +∞)",
+      "newAcceptedAnswers": [
+        "(-∞, 1/2) ∪ (1, +∞)",
+        "(-∞,1/2)∪(1,+∞)",
+        "x < 1/2 或 x > 1"
+      ],
+      "newExplanationZhHans": "由原解集知 a<0，且根为 1、2，所以 b=-3a，c=2a。代入得 a(2x²-3x+1)<0，因 a<0，故 (2x-1)(x-1)>0。",
+      "manualDecision": "approve",
+      "manualIndependentAnswer": "(-∞, 1/2) ∪ (1, +∞)",
+      "manualNotes": "Corrected the inequality reversal after dividing by the negative leading coefficient.",
+      "manualRecommendedAction": "Approve remediated row for the V2 candidate release pool after aggregate QA gates pass."
+    },
+    {
+      "questionId": "hjb-high-ds-v2-s4-068",
+      "grade": "S4",
+      "chapter": "等式与不等式",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "issueCode": "manual-answer-mismatch",
+      "remediationStrategy": "correct-answer",
+      "oldPromptZhHans": "若不等式 ax^2 + bx + 2 > 0 的解集为 (-1, 2)，则 a + b 的值为______。",
+      "oldAnswer": "-1",
+      "oldAcceptedAnswers": [
+        "-1"
+      ],
+      "oldExplanationZhHans": "由解集知 a < 0 且 -1, 2 是方程 ax^2+bx+2=0 的两根，由韦达定理得 -1+2 = -b/a，-1×2 = 2/a，解得 a=-1, b=1，故 a+b=0。",
+      "oldManualNotes": "Roots -1 and 2 with constant term 2 give a=-1 and b=1, hence a+b=0.",
+      "newPromptZhHans": "若不等式 ax² + bx + 2 > 0 的解集为 (-1, 2)，则 a + b 的值为______。",
+      "newAnswer": "0",
+      "newAcceptedAnswers": [
+        "0"
+      ],
+      "newExplanationZhHans": "由解集 (-1,2) 知 a<0 且两根为 -1、2。设 ax²+bx+2=a(x+1)(x-2)，常数项 -2a=2，得 a=-1，b=1，故 a+b=0。",
+      "manualDecision": "approve",
+      "manualIndependentAnswer": "0",
+      "manualNotes": "Corrected coefficient comparison from the two roots and constant term.",
+      "manualRecommendedAction": "Approve remediated row for the V2 candidate release pool after aggregate QA gates pass."
+    },
+    {
+      "questionId": "hjb-high-ds-v2-s4-080",
+      "grade": "S4",
+      "chapter": "等式与不等式",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "issueCode": "manual-unsolvable",
+      "remediationStrategy": "rewrite-unsolvable-prompt",
+      "oldPromptZhHans": "已知关于 x 的不等式 x^2 - 2ax + a^2 - 1 ≤ 0 的解集为 [m, n]，且 n - m = 4，则实数 a 的值为______。",
+      "oldAnswer": "±2",
+      "oldAcceptedAnswers": [
+        "±2",
+        "2或-2",
+        "2 或 -2"
+      ],
+      "oldExplanationZhHans": "不等式化为 (x - a)^2 ≤ 4，即 |x - a| ≤ 2，解集为 [a - 2, a + 2]。由 m + n = (a - 2) + (a + 2) = 2a = 6，得 a = 3。",
+      "oldManualNotes": "The inequality is (x-a)^2<=1, so its interval length is always 2, not 4.",
+      "newPromptZhHans": "已知关于 x 的不等式 x² - 2ax + a² - 1 ≤ 0 的解集为 [1, 3]，求实数 a 的值。",
+      "newAnswer": "2",
+      "newAcceptedAnswers": [
+        "2"
+      ],
+      "newExplanationZhHans": "原不等式可化为 (x-a)²≤1，解集为 [a-1,a+1]。与 [1,3] 对应，得 a-1=1，a+1=3，所以 a=2。",
+      "manualDecision": "approve",
+      "manualIndependentAnswer": "2",
+      "manualNotes": "Rewrote the impossible interval-length condition into a unique endpoint-matching problem.",
+      "manualRecommendedAction": "Approve remediated row for the V2 candidate release pool after aggregate QA gates pass."
+    },
+    {
+      "questionId": "hjb-high-ds-v2-s4-081",
+      "grade": "S4",
+      "chapter": "等式与不等式",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "issueCode": "manual-answer-mismatch",
+      "remediationStrategy": "correct-answer",
+      "oldPromptZhHans": "已知关于x的不等式组：\n(1) x² - 5x + 6 ≤ 0\n(2) |x - 2| > 1\n求同时满足(1)和(2)的x的取值范围。",
+      "oldAnswer": "2 ≤ x < 3",
+      "oldAcceptedAnswers": [
+        "2 ≤ x < 3",
+        "[2,3)"
+      ],
+      "oldExplanationZhHans": "解(1)得2≤x≤3；解(2)得x<1或x>3。取交集得2≤x<3。注意端点：x=3不满足(2)，故开区间。",
+      "oldManualNotes": "[2,3] intersected with (−∞,1)∪(3,+∞) is empty.",
+      "newPromptZhHans": "已知关于 x 的不等式组：\n(1) x² - 5x + 6 ≤ 0\n(2) |x - 2| > 1\n求同时满足 (1) 和 (2) 的 x 的取值范围。",
+      "newAnswer": "∅",
+      "newAcceptedAnswers": [
+        "∅",
+        "空集"
+      ],
+      "newExplanationZhHans": "(1) 的解集为 [2,3]；(2) 的解集为 (-∞,1)∪(3,+∞)。两者没有公共元素，因此解集为空集。",
+      "manualDecision": "approve",
+      "manualIndependentAnswer": "∅",
+      "manualNotes": "Corrected the intersection of the closed interval with the strict absolute-value solution.",
+      "manualRecommendedAction": "Approve remediated row for the V2 candidate release pool after aggregate QA gates pass."
+    },
+    {
+      "questionId": "hjb-high-ds-v2-s4-084",
+      "grade": "S4",
+      "chapter": "等式与不等式",
+      "type": "short-answer",
+      "difficulty": "Exam",
+      "issueCode": "manual-answer-mismatch",
+      "remediationStrategy": "correct-answer",
+      "oldPromptZhHans": "已知函数f(x) = x² + ax + b (a, b ∈ R)，若对于任意x ∈ [0,1]，都有|f(x)| ≤ 1，求a + b的最大值。",
+      "oldAnswer": "1",
+      "oldAcceptedAnswers": [
+        "1"
+      ],
+      "oldExplanationZhHans": "由|f(0)|=|b|≤1，|f(1)|=|1+a+b|≤1，|f(1/2)|=|1/4+a/2+b|≤1。利用线性规划或绝对值不等式，可得a+b≤1，且当a=0,b=1时取等，满足条件。",
+      "oldManualNotes": "Since a+b=f(1)-1 and |f(1)|<=1, a+b<=0; equality is attained by f(x)=x^2.",
+      "newPromptZhHans": "已知函数 f(x)=x²+ax+b（a,b∈R），若对于任意 x∈[0,1]，都有 |f(x)|≤1，求 a+b 的最大值。",
+      "newAnswer": "0",
+      "newAcceptedAnswers": [
+        "0"
+      ],
+      "newExplanationZhHans": "a+b=f(1)-1。由 |f(1)|≤1 得 f(1)≤1，所以 a+b≤0。当 a=0、b=0 时，f(x)=x² 在 [0,1] 上满足条件，故最大值为 0。",
+      "manualDecision": "approve",
+      "manualIndependentAnswer": "0",
+      "manualNotes": "Corrected the maximum using the endpoint constraint f(1)≤1 and an attaining example.",
+      "manualRecommendedAction": "Approve remediated row for the V2 candidate release pool after aggregate QA gates pass."
+    },
+    {
+      "questionId": "hjb-high-ds-v2-s4-086",
+      "grade": "S4",
+      "chapter": "等式与不等式",
+      "type": "fill-in",
+      "difficulty": "Challenge",
+      "issueCode": "manual-answer-mismatch",
+      "remediationStrategy": "correct-answer",
+      "oldPromptZhHans": "若关于x的不等式x² - (m+1)x + m ≤ 0的解集中恰有3个整数，则实数m的取值范围是______。",
+      "oldAnswer": "[-2, -1) ∪ (3, 4]",
+      "oldAcceptedAnswers": [
+        "[-2, -1) ∪ (3, 4]",
+        "[-2,-1)∪(3,4]",
+        "[-2,-1)U(3,4]"
+      ],
+      "oldExplanationZhHans": "不等式化为(x-1)(x-m)≤0。讨论m与1大小：若m<1，解集[m,1]，含整数个数为1-m+1=2-m，令2-m=3得m=-1，但m=-1时解集[-1,1]含3个整数，边界调整得m∈[-2,-1)；若m>1，解集[1,m]，含整数个数m-1+1=m，令m=3得m=3，但m=3时解集[1,3]含3个整数，边界调整得m∈(3,4]。",
+      "oldManualNotes": "Endpoint inclusion is reversed in the stored answer when counting exactly three integers in [m,1] or [1,m].",
+      "newPromptZhHans": "若关于 x 的不等式 x² - (m+1)x + m ≤ 0 的解集中恰有 3 个整数，则实数 m 的取值范围是______。",
+      "newAnswer": "(-2, -1] ∪ [3, 4)",
+      "newAcceptedAnswers": [
+        "(-2, -1] ∪ [3, 4)",
+        "(-2,-1]∪[3,4)"
+      ],
+      "newExplanationZhHans": "不等式为 (x-1)(x-m)≤0，解集是 1 与 m 之间的闭区间。若 m<1，需整数为 -1,0,1，得 -2<m≤-1；若 m≥1，需整数为 1,2,3，得 3≤m<4。",
+      "manualDecision": "approve",
+      "manualIndependentAnswer": "(-2, -1] ∪ [3, 4)",
+      "manualNotes": "Corrected endpoint inclusions for exactly three integers.",
+      "manualRecommendedAction": "Approve remediated row for the V2 candidate release pool after aggregate QA gates pass."
+    },
+    {
+      "questionId": "hjb-high-ds-v2-s4-089",
+      "grade": "S4",
+      "chapter": "等式与不等式",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "issueCode": "manual-answer-mismatch",
+      "remediationStrategy": "correct-answer",
+      "oldPromptZhHans": "已知关于x的方程x² + (k-2)x + 4 - k = 0有两个不相等的正实数根，则实数k的取值范围是______。",
+      "oldAnswer": "k < -2",
+      "oldAcceptedAnswers": [
+        "k < -2",
+        "(-∞,-2)"
+      ],
+      "oldExplanationZhHans": "判别式Δ=(k-2)²-4(4-k)>0得k²>12，即k>2√3或k<-2√3。又两根之和=2-k>0得k<2，两根之积=4-k>0得k<4。综合得k<-2√3，但需满足k<2，故k<-2√3≈-3.46，而k<-2更严格，检验k=-3时Δ=25-28=-3<0，故最终k<-2。",
+      "oldManualNotes": "The discriminant condition is k^2>12; combining with positive-root sum/product gives k<-2√3.",
+      "newPromptZhHans": "已知关于 x 的方程 x² + (k-2)x + 4 - k = 0 有两个不相等的正实数根，则实数 k 的取值范围是______。",
+      "newAnswer": "k < -2√3",
+      "newAcceptedAnswers": [
+        "k < -2√3",
+        "k<-2√3",
+        "k < -2sqrt(3)"
+      ],
+      "newExplanationZhHans": "两正根需和 2-k>0、积 4-k>0，且判别式 (k-2)²-4(4-k)=k²-12>0。综合 k<2 与 k²>12，得 k<-2√3。",
+      "manualDecision": "approve",
+      "manualIndependentAnswer": "k < -2√3",
+      "manualNotes": "Added the discriminant condition to the positive-root requirements.",
+      "manualRecommendedAction": "Approve remediated row for the V2 candidate release pool after aggregate QA gates pass."
+    },
+    {
+      "questionId": "hjb-high-ds-v2-s4-100",
+      "grade": "S4",
+      "chapter": "等式与不等式",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "issueCode": "manual-answer-mismatch",
+      "remediationStrategy": "correct-answer-and-mc-options",
+      "oldPromptZhHans": "若不等式 ax² + bx + c > 0 的解集为 (-2, 3)，则不等式 cx² + bx + a < 0 的解集为（ ）",
+      "oldAnswer": "(-∞, -1/2) ∪ (1/3, +∞)",
+      "oldAcceptedAnswers": [
+        "(-∞, -1/2) ∪ (1/3, +∞)"
+      ],
+      "oldExplanationZhHans": "由解集知a<0且-2,3是ax²+bx+c=0的根，得b/a=-1,c/a=-6，即b=-a,c=-6a。代入cx²+bx+a<0得-6ax²-ax+a<0，除以-a(正)得6x²+x-1>0，解集为x<-1/2或x>1/3。",
+      "oldManualNotes": "With a<0 and roots -2,3, substituting into cx^2+bx+a<0 gives the bounded interval, not its complement.",
+      "newPromptZhHans": "若不等式 ax² + bx + c > 0 的解集为 (-2, 3)，则不等式 cx² + bx + a < 0 的解集为（　）",
+      "newAnswer": "(-1/2, 1/3)",
+      "newAcceptedAnswers": [
+        "(-1/2, 1/3)"
+      ],
+      "newExplanationZhHans": "由原解集知 a<0，根为 -2、3，故 b=-a，c=-6a。代入得 a(-6x²-x+1)<0，因 a<0，等价于 6x²+x-1<0，解为 (-1/2,1/3)。",
+      "manualDecision": "approve",
+      "manualIndependentAnswer": "(-1/2, 1/3)",
+      "manualNotes": "Corrected the final interval after handling the negative leading coefficient.",
+      "manualRecommendedAction": "Approve remediated row for the V2 candidate release pool after aggregate QA gates pass."
+    },
+    {
+      "questionId": "hjb-high-ds-v2-s4-101",
+      "grade": "S4",
+      "chapter": "幂、指数与对数",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "issueCode": "manual-answer-mismatch",
+      "remediationStrategy": "correct-answer",
+      "oldPromptZhHans": "计算：\\(\\log_2 6 - \\log_4 9 + \\log_3 \\frac{1}{27}\\)。",
+      "oldAnswer": "1",
+      "oldAcceptedAnswers": [
+        "1"
+      ],
+      "oldExplanationZhHans": "原式 = \\(\\log_2 6 - \\frac{\\log_2 9}{\\log_2 4} + \\log_3 3^{-3} = \\log_2 6 - \\frac{2\\log_2 3}{2} - 3 = \\log_2 6 - \\log_2 3 - 3 = \\log_2 \\frac{6}{3} - 3 = \\log_2 2 - 3 = 1 - 3 = -2\\)。检查对数定义域：真数均为正，底数满足条件，化简正确。",
+      "oldManualNotes": "The explanation simplifies to -2, while the stored answer is 1.",
+      "newPromptZhHans": "计算：\\(\\log_2 6 - \\log_4 9 + \\log_3 \\frac{1}{27}\\)。",
+      "newAnswer": "-2",
+      "newAcceptedAnswers": [
+        "-2"
+      ],
+      "newExplanationZhHans": "因为 log₄9=log₂3，故 log₂6-log₄9=log₂6-log₂3=log₂2=1；又 log₃(1/27)=-3，所以原式等于 -2。",
+      "manualDecision": "approve",
+      "manualIndependentAnswer": "-2",
+      "manualNotes": "Corrected the logarithm simplification.",
+      "manualRecommendedAction": "Approve remediated row for the V2 candidate release pool after aggregate QA gates pass."
+    },
+    {
+      "questionId": "hjb-high-ds-v2-s4-102",
+      "grade": "S4",
+      "chapter": "幂、指数与对数",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "issueCode": "manual-answer-mismatch",
+      "remediationStrategy": "correct-answer",
+      "oldPromptZhHans": "已知 \\(a = \\log_2 3\\)，\\(b = \\log_3 7\\)，用 \\(a, b\\) 表示 \\(\\log_{42} 56\\)。",
+      "oldAnswer": "\\frac{3 + a}{1 + a + ab}",
+      "oldAcceptedAnswers": [
+        "\\frac{3 + a}{1 + a + ab}",
+        "(3+a)/(1+a+ab)"
+      ],
+      "oldExplanationZhHans": "利用换底公式：\\(\\log_{42} 56 = \\frac{\\log_2 56}{\\log_2 42} = \\frac{\\log_2 (7 \\cdot 8)}{\\log_2 (6 \\cdot 7)} = \\frac{\\log_2 7 + 3}{\\log_2 6 + \\log_2 7}\\)。由 \\(b = \\log_3 7 = \\frac{\\log_2 7}{\\log_2 3} = \\frac{\\log_2 7}{a}\\)，得 \\(\\log_2 7 = ab\\)。又 \\(\\log_2 6 = \\log_2 (2 \\cdot 3) = 1 + a\\)。代入得 \\(\\frac{ab + 3}{(1 + a) + ab} = \\frac{3 + a}{1 + a + ab}\\)。",
+      "oldManualNotes": "ln56=3ln2+ln7=(3+ab)ln2; the numerator in the stored answer uses a instead of ab.",
+      "newPromptZhHans": "已知 \\(a = \\log_2 3\\)，\\(b = \\log_3 7\\)，用 \\(a, b\\) 表示 \\(\\log_{42} 56\\)。",
+      "newAnswer": "\\frac{3 + ab}{1 + a + ab}",
+      "newAcceptedAnswers": [
+        "\\frac{3 + ab}{1 + a + ab}",
+        "(3+ab)/(1+a+ab)",
+        "\\frac{3+ab}{1+a+ab}"
+      ],
+      "newExplanationZhHans": "设 ln3=a ln2，ln7=b ln3=ab ln2。则 ln56=3ln2+ln7=(3+ab)ln2，ln42=ln2+ln3+ln7=(1+a+ab)ln2。",
+      "manualDecision": "approve",
+      "manualIndependentAnswer": "\\frac{3 + ab}{1 + a + ab}",
+      "manualNotes": "Corrected ln7 to ab ln2 in the numerator.",
+      "manualRecommendedAction": "Approve remediated row for the V2 candidate release pool after aggregate QA gates pass."
+    },
+    {
+      "questionId": "hjb-high-ds-v2-s4-104",
+      "grade": "S4",
+      "chapter": "幂、指数与对数",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "issueCode": "manual-answer-mismatch",
+      "remediationStrategy": "correct-answer",
+      "oldPromptZhHans": "若 \\(\\log_2 (\\log_3 x) = \\log_3 (\\log_4 y) = \\log_4 (\\log_2 z) = 0\\)，则 \\(x+y+z\\) 的值为______。",
+      "oldAnswer": "89",
+      "oldAcceptedAnswers": [
+        "89"
+      ],
+      "oldExplanationZhHans": "由 \\(\\log_2 (\\log_3 x) = 0\\) 得 \\(\\log_3 x = 1\\)，故 \\(x = 3\\)。同理，\\(\\log_3 (\\log_4 y) = 0\\) 得 \\(\\log_4 y = 1\\)，\\(y = 4\\)；\\(\\log_4 (\\log_2 z) = 0\\) 得 \\(\\log_2 z = 1\\)，\\(z = 2\\)。所以 \\(x+y+z = 3+4+2 = 9\\)。注意检查真数大于0，底数不为1，均满足。",
+      "oldManualNotes": "The three equations give x=3, y=4, z=2, so x+y+z=9.",
+      "newPromptZhHans": "若 \\(\\log_2 (\\log_3 x) = \\log_3 (\\log_4 y) = \\log_4 (\\log_2 z) = 0\\)，则 \\(x+y+z\\) 的值为______。",
+      "newAnswer": "9",
+      "newAcceptedAnswers": [
+        "9"
+      ],
+      "newExplanationZhHans": "由 log₂(log₃x)=0 得 log₃x=1，所以 x=3；同理 log₄y=1 得 y=4，log₂z=1 得 z=2。因此 x+y+z=9。",
+      "manualDecision": "approve",
+      "manualIndependentAnswer": "9",
+      "manualNotes": "Corrected the values of x, y, and z from the nested logarithms.",
+      "manualRecommendedAction": "Approve remediated row for the V2 candidate release pool after aggregate QA gates pass."
+    },
+    {
+      "questionId": "hjb-high-ds-v2-s4-106",
+      "grade": "S4",
+      "chapter": "幂、指数与对数",
+      "type": "multiple-choice",
+      "difficulty": "Challenge",
+      "issueCode": "manual-answer-mismatch",
+      "remediationStrategy": "correct-answer-and-mc-options",
+      "oldPromptZhHans": "设 \\(a = \\log_{0.2} 0.3\\)，\\(b = \\log_2 0.3\\)，\\(c = \\log_{0.3} 2\\)，则 \\(a, b, c\\) 的大小关系是（　）。",
+      "oldAnswer": "D. \\(c < b < a\\)",
+      "oldAcceptedAnswers": [
+        "D. \\(c < b < a\\)"
+      ],
+      "oldExplanationZhHans": "利用中间值0和1比较。\\(a = \\log_{0.2} 0.3\\)：底数0.2<1，真数0.3<1，故 \\(a > 0\\)；又 \\(0.3 > 0.2\\)，所以 \\(a < 1\\)，即 \\(0 < a < 1\\)。\\(b = \\log_2 0.3\\)：底数2>1，真数0.3<1，故 \\(b < 0\\)。\\(c = \\log_{0.3} 2\\)：底数0.3<1，真数2>1，故 \\(c < 0\\)。比较 \\(b\\) 和 \\(c\\)：\\(b = \\log_2 0.3 = \\frac{\\lg 0.3}{\\lg 2}\\)，\\(c = \\log_{0.3} 2 = \\frac{\\lg 2}{\\lg 0.3}\\)，因为 \\(\\lg 0.3 < 0\\)，所以 \\(c < 0\\)，且 \\(|c| > |b|\\)，故 \\(c < b\\)。综上 \\(c < b < 0 < a < 1\\)，所以 \\(c < b < a\\)。",
+      "oldManualNotes": "Numerically b≈-1.737, c≈-0.576, a≈0.749; the stored order swaps b and c.",
+      "newPromptZhHans": "设 \\(a = \\log_{0.2} 0.3\\)，\\(b = \\log_2 0.3\\)，\\(c = \\log_{0.3} 2\\)，则 \\(a, b, c\\) 的大小关系是（　）。",
+      "newAnswer": "b < c < a",
+      "newAcceptedAnswers": [
+        "b < c < a"
+      ],
+      "newExplanationZhHans": "a=ln0.3/ln0.2>0；b=ln0.3/ln2<0；c=ln2/ln0.3<0。比较可得 b≈-1.737，c≈-0.576，a≈0.749，故 b<c<a。",
+      "manualDecision": "approve",
+      "manualIndependentAnswer": "b < c < a",
+      "manualNotes": "Corrected the order of the two negative logarithms.",
+      "manualRecommendedAction": "Approve remediated row for the V2 candidate release pool after aggregate QA gates pass."
+    },
+    {
+      "questionId": "hjb-high-ds-v2-s4-124",
+      "grade": "S4",
+      "chapter": "幂、指数与对数",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "issueCode": "manual-answer-mismatch",
+      "remediationStrategy": "correct-answer-and-mc-options",
+      "oldPromptZhHans": "设 a = log₀.₂0.3，b = log₂0.3，c = log₀.₂3，则 a, b, c 的大小关系是（　）",
+      "oldAnswer": "b < a < c",
+      "oldAcceptedAnswers": [
+        "b < a < c"
+      ],
+      "oldExplanationZhHans": "a = log₀.₂0.3 ∈ (0,1)，b = log₂0.3 < 0，c = log₀.₂3 < 0。比较 b 和 c：b = lg0.3/lg2，c = lg3/lg0.2，因 lg0.2<0，故 c<0，且 |c|>|b|，所以 b > c。综上 c < b < 0 < a，即 b < a < c。",
+      "oldManualNotes": "c=log_0.2(3)≈-0.682 and b=log_2(0.3)≈-1.737, so b<c<a.",
+      "newPromptZhHans": "设 a = log₀.₂0.3，b = log₂0.3，c = log₀.₂3，则 a, b, c 的大小关系是（　）",
+      "newAnswer": "b < c < a",
+      "newAcceptedAnswers": [
+        "b < c < a"
+      ],
+      "newExplanationZhHans": "a=log₀.₂0.3≈0.749，b=log₂0.3≈-1.737，c=log₀.₂3≈-0.682，所以 b<c<a。",
+      "manualDecision": "approve",
+      "manualIndependentAnswer": "b < c < a",
+      "manualNotes": "Corrected the order by comparing approximate values.",
+      "manualRecommendedAction": "Approve remediated row for the V2 candidate release pool after aggregate QA gates pass."
+    },
+    {
+      "questionId": "hjb-high-ds-v2-s4-152",
+      "grade": "S4",
+      "chapter": "幂函数、指数函数与对数函数",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "issueCode": "manual-answer-mismatch",
+      "remediationStrategy": "rewrite-to-unique-exponential-parameter",
+      "oldPromptZhHans": "若指数函数 f(x) = a^x (a > 0 且 a ≠ 1) 在区间 [-1, 2] 上的最大值与最小值之差为 3/2，则 a = ______。",
+      "oldAnswer": "2 或 1/2",
+      "oldAcceptedAnswers": [
+        "2 或 1/2",
+        "2或1/2",
+        "2, 1/2",
+        "2,1/2"
+      ],
+      "oldExplanationZhHans": "当 a > 1 时，最大值为 a^2，最小值为 a^{-1}，由 a^2 - a^{-1} = 3/2 解得 a = 2；当 0 < a < 1 时，最大值为 a^{-1}，最小值为 a^2，同理得 a = 1/2。",
+      "oldManualNotes": "On [-1,2], the equations are a^2-a^-1=3/2 for a>1 and a^-1-a^2=3/2 for 0<a<1; 2 and 1/2 do not satisfy them.",
+      "newPromptZhHans": "若指数函数 f(x)=a^x（a>0 且 a≠1）在区间 [0,2] 上的最大值与最小值之差为 3，则 a=______。",
+      "newAnswer": "2",
+      "newAcceptedAnswers": [
+        "2"
+      ],
+      "newExplanationZhHans": "若 a>1，最大值与最小值之差为 a²-1=3，得 a=2；若 0<a<1，差为 1-a²<1，不可能等于 3。因此 a=2。",
+      "manualDecision": "approve",
+      "manualIndependentAnswer": "2",
+      "manualNotes": "Rewrote the parameter condition to give a unique high-school-friendly value.",
+      "manualRecommendedAction": "Approve remediated row for the V2 candidate release pool after aggregate QA gates pass."
+    },
+    {
+      "questionId": "hjb-high-ds-v2-s4-158",
+      "grade": "S4",
+      "chapter": "幂函数、指数函数与对数函数",
+      "type": "fill-in",
+      "difficulty": "Challenge",
+      "issueCode": "manual-answer-mismatch",
+      "remediationStrategy": "correct-answer",
+      "oldPromptZhHans": "若函数 f(x) = a^x (a > 0 且 a ≠ 1) 与 g(x) = log_a x 的图像有且仅有一个公共点，则 a 的取值范围是 ______。",
+      "oldAnswer": "(0, 1) ∪ (1, e^(1/e))",
+      "oldAcceptedAnswers": [
+        "(0, 1) ∪ (1, e^(1/e))",
+        "(0,1)∪(1,e^(1/e))",
+        "0<a<1 或 1<a<e^(1/e)"
+      ],
+      "oldExplanationZhHans": "y=a^x 与 y=log_a x 互为反函数，图像关于 y=x 对称。公共点必在 y=x 上，即 a^x = x 有唯一解。考虑函数 h(x)=ln x / x，其最大值为 1/e，故 ln a = 1/e 时相切，a=e^(1/e)；0<a<1 时恒有一个交点。",
+      "oldManualNotes": "For 1<a<e^(1/e), the two inverse graphs have two intersections; exactly one occurs at a=e^(1/e).",
+      "newPromptZhHans": "若函数 f(x)=a^x（a>0 且 a≠1）与 g(x)=log_a x 的图像有且仅有一个公共点，则 a 的取值范围是 ______。",
+      "newAnswer": "(0, 1) ∪ {e^(1/e)}",
+      "newAcceptedAnswers": [
+        "(0, 1) ∪ {e^(1/e)}",
+        "(0,1)∪{e^(1/e)}"
+      ],
+      "newExplanationZhHans": "当 0<a<1 时两图像有唯一公共点；当 a>1 时公共点对应 x=a^x，即 a=x^(1/x)。函数 x^(1/x) 的最大值为 e^(1/e)，仅在 a=e^(1/e) 时唯一。",
+      "manualDecision": "approve",
+      "manualIndependentAnswer": "(0, 1) ∪ {e^(1/e)}",
+      "manualNotes": "Corrected the a>1 boundary from an interval to the tangent case.",
+      "manualRecommendedAction": "Approve remediated row for the V2 candidate release pool after aggregate QA gates pass."
+    },
+    {
+      "questionId": "hjb-high-ds-v2-s4-162",
+      "grade": "S4",
+      "chapter": "幂函数、指数函数与对数函数",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "issueCode": "manual-answer-mismatch",
+      "remediationStrategy": "correct-answer",
+      "oldPromptZhHans": "已知函数 f(x) = a^x (a > 0 且 a ≠ 1) 在区间 [1, 2] 上的最大值与最小值之差为 6，求实数 a 的值。",
+      "oldAnswer": "3 或 1/3",
+      "oldAcceptedAnswers": [
+        "3 或 1/3",
+        "3或1/3",
+        "a=3 或 a=1/3"
+      ],
+      "oldExplanationZhHans": "当 a > 1 时，f(x) 递增，最大值 f(2)=a^2，最小值 f(1)=a，差 a^2 - a = 6，解得 a=3 (a=-2舍)。当 0 < a < 1 时，f(x) 递减，最大值 f(1)=a，最小值 f(2)=a^2，差 a - a^2 = 6，即 a^2 - a + 6 = 0 无解。故 a=3。",
+      "oldManualNotes": "For 0<a<1, a-a^2 cannot equal 6; only a>1 gives a^2-a=6 and a=3.",
+      "newPromptZhHans": "已知函数 f(x)=a^x（a>0 且 a≠1）在区间 [1,2] 上的最大值与最小值之差为 6，求实数 a 的值。",
+      "newAnswer": "3",
+      "newAcceptedAnswers": [
+        "3"
+      ],
+      "newExplanationZhHans": "若 a>1，则 a²-a=6，解得 a=3 或 a=-2，取 a=3；若 0<a<1，则 a-a² 最大不超过 1/4，不可能等于 6。故 a=3。",
+      "manualDecision": "approve",
+      "manualIndependentAnswer": "3",
+      "manualNotes": "Removed the invalid reciprocal answer for the decreasing case.",
+      "manualRecommendedAction": "Approve remediated row for the V2 candidate release pool after aggregate QA gates pass."
+    },
+    {
+      "questionId": "hjb-high-ds-v2-s4-186",
+      "grade": "S4",
+      "chapter": "幂函数、指数函数与对数函数",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "issueCode": "manual-answer-mismatch",
+      "remediationStrategy": "correct-answer",
+      "oldPromptZhHans": "设函数 f(x) = a^x (a > 0, a ≠ 1) 与 g(x) = log_a x 的图像交于点 P，且点 P 的横坐标在区间 (2, 3) 内，求实数 a 的取值范围。",
+      "oldAnswer": "(1, √2)",
+      "oldAcceptedAnswers": [
+        "(1, √2)"
+      ],
+      "oldExplanationZhHans": "由对称性，交点满足 a^x = x，即 a = x^(1/x)。令 h(x)=x^(1/x)，在 (2,3) 上 h(x) 递减，h(2)=√2，h(3)=3^(1/3)>1，故 a ∈ (1, √2)。",
+      "oldManualNotes": "Solving a^x=log_a x for an intersection x in (2,3) gives a in the image of x on that interval, namely (sqrt2, e^(1/e)].",
+      "newPromptZhHans": "设函数 f(x)=a^x（a>0，a≠1）与 g(x)=log_a x 的图像交于点 P，且点 P 的横坐标在区间 (2,3) 内，求实数 a 的取值范围。",
+      "newAnswer": "√2 < a ≤ e^(1/e)",
+      "newAcceptedAnswers": [
+        "√2 < a ≤ e^(1/e)",
+        "sqrt(2)<a<=e^(1/e)",
+        "√2<a≤e^(1/e)"
+      ],
+      "newExplanationZhHans": "交点在 y=x 上时有 a^x=x，即 a=x^(1/x)。当 x∈(2,3) 时，x^(1/x) 的取值为 (√2,e^(1/e)]，故 √2<a≤e^(1/e)。",
+      "manualDecision": "approve",
+      "manualIndependentAnswer": "√2 < a ≤ e^(1/e)",
+      "manualNotes": "Corrected the image of x^(1/x) on the requested interval.",
+      "manualRecommendedAction": "Approve remediated row for the V2 candidate release pool after aggregate QA gates pass."
+    },
+    {
+      "questionId": "hjb-high-ds-v2-s4-201",
+      "grade": "S4",
+      "chapter": "函数的概念、性质及应用",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "issueCode": "manual-answer-mismatch",
+      "remediationStrategy": "correct-answer",
+      "oldPromptZhHans": "已知函数 f(x) = √(x² - 4x + 3) + 1/(x - 2)。求函数 f(x) 的定义域，并用区间表示。",
+      "oldAnswer": "(-∞, 1] ∪ (2, +∞)",
+      "oldAcceptedAnswers": [
+        "(-∞, 1] ∪ (2, +∞)",
+        "(-∞,1]∪(2,+∞)",
+        "(-∞, 1] U (2, +∞)"
+      ],
+      "oldExplanationZhHans": "由根号得 x²-4x+3≥0，解得 x≤1 或 x≥3；由分母得 x≠2。取交集得 x≤1 或 x>2，即 (-∞,1]∪(2,+∞)。",
+      "oldManualNotes": "The square-root condition already excludes x=2; the right branch starts at 3, not just above 2.",
+      "newPromptZhHans": "已知函数 f(x)=√(x² - 4x + 3) + 1/(x - 2)。求函数 f(x) 的定义域，并用区间表示。",
+      "newAnswer": "(-∞, 1] ∪ [3, +∞)",
+      "newAcceptedAnswers": [
+        "(-∞, 1] ∪ [3, +∞)",
+        "(-∞,1]∪[3,+∞)"
+      ],
+      "newExplanationZhHans": "需 x²-4x+3≥0 且 x≠2。由 (x-1)(x-3)≥0 得 x≤1 或 x≥3，此时已自动避开 x=2，所以定义域为 (-∞,1]∪[3,+∞)。",
+      "manualDecision": "approve",
+      "manualIndependentAnswer": "(-∞, 1] ∪ [3, +∞)",
+      "manualNotes": "Corrected the right branch to start at 3 from the square-root condition.",
+      "manualRecommendedAction": "Approve remediated row for the V2 candidate release pool after aggregate QA gates pass."
+    },
+    {
+      "questionId": "hjb-high-ds-v2-s4-207",
+      "grade": "S4",
+      "chapter": "函数的概念、性质及应用",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "issueCode": "manual-answer-mismatch",
+      "remediationStrategy": "correct-answer",
+      "oldPromptZhHans": "已知函数 f(x) = 2x + 1，g(x) = x² - 2。求方程 f(g(x)) = g(f(x)) 的解集。",
+      "oldAnswer": "{-1, 2}",
+      "oldAcceptedAnswers": [
+        "{-1, 2}",
+        "{-1,2}"
+      ],
+      "oldExplanationZhHans": "f(g(x))=2(x²-2)+1=2x²-3；g(f(x))=(2x+1)²-2=4x²+4x-1。令相等得 2x²-3=4x²+4x-1，整理得 2x²+4x+2=0，即 x²+2x+1=0，解得 x=-1。代入验证成立，故解集为 {-1}。",
+      "oldManualNotes": "f(g(x))=g(f(x)) reduces to (x+1)^2=0.",
+      "newPromptZhHans": "已知函数 f(x)=2x+1，g(x)=x²-2。求方程 f(g(x))=g(f(x)) 的解集。",
+      "newAnswer": "{-1}",
+      "newAcceptedAnswers": [
+        "{-1}",
+        "x=-1",
+        "-1"
+      ],
+      "newExplanationZhHans": "f(g(x))=2(x²-2)+1=2x²-3，g(f(x))=(2x+1)²-2=4x²+4x-1。相等得 2x²+4x+2=0，即 (x+1)²=0。",
+      "manualDecision": "approve",
+      "manualIndependentAnswer": "{-1}",
+      "manualNotes": "Corrected the double-root solution set.",
+      "manualRecommendedAction": "Approve remediated row for the V2 candidate release pool after aggregate QA gates pass."
+    },
+    {
+      "questionId": "hjb-high-ds-v2-s4-209",
+      "grade": "S4",
+      "chapter": "函数的概念、性质及应用",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "issueCode": "manual-answer-mismatch",
+      "remediationStrategy": "correct-answer",
+      "oldPromptZhHans": "若函数 f(x) = { x² + 1, x ≤ 0; -x² + 2x + 1, x > 0 }，则方程 f(x) = 2 的所有实数根之和为 ______。",
+      "oldAnswer": "1",
+      "oldAcceptedAnswers": [
+        "1"
+      ],
+      "oldExplanationZhHans": "x≤0 时 x²+1=2 得 x=-1；x>0 时 -x²+2x+1=2 得 x²-2x+1=0，x=1。两根之和为 0。",
+      "oldManualNotes": "The roots are -1 and 1, whose sum is 0.",
+      "newPromptZhHans": "若函数 f(x) = { x² + 1, x ≤ 0; -x² + 2x + 1, x > 0 }，则方程 f(x)=2 的所有实数根之和为 ______。",
+      "newAnswer": "0",
+      "newAcceptedAnswers": [
+        "0"
+      ],
+      "newExplanationZhHans": "当 x≤0 时，x²+1=2，得 x=-1；当 x>0 时，-x²+2x+1=2，得 (x-1)²=0，所以 x=1。根之和为 0。",
+      "manualDecision": "approve",
+      "manualIndependentAnswer": "0",
+      "manualNotes": "Corrected the sum of both piecewise roots.",
+      "manualRecommendedAction": "Approve remediated row for the V2 candidate release pool after aggregate QA gates pass."
+    },
+    {
+      "questionId": "hjb-high-ds-v2-s4-211",
+      "grade": "S4",
+      "chapter": "函数的概念、性质及应用",
+      "type": "multiple-choice",
+      "difficulty": "Challenge",
+      "issueCode": "manual-contradictory-conditions",
+      "remediationStrategy": "rewrite-contradictory-prompt",
+      "oldPromptZhHans": "已知函数 f(x) 的定义域为 R，且满足 f(x+1) 为偶函数，f(x+2) 为奇函数。若 f(0)=2，则 f(8)+f(9) 的值为（ ）",
+      "oldAnswer": "2",
+      "oldAcceptedAnswers": [
+        "2"
+      ],
+      "oldExplanationZhHans": "由 f(x+1) 偶得 f(1+x)=f(1-x)，令 x=1 得 f(2)=f(0)=2。由 f(x+2) 奇得 f(2+x)=-f(2-x)，令 x=0 得 f(2)=-f(2) ⇒ f(2)=0，矛盾？需重新推导。正确推导：由 f(x+1) 偶得 f(x+1)=f(-x+1)，即 f(x)=f(2-x)。由 f(x+2) 奇得 f(x+2)=-f(-x+2)，即 f(x)=-f(4-x)。结合得 f(2-x)=-f(4-x)，令 t=2-x 得 f(t)=-f(t+2)，周期为4。f(0)=2，f(2)=f(0)=2，f(4)=f(0)=2，f(8)=f(0)=2；f(1) 由 f(1)=f(1) 无矛盾，由奇偶得 f(1)=0？实际上 f(1)=f(2-1)=f(1)，无约束。由 f(x+2) 奇，令 x=-1 得 f(1)=-f(3)，又 f(3)=f(2-(-1))=f(1)，故 f(1)=-f(1) ⇒ f(1)=0，f(5)=f(1)=0，f(9)=f(1)=0。所以 f(8)+f(9)=2+0=2。",
+      "oldManualNotes": "f(x+1) even gives f(2)=f(0)=2, while f(x+2) odd gives f(2)=0.",
+      "newPromptZhHans": "已知函数 f(x) 的定义域为 R，且 f(x+1) 为偶函数，f(x+4)=f(x)。若 f(0)=2，f(3)=-1，则 f(6)+f(7) 的值为（　）",
+      "newAnswer": "1",
+      "newAcceptedAnswers": [
+        "1"
+      ],
+      "newExplanationZhHans": "f(x+4)=f(x)，所以 f(6)=f(2)，f(7)=f(3)。又 f(x+1) 为偶函数，得 f(2)=f(0)=2，因此 f(6)+f(7)=2+(-1)=1。",
+      "manualDecision": "approve",
+      "manualIndependentAnswer": "1",
+      "manualNotes": "Replaced contradictory parity conditions with consistent symmetry and period conditions.",
+      "manualRecommendedAction": "Approve remediated row for the V2 candidate release pool after aggregate QA gates pass."
+    },
+    {
+      "questionId": "hjb-high-ds-v2-s4-223",
+      "grade": "S4",
+      "chapter": "函数的概念、性质及应用",
+      "type": "multiple-choice",
+      "difficulty": "Challenge",
+      "issueCode": "manual-contradictory-conditions",
+      "remediationStrategy": "rewrite-contradictory-prompt",
+      "oldPromptZhHans": "已知函数 f(x) 的定义域为 R，且满足 f(x+1) 为偶函数，f(x+2) 为奇函数。若 f(0)=1，则 f(8) 的值为（ ）",
+      "oldAnswer": "1",
+      "oldAcceptedAnswers": [
+        "1"
+      ],
+      "oldExplanationZhHans": "由 f(x+1) 偶得 f(1+x)=f(1-x)，由 f(x+2) 奇得 f(2+x)=-f(2-x)。取 x=1 得 f(3)=f(-1)，取 x=0 得 f(2)=-f(2)⇒f(2)=0。又 f(0)=1，结合对称性递推得 f(8)=1。",
+      "oldManualNotes": "f(x+1) even gives f(2)=f(0)=1, while f(x+2) odd gives f(2)=0.",
+      "newPromptZhHans": "已知函数 f(x) 的定义域为 R，且 f(x+1) 为偶函数，f(x+3)=f(x)。若 f(0)=1，则 f(5) 的值为（　）",
+      "newAnswer": "1",
+      "newAcceptedAnswers": [
+        "1"
+      ],
+      "newExplanationZhHans": "由 f(x+3)=f(x) 得 f(5)=f(2)。又 f(x+1) 为偶函数，说明 f(1+t)=f(1-t)，取 t=1 得 f(2)=f(0)=1。",
+      "manualDecision": "approve",
+      "manualIndependentAnswer": "1",
+      "manualNotes": "Replaced contradictory odd/even shifted conditions with consistent symmetry and period conditions.",
+      "manualRecommendedAction": "Approve remediated row for the V2 candidate release pool after aggregate QA gates pass."
+    },
+    {
+      "questionId": "hjb-high-ds-v2-s4-262",
+      "grade": "S4",
+      "chapter": "三角",
+      "type": "multiple-choice",
+      "difficulty": "Challenge",
+      "issueCode": "manual-answer-mismatch",
+      "remediationStrategy": "correct-answer-and-mc-options",
+      "oldPromptZhHans": "在三角形ABC中，角A、B、C的对边分别为a、b、c。已知a=7，b=8，且三角形有两解，则角A的取值范围是（ ）。",
+      "oldAnswer": "0° < A < 30°",
+      "oldAcceptedAnswers": [
+        "0° < A < 30°"
+      ],
+      "oldExplanationZhHans": "已知两边a<b，三角形有两解当且仅当a > b sin A且A为锐角。由7 > 8 sin A得sin A < 7/8，又A < 90°，故A < arcsin(7/8)≈61°。但需满足a < b，即7<8，且A为锐角。结合选项，只有0°<A<30°保证有两解。",
+      "oldManualNotes": "The SSA two-solution condition is b sin A < a < b with A acute, so A<arcsin(7/8), not only A<30°.",
+      "newPromptZhHans": "在三角形 ABC 中，角 A、B、C 的对边分别为 a、b、c。已知 a=7，b=8，且三角形有两解，则角 A 的取值范围是（　）。",
+      "newAnswer": "0° < A < arcsin(7/8)",
+      "newAcceptedAnswers": [
+        "0° < A < arcsin(7/8)"
+      ],
+      "newExplanationZhHans": "SSA 情形有两解需 A 为锐角且 b sin A<a<b。这里 a=7，b=8，所以 sinA<7/8，故 0°<A<arcsin(7/8)。",
+      "manualDecision": "approve",
+      "manualIndependentAnswer": "0° < A < arcsin(7/8)",
+      "manualNotes": "Corrected the two-solution angle bound.",
+      "manualRecommendedAction": "Approve remediated row for the V2 candidate release pool after aggregate QA gates pass."
+    },
+    {
+      "questionId": "hjb-high-ds-v2-s4-265",
+      "grade": "S4",
+      "chapter": "三角",
+      "type": "multiple-choice",
+      "difficulty": "Challenge",
+      "issueCode": "manual-contradictory-conditions",
+      "remediationStrategy": "rewrite-contradictory-prompt",
+      "oldPromptZhHans": "已知函数f(x)=2sin(ωx+φ) (ω>0, 0<φ<π)的部分值如下：f(0)=1，f(π/3)=0，且f(x)在x=π/3处取得最小值。则ω和φ的值可能是（ ）。",
+      "oldAnswer": "ω=2, φ=5π/6",
+      "oldAcceptedAnswers": [
+        "ω=2, φ=5π/6"
+      ],
+      "oldExplanationZhHans": "由f(0)=2sinφ=1得sinφ=1/2，φ=π/6或5π/6。f(π/3)=2sin(ωπ/3+φ)=0，且为最小值，故ωπ/3+φ=3π/2+2kπ。若φ=π/6，则ωπ/3=4π/3，ω=4，不在选项中。若φ=5π/6，则ωπ/3=2π/3，ω=2，符合。",
+      "oldManualNotes": "If f(x)=2sin(omega x+phi) has a minimum at x=pi/3, then f(pi/3) must be -2, contradicting the stated value 0.",
+      "newPromptZhHans": "已知函数 f(x)=2sin(ωx+φ)（ω>0，0<φ<π），且 f(0)=1，f(x) 在 x=π/6 处取得最大值。则 ω 和 φ 的值可能是（　）。",
+      "newAnswer": "ω=2，φ=π/6",
+      "newAcceptedAnswers": [
+        "ω=2，φ=π/6"
+      ],
+      "newExplanationZhHans": "由 f(0)=1 得 sinφ=1/2。若 φ=π/6，且 x=π/6 处取最大值，则 2·π/6+π/6=π/2，满足条件，所以该组可能成立。",
+      "manualDecision": "approve",
+      "manualIndependentAnswer": "ω=2，φ=π/6",
+      "manualNotes": "Replaced the impossible minimum/value combination with a consistent maximum condition.",
+      "manualRecommendedAction": "Approve remediated row for the V2 candidate release pool after aggregate QA gates pass."
+    },
+    {
+      "questionId": "hjb-high-ds-v2-s4-268",
+      "grade": "S4",
+      "chapter": "三角",
+      "type": "multiple-choice",
+      "difficulty": "Challenge",
+      "issueCode": "manual-answer-mismatch",
+      "remediationStrategy": "correct-answer-and-mc-options",
+      "oldPromptZhHans": "在△ABC中，角A、B、C的对边分别为a、b、c，且满足a cos B = b cos A。则△ABC的形状是（ ）。",
+      "oldAnswer": "等腰三角形或直角三角形",
+      "oldAcceptedAnswers": [
+        "等腰三角形或直角三角形"
+      ],
+      "oldExplanationZhHans": "由正弦定理，a=2RsinA，b=2RsinB，代入得sinAcosB=sinBcosA，即sin(A-B)=0，故A=B或A+B=π（舍去），或A-B=π（舍去）。但若cosA=0或cosB=0，即A=90°或B=90°，也成立。故为等腰或直角三角形。",
+      "oldManualNotes": "By the sine rule, a cosB=b cosA gives sinA cosB=sinB cosA, hence A=B; the extra right-triangle branch is invalid.",
+      "newPromptZhHans": "在 △ABC 中，角 A、B、C 的对边分别为 a、b、c，且满足 a cos B = b cos A。则 △ABC 的形状是（　）。",
+      "newAnswer": "等腰三角形",
+      "newAcceptedAnswers": [
+        "等腰三角形"
+      ],
+      "newExplanationZhHans": "由正弦定理，a cosB=b cosA 可化为 sinA cosB=sinB cosA，即 sin(A-B)=0。三角形内 A=B，所以 a=b，为等腰三角形。",
+      "manualDecision": "approve",
+      "manualIndependentAnswer": "等腰三角形",
+      "manualNotes": "Removed the invalid right-triangle branch from the answer.",
+      "manualRecommendedAction": "Approve remediated row for the V2 candidate release pool after aggregate QA gates pass."
+    }
+  ]
+}

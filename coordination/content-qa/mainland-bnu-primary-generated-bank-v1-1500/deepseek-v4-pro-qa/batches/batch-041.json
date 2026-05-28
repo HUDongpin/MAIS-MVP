@@ -1,0 +1,191 @@
+{
+  "batchNumber": 41,
+  "startedAt": "2026-05-27T13:28:05.805Z",
+  "completedAt": "2026-05-27T13:28:25.773Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p3-221",
+    "bnu-primary-ds-v1-p3-222",
+    "bnu-primary-ds-v1-p3-223",
+    "bnu-primary-ds-v1-p3-224",
+    "bnu-primary-ds-v1-p3-225",
+    "bnu-primary-ds-v1-p3-226",
+    "bnu-primary-ds-v1-p3-227",
+    "bnu-primary-ds-v1-p3-228",
+    "bnu-primary-ds-v1-p3-229",
+    "bnu-primary-ds-v1-p3-230",
+    "bnu-primary-ds-v1-p3-231",
+    "bnu-primary-ds-v1-p3-232",
+    "bnu-primary-ds-v1-p3-233",
+    "bnu-primary-ds-v1-p3-234",
+    "bnu-primary-ds-v1-p3-235",
+    "bnu-primary-ds-v1-p3-236",
+    "bnu-primary-ds-v1-p3-237",
+    "bnu-primary-ds-v1-p3-238"
+  ],
+  "usage": {
+    "prompt_tokens": 3733,
+    "completion_tokens": 1469,
+    "total_tokens": 5202,
+    "prompt_tokens_details": {
+      "cached_tokens": 3712
+    },
+    "prompt_cache_hit_tokens": 3712,
+    "prompt_cache_miss_tokens": 21
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p3-221",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，对折3次平均分成8份，每份是1/8，符合P3分数初步认识。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-222",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，12个苹果平均分给3人，每人分得1/3，答案三分之一或1/3均可。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-223",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，草莓比橘子多4人，其他选项均错误，符合数据整理要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-224",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，125出现2次，答案2或两均可，符合数据整理基础。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-225",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，第二组和第三组共38节，其他选项错误，符合数据整理要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-226",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，跑步3个正字共15人，符合数据整理基础。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-227",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，小兔比小狗多5下，其他选项错误，符合数据整理要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-228",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，体育组比美术组多7人，答案7或七均可，符合数据整理要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-229",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，铅笔比橡皮贵1元，其他选项错误，符合数据整理要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-230",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，阴天比雨天多2天，答案2或两均可，符合数据整理要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-231",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，踢毽子最少，跳绳最多，其他选项错误，符合数据整理要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-232",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，草莓比香蕉多7人，答案7或7人均可，符合数据整理要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-233",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，草莓人数最多15人，其他选项错误，符合数据整理要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-234",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，足球比跳绳多6人，答案6或6人均可，符合数据整理要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-235",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，草莓最多15人，其他选项错误，符合数据整理要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-236",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，跳绳人数最多12人，答案格式灵活，符合数据整理要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-237",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，统计表应列类别、本数并注明单位，符合数据整理要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-238",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，218÷45=4余38，需5辆车，符合P3有余数除法应用。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部18道题均通过审核，无数学错误、答案不匹配、歧义或年级不匹配等问题。"
+    }
+  }
+}

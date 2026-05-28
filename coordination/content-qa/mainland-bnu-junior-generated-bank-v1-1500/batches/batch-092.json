@@ -1,0 +1,626 @@
+{
+  "batchId": "batch-092",
+  "questions": [
+    {
+      "id": "bnu-junior-ds-v1-s2-411",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-factorization",
+      "unitTitle": "因式分解",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "factorization",
+        "common-factor",
+        "formula-factorization",
+        "polynomial-structure",
+        "因式分解",
+        "提公因式",
+        "公式法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "符号意识",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "因式分解意义",
+        "提公因式法",
+        "公式法",
+        "分解检查",
+        "结构识别"
+      ],
+      "misconceptionTags": [
+        "common factor not complete",
+        "factorization stops too early",
+        "formula pattern overmatched"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-factorization"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-factorization-unit",
+        "bnu-junior-s2-lower-assessment-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把多项式 6x^3y - 9x^2y^2 + 3x^2y 因式分解，结果为 ______。",
+      "optionsZhHans": [],
+      "answer": "3x^2y(2x - 3y + 1)",
+      "acceptedAnswers": [
+        "3x^2y(2x - 3y + 1)",
+        "3x^2y(2x-3y+1)"
+      ],
+      "explanationZhHans": "各项系数6、-9、3的最大公因数为3，字母部分x的最低次幂为x^2，y的最低次幂为y，公因式为3x^2y。提取后括号内为2x - 3y + 1。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-412",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-factorization",
+      "unitTitle": "因式分解",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "factorization",
+        "common-factor",
+        "formula-factorization",
+        "polynomial-structure",
+        "因式分解",
+        "提公因式",
+        "公式法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "符号意识",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "因式分解意义",
+        "提公因式法",
+        "公式法",
+        "分解检查",
+        "结构识别"
+      ],
+      "misconceptionTags": [
+        "common factor not complete",
+        "factorization stops too early",
+        "formula pattern overmatched"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-factorization"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-factorization-unit",
+        "bnu-junior-s2-lower-assessment-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下列多项式中，能用平方差公式因式分解的是（ ）",
+      "optionsZhHans": [
+        "x^2 + 4y^2",
+        "-x^2 - 4y^2",
+        "x^2 - 4y^2",
+        "x^2 + 4xy + 4y^2"
+      ],
+      "answer": "x^2 - 4y^2",
+      "acceptedAnswers": [
+        "x^2 - 4y^2"
+      ],
+      "explanationZhHans": "平方差公式要求两项符号相反且都能写成平方形式。A为和，B提取负号后为-(x^2+4y^2)仍为和，C为x^2-(2y)^2符合，D为完全平方式。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-413",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-factorization",
+      "unitTitle": "因式分解",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "factorization",
+        "common-factor",
+        "formula-factorization",
+        "polynomial-structure",
+        "因式分解",
+        "提公因式",
+        "公式法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "符号意识",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "因式分解意义",
+        "提公因式法",
+        "公式法",
+        "分解检查",
+        "结构识别"
+      ],
+      "misconceptionTags": [
+        "common factor not complete",
+        "factorization stops too early",
+        "formula pattern overmatched"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-factorization"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-factorization-unit",
+        "bnu-junior-s2-lower-assessment-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "对多项式 2a^3 - 8a 进行因式分解，并写出分解步骤。",
+      "optionsZhHans": [],
+      "answer": "2a(a+2)(a-2)",
+      "acceptedAnswers": [
+        "2a(a+2)(a-2)",
+        "2a(a-2)(a+2)"
+      ],
+      "explanationZhHans": "先提公因式2a得2a(a^2-4)，再对a^2-4用平方差公式得(a+2)(a-2)，故结果为2a(a+2)(a-2)。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-414",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-factorization",
+      "unitTitle": "因式分解",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "factorization",
+        "common-factor",
+        "formula-factorization",
+        "polynomial-structure",
+        "因式分解",
+        "提公因式",
+        "公式法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "符号意识",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "因式分解意义",
+        "提公因式法",
+        "公式法",
+        "分解检查",
+        "结构识别"
+      ],
+      "misconceptionTags": [
+        "common factor not complete",
+        "factorization stops too early",
+        "formula pattern overmatched"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-factorization"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-factorization-unit",
+        "bnu-junior-s2-lower-assessment-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "若多项式 x^2 + kx + 16 是完全平方式，则 k 的值为 ______。",
+      "optionsZhHans": [],
+      "answer": "±8",
+      "acceptedAnswers": [
+        "±8",
+        "8或-8",
+        "8,-8"
+      ],
+      "explanationZhHans": "完全平方式为(x±4)^2 = x^2 ± 8x + 16，故k = ±8。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-415",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-factorization",
+      "unitTitle": "因式分解",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "factorization",
+        "common-factor",
+        "formula-factorization",
+        "polynomial-structure",
+        "因式分解",
+        "提公因式",
+        "公式法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "符号意识",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "因式分解意义",
+        "提公因式法",
+        "公式法",
+        "分解检查",
+        "结构识别"
+      ],
+      "misconceptionTags": [
+        "common factor not complete",
+        "factorization stops too early",
+        "formula pattern overmatched"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-factorization"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-factorization-unit",
+        "bnu-junior-s2-lower-assessment-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "将 -3x^2 + 6xy - 3y^2 因式分解，正确的结果是（ ）",
+      "optionsZhHans": [
+        "-3(x^2 - 2xy + y^2)",
+        "-3(x - y)^2",
+        "3(x - y)^2",
+        "-3(x + y)^2"
+      ],
+      "answer": "-3(x - y)^2",
+      "acceptedAnswers": [
+        "-3(x - y)^2"
+      ],
+      "explanationZhHans": "先提公因式-3得-3(x^2 - 2xy + y^2)，括号内为(x-y)^2，故结果为-3(x-y)^2。A未分解彻底，C符号错，D中间项符号错。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-416",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-factorization",
+      "unitTitle": "因式分解",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "factorization",
+        "common-factor",
+        "formula-factorization",
+        "polynomial-structure",
+        "因式分解",
+        "提公因式",
+        "公式法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "符号意识",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "因式分解意义",
+        "提公因式法",
+        "公式法",
+        "分解检查",
+        "结构识别"
+      ],
+      "misconceptionTags": [
+        "common factor not complete",
+        "factorization stops too early",
+        "formula pattern overmatched"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-factorization"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-factorization-unit",
+        "bnu-junior-s2-lower-assessment-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知 a + b = 5，ab = 6，求 a^3b + 2a^2b^2 + ab^3 的值。",
+      "optionsZhHans": [],
+      "answer": "150",
+      "acceptedAnswers": [
+        "150"
+      ],
+      "explanationZhHans": "原式=ab(a^2+2ab+b^2)=ab(a+b)^2，代入ab=6，a+b=5得6×25=150。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-417",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-factorization",
+      "unitTitle": "因式分解",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "factorization",
+        "common-factor",
+        "formula-factorization",
+        "polynomial-structure",
+        "因式分解",
+        "提公因式",
+        "公式法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "符号意识",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "因式分解意义",
+        "提公因式法",
+        "公式法",
+        "分解检查",
+        "结构识别"
+      ],
+      "misconceptionTags": [
+        "common factor not complete",
+        "factorization stops too early",
+        "formula pattern overmatched"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-factorization"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-factorization-unit",
+        "bnu-junior-s2-lower-assessment-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "因式分解：4x^2 - 9y^2 = ______。",
+      "optionsZhHans": [],
+      "answer": "(2x+3y)(2x-3y)",
+      "acceptedAnswers": [
+        "(2x+3y)(2x-3y)",
+        "(2x-3y)(2x+3y)"
+      ],
+      "explanationZhHans": "4x^2=(2x)^2，9y^2=(3y)^2，符合平方差公式，分解为(2x+3y)(2x-3y)。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-418",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-factorization",
+      "unitTitle": "因式分解",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "factorization",
+        "common-factor",
+        "formula-factorization",
+        "polynomial-structure",
+        "因式分解",
+        "提公因式",
+        "公式法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "符号意识",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "因式分解意义",
+        "提公因式法",
+        "公式法",
+        "分解检查",
+        "结构识别"
+      ],
+      "misconceptionTags": [
+        "common factor not complete",
+        "factorization stops too early",
+        "formula pattern overmatched"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-factorization"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-factorization-unit",
+        "bnu-junior-s2-lower-assessment-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下列因式分解正确的是（ ）",
+      "optionsZhHans": [
+        "3x^2 - 6x = 3x(x - 6)",
+        "-a^2 + b^2 = (a + b)(a - b)",
+        "x^2 + 4x + 4 = (x + 4)^2",
+        "2x^3 - 8x = 2x(x + 2)(x - 2)"
+      ],
+      "answer": "2x^3 - 8x = 2x(x + 2)(x - 2)",
+      "acceptedAnswers": [
+        "2x^3 - 8x = 2x(x + 2)(x - 2)"
+      ],
+      "explanationZhHans": "A应为3x(x-2)；B左边提取负号后为-(a^2-b^2)=-(a+b)(a-b)；C应为(x+2)^2；D提公因式2x后得2x(x^2-4)=2x(x+2)(x-2)，正确。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-419",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-factorization",
+      "unitTitle": "因式分解",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "factorization",
+        "common-factor",
+        "formula-factorization",
+        "polynomial-structure",
+        "因式分解",
+        "提公因式",
+        "公式法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "符号意识",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "因式分解意义",
+        "提公因式法",
+        "公式法",
+        "分解检查",
+        "结构识别"
+      ],
+      "misconceptionTags": [
+        "common factor not complete",
+        "factorization stops too early",
+        "formula pattern overmatched"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-factorization"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-factorization-unit",
+        "bnu-junior-s2-lower-assessment-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "给出一个多项式，要求用提公因式法和公式法两种方法进行因式分解，并写出过程。多项式：x^4 - 16。",
+      "optionsZhHans": [],
+      "answer": "(x^2+4)(x+2)(x-2)",
+      "acceptedAnswers": [
+        "(x^2+4)(x+2)(x-2)",
+        "(x^2+4)(x-2)(x+2)"
+      ],
+      "explanationZhHans": "先用平方差公式：x^4-16=(x^2+4)(x^2-4)，再对x^2-4用平方差得(x+2)(x-2)，故结果为(x^2+4)(x+2)(x-2)。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-420",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-factorization",
+      "unitTitle": "因式分解",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "factorization",
+        "common-factor",
+        "formula-factorization",
+        "polynomial-structure",
+        "因式分解",
+        "提公因式",
+        "公式法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "符号意识",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "因式分解意义",
+        "提公因式法",
+        "公式法",
+        "分解检查",
+        "结构识别"
+      ],
+      "misconceptionTags": [
+        "common factor not complete",
+        "factorization stops too early",
+        "formula pattern overmatched"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-factorization"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-factorization-unit",
+        "bnu-junior-s2-lower-assessment-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "若 x + y = 3，xy = -4，则 x^2y + xy^2 的值为 ______。",
+      "optionsZhHans": [],
+      "answer": "-12",
+      "acceptedAnswers": [
+        "-12"
+      ],
+      "explanationZhHans": "x^2y+xy^2=xy(x+y)，代入xy=-4，x+y=3得-4×3=-12。"
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-188",
+  "startedAt": "2026-05-28T01:43:28.452Z",
+  "completedAt": "2026-05-28T01:43:33.007Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-188"
+  ],
+  "usage": {
+    "prompt_tokens": 2330,
+    "completion_tokens": 270,
+    "total_tokens": 2600,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1946
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-188",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "146",
+        "correctedAnswer": "146",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "递推累加得通项 a_n = (3n^2 - n + 2)/2，代入 n=10 得 146。存储答案 155 错误，解析中公式正确但最终计算错误，且解析末尾又得出 146，存在矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目可解，符合教材范围，但答案错误且解析自相矛盾，需修正答案为 146。"
+    }
+  }
+}

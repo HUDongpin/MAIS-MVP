@@ -1,0 +1,309 @@
+{
+  "batchId": "model-qa-0088",
+  "ids": [
+    "hjb-high-ds-v2-s4-241",
+    "hjb-high-ds-v2-s4-242",
+    "hjb-high-ds-v2-s4-243",
+    "hjb-high-ds-v2-s4-244",
+    "hjb-high-ds-v2-s4-245",
+    "hjb-high-ds-v2-s4-246",
+    "hjb-high-ds-v2-s4-247",
+    "hjb-high-ds-v2-s4-248",
+    "hjb-high-ds-v2-s4-249",
+    "hjb-high-ds-v2-s4-250",
+    "hjb-high-ds-v2-s4-251",
+    "hjb-high-ds-v2-s4-252",
+    "hjb-high-ds-v2-s4-253",
+    "hjb-high-ds-v2-s4-254",
+    "hjb-high-ds-v2-s4-255",
+    "hjb-high-ds-v2-s4-256",
+    "hjb-high-ds-v2-s4-257",
+    "hjb-high-ds-v2-s4-258",
+    "hjb-high-ds-v2-s4-259",
+    "hjb-high-ds-v2-s4-260"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-high-ds-v2-s4-241",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "f(3)=0",
+      "answerCheckZhHans": "标准答案 f(3)=0 与独立求解结果一致。解析正确推导出 f(3)=f(1)=0。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-242",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(-∞,1]∪[3,+∞)",
+      "answerCheckZhHans": "标准答案 (-∞,1]∪[3,+∞) 与独立求解结果一致。acceptedAnswers 包含区间形式和不等式形式，覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-243",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "a=0, b=-3, c=2",
+      "answerCheckZhHans": "标准答案 a=0, b=-3, c=2 与独立求解结果一致。acceptedAnswers 包含两种格式，覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-244",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "43",
+      "answerCheckZhHans": "标准答案 43 与独立计算 f(10)=3×10+13=43 一致。选项中有且仅有 43 正确。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-245",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "132",
+      "answerCheckZhHans": "标准答案 132 与独立计算 f(16)=8×16+4=132 一致。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-246",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "125",
+      "answerCheckZhHans": "标准答案 125 与独立计算 f(14)=8×14+13=125 一致。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-247",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "77",
+      "answerCheckZhHans": "标准答案 77 与独立计算 f(15)=5×15+2=77 一致。选项中有且仅有 77 正确。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-248",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "单调递增区间应为 (-∞,-1) 和 (1,3)，而非 (-∞,-1) 和 (-1,1)。解析中 f'(x)>0 解得 x<1，但需结合定义域 x≠-1,3，且分母恒正，故递增区间为 (-∞,-1) 和 (1,3)。标准答案遗漏了 (1,3) 部分。",
+      "independentAnswerZhHans": "(-∞,-1) 和 (1,3)",
+      "answerCheckZhHans": "标准答案 (-∞,-1)和(-1,1) 错误，正确应为 (-∞,-1) 和 (1,3)。",
+      "recommendedActionZhHans": "修正答案为 (-∞,-1) 和 (1,3)，并更新 acceptedAnswers。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-249",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "奇函数，值域为[-1/2,1/2]",
+      "answerCheckZhHans": "标准答案与独立求解结果一致。acceptedAnswers 包含两种分隔符格式，覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-250",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "45",
+      "answerCheckZhHans": "标准答案 45 与独立计算 f(7)=6×7+3=45 一致。选项中有且仅有 45 正确。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-251",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "表达式 AB·AC 在三角形中通常指向量点积，而非长度乘积。若为点积，应为 12×10×cos60°=60。题目未明确是长度乘积还是点积，但上下文为三角章节，且给出角度，更可能指向量点积。标准答案 120 仅当解释为长度乘积时成立，但此解释与常规不符。",
+      "independentAnswerZhHans": "若为点积：60；若为长度乘积：120。",
+      "answerCheckZhHans": "标准答案 120 仅在解释为长度乘积时正确，但题目在三角章节且给出角度，通常指向量点积，应为 60。存在歧义。",
+      "recommendedActionZhHans": "明确表达式含义，或修改答案为 60（若为点积），或注明为长度乘积。",
+      "confidence": "medium"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-252",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "同 0251，表达式 AB·AC 在三角章节中通常指向量点积，应为 3×9×cos60°=13.5，而非 27。标准答案 27 仅当解释为长度乘积时成立。",
+      "independentAnswerZhHans": "若为点积：13.5；若为长度乘积：27。",
+      "answerCheckZhHans": "标准答案 27 仅在解释为长度乘积时正确，但题目在三角章节且给出角度，通常指向量点积，应为 13.5。存在歧义。",
+      "recommendedActionZhHans": "明确表达式含义，或修改答案为 13.5（若为点积），或注明为长度乘积。",
+      "confidence": "medium"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-253",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "同 0251，表达式 AB·AC 在三角章节中通常指向量点积，应为 2×14×cos60°=14，而非 28。标准答案 28 仅当解释为长度乘积时成立。",
+      "independentAnswerZhHans": "若为点积：14；若为长度乘积：28。",
+      "answerCheckZhHans": "标准答案 28 仅在解释为长度乘积时正确，但题目在三角章节且给出角度，通常指向量点积，应为 14。存在歧义。",
+      "recommendedActionZhHans": "明确表达式含义，或修改答案为 14（若为点积），或注明为长度乘积。",
+      "confidence": "medium"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-254",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "同 0251，表达式 AB·AC 在三角章节中通常指向量点积，应为 2×12×cos60°=12，而非 24。标准答案 24 仅当解释为长度乘积时成立。",
+      "independentAnswerZhHans": "若为点积：12；若为长度乘积：24。",
+      "answerCheckZhHans": "标准答案 24 仅在解释为长度乘积时正确，但题目在三角章节且给出角度，通常指向量点积，应为 12。存在歧义。",
+      "recommendedActionZhHans": "明确表达式含义，或修改答案为 12（若为点积），或注明为长度乘积。",
+      "confidence": "medium"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-255",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "同 0251，表达式 AB·AC 在三角章节中通常指向量点积，应为 12×20×cos60°=120，而非 240。标准答案 240 仅当解释为长度乘积时成立。",
+      "independentAnswerZhHans": "若为点积：120；若为长度乘积：240。",
+      "answerCheckZhHans": "标准答案 240 仅在解释为长度乘积时正确，但题目在三角章节且给出角度，通常指向量点积，应为 120。存在歧义。",
+      "recommendedActionZhHans": "明确表达式含义，或修改答案为 120（若为点积），或注明为长度乘积。",
+      "confidence": "medium"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-256",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "同 0251，表达式 AB·AC 在三角章节中通常指向量点积，应为 4×7×cos60°=14，而非 28。标准答案 28 仅当解释为长度乘积时成立。",
+      "independentAnswerZhHans": "若为点积：14；若为长度乘积：28。",
+      "answerCheckZhHans": "标准答案 28 仅在解释为长度乘积时正确，但题目在三角章节且给出角度，通常指向量点积，应为 14。存在歧义。",
+      "recommendedActionZhHans": "明确表达式含义，或修改答案为 14（若为点积），或注明为长度乘积。",
+      "confidence": "medium"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-257",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "同 0251，表达式 AB·AC 在三角章节中通常指向量点积，应为 5×4×cos60°=10，而非 20。标准答案 20 仅当解释为长度乘积时成立。",
+      "independentAnswerZhHans": "若为点积：10；若为长度乘积：20。",
+      "answerCheckZhHans": "标准答案 20 仅在解释为长度乘积时正确，但题目在三角章节且给出角度，通常指向量点积，应为 10。存在歧义。",
+      "recommendedActionZhHans": "明确表达式含义，或修改答案为 10（若为点积），或注明为长度乘积。",
+      "confidence": "medium"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-258",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "同 0251，表达式 AB·AC 在三角章节中通常指向量点积，应为 8×17×cos60°=68，而非 136。标准答案 136 仅当解释为长度乘积时成立。",
+      "independentAnswerZhHans": "若为点积：68；若为长度乘积：136。",
+      "answerCheckZhHans": "标准答案 136 仅在解释为长度乘积时正确，但题目在三角章节且给出角度，通常指向量点积，应为 68。存在歧义。",
+      "recommendedActionZhHans": "明确表达式含义，或修改答案为 68（若为点积），或注明为长度乘积。",
+      "confidence": "medium"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-259",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "同 0251，表达式 AB·AC 在三角章节中通常指向量点积，应为 5×16×cos60°=40，而非 80。标准答案 80 仅当解释为长度乘积时成立。",
+      "independentAnswerZhHans": "若为点积：40；若为长度乘积：80。",
+      "answerCheckZhHans": "标准答案 80 仅在解释为长度乘积时正确，但题目在三角章节且给出角度，通常指向量点积，应为 40。存在歧义。",
+      "recommendedActionZhHans": "明确表达式含义，或修改答案为 40（若为点积），或注明为长度乘积。",
+      "confidence": "medium"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-260",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "同 0251，表达式 AB·AC 在三角章节中通常指向量点积，应为 4×17×cos60°=34，而非 68。标准答案 68 仅当解释为长度乘积时成立。",
+      "independentAnswerZhHans": "若为点积：34；若为长度乘积：68。",
+      "answerCheckZhHans": "标准答案 68 仅在解释为长度乘积时正确，但题目在三角章节且给出角度，通常指向量点积，应为 34。存在歧义。",
+      "recommendedActionZhHans": "明确表达式含义，或修改答案为 34（若为点积），或注明为长度乘积。",
+      "confidence": "medium"
+    }
+  ]
+}

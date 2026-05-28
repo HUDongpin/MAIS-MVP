@@ -1,0 +1,578 @@
+{
+  "batchId": "batch-076",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p4-001",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-large-numbers",
+      "unitTitle": "认识更大的数",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "large-numbers",
+        "place-value",
+        "rounding-estimation",
+        "认识更大的数",
+        "大数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "读写大数",
+        "数位顺序",
+        "比较大数",
+        "改写近似数",
+        "估算检查"
+      ],
+      "misconceptionTags": [
+        "zeros skipped when reading large numbers",
+        "digit value confused with digit face value",
+        "rounding place chosen without context"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-large-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-large-numbers-unit",
+        "bnu-primary-p4-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个数由5个百万、3个万和7个千组成，这个数写作多少？",
+      "optionsZhHans": [
+        "5037000",
+        "5307000",
+        "50307000",
+        "53007000"
+      ],
+      "answer": "5037000",
+      "acceptedAnswers": [
+        "5037000"
+      ],
+      "explanationZhHans": "5个百万是5000000，3个万是30000，7个千是7000，合起来是5037000。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-002",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-large-numbers",
+      "unitTitle": "认识更大的数",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "large-numbers",
+        "place-value",
+        "rounding-estimation",
+        "认识更大的数",
+        "大数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "读写大数",
+        "数位顺序",
+        "比较大数",
+        "改写近似数",
+        "估算检查"
+      ],
+      "misconceptionTags": [
+        "zeros skipped when reading large numbers",
+        "digit value confused with digit face value",
+        "rounding place chosen without context"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-large-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-large-numbers-unit",
+        "bnu-primary-p4-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把6020450改写成用“万”作单位的近似数，并保留一位小数。",
+      "optionsZhHans": [],
+      "answer": "602.0万",
+      "acceptedAnswers": [
+        "602.0万"
+      ],
+      "explanationZhHans": "6020450=602.045万，保留一位小数看百分位是4，舍去，得602.0万。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-003",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-large-numbers",
+      "unitTitle": "认识更大的数",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "large-numbers",
+        "place-value",
+        "rounding-estimation",
+        "认识更大的数",
+        "大数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "读写大数",
+        "数位顺序",
+        "比较大数",
+        "改写近似数",
+        "估算检查"
+      ],
+      "misconceptionTags": [
+        "zeros skipped when reading large numbers",
+        "digit value confused with digit face value",
+        "rounding place chosen without context"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-large-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-large-numbers-unit",
+        "bnu-primary-p4-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用2、5、7、0、0、0组成一个六位数，要求只读一个零，且这个数四舍五入到万位后约等于71万。这个数最大是多少？",
+      "optionsZhHans": [],
+      "answer": "710500",
+      "acceptedAnswers": [
+        "710500"
+      ],
+      "explanationZhHans": "约71万，万位为0或1，千位≥5则进1。最大取万位1，千位5，剩余数字从大到小排列得710500，读作七十一万零五百，只读一个零。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-004",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-large-numbers",
+      "unitTitle": "认识更大的数",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "large-numbers",
+        "place-value",
+        "rounding-estimation",
+        "认识更大的数",
+        "大数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "读写大数",
+        "数位顺序",
+        "比较大数",
+        "改写近似数",
+        "估算检查"
+      ],
+      "misconceptionTags": [
+        "zeros skipped when reading large numbers",
+        "digit value confused with digit face value",
+        "rounding place chosen without context"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-large-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-large-numbers-unit",
+        "bnu-primary-p4-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面各数中，最接近80万的是哪一个？",
+      "optionsZhHans": [
+        "799000",
+        "800100",
+        "801000",
+        "798000"
+      ],
+      "answer": "800100",
+      "acceptedAnswers": [
+        "800100"
+      ],
+      "explanationZhHans": "80万=800000。799000差1000，800100差100，801000差1000，798000差2000，800100最接近。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-005",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-large-numbers",
+      "unitTitle": "认识更大的数",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "large-numbers",
+        "place-value",
+        "rounding-estimation",
+        "认识更大的数",
+        "大数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "读写大数",
+        "数位顺序",
+        "比较大数",
+        "改写近似数",
+        "估算检查"
+      ],
+      "misconceptionTags": [
+        "zeros skipped when reading large numbers",
+        "digit value confused with digit face value",
+        "rounding place chosen without context"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-large-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-large-numbers-unit",
+        "bnu-primary-p4-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个数省略万位后面的尾数后约是15万，这个数最大是______，最小是______。",
+      "optionsZhHans": [],
+      "answer": "154999, 145000",
+      "acceptedAnswers": [
+        "154999, 145000",
+        "154999 145000"
+      ],
+      "explanationZhHans": "四舍五入到万位，最大是154999，最小是145000。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-006",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-large-numbers",
+      "unitTitle": "认识更大的数",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "large-numbers",
+        "place-value",
+        "rounding-estimation",
+        "认识更大的数",
+        "大数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "读写大数",
+        "数位顺序",
+        "比较大数",
+        "改写近似数",
+        "估算检查"
+      ],
+      "misconceptionTags": [
+        "zeros skipped when reading large numbers",
+        "digit value confused with digit face value",
+        "rounding place chosen without context"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-large-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-large-numbers-unit",
+        "bnu-primary-p4-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把下面各数按从大到小的顺序排列。\n5050050  5050500  5500005  5505000",
+      "optionsZhHans": [],
+      "answer": "5505000 > 5500005 > 5050500 > 5050050",
+      "acceptedAnswers": [
+        "5505000 > 5500005 > 5050500 > 5050050",
+        "5505000>5500005>5050500>5050050"
+      ],
+      "explanationZhHans": "比较最高位，都是七位数。5505000和5500005百万位相同，十万位5>0，所以5505000最大；5500005次之；5050500和5050050十万位0相同，万位5>0，所以5050500第三，5050050最小。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-007",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-large-numbers",
+      "unitTitle": "认识更大的数",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "large-numbers",
+        "place-value",
+        "rounding-estimation",
+        "认识更大的数",
+        "大数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "读写大数",
+        "数位顺序",
+        "比较大数",
+        "改写近似数",
+        "估算检查"
+      ],
+      "misconceptionTags": [
+        "zeros skipped when reading large numbers",
+        "digit value confused with digit face value",
+        "rounding place chosen without context"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-large-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-large-numbers-unit",
+        "bnu-primary-p4-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个数四舍五入到亿位后约是10亿，这个数最大是多少？",
+      "optionsZhHans": [
+        "1049999999",
+        "1050000000",
+        "1000000000",
+        "950000000"
+      ],
+      "answer": "1049999999",
+      "acceptedAnswers": [
+        "1049999999"
+      ],
+      "explanationZhHans": "四舍五入到亿位，最大数千万位是4，后面各位都是9，即1049999999。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-008",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-large-numbers",
+      "unitTitle": "认识更大的数",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "large-numbers",
+        "place-value",
+        "rounding-estimation",
+        "认识更大的数",
+        "大数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "读写大数",
+        "数位顺序",
+        "比较大数",
+        "改写近似数",
+        "估算检查"
+      ],
+      "misconceptionTags": [
+        "zeros skipped when reading large numbers",
+        "digit value confused with digit face value",
+        "rounding place chosen without context"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-large-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-large-numbers-unit",
+        "bnu-primary-p4-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在○里填上“>”“<”或“=”。\n5亿 ○ 500000001\n9999999 ○ 10000000",
+      "optionsZhHans": [],
+      "answer": "<, <",
+      "acceptedAnswers": [
+        "<, <",
+        "< <"
+      ],
+      "explanationZhHans": "5亿=500000000，小于500000001；9999999是七位数，10000000是八位数，所以9999999 < 10000000。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-009",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-large-numbers",
+      "unitTitle": "认识更大的数",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "large-numbers",
+        "place-value",
+        "rounding-estimation",
+        "认识更大的数",
+        "大数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "读写大数",
+        "数位顺序",
+        "比较大数",
+        "改写近似数",
+        "估算检查"
+      ],
+      "misconceptionTags": [
+        "zeros skipped when reading large numbers",
+        "digit value confused with digit face value",
+        "rounding place chosen without context"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-large-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-large-numbers-unit",
+        "bnu-primary-p4-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用3、4、5、6、7、8这六个数字组成一个六位数，省略万位后面的尾数后约是46万。这个六位数最小是多少？",
+      "optionsZhHans": [],
+      "answer": "453678",
+      "acceptedAnswers": [
+        "453678"
+      ],
+      "explanationZhHans": "约46万，万位可以是5或6。要最小，万位取5，千位需小于5，最小取3，剩余数字从小到大排列得453678。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-010",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-large-numbers",
+      "unitTitle": "认识更大的数",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "large-numbers",
+        "place-value",
+        "rounding-estimation",
+        "认识更大的数",
+        "大数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "读写大数",
+        "数位顺序",
+        "比较大数",
+        "改写近似数",
+        "估算检查"
+      ],
+      "misconceptionTags": [
+        "zeros skipped when reading large numbers",
+        "digit value confused with digit face value",
+        "rounding place chosen without context"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-large-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-large-numbers-unit",
+        "bnu-primary-p4-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面各数中，只读一个零的数是哪一个？",
+      "optionsZhHans": [
+        "4005500",
+        "4050500",
+        "4000550",
+        "4050050"
+      ],
+      "answer": "4000550",
+      "acceptedAnswers": [
+        "4000550"
+      ],
+      "explanationZhHans": "4005500不读零；4050500读两个零；4000550读作四百万零五百五十，只读一个零；4050050读两个零。"
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-479",
+  "startedAt": "2026-05-28T01:59:53.718Z",
+  "completedAt": "2026-05-28T01:59:57.774Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-479"
+  ],
+  "usage": {
+    "prompt_tokens": 2118,
+    "completion_tokens": 205,
+    "total_tokens": 2323,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1734
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-479",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件充分，可解。答案2唯一且与独立解一致。解析虽简略但结论正确，无矛盾。符合北师大版S4立体几何初步内容。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 1,
+      "warn": 0,
+      "fail": 0,
+      "notes": "该题通过复核，无问题。"
+    }
+  }
+}

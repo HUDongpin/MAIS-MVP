@@ -1,0 +1,133 @@
+{
+  "batchNumber": 121,
+  "startedAt": "2026-05-27T14:04:17.737Z",
+  "completedAt": "2026-05-27T14:04:33.975Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-461",
+    "bnu-high-ds-v1-s5-462",
+    "bnu-high-ds-v1-s5-463",
+    "bnu-high-ds-v1-s5-464",
+    "bnu-high-ds-v1-s5-465",
+    "bnu-high-ds-v1-s5-466",
+    "bnu-high-ds-v1-s5-467",
+    "bnu-high-ds-v1-s5-468"
+  ],
+  "usage": {
+    "prompt_tokens": 11086,
+    "completion_tokens": 1058,
+    "total_tokens": 12144,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10574
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-461",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "课外阅读时间与语文成绩的线性相关程度较强",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目给出相关系数r=0.82，可直接判断线性相关程度较强，选项C正确。解析与答案一致，无问题。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-462",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "33",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "代入x=10到回归方程得33，答案和解析均正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-463",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "男生喜欢篮球的比例显著高于女生",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由列联表计算比例，男生80%，女生30%，选项B正确。解析指出需独立性检验，但比例差异明显，结论合理。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-464",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0.99",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "根据数据计算相关系数，结果约为0.99，与答案一致。解析中给出的中间值可验证。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-465",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "回归直线不一定经过样本中心点",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "所有点共线时，回归直线必过样本中心点，故D错误。解析正确指出该性质。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-466",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "54.76",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "代入公式计算K²=54.76，答案和解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-467",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "b 是斜率，a 是截距，回归直线过样本中心点 (x̄, ȳ)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "回归方程中b是斜率，a是截距，且必过样本中心点，选项C正确。解析解释清晰。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-468",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "ŷ=2x+1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "计算得回归方程为ŷ=2x+1，答案和解析均正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可解，答案与解析匹配，无问题。"
+    }
+  }
+}

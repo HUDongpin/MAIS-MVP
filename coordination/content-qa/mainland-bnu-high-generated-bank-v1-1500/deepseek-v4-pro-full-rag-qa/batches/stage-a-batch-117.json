@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-117",
+  "startedAt": "2026-05-28T01:29:08.862Z",
+  "completedAt": "2026-05-28T01:29:22.935Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-429",
+    "bnu-high-ds-v1-s5-430",
+    "bnu-high-ds-v1-s5-431",
+    "bnu-high-ds-v1-s5-432",
+    "bnu-high-ds-v1-s5-433",
+    "bnu-high-ds-v1-s5-434",
+    "bnu-high-ds-v1-s5-435",
+    "bnu-high-ds-v1-s5-436"
+  ],
+  "usage": {
+    "prompt_tokens": 10946,
+    "completion_tokens": 1031,
+    "total_tokens": 11977,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 10562
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-429",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "0.5",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "正态分布N(2,9)的均值为2，对称轴为x=2，P(X<2)=0.5。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-430",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(4, 20)",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "线性回归方程必过样本中心点(x̄,ȳ)=(4,20)。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-431",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(1) 散点图呈从左下到右上的线性上升趋势；(2) 相关系数r≈0.99，表明阅读时间与语文成绩高度正相关；(3) 预测成绩=2.1×12+60.5=85.7分，预测可靠，因为相关系数高且12小时在样本范围内。",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "数据线性趋势明显，相关系数接近1，回归预测合理。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-432",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "0.9",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "相关系数r=协方差/(标准差x×标准差y)=360/(2×200)=0.9。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-433",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "χ²≈2.34，没有充分理由认为两者有关",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "计算χ²≈2.34<3.841，不能拒绝独立假设。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-434",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(1) 存在线性相关，散点图呈直线趋势，相关系数接近1；(2) 回归方程y=0.64x+0.06；(3) 预测消费支出=3.90万元，预测合理，因为GDP在样本范围内且相关性高。",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "数据线性关系强，回归系数计算正确，预测在样本范围内。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-435",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(3, 7)",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "样本中心点(x̄,ȳ)=(3,7)，回归直线必过该点。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-436",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "有充分理由认为X与Y有关，犯错误的概率不超过0.05",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "χ²=6.8>3.841，在0.05水平下拒绝独立假设，但未超过6.635，故错误概率不超过0.05。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，无数学错误、歧义或缺失条件，符合北师大版高中选择性必修第一册概率与统计案例章节要求。"
+    }
+  }
+}

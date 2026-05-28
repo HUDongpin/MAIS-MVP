@@ -1,0 +1,191 @@
+{
+  "batchNumber": 27,
+  "startedAt": "2026-05-25T02:01:16.564Z",
+  "completedAt": "2026-05-25T02:01:34.979Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p2-219",
+    "hjb-primary-ds-v1-p2-220",
+    "hjb-primary-ds-v1-p2-221",
+    "hjb-primary-ds-v1-p2-222",
+    "hjb-primary-ds-v1-p2-223",
+    "hjb-primary-ds-v1-p2-224",
+    "hjb-primary-ds-v1-p2-225",
+    "hjb-primary-ds-v1-p2-226",
+    "hjb-primary-ds-v1-p2-227",
+    "hjb-primary-ds-v1-p2-228",
+    "hjb-primary-ds-v1-p2-229",
+    "hjb-primary-ds-v1-p2-230",
+    "hjb-primary-ds-v1-p2-231",
+    "hjb-primary-ds-v1-p2-232",
+    "hjb-primary-ds-v1-p2-233",
+    "hjb-primary-ds-v1-p2-234",
+    "hjb-primary-ds-v1-p2-235",
+    "hjb-primary-ds-v1-p2-236"
+  ],
+  "usage": {
+    "prompt_tokens": 4273,
+    "completion_tokens": 1239,
+    "total_tokens": 5512,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 4017
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p2-219",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，选项合理，解释清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-220",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估算与精确计算均正确，答案格式符合要求。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-221",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估算分析正确，选项描述准确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-222",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "退位过程正确，答案11,13符合逻辑。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-223",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，唯一选项小于500。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-224",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案17厘米合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-225",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "逆推正确，差为28。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-226",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估算与笔算均正确，答案顺序合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-227",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "减法计算正确，选项B唯一正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-228",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "竖式计算与验算均正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-229",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分类合理，选项描述清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-230",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平方数规律正确，填25。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-231",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "用乘法检验除法正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-232",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "规律应用正确，得56。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-233",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "时间计算正确，选项A唯一正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-234",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分类标准明确，答案合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-235",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "乘加两步计算识别正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-236",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "等分除模型名称正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案匹配，无歧义，适合沪教版二年级。"
+    }
+  }
+}

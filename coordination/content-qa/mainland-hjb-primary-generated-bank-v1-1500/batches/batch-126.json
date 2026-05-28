@@ -1,0 +1,301 @@
+{
+  "batchId": "batch-126",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p3-126",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-math-square-review",
+      "unitTitle": "三年级上册数学广场与整理复习",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "p3-upper-review",
+        "math-square-exploration",
+        "operation-geometry-fraction-review",
+        "数学广场",
+        "整理复习"
+      ],
+      "competencyTags": [
+        "推理意识",
+        "反思整理",
+        "应用意识"
+      ],
+      "skillTags": [
+        "规律探索",
+        "综合应用",
+        "策略表达",
+        "错因归纳",
+        "模型选择"
+      ],
+      "misconceptionTags": [
+        "review solved by memorized procedure only",
+        "diagram and equation not connected",
+        "strategy chosen from surface keywords"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-math-square-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-review-operations",
+        "hjb-primary-p3-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丁在整理错题时发现一道题：计算 238 × 4 时，他先算 200 × 4 = 800，再算 30 × 4 = 120，最后算 8 × 4 = 32，然后相加得到 952。他用的策略是什么？请用一句话说明，并写出这种策略的名称。",
+      "optionsZhHans": [],
+      "answer": "拆分法（或数的分解法），将238拆成200、30和8分别乘4再相加。",
+      "acceptedAnswers": [
+        "拆分法（或数的分解法），将238拆成200、30和8分别乘4再相加。",
+        "拆分法",
+        "数的分解法",
+        "将238拆成200、30和8分别乘4再相加",
+        "拆分法，将238拆成200、30和8分别乘4再相加",
+        "数的分解法，将238拆成200、30和8分别乘4再相加"
+      ],
+      "explanationZhHans": "小丁把三位数按数位拆成整百、整十和个位，分别与一位数相乘再求和，这是拆分法（数的分解法），能简化计算。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-127",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-math-square-review",
+      "unitTitle": "三年级上册数学广场与整理复习",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "p3-upper-review",
+        "math-square-exploration",
+        "operation-geometry-fraction-review",
+        "数学广场",
+        "整理复习"
+      ],
+      "competencyTags": [
+        "推理意识",
+        "反思整理",
+        "应用意识"
+      ],
+      "skillTags": [
+        "规律探索",
+        "综合应用",
+        "策略表达",
+        "错因归纳",
+        "模型选择"
+      ],
+      "misconceptionTags": [
+        "review solved by memorized procedure only",
+        "diagram and equation not connected",
+        "strategy chosen from surface keywords"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-math-square-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-review-operations",
+        "hjb-primary-p3-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪种情况最适合用“先估算再精确计算”的策略？",
+      "optionsZhHans": [
+        "计算 45 + 32 的准确结果",
+        "检查 612 ÷ 6 的商是否大约为 100",
+        "计算 7 × 8 的乘法口诀",
+        "比较两个三位数的大小"
+      ],
+      "answer": "检查 612 ÷ 6 的商是否大约为 100",
+      "acceptedAnswers": [
+        "检查 612 ÷ 6 的商是否大约为 100"
+      ],
+      "explanationZhHans": "估算用于快速判断结果的大致范围，再精确计算验证。612÷6 约等于 100，适合先估算再精确计算，其他选项只需直接计算或比较。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-128",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-math-square-review",
+      "unitTitle": "三年级上册数学广场与整理复习",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "p3-upper-review",
+        "math-square-exploration",
+        "operation-geometry-fraction-review",
+        "数学广场",
+        "整理复习"
+      ],
+      "competencyTags": [
+        "推理意识",
+        "反思整理",
+        "应用意识"
+      ],
+      "skillTags": [
+        "规律探索",
+        "综合应用",
+        "策略表达",
+        "错因归纳",
+        "模型选择"
+      ],
+      "misconceptionTags": [
+        "review solved by memorized procedure only",
+        "diagram and equation not connected",
+        "strategy chosen from surface keywords"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-math-square-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-review-operations",
+        "hjb-primary-p3-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在计算 56 ÷ 7 时，可以想乘法口诀“七八五十六”，这里用到了除法和乘法的关系。这种关系叫做________。",
+      "optionsZhHans": [],
+      "answer": "逆运算",
+      "acceptedAnswers": [
+        "逆运算",
+        "互逆运算",
+        "乘除互为逆运算"
+      ],
+      "explanationZhHans": "因为 7 × 8 = 56，所以 56 ÷ 7 = 8，乘法和除法是相反的运算，称为逆运算。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-129",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-math-square-review",
+      "unitTitle": "三年级上册数学广场与整理复习",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "p3-upper-review",
+        "math-square-exploration",
+        "operation-geometry-fraction-review",
+        "数学广场",
+        "整理复习"
+      ],
+      "competencyTags": [
+        "推理意识",
+        "反思整理",
+        "应用意识"
+      ],
+      "skillTags": [
+        "规律探索",
+        "综合应用",
+        "策略表达",
+        "错因归纳",
+        "模型选择"
+      ],
+      "misconceptionTags": [
+        "review solved by memorized procedure only",
+        "diagram and equation not connected",
+        "strategy chosen from surface keywords"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-math-square-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-review-operations",
+        "hjb-primary-p3-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小胖在计算 45 + 28 时，先算 45 + 30 = 75，再减去 2 得到 73。他用的策略是什么？请写出策略名称，并说明为什么这样算。",
+      "optionsZhHans": [],
+      "answer": "凑整法（或加整减补法），把28看作30，多加了2，所以再减去2。",
+      "acceptedAnswers": [
+        "凑整法（或加整减补法），把28看作30，多加了2，所以再减去2。",
+        "凑整法",
+        "加整减补法",
+        "凑整法，把28看作30，多加了2，所以再减去2",
+        "加整减补法，把28看作30，多加了2，所以再减去2"
+      ],
+      "explanationZhHans": "小胖把28凑成整十数30，计算更简便，但多加了2，所以要减去2，这是凑整法（加整减补法）。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-130",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-math-square-review",
+      "unitTitle": "三年级上册数学广场与整理复习",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "p3-upper-review",
+        "math-square-exploration",
+        "operation-geometry-fraction-review",
+        "数学广场",
+        "整理复习"
+      ],
+      "competencyTags": [
+        "推理意识",
+        "反思整理",
+        "应用意识"
+      ],
+      "skillTags": [
+        "规律探索",
+        "综合应用",
+        "策略表达",
+        "错因归纳",
+        "模型选择"
+      ],
+      "misconceptionTags": [
+        "review solved by memorized procedure only",
+        "diagram and equation not connected",
+        "strategy chosen from surface keywords"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-math-square-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-review-operations",
+        "hjb-primary-p3-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪一项是整理复习时常用的好方法？",
+      "optionsZhHans": [
+        "只做新题，不看错题",
+        "把错题按类型分类，并写出错因",
+        "每天做大量相同的计算题",
+        "只背诵公式，不做练习"
+      ],
+      "answer": "把错题按类型分类，并写出错因",
+      "acceptedAnswers": [
+        "把错题按类型分类，并写出错因"
+      ],
+      "explanationZhHans": "整理复习时，将错题分类并分析错因，能帮助发现薄弱点，避免重复错误，是有效的反思整理方法。"
+    }
+  ]
+}

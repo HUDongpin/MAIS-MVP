@@ -1,0 +1,579 @@
+{
+  "batchId": "batch-128",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p6-021",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-fraction-mixed-operations",
+      "unitTitle": "分数混合运算",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "fraction-mixed-operations",
+        "operation-order",
+        "fraction-word-problems",
+        "equation-relationships",
+        "分数混合运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "符号意识"
+      ],
+      "skillTags": [
+        "分数四则混合运算",
+        "运算顺序",
+        "数量关系分析",
+        "画图建模",
+        "检验结果"
+      ],
+      "misconceptionTags": [
+        "operation chosen from keywords only",
+        "multiplication and division order reversed",
+        "fractions combined without a shared referent whole"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-fraction-mixed-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-fraction-mixed-operations-unit",
+        "bnu-primary-p6-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "修路队修一条公路，第一天修了全长的1/4，第二天修了余下的2/5，还剩下180米没修。这条公路全长多少米？",
+      "optionsZhHans": [],
+      "answer": "400",
+      "acceptedAnswers": [
+        "400",
+        "400米"
+      ],
+      "explanationZhHans": "第一天后剩下全长的3/4；第二天修了3/4的2/5，即3/4×2/5=3/10；两天共修1/4+3/10=11/20，剩下9/20对应180米，全长=180÷9/20=400米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-022",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-fraction-mixed-operations",
+      "unitTitle": "分数混合运算",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "fraction-mixed-operations",
+        "operation-order",
+        "fraction-word-problems",
+        "equation-relationships",
+        "分数混合运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "符号意识"
+      ],
+      "skillTags": [
+        "分数四则混合运算",
+        "运算顺序",
+        "数量关系分析",
+        "画图建模",
+        "检验结果"
+      ],
+      "misconceptionTags": [
+        "operation chosen from keywords only",
+        "multiplication and division order reversed",
+        "fractions combined without a shared referent whole"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-fraction-mixed-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-fraction-mixed-operations-unit",
+        "bnu-primary-p6-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一桶油重20千克，用去1/4后，又用去剩下的1/3，最后桶里还剩油多少千克？",
+      "optionsZhHans": [
+        "5千克",
+        "10千克",
+        "15千克",
+        "12千克"
+      ],
+      "answer": "10千克",
+      "acceptedAnswers": [
+        "10千克",
+        "10"
+      ],
+      "explanationZhHans": "第一次用去20×1/4=5千克，剩下15千克；第二次用去15×1/3=5千克，最后剩15-5=10千克。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-023",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-fraction-mixed-operations",
+      "unitTitle": "分数混合运算",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "fraction-mixed-operations",
+        "operation-order",
+        "fraction-word-problems",
+        "equation-relationships",
+        "分数混合运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "符号意识"
+      ],
+      "skillTags": [
+        "分数四则混合运算",
+        "运算顺序",
+        "数量关系分析",
+        "画图建模",
+        "检验结果"
+      ],
+      "misconceptionTags": [
+        "operation chosen from keywords only",
+        "multiplication and division order reversed",
+        "fractions combined without a shared referent whole"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-fraction-mixed-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-fraction-mixed-operations-unit",
+        "bnu-primary-p6-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算：3/5 ÷ (1 - 2/3) × 1/2 = ______。",
+      "optionsZhHans": [],
+      "answer": "9/10",
+      "acceptedAnswers": [
+        "9/10",
+        "0.9"
+      ],
+      "explanationZhHans": "先算括号：1-2/3=1/3；再算除法：3/5÷1/3=3/5×3=9/5；最后乘法：9/5×1/2=9/10。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-024",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-fraction-mixed-operations",
+      "unitTitle": "分数混合运算",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "fraction-mixed-operations",
+        "operation-order",
+        "fraction-word-problems",
+        "equation-relationships",
+        "分数混合运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "符号意识"
+      ],
+      "skillTags": [
+        "分数四则混合运算",
+        "运算顺序",
+        "数量关系分析",
+        "画图建模",
+        "检验结果"
+      ],
+      "misconceptionTags": [
+        "operation chosen from keywords only",
+        "multiplication and division order reversed",
+        "fractions combined without a shared referent whole"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-fraction-mixed-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-fraction-mixed-operations-unit",
+        "bnu-primary-p6-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "水果店运来一批苹果，第一天卖出总数的1/3，第二天卖出剩下的2/5，第三天卖出第二天剩下的1/2，最后还剩40千克。这批苹果原来有多少千克？",
+      "optionsZhHans": [],
+      "answer": "300",
+      "acceptedAnswers": [
+        "300",
+        "300千克"
+      ],
+      "explanationZhHans": "设原有x千克。第一天剩2/3x；第二天剩2/3x×(1-2/5)=2/3x×3/5=2/5x；第三天剩2/5x×(1-1/2)=1/5x=40，x=200。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-025",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-fraction-mixed-operations",
+      "unitTitle": "分数混合运算",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "fraction-mixed-operations",
+        "operation-order",
+        "fraction-word-problems",
+        "equation-relationships",
+        "分数混合运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "符号意识"
+      ],
+      "skillTags": [
+        "分数四则混合运算",
+        "运算顺序",
+        "数量关系分析",
+        "画图建模",
+        "检验结果"
+      ],
+      "misconceptionTags": [
+        "operation chosen from keywords only",
+        "multiplication and division order reversed",
+        "fractions combined without a shared referent whole"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-fraction-mixed-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-fraction-mixed-operations-unit",
+        "bnu-primary-p6-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一根绳子长12米，第一次剪去全长的1/3，第二次剪去剩下部分的1/2，这时绳子比原来短了多少米？",
+      "optionsZhHans": [
+        "4米",
+        "6米",
+        "8米",
+        "10米"
+      ],
+      "answer": "8米",
+      "acceptedAnswers": [
+        "8米",
+        "8"
+      ],
+      "explanationZhHans": "第一次剪去12×1/3=4米，剩8米；第二次剪去8×1/2=4米，共剪去4+4=8米，即短了8米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-026",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-fraction-mixed-operations",
+      "unitTitle": "分数混合运算",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "fraction-mixed-operations",
+        "operation-order",
+        "fraction-word-problems",
+        "equation-relationships",
+        "分数混合运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "符号意识"
+      ],
+      "skillTags": [
+        "分数四则混合运算",
+        "运算顺序",
+        "数量关系分析",
+        "画图建模",
+        "检验结果"
+      ],
+      "misconceptionTags": [
+        "operation chosen from keywords only",
+        "multiplication and division order reversed",
+        "fractions combined without a shared referent whole"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-fraction-mixed-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-fraction-mixed-operations-unit",
+        "bnu-primary-p6-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在算式 2/3 + 1/4 × 4/5 中，先算______法，再算______法，结果是______。",
+      "optionsZhHans": [],
+      "answer": "乘,加,13/15",
+      "acceptedAnswers": [
+        "乘,加,13/15",
+        "乘法,加法,13/15"
+      ],
+      "explanationZhHans": "先算乘法：1/4×4/5=1/5；再算加法：2/3+1/5=10/15+3/15=13/15。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-027",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-fraction-mixed-operations",
+      "unitTitle": "分数混合运算",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "fraction-mixed-operations",
+        "operation-order",
+        "fraction-word-problems",
+        "equation-relationships",
+        "分数混合运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "符号意识"
+      ],
+      "skillTags": [
+        "分数四则混合运算",
+        "运算顺序",
+        "数量关系分析",
+        "画图建模",
+        "检验结果"
+      ],
+      "misconceptionTags": [
+        "operation chosen from keywords only",
+        "multiplication and division order reversed",
+        "fractions combined without a shared referent whole"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-fraction-mixed-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-fraction-mixed-operations-unit",
+        "bnu-primary-p6-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆购进一批新书，其中故事书占2/5，科技书占剩下的3/4，其余是连环画。已知连环画有60本，这批新书共有多少本？",
+      "optionsZhHans": [],
+      "answer": "400",
+      "acceptedAnswers": [
+        "400",
+        "400本"
+      ],
+      "explanationZhHans": "故事书占2/5，剩下3/5；科技书占3/5×3/4=9/20；连环画占1-2/5-9/20=3/20，对应60本，总数=60÷3/20=400本。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-028",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-fraction-mixed-operations",
+      "unitTitle": "分数混合运算",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "fraction-mixed-operations",
+        "operation-order",
+        "fraction-word-problems",
+        "equation-relationships",
+        "分数混合运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "符号意识"
+      ],
+      "skillTags": [
+        "分数四则混合运算",
+        "运算顺序",
+        "数量关系分析",
+        "画图建模",
+        "检验结果"
+      ],
+      "misconceptionTags": [
+        "operation chosen from keywords only",
+        "multiplication and division order reversed",
+        "fractions combined without a shared referent whole"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-fraction-mixed-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-fraction-mixed-operations-unit",
+        "bnu-primary-p6-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个算式的计算结果与 4/5 ÷ (2/3 + 1/6) 相等？",
+      "optionsZhHans": [
+        "4/5 ÷ 2/3 + 4/5 ÷ 1/6",
+        "4/5 ÷ 5/6",
+        "4/5 × 5/6",
+        "4/5 ÷ (2/3 + 1/6) × 1"
+      ],
+      "answer": "4/5 ÷ 5/6",
+      "acceptedAnswers": [
+        "4/5 ÷ 5/6"
+      ],
+      "explanationZhHans": "先算括号：2/3+1/6=5/6，原式=4/5÷5/6。选项A错误分配除法；C是乘法；D多乘1，结果相同但形式不同，而B与原式相等。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-029",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-fraction-mixed-operations",
+      "unitTitle": "分数混合运算",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "fraction-mixed-operations",
+        "operation-order",
+        "fraction-word-problems",
+        "equation-relationships",
+        "分数混合运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "符号意识"
+      ],
+      "skillTags": [
+        "分数四则混合运算",
+        "运算顺序",
+        "数量关系分析",
+        "画图建模",
+        "检验结果"
+      ],
+      "misconceptionTags": [
+        "operation chosen from keywords only",
+        "multiplication and division order reversed",
+        "fractions combined without a shared referent whole"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-fraction-mixed-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-fraction-mixed-operations-unit",
+        "bnu-primary-p6-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "比30米多1/5是______米，比30米少1/5米是______米。",
+      "optionsZhHans": [],
+      "answer": "36,29.8",
+      "acceptedAnswers": [
+        "36,29.8",
+        "36米,29.8米"
+      ],
+      "explanationZhHans": "多1/5：30×(1+1/5)=36米；少1/5米：30-1/5=29.8米。注意区分分率和具体量。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-030",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-fraction-mixed-operations",
+      "unitTitle": "分数混合运算",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "fraction-mixed-operations",
+        "operation-order",
+        "fraction-word-problems",
+        "equation-relationships",
+        "分数混合运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "符号意识"
+      ],
+      "skillTags": [
+        "分数四则混合运算",
+        "运算顺序",
+        "数量关系分析",
+        "画图建模",
+        "检验结果"
+      ],
+      "misconceptionTags": [
+        "operation chosen from keywords only",
+        "multiplication and division order reversed",
+        "fractions combined without a shared referent whole"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-fraction-mixed-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-fraction-mixed-operations-unit",
+        "bnu-primary-p6-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明看一本故事书，第一天看了全书的1/6，第二天看了剩下的2/5，这时还剩70页没看。这本书共有多少页？",
+      "optionsZhHans": [],
+      "answer": "140",
+      "acceptedAnswers": [
+        "140",
+        "140页"
+      ],
+      "explanationZhHans": "第一天剩5/6；第二天看5/6×2/5=1/3；两天共看1/6+1/3=1/2，剩1/2对应70页，全书70÷1/2=140页。"
+    }
+  ]
+}

@@ -1,0 +1,112 @@
+{
+  "batchId": "model-qa-0057",
+  "ids": [
+    "hjb-junior-ds-v2-s1-449",
+    "hjb-junior-ds-v2-s1-450",
+    "hjb-junior-ds-v2-s1-451",
+    "hjb-junior-ds-v2-s1-452",
+    "hjb-junior-ds-v2-s1-453",
+    "hjb-junior-ds-v2-s1-454",
+    "hjb-junior-ds-v2-s1-455",
+    "hjb-junior-ds-v2-s1-456"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-449",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "5",
+      "answerCheckZhHans": "标准答案为5，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-450",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题干：在△ABC中，AB=AC，点D是BC中点，连接AD。下列说法错误的是（ ）。选项：AD⊥BC, AD平分∠BAC, BD=CD, ∠B=∠C。标准答案选AD⊥BC，解析称“等腰三角形底边中线与高重合需顶角平分线条件。仅由AB=AC和D为BC中点，不能直接推出AD⊥BC，除非已知AD也是角平分线。其他选项均正确。”但根据等腰三角形性质，AB=AC且D为BC中点时，AD既是中线也是高和角平分线，因此AD⊥BC正确，AD平分∠BAC正确，BD=CD正确，∠B=∠C正确。所有选项都正确，没有错误说法。因此题目无正确选项，或标准答案错误。",
+      "independentAnswerZhHans": "所有选项都正确，没有错误说法。",
+      "answerCheckZhHans": "标准答案选AD⊥BC，但AD⊥BC是正确的，因此标准答案错误。",
+      "recommendedActionZhHans": "修改题干或选项，使题目有唯一错误选项。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-451",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "25°",
+      "answerCheckZhHans": "标准答案为25°，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-452",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "55°",
+      "answerCheckZhHans": "标准答案为55°，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-453",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题干：在△ABC中，AB=AC，∠A=50°，点D在边BC上，且AD平分∠BAC。求∠ADC的度数。标准答案为107.5°，解析却得出90°，矛盾。独立解题：∠B=∠C=65°，∠BAD=25°，在△ABD中，∠ADB=180°-65°-25°=90°，∠ADC=180°-90°=90°。因此正确答案应为90°，标准答案107.5°错误。",
+      "independentAnswerZhHans": "90°",
+      "answerCheckZhHans": "标准答案为107.5°，但解析和独立解题均得90°，标准答案错误。",
+      "recommendedActionZhHans": "将答案修正为90°，并更新解析。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-454",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "70°",
+      "answerCheckZhHans": "标准答案为70°，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-455",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题干：在△ABC中，AB=AC，∠A=50°。点D在边BC上，且AD平分∠BAC。求∠ADC的度数。标准答案为107.5°，解析却得出90°，矛盾。独立解题：∠B=∠C=65°，∠BAD=25°，在△ABD中，∠ADB=180°-65°-25°=90°，∠ADC=180°-90°=90°。因此正确答案应为90°，标准答案107.5°错误。",
+      "independentAnswerZhHans": "90°",
+      "answerCheckZhHans": "标准答案为107.5°，但解析和独立解题均得90°，标准答案错误。",
+      "recommendedActionZhHans": "将答案修正为90°，并更新解析。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-456",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "90°",
+      "answerCheckZhHans": "标准答案为90°，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

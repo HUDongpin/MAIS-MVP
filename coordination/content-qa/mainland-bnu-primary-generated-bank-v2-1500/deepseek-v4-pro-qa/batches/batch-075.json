@@ -1,0 +1,191 @@
+{
+  "batchNumber": 75,
+  "startedAt": "2026-05-27T14:02:41.005Z",
+  "completedAt": "2026-05-27T14:02:59.653Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p6-083",
+    "bnu-primary-ds-v2-p6-084",
+    "bnu-primary-ds-v2-p6-085",
+    "bnu-primary-ds-v2-p6-086",
+    "bnu-primary-ds-v2-p6-087",
+    "bnu-primary-ds-v2-p6-088",
+    "bnu-primary-ds-v2-p6-089",
+    "bnu-primary-ds-v2-p6-090",
+    "bnu-primary-ds-v2-p6-091",
+    "bnu-primary-ds-v2-p6-092",
+    "bnu-primary-ds-v2-p6-093",
+    "bnu-primary-ds-v2-p6-094",
+    "bnu-primary-ds-v2-p6-095",
+    "bnu-primary-ds-v2-p6-096",
+    "bnu-primary-ds-v2-p6-097",
+    "bnu-primary-ds-v2-p6-098",
+    "bnu-primary-ds-v2-p6-099",
+    "bnu-primary-ds-v2-p6-100"
+  ],
+  "usage": {
+    "prompt_tokens": 3313,
+    "completion_tokens": 1280,
+    "total_tokens": 4593,
+    "prompt_tokens_details": {
+      "cached_tokens": 3200
+    },
+    "prompt_cache_hit_tokens": 3200,
+    "prompt_cache_miss_tokens": 113
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p6-083",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，适合P6数据处理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-084",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "描述变化趋势，答案合理，接受多种表述。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-085",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比较人数，条形统计图最合适，选项无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-086",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "表示百分比关系，扇形统计图正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-087",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "直接读取统计表，答案明确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-088",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "考察统计图特点，选项D正确，其他错误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-089",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "变化趋势用折线统计图，符合要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-090",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比较面积，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-091",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "按比分配，计算正确，选项合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-092",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "已知比和甲数求乙数，计算无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-093",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "按比分配，过程清晰，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-094",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "判断相等比，6:8正确，其他错误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-095",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "糖与糖水比，注意糖水质量，化简正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-096",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "按比求宽，计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-097",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比与分数关系，选项A正确，其他错误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-098",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "三角形内角和按比分配，最大角80度正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-099",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "按比分配，计算石子重量正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-100",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "速度与时间反比，计算正确，选项合理。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版小学数学要求，无错误或歧义。"
+    }
+  }
+}

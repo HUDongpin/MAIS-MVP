@@ -1,0 +1,137 @@
+{
+  "batchNumber": 26,
+  "startedAt": "2026-05-25T02:54:18.931Z",
+  "completedAt": "2026-05-25T02:54:36.223Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s1-k04-sa-034",
+    "pep-junior-v3-s1-k05-mc-001",
+    "pep-junior-v3-s1-k05-mc-002",
+    "pep-junior-v3-s1-k05-mc-003",
+    "pep-junior-v3-s1-k05-mc-004",
+    "pep-junior-v3-s1-k05-mc-005",
+    "pep-junior-v3-s1-k05-mc-006",
+    "pep-junior-v3-s1-k05-mc-007",
+    "pep-junior-v3-s1-k05-mc-008",
+    "pep-junior-v3-s1-k05-mc-009",
+    "pep-junior-v3-s1-k05-mc-010",
+    "pep-junior-v3-s1-k05-mc-011"
+  ],
+  "usage": {
+    "prompt_tokens": 3721,
+    "completion_tokens": 982,
+    "total_tokens": 4703,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 3465
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s1-k04-sa-034",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移计算正确，象限判断准确，答案与解释一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-mc-001",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程组列式正确，选项B符合，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-mc-002",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "不等式解集正确，数轴表示描述准确，选项A对应无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-mc-003",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "无理数判断正确，√8为无理数，其他均为有理数。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-mc-004",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "调查方式选择合理，随机抽样具有代表性，答案正确。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-mc-005",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平行线同旁内角互补计算正确，125°无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-mc-006",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "一元一次方程应用正确，标价125元，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-mc-007",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移坐标计算正确，点Q为(2,2)，选项A无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-mc-008",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "二元一次方程组求解正确，解为x=2,y=3，选项A对应。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-mc-009",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "不等式列式正确，扣分项为减号，选项A符合。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-mc-010",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方案比较正确，最少5支时付款相同，解释清晰。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-mc-011",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "调查方式选择合理，随机抽样最合适，答案正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案与解释一致，选项无歧义，适合人教版初中数学。"
+    }
+  }
+}

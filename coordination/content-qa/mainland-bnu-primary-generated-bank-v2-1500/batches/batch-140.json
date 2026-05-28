@@ -1,0 +1,587 @@
+{
+  "batchId": "batch-140",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p6-141",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "p6-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "strategy-reflection",
+        "六年级上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "关系表达",
+        "错因分析",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "review solved as disconnected drills",
+        "formula chosen before concept identification",
+        "multi-step result accepted without checking"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-final-topic-drill",
+        "bnu-primary-p6-upper-assessment-circles-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明用一根长62.8厘米的铁丝围成一个圆，这个圆的面积是多少平方厘米？（π取3.14）",
+      "optionsZhHans": [],
+      "answer": "314",
+      "acceptedAnswers": [
+        "314",
+        "314平方厘米"
+      ],
+      "explanationZhHans": "铁丝长即圆的周长，由C=2πr得r=C/(2π)=62.8/(2×3.14)=10厘米。面积S=πr²=3.14×10²=314平方厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-142",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "p6-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "strategy-reflection",
+        "六年级上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "关系表达",
+        "错因分析",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "review solved as disconnected drills",
+        "formula chosen before concept identification",
+        "multi-step result accepted without checking"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-final-topic-drill",
+        "bnu-primary-p6-upper-assessment-circles-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个问题适合用“求一个数的几分之几是多少”来解决？",
+      "optionsZhHans": [
+        "一袋大米重20千克，吃了1/4，还剩多少千克？",
+        "一袋大米重20千克，吃了1/4千克，还剩多少千克？",
+        "一袋大米吃了1/4，正好是5千克，这袋大米原重多少千克？",
+        "一袋大米重20千克，每天吃1/4千克，可以吃多少天？"
+      ],
+      "answer": "一袋大米重20千克，吃了1/4，还剩多少千克？",
+      "acceptedAnswers": [
+        "一袋大米重20千克，吃了1/4，还剩多少千克？"
+      ],
+      "explanationZhHans": "选项A中“吃了1/4”是分率，求剩下多少千克需先算吃了20×1/4=5千克，再减，属于求一个数的几分之几。B、C、D分别涉及具体量、已知部分求整体、包含除。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-143",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "p6-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "strategy-reflection",
+        "六年级上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "关系表达",
+        "错因分析",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "review solved as disconnected drills",
+        "formula chosen before concept identification",
+        "multi-step result accepted without checking"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-final-topic-drill",
+        "bnu-primary-p6-upper-assessment-circles-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小红在计算一道题时，把“除以3/4”错看成了“乘3/4”，得到的结果是9。正确的结果应该是（ ）。",
+      "optionsZhHans": [],
+      "answer": "16",
+      "acceptedAnswers": [
+        "16"
+      ],
+      "explanationZhHans": "由错误结果逆推：原数×3/4=9，原数=9÷3/4=12。正确计算：12÷3/4=12×4/3=16。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-144",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "p6-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "strategy-reflection",
+        "六年级上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "关系表达",
+        "错因分析",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "review solved as disconnected drills",
+        "formula chosen before concept identification",
+        "multi-step result accepted without checking"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-final-topic-drill",
+        "bnu-primary-p6-upper-assessment-circles-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校合唱队有男生24人，女生人数比男生多1/3，合唱队一共有多少人？请写出你的计算过程。",
+      "optionsZhHans": [],
+      "answer": "56",
+      "acceptedAnswers": [
+        "56",
+        "56人"
+      ],
+      "explanationZhHans": "女生人数：24×(1+1/3)=24×4/3=32人。总人数：24+32=56人。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-145",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-cylinders-cones",
+      "unitTitle": "圆柱与圆锥",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "cylinder",
+        "cone",
+        "surface-area",
+        "volume",
+        "solid-geometry",
+        "圆柱",
+        "圆锥"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "量感",
+        "几何直观"
+      ],
+      "skillTags": [
+        "认识圆柱圆锥",
+        "圆柱表面积",
+        "圆柱体积",
+        "圆锥体积",
+        "单位与估算"
+      ],
+      "misconceptionTags": [
+        "surface area and volume confused",
+        "radius and diameter swapped",
+        "cone-volume relationship omitted"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-cylinders-cones"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-cylinders-cones-unit",
+        "bnu-primary-p6-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个圆柱形水桶，底面半径2分米，高5分米，求它的容积是多少升？下面列式正确的是（ ）。",
+      "optionsZhHans": [
+        "3.14×2²×5",
+        "3.14×2×2×5",
+        "3.14×2²×5÷3",
+        "2×3.14×2×5"
+      ],
+      "answer": "3.14×2²×5",
+      "acceptedAnswers": [
+        "3.14×2²×5"
+      ],
+      "explanationZhHans": "圆柱容积=底面积×高，底面积=πr²=3.14×2²，再乘高5，单位立方分米即升。A正确。B是侧面积，C是圆锥体积，D是侧面积。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-146",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-cylinders-cones",
+      "unitTitle": "圆柱与圆锥",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "cylinder",
+        "cone",
+        "surface-area",
+        "volume",
+        "solid-geometry",
+        "圆柱",
+        "圆锥"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "量感",
+        "几何直观"
+      ],
+      "skillTags": [
+        "认识圆柱圆锥",
+        "圆柱表面积",
+        "圆柱体积",
+        "圆锥体积",
+        "单位与估算"
+      ],
+      "misconceptionTags": [
+        "surface area and volume confused",
+        "radius and diameter swapped",
+        "cone-volume relationship omitted"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-cylinders-cones"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-cylinders-cones-unit",
+        "bnu-primary-p6-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个圆锥形沙堆，底面周长是12.56米，高是1.5米。如果每立方米沙重1.7吨，这堆沙大约重多少吨？（得数保留整吨数，π取3.14）",
+      "optionsZhHans": [],
+      "answer": "11",
+      "acceptedAnswers": [
+        "11",
+        "11吨"
+      ],
+      "explanationZhHans": "半径r=12.56÷3.14÷2=2米，底面积=3.14×2²=12.56平方米，圆锥体积=12.56×1.5÷3=6.28立方米，沙重=6.28×1.7≈10.676吨≈11吨。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-147",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-cylinders-cones",
+      "unitTitle": "圆柱与圆锥",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "cylinder",
+        "cone",
+        "surface-area",
+        "volume",
+        "solid-geometry",
+        "圆柱",
+        "圆锥"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "量感",
+        "几何直观"
+      ],
+      "skillTags": [
+        "认识圆柱圆锥",
+        "圆柱表面积",
+        "圆柱体积",
+        "圆锥体积",
+        "单位与估算"
+      ],
+      "misconceptionTags": [
+        "surface area and volume confused",
+        "radius and diameter swapped",
+        "cone-volume relationship omitted"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-cylinders-cones"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-cylinders-cones-unit",
+        "bnu-primary-p6-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个圆柱的底面直径是8厘米，高是10厘米，它的侧面积是多少平方厘米？",
+      "optionsZhHans": [],
+      "answer": "251.2",
+      "acceptedAnswers": [
+        "251.2",
+        "251.2平方厘米"
+      ],
+      "explanationZhHans": "侧面积=底面周长×高。底面周长=πd=3.14×8=25.12厘米，侧面积=25.12×10=251.2平方厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-148",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-cylinders-cones",
+      "unitTitle": "圆柱与圆锥",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "cylinder",
+        "cone",
+        "surface-area",
+        "volume",
+        "solid-geometry",
+        "圆柱",
+        "圆锥"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "量感",
+        "几何直观"
+      ],
+      "skillTags": [
+        "认识圆柱圆锥",
+        "圆柱表面积",
+        "圆柱体积",
+        "圆锥体积",
+        "单位与估算"
+      ],
+      "misconceptionTags": [
+        "surface area and volume confused",
+        "radius and diameter swapped",
+        "cone-volume relationship omitted"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-cylinders-cones"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-cylinders-cones-unit",
+        "bnu-primary-p6-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面物体中，形状是圆锥的是（ ）。",
+      "optionsZhHans": [
+        "粉笔盒",
+        "羽毛球",
+        "圣诞帽",
+        "茶叶罐"
+      ],
+      "answer": "圣诞帽",
+      "acceptedAnswers": [
+        "圣诞帽"
+      ],
+      "explanationZhHans": "圆锥有一个圆形底面和一个曲面，侧面展开是扇形。圣诞帽符合圆锥特征。粉笔盒是长方体，羽毛球不是圆锥，茶叶罐是圆柱。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-149",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-cylinders-cones",
+      "unitTitle": "圆柱与圆锥",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "cylinder",
+        "cone",
+        "surface-area",
+        "volume",
+        "solid-geometry",
+        "圆柱",
+        "圆锥"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "量感",
+        "几何直观"
+      ],
+      "skillTags": [
+        "认识圆柱圆锥",
+        "圆柱表面积",
+        "圆柱体积",
+        "圆锥体积",
+        "单位与估算"
+      ],
+      "misconceptionTags": [
+        "surface area and volume confused",
+        "radius and diameter swapped",
+        "cone-volume relationship omitted"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-cylinders-cones"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-cylinders-cones-unit",
+        "bnu-primary-p6-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把一个棱长6分米的正方体木块，削成一个最大的圆锥，这个圆锥的体积是（ ）立方分米。（π取3.14）",
+      "optionsZhHans": [],
+      "answer": "56.52",
+      "acceptedAnswers": [
+        "56.52"
+      ],
+      "explanationZhHans": "最大圆锥底面直径和高都是6分米，半径3分米。体积=1/3×π×3²×6=1/3×3.14×9×6=56.52立方分米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-150",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-cylinders-cones",
+      "unitTitle": "圆柱与圆锥",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "cylinder",
+        "cone",
+        "surface-area",
+        "volume",
+        "solid-geometry",
+        "圆柱",
+        "圆锥"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "量感",
+        "几何直观"
+      ],
+      "skillTags": [
+        "认识圆柱圆锥",
+        "圆柱表面积",
+        "圆柱体积",
+        "圆锥体积",
+        "单位与估算"
+      ],
+      "misconceptionTags": [
+        "surface area and volume confused",
+        "radius and diameter swapped",
+        "cone-volume relationship omitted"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-cylinders-cones"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-cylinders-cones-unit",
+        "bnu-primary-p6-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个圆柱形水池，从里面量底面直径是4米，深2米。在池的内壁和底面抹上水泥，抹水泥部分的面积是多少平方米？",
+      "optionsZhHans": [],
+      "answer": "37.68",
+      "acceptedAnswers": [
+        "37.68",
+        "37.68平方米"
+      ],
+      "explanationZhHans": "抹水泥面积为底面积+侧面积。半径2米，底面积=3.14×2²=12.56平方米，侧面积=3.14×4×2=25.12平方米，总面积=12.56+25.12=37.68平方米。"
+    }
+  ]
+}

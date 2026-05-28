@@ -1,0 +1,308 @@
+{
+  "batchId": "batch-117",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s3-k11-sa-028",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-inverse-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-dynamic-geometry-functions"
+      ],
+      "promptZhHans": "一辆汽车在平直公路上匀速行驶，其速度v（单位：km/h）与行驶时间t（单位：h）满足反比例关系v = k/t。已知当t=2时，v=60。求k的值，并说明该反比例函数图象所在的象限。",
+      "optionsZhHans": [],
+      "answer": "k=120，图象在第一象限",
+      "acceptedAnswers": [
+        "k=120，图象在第一象限",
+        "k=120, 图象在第一象限",
+        "k=120 图象在第一象限"
+      ],
+      "explanationZhHans": "将t=2，v=60代入v=k/t，得60=k/2，解得k=120。因为k=120>0，且t>0（时间不能为负），所以v>0，因此图象在第一象限。故答案为k=120，图象在第一象限。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-029",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-right-triangle-trigonometry"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "小明在阳光下测量旗杆的高度。他测得自己的身高为1.6米，影子长为0.8米；同时测得旗杆的影子长为6米。假设光线平行，求旗杆的高度。",
+      "optionsZhHans": [],
+      "answer": "12米",
+      "acceptedAnswers": [
+        "12米",
+        "12",
+        "12m"
+      ],
+      "explanationZhHans": "由于光线平行，人与旗杆与地面形成的三角形相似。设旗杆高为h米，由相似得比例：1.6/0.8 = h/6，解得h=12。故旗杆的高度为12米。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-030",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-projection-views"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-proof-calculation-integrated"
+      ],
+      "promptZhHans": "一个几何体由若干个相同的小正方体搭成，从正面看得到的图形是3列，从左到右每列小正方形的个数依次为2、1、1；从左面看得到的图形是2列，从左到右每列小正方形的个数依次为2、1。求这个几何体最少需要多少个小正方体。",
+      "optionsZhHans": [],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5",
+        "5个"
+      ],
+      "explanationZhHans": "根据主视图和左视图，可还原几何体的最少块数。主视图3列，最高2层；左视图2列，最高2层。最少时，第一层放3个，第二层在第一列放2个，共5个。故答案为5。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-031",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-function-geometry-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig"
+      ],
+      "promptZhHans": "在△ABC中，AB=AC=5，BC=6，D为BC上一点，且BD=2，DE⊥AB于E，DF⊥AC于F。求DE+DF的值。",
+      "optionsZhHans": [],
+      "answer": "4.8",
+      "acceptedAnswers": [
+        "4.8",
+        "24/5"
+      ],
+      "explanationZhHans": "连接AD，作AH⊥BC于H。由等腰三角形三线合一得BH=CH=3，AH=4。S△ABC=1/2×6×4=12。又S△ABC=S△ABD+S△ACD=1/2×AB×DE+1/2×AC×DF=1/2×5×(DE+DF)=12，解得DE+DF=4.8。故答案为4.8。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-032",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-similarity"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models"
+      ],
+      "promptZhHans": "在△ABC与△DEF中，∠A=∠D=70°，AB=4，AC=6，DE=8，DF=12。问△ABC与△DEF是否相似？若相似，请写出相似比。",
+      "optionsZhHans": [],
+      "answer": "相似，相似比为1:2",
+      "acceptedAnswers": [
+        "相似，相似比为1:2",
+        "相似,相似比为1:2",
+        "相似 相似比为1:2"
+      ],
+      "explanationZhHans": "因为AB/DE=4/8=1/2，AC/DF=6/12=1/2，且夹角∠A=∠D=70°，所以△ABC∽△DEF，相似比为1:2。故答案为相似，相似比为1:2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-033",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-graduation-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "promptZhHans": "已知一次函数y=kx+b的图象经过点(1,3)和(3,1)。求该函数的表达式。",
+      "optionsZhHans": [],
+      "answer": "y=-x+4",
+      "acceptedAnswers": [
+        "y=-x+4",
+        "y = -x + 4"
+      ],
+      "explanationZhHans": "将点(1,3)和(3,1)代入y=kx+b，得方程组：k+b=3，3k+b=1。解得k=-1，b=4。故函数表达式为y=-x+4。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-034",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-inverse-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions"
+      ],
+      "promptZhHans": "已知反比例函数y=(m-1)/x的图象在第二、四象限，求m的取值范围。",
+      "optionsZhHans": [],
+      "answer": "m<1",
+      "acceptedAnswers": [
+        "m<1",
+        "m < 1"
+      ],
+      "explanationZhHans": "反比例函数y=k/x的图象在第二、四象限时，k<0。这里k=m-1，所以m-1<0，解得m<1。故答案为m<1。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-035",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-right-triangle-trigonometry"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "在Rt△ABC中，∠C=90°，AC=3，BC=4，求sinA的值。",
+      "optionsZhHans": [],
+      "answer": "4/5",
+      "acceptedAnswers": [
+        "4/5",
+        "0.8"
+      ],
+      "explanationZhHans": "由勾股定理得AB=√(3²+4²)=5。sinA=∠A的对边/斜边=BC/AB=4/5。故答案为4/5。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-036",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-projection-views"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "一个几何体的三视图如下：主视图是边长为2的正方形，左视图是边长为2的正方形，俯视图是边长为2的正方形。请判断这个几何体的形状，并求其表面积。",
+      "optionsZhHans": [],
+      "answer": "正方体，表面积为24",
+      "acceptedAnswers": [
+        "正方体，表面积为24",
+        "正方体,表面积为24",
+        "正方体 表面积为24"
+      ],
+      "explanationZhHans": "三个视图都是边长为2的正方形，所以该几何体是棱长为2的正方体。正方体的表面积=6×棱长²=6×2²=24。故答案为正方体，表面积为24。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-037",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-function-geometry-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions"
+      ],
+      "promptZhHans": "先化简，再求值：(1/(x-1) - 1/(x+1)) ÷ (2/(x²-1))，其中x=2。",
+      "optionsZhHans": [],
+      "answer": "1",
+      "acceptedAnswers": [
+        "1"
+      ],
+      "explanationZhHans": "原式=(1/(x-1) - 1/(x+1)) × (x²-1)/2。通分得((x+1)-(x-1))/((x-1)(x+1)) × (x+1)(x-1)/2 = (2)/((x-1)(x+1)) × (x+1)(x-1)/2 = 1。当x=2时，原式=1。故答案为1。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

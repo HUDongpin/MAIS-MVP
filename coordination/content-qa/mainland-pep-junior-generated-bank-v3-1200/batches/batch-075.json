@@ -1,0 +1,301 @@
+{
+  "batchId": "batch-075",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s2-k09-fi-007",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-linear-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "promptZhHans": "某快递公司规定：物品质量不超过1千克时，快递费为8元；超过1千克但不超过5千克时，超过部分每千克加收2元；超过5千克时，超过5千克的部分每千克加收3元。设物品质量为x千克（x>0），快递费为y元。当x=3.5时，y=______元。",
+      "optionsZhHans": [],
+      "answer": "13",
+      "acceptedAnswers": [
+        "13",
+        "13元"
+      ],
+      "explanationZhHans": "当x=3.5时，属于超过1千克但不超过5千克的情况。此时快递费为8 + 2×(3.5 - 1) = 8 + 2×2.5 = 8 + 5 = 13元。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-fi-008",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-data-analysis"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean"
+      ],
+      "promptZhHans": "某校八年级（1）班20名同学参加环保知识竞赛，成绩（单位：分）如下：\n85, 92, 78, 88, 95, 82, 90, 76, 84, 89,\n91, 87, 83, 93, 79, 86, 94, 80, 77, 81。\n这组数据的众数是______分。",
+      "optionsZhHans": [],
+      "answer": "无",
+      "acceptedAnswers": [
+        "无",
+        "没有众数"
+      ],
+      "explanationZhHans": "将所有成绩列出并统计频数：85(1), 92(1), 78(1), 88(1), 95(1), 82(1), 90(1), 76(1), 84(1), 89(1), 91(1), 87(1), 83(1), 93(1), 79(1), 86(1), 94(1), 80(1), 77(1), 81(1)。每个成绩都只出现一次，因此没有众数。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-fi-009",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "已知一次函数y = kx + b，当x = -2时，y = 5；当x = 3时，y = -5。则k = ______。",
+      "optionsZhHans": [],
+      "answer": "-2",
+      "acceptedAnswers": [
+        "-2"
+      ],
+      "explanationZhHans": "将两点(-2,5)和(3,-5)代入y = kx + b，得方程组：5 = -2k + b，-5 = 3k + b。两式相减得10 = -5k，解得k = -2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-fi-010",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-quadratic-radicals"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-proof-calculation-integrated"
+      ],
+      "promptZhHans": "计算：(√12 - √(1/3)) × √3 = ______。",
+      "optionsZhHans": [],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5"
+      ],
+      "explanationZhHans": "原式 = √12 × √3 - √(1/3) × √3 = √36 - √1 = 6 - 1 = 5。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-fi-011",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-pythagorean-theorem"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "promptZhHans": "在Rt△ABC中，∠C=90°，AC=6，BC=8，将△ABC沿AD折叠，使点C落在AB上的点E处，则CD的长为______。",
+      "optionsZhHans": [],
+      "answer": "3",
+      "acceptedAnswers": [
+        "3"
+      ],
+      "explanationZhHans": "由折叠知AE=AC=6，CD=ED，∠AED=∠C=90°。在Rt△ABC中，AB=√(6²+8²)=10，则BE=AB-AE=4。设CD=x，则DE=x，BD=8-x。在Rt△BDE中，由勾股定理得x²+4²=(8-x)²，解得x=3。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-fi-012",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-quadrilaterals"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "已知一组数据x₁, x₂, x₃的平均数是5，方差是2，则数据2x₁+1, 2x₂+1, 2x₃+1的平均数是______。",
+      "optionsZhHans": [],
+      "answer": "11",
+      "acceptedAnswers": [
+        "11"
+      ],
+      "explanationZhHans": "新数据的平均数为2×5+1=11。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-fi-013",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-linear-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "某市出租车收费标准如下：起步价8元（含3千米），超过3千米后每千米1.5元，超过10千米后每千米加收50%的空驶费。小明乘坐出租车行驶了x千米（x>3），付费y元。当x=12时，y=______元。",
+      "optionsZhHans": [],
+      "answer": "23",
+      "acceptedAnswers": [
+        "23",
+        "23元"
+      ],
+      "explanationZhHans": "当x=12时，超过3千米，且超过10千米。费用为：起步价8元 + 3至10千米的费用1.5×(10-3)=10.5元 + 超过10千米的费用1.5×(1+50%)×(12-10)=2.25×2=4.5元，总计8+10.5+4.5=23元。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-fi-014",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-data-analysis"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "比较大小：3√5 ______ 2√11（填“>”“<”或“=”）。",
+      "optionsZhHans": [],
+      "answer": ">",
+      "acceptedAnswers": [
+        ">"
+      ],
+      "explanationZhHans": "3√5 = √(9×5) = √45，2√11 = √(4×11) = √44。因为45>44，所以√45>√44，即3√5 > 2√11。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-fi-015",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "某商店销售一种商品，成本为每件20元，售价为每件30元，每天可售出100件。经调查发现，售价每降低1元，每天可多售出10件。设每件降价x元（x为正整数），每天利润为y元。当y=1200时，x的值为______。",
+      "optionsZhHans": [],
+      "answer": "2或10",
+      "acceptedAnswers": [
+        "2或10",
+        "2,10",
+        "10或2",
+        "10,2"
+      ],
+      "explanationZhHans": "降价x元后，售价为(30-x)元，每件利润为(30-x-20)=(10-x)元，销量为(100+10x)件。利润y=(10-x)(100+10x)= -10x²+100x+1000。令y=1200，得-10x²+100x+1000=1200，即x²-10x+20=0，解得x=2或x=10。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-fi-016",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-quadratic-radicals"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions"
+      ],
+      "promptZhHans": "已知x = √5 + 2，y = √5 - 2，则x²y + xy² = ______。",
+      "optionsZhHans": [],
+      "answer": "2√5",
+      "acceptedAnswers": [
+        "2√5"
+      ],
+      "explanationZhHans": "x²y + xy² = xy(x+y)。xy = (√5+2)(√5-2) = 5-4 = 1，x+y = (√5+2)+(√5-2) = 2√5，所以原式 = 1 × 2√5 = 2√5。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

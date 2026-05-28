@@ -1,0 +1,581 @@
+{
+  "batchId": "batch-139",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p6-131",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "p6-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "strategy-reflection",
+        "六年级上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "关系表达",
+        "错因分析",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "review solved as disconnected drills",
+        "formula chosen before concept identification",
+        "multi-step result accepted without checking"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-final-topic-drill",
+        "bnu-primary-p6-upper-assessment-circles-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明在复习时遇到一道题：一个圆形花坛的直径是8米，在花坛周围修一条1米宽的小路。小明想求小路的面积，他先算了花坛半径8÷2=4米，然后算大圆半径4+1=5米，接着用3.14×5²=78.5平方米，再减去3.14×4²=50.24平方米，得到小路面积28.26平方米。请你检查小明的做法，如果正确，在横线上写“正确”；如果有错，请写出错误原因并改正，最后给出正确的小路面积。",
+      "optionsZhHans": [],
+      "answer": "正确",
+      "acceptedAnswers": [
+        "正确"
+      ],
+      "explanationZhHans": "小明的思路和计算完全正确：先求花坛半径4米，再求外圆半径5米，用大圆面积减小圆面积得到小路面积28.26平方米，单位、公式和步骤都无误。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-132",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "p6-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "strategy-reflection",
+        "六年级上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "关系表达",
+        "错因分析",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "review solved as disconnected drills",
+        "formula chosen before concept identification",
+        "multi-step result accepted without checking"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-final-topic-drill",
+        "bnu-primary-p6-upper-assessment-circles-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校要为操场设计一个圆形沙坑，沙坑的周长是25.12米。现在要在沙坑周围铺一圈宽度为0.5米的鹅卵石带。请你先判断需要计算哪些量，再写出计算鹅卵石带面积的完整过程。",
+      "optionsZhHans": [],
+      "answer": "需要计算沙坑半径、外圆半径，再用大圆面积减小圆面积。沙坑半径：25.12÷3.14÷2=4米，外圆半径：4+0.5=4.5米，鹅卵石带面积：3.14×4.5²−3.14×4²=3.14×(20.25−16)=3.14×4.25=13.345平方米。",
+      "acceptedAnswers": [
+        "需要计算沙坑半径、外圆半径，再用大圆面积减小圆面积。沙坑半径：25.12÷3.14÷2=4米，外圆半径：4+0.5=4.5米，鹅卵石带面积：3.14×4.5²−3.14×4²=3.14×(20.25−16)=3.14×4.25=13.345平方米。",
+        "沙坑半径4米，外圆半径4.5米，面积13.345平方米"
+      ],
+      "explanationZhHans": "由周长求半径：25.12÷3.14÷2=4米；外圆半径4+0.5=4.5米；环形面积=π(R²−r²)=3.14×(20.25−16)=13.345平方米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-133",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "p6-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "strategy-reflection",
+        "六年级上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "关系表达",
+        "错因分析",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "review solved as disconnected drills",
+        "formula chosen before concept identification",
+        "multi-step result accepted without checking"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-final-topic-drill",
+        "bnu-primary-p6-upper-assessment-circles-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在复习“圆”这一单元时，老师出了这样一道题：一个圆的半径扩大到原来的3倍，它的面积会怎样变化？下面哪位同学的说法是正确的？",
+      "optionsZhHans": [
+        "小华：面积扩大到原来的3倍",
+        "小丽：面积扩大到原来的6倍",
+        "小刚：面积扩大到原来的9倍",
+        "小红：面积扩大到原来的1.5倍"
+      ],
+      "answer": "小刚：面积扩大到原来的9倍",
+      "acceptedAnswers": [
+        "小刚：面积扩大到原来的9倍"
+      ],
+      "explanationZhHans": "圆的面积公式为πr²，半径扩大3倍，面积扩大3²=9倍。小刚的说法符合面积与半径平方的正比关系。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-134",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "p6-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "strategy-reflection",
+        "六年级上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "关系表达",
+        "错因分析",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "review solved as disconnected drills",
+        "formula chosen before concept identification",
+        "multi-step result accepted without checking"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-final-topic-drill",
+        "bnu-primary-p6-upper-assessment-circles-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小芳在总复习时整理了这样一道题：一个半圆的直径是10厘米，它的周长是多少厘米？小芳的解答是：3.14×10÷2=15.7厘米。请你判断小芳的解答是否正确，如果不正确，请写出正确的算式和结果。",
+      "optionsZhHans": [],
+      "answer": "不正确，半圆周长=圆周长的一半+直径，3.14×10÷2+10=15.7+10=25.7厘米",
+      "acceptedAnswers": [
+        "不正确，半圆周长=圆周长的一半+直径，3.14×10÷2+10=15.7+10=25.7厘米",
+        "不正确，25.7厘米"
+      ],
+      "explanationZhHans": "半圆周长由半圆弧和直径组成，小芳只算了弧长，漏加直径10厘米，正确列式3.14×10÷2+10=25.7厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-135",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "p6-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "strategy-reflection",
+        "六年级上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "关系表达",
+        "错因分析",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "review solved as disconnected drills",
+        "formula chosen before concept identification",
+        "multi-step result accepted without checking"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-final-topic-drill",
+        "bnu-primary-p6-upper-assessment-circles-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在“数学好玩”活动中，同学们用一根长31.4米的绳子围成圆形或正方形。小杰说：“围成圆形的面积比正方形大。”小婷说：“围成正方形的面积比圆形大。”请你通过计算说明谁说得对，并写出比较过程。",
+      "optionsZhHans": [],
+      "answer": "小杰说得对。圆形半径：31.4÷3.14÷2=5米，面积：3.14×5²=78.5平方米；正方形边长：31.4÷4=7.85米，面积：7.85×7.85=61.6225平方米。78.5>61.6225，所以圆形面积大。",
+      "acceptedAnswers": [
+        "小杰说得对。圆形半径：31.4÷3.14÷2=5米，面积：3.14×5²=78.5平方米；正方形边长：31.4÷4=7.85米，面积：7.85×7.85=61.6225平方米。78.5>61.6225，所以圆形面积大。",
+        "小杰说得对",
+        "圆形面积大",
+        "圆形面积78.5平方米大于正方形面积61.6225平方米"
+      ],
+      "explanationZhHans": "周长相等时，圆的面积最大。计算得圆面积78.5平方米，正方形面积61.6225平方米，验证了小杰的说法。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-136",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "p6-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "strategy-reflection",
+        "六年级上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "关系表达",
+        "错因分析",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "review solved as disconnected drills",
+        "formula chosen before concept identification",
+        "multi-step result accepted without checking"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-final-topic-drill",
+        "bnu-primary-p6-upper-assessment-circles-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "总复习时，老师让同学们判断下面哪句话是正确的。请你选出正确的一项。",
+      "optionsZhHans": [
+        "半径是直径的一半，所以半径总是比直径短",
+        "圆的周长是直径的π倍，所以周长总是直径的3.14倍",
+        "两个圆的周长相等，它们的面积也一定相等",
+        "半圆的面积是整圆面积的一半，所以半圆的周长也是整圆周长的一半"
+      ],
+      "answer": "两个圆的周长相等，它们的面积也一定相等",
+      "acceptedAnswers": [
+        "两个圆的周长相等，它们的面积也一定相等"
+      ],
+      "explanationZhHans": "周长相等则半径相等，面积也相等。A未说明同圆；B中π是无限不循环小数，3.14是近似值；D半圆周长需加直径。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-137",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "p6-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "strategy-reflection",
+        "六年级上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "关系表达",
+        "错因分析",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "review solved as disconnected drills",
+        "formula chosen before concept identification",
+        "multi-step result accepted without checking"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-final-topic-drill",
+        "bnu-primary-p6-upper-assessment-circles-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小马虎在复习时做了一道题：一个环形铁片，内圆半径是3厘米，外圆直径是10厘米，求环形面积。他的解答是：3.14×(10²−3²)=3.14×(100−9)=285.74平方厘米。请你找出错误，并写出正确的环形面积。",
+      "optionsZhHans": [],
+      "answer": "错误：外圆直径10厘米当成了半径，正确外圆半径5厘米；环形面积=3.14×(5²−3²)=3.14×16=50.24平方厘米",
+      "acceptedAnswers": [
+        "错误：外圆直径10厘米当成了半径，正确外圆半径5厘米；环形面积=3.14×(5²−3²)=3.14×16=50.24平方厘米",
+        "50.24平方厘米"
+      ],
+      "explanationZhHans": "外圆直径10厘米，半径应为5厘米。小马虎误将直径当半径，导致面积算错。正确环形面积=3.14×(25−9)=50.24平方厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-138",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "p6-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "strategy-reflection",
+        "六年级上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "关系表达",
+        "错因分析",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "review solved as disconnected drills",
+        "formula chosen before concept identification",
+        "multi-step result accepted without checking"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-final-topic-drill",
+        "bnu-primary-p6-upper-assessment-circles-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在整理“圆”的知识时，小慧画了一个圆，并测量出它的周长是18.84厘米。她想知道这个圆的面积，但忘了公式。请你帮她写出求面积的完整过程，并说明每一步的依据。",
+      "optionsZhHans": [],
+      "answer": "先求半径：18.84÷3.14÷2=3厘米（依据：C=2πr，所以r=C÷π÷2）；再求面积：3.14×3²=28.26平方厘米（依据：S=πr²）。",
+      "acceptedAnswers": [
+        "先求半径：18.84÷3.14÷2=3厘米（依据：C=2πr，所以r=C÷π÷2）；再求面积：3.14×3²=28.26平方厘米（依据：S=πr²）。",
+        "半径3厘米，面积28.26平方厘米",
+        "先求半径18.84÷3.14÷2=3厘米，再求面积3.14×3²=28.26平方厘米"
+      ],
+      "explanationZhHans": "由周长公式逆推半径，再代入面积公式。18.84÷3.14÷2=3厘米，3.14×3²=28.26平方厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-139",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "p6-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "strategy-reflection",
+        "六年级上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "关系表达",
+        "错因分析",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "review solved as disconnected drills",
+        "formula chosen before concept identification",
+        "multi-step result accepted without checking"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-final-topic-drill",
+        "bnu-primary-p6-upper-assessment-circles-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在复习“观察物体”时，老师给出一个由小正方体搭成的立体图形，从正面看是“田”字形（即上下两行，每行两个正方形），从上面看是“一”字形（即一行两个正方形）。这个立体图形至少由几个小正方体搭成？",
+      "optionsZhHans": [
+        "2个",
+        "3个",
+        "4个",
+        "5个"
+      ],
+      "answer": "3个",
+      "acceptedAnswers": [
+        "3个"
+      ],
+      "explanationZhHans": "从上面看一行两个，说明底层有前后两排，每排至少1个；从正面看田字，说明有两层，上层至少1个。最少为底层2个+上层1个=3个。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-140",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "p6-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "strategy-reflection",
+        "六年级上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "关系表达",
+        "错因分析",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "review solved as disconnected drills",
+        "formula chosen before concept identification",
+        "multi-step result accepted without checking"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-final-topic-drill",
+        "bnu-primary-p6-upper-assessment-circles-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小亮在整理错题时发现一道题：一个运动场的跑道，中间是长方形，长80米，宽50米，两端是半圆形。小亮求跑道一圈的长度，他列式为：80×2+3.14×50=160+157=317米。请你判断他的做法是否正确，如果不正确，请说明原因并给出正确结果。",
+      "optionsZhHans": [],
+      "answer": "不正确，两端半圆拼成一个整圆，直径应为宽50米，但跑道一圈还包括两个弯道，小亮直接用3.14×50是圆周长，正确列式：80×2+3.14×50=160+157=317米，计算无误，但需明确半圆直径是50米。实际上他的算式和结果都正确。",
+      "acceptedAnswers": [
+        "不正确，两端半圆拼成一个整圆，直径应为宽50米，但跑道一圈还包括两个弯道，小亮直接用3.14×50是圆周长，正确列式：80×2+3.14×50=160+157=317米，计算无误，但需明确半圆直径是50米。实际上他的算式和结果都正确。",
+        "正确",
+        "317米",
+        "算式和结果正确"
+      ],
+      "explanationZhHans": "两端半圆合成一个圆，直径50米，圆周长3.14×50=157米，加上两条直道80×2=160米，总长317米，小亮的列式和结果完全正确。"
+    }
+  ]
+}

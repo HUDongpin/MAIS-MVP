@@ -1,0 +1,47 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-330",
+  "startedAt": "2026-05-28T03:01:57.967Z",
+  "completedAt": "2026-05-28T03:02:03.102Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-330"
+  ],
+  "usage": {
+    "prompt_tokens": 1969,
+    "completion_tokens": 226,
+    "total_tokens": 2195,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1585
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-330",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "1792",
+        "correctedAnswer": "1120",
+        "issueTags": [
+          "answer_mismatch"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立解1792错误，正确常数项为1120，存储答案1120正确，但独立解与正确答案不符，属于答案不匹配，严重性为阻断。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "独立解错误，与正确答案不匹配，需修正独立解。"
+    }
+  }
+}

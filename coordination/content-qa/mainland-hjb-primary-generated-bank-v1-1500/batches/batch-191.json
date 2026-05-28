@@ -1,0 +1,300 @@
+{
+  "batchId": "batch-191",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p4-201",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "hjb-primary-p4-lower-line-statistics",
+      "unitTitle": "统计",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "line-graphs",
+        "data-trends",
+        "statistical-display",
+        "data-interpretation",
+        "折线统计图"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "折线统计图认识",
+        "折线统计图画法",
+        "趋势描述",
+        "数据比较",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "line segment read as exact data between categories",
+        "axis scale ignored",
+        "trend conclusion unsupported by values"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p4-lower-line-statistics"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-lower-assessment-line-statistics",
+        "hjb-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是某城市2023年1月至6月每月平均气温的折线统计图数据：1月5℃，2月8℃，3月12℃，4月18℃，5月23℃，6月28℃。根据这些数据，以下哪个趋势描述是正确的？",
+      "optionsZhHans": [
+        "从1月到6月，气温一直在上升，且上升速度越来越快。",
+        "从1月到6月，气温一直在上升，但上升速度越来越慢。",
+        "从1月到6月，气温先上升后下降。",
+        "从1月到6月，气温上升速度保持不变。"
+      ],
+      "answer": "从1月到6月，气温一直在上升，且上升速度越来越快。",
+      "acceptedAnswers": [
+        "从1月到6月，气温一直在上升，且上升速度越来越快。"
+      ],
+      "explanationZhHans": "计算相邻月份温差：1-2月3℃，2-3月4℃，3-4月6℃，4-5月5℃，5-6月5℃。温差总体增大，说明上升速度加快，且每月气温均高于上月，故一直在上升且越来越快。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-202",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "hjb-primary-p4-lower-line-statistics",
+      "unitTitle": "统计",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "line-graphs",
+        "data-trends",
+        "statistical-display",
+        "data-interpretation",
+        "折线统计图"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "折线统计图认识",
+        "折线统计图画法",
+        "趋势描述",
+        "数据比较",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "line segment read as exact data between categories",
+        "axis scale ignored",
+        "trend conclusion unsupported by values"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p4-lower-line-statistics"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-lower-assessment-line-statistics",
+        "hjb-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丁记录了连续5天每天上午8时的室外温度，并绘制成折线统计图。数据如下：第1天12℃，第2天15℃，第3天14℃，第4天18℃，第5天20℃。请填空：温度上升最快的是从第____天到第____天。",
+      "optionsZhHans": [],
+      "answer": "3,4",
+      "acceptedAnswers": [
+        "3,4",
+        "3 4",
+        "第3天到第4天",
+        "3到4"
+      ],
+      "explanationZhHans": "计算相邻两天温差：1-2天3℃，2-3天-1℃(下降)，3-4天4℃，4-5天2℃。其中3-4天上升4℃最大，故上升最快的是从第3天到第4天。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-203",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "hjb-primary-p4-lower-line-statistics",
+      "unitTitle": "统计",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "line-graphs",
+        "data-trends",
+        "statistical-display",
+        "data-interpretation",
+        "折线统计图"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "折线统计图认识",
+        "折线统计图画法",
+        "趋势描述",
+        "数据比较",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "line segment read as exact data between categories",
+        "axis scale ignored",
+        "trend conclusion unsupported by values"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p4-lower-line-statistics"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-lower-assessment-line-statistics",
+        "hjb-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某商店上半年各月销售额如下：1月10万元，2月12万元，3月11万元，4月15万元，5月18万元，6月20万元。根据这些数据绘制的折线统计图，以下哪个结论是正确的？",
+      "optionsZhHans": [
+        "销售额一直在增加，且增加速度越来越快。",
+        "销售额总体呈上升趋势，但3月略有下降。",
+        "销售额先上升后下降。",
+        "销售额上升速度保持不变。"
+      ],
+      "answer": "销售额总体呈上升趋势，但3月略有下降。",
+      "acceptedAnswers": [
+        "销售额总体呈上升趋势，但3月略有下降。"
+      ],
+      "explanationZhHans": "从1月到6月，销售额从10万升至20万，总体上升。但3月销售额11万，比2月12万下降，故并非一直增加。选项B正确描述了总体上升且3月下降的特点。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-204",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "hjb-primary-p4-lower-line-statistics",
+      "unitTitle": "统计",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "line-graphs",
+        "data-trends",
+        "statistical-display",
+        "data-interpretation",
+        "折线统计图"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "折线统计图认识",
+        "折线统计图画法",
+        "趋势描述",
+        "数据比较",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "line segment read as exact data between categories",
+        "axis scale ignored",
+        "trend conclusion unsupported by values"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p4-lower-line-statistics"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-lower-assessment-line-statistics",
+        "hjb-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "根据下面的数据，在绘制折线统计图时，纵轴每格表示多少比较合适？数据：某学生1~6年级身高分别为120cm、126cm、132cm、138cm、145cm、152cm。请填空：纵轴每格可以表示____厘米。",
+      "optionsZhHans": [],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2",
+        "2厘米",
+        "2cm"
+      ],
+      "explanationZhHans": "数据范围120~152cm，跨度32cm。若每格表示2cm，则纵轴约16格，能清晰显示变化；若每格1cm则格数过多，5cm则变化不明显。2cm较合适。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-205",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "hjb-primary-p4-lower-line-statistics",
+      "unitTitle": "统计",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "line-graphs",
+        "data-trends",
+        "statistical-display",
+        "data-interpretation",
+        "折线统计图"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "折线统计图认识",
+        "折线统计图画法",
+        "趋势描述",
+        "数据比较",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "line segment read as exact data between categories",
+        "axis scale ignored",
+        "trend conclusion unsupported by values"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p4-lower-line-statistics"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-lower-assessment-line-statistics",
+        "hjb-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是某城市一周内每天最高气温的折线统计图数据：周一22℃，周二24℃，周三23℃，周四26℃，周五28℃，周六27℃，周日25℃。根据这些数据，以下哪个说法是正确的？",
+      "optionsZhHans": [
+        "这一周气温一直在上升。",
+        "这一周气温先上升后下降，最高气温出现在周五。",
+        "这一周气温先下降后上升，最高气温出现在周四。",
+        "这一周气温变化没有规律。"
+      ],
+      "answer": "这一周气温先上升后下降，最高气温出现在周五。",
+      "acceptedAnswers": [
+        "这一周气温先上升后下降，最高气温出现在周五。"
+      ],
+      "explanationZhHans": "气温从周一的22℃升至周五的28℃，然后周六降至27℃，周日25℃，总体先升后降。最高28℃出现在周五，故选项B正确。"
+    }
+  ]
+}

@@ -1,0 +1,130 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-058",
+  "startedAt": "2026-05-28T01:10:10.421Z",
+  "completedAt": "2026-05-28T01:10:26.000Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-457",
+    "bnu-high-ds-v1-s4-458",
+    "bnu-high-ds-v1-s4-459",
+    "bnu-high-ds-v1-s4-460",
+    "bnu-high-ds-v1-s4-461",
+    "bnu-high-ds-v1-s4-462",
+    "bnu-high-ds-v1-s4-463",
+    "bnu-high-ds-v1-s4-464"
+  ],
+  "usage": {
+    "prompt_tokens": 11697,
+    "completion_tokens": 946,
+    "total_tokens": 12643,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 11313
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-457",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 1 与独立解一致，解析正确，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-458",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 2 与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-459",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "correctedAnswer": "1 + i",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction",
+          "ambiguous_mc"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 1-i 错误，独立解为 1+i。解析中计算得 x=0 与选项矛盾，且自行修改条件，不可接受。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-460",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 ±√3 与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-461",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案第一象限与独立解一致，解析正确，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-462",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 -i 与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-463",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案必要不充分条件与独立解一致，解析正确，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-464",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 √10 与独立解一致，解析正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第459题存储答案错误，解析矛盾，其余题目均通过。"
+    }
+  }
+}

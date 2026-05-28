@@ -1,0 +1,50 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-139",
+  "startedAt": "2026-05-28T02:08:50.779Z",
+  "completedAt": "2026-05-28T02:08:57.909Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-139"
+  ],
+  "usage": {
+    "prompt_tokens": 3217,
+    "completion_tokens": 357,
+    "total_tokens": 3574,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2833
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-139",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "independentAnswer": "3.6",
+        "correctedAnswer": "3",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "bad_options",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "双曲线a=3,c=5,e=5/3。由定义|PF1|-|PF2|=6，结合|PF1|=3|PF2|得|PF2|=3，|PF1|=9。右支焦半径公式|PF1|=ex+a，代入得(5/3)x+3=9，解得x=18/5=3.6，不在选项{3,4,5,6}中。若将条件改为|PF1|=4|PF2|，则x=3，但原题条件为3倍，导致无正确选项。存储答案5错误，解析自相矛盾，题目不可解。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目条件与选项不匹配，无正确选项，判定为不可解，需修正条件或选项。"
+    }
+  }
+}

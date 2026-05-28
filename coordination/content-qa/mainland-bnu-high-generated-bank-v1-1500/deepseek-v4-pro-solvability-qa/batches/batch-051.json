@@ -1,0 +1,137 @@
+{
+  "batchNumber": 51,
+  "startedAt": "2026-05-27T13:52:37.069Z",
+  "completedAt": "2026-05-27T13:52:56.695Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-401",
+    "bnu-high-ds-v1-s4-402",
+    "bnu-high-ds-v1-s4-403",
+    "bnu-high-ds-v1-s4-404",
+    "bnu-high-ds-v1-s4-405",
+    "bnu-high-ds-v1-s4-406",
+    "bnu-high-ds-v1-s4-407",
+    "bnu-high-ds-v1-s4-408"
+  ],
+  "usage": {
+    "prompt_tokens": 11551,
+    "completion_tokens": 1276,
+    "total_tokens": 12827,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 11039
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-401",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "33/65",
+        "correctedAnswer": "-63/65",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立计算得 sin(α+β)=33/65，与答案-63/65不符。解析中计算过程也得到33/65，但最终强行改为-63/65，且解析末尾提出修改β范围以匹配答案，说明原题条件与答案矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-402",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "利用两角和的余弦公式逆用，cos75°cos15°-sin75°sin15°=cos(75°+15°)=cos90°=0，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-403",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "3π/4",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "tan(α+β)=-1，且α,β为锐角，tanα,tanβ>1得α,β>π/4，故α+β>π/2，又tan为负，所以α+β在第二象限，值为3π/4。选项唯一，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-404",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "证明见解析",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "证明过程正确，利用和角公式与倍角公式展开，最终得到3sinθ-4sin³θ，与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-405",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "-4/3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由sinθ+cosθ=1/5平方得sinθcosθ=-12/25，结合θ∈(0,π)得sinθ=4/5，cosθ=-3/5，tanθ=-4/3。解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-406",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "cos 10° - sin 10°",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "1-sin20°=(sin10°-cos10°)²，开方取算术平方根，因cos10°>sin10°，结果为cos10°-sin10°，选项A正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-407",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "最大值为2，取最大值时x=π/6+2kπ,k∈Z",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f(x)=2sin(x+π/3)，最大值为2，当x+π/3=π/2+2kπ即x=π/6+2kπ时取得。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-408",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "3/22",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "α+π/4=(α+β)-(β-π/4)，利用两角差的正切公式计算得3/22，答案与解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第1题条件与答案矛盾，独立计算得33/65，答案-63/65错误，解析也自相矛盾；其余7题均正确。"
+    }
+  }
+}

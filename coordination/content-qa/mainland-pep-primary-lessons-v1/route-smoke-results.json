@@ -1,0 +1,35 @@
+{
+  "date": "2026-05-23",
+  "mode": "production-next-start-server-backed-smoke",
+  "lessonsChecked": 24,
+  "representativeRoutes": [
+    {
+      "grade": "P1",
+      "slug": "pep-primary-p1-upper-number-sense",
+      "apiStatus": 200,
+      "routeStatus": 200,
+      "blocks": ["concept", "worked-example", "checklist", "practice", "extension"]
+    },
+    {
+      "grade": "P3",
+      "slug": "pep-primary-p3-upper-operations-fractions",
+      "apiStatus": 200,
+      "routeStatus": 200,
+      "blocks": ["concept", "worked-example", "checklist", "practice", "extension"]
+    },
+    {
+      "grade": "P6",
+      "slug": "pep-primary-p6-lower-negative-review",
+      "apiStatus": 200,
+      "routeStatus": 200,
+      "blocks": ["concept", "worked-example", "checklist", "practice", "extension"]
+    }
+  ],
+  "juniorSecondaryComingSoon": {
+    "en": "Mainland PEP junior-secondary content is coming soon. Primary and high school lessons are available first.",
+    "zh": "內地人教版初中內容即將上線。小學及高中課程會先行開放。",
+    "zhHans": "内地人教版初中内容即将上线。小学及高中课程会先行开放。"
+  },
+  "playwrightAttempt": "Focused Playwright spec was added and type-checked, but the local Playwright run launched Chrome and hung; server-backed API/page-route smoke was used as the QA-plan fallback",
+  "failures": []
+}

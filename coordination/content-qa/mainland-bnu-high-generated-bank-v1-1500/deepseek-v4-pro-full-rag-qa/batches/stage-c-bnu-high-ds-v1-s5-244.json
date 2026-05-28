@@ -1,0 +1,50 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-244",
+  "startedAt": "2026-05-28T01:24:39.086Z",
+  "completedAt": "2026-05-28T01:24:43.888Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-244"
+  ],
+  "usage": {
+    "prompt_tokens": 3269,
+    "completion_tokens": 280,
+    "total_tokens": 3549,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2885
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-244",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": null,
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件导致无实数解：圆半径5，弦长8对应弦心距3，但圆心到直线距离方程|2-m|/√(m²+1)=3化简得8m²+4m+5=0，判别式负，无解。选项和存储答案均无效，题目不可解。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目条件矛盾，无实数解，判定为不可解，需修正题目参数。"
+    }
+  }
+}

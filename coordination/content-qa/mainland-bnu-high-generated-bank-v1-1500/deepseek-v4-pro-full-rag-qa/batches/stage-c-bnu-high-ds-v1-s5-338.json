@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-338",
+  "startedAt": "2026-05-28T03:02:13.679Z",
+  "completedAt": "2026-05-28T03:02:18.874Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-338"
+  ],
+  "usage": {
+    "prompt_tokens": 3028,
+    "completion_tokens": 252,
+    "total_tokens": 3280,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2644
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-338",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "-672",
+        "correctedAnswer": "-672",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合教材范围。独立计算得系数为-672，但存储答案和接受答案均为-21/2，属于数学错误。解析中计算过程得出-672却保留错误答案，存在矛盾。需修正答案为-672。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1题答案错误，需修正为-672。"
+    }
+  }
+}

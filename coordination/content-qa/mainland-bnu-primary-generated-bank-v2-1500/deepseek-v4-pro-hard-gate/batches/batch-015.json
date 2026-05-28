@@ -1,0 +1,330 @@
+{
+  "batchNumber": 15,
+  "startedAt": "2026-05-26T16:58:00.902Z",
+  "completedAt": "2026-05-26T16:58:28.751Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p2-171",
+    "bnu-primary-ds-v2-p2-172",
+    "bnu-primary-ds-v2-p2-173",
+    "bnu-primary-ds-v2-p2-174",
+    "bnu-primary-ds-v2-p2-175",
+    "bnu-primary-ds-v2-p2-176",
+    "bnu-primary-ds-v2-p2-177",
+    "bnu-primary-ds-v2-p2-178",
+    "bnu-primary-ds-v2-p2-179",
+    "bnu-primary-ds-v2-p2-180",
+    "bnu-primary-ds-v2-p2-181",
+    "bnu-primary-ds-v2-p2-182",
+    "bnu-primary-ds-v2-p2-183",
+    "bnu-primary-ds-v2-p2-184",
+    "bnu-primary-ds-v2-p2-185",
+    "bnu-primary-ds-v2-p2-186",
+    "bnu-primary-ds-v2-p2-187",
+    "bnu-primary-ds-v2-p2-188",
+    "bnu-primary-ds-v2-p2-189",
+    "bnu-primary-ds-v2-p2-190",
+    "bnu-primary-ds-v2-p2-191",
+    "bnu-primary-ds-v2-p2-192",
+    "bnu-primary-ds-v2-p2-193",
+    "bnu-primary-ds-v2-p2-194",
+    "bnu-primary-ds-v2-p2-195",
+    "bnu-primary-ds-v2-p2-196",
+    "bnu-primary-ds-v2-p2-197",
+    "bnu-primary-ds-v2-p2-198",
+    "bnu-primary-ds-v2-p2-199",
+    "bnu-primary-ds-v2-p2-200"
+  ],
+  "usage": {
+    "prompt_tokens": 4946,
+    "completion_tokens": 2176,
+    "total_tokens": 7122,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 4562
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p2-171",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目清晰，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-172",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项完整，答案唯一正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-173",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "填空答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-174",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "答案正确，格式合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-175",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "比较大小正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-176",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "规律填数正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-177",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "组合计数和最大最小数正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-178",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "读零规则正确，答案唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-179",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "数位顺序正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-180",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "写数和读法正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-181",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "单位选择合理，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-182",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "单位换算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-183",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "长度估计合理，答案唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-184",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "换算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-185",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "单位选择合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-186",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "换算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-187",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "单位选择合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-188",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "换算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-189",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "长度估计合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-190",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "换算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-191",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "单位选择合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-192",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "换算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-193",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "换算正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-194",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "单位填写合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-195",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "计算正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-196",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "减法计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-197",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "估算合理，答案唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-198",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "加法逆运算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-199",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "减法应用正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-200",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "加法计算正确。"
+      }
+    ],
+    "batchSummary": {
+      "solvableYes": 30,
+      "solvableNo": 0,
+      "answerMatchYes": 30,
+      "answerMatchNo": 0,
+      "notes": "全部30道题目均可解，答案匹配正确，无问题。"
+    }
+  }
+}

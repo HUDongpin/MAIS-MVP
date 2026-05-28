@@ -1,0 +1,570 @@
+{
+  "batchId": "batch-044",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p2-181",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-measurement",
+      "unitTitle": "测量",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "length-measurement-extension",
+        "kilometer-decimeter-millimeter",
+        "unit-conversion",
+        "测量"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "空间观念"
+      ],
+      "skillTags": [
+        "毫米",
+        "分米",
+        "千米",
+        "单位换算",
+        "估测"
+      ],
+      "misconceptionTags": [
+        "unit relationship reversed",
+        "inappropriate unit chosen",
+        "conversion done without checking size"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-measurement",
+        "bnu-primary-p2-upper-assessment-measurement-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明的身高大约是140（  ）。",
+      "optionsZhHans": [
+        "毫米",
+        "厘米",
+        "分米",
+        "千米"
+      ],
+      "answer": "厘米",
+      "acceptedAnswers": [
+        "厘米"
+      ],
+      "explanationZhHans": "小学生的身高通常用厘米表示，140厘米约1.4米，符合实际。毫米太小，分米和千米不合适。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-182",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-measurement",
+      "unitTitle": "测量",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "length-measurement-extension",
+        "kilometer-decimeter-millimeter",
+        "unit-conversion",
+        "测量"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "空间观念"
+      ],
+      "skillTags": [
+        "毫米",
+        "分米",
+        "千米",
+        "单位换算",
+        "估测"
+      ],
+      "misconceptionTags": [
+        "unit relationship reversed",
+        "inappropriate unit chosen",
+        "conversion done without checking size"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-measurement",
+        "bnu-primary-p2-upper-assessment-measurement-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "5分米 = ______ 厘米",
+      "optionsZhHans": [],
+      "answer": "50",
+      "acceptedAnswers": [
+        "50"
+      ],
+      "explanationZhHans": "1分米=10厘米，所以5分米=5×10=50厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-183",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-measurement",
+      "unitTitle": "测量",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "length-measurement-extension",
+        "kilometer-decimeter-millimeter",
+        "unit-conversion",
+        "测量"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "空间观念"
+      ],
+      "skillTags": [
+        "毫米",
+        "分米",
+        "千米",
+        "单位换算",
+        "估测"
+      ],
+      "misconceptionTags": [
+        "unit relationship reversed",
+        "inappropriate unit chosen",
+        "conversion done without checking size"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-measurement",
+        "bnu-primary-p2-upper-assessment-measurement-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个长度最接近1千米？",
+      "optionsZhHans": [
+        "学校操场一圈的长度",
+        "教室黑板的长度",
+        "数学课本的厚度",
+        "铅笔的长度"
+      ],
+      "answer": "学校操场一圈的长度",
+      "acceptedAnswers": [
+        "学校操场一圈的长度"
+      ],
+      "explanationZhHans": "1千米=1000米，操场一圈通常几百米，最接近。黑板约几米，课本厚度几毫米，铅笔约十几厘米，都远小于1千米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-184",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-measurement",
+      "unitTitle": "测量",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "length-measurement-extension",
+        "kilometer-decimeter-millimeter",
+        "unit-conversion",
+        "测量"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "空间观念"
+      ],
+      "skillTags": [
+        "毫米",
+        "分米",
+        "千米",
+        "单位换算",
+        "估测"
+      ],
+      "misconceptionTags": [
+        "unit relationship reversed",
+        "inappropriate unit chosen",
+        "conversion done without checking size"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-measurement",
+        "bnu-primary-p2-upper-assessment-measurement-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "300厘米 = ______ 米",
+      "optionsZhHans": [],
+      "answer": "3",
+      "acceptedAnswers": [
+        "3"
+      ],
+      "explanationZhHans": "1米=100厘米，所以300厘米=300÷100=3米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-185",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-measurement",
+      "unitTitle": "测量",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "length-measurement-extension",
+        "kilometer-decimeter-millimeter",
+        "unit-conversion",
+        "测量"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "空间观念"
+      ],
+      "skillTags": [
+        "毫米",
+        "分米",
+        "千米",
+        "单位换算",
+        "估测"
+      ],
+      "misconceptionTags": [
+        "unit relationship reversed",
+        "inappropriate unit chosen",
+        "conversion done without checking size"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-measurement",
+        "bnu-primary-p2-upper-assessment-measurement-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "测量一枚硬币的厚度，用哪个单位最合适？",
+      "optionsZhHans": [
+        "千米",
+        "米",
+        "厘米",
+        "毫米"
+      ],
+      "answer": "毫米",
+      "acceptedAnswers": [
+        "毫米"
+      ],
+      "explanationZhHans": "硬币厚度很小，通常只有1~2毫米，用毫米最精确。厘米偏大，米和千米完全不合适。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-186",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-measurement",
+      "unitTitle": "测量",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "length-measurement-extension",
+        "kilometer-decimeter-millimeter",
+        "unit-conversion",
+        "测量"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "空间观念"
+      ],
+      "skillTags": [
+        "毫米",
+        "分米",
+        "千米",
+        "单位换算",
+        "估测"
+      ],
+      "misconceptionTags": [
+        "unit relationship reversed",
+        "inappropriate unit chosen",
+        "conversion done without checking size"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-measurement",
+        "bnu-primary-p2-upper-assessment-measurement-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "7千米 = ______ 米",
+      "optionsZhHans": [],
+      "answer": "7000",
+      "acceptedAnswers": [
+        "7000"
+      ],
+      "explanationZhHans": "1千米=1000米，所以7千米=7×1000=7000米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-187",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-measurement",
+      "unitTitle": "测量",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "length-measurement-extension",
+        "kilometer-decimeter-millimeter",
+        "unit-conversion",
+        "测量"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "空间观念"
+      ],
+      "skillTags": [
+        "毫米",
+        "分米",
+        "千米",
+        "单位换算",
+        "估测"
+      ],
+      "misconceptionTags": [
+        "unit relationship reversed",
+        "inappropriate unit chosen",
+        "conversion done without checking size"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-measurement",
+        "bnu-primary-p2-upper-assessment-measurement-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丽家到学校的距离大约是2（  ）。",
+      "optionsZhHans": [
+        "毫米",
+        "厘米",
+        "分米",
+        "千米"
+      ],
+      "answer": "千米",
+      "acceptedAnswers": [
+        "千米"
+      ],
+      "explanationZhHans": "家到学校的距离较远，通常用千米表示。2千米约2000米，符合实际。毫米、厘米、分米都太小。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-188",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-measurement",
+      "unitTitle": "测量",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "length-measurement-extension",
+        "kilometer-decimeter-millimeter",
+        "unit-conversion",
+        "测量"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "空间观念"
+      ],
+      "skillTags": [
+        "毫米",
+        "分米",
+        "千米",
+        "单位换算",
+        "估测"
+      ],
+      "misconceptionTags": [
+        "unit relationship reversed",
+        "inappropriate unit chosen",
+        "conversion done without checking size"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-measurement",
+        "bnu-primary-p2-upper-assessment-measurement-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "80毫米 = ______ 厘米",
+      "optionsZhHans": [],
+      "answer": "8",
+      "acceptedAnswers": [
+        "8"
+      ],
+      "explanationZhHans": "1厘米=10毫米，所以80毫米=80÷10=8厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-189",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-measurement",
+      "unitTitle": "测量",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "length-measurement-extension",
+        "kilometer-decimeter-millimeter",
+        "unit-conversion",
+        "测量"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "空间观念"
+      ],
+      "skillTags": [
+        "毫米",
+        "分米",
+        "千米",
+        "单位换算",
+        "估测"
+      ],
+      "misconceptionTags": [
+        "unit relationship reversed",
+        "inappropriate unit chosen",
+        "conversion done without checking size"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-measurement",
+        "bnu-primary-p2-upper-assessment-measurement-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个物体的长度大约是2分米？",
+      "optionsZhHans": [
+        "一根新铅笔的长度",
+        "教室门的高度",
+        "一张床的长度",
+        "一座桥的长度"
+      ],
+      "answer": "一根新铅笔的长度",
+      "acceptedAnswers": [
+        "一根新铅笔的长度"
+      ],
+      "explanationZhHans": "2分米=20厘米，新铅笔长度约18~20厘米，符合。门高约2米，床长约2米，桥更长，都不对。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-190",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-measurement",
+      "unitTitle": "测量",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "length-measurement-extension",
+        "kilometer-decimeter-millimeter",
+        "unit-conversion",
+        "测量"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "空间观念"
+      ],
+      "skillTags": [
+        "毫米",
+        "分米",
+        "千米",
+        "单位换算",
+        "估测"
+      ],
+      "misconceptionTags": [
+        "unit relationship reversed",
+        "inappropriate unit chosen",
+        "conversion done without checking size"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-measurement",
+        "bnu-primary-p2-upper-assessment-measurement-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "4米 = ______ 分米",
+      "optionsZhHans": [],
+      "answer": "40",
+      "acceptedAnswers": [
+        "40"
+      ],
+      "explanationZhHans": "1米=10分米，所以4米=4×10=40分米。"
+    }
+  ]
+}

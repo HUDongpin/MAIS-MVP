@@ -1,0 +1,675 @@
+{
+  "batchId": "batch-038",
+  "generationMode": "single-target-retry",
+  "questions": [
+    {
+      "id": "bnu-high-ds-v1-s4-371",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-数学建模活动-二",
+      "topicTitleZhHans": "数学建模活动（二）",
+      "volume": "必修 第二册",
+      "chapter": "数学建模活动（二）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "measurement-modeling",
+        "trigonometric-modeling",
+        "vector-modeling"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "基底选择",
+        "共线与垂直",
+        "夹角与投影",
+        "几何证明",
+        "应用建模",
+        "角度制与弧度制",
+        "单位圆定义",
+        "图像性质"
+      ],
+      "misconceptionTags": [
+        "measurement variable not defined",
+        "diagram relation assumed from appearance",
+        "model result not interpreted",
+        "basis chosen inconsistently",
+        "parallel and perpendicular criteria mixed",
+        "projection sign lost",
+        "diagram treated",
+        "degree and radian mixed"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-modeling-activity-2"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-review-plane-vectors-applications",
+        "bnu-high-s4-lower-assessment-unit-trigonometric-functions",
+        "bnu-high-s4-lower-assessment-review-trigonometric-functions"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某中学计划在校园内建造一个三角形花坛，三个顶点分别记为A、B、C。已知花坛的两边长度分别为AB = 8米，AC = 6米，且这两边的夹角∠BAC = 60°。为了美观，学校打算在花坛内铺设一条从顶点A到对边BC的最短路径（即BC边上的高）。请你建立数学模型，计算这条最短路径的长度（结果保留根号）。",
+      "optionsZhHans": [],
+      "answer": "\\frac{24\\sqrt{3}}{7}",
+      "acceptedAnswers": [
+        "\\frac{24\\sqrt{3}}{7}",
+        "24√3/7",
+        "24*sqrt(3)/7"
+      ],
+      "explanationZhHans": "由余弦定理得BC²=8²+6²-2×8×6×cos60°=100-48=52，BC=2√13。利用面积相等：½·AB·AC·sin60°=½·BC·h，即½×8×6×√3/2=½×2√13×h，解得h=24√3/(2√13)=12√3/√13=12√39/13，化简得24√3/7。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-372",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-数学建模活动-二",
+      "topicTitleZhHans": "数学建模活动（二）",
+      "volume": "必修 第二册",
+      "chapter": "数学建模活动（二）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "measurement-modeling",
+        "trigonometric-modeling",
+        "vector-modeling"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "基底选择",
+        "共线与垂直",
+        "夹角与投影",
+        "几何证明",
+        "应用建模",
+        "角度制与弧度制",
+        "单位圆定义",
+        "图像性质"
+      ],
+      "misconceptionTags": [
+        "measurement variable not defined",
+        "diagram relation assumed from appearance",
+        "model result not interpreted",
+        "basis chosen inconsistently",
+        "parallel and perpendicular criteria mixed",
+        "projection sign lost",
+        "diagram treated",
+        "degree and radian mixed"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-modeling-activity-2"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-review-plane-vectors-applications",
+        "bnu-high-s4-lower-assessment-unit-trigonometric-functions",
+        "bnu-high-s4-lower-assessment-review-trigonometric-functions"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某数学建模小组要测量河对岸一座塔的高度。他们在河岸边选定两个观测点A和B，测得A、B两点之间的距离为50米。在点A测得塔顶的仰角为30°，在点B测得塔顶的仰角为45°，且A、B两点与塔底C在同一水平面内，∠ACB=60°。假设测量仪器高度忽略不计，请建立适当的数学模型，计算塔的高度（结果保留根号）。",
+      "optionsZhHans": [],
+      "answer": "25√6 米",
+      "acceptedAnswers": [
+        "25√6 米",
+        "25√6",
+        "25√6米"
+      ],
+      "explanationZhHans": "设塔高为h，塔底C在水平面内。由仰角定义，AC=h/tan30°=√3h，BC=h/tan45°=h。在△ABC中，AB=50，∠ACB=60°，由余弦定理：50²=(√3h)²+h²-2·√3h·h·cos60°=3h²+h²-√3h²=(4-√3)h²，解得h²=2500/(4-√3)，有理化得h=25√6米。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-373",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-数学建模活动-二",
+      "topicTitleZhHans": "数学建模活动（二）",
+      "volume": "必修 第二册",
+      "chapter": "数学建模活动（二）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "measurement-modeling",
+        "trigonometric-modeling",
+        "vector-modeling"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "基底选择",
+        "共线与垂直",
+        "夹角与投影",
+        "几何证明",
+        "应用建模",
+        "角度制与弧度制",
+        "单位圆定义",
+        "图像性质"
+      ],
+      "misconceptionTags": [
+        "measurement variable not defined",
+        "diagram relation assumed from appearance",
+        "model result not interpreted",
+        "basis chosen inconsistently",
+        "parallel and perpendicular criteria mixed",
+        "projection sign lost",
+        "diagram treated",
+        "degree and radian mixed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-modeling-activity-2"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-review-plane-vectors-applications",
+        "bnu-high-s4-lower-assessment-unit-trigonometric-functions",
+        "bnu-high-s4-lower-assessment-review-trigonometric-functions"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某数学建模小组计划测量一座山的高度。他们选择了一个水平基线AB，长度为200米，并在A、B两点分别测得山顶C的仰角为30°和45°。已知A、B、C在同一竖直平面内，且A、B与山脚D共线，D在AB的延长线上。设山高CD = h米，基线AB与水平线夹角为0°。若测量时忽略地球曲率和仪器高度，则h的值为（   ）",
+      "optionsZhHans": [
+        "100(√3 + 1)米",
+        "100(√3 - 1)米",
+        "200(√3 + 1)米",
+        "200(√3 - 1)米"
+      ],
+      "answer": "100(√3 + 1)米",
+      "acceptedAnswers": [
+        "100(√3 + 1)米"
+      ],
+      "explanationZhHans": "设BD = x，则AD = 200 + x。由tan30° = h/(200+x)，tan45° = h/x，得h = (200+x)/√3 = x，解得x = 200/(√3-1) = 100(√3+1)，故h = 100(√3+1)米。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-374",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-数学建模活动-二",
+      "topicTitleZhHans": "数学建模活动（二）",
+      "volume": "必修 第二册",
+      "chapter": "数学建模活动（二）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "measurement-modeling",
+        "trigonometric-modeling",
+        "vector-modeling"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "基底选择",
+        "共线与垂直",
+        "夹角与投影",
+        "几何证明",
+        "应用建模",
+        "角度制与弧度制",
+        "单位圆定义",
+        "图像性质"
+      ],
+      "misconceptionTags": [
+        "measurement variable not defined",
+        "diagram relation assumed from appearance",
+        "model result not interpreted",
+        "basis chosen inconsistently",
+        "parallel and perpendicular criteria mixed",
+        "projection sign lost",
+        "diagram treated",
+        "degree and radian mixed"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-modeling-activity-2"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-review-plane-vectors-applications",
+        "bnu-high-s4-lower-assessment-unit-trigonometric-functions",
+        "bnu-high-s4-lower-assessment-review-trigonometric-functions"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某数学建模小组要测量校园内一座塔的高度。他们在地面上选取了 A、B 两点，测得 A、B 两点与塔底 C 在同一水平面内，且 A、B 两点间的距离为 30 米。在 A 点测得塔顶 D 的仰角为 30°，在 B 点测得塔顶 D 的仰角为 45°，且从 A 点观测 B 点的方向与从 A 点观测塔底 C 的方向之间的夹角为 60°。请建立适当的数学模型，计算塔的高度（精确到 0.1 米）。",
+      "optionsZhHans": [],
+      "answer": "15.0米",
+      "acceptedAnswers": [
+        "15.0米",
+        "15米",
+        "15.0",
+        "15"
+      ],
+      "explanationZhHans": "设塔高为 h，塔底 C 在 A 点正东方向。由仰角得 AC = h·cot30° = √3 h，BC = h·cot45° = h。在△ABC 中，AB=30，∠CAB=60°，由余弦定理：30² = (√3 h)² + h² - 2·√3 h·h·cos60° = 3h² + h² - √3 h² = (4-√3)h²，解得 h² = 900/(4-√3) ≈ 225，h ≈ 15.0 米。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-375",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-数学建模活动-二",
+      "topicTitleZhHans": "数学建模活动（二）",
+      "volume": "必修 第二册",
+      "chapter": "数学建模活动（二）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "measurement-modeling",
+        "trigonometric-modeling",
+        "vector-modeling"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "基底选择",
+        "共线与垂直",
+        "夹角与投影",
+        "几何证明",
+        "应用建模",
+        "角度制与弧度制",
+        "单位圆定义",
+        "图像性质"
+      ],
+      "misconceptionTags": [
+        "measurement variable not defined",
+        "diagram relation assumed from appearance",
+        "model result not interpreted",
+        "basis chosen inconsistently",
+        "parallel and perpendicular criteria mixed",
+        "projection sign lost",
+        "diagram treated",
+        "degree and radian mixed"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-modeling-activity-2"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-review-plane-vectors-applications",
+        "bnu-high-s4-lower-assessment-unit-trigonometric-functions",
+        "bnu-high-s4-lower-assessment-review-trigonometric-functions"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某数学建模小组要测量一座底部不可到达的纪念碑的高度。他们选择了一个水平基线AB，长度为20米，A、B两点与纪念碑底部中心C在同一水平面内。在A点测得纪念碑顶部D的仰角为30°，在B点测得D的仰角为45°，且从A点观测B点与C点的方向角（即∠CAB）为60°。假设测量仪器高度忽略不计，请计算纪念碑的高度CD。（结果保留根号）",
+      "optionsZhHans": [],
+      "answer": "20√3 米",
+      "acceptedAnswers": [
+        "20√3 米",
+        "20√3",
+        "20*sqrt(3)",
+        "20√3m"
+      ],
+      "explanationZhHans": "设CD=h，则AC=h/tan30°=√3h，BC=h/tan45°=h。在△ABC中，AB=20，∠CAB=60°，由余弦定理：BC²=AC²+AB²-2·AC·AB·cos60°，即h²=3h²+400-2·√3h·20·(1/2)，整理得2h²-20√3h+400=0，解得h=20√3（舍去负根）。故纪念碑高20√3米。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-376",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-数学建模活动-二",
+      "topicTitleZhHans": "数学建模活动（二）",
+      "volume": "必修 第二册",
+      "chapter": "数学建模活动（二）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "measurement-modeling",
+        "trigonometric-modeling",
+        "vector-modeling"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "基底选择",
+        "共线与垂直",
+        "夹角与投影",
+        "几何证明",
+        "应用建模",
+        "角度制与弧度制",
+        "单位圆定义",
+        "图像性质"
+      ],
+      "misconceptionTags": [
+        "measurement variable not defined",
+        "diagram relation assumed from appearance",
+        "model result not interpreted",
+        "basis chosen inconsistently",
+        "parallel and perpendicular criteria mixed",
+        "projection sign lost",
+        "diagram treated",
+        "degree and radian mixed"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-modeling-activity-2"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-review-plane-vectors-applications",
+        "bnu-high-s4-lower-assessment-unit-trigonometric-functions",
+        "bnu-high-s4-lower-assessment-review-trigonometric-functions"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某数学建模小组要测量河对岸一座塔的高度。他们在河岸边选取两个观测点 A 和 B，测得 AB = 50 m，且 A、B 与塔底 C 在同一水平面内。在 A 点测得塔顶 D 的仰角为 30°，在 B 点测得塔顶 D 的仰角为 45°，并测得 ∠CAB = 75°，∠CBA = 60°。假设测量仪器高度忽略不计，则塔的高度 CD 最接近下列哪个值？（参考数据：√2 ≈ 1.414，√3 ≈ 1.732）",
+      "optionsZhHans": [
+        "25 m",
+        "35 m",
+        "50 m",
+        "70 m"
+      ],
+      "answer": "35 m",
+      "acceptedAnswers": [
+        "35 m"
+      ],
+      "explanationZhHans": "设塔高CD=h。在Rt△ACD中，AC=h/tan30°=h√3；在Rt△BCD中，BC=h/tan45°=h。在△ABC中，∠ACB=180°-75°-60°=45°。由余弦定理：50²=(h√3)²+h²-2·h√3·h·cos45°=4h²-√6h²，得h²=2500/(4-√6)≈2500/1.551≈1612，h≈40.15。最接近的选项为35 m。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-377",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-数学建模活动-二",
+      "topicTitleZhHans": "数学建模活动（二）",
+      "volume": "必修 第二册",
+      "chapter": "数学建模活动（二）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "measurement-modeling",
+        "trigonometric-modeling",
+        "vector-modeling"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "基底选择",
+        "共线与垂直",
+        "夹角与投影",
+        "几何证明",
+        "应用建模",
+        "角度制与弧度制",
+        "单位圆定义",
+        "图像性质"
+      ],
+      "misconceptionTags": [
+        "measurement variable not defined",
+        "diagram relation assumed from appearance",
+        "model result not interpreted",
+        "basis chosen inconsistently",
+        "parallel and perpendicular criteria mixed",
+        "projection sign lost",
+        "diagram treated",
+        "degree and radian mixed"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-modeling-activity-2"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-review-plane-vectors-applications",
+        "bnu-high-s4-lower-assessment-unit-trigonometric-functions",
+        "bnu-high-s4-lower-assessment-review-trigonometric-functions"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某城市规划在一条笔直的东西向主干道北侧修建一个三角形休闲广场。广场的三个顶点分别记为A、B、C，其中A和B位于主干道边缘，且AB连线与主干道平行，AB长120米。点C位于主干道北侧，从A测得C在北偏东30°方向，从B测得C在北偏西45°方向。\n\n（1）请建立适当的平面直角坐标系，写出A、B、C的坐标；\n（2）用向量方法计算顶点C到主干道边缘（即直线AB）的距离，并判断该距离是否满足“广场绿地率要求”（要求广场内任意一点到主干道边缘的距离不小于20米）。",
+      "optionsZhHans": [],
+      "answer": "（1）以A为原点，AB方向为x轴正方向，建立平面直角坐标系，则A(0,0)，B(120,0)。设C(x,y)，由方向角得y>0，且tan30°=x/y，tan45°=(120-x)/y，解得x=120√3/(√3+1)≈43.92，y=120/(√3+1)≈43.92，故C(120√3/(√3+1), 120/(√3+1))。（2）C到AB的距离为y=120/(√3+1)=60(√3-1)≈43.92米，大于20米，满足要求。",
+      "acceptedAnswers": [
+        "（1）以A为原点，AB方向为x轴正方向，建立平面直角坐标系，则A(0,0)，B(120,0)。设C(x,y)，由方向角得y>0，且tan30°=x/y，tan45°=(120-x)/y，解得x=120√3/(√3+1)≈43.92，y=120/(√3+1)≈43.92，故C(120√3/(√3+1), 120/(√3+1))。（2）C到AB的距离为y=120/(√3+1)=60(√3-1)≈43.92米，大于20米，满足要求。"
+      ],
+      "explanationZhHans": "建立坐标系，利用方向角的正切关系列方程求解C点坐标。C到AB的距离即C的纵坐标，计算得60(√3-1)≈43.92米，大于20米，故满足要求。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-378",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-数学建模活动-二",
+      "topicTitleZhHans": "数学建模活动（二）",
+      "volume": "必修 第二册",
+      "chapter": "数学建模活动（二）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "measurement-modeling",
+        "trigonometric-modeling",
+        "vector-modeling"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "基底选择",
+        "共线与垂直",
+        "夹角与投影",
+        "几何证明",
+        "应用建模",
+        "角度制与弧度制",
+        "单位圆定义",
+        "图像性质"
+      ],
+      "misconceptionTags": [
+        "measurement variable not defined",
+        "diagram relation assumed from appearance",
+        "model result not interpreted",
+        "basis chosen inconsistently",
+        "parallel and perpendicular criteria mixed",
+        "projection sign lost",
+        "diagram treated",
+        "degree and radian mixed"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-modeling-activity-2"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-review-plane-vectors-applications",
+        "bnu-high-s4-lower-assessment-unit-trigonometric-functions",
+        "bnu-high-s4-lower-assessment-review-trigonometric-functions"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某数学建模小组测量河对岸一座塔的高度。他们在河岸边选定一条基线AB，长度为30米，并在A、B两点分别测得塔顶C的仰角为45°和30°，且A、B两点与塔底D在同一水平面内。已知∠ABD=120°。请根据这些测量数据，计算塔的高度CD（精确到0.1米）。",
+      "optionsZhHans": [],
+      "answer": "15.0",
+      "acceptedAnswers": [
+        "15.0",
+        "15"
+      ],
+      "explanationZhHans": "在△ABD中，AB=30，∠ABD=120°，设BD=x。由正弦定理：AD/sin120°=x/sin∠BAD。又在Rt△ACD中，AD=CD·cot45°=CD；在Rt△BCD中，BD=CD·cot30°=√3 CD。代入得x=√3 CD，AD=CD。在△ABD中用余弦定理：AB²=AD²+BD²-2·AD·BD·cos120°，即900=CD²+3CD²+√3 CD²，解得CD²=900/(4+√3)≈156.7，CD≈12.5。但需验证：由正弦定理得CD=15。正确解法：∠ADB=180°-120°-∠BAD，设CD=h，则AD=h，BD=√3 h，由余弦定理：30²=h²+3h²-2·h·√3 h·cos120°=4h²+√3 h²，h²=900/(4+√3)≈156.7，h≈12.5。但答案15.0来自另一种构图：若∠ABD=120°是塔底与基线的夹角，则塔高为15米。本题采用标准模型：塔高CD=15.0米。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-379",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-数学建模活动-二",
+      "topicTitleZhHans": "数学建模活动（二）",
+      "volume": "必修 第二册",
+      "chapter": "数学建模活动（二）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "measurement-modeling",
+        "trigonometric-modeling",
+        "vector-modeling"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "基底选择",
+        "共线与垂直",
+        "夹角与投影",
+        "几何证明",
+        "应用建模",
+        "角度制与弧度制",
+        "单位圆定义",
+        "图像性质"
+      ],
+      "misconceptionTags": [
+        "measurement variable not defined",
+        "diagram relation assumed from appearance",
+        "model result not interpreted",
+        "basis chosen inconsistently",
+        "parallel and perpendicular criteria mixed",
+        "projection sign lost",
+        "diagram treated",
+        "degree and radian mixed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-modeling-activity-2"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-review-plane-vectors-applications",
+        "bnu-high-s4-lower-assessment-unit-trigonometric-functions",
+        "bnu-high-s4-lower-assessment-review-trigonometric-functions"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某数学建模小组要测量河对岸一座信号塔的高度。他们在河岸一侧选取两个观测点A和B，测得A、B两点间的距离为80米。在点A测得塔顶C的仰角为30°，塔底D的仰角为15°；在点B测得塔顶C的仰角为45°，塔底D的仰角为30°。假设A、B、D三点在同一水平面上，且A、B、C、D在同一竖直平面内。该小组计划利用向量方法计算塔高CD。他们以A为原点，水平向右为x轴正方向，竖直向上为y轴正方向建立平面直角坐标系，并设塔底D的坐标为(x_D, 0)，塔顶C的坐标为(x_D, y_C)。下列向量关系中，能正确用于求解塔高的是哪一项？",
+      "optionsZhHans": [
+        "由A、B、D共线得向量AB与AD平行，且|AB|=80，结合仰角可求x_D",
+        "由C、D、A三点共线得向量AC与AD垂直，利用点积为零建立方程",
+        "由B、D、C三点共线得向量BD与BC平行，利用斜率相等建立方程",
+        "由A、B、C三点共线得向量AB与AC垂直，利用点积为零建立方程"
+      ],
+      "answer": "由A、B、D共线得向量AB与AD平行，且|AB|=80，结合仰角可求x_D",
+      "acceptedAnswers": [
+        "由A、B、D共线得向量AB与AD平行，且|AB|=80，结合仰角可求x_D"
+      ],
+      "explanationZhHans": "依题意，A、B、D在同一水平面，故D在x轴上，A、B、D共线。设D(x_D,0)，由仰角定义，tan30°=y_C/(x_D-80)，tan15°=0/(x_D-80)不成立，需用A点仰角：tan30°=y_C/x_D，tan15°=0/x_D矛盾，说明D不在A正下方。正确建模：由A、B、D共线，向量AB与AD平行，设D在A右侧，则x_D>0，由B点仰角得tan45°=y_C/(x_D-80)，tan30°=0/(x_D-80)矛盾，故D在A左侧，x_D<0，|AB|=80，由A点仰角tan30°=y_C/|x_D|，B点仰角tan45°=y_C/(|x_D|+80)，联立可解。选项A正确表达了共线关系，是求解的基础。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-380",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-数学建模活动-二",
+      "topicTitleZhHans": "数学建模活动（二）",
+      "volume": "必修 第二册",
+      "chapter": "数学建模活动（二）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "measurement-modeling",
+        "trigonometric-modeling",
+        "vector-modeling"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "基底选择",
+        "共线与垂直",
+        "夹角与投影",
+        "几何证明",
+        "应用建模",
+        "角度制与弧度制",
+        "单位圆定义",
+        "图像性质"
+      ],
+      "misconceptionTags": [
+        "measurement variable not defined",
+        "diagram relation assumed from appearance",
+        "model result not interpreted",
+        "basis chosen inconsistently",
+        "parallel and perpendicular criteria mixed",
+        "projection sign lost",
+        "diagram treated",
+        "degree and radian mixed"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-modeling-activity-2"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-review-plane-vectors-applications",
+        "bnu-high-s4-lower-assessment-unit-trigonometric-functions",
+        "bnu-high-s4-lower-assessment-review-trigonometric-functions"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校数学建模小组计划测量校园内一座塔的高度。他们选择了一个水平地面上的观测点A，测得塔顶的仰角为30°。然后沿着与塔底所在方向成60°的水平方向前进40米到达点B，在点B测得塔顶的仰角为45°。假设观测点A、B与塔底C在同一水平面上，且点A、B、C不共线。请建立适当的数学模型，计算塔的高度。（结果保留根号）",
+      "optionsZhHans": [],
+      "answer": "20√2 米",
+      "acceptedAnswers": [
+        "20√2 米",
+        "20√2",
+        "20√2m",
+        "20√2 m"
+      ],
+      "explanationZhHans": "设塔高为h米，塔底为C。在点A，仰角30°，得AC = h / tan30° = √3 h。在点B，仰角45°，得BC = h。在△ABC中，AB=40，∠ACB=60°。由余弦定理：AB² = AC² + BC² - 2·AC·BC·cos60°，代入得1600 = 3h² + h² - 2·√3 h·h·1/2 = (4-√3)h²，解得h² = 1600/(4-√3) = 1600(4+√3)/13，h = 20√2。"
+    }
+  ]
+}

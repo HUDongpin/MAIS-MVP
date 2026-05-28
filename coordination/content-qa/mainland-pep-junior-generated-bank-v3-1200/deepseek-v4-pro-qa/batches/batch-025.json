@@ -1,0 +1,137 @@
+{
+  "batchNumber": 25,
+  "startedAt": "2026-05-25T02:53:42.749Z",
+  "completedAt": "2026-05-25T02:53:57.884Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s1-k04-sa-022",
+    "pep-junior-v3-s1-k04-sa-023",
+    "pep-junior-v3-s1-k04-sa-024",
+    "pep-junior-v3-s1-k04-sa-025",
+    "pep-junior-v3-s1-k04-sa-026",
+    "pep-junior-v3-s1-k04-sa-027",
+    "pep-junior-v3-s1-k04-sa-028",
+    "pep-junior-v3-s1-k04-sa-029",
+    "pep-junior-v3-s1-k04-sa-030",
+    "pep-junior-v3-s1-k04-sa-031",
+    "pep-junior-v3-s1-k04-sa-032",
+    "pep-junior-v3-s1-k04-sa-033"
+  ],
+  "usage": {
+    "prompt_tokens": 3031,
+    "completion_tokens": 968,
+    "total_tokens": 3999,
+    "prompt_tokens_details": {
+      "cached_tokens": 2944
+    },
+    "prompt_cache_hit_tokens": 2944,
+    "prompt_cache_miss_tokens": 87
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s1-k04-sa-022",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，比较√37与6，答案√37>6，解释合理。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-sa-023",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平行线同旁内角互补，计算正确，答案115°。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-sa-024",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "关于x轴、y轴对称坐标变换正确，答案(3,-5)。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-sa-025",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "x轴上点纵坐标为0，解得a=-3，正确。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-sa-026",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移坐标变化正确，答案(-1,4)。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-sa-027",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "第二象限坐标符号及距离定义正确，答案(-2,4)。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-sa-028",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "纵坐标相同，长度等于横坐标差的绝对值，计算正确。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-sa-029",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "点到原点距离公式应用正确，答案5。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-sa-030",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "直角三角形面积计算正确，答案6。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-sa-031",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移后坐标及条件应用正确，解得a=-2,b=2。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-sa-032",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "象限判断正确，横正纵负为第四象限。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-sa-033",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "距离计算正确，d1=3,d2=4，比较结果d1<d2。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部12道题数学正确，答案与解释一致，无歧义，适合人教版初中数学。"
+    }
+  }
+}

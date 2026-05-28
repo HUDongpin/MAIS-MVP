@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-108",
+  "startedAt": "2026-05-28T01:00:56.295Z",
+  "completedAt": "2026-05-28T01:01:02.848Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-108"
+  ],
+  "usage": {
+    "prompt_tokens": 2437,
+    "completion_tokens": 280,
+    "total_tokens": 2717,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2053
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-108",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "[-1-√7, -1+√7]",
+        "correctedAnswer": "[-1-√7, -1+√7]",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，独立求解得 x∈[-1-√7, -1+√7]。存储答案 [-2,3] 错误，解析中正确解得 -1-√7≤x≤-1+√7 却得出 [-2,3]，自相矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "答案错误，解析矛盾，判定为 blocker。"
+    }
+  }
+}

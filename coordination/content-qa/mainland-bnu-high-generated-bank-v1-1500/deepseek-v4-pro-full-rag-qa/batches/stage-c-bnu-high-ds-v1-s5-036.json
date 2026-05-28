@@ -1,0 +1,48 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-036",
+  "startedAt": "2026-05-28T02:02:41.208Z",
+  "completedAt": "2026-05-28T02:02:46.135Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-036"
+  ],
+  "usage": {
+    "prompt_tokens": 2860,
+    "completion_tokens": 319,
+    "total_tokens": 3179,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2476
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-036",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": null,
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目无解：圆C圆心(1,-2)半径2，点P(2,-1)在圆内。设直线l:y+1=k(x-2)，与圆联立得中点横坐标(1-k+2k²)/(1+k²)=0，即2k²-k+1=0，判别式Δ=-7<0，无实根；斜率不存在时x=2中点横坐标2≠0。故不存在满足条件的直线。存储答案x+y-1=0或x-y-3=0错误，解析中韦达定理计算有误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目条件矛盾，无解，存储答案错误，判定为blocker。"
+    }
+  }
+}

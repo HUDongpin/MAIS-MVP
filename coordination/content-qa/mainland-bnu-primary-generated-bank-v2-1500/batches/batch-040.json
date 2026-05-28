@@ -1,0 +1,564 @@
+{
+  "batchId": "batch-040",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p2-141",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-division-strengthening",
+      "unitTitle": "除法",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "division-facts",
+        "remainder-intuition",
+        "division-application",
+        "除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "表内除法",
+        "余数直观",
+        "解决问题",
+        "乘除互逆"
+      ],
+      "misconceptionTags": [
+        "leftover ignored",
+        "quotient unit unclear",
+        "multiplication check mismatched to divisor"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-division-strengthening"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-division-strengthening",
+        "bnu-primary-p2-lower-assessment-direction-position"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "有22个苹果，每5个装一盒，可以装满几盒？还剩几个苹果？请写出算式和答案。",
+      "optionsZhHans": [],
+      "answer": "22÷5=4（盒）……2（个）",
+      "acceptedAnswers": [
+        "22÷5=4（盒）……2（个）",
+        "22÷5=4盒……2个",
+        "22÷5=4（盒）余2（个）"
+      ],
+      "explanationZhHans": "22个苹果，每5个一份，求份数用除法。22÷5，想5的乘法口诀，四五二十，商4，22-20=2，余数2。所以装满4盒，剩2个。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-142",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-division-strengthening",
+      "unitTitle": "除法",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "division-facts",
+        "remainder-intuition",
+        "division-application",
+        "除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "表内除法",
+        "余数直观",
+        "解决问题",
+        "乘除互逆"
+      ],
+      "misconceptionTags": [
+        "leftover ignored",
+        "quotient unit unclear",
+        "multiplication check mismatched to divisor"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-division-strengthening"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-division-strengthening",
+        "bnu-primary-p2-lower-assessment-direction-position"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "有27颗糖果，平均分给4个小朋友，每人分到几颗？还剩几颗？",
+      "optionsZhHans": [
+        "每人6颗，剩3颗",
+        "每人5颗，剩7颗",
+        "每人7颗，剩1颗",
+        "每人6颗，剩1颗"
+      ],
+      "answer": "每人6颗，剩3颗",
+      "acceptedAnswers": [
+        "每人6颗，剩3颗"
+      ],
+      "explanationZhHans": "27÷4，想4的乘法口诀，四六二十四，商6，27-24=3，余数3。所以每人分6颗，剩3颗。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-143",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-division-strengthening",
+      "unitTitle": "除法",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "division-facts",
+        "remainder-intuition",
+        "division-application",
+        "除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "表内除法",
+        "余数直观",
+        "解决问题",
+        "乘除互逆"
+      ],
+      "misconceptionTags": [
+        "leftover ignored",
+        "quotient unit unclear",
+        "multiplication check mismatched to divisor"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-division-strengthening"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-division-strengthening",
+        "bnu-primary-p2-lower-assessment-direction-position"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把18支铅笔平均分给5个同学，每人分到____支，还剩____支。",
+      "optionsZhHans": [],
+      "answer": "3，3",
+      "acceptedAnswers": [
+        "3，3",
+        "3支，3支",
+        "3,3"
+      ],
+      "explanationZhHans": "18÷5，三五十五，商3，18-15=3，余数3。所以每人3支，剩3支。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-144",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-division-strengthening",
+      "unitTitle": "除法",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "division-facts",
+        "remainder-intuition",
+        "division-application",
+        "除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "表内除法",
+        "余数直观",
+        "解决问题",
+        "乘除互逆"
+      ],
+      "misconceptionTags": [
+        "leftover ignored",
+        "quotient unit unclear",
+        "multiplication check mismatched to divisor"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-division-strengthening"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-division-strengthening",
+        "bnu-primary-p2-lower-assessment-direction-position"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "有13条金鱼，每个鱼缸放4条，需要几个鱼缸？还剩几条金鱼？",
+      "optionsZhHans": [],
+      "answer": "3个鱼缸，剩1条",
+      "acceptedAnswers": [
+        "3个鱼缸，剩1条",
+        "3个，剩1条",
+        "3个鱼缸，1条"
+      ],
+      "explanationZhHans": "13÷4，三四十二，商3，13-12=1，余数1。所以需要3个鱼缸，剩1条金鱼。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-145",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-division-strengthening",
+      "unitTitle": "除法",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "division-facts",
+        "remainder-intuition",
+        "division-application",
+        "除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "表内除法",
+        "余数直观",
+        "解决问题",
+        "乘除互逆"
+      ],
+      "misconceptionTags": [
+        "leftover ignored",
+        "quotient unit unclear",
+        "multiplication check mismatched to divisor"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-division-strengthening"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-division-strengthening",
+        "bnu-primary-p2-lower-assessment-direction-position"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "有35块饼干，每8块装一袋，可以装满几袋？还剩几块？",
+      "optionsZhHans": [
+        "4袋，剩3块",
+        "3袋，剩11块",
+        "4袋，剩5块",
+        "5袋，剩1块"
+      ],
+      "answer": "4袋，剩3块",
+      "acceptedAnswers": [
+        "4袋，剩3块"
+      ],
+      "explanationZhHans": "35÷8，四八三十二，商4，35-32=3，余数3。所以装满4袋，剩3块。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-146",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-division-strengthening",
+      "unitTitle": "除法",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "division-facts",
+        "remainder-intuition",
+        "division-application",
+        "除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "表内除法",
+        "余数直观",
+        "解决问题",
+        "乘除互逆"
+      ],
+      "misconceptionTags": [
+        "leftover ignored",
+        "quotient unit unclear",
+        "multiplication check mismatched to divisor"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-division-strengthening"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-division-strengthening",
+        "bnu-primary-p2-lower-assessment-direction-position"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "有29个气球，每6个扎成一束，可以扎成____束，还剩____个气球。",
+      "optionsZhHans": [],
+      "answer": "4，5",
+      "acceptedAnswers": [
+        "4，5",
+        "4束，5个",
+        "4,5"
+      ],
+      "explanationZhHans": "29÷6，四六二十四，商4，29-24=5，余数5。所以扎成4束，剩5个气球。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-147",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-division-strengthening",
+      "unitTitle": "除法",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "division-facts",
+        "remainder-intuition",
+        "division-application",
+        "除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "表内除法",
+        "余数直观",
+        "解决问题",
+        "乘除互逆"
+      ],
+      "misconceptionTags": [
+        "leftover ignored",
+        "quotient unit unclear",
+        "multiplication check mismatched to divisor"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-division-strengthening"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-division-strengthening",
+        "bnu-primary-p2-lower-assessment-direction-position"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "有40本故事书，平均分给7个班，每个班分到几本？还剩几本？请写出算式和答案。",
+      "optionsZhHans": [],
+      "answer": "40÷7=5（本）……5（本）",
+      "acceptedAnswers": [
+        "40÷7=5（本）……5（本）",
+        "40÷7=5本……5本",
+        "40÷7=5（本）余5（本）"
+      ],
+      "explanationZhHans": "40÷7，五七三十五，商5，40-35=5，余数5。所以每个班分5本，剩5本。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-148",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-division-strengthening",
+      "unitTitle": "除法",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "division-facts",
+        "remainder-intuition",
+        "division-application",
+        "除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "表内除法",
+        "余数直观",
+        "解决问题",
+        "乘除互逆"
+      ],
+      "misconceptionTags": [
+        "leftover ignored",
+        "quotient unit unclear",
+        "multiplication check mismatched to divisor"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-division-strengthening"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-division-strengthening",
+        "bnu-primary-p2-lower-assessment-direction-position"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "有31个乒乓球，每9个装一盒，可以装满几盒？还剩几个？",
+      "optionsZhHans": [
+        "3盒，剩4个",
+        "2盒，剩13个",
+        "4盒，剩5个",
+        "3盒，剩5个"
+      ],
+      "answer": "3盒，剩4个",
+      "acceptedAnswers": [
+        "3盒，剩4个"
+      ],
+      "explanationZhHans": "31÷9，三九二十七，商3，31-27=4，余数4。所以装满3盒，剩4个。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-149",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-division-strengthening",
+      "unitTitle": "除法",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "division-facts",
+        "remainder-intuition",
+        "division-application",
+        "除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "表内除法",
+        "余数直观",
+        "解决问题",
+        "乘除互逆"
+      ],
+      "misconceptionTags": [
+        "leftover ignored",
+        "quotient unit unclear",
+        "multiplication check mismatched to divisor"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-division-strengthening"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-division-strengthening",
+        "bnu-primary-p2-lower-assessment-direction-position"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "有23个桃子，每7个放一盘，可以放满____盘，还剩____个桃子。",
+      "optionsZhHans": [],
+      "answer": "3，2",
+      "acceptedAnswers": [
+        "3，2",
+        "3盘，2个",
+        "3,2"
+      ],
+      "explanationZhHans": "23÷7，三七二十一，商3，23-21=2，余数2。所以放满3盘，剩2个。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-150",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-division-strengthening",
+      "unitTitle": "除法",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "division-facts",
+        "remainder-intuition",
+        "division-application",
+        "除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "表内除法",
+        "余数直观",
+        "解决问题",
+        "乘除互逆"
+      ],
+      "misconceptionTags": [
+        "leftover ignored",
+        "quotient unit unclear",
+        "multiplication check mismatched to divisor"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-division-strengthening"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-division-strengthening",
+        "bnu-primary-p2-lower-assessment-direction-position"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "有14个小朋友坐船，每条船坐3人，需要几条船？还剩几个小朋友没上船？",
+      "optionsZhHans": [],
+      "answer": "4条船，剩2个",
+      "acceptedAnswers": [
+        "4条船，剩2个",
+        "4条，剩2个",
+        "4条船，2个"
+      ],
+      "explanationZhHans": "14÷3，三四十二，商4，14-12=2，余数2。所以需要4条船，剩2个小朋友。"
+    }
+  ]
+}

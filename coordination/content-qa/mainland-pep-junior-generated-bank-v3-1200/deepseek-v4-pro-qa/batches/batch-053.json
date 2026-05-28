@@ -1,0 +1,137 @@
+{
+  "batchNumber": 53,
+  "startedAt": "2026-05-25T03:03:37.366Z",
+  "completedAt": "2026-05-25T03:03:55.588Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s2-k08-mc-025",
+    "pep-junior-v3-s2-k08-mc-026",
+    "pep-junior-v3-s2-k08-mc-027",
+    "pep-junior-v3-s2-k08-mc-028",
+    "pep-junior-v3-s2-k08-mc-029",
+    "pep-junior-v3-s2-k08-mc-030",
+    "pep-junior-v3-s2-k08-mc-031",
+    "pep-junior-v3-s2-k08-mc-032",
+    "pep-junior-v3-s2-k08-mc-033",
+    "pep-junior-v3-s2-k08-fi-001",
+    "pep-junior-v3-s2-k08-fi-002",
+    "pep-junior-v3-s2-k08-fi-003"
+  ],
+  "usage": {
+    "prompt_tokens": 3302,
+    "completion_tokens": 1064,
+    "total_tokens": 4366,
+    "prompt_tokens_details": {
+      "cached_tokens": 3200
+    },
+    "prompt_cache_hit_tokens": 3200,
+    "prompt_cache_miss_tokens": 102
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s2-k08-mc-025",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，平行四边形对角相等，∠D=∠B=130°，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-mc-026",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "矩形对角线相等且互相平分，BO=AC/2=5，答案正确。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-mc-027",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "菱形对角线互相垂直，矩形不一定，选项区分明确，答案正确。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-mc-028",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "一组对边平行且相等可判定平行四边形，选项D正确，其他选项反例合理。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-mc-029",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "正方形对角线长=√(2²+2²)=2√2，答案正确。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-mc-030",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "40人偶数，中位数为第20、21个数据的平均数，均在80分组，答案80分正确。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-mc-031",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "9²+12²=15²，满足勾股定理逆定理，∠A对边BC为斜边，故∠A=90°，答案正确。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-mc-032",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平行四边形邻角互补，∠A-∠B=40°，解得∠A=110°，对角相等∠C=110°，答案正确。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-mc-033",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "√27=3√3，与√3同类，其他选项化简后被开方数不同，答案正确。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-fi-001",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "斜边13cm，面积法得高=60/13，答案正确，acceptedAnswers包含分数、带分数和小数形式，合理。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-fi-002",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平行四边形面积=底×高，高=AD·sin60°=3√3，面积=24√3，答案正确。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-fi-003",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "化简后计算得1，答案正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均通过审核，数学正确，答案与解释一致，无歧义或错误。"
+    }
+  }
+}

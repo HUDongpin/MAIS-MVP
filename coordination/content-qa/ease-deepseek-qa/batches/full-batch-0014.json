@@ -1,0 +1,168 @@
+{
+  "scope": "full",
+  "batchIndex": 14,
+  "startedAt": "2026-05-28T03:27:12.254Z",
+  "completedAt": "2026-05-28T03:28:10.391Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "itemIds": [
+    "10445",
+    "10446",
+    "10447",
+    "10448",
+    "10381",
+    "10449",
+    "10450",
+    "10451",
+    "10452",
+    "10453"
+  ],
+  "usage": {
+    "prompt_tokens": 2814,
+    "completion_tokens": 3951,
+    "total_tokens": 6765,
+    "prompt_tokens_details": {
+      "cached_tokens": 2688
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 2687
+    },
+    "prompt_cache_hit_tokens": 2688,
+    "prompt_cache_miss_tokens": 126
+  },
+  "finishReason": "stop",
+  "jsonModeFallback": false,
+  "result": {
+    "items": [
+      {
+        "questionId": "10445",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "2, 23, 31, 97",
+        "independentAnswer": "2, 23, 31, 97",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "The question is solvable and the answer key correctly lists the primes.",
+        "recommendedAction": "none"
+      },
+      {
+        "questionId": "10446",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "20",
+        "independentAnswer": "20",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Question is clear; 20 is the largest composite ≤20.",
+        "recommendedAction": "none"
+      },
+      {
+        "questionId": "10447",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "2 ； 偶",
+        "independentAnswer": "2 ； 偶",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Smallest prime is 2 and it is the only even prime.",
+        "recommendedAction": "none"
+      },
+      {
+        "questionId": "10448",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "4 種",
+        "independentAnswer": "5 種: 3, 5, 6, 10, 15",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "mismatch",
+        "severity": "P0",
+        "reason": "The possible numbers of students are 3,5,6,10,15, giving 5 ways, not 4. Standard answer is incorrect.",
+        "recommendedAction": "Correct answer to 5 ways and list the student counts."
+      },
+      {
+        "questionId": "10381",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": "B",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "No answer key provided; the question is solvable and the correct answer is B (4,8).",
+        "recommendedAction": "Provide the answer key as B or the pair 4,8."
+      },
+      {
+        "questionId": "10449",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "1, 2, 3, 6",
+        "independentAnswer": "1, 2, 3, 6",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "The common factors of 12 and 18 are correctly listed.",
+        "recommendedAction": "none"
+      },
+      {
+        "questionId": "10450",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "12",
+        "independentAnswer": "12",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "HCF of 24 and 36 is correctly computed as 12.",
+        "recommendedAction": "none"
+      },
+      {
+        "questionId": "10451",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "代表這兩個數除了 1 以外沒有其他的公因數。",
+        "independentAnswer": "代表這兩數互質，除了1外無其他公因數。",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "The explanation that HCF=1 means no other common factors matches the expected concept.",
+        "recommendedAction": "none"
+      },
+      {
+        "questionId": "10452",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "24, 48",
+        "independentAnswer": "24, 48",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Common multiples of 6 and 8 under 50 are correctly identified.",
+        "recommendedAction": "none"
+      },
+      {
+        "questionId": "10453",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "36",
+        "independentAnswer": "36",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "LCM of 9 and 12 is 36, as provided.",
+        "recommendedAction": "none"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "unsolvable": 0,
+      "ambiguous": 0,
+      "imageContextRequired": 0,
+      "answerMismatch": 1,
+      "missingAnswerKey": 1,
+      "notes": "One item (10448) has an incorrect standard answer: should be 5 ways. One item (10381) is missing the answer key; it appears to be an MCQ with correct answer B."
+    }
+  }
+}

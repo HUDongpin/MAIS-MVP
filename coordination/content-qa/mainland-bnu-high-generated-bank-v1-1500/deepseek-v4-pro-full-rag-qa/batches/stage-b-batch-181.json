@@ -1,0 +1,134 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-181",
+  "startedAt": "2026-05-28T01:55:50.742Z",
+  "completedAt": "2026-05-28T01:56:03.768Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-441",
+    "bnu-high-ds-v1-s6-442",
+    "bnu-high-ds-v1-s6-443",
+    "bnu-high-ds-v1-s6-444",
+    "bnu-high-ds-v1-s6-445",
+    "bnu-high-ds-v1-s6-446",
+    "bnu-high-ds-v1-s6-447",
+    "bnu-high-ds-v1-s6-448"
+  ],
+  "usage": {
+    "prompt_tokens": 13612,
+    "completion_tokens": 1007,
+    "total_tokens": 14619,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 13228
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-441",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "5",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案为1，但独立解为5。解析中计算正确但最后错误得出a=1，与自身推导矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-442",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "答案和解析均正确，单调递减区间为(-1,1)，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-443",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "答案和解析均正确，最大值为10/3，最小值为2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-444",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "答案和解析均正确，切线方程为y=x-1。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-445",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "ambiguous_mc",
+          "bad_options",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立解得a+b=-6，不在选项中；存储答案-3错误，解析得出a+b=-6却选-3，自相矛盾，且无正确选项。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-446",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "答案和解析均正确，极大值10，极小值-22。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-447",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "答案和解析均正确，k的取值范围为(0,4)。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-448",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "答案和解析均正确，单调递增区间为(1,+∞)，选项唯一。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 0,
+      "fail": 2,
+      "notes": "第1题答案错误，解析自相矛盾；第5题无正确选项，存储答案错误，解析与答案矛盾。其余题目均通过。"
+    }
+  }
+}

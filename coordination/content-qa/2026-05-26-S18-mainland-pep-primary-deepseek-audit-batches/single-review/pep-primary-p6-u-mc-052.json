@@ -1,0 +1,27 @@
+{
+  "startedAt": "2026-05-26T06:19:37.508Z",
+  "completedAt": "2026-05-26T06:19:41.315Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "usage": {
+    "prompt_tokens": 484,
+    "completion_tokens": 127,
+    "total_tokens": 611,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 484
+  },
+  "finishReason": "stop",
+  "result": {
+    "questionId": "pep-primary-p6-u-mc-052",
+    "solvableStatus": "pass",
+    "answerMatchStatus": "pass",
+    "independentAnswer": "(0, 0)",
+    "confidence": "high",
+    "issueType": "option_mismatch",
+    "note": "选项B为(0, 0)，选项A为(0, 0)1，后者明显为录入错误，正确答案(0, 0)对应选项B，题目可解，答案匹配。",
+    "recommendedAction": "fix-question"
+  }
+}

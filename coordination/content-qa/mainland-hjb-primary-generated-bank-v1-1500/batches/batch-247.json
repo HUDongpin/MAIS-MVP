@@ -1,0 +1,301 @@
+{
+  "batchId": "batch-247",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p5-231",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-statistics-review",
+      "unitTitle": "统计表达与综合应用",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "statistical-displays",
+        "line-graphs",
+        "data-comparison",
+        "mixed-review",
+        "统计"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "反思整理"
+      ],
+      "skillTags": [
+        "统计图读取",
+        "数据比较",
+        "趋势描述",
+        "综合应用",
+        "错因检查"
+      ],
+      "misconceptionTags": [
+        "trend inferred from one point only",
+        "vertical scale read incorrectly",
+        "model chosen from keywords rather than quantities"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-statistics-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-data-average-unit",
+        "hjb-primary-p4-lower-assessment-line-statistics"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是某市2024年1月至6月的月平均气温统计表。\n月份：1月 2月 3月 4月 5月 6月\n气温（℃）：2 5 10 9 22 28\n根据表中数据，下列说法正确的是（ ）。",
+      "optionsZhHans": [
+        "这六个月的气温一直上升",
+        "3月到4月的气温上升了6℃",
+        "1月到6月的气温上升了26℃",
+        "5月的气温比4月的气温高6℃"
+      ],
+      "answer": "1月到6月的气温上升了26℃",
+      "acceptedAnswers": [
+        "1月到6月的气温上升了26℃"
+      ],
+      "explanationZhHans": "1月气温2℃，6月气温28℃，相差26℃，故C正确。A项：4月气温9℃低于3月10℃，并非一直上升。B项：3月到4月气温下降1℃。D项：5月比4月高13℃。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-232",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-statistics-review",
+      "unitTitle": "统计表达与综合应用",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "statistical-displays",
+        "line-graphs",
+        "data-comparison",
+        "mixed-review",
+        "统计"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "反思整理"
+      ],
+      "skillTags": [
+        "统计图读取",
+        "数据比较",
+        "趋势描述",
+        "综合应用",
+        "错因检查"
+      ],
+      "misconceptionTags": [
+        "trend inferred from one point only",
+        "vertical scale read incorrectly",
+        "model chosen from keywords rather than quantities"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-statistics-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-data-average-unit",
+        "hjb-primary-p4-lower-assessment-line-statistics"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是某商店2024年1月至6月的月销售量统计表。\n月份：1月 2月 3月 4月 5月 6月\n销售量（件）：120 150 180 160 200 220\n从表中可以看出，销售量最高的月份是______月，销售量是______件。",
+      "optionsZhHans": [],
+      "answer": "6,220",
+      "acceptedAnswers": [
+        "6,220",
+        "6 220",
+        "六月,220",
+        "6月,220"
+      ],
+      "explanationZhHans": "比较各月销售量：120、150、180、160、200、220，最大值为220，对应6月。所以最高月份是6月，销售量220件。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-233",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-statistics-review",
+      "unitTitle": "统计表达与综合应用",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "statistical-displays",
+        "line-graphs",
+        "data-comparison",
+        "mixed-review",
+        "统计"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "反思整理"
+      ],
+      "skillTags": [
+        "统计图读取",
+        "数据比较",
+        "趋势描述",
+        "综合应用",
+        "错因检查"
+      ],
+      "misconceptionTags": [
+        "trend inferred from one point only",
+        "vertical scale read incorrectly",
+        "model chosen from keywords rather than quantities"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-statistics-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-data-average-unit",
+        "hjb-primary-p4-lower-assessment-line-statistics"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是某地2024年1月至6月的月降水量统计表。\n月份：1月 2月 3月 4月 5月 6月\n降水量（毫米）：30 45 60 55 80 95\n根据表中数据，下列说法正确的是（ ）。",
+      "optionsZhHans": [
+        "这六个月的降水量一直上升",
+        "3月到4月的降水量上升了5毫米",
+        "1月到6月的降水量上升了60毫米",
+        "5月的降水量比4月的降水量高25毫米"
+      ],
+      "answer": "5月的降水量比4月的降水量高25毫米",
+      "acceptedAnswers": [
+        "5月的降水量比4月的降水量高25毫米"
+      ],
+      "explanationZhHans": "5月降水量80毫米，4月55毫米，相差25毫米，故D正确。A项：4月降水量低于3月，并非一直上升。B项：3月到4月下降5毫米。C项：1月到6月上升65毫米，不是60毫米。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-234",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-statistics-review",
+      "unitTitle": "统计表达与综合应用",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "statistical-displays",
+        "line-graphs",
+        "data-comparison",
+        "mixed-review",
+        "统计"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "反思整理"
+      ],
+      "skillTags": [
+        "统计图读取",
+        "数据比较",
+        "趋势描述",
+        "综合应用",
+        "错因检查"
+      ],
+      "misconceptionTags": [
+        "trend inferred from one point only",
+        "vertical scale read incorrectly",
+        "model chosen from keywords rather than quantities"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-statistics-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-data-average-unit",
+        "hjb-primary-p4-lower-assessment-line-statistics"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是某小学五年级一班和二班2024年1月至6月的月借书量统计表。\n月份：1月 2月 3月 4月 5月 6月\n一班借书量（本）：35 40 50 45 55 60\n二班借书量（本）：30 35 45 50 55 65\n从表中可以看出，一班借书量最高的月份是______月，借书______本；二班借书量最低的月份是______月，借书______本。",
+      "optionsZhHans": [],
+      "answer": "6,60,1,30",
+      "acceptedAnswers": [
+        "6,60,1,30",
+        "6 60 1 30",
+        "六月,60,一月,30",
+        "6月,60,1月,30"
+      ],
+      "explanationZhHans": "一班：35,40,50,45,55,60，最高60在6月。二班：30,35,45,50,55,65，最低30在1月。所以依次填6,60,1,30。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-235",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-statistics-review",
+      "unitTitle": "统计表达与综合应用",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "statistical-displays",
+        "line-graphs",
+        "data-comparison",
+        "mixed-review",
+        "统计"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "反思整理"
+      ],
+      "skillTags": [
+        "统计图读取",
+        "数据比较",
+        "趋势描述",
+        "综合应用",
+        "错因检查"
+      ],
+      "misconceptionTags": [
+        "trend inferred from one point only",
+        "vertical scale read incorrectly",
+        "model chosen from keywords rather than quantities"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-statistics-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-data-average-unit",
+        "hjb-primary-p4-lower-assessment-line-statistics"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是某市2024年1月至6月的月平均气温统计表。\n月份：1月 2月 3月 4月 5月 6月\n气温（℃）：3 6 11 10 23 30\n根据表中数据，下列说法正确的是（ ）。",
+      "optionsZhHans": [
+        "这六个月的气温一直上升",
+        "3月到4月的气温上升了1℃",
+        "1月到6月的气温上升了26℃",
+        "5月的气温比4月的气温高13℃"
+      ],
+      "answer": "5月的气温比4月的气温高13℃",
+      "acceptedAnswers": [
+        "5月的气温比4月的气温高13℃"
+      ],
+      "explanationZhHans": "5月气温23℃，4月10℃，相差13℃，故D正确。A项：4月气温低于3月，并非一直上升。B项：3月到4月下降1℃。C项：1月到6月上升27℃，不是26℃。"
+    }
+  ]
+}

@@ -1,0 +1,142 @@
+{
+  "batchNumber": 115,
+  "startedAt": "2026-05-27T14:03:16.899Z",
+  "completedAt": "2026-05-27T14:03:36.646Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-413",
+    "bnu-high-ds-v1-s5-414",
+    "bnu-high-ds-v1-s5-415",
+    "bnu-high-ds-v1-s5-416",
+    "bnu-high-ds-v1-s5-417",
+    "bnu-high-ds-v1-s5-418",
+    "bnu-high-ds-v1-s5-419",
+    "bnu-high-ds-v1-s5-420"
+  ],
+  "usage": {
+    "prompt_tokens": 10462,
+    "completion_tokens": 1287,
+    "total_tokens": 11749,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 9950
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-413",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "X~B(5,0.6)，P(X=k)=C(5,k)(0.6)^k(0.4)^(5-k)，k=0,1,2,3,4,5",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件明确，独立射击5次，命中概率0.6，X为命中次数，服从二项分布B(5,0.6)，分布列可直接写出。答案与解析一致，无问题。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-414",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0.5",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "正态分布N(2,9)均值为2，由对称性P(X<2)=0.5。答案0.5正确，解析合理。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-415",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "1/2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "密码被译出概率=1-(1-1/3)(1-1/4)=1-2/3*3/4=1/2。选项A为1/2，唯一正确。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-416",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "109/225",
+        "correctedAnswer": "109/225",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立计算得第二次取2新球概率为109/225≈0.4844，而答案给出0.36错误。解析中计算过程正确但最终结果与答案矛盾，且答案错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-417",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "无解",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "由分布列和为1得a=0.4，但此时E(X)=2.3≠2.5，条件矛盾，题目无解。答案0.4错误，解析指出矛盾但未修正。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-418",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2.1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "二项分布方差D(X)=np(1-p)=10*0.3*0.7=2.1。选项A正确，解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-419",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0.6827",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "正态分布N(170,25)，σ=5，区间[165,175]为μ±σ，概率约0.6827。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-420",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "3/10",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "从5个数字取2个，较大数为4时，较小数从1,2,3选，共3种，总样本10种，概率3/10。答案与解析正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 0,
+      "fail": 2,
+      "notes": "8题中6题通过，2题失败：bnu-high-ds-v1-s5-416答案错误，bnu-high-ds-v1-s5-417条件矛盾无解。"
+    }
+  }
+}

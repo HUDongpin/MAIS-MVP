@@ -1,0 +1,110 @@
+{
+  "batchId": "model-qa-0143",
+  "ids": [
+    "hjb-junior-ds-v2-s3-137",
+    "hjb-junior-ds-v2-s3-138",
+    "hjb-junior-ds-v2-s3-139",
+    "hjb-junior-ds-v2-s3-140",
+    "hjb-junior-ds-v2-s3-141",
+    "hjb-junior-ds-v2-s3-142",
+    "hjb-junior-ds-v2-s3-143",
+    "hjb-junior-ds-v2-s3-144"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-137",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "10.0米",
+      "answerCheckZhHans": "标准答案10.0米与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-138",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题干未提供tan35°的参考值，解析中使用tan35°≈0.7002，但标准答案9.9米与使用常见近似值0.700计算的结果10.0米不一致。若使用0.700，则高度为1.5+12×0.700=9.9米，但0.7002并非标准近似值，且题干未指定，导致答案不确定。",
+      "independentAnswerZhHans": "若tan35°≈0.700，则高度=1.5+12×0.700=9.9米；若使用更精确值，结果可能不同。题干未提供参考数据，无法唯一确定。",
+      "answerCheckZhHans": "标准答案9.9米与解析中使用0.7002一致，但题干未提供该值，且常见教材中tan35°≈0.700，此时结果应为9.9米，但解析中0.7002的来源不明，存在矛盾。",
+      "recommendedActionZhHans": "建议在题干中明确给出tan35°的参考值，或统一使用0.700，并调整答案。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-139",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch",
+        "missing-condition"
+      ],
+      "issueDetailsZhHans": "题干中给出tanα=0.75，但未明确α是哪个角。解析中假设在Rt△AOC中tanα=h/12，但α是点B处的仰角，并非点A处的角。解析中混淆了角度，且使用了两种方法，但第一种方法错误地使用了tanα。正确解法应利用点B处的仰角α和距离OB。此外，解析中称∠OBC=30°，但题干中未给出该条件，应为∠OAC=30°。条件矛盾，无法唯一求解。",
+      "independentAnswerZhHans": "无法确定，因为条件矛盾。若点A处仰角30°，则h=OA·tan30°=24×√3/3≈13.86米；若点B处仰角α满足tanα=0.75，则h=OB·tanα，OB=√(24²+10²)=26米，h=26×0.75=19.5米。两者不一致，故题目条件矛盾。",
+      "answerCheckZhHans": "标准答案9.0米与独立计算不符，解析中存在错误。",
+      "recommendedActionZhHans": "建议修正题干条件，确保唯一可解，并更正解析。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-140",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "10.0米",
+      "answerCheckZhHans": "标准答案10.0米与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-141",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "6",
+      "answerCheckZhHans": "标准答案6与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-142",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3/4",
+      "answerCheckZhHans": "标准答案3/4与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-143",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "6",
+      "answerCheckZhHans": "标准答案6与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-144",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "12/13",
+      "answerCheckZhHans": "标准答案12/13与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

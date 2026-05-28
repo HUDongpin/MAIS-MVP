@@ -1,0 +1,305 @@
+{
+  "batchId": "batch-159",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p4-041",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-large-numbers-measurement",
+      "unitTitle": "数与量",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "large-numbers",
+        "rounding",
+        "area-units",
+        "mass-capacity-units",
+        "大数",
+        "四舍五入"
+      ],
+      "competencyTags": [
+        "数感",
+        "量感",
+        "符号意识"
+      ],
+      "skillTags": [
+        "大数读写",
+        "数位顺序",
+        "四舍五入",
+        "平方千米",
+        "吨",
+        "毫升",
+        "升"
+      ],
+      "misconceptionTags": [
+        "zeros skipped when reading large numbers",
+        "rounding place confused with retained digits",
+        "unit conversion treated as digit decoration"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-large-numbers-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-large-numbers-measurement",
+        "hjb-primary-p4-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个数由5个千万、8个十万、3个万和6个千组成，这个数写作（    ），读作（    ）。",
+      "optionsZhHans": [],
+      "answer": "50836000，五千零八十三万六千",
+      "acceptedAnswers": [
+        "50836000，五千零八十三万六千"
+      ],
+      "explanationZhHans": "5个千万是50000000，8个十万是800000，3个万是30000，6个千是6000，合起来是50836000。读时从高位读起，万级按个级读法加“万”字，每级末尾的零不读，中间连续几个零只读一个零，所以读作五千零八十三万六千。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-042",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-large-numbers-measurement",
+      "unitTitle": "数与量",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "large-numbers",
+        "rounding",
+        "area-units",
+        "mass-capacity-units",
+        "大数",
+        "四舍五入"
+      ],
+      "competencyTags": [
+        "数感",
+        "量感",
+        "符号意识"
+      ],
+      "skillTags": [
+        "大数读写",
+        "数位顺序",
+        "四舍五入",
+        "平方千米",
+        "吨",
+        "毫升",
+        "升"
+      ],
+      "misconceptionTags": [
+        "zeros skipped when reading large numbers",
+        "rounding place confused with retained digits",
+        "unit conversion treated as digit decoration"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-large-numbers-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-large-numbers-measurement",
+        "hjb-primary-p4-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把下面各数四舍五入到万位。\n（1）306490≈______\n（2）799500≈______",
+      "optionsZhHans": [],
+      "answer": "（1）31万 （2）80万",
+      "acceptedAnswers": [
+        "（1）31万 （2）80万",
+        "31万，80万",
+        "31万 80万"
+      ],
+      "explanationZhHans": "四舍五入到万位，看千位数字。306490千位是6，大于等于5，向万位进1，万位0变1，后面舍去得31万；799500千位是9，向万位进1，万位9加1满十向十万位进1，得80万。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-043",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-large-numbers-measurement",
+      "unitTitle": "数与量",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "large-numbers",
+        "rounding",
+        "area-units",
+        "mass-capacity-units",
+        "大数",
+        "四舍五入"
+      ],
+      "competencyTags": [
+        "数感",
+        "量感",
+        "符号意识"
+      ],
+      "skillTags": [
+        "大数读写",
+        "数位顺序",
+        "四舍五入",
+        "平方千米",
+        "吨",
+        "毫升",
+        "升"
+      ],
+      "misconceptionTags": [
+        "zeros skipped when reading large numbers",
+        "rounding place confused with retained digits",
+        "unit conversion treated as digit decoration"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-large-numbers-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-large-numbers-measurement",
+        "hjb-primary-p4-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个数最接近80万？",
+      "optionsZhHans": [
+        "A. 799000",
+        "B. 800010",
+        "C. 795000",
+        "D. 805000"
+      ],
+      "answer": "B. 800010",
+      "acceptedAnswers": [
+        "B. 800010"
+      ],
+      "explanationZhHans": "分别计算各数与80万的差：799000差1000，800010差10，795000差5000，805000差5000。800010与80万只差10，最接近。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-044",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-large-numbers-measurement",
+      "unitTitle": "数与量",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "large-numbers",
+        "rounding",
+        "area-units",
+        "mass-capacity-units",
+        "大数",
+        "四舍五入"
+      ],
+      "competencyTags": [
+        "数感",
+        "量感",
+        "符号意识"
+      ],
+      "skillTags": [
+        "大数读写",
+        "数位顺序",
+        "四舍五入",
+        "平方千米",
+        "吨",
+        "毫升",
+        "升"
+      ],
+      "misconceptionTags": [
+        "zeros skipped when reading large numbers",
+        "rounding place confused with retained digits",
+        "unit conversion treated as digit decoration"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-large-numbers-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-large-numbers-measurement",
+        "hjb-primary-p4-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在括号里填上合适的单位。\n（1）一个标准足球场的面积约是7000（    ）。\n（2）一瓶矿泉水的容量约是550（    ）。\n（3）一头大象的体重约是5（    ）。",
+      "optionsZhHans": [],
+      "answer": "（1）平方米 （2）毫升 （3）吨",
+      "acceptedAnswers": [
+        "（1）平方米 （2）毫升 （3）吨",
+        "平方米，毫升，吨",
+        "平方米 毫升 吨"
+      ],
+      "explanationZhHans": "足球场面积较大，用平方米合适；矿泉水瓶容量较小，用毫升；大象体重很重，用吨。注意联系实际，不能只看数字。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-045",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-large-numbers-measurement",
+      "unitTitle": "数与量",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "large-numbers",
+        "rounding",
+        "area-units",
+        "mass-capacity-units",
+        "大数",
+        "四舍五入"
+      ],
+      "competencyTags": [
+        "数感",
+        "量感",
+        "符号意识"
+      ],
+      "skillTags": [
+        "大数读写",
+        "数位顺序",
+        "四舍五入",
+        "平方千米",
+        "吨",
+        "毫升",
+        "升"
+      ],
+      "misconceptionTags": [
+        "zeros skipped when reading large numbers",
+        "rounding place confused with retained digits",
+        "unit conversion treated as digit decoration"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-large-numbers-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-large-numbers-measurement",
+        "hjb-primary-p4-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个数省略万位后面的尾数约是5万，这个数最大是（    ），最小是（    ）。",
+      "optionsZhHans": [],
+      "answer": "54999，45000",
+      "acceptedAnswers": [
+        "54999，45000",
+        "54999 45000"
+      ],
+      "explanationZhHans": "四舍五入到万位得5万，千位可以是0～4或5～9。最大时千位是4，后面各位最大为9，即54999；最小时千位是5，后面各位最小为0，即45000。"
+    }
+  ]
+}

@@ -1,0 +1,133 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-066",
+  "startedAt": "2026-05-28T02:00:55.111Z",
+  "completedAt": "2026-05-28T02:01:09.101Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-021",
+    "bnu-high-ds-v1-s5-022",
+    "bnu-high-ds-v1-s5-023",
+    "bnu-high-ds-v1-s5-024",
+    "bnu-high-ds-v1-s5-025",
+    "bnu-high-ds-v1-s5-026",
+    "bnu-high-ds-v1-s5-027",
+    "bnu-high-ds-v1-s5-028"
+  ],
+  "usage": {
+    "prompt_tokens": 12615,
+    "completion_tokens": 1066,
+    "total_tokens": 13681,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 12231
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-021",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，均为x+2y=0；解析正确且无矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-022",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案0或4/3与独立解一致；选项A匹配；解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-023",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案3x+y-5=0与独立解一致；解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-024",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "x - 2y - 3 = 0 或 2x - y - 9 = 0",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案2x+y-11=0错误，独立解得2x-y-9=0；解析中面积公式使用错误，导致结果矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-025",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "correctedAnswer": "-2",
+        "issueTags": [
+          "math_error",
+          "ambiguous_mc",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案-2或3错误，a=3时两直线重合，应舍去；解析未检验重合情况，导致多解；选项C包含错误值。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-026",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，均为(x-3)²+(y-3)²=10；解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-027",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案1/5与独立解一致；解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-028",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案[2,2√2)与独立解一致；选项A匹配；解析正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 0,
+      "fail": 2,
+      "notes": "第024题存储答案错误，应为x-2y-3=0或2x-y-9=0；第025题存储答案多解，a=3应舍去，正确答案为-2。"
+    }
+  }
+}

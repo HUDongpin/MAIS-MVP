@@ -1,0 +1,583 @@
+{
+  "batchId": "batch-084",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p4-081",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-division",
+      "unitTitle": "除法",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "multi-digit-division",
+        "two-digit-divisor",
+        "quotient-estimation",
+        "除法",
+        "除数是两位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "除数是两位数",
+        "试商调商",
+        "有余数除法",
+        "验算",
+        "除法应用"
+      ],
+      "misconceptionTags": [
+        "trial quotient too large or too small without adjustment",
+        "remainder larger than divisor accepted",
+        "context ignored when interpreting the remainder"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-division-unit",
+        "bnu-primary-p4-upper-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "四年级同学准备将896本图书平均分给24个班级。先估计一下，每个班大约能分到多少本？再列竖式计算，并验算。最后回答：每个班实际分到多少本？还剩多少本？",
+      "optionsZhHans": [],
+      "answer": "估计：大约40本。计算：896÷24=37（本）……8（本）。验算：24×37+8=888+8=896。答：每个班实际分到37本，还剩8本。",
+      "acceptedAnswers": [
+        "估计：大约40本。计算：896÷24=37（本）……8（本）。验算：24×37+8=888+8=896。答：每个班实际分到37本，还剩8本。",
+        "估计：约40本。896÷24=37……8。验算：24×37+8=896。答：37本，剩8本。"
+      ],
+      "explanationZhHans": "把896看作880，880÷20=44，或把896看作960，960÷24=40，所以估计约40本。竖式：24×37=888，896-888=8，余数8<24，商37正确。验算用商乘除数加余数等于被除数。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-082",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-division",
+      "unitTitle": "除法",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "multi-digit-division",
+        "two-digit-divisor",
+        "quotient-estimation",
+        "除法",
+        "除数是两位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "除数是两位数",
+        "试商调商",
+        "有余数除法",
+        "验算",
+        "除法应用"
+      ],
+      "misconceptionTags": [
+        "trial quotient too large or too small without adjustment",
+        "remainder larger than divisor accepted",
+        "context ignored when interpreting the remainder"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-division-unit",
+        "bnu-primary-p4-upper-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校组织四年级学生去博物馆参观，共有 318 名学生。每辆大巴车限乘 42 人，至少需要租多少辆大巴车？",
+      "optionsZhHans": [
+        "7 辆",
+        "8 辆",
+        "9 辆",
+        "10 辆"
+      ],
+      "answer": "8 辆",
+      "acceptedAnswers": [
+        "8 辆",
+        "8辆"
+      ],
+      "explanationZhHans": "318 ÷ 42 = 7（辆）…… 34（人）。余下 34 人还需要 1 辆车，所以 7 + 1 = 8 辆。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-083",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-division",
+      "unitTitle": "除法",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "multi-digit-division",
+        "two-digit-divisor",
+        "quotient-estimation",
+        "除法",
+        "除数是两位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "除数是两位数",
+        "试商调商",
+        "有余数除法",
+        "验算",
+        "除法应用"
+      ],
+      "misconceptionTags": [
+        "trial quotient too large or too small without adjustment",
+        "remainder larger than divisor accepted",
+        "context ignored when interpreting the remainder"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-division-unit",
+        "bnu-primary-p4-upper-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆有 672 本新书，要平均分给 24 个班级。每个班级能分到多少本？",
+      "optionsZhHans": [],
+      "answer": "28",
+      "acceptedAnswers": [
+        "28"
+      ],
+      "explanationZhHans": "672÷24，把24看作20试商，商3，24×3=72，67-72不够减，改商2，24×2=48，67-48=19，落下2得192，192÷24商8，24×8=192，正好除尽，商是28。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-084",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-division",
+      "unitTitle": "除法",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "multi-digit-division",
+        "two-digit-divisor",
+        "quotient-estimation",
+        "除法",
+        "除数是两位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "除数是两位数",
+        "试商调商",
+        "有余数除法",
+        "验算",
+        "除法应用"
+      ],
+      "misconceptionTags": [
+        "trial quotient too large or too small without adjustment",
+        "remainder larger than divisor accepted",
+        "context ignored when interpreting the remainder"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-division-unit",
+        "bnu-primary-p4-upper-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆有896本新书，要平均分给24个班级。管理员先估算每个班大约能分到多少本，他说：“每个班大约能分到30本。”请你判断他的估算是否合理，并说明理由。然后列竖式计算每个班实际能分到多少本，还剩多少本。",
+      "optionsZhHans": [],
+      "answer": "估算合理，因为把896看作900，24看作30，900÷30=30，所以大约30本。实际计算：896÷24=37（本）……8（本）。",
+      "acceptedAnswers": [
+        "估算合理，因为把896看作900，24看作30，900÷30=30，所以大约30本。实际计算：896÷24=37（本）……8（本）。",
+        "合理。把896估成900，24估成30，900÷30=30，所以大约30本。竖式：896÷24=37余8。",
+        "估算合理。896≈900，24≈30，900÷30=30，大约30本。896÷24=37本余8本。"
+      ],
+      "explanationZhHans": "估算时把896看作900，24看作30，900÷30=30，所以估算合理。竖式计算：24×37=888，896−888=8，商37余8，余数小于除数，结果正确。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-085",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-division",
+      "unitTitle": "除法",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "multi-digit-division",
+        "two-digit-divisor",
+        "quotient-estimation",
+        "除法",
+        "除数是两位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "除数是两位数",
+        "试商调商",
+        "有余数除法",
+        "验算",
+        "除法应用"
+      ],
+      "misconceptionTags": [
+        "trial quotient too large or too small without adjustment",
+        "remainder larger than divisor accepted",
+        "context ignored when interpreting the remainder"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-division-unit",
+        "bnu-primary-p4-upper-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校把 672 本练习本平均分给 24 个班，每个班能分到多少本？",
+      "optionsZhHans": [
+        "28 本",
+        "26 本",
+        "30 本",
+        "32 本"
+      ],
+      "answer": "28 本",
+      "acceptedAnswers": [
+        "28 本"
+      ],
+      "explanationZhHans": "672 ÷ 24，把 24 看作 20 试商。24×30=720>672，商 30 太大，改商 28。24×28=672，正好分完。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-086",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-division",
+      "unitTitle": "除法",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "multi-digit-division",
+        "two-digit-divisor",
+        "quotient-estimation",
+        "除法",
+        "除数是两位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "除数是两位数",
+        "试商调商",
+        "有余数除法",
+        "验算",
+        "除法应用"
+      ],
+      "misconceptionTags": [
+        "trial quotient too large or too small without adjustment",
+        "remainder larger than divisor accepted",
+        "context ignored when interpreting the remainder"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-division-unit",
+        "bnu-primary-p4-upper-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校买来384本练习本，每24本捆成一包。最多可以捆成多少包？还剩几本？",
+      "optionsZhHans": [],
+      "answer": "16包，还剩0本",
+      "acceptedAnswers": [
+        "16包，还剩0本",
+        "16包",
+        "16包，0本",
+        "16"
+      ],
+      "explanationZhHans": "384÷24，先用24×10=240，384-240=144；再用24×6=144，144-144=0。所以商是16，余数是0。验算：24×16=384，正好分完。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-087",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-division",
+      "unitTitle": "除法",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "multi-digit-division",
+        "two-digit-divisor",
+        "quotient-estimation",
+        "除法",
+        "除数是两位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "除数是两位数",
+        "试商调商",
+        "有余数除法",
+        "验算",
+        "除法应用"
+      ],
+      "misconceptionTags": [
+        "trial quotient too large or too small without adjustment",
+        "remainder larger than divisor accepted",
+        "context ignored when interpreting the remainder"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-division-unit",
+        "bnu-primary-p4-upper-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆新到一批图书，共 798 本。管理员要把这些书平均分给 24 个班级，每个班分到的本数相同。分完后，剩下的书不足 24 本，就留在图书馆作为备用。请你先估一估每个班大约能分到多少本，再列竖式精确计算，最后根据计算结果回答：每个班实际分到多少本？图书馆还剩下多少本？",
+      "optionsZhHans": [],
+      "answer": "每个班实际分到33本，图书馆还剩下6本。",
+      "acceptedAnswers": [
+        "每个班实际分到33本，图书馆还剩下6本。",
+        "33本，剩下6本",
+        "33本，余6本",
+        "33本，6本"
+      ],
+      "explanationZhHans": "估算：798÷24，把24看作20，798÷20≈40，但24×40=960>798，所以商应小于40，大约30多。竖式计算：24×33=792，798-792=6，余数6<24，所以每个班分33本，剩6本。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-088",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-division",
+      "unitTitle": "除法",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "multi-digit-division",
+        "two-digit-divisor",
+        "quotient-estimation",
+        "除法",
+        "除数是两位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "除数是两位数",
+        "试商调商",
+        "有余数除法",
+        "验算",
+        "除法应用"
+      ],
+      "misconceptionTags": [
+        "trial quotient too large or too small without adjustment",
+        "remainder larger than divisor accepted",
+        "context ignored when interpreting the remainder"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-division-unit",
+        "bnu-primary-p4-upper-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校把 478 本图书平均分给 24 个班级，每个班级分到多少本？还剩多少本？正确的计算结果是（ ）。",
+      "optionsZhHans": [
+        "每个班级分到 19 本，还剩 22 本",
+        "每个班级分到 20 本，还剩 2 本",
+        "每个班级分到 19 本，还剩 20 本",
+        "每个班级分到 20 本，还剩 22 本"
+      ],
+      "answer": "每个班级分到 19 本，还剩 22 本",
+      "acceptedAnswers": [
+        "每个班级分到 19 本，还剩 22 本"
+      ],
+      "explanationZhHans": "478 ÷ 24，试商：24×20=480>478，商是19。24×19=456，478−456=22，余数22<24，所以每个班分到19本，剩22本。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-089",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-division",
+      "unitTitle": "除法",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "multi-digit-division",
+        "two-digit-divisor",
+        "quotient-estimation",
+        "除法",
+        "除数是两位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "除数是两位数",
+        "试商调商",
+        "有余数除法",
+        "验算",
+        "除法应用"
+      ],
+      "misconceptionTags": [
+        "trial quotient too large or too small without adjustment",
+        "remainder larger than divisor accepted",
+        "context ignored when interpreting the remainder"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-division-unit",
+        "bnu-primary-p4-upper-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校买来 450 本练习本，每个班分 28 本。最多可以分给多少个班？还剩多少本？",
+      "optionsZhHans": [],
+      "answer": "最多可以分给 16 个班，还剩 2 本。",
+      "acceptedAnswers": [
+        "最多可以分给 16 个班，还剩 2 本。",
+        "16个班，剩2本",
+        "16个班，还剩2本",
+        "16个班剩2本"
+      ],
+      "explanationZhHans": "450÷28，把28看作30试商，30×15=450，商15，28×15=420，450−420=30，余数30大于除数28，说明商小了，改商16，28×16=448，450−448=2，余数2小于28，所以商16余2。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-090",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-division",
+      "unitTitle": "除法",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "multi-digit-division",
+        "two-digit-divisor",
+        "quotient-estimation",
+        "除法",
+        "除数是两位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "除数是两位数",
+        "试商调商",
+        "有余数除法",
+        "验算",
+        "除法应用"
+      ],
+      "misconceptionTags": [
+        "trial quotient too large or too small without adjustment",
+        "remainder larger than divisor accepted",
+        "context ignored when interpreting the remainder"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-division-unit",
+        "bnu-primary-p4-upper-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆新购入一批图书，共 897 本，需要平均分给 24 个班级。请你先估算每个班大约能分到多少本，再列竖式计算每个班实际分到多少本，还剩多少本。最后用“商×除数＋余数”的方法验算，并说明验算结果是否等于被除数。",
+      "optionsZhHans": [],
+      "answer": "估算：897÷24≈900÷25=36（本）或 897÷24≈900÷20=45（本）等合理估算均可。竖式计算：897÷24=37（本）……9（本）。验算：37×24+9=888+9=897，等于被除数，计算正确。",
+      "acceptedAnswers": [
+        "估算：897÷24≈900÷25=36（本）或 897÷24≈900÷20=45（本）等合理估算均可。竖式计算：897÷24=37（本）……9（本）。验算：37×24+9=888+9=897，等于被除数，计算正确。"
+      ],
+      "explanationZhHans": "估算时把897看作900，除数24看作25或20，得到36或45。竖式中，24×30=720，余177；24×7=168，余9，商37余9。验算37×24+9=897，等于被除数，说明计算正确。"
+    }
+  ]
+}

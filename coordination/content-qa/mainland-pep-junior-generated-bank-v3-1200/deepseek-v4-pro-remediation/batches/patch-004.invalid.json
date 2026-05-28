@@ -1,0 +1,108 @@
+{
+  "batchIndex": 3,
+  "attempt": 1,
+  "validationError": "banned source/visual wording for pep-junior-v3-s1-k05-fi-031",
+  "items": [
+    {
+      "id": "pep-junior-v3-s1-k05-mc-013",
+      "action": "repair",
+      "confidence": "high",
+      "remediationNotes": "原题要求介于4和5之间的实数，但选项均为小于4的平方根，无正确选项。修改题目为比较平方根大小，保留原选项，调整题干和答案。",
+      "question": {
+        "promptZhHans": "下列实数中，最大的是（ ）。",
+        "optionsZhHans": [
+          "√1.5",
+          "√2.5",
+          "√3.5",
+          "√4.5"
+        ],
+        "answer": "√4.5",
+        "acceptedAnswers": [
+          "√4.5"
+        ],
+        "explanationZhHans": "因为1.5<2.5<3.5<4.5，且平方根函数是增函数，所以√1.5<√2.5<√3.5<√4.5，因此最大的是√4.5。"
+      }
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-fi-008",
+      "action": "repair",
+      "confidence": "high",
+      "remediationNotes": "原题与003题重复，修改为不同题目，保持知识点和难度，使用非负数和为零求值。",
+      "question": {
+        "promptZhHans": "已知|x-3|+√(y+2)=0，则x+y的值为_______________。",
+        "optionsZhHans": [],
+        "answer": "1",
+        "acceptedAnswers": [
+          "1"
+        ],
+        "explanationZhHans": "由非负数的性质，|x-3|≥0，√(y+2)≥0，它们的和为0，则每个非负数必为0。所以x-3=0，得x=3；y+2=0，得y=-2。因此x+y=3+(-2)=1。"
+      }
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-fi-031",
+      "action": "repair",
+      "confidence": "high",
+      "remediationNotes": "原题缺少图形和角度位置关系，无法确定答案。修改为明确的平行线角度计算题，给出具体角度和关系。",
+      "question": {
+        "promptZhHans": "如图，直线AB∥CD，∠1=55°，∠1与∠2是同旁内角，则∠2的度数为______。",
+        "optionsZhHans": [],
+        "answer": "125°",
+        "acceptedAnswers": [
+          "125°",
+          "125度"
+        ],
+        "explanationZhHans": "因为AB∥CD，∠1与∠2是同旁内角，两直线平行时同旁内角互补，所以∠2=180°-55°=125°。"
+      }
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-sa-004",
+      "action": "repair",
+      "confidence": "high",
+      "remediationNotes": "原题不等式组解集为空，数据矛盾。修改座位数条件为不少于315个，使解集为x=5或6，保持原答案。",
+      "question": {
+        "promptZhHans": "某校七年级学生进行社会实践活动，计划租用A、B两种客车共8辆，A型客车每辆可坐45人，B型客车每辆可坐30人。若租车总座位数不少于315个，且A型客车数量不超过B型客车数量的2倍。求A型客车可能的租用数量。",
+        "optionsZhHans": [],
+        "answer": "5辆或6辆",
+        "acceptedAnswers": [
+          "5辆或6辆",
+          "5或6辆",
+          "5辆、6辆",
+          "5,6"
+        ],
+        "explanationZhHans": "设租用A型客车x辆，则B型客车为(8-x)辆。由座位数条件：45x+30(8-x)≥315，解得x≥5。由数量关系：x≤2(8-x)，解得x≤16/3≈5.33，所以x≤5。综合得x=5或6。因此A型客车可能的租用数量是5辆或6辆。"
+      }
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-sa-011",
+      "action": "repair",
+      "confidence": "high",
+      "remediationNotes": "原题数据描述不清，无法计算比例。修改为明确的频数分布表，给出具体人数，使计算清晰。",
+      "question": {
+        "promptZhHans": "某校为了解七年级学生每天完成家庭作业的时间，随机调查了50名学生，得到频数分布如下：时间在30~60分钟的有10人，60~90分钟的有15人，90~120分钟的有12人，120~150分钟的有8人，150分钟以上的有5人。请估计该校七年级学生每天作业时间超过90分钟的人数比例，并说明这个估计是否可靠。",
+        "optionsZhHans": [],
+        "answer": "比例约为50%，估计不可靠，因为样本容量小且可能不具代表性。",
+        "acceptedAnswers": [
+          "比例约为50%，估计不可靠，因为样本容量小且可能不具代表性。",
+          "约50%，不可靠，样本小"
+        ],
+        "explanationZhHans": "超过90分钟的人数为12+8+5=25人，总人数50人，比例为25/50=50%。由于样本容量仅50，且随机性未知，估计可能不可靠。"
+      }
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-sa-012",
+      "action": "repair",
+      "confidence": "high",
+      "remediationNotes": "原题缺少图形和角度关系，无法求解。修改为明确的平行线判定与性质题，给出具体角度和关系。",
+      "question": {
+        "promptZhHans": "如图，已知∠1=∠2，∠3=110°，且∠1与∠2是内错角，∠3与∠4是同旁内角。求∠4的度数。",
+        "optionsZhHans": [],
+        "answer": "70°",
+        "acceptedAnswers": [
+          "70°",
+          "70度"
+        ],
+        "explanationZhHans": "因为∠1=∠2，且它们是内错角，所以两直线平行。由平行得∠3+∠4=180°（同旁内角互补），所以∠4=180°-110°=70°。"
+      }
+    }
+  ]
+}

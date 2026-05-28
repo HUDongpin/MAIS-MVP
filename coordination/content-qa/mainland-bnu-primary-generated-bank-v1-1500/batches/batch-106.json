@@ -1,0 +1,591 @@
+{
+  "batchId": "batch-106",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p5-051",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-polygon-area",
+      "unitTitle": "多边形的面积",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "polygon-area",
+        "parallelogram-area",
+        "triangle-area",
+        "trapezoid-area",
+        "area-transformation",
+        "多边形面积"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "平行四边形面积",
+        "三角形面积",
+        "梯形面积",
+        "割补转化",
+        "面积公式解释"
+      ],
+      "misconceptionTags": [
+        "slanted side used as height",
+        "triangle area missing the half factor",
+        "area formula recalled without identifying matching base and height"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-polygon-area"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-polygon-area-unit",
+        "bnu-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个平行四边形相邻两条边的长度分别是12厘米和8厘米，其中一条边上的高是9厘米。这个平行四边形的面积是多少平方厘米？请写出计算过程。",
+      "optionsZhHans": [],
+      "answer": "72平方厘米",
+      "acceptedAnswers": [
+        "72平方厘米",
+        "72 cm²",
+        "72"
+      ],
+      "explanationZhHans": "高9厘米对应的底只能是8厘米（因为高必须小于等于另一条边，12厘米边上的高不可能超过8厘米）。面积=底×高=8×9=72平方厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-052",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-polygon-area",
+      "unitTitle": "多边形的面积",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "polygon-area",
+        "parallelogram-area",
+        "triangle-area",
+        "trapezoid-area",
+        "area-transformation",
+        "多边形面积"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "平行四边形面积",
+        "三角形面积",
+        "梯形面积",
+        "割补转化",
+        "面积公式解释"
+      ],
+      "misconceptionTags": [
+        "slanted side used as height",
+        "triangle area missing the half factor",
+        "area formula recalled without identifying matching base and height"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-polygon-area"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-polygon-area-unit",
+        "bnu-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个三角形的底是10分米，高是6分米。下面哪个算式的计算结果是这个三角形的面积？",
+      "optionsZhHans": [
+        "10×6",
+        "10×6÷2",
+        "10+6×2",
+        "(10+6)×2"
+      ],
+      "answer": "10×6÷2",
+      "acceptedAnswers": [
+        "10×6÷2"
+      ],
+      "explanationZhHans": "三角形面积=底×高÷2，所以正确算式是10×6÷2。其他选项要么缺少除以2，要么使用了错误的运算。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-053",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-polygon-area",
+      "unitTitle": "多边形的面积",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "polygon-area",
+        "parallelogram-area",
+        "triangle-area",
+        "trapezoid-area",
+        "area-transformation",
+        "多边形面积"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "平行四边形面积",
+        "三角形面积",
+        "梯形面积",
+        "割补转化",
+        "面积公式解释"
+      ],
+      "misconceptionTags": [
+        "slanted side used as height",
+        "triangle area missing the half factor",
+        "area formula recalled without identifying matching base and height"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-polygon-area"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-polygon-area-unit",
+        "bnu-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个梯形的上底是4米，下底是8米，高是5米。这个梯形的面积是______平方米。",
+      "optionsZhHans": [],
+      "answer": "30",
+      "acceptedAnswers": [
+        "30",
+        "30平方米"
+      ],
+      "explanationZhHans": "梯形面积=(上底+下底)×高÷2=(4+8)×5÷2=12×5÷2=60÷2=30平方米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-054",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-polygon-area",
+      "unitTitle": "多边形的面积",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "polygon-area",
+        "parallelogram-area",
+        "triangle-area",
+        "trapezoid-area",
+        "area-transformation",
+        "多边形面积"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "平行四边形面积",
+        "三角形面积",
+        "梯形面积",
+        "割补转化",
+        "面积公式解释"
+      ],
+      "misconceptionTags": [
+        "slanted side used as height",
+        "triangle area missing the half factor",
+        "area formula recalled without identifying matching base and height"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-polygon-area"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-polygon-area-unit",
+        "bnu-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个平行四边形的底是15厘米，高是8厘米。这个平行四边形的面积是多少平方厘米？",
+      "optionsZhHans": [],
+      "answer": "120平方厘米",
+      "acceptedAnswers": [
+        "120平方厘米",
+        "120 cm²",
+        "120"
+      ],
+      "explanationZhHans": "平行四边形面积=底×高=15×8=120平方厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-055",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-polygon-area",
+      "unitTitle": "多边形的面积",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "polygon-area",
+        "parallelogram-area",
+        "triangle-area",
+        "trapezoid-area",
+        "area-transformation",
+        "多边形面积"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "平行四边形面积",
+        "三角形面积",
+        "梯形面积",
+        "割补转化",
+        "面积公式解释"
+      ],
+      "misconceptionTags": [
+        "slanted side used as height",
+        "triangle area missing the half factor",
+        "area formula recalled without identifying matching base and height"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-polygon-area"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-polygon-area-unit",
+        "bnu-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个三角形和一个平行四边形等底等高。已知平行四边形的面积是36平方厘米，三角形的面积是多少平方厘米？",
+      "optionsZhHans": [
+        "9平方厘米",
+        "18平方厘米",
+        "36平方厘米",
+        "72平方厘米"
+      ],
+      "answer": "18平方厘米",
+      "acceptedAnswers": [
+        "18平方厘米"
+      ],
+      "explanationZhHans": "等底等高的三角形面积是平行四边形面积的一半，所以三角形面积=36÷2=18平方厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-056",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-polygon-area",
+      "unitTitle": "多边形的面积",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "polygon-area",
+        "parallelogram-area",
+        "triangle-area",
+        "trapezoid-area",
+        "area-transformation",
+        "多边形面积"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "平行四边形面积",
+        "三角形面积",
+        "梯形面积",
+        "割补转化",
+        "面积公式解释"
+      ],
+      "misconceptionTags": [
+        "slanted side used as height",
+        "triangle area missing the half factor",
+        "area formula recalled without identifying matching base and height"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-polygon-area"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-polygon-area-unit",
+        "bnu-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个直角三角形的两条直角边分别是6厘米和8厘米，斜边长10厘米。这个三角形的面积是______平方厘米。",
+      "optionsZhHans": [],
+      "answer": "24",
+      "acceptedAnswers": [
+        "24",
+        "24平方厘米"
+      ],
+      "explanationZhHans": "直角三角形面积=两条直角边乘积÷2=6×8÷2=24平方厘米。注意不能用斜边10厘米作为底或高。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-057",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-polygon-area",
+      "unitTitle": "多边形的面积",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "polygon-area",
+        "parallelogram-area",
+        "triangle-area",
+        "trapezoid-area",
+        "area-transformation",
+        "多边形面积"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "平行四边形面积",
+        "三角形面积",
+        "梯形面积",
+        "割补转化",
+        "面积公式解释"
+      ],
+      "misconceptionTags": [
+        "slanted side used as height",
+        "triangle area missing the half factor",
+        "area formula recalled without identifying matching base and height"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-polygon-area"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-polygon-area-unit",
+        "bnu-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个梯形的上底是3分米，下底是7分米，面积是25平方分米。这个梯形的高是多少分米？",
+      "optionsZhHans": [],
+      "answer": "5分米",
+      "acceptedAnswers": [
+        "5分米",
+        "5 dm",
+        "5"
+      ],
+      "explanationZhHans": "梯形面积=(上底+下底)×高÷2，所以高=面积×2÷(上底+下底)=25×2÷(3+7)=50÷10=5分米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-058",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-polygon-area",
+      "unitTitle": "多边形的面积",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "polygon-area",
+        "parallelogram-area",
+        "triangle-area",
+        "trapezoid-area",
+        "area-transformation",
+        "多边形面积"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "平行四边形面积",
+        "三角形面积",
+        "梯形面积",
+        "割补转化",
+        "面积公式解释"
+      ],
+      "misconceptionTags": [
+        "slanted side used as height",
+        "triangle area missing the half factor",
+        "area formula recalled without identifying matching base and height"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-polygon-area"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-polygon-area-unit",
+        "bnu-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个图形的面积可以用“底×高”来计算？",
+      "optionsZhHans": [
+        "三角形",
+        "梯形",
+        "平行四边形",
+        "长方形"
+      ],
+      "answer": "平行四边形",
+      "acceptedAnswers": [
+        "平行四边形"
+      ],
+      "explanationZhHans": "平行四边形面积=底×高。三角形面积=底×高÷2，梯形面积=(上底+下底)×高÷2，长方形面积=长×宽，虽然长方形也是底×高，但通常表述为长×宽，且题目强调“底×高”更符合平行四边形。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-059",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-polygon-area",
+      "unitTitle": "多边形的面积",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "polygon-area",
+        "parallelogram-area",
+        "triangle-area",
+        "trapezoid-area",
+        "area-transformation",
+        "多边形面积"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "平行四边形面积",
+        "三角形面积",
+        "梯形面积",
+        "割补转化",
+        "面积公式解释"
+      ],
+      "misconceptionTags": [
+        "slanted side used as height",
+        "triangle area missing the half factor",
+        "area formula recalled without identifying matching base and height"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-polygon-area"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-polygon-area-unit",
+        "bnu-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个平行四边形的高是7厘米，面积是56平方厘米。这个平行四边形的底是______厘米。",
+      "optionsZhHans": [],
+      "answer": "8",
+      "acceptedAnswers": [
+        "8",
+        "8厘米"
+      ],
+      "explanationZhHans": "平行四边形面积=底×高，所以底=面积÷高=56÷7=8厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-060",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-polygon-area",
+      "unitTitle": "多边形的面积",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "polygon-area",
+        "parallelogram-area",
+        "triangle-area",
+        "trapezoid-area",
+        "area-transformation",
+        "多边形面积"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "平行四边形面积",
+        "三角形面积",
+        "梯形面积",
+        "割补转化",
+        "面积公式解释"
+      ],
+      "misconceptionTags": [
+        "slanted side used as height",
+        "triangle area missing the half factor",
+        "area formula recalled without identifying matching base and height"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-polygon-area"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-polygon-area-unit",
+        "bnu-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一块梯形菜地，上底长12米，下底长18米，高10米。如果每平方米收白菜8千克，这块地一共可以收白菜多少千克？",
+      "optionsZhHans": [],
+      "answer": "1200千克",
+      "acceptedAnswers": [
+        "1200千克",
+        "1200 kg",
+        "1200"
+      ],
+      "explanationZhHans": "梯形面积=(12+18)×10÷2=150平方米。总产量=150×8=1200千克。"
+    }
+  ]
+}

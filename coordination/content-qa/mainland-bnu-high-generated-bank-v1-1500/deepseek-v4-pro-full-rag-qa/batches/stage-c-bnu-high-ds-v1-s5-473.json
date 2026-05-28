@@ -1,0 +1,45 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-473",
+  "startedAt": "2026-05-28T01:35:18.270Z",
+  "completedAt": "2026-05-28T01:35:22.081Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-473"
+  ],
+  "usage": {
+    "prompt_tokens": 1927,
+    "completion_tokens": 210,
+    "total_tokens": 2137,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1543
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-473",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "C",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，去除偏离点(3,5)后剩余四点线性趋势增强，相关系数显著增大，选项C正确。答案与解析一致，无歧义，符合教材统计案例要求。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 1,
+      "warn": 0,
+      "fail": 0,
+      "notes": "题目通过复核，无问题。"
+    }
+  }
+}

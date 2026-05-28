@@ -1,0 +1,105 @@
+{
+  "batchId": "model-qa-0013",
+  "ids": [
+    "hjb-junior-ds-v2-s1-097",
+    "hjb-junior-ds-v2-s1-098",
+    "hjb-junior-ds-v2-s1-099",
+    "hjb-junior-ds-v2-s1-100",
+    "hjb-junior-ds-v2-s1-101",
+    "hjb-junior-ds-v2-s1-102",
+    "hjb-junior-ds-v2-s1-103",
+    "hjb-junior-ds-v2-s1-104"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-097",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "D",
+      "answerCheckZhHans": "标准答案 D 正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-098",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-2x^3 y",
+      "answerCheckZhHans": "标准答案 -2x^3 y 正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-099",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x^2 + y^2 = 19，(x - y)^2 = 13",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-100",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "A",
+      "answerCheckZhHans": "标准答案 A 正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-101",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3ab(a - 2b + 4)",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-102",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(x² + 4)(x + 2)(x - 2)",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-103",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "multiple-correct-options"
+      ],
+      "issueDetailsZhHans": "选项 A 和 C 均正确。A 提取公因式正确；C 提取 -2 后得 -2(m² - 4n²)，虽未分解完但等式本身成立，且题目未要求分解彻底，故 C 也是正确的因式分解。存在多个正确选项。",
+      "independentAnswerZhHans": "A 和 C 均正确",
+      "answerCheckZhHans": "标准答案仅给出 A，但 C 也正确，导致题目有多个正确选项。",
+      "recommendedActionZhHans": "修改选项 C 为错误形式，或明确要求“分解彻底”，或调整选项使唯一正确。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-104",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-5mn(m - 2n + 3)",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

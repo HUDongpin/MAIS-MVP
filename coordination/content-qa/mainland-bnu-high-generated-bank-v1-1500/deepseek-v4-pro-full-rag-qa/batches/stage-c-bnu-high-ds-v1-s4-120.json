@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-120",
+  "startedAt": "2026-05-28T03:03:38.006Z",
+  "completedAt": "2026-05-28T03:03:45.646Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-120"
+  ],
+  "usage": {
+    "prompt_tokens": 2130,
+    "completion_tokens": 341,
+    "total_tokens": 2471,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1746
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-120",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "(1, 2]",
+        "correctedAnswer": "(1, 2]",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目要求函数在[0,1]上是减函数，需同时满足单调性和定义域。真数2-ax>0在[0,1]恒成立，得a<2；但a=2时，x=1处真数为0，不在定义域内，故a≠2。由复合函数单调性得a>1。正确取值范围为1<a≤2。存储答案(1,2)遗漏端点2，解析未讨论a=2不可取，属于数学错误和答案不匹配。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目答案错误，正确为(1,2]，存储答案(1,2)遗漏端点，解析未排除a=2，判定为blocker。"
+    }
+  }
+}

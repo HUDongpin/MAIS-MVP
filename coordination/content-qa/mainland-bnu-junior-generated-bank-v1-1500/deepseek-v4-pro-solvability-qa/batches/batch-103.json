@@ -1,0 +1,176 @@
+{
+  "batchNumber": 103,
+  "startedAt": "2026-05-27T17:58:02.236Z",
+  "completedAt": "2026-05-27T17:58:22.205Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s3-225",
+    "bnu-junior-ds-v1-s3-226",
+    "bnu-junior-ds-v1-s3-227",
+    "bnu-junior-ds-v1-s3-228",
+    "bnu-junior-ds-v1-s3-229",
+    "bnu-junior-ds-v1-s3-230",
+    "bnu-junior-ds-v1-s3-231",
+    "bnu-junior-ds-v1-s3-232",
+    "bnu-junior-ds-v1-s3-233",
+    "bnu-junior-ds-v1-s3-234",
+    "bnu-junior-ds-v1-s3-235",
+    "bnu-junior-ds-v1-s3-236"
+  ],
+  "usage": {
+    "prompt_tokens": 6948,
+    "completion_tokens": 1404,
+    "total_tokens": 8352,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 6436
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s3-225",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，由主视图和左视图可推断几何体为2行2列，最少需5个小正方体，答案5正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-226",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由主视图和左视图可确定最少需要4个小立方块，选项B正确，解释清晰。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-227",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "光线平行于底面时，圆锥的正投影为等腰三角形，底为直径10 cm，高为12 cm，面积60 cm²，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-228",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由俯视图和主视图可推得最少需要5个小正方体，答案5正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-229",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由俯视图和主视图可确定最少需要6个小立方块，选项B正确，解释清晰。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-230",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "球的任何正投影都是圆，半径为6 cm，面积36π cm²，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-231",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "4",
+        "rationale": "题目描述俯视图只有四个角位置有小立方块，其余位置没有，且主视图和左视图均为3×3满格，则每个角位置必须堆叠3层才能满足视图要求，总数为4×3=12，而非8。解释中“每个角位置堆叠2层”错误，答案应为12。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-232",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由俯视图数字和主视图列高约束，最少需要8个小立方块，选项B正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-233",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目直接给出俯视图每个位置的小立方块个数，总数为6，答案正确，解释清晰。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-234",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由主视图和左视图可推得最少需要6个小立方块，答案6正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-235",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "根据主视图和俯视图，几何体至少需要5个小立方体，左视图应为2列，每列最高2个，选项D为1、1，高度不足，不可能出现，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-236",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由俯视图和主视图、左视图可确定最少4个，最多5个，答案正确，解释清晰。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 11,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第231题答案错误，应为12而非8，其余题目均通过审核。"
+    }
+  }
+}

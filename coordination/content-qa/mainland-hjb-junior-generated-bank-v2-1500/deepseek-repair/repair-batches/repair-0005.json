@@ -1,0 +1,333 @@
+{
+  "batchId": "repair-0005",
+  "generatedAt": "2026-05-25T01:41:49.997Z",
+  "targetIds": [
+    "hjb-junior-ds-v2-s1-153",
+    "hjb-junior-ds-v2-s1-156",
+    "hjb-junior-ds-v2-s1-157",
+    "hjb-junior-ds-v2-s1-162",
+    "hjb-junior-ds-v2-s1-169"
+  ],
+  "questions": [
+    {
+      "id": "hjb-junior-ds-v2-s1-153",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "hjb-junior-s1-upper-algebraic-fractions",
+      "unitTitle": "分式",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "algebraic-fractions",
+        "fraction-domain",
+        "equivalent-fractions",
+        "fraction-operations",
+        "分式"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "分式意义",
+        "取值限制",
+        "分式基本性质",
+        "约分通分",
+        "分式运算"
+      ],
+      "misconceptionTags": [
+        "denominator restriction ignored",
+        "cancelling terms instead of factors",
+        "common denominator chosen incompletely"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s1-upper-algebraic-fractions"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-algebraic-fractions-unit",
+        "hjb-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-linear-inequalities",
+        "hjb-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Repaired offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "先化简，再求值：\\(\\frac{x^2-9}{x^2-6x+9} \\div \\frac{x+3}{x-3}\\)，其中 \\(x=0\\)。",
+      "optionsZhHans": [],
+      "answer": "1",
+      "acceptedAnswers": [
+        "1"
+      ],
+      "explanationZhHans": "原式 = \\(\\frac{(x+3)(x-3)}{(x-3)^2} \\cdot \\frac{x-3}{x+3} = 1\\)。当 \\(x=0\\) 时，原式 = 1。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-156",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "hjb-junior-s1-upper-algebraic-fractions",
+      "unitTitle": "分式",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "algebraic-fractions",
+        "fraction-domain",
+        "equivalent-fractions",
+        "fraction-operations",
+        "分式"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "分式意义",
+        "取值限制",
+        "分式基本性质",
+        "约分通分",
+        "分式运算"
+      ],
+      "misconceptionTags": [
+        "denominator restriction ignored",
+        "cancelling terms instead of factors",
+        "common denominator chosen incompletely"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s1-upper-algebraic-fractions"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-algebraic-fractions-unit",
+        "hjb-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-linear-inequalities",
+        "hjb-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Repaired offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "先化简，再求值：\\(\\frac{x^2-4}{x^2-4x+4} \\div \\frac{x+2}{x-2}\\)，其中 \\(x=-1\\)。",
+      "optionsZhHans": [],
+      "answer": "1",
+      "acceptedAnswers": [
+        "1"
+      ],
+      "explanationZhHans": "原式 = \\(\\frac{(x+2)(x-2)}{(x-2)^2} \\cdot \\frac{x-2}{x+2} = 1\\)。当 \\(x=-1\\) 时，原式 = 1。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-157",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "hjb-junior-s1-upper-algebraic-fractions",
+      "unitTitle": "分式",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "algebraic-fractions",
+        "fraction-domain",
+        "equivalent-fractions",
+        "fraction-operations",
+        "分式"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "分式意义",
+        "取值限制",
+        "分式基本性质",
+        "约分通分",
+        "分式运算"
+      ],
+      "misconceptionTags": [
+        "denominator restriction ignored",
+        "cancelling terms instead of factors",
+        "common denominator chosen incompletely"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s1-upper-algebraic-fractions"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-algebraic-fractions-unit",
+        "hjb-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-linear-inequalities",
+        "hjb-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Repaired offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下列分式中，与 \\(\\frac{x^2-4}{x^2-5x+6}\\) 相等的是（ ）",
+      "optionsZhHans": [
+        "\\(\\frac{x+2}{x-3}\\)",
+        "\\(\\frac{x-2}{x-3}\\)",
+        "\\(\\frac{x+2}{x+3}\\)",
+        "\\(\\frac{x-2}{x+3}\\)"
+      ],
+      "answer": "\\(\\frac{x+2}{x-3}\\)",
+      "acceptedAnswers": [
+        "\\(\\frac{x+2}{x-3}\\)"
+      ],
+      "explanationZhHans": "原式 = \\(\\frac{(x+2)(x-2)}{(x-2)(x-3)} = \\frac{x+2}{x-3}\\)，其中 \\(x \\neq 2, 3\\)。选项A与之相等。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-162",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "hjb-junior-s1-upper-algebraic-fractions",
+      "unitTitle": "分式",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "algebraic-fractions",
+        "fraction-domain",
+        "equivalent-fractions",
+        "fraction-operations",
+        "分式"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "分式意义",
+        "取值限制",
+        "分式基本性质",
+        "约分通分",
+        "分式运算"
+      ],
+      "misconceptionTags": [
+        "denominator restriction ignored",
+        "cancelling terms instead of factors",
+        "common denominator chosen incompletely"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s1-upper-algebraic-fractions"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-algebraic-fractions-unit",
+        "hjb-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-linear-inequalities",
+        "hjb-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Repaired offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "先化简，再求值：\\(\\frac{x^2-1}{x^2-2x+1} \\div \\frac{x+1}{x-1}\\)，其中 \\(x=-2\\)。",
+      "optionsZhHans": [],
+      "answer": "1",
+      "acceptedAnswers": [
+        "1"
+      ],
+      "explanationZhHans": "原式 = \\(\\frac{(x+1)(x-1)}{(x-1)^2} \\cdot \\frac{x-1}{x+1} = 1\\)。当 \\(x=-2\\) 时，原式 = 1。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-169",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "hjb-junior-s1-upper-algebraic-fractions",
+      "unitTitle": "分式",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "algebraic-fractions",
+        "fraction-domain",
+        "equivalent-fractions",
+        "fraction-operations",
+        "分式"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "分式意义",
+        "取值限制",
+        "分式基本性质",
+        "约分通分",
+        "分式运算"
+      ],
+      "misconceptionTags": [
+        "denominator restriction ignored",
+        "cancelling terms instead of factors",
+        "common denominator chosen incompletely"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s1-upper-algebraic-fractions"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-algebraic-fractions-unit",
+        "hjb-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-linear-inequalities",
+        "hjb-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Repaired offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下列分式中，与 \\(\\frac{a-b}{a+b}\\) 相等的是（ ）",
+      "optionsZhHans": [
+        "\\(\\frac{b-a}{a+b}\\)",
+        "\\(\\frac{a-b}{b-a}\\)",
+        "\\(\\frac{a-b}{a+b}\\)",
+        "\\(\\frac{b-a}{b-a}\\)"
+      ],
+      "answer": "\\(\\frac{a-b}{a+b}\\)",
+      "acceptedAnswers": [
+        "\\(\\frac{a-b}{a+b}\\)"
+      ],
+      "explanationZhHans": "选项C与原式完全相同。选项A分子为相反数，选项B分母为相反数，选项D值为1，均不恒等。"
+    }
+  ]
+}

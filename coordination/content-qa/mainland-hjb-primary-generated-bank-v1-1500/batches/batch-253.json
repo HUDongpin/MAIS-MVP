@@ -1,0 +1,294 @@
+{
+  "batchId": "batch-253",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p6-011",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "hjb-primary-p6-upper-divisibility",
+      "unitTitle": "数的整除",
+      "volume": "6年级上册",
+      "conceptIds": [
+        "divisibility",
+        "factors-multiples",
+        "prime-composite",
+        "common-factor-multiple",
+        "数的整除",
+        "因数倍数"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "推理意识"
+      ],
+      "skillTags": [
+        "整除判断",
+        "因数与倍数",
+        "质数合数",
+        "公因数公倍数",
+        "数的分类"
+      ],
+      "misconceptionTags": [
+        "factor and multiple reversed",
+        "prime number treated as any odd number",
+        "common multiple found before checking common factor need"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p6-upper-divisibility"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-ratio-proportion",
+        "hjb-primary-p6-lower-assessment-circle-sector"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个两位数，十位数字比个位数字大3，且这个数既是3的倍数，又是5的倍数。这个数是多少？",
+      "optionsZhHans": [],
+      "answer": "30",
+      "acceptedAnswers": [
+        "30"
+      ],
+      "explanationZhHans": "既是5的倍数，个位只能是0或5。若个位为0，十位为3，得30，是3的倍数；若个位为5，十位为8，得85，不是3的倍数。所以这个数是30。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-012",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "hjb-primary-p6-upper-divisibility",
+      "unitTitle": "数的整除",
+      "volume": "6年级上册",
+      "conceptIds": [
+        "divisibility",
+        "factors-multiples",
+        "prime-composite",
+        "common-factor-multiple",
+        "数的整除",
+        "因数倍数"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "推理意识"
+      ],
+      "skillTags": [
+        "整除判断",
+        "因数与倍数",
+        "质数合数",
+        "公因数公倍数",
+        "数的分类"
+      ],
+      "misconceptionTags": [
+        "factor and multiple reversed",
+        "prime number treated as any odd number",
+        "common multiple found before checking common factor need"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p6-upper-divisibility"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-ratio-proportion",
+        "hjb-primary-p6-lower-assessment-circle-sector"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把36和48分别分解质因数，并写出它们的最大公因数和最小公倍数。",
+      "optionsZhHans": [],
+      "answer": "36=2×2×3×3，48=2×2×2×2×3，最大公因数是12，最小公倍数是144",
+      "acceptedAnswers": [
+        "36=2×2×3×3，48=2×2×2×2×3，最大公因数是12，最小公倍数是144",
+        "36=2×2×3×3 48=2×2×2×2×3 最大公因数12 最小公倍数144"
+      ],
+      "explanationZhHans": "36=2×2×3×3，48=2×2×2×2×3。公有的质因数2×2×3=12，即最大公因数。独有的质因数相乘：36有3，48有2×2，最小公倍数=12×3×2×2=144。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-013",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "hjb-primary-p6-upper-divisibility",
+      "unitTitle": "数的整除",
+      "volume": "6年级上册",
+      "conceptIds": [
+        "divisibility",
+        "factors-multiples",
+        "prime-composite",
+        "common-factor-multiple",
+        "数的整除",
+        "因数倍数"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "推理意识"
+      ],
+      "skillTags": [
+        "整除判断",
+        "因数与倍数",
+        "质数合数",
+        "公因数公倍数",
+        "数的分类"
+      ],
+      "misconceptionTags": [
+        "factor and multiple reversed",
+        "prime number treated as any odd number",
+        "common multiple found before checking common factor need"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p6-upper-divisibility"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-ratio-proportion",
+        "hjb-primary-p6-lower-assessment-circle-sector"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "S18 remediated after DeepSeek-v4-pro QA on 2026-05-25; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个数既是合数又是奇数？",
+      "optionsZhHans": [
+        "2",
+        "8",
+        "11",
+        "15"
+      ],
+      "answer": "15",
+      "acceptedAnswers": [
+        "15"
+      ],
+      "explanationZhHans": "2是质数且偶数，8是合数但不是奇数，11是质数，15=3×5，既是合数又是奇数，所以选15。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-014",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "hjb-primary-p6-upper-divisibility",
+      "unitTitle": "数的整除",
+      "volume": "6年级上册",
+      "conceptIds": [
+        "divisibility",
+        "factors-multiples",
+        "prime-composite",
+        "common-factor-multiple",
+        "数的整除",
+        "因数倍数"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "推理意识"
+      ],
+      "skillTags": [
+        "整除判断",
+        "因数与倍数",
+        "质数合数",
+        "公因数公倍数",
+        "数的分类"
+      ],
+      "misconceptionTags": [
+        "factor and multiple reversed",
+        "prime number treated as any odd number",
+        "common multiple found before checking common factor need"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p6-upper-divisibility"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-ratio-proportion",
+        "hjb-primary-p6-lower-assessment-circle-sector"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在1、2、9、13、21、27中，质数有______个，合数有______个。",
+      "optionsZhHans": [],
+      "answer": "2,3",
+      "acceptedAnswers": [
+        "2,3",
+        "2，3"
+      ],
+      "explanationZhHans": "质数：2、13，共2个。合数：9、21、27，共3个。1既不是质数也不是合数。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-015",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "hjb-primary-p6-upper-divisibility",
+      "unitTitle": "数的整除",
+      "volume": "6年级上册",
+      "conceptIds": [
+        "divisibility",
+        "factors-multiples",
+        "prime-composite",
+        "common-factor-multiple",
+        "数的整除",
+        "因数倍数"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "推理意识"
+      ],
+      "skillTags": [
+        "整除判断",
+        "因数与倍数",
+        "质数合数",
+        "公因数公倍数",
+        "数的分类"
+      ],
+      "misconceptionTags": [
+        "factor and multiple reversed",
+        "prime number treated as any odd number",
+        "common multiple found before checking common factor need"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p6-upper-divisibility"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-ratio-proportion",
+        "hjb-primary-p6-lower-assessment-circle-sector"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "S18 remediated after DeepSeek-v4-pro QA on 2026-05-25; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "有一箱苹果，数量不少于40个且不多于50个。如果2个2个地数，正好数完；如果5个5个地数，也正好数完。这箱苹果可能有多少个？请写出所有可能的答案。",
+      "optionsZhHans": [],
+      "answer": "40,50",
+      "acceptedAnswers": [
+        "40,50",
+        "40和50",
+        "40、50"
+      ],
+      "explanationZhHans": "既是2的倍数又是5的倍数，就是10的倍数。不少于40且不多于50的10的倍数有40和50，所以可能是40个或50个。"
+    }
+  ]
+}

@@ -1,0 +1,335 @@
+{
+  "batchId": "repair-0019",
+  "generatedAt": "2026-05-25T02:12:38.394Z",
+  "targetIds": [
+    "hjb-junior-ds-v2-s2-108",
+    "hjb-junior-ds-v2-s2-112",
+    "hjb-junior-ds-v2-s2-114",
+    "hjb-junior-ds-v2-s2-129",
+    "hjb-junior-ds-v2-s2-132"
+  ],
+  "questions": [
+    {
+      "id": "hjb-junior-ds-v2-s2-108",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "hjb-junior-s2-upper-quadratic-radicals",
+      "unitTitle": "二次根式",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "radicals",
+        "quadratic-radicals",
+        "radical-simplification",
+        "radical-operations",
+        "二次根式"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "符号意识",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "二次根式意义",
+        "最简二次根式",
+        "二次根式乘除",
+        "二次根式加减",
+        "化简求值"
+      ],
+      "misconceptionTags": [
+        "nonnegative condition ignored",
+        "radicals combined across unlike radicands",
+        "factor extraction incomplete"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s2-upper-quadratic-radicals"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-upper-paper-quadratic-radicals-unit",
+        "hjb-junior-s2-upper-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Repaired offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知实数 a 满足 √(a² - 8a + 16) = a - 4，求 a 的取值范围。",
+      "optionsZhHans": [],
+      "answer": "a ≥ 4",
+      "acceptedAnswers": [
+        "a ≥ 4",
+        "a>=4"
+      ],
+      "explanationZhHans": "由 √(a² - 8a + 16) = √((a-4)²) = |a-4| = a-4，得 a-4 ≥ 0，即 a ≥ 4。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-112",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "hjb-junior-s2-upper-quadratic-radicals",
+      "unitTitle": "二次根式",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "radicals",
+        "quadratic-radicals",
+        "radical-simplification",
+        "radical-operations",
+        "二次根式"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "符号意识",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "二次根式意义",
+        "最简二次根式",
+        "二次根式乘除",
+        "二次根式加减",
+        "化简求值"
+      ],
+      "misconceptionTags": [
+        "nonnegative condition ignored",
+        "radicals combined across unlike radicands",
+        "factor extraction incomplete"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s2-upper-quadratic-radicals"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-upper-paper-quadratic-radicals-unit",
+        "hjb-junior-s2-upper-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Repaired offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知最简二次根式 √(2x+5) 与 √(3x-1) 是同类二次根式，则整数 x 的值为（ ）",
+      "optionsZhHans": [
+        "6",
+        "5",
+        "4",
+        "3"
+      ],
+      "answer": "6",
+      "acceptedAnswers": [
+        "6"
+      ],
+      "explanationZhHans": "由同类二次根式定义得 2x+5 = 3x-1，解得 x=6。检验：当 x=6 时，2x+5=17，3x-1=17，均为最简二次根式，符合条件。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-114",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "hjb-junior-s2-upper-quadratic-radicals",
+      "unitTitle": "二次根式",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "radicals",
+        "quadratic-radicals",
+        "radical-simplification",
+        "radical-operations",
+        "二次根式"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "符号意识",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "二次根式意义",
+        "最简二次根式",
+        "二次根式乘除",
+        "二次根式加减",
+        "化简求值"
+      ],
+      "misconceptionTags": [
+        "nonnegative condition ignored",
+        "radicals combined across unlike radicands",
+        "factor extraction incomplete"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s2-upper-quadratic-radicals"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-upper-paper-quadratic-radicals-unit",
+        "hjb-junior-s2-upper-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Repaired offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知 x = √6 + √2，y = √6 - √2，求 x²y + xy² 的值。",
+      "optionsZhHans": [],
+      "answer": "8√6",
+      "acceptedAnswers": [
+        "8√6"
+      ],
+      "explanationZhHans": "x²y+xy²=xy(x+y)。xy=(√6+√2)(√6-√2)=6-2=4，x+y=2√6，原式=4×2√6=8√6。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-129",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "hjb-junior-s2-upper-quadratic-equations",
+      "unitTitle": "一元二次方程",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "quadratic-equations",
+        "factoring-method",
+        "completing-square",
+        "quadratic-formula",
+        "discriminant",
+        "roots-coefficients",
+        "一元二次方程"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "方程概念",
+        "配方法",
+        "公式法",
+        "判别式",
+        "根与系数关系",
+        "应用建模"
+      ],
+      "misconceptionTags": [
+        "linear term omitted in formula",
+        "discriminant meaning misread",
+        "extraneous context value accepted"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s2-upper-quadratic-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-upper-paper-quadratic-equations-unit",
+        "hjb-junior-s2-upper-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Repaired offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某商店销售一种商品，每件进价为30元，经市场调查，当售价为每件50元时，每月可售出200件。售价每降低1元，每月可多售出10件。设每件售价降低x元（x为正整数，且0≤x≤20），每月利润为y元。（1）求y关于x的函数关系式，并写出x的取值范围；（2）当x为何值时，y有最大值？最大值是多少？（3）若商店希望每月利润不低于2160元，请直接写出x的取值范围。",
+      "optionsZhHans": [],
+      "answer": "（1）y = -10x² + 100x + 4000，0≤x≤20且x为整数；（2）x=5时，y最大=4250元；（3）2≤x≤8且x为整数",
+      "acceptedAnswers": [
+        "（1）y = -10x² + 100x + 4000，0≤x≤20且x为整数；（2）x=5时，y最大=4250元；（3）2≤x≤8且x为整数"
+      ],
+      "explanationZhHans": "（1）售价(50-x)元，销量(200+10x)件，利润y=(50-x-30)(200+10x)=-10x²+100x+4000，x为整数且0≤x≤20。（2）配方得y=-10(x-5)²+4250，x=5时最大4250元。（3）解-10x²+100x+4000≥2160得2≤x≤8，结合整数得x=2,3,4,5,6,7,8。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-132",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "hjb-junior-s2-upper-quadratic-equations",
+      "unitTitle": "一元二次方程",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "quadratic-equations",
+        "factoring-method",
+        "completing-square",
+        "quadratic-formula",
+        "discriminant",
+        "roots-coefficients",
+        "一元二次方程"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "方程概念",
+        "配方法",
+        "公式法",
+        "判别式",
+        "根与系数关系",
+        "应用建模"
+      ],
+      "misconceptionTags": [
+        "linear term omitted in formula",
+        "discriminant meaning misread",
+        "extraneous context value accepted"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s2-upper-quadratic-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-upper-paper-quadratic-equations-unit",
+        "hjb-junior-s2-upper-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Repaired offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用一段长为30米的篱笆围成一个一边靠墙的矩形花圃，墙长12米。设垂直于墙的一边长为x米，花圃的面积为S平方米。（1）求S关于x的函数关系式，并写出x的取值范围；（2）当x为何值时，花圃的面积最大？最大面积是多少？",
+      "optionsZhHans": [],
+      "answer": "（1）S = -2x² + 30x，9≤x<15；（2）x=9时，S最大=108平方米",
+      "acceptedAnswers": [
+        "（1）S = -2x² + 30x，9≤x<15；（2）x=9时，S最大=108平方米"
+      ],
+      "explanationZhHans": "（1）平行于墙的边长为(30-2x)米，由0<30-2x≤12得9≤x<15，S=x(30-2x)=-2x²+30x。（2）对称轴x=7.5不在范围内，S在9≤x<15上递减，故x=9时S最大=108。"
+    }
+  ]
+}

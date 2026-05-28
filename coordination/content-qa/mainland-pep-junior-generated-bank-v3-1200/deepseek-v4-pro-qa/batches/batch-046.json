@@ -1,0 +1,137 @@
+{
+  "batchNumber": 46,
+  "startedAt": "2026-05-25T03:01:28.871Z",
+  "completedAt": "2026-05-25T03:01:44.673Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s2-k07-fi-007",
+    "pep-junior-v3-s2-k07-fi-008",
+    "pep-junior-v3-s2-k07-fi-009",
+    "pep-junior-v3-s2-k07-fi-010",
+    "pep-junior-v3-s2-k07-fi-011",
+    "pep-junior-v3-s2-k07-fi-012",
+    "pep-junior-v3-s2-k07-fi-013",
+    "pep-junior-v3-s2-k07-fi-014",
+    "pep-junior-v3-s2-k07-fi-015",
+    "pep-junior-v3-s2-k07-fi-016",
+    "pep-junior-v3-s2-k07-fi-017",
+    "pep-junior-v3-s2-k07-fi-018"
+  ],
+  "usage": {
+    "prompt_tokens": 3495,
+    "completion_tokens": 944,
+    "total_tokens": 4439,
+    "prompt_tokens_details": {
+      "cached_tokens": 3456
+    },
+    "prompt_cache_hit_tokens": 3456,
+    "prompt_cache_miss_tokens": 39
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s2-k07-fi-007",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "因式分解正确，公因式提取无误，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-fi-008",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "化简正确，x取值范围正确，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-fi-009",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分式方程解法正确，检验无误，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-fi-010",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "三角形内角和计算正确，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-fi-011",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "全等证明正确，SSS判定合理，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-fi-012",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "关于x轴对称点坐标正确，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-fi-013",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平方差公式应用正确，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-fi-014",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分式化简正确，代入求值无误，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-fi-015",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分组分解正确，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-fi-016",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "多边形内角和公式应用正确，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-fi-017",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "多项式乘法正确，合并同类项无误，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-fi-018",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "因式分解正确，公因式提取无误，答案与解释一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案与解释一致，无歧义或缺失条件，适合人教版初中数学。"
+    }
+  }
+}

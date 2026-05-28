@@ -1,0 +1,345 @@
+{
+  "batchId": "batch-032",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s1-k05-mc-010",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "某文具店推出两种优惠方案：方案一，每支笔打八折；方案二，买三支笔送一支。小明需要购买若干支单价为5元的笔，若两种方案的实际付款相同，则他购买的笔的最少数量是（ ）。",
+      "optionsZhHans": [
+        "4支",
+        "5支",
+        "6支",
+        "8支"
+      ],
+      "answer": "5支",
+      "acceptedAnswers": [
+        "5支"
+      ],
+      "explanationZhHans": "设购买x支笔。方案一付款：5×0.8×x=4x元。方案二：买三送一，每4支只需付3支的钱，但x可能不是4的倍数。当x=5时，方案一付款20元；方案二：先买4支（付3支钱15元）得4支，再买1支付5元，共20元，付款相同。且5是满足条件的最小正整数。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-mc-011",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-data-collection"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "为了解七年级学生每天的睡眠时间，最适合采用以下哪种调查方式？（ ）",
+      "optionsZhHans": [
+        "对全校学生进行普查",
+        "对七年级一个班的学生进行抽样调查",
+        "对七年级部分学生进行随机抽样调查",
+        "对七年级成绩前50名的学生进行调查"
+      ],
+      "answer": "对七年级部分学生进行随机抽样调查",
+      "acceptedAnswers": [
+        "对七年级部分学生进行随机抽样调查"
+      ],
+      "explanationZhHans": "调查七年级学生睡眠时间，总体是七年级全体学生。普查工作量大且不必要；只调查一个班或成绩前50名不具有代表性；随机抽样调查能较好地代表总体，且操作可行。因此最适合采用对七年级部分学生进行随机抽样调查。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-mc-012",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "直线AB与CD相交于点O，OE平分∠AOC，若∠AOE=35°，则∠BOD的度数是（ ）。",
+      "optionsZhHans": [
+        "35°",
+        "55°",
+        "70°",
+        "110°"
+      ],
+      "answer": "70°",
+      "acceptedAnswers": [
+        "70°"
+      ],
+      "explanationZhHans": "由OE平分∠AOC，得∠AOC=2∠AOE=2×35°=70°。因为∠AOC与∠BOD是对顶角，对顶角相等，所以∠BOD=∠AOC=70°。故∠BOD的度数是70°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-mc-013",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-real-numbers"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "下列实数中，最大的是（ ）。",
+      "optionsZhHans": [
+        "√1.5",
+        "√2.5",
+        "√3.5",
+        "√4.5"
+      ],
+      "answer": "√4.5",
+      "acceptedAnswers": [
+        "√4.5"
+      ],
+      "explanationZhHans": "比较被开方数：4.5 > 3.5 > 2.5 > 1.5，且算术平方根随被开方数增大而增大，所以√4.5最大。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-mc-014",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-coordinate-plane"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "在平面直角坐标系中，点A的坐标为(3, -2)，将点A先向右平移4个单位，再向上平移3个单位，得到点B，则点B所在的象限是（ ）。",
+      "optionsZhHans": [
+        "第一象限",
+        "第二象限",
+        "第三象限",
+        "第四象限"
+      ],
+      "answer": "第一象限",
+      "acceptedAnswers": [
+        "第一象限"
+      ],
+      "explanationZhHans": "点A(3, -2)向右平移4个单位，横坐标加4得3+4=7；向上平移3个单位，纵坐标加3得-2+3=1。所以点B的坐标为(7, 1)。横坐标7>0，纵坐标1>0，因此点B在第一象限。故答案为第一象限。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-mc-015",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-linear-systems"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "小丽买了3本笔记本和5支笔共花了19元，小华买了同样的6本笔记本和2支笔共花了22元。设笔记本单价为x元，笔单价为y元，下列方程组正确的是（ ）。",
+      "optionsZhHans": [
+        "3x+5y=19, 6x+2y=22",
+        "3x+5y=19, 2x+6y=22",
+        "5x+3y=19, 6x+2y=22",
+        "3x+5y=22, 6x+2y=19"
+      ],
+      "answer": "3x+5y=19, 6x+2y=22",
+      "acceptedAnswers": [
+        "3x+5y=19, 6x+2y=22"
+      ],
+      "explanationZhHans": "根据题意，小丽：3本笔记本和5支笔共19元，即3x+5y=19；小华：6本笔记本和2支笔共22元，即6x+2y=22。因此方程组为3x+5y=19, 6x+2y=22。故答案选3x+5y=19, 6x+2y=22。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-mc-016",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-inequalities"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "某次知识竞赛共有20道题，答对一题得5分，答错或不答扣2分。小明想要得分不低于80分，设他答对了x道题，则可列不等式为（ ）。",
+      "optionsZhHans": [
+        "5x-2(20-x)≥80",
+        "5x+2(20-x)≥80",
+        "5x-2(20-x)>80",
+        "5x-2x≥80"
+      ],
+      "answer": "5x-2(20-x)≥80",
+      "acceptedAnswers": [
+        "5x-2(20-x)≥80"
+      ],
+      "explanationZhHans": "答对x题，则答错或不答(20-x)题。得分：答对得5x分，答错或不答扣2(20-x)分，总分为5x-2(20-x)。不低于80分即≥80，所以不等式为5x-2(20-x)≥80。故答案为5x-2(20-x)≥80。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-mc-017",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "某校七年级随机抽取了50名学生进行身高测量，其中身高在155cm以上的有32人。据此估计，该校七年级400名学生中身高在155cm以上的人数约为（ ）。",
+      "optionsZhHans": [
+        "200人",
+        "256人",
+        "300人",
+        "320人"
+      ],
+      "answer": "256人",
+      "acceptedAnswers": [
+        "256人"
+      ],
+      "explanationZhHans": "样本中身高155cm以上的频率为32/50=0.64。用样本频率估计总体，400×0.64=256人。故估计该校七年级身高在155cm以上的人数约为256人。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-mc-018",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-data-collection"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "为了记录某同学一周内每天完成作业的时间，最适合使用的统计图是（ ）。",
+      "optionsZhHans": [
+        "条形统计图",
+        "折线统计图",
+        "扇形统计图",
+        "频数分布直方图"
+      ],
+      "answer": "折线统计图",
+      "acceptedAnswers": [
+        "折线统计图"
+      ],
+      "explanationZhHans": "折线统计图能清晰地反映数据随时间的变化趋势。记录一周内每天完成作业的时间，需要看出每天的变化情况，因此最适合使用折线统计图。故答案为折线统计图。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-mc-019",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "在平面直角坐标系中，将点P(-2, 3)先向左平移3个单位，再向下平移2个单位，得到点Q，则点Q关于x轴的对称点的坐标是（ ）。",
+      "optionsZhHans": [
+        "(-5, -1)",
+        "(-5, 1)",
+        "(1, -5)",
+        "(-1, -5)"
+      ],
+      "answer": "(-5, -1)",
+      "acceptedAnswers": [
+        "(-5, -1)"
+      ],
+      "explanationZhHans": "点P(-2, 3)向左平移3个单位，横坐标减3得-2-3=-5；向下平移2个单位，纵坐标减2得3-2=1。所以点Q的坐标为(-5, 1)。点Q关于x轴对称，横坐标不变，纵坐标互为相反数，得对称点坐标为(-5, -1)。故答案为(-5, -1)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

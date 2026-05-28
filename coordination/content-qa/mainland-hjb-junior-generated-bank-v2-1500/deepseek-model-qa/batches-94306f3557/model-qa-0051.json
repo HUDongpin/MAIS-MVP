@@ -1,0 +1,105 @@
+{
+  "batchId": "model-qa-0051",
+  "ids": [
+    "hjb-junior-ds-v2-s1-401",
+    "hjb-junior-ds-v2-s1-402",
+    "hjb-junior-ds-v2-s1-403",
+    "hjb-junior-ds-v2-s1-404",
+    "hjb-junior-ds-v2-s1-405",
+    "hjb-junior-ds-v2-s1-406",
+    "hjb-junior-ds-v2-s1-407",
+    "hjb-junior-ds-v2-s1-408"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-401",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "80°",
+      "answerCheckZhHans": "标准答案为80，acceptedAnswers包含80和80°，均与独立答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-402",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "90°",
+      "answerCheckZhHans": "标准答案为90°，acceptedAnswers包含90°，与独立答案一致。选项B为90°，唯一正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-403",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "4 cm",
+      "answerCheckZhHans": "标准答案为4，acceptedAnswers包含4和4 cm，均与独立答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-404",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2种",
+      "answerCheckZhHans": "标准答案为2种，acceptedAnswers包含2种，与独立答案一致。选项B为2种，唯一正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-405",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "70°",
+      "answerCheckZhHans": "标准答案为70，acceptedAnswers包含70和70°，均与独立答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-406",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "标准答案选A，但选项A表述为“能，因为 5+8>12”，而三角形判定需任意两边之和大于第三边，仅凭5+8>12不足以判定，且选项C“不能，因为 5+8<12”与事实不符（5+8=13>12）。正确选项应为“能，因为 5+8>12”但需确保学生理解需验证所有组合。然而，选项A的表述可能误导学生认为只需一组不等式成立即可。更严重的是，选项C的表述错误，但题目要求选择正确选项，A是唯一正确的表述，但A的理由不完整。考虑到初中数学严谨性，建议修改选项A为“能，因为任意两边之和大于第三边”或类似完整表述。当前选项A虽为正确结论，但理由不充分，可能造成误解。",
+      "independentAnswerZhHans": "能组成三角形，因为5+8>12, 5+12>8, 8+12>5。",
+      "answerCheckZhHans": "标准答案选A，但A的理由不完整，可能误导。",
+      "recommendedActionZhHans": "修改选项A的理由为完整的三边关系判定，或调整选项设计。",
+      "confidence": "medium"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-407",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "70°",
+      "answerCheckZhHans": "标准答案为70°，acceptedAnswers包含70°、70度、70，均与独立答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-408",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "110°",
+      "answerCheckZhHans": "标准答案为110°，acceptedAnswers包含110°，与独立答案一致。选项A为110°，唯一正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

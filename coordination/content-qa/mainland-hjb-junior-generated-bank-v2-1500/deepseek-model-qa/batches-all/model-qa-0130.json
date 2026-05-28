@@ -1,0 +1,105 @@
+{
+  "batchId": "model-qa-0130",
+  "ids": [
+    "hjb-junior-ds-v2-s3-033",
+    "hjb-junior-ds-v2-s3-034",
+    "hjb-junior-ds-v2-s3-035",
+    "hjb-junior-ds-v2-s3-036",
+    "hjb-junior-ds-v2-s3-037",
+    "hjb-junior-ds-v2-s3-038",
+    "hjb-junior-ds-v2-s3-039",
+    "hjb-junior-ds-v2-s3-040"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-033",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "相似。因为AB/DE=6/9=2/3，AC/DF=8/12=2/3，且夹角∠A=∠D，所以△ABC∽△DEF（两边对应成比例且夹角相等）。",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-034",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "选项D 'AD/DB=DE/BC' 不能判定相似，但题目要求选择不能判定的条件，标准答案选D正确。然而，选项C 'AD/AB=AE/AC' 缺少夹角相等的条件，不能直接判定相似，除非隐含∠A公共，但题干未明确说明夹角相等。实际上，在△ADE和△ABC中，∠A是公共角，所以选项C满足两边成比例且夹角相等，可以判定相似。因此所有选项分析：A可判定，B可判定，C可判定，D不可判定。答案D正确。但解析中称C为“两边成比例且夹角相等可判定”，未指出夹角为公共角，可能引起误解。但答案本身无误。重新检查：选项C是AD/AB=AE/AC，夹角为∠A，确实可判定。所以答案正确。但解析说“D：AD/DB与DE/BC不是对应边比例，不能判定相似”，这是正确的。因此本题无错误。但之前标记为needs-review，现重新评估。",
+      "independentAnswerZhHans": "D",
+      "answerCheckZhHans": "标准答案D正确，解析合理。",
+      "recommendedActionZhHans": "无需修改，题目正确。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-035",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "24",
+      "answerCheckZhHans": "标准答案24正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-036",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "4",
+      "answerCheckZhHans": "标准答案4正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-037",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "5",
+      "answerCheckZhHans": "标准答案5正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-038",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "6",
+      "answerCheckZhHans": "标准答案6正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-039",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "10",
+      "answerCheckZhHans": "标准答案10正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-040",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "以上均可",
+      "answerCheckZhHans": "标准答案正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

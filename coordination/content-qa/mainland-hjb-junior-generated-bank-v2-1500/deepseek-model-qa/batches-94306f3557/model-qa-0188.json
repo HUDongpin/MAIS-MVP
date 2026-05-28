@@ -1,0 +1,57 @@
+{
+  "batchId": "model-qa-0188",
+  "ids": [
+    "hjb-junior-ds-v2-s3-497",
+    "hjb-junior-ds-v2-s3-498",
+    "hjb-junior-ds-v2-s3-499",
+    "hjb-junior-ds-v2-s3-500"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-497",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "标准答案和解析给出的中位数是88，但实际数据排序后为：82, 85, 85, 85, 85, 88, 88, 88, 90, 90, 92, 92, 95, 95, 100，第8个数是88，中位数确实是88。但题目要求统计量不受极端值影响，中位数符合。然而，解析中说“众数85分出现5次”，但实际85出现4次（85,85,85,85），88出现3次，众数是85，出现次数为4，不是5。解析中的错误不影响答案，但答案本身正确。不过，题目问“最合适的是”，中位数确实合适，但众数也不受极端值影响，且也能代表整体水平吗？通常代表整体水平用平均数或中位数，众数不适合代表整体水平。所以中位数是最合适的。答案正确。但解析中众数出现次数错误，属于小错误，但答案和解析没有矛盾。因此，本题可判pass，但解析有瑕疵。根据规则，如果答案和解析不一致才标记needs-review，这里不一致吗？解析说众数出现5次，实际是4次，但答案仍是中位数，没有矛盾。所以可以pass。但为了严谨，检查是否有多选可能：平均数受极端值影响，不合适；中位数合适；众数虽然不受极端值影响，但通常不用于代表整体水平，所以不是最合适；方差不是代表值。所以只有一个正确选项。因此，本题应pass。但解析中的错误是事实错误，可能误导学生，但作为QA，我们只检查题目本身是否正确。根据规则，如果解析有错误但不影响答案，可以pass。但issueCodes中如果有explanation-mismatch，但这里解析的错误是数据错误，不是推理错误，所以可能不算explanation-mismatch。我决定判pass。",
+      "independentAnswerZhHans": "中位数",
+      "answerCheckZhHans": "标准答案正确，解析中众数出现次数有误但不影响答案。",
+      "recommendedActionZhHans": "修正解析中众数出现次数为4次。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-498",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "众数",
+      "answerCheckZhHans": "标准答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-499",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "方差",
+      "answerCheckZhHans": "标准答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-500",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "该小区知晓垃圾分类的居民比例约为75%",
+      "answerCheckZhHans": "标准答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,330 @@
+{
+  "batchId": "repair-0008",
+  "generatedAt": "2026-05-25T01:43:37.143Z",
+  "targetIds": [
+    "hjb-junior-ds-v2-s1-285",
+    "hjb-junior-ds-v2-s1-318",
+    "hjb-junior-ds-v2-s1-336",
+    "hjb-junior-ds-v2-s1-338",
+    "hjb-junior-ds-v2-s1-341"
+  ],
+  "questions": [
+    {
+      "id": "hjb-junior-ds-v2-s1-285",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "hjb-junior-s1-lower-linear-inequalities",
+      "unitTitle": "一元一次不等式",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "linear-inequalities-one-variable",
+        "inequality-properties",
+        "solution-set",
+        "number-line",
+        "一元一次不等式"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "模型意识"
+      ],
+      "skillTags": [
+        "不等式性质",
+        "解一元一次不等式",
+        "解集表示",
+        "数轴表达",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "inequality direction not reversed",
+        "boundary point marked incorrectly",
+        "solution set treated as a single value"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s1-lower-linear-inequalities"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-linear-inequalities",
+        "hjb-junior-s1-lower-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Repaired offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某商店销售一种成本为每件15元的文具，售价为每件x元。根据市场调查，当售价定为每件x元时，每天可售出(800 - 20x)件。若商店希望每天的利润不低于2000元，请列出关于x的不等式，并求出x的取值范围。",
+      "optionsZhHans": [],
+      "answer": "不等式为 (x - 15)(800 - 20x) ≥ 2000，解得 20 ≤ x ≤ 35。",
+      "acceptedAnswers": [
+        "不等式为 (x - 15)(800 - 20x) ≥ 2000，解得 20 ≤ x ≤ 35。",
+        "(x - 15)(800 - 20x) ≥ 2000，20 ≤ x ≤ 35",
+        "20 ≤ x ≤ 35"
+      ],
+      "explanationZhHans": "单件利润为(x-15)元，日销量为(800-20x)件，日利润为(x-15)(800-20x)。由(x-15)(800-20x) ≥ 2000，展开得-20x²+1100x-12000 ≥ 2000，整理得x²-55x+700 ≤ 0，因式分解为(x-20)(x-35) ≤ 0，解得20 ≤ x ≤ 35。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-318",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "hjb-junior-s1-lower-intersecting-parallel-lines",
+      "unitTitle": "相交线与平行线",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "intersecting-lines",
+        "parallel-lines",
+        "transversal-angles",
+        "angle-relations",
+        "平行线"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "邻补角",
+        "对顶角",
+        "垂线",
+        "平行线性质",
+        "平行线判定"
+      ],
+      "misconceptionTags": [
+        "angle relation inferred without line condition",
+        "corresponding and alternate angles confused",
+        "supplementary relationship overgeneralized"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s1-lower-intersecting-parallel-lines"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-lines-parallel-angles",
+        "hjb-junior-s1-lower-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Repaired offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "直线AB与CD相交于点O，OE平分∠AOC。已知∠AOE = 35°，求∠BOD的度数，并说明理由。",
+      "optionsZhHans": [],
+      "answer": "∠BOD = 70°。理由：因为OE平分∠AOC，所以∠AOC = 2∠AOE = 70°。又因为∠BOD与∠AOC是对顶角，所以∠BOD = ∠AOC = 70°。",
+      "acceptedAnswers": [
+        "∠BOD = 70°。理由：因为OE平分∠AOC，所以∠AOC = 2∠AOE = 70°。又因为∠BOD与∠AOC是对顶角，所以∠BOD = ∠AOC = 70°。",
+        "70°，因为OE平分∠AOC，∠AOC=70°，对顶角相等",
+        "70°"
+      ],
+      "explanationZhHans": "由OE平分∠AOC，得∠AOC=2×35°=70°。∠BOD与∠AOC为对顶角，对顶角相等，故∠BOD=70°。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-336",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "hjb-junior-s1-lower-intersecting-parallel-lines",
+      "unitTitle": "相交线与平行线",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "intersecting-lines",
+        "parallel-lines",
+        "transversal-angles",
+        "angle-relations",
+        "平行线"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "邻补角",
+        "对顶角",
+        "垂线",
+        "平行线性质",
+        "平行线判定"
+      ],
+      "misconceptionTags": [
+        "angle relation inferred without line condition",
+        "corresponding and alternate angles confused",
+        "supplementary relationship overgeneralized"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s1-lower-intersecting-parallel-lines"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-lines-parallel-angles",
+        "hjb-junior-s1-lower-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Repaired offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "直线AB与CD相交于点O，OE平分∠AOD。已知∠AOC = 44°，求∠BOE的度数。",
+      "optionsZhHans": [],
+      "answer": "136°",
+      "acceptedAnswers": [
+        "136°",
+        "136度"
+      ],
+      "explanationZhHans": "由邻补角得∠AOD=180°-44°=136°。OE平分∠AOD，故∠AOE=68°。∠BOE与∠AOE互补，∠BOE=180°-68°=112°。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-338",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "hjb-junior-s1-lower-intersecting-parallel-lines",
+      "unitTitle": "相交线与平行线",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "intersecting-lines",
+        "parallel-lines",
+        "transversal-angles",
+        "angle-relations",
+        "平行线"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "邻补角",
+        "对顶角",
+        "垂线",
+        "平行线性质",
+        "平行线判定"
+      ],
+      "misconceptionTags": [
+        "angle relation inferred without line condition",
+        "corresponding and alternate angles confused",
+        "supplementary relationship overgeneralized"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-junior-s1-lower-intersecting-parallel-lines"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-lines-parallel-angles",
+        "hjb-junior-s1-lower-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Repaired offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "直线AB与CD相交于点O，OE平分∠BOC。已知∠AOD = 58°，求∠DOE的度数。",
+      "optionsZhHans": [],
+      "answer": "119°",
+      "acceptedAnswers": [
+        "119°",
+        "119度"
+      ],
+      "explanationZhHans": "∠BOC=∠AOD=58°（对顶角相等）。OE平分∠BOC，故∠BOE=29°。∠DOB与∠AOD互补，∠DOB=180°-58°=122°。∠DOE=∠DOB+∠BOE=122°+29°=151°。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-341",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "hjb-junior-s1-lower-intersecting-parallel-lines",
+      "unitTitle": "相交线与平行线",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "intersecting-lines",
+        "parallel-lines",
+        "transversal-angles",
+        "angle-relations",
+        "平行线"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "邻补角",
+        "对顶角",
+        "垂线",
+        "平行线性质",
+        "平行线判定"
+      ],
+      "misconceptionTags": [
+        "angle relation inferred without line condition",
+        "corresponding and alternate angles confused",
+        "supplementary relationship overgeneralized"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-junior-s1-lower-intersecting-parallel-lines"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-lines-parallel-angles",
+        "hjb-junior-s1-lower-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Repaired offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "直线AB与CD相交于点O，OE平分∠AOD。已知∠AOC = 62°，求∠COE的度数。",
+      "optionsZhHans": [],
+      "answer": "121°",
+      "acceptedAnswers": [
+        "121°",
+        "121度"
+      ],
+      "explanationZhHans": "∠AOD=180°-62°=118°。OE平分∠AOD，故∠AOE=59°。∠COE=∠AOC+∠AOE=62°+59°=121°。"
+    }
+  ]
+}

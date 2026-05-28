@@ -1,0 +1,112 @@
+{
+  "batchId": "model-qa-0172",
+  "ids": [
+    "hjb-junior-ds-v2-s3-369",
+    "hjb-junior-ds-v2-s3-370",
+    "hjb-junior-ds-v2-s3-371",
+    "hjb-junior-ds-v2-s3-372",
+    "hjb-junior-ds-v2-s3-373",
+    "hjb-junior-ds-v2-s3-374",
+    "hjb-junior-ds-v2-s3-375",
+    "hjb-junior-ds-v2-s3-376"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-369",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "√3 cm",
+      "answerCheckZhHans": "标准答案√3 cm正确。解析：正六边形边长等于半径2 cm，边心距=√(2²-1²)=√3 cm，推导无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-370",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "√39",
+      "answerCheckZhHans": "标准答案√39正确。解析：连接OT，OT⊥PT，OT=5，OP=8，由勾股定理得PT=√(8²-5²)=√39。选项A为√39，唯一正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-371",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析中∠AEC=(弧AC+弧BD)/2=弧AC，但弧AC不一定等于70°。由等弦AB=CD得弧AB=弧CD，但无法直接推出弧AC=弧BD。实际上，∠AEC是圆内角，等于(弧AC+弧BD)/2，但弧AC与弧BD不一定相等。正确解法：连接AD、BC，由等弦得弧AB=弧CD，则弧AC=弧BD，所以∠AEC=(弧AC+弧BD)/2=弧AC。但弧AC的度数未知，无法直接得出70°。若∠AEC=70°，则弧AC+弧BD=140°，但弧AC=弧BD，故弧AC=70°，∠AOC=2×70°=140°。解析中“∠AEC=(弧AC+弧BD)/2=弧AC。故弧AC=70°”逻辑跳跃，但结果正确。然而，解析未说明弧AC=弧BD的推导，且“弧AC=70°”表述不严谨（应为弧AC的度数为70°）。但答案140°正确。",
+      "independentAnswerZhHans": "140°",
+      "answerCheckZhHans": "标准答案140°正确，但解析存在逻辑不严谨，需补充说明弧AC=弧BD。",
+      "recommendedActionZhHans": "修正解析，明确由等弦得弧AB=弧CD，进而弧AC=弧BD，再计算。",
+      "confidence": "medium"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-372",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析计算得BC=6√2 cm，但标准答案为8 cm，矛盾。独立计算：PA=√(13²-5²)=12 cm。由切割线定理PA²=PB·PC，设PB=BC=x，则PC=2x，得144=2x²，x²=72，x=6√2，故BC=6√2 cm。标准答案8 cm错误。",
+      "independentAnswerZhHans": "6√2 cm",
+      "answerCheckZhHans": "标准答案8 cm错误，应为6√2 cm。解析过程正确但最终答案写错。",
+      "recommendedActionZhHans": "将答案改为6√2 cm，并更新acceptedAnswers。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-373",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "A. 已知圆心和半径",
+      "answerCheckZhHans": "标准答案A正确。解析：圆心和半径唯一确定圆；两点不能；共线三点不能；直径一端点和半径不能确定圆心位置。选项唯一正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-374",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2√3 cm",
+      "answerCheckZhHans": "标准答案2√3正确。解析：边心距=4×cos30°=2√3 cm。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-375",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "外切",
+      "answerCheckZhHans": "标准答案外切正确。解析：半径和=8 cm=圆心距，故外切。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-376",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析中“由点P(3,4)得OP=5，故P在圆上”正确。但“OT⊥PT，又OT⊥AB，所以AB∥PT”错误：OT⊥AB，OT⊥PT，则AB∥PT正确。但后续“AB=OT²/点O到AB的距离”无依据。独立计算：P(3,4)在圆上，切线PT方程：3x+4y=25。OT⊥AB，AB过T且垂直于OT，T为切点，OT斜率4/3，故AB斜率-3/4。T坐标：由OP⊥PT，OP斜率4/3，PT斜率-3/4，过P(3,4)得PT方程：y-4=-3/4(x-3)，与圆x²+y²=25联立解得T(3,4)（舍去）或T(-3,-4)？但T在第一象限，矛盾。实际上，P在圆上，过P的切线唯一，切点即为P，故T与P重合，但题目说“过点P作圆O的切线，切点为T”，若P在圆上，则T=P，但T在第一象限，P(3,4)在第一象限，所以T=P。那么OT⊥PT，OT⊥AB，则AB∥PT，但PT是切线，AB过T且垂直于OT，即AB是过T的半径垂线，即AB是切线？不，OT⊥AB，AB过T，则AB是切线？但OT是半径，过T垂直于半径的直线是切线，所以AB也是切线，但AB交坐标轴于A、B，则AB是切线，但切线PT与AB是同一条直线？因为过T只有一条切线，所以AB与PT重合，那么A、B在PT上，但PT与x轴、y轴交点？PT方程：3x+4y=25，与x轴交点(25/3,0)，与y轴交点(0,25/4)，则AB长度=√((25/3)²+(25/4)²)=125/12。所以答案125/12正确，但解析错误。",
+      "independentAnswerZhHans": "125/12",
+      "answerCheckZhHans": "标准答案125/12正确，但解析过程错误，需重写。",
+      "recommendedActionZhHans": "修正解析：说明P在圆上，T与P重合，切线PT方程3x+4y=25，AB即PT，求截距得长度。",
+      "confidence": "high"
+    }
+  ]
+}

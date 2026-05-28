@@ -1,0 +1,191 @@
+{
+  "batchNumber": 44,
+  "startedAt": "2026-05-25T02:08:13.588Z",
+  "completedAt": "2026-05-25T02:08:35.368Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p4-025",
+    "hjb-primary-ds-v1-p4-026",
+    "hjb-primary-ds-v1-p4-027",
+    "hjb-primary-ds-v1-p4-028",
+    "hjb-primary-ds-v1-p4-029",
+    "hjb-primary-ds-v1-p4-030",
+    "hjb-primary-ds-v1-p4-031",
+    "hjb-primary-ds-v1-p4-032",
+    "hjb-primary-ds-v1-p4-033",
+    "hjb-primary-ds-v1-p4-034",
+    "hjb-primary-ds-v1-p4-035",
+    "hjb-primary-ds-v1-p4-036",
+    "hjb-primary-ds-v1-p4-037",
+    "hjb-primary-ds-v1-p4-038",
+    "hjb-primary-ds-v1-p4-039",
+    "hjb-primary-ds-v1-p4-040",
+    "hjb-primary-ds-v1-p4-041",
+    "hjb-primary-ds-v1-p4-042"
+  ],
+  "usage": {
+    "prompt_tokens": 3418,
+    "completion_tokens": 1455,
+    "total_tokens": 4873,
+    "prompt_tokens_details": {
+      "cached_tokens": 3328
+    },
+    "prompt_cache_hit_tokens": 3328,
+    "prompt_cache_miss_tokens": 90
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p4-025",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，四舍五入到万位看千位5进1，得3080000，选项唯一，解释清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-026",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，5个百万、3个万、8个十合成为5030080，解释到位。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-027",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，最大204999，最小195000，符合四舍五入规则，acceptedAnswers覆盖常见写法。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-028",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，5060070读作五百零六万零七十，读出两个零，其他选项均不符合。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-029",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案合理，一瓶矿泉水容量约550毫升，符合生活实际，acceptedAnswers包含毫升和mL。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-030",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "排序正确，50005<50500<55000<500500，比较方法清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-031",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，二千三百零五万六千写作23056000，选项唯一。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-032",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，384920000四舍五入到亿位得4亿，acceptedAnswers包含4和4亿。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-033",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，50806000，解释清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-034",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案合理，上海市总面积适合用平方千米，选项唯一。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-035",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，一瓶矿泉水容量约550毫升，符合实际。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-036",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，写作3020500，四舍五入到万位得3020000，acceptedAnswers覆盖分隔符变体。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-037",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，50800070读作五千零八十万零七十，选项唯一。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-038",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，50806000，与hjb-primary-ds-v1-p4-033相同，无问题。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-039",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，最大8530000，最小3005800，符合所有0不读出的条件。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-040",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，最大204999，选项唯一。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-041",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，写作50836000，读作五千零八十三万六千，解释清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-042",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，306490≈31万，799500≈80万，acceptedAnswers覆盖多种格式。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案匹配，无歧义，适合沪教版P4数与量单元。"
+    }
+  }
+}

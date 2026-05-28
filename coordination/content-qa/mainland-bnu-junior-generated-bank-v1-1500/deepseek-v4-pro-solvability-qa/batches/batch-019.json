@@ -1,0 +1,173 @@
+{
+  "batchNumber": 19,
+  "startedAt": "2026-05-27T17:26:38.813Z",
+  "completedAt": "2026-05-27T17:26:57.568Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s1-217",
+    "bnu-junior-ds-v1-s1-218",
+    "bnu-junior-ds-v1-s1-219",
+    "bnu-junior-ds-v1-s1-220",
+    "bnu-junior-ds-v1-s1-221",
+    "bnu-junior-ds-v1-s1-222",
+    "bnu-junior-ds-v1-s1-223",
+    "bnu-junior-ds-v1-s1-224",
+    "bnu-junior-ds-v1-s1-225",
+    "bnu-junior-ds-v1-s1-226",
+    "bnu-junior-ds-v1-s1-227",
+    "bnu-junior-ds-v1-s1-228"
+  ],
+  "usage": {
+    "prompt_tokens": 5938,
+    "completion_tokens": 1262,
+    "total_tokens": 7200,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 5426
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s1-217",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，样本平均是估计值，选项B正确表达了用样本估计总体的思想，答案匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-218",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "抽样方法合理，学号尾数与睡眠时间无关，近似随机抽样，答案和解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-219",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，25÷75≈33.33%，精确到1%为33%，答案和acceptedAnswers匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-220",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项B适合普查，其他选项范围大或有破坏性，答案唯一且正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-221",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "指出只调查一周的不足，理由合理，答案与解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-222",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "10÷40=25%，计算正确，答案和acceptedAnswers匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-223",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项C采用分层随机抽样，最具代表性，答案唯一且正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-224",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "调查方案设计合理，包含问题、对象、方法和整理步骤，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-225",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "15-8=7，计算正确，答案匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-226",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "随机抽样最具代表性，选项C正确，其他选项有偏差。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-227",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "样本比例28/50=0.56，估计400×0.56=224，计算正确，理由充分。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-228",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "80分及以上25人，25÷45≈55.56%，精确到1%为56%，答案匹配。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版七年级上册数据收集与整理单元要求，题目可解，答案与解释匹配，无错误或歧义。"
+    }
+  }
+}

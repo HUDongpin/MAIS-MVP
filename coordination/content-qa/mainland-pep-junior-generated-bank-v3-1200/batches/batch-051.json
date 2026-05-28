@@ -1,0 +1,360 @@
+{
+  "batchId": "batch-051",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s2-k06-sa-033",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-triangle-angle-relations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean"
+      ],
+      "promptZhHans": "在△ABC中，AB = AC，点D在BC上，且AD = BD。若∠BAD = 36°，求∠BAC的度数。",
+      "optionsZhHans": [],
+      "answer": "108°",
+      "acceptedAnswers": [
+        "108°",
+        "108度",
+        "108"
+      ],
+      "explanationZhHans": "因为AD = BD，所以∠B = ∠BAD = 36°。又因为AB = AC，所以∠C = ∠B = 36°。在△ABC中，∠BAC = 180° - ∠B - ∠C = 180° - 36° - 36° = 108°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-mc-001",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-polynomial-multiplication-factorization"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions"
+      ],
+      "promptZhHans": "下列运算正确的是",
+      "optionsZhHans": [
+        "a²·a³ = a⁶",
+        "(a²)³ = a⁵",
+        "a⁶ ÷ a² = a³",
+        "(ab)² = a²b²"
+      ],
+      "answer": "(ab)² = a²b²",
+      "acceptedAnswers": [
+        "(ab)² = a²b²",
+        "D",
+        "d"
+      ],
+      "explanationZhHans": "根据幂的运算法则：同底数幂相乘，底数不变，指数相加，a²·a³ = a⁵，故A错误；幂的乘方，底数不变，指数相乘，(a²)³ = a⁶，故B错误；同底数幂相除，底数不变，指数相减，a⁶ ÷ a² = a⁴，故C错误；积的乘方等于各因式乘方的积，(ab)² = a²b²，故D正确。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-mc-002",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-algebraic-fractions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "若分式(x²-4)/(x+2)的值等于0，则满足条件的x为（ ）",
+      "optionsZhHans": [
+        "-2",
+        "2",
+        "±2",
+        "0"
+      ],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2",
+        "B",
+        "b"
+      ],
+      "explanationZhHans": "分式的值为0的条件是分子为0且分母不为0。由分子x² - 4 = 0得x = ±2。当x = -2时，分母x + 2 = 0，分式无意义，故舍去；当x = 2时，分母不为0。所以x的值为2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-mc-003",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "某商店将进价为每件a元的商品按每件b元卖出，已知a<b，则该商店卖出一件商品的利润率为",
+      "optionsZhHans": [
+        "(b - a) / a × 100%",
+        "(b - a) / b × 100%",
+        "a / b × 100%",
+        "b / a × 100%"
+      ],
+      "answer": "(b - a) / a × 100%",
+      "acceptedAnswers": [
+        "(b - a) / a × 100%",
+        "A",
+        "a"
+      ],
+      "explanationZhHans": "利润 = 售价 - 进价 = b - a，利润率 = 利润 / 进价 × 100% = (b - a) / a × 100%。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-mc-004",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-triangle-angle-relations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "promptZhHans": "在△ABC中，AB = AC，∠A = 40°，则∠B的度数为",
+      "optionsZhHans": [
+        "40°",
+        "70°",
+        "100°",
+        "140°"
+      ],
+      "answer": "70°",
+      "acceptedAnswers": [
+        "70°",
+        "B",
+        "b"
+      ],
+      "explanationZhHans": "因为AB = AC，所以△ABC是等腰三角形，∠B = ∠C。三角形内角和为180°，所以∠B + ∠C = 180° - ∠A = 140°，因此∠B = 70°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-mc-005",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-congruence-proof"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "promptZhHans": "已知△ABC和△DEF满足AB=DE、∠A=∠D，添加下列哪个条件仍不能判定两三角形全等（ ）",
+      "optionsZhHans": [
+        "AC = DF",
+        "BC = EF",
+        "∠B = ∠E",
+        "∠C = ∠F"
+      ],
+      "answer": "BC = EF",
+      "acceptedAnswers": [
+        "BC = EF",
+        "B",
+        "b"
+      ],
+      "explanationZhHans": "已知AB = DE，∠A = ∠D。添加AC = DF，构成SAS，可判定全等；添加∠B = ∠E，构成ASA，可判定全等；添加∠C = ∠F，构成AAS，可判定全等；添加BC = EF，是SSA，不能判定全等。故无法判定的是B。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-mc-006",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-axis-symmetry-isosceles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean"
+      ],
+      "promptZhHans": "在下列图形中，一般情况下不是轴对称图形的是（ ）",
+      "optionsZhHans": [
+        "线段",
+        "角",
+        "平行四边形",
+        "等腰三角形"
+      ],
+      "answer": "平行四边形",
+      "acceptedAnswers": [
+        "平行四边形",
+        "C",
+        "c"
+      ],
+      "explanationZhHans": "线段、角、等腰三角形都是轴对称图形，一般的平行四边形不是轴对称图形。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-mc-007",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-polynomial-multiplication-factorization"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "下列因式分解正确的是",
+      "optionsZhHans": [
+        "x² + 4x + 4 = (x + 2)²",
+        "x² - 2x - 1 = (x - 1)²",
+        "x² - 4 = (x - 2)²",
+        "x² + 2x - 1 = (x + 1)²"
+      ],
+      "answer": "x² + 4x + 4 = (x + 2)²",
+      "acceptedAnswers": [
+        "x² + 4x + 4 = (x + 2)²",
+        "A",
+        "a"
+      ],
+      "explanationZhHans": "A：x² + 4x + 4 = (x + 2)²，正确；B：x² - 2x - 1 ≠ (x - 1)²，因为(x - 1)² = x² - 2x + 1；C：x² - 4 = (x + 2)(x - 2)，错误；D：x² + 2x - 1 ≠ (x + 1)²，因为(x + 1)² = x² + 2x + 1。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-mc-008",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-algebraic-fractions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "化简分式 (x² - 9) / (x² - 6x + 9) 的结果是",
+      "optionsZhHans": [
+        "(x + 3) / (x - 3)",
+        "(x - 3) / (x + 3)",
+        "(x + 3)² / (x - 3)²",
+        "1"
+      ],
+      "answer": "(x + 3) / (x - 3)",
+      "acceptedAnswers": [
+        "(x + 3) / (x - 3)",
+        "A",
+        "a"
+      ],
+      "explanationZhHans": "原式 = [(x + 3)(x - 3)] / (x - 3)² = (x + 3) / (x - 3)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-mc-009",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "某工程队计划在10天内修路6 km，施工前2天修完1.2 km后，计划发生变化，准备提前2天完成修路任务，则以后几天内平均每天至少修路多少千米？设以后几天内平均每天修路x km，根据题意可列不等式为",
+      "optionsZhHans": [
+        "1.2 + (10 - 2)x ≥ 6",
+        "1.2 + (10 - 2 - 2)x ≥ 6",
+        "1.2 + (10 - 2)x ≤ 6",
+        "1.2 + (10 - 2 - 2)x ≤ 6"
+      ],
+      "answer": "1.2 + (10 - 2 - 2)x ≥ 6",
+      "acceptedAnswers": [
+        "1.2 + (10 - 2 - 2)x ≥ 6",
+        "B",
+        "b"
+      ],
+      "explanationZhHans": "原计划10天，已施工2天，准备提前2天完成，即总工期为10 - 2 = 8天，已用2天，剩余6天。已修1.2 km，剩余6 - 1.2 = 4.8 km要在6天内完成，所以平均每天至少修x km，则1.2 + (10 - 2 - 2)x ≥ 6，即1.2 + 6x ≥ 6。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

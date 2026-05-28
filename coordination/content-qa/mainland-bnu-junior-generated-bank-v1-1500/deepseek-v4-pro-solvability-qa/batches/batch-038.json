@@ -1,0 +1,179 @@
+{
+  "batchNumber": 38,
+  "startedAt": "2026-05-27T17:32:56.416Z",
+  "completedAt": "2026-05-27T17:33:14.711Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s1-445",
+    "bnu-junior-ds-v1-s1-446",
+    "bnu-junior-ds-v1-s1-447",
+    "bnu-junior-ds-v1-s1-448",
+    "bnu-junior-ds-v1-s1-449",
+    "bnu-junior-ds-v1-s1-450",
+    "bnu-junior-ds-v1-s1-451",
+    "bnu-junior-ds-v1-s1-452",
+    "bnu-junior-ds-v1-s1-453",
+    "bnu-junior-ds-v1-s1-454",
+    "bnu-junior-ds-v1-s1-455",
+    "bnu-junior-ds-v1-s1-456"
+  ],
+  "usage": {
+    "prompt_tokens": 5896,
+    "completion_tokens": 1433,
+    "total_tokens": 7329,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 5384
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s1-445",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，点A关于x轴对称得B，B关于y轴对称得C，计算正确，选项唯一，答案匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-446",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "线段AB垂直平分线为y=1，答案正确，解释合理，acceptedAnswers覆盖主要写法。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-447",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "两点纵坐标相同，对称轴为x=3，答案正确，acceptedAnswers包含多种等价形式。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-448",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "对称轴与线段AB的交点为中点(3,2)，选项唯一，答案匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-449",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "线段AB长度4，对称后长度不变，答案正确，解释清晰。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-450",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "2√10",
+        "rationale": "计算得CD=√40=2√10，但答案和acceptedAnswers均为2√5，解释中也错误得出2√10，答案与题目不匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-451",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "与445题类似，点A关于x轴再关于y轴对称得(-2,-3)，选项唯一，答案匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-452",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "点A(3,-2)关于x轴对称得B(3,2)，再关于y轴对称得C(-3,2)，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-453",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "线段AB关于x轴对称后长度不变，计算得6，选项唯一，答案匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-454",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "对称轴为x=4，答案和解释正确，acceptedAnswers包含详细和简洁形式。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-455",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "垂直平分线为y=1，点C横坐标4，纵坐标1，选项唯一，答案匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-456",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "(2,-1)",
+        "rationale": "点C(2,-3)，点D(-2,-1)，直线AC为x=2，直线BD为y=-1，交点P为(2,-1)，但答案和acceptedAnswers均为(2,0)，解释中也错误得出(2,-1)，答案与题目不匹配。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 10,
+      "warn": 0,
+      "fail": 2,
+      "notes": "12道题中10道通过，2道因答案计算错误未通过：450题CD长度应为2√10而非2√5；456题交点P应为(2,-1)而非(2,0)。其余题目条件充分，答案匹配，选项合理。"
+    }
+  }
+}

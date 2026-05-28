@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-018",
+  "startedAt": "2026-05-28T02:02:14.657Z",
+  "completedAt": "2026-05-28T02:02:19.124Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-018"
+  ],
+  "usage": {
+    "prompt_tokens": 2186,
+    "completion_tokens": 283,
+    "total_tokens": 2469,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1802
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-018",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "-3",
+        "correctedAnswer": "-3",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "两直线平行需满足 a(a+1)=6 且不重合。解得 a=2 或 a=-3，但 a=2 时两直线重合，应舍去，唯一解为 a=-3。存储答案包含错误值 2，与正确解矛盾，解析虽指出重合却未修正答案，构成严重错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目答案错误，a=2 导致重合，正确解仅为 a=-3，需修正答案。"
+    }
+  }
+}

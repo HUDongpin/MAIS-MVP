@@ -1,0 +1,290 @@
+{
+  "batchId": "batch-014",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p1-066",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "hjb-primary-p1-upper-within-10-add-sub",
+      "unitTitle": "10以内数的加减法",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "within-10-addition-subtraction",
+        "part-whole",
+        "join-separate-change",
+        "10以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "加法含义",
+        "减法含义",
+        "看图列式",
+        "分与合算式",
+        "生活故事表达"
+      ],
+      "misconceptionTags": [
+        "operation chosen from keyword only",
+        "total and part reversed",
+        "minus sign read as simple left-to-right counting"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p1-upper-within-10-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-upper-assessment-within-10-add-sub",
+        "hjb-primary-p1-upper-assessment-within-20-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "树上有一些小鸟，飞来了3只，现在一共有8只。原来树上有几只小鸟？请写出算式和答案。",
+      "optionsZhHans": [],
+      "answer": "8-3=5，原来有5只小鸟。",
+      "acceptedAnswers": [
+        "8-3=5，原来有5只小鸟。",
+        "8-3=5",
+        "5只"
+      ],
+      "explanationZhHans": "现在一共8只是整体，飞来的3只是一部分，求原来的一部分用减法：8-3=5。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-067",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "hjb-primary-p1-upper-within-10-add-sub",
+      "unitTitle": "10以内数的加减法",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "within-10-addition-subtraction",
+        "part-whole",
+        "join-separate-change",
+        "10以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "加法含义",
+        "减法含义",
+        "看图列式",
+        "分与合算式",
+        "生活故事表达"
+      ],
+      "misconceptionTags": [
+        "operation chosen from keyword only",
+        "total and part reversed",
+        "minus sign read as simple left-to-right counting"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p1-upper-within-10-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-upper-assessment-within-10-add-sub",
+        "hjb-primary-p1-upper-assessment-within-20-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈买了7个苹果，吃了几个后还剩4个。妈妈吃了几个苹果？",
+      "optionsZhHans": [
+        "7+4=11",
+        "7-4=3",
+        "4+3=7",
+        "7-3=4"
+      ],
+      "answer": "7-4=3",
+      "acceptedAnswers": [
+        "7-4=3"
+      ],
+      "explanationZhHans": "原来7个是整体，剩下4个是一部分，求吃了的部分用减法：7-4=3。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-068",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "hjb-primary-p1-upper-within-10-add-sub",
+      "unitTitle": "10以内数的加减法",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "within-10-addition-subtraction",
+        "part-whole",
+        "join-separate-change",
+        "10以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "加法含义",
+        "减法含义",
+        "看图列式",
+        "分与合算式",
+        "生活故事表达"
+      ],
+      "misconceptionTags": [
+        "operation chosen from keyword only",
+        "total and part reversed",
+        "minus sign read as simple left-to-right counting"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p1-upper-within-10-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-upper-assessment-within-10-add-sub",
+        "hjb-primary-p1-upper-assessment-within-20-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "篮子里有2个鸡蛋，又放进去6个，现在一共有______个鸡蛋。",
+      "optionsZhHans": [],
+      "answer": "8",
+      "acceptedAnswers": [
+        "8",
+        "8个"
+      ],
+      "explanationZhHans": "把两部分合起来用加法：2+6=8。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-069",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "hjb-primary-p1-upper-within-10-add-sub",
+      "unitTitle": "10以内数的加减法",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "within-10-addition-subtraction",
+        "part-whole",
+        "join-separate-change",
+        "10以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "加法含义",
+        "减法含义",
+        "看图列式",
+        "分与合算式",
+        "生活故事表达"
+      ],
+      "misconceptionTags": [
+        "operation chosen from keyword only",
+        "total and part reversed",
+        "minus sign read as simple left-to-right counting"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p1-upper-within-10-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-upper-assessment-within-10-add-sub",
+        "hjb-primary-p1-upper-assessment-within-20-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明有9块糖，送给弟弟一些后还剩5块。小明送给弟弟几块糖？请写出算式和答案。",
+      "optionsZhHans": [],
+      "answer": "9-5=4，送给弟弟4块糖。",
+      "acceptedAnswers": [
+        "9-5=4，送给弟弟4块糖。",
+        "9-5=4",
+        "4块"
+      ],
+      "explanationZhHans": "原来9块是整体，剩下5块是一部分，求送出的部分用减法：9-5=4。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-070",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "hjb-primary-p1-upper-within-10-add-sub",
+      "unitTitle": "10以内数的加减法",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "within-10-addition-subtraction",
+        "part-whole",
+        "join-separate-change",
+        "10以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "加法含义",
+        "减法含义",
+        "看图列式",
+        "分与合算式",
+        "生活故事表达"
+      ],
+      "misconceptionTags": [
+        "operation chosen from keyword only",
+        "total and part reversed",
+        "minus sign read as simple left-to-right counting"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p1-upper-within-10-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-upper-assessment-within-10-add-sub",
+        "hjb-primary-p1-upper-assessment-within-20-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "池塘里有5只鸭子，又游来4只，现在一共有几只鸭子？",
+      "optionsZhHans": [
+        "5-4=1",
+        "5+4=9",
+        "9-4=5",
+        "4+5=9"
+      ],
+      "answer": "5+4=9",
+      "acceptedAnswers": [
+        "5+4=9"
+      ],
+      "explanationZhHans": "把两部分合起来求总数用加法：5+4=9。"
+    }
+  ]
+}

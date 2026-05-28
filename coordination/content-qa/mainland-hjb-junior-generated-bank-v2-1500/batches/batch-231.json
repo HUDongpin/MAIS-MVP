@@ -1,0 +1,341 @@
+{
+  "batchId": "batch-231",
+  "questions": [
+    {
+      "id": "hjb-junior-ds-v2-s3-151",
+      "batch": "hjb-junior-v2",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "hjb-junior-s3-upper-acute-trigonometry",
+      "unitTitle": "锐角的三角比",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "right-triangle-trigonometry",
+        "trigonometric-ratios",
+        "sine",
+        "cosine",
+        "tangent",
+        "solving-right-triangles",
+        "锐角三角比"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "运算能力",
+        "直观想象"
+      ],
+      "skillTags": [
+        "正弦",
+        "余弦",
+        "正切",
+        "解直角三角形",
+        "测量建模",
+        "三角比应用"
+      ],
+      "misconceptionTags": [
+        "opposite and adjacent sides swapped",
+        "hypotenuse not identified",
+        "degree-mode or rounding error"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s3-upper-acute-trigonometry"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s3-upper-paper-acute-trigonometry-unit",
+        "hjb-junior-s3-upper-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校数学小组测量教学楼高度。在平地上选定一点A，测得教学楼顶端C的仰角为30°；向教学楼方向前进40米到达点B，测得C的仰角为45°。已知点A、B与教学楼底部D在同一直线上，且AD⊥CD。求教学楼的高度CD（精确到0.1米）。",
+      "optionsZhHans": [
+        "54.6米",
+        "20.0米",
+        "34.6米",
+        "40.0米"
+      ],
+      "answer": "54.6米",
+      "acceptedAnswers": [
+        "54.6米"
+      ],
+      "explanationZhHans": "设CD=h，则AD=h/tan30°=h√3，BD=h/tan45°=h。由AB=AD-BD得40=h√3-h，解得h=40/(√3-1)=20(√3+1)≈54.6米。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-152",
+      "batch": "hjb-junior-v2",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "hjb-junior-s3-upper-acute-trigonometry",
+      "unitTitle": "锐角的三角比",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "right-triangle-trigonometry",
+        "trigonometric-ratios",
+        "sine",
+        "cosine",
+        "tangent",
+        "solving-right-triangles",
+        "锐角三角比"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "运算能力",
+        "直观想象"
+      ],
+      "skillTags": [
+        "正弦",
+        "余弦",
+        "正切",
+        "解直角三角形",
+        "测量建模",
+        "三角比应用"
+      ],
+      "misconceptionTags": [
+        "opposite and adjacent sides swapped",
+        "hypotenuse not identified",
+        "degree-mode or rounding error"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-junior-s3-upper-acute-trigonometry"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s3-upper-paper-acute-trigonometry-unit",
+        "hjb-junior-s3-upper-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在Rt△ABC中，∠C=90°，AB=10，sinA=3/5，则BC=______。",
+      "optionsZhHans": [],
+      "answer": "6",
+      "acceptedAnswers": [
+        "6"
+      ],
+      "explanationZhHans": "sinA=对边/斜边=BC/AB=3/5，AB=10，所以BC=10×3/5=6。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-153",
+      "batch": "hjb-junior-v2",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "hjb-junior-s3-upper-acute-trigonometry",
+      "unitTitle": "锐角的三角比",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "right-triangle-trigonometry",
+        "trigonometric-ratios",
+        "sine",
+        "cosine",
+        "tangent",
+        "solving-right-triangles",
+        "锐角三角比"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "运算能力",
+        "直观想象"
+      ],
+      "skillTags": [
+        "正弦",
+        "余弦",
+        "正切",
+        "解直角三角形",
+        "测量建模",
+        "三角比应用"
+      ],
+      "misconceptionTags": [
+        "opposite and adjacent sides swapped",
+        "hypotenuse not identified",
+        "degree-mode or rounding error"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s3-upper-acute-trigonometry"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s3-upper-paper-acute-trigonometry-unit",
+        "hjb-junior-s3-upper-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在Rt△ABC中，∠C=90°，∠B=35°，AC=8。求AB的长（精确到0.01）。",
+      "optionsZhHans": [],
+      "answer": "13.95",
+      "acceptedAnswers": [
+        "13.95",
+        "13.94"
+      ],
+      "explanationZhHans": "已知∠B=35°，则∠A=55°。sinB=AC/AB，所以AB=AC/sin35°≈8/0.5736≈13.95。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-154",
+      "batch": "hjb-junior-v2",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "hjb-junior-s3-upper-acute-trigonometry",
+      "unitTitle": "锐角的三角比",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "right-triangle-trigonometry",
+        "trigonometric-ratios",
+        "sine",
+        "cosine",
+        "tangent",
+        "solving-right-triangles",
+        "锐角三角比"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "运算能力",
+        "直观想象"
+      ],
+      "skillTags": [
+        "正弦",
+        "余弦",
+        "正切",
+        "解直角三角形",
+        "测量建模",
+        "三角比应用"
+      ],
+      "misconceptionTags": [
+        "opposite and adjacent sides swapped",
+        "hypotenuse not identified",
+        "degree-mode or rounding error"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s3-upper-acute-trigonometry"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s3-upper-paper-acute-trigonometry-unit",
+        "hjb-junior-s3-upper-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在Rt△ABC中，∠C=90°，BC=5，AB=13，则tanA的值为（ ）。",
+      "optionsZhHans": [
+        "5/12",
+        "12/5",
+        "5/13",
+        "12/13"
+      ],
+      "answer": "5/12",
+      "acceptedAnswers": [
+        "5/12"
+      ],
+      "explanationZhHans": "由勾股定理得AC=√(13²-5²)=12。tanA=∠A的对边/邻边=BC/AC=5/12。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-155",
+      "batch": "hjb-junior-v2",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "hjb-junior-s3-upper-acute-trigonometry",
+      "unitTitle": "锐角的三角比",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "right-triangle-trigonometry",
+        "trigonometric-ratios",
+        "sine",
+        "cosine",
+        "tangent",
+        "solving-right-triangles",
+        "锐角三角比"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "运算能力",
+        "直观想象"
+      ],
+      "skillTags": [
+        "正弦",
+        "余弦",
+        "正切",
+        "解直角三角形",
+        "测量建模",
+        "三角比应用"
+      ],
+      "misconceptionTags": [
+        "opposite and adjacent sides swapped",
+        "hypotenuse not identified",
+        "degree-mode or rounding error"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-junior-s3-upper-acute-trigonometry"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s3-upper-paper-acute-trigonometry-unit",
+        "hjb-junior-s3-upper-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在Rt△ABC中，∠C=90°，cosA=5/13，AB=26，则AC=______。",
+      "optionsZhHans": [],
+      "answer": "10",
+      "acceptedAnswers": [
+        "10"
+      ],
+      "explanationZhHans": "cosA=邻边/斜边=AC/AB=5/13，AB=26，所以AC=26×5/13=10。"
+    }
+  ]
+}

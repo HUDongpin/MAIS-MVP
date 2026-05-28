@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-401",
+  "startedAt": "2026-05-28T01:59:21.205Z",
+  "completedAt": "2026-05-28T01:59:25.102Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-401"
+  ],
+  "usage": {
+    "prompt_tokens": 3110,
+    "completion_tokens": 261,
+    "total_tokens": 3371,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2726
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-401",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "33/65",
+        "correctedAnswer": "33/65",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，独立计算得 sin(α+β)=33/65。存储答案 -63/65 错误，解析中计算过程得出 33/65 却声称答案为 -63/65，自相矛盾。需修正答案为 33/65。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1 题答案错误且解析矛盾，判定为 blocker。"
+    }
+  }
+}

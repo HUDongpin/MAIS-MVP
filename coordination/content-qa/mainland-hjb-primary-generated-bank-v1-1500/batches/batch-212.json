@@ -1,0 +1,295 @@
+{
+  "batchId": "batch-212",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p5-056",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "hjb-primary-p5-upper-equations-relationships",
+      "unitTitle": "用字母表示数与简易方程",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "simple-equations",
+        "letters-as-variables",
+        "quantitative-relationships",
+        "equation-modeling",
+        "简易方程"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "模型意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "用字母表示数",
+        "等量关系",
+        "解简易方程",
+        "代入检验",
+        "问题建模"
+      ],
+      "misconceptionTags": [
+        "letter treated as a label only",
+        "equation balance not maintained",
+        "unknown not defined before modeling"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p5-upper-equations-relationships"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-equations-relationships-unit",
+        "hjb-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆有一批新书，如果每个班分8本，还缺3本；如果每个班分6本，则多出9本。设班级数为x，列出方程并求出班级数。",
+      "optionsZhHans": [],
+      "answer": "8x-3=6x+9，x=6",
+      "acceptedAnswers": [
+        "8x-3=6x+9，x=6",
+        "8x-3=6x+9,x=6",
+        "8x-3=6x+9 x=6"
+      ],
+      "explanationZhHans": "设班级数为x。第一种分法：总书数=8x-3；第二种分法：总书数=6x+9。根据总书数相等得方程8x-3=6x+9，解得x=6。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-057",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "hjb-primary-p5-upper-equations-relationships",
+      "unitTitle": "用字母表示数与简易方程",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "simple-equations",
+        "letters-as-variables",
+        "quantitative-relationships",
+        "equation-modeling",
+        "简易方程"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "模型意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "用字母表示数",
+        "等量关系",
+        "解简易方程",
+        "代入检验",
+        "问题建模"
+      ],
+      "misconceptionTags": [
+        "letter treated as a label only",
+        "equation balance not maintained",
+        "unknown not defined before modeling"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p5-upper-equations-relationships"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-equations-relationships-unit",
+        "hjb-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈买了3千克苹果和2千克梨，共花了28元。已知每千克苹果比每千克梨贵2元。设每千克梨的价格为x元，列出方程并求出每千克梨的价格。",
+      "optionsZhHans": [],
+      "answer": "3(x+2)+2x=28，x=4.4",
+      "acceptedAnswers": [
+        "3(x+2)+2x=28，x=4.4",
+        "3(x+2)+2x=28,x=4.4",
+        "3(x+2)+2x=28 x=4.4"
+      ],
+      "explanationZhHans": "设每千克梨x元，则苹果每千克(x+2)元。总价：3(x+2)+2x=28，化简得5x+6=28，解得x=4.4。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-058",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "hjb-primary-p5-upper-equations-relationships",
+      "unitTitle": "用字母表示数与简易方程",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "simple-equations",
+        "letters-as-variables",
+        "quantitative-relationships",
+        "equation-modeling",
+        "简易方程"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "模型意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "用字母表示数",
+        "等量关系",
+        "解简易方程",
+        "代入检验",
+        "问题建模"
+      ],
+      "misconceptionTags": [
+        "letter treated as a label only",
+        "equation balance not maintained",
+        "unknown not defined before modeling"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p5-upper-equations-relationships"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-equations-relationships-unit",
+        "hjb-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下列式子中，是方程的是（　）。",
+      "optionsZhHans": [
+        "3x+5>20",
+        "7y-2=19",
+        "4+9=13",
+        "2a+6"
+      ],
+      "answer": "7y-2=19",
+      "acceptedAnswers": [
+        "7y-2=19"
+      ],
+      "explanationZhHans": "方程必须含有未知数且是等式。A是不等式，C是等式但无未知数，D是代数式不是等式，只有B同时含有未知数y和等号。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-059",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "hjb-primary-p5-upper-equations-relationships",
+      "unitTitle": "用字母表示数与简易方程",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "simple-equations",
+        "letters-as-variables",
+        "quantitative-relationships",
+        "equation-modeling",
+        "简易方程"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "模型意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "用字母表示数",
+        "等量关系",
+        "解简易方程",
+        "代入检验",
+        "问题建模"
+      ],
+      "misconceptionTags": [
+        "letter treated as a label only",
+        "equation balance not maintained",
+        "unknown not defined before modeling"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p5-upper-equations-relationships"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-equations-relationships-unit",
+        "hjb-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小马虎在解方程3x-□=15时，错误地看成了3x+□=15，解得x=4。请你求出□代表的数，并求出原方程正确的解。",
+      "optionsZhHans": [],
+      "answer": "□=3，x=6",
+      "acceptedAnswers": [
+        "□=3，x=6",
+        "□=3,x=6",
+        "□=3 x=6"
+      ],
+      "explanationZhHans": "错误方程：3×4+□=15，得□=3。原方程为3x-3=15，解得x=6。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-060",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "hjb-primary-p5-upper-equations-relationships",
+      "unitTitle": "用字母表示数与简易方程",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "simple-equations",
+        "letters-as-variables",
+        "quantitative-relationships",
+        "equation-modeling",
+        "简易方程"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "模型意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "用字母表示数",
+        "等量关系",
+        "解简易方程",
+        "代入检验",
+        "问题建模"
+      ],
+      "misconceptionTags": [
+        "letter treated as a label only",
+        "equation balance not maintained",
+        "unknown not defined before modeling"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p5-upper-equations-relationships"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-equations-relationships-unit",
+        "hjb-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方形的周长是36厘米，长是宽的2倍。设宽为x厘米，列出方程并求出长和宽。",
+      "optionsZhHans": [],
+      "answer": "2(x+2x)=36，宽6厘米，长12厘米",
+      "acceptedAnswers": [
+        "2(x+2x)=36，宽6厘米，长12厘米",
+        "2(x+2x)=36,宽6厘米,长12厘米",
+        "2(x+2x)=36 宽6厘米 长12厘米",
+        "2(x+2x)=36，宽6，长12",
+        "2(x+2x)=36,宽6,长12"
+      ],
+      "explanationZhHans": "设宽为x厘米，则长为2x厘米。周长公式：2×(长+宽)=36，得方程2(x+2x)=36，解得x=6，长12厘米。"
+    }
+  ]
+}

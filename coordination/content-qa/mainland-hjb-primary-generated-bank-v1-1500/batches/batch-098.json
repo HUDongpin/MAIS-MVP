@@ -1,0 +1,298 @@
+{
+  "batchId": "batch-098",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p2-236",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "hjb-primary-p2-lower-math-square-review",
+      "unitTitle": "二年级下册数学广场与整理复习",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "p2-lower-review",
+        "math-square-exploration",
+        "division-time-place-value-review",
+        "operation-review",
+        "数学广场",
+        "复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "推理意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "规律探索",
+        "模型选择",
+        "错因说明",
+        "复习整理"
+      ],
+      "misconceptionTags": [
+        "model chosen by keyword only",
+        "time and number units mixed",
+        "larger-number calculation attempted without place-value alignment"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p2-lower-math-square-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-math-square-review",
+        "hjb-primary-p2-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小华在复习时看到一道题：把24个苹果平均分给6个小朋友，每个小朋友分到几个？他列式24÷6=4（个）。请你写出他用的数学模型名称。",
+      "optionsZhHans": [],
+      "answer": "等分除",
+      "acceptedAnswers": [
+        "等分除",
+        "平均分"
+      ],
+      "explanationZhHans": "把总数平均分成几份，求每份是多少，用除法，这种模型叫等分除或平均分。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-237",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "hjb-primary-p2-lower-math-square-review",
+      "unitTitle": "二年级下册数学广场与整理复习",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "p2-lower-review",
+        "math-square-exploration",
+        "division-time-place-value-review",
+        "operation-review",
+        "数学广场",
+        "复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "推理意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "规律探索",
+        "模型选择",
+        "错因说明",
+        "复习整理"
+      ],
+      "misconceptionTags": [
+        "model chosen by keyword only",
+        "time and number units mixed",
+        "larger-number calculation attempted without place-value alignment"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p2-lower-math-square-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-math-square-review",
+        "hjb-primary-p2-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪一道题需要用“包含除”模型来解决？",
+      "optionsZhHans": [
+        "A. 妈妈买了20颗糖，平均分给4个小朋友，每人几颗？",
+        "B. 一根绳子长18米，每3米剪一段，可以剪成几段？",
+        "C. 小明有15本故事书，送给同学5本，还剩几本？",
+        "D. 一盒铅笔有8支，3盒共有多少支？"
+      ],
+      "answer": "B. 一根绳子长18米，每3米剪一段，可以剪成几段？",
+      "acceptedAnswers": [
+        "B. 一根绳子长18米，每3米剪一段，可以剪成几段？"
+      ],
+      "explanationZhHans": "包含除是求一个数里包含几个另一个数，即18里面有几个3，用除法。A是等分除，C是减法，D是乘法。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-238",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "hjb-primary-p2-lower-math-square-review",
+      "unitTitle": "二年级下册数学广场与整理复习",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "p2-lower-review",
+        "math-square-exploration",
+        "division-time-place-value-review",
+        "operation-review",
+        "数学广场",
+        "复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "推理意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "规律探索",
+        "模型选择",
+        "错因说明",
+        "复习整理"
+      ],
+      "misconceptionTags": [
+        "model chosen by keyword only",
+        "time and number units mixed",
+        "larger-number calculation attempted without place-value alignment"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p2-lower-math-square-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-math-square-review",
+        "hjb-primary-p2-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小红计算35+28时，先算30+20=50，再算5+8=13，最后50+13=63。她用的方法是把两位数拆成____和____分别相加。",
+      "optionsZhHans": [],
+      "answer": "整十数，一位数",
+      "acceptedAnswers": [
+        "整十数，一位数",
+        "十位，个位"
+      ],
+      "explanationZhHans": "两位数加两位数口算时，可以把十位和个位拆开，先加整十数，再加一位数，最后合并。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-239",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "hjb-primary-p2-lower-math-square-review",
+      "unitTitle": "二年级下册数学广场与整理复习",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "p2-lower-review",
+        "math-square-exploration",
+        "division-time-place-value-review",
+        "operation-review",
+        "数学广场",
+        "复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "推理意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "规律探索",
+        "模型选择",
+        "错因说明",
+        "复习整理"
+      ],
+      "misconceptionTags": [
+        "model chosen by keyword only",
+        "time and number units mixed",
+        "larger-number calculation attempted without place-value alignment"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p2-lower-math-square-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-math-square-review",
+        "hjb-primary-p2-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下列哪个时间表示是正确的？",
+      "optionsZhHans": [
+        "A. 小明7:60起床",
+        "B. 电影从2:30开始，3:50结束，放映了1小时20分",
+        "C. 1分=100秒",
+        "D. 时针走一大格是1分钟"
+      ],
+      "answer": "B. 电影从2:30开始，3:50结束，放映了1小时20分",
+      "acceptedAnswers": [
+        "B. 电影从2:30开始，3:50结束，放映了1小时20分"
+      ],
+      "explanationZhHans": "A错，7:60不存在；C错，1分=60秒；D错，时针走一大格是1小时。B计算正确：3:50-2:30=1小时20分。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-240",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "hjb-primary-p2-lower-math-square-review",
+      "unitTitle": "二年级下册数学广场与整理复习",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "p2-lower-review",
+        "math-square-exploration",
+        "division-time-place-value-review",
+        "operation-review",
+        "数学广场",
+        "复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "推理意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "规律探索",
+        "模型选择",
+        "错因说明",
+        "复习整理"
+      ],
+      "misconceptionTags": [
+        "model chosen by keyword only",
+        "time and number units mixed",
+        "larger-number calculation attempted without place-value alignment"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p2-lower-math-square-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-math-square-review",
+        "hjb-primary-p2-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在算式□÷5=6……△中，△最大是____，这时□是____。",
+      "optionsZhHans": [],
+      "answer": "4，34",
+      "acceptedAnswers": [
+        "4，34",
+        "4,34"
+      ],
+      "explanationZhHans": "余数必须比除数5小，最大是4。被除数=5×6+4=34。"
+    }
+  ]
+}

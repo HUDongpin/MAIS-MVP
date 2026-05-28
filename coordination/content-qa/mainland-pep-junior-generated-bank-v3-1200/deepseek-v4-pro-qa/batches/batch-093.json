@@ -1,0 +1,143 @@
+{
+  "batchNumber": 93,
+  "startedAt": "2026-05-24T23:04:56.129Z",
+  "completedAt": "2026-05-24T23:05:12.536Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s3-k11-fi-039",
+    "pep-junior-v3-s3-k11-fi-040",
+    "pep-junior-v3-s3-k11-fi-041",
+    "pep-junior-v3-s3-k11-fi-042",
+    "pep-junior-v3-s3-k11-fi-043",
+    "pep-junior-v3-s3-k11-fi-044",
+    "pep-junior-v3-s3-k11-fi-045",
+    "pep-junior-v3-s3-k11-fi-046",
+    "pep-junior-v3-s3-k11-fi-047",
+    "pep-junior-v3-s3-k11-fi-048",
+    "pep-junior-v3-s3-k11-fi-049",
+    "pep-junior-v3-s3-k11-fi-050"
+  ],
+  "usage": {
+    "prompt_tokens": 3655,
+    "completion_tokens": 1058,
+    "total_tokens": 4713,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 3399
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s3-k11-fi-039",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数据明确，中位数计算正确，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-fi-040",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "代入正确，k=-10无误。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-fi-041",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "三角函数定义正确，BC=12。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-fi-042",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "三视图判断为圆柱，体积计算正确，答案形式合理。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-fi-043",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "中点坐标和旋转对称计算正确，A'为(0,6)。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-fi-044",
+        "status": "fail",
+        "severity": "blocker",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch"
+        ],
+        "correctedAnswer": "证明：因为AD/AB=3/(3+4)=3/7，AE/AC=4/(4+5)=4/9，且∠A为公共角，所以△ADE∽△ABC。",
+        "rationale": "相似三角形对应边比例错误，应为AD/AB=3/7，AE/AC=4/9，且对应顶点顺序错误，应为△ADE∽△ABC。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-fi-045",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "仰角测高问题，计算正确，答案形式符合要求。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-fi-046",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "反比例函数求值正确，m=6。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-fi-047",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "函数关系式及自变量范围正确。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-fi-048",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "三视图还原小正方体最少个数为6，正确。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-fi-049",
+        "status": "fail",
+        "severity": "blocker",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch"
+        ],
+        "correctedAnswer": "(-2, -3)",
+        "rationale": "旋转后Q为(-4,-3)，平移后R为(-2,-3)，答案错误。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-fi-050",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平行线分线段成比例，EC=8正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 10,
+      "warn": 0,
+      "fail": 2,
+      "notes": "2题因数学错误或答案不匹配被拒：044相似三角形对应边比例和顶点顺序错误；049旋转平移后坐标计算错误。其余10题通过。"
+    }
+  }
+}

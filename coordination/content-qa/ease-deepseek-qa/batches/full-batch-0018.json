@@ -1,0 +1,168 @@
+{
+  "scope": "full",
+  "batchIndex": 18,
+  "startedAt": "2026-05-28T03:27:29.295Z",
+  "completedAt": "2026-05-28T03:28:28.471Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "itemIds": [
+    "10474",
+    "10475",
+    "10476",
+    "10477",
+    "10478",
+    "10479",
+    "10480",
+    "10325",
+    "10370",
+    "10371"
+  ],
+  "usage": {
+    "prompt_tokens": 2918,
+    "completion_tokens": 3921,
+    "total_tokens": 6839,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 2681
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2534
+  },
+  "finishReason": "stop",
+  "jsonModeFallback": false,
+  "result": {
+    "items": [
+      {
+        "questionId": "10474",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "8",
+        "independentAnswer": "8",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Solvable arithmetic expression; computed answer matches key.",
+        "recommendedAction": "None"
+      },
+      {
+        "questionId": "10475",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "520",
+        "independentAnswer": "520",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Solvable arithmetic expression; computed answer matches key.",
+        "recommendedAction": "None"
+      },
+      {
+        "questionId": "10476",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "120 (元/dollars)",
+        "independentAnswer": "120 (元/dollars)",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Simple word problem; calculated unit price and total matches key.",
+        "recommendedAction": "None"
+      },
+      {
+        "questionId": "10477",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "8 (塊/pieces)",
+        "independentAnswer": "8 (塊/pieces)",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Simple word problem; total cookies divided by students matches key.",
+        "recommendedAction": "None"
+      },
+      {
+        "questionId": "10478",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "237 (元/dollars)",
+        "independentAnswer": "237 (元/dollars)",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Simple word problem; total cost and change computed correctly.",
+        "recommendedAction": "None"
+      },
+      {
+        "questionId": "10479",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "20 (分鐘/minutes)",
+        "independentAnswer": "20 (分鐘/minutes)",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Rate problem; computation matches key.",
+        "recommendedAction": "None"
+      },
+      {
+        "questionId": "10480",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "17 (人/people)",
+        "independentAnswer": "17 (人/people)",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Word problem with multiple steps; answer computed correctly.",
+        "recommendedAction": "None"
+      },
+      {
+        "questionId": "10325",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": "11/22 < 12/22 < 21/22",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "答案缺失；题目可解，比较同分母分数，从小到大排列为 11/22 < 12/22 < 21/22。",
+        "recommendedAction": "提供标准答案"
+      },
+      {
+        "questionId": "10370",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": "43 4/5 kg",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "答案缺失；题目可解，带分数加法：40 3/5 + 3 1/5 = 43 4/5 kg。",
+        "recommendedAction": "提供标准答案"
+      },
+      {
+        "questionId": "10371",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": "1 1/2 km",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "答案缺失；题目可解（虽有 LaTeX 笔误但可理解），带分数减法：20 1/4 - 18 3/4 = 1 1/2 km。",
+        "recommendedAction": "提供标准答案"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "unsolvable": 0,
+      "ambiguous": 0,
+      "imageContextRequired": 0,
+      "answerMismatch": 0,
+      "missingAnswerKey": 3,
+      "notes": "7 items solvable with correct answer key, 3 items (10325,10370,10371) missing answer key (provided from school)."
+    }
+  }
+}

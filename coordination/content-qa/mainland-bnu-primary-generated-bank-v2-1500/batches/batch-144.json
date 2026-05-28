@@ -1,0 +1,595 @@
+{
+  "batchId": "batch-144",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p6-181",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-geometric-motion",
+      "unitTitle": "图形的运动",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "geometric-motion",
+        "rotation",
+        "translation",
+        "symmetry",
+        "design-transformations",
+        "图形运动"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "识别平移",
+        "识别旋转",
+        "描述旋转中心角度方向",
+        "轴对称",
+        "组合变换"
+      ],
+      "misconceptionTags": [
+        "rotation center omitted",
+        "clockwise direction reversed",
+        "shape size changed during rigid motion"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-geometric-motion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-geometric-motion-unit",
+        "bnu-primary-p6-lower-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个直角三角形ABC，直角顶点为B，AB长3厘米，BC长4厘米。将三角形绕点B逆时针旋转90°后，点A移动到点A'。点A'在点B的什么方向？",
+      "optionsZhHans": [
+        "正北方向",
+        "正西方向",
+        "正南方向",
+        "正东方向"
+      ],
+      "answer": "正西方向",
+      "acceptedAnswers": [
+        "正西方向"
+      ],
+      "explanationZhHans": "旋转前A在B的正上方（北），逆时针旋转90°后，A'转到B的正左方，即正西方向。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-182",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-geometric-motion",
+      "unitTitle": "图形的运动",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "geometric-motion",
+        "rotation",
+        "translation",
+        "symmetry",
+        "design-transformations",
+        "图形运动"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "识别平移",
+        "识别旋转",
+        "描述旋转中心角度方向",
+        "轴对称",
+        "组合变换"
+      ],
+      "misconceptionTags": [
+        "rotation center omitted",
+        "clockwise direction reversed",
+        "shape size changed during rigid motion"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-geometric-motion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-geometric-motion-unit",
+        "bnu-primary-p6-lower-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个正方形先向右平移5格，再向下平移3格。平移后正方形的大小与原来相比，______。（填“变大”“变小”或“不变”）",
+      "optionsZhHans": [],
+      "answer": "不变",
+      "acceptedAnswers": [
+        "不变"
+      ],
+      "explanationZhHans": "平移只改变图形的位置，不改变图形的形状和大小，所以正方形的大小不变。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-183",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-geometric-motion",
+      "unitTitle": "图形的运动",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "geometric-motion",
+        "rotation",
+        "translation",
+        "symmetry",
+        "design-transformations",
+        "图形运动"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "识别平移",
+        "识别旋转",
+        "描述旋转中心角度方向",
+        "轴对称",
+        "组合变换"
+      ],
+      "misconceptionTags": [
+        "rotation center omitted",
+        "clockwise direction reversed",
+        "shape size changed during rigid motion"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-geometric-motion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-geometric-motion-unit",
+        "bnu-primary-p6-lower-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个等边三角形绕其一个顶点顺时针旋转120°后，与原来的三角形完全重合。这个旋转的旋转中心是______。",
+      "optionsZhHans": [
+        "三角形的一个顶点",
+        "三角形的中心",
+        "三角形边的中点",
+        "三角形外部一点"
+      ],
+      "answer": "三角形的一个顶点",
+      "acceptedAnswers": [
+        "三角形的一个顶点"
+      ],
+      "explanationZhHans": "题目说绕“其一个顶点”旋转，所以旋转中心就是那个顶点。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-184",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-geometric-motion",
+      "unitTitle": "图形的运动",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "geometric-motion",
+        "rotation",
+        "translation",
+        "symmetry",
+        "design-transformations",
+        "图形运动"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "识别平移",
+        "识别旋转",
+        "描述旋转中心角度方向",
+        "轴对称",
+        "组合变换"
+      ],
+      "misconceptionTags": [
+        "rotation center omitted",
+        "clockwise direction reversed",
+        "shape size changed during rigid motion"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-geometric-motion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-geometric-motion-unit",
+        "bnu-primary-p6-lower-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "从凌晨3时到凌晨6时，钟面上的时针绕中心点顺时针旋转了______度。",
+      "optionsZhHans": [],
+      "answer": "90",
+      "acceptedAnswers": [
+        "90",
+        "90度"
+      ],
+      "explanationZhHans": "时针每小时旋转30°，从3时到6时共3小时，旋转30°×3=90°。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-185",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-geometric-motion",
+      "unitTitle": "图形的运动",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "geometric-motion",
+        "rotation",
+        "translation",
+        "symmetry",
+        "design-transformations",
+        "图形运动"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "识别平移",
+        "识别旋转",
+        "描述旋转中心角度方向",
+        "轴对称",
+        "组合变换"
+      ],
+      "misconceptionTags": [
+        "rotation center omitted",
+        "clockwise direction reversed",
+        "shape size changed during rigid motion"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-geometric-motion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-geometric-motion-unit",
+        "bnu-primary-p6-lower-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个图形有无数条对称轴？",
+      "optionsZhHans": [
+        "正方形",
+        "等边三角形",
+        "圆",
+        "长方形"
+      ],
+      "answer": "圆",
+      "acceptedAnswers": [
+        "圆"
+      ],
+      "explanationZhHans": "圆的任意一条直径所在的直线都是对称轴，所以有无数条对称轴。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-186",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-geometric-motion",
+      "unitTitle": "图形的运动",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "geometric-motion",
+        "rotation",
+        "translation",
+        "symmetry",
+        "design-transformations",
+        "图形运动"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "识别平移",
+        "识别旋转",
+        "描述旋转中心角度方向",
+        "轴对称",
+        "组合变换"
+      ],
+      "misconceptionTags": [
+        "rotation center omitted",
+        "clockwise direction reversed",
+        "shape size changed during rigid motion"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-geometric-motion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-geometric-motion-unit",
+        "bnu-primary-p6-lower-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个图形先绕点O顺时针旋转90°，再绕点O逆时针旋转90°，这个图形最终的位置与原来相比，______。（填“相同”或“不同”）",
+      "optionsZhHans": [],
+      "answer": "相同",
+      "acceptedAnswers": [
+        "相同"
+      ],
+      "explanationZhHans": "顺时针旋转90°再逆时针旋转90°，相当于没有旋转，所以最终位置与原来相同。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-187",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-geometric-motion",
+      "unitTitle": "图形的运动",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "geometric-motion",
+        "rotation",
+        "translation",
+        "symmetry",
+        "design-transformations",
+        "图形运动"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "识别平移",
+        "识别旋转",
+        "描述旋转中心角度方向",
+        "轴对称",
+        "组合变换"
+      ],
+      "misconceptionTags": [
+        "rotation center omitted",
+        "clockwise direction reversed",
+        "shape size changed during rigid motion"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-geometric-motion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-geometric-motion-unit",
+        "bnu-primary-p6-lower-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方形长6厘米、宽4厘米，以它的长边为轴旋转一周，得到的立体图形是什么？",
+      "optionsZhHans": [
+        "圆柱",
+        "圆锥",
+        "球",
+        "圆台"
+      ],
+      "answer": "圆柱",
+      "acceptedAnswers": [
+        "圆柱"
+      ],
+      "explanationZhHans": "长方形绕长边旋转一周，形成底面半径为宽、高为长的圆柱。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-188",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-geometric-motion",
+      "unitTitle": "图形的运动",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "geometric-motion",
+        "rotation",
+        "translation",
+        "symmetry",
+        "design-transformations",
+        "图形运动"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "识别平移",
+        "识别旋转",
+        "描述旋转中心角度方向",
+        "轴对称",
+        "组合变换"
+      ],
+      "misconceptionTags": [
+        "rotation center omitted",
+        "clockwise direction reversed",
+        "shape size changed during rigid motion"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-geometric-motion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-geometric-motion-unit",
+        "bnu-primary-p6-lower-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "点A的位置用数对表示为（3，5），将点A先向右平移4格，再向下平移2格后，点A'的位置用数对表示为（______，______）。",
+      "optionsZhHans": [],
+      "answer": "7,3",
+      "acceptedAnswers": [
+        "7,3",
+        "(7,3)",
+        "7，3"
+      ],
+      "explanationZhHans": "向右平移4格，列数加4：3+4=7；向下平移2格，行数减2：5-2=3。所以是(7,3)。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-189",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-geometric-motion",
+      "unitTitle": "图形的运动",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "geometric-motion",
+        "rotation",
+        "translation",
+        "symmetry",
+        "design-transformations",
+        "图形运动"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "识别平移",
+        "识别旋转",
+        "描述旋转中心角度方向",
+        "轴对称",
+        "组合变换"
+      ],
+      "misconceptionTags": [
+        "rotation center omitted",
+        "clockwise direction reversed",
+        "shape size changed during rigid motion"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-geometric-motion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-geometric-motion-unit",
+        "bnu-primary-p6-lower-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个运动属于平移？",
+      "optionsZhHans": [
+        "钟摆的摆动",
+        "电梯的上下移动",
+        "风扇叶片的转动",
+        "荡秋千"
+      ],
+      "answer": "电梯的上下移动",
+      "acceptedAnswers": [
+        "电梯的上下移动"
+      ],
+      "explanationZhHans": "电梯上下移动时，整体沿直线方向移动，形状大小不变，属于平移；其他选项都是旋转。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-190",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-geometric-motion",
+      "unitTitle": "图形的运动",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "geometric-motion",
+        "rotation",
+        "translation",
+        "symmetry",
+        "design-transformations",
+        "图形运动"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "识别平移",
+        "识别旋转",
+        "描述旋转中心角度方向",
+        "轴对称",
+        "组合变换"
+      ],
+      "misconceptionTags": [
+        "rotation center omitted",
+        "clockwise direction reversed",
+        "shape size changed during rigid motion"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-geometric-motion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-geometric-motion-unit",
+        "bnu-primary-p6-lower-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个图形绕点O顺时针旋转90°后，图形上的点P（2，3）对应点P'的位置是（3，-2）。那么旋转中心O的坐标是（______，______）。",
+      "optionsZhHans": [],
+      "answer": "0,0",
+      "acceptedAnswers": [
+        "0,0",
+        "(0,0)",
+        "0，0"
+      ],
+      "explanationZhHans": "点P(2,3)绕原点顺时针旋转90°得(3,-2)，所以旋转中心是原点(0,0)。"
+    }
+  ]
+}

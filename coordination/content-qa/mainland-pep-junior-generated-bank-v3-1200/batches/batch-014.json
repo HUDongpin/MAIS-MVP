@@ -1,0 +1,344 @@
+{
+  "batchId": "batch-014",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s1-k02-sa-019",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-rational-number-operations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "小雅用围棋子摆出一个正方形边框，每条边用了a枚棋子（四个角上的棋子重复计数）。她发现边框的棋子总数可以表示为4a-4。请你写出这个代数式的含义，并说明为什么需要减去4。",
+      "optionsZhHans": [],
+      "answer": "4a表示四条边各算a枚，但四个角上的棋子被重复计算了一次，所以减去4得到实际总数。",
+      "acceptedAnswers": [
+        "4a表示四条边各算a枚，但四个角上的棋子被重复计算了一次，所以减去4得到实际总数。",
+        "4a表示四条边各算a枚，但四个角上的棋子被重复计算了一次，所以减去4得到实际总数",
+        "四条边各a枚共4a，四个角重复计数，减去4",
+        "4a是四条边的总数，但四个角重复了，所以要减去4"
+      ],
+      "explanationZhHans": "正方形有四条边，每条边有a枚棋子，如果直接乘4得到4a，那么四个角上的棋子都被算了两次，实际上每个角只应算一次，所以需要减去多算的4枚，得到边框实际棋子总数为4a-4。答案为4a表示四条边各算a枚，但四个角上的棋子被重复计算了一次，所以减去4得到实际总数。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-sa-020",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-geometric-figures"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "小杰在计算一个多项式减去2x²-3x+1时，误将减法看成了加法，得到的结果是5x²+2x-3。请你求出正确的计算结果。",
+      "optionsZhHans": [],
+      "answer": "x²+8x-5",
+      "acceptedAnswers": [
+        "x²+8x-5"
+      ],
+      "explanationZhHans": "设原多项式为A，根据错误运算有A+(2x²-3x+1)=5x²+2x-3，所以A=(5x²+2x-3)-(2x²-3x+1)=5x²+2x-3-2x²+3x-1=3x²+5x-4。正确的计算应为A-(2x²-3x+1)=(3x²+5x-4)-(2x²-3x+1)=3x²+5x-4-2x²+3x-1=x²+8x-5。答案为x²+8x-5。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-sa-021",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-expression-simplification"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "已知代数式2x²-3x+1与ax²+bx-2的和中不含x的一次项，且二次项系数为5，求a和b的值。",
+      "optionsZhHans": [],
+      "answer": "a=3，b=3",
+      "acceptedAnswers": [
+        "a=3，b=3",
+        "a=3,b=3",
+        "a=3 b=3"
+      ],
+      "explanationZhHans": "两个代数式的和为(2x²-3x+1)+(ax²+bx-2)=(2+a)x²+(-3+b)x-1。根据题意，和中不含x的一次项，所以一次项系数-3+b=0，解得b=3；二次项系数为5，所以2+a=5，解得a=3。因此a=3，b=3。答案为a=3，b=3。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-sa-022",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-linear-equation-modeling"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "某商店将一款书包按进价提高40%后标价，再打八折出售，结果每件获利15元。这款书包的进价是多少元？",
+      "optionsZhHans": [],
+      "answer": "125",
+      "acceptedAnswers": [
+        "125",
+        "125元",
+        "125 元"
+      ],
+      "explanationZhHans": "设进价为x元，则标价为(1+40%)x=1.4x元，售价为0.8×1.4x=1.12x元。根据利润关系，售价-进价=15，即1.12x-x=15，0.12x=15，解得x=125。所以进价为125元。答案为125。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k03-mc-001",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-geometric-figures",
+      "unitTitle": "几何图形初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-geometric-figures"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-geometric-figures"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "下列几何图形中，属于平面图形的是（　）",
+      "optionsZhHans": [
+        "球",
+        "圆锥",
+        "圆",
+        "圆柱"
+      ],
+      "answer": "圆",
+      "acceptedAnswers": [
+        "圆",
+        "C",
+        "c"
+      ],
+      "explanationZhHans": "平面图形是指各部分都在同一平面内的图形。球、圆锥、圆柱都是立体图形，只有圆是平面图形。答案为C. 圆。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k03-mc-002",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-geometric-figures",
+      "unitTitle": "几何图形初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-geometric-figures"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "已知线段AB=10 cm，点C是线段AB上一点，且AC=4 cm。若点D是线段BC的中点，则线段AD的长度为（　）",
+      "optionsZhHans": [
+        "5 cm",
+        "6 cm",
+        "7 cm",
+        "8 cm"
+      ],
+      "answer": "7 cm",
+      "acceptedAnswers": [
+        "7 cm",
+        "C",
+        "c"
+      ],
+      "explanationZhHans": "因为AB=10 cm，AC=4 cm，所以BC=AB-AC=6 cm。点D是BC的中点，所以CD=3 cm。AD=AC+CD=4+3=7 cm。答案为C. 7 cm。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k03-mc-003",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-geometric-figures",
+      "unitTitle": "几何图形初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-geometric-figures"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-rational-number-operations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "下列四个角中，可能为20°的角是（　）",
+      "optionsZhHans": [
+        "钝角",
+        "直角",
+        "锐角",
+        "平角"
+      ],
+      "answer": "锐角",
+      "acceptedAnswers": [
+        "锐角",
+        "C",
+        "c"
+      ],
+      "explanationZhHans": "锐角是指大于0°且小于90°的角，20°在这个范围内，所以是锐角。钝角大于90°且小于180°，直角等于90°，平角等于180°，均不符合。答案为C. 锐角。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k03-mc-004",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-geometric-figures",
+      "unitTitle": "几何图形初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-geometric-figures"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-expression-simplification"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "用一副三角尺不能拼出的角度是（　）",
+      "optionsZhHans": [
+        "75°",
+        "105°",
+        "130°",
+        "135°"
+      ],
+      "answer": "130°",
+      "acceptedAnswers": [
+        "130°",
+        "C",
+        "c"
+      ],
+      "explanationZhHans": "一副三角尺的角有30°、45°、60°、90°。通过相加或相减可得到75°（30°+45°）、105°（45°+60°）、135°（45°+90°），但无法得到130°。答案为C. 130°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k03-mc-005",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-geometric-figures",
+      "unitTitle": "几何图形初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-geometric-figures"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-linear-equation-modeling"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "若∠α与∠β互余，且∠α=35°，则∠β的补角为（　）",
+      "optionsZhHans": [
+        "55°",
+        "125°",
+        "145°",
+        "155°"
+      ],
+      "answer": "125°",
+      "acceptedAnswers": [
+        "125°",
+        "B",
+        "b"
+      ],
+      "explanationZhHans": "因为∠α与∠β互余，所以∠α+∠β=90°，已知∠α=35°，则∠β=90°-35°=55°。∠β的补角为180°-∠β=180°-55°=125°。答案为B. 125°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k03-mc-006",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-geometric-figures",
+      "unitTitle": "几何图形初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-geometric-figures"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-geometric-figures"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "下列说法正确的是（　）",
+      "optionsZhHans": [
+        "两点之间，直线最短",
+        "射线AB与射线BA是同一条射线",
+        "过两点有且只有一条直线",
+        "延长直线AB到点C"
+      ],
+      "answer": "过两点有且只有一条直线",
+      "acceptedAnswers": [
+        "过两点有且只有一条直线",
+        "C",
+        "c"
+      ],
+      "explanationZhHans": "A错误，应为两点之间线段最短；B错误，射线AB的端点是A，射线BA的端点是B，方向不同；C正确，这是直线公理；D错误，直线本身就是无限延伸的，不能说延长直线。答案为C. 过两点有且只有一条直线。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

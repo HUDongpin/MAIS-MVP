@@ -1,0 +1,158 @@
+{
+  "batchNumber": 93,
+  "startedAt": "2026-05-27T13:59:14.342Z",
+  "completedAt": "2026-05-27T13:59:38.438Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-237",
+    "bnu-high-ds-v1-s5-238",
+    "bnu-high-ds-v1-s5-239",
+    "bnu-high-ds-v1-s5-240",
+    "bnu-high-ds-v1-s5-241",
+    "bnu-high-ds-v1-s5-242",
+    "bnu-high-ds-v1-s5-243",
+    "bnu-high-ds-v1-s5-244"
+  ],
+  "usage": {
+    "prompt_tokens": 12985,
+    "completion_tokens": 1406,
+    "total_tokens": 14391,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 12473
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-237",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "无实数解",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件A(1,2), B(5,6)下方程t²-6t+17=0无实根，无法得到答案(2,0)或(4,0)。解析中承认无解并擅自调整数据，与题目矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-238",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "无实数解",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "给定圆和直线条件下，面积2√3导致d²(4-d²)=12，即d⁴-4d²+12=0无实解。解析中反复调整数据，最终答案k=-2或1/2与题目条件不符，且代入验证不成立。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-239",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(x-4)²+(y-3)²=5",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "三点确定圆，计算得圆心(4,3)，半径√5，方程正确。解析与答案一致，且包含建模假设。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-240",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "无实数解",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "与237题相同，条件A(1,2), B(5,6)下方程无实根，答案(2,0)或(4,0)无法从题目得出。解析擅自修改数据，矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-241",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "无法验证",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "解析中推导中点M坐标和距离方程有误，最终方程|k²-13k+4|=√5无法解得k=1或-1/7，且未验证判别式。题目条件与答案不匹配。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-242",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "x=8 或 3x+4y-28=0",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "圆方程化为(x-3)²+(y+2)²=25，过点(8,1)的切线计算正确，包含斜率不存在情况，答案完整。解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-243",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(x-2.5)²+(y-4)²=9",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由距离平方和条件展开配方得圆方程，计算无误。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-244",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "无实数解",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "圆半径5，弦长8得d=3，但方程|2-m|/√(m²+1)=3化为8m²+4m+5=0无实根。解析承认无解并反复调整，最终答案-2或1/2与题目矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 3,
+      "warn": 0,
+      "fail": 5,
+      "notes": "8题中3题可解且答案解析一致，5题因条件错误或无解导致答案不匹配，解析存在矛盾，需修正题目数据或答案。"
+    }
+  }
+}

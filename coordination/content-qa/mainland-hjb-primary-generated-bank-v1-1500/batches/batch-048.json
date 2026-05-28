@@ -1,0 +1,289 @@
+{
+  "batchId": "batch-048",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p1-236",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "hjb-primary-p1-lower-review",
+      "unitTitle": "一年级下册整理与复习",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "p1-lower-review",
+        "within-100-review",
+        "time-length-review",
+        "operation-strategy-review",
+        "复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "数感",
+        "量感"
+      ],
+      "skillTags": [
+        "综合整理",
+        "策略比较",
+        "错因说明",
+        "应用表达"
+      ],
+      "misconceptionTags": [
+        "strategy chosen after computing only",
+        "measurement and number operation units mixed",
+        "review seen as isolated drills"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p1-lower-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-lower-assessment-final-integrated",
+        "hjb-primary-p1-lower-assessment-within-20-regrouping"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "S18 remediated after DeepSeek-v4-pro QA on 2026-05-25; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明在复习时做了两道题。第一题：45 + 8，他先算45 + 5 = 50，再算50 + 3 = 53。第二题：62 - 9，他先算62 - 2 = 60，再算60 - 7 = 53。请帮小明检查，他哪道题算错了？正确的得数应该是多少？",
+      "optionsZhHans": [],
+      "answer": "两道题都算对了",
+      "acceptedAnswers": [
+        "两道题都算对了",
+        "两道都对",
+        "两题都正确",
+        "第一题和第二题都算对了"
+      ],
+      "explanationZhHans": "第一题45+8，先加5凑成50，再加3得53，正确。第二题62-9，先减2得60，再减7得53，也正确。所以两道题都算对了。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-237",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "hjb-primary-p1-lower-review",
+      "unitTitle": "一年级下册整理与复习",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "p1-lower-review",
+        "within-100-review",
+        "time-length-review",
+        "operation-strategy-review",
+        "复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "数感",
+        "量感"
+      ],
+      "skillTags": [
+        "综合整理",
+        "策略比较",
+        "错因说明",
+        "应用表达"
+      ],
+      "misconceptionTags": [
+        "strategy chosen after computing only",
+        "measurement and number operation units mixed",
+        "review seen as isolated drills"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p1-lower-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-lower-assessment-final-integrated",
+        "hjb-primary-p1-lower-assessment-within-20-regrouping"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个时间表示的是下午3时？",
+      "optionsZhHans": [
+        "3:00",
+        "15:00",
+        "3:00和15:00都可以",
+        "以上都不对"
+      ],
+      "answer": "3:00和15:00都可以",
+      "acceptedAnswers": [
+        "3:00和15:00都可以"
+      ],
+      "explanationZhHans": "下午3时用12时记时法写作3:00，用24时记时法写作15:00，两种表示都对。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-238",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "hjb-primary-p1-lower-review",
+      "unitTitle": "一年级下册整理与复习",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "p1-lower-review",
+        "within-100-review",
+        "time-length-review",
+        "operation-strategy-review",
+        "复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "数感",
+        "量感"
+      ],
+      "skillTags": [
+        "综合整理",
+        "策略比较",
+        "错因说明",
+        "应用表达"
+      ],
+      "misconceptionTags": [
+        "strategy chosen after computing only",
+        "measurement and number operation units mixed",
+        "review seen as isolated drills"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p1-lower-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-lower-assessment-final-integrated",
+        "hjb-primary-p1-lower-assessment-within-20-regrouping"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丽用尺子量一支铅笔的长度，她将铅笔的一端对准0刻度，另一端对准18厘米。她又量了一块橡皮，一端对准0刻度，另一端对准4厘米。铅笔比橡皮长多少厘米？",
+      "optionsZhHans": [],
+      "answer": "14厘米",
+      "acceptedAnswers": [
+        "14厘米",
+        "14"
+      ],
+      "explanationZhHans": "铅笔长18厘米，橡皮长4厘米，铅笔比橡皮长18-4=14厘米。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-239",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "hjb-primary-p1-lower-review",
+      "unitTitle": "一年级下册整理与复习",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "p1-lower-review",
+        "within-100-review",
+        "time-length-review",
+        "operation-strategy-review",
+        "复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "数感",
+        "量感"
+      ],
+      "skillTags": [
+        "综合整理",
+        "策略比较",
+        "错因说明",
+        "应用表达"
+      ],
+      "misconceptionTags": [
+        "strategy chosen after computing only",
+        "measurement and number operation units mixed",
+        "review seen as isolated drills"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p1-lower-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-lower-assessment-final-integrated",
+        "hjb-primary-p1-lower-assessment-within-20-regrouping"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "S18 remediated after DeepSeek-v4-pro QA on 2026-05-25; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算34 + 9时，下面哪种方法体现了“先加10，再减1”的简便想法？",
+      "optionsZhHans": [
+        "先算34+10=44，再算44-1=43",
+        "先算30+9=39，再算39+4=43",
+        "先算4+9=13，再算30+13=43",
+        "以上方法都一样简便"
+      ],
+      "answer": "先算34+10=44，再算44-1=43",
+      "acceptedAnswers": [
+        "先算34+10=44，再算44-1=43"
+      ],
+      "explanationZhHans": "把9看作10-1，就可以先算34+10=44，再算44-1=43。这个方法正是“先加10，再减1”。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-240",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "hjb-primary-p1-lower-review",
+      "unitTitle": "一年级下册整理与复习",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "p1-lower-review",
+        "within-100-review",
+        "time-length-review",
+        "operation-strategy-review",
+        "复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "数感",
+        "量感"
+      ],
+      "skillTags": [
+        "综合整理",
+        "策略比较",
+        "错因说明",
+        "应用表达"
+      ],
+      "misconceptionTags": [
+        "strategy chosen after computing only",
+        "measurement and number operation units mixed",
+        "review seen as isolated drills"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p1-lower-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-lower-assessment-final-integrated",
+        "hjb-primary-p1-lower-assessment-within-20-regrouping"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在括号里填上合适的数：57 + ( ) = 65",
+      "optionsZhHans": [],
+      "answer": "8",
+      "acceptedAnswers": [
+        "8"
+      ],
+      "explanationZhHans": "想57加几等于65，因为65-57=8，所以括号里填8。"
+    }
+  ]
+}

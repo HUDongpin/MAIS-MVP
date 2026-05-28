@@ -1,0 +1,105 @@
+{
+  "batchId": "model-qa-0170",
+  "ids": [
+    "hjb-junior-ds-v2-s3-353",
+    "hjb-junior-ds-v2-s3-354",
+    "hjb-junior-ds-v2-s3-355",
+    "hjb-junior-ds-v2-s3-356",
+    "hjb-junior-ds-v2-s3-357",
+    "hjb-junior-ds-v2-s3-358",
+    "hjb-junior-ds-v2-s3-359",
+    "hjb-junior-ds-v2-s3-360"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-353",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "6 cm",
+      "answerCheckZhHans": "标准答案为6，acceptedAnswers包含6和6 cm，覆盖正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-354",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "8 cm",
+      "answerCheckZhHans": "标准答案为8 cm，acceptedAnswers包含8 cm和8，覆盖正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-355",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "12 cm",
+      "answerCheckZhHans": "标准答案为12 cm，选项C为12 cm，唯一正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-356",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "ambiguous-prompt"
+      ],
+      "issueDetailsZhHans": "题干未明确点B在圆上的具体位置（第一象限或第四象限），导致坐标可能为(5/2, 5√3/2)或(5/2, -5√3/2)。标准答案仅给出第一象限解，但题目未限定象限，存在歧义。",
+      "independentAnswerZhHans": "点B坐标可能为(5/2, 5√3/2)或(5/2, -5√3/2)。",
+      "answerCheckZhHans": "标准答案仅给出第一象限解，未考虑第四象限情况，不完整。",
+      "recommendedActionZhHans": "建议在题干中明确点B的位置，如“点B在第一象限”或“点B在x轴上方”。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-357",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3 cm，依据垂径定理",
+      "answerCheckZhHans": "标准答案为3 cm，依据垂径定理，acceptedAnswers覆盖正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-358",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "8 cm",
+      "answerCheckZhHans": "标准答案为8 cm，选项C为8 cm，唯一正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-359",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "√3",
+      "answerCheckZhHans": "标准答案为√3，acceptedAnswers包含√3和根号3，覆盖正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-360",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "4",
+      "answerCheckZhHans": "标准答案为4，acceptedAnswers包含4，覆盖正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

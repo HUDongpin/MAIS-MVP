@@ -1,0 +1,50 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-140",
+  "startedAt": "2026-05-28T02:08:55.130Z",
+  "completedAt": "2026-05-28T02:09:03.117Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-140"
+  ],
+  "usage": {
+    "prompt_tokens": 2256,
+    "completion_tokens": 283,
+    "total_tokens": 2539,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1872
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-140",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "定点(0,0)或(0, -2/5)？需验证。",
+        "correctedAnswer": "定点(0,0)或(0,-2/5)，需验证判别式",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "missing_condition",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立解指出可能有两个定点，存储答案仅给出(0,0)且未验证判别式，解析不完整，存在遗漏。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "存储答案不完整，遗漏定点(0,-2/5)且未验证判别式，判定为blocker。"
+    }
+  }
+}

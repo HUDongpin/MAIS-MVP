@@ -1,0 +1,45 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-491",
+  "startedAt": "2026-05-28T02:01:48.274Z",
+  "completedAt": "2026-05-28T02:01:52.619Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-491"
+  ],
+  "usage": {
+    "prompt_tokens": 1990,
+    "completion_tokens": 216,
+    "total_tokens": 2206,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1606
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-491",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "直线A₁C₁",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，答案唯一，与独立解一致；解析中“AC∥平面BDE”推理不严谨，但结论正确，不影响答案，故判为weak。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 1,
+      "warn": 0,
+      "fail": 0,
+      "notes": "题目无严重问题，解析存在轻微不严谨，但整体通过。"
+    }
+  }
+}

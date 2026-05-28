@@ -1,0 +1,624 @@
+{
+  "batchId": "batch-022",
+  "questions": [
+    {
+      "id": "bnu-junior-ds-v1-s1-211",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-data-collection",
+      "unitTitle": "数据的收集与整理",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "data-collection",
+        "data-organization",
+        "statistical-charts",
+        "survey-design",
+        "数据收集",
+        "统计图表"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "确定调查问题",
+        "收集数据",
+        "整理分类",
+        "读统计图",
+        "解释数据"
+      ],
+      "misconceptionTags": [
+        "survey question not aligned with conclusion",
+        "frequency and category confused",
+        "single data point overgeneralized"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-data-collection"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-data-collection-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某班为了解同学们最喜欢的课外活动，设计了如下调查问题：“你最喜欢的课外活动是什么？A. 阅读 B. 运动 C. 音乐 D. 绘画”。全班40名同学的选择结果整理如下：阅读12人，运动15人，音乐8人，绘画5人。根据这些数据，以下哪个结论是合理的？",
+      "optionsZhHans": [
+        "全班同学最喜欢的课外活动是运动，因为选择运动的人数最多",
+        "全班同学都不喜欢绘画，因为只有5人选择",
+        "选择阅读的人数比选择音乐的人数多4人，所以阅读一定比音乐更受欢迎",
+        "因为选择运动的人数最多，所以全校学生最喜欢的课外活动也是运动"
+      ],
+      "answer": "全班同学最喜欢的课外活动是运动，因为选择运动的人数最多",
+      "acceptedAnswers": [
+        "全班同学最喜欢的课外活动是运动，因为选择运动的人数最多"
+      ],
+      "explanationZhHans": "调查结果只反映该班情况，不能推广到全校。选项A基于本班数据，人数最多即最受欢迎，合理。B中“都不喜欢”过于绝对，5人选择不代表其他人不喜欢。C中人数差不能直接推断受欢迎程度，且“一定”不严谨。D错误地将班级结论推广到全校。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-212",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-data-collection",
+      "unitTitle": "数据的收集与整理",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "data-collection",
+        "data-organization",
+        "statistical-charts",
+        "survey-design",
+        "数据收集",
+        "统计图表"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "确定调查问题",
+        "收集数据",
+        "整理分类",
+        "读统计图",
+        "解释数据"
+      ],
+      "misconceptionTags": [
+        "survey question not aligned with conclusion",
+        "frequency and category confused",
+        "single data point overgeneralized"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-data-collection"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-data-collection-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明想了解本校七年级学生每天课外阅读时间的分布情况。他设计了一个调查方案：从七年级每个班随机抽取5名学生，共抽取50名学生，询问他们“你昨天课外阅读了多少分钟？”，并记录数据。请指出这个调查方案的一个不足之处，并说明理由。",
+      "optionsZhHans": [],
+      "answer": "不足之处：只询问“昨天”的阅读时间，数据可能受偶然因素影响，不能代表日常情况。理由：一天的阅读时间波动较大，可能因为作业量、活动安排等原因偏离平时习惯，导致调查结果不稳定。",
+      "acceptedAnswers": [
+        "不足之处：只询问“昨天”的阅读时间，数据可能受偶然因素影响，不能代表日常情况。理由：一天的阅读时间波动较大，可能因为作业量、活动安排等原因偏离平时习惯，导致调查结果不稳定。",
+        "不足之处：只调查了一天，没有考虑长期平均。",
+        "不足之处：样本只来自一天，可能不具代表性。"
+      ],
+      "explanationZhHans": "调查问题应能反映一般情况，仅询问一天的数据易受随机因素干扰，如当天作业多、有活动等，导致结果偏差。改进可询问“通常每天”或连续记录几天取平均。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-213",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-data-collection",
+      "unitTitle": "数据的收集与整理",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "data-collection",
+        "data-organization",
+        "statistical-charts",
+        "survey-design",
+        "数据收集",
+        "统计图表"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "确定调查问题",
+        "收集数据",
+        "整理分类",
+        "读统计图",
+        "解释数据"
+      ],
+      "misconceptionTags": [
+        "survey question not aligned with conclusion",
+        "frequency and category confused",
+        "single data point overgeneralized"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-data-collection"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-data-collection-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校七年级（1）班对全班40名学生的上学方式进行调查，结果如下：步行12人，骑自行车10人，乘公交车8人，家长接送6人，其他方式4人。请计算骑自行车的人数占全班总人数的百分比，并填写：______%。（结果保留整数）",
+      "optionsZhHans": [],
+      "answer": "25",
+      "acceptedAnswers": [
+        "25",
+        "25%"
+      ],
+      "explanationZhHans": "骑自行车人数10人，总人数40人，百分比为10÷40×100%=25%。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-214",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-data-collection",
+      "unitTitle": "数据的收集与整理",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "data-collection",
+        "data-organization",
+        "statistical-charts",
+        "survey-design",
+        "数据收集",
+        "统计图表"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "确定调查问题",
+        "收集数据",
+        "整理分类",
+        "读统计图",
+        "解释数据"
+      ],
+      "misconceptionTags": [
+        "survey question not aligned with conclusion",
+        "frequency and category confused",
+        "single data point overgeneralized"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-data-collection"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-data-collection-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "老师想了解全班同学每周做家务的时间，以下哪种调查方式最合适？",
+      "optionsZhHans": [
+        "让每位同学记录自己一周内每天做家务的时间，然后计算平均值",
+        "在班会上举手统计，问“谁每周做家务超过1小时？”",
+        "只询问班干部，因为他们比较有代表性",
+        "观察某一天同学们做家务的情况"
+      ],
+      "answer": "让每位同学记录自己一周内每天做家务的时间，然后计算平均值",
+      "acceptedAnswers": [
+        "让每位同学记录自己一周内每天做家务的时间，然后计算平均值"
+      ],
+      "explanationZhHans": "A方案通过连续记录取平均，能较准确反映每周情况。B只得到超过1小时的人数，无法知道具体分布。C样本有偏，班干部不能代表全班。D仅一天观察，偶然性大。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-215",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-data-collection",
+      "unitTitle": "数据的收集与整理",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "data-collection",
+        "data-organization",
+        "statistical-charts",
+        "survey-design",
+        "数据收集",
+        "统计图表"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "确定调查问题",
+        "收集数据",
+        "整理分类",
+        "读统计图",
+        "解释数据"
+      ],
+      "misconceptionTags": [
+        "survey question not aligned with conclusion",
+        "frequency and category confused",
+        "single data point overgeneralized"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-data-collection"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-data-collection-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某社区对居民最喜欢的运动项目进行调查，随机抽取了200名居民，结果如下：篮球58人，羽毛球42人，跑步35人，游泳30人，其他35人。社区共有居民2000人。请根据样本数据，估计该社区最喜欢篮球的居民大约有多少人，并说明估计的依据。",
+      "optionsZhHans": [],
+      "answer": "估计最喜欢篮球的居民约有580人。依据：样本中最喜欢篮球的比例为58÷200=0.29，用该比例估计总体，2000×0.29=580人。",
+      "acceptedAnswers": [
+        "估计最喜欢篮球的居民约有580人。依据：样本中最喜欢篮球的比例为58÷200=0.29，用该比例估计总体，2000×0.29=580人。",
+        "580人",
+        "580"
+      ],
+      "explanationZhHans": "用样本比例估计总体比例：58/200=0.29，2000×0.29=580。前提是样本具有随机性和代表性。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-216",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-data-collection",
+      "unitTitle": "数据的收集与整理",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "data-collection",
+        "data-organization",
+        "statistical-charts",
+        "survey-design",
+        "数据收集",
+        "统计图表"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "确定调查问题",
+        "收集数据",
+        "整理分类",
+        "读统计图",
+        "解释数据"
+      ],
+      "misconceptionTags": [
+        "survey question not aligned with conclusion",
+        "frequency and category confused",
+        "single data point overgeneralized"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-data-collection"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-data-collection-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下表是某小组6名同学的身高数据（单位：cm）：160，165，158，162，170，155。请计算这组数据的极差，并填写：______cm。",
+      "optionsZhHans": [],
+      "answer": "15",
+      "acceptedAnswers": [
+        "15",
+        "15cm"
+      ],
+      "explanationZhHans": "极差=最大值-最小值=170-155=15cm。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-217",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-data-collection",
+      "unitTitle": "数据的收集与整理",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "data-collection",
+        "data-organization",
+        "statistical-charts",
+        "survey-design",
+        "数据收集",
+        "统计图表"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "确定调查问题",
+        "收集数据",
+        "整理分类",
+        "读统计图",
+        "解释数据"
+      ],
+      "misconceptionTags": [
+        "survey question not aligned with conclusion",
+        "frequency and category confused",
+        "single data point overgeneralized"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-data-collection"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-data-collection-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "为了解某品牌灯泡的使用寿命，质检员从一批灯泡中随机抽取50个进行测试，得到平均使用寿命为1200小时。以下说法正确的是？",
+      "optionsZhHans": [
+        "这批灯泡的平均使用寿命一定是1200小时",
+        "样本的平均使用寿命是1200小时，可以估计这批灯泡的平均使用寿命约为1200小时",
+        "每一个灯泡的使用寿命都是1200小时",
+        "如果再抽50个，平均使用寿命也一定是1200小时"
+      ],
+      "answer": "样本的平均使用寿命是1200小时，可以估计这批灯泡的平均使用寿命约为1200小时",
+      "acceptedAnswers": [
+        "样本的平均使用寿命是1200小时，可以估计这批灯泡的平均使用寿命约为1200小时"
+      ],
+      "explanationZhHans": "样本平均是估计值，不是确定值，故A错；C混淆个体与总体；D中再抽样结果可能不同。B正确表达了用样本估计总体的思想。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-218",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-data-collection",
+      "unitTitle": "数据的收集与整理",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "data-collection",
+        "data-organization",
+        "statistical-charts",
+        "survey-design",
+        "数据收集",
+        "统计图表"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "确定调查问题",
+        "收集数据",
+        "整理分类",
+        "读统计图",
+        "解释数据"
+      ],
+      "misconceptionTags": [
+        "survey question not aligned with conclusion",
+        "frequency and category confused",
+        "single data point overgeneralized"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-data-collection"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-data-collection-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校七年级有8个班，学校想了解七年级学生每天的睡眠时间。小华设计了如下调查方案：从每个班学号尾数为3和8的学生中抽取，共得到40名学生，询问他们“你通常晚上几点睡觉？早上几点起床？”，然后计算睡眠时间。请评价这个抽样方法的合理性，并说明理由。",
+      "optionsZhHans": [],
+      "answer": "合理。因为学号尾数与睡眠时间无关，按学号尾数抽取近似随机抽样，每个班都有学生被抽到，样本具有较好的代表性。",
+      "acceptedAnswers": [
+        "合理。因为学号尾数与睡眠时间无关，按学号尾数抽取近似随机抽样，每个班都有学生被抽到，样本具有较好的代表性。",
+        "合理，抽样方法具有随机性。",
+        "合理，样本覆盖各班，且随机。"
+      ],
+      "explanationZhHans": "学号尾数通常与睡眠习惯无关，该抽样类似于系统抽样，能保证随机性和班级覆盖，样本量40也较合适。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-219",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-data-collection",
+      "unitTitle": "数据的收集与整理",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "data-collection",
+        "data-organization",
+        "statistical-charts",
+        "survey-design",
+        "数据收集",
+        "统计图表"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "确定调查问题",
+        "收集数据",
+        "整理分类",
+        "读统计图",
+        "解释数据"
+      ],
+      "misconceptionTags": [
+        "survey question not aligned with conclusion",
+        "frequency and category confused",
+        "single data point overgeneralized"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-data-collection"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-data-collection-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校七年级学生参加社团活动的情况统计如下：参加文学社的有15人，参加科技社的有20人，参加美术社的有10人，参加体育社的有25人，未参加任何社团的有5人。已知七年级总人数为75人。请计算参加体育社的人数占总人数的百分比，并填写：______%。（结果精确到1%）",
+      "optionsZhHans": [],
+      "answer": "33",
+      "acceptedAnswers": [
+        "33",
+        "33%"
+      ],
+      "explanationZhHans": "体育社25人，总人数75人，25÷75≈0.3333，即33.33%，精确到1%为33%。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-220",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-data-collection",
+      "unitTitle": "数据的收集与整理",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "data-collection",
+        "data-organization",
+        "statistical-charts",
+        "survey-design",
+        "数据收集",
+        "统计图表"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "确定调查问题",
+        "收集数据",
+        "整理分类",
+        "读统计图",
+        "解释数据"
+      ],
+      "misconceptionTags": [
+        "survey question not aligned with conclusion",
+        "frequency and category confused",
+        "single data point overgeneralized"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-data-collection"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-data-collection-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "以下调查中，适合采用全面调查（普查）的是？",
+      "optionsZhHans": [
+        "了解一批袋装食品是否符合卫生标准",
+        "了解某班同学对学校午餐的满意度",
+        "了解全国中学生的视力情况",
+        "了解某品牌汽车的安全性能"
+      ],
+      "answer": "了解某班同学对学校午餐的满意度",
+      "acceptedAnswers": [
+        "了解某班同学对学校午餐的满意度"
+      ],
+      "explanationZhHans": "普查适合范围小、易于实施的情况。B中一个班人数少，可全面调查。A、C、D涉及数量大或有破坏性，适合抽样调查。"
+    }
+  ]
+}

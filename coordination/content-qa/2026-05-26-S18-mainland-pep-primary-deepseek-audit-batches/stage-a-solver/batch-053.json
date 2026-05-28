@@ -1,0 +1,181 @@
+{
+  "startedAt": "2026-05-26T06:14:42.236Z",
+  "completedAt": "2026-05-26T06:15:02.813Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "usage": {
+    "prompt_tokens": 3148,
+    "completion_tokens": 1535,
+    "total_tokens": 4683,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 3148
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "questionId": "pep-primary-p6-u-mc-041",
+        "solvableStatus": "pass",
+        "independentAnswer": "75",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "150的50%是75，选项中有75。"
+      },
+      {
+        "questionId": "pep-primary-p6-u-mc-042",
+        "solvableStatus": "pass",
+        "independentAnswer": "35",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "140的25%是35，选项中有35。"
+      },
+      {
+        "questionId": "pep-primary-p6-u-mc-043",
+        "solvableStatus": "pass",
+        "independentAnswer": "75",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "150的50%是75，选项中有75。"
+      },
+      {
+        "questionId": "pep-primary-p6-u-mc-044",
+        "solvableStatus": "pass",
+        "independentAnswer": "16",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "160的10%是16，选项中有16。"
+      },
+      {
+        "questionId": "pep-primary-p6-u-mc-045",
+        "solvableStatus": "pass",
+        "independentAnswer": "34",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "170的20%是34，选项中有34。"
+      },
+      {
+        "questionId": "pep-primary-p6-u-mc-046",
+        "solvableStatus": "pass",
+        "independentAnswer": "45",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "180的25%是45，选项中有45。"
+      },
+      {
+        "questionId": "pep-primary-p6-u-mc-047",
+        "solvableStatus": "pass",
+        "independentAnswer": "95",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "190的50%是95，选项中有95。"
+      },
+      {
+        "questionId": "pep-primary-p6-u-mc-048",
+        "solvableStatus": "pass",
+        "independentAnswer": "8",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "80的10%是8，选项中有8。"
+      },
+      {
+        "questionId": "pep-primary-p6-u-mc-049",
+        "solvableStatus": "pass",
+        "independentAnswer": "18",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "90的20%是18，选项中有18。"
+      },
+      {
+        "questionId": "pep-primary-p6-u-mc-050",
+        "solvableStatus": "pass",
+        "independentAnswer": "25",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "100的25%是25，选项中有25。"
+      },
+      {
+        "questionId": "pep-primary-p6-u-mc-051",
+        "solvableStatus": "pass",
+        "independentAnswer": "(-1, -2)",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "横坐标-1，纵坐标-2，数对为(-1, -2)。"
+      },
+      {
+        "questionId": "pep-primary-p6-u-mc-052",
+        "solvableStatus": "review",
+        "independentAnswer": "(0, 0)",
+        "confidence": "high",
+        "issueType": "ambiguous",
+        "note": "选项中有(0, 0)和(0, 0)1，后者可能是录入错误，正确答案应为(0, 0)。"
+      },
+      {
+        "questionId": "pep-primary-p6-u-mc-053",
+        "solvableStatus": "pass",
+        "independentAnswer": "(1, 2)",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "横坐标1，纵坐标2，数对为(1, 2)。"
+      },
+      {
+        "questionId": "pep-primary-p6-u-mc-054",
+        "solvableStatus": "pass",
+        "independentAnswer": "(2, -2)",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "横坐标2，纵坐标-2，数对为(2, -2)。"
+      },
+      {
+        "questionId": "pep-primary-p6-u-mc-055",
+        "solvableStatus": "pass",
+        "independentAnswer": "(3, 0)",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "横坐标3，纵坐标0，数对为(3, 0)。"
+      },
+      {
+        "questionId": "pep-primary-p6-u-mc-056",
+        "solvableStatus": "pass",
+        "independentAnswer": "(-3, 2)",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "横坐标-3，纵坐标2，数对为(-3, 2)。"
+      },
+      {
+        "questionId": "pep-primary-p6-u-mc-057",
+        "solvableStatus": "review",
+        "independentAnswer": "(-2, -2)",
+        "confidence": "high",
+        "issueType": "ambiguous",
+        "note": "选项中有(-2, -2)和(-2, -2)1，后者可能是录入错误，正确答案应为(-2, -2)。"
+      },
+      {
+        "questionId": "pep-primary-p6-u-mc-058",
+        "solvableStatus": "pass",
+        "independentAnswer": "(-1, 0)",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "横坐标-1，纵坐标0，数对为(-1, 0)。"
+      },
+      {
+        "questionId": "pep-primary-p6-u-mc-059",
+        "solvableStatus": "pass",
+        "independentAnswer": "(0, 2)",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "横坐标0，纵坐标2，数对为(0, 2)。"
+      },
+      {
+        "questionId": "pep-primary-p6-u-mc-060",
+        "solvableStatus": "pass",
+        "independentAnswer": "(1, -2)",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "横坐标1，纵坐标-2，数对为(1, -2)。"
+      }
+    ]
+  }
+}

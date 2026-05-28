@@ -1,0 +1,588 @@
+{
+  "batchId": "batch-149",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p6-231",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-math-play",
+      "unitTitle": "数学好玩",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "p6-lower-mathematical-activity",
+        "planning-design",
+        "spatial-reasoning",
+        "pattern-investigation",
+        "数学好玩"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "创新意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "设计方案",
+        "收集信息",
+        "建立模型",
+        "解释规律",
+        "交流反思"
+      ],
+      "misconceptionTags": [
+        "project constraints ignored",
+        "model choice not justified",
+        "result presented without reflection"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-math-play"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-final-topic-drill",
+        "bnu-primary-p6-lower-assessment-cylinders-cones-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校要在一块长方形空地上设计一个“数学花园”，空地长12米、宽8米。花园中要包含一个圆形花坛和一个正方形休息区，其余部分铺草坪。圆形花坛的直径是4米，正方形休息区的边长是3米。设计方案时，以下哪种做法最符合“先规划再调整”的数学活动思路？",
+      "optionsZhHans": [
+        "直接画出圆形和正方形，不测量空地尺寸",
+        "先计算空地面积，再确定花坛和休息区的位置与大小，最后检查是否超出空地",
+        "先购买草坪，再根据剩余面积设计花坛和休息区",
+        "只设计花坛，忽略休息区和草坪"
+      ],
+      "answer": "先计算空地面积，再确定花坛和休息区的位置与大小，最后检查是否超出空地",
+      "acceptedAnswers": [
+        "先计算空地面积，再确定花坛和休息区的位置与大小，最后检查是否超出空地"
+      ],
+      "explanationZhHans": "数学活动强调有序规划：先了解整体（空地面积），再安排局部（花坛、休息区），最后验证是否合理。选项B体现了这一过程，其他选项缺少关键步骤或顺序不当。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-232",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-math-play",
+      "unitTitle": "数学好玩",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "p6-lower-mathematical-activity",
+        "planning-design",
+        "spatial-reasoning",
+        "pattern-investigation",
+        "数学好玩"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "创新意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "设计方案",
+        "收集信息",
+        "建立模型",
+        "解释规律",
+        "交流反思"
+      ],
+      "misconceptionTags": [
+        "project constraints ignored",
+        "model choice not justified",
+        "result presented without reflection"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-math-play"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-final-topic-drill",
+        "bnu-primary-p6-lower-assessment-cylinders-cones-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校准备在操场一角建造一个底面直径为6米、深1.5米的圆柱形沙坑，用于跳远训练。建造时需要在沙坑内壁和底面抹上水泥。\n（1）抹水泥的面积是多少平方米？（结果保留整数）\n（2）如果每立方米沙子的质量约为1.6吨，将这个沙坑填满需要多少吨沙子？（结果保留一位小数）",
+      "optionsZhHans": [],
+      "answer": "（1）57平方米 （2）67.9吨",
+      "acceptedAnswers": [
+        "（1）57平方米 （2）67.9吨",
+        "（1）57平方米（2）67.9吨",
+        "（1）57平方米，（2）67.9吨",
+        "（1）57平方米,（2）67.9吨",
+        "（1）57平方米 (2)67.9吨"
+      ],
+      "explanationZhHans": "（1）抹水泥面积=侧面积+底面积，侧面积=π×6×1.5≈28.26，底面积=π×3²≈28.26，合计≈56.52，保留整数得57平方米。（2）沙子体积=π×3²×1.5≈42.39立方米，质量=42.39×1.6≈67.824，保留一位小数得67.9吨。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-233",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-math-play",
+      "unitTitle": "数学好玩",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "p6-lower-mathematical-activity",
+        "planning-design",
+        "spatial-reasoning",
+        "pattern-investigation",
+        "数学好玩"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "创新意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "设计方案",
+        "收集信息",
+        "建立模型",
+        "解释规律",
+        "交流反思"
+      ],
+      "misconceptionTags": [
+        "project constraints ignored",
+        "model choice not justified",
+        "result presented without reflection"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-math-play"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-final-topic-drill",
+        "bnu-primary-p6-lower-assessment-cylinders-cones-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校要设计一个“数学文化长廊”，计划用彩色地砖铺一条长12米、宽2米的小路。现有两种正方形地砖：A型边长0.4米，每块8元；B型边长0.5米，每块12元。如果只能选一种地砖，且铺满小路不能切割地砖，请选择最省钱的方案。",
+      "optionsZhHans": [
+        "选A型，总价1200元",
+        "选B型，总价1152元",
+        "选A型，总价1500元",
+        "选B型，总价1440元"
+      ],
+      "answer": "选B型，总价1152元",
+      "acceptedAnswers": [
+        "选B型，总价1152元"
+      ],
+      "explanationZhHans": "小路面积12×2=24平方米。A型边长0.4米，面积0.16平方米，需24÷0.16=150块，总价150×8=1200元。B型边长0.5米，面积0.25平方米，需24÷0.25=96块，总价96×12=1152元。1152<1200，选B型更省钱。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-234",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-final-review",
+      "unitTitle": "整理与总复习",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "p6-final-review",
+        "primary-secondary-transition",
+        "comprehensive-review",
+        "strategy-selection",
+        "六年级总复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "应用意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "数与代数复习",
+        "图形与几何复习",
+        "统计与概率复习",
+        "综合应用",
+        "小升初衔接"
+      ],
+      "misconceptionTags": [
+        "topic identified from surface wording only",
+        "procedures remembered without conditions",
+        "transition review treated as speed drill only"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-final-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-final-integrated",
+        "bnu-primary-p6-lower-assessment-final-topic-drill"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个圆柱形水桶，从里面量得底面半径是2分米，高是5分米。这个水桶最多能装水多少升？（π取3.14）",
+      "optionsZhHans": [],
+      "answer": "62.8",
+      "acceptedAnswers": [
+        "62.8",
+        "62.8升"
+      ],
+      "explanationZhHans": "圆柱容积=底面积×高。底面积=π×半径²=3.14×2×2=12.56平方分米。容积=12.56×5=62.8立方分米。1立方分米=1升，所以最多装水62.8升。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-235",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-final-review",
+      "unitTitle": "整理与总复习",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "p6-final-review",
+        "primary-secondary-transition",
+        "comprehensive-review",
+        "strategy-selection",
+        "六年级总复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "应用意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "数与代数复习",
+        "图形与几何复习",
+        "统计与概率复习",
+        "综合应用",
+        "小升初衔接"
+      ],
+      "misconceptionTags": [
+        "topic identified from surface wording only",
+        "procedures remembered without conditions",
+        "transition review treated as speed drill only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-final-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-final-integrated",
+        "bnu-primary-p6-lower-assessment-final-topic-drill"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个圆柱形水桶，从里面量底面直径是4分米，高是5分米。将这个水桶装满水，再把这些水全部倒入一个底面直径为8分米的圆柱形容器中，容器内水的高度是多少分米？",
+      "optionsZhHans": [
+        "1.25分米",
+        "2.5分米",
+        "5分米",
+        "0.625分米"
+      ],
+      "answer": "1.25分米",
+      "acceptedAnswers": [
+        "1.25分米"
+      ],
+      "explanationZhHans": "先求水桶容积：半径2分米，底面积π×2²=4π平方分米，高5分米，容积20π立方分米。倒入容器后，容器底半径4分米，底面积π×4²=16π平方分米。水高=体积÷底面积=20π÷16π=1.25分米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-236",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-final-review",
+      "unitTitle": "整理与总复习",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "p6-final-review",
+        "primary-secondary-transition",
+        "comprehensive-review",
+        "strategy-selection",
+        "六年级总复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "应用意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "数与代数复习",
+        "图形与几何复习",
+        "统计与概率复习",
+        "综合应用",
+        "小升初衔接"
+      ],
+      "misconceptionTags": [
+        "topic identified from surface wording only",
+        "procedures remembered without conditions",
+        "transition review treated as speed drill only"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-final-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-final-integrated",
+        "bnu-primary-p6-lower-assessment-final-topic-drill"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个圆柱形水桶，从里面量底面直径是4分米，高是5分米。这个水桶最多能装水多少升？（π取3.14）",
+      "optionsZhHans": [],
+      "answer": "62.8",
+      "acceptedAnswers": [
+        "62.8"
+      ],
+      "explanationZhHans": "水桶容积=底面积×高。底面半径=4÷2=2分米，底面积=3.14×2²=12.56平方分米，容积=12.56×5=62.8立方分米。1立方分米=1升，所以能装水62.8升。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-237",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-final-review",
+      "unitTitle": "整理与总复习",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "p6-final-review",
+        "primary-secondary-transition",
+        "comprehensive-review",
+        "strategy-selection",
+        "六年级总复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "应用意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "数与代数复习",
+        "图形与几何复习",
+        "统计与概率复习",
+        "综合应用",
+        "小升初衔接"
+      ],
+      "misconceptionTags": [
+        "topic identified from surface wording only",
+        "procedures remembered without conditions",
+        "transition review treated as speed drill only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-final-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-final-integrated",
+        "bnu-primary-p6-lower-assessment-final-topic-drill"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小宇用一根长48厘米的铁丝焊接成一个长方体框架，长、宽、高的比是3:2:1。这个长方体的体积是多少立方厘米？",
+      "optionsZhHans": [
+        "48立方厘米",
+        "96立方厘米",
+        "384立方厘米",
+        "576立方厘米"
+      ],
+      "answer": "48立方厘米",
+      "acceptedAnswers": [
+        "48立方厘米"
+      ],
+      "explanationZhHans": "铁丝总长即棱长和，48÷4=12厘米为长宽高之和。按3:2:1分配，长=12×3/6=6厘米，宽=12×2/6=4厘米，高=12×1/6=2厘米。体积=6×4×2=48立方厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-238",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-final-review",
+      "unitTitle": "整理与总复习",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "p6-final-review",
+        "primary-secondary-transition",
+        "comprehensive-review",
+        "strategy-selection",
+        "六年级总复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "应用意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "数与代数复习",
+        "图形与几何复习",
+        "统计与概率复习",
+        "综合应用",
+        "小升初衔接"
+      ],
+      "misconceptionTags": [
+        "topic identified from surface wording only",
+        "procedures remembered without conditions",
+        "transition review treated as speed drill only"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-final-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-final-integrated",
+        "bnu-primary-p6-lower-assessment-final-topic-drill"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个圆柱形水桶，从里面量底面半径是2分米，高是5分米。这个水桶最多能装水多少升？（π取3.14）",
+      "optionsZhHans": [],
+      "answer": "62.8",
+      "acceptedAnswers": [
+        "62.8",
+        "62.8升"
+      ],
+      "explanationZhHans": "水桶容积=底面积×高。底面积=π×半径²=3.14×2²=12.56平方分米。容积=12.56×5=62.8立方分米。1立方分米=1升，所以能装水62.8升。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-239",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-final-review",
+      "unitTitle": "整理与总复习",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "p6-final-review",
+        "primary-secondary-transition",
+        "comprehensive-review",
+        "strategy-selection",
+        "六年级总复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "应用意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "数与代数复习",
+        "图形与几何复习",
+        "统计与概率复习",
+        "综合应用",
+        "小升初衔接"
+      ],
+      "misconceptionTags": [
+        "topic identified from surface wording only",
+        "procedures remembered without conditions",
+        "transition review treated as speed drill only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-final-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-final-integrated",
+        "bnu-primary-p6-lower-assessment-final-topic-drill"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小华在整理数学笔记时，看到一道题：一个圆柱形水桶，底面半径是2分米，高是5分米。求这个水桶的侧面积。他列出了算式：3.14×2²×5。他的做法正确吗？如果不正确，错误的原因是什么？",
+      "optionsZhHans": [
+        "正确，因为侧面积等于底面积乘高",
+        "不正确，因为侧面积应该用底面周长乘高",
+        "不正确，因为侧面积应该用底面积乘高再除以2",
+        "不正确，因为侧面积应该用底面周长乘半径"
+      ],
+      "answer": "不正确，因为侧面积应该用底面周长乘高",
+      "acceptedAnswers": [
+        "不正确，因为侧面积应该用底面周长乘高"
+      ],
+      "explanationZhHans": "圆柱侧面积=底面周长×高。底面周长=2×3.14×2=12.56分米，侧面积=12.56×5=62.8平方分米。小华的算式3.14×2²×5计算的是底面积乘高，即体积，所以不正确。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-240",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-final-review",
+      "unitTitle": "整理与总复习",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "p6-final-review",
+        "primary-secondary-transition",
+        "comprehensive-review",
+        "strategy-selection",
+        "六年级总复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "应用意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "数与代数复习",
+        "图形与几何复习",
+        "统计与概率复习",
+        "综合应用",
+        "小升初衔接"
+      ],
+      "misconceptionTags": [
+        "topic identified from surface wording only",
+        "procedures remembered without conditions",
+        "transition review treated as speed drill only"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-final-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-final-integrated",
+        "bnu-primary-p6-lower-assessment-final-topic-drill"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "六年级总复习时，老师让同学们整理“立体图形的体积”。小明说：“长方体、正方体和圆柱的体积都可以用底面积乘高计算。”小红说：“圆锥的体积等于和它等底等高的圆柱体积的三分之一。”小刚说：“如果两个圆柱的侧面积相等，它们的体积也一定相等。”小丽说：“把一个圆柱削成一个最大的圆锥，削去部分的体积是圆锥体积的2倍。”这四位同学中，谁的说法是错误的？请写出错误同学的姓名，并简要说明理由。",
+      "optionsZhHans": [],
+      "answer": "小刚",
+      "acceptedAnswers": [
+        "小刚",
+        "小刚的说法错误",
+        "小刚错误"
+      ],
+      "explanationZhHans": "小刚的说法错误。侧面积相等的圆柱，底面半径和高可能不同，体积不一定相等。例如，一个圆柱底面半径1、高2，侧面积4π，体积2π；另一个底面半径2、高1，侧面积4π，体积4π，两者体积不等。"
+    }
+  ]
+}

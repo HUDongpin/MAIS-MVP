@@ -1,0 +1,50 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-017",
+  "startedAt": "2026-05-28T02:02:13.702Z",
+  "completedAt": "2026-05-28T02:02:19.734Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-017"
+  ],
+  "usage": {
+    "prompt_tokens": 2479,
+    "completion_tokens": 334,
+    "total_tokens": 2813,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2095
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-017",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "(x-3)^2+(y-1)^2=8",
+        "correctedAnswer": "题目条件矛盾，无解",
+        "issueTags": [
+          "math_error",
+          "unsolvable",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件矛盾：由圆心在直线 x-y+2=0 上且到 A(1,3) 和 B(5,-1) 距离相等，导出 2=34，无解。Stage A 独立解 (x-3)^2+(y-1)^2=8 错误，存储答案 (x-2)^2+(y-4)^2=10 错误，解析过程自相矛盾。题目不可解，答案不匹配，解释矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目条件矛盾导致无解，Stage A 和存储答案均错误，判定为 blocker。"
+    }
+  }
+}

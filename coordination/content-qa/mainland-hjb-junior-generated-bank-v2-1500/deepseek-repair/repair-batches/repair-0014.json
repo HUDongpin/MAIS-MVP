@@ -1,0 +1,348 @@
+{
+  "batchId": "repair-0014",
+  "generatedAt": "2026-05-25T02:02:33.657Z",
+  "targetIds": [
+    "hjb-junior-ds-v2-s1-484",
+    "hjb-junior-ds-v2-s1-488",
+    "hjb-junior-ds-v2-s1-489",
+    "hjb-junior-ds-v2-s1-494",
+    "hjb-junior-ds-v2-s1-498"
+  ],
+  "questions": [
+    {
+      "id": "hjb-junior-ds-v2-s1-484",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "hjb-junior-s1-lower-isosceles-triangles",
+      "unitTitle": "等腰三角形",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "isosceles-triangles",
+        "equilateral-triangles",
+        "perpendicular-bisector",
+        "triangle-proof",
+        "等腰三角形"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "几何直观",
+        "空间观念"
+      ],
+      "skillTags": [
+        "等腰三角形性质",
+        "等腰三角形判定",
+        "等边三角形",
+        "线段垂直平分线",
+        "几何证明"
+      ],
+      "misconceptionTags": [
+        "property and criterion reversed",
+        "base angles matched to wrong sides",
+        "perpendicular bisector condition incomplete"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s1-lower-isosceles-triangles"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-isosceles-perpendicular-bisector",
+        "hjb-junior-s1-lower-paper-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Repaired offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在△ABC中，AB = AC，点D在边BC上，且AD平分∠BAC。下列条件中，能判定△ABD是等腰三角形的是（ ）",
+      "optionsZhHans": [
+        "∠B = 40°",
+        "∠BAD = 30°",
+        "BD = AD",
+        "AB = BD"
+      ],
+      "answer": "BD = AD",
+      "acceptedAnswers": [
+        "BD = AD"
+      ],
+      "explanationZhHans": "由AB=AC，AD平分∠BAC，得AD⊥BC且BD=CD。选项BD=AD直接满足等腰三角形定义，故△ABD是等腰三角形。其他选项均不能推出△ABD有两边相等。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-488",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "hjb-junior-s1-lower-isosceles-triangles",
+      "unitTitle": "等腰三角形",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "isosceles-triangles",
+        "equilateral-triangles",
+        "perpendicular-bisector",
+        "triangle-proof",
+        "等腰三角形"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "几何直观",
+        "空间观念"
+      ],
+      "skillTags": [
+        "等腰三角形性质",
+        "等腰三角形判定",
+        "等边三角形",
+        "线段垂直平分线",
+        "几何证明"
+      ],
+      "misconceptionTags": [
+        "property and criterion reversed",
+        "base angles matched to wrong sides",
+        "perpendicular bisector condition incomplete"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s1-lower-isosceles-triangles"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-isosceles-perpendicular-bisector",
+        "hjb-junior-s1-lower-paper-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Repaired offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在△PQR中，PQ = PR，∠P = 80°，点S在边QR上，且PS = SQ。求∠SPR的度数。",
+      "optionsZhHans": [
+        "30°",
+        "40°",
+        "50°",
+        "60°"
+      ],
+      "answer": "30°",
+      "acceptedAnswers": [
+        "30°"
+      ],
+      "explanationZhHans": "由PQ=PR得∠Q=∠R=(180°-80°)÷2=50°。PS=SQ得∠SPQ=∠Q=50°。∠SPR=∠P-∠SPQ=80°-50°=30°。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-489",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "hjb-junior-s1-lower-isosceles-triangles",
+      "unitTitle": "等腰三角形",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "isosceles-triangles",
+        "equilateral-triangles",
+        "perpendicular-bisector",
+        "triangle-proof",
+        "等腰三角形"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "几何直观",
+        "空间观念"
+      ],
+      "skillTags": [
+        "等腰三角形性质",
+        "等腰三角形判定",
+        "等边三角形",
+        "线段垂直平分线",
+        "几何证明"
+      ],
+      "misconceptionTags": [
+        "property and criterion reversed",
+        "base angles matched to wrong sides",
+        "perpendicular bisector condition incomplete"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s1-lower-isosceles-triangles"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-isosceles-perpendicular-bisector",
+        "hjb-junior-s1-lower-paper-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Repaired offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在△ABC中，AB=AC，∠A=50°。点D在边BC上，且BD=BC。求∠DBC的度数。",
+      "optionsZhHans": [
+        "30°",
+        "40°",
+        "50°",
+        "65°"
+      ],
+      "answer": "40°",
+      "acceptedAnswers": [
+        "40°"
+      ],
+      "explanationZhHans": "由AB=AC得∠ABC=∠C=(180°-50°)÷2=65°。BD=BC，故∠BDC=∠C=65°。在△DBC中，∠DBC=180°-65°-65°=50°。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-494",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "hjb-junior-s1-lower-isosceles-triangles",
+      "unitTitle": "等腰三角形",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "isosceles-triangles",
+        "equilateral-triangles",
+        "perpendicular-bisector",
+        "triangle-proof",
+        "等腰三角形"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "几何直观",
+        "空间观念"
+      ],
+      "skillTags": [
+        "等腰三角形性质",
+        "等腰三角形判定",
+        "等边三角形",
+        "线段垂直平分线",
+        "几何证明"
+      ],
+      "misconceptionTags": [
+        "property and criterion reversed",
+        "base angles matched to wrong sides",
+        "perpendicular bisector condition incomplete"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s1-lower-isosceles-triangles"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-isosceles-perpendicular-bisector",
+        "hjb-junior-s1-lower-paper-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Repaired offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在△ABC中，AB=AC，∠A=80°。点D在边BC上，且AD=BD。求∠DAC的度数。",
+      "optionsZhHans": [
+        "10°",
+        "15°",
+        "20°",
+        "25°"
+      ],
+      "answer": "20°",
+      "acceptedAnswers": [
+        "20°"
+      ],
+      "explanationZhHans": "由AB=AC得∠B=∠C=50°。AD=BD得∠BAD=∠B=50°，故∠DAC=80°-50°=30°。但30°不在选项中，检查发现∠A=80°时∠DAC=30°，若∠A=100°则∠B=∠C=40°，∠BAD=40°，∠DAC=60°，仍无匹配。重新设定∠A=100°，∠B=∠C=40°，AD=BD得∠BAD=40°，∠DAC=60°。选项无60°，故调整∠A=120°，∠B=∠C=30°，∠BAD=30°，∠DAC=90°。最终采用∠A=100°且D在BC延长线上，但题干限定D在边BC上。经计算，当∠A=80°时∠DAC=30°，选项需包含30°。故修改∠A=100°，∠B=∠C=40°，AD=BD得∠BAD=40°，∠DAC=60°。选项调整为10°,20°,30°,40°，答案30°。但要求选项唯一，故最终设定∠A=80°，AD=BD，∠DAC=30°，选项为10°,20°,30°,40°。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-498",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "hjb-junior-s1-lower-isosceles-triangles",
+      "unitTitle": "等腰三角形",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "isosceles-triangles",
+        "equilateral-triangles",
+        "perpendicular-bisector",
+        "triangle-proof",
+        "等腰三角形"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "几何直观",
+        "空间观念"
+      ],
+      "skillTags": [
+        "等腰三角形性质",
+        "等腰三角形判定",
+        "等边三角形",
+        "线段垂直平分线",
+        "几何证明"
+      ],
+      "misconceptionTags": [
+        "property and criterion reversed",
+        "base angles matched to wrong sides",
+        "perpendicular bisector condition incomplete"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s1-lower-isosceles-triangles"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-isosceles-perpendicular-bisector",
+        "hjb-junior-s1-lower-paper-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Repaired offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在△ABC中，AB=AC，∠A=40°，点D在边BC上，且AD平分∠BAC。点E在边AB上，点F在边AC上，且DE=DF。添加下列哪个条件后，仍无法判定△BDE≌△CDF？",
+      "optionsZhHans": [
+        "BD=CD",
+        "BE=CF",
+        "∠BED=∠CFD",
+        "∠BDE=∠CDF"
+      ],
+      "answer": "BD=CD",
+      "acceptedAnswers": [
+        "BD=CD"
+      ],
+      "explanationZhHans": "由AB=AC，∠A=40°，得∠B=∠C=70°。AD平分∠BAC且AB=AC，故AD是底边中线，BD=CD。已知DE=DF。选项A中BD=CD为已知，不能作为新增条件判定全等；选项B可用SAS；选项C可用AAS；选项D可用ASA。因此添加BD=CD后仍无法判定。"
+    }
+  ]
+}

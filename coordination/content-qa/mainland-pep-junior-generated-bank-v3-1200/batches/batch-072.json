@@ -1,0 +1,355 @@
+{
+  "batchId": "batch-072",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s2-k09-mc-010",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-quadratic-radicals"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-proof-calculation-integrated"
+      ],
+      "promptZhHans": "某市出租车白天收费标准为：起步价8元（含2千米），超过2千米后每千米加收1.5元。小明乘坐出租车行驶了x千米（x>2），他应付的车费y（元）与x之间的函数关系式为y=8+1.5(x-2)。若他支付了20元，则他乘坐的路程是多少千米？",
+      "optionsZhHans": [
+        "8千米",
+        "9千米",
+        "10千米",
+        "11千米"
+      ],
+      "answer": "10千米",
+      "acceptedAnswers": [
+        "10千米",
+        "10"
+      ],
+      "explanationZhHans": "将y=20代入函数关系式y=8+1.5(x-2)，得20=8+1.5(x-2)，即12=1.5(x-2)，解得x-2=8，x=10。所以他乘坐的路程是10千米。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-mc-011",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-pythagorean-theorem"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "promptZhHans": "已知一次函数y=kx+b的图象经过点(1,3)和(3,7)，则k的值为多少？",
+      "optionsZhHans": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2",
+        "k=2"
+      ],
+      "explanationZhHans": "将点(1,3)和(3,7)代入y=kx+b，得方程组：k+b=3，3k+b=7。两式相减得2k=4，解得k=2。所以k的值为2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-mc-012",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-quadrilaterals"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "某校八年级（1）班10名同学的身高（单位：cm）如下：155，160，162，158，165，160，157，160，163，159。这组数据的中位数是多少？",
+      "optionsZhHans": [
+        "159cm",
+        "160cm",
+        "161cm",
+        "162cm"
+      ],
+      "answer": "160cm",
+      "acceptedAnswers": [
+        "160cm",
+        "160"
+      ],
+      "explanationZhHans": "将数据从小到大排序：155，157，158，159，160，160，160，162，163，165。共10个数据，中位数为第5和第6个数的平均数，即(160+160)/2=160。所以中位数是160cm。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-mc-013",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-linear-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "某商场推出两种促销方案：方案一，所有商品打8折；方案二，满100元减20元。小明想买一双标价x元的运动鞋，当x满足什么条件时，方案一更省钱？",
+      "optionsZhHans": [
+        "x<100",
+        "x>100",
+        "x<120",
+        "x>120"
+      ],
+      "answer": "x>100",
+      "acceptedAnswers": [
+        "x>100",
+        "x大于100"
+      ],
+      "explanationZhHans": "方案一需付0.8x元，方案二需付x-20元。方案一更省钱即0.8x < x-20，移项得-0.2x < -20，两边除以-0.2并改变不等号方向得x > 100。所以当x>100时，方案一更省钱。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-mc-014",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-data-analysis"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "下列各数中，绝对值最小的数是哪一个？",
+      "optionsZhHans": [
+        "-3",
+        "-1.5",
+        "0",
+        "2"
+      ],
+      "answer": "0",
+      "acceptedAnswers": [
+        "0",
+        "零"
+      ],
+      "explanationZhHans": "绝对值表示一个数在数轴上到原点的距离。各数的绝对值分别为：|-3|=3，|-1.5|=1.5，|0|=0，|2|=2。其中0的绝对值最小。所以绝对值最小的数是0。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-mc-015",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "某校组织学生去科技馆参观，若租用45座客车，则有15人没有座位；若租用同样数量的60座客车，则多出一辆车，且其余车恰好坐满。该校共有多少名学生？",
+      "optionsZhHans": [
+        "225人",
+        "240人",
+        "255人",
+        "270人"
+      ],
+      "answer": "240人",
+      "acceptedAnswers": [
+        "240人",
+        "240"
+      ],
+      "explanationZhHans": "设租用45座客车x辆，则学生人数为45x+15。若租用60座客车，实际用了(x-1)辆且坐满，则学生人数为60(x-1)。由45x+15=60(x-1)，解得x=5。学生人数为45×5+15=240。所以该校共有240人。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-mc-016",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-quadratic-radicals"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions"
+      ],
+      "promptZhHans": "化简二次根式√(48)的结果是多少？",
+      "optionsZhHans": [
+        "4√3",
+        "3√4",
+        "2√12",
+        "6√2"
+      ],
+      "answer": "4√3",
+      "acceptedAnswers": [
+        "4√3",
+        "4根号3"
+      ],
+      "explanationZhHans": "√(48)=√(16×3)=√16×√3=4√3。所以化简结果是4√3。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-mc-017",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-pythagorean-theorem"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "promptZhHans": "在△ABC中，AB=AC，D是BC的中点，连接AD。若∠B=50°，则∠BAD的度数是多少？",
+      "optionsZhHans": [
+        "30°",
+        "40°",
+        "50°",
+        "60°"
+      ],
+      "answer": "40°",
+      "acceptedAnswers": [
+        "40°",
+        "40度"
+      ],
+      "explanationZhHans": "因为AB=AC，所以△ABC是等腰三角形，AD是底边BC的中线，也是顶角∠BAC的平分线和高。由∠B=50°，得∠C=50°，所以∠BAC=180°-50°-50°=80°。AD平分∠BAC，所以∠BAD=80°/2=40°。所以∠BAD的度数是40°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-mc-018",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-quadrilaterals"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean"
+      ],
+      "promptZhHans": "在平行四边形ABCD中，对角线AC与BD相交于点O。若AC=10，BD=8，则△AOB的周长可能是多少？",
+      "optionsZhHans": [
+        "12",
+        "13",
+        "14",
+        "15"
+      ],
+      "answer": "14",
+      "acceptedAnswers": [
+        "14",
+        "周长14"
+      ],
+      "explanationZhHans": "在平行四边形中，对角线互相平分，所以AO=AC/2=5，BO=BD/2=4。在△AOB中，AB的长度未知，但由三角形三边关系，AB < AO+BO=9，且AB > |AO-BO|=1。△AOB的周长为AO+BO+AB=5+4+AB=9+AB。由于1<AB<9，所以周长在10到18之间。选项中只有14符合范围，且当AB=5时成立。所以△AOB的周长可能是14。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-mc-019",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-linear-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "在平面直角坐标系中，将点A(2,3)先向右平移4个单位，再向下平移1个单位，得到点A'。则点A'的坐标是什么？",
+      "optionsZhHans": [
+        "(6,2)",
+        "(6,4)",
+        "(-2,2)",
+        "(-2,4)"
+      ],
+      "answer": "(6,2)",
+      "acceptedAnswers": [
+        "(6,2)",
+        "6,2"
+      ],
+      "explanationZhHans": "点A(2,3)向右平移4个单位，横坐标加4，得(6,3)；再向下平移1个单位，纵坐标减1，得(6,2)。所以点A'的坐标是(6,2)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

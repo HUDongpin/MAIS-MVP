@@ -1,0 +1,140 @@
+{
+  "batchNumber": 20,
+  "startedAt": "2026-05-25T02:51:10.857Z",
+  "completedAt": "2026-05-25T02:51:26.525Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s1-k04-mc-029",
+    "pep-junior-v3-s1-k04-mc-030",
+    "pep-junior-v3-s1-k04-mc-031",
+    "pep-junior-v3-s1-k04-mc-032",
+    "pep-junior-v3-s1-k04-mc-033",
+    "pep-junior-v3-s1-k04-mc-034",
+    "pep-junior-v3-s1-k04-fi-001",
+    "pep-junior-v3-s1-k04-fi-002",
+    "pep-junior-v3-s1-k04-fi-003",
+    "pep-junior-v3-s1-k04-fi-004",
+    "pep-junior-v3-s1-k04-fi-005",
+    "pep-junior-v3-s1-k04-fi-006"
+  ],
+  "usage": {
+    "prompt_tokens": 3206,
+    "completion_tokens": 945,
+    "total_tokens": 4151,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 2950
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s1-k04-mc-029",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，选项无歧义，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-mc-030",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程正确，符合题意，选项无重复。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-mc-031",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移计算正确，象限判断无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-mc-032",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "对顶角与角平分线计算正确。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-mc-033",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "x轴上点纵坐标为0，计算正确。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-mc-034",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "不等式建模正确，至少投中6次。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-fi-001",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移坐标计算正确。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-fi-002",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平行线同位角相等，答案正确。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-fi-003",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "y轴上点横坐标为0，m=-2正确。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-fi-004",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平方比较法正确，√7>2.6。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-fi-005",
+        "status": "fail",
+        "severity": "blocker",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch"
+        ],
+        "correctedAnswer": "5",
+        "rationale": "解释中正确解得x=2,y=3，x+y=5，但答案字段误写为3，答案与解释矛盾。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-fi-006",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移与对称计算正确，答案(3,1)无误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 11,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第11题答案错误，应为5而非3，其余题目均通过。"
+    }
+  }
+}

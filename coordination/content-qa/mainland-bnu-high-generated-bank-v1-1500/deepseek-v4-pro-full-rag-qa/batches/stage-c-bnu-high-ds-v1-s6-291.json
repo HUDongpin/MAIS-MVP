@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-291",
+  "startedAt": "2026-05-28T01:49:42.416Z",
+  "completedAt": "2026-05-28T01:49:47.687Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-291"
+  ],
+  "usage": {
+    "prompt_tokens": 2034,
+    "completion_tokens": 320,
+    "total_tokens": 2354,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1650
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-291",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "10",
+        "correctedAnswer": "10",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "函数f(x)=x^3-3x^2+a在[-1,3]上最大值为10，求导得f'(x)=3x(x-2)，驻点0,2。计算f(-1)=a-4，f(0)=a，f(2)=a-4，f(3)=a，最大值为a，故a=10。存储答案6错误，解析过程也得出a=10，但最终答案写为6，存在数学错误和答案矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目可解且符合教材范围，但存储答案错误，解析自相矛盾，判定为阻断级别错误。"
+    }
+  }
+}

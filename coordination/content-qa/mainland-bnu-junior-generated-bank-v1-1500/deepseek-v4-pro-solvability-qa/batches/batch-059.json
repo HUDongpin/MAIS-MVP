@@ -1,0 +1,173 @@
+{
+  "batchNumber": 59,
+  "startedAt": "2026-05-27T17:39:21.702Z",
+  "completedAt": "2026-05-27T17:39:40.068Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s2-197",
+    "bnu-junior-ds-v1-s2-198",
+    "bnu-junior-ds-v1-s2-199",
+    "bnu-junior-ds-v1-s2-200",
+    "bnu-junior-ds-v1-s2-201",
+    "bnu-junior-ds-v1-s2-202",
+    "bnu-junior-ds-v1-s2-203",
+    "bnu-junior-ds-v1-s2-204",
+    "bnu-junior-ds-v1-s2-205",
+    "bnu-junior-ds-v1-s2-206",
+    "bnu-junior-ds-v1-s2-207",
+    "bnu-junior-ds-v1-s2-208"
+  ],
+  "usage": {
+    "prompt_tokens": 6220,
+    "completion_tokens": 1277,
+    "total_tokens": 7497,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 5708
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s2-197",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目数据完整，可计算方差并比较稳定性；答案与解释一致，方差计算正确，结论合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-198",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数据明确，可计算方差；答案2.92与解释中计算一致，保留两位小数正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-199",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项设计合理，中位数15岁正确，其他选项均有误，答案唯一。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-200",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数据完整，可计算平均数和方差；答案中方差计算正确，结论与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-201",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数据明确，可计算方差；答案中方差值正确，结论合理，acceptedAnswers覆盖多种表述。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-202",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项设计合理，平均数167.6和中位数168正确，其他选项错误，答案唯一。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-203",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数据完整，可计算方差并比较；答案推荐甲，方差计算正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-204",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数据明确，中位数5、众数4正确；acceptedAnswers覆盖多种分隔符表述。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-205",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "频数分布明确，众数为80分正确，选项唯一。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-206",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数据完整，平均数15.3、中位数15计算正确，acceptedAnswers覆盖多种表述。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-207",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数据明确，可计算方差；答案中方差值正确，结论乙班离散程度更大合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-208",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项设计合理，两班平均成绩相同、一班更稳定正确，其他选项错误，答案唯一。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部12道题均可解，答案与解释匹配，无数学错误或条件缺失，符合北师大版初二数据分析单元要求。"
+    }
+  }
+}

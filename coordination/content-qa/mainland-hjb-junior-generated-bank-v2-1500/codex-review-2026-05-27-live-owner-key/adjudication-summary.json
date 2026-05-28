@@ -1,0 +1,46 @@
+{
+  "generatedAt": "2026-05-27T01:57:13.466Z",
+  "sessionId": "S18",
+  "inputRunId": "2026-05-26-live-owner-key",
+  "inputRows": 139,
+  "outputRows": 139,
+  "statusCounts": {
+    "confirmed-repair-required": 88,
+    "minor-or-format-review": 29,
+    "deepseek-false-positive": 22,
+    "manual-owner-decision": 0
+  },
+  "releaseBlockerCounts": {
+    "yes": 88,
+    "no": 51
+  },
+  "gradeStatusCounts": {
+    "S3 / confirmed-repair-required": 36,
+    "S2 / confirmed-repair-required": 31,
+    "S1 / confirmed-repair-required": 21,
+    "S2 / minor-or-format-review": 11,
+    "S3 / minor-or-format-review": 11,
+    "S2 / deepseek-false-positive": 9,
+    "S3 / deepseek-false-positive": 9,
+    "S1 / minor-or-format-review": 7,
+    "S1 / deepseek-false-positive": 4
+  },
+  "deepseekIssueCodeCounts": {
+    "wrong-answer": 111,
+    "explanation-mismatch": 88,
+    "multiple-correct-options": 18,
+    "ambiguous-prompt": 8,
+    "accepted-answer-gap": 4,
+    "missing-condition": 3,
+    "no-correct-option": 2,
+    "terminology-risk": 1
+  },
+  "outputFiles": {
+    "all": "codex-review-2026-05-27-live-owner-key/adjudication-results.csv",
+    "repair": "codex-review-2026-05-27-live-owner-key/repair-required.csv",
+    "falsePositive": "codex-review-2026-05-27-live-owner-key/false-positive.csv",
+    "minor": "codex-review-2026-05-27-live-owner-key/minor-format-review.csv",
+    "manual": "codex-review-2026-05-27-live-owner-key/manual-owner-decision.csv",
+    "report": "codex-review-2026-05-27-live-owner-key/s18-deepseek-139-adjudication-report.md"
+  }
+}

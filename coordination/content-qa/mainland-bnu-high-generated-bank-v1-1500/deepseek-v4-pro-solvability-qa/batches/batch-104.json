@@ -1,0 +1,133 @@
+{
+  "batchNumber": 104,
+  "startedAt": "2026-05-27T14:01:42.954Z",
+  "completedAt": "2026-05-27T14:02:01.702Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-325",
+    "bnu-high-ds-v1-s5-326",
+    "bnu-high-ds-v1-s5-327",
+    "bnu-high-ds-v1-s5-328",
+    "bnu-high-ds-v1-s5-329",
+    "bnu-high-ds-v1-s5-330",
+    "bnu-high-ds-v1-s5-331",
+    "bnu-high-ds-v1-s5-332"
+  ],
+  "usage": {
+    "prompt_tokens": 10466,
+    "completion_tokens": 1236,
+    "total_tokens": 11702,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 9954
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-325",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "310",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，总选法C(11,4)=330，减去全男C(6,4)=15和全女C(5,4)=5，得310，与答案一致。解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-326",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "60",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "先选2本给甲C(5,2)=10，剩余3本分给乙丙每人至少1本，分配方式为(1,2)或(2,1)，再分配书：3!/(1!2!)×2!=6，总10×6=60，与答案一致。解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-327",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "第4项和第5项",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "n=7为奇数，二项式系数最大项为中间两项，即第4项和第5项，与答案一致。解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-328",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0.475",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "至少参加一项人数=15+12-8=19，概率=19/40=0.475，与答案一致。解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-329",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "正四面体每个面与其余三面相邻，固定一面涂红色，其余三面用黄蓝两色且相邻不同色，只有全黄、全蓝、红黄蓝黄（旋转等价）3种，与答案一致。解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-330",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "1120",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "通项T_{r+1}=C(8,r)(2x)^{8-r}(-1/x)^r，令8-2r=0得r=4，常数项=C(8,4)×2^4×(-1)^4=70×16=1120，与答案一致。解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-331",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "52",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "个位为0：5×4=20；个位为2或4：2×4×4=32；总计52，与答案一致。解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-332",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "-160",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "通项T_{k+1}=C(6,k)(2x)^{6-k}(-1/x)^k，令6-2k=0得k=3，常数项=C(6,3)×2^3×(-1)^3=20×8×(-1)=-160，与答案一致。解析正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，答案与解析均正确匹配，无任何问题。"
+    }
+  }
+}

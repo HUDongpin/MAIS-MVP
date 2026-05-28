@@ -1,0 +1,126 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-061",
+  "startedAt": "2026-05-28T02:00:26.181Z",
+  "completedAt": "2026-05-28T02:00:38.669Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-481",
+    "bnu-high-ds-v1-s4-482",
+    "bnu-high-ds-v1-s4-483",
+    "bnu-high-ds-v1-s4-484",
+    "bnu-high-ds-v1-s4-485",
+    "bnu-high-ds-v1-s4-486",
+    "bnu-high-ds-v1-s4-487",
+    "bnu-high-ds-v1-s4-488"
+  ],
+  "usage": {
+    "prompt_tokens": 12218,
+    "completion_tokens": 982,
+    "total_tokens": 13200,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 11834
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-481",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，均为选项D，解析正确说明可能平行也可能异面。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-482",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解证明思路一致，均通过构造平行四边形ABFE得AE∥BF，再用线面平行判定定理。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-483",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案32/3与独立解B一致，解析计算正确，高为2，体积32/3。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-484",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案15π与独立解一致，解析正确求得底面半径3，侧面积15π。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-485",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案B与独立解一致，解析正确指出垂直于同一平面的两直线平行，其他选项有反例。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-486",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案2与独立解一致，解析正确计算底面面积3，体积2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-487",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案4√3π与独立解A一致，解析正确求得棱长2，外接球半径√3，体积4√3π。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-488",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解均用反证法，假设共面推出a∥b与已知矛盾，证明异面，思路一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8道题存储答案、解析与Stage A独立解一致，无问题。"
+    }
+  }
+}

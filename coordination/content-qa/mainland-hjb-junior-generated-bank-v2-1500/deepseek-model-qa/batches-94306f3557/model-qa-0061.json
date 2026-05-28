@@ -1,0 +1,112 @@
+{
+  "batchId": "model-qa-0061",
+  "ids": [
+    "hjb-junior-ds-v2-s1-481",
+    "hjb-junior-ds-v2-s1-482",
+    "hjb-junior-ds-v2-s1-483",
+    "hjb-junior-ds-v2-s1-484",
+    "hjb-junior-ds-v2-s1-485",
+    "hjb-junior-ds-v2-s1-486",
+    "hjb-junior-ds-v2-s1-487",
+    "hjb-junior-ds-v2-s1-488"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-481",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "30°",
+      "answerCheckZhHans": "标准答案30°与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-482",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "90°",
+      "answerCheckZhHans": "标准答案90°与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-483",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "90°",
+      "answerCheckZhHans": "标准答案90°与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-484",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析错误地声称AD⊥BC且BD=CD，但题干仅给出AB=AC和AD平分∠BAC，未说明D是BC中点，因此AD不一定是中线和高。选项BD=AD不能直接判定△ABD是等腰三角形，因为BD=AD本身就是等腰三角形的定义，但需要证明BD=AD成立。实际上，由已知条件无法推出BD=AD，因此该选项不是正确判定条件。其他选项如∠B=40°或∠BAD=30°等也不能推出△ABD是等腰三角形。题目可能无正确选项或存在逻辑错误。",
+      "independentAnswerZhHans": "无法确定正确选项，因为已知条件不足以推出任何选项能判定△ABD是等腰三角形。",
+      "answerCheckZhHans": "标准答案BD=AD与解析矛盾，解析错误地使用了AD垂直平分BC的结论，但该结论不成立。",
+      "recommendedActionZhHans": "修正题干或解析，确保逻辑正确。例如，若D是BC中点，则BD=CD，但BD=AD仍不成立。需重新设计题目。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-485",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析错误地声称AD垂直平分BC，但题干仅给出AB=AC和AD平分∠BAC，未说明D是BC中点，因此AD不一定是中线和高。若BD=CD，则D是BC中点，但此时AD是中线，结合等腰三角形性质可得AD垂直平分BC，但题干未明确D的位置。选项BD=CD作为条件，结合DE=DF和∠B=∠C，可以证明△BDE≌△CDF（SAS），但解析中错误地认为AD垂直平分BC是已知条件。实际上，若添加BD=CD，则D是BC中点，但题干未说明D是BC中点，因此BD=CD是额外条件。题目本身可能正确，但解析有误。",
+      "independentAnswerZhHans": "BD=CD",
+      "answerCheckZhHans": "标准答案BD=CD可能正确，但解析错误地使用了AD垂直平分BC的结论，该结论并非已知。",
+      "recommendedActionZhHans": "修正解析，删除错误的三线合一推论，直接说明由AB=AC得∠B=∠C，若添加BD=CD，则可用SAS证明全等。",
+      "confidence": "medium"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-486",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "40°",
+      "answerCheckZhHans": "标准答案40°与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-487",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析错误地认为等腰三角形底边中线也是高，但题干仅给出AD平分∠BAC，未说明D是BC中点，因此AD不一定是中线和高。实际上，由AB=AC，AD平分∠BAC，根据等腰三角形三线合一，AD也是底边中线和高，因此AD⊥BC，∠ADC=90°。但解析表述不严谨，直接说“等腰三角形底边中线也是高”容易引起误解，因为D不一定是中点。然而，根据角平分线性质，在等腰三角形中，顶角平分线也是底边中线和高，所以结论正确。但解析应明确说明三线合一。",
+      "independentAnswerZhHans": "90°",
+      "answerCheckZhHans": "标准答案90°正确，但解析表述有瑕疵。",
+      "recommendedActionZhHans": "修正解析，明确说明等腰三角形顶角平分线也是底边中线和高，因此AD⊥BC。",
+      "confidence": "medium"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-488",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "30°",
+      "answerCheckZhHans": "标准答案30°与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

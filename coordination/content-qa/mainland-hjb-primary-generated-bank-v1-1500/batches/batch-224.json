@@ -1,0 +1,291 @@
+{
+  "batchId": "batch-224",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p5-116",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "hjb-primary-p5-upper-data-average",
+      "unitTitle": "数据整理与平均数",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "data-organization",
+        "average",
+        "statistical-displays",
+        "data-interpretation",
+        "平均数"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "量感",
+        "数学表达"
+      ],
+      "skillTags": [
+        "收集整理数据",
+        "统计表",
+        "统计图",
+        "平均数意义",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "average treated as the most common value",
+        "chart scale read incorrectly",
+        "conclusion not supported by data"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p5-upper-data-average"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-data-average-unit",
+        "hjb-primary-p5-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小杰记录了上周每天早晨7点的气温（单位：℃）：周一12，周二13，周三11，周四14，周五15，周六16，周日17。他计算了这7天的平均气温是14℃。小杰说：“因为平均气温是14℃，所以这周每天早晨7点的气温都是14℃。”他的说法正确吗？如果不正确，请说明理由。",
+      "optionsZhHans": [],
+      "answer": "不正确。平均气温14℃只表示这7天气温的总体水平，不代表每天的实际气温都是14℃。",
+      "acceptedAnswers": [
+        "不正确。平均气温14℃只表示这7天气温的总体水平，不代表每天的实际气温都是14℃。",
+        "不正确。平均数不代表每个数据都等于平均数。",
+        "不正确。平均数是总体水平的代表，不是每个数据的具体值。"
+      ],
+      "explanationZhHans": "平均数反映一组数据的整体水平，不是每个数据的具体值。这7天中只有周四的气温是14℃，其他天都不是14℃。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-117",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "hjb-primary-p5-upper-data-average",
+      "unitTitle": "数据整理与平均数",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "data-organization",
+        "average",
+        "statistical-displays",
+        "data-interpretation",
+        "平均数"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "量感",
+        "数学表达"
+      ],
+      "skillTags": [
+        "收集整理数据",
+        "统计表",
+        "统计图",
+        "平均数意义",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "average treated as the most common value",
+        "chart scale read incorrectly",
+        "conclusion not supported by data"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p5-upper-data-average"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-data-average-unit",
+        "hjb-primary-p5-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是四（1）班第一小组5名同学1分钟跳绳的成绩：小明120下，小红135下，小刚110下，小丽125下，小华130下。这5名同学1分钟跳绳的平均成绩是多少下？请列式计算。",
+      "optionsZhHans": [],
+      "answer": "124下",
+      "acceptedAnswers": [
+        "124下",
+        "124"
+      ],
+      "explanationZhHans": "总成绩：120+135+110+125+130=620下，人数5人，平均成绩：620÷5=124下。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-118",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "hjb-primary-p5-upper-data-average",
+      "unitTitle": "数据整理与平均数",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "data-organization",
+        "average",
+        "statistical-displays",
+        "data-interpretation",
+        "平均数"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "量感",
+        "数学表达"
+      ],
+      "skillTags": [
+        "收集整理数据",
+        "统计表",
+        "统计图",
+        "平均数意义",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "average treated as the most common value",
+        "chart scale read incorrectly",
+        "conclusion not supported by data"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p5-upper-data-average"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-data-average-unit",
+        "hjb-primary-p5-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是某书店一周内售出图书数量的统计表：\n星期一：45本\n星期二：52本\n星期三：48本\n星期四：50本\n星期五：55本\n星期六：70本\n星期日：65本\n这周平均每天售出图书多少本？",
+      "optionsZhHans": [
+        "50本",
+        "52本",
+        "55本",
+        "58本"
+      ],
+      "answer": "55本",
+      "acceptedAnswers": [
+        "55本"
+      ],
+      "explanationZhHans": "总售出：45+52+48+50+55+70+65=385本，天数7天，平均：385÷7=55本。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-119",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "hjb-primary-p5-upper-data-average",
+      "unitTitle": "数据整理与平均数",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "data-organization",
+        "average",
+        "statistical-displays",
+        "data-interpretation",
+        "平均数"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "量感",
+        "数学表达"
+      ],
+      "skillTags": [
+        "收集整理数据",
+        "统计表",
+        "统计图",
+        "平均数意义",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "average treated as the most common value",
+        "chart scale read incorrectly",
+        "conclusion not supported by data"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p5-upper-data-average"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-data-average-unit",
+        "hjb-primary-p5-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "S18 remediated after DeepSeek-v4-pro QA on 2026-05-25; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是五年级两个班在“环保小卫士”活动中收集废电池的数量统计表：\n五（1）班：第一组28节，第二组32节，第三组30节，第四组34节\n五（2）班：第一组26节，第二组31节，第三组29节，第四组33节\n哪个班平均每组收集的废电池多？多多少节？",
+      "optionsZhHans": [],
+      "answer": "五（1）班平均每组收集的废电池多，多1.25节。",
+      "acceptedAnswers": [
+        "五（1）班平均每组收集的废电池多，多1.25节。",
+        "五（1）班多，多1.25节。",
+        "五（1）班平均多1.25节。"
+      ],
+      "explanationZhHans": "五（1）班平均：(28+32+30+34)÷4=31节；五（2）班平均：(26+31+29+33)÷4=29.75节。31-29.75=1.25节，所以五（1）班平均每组多1.25节。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-120",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "hjb-primary-p5-upper-data-average",
+      "unitTitle": "数据整理与平均数",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "data-organization",
+        "average",
+        "statistical-displays",
+        "data-interpretation",
+        "平均数"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "量感",
+        "数学表达"
+      ],
+      "skillTags": [
+        "收集整理数据",
+        "统计表",
+        "统计图",
+        "平均数意义",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "average treated as the most common value",
+        "chart scale read incorrectly",
+        "conclusion not supported by data"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p5-upper-data-average"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-data-average-unit",
+        "hjb-primary-p5-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小玲参加校园歌手比赛，5位评委的打分分别是：9.2分，9.5分，9.0分，9.8分，9.3分。计算小玲的平均得分时，通常去掉一个最高分和一个最低分，再计算平均分。这样得到的平均分是多少？请列式计算。",
+      "optionsZhHans": [],
+      "answer": "9.33分",
+      "acceptedAnswers": [
+        "9.33分",
+        "9.33"
+      ],
+      "explanationZhHans": "去掉最高分9.8和最低分9.0，剩下9.2、9.5、9.3，总和28分，人数3人，平均：28÷3≈9.33分。"
+    }
+  ]
+}

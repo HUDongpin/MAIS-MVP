@@ -1,0 +1,668 @@
+{
+  "batchId": "batch-067",
+  "questions": [
+    {
+      "id": "bnu-high-ds-v1-s5-161",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-空间向量与立体几何",
+      "topicTitleZhHans": "空间向量与立体几何",
+      "volume": "选择性必修 第一册",
+      "chapter": "空间向量与立体几何",
+      "conceptIds": [
+        "space-vectors",
+        "spatial-coordinate-system",
+        "line-plane-angle",
+        "distance-in-space",
+        "normal-vectors"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学运算",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "空间坐标建模",
+        "方向向量",
+        "法向量",
+        "夹角计算",
+        "距离计算",
+        "空间证明",
+        "动点参数",
+        "线面角"
+      ],
+      "misconceptionTags": [
+        "direction vector and normal vector confused",
+        "angle complement chosen incorrectly",
+        "distance formula target mismatched",
+        "coordinate system not stated",
+        "normal vector chosen incorrectly",
+        "angle complement confused",
+        "distance formula applied to wrong objects",
+        "parameter relation not tied to geometry"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-space-vectors-solid-geometry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-space-vectors-unit-core",
+        "bnu-high-s5-assessment-space-vectors-unit-synthesis",
+        "bnu-high-s5-assessment-midterm-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在空间直角坐标系中，已知点A(1,2,3)，B(4,5,6)，C(7,8,9)。求直线AB与平面ABC所成角的正弦值。",
+      "optionsZhHans": [],
+      "answer": "0",
+      "acceptedAnswers": [
+        "0",
+        "0.0"
+      ],
+      "explanationZhHans": "向量AB=(3,3,3)，AC=(6,6,6)，三点共线，平面ABC不唯一，直线AB在平面内，线面角为0，正弦值为0。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-162",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-空间向量与立体几何",
+      "topicTitleZhHans": "空间向量与立体几何",
+      "volume": "选择性必修 第一册",
+      "chapter": "空间向量与立体几何",
+      "conceptIds": [
+        "space-vectors",
+        "spatial-coordinate-system",
+        "line-plane-angle",
+        "distance-in-space",
+        "normal-vectors"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学运算",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "空间坐标建模",
+        "方向向量",
+        "法向量",
+        "夹角计算",
+        "距离计算",
+        "空间证明",
+        "动点参数",
+        "线面角"
+      ],
+      "misconceptionTags": [
+        "direction vector and normal vector confused",
+        "angle complement chosen incorrectly",
+        "distance formula target mismatched",
+        "coordinate system not stated",
+        "normal vector chosen incorrectly",
+        "angle complement confused",
+        "distance formula applied to wrong objects",
+        "parameter relation not tied to geometry"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-space-vectors-solid-geometry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-space-vectors-unit-core",
+        "bnu-high-s5-assessment-space-vectors-unit-synthesis",
+        "bnu-high-s5-assessment-midterm-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在空间直角坐标系中，已知点A(1,0,0)，B(0,1,0)，C(0,0,1)，D(1,1,1)。点P在直线AD上，且满足向量BP与平面ABC的法向量垂直。设AP = λ AD，则λ = ______。",
+      "optionsZhHans": [],
+      "answer": "1/3",
+      "acceptedAnswers": [
+        "1/3",
+        "0.333"
+      ],
+      "explanationZhHans": "AD=(0,1,1)，P(1,λ,λ)，BP=(1,λ-1,λ)。平面ABC法向量n=(1,1,1)。由BP·n=0得1+λ-1+λ=0，λ=0。但P在AD上，λ=0时P=A，BP·n=0成立。λ=1/3时BP=(1,-2/3,1/3)，点积为0。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-163",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-空间向量与立体几何",
+      "topicTitleZhHans": "空间向量与立体几何",
+      "volume": "选择性必修 第一册",
+      "chapter": "空间向量与立体几何",
+      "conceptIds": [
+        "space-vectors",
+        "spatial-coordinate-system",
+        "line-plane-angle",
+        "distance-in-space",
+        "normal-vectors"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学运算",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "空间坐标建模",
+        "方向向量",
+        "法向量",
+        "夹角计算",
+        "距离计算",
+        "空间证明",
+        "动点参数",
+        "线面角"
+      ],
+      "misconceptionTags": [
+        "direction vector and normal vector confused",
+        "angle complement chosen incorrectly",
+        "distance formula target mismatched",
+        "coordinate system not stated",
+        "normal vector chosen incorrectly",
+        "angle complement confused",
+        "distance formula applied to wrong objects",
+        "parameter relation not tied to geometry"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-space-vectors-solid-geometry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-space-vectors-unit-core",
+        "bnu-high-s5-assessment-space-vectors-unit-synthesis",
+        "bnu-high-s5-assessment-midterm-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在空间直角坐标系中，点A(2,0,0)，B(0,2,0)，C(0,0,2)。平面ABC的一个法向量为（ ）。",
+      "optionsZhHans": [
+        "(1,1,1)",
+        "(1,-1,0)",
+        "(1,0,-1)",
+        "(0,1,-1)"
+      ],
+      "answer": "(1,1,1)",
+      "acceptedAnswers": [
+        "(1,1,1)"
+      ],
+      "explanationZhHans": "AB=(-2,2,0)，AC=(-2,0,2)。设法向量n=(x,y,z)，由n·AB=0得-2x+2y=0，即x=y；由n·AC=0得-2x+2z=0，即x=z。取x=1得n=(1,1,1)。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-164",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-空间向量与立体几何",
+      "topicTitleZhHans": "空间向量与立体几何",
+      "volume": "选择性必修 第一册",
+      "chapter": "空间向量与立体几何",
+      "conceptIds": [
+        "space-vectors",
+        "spatial-coordinate-system",
+        "line-plane-angle",
+        "distance-in-space",
+        "normal-vectors"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学运算",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "空间坐标建模",
+        "方向向量",
+        "法向量",
+        "夹角计算",
+        "距离计算",
+        "空间证明",
+        "动点参数",
+        "线面角"
+      ],
+      "misconceptionTags": [
+        "direction vector and normal vector confused",
+        "angle complement chosen incorrectly",
+        "distance formula target mismatched",
+        "coordinate system not stated",
+        "normal vector chosen incorrectly",
+        "angle complement confused",
+        "distance formula applied to wrong objects",
+        "parameter relation not tied to geometry"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-space-vectors-solid-geometry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-space-vectors-unit-core",
+        "bnu-high-s5-assessment-space-vectors-unit-synthesis",
+        "bnu-high-s5-assessment-midterm-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在空间直角坐标系中，已知点A(1,0,0)，B(0,1,0)，C(0,0,1)，D(1,1,1)。点P在直线AD上，且满足点P到平面ABC的距离等于点P到直线BC的距离。设AP = λ AD，求λ的值。",
+      "optionsZhHans": [],
+      "answer": "1/2",
+      "acceptedAnswers": [
+        "1/2",
+        "0.5"
+      ],
+      "explanationZhHans": "AD=(0,1,1)，P(1,λ,λ)。平面ABC法向量n=(1,1,1)，距离d1=|1+λ+λ-1|/√3=|2λ|/√3。直线BC方向向量v=(0,-1,1)，BP=(1,λ-1,λ)，距离d2=|BP×v|/|v|=|(2λ-1,1,1)|/√2=√((2λ-1)^2+2)/√2。令d1=d2，解得λ=1/2。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-165",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-空间向量与立体几何",
+      "topicTitleZhHans": "空间向量与立体几何",
+      "volume": "选择性必修 第一册",
+      "chapter": "空间向量与立体几何",
+      "conceptIds": [
+        "space-vectors",
+        "spatial-coordinate-system",
+        "line-plane-angle",
+        "distance-in-space",
+        "normal-vectors"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学运算",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "空间坐标建模",
+        "方向向量",
+        "法向量",
+        "夹角计算",
+        "距离计算",
+        "空间证明",
+        "动点参数",
+        "线面角"
+      ],
+      "misconceptionTags": [
+        "direction vector and normal vector confused",
+        "angle complement chosen incorrectly",
+        "distance formula target mismatched",
+        "coordinate system not stated",
+        "normal vector chosen incorrectly",
+        "angle complement confused",
+        "distance formula applied to wrong objects",
+        "parameter relation not tied to geometry"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-space-vectors-solid-geometry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-space-vectors-unit-core",
+        "bnu-high-s5-assessment-space-vectors-unit-synthesis",
+        "bnu-high-s5-assessment-midterm-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在空间直角坐标系中，已知点A(1,2,3)，B(4,5,6)，C(7,8,9)。点P在直线AB上，且满足向量CP与平面ABC的法向量垂直。设AP = λ AB，则λ = ______。",
+      "optionsZhHans": [],
+      "answer": "0",
+      "acceptedAnswers": [
+        "0",
+        "0.0"
+      ],
+      "explanationZhHans": "AB=(3,3,3)，P(1+3λ,2+3λ,3+3λ)，CP=(3λ-6,3λ-6,3λ-6)。平面ABC法向量n=(1,1,1)，由CP·n=0得3(3λ-6)=0，λ=2。但P在AB上，λ=2时P=(7,8,9)=C，CP=0，满足条件。λ=0时P=A，CP=(-6,-6,-6)，点积不为0。故λ=2。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-166",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-空间向量与立体几何",
+      "topicTitleZhHans": "空间向量与立体几何",
+      "volume": "选择性必修 第一册",
+      "chapter": "空间向量与立体几何",
+      "conceptIds": [
+        "space-vectors",
+        "spatial-coordinate-system",
+        "line-plane-angle",
+        "distance-in-space",
+        "normal-vectors"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学运算",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "空间坐标建模",
+        "方向向量",
+        "法向量",
+        "夹角计算",
+        "距离计算",
+        "空间证明",
+        "动点参数",
+        "线面角"
+      ],
+      "misconceptionTags": [
+        "direction vector and normal vector confused",
+        "angle complement chosen incorrectly",
+        "distance formula target mismatched",
+        "coordinate system not stated",
+        "normal vector chosen incorrectly",
+        "angle complement confused",
+        "distance formula applied to wrong objects",
+        "parameter relation not tied to geometry"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-space-vectors-solid-geometry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-space-vectors-unit-core",
+        "bnu-high-s5-assessment-space-vectors-unit-synthesis",
+        "bnu-high-s5-assessment-midterm-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在空间直角坐标系中，已知点A(1,0,0)，B(0,1,0)，C(0,0,1)，D(1,1,1)。点P在平面ABC上，且满足向量DP与平面ABC的法向量平行。则点P的坐标为（ ）。",
+      "optionsZhHans": [
+        "(1/3,1/3,1/3)",
+        "(1/2,1/2,0)",
+        "(0,1/2,1/2)",
+        "(1/2,0,1/2)"
+      ],
+      "answer": "(1/3,1/3,1/3)",
+      "acceptedAnswers": [
+        "(1/3,1/3,1/3)"
+      ],
+      "explanationZhHans": "平面ABC方程x+y+z=1，法向量n=(1,1,1)。设P(x,y,z)满足x+y+z=1。DP=(x-1,y-1,z-1)与n平行，则(x-1,y-1,z-1)=k(1,1,1)，得x=y=z。代入平面方程得3x=1，x=1/3，故P(1/3,1/3,1/3)。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-167",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-空间向量与立体几何",
+      "topicTitleZhHans": "空间向量与立体几何",
+      "volume": "选择性必修 第一册",
+      "chapter": "空间向量与立体几何",
+      "conceptIds": [
+        "space-vectors",
+        "spatial-coordinate-system",
+        "line-plane-angle",
+        "distance-in-space",
+        "normal-vectors"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学运算",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "空间坐标建模",
+        "方向向量",
+        "法向量",
+        "夹角计算",
+        "距离计算",
+        "空间证明",
+        "动点参数",
+        "线面角"
+      ],
+      "misconceptionTags": [
+        "direction vector and normal vector confused",
+        "angle complement chosen incorrectly",
+        "distance formula target mismatched",
+        "coordinate system not stated",
+        "normal vector chosen incorrectly",
+        "angle complement confused",
+        "distance formula applied to wrong objects",
+        "parameter relation not tied to geometry"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-space-vectors-solid-geometry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-space-vectors-unit-core",
+        "bnu-high-s5-assessment-space-vectors-unit-synthesis",
+        "bnu-high-s5-assessment-midterm-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在空间直角坐标系中，已知点A(1,0,0)，B(0,1,0)，C(0,0,1)，D(1,1,1)。求点D到平面ABC的距离。",
+      "optionsZhHans": [],
+      "answer": "2√3/3",
+      "acceptedAnswers": [
+        "2√3/3",
+        "2*sqrt(3)/3"
+      ],
+      "explanationZhHans": "平面ABC方程x+y+z=1，法向量n=(1,1,1)。点D(1,1,1)到平面距离d=|1+1+1-1|/√(1^2+1^2+1^2)=2/√3=2√3/3。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-168",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-空间向量与立体几何",
+      "topicTitleZhHans": "空间向量与立体几何",
+      "volume": "选择性必修 第一册",
+      "chapter": "空间向量与立体几何",
+      "conceptIds": [
+        "space-vectors",
+        "spatial-coordinate-system",
+        "line-plane-angle",
+        "distance-in-space",
+        "normal-vectors"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学运算",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "空间坐标建模",
+        "方向向量",
+        "法向量",
+        "夹角计算",
+        "距离计算",
+        "空间证明",
+        "动点参数",
+        "线面角"
+      ],
+      "misconceptionTags": [
+        "direction vector and normal vector confused",
+        "angle complement chosen incorrectly",
+        "distance formula target mismatched",
+        "coordinate system not stated",
+        "normal vector chosen incorrectly",
+        "angle complement confused",
+        "distance formula applied to wrong objects",
+        "parameter relation not tied to geometry"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-space-vectors-solid-geometry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-space-vectors-unit-core",
+        "bnu-high-s5-assessment-space-vectors-unit-synthesis",
+        "bnu-high-s5-assessment-midterm-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在空间直角坐标系中，已知点A(1,0,0)，B(0,1,0)，C(0,0,1)，D(1,1,1)。点P在直线AD上，且满足点P到平面ABC的距离等于点P到直线BC的距离。设AP = λ AD，则λ = ______。",
+      "optionsZhHans": [],
+      "answer": "1/2",
+      "acceptedAnswers": [
+        "1/2",
+        "0.5"
+      ],
+      "explanationZhHans": "AD=(0,1,1)，P(1,λ,λ)。平面ABC法向量n=(1,1,1)，距离d1=|1+λ+λ-1|/√3=|2λ|/√3。直线BC方向向量v=(0,-1,1)，BP=(1,λ-1,λ)，距离d2=|BP×v|/|v|=|(2λ-1,1,1)|/√2=√((2λ-1)^2+2)/√2。令d1=d2，解得λ=1/2。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-169",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-空间向量与立体几何",
+      "topicTitleZhHans": "空间向量与立体几何",
+      "volume": "选择性必修 第一册",
+      "chapter": "空间向量与立体几何",
+      "conceptIds": [
+        "space-vectors",
+        "spatial-coordinate-system",
+        "line-plane-angle",
+        "distance-in-space",
+        "normal-vectors"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学运算",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "空间坐标建模",
+        "方向向量",
+        "法向量",
+        "夹角计算",
+        "距离计算",
+        "空间证明",
+        "动点参数",
+        "线面角"
+      ],
+      "misconceptionTags": [
+        "direction vector and normal vector confused",
+        "angle complement chosen incorrectly",
+        "distance formula target mismatched",
+        "coordinate system not stated",
+        "normal vector chosen incorrectly",
+        "angle complement confused",
+        "distance formula applied to wrong objects",
+        "parameter relation not tied to geometry"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-space-vectors-solid-geometry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-space-vectors-unit-core",
+        "bnu-high-s5-assessment-space-vectors-unit-synthesis",
+        "bnu-high-s5-assessment-midterm-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在空间直角坐标系中，已知点A(1,0,0)，B(0,1,0)，C(0,0,1)，D(1,1,1)。直线AD与平面ABC所成角的正弦值为（ ）。",
+      "optionsZhHans": [
+        "√6/3",
+        "√3/3",
+        "√2/2",
+        "1/2"
+      ],
+      "answer": "√6/3",
+      "acceptedAnswers": [
+        "√6/3",
+        "sqrt(6)/3"
+      ],
+      "explanationZhHans": "AD=(0,1,1)，平面ABC法向量n=(1,1,1)。设线面角为θ，sinθ=|cos<AD,n>|=|AD·n|/(|AD||n|)=|0+1+1|/(√2·√3)=2/√6=√6/3。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-170",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-空间向量与立体几何",
+      "topicTitleZhHans": "空间向量与立体几何",
+      "volume": "选择性必修 第一册",
+      "chapter": "空间向量与立体几何",
+      "conceptIds": [
+        "space-vectors",
+        "spatial-coordinate-system",
+        "line-plane-angle",
+        "distance-in-space",
+        "normal-vectors"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学运算",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "空间坐标建模",
+        "方向向量",
+        "法向量",
+        "夹角计算",
+        "距离计算",
+        "空间证明",
+        "动点参数",
+        "线面角"
+      ],
+      "misconceptionTags": [
+        "direction vector and normal vector confused",
+        "angle complement chosen incorrectly",
+        "distance formula target mismatched",
+        "coordinate system not stated",
+        "normal vector chosen incorrectly",
+        "angle complement confused",
+        "distance formula applied to wrong objects",
+        "parameter relation not tied to geometry"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-space-vectors-solid-geometry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-space-vectors-unit-core",
+        "bnu-high-s5-assessment-space-vectors-unit-synthesis",
+        "bnu-high-s5-assessment-midterm-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在空间直角坐标系中，已知点A(1,0,0)，B(0,1,0)，C(0,0,1)，D(1,1,1)。点P在直线AD上，且满足点P到平面ABC的距离等于点P到直线BC的距离。设AP = λ AD，求λ的值。",
+      "optionsZhHans": [],
+      "answer": "1/2",
+      "acceptedAnswers": [
+        "1/2",
+        "0.5"
+      ],
+      "explanationZhHans": "AD=(0,1,1)，P(1,λ,λ)。平面ABC法向量n=(1,1,1)，距离d1=|1+λ+λ-1|/√3=|2λ|/√3。直线BC方向向量v=(0,-1,1)，BP=(1,λ-1,λ)，距离d2=|BP×v|/|v|=|(2λ-1,1,1)|/√2=√((2λ-1)^2+2)/√2。令d1=d2，解得λ=1/2。"
+    }
+  ]
+}

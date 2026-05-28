@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-493",
+  "startedAt": "2026-05-28T02:01:52.620Z",
+  "completedAt": "2026-05-28T02:01:57.598Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-493"
+  ],
+  "usage": {
+    "prompt_tokens": 2084,
+    "completion_tokens": 340,
+    "total_tokens": 2424,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1700
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-493",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "若m⊥α，n⊥β，α⊥β，则m⊥n",
+        "correctedAnswer": "若m⊥α，n⊥β，α⊥β，则m⊥n",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目为单选题，正确命题是B。选项B：若m⊥α，n⊥β，α⊥β，则m⊥n，可由面面垂直和线面垂直的性质推出。选项D：若m⊥α，n∥β，α∥β，则m⊥n，反例：当n平行于β内一直线且与m不垂直时，结论不成立。存储答案选D，解析对B的判断错误，存在数学错误和答案不匹配，需修正为B。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目正确选项为B，存储答案和解析错误，需修正。"
+    }
+  }
+}

@@ -1,0 +1,580 @@
+{
+  "batchId": "batch-069",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p3-181",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-mass-units",
+      "unitTitle": "千克、克、吨",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "mass-measurement",
+        "kilogram-gram-ton",
+        "unit-conversion",
+        "质量单位",
+        "千克克吨"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数感"
+      ],
+      "skillTags": [
+        "选择质量单位",
+        "单位换算",
+        "估测质量",
+        "比较质量",
+        "解决实际问题"
+      ],
+      "misconceptionTags": [
+        "larger numeral assumed to mean heavier despite units",
+        "mass units treated like length units",
+        "ton used for everyday small objects"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-mass-units"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-mass-units-unit",
+        "bnu-primary-p3-lower-assessment-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一袋大米重25千克，一袋面粉重2500克。下面说法正确的是（　）。",
+      "optionsZhHans": [
+        "大米比面粉重",
+        "面粉比大米重",
+        "大米和面粉一样重",
+        "无法比较"
+      ],
+      "answer": "大米比面粉重",
+      "acceptedAnswers": [
+        "大米比面粉重"
+      ],
+      "explanationZhHans": "2500克=2千克500克，25千克>2千克500克，所以大米更重。比较质量时，要先统一单位。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-182",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-mass-units",
+      "unitTitle": "千克、克、吨",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "mass-measurement",
+        "kilogram-gram-ton",
+        "unit-conversion",
+        "质量单位",
+        "千克克吨"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数感"
+      ],
+      "skillTags": [
+        "选择质量单位",
+        "单位换算",
+        "估测质量",
+        "比较质量",
+        "解决实际问题"
+      ],
+      "misconceptionTags": [
+        "larger numeral assumed to mean heavier despite units",
+        "mass units treated like length units",
+        "ton used for everyday small objects"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-mass-units"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-mass-units-unit",
+        "bnu-primary-p3-lower-assessment-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在括号里填上合适的质量单位。\n一个苹果大约重200（　）。",
+      "optionsZhHans": [],
+      "answer": "克",
+      "acceptedAnswers": [
+        "克"
+      ],
+      "explanationZhHans": "一个苹果的质量较轻，通常用克作单位。200克符合实际，而200千克太重，200吨更不可能。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-183",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-mass-units",
+      "unitTitle": "千克、克、吨",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "mass-measurement",
+        "kilogram-gram-ton",
+        "unit-conversion",
+        "质量单位",
+        "千克克吨"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数感"
+      ],
+      "skillTags": [
+        "选择质量单位",
+        "单位换算",
+        "估测质量",
+        "比较质量",
+        "解决实际问题"
+      ],
+      "misconceptionTags": [
+        "larger numeral assumed to mean heavier despite units",
+        "mass units treated like length units",
+        "ton used for everyday small objects"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-mass-units"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-mass-units-unit",
+        "bnu-primary-p3-lower-assessment-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪种物品的质量最接近1吨？（　）",
+      "optionsZhHans": [
+        "10袋25千克的大米",
+        "100个1千克的西瓜",
+        "50个20千克的小朋友",
+        "200个5千克的书包"
+      ],
+      "answer": "100个1千克的西瓜",
+      "acceptedAnswers": [
+        "100个1千克的西瓜"
+      ],
+      "explanationZhHans": "1吨=1000千克。50个20千克的小朋友总重50×20=1000千克，正好是1吨，所以最接近。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-184",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-mass-units",
+      "unitTitle": "千克、克、吨",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "mass-measurement",
+        "kilogram-gram-ton",
+        "unit-conversion",
+        "质量单位",
+        "千克克吨"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数感"
+      ],
+      "skillTags": [
+        "选择质量单位",
+        "单位换算",
+        "估测质量",
+        "比较质量",
+        "解决实际问题"
+      ],
+      "misconceptionTags": [
+        "larger numeral assumed to mean heavier despite units",
+        "mass units treated like length units",
+        "ton used for everyday small objects"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-mass-units"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-mass-units-unit",
+        "bnu-primary-p3-lower-assessment-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在括号里填上合适的数。\n5千克 = （　）克",
+      "optionsZhHans": [],
+      "answer": "5000",
+      "acceptedAnswers": [
+        "5000"
+      ],
+      "explanationZhHans": "因为1千克=1000克，所以5千克就是5个1000克，即5000克。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-185",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-mass-units",
+      "unitTitle": "千克、克、吨",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "mass-measurement",
+        "kilogram-gram-ton",
+        "unit-conversion",
+        "质量单位",
+        "千克克吨"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数感"
+      ],
+      "skillTags": [
+        "选择质量单位",
+        "单位换算",
+        "估测质量",
+        "比较质量",
+        "解决实际问题"
+      ],
+      "misconceptionTags": [
+        "larger numeral assumed to mean heavier despite units",
+        "mass units treated like length units",
+        "ton used for everyday small objects"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-mass-units"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-mass-units-unit",
+        "bnu-primary-p3-lower-assessment-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一辆卡车的载质量是4吨，已经装了2800千克的货物，最多还能装多少千克的货物？（　）",
+      "optionsZhHans": [
+        "1200千克",
+        "1200克",
+        "6800千克",
+        "6800克"
+      ],
+      "answer": "1200千克",
+      "acceptedAnswers": [
+        "1200千克"
+      ],
+      "explanationZhHans": "4吨=4000千克，4000-2800=1200千克。注意单位换算，不能直接用4减2800。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-186",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-mass-units",
+      "unitTitle": "千克、克、吨",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "mass-measurement",
+        "kilogram-gram-ton",
+        "unit-conversion",
+        "质量单位",
+        "千克克吨"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数感"
+      ],
+      "skillTags": [
+        "选择质量单位",
+        "单位换算",
+        "估测质量",
+        "比较质量",
+        "解决实际问题"
+      ],
+      "misconceptionTags": [
+        "larger numeral assumed to mean heavier despite units",
+        "mass units treated like length units",
+        "ton used for everyday small objects"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-mass-units"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-mass-units-unit",
+        "bnu-primary-p3-lower-assessment-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在括号里填上合适的质量单位。\n一头大象大约重4（　）。",
+      "optionsZhHans": [],
+      "answer": "吨",
+      "acceptedAnswers": [
+        "吨"
+      ],
+      "explanationZhHans": "大象很重，通常用吨作单位。4吨符合实际，4千克或4克都太轻。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-187",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-mass-units",
+      "unitTitle": "千克、克、吨",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "mass-measurement",
+        "kilogram-gram-ton",
+        "unit-conversion",
+        "质量单位",
+        "千克克吨"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数感"
+      ],
+      "skillTags": [
+        "选择质量单位",
+        "单位换算",
+        "估测质量",
+        "比较质量",
+        "解决实际问题"
+      ],
+      "misconceptionTags": [
+        "larger numeral assumed to mean heavier despite units",
+        "mass units treated like length units",
+        "ton used for everyday small objects"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-mass-units"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-mass-units-unit",
+        "bnu-primary-p3-lower-assessment-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪种水果的质量大约是200克？（　）",
+      "optionsZhHans": [
+        "一个西瓜",
+        "一个苹果",
+        "一颗葡萄",
+        "一个菠萝"
+      ],
+      "answer": "一个苹果",
+      "acceptedAnswers": [
+        "一个苹果"
+      ],
+      "explanationZhHans": "一个苹果的质量通常在150-250克之间，200克是合理的。西瓜和菠萝通常几千克，葡萄几克。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-188",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-mass-units",
+      "unitTitle": "千克、克、吨",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "mass-measurement",
+        "kilogram-gram-ton",
+        "unit-conversion",
+        "质量单位",
+        "千克克吨"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数感"
+      ],
+      "skillTags": [
+        "选择质量单位",
+        "单位换算",
+        "估测质量",
+        "比较质量",
+        "解决实际问题"
+      ],
+      "misconceptionTags": [
+        "larger numeral assumed to mean heavier despite units",
+        "mass units treated like length units",
+        "ton used for everyday small objects"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-mass-units"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-mass-units-unit",
+        "bnu-primary-p3-lower-assessment-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在括号里填上合适的数。\n3000克 = （　）千克",
+      "optionsZhHans": [],
+      "answer": "3",
+      "acceptedAnswers": [
+        "3"
+      ],
+      "explanationZhHans": "因为1000克=1千克，3000克里面有3个1000克，所以是3千克。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-189",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-mass-units",
+      "unitTitle": "千克、克、吨",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "mass-measurement",
+        "kilogram-gram-ton",
+        "unit-conversion",
+        "质量单位",
+        "千克克吨"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数感"
+      ],
+      "skillTags": [
+        "选择质量单位",
+        "单位换算",
+        "估测质量",
+        "比较质量",
+        "解决实际问题"
+      ],
+      "misconceptionTags": [
+        "larger numeral assumed to mean heavier despite units",
+        "mass units treated like length units",
+        "ton used for everyday small objects"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-mass-units"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-mass-units-unit",
+        "bnu-primary-p3-lower-assessment-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一桶油连桶重5千克，油用去一半后，连桶重3千克。桶重多少千克？（　）",
+      "optionsZhHans": [
+        "1千克",
+        "2千克",
+        "3千克",
+        "4千克"
+      ],
+      "answer": "1千克",
+      "acceptedAnswers": [
+        "1千克"
+      ],
+      "explanationZhHans": "油用去一半，减少的质量是5-3=2千克，即一半油重2千克，所以油总重4千克，桶重5-4=1千克。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-190",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-mass-units",
+      "unitTitle": "千克、克、吨",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "mass-measurement",
+        "kilogram-gram-ton",
+        "unit-conversion",
+        "质量单位",
+        "千克克吨"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数感"
+      ],
+      "skillTags": [
+        "选择质量单位",
+        "单位换算",
+        "估测质量",
+        "比较质量",
+        "解决实际问题"
+      ],
+      "misconceptionTags": [
+        "larger numeral assumed to mean heavier despite units",
+        "mass units treated like length units",
+        "ton used for everyday small objects"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-mass-units"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-mass-units-unit",
+        "bnu-primary-p3-lower-assessment-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在括号里填上合适的质量单位。\n一袋食盐大约重500（　）。",
+      "optionsZhHans": [],
+      "answer": "克",
+      "acceptedAnswers": [
+        "克"
+      ],
+      "explanationZhHans": "一袋食盐的质量较轻，常用克作单位。500克是常见的包装，500千克或500吨都不合理。"
+    }
+  ]
+}

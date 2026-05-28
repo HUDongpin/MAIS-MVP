@@ -1,0 +1,50 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-097",
+  "startedAt": "2026-05-28T02:08:00.795Z",
+  "completedAt": "2026-05-28T02:08:08.206Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-097"
+  ],
+  "usage": {
+    "prompt_tokens": 2269,
+    "completion_tokens": 352,
+    "total_tokens": 2621,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1885
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-097",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "independentAnswer": "√5",
+        "correctedAnswer": "√5",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction",
+          "ambiguous_mc"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "双曲线渐近线斜率b/a=2，离心率e=√(1+(b/a)^2)=√5。选项无√5，存储答案√5/2错误。解析自相矛盾：计算得√5却选√5/2。若焦点在y轴，渐近线斜率a/b=2，则e=√(1+(b/a)^2)=√(1+1/4)=√5/2，但题干标准方程为x^2/a^2 - y^2/b^2=1，焦点在x轴，故正确答案为√5。题目选项与正确答案不匹配，存在歧义。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目选项与正确答案不匹配，存储答案错误，解析自相矛盾，判定为blocker。"
+    }
+  }
+}

@@ -1,0 +1,126 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-120",
+  "startedAt": "2026-05-28T01:30:53.881Z",
+  "completedAt": "2026-05-28T01:31:06.314Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-453",
+    "bnu-high-ds-v1-s5-454",
+    "bnu-high-ds-v1-s5-455",
+    "bnu-high-ds-v1-s5-456",
+    "bnu-high-ds-v1-s5-457",
+    "bnu-high-ds-v1-s5-458",
+    "bnu-high-ds-v1-s5-459",
+    "bnu-high-ds-v1-s5-460"
+  ],
+  "usage": {
+    "prompt_tokens": 12019,
+    "completion_tokens": 973,
+    "total_tokens": 12992,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 11635
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-453",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，均为选项A；解析正确解释了回归系数含义、外推局限和相关非因果。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-454",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致；解析提及理论频数比较，但未明确说明独立性检验基本思想，可视为弱匹配。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-455",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，均为选项D；解析正确指出残差图不能直接确定相关系数。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-456",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，回归方程和预测值均正确；解析给出了计算过程。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-457",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，均为选项A；解析正确区分了关联与因果，并澄清了比例含义。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-458",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，相关系数约0.99，解释为高度正相关；解析简洁正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-459",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，均为选项B；解析强调分析异常点原因，符合统计实践。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-460",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，回归方程和预测值均正确；解析给出了计算过程。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目存储答案与独立解一致，解析基本正确，无严重问题。"
+    }
+  }
+}

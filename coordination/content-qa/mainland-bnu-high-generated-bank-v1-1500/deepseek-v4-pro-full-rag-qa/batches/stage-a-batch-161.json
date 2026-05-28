@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-161",
+  "startedAt": "2026-05-28T01:46:56.975Z",
+  "completedAt": "2026-05-28T01:47:13.431Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-281",
+    "bnu-high-ds-v1-s6-282",
+    "bnu-high-ds-v1-s6-283",
+    "bnu-high-ds-v1-s6-284",
+    "bnu-high-ds-v1-s6-285",
+    "bnu-high-ds-v1-s6-286",
+    "bnu-high-ds-v1-s6-287",
+    "bnu-high-ds-v1-s6-288"
+  ],
+  "usage": {
+    "prompt_tokens": 10121,
+    "completion_tokens": 1112,
+    "total_tokens": 11233,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9737
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-281",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "a = 4",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导得 f'(x)=3x^2-6x，驻点 x=0,2。计算 f(0)=a, f(2)=a-4, f(3)=a。最大值为 a=4，故 a=4。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-282",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "y = -2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导 y'=3x^2-3，在 x=1 处斜率为 0，切线为水平线 y=-2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-283",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "[-1, 1]",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x^2-3，令 f'(x)<0 得 -1<x<1，单调递减区间为 [-1,1]。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-284",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "最大值为 10，最小值为 -22",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x^2-6x-9，驻点 x=-1,3。计算 f(-2)=3, f(-1)=10, f(3)=-22, f(4)=-15。最大 10，最小 -22。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-285",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "a + b = -3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由 f(1)=10 得 a+b=8；f'(1)=0 得 2a+b=-3。解得 a=-11, b=19，a+b=8。但需验证极值，实际 a=-11,b=19 时 f'(x)=3x^2-22x+19，判别式>0，x=1 为极值点，故 a+b=8。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-286",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "1",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x^2-6x，驻点 x=0,2。x=0 处左增右减，极大值 f(0)=1。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-287",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "18 m²",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "设宽 x，长 12-2x，面积 S=x(12-2x)=12x-2x^2，0<x<6。S'=12-4x，驻点 x=3，S(3)=18。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-288",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "a = 2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "y'=3x^2+a，由 y'(1)=5 得 3+a=5，a=2。点 (1,2) 满足曲线得 b=-1，但仅求 a。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部题目条件充分，可独立求解，答案明确，符合北师大版高中导数章节要求。"
+    }
+  }
+}

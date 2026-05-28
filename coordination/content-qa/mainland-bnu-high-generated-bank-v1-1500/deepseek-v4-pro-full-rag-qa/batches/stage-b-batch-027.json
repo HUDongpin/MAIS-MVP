@@ -1,0 +1,134 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-027",
+  "startedAt": "2026-05-28T01:03:27.198Z",
+  "completedAt": "2026-05-28T01:03:42.560Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-209",
+    "bnu-high-ds-v1-s4-210",
+    "bnu-high-ds-v1-s4-211",
+    "bnu-high-ds-v1-s4-212",
+    "bnu-high-ds-v1-s4-213",
+    "bnu-high-ds-v1-s4-214",
+    "bnu-high-ds-v1-s4-215",
+    "bnu-high-ds-v1-s4-216"
+  ],
+  "usage": {
+    "prompt_tokens": 11185,
+    "completion_tokens": 1028,
+    "total_tokens": 12213,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 10801
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-209",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案(1.70, 1.90)与独立解一致，解析计算正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-210",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案1与独立解一致，解析正确说明标准化后标准差为1。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-211",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案B与独立解一致，解析正确指出样本均值是估计值，唯一正确选项。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-212",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "80.00",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案80.25错误，独立解计算总和为3200，平均80.00；解析称总和3210与数据不符。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-213",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [
+          "missing_condition",
+          "unsolvable",
+          "answer_mismatch"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目未给出男女生人数，无法计算总体均值；存储答案167.2基于错误假设样本比例等于总体比例，不可接受。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-214",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案0.14与独立解C一致，解析正确计算频率。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-215",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案8与独立解一致，解析正确指出众数为8。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-216",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案18与独立解一致，解析正确应用方差性质。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 0,
+      "fail": 2,
+      "notes": "8题中6题通过，2题失败：bnu-high-ds-v1-s4-212存储答案错误，bnu-high-ds-v1-s4-213缺少条件无法求解。"
+    }
+  }
+}

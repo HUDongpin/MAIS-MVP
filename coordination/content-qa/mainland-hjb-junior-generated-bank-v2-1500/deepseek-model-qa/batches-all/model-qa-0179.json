@@ -1,0 +1,113 @@
+{
+  "batchId": "model-qa-0179",
+  "ids": [
+    "hjb-junior-ds-v2-s3-425",
+    "hjb-junior-ds-v2-s3-426",
+    "hjb-junior-ds-v2-s3-427",
+    "hjb-junior-ds-v2-s3-428",
+    "hjb-junior-ds-v2-s3-429",
+    "hjb-junior-ds-v2-s3-430",
+    "hjb-junior-ds-v2-s3-431",
+    "hjb-junior-ds-v2-s3-432"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-425",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "7",
+      "answerCheckZhHans": "标准答案为7，计算正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-426",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "multiple-correct-options"
+      ],
+      "issueDetailsZhHans": "选项B和C均正确。数据排序后中位数为86.5，众数为85，平均数为87.8。选项B称“众数是85，中位数是86.5”正确；选项C称“平均数是87.8，中位数是86.5”也正确。题干要求选择“正确的是”，存在两个正确选项。",
+      "independentAnswerZhHans": "平均数为87.8，中位数为86.5，众数为85。选项B和C均正确。",
+      "answerCheckZhHans": "标准答案仅选C，但B也正确，存在多个正确选项。",
+      "recommendedActionZhHans": "修改选项B或C，确保只有一个正确选项；或调整题干为单选。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-427",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "方差计算错误。平均数应为163.83，方差精确值为(14.67+1.36+33.99+38.03+3.35+17.39)/6≈18.13，四舍五入保留整数应为18，但标准答案18与解析中18.14不一致，且解析中计算有误。实际方差约为18.13，保留整数为18，但解析过程不严谨。",
+      "independentAnswerZhHans": "平均数=163.83，方差≈18.13，保留整数为18。",
+      "answerCheckZhHans": "标准答案为18，但解析中计算过程有误，且最终结果18.14四舍五入为18，但实际应为18.13。",
+      "recommendedActionZhHans": "修正解析中的计算错误，确保方差计算准确。",
+      "confidence": "medium"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-428",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "multiple-correct-options"
+      ],
+      "issueDetailsZhHans": "选项B和C均正确。中位数位置为第25、26个数据，均在1.5小时组，中位数为1.5小时；众数为1.5小时。选项B称“中位数为1.5小时”正确，选项C称“众数为1.5小时”正确。题干要求选择“正确的是”，存在两个正确选项。",
+      "independentAnswerZhHans": "平均数为1.44小时，中位数为1.5小时，众数为1.5小时。选项B和C均正确。",
+      "answerCheckZhHans": "标准答案仅选C，但B也正确，存在多个正确选项。",
+      "recommendedActionZhHans": "修改选项B或C，确保只有一个正确选项；或调整题干为单选。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-429",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "15",
+      "answerCheckZhHans": "标准答案为15，计算正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-430",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "方差计算错误。甲：8,9,7,10,8,9,9,8,7,9，平均数=8.4，方差=[(8-8.4)^2+(9-8.4)^2+(7-8.4)^2+(10-8.4)^2+(8-8.4)^2+(9-8.4)^2+(9-8.4)^2+(8-8.4)^2+(7-8.4)^2+(9-8.4)^2]/10=0.64；乙：9,8,10,7,9,8,9,8,10,8，平均数=8.6，方差=[(9-8.6)^2+(8-8.6)^2+(10-8.6)^2+(7-8.6)^2+(9-8.6)^2+(8-8.6)^2+(9-8.6)^2+(8-8.6)^2+(10-8.6)^2+(8-8.6)^2]/10=0.84。甲方差更小，应选甲。但选项C称“甲，因为甲的方差更小”正确，选项D称“乙，因为乙的方差更小”错误。标准答案选C，但解析中方差计算正确，答案正确。然而，选项A和B的理由错误，但选项C正确。本题只有一个正确选项，但需确认方差计算无误。",
+      "independentAnswerZhHans": "甲方差0.64，乙方差0.84，甲更稳定，选C。",
+      "answerCheckZhHans": "标准答案C正确，解析中方差计算正确，但需确认无其他问题。",
+      "recommendedActionZhHans": "确认方差计算无误，可保留。",
+      "confidence": "medium"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-431",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "85",
+      "answerCheckZhHans": "标准答案为85，计算正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-432",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "multiple-correct-options"
+      ],
+      "issueDetailsZhHans": "选项B和C均可能正确。数据为5,5,5,5,6,6,6,6,6,6,6,6,7,7,7,7,7,8,8,8。中位数为第10、11个数据的平均数，均为6，中位数为6；众数为6。中位数和众数均不受极端值影响，且都能反映集中趋势。题干要求“不受极端值影响”，中位数和众数均符合，但选项B和C均正确。",
+      "independentAnswerZhHans": "中位数为6，众数为6，两者均不受极端值影响。",
+      "answerCheckZhHans": "标准答案选B，但C也正确，存在多个正确选项。",
+      "recommendedActionZhHans": "修改选项，确保只有一个正确选项；或调整题干为单选。",
+      "confidence": "high"
+    }
+  ]
+}

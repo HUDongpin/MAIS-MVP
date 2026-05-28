@@ -1,0 +1,45 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-277",
+  "startedAt": "2026-05-28T01:25:40.342Z",
+  "completedAt": "2026-05-28T01:25:44.030Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-277"
+  ],
+  "usage": {
+    "prompt_tokens": 2124,
+    "completion_tokens": 228,
+    "total_tokens": 2352,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1740
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-277",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "(-∞, -2] ∪ [0, +∞)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，直线与圆相交且中点满足垂直条件，推导得k≤-2或k≥0，且判别式>0自动满足。选项唯一，答案与解析一致，无错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 1,
+      "warn": 0,
+      "fail": 0,
+      "notes": "题目数学正确，答案匹配，解析一致，无风险。"
+    }
+  }
+}

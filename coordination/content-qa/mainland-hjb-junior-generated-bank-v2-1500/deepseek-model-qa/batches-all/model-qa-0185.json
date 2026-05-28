@@ -1,0 +1,109 @@
+{
+  "batchId": "model-qa-0185",
+  "ids": [
+    "hjb-junior-ds-v2-s3-473",
+    "hjb-junior-ds-v2-s3-474",
+    "hjb-junior-ds-v2-s3-475",
+    "hjb-junior-ds-v2-s3-476",
+    "hjb-junior-ds-v2-s3-477",
+    "hjb-junior-ds-v2-s3-478",
+    "hjb-junior-ds-v2-s3-479",
+    "hjb-junior-ds-v2-s3-480"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-473",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "8",
+      "answerCheckZhHans": "标准答案为8，计算正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-474",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析中计算甲中位数8，乙中位数9，得出C错，但选项C为“甲的中位数大于乙的中位数”，实际甲中位数8小于乙中位数9，故C错误。解析最后说“正确为C”与结论矛盾。且四个选项均不正确，无正确选项。",
+      "independentAnswerZhHans": "甲：平均数8，中位数8，众数8，方差0.4；乙：平均数8，中位数9，众数10，方差4.4。A错（相等），B错（甲小于乙），C错（甲小于乙），D错（甲小于乙）。无正确选项。",
+      "answerCheckZhHans": "标准答案“甲的中位数大于乙的中位数”错误，实际甲中位数小于乙中位数。",
+      "recommendedActionZhHans": "修改选项或答案，确保有且仅有一个正确选项。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-475",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "4",
+      "answerCheckZhHans": "标准答案为4，计算正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-476",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析中计算平均数为87.6，得出A错误；中位数为88，得出B正确；但标准答案选A，与解析矛盾。且选项A为86.6，实际平均数为87.6，A错误；B正确。",
+      "independentAnswerZhHans": "平均数=87.6，中位数=88，众数=85，方差≠0。A错，B对，C错，D错。正确选项应为B。",
+      "answerCheckZhHans": "标准答案“A. 平均数是86.6分”错误，实际平均数为87.6，且B正确。",
+      "recommendedActionZhHans": "将答案改为B，并修正解析。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-477",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "A. 6吨，6吨",
+      "answerCheckZhHans": "标准答案为A，计算正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-478",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "C. 甲，因为甲的方差小",
+      "answerCheckZhHans": "标准答案为C，计算正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-479",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "A. 26人",
+      "answerCheckZhHans": "标准答案为A，计算正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-480",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "C. 30~35次",
+      "answerCheckZhHans": "标准答案为C，计算正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

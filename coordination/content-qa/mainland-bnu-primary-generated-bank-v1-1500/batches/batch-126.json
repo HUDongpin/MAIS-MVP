@@ -1,0 +1,595 @@
+{
+  "batchId": "batch-126",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p6-001",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-circles",
+      "unitTitle": "圆",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "circle",
+        "radius-diameter",
+        "circumference",
+        "circle-area",
+        "圆",
+        "圆周长",
+        "圆面积"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "认识圆心半径直径",
+        "解释圆周率",
+        "计算圆的周长",
+        "计算圆的面积",
+        "组合图形中的圆"
+      ],
+      "misconceptionTags": [
+        "radius and diameter confused",
+        "circumference and area formulas mixed",
+        "square units omitted for area"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-circles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-circles-unit",
+        "bnu-primary-p6-upper-assessment-fraction-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个圆形花坛的半径是4米，在花坛周围修一条1米宽的小路。小路的面积是多少平方米？（π取3.14）",
+      "optionsZhHans": [
+        "28.26",
+        "50.24",
+        "78.5",
+        "15.7"
+      ],
+      "answer": "28.26",
+      "acceptedAnswers": [
+        "28.26"
+      ],
+      "explanationZhHans": "小路是圆环。外圆半径4+1=5米，面积3.14×5²=78.5平方米；内圆面积3.14×4²=50.24平方米；小路面积78.5-50.24=28.26平方米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-002",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-circles",
+      "unitTitle": "圆",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "circle",
+        "radius-diameter",
+        "circumference",
+        "circle-area",
+        "圆",
+        "圆周长",
+        "圆面积"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "认识圆心半径直径",
+        "解释圆周率",
+        "计算圆的周长",
+        "计算圆的面积",
+        "组合图形中的圆"
+      ],
+      "misconceptionTags": [
+        "radius and diameter confused",
+        "circumference and area formulas mixed",
+        "square units omitted for area"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-circles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-circles-unit",
+        "bnu-primary-p6-upper-assessment-fraction-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个圆的直径是10厘米，它的周长是（    ）厘米。（π取3.14）",
+      "optionsZhHans": [],
+      "answer": "31.4",
+      "acceptedAnswers": [
+        "31.4"
+      ],
+      "explanationZhHans": "周长=π×直径=3.14×10=31.4厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-003",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-circles",
+      "unitTitle": "圆",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "circle",
+        "radius-diameter",
+        "circumference",
+        "circle-area",
+        "圆",
+        "圆周长",
+        "圆面积"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "认识圆心半径直径",
+        "解释圆周率",
+        "计算圆的周长",
+        "计算圆的面积",
+        "组合图形中的圆"
+      ],
+      "misconceptionTags": [
+        "radius and diameter confused",
+        "circumference and area formulas mixed",
+        "square units omitted for area"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-circles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-circles-unit",
+        "bnu-primary-p6-upper-assessment-fraction-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在一个边长为8厘米的正方形内画一个最大的圆，这个圆的面积是多少平方厘米？（π取3.14）",
+      "optionsZhHans": [],
+      "answer": "50.24",
+      "acceptedAnswers": [
+        "50.24"
+      ],
+      "explanationZhHans": "最大圆的直径等于正方形边长8厘米，半径4厘米。面积=3.14×4²=50.24平方厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-004",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-circles",
+      "unitTitle": "圆",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "circle",
+        "radius-diameter",
+        "circumference",
+        "circle-area",
+        "圆",
+        "圆周长",
+        "圆面积"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "认识圆心半径直径",
+        "解释圆周率",
+        "计算圆的周长",
+        "计算圆的面积",
+        "组合图形中的圆"
+      ],
+      "misconceptionTags": [
+        "radius and diameter confused",
+        "circumference and area formulas mixed",
+        "square units omitted for area"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-circles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-circles-unit",
+        "bnu-primary-p6-upper-assessment-fraction-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个圆形喷水池的周长是62.8米，在离池边2米的外围装一圈护栏。护栏长多少米？（π取3.14）",
+      "optionsZhHans": [
+        "75.36",
+        "62.8",
+        "69.08",
+        "87.92"
+      ],
+      "answer": "75.36",
+      "acceptedAnswers": [
+        "75.36"
+      ],
+      "explanationZhHans": "水池半径=62.8÷3.14÷2=10米，护栏半径10+2=12米，护栏周长=2×3.14×12=75.36米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-005",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-circles",
+      "unitTitle": "圆",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "circle",
+        "radius-diameter",
+        "circumference",
+        "circle-area",
+        "圆",
+        "圆周长",
+        "圆面积"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "认识圆心半径直径",
+        "解释圆周率",
+        "计算圆的周长",
+        "计算圆的面积",
+        "组合图形中的圆"
+      ],
+      "misconceptionTags": [
+        "radius and diameter confused",
+        "circumference and area formulas mixed",
+        "square units omitted for area"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-circles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-circles-unit",
+        "bnu-primary-p6-upper-assessment-fraction-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个圆的半径扩大到原来的3倍，它的面积扩大到原来的（    ）倍。",
+      "optionsZhHans": [],
+      "answer": "9",
+      "acceptedAnswers": [
+        "9"
+      ],
+      "explanationZhHans": "面积与半径的平方成正比，半径扩大3倍，面积扩大3²=9倍。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-006",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-circles",
+      "unitTitle": "圆",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "circle",
+        "radius-diameter",
+        "circumference",
+        "circle-area",
+        "圆",
+        "圆周长",
+        "圆面积"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "认识圆心半径直径",
+        "解释圆周率",
+        "计算圆的周长",
+        "计算圆的面积",
+        "组合图形中的圆"
+      ],
+      "misconceptionTags": [
+        "radius and diameter confused",
+        "circumference and area formulas mixed",
+        "square units omitted for area"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-circles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-circles-unit",
+        "bnu-primary-p6-upper-assessment-fraction-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用一根长12.56米的铁丝围成一个圆，这个圆的半径是多少米？（π取3.14）",
+      "optionsZhHans": [],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2"
+      ],
+      "explanationZhHans": "周长=2πr，所以r=周长÷(2π)=12.56÷(2×3.14)=2米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-007",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-circles",
+      "unitTitle": "圆",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "circle",
+        "radius-diameter",
+        "circumference",
+        "circle-area",
+        "圆",
+        "圆周长",
+        "圆面积"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "认识圆心半径直径",
+        "解释圆周率",
+        "计算圆的周长",
+        "计算圆的面积",
+        "组合图形中的圆"
+      ],
+      "misconceptionTags": [
+        "radius and diameter confused",
+        "circumference and area formulas mixed",
+        "square units omitted for area"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-circles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-circles-unit",
+        "bnu-primary-p6-upper-assessment-fraction-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个半圆的直径是6分米，它的周长是多少分米？（π取3.14）",
+      "optionsZhHans": [
+        "15.42",
+        "9.42",
+        "18.84",
+        "12.42"
+      ],
+      "answer": "15.42",
+      "acceptedAnswers": [
+        "15.42"
+      ],
+      "explanationZhHans": "半圆周长=圆周长的一半+直径=π×6÷2+6=9.42+6=15.42分米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-008",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-circles",
+      "unitTitle": "圆",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "circle",
+        "radius-diameter",
+        "circumference",
+        "circle-area",
+        "圆",
+        "圆周长",
+        "圆面积"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "认识圆心半径直径",
+        "解释圆周率",
+        "计算圆的周长",
+        "计算圆的面积",
+        "组合图形中的圆"
+      ],
+      "misconceptionTags": [
+        "radius and diameter confused",
+        "circumference and area formulas mixed",
+        "square units omitted for area"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-circles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-circles-unit",
+        "bnu-primary-p6-upper-assessment-fraction-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "从一个长10厘米、宽8厘米的长方形纸上剪下一个最大的圆，这个圆的周长是（    ）厘米。（π取3.14）",
+      "optionsZhHans": [],
+      "answer": "25.12",
+      "acceptedAnswers": [
+        "25.12"
+      ],
+      "explanationZhHans": "最大圆的直径等于长方形的宽8厘米，周长=3.14×8=25.12厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-009",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-circles",
+      "unitTitle": "圆",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "circle",
+        "radius-diameter",
+        "circumference",
+        "circle-area",
+        "圆",
+        "圆周长",
+        "圆面积"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "认识圆心半径直径",
+        "解释圆周率",
+        "计算圆的周长",
+        "计算圆的面积",
+        "组合图形中的圆"
+      ],
+      "misconceptionTags": [
+        "radius and diameter confused",
+        "circumference and area formulas mixed",
+        "square units omitted for area"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-circles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-circles-unit",
+        "bnu-primary-p6-upper-assessment-fraction-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个圆形花坛的直径是8米，在花坛周围铺一条1米宽的石子路。石子路的面积是多少平方米？（π取3.14）",
+      "optionsZhHans": [],
+      "answer": "28.26",
+      "acceptedAnswers": [
+        "28.26"
+      ],
+      "explanationZhHans": "花坛半径4米，外半径5米。石子路面积=3.14×(5²-4²)=3.14×9=28.26平方米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-010",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-circles",
+      "unitTitle": "圆",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "circle",
+        "radius-diameter",
+        "circumference",
+        "circle-area",
+        "圆",
+        "圆周长",
+        "圆面积"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "认识圆心半径直径",
+        "解释圆周率",
+        "计算圆的周长",
+        "计算圆的面积",
+        "组合图形中的圆"
+      ],
+      "misconceptionTags": [
+        "radius and diameter confused",
+        "circumference and area formulas mixed",
+        "square units omitted for area"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-circles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-circles-unit",
+        "bnu-primary-p6-upper-assessment-fraction-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面关于圆的说法，正确的是（    ）。",
+      "optionsZhHans": [
+        "圆的半径是直径的2倍",
+        "圆周率π的值等于3.14",
+        "两个圆的周长相等，面积也一定相等",
+        "半径为2厘米的圆，周长和面积相等"
+      ],
+      "answer": "两个圆的周长相等，面积也一定相等",
+      "acceptedAnswers": [
+        "两个圆的周长相等，面积也一定相等"
+      ],
+      "explanationZhHans": "周长相等则半径相等，面积也相等。A项直径是半径的2倍；B项π是无限不循环小数；D项数值相等但单位不同，不能比较。"
+    }
+  ]
+}

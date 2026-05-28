@@ -1,0 +1,51 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-161",
+  "startedAt": "2026-05-28T02:53:51.150Z",
+  "completedAt": "2026-05-28T02:53:56.582Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-161"
+  ],
+  "usage": {
+    "prompt_tokens": 1983,
+    "completion_tokens": 282,
+    "total_tokens": 2265,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1599
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-161",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": null,
+        "correctedAnswer": null,
+        "issueTags": [
+          "missing_condition",
+          "unsolvable",
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "A、B、C三点共线（AB=(3,3,3)，AC=(6,6,6)），无法确定唯一平面ABC，直线AB与平面ABC所成角无定义，题目条件不足，不可解。存储答案0及解析均错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目因三点共线导致平面不唯一，线面角无定义，属于严重条件缺失，判定为不可解。"
+    }
+  }
+}

@@ -1,0 +1,345 @@
+{
+  "batchId": "batch-023",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s1-k04-mc-021",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-data-collection"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "在平面直角坐标系中，点A的坐标为(-3, 4)。现将点A先向右平移5个单位，再向下平移2个单位得到点A'。点A'所在的象限是（ ）。",
+      "optionsZhHans": [
+        "第一象限",
+        "第二象限",
+        "第三象限",
+        "第四象限"
+      ],
+      "answer": "第一象限",
+      "acceptedAnswers": [
+        "第一象限"
+      ],
+      "explanationZhHans": "点A(-3,4)向右平移5个单位，横坐标加5得2；向下平移2个单位，纵坐标减2得2，所以A'的坐标为(2,2)。横坐标和纵坐标都为正，因此点A'在第一象限。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-mc-022",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-coordinate-plane"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "在平面直角坐标系中，点P在x轴上，且到原点的距离为3。若点P在y轴左侧，则点P的坐标是（ ）。",
+      "optionsZhHans": [
+        "(3,0)",
+        "(-3,0)",
+        "(0,3)",
+        "(0,-3)"
+      ],
+      "answer": "(-3,0)",
+      "acceptedAnswers": [
+        "(-3,0)"
+      ],
+      "explanationZhHans": "点P在x轴上，纵坐标为0；到原点的距离为3，横坐标的绝对值为3。在y轴左侧，横坐标为负，所以点P的坐标是(-3,0)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-mc-023",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "直线a∥b，直线c与a、b分别交于点A、B。若∠1和∠2是一对同旁内角，且∠1=55°，则∠2的度数为（ ）。",
+      "optionsZhHans": [
+        "55°",
+        "125°",
+        "135°",
+        "145°"
+      ],
+      "answer": "125°",
+      "acceptedAnswers": [
+        "125°"
+      ],
+      "explanationZhHans": "因为a∥b，且∠1和∠2是同旁内角，根据平行线性质，同旁内角互补，所以∠2=180°-55°=125°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-mc-024",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "为了解七年级学生每天完成家庭作业的时间，学校随机抽取了200名学生进行调查。下列说法正确的是（ ）。",
+      "optionsZhHans": [
+        "总体是七年级全体学生",
+        "个体是每名七年级学生",
+        "样本是200名学生",
+        "样本容量是200"
+      ],
+      "answer": "样本容量是200",
+      "acceptedAnswers": [
+        "样本容量是200"
+      ],
+      "explanationZhHans": "总体是七年级全体学生每天完成家庭作业的时间，个体是每名七年级学生每天完成家庭作业的时间，样本是200名学生每天完成家庭作业的时间，样本容量是200。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-mc-025",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-real-numbers"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "小华带了50元去文具店买笔记本，每本笔记本3元。若他买了x本笔记本，剩余的钱不少于5元，则可列不等式为（ ）。",
+      "optionsZhHans": [
+        "3x ≤ 50",
+        "3x ≥ 50",
+        "50 - 3x ≥ 5",
+        "50 - 3x ≤ 5"
+      ],
+      "answer": "50 - 3x ≥ 5",
+      "acceptedAnswers": [
+        "50 - 3x ≥ 5"
+      ],
+      "explanationZhHans": "买x本笔记本花费3x元，剩余的钱为50-3x元。剩余的钱不少于5元，即50-3x ≥ 5。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-mc-026",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-linear-systems"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "在平面直角坐标系中，将点M(2,-1)绕原点顺时针旋转90°得到点N，则点N的坐标是（ ）。",
+      "optionsZhHans": [
+        "(-1,-2)",
+        "(1,2)",
+        "(-1,2)",
+        "(1,-2)"
+      ],
+      "answer": "(-1,2)",
+      "acceptedAnswers": [
+        "(-1,2)"
+      ],
+      "explanationZhHans": "点M(2,-1)绕原点顺时针旋转90°，根据旋转规律，横坐标变为原纵坐标的相反数，纵坐标变为原横坐标的相反数，即(-1,2)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-mc-027",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-inequalities"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "下列各数中，比-2小的数是（ ）。",
+      "optionsZhHans": [
+        "-√2",
+        "-√3",
+        "-√4",
+        "-√5"
+      ],
+      "answer": "-√5",
+      "acceptedAnswers": [
+        "-√5"
+      ],
+      "explanationZhHans": "-√4=-2，-√5≈-2.236，比-2小。因为负数绝对值越大反而越小，√5>2，所以-√5<-2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-mc-028",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-data-collection"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "某校七年级有800名学生，为了解学生最喜爱的运动项目，抽取了100名学生进行问卷调查。在这个问题中，样本是指（ ）。",
+      "optionsZhHans": [
+        "800名学生",
+        "100名学生",
+        "100名学生的问卷调查结果",
+        "100"
+      ],
+      "answer": "100名学生的问卷调查结果",
+      "acceptedAnswers": [
+        "100名学生的问卷调查结果"
+      ],
+      "explanationZhHans": "样本是从总体中抽取的一部分个体，这里抽取了100名学生进行问卷调查，样本是这100名学生的问卷调查结果。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-mc-029",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-coordinate-plane"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "在平面直角坐标系中，点A的坐标是(3,-4)，点B与点A关于x轴对称，则点B的坐标是（ ）。",
+      "optionsZhHans": [
+        "(3,4)",
+        "(-3,-4)",
+        "(-3,4)",
+        "(3,-4)"
+      ],
+      "answer": "(3,4)",
+      "acceptedAnswers": [
+        "(3,4)"
+      ],
+      "explanationZhHans": "关于x轴对称的点，横坐标相同，纵坐标互为相反数。点A(3,-4)关于x轴对称的点B的坐标为(3,4)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-mc-030",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "某商店促销，购买商品满100元立减20元。小丽购买了一件原价x元的商品，实际支付了80元。根据题意，可列方程为（ ）。",
+      "optionsZhHans": [
+        "x - 20 = 80",
+        "x = 80",
+        "x + 20 = 80",
+        "x - 80 = 20"
+      ],
+      "answer": "x - 20 = 80",
+      "acceptedAnswers": [
+        "x - 20 = 80"
+      ],
+      "explanationZhHans": "满100元立减20元，实际支付80元，说明原价x元满足x-20=80，解得x=100，符合满减条件。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

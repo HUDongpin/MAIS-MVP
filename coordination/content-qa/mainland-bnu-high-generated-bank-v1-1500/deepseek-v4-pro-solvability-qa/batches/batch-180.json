@@ -1,0 +1,133 @@
+{
+  "batchNumber": 180,
+  "startedAt": "2026-05-27T14:14:11.786Z",
+  "completedAt": "2026-05-27T14:14:31.474Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-433",
+    "bnu-high-ds-v1-s6-434",
+    "bnu-high-ds-v1-s6-435",
+    "bnu-high-ds-v1-s6-436",
+    "bnu-high-ds-v1-s6-437",
+    "bnu-high-ds-v1-s6-438",
+    "bnu-high-ds-v1-s6-439",
+    "bnu-high-ds-v1-s6-440"
+  ],
+  "usage": {
+    "prompt_tokens": 10428,
+    "completion_tokens": 1262,
+    "total_tokens": 11690,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 9916
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-433",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "函数可导，闭区间上最值可通过比较临界点和端点函数值得到。f'(x)=3x²-3，临界点x=±1，计算f(-2)=-2, f(-1)=2, f(1)=-2, f(2)=2，最大值为2。答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-434",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(-1, 3)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导得f'(x)=3x²-6x-9=3(x-3)(x+1)，解f'(x)<0得-1<x<3，递减区间为(-1,3)。答案与解析一致，可解。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-435",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "-2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x²-6x=3x(x-2)，临界点0和2，f(0)=2（极大），f(2)=-2（极小）。极小值为-2，答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-436",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(-∞, -1) 和 (1, +∞)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x²-3=3(x-1)(x+1)，f'(x)>0得x<-1或x>1，递增区间为(-∞,-1)和(1,+∞)。选项A正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-437",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "最大值为2，最小值为-2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x²-6x，临界点0,2。计算f(-1)=-2, f(0)=2, f(2)=-2, f(3)=2，最大2，最小-2。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-438",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "y = -2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "y'=3x²-3，在x=1处斜率为0，切线为水平线y=-2。答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-439",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x²-6x，临界点0,2，f(0)=2为极大值。答案2正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-440",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "18 m²",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "设垂直墙边长为x，则平行边长为12-2x，面积S=x(12-2x)=12x-2x²，定义域0<x<6。S'=12-4x=0得x=3，S(3)=18。答案正确，解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可解，答案与解析匹配，无错误或歧义。"
+    }
+  }
+}

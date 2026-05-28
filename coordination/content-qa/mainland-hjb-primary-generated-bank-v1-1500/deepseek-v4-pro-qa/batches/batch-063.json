@@ -1,0 +1,191 @@
+{
+  "batchNumber": 63,
+  "startedAt": "2026-05-25T02:20:20.414Z",
+  "completedAt": "2026-05-25T02:20:42.451Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p5-117",
+    "hjb-primary-ds-v1-p5-118",
+    "hjb-primary-ds-v1-p5-119",
+    "hjb-primary-ds-v1-p5-120",
+    "hjb-primary-ds-v1-p5-121",
+    "hjb-primary-ds-v1-p5-122",
+    "hjb-primary-ds-v1-p5-123",
+    "hjb-primary-ds-v1-p5-124",
+    "hjb-primary-ds-v1-p5-125",
+    "hjb-primary-ds-v1-p5-126",
+    "hjb-primary-ds-v1-p5-127",
+    "hjb-primary-ds-v1-p5-128",
+    "hjb-primary-ds-v1-p5-129",
+    "hjb-primary-ds-v1-p5-130",
+    "hjb-primary-ds-v1-p5-131",
+    "hjb-primary-ds-v1-p5-132",
+    "hjb-primary-ds-v1-p5-133",
+    "hjb-primary-ds-v1-p5-134"
+  ],
+  "usage": {
+    "prompt_tokens": 4453,
+    "completion_tokens": 1311,
+    "total_tokens": 5764,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 4197
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p5-117",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案与解释一致，符合P5平均数核心要求。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-118",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项唯一，答案55本无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-119",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案与解释一致，acceptedAnswers覆盖合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-120",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "去掉最高最低后计算正确，9.33分无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-121",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均数计算正确，选项B表述准确，其他选项错误明显。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-122",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案144下，结论开放但合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-123",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，结论合理，符合要求。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-124",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均数计算正确，选项表述准确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-125",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，平均数5千克，换再生纸4千克，估算合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-126",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，平均数146下，解释合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-127",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "公因数判断正确，6是唯一正确选项。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-128",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "质数和20积91，7和13正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-129",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分解质因数正确，最大公因数12无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-130",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "11是质数且奇数，选项正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-131",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "利用最大公因数和最小公倍数关系计算正确，另一个数是24。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-132",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "最大公因数12，每袋苹果2橘子3，正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-133",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "2是唯一质偶数，选项正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-134",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "3和4的公倍数36在30-40之间，正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案与解释一致，无歧义或错误，适合沪教版小学数学使用。"
+    }
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "batchId": "model-qa-0072",
+  "ids": [
+    "hjb-junior-ds-v2-s2-069",
+    "hjb-junior-ds-v2-s2-070",
+    "hjb-junior-ds-v2-s2-071",
+    "hjb-junior-ds-v2-s2-072",
+    "hjb-junior-ds-v2-s2-073",
+    "hjb-junior-ds-v2-s2-074",
+    "hjb-junior-ds-v2-s2-075",
+    "hjb-junior-ds-v2-s2-076"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-069",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为0，但解析结果为-2√3/3，两者不一致。独立计算得-2√3/3，故答案错误。",
+      "independentAnswerZhHans": "-2√3/3",
+      "answerCheckZhHans": "标准答案0与解析结果-2√3/3矛盾，且独立计算支持解析结果。",
+      "recommendedActionZhHans": "将答案修正为-2√3/3，并更新acceptedAnswers。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-070",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "1",
+      "answerCheckZhHans": "标准答案1正确，解析合理，选项唯一。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-071",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x≥2",
+      "answerCheckZhHans": "标准答案x≥2正确，acceptedAnswers覆盖了常见写法。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-072",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2√5",
+      "answerCheckZhHans": "标准答案2√5正确，解析无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-073",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "multiple-correct-options"
+      ],
+      "issueDetailsZhHans": "√12化简为2√3，√27化简为3√3，两者都与√3是同类二次根式，但标准答案只选了√27。选项B和D均正确。",
+      "independentAnswerZhHans": "√12和√27",
+      "answerCheckZhHans": "存在多个正确选项，但题目为单选题，标准答案不唯一。",
+      "recommendedActionZhHans": "修改选项或题干，确保只有一个正确选项，例如将√12替换为非同类二次根式。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-074",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "1",
+      "answerCheckZhHans": "标准答案1正确，解析无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-075",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "a√b",
+      "answerCheckZhHans": "标准答案a√b正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-076",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-3 ≤ a ≤ 5",
+      "answerCheckZhHans": "标准答案正确，选项C和D等价，但C是标准写法，无歧义。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

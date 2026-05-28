@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0119",
+  "ids": [
+    "hjb-junior-ds-v2-s2-445",
+    "hjb-junior-ds-v2-s2-446",
+    "hjb-junior-ds-v2-s2-447",
+    "hjb-junior-ds-v2-s2-448",
+    "hjb-junior-ds-v2-s2-449",
+    "hjb-junior-ds-v2-s2-450",
+    "hjb-junior-ds-v2-s2-451",
+    "hjb-junior-ds-v2-s2-452"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-445",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "<",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-446",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "B",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-447",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "m > -1",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-448",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析中得出 y2 > y1 > y3，但结论写为 y2 < y1 < y3，与大小关系矛盾。正确的大小关系应为 y3 < y1 < y2，对应选项 D。",
+      "independentAnswerZhHans": "D",
+      "answerCheckZhHans": "标准答案 C 错误，解析自相矛盾。",
+      "recommendedActionZhHans": "修正答案为 D，并更正解析。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-449",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "y = 24/x",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-450",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "B",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-451",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-6",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-452",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "m > 1",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

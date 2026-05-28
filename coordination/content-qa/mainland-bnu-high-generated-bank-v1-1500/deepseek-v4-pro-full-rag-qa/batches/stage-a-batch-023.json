@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-023",
+  "startedAt": "2026-05-28T00:38:53.468Z",
+  "completedAt": "2026-05-28T00:39:09.438Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-177",
+    "bnu-high-ds-v1-s4-178",
+    "bnu-high-ds-v1-s4-179",
+    "bnu-high-ds-v1-s4-180",
+    "bnu-high-ds-v1-s4-181",
+    "bnu-high-ds-v1-s4-182",
+    "bnu-high-ds-v1-s4-183",
+    "bnu-high-ds-v1-s4-184"
+  ],
+  "usage": {
+    "prompt_tokens": 9873,
+    "completion_tokens": 970,
+    "total_tokens": 10843,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9489
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-177",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "x ≥ 100",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "利润函数 L(x)=40x-(500+20x)=20x-500，定义域 0≤x≤100。解 20x-500≥1500 得 x≥100，结合定义域得 x=100。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-178",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "1",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f(1)=ln1+1-2=-1<0，f(2)=ln2+2-2=ln2>0，零点在(1,2)内，故 k=1。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-179",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "35年",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "解 100e^{0.02t}=200 得 e^{0.02t}=2，t=ln2/0.02≈0.6931/0.02=34.657，精确到年得35年。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-180",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "6",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "区间长度40，精确到1元需区间长度≤1，二分次数n满足40/2^n≤1，得n≥log2(40)≈5.32，至少6次。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-181",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "C",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "样本平均数是总体平均数的估计值，不是确定值，C正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-182",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "76.5",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "组中值：55,65,75,85,95；加权平均=(55×2+65×8+75×16+85×10+95×4)/40=3060/40=76.5。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-183",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "5.76",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "样本方差=标准差²=2.4²=5.76。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-184",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "B",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "按年级分层抽取，属于分层抽样。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，无数学错误、歧义或缺失条件，符合北师大版高一上学期内容要求。"
+    }
+  }
+}

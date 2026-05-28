@@ -1,0 +1,191 @@
+{
+  "batchNumber": 29,
+  "startedAt": "2026-05-27T13:48:24.273Z",
+  "completedAt": "2026-05-27T13:48:43.562Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p3-005",
+    "bnu-primary-ds-v2-p3-006",
+    "bnu-primary-ds-v2-p3-007",
+    "bnu-primary-ds-v2-p3-008",
+    "bnu-primary-ds-v2-p3-009",
+    "bnu-primary-ds-v2-p3-010",
+    "bnu-primary-ds-v2-p3-011",
+    "bnu-primary-ds-v2-p3-012",
+    "bnu-primary-ds-v2-p3-013",
+    "bnu-primary-ds-v2-p3-014",
+    "bnu-primary-ds-v2-p3-015",
+    "bnu-primary-ds-v2-p3-016",
+    "bnu-primary-ds-v2-p3-017",
+    "bnu-primary-ds-v2-p3-018",
+    "bnu-primary-ds-v2-p3-019",
+    "bnu-primary-ds-v2-p3-020",
+    "bnu-primary-ds-v2-p3-021",
+    "bnu-primary-ds-v2-p3-022"
+  ],
+  "usage": {
+    "prompt_tokens": 4272,
+    "completion_tokens": 1325,
+    "total_tokens": 5597,
+    "prompt_tokens_details": {
+      "cached_tokens": 4224
+    },
+    "prompt_cache_hit_tokens": 4224,
+    "prompt_cache_miss_tokens": 48
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p3-005",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，综合算式正确，答案与解释一致，适合三年级混合运算。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-006",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目完整，答案36正确，解释合理，符合年级要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-007",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项唯一正确，无歧义，适合基础练习。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-008",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "综合算式正确，答案42人，解释清晰，符合要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-009",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "问题明确，答案解释合理，强调小括号优先级，适合核心难度。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-010",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "正确选项唯一，其他选项错误明显，解释到位。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-011",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "综合算式正确，计算过程无误，答案87支，符合挑战难度。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-012",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "解答完整，答案正确，逻辑清晰，适合考试难度。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-013",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项A正确，其他选项运算顺序不符，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-014",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "填空答案正确，顺序和结果无误，适合基础题。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-015",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案20正确，思考过程清晰，符合挑战难度。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-016",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项A正确，推理符合立体图形特征，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-017",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "描述准确，符合视图推理，答案合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-018",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，解释清晰，适合基础题。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-019",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项B正确，推理无误，符合挑战难度。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-020",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，描述清晰，符合考试难度。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-021",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案2层正确，推理合理，适合核心难度。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-022",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "正确选项唯一，解释合理，无歧义。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均通过审核，数学正确，答案匹配，无歧义，适合北师大版三年级相应单元。"
+    }
+  }
+}

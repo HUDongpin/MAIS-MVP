@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-484",
+  "startedAt": "2026-05-28T01:57:12.943Z",
+  "completedAt": "2026-05-28T01:57:16.992Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-484"
+  ],
+  "usage": {
+    "prompt_tokens": 2806,
+    "completion_tokens": 248,
+    "total_tokens": 3054,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2422
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-484",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "2",
+        "correctedAnswer": "2",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "递推计算：a1=2，a2=2，a3=2，a4=2。存储答案26错误，解析混乱且自相矛盾。Stage A独立答案2正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目可解，但答案和解析均错误，严重性为blocker。"
+    }
+  }
+}

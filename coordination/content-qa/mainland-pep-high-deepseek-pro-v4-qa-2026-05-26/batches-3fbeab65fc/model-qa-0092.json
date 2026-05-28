@@ -1,0 +1,327 @@
+{
+  "batchId": "model-qa-0092",
+  "ids": [
+    "pep-high-s5-rag2-fi-021",
+    "pep-high-s5-rag2-fi-022",
+    "pep-high-s5-rag2-fi-023",
+    "pep-high-s5-rag2-fi-024",
+    "pep-high-s5-rag2-fi-025",
+    "pep-high-s5-rag2-fi-026",
+    "pep-high-s5-rag2-fi-027",
+    "pep-high-s5-rag2-fi-028",
+    "pep-high-s5-rag2-fi-029",
+    "pep-high-s5-rag2-fi-030",
+    "pep-high-s5-rag2-fi-031",
+    "pep-high-s5-rag2-fi-032",
+    "pep-high-s5-rag2-fi-033",
+    "pep-high-s5-rag2-fi-034",
+    "pep-high-s5-rag2-fi-035",
+    "pep-high-s5-rag2-fi-036",
+    "pep-high-s5-rag2-fi-037",
+    "pep-high-s5-rag2-fi-038",
+    "pep-high-s5-rag2-fi-039",
+    "pep-high-s5-rag2-fi-040"
+  ],
+  "reviews": [
+    {
+      "id": "pep-high-s5-rag2-fi-021",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "P2",
+      "issueCodes": [
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析提及斜率计算，与题目求半径无关，但答案正确。",
+      "independentAnswerZhHans": "7",
+      "answerCheckZhHans": "标准答案为7，独立求解也为7，答案匹配。",
+      "recommendedActionZhHans": "修正解析，移除无关的斜率描述，仅保留圆的半径读取说明。",
+      "confidence": "high"
+    },
+    {
+      "id": "pep-high-s5-rag2-fi-022",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "P2",
+      "issueCodes": [
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析提及斜率计算，与题目求半径无关，但答案正确。",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "标准答案为3，独立求解也为3，答案匹配。",
+      "recommendedActionZhHans": "修正解析，移除无关的斜率描述，仅保留圆的半径读取说明。",
+      "confidence": "high"
+    },
+    {
+      "id": "pep-high-s5-rag2-fi-023",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "P2",
+      "issueCodes": [
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析提及斜率计算，与题目求半径无关，但答案正确。",
+      "independentAnswerZhHans": "5",
+      "answerCheckZhHans": "标准答案为5，独立求解也为5，答案匹配。",
+      "recommendedActionZhHans": "修正解析，移除无关的斜率描述，仅保留圆的半径读取说明。",
+      "confidence": "high"
+    },
+    {
+      "id": "pep-high-s5-rag2-fi-024",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "P2",
+      "issueCodes": [
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析提及斜率计算，与题目求半径无关，但答案正确。",
+      "independentAnswerZhHans": "7",
+      "answerCheckZhHans": "标准答案为7，独立求解也为7，答案匹配。",
+      "recommendedActionZhHans": "修正解析，移除无关的斜率描述，仅保留圆的半径读取说明。",
+      "confidence": "high"
+    },
+    {
+      "id": "pep-high-s5-rag2-fi-025",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "P2",
+      "issueCodes": [
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析提及斜率计算，与题目求半径无关，但答案正确。",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "标准答案为3，独立求解也为3，答案匹配。",
+      "recommendedActionZhHans": "修正解析，移除无关的斜率描述，仅保留圆的半径读取说明。",
+      "confidence": "high"
+    },
+    {
+      "id": "pep-high-s5-rag2-fi-026",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "P2",
+      "issueCodes": [
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析提及斜率计算，与题目求半径无关，但答案正确。",
+      "independentAnswerZhHans": "5",
+      "answerCheckZhHans": "标准答案为5，独立求解也为5，答案匹配。",
+      "recommendedActionZhHans": "修正解析，移除无关的斜率描述，仅保留圆的半径读取说明。",
+      "confidence": "high"
+    },
+    {
+      "id": "pep-high-s5-rag2-fi-027",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "P2",
+      "issueCodes": [
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析提及斜率计算，与题目求半径无关，但答案正确。",
+      "independentAnswerZhHans": "7",
+      "answerCheckZhHans": "标准答案为7，独立求解也为7，答案匹配。",
+      "recommendedActionZhHans": "修正解析，移除无关的斜率描述，仅保留圆的半径读取说明。",
+      "confidence": "high"
+    },
+    {
+      "id": "pep-high-s5-rag2-fi-028",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "P2",
+      "issueCodes": [
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析提及斜率计算，与题目求半径无关，但答案正确。",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "标准答案为3，独立求解也为3，答案匹配。",
+      "recommendedActionZhHans": "修正解析，移除无关的斜率描述，仅保留圆的半径读取说明。",
+      "confidence": "high"
+    },
+    {
+      "id": "pep-high-s5-rag2-fi-029",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "P2",
+      "issueCodes": [
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析提及斜率计算，与题目求半径无关，但答案正确。",
+      "independentAnswerZhHans": "5",
+      "answerCheckZhHans": "标准答案为5，独立求解也为5，答案匹配。",
+      "recommendedActionZhHans": "修正解析，移除无关的斜率描述，仅保留圆的半径读取说明。",
+      "confidence": "high"
+    },
+    {
+      "id": "pep-high-s5-rag2-fi-030",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "P2",
+      "issueCodes": [
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析提及斜率计算，与题目求半径无关，但答案正确。",
+      "independentAnswerZhHans": "7",
+      "answerCheckZhHans": "标准答案为7，独立求解也为7，答案匹配。",
+      "recommendedActionZhHans": "修正解析，移除无关的斜率描述，仅保留圆的半径读取说明。",
+      "confidence": "high"
+    },
+    {
+      "id": "pep-high-s5-rag2-fi-031",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "P2",
+      "issueCodes": [
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析提及斜率计算，与题目求半径无关，但答案正确。",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "标准答案为3，独立求解也为3，答案匹配。",
+      "recommendedActionZhHans": "修正解析，移除无关的斜率描述，仅保留圆的半径读取说明。",
+      "confidence": "high"
+    },
+    {
+      "id": "pep-high-s5-rag2-fi-032",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "P2",
+      "issueCodes": [
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析提及斜率计算，与题目求半径无关，但答案正确。",
+      "independentAnswerZhHans": "5",
+      "answerCheckZhHans": "标准答案为5，独立求解也为5，答案匹配。",
+      "recommendedActionZhHans": "修正解析，移除无关的斜率描述，仅保留圆的半径读取说明。",
+      "confidence": "high"
+    },
+    {
+      "id": "pep-high-s5-rag2-fi-033",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "P2",
+      "issueCodes": [
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析提及斜率计算，与题目求半径无关，但答案正确。",
+      "independentAnswerZhHans": "7",
+      "answerCheckZhHans": "标准答案为7，独立求解也为7，答案匹配。",
+      "recommendedActionZhHans": "修正解析，移除无关的斜率描述，仅保留圆的半径读取说明。",
+      "confidence": "high"
+    },
+    {
+      "id": "pep-high-s5-rag2-fi-034",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "P2",
+      "issueCodes": [
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析提及斜率计算，与题目求半径无关，但答案正确。",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "标准答案为3，独立求解也为3，答案匹配。",
+      "recommendedActionZhHans": "修正解析，移除无关的斜率描述，仅保留圆的半径读取说明。",
+      "confidence": "high"
+    },
+    {
+      "id": "pep-high-s5-rag2-fi-035",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "P2",
+      "issueCodes": [
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析提及斜率计算，与题目求半径无关，但答案正确。",
+      "independentAnswerZhHans": "5",
+      "answerCheckZhHans": "标准答案为5，独立求解也为5，答案匹配。",
+      "recommendedActionZhHans": "修正解析，移除无关的斜率描述，仅保留圆的半径读取说明。",
+      "confidence": "high"
+    },
+    {
+      "id": "pep-high-s5-rag2-fi-036",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "P2",
+      "issueCodes": [
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析提及斜率计算，与题目求半径无关，但答案正确。",
+      "independentAnswerZhHans": "7",
+      "answerCheckZhHans": "标准答案为7，独立求解也为7，答案匹配。",
+      "recommendedActionZhHans": "修正解析，移除无关的斜率描述，仅保留圆的半径读取说明。",
+      "confidence": "high"
+    },
+    {
+      "id": "pep-high-s5-rag2-fi-037",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "P2",
+      "issueCodes": [
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析提及斜率计算，与题目求半径无关，但答案正确。",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "标准答案为3，独立求解也为3，答案匹配。",
+      "recommendedActionZhHans": "修正解析，移除无关的斜率描述，仅保留圆的半径读取说明。",
+      "confidence": "high"
+    },
+    {
+      "id": "pep-high-s5-rag2-fi-038",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "P2",
+      "issueCodes": [
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析提及斜率计算，与题目求半径无关，但答案正确。",
+      "independentAnswerZhHans": "5",
+      "answerCheckZhHans": "标准答案为5，独立求解也为5，答案匹配。",
+      "recommendedActionZhHans": "修正解析，移除无关的斜率描述，仅保留圆的半径读取说明。",
+      "confidence": "high"
+    },
+    {
+      "id": "pep-high-s5-rag2-fi-039",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "P2",
+      "issueCodes": [
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析提及斜率计算，与题目求半径无关，但答案正确。",
+      "independentAnswerZhHans": "7",
+      "answerCheckZhHans": "标准答案为7，独立求解也为7，答案匹配。",
+      "recommendedActionZhHans": "修正解析，移除无关的斜率描述，仅保留圆的半径读取说明。",
+      "confidence": "high"
+    },
+    {
+      "id": "pep-high-s5-rag2-fi-040",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "P2",
+      "issueCodes": [
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析提及斜率计算，与题目求半径无关，但答案正确。",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "标准答案为3，独立求解也为3，答案匹配。",
+      "recommendedActionZhHans": "修正解析，移除无关的斜率描述，仅保留圆的半径读取说明。",
+      "confidence": "high"
+    }
+  ]
+}

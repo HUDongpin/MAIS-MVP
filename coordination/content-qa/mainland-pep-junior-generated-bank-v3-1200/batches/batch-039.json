@@ -1,0 +1,324 @@
+{
+  "batchId": "batch-039",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s1-k05-sa-014",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "short-answer",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-coordinate-plane"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "在平面直角坐标系中，点A的坐标是(2, -3)。先将点A向右平移5个单位，再向上平移4个单位得到点B。请写出点B的坐标，并说明点B所在的象限。",
+      "optionsZhHans": [],
+      "answer": "(7, 1)，第一象限",
+      "acceptedAnswers": [
+        "(7, 1)，第一象限",
+        "(7,1)，第一象限",
+        "B(7,1)，第一象限",
+        "(7, 1) 第一象限",
+        "7,1 第一象限"
+      ],
+      "explanationZhHans": "点A(2, -3)向右平移5个单位，横坐标变为2+5=7；向上平移4个单位，纵坐标变为-3+4=1，所以点B的坐标为(7, 1)。由于横坐标7>0，纵坐标1>0，因此点B位于第一象限。答案：(7, 1)，第一象限。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-sa-015",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "short-answer",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-linear-systems"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "学校组织七年级学生参观科技馆，若租用45座客车，则15人没有座位；若租用同样数量的60座客车，则空出一辆车，其余车刚好坐满。求七年级学生人数和租用的车辆数。",
+      "optionsZhHans": [],
+      "answer": "学生240人，车5辆",
+      "acceptedAnswers": [
+        "学生240人，车5辆",
+        "240人，5辆",
+        "七年级学生240人，租车5辆",
+        "人数240，车辆5"
+      ],
+      "explanationZhHans": "设租用x辆车，七年级学生有y人。根据题意：45x+15=y；60(x-1)=y。解方程组：45x+15=60x-60，得15x=75，x=5；代入得y=45×5+15=240。所以学生240人，车5辆。答案：学生240人，车5辆。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-sa-016",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "short-answer",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-inequalities"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "某商店销售一种文具，每件进价8元，售价12元。为了促销，商店决定降价销售，但要保证每件利润不低于2元。设降价x元，请列出关于x的不等式，并求出x的最大整数值。",
+      "optionsZhHans": [],
+      "answer": "x≤2，最大整数值为2",
+      "acceptedAnswers": [
+        "x≤2，最大整数值为2",
+        "x≤2，最大整数2",
+        "不等式x≤2，最大整数值2",
+        "降价不超过2元，最大整数2"
+      ],
+      "explanationZhHans": "降价后售价为(12-x)元，利润为(12-x)-8=4-x元。要求利润不低于2元，即4-x≥2，解得x≤2。x的最大整数值为2。答案：x≤2，最大整数值为2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-sa-017",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "short-answer",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "某班40名学生参加环保知识竞赛，成绩均为整数，统计结果如下：90分以上5人，80-89分12人，70-79分15人，60-69分6人，60分以下2人。请计算该班成绩在80分及以上的人数所占的百分比，并据此判断能否说“该班大多数学生成绩优秀”。",
+      "optionsZhHans": [],
+      "answer": "42.5%，不能",
+      "acceptedAnswers": [
+        "42.5%，不能",
+        "百分之四十二点五，不能",
+        "42.5% 不能",
+        "42.5%，不能这样说"
+      ],
+      "explanationZhHans": "80分及以上的人数为5+12=17人，所占百分比为17÷40×100%=42.5%。大多数通常指超过50%，42.5%未超过一半，因此不能说“该班大多数学生成绩优秀”。答案：42.5%，不能。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-sa-018",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "short-answer",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-data-collection"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "请比较√19与4.4的大小，并说明理由。",
+      "optionsZhHans": [],
+      "answer": "√19 < 4.4",
+      "acceptedAnswers": [
+        "√19 < 4.4",
+        "√19小于4.4",
+        "√19<4.4",
+        "根号19小于4.4"
+      ],
+      "explanationZhHans": "因为4.4²=19.36，而19<19.36，所以√19 < √19.36 = 4.4。因此√19 < 4.4。答案：√19 < 4.4。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-sa-019",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "short-answer",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "直线AB与CD相交于点O，∠AOC=50°，OE平分∠BOD。求∠AOE的度数。",
+      "optionsZhHans": [],
+      "answer": "155°",
+      "acceptedAnswers": [
+        "155°",
+        "155度",
+        "∠AOE=155°",
+        "155"
+      ],
+      "explanationZhHans": "由对顶角相等，∠BOD=∠AOC=50°。OE平分∠BOD，则∠DOE=25°。∠AOD与∠AOC互补，所以∠AOD=180°-50°=130°。因此∠AOE=∠AOD+∠DOE=130°+25°=155°。答案：155°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-sa-020",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "short-answer",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-real-numbers"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "小明家上个月用水15吨，水费为45元。这个月由于节水，用水量减少到12吨，水费变为36元。求水费的单价（元/吨），并判断水费与用水量是否成正比例关系。",
+      "optionsZhHans": [],
+      "answer": "3元/吨，成正比例",
+      "acceptedAnswers": [
+        "3元/吨，成正比例",
+        "3元每吨，成正比例",
+        "单价3元/吨，是正比例",
+        "3元/吨，是正比例关系"
+      ],
+      "explanationZhHans": "水费单价=总费用÷用水量。上个月单价=45÷15=3元/吨，这个月单价=36÷12=3元/吨。单价固定，因此水费与用水量成正比例关系。答案：3元/吨，成正比例。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-sa-021",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "short-answer",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-coordinate-plane"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "在平面直角坐标系中，点P的坐标是(-3, 4)。若将点P先向下平移2个单位，再向左平移1个单位得到点Q，请写出点Q的坐标，并计算线段PQ的长度。",
+      "optionsZhHans": [],
+      "answer": "(-4, 2)，√5",
+      "acceptedAnswers": [
+        "(-4, 2)，√5",
+        "(-4,2)，√5",
+        "Q(-4,2)，√5",
+        "(-4, 2)，根号5",
+        "(-4,2)，根号5"
+      ],
+      "explanationZhHans": "点P(-3,4)向下平移2个单位，纵坐标变为4-2=2；向左平移1个单位，横坐标变为-3-1=-4，所以点Q坐标为(-4,2)。线段PQ的长度由勾股定理：√[(-4+3)²+(2-4)²]=√(1+4)=√5。答案：(-4, 2)，√5。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-sa-022",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "short-answer",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-linear-systems"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "一个两位数，十位数字与个位数字之和为12，如果交换十位数字与个位数字的位置，所得新数比原数大36。求原来的两位数。",
+      "optionsZhHans": [],
+      "answer": "48",
+      "acceptedAnswers": [
+        "48",
+        "原来的两位数是48"
+      ],
+      "explanationZhHans": "设原数十位数字为x，个位数字为y，则原数为10x+y，新数为10y+x。根据题意：x+y=12；(10y+x)-(10x+y)=36，化简得9y-9x=36，即y-x=4。解方程组得x=4，y=8。所以原来的两位数是48。答案：48。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-sa-023",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "short-answer",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-inequalities"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "解不等式组：2x-1 > 3 且 3x+2 ≤ 14，并将解集在数轴上表示（用文字描述端点与方向）。",
+      "optionsZhHans": [],
+      "answer": "2 < x ≤ 4",
+      "acceptedAnswers": [
+        "2 < x ≤ 4",
+        "2<x≤4",
+        "x大于2且小于等于4"
+      ],
+      "explanationZhHans": "解第一个不等式：2x-1>3，得2x>4，x>2。解第二个不等式：3x+2≤14，得3x≤12，x≤4。所以不等式组的解集为2 < x ≤ 4。在数轴上表示：从2（空心点）向右到4（实心点）的线段。答案：2 < x ≤ 4。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

@@ -1,0 +1,615 @@
+{
+  "batchId": "batch-100",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p4-241",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "p4-lower-review",
+        "mathematical-activity",
+        "integrated-application",
+        "整理与复习",
+        "数学好玩",
+        "总复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "model chosen from keyword alone",
+        "representation selected without purpose",
+        "review solved as unrelated answer drills only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-final-topic-drill",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在整理与复习时，小乐把一道小数减法题“5.6－2.18”错算成了“5.6－2.8”。他算出的结果与正确结果相差多少？",
+      "optionsZhHans": [
+        "0.62",
+        "0.38",
+        "0.28",
+        "0.72"
+      ],
+      "answer": "0.62",
+      "acceptedAnswers": [
+        "0.62"
+      ],
+      "explanationZhHans": "正确结果：5.6－2.18＝3.42；错误结果：5.6－2.8＝2.8。相差3.42－2.8＝0.62。小乐把减数2.18误看作2.8，导致差减少了0.62。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-242",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "p4-lower-review",
+        "mathematical-activity",
+        "integrated-application",
+        "整理与复习",
+        "数学好玩",
+        "总复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "model chosen from keyword alone",
+        "representation selected without purpose",
+        "review solved as unrelated answer drills only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-final-topic-drill",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在数学好玩活动中，四（1）班同学整理了本学期的错题。下面是小明记录的一周内每天数学错题数量：星期一3道，星期二5道，星期三2道，星期四4道，星期五6道。他想用统计图表示这些数据，既能清楚地看出每天错题数量，又能直观比较哪两天相差最大。下面哪种统计图最合适？",
+      "optionsZhHans": [
+        "条形统计图",
+        "折线统计图",
+        "扇形统计图",
+        "复式条形统计图"
+      ],
+      "answer": "条形统计图",
+      "acceptedAnswers": [
+        "条形统计图"
+      ],
+      "explanationZhHans": "题目中的数据是不同类别的数量比较，不强调变化趋势，因此条形统计图最合适。它能清晰显示每天错题数，并便于比较两天之间的差异。折线图侧重趋势，扇形图显示部分与整体关系，复式条形图用于多组数据对比，均不符合要求。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-243",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "p4-lower-review",
+        "mathematical-activity",
+        "integrated-application",
+        "整理与复习",
+        "数学好玩",
+        "总复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "model chosen from keyword alone",
+        "representation selected without purpose",
+        "review solved as unrelated answer drills only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-final-topic-drill",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "S18 BNU primary V2 automated source-distance/structure/v1-distance gate passed with 300-row grade sample queue generated; candidate QA package only, not approved for public integration. S18 broad QA remediation applied on 2026-05-27: Change the shape set and classification standard so only one option is mathematically robust.",
+      "promptZhHans": "在整理复习时，小丽列出了本学期学过的几种四边形：长方形、正方形、平行四边形、梯形。她想把这些图形分成两类，下面哪种分类标准是正确的？",
+      "optionsZhHans": [
+        "按两组对边是否分别平行分类",
+        "按边的条数分类",
+        "按是否由线段围成分类",
+        "按图形的大小分类"
+      ],
+      "answer": "按两组对边是否分别平行分类",
+      "acceptedAnswers": [
+        "按两组对边是否分别平行分类"
+      ],
+      "explanationZhHans": "长方形、正方形、平行四边形都有两组对边分别平行，梯形通常只有一组对边平行，所以可以按两组对边是否分别平行分成两类。其他选项不能稳定地区分这些图形。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-244",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "p4-lower-review",
+        "mathematical-activity",
+        "integrated-application",
+        "整理与复习",
+        "数学好玩",
+        "总复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "model chosen from keyword alone",
+        "representation selected without purpose",
+        "review solved as unrelated answer drills only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-final-topic-drill",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在整理复习时，四位同学对一道小数减法题“5.6 - 2.48”的计算过程进行了反思。谁的说法最合理？（ ）",
+      "optionsZhHans": [
+        "A. 小宇：计算时把5.6看成5.60，再减去2.48，得到3.12。",
+        "B. 小芳：5.6的百分位没有数字，所以直接用6减8，百分位写2。",
+        "C. 小军：5.6 - 2.48 = 3.22，因为56 - 248 = 312，再点上小数点。",
+        "D. 小红：5.6比2.48大，所以差一定大于3。"
+      ],
+      "answer": "A. 小宇：计算时把5.6看成5.60，再减去2.48，得到3.12。",
+      "acceptedAnswers": [
+        "A. 小宇：计算时把5.6看成5.60，再减去2.48，得到3.12。"
+      ],
+      "explanationZhHans": "小数减法需对齐相同数位。5.6的百分位可补0变成5.60，再计算5.60 - 2.48 = 3.12，小宇的说法正确。小芳直接用6减8，数位不对；小军将减法当成加法且小数点位置错误；小红估算错误，5.6 - 2.48 ≈ 3.12，差小于3。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-245",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "p4-lower-review",
+        "mathematical-activity",
+        "integrated-application",
+        "整理与复习",
+        "数学好玩",
+        "总复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "model chosen from keyword alone",
+        "representation selected without purpose",
+        "review solved as unrelated answer drills only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-final-topic-drill",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在整理与复习课上，四位同学分别用不同的方法表示0.6。下面哪种表示方法是错误的？",
+      "optionsZhHans": [
+        "把1米平均分成10份，取其中的6份，用小数表示是0.6米。",
+        "在计数器上，十位拨6颗珠子，个位和十分位都不拨珠子，这个数写作60，它等于0.6。",
+        "6个0.1相加，和是0.6。",
+        "0.6里面有6个0.1。"
+      ],
+      "answer": "在计数器上，十位拨6颗珠子，个位和十分位都不拨珠子，这个数写作60，它等于0.6。",
+      "acceptedAnswers": [
+        "在计数器上，十位拨6颗珠子，个位和十分位都不拨珠子，这个数写作60，它等于0.6。"
+      ],
+      "explanationZhHans": "选项B错误：十位拨6颗珠子表示6个十，即60，而0.6是十分位上的6，表示6个0.1，两者不相等。其他选项都正确表示了0.6。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-246",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "p4-lower-review",
+        "mathematical-activity",
+        "integrated-application",
+        "整理与复习",
+        "数学好玩",
+        "总复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "model chosen from keyword alone",
+        "representation selected without purpose",
+        "review solved as unrelated answer drills only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-final-topic-drill",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在整理复习时，四位同学分别用不同的方式表示“0.6”。下面哪种表示是正确的？",
+      "optionsZhHans": [
+        "把1米平均分成10份，取其中的6份，就是0.6米。",
+        "把1元平均分成100份，取其中的6份，就是0.6元。",
+        "把1千克平均分成1000份，取其中的6份，就是0.6千克。",
+        "把1小时平均分成60份，取其中的6份，就是0.6小时。"
+      ],
+      "answer": "把1米平均分成10份，取其中的6份，就是0.6米。",
+      "acceptedAnswers": [
+        "把1米平均分成10份，取其中的6份，就是0.6米。"
+      ],
+      "explanationZhHans": "0.6表示十分之六。选项A将1米平均分成10份，取6份是6/10米，即0.6米，正确。选项B分成100份取6份是0.06元；选项C分成1000份取6份是0.006千克；选项D分成60份取6份是0.1小时，均不对。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-247",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "p4-lower-review",
+        "mathematical-activity",
+        "integrated-application",
+        "整理与复习",
+        "数学好玩",
+        "总复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "model chosen from keyword alone",
+        "representation selected without purpose",
+        "review solved as unrelated answer drills only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-final-topic-drill",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是四名同学在整理本学期“数学好玩”活动时写下的反思，哪一条反思最符合“先判断问题类型，再选择合适的方法”的整理思路？",
+      "optionsZhHans": [
+        "A. 我记住了所有公式，考试时直接套用就能做对。",
+        "B. 我把错题按计算错误和思路错误分类，然后针对不同错误类型想不同的改进方法。",
+        "C. 我反复做同一类题目，直到答案全对为止。",
+        "D. 我只看课本上的例题，因为例题最简单。"
+      ],
+      "answer": "B. 我把错题按计算错误和思路错误分类，然后针对不同错误类型想不同的改进方法。",
+      "acceptedAnswers": [
+        "B. 我把错题按计算错误和思路错误分类，然后针对不同错误类型想不同的改进方法。"
+      ],
+      "explanationZhHans": "选项B体现了先分类判断问题类型，再选择对应策略的整理思路。A只强调套用公式，C是机械重复，D仅依赖例题，都没有体现先判断类型再选方法的过程。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-248",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "p4-lower-review",
+        "mathematical-activity",
+        "integrated-application",
+        "整理与复习",
+        "数学好玩",
+        "总复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "model chosen from keyword alone",
+        "representation selected without purpose",
+        "review solved as unrelated answer drills only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-final-topic-drill",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在整理本学期学过的知识时，四位同学分别选择了一种方式整理“小数加减法”的内容。下面哪种整理方式最适合用来发现不同题目之间的共同规律？",
+      "optionsZhHans": [
+        "把做错的题目抄写三遍",
+        "按题目中出现的数字大小排序",
+        "按“位数相同”和“位数不同”分类并写出计算要点",
+        "把课本上的例题重新抄在笔记本上"
+      ],
+      "answer": "按“位数相同”和“位数不同”分类并写出计算要点",
+      "acceptedAnswers": [
+        "按“位数相同”和“位数不同”分类并写出计算要点"
+      ],
+      "explanationZhHans": "整理知识时，按计算特点分类（如小数位数相同或不同）并总结要点，能帮助发现规律。抄写错题或例题、按数字大小排序都不能直接揭示计算规律。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-249",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "p4-lower-review",
+        "mathematical-activity",
+        "integrated-application",
+        "整理与复习",
+        "数学好玩",
+        "总复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "model chosen from keyword alone",
+        "representation selected without purpose",
+        "review solved as unrelated answer drills only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-final-topic-drill",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在“数学好玩”活动中，同学们用小数表示测量结果。四位同学分别写了一个小数：小明的数是3.6，小红的数是3.60，小刚的数是3.06，小丽的数是3.600。老师说：“其中有两个小数的大小完全相等，但意义不同。”这两个小数是（ ）。",
+      "optionsZhHans": [
+        "3.6和3.60",
+        "3.6和3.06",
+        "3.60和3.600",
+        "3.06和3.600"
+      ],
+      "answer": "3.6和3.60",
+      "acceptedAnswers": [
+        "3.6和3.60"
+      ],
+      "explanationZhHans": "3.6表示36个0.1，计数单位是0.1；3.60表示360个0.01，计数单位是0.01。它们大小相等，但精确度不同，所以意义不同。其他选项要么大小不等，要么意义相同（3.60和3.600都表示360个0.01）。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-250",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "p4-lower-review",
+        "mathematical-activity",
+        "integrated-application",
+        "整理与复习",
+        "数学好玩",
+        "总复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "model chosen from keyword alone",
+        "representation selected without purpose",
+        "review solved as unrelated answer drills only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-final-topic-drill",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在整理复习中，小乐把本学期学过的一些数量关系整理成下表。\n\n| 数量关系 | 举例 |\n|----------|------|\n| 总价＝单价×数量 | 买5本笔记本，每本6元，总价是30元。 |\n| 路程＝速度×时间 | 一辆汽车每小时行驶80千米，行驶3小时，路程是240千米。 |\n| 工作总量＝工作效率×工作时间 | 李阿姨每小时加工25个零件，工作4小时，加工了100个零件。 |\n\n小乐发现，这些数量关系都可以用一个共同的模型来表示。下面哪个模型最适合表示这些数量关系？",
+      "optionsZhHans": [
+        "每份数×份数＝总数",
+        "大数－小数＝相差数",
+        "部分数＋部分数＝总数",
+        "被除数÷除数＝商"
+      ],
+      "answer": "每份数×份数＝总数",
+      "acceptedAnswers": [
+        "每份数×份数＝总数"
+      ],
+      "explanationZhHans": "总价＝单价×数量、路程＝速度×时间、工作总量＝工作效率×工作时间，都是已知每份的数量和份数，求总数，所以都可以用“每份数×份数＝总数”这个模型来表示。其他选项不符合这些数量关系的结构。"
+    }
+  ]
+}

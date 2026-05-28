@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0157",
+  "ids": [
+    "hjb-junior-ds-v2-s3-249",
+    "hjb-junior-ds-v2-s3-250",
+    "hjb-junior-ds-v2-s3-251",
+    "hjb-junior-ds-v2-s3-252",
+    "hjb-junior-ds-v2-s3-253",
+    "hjb-junior-ds-v2-s3-254",
+    "hjb-junior-ds-v2-s3-255",
+    "hjb-junior-ds-v2-s3-256"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-249",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "（1）y = (x - 2)² - 1；（2）顶点坐标为(2, -1)，对称轴为直线x = 2。",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。acceptedAnswers 覆盖了标准答案的常见变体。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-250",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为2，但解析得出m+n=4，且选项中有4。正确答案应为4，而非2。",
+      "independentAnswerZhHans": "配方得 y = (x - 2)² - 1，顶点 (2, -1)。向右平移2个单位，向上平移1个单位，新顶点为 (4, 0)，m+n=4。",
+      "answerCheckZhHans": "标准答案2与解析矛盾，且与正确计算结果不符。",
+      "recommendedActionZhHans": "将答案改为4，或修改解析和选项以匹配答案2。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-251",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3 cm",
+      "answerCheckZhHans": "标准答案3正确，解析无误。acceptedAnswers 包含3，合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-252",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "8 cm",
+      "answerCheckZhHans": "标准答案8 cm正确，解析无误。acceptedAnswers 覆盖了带单位和不带单位的变体。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-253",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "d < 5",
+      "answerCheckZhHans": "标准答案d < 5正确，解析一致。选项互异，且只有一个正确选项。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-254",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "4",
+      "answerCheckZhHans": "标准答案4正确，解析正确。acceptedAnswers 包含4，合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-255",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2 cm",
+      "answerCheckZhHans": "标准答案2 cm正确，解析无误。acceptedAnswers 覆盖了带单位和不带单位的变体。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-256",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "√39 cm",
+      "answerCheckZhHans": "标准答案√39 cm正确，解析无误。选项互异，且只有一个正确选项。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

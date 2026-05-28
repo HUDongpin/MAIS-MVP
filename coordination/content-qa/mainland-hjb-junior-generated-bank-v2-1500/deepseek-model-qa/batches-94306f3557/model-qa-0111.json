@@ -1,0 +1,103 @@
+{
+  "batchId": "model-qa-0111",
+  "ids": [
+    "hjb-junior-ds-v2-s2-381",
+    "hjb-junior-ds-v2-s2-382",
+    "hjb-junior-ds-v2-s2-383",
+    "hjb-junior-ds-v2-s2-384",
+    "hjb-junior-ds-v2-s2-385",
+    "hjb-junior-ds-v2-s2-386",
+    "hjb-junior-ds-v2-s2-387",
+    "hjb-junior-ds-v2-s2-388"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-381",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "y = 2.5x + 6.5",
+      "answerCheckZhHans": "标准答案 2.5x + 6.5 正确，acceptedAnswers 覆盖了标准答案的常见写法。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-382",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "B. (1, 3)",
+      "answerCheckZhHans": "标准答案 B 正确，解析推导无误，其他选项均不满足 y=2x+1。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-383",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "y = 2.5x",
+      "answerCheckZhHans": "标准答案 2.5x 正确，acceptedAnswers 覆盖了标准答案的常见写法。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-384",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "A. y = 0.5x + 6",
+      "answerCheckZhHans": "标准答案 A 正确，解析推导无误，其他选项均错误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-385",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "5",
+      "answerCheckZhHans": "标准答案 5 正确，解析计算无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-386",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "y = 2x + 4",
+      "answerCheckZhHans": "标准答案 y = 2x + 4 正确，解析推导无误，其他选项均错误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-387",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "k=2, b=1",
+      "answerCheckZhHans": "标准答案 k=2, b=1 正确，acceptedAnswers 覆盖了标准答案的常见写法。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-388",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "第三象限",
+      "answerCheckZhHans": "标准答案 第三象限 正确，解析推导无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

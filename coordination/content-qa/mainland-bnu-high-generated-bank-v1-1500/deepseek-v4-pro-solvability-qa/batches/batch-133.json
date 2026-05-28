@@ -1,0 +1,141 @@
+{
+  "batchNumber": 133,
+  "startedAt": "2026-05-27T14:06:09.231Z",
+  "completedAt": "2026-05-27T14:06:27.224Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-057",
+    "bnu-high-ds-v1-s6-058",
+    "bnu-high-ds-v1-s6-059",
+    "bnu-high-ds-v1-s6-060",
+    "bnu-high-ds-v1-s6-061",
+    "bnu-high-ds-v1-s6-062",
+    "bnu-high-ds-v1-s6-063",
+    "bnu-high-ds-v1-s6-064"
+  ],
+  "usage": {
+    "prompt_tokens": 10931,
+    "completion_tokens": 1150,
+    "total_tokens": 12081,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10419
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-057",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "a_n = 6·2^{n-1} - 3n - 2",
+        "correctedAnswer": "a_n = 6·2^{n-1} - 3n - 2",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立求解得 a_n = 6·2^{n-1} - 3n - 2，而答案给出 5·2^{n-1} - 3n - 2，系数错误。解析中虽指出错误但未修正答案，且解析自身矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-058",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "10",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "利用等比数列性质和对数运算，正确求得和为10，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-059",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "a_n = 2 - 1/n，极限为2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "通过裂项累加得通项，极限计算正确，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-060",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "39",
+        "correctedAnswer": "39",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "由 S_n 求得 a_n=2n+1，a_5+a_6+a_7=39，答案45错误。解析中虽指出错误但未修正答案。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-061",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "5×(2^10 - 1)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "构造等比数列 b_n，求和公式正确，选项匹配。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-062",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "a_n = 2n + 2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "解方程组得 a_1=4, d=2，通项正确，解析过程合理。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-063",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "400",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "累加得 a_n=n^2，a_20=400，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-064",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "24",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由各项为正得 q=2，a_4=3×8=24，选项匹配。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 0,
+      "fail": 2,
+      "notes": "共8题，6题通过，2题答案错误（057和060），需修正答案。"
+    }
+  }
+}

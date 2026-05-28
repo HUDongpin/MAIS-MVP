@@ -1,0 +1,137 @@
+{
+  "batchNumber": 17,
+  "startedAt": "2026-05-27T13:46:58.042Z",
+  "completedAt": "2026-05-27T13:47:19.139Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-129",
+    "bnu-high-ds-v1-s4-130",
+    "bnu-high-ds-v1-s4-131",
+    "bnu-high-ds-v1-s4-132",
+    "bnu-high-ds-v1-s4-133",
+    "bnu-high-ds-v1-s4-134",
+    "bnu-high-ds-v1-s4-135",
+    "bnu-high-ds-v1-s4-136"
+  ],
+  "usage": {
+    "prompt_tokens": 11046,
+    "completion_tokens": 1340,
+    "total_tokens": 12386,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10534
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-129",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "√2/2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由奇函数条件 f(-x)+f(x)=0 得 log_a(2a^2)=0，故 2a^2=1，a=√2/2（a>0且a≠1）。题目可解，答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-130",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "无法唯一确定",
+        "correctedAnswer": null,
+        "issueTags": [
+          "ambiguous_mc",
+          "missing_condition",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "f(1)=log_a(1)=0 恒成立，无法确定底数 a>1 还是 0<a<1。不等式 f(x)>0 的解集依赖于 a：a>1 时解集为 (1,+∞)，0<a<1 时解集为 (0,1)。题目未指定 a 范围，选项 B 和 C 均可能正确，存在歧义，不可解。解析中“通常默认 a>1”无依据，与题目条件矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-131",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "4",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "利用对数运算法则：log₂24 - log₂6 = log₂(24/6)=log₂4=2；log₃5·log₅9 = log₃9=2；和为4。题目可解，答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-132",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "对数函数过定点 (1,0)，代入幂函数得 0=1^α，故 α=0。题目可解，答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-133",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "A. (1, 2]",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由被开方数非负及真数大于0得 0<x-1≤1，即 1<x≤2。选项 A 正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-134",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(3+ab)/(1+a+ab)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "利用换底公式和已知条件，log₂7=ab，log₂6=1+a，代入得 (ab+3)/(1+a+ab)。题目可解，答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-135",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(-4, 4]",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "复合函数单调性：外层增，内层在[2,+∞)增且恒正。对称轴 a/2≤2 得 a≤4；u(2)=4+a>0 得 a>-4。故 a∈(-4,4]。题目可解，答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-136",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "B. b < a < c",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "a=log₀.₂0.3∈(0,1)，b=log₂0.3<0，c=2^0.3>1，故 b<a<c。选项 B 正确，解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第130题因底数不确定导致解集不唯一，选项存在歧义，判定为不可解；其余题目均通过审核。"
+    }
+  }
+}

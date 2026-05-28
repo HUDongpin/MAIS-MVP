@@ -1,0 +1,382 @@
+{
+  "batchId": "batch-064",
+  "generationMode": "batch-fallback",
+  "fallbackReason": "fill-missing-local",
+  "questions": [
+    {
+      "id": "hjb-high-ds-v2-s5-131",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-概率初步",
+      "topicTitleZhHans": "概率初步",
+      "volume": "必修 第三册",
+      "chapter": "概率初步",
+      "conceptIds": [
+        "probability-foundations",
+        "sample-space",
+        "random-events",
+        "probability-operations",
+        "independence"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-3-probability-foundations"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-3-probability-foundations-unit-core",
+        "hjb-high-compulsory-3-final-full-volume-peiyou",
+        "pep-high-exam-probability-statistics"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0631：填空：袋中有 3 个红球和 17 个蓝球，随机取出 1 个，取到红球的概率是多少？",
+      "optionsZhHans": [],
+      "answer": "3/20",
+      "acceptedAnswers": [
+        "3/20"
+      ],
+      "explanationZhHans": "总球数为 20，红球 3 个，所以概率为 3/20。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-132",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-概率初步",
+      "topicTitleZhHans": "概率初步",
+      "volume": "必修 第三册",
+      "chapter": "概率初步",
+      "conceptIds": [
+        "probability-foundations",
+        "sample-space",
+        "random-events",
+        "probability-operations",
+        "independence"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-3-probability-foundations"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-3-probability-foundations-unit-core",
+        "hjb-high-compulsory-3-final-full-volume-peiyou",
+        "pep-high-exam-probability-statistics"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0632：解答：袋中有 5 个红球和 15 个蓝球，随机取出 1 个，取到红球的概率是多少？",
+      "optionsZhHans": [],
+      "answer": "5/20",
+      "acceptedAnswers": [
+        "5/20"
+      ],
+      "explanationZhHans": "总球数为 20，红球 5 个，所以概率为 5/20。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-133",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-概率初步",
+      "topicTitleZhHans": "概率初步",
+      "volume": "必修 第三册",
+      "chapter": "概率初步",
+      "conceptIds": [
+        "probability-foundations",
+        "sample-space",
+        "random-events",
+        "probability-operations",
+        "independence"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-3-probability-foundations"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-3-probability-foundations-unit-core",
+        "hjb-high-compulsory-3-final-full-volume-peiyou",
+        "pep-high-exam-probability-statistics"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0633：选择：袋中有 11 个红球和 20 个蓝球，随机取出 1 个，取到红球的概率是多少？",
+      "optionsZhHans": [
+        "20/31",
+        "12/31",
+        "11/31",
+        "11/32"
+      ],
+      "answer": "11/31",
+      "acceptedAnswers": [
+        "11/31"
+      ],
+      "explanationZhHans": "总球数为 31，红球 11 个，所以概率为 11/31。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-134",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-概率初步",
+      "topicTitleZhHans": "概率初步",
+      "volume": "必修 第三册",
+      "chapter": "概率初步",
+      "conceptIds": [
+        "probability-foundations",
+        "sample-space",
+        "random-events",
+        "probability-operations",
+        "independence"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-3-probability-foundations"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-3-probability-foundations-unit-core",
+        "hjb-high-compulsory-3-final-full-volume-peiyou",
+        "pep-high-exam-probability-statistics"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0634：填空：袋中有 8 个红球和 8 个蓝球，随机取出 1 个，取到红球的概率是多少？",
+      "optionsZhHans": [],
+      "answer": "8/16",
+      "acceptedAnswers": [
+        "8/16"
+      ],
+      "explanationZhHans": "总球数为 16，红球 8 个，所以概率为 8/16。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-135",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-概率初步",
+      "topicTitleZhHans": "概率初步",
+      "volume": "必修 第三册",
+      "chapter": "概率初步",
+      "conceptIds": [
+        "probability-foundations",
+        "sample-space",
+        "random-events",
+        "probability-operations",
+        "independence"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-3-probability-foundations"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-3-probability-foundations-unit-core",
+        "hjb-high-compulsory-3-final-full-volume-peiyou",
+        "pep-high-exam-probability-statistics"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0635：解答：袋中有 9 个红球和 20 个蓝球，随机取出 1 个，取到红球的概率是多少？",
+      "optionsZhHans": [],
+      "answer": "9/29",
+      "acceptedAnswers": [
+        "9/29"
+      ],
+      "explanationZhHans": "总球数为 29，红球 9 个，所以概率为 9/29。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-136",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-概率初步",
+      "topicTitleZhHans": "概率初步",
+      "volume": "必修 第三册",
+      "chapter": "概率初步",
+      "conceptIds": [
+        "probability-foundations",
+        "sample-space",
+        "random-events",
+        "probability-operations",
+        "independence"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-3-probability-foundations"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-3-probability-foundations-unit-core",
+        "hjb-high-compulsory-3-final-full-volume-peiyou",
+        "pep-high-exam-probability-statistics"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0636：选择：袋中有 9 个红球和 17 个蓝球，随机取出 1 个，取到红球的概率是多少？",
+      "optionsZhHans": [
+        "17/26",
+        "9/26",
+        "10/26",
+        "9/27"
+      ],
+      "answer": "9/26",
+      "acceptedAnswers": [
+        "9/26"
+      ],
+      "explanationZhHans": "总球数为 26，红球 9 个，所以概率为 9/26。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-137",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-概率初步",
+      "topicTitleZhHans": "概率初步",
+      "volume": "必修 第三册",
+      "chapter": "概率初步",
+      "conceptIds": [
+        "probability-foundations",
+        "sample-space",
+        "random-events",
+        "probability-operations",
+        "independence"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-3-probability-foundations"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-3-probability-foundations-unit-core",
+        "hjb-high-compulsory-3-final-full-volume-peiyou",
+        "pep-high-exam-probability-statistics"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0637：填空：袋中有 4 个红球和 11 个蓝球，随机取出 1 个，取到红球的概率是多少？",
+      "optionsZhHans": [],
+      "answer": "4/15",
+      "acceptedAnswers": [
+        "4/15"
+      ],
+      "explanationZhHans": "总球数为 15，红球 4 个，所以概率为 4/15。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-138",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-概率初步",
+      "topicTitleZhHans": "概率初步",
+      "volume": "必修 第三册",
+      "chapter": "概率初步",
+      "conceptIds": [
+        "probability-foundations",
+        "sample-space",
+        "random-events",
+        "probability-operations",
+        "independence"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-3-probability-foundations"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-3-probability-foundations-unit-core",
+        "hjb-high-compulsory-3-final-full-volume-peiyou",
+        "pep-high-exam-probability-statistics"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0638：解答：袋中有 12 个红球和 18 个蓝球，随机取出 1 个，取到红球的概率是多少？",
+      "optionsZhHans": [],
+      "answer": "12/30",
+      "acceptedAnswers": [
+        "12/30"
+      ],
+      "explanationZhHans": "总球数为 30，红球 12 个，所以概率为 12/30。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-139",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-概率初步",
+      "topicTitleZhHans": "概率初步",
+      "volume": "必修 第三册",
+      "chapter": "概率初步",
+      "conceptIds": [
+        "probability-foundations",
+        "sample-space",
+        "random-events",
+        "probability-operations",
+        "independence"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-3-probability-foundations"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-3-probability-foundations-unit-core",
+        "hjb-high-compulsory-3-final-full-volume-peiyou",
+        "pep-high-exam-probability-statistics"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0639：选择：袋中有 9 个红球和 18 个蓝球，随机取出 1 个，取到红球的概率是多少？",
+      "optionsZhHans": [
+        "9/27",
+        "18/27",
+        "10/27",
+        "9/28"
+      ],
+      "answer": "9/27",
+      "acceptedAnswers": [
+        "9/27"
+      ],
+      "explanationZhHans": "总球数为 27，红球 9 个，所以概率为 9/27。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-140",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-概率初步",
+      "topicTitleZhHans": "概率初步",
+      "volume": "必修 第三册",
+      "chapter": "概率初步",
+      "conceptIds": [
+        "probability-foundations",
+        "sample-space",
+        "random-events",
+        "probability-operations",
+        "independence"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-3-probability-foundations"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-3-probability-foundations-unit-core",
+        "hjb-high-compulsory-3-final-full-volume-peiyou",
+        "pep-high-exam-probability-statistics"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0640：填空：袋中有 2 个红球和 15 个蓝球，随机取出 1 个，取到红球的概率是多少？",
+      "optionsZhHans": [],
+      "answer": "2/17",
+      "acceptedAnswers": [
+        "2/17"
+      ],
+      "explanationZhHans": "总球数为 17，红球 2 个，所以概率为 2/17。"
+    }
+  ]
+}

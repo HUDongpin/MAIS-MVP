@@ -1,0 +1,295 @@
+{
+  "batchId": "batch-164",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p4-066",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-fraction-extension",
+      "unitTitle": "分数的初步认识（二）",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "fraction-comparison",
+        "fraction-addition-subtraction",
+        "same-denominator-fractions",
+        "fraction-wall",
+        "分数大小比较"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "几何直观"
+      ],
+      "skillTags": [
+        "同分母分数",
+        "分数大小比较",
+        "分数加减",
+        "整体不变",
+        "图示解释"
+      ],
+      "misconceptionTags": [
+        "wholes compared without being the same size",
+        "denominators added directly",
+        "fraction size judged by larger denominator only"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-fraction-extension"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-fraction-extension",
+        "hjb-primary-p4-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "有两根同样长的彩带，第一根被平均分成8份，第二根被平均分成12份。从第一根中取出5份，从第二根中取出7份。比较取出的部分，哪一根取出的更长？请说明理由。",
+      "optionsZhHans": [],
+      "answer": "第一根取出的更长",
+      "acceptedAnswers": [
+        "第一根取出的更长",
+        "第一根更长",
+        "第一根"
+      ],
+      "explanationZhHans": "两根彩带同样长，第一根每份是1/8，第二根每份是1/12。1/8 > 1/12，所以第一根的5份大于第二根的7份。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-067",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-fraction-extension",
+      "unitTitle": "分数的初步认识（二）",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "fraction-comparison",
+        "fraction-addition-subtraction",
+        "same-denominator-fractions",
+        "fraction-wall",
+        "分数大小比较"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "几何直观"
+      ],
+      "skillTags": [
+        "同分母分数",
+        "分数大小比较",
+        "分数加减",
+        "整体不变",
+        "图示解释"
+      ],
+      "misconceptionTags": [
+        "wholes compared without being the same size",
+        "denominators added directly",
+        "fraction size judged by larger denominator only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-fraction-extension"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-fraction-extension",
+        "hjb-primary-p4-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明和小红各有一块同样大小的巧克力。小明吃了自己巧克力的3/8，小红吃了自己巧克力的5/12。谁吃的巧克力更多？",
+      "optionsZhHans": [
+        "小明",
+        "小红",
+        "两人吃的一样多",
+        "无法比较"
+      ],
+      "answer": "小红",
+      "acceptedAnswers": [
+        "小红"
+      ],
+      "explanationZhHans": "巧克力同样大，比较3/8和5/12。3/8=9/24，5/12=10/24，10/24>9/24，所以小红吃的多。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-068",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-fraction-extension",
+      "unitTitle": "分数的初步认识（二）",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "fraction-comparison",
+        "fraction-addition-subtraction",
+        "same-denominator-fractions",
+        "fraction-wall",
+        "分数大小比较"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "几何直观"
+      ],
+      "skillTags": [
+        "同分母分数",
+        "分数大小比较",
+        "分数加减",
+        "整体不变",
+        "图示解释"
+      ],
+      "misconceptionTags": [
+        "wholes compared without being the same size",
+        "denominators added directly",
+        "fraction size judged by larger denominator only"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-fraction-extension"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-fraction-extension",
+        "hjb-primary-p4-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算：5/9 + 2/9 = （ ）",
+      "optionsZhHans": [],
+      "answer": "7/9",
+      "acceptedAnswers": [
+        "7/9"
+      ],
+      "explanationZhHans": "同分母分数相加，分母不变，分子相加：5+2=7，所以结果是7/9。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-069",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-fraction-extension",
+      "unitTitle": "分数的初步认识（二）",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "fraction-comparison",
+        "fraction-addition-subtraction",
+        "same-denominator-fractions",
+        "fraction-wall",
+        "分数大小比较"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "几何直观"
+      ],
+      "skillTags": [
+        "同分母分数",
+        "分数大小比较",
+        "分数加减",
+        "整体不变",
+        "图示解释"
+      ],
+      "misconceptionTags": [
+        "wholes compared without being the same size",
+        "denominators added directly",
+        "fraction size judged by larger denominator only"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-fraction-extension"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-fraction-extension",
+        "hjb-primary-p4-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个西瓜被平均分成10块，爸爸吃了3块，妈妈吃了2块，剩下的留给小华。小华吃了剩下部分的一半。小华吃了这个西瓜的几分之几？",
+      "optionsZhHans": [],
+      "answer": "1/4",
+      "acceptedAnswers": [
+        "1/4",
+        "四分之一"
+      ],
+      "explanationZhHans": "爸爸和妈妈共吃5块，剩5块。小华吃剩下的一半，即2.5块，占整个西瓜的2.5/10=1/4。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-070",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-four-operations-problem-solving",
+      "unitTitle": "整数的四则运算",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "integer-four-operations",
+        "multi-step-word-problems",
+        "operation-laws",
+        "estimation",
+        "整数四则运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "工作效率",
+        "三步计算",
+        "正推",
+        "逆推",
+        "文字计算题",
+        "运算定律",
+        "解决问题"
+      ],
+      "misconceptionTags": [
+        "operation order chosen from keywords only",
+        "estimate omitted before complex calculation",
+        "inverse reasoning reverses the wrong step"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-four-operations-problem-solving"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-four-operations-problem-solving",
+        "hjb-primary-p4-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆有一批新书，如果每天整理48本，需要15天整理完。实际每天整理60本，可以提前几天完成？",
+      "optionsZhHans": [
+        "3天",
+        "4天",
+        "5天",
+        "6天"
+      ],
+      "answer": "3天",
+      "acceptedAnswers": [
+        "3天"
+      ],
+      "explanationZhHans": "新书总数：48×15=720本。实际天数：720÷60=12天。提前：15-12=3天。"
+    }
+  ]
+}

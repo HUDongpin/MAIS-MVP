@@ -1,0 +1,191 @@
+{
+  "batchNumber": 49,
+  "startedAt": "2026-05-27T13:54:50.682Z",
+  "completedAt": "2026-05-27T13:55:08.227Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p4-115",
+    "bnu-primary-ds-v2-p4-116",
+    "bnu-primary-ds-v2-p4-117",
+    "bnu-primary-ds-v2-p4-118",
+    "bnu-primary-ds-v2-p4-119",
+    "bnu-primary-ds-v2-p4-120",
+    "bnu-primary-ds-v2-p4-121",
+    "bnu-primary-ds-v2-p4-122",
+    "bnu-primary-ds-v2-p4-123",
+    "bnu-primary-ds-v2-p4-124",
+    "bnu-primary-ds-v2-p4-125",
+    "bnu-primary-ds-v2-p4-126",
+    "bnu-primary-ds-v2-p4-127",
+    "bnu-primary-ds-v2-p4-128",
+    "bnu-primary-ds-v2-p4-129",
+    "bnu-primary-ds-v2-p4-130",
+    "bnu-primary-ds-v2-p4-131",
+    "bnu-primary-ds-v2-p4-132"
+  ],
+  "usage": {
+    "prompt_tokens": 4247,
+    "completion_tokens": 1219,
+    "total_tokens": 5466,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 3991
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p4-115",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，选项清晰，答案合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-116",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "填空设计合理，答案准确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-117",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "游戏公平性判断正确，理由充分。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-118",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项无歧义，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-119",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比较可能性大小，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-120",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "设计合理，答案示例符合要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-121",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项唯一正确，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-122",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比较大小，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-123",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "公平性判断正确，理由清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-124",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "可能性相等，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-125",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比较大小，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-126",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "独立事件解释正确，答案合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-127",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项唯一正确，答案合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-128",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比较大小，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-129",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估算策略描述准确，检验合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-130",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项符合估算策略，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-131",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "错误识别正确，改正准确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-132",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "大数读写及近似数正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版小学数学要求，无错误或风险。"
+    }
+  }
+}

@@ -1,0 +1,191 @@
+{
+  "batchNumber": 27,
+  "startedAt": "2026-05-27T13:47:52.727Z",
+  "completedAt": "2026-05-27T13:48:07.171Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p2-219",
+    "bnu-primary-ds-v2-p2-220",
+    "bnu-primary-ds-v2-p2-221",
+    "bnu-primary-ds-v2-p2-222",
+    "bnu-primary-ds-v2-p2-223",
+    "bnu-primary-ds-v2-p2-224",
+    "bnu-primary-ds-v2-p2-225",
+    "bnu-primary-ds-v2-p2-226",
+    "bnu-primary-ds-v2-p2-227",
+    "bnu-primary-ds-v2-p2-228",
+    "bnu-primary-ds-v2-p2-229",
+    "bnu-primary-ds-v2-p2-230",
+    "bnu-primary-ds-v2-p2-231",
+    "bnu-primary-ds-v2-p2-232",
+    "bnu-primary-ds-v2-p2-233",
+    "bnu-primary-ds-v2-p2-234",
+    "bnu-primary-ds-v2-p2-235",
+    "bnu-primary-ds-v2-p2-236"
+  ],
+  "usage": {
+    "prompt_tokens": 2912,
+    "completion_tokens": 1210,
+    "total_tokens": 4122,
+    "prompt_tokens_details": {
+      "cached_tokens": 2816
+    },
+    "prompt_cache_hit_tokens": 2816,
+    "prompt_cache_miss_tokens": 96
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p2-219",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，分类正确，无错误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-220",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "描述准确，答案唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-221",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项合理，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-222",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "与220题类似，无问题。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-223",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-224",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "换算正确，答案格式兼容。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-225",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-226",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "钟面描述准确，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-227",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "秒针分针关系正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-228",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "时间单位选择合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-229",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项贴近生活，答案合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-230",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "时间计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-231",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "加法正确，选项合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-232",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "单位填写恰当。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-233",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-234",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "换算正确，与224题类似。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-235",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项合理，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-236",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "时间计算正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版小学数学二年级要求，无数学错误、答案不匹配或歧义，可直接用于题库。"
+    }
+  }
+}

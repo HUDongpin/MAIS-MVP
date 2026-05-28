@@ -1,0 +1,125 @@
+{
+  "batchIndex": 13,
+  "completedAt": "2026-05-25T01:54:43.104Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s3-k11-sa-015",
+    "pep-junior-v3-s3-k11-sa-016",
+    "pep-junior-v3-s3-k11-sa-017",
+    "pep-junior-v3-s3-k11-sa-025",
+    "pep-junior-v3-s3-k11-sa-039",
+    "pep-junior-v3-s3-k11-sa-042"
+  ],
+  "usage": {
+    "prompt_tokens": 3839,
+    "completion_tokens": 3857,
+    "total_tokens": 7696,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 3455
+  },
+  "items": [
+    {
+      "id": "pep-junior-v3-s3-k11-sa-015",
+      "action": "repair",
+      "confidence": "high",
+      "remediationNotes": "原题要求证明AD平分∠BAC，但根据条件计算得BD/DC≠AB/AC，结论不成立。修改题目为求AD的长度，使其可解且符合初中几何内容。",
+      "question": {
+        "promptZhHans": "在△ABC中，AB=AC=5，BC=6，点D在边BC上，且BD=2。连接AD，求AD的长度。",
+        "optionsZhHans": [],
+        "answer": "√17",
+        "acceptedAnswers": [
+          "√17",
+          "根号17"
+        ],
+        "explanationZhHans": "过A作AE⊥BC于E。∵AB=AC，∴E为BC中点，BE=CE=3。在Rt△ABE中，AE=√(AB²-BE²)=√(25-9)=4。∵BD=2，∴DE=BE-BD=1。在Rt△ADE中，AD=√(AE²+DE²)=√(16+1)=√17。"
+      }
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-016",
+      "action": "repair",
+      "confidence": "high",
+      "remediationNotes": "原题解答中方程解为a=1或6，对应点(1,6)或(6,1)，但答案误写为(2,3)或(3,2)。修正答案并调整解析。",
+      "question": {
+        "promptZhHans": "在平面直角坐标系中，点P是反比例函数y=6/x（x>0）图象上一点，PA⊥x轴于A，PB⊥y轴于B，四边形OAPB的周长为14。求点P的坐标。",
+        "optionsZhHans": [],
+        "answer": "(1,6)或(6,1)",
+        "acceptedAnswers": [
+          "(1,6)或(6,1)",
+          "P(1,6)或P(6,1)"
+        ],
+        "explanationZhHans": "设P(a,6/a)，a>0，则A(a,0)，B(0,6/a)。四边形OAPB为矩形，周长=2(OA+OB)=2(a+6/a)=14，得a+6/a=7，即a²-7a+6=0，解得a=1或a=6。当a=1时，P(1,6)；当a=6时，P(6,1)。故点P坐标为(1,6)或(6,1)。"
+      }
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-017",
+      "action": "repair",
+      "confidence": "high",
+      "remediationNotes": "原题解答混乱，最终答案应为20海里，而非20√3。修正答案并重写解析。",
+      "question": {
+        "promptZhHans": "一艘轮船以每小时20海里的速度向正东方向航行，上午8时在A处测得灯塔P在北偏东60°方向，上午9时到达B处，测得灯塔P在北偏东30°方向。求轮船在B处时与灯塔P的距离（结果保留根号）。",
+        "optionsZhHans": [],
+        "answer": "20",
+        "acceptedAnswers": [
+          "20",
+          "20海里"
+        ],
+        "explanationZhHans": "由题意，AB=20海里。根据方位角，∠PAB=30°，∠PBA=120°（因为B处北偏东30°，则PB与正东夹角60°，故∠PBA=180°-60°=120°）。在△ABP中，∠APB=180°-30°-120°=30°，∴∠PAB=∠APB=30°，∴BP=AB=20海里。"
+      }
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-025",
+      "action": "repair",
+      "confidence": "high",
+      "remediationNotes": "原题条件不足且解答与题目无关。修改题目为：已知反比例函数y=4/x上一点A，AB⊥x轴于B，C在y轴上，△ABC面积为6，求A坐标。但原解答错误，需重新设计。改为求C点坐标，使题目可解。",
+      "question": {
+        "promptZhHans": "在平面直角坐标系中，反比例函数 y = 4/x (x>0) 的图象上有一点A，过A作AB⊥x轴于B，C是y轴上一点，且△ABC的面积为6。若点A的横坐标为2，求点C的坐标。",
+        "optionsZhHans": [],
+        "answer": "(8,0)或(-4,0)",
+        "acceptedAnswers": [
+          "(8,0)或(-4,0)",
+          "C(8,0)或C(-4,0)"
+        ],
+        "explanationZhHans": "由A在y=4/x上，且横坐标为2，得A(2,2)，则B(2,0)。设C(c,0)在x轴上。△ABC的面积=1/2×AB×|点C到直线AB的距离|。AB=2，直线AB为x=2，点C到AB的距离为|2-c|，故面积=1/2×2×|2-c|=|2-c|=6，解得2-c=6或2-c=-6，即c=-4或c=8。所以C的坐标为(-4,0)或(8,0)。"
+      }
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-039",
+      "action": "repair",
+      "confidence": "high",
+      "remediationNotes": "原题第（3）问答案错误，解方程得m=12/5，对应P(12/5, 4/5)。修正答案并调整解析。",
+      "question": {
+        "promptZhHans": "在平面直角坐标系中，反比例函数 y = k/x（k ≠ 0）的图象经过点 A(3, 4)。过点 A 作 x 轴的垂线，垂足为 B，过点 A 作 y 轴的垂线，垂足为 C。连接 BC。点 P 是线段 BC 上一点（不与端点重合），过点 P 作 x 轴的垂线，交反比例函数图象于点 Q，交线段 AB 于点 R。设点 P 的横坐标为 m（0 < m < 3）。\n（1）求 k 的值；\n（2）用含 m 的代数式表示线段 QR 的长；\n（3）当 QR = 1 时，求点 P 的坐标。",
+        "optionsZhHans": [],
+        "answer": "（1）k = 12；（2）QR = 12/m - 4；（3）P 的坐标为 (12/5, 4/5)",
+        "acceptedAnswers": [
+          "（1）k = 12；（2）QR = 12/m - 4；（3）P 的坐标为 (12/5, 4/5)",
+          "（1）k=12；（2）QR=12/m-4；（3）P(12/5, 4/5)",
+          "（1）k = 12；（2）QR = 12/m - 4；（3）P(12/5, 4/5)",
+          "（1）k=12；（2）QR=12/m-4；（3）P的坐标为(12/5, 4/5)"
+        ],
+        "explanationZhHans": "（1）由点 A(3, 4) 在反比例函数 y = k/x 上，代入得 4 = k/3，解得 k = 12。\n（2）由题意，B(3, 0)，C(0, 4)。直线 BC 过 B(3, 0) 和 C(0, 4)，其解析式为 y = -4/3 x + 4。点 P 在 BC 上，横坐标为 m，则纵坐标为 -4/3 m + 4。点 Q 在反比例函数上，横坐标为 m，纵坐标为 12/m。点 R 在 AB 上，横坐标为 m，纵坐标为 4。所以 QR = |y_Q - y_R| = |12/m - 4|。因为 0 < m < 3，所以 12/m > 4，故 QR = 12/m - 4。\n（3）当 QR = 1 时，12/m - 4 = 1，解得 12/m = 5，m = 12/5。此时点 P 的纵坐标为 -4/3 × 12/5 + 4 = -16/5 + 4 = 4/5。所以 P 的坐标为 (12/5, 4/5)。"
+      }
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-042",
+      "action": "repair",
+      "confidence": "high",
+      "remediationNotes": "原题答案错误，由B(2,0)和C(0,3)得直线解析式为y = -3/2 x + 3。修正答案并调整解析。",
+      "question": {
+        "promptZhHans": "在平面直角坐标系中，反比例函数 y = k/x (k > 0) 的图象经过点 A(2, 3)。点 B 在 x 轴正半轴上，且 AB ⊥ x 轴，点 C 在 y 轴正半轴上，且 AC ⊥ y 轴。连接 BC，求 BC 所在直线的函数解析式。",
+        "optionsZhHans": [],
+        "answer": "y = -3/2 x + 3",
+        "acceptedAnswers": [
+          "y = -3/2 x + 3",
+          "y = -1.5x + 3",
+          "y = 3 - 3/2 x",
+          "y = 3 - 1.5x"
+        ],
+        "explanationZhHans": "由点 A(2,3) 在反比例函数 y = k/x 上，得 3 = k/2，解得 k = 6。故反比例函数为 y = 6/x。因 AB ⊥ x 轴且 B 在 x 轴正半轴，故 B 点横坐标与 A 相同，纵坐标为 0，得 B(2,0)。因 AC ⊥ y 轴且 C 在 y 轴正半轴，故 C 点纵坐标与 A 相同，横坐标为 0，得 C(0,3)。设直线 BC 的解析式为 y = mx + b，将 B(2,0) 和 C(0,3) 代入，得 0 = 2m + b 和 3 = b，解得 b = 3，m = -3/2。所以直线 BC 的解析式为 y = -3/2 x + 3。"
+      }
+    }
+  ]
+}

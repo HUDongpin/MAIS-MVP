@@ -1,0 +1,168 @@
+{
+  "scope": "full",
+  "batchIndex": 24,
+  "startedAt": "2026-05-28T03:28:46.031Z",
+  "completedAt": "2026-05-28T03:29:24.260Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "itemIds": [
+    "10528",
+    "10529",
+    "10530",
+    "10531",
+    "10532",
+    "10533",
+    "10534",
+    "10535",
+    "10536",
+    "10537"
+  ],
+  "usage": {
+    "prompt_tokens": 2776,
+    "completion_tokens": 3094,
+    "total_tokens": 5870,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 2017
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2392
+  },
+  "finishReason": "stop",
+  "jsonModeFallback": false,
+  "result": {
+    "items": [
+      {
+        "questionId": "10528",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "10.075",
+        "independentAnswer": "10.075",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Solvable, answer matches.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10529",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "0.09",
+        "independentAnswer": "0.09",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Solvable, answer matches.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10530",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "$\\frac{1}{8}$",
+        "independentAnswer": "$\\frac{1}{8}$",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Solvable, answer matches.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10531",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "7337/10000",
+        "independentAnswer": "7337/10000",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Solvable, answer in simplest form.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10532",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "對",
+        "independentAnswer": "對",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Solvable, true indeed.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10533",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "$\\frac{3}{4} (0.75) > 0.7 > 0.65 > \\frac{1}{2} (0.5)$",
+        "independentAnswer": "$\\frac{3}{4} > 0.7 > 0.65 > \\frac{1}{2}$ or equivalent",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Solvable, correct ordering.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10534",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "=",
+        "independentAnswer": "=",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Solvable, equal.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10535",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "<",
+        "independentAnswer": "<",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Solvable, lesser.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10536",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "8.4",
+        "independentAnswer": "8.4",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Solvable, correct conversion.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10537",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "50.05",
+        "independentAnswer": "50.05",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Solvable, correct conversion.",
+        "recommendedAction": "No blocking action."
+      }
+    ],
+    "batchSummary": {
+      "pass": 10,
+      "unsolvable": 0,
+      "ambiguous": 0,
+      "imageContextRequired": 0,
+      "answerMismatch": 0,
+      "missingAnswerKey": 0,
+      "notes": "All items solvable and answer keys correct."
+    }
+  }
+}

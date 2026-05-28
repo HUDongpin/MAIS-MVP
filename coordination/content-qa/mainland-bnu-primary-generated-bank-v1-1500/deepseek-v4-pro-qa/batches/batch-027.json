@@ -1,0 +1,191 @@
+{
+  "batchNumber": 27,
+  "startedAt": "2026-05-27T13:27:06.185Z",
+  "completedAt": "2026-05-27T13:27:23.360Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p2-219",
+    "bnu-primary-ds-v1-p2-220",
+    "bnu-primary-ds-v1-p2-221",
+    "bnu-primary-ds-v1-p2-222",
+    "bnu-primary-ds-v1-p2-223",
+    "bnu-primary-ds-v1-p2-224",
+    "bnu-primary-ds-v1-p2-225",
+    "bnu-primary-ds-v1-p2-226",
+    "bnu-primary-ds-v1-p2-227",
+    "bnu-primary-ds-v1-p2-228",
+    "bnu-primary-ds-v1-p2-229",
+    "bnu-primary-ds-v1-p2-230",
+    "bnu-primary-ds-v1-p2-231",
+    "bnu-primary-ds-v1-p2-232",
+    "bnu-primary-ds-v1-p2-233",
+    "bnu-primary-ds-v1-p2-234",
+    "bnu-primary-ds-v1-p2-235",
+    "bnu-primary-ds-v1-p2-236"
+  ],
+  "usage": {
+    "prompt_tokens": 3049,
+    "completion_tokens": 1224,
+    "total_tokens": 4273,
+    "prompt_tokens_details": {
+      "cached_tokens": 2944
+    },
+    "prompt_cache_hit_tokens": 2944,
+    "prompt_cache_miss_tokens": 105
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p2-219",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，选项清晰，答案无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-220",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，acceptedAnswers覆盖常见写法。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-221",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项明确，答案唯一，解释合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-222",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "填空答案正确，符合长方形特征。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-223",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分针走6大格为30分钟，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-224",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "时间单位换算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-225",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，10小时无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-226",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "单位填写符合生活常识。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-227",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项B最接近1分钟，答案合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-228",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "钟面时间判断正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-229",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "时间加法正确，7:55无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-230",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比较大小正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-231",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "经过时间计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-232",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分针走30分正确，acceptedAnswers合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-233",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "1秒体验合理，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-234",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "钟面时间判断正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-235",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "睡眠时间计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-236",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "秒针分针关系正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版小学数学要求，无错误或风险。"
+    }
+  }
+}

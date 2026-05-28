@@ -1,0 +1,103 @@
+{
+  "batchId": "model-qa-0180",
+  "ids": [
+    "hjb-junior-ds-v2-s3-433",
+    "hjb-junior-ds-v2-s3-434",
+    "hjb-junior-ds-v2-s3-435",
+    "hjb-junior-ds-v2-s3-436",
+    "hjb-junior-ds-v2-s3-437",
+    "hjb-junior-ds-v2-s3-438",
+    "hjb-junior-ds-v2-s3-439",
+    "hjb-junior-ds-v2-s3-440"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-433",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "8",
+      "answerCheckZhHans": "标准答案为8，独立计算方差为8，一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-434",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "扇形统计图",
+      "answerCheckZhHans": "标准答案为扇形统计图，独立判断为扇形统计图，一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-435",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "15",
+      "answerCheckZhHans": "标准答案为15，独立计算中位数为15，一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-436",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "平均数",
+      "answerCheckZhHans": "标准答案为平均数，独立判断为平均数，一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-437",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "30",
+      "answerCheckZhHans": "标准答案为30，独立计算方差约29.67，四舍五入为30，一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-438",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "1～1.5小时",
+      "answerCheckZhHans": "标准答案为1～1.5小时，独立计算中位数所在组为1～1.5小时，一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-439",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "70～80分",
+      "answerCheckZhHans": "标准答案为70～80分，独立判断众数所在段为70～80分，一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-440",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "甲，因为甲的方差更小",
+      "answerCheckZhHans": "标准答案为甲，因为甲的方差更小。独立计算甲平均数8.2，方差0.76；乙平均数8.0，方差2.0。甲方差更小，发挥更稳定，一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

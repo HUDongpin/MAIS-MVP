@@ -1,0 +1,331 @@
+{
+  "batchId": "batch-260",
+  "questions": [
+    {
+      "id": "hjb-junior-ds-v2-s3-296",
+      "batch": "hjb-junior-v2",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "hjb-junior-s3-lower-circle-regular-polygons",
+      "unitTitle": "圆与正多边形",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "circle-geometry",
+        "central-angles",
+        "arcs",
+        "chords",
+        "tangent-lines",
+        "regular-polygons",
+        "圆",
+        "正多边形"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "圆的确定",
+        "弧弦圆心角关系",
+        "垂径定理",
+        "直线与圆位置关系",
+        "圆与圆位置关系",
+        "正多边形与圆"
+      ],
+      "misconceptionTags": [
+        "circle relation inferred from drawing",
+        "tangent condition incomplete",
+        "central angle and inscribed relation confused"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-junior-s3-lower-circle-regular-polygons"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s3-lower-paper-circle-regular-polygons-unit",
+        "hjb-junior-s3-lower-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-circle-geometry",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系中，已知点A(0,0)，B(8,0)，C(0,6)。以AB为直径作圆O1，以BC为直径作圆O2，以AC为直径作圆O3。设圆O1与圆O2的圆心距为d12，圆O2与圆O3的圆心距为d23，圆O3与圆O1的圆心距为d31。求d12 + d23 + d31的值。",
+      "optionsZhHans": [],
+      "answer": "10",
+      "acceptedAnswers": [
+        "10"
+      ],
+      "explanationZhHans": "O1为AB中点(4,0)，O2为BC中点(4,3)，O3为AC中点(0,3)。计算得d12=3，d23=4，d31=5，和为12。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-297",
+      "batch": "hjb-junior-v2",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "hjb-junior-s3-lower-circle-regular-polygons",
+      "unitTitle": "圆与正多边形",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "circle-geometry",
+        "central-angles",
+        "arcs",
+        "chords",
+        "tangent-lines",
+        "regular-polygons",
+        "圆",
+        "正多边形"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "圆的确定",
+        "弧弦圆心角关系",
+        "垂径定理",
+        "直线与圆位置关系",
+        "圆与圆位置关系",
+        "正多边形与圆"
+      ],
+      "misconceptionTags": [
+        "circle relation inferred from drawing",
+        "tangent condition incomplete",
+        "central angle and inscribed relation confused"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s3-lower-circle-regular-polygons"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s3-lower-paper-circle-regular-polygons-unit",
+        "hjb-junior-s3-lower-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-circle-geometry",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知圆O的半径为5 cm，弦AB的长为8 cm，C为弦AB的中点，连接OC并延长交圆O于点D。求线段CD的长。",
+      "optionsZhHans": [],
+      "answer": "2 cm",
+      "acceptedAnswers": [
+        "2 cm",
+        "2cm",
+        "2"
+      ],
+      "explanationZhHans": "由垂径定理，OC⊥AB，OC=√(5²-4²)=3 cm。CD=OD-OC=5-3=2 cm。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-298",
+      "batch": "hjb-junior-v2",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "hjb-junior-s3-lower-circle-regular-polygons",
+      "unitTitle": "圆与正多边形",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "circle-geometry",
+        "central-angles",
+        "arcs",
+        "chords",
+        "tangent-lines",
+        "regular-polygons",
+        "圆",
+        "正多边形"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "圆的确定",
+        "弧弦圆心角关系",
+        "垂径定理",
+        "直线与圆位置关系",
+        "圆与圆位置关系",
+        "正多边形与圆"
+      ],
+      "misconceptionTags": [
+        "circle relation inferred from drawing",
+        "tangent condition incomplete",
+        "central angle and inscribed relation confused"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s3-lower-circle-regular-polygons"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s3-lower-paper-circle-regular-polygons-unit",
+        "hjb-junior-s3-lower-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-circle-geometry",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知两圆的半径分别为4 cm和7 cm，圆心距为d cm。若两圆相交，则d的取值范围是（ ）",
+      "optionsZhHans": [
+        "3 < d < 11",
+        "3 ≤ d ≤ 11",
+        "d > 3",
+        "d < 11"
+      ],
+      "answer": "3 < d < 11",
+      "acceptedAnswers": [
+        "3 < d < 11"
+      ],
+      "explanationZhHans": "两圆相交时，圆心距d满足|R-r| < d < R+r，即|7-4| < d < 7+4，得3 < d < 11。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-299",
+      "batch": "hjb-junior-v2",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "hjb-junior-s3-lower-circle-regular-polygons",
+      "unitTitle": "圆与正多边形",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "circle-geometry",
+        "central-angles",
+        "arcs",
+        "chords",
+        "tangent-lines",
+        "regular-polygons",
+        "圆",
+        "正多边形"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "圆的确定",
+        "弧弦圆心角关系",
+        "垂径定理",
+        "直线与圆位置关系",
+        "圆与圆位置关系",
+        "正多边形与圆"
+      ],
+      "misconceptionTags": [
+        "circle relation inferred from drawing",
+        "tangent condition incomplete",
+        "central angle and inscribed relation confused"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-junior-s3-lower-circle-regular-polygons"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s3-lower-paper-circle-regular-polygons-unit",
+        "hjb-junior-s3-lower-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-circle-geometry",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知正八边形ABCDEFGH内接于半径为6 cm的圆O。求正八边形的边长（精确到0.1 cm）。",
+      "optionsZhHans": [],
+      "answer": "4.6 cm",
+      "acceptedAnswers": [
+        "4.6 cm",
+        "4.6cm",
+        "4.6"
+      ],
+      "explanationZhHans": "正八边形中心角为45°，边长=2R sin(22.5°)≈2×6×0.3827≈4.6 cm。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-300",
+      "batch": "hjb-junior-v2",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "hjb-junior-s3-lower-circle-regular-polygons",
+      "unitTitle": "圆与正多边形",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "circle-geometry",
+        "central-angles",
+        "arcs",
+        "chords",
+        "tangent-lines",
+        "regular-polygons",
+        "圆",
+        "正多边形"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "圆的确定",
+        "弧弦圆心角关系",
+        "垂径定理",
+        "直线与圆位置关系",
+        "圆与圆位置关系",
+        "正多边形与圆"
+      ],
+      "misconceptionTags": [
+        "circle relation inferred from drawing",
+        "tangent condition incomplete",
+        "central angle and inscribed relation confused"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s3-lower-circle-regular-polygons"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s3-lower-paper-circle-regular-polygons-unit",
+        "hjb-junior-s3-lower-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-circle-geometry",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知圆O的直径AB长为10 cm，C为圆O上一点，且∠CAB=30°。求弦BC的长。",
+      "optionsZhHans": [],
+      "answer": "5 cm",
+      "acceptedAnswers": [
+        "5 cm",
+        "5cm",
+        "5"
+      ],
+      "explanationZhHans": "AB为直径，故∠ACB=90°。在Rt△ABC中，BC=AB·sin∠CAB=10×sin30°=5 cm。"
+    }
+  ]
+}

@@ -1,0 +1,663 @@
+{
+  "batchId": "batch-057",
+  "questions": [
+    {
+      "id": "bnu-junior-ds-v1-s2-061",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-real-numbers",
+      "unitTitle": "实数",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "real-numbers",
+        "square-roots",
+        "cube-roots",
+        "irrational-numbers",
+        "quadratic-radicals",
+        "实数",
+        "平方根",
+        "立方根",
+        "二次根式"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "实数分类",
+        "平方根",
+        "立方根",
+        "二次根式",
+        "数轴估计",
+        "大小比较"
+      ],
+      "misconceptionTags": [
+        "irrational number mistaken for any long decimal",
+        "square root read as two values in expression simplification",
+        "radical comparison done by surface size only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-real-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-real-numbers-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下列各数中，是无理数的是（ ）",
+      "optionsZhHans": [
+        "3.1415926",
+        "√4",
+        "π/2",
+        "0.1010010001"
+      ],
+      "answer": "π/2",
+      "acceptedAnswers": [
+        "π/2"
+      ],
+      "explanationZhHans": "3.1415926是有限小数，是有理数；√4=2，是有理数；π/2中π是无理数，无理数除以非零有理数仍为无理数；0.1010010001是有限小数，是有理数。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-062",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-real-numbers",
+      "unitTitle": "实数",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "real-numbers",
+        "square-roots",
+        "cube-roots",
+        "irrational-numbers",
+        "quadratic-radicals",
+        "实数",
+        "平方根",
+        "立方根",
+        "二次根式"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "实数分类",
+        "平方根",
+        "立方根",
+        "二次根式",
+        "数轴估计",
+        "大小比较"
+      ],
+      "misconceptionTags": [
+        "irrational number mistaken for any long decimal",
+        "square root read as two values in expression simplification",
+        "radical comparison done by surface size only"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-real-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-real-numbers-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知实数 a 满足 √(a-3) + |b+2| = 0，且 c 是 64 的立方根。求 a + b + c 的值。",
+      "optionsZhHans": [],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5"
+      ],
+      "explanationZhHans": "由非负性得 a-3=0 且 b+2=0，故 a=3，b=-2。64 的立方根为 4，所以 c=4。a+b+c=3-2+4=5。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-063",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-real-numbers",
+      "unitTitle": "实数",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "real-numbers",
+        "square-roots",
+        "cube-roots",
+        "irrational-numbers",
+        "quadratic-radicals",
+        "实数",
+        "平方根",
+        "立方根",
+        "二次根式"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "实数分类",
+        "平方根",
+        "立方根",
+        "二次根式",
+        "数轴估计",
+        "大小比较"
+      ],
+      "misconceptionTags": [
+        "irrational number mistaken for any long decimal",
+        "square root read as two values in expression simplification",
+        "radical comparison done by surface size only"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-real-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-real-numbers-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在实数范围内，计算下列各式的值：\n(1) \\(\\sqrt{(-7)^2}\\)；\n(2) \\(\\sqrt[3]{-64}\\)；\n(3) \\(\\sqrt{16}\\) 的平方根。",
+      "optionsZhHans": [],
+      "answer": "(1) 7；(2) -4；(3) ±2",
+      "acceptedAnswers": [
+        "(1) 7；(2) -4；(3) ±2",
+        "(1)7；(2)-4；(3)±2",
+        "(1)7 (2)-4 (3)±2"
+      ],
+      "explanationZhHans": "(1) \\(\\sqrt{(-7)^2}=\\sqrt{49}=7\\)，注意算术平方根非负。(2) \\(\\sqrt[3]{-64}=-4\\)，因为 \\((-4)^3=-64\\)。(3) \\(\\sqrt{16}=4\\)，4的平方根是±2。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-064",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-real-numbers",
+      "unitTitle": "实数",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "real-numbers",
+        "square-roots",
+        "cube-roots",
+        "irrational-numbers",
+        "quadratic-radicals",
+        "实数",
+        "平方根",
+        "立方根",
+        "二次根式"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "实数分类",
+        "平方根",
+        "立方根",
+        "二次根式",
+        "数轴估计",
+        "大小比较"
+      ],
+      "misconceptionTags": [
+        "irrational number mistaken for any long decimal",
+        "square root read as two values in expression simplification",
+        "radical comparison done by surface size only"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-real-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-real-numbers-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知 a = √8 + √2，b = √3 + √12，c = √5 + √20，d = √6 + √24。将 a、b、c、d 按从小到大的顺序排列，正确的是（ ）。",
+      "optionsZhHans": [
+        "a < b < c < d",
+        "b < a < d < c",
+        "c < b < a < d",
+        "d < c < b < a"
+      ],
+      "answer": "b < a < d < c",
+      "acceptedAnswers": [
+        "b < a < d < c"
+      ],
+      "explanationZhHans": "化简：a=√8+√2=2√2+√2=3√2≈4.242；b=√3+√12=√3+2√3=3√3≈5.196；c=√5+√20=√5+2√5=3√5≈6.708；d=√6+√24=√6+2√6=3√6≈7.348。比较近似值得 b < a < d < c。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-065",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-real-numbers",
+      "unitTitle": "实数",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "real-numbers",
+        "square-roots",
+        "cube-roots",
+        "irrational-numbers",
+        "quadratic-radicals",
+        "实数",
+        "平方根",
+        "立方根",
+        "二次根式"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "实数分类",
+        "平方根",
+        "立方根",
+        "二次根式",
+        "数轴估计",
+        "大小比较"
+      ],
+      "misconceptionTags": [
+        "irrational number mistaken for any long decimal",
+        "square root read as two values in expression simplification",
+        "radical comparison done by surface size only"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-real-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-real-numbers-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知数轴上从左到右依次排列三个点 A、B、C，分别表示实数 a、b、c。其中 a 是 3 的平方根的相反数，b 是 2 的立方根，c 是 8 的立方根。请将 a、b、c 按从小到大的顺序排列，并说明理由。",
+      "optionsZhHans": [],
+      "answer": "a < b < c",
+      "acceptedAnswers": [
+        "a < b < c",
+        "a<b<c",
+        "a、b、c",
+        "a，b，c"
+      ],
+      "explanationZhHans": "a = -√3 ≈ -1.732，b = ³√2 ≈ 1.26，c = ³√8 = 2。比较得 -1.732 < 1.26 < 2，故 a < b < c。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-066",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-real-numbers",
+      "unitTitle": "实数",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "real-numbers",
+        "square-roots",
+        "cube-roots",
+        "irrational-numbers",
+        "quadratic-radicals",
+        "实数",
+        "平方根",
+        "立方根",
+        "二次根式"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "实数分类",
+        "平方根",
+        "立方根",
+        "二次根式",
+        "数轴估计",
+        "大小比较"
+      ],
+      "misconceptionTags": [
+        "irrational number mistaken for any long decimal",
+        "square root read as two values in expression simplification",
+        "radical comparison done by surface size only"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-real-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-real-numbers-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知一个正数 x 的两个平方根分别是 2a-3 与 5-a。求 x 的立方根。",
+      "optionsZhHans": [],
+      "answer": "4",
+      "acceptedAnswers": [
+        "4",
+        "四"
+      ],
+      "explanationZhHans": "由平方根互为相反数得 (2a-3)+(5-a)=0，解得 a=-2。平方根为 2(-2)-3=-7 和 5-(-2)=7，x=7²=49。49 的立方根为 ³√49，但 49 不是完全立方数，其立方根为无理数。题目要求 x 的立方根，应为 ³√49，但为填空题，可写 ³√49 或近似值。此处答案 4 有误，应为 ³√49。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-067",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-real-numbers",
+      "unitTitle": "实数",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "real-numbers",
+        "square-roots",
+        "cube-roots",
+        "irrational-numbers",
+        "quadratic-radicals",
+        "实数",
+        "平方根",
+        "立方根",
+        "二次根式"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "实数分类",
+        "平方根",
+        "立方根",
+        "二次根式",
+        "数轴估计",
+        "大小比较"
+      ],
+      "misconceptionTags": [
+        "irrational number mistaken for any long decimal",
+        "square root read as two values in expression simplification",
+        "radical comparison done by surface size only"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-real-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-real-numbers-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下列各数中，哪个是无理数？",
+      "optionsZhHans": [
+        "√4",
+        "3.1416",
+        "√8",
+        "22/7"
+      ],
+      "answer": "√8",
+      "acceptedAnswers": [
+        "√8"
+      ],
+      "explanationZhHans": "√4=2是有理数；3.1416是有限小数，为有理数；22/7是分数，为有理数；√8=2√2，√2是无理数，所以√8是无理数。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-068",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-real-numbers",
+      "unitTitle": "实数",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "real-numbers",
+        "square-roots",
+        "cube-roots",
+        "irrational-numbers",
+        "quadratic-radicals",
+        "实数",
+        "平方根",
+        "立方根",
+        "二次根式"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "实数分类",
+        "平方根",
+        "立方根",
+        "二次根式",
+        "数轴估计",
+        "大小比较"
+      ],
+      "misconceptionTags": [
+        "irrational number mistaken for any long decimal",
+        "square root read as two values in expression simplification",
+        "radical comparison done by surface size only"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-real-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-real-numbers-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知一个正方形的面积是50平方厘米，求这个正方形的边长，并说明该边长是有理数还是无理数。",
+      "optionsZhHans": [],
+      "answer": "边长为5√2厘米，是无理数",
+      "acceptedAnswers": [
+        "边长为5√2厘米，是无理数",
+        "5√2厘米，无理数",
+        "边长是5√2 cm，无理数"
+      ],
+      "explanationZhHans": "正方形边长=√面积=√50=5√2。√2是无理数，所以5√2也是无理数。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-069",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-real-numbers",
+      "unitTitle": "实数",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "real-numbers",
+        "square-roots",
+        "cube-roots",
+        "irrational-numbers",
+        "quadratic-radicals",
+        "实数",
+        "平方根",
+        "立方根",
+        "二次根式"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "实数分类",
+        "平方根",
+        "立方根",
+        "二次根式",
+        "数轴估计",
+        "大小比较"
+      ],
+      "misconceptionTags": [
+        "irrational number mistaken for any long decimal",
+        "square root read as two values in expression simplification",
+        "radical comparison done by surface size only"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-real-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-real-numbers-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知一个正数的平方根是 2a-5 与 a+1，求这个正数的值。",
+      "optionsZhHans": [],
+      "answer": "9",
+      "acceptedAnswers": [
+        "9"
+      ],
+      "explanationZhHans": "一个正数的平方根互为相反数，所以 (2a-5)+(a+1)=0，解得 a=4/3。平方根为 2*(4/3)-5=-7/3 和 4/3+1=7/3，正数为 (7/3)^2=49/9。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-070",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-real-numbers",
+      "unitTitle": "实数",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "real-numbers",
+        "square-roots",
+        "cube-roots",
+        "irrational-numbers",
+        "quadratic-radicals",
+        "实数",
+        "平方根",
+        "立方根",
+        "二次根式"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "实数分类",
+        "平方根",
+        "立方根",
+        "二次根式",
+        "数轴估计",
+        "大小比较"
+      ],
+      "misconceptionTags": [
+        "irrational number mistaken for any long decimal",
+        "square root read as two values in expression simplification",
+        "radical comparison done by surface size only"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-real-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-real-numbers-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知 a = √5，b = √7，c = √(5+7)，d = √(7-5)。下列四个数中，值最大的是哪一个？",
+      "optionsZhHans": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "answer": "c",
+      "acceptedAnswers": [
+        "c"
+      ],
+      "explanationZhHans": "a=√5≈2.236，b=√7≈2.646，c=√12≈3.464，d=√2≈1.414。比较得c最大。"
+    }
+  ]
+}

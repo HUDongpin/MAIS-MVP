@@ -1,0 +1,354 @@
+{
+  "batchId": "batch-008",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s1-k02-mc-003",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "一种商品每件成本为 a 元，按成本增加 20% 定价，后因库存积压，按定价打八折出售。每件还能盈利多少元？",
+      "optionsZhHans": [
+        "0.04a 元",
+        "0.2a 元",
+        "亏损 0.04a 元",
+        "不盈不亏"
+      ],
+      "answer": "亏损 0.04a 元",
+      "acceptedAnswers": [
+        "亏损 0.04a 元",
+        "亏 0.04a 元",
+        "赔 0.04a 元",
+        "亏损0.04a元",
+        "亏0.04a元",
+        "赔0.04a元"
+      ],
+      "explanationZhHans": "定价为 a(1+20%) = 1.2a 元。打八折后售价为 1.2a × 0.8 = 0.96a 元。盈利为 0.96a - a = -0.04a 元，即亏损 0.04a 元。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-mc-004",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-rational-number-operations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "已知 x = 2 是关于 x 的方程 3x - 2m = 4 的解，则 m 的值是（　）",
+      "optionsZhHans": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "answer": "1",
+      "acceptedAnswers": [
+        "1",
+        "m=1"
+      ],
+      "explanationZhHans": "把 x = 2 代入方程得 3×2 - 2m = 4，即 6 - 2m = 4，解得 m = 1。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-mc-005",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-geometric-figures"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "下列单项式中，与 5ab² 是同类项的是（　）",
+      "optionsZhHans": [
+        "5a²b",
+        "3ab²c",
+        "-2ab²",
+        "5ab"
+      ],
+      "answer": "-2ab²",
+      "acceptedAnswers": [
+        "-2ab²",
+        "负2ab²"
+      ],
+      "explanationZhHans": "同类项要求所含字母相同且相同字母的指数也相同。5ab² 含字母 a 和 b，a 指数 1，b 指数 2。选项 -2ab² 符合条件，所以是同类项。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-mc-006",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-expression-simplification"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "计算 (x + 2)(x - 3) 的结果是（　）",
+      "optionsZhHans": [
+        "x² - x - 6",
+        "x² + x - 6",
+        "x² - 5x - 6",
+        "x² + 5x - 6"
+      ],
+      "answer": "x² - x - 6",
+      "acceptedAnswers": [
+        "x² - x - 6",
+        "x^2 - x - 6"
+      ],
+      "explanationZhHans": "利用多项式乘法法则：(x+2)(x-3) = x·x + x·(-3) + 2·x + 2·(-3) = x² - 3x + 2x - 6 = x² - x - 6。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-mc-007",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-linear-equation-modeling"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "把方程 2x - 3 = 5x + 6 移项后，正确的是（　）",
+      "optionsZhHans": [
+        "2x + 5x = 6 - 3",
+        "2x - 5x = 6 + 3",
+        "2x - 5x = 6 - 3",
+        "2x + 5x = 6 + 3"
+      ],
+      "answer": "2x - 5x = 6 + 3",
+      "acceptedAnswers": [
+        "2x - 5x = 6 + 3"
+      ],
+      "explanationZhHans": "移项要变号：将 5x 移到左边变为 -5x，-3 移到右边变为 +3，得 2x - 5x = 6 + 3。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-mc-008",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "若单项式 3x²yᵐ 与 -xⁿy³ 的和仍是单项式，则 m + n 的值为（　）",
+      "optionsZhHans": [
+        "5",
+        "6",
+        "7",
+        "8"
+      ],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5"
+      ],
+      "explanationZhHans": "和仍是单项式说明它们是同类项，因此相同字母的指数相同：n = 2，m = 3，所以 m + n = 5。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-mc-009",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-rational-number-operations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "一个长方形的周长为 30 cm，若长减少 2 cm，宽增加 3 cm，就变成了一个正方形。设长方形的长为 x cm，则可列方程为（　）",
+      "optionsZhHans": [
+        "x - 2 = (15 - x) + 3",
+        "x - 2 = (30 - x) + 3",
+        "x + 2 = (15 - x) - 3",
+        "x + 2 = (30 - x) - 3"
+      ],
+      "answer": "x - 2 = (15 - x) + 3",
+      "acceptedAnswers": [
+        "x - 2 = (15 - x) + 3"
+      ],
+      "explanationZhHans": "周长为 30 cm，则长 + 宽 = 15，宽为 (15 - x) cm。长减少 2 cm 为 (x - 2) cm，宽增加 3 cm 为 (15 - x + 3) cm，此时为正方形，边长相等，得方程 x - 2 = (15 - x) + 3。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-mc-010",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-geometric-figures"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "已知 a、b 互为相反数，c、d 互为倒数，m 的绝对值是 2。求代数式 (a + b) / (m² + 1) + cd 的值。",
+      "optionsZhHans": [
+        "0",
+        "1",
+        "2",
+        "3"
+      ],
+      "answer": "1",
+      "acceptedAnswers": [
+        "1"
+      ],
+      "explanationZhHans": "由条件知 a + b = 0，cd = 1，|m| = 2 则 m² = 4。代入得 0 / (4 + 1) + 1 = 0 + 1 = 1。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-mc-011",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-expression-simplification"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "某校七年级学生外出参观，如果每辆汽车坐 45 人，那么有 15 个学生没有座位；如果每辆汽车坐 60 人，那么空出一辆汽车。问共有多少辆汽车？设汽车数为 x，则可列方程（　）",
+      "optionsZhHans": [
+        "45x + 15 = 60(x - 1)",
+        "45x - 15 = 60(x - 1)",
+        "45x + 15 = 60x + 1",
+        "45x - 15 = 60x + 1"
+      ],
+      "answer": "45x + 15 = 60(x - 1)",
+      "acceptedAnswers": [
+        "45x + 15 = 60(x - 1)"
+      ],
+      "explanationZhHans": "学生总人数不变。第一种方案人数为 45x + 15；第二种方案，空出一辆车，实际使用 (x - 1) 辆车，人数为 60(x - 1)。两者相等，得 45x + 15 = 60(x - 1)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-mc-012",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-linear-equation-modeling"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "若关于 x 的方程 2x + a - 4 = 0 的解是 x = -2，则 a 的值等于（　）",
+      "optionsZhHans": [
+        "0",
+        "2",
+        "4",
+        "8"
+      ],
+      "answer": "8",
+      "acceptedAnswers": [
+        "8",
+        "a=8"
+      ],
+      "explanationZhHans": "把 x = -2 代入方程得 2×(-2) + a - 4 = 0，即 -4 + a - 4 = 0，解得 a = 8。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

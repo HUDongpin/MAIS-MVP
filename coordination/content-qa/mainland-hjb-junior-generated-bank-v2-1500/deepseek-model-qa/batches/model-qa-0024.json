@@ -1,0 +1,67 @@
+{
+  "batchId": "model-qa-0024",
+  "ids": [
+    "hjb-junior-ds-v2-s3-195",
+    "hjb-junior-ds-v2-s3-197",
+    "hjb-junior-ds-v2-s3-205",
+    "hjb-junior-ds-v2-s3-206",
+    "hjb-junior-ds-v2-s3-223"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-195",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(1) y = x^2 - 4x + 3; (2) x < 2",
+      "answerCheckZhHans": "标准答案正确，解析推导一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-197",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(-3, -5)",
+      "answerCheckZhHans": "标准答案正确，解析推导一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-205",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "顶点坐标为 (-3, 8)，开口向下",
+      "answerCheckZhHans": "标准答案正确，解析推导一致，选项互异且唯一正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-206",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "顶点式：y = -2(x - 2)^2 + 3；顶点坐标：(2, 3)；对称轴：直线 x = 2",
+      "answerCheckZhHans": "标准答案正确，解析推导一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-223",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "B. y = 3(x + 2)^2 - 5",
+      "answerCheckZhHans": "标准答案正确，解析推导一致，选项互异且唯一正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

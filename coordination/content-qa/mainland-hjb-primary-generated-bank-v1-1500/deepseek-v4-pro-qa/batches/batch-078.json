@@ -1,0 +1,191 @@
+{
+  "batchNumber": 78,
+  "startedAt": "2026-05-25T02:26:33.828Z",
+  "completedAt": "2026-05-25T02:26:56.369Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p6-137",
+    "hjb-primary-ds-v1-p6-138",
+    "hjb-primary-ds-v1-p6-139",
+    "hjb-primary-ds-v1-p6-140",
+    "hjb-primary-ds-v1-p6-141",
+    "hjb-primary-ds-v1-p6-142",
+    "hjb-primary-ds-v1-p6-143",
+    "hjb-primary-ds-v1-p6-144",
+    "hjb-primary-ds-v1-p6-145",
+    "hjb-primary-ds-v1-p6-146",
+    "hjb-primary-ds-v1-p6-147",
+    "hjb-primary-ds-v1-p6-148",
+    "hjb-primary-ds-v1-p6-149",
+    "hjb-primary-ds-v1-p6-150",
+    "hjb-primary-ds-v1-p6-151",
+    "hjb-primary-ds-v1-p6-152",
+    "hjb-primary-ds-v1-p6-153",
+    "hjb-primary-ds-v1-p6-154"
+  ],
+  "usage": {
+    "prompt_tokens": 4189,
+    "completion_tokens": 1394,
+    "total_tokens": 5583,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 3933
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p6-137",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案与解释一致，保留一位小数符合要求。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-138",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，高等于底面周长，答案18.84厘米无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-139",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "等底等高圆柱体积是圆锥3倍，和48对应4份，圆柱36正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-140",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "截成3段增加4个底面积，计算正确，单位统一，答案125.6正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-141",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "容积计算正确，62.8立方分米即62.8升，答案无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-142",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "底面周长6.28，半径1分米，计算正确，选项唯一。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-143",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "体积和重量计算正确，保留一位小数8.5吨无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-144",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "表面积计算正确，87.92保留整数为88，答案无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-145",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程组正确，选项A符合题意，其他选项错误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-146",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程组和求解正确，x=6,y=5，acceptedAnswers覆盖多种格式。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-147",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程组和求解正确，x=60,y=90，acceptedAnswers覆盖多种表述。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-148",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "代入验证，x=5,y=5是唯一解，选项正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-149",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程组和求解正确，原数48，acceptedAnswers覆盖多种表述。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-150",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "相遇问题方程组和求解正确，x=5,y=4，acceptedAnswers覆盖多种表述。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-151",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程组正确，选项A符合题意，其他选项错误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-152",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "代入消元正确，甲数a=20，答案无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-153",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程组和求解正确，篮球5个足球5个，acceptedAnswers覆盖多种表述。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-154",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程组正确，选项A符合题意，其他选项错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案与解释一致，选项无歧义，条件完整，难度与年级匹配，适合沪教版小学数学。"
+    }
+  }
+}

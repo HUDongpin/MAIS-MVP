@@ -1,0 +1,334 @@
+{
+  "batchId": "repair-0006",
+  "generatedAt": "2026-05-25T01:42:11.763Z",
+  "targetIds": [
+    "hjb-junior-ds-v2-s1-180",
+    "hjb-junior-ds-v2-s1-187",
+    "hjb-junior-ds-v2-s1-197",
+    "hjb-junior-ds-v2-s1-199",
+    "hjb-junior-ds-v2-s1-258"
+  ],
+  "questions": [
+    {
+      "id": "hjb-junior-ds-v2-s1-180",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "hjb-junior-s1-upper-algebraic-fractions",
+      "unitTitle": "分式",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "algebraic-fractions",
+        "fraction-domain",
+        "equivalent-fractions",
+        "fraction-operations",
+        "分式"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "分式意义",
+        "取值限制",
+        "分式基本性质",
+        "约分通分",
+        "分式运算"
+      ],
+      "misconceptionTags": [
+        "denominator restriction ignored",
+        "cancelling terms instead of factors",
+        "common denominator chosen incompletely"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s1-upper-algebraic-fractions"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-algebraic-fractions-unit",
+        "hjb-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-linear-inequalities",
+        "hjb-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Repaired offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "化简分式 \\(\\frac{2x^2+12x+18}{x^3+2x^2-4x-8}\\)，并写出化简过程中分母不为零的条件。",
+      "optionsZhHans": [],
+      "answer": "\\(\\frac{2(x+3)}{(x+2)(x-2)}\\)，其中 \\(x\\neq -2\\) 且 \\(x\\neq 2\\)",
+      "acceptedAnswers": [
+        "\\(\\frac{2(x+3)}{(x+2)(x-2)}\\)，其中 \\(x\\neq -2\\) 且 \\(x\\neq 2\\)",
+        "\\(\\frac{2x+6}{x^2-4}\\)，其中 \\(x\\neq -2\\) 且 \\(x\\neq 2\\)"
+      ],
+      "explanationZhHans": "分子提取公因式2得2(x²+6x+9)=2(x+3)²；分母分组分解为(x³+2x²)-(4x+8)=x²(x+2)-4(x+2)=(x+2)(x²-4)=(x+2)²(x-2)。约去公因式(x+3)和(x+2)得2(x+3)/[(x+2)(x-2)]。分母不为零即x≠-2且x≠2。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-187",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "hjb-junior-s1-upper-algebraic-fractions",
+      "unitTitle": "分式",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "algebraic-fractions",
+        "fraction-domain",
+        "equivalent-fractions",
+        "fraction-operations",
+        "分式"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "分式意义",
+        "取值限制",
+        "分式基本性质",
+        "约分通分",
+        "分式运算"
+      ],
+      "misconceptionTags": [
+        "denominator restriction ignored",
+        "cancelling terms instead of factors",
+        "common denominator chosen incompletely"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s1-upper-algebraic-fractions"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-algebraic-fractions-unit",
+        "hjb-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-linear-inequalities",
+        "hjb-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Repaired offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下列分式中，与 \\(\\frac{4a^2b}{6ab^2}\\) 相等的是（ ）",
+      "optionsZhHans": [
+        "\\(\\frac{2a}{3b}\\)",
+        "\\(\\frac{4a}{6b}\\)",
+        "\\(\\frac{2a^2}{3b^2}\\)",
+        "\\(\\frac{4a^2}{6b^2}\\)"
+      ],
+      "answer": "\\(\\frac{2a}{3b}\\)",
+      "acceptedAnswers": [
+        "\\(\\frac{2a}{3b}\\)"
+      ],
+      "explanationZhHans": "原分式分子分母同除以2ab得2a/(3b)，需ab≠0。选项A即2a/(3b)；选项B约分后为2a/(3b)但需b≠0，与原分式定义域不同；选项C和D均不能化为2a/(3b)。故只有A正确。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-197",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "hjb-junior-s1-upper-algebraic-fractions",
+      "unitTitle": "分式",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "algebraic-fractions",
+        "fraction-domain",
+        "equivalent-fractions",
+        "fraction-operations",
+        "分式"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "分式意义",
+        "取值限制",
+        "分式基本性质",
+        "约分通分",
+        "分式运算"
+      ],
+      "misconceptionTags": [
+        "denominator restriction ignored",
+        "cancelling terms instead of factors",
+        "common denominator chosen incompletely"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-junior-s1-upper-algebraic-fractions"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-algebraic-fractions-unit",
+        "hjb-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-linear-inequalities",
+        "hjb-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Repaired offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "当 \\(x = -1\\) 时，分式 \\(\\frac{x^2-1}{x^2+3x+2}\\) 的值是______。",
+      "optionsZhHans": [],
+      "answer": "无意义",
+      "acceptedAnswers": [
+        "无意义"
+      ],
+      "explanationZhHans": "将x=-1代入分母得(-1)²+3×(-1)+2=1-3+2=0，分式无意义。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-199",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "hjb-junior-s1-upper-algebraic-fractions",
+      "unitTitle": "分式",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "algebraic-fractions",
+        "fraction-domain",
+        "equivalent-fractions",
+        "fraction-operations",
+        "分式"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "分式意义",
+        "取值限制",
+        "分式基本性质",
+        "约分通分",
+        "分式运算"
+      ],
+      "misconceptionTags": [
+        "denominator restriction ignored",
+        "cancelling terms instead of factors",
+        "common denominator chosen incompletely"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s1-upper-algebraic-fractions"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-algebraic-fractions-unit",
+        "hjb-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-linear-inequalities",
+        "hjb-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Repaired offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下列分式中，与 \\(\\frac{3a-6}{a^2-4}\\) 相等的是（ ）",
+      "optionsZhHans": [
+        "\\(\\frac{3}{a+2}\\)",
+        "\\(\\frac{3a-6}{(a+2)(a-2)}\\)",
+        "\\(\\frac{3(a-2)}{a^2-4}\\)",
+        "\\(\\frac{3}{a-2}\\)"
+      ],
+      "answer": "\\(\\frac{3}{a+2}\\)",
+      "acceptedAnswers": [
+        "\\(\\frac{3}{a+2}\\)"
+      ],
+      "explanationZhHans": "原分式分子提取3得3(a-2)，分母因式分解为(a+2)(a-2)。约去公因式(a-2)得3/(a+2)，需a≠±2。选项A即3/(a+2)；选项B未化简；选项C未约分；选项D为3/(a-2)，与原式不等。故只有A正确。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-258",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "hjb-junior-s1-lower-linear-inequalities",
+      "unitTitle": "一元一次不等式",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "linear-inequalities-one-variable",
+        "inequality-properties",
+        "solution-set",
+        "number-line",
+        "一元一次不等式"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "模型意识"
+      ],
+      "skillTags": [
+        "不等式性质",
+        "解一元一次不等式",
+        "解集表示",
+        "数轴表达",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "inequality direction not reversed",
+        "boundary point marked incorrectly",
+        "solution set treated as a single value"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s1-lower-linear-inequalities"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-linear-inequalities",
+        "hjb-junior-s1-lower-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Repaired offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某书店购进一批图书，每本进价5元，售价8元。当卖到还剩15本时，除去所有成本已获利120元。问该书店至少购进了多少本图书？",
+      "optionsZhHans": [],
+      "answer": "95",
+      "acceptedAnswers": [
+        "95"
+      ],
+      "explanationZhHans": "设购进x本，则已售(x-15)本。利润=售价-进价=8(x-15)-5x=120，解得x=95。此时“至少”指恰好获利120元时的最小购进量，即95本。"
+    }
+  ]
+}

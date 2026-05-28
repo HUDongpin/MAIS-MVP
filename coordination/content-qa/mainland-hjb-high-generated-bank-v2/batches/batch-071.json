@@ -1,0 +1,382 @@
+{
+  "batchId": "batch-071",
+  "generationMode": "batch-fallback",
+  "fallbackReason": "fill-missing-local",
+  "questions": [
+    {
+      "id": "hjb-high-ds-v2-s5-201",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-统计",
+      "topicTitleZhHans": "统计",
+      "volume": "必修 第三册",
+      "chapter": "统计",
+      "conceptIds": [
+        "sampling",
+        "data-distribution",
+        "statistical-charts",
+        "statistical-estimation",
+        "percentiles"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-3-statistics"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-3-statistics-unit-core",
+        "hjb-high-compulsory-3-final-full-volume-peiyou",
+        "pep-high-exam-probability-statistics"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0701：解答：一组数据为 5，7，9，求这组数据的平均数。",
+      "optionsZhHans": [],
+      "answer": "7",
+      "acceptedAnswers": [
+        "7"
+      ],
+      "explanationZhHans": "三数等差，中间数就是平均数，所以平均数为 7。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-202",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-统计",
+      "topicTitleZhHans": "统计",
+      "volume": "必修 第三册",
+      "chapter": "统计",
+      "conceptIds": [
+        "sampling",
+        "data-distribution",
+        "statistical-charts",
+        "statistical-estimation",
+        "percentiles"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-3-statistics"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-3-statistics-unit-core",
+        "hjb-high-compulsory-3-final-full-volume-peiyou",
+        "pep-high-exam-probability-statistics"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0702：选择：一组数据为 6，7，8，求这组数据的平均数。",
+      "optionsZhHans": [
+        "8",
+        "6",
+        "9",
+        "7"
+      ],
+      "answer": "7",
+      "acceptedAnswers": [
+        "7"
+      ],
+      "explanationZhHans": "三数等差，中间数就是平均数，所以平均数为 7。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-203",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-统计",
+      "topicTitleZhHans": "统计",
+      "volume": "必修 第三册",
+      "chapter": "统计",
+      "conceptIds": [
+        "sampling",
+        "data-distribution",
+        "statistical-charts",
+        "statistical-estimation",
+        "percentiles"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-3-statistics"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-3-statistics-unit-core",
+        "hjb-high-compulsory-3-final-full-volume-peiyou",
+        "pep-high-exam-probability-statistics"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0703：填空：一组数据为 9，22，35，求这组数据的平均数。",
+      "optionsZhHans": [],
+      "answer": "22",
+      "acceptedAnswers": [
+        "22"
+      ],
+      "explanationZhHans": "三数等差，中间数就是平均数，所以平均数为 22。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-204",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-统计",
+      "topicTitleZhHans": "统计",
+      "volume": "必修 第三册",
+      "chapter": "统计",
+      "conceptIds": [
+        "sampling",
+        "data-distribution",
+        "statistical-charts",
+        "statistical-estimation",
+        "percentiles"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-3-statistics"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-3-statistics-unit-core",
+        "hjb-high-compulsory-3-final-full-volume-peiyou",
+        "pep-high-exam-probability-statistics"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0704：解答：一组数据为 12，23，34，求这组数据的平均数。",
+      "optionsZhHans": [],
+      "answer": "23",
+      "acceptedAnswers": [
+        "23"
+      ],
+      "explanationZhHans": "三数等差，中间数就是平均数，所以平均数为 23。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-205",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-统计",
+      "topicTitleZhHans": "统计",
+      "volume": "必修 第三册",
+      "chapter": "统计",
+      "conceptIds": [
+        "sampling",
+        "data-distribution",
+        "statistical-charts",
+        "statistical-estimation",
+        "percentiles"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-3-statistics"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-3-statistics-unit-core",
+        "hjb-high-compulsory-3-final-full-volume-peiyou",
+        "pep-high-exam-probability-statistics"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0705：选择：一组数据为 4，5，6，求这组数据的平均数。",
+      "optionsZhHans": [
+        "6",
+        "4",
+        "5",
+        "7"
+      ],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5"
+      ],
+      "explanationZhHans": "三数等差，中间数就是平均数，所以平均数为 5。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-206",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-统计",
+      "topicTitleZhHans": "统计",
+      "volume": "必修 第三册",
+      "chapter": "统计",
+      "conceptIds": [
+        "sampling",
+        "data-distribution",
+        "statistical-charts",
+        "statistical-estimation",
+        "percentiles"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-3-statistics"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-3-statistics-unit-core",
+        "hjb-high-compulsory-3-final-full-volume-peiyou",
+        "pep-high-exam-probability-statistics"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0706：填空：一组数据为 4，14，24，求这组数据的平均数。",
+      "optionsZhHans": [],
+      "answer": "14",
+      "acceptedAnswers": [
+        "14"
+      ],
+      "explanationZhHans": "三数等差，中间数就是平均数，所以平均数为 14。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-207",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-统计",
+      "topicTitleZhHans": "统计",
+      "volume": "必修 第三册",
+      "chapter": "统计",
+      "conceptIds": [
+        "sampling",
+        "data-distribution",
+        "statistical-charts",
+        "statistical-estimation",
+        "percentiles"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-3-statistics"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-3-statistics-unit-core",
+        "hjb-high-compulsory-3-final-full-volume-peiyou",
+        "pep-high-exam-probability-statistics"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0707：解答：一组数据为 2，6，10，求这组数据的平均数。",
+      "optionsZhHans": [],
+      "answer": "6",
+      "acceptedAnswers": [
+        "6"
+      ],
+      "explanationZhHans": "三数等差，中间数就是平均数，所以平均数为 6。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-208",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-统计",
+      "topicTitleZhHans": "统计",
+      "volume": "必修 第三册",
+      "chapter": "统计",
+      "conceptIds": [
+        "sampling",
+        "data-distribution",
+        "statistical-charts",
+        "statistical-estimation",
+        "percentiles"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-3-statistics"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-3-statistics-unit-core",
+        "hjb-high-compulsory-3-final-full-volume-peiyou",
+        "pep-high-exam-probability-statistics"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0708：选择：一组数据为 3，14，25，求这组数据的平均数。",
+      "optionsZhHans": [
+        "15",
+        "14",
+        "13",
+        "16"
+      ],
+      "answer": "14",
+      "acceptedAnswers": [
+        "14"
+      ],
+      "explanationZhHans": "三数等差，中间数就是平均数，所以平均数为 14。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-209",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-统计",
+      "topicTitleZhHans": "统计",
+      "volume": "必修 第三册",
+      "chapter": "统计",
+      "conceptIds": [
+        "sampling",
+        "data-distribution",
+        "statistical-charts",
+        "statistical-estimation",
+        "percentiles"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-3-statistics"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-3-statistics-unit-core",
+        "hjb-high-compulsory-3-final-full-volume-peiyou",
+        "pep-high-exam-probability-statistics"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0709：填空：一组数据为 10，16，22，求这组数据的平均数。",
+      "optionsZhHans": [],
+      "answer": "16",
+      "acceptedAnswers": [
+        "16"
+      ],
+      "explanationZhHans": "三数等差，中间数就是平均数，所以平均数为 16。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-210",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-统计",
+      "topicTitleZhHans": "统计",
+      "volume": "必修 第三册",
+      "chapter": "统计",
+      "conceptIds": [
+        "sampling",
+        "data-distribution",
+        "statistical-charts",
+        "statistical-estimation",
+        "percentiles"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-3-statistics"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-3-statistics-unit-core",
+        "hjb-high-compulsory-3-final-full-volume-peiyou",
+        "pep-high-exam-probability-statistics"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0710：解答：一组数据为 6，9，12，求这组数据的平均数。",
+      "optionsZhHans": [],
+      "answer": "9",
+      "acceptedAnswers": [
+        "9"
+      ],
+      "explanationZhHans": "三数等差，中间数就是平均数，所以平均数为 9。"
+    }
+  ]
+}

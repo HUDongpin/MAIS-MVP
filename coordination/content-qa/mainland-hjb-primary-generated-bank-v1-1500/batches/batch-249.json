@@ -1,0 +1,305 @@
+{
+  "batchId": "batch-249",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p5-241",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-statistics-review",
+      "unitTitle": "统计表达与综合应用",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "statistical-displays",
+        "line-graphs",
+        "data-comparison",
+        "mixed-review",
+        "统计"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "反思整理"
+      ],
+      "skillTags": [
+        "统计图读取",
+        "数据比较",
+        "趋势描述",
+        "综合应用",
+        "错因检查"
+      ],
+      "misconceptionTags": [
+        "trend inferred from one point only",
+        "vertical scale read incorrectly",
+        "model chosen from keywords rather than quantities"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-statistics-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-data-average-unit",
+        "hjb-primary-p4-lower-assessment-line-statistics"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是某城市2023年1月至6月的月平均气温统计表：\n\n| 月份 | 1月 | 2月 | 3月 | 4月 | 5月 | 6月 |\n|------|------|------|------|------|------|------|\n| 平均气温（℃） | 2 | 5 | 10 | 16 | 21 | 25 |\n\n根据表中数据，下面哪个结论是正确的？",
+      "optionsZhHans": [
+        "这六个月的气温一直在上升",
+        "从1月到6月，气温上升了23℃",
+        "3月到4月的气温上升幅度比4月到5月大",
+        "6月的平均气温是1月的12.5倍"
+      ],
+      "answer": "从1月到6月，气温上升了23℃",
+      "acceptedAnswers": [
+        "从1月到6月，气温上升了23℃"
+      ],
+      "explanationZhHans": "1月气温2℃，6月气温25℃，上升了25-2=23℃，选项B正确。A错在“一直上升”需逐月比较，实际每月都上升，但表述绝对化易错；C中3-4月上升6℃，4-5月上升5℃，6>5，故C错；D中25÷2=12.5，但倍数是12.5倍，不是12.5，且气温倍数比较无实际意义，通常不这样描述。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-242",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-statistics-review",
+      "unitTitle": "统计表达与综合应用",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "statistical-displays",
+        "line-graphs",
+        "data-comparison",
+        "mixed-review",
+        "统计"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "反思整理"
+      ],
+      "skillTags": [
+        "统计图读取",
+        "数据比较",
+        "趋势描述",
+        "综合应用",
+        "错因检查"
+      ],
+      "misconceptionTags": [
+        "trend inferred from one point only",
+        "vertical scale read incorrectly",
+        "model chosen from keywords rather than quantities"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-statistics-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-data-average-unit",
+        "hjb-primary-p4-lower-assessment-line-statistics"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丁记录了上海某公园一周内每天上午8时的气温（单位：℃），数据如下：\n周一：12，周二：14，周三：11，周四：15，周五：16，周六：18，周日：17。\n根据这些数据，下面哪句话是正确的？",
+      "optionsZhHans": [
+        "这一周每天上午8时的气温都在上升。",
+        "周六上午8时的气温最高，是18℃。",
+        "周三到周四气温上升得最快。",
+        "周一到周二气温下降了。"
+      ],
+      "answer": "周六上午8时的气温最高，是18℃。",
+      "acceptedAnswers": [
+        "周六上午8时的气温最高，是18℃。"
+      ],
+      "explanationZhHans": "从数据看，周六18℃是最高值，所以选项B正确。A错在气温有升有降；C错在周三到周四上升4℃，但周五到周六上升2℃，周日还下降了，并非最快；D错在周一到周二从12℃升到14℃，是上升而非下降。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-243",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-statistics-review",
+      "unitTitle": "统计表达与综合应用",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "statistical-displays",
+        "line-graphs",
+        "data-comparison",
+        "mixed-review",
+        "统计"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "反思整理"
+      ],
+      "skillTags": [
+        "统计图读取",
+        "数据比较",
+        "趋势描述",
+        "综合应用",
+        "错因检查"
+      ],
+      "misconceptionTags": [
+        "trend inferred from one point only",
+        "vertical scale read incorrectly",
+        "model chosen from keywords rather than quantities"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-statistics-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-data-average-unit",
+        "hjb-primary-p4-lower-assessment-line-statistics"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是某城市2024年1月至6月每月空气质量为“优”的天数统计表。\n\n月份：1月、2月、3月、4月、5月、6月\n优的天数：12天、10天、15天、18天、22天、20天\n\n根据这些数据，下面哪个说法是正确的？",
+      "optionsZhHans": [
+        "这6个月中，空气质量为“优”的天数一直在增加。",
+        "3月的“优”天数比2月增加了5天。",
+        "这6个月“优”天数的变化趋势是先减少后增加。",
+        "5月的“优”天数最多，所以5月的空气质量最好。"
+      ],
+      "answer": "3月的“优”天数比2月增加了5天。",
+      "acceptedAnswers": [
+        "3月的“优”天数比2月增加了5天。"
+      ],
+      "explanationZhHans": "2月10天，3月15天，15-10=5，所以3月比2月增加5天，选项B正确。A错在1月到2月是减少的；C错在趋势是先减后增再减；D错在仅凭优天数不能直接判断空气质量最好，还需考虑其他因素。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-244",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-statistics-review",
+      "unitTitle": "统计表达与综合应用",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "statistical-displays",
+        "line-graphs",
+        "data-comparison",
+        "mixed-review",
+        "统计"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "反思整理"
+      ],
+      "skillTags": [
+        "统计图读取",
+        "数据比较",
+        "趋势描述",
+        "综合应用",
+        "错因检查"
+      ],
+      "misconceptionTags": [
+        "trend inferred from one point only",
+        "vertical scale read incorrectly",
+        "model chosen from keywords rather than quantities"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-statistics-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-data-average-unit",
+        "hjb-primary-p4-lower-assessment-line-statistics"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下表记录了乐乐连续6天练习跳绳的个数：\n\n| 天数 | 第1天 | 第2天 | 第3天 | 第4天 | 第5天 | 第6天 |\n|------|-------|-------|-------|-------|-------|-------|\n| 个数 | 120   | 135   | 128   | 142   | 138   | 145   |\n\n根据表中数据，下面说法正确的是（ ）。",
+      "optionsZhHans": [
+        "A. 乐乐第6天跳的个数最多，所以第6天进步最大",
+        "B. 从第1天到第6天，乐乐跳绳的个数一直在增加",
+        "C. 第2天比第1天多跳15个，第4天比第3天多跳14个，所以第2天到第3天的进步比第3天到第4天的大",
+        "D. 第5天比第4天少跳4个，说明第5天比第4天退步了"
+      ],
+      "answer": "D. 第5天比第4天少跳4个，说明第5天比第4天退步了",
+      "acceptedAnswers": [
+        "D. 第5天比第4天少跳4个，说明第5天比第4天退步了"
+      ],
+      "explanationZhHans": "第5天138个，第4天142个，138<142，个数减少，所以第5天比第4天退步了。A错在“进步最大”要看增加量，第6天比第5天多7个，并非最大增加量。B错在第3天128个比第2天135个少，不是一直增加。C错在比较对象错误，第2天到第3天是减少，不是进步。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-245",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-statistics-review",
+      "unitTitle": "统计表达与综合应用",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "statistical-displays",
+        "line-graphs",
+        "data-comparison",
+        "mixed-review",
+        "统计"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "反思整理"
+      ],
+      "skillTags": [
+        "统计图读取",
+        "数据比较",
+        "趋势描述",
+        "综合应用",
+        "错因检查"
+      ],
+      "misconceptionTags": [
+        "trend inferred from one point only",
+        "vertical scale read incorrectly",
+        "model chosen from keywords rather than quantities"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-statistics-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-data-average-unit",
+        "hjb-primary-p4-lower-assessment-line-statistics"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是某城市2024年1月至6月每月空气质量为“优”的天数统计表。\n\n| 月份 | 1月 | 2月 | 3月 | 4月 | 5月 | 6月 |\n|------|-----|-----|-----|-----|-----|-----|\n| 天数 | 11  | 10  | 12  | 15  | 18  | 20  |\n\n根据表中数据，下面哪句话是正确的？",
+      "optionsZhHans": [
+        "A. 这6个月中，空气质量为“优”的天数一直在增加。",
+        "B. 3月的天数比2月增加了2天。",
+        "C. 6月的天数比1月增加了12天。",
+        "D. 4月的天数比3月增加了2天。"
+      ],
+      "answer": "B. 3月的天数比2月增加了2天。",
+      "acceptedAnswers": [
+        "B. 3月的天数比2月增加了2天。"
+      ],
+      "explanationZhHans": "从表中可知：1月11天，2月10天，3月12天，4月15天，5月18天，6月20天。A项：2月比1月少，并非一直增加；B项：12-10=2，正确；C项：20-11=9，不是12；D项：15-12=3，不是2。因此只有B正确。"
+    }
+  ]
+}

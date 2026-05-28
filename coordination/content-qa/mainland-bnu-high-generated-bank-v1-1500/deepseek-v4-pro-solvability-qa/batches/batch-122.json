@@ -1,0 +1,138 @@
+{
+  "batchNumber": 122,
+  "startedAt": "2026-05-27T14:04:26.416Z",
+  "completedAt": "2026-05-27T14:04:44.600Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-469",
+    "bnu-high-ds-v1-s5-470",
+    "bnu-high-ds-v1-s5-471",
+    "bnu-high-ds-v1-s5-472",
+    "bnu-high-ds-v1-s5-473",
+    "bnu-high-ds-v1-s5-474",
+    "bnu-high-ds-v1-s5-475",
+    "bnu-high-ds-v1-s5-476"
+  ],
+  "usage": {
+    "prompt_tokens": 11236,
+    "completion_tokens": 1117,
+    "total_tokens": 12353,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10724
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-469",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "两个分类变量有关系的可能性越大",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "独立性检验中K²观测值越大，拒绝无关假设的证据越强，即有关系的可能性越大，选项B正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-470",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "3.9",
+        "correctedAnswer": null,
+        "issueTags": [
+          "explanation_contradiction"
+        ],
+        "severity": "major",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，答案3.9正确，但解析中计算过程有误：∑xi²应为98.39，但实际计算得90.39，导致b值偏差，最终结果虽巧合一致，但解析步骤错误，与正确计算不符。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-471",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "阅读时间每增加1小时，语文成绩平均提高约5分",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "数据呈完美线性，回归系数为5，选项B正确，解析合理。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-472",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "K²≈8.33，能认为有关",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "K²计算正确，大于3.841，拒绝独立假设，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-473",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "显著增大",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "去掉偏离点后剩余点几乎共线，相关系数增大，选项B正确，解析合理。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-474",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "0.630",
+        "correctedAnswer": "0.630",
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "根据给定数据计算得b=0.63，保留三位小数为0.630，但答案给出0.670，解析中计算过程也错误，答案与正确结果不符。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-475",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "数学成绩与物理成绩之间存在高度正相关",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "r=0.92表明高度正相关，B正确，解析对错误选项的辨析合理。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-476",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "26.7",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "代入回归方程计算正确，答案与解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 1,
+      "fail": 1,
+      "notes": "第470题解析计算过程有误但答案巧合正确，第474题答案与正确计算不符，需修正。"
+    }
+  }
+}

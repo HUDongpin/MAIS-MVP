@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-128",
+  "startedAt": "2026-05-28T01:32:44.943Z",
+  "completedAt": "2026-05-28T01:33:01.509Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-017",
+    "bnu-high-ds-v1-s6-018",
+    "bnu-high-ds-v1-s6-019",
+    "bnu-high-ds-v1-s6-020",
+    "bnu-high-ds-v1-s6-021",
+    "bnu-high-ds-v1-s6-022",
+    "bnu-high-ds-v1-s6-023",
+    "bnu-high-ds-v1-s6-024"
+  ],
+  "usage": {
+    "prompt_tokens": 9994,
+    "completion_tokens": 1226,
+    "total_tokens": 11220,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9610
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-017",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "a_n = 2·3^{n-1} - 1",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "递推式 a_{n+1}=3a_n+2 可构造等比数列：设 a_{n+1}+1=3(a_n+1)，得 a_n+1 是以 2 为首项、3 为公比的等比数列，故 a_n=2·3^{n-1}-1。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-018",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由等比数列通项 a_n=a_1 q^{n-1}，a_2=a_1 q=6，a_5=a_1 q^4=48，两式相除得 q^3=8，故 q=2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-019",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "2^n - 1",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "递推式 a_{n+1}=a_n+2^n，累加得 a_n=1+2+2^2+...+2^{n-1}=2^n-1，对应选项 A。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-020",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "a_1=1, d=2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由等差数列求和公式 S_n=n a_1+n(n-1)d/2，代入 S_5=25, S_10=100 得方程组 5a_1+10d=25, 10a_1+45d=100，解得 a_1=1, d=2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-021",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "b_n 是首项为 2、公比为 3 的等比数列；a_n=2·3^{n-1}+2n-1",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由 b_n=a_n-2n+1，计算 b_{n+1}=a_{n+1}-2(n+1)+1=3a_n-4n+5-2n-1=3(a_n-2n+1)=3b_n，且 b_1=2，故 {b_n} 是等比数列，a_n=b_n+2n-1=2·3^{n-1}+2n-1。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-022",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "等差数列中 a_3+a_7=2a_5=20 得 a_5=10，a_5+a_9=2a_7=28 得 a_7=14，公差 d=(a_7-a_5)/2=2，a_1=a_5-4d=2，对应选项 A。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-023",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "a_n = 2^n - 1",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "与第19题相同，递推式 a_{n+1}=a_n+2^n，累加得 a_n=2^n-1。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-024",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "48",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "等比数列通项 a_n=a_1 q^{n-1}，a_5=3·(-2)^4=3·16=48。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，无数学错误、歧义或缺失条件，符合北师大版高中数列章节要求。"
+    }
+  }
+}

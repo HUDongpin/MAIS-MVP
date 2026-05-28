@@ -1,0 +1,311 @@
+{
+  "batchId": "batch-025",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s1-k04-fi-007",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-data-collection"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "在平面直角坐标系中，点A的坐标是（3，-4），点B与点A关于x轴对称。请写出点B的坐标，并说明点B所在的象限。",
+      "optionsZhHans": [],
+      "answer": "（3，4），第一象限",
+      "acceptedAnswers": [
+        "（3，4），第一象限",
+        "（3,4），第一象限",
+        "（3，4）第一象限",
+        "（3,4）第一象限"
+      ],
+      "explanationZhHans": "关于x轴对称的点，横坐标相同，纵坐标互为相反数。点A（3，-4）关于x轴对称的点B的横坐标仍为3，纵坐标变为4，所以点B的坐标为（3，4）。点B的横坐标3>0，纵坐标4>0，因此点B在第一象限。故答案为（3，4），第一象限。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-fi-008",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-coordinate-plane"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "小明的学校组织参观科技馆，门票价格为成人票每张30元，学生票每张20元。七年级（1）班共有45名学生和2名老师一起去参观，购买门票一共需要多少元？",
+      "optionsZhHans": [],
+      "answer": "960",
+      "acceptedAnswers": [
+        "960",
+        "960元"
+      ],
+      "explanationZhHans": "学生票总价为45×20=900元，老师票总价为2×30=60元，合计900+60=960元。故答案为960。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-fi-009",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "为了解七年级学生每天的睡眠时间，学校随机抽取了50名学生进行调查，发现平均睡眠时间为8.2小时。下列说法正确的是：A. 全校七年级学生每天的睡眠时间一定是8.2小时；B. 样本是50名学生；C. 该调查是全面调查；D. 样本容量是8.2。请将正确选项的字母填入空格。",
+      "optionsZhHans": [],
+      "answer": "B",
+      "acceptedAnswers": [
+        "B",
+        "b"
+      ],
+      "explanationZhHans": "选项A错误，因为样本的平均数不一定等于总体的平均数；选项B正确，样本是所抽取的50名学生；选项C错误，随机抽取50名学生是抽样调查，不是全面调查；选项D错误，样本容量是50，不是8.2。故答案为B。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-fi-010",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "某商店销售一种文具，每件进价为8元，售价为12元。一天卖出这种文具x件，获利y元。请写出y关于x的函数关系式。",
+      "optionsZhHans": [],
+      "answer": "y=4x",
+      "acceptedAnswers": [
+        "y=4x",
+        "y=4x（x为正整数）",
+        "y=4x（x>0）"
+      ],
+      "explanationZhHans": "每件的利润为12-8=4元，卖出x件的总利润y=4x。故答案为y=4x。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-fi-011",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-real-numbers"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "在平面直角坐标系中，将点P（-2，5）先向右平移3个单位，再向下平移4个单位，得到点Q。请写出点Q的坐标。",
+      "optionsZhHans": [],
+      "answer": "（1，1）",
+      "acceptedAnswers": [
+        "（1，1）",
+        "（1,1）"
+      ],
+      "explanationZhHans": "点P（-2，5）向右平移3个单位，横坐标加3，得-2+3=1；向下平移4个单位，纵坐标减4，得5-4=1。所以点Q的坐标为（1，1）。故答案为（1，1）。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-fi-012",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-linear-systems"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "已知二元一次方程组：x+y=8，2x-y=1。请写出这个方程组的解。",
+      "optionsZhHans": [],
+      "answer": "x=3，y=5",
+      "acceptedAnswers": [
+        "x=3，y=5",
+        "x=3,y=5",
+        "（3，5）",
+        "（3,5）"
+      ],
+      "explanationZhHans": "将两个方程相加消去y：（x+y）+（2x-y）=8+1，得3x=9，解得x=3。把x=3代入x+y=8，得3+y=8，解得y=5。所以方程组的解为x=3，y=5。故答案为x=3，y=5。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-fi-013",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-inequalities"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "某次知识竞赛共有20道题，答对一题得5分，答错或不答一题扣2分。小明想要得分不低于70分，他至少需要答对多少道题？",
+      "optionsZhHans": [],
+      "answer": "16",
+      "acceptedAnswers": [
+        "16",
+        "16道"
+      ],
+      "explanationZhHans": "设小明答对x道题，则答错或不答（20-x）道题。得分5x-2(20-x)≥70，化简得5x-40+2x≥70，7x≥110，x≥110/7≈15.71。因为x为整数，所以x至少为16。故答案为16。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-fi-014",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-data-collection"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "为了解某小区居民对垃圾分类的知晓情况，社区工作人员从该小区2000户居民中随机抽取了200户进行问卷调查。在这个问题中，总体是什么？",
+      "optionsZhHans": [],
+      "answer": "该小区2000户居民对垃圾分类的知晓情况",
+      "acceptedAnswers": [
+        "该小区2000户居民对垃圾分类的知晓情况",
+        "2000户居民对垃圾分类的知晓情况"
+      ],
+      "explanationZhHans": "总体是指所要考察对象的全体，这里要了解的是该小区2000户居民对垃圾分类的知晓情况，所以总体是该小区2000户居民对垃圾分类的知晓情况。故答案为该小区2000户居民对垃圾分类的知晓情况。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-fi-015",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-coordinate-plane"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "在平面直角坐标系中，有一条线段AB，端点A的坐标为（2，-3），端点B的坐标为（-1，4）。将线段AB平移，使点A移动到点A'（5，1），则点B的对应点B'的坐标是什么？",
+      "optionsZhHans": [],
+      "answer": "（2，8）",
+      "acceptedAnswers": [
+        "（2，8）",
+        "（2,8）"
+      ],
+      "explanationZhHans": "由点A（2，-3）平移到A'（5，1），横坐标增加了5-2=3，纵坐标增加了1-(-3)=4。所以平移规律是向右平移3个单位，向上平移4个单位。点B（-1，4）按此规律平移，横坐标-1+3=2，纵坐标4+4=8，得到B'（2，8）。故答案为（2，8）。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-fi-016",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "直线a∥b，直线c与a、b相交，∠1=70°，求∠2的度数。",
+      "optionsZhHans": [],
+      "answer": "110°",
+      "acceptedAnswers": [
+        "110°",
+        "110度",
+        "110"
+      ],
+      "explanationZhHans": "因为a∥b，∠1和∠2是同旁内角，两直线平行，同旁内角互补，所以∠1+∠2=180°。已知∠1=70°，则∠2=180°-70°=110°。故答案为110°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

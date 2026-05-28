@@ -1,0 +1,50 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-491",
+  "startedAt": "2026-05-28T01:57:24.608Z",
+  "completedAt": "2026-05-28T01:57:29.145Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-491"
+  ],
+  "usage": {
+    "prompt_tokens": 2691,
+    "completion_tokens": 263,
+    "total_tokens": 2954,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2307
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-491",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "independentAnswer": null,
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "unsolvable",
+          "ambiguous_mc",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "由a1=2得b1=0，递推得bn恒为0，Sn=0，但选项无0，题目无正确选项，不可解。解析随意修改a1，与题目矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目条件a1=2导致bn恒为0，Sn=0，选项无匹配，题目不可解，判定为blocker。"
+    }
+  }
+}

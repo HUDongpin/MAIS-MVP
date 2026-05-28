@@ -1,0 +1,48 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-327",
+  "startedAt": "2026-05-28T01:50:04.592Z",
+  "completedAt": "2026-05-28T01:50:08.724Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-327"
+  ],
+  "usage": {
+    "prompt_tokens": 2451,
+    "completion_tokens": 240,
+    "total_tokens": 2691,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2067
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-327",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "0",
+        "correctedAnswer": "0",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，唯一正确答案为 k=0。存储答案“0 或 9/4”错误，解析中引入 t=-1/2 导致多出 9/4，与正确解法矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "存储答案错误，解析存在数学错误，判定为 blocker。"
+    }
+  }
+}

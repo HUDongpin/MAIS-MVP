@@ -1,0 +1,191 @@
+{
+  "batchNumber": 35,
+  "startedAt": "2026-05-25T02:04:30.805Z",
+  "completedAt": "2026-05-25T02:04:50.984Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p3-113",
+    "hjb-primary-ds-v1-p3-114",
+    "hjb-primary-ds-v1-p3-115",
+    "hjb-primary-ds-v1-p3-116",
+    "hjb-primary-ds-v1-p3-117",
+    "hjb-primary-ds-v1-p3-118",
+    "hjb-primary-ds-v1-p3-119",
+    "hjb-primary-ds-v1-p3-120",
+    "hjb-primary-ds-v1-p3-121",
+    "hjb-primary-ds-v1-p3-122",
+    "hjb-primary-ds-v1-p3-123",
+    "hjb-primary-ds-v1-p3-124",
+    "hjb-primary-ds-v1-p3-125",
+    "hjb-primary-ds-v1-p3-126",
+    "hjb-primary-ds-v1-p3-127",
+    "hjb-primary-ds-v1-p3-128",
+    "hjb-primary-ds-v1-p3-129",
+    "hjb-primary-ds-v1-p3-130"
+  ],
+  "usage": {
+    "prompt_tokens": 4101,
+    "completion_tokens": 1382,
+    "total_tokens": 5483,
+    "prompt_tokens_details": {
+      "cached_tokens": 4096
+    },
+    "prompt_cache_hit_tokens": 4096,
+    "prompt_cache_miss_tokens": 5
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p3-113",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案和解释均无误，符合三年级分数初步认识要求。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-114",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案9颗，解释清晰，符合三年级分数应用要求。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-115",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项设计合理，正确选项明确，其他选项均有错误，符合分数概念考查。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-116",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案3/8，解释合理，符合分数初步认识。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-117",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案2/5，解释清晰，符合分数意义考查。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-118",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "规律简单，答案20根正确，选项无歧义，符合三年级规律探索。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-119",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案和解释正确，acceptedAnswers覆盖合理，符合错题分析要求。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-120",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案96本，解释清晰，符合三年级倍数应用。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-121",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "运算顺序考查，答案28正确，选项包含常见错误，设计合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-122",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "规律正确，答案16根，解释清晰，符合三年级找规律。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-123",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "对折问题正确，答案64厘米，解释清晰，acceptedAnswers覆盖合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-124",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项设计合理，正确选项C，其他选项错误明显，符合倍数应用。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-125",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "规律正确，答案36，解释清晰，符合三年级探索规律。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-126",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "策略名称和解释正确，acceptedAnswers覆盖多种表述，合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-127",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项设计合理，正确选项明确，符合估算策略考查。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-128",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案逆运算正确，acceptedAnswers覆盖合理，符合乘除关系。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-129",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "策略名称和解释正确，acceptedAnswers覆盖多种表述，合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-130",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项设计合理，正确选项明确，符合整理复习方法。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合沪教版三年级要求，数学正确，答案匹配，无歧义或缺失条件，适合公共题库使用。"
+    }
+  }
+}

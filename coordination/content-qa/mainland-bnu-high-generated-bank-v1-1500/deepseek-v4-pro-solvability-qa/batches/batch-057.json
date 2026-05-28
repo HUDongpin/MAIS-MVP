@@ -1,0 +1,133 @@
+{
+  "batchNumber": 57,
+  "startedAt": "2026-05-27T13:53:31.762Z",
+  "completedAt": "2026-05-27T13:53:45.524Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-449",
+    "bnu-high-ds-v1-s4-450",
+    "bnu-high-ds-v1-s4-451",
+    "bnu-high-ds-v1-s4-452",
+    "bnu-high-ds-v1-s4-453",
+    "bnu-high-ds-v1-s4-454",
+    "bnu-high-ds-v1-s4-455",
+    "bnu-high-ds-v1-s4-456"
+  ],
+  "usage": {
+    "prompt_tokens": 10439,
+    "completion_tokens": 986,
+    "total_tokens": 11425,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 9927
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-449",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "1/2 - (3/2)i",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可独立求解，答案与独立计算结果一致，解析正确且与答案匹配。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-450",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "a=2, b=3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可独立求解，答案与独立计算结果一致，解析正确且与答案匹配。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-451",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "第一象限",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可独立求解，答案与独立计算结果一致，解析正确且与答案匹配。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-452",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "1 - i",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可独立求解，答案与独立计算结果一致，解析正确且与答案匹配。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-453",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "-2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可独立求解，答案与独立计算结果一致，解析正确且与答案匹配。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-454",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "√13",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可独立求解，答案与独立计算结果一致，解析正确且与答案匹配。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-455",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可独立求解，答案与独立计算结果一致，解析正确且与答案匹配。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-456",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "4",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可独立求解，答案与独立计算结果一致，解析正确且与答案匹配。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8道题均可独立求解，答案与解析均正确匹配，无任何问题。"
+    }
+  }
+}

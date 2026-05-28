@@ -1,0 +1,382 @@
+{
+  "batchId": "batch-067",
+  "generationMode": "batch-fallback",
+  "fallbackReason": "fill-missing-local",
+  "questions": [
+    {
+      "id": "hjb-high-ds-v2-s5-161",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-概率初步",
+      "topicTitleZhHans": "概率初步",
+      "volume": "必修 第三册",
+      "chapter": "概率初步",
+      "conceptIds": [
+        "probability-foundations",
+        "sample-space",
+        "random-events",
+        "probability-operations",
+        "independence"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-3-probability-foundations"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-3-probability-foundations-unit-core",
+        "hjb-high-compulsory-3-final-full-volume-peiyou",
+        "pep-high-exam-probability-statistics"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0661：填空：袋中有 6 个红球和 8 个蓝球，随机取出 1 个，取到红球的概率是多少？",
+      "optionsZhHans": [],
+      "answer": "6/14",
+      "acceptedAnswers": [
+        "6/14"
+      ],
+      "explanationZhHans": "总球数为 14，红球 6 个，所以概率为 6/14。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-162",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-概率初步",
+      "topicTitleZhHans": "概率初步",
+      "volume": "必修 第三册",
+      "chapter": "概率初步",
+      "conceptIds": [
+        "probability-foundations",
+        "sample-space",
+        "random-events",
+        "probability-operations",
+        "independence"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-3-probability-foundations"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-3-probability-foundations-unit-core",
+        "hjb-high-compulsory-3-final-full-volume-peiyou",
+        "pep-high-exam-probability-statistics"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0662：解答：袋中有 11 个红球和 14 个蓝球，随机取出 1 个，取到红球的概率是多少？",
+      "optionsZhHans": [],
+      "answer": "11/25",
+      "acceptedAnswers": [
+        "11/25"
+      ],
+      "explanationZhHans": "总球数为 25，红球 11 个，所以概率为 11/25。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-163",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-概率初步",
+      "topicTitleZhHans": "概率初步",
+      "volume": "必修 第三册",
+      "chapter": "概率初步",
+      "conceptIds": [
+        "probability-foundations",
+        "sample-space",
+        "random-events",
+        "probability-operations",
+        "independence"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-3-probability-foundations"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-3-probability-foundations-unit-core",
+        "hjb-high-compulsory-3-final-full-volume-peiyou",
+        "pep-high-exam-probability-statistics"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0663：选择：袋中有 5 个红球和 4 个蓝球，随机取出 1 个，取到红球的概率是多少？",
+      "optionsZhHans": [
+        "4/9",
+        "6/9",
+        "5/10",
+        "5/9"
+      ],
+      "answer": "5/9",
+      "acceptedAnswers": [
+        "5/9"
+      ],
+      "explanationZhHans": "总球数为 9，红球 5 个，所以概率为 5/9。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-164",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-概率初步",
+      "topicTitleZhHans": "概率初步",
+      "volume": "必修 第三册",
+      "chapter": "概率初步",
+      "conceptIds": [
+        "probability-foundations",
+        "sample-space",
+        "random-events",
+        "probability-operations",
+        "independence"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-3-probability-foundations"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-3-probability-foundations-unit-core",
+        "hjb-high-compulsory-3-final-full-volume-peiyou",
+        "pep-high-exam-probability-statistics"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0664：填空：袋中有 11 个红球和 6 个蓝球，随机取出 1 个，取到红球的概率是多少？",
+      "optionsZhHans": [],
+      "answer": "11/17",
+      "acceptedAnswers": [
+        "11/17"
+      ],
+      "explanationZhHans": "总球数为 17，红球 11 个，所以概率为 11/17。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-165",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-概率初步",
+      "topicTitleZhHans": "概率初步",
+      "volume": "必修 第三册",
+      "chapter": "概率初步",
+      "conceptIds": [
+        "probability-foundations",
+        "sample-space",
+        "random-events",
+        "probability-operations",
+        "independence"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-3-probability-foundations"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-3-probability-foundations-unit-core",
+        "hjb-high-compulsory-3-final-full-volume-peiyou",
+        "pep-high-exam-probability-statistics"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0665：解答：袋中有 10 个红球和 12 个蓝球，随机取出 1 个，取到红球的概率是多少？",
+      "optionsZhHans": [],
+      "answer": "10/22",
+      "acceptedAnswers": [
+        "10/22"
+      ],
+      "explanationZhHans": "总球数为 22，红球 10 个，所以概率为 10/22。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-166",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-统计",
+      "topicTitleZhHans": "统计",
+      "volume": "必修 第三册",
+      "chapter": "统计",
+      "conceptIds": [
+        "sampling",
+        "data-distribution",
+        "statistical-charts",
+        "statistical-estimation",
+        "percentiles"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-3-statistics"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-3-statistics-unit-core",
+        "hjb-high-compulsory-3-final-full-volume-peiyou",
+        "pep-high-exam-probability-statistics"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0666：选择：一组数据为 3，16，29，求这组数据的平均数。",
+      "optionsZhHans": [
+        "16",
+        "17",
+        "15",
+        "18"
+      ],
+      "answer": "16",
+      "acceptedAnswers": [
+        "16"
+      ],
+      "explanationZhHans": "三数等差，中间数就是平均数，所以平均数为 16。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-167",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-统计",
+      "topicTitleZhHans": "统计",
+      "volume": "必修 第三册",
+      "chapter": "统计",
+      "conceptIds": [
+        "sampling",
+        "data-distribution",
+        "statistical-charts",
+        "statistical-estimation",
+        "percentiles"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-3-statistics"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-3-statistics-unit-core",
+        "hjb-high-compulsory-3-final-full-volume-peiyou",
+        "pep-high-exam-probability-statistics"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0667：填空：一组数据为 8，19，30，求这组数据的平均数。",
+      "optionsZhHans": [],
+      "answer": "19",
+      "acceptedAnswers": [
+        "19"
+      ],
+      "explanationZhHans": "三数等差，中间数就是平均数，所以平均数为 19。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-168",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-统计",
+      "topicTitleZhHans": "统计",
+      "volume": "必修 第三册",
+      "chapter": "统计",
+      "conceptIds": [
+        "sampling",
+        "data-distribution",
+        "statistical-charts",
+        "statistical-estimation",
+        "percentiles"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-3-statistics"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-3-statistics-unit-core",
+        "hjb-high-compulsory-3-final-full-volume-peiyou",
+        "pep-high-exam-probability-statistics"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0668：解答：一组数据为 4，9，14，求这组数据的平均数。",
+      "optionsZhHans": [],
+      "answer": "9",
+      "acceptedAnswers": [
+        "9"
+      ],
+      "explanationZhHans": "三数等差，中间数就是平均数，所以平均数为 9。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-169",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-统计",
+      "topicTitleZhHans": "统计",
+      "volume": "必修 第三册",
+      "chapter": "统计",
+      "conceptIds": [
+        "sampling",
+        "data-distribution",
+        "statistical-charts",
+        "statistical-estimation",
+        "percentiles"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-3-statistics"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-3-statistics-unit-core",
+        "hjb-high-compulsory-3-final-full-volume-peiyou",
+        "pep-high-exam-probability-statistics"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0669：选择：一组数据为 8，11，14，求这组数据的平均数。",
+      "optionsZhHans": [
+        "12",
+        "11",
+        "10",
+        "13"
+      ],
+      "answer": "11",
+      "acceptedAnswers": [
+        "11"
+      ],
+      "explanationZhHans": "三数等差，中间数就是平均数，所以平均数为 11。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-170",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-统计",
+      "topicTitleZhHans": "统计",
+      "volume": "必修 第三册",
+      "chapter": "统计",
+      "conceptIds": [
+        "sampling",
+        "data-distribution",
+        "statistical-charts",
+        "statistical-estimation",
+        "percentiles"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-3-statistics"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-3-statistics-unit-core",
+        "hjb-high-compulsory-3-final-full-volume-peiyou",
+        "pep-high-exam-probability-statistics"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0670：填空：一组数据为 11，13，15，求这组数据的平均数。",
+      "optionsZhHans": [],
+      "answer": "13",
+      "acceptedAnswers": [
+        "13"
+      ],
+      "explanationZhHans": "三数等差，中间数就是平均数，所以平均数为 13。"
+    }
+  ]
+}

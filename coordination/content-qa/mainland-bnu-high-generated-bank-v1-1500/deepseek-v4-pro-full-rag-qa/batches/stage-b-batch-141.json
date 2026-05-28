@@ -1,0 +1,135 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-141",
+  "startedAt": "2026-05-28T01:41:46.674Z",
+  "completedAt": "2026-05-28T01:42:01.288Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-121",
+    "bnu-high-ds-v1-s6-122",
+    "bnu-high-ds-v1-s6-123",
+    "bnu-high-ds-v1-s6-124",
+    "bnu-high-ds-v1-s6-125",
+    "bnu-high-ds-v1-s6-126",
+    "bnu-high-ds-v1-s6-127",
+    "bnu-high-ds-v1-s6-128"
+  ],
+  "usage": {
+    "prompt_tokens": 11986,
+    "completion_tokens": 1073,
+    "total_tokens": 13059,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 11602
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-121",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，均为选项B；解析正确推导出{b_n}为公比2的等比数列。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-122",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案0与独立解一致；解析通过公差计算得出S_15=0，过程正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-123",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案n^2与独立解一致；解析使用累加法得出a_n=n^2，正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-124",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案10与独立解一致；解析利用等比性质和对数运算得出10，正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-125",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "260",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案为240，但独立解和解析均得出260；解析计算过程正确但最终答案写错，存在矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-126",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案3^n-1与独立解一致；解析通过构造等比数列得出正确通项。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-127",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "correctedAnswer": "S_100 < 20",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "ambiguous_mc",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立解指出S_100<20恒成立，选项A正确；存储答案选B（S_100>30）错误，且解析中的积分估计有误，导致结论矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-128",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案13/16与独立解一致；解析通过等比条件和等差数列通项得出正确比值。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 0,
+      "fail": 2,
+      "notes": "8题中6题通过，2题失败：第125题存储答案240错误，应为260；第127题存储答案S_100>30错误，应为S_100<20。"
+    }
+  }
+}

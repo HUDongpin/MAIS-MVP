@@ -1,0 +1,131 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-099",
+  "startedAt": "2026-05-28T01:23:35.789Z",
+  "completedAt": "2026-05-28T01:23:49.136Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-285",
+    "bnu-high-ds-v1-s5-286",
+    "bnu-high-ds-v1-s5-287",
+    "bnu-high-ds-v1-s5-288",
+    "bnu-high-ds-v1-s5-289",
+    "bnu-high-ds-v1-s5-290",
+    "bnu-high-ds-v1-s5-291",
+    "bnu-high-ds-v1-s5-292"
+  ],
+  "usage": {
+    "prompt_tokens": 12689,
+    "completion_tokens": 992,
+    "total_tokens": 13681,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 12305
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-285",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，均为(2,7)或(3,9)，解析过程正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-286",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": "(-∞, -1] ∪ [1, +∞)",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，但解析中错误地由中点条件解得k=-1，且后续推导混乱，最终结论与解析矛盾。正确解法应利用中点轨迹或弦中点性质直接得k²≥1。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-287",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-288",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案100与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-289",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [
+          "explanation_contradiction"
+        ],
+        "severity": "minor",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案65与独立解一致，但解析中先出现错误计算64，后修正为65，过程有矛盾，可能误导学生。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-290",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案74与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-291",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案60与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-292",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案96与独立解一致，解析正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 1,
+      "fail": 1,
+      "notes": "第286题解析错误，与答案矛盾；第289题解析有矛盾但答案正确；其余题目均通过。"
+    }
+  }
+}

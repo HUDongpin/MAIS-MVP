@@ -1,0 +1,585 @@
+{
+  "batchId": "batch-124",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p5-231",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-data-analysis",
+      "unitTitle": "数据的表示和分析",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "data-representation-analysis",
+        "statistical-charts",
+        "average",
+        "data-comparison",
+        "数据表示分析"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "选择统计图",
+        "读统计图",
+        "比较数据",
+        "平均数",
+        "解释结论"
+      ],
+      "misconceptionTags": [
+        "chart scale ignored",
+        "average treated as a required actual value",
+        "conclusion not supported by the displayed data"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-data-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-data-analysis-unit",
+        "bnu-primary-p4-lower-assessment-data-representation-analysis-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校调查了五年级同学最喜欢的球类运动，得到以下数据：喜欢篮球的有18人，喜欢足球的有15人，喜欢乒乓球的有12人，喜欢排球的有9人，喜欢羽毛球的有6人。要表示这些数据，选用哪种统计图比较合适？",
+      "optionsZhHans": [
+        "条形统计图",
+        "折线统计图",
+        "扇形统计图",
+        "复式条形统计图"
+      ],
+      "answer": "条形统计图",
+      "acceptedAnswers": [
+        "条形统计图"
+      ],
+      "explanationZhHans": "题目给出的是不同球类运动的人数，属于不同类别的数量比较，用条形统计图可以直观地看出各类别的数量多少。折线统计图适合表示变化趋势，扇形统计图适合表示部分与整体的关系，复式条形统计图适合比较两组或多组数据。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-232",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-data-analysis",
+      "unitTitle": "数据的表示和分析",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "data-representation-analysis",
+        "statistical-charts",
+        "average",
+        "data-comparison",
+        "数据表示分析"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "选择统计图",
+        "读统计图",
+        "比较数据",
+        "平均数",
+        "解释结论"
+      ],
+      "misconceptionTags": [
+        "chart scale ignored",
+        "average treated as a required actual value",
+        "conclusion not supported by the displayed data"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-data-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-data-analysis-unit",
+        "bnu-primary-p4-lower-assessment-data-representation-analysis-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是五年级一班第一小组5名同学的身高数据：小刚142厘米，小丽138厘米，小强145厘米，小芳140厘米，小军135厘米。这5名同学的平均身高是多少厘米？",
+      "optionsZhHans": [],
+      "answer": "140",
+      "acceptedAnswers": [
+        "140",
+        "140厘米"
+      ],
+      "explanationZhHans": "平均身高 = (142+138+145+140+135) ÷ 5 = 700 ÷ 5 = 140（厘米）。计算时注意总和除以人数，平均数不一定是某个人的实际身高。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-233",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-data-analysis",
+      "unitTitle": "数据的表示和分析",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "data-representation-analysis",
+        "statistical-charts",
+        "average",
+        "data-comparison",
+        "数据表示分析"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "选择统计图",
+        "读统计图",
+        "比较数据",
+        "平均数",
+        "解释结论"
+      ],
+      "misconceptionTags": [
+        "chart scale ignored",
+        "average treated as a required actual value",
+        "conclusion not supported by the displayed data"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-data-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-data-analysis-unit",
+        "bnu-primary-p4-lower-assessment-data-representation-analysis-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "老师统计了五年级两个班学生每天课外阅读时间的情况，并绘制了条形统计图。从统计图中可以看出：一班阅读30分钟的有10人，阅读60分钟的有15人，阅读90分钟的有5人；二班阅读30分钟的有12人，阅读60分钟的有10人，阅读90分钟的有8人。下面哪个结论是正确的？",
+      "optionsZhHans": [
+        "一班阅读60分钟的人数比二班多5人",
+        "二班阅读90分钟的人数比一班多2人",
+        "一班阅读总人数比二班多",
+        "二班阅读30分钟的人数比一班少2人"
+      ],
+      "answer": "一班阅读60分钟的人数比二班多5人",
+      "acceptedAnswers": [
+        "一班阅读60分钟的人数比二班多5人"
+      ],
+      "explanationZhHans": "一班阅读60分钟的有15人，二班有10人，15-10=5，所以一班比二班多5人，A正确。二班阅读90分钟的有8人，一班有5人，8-5=3，不是2人，B错误。一班总人数10+15+5=30，二班12+10+8=30，相等，C错误。二班阅读30分钟的有12人，一班有10人，12-10=2，二班多2人，D错误。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-234",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-data-analysis",
+      "unitTitle": "数据的表示和分析",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "data-representation-analysis",
+        "statistical-charts",
+        "average",
+        "data-comparison",
+        "数据表示分析"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "选择统计图",
+        "读统计图",
+        "比较数据",
+        "平均数",
+        "解释结论"
+      ],
+      "misconceptionTags": [
+        "chart scale ignored",
+        "average treated as a required actual value",
+        "conclusion not supported by the displayed data"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-data-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-data-analysis-unit",
+        "bnu-primary-p4-lower-assessment-data-representation-analysis-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小东记录了周一至周五每天上学路上所用的时间：周一18分钟，周二15分钟，周三20分钟，周四17分钟，周五15分钟。这五天上学路上所用的平均时间是多少分钟？",
+      "optionsZhHans": [],
+      "answer": "17",
+      "acceptedAnswers": [
+        "17",
+        "17分钟"
+      ],
+      "explanationZhHans": "平均时间 = (18+15+20+17+15) ÷ 5 = 85 ÷ 5 = 17（分钟）。平均数反映的是整体水平，不代表每天都是17分钟。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-235",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-data-analysis",
+      "unitTitle": "数据的表示和分析",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "data-representation-analysis",
+        "statistical-charts",
+        "average",
+        "data-comparison",
+        "数据表示分析"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "选择统计图",
+        "读统计图",
+        "比较数据",
+        "平均数",
+        "解释结论"
+      ],
+      "misconceptionTags": [
+        "chart scale ignored",
+        "average treated as a required actual value",
+        "conclusion not supported by the displayed data"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-data-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-data-analysis-unit",
+        "bnu-primary-p4-lower-assessment-data-representation-analysis-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是五年级三班同学最喜欢的季节人数统计：春季12人，夏季18人，秋季9人，冬季6人。根据这些数据，下面哪种说法是正确的？",
+      "optionsZhHans": [
+        "喜欢夏季的人数是冬季的3倍",
+        "喜欢春季的人数比秋季多4人",
+        "喜欢夏季的人数占总人数的一半",
+        "喜欢秋季的人数最少"
+      ],
+      "answer": "喜欢夏季的人数是冬季的3倍",
+      "acceptedAnswers": [
+        "喜欢夏季的人数是冬季的3倍"
+      ],
+      "explanationZhHans": "夏季18人，冬季6人，18÷6=3，所以A正确。春季12人，秋季9人，12-9=3，不是4人，B错误。总人数12+18+9+6=45，一半是22.5，18不是22.5，C错误。冬季6人最少，不是秋季，D错误。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-236",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-data-analysis",
+      "unitTitle": "数据的表示和分析",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "data-representation-analysis",
+        "statistical-charts",
+        "average",
+        "data-comparison",
+        "数据表示分析"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "选择统计图",
+        "读统计图",
+        "比较数据",
+        "平均数",
+        "解释结论"
+      ],
+      "misconceptionTags": [
+        "chart scale ignored",
+        "average treated as a required actual value",
+        "conclusion not supported by the displayed data"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-data-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-data-analysis-unit",
+        "bnu-primary-p4-lower-assessment-data-representation-analysis-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是四年级一班第一小组同学的体重数据：小宇32千克，小凡30千克，小杰35千克，小雅28千克，小轩33千克。这5名同学的平均体重是多少千克？",
+      "optionsZhHans": [],
+      "answer": "31.6",
+      "acceptedAnswers": [
+        "31.6",
+        "31.6千克"
+      ],
+      "explanationZhHans": "平均体重 = (32+30+35+28+33) ÷ 5 = 158 ÷ 5 = 31.6（千克）。计算时注意小数点的处理，平均数可以是小数。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-237",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "p5-lower-review",
+        "integrated-application",
+        "mathematical-activity",
+        "model-selection",
+        "五年级下册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "模型选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "model chosen from keyword alone",
+        "units dropped in geometry tasks",
+        "answer accepted without context check"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-final-topic-drill",
+        "bnu-primary-p5-lower-assessment-fraction-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校组织五年级学生去科技馆参观，需要计算租车费用。每辆大巴车可以坐45人，租金是600元。五年级一共有218人，至少需要租几辆大巴车？总租金是多少元？下面哪个列式是正确的？",
+      "optionsZhHans": [
+        "218÷45=4（辆）……38（人），4+1=5（辆），5×600=3000（元）",
+        "218÷45≈4.84，4.84×600≈2904（元）",
+        "218÷45=4（辆）……38（人），4×600=2400（元）",
+        "218÷45=5（辆）……-7（人），5×600=3000（元）"
+      ],
+      "answer": "218÷45=4（辆）……38（人），4+1=5（辆），5×600=3000（元）",
+      "acceptedAnswers": [
+        "218÷45=4（辆）……38（人），4+1=5（辆），5×600=3000（元）"
+      ],
+      "explanationZhHans": "218÷45=4（辆）余38人，余下的人也需要1辆车，所以共需5辆，总租金5×600=3000元。A选项正确。B选项用小数计算不符合实际租车情况；C选项只算了4辆车的租金，未考虑余下的人；D选项计算错误。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-238",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "p5-lower-review",
+        "integrated-application",
+        "mathematical-activity",
+        "model-selection",
+        "五年级下册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "模型选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "model chosen from keyword alone",
+        "units dropped in geometry tasks",
+        "answer accepted without context check"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-final-topic-drill",
+        "bnu-primary-p5-lower-assessment-fraction-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方体水箱，从里面量长8分米，宽5分米，高6分米。水箱内水深4分米。水箱内水的体积是多少立方分米？",
+      "optionsZhHans": [],
+      "answer": "160",
+      "acceptedAnswers": [
+        "160",
+        "160立方分米"
+      ],
+      "explanationZhHans": "水的体积 = 长 × 宽 × 水深 = 8 × 5 × 4 = 160（立方分米）。注意水深不是水箱的高，要用实际水深计算。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-239",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "p5-lower-review",
+        "integrated-application",
+        "mathematical-activity",
+        "model-selection",
+        "五年级下册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "模型选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "model chosen from keyword alone",
+        "units dropped in geometry tasks",
+        "answer accepted without context check"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-final-topic-drill",
+        "bnu-primary-p5-lower-assessment-fraction-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "五年级同学参加植树活动，计划植树240棵。实际上午完成了计划的3/8，下午完成了计划的5/12。全天一共完成了计划的几分之几？下面哪个计算是正确的？",
+      "optionsZhHans": [
+        "3/8 + 5/12 = 9/24 + 10/24 = 19/24",
+        "3/8 + 5/12 = 8/20 = 2/5",
+        "3/8 + 5/12 = 36/96 + 40/96 = 76/96 = 19/24",
+        "3/8 + 5/12 = 3+5 / 8+12 = 8/20 = 2/5"
+      ],
+      "answer": "3/8 + 5/12 = 9/24 + 10/24 = 19/24",
+      "acceptedAnswers": [
+        "3/8 + 5/12 = 9/24 + 10/24 = 19/24"
+      ],
+      "explanationZhHans": "异分母分数相加，先通分。8和12的最小公倍数是24，3/8=9/24，5/12=10/24，相加得19/24。A选项正确。B、D选项分母直接相加错误；C选项通分正确但过程繁琐，最终结果相同但不是最简形式。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-240",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "p5-lower-review",
+        "integrated-application",
+        "mathematical-activity",
+        "model-selection",
+        "五年级下册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "模型选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "model chosen from keyword alone",
+        "units dropped in geometry tasks",
+        "answer accepted without context check"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-final-topic-drill",
+        "bnu-primary-p5-lower-assessment-fraction-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书室有故事书和科技书共540本，其中故事书的本数是科技书的3/5。科技书有多少本？",
+      "optionsZhHans": [],
+      "answer": "337.5",
+      "acceptedAnswers": [
+        "337.5",
+        "337.5本"
+      ],
+      "explanationZhHans": "设科技书有x本，则故事书有3/5 x本。x + 3/5 x = 540，8/5 x = 540，x = 540 × 5/8 = 337.5。所以科技书有337.5本。注意结果可以是小数，表示本数时通常取整数，但计算过程保留小数。"
+    }
+  ]
+}

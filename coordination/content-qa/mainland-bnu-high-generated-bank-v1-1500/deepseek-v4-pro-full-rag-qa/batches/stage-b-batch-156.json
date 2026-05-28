@@ -1,0 +1,131 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-156",
+  "startedAt": "2026-05-28T01:45:35.933Z",
+  "completedAt": "2026-05-28T01:45:49.279Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-241",
+    "bnu-high-ds-v1-s6-242",
+    "bnu-high-ds-v1-s6-243",
+    "bnu-high-ds-v1-s6-244",
+    "bnu-high-ds-v1-s6-245",
+    "bnu-high-ds-v1-s6-246",
+    "bnu-high-ds-v1-s6-247",
+    "bnu-high-ds-v1-s6-248"
+  ],
+  "usage": {
+    "prompt_tokens": 11922,
+    "completion_tokens": 1012,
+    "total_tokens": 12934,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 11538
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-241",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "correctedAnswer": "D",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction",
+          "ambiguous_mc"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案声称 f'(1)=0，但实际 f'(1)=-3，且选项 D 本身错误，导致无正确选项。Stage A 指出正确选项应为 D（但需修正选项），存储答案与解析均错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-242",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 a=0, b=-3 与 Stage A 独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-243",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 2 与 Stage A 独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-244",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 y=-2 与 Stage A 独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-245",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与 Stage A 独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-246",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 (1,+∞) 与 Stage A 独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-247",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 x=3 与 Stage A 独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-248",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 [-3,3] 与 Stage A 独立解一致，解析正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第241题存储答案错误，f'(1)实际为-3，选项D本身错误导致无正确选项，需修正题目或选项。其余7题均通过。"
+    }
+  }
+}

@@ -1,0 +1,638 @@
+{
+  "batchId": "batch-063",
+  "questions": [
+    {
+      "id": "bnu-junior-ds-v1-s2-121",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-linear-functions",
+      "unitTitle": "一次函数",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "functions",
+        "linear-functions",
+        "function-graphs",
+        "slope-intercept",
+        "linear-models",
+        "一次函数",
+        "函数图象"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "符号意识"
+      ],
+      "skillTags": [
+        "函数关系",
+        "一次函数识别",
+        "图象与性质",
+        "待定系数法",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "slope and intercept roles confused",
+        "point substitution not checked",
+        "graph direction inferred from one plotted point"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-linear-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-linear-functions-unit",
+        "bnu-junior-s2-upper-assessment-linear-systems-unit"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某市出租车收费标准如下：起步价8元（含3千米），超过3千米后每千米收费1.5元。设行驶路程为x千米（x≥3），应付车费为y元。下列哪个函数关系式正确表示y与x的关系？",
+      "optionsZhHans": [
+        "y = 1.5x + 8",
+        "y = 1.5x + 3.5",
+        "y = 1.5(x - 3) + 8",
+        "y = 1.5x + 3"
+      ],
+      "answer": "y = 1.5(x - 3) + 8",
+      "acceptedAnswers": [
+        "y = 1.5(x - 3) + 8"
+      ],
+      "explanationZhHans": "起步价8元含3千米，超过3千米后每千米1.5元。当x≥3时，超过部分为(x-3)千米，费用为1.5(x-3)，加上起步价8元，得y=1.5(x-3)+8。选项A多加了起步价；B和D截距错误。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-122",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-linear-functions",
+      "unitTitle": "一次函数",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "functions",
+        "linear-functions",
+        "function-graphs",
+        "slope-intercept",
+        "linear-models",
+        "一次函数",
+        "函数图象"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "符号意识"
+      ],
+      "skillTags": [
+        "函数关系",
+        "一次函数识别",
+        "图象与性质",
+        "待定系数法",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "slope and intercept roles confused",
+        "point substitution not checked",
+        "graph direction inferred from one plotted point"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-linear-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-linear-functions-unit",
+        "bnu-junior-s2-upper-assessment-linear-systems-unit"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某市出租车收费标准如下：起步价8元（含3千米），超过3千米的部分每千米收费1.5元。设行驶路程为x千米（x为整数），应付车费为y元。\n（1）写出y与x之间的函数关系式，并注明自变量x的取值范围。\n（2）若小明乘坐出租车行驶了10千米，他应付车费多少元？\n（3）若小红付了20元车费，她乘坐出租车最多行驶了多少千米？",
+      "optionsZhHans": [],
+      "answer": "（1）y=8 (0<x≤3) 且 y=1.5x+3.5 (x>3)；（2）18.5元；（3）11千米",
+      "acceptedAnswers": [
+        "（1）y=8 (0<x≤3) 且 y=1.5x+3.5 (x>3)；（2）18.5元；（3）11千米",
+        "（1）y=8 (0<x≤3) 且 y=1.5x+3.5 (x>3)；（2）18.5；（3）11",
+        "（1）y=8 (0<x≤3) 且 y=1.5x+3.5 (x>3)；（2）18.5元；（3）11km",
+        "（1）y=8 (0<x≤3) 且 y=1.5x+3.5 (x>3)；（2）18.5；（3）11km"
+      ],
+      "explanationZhHans": "（1）x≤3时y=8；x>3时y=8+1.5(x-3)=1.5x+3.5。（2）x=10>3，代入得y=1.5×10+3.5=18.5元。（3）20>8，由20=1.5x+3.5解得x=11千米。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-123",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-linear-functions",
+      "unitTitle": "一次函数",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "functions",
+        "linear-functions",
+        "function-graphs",
+        "slope-intercept",
+        "linear-models",
+        "一次函数",
+        "函数图象"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "符号意识"
+      ],
+      "skillTags": [
+        "函数关系",
+        "一次函数识别",
+        "图象与性质",
+        "待定系数法",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "slope and intercept roles confused",
+        "point substitution not checked",
+        "graph direction inferred from one plotted point"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-linear-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-linear-functions-unit",
+        "bnu-junior-s2-upper-assessment-linear-systems-unit"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某市出租车收费标准如下：起步价8元（含3千米），超过3千米后每千米加收1.5元（不足1千米按1千米计算）。设行驶路程为x千米（x为整数，且x≥3），应付车费为y元。请写出y关于x的函数关系式。",
+      "optionsZhHans": [],
+      "answer": "y = 1.5x + 3.5",
+      "acceptedAnswers": [
+        "y = 1.5x + 3.5",
+        "y=1.5x+3.5"
+      ],
+      "explanationZhHans": "起步价8元含3千米，超过3千米后每千米1.5元。当x≥3时，超过部分为(x-3)千米，费用为8+1.5(x-3)=1.5x+3.5。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-124",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-linear-functions",
+      "unitTitle": "一次函数",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "functions",
+        "linear-functions",
+        "function-graphs",
+        "slope-intercept",
+        "linear-models",
+        "一次函数",
+        "函数图象"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "符号意识"
+      ],
+      "skillTags": [
+        "函数关系",
+        "一次函数识别",
+        "图象与性质",
+        "待定系数法",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "slope and intercept roles confused",
+        "point substitution not checked",
+        "graph direction inferred from one plotted point"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-linear-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-linear-functions-unit",
+        "bnu-junior-s2-upper-assessment-linear-systems-unit"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某市出租车收费标准如下：起步价8元（含3公里），超过3公里后每公里收费2元。设行驶路程为x公里（x>3），应付车费为y元。下列哪个一次函数关系式正确表示y与x的关系？",
+      "optionsZhHans": [
+        "y = 2x + 8",
+        "y = 2x + 2",
+        "y = 2x - 6",
+        "y = 2x + 14"
+      ],
+      "answer": "y = 2x + 2",
+      "acceptedAnswers": [
+        "y = 2x + 2"
+      ],
+      "explanationZhHans": "起步价8元含3公里，超过3公里后每公里2元。当x>3时，超过部分为(x-3)公里，费用为2(x-3)元，总费用y=8+2(x-3)=2x+2。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-125",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-linear-functions",
+      "unitTitle": "一次函数",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "functions",
+        "linear-functions",
+        "function-graphs",
+        "slope-intercept",
+        "linear-models",
+        "一次函数",
+        "函数图象"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "符号意识"
+      ],
+      "skillTags": [
+        "函数关系",
+        "一次函数识别",
+        "图象与性质",
+        "待定系数法",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "slope and intercept roles confused",
+        "point substitution not checked",
+        "graph direction inferred from one plotted point"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-linear-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-linear-functions-unit",
+        "bnu-junior-s2-upper-assessment-linear-systems-unit"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某市出租车收费标准如下：起步里程3千米以内（含3千米）收费8元；超过3千米的部分，每千米收费1.5元（不足1千米按1千米计算）。设行驶路程为x千米（x≥0），应付车费为y元。请写出y关于x的函数关系式，并计算当行驶路程为7.8千米时，应付车费多少元。",
+      "optionsZhHans": [],
+      "answer": "当0≤x≤3时，y=8；当x>3时，y=8+1.5×⌈x-3⌉（其中⌈ ⌉表示向上取整）。当x=7.8时，应付车费15.5元。",
+      "acceptedAnswers": [
+        "当0≤x≤3时，y=8；当x>3时，y=8+1.5×⌈x-3⌉（其中⌈ ⌉表示向上取整）。当x=7.8时，应付车费15.5元。",
+        "y=8 (0≤x≤3); y=8+1.5×⌈x-3⌉ (x>3)。7.8千米车费为15.5元。",
+        "分段函数：x≤3时y=8；x>3时y=8+1.5×向上取整(x-3)。x=7.8时y=15.5。"
+      ],
+      "explanationZhHans": "起步价8元覆盖0到3千米；超过3千米部分，7.8-3=4.8千米，不足1千米按1千米计，即5千米，加收1.5×5=7.5元，总车费8+7.5=15.5元。函数关系需分段表示并注明取整规则。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-126",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-linear-functions",
+      "unitTitle": "一次函数",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "functions",
+        "linear-functions",
+        "function-graphs",
+        "slope-intercept",
+        "linear-models",
+        "一次函数",
+        "函数图象"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "符号意识"
+      ],
+      "skillTags": [
+        "函数关系",
+        "一次函数识别",
+        "图象与性质",
+        "待定系数法",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "slope and intercept roles confused",
+        "point substitution not checked",
+        "graph direction inferred from one plotted point"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-linear-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-linear-functions-unit",
+        "bnu-junior-s2-upper-assessment-linear-systems-unit"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某市自来水公司为鼓励居民节约用水，采用阶梯水价。设每月用水量为 x 立方米，应缴水费为 y 元。当 0≤x≤20 时，y 与 x 的函数关系为 y=2.5x；当 x>20 时，超出部分按每立方米 4 元收费。小王家上月用水 25 立方米，应缴水费多少元？",
+      "optionsZhHans": [],
+      "answer": "70",
+      "acceptedAnswers": [
+        "70",
+        "70元"
+      ],
+      "explanationZhHans": "用水25立方米，其中20立方米按2.5元/立方米计费：20×2.5=50元；超出5立方米按4元/立方米计费：5×4=20元；总水费50+20=70元。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-127",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-linear-functions",
+      "unitTitle": "一次函数",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "functions",
+        "linear-functions",
+        "function-graphs",
+        "slope-intercept",
+        "linear-models",
+        "一次函数",
+        "函数图象"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "符号意识"
+      ],
+      "skillTags": [
+        "函数关系",
+        "一次函数识别",
+        "图象与性质",
+        "待定系数法",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "slope and intercept roles confused",
+        "point substitution not checked",
+        "graph direction inferred from one plotted point"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-linear-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-linear-functions-unit",
+        "bnu-junior-s2-upper-assessment-linear-systems-unit"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某市出租车收费标准如下：起步价8元（含3千米），超过3千米后每千米收费2元。设行驶路程为x千米（x>3），应付车费为y元。下列哪个选项正确表示了y与x的函数关系？",
+      "optionsZhHans": [
+        "y = 2x + 8",
+        "y = 2x + 2",
+        "y = 2x - 6",
+        "y = 2x + 5"
+      ],
+      "answer": "y = 2x + 2",
+      "acceptedAnswers": [
+        "y = 2x + 2"
+      ],
+      "explanationZhHans": "起步价8元含3千米，超过3千米后每千米2元。当x>3时，超过部分为(x-3)千米，费用为2(x-3)元，总费用y=8+2(x-3)=2x+2。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-128",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-linear-functions",
+      "unitTitle": "一次函数",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "functions",
+        "linear-functions",
+        "function-graphs",
+        "slope-intercept",
+        "linear-models",
+        "一次函数",
+        "函数图象"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "符号意识"
+      ],
+      "skillTags": [
+        "函数关系",
+        "一次函数识别",
+        "图象与性质",
+        "待定系数法",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "slope and intercept roles confused",
+        "point substitution not checked",
+        "graph direction inferred from one plotted point"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-linear-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-linear-functions-unit",
+        "bnu-junior-s2-upper-assessment-linear-systems-unit"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某市出租车收费标准如下：起步价8元（含3公里），超过3公里后每公里收费1.5元。设行驶路程为x公里（x≥3），应付车费为y元。请写出y与x之间的函数表达式，并计算当行驶路程为10公里时应付的车费。",
+      "optionsZhHans": [],
+      "answer": "y=1.5x+3.5，18.5元",
+      "acceptedAnswers": [
+        "y=1.5x+3.5，18.5元",
+        "y=1.5x+3.5，18.5",
+        "y=1.5x+3.5, 18.5元",
+        "y=1.5x+3.5, 18.5"
+      ],
+      "explanationZhHans": "起步价8元含3公里，超过3公里后每公里1.5元。总费用=起步价+超出部分费用，即y=8+1.5(x-3)=1.5x+3.5。当x=10时，y=1.5×10+3.5=18.5元。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-129",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-linear-functions",
+      "unitTitle": "一次函数",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "functions",
+        "linear-functions",
+        "function-graphs",
+        "slope-intercept",
+        "linear-models",
+        "一次函数",
+        "函数图象"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "符号意识"
+      ],
+      "skillTags": [
+        "函数关系",
+        "一次函数识别",
+        "图象与性质",
+        "待定系数法",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "slope and intercept roles confused",
+        "point substitution not checked",
+        "graph direction inferred from one plotted point"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-linear-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-linear-functions-unit",
+        "bnu-junior-s2-upper-assessment-linear-systems-unit"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某市出租车收费标准如下：起步价8元（含3千米），超过3千米后每千米加收2.5元。设行驶路程为x千米（x>3），应付车费为y元。请写出y关于x的函数关系式。",
+      "optionsZhHans": [],
+      "answer": "y=2.5x+0.5",
+      "acceptedAnswers": [
+        "y=2.5x+0.5",
+        "y=2.5x+0.5 (x>3)",
+        "y=8+2.5(x-3)",
+        "y=2.5x+0.5，x>3"
+      ],
+      "explanationZhHans": "起步价8元含3千米，超过3千米后每千米2.5元。当x>3时，超过部分为(x-3)千米，费用为8+2.5(x-3)=2.5x+0.5。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-130",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-linear-functions",
+      "unitTitle": "一次函数",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "functions",
+        "linear-functions",
+        "function-graphs",
+        "slope-intercept",
+        "linear-models",
+        "一次函数",
+        "函数图象"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "符号意识"
+      ],
+      "skillTags": [
+        "函数关系",
+        "一次函数识别",
+        "图象与性质",
+        "待定系数法",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "slope and intercept roles confused",
+        "point substitution not checked",
+        "graph direction inferred from one plotted point"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-linear-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-linear-functions-unit",
+        "bnu-junior-s2-upper-assessment-linear-systems-unit"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某市出租车收费标准如下：起步价8元（含3公里），超过3公里后每公里收费2.5元。设行驶里程为x公里（x≥3），应付车费为y元。下列哪个函数关系正确表示了y与x的关系？",
+      "optionsZhHans": [
+        "y = 2.5x + 8",
+        "y = 2.5x + 0.5",
+        "y = 2.5x - 0.5",
+        "y = 2.5x + 3"
+      ],
+      "answer": "y = 2.5x + 0.5",
+      "acceptedAnswers": [
+        "y = 2.5x + 0.5"
+      ],
+      "explanationZhHans": "起步价8元含3公里，即x=3时y=8。超过3公里后每公里2.5元，故y=8+2.5(x-3)=2.5x+0.5。代入x=3得y=8，验证正确。"
+    }
+  ]
+}

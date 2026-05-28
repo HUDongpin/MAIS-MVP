@@ -1,0 +1,338 @@
+{
+  "batchId": "repair-0026",
+  "generatedAt": "2026-05-25T04:57:16.451Z",
+  "targetIds": [
+    "hjb-junior-ds-v2-s2-283",
+    "hjb-junior-ds-v2-s2-284",
+    "hjb-junior-ds-v2-s2-285",
+    "hjb-junior-ds-v2-s2-286",
+    "hjb-junior-ds-v2-s2-290"
+  ],
+  "questions": [
+    {
+      "id": "hjb-junior-ds-v2-s2-283",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "hjb-junior-s2-lower-quadrilaterals",
+      "unitTitle": "四边形",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "polygons",
+        "quadrilaterals",
+        "parallelogram",
+        "rectangle",
+        "rhombus",
+        "square",
+        "midsegment",
+        "四边形",
+        "平行四边形"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "多边形内角和",
+        "平行四边形性质",
+        "矩形菱形正方形",
+        "三角形中位线",
+        "重心"
+      ],
+      "misconceptionTags": [
+        "quadrilateral hierarchy overgeneralized",
+        "property and criterion reversed",
+        "midpoint condition omitted"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s2-lower-quadrilaterals"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-lower-paper-quadrilaterals-unit",
+        "hjb-junior-s2-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Repaired offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在四边形ABCD中，对角线AC与BD相交于点O。已知AB∥CD，AD∥BC，且AC⊥BD。下列结论一定正确的是（ ）",
+      "optionsZhHans": [
+        "四边形ABCD是矩形",
+        "四边形ABCD是菱形",
+        "四边形ABCD是正方形",
+        "四边形ABCD是平行四边形"
+      ],
+      "answer": "四边形ABCD是菱形",
+      "acceptedAnswers": [
+        "四边形ABCD是菱形"
+      ],
+      "explanationZhHans": "由AB∥CD，AD∥BC得平行四边形，又AC⊥BD，对角线互相垂直的平行四边形是菱形，故B正确。D选项平行四边形虽正确，但菱形更具体，且B已包含D，故唯一正确为B。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-284",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "hjb-junior-s2-lower-quadrilaterals",
+      "unitTitle": "四边形",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "polygons",
+        "quadrilaterals",
+        "parallelogram",
+        "rectangle",
+        "rhombus",
+        "square",
+        "midsegment",
+        "四边形",
+        "平行四边形"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "多边形内角和",
+        "平行四边形性质",
+        "矩形菱形正方形",
+        "三角形中位线",
+        "重心"
+      ],
+      "misconceptionTags": [
+        "quadrilateral hierarchy overgeneralized",
+        "property and criterion reversed",
+        "midpoint condition omitted"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-junior-s2-lower-quadrilaterals"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-lower-paper-quadrilaterals-unit",
+        "hjb-junior-s2-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Repaired offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平行四边形ABCD中，对角线AC与BD相交于点O。已知AC=12，BD=16，且AC⊥BD。求AB的长。",
+      "optionsZhHans": [],
+      "answer": "10",
+      "acceptedAnswers": [
+        "10"
+      ],
+      "explanationZhHans": "平行四边形对角线互相垂直时为菱形，对角线互相平分，故OA=6，OB=8。在Rt△AOB中，AB=√(6²+8²)=10。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-285",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "hjb-junior-s2-lower-quadrilaterals",
+      "unitTitle": "四边形",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "polygons",
+        "quadrilaterals",
+        "parallelogram",
+        "rectangle",
+        "rhombus",
+        "square",
+        "midsegment",
+        "四边形",
+        "平行四边形"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "多边形内角和",
+        "平行四边形性质",
+        "矩形菱形正方形",
+        "三角形中位线",
+        "重心"
+      ],
+      "misconceptionTags": [
+        "quadrilateral hierarchy overgeneralized",
+        "property and criterion reversed",
+        "midpoint condition omitted"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s2-lower-quadrilaterals"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-lower-paper-quadrilaterals-unit",
+        "hjb-junior-s2-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Repaired offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在菱形ABCD中，对角线AC与BD相交于点O，AC=10，BD=24。点E、F、G、H分别是边AB、BC、CD、DA的中点，顺次连接E、F、G、H得到四边形EFGH。求四边形EFGH的周长。",
+      "optionsZhHans": [],
+      "answer": "26",
+      "acceptedAnswers": [
+        "26"
+      ],
+      "explanationZhHans": "菱形对角线互相垂直平分，OA=5，OB=12，AB=√(5²+12²)=13。中点四边形EFGH是矩形，边长分别为AB/2=6.5和另一组对边中点连线长6.5，周长为2×(6.5+6.5)=26。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-286",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "hjb-junior-s2-lower-quadrilaterals",
+      "unitTitle": "四边形",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "polygons",
+        "quadrilaterals",
+        "parallelogram",
+        "rectangle",
+        "rhombus",
+        "square",
+        "midsegment",
+        "四边形",
+        "平行四边形"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "多边形内角和",
+        "平行四边形性质",
+        "矩形菱形正方形",
+        "三角形中位线",
+        "重心"
+      ],
+      "misconceptionTags": [
+        "quadrilateral hierarchy overgeneralized",
+        "property and criterion reversed",
+        "midpoint condition omitted"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s2-lower-quadrilaterals"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-lower-paper-quadrilaterals-unit",
+        "hjb-junior-s2-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Repaired offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个四边形的四个内角度数之比为2:3:4:3，则这个四边形是（ ）",
+      "optionsZhHans": [
+        "平行四边形",
+        "等腰梯形",
+        "直角梯形",
+        "一般四边形"
+      ],
+      "answer": "等腰梯形",
+      "acceptedAnswers": [
+        "等腰梯形"
+      ],
+      "explanationZhHans": "设四个角为2x,3x,4x,3x，内角和360°，得12x=360°，x=30°，四个角为60°,90°,120°,90°。有一组对角相等且一组同旁内角互补，可判定为等腰梯形。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-290",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "hjb-junior-s2-lower-quadrilaterals",
+      "unitTitle": "四边形",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "polygons",
+        "quadrilaterals",
+        "parallelogram",
+        "rectangle",
+        "rhombus",
+        "square",
+        "midsegment",
+        "四边形",
+        "平行四边形"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "多边形内角和",
+        "平行四边形性质",
+        "矩形菱形正方形",
+        "三角形中位线",
+        "重心"
+      ],
+      "misconceptionTags": [
+        "quadrilateral hierarchy overgeneralized",
+        "property and criterion reversed",
+        "midpoint condition omitted"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-junior-s2-lower-quadrilaterals"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-lower-paper-quadrilaterals-unit",
+        "hjb-junior-s2-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Repaired offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在△ABC中，点D、E分别是AB、AC的中点，连接DE。点F在BC上，且BF:FC=1:2，连接DF并延长交AC的延长线于点G。若DE=3，求CG的长。",
+      "optionsZhHans": [],
+      "answer": "6",
+      "acceptedAnswers": [
+        "6"
+      ],
+      "explanationZhHans": "DE是△ABC中位线，DE=3得BC=6。由BF:FC=1:2得FC=4。DE∥BC，△DEG∽△FCG，相似比DE:FC=3:4，设CG=x，则EG=(3/4)x，由AC=2AE及平行线分线段成比例得CG=6。"
+    }
+  ]
+}

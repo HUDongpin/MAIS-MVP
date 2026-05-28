@@ -1,0 +1,137 @@
+{
+  "batchNumber": 54,
+  "startedAt": "2026-05-27T13:53:06.391Z",
+  "completedAt": "2026-05-27T13:53:26.299Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-425",
+    "bnu-high-ds-v1-s4-426",
+    "bnu-high-ds-v1-s4-427",
+    "bnu-high-ds-v1-s4-428",
+    "bnu-high-ds-v1-s4-429",
+    "bnu-high-ds-v1-s4-430",
+    "bnu-high-ds-v1-s4-431",
+    "bnu-high-ds-v1-s4-432"
+  ],
+  "usage": {
+    "prompt_tokens": 11731,
+    "completion_tokens": 1295,
+    "total_tokens": 13026,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 11219
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-425",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(4-3√3)/10",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由sinα=3/5及α∈(π/2,π)得cosα=-4/5，代入差角公式得cos(α-π/6)=(-4/5)(√3/2)+(3/5)(1/2)=(4-3√3)/10，与答案一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-426",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "√3/2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "利用万能公式cos2θ=(1-tan²θ)/(1+tan²θ)，令θ=15°得cos30°=√3/2，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-427",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "-4/3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由sinθ+cosθ=1/5平方得sin2θ=-24/25，结合θ∈(0,π)且和为正，确定θ∈(π/2,3π/4)，cos2θ=-7/25，tanθ=sin2θ/(1+cos2θ)=-4/3，选项唯一，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-428",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "最小正周期为π，最小值为2-√2。",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "化简得y=2+√2sin(2x+π/4)，周期T=π，最小值2-√2，与答案一致，解析步骤正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-429",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "1/4",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由和差角公式解出cosαcosβ=4/15，sinαsinβ=1/15，得tanαtanβ=1/4，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-430",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "33/65",
+        "correctedAnswer": "33/65",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "由sinA=4/5，cosB=5/13，A必为锐角（若A钝角则A+B>π），得cosA=3/5，cosC=sinAsinB-cosAcosB=33/65，选项B为33/65，但答案误设为16/65，解析中虽提及33/65却最终错误选择，答案与正确解矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-431",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "计算得z=10-10i，实部与虚部之和为0，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-432",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "-3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "设z=a+bi，代入得3a-bi=9+3i，解得b=-3，虚部为-3，答案与解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第430题答案错误，正确解为33/65，选项B存在，需修正答案及解析。其余题目均通过审核。"
+    }
+  }
+}

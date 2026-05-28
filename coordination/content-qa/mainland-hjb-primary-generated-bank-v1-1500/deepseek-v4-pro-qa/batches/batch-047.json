@@ -1,0 +1,191 @@
+{
+  "batchNumber": 47,
+  "startedAt": "2026-05-25T02:09:28.926Z",
+  "completedAt": "2026-05-25T02:09:47.323Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p4-079",
+    "hjb-primary-ds-v1-p4-080",
+    "hjb-primary-ds-v1-p4-081",
+    "hjb-primary-ds-v1-p4-082",
+    "hjb-primary-ds-v1-p4-083",
+    "hjb-primary-ds-v1-p4-084",
+    "hjb-primary-ds-v1-p4-085",
+    "hjb-primary-ds-v1-p4-086",
+    "hjb-primary-ds-v1-p4-087",
+    "hjb-primary-ds-v1-p4-088",
+    "hjb-primary-ds-v1-p4-089",
+    "hjb-primary-ds-v1-p4-090",
+    "hjb-primary-ds-v1-p4-091",
+    "hjb-primary-ds-v1-p4-092",
+    "hjb-primary-ds-v1-p4-093",
+    "hjb-primary-ds-v1-p4-094",
+    "hjb-primary-ds-v1-p4-095",
+    "hjb-primary-ds-v1-p4-096"
+  ],
+  "usage": {
+    "prompt_tokens": 3790,
+    "completion_tokens": 1320,
+    "total_tokens": 5110,
+    "prompt_tokens_details": {
+      "cached_tokens": 3712
+    },
+    "prompt_cache_hit_tokens": 3712,
+    "prompt_cache_miss_tokens": 78
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p4-079",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，列式符合归一问题思路，答案与解释一致。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-080",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "运算顺序正确，答案与解释匹配，acceptedAnswers覆盖合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-081",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "逆推过程正确，答案320无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-082",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "列式正确，先求总数再求实际天数，最后求提前天数。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-083",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "简便计算拆分正确，答案与解释一致。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-084",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "逆推求原数正确，正确得数32无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-085",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项C去掉括号后运算顺序不变，其余选项改变，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-086",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "乘法分配律逆用正确，答案与解释一致。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-087",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "逆推步骤正确，答案16无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-088",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项B列式正确，先求总数再除以实际每架本数。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-089",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "拆分与计算正确，答案4000无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-090",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "工作效率和乘时间再加剩余，答案680正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-091",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "综合算式正确，先求和再乘时间。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-092",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "拆分正确，acceptedAnswers覆盖8和4的顺序。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-093",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "圆环面积计算正确，答案28.26无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-094",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项A正确，其余选项均有错误，解释合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-095",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "周角、平角、直角关系正确，答案2,4无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-096",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "半径定义正确，理由充分，acceptedAnswers覆盖合理。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均通过审核，数学正确，答案与解释一致，无歧义或错误。"
+    }
+  }
+}

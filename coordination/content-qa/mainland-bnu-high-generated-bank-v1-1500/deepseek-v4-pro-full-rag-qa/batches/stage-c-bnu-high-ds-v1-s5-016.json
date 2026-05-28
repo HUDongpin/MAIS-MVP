@@ -1,0 +1,45 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-016",
+  "startedAt": "2026-05-28T02:02:11.506Z",
+  "completedAt": "2026-05-28T02:02:14.656Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-016"
+  ],
+  "usage": {
+    "prompt_tokens": 2376,
+    "completion_tokens": 215,
+    "total_tokens": 2591,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1992
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-016",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "k ∈ R",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "直线恒过点(0,1)在圆内，故与圆必有公共点，k∈R。选项C正确且唯一，解析一致，无问题。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 1,
+      "warn": 0,
+      "fail": 0,
+      "notes": "题目可解，选项C为唯一正确答案，解析正确，无任何问题。"
+    }
+  }
+}

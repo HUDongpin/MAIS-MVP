@@ -1,0 +1,191 @@
+{
+  "batchNumber": 81,
+  "startedAt": "2026-05-27T14:04:31.640Z",
+  "completedAt": "2026-05-27T14:04:50.495Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p6-191",
+    "bnu-primary-ds-v2-p6-192",
+    "bnu-primary-ds-v2-p6-193",
+    "bnu-primary-ds-v2-p6-194",
+    "bnu-primary-ds-v2-p6-195",
+    "bnu-primary-ds-v2-p6-196",
+    "bnu-primary-ds-v2-p6-197",
+    "bnu-primary-ds-v2-p6-198",
+    "bnu-primary-ds-v2-p6-199",
+    "bnu-primary-ds-v2-p6-200",
+    "bnu-primary-ds-v2-p6-201",
+    "bnu-primary-ds-v2-p6-202",
+    "bnu-primary-ds-v2-p6-203",
+    "bnu-primary-ds-v2-p6-204",
+    "bnu-primary-ds-v2-p6-205",
+    "bnu-primary-ds-v2-p6-206",
+    "bnu-primary-ds-v2-p6-207",
+    "bnu-primary-ds-v2-p6-208"
+  ],
+  "usage": {
+    "prompt_tokens": 4039,
+    "completion_tokens": 1269,
+    "total_tokens": 5308,
+    "prompt_tokens_details": {
+      "cached_tokens": 3968
+    },
+    "prompt_cache_hit_tokens": 3968,
+    "prompt_cache_miss_tokens": 71
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p6-191",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，选项清晰，适合P6旋转内容。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-192",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "填空直接对应平移顺序，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-193",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项区分旋转与平移，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-194",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "等边三角形最小旋转角120°，正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-195",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "旋转性质描述准确，选项无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-196",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "坐标旋转计算正确，答案(5,-4)无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-197",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平行四边形非菱形无对称轴，选项明确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-198",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "填空答案大小、形状，符合变换性质。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-199",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "正比例判断正确，选项区分清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-200",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "反比例判断及理由正确，乘积一定。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-201",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "正比例依据比值一定，选项B正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-202",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "反比例应用，计算正确，答案完整。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-203",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比值一定，正比例，选项正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-204",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "反比例判断，乘积一定，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-205",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "正比例依据比值一定，选项B正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-206",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比值一定，正比例，答案完整。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-207",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "正比例判断正确，选项A无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-208",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "填空答案正确，比值一定成正比例。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案匹配，无歧义，适合北师大版P6内容。"
+    }
+  }
+}

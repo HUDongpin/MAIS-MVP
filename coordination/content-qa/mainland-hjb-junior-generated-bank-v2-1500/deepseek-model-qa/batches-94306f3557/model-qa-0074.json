@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0074",
+  "ids": [
+    "hjb-junior-ds-v2-s2-085",
+    "hjb-junior-ds-v2-s2-086",
+    "hjb-junior-ds-v2-s2-087",
+    "hjb-junior-ds-v2-s2-088",
+    "hjb-junior-ds-v2-s2-089",
+    "hjb-junior-ds-v2-s2-090",
+    "hjb-junior-ds-v2-s2-091",
+    "hjb-junior-ds-v2-s2-092"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-085",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "√(48)",
+      "answerCheckZhHans": "标准答案正确。√12=2√3，√48=4√3，被开方数相同，是同类二次根式。其他选项：√8=2√2，√18=3√2，√27=3√3，均不与√12同类。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-086",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题目要求整数x的最小值，但由3x+7=2x+11解得x=4，唯一解，最小值为4。解析中提及考虑负整数使根号内为完全平方数，但同类二次根式要求被开方数相同，且最简二次根式被开方数不含能开得尽方的因数或因式，x=-2时√1=1不是二次根式，x=-3时无意义，均不满足。答案4正确，但解析中“若考虑负整数使根号内为完全平方数”部分逻辑混乱，与答案矛盾，需修正解析。",
+      "independentAnswerZhHans": "4",
+      "answerCheckZhHans": "标准答案4正确，但解析存在错误。由同类二次根式定义，最简二次根式被开方数相同，得3x+7=2x+11，x=4。检验：x=4时√19与√19均为最简，符合。不存在其他整数解，最小值为4。解析中“若考虑负整数使根号内为完全平方数”的讨论无意义且错误，应删除。",
+      "recommendedActionZhHans": "修正解析，删除关于负整数和完全平方数的错误讨论，仅保留正确解法。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-087",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x ≥ 2",
+      "answerCheckZhHans": "标准答案正确。由被开方数非负得3x-6≥0，解得x≥2。acceptedAnswers覆盖了x ≥ 2和x>=2，合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-088",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "a ≥ 3",
+      "answerCheckZhHans": "标准答案正确。√(a²-6a+9)=√((a-3)²)=|a-3|，等式化为|a-3|=a-3，当且仅当a-3≥0，即a≥3。选项互异，唯一正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-089",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "4",
+      "answerCheckZhHans": "标准答案正确。由同类二次根式得a+3=2a-1，解得a=4。检验：a=4时√7与√7均为最简，符合。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-090",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "（1）x = 4，a = 3；（2）b = (4√3)/3；（3）a + b = 3 + (4√3)/3",
+      "answerCheckZhHans": "标准答案正确。（1）由8-2x≥0且x-4≥0得x=4，a=3。（2）b=3√3-2√3+√3/3=(4√3)/3。（3）a+b=3+(4√3)/3。acceptedAnswers覆盖了标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-091",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "B. x ≥ 3",
+      "answerCheckZhHans": "标准答案正确。由2x-6≥0得x≥3。选项互异，唯一正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-092",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "标准答案正确。同类二次根式要求被开方数相同，故a+2=5，a=3。检验：a=3时√5与√5均为最简，符合。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

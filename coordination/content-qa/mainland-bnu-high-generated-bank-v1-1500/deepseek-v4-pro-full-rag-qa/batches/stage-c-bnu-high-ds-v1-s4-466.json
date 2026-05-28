@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-466",
+  "startedAt": "2026-05-28T01:59:41.248Z",
+  "completedAt": "2026-05-28T01:59:44.090Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-466"
+  ],
+  "usage": {
+    "prompt_tokens": 2636,
+    "completion_tokens": 243,
+    "total_tokens": 2879,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2252
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-466",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "4/3",
+        "correctedAnswer": "4/3",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立计算得体积为4/3，存储答案2/3错误；解析中面积和距离计算有误，导致体积错误，属于严重数学错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目可解，但存储答案错误，解析矛盾，判定为不通过。"
+    }
+  }
+}

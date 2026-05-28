@@ -1,0 +1,305 @@
+{
+  "batchId": "batch-109",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s3-k11-fi-015",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-graduation-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-proof-calculation-integrated"
+      ],
+      "promptZhHans": "某反比例函数图像经过点(2, -3)和点(a, 4)，则a的值为______。",
+      "optionsZhHans": [],
+      "answer": "-1.5",
+      "acceptedAnswers": [
+        "-1.5",
+        "-3/2",
+        "负二分之三"
+      ],
+      "explanationZhHans": "设反比例函数为y = k/x，由点(2, -3)得k = 2 × (-3) = -6。将点(a, 4)代入得4 = -6/a，解得a = -6/4 = -1.5。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-fi-016",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-inverse-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig"
+      ],
+      "promptZhHans": "若点A(3, y1)和B(5, y2)都在反比例函数y = -12/x的图像上，则y1与y2的大小关系是y1 ______ y2（填“>”“<”或“=”）。",
+      "optionsZhHans": [],
+      "answer": "<",
+      "acceptedAnswers": [
+        "<",
+        "小于"
+      ],
+      "explanationZhHans": "对于y = -12/x，在每个象限内y随x增大而增大。因为3 < 5，且两点都在第四象限，所以y1 < y2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-fi-017",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-right-triangle-trigonometry"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models"
+      ],
+      "promptZhHans": "在Rt△ABC中，∠C = 90°，AB = 10，sin A = 0.6，则BC的长为______。",
+      "optionsZhHans": [],
+      "answer": "6",
+      "acceptedAnswers": [
+        "6"
+      ],
+      "explanationZhHans": "在Rt△ABC中，sin A = BC/AB，即0.6 = BC/10，解得BC = 6。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-fi-018",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-projection-views"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "promptZhHans": "一个几何体由若干个相同的小立方块搭成，其从正面看和从左面看的形状分别如同两个并排的正方形和两个上下排列的正方形，则搭成这个几何体最少需要的小立方块个数为______。",
+      "optionsZhHans": [],
+      "answer": "3",
+      "acceptedAnswers": [
+        "3"
+      ],
+      "explanationZhHans": "从正面看是左右并排的两个正方形，说明至少有两列；从左面看是上下排列的两个正方形，说明至少有一列有两层。满足条件的最少立方块个数为3个，例如前排一列上下两个、后排一列一个。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-fi-019",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-function-geometry-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions"
+      ],
+      "promptZhHans": "已知反比例函数y = k/x与一次函数y = 2x + 1的图像只有一个公共点，则k的值为______。",
+      "optionsZhHans": [],
+      "answer": "-1/8",
+      "acceptedAnswers": [
+        "-1/8",
+        "负八分之一"
+      ],
+      "explanationZhHans": "联立y = k/x与y = 2x + 1，得k/x = 2x + 1，即2x² + x - k = 0。因为只有一个公共点，所以判别式Δ = 1² - 4×2×(-k) = 1 + 8k = 0，解得k = -1/8。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-fi-020",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-similarity"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "在△ABC中，点D、E分别在边AB、AC上，DE∥BC。若AD = 3，DB = 2，BC = 6，则DE的长为______。",
+      "optionsZhHans": [],
+      "answer": "3.6",
+      "acceptedAnswers": [
+        "3.6",
+        "18/5",
+        "五分之十八"
+      ],
+      "explanationZhHans": "由DE∥BC得△ADE∽△ABC，相似比为AD/AB = 3/(3+2) = 3/5，所以DE/BC = 3/5，DE = 6 × 3/5 = 3.6。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-fi-021",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-graduation-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "某校为筹备毕业典礼，计划用不超过800元购买A、B两种纪念品。A种每件15元，B种每件12元，且要求购买A种的数量不少于B种数量的2倍。若设购买A种x件，B种y件，则x、y应满足的不等式组为______。",
+      "optionsZhHans": [],
+      "answer": "15x+12y≤800, x≥2y, x≥0, y≥0",
+      "acceptedAnswers": [
+        "15x+12y≤800, x≥2y, x≥0, y≥0",
+        "15x+12y≤800且x≥2y且x≥0且y≥0"
+      ],
+      "explanationZhHans": "总费用不超过800元：15x+12y≤800；A种数量不少于B种数量的2倍：x≥2y；数量为非负整数：x≥0，y≥0。故不等式组为15x+12y≤800, x≥2y, x≥0, y≥0。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-fi-022",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-inverse-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions"
+      ],
+      "promptZhHans": "化简分式：(x² - 9)/(x² - 6x + 9)，并写出x的取值范围：______。",
+      "optionsZhHans": [],
+      "answer": "(x+3)/(x-3), x≠3",
+      "acceptedAnswers": [
+        "(x+3)/(x-3), x≠3",
+        "x+3/x-3, x≠3"
+      ],
+      "explanationZhHans": "分子因式分解为(x+3)(x-3)，分母因式分解为(x-3)²，约去公因式(x-3)得(x+3)/(x-3)，分母不为零，故x≠3。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-fi-023",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-right-triangle-trigonometry"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "promptZhHans": "在Rt△ABC中，∠C = 90°，AC = 8，BC = 6，则tan A的值为______。",
+      "optionsZhHans": [],
+      "answer": "3/4",
+      "acceptedAnswers": [
+        "3/4",
+        "0.75",
+        "四分之三"
+      ],
+      "explanationZhHans": "在Rt△ABC中，∠C = 90°，tan A = 对边BC / 邻边AC = 6/8 = 3/4。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-fi-024",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-projection-views"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean"
+      ],
+      "promptZhHans": "一个长方体的长、宽、高分别为5 cm、4 cm、3 cm，若从正面看过去，看到的是一个长方形，其面积为______ cm²。",
+      "optionsZhHans": [],
+      "answer": "15",
+      "acceptedAnswers": [
+        "15"
+      ],
+      "explanationZhHans": "从正面看，看到的是长和高组成的面，面积为长×高 = 5 cm × 3 cm = 15 cm²。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

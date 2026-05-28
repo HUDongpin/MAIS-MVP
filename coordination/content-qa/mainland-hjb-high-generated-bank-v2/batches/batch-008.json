@@ -1,0 +1,376 @@
+{
+  "batchId": "batch-008",
+  "generationMode": "targeted-local-repair",
+  "fallbackReason": "targeted-local-repair",
+  "questions": [
+    {
+      "id": "hjb-high-ds-v2-s4-071",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-等式与不等式",
+      "topicTitleZhHans": "等式与不等式",
+      "volume": "必修 第一册",
+      "chapter": "等式与不等式",
+      "conceptIds": [
+        "inequality-properties",
+        "quadratic-equations",
+        "quadratic-inequalities",
+        "basic-inequality"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities-unit-core",
+        "hjb-high-compulsory-1-equations-inequalities-topic-review",
+        "pep-high-exam-basic-inequality-optimization"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "已知实数 a, b 满足 a > b > 0，比较 a^3 - b^3 与 (a - b)^3 的大小，并说明理由。",
+      "optionsZhHans": [],
+      "answer": "a^3 - b^3 > (a - b)^3",
+      "acceptedAnswers": [
+        "a^3 - b^3 > (a - b)^3"
+      ],
+      "explanationZhHans": "因 a > b > 0，a^3 - b^3 = (a - b)(a^2 + ab + b^2)，而 (a - b)^3 = (a - b)(a - b)^2。比较 a^2 + ab + b^2 与 (a - b)^2，差值为 3ab > 0，故 a^3 - b^3 > (a - b)^3。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-072",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-等式与不等式",
+      "topicTitleZhHans": "等式与不等式",
+      "volume": "必修 第一册",
+      "chapter": "等式与不等式",
+      "conceptIds": [
+        "inequality-properties",
+        "quadratic-equations",
+        "quadratic-inequalities",
+        "basic-inequality"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities-unit-core",
+        "hjb-high-compulsory-1-equations-inequalities-topic-review",
+        "pep-high-exam-basic-inequality-optimization"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "已知关于 x 的不等式 ax^2 + bx + c > 0 的解集为 (1, 2)，求关于 x 的不等式 cx^2 + bx + a < 0 的解集。",
+      "optionsZhHans": [],
+      "answer": "(-∞, 1/2) ∪ (1, +∞)",
+      "acceptedAnswers": [
+        "(-∞, 1/2) ∪ (1, +∞)"
+      ],
+      "explanationZhHans": "由解集知 a < 0 且 1,2 为 ax^2+bx+c=0 的根，故 b = -3a, c = 2a。代入 cx^2+bx+a<0 得 2ax^2 - 3ax + a < 0，因 a<0 除以 a 反向得 2x^2 - 3x + 1 > 0，解得 x < 1/2 或 x > 1。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-073",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-等式与不等式",
+      "topicTitleZhHans": "等式与不等式",
+      "volume": "必修 第一册",
+      "chapter": "等式与不等式",
+      "conceptIds": [
+        "inequality-properties",
+        "quadratic-equations",
+        "quadratic-inequalities",
+        "basic-inequality"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities-unit-core",
+        "hjb-high-compulsory-1-equations-inequalities-topic-review",
+        "pep-high-exam-basic-inequality-optimization"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "若 a, b 为正实数，且 a + b = 1，则 (1 + 1/a)(1 + 1/b) 的最小值为（ ）",
+      "optionsZhHans": [
+        "A. 8",
+        "B. 9",
+        "C. 10",
+        "D. 12"
+      ],
+      "answer": "B. 9",
+      "acceptedAnswers": [
+        "B. 9"
+      ],
+      "explanationZhHans": "原式 = 1 + 1/a + 1/b + 1/(ab) = 1 + (a+b)/(ab) + 1/(ab) = 1 + 2/(ab)。由基本不等式 ab ≤ ((a+b)/2)^2 = 1/4，故 1/(ab) ≥ 4，2/(ab) ≥ 8，原式 ≥ 9，当 a=b=1/2 时取等。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-074",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-等式与不等式",
+      "topicTitleZhHans": "等式与不等式",
+      "volume": "必修 第一册",
+      "chapter": "等式与不等式",
+      "conceptIds": [
+        "inequality-properties",
+        "quadratic-equations",
+        "quadratic-inequalities",
+        "basic-inequality"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities-unit-core",
+        "hjb-high-compulsory-1-equations-inequalities-topic-review",
+        "pep-high-exam-basic-inequality-optimization"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "若关于 x 的不等式 x^2 - (m + 1)x + m ≤ 0 的解集为 [a, b]，且 b - a = 3，则实数 m 的值为______。",
+      "optionsZhHans": [],
+      "answer": "4 或 -2",
+      "acceptedAnswers": [
+        "4 或 -2",
+        "4或-2"
+      ],
+      "explanationZhHans": "不等式化为 (x - 1)(x - m) ≤ 0。若 m ≥ 1，解集为 [1, m]，则 m - 1 = 3，得 m = 4；若 m < 1，解集为 [m, 1]，则 1 - m = 3，得 m = -2。均满足条件。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-075",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-等式与不等式",
+      "topicTitleZhHans": "等式与不等式",
+      "volume": "必修 第一册",
+      "chapter": "等式与不等式",
+      "conceptIds": [
+        "inequality-properties",
+        "quadratic-equations",
+        "quadratic-inequalities",
+        "basic-inequality"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities-unit-core",
+        "hjb-high-compulsory-1-equations-inequalities-topic-review",
+        "pep-high-exam-basic-inequality-optimization"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0075：解答：解不等式 x+3>4，求 x 的取值范围右端常数 4-3 的值。",
+      "optionsZhHans": [],
+      "answer": "1",
+      "acceptedAnswers": [
+        "1"
+      ],
+      "explanationZhHans": "两边同时减去 3，得 x>4-3=1。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-076",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-等式与不等式",
+      "topicTitleZhHans": "等式与不等式",
+      "volume": "必修 第一册",
+      "chapter": "等式与不等式",
+      "conceptIds": [
+        "inequality-properties",
+        "quadratic-equations",
+        "quadratic-inequalities",
+        "basic-inequality"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities-unit-core",
+        "hjb-high-compulsory-1-equations-inequalities-topic-review",
+        "pep-high-exam-basic-inequality-optimization"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "已知 a, b, c ∈ R，且 a > b，则下列不等式一定成立的是（ ）",
+      "optionsZhHans": [
+        "A. a|c| > b|c|",
+        "B. a^2 > b^2",
+        "C. a^3 > b^3",
+        "D. 1/a < 1/b"
+      ],
+      "answer": "C. a^3 > b^3",
+      "acceptedAnswers": [
+        "C. a^3 > b^3"
+      ],
+      "explanationZhHans": "A 中 c=0 时不成立；B 中如 a=1,b=-2 时不成立；D 中若 a,b 异号或为零不成立。C 因 f(x)=x^3 在 R 上单调递增，故 a>b 必有 a^3>b^3，一定成立。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-077",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-等式与不等式",
+      "topicTitleZhHans": "等式与不等式",
+      "volume": "必修 第一册",
+      "chapter": "等式与不等式",
+      "conceptIds": [
+        "inequality-properties",
+        "quadratic-equations",
+        "quadratic-inequalities",
+        "basic-inequality"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities-unit-core",
+        "hjb-high-compulsory-1-equations-inequalities-topic-review",
+        "pep-high-exam-basic-inequality-optimization"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "已知 x > 0，y > 0，且 2x + y = 3，则 xy 的最大值为______。",
+      "optionsZhHans": [],
+      "answer": "9/8",
+      "acceptedAnswers": [
+        "9/8",
+        "1.125"
+      ],
+      "explanationZhHans": "由基本不等式，3 = 2x + y ≥ 2√(2xy)，平方得 9 ≥ 8xy，故 xy ≤ 9/8。当 2x = y = 3/2，即 x = 3/4, y = 3/2 时取等。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-078",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-等式与不等式",
+      "topicTitleZhHans": "等式与不等式",
+      "volume": "必修 第一册",
+      "chapter": "等式与不等式",
+      "conceptIds": [
+        "inequality-properties",
+        "quadratic-equations",
+        "quadratic-inequalities",
+        "basic-inequality"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities-unit-core",
+        "hjb-high-compulsory-1-equations-inequalities-topic-review",
+        "pep-high-exam-basic-inequality-optimization"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "已知关于 x 的不等式 (x - a)(x - b) > 0 的解集为 (-∞, 2) ∪ (3, +∞)，求 a + b 的值。",
+      "optionsZhHans": [],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5"
+      ],
+      "explanationZhHans": "由解集形式知 a, b 为 2 和 3，且不等式大于 0 取两边，故两根为 2 和 3。因此 a + b = 2 + 3 = 5。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-079",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-等式与不等式",
+      "topicTitleZhHans": "等式与不等式",
+      "volume": "必修 第一册",
+      "chapter": "等式与不等式",
+      "conceptIds": [
+        "inequality-properties",
+        "quadratic-equations",
+        "quadratic-inequalities",
+        "basic-inequality"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities-unit-core",
+        "hjb-high-compulsory-1-equations-inequalities-topic-review",
+        "pep-high-exam-basic-inequality-optimization"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "若 a, b ∈ R，则“a > b”是“a|a| > b|b|”的（ ）",
+      "optionsZhHans": [
+        "A. 充分不必要条件",
+        "B. 必要不充分条件",
+        "C. 充要条件",
+        "D. 既不充分也不必要条件"
+      ],
+      "answer": "C. 充要条件",
+      "acceptedAnswers": [
+        "C. 充要条件"
+      ],
+      "explanationZhHans": "令 f(x)=x|x|，当 x≥0 时 f(x)=x^2 递增；当 x<0 时 f(x)=-x^2 递增，故 f(x) 在 R 上单调递增。因此 a>b ⇔ f(a)>f(b)，即充要条件。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-080",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-等式与不等式",
+      "topicTitleZhHans": "等式与不等式",
+      "volume": "必修 第一册",
+      "chapter": "等式与不等式",
+      "conceptIds": [
+        "inequality-properties",
+        "quadratic-equations",
+        "quadratic-inequalities",
+        "basic-inequality"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities-unit-core",
+        "hjb-high-compulsory-1-equations-inequalities-topic-review",
+        "pep-high-exam-basic-inequality-optimization"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "已知关于 x 的不等式 x^2 - 2ax + a^2 - 1 ≤ 0 的解集为 [m, n]，且 n - m = 4，则实数 a 的值为______。",
+      "optionsZhHans": [],
+      "answer": "±2",
+      "acceptedAnswers": [
+        "±2",
+        "2或-2",
+        "2 或 -2"
+      ],
+      "explanationZhHans": "不等式化为 (x - a)^2 ≤ 4，即 |x - a| ≤ 2，解集为 [a - 2, a + 2]。由 m + n = (a - 2) + (a + 2) = 2a = 6，得 a = 3。"
+    }
+  ]
+}

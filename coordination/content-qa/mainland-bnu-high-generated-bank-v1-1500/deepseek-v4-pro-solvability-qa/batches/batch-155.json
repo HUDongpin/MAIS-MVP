@@ -1,0 +1,133 @@
+{
+  "batchNumber": 155,
+  "startedAt": "2026-05-27T14:09:32.936Z",
+  "completedAt": "2026-05-27T14:09:54.529Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-233",
+    "bnu-high-ds-v1-s6-234",
+    "bnu-high-ds-v1-s6-235",
+    "bnu-high-ds-v1-s6-236",
+    "bnu-high-ds-v1-s6-237",
+    "bnu-high-ds-v1-s6-238",
+    "bnu-high-ds-v1-s6-239",
+    "bnu-high-ds-v1-s6-240"
+  ],
+  "usage": {
+    "prompt_tokens": 10660,
+    "completion_tokens": 1339,
+    "total_tokens": 11999,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10148
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-233",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "a=0, b=-12, c=4",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件充分，可独立求解。求导得f'(x)=3x²+2ax+b，由极值条件f'(-2)=0和f'(2)=0解得a=0,b=-12，代入f(-2)=20得c=4。答案与解析均正确一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-234",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "y = 9x - 16",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目明确，可解。求导得y'=3x²-3，点(2,2)处斜率k=9，切线方程为y-2=9(x-2)，即y=9x-16。答案与解析匹配。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-235",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目完整，可解。求导得f'(x)=3x(x-2)，驻点0,2，计算端点及驻点函数值得f(-1)=-2,f(0)=2,f(2)=-2,f(3)=2，最大值为2。选项唯一正确，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-236",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "162 平方米",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件清晰，可解。设垂直墙边长为x，则面积S=x(36-2x)，求导得S'=-4x+36，驻点x=9，最大面积162。答案与解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-237",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "a ≤ 5/4",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解。f'(x)=3x²-6ax+3≥0在(2,3)恒成立，分离参数得a≤(x²+1)/(2x)，g(x)在(2,3)递增，最小g(2)=5/4，故a≤5/4。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-238",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "32",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解。f'(x)=3(x-3)(x+1)，驻点-1,3，极大值f(-1)=10，极小值f(3)=-22，差为32。选项唯一正确，答案与解析匹配。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-239",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "a = 1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解。f'(x)=e^x-a，分a≤1和a>1讨论，a≤1时最小值为f(0)=1符合；a>1时最小值a-alna=1解得a=1矛盾，故a=1。答案与解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-240",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0 < k < 4",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解。f'(x)=3x²-3，驻点±1，极大值f(-1)=4，极小值f(1)=0，方程有三个不同实根需k介于极值之间，即0<k<4。答案与解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，答案正确，解析与题目和答案一致，无任何问题。"
+    }
+  }
+}

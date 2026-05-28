@@ -1,0 +1,109 @@
+{
+  "batchId": "model-qa-0116",
+  "ids": [
+    "hjb-junior-ds-v2-s2-421",
+    "hjb-junior-ds-v2-s2-422",
+    "hjb-junior-ds-v2-s2-423",
+    "hjb-junior-ds-v2-s2-424",
+    "hjb-junior-ds-v2-s2-425",
+    "hjb-junior-ds-v2-s2-426",
+    "hjb-junior-ds-v2-s2-427",
+    "hjb-junior-ds-v2-s2-428"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-421",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案 y=2.5x+0.5 与解析 y=8+2.5(x-3)=2.5x+0.5 一致，但计算车费时，x=10 代入得 25.5 元。然而，起步价含3公里，超过3公里后每公里2.5元，当 x=10 时，费用应为 8+2.5*(10-3)=8+17.5=25.5，答案正确。但 acceptedAnswers 中包含了 'y=2.5x+0.5，25.5元' 等，与答案一致。检查发现，答案和解析均正确，无错误。但题干要求 x≥3，函数解析式 y=2.5x+0.5 在 x=3 时 y=8，正确。因此，本题无问题。",
+      "independentAnswerZhHans": "y=2.5x+0.5，25.5元",
+      "answerCheckZhHans": "标准答案正确，解析正确，acceptedAnswers 覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改，但标记为 needs-review 是因为初始判断有误，实际应 pass。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-422",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "k=2, b=1",
+      "answerCheckZhHans": "标准答案正确，解析正确，选项唯一。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-423",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "y=x+12",
+      "answerCheckZhHans": "标准答案正确，解析正确，acceptedAnswers 覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-424",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为 (0,3)，但解析中称 'C. 2→-1，正确' 且 '只有(2,-1)满足'，而选项 D 为 (2,-1)。检查各点：A (0,3) 代入得 3=3，正确；B (1,1) 代入得 1=1，正确；C (-1,5) 代入得 5=5，正确；D (2,-1) 代入得 -1=-1，正确。所有点均满足 y=-2x+3，因此有多个正确选项，但标准答案只选了 (0,3)。解析错误地认为只有 (2,-1) 满足，且选项标注混乱。",
+      "independentAnswerZhHans": "所有选项均正确：(0,3), (1,1), (-1,5), (2,-1) 都在图像上。",
+      "answerCheckZhHans": "标准答案错误，解析错误，题目有多个正确选项。",
+      "recommendedActionZhHans": "修改题目或选项，确保只有一个正确选项。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-425",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "y=2.5x，-5",
+      "answerCheckZhHans": "标准答案正确，解析正确，acceptedAnswers 覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-426",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "k=3, b=-1",
+      "answerCheckZhHans": "标准答案正确，解析正确，选项唯一。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-427",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-3",
+      "answerCheckZhHans": "标准答案正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-428",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "第三象限",
+      "answerCheckZhHans": "标准答案正确，解析正确，选项唯一。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

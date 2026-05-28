@@ -1,0 +1,105 @@
+{
+  "batchId": "model-qa-0013",
+  "ids": [
+    "hjb-junior-ds-v2-s1-097",
+    "hjb-junior-ds-v2-s1-098",
+    "hjb-junior-ds-v2-s1-099",
+    "hjb-junior-ds-v2-s1-100",
+    "hjb-junior-ds-v2-s1-101",
+    "hjb-junior-ds-v2-s1-102",
+    "hjb-junior-ds-v2-s1-103",
+    "hjb-junior-ds-v2-s1-104"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-097",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "D",
+      "answerCheckZhHans": "标准答案 D 正确。A 应为 a^6，B 应为 a^5，C 应为 8a^6，D 正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-098",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-2x^3 y",
+      "answerCheckZhHans": "标准答案 -2x^3 y 正确。计算过程：(-2x^2 y)^3 = -8x^6 y^3，除以 4x^3 y^2 得 -2x^3 y。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-099",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x^2 + y^2 = 19，(x - y)^2 = 13",
+      "answerCheckZhHans": "标准答案正确。x^2+y^2 = (x+y)^2 - 2xy = 25-6=19；(x-y)^2 = (x+y)^2 - 4xy = 25-12=13。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-100",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "A",
+      "answerCheckZhHans": "标准答案 A 正确。展开 (x+3)(x-2)=x^2+x-6，得 m=1, n=-6，m+n=-5。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-101",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3ab(a - 2b + 4)",
+      "answerCheckZhHans": "标准答案 3ab(a - 2b + 4) 正确。提取公因式 3ab 后得 a - 2b + 4。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-102",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(x² + 4)(x + 2)(x - 2)",
+      "answerCheckZhHans": "标准答案 (x² + 4)(x + 2)(x - 2) 正确。x⁴-16 = (x²+4)(x²-4) = (x²+4)(x+2)(x-2)。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-103",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "multiple-correct-options"
+      ],
+      "issueDetailsZhHans": "选项 C 和 D 均正确。C: -a²+4b² = 4b² - a² = (2b+a)(2b-a)，因式分解正确。D: x²+6x+9 = (x+3)² 正确。题目要求选择正确的因式分解，但存在两个正确选项。",
+      "independentAnswerZhHans": "C 和 D 均正确",
+      "answerCheckZhHans": "标准答案仅给出 D，但 C 也正确。C 的分解 (2b+a)(2b-a) 等价于 (a+2b)(2b-a)，是平方差公式的正确应用。",
+      "recommendedActionZhHans": "修改选项 C 或 D，确保只有一个正确选项；或调整题目要求为“下列因式分解不正确的是”。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-104",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-5mn(m - 2n + 3)",
+      "answerCheckZhHans": "标准答案 -5mn(m - 2n + 3) 正确。提取公因式 -5mn 后，括号内为 m - 2n + 3。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

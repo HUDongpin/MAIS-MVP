@@ -1,0 +1,137 @@
+{
+  "batchNumber": 49,
+  "startedAt": "2026-05-25T03:02:22.696Z",
+  "completedAt": "2026-05-25T03:02:39.690Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s2-k07-sa-010",
+    "pep-junior-v3-s2-k07-sa-011",
+    "pep-junior-v3-s2-k07-sa-012",
+    "pep-junior-v3-s2-k07-sa-013",
+    "pep-junior-v3-s2-k07-sa-014",
+    "pep-junior-v3-s2-k07-sa-015",
+    "pep-junior-v3-s2-k07-sa-016",
+    "pep-junior-v3-s2-k07-sa-017",
+    "pep-junior-v3-s2-k07-sa-018",
+    "pep-junior-v3-s2-k07-sa-019",
+    "pep-junior-v3-s2-k07-sa-020",
+    "pep-junior-v3-s2-k07-sa-021"
+  ],
+  "usage": {
+    "prompt_tokens": 3939,
+    "completion_tokens": 960,
+    "total_tokens": 4899,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 3683
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s2-k07-sa-010",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，因式分解和除法运算无误，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-sa-011",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "因式分解正确，平方差公式应用无误，实数范围内分解彻底。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-sa-012",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分式运算正确，通分、化简、约分步骤完整，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-sa-013",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "完全平方公式应用正确，计算无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-sa-014",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平方差公式因式分解正确。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-sa-015",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "多项式乘法正确，合并同类项无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-sa-016",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分式化简求值正确，约分后代入计算无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-sa-017",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分式方程解法正确，检验步骤完整。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-sa-018",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "因式分解正确，先提公因式再用完全平方公式。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-sa-019",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "同分母分式加法正确，约分后注明分母不为零。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-sa-020",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分式化简求值正确，因式分解约分后代入计算无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-sa-021",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "提取公因式后代入求值正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部12道题目数学正确，答案与解释一致，无歧义或缺失条件，适合人教版初中数学。"
+    }
+  }
+}

@@ -1,0 +1,120 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-027",
+  "startedAt": "2026-05-28T00:39:38.763Z",
+  "completedAt": "2026-05-28T00:39:54.154Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-209",
+    "bnu-high-ds-v1-s4-210",
+    "bnu-high-ds-v1-s4-211",
+    "bnu-high-ds-v1-s4-212",
+    "bnu-high-ds-v1-s4-213",
+    "bnu-high-ds-v1-s4-214",
+    "bnu-high-ds-v1-s4-215",
+    "bnu-high-ds-v1-s4-216"
+  ],
+  "usage": {
+    "prompt_tokens": 9967,
+    "completion_tokens": 936,
+    "total_tokens": 10903,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9583
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-209",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(1.70, 1.90)",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "样本量100，样本均值1.8，标准差0.5，z=1.96，标准误=0.5/10=0.05，置信区间=1.8±1.96×0.05=(1.702,1.898)，保留两位小数得(1.70,1.90)。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-210",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "1",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "标准化得分zᵢ的均值为0，方差为1，故标准差为1。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-211",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "B",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "样本均值是总体均值的估计，约为0.8小时，不是确定值，不同样本可能不同。选项B正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-212",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "80.00",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "40个数据求和得3200，平均数=3200/40=80.00。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-213",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "independentAnswer": null,
+        "issueTags": [
+          "missing_condition"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "分层抽样估计总体均值需知道各层在总体中的比例，题目未给出男女生人数，无法计算。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-214",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "C",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "第3组频数14，总频数100，频率=14/100=0.14。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-215",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "8",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "数据中8出现4次，次数最多，众数为8。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-216",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "18",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "线性变换后方差变为原方差的a²倍，a=3，原方差2，新方差=3²×2=18。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第213题因缺少男女生人数无法计算总体均值估计，标记为缺失条件；其余题目均可独立求解且符合北师大版高一统计内容。"
+    }
+  }
+}

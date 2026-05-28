@@ -1,0 +1,51 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-268",
+  "startedAt": "2026-05-28T01:25:26.338Z",
+  "completedAt": "2026-05-28T01:25:31.668Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-268"
+  ],
+  "usage": {
+    "prompt_tokens": 3654,
+    "completion_tokens": 317,
+    "total_tokens": 3971,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 3270
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-268",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "independentAnswer": null,
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "ambiguous_mc",
+          "explanation_contradiction",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件“点M的轨迹是一条直线”与几何事实矛盾：过圆外一点P(2,1)的弦中点轨迹是以CP为直径的圆(x-2.5)²+(y-2.5)²=2.5，并非直线。选项均为直线，无正确选项，题目不可解。存储答案x-y-1=0错误，解释中“联立消去二次项得x-y-1=0”无依据，属于强行凑出直线。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目条件与几何事实矛盾，无正确选项，判定为不可解。"
+    }
+  }
+}

@@ -1,0 +1,136 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-037",
+  "startedAt": "2026-05-28T01:05:28.638Z",
+  "completedAt": "2026-05-28T01:05:45.449Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-289",
+    "bnu-high-ds-v1-s4-290",
+    "bnu-high-ds-v1-s4-291",
+    "bnu-high-ds-v1-s4-292",
+    "bnu-high-ds-v1-s4-293",
+    "bnu-high-ds-v1-s4-294",
+    "bnu-high-ds-v1-s4-295",
+    "bnu-high-ds-v1-s4-296"
+  ],
+  "usage": {
+    "prompt_tokens": 12975,
+    "completion_tokens": 1085,
+    "total_tokens": 14060,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 12591
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-289",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "ambiguous_mc",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "Stage A 独立解指出 C 和 D 均正确，单选题存在多个正确选项，不符合要求。存储答案 D 错误，解析声称所有选项正确，与 Stage A 矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-290",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与 Stage A 独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-291",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "[0, π/12] ∪ [7π/12, π]",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "Stage A 独立解得递增区间为 [0, π/12] ∪ [7π/12, π]，存储答案为 [0, 5π/12] 和 [11π/12, π]，两者不一致。存储答案错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-292",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与 Stage A 独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-293",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与 Stage A 独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-294",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与 Stage A 独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-295",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "mcUniquenessStatus": "fail",
+        "correctedAnswer": null,
+        "issueTags": [
+          "ambiguous_mc",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "Stage A 指出 y=|sin x| 也满足周期 π 且为偶函数，存在两个正确选项，单选题不唯一。存储答案 B 虽正确，但题目有歧义，解析未澄清。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-296",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与 Stage A 独立解一致，解析正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 4,
+      "warn": 0,
+      "fail": 4,
+      "notes": "8 题中 4 题通过，4 题失败。失败原因：289 单选题多解且答案错误；291 答案错误；295 单选题多解。"
+    }
+  }
+}

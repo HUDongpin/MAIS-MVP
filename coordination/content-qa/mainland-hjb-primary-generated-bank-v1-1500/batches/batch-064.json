@@ -1,0 +1,294 @@
+{
+  "batchId": "batch-064",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p2-066",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-school-position-direction",
+      "unitTitle": "校园方位与位置表达",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "position-direction",
+        "east-south-west-north",
+        "map-orientation",
+        "school-spatial-language",
+        "方向"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "东南西北",
+        "位置描述",
+        "路线表达",
+        "地图方向",
+        "相对方位"
+      ],
+      "misconceptionTags": [
+        "reference point omitted",
+        "left and right substituted for fixed compass directions",
+        "route order reversed when reading a map"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-school-position-direction"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-upper-assessment-within-100-add-sub-unit",
+        "hjb-primary-p2-upper-assessment-money-shopping-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小乐站在学校操场中央，面向东。他先向右转一次，再向后转一次。现在小乐面向哪个方向？",
+      "optionsZhHans": [],
+      "answer": "北",
+      "acceptedAnswers": [
+        "北"
+      ],
+      "explanationZhHans": "面向东，右转一次变为面向南，再向后转一次变为面向北。注意方向顺序：东→南→西→北，向后转是转半圈。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-067",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-school-position-direction",
+      "unitTitle": "校园方位与位置表达",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "position-direction",
+        "east-south-west-north",
+        "map-orientation",
+        "school-spatial-language",
+        "方向"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "东南西北",
+        "位置描述",
+        "路线表达",
+        "地图方向",
+        "相对方位"
+      ],
+      "misconceptionTags": [
+        "reference point omitted",
+        "left and right substituted for fixed compass directions",
+        "route order reversed when reading a map"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-school-position-direction"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-upper-assessment-within-100-add-sub-unit",
+        "hjb-primary-p2-upper-assessment-money-shopping-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "校园平面图上，教学楼在花坛的北面，操场在教学楼的东面。那么花坛在操场的什么方向？",
+      "optionsZhHans": [
+        "西北",
+        "西南",
+        "东北",
+        "东南"
+      ],
+      "answer": "西南",
+      "acceptedAnswers": [
+        "西南"
+      ],
+      "explanationZhHans": "以花坛为起点：教学楼在北，操场在教学楼东即花坛的东北。反过来，花坛在操场的西南。注意相对位置，不能只说左或右。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-068",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-school-position-direction",
+      "unitTitle": "校园方位与位置表达",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "position-direction",
+        "east-south-west-north",
+        "map-orientation",
+        "school-spatial-language",
+        "方向"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "东南西北",
+        "位置描述",
+        "路线表达",
+        "地图方向",
+        "相对方位"
+      ],
+      "misconceptionTags": [
+        "reference point omitted",
+        "left and right substituted for fixed compass directions",
+        "route order reversed when reading a map"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-school-position-direction"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-upper-assessment-within-100-add-sub-unit",
+        "hjb-primary-p2-upper-assessment-money-shopping-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "早晨，小红面向太阳去上学，她的前面是东，后面是____，左面是北，右面是南。",
+      "optionsZhHans": [],
+      "answer": "西",
+      "acceptedAnswers": [
+        "西"
+      ],
+      "explanationZhHans": "早晨太阳从东方升起，面向东时，后面是西。这是固定方向，不随身体转动改变。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-069",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-school-position-direction",
+      "unitTitle": "校园方位与位置表达",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "position-direction",
+        "east-south-west-north",
+        "map-orientation",
+        "school-spatial-language",
+        "方向"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "东南西北",
+        "位置描述",
+        "路线表达",
+        "地图方向",
+        "相对方位"
+      ],
+      "misconceptionTags": [
+        "reference point omitted",
+        "left and right substituted for fixed compass directions",
+        "route order reversed when reading a map"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-school-position-direction"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-upper-assessment-within-100-add-sub-unit",
+        "hjb-primary-p2-upper-assessment-money-shopping-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "从学校大门出发，先向北走到图书馆，再向东走到体育馆。请写出从体育馆返回学校大门的路线。",
+      "optionsZhHans": [],
+      "answer": "先向西走到图书馆，再向南走到学校大门。",
+      "acceptedAnswers": [
+        "先向西走到图书馆，再向南走到学校大门。",
+        "向西走到图书馆，再向南走到学校大门。",
+        "先向西走到图书馆，再向南走到学校大门",
+        "向西走到图书馆，再向南走到学校大门"
+      ],
+      "explanationZhHans": "返回路线与去程方向相反：北变南，东变西，且顺序不变。注意描述时要有明确的参考点。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-070",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-multiplication-facts",
+      "unitTitle": "表内乘法",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "multiplication-meaning",
+        "equal-groups",
+        "arrays",
+        "multiplication-facts",
+        "表内乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "几个几",
+        "乘法含义",
+        "乘法算式",
+        "乘法口诀",
+        "阵列模型",
+        "乘加联系"
+      ],
+      "misconceptionTags": [
+        "unequal groups treated as multiplication",
+        "factor order memorized without meaning",
+        "fact recall separated from quantity model"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-multiplication-facts"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-upper-assessment-multiplication-facts-unit",
+        "hjb-primary-p2-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪种情况不能用乘法算式 3×4 表示？",
+      "optionsZhHans": [
+        "每盘有3个苹果，4盘一共有多少个苹果？",
+        "有3个小朋友，每人有4块糖，一共有多少块糖？",
+        "小明有3支铅笔，小红有4块橡皮，他们一共有多少文具？",
+        "一行有3个圆片，摆了4行，一共有多少个圆片？"
+      ],
+      "answer": "小明有3支铅笔，小红有4块橡皮，他们一共有多少文具？",
+      "acceptedAnswers": [
+        "小明有3支铅笔，小红有4块橡皮，他们一共有多少文具？"
+      ],
+      "explanationZhHans": "乘法表示几个相同加数的和。前三个选项都是3个4或4个3，而第三个选项是不同物品相加，不是相同加数，不能用乘法。"
+    }
+  ]
+}

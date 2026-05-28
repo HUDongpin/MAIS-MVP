@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-074",
+  "startedAt": "2026-05-28T01:15:07.414Z",
+  "completedAt": "2026-05-28T01:15:31.647Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-085",
+    "bnu-high-ds-v1-s5-086",
+    "bnu-high-ds-v1-s5-087",
+    "bnu-high-ds-v1-s5-088",
+    "bnu-high-ds-v1-s5-089",
+    "bnu-high-ds-v1-s5-090",
+    "bnu-high-ds-v1-s5-091",
+    "bnu-high-ds-v1-s5-092"
+  ],
+  "usage": {
+    "prompt_tokens": 10341,
+    "completion_tokens": 1362,
+    "total_tokens": 11703,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9957
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-085",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由离心率e=c/a=√5/2得c=√5a/2，b²=c²-a²=a²/4。右焦点(c,0)到渐近线bx-ay=0的距离为|bc|/√(a²+b²)=b=2，故a=2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-086",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "抛物线y²=4x焦点F(1,0)，准线x=-1。设P(x₀,y₀)，则Q(-1,y₀)。等边三角形得|PF|=|PQ|且|PF|=|QF|。由|PF|=x₀+1，|PQ|=x₀+1，|QF|=√((1+1)²+y₀²)=√(4+4x₀)。由|PF|=|QF|得x₀+1=√(4+4x₀)，解得x₀=3。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-087",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "x²/9 + y²/5 = 1",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "焦点F(2,0)在x轴，c=2。椭圆过P(0,√5)，代入得b²=5。由a²=b²+c²=9，标准方程为x²/9+y²/5=1。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-088",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "1",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "b=3，焦点F₁(-c,0),F₂(c,0)。P在右支，PF₁⊥PF₂，面积S=9=½|PF₁||PF₂|。由双曲线定义|PF₁|-|PF₂|=2a，勾股定理|PF₁|²+|PF₂|²=4c²。解得|PF₁||PF₂|=2(c²-a²)=2b²=18，与面积18一致，得a=1。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-089",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "k = 1",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "联立y=kx+2与y²=8x得k²x²+(4k-8)x+4=0。设A(x₁,y₁),B(x₂,y₂)，以AB为直径的圆过原点得x₁x₂+y₁y₂=0。代入韦达定理得4/k²+16/k=0，解得k=1（k=0舍去，因与抛物线仅一个交点）。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-090",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "3x + 4y - 7 = 0",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "设A(x₁,y₁),B(x₂,y₂)，中点P(1,1)。点差法得3(x₁+x₂)(x₁-x₂)+4(y₁+y₂)(y₁-y₂)=0，代入中点得斜率k=-3/4。直线方程为y-1=(-3/4)(x-1)，即3x+4y-7=0。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-091",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "x^2/25 + y^2/9 = 1",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "长轴长10得a=5，短轴长6得b=3，焦点在x轴，标准方程为x²/25+y²/9=1。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-092",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "x²/9 - y²/16 = 1",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "渐近线y=±(4/3)x，设双曲线为x²/9 - y²/16 = λ。代入点(3,4√2)得λ=1，标准方程为x²/9 - y²/16 = 1。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，无数学错误、歧义或缺失条件，符合北师大版高中圆锥曲线章节要求。"
+    }
+  }
+}

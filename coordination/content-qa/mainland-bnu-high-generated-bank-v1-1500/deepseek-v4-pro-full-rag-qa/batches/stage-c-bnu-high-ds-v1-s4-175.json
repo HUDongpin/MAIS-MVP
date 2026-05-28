@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-175",
+  "startedAt": "2026-05-28T01:04:04.472Z",
+  "completedAt": "2026-05-28T01:04:10.064Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-175"
+  ],
+  "usage": {
+    "prompt_tokens": 2172,
+    "completion_tokens": 266,
+    "total_tokens": 2438,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1788
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-175",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "independentAnswer": "B",
+        "correctedAnswer": "线性模型中的c值约为0.2",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，独立计算得k=ln3/10≈0.10986，c=0.2，指数预测9倍，线性预测5倍，仅B正确。但存储答案选A且解析自相矛盾，导致无正确选项，属于严重错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "存储答案错误，解析与答案矛盾，需修正为B。"
+    }
+  }
+}

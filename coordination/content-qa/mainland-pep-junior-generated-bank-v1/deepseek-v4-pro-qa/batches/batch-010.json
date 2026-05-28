@@ -1,0 +1,191 @@
+{
+  "batchNumber": 10,
+  "startedAt": "2026-05-24T17:25:07.573Z",
+  "completedAt": "2026-05-24T17:25:26.285Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-candidate-k02-sa-026",
+    "pep-junior-candidate-k02-sa-027",
+    "pep-junior-candidate-k03-mc-001",
+    "pep-junior-candidate-k03-mc-002",
+    "pep-junior-candidate-k03-mc-003",
+    "pep-junior-candidate-k03-mc-004",
+    "pep-junior-candidate-k03-mc-005",
+    "pep-junior-candidate-k03-mc-006",
+    "pep-junior-candidate-k03-mc-007",
+    "pep-junior-candidate-k03-mc-008",
+    "pep-junior-candidate-k03-mc-009",
+    "pep-junior-candidate-k03-mc-010",
+    "pep-junior-candidate-k03-mc-011",
+    "pep-junior-candidate-k03-mc-012",
+    "pep-junior-candidate-k03-mc-013",
+    "pep-junior-candidate-k03-mc-014",
+    "pep-junior-candidate-k03-mc-015",
+    "pep-junior-candidate-k03-mc-016"
+  ],
+  "usage": {
+    "prompt_tokens": 2871,
+    "completion_tokens": 1305,
+    "total_tokens": 4176,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 2615
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-candidate-k02-sa-026",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，方程与解释一致，无歧义，适合人教版初中。"
+      },
+      {
+        "id": "pep-junior-candidate-k02-sa-027",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，方程与解释一致，无歧义，适合人教版初中。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-mc-001",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项唯一，解释清晰。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-mc-002",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项唯一，解释清晰。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-mc-003",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项唯一，解释清晰。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-mc-004",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项唯一，解释清晰。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-mc-005",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项唯一，解释清晰。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-mc-006",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项唯一，解释清晰。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-mc-007",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项唯一，解释清晰。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-mc-008",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项唯一，解释清晰。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-mc-009",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项唯一，解释清晰。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-mc-010",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项唯一，解释清晰。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-mc-011",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项唯一，解释清晰。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-mc-012",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项唯一，解释清晰。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-mc-013",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项唯一，解释清晰。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-mc-014",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项唯一，解释清晰。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-mc-015",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项唯一，解释清晰。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-mc-016",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项唯一，解释清晰。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案与解释一致，选项无歧义，适合人教版初中，无风险。"
+    }
+  }
+}

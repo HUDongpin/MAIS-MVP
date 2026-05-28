@@ -1,0 +1,305 @@
+{
+  "batchId": "batch-088",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s3-k10-fi-004",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-circle-geometry"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "promptZhHans": "已知关于x的一元二次方程x² - 6x + m = 0有两个不相等的实数根，则m的取值范围是______。",
+      "optionsZhHans": [],
+      "answer": "m < 9",
+      "acceptedAnswers": [
+        "m < 9",
+        "m<9"
+      ],
+      "explanationZhHans": "由根的判别式Δ = b² - 4ac > 0，这里a=1，b=-6，c=m，所以Δ = (-6)² - 4×1×m = 36 - 4m > 0，解得m < 9。故m的取值范围是m < 9。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-fi-005",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-probability-introduction"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "一个不透明的袋子中装有4个红球和6个白球，它们除颜色外都相同。从中任意摸出一个球，摸到红球的概率是______。",
+      "optionsZhHans": [],
+      "answer": "2/5",
+      "acceptedAnswers": [
+        "2/5",
+        "0.4",
+        "40%",
+        "4/10"
+      ],
+      "explanationZhHans": "袋子中共有4+6=10个球，其中红球4个，所以摸到红球的概率为4/10 = 2/5。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-fi-006",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-rotation-transformations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models"
+      ],
+      "promptZhHans": "在平面直角坐标系中，将点A(3, -2)绕原点顺时针旋转90°，得到点A'，则点A'的坐标为______。",
+      "optionsZhHans": [],
+      "answer": "(-2, -3)",
+      "acceptedAnswers": [
+        "(-2, -3)",
+        "(-2,-3)"
+      ],
+      "explanationZhHans": "点(x, y)绕原点顺时针旋转90°后变为(y, -x)。所以A(3, -2)旋转后为(-2, -3)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-fi-007",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "已知二次函数y = -x² + 4x + 1，将其化为顶点式，结果为y = -(x - 2)² + 5，则此函数的最大值是______。",
+      "optionsZhHans": [],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5"
+      ],
+      "explanationZhHans": "顶点式为y = -(x - 2)² + 5，因为二次项系数为负，抛物线开口向下，顶点(2, 5)是最高点，所以函数的最大值是5。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-fi-008",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-quadratic-equations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "某商店销售一种商品，进价为每件40元，售价为每件60元时，每天可售出100件。经调查发现，售价每降低1元，每天可多售出10件。设每件降价x元，则每天的利润y（元）与x的函数关系式为y = (20 - x)(100 + 10x)。若要使每天利润最大，每件应降价______元。",
+      "optionsZhHans": [],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5"
+      ],
+      "explanationZhHans": "利润y = (20 - x)(100 + 10x) = -10x² + 100x + 2000，化为顶点式y = -10(x - 5)² + 2250，所以当x = 5时，y有最大值。因此每件应降价5元。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-fi-009",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-quadratic-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions"
+      ],
+      "promptZhHans": "已知二次函数y = x² - 2mx + m² - 1的图象经过点(3, 0)，则m的值为______。",
+      "optionsZhHans": [],
+      "answer": "2或4",
+      "acceptedAnswers": [
+        "2或4",
+        "2,4",
+        "4或2"
+      ],
+      "explanationZhHans": "将点(3,0)代入得0 = 9 - 6m + m² - 1，即m² - 6m + 8 = 0，解得m = 2或m = 4。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-fi-010",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-circle-geometry"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "promptZhHans": "在⊙O中，弦AB的长为8，圆心O到AB的距离为3，则⊙O的半径为______。",
+      "optionsZhHans": [],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5"
+      ],
+      "explanationZhHans": "过O作OC⊥AB于C，则C为AB中点，AC = 4。在Rt△OAC中，OA² = OC² + AC² = 3² + 4² = 25，所以半径OA = 5。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-fi-011",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-probability-introduction"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean"
+      ],
+      "promptZhHans": "一个不透明的口袋中装有2个红球和3个黄球，它们除颜色外都相同。从中随机摸出两个球，则摸出的两个球都是红球的概率是______。",
+      "optionsZhHans": [],
+      "answer": "1/10",
+      "acceptedAnswers": [
+        "1/10",
+        "0.1",
+        "10%"
+      ],
+      "explanationZhHans": "从5个球中摸出2个球共有C(5,2)=10种等可能结果，其中两个都是红球的情况有C(2,2)=1种，所以概率为1/10。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-fi-012",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-rotation-transformations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig"
+      ],
+      "promptZhHans": "在平面直角坐标系中，点P(4, 5)关于原点对称的点P'的坐标为______。",
+      "optionsZhHans": [],
+      "answer": "(-4, -5)",
+      "acceptedAnswers": [
+        "(-4, -5)",
+        "(-4,-5)"
+      ],
+      "explanationZhHans": "关于原点对称的点，横、纵坐标都变为相反数，所以P(4, 5)的对称点为(-4, -5)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-fi-013",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-dynamic-geometry-functions"
+      ],
+      "promptZhHans": "已知关于x的一元二次方程x² - (k+2)x + 2k = 0的一个根是1，则另一个根是______。",
+      "optionsZhHans": [],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2"
+      ],
+      "explanationZhHans": "将x=1代入方程得1 - (k+2) + 2k = 0，解得k=1。原方程为x² - 3x + 2 = 0，因式分解得(x-1)(x-2)=0，所以另一个根是2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

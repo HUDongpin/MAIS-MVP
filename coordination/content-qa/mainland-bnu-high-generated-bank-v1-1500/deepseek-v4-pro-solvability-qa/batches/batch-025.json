@@ -1,0 +1,133 @@
+{
+  "batchNumber": 25,
+  "startedAt": "2026-05-27T13:48:11.974Z",
+  "completedAt": "2026-05-27T13:48:27.819Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-193",
+    "bnu-high-ds-v1-s4-194",
+    "bnu-high-ds-v1-s4-195",
+    "bnu-high-ds-v1-s4-196",
+    "bnu-high-ds-v1-s4-197",
+    "bnu-high-ds-v1-s4-198",
+    "bnu-high-ds-v1-s4-199",
+    "bnu-high-ds-v1-s4-200"
+  ],
+  "usage": {
+    "prompt_tokens": 10241,
+    "completion_tokens": 1134,
+    "total_tokens": 11375,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 9729
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-193",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "12",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "频率分布直方图数据完整，组距10，频率0.030×10=0.3，人数40×0.3=12，答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-194",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "甲的成绩更稳定，因为标准差更小。",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "平均数相同，标准差小的更稳定，甲标准差0.4<0.8，判断正确，解析合理。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-195",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "17,18",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "线性变换性质：新平均数=3×5+2=17，新方差=3²×2=18，答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-196",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "从每个班级随机抽取5名学生",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "选项A分层抽样代表性强，其他选项有偏，答案正确，解析合理。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-197",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "极差为0.4，标准差约为0.16。",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "极差2.6-2.2=0.4，均值2.4，方差0.024，标准差≈0.155，四舍五入0.16，答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-198",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "[60,90)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "总频数60，中位数在第30、31个数据，累计频数到[60,90)为50，包含中位数，答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-199",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "函数关系",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "数据点满足y=2x+1，是确定函数关系，非相关关系，答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-200",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "[0.72,0.88]",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "样本率0.8，标准误0.04，95%置信区间0.8±1.96×0.04=[0.7216,0.8784]，四舍五入[0.72,0.88]，答案正确，解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可解，答案与解析匹配，无错误或歧义。"
+    }
+  }
+}

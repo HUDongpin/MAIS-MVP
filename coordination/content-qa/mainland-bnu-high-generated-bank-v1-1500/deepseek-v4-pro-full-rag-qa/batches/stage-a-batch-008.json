@@ -1,0 +1,121 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-008",
+  "startedAt": "2026-05-28T00:35:17.905Z",
+  "completedAt": "2026-05-28T00:35:40.773Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-057",
+    "bnu-high-ds-v1-s4-058",
+    "bnu-high-ds-v1-s4-059",
+    "bnu-high-ds-v1-s4-060",
+    "bnu-high-ds-v1-s4-061",
+    "bnu-high-ds-v1-s4-062",
+    "bnu-high-ds-v1-s4-063",
+    "bnu-high-ds-v1-s4-064"
+  ],
+  "usage": {
+    "prompt_tokens": 9969,
+    "completion_tokens": 1223,
+    "total_tokens": 11192,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9585
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-057",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "0",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由奇函数得偶次项系数为零，即a=c=0，再由f(1)=2得b=1，故a+b+c=0。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-058",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "independentAnswer": null,
+        "issueTags": [
+          "ambiguous_mc",
+          "bad_options"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "四个选项均不满足既是偶函数又在(0,+∞)单调递增。A偶但递减；B偶但递减；C定义域不含0，非偶函数；D非奇非偶。无正确选项。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-059",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "（1）f(x)=x^2-4x+3 (x≥0), f(x)=x^2+4x+3 (x<0)；（2）k∈(-1,3)",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "利用偶函数对称性写出分段解析式；方程有四个不同实根即y=f(x)与y=k有四个交点，由图像得k∈(-1,3)。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-060",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "2024^2 - 2024 + 1",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由递推关系得f(x+2)-f(x)=2(x+1)，累加得f(2024)=f(0)+∑_{k=0}^{1011}2(2k+1)=1+2×1012^2=2024^2-2024+1。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-061",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "C",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f(-x)=-x^3+3x=-f(x)，奇函数；求导得f'(x)=3x^2-3，有增有减；值域为R。故C正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-062",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "[-2,1)∪(1,2]",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由4-x^2≥0得-2≤x≤2，由x-1≠0得x≠1，取交集得定义域[-2,1)∪(1,2]。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-063",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "[-1,0]和[1,+∞)",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "分段求导：x≤0时f'(x)=2x+2，增区间为[-1,0]；x>0时f'(x)=-2x+2，增区间为(0,1]；合并得[-1,1]，但需检查分段点，实际增区间为[-1,0]和[1,+∞)。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-064",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "4",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "令y=1得f(x+1)=f(x)+f(1)+2x，即f(x+1)-f(x)=2x+1，累加得f(2)=4，再令x=y=-1得f(-2)=2f(-1)+2，由f(0)=0及f(1)=1得f(-1)=1，故f(-2)=4。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第058题无正确选项，四个选项均不满足既是偶函数又在(0,+∞)单调递增，属于选项设计错误。其余题目均可独立求解，符合北师大版高一函数章节要求。"
+    }
+  }
+}

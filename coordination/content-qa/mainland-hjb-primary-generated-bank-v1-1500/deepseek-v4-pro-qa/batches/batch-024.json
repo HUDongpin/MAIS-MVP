@@ -1,0 +1,191 @@
+{
+  "batchNumber": 24,
+  "startedAt": "2026-05-25T02:00:07.795Z",
+  "completedAt": "2026-05-25T02:00:25.843Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p2-165",
+    "hjb-primary-ds-v1-p2-166",
+    "hjb-primary-ds-v1-p2-167",
+    "hjb-primary-ds-v1-p2-168",
+    "hjb-primary-ds-v1-p2-169",
+    "hjb-primary-ds-v1-p2-170",
+    "hjb-primary-ds-v1-p2-171",
+    "hjb-primary-ds-v1-p2-172",
+    "hjb-primary-ds-v1-p2-173",
+    "hjb-primary-ds-v1-p2-174",
+    "hjb-primary-ds-v1-p2-175",
+    "hjb-primary-ds-v1-p2-176",
+    "hjb-primary-ds-v1-p2-177",
+    "hjb-primary-ds-v1-p2-178",
+    "hjb-primary-ds-v1-p2-179",
+    "hjb-primary-ds-v1-p2-180",
+    "hjb-primary-ds-v1-p2-181",
+    "hjb-primary-ds-v1-p2-182"
+  ],
+  "usage": {
+    "prompt_tokens": 3092,
+    "completion_tokens": 1293,
+    "total_tokens": 4385,
+    "prompt_tokens_details": {
+      "cached_tokens": 3072
+    },
+    "prompt_cache_hit_tokens": 3072,
+    "prompt_cache_miss_tokens": 20
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p2-165",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案与解释一致，符合P2时间计算要求。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-166",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "钟面描述正确，选项唯一，答案8:30无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-167",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "描述与答案匹配，10时15分正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-168",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "时间差计算正确，35分钟无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-169",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项合理，跳绳100下约1分钟，其他明显不符。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-170",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，8:30无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-171",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "电子表读法正确，8时25分无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-172",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项A描述准确，其他错误，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-173",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，3时45分无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-174",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "跨天时间计算正确，10小时无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-175",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项合理，写名字约1分钟，其他明显不符。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-176",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "钟面描述正确，8时20分无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-177",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，9时45分无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-178",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项A描述准确，其他错误，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-179",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "描述与答案匹配，7时55分正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-180",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，8时45分无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-181",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "开始时间推断正确，计算后4:55无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-182",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，分针指向8无误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合P2时间单元要求，数学正确，答案与解释一致，无歧义或错误。"
+    }
+  }
+}

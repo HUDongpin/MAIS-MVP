@@ -1,0 +1,182 @@
+{
+  "batchNumber": 27,
+  "startedAt": "2026-05-27T17:29:18.145Z",
+  "completedAt": "2026-05-27T17:29:35.261Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s1-313",
+    "bnu-junior-ds-v1-s1-314",
+    "bnu-junior-ds-v1-s1-315",
+    "bnu-junior-ds-v1-s1-316",
+    "bnu-junior-ds-v1-s1-317",
+    "bnu-junior-ds-v1-s1-318",
+    "bnu-junior-ds-v1-s1-319",
+    "bnu-junior-ds-v1-s1-320",
+    "bnu-junior-ds-v1-s1-321",
+    "bnu-junior-ds-v1-s1-322",
+    "bnu-junior-ds-v1-s1-323",
+    "bnu-junior-ds-v1-s1-324"
+  ],
+  "usage": {
+    "prompt_tokens": 5927,
+    "completion_tokens": 1376,
+    "total_tokens": 7303,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 5415
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s1-313",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，对顶角相等得∠BOC=80°，平分线得∠COF=40°，答案与选项一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-314",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由∠COE=145°得∠EOD=35°，∠AOD=70°，邻补角得∠BOD=110°，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-315",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "95°",
+        "rationale": "答案应为95°，但题目给出15°，且解释中计算正确但答案错误，答案与解释矛盾。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-316",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "对顶角得∠BOC=70°，平分线得∠BOF=35°，答案与选项匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-317",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "80°",
+        "rationale": "答案字段写为50°但推理得80°，解释正确但答案错误，acceptedAnswers包含80°但主答案错误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-318",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由角平分线和对顶角推导得∠EOF=180°，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-319",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由∠COE=90°和∠AOC=50°得∠AOE=40°，邻补角得∠BOE=140°，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-320",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "115°",
+        "rationale": "解释正确得∠BOE=115°，但答案字段为155°，答案错误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-321",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "角平分线得∠AOC=70°，对顶角得∠BOD=70°，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-322",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "对顶角得∠BOC=80°，平分线得∠COF=40°，答案与选项一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-323",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由∠AOC=30°得∠AOD=150°，∠EOD=100°，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-324",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "对顶角得∠BOC=80°，平分线得∠BOF=40°，答案正确。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 9,
+      "warn": 0,
+      "fail": 3,
+      "notes": "12道题中9道通过，3道因答案与解释不匹配或答案错误而失败（315、317、320）。"
+    }
+  }
+}

@@ -1,0 +1,191 @@
+{
+  "batchNumber": 11,
+  "startedAt": "2026-05-27T13:25:35.864Z",
+  "completedAt": "2026-05-27T13:25:54.523Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p1-181",
+    "bnu-primary-ds-v1-p1-182",
+    "bnu-primary-ds-v1-p1-183",
+    "bnu-primary-ds-v1-p1-184",
+    "bnu-primary-ds-v1-p1-185",
+    "bnu-primary-ds-v1-p1-186",
+    "bnu-primary-ds-v1-p1-187",
+    "bnu-primary-ds-v1-p1-188",
+    "bnu-primary-ds-v1-p1-189",
+    "bnu-primary-ds-v1-p1-190",
+    "bnu-primary-ds-v1-p1-191",
+    "bnu-primary-ds-v1-p1-192",
+    "bnu-primary-ds-v1-p1-193",
+    "bnu-primary-ds-v1-p1-194",
+    "bnu-primary-ds-v1-p1-195",
+    "bnu-primary-ds-v1-p1-196",
+    "bnu-primary-ds-v1-p1-197",
+    "bnu-primary-ds-v1-p1-198"
+  ],
+  "usage": {
+    "prompt_tokens": 2976,
+    "completion_tokens": 1290,
+    "total_tokens": 4266,
+    "prompt_tokens_details": {
+      "cached_tokens": 2944
+    },
+    "prompt_cache_hit_tokens": 2944,
+    "prompt_cache_miss_tokens": 32
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p1-181",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，符合P1数位认知要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-182",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "读写数练习，答案与解释一致，acceptedAnswers覆盖常见分隔符。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-183",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计数器表示两位数，答案63正确，选项无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-184",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数的组成填空，答案47无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-185",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "逻辑推理题，个位比十位小2，64正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-186",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计数器读数，37正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-187",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "小棒表示数，63正确，解释强调十位在前。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-188",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数字卡片组数，较大数73正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-189",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计数器读数，63正确，选项C/D为描述非数值，但答案明确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-190",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "综合填空，答案与解释一致，acceptedAnswers合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-191",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "正方形特征识别，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-192",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "长方形边角计数，4,4正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-193",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "三角形拼图，平行四边形正确，解释合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-194",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "正方形特征填空，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-195",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "圆无角，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-196",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "三角形边角数，3,3正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-197",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "长方形特征，答案正确，解释区分正方形。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-198",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "圆特征填空，答案正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版P1要求，数学正确，答案匹配，无歧义或缺失条件。"
+    }
+  }
+}

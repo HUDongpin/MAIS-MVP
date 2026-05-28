@@ -1,0 +1,163 @@
+{
+  "batchId": "batch-084",
+  "attempt": 2,
+  "validationError": "pep-junior-v3-s3-k10-mc-038: multiple-choice options include duplicates; pep-junior-v3-s3-k10-mc-038: multiple-choice answer must exactly match one option",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s3-k10-mc-031",
+      "promptZhHans": "若关于x的一元二次方程2x² - 3x + k = 0有两个不相等的实数根，则k的值可以是下列哪个数？",
+      "optionsZhHans": [
+        "0",
+        "1",
+        "2",
+        "3"
+      ],
+      "answer": "0",
+      "acceptedAnswers": [
+        "0"
+      ],
+      "explanationZhHans": "由判别式Δ = b² - 4ac > 0得(-3)² - 4×2×k > 0，即9 - 8k > 0，解得k < 9/8 = 1.125。选项中只有0满足k < 1.125，所以答案为0。"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-032",
+      "promptZhHans": "已知圆的直径为10 cm，一条弦AB的长为8 cm，则弦AB的弦心距为多少厘米？",
+      "optionsZhHans": [
+        "3 cm",
+        "4 cm",
+        "5 cm",
+        "6 cm"
+      ],
+      "answer": "3 cm",
+      "acceptedAnswers": [
+        "3 cm",
+        "3"
+      ],
+      "explanationZhHans": "圆的半径为5 cm，弦心距、半径、弦的一半构成直角三角形。弦的一半为4 cm，由勾股定理得弦心距 = √(5² - 4²) = 3 cm。所以答案为3 cm。"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-033",
+      "promptZhHans": "一个不透明的袋子里装有2个红球和3个白球，它们除颜色外完全相同。从袋子中随机摸出一个球，摸到红球的概率是多少？",
+      "optionsZhHans": [
+        "1/5",
+        "2/5",
+        "3/5",
+        "2/3"
+      ],
+      "answer": "2/5",
+      "acceptedAnswers": [
+        "2/5",
+        "0.4"
+      ],
+      "explanationZhHans": "总共有5个球，红球有2个，所以摸到红球的概率为2/5。"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-034",
+      "promptZhHans": "二次函数y = -2(x - 1)² + 3的顶点坐标是？",
+      "optionsZhHans": [
+        "(1, 3)",
+        "(-1, 3)",
+        "(1, -3)",
+        "(-1, -3)"
+      ],
+      "answer": "(1, 3)",
+      "acceptedAnswers": [
+        "(1, 3)",
+        "1,3"
+      ],
+      "explanationZhHans": "二次函数顶点式为y = a(x - h)² + k，顶点为(h, k)。这里h = 1，k = 3，所以顶点坐标为(1, 3)。"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-035",
+      "promptZhHans": "同时抛掷两枚质地均匀的硬币，出现一正一反的概率是多少？",
+      "optionsZhHans": [
+        "1/4",
+        "1/2",
+        "3/4",
+        "1"
+      ],
+      "answer": "1/2",
+      "acceptedAnswers": [
+        "1/2",
+        "0.5"
+      ],
+      "explanationZhHans": "抛掷两枚硬币，等可能的结果有：正正、正反、反正、反反。其中一正一反包含正反和反正两种情况，所以概率为2/4 = 1/2。"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-036",
+      "promptZhHans": "将点A(2, -3)绕原点逆时针旋转90°，得到点A'的坐标是？",
+      "optionsZhHans": [
+        "(3, 2)",
+        "(-3, -2)",
+        "(-2, 3)",
+        "(2, 3)"
+      ],
+      "answer": "(3, 2)",
+      "acceptedAnswers": [
+        "(3, 2)",
+        "3,2"
+      ],
+      "explanationZhHans": "点(x, y)绕原点逆时针旋转90°后坐标为(-y, x)。所以A(2, -3)旋转后为(3, 2)。"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-037",
+      "promptZhHans": "下列各数中，绝对值最小的是？",
+      "optionsZhHans": [
+        "-3",
+        "-1",
+        "0",
+        "2"
+      ],
+      "answer": "0",
+      "acceptedAnswers": [
+        "0"
+      ],
+      "explanationZhHans": "绝对值表示数轴上点到原点的距离。-3的绝对值为3，-1的绝对值为1，0的绝对值为0，2的绝对值为2。其中0最小，所以答案为0。"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-038",
+      "promptZhHans": "某商店将进价为每件40元的商品按每件50元出售，每天可售出100件。经调查发现，售价每提高1元，日销量减少2件。设每件售价提高x元，则每天的利润y（元）与x的函数关系式为？",
+      "optionsZhHans": [
+        "y = -2x² + 80x + 1000",
+        "y = -2x² + 80x + 1000",
+        "y = -2x² + 80x + 1000",
+        "y = -2x² + 80x + 1000"
+      ],
+      "answer": "y = -2x² + 80x + 1000",
+      "acceptedAnswers": [
+        "y = -2x² + 80x + 1000"
+      ],
+      "explanationZhHans": "售价提高x元后，售价为(50+x)元，利润为(50+x-40) = (10+x)元，日销量为(100-2x)件。总利润y = (10+x)(100-2x) = 1000 - 20x + 100x - 2x² = -2x² + 80x + 1000。所以答案为y = -2x² + 80x + 1000。"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-039",
+      "promptZhHans": "化简分式 (x² - 4)/(x + 2) 的结果是？",
+      "optionsZhHans": [
+        "x - 2",
+        "x + 2",
+        "x - 4",
+        "x + 4"
+      ],
+      "answer": "x - 2",
+      "acceptedAnswers": [
+        "x - 2"
+      ],
+      "explanationZhHans": "分子x² - 4 = (x+2)(x-2)，分母为x+2，约分后得x - 2（x ≠ -2）。所以答案为x - 2。"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-040",
+      "promptZhHans": "如图，AB是⊙O的直径，C是⊙O上一点，∠CAB = 30°，则∠ABC的度数为？",
+      "optionsZhHans": [
+        "30°",
+        "45°",
+        "60°",
+        "90°"
+      ],
+      "answer": "60°",
+      "acceptedAnswers": [
+        "60°",
+        "60"
+      ],
+      "explanationZhHans": "AB是直径，所以∠ACB是直径所对的圆周角，为90°。在△ABC中，∠CAB = 30°，∠ACB = 90°，所以∠ABC = 180° - 90° - 30° = 60°。答案为60°。"
+    }
+  ]
+}

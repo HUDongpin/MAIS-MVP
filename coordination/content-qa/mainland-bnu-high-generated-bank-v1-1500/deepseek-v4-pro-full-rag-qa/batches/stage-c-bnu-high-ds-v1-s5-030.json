@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-030",
+  "startedAt": "2026-05-28T02:02:26.232Z",
+  "completedAt": "2026-05-28T02:02:31.857Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-030"
+  ],
+  "usage": {
+    "prompt_tokens": 2490,
+    "completion_tokens": 359,
+    "total_tokens": 2849,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2106
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-030",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "1/2 或 -1/2",
+        "correctedAnswer": "1/2 或 -1/2",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction",
+          "answer_mismatch"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案1或-1/7错误。正确解法：圆C:(x-1)²+(y-2)²=9，设直线y=k(x-3)，由面积条件得d√(9-d²)=2√5，解得d²=4或5。d²=4时k=0或-4/3；d²=5时k=1/2或-1/2。题目未限制斜率个数，但常见填空答案取1/2或-1/2。存储答案计算有误，解析中d=√5得k=1或-1/7错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "存储答案错误，正确斜率为1/2或-1/2，解析计算有误。"
+    }
+  }
+}

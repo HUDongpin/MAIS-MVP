@@ -1,0 +1,250 @@
+{
+  "batchId": "model-qa-0030",
+  "ids": [
+    "hjb-junior-ds-v2-s2-081",
+    "hjb-junior-ds-v2-s2-082",
+    "hjb-junior-ds-v2-s2-083",
+    "hjb-junior-ds-v2-s2-084",
+    "hjb-junior-ds-v2-s2-085",
+    "hjb-junior-ds-v2-s2-086",
+    "hjb-junior-ds-v2-s2-087",
+    "hjb-junior-ds-v2-s2-088",
+    "hjb-junior-ds-v2-s2-089",
+    "hjb-junior-ds-v2-s2-090",
+    "hjb-junior-ds-v2-s2-091",
+    "hjb-junior-ds-v2-s2-092",
+    "hjb-junior-ds-v2-s2-093",
+    "hjb-junior-ds-v2-s2-094",
+    "hjb-junior-ds-v2-s2-095",
+    "hjb-junior-ds-v2-s2-096",
+    "hjb-junior-ds-v2-s2-097",
+    "hjb-junior-ds-v2-s2-098",
+    "hjb-junior-ds-v2-s2-099",
+    "hjb-junior-ds-v2-s2-100"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-081",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3√3",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-082",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3≤x≤5",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-083",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-084",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "4√21",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-085",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "√48",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-086",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为-2，但解析中解得x=4，且说明x=-2时不是同类二次根式，最终结论为x=4。答案与解析矛盾，且根据解析正确结果应为4。",
+      "independentAnswerZhHans": "4",
+      "answerCheckZhHans": "独立求解：由同类二次根式得3x+7=2x+11，解得x=4。检验：x=4时√19与√19均为最简，符合。x=-2时√1=1与√7不是同类二次根式。故正确答案为4。",
+      "recommendedActionZhHans": "将答案修正为4，并更新解析以匹配。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-087",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x ≥ 2",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-088",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "a ≥ 3",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-089",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "4",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-090",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "（1）x = 4，a = 3；（2）b = (4√3)/3；（3）a + b = 3 + (4√3)/3",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-091",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "B. x ≥ 3",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-092",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-093",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3√3",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-094",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "√5",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-095",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3a√(2b)",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-096",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "5",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-097",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "√3",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-098",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "8/3",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-099",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "4ab√(3b)",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-100",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "√18",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

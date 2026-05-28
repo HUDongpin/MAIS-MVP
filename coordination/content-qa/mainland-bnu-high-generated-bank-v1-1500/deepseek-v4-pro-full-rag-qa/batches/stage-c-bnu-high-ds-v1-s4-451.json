@@ -1,0 +1,48 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-451",
+  "startedAt": "2026-05-28T01:59:36.602Z",
+  "completedAt": "2026-05-28T01:59:41.248Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-451"
+  ],
+  "usage": {
+    "prompt_tokens": 2565,
+    "completion_tokens": 267,
+    "total_tokens": 2832,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2181
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-451",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "independentAnswer": "第一象限",
+        "correctedAnswer": "第一象限",
+        "issueTags": [
+          "ambiguous_mc",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "由 (1+i)z=3-i 解得 z=1-2i，共轭为 1+2i，对应点 (1,2) 在第一象限，但选项无第一象限，导致无正确选项可选，题目存在歧义且解析与正确解矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目选项设置错误，正确解在第一象限但选项未包含，导致无法选出唯一正确答案，判定为 blocker。"
+    }
+  }
+}

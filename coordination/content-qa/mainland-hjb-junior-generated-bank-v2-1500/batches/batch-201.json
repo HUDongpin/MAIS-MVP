@@ -1,0 +1,330 @@
+{
+  "batchId": "batch-201",
+  "questions": [
+    {
+      "id": "hjb-junior-ds-v2-s3-001",
+      "batch": "hjb-junior-v2",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "hjb-junior-s3-upper-similar-triangles",
+      "unitTitle": "相似三角形",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "similarity",
+        "similar-triangles",
+        "proportional-segments",
+        "parallel-lines",
+        "triangle-similarity",
+        "相似三角形"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "几何直观",
+        "模型意识"
+      ],
+      "skillTags": [
+        "成比例线段",
+        "相似判定",
+        "相似性质",
+        "平行线分线段成比例",
+        "位似与缩放"
+      ],
+      "misconceptionTags": [
+        "corresponding sides mismatched",
+        "similarity condition incomplete",
+        "scale factor direction reversed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s3-upper-similar-triangles"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s3-upper-paper-similar-triangles-unit",
+        "hjb-junior-s3-upper-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig",
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在△ABC中，点D在AB上，点E在AC上，且DE∥BC。若AD=3，DB=6，AE=4，则EC的长为（ ）",
+      "optionsZhHans": [
+        "2",
+        "4",
+        "6",
+        "8"
+      ],
+      "answer": "8",
+      "acceptedAnswers": [
+        "8"
+      ],
+      "explanationZhHans": "由DE∥BC得AD/DB=AE/EC，即3/6=4/EC，解得EC=8。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-002",
+      "batch": "hjb-junior-v2",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "hjb-junior-s3-upper-similar-triangles",
+      "unitTitle": "相似三角形",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "similarity",
+        "similar-triangles",
+        "proportional-segments",
+        "parallel-lines",
+        "triangle-similarity",
+        "相似三角形"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "几何直观",
+        "模型意识"
+      ],
+      "skillTags": [
+        "成比例线段",
+        "相似判定",
+        "相似性质",
+        "平行线分线段成比例",
+        "位似与缩放"
+      ],
+      "misconceptionTags": [
+        "corresponding sides mismatched",
+        "similarity condition incomplete",
+        "scale factor direction reversed"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-junior-s3-upper-similar-triangles"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s3-upper-paper-similar-triangles-unit",
+        "hjb-junior-s3-upper-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig",
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知△ABC∽△DEF，且相似比为2:3。若△ABC的周长为12 cm，则△DEF的周长为______ cm。",
+      "optionsZhHans": [],
+      "answer": "18",
+      "acceptedAnswers": [
+        "18"
+      ],
+      "explanationZhHans": "相似三角形周长比等于相似比，设△DEF周长为x，则12/x=2/3，解得x=18。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-003",
+      "batch": "hjb-junior-v2",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "hjb-junior-s3-upper-similar-triangles",
+      "unitTitle": "相似三角形",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "similarity",
+        "similar-triangles",
+        "proportional-segments",
+        "parallel-lines",
+        "triangle-similarity",
+        "相似三角形"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "几何直观",
+        "模型意识"
+      ],
+      "skillTags": [
+        "成比例线段",
+        "相似判定",
+        "相似性质",
+        "平行线分线段成比例",
+        "位似与缩放"
+      ],
+      "misconceptionTags": [
+        "corresponding sides mismatched",
+        "similarity condition incomplete",
+        "scale factor direction reversed"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s3-upper-similar-triangles"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s3-upper-paper-similar-triangles-unit",
+        "hjb-junior-s3-upper-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig",
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在四边形ABCD中，对角线AC与BD相交于点O。已知OA=2，OC=6，OB=3，OD=4。求证：AB与CD不平行。",
+      "optionsZhHans": [],
+      "answer": "证明：若AB∥CD，则OA/OC=OB/OD，但2/6≠3/4，故AB与CD不平行。",
+      "acceptedAnswers": [
+        "证明：若AB∥CD，则OA/OC=OB/OD，但2/6≠3/4，故AB与CD不平行。"
+      ],
+      "explanationZhHans": "假设AB∥CD，由平行线分线段成比例得OA/OC=OB/OD。计算2/6=1/3，3/4=0.75，不相等，故假设不成立。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-004",
+      "batch": "hjb-junior-v2",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "hjb-junior-s3-upper-similar-triangles",
+      "unitTitle": "相似三角形",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "similarity",
+        "similar-triangles",
+        "proportional-segments",
+        "parallel-lines",
+        "triangle-similarity",
+        "相似三角形"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "几何直观",
+        "模型意识"
+      ],
+      "skillTags": [
+        "成比例线段",
+        "相似判定",
+        "相似性质",
+        "平行线分线段成比例",
+        "位似与缩放"
+      ],
+      "misconceptionTags": [
+        "corresponding sides mismatched",
+        "similarity condition incomplete",
+        "scale factor direction reversed"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s3-upper-similar-triangles"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s3-upper-paper-similar-triangles-unit",
+        "hjb-junior-s3-upper-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig",
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在△ABC中，∠A=50°，∠B=60°，AB=8。在△DEF中，∠D=50°，∠E=70°，DE=12。这两个三角形相似吗？请说明理由。",
+      "optionsZhHans": [
+        "相似，因为两角对应相等",
+        "相似，因为两边成比例且夹角相等",
+        "不相似，因为对应角不都相等",
+        "不相似，因为对应边不成比例"
+      ],
+      "answer": "不相似，因为对应角不都相等",
+      "acceptedAnswers": [
+        "不相似，因为对应角不都相等"
+      ],
+      "explanationZhHans": "△ABC中∠C=70°，△DEF中∠F=60°。对应角∠B=60°≠∠E=70°，∠C=70°≠∠F=60°，角不都相等，故不相似。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-005",
+      "batch": "hjb-junior-v2",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "hjb-junior-s3-upper-similar-triangles",
+      "unitTitle": "相似三角形",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "similarity",
+        "similar-triangles",
+        "proportional-segments",
+        "parallel-lines",
+        "triangle-similarity",
+        "相似三角形"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "几何直观",
+        "模型意识"
+      ],
+      "skillTags": [
+        "成比例线段",
+        "相似判定",
+        "相似性质",
+        "平行线分线段成比例",
+        "位似与缩放"
+      ],
+      "misconceptionTags": [
+        "corresponding sides mismatched",
+        "similarity condition incomplete",
+        "scale factor direction reversed"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-junior-s3-upper-similar-triangles"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s3-upper-paper-similar-triangles-unit",
+        "hjb-junior-s3-upper-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig",
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在△ABC中，点D、E分别在AB、AC上，且DE∥BC。若AD=4，DB=6，BC=15，则DE=______。",
+      "optionsZhHans": [],
+      "answer": "6",
+      "acceptedAnswers": [
+        "6"
+      ],
+      "explanationZhHans": "由DE∥BC得△ADE∽△ABC，相似比为AD/AB=4/10=2/5，故DE/BC=2/5，DE=15×2/5=6。"
+    }
+  ]
+}

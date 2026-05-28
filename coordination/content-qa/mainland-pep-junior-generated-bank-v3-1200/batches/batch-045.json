@@ -1,0 +1,303 @@
+{
+  "batchId": "batch-045",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s2-k06-fi-007",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-axis-symmetry-isosceles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "promptZhHans": "在△ABC中，已知AB=AC，点D在BC上，且AD平分∠BAC。若∠B=50°，则∠BAD的度数为______°。",
+      "optionsZhHans": [],
+      "answer": "40",
+      "acceptedAnswers": [
+        "40",
+        "40°"
+      ],
+      "explanationZhHans": "因为AB=AC，所以△ABC是等腰三角形，∠B=∠C=50°。由三角形内角和得∠BAC=180°−50°−50°=80°。AD平分∠BAC，所以∠BAD=80°÷2=40°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-fi-008",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "已知△ABC≌△DEF，点A与点D对应，点B与点E对应，∠A=70°，∠B=50°，则∠F的度数为______°。",
+      "optionsZhHans": [],
+      "answer": "60",
+      "acceptedAnswers": [
+        "60",
+        "60°"
+      ],
+      "explanationZhHans": "由全等三角形对应角相等，得∠D=∠A=70°，∠E=∠B=50°。在△DEF中，∠F=180°−70°−50°=60°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-fi-009",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-triangle-angle-relations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "一个三角形的两边长分别为3和8，若第三边长为偶数，且这个三角形是等腰三角形，则第三边的长为______。",
+      "optionsZhHans": [],
+      "answer": "8",
+      "acceptedAnswers": [
+        "8"
+      ],
+      "explanationZhHans": "设第三边长为x，根据三角形三边关系，8-3<x<8+3，即5<x<11。x为偶数，在5到11之间的偶数有6、8、10。又因为三角形是等腰三角形，两边长分别为3和8，若腰长为3，则3+3=6<8，不能构成三角形；若腰长为8，则第三边为8，满足三边关系；若底边为8，则腰长为3和3，不能构成三角形。因此第三边只能为8。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-fi-010",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-congruence-proof"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-proof-calculation-integrated"
+      ],
+      "promptZhHans": "已知AB=AD，∠BAC=∠DAC。若要用“SAS”判定△ABC≌△ADC，则需要添加的条件是______。",
+      "optionsZhHans": [],
+      "answer": "AC=AC",
+      "acceptedAnswers": [
+        "AC=AC",
+        "AC=AC（公共边）"
+      ],
+      "explanationZhHans": "在△ABC和△ADC中，已知AB=AD，∠BAC=∠DAC，要利用SAS判定全等，需要夹角的两边对应相等，即需要AC=AC（公共边）。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-fi-011",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-polynomial-multiplication-factorization"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "promptZhHans": "计算：(x+3)(x−3)−(x−1)²=______。",
+      "optionsZhHans": [],
+      "answer": "2x−10",
+      "acceptedAnswers": [
+        "2x−10",
+        "2x-10"
+      ],
+      "explanationZhHans": "原式=(x²−9)−(x²−2x+1)=x²−9−x²+2x−1=2x−10。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-fi-012",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-algebraic-fractions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "若分式 (x−2)/(x+1) 的值为0，则x的值为______。",
+      "optionsZhHans": [],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2"
+      ],
+      "explanationZhHans": "分式值为0的条件是分子为0且分母不为0。由x−2=0得x=2，此时分母x+1=3≠0，所以x=2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-fi-013",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-axis-symmetry-isosceles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean"
+      ],
+      "promptZhHans": "点P(3,−2)关于x轴对称的点Q的坐标为______。",
+      "optionsZhHans": [],
+      "answer": "(3,2)",
+      "acceptedAnswers": [
+        "(3,2)",
+        "（3，2）"
+      ],
+      "explanationZhHans": "关于x轴对称的点，横坐标相同，纵坐标互为相反数。所以Q的坐标为(3,2)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-fi-014",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "比较大小：√5______2.2（填“>”“<”或“=”）。",
+      "optionsZhHans": [],
+      "answer": ">",
+      "acceptedAnswers": [
+        ">"
+      ],
+      "explanationZhHans": "因为2.2²=4.84，而(√5)²=5，5>4.84，所以√5>2.2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-fi-015",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-triangle-angle-relations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "某三角形的两个内角分别为40°和65°，则第三个内角为______°。",
+      "optionsZhHans": [],
+      "answer": "75",
+      "acceptedAnswers": [
+        "75",
+        "75°",
+        "75度"
+      ],
+      "explanationZhHans": "三角形内角和为180°，所以第三个内角为180°-40°-65°=75°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-fi-016",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-congruence-proof"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions"
+      ],
+      "promptZhHans": "在△ABC中，AB=AC，∠A=40°，BD是AC边上的高，则∠DBC的度数为______°。",
+      "optionsZhHans": [],
+      "answer": "20",
+      "acceptedAnswers": [
+        "20",
+        "20°"
+      ],
+      "explanationZhHans": "因为AB=AC，∠A=40°，所以∠ABC=∠C=(180°−40°)÷2=70°。BD是AC边上的高，则∠BDC=90°，在△BDC中，∠DBC=90°−∠C=90°−70°=20°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-009",
+  "startedAt": "2026-05-28T00:56:04.900Z",
+  "completedAt": "2026-05-28T00:56:11.204Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-009"
+  ],
+  "usage": {
+    "prompt_tokens": 2799,
+    "completion_tokens": 315,
+    "total_tokens": 3114,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 2799
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-009",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "(-∞, +∞)",
+        "correctedAnswer": "(-∞, +∞)",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "不等式 2^{x²-3x} > 1/8 等价于 x²-3x > -3，即 x²-3x+3 > 0，判别式 Δ = -3 < 0，恒成立，解集为 R，区间表示为 (-∞, +∞)。存储答案 (-∞, 1) ∪ (2, +∞) 错误，解析虽正确推导出 R 但与答案矛盾，属于严重数学错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目解集为全体实数，存储答案错误，解析与答案矛盾，判定为 blocker。"
+    }
+  }
+}

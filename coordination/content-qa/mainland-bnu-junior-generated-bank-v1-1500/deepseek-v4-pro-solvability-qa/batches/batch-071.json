@@ -1,0 +1,173 @@
+{
+  "batchNumber": 71,
+  "startedAt": "2026-05-27T17:43:22.538Z",
+  "completedAt": "2026-05-27T17:43:40.211Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s2-341",
+    "bnu-junior-ds-v1-s2-342",
+    "bnu-junior-ds-v1-s2-343",
+    "bnu-junior-ds-v1-s2-344",
+    "bnu-junior-ds-v1-s2-345",
+    "bnu-junior-ds-v1-s2-346",
+    "bnu-junior-ds-v1-s2-347",
+    "bnu-junior-ds-v1-s2-348",
+    "bnu-junior-ds-v1-s2-349",
+    "bnu-junior-ds-v1-s2-350",
+    "bnu-junior-ds-v1-s2-351",
+    "bnu-junior-ds-v1-s2-352"
+  ],
+  "usage": {
+    "prompt_tokens": 7313,
+    "completion_tokens": 1296,
+    "total_tokens": 8609,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 6801
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s2-341",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，方程45x+15=60(x-1)可解出x=5，总人数240，费用比较正确，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-342",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "解不等式得x>-6，边界点为-6，答案正确，解释无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-343",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由2x-3<-x+6解得x<3，选项A正确，其他选项均错误，答案唯一。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-344",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "解不等式组得-4<x≤3，答案与解释一致，数轴表示略不影响正确性。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-345",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "解集方向改变说明a-2<0，即a<2，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-346",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项C正确，其他选项均未考虑c的符号或变形错误，答案唯一。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-347",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "利润函数正确，解不等式得0≤x≤10，且x为正整数，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-348",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "解集为-2<x≤2，整数解为-1,0,1,2共4个，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-349",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "旋转后A'(-3,2)，平移后A''(1,2)，选项A正确，其他选项错误，答案唯一。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-350",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移计算正确，长度不变性质正确，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-351",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移后A'(6,2)，旋转180°得A''(-6,-2)，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-352",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移不改变长度，选项B正确，其他选项错误，答案唯一。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均条件充分、可解，答案与解释匹配，无错误或歧义。"
+    }
+  }
+}

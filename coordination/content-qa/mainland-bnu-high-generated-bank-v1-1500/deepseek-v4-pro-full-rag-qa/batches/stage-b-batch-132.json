@@ -1,0 +1,135 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-132",
+  "startedAt": "2026-05-28T01:37:30.545Z",
+  "completedAt": "2026-05-28T01:37:46.643Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-049",
+    "bnu-high-ds-v1-s6-050",
+    "bnu-high-ds-v1-s6-051",
+    "bnu-high-ds-v1-s6-052",
+    "bnu-high-ds-v1-s6-053",
+    "bnu-high-ds-v1-s6-054",
+    "bnu-high-ds-v1-s6-055",
+    "bnu-high-ds-v1-s6-056"
+  ],
+  "usage": {
+    "prompt_tokens": 13967,
+    "completion_tokens": 1159,
+    "total_tokens": 15126,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 13583
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-049",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案C与独立解一致，解析正确推导出a_n=2^{n-1}并求和得(4^n-1)/3，无矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-050",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案(1) a_1=d, (2) 13/16与独立解一致，解析过程正确，无问题。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-051",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "b_n = 3 - 2·(2/3)^{n-1}",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案b_n=n错误，解析推导有误。正确通项为b_n=3-2·(2/3)^{n-1}，与独立解一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-052",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": "2",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案3错误，独立解正确为2。解析中方程组求解错误，导致a_1=3，实际应为2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-053",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "a_n = 2",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案a_n=1+2^{2^{n-1}}错误，独立解正确为a_n=2。解析中b_1=1导致b_n=1，但最终给出错误形式。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-054",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案3(1-4^n)/(1-4)与独立解4^n-1等价，解析正确，无问题。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-055",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案3与独立解一致，解析推导正确，公比为3。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-056",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案a_n=2n+1与独立解一致，解析正确，无问题。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 5,
+      "warn": 0,
+      "fail": 3,
+      "notes": "8题中5题通过，3题失败：051存储答案b_n=n错误，正确为b_n=3-2·(2/3)^{n-1}；052存储答案3错误，正确为2；053存储答案a_n=1+2^{2^{n-1}}错误，正确为a_n=2。"
+    }
+  }
+}

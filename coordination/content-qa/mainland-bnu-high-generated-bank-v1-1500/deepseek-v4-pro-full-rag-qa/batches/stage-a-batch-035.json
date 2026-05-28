@@ -1,0 +1,120 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-035",
+  "startedAt": "2026-05-28T00:40:59.464Z",
+  "completedAt": "2026-05-28T00:41:19.378Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-273",
+    "bnu-high-ds-v1-s4-274",
+    "bnu-high-ds-v1-s4-275",
+    "bnu-high-ds-v1-s4-276",
+    "bnu-high-ds-v1-s4-277",
+    "bnu-high-ds-v1-s4-278",
+    "bnu-high-ds-v1-s4-279",
+    "bnu-high-ds-v1-s4-280"
+  ],
+  "usage": {
+    "prompt_tokens": 10144,
+    "completion_tokens": 1112,
+    "total_tokens": 11256,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9760
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-273",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "k=3；当t=30时，V=40，不为0，所以不可能为0。",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由V(10)=100-50+10k=80解得k=3，V(t)=100+ (k-5)t=100-2t，t=30时V=40≠0，故不可能为0。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-274",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "A",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "起步价10元(0<x≤3)；3<x≤10时车费=10+2(x-3)；x>10时超过10公里部分每公里加收50%即3元，车费=10+2*7+3(x-10)，选项A正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-275",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "a=1, b=50；2030年人口为70万。",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由P(0)=b=50，P(10)=10a+50=60得a=1，P(t)=t+50，t=20时P=70。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-276",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "k≈0.07；经过20年质量变为25克。",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由50=100e^{-10k}得k=ln2/10≈0.0693≈0.07；由25=100e^{-kt}得t=ln4/k=20年。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-277",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "B、C、D",
+        "issueTags": [
+          "ambiguous_mc"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "L(60)=-200≠0，A错；L(70)=100，B对；L(80)=400，C对；L(100)=1000，D对。题目要求选正确说法，但B、C、D均正确，非唯一答案，违反单选题要求。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-278",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "12小时",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "进水管效率1/4，出水管效率1/6，净效率1/4-1/6=1/12，注满需12小时。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-279",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "10公里",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "21>9，用x>2段：1.5x+6=21，解得x=10。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-280",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "B",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "L(x)=-2x^2+90x-200，对称轴x=22.5，开口向下，最大利润在x=22.5件。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第277题单选题有多个正确选项（B、C、D），不符合单选题唯一答案要求，标记为失败。其余题目均独立可解且符合北师大版高一建模活动范围。"
+    }
+  }
+}

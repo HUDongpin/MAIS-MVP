@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-179",
+  "startedAt": "2026-05-28T01:52:00.774Z",
+  "completedAt": "2026-05-28T01:52:14.547Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-425",
+    "bnu-high-ds-v1-s6-426",
+    "bnu-high-ds-v1-s6-427",
+    "bnu-high-ds-v1-s6-428",
+    "bnu-high-ds-v1-s6-429",
+    "bnu-high-ds-v1-s6-430",
+    "bnu-high-ds-v1-s6-431",
+    "bnu-high-ds-v1-s6-432"
+  ],
+  "usage": {
+    "prompt_tokens": 10142,
+    "completion_tokens": 1022,
+    "total_tokens": 11164,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9758
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-425",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "a = -3, b = -9, c = 0",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由极值条件得 f'(-1)=0, f'(3)=0, f(-1)=5，解得 a=-3, b=-9, c=0。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-426",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "-2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导得 f'(x)=3x^2-6x，临界点 x=0,2，在[-1,1]上比较 f(-1)=-2, f(0)=2, f(1)=0，最小值为-2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-427",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "a = 3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x^2-2ax，由 f'(2)=0 得 12-4a=0，a=3。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-428",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "极大值 10，极小值 -22",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x^2-6x-9=3(x-3)(x+1)，临界点 x=-1,3，f(-1)=10 极大，f(3)=-22 极小。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-429",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "0",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "y'=3x^2-3，在 x=1 处斜率为 3-3=0。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-430",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(-∞, 0) 和 (2, +∞)",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x^2-6x=3x(x-2)，增区间为 (-∞,0) 和 (2,+∞)。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-431",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "a = 5",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x^2-6x，在[0,3]上 f(0)=a, f(2)=a-4, f(3)=a，最大值为 a=5。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-432",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "9",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "y'=3x^2-3，在 x=2 处斜率为 12-3=9。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，无数学错误、歧义或缺失条件，符合北师大版导数章节要求。"
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-141",
+  "startedAt": "2026-05-28T01:43:09.043Z",
+  "completedAt": "2026-05-28T01:43:14.057Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-141"
+  ],
+  "usage": {
+    "prompt_tokens": 2241,
+    "completion_tokens": 345,
+    "total_tokens": 2586,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1857
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-141",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "S_n = 2·3^n - 2n - 2",
+        "correctedAnswer": "S_n = 2·3^n - 2n - 2",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合教材范围。独立求解得 S_n = 2·3^n - 2n - 2，但存储答案和接受答案为 (4·3^n - 3n - 4)/2，两者不等价。解析中推导出 S_n = 2·3^n - 2 - 2n 后错误整理为 (4·3^n - 3n - 4)/2，存在数学错误和解释矛盾，必须修正。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1 题答案错误，解析矛盾，需修正为 S_n = 2·3^n - 2n - 2。"
+    }
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "batchId": "model-qa-0141",
+  "ids": [
+    "hjb-junior-ds-v2-s3-121",
+    "hjb-junior-ds-v2-s3-122",
+    "hjb-junior-ds-v2-s3-123",
+    "hjb-junior-ds-v2-s3-124",
+    "hjb-junior-ds-v2-s3-125",
+    "hjb-junior-ds-v2-s3-126",
+    "hjb-junior-ds-v2-s3-127",
+    "hjb-junior-ds-v2-s3-128"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-121",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "5/12",
+      "answerCheckZhHans": "标准答案 5/12 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-122",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "10",
+      "answerCheckZhHans": "标准答案 10 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-123",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "54.6",
+      "answerCheckZhHans": "标准答案 54.6 与独立计算结果一致，acceptedAnswers 覆盖了带单位和不带单位的情况。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-124",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "sinA=3/5",
+      "answerCheckZhHans": "标准答案 sinA=3/5 正确，其他选项均错误，且选项互异。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-125",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "60",
+      "answerCheckZhHans": "标准答案 60 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-126",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "标准答案为 9.9米，但根据给定数据 tan35°≈0.7002 计算，旗杆高度约为 9.9米，然而实际 tan35° 更精确的值约为 0.7002075，计算得 12×0.7002075≈8.40249，加上 1.5 得 9.90249，四舍五入到十分位应为 9.9米，但若使用更常见的 tan35°≈0.7002 则得 9.9024，四舍五入仍为 9.9米。但题目要求精确到 0.1米，9.9024 四舍五入为 9.9米，答案正确。然而，解析中使用了 tan35°≈0.7002，但未说明该近似值的来源，且实际教学中可能使用计算器得到更精确值，但最终结果一致。无错误。",
+      "independentAnswerZhHans": "9.9米",
+      "answerCheckZhHans": "独立计算得 9.9米，与标准答案一致。但解析中 tan35° 的近似值 0.7002 可能不够精确，但最终四舍五入结果正确。",
+      "recommendedActionZhHans": "确认 tan35° 的取值是否符合教材要求，或提供更精确的近似值。",
+      "confidence": "medium"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-127",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3/5",
+      "answerCheckZhHans": "标准答案 3/5 与独立计算结果一致，选项互异且唯一正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-128",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "12/5",
+      "answerCheckZhHans": "标准答案 12/5 正确，acceptedAnswers 包含分数和小数形式，覆盖合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

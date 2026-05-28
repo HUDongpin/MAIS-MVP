@@ -1,0 +1,299 @@
+{
+  "batchId": "batch-111",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s3-k11-fi-035",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-right-triangle-trigonometry"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "在直角三角形ABC中，∠C=90°，AC=8，BC=15。求sinA的值。",
+      "optionsZhHans": [],
+      "answer": "15/17",
+      "acceptedAnswers": [
+        "15/17",
+        "15÷17"
+      ],
+      "explanationZhHans": "由勾股定理得AB=√(8²+15²)=17。sinA=对边/斜边=BC/AB=15/17。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-fi-036",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-projection-views"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "在Rt△ABC中，∠C=90°，∠A的正切值为3/4。若∠A的邻边AC=8，则∠A的对边BC=____。",
+      "optionsZhHans": [],
+      "answer": "6",
+      "acceptedAnswers": [
+        "6"
+      ],
+      "explanationZhHans": "tanA=BC/AC=3/4，且AC=8，所以BC/8=3/4，解得BC=6。因此∠A的对边BC=6。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-fi-037",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-function-geometry-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions"
+      ],
+      "promptZhHans": "已知反比例函数y=k/x的图象经过点(3,-4)，点A(m,6)也在该函数图象上。求m的值。",
+      "optionsZhHans": [],
+      "answer": "-2",
+      "acceptedAnswers": [
+        "-2"
+      ],
+      "explanationZhHans": "将(3,-4)代入y=k/x得k=-12。再将点A代入y=-12/x得6=-12/m，解得m=-2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-fi-038",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-similarity"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "promptZhHans": "在△ABC中，点D在边AB上，点E在边AC上，且DE∥BC。已知AD=4，DB=2，BC=9。求DE的长。",
+      "optionsZhHans": [],
+      "answer": "6",
+      "acceptedAnswers": [
+        "6"
+      ],
+      "explanationZhHans": "由DE∥BC得△ADE∽△ABC，相似比为AD/AB=4/(4+2)=2/3。所以DE/BC=2/3，DE=9×2/3=6。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-fi-039",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-graduation-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean"
+      ],
+      "promptZhHans": "某校九年级进行了一次数学测验，随机抽取了40名学生的成绩，数据如下：56, 67, 78, 89, 90, 56, 67, 78, 89, 90, 56, 67, 78, 89, 90, 56, 67, 78, 89, 90, 56, 67, 78, 89, 90, 56, 67, 78, 89, 90, 56, 67, 78, 89, 90, 56, 67, 78, 89, 90。求这40名学生成绩的中位数。",
+      "optionsZhHans": [],
+      "answer": "78",
+      "acceptedAnswers": [
+        "78"
+      ],
+      "explanationZhHans": "将数据排序，共有40个数据，中位数为第20和21个数据的平均数。排序后第20和21个数据均为78，所以中位数为78。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-fi-040",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-inverse-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-circle-geometry"
+      ],
+      "promptZhHans": "反比例函数y=k/x的图象经过点(-2,5)，求k的值。",
+      "optionsZhHans": [],
+      "answer": "-10",
+      "acceptedAnswers": [
+        "-10"
+      ],
+      "explanationZhHans": "将点(-2,5)代入y=k/x得5=k/(-2)，解得k=-10。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-fi-041",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-right-triangle-trigonometry"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "在Rt△ABC中，∠C=90°，AB=15，sinA=4/5，求BC的长。",
+      "optionsZhHans": [],
+      "answer": "12",
+      "acceptedAnswers": [
+        "12"
+      ],
+      "explanationZhHans": "sinA=BC/AB=4/5，AB=15，所以BC=15×4/5=12。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-fi-042",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-projection-views"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "一个几何体的主视图和左视图都是边长为3的正方形，俯视图是一个圆。求该几何体的体积。",
+      "optionsZhHans": [],
+      "answer": "6.75π",
+      "acceptedAnswers": [
+        "6.75π",
+        "27π/4",
+        "6.75pi"
+      ],
+      "explanationZhHans": "由三视图可知该几何体为底面半径为1.5、高为3的圆柱。体积V=π×1.5²×3=6.75π。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-fi-043",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-function-geometry-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-dynamic-geometry-functions"
+      ],
+      "promptZhHans": "在平面直角坐标系中，点A的坐标为(3,0)，点B的坐标为(0,6)，点C为线段AB的中点。将线段AB绕点C旋转180°后，点A的对应点A'的坐标是什么？",
+      "optionsZhHans": [],
+      "answer": "(0,6)",
+      "acceptedAnswers": [
+        "(0,6)"
+      ],
+      "explanationZhHans": "点C为AB中点，坐标为((3+0)/2,(0+6)/2)=(1.5,3)。旋转180°后，点A关于点C对称，设A'(x,y)，则1.5=(3+x)/2，3=(0+y)/2，解得x=0，y=6，所以A'(0,6)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-fi-044",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-similarity"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "在△ABC中，点D、E分别在边AB、AC上，且AD=3，DB=6，AE=4，EC=8，则 AD/AB 与 AE/AC 的共同值为____。",
+      "optionsZhHans": [],
+      "answer": "1/3",
+      "acceptedAnswers": [
+        "1/3",
+        "三分之一"
+      ],
+      "explanationZhHans": "AB=AD+DB=3+6=9，AC=AE+EC=4+8=12，所以AD/AB=3/9=1/3，AE/AC=4/12=1/3。因此共同值为1/3。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

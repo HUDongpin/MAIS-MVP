@@ -1,0 +1,70 @@
+{
+  "batchId": "model-qa-0028",
+  "ids": [
+    "hjb-junior-ds-v2-s3-344",
+    "hjb-junior-ds-v2-s3-356",
+    "hjb-junior-ds-v2-s3-378",
+    "hjb-junior-ds-v2-s3-388",
+    "hjb-junior-ds-v2-s3-397"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-344",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "√3",
+      "answerCheckZhHans": "标准答案√3正确，解析推导正确，acceptedAnswers覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-356",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案(1.96, 4.60)与解析矛盾。解析中计算α+60°得(-1.96,4.60)，但B在第一象限，故取α-60°得(1.96,4.60)。然而，α-60°的余弦为cos(α-60°)=0.6×0.5+0.8×√3/2≈0.3+0.6928=0.9928，正弦为sin(α-60°)=0.8×0.5-0.6×√3/2≈0.4-0.5196=-0.1196，坐标约为(4.96, -0.60)，不在第一象限。正确解应为α+60°的补角或另一解，但解析错误。独立计算得B点坐标约为(-1.96, 4.60)或(4.96, -0.60)，均不满足第一象限条件，题目可能无解或条件矛盾。",
+      "independentAnswerZhHans": "无满足条件的点B",
+      "answerCheckZhHans": "标准答案错误，解析推导过程有误，导致答案与解析不一致。",
+      "recommendedActionZhHans": "修正题目条件或答案，确保B点在第一象限且∠AOB=60°有解。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-378",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "120/13",
+      "answerCheckZhHans": "标准答案120/13正确，解析推导正确，选项唯一且互异，acceptedAnswers覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-388",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "24",
+      "answerCheckZhHans": "标准答案24正确，解析推导正确，选项唯一且互异，acceptedAnswers覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-397",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "6",
+      "answerCheckZhHans": "标准答案6正确，解析推导正确，acceptedAnswers覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

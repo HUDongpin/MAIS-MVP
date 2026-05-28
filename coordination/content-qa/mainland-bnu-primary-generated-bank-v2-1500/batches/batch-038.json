@@ -1,0 +1,563 @@
+{
+  "batchId": "batch-038",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p2-121",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-division-facts-review",
+      "unitTitle": "除法与整理复习",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "division-facts",
+        "multiplication-division-relationship",
+        "p2-upper-review",
+        "表内除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "反思整理",
+        "模型意识"
+      ],
+      "skillTags": [
+        "用乘法想除法",
+        "综合应用",
+        "整理知识",
+        "错因表达"
+      ],
+      "misconceptionTags": [
+        "multiplication fact chosen for wrong division model",
+        "unknown group size and unknown group count confused",
+        "review handled as disconnected drill"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-division-facts-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-division-introduction-unit",
+        "bnu-primary-p2-upper-assessment-multiplication-division-application-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈买了24颗糖果，平均分给6个小朋友，每个小朋友分到几颗？下面哪个算式和想法是正确的？",
+      "optionsZhHans": [
+        "24÷6=4，因为四六二十四",
+        "24÷4=6，因为四六二十四",
+        "6×4=24，所以每个小朋友分到4颗",
+        "24－6－6－6－6=0，所以每个小朋友分到4颗"
+      ],
+      "answer": "24÷6=4，因为四六二十四",
+      "acceptedAnswers": [
+        "24÷6=4，因为四六二十四"
+      ],
+      "explanationZhHans": "平均分用除法，总数24除以人数6，想6×()=24，口诀四六二十四，商是4。选项A正确。选项B除数错误；C是乘法算式；D是连减，虽结果正确但不是除法算式。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-122",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-division-facts-review",
+      "unitTitle": "除法与整理复习",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "division-facts",
+        "multiplication-division-relationship",
+        "p2-upper-review",
+        "表内除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "反思整理",
+        "模型意识"
+      ],
+      "skillTags": [
+        "用乘法想除法",
+        "综合应用",
+        "整理知识",
+        "错因表达"
+      ],
+      "misconceptionTags": [
+        "multiplication fact chosen for wrong division model",
+        "unknown group size and unknown group count confused",
+        "review handled as disconnected drill"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-division-facts-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-division-introduction-unit",
+        "bnu-primary-p2-upper-assessment-multiplication-division-application-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小乐有24张贴纸，平均分给4个小朋友，每个小朋友分到几张？想：四（ ）二十四，所以每个小朋友分到（ ）张。",
+      "optionsZhHans": [],
+      "answer": "六，6",
+      "acceptedAnswers": [
+        "六，6",
+        "6，六"
+      ],
+      "explanationZhHans": "把24平均分成4份，求每份是多少，用除法24÷4。想乘法口诀：四六二十四，所以商是6，每个小朋友分到6张。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-123",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-division-facts-review",
+      "unitTitle": "除法与整理复习",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "division-facts",
+        "multiplication-division-relationship",
+        "p2-upper-review",
+        "表内除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "反思整理",
+        "模型意识"
+      ],
+      "skillTags": [
+        "用乘法想除法",
+        "综合应用",
+        "整理知识",
+        "错因表达"
+      ],
+      "misconceptionTags": [
+        "multiplication fact chosen for wrong division model",
+        "unknown group size and unknown group count confused",
+        "review handled as disconnected drill"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-division-facts-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-division-introduction-unit",
+        "bnu-primary-p2-upper-assessment-multiplication-division-application-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "二年级同学在整理图书角。书架上有24本故事书，每个班级分到同样多的故事书，正好分完。如果分给3个班，每个班分到多少本？如果分给6个班呢？请分别写出除法算式，并说一说你是怎样用乘法口诀想出商的。",
+      "optionsZhHans": [],
+      "answer": "分给3个班：24÷3=8（本）；分给6个班：24÷6=4（本）。想：三八二十四，所以24÷3=8；四六二十四，所以24÷6=4。",
+      "acceptedAnswers": [
+        "分给3个班：24÷3=8（本）；分给6个班：24÷6=4（本）。想：三八二十四，所以24÷3=8；四六二十四，所以24÷6=4。"
+      ],
+      "explanationZhHans": "把24本故事书平均分给3个班，就是求24里面有几个3，用除法24÷3，想乘法口诀“三八二十四”，所以商是8。分给6个班时，用24÷6，想“四六二十四”，商是4。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-124",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-division-facts-review",
+      "unitTitle": "除法与整理复习",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "division-facts",
+        "multiplication-division-relationship",
+        "p2-upper-review",
+        "表内除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "反思整理",
+        "模型意识"
+      ],
+      "skillTags": [
+        "用乘法想除法",
+        "综合应用",
+        "整理知识",
+        "错因表达"
+      ],
+      "misconceptionTags": [
+        "multiplication fact chosen for wrong division model",
+        "unknown group size and unknown group count confused",
+        "review handled as disconnected drill"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-division-facts-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-division-introduction-unit",
+        "bnu-primary-p2-upper-assessment-multiplication-division-application-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "二（1）班有24本故事书，平均分给6个小组，每个小组分到几本？下面哪个算式是正确的？",
+      "optionsZhHans": [
+        "24 ÷ 6 = 4（本）",
+        "24 ÷ 4 = 6（本）",
+        "6 × 4 = 24（本）",
+        "24 - 6 = 18（本）"
+      ],
+      "answer": "24 ÷ 6 = 4（本）",
+      "acceptedAnswers": [
+        "24 ÷ 6 = 4（本）"
+      ],
+      "explanationZhHans": "把24本故事书平均分成6份，求每份是多少，用除法计算：24 ÷ 6 = 4（本）。选项B的除数错误，选项C是乘法，选项D是减法，都不符合平均分的意义。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-125",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-division-facts-review",
+      "unitTitle": "除法与整理复习",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "division-facts",
+        "multiplication-division-relationship",
+        "p2-upper-review",
+        "表内除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "反思整理",
+        "模型意识"
+      ],
+      "skillTags": [
+        "用乘法想除法",
+        "综合应用",
+        "整理知识",
+        "错因表达"
+      ],
+      "misconceptionTags": [
+        "multiplication fact chosen for wrong division model",
+        "unknown group size and unknown group count confused",
+        "review handled as disconnected drill"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-division-facts-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-division-introduction-unit",
+        "bnu-primary-p2-upper-assessment-multiplication-division-application-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "王老师把24本练习本平均分给一些同学，每人分到6本。王老师分给了几名同学？请用一句乘法口诀写出除法算式，并回答。",
+      "optionsZhHans": [],
+      "answer": "4名",
+      "acceptedAnswers": [
+        "4名",
+        "4",
+        "4人"
+      ],
+      "explanationZhHans": "已知总数24本，每份6本，求份数用除法：24÷6。想乘法口诀“四六二十四”，所以24÷6=4（名）。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-126",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-division-facts-review",
+      "unitTitle": "除法与整理复习",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "division-facts",
+        "multiplication-division-relationship",
+        "p2-upper-review",
+        "表内除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "反思整理",
+        "模型意识"
+      ],
+      "skillTags": [
+        "用乘法想除法",
+        "综合应用",
+        "整理知识",
+        "错因表达"
+      ],
+      "misconceptionTags": [
+        "multiplication fact chosen for wrong division model",
+        "unknown group size and unknown group count confused",
+        "review handled as disconnected drill"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-division-facts-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-division-introduction-unit",
+        "bnu-primary-p2-upper-assessment-multiplication-division-application-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "王老师把24本故事书平均分给一些小组，每个小组分到6本。王老师一共分给了几个小组？请写出算式和答案，并说一说你是怎样想的。",
+      "optionsZhHans": [],
+      "answer": "24÷6=4（个）",
+      "acceptedAnswers": [
+        "24÷6=4（个）",
+        "24÷6=4",
+        "4个",
+        "4"
+      ],
+      "explanationZhHans": "已知总数24本和每份数6本，求份数，用除法。24÷6，想6×4=24，所以商是4，单位是“个”。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-127",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-division-facts-review",
+      "unitTitle": "除法与整理复习",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "division-facts",
+        "multiplication-division-relationship",
+        "p2-upper-review",
+        "表内除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "反思整理",
+        "模型意识"
+      ],
+      "skillTags": [
+        "用乘法想除法",
+        "综合应用",
+        "整理知识",
+        "错因表达"
+      ],
+      "misconceptionTags": [
+        "multiplication fact chosen for wrong division model",
+        "unknown group size and unknown group count confused",
+        "review handled as disconnected drill"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-division-facts-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-division-introduction-unit",
+        "bnu-primary-p2-upper-assessment-multiplication-division-application-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "王老师买了24支铅笔，平均分给一些小朋友，每个小朋友分到6支。一共有几个小朋友？下面哪个算式和想法是正确的？",
+      "optionsZhHans": [
+        "24÷6=4（个），因为把24平均分，每份是6，求份数用除法。",
+        "24÷4=6（个），因为24里面有4个6，所以是4个小朋友。",
+        "6×4=24（个），因为每个小朋友6支，4个小朋友就是24支。",
+        "24÷6=4（支），因为每个小朋友分到4支铅笔。"
+      ],
+      "answer": "24÷6=4（个），因为把24平均分，每份是6，求份数用除法。",
+      "acceptedAnswers": [
+        "24÷6=4（个），因为把24平均分，每份是6，求份数用除法。"
+      ],
+      "explanationZhHans": "已知总数24支和每份数6支，求份数，用除法24÷6=4（个）。选项A算式和单位正确，解释合理。选项B算式错误；选项C是乘法，未直接求人数；选项D单位错误。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-128",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-division-facts-review",
+      "unitTitle": "除法与整理复习",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "division-facts",
+        "multiplication-division-relationship",
+        "p2-upper-review",
+        "表内除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "反思整理",
+        "模型意识"
+      ],
+      "skillTags": [
+        "用乘法想除法",
+        "综合应用",
+        "整理知识",
+        "错因表达"
+      ],
+      "misconceptionTags": [
+        "multiplication fact chosen for wrong division model",
+        "unknown group size and unknown group count confused",
+        "review handled as disconnected drill"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-division-facts-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-division-introduction-unit",
+        "bnu-primary-p2-upper-assessment-multiplication-division-application-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小乐在复习除法时，把24个苹果平均分给几个小朋友，每个小朋友分到6个。他列式为24÷6=4（个）。小乐说：“我用乘法来检查：4×6=24，所以算对了。”你认为他的检查方法对吗？为什么？请把你的想法写下来。",
+      "optionsZhHans": [],
+      "answer": "对，因为除法是乘法的逆运算，用商乘除数等于被除数，说明计算正确。",
+      "acceptedAnswers": [
+        "对，因为除法是乘法的逆运算，用商乘除数等于被除数，说明计算正确。",
+        "对，因为4×6=24，和原来的被除数一样，所以除法算对了。",
+        "对，因为乘法和除法是相反的，用乘法可以检查除法。"
+      ],
+      "explanationZhHans": "题目中24÷6=4，表示把24个苹果平均分，每份6个，可以分给4个小朋友。用乘法检查：4×6=24，等于被除数，说明除法计算正确。因为乘法和除法互为逆运算，所以小乐的检查方法是正确的。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-129",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-division-facts-review",
+      "unitTitle": "除法与整理复习",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "division-facts",
+        "multiplication-division-relationship",
+        "p2-upper-review",
+        "表内除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "反思整理",
+        "模型意识"
+      ],
+      "skillTags": [
+        "用乘法想除法",
+        "综合应用",
+        "整理知识",
+        "错因表达"
+      ],
+      "misconceptionTags": [
+        "multiplication fact chosen for wrong division model",
+        "unknown group size and unknown group count confused",
+        "review handled as disconnected drill"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-division-facts-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-division-introduction-unit",
+        "bnu-primary-p2-upper-assessment-multiplication-division-application-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丽有24张贴纸，她想把这些贴纸平均分给几个好朋友，每个好朋友分到的张数同样多。她想到了两种分法：\n第一种：每个好朋友分6张，可以分给4个好朋友。\n第二种：每个好朋友分8张，可以分给3个好朋友。\n请你想一想，除了这两种分法，还有别的分法吗？请你写出一种分法，并说说你是怎样想的。",
+      "optionsZhHans": [],
+      "answer": "每个好朋友分4张，可以分给6个好朋友（或每个好朋友分3张，可以分给8个好朋友；每个好朋友分2张，可以分给12个好朋友；每个好朋友分1张，可以分给24个好朋友；每个好朋友分12张，可以分给2个好朋友）。我是这样想的：24张贴纸，要平均分，就是想24可以分成几个几，也就是想乘法口诀。比如四六二十四，所以每个好朋友分4张，可以分给6个好朋友。",
+      "acceptedAnswers": [
+        "每个好朋友分4张，可以分给6个好朋友（或每个好朋友分3张，可以分给8个好朋友；每个好朋友分2张，可以分给12个好朋友；每个好朋友分1张，可以分给24个好朋友；每个好朋友分12张，可以分给2个好朋友）。我是这样想的：24张贴纸，要平均分，就是想24可以分成几个几，也就是想乘法口诀。比如四六二十四，所以每个好朋友分4张，可以分给6个好朋友。"
+      ],
+      "explanationZhHans": "24张贴纸平均分，就是找24的因数。乘法口诀中积为24的有：四六二十四、三八二十四、二乘十二得二十四、一乘二十四得二十四。所以除了6和4、8和3，还可以每份4张分6份，或每份3张分8份等。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-130",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-division-facts-review",
+      "unitTitle": "除法与整理复习",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "division-facts",
+        "multiplication-division-relationship",
+        "p2-upper-review",
+        "表内除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "反思整理",
+        "模型意识"
+      ],
+      "skillTags": [
+        "用乘法想除法",
+        "综合应用",
+        "整理知识",
+        "错因表达"
+      ],
+      "misconceptionTags": [
+        "multiplication fact chosen for wrong division model",
+        "unknown group size and unknown group count confused",
+        "review handled as disconnected drill"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-division-facts-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-division-introduction-unit",
+        "bnu-primary-p2-upper-assessment-multiplication-division-application-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "二（1）班有 36 本课外书，平均分给 6 个小组，每个小组分到几本？下面哪个算式是正确的？",
+      "optionsZhHans": [
+        "36 ÷ 6 = 6（本）",
+        "36 ÷ 4 = 9（本）",
+        "6 × 6 = 36（本）",
+        "36 - 6 = 30（本）"
+      ],
+      "answer": "36 ÷ 6 = 6（本）",
+      "acceptedAnswers": [
+        "36 ÷ 6 = 6（本）"
+      ],
+      "explanationZhHans": "把 36 本课外书平均分给 6 个小组，求每个小组分到几本，就是求每份数，用除法计算：36 ÷ 6 = 6（本）。选项 B 的除数 4 与题目无关；选项 C 是乘法，选项 D 是减法，都不符合平均分的意义。"
+    }
+  ]
+}

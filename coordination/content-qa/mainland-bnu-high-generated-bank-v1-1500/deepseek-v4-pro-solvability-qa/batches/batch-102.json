@@ -1,0 +1,135 @@
+{
+  "batchNumber": 102,
+  "startedAt": "2026-05-27T14:01:18.128Z",
+  "completedAt": "2026-05-27T14:01:42.954Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-309",
+    "bnu-high-ds-v1-s5-310",
+    "bnu-high-ds-v1-s5-311",
+    "bnu-high-ds-v1-s5-312",
+    "bnu-high-ds-v1-s5-313",
+    "bnu-high-ds-v1-s5-314",
+    "bnu-high-ds-v1-s5-315",
+    "bnu-high-ds-v1-s5-316"
+  ],
+  "usage": {
+    "prompt_tokens": 10470,
+    "completion_tokens": 1531,
+    "total_tokens": 12001,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 9958
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-309",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "240",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可独立求解。翻译工作从除甲乙外的4人中选1人，有4种选法；剩余3项工作从剩余5人中选3人排列，有A(5,3)=60种。分步相乘得4×60=240种。答案240正确，解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-310",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "A. 6",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "相同小球放入不同盒子，每盒至少1个，用隔板法。先每盒放1个，剩余2个球，在2个球形成的3个空隙中插入2个隔板，即C(4,2)=6种。选项A正确，解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-311",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "74",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "从9人中选3人，至少1名女生。直接法：1女2男C(4,1)C(5,2)=40，2女1男C(4,2)C(5,1)=30，3女C(4,3)=4，合计74。间接法：C(9,3)-C(5,3)=84-10=74。答案74正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-312",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "150",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "5本不同的书分给3人，每人至少1本。先分组再分配。分组方式有(3,1,1)和(2,2,1)。(3,1,1)分组数C(5,3)C(2,1)C(1,1)/2!=10；(2,2,1)分组数C(5,2)C(3,2)C(1,1)/2!=15。共25种分组，再分配给3人：25×3!=150。答案150正确，解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-313",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "-160",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "二项式通项T_{r+1}=C(6,r)(2x)^{6-r}(-1/x)^r = C(6,r)2^{6-r}(-1)^r x^{6-2r}。令6-2r=0得r=3，常数项为C(6,3)2^3(-1)^3=20×8×(-1)=-160。答案-160正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-314",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "48",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "用0,1,2,3,4组成无重复数字的三位数。百位不能为0，有4种选择；十位从剩余4个数字中选，有4种；个位从剩余3个中选，有3种。分步相乘得4×4×3=48。答案48正确，解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-315",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "independentAnswer": "4或5",
+        "correctedAnswer": null,
+        "issueTags": [
+          "accepted_answer_gap"
+        ],
+        "severity": "major",
+        "confidence": "high",
+        "rationaleZhHans": "n=7为奇数，二项式系数最大的项是中间两项，即第4项和第5项。题目要求填一个项，但标准答案只给出4，而acceptedAnswers包含4和5，解析也说明是两项。填空题若只填4可能不完整，但解析指出通常指第一个最大项，故答案4可接受。然而acceptedAnswers包含5，存在歧义，建议明确唯一答案或改为多选。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-316",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "240种",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "与第309题相同，翻译工作从除甲乙外的4人中选1人，有4种选法；剩余3项工作从剩余5人中选3人排列，有A(5,3)=60种。分步相乘得240种。选项C正确，解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 1,
+      "fail": 0,
+      "notes": "第315题二项式系数最大项为第4项和第5项，填空题答案4可接受但存在歧义，acceptedAnswers包含5，建议明确唯一答案或调整题型。其余题目均正确。"
+    }
+  }
+}

@@ -1,0 +1,299 @@
+{
+  "batchId": "batch-226",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p5-126",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "hjb-primary-p5-upper-data-average",
+      "unitTitle": "数据整理与平均数",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "data-organization",
+        "average",
+        "statistical-displays",
+        "data-interpretation",
+        "平均数"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "量感",
+        "数学表达"
+      ],
+      "skillTags": [
+        "收集整理数据",
+        "统计表",
+        "统计图",
+        "平均数意义",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "average treated as the most common value",
+        "chart scale read incorrectly",
+        "conclusion not supported by data"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p5-upper-data-average"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-data-average-unit",
+        "hjb-primary-p5-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是五年级一班第一小组6名同学1分钟跳绳的成绩（单位：下）：145、138、152、140、148、155。\n（1）这组数据的平均数是多少？\n（2）这个平均数表示什么？",
+      "optionsZhHans": [],
+      "answer": "（1）146下 （2）这个平均数表示第一小组6名同学1分钟跳绳的整体水平。",
+      "acceptedAnswers": [
+        "（1）146下 （2）这个平均数表示第一小组6名同学1分钟跳绳的整体水平。",
+        "（1）146 （2）这个平均数表示第一小组6名同学1分钟跳绳的整体水平。",
+        "（1）146下 （2）表示第一小组6名同学1分钟跳绳的整体水平。",
+        "（1）146 （2）表示第一小组6名同学1分钟跳绳的整体水平。"
+      ],
+      "explanationZhHans": "（1）平均数=总成绩÷人数，(145+138+152+140+148+155)÷6=878÷6≈146.33，通常保留整数为146下。（2）平均数反映一组数据的集中趋势，代表整体水平。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-127",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-factors-multiples",
+      "unitTitle": "因数、倍数与数的结构",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "factors-multiples",
+        "prime-composite",
+        "greatest-common-factor",
+        "least-common-multiple",
+        "因数倍数"
+      ],
+      "competencyTags": [
+        "数感",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "因数倍数",
+        "质数合数",
+        "公因数",
+        "公倍数",
+        "数的分类"
+      ],
+      "misconceptionTags": [
+        "factor and multiple reversed",
+        "prime number confused with odd number",
+        "least common multiple chosen without common check"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-factors-multiples"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit",
+        "hjb-primary-p5-upper-assessment-equations-relationships-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个数既是12的因数，又是18的因数？",
+      "optionsZhHans": [
+        "4",
+        "6",
+        "8",
+        "9"
+      ],
+      "answer": "6",
+      "acceptedAnswers": [
+        "6"
+      ],
+      "explanationZhHans": "12的因数有1,2,3,4,6,12；18的因数有1,2,3,6,9,18。公因数有1,2,3,6，其中6在选项中。4是12的因数但不是18的因数，8不是12的因数，9是18的因数但不是12的因数。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-128",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-factors-multiples",
+      "unitTitle": "因数、倍数与数的结构",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "factors-multiples",
+        "prime-composite",
+        "greatest-common-factor",
+        "least-common-multiple",
+        "因数倍数"
+      ],
+      "competencyTags": [
+        "数感",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "因数倍数",
+        "质数合数",
+        "公因数",
+        "公倍数",
+        "数的分类"
+      ],
+      "misconceptionTags": [
+        "factor and multiple reversed",
+        "prime number confused with odd number",
+        "least common multiple chosen without common check"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-factors-multiples"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit",
+        "hjb-primary-p5-upper-assessment-equations-relationships-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "两个质数的和是20，积是91，这两个质数分别是（ ）和（ ）。",
+      "optionsZhHans": [],
+      "answer": "7和13",
+      "acceptedAnswers": [
+        "7和13",
+        "13和7",
+        "7,13",
+        "13,7"
+      ],
+      "explanationZhHans": "设两个质数为a和b，a+b=20，a×b=91。91=7×13，且7+13=20，符合条件。其他质数组合如3+17=20但3×17=51≠91。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-129",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-factors-multiples",
+      "unitTitle": "因数、倍数与数的结构",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "factors-multiples",
+        "prime-composite",
+        "greatest-common-factor",
+        "least-common-multiple",
+        "因数倍数"
+      ],
+      "competencyTags": [
+        "数感",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "因数倍数",
+        "质数合数",
+        "公因数",
+        "公倍数",
+        "数的分类"
+      ],
+      "misconceptionTags": [
+        "factor and multiple reversed",
+        "prime number confused with odd number",
+        "least common multiple chosen without common check"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-factors-multiples"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit",
+        "hjb-primary-p5-upper-assessment-equations-relationships-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把24和36分解质因数，并写出它们的最大公因数。",
+      "optionsZhHans": [],
+      "answer": "24=2×2×2×3，36=2×2×3×3，最大公因数是12。",
+      "acceptedAnswers": [
+        "24=2×2×2×3，36=2×2×3×3，最大公因数是12。",
+        "24=2×2×2×3 36=2×2×3×3 最大公因数是12",
+        "24=2×2×2×3,36=2×2×3×3,最大公因数是12",
+        "24=2×2×2×3，36=2×2×3×3，最大公因数12"
+      ],
+      "explanationZhHans": "分解质因数：24=2×2×2×3，36=2×2×3×3。公有的质因数是2×2×3=12，所以最大公因数是12。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-130",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-factors-multiples",
+      "unitTitle": "因数、倍数与数的结构",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "factors-multiples",
+        "prime-composite",
+        "greatest-common-factor",
+        "least-common-multiple",
+        "因数倍数"
+      ],
+      "competencyTags": [
+        "数感",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "因数倍数",
+        "质数合数",
+        "公因数",
+        "公倍数",
+        "数的分类"
+      ],
+      "misconceptionTags": [
+        "factor and multiple reversed",
+        "prime number confused with odd number",
+        "least common multiple chosen without common check"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-factors-multiples"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit",
+        "hjb-primary-p5-upper-assessment-equations-relationships-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个数既是质数又是奇数？",
+      "optionsZhHans": [
+        "1",
+        "2",
+        "9",
+        "11"
+      ],
+      "answer": "11",
+      "acceptedAnswers": [
+        "11"
+      ],
+      "explanationZhHans": "质数只有1和本身两个因数。1不是质数；2是质数但是偶数；9有因数1,3,9，是合数；11是质数且是奇数。"
+    }
+  ]
+}

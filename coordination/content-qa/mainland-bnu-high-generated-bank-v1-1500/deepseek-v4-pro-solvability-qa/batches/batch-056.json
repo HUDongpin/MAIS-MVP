@@ -1,0 +1,133 @@
+{
+  "batchNumber": 56,
+  "startedAt": "2026-05-27T13:53:26.299Z",
+  "completedAt": "2026-05-27T13:53:41.300Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-441",
+    "bnu-high-ds-v1-s4-442",
+    "bnu-high-ds-v1-s4-443",
+    "bnu-high-ds-v1-s4-444",
+    "bnu-high-ds-v1-s4-445",
+    "bnu-high-ds-v1-s4-446",
+    "bnu-high-ds-v1-s4-447",
+    "bnu-high-ds-v1-s4-448"
+  ],
+  "usage": {
+    "prompt_tokens": 10211,
+    "completion_tokens": 1007,
+    "total_tokens": 11218,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 9699
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-441",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目明确，计算复数加减法可得虚部为3，答案与解析均正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-442",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "第二象限",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "实部负、虚部正，对应第二象限，选项唯一，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-443",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "11 + 2i",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "复数乘法计算正确，结果为11+2i，答案与解析匹配。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-444",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "圆",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "模条件表示距离为常数，轨迹为圆，答案与解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-445",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(1/2) + (1/2)i",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "先化简z=1/2 - (1/2)i，共轭为1/2 + (1/2)i，选项唯一，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-446",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "x = ±2i",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "方程x²+4=0的解为±2i，答案与解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-447",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "5",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "模的计算正确，结果为5，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-448",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "-i",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "i的幂周期为4，2023÷4余3，i³=-i，选项唯一，答案与解析正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8道复数题目均可独立求解，答案与解析均正确匹配，无任何问题。"
+    }
+  }
+}

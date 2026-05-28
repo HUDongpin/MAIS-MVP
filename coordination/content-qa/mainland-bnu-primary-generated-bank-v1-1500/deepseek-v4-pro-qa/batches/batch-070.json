@@ -1,0 +1,191 @@
+{
+  "batchNumber": 70,
+  "startedAt": "2026-05-27T13:30:15.630Z",
+  "completedAt": "2026-05-27T13:30:33.076Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p5-243",
+    "bnu-primary-ds-v1-p5-244",
+    "bnu-primary-ds-v1-p5-245",
+    "bnu-primary-ds-v1-p5-246",
+    "bnu-primary-ds-v1-p5-247",
+    "bnu-primary-ds-v1-p5-248",
+    "bnu-primary-ds-v1-p5-249",
+    "bnu-primary-ds-v1-p5-250",
+    "bnu-primary-ds-v1-p6-001",
+    "bnu-primary-ds-v1-p6-002",
+    "bnu-primary-ds-v1-p6-003",
+    "bnu-primary-ds-v1-p6-004",
+    "bnu-primary-ds-v1-p6-005",
+    "bnu-primary-ds-v1-p6-006",
+    "bnu-primary-ds-v1-p6-007",
+    "bnu-primary-ds-v1-p6-008",
+    "bnu-primary-ds-v1-p6-009",
+    "bnu-primary-ds-v1-p6-010"
+  ],
+  "usage": {
+    "prompt_tokens": 3266,
+    "completion_tokens": 1279,
+    "total_tokens": 4545,
+    "prompt_tokens_details": {
+      "cached_tokens": 3200
+    },
+    "prompt_cache_hit_tokens": 3200,
+    "prompt_cache_miss_tokens": 66
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p5-243",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，方向判断正确，答案与解析一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-244",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程求解正确，答案20无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-245",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "简单加法，答案36正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-246",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "体积计算正确，答案120立方厘米无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-247",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "通分比较正确，3/4<5/6。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-248",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "最大面增加面积计算正确，160平方厘米。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-249",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "油重计算正确，5.0千克。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-250",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "除法错看问题，正确商5，计算无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-001",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "圆环面积计算正确，28.26平方米。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-002",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "周长计算正确，31.4厘米。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-003",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "正方形内最大圆面积正确，50.24平方厘米。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-004",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "护栏周长计算正确，75.36米。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-005",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "面积倍数关系正确，9倍。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-006",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "半径计算正确，2米。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-007",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "半圆周长计算正确，15.42分米。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-008",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "长方形内最大圆周长正确，25.12厘米。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-009",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "石子路面积计算正确，28.26平方米。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-010",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "说法判断正确，C项无误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均无数学错误、答案匹配、歧义或年级/主题不符等问题，适合北师大版小学数学使用。"
+    }
+  }
+}

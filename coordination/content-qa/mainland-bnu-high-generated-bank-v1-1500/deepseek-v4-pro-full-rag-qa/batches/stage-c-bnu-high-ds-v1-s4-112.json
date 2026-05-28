@@ -1,0 +1,45 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-112",
+  "startedAt": "2026-05-28T01:01:07.854Z",
+  "completedAt": "2026-05-28T01:01:17.391Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-112"
+  ],
+  "usage": {
+    "prompt_tokens": 2163,
+    "completion_tokens": 234,
+    "total_tokens": 2397,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1779
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-112",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "B",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，定义域为R要求Δ<0得-√3<a<√3，单调递增要求对称轴a≤1，取交集得(-√3,1]，选项B正确且唯一。解析与独立解一致，无数学错误，符合北师大版对数函数与函数性质综合要求。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 1,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有检查通过，题目质量合格。"
+    }
+  }
+}

@@ -1,0 +1,138 @@
+{
+  "batchNumber": 67,
+  "startedAt": "2026-05-27T13:55:00.982Z",
+  "completedAt": "2026-05-27T13:55:24.022Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-029",
+    "bnu-high-ds-v1-s5-030",
+    "bnu-high-ds-v1-s5-031",
+    "bnu-high-ds-v1-s5-032",
+    "bnu-high-ds-v1-s5-033",
+    "bnu-high-ds-v1-s5-034",
+    "bnu-high-ds-v1-s5-035",
+    "bnu-high-ds-v1-s5-036"
+  ],
+  "usage": {
+    "prompt_tokens": 12423,
+    "completion_tokens": 1481,
+    "total_tokens": 13904,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 11911
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-029",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "3x - 4y + 10 = 0 或 3x - 4y - 10 = 0",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件充分，可独立求解。设平行直线为3x-4y+c=0，利用圆心(0,0)到直线距离等于半径2，得|c|/5=2，c=±10，答案正确。解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-030",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "1 或 -1/7",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件充分，可独立求解。圆方程化为标准形式得圆心(1,2)半径3，设直线y=k(x-3)，利用弦长和面积公式解得k=1或-1/7，答案正确。解析过程合理。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-031",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(x - 1)^2 + (y + 2)^2 = 10",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件充分，可独立求解。由垂直关系得直线l斜率-1/2，方程x+2y+4=0，设圆心(a,b)满足a+2b+4=0，由|CA|=|CB|得a+b=1，解得圆心(1,-2)，半径√10，答案正确。解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-032",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "x = 2 或 3x + 4y - 2 = 0",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件充分，可独立求解。设直线方程，联立圆利用韦达定理得中点横坐标表达式，令其等于1，解得k=-3/4或斜率不存在，对应直线x=2和3x+4y-2=0，答案正确。解析过程合理。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-033",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "x = 2 或 2x - y - 5 = 0",
+        "correctedAnswer": null,
+        "issueTags": [
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，答案正确。但解析中解方程|1-k|=√5·√(k²+1)得到k=2或k=-1/2，然后错误地舍去k=-1/2，实际上k=-1/2不满足方程，正确解应为k=2，且斜率不存在时x=2也满足。解析存在计算错误和矛盾，与正确答案不符。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-034",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "y = -1",
+        "correctedAnswer": "y = -1",
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，独立求解得直线方程为y=-1。但题目给出的答案为x=2，解析过程混乱且最终结论错误，与正确结果矛盾。选项中有y=-1，应选此项。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-035",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "x - 2y - 4 = 0 或 2x + y - 3 = 0",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件充分，可独立求解。设直线方程，利用圆心到直线距离等于半径，解得k=1/2或-2，对应直线方程正确。解析过程无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-036",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "x + y - 1 = 0 或 x - y - 3 = 0",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件充分，可独立求解。设直线方程，联立圆利用韦达定理得中点横坐标表达式，令其等于0，解得k=±1，对应直线方程正确。解析过程合理。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 0,
+      "fail": 2,
+      "notes": "8题中6题通过，2题存在问题：bnu-high-ds-v1-s5-033解析有计算错误和矛盾；bnu-high-ds-v1-s5-034答案错误，正确选项应为y=-1。"
+    }
+  }
+}

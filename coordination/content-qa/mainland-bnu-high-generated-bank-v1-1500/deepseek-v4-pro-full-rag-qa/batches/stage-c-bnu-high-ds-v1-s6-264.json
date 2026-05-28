@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-264",
+  "startedAt": "2026-05-28T01:46:49.627Z",
+  "completedAt": "2026-05-28T01:46:53.969Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-264"
+  ],
+  "usage": {
+    "prompt_tokens": 1980,
+    "completion_tokens": 261,
+    "total_tokens": 2241,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1596
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-264",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "0",
+        "correctedAnswer": "0",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，导数计算正确得k=-1，b=1，k+b=0。但存储答案为-1，与正确结果0不符，解析虽得出0却答案字段错误，属于答案错误和解释矛盾，严重性为blocker。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1题答案错误，k+b应为0而非-1，需修正答案字段。"
+    }
+  }
+}

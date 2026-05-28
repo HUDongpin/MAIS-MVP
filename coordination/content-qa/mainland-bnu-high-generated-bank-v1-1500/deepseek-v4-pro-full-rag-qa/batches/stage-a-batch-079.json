@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-079",
+  "startedAt": "2026-05-28T02:04:38.694Z",
+  "completedAt": "2026-05-28T02:04:49.688Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-125",
+    "bnu-high-ds-v1-s5-126",
+    "bnu-high-ds-v1-s5-127",
+    "bnu-high-ds-v1-s5-128",
+    "bnu-high-ds-v1-s5-129",
+    "bnu-high-ds-v1-s5-130",
+    "bnu-high-ds-v1-s5-131",
+    "bnu-high-ds-v1-s5-132"
+  ],
+  "usage": {
+    "prompt_tokens": 10442,
+    "completion_tokens": 1155,
+    "total_tokens": 11597,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 10058
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-125",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "y = -x + 2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由离心率√3/2和过点(2,1)得椭圆方程x²/8+y²/2=1。设直线y=kx+2，联立后用中点横坐标1/2得k=-1，直线为y=-x+2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-126",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "k = ±√(14)/7",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由长轴10、离心率3/5得椭圆x²/25+y²/16=1。设直线y=kx+2，联立后利用以AB为直径的圆过原点得x1x2+y1y2=0，解得k=±√14/7。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-127",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "m = 2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "椭圆x²/25+y²/16=1，直线y=x+m，联立后中点横坐标-1得m=2，且判别式>0。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-128",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "y = -x + 2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由离心率√3/2和过点(2,√3)得椭圆x²/8+y²/2=1。点P(1,1)为中点，利用点差法得斜率-1，直线y=-x+2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-129",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "k = -1",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "椭圆x²/25+y²/16=1，直线y=kx+2，联立后中点横坐标1得k=-1。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-130",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "k = -1/2，m = 1",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由距离和4得a=2，离心率√3/2得c=√3，b=1，椭圆x²/4+y²=1。中点M(1,1/2)在直线y=kx+m上得m=1/2-k，联立后中点横坐标1得k=-1/2，m=1。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-131",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "x²/25 + y²/16 = 1",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "长轴长10得a=5，离心率0.6得c=3，b=4，焦点在x轴，标准方程x²/25+y²/16=1。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-132",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "x²/16 - y²/9 = 1",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "渐近线y=3/4x得b/a=3/4，虚轴长6得b=3，a=4，焦点在x轴，标准方程x²/16-y²/9=1。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，无数学错误、歧义或缺失条件，符合北师大版高中圆锥曲线章节要求。"
+    }
+  }
+}

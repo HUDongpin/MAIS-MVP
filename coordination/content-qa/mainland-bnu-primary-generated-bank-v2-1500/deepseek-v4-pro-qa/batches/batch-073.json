@@ -1,0 +1,191 @@
+{
+  "batchNumber": 73,
+  "startedAt": "2026-05-27T14:02:00.094Z",
+  "completedAt": "2026-05-27T14:02:19.513Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p6-047",
+    "bnu-primary-ds-v2-p6-048",
+    "bnu-primary-ds-v2-p6-049",
+    "bnu-primary-ds-v2-p6-050",
+    "bnu-primary-ds-v2-p6-051",
+    "bnu-primary-ds-v2-p6-052",
+    "bnu-primary-ds-v2-p6-053",
+    "bnu-primary-ds-v2-p6-054",
+    "bnu-primary-ds-v2-p6-055",
+    "bnu-primary-ds-v2-p6-056",
+    "bnu-primary-ds-v2-p6-057",
+    "bnu-primary-ds-v2-p6-058",
+    "bnu-primary-ds-v2-p6-059",
+    "bnu-primary-ds-v2-p6-060",
+    "bnu-primary-ds-v2-p6-061",
+    "bnu-primary-ds-v2-p6-062",
+    "bnu-primary-ds-v2-p6-063",
+    "bnu-primary-ds-v2-p6-064"
+  ],
+  "usage": {
+    "prompt_tokens": 4223,
+    "completion_tokens": 1365,
+    "total_tokens": 5588,
+    "prompt_tokens_details": {
+      "cached_tokens": 4096
+    },
+    "prompt_cache_hit_tokens": 4096,
+    "prompt_cache_miss_tokens": 127
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p6-047",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案5个，三视图推理合理，符合六年级观察物体挑战难度。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-048",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，搭法描述与拿走2个的答案一致，三视图不变推理合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-049",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，最少3个，选项唯一，推理清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-050",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，最少5个，符合三视图条件。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-051",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，搭法描述与三视图一致，后排位置说明清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-052",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，左视图为右边列2层，选项唯一，推理合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-053",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，最少4个，符合三视图条件。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-054",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，搭法描述与三视图一致，共4个。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-055",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，男生占比55%，选项唯一，计算无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-056",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，0.65化成65%，填空答案合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-057",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，300×80%=240本，计算无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-058",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，只有“一本书看了0.5”可以写成百分数，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-059",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，出勤率95.0%，保留一位小数，计算无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-060",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，先涨后降得198元，计算无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-061",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，100个以下6人，计算无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-062",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，出勤率95%，计算无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-063",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，全班优秀率57.8%，计算无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-064",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，小雯达标率90%正确，其他选项错误，答案唯一。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部18道题均通过审核，数学正确，答案匹配，无歧义，适合北师大版小学数学相应年级和单元。"
+    }
+  }
+}

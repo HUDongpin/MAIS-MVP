@@ -1,0 +1,191 @@
+{
+  "batchNumber": 8,
+  "startedAt": "2026-05-27T14:10:43.244Z",
+  "completedAt": "2026-05-27T14:11:01.895Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p1-127",
+    "bnu-primary-ds-v2-p1-128",
+    "bnu-primary-ds-v2-p1-129",
+    "bnu-primary-ds-v2-p1-130",
+    "bnu-primary-ds-v2-p1-131",
+    "bnu-primary-ds-v2-p1-132",
+    "bnu-primary-ds-v2-p1-133",
+    "bnu-primary-ds-v2-p1-134",
+    "bnu-primary-ds-v2-p1-135",
+    "bnu-primary-ds-v2-p1-136",
+    "bnu-primary-ds-v2-p1-137",
+    "bnu-primary-ds-v2-p1-138",
+    "bnu-primary-ds-v2-p1-139",
+    "bnu-primary-ds-v2-p1-140",
+    "bnu-primary-ds-v2-p1-141",
+    "bnu-primary-ds-v2-p1-142",
+    "bnu-primary-ds-v2-p1-143",
+    "bnu-primary-ds-v2-p1-144"
+  ],
+  "usage": {
+    "prompt_tokens": 4237,
+    "completion_tokens": 1331,
+    "total_tokens": 5568,
+    "prompt_tokens_details": {
+      "cached_tokens": 640
+    },
+    "prompt_cache_hit_tokens": 640,
+    "prompt_cache_miss_tokens": 3597
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p1-127",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，时针在10和11之间，分针指向6，是10时30分。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-128",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，时针分针都指向12，是12时整。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-129",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，小红上午10时和下午2时都在上课，所以她在学校。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-130",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，整时钟面分针指向12，时针指向5。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-131",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，和是13，差是8。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-132",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，求总数用加法，5+4=9。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-133",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，小刚的回答最完整。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-134",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，5表示树上还剩的小鸟只数。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-135",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，12-7=5，给了5块糖。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-136",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，②是加法，其他是减法。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-137",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，错误均已指出并改正。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-138",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，用到了比较和减法知识。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-139",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，凑十法说法正确，其他选项有误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-140",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，合起来用加法，8+6=14。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-141",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，先算12-5=7，再算7+3=10。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-142",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，20在19后面，所以20>19。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-143",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，8+7=15，15-6=9。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-144",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，分类合理，都是学习用品。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版小学数学一年级上册要求，无错误或风险。"
+    }
+  }
+}

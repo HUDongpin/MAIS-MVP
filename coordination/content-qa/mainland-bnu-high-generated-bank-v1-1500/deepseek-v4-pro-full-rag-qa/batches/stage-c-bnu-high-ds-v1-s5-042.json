@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-042",
+  "startedAt": "2026-05-28T02:02:55.196Z",
+  "completedAt": "2026-05-28T02:03:00.430Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-042"
+  ],
+  "usage": {
+    "prompt_tokens": 2115,
+    "completion_tokens": 328,
+    "total_tokens": 2443,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1731
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-042",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "3",
+        "correctedAnswer": "3",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "两直线平行需满足系数比相等且常数比不等。由 a/2 = 3/(a-1) 解得 a=3 或 a=-2。当 a=-2 时，两直线为 -2x+3y+1=0 和 2x-3y+1=0，系数比 -2/2 = 3/(-3) = -1，但常数比 1/1 = 1，两直线重合，不满足平行条件。故正确答案仅为 a=3。存储答案包含 a=-2，解析未排除重合情况，导致答案错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目答案错误，需修正为 a=3。"
+    }
+  }
+}

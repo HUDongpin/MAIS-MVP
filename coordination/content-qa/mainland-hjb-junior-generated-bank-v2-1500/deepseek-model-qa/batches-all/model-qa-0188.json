@@ -1,0 +1,57 @@
+{
+  "batchId": "model-qa-0188",
+  "ids": [
+    "hjb-junior-ds-v2-s3-497",
+    "hjb-junior-ds-v2-s3-498",
+    "hjb-junior-ds-v2-s3-499",
+    "hjb-junior-ds-v2-s3-500"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-497",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "题干要求选择不受极端值影响的统计量，但数据中无极端值，且平均数和中位数均能代表一般水平。中位数虽不受极端值影响，但平均数在此数据中同样合理，且题干未明确说明存在极端值，导致答案不唯一。",
+      "independentAnswerZhHans": "平均数或中位数均可，但题干强调不受极端值影响，中位数更符合该条件。",
+      "answerCheckZhHans": "给定答案中位数正确，但题干情境下平均数也可接受，存在歧义。",
+      "recommendedActionZhHans": "修改题干，明确数据中存在极端值或强调需要稳健统计量，或调整选项使答案唯一。",
+      "confidence": "medium"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-498",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "众数",
+      "answerCheckZhHans": "给定答案众数正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-499",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "方差",
+      "answerCheckZhHans": "给定答案方差正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-500",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "该小区知晓垃圾分类的居民比例约为75%",
+      "answerCheckZhHans": "给定答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

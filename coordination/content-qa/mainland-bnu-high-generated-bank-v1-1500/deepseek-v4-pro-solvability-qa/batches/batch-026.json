@@ -1,0 +1,139 @@
+{
+  "batchNumber": 26,
+  "startedAt": "2026-05-27T13:48:19.080Z",
+  "completedAt": "2026-05-27T13:48:35.985Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-201",
+    "bnu-high-ds-v1-s4-202",
+    "bnu-high-ds-v1-s4-203",
+    "bnu-high-ds-v1-s4-204",
+    "bnu-high-ds-v1-s4-205",
+    "bnu-high-ds-v1-s4-206",
+    "bnu-high-ds-v1-s4-207",
+    "bnu-high-ds-v1-s4-208"
+  ],
+  "usage": {
+    "prompt_tokens": 10462,
+    "completion_tokens": 1113,
+    "total_tokens": 11575,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 9950
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-201",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "80.4",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "分层抽样均值估计可解，计算正确，答案80.4匹配，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-202",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "从每个班随机抽取学号尾数为3的5名学生",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "抽样方法判断合理，A为分层随机抽样，代表性好，答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-203",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "83",
+        "correctedAnswer": "83",
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "众数计算得82.5，四舍五入为83，但答案给出85，与计算不符；解析中计算过程得82.5≈83，但最终答案写85，自相矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-204",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0005",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "系统抽样起始号码计算正确，答案0005匹配，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-205",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "16",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "方差性质应用正确，新方差16，答案匹配，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-206",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "甲中位数81.5，乙中位数83，乙更稳定",
+        "correctedAnswer": "甲中位数81.5，乙中位数83，乙更稳定",
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "茎叶图数据计算甲中位数81.5，乙中位数83，但答案给出甲83、乙82，与计算不符；解析中计算得甲81.5、乙83，但答案错误，自相矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-207",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "分层抽样计算正确，高中抽2所，答案匹配，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-208",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "x和y之间存在较强的正相关关系",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "相关系数解释正确，选项B合理，答案匹配，解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 0,
+      "fail": 2,
+      "notes": "8题中6题通过，2题（203、206）答案与解析矛盾，需修正答案。"
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-313",
+  "startedAt": "2026-05-28T01:49:53.285Z",
+  "completedAt": "2026-05-28T01:49:58.505Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-313"
+  ],
+  "usage": {
+    "prompt_tokens": 2027,
+    "completion_tokens": 307,
+    "total_tokens": 2334,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1643
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-313",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "B",
+        "correctedAnswer": "B",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "函数 f(x)=x^3-3x 的导数 f'(x)=3x^2-3=3(x-1)(x+1)。令 f'(x)<0 得 -1<x<1，故单调递减区间为 (-1,1)，对应选项 B。存储答案 [-1,1]（选项 D）错误，解析中令 f'(x)≤0 得闭区间，但单调区间通常写开区间，且选项 D 为闭区间，与正确选项 B 矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "存储答案与独立解及正确选项不符，解析存在错误，判定为 blocker。"
+    }
+  }
+}

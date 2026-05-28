@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-080",
+  "startedAt": "2026-05-28T00:57:48.582Z",
+  "completedAt": "2026-05-28T00:57:55.935Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-080"
+  ],
+  "usage": {
+    "prompt_tokens": 2181,
+    "completion_tokens": 365,
+    "total_tokens": 2546,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1797
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-080",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "a=2, b=0；解集为{x|x>log₂3}",
+        "correctedAnswer": "a=2, b=0；解集为{x|x>log₂3}",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合教材范围。独立求解得a=2,b=0，不等式解为x>log₂3。存储答案解集为(1,+∞)，与正确解不符；解析中虽得出x>log₂3，但最终答案错误，存在数学错误和答案矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1题答案错误，解集应为x>log₂3而非(1,+∞)，解析与答案矛盾，判定为blocker。"
+    }
+  }
+}

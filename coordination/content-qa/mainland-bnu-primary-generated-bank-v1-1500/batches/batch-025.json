@@ -1,0 +1,585 @@
+{
+  "batchId": "batch-025",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p1-241",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-math-play-review",
+      "unitTitle": "数学好玩与整理复习",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "p1-lower-review",
+        "math-play",
+        "pattern-reasoning",
+        "下册复习"
+      ],
+      "competencyTags": [
+        "推理意识",
+        "反思整理",
+        "应用意识"
+      ],
+      "skillTags": [
+        "规律发现",
+        "整理知识",
+        "说理检查",
+        "综合应用"
+      ],
+      "misconceptionTags": [
+        "pattern continued from appearance only",
+        "review treated as isolated drills",
+        "explanation skipped after correct answer"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-20-addition",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小海用积木搭了一排图形：△ □ △ □ △ □ __。横线上应该放什么图形？",
+      "optionsZhHans": [
+        "△",
+        "□",
+        "○",
+        "☆"
+      ],
+      "answer": "△",
+      "acceptedAnswers": [
+        "△"
+      ],
+      "explanationZhHans": "图形按△、□重复排列，□后面应该是△。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-242",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-math-play-review",
+      "unitTitle": "数学好玩与整理复习",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "p1-lower-review",
+        "math-play",
+        "pattern-reasoning",
+        "下册复习"
+      ],
+      "competencyTags": [
+        "推理意识",
+        "反思整理",
+        "应用意识"
+      ],
+      "skillTags": [
+        "规律发现",
+        "整理知识",
+        "说理检查",
+        "综合应用"
+      ],
+      "misconceptionTags": [
+        "pattern continued from appearance only",
+        "review treated as isolated drills",
+        "explanation skipped after correct answer"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-20-addition",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小云在整理数字卡片：2、4、6、8、__、12。横线上缺少的数字是几？",
+      "optionsZhHans": [
+        "9",
+        "10",
+        "11",
+        "13"
+      ],
+      "answer": "10",
+      "acceptedAnswers": [
+        "10"
+      ],
+      "explanationZhHans": "数字每次增加2，8加2是10，10后面是12。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-243",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-math-play-review",
+      "unitTitle": "数学好玩与整理复习",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "p1-lower-review",
+        "math-play",
+        "pattern-reasoning",
+        "下册复习"
+      ],
+      "competencyTags": [
+        "推理意识",
+        "反思整理",
+        "应用意识"
+      ],
+      "skillTags": [
+        "规律发现",
+        "整理知识",
+        "说理检查",
+        "综合应用"
+      ],
+      "misconceptionTags": [
+        "pattern continued from appearance only",
+        "review treated as isolated drills",
+        "explanation skipped after correct answer"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-20-addition",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小乐说：“我计算15+3时，先算5+3=8，再算10+8=18。”他用的方法是下面哪一种？",
+      "optionsZhHans": [
+        "先算十位再算个位",
+        "先算个位再算十位",
+        "从15开始接着数3个",
+        "用减法算加法"
+      ],
+      "answer": "先算个位再算十位",
+      "acceptedAnswers": [
+        "先算个位再算十位"
+      ],
+      "explanationZhHans": "小乐先算个位5+3=8，再算十位10+8=18，这是先算个位再算十位。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-244",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-math-play-review",
+      "unitTitle": "数学好玩与整理复习",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "p1-lower-review",
+        "math-play",
+        "pattern-reasoning",
+        "下册复习"
+      ],
+      "competencyTags": [
+        "推理意识",
+        "反思整理",
+        "应用意识"
+      ],
+      "skillTags": [
+        "规律发现",
+        "整理知识",
+        "说理检查",
+        "综合应用"
+      ],
+      "misconceptionTags": [
+        "pattern continued from appearance only",
+        "review treated as isolated drills",
+        "explanation skipped after correct answer"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-20-addition",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小宇检查自己的计算：9+6=14。他发现自己算错了。正确的得数应该是多少？",
+      "optionsZhHans": [
+        "13",
+        "14",
+        "15",
+        "16"
+      ],
+      "answer": "15",
+      "acceptedAnswers": [
+        "15"
+      ],
+      "explanationZhHans": "用凑十法：9+1=10，6分出1还剩5，10+5=15。14是错误的。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-245",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-math-play-review",
+      "unitTitle": "数学好玩与整理复习",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "p1-lower-review",
+        "math-play",
+        "pattern-reasoning",
+        "下册复习"
+      ],
+      "competencyTags": [
+        "推理意识",
+        "反思整理",
+        "应用意识"
+      ],
+      "skillTags": [
+        "规律发现",
+        "整理知识",
+        "说理检查",
+        "综合应用"
+      ],
+      "misconceptionTags": [
+        "pattern continued from appearance only",
+        "review treated as isolated drills",
+        "explanation skipped after correct answer"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-20-addition",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小美在整理图形，她把所有能滚动的物体放在一起。下面哪个物体不应该放在这一组？",
+      "optionsZhHans": [
+        "皮球",
+        "圆柱形积木",
+        "正方体积木",
+        "乒乓球"
+      ],
+      "answer": "正方体积木",
+      "acceptedAnswers": [
+        "正方体积木"
+      ],
+      "explanationZhHans": "正方体积木有平面，不容易滚动；其他物体都有曲面，容易滚动。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-246",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-math-play-review",
+      "unitTitle": "数学好玩与整理复习",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "p1-lower-review",
+        "math-play",
+        "pattern-reasoning",
+        "下册复习"
+      ],
+      "competencyTags": [
+        "推理意识",
+        "反思整理",
+        "应用意识"
+      ],
+      "skillTags": [
+        "规律发现",
+        "整理知识",
+        "说理检查",
+        "综合应用"
+      ],
+      "misconceptionTags": [
+        "pattern continued from appearance only",
+        "review treated as isolated drills",
+        "explanation skipped after correct answer"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-20-addition",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小东从前面看一辆玩具小汽车，他看到的形状最像下面哪一个？",
+      "optionsZhHans": [
+        "长方形下面有两个圆形",
+        "一个正方形",
+        "一个圆形",
+        "一个三角形"
+      ],
+      "answer": "长方形下面有两个圆形",
+      "acceptedAnswers": [
+        "长方形下面有两个圆形"
+      ],
+      "explanationZhHans": "从前面看小汽车，能看到车身（长方形）和两个车轮（圆形）。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-247",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-math-play-review",
+      "unitTitle": "数学好玩与整理复习",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "p1-lower-review",
+        "math-play",
+        "pattern-reasoning",
+        "下册复习"
+      ],
+      "competencyTags": [
+        "推理意识",
+        "反思整理",
+        "应用意识"
+      ],
+      "skillTags": [
+        "规律发现",
+        "整理知识",
+        "说理检查",
+        "综合应用"
+      ],
+      "misconceptionTags": [
+        "pattern continued from appearance only",
+        "review treated as isolated drills",
+        "explanation skipped after correct answer"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-20-addition",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丽把一张正方形纸对折一次后，不可能出现的形状是哪一个？",
+      "optionsZhHans": [
+        "长方形",
+        "三角形",
+        "正方形",
+        "圆形"
+      ],
+      "answer": "圆形",
+      "acceptedAnswers": [
+        "圆形"
+      ],
+      "explanationZhHans": "正方形对折一次可以得到长方形或三角形，但不可能得到圆形。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-248",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-math-play-review",
+      "unitTitle": "数学好玩与整理复习",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "p1-lower-review",
+        "math-play",
+        "pattern-reasoning",
+        "下册复习"
+      ],
+      "competencyTags": [
+        "推理意识",
+        "反思整理",
+        "应用意识"
+      ],
+      "skillTags": [
+        "规律发现",
+        "整理知识",
+        "说理检查",
+        "综合应用"
+      ],
+      "misconceptionTags": [
+        "pattern continued from appearance only",
+        "review treated as isolated drills",
+        "explanation skipped after correct answer"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-20-addition",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小刚用七巧板拼了一个图案，他移动了其中一块板，图案变了。下面哪种说法正确？",
+      "optionsZhHans": [
+        "图案变了，但用的板没变",
+        "图案变了，板也变了",
+        "图案没变",
+        "板变少了"
+      ],
+      "answer": "图案变了，但用的板没变",
+      "acceptedAnswers": [
+        "图案变了，但用的板没变"
+      ],
+      "explanationZhHans": "移动板只是改变位置，板本身没有增加或减少，所以图案变了但板没变。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-249",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-math-play-review",
+      "unitTitle": "数学好玩与整理复习",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "p1-lower-review",
+        "math-play",
+        "pattern-reasoning",
+        "下册复习"
+      ],
+      "competencyTags": [
+        "推理意识",
+        "反思整理",
+        "应用意识"
+      ],
+      "skillTags": [
+        "规律发现",
+        "整理知识",
+        "说理检查",
+        "综合应用"
+      ],
+      "misconceptionTags": [
+        "pattern continued from appearance only",
+        "review treated as isolated drills",
+        "explanation skipped after correct answer"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-20-addition",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小文在计数器上拨出13，十位上有1颗珠子，个位上有3颗珠子。如果他在个位上再拨2颗珠子，现在表示的数是多少？",
+      "optionsZhHans": [
+        "15",
+        "33",
+        "11",
+        "13"
+      ],
+      "answer": "15",
+      "acceptedAnswers": [
+        "15"
+      ],
+      "explanationZhHans": "个位3颗加2颗是5颗，十位1颗不变，合起来是15。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-250",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-math-play-review",
+      "unitTitle": "数学好玩与整理复习",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "p1-lower-review",
+        "math-play",
+        "pattern-reasoning",
+        "下册复习"
+      ],
+      "competencyTags": [
+        "推理意识",
+        "反思整理",
+        "应用意识"
+      ],
+      "skillTags": [
+        "规律发现",
+        "整理知识",
+        "说理检查",
+        "综合应用"
+      ],
+      "misconceptionTags": [
+        "pattern continued from appearance only",
+        "review treated as isolated drills",
+        "explanation skipped after correct answer"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-20-addition",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小兰说：“我按规律穿了一串珠子：红、黄、蓝、红、黄、蓝、红、__。”下一个珠子应该是什么颜色？",
+      "optionsZhHans": [
+        "红",
+        "黄",
+        "蓝",
+        "绿"
+      ],
+      "answer": "黄",
+      "acceptedAnswers": [
+        "黄"
+      ],
+      "explanationZhHans": "珠子按红、黄、蓝重复，红后面是黄。"
+    }
+  ]
+}

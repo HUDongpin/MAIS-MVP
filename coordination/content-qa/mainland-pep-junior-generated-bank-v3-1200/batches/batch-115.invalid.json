@@ -1,0 +1,115 @@
+{
+  "batchId": "batch-115",
+  "attempt": 2,
+  "validationError": "pep-junior-v3-s3-k11-sa-012: forbidden source or diagram-dependent wording detected",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s3-k11-sa-008",
+      "promptZhHans": "在平面直角坐标系中，反比例函数 y = k/x 的图像经过点 A(2, -3)。点 B(-1, m) 也在这个图像上。求 m 的值。",
+      "optionsZhHans": [],
+      "answer": "6",
+      "acceptedAnswers": [
+        "6"
+      ],
+      "explanationZhHans": "因为反比例函数 y = k/x 的图像经过点 A(2, -3)，代入得 -3 = k/2，解得 k = -6。所以函数为 y = -6/x。点 B(-1, m) 在图像上，代入得 m = -6/(-1) = 6。"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-009",
+      "promptZhHans": "如图，在△ABC中，DE∥BC，AD=3，DB=6，AE=2。求EC的长。",
+      "optionsZhHans": [],
+      "answer": "4",
+      "acceptedAnswers": [
+        "4"
+      ],
+      "explanationZhHans": "由DE∥BC，根据平行线分线段成比例定理，得 AD/DB = AE/EC。代入 AD=3，DB=6，AE=2，得 3/6 = 2/EC，即 1/2 = 2/EC，解得 EC = 4。"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-010",
+      "promptZhHans": "已知反比例函数 y = (k-1)/x 的图像位于第二、四象限，求 k 的取值范围。",
+      "optionsZhHans": [],
+      "answer": "k < 1",
+      "acceptedAnswers": [
+        "k<1",
+        "k < 1"
+      ],
+      "explanationZhHans": "反比例函数 y = (k-1)/x 的图像位于第二、四象限，说明比例系数 k-1 为负，即 k-1 < 0，解得 k < 1。"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-011",
+      "promptZhHans": "在 Rt△ABC 中，∠C=90°，AB=10，sinA=3/5。求 BC 的长。",
+      "optionsZhHans": [],
+      "answer": "6",
+      "acceptedAnswers": [
+        "6"
+      ],
+      "explanationZhHans": "在 Rt△ABC 中，∠C=90°，sinA = 对边/斜边 = BC/AB。已知 sinA = 3/5，AB=10，所以 BC/10 = 3/5，解得 BC = 6。"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-012",
+      "promptZhHans": "一个几何体由几个大小相同的小立方块搭成，从正面看和从上面看得到的形状图如图所示。请写出搭成这个几何体最少需要的小立方块个数。",
+      "optionsZhHans": [],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5"
+      ],
+      "explanationZhHans": "从上面看可确定底层至少有4个小立方块；从正面看可知第二层至少有一个小立方块。因此最少需要 4+1=5 个小立方块。"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-013",
+      "promptZhHans": "如图，在平面直角坐标系中，点 A 在反比例函数 y = 4/x (x>0) 的图像上，点 B 在 x 轴上，且 △OAB 是等腰直角三角形，∠OAB=90°。求点 B 的坐标。",
+      "optionsZhHans": [],
+      "answer": "(4, 0)",
+      "acceptedAnswers": [
+        "(4,0)",
+        "(4, 0)"
+      ],
+      "explanationZhHans": "设 A(a, 4/a)，由 ∠OAB=90° 且 OA=AB，得 a = 4/a，解得 a=2（负值舍去），故 A(2,2)。由等腰直角三角形性质得 B(4,0)。"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-014",
+      "promptZhHans": "某市为了鼓励居民节约用水，对居民生活用水实行阶梯水价。第一阶梯：每户每月用水量不超过20立方米，水价为2元/立方米；第二阶梯：超过20立方米但不超过30立方米的部分，水价为3元/立方米；第三阶梯：超过30立方米的部分，水价为4元/立方米。若某户居民上月用水量为 x 立方米（x>30），请写出该户居民上月应缴水费 y（元）与 x 之间的函数关系式。",
+      "optionsZhHans": [],
+      "answer": "y = 4x - 30",
+      "acceptedAnswers": [
+        "y=4x-30",
+        "y = 4x - 30"
+      ],
+      "explanationZhHans": "当 x>30 时，水费包括三部分：20立方米以内费用为 20×2=40 元，20至30立方米部分费用为 10×3=30 元，超过30立方米部分费用为 4(x-30) 元。所以 y = 40 + 30 + 4(x-30) = 4x - 30。"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-015",
+      "promptZhHans": "如图，在△ABC中，AB=AC，点D在BC上，且BD=AD，DC=AC。求∠B的度数。",
+      "optionsZhHans": [],
+      "answer": "36°",
+      "acceptedAnswers": [
+        "36°",
+        "36"
+      ],
+      "explanationZhHans": "设∠B=x，由AB=AC得∠C=x；由BD=AD得∠BAD=x；由DC=AC得∠DAC=∠ADC。利用三角形内角和列方程，解得x=36°，即∠B=36°。"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-016",
+      "promptZhHans": "已知点 A(x₁, y₁) 和点 B(x₂, y₂) 在反比例函数 y = -2/x 的图像上，且 x₁ < x₂ < 0。比较 y₁ 与 y₂ 的大小。",
+      "optionsZhHans": [],
+      "answer": "y₁ < y₂",
+      "acceptedAnswers": [
+        "y1<y2",
+        "y₁<y₂",
+        "y₁ < y₂"
+      ],
+      "explanationZhHans": "对于反比例函数 y = -2/x，因为 k = -2 < 0，图像在第二、四象限。当 x < 0 时，y > 0，且在每个象限内 y 随 x 的增大而增大。因为 x₁ < x₂ < 0，所以 y₁ < y₂。"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-017",
+      "promptZhHans": "如图，小明在点C处测得山顶A的仰角为30°，他向山脚方向前进200米到达点D，再测得山顶A的仰角为45°。已知点C、D、B在同一水平线上，且AB⊥BC。求山高AB（结果保留根号）。",
+      "optionsZhHans": [],
+      "answer": "100(√3 + 1) 米",
+      "acceptedAnswers": [
+        "100(√3+1)米",
+        "100(√3+1)",
+        "100(√3 + 1) 米"
+      ],
+      "explanationZhHans": "设山高AB=h米，则BD=h。在Rt△ABC中，BC=√3 h。由CD=BC-BD=√3 h - h = 200，解得 h = 200/(√3 - 1) = 100(√3 + 1)。故山高为100(√3 + 1) 米。"
+    }
+  ]
+}

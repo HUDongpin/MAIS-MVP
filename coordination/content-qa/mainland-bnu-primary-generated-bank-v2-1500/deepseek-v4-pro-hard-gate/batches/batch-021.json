@@ -1,0 +1,330 @@
+{
+  "batchNumber": 21,
+  "startedAt": "2026-05-26T16:58:55.785Z",
+  "completedAt": "2026-05-26T16:59:21.554Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p3-101",
+    "bnu-primary-ds-v2-p3-102",
+    "bnu-primary-ds-v2-p3-103",
+    "bnu-primary-ds-v2-p3-104",
+    "bnu-primary-ds-v2-p3-105",
+    "bnu-primary-ds-v2-p3-106",
+    "bnu-primary-ds-v2-p3-107",
+    "bnu-primary-ds-v2-p3-108",
+    "bnu-primary-ds-v2-p3-109",
+    "bnu-primary-ds-v2-p3-110",
+    "bnu-primary-ds-v2-p3-111",
+    "bnu-primary-ds-v2-p3-112",
+    "bnu-primary-ds-v2-p3-113",
+    "bnu-primary-ds-v2-p3-114",
+    "bnu-primary-ds-v2-p3-115",
+    "bnu-primary-ds-v2-p3-116",
+    "bnu-primary-ds-v2-p3-117",
+    "bnu-primary-ds-v2-p3-118",
+    "bnu-primary-ds-v2-p3-119",
+    "bnu-primary-ds-v2-p3-120",
+    "bnu-primary-ds-v2-p3-121",
+    "bnu-primary-ds-v2-p3-122",
+    "bnu-primary-ds-v2-p3-123",
+    "bnu-primary-ds-v2-p3-124",
+    "bnu-primary-ds-v2-p3-125",
+    "bnu-primary-ds-v2-p3-126",
+    "bnu-primary-ds-v2-p3-127",
+    "bnu-primary-ds-v2-p3-128",
+    "bnu-primary-ds-v2-p3-129",
+    "bnu-primary-ds-v2-p3-130"
+  ],
+  "usage": {
+    "prompt_tokens": 5572,
+    "completion_tokens": 2295,
+    "total_tokens": 7867,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 5188
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p3-101",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目信息完整，计算正确，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-102",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目明确，计算正确，答案22天无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-103",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "平年2月28天，选项唯一正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-104",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "七月和八月是连续大月，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-105",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "日期推算正确，共8次。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-106",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "小数比较正确，0.91最大。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-107",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "单位换算正确，3.5元。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-108",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "数轴表示正确，0.7。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-109",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "单位换算正确，15厘米。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-110",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "小数比较正确，0.59最小。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-111",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "数轴表示和比较正确，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-112",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "价格比较正确，4.8元最便宜。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-113",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "单位换算正确，1.2分米。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-114",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "小数比较正确，5.09<5.9。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-115",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "最接近1的是0.99，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-116",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "分数与小数转换正确，0.01元。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-117",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "单位换算和比较正确，小刚更远。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-118",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "小数读法正确，3.05。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-119",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "单位换算正确，0.8元。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-120",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "符合条件的小数为0.35和0.53，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-121",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "运算顺序正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-122",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "长度计算正确，230厘米。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-123",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "周长计算正确，68厘米。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-124",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "时间计算正确，35分钟。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-125",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "长度单位排序正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-126",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "周长公式应用正确，宽4厘米。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-127",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "周长和面积概念正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-128",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "搭配问题计算正确，6种。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-129",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "平均数计算正确，35分钟。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-130",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "周长计算正确，260米。"
+      }
+    ],
+    "batchSummary": {
+      "solvableYes": 30,
+      "solvableNo": 0,
+      "answerMatchYes": 30,
+      "answerMatchNo": 0,
+      "notes": "全部30道题目均可解，答案匹配正确，无问题。"
+    }
+  }
+}

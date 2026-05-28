@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-478",
+  "startedAt": "2026-05-28T01:59:52.793Z",
+  "completedAt": "2026-05-28T01:59:57.076Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-478"
+  ],
+  "usage": {
+    "prompt_tokens": 2270,
+    "completion_tokens": 278,
+    "total_tokens": 2548,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1886
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-478",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "172π/3 cm²",
+        "correctedAnswer": "172π/3 cm²",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件为底面边长4 cm、侧棱长6 cm，独立求解得外接球表面积172π/3 cm²，与所给答案52π cm²不符。解析中承认需调整数据，说明题目条件与答案不匹配，存在数学错误和解释矛盾，判定为阻断级。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1题答案错误，题目条件与答案不匹配，需修正。"
+    }
+  }
+}

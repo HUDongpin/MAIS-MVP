@@ -1,0 +1,306 @@
+{
+  "batchId": "batch-005",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s1-k01-fi-018",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-expression-simplification"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "某日早晨气温为 -3 ℃，中午上升了 8 ℃，傍晚又下降了 5 ℃，则傍晚的气温为 ______ ℃。",
+      "optionsZhHans": [],
+      "answer": "0",
+      "acceptedAnswers": [
+        "0",
+        "零",
+        "0℃"
+      ],
+      "explanationZhHans": "早晨气温 -3 ℃，中午上升 8 ℃ 后为 -3 + 8 = 5 ℃；傍晚下降 5 ℃ 后为 5 - 5 = 0 ℃。所以傍晚气温为 0 ℃。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k01-fi-019",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-linear-equation-modeling"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "在数轴上，点 A 表示 -2，将点 A 先向右移动 5 个单位，再向左移动 3 个单位，此时点 A 表示的数是 ______。",
+      "optionsZhHans": [],
+      "answer": "0",
+      "acceptedAnswers": [
+        "0",
+        "零"
+      ],
+      "explanationZhHans": "点 A 初始在 -2。向右移动 5 个单位：-2 + 5 = 3；再向左移动 3 个单位：3 - 3 = 0。所以最终点 A 表示的数是 0。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k01-fi-020",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-geometric-figures"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "某账户原有余额 120 元，先支出 85 元，又存入 30 元，最后再支出 40 元，此时账户余额为 ______ 元。",
+      "optionsZhHans": [],
+      "answer": "25",
+      "acceptedAnswers": [
+        "25",
+        "25元"
+      ],
+      "explanationZhHans": "初始余额 120 元。支出 85 元后：120 - 85 = 35 元；存入 30 元后：35 + 30 = 65 元；再支出 40 元后：65 - 40 = 25 元。所以最终余额为 25 元。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k01-fi-021",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-rational-number-operations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "若 a 的相反数是 5，b 的绝对值是 2，且 b < 0，则 a + b = ______。",
+      "optionsZhHans": [],
+      "answer": "-7",
+      "acceptedAnswers": [
+        "-7",
+        "负七"
+      ],
+      "explanationZhHans": "a 的相反数是 5，所以 a = -5。b 的绝对值是 2，且 b < 0，所以 b = -2。因此 a + b = (-5) + (-2) = -7。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k01-fi-022",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "比较大小：-2.3 ______ -2.1（填“>”或“<”）。",
+      "optionsZhHans": [],
+      "answer": "<",
+      "acceptedAnswers": [
+        "<",
+        "小于"
+      ],
+      "explanationZhHans": "两个负数比较大小，绝对值大的反而小。|-2.3| = 2.3，|-2.1| = 2.1，因为 2.3 > 2.1，所以 -2.3 < -2.1。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k01-fi-023",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-expression-simplification"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "计算：(-4) × 6 ÷ (-3) = ______。",
+      "optionsZhHans": [],
+      "answer": "8",
+      "acceptedAnswers": [
+        "8",
+        "八"
+      ],
+      "explanationZhHans": "先算乘法：(-4) × 6 = -24；再算除法：(-24) ÷ (-3) = 8。所以结果为 8。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k01-sa-001",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "short-answer",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-rational-number-operations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "某潜水员从海平面位置开始，先下潜 18 米，再上浮 7 米，又下潜 5 米。此时潜水员在海平面下方多少米？请用有理数的运算表示并计算。",
+      "optionsZhHans": [],
+      "answer": "16",
+      "acceptedAnswers": [
+        "16",
+        "16米"
+      ],
+      "explanationZhHans": "以下潜为负，上浮为正。初始位置为 0。第一次下潜 18 米：0 - 18 = -18；上浮 7 米：-18 + 7 = -11；再次下潜 5 米：-11 - 5 = -16。所以潜水员在海平面下方 16 米。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k01-sa-002",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "short-answer",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "已知 a = -3，b = 5，求 |a| - |b| + |a - b| 的值。",
+      "optionsZhHans": [],
+      "answer": "6",
+      "acceptedAnswers": [
+        "6",
+        "六"
+      ],
+      "explanationZhHans": "|a| = |-3| = 3，|b| = |5| = 5，a - b = -3 - 5 = -8，|a - b| = |-8| = 8。所以原式 = 3 - 5 + 8 = 6。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k01-sa-003",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "short-answer",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-expression-simplification"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "在数轴上，点M表示-1，点N表示3。点P在点M右侧，且在点N右侧，且到点M的距离是到点N距离的2倍，求点P表示的数。",
+      "optionsZhHans": [],
+      "answer": "7",
+      "acceptedAnswers": [
+        "7",
+        "七"
+      ],
+      "explanationZhHans": "设点P表示的数为x。因为P在M右侧且在N右侧，所以x>3。PM=x-(-1)=x+1，PN=x-3。由题意PM=2PN，得x+1=2(x-3)，解得x=7。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k01-sa-004",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "short-answer",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-linear-equation-modeling"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "某冷库的室温为 -2 ℃，现有一批食品需要在 -18 ℃ 下冷藏。如果冷库每小时降温 4 ℃，问几小时后能达到所需温度？",
+      "optionsZhHans": [],
+      "answer": "4",
+      "acceptedAnswers": [
+        "4",
+        "4小时"
+      ],
+      "explanationZhHans": "需要降低的温度：从 -2 ℃ 到 -18 ℃，温差为 |-18 - (-2)| = |-16| = 16 ℃。每小时降温 4 ℃，所以需要的时间为 16 ÷ 4 = 4 小时。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

@@ -1,0 +1,585 @@
+{
+  "batchId": "batch-025",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p1-241",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-math-play-review",
+      "unitTitle": "数学好玩与整理复习",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "p1-lower-review",
+        "math-play",
+        "pattern-reasoning",
+        "下册复习"
+      ],
+      "competencyTags": [
+        "推理意识",
+        "反思整理",
+        "应用意识"
+      ],
+      "skillTags": [
+        "规律发现",
+        "整理知识",
+        "说理检查",
+        "综合应用"
+      ],
+      "misconceptionTags": [
+        "pattern continued from appearance only",
+        "review treated as isolated drills",
+        "explanation skipped after correct answer"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-20-addition",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小云在整理数学知识时，发现下面四句话中只有一句是正确的。请你选出来。",
+      "optionsZhHans": [
+        "计算8+7时，可以用“凑十法”：把7分成2和5，先算8+2=10，再算10+5=15。",
+        "一个正方体从前面看是正方形，从上面看是圆形。",
+        "观察一个物体时，从不同方向看到的形状一定相同。",
+        "在20以内的加法中，交换两个加数的位置，和会发生变化。"
+      ],
+      "answer": "计算8+7时，可以用“凑十法”：把7分成2和5，先算8+2=10，再算10+5=15。",
+      "acceptedAnswers": [
+        "计算8+7时，可以用“凑十法”：把7分成2和5，先算8+2=10，再算10+5=15。"
+      ],
+      "explanationZhHans": "选项A正确描述了凑十法步骤；选项B错误，正方体从上面看也是正方形；选项C错误，从不同方向看物体形状可能不同；选项D错误，加法交换律下和不变。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-242",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-math-play-review",
+      "unitTitle": "数学好玩与整理复习",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "p1-lower-review",
+        "math-play",
+        "pattern-reasoning",
+        "下册复习"
+      ],
+      "competencyTags": [
+        "推理意识",
+        "反思整理",
+        "应用意识"
+      ],
+      "skillTags": [
+        "规律发现",
+        "整理知识",
+        "说理检查",
+        "综合应用"
+      ],
+      "misconceptionTags": [
+        "pattern continued from appearance only",
+        "review treated as isolated drills",
+        "explanation skipped after correct answer"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-20-addition",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小宇用积木搭了一个形状：第一层放3块积木，第二层放1块积木，第三层放3块积木，第四层放1块积木。如果按照这样的规律继续搭，第五层应该放几块积木？",
+      "optionsZhHans": [
+        "1块",
+        "2块",
+        "3块",
+        "4块"
+      ],
+      "answer": "3块",
+      "acceptedAnswers": [
+        "3块"
+      ],
+      "explanationZhHans": "规律是3块、1块、3块、1块重复出现。单数层放3块，双数层放1块。第五层是单数层，所以放3块。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-243",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-math-play-review",
+      "unitTitle": "数学好玩与整理复习",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "p1-lower-review",
+        "math-play",
+        "pattern-reasoning",
+        "下册复习"
+      ],
+      "competencyTags": [
+        "推理意识",
+        "反思整理",
+        "应用意识"
+      ],
+      "skillTags": [
+        "规律发现",
+        "整理知识",
+        "说理检查",
+        "综合应用"
+      ],
+      "misconceptionTags": [
+        "pattern continued from appearance only",
+        "review treated as isolated drills",
+        "explanation skipped after correct answer"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-20-addition",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小乐用积木搭了一排图形：△ □ △ □ △ □ …… 按照这个规律，下一个图形是什么？",
+      "optionsZhHans": [
+        "△",
+        "□",
+        "○",
+        "☆"
+      ],
+      "answer": "△",
+      "acceptedAnswers": [
+        "△"
+      ],
+      "explanationZhHans": "这排图形按“△、□”重复出现。□后面应该是△，所以下一个是△。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-244",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-math-play-review",
+      "unitTitle": "数学好玩与整理复习",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "p1-lower-review",
+        "math-play",
+        "pattern-reasoning",
+        "下册复习"
+      ],
+      "competencyTags": [
+        "推理意识",
+        "反思整理",
+        "应用意识"
+      ],
+      "skillTags": [
+        "规律发现",
+        "整理知识",
+        "说理检查",
+        "综合应用"
+      ],
+      "misconceptionTags": [
+        "pattern continued from appearance only",
+        "review treated as isolated drills",
+        "explanation skipped after correct answer"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-20-addition",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小乐用积木搭了一个形状：第一层放2块积木，第二层放3块积木，第三层放4块积木。他打算继续按这个规律搭下去，第四层应该放几块积木？",
+      "optionsZhHans": [
+        "4块",
+        "5块",
+        "6块",
+        "7块"
+      ],
+      "answer": "5块",
+      "acceptedAnswers": [
+        "5块"
+      ],
+      "explanationZhHans": "规律是每下一层比上一层多1块积木。第一层2块，第二层3块，第三层4块，所以第四层是4+1=5块。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-245",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-math-play-review",
+      "unitTitle": "数学好玩与整理复习",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "p1-lower-review",
+        "math-play",
+        "pattern-reasoning",
+        "下册复习"
+      ],
+      "competencyTags": [
+        "推理意识",
+        "反思整理",
+        "应用意识"
+      ],
+      "skillTags": [
+        "规律发现",
+        "整理知识",
+        "说理检查",
+        "综合应用"
+      ],
+      "misconceptionTags": [
+        "pattern continued from appearance only",
+        "review treated as isolated drills",
+        "explanation skipped after correct answer"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-20-addition",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丽用积木搭了一个图形，从前面看是3个正方形排成一排，从上面看也是3个正方形排成一排，从左边看是2个正方形上下叠放。她搭的图形可能是下面哪一个？",
+      "optionsZhHans": [
+        "3个积木排成一排",
+        "3个积木，其中2个上下叠放，另一个放在它们前面",
+        "2个积木上下叠放，前面再放1个积木",
+        "2个积木左右并排，后面再放1个积木"
+      ],
+      "answer": "2个积木上下叠放，前面再放1个积木",
+      "acceptedAnswers": [
+        "2个积木上下叠放，前面再放1个积木"
+      ],
+      "explanationZhHans": "从前面和上面看都是3个正方形一排，说明有3个积木且不上下重叠；从左边看是2个上下叠放，说明左边有2个积木叠起来。只有选项“2个积木上下叠放，前面再放1个积木”符合：前面看，前面1个和后面叠放的2个并排成3个；上面看，3个并排；左边看，后面2个上下叠放。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-246",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-math-play-review",
+      "unitTitle": "数学好玩与整理复习",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "p1-lower-review",
+        "math-play",
+        "pattern-reasoning",
+        "下册复习"
+      ],
+      "competencyTags": [
+        "推理意识",
+        "反思整理",
+        "应用意识"
+      ],
+      "skillTags": [
+        "规律发现",
+        "整理知识",
+        "说理检查",
+        "综合应用"
+      ],
+      "misconceptionTags": [
+        "pattern continued from appearance only",
+        "review treated as isolated drills",
+        "explanation skipped after correct answer"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-20-addition",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小宇用学具摆了一排图形：△ □ △ □ △ □ ______。按照规律，横线上应该摆什么图形？",
+      "optionsZhHans": [
+        "△",
+        "□",
+        "○",
+        "☆"
+      ],
+      "answer": "△",
+      "acceptedAnswers": [
+        "△"
+      ],
+      "explanationZhHans": "这排图形按“△、□”重复出现。□后面是△，所以横线上应摆△。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-247",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-math-play-review",
+      "unitTitle": "数学好玩与整理复习",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "p1-lower-review",
+        "math-play",
+        "pattern-reasoning",
+        "下册复习"
+      ],
+      "competencyTags": [
+        "推理意识",
+        "反思整理",
+        "应用意识"
+      ],
+      "skillTags": [
+        "规律发现",
+        "整理知识",
+        "说理检查",
+        "综合应用"
+      ],
+      "misconceptionTags": [
+        "pattern continued from appearance only",
+        "review treated as isolated drills",
+        "explanation skipped after correct answer"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-20-addition",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小芳用积木搭了一个形状：第一层放3块积木，第二层放2块积木，第三层放1块积木。她发现积木数量有规律。按照这个规律，如果搭4层，第四层应该放几块积木？",
+      "optionsZhHans": [
+        "0块",
+        "1块",
+        "2块",
+        "3块"
+      ],
+      "answer": "0块",
+      "acceptedAnswers": [
+        "0块"
+      ],
+      "explanationZhHans": "规律是每往上一层，积木数量减少1块。第一层3块，第二层2块，第三层1块，所以第四层比第三层少1块，是0块。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-248",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-math-play-review",
+      "unitTitle": "数学好玩与整理复习",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "p1-lower-review",
+        "math-play",
+        "pattern-reasoning",
+        "下册复习"
+      ],
+      "competencyTags": [
+        "推理意识",
+        "反思整理",
+        "应用意识"
+      ],
+      "skillTags": [
+        "规律发现",
+        "整理知识",
+        "说理检查",
+        "综合应用"
+      ],
+      "misconceptionTags": [
+        "pattern continued from appearance only",
+        "review treated as isolated drills",
+        "explanation skipped after correct answer"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-20-addition",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小乐在整理自己的数学学习卡片。他发现下面四张卡片中，有三张卡片上的内容可以用“凑十法”来解释，只有一张卡片上的内容不能用“凑十法”来解释。请你帮小乐找出那一张卡片。\n卡片A：计算8+5时，先从5里面分出2，把8凑成10，10再加剩下的3等于13。\n卡片B：计算7+6时，先从6里面分出3，把7凑成10，10再加剩下的3等于13。\n卡片C：计算9+4时，先从4里面分出1，把9凑成10，10再加剩下的3等于13。\n卡片D：计算12-3时，先从12里面减去2得10，再从10里面减去1得9。",
+      "optionsZhHans": [
+        "卡片A",
+        "卡片B",
+        "卡片C",
+        "卡片D"
+      ],
+      "answer": "卡片D",
+      "acceptedAnswers": [
+        "卡片D"
+      ],
+      "explanationZhHans": "凑十法是加法中把其中一个加数拆开，与另一个加数凑成10再算的方法。卡片A、B、C都是加法，且都用了凑十的步骤。卡片D是减法，虽然用了分步减，但不是凑十法，所以卡片D不能用凑十法解释。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-249",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-math-play-review",
+      "unitTitle": "数学好玩与整理复习",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "p1-lower-review",
+        "math-play",
+        "pattern-reasoning",
+        "下册复习"
+      ],
+      "competencyTags": [
+        "推理意识",
+        "反思整理",
+        "应用意识"
+      ],
+      "skillTags": [
+        "规律发现",
+        "整理知识",
+        "说理检查",
+        "综合应用"
+      ],
+      "misconceptionTags": [
+        "pattern continued from appearance only",
+        "review treated as isolated drills",
+        "explanation skipped after correct answer"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-20-addition",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一年级同学在整理数学知识。下面哪句话是正确的？",
+      "optionsZhHans": [
+        "计算9+5时，可以把5分成1和4，先算9+1=10，再算10+4=14",
+        "计算9+5时，可以把9分成4和5，先算5+5=10，再算10+4=14",
+        "计算9+5时，可以把5分成2和3，先算9+2=11，再算11+3=14",
+        "计算9+5时，可以把9分成3和6，先算3+5=8，再算8+6=14"
+      ],
+      "answer": "计算9+5时，可以把5分成1和4，先算9+1=10，再算10+4=14",
+      "acceptedAnswers": [
+        "计算9+5时，可以把5分成1和4，先算9+1=10，再算10+4=14"
+      ],
+      "explanationZhHans": "凑十法：计算9+5，把5分成1和4，9+1=10，10+4=14。其他选项的分法不能先凑成10，所以错误。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-250",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-math-play-review",
+      "unitTitle": "数学好玩与整理复习",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "p1-lower-review",
+        "math-play",
+        "pattern-reasoning",
+        "下册复习"
+      ],
+      "competencyTags": [
+        "推理意识",
+        "反思整理",
+        "应用意识"
+      ],
+      "skillTags": [
+        "规律发现",
+        "整理知识",
+        "说理检查",
+        "综合应用"
+      ],
+      "misconceptionTags": [
+        "pattern continued from appearance only",
+        "review treated as isolated drills",
+        "explanation skipped after correct answer"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-20-addition",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小乐用积木搭了一个造型：第一层从左到右放了3块积木，第二层放在第一层中间一块的上面，只放1块积木。小乐从正前方观察这个造型，他能看到几块积木？（积木都是同样大小的正方体）",
+      "optionsZhHans": [
+        "2块",
+        "3块",
+        "4块",
+        "5块"
+      ],
+      "answer": "3块",
+      "acceptedAnswers": [
+        "3块"
+      ],
+      "explanationZhHans": "第一层3块并排，第二层1块放在中间积木上。从正前方看，第一层3块都能看到，第二层1块也能看到，共3块。"
+    }
+  ]
+}

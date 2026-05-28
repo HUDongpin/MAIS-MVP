@@ -1,0 +1,137 @@
+{
+  "batchNumber": 117,
+  "startedAt": "2026-05-27T14:03:36.647Z",
+  "completedAt": "2026-05-27T14:03:56.832Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-429",
+    "bnu-high-ds-v1-s5-430",
+    "bnu-high-ds-v1-s5-431",
+    "bnu-high-ds-v1-s5-432",
+    "bnu-high-ds-v1-s5-433",
+    "bnu-high-ds-v1-s5-434",
+    "bnu-high-ds-v1-s5-435",
+    "bnu-high-ds-v1-s5-436"
+  ],
+  "usage": {
+    "prompt_tokens": 14031,
+    "completion_tokens": 1228,
+    "total_tokens": 15259,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 13519
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-429",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0.5",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "正态分布关于均值对称，P(X<2)=0.5，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-430",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(4, 20)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "回归直线必过样本中心点(4,20)，选项唯一正确，解析匹配。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-431",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "independentAnswer": "（1）散点图呈从左下到右上的线性上升趋势；（2）相关系数约为0.99，高度正相关；（3）预测成绩85.7分，预测可靠，因为12小时在样本范围内且相关系数高。",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，答案正确，解析与答案一致，但解析中未给出相关系数计算过程，仅陈述结果，标记为weak。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-432",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0.9",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "相关系数=协方差/(标准差x*标准差y)=360/(2*200)=0.9，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-433",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "χ²=3.0，选项无匹配",
+        "correctedAnswer": "χ²≈3.0，没有充分理由认为两者有关",
+        "issueTags": [
+          "math_error",
+          "bad_options",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "根据列联表计算χ²=3.0，小于3.841，应认为无关，但选项无3.0，且解析计算混乱，最终答案错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-434",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "independentAnswer": "（1）存在线性相关关系，散点图呈线性趋势；（2）回归方程y=0.64x+0.06；（3）预测值3.90万元，预测合理，因为6.0在样本范围内且相关性高。",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，答案正确，解析与答案一致，但解析中未给出详细计算步骤，标记为weak。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-435",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(3,7)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "样本中心点为(3,7)，回归直线必过该点，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-436",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "有充分理由认为X与Y有关，犯错误的概率不超过0.05",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "χ²=6.8>3.841，在0.05水平下拒绝独立假设，结论正确，解析匹配。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 1,
+      "fail": 1,
+      "notes": "第433题列联表数据与选项不匹配，计算得χ²=3.0，选项无对应值，答案错误，需修正数据或选项。其余题目均通过审核，部分解析可更详细。"
+    }
+  }
+}

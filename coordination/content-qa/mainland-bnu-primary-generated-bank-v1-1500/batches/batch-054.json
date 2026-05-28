@@ -1,0 +1,580 @@
+{
+  "batchId": "batch-054",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p3-031",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-three-digit-add-sub",
+      "unitTitle": "加与减",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "three-digit-addition-subtraction",
+        "regrouping",
+        "estimation-check",
+        "加与减",
+        "三位数加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "三位数加法",
+        "三位数减法",
+        "连续进退位",
+        "估算",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "digits not aligned by place value",
+        "regrouping recorded in the wrong column",
+        "estimate ignored after exact calculation"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-three-digit-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-large-number-add-sub-unit",
+        "bnu-primary-p2-lower-assessment-three-digit-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆有故事书 487 本，科技书比故事书少 159 本，连环画比科技书多 268 本。下面哪个算式可以算出连环画的本数？",
+      "optionsZhHans": [
+        "487 - 159 + 268",
+        "487 + 159 - 268",
+        "487 - 159 - 268",
+        "487 + 159 + 268"
+      ],
+      "answer": "487 - 159 + 268",
+      "acceptedAnswers": [
+        "487 - 159 + 268"
+      ],
+      "explanationZhHans": "先算科技书：487 - 159 = 328（本），再算连环画：328 + 268 = 596（本）。综合算式为 487 - 159 + 268。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-032",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-three-digit-add-sub",
+      "unitTitle": "加与减",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "three-digit-addition-subtraction",
+        "regrouping",
+        "estimation-check",
+        "加与减",
+        "三位数加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "三位数加法",
+        "三位数减法",
+        "连续进退位",
+        "估算",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "digits not aligned by place value",
+        "regrouping recorded in the wrong column",
+        "estimate ignored after exact calculation"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-three-digit-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-large-number-add-sub-unit",
+        "bnu-primary-p2-lower-assessment-three-digit-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆原来有故事书 586 本，上午借出 298 本，下午还回 175 本。现在图书馆有多少本故事书？先估算，再列竖式计算，最后验算。",
+      "optionsZhHans": [],
+      "answer": "估算：586 接近 600，298 接近 300，175 接近 200。600 - 300 + 200 = 500，大约 500 本。\n竖式计算：586 - 298 = 288，288 + 175 = 463。\n验算：463 - 175 = 288，288 + 298 = 586。\n现在有 463 本故事书。",
+      "acceptedAnswers": [
+        "估算：586 接近 600，298 接近 300，175 接近 200。600 - 300 + 200 = 500，大约 500 本。\n竖式计算：586 - 298 = 288，288 + 175 = 463。\n验算：463 - 175 = 288，288 + 298 = 586。\n现在有 463 本故事书。"
+      ],
+      "explanationZhHans": "先估算：586≈600，298≈300，175≈200，600-300+200=500。再精确计算：586-298=288，288+175=463。验算：463-175=288，288+298=586，结果正确。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-033",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-three-digit-add-sub",
+      "unitTitle": "加与减",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "three-digit-addition-subtraction",
+        "regrouping",
+        "estimation-check",
+        "加与减",
+        "三位数加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "三位数加法",
+        "三位数减法",
+        "连续进退位",
+        "估算",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "digits not aligned by place value",
+        "regrouping recorded in the wrong column",
+        "estimate ignored after exact calculation"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-three-digit-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-large-number-add-sub-unit",
+        "bnu-primary-p2-lower-assessment-three-digit-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆新买了一批书，其中故事书有268本，科技书比故事书多157本，两种书一共有多少本？先估算，再列竖式计算，并验算。",
+      "optionsZhHans": [],
+      "answer": "估算：故事书大约270本，科技书大约270+160=430本，一共大约700本。竖式计算：268+157=425，268+425=693。验算：693-268=425，或693-425=268。答：一共有693本。",
+      "acceptedAnswers": [
+        "估算：故事书大约270本，科技书大约270+160=430本，一共大约700本。竖式计算：268+157=425，268+425=693。验算：693-268=425，或693-425=268。答：一共有693本。"
+      ],
+      "explanationZhHans": "先求科技书本数：268+157=425本。再求总数：268+425=693本。验算可用总数减去故事书等于科技书。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-034",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-three-digit-add-sub",
+      "unitTitle": "加与减",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "three-digit-addition-subtraction",
+        "regrouping",
+        "estimation-check",
+        "加与减",
+        "三位数加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "三位数加法",
+        "三位数减法",
+        "连续进退位",
+        "估算",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "digits not aligned by place value",
+        "regrouping recorded in the wrong column",
+        "estimate ignored after exact calculation"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-three-digit-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-large-number-add-sub-unit",
+        "bnu-primary-p2-lower-assessment-three-digit-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆原有故事书 426 本，又买来 389 本，现在大约有多少本？下面哪个估算方法最合适？",
+      "optionsZhHans": [
+        "把 426 看作 400，把 389 看作 400，400 + 400 = 800",
+        "把 426 看作 430，把 389 看作 390，430 + 390 = 820",
+        "把 426 看作 500，把 389 看作 400，500 + 400 = 900",
+        "把 426 看作 400，把 389 看作 300，400 + 300 = 700"
+      ],
+      "answer": "把 426 看作 430，把 389 看作 390，430 + 390 = 820",
+      "acceptedAnswers": [
+        "把 426 看作 430，把 389 看作 390，430 + 390 = 820"
+      ],
+      "explanationZhHans": "估算时把两个数都看作最接近的整十数，426≈430，389≈390，和约为820，最接近精确结果815，所以这个估算最合适。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-035",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-three-digit-add-sub",
+      "unitTitle": "加与减",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "three-digit-addition-subtraction",
+        "regrouping",
+        "estimation-check",
+        "加与减",
+        "三位数加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "三位数加法",
+        "三位数减法",
+        "连续进退位",
+        "估算",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "digits not aligned by place value",
+        "regrouping recorded in the wrong column",
+        "estimate ignored after exact calculation"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-three-digit-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-large-number-add-sub-unit",
+        "bnu-primary-p2-lower-assessment-three-digit-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆新购入一批图书，其中故事书有387本，科普书比故事书多156本。图书馆一共购入故事书和科普书多少本？",
+      "optionsZhHans": [],
+      "answer": "930",
+      "acceptedAnswers": [
+        "930",
+        "930本"
+      ],
+      "explanationZhHans": "先求科普书数量：387+156=543（本）。再求总数：387+543=930（本）。计算时注意个位7+6=13进1，十位8+5+1=14进1，百位3+1+1=5。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-036",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-three-digit-add-sub",
+      "unitTitle": "加与减",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "three-digit-addition-subtraction",
+        "regrouping",
+        "estimation-check",
+        "加与减",
+        "三位数加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "三位数加法",
+        "三位数减法",
+        "连续进退位",
+        "估算",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "digits not aligned by place value",
+        "regrouping recorded in the wrong column",
+        "estimate ignored after exact calculation"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-three-digit-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-large-number-add-sub-unit",
+        "bnu-primary-p2-lower-assessment-three-digit-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆原来有故事书368本，科普书254本。这学期新买了故事书195本和科普书178本。现在故事书和科普书共有多少本？先估算和大约是多少，再精确计算，并验算。",
+      "optionsZhHans": [],
+      "answer": "估算：故事书约370+200=570本，科普书约250+180=430本，合计约1000本；精确计算：故事书368+195=563本，科普书254+178=432本，合计563+432=995本；验算：995-563=432，或432+563=995。答：现在共有995本。",
+      "acceptedAnswers": [
+        "估算：故事书约370+200=570本，科普书约250+180=430本，合计约1000本；精确计算：故事书368+195=563本，科普书254+178=432本，合计563+432=995本；验算：995-563=432，或432+563=995。答：现在共有995本。"
+      ],
+      "explanationZhHans": "先分别估算故事书和科普书的数量，再求和得到大约1000本。精确计算时，368+195=563（个位8+5=13，向十位进1；十位6+9+1=16，向百位进1；百位3+1+1=5），254+178=432（个位4+8=12，向十位进1；十位5+7+1=13，向百位进1；百位2+1+1=4）。最后求和563+432=995。验算可用减法或加法逆运算。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-037",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-three-digit-add-sub",
+      "unitTitle": "加与减",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "three-digit-addition-subtraction",
+        "regrouping",
+        "estimation-check",
+        "加与减",
+        "三位数加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "三位数加法",
+        "三位数减法",
+        "连续进退位",
+        "估算",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "digits not aligned by place value",
+        "regrouping recorded in the wrong column",
+        "estimate ignored after exact calculation"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-three-digit-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-large-number-add-sub-unit",
+        "bnu-primary-p2-lower-assessment-three-digit-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆有故事书 268 本，科技书比故事书多 155 本。图书馆的故事书和科技书一共有多少本？下面哪个算式和结果正确？",
+      "optionsZhHans": [
+        "268 + 155 = 423（本）",
+        "268 + 155 = 413（本），268 + 413 = 681（本）",
+        "268 + 155 = 423（本），268 + 423 = 691（本）",
+        "268 - 155 = 113（本），268 + 113 = 381（本）"
+      ],
+      "answer": "268 + 155 = 423（本），268 + 423 = 691（本）",
+      "acceptedAnswers": [
+        "268 + 155 = 423（本），268 + 423 = 691（本）"
+      ],
+      "explanationZhHans": "先求科技书数量：268+155=423本；再求总数：268+423=691本。选项C正确。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-038",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-three-digit-add-sub",
+      "unitTitle": "加与减",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "three-digit-addition-subtraction",
+        "regrouping",
+        "estimation-check",
+        "加与减",
+        "三位数加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "三位数加法",
+        "三位数减法",
+        "连续进退位",
+        "估算",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "digits not aligned by place value",
+        "regrouping recorded in the wrong column",
+        "estimate ignored after exact calculation"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-three-digit-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-large-number-add-sub-unit",
+        "bnu-primary-p2-lower-assessment-three-digit-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆原有故事书458本，科技书比故事书少179本。科技书有多少本？",
+      "optionsZhHans": [],
+      "answer": "279本",
+      "acceptedAnswers": [
+        "279本",
+        "279"
+      ],
+      "explanationZhHans": "科技书比故事书少179本，用减法计算：458 - 179。个位8减9不够，向十位借1，18-9=9；十位5退1剩4，4减7不够，向百位借1，14-7=7；百位4退1剩3，3-1=2。结果是279本。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-039",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-three-digit-add-sub",
+      "unitTitle": "加与减",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "three-digit-addition-subtraction",
+        "regrouping",
+        "estimation-check",
+        "加与减",
+        "三位数加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "三位数加法",
+        "三位数减法",
+        "连续进退位",
+        "估算",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "digits not aligned by place value",
+        "regrouping recorded in the wrong column",
+        "estimate ignored after exact calculation"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-three-digit-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-large-number-add-sub-unit",
+        "bnu-primary-p2-lower-assessment-three-digit-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小乐在计算一道三位数加法时，把其中一个加数 368 看成了 386，结果算出的和是 752。请你先估算一下正确的结果大约是多少，再列竖式算出正确的和，最后用减法验算。",
+      "optionsZhHans": [],
+      "answer": "估算：约730；竖式计算：368+366=734；验算：734-366=368或734-368=366",
+      "acceptedAnswers": [
+        "估算：约730；竖式计算：368+366=734；验算：734-366=368或734-368=366",
+        "估算：大约730；竖式计算：368+366=734；验算：734-366=368",
+        "估算：730左右；368+366=734；验算：734-366=368",
+        "估算：730；368+366=734；验算：734-366=368"
+      ],
+      "explanationZhHans": "把368看成386，多加了18，所以和752偏大。正确和约为752-18=734，估算约730。另一个加数是752-386=366。正确竖式：368+366，个位8+6=14进1，十位6+6+1=13进1，百位3+3+1=7，得734。验算：734-366=368，正确。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-040",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-three-digit-add-sub",
+      "unitTitle": "加与减",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "three-digit-addition-subtraction",
+        "regrouping",
+        "estimation-check",
+        "加与减",
+        "三位数加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "三位数加法",
+        "三位数减法",
+        "连续进退位",
+        "估算",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "digits not aligned by place value",
+        "regrouping recorded in the wrong column",
+        "estimate ignored after exact calculation"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-three-digit-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-large-number-add-sub-unit",
+        "bnu-primary-p2-lower-assessment-three-digit-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆有故事书 386 本，科技书比故事书少 159 本。图书馆的故事书和科技书一共有多少本？下面列式正确的是哪一个？",
+      "optionsZhHans": [
+        "386 - 159 = 227（本）",
+        "386 + 159 = 545（本）",
+        "386 - 159 = 227（本），386 + 227 = 613（本）",
+        "386 + 159 = 545（本），545 + 386 = 931（本）"
+      ],
+      "answer": "386 - 159 = 227（本），386 + 227 = 613（本）",
+      "acceptedAnswers": [
+        "386 - 159 = 227（本），386 + 227 = 613（本）"
+      ],
+      "explanationZhHans": "先求科技书数量：386 - 159 = 227（本）。再求总数：386 + 227 = 613（本）。选项C完整表达了这两步计算，其他选项或只算一步，或运算错误。"
+    }
+  ]
+}

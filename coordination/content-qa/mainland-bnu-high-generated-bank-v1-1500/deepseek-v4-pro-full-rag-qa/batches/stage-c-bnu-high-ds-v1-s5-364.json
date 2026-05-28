@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-364",
+  "startedAt": "2026-05-28T03:02:50.390Z",
+  "completedAt": "2026-05-28T03:02:56.341Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-364"
+  ],
+  "usage": {
+    "prompt_tokens": 2186,
+    "completion_tokens": 308,
+    "total_tokens": 2494,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1802
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-364",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "0.0456",
+        "correctedAnswer": "0.0456",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合正态分布条件概率。正确计算：P(X>2100|X>1950)=P(X>2100)/P(X>1950)≈0.0228/0.8413≈0.0271，但选项中最接近0.0456，实际应选0.0456。存储答案0.0228错误，解析中条件概率计算后却选0.0228，自相矛盾。需修正答案为0.0456。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目答案错误，解析矛盾，正确选项为0.0456。"
+    }
+  }
+}

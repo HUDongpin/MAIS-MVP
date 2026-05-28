@@ -1,0 +1,173 @@
+{
+  "batchNumber": 125,
+  "startedAt": "2026-05-27T18:05:21.355Z",
+  "completedAt": "2026-05-27T18:05:38.734Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s3-489",
+    "bnu-junior-ds-v1-s3-490",
+    "bnu-junior-ds-v1-s3-491",
+    "bnu-junior-ds-v1-s3-492",
+    "bnu-junior-ds-v1-s3-493",
+    "bnu-junior-ds-v1-s3-494",
+    "bnu-junior-ds-v1-s3-495",
+    "bnu-junior-ds-v1-s3-496",
+    "bnu-junior-ds-v1-s3-497",
+    "bnu-junior-ds-v1-s3-498",
+    "bnu-junior-ds-v1-s3-499",
+    "bnu-junior-ds-v1-s3-500"
+  ],
+  "usage": {
+    "prompt_tokens": 6219,
+    "completion_tokens": 1273,
+    "total_tokens": 7492,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 5707
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s3-489",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，方差比较正确，选项唯一且答案匹配，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-490",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数据可计算，平均数和中位数均为84.5，答案正确，解释合理，acceptedAnswers覆盖充分。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-491",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数据明确，众数和中位数计算正确，选项唯一，答案匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-492",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "组中值加权平均计算正确，答案1005小时合理，解释符合样本估计总体思想。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-493",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方差计算正确，甲更稳定，选项唯一且答案匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-494",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "有放回摸球，概率计算正确，答案13/25，acceptedAnswers覆盖分数和小数。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-495",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "频率分布直方图累计频率正确，中位数区间判断准确，选项唯一。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-496",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数据明确，众数和中位数均为8小时，答案正确，acceptedAnswers覆盖多种表述。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-497",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "扑克牌花色概率计算正确，答案1/4，选项唯一且无歧义。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-498",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "有放回摸球，和为奇数的概率计算正确，答案1/2，acceptedAnswers覆盖分数和小数。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-499",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方差计算正确，九年级方差较大，选项唯一且答案匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-500",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "标记重捕法比例式正确，解得N=2500，答案合理，acceptedAnswers覆盖。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部12道题均条件充分、可解，答案与解释匹配，无数学错误或歧义，符合北师大版九年级统计与概率要求。"
+    }
+  }
+}

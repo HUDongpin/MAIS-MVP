@@ -1,0 +1,555 @@
+{
+  "batchId": "batch-026",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p2-001",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-add-sub-review",
+      "unitTitle": "加与减",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "within-100-add-sub-fluency",
+        "addition-subtraction-relationships",
+        "100以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "口算",
+        "竖式",
+        "估算",
+        "验算",
+        "解决问题"
+      ],
+      "misconceptionTags": [
+        "place-value alignment error",
+        "regrouping step omitted",
+        "calculation result not checked against story"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-add-sub-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-within-100-add-sub-unit",
+        "bnu-primary-p2-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明有45张画片，送给小华18张后，又买了23张。现在小明有多少张画片？",
+      "optionsZhHans": [
+        "50张",
+        "40张",
+        "60张",
+        "30张"
+      ],
+      "answer": "50张",
+      "acceptedAnswers": [
+        "50张"
+      ],
+      "explanationZhHans": "先算送出后：45-18=27张；再算买后：27+23=50张。注意个位5减8不够减，从十位借1，十位4变3，个位15-8=7，十位3-1=2，得27；再加23，个位7+3=10，满十进1，十位2+2+1=5，得50。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-002",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-add-sub-review",
+      "unitTitle": "加与减",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "within-100-add-sub-fluency",
+        "addition-subtraction-relationships",
+        "100以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "口算",
+        "竖式",
+        "估算",
+        "验算",
+        "解决问题"
+      ],
+      "misconceptionTags": [
+        "place-value alignment error",
+        "regrouping step omitted",
+        "calculation result not checked against story"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-add-sub-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-within-100-add-sub-unit",
+        "bnu-primary-p2-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在括号里填上合适的数：56 + (   ) = 83",
+      "optionsZhHans": [],
+      "answer": "27",
+      "acceptedAnswers": [
+        "27"
+      ],
+      "explanationZhHans": "想：83-56=27。个位3减6不够减，从十位借1，13-6=7，十位7-5=2，所以差是27。检验：56+27=83，正确。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-003",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-add-sub-review",
+      "unitTitle": "加与减",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "within-100-add-sub-fluency",
+        "addition-subtraction-relationships",
+        "100以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "口算",
+        "竖式",
+        "估算",
+        "验算",
+        "解决问题"
+      ],
+      "misconceptionTags": [
+        "place-value alignment error",
+        "regrouping step omitted",
+        "calculation result not checked against story"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-add-sub-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-within-100-add-sub-unit",
+        "bnu-primary-p2-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丽看一本72页的故事书，第一天看了28页，第二天看了19页。第三天她应该从第几页开始看？",
+      "optionsZhHans": [],
+      "answer": "48",
+      "acceptedAnswers": [
+        "48"
+      ],
+      "explanationZhHans": "先求两天共看页数：28+19=47页。第三天应从下一页开始，即47+1=48页。注意进位：个位8+9=17，满十进1，十位2+1+1=4，得47。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-004",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-add-sub-review",
+      "unitTitle": "加与减",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "within-100-add-sub-fluency",
+        "addition-subtraction-relationships",
+        "100以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "口算",
+        "竖式",
+        "估算",
+        "验算",
+        "解决问题"
+      ],
+      "misconceptionTags": [
+        "place-value alignment error",
+        "regrouping step omitted",
+        "calculation result not checked against story"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-add-sub-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-within-100-add-sub-unit",
+        "bnu-primary-p2-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个算式的结果比60大？",
+      "optionsZhHans": [
+        "35+24",
+        "82-25",
+        "47+16",
+        "91-33"
+      ],
+      "answer": "47+16",
+      "acceptedAnswers": [
+        "47+16"
+      ],
+      "explanationZhHans": "35+24=59，82-25=57，47+16=63，91-33=58。只有47+16=63＞60。注意退位：82-25个位2减5不够，借位后12-5=7，十位7-2=5；91-33个位1减3不够，借位后11-3=8，十位8-3=5。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-005",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-add-sub-review",
+      "unitTitle": "加与减",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "within-100-add-sub-fluency",
+        "addition-subtraction-relationships",
+        "100以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "口算",
+        "竖式",
+        "估算",
+        "验算",
+        "解决问题"
+      ],
+      "misconceptionTags": [
+        "place-value alignment error",
+        "regrouping step omitted",
+        "calculation result not checked against story"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-add-sub-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-within-100-add-sub-unit",
+        "bnu-primary-p2-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用竖式计算：73 - 46 = (   )",
+      "optionsZhHans": [],
+      "answer": "27",
+      "acceptedAnswers": [
+        "27"
+      ],
+      "explanationZhHans": "竖式：相同数位对齐，个位3减6不够减，从十位退1，个位13-6=7，十位6-4=2，得27。验算：27+46=73，正确。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-006",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-add-sub-review",
+      "unitTitle": "加与减",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "within-100-add-sub-fluency",
+        "addition-subtraction-relationships",
+        "100以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "口算",
+        "竖式",
+        "估算",
+        "验算",
+        "解决问题"
+      ],
+      "misconceptionTags": [
+        "place-value alignment error",
+        "regrouping step omitted",
+        "calculation result not checked against story"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-add-sub-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-within-100-add-sub-unit",
+        "bnu-primary-p2-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "超市运来54箱苹果，卖出27箱后，又运来18箱。现在有多少箱苹果？",
+      "optionsZhHans": [],
+      "answer": "45",
+      "acceptedAnswers": [
+        "45"
+      ],
+      "explanationZhHans": "先算卖出后：54-27=27箱；再算运来后：27+18=45箱。注意退位：54-27个位4减7不够，借位后14-7=7，十位4-2=2；进位：27+18个位7+8=15，满十进1，十位2+1+1=4。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-007",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-add-sub-review",
+      "unitTitle": "加与减",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "within-100-add-sub-fluency",
+        "addition-subtraction-relationships",
+        "100以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "口算",
+        "竖式",
+        "估算",
+        "验算",
+        "解决问题"
+      ],
+      "misconceptionTags": [
+        "place-value alignment error",
+        "regrouping step omitted",
+        "calculation result not checked against story"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-add-sub-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-within-100-add-sub-unit",
+        "bnu-primary-p2-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一捆绳子长95米，先用去38米，又用去29米。这捆绳子比原来短了多少米？",
+      "optionsZhHans": [
+        "67米",
+        "28米",
+        "57米",
+        "38米"
+      ],
+      "answer": "67米",
+      "acceptedAnswers": [
+        "67米"
+      ],
+      "explanationZhHans": "比原来短的长度就是两次用去的总长度：38+29=67米。注意进位：个位8+9=17，满十进1，十位3+2+1=6，得67。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-008",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-add-sub-review",
+      "unitTitle": "加与减",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "within-100-add-sub-fluency",
+        "addition-subtraction-relationships",
+        "100以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "口算",
+        "竖式",
+        "估算",
+        "验算",
+        "解决问题"
+      ],
+      "misconceptionTags": [
+        "place-value alignment error",
+        "regrouping step omitted",
+        "calculation result not checked against story"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-add-sub-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-within-100-add-sub-unit",
+        "bnu-primary-p2-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在括号里填上合适的数：100 - 36 = 28 + (   )",
+      "optionsZhHans": [],
+      "answer": "36",
+      "acceptedAnswers": [
+        "36"
+      ],
+      "explanationZhHans": "先算左边：100-36=64。再想：28+(   )=64，即64-28=36。注意连续退位：100-36个位0减6不够，向十位借，十位也是0，向百位借1，百位1变0，十位10借1剩9，个位10-6=4，十位9-3=6，得64。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-009",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-add-sub-review",
+      "unitTitle": "加与减",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "within-100-add-sub-fluency",
+        "addition-subtraction-relationships",
+        "100以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "口算",
+        "竖式",
+        "估算",
+        "验算",
+        "解决问题"
+      ],
+      "misconceptionTags": [
+        "place-value alignment error",
+        "regrouping step omitted",
+        "calculation result not checked against story"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-add-sub-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-within-100-add-sub-unit",
+        "bnu-primary-p2-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小东有零花钱50元，买文具用了18元，买零食用了15元。他还剩多少元？",
+      "optionsZhHans": [],
+      "answer": "17",
+      "acceptedAnswers": [
+        "17"
+      ],
+      "explanationZhHans": "可以分步：50-18=32元，32-15=17元。或者先求总花费：18+15=33元，50-33=17元。注意退位：50-18个位0减8不够，借位后10-8=2，十位4-1=3；32-15个位2减5不够，借位后12-5=7，十位2-1=1。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-010",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-add-sub-review",
+      "unitTitle": "加与减",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "within-100-add-sub-fluency",
+        "addition-subtraction-relationships",
+        "100以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "口算",
+        "竖式",
+        "估算",
+        "验算",
+        "解决问题"
+      ],
+      "misconceptionTags": [
+        "place-value alignment error",
+        "regrouping step omitted",
+        "calculation result not checked against story"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-add-sub-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-within-100-add-sub-unit",
+        "bnu-primary-p2-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个算式的得数与“37+28”相等？",
+      "optionsZhHans": [
+        "40+25",
+        "30+35",
+        "50+15",
+        "45+20"
+      ],
+      "answer": "40+25",
+      "acceptedAnswers": [
+        "40+25"
+      ],
+      "explanationZhHans": "37+28=65。40+25=65，30+35=65，50+15=65，45+20=65。四个选项都等于65，但只有40+25是通过将37+28的一个加数增加3、另一个减少3得到的，体现了和不变的规律。"
+    }
+  ]
+}

@@ -1,0 +1,317 @@
+{
+  "batchId": "batch-028",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s1-k04-sa-004",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-real-numbers"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "在平面直角坐标系中，点A的坐标是(3, -2)。若将点A先向右平移4个单位，再向上平移1个单位得到点B，请写出点B的坐标，并判断点B位于第几象限。",
+      "optionsZhHans": [],
+      "answer": "(7, -1)，第四象限",
+      "acceptedAnswers": [
+        "(7, -1)，第四象限",
+        "(7,-1)，第四象限",
+        "B(7, -1)，第四象限",
+        "坐标(7, -1)，第四象限"
+      ],
+      "explanationZhHans": "点A(3, -2)向右平移4个单位，横坐标加4：3+4=7；向上平移1个单位，纵坐标加1：-2+1=-1。所以点B的坐标为(7, -1)。横坐标7>0，纵坐标-1<0，因此点B位于第四象限。答案为(7, -1)，第四象限。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-sa-005",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-linear-systems"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "小明家的位置在平面直角坐标系中表示为(2, 5)，学校的位置表示为(-3, 1)。若小明从家出发，先向西走5个单位，再向南走4个单位，能到达学校吗？请说明理由。",
+      "optionsZhHans": [],
+      "answer": "能，因为移动后坐标与学校坐标相同",
+      "acceptedAnswers": [
+        "能，因为移动后坐标与学校坐标相同",
+        "能到达，移动后坐标为(-3,1)，与学校重合",
+        "能，因为(2,5)向西5向南4得到(-3,1)"
+      ],
+      "explanationZhHans": "小明家(2,5)向西走5个单位，横坐标减5：2-5=-3；向南走4个单位，纵坐标减4：5-4=1。移动后的坐标为(-3,1)，与学校坐标(-3,1)完全相同，所以能到达学校。答案为能，因为移动后坐标与学校坐标相同。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-sa-006",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-inequalities"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "已知点M在第二象限，且点M到x轴的距离为3，到y轴的距离为2。请写出点M的坐标。",
+      "optionsZhHans": [],
+      "answer": "(-2, 3)",
+      "acceptedAnswers": [
+        "(-2, 3)",
+        "(-2,3)",
+        "M(-2, 3)"
+      ],
+      "explanationZhHans": "点M在第二象限，横坐标为负，纵坐标为正。到x轴的距离为3，即|y|=3，所以y=3（因为纵坐标正）；到y轴的距离为2，即|x|=2，所以x=-2（因为横坐标负）。因此点M的坐标为(-2, 3)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-sa-007",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-data-collection"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "在平面直角坐标系中，点P(a, b)在第三象限。若将点P向上平移3个单位后，点落在x轴上，求b的值。",
+      "optionsZhHans": [],
+      "answer": "-3",
+      "acceptedAnswers": [
+        "-3",
+        "b=-3"
+      ],
+      "explanationZhHans": "点P(a, b)在第三象限，所以a<0，b<0。向上平移3个单位后，新点的纵坐标为b+3。落在x轴上意味着纵坐标为0，即b+3=0，解得b=-3。答案为-3。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-sa-008",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-coordinate-plane"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "已知线段AB的两个端点坐标分别为A(1, 2)和B(5, 2)。将线段AB向下平移3个单位后，再向左平移2个单位，得到线段A'B'。求线段A'B'的长度。",
+      "optionsZhHans": [],
+      "answer": "4",
+      "acceptedAnswers": [
+        "4",
+        "长度4",
+        "4个单位"
+      ],
+      "explanationZhHans": "平移不改变线段的长度。原线段AB的端点A(1,2)和B(5,2)的纵坐标相同，所以AB平行于x轴，长度等于横坐标之差的绝对值：|5-1|=4。因此平移后的线段A'B'长度仍为4。答案为4。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-sa-009",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "直线l₁与l₂被直线l₃所截，若∠1=70°，∠2=105°，请判断l₁与l₂是否平行，并说明理由。",
+      "optionsZhHans": [],
+      "answer": "不平行，因为同旁内角之和不等于180°",
+      "acceptedAnswers": [
+        "不平行，因为同旁内角之和不等于180°",
+        "不平行，同旁内角不互补",
+        "l₁与l₂不平行，因为70°+105°=175°≠180°"
+      ],
+      "explanationZhHans": "∠1和∠2是直线l₁、l₂被l₃所截形成的同旁内角。若l₁∥l₂，则同旁内角互补，即∠1+∠2=180°。但70°+105°=175°≠180°，所以同旁内角不互补，因此l₁与l₂不平行。答案为不平行，因为同旁内角之和不等于180°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-sa-010",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "已知点A(2, -1)，点B(-3, 4)，点C是线段AB的中点。求点C的坐标。",
+      "optionsZhHans": [],
+      "answer": "(-0.5, 1.5)",
+      "acceptedAnswers": [
+        "(-0.5, 1.5)",
+        "(-1/2, 3/2)",
+        "(-0.5,1.5)",
+        "(-1/2,3/2)"
+      ],
+      "explanationZhHans": "线段中点坐标公式：横坐标=(x₁+x₂)/2，纵坐标=(y₁+y₂)/2。所以点C的横坐标为(2+(-3))/2 = (-1)/2 = -0.5，纵坐标为(-1+4)/2 = 3/2 = 1.5。因此点C的坐标为(-0.5, 1.5)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-sa-011",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-real-numbers"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "在平面直角坐标系中，点P在x轴上，且到点A(3, 4)的距离等于5。求所有可能的点P的坐标。",
+      "optionsZhHans": [],
+      "answer": "(0,0)或(6,0)",
+      "acceptedAnswers": [
+        "(0,0)或(6,0)",
+        "(0,0)和(6,0)",
+        "P(0,0)或P(6,0)",
+        "(0, 0)或(6, 0)"
+      ],
+      "explanationZhHans": "点P在x轴上，设其坐标为(x,0)。到点A(3,4)的距离为√[(x-3)²+(0-4)²]=5。两边平方得(x-3)²+16=25，即(x-3)²=9，所以x-3=3或x-3=-3，解得x=6或x=0。因此点P的坐标为(0,0)或(6,0)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-sa-012",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-linear-systems"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "已知点M(2a-1, a+3)在第三象限，求a的取值范围。",
+      "optionsZhHans": [],
+      "answer": "a < -3",
+      "acceptedAnswers": [
+        "a < -3",
+        "a<-3",
+        "a小于-3"
+      ],
+      "explanationZhHans": "第三象限的点横坐标为负，纵坐标也为负。所以2a-1<0且a+3<0。解2a-1<0得a<0.5；解a+3<0得a<-3。取交集得a<-3。因此a的取值范围是a<-3。答案为a < -3。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-sa-013",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-inequalities"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "在平面直角坐标系中，点A(-2, 3)关于原点对称的点为B，点B关于x轴对称的点为C。求点C的坐标。",
+      "optionsZhHans": [],
+      "answer": "(2, 3)",
+      "acceptedAnswers": [
+        "(2, 3)",
+        "(2,3)",
+        "C(2, 3)"
+      ],
+      "explanationZhHans": "点A(-2,3)关于原点对称的点B，横纵坐标都取相反数，得B(2,-3)。点B(2,-3)关于x轴对称的点C，横坐标不变，纵坐标取相反数，得C(2,3)。因此点C的坐标为(2, 3)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

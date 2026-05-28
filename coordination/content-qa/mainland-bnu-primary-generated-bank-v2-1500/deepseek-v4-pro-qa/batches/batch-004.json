@@ -1,0 +1,191 @@
+{
+  "batchNumber": 4,
+  "startedAt": "2026-05-27T13:41:10.911Z",
+  "completedAt": "2026-05-27T13:41:28.076Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p1-055",
+    "bnu-primary-ds-v2-p1-056",
+    "bnu-primary-ds-v2-p1-057",
+    "bnu-primary-ds-v2-p1-058",
+    "bnu-primary-ds-v2-p1-059",
+    "bnu-primary-ds-v2-p1-060",
+    "bnu-primary-ds-v2-p1-061",
+    "bnu-primary-ds-v2-p1-062",
+    "bnu-primary-ds-v2-p1-063",
+    "bnu-primary-ds-v2-p1-064",
+    "bnu-primary-ds-v2-p1-065",
+    "bnu-primary-ds-v2-p1-066",
+    "bnu-primary-ds-v2-p1-067",
+    "bnu-primary-ds-v2-p1-068",
+    "bnu-primary-ds-v2-p1-069",
+    "bnu-primary-ds-v2-p1-070",
+    "bnu-primary-ds-v2-p1-071",
+    "bnu-primary-ds-v2-p1-072"
+  ],
+  "usage": {
+    "prompt_tokens": 3482,
+    "completion_tokens": 1261,
+    "total_tokens": 4743,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 3098
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p1-055",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分类正确，选项清晰，答案唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-056",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分类标准明确，答案合理，acceptedAnswers覆盖主要表述。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-057",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "颜色分类合理，答案清晰，acceptedAnswers覆盖多种表述。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-058",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "种类分类正确，选项无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-059",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "颜色分类标准明确，答案简洁。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-060",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "颜色分类正确，答案清晰，acceptedAnswers覆盖多种表述。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-061",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分类标准合理，选项唯一正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-062",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分类标准合理，答案清晰，acceptedAnswers覆盖主要表述。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-063",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "颜色分类正确，答案明确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-064",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "形状分类正确，选项清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-065",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "位置顺序正确，答案清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-066",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "前后关系正确，答案明确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-067",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方向判断正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-068",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数量比较正确，答案明确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-069",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "顺序排列正确，答案清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-070",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "左右手判断正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-071",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "排队问题计算正确，答案明确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-072",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "前后关系正确，答案明确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版小学数学要求，数学正确，答案匹配，无歧义或缺失条件，适合对应年级和主题。"
+    }
+  }
+}

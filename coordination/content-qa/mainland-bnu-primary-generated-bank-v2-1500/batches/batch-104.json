@@ -1,0 +1,596 @@
+{
+  "batchId": "batch-104",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p5-031",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-multiples-factors",
+      "unitTitle": "倍数与因数",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "factors-multiples",
+        "divisibility",
+        "prime-composite",
+        "common-factors-multiples",
+        "倍数",
+        "因数"
+      ],
+      "competencyTags": [
+        "数感",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "找因数",
+        "找倍数",
+        "判断整除",
+        "质数合数",
+        "公因数公倍数"
+      ],
+      "misconceptionTags": [
+        "factor and multiple roles reversed",
+        "one treated as a prime number",
+        "largest listed multiple mistaken for greatest possible multiple"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-multiples-factors"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-multiples-factors-unit",
+        "bnu-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个两位数，个位数字与十位数字都是质数，且这个两位数也是质数。这个两位数最大是多少？",
+      "optionsZhHans": [
+        "75",
+        "77",
+        "73",
+        "57"
+      ],
+      "answer": "73",
+      "acceptedAnswers": [
+        "73"
+      ],
+      "explanationZhHans": "个位和十位都是质数，质数数字有2,3,5,7。组成的两位数中，73是质数，且7和3都是质数，而75、77、57都不是质数，所以最大是73。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-032",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-multiples-factors",
+      "unitTitle": "倍数与因数",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "factors-multiples",
+        "divisibility",
+        "prime-composite",
+        "common-factors-multiples",
+        "倍数",
+        "因数"
+      ],
+      "competencyTags": [
+        "数感",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "找因数",
+        "找倍数",
+        "判断整除",
+        "质数合数",
+        "公因数公倍数"
+      ],
+      "misconceptionTags": [
+        "factor and multiple roles reversed",
+        "one treated as a prime number",
+        "largest listed multiple mistaken for greatest possible multiple"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-multiples-factors"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-multiples-factors-unit",
+        "bnu-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个数既是48的因数，又是8的倍数，这个数可能是多少？请写出所有可能。",
+      "optionsZhHans": [],
+      "answer": "8,16,24,48",
+      "acceptedAnswers": [
+        "8,16,24,48",
+        "8、16、24、48",
+        "8 16 24 48"
+      ],
+      "explanationZhHans": "48的因数有1,2,3,4,6,8,12,16,24,48。其中是8的倍数的有8,16,24,48。所以可能是8,16,24,48。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-033",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-multiples-factors",
+      "unitTitle": "倍数与因数",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "factors-multiples",
+        "divisibility",
+        "prime-composite",
+        "common-factors-multiples",
+        "倍数",
+        "因数"
+      ],
+      "competencyTags": [
+        "数感",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "找因数",
+        "找倍数",
+        "判断整除",
+        "质数合数",
+        "公因数公倍数"
+      ],
+      "misconceptionTags": [
+        "factor and multiple roles reversed",
+        "one treated as a prime number",
+        "largest listed multiple mistaken for greatest possible multiple"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-multiples-factors"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-multiples-factors-unit",
+        "bnu-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把24个苹果平均分给小朋友，每人分得的个数和小朋友的人数都是整数，且都不小于2。有多少种不同的分法？",
+      "optionsZhHans": [],
+      "answer": "6",
+      "acceptedAnswers": [
+        "6",
+        "6种"
+      ],
+      "explanationZhHans": "24的因数有1,2,3,4,6,8,12,24。人数和每人个数都不小于2，所以排除1和24。剩下2,3,4,6,8,12，共6种分法。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-034",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-multiples-factors",
+      "unitTitle": "倍数与因数",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "factors-multiples",
+        "divisibility",
+        "prime-composite",
+        "common-factors-multiples",
+        "倍数",
+        "因数"
+      ],
+      "competencyTags": [
+        "数感",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "找因数",
+        "找倍数",
+        "判断整除",
+        "质数合数",
+        "公因数公倍数"
+      ],
+      "misconceptionTags": [
+        "factor and multiple roles reversed",
+        "one treated as a prime number",
+        "largest listed multiple mistaken for greatest possible multiple"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-multiples-factors"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-multiples-factors-unit",
+        "bnu-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个数既是3的倍数，又是5的倍数，且是2的倍数？",
+      "optionsZhHans": [
+        "45",
+        "54",
+        "60",
+        "75"
+      ],
+      "answer": "60",
+      "acceptedAnswers": [
+        "60"
+      ],
+      "explanationZhHans": "3的倍数各位数字和是3的倍数，5的倍数个位0或5，2的倍数个位偶数。60个位0，6+0=6是3的倍数，符合。45和75个位5不是偶数，54不是5的倍数。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-035",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-multiples-factors",
+      "unitTitle": "倍数与因数",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "factors-multiples",
+        "divisibility",
+        "prime-composite",
+        "common-factors-multiples",
+        "倍数",
+        "因数"
+      ],
+      "competencyTags": [
+        "数感",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "找因数",
+        "找倍数",
+        "判断整除",
+        "质数合数",
+        "公因数公倍数"
+      ],
+      "misconceptionTags": [
+        "factor and multiple roles reversed",
+        "one treated as a prime number",
+        "largest listed multiple mistaken for greatest possible multiple"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-multiples-factors"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-multiples-factors-unit",
+        "bnu-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个数在30到40之间，它既是2的倍数，又是3的倍数，这个数是______。",
+      "optionsZhHans": [],
+      "answer": "36",
+      "acceptedAnswers": [
+        "36"
+      ],
+      "explanationZhHans": "30到40之间2的倍数有30,32,34,36,38,40；3的倍数有30,33,36,39。公倍数有30和36，在30到40之间且大于30的是36。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-036",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-multiples-factors",
+      "unitTitle": "倍数与因数",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "factors-multiples",
+        "divisibility",
+        "prime-composite",
+        "common-factors-multiples",
+        "倍数",
+        "因数"
+      ],
+      "competencyTags": [
+        "数感",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "找因数",
+        "找倍数",
+        "判断整除",
+        "质数合数",
+        "公因数公倍数"
+      ],
+      "misconceptionTags": [
+        "factor and multiple roles reversed",
+        "one treated as a prime number",
+        "largest listed multiple mistaken for greatest possible multiple"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-multiples-factors"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-multiples-factors-unit",
+        "bnu-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "有两根绳子，一根长24米，一根长36米，要把它们剪成同样长的小段，每段最长是多少米？一共可以剪成多少段？",
+      "optionsZhHans": [],
+      "answer": "12米，5段",
+      "acceptedAnswers": [
+        "12米，5段",
+        "12米 5段",
+        "12,5",
+        "12 5"
+      ],
+      "explanationZhHans": "每段长度是24和36的公因数，最长是最大公因数12。24÷12=2段，36÷12=3段，一共2+3=5段。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-037",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-multiples-factors",
+      "unitTitle": "倍数与因数",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "factors-multiples",
+        "divisibility",
+        "prime-composite",
+        "common-factors-multiples",
+        "倍数",
+        "因数"
+      ],
+      "competencyTags": [
+        "数感",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "找因数",
+        "找倍数",
+        "判断整除",
+        "质数合数",
+        "公因数公倍数"
+      ],
+      "misconceptionTags": [
+        "factor and multiple roles reversed",
+        "one treated as a prime number",
+        "largest listed multiple mistaken for greatest possible multiple"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-multiples-factors"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-multiples-factors-unit",
+        "bnu-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪组数中的两个数只有公因数1？",
+      "optionsZhHans": [
+        "8和9",
+        "12和15",
+        "14和21",
+        "18和24"
+      ],
+      "answer": "8和9",
+      "acceptedAnswers": [
+        "8和9"
+      ],
+      "explanationZhHans": "公因数只有1的两个数是互质数。8的因数1,2,4,8；9的因数1,3,9，公因数只有1。其他组都有大于1的公因数。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-038",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-multiples-factors",
+      "unitTitle": "倍数与因数",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "factors-multiples",
+        "divisibility",
+        "prime-composite",
+        "common-factors-multiples",
+        "倍数",
+        "因数"
+      ],
+      "competencyTags": [
+        "数感",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "找因数",
+        "找倍数",
+        "判断整除",
+        "质数合数",
+        "公因数公倍数"
+      ],
+      "misconceptionTags": [
+        "factor and multiple roles reversed",
+        "one treated as a prime number",
+        "largest listed multiple mistaken for greatest possible multiple"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-multiples-factors"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-multiples-factors-unit",
+        "bnu-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在1~20的自然数中，质数有______个，合数有______个。",
+      "optionsZhHans": [],
+      "answer": "8,11",
+      "acceptedAnswers": [
+        "8,11",
+        "8 11",
+        "8和11"
+      ],
+      "explanationZhHans": "1~20中质数有2,3,5,7,11,13,17,19共8个；1既不是质数也不是合数，合数有4,6,8,9,10,12,14,15,16,18,20共11个。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-039",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-multiples-factors",
+      "unitTitle": "倍数与因数",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "factors-multiples",
+        "divisibility",
+        "prime-composite",
+        "common-factors-multiples",
+        "倍数",
+        "因数"
+      ],
+      "competencyTags": [
+        "数感",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "找因数",
+        "找倍数",
+        "判断整除",
+        "质数合数",
+        "公因数公倍数"
+      ],
+      "misconceptionTags": [
+        "factor and multiple roles reversed",
+        "one treated as a prime number",
+        "largest listed multiple mistaken for greatest possible multiple"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-multiples-factors"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-multiples-factors-unit",
+        "bnu-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方形的面积是48平方厘米，长和宽都是整厘米数，且长比宽多2厘米。这个长方形的长和宽分别是多少厘米？",
+      "optionsZhHans": [],
+      "answer": "8厘米和6厘米",
+      "acceptedAnswers": [
+        "8厘米和6厘米",
+        "8和6",
+        "8cm和6cm",
+        "长8厘米宽6厘米"
+      ],
+      "explanationZhHans": "长×宽=48，长-宽=2。48的因数对有1×48,2×24,3×16,4×12,6×8。相差2的是6和8，所以长8厘米宽6厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-040",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-multiples-factors",
+      "unitTitle": "倍数与因数",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "factors-multiples",
+        "divisibility",
+        "prime-composite",
+        "common-factors-multiples",
+        "倍数",
+        "因数"
+      ],
+      "competencyTags": [
+        "数感",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "找因数",
+        "找倍数",
+        "判断整除",
+        "质数合数",
+        "公因数公倍数"
+      ],
+      "misconceptionTags": [
+        "factor and multiple roles reversed",
+        "one treated as a prime number",
+        "largest listed multiple mistaken for greatest possible multiple"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-multiples-factors"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-multiples-factors-unit",
+        "bnu-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个数既是12的倍数，又是18的倍数，这个数最小是多少？",
+      "optionsZhHans": [
+        "36",
+        "72",
+        "108",
+        "216"
+      ],
+      "answer": "36",
+      "acceptedAnswers": [
+        "36"
+      ],
+      "explanationZhHans": "既是12的倍数又是18的倍数，就是它们的公倍数，最小的是最小公倍数。12=2×2×3，18=2×3×3，最小公倍数是2×2×3×3=36。"
+    }
+  ]
+}

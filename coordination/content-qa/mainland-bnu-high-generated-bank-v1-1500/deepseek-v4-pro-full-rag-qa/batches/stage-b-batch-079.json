@@ -1,0 +1,138 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-079",
+  "startedAt": "2026-05-28T02:06:54.436Z",
+  "completedAt": "2026-05-28T02:07:05.807Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-125",
+    "bnu-high-ds-v1-s5-126",
+    "bnu-high-ds-v1-s5-127",
+    "bnu-high-ds-v1-s5-128",
+    "bnu-high-ds-v1-s5-129",
+    "bnu-high-ds-v1-s5-130",
+    "bnu-high-ds-v1-s5-131",
+    "bnu-high-ds-v1-s5-132"
+  ],
+  "usage": {
+    "prompt_tokens": 12759,
+    "completion_tokens": 1065,
+    "total_tokens": 13824,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 12375
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-125",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析过程正确，无问题。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-126",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "k = ±√14/7",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案k=±1错误，独立解得k=±√14/7。解析中代入化简过程有误，导致错误结果。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-127",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析正确，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-128",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "y = -x + 2",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案y=-1/2x+3/2错误，独立解得y=-x+2。解析中椭圆方程计算错误（k²应为2而非4），导致后续全错。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-129",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "k = -1",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案k=1/2错误，独立解得k=-1。解析中解方程-50k/(16+25k²)=1得k=1/2有误，正确解为k=-1。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-130",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析正确，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-131",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-132",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 5,
+      "warn": 0,
+      "fail": 3,
+      "notes": "8题中5题通过，3题失败：126、128、129存储答案错误，需修正。"
+    }
+  }
+}

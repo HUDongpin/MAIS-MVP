@@ -1,0 +1,126 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-109",
+  "startedAt": "2026-05-28T03:00:58.284Z",
+  "completedAt": "2026-05-28T03:01:13.056Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-365",
+    "bnu-high-ds-v1-s5-366",
+    "bnu-high-ds-v1-s5-367",
+    "bnu-high-ds-v1-s5-368",
+    "bnu-high-ds-v1-s5-369",
+    "bnu-high-ds-v1-s5-370",
+    "bnu-high-ds-v1-s5-371",
+    "bnu-high-ds-v1-s5-372"
+  ],
+  "usage": {
+    "prompt_tokens": 12142,
+    "completion_tokens": 959,
+    "total_tokens": 13101,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 11758
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-365",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案0.8186与独立解一致，解析计算正确，无问题。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-366",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案0.75与独立解一致，解析利用概率和为1正确，无问题。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-367",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案1.3与独立解一致，解析计算正确，选项唯一，无问题。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-368",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案2/3与独立解一致，解析正确，无问题。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-369",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案3/7与独立解一致，解析正确，无问题。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-370",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案0.0230与独立解一致，解析计算过程正确但最终结果表述为约0.0233，与选项0.0230略有偏差，但选项匹配合理，无实质错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-371",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案3/7与独立解一致，解析正确，无问题。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-372",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案0.3456与独立解一致，解析正确，无问题。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目存储答案与独立解一致，解析基本正确，无严重问题。"
+    }
+  }
+}

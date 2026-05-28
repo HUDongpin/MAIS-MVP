@@ -1,0 +1,64 @@
+{
+  "batchId": "model-qa-0002",
+  "ids": [
+    "hjb-junior-ds-v2-s2-201",
+    "hjb-junior-ds-v2-s2-202",
+    "hjb-junior-ds-v2-s2-203",
+    "hjb-junior-ds-v2-s2-204"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-201",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案和解析均给出AD=12，但独立计算得AD=12.5。解析中BD=6.5，DC=7.5，用余弦定理求cosB后计算AD，结果应为12.5，与答案矛盾。",
+      "independentAnswerZhHans": "12.5",
+      "answerCheckZhHans": "标准答案为12，但根据解析步骤计算得AD=12.5，答案错误。",
+      "recommendedActionZhHans": "修正答案为12.5，并更新解析中的计算过程。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-202",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "∠A=∠B+∠C",
+      "answerCheckZhHans": "选项A正确，其他选项均不满足勾股定理或角度条件，唯一正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-203",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为12/5，但解析中计算得距离为3，与答案矛盾。独立计算得距离为12/5，解析错误。",
+      "independentAnswerZhHans": "12/5",
+      "answerCheckZhHans": "标准答案12/5正确，但解析中错误地得出距离为3，解析与答案不一致。",
+      "recommendedActionZhHans": "修正解析，正确计算点D到AB的距离为12/5。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-204",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案和解析均声称△BCD不是直角三角形，但独立计算得BD=5√2≈7.07，BC=12，CD=13，满足BC²+BD²=144+50=194，CD²=169，不相等，故△BCD不是直角三角形，但面积计算中S△BCD用海伦公式得30，而实际上△BCD三边为12, 5√2, 13，半周长≈16.035，面积≈29.99，但题目要求证明△BCD是直角三角形，而答案却证明不是，与题目要求矛盾。题目要求“求证：△BCD是直角三角形”，但答案证明不是，属于错误。",
+      "independentAnswerZhHans": "△BCD不是直角三角形，面积=85/2。",
+      "answerCheckZhHans": "题目要求证明△BCD是直角三角形，但标准答案证明不是，与题目要求不符。",
+      "recommendedActionZhHans": "检查题目条件，若题目无误，则修正答案和解析，证明△BCD不是直角三角形；若题目本意是证明直角三角形，则需修改条件。",
+      "confidence": "high"
+    }
+  ]
+}

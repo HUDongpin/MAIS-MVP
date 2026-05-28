@@ -1,0 +1,85 @@
+{
+  "generatedAt": "2026-05-28T02:08:48.011Z",
+  "promptSamples": [
+    {
+      "questionId": "40",
+      "questionType": "MCQ",
+      "hasImage": false,
+      "missingAnswerKey": false,
+      "messages": [
+        {
+          "role": "system",
+          "content": "You are S18, a strict Hong Kong mathematics content-QA reviewer.\nTask: independently review EASE math questions for two gates: (1) whether the item is solvable from the provided question text and available non-image information, and (2) whether standardAnswer matches the question.\nThe run is text-only. You cannot inspect local images or URLs. If an item needs a diagram, graph, table, calendar, screenshot, or any image content that is not fully described in text, use solvabilityStatus image-context-required. Do not guess from the image filename.\nFor MCQ/BFQ, verify exactly one option is mathematically correct and the answer key identifies it. For FRQ, derive an independent answer and compare it to standardAnswer.\nIf standardAnswer is missing or equals <not provided from school>, set answerMatchStatus to missing-answer-key. You may still judge solvability and provide an independentAnswer when possible.\nUse P0 for unsolvable or answer-mismatch hard blockers, P1 for missing answer keys, image-context-required, ambiguous/not-checkable rows, and P2 for minor wording/format issues. Clean rows use severity none.\nReturn JSON only. Do not include markdown. Use this exact schema:\n{\"items\":[{\"questionId\":\"string\",\"questionType\":\"MCQ|FRQ|BFQ|unknown\",\"hasImage\":false,\"standardAnswer\":\"string|null\",\"independentAnswer\":\"string|null\",\"solvabilityStatus\":\"pass|unsolvable|ambiguous|image-context-required|api-error\",\"answerMatchStatus\":\"pass|mismatch|missing-answer-key|not-checkable\",\"severity\":\"P0|P1|P2|none\",\"reason\":\"short reason in Chinese or English\",\"recommendedAction\":\"short action\"}],\"batchSummary\":{\"pass\":0,\"unsolvable\":0,\"ambiguous\":0,\"imageContextRequired\":0,\"answerMismatch\":0,\"missingAnswerKey\":0,\"notes\":\"short summary\"}}"
+        },
+        {
+          "role": "user",
+          "content": "{\"task\":\"Review these 1 EASE questions for solvability and answer-key consistency.\",\"questions\":[{\"questionId\":\"40\",\"level\":\"junior_secondary\",\"levelZh\":\"初中\",\"grade\":7,\"gradeTextZh\":\"中学一年级\",\"gradeTextEn\":\"Secondary 1\",\"questionType\":\"MCQ\",\"difficultyLevel\":1,\"locale\":\"b\",\"originName\":\"The Mission Covenant Church Holm Glad College\",\"questionText\":\"以下哪個不是 90的因數？ \\nA.        3\\nB.        6\\nC.        15\\nD.        16\",\"questionTextEn\":\"Which of the following is not a factor of 90? \\nA. 3 \\nB. 6 \\nC. 15 \\nD. 16\",\"standardAnswer\":\"D\",\"standardAnswerEn\":\"D\",\"hasImage\":false,\"images\":[],\"noteForImages\":null,\"topics\":[{\"id\":15,\"name\":\"基礎計算\",\"enName\":\"Basic computation\",\"mtrId\":\"N1\"}],\"knowledgePoints\":[{\"id\":48,\"name\":\"進行正整數的質因數分解\",\"enName\":\"perform prime factorisation of positive integers\",\"mtrId\":\"N1-3\"}]}]}"
+        }
+      ]
+    },
+    {
+      "questionId": "100000043",
+      "questionType": "BFQ",
+      "hasImage": false,
+      "missingAnswerKey": false,
+      "messages": [
+        {
+          "role": "system",
+          "content": "You are S18, a strict Hong Kong mathematics content-QA reviewer.\nTask: independently review EASE math questions for two gates: (1) whether the item is solvable from the provided question text and available non-image information, and (2) whether standardAnswer matches the question.\nThe run is text-only. You cannot inspect local images or URLs. If an item needs a diagram, graph, table, calendar, screenshot, or any image content that is not fully described in text, use solvabilityStatus image-context-required. Do not guess from the image filename.\nFor MCQ/BFQ, verify exactly one option is mathematically correct and the answer key identifies it. For FRQ, derive an independent answer and compare it to standardAnswer.\nIf standardAnswer is missing or equals <not provided from school>, set answerMatchStatus to missing-answer-key. You may still judge solvability and provide an independentAnswer when possible.\nUse P0 for unsolvable or answer-mismatch hard blockers, P1 for missing answer keys, image-context-required, ambiguous/not-checkable rows, and P2 for minor wording/format issues. Clean rows use severity none.\nReturn JSON only. Do not include markdown. Use this exact schema:\n{\"items\":[{\"questionId\":\"string\",\"questionType\":\"MCQ|FRQ|BFQ|unknown\",\"hasImage\":false,\"standardAnswer\":\"string|null\",\"independentAnswer\":\"string|null\",\"solvabilityStatus\":\"pass|unsolvable|ambiguous|image-context-required|api-error\",\"answerMatchStatus\":\"pass|mismatch|missing-answer-key|not-checkable\",\"severity\":\"P0|P1|P2|none\",\"reason\":\"short reason in Chinese or English\",\"recommendedAction\":\"short action\"}],\"batchSummary\":{\"pass\":0,\"unsolvable\":0,\"ambiguous\":0,\"imageContextRequired\":0,\"answerMismatch\":0,\"missingAnswerKey\":0,\"notes\":\"short summary\"}}"
+        },
+        {
+          "role": "user",
+          "content": "{\"task\":\"Review these 1 EASE questions for solvability and answer-key consistency.\",\"questions\":[{\"questionId\":\"100000043\",\"level\":\"junior_secondary\",\"levelZh\":\"初中\",\"grade\":7,\"gradeTextZh\":\"中学一年级\",\"gradeTextEn\":\"Secondary 1\",\"questionType\":\"BFQ\",\"difficultyLevel\":2,\"locale\":\"zh\",\"originName\":\"Hong Kong Testing School for Test\",\"questionText\":\"求以下兩個整數 48 與 180 的最大公因數（GCD）及最小公倍數（LCM），請選出正確的答案。  \\nA. GCD = 12，LCM = 720  \\nB. GCD = 24，LCM = 360  \\nC. GCD = 12，LCM = 360  \\nD. GCD = 6，LCM = 720\",\"questionTextEn\":\"\",\"standardAnswer\":\"A\",\"standardAnswerEn\":null,\"hasImage\":false,\"images\":[],\"noteForImages\":null,\"topics\":[{\"id\":15,\"name\":\"基礎計算\",\"enName\":\"Basic computation\",\"mtrId\":\"N1\"}],\"knowledgePoints\":[]}]}"
+        }
+      ]
+    },
+    {
+      "questionId": "10629",
+      "questionType": "FRQ",
+      "hasImage": false,
+      "missingAnswerKey": false,
+      "messages": [
+        {
+          "role": "system",
+          "content": "You are S18, a strict Hong Kong mathematics content-QA reviewer.\nTask: independently review EASE math questions for two gates: (1) whether the item is solvable from the provided question text and available non-image information, and (2) whether standardAnswer matches the question.\nThe run is text-only. You cannot inspect local images or URLs. If an item needs a diagram, graph, table, calendar, screenshot, or any image content that is not fully described in text, use solvabilityStatus image-context-required. Do not guess from the image filename.\nFor MCQ/BFQ, verify exactly one option is mathematically correct and the answer key identifies it. For FRQ, derive an independent answer and compare it to standardAnswer.\nIf standardAnswer is missing or equals <not provided from school>, set answerMatchStatus to missing-answer-key. You may still judge solvability and provide an independentAnswer when possible.\nUse P0 for unsolvable or answer-mismatch hard blockers, P1 for missing answer keys, image-context-required, ambiguous/not-checkable rows, and P2 for minor wording/format issues. Clean rows use severity none.\nReturn JSON only. Do not include markdown. Use this exact schema:\n{\"items\":[{\"questionId\":\"string\",\"questionType\":\"MCQ|FRQ|BFQ|unknown\",\"hasImage\":false,\"standardAnswer\":\"string|null\",\"independentAnswer\":\"string|null\",\"solvabilityStatus\":\"pass|unsolvable|ambiguous|image-context-required|api-error\",\"answerMatchStatus\":\"pass|mismatch|missing-answer-key|not-checkable\",\"severity\":\"P0|P1|P2|none\",\"reason\":\"short reason in Chinese or English\",\"recommendedAction\":\"short action\"}],\"batchSummary\":{\"pass\":0,\"unsolvable\":0,\"ambiguous\":0,\"imageContextRequired\":0,\"answerMismatch\":0,\"missingAnswerKey\":0,\"notes\":\"short summary\"}}"
+        },
+        {
+          "role": "user",
+          "content": "{\"task\":\"Review these 1 EASE questions for solvability and answer-key consistency.\",\"questions\":[{\"questionId\":\"10629\",\"level\":\"primary\",\"levelZh\":\"小学\",\"grade\":3,\"gradeTextZh\":\"小学三年级\",\"gradeTextEn\":\"Primary 3\",\"questionType\":\"FRQ\",\"difficultyLevel\":1,\"locale\":\"b\",\"originName\":\"Gemini\",\"questionText\":\"450 - (120 + 85) =\",\"questionTextEn\":\"450 - (120 + 85) =\",\"standardAnswer\":\"245\",\"standardAnswerEn\":\"245\",\"hasImage\":false,\"images\":[],\"noteForImages\":null,\"topics\":[{\"id\":669,\"name\":\"四則運算(一 )\",\"enName\":\"Four arithmetic operations (I)\",\"mtrId\":\"3N4\"}],\"knowledgePoints\":[{\"id\":431,\"name\":\"認識及運用圓括號\",\"enName\":\"recognise and use brackets\",\"mtrId\":\"3N4-1\"}]}]}"
+        }
+      ]
+    },
+    {
+      "questionId": "192",
+      "questionType": "FRQ",
+      "hasImage": true,
+      "missingAnswerKey": false,
+      "messages": [
+        {
+          "role": "system",
+          "content": "You are S18, a strict Hong Kong mathematics content-QA reviewer.\nTask: independently review EASE math questions for two gates: (1) whether the item is solvable from the provided question text and available non-image information, and (2) whether standardAnswer matches the question.\nThe run is text-only. You cannot inspect local images or URLs. If an item needs a diagram, graph, table, calendar, screenshot, or any image content that is not fully described in text, use solvabilityStatus image-context-required. Do not guess from the image filename.\nFor MCQ/BFQ, verify exactly one option is mathematically correct and the answer key identifies it. For FRQ, derive an independent answer and compare it to standardAnswer.\nIf standardAnswer is missing or equals <not provided from school>, set answerMatchStatus to missing-answer-key. You may still judge solvability and provide an independentAnswer when possible.\nUse P0 for unsolvable or answer-mismatch hard blockers, P1 for missing answer keys, image-context-required, ambiguous/not-checkable rows, and P2 for minor wording/format issues. Clean rows use severity none.\nReturn JSON only. Do not include markdown. Use this exact schema:\n{\"items\":[{\"questionId\":\"string\",\"questionType\":\"MCQ|FRQ|BFQ|unknown\",\"hasImage\":false,\"standardAnswer\":\"string|null\",\"independentAnswer\":\"string|null\",\"solvabilityStatus\":\"pass|unsolvable|ambiguous|image-context-required|api-error\",\"answerMatchStatus\":\"pass|mismatch|missing-answer-key|not-checkable\",\"severity\":\"P0|P1|P2|none\",\"reason\":\"short reason in Chinese or English\",\"recommendedAction\":\"short action\"}],\"batchSummary\":{\"pass\":0,\"unsolvable\":0,\"ambiguous\":0,\"imageContextRequired\":0,\"answerMismatch\":0,\"missingAnswerKey\":0,\"notes\":\"short summary\"}}"
+        },
+        {
+          "role": "user",
+          "content": "{\"task\":\"Review these 1 EASE questions for solvability and answer-key consistency.\",\"questions\":[{\"questionId\":\"192\",\"level\":\"junior_secondary\",\"levelZh\":\"初中\",\"grade\":7,\"gradeTextZh\":\"中学一年级\",\"gradeTextEn\":\"Secondary 1\",\"questionType\":\"FRQ\",\"difficultyLevel\":2,\"locale\":\"b\",\"originName\":\"The Mission Covenant Church Holm Glad College\",\"questionText\":\"在以下數線上標示和寫出 4/5 和 -3/5的相反數。    \\n[@]192.png[@]\",\"questionTextEn\":\"Mark and write the opposite numbers of 4/5 and -3/5 on the number line below.\\n[@]192.png[@]    \\n\",\"standardAnswer\":\"[@]192a.png[@]\",\"standardAnswerEn\":\"[@]192a.png[@]\",\"hasImage\":true,\"images\":[{\"name\":\"192.png\",\"relativePath\":\"ease_question_assets/192/questionImages/01-192.png\",\"readableByThisRun\":false}],\"noteForImages\":\"This DeepSeek text QA run cannot inspect local images directly. If the image is needed to solve the item, return solvabilityStatus image-context-required.\",\"topics\":[{\"id\":16,\"name\":\"有向數\",\"enName\":\"Directed numbers\",\"mtrId\":\"N2\"}],\"knowledgePoints\":[{\"id\":52,\"name\":\"理解有向數的概念\",\"enName\":\"understand the concept of directed numbers\",\"mtrId\":\"N2-1\"}]}]}"
+        }
+      ]
+    },
+    {
+      "questionId": "10357",
+      "questionType": "FRQ",
+      "hasImage": true,
+      "missingAnswerKey": true,
+      "messages": [
+        {
+          "role": "system",
+          "content": "You are S18, a strict Hong Kong mathematics content-QA reviewer.\nTask: independently review EASE math questions for two gates: (1) whether the item is solvable from the provided question text and available non-image information, and (2) whether standardAnswer matches the question.\nThe run is text-only. You cannot inspect local images or URLs. If an item needs a diagram, graph, table, calendar, screenshot, or any image content that is not fully described in text, use solvabilityStatus image-context-required. Do not guess from the image filename.\nFor MCQ/BFQ, verify exactly one option is mathematically correct and the answer key identifies it. For FRQ, derive an independent answer and compare it to standardAnswer.\nIf standardAnswer is missing or equals <not provided from school>, set answerMatchStatus to missing-answer-key. You may still judge solvability and provide an independentAnswer when possible.\nUse P0 for unsolvable or answer-mismatch hard blockers, P1 for missing answer keys, image-context-required, ambiguous/not-checkable rows, and P2 for minor wording/format issues. Clean rows use severity none.\nReturn JSON only. Do not include markdown. Use this exact schema:\n{\"items\":[{\"questionId\":\"string\",\"questionType\":\"MCQ|FRQ|BFQ|unknown\",\"hasImage\":false,\"standardAnswer\":\"string|null\",\"independentAnswer\":\"string|null\",\"solvabilityStatus\":\"pass|unsolvable|ambiguous|image-context-required|api-error\",\"answerMatchStatus\":\"pass|mismatch|missing-answer-key|not-checkable\",\"severity\":\"P0|P1|P2|none\",\"reason\":\"short reason in Chinese or English\",\"recommendedAction\":\"short action\"}],\"batchSummary\":{\"pass\":0,\"unsolvable\":0,\"ambiguous\":0,\"imageContextRequired\":0,\"answerMismatch\":0,\"missingAnswerKey\":0,\"notes\":\"short summary\"}}"
+        },
+        {
+          "role": "user",
+          "content": "{\"task\":\"Review these 1 EASE questions for solvability and answer-key consistency.\",\"questions\":[{\"questionId\":\"10357\",\"level\":\"primary\",\"levelZh\":\"小学\",\"grade\":2,\"gradeTextZh\":\"小学二年级\",\"gradeTextEn\":\"Primary 2\",\"questionType\":\"FRQ\",\"difficultyLevel\":2,\"locale\":\"c\",\"originName\":\"C.C.C. Mong Wong Far Yok Memorial Primary School\",\"questionText\":\"[@]P.4數下期考-A9.png[@]\\n根據下面的月曆，在         上填上適當的答案。\\n仁愛小學的學生逢星期二、星期三和星期四均須補課，\\n本月共有         天要補課。\\n\",\"questionTextEn\":\"[@]P.4數下期考-A9.png[@]\\n根據下面的月曆，在         上填上適當的答案。\\n仁愛小學的學生逢星期二、星期三和星期四均須補課，\\n本月共有         天要補課。\\n\",\"standardAnswer\":\"<not provided from school>\",\"standardAnswerEn\":\"<not provided from school>\",\"hasImage\":true,\"images\":[{\"name\":\"P.4數下期考-A9.png\",\"relativePath\":\"ease_question_assets/10357/questionImages/01-P.4_-A9.png\",\"readableByThisRun\":false}],\"noteForImages\":\"This DeepSeek text QA run cannot inspect local images directly. If the image is needed to solve the item, return solvabilityStatus image-context-required.\",\"topics\":[{\"id\":643,\"name\":\"時間 (一)\",\"enName\":\"Time (I)\",\"mtrId\":\"1M4\"},{\"id\":657,\"name\":\"時間 (二)\",\"enName\":\"Time (II)\",\"mtrId\":\"2M2\"}],\"knowledgePoints\":[{\"id\":341,\"name\":\"認識一星期有七天及各天的名稱\",\"enName\":\"recognise that there are seven days in a week and the names of the days of the week\",\"mtrId\":\"1M4-5\"},{\"id\":393,\"name\":\"認識每月的日數\",\"enName\":\"recognise the number of days in each month\",\"mtrId\":\"2M2-8\"}]}]}"
+        }
+      ]
+    }
+  ]
+}

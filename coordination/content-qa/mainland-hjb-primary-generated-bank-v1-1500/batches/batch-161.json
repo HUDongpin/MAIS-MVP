@@ -1,0 +1,290 @@
+{
+  "batchId": "batch-161",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p4-051",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-fraction-extension",
+      "unitTitle": "分数的初步认识（二）",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "fraction-comparison",
+        "fraction-addition-subtraction",
+        "same-denominator-fractions",
+        "fraction-wall",
+        "分数大小比较"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "几何直观"
+      ],
+      "skillTags": [
+        "同分母分数",
+        "分数大小比较",
+        "分数加减",
+        "整体不变",
+        "图示解释"
+      ],
+      "misconceptionTags": [
+        "wholes compared without being the same size",
+        "denominators added directly",
+        "fraction size judged by larger denominator only"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-fraction-extension"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-fraction-extension",
+        "hjb-primary-p4-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小杰和小丽各有一根同样长的彩带。小杰把自己的彩带平均分成8份，用去了其中的5份；小丽把自己的彩带平均分成12份，用去了其中的7份。谁用去的彩带更长？请写出比较过程。",
+      "optionsZhHans": [],
+      "answer": "小杰用去的彩带更长。比较过程：因为彩带同样长，比较5/8和7/12的大小。通分，5/8=15/24，7/12=14/24，15/24>14/24，所以5/8>7/12。",
+      "acceptedAnswers": [
+        "小杰用去的彩带更长。比较过程：因为彩带同样长，比较5/8和7/12的大小。通分，5/8=15/24，7/12=14/24，15/24>14/24，所以5/8>7/12。"
+      ],
+      "explanationZhHans": "彩带同样长，比较5/8和7/12。通分后5/8=15/24，7/12=14/24，15/24>14/24，所以小杰用去的更长。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-052",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-fraction-extension",
+      "unitTitle": "分数的初步认识（二）",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "fraction-comparison",
+        "fraction-addition-subtraction",
+        "same-denominator-fractions",
+        "fraction-wall",
+        "分数大小比较"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "几何直观"
+      ],
+      "skillTags": [
+        "同分母分数",
+        "分数大小比较",
+        "分数加减",
+        "整体不变",
+        "图示解释"
+      ],
+      "misconceptionTags": [
+        "wholes compared without being the same size",
+        "denominators added directly",
+        "fraction size judged by larger denominator only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-fraction-extension"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-fraction-extension",
+        "hjb-primary-p4-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "S18 remediated after DeepSeek-v4-pro QA on 2026-05-25; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "有两根同样长的绳子，第一根剪下它的2/5，第二根剪下它的3/7。剪下的部分相比，哪一根更长？",
+      "optionsZhHans": [
+        "第一根更长",
+        "第二根更长",
+        "两根一样长",
+        "无法比较"
+      ],
+      "answer": "第二根更长",
+      "acceptedAnswers": [
+        "第二根更长"
+      ],
+      "explanationZhHans": "绳子同样长，比较2/5和3/7。通分：2/5=14/35，3/7=15/35，14/35<15/35，所以3/7更大，第二根剪下的部分更长。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-053",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-fraction-extension",
+      "unitTitle": "分数的初步认识（二）",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "fraction-comparison",
+        "fraction-addition-subtraction",
+        "same-denominator-fractions",
+        "fraction-wall",
+        "分数大小比较"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "几何直观"
+      ],
+      "skillTags": [
+        "同分母分数",
+        "分数大小比较",
+        "分数加减",
+        "整体不变",
+        "图示解释"
+      ],
+      "misconceptionTags": [
+        "wholes compared without being the same size",
+        "denominators added directly",
+        "fraction size judged by larger denominator only"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-fraction-extension"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-fraction-extension",
+        "hjb-primary-p4-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在下面的括号里填上“>”“<”或“=”。\n3/8 ○ 5/8",
+      "optionsZhHans": [],
+      "answer": "<",
+      "acceptedAnswers": [
+        "<"
+      ],
+      "explanationZhHans": "分母相同，分子3小于5，所以3/8<5/8。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-054",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-fraction-extension",
+      "unitTitle": "分数的初步认识（二）",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "fraction-comparison",
+        "fraction-addition-subtraction",
+        "same-denominator-fractions",
+        "fraction-wall",
+        "分数大小比较"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "几何直观"
+      ],
+      "skillTags": [
+        "同分母分数",
+        "分数大小比较",
+        "分数加减",
+        "整体不变",
+        "图示解释"
+      ],
+      "misconceptionTags": [
+        "wholes compared without being the same size",
+        "denominators added directly",
+        "fraction size judged by larger denominator only"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-fraction-extension"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-fraction-extension",
+        "hjb-primary-p4-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈买了一个蛋糕，小华吃了这个蛋糕的1/4，爸爸吃了这个蛋糕的3/8。谁吃得多？请说明理由。",
+      "optionsZhHans": [],
+      "answer": "爸爸吃得多。理由：比较1/4和3/8，通分后1/4=2/8，2/8<3/8，所以爸爸吃得多。",
+      "acceptedAnswers": [
+        "爸爸吃得多。理由：比较1/4和3/8，通分后1/4=2/8，2/8<3/8，所以爸爸吃得多。"
+      ],
+      "explanationZhHans": "蛋糕是同一个整体，比较1/4和3/8。1/4=2/8，2/8<3/8，所以爸爸吃得多。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-055",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-fraction-extension",
+      "unitTitle": "分数的初步认识（二）",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "fraction-comparison",
+        "fraction-addition-subtraction",
+        "same-denominator-fractions",
+        "fraction-wall",
+        "分数大小比较"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "几何直观"
+      ],
+      "skillTags": [
+        "同分母分数",
+        "分数大小比较",
+        "分数加减",
+        "整体不变",
+        "图示解释"
+      ],
+      "misconceptionTags": [
+        "wholes compared without being the same size",
+        "denominators added directly",
+        "fraction size judged by larger denominator only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-fraction-extension"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-fraction-extension",
+        "hjb-primary-p4-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪一组分数比较是正确的？",
+      "optionsZhHans": [
+        "1/3 > 1/2",
+        "2/7 < 3/7",
+        "4/9 > 5/9",
+        "3/10 = 3/8"
+      ],
+      "answer": "2/7 < 3/7",
+      "acceptedAnswers": [
+        "2/7 < 3/7"
+      ],
+      "explanationZhHans": "同分母分数比较，分子大的分数大。2/7和3/7分母相同，2<3，所以2/7<3/7正确。其他选项错误。"
+    }
+  ]
+}

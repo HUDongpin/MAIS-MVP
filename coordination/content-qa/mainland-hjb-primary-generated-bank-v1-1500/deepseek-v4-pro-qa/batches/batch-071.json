@@ -1,0 +1,191 @@
+{
+  "batchNumber": 71,
+  "startedAt": "2026-05-25T02:23:38.538Z",
+  "completedAt": "2026-05-25T02:24:00.210Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p6-011",
+    "hjb-primary-ds-v1-p6-012",
+    "hjb-primary-ds-v1-p6-013",
+    "hjb-primary-ds-v1-p6-014",
+    "hjb-primary-ds-v1-p6-015",
+    "hjb-primary-ds-v1-p6-016",
+    "hjb-primary-ds-v1-p6-017",
+    "hjb-primary-ds-v1-p6-018",
+    "hjb-primary-ds-v1-p6-019",
+    "hjb-primary-ds-v1-p6-020",
+    "hjb-primary-ds-v1-p6-021",
+    "hjb-primary-ds-v1-p6-022",
+    "hjb-primary-ds-v1-p6-023",
+    "hjb-primary-ds-v1-p6-024",
+    "hjb-primary-ds-v1-p6-025",
+    "hjb-primary-ds-v1-p6-026",
+    "hjb-primary-ds-v1-p6-027",
+    "hjb-primary-ds-v1-p6-028"
+  ],
+  "usage": {
+    "prompt_tokens": 3904,
+    "completion_tokens": 1318,
+    "total_tokens": 5222,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 3648
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p6-011",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案30符合条件，解析清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-012",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分解质因数、最大公因数和最小公倍数均正确，答案格式合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-013",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项15是唯一合数且奇数，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-014",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "质数2个，合数3个，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-015",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "40和50均满足条件，答案完整。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-016",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "D选项正确，解析指出其他选项错误原因。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-017",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "9和15是1-20中既是合数又是奇数的数，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-018",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "750是能同时被2、3、5整除的最大三位数，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-019",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，原来24颗，解析清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-020",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "与019题相同，答案24正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-021",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，原长6米。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-022",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "5/8=15/24正确，其他选项错误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-023",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，结果为4又1/6或25/6。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-024",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，原来400千克。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-025",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "第二段占全长3/5，更长，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-026",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "5÷8=5/8米，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-027",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比较和计算正确，小红多喝3/20。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-028",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "通分正确，结果为11/12，选项B正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均通过审核，数学正确，答案匹配，无歧义或缺失条件，适合沪教版小学数学。"
+    }
+  }
+}

@@ -1,0 +1,141 @@
+{
+  "batchNumber": 84,
+  "startedAt": "2026-05-27T13:57:56.587Z",
+  "completedAt": "2026-05-27T13:58:13.843Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-165",
+    "bnu-high-ds-v1-s5-166",
+    "bnu-high-ds-v1-s5-167",
+    "bnu-high-ds-v1-s5-168",
+    "bnu-high-ds-v1-s5-169",
+    "bnu-high-ds-v1-s5-170",
+    "bnu-high-ds-v1-s5-171",
+    "bnu-high-ds-v1-s5-172"
+  ],
+  "usage": {
+    "prompt_tokens": 11215,
+    "completion_tokens": 1083,
+    "total_tokens": 12298,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10703
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-165",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "2",
+        "correctedAnswer": "2",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立求解得λ=2，但题目答案为0，解析也得出λ=2却给出错误答案，答案与解析矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-166",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(1/3,1/3,1/3)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，答案唯一且与选项匹配，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-167",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2√3/3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "点到平面距离公式应用正确，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-168",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "1/2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "距离相等条件转化为方程，解得λ=1/2，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-169",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "√6/3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "线面角正弦公式正确，计算无误，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-170",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "1/2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "与168题相同条件，解答正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-171",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "1.00",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "向量共线，夹角余弦为1，精确到0.01为1.00，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-172",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "√6/6",
+        "correctedAnswer": "√6/6",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目给出方向向量s=(1,-1,0)，解析却误用s=(1,0,0)计算得√3/3，正确计算应为√6/6，答案与解析均错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 0,
+      "fail": 2,
+      "notes": "165题答案应为2而非0，解析自相矛盾；172题解析误用方向向量，答案错误，正确值为√6/6。其余题目均正确。"
+    }
+  }
+}

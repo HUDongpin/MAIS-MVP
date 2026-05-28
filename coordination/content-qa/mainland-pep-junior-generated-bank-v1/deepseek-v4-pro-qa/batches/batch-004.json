@@ -1,0 +1,191 @@
+{
+  "batchNumber": 4,
+  "startedAt": "2026-05-24T17:23:03.613Z",
+  "completedAt": "2026-05-24T17:23:23.017Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-candidate-k01-fi-027",
+    "pep-junior-candidate-k01-sa-001",
+    "pep-junior-candidate-k01-sa-002",
+    "pep-junior-candidate-k01-sa-003",
+    "pep-junior-candidate-k01-sa-004",
+    "pep-junior-candidate-k01-sa-005",
+    "pep-junior-candidate-k01-sa-006",
+    "pep-junior-candidate-k01-sa-007",
+    "pep-junior-candidate-k01-sa-008",
+    "pep-junior-candidate-k01-sa-009",
+    "pep-junior-candidate-k01-sa-010",
+    "pep-junior-candidate-k01-sa-011",
+    "pep-junior-candidate-k01-sa-012",
+    "pep-junior-candidate-k01-sa-013",
+    "pep-junior-candidate-k01-sa-014",
+    "pep-junior-candidate-k01-sa-015",
+    "pep-junior-candidate-k01-sa-016",
+    "pep-junior-candidate-k01-sa-017"
+  ],
+  "usage": {
+    "prompt_tokens": 2550,
+    "completion_tokens": 1352,
+    "total_tokens": 3902,
+    "prompt_tokens_details": {
+      "cached_tokens": 2432
+    },
+    "prompt_cache_hit_tokens": 2432,
+    "prompt_cache_miss_tokens": 118
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-candidate-k01-fi-027",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，距离为17，答案与解析一致，适合初一有理数基础。"
+      },
+      {
+        "id": "pep-junior-candidate-k01-sa-001",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，-33+32-21=-22，解析合理。"
+      },
+      {
+        "id": "pep-junior-candidate-k01-sa-002",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，-34+34-22=-22。"
+      },
+      {
+        "id": "pep-junior-candidate-k01-sa-003",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，-35+7-23=-51。"
+      },
+      {
+        "id": "pep-junior-candidate-k01-sa-004",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，-36+9-24=-51。"
+      },
+      {
+        "id": "pep-junior-candidate-k01-sa-005",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，-37+11-25=-51。"
+      },
+      {
+        "id": "pep-junior-candidate-k01-sa-006",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，-38+13-26=-51。"
+      },
+      {
+        "id": "pep-junior-candidate-k01-sa-007",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，-39+15-4=-28。"
+      },
+      {
+        "id": "pep-junior-candidate-k01-sa-008",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，-40+17-5=-28。"
+      },
+      {
+        "id": "pep-junior-candidate-k01-sa-009",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，-41+19-6=-28。"
+      },
+      {
+        "id": "pep-junior-candidate-k01-sa-010",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，-42+21-7=-28。"
+      },
+      {
+        "id": "pep-junior-candidate-k01-sa-011",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，-43+23-8=-28。"
+      },
+      {
+        "id": "pep-junior-candidate-k01-sa-012",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，-44+25-9=-28。"
+      },
+      {
+        "id": "pep-junior-candidate-k01-sa-013",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，-45+27-10=-28。"
+      },
+      {
+        "id": "pep-junior-candidate-k01-sa-014",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，-46+29-11=-28。"
+      },
+      {
+        "id": "pep-junior-candidate-k01-sa-015",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，-47+31-12=-28。"
+      },
+      {
+        "id": "pep-junior-candidate-k01-sa-016",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，-48+33-13=-28。"
+      },
+      {
+        "id": "pep-junior-candidate-k01-sa-017",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，-18+35-14=3。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案与解析一致，无歧义，适合初一有理数基础练习。"
+    }
+  }
+}

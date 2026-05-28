@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-005",
+  "startedAt": "2026-05-28T00:34:40.702Z",
+  "completedAt": "2026-05-28T00:34:59.956Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-033",
+    "bnu-high-ds-v1-s4-034",
+    "bnu-high-ds-v1-s4-035",
+    "bnu-high-ds-v1-s4-036",
+    "bnu-high-ds-v1-s4-037",
+    "bnu-high-ds-v1-s4-038",
+    "bnu-high-ds-v1-s4-039",
+    "bnu-high-ds-v1-s4-040"
+  ],
+  "usage": {
+    "prompt_tokens": 9905,
+    "completion_tokens": 1166,
+    "total_tokens": 11071,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9521
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-033",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "[-1, 2]",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "解绝对值不等式得A=[-1,2]，解二次不等式得B=(-1,5)，交集为[-1,2]。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-034",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "必要不充分条件",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "p:x>2，q:x>3。p推不出q，q能推出p，故p是q的必要不充分条件。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-035",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "最小值为9，此时a=1/3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "利用基本不等式“1的代换”，1/a+4/b=(a+b)(1/a+4/b)=5+b/a+4a/b≥5+4=9，当b=2a即a=1/3时取等。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-036",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "{0, 1, 1/2}",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "A={1,2}。B⊆A，分B=∅（a=0）和B≠∅（a≠0，x=1/a∈A，得a=1或1/2）。所有可能取值组成集合{0,1,1/2}。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-037",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "[3, +∞)",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "定义域为(-∞,1]∪[3,+∞)。内层二次函数在[3,+∞)递增且非负，外层根号递增，故复合函数在[3,+∞)单调递增。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-038",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "f(x) = { x² - 2x, x > 0; 0, x = 0; -x² - 2x, x < 0 }",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由奇函数性质，f(0)=0；x<0时，f(x)=-f(-x)=-((-x)²-2(-x))=-x²-2x。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-039",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(-∞, 3]",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "x≤0时，f(x)=x²+1≥1；x>0时，f(x)=-x²+4x-1=-(x-2)²+3≤3。值域为(-∞,3]。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-040",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "6",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "令y=1得f(x+1)=f(x)+f(1)+2x=f(x)+2x+2，递推得f(2)=6，f(3)=12；令x=y=0得f(0)=0；令y=-x得f(0)=f(x)+f(-x)-2x²，故f(-x)=-f(x)+2x²，得f(-3)=-f(3)+18=6。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，无数学错误、歧义或缺失条件，符合北师大版高一预备知识与函数章节要求。"
+    }
+  }
+}

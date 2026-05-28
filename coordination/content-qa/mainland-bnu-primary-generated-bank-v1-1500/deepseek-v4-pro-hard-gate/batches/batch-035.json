@@ -1,0 +1,330 @@
+{
+  "batchNumber": 35,
+  "startedAt": "2026-05-27T03:40:16.066Z",
+  "completedAt": "2026-05-27T03:40:43.506Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p5-021",
+    "bnu-primary-ds-v1-p5-022",
+    "bnu-primary-ds-v1-p5-023",
+    "bnu-primary-ds-v1-p5-024",
+    "bnu-primary-ds-v1-p5-025",
+    "bnu-primary-ds-v1-p5-026",
+    "bnu-primary-ds-v1-p5-027",
+    "bnu-primary-ds-v1-p5-028",
+    "bnu-primary-ds-v1-p5-029",
+    "bnu-primary-ds-v1-p5-030",
+    "bnu-primary-ds-v1-p5-031",
+    "bnu-primary-ds-v1-p5-032",
+    "bnu-primary-ds-v1-p5-033",
+    "bnu-primary-ds-v1-p5-034",
+    "bnu-primary-ds-v1-p5-035",
+    "bnu-primary-ds-v1-p5-036",
+    "bnu-primary-ds-v1-p5-037",
+    "bnu-primary-ds-v1-p5-038",
+    "bnu-primary-ds-v1-p5-039",
+    "bnu-primary-ds-v1-p5-040",
+    "bnu-primary-ds-v1-p5-041",
+    "bnu-primary-ds-v1-p5-042",
+    "bnu-primary-ds-v1-p5-043",
+    "bnu-primary-ds-v1-p5-044",
+    "bnu-primary-ds-v1-p5-045",
+    "bnu-primary-ds-v1-p5-046",
+    "bnu-primary-ds-v1-p5-047",
+    "bnu-primary-ds-v1-p5-048",
+    "bnu-primary-ds-v1-p5-049",
+    "bnu-primary-ds-v1-p5-050"
+  ],
+  "usage": {
+    "prompt_tokens": 5359,
+    "completion_tokens": 2186,
+    "total_tokens": 7545,
+    "prompt_tokens_details": {
+      "cached_tokens": 5248
+    },
+    "prompt_cache_hit_tokens": 5248,
+    "prompt_cache_miss_tokens": 111
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p5-021",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目完整，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-022",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项明确，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-023",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "逆向平移推理正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-024",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "平移坐标计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-025",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "轴对称定义清晰，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-026",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "平移抵消计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-027",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "平移过程描述正确，答案覆盖多种表述。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-028",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "轴对称性质判断正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-029",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "平移方向与格数正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-030",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "平移方向与不变性质正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-031",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "公倍数范围判断正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-032",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "奇数合数分类正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-033",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "因数列举完整。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-034",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "公倍数判断正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-035",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "最大公因数正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-036",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "因数应用正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-037",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "合数定义正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-038",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "倍数列举正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-039",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "质数和与积正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-040",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "最小公倍数应用正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-041",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "最小公倍数正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-042",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "因数列举正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-043",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "质数判断正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-044",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "最大公因数正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-045",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "倍数列举正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-046",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "三角形面积计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-047",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "梯形面积计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-048",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "平行四边形面积计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-049",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "三角形高计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-050",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "平行四边形底计算正确。"
+      }
+    ],
+    "batchSummary": {
+      "solvableYes": 30,
+      "solvableNo": 0,
+      "answerMatchYes": 30,
+      "answerMatchNo": 0,
+      "notes": "全部30道题目均可解，答案匹配正确。"
+    }
+  }
+}

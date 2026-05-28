@@ -1,0 +1,330 @@
+{
+  "batchNumber": 46,
+  "startedAt": "2026-05-27T03:41:37.664Z",
+  "completedAt": "2026-05-27T03:42:07.970Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p6-101",
+    "bnu-primary-ds-v1-p6-102",
+    "bnu-primary-ds-v1-p6-103",
+    "bnu-primary-ds-v1-p6-104",
+    "bnu-primary-ds-v1-p6-105",
+    "bnu-primary-ds-v1-p6-106",
+    "bnu-primary-ds-v1-p6-107",
+    "bnu-primary-ds-v1-p6-108",
+    "bnu-primary-ds-v1-p6-109",
+    "bnu-primary-ds-v1-p6-110",
+    "bnu-primary-ds-v1-p6-111",
+    "bnu-primary-ds-v1-p6-112",
+    "bnu-primary-ds-v1-p6-113",
+    "bnu-primary-ds-v1-p6-114",
+    "bnu-primary-ds-v1-p6-115",
+    "bnu-primary-ds-v1-p6-116",
+    "bnu-primary-ds-v1-p6-117",
+    "bnu-primary-ds-v1-p6-118",
+    "bnu-primary-ds-v1-p6-119",
+    "bnu-primary-ds-v1-p6-120",
+    "bnu-primary-ds-v1-p6-121",
+    "bnu-primary-ds-v1-p6-122",
+    "bnu-primary-ds-v1-p6-123",
+    "bnu-primary-ds-v1-p6-124",
+    "bnu-primary-ds-v1-p6-125",
+    "bnu-primary-ds-v1-p6-126",
+    "bnu-primary-ds-v1-p6-127",
+    "bnu-primary-ds-v1-p6-128",
+    "bnu-primary-ds-v1-p6-129",
+    "bnu-primary-ds-v1-p6-130"
+  ],
+  "usage": {
+    "prompt_tokens": 5534,
+    "completion_tokens": 2431,
+    "total_tokens": 7965,
+    "prompt_tokens_details": {
+      "cached_tokens": 5504
+    },
+    "prompt_cache_hit_tokens": 5504,
+    "prompt_cache_miss_tokens": 30
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p6-101",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目完整，计算正确，答案90千克符合要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-102",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目完整，按比分配正确，总人数64人。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-103",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项完整，8:10化简为4:5，比值相等，唯一正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-104",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目完整，按比分配求差，答案24正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-105",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目完整，按比分配求水泥质量，16吨正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-106",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项完整，盐与盐水比1:6，唯一正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-107",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目完整，按比分配求最大角，80度正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-108",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目完整，速度比与时间比成反比，4:3正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-109",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项完整，八五折计算正确，170元唯一正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-110",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目完整，节电二成五计算正确，375万千瓦时。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-111",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目完整，增加25%计算正确，1000本。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-112",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项完整，八五折计算正确，170元唯一正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-113",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目完整，女生人数计算正确，20人。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-114",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目完整，节约25%计算正确，9吨。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-115",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项完整，多20%计算正确，180棵唯一正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-116",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目完整，提价再降价后现价降低，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-117",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目完整，少30%计算正确，84棵。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-118",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项完整，利息计算正确，5210元唯一正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-119",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目完整，增长15%计算正确，460万元。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-120",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目完整，七五折求便宜金额，20元正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-121",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项完整，新购入15%计算正确，1380本唯一正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-122",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目完整，已知折后价求原价，300元正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-123",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目完整，节约20%计算正确，8吨。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-124",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项完整，求多百分之几，25%唯一正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-125",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目完整，已知今年产量求去年，200万吨正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-126",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目完整，利息计算正确，5210元。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-127",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项完整，正确答案指出单位不同，唯一正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-128",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目完整，圆环面积计算正确，34.54平方米。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-129",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目完整，可能性计算正确，红球12黄球8。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-130",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项完整，正确选项表述准确，唯一正确。"
+      }
+    ],
+    "batchSummary": {
+      "solvableYes": 30,
+      "solvableNo": 0,
+      "answerMatchYes": 30,
+      "answerMatchNo": 0,
+      "notes": "全部30道题目均完整可解，答案正确匹配，无任何问题。"
+    }
+  }
+}

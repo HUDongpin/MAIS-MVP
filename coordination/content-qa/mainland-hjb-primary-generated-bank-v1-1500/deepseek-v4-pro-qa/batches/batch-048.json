@@ -1,0 +1,191 @@
+{
+  "batchNumber": 48,
+  "startedAt": "2026-05-24T20:54:03.822Z",
+  "completedAt": "2026-05-24T20:54:25.855Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p4-097",
+    "hjb-primary-ds-v1-p4-098",
+    "hjb-primary-ds-v1-p4-099",
+    "hjb-primary-ds-v1-p4-100",
+    "hjb-primary-ds-v1-p4-101",
+    "hjb-primary-ds-v1-p4-102",
+    "hjb-primary-ds-v1-p4-103",
+    "hjb-primary-ds-v1-p4-104",
+    "hjb-primary-ds-v1-p4-105",
+    "hjb-primary-ds-v1-p4-106",
+    "hjb-primary-ds-v1-p4-107",
+    "hjb-primary-ds-v1-p4-108",
+    "hjb-primary-ds-v1-p4-109",
+    "hjb-primary-ds-v1-p4-110",
+    "hjb-primary-ds-v1-p4-111",
+    "hjb-primary-ds-v1-p4-112",
+    "hjb-primary-ds-v1-p4-113",
+    "hjb-primary-ds-v1-p4-114"
+  ],
+  "usage": {
+    "prompt_tokens": 4061,
+    "completion_tokens": 1436,
+    "total_tokens": 5497,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 3805
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p4-097",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项正确描述了线段、射线和直线的端点特征，答案与解释一致，无歧义。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-098",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案“叉开”准确，acceptedAnswers包含常见同义表述，符合角的大小定义。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-099",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确解释了量角器内外圈刻度差异，acceptedAnswers覆盖合理变体。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-100",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "145°无法用一副三角尺拼出，选项和答案正确，解释清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-101",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案“射线”符合角的定义，无问题。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-102",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案列出所有可能的钝角105°、120°、135°、150°，acceptedAnswers覆盖不同顺序和分隔符。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-103",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项C正确，其他选项错误点已在解释中指出，无歧义。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-104",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案“2, 1”正确，acceptedAnswers包含中文数字和逗号变体。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-105",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，∠1=135°，∠2=45°，acceptedAnswers覆盖度符号和汉字变体。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-106",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项A正确，半径4厘米，解释清晰，其他选项错误明确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-107",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案“射线”符合手电筒光线的特征，无问题。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-108",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案45°正确，利用内外圈互补关系，acceptedAnswers覆盖数字和度符号。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-109",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项D正确，3时整时针分针成直角，其他选项错误解释合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-110",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案“一”正确，acceptedAnswers包含数字和“一条”，符合两点确定一条直线。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-111",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确区分半径、射线和直线，acceptedAnswers覆盖不同格式。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-112",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项C正确，角的大小与两边张开大小有关，与边长短无关，解释清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-113",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案“2；4”正确，acceptedAnswers覆盖分号和逗号变体。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-114",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，∠C=70°，acceptedAnswers覆盖度符号和汉字变体。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合沪教版小学数学四年级几何内容，答案正确，解释合理，无歧义或错误。"
+    }
+  }
+}

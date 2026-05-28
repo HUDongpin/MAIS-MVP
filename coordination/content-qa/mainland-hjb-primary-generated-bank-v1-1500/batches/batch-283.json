@@ -1,0 +1,303 @@
+{
+  "batchId": "batch-283",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p6-161",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-linear-systems",
+      "unitTitle": "二元一次方程组",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "linear-systems",
+        "two-variable-linear-equations",
+        "equation-modeling",
+        "二元一次方程组",
+        "方程组"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "设未知数",
+        "等量关系",
+        "列方程组",
+        "消元思想",
+        "代入检验"
+      ],
+      "misconceptionTags": [
+        "unknowns not defined clearly",
+        "two equations represent the same relationship",
+        "elimination step breaks equivalence",
+        "solution not checked against the context"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-linear-systems"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-linear-systems",
+        "hjb-primary-p6-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "文具店出售两种笔记本，A款每本5元，B款每本3元。小杰买了两种笔记本共8本，付了34元。设他买了A款笔记本x本，B款笔记本y本。请列出关于x、y的二元一次方程组，并写出方程组的解。",
+      "optionsZhHans": [],
+      "answer": "方程组：x+y=8, 5x+3y=34；解：x=5, y=3",
+      "acceptedAnswers": [
+        "方程组：x+y=8, 5x+3y=34；解：x=5, y=3",
+        "x+y=8, 5x+3y=34；x=5, y=3",
+        "x+y=8 5x+3y=34 x=5 y=3"
+      ],
+      "explanationZhHans": "根据总本数列方程x+y=8，根据总价列方程5x+3y=34。用代入法或加减法解得x=5，y=3。检验：5+3=8，5×5+3×3=34，符合题意。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-162",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-linear-systems",
+      "unitTitle": "二元一次方程组",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "linear-systems",
+        "two-variable-linear-equations",
+        "equation-modeling",
+        "二元一次方程组",
+        "方程组"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "设未知数",
+        "等量关系",
+        "列方程组",
+        "消元思想",
+        "代入检验"
+      ],
+      "misconceptionTags": [
+        "unknowns not defined clearly",
+        "two equations represent the same relationship",
+        "elimination step breaks equivalence",
+        "solution not checked against the context"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-linear-systems"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-linear-systems",
+        "hjb-primary-p6-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校组织植树活动，七年级和八年级共植树120棵，八年级植树棵数是七年级的2倍少15棵。设七年级植树x棵，八年级植树y棵，列出方程组并求出两个年级各植树多少棵。",
+      "optionsZhHans": [],
+      "answer": "七年级45棵，八年级75棵",
+      "acceptedAnswers": [
+        "七年级45棵，八年级75棵",
+        "七年级45棵 八年级75棵",
+        "45棵和75棵"
+      ],
+      "explanationZhHans": "设七年级植树x棵，八年级植树y棵。根据总数列方程x+y=120，根据倍数关系列方程y=2x-15。代入解得x=45，y=75。检验：45+75=120，75=2×45-15，符合题意。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-163",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-rational-numbers",
+      "unitTitle": "有理数",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "rational-numbers",
+        "negative-numbers",
+        "number-line",
+        "absolute-value",
+        "有理数",
+        "数轴"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "正负数意义",
+        "数轴表示",
+        "相反数",
+        "绝对值",
+        "有理数比较",
+        "有理数运算"
+      ],
+      "misconceptionTags": [
+        "negative numbers ordered by absolute value only",
+        "opposite number confused with absolute value",
+        "operation sign checked after procedure only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-rational-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-six-up-assessment-rational-numbers-unit",
+        "hjb-primary-p6-six-up-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在数轴上，点A表示-3，点B在点A的右边，且到点A的距离为5个单位长度。点C与点B关于原点对称。则点C表示的数是（ ）。",
+      "optionsZhHans": [
+        "-2",
+        "2",
+        "-8",
+        "8"
+      ],
+      "answer": "-2",
+      "acceptedAnswers": [
+        "-2"
+      ],
+      "explanationZhHans": "点A为-3，点B在A右边5个单位，故B表示-3+5=2。点C与B关于原点对称，则C表示-2。注意不要混淆相反数和距离。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-164",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-rational-numbers",
+      "unitTitle": "有理数",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "rational-numbers",
+        "negative-numbers",
+        "number-line",
+        "absolute-value",
+        "有理数",
+        "数轴"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "正负数意义",
+        "数轴表示",
+        "相反数",
+        "绝对值",
+        "有理数比较",
+        "有理数运算"
+      ],
+      "misconceptionTags": [
+        "negative numbers ordered by absolute value only",
+        "opposite number confused with absolute value",
+        "operation sign checked after procedure only"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-rational-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-six-up-assessment-rational-numbers-unit",
+        "hjb-primary-p6-six-up-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某日气温从零上5℃下降到零下3℃，气温下降了______℃。",
+      "optionsZhHans": [],
+      "answer": "8",
+      "acceptedAnswers": [
+        "8",
+        "8℃"
+      ],
+      "explanationZhHans": "零上5℃记作+5，零下3℃记作-3。下降的度数为5-(-3)=8℃。注意温差计算用大数减小数，符号表示方向。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-165",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-rational-numbers",
+      "unitTitle": "有理数",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "rational-numbers",
+        "negative-numbers",
+        "number-line",
+        "absolute-value",
+        "有理数",
+        "数轴"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "正负数意义",
+        "数轴表示",
+        "相反数",
+        "绝对值",
+        "有理数比较",
+        "有理数运算"
+      ],
+      "misconceptionTags": [
+        "negative numbers ordered by absolute value only",
+        "opposite number confused with absolute value",
+        "operation sign checked after procedure only"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-rational-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-six-up-assessment-rational-numbers-unit",
+        "hjb-primary-p6-six-up-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "比较大小：-2.5______-3（填“>”“<”或“=”），并说明理由。",
+      "optionsZhHans": [],
+      "answer": ">",
+      "acceptedAnswers": [
+        ">"
+      ],
+      "explanationZhHans": "在数轴上，-2.5在-3的右边，所以-2.5大于-3。两个负数比较，绝对值大的反而小，|-2.5|=2.5，|-3|=3，2.5<3，故-2.5>-3。"
+    }
+  ]
+}

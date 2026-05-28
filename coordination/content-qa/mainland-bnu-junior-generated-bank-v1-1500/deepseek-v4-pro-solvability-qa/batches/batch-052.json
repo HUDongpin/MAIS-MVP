@@ -1,0 +1,173 @@
+{
+  "batchNumber": 52,
+  "startedAt": "2026-05-27T17:37:15.021Z",
+  "completedAt": "2026-05-27T17:37:34.650Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s2-113",
+    "bnu-junior-ds-v1-s2-114",
+    "bnu-junior-ds-v1-s2-115",
+    "bnu-junior-ds-v1-s2-116",
+    "bnu-junior-ds-v1-s2-117",
+    "bnu-junior-ds-v1-s2-118",
+    "bnu-junior-ds-v1-s2-119",
+    "bnu-junior-ds-v1-s2-120",
+    "bnu-junior-ds-v1-s2-121",
+    "bnu-junior-ds-v1-s2-122",
+    "bnu-junior-ds-v1-s2-123",
+    "bnu-junior-ds-v1-s2-124"
+  ],
+  "usage": {
+    "prompt_tokens": 8194,
+    "completion_tokens": 1351,
+    "total_tokens": 9545,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 7682
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s2-113",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，关于y轴对称的坐标变换规则明确，答案(-2,-1)和第三象限正确，解释合理，acceptedAnswers覆盖多种格式。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-114",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "已知两点坐标和面积可求C点坐标，计算正确，答案(0,3)或(0,-3)完整，解释清晰，acceptedAnswers覆盖多种写法。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-115",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移规则明确，计算得Q(-3,5)，在第二象限，选项唯一且正确，答案匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-116",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "旋转规则明确，A(4,0)顺时针90°得(0,-4)，B(0,-3)得(-3,0)，答案正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-117",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "第二象限横负纵正，距离条件充分，坐标(-5,2)正确，解释清晰。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-118",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分段函数建模正确，选项C符合题意，其他选项错误，答案唯一且匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-119",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "待定系数法求解正确，表达式y=3x-1无误，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-120",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "一次函数增减性由斜率决定，2m-6<0得m<3，答案正确，解释清晰。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-121",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "与118题类似，选项C正确，其他选项错误，答案唯一且匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-122",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分段函数建模正确，计算无误，答案完整，解释合理，acceptedAnswers覆盖多种格式。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-123",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "函数关系式推导正确，y=1.5x+3.5，解释清晰。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-124",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "起步价8元含3公里，超过部分每公里2元，得y=2x+2，选项B正确，其他选项错误，答案唯一且匹配。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部12道题均条件充分、可解，答案与题目匹配，解释正确，无数学错误或歧义，符合北师大版初中数学要求。"
+    }
+  }
+}

@@ -1,0 +1,143 @@
+{
+  "batchNumber": 32,
+  "startedAt": "2026-05-27T13:49:08.717Z",
+  "completedAt": "2026-05-27T13:49:29.338Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-249",
+    "bnu-high-ds-v1-s4-250",
+    "bnu-high-ds-v1-s4-251",
+    "bnu-high-ds-v1-s4-252",
+    "bnu-high-ds-v1-s4-253",
+    "bnu-high-ds-v1-s4-254",
+    "bnu-high-ds-v1-s4-255",
+    "bnu-high-ds-v1-s4-256"
+  ],
+  "usage": {
+    "prompt_tokens": 10786,
+    "completion_tokens": 1294,
+    "total_tokens": 12080,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10274
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-249",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "两阶段抽样（或整群抽样后再简单随机抽样）",
+        "correctedAnswer": "两阶段抽样",
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_contradiction",
+          "ambiguous_mc"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目描述先抽班再在班内抽学生，属于两阶段抽样，不是整群抽样（整群抽样应对抽中群的所有个体调查）。答案“整群抽样”错误，解析也承认是两阶段抽样，自相矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-250",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0.3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "互斥事件加法公式直接计算，答案0.3正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-251",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "样本空间大小15，颜色相同概率4/15",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "组合计算正确，答案与解析一致，可解。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-252",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "估计白球有8个；前提是每次摸球等可能且试验次数足够多时频率稳定于概率。",
+        "correctedAnswer": "估计白球有8个；前提是每次摸球等可能且试验次数足够多时频率稳定于概率。",
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "解析中计算得x≈7.2，四舍五入为7，但又说红球12个故白球应为8个，逻辑混乱。正确答案应为8个，但解析过程错误，且答案与解析不一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-253",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "C. 分段常数函数模型",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "票价阶梯式变化，分段常数函数模型正确，选项唯一，解析合理。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-254",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "a=1.0，b≈1.5，预测t=5时细菌数量约为7.6百个",
+        "correctedAnswer": "a=1.0，b≈1.5，预测t=5时细菌数量约为7.6百个",
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "1.5^5=7.59375，保留一位小数应为7.6，答案给出7.7错误。解析中先得7.6又改7.7，自相矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-255",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "a=100，k≈0.22，预测2024年底资产约为374万元",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "指数模型参数计算正确，预测值374万元合理，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-256",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "C. y=8+1.5(x-2)+ceil(t/5)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "起步价含2公里，等待费向上取整，模型C正确，选项唯一，解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 5,
+      "warn": 0,
+      "fail": 3,
+      "notes": "8题中5题通过，3题不通过：249题抽样方法错误，252题解析计算矛盾，254题预测值四舍五入错误。"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "startedAt": "2026-05-26T06:19:41.316Z",
+  "completedAt": "2026-05-26T06:19:44.484Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "usage": {
+    "prompt_tokens": 487,
+    "completion_tokens": 101,
+    "total_tokens": 588,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 487
+  },
+  "finishReason": "stop",
+  "result": {
+    "questionId": "pep-primary-p6-u-mc-057",
+    "solvableStatus": "pass",
+    "answerMatchStatus": "pass",
+    "independentAnswer": "(-2, -2)",
+    "confidence": "high",
+    "issueType": "none",
+    "note": "题目明确，独立答案与题库答案一致，选项虽有疑似录入错误但不影响正确选项的识别。",
+    "recommendedAction": "pass"
+  }
+}

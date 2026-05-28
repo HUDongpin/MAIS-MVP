@@ -1,0 +1,51 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-091",
+  "startedAt": "2026-05-28T01:39:11.344Z",
+  "completedAt": "2026-05-28T01:39:18.361Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-091"
+  ],
+  "usage": {
+    "prompt_tokens": 2896,
+    "completion_tokens": 348,
+    "total_tokens": 3244,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2512
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-091",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "independentAnswer": "1",
+        "correctedAnswer": "1",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "ambiguous_mc",
+          "bad_options",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目递推式 a_{n+1}=2a_n+3n-1，设 b_n=a_n+pn+q 为公比2的等比数列，解得 p=3, q=-2，p+q=1。但选项为0,1,2,3，1在选项中，而存储答案2错误，解析中计算混乱且最终修改了题目条件，导致选项无正确值。题目本身可解且答案唯一为1，但存储答案与解析均错误，且解析存在矛盾，判定为严重错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目可解且正确答案为1，但存储答案2错误，解析计算有误且自相矛盾，选项包含正确值1，但整体质量严重不达标。"
+    }
+  }
+}

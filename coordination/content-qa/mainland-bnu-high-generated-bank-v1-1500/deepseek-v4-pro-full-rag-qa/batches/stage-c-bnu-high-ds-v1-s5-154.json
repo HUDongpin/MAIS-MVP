@@ -1,0 +1,52 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-154",
+  "startedAt": "2026-05-28T02:53:35.487Z",
+  "completedAt": "2026-05-28T02:53:41.244Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-154"
+  ],
+  "usage": {
+    "prompt_tokens": 3102,
+    "completion_tokens": 272,
+    "total_tokens": 3374,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2718
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-154",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "independentAnswer": "5√3/9",
+        "correctedAnswer": "5√3/9",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "ambiguous_mc",
+          "bad_options",
+          "explanation_contradiction",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目给定数据计算得直线与平面所成角正弦值为5√3/9，与所有选项均不匹配，且解析为凑选项篡改方向向量，导致答案错误、选项无效、题目不可解。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目数据与选项矛盾，无法选出正确答案，判定为不可解。"
+    }
+  }
+}

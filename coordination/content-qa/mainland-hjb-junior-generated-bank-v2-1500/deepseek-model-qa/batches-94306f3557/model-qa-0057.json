@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0057",
+  "ids": [
+    "hjb-junior-ds-v2-s1-449",
+    "hjb-junior-ds-v2-s1-450",
+    "hjb-junior-ds-v2-s1-451",
+    "hjb-junior-ds-v2-s1-452",
+    "hjb-junior-ds-v2-s1-453",
+    "hjb-junior-ds-v2-s1-454",
+    "hjb-junior-ds-v2-s1-455",
+    "hjb-junior-ds-v2-s1-456"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-449",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "5",
+      "answerCheckZhHans": "标准答案为5，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-450",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题干要求选出错误的说法。由AB=AC，D为BC中点，根据等腰三角形三线合一，AD既是中线也是高和角平分线，因此AD⊥BC正确。选项A“AD⊥BC”是正确的，不是错误的。四个选项均正确，没有错误选项。标准答案选A，但A正确，故答案错误。",
+      "independentAnswerZhHans": "无错误选项（所有选项均正确）",
+      "answerCheckZhHans": "标准答案为“AD⊥BC”，但该说法正确，与题干要求不符。",
+      "recommendedActionZhHans": "修改题干或选项，确保只有一个错误选项。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-451",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "25°",
+      "answerCheckZhHans": "标准答案为25°，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-452",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "55°",
+      "answerCheckZhHans": "标准答案为55°，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-453",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "90°",
+      "answerCheckZhHans": "标准答案为90，acceptedAnswers包含90、90°、90度，覆盖独立解题结果。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-454",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "70°",
+      "answerCheckZhHans": "标准答案为70°，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-455",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "90°",
+      "answerCheckZhHans": "标准答案为90，acceptedAnswers包含90、90°、90度，覆盖独立解题结果。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-456",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "90°",
+      "answerCheckZhHans": "标准答案为90°，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

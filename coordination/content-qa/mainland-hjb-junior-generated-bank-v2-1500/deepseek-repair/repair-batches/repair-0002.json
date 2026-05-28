@@ -1,0 +1,339 @@
+{
+  "batchId": "repair-0002",
+  "generatedAt": "2026-05-25T01:38:56.149Z",
+  "targetIds": [
+    "hjb-junior-ds-v2-s1-038",
+    "hjb-junior-ds-v2-s1-045",
+    "hjb-junior-ds-v2-s1-057",
+    "hjb-junior-ds-v2-s1-058",
+    "hjb-junior-ds-v2-s1-063"
+  ],
+  "questions": [
+    {
+      "id": "hjb-junior-ds-v2-s1-038",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "hjb-junior-s1-upper-polynomial-add-subtract",
+      "unitTitle": "整式的加减",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "algebraic-expressions",
+        "polynomials",
+        "like-terms",
+        "polynomial-addition-subtraction",
+        "整式",
+        "同类项"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "数学表达"
+      ],
+      "skillTags": [
+        "代数式意义",
+        "整式识别",
+        "合并同类项",
+        "去括号",
+        "整式加减"
+      ],
+      "misconceptionTags": [
+        "like terms judged by coefficient only",
+        "minus sign lost before brackets",
+        "variable part changed during simplification"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-junior-s1-upper-polynomial-add-subtract"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-linear-inequalities",
+        "hjb-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Repaired offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "化简：3x - [2y - (4x - 3y) + 5x] = ______。",
+      "optionsZhHans": [],
+      "answer": "2x - 5y",
+      "acceptedAnswers": [
+        "2x - 5y",
+        "2x-5y"
+      ],
+      "explanationZhHans": "去括号：原式 = 3x - [2y - 4x + 3y + 5x] = 3x - [2y + 3y - 4x + 5x] = 3x - [5y + x] = 3x - 5y - x = 2x - 5y。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-045",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "hjb-junior-s1-upper-polynomial-add-subtract",
+      "unitTitle": "整式的加减",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "algebraic-expressions",
+        "polynomials",
+        "like-terms",
+        "polynomial-addition-subtraction",
+        "整式",
+        "同类项"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "数学表达"
+      ],
+      "skillTags": [
+        "代数式意义",
+        "整式识别",
+        "合并同类项",
+        "去括号",
+        "整式加减"
+      ],
+      "misconceptionTags": [
+        "like terms judged by coefficient only",
+        "minus sign lost before brackets",
+        "variable part changed during simplification"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s1-upper-polynomial-add-subtract"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-linear-inequalities",
+        "hjb-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Repaired offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "先化简，再求值：2(3x²y - xy) - 3(x²y - 2xy)，其中 x = -2，y = 1。",
+      "optionsZhHans": [],
+      "answer": "4",
+      "acceptedAnswers": [
+        "4"
+      ],
+      "explanationZhHans": "原式 = 6x²y - 2xy - 3x²y + 6xy = 3x²y + 4xy。代入 x = -2, y = 1：3×4×1 + 4×(-2)×1 = 12 - 8 = 4。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-057",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "hjb-junior-s1-upper-polynomial-multiply-divide",
+      "unitTitle": "整式的乘除",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "exponent-laws",
+        "monomial-multiplication",
+        "polynomial-multiplication",
+        "multiplication-formulas",
+        "polynomial-division",
+        "幂的运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "符号意识",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "同底数幂",
+        "幂的乘方",
+        "积的乘方",
+        "整式乘法",
+        "乘法公式",
+        "整式除法"
+      ],
+      "misconceptionTags": [
+        "exponents added in power of a power",
+        "formula pattern overmatched",
+        "division factor omitted"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s1-upper-polynomial-multiply-divide"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit",
+        "hjb-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-linear-inequalities",
+        "hjb-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Repaired offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算：(2a²b)³ · (−3ab²)²，并将结果化为最简形式。",
+      "optionsZhHans": [],
+      "answer": "72a⁸b⁷",
+      "acceptedAnswers": [
+        "72a⁸b⁷",
+        "72a^8b^7"
+      ],
+      "explanationZhHans": "(2a²b)³ = 8a⁶b³，(−3ab²)² = 9a²b⁴，相乘得 8×9·a⁶⁺²·b³⁺⁴ = 72a⁸b⁷。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-058",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "hjb-junior-s1-upper-polynomial-multiply-divide",
+      "unitTitle": "整式的乘除",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "exponent-laws",
+        "monomial-multiplication",
+        "polynomial-multiplication",
+        "multiplication-formulas",
+        "polynomial-division",
+        "幂的运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "符号意识",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "同底数幂",
+        "幂的乘方",
+        "积的乘方",
+        "整式乘法",
+        "乘法公式",
+        "整式除法"
+      ],
+      "misconceptionTags": [
+        "exponents added in power of a power",
+        "formula pattern overmatched",
+        "division factor omitted"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s1-upper-polynomial-multiply-divide"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit",
+        "hjb-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-linear-inequalities",
+        "hjb-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Repaired offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算 (−2x³y)² · (3x²y)³ 的结果是（ ）。",
+      "optionsZhHans": [
+        "108x¹²y⁵",
+        "−108x¹²y⁵",
+        "108x¹⁰y⁵",
+        "−108x¹⁰y⁵"
+      ],
+      "answer": "108x¹²y⁵",
+      "acceptedAnswers": [
+        "108x¹²y⁵",
+        "108x^12y^5"
+      ],
+      "explanationZhHans": "(−2x³y)² = 4x⁶y²，(3x²y)³ = 27x⁶y³，乘积为 4×27·x⁶⁺⁶·y²⁺³ = 108x¹²y⁵。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-063",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "hjb-junior-s1-upper-polynomial-multiply-divide",
+      "unitTitle": "整式的乘除",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "exponent-laws",
+        "monomial-multiplication",
+        "polynomial-multiplication",
+        "multiplication-formulas",
+        "polynomial-division",
+        "幂的运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "符号意识",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "同底数幂",
+        "幂的乘方",
+        "积的乘方",
+        "整式乘法",
+        "乘法公式",
+        "整式除法"
+      ],
+      "misconceptionTags": [
+        "exponents added in power of a power",
+        "formula pattern overmatched",
+        "division factor omitted"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s1-upper-polynomial-multiply-divide"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit",
+        "hjb-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-linear-inequalities",
+        "hjb-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Repaired offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知 a + b = 5，ab = 3，求 (a - 2)(b - 2) 的值。",
+      "optionsZhHans": [],
+      "answer": "-3",
+      "acceptedAnswers": [
+        "-3"
+      ],
+      "explanationZhHans": "(a - 2)(b - 2) = ab - 2a - 2b + 4 = ab - 2(a + b) + 4 = 3 - 2×5 + 4 = 3 - 10 + 4 = -3。"
+    }
+  ]
+}

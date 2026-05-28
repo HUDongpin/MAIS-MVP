@@ -1,0 +1,290 @@
+{
+  "batchId": "batch-140",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p3-196",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-area-measurement",
+      "unitTitle": "面积与周长",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "area-measurement",
+        "unit-square",
+        "rectangle-square-area",
+        "perimeter-area-contrast",
+        "面积"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "几何直观"
+      ],
+      "skillTags": [
+        "面积单位",
+        "单位正方形",
+        "长方形面积",
+        "正方形面积",
+        "周长面积辨析"
+      ],
+      "misconceptionTags": [
+        "area and perimeter formulas swapped",
+        "square units omitted",
+        "multiplication used without explaining rows and columns"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-area-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-area-measurement",
+        "hjb-primary-p3-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用边长1厘米的小正方形铺满一个长方形，每行铺6个，铺了4行。这个长方形的面积是____平方厘米。",
+      "optionsZhHans": [],
+      "answer": "24",
+      "acceptedAnswers": [
+        "24"
+      ],
+      "explanationZhHans": "每行6个，4行，小正方形总数是6×4=24个。每个小正方形面积是1平方厘米，所以长方形面积是24平方厘米。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-197",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-area-measurement",
+      "unitTitle": "面积与周长",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "area-measurement",
+        "unit-square",
+        "rectangle-square-area",
+        "perimeter-area-contrast",
+        "面积"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "几何直观"
+      ],
+      "skillTags": [
+        "面积单位",
+        "单位正方形",
+        "长方形面积",
+        "正方形面积",
+        "周长面积辨析"
+      ],
+      "misconceptionTags": [
+        "area and perimeter formulas swapped",
+        "square units omitted",
+        "multiplication used without explaining rows and columns"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-area-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-area-measurement",
+        "hjb-primary-p3-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方形花坛长8米，宽3米。下面说法正确的是（ ）。",
+      "optionsZhHans": [
+        "花坛的周长是24米",
+        "花坛的面积是24平方米",
+        "花坛的面积是22平方米",
+        "花坛的周长是22米"
+      ],
+      "answer": "花坛的面积是24平方米",
+      "acceptedAnswers": [
+        "花坛的面积是24平方米"
+      ],
+      "explanationZhHans": "面积=长×宽=8×3=24平方米。周长=(8+3)×2=22米。选项B正确，其他选项混淆了面积和周长。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-198",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-area-measurement",
+      "unitTitle": "面积与周长",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "area-measurement",
+        "unit-square",
+        "rectangle-square-area",
+        "perimeter-area-contrast",
+        "面积"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "几何直观"
+      ],
+      "skillTags": [
+        "面积单位",
+        "单位正方形",
+        "长方形面积",
+        "正方形面积",
+        "周长面积辨析"
+      ],
+      "misconceptionTags": [
+        "area and perimeter formulas swapped",
+        "square units omitted",
+        "multiplication used without explaining rows and columns"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-area-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-area-measurement",
+        "hjb-primary-p3-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个正方形手帕的边长是15厘米，它的面积是____平方厘米。",
+      "optionsZhHans": [],
+      "answer": "225",
+      "acceptedAnswers": [
+        "225"
+      ],
+      "explanationZhHans": "正方形面积=边长×边长=15×15=225平方厘米。注意单位是平方厘米。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-199",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-area-measurement",
+      "unitTitle": "面积与周长",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "area-measurement",
+        "unit-square",
+        "rectangle-square-area",
+        "perimeter-area-contrast",
+        "面积"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "几何直观"
+      ],
+      "skillTags": [
+        "面积单位",
+        "单位正方形",
+        "长方形面积",
+        "正方形面积",
+        "周长面积辨析"
+      ],
+      "misconceptionTags": [
+        "area and perimeter formulas swapped",
+        "square units omitted",
+        "multiplication used without explaining rows and columns"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-area-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-area-measurement",
+        "hjb-primary-p3-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用12个边长1分米的正方形拼成一个长方形，下面哪种拼法拼成的长方形面积最大？",
+      "optionsZhHans": [
+        "拼成1行，每行12个",
+        "拼成2行，每行6个",
+        "拼成3行，每行4个",
+        "三种拼法面积一样大"
+      ],
+      "answer": "三种拼法面积一样大",
+      "acceptedAnswers": [
+        "三种拼法面积一样大"
+      ],
+      "explanationZhHans": "无论怎么拼，都是用12个相同的单位正方形，总面积都是12平方分米。面积与形状无关，只与单位正方形个数有关。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-200",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-area-measurement",
+      "unitTitle": "面积与周长",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "area-measurement",
+        "unit-square",
+        "rectangle-square-area",
+        "perimeter-area-contrast",
+        "面积"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "几何直观"
+      ],
+      "skillTags": [
+        "面积单位",
+        "单位正方形",
+        "长方形面积",
+        "正方形面积",
+        "周长面积辨析"
+      ],
+      "misconceptionTags": [
+        "area and perimeter formulas swapped",
+        "square units omitted",
+        "multiplication used without explaining rows and columns"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-area-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-area-measurement",
+        "hjb-primary-p3-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方形桌面长90厘米，宽60厘米。要给桌面配一块同样大小的玻璃，玻璃的面积是____平方厘米。",
+      "optionsZhHans": [],
+      "answer": "5400",
+      "acceptedAnswers": [
+        "5400"
+      ],
+      "explanationZhHans": "玻璃面积等于桌面面积，即长×宽=90×60=5400平方厘米。注意计算时先算9×6=54，再补两个零。"
+    }
+  ]
+}

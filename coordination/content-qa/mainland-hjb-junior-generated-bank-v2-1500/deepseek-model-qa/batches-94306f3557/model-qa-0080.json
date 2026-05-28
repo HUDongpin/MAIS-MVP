@@ -1,0 +1,103 @@
+{
+  "batchId": "model-qa-0080",
+  "ids": [
+    "hjb-junior-ds-v2-s2-133",
+    "hjb-junior-ds-v2-s2-134",
+    "hjb-junior-ds-v2-s2-135",
+    "hjb-junior-ds-v2-s2-136",
+    "hjb-junior-ds-v2-s2-137",
+    "hjb-junior-ds-v2-s2-138",
+    "hjb-junior-ds-v2-s2-139",
+    "hjb-junior-ds-v2-s2-140"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-133",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "B",
+      "answerCheckZhHans": "标准答案B正确，解析中判别式计算无误，选项B的Δ=1>0，有两个不等实根，其他选项均不符合。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-134",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3, 16",
+      "answerCheckZhHans": "标准答案正确，配方后得到(x-3)²=16，两空依次为3和16。acceptedAnswers覆盖了常见写法。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-135",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "k ≥ -9/4，最小整数值为 -2",
+      "answerCheckZhHans": "标准答案正确，判别式Δ=4k+9≥0得k≥-9/4，最小整数为-2。acceptedAnswers覆盖了常见写法。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-136",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "C",
+      "answerCheckZhHans": "标准答案C正确，解析中化简A、D后均为一元一次方程，B含分式，只有C符合一元二次方程定义。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-137",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "12",
+      "answerCheckZhHans": "标准答案正确，判别式Δ=(-6)²-4×3×2=36-24=12。acceptedAnswers包含12。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-138",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x₁ = 5，x₂ = -1",
+      "answerCheckZhHans": "标准答案正确，配方法步骤无误，解得x=5或x=-1。acceptedAnswers覆盖了常见写法。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-139",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "B",
+      "answerCheckZhHans": "标准答案B正确，由Δ=0得36-4k=0，k=9。选项互异，唯一正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-140",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3/2",
+      "answerCheckZhHans": "标准答案正确，根据韦达定理，x₁+x₂=-b/a=3/2。acceptedAnswers包含分数、小数和中文表达，覆盖全面。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

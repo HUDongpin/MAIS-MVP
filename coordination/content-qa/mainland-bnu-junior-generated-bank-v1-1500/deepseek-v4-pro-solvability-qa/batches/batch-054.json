@@ -1,0 +1,173 @@
+{
+  "batchNumber": 54,
+  "startedAt": "2026-05-27T17:37:54.305Z",
+  "completedAt": "2026-05-27T17:38:11.300Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s2-137",
+    "bnu-junior-ds-v1-s2-138",
+    "bnu-junior-ds-v1-s2-139",
+    "bnu-junior-ds-v1-s2-140",
+    "bnu-junior-ds-v1-s2-141",
+    "bnu-junior-ds-v1-s2-142",
+    "bnu-junior-ds-v1-s2-143",
+    "bnu-junior-ds-v1-s2-144",
+    "bnu-junior-ds-v1-s2-145",
+    "bnu-junior-ds-v1-s2-146",
+    "bnu-junior-ds-v1-s2-147",
+    "bnu-junior-ds-v1-s2-148"
+  ],
+  "usage": {
+    "prompt_tokens": 5627,
+    "completion_tokens": 1262,
+    "total_tokens": 6889,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 5115
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s2-137",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，可解；答案4正确，与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-138",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移规则明确，答案y=2x+2正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-139",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项唯一正确，k<0，b>0符合象限条件，解释正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-140",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分类讨论完整，答案-6或14正确，解释清晰。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-141",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "实际情境建模合理，函数式y=1.5x+3.5正确，解释推导无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-142",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "待定系数法求解正确，选项k=3，b=1唯一，解释无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-143",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "正比例函数求解正确，答案y=2.5x及y=17.5均正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-144",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "根据一次函数增减性条件，m<0.5正确，解释无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-145",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "点代入验证正确，只有(0,3)满足，选项唯一，解释无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-146",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "弹簧模型正确，函数式y=0.5x+6及长度8厘米均正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-147",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由截距和点坐标求k，k=2正确，解释无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-148",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "待定系数法求解正确，选项k=2，b=1唯一，解释无误。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部12道题均条件充分、可解，答案与解释匹配，无错误或歧义，适合北师大版初中数学使用。"
+    }
+  }
+}

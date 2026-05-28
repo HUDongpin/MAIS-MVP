@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-028",
+  "startedAt": "2026-05-28T00:39:46.119Z",
+  "completedAt": "2026-05-28T00:40:02.760Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-217",
+    "bnu-high-ds-v1-s4-218",
+    "bnu-high-ds-v1-s4-219",
+    "bnu-high-ds-v1-s4-220",
+    "bnu-high-ds-v1-s4-221",
+    "bnu-high-ds-v1-s4-222",
+    "bnu-high-ds-v1-s4-223",
+    "bnu-high-ds-v1-s4-224"
+  ],
+  "usage": {
+    "prompt_tokens": 9732,
+    "completion_tokens": 1011,
+    "total_tokens": 10743,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9348
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-217",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "不互斥也不对立",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "样本空间{1,2,3,4,5}，A={1,3,5}，B={1,2,3}，交集非空，故不互斥；并集非全集，故不对立。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-218",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "样本空间：{(正,正), (正,反), (反,正), (反,反)}；概率：3/4",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "两枚硬币抛掷，等可能基本事件4个，至少一枚正面有3个，概率3/4。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-219",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "15/28",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "总取法C(8,2)=28，颜色不同取法5×3=15，概率15/28。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-220",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "0.5",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "不低于9环即命中9环或10环，概率0.3+0.2=0.5。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-221",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "样本空间：{(1,1),(1,2),...,(6,6)}共36个有序数对；概率：1/6",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "两次点数之和为7有(1,6),(2,5),(3,4),(4,3),(5,2),(6,1)共6种，概率6/36=1/6。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-222",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "3/5",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "不放回依次取两球，第二次取到红球概率等于第一次取到红球概率，为3/5。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-223",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "D",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "A、B、C均误解概率含义，D正确描述频率稳定性。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-224",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "样本空间：{(正,正), (正,反), (反,正), (反,反)}；概率：3/4",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "与218题相同，两枚硬币抛掷，至少一枚正面概率3/4。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，无数学错误、歧义或缺失条件，符合北师大版高中概率基础要求。"
+    }
+  }
+}

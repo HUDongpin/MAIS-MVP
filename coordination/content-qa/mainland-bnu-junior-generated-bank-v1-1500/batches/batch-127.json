@@ -1,0 +1,624 @@
+{
+  "batchId": "batch-127",
+  "questions": [
+    {
+      "id": "bnu-junior-ds-v1-s3-261",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-inverse-proportion",
+      "unitTitle": "反比例函数",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "inverse-proportional-functions",
+        "function-graphs",
+        "function-properties",
+        "modeling",
+        "反比例函数",
+        "双曲线"
+      ],
+      "competencyTags": [
+        "函数观念",
+        "模型意识",
+        "几何直观"
+      ],
+      "skillTags": [
+        "函数表达式",
+        "图象性质",
+        "象限判断",
+        "参数意义",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "inverse proportion confused with linear decrease",
+        "parameter sign ignored",
+        "domain restriction omitted in context"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-inverse-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-inverse-proportion-unit",
+        "bnu-junior-s3-upper-assessment-midterm-1-to-6-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某工厂生产一批零件，原计划每天生产 120 个，需要 15 天完成。实际生产中，为了提前完成任务，每天多生产 30 个。设实际每天生产 x 个，实际生产天数为 y 天。写出 y 关于 x 的反比例函数表达式，并求实际生产天数。",
+      "optionsZhHans": [],
+      "answer": "y = 1800/x，实际生产天数为 12 天",
+      "acceptedAnswers": [
+        "y = 1800/x，实际生产天数为 12 天",
+        "y=1800/x，实际生产天数为12天",
+        "y=1800/x,实际生产天数为12天"
+      ],
+      "explanationZhHans": "零件总数 = 120×15 = 1800 个。实际每天生产 x 个，则 y = 1800/x。实际每天生产 120+30=150 个，代入得 y = 1800/150 = 12 天。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-262",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-inverse-proportion",
+      "unitTitle": "反比例函数",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "inverse-proportional-functions",
+        "function-graphs",
+        "function-properties",
+        "modeling",
+        "反比例函数",
+        "双曲线"
+      ],
+      "competencyTags": [
+        "函数观念",
+        "模型意识",
+        "几何直观"
+      ],
+      "skillTags": [
+        "函数表达式",
+        "图象性质",
+        "象限判断",
+        "参数意义",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "inverse proportion confused with linear decrease",
+        "parameter sign ignored",
+        "domain restriction omitted in context"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-inverse-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-inverse-proportion-unit",
+        "bnu-junior-s3-upper-assessment-midterm-1-to-6-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知反比例函数 y = k/x 的图象经过点 A(2, -3)。下列说法正确的是：",
+      "optionsZhHans": [
+        "该函数的图象位于第一、三象限",
+        "当 x > 0 时，y 随 x 的增大而增大",
+        "k 的值为 -6",
+        "若点 B(-1, 6) 在该函数图象上，则点 B 满足关系"
+      ],
+      "answer": "k 的值为 -6",
+      "acceptedAnswers": [
+        "k 的值为 -6"
+      ],
+      "explanationZhHans": "将点 A(2,-3) 代入 y=k/x 得 -3=k/2，解得 k=-6。k<0，图象在二、四象限，A 错。当 x>0 时，y 随 x 增大而增大，B 正确但非本题直接结论；C 正确。D 项：(-1,6) 代入得 6=k/(-1)，k=-6，成立，但表述为“满足关系”不明确，故最佳为 C。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-263",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-inverse-proportion",
+      "unitTitle": "反比例函数",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "inverse-proportional-functions",
+        "function-graphs",
+        "function-properties",
+        "modeling",
+        "反比例函数",
+        "双曲线"
+      ],
+      "competencyTags": [
+        "函数观念",
+        "模型意识",
+        "几何直观"
+      ],
+      "skillTags": [
+        "函数表达式",
+        "图象性质",
+        "象限判断",
+        "参数意义",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "inverse proportion confused with linear decrease",
+        "parameter sign ignored",
+        "domain restriction omitted in context"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-inverse-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-inverse-proportion-unit",
+        "bnu-junior-s3-upper-assessment-midterm-1-to-6-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某工厂生产一种产品，当生产速度为每小时x件时，完成一批订单所需的时间为y小时。已知生产速度与所需时间满足反比例关系，且当生产速度为每小时20件时，所需时间为15小时。设反比例函数的表达式为y = k/x。\n(1) 求k的值；\n(2) 若工厂想在10小时内完成这批订单，生产速度至少应达到多少？",
+      "optionsZhHans": [],
+      "answer": "(1) k = 300；(2) 30件/小时",
+      "acceptedAnswers": [
+        "(1) k = 300；(2) 30件/小时",
+        "(1) k=300；(2) 30件/小时",
+        "(1)300；(2)30件/小时",
+        "(1)300；(2)30",
+        "k=300, 30件/小时"
+      ],
+      "explanationZhHans": "(1) 将x=20, y=15代入y=k/x得15=k/20，所以k=300。(2) 当y=10时，10=300/x，解得x=30。由于反比例函数在第一象限y随x增大而减小，要y≤10，需x≥30，故速度至少30件/小时。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-264",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-inverse-proportion",
+      "unitTitle": "反比例函数",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "inverse-proportional-functions",
+        "function-graphs",
+        "function-properties",
+        "modeling",
+        "反比例函数",
+        "双曲线"
+      ],
+      "competencyTags": [
+        "函数观念",
+        "模型意识",
+        "几何直观"
+      ],
+      "skillTags": [
+        "函数表达式",
+        "图象性质",
+        "象限判断",
+        "参数意义",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "inverse proportion confused with linear decrease",
+        "parameter sign ignored",
+        "domain restriction omitted in context"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-inverse-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-inverse-proportion-unit",
+        "bnu-junior-s3-upper-assessment-midterm-1-to-6-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知反比例函数 y = k/x 的图象经过点 (2, -3)。求 k 的值。",
+      "optionsZhHans": [],
+      "answer": "-6",
+      "acceptedAnswers": [
+        "-6"
+      ],
+      "explanationZhHans": "将点 (2, -3) 代入 y = k/x，得 -3 = k/2，解得 k = -6。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-265",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-inverse-proportion",
+      "unitTitle": "反比例函数",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "inverse-proportional-functions",
+        "function-graphs",
+        "function-properties",
+        "modeling",
+        "反比例函数",
+        "双曲线"
+      ],
+      "competencyTags": [
+        "函数观念",
+        "模型意识",
+        "几何直观"
+      ],
+      "skillTags": [
+        "函数表达式",
+        "图象性质",
+        "象限判断",
+        "参数意义",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "inverse proportion confused with linear decrease",
+        "parameter sign ignored",
+        "domain restriction omitted in context"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-inverse-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-inverse-proportion-unit",
+        "bnu-junior-s3-upper-assessment-midterm-1-to-6-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某工厂生产一批零件，每天生产的零件数量 y（个）与完成生产所需的天数 x（天）满足反比例关系。已知当每天生产 60 个时，需要 20 天完成。由于订单紧急，工厂决定每天多生产 15 个。问实际完成生产所需的天数比原计划少多少天？",
+      "optionsZhHans": [
+        "4天",
+        "5天",
+        "6天",
+        "8天"
+      ],
+      "answer": "4天",
+      "acceptedAnswers": [
+        "4天"
+      ],
+      "explanationZhHans": "由反比例关系设 y = k/x，代入 (20,60) 得 k=1200。每天多生产15个，即每天生产75个，此时所需天数为 1200/75=16 天。原计划20天，所以少了4天。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-266",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-inverse-proportion",
+      "unitTitle": "反比例函数",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "inverse-proportional-functions",
+        "function-graphs",
+        "function-properties",
+        "modeling",
+        "反比例函数",
+        "双曲线"
+      ],
+      "competencyTags": [
+        "函数观念",
+        "模型意识",
+        "几何直观"
+      ],
+      "skillTags": [
+        "函数表达式",
+        "图象性质",
+        "象限判断",
+        "参数意义",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "inverse proportion confused with linear decrease",
+        "parameter sign ignored",
+        "domain restriction omitted in context"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-inverse-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-inverse-proportion-unit",
+        "bnu-junior-s3-upper-assessment-midterm-1-to-6-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某工厂要生产一批零件，每天生产的零件数量 y（个）与生产天数 x（天）满足反比例关系。已知生产这批零件，若每天生产 60 个，则需要 20 天完成。求 y 关于 x 的函数表达式，并写出自变量 x 的取值范围。",
+      "optionsZhHans": [],
+      "answer": "y = 1200/x，x > 0",
+      "acceptedAnswers": [
+        "y = 1200/x，x > 0",
+        "y=1200/x，x>0",
+        "y = 1200/x, x > 0",
+        "y=1200/x, x>0"
+      ],
+      "explanationZhHans": "由反比例关系设 y = k/x。将 x=20, y=60 代入得 60 = k/20，解得 k=1200。所以函数表达式为 y = 1200/x。由于天数为正数，自变量 x 的取值范围是 x > 0。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-267",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-inverse-proportion",
+      "unitTitle": "反比例函数",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "inverse-proportional-functions",
+        "function-graphs",
+        "function-properties",
+        "modeling",
+        "反比例函数",
+        "双曲线"
+      ],
+      "competencyTags": [
+        "函数观念",
+        "模型意识",
+        "几何直观"
+      ],
+      "skillTags": [
+        "函数表达式",
+        "图象性质",
+        "象限判断",
+        "参数意义",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "inverse proportion confused with linear decrease",
+        "parameter sign ignored",
+        "domain restriction omitted in context"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-inverse-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-inverse-proportion-unit",
+        "bnu-junior-s3-upper-assessment-midterm-1-to-6-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某工厂生产一批零件，原计划每天生产 60 个，需要 20 天完成。实际生产中，工厂调整了每天的生产量，设实际每天生产 x 个，实际生产天数为 y 天。已知生产总量不变，且 x 与 y 满足反比例关系。若要求实际生产天数不超过 25 天，且每天生产量至少为 40 个，求 x 的取值范围。",
+      "optionsZhHans": [],
+      "answer": "48 ≤ x ≤ 60",
+      "acceptedAnswers": [
+        "48 ≤ x ≤ 60",
+        "48≤x≤60",
+        "x 的取值范围是 48 ≤ x ≤ 60",
+        "48到60之间",
+        "大于等于48小于等于60"
+      ],
+      "explanationZhHans": "生产总量为 60×20=1200 个。由反比例关系得 y=1200/x。由 y≤25 得 1200/x≤25，解得 x≥48。又 x≥40，取交集得 48≤x≤60（因原计划每天 60 个，实际不超过原计划）。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-268",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-inverse-proportion",
+      "unitTitle": "反比例函数",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "inverse-proportional-functions",
+        "function-graphs",
+        "function-properties",
+        "modeling",
+        "反比例函数",
+        "双曲线"
+      ],
+      "competencyTags": [
+        "函数观念",
+        "模型意识",
+        "几何直观"
+      ],
+      "skillTags": [
+        "函数表达式",
+        "图象性质",
+        "象限判断",
+        "参数意义",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "inverse proportion confused with linear decrease",
+        "parameter sign ignored",
+        "domain restriction omitted in context"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-inverse-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-inverse-proportion-unit",
+        "bnu-junior-s3-upper-assessment-midterm-1-to-6-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某工厂生产一批零件，每天生产的零件数量 y（个）与完成生产所需的天数 x（天）满足反比例函数关系。已知当每天生产 60 个时，需要 20 天完成。若工厂要在 15 天内完成生产，则每天至少需要生产多少个零件？",
+      "optionsZhHans": [
+        "80个",
+        "90个",
+        "100个",
+        "120个"
+      ],
+      "answer": "80个",
+      "acceptedAnswers": [
+        "80个"
+      ],
+      "explanationZhHans": "由反比例关系设 y = k/x，代入 x=20, y=60 得 k=1200。当 x=15 时，y=1200/15=80。所以每天至少生产80个。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-269",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-inverse-proportion",
+      "unitTitle": "反比例函数",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "inverse-proportional-functions",
+        "function-graphs",
+        "function-properties",
+        "modeling",
+        "反比例函数",
+        "双曲线"
+      ],
+      "competencyTags": [
+        "函数观念",
+        "模型意识",
+        "几何直观"
+      ],
+      "skillTags": [
+        "函数表达式",
+        "图象性质",
+        "象限判断",
+        "参数意义",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "inverse proportion confused with linear decrease",
+        "parameter sign ignored",
+        "domain restriction omitted in context"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-inverse-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-inverse-proportion-unit",
+        "bnu-junior-s3-upper-assessment-midterm-1-to-6-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某工厂生产一批零件，计划每天生产80个，需要x天完成。实际每天多生产20个，结果提前3天完成任务。求原计划完成任务的天数x。",
+      "optionsZhHans": [],
+      "answer": "15",
+      "acceptedAnswers": [
+        "15",
+        "x=15"
+      ],
+      "explanationZhHans": "工作总量不变，计划总量为80x，实际每天生产100个，用时(x-3)天。由总量相等得80x=100(x-3)，解得x=15。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-270",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-inverse-proportion",
+      "unitTitle": "反比例函数",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "inverse-proportional-functions",
+        "function-graphs",
+        "function-properties",
+        "modeling",
+        "反比例函数",
+        "双曲线"
+      ],
+      "competencyTags": [
+        "函数观念",
+        "模型意识",
+        "几何直观"
+      ],
+      "skillTags": [
+        "函数表达式",
+        "图象性质",
+        "象限判断",
+        "参数意义",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "inverse proportion confused with linear decrease",
+        "parameter sign ignored",
+        "domain restriction omitted in context"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-inverse-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-inverse-proportion-unit",
+        "bnu-junior-s3-upper-assessment-midterm-1-to-6-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某工厂生产一批零件，每天生产的零件数量 y（个）与完成生产所需的天数 x（天）满足反比例关系。已知当每天生产 60 个时，需要 15 天完成。若工厂要在 10 天内完成生产，则每天至少需要生产多少个零件？",
+      "optionsZhHans": [],
+      "answer": "90",
+      "acceptedAnswers": [
+        "90"
+      ],
+      "explanationZhHans": "由反比例关系设 y = k/x，代入 x=15, y=60 得 k=900。当 x=10 时，y=900/10=90。"
+    }
+  ]
+}

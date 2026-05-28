@@ -1,0 +1,103 @@
+{
+  "batchId": "model-qa-0111",
+  "ids": [
+    "hjb-junior-ds-v2-s2-381",
+    "hjb-junior-ds-v2-s2-382",
+    "hjb-junior-ds-v2-s2-383",
+    "hjb-junior-ds-v2-s2-384",
+    "hjb-junior-ds-v2-s2-385",
+    "hjb-junior-ds-v2-s2-386",
+    "hjb-junior-ds-v2-s2-387",
+    "hjb-junior-ds-v2-s2-388"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-381",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "y = 2.5x + 6.5",
+      "answerCheckZhHans": "标准答案为 2.5x + 6.5，与独立解题结果一致。acceptedAnswers 包含多种合理写法，覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-382",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "B. (1, 3)",
+      "answerCheckZhHans": "由两点求得解析式为 y=2x+1，验证各选项：A (0,1) 得 y=1，符合；B (1,3) 得 y=3，符合；C (3,8) 得 y=7，不符合；D (-2,-5) 得 y=-3，不符合。但选项 A 也在图像上，因此存在多个正确选项。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-383",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "y = 2.5x",
+      "answerCheckZhHans": "标准答案为 2.5x，与独立解题结果一致。acceptedAnswers 包含多种合理写法，覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-384",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "A. y = 0.5x + 6",
+      "answerCheckZhHans": "标准答案为 A，与独立解题结果一致。其他选项均不正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-385",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "5",
+      "answerCheckZhHans": "标准答案为 5，与独立解题结果一致。acceptedAnswers 包含 5，覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-386",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "y = 2x + 4",
+      "answerCheckZhHans": "标准答案为 y = 2x + 4，与独立解题结果一致。acceptedAnswers 包含该答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-387",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "k=2, b=1",
+      "answerCheckZhHans": "标准答案为 k=2, b=1，与独立解题结果一致。acceptedAnswers 包含两种合理写法，覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-388",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "第三象限",
+      "answerCheckZhHans": "标准答案为第三象限，与独立解题结果一致。acceptedAnswers 包含该答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

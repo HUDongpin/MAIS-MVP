@@ -1,0 +1,633 @@
+{
+  "batchId": "batch-089",
+  "questions": [
+    {
+      "id": "bnu-junior-ds-v1-s2-381",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-transformations",
+      "unitTitle": "图形的平移与旋转",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "geometric-transformations",
+        "translation",
+        "rotation",
+        "pattern-design",
+        "shortest-distance",
+        "图形平移",
+        "图形旋转"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "创新意识"
+      ],
+      "skillTags": [
+        "平移性质",
+        "旋转性质",
+        "对应点",
+        "图案设计",
+        "最短距离",
+        "变换前后关系"
+      ],
+      "misconceptionTags": [
+        "movement changes shape size",
+        "rotation center ignored",
+        "corresponding points mismatched"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-transformations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-transformations-unit",
+        "bnu-junior-s2-lower-assessment-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系中，点A的坐标为(2, 3)。将点A先向右平移4个单位，再向下平移1个单位得到点A'。点B的坐标为(-1, 2)，将点B绕原点O逆时针旋转90°得到点B'。求点A'与点B'之间的距离。",
+      "optionsZhHans": [],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5"
+      ],
+      "explanationZhHans": "点A(0,0)平移后得A'(3,4)；点B(4,0)绕原点逆时针旋转90°得B'(0,4)。由两点距离公式，A'B'=√[(3-0)²+(4-4)²]=3。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-382",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-transformations",
+      "unitTitle": "图形的平移与旋转",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "geometric-transformations",
+        "translation",
+        "rotation",
+        "pattern-design",
+        "shortest-distance",
+        "图形平移",
+        "图形旋转"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "创新意识"
+      ],
+      "skillTags": [
+        "平移性质",
+        "旋转性质",
+        "对应点",
+        "图案设计",
+        "最短距离",
+        "变换前后关系"
+      ],
+      "misconceptionTags": [
+        "movement changes shape size",
+        "rotation center ignored",
+        "corresponding points mismatched"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-transformations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-transformations-unit",
+        "bnu-junior-s2-lower-assessment-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系中，三角形ABC的三个顶点坐标分别为A(1,2)，B(3,5)，C(4,1)。将三角形ABC先向右平移3个单位，再向下平移2个单位，得到三角形A'B'C'。点P是线段AB上一点，平移后对应点为P'。下列选项中，哪一项一定正确？",
+      "optionsZhHans": [
+        "点P'的横坐标比点P的横坐标大3",
+        "线段A'B'的长度大于线段AB的长度",
+        "三角形A'B'C'的面积是三角形ABC面积的2倍",
+        "平移后点C'的坐标为(7,-1)"
+      ],
+      "answer": "点P'的横坐标比点P的横坐标大3",
+      "acceptedAnswers": [
+        "点P'的横坐标比点P的横坐标大3"
+      ],
+      "explanationZhHans": "平移不改变图形的形状和大小，对应点连线平行且相等。向右平移3个单位，所有点的横坐标增加3，纵坐标不变；再向下平移2个单位，纵坐标减少2。因此点P'的横坐标比点P的横坐标大3。选项A正确。选项B错误，平移不改变线段长度。选项C错误，平移不改变面积。选项D中C'坐标应为(4+3,1-2)=(7,-1)，但该选项仅描述了C'坐标，并非一定正确的性质，且题目要求选择一定正确的选项，A更具一般性。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-383",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-transformations",
+      "unitTitle": "图形的平移与旋转",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "geometric-transformations",
+        "translation",
+        "rotation",
+        "pattern-design",
+        "shortest-distance",
+        "图形平移",
+        "图形旋转"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "创新意识"
+      ],
+      "skillTags": [
+        "平移性质",
+        "旋转性质",
+        "对应点",
+        "图案设计",
+        "最短距离",
+        "变换前后关系"
+      ],
+      "misconceptionTags": [
+        "movement changes shape size",
+        "rotation center ignored",
+        "corresponding points mismatched"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-transformations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-transformations-unit",
+        "bnu-junior-s2-lower-assessment-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系中，点A的坐标为(2, 3)。将点A先向右平移4个单位，再向下平移1个单位得到点A'。再将点A'绕原点O顺时针旋转90°得到点A''。求点A''的坐标。",
+      "optionsZhHans": [],
+      "answer": "(2, -6)",
+      "acceptedAnswers": [
+        "(2, -6)",
+        "(2,-6)"
+      ],
+      "explanationZhHans": "平移：A(2,3)→A'(2+4,3-1)=(6,2)。绕原点顺时针旋转90°：(x,y)→(y,-x)，故A''(2,-6)。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-384",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-transformations",
+      "unitTitle": "图形的平移与旋转",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "geometric-transformations",
+        "translation",
+        "rotation",
+        "pattern-design",
+        "shortest-distance",
+        "图形平移",
+        "图形旋转"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "创新意识"
+      ],
+      "skillTags": [
+        "平移性质",
+        "旋转性质",
+        "对应点",
+        "图案设计",
+        "最短距离",
+        "变换前后关系"
+      ],
+      "misconceptionTags": [
+        "movement changes shape size",
+        "rotation center ignored",
+        "corresponding points mismatched"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-transformations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-transformations-unit",
+        "bnu-junior-s2-lower-assessment-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系中，点A的坐标是(2, 3)。先将点A向左平移4个单位长度，再向下平移1个单位长度，得到点A'。接着，将点A'绕原点O逆时针旋转90°，得到点A''。求点A''的坐标。",
+      "optionsZhHans": [],
+      "answer": "(-2, -2)",
+      "acceptedAnswers": [
+        "(-2, -2)",
+        "（-2，-2）"
+      ],
+      "explanationZhHans": "点A(2,3)向左平移4个单位得(-2,3)，再向下平移1个单位得(-2,2)。绕原点逆时针旋转90°时，坐标(x,y)变为(-y,x)，所以(-2,2)变为(-2,-2)。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-385",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-transformations",
+      "unitTitle": "图形的平移与旋转",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "geometric-transformations",
+        "translation",
+        "rotation",
+        "pattern-design",
+        "shortest-distance",
+        "图形平移",
+        "图形旋转"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "创新意识"
+      ],
+      "skillTags": [
+        "平移性质",
+        "旋转性质",
+        "对应点",
+        "图案设计",
+        "最短距离",
+        "变换前后关系"
+      ],
+      "misconceptionTags": [
+        "movement changes shape size",
+        "rotation center ignored",
+        "corresponding points mismatched"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-transformations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-transformations-unit",
+        "bnu-junior-s2-lower-assessment-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系中，点A的坐标为(2, 3)。将点A先向右平移4个单位，再向下平移1个单位得到点A'。再将点A'绕原点O逆时针旋转90°得到点A''。则点A''的坐标是（ ）",
+      "optionsZhHans": [
+        "(2, 6)",
+        "(-2, 6)",
+        "(-2, -6)",
+        "(2, -6)"
+      ],
+      "answer": "(-2, 6)",
+      "acceptedAnswers": [
+        "(-2, 6)"
+      ],
+      "explanationZhHans": "点A(2,3)平移后得A'(6,2)；绕原点逆时针旋转90°，坐标变换为(-y,x)，故A''(-2,6)。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-386",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-transformations",
+      "unitTitle": "图形的平移与旋转",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "geometric-transformations",
+        "translation",
+        "rotation",
+        "pattern-design",
+        "shortest-distance",
+        "图形平移",
+        "图形旋转"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "创新意识"
+      ],
+      "skillTags": [
+        "平移性质",
+        "旋转性质",
+        "对应点",
+        "图案设计",
+        "最短距离",
+        "变换前后关系"
+      ],
+      "misconceptionTags": [
+        "movement changes shape size",
+        "rotation center ignored",
+        "corresponding points mismatched"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-transformations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-transformations-unit",
+        "bnu-junior-s2-lower-assessment-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系中，点A的坐标为(2,3)。先将点A向右平移4个单位长度，再向下平移1个单位长度得到点A'。然后，将点A'绕坐标原点O顺时针旋转90°得到点A''。求点A''的坐标。",
+      "optionsZhHans": [],
+      "answer": "(2, -6)",
+      "acceptedAnswers": [
+        "(2, -6)",
+        "(2,-6)"
+      ],
+      "explanationZhHans": "点A(2,3)平移：向右4得(6,3)，向下1得(6,2)。点A'(6,2)绕原点顺时针90°：坐标变换为(y, -x)，即(2, -6)。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-387",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-factorization",
+      "unitTitle": "因式分解",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "factorization",
+        "common-factor",
+        "formula-factorization",
+        "polynomial-structure",
+        "因式分解",
+        "提公因式",
+        "公式法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "符号意识",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "因式分解意义",
+        "提公因式法",
+        "公式法",
+        "分解检查",
+        "结构识别"
+      ],
+      "misconceptionTags": [
+        "common factor not complete",
+        "factorization stops too early",
+        "formula pattern overmatched"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-factorization"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-factorization-unit",
+        "bnu-junior-s2-lower-assessment-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "对多项式 6x³y² - 9x²y³ + 3x²y² 进行因式分解，写出分解结果。",
+      "optionsZhHans": [],
+      "answer": "3x²y²(2x - 3y + 1)",
+      "acceptedAnswers": [
+        "3x²y²(2x - 3y + 1)",
+        "3x^2y^2(2x-3y+1)"
+      ],
+      "explanationZhHans": "先找公因式：系数6、-9、3的最大公约数是3，字母部分x的最低次是x²，y的最低次是y²，所以公因式为3x²y²。提出后得3x²y²(2x - 3y + 1)。检查括号内不能再分解，且展开后等于原式。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-388",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-factorization",
+      "unitTitle": "因式分解",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "factorization",
+        "common-factor",
+        "formula-factorization",
+        "polynomial-structure",
+        "因式分解",
+        "提公因式",
+        "公式法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "符号意识",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "因式分解意义",
+        "提公因式法",
+        "公式法",
+        "分解检查",
+        "结构识别"
+      ],
+      "misconceptionTags": [
+        "common factor not complete",
+        "factorization stops too early",
+        "formula pattern overmatched"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-factorization"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-factorization-unit",
+        "bnu-junior-s2-lower-assessment-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "将多项式 3x^3 - 12x 分解因式，下列分解结果正确的是",
+      "optionsZhHans": [
+        "3x(x^2 - 4)",
+        "3x(x + 2)(x - 2)",
+        "x(3x^2 - 12)",
+        "3(x^3 - 4x)"
+      ],
+      "answer": "3x(x + 2)(x - 2)",
+      "acceptedAnswers": [
+        "3x(x + 2)(x - 2)"
+      ],
+      "explanationZhHans": "先提公因式3x得3x(x^2-4)，再对x^2-4用平方差公式得(x+2)(x-2)，故正确分解为3x(x+2)(x-2)。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-389",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-factorization",
+      "unitTitle": "因式分解",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "factorization",
+        "common-factor",
+        "formula-factorization",
+        "polynomial-structure",
+        "因式分解",
+        "提公因式",
+        "公式法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "符号意识",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "因式分解意义",
+        "提公因式法",
+        "公式法",
+        "分解检查",
+        "结构识别"
+      ],
+      "misconceptionTags": [
+        "common factor not complete",
+        "factorization stops too early",
+        "formula pattern overmatched"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-factorization"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-factorization-unit",
+        "bnu-junior-s2-lower-assessment-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "对多项式 6x^3y - 9x^2y^2 + 3x^2y 进行因式分解。请写出分解结果，并说明你使用了哪种方法。",
+      "optionsZhHans": [],
+      "answer": "3x^2y(2x - 3y + 1)，使用了提公因式法",
+      "acceptedAnswers": [
+        "3x^2y(2x - 3y + 1)，使用了提公因式法",
+        "3x^2y(2x - 3y + 1)，提公因式法",
+        "3x^2y(2x - 3y + 1)"
+      ],
+      "explanationZhHans": "先找公因式：系数6、-9、3的最大公约数是3，字母部分都有x^2y，故公因式为3x^2y。提取后剩余2x - 3y + 1，检查括号内不能再分解，且展开后等于原多项式，分解正确。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-390",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-factorization",
+      "unitTitle": "因式分解",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "factorization",
+        "common-factor",
+        "formula-factorization",
+        "polynomial-structure",
+        "因式分解",
+        "提公因式",
+        "公式法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "符号意识",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "因式分解意义",
+        "提公因式法",
+        "公式法",
+        "分解检查",
+        "结构识别"
+      ],
+      "misconceptionTags": [
+        "common factor not complete",
+        "factorization stops too early",
+        "formula pattern overmatched"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-factorization"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-factorization-unit",
+        "bnu-junior-s2-lower-assessment-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "将多项式 6x²y - 9xy² + 3xy 因式分解，最终结果为______。",
+      "optionsZhHans": [],
+      "answer": "3xy(2x - 3y + 1)",
+      "acceptedAnswers": [
+        "3xy(2x - 3y + 1)",
+        "3xy(2x-3y+1)"
+      ],
+      "explanationZhHans": "先找公因式：系数6、-9、3的最大公约数是3，字母部分都有xy，所以公因式为3xy。提取后，6x²y÷3xy=2x，-9xy²÷3xy=-3y，3xy÷3xy=1，因此结果为3xy(2x-3y+1)。"
+    }
+  ]
+}

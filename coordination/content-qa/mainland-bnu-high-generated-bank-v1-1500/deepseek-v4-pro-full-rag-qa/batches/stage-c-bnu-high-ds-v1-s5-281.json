@@ -1,0 +1,48 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-281",
+  "startedAt": "2026-05-28T01:25:48.775Z",
+  "completedAt": "2026-05-28T01:25:54.933Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-281"
+  ],
+  "usage": {
+    "prompt_tokens": 2688,
+    "completion_tokens": 390,
+    "total_tokens": 3078,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2304
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-281",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "(1) y-2=(4/5)(x-3); (2) 截距为-2/5; (3) 能，因为直线与y=6交点为(8,6)，恰为顶点，水柱可到达。",
+        "correctedAnswer": "(1) y-2=(4/5)(x-3) 或 y=(4/5)x-2/5；(2) 截距为 -2/5；(3) 能，因为直线与y=6交点为(8,6)，恰为顶点，水柱可到达。",
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目(3)问水柱是否能到达边界y=6，存储答案答“不能”并解释为无法覆盖整个边界，但题意仅要求水柱到达边界即可，直线与y=6交于(8,6)即已到达，故存储答案错误，与独立解矛盾，需修正为“能”。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第(3)问存储答案错误，判定为blocker，需修正答案和解析。"
+    }
+  }
+}

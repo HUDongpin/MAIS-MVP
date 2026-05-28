@@ -1,0 +1,255 @@
+{
+  "batchId": "model-qa-0023",
+  "ids": [
+    "hjb-junior-ds-v2-s1-441",
+    "hjb-junior-ds-v2-s1-442",
+    "hjb-junior-ds-v2-s1-443",
+    "hjb-junior-ds-v2-s1-444",
+    "hjb-junior-ds-v2-s1-445",
+    "hjb-junior-ds-v2-s1-446",
+    "hjb-junior-ds-v2-s1-447",
+    "hjb-junior-ds-v2-s1-448",
+    "hjb-junior-ds-v2-s1-449",
+    "hjb-junior-ds-v2-s1-450",
+    "hjb-junior-ds-v2-s1-451",
+    "hjb-junior-ds-v2-s1-452",
+    "hjb-junior-ds-v2-s1-453",
+    "hjb-junior-ds-v2-s1-454",
+    "hjb-junior-ds-v2-s1-455",
+    "hjb-junior-ds-v2-s1-456",
+    "hjb-junior-ds-v2-s1-457",
+    "hjb-junior-ds-v2-s1-458",
+    "hjb-junior-ds-v2-s1-459",
+    "hjb-junior-ds-v2-s1-460"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-441",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题干条件导致矛盾：AB=AC，∠A=40°，则∠B=∠C=70°；AD=BD得∠BAD=∠B=70°，但∠DAC=∠A-∠BAD=40°-70°=-30°，不可能。解析也指出矛盾并调整条件，但题干未修改，答案30°无效。",
+      "independentAnswerZhHans": "无解（条件矛盾）",
+      "answerCheckZhHans": "给定答案30°与题干条件矛盾，解析也承认矛盾。",
+      "recommendedActionZhHans": "修改题干条件，例如将∠A改为80°或调整点D位置，使题目可解。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-442",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "BD=CD",
+      "answerCheckZhHans": "正确。等腰三角形顶角平分线也是底边中线，故BD=CD。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-443",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "30°",
+      "answerCheckZhHans": "正确。AB=AC，∠A=40°，得∠ABC=∠C=70°。AB垂直平分线交AC于D，则DA=DB，∠A=∠ABD=40°，∠DBC=70°-40°=30°。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-444",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "4组",
+      "answerCheckZhHans": "正确。①∠C=65°=∠B，等腰；②等边即等腰；③直接等腰；④∠B=∠C=65°，等腰。四组均可。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-445",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "30°",
+      "answerCheckZhHans": "正确。AD=BD得∠B=∠BAD=30°，AB=AC得∠C=∠B=30°。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-446",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "56°",
+      "answerCheckZhHans": "正确。等腰三角形三线合一，AD⊥BC且AB=AC，则AD平分∠BAC，∠BAC=2×28°=56°。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-447",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "70",
+      "answerCheckZhHans": "正确。等腰三角形底角相等，(180°-40°)/2=70°。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-448",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析计算∠ADB=90°，得∠ADC=90°，但答案为110°，矛盾。独立计算：∠B=∠C=70°，AD平分∠BAC得∠BAD=20°，在△ABD中∠ADB=180°-70°-20°=90°，∠ADC=180°-90°=90°。答案应为90°。",
+      "independentAnswerZhHans": "90°",
+      "answerCheckZhHans": "给定答案110°错误，解析也得出90°，但答案写110°。",
+      "recommendedActionZhHans": "将答案改为90°。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-449",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "5",
+      "answerCheckZhHans": "正确。垂直平分线性质，PB=PA=5cm。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-450",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "题干问“下列说法错误的是”，选项A: AD⊥BC。等腰三角形底边中线也是高，故AD⊥BC正确，不是错误。选项B、C、D均正确。因此没有错误选项，题目无解。",
+      "independentAnswerZhHans": "无错误选项",
+      "answerCheckZhHans": "给定答案AD⊥BC错误，但等腰三角形底边中线垂直于底边，AD⊥BC正确。",
+      "recommendedActionZhHans": "修改题干或选项，使存在唯一错误选项。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-451",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "25°",
+      "answerCheckZhHans": "正确。AD平分∠BAC，∠BAD=50°/2=25°。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-452",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "55°",
+      "answerCheckZhHans": "正确。AD⊥BC且AB=AC，则AD平分∠BAC，∠BAC=70°，∠C=(180°-70°)/2=55°。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-453",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "90",
+      "answerCheckZhHans": "正确。∠B=∠C=65°，∠BAD=25°，∠ADB=90°，∠ADC=90°。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-454",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "70°",
+      "answerCheckZhHans": "正确。AD⊥BC且AB=AC，AD平分∠BAC，∠BAC=2×35°=70°。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-455",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "90",
+      "answerCheckZhHans": "正确。同453题，∠ADC=90°。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-456",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "90°",
+      "answerCheckZhHans": "正确。∠B=∠C=40°，∠BAC=100°，∠BAD=50°，∠ADB=90°，∠ADC=90°。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-457",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "55°",
+      "answerCheckZhHans": "正确。D为BC中点，AD为中线也是高和角平分线，∠BAC=70°，∠B=55°。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-458",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "90°",
+      "answerCheckZhHans": "正确。∠C=50°，∠BAC=80°，∠BAD=40°，∠ADB=90°，∠ADC=90°。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-459",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "56",
+      "answerCheckZhHans": "正确。AD⊥BC且AB=AC，AD平分∠BAC，∠BAC=68°，∠B=56°。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-460",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "90°",
+      "answerCheckZhHans": "正确。同458题，∠ADC=90°。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

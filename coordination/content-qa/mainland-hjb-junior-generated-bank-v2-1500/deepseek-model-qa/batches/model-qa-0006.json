@@ -1,0 +1,70 @@
+{
+  "batchId": "model-qa-0006",
+  "ids": [
+    "hjb-junior-ds-v2-s1-241",
+    "hjb-junior-ds-v2-s1-249",
+    "hjb-junior-ds-v2-s1-270",
+    "hjb-junior-ds-v2-s1-271",
+    "hjb-junior-ds-v2-s1-274"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-241",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(6,-2)",
+      "answerCheckZhHans": "标准答案 (6,-2) 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-249",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(3,-4)",
+      "answerCheckZhHans": "标准答案 (3,-4) 与独立计算结果一致，acceptedAnswers 覆盖了标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-270",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "独立求解得到售价范围 25 ≤ x ≤ 30，但标准答案为 25 ≤ 售价 ≤ 28，解析中最后一步“销量非负，故25≤x≤28”错误，销量非负条件为 700-20x ≥ 0 得 x ≤ 35，并非 x ≤ 28。答案与解析不一致。",
+      "independentAnswerZhHans": "设定价为 x 元，销量为 100+20(30-x)=700-20x，利润为 (x-20)(700-20x) ≥ 1200，化简得 -20x²+1100x-14000 ≥ 1200 → -20x²+1100x-15200 ≥ 0 → x²-55x+760 ≤ 0，解得 25 ≤ x ≤ 30.4，但 x 为售价应为整数？题目未要求整数，但通常售价为整数，若取整数则为 25 ≤ x ≤ 30。解析中化简错误，应为 x²-55x+760 ≤ 0，而非 x²-55x+750 ≤ 0。正确解为 25 ≤ x ≤ 30.4，若考虑实际售价可能为整数，则 25 ≤ x ≤ 30。标准答案 25 ≤ 售价 ≤ 28 错误。",
+      "answerCheckZhHans": "标准答案 25 ≤ 售价 ≤ 28 与独立计算结果 25 ≤ x ≤ 30 不符，解析中化简错误且附加了不合理的销量非负条件。",
+      "recommendedActionZhHans": "修正答案和解析：正确不等式为 (x-20)(700-20x) ≥ 1200，化简得 x²-55x+760 ≤ 0，解得 25 ≤ x ≤ 30.4，若售价为整数则 25 ≤ x ≤ 30。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-271",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x < -2",
+      "answerCheckZhHans": "标准答案 x < -2 与独立计算结果一致，选项 A 正确且唯一。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-274",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "m = -3",
+      "answerCheckZhHans": "标准答案 m = -3 与独立计算结果一致，选项 A 正确且唯一。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,358 @@
+{
+  "batchId": "batch-042",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s2-k06-mc-011",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-polynomial-multiplication-factorization"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "promptZhHans": "在△ABC和△DEF中，已知AB = DE，∠A = ∠D。若要用“边角边”（SAS）判定这两个三角形全等，还需要添加的条件是（ ）。",
+      "optionsZhHans": [
+        "BC = EF",
+        "AC = DF",
+        "∠B = ∠E",
+        "∠C = ∠F"
+      ],
+      "answer": "AC = DF",
+      "acceptedAnswers": [
+        "AC = DF",
+        "AC=DF"
+      ],
+      "explanationZhHans": "用SAS判定全等需要两边及其夹角对应相等。已知AB = DE，∠A = ∠D，其中∠A是AB和AC的夹角，∠D是DE和DF的夹角，因此需要添加AC = DF，使夹角的两边分别对应相等。所以答案是AC = DF。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-mc-012",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-algebraic-fractions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "将△ABC沿直线l翻折后得到△A'B'C'，若点A与点A'是对称点，线段AA'与直线l交于点O，则下列结论不一定正确的是（ ）。",
+      "optionsZhHans": [
+        "AO = A'O",
+        "AA' ⊥ l",
+        "AB = A'B'",
+        "∠BAC = ∠B'A'C'"
+      ],
+      "answer": "∠BAC = ∠B'A'C'",
+      "acceptedAnswers": [
+        "∠BAC = ∠B'A'C'",
+        "∠BAC=∠B'A'C'"
+      ],
+      "explanationZhHans": "翻折是轴对称变换，对称轴l是对称点连线的垂直平分线，所以AO = A'O且AA' ⊥ l；翻折前后的图形全等，对应边AB = A'B'。但∠BAC与∠B'A'C'不一定相等，因为点A与A'是对称点，但∠BAC和∠B'A'C'的顶点不同，它们不是对应角，所以不一定相等。因此答案是∠BAC = ∠B'A'C'。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-mc-013",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-axis-symmetry-isosceles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean"
+      ],
+      "promptZhHans": "在△ABC中，AB = AC，∠A = 50°，则∠B的度数为（ ）。",
+      "optionsZhHans": [
+        "50°",
+        "65°",
+        "80°",
+        "130°"
+      ],
+      "answer": "65°",
+      "acceptedAnswers": [
+        "65°",
+        "65度",
+        "65"
+      ],
+      "explanationZhHans": "因为AB = AC，所以△ABC是等腰三角形，∠B = ∠C。三角形内角和为180°，所以∠B + ∠C = 180° - ∠A = 130°，因此∠B = 65°。答案是65°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-mc-014",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "下列条件中，不能判定两个直角三角形全等的是（ ）。",
+      "optionsZhHans": [
+        "两条直角边分别相等",
+        "斜边和一条直角边分别相等",
+        "一个锐角和一条直角边分别相等",
+        "两个锐角分别相等"
+      ],
+      "answer": "两个锐角分别相等",
+      "acceptedAnswers": [
+        "两个锐角分别相等",
+        "两个锐角相等"
+      ],
+      "explanationZhHans": "直角三角形全等的判定方法有：SAS、ASA、AAS、HL。两条直角边对应相等满足SAS；斜边和一条直角边对应相等满足HL；一个锐角和一条直角边对应相等，若边是锐角的对边则满足AAS，若边是锐角的邻边则满足ASA，都能判定全等。两个锐角对应相等只能得到三个角对应相等，但边不一定相等，不能判定全等。所以答案是两个锐角分别相等。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-mc-015",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-triangle-angle-relations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "一个三角形的三个内角的度数之比为2:3:4，则这个三角形是（ ）。",
+      "optionsZhHans": [
+        "锐角三角形",
+        "直角三角形",
+        "钝角三角形",
+        "等腰三角形"
+      ],
+      "answer": "锐角三角形",
+      "acceptedAnswers": [
+        "锐角三角形",
+        "锐角"
+      ],
+      "explanationZhHans": "设三个内角分别为2x、3x、4x，则2x+3x+4x=180°，解得x=20°，所以三个角分别为40°、60°、80°，都是锐角，因此是锐角三角形。答案是锐角三角形。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-mc-016",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-congruence-proof"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions"
+      ],
+      "promptZhHans": "已知AC = BD，要使△ABC ≌ △DCB，可以添加的一个条件是（ ）。",
+      "optionsZhHans": [
+        "AB = DC",
+        "∠ABC = ∠DCB",
+        "∠ACB = ∠DBC",
+        "BC = CB"
+      ],
+      "answer": "∠ABC = ∠DCB",
+      "acceptedAnswers": [
+        "∠ABC = ∠DCB",
+        "∠ABC=∠DCB"
+      ],
+      "explanationZhHans": "在△ABC和△DCB中，已知AC = BD，公共边BC = CB。若添加∠ABC = ∠DCB，则满足SAS（AC = BD，∠ABC = ∠DCB，BC = CB），可证全等。其他选项：AB = DC满足SSA，不能判定；∠ACB = ∠DBC满足SSA，不能判定；BC = CB是公共边，不能作为添加条件。所以答案是∠ABC = ∠DCB。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-mc-017",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-polynomial-multiplication-factorization"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "promptZhHans": "计算 (x + 3)(x - 3) 的结果是（ ）。",
+      "optionsZhHans": [
+        "x² - 9",
+        "x² + 9",
+        "x² - 6x + 9",
+        "x² + 6x + 9"
+      ],
+      "answer": "x² - 9",
+      "acceptedAnswers": [
+        "x² - 9",
+        "x^2 - 9",
+        "x²-9"
+      ],
+      "explanationZhHans": "利用平方差公式 (a+b)(a-b)=a²-b²，这里a=x，b=3，所以 (x+3)(x-3)=x²-3²=x²-9。答案是x² - 9。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-mc-018",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-algebraic-fractions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "化简分式 (x² - 4)/(x + 2) 的结果是（ ）。",
+      "optionsZhHans": [
+        "x - 2",
+        "x + 2",
+        "x - 4",
+        "x + 4"
+      ],
+      "answer": "x - 2",
+      "acceptedAnswers": [
+        "x - 2",
+        "x-2"
+      ],
+      "explanationZhHans": "分子x² - 4 = (x+2)(x-2)，分母为x+2，当x≠-2时，约去公因式x+2，得x-2。所以答案是x - 2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-mc-019",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-axis-symmetry-isosceles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "等腰三角形的一个底角是50°，则它的顶角是（ ）。",
+      "optionsZhHans": [
+        "50°",
+        "65°",
+        "80°",
+        "100°"
+      ],
+      "answer": "80°",
+      "acceptedAnswers": [
+        "80°",
+        "80度",
+        "80"
+      ],
+      "explanationZhHans": "等腰三角形的两个底角相等，所以另一个底角也是50°。三角形内角和为180°，所以顶角=180°-50°-50°=80°。答案是80°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-mc-020",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-proof-calculation-integrated"
+      ],
+      "promptZhHans": "下列图形中，不是轴对称图形的是（ ）。",
+      "optionsZhHans": [
+        "线段",
+        "角",
+        "平行四边形",
+        "等腰三角形"
+      ],
+      "answer": "平行四边形",
+      "acceptedAnswers": [
+        "平行四边形",
+        "一般平行四边形"
+      ],
+      "explanationZhHans": "线段有一条对称轴（它的垂直平分线）；角有一条对称轴（角平分线所在直线）；等腰三角形有一条对称轴（底边上的高所在直线）；一般的平行四边形（非菱形、非矩形）没有对称轴，不是轴对称图形。所以答案是平行四边形。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

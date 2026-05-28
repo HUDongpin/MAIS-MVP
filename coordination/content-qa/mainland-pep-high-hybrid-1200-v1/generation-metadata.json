@@ -1,0 +1,155 @@
+{
+  "generatedAt": "2026-05-23T14:03:17.278Z",
+  "startedAt": "2026-05-23T14:03:17.221Z",
+  "finishedAt": "2026-05-23T14:03:17.278Z",
+  "sessionId": "S18",
+  "packageId": "mainland-pep-high-hybrid-1200-v1",
+  "curriculumTrack": "MAINLAND_PEP_HIGH",
+  "stage": "senior-secondary",
+  "grades": [
+    "S4",
+    "S5",
+    "S6"
+  ],
+  "requestedQuestionCount": 1200,
+  "outputTarget": "candidate-package",
+  "generationMode": "hybrid-requested-rule-fallback-produced",
+  "aiProviderAttempt": {
+    "provider": "bl/DashScope",
+    "status": "unavailable-no-api-key",
+    "secretHygiene": "No key, request transcript, source locator, OCR text, or protected source text stored."
+  },
+  "sourceSafety": {
+    "committedInputsOnly": [
+      "data/mainlandPepHighTopics.ts",
+      "data/rag/mainlandPepHigh.ts",
+      "data/rag/mainlandPepHighExamPatterns.ts"
+    ],
+    "officialReferenceForHumanReview": "https://www.pep.com.cn/xw/zt/rjwy/gzkb2020/202205/P020220517519489596282.pdf",
+    "prohibitedMaterialNotUsed": true
+  },
+  "quotas": {
+    "typeQuotas": {
+      "S4": {
+        "multiple-choice": 120,
+        "fill-in": 120,
+        "short-answer": 160
+      },
+      "S5": {
+        "multiple-choice": 120,
+        "fill-in": 120,
+        "short-answer": 160
+      },
+      "S6": {
+        "multiple-choice": 120,
+        "fill-in": 120,
+        "short-answer": 160
+      }
+    },
+    "difficultyQuotas": {
+      "S4": {
+        "Foundation": 80,
+        "Core": 180,
+        "Challenge": 100,
+        "Exam": 40
+      },
+      "S5": {
+        "Foundation": 60,
+        "Core": 160,
+        "Challenge": 120,
+        "Exam": 60
+      },
+      "S6": {
+        "Foundation": 40,
+        "Core": 120,
+        "Challenge": 140,
+        "Exam": 100
+      }
+    },
+    "topicCountsById": {
+      "pep-high-s4-sets-logic": 40,
+      "pep-high-s4-quadratic-inequalities": 40,
+      "pep-high-s4-function-properties": 40,
+      "pep-high-s4-exp-log": 40,
+      "pep-high-s4-trigonometry": 40,
+      "pep-high-s4-plane-vectors": 40,
+      "pep-high-s4-complex-numbers": 40,
+      "pep-high-s4-solid-geometry-intro": 40,
+      "pep-high-s4-statistics": 40,
+      "pep-high-s4-probability": 40,
+      "pep-high-s5-space-vectors": 80,
+      "pep-high-s5-lines-circles": 80,
+      "pep-high-s5-conics": 80,
+      "pep-high-s5-sequences": 80,
+      "pep-high-s5-derivatives": 80,
+      "pep-high-s6-counting": 57,
+      "pep-high-s6-random-variables": 57,
+      "pep-high-s6-bivariate-data": 57,
+      "pep-high-s6-derivative-synthesis": 57,
+      "pep-high-s6-analytic-geometry-synthesis": 57,
+      "pep-high-s6-probability-statistics-synthesis": 57,
+      "pep-high-s6-exam-practice": 58
+    }
+  },
+  "audit": {
+    "totalQuestions": 1200,
+    "totalTargets": 1200,
+    "gradeCounts": {
+      "S4": 400,
+      "S5": 400,
+      "S6": 400
+    },
+    "gradeTypeCounts": {
+      "S4-short-answer": 160,
+      "S4-fill-in": 120,
+      "S4-multiple-choice": 120,
+      "S5-short-answer": 160,
+      "S5-fill-in": 120,
+      "S5-multiple-choice": 120,
+      "S6-short-answer": 160,
+      "S6-fill-in": 120,
+      "S6-multiple-choice": 120
+    },
+    "gradeDifficultyCounts": {
+      "S4-Core": 180,
+      "S4-Challenge": 100,
+      "S4-Foundation": 80,
+      "S4-Exam": 40,
+      "S5-Core": 160,
+      "S5-Challenge": 120,
+      "S5-Exam": 60,
+      "S5-Foundation": 60,
+      "S6-Challenge": 140,
+      "S6-Core": 120,
+      "S6-Exam": 100,
+      "S6-Foundation": 40
+    },
+    "topicCounts": {
+      "pep-high-s4-sets-logic": 40,
+      "pep-high-s4-quadratic-inequalities": 40,
+      "pep-high-s4-function-properties": 40,
+      "pep-high-s4-exp-log": 40,
+      "pep-high-s4-trigonometry": 40,
+      "pep-high-s4-plane-vectors": 40,
+      "pep-high-s4-complex-numbers": 40,
+      "pep-high-s4-solid-geometry-intro": 40,
+      "pep-high-s4-statistics": 40,
+      "pep-high-s4-probability": 40,
+      "pep-high-s5-space-vectors": 80,
+      "pep-high-s5-lines-circles": 80,
+      "pep-high-s5-conics": 80,
+      "pep-high-s5-sequences": 80,
+      "pep-high-s5-derivatives": 80,
+      "pep-high-s6-counting": 57,
+      "pep-high-s6-random-variables": 57,
+      "pep-high-s6-bivariate-data": 57,
+      "pep-high-s6-derivative-synthesis": 57,
+      "pep-high-s6-analytic-geometry-synthesis": 57,
+      "pep-high-s6-probability-statistics-synthesis": 57,
+      "pep-high-s6-exam-practice": 58
+    },
+    "duplicateIdCount": 0,
+    "duplicatePromptCount": 0
+  },
+  "targetCount": 1200
+}

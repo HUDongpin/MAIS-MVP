@@ -1,0 +1,181 @@
+{
+  "startedAt": "2026-05-26T05:56:30.460Z",
+  "completedAt": "2026-05-26T05:56:48.213Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "usage": {
+    "prompt_tokens": 2638,
+    "completion_tokens": 1400,
+    "total_tokens": 4038,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 2638
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "questionId": "pep-primary-p2-l-fi-121",
+        "solvableStatus": "pass",
+        "independentAnswer": "商7余1",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "29÷4=7...1，明确有余数除法。"
+      },
+      {
+        "questionId": "pep-primary-p2-l-fi-122",
+        "solvableStatus": "pass",
+        "independentAnswer": "商9余2",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "47÷5=9...2。"
+      },
+      {
+        "questionId": "pep-primary-p2-l-fi-123",
+        "solvableStatus": "pass",
+        "independentAnswer": "商4余3",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "27÷6=4...3。"
+      },
+      {
+        "questionId": "pep-primary-p2-l-fi-124",
+        "solvableStatus": "pass",
+        "independentAnswer": "8袋剩1个",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "17÷2=8...1。"
+      },
+      {
+        "questionId": "pep-primary-p2-l-fi-125",
+        "solvableStatus": "pass",
+        "independentAnswer": "商8余5",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "69÷8=8...5。"
+      },
+      {
+        "questionId": "pep-primary-p2-l-fi-126",
+        "solvableStatus": "pass",
+        "independentAnswer": "商8余5",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "61÷7=8...5。"
+      },
+      {
+        "questionId": "pep-primary-p2-l-fi-127",
+        "solvableStatus": "pass",
+        "independentAnswer": "商5余1",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "16÷3=5...1。"
+      },
+      {
+        "questionId": "pep-primary-p2-l-fi-128",
+        "solvableStatus": "pass",
+        "independentAnswer": "6袋剩0个",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "18÷3=6，没有剩余。"
+      },
+      {
+        "questionId": "pep-primary-p2-l-fi-129",
+        "solvableStatus": "pass",
+        "independentAnswer": "商9余4",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "49÷5=9...4。"
+      },
+      {
+        "questionId": "pep-primary-p2-l-fi-130",
+        "solvableStatus": "pass",
+        "independentAnswer": "商4余4",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "28÷6=4...4。"
+      },
+      {
+        "questionId": "pep-primary-p2-l-fi-131",
+        "solvableStatus": "pass",
+        "independentAnswer": "商6余5",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "47÷7=6...5。"
+      },
+      {
+        "questionId": "pep-primary-p2-l-fi-132",
+        "solvableStatus": "pass",
+        "independentAnswer": "商8余4",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "68÷8=8...4。"
+      },
+      {
+        "questionId": "pep-primary-p2-l-fi-133",
+        "solvableStatus": "pass",
+        "independentAnswer": "商3余1",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "7÷2=3...1。"
+      },
+      {
+        "questionId": "pep-primary-p2-l-fi-134",
+        "solvableStatus": "pass",
+        "independentAnswer": "商5余2",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "17÷3=5...2。"
+      },
+      {
+        "questionId": "pep-primary-p2-l-fi-135",
+        "solvableStatus": "pass",
+        "independentAnswer": "商7余3",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "31÷4=7...3。"
+      },
+      {
+        "questionId": "pep-primary-p2-l-fi-136",
+        "solvableStatus": "pass",
+        "independentAnswer": "商9余1",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "46÷5=9...1。"
+      },
+      {
+        "questionId": "pep-primary-p2-l-fi-137",
+        "solvableStatus": "pass",
+        "independentAnswer": "商4余5",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "29÷6=4...5。"
+      },
+      {
+        "questionId": "pep-primary-p2-l-fi-138",
+        "solvableStatus": "pass",
+        "independentAnswer": "商6余5",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "47÷7=6...5。"
+      },
+      {
+        "questionId": "pep-primary-p2-l-fi-139",
+        "solvableStatus": "pass",
+        "independentAnswer": "商8余3",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "67÷8=8...3。"
+      },
+      {
+        "questionId": "pep-primary-p2-l-fi-140",
+        "solvableStatus": "pass",
+        "independentAnswer": "3组，没有剩余",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "6÷2=3，正好分完。"
+      }
+    ]
+  }
+}

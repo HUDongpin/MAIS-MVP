@@ -1,0 +1,317 @@
+{
+  "batchId": "batch-029",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s1-k04-sa-014",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-data-collection"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "某校七年级为了解学生每天课外阅读时长，随机抽取了50名学生进行问卷调查。调查结果显示，平均每天阅读时长在30分钟以下的有12人，30至60分钟的有20人，60分钟以上的有18人。请根据以上数据，计算该校七年级学生每天课外阅读时长在30分钟及以上的人数所占的百分比。",
+      "optionsZhHans": [],
+      "answer": "76%",
+      "acceptedAnswers": [
+        "76%",
+        "百分之七十六",
+        "0.76",
+        "38/50"
+      ],
+      "explanationZhHans": "阅读时长在30分钟及以上的人数为20+18=38人，总人数为50人，所以百分比为38/50=0.76=76%。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-sa-015",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-coordinate-plane"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "小明家上个月的电费是120元，这个月由于使用节能措施，电费比上个月减少了a%。如果这个月电费为96元，求a的值。",
+      "optionsZhHans": [],
+      "answer": "20",
+      "acceptedAnswers": [
+        "20",
+        "20%",
+        "百分之二十"
+      ],
+      "explanationZhHans": "减少的电费为120-96=24元，减少的百分比为24/120=0.2=20%，所以a=20。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-sa-016",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "在平面直角坐标系中，将点A(2, -3)先向右平移4个单位，再向上平移5个单位得到点B。求点B的坐标。",
+      "optionsZhHans": [],
+      "answer": "(6, 2)",
+      "acceptedAnswers": [
+        "(6, 2)",
+        "（6，2）",
+        "6,2",
+        "x=6,y=2"
+      ],
+      "explanationZhHans": "点A(2, -3)向右平移4个单位，横坐标加4得2+4=6；向上平移5个单位，纵坐标加5得-3+5=2，所以点B的坐标为(6, 2)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-sa-017",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "已知一个正数的两个平方根分别是2a-1和-a+2，求这个正数。",
+      "optionsZhHans": [],
+      "answer": "9",
+      "acceptedAnswers": [
+        "9",
+        "九"
+      ],
+      "explanationZhHans": "一个正数的两个平方根互为相反数，所以(2a-1)+(-a+2)=0，解得a=-1。则平方根为2(-1)-1=-3和-(-1)+2=3，这个正数为3²=9。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-sa-018",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-real-numbers"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "学校组织八年级学生去博物馆参观，如果租用45座客车，则有15人没有座位；如果租用同样数量的60座客车，则多出一辆车，并且其余车恰好坐满。求八年级学生总人数。",
+      "optionsZhHans": [],
+      "answer": "240",
+      "acceptedAnswers": [
+        "240",
+        "240人"
+      ],
+      "explanationZhHans": "设租用45座客车x辆，则学生人数为45x+15。改用60座客车，车数为x-1，且坐满，则学生人数为60(x-1)。由45x+15=60(x-1)，解得x=5，学生人数为45×5+15=240。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-sa-019",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-linear-systems"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "某班级40名学生参加环保知识竞赛，成绩均为整数，统计结果如下：60分以下2人，60~69分5人，70~79分12人，80~89分14人，90分以上7人。请计算成绩在80分及以上的人数占全班人数的百分比。",
+      "optionsZhHans": [],
+      "answer": "52.5%",
+      "acceptedAnswers": [
+        "52.5%",
+        "百分之五十二点五",
+        "0.525",
+        "21/40"
+      ],
+      "explanationZhHans": "成绩在80分及以上的人数为14+7=21人，全班40人，百分比为21/40=0.525=52.5%。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-sa-020",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-inequalities"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "某商店销售一种商品，成本价为每件50元。若按标价的八折销售，每件可获利10元。求该商品的标价。",
+      "optionsZhHans": [],
+      "answer": "75",
+      "acceptedAnswers": [
+        "75",
+        "75元"
+      ],
+      "explanationZhHans": "设标价为x元，则售价为0.8x元。利润为0.8x-50=10，解得0.8x=60，x=75。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-sa-021",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-data-collection"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "在平面直角坐标系中，点P在第二象限，且到x轴的距离为3，到y轴的距离为2。求点P的坐标。",
+      "optionsZhHans": [],
+      "answer": "(-2, 3)",
+      "acceptedAnswers": [
+        "(-2, 3)",
+        "（-2，3）",
+        "-2,3",
+        "x=-2,y=3"
+      ],
+      "explanationZhHans": "第二象限的点横坐标为负，纵坐标为正。到x轴的距离为纵坐标的绝对值，所以纵坐标为3；到y轴的距离为横坐标的绝对值，所以横坐标为-2。因此点P的坐标为(-2, 3)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-sa-022",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-coordinate-plane"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "比较大小：√37与6。请说明理由。",
+      "optionsZhHans": [],
+      "answer": "√37 > 6",
+      "acceptedAnswers": [
+        "√37 > 6",
+        "√37>6",
+        "根号37大于6",
+        "√37大于6"
+      ],
+      "explanationZhHans": "因为6=√36，而37>36，所以√37>√36=6，即√37 > 6。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-sa-023",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "直线a∥b，直线c与a、b相交，若一组同旁内角中的∠1=65°，求另一角∠2的度数。",
+      "optionsZhHans": [],
+      "answer": "115°",
+      "acceptedAnswers": [
+        "115°",
+        "115度",
+        "115"
+      ],
+      "explanationZhHans": "两直线平行，同旁内角互补，所以∠1+∠2=180°。已知∠1=65°，则∠2=180°-65°=115°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

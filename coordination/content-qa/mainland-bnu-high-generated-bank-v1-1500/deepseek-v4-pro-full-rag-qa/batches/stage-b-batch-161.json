@@ -1,0 +1,129 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-161",
+  "startedAt": "2026-05-28T01:48:28.117Z",
+  "completedAt": "2026-05-28T01:48:40.488Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-281",
+    "bnu-high-ds-v1-s6-282",
+    "bnu-high-ds-v1-s6-283",
+    "bnu-high-ds-v1-s6-284",
+    "bnu-high-ds-v1-s6-285",
+    "bnu-high-ds-v1-s6-286",
+    "bnu-high-ds-v1-s6-287",
+    "bnu-high-ds-v1-s6-288"
+  ],
+  "usage": {
+    "prompt_tokens": 11790,
+    "completion_tokens": 948,
+    "total_tokens": 12738,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 11406
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-281",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 a=4 与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-282",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 y=-2 与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-283",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 [-1,1] 与独立解一致，解析正确，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-284",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-285",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "8",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 -3 错误，独立解得 a+b=8。解析自相矛盾，先得 a+b=8 后错误给出 -3。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-286",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 1 与独立解一致，解析正确，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-287",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 18 m² 与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-288",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 2 与独立解一致，解析正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第285题存储答案错误，应为8而非-3，解析存在矛盾。其余题目均通过。"
+    }
+  }
+}

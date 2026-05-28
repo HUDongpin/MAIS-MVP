@@ -1,0 +1,297 @@
+{
+  "batchId": "batch-092",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p2-206",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "hjb-primary-p2-lower-within-10000-number-sense",
+      "unitTitle": "万以内的数",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "within-10000-numbers",
+        "place-value-thousands",
+        "number-reading-writing",
+        "number-comparison",
+        "万以内数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "千以内数",
+        "万以内数",
+        "数位顺序",
+        "读数写数",
+        "数的组成",
+        "大小比较"
+      ],
+      "misconceptionTags": [
+        "internal zero omitted when reading",
+        "digits compared from the ones place first",
+        "place-value names recited without quantity meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p2-lower-within-10000-number-sense"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-within-10000-number-sense",
+        "hjb-primary-p2-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个数由3个千、0个百、5个十和8个一组成，这个数写作多少？",
+      "optionsZhHans": [],
+      "answer": "3058",
+      "acceptedAnswers": [
+        "3058"
+      ],
+      "explanationZhHans": "千位是3，百位是0，十位是5，个位是8，所以写作3058。注意百位上的0不能省略。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-207",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "hjb-primary-p2-lower-two-three-digit-add-sub",
+      "unitTitle": "两位数与三位数的加减法",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "two-three-digit-addition-subtraction",
+        "regrouping-add-sub",
+        "written-calculation",
+        "estimation-check",
+        "两三位数加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "两位数加减",
+        "三位数加减",
+        "进位",
+        "退位",
+        "估算",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "hundreds tens ones not aligned",
+        "regrouping direction confused",
+        "estimate ignored when exact answer is unreasonable"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p2-lower-two-three-digit-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-two-three-digit-add-sub",
+        "hjb-primary-p2-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小乐有256张卡片，小美有189张卡片。小乐比小美多多少张卡片？下面哪个算式和结果都正确？",
+      "optionsZhHans": [
+        "256 + 189 = 445（张）",
+        "256 - 189 = 67（张）",
+        "256 - 189 = 77（张）",
+        "189 - 256 = 67（张）"
+      ],
+      "answer": "256 - 189 = 67（张）",
+      "acceptedAnswers": [
+        "256 - 189 = 67（张）"
+      ],
+      "explanationZhHans": "求多多少用减法：256 - 189。个位6减9不够，向十位借1，16-9=7；十位5借走1剩4，4-8不够，向百位借1，14-8=6；百位2借走1剩1，1-1=0，结果是67。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-208",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "hjb-primary-p2-lower-two-three-digit-add-sub",
+      "unitTitle": "两位数与三位数的加减法",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "two-three-digit-addition-subtraction",
+        "regrouping-add-sub",
+        "written-calculation",
+        "estimation-check",
+        "两三位数加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "两位数加减",
+        "三位数加减",
+        "进位",
+        "退位",
+        "估算",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "hundreds tens ones not aligned",
+        "regrouping direction confused",
+        "estimate ignored when exact answer is unreasonable"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p2-lower-two-three-digit-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-two-three-digit-add-sub",
+        "hjb-primary-p2-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算：423 + 198 = ______。",
+      "optionsZhHans": [],
+      "answer": "621",
+      "acceptedAnswers": [
+        "621"
+      ],
+      "explanationZhHans": "个位3+8=11，写1进1；十位2+9+1=12，写2进1；百位4+1+1=6，结果是621。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-209",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "hjb-primary-p2-lower-two-three-digit-add-sub",
+      "unitTitle": "两位数与三位数的加减法",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "two-three-digit-addition-subtraction",
+        "regrouping-add-sub",
+        "written-calculation",
+        "estimation-check",
+        "两三位数加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "两位数加减",
+        "三位数加减",
+        "进位",
+        "退位",
+        "估算",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "hundreds tens ones not aligned",
+        "regrouping direction confused",
+        "estimate ignored when exact answer is unreasonable"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p2-lower-two-three-digit-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-two-three-digit-add-sub",
+        "hjb-primary-p2-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "果园里有苹果树345棵，梨树比苹果树少168棵。梨树有多少棵？下面哪个算式和结果都正确？",
+      "optionsZhHans": [
+        "345 + 168 = 513（棵）",
+        "345 - 168 = 187（棵）",
+        "345 - 168 = 177（棵）",
+        "168 - 345 = 177（棵）"
+      ],
+      "answer": "345 - 168 = 177（棵）",
+      "acceptedAnswers": [
+        "345 - 168 = 177（棵）"
+      ],
+      "explanationZhHans": "梨树比苹果树少，用减法：345 - 168。个位5-8不够，向十位借1，15-8=7；十位4借走1剩3，3-6不够，向百位借1，13-6=7；百位3借走1剩2，2-1=1，结果是177。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-210",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "hjb-primary-p2-lower-two-three-digit-add-sub",
+      "unitTitle": "两位数与三位数的加减法",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "two-three-digit-addition-subtraction",
+        "regrouping-add-sub",
+        "written-calculation",
+        "estimation-check",
+        "两三位数加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "两位数加减",
+        "三位数加减",
+        "进位",
+        "退位",
+        "估算",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "hundreds tens ones not aligned",
+        "regrouping direction confused",
+        "estimate ignored when exact answer is unreasonable"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p2-lower-two-three-digit-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-two-three-digit-add-sub",
+        "hjb-primary-p2-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "估算：598 + 304 大约是多少？",
+      "optionsZhHans": [],
+      "answer": "900",
+      "acceptedAnswers": [
+        "900",
+        "约900",
+        "大约900"
+      ],
+      "explanationZhHans": "598接近600，304接近300，600+300=900，所以大约900。"
+    }
+  ]
+}

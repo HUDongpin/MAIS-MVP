@@ -1,0 +1,157 @@
+{
+  "batchId": "batch-015",
+  "attempt": 3,
+  "validationError": "pep-junior-v3-s1-k03-mc-007: explanation does not visibly contain the answer; pep-junior-v3-s1-k03-mc-011: forbidden source or diagram-dependent wording detected; pep-junior-v3-s1-k03-mc-012: explanation does not visibly contain the answer",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s1-k03-mc-007",
+      "promptZhHans": "下列说法正确的是（　）",
+      "optionsZhHans": [
+        "A. 直线AB和直线BA是同一条直线",
+        "B. 射线AB和射线BA是同一条射线",
+        "C. 线段AB和线段BA不是同一条线段",
+        "D. 射线AB和线段AB都是直线的一部分，所以它们没有区别"
+      ],
+      "answer": "A",
+      "acceptedAnswers": [
+        "A"
+      ],
+      "explanationZhHans": "根据直线、射线、线段的定义：直线没有端点，向两方无限延伸，直线AB和直线BA表示同一条直线，所以A正确；射线有一个端点，射线AB的端点是A，射线BA的端点是B，所以不是同一条射线，B错误；线段有两个端点，线段AB和线段BA是同一条线段，C错误；射线和线段都是直线的一部分，但射线有一个端点，线段有两个端点，它们有区别，D错误。因此正确答案是A。"
+    },
+    {
+      "id": "pep-junior-v3-s1-k03-mc-008",
+      "promptZhHans": "下列四个图形中，能用∠1，∠AOB，∠O三种方法表示同一个角的图形是（　）",
+      "optionsZhHans": [
+        "A. 以O为顶点的角只有∠AOB",
+        "B. 以O为顶点的角有两个，分别是∠AOB和∠BOC",
+        "C. 以O为顶点的角有三个，分别是∠AOB，∠BOC和∠AOC",
+        "D. 以O为顶点的角有四个，分别是∠AOB，∠BOC，∠COD和∠AOD"
+      ],
+      "answer": "A",
+      "acceptedAnswers": [
+        "A"
+      ],
+      "explanationZhHans": "当以O为顶点的角只有一个时，可以用∠O表示这个角。选项A中，以O为顶点的角只有∠AOB，所以能用∠1，∠AOB，∠O三种方法表示同一个角。其他选项中，以O为顶点的角不止一个，∠O无法唯一确定一个角。因此正确答案是A。"
+    },
+    {
+      "id": "pep-junior-v3-s1-k03-mc-009",
+      "promptZhHans": "用一副三角尺（含30°、60°、90°和45°、45°、90°）可以拼出不同的角，下列度数中，不能拼出的是（　）",
+      "optionsZhHans": [
+        "A. 75°",
+        "B. 105°",
+        "C. 130°",
+        "D. 150°"
+      ],
+      "answer": "C",
+      "acceptedAnswers": [
+        "C"
+      ],
+      "explanationZhHans": "一副三角尺的角有30°、45°、60°、90°。通过相加或相减可以拼出：75°=30°+45°，105°=60°+45°，150°=60°+90°。130°无法由这些角通过和或差得到，因此不能拼出。正确答案是C。"
+    },
+    {
+      "id": "pep-junior-v3-s1-k03-mc-010",
+      "promptZhHans": "已知线段AB=8 cm，点C在直线AB上，且BC=3 cm，则线段AC的长为（　）",
+      "optionsZhHans": [
+        "A. 5 cm",
+        "B. 11 cm",
+        "C. 5 cm或11 cm",
+        "D. 以上都不对"
+      ],
+      "answer": "C",
+      "acceptedAnswers": [
+        "C"
+      ],
+      "explanationZhHans": "点C在直线AB上，有两种情况：当点C在线段AB上时，AC=AB-BC=8-3=5 cm；当点C在线段AB的延长线上时，AC=AB+BC=8+3=11 cm。因此线段AC的长为5 cm或11 cm。正确答案是C。"
+    },
+    {
+      "id": "pep-junior-v3-s1-k03-mc-011",
+      "promptZhHans": "如图是一个正方体的表面展开图，则原正方体中与“建”字所在面相对的面上的字是（　）",
+      "optionsZhHans": [
+        "A. 美",
+        "B. 丽",
+        "C. 中",
+        "D. 国"
+      ],
+      "answer": "D",
+      "acceptedAnswers": [
+        "D"
+      ],
+      "explanationZhHans": "正方体的表面展开图中，相对的面在展开后不相邻。根据展开图，“建”与“国”是相对的面，“设”与“美”是相对的面，“丽”与“中”是相对的面。因此与“建”相对的是“国”。正确答案是D。"
+    },
+    {
+      "id": "pep-junior-v3-s1-k03-mc-012",
+      "promptZhHans": "下列语句中，正确的是（　）",
+      "optionsZhHans": [
+        "A. 延长直线AB到点C",
+        "B. 延长射线OA到点B",
+        "C. 延长线段AB到点C，使BC=AB",
+        "D. 画直线AB=5 cm"
+      ],
+      "answer": "C",
+      "acceptedAnswers": [
+        "C"
+      ],
+      "explanationZhHans": "直线是向两方无限延伸的，不能说延长直线，A错误；射线有一个端点，向一方无限延伸，不能说延长射线，B错误；线段有两个端点，可以延长，C正确；直线没有长度，不能说画直线AB=5 cm，D错误。因此正确答案是C。"
+    },
+    {
+      "id": "pep-junior-v3-s1-k03-mc-013",
+      "promptZhHans": "已知∠α=35°，则∠α的余角的补角是（　）",
+      "optionsZhHans": [
+        "A. 55°",
+        "B. 125°",
+        "C. 145°",
+        "D. 155°"
+      ],
+      "answer": "B",
+      "acceptedAnswers": [
+        "B"
+      ],
+      "explanationZhHans": "∠α的余角为90°-35°=55°，55°的补角为180°-55°=125°。所以∠α的余角的补角是125°。正确答案是B。"
+    },
+    {
+      "id": "pep-junior-v3-s1-k03-mc-014",
+      "promptZhHans": "在下列立体图形中，从正面看和从左面看形状图相同的是（　）",
+      "optionsZhHans": [
+        "A. 圆锥",
+        "B. 圆柱",
+        "C. 球",
+        "D. 三棱柱"
+      ],
+      "answer": "C",
+      "acceptedAnswers": [
+        "C"
+      ],
+      "explanationZhHans": "球从任何方向看都是圆，所以从正面看和从左面看形状图相同，都是圆。圆锥从正面看是三角形，从左面看也是三角形，但等腰三角形可能相同，但一般圆锥从正面和左面看形状相同，但选项C球更符合所有方向都相同。圆柱从正面看是矩形，从左面看也是矩形，但矩形可能不同。三棱柱从正面和左面看可能不同。因此最符合题意的是球。正确答案是C。"
+    },
+    {
+      "id": "pep-junior-v3-s1-k03-mc-015",
+      "promptZhHans": "如图，点O在直线AB上，射线OC平分∠BOD，若∠AOD=110°，则∠AOC的度数为（　）",
+      "optionsZhHans": [
+        "A. 125°",
+        "B. 135°",
+        "C. 145°",
+        "D. 155°"
+      ],
+      "answer": "C",
+      "acceptedAnswers": [
+        "C"
+      ],
+      "explanationZhHans": "因为∠AOD=110°，所以∠BOD=180°-110°=70°。OC平分∠BOD，所以∠COD=35°。∠AOC=∠AOD+∠COD=110°+35°=145°。因此正确答案是C。"
+    },
+    {
+      "id": "pep-junior-v3-s1-k03-mc-016",
+      "promptZhHans": "已知线段AB=10 cm，点C是AB的中点，点D是AC的中点，则线段BD的长为（　）",
+      "optionsZhHans": [
+        "A. 2.5 cm",
+        "B. 5 cm",
+        "C. 7.5 cm",
+        "D. 8 cm"
+      ],
+      "answer": "C",
+      "acceptedAnswers": [
+        "C"
+      ],
+      "explanationZhHans": "因为点C是AB的中点，所以AC=CB=5 cm。点D是AC的中点，所以AD=DC=2.5 cm。BD=BC+CD=5+2.5=7.5 cm。因此正确答案是C。"
+    }
+  ]
+}

@@ -1,0 +1,287 @@
+{
+  "batchId": "batch-025",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p1-121",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "hjb-primary-p1-lower-within-20-regrouping",
+      "unitTitle": "20以内数的加减法（二）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-20-regrouping-add-sub",
+        "make-ten-strategy",
+        "decompose-subtrahend",
+        "20以内退位减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "凑十",
+        "分拆减数",
+        "想加算减",
+        "进位加法",
+        "退位减法"
+      ],
+      "misconceptionTags": [
+        "decomposition breaks the wrong number",
+        "ten bridge step skipped",
+        "subtraction handled by digit comparison only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p1-lower-within-20-regrouping"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-lower-assessment-within-20-regrouping",
+        "hjb-primary-p1-lower-assessment-midterm-1-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小乐在计算 13 - 6 时，先算 10 - 6 = 4，再算 4 + 3 = 7。他用的方法是（ ）。",
+      "optionsZhHans": [
+        "凑十法",
+        "破十法",
+        "想加算减",
+        "分拆减数"
+      ],
+      "answer": "破十法",
+      "acceptedAnswers": [
+        "破十法"
+      ],
+      "explanationZhHans": "从13里分出10，先用10减6得4，再加剩下的3得7，这就是破十法。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-122",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "hjb-primary-p1-lower-within-20-regrouping",
+      "unitTitle": "20以内数的加减法（二）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-20-regrouping-add-sub",
+        "make-ten-strategy",
+        "decompose-subtrahend",
+        "20以内退位减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "凑十",
+        "分拆减数",
+        "想加算减",
+        "进位加法",
+        "退位减法"
+      ],
+      "misconceptionTags": [
+        "decomposition breaks the wrong number",
+        "ten bridge step skipped",
+        "subtraction handled by digit comparison only"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p1-lower-within-20-regrouping"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-lower-assessment-within-20-regrouping",
+        "hjb-primary-p1-lower-assessment-midterm-1-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算 8 + 7 时，可以先把 7 分成 2 和 5，8 + 2 = 10，10 + 5 = 15。这种方法是______法。",
+      "optionsZhHans": [],
+      "answer": "凑十",
+      "acceptedAnswers": [
+        "凑十",
+        "凑十法"
+      ],
+      "explanationZhHans": "把7拆成2和5，让8先凑成10，再加剩下的5，这就是凑十法。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-123",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "hjb-primary-p1-lower-within-20-regrouping",
+      "unitTitle": "20以内数的加减法（二）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-20-regrouping-add-sub",
+        "make-ten-strategy",
+        "decompose-subtrahend",
+        "20以内退位减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "凑十",
+        "分拆减数",
+        "想加算减",
+        "进位加法",
+        "退位减法"
+      ],
+      "misconceptionTags": [
+        "decomposition breaks the wrong number",
+        "ten bridge step skipped",
+        "subtraction handled by digit comparison only"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p1-lower-within-20-regrouping"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-lower-assessment-within-20-regrouping",
+        "hjb-primary-p1-lower-assessment-midterm-1-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算 15 - 9，并写出你是怎么算的。",
+      "optionsZhHans": [],
+      "answer": "6",
+      "acceptedAnswers": [
+        "6"
+      ],
+      "explanationZhHans": "可以用破十法：10-9=1，1+5=6；或者想加算减：因为9+6=15，所以15-9=6。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-124",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "hjb-primary-p1-lower-within-20-regrouping",
+      "unitTitle": "20以内数的加减法（二）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-20-regrouping-add-sub",
+        "make-ten-strategy",
+        "decompose-subtrahend",
+        "20以内退位减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "凑十",
+        "分拆减数",
+        "想加算减",
+        "进位加法",
+        "退位减法"
+      ],
+      "misconceptionTags": [
+        "decomposition breaks the wrong number",
+        "ten bridge step skipped",
+        "subtraction handled by digit comparison only"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p1-lower-within-20-regrouping"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-lower-assessment-within-20-regrouping",
+        "hjb-primary-p1-lower-assessment-midterm-1-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪道题的计算过程用了“想加算减”的方法？",
+      "optionsZhHans": [
+        "12 - 5，先算 10 - 5 = 5，再算 5 + 2 = 7",
+        "14 - 8，因为 8 + 6 = 14，所以 14 - 8 = 6",
+        "9 + 4，把 4 分成 1 和 3，9 + 1 = 10，10 + 3 = 13",
+        "16 - 9，把 9 分成 6 和 3，16 - 6 = 10，10 - 3 = 7"
+      ],
+      "answer": "14 - 8，因为 8 + 6 = 14，所以 14 - 8 = 6",
+      "acceptedAnswers": [
+        "14 - 8，因为 8 + 6 = 14，所以 14 - 8 = 6"
+      ],
+      "explanationZhHans": "想加算减就是用加法来帮助算减法，知道8+6=14，就能直接得到14-8=6。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-125",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "hjb-primary-p1-lower-within-20-regrouping",
+      "unitTitle": "20以内数的加减法（二）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-20-regrouping-add-sub",
+        "make-ten-strategy",
+        "decompose-subtrahend",
+        "20以内退位减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "凑十",
+        "分拆减数",
+        "想加算减",
+        "进位加法",
+        "退位减法"
+      ],
+      "misconceptionTags": [
+        "decomposition breaks the wrong number",
+        "ten bridge step skipped",
+        "subtraction handled by digit comparison only"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p1-lower-within-20-regrouping"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-lower-assessment-within-20-regrouping",
+        "hjb-primary-p1-lower-assessment-midterm-1-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在计算 17 - 8 时，小丁把 8 分成了 7 和 1，先算 17 - 7 = 10，再算 10 - 1 = 9。这种方法是______法。",
+      "optionsZhHans": [],
+      "answer": "分拆减数",
+      "acceptedAnswers": [
+        "分拆减数",
+        "分拆减数法"
+      ],
+      "explanationZhHans": "把减数8拆成7和1，先减7得10，再减1得9，这就是分拆减数法。"
+    }
+  ]
+}

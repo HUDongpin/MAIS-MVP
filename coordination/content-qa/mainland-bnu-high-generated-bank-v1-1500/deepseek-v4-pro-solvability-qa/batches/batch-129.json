@@ -1,0 +1,133 @@
+{
+  "batchNumber": 129,
+  "startedAt": "2026-05-27T14:05:32.883Z",
+  "completedAt": "2026-05-27T14:05:48.797Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-025",
+    "bnu-high-ds-v1-s6-026",
+    "bnu-high-ds-v1-s6-027",
+    "bnu-high-ds-v1-s6-028",
+    "bnu-high-ds-v1-s6-029",
+    "bnu-high-ds-v1-s6-030",
+    "bnu-high-ds-v1-s6-031",
+    "bnu-high-ds-v1-s6-032"
+  ],
+  "usage": {
+    "prompt_tokens": 10888,
+    "completion_tokens": 1216,
+    "total_tokens": 12104,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10376
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-025",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "11",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由 S_n = n^2+2n 得 a_5 = S_5 - S_4 = 35 - 24 = 11，答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-026",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "假设 n=k 时成立，则 n=k+1 时，左边 = 1^2+...+k^2+(k+1)^2 = k(k+1)(2k+1)/6 + (k+1)^2 = (k+1)[k(2k+1)+6(k+1)]/6 = (k+1)(2k^2+7k+6)/6 = (k+1)(k+2)(2k+3)/6 = (k+1)[(k+1)+1][2(k+1)+1]/6，右边形式一致，得证。",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目要求写出归纳第二步推导，答案完整且与解析一致，可独立求解。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-027",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "a_n = 3^n - 2^n",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "通过构造辅助数列可解得通项 a_n = 3^n - 2^n，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-028",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2, 2, 2, 2, ...",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "非零常数列既是等差又是等比，选项B正确，解析排除零常数列，答案匹配。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-029",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "a_1 = 1, d = 2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由 S_5 和 S_10 列方程组解得 a_1=1, d=2，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-030",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2 或 -3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由 S_3=14 得方程 q^3-7q+6=0，解得 q=2 或 q=-3，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-031",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "构造 b_n = a_n + 3^n，得 b_{n+1} = 2b_n，公比为2，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-032",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "20",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "利用等差数列下标和性质，a_5+a_6 = a_3+a_8 = 20，答案与解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，答案与解析匹配，无错误或歧义。"
+    }
+  }
+}

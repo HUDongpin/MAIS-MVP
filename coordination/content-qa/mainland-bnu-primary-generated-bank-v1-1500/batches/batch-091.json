@@ -1,0 +1,582 @@
+{
+  "batchId": "batch-091",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p4-151",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-decimal-meaning-add-sub",
+      "unitTitle": "小数的意义和加减法",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "decimal-meaning",
+        "decimal-addition-subtraction",
+        "place-value-decimals",
+        "小数的意义",
+        "小数加减法"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "小数意义",
+        "小数读写",
+        "小数比较",
+        "小数加法",
+        "小数减法"
+      ],
+      "misconceptionTags": [
+        "more decimal digits assumed larger",
+        "decimal points not aligned in calculation",
+        "tenths and hundredths roles reversed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-decimal-meaning-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit",
+        "bnu-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明买文具花了5.7元，买零食花了3.45元。他一共花了多少元？下面哪个竖式计算是正确的？",
+      "optionsZhHans": [
+        "5.7\n+ 3.45\n————\n  9.15",
+        "5.7\n+ 3.45\n————\n  6.02",
+        "5.7\n+ 3.45\n————\n  8.15",
+        "5.7\n+ 3.45\n————\n  9.02"
+      ],
+      "answer": "5.7\n+ 3.45\n————\n  9.15",
+      "acceptedAnswers": [
+        "5.7\n+ 3.45\n————\n  9.15"
+      ],
+      "explanationZhHans": "计算5.7+3.45时，先将小数点对齐，百分位0+5=5，十分位7+4=11进1，个位5+3+1=9，结果是9.15。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-152",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-decimal-meaning-add-sub",
+      "unitTitle": "小数的意义和加减法",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "decimal-meaning",
+        "decimal-addition-subtraction",
+        "place-value-decimals",
+        "小数的意义",
+        "小数加减法"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "小数意义",
+        "小数读写",
+        "小数比较",
+        "小数加法",
+        "小数减法"
+      ],
+      "misconceptionTags": [
+        "more decimal digits assumed larger",
+        "decimal points not aligned in calculation",
+        "tenths and hundredths roles reversed"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-decimal-meaning-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit",
+        "bnu-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一袋大米重5.28千克，用去1.6千克后，还剩多少千克？",
+      "optionsZhHans": [],
+      "answer": "3.68千克",
+      "acceptedAnswers": [
+        "3.68千克",
+        "3.68"
+      ],
+      "explanationZhHans": "计算5.28 - 1.6时，将1.6看作1.60，对齐小数点，百分位8-0=8，十分位2-6不够减，向个位借1，12-6=6，个位4-1=3，结果为3.68千克。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-153",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-decimal-meaning-add-sub",
+      "unitTitle": "小数的意义和加减法",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "decimal-meaning",
+        "decimal-addition-subtraction",
+        "place-value-decimals",
+        "小数的意义",
+        "小数加减法"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "小数意义",
+        "小数读写",
+        "小数比较",
+        "小数加法",
+        "小数减法"
+      ],
+      "misconceptionTags": [
+        "more decimal digits assumed larger",
+        "decimal points not aligned in calculation",
+        "tenths and hundredths roles reversed"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-decimal-meaning-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit",
+        "bnu-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明买文具，一本笔记本 4.25 元，一支钢笔 3.8 元。他付了 10 元，应找回多少元？请列竖式计算，并写出找回的钱数。",
+      "optionsZhHans": [],
+      "answer": "1.95元",
+      "acceptedAnswers": [
+        "1.95元",
+        "1.95"
+      ],
+      "explanationZhHans": "先算总价：4.25+3.8=8.05元，计算时小数点对齐。再用10元减总价：10-8.05=1.95元，所以应找回1.95元。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-154",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-decimal-meaning-add-sub",
+      "unitTitle": "小数的意义和加减法",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "decimal-meaning",
+        "decimal-addition-subtraction",
+        "place-value-decimals",
+        "小数的意义",
+        "小数加减法"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "小数意义",
+        "小数读写",
+        "小数比较",
+        "小数加法",
+        "小数减法"
+      ],
+      "misconceptionTags": [
+        "more decimal digits assumed larger",
+        "decimal points not aligned in calculation",
+        "tenths and hundredths roles reversed"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-decimal-meaning-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit",
+        "bnu-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在计算3.6 + 2.48时，下面哪个竖式写法是正确的？",
+      "optionsZhHans": [
+        "A. 3.6  \n+ 2.48  \n─────  \n  6.08",
+        "B. 3.6  \n+ 2.48  \n─────  \n  2.84",
+        "C. 3.60  \n+ 2.48  \n─────  \n  6.08",
+        "D. 3.6  \n+ 2.48  \n─────  \n  5.108"
+      ],
+      "answer": "C. 3.60  \n+ 2.48  \n─────  \n  6.08",
+      "acceptedAnswers": [
+        "C. 3.60  \n+ 2.48  \n─────  \n  6.08"
+      ],
+      "explanationZhHans": "计算小数加法时，要把小数点对齐，也就是相同数位对齐。3.6可以看作3.60，这样百分位上的0加8得8，十分位上的6加4得10，向个位进1，个位3加2再加进位1得6，小数点对齐，结果是6.08。选项C正确。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-155",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-decimal-meaning-add-sub",
+      "unitTitle": "小数的意义和加减法",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "decimal-meaning",
+        "decimal-addition-subtraction",
+        "place-value-decimals",
+        "小数的意义",
+        "小数加减法"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "小数意义",
+        "小数读写",
+        "小数比较",
+        "小数加法",
+        "小数减法"
+      ],
+      "misconceptionTags": [
+        "more decimal digits assumed larger",
+        "decimal points not aligned in calculation",
+        "tenths and hundredths roles reversed"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-decimal-meaning-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit",
+        "bnu-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈买苹果花了18.6元，买香蕉花了9.85元。买苹果比买香蕉多花了多少元？",
+      "optionsZhHans": [],
+      "answer": "8.75元",
+      "acceptedAnswers": [
+        "8.75元",
+        "8.75"
+      ],
+      "explanationZhHans": "求多花的钱用减法：18.6 - 9.85。计算时将小数点对齐，18.6看作18.60，18.60 - 9.85 = 8.75，所以多花8.75元。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-156",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-decimal-meaning-add-sub",
+      "unitTitle": "小数的意义和加减法",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "decimal-meaning",
+        "decimal-addition-subtraction",
+        "place-value-decimals",
+        "小数的意义",
+        "小数加减法"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "小数意义",
+        "小数读写",
+        "小数比较",
+        "小数加法",
+        "小数减法"
+      ],
+      "misconceptionTags": [
+        "more decimal digits assumed larger",
+        "decimal points not aligned in calculation",
+        "tenths and hundredths roles reversed"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-decimal-meaning-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit",
+        "bnu-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丽有5.8元，她买了一支铅笔花了1.35元，又买了一块橡皮花了0.9元。她一共花了多少钱？她还剩多少钱？",
+      "optionsZhHans": [],
+      "answer": "一共花了2.25元；还剩3.55元",
+      "acceptedAnswers": [
+        "一共花了2.25元；还剩3.55元",
+        "2.25元；3.55元",
+        "2.25,3.55"
+      ],
+      "explanationZhHans": "计算总花费：1.35 + 0.9，小数点对齐，1.35 + 0.90 = 2.25元。剩余：5.8 - 2.25，5.80 - 2.25 = 3.55元。注意小数位数不同时补零对齐。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-157",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-decimal-meaning-add-sub",
+      "unitTitle": "小数的意义和加减法",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "decimal-meaning",
+        "decimal-addition-subtraction",
+        "place-value-decimals",
+        "小数的意义",
+        "小数加减法"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "小数意义",
+        "小数读写",
+        "小数比较",
+        "小数加法",
+        "小数减法"
+      ],
+      "misconceptionTags": [
+        "more decimal digits assumed larger",
+        "decimal points not aligned in calculation",
+        "tenths and hundredths roles reversed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-decimal-meaning-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit",
+        "bnu-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈在超市买了三种蔬菜：白菜每千克1.7元，萝卜每千克2.3元，西红柿每千克3.6元。妈妈买白菜和萝卜一共花了多少钱？",
+      "optionsZhHans": [
+        "3.0元",
+        "4.0元",
+        "4.3元",
+        "5.0元"
+      ],
+      "answer": "4.0元",
+      "acceptedAnswers": [
+        "4.0元"
+      ],
+      "explanationZhHans": "计算白菜和萝卜的总价：1.7 + 2.3，对齐小数点，先算十分位7+3=10，满十向个位进1，个位1+2+1=4，所以结果是4.0元。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-158",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-decimal-meaning-add-sub",
+      "unitTitle": "小数的意义和加减法",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "decimal-meaning",
+        "decimal-addition-subtraction",
+        "place-value-decimals",
+        "小数的意义",
+        "小数加减法"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "小数意义",
+        "小数读写",
+        "小数比较",
+        "小数加法",
+        "小数减法"
+      ],
+      "misconceptionTags": [
+        "more decimal digits assumed larger",
+        "decimal points not aligned in calculation",
+        "tenths and hundredths roles reversed"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-decimal-meaning-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit",
+        "bnu-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一盒牛奶的价钱是2元5角6分，用小数表示是多少元？",
+      "optionsZhHans": [],
+      "answer": "2.56",
+      "acceptedAnswers": [
+        "2.56",
+        "2.56元"
+      ],
+      "explanationZhHans": "5角是0.5元，6分是0.06元，合起来是2.56元。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-159",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-decimal-meaning-add-sub",
+      "unitTitle": "小数的意义和加减法",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "decimal-meaning",
+        "decimal-addition-subtraction",
+        "place-value-decimals",
+        "小数的意义",
+        "小数加减法"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "小数意义",
+        "小数读写",
+        "小数比较",
+        "小数加法",
+        "小数减法"
+      ],
+      "misconceptionTags": [
+        "more decimal digits assumed larger",
+        "decimal points not aligned in calculation",
+        "tenths and hundredths roles reversed"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-decimal-meaning-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit",
+        "bnu-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈在超市买了三种商品：一瓶酱油5.8元，一袋盐2.35元，一瓶醋4.6元。她付了20元，应找回多少元？请列竖式计算，并写出找回的金额。",
+      "optionsZhHans": [],
+      "answer": "7.25元",
+      "acceptedAnswers": [
+        "7.25元",
+        "7.25"
+      ],
+      "explanationZhHans": "先算总价：5.8+2.35+4.6，对齐小数点，5.8看作5.80，4.6看作4.60，得5.80+2.35+4.60=12.75元。再用20减12.75，20.00-12.75=7.25元，所以找回7.25元。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-160",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-decimal-meaning-add-sub",
+      "unitTitle": "小数的意义和加减法",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "decimal-meaning",
+        "decimal-addition-subtraction",
+        "place-value-decimals",
+        "小数的意义",
+        "小数加减法"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "小数意义",
+        "小数读写",
+        "小数比较",
+        "小数加法",
+        "小数减法"
+      ],
+      "misconceptionTags": [
+        "more decimal digits assumed larger",
+        "decimal points not aligned in calculation",
+        "tenths and hundredths roles reversed"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-decimal-meaning-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit",
+        "bnu-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈买了一瓶果汁，第一次喝了0.35升，第二次喝了0.4升，两次一共喝了多少升？",
+      "optionsZhHans": [
+        "0.75升",
+        "0.39升",
+        "0.8升",
+        "0.3升"
+      ],
+      "answer": "0.75升",
+      "acceptedAnswers": [
+        "0.75升"
+      ],
+      "explanationZhHans": "计算0.35 + 0.4时，先将小数点对齐，百分位5加0得5，十分位3加4得7，个位0加0得0，结果是0.75升。"
+    }
+  ]
+}

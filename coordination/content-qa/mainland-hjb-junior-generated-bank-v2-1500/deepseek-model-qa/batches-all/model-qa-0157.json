@@ -1,0 +1,109 @@
+{
+  "batchId": "model-qa-0157",
+  "ids": [
+    "hjb-junior-ds-v2-s3-249",
+    "hjb-junior-ds-v2-s3-250",
+    "hjb-junior-ds-v2-s3-251",
+    "hjb-junior-ds-v2-s3-252",
+    "hjb-junior-ds-v2-s3-253",
+    "hjb-junior-ds-v2-s3-254",
+    "hjb-junior-ds-v2-s3-255",
+    "hjb-junior-ds-v2-s3-256"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-249",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "（1）y = (x - 2)² - 1；（2）顶点坐标为(2, -1)，对称轴为直线x = 2。",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-250",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析中配方错误：y = x² - 2mx + m² - 1 配方应为 (x - m)² - 1，顶点为 (m, -1)，直线为 y = -1，但选项无此。若按解析中错误配方 y = (x - m)² + m - 1，则顶点 (m, m-1)，直线 y = x - 1，对应选项 A，而非答案 B。答案 B 为 y = -x - 1，与解析矛盾。",
+      "independentAnswerZhHans": "配方：y = x² - 2mx + m² - 1 = (x - m)² - 1，顶点 (m, -1)，顶点始终在直线 y = -1 上。选项无 y = -1，故题目可能缺条件或答案错误。",
+      "answerCheckZhHans": "标准答案 B 错误，解析与答案不一致，且解析本身配方错误。",
+      "recommendedActionZhHans": "修正题干或答案。若题干正确，则正确答案应为 y = -1，但选项无，需调整选项；若按解析错误配方，则答案应为 A。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-251",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3 cm",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-252",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "8 cm",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-253",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "d < 5",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-254",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "4",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-255",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析中 sin∠AOC = 8/10 = 0.8，∠AOC ≈ 53°，但 sin 53° 约为 0.7986，非精确 0.8，且圆心角应为 2×arcsin(0.8) ≈ 106.26°，答案 106° 为近似值。题干未要求近似，且沪教版初中数学通常不涉及反三角函数，可能超纲。",
+      "independentAnswerZhHans": "弦心距 = √(10² - 8²) = 6 cm，sin(圆心角/2) = 8/10 = 0.8，圆心角 = 2×arcsin(0.8) ≈ 106.26°，若取整为 106°。",
+      "answerCheckZhHans": "答案 106° 为近似值，解析中 53° 为近似，但未说明近似，且可能超纲。",
+      "recommendedActionZhHans": "考虑是否适合初中生，或修改为求弦心距等。",
+      "confidence": "medium"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-256",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "√39 cm",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

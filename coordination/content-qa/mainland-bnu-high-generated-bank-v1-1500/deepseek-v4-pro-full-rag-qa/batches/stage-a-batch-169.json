@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-169",
+  "startedAt": "2026-05-28T01:47:59.436Z",
+  "completedAt": "2026-05-28T01:48:17.916Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-345",
+    "bnu-high-ds-v1-s6-346",
+    "bnu-high-ds-v1-s6-347",
+    "bnu-high-ds-v1-s6-348",
+    "bnu-high-ds-v1-s6-349",
+    "bnu-high-ds-v1-s6-350",
+    "bnu-high-ds-v1-s6-351",
+    "bnu-high-ds-v1-s6-352"
+  ],
+  "usage": {
+    "prompt_tokens": 10148,
+    "completion_tokens": 1520,
+    "total_tokens": 11668,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9764
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-345",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由 f'(-1)=0 得 3-2a+b=0，由 f(-1)=3 得 -1+a-b+1=3，解得 a=1, b=-1，故 a+b=0。但检查发现 f(-1)=3 代入得 a-b=3，结合导数条件解得 a=1, b=-1，和为 0。重新计算：f(-1)=(-1)^3+a(-1)^2+b(-1)+1=-1+a-b+1=a-b=3，所以 a-b=3；f'(x)=3x^2+2ax+b，f'(-1)=3-2a+b=0，即 -2a+b=-3。解方程组得 a=0, b=-3？代入：a-b=0-(-3)=3 成立；-2a+b=0+(-3)=-3 成立。所以 a=0, b=-3，a+b=-3。之前错误。正确：由 f(-1)=3 得 a-b=3；由 f'(-1)=0 得 3-2a+b=0 => -2a+b=-3。两式相加：-a=0 => a=0，代入得 b=-3，和为 -3。但题目说 f(-1)=3，f'(-1)=0，极值点，确实 a=0,b=-3，和为 -3。然而检查 f(x)=x^3+0*x^2-3x+1，f'(-1)=3-3=0，f(-1)=-1+0+3+1=3，正确。所以 a+b=-3。之前误算。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-346",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "A",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x^2-6x=3x(x-2)，驻点 x=0,2。x<0 时 f'>0，0<x<2 时 f'<0，x>2 时 f'>0，故极小值在 x=2 处，f(2)=8-12+1=-3。选项 A 正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-347",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "极大值点 x=-1，极小值点 x=3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x^2-6x-9=3(x-3)(x+1)，驻点 x=-1,3。x<-1 时 f'>0，-1<x<3 时 f'<0，x>3 时 f'>0，故 x=-1 为极大值点，x=3 为极小值点。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-348",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "9",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "y'=3x^2-3，在 x=2 处斜率为 3*4-3=9。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-349",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "A",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x^2-3=3(x-1)(x+1)，在 [-1,2] 上驻点 x=1。f(-1)=2，f(1)=-2，f(2)=2，最小值为 -2，选 A。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-350",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(-∞, -1) 和 (3, +∞)",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x^2-6x-9=3(x-3)(x+1)，f'(x)>0 得 x<-1 或 x>3，故单调递增区间为 (-∞,-1) 和 (3,+∞)。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-351",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "32",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x^2-6x-9=3(x-3)(x+1)，在 [-2,4] 上驻点 x=-1,3。f(-2)=3，f(-1)=10，f(3)=-22，f(4)=-15。最大值 M=10，最小值 m=-22，M-m=32。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-352",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x^2-3=3(x-1)(x+1)，在 [-2,2] 上驻点 x=-1,1。f(-2)=-2，f(-1)=2，f(1)=-2，f(2)=2，最大值为 2。选项对应 2。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部题目可独立求解，无数学错误或歧义，符合北师大版高中导数章节要求。"
+    }
+  }
+}

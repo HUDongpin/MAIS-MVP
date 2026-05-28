@@ -1,0 +1,191 @@
+{
+  "batchNumber": 54,
+  "startedAt": "2026-05-25T02:16:19.736Z",
+  "completedAt": "2026-05-25T02:16:42.407Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p4-205",
+    "hjb-primary-ds-v1-p4-206",
+    "hjb-primary-ds-v1-p4-207",
+    "hjb-primary-ds-v1-p4-208",
+    "hjb-primary-ds-v1-p4-209",
+    "hjb-primary-ds-v1-p4-210",
+    "hjb-primary-ds-v1-p4-211",
+    "hjb-primary-ds-v1-p4-212",
+    "hjb-primary-ds-v1-p4-213",
+    "hjb-primary-ds-v1-p4-214",
+    "hjb-primary-ds-v1-p4-215",
+    "hjb-primary-ds-v1-p4-216",
+    "hjb-primary-ds-v1-p4-217",
+    "hjb-primary-ds-v1-p4-218",
+    "hjb-primary-ds-v1-p4-219",
+    "hjb-primary-ds-v1-p4-220",
+    "hjb-primary-ds-v1-p4-221",
+    "hjb-primary-ds-v1-p4-222"
+  ],
+  "usage": {
+    "prompt_tokens": 3655,
+    "completion_tokens": 1394,
+    "total_tokens": 5049,
+    "prompt_tokens_details": {
+      "cached_tokens": 3584
+    },
+    "prompt_cache_hit_tokens": 3584,
+    "prompt_cache_miss_tokens": 71
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p4-205",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数据与选项一致，最高气温周五28℃，趋势先升后降，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-206",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "表格数据清晰，周五气温18℃，答案与acceptedAnswers匹配。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-207",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项C正确，垂直定义是相交成直角，其他选项均有错误，解释合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-208",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "画垂线需用直角边，答案“直角”或“直角边”均可，符合操作。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-209",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平行线特征为距离处处相等，选项B正确，其他选项为相交或重合。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-210",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "垂直于同一直线的两直线平行，答案“平行”或“互相平行”正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-211",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "垂直需90°角，选项B正确，其他角度或不相交均不符合。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-212",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案描述画垂线操作正确，acceptedAnswers覆盖多种表述。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-213",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "过直线外一点只能画一条垂线，选项D正确，其他选项均有误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-214",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "垂直于同一直线的两直线平行，答案“互相平行”或“平行”正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-215",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "画平行线第一步用三角尺直角边贴住直尺，选项A正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-216",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "垂直定义，答案“垂直”正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-217",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平行线定义是不相交，选项“无论怎么延长都不相交”正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-218",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "画垂线需重合，答案“重合”正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-219",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "垂直定义是相交成直角，选项正确，其他选项均有错误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-220",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "过直线外一点只能画一条平行线，答案“一”或“1”正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-221",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "垂直定义是相交成直角，选项正确，其他选项混淆概念。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-222",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平行线定义，答案“平行线”正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合沪教版P4要求，数学正确，答案匹配，无歧义或缺失条件。"
+    }
+  }
+}

@@ -1,0 +1,137 @@
+{
+  "batchNumber": 30,
+  "startedAt": "2026-05-25T02:55:57.464Z",
+  "completedAt": "2026-05-25T02:56:12.576Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s1-k05-fi-015",
+    "pep-junior-v3-s1-k05-fi-016",
+    "pep-junior-v3-s1-k05-fi-017",
+    "pep-junior-v3-s1-k05-fi-018",
+    "pep-junior-v3-s1-k05-fi-019",
+    "pep-junior-v3-s1-k05-fi-020",
+    "pep-junior-v3-s1-k05-fi-021",
+    "pep-junior-v3-s1-k05-fi-022",
+    "pep-junior-v3-s1-k05-fi-023",
+    "pep-junior-v3-s1-k05-fi-024",
+    "pep-junior-v3-s1-k05-fi-025",
+    "pep-junior-v3-s1-k05-fi-026"
+  ],
+  "usage": {
+    "prompt_tokens": 3089,
+    "completion_tokens": 907,
+    "total_tokens": 3996,
+    "prompt_tokens_details": {
+      "cached_tokens": 3072
+    },
+    "prompt_cache_hit_tokens": 3072,
+    "prompt_cache_miss_tokens": 17
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s1-k05-fi-015",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解析一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-fi-016",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "不等式列式正确，答案与解析一致，接受多种等价形式。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-fi-017",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程列式及求解正确，答案合理。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-fi-018",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "调查方式与样本容量判断正确，答案格式合理。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-fi-019",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "角度计算正确，解析清晰。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-fi-020",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "函数表达式正确，答案与解析一致。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-fi-021",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移坐标计算正确，答案格式合理。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-fi-022",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程组求解正确，答案明确。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-fi-023",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "不等式求解及正整数解正确，答案格式合理。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-fi-024",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "坐标轴上点条件应用正确，答案合理。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-fi-025",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "众数判断正确，答案与数据一致。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-fi-026",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平行线角度计算正确，解析合理。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案与解析一致，无歧义或错误，适合人教版初中数学。"
+    }
+  }
+}

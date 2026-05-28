@@ -1,0 +1,313 @@
+{
+  "batchId": "batch-067",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s2-k08-fi-028",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "在平面直角坐标系中，点A的坐标为(2,3)，点B的坐标为(5,7)。将线段AB先向右平移4个单位，再向下平移2个单位，得到线段A'B'。则点A'的坐标为______。",
+      "optionsZhHans": [],
+      "answer": "(6,1)",
+      "acceptedAnswers": [
+        "(6,1)",
+        "（6，1）",
+        "6,1"
+      ],
+      "explanationZhHans": "点A(2,3)向右平移4个单位，横坐标加4，变为2+4=6；向下平移2个单位，纵坐标减2，变为3-2=1。因此点A'的坐标为(6,1)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-fi-029",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-linear-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "某文具店推出两种笔记本销售方案：方案一，每本售价8元；方案二，购买会员卡需20元，之后每本售价5元。设购买x本笔记本（x为正整数），方案一的总费用为y1元，方案二的总费用为y2元。当x满足______时，方案二更省钱。",
+      "optionsZhHans": [],
+      "answer": "x≥7",
+      "acceptedAnswers": [
+        "x≥7",
+        "x>6"
+      ],
+      "explanationZhHans": "方案一费用y1=8x，方案二费用y2=20+5x。方案二更省钱即y2<y1，得20+5x<8x，20<3x，x>20/3≈6.67。由于x为正整数，所以x≥7时方案二更省钱。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-fi-030",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-data-analysis"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-proof-calculation-integrated"
+      ],
+      "promptZhHans": "已知一组数据：5，7，8，6，4，7，9，则这组数据的方差为______（结果保留两位小数）。",
+      "optionsZhHans": [],
+      "answer": "2.53",
+      "acceptedAnswers": [
+        "2.53",
+        "2.53左右",
+        "约2.53"
+      ],
+      "explanationZhHans": "平均数=(5+7+8+6+4+7+9)/7=46/7≈6.5714。方差=[(5-6.5714)²+(7-6.5714)²+(8-6.5714)²+(6-6.5714)²+(4-6.5714)²+(7-6.5714)²+(9-6.5714)²]/7≈(2.4694+0.1837+2.0408+0.3265+6.6122+0.1837+5.8980)/7≈17.7143/7≈2.5306，保留两位小数得2.53。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-fi-031",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-pythagorean-theorem"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean"
+      ],
+      "promptZhHans": "若三角形的三边长分别为6，8，10，则该三角形最长边上的高为______。",
+      "optionsZhHans": [],
+      "answer": "4.8",
+      "acceptedAnswers": [
+        "4.8",
+        "24/5",
+        "4又4/5"
+      ],
+      "explanationZhHans": "由于6²+8²=36+64=100=10²，三角形为直角三角形，最长边10为斜边。设斜边上的高为h，由面积相等得(1/2)×6×8=(1/2)×10×h，解得h=48/10=4.8。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-fi-032",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-quadrilaterals"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "在平行四边形ABCD中，已知∠A=110°，则∠C的度数为______。",
+      "optionsZhHans": [],
+      "answer": "110°",
+      "acceptedAnswers": [
+        "110°",
+        "110",
+        "110度"
+      ],
+      "explanationZhHans": "平行四边形的对角相等，∠A与∠C是对角，所以∠C=∠A=110°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-fi-033",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-quadratic-radicals"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "化简二次根式√(48a²b³)（其中a>0，b>0）的结果为______。",
+      "optionsZhHans": [],
+      "answer": "4ab√(3b)",
+      "acceptedAnswers": [
+        "4ab√(3b)",
+        "4ab√3b",
+        "4ab*√(3b)"
+      ],
+      "explanationZhHans": "√(48a²b³)=√(16×3×a²×b²×b)=√16×√a²×√b²×√(3b)=4×a×b×√(3b)=4ab√(3b)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-fi-034",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions"
+      ],
+      "promptZhHans": "若分式(x²-4)/(x-2)的值为0，则x的值为______。",
+      "optionsZhHans": [],
+      "answer": "-2",
+      "acceptedAnswers": [
+        "-2",
+        "x=-2"
+      ],
+      "explanationZhHans": "分式值为0的条件是分子为0且分母不为0。分子x²-4=0解得x=2或x=-2。分母x-2≠0得x≠2。因此x=-2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-sa-001",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-pythagorean-theorem"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean"
+      ],
+      "promptZhHans": "在△ABC中，AB=13，BC=14，AC=15。判断△ABC是否为直角三角形，并说明理由。",
+      "optionsZhHans": [],
+      "answer": "不是直角三角形，因为13²+14²≠15²且13²+15²≠14²且14²+15²≠13²。",
+      "acceptedAnswers": [
+        "不是直角三角形，因为13²+14²≠15²且13²+15²≠14²且14²+15²≠13²。",
+        "不是直角三角形",
+        "不是",
+        "否"
+      ],
+      "explanationZhHans": "判断三角形是否为直角三角形，需验证最长边的平方是否等于其余两边的平方和。最长边为15，15²=225；13²+14²=169+196=365≠225，因此不是直角三角形。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-sa-002",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-quadrilaterals"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "在平行四边形ABCD中，对角线AC与BD相交于点O。若AC=10，BD=12，且∠AOB=60°，求平行四边形ABCD的面积。",
+      "optionsZhHans": [],
+      "answer": "30√3",
+      "acceptedAnswers": [
+        "30√3",
+        "30根号3",
+        "30√3平方单位"
+      ],
+      "explanationZhHans": "平行四边形对角线互相平分，故AO=5，BO=6。在△AOB中，∠AOB=60°，由面积公式S△AOB=(1/2)×AO×BO×sin60°=(1/2)×5×6×(√3/2)=15√3/2。平行四边形面积为4×S△AOB=4×(15√3/2)=30√3。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-sa-003",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-quadratic-radicals"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "已知x=√3+1，求代数式x²-2x+3的值。",
+      "optionsZhHans": [],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5",
+        "5.0"
+      ],
+      "explanationZhHans": "x=√3+1，则x²=(√3+1)²=3+2√3+1=4+2√3。x²-2x+3=(4+2√3)-2(√3+1)+3=4+2√3-2√3-2+3=5。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

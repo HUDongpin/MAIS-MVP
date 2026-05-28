@@ -1,0 +1,141 @@
+{
+  "batchNumber": 119,
+  "startedAt": "2026-05-27T14:03:56.833Z",
+  "completedAt": "2026-05-27T14:04:17.737Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-445",
+    "bnu-high-ds-v1-s5-446",
+    "bnu-high-ds-v1-s5-447",
+    "bnu-high-ds-v1-s5-448",
+    "bnu-high-ds-v1-s5-449",
+    "bnu-high-ds-v1-s5-450",
+    "bnu-high-ds-v1-s5-451",
+    "bnu-high-ds-v1-s5-452"
+  ],
+  "usage": {
+    "prompt_tokens": 11433,
+    "completion_tokens": 1262,
+    "total_tokens": 12695,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10921
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-445",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": null,
+        "correctedAnswer": null,
+        "issueTags": [
+          "missing_condition",
+          "unsolvable",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目未指定去掉哪个点，也未给出异常点的判断标准，无法唯一确定新相关系数；解析称“无明显异常点”与题干“去掉一个异常点”矛盾，且未提供计算过程，答案不可靠。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-446",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "χ²≈33.33>3.841，认为运动习惯与健康状况有关",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "数据完整，可独立计算χ²≈33.33，大于临界值3.841，结论正确；解析计算过程与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-447",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "-71.5",
+        "correctedAnswer": "-71.5",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立计算得截距a≈-71.5，与给定答案-22.1不符；解析中虽指出错误并给出-71.5，但最终答案仍为-22.1，自相矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-448",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "有95%的把握认为X与Y有关",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "χ²=6.8>3.841，拒绝独立假设，正确结论为有95%把握认为有关；解析解释合理。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-449",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "ŷ = 5x + 400，斜率b=5表示施肥量每增加1千克/亩，亩产量平均增加5千克",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "数据完整，可独立计算得回归方程ŷ=5x+400，斜率解释正确；解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-450",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0.72",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "相关系数不受线性变换影响，答案0.72正确；解析解释合理。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-451",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "阅读时间与语文成绩有较强的正相关关系，但不宜直接断言阅读时间增加一定导致成绩提高",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "r=0.82表示强正相关，但相关不代表因果，且r不是斜率；选项A表述最合理，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-452",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "independentAnswer": "（1）散点大致呈从左下到右上的趋势，表明正相关；（2）r≈0.996；（3）身高与跳远成绩有极强的正线性相关关系。",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "medium",
+        "rationaleZhHans": "数据可独立计算r≈0.996，答案正确；解析未展示计算过程，但结论与答案一致，可接受。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 0,
+      "fail": 2,
+      "notes": "第445题因缺失异常点信息无法求解，答案不可靠；第447题答案与独立计算不符，解析自相矛盾。其余题目均通过审核。"
+    }
+  }
+}

@@ -1,0 +1,168 @@
+{
+  "scope": "full",
+  "batchIndex": 63,
+  "startedAt": "2026-05-28T03:53:38.746Z",
+  "completedAt": "2026-05-28T03:54:30.928Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "itemIds": [
+    "1192",
+    "1193",
+    "1194",
+    "1195",
+    "1196",
+    "1197",
+    "1198",
+    "1199",
+    "1200",
+    "1201"
+  ],
+  "usage": {
+    "prompt_tokens": 2696,
+    "completion_tokens": 3488,
+    "total_tokens": 6184,
+    "prompt_tokens_details": {
+      "cached_tokens": 2688
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 2251
+    },
+    "prompt_cache_hit_tokens": 2688,
+    "prompt_cache_miss_tokens": 8
+  },
+  "finishReason": "stop",
+  "jsonModeFallback": false,
+  "result": {
+    "items": [
+      {
+        "questionId": "1192",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "$9 \\frac{5}{18} + 11 \\frac{11}{18} - 4 \\frac{1}{18} = 16 \\frac{5}{6}$。",
+        "independentAnswer": "5 5/6",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "mismatch",
+        "severity": "P0",
+        "reason": "Question text has '11/18' but standardAnswer uses '11 11/18', leading to different results. Independent calculation gives 5 5/6.",
+        "recommendedAction": "Correct question text to '11 11/18' or update answer key to 5 5/6."
+      },
+      {
+        "questionId": "1193",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "1 11/40 (or 51/40)",
+        "independentAnswer": "1 11/40",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Correct calculation and matching answer.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "1194",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "3 2/7 (or 23/7)",
+        "independentAnswer": "3 2/7",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Correct calculation and matching answer.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "1195",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "19/21",
+        "independentAnswer": "19/21",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Correct calculation and matching answer.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "1196",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "19/24",
+        "independentAnswer": "19/24",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Correct calculation and matching answer.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "1197",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "9 3/4 (or 39/4)",
+        "independentAnswer": "9 3/4",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Correct calculation and matching answer.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "1198",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "2 7/40 (or 87/40)",
+        "independentAnswer": "2 7/40",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Correct calculation and matching answer.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "1199",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "4-Jan",
+        "independentAnswer": "1/4",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "mismatch",
+        "severity": "P0",
+        "reason": "standardAnswer '4-Jan' is not the correct answer; independent calculation gives 1/4.",
+        "recommendedAction": "Correct answer key to '1/4'."
+      },
+      {
+        "questionId": "1200",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "1 19/72 (or 91/72)",
+        "independentAnswer": "1 19/72",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Correct calculation and matching answer.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "1201",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "1 13/24 (or 37/24)",
+        "independentAnswer": "1 13/24",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Correct calculation and matching answer.",
+        "recommendedAction": "No blocking action."
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "unsolvable": 0,
+      "ambiguous": 0,
+      "imageContextRequired": 0,
+      "answerMismatch": 2,
+      "missingAnswerKey": 0,
+      "notes": "Q1192: question text typo ('11/18' should be '11 11/18'); Q1199: standardAnswer incorrect format ('4-Jan' should be '1/4'). All others pass."
+    }
+  }
+}

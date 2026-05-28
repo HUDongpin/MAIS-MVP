@@ -1,0 +1,191 @@
+{
+  "batchNumber": 31,
+  "startedAt": "2026-05-27T13:27:23.360Z",
+  "completedAt": "2026-05-27T13:27:42.208Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p3-041",
+    "bnu-primary-ds-v1-p3-042",
+    "bnu-primary-ds-v1-p3-043",
+    "bnu-primary-ds-v1-p3-044",
+    "bnu-primary-ds-v1-p3-045",
+    "bnu-primary-ds-v1-p3-046",
+    "bnu-primary-ds-v1-p3-047",
+    "bnu-primary-ds-v1-p3-048",
+    "bnu-primary-ds-v1-p3-049",
+    "bnu-primary-ds-v1-p3-050",
+    "bnu-primary-ds-v1-p3-051",
+    "bnu-primary-ds-v1-p3-052",
+    "bnu-primary-ds-v1-p3-053",
+    "bnu-primary-ds-v1-p3-054",
+    "bnu-primary-ds-v1-p3-055",
+    "bnu-primary-ds-v1-p3-056",
+    "bnu-primary-ds-v1-p3-057",
+    "bnu-primary-ds-v1-p3-058"
+  ],
+  "usage": {
+    "prompt_tokens": 3744,
+    "completion_tokens": 1328,
+    "total_tokens": 5072,
+    "prompt_tokens_details": {
+      "cached_tokens": 3712
+    },
+    "prompt_cache_hit_tokens": 3712,
+    "prompt_cache_miss_tokens": 32
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p3-041",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解释一致，符合三年级上册三位数加减法要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-042",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估算、精确计算和验算均正确，答案覆盖两种验算方式，符合要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-043",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项唯一正确，算式符合题意，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-044",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "两步计算正确，答案451本，符合三年级难度。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-045",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案642本，解释清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-046",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "验算方法正确，选项9×4是唯一正确验算算式。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-047",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "利用乘除互逆求除数，答案8正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-048",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分步和综合算式均正确，符合要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-049",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项正确，综合算式24×3+24=96（人）无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-050",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "先乘后减，答案36棵正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-051",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "利用商的变化规律，正确商为9，解释合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-052",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "先求总数再平均分，答案8个班正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-053",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "除法应用正确，答案12根。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-054",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "有余数除法逆运算，答案51根正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-055",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均分用除法，选项48÷6正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-056",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "先乘后除，答案12本正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-057",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "两步计算正确，答案9盒，思考过程清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-058",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "先乘后减，选项6×8-12正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部18道题目均通过审核，数学正确，答案与解释一致，无歧义或错误，符合北师大版三年级上册要求。"
+    }
+  }
+}

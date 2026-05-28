@@ -1,0 +1,136 @@
+{
+  "batchNumber": 34,
+  "startedAt": "2026-05-27T13:49:29.339Z",
+  "completedAt": "2026-05-27T13:49:48.407Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-265",
+    "bnu-high-ds-v1-s4-266",
+    "bnu-high-ds-v1-s4-267",
+    "bnu-high-ds-v1-s4-268",
+    "bnu-high-ds-v1-s4-269",
+    "bnu-high-ds-v1-s4-270",
+    "bnu-high-ds-v1-s4-271",
+    "bnu-high-ds-v1-s4-272"
+  ],
+  "usage": {
+    "prompt_tokens": 10801,
+    "completion_tokens": 1276,
+    "total_tokens": 12077,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10289
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-265",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "10.5公里",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，由y=8+1.6(x-3)=20解得x=10.5，选项唯一，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-266",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "20%",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由200(1-x)^2=128解得x=0.2=20%，答案与解析一致，无歧义。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-267",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "y=50+4(x-20)或y=4x-30",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "阶梯水价分段函数，x>20时y=2×10+3×10+4(x-20)=50+4(x-20)=4x-30，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-268",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "t>200",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由20+0.1t<0.2t解得t>200，选项唯一，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-269",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "10年",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由10000×1.02^n>12000得n>lg1.2/lg1.02≈9.21，至少10年，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-270",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "k≈0.04，m=100e^{-0.04t}",
+        "correctedAnswer": "k≈0.04，m=100e^{-0.04t}",
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "解析中k≈0.0446，但答案和acceptedAnswers均写为k≈0.04，且函数表达式用0.04，与解析计算矛盾。题目要求精确到0.01，0.0446四舍五入为0.04，但解析未说明四舍五入，且acceptedAnswers包含k=0.04和k≈0.0446，存在不一致。应统一为k≈0.04，m=100e^{-0.04t}。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-271",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "乙同学的二次模型更合适，因为它的预测误差更小",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "计算甲模型总误差13，乙模型总误差12，乙更合适，选项唯一，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-272",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "a=100, b=2, 第5天销售3200件",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由a*b=200和a*b^3=800解得b=2, a=100，第5天3200件，答案与解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第270题答案与解析不一致：解析中k≈0.0446，但答案写为k≈0.04，且函数表达式用0.04，需统一。其余题目均通过。"
+    }
+  }
+}

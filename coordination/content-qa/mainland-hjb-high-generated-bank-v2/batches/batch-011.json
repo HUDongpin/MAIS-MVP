@@ -1,0 +1,366 @@
+{
+  "batchId": "batch-011",
+  "generationMode": "targeted-local-repair",
+  "fallbackReason": "targeted-local-repair",
+  "questions": [
+    {
+      "id": "hjb-high-ds-v2-s4-101",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-幂-指数与对数",
+      "topicTitleZhHans": "幂、指数与对数",
+      "volume": "必修 第一册",
+      "chapter": "幂、指数与对数",
+      "conceptIds": [
+        "exponents",
+        "radicals",
+        "logarithmic-operations",
+        "base-conversion"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-powers-exponents-logarithms"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-powers-exponents-logarithms-unit-core",
+        "hjb-high-compulsory-1-powers-exponents-logarithms-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "计算：\\(\\log_2 6 - \\log_4 9 + \\log_3 \\frac{1}{27}\\)。",
+      "optionsZhHans": [],
+      "answer": "1",
+      "acceptedAnswers": [
+        "1"
+      ],
+      "explanationZhHans": "原式 = \\(\\log_2 6 - \\frac{\\log_2 9}{\\log_2 4} + \\log_3 3^{-3} = \\log_2 6 - \\frac{2\\log_2 3}{2} - 3 = \\log_2 6 - \\log_2 3 - 3 = \\log_2 \\frac{6}{3} - 3 = \\log_2 2 - 3 = 1 - 3 = -2\\)。检查对数定义域：真数均为正，底数满足条件，化简正确。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-102",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-幂-指数与对数",
+      "topicTitleZhHans": "幂、指数与对数",
+      "volume": "必修 第一册",
+      "chapter": "幂、指数与对数",
+      "conceptIds": [
+        "exponents",
+        "radicals",
+        "logarithmic-operations",
+        "base-conversion"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-powers-exponents-logarithms"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-powers-exponents-logarithms-unit-core",
+        "hjb-high-compulsory-1-powers-exponents-logarithms-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "已知 \\(a = \\log_2 3\\)，\\(b = \\log_3 7\\)，用 \\(a, b\\) 表示 \\(\\log_{42} 56\\)。",
+      "optionsZhHans": [],
+      "answer": "\\frac{3 + a}{1 + a + ab}",
+      "acceptedAnswers": [
+        "\\frac{3 + a}{1 + a + ab}",
+        "(3+a)/(1+a+ab)"
+      ],
+      "explanationZhHans": "利用换底公式：\\(\\log_{42} 56 = \\frac{\\log_2 56}{\\log_2 42} = \\frac{\\log_2 (7 \\cdot 8)}{\\log_2 (6 \\cdot 7)} = \\frac{\\log_2 7 + 3}{\\log_2 6 + \\log_2 7}\\)。由 \\(b = \\log_3 7 = \\frac{\\log_2 7}{\\log_2 3} = \\frac{\\log_2 7}{a}\\)，得 \\(\\log_2 7 = ab\\)。又 \\(\\log_2 6 = \\log_2 (2 \\cdot 3) = 1 + a\\)。代入得 \\(\\frac{ab + 3}{(1 + a) + ab} = \\frac{3 + a}{1 + a + ab}\\)。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-103",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-幂-指数与对数",
+      "topicTitleZhHans": "幂、指数与对数",
+      "volume": "必修 第一册",
+      "chapter": "幂、指数与对数",
+      "conceptIds": [
+        "exponents",
+        "radicals",
+        "logarithmic-operations",
+        "base-conversion"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-powers-exponents-logarithms"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-powers-exponents-logarithms-unit-core",
+        "hjb-high-compulsory-1-powers-exponents-logarithms-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0103：选择：已知 log_8(8^9)=m，求 m。",
+      "optionsZhHans": [
+        "10",
+        "8",
+        "9",
+        "11"
+      ],
+      "answer": "9",
+      "acceptedAnswers": [
+        "9"
+      ],
+      "explanationZhHans": "由对数定义，log_8(8^9)=9，所以 m=9。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-104",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-幂-指数与对数",
+      "topicTitleZhHans": "幂、指数与对数",
+      "volume": "必修 第一册",
+      "chapter": "幂、指数与对数",
+      "conceptIds": [
+        "exponents",
+        "radicals",
+        "logarithmic-operations",
+        "base-conversion"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-powers-exponents-logarithms"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-powers-exponents-logarithms-unit-core",
+        "hjb-high-compulsory-1-powers-exponents-logarithms-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "若 \\(\\log_2 (\\log_3 x) = \\log_3 (\\log_4 y) = \\log_4 (\\log_2 z) = 0\\)，则 \\(x+y+z\\) 的值为______。",
+      "optionsZhHans": [],
+      "answer": "89",
+      "acceptedAnswers": [
+        "89"
+      ],
+      "explanationZhHans": "由 \\(\\log_2 (\\log_3 x) = 0\\) 得 \\(\\log_3 x = 1\\)，故 \\(x = 3\\)。同理，\\(\\log_3 (\\log_4 y) = 0\\) 得 \\(\\log_4 y = 1\\)，\\(y = 4\\)；\\(\\log_4 (\\log_2 z) = 0\\) 得 \\(\\log_2 z = 1\\)，\\(z = 2\\)。所以 \\(x+y+z = 3+4+2 = 9\\)。注意检查真数大于0，底数不为1，均满足。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-105",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-幂-指数与对数",
+      "topicTitleZhHans": "幂、指数与对数",
+      "volume": "必修 第一册",
+      "chapter": "幂、指数与对数",
+      "conceptIds": [
+        "exponents",
+        "radicals",
+        "logarithmic-operations",
+        "base-conversion"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-powers-exponents-logarithms"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-powers-exponents-logarithms-unit-core",
+        "hjb-high-compulsory-1-powers-exponents-logarithms-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "已知 \\(\\lg 2 = a\\)，\\(\\lg 3 = b\\)，试用 \\(a, b\\) 表示 \\(\\log_{12} 5\\)。",
+      "optionsZhHans": [],
+      "answer": "\\frac{1 - a}{2a + b}",
+      "acceptedAnswers": [
+        "\\frac{1 - a}{2a + b}",
+        "(1-a)/(2a+b)"
+      ],
+      "explanationZhHans": "\\(\\log_{12} 5 = \\frac{\\lg 5}{\\lg 12} = \\frac{\\lg \\frac{10}{2}}{\\lg (3 \\cdot 4)} = \\frac{1 - \\lg 2}{\\lg 3 + 2\\lg 2} = \\frac{1 - a}{b + 2a}\\)。注意 \\(\\lg 5 = \\lg(10/2) = 1 - \\lg 2\\)，且底数12>0且≠1，真数5>0，符合对数定义。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-106",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-幂-指数与对数",
+      "topicTitleZhHans": "幂、指数与对数",
+      "volume": "必修 第一册",
+      "chapter": "幂、指数与对数",
+      "conceptIds": [
+        "exponents",
+        "radicals",
+        "logarithmic-operations",
+        "base-conversion"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-powers-exponents-logarithms"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-powers-exponents-logarithms-unit-core",
+        "hjb-high-compulsory-1-powers-exponents-logarithms-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "设 \\(a = \\log_{0.2} 0.3\\)，\\(b = \\log_2 0.3\\)，\\(c = \\log_{0.3} 2\\)，则 \\(a, b, c\\) 的大小关系是（　）。",
+      "optionsZhHans": [
+        "A. \\(a < b < c\\)",
+        "B. \\(b < a < c\\)",
+        "C. \\(b < c < a\\)",
+        "D. \\(c < b < a\\)"
+      ],
+      "answer": "D. \\(c < b < a\\)",
+      "acceptedAnswers": [
+        "D. \\(c < b < a\\)"
+      ],
+      "explanationZhHans": "利用中间值0和1比较。\\(a = \\log_{0.2} 0.3\\)：底数0.2<1，真数0.3<1，故 \\(a > 0\\)；又 \\(0.3 > 0.2\\)，所以 \\(a < 1\\)，即 \\(0 < a < 1\\)。\\(b = \\log_2 0.3\\)：底数2>1，真数0.3<1，故 \\(b < 0\\)。\\(c = \\log_{0.3} 2\\)：底数0.3<1，真数2>1，故 \\(c < 0\\)。比较 \\(b\\) 和 \\(c\\)：\\(b = \\log_2 0.3 = \\frac{\\lg 0.3}{\\lg 2}\\)，\\(c = \\log_{0.3} 2 = \\frac{\\lg 2}{\\lg 0.3}\\)，因为 \\(\\lg 0.3 < 0\\)，所以 \\(c < 0\\)，且 \\(|c| > |b|\\)，故 \\(c < b\\)。综上 \\(c < b < 0 < a < 1\\)，所以 \\(c < b < a\\)。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-107",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-幂-指数与对数",
+      "topicTitleZhHans": "幂、指数与对数",
+      "volume": "必修 第一册",
+      "chapter": "幂、指数与对数",
+      "conceptIds": [
+        "exponents",
+        "radicals",
+        "logarithmic-operations",
+        "base-conversion"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-powers-exponents-logarithms"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-powers-exponents-logarithms-unit-core",
+        "hjb-high-compulsory-1-powers-exponents-logarithms-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "计算：\\(\\left(\\frac{9}{4}\\right)^{\\frac{1}{2}} - (-9.6)^0 - \\left(\\frac{27}{8}\\right)^{-\\frac{2}{3}} + (1.5)^{-2}\\)。",
+      "optionsZhHans": [],
+      "answer": "\\frac{1}{2}",
+      "acceptedAnswers": [
+        "\\frac{1}{2}",
+        "0.5"
+      ],
+      "explanationZhHans": "原式 = \\(\\left(\\frac{3}{2}\\right)^{2 \\cdot \\frac{1}{2}} - 1 - \\left(\\left(\\frac{3}{2}\\right)^3\\right)^{-\\frac{2}{3}} + \\left(\\frac{3}{2}\\right)^{-2} = \\frac{3}{2} - 1 - \\left(\\frac{3}{2}\\right)^{-2} + \\left(\\frac{3}{2}\\right)^{-2} = \\frac{3}{2} - 1 = \\frac{1}{2}\\)。注意零次幂底数非零，负指数化为正指数，计算正确。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-108",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-幂-指数与对数",
+      "topicTitleZhHans": "幂、指数与对数",
+      "volume": "必修 第一册",
+      "chapter": "幂、指数与对数",
+      "conceptIds": [
+        "exponents",
+        "radicals",
+        "logarithmic-operations",
+        "base-conversion"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-powers-exponents-logarithms"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-powers-exponents-logarithms-unit-core",
+        "hjb-high-compulsory-1-powers-exponents-logarithms-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0108：解答：已知 log_7(7^12)=m，求 m。",
+      "optionsZhHans": [],
+      "answer": "12",
+      "acceptedAnswers": [
+        "12"
+      ],
+      "explanationZhHans": "由对数定义，log_7(7^12)=12，所以 m=12。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-109",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-幂-指数与对数",
+      "topicTitleZhHans": "幂、指数与对数",
+      "volume": "必修 第一册",
+      "chapter": "幂、指数与对数",
+      "conceptIds": [
+        "exponents",
+        "radicals",
+        "logarithmic-operations",
+        "base-conversion"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-powers-exponents-logarithms"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-powers-exponents-logarithms-unit-core",
+        "hjb-high-compulsory-1-powers-exponents-logarithms-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0109：选择：已知 log_5(5^18)=m，求 m。",
+      "optionsZhHans": [
+        "18",
+        "19",
+        "17",
+        "20"
+      ],
+      "answer": "18",
+      "acceptedAnswers": [
+        "18"
+      ],
+      "explanationZhHans": "由对数定义，log_5(5^18)=18，所以 m=18。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-110",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-幂-指数与对数",
+      "topicTitleZhHans": "幂、指数与对数",
+      "volume": "必修 第一册",
+      "chapter": "幂、指数与对数",
+      "conceptIds": [
+        "exponents",
+        "radicals",
+        "logarithmic-operations",
+        "base-conversion"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-powers-exponents-logarithms"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-powers-exponents-logarithms-unit-core",
+        "hjb-high-compulsory-1-powers-exponents-logarithms-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "已知 \\(2^a = 5^b = m\\)，且 \\(\\frac{1}{a} + \\frac{1}{b} = 2\\)，则实数 \\(m\\) 的值为______。",
+      "optionsZhHans": [],
+      "answer": "\\sqrt{10}",
+      "acceptedAnswers": [
+        "\\sqrt{10}",
+        "√10"
+      ],
+      "explanationZhHans": "由 \\(2^a = m\\) 得 \\(a = \\log_2 m\\)，同理 \\(b = \\log_5 m\\)。则 \\(\\frac{1}{a} + \\frac{1}{b} = \\frac{1}{\\log_2 m} + \\frac{1}{\\log_5 m} = \\log_m 2 + \\log_m 5 = \\log_m 10 = 2\\)，所以 \\(m^2 = 10\\)，又 \\(m > 0\\) 且 \\(m \\neq 1\\)，故 \\(m = \\sqrt{10}\\)。注意指数式与对数式互化，换底公式逆用。"
+    }
+  ]
+}

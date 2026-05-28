@@ -1,0 +1,317 @@
+{
+  "batchId": "batch-064",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s2-k08-mc-031",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-pythagorean-theorem"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean"
+      ],
+      "promptZhHans": "在△ABC中，AB=9 cm，AC=12 cm，BC=15 cm。下列说法正确的是（ ）",
+      "optionsZhHans": [
+        "△ABC是锐角三角形",
+        "△ABC是直角三角形，且∠A=90°",
+        "△ABC是直角三角形，且∠B=90°",
+        "△ABC是直角三角形，且∠C=90°"
+      ],
+      "answer": "△ABC是直角三角形，且∠A=90°",
+      "acceptedAnswers": [
+        "△ABC是直角三角形，且∠A=90°"
+      ],
+      "explanationZhHans": "因为AB²+AC²=9²+12²=81+144=225=15²=BC²，所以AB²+AC²=BC²，根据勾股定理的逆定理，△ABC是直角三角形，且∠A是直角，即∠A=90°。因此正确答案是△ABC是直角三角形，且∠A=90°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-mc-032",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-quadrilaterals"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "在平行四边形ABCD中，∠A比∠B大40°，则∠C的度数为（ ）",
+      "optionsZhHans": [
+        "70°",
+        "110°",
+        "120°",
+        "130°"
+      ],
+      "answer": "110°",
+      "acceptedAnswers": [
+        "110°"
+      ],
+      "explanationZhHans": "在平行四边形ABCD中，邻角互补，即∠A+∠B=180°。又因为∠A比∠B大40°，设∠B=x°，则∠A=x°+40°，所以x+x+40=180，解得x=70，即∠B=70°，∠A=110°。平行四边形的对角相等，所以∠C=∠A=110°。因此正确答案是110°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-mc-033",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-quadratic-radicals"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "下列二次根式化简后与√3同类的是（ ）",
+      "optionsZhHans": [
+        "√18",
+        "√27",
+        "√(2/3)",
+        "√0.3"
+      ],
+      "answer": "√27",
+      "acceptedAnswers": [
+        "√27"
+      ],
+      "explanationZhHans": "同类二次根式是指化简后被开方数相同的二次根式。√18=3√2，被开方数是2；√27=3√3，被开方数是3；√(2/3)=√6/3，被开方数是6；√0.3=√(3/10)=√30/10，被开方数是30。只有√27化简后与√3的被开方数相同，都是3。因此正确答案是√27。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-fi-001",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-pythagorean-theorem"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean"
+      ],
+      "promptZhHans": "已知直角三角形的两条直角边长分别为5 cm和12 cm，则斜边上的高为______cm。",
+      "optionsZhHans": [],
+      "answer": "60/13",
+      "acceptedAnswers": [
+        "60/13",
+        "4又8/13",
+        "4.615"
+      ],
+      "explanationZhHans": "由勾股定理得斜边长为√(5²+12²)=√169=13 cm。设斜边上的高为h，根据面积法，直角三角形的面积=1/2×5×12=30 cm²，也等于1/2×13×h，所以1/2×13×h=30，解得h=60/13 cm。因此答案为60/13。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-fi-002",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-quadrilaterals"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "在平行四边形ABCD中，AB=8，AD=6，∠A=60°，则平行四边形ABCD的面积为______。",
+      "optionsZhHans": [],
+      "answer": "24√3",
+      "acceptedAnswers": [
+        "24√3",
+        "24倍根号3"
+      ],
+      "explanationZhHans": "平行四边形的面积等于底乘以高。以AB为底，过点D作DE⊥AB于E，在Rt△ADE中，∠A=60°，AD=6，所以DE=AD·sin60°=6×√3/2=3√3。因此面积=AB·DE=8×3√3=24√3。故答案为24√3。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-fi-003",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-quadratic-radicals"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "计算：(√48-√27)÷√3=______。",
+      "optionsZhHans": [],
+      "answer": "1",
+      "acceptedAnswers": [
+        "1"
+      ],
+      "explanationZhHans": "先化简根式：√48=4√3，√27=3√3，所以原式=(4√3-3√3)÷√3=√3÷√3=1。因此答案为1。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-fi-004",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions"
+      ],
+      "promptZhHans": "若√(x-2)²=2-x，则x的取值范围是______。",
+      "optionsZhHans": [],
+      "answer": "x≤2",
+      "acceptedAnswers": [
+        "x≤2",
+        "x小于等于2"
+      ],
+      "explanationZhHans": "根据二次根式的性质，√(a²)=|a|，所以√(x-2)²=|x-2|。由已知|x-2|=2-x，即|x-2|=-(x-2)。根据绝对值的性质，当x-2≤0时，|x-2|=-(x-2)，所以x-2≤0，解得x≤2。因此答案为x≤2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-fi-005",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-linear-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "promptZhHans": "某地出租车收费标准如下：起步价8元（含2千米），超过2千米后每千米加收1.5元。若某人乘坐x千米（x>2），应付车费y元，则y关于x的函数解析式为______。",
+      "optionsZhHans": [],
+      "answer": "y=1.5x+5",
+      "acceptedAnswers": [
+        "y=1.5x+5",
+        "y=1.5x+5 (x>2)"
+      ],
+      "explanationZhHans": "当x>2时，超过2千米的部分为(x-2)千米，费用为1.5(x-2)元，加上起步价8元，总费用y=8+1.5(x-2)=8+1.5x-3=1.5x+5。因此函数解析式为y=1.5x+5。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-fi-006",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-data-analysis"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "promptZhHans": "一组数据：3，5，7，8，x，若这组数据的平均数为6，则这组数据的方差为______。",
+      "optionsZhHans": [],
+      "answer": "3.2",
+      "acceptedAnswers": [
+        "3.2",
+        "16/5"
+      ],
+      "explanationZhHans": "由平均数为6得(3+5+7+8+x)/5=6，即23+x=30，解得x=7。数据为3，5，7，8，7。平均数=6，方差=[(3-6)²+(5-6)²+(7-6)²+(8-6)²+(7-6)²]/5=(9+1+1+4+1)/5=16/5=3.2。因此答案为3.2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-fi-007",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-pythagorean-theorem"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "一根旗杆在离地面6米处折断，旗杆顶部落在离旗杆底部8米处，则旗杆折断前的高度为______米。",
+      "optionsZhHans": [],
+      "answer": "16",
+      "acceptedAnswers": [
+        "16",
+        "16米"
+      ],
+      "explanationZhHans": "折断后旗杆与地面构成直角三角形，折断处离地面6米为一条直角边，旗杆顶部离旗杆底部8米为另一条直角边，折断部分为斜边，长度为√(6²+8²)=√100=10米。所以旗杆折断前的高度为6+10=16米。因此答案为16。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

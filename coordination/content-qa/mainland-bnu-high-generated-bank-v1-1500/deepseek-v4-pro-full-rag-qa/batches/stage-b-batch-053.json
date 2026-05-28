@@ -1,0 +1,128 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-053",
+  "startedAt": "2026-05-28T01:09:21.587Z",
+  "completedAt": "2026-05-28T01:09:39.456Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-417",
+    "bnu-high-ds-v1-s4-418",
+    "bnu-high-ds-v1-s4-419",
+    "bnu-high-ds-v1-s4-420",
+    "bnu-high-ds-v1-s4-421",
+    "bnu-high-ds-v1-s4-422",
+    "bnu-high-ds-v1-s4-423",
+    "bnu-high-ds-v1-s4-424"
+  ],
+  "usage": {
+    "prompt_tokens": 12024,
+    "completion_tokens": 1026,
+    "total_tokens": 13050,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 11640
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-417",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，均为33/65；解析正确推导了符号和计算过程，无矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-418",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案2与独立解一致；解析使用辅助角公式正确得出最大值2，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-419",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案-1与独立解一致；解析正确应用正切和角公式，计算无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-420",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案√3与独立解一致；解析利用正切和角公式正确化简，结果正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-421",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [
+          "explanation_contradiction"
+        ],
+        "severity": "major",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，均为(-24+7√3)/50；但解析中计算过程写为(-24-7√3)/50，与最终答案矛盾，存在笔误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-422",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，均为恒等式证明；解析步骤正确，利用倍角公式化简得证。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-423",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案3/22与独立解一致；解析正确使用两角差正切公式，计算无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-424",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案2与独立解一致；解析正确使用辅助角公式并分析区间单调性，得出最大值2，选项唯一。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第421题解析中存在计算过程笔误，写为(-24-7√3)/50，与最终答案(-24+7√3)/50矛盾，其余题目均通过。"
+    }
+  }
+}

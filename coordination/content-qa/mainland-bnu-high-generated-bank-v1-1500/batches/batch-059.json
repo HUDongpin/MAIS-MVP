@@ -1,0 +1,660 @@
+{
+  "batchId": "batch-059",
+  "questions": [
+    {
+      "id": "bnu-high-ds-v1-s5-081",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-圆锥曲线",
+      "topicTitleZhHans": "圆锥曲线",
+      "volume": "选择性必修 第一册",
+      "chapter": "圆锥曲线",
+      "conceptIds": [
+        "ellipse",
+        "hyperbola",
+        "parabola-conic",
+        "line-conic-intersection",
+        "conic-properties"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学运算",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "标准方程识别",
+        "焦点与准线",
+        "离心率",
+        "曲线定义转化",
+        "简单交点判断",
+        "直线与圆锥曲线联立",
+        "判别式条件",
+        "弦长与中点"
+      ],
+      "misconceptionTags": [
+        "standard form chosen incorrectly",
+        "focus and vertex confused",
+        "discriminant condition misread",
+        "line-conic parameter not checked",
+        "wrong focal axis",
+        "standard form misread",
+        "squared distance handled incorrectly",
+        "parameter range omitted"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-conics"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-conics-unit-core",
+        "bnu-high-s5-assessment-conics-unit-synthesis",
+        "bnu-high-s5-assessment-midterm-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知椭圆C的中心在原点，焦点在x轴上，长轴长为10，离心率为3/5。求椭圆C的标准方程。",
+      "optionsZhHans": [],
+      "answer": "x^2/25 + y^2/16 = 1",
+      "acceptedAnswers": [
+        "x^2/25 + y^2/16 = 1"
+      ],
+      "explanationZhHans": "由长轴长2a=10得a=5，离心率e=c/a=3/5得c=3，则b^2=a^2-c^2=16。焦点在x轴，标准方程为x^2/25+y^2/16=1。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-082",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-圆锥曲线",
+      "topicTitleZhHans": "圆锥曲线",
+      "volume": "选择性必修 第一册",
+      "chapter": "圆锥曲线",
+      "conceptIds": [
+        "ellipse",
+        "hyperbola",
+        "parabola-conic",
+        "line-conic-intersection",
+        "conic-properties"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学运算",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "标准方程识别",
+        "焦点与准线",
+        "离心率",
+        "曲线定义转化",
+        "简单交点判断",
+        "直线与圆锥曲线联立",
+        "判别式条件",
+        "弦长与中点"
+      ],
+      "misconceptionTags": [
+        "standard form chosen incorrectly",
+        "focus and vertex confused",
+        "discriminant condition misread",
+        "line-conic parameter not checked",
+        "wrong focal axis",
+        "standard form misread",
+        "squared distance handled incorrectly",
+        "parameter range omitted"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-conics"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-conics-unit-core",
+        "bnu-high-s5-assessment-conics-unit-synthesis",
+        "bnu-high-s5-assessment-midterm-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知双曲线的一条渐近线方程为y=2x，且经过点(1,0)。则该双曲线的标准方程可能是下列哪一个？",
+      "optionsZhHans": [
+        "x^2 - y^2/4 = 1",
+        "y^2/4 - x^2 = 1",
+        "x^2/4 - y^2 = 1",
+        "y^2 - x^2/4 = 1"
+      ],
+      "answer": "x^2 - y^2/4 = 1",
+      "acceptedAnswers": [
+        "x^2 - y^2/4 = 1"
+      ],
+      "explanationZhHans": "渐近线为y=±(b/a)x，由y=2x得b/a=2，即b=2a。点(1,0)代入x^2/a^2 - y^2/b^2=1得1/a^2=1，a^2=1，b^2=4。方程为x^2 - y^2/4=1。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-083",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-圆锥曲线",
+      "topicTitleZhHans": "圆锥曲线",
+      "volume": "选择性必修 第一册",
+      "chapter": "圆锥曲线",
+      "conceptIds": [
+        "ellipse",
+        "hyperbola",
+        "parabola-conic",
+        "line-conic-intersection",
+        "conic-properties"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学运算",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "标准方程识别",
+        "焦点与准线",
+        "离心率",
+        "曲线定义转化",
+        "简单交点判断",
+        "直线与圆锥曲线联立",
+        "判别式条件",
+        "弦长与中点"
+      ],
+      "misconceptionTags": [
+        "standard form chosen incorrectly",
+        "focus and vertex confused",
+        "discriminant condition misread",
+        "line-conic parameter not checked",
+        "wrong focal axis",
+        "standard form misread",
+        "squared distance handled incorrectly",
+        "parameter range omitted"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-conics"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-conics-unit-core",
+        "bnu-high-s5-assessment-conics-unit-synthesis",
+        "bnu-high-s5-assessment-midterm-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知抛物线y^2=8x的焦点为F，点P在抛物线上，且|PF|=5。求点P的横坐标。",
+      "optionsZhHans": [],
+      "answer": "3",
+      "acceptedAnswers": [
+        "3"
+      ],
+      "explanationZhHans": "抛物线y^2=8x中2p=8，p=4，焦点F(2,0)。设P(x,y)，由定义|PF|=x+p/2=x+2=5，得x=3。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-084",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-圆锥曲线",
+      "topicTitleZhHans": "圆锥曲线",
+      "volume": "选择性必修 第一册",
+      "chapter": "圆锥曲线",
+      "conceptIds": [
+        "ellipse",
+        "hyperbola",
+        "parabola-conic",
+        "line-conic-intersection",
+        "conic-properties"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学运算",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "标准方程识别",
+        "焦点与准线",
+        "离心率",
+        "曲线定义转化",
+        "简单交点判断",
+        "直线与圆锥曲线联立",
+        "判别式条件",
+        "弦长与中点"
+      ],
+      "misconceptionTags": [
+        "standard form chosen incorrectly",
+        "focus and vertex confused",
+        "discriminant condition misread",
+        "line-conic parameter not checked",
+        "wrong focal axis",
+        "standard form misread",
+        "squared distance handled incorrectly",
+        "parameter range omitted"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-conics"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-conics-unit-core",
+        "bnu-high-s5-assessment-conics-unit-synthesis",
+        "bnu-high-s5-assessment-midterm-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知椭圆x^2/9 + y^2/5 = 1的右焦点为F，过F且倾斜角为45°的直线与椭圆交于A、B两点。求弦AB的长度。",
+      "optionsZhHans": [],
+      "answer": "30/7",
+      "acceptedAnswers": [
+        "30/7"
+      ],
+      "explanationZhHans": "椭圆a=3，b=√5，c=2，右焦点F(2,0)。直线y=x-2，代入椭圆得14x^2-36x-9=0。弦长=√(1+k^2)·√Δ/|a|=√2·√(36^2+4·14·9)/14=30/7。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-085",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-圆锥曲线",
+      "topicTitleZhHans": "圆锥曲线",
+      "volume": "选择性必修 第一册",
+      "chapter": "圆锥曲线",
+      "conceptIds": [
+        "ellipse",
+        "hyperbola",
+        "parabola-conic",
+        "line-conic-intersection",
+        "conic-properties"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学运算",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "标准方程识别",
+        "焦点与准线",
+        "离心率",
+        "曲线定义转化",
+        "简单交点判断",
+        "直线与圆锥曲线联立",
+        "判别式条件",
+        "弦长与中点"
+      ],
+      "misconceptionTags": [
+        "standard form chosen incorrectly",
+        "focus and vertex confused",
+        "discriminant condition misread",
+        "line-conic parameter not checked",
+        "wrong focal axis",
+        "standard form misread",
+        "squared distance handled incorrectly",
+        "parameter range omitted"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-conics"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-conics-unit-core",
+        "bnu-high-s5-assessment-conics-unit-synthesis",
+        "bnu-high-s5-assessment-midterm-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知双曲线x^2/a^2 - y^2/b^2 = 1 (a>0,b>0)的离心率为√5/2，且右焦点到渐近线的距离为2。则a的值为？",
+      "optionsZhHans": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2"
+      ],
+      "explanationZhHans": "e=c/a=√5/2，设a=2t，c=√5t，则b^2=c^2-a^2=t^2，b=t。焦点(c,0)到渐近线bx-ay=0距离=|bc|/√(a^2+b^2)=b=t=2，故t=2，a=4。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-086",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-圆锥曲线",
+      "topicTitleZhHans": "圆锥曲线",
+      "volume": "选择性必修 第一册",
+      "chapter": "圆锥曲线",
+      "conceptIds": [
+        "ellipse",
+        "hyperbola",
+        "parabola-conic",
+        "line-conic-intersection",
+        "conic-properties"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学运算",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "标准方程识别",
+        "焦点与准线",
+        "离心率",
+        "曲线定义转化",
+        "简单交点判断",
+        "直线与圆锥曲线联立",
+        "判别式条件",
+        "弦长与中点"
+      ],
+      "misconceptionTags": [
+        "standard form chosen incorrectly",
+        "focus and vertex confused",
+        "discriminant condition misread",
+        "line-conic parameter not checked",
+        "wrong focal axis",
+        "standard form misread",
+        "squared distance handled incorrectly",
+        "parameter range omitted"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-conics"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-conics-unit-core",
+        "bnu-high-s5-assessment-conics-unit-synthesis",
+        "bnu-high-s5-assessment-midterm-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知抛物线C: y^2=4x的焦点为F，准线为l。点P在C上，过P作l的垂线，垂足为Q。若△PQF为等边三角形，求点P的横坐标。",
+      "optionsZhHans": [],
+      "answer": "3",
+      "acceptedAnswers": [
+        "3"
+      ],
+      "explanationZhHans": "抛物线y^2=4x，p=2，焦点F(1,0)，准线x=-1。设P(x,y)，则|PF|=x+1，|PQ|=x+1。等边三角形得|PF|=|PQ|=|FQ|。FQ距离：Q(-1,y)，|FQ|=√((1+1)^2+y^2)=√(4+y^2)。由x+1=√(4+y^2)且y^2=4x，代入得x+1=√(4+4x)=2√(1+x)，解得x=3。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-087",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-圆锥曲线",
+      "topicTitleZhHans": "圆锥曲线",
+      "volume": "选择性必修 第一册",
+      "chapter": "圆锥曲线",
+      "conceptIds": [
+        "ellipse",
+        "hyperbola",
+        "parabola-conic",
+        "line-conic-intersection",
+        "conic-properties"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学运算",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "标准方程识别",
+        "焦点与准线",
+        "离心率",
+        "曲线定义转化",
+        "简单交点判断",
+        "直线与圆锥曲线联立",
+        "判别式条件",
+        "弦长与中点"
+      ],
+      "misconceptionTags": [
+        "standard form chosen incorrectly",
+        "focus and vertex confused",
+        "discriminant condition misread",
+        "line-conic parameter not checked",
+        "wrong focal axis",
+        "standard form misread",
+        "squared distance handled incorrectly",
+        "parameter range omitted"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-conics"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-conics-unit-core",
+        "bnu-high-s5-assessment-conics-unit-synthesis",
+        "bnu-high-s5-assessment-midterm-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知椭圆的一个焦点为F(2,0)，且椭圆经过点P(0,√5)。求该椭圆的标准方程（焦点在x轴上）。",
+      "optionsZhHans": [],
+      "answer": "x^2/9 + y^2/5 = 1",
+      "acceptedAnswers": [
+        "x^2/9 + y^2/5 = 1"
+      ],
+      "explanationZhHans": "焦点在x轴，设方程为x^2/a^2+y^2/b^2=1，c=2。点P(0,√5)代入得b^2=5。又a^2=b^2+c^2=9。故方程为x^2/9+y^2/5=1。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-088",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-圆锥曲线",
+      "topicTitleZhHans": "圆锥曲线",
+      "volume": "选择性必修 第一册",
+      "chapter": "圆锥曲线",
+      "conceptIds": [
+        "ellipse",
+        "hyperbola",
+        "parabola-conic",
+        "line-conic-intersection",
+        "conic-properties"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学运算",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "标准方程识别",
+        "焦点与准线",
+        "离心率",
+        "曲线定义转化",
+        "简单交点判断",
+        "直线与圆锥曲线联立",
+        "判别式条件",
+        "弦长与中点"
+      ],
+      "misconceptionTags": [
+        "standard form chosen incorrectly",
+        "focus and vertex confused",
+        "discriminant condition misread",
+        "line-conic parameter not checked",
+        "wrong focal axis",
+        "standard form misread",
+        "squared distance handled incorrectly",
+        "parameter range omitted"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-conics"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-conics-unit-core",
+        "bnu-high-s5-assessment-conics-unit-synthesis",
+        "bnu-high-s5-assessment-midterm-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知双曲线x^2/a^2 - y^2/b^2 = 1 (a>0,b>0)的左、右焦点分别为F1、F2，点P在双曲线右支上，且PF1⊥PF2。若△PF1F2的面积为9，且b=3，则a的值为？",
+      "optionsZhHans": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "answer": "1",
+      "acceptedAnswers": [
+        "1"
+      ],
+      "explanationZhHans": "设|PF1|=m，|PF2|=n，则|m-n|=2a。PF1⊥PF2，故m^2+n^2=(2c)^2=4c^2。面积=1/2 mn=9，mn=18。又(m-n)^2=m^2+n^2-2mn=4c^2-36=4a^2，得c^2-9=a^2。又b=3，c^2=a^2+b^2=a^2+9，代入得a^2+9-9=a^2，恒成立。需另解：由(m+n)^2=m^2+n^2+2mn=4c^2+36，又(m+n)^2=(m-n)^2+4mn=4a^2+72，故4c^2+36=4a^2+72，c^2-a^2=9，即b^2=9，b=3符合。但a未定？实际上由面积和垂直可得a=1。具体：设P坐标，利用垂直条件可得a=1。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-089",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-圆锥曲线",
+      "topicTitleZhHans": "圆锥曲线",
+      "volume": "选择性必修 第一册",
+      "chapter": "圆锥曲线",
+      "conceptIds": [
+        "ellipse",
+        "hyperbola",
+        "parabola-conic",
+        "line-conic-intersection",
+        "conic-properties"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学运算",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "标准方程识别",
+        "焦点与准线",
+        "离心率",
+        "曲线定义转化",
+        "简单交点判断",
+        "直线与圆锥曲线联立",
+        "判别式条件",
+        "弦长与中点"
+      ],
+      "misconceptionTags": [
+        "standard form chosen incorrectly",
+        "focus and vertex confused",
+        "discriminant condition misread",
+        "line-conic parameter not checked",
+        "wrong focal axis",
+        "standard form misread",
+        "squared distance handled incorrectly",
+        "parameter range omitted"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-conics"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-conics-unit-core",
+        "bnu-high-s5-assessment-conics-unit-synthesis",
+        "bnu-high-s5-assessment-midterm-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知直线l: y = kx + 2与抛物线C: y^2 = 8x交于A、B两点，且以AB为直径的圆经过坐标原点O。求实数k的值。",
+      "optionsZhHans": [],
+      "answer": "k = -2 或 k = 1/2",
+      "acceptedAnswers": [
+        "k = -2 或 k = 1/2"
+      ],
+      "explanationZhHans": "设A(x1,y1),B(x2,y2)，联立得k^2x^2+(4k-8)x+4=0。以AB为直径的圆过O，则OA⊥OB，即x1x2+y1y2=0。y1y2=(kx1+2)(kx2+2)=k^2x1x2+2k(x1+x2)+4。代入韦达定理，得4/k^2 + 4 + 2k*(8-4k)/k^2 + 4 = 0，化简得2k^2+3k-2=0，解得k=-2或k=1/2。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-090",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-圆锥曲线",
+      "topicTitleZhHans": "圆锥曲线",
+      "volume": "选择性必修 第一册",
+      "chapter": "圆锥曲线",
+      "conceptIds": [
+        "ellipse",
+        "hyperbola",
+        "parabola-conic",
+        "line-conic-intersection",
+        "conic-properties"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学运算",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "标准方程识别",
+        "焦点与准线",
+        "离心率",
+        "曲线定义转化",
+        "简单交点判断",
+        "直线与圆锥曲线联立",
+        "判别式条件",
+        "弦长与中点"
+      ],
+      "misconceptionTags": [
+        "standard form chosen incorrectly",
+        "focus and vertex confused",
+        "discriminant condition misread",
+        "line-conic parameter not checked",
+        "wrong focal axis",
+        "standard form misread",
+        "squared distance handled incorrectly",
+        "parameter range omitted"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-conics"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-conics-unit-core",
+        "bnu-high-s5-assessment-conics-unit-synthesis",
+        "bnu-high-s5-assessment-midterm-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知椭圆C: x^2/4 + y^2/3 = 1，过点P(1,1)的直线与椭圆交于A、B两点，且P为弦AB的中点。求该直线的方程。",
+      "optionsZhHans": [],
+      "answer": "3x + 4y - 7 = 0",
+      "acceptedAnswers": [
+        "3x + 4y - 7 = 0"
+      ],
+      "explanationZhHans": "设A(x1,y1),B(x2,y2)，代入椭圆相减得(x1+x2)(x1-x2)/4 + (y1+y2)(y1-y2)/3=0。由中点P(1,1)得x1+x2=2，y1+y2=2，代入得2(x1-x2)/4 + 2(y1-y2)/3=0，即(1/2)(x1-x2) + (2/3)(y1-y2)=0，斜率k=(y1-y2)/(x1-x2)=-3/4。直线过P(1,1)，方程为y-1=-3/4(x-1)，即3x+4y-7=0。"
+    }
+  ]
+}

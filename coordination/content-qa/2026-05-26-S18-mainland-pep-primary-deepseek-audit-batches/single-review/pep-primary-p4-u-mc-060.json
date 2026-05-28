@@ -1,0 +1,27 @@
+{
+  "startedAt": "2026-05-26T06:19:33.822Z",
+  "completedAt": "2026-05-26T06:19:37.503Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "usage": {
+    "prompt_tokens": 444,
+    "completion_tokens": 116,
+    "total_tokens": 560,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 444
+  },
+  "finishReason": "stop",
+  "result": {
+    "questionId": "pep-primary-p4-u-mc-060",
+    "solvableStatus": "pass",
+    "answerMatchStatus": "pass",
+    "independentAnswer": "95°",
+    "confidence": "high",
+    "issueType": "none",
+    "note": "题目可解，独立答案95°正确，选项B为95°，选项A的“95°1”为明显笔误但不影响作答，题库答案95°与独立答案一致。",
+    "recommendedAction": "pass"
+  }
+}

@@ -1,0 +1,628 @@
+{
+  "batchId": "batch-009",
+  "questions": [
+    {
+      "id": "bnu-junior-ds-v1-s1-081",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数及其运算",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "rational-numbers",
+        "number-line",
+        "opposite-absolute-value",
+        "signed-number-operations",
+        "有理数",
+        "数轴",
+        "绝对值"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "正负数意义",
+        "数轴表示",
+        "相反数",
+        "绝对值",
+        "有理数四则运算",
+        "运算律应用"
+      ],
+      "misconceptionTags": [
+        "negative sign treated as subtraction only",
+        "absolute value keeps the original sign",
+        "operation order ignored when signed numbers are mixed"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-rational-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-rational-numbers-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某地一天的最高气温是5℃，最低气温是-3℃。用算式表示这一天的温差，并计算温差是多少摄氏度。",
+      "optionsZhHans": [],
+      "answer": "5 - (-3) = 8，温差是8℃",
+      "acceptedAnswers": [
+        "5 - (-3) = 8，温差是8℃",
+        "5-(-3)=8，温差是8℃",
+        "5-(-3)=8，温差是8摄氏度",
+        "5 - (-3) = 8，温差是8摄氏度"
+      ],
+      "explanationZhHans": "温差=最高气温-最低气温=5-(-3)=5+3=8(℃)。减去一个负数等于加上它的相反数。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-082",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数及其运算",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "rational-numbers",
+        "number-line",
+        "opposite-absolute-value",
+        "signed-number-operations",
+        "有理数",
+        "数轴",
+        "绝对值"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "正负数意义",
+        "数轴表示",
+        "相反数",
+        "绝对值",
+        "有理数四则运算",
+        "运算律应用"
+      ],
+      "misconceptionTags": [
+        "negative sign treated as subtraction only",
+        "absolute value keeps the original sign",
+        "operation order ignored when signed numbers are mixed"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-rational-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-rational-numbers-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在数轴上，点A表示-2，点B表示3，点C表示-5。哪个点离原点最远？",
+      "optionsZhHans": [
+        "点A",
+        "点B",
+        "点C",
+        "点A和点C一样远"
+      ],
+      "answer": "点C",
+      "acceptedAnswers": [
+        "点C"
+      ],
+      "explanationZhHans": "点到原点的距离是它的绝对值。|-2|=2，|3|=3，|-5|=5。5最大，所以点C离原点最远。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-083",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数及其运算",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "rational-numbers",
+        "number-line",
+        "opposite-absolute-value",
+        "signed-number-operations",
+        "有理数",
+        "数轴",
+        "绝对值"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "正负数意义",
+        "数轴表示",
+        "相反数",
+        "绝对值",
+        "有理数四则运算",
+        "运算律应用"
+      ],
+      "misconceptionTags": [
+        "negative sign treated as subtraction only",
+        "absolute value keeps the original sign",
+        "operation order ignored when signed numbers are mixed"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-rational-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-rational-numbers-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算：(-3)² ÷ (-1/2) + (-2) × 3。写出主要步骤。",
+      "optionsZhHans": [],
+      "answer": "原式 = 9 ÷ (-1/2) + (-6) = 9 × (-2) + (-6) = -18 - 6 = -24",
+      "acceptedAnswers": [
+        "原式 = 9 ÷ (-1/2) + (-6) = 9 × (-2) + (-6) = -18 - 6 = -24",
+        "(-3)² ÷ (-1/2) + (-2) × 3 = 9 ÷ (-1/2) + (-6) = 9 × (-2) + (-6) = -18 - 6 = -24"
+      ],
+      "explanationZhHans": "先算乘方得9，再算乘除：9÷(-1/2)=9×(-2)=-18，(-2)×3=-6，最后相加得-24。注意运算顺序和符号。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-084",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数及其运算",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "rational-numbers",
+        "number-line",
+        "opposite-absolute-value",
+        "signed-number-operations",
+        "有理数",
+        "数轴",
+        "绝对值"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "正负数意义",
+        "数轴表示",
+        "相反数",
+        "绝对值",
+        "有理数四则运算",
+        "运算律应用"
+      ],
+      "misconceptionTags": [
+        "negative sign treated as subtraction only",
+        "absolute value keeps the original sign",
+        "operation order ignored when signed numbers are mixed"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-rational-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-rational-numbers-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "若 |a - 2| + (b + 3)² = 0，则 a + b = ______。",
+      "optionsZhHans": [],
+      "answer": "-1",
+      "acceptedAnswers": [
+        "-1"
+      ],
+      "explanationZhHans": "非负数之和为0，则每个非负数为0。所以a-2=0得a=2，b+3=0得b=-3，a+b=-1。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-085",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-algebraic-expressions",
+      "unitTitle": "整式及其加减",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "algebraic-expressions",
+        "monomials-polynomials",
+        "like-terms",
+        "polynomial-addition-subtraction",
+        "整式",
+        "同类项"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "列代数式",
+        "识别单项式和多项式",
+        "合并同类项",
+        "去括号",
+        "整式加减"
+      ],
+      "misconceptionTags": [
+        "like terms judged by coefficient only",
+        "minus sign lost before parentheses",
+        "variable part changed during simplification"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-algebraic-expressions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-algebraic-expressions-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下列各组式子中，是同类项的是（ ）",
+      "optionsZhHans": [
+        "3x²y 与 -2xy²",
+        "4ab 与 4abc",
+        "-5 与 0.8",
+        "2m²n 与 3mn²"
+      ],
+      "answer": "-5 与 0.8",
+      "acceptedAnswers": [
+        "-5 与 0.8"
+      ],
+      "explanationZhHans": "同类项要求所含字母相同且相同字母的指数也相同，常数项都是同类项。A、B、D中字母或指数不同。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-086",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-algebraic-expressions",
+      "unitTitle": "整式及其加减",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "algebraic-expressions",
+        "monomials-polynomials",
+        "like-terms",
+        "polynomial-addition-subtraction",
+        "整式",
+        "同类项"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "列代数式",
+        "识别单项式和多项式",
+        "合并同类项",
+        "去括号",
+        "整式加减"
+      ],
+      "misconceptionTags": [
+        "like terms judged by coefficient only",
+        "minus sign lost before parentheses",
+        "variable part changed during simplification"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-algebraic-expressions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-algebraic-expressions-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "先化简，再求值：3(x - 2y) - 2(2x - y)，其中 x = -1，y = 2。",
+      "optionsZhHans": [],
+      "answer": "化简得 -x - 4y，代入得 -7",
+      "acceptedAnswers": [
+        "化简得 -x - 4y，代入得 -7",
+        "化简得 -x-4y，代入得 -7",
+        "原式=3x-6y-4x+2y=-x-4y，当x=-1,y=2时，原式=-(-1)-4×2=1-8=-7"
+      ],
+      "explanationZhHans": "去括号：3x-6y-4x+2y，合并同类项得-x-4y。代入x=-1,y=2得1-8=-7。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-087",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-algebraic-expressions",
+      "unitTitle": "整式及其加减",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "algebraic-expressions",
+        "monomials-polynomials",
+        "like-terms",
+        "polynomial-addition-subtraction",
+        "整式",
+        "同类项"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "列代数式",
+        "识别单项式和多项式",
+        "合并同类项",
+        "去括号",
+        "整式加减"
+      ],
+      "misconceptionTags": [
+        "like terms judged by coefficient only",
+        "minus sign lost before parentheses",
+        "variable part changed during simplification"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-algebraic-expressions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-algebraic-expressions-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "多项式 2a²b - 3ab + 1 是______次______项式。",
+      "optionsZhHans": [],
+      "answer": "三，三",
+      "acceptedAnswers": [
+        "三，三",
+        "3，3",
+        "三次三项式"
+      ],
+      "explanationZhHans": "项2a²b的次数是2+1=3，最高次项的次数为多项式的次数，共有三项，所以是三次三项式。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-088",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-algebraic-expressions",
+      "unitTitle": "整式及其加减",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "algebraic-expressions",
+        "monomials-polynomials",
+        "like-terms",
+        "polynomial-addition-subtraction",
+        "整式",
+        "同类项"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "列代数式",
+        "识别单项式和多项式",
+        "合并同类项",
+        "去括号",
+        "整式加减"
+      ],
+      "misconceptionTags": [
+        "like terms judged by coefficient only",
+        "minus sign lost before parentheses",
+        "variable part changed during simplification"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-algebraic-expressions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-algebraic-expressions-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方形的长是 (2a + 3) 米，宽是 (a - 1) 米，它的周长是多少米？",
+      "optionsZhHans": [
+        "3a + 2",
+        "6a + 4",
+        "6a + 2",
+        "3a + 4"
+      ],
+      "answer": "6a + 4",
+      "acceptedAnswers": [
+        "6a + 4"
+      ],
+      "explanationZhHans": "周长=2×(长+宽)=2×[(2a+3)+(a-1)]=2×(3a+2)=6a+4。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-089",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-algebraic-expressions",
+      "unitTitle": "整式及其加减",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "algebraic-expressions",
+        "monomials-polynomials",
+        "like-terms",
+        "polynomial-addition-subtraction",
+        "整式",
+        "同类项"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "列代数式",
+        "识别单项式和多项式",
+        "合并同类项",
+        "去括号",
+        "整式加减"
+      ],
+      "misconceptionTags": [
+        "like terms judged by coefficient only",
+        "minus sign lost before parentheses",
+        "variable part changed during simplification"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-algebraic-expressions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-algebraic-expressions-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知 A = 2x² - 3x + 1，B = x² + 2x - 5。求 2A - 3B。",
+      "optionsZhHans": [],
+      "answer": "x² - 12x + 17",
+      "acceptedAnswers": [
+        "x² - 12x + 17",
+        "x²-12x+17"
+      ],
+      "explanationZhHans": "2A=4x²-6x+2，3B=3x²+6x-15，相减得(4x²-6x+2)-(3x²+6x-15)=x²-12x+17。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-090",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-algebraic-expressions",
+      "unitTitle": "整式及其加减",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "algebraic-expressions",
+        "monomials-polynomials",
+        "like-terms",
+        "polynomial-addition-subtraction",
+        "整式",
+        "同类项"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "列代数式",
+        "识别单项式和多项式",
+        "合并同类项",
+        "去括号",
+        "整式加减"
+      ],
+      "misconceptionTags": [
+        "like terms judged by coefficient only",
+        "minus sign lost before parentheses",
+        "variable part changed during simplification"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-algebraic-expressions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-algebraic-expressions-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "当 k = ______ 时，多项式 x² - 3kxy - 3y² + xy - 8 中不含 xy 项。",
+      "optionsZhHans": [],
+      "answer": "1/3",
+      "acceptedAnswers": [
+        "1/3",
+        "三分之一"
+      ],
+      "explanationZhHans": "合并xy项：-3kxy + xy = (-3k+1)xy。令系数为0得-3k+1=0，k=1/3。"
+    }
+  ]
+}

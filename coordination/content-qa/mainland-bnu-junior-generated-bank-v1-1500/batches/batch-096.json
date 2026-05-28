@@ -1,0 +1,648 @@
+{
+  "batchId": "batch-096",
+  "questions": [
+    {
+      "id": "bnu-junior-ds-v1-s2-451",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-algebraic-fractions-equations",
+      "unitTitle": "分式与分式方程",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "algebraic-fractions",
+        "fraction-domain",
+        "fraction-operations",
+        "fraction-equations",
+        "extraneous-solutions",
+        "分式",
+        "分式方程"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "分式意义",
+        "分式基本性质",
+        "分式运算",
+        "分式方程",
+        "增根检验",
+        "取值限制"
+      ],
+      "misconceptionTags": [
+        "denominator restriction ignored",
+        "terms cancelled instead of factors",
+        "extraneous solution not checked"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-algebraic-fractions-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-algebraic-fractions-unit",
+        "bnu-junior-s2-lower-assessment-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "若分式 \\(\\frac{x^2 - 9}{x - 3}\\) 的值为 0，则 x 的值为（  ）",
+      "optionsZhHans": [
+        "A. 3",
+        "B. -3",
+        "C. ±3",
+        "D. 0"
+      ],
+      "answer": "B. -3",
+      "acceptedAnswers": [
+        "B. -3",
+        "-3"
+      ],
+      "explanationZhHans": "分式值为0需分子为0且分母不为0。由x²-9=0得x=±3；但x=3时分母x-3=0，分式无意义，故舍去，只有x=-3。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-452",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-algebraic-fractions-equations",
+      "unitTitle": "分式与分式方程",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "algebraic-fractions",
+        "fraction-domain",
+        "fraction-operations",
+        "fraction-equations",
+        "extraneous-solutions",
+        "分式",
+        "分式方程"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "分式意义",
+        "分式基本性质",
+        "分式运算",
+        "分式方程",
+        "增根检验",
+        "取值限制"
+      ],
+      "misconceptionTags": [
+        "denominator restriction ignored",
+        "terms cancelled instead of factors",
+        "extraneous solution not checked"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-algebraic-fractions-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-algebraic-fractions-unit",
+        "bnu-junior-s2-lower-assessment-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "先化简，再求值：\\(\\frac{a^2 - 4}{a^2 - 4a + 4} \\div \\frac{a + 2}{a - 2}\\)，其中 a = 0。请写出化简后的最简分式并代入求值。",
+      "optionsZhHans": [],
+      "answer": "1",
+      "acceptedAnswers": [
+        "1"
+      ],
+      "explanationZhHans": "原式=\\(\\frac{(a+2)(a-2)}{(a-2)^2} \\cdot \\frac{a-2}{a+2} = 1\\)，但a≠2且a≠-2。a=0满足条件，代入得1。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-453",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-algebraic-fractions-equations",
+      "unitTitle": "分式与分式方程",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "algebraic-fractions",
+        "fraction-domain",
+        "fraction-operations",
+        "fraction-equations",
+        "extraneous-solutions",
+        "分式",
+        "分式方程"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "分式意义",
+        "分式基本性质",
+        "分式运算",
+        "分式方程",
+        "增根检验",
+        "取值限制"
+      ],
+      "misconceptionTags": [
+        "denominator restriction ignored",
+        "terms cancelled instead of factors",
+        "extraneous solution not checked"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-algebraic-fractions-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-algebraic-fractions-unit",
+        "bnu-junior-s2-lower-assessment-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算 \\(\\frac{3}{x^2 - 1} + \\frac{1}{x + 1}\\) 的结果是（  ）",
+      "optionsZhHans": [
+        "A. \\(\\frac{4}{x^2 - 1}\\)",
+        "B. \\(\\frac{x + 2}{x^2 - 1}\\)",
+        "C. \\(\\frac{x - 2}{x^2 - 1}\\)",
+        "D. \\(\\frac{2}{x - 1}\\)"
+      ],
+      "answer": "B. \\(\\frac{x + 2}{x^2 - 1}\\)",
+      "acceptedAnswers": [
+        "B. \\(\\frac{x + 2}{x^2 - 1}\\)",
+        "\\frac{x + 2}{x^2 - 1}"
+      ],
+      "explanationZhHans": "通分：\\(\\frac{3}{(x-1)(x+1)} + \\frac{x-1}{(x+1)(x-1)} = \\frac{3+x-1}{(x-1)(x+1)} = \\frac{x+2}{x^2-1}\\)。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-454",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-algebraic-fractions-equations",
+      "unitTitle": "分式与分式方程",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "algebraic-fractions",
+        "fraction-domain",
+        "fraction-operations",
+        "fraction-equations",
+        "extraneous-solutions",
+        "分式",
+        "分式方程"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "分式意义",
+        "分式基本性质",
+        "分式运算",
+        "分式方程",
+        "增根检验",
+        "取值限制"
+      ],
+      "misconceptionTags": [
+        "denominator restriction ignored",
+        "terms cancelled instead of factors",
+        "extraneous solution not checked"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-algebraic-fractions-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-algebraic-fractions-unit",
+        "bnu-junior-s2-lower-assessment-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "解分式方程：\\(\\frac{2}{x - 1} = \\frac{4}{x^2 - 1}\\)。请写出所有步骤并检验。",
+      "optionsZhHans": [],
+      "answer": "x = 3",
+      "acceptedAnswers": [
+        "x = 3",
+        "3"
+      ],
+      "explanationZhHans": "两边乘(x-1)(x+1)：2(x+1)=4，得x=1。但x=1使分母为0，是增根，舍去。故原方程无解。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-455",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-algebraic-fractions-equations",
+      "unitTitle": "分式与分式方程",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "algebraic-fractions",
+        "fraction-domain",
+        "fraction-operations",
+        "fraction-equations",
+        "extraneous-solutions",
+        "分式",
+        "分式方程"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "分式意义",
+        "分式基本性质",
+        "分式运算",
+        "分式方程",
+        "增根检验",
+        "取值限制"
+      ],
+      "misconceptionTags": [
+        "denominator restriction ignored",
+        "terms cancelled instead of factors",
+        "extraneous solution not checked"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-algebraic-fractions-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-algebraic-fractions-unit",
+        "bnu-junior-s2-lower-assessment-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "若关于 x 的分式方程 \\(\\frac{m}{x - 2} + 1 = \\frac{3}{2 - x}\\) 有增根，则 m 的值为（  ）",
+      "optionsZhHans": [
+        "A. -3",
+        "B. 3",
+        "C. 0",
+        "D. 1"
+      ],
+      "answer": "A. -3",
+      "acceptedAnswers": [
+        "A. -3",
+        "-3"
+      ],
+      "explanationZhHans": "增根为x=2。去分母：m+(x-2)=-3，将x=2代入得m+0=-3，故m=-3。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-456",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-algebraic-fractions-equations",
+      "unitTitle": "分式与分式方程",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "algebraic-fractions",
+        "fraction-domain",
+        "fraction-operations",
+        "fraction-equations",
+        "extraneous-solutions",
+        "分式",
+        "分式方程"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "分式意义",
+        "分式基本性质",
+        "分式运算",
+        "分式方程",
+        "增根检验",
+        "取值限制"
+      ],
+      "misconceptionTags": [
+        "denominator restriction ignored",
+        "terms cancelled instead of factors",
+        "extraneous solution not checked"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-algebraic-fractions-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-algebraic-fractions-unit",
+        "bnu-junior-s2-lower-assessment-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知 \\(\\frac{1}{a} + \\frac{1}{b} = \\frac{1}{a+b}\\)，求 \\(\\frac{b}{a} + \\frac{a}{b}\\) 的值。",
+      "optionsZhHans": [],
+      "answer": "-1",
+      "acceptedAnswers": [
+        "-1"
+      ],
+      "explanationZhHans": "由条件得(a+b)/ab=1/(a+b)，即(a+b)²=ab。展开得a²+2ab+b²=ab，a²+ab+b²=0。所求=(a²+b²)/ab=-ab/ab=-1。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-457",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-algebraic-fractions-equations",
+      "unitTitle": "分式与分式方程",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "algebraic-fractions",
+        "fraction-domain",
+        "fraction-operations",
+        "fraction-equations",
+        "extraneous-solutions",
+        "分式",
+        "分式方程"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "分式意义",
+        "分式基本性质",
+        "分式运算",
+        "分式方程",
+        "增根检验",
+        "取值限制"
+      ],
+      "misconceptionTags": [
+        "denominator restriction ignored",
+        "terms cancelled instead of factors",
+        "extraneous solution not checked"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-algebraic-fractions-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-algebraic-fractions-unit",
+        "bnu-junior-s2-lower-assessment-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下列分式中，是最简分式的是（  ）",
+      "optionsZhHans": [
+        "A. \\(\\frac{4}{6x}\\)",
+        "B. \\(\\frac{x^2 - 1}{x - 1}\\)",
+        "C. \\(\\frac{x + 2}{x^2 - 4}\\)",
+        "D. \\(\\frac{x + 1}{x^2 + 1}\\)"
+      ],
+      "answer": "D. \\(\\frac{x + 1}{x^2 + 1}\\)",
+      "acceptedAnswers": [
+        "D. \\(\\frac{x + 1}{x^2 + 1}\\)",
+        "\\frac{x + 1}{x^2 + 1}"
+      ],
+      "explanationZhHans": "A可约2，B分子=(x+1)(x-1)可约(x-1)，C分母=(x+2)(x-2)可约(x+2)；D分子分母无公因式，是最简分式。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-458",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-algebraic-fractions-equations",
+      "unitTitle": "分式与分式方程",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "algebraic-fractions",
+        "fraction-domain",
+        "fraction-operations",
+        "fraction-equations",
+        "extraneous-solutions",
+        "分式",
+        "分式方程"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "分式意义",
+        "分式基本性质",
+        "分式运算",
+        "分式方程",
+        "增根检验",
+        "取值限制"
+      ],
+      "misconceptionTags": [
+        "denominator restriction ignored",
+        "terms cancelled instead of factors",
+        "extraneous solution not checked"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-algebraic-fractions-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-algebraic-fractions-unit",
+        "bnu-junior-s2-lower-assessment-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知分式 \\(\\frac{x + 3}{2x - 5}\\) 的值为负数，求 x 的取值范围。",
+      "optionsZhHans": [],
+      "answer": "-3 < x < 2.5",
+      "acceptedAnswers": [
+        "-3 < x < 2.5",
+        "-3 < x < 5/2"
+      ],
+      "explanationZhHans": "分式值为负，分子分母异号。情况1：x+3>0且2x-5<0，得-3<x<2.5；情况2：x+3<0且2x-5>0，无解。综上，-3<x<2.5。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-459",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-algebraic-fractions-equations",
+      "unitTitle": "分式与分式方程",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "algebraic-fractions",
+        "fraction-domain",
+        "fraction-operations",
+        "fraction-equations",
+        "extraneous-solutions",
+        "分式",
+        "分式方程"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "分式意义",
+        "分式基本性质",
+        "分式运算",
+        "分式方程",
+        "增根检验",
+        "取值限制"
+      ],
+      "misconceptionTags": [
+        "denominator restriction ignored",
+        "terms cancelled instead of factors",
+        "extraneous solution not checked"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-algebraic-fractions-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-algebraic-fractions-unit",
+        "bnu-junior-s2-lower-assessment-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "化简 \\(\\frac{a^2 - b^2}{a^2 b - a b^2} \\div \\left(1 + \\frac{a^2 + b^2}{2ab}\\right)\\) 的结果是（  ）",
+      "optionsZhHans": [
+        "A. \\(\\frac{2}{a + b}\\)",
+        "B. \\(\\frac{2}{a - b}\\)",
+        "C. \\(\\frac{a + b}{2}\\)",
+        "D. \\(\\frac{a - b}{2}\\)"
+      ],
+      "answer": "A. \\(\\frac{2}{a + b}\\)",
+      "acceptedAnswers": [
+        "A. \\(\\frac{2}{a + b}\\)",
+        "\\frac{2}{a + b}"
+      ],
+      "explanationZhHans": "原式=\\(\\frac{(a-b)(a+b)}{ab(a-b)} \\div \\frac{2ab + a^2 + b^2}{2ab} = \\frac{a+b}{ab} \\cdot \\frac{2ab}{(a+b)^2} = \\frac{2}{a+b}\\)。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-460",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-algebraic-fractions-equations",
+      "unitTitle": "分式与分式方程",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "algebraic-fractions",
+        "fraction-domain",
+        "fraction-operations",
+        "fraction-equations",
+        "extraneous-solutions",
+        "分式",
+        "分式方程"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "分式意义",
+        "分式基本性质",
+        "分式运算",
+        "分式方程",
+        "增根检验",
+        "取值限制"
+      ],
+      "misconceptionTags": [
+        "denominator restriction ignored",
+        "terms cancelled instead of factors",
+        "extraneous solution not checked"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-algebraic-fractions-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-algebraic-fractions-unit",
+        "bnu-junior-s2-lower-assessment-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "若 \\(\\frac{1}{x} - \\frac{1}{y} = 3\\)，求分式 \\(\\frac{2x + 3xy - 2y}{x - 2xy - y}\\) 的值。",
+      "optionsZhHans": [],
+      "answer": "3/5",
+      "acceptedAnswers": [
+        "3/5",
+        "0.6"
+      ],
+      "explanationZhHans": "由条件得(y-x)/xy=3，即y-x=3xy。分子=2(x-y)+3xy=-6xy+3xy=-3xy；分母=(x-y)-2xy=-3xy-2xy=-5xy。比值为3/5。"
+    }
+  ]
+}

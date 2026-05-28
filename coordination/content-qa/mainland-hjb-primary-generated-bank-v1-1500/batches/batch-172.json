@@ -1,0 +1,304 @@
+{
+  "batchId": "batch-172",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p4-106",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-geometry-circle-lines-angles",
+      "unitTitle": "几何小实践",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "circle-introduction",
+        "line-ray-segment",
+        "angle-measurement",
+        "angle-calculation",
+        "圆",
+        "角"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "圆的初步认识",
+        "线段",
+        "射线",
+        "直线",
+        "角的度量",
+        "角的计算"
+      ],
+      "misconceptionTags": [
+        "ray and segment endpoints confused",
+        "angle size judged by side length",
+        "circle features described with imprecise everyday language"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-geometry-circle-lines-angles"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-geometry-circle-lines-angles",
+        "hjb-primary-p4-upper-assessment-review-operations-fractions"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丁在纸上画了一个图形：先确定一个点O，把圆规两脚分开4厘米，针尖固定在O点，旋转一周画出一个圆。关于这个圆，下面哪句话是正确的？",
+      "optionsZhHans": [
+        "点O到圆上任意一点的距离都相等，都是4厘米。",
+        "这个圆有两条对称轴。",
+        "圆规两脚分开的距离是这个圆的直径。",
+        "这个圆的直径是4厘米。"
+      ],
+      "answer": "点O到圆上任意一点的距离都相等，都是4厘米。",
+      "acceptedAnswers": [
+        "点O到圆上任意一点的距离都相等，都是4厘米。"
+      ],
+      "explanationZhHans": "用圆规画圆时，针尖固定的点O是圆心，两脚分开的距离是半径。题目中半径是4厘米，所以圆心到圆上任意一点的距离都等于半径4厘米。选项A正确。对称轴有无数条，B错；两脚分开的距离是半径不是直径，C和D错。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-107",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-geometry-circle-lines-angles",
+      "unitTitle": "几何小实践",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "circle-introduction",
+        "line-ray-segment",
+        "angle-measurement",
+        "angle-calculation",
+        "圆",
+        "角"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "圆的初步认识",
+        "线段",
+        "射线",
+        "直线",
+        "角的度量",
+        "角的计算"
+      ],
+      "misconceptionTags": [
+        "ray and segment endpoints confused",
+        "angle size judged by side length",
+        "circle features described with imprecise everyday language"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-geometry-circle-lines-angles"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-geometry-circle-lines-angles",
+        "hjb-primary-p4-upper-assessment-review-operations-fractions"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "手电筒射出的光线可以看作一条（    ）。",
+      "optionsZhHans": [],
+      "answer": "射线",
+      "acceptedAnswers": [
+        "射线"
+      ],
+      "explanationZhHans": "射线有一个端点，可以向一个方向无限延伸。手电筒的光线从灯泡出发，射向远方，符合射线的特征。线段有两个端点，直线没有端点，所以填“射线”。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-108",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-geometry-circle-lines-angles",
+      "unitTitle": "几何小实践",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "circle-introduction",
+        "line-ray-segment",
+        "angle-measurement",
+        "angle-calculation",
+        "圆",
+        "角"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "圆的初步认识",
+        "线段",
+        "射线",
+        "直线",
+        "角的度量",
+        "角的计算"
+      ],
+      "misconceptionTags": [
+        "ray and segment endpoints confused",
+        "angle size judged by side length",
+        "circle features described with imprecise everyday language"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-geometry-circle-lines-angles"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-geometry-circle-lines-angles",
+        "hjb-primary-p4-upper-assessment-review-operations-fractions"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小胖用量角器量一个角时，把量角器的中心与角的顶点重合，0°刻度线与角的一条边重合，角的另一条边指向内圈刻度135°。小丁量同一个角时，也把中心和顶点重合，0°刻度线与角的一条边重合，但他看的是外圈刻度。请问小丁看到的外圈刻度是多少度？请写出你的思考过程。",
+      "optionsZhHans": [],
+      "answer": "45°",
+      "acceptedAnswers": [
+        "45°",
+        "45度",
+        "45"
+      ],
+      "explanationZhHans": "量角器内圈和外圈的刻度之和为180°。小胖读内圈135°，所以小丁读外圈时，刻度为180°－135°＝45°。因此小丁看到的外圈刻度是45°。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-109",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-geometry-circle-lines-angles",
+      "unitTitle": "几何小实践",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "circle-introduction",
+        "line-ray-segment",
+        "angle-measurement",
+        "angle-calculation",
+        "圆",
+        "角"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "圆的初步认识",
+        "线段",
+        "射线",
+        "直线",
+        "角的度量",
+        "角的计算"
+      ],
+      "misconceptionTags": [
+        "ray and segment endpoints confused",
+        "angle size judged by side length",
+        "circle features described with imprecise everyday language"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-geometry-circle-lines-angles"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-geometry-circle-lines-angles",
+        "hjb-primary-p4-upper-assessment-review-operations-fractions"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面关于角的说法，哪一个是正确的？",
+      "optionsZhHans": [
+        "角的大小与边的长短有关，边越长角越大。",
+        "用放大镜看一个30°的角，看到的角会变大。",
+        "两个锐角拼在一起，一定是一个钝角。",
+        "时钟在3时整，时针和分针组成的角是直角。"
+      ],
+      "answer": "时钟在3时整，时针和分针组成的角是直角。",
+      "acceptedAnswers": [
+        "时钟在3时整，时针和分针组成的角是直角。"
+      ],
+      "explanationZhHans": "角的大小由两条边张开的程度决定，与边的长短无关，A错；放大镜不能放大角的度数，B错；两个锐角拼起来可能是锐角、直角或钝角，C错；3时整，时针指向3，分针指向12，正好成90°直角，D正确。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-110",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-geometry-circle-lines-angles",
+      "unitTitle": "几何小实践",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "circle-introduction",
+        "line-ray-segment",
+        "angle-measurement",
+        "angle-calculation",
+        "圆",
+        "角"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "圆的初步认识",
+        "线段",
+        "射线",
+        "直线",
+        "角的度量",
+        "角的计算"
+      ],
+      "misconceptionTags": [
+        "ray and segment endpoints confused",
+        "angle size judged by side length",
+        "circle features described with imprecise everyday language"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-geometry-circle-lines-angles"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-geometry-circle-lines-angles",
+        "hjb-primary-p4-upper-assessment-review-operations-fractions"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "经过两点可以画（    ）条直线。",
+      "optionsZhHans": [],
+      "answer": "一",
+      "acceptedAnswers": [
+        "一",
+        "1",
+        "一条"
+      ],
+      "explanationZhHans": "根据直线的性质，经过两点有且只有一条直线。所以填“一”或“1”或“一条”。"
+    }
+  ]
+}

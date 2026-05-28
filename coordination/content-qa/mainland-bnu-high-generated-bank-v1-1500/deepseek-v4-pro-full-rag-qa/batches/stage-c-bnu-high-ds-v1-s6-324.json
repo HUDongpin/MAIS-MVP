@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-324",
+  "startedAt": "2026-05-28T01:50:00.351Z",
+  "completedAt": "2026-05-28T01:50:04.591Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-324"
+  ],
+  "usage": {
+    "prompt_tokens": 1991,
+    "completion_tokens": 253,
+    "total_tokens": 2244,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1607
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-324",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "0",
+        "correctedAnswer": "0",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，导数计算正确得k=-1，b=1，k+b=0。但存储答案为-1，与解析中k+b=0矛盾，属于答案错误且解析自相矛盾，必须修正为0。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1题答案错误，解析自相矛盾，需修正答案为0。"
+    }
+  }
+}

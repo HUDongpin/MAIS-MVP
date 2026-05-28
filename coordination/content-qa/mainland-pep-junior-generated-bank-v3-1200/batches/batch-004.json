@@ -1,0 +1,308 @@
+{
+  "batchId": "batch-004",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s1-k01-fi-008",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-expression-simplification"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "某冷库的温度是零下18℃，现在需要降温，每小时下降3℃，经过4小时后，冷库的温度是多少摄氏度？",
+      "optionsZhHans": [],
+      "answer": "-30℃",
+      "acceptedAnswers": [
+        "-30℃",
+        "-30摄氏度",
+        "零下30℃",
+        "零下30摄氏度"
+      ],
+      "explanationZhHans": "初始温度为零下18℃，即-18℃。每小时下降3℃，4小时共下降3×4=12℃。最终温度为-18-12=-30℃，即零下30℃。所以答案是-30℃。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k01-fi-009",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-linear-equation-modeling"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "数轴上点A表示-2，点B在点A的右边，且点B到点A的距离为5个单位长度。点C与点B关于原点对称。请写出点C表示的数。",
+      "optionsZhHans": [],
+      "answer": "-3",
+      "acceptedAnswers": [
+        "-3"
+      ],
+      "explanationZhHans": "点A表示-2，点B在点A右边且距离为5，所以点B表示的数为-2+5=3。点C与点B关于原点对称，因此点C表示的数是3的相反数，即-3。所以答案是-3。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k01-fi-010",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-geometric-figures"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "已知a、b互为相反数，c、d互为倒数，m的绝对值是3。求代数式 (a+b) + cd + m 的值。",
+      "optionsZhHans": [],
+      "answer": "4或-2",
+      "acceptedAnswers": [
+        "4或-2",
+        "-2或4",
+        "4,-2",
+        "-2,4"
+      ],
+      "explanationZhHans": "因为a、b互为相反数，所以a+b=0；c、d互为倒数，所以cd=1；m的绝对值是3，所以m=3或m=-3。当m=3时，原式=0+1+3=4；当m=-3时，原式=0+1+(-3)=-2。所以答案是4或-2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k01-fi-011",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-rational-number-operations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "某超市对一种商品进行促销，原价每件a元，第一次降价10%，第二次又降价10%，则两次降价后的价格是多少元？（用含a的代数式表示）",
+      "optionsZhHans": [],
+      "answer": "0.81a",
+      "acceptedAnswers": [
+        "0.81a",
+        "81%a",
+        "a×0.81"
+      ],
+      "explanationZhHans": "第一次降价10%后，价格为a×(1-10%)=0.9a元。第二次降价是在第一次降价后的基础上再降10%，所以价格为0.9a×(1-10%)=0.9a×0.9=0.81a元。所以答案是0.81a。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k01-fi-012",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "小明家、学校和书店在同一条东西走向的街道上，学校在家东边500米，书店在学校西边300米。若以家为原点，向东为正方向，1个单位长度表示100米，请用数轴上的点表示书店的位置，并写出该点表示的数。",
+      "optionsZhHans": [],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2",
+        "+2"
+      ],
+      "explanationZhHans": "以家为原点，向东为正，学校在家东边500米，所以学校在数轴上表示5。书店在学校西边300米，即从学校向西3个单位，所以书店在数轴上表示5-3=2。因此书店的位置表示的数是2。所以答案是2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k01-fi-013",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-expression-simplification"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "已知一个数的相反数比它的绝对值小4，求这个数。",
+      "optionsZhHans": [],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2"
+      ],
+      "explanationZhHans": "设这个数为x，则它的相反数为-x，绝对值为|x|。根据题意，|x| - (-x) = 4，即|x| + x = 4。若x≥0，则|x|=x，方程化为x+x=4，解得x=2；若x<0，则|x|=-x，方程化为-x+x=4，即0=4，矛盾。所以这个数是2。所以答案是2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k01-fi-014",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-linear-equation-modeling"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "在数轴上，点A表示-3，点B表示2。点P从点A出发，以每秒1个单位长度的速度向右运动；点Q从点B出发，以每秒2个单位长度的速度向左运动。它们同时出发，几秒后点P和点Q相遇？相遇点表示的数是多少？",
+      "optionsZhHans": [],
+      "answer": "5/3秒，-4/3",
+      "acceptedAnswers": [
+        "5/3秒，-4/3",
+        "5/3秒和-4/3",
+        "5/3秒 -4/3"
+      ],
+      "explanationZhHans": "设t秒后相遇。点P从-3向右运动，t秒后位置为-3+t；点Q从2向左运动，t秒后位置为2-2t。相遇时位置相同：-3+t = 2-2t，解得3t=5，t=5/3秒。相遇点表示的数为-3+5/3 = -4/3。所以答案是5/3秒，-4/3。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k01-fi-015",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-geometric-figures"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "计算：(-2)³ + (-3) × [(-4)² + 2] - (-5) ÷ (-1)。",
+      "optionsZhHans": [],
+      "answer": "-67",
+      "acceptedAnswers": [
+        "-67"
+      ],
+      "explanationZhHans": "先算乘方：(-2)³=-8，(-4)²=16。再算括号内：16+2=18。然后算乘除：(-3)×18=-54，(-5)÷(-1)=5。最后加减：-8 + (-54) - 5 = -8 -54 -5 = -67。所以答案是-67。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k01-fi-016",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-rational-number-operations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "已知|x-2|与(y+3)²互为相反数，求x+y的值。",
+      "optionsZhHans": [],
+      "answer": "-1",
+      "acceptedAnswers": [
+        "-1"
+      ],
+      "explanationZhHans": "因为|x-2|与(y+3)²互为相反数，所以|x-2| + (y+3)² = 0。由于绝对值和平方都是非负数，所以必须|x-2|=0且(y+3)²=0，解得x=2，y=-3。因此x+y=2+(-3)=-1。所以答案是-1。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k01-fi-017",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "某地一天的最高气温是12℃，最低气温是-3℃，则该地这一天的温差是多少摄氏度？",
+      "optionsZhHans": [],
+      "answer": "15℃",
+      "acceptedAnswers": [
+        "15℃",
+        "15摄氏度",
+        "15"
+      ],
+      "explanationZhHans": "温差是指最高气温减去最低气温。最高气温12℃，最低气温-3℃，所以温差为12 - (-3) = 12 + 3 = 15℃。所以答案是15℃。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

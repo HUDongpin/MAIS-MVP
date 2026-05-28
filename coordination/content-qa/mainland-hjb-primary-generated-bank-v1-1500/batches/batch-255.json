@@ -1,0 +1,298 @@
+{
+  "batchId": "batch-255",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p6-021",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "hjb-primary-p6-upper-fractions",
+      "unitTitle": "分数",
+      "volume": "6年级上册",
+      "conceptIds": [
+        "fraction-equivalence",
+        "fraction-operations",
+        "mixed-numbers",
+        "fraction-comparison",
+        "分数",
+        "约分通分"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "数学表达"
+      ],
+      "skillTags": [
+        "分数意义",
+        "约分",
+        "通分",
+        "分数加减乘除",
+        "结果合理性检查"
+      ],
+      "misconceptionTags": [
+        "denominators added directly",
+        "whole not identified before interpreting fraction",
+        "mixed-number conversion error"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p6-upper-fractions"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-review-operations-fractions",
+        "hjb-primary-p4-upper-assessment-fraction-extension"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明有一根彩带，第一次用去全长的1/3，第二次用去剩下部分的1/2，最后还剩2米。这根彩带原来长多少米？",
+      "optionsZhHans": [],
+      "answer": "6米",
+      "acceptedAnswers": [
+        "6米",
+        "6"
+      ],
+      "explanationZhHans": "设原长x米。第一次用去x/3，剩2x/3。第二次用去(2x/3)×(1/2)=x/3，剩2x/3 - x/3 = x/3。由x/3=2得x=6。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-022",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "hjb-primary-p6-upper-fractions",
+      "unitTitle": "分数",
+      "volume": "6年级上册",
+      "conceptIds": [
+        "fraction-equivalence",
+        "fraction-operations",
+        "mixed-numbers",
+        "fraction-comparison",
+        "分数",
+        "约分通分"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "数学表达"
+      ],
+      "skillTags": [
+        "分数意义",
+        "约分",
+        "通分",
+        "分数加减乘除",
+        "结果合理性检查"
+      ],
+      "misconceptionTags": [
+        "denominators added directly",
+        "whole not identified before interpreting fraction",
+        "mixed-number conversion error"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p6-upper-fractions"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-review-operations-fractions",
+        "hjb-primary-p4-upper-assessment-fraction-extension"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪组分数的大小关系是正确的？",
+      "optionsZhHans": [
+        "3/4 > 5/6",
+        "2/3 < 3/5",
+        "5/8 = 15/24",
+        "7/12 < 1/2"
+      ],
+      "answer": "5/8 = 15/24",
+      "acceptedAnswers": [
+        "5/8 = 15/24"
+      ],
+      "explanationZhHans": "5/8分子分母同乘3得15/24，相等。A：3/4=0.75，5/6≈0.833，应小于。B：2/3≈0.667，3/5=0.6，应大于。D：7/12≈0.583，1/2=0.5，应大于。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-023",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "hjb-primary-p6-upper-fractions",
+      "unitTitle": "分数",
+      "volume": "6年级上册",
+      "conceptIds": [
+        "fraction-equivalence",
+        "fraction-operations",
+        "mixed-numbers",
+        "fraction-comparison",
+        "分数",
+        "约分通分"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "数学表达"
+      ],
+      "skillTags": [
+        "分数意义",
+        "约分",
+        "通分",
+        "分数加减乘除",
+        "结果合理性检查"
+      ],
+      "misconceptionTags": [
+        "denominators added directly",
+        "whole not identified before interpreting fraction",
+        "mixed-number conversion error"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p6-upper-fractions"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-review-operations-fractions",
+        "hjb-primary-p4-upper-assessment-fraction-extension"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算：2又1/3 + 1又5/6 = ______（填最简分数或带分数）",
+      "optionsZhHans": [],
+      "answer": "4又1/6",
+      "acceptedAnswers": [
+        "4又1/6",
+        "25/6"
+      ],
+      "explanationZhHans": "2又1/3=7/3=14/6，1又5/6=11/6，和=25/6=4又1/6。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-024",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "hjb-primary-p6-upper-fractions",
+      "unitTitle": "分数",
+      "volume": "6年级上册",
+      "conceptIds": [
+        "fraction-equivalence",
+        "fraction-operations",
+        "mixed-numbers",
+        "fraction-comparison",
+        "分数",
+        "约分通分"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "数学表达"
+      ],
+      "skillTags": [
+        "分数意义",
+        "约分",
+        "通分",
+        "分数加减乘除",
+        "结果合理性检查"
+      ],
+      "misconceptionTags": [
+        "denominators added directly",
+        "whole not identified before interpreting fraction",
+        "mixed-number conversion error"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p6-upper-fractions"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-review-operations-fractions",
+        "hjb-primary-p4-upper-assessment-fraction-extension"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校食堂运来一批大米，第一周吃了总数的2/5，第二周吃了剩下的3/4，这时还剩60千克。这批大米原来有多少千克？",
+      "optionsZhHans": [],
+      "answer": "400千克",
+      "acceptedAnswers": [
+        "400千克",
+        "400"
+      ],
+      "explanationZhHans": "设原有x千克。第一周吃2x/5，剩3x/5。第二周吃(3x/5)×(3/4)=9x/20，剩3x/5-9x/20=12x/20-9x/20=3x/20。由3x/20=60得x=400。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-025",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "hjb-primary-p6-upper-fractions",
+      "unitTitle": "分数",
+      "volume": "6年级上册",
+      "conceptIds": [
+        "fraction-equivalence",
+        "fraction-operations",
+        "mixed-numbers",
+        "fraction-comparison",
+        "分数",
+        "约分通分"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "数学表达"
+      ],
+      "skillTags": [
+        "分数意义",
+        "约分",
+        "通分",
+        "分数加减乘除",
+        "结果合理性检查"
+      ],
+      "misconceptionTags": [
+        "denominators added directly",
+        "whole not identified before interpreting fraction",
+        "mixed-number conversion error"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p6-upper-fractions"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-review-operations-fractions",
+        "hjb-primary-p4-upper-assessment-fraction-extension"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一根绳子剪成两段，第一段长3/5米，第二段占全长的3/5。下面说法正确的是（ ）。",
+      "optionsZhHans": [
+        "第一段更长",
+        "第二段更长",
+        "两段一样长",
+        "无法比较"
+      ],
+      "answer": "第二段更长",
+      "acceptedAnswers": [
+        "第二段更长"
+      ],
+      "explanationZhHans": "第二段占全长3/5，则第一段占1-3/5=2/5。3/5>2/5，所以第二段更长。注意第一段具体长度3/5米是多余条件。"
+    }
+  ]
+}

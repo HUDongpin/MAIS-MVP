@@ -1,0 +1,47 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-171",
+  "startedAt": "2026-05-28T01:43:23.436Z",
+  "completedAt": "2026-05-28T01:43:27.645Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-171"
+  ],
+  "usage": {
+    "prompt_tokens": 2109,
+    "completion_tokens": 233,
+    "total_tokens": 2342,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1725
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-171",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "b_n = n",
+        "correctedAnswer": null,
+        "issueTags": [
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，答案正确为 b_n = n，但解析中推导过程错误（c_n 定义与变换不一致，最终结果矛盾），导致解析不可信，需修正解析。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1 题因解析矛盾被标记为 blocker，需修正解析。"
+    }
+  }
+}

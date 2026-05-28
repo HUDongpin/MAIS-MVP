@@ -1,0 +1,191 @@
+{
+  "batchNumber": 50,
+  "startedAt": "2026-05-27T13:55:08.228Z",
+  "completedAt": "2026-05-27T13:55:26.725Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p4-133",
+    "bnu-primary-ds-v2-p4-134",
+    "bnu-primary-ds-v2-p4-135",
+    "bnu-primary-ds-v2-p4-136",
+    "bnu-primary-ds-v2-p4-137",
+    "bnu-primary-ds-v2-p4-138",
+    "bnu-primary-ds-v2-p4-139",
+    "bnu-primary-ds-v2-p4-140",
+    "bnu-primary-ds-v2-p4-141",
+    "bnu-primary-ds-v2-p4-142",
+    "bnu-primary-ds-v2-p4-143",
+    "bnu-primary-ds-v2-p4-144",
+    "bnu-primary-ds-v2-p4-145",
+    "bnu-primary-ds-v2-p4-146",
+    "bnu-primary-ds-v2-p4-147",
+    "bnu-primary-ds-v2-p4-148",
+    "bnu-primary-ds-v2-p4-149",
+    "bnu-primary-ds-v2-p4-150"
+  ],
+  "usage": {
+    "prompt_tokens": 4323,
+    "completion_tokens": 1351,
+    "total_tokens": 5674,
+    "prompt_tokens_details": {
+      "cached_tokens": 4224
+    },
+    "prompt_cache_hit_tokens": 4224,
+    "prompt_cache_miss_tokens": 99
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p4-133",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，一副三角尺可拼出75°、105°、150°，130°无法拼出，答案C无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-134",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，123×(456-455)=123，答案123无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-135",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "判断正确，①③④为乘法分配律，②为结合律，理由充分。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-136",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "相对位置方向相反，角度相同，A正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-137",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "可能性判断合理，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-138",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "正负数表示正确，答案无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-139",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "线段计数正确，5个点共10条线段，答案C无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-140",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "规律正确，答案9876和98765无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-141",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "判断正确，②为乘法结合律，与①③不同。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-142",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，B最大为270，答案B无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-143",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "规律正确，答案9876无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-144",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "验算方法正确，用乘法验算除法。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-145",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "百分位判断正确，0.375的百分位是7，答案B无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-146",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "小数性质正确，三个数相等，答案用等号连接无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-147",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，总价14.98元无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-148",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数位判断正确，0.37的3在十分位，答案A无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-149",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，5.4+3.26=8.66，答案无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-150",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，2.5-1.38=1.12米，答案无误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均通过审核，无数学错误、答案不匹配、歧义或年级不匹配等问题。"
+    }
+  }
+}

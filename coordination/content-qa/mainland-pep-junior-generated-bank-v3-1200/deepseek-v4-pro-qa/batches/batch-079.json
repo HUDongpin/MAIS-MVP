@@ -1,0 +1,137 @@
+{
+  "batchNumber": 79,
+  "startedAt": "2026-05-24T23:00:41.132Z",
+  "completedAt": "2026-05-24T23:00:56.787Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s3-k10-sa-004",
+    "pep-junior-v3-s3-k10-sa-005",
+    "pep-junior-v3-s3-k10-sa-006",
+    "pep-junior-v3-s3-k10-sa-007",
+    "pep-junior-v3-s3-k10-sa-008",
+    "pep-junior-v3-s3-k10-sa-009",
+    "pep-junior-v3-s3-k10-sa-010",
+    "pep-junior-v3-s3-k10-sa-011",
+    "pep-junior-v3-s3-k10-sa-012",
+    "pep-junior-v3-s3-k10-sa-013",
+    "pep-junior-v3-s3-k10-sa-014",
+    "pep-junior-v3-s3-k10-sa-015"
+  ],
+  "usage": {
+    "prompt_tokens": 3450,
+    "completion_tokens": 972,
+    "total_tokens": 4422,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 3194
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s3-k10-sa-004",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解释一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-sa-005",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "概率计算正确，等可能结果列举完整，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-sa-006",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移坐标计算正确，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-sa-007",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "交点坐标正确，因式分解无误，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-sa-008",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "判别式应用正确，不等式求解无误，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-sa-009",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "顶点坐标计算正确，配方过程无误，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-sa-010",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "垂径定理与勾股定理应用正确，半径计算无误。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-sa-011",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "放回概率计算正确，独立事件乘法公式应用无误。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-sa-012",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "旋转坐标变换正确，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-sa-013",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "三角形面积计算正确，交点坐标无误，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-sa-014",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "二次函数最值应用正确，利润函数建立与配方无误，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-sa-015",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "区间最值计算正确，顶点与端点值比较无误，答案与解释一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部12道题均通过审核，数学正确，答案与解释一致，无歧义或缺失条件，适合人教版初中数学。"
+    }
+  }
+}

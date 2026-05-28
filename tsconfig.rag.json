@@ -1,0 +1,23 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": ".tmp/rag-tests",
+    "noEmit": false,
+    "incremental": false,
+    "module": "commonjs",
+    "moduleResolution": "node"
+  },
+  "include": [
+    "types/**/*.ts",
+    "data/rag/**/*.ts",
+    "lib/rag/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    ".next",
+    ".tmp",
+    "output",
+    "outputs",
+    "test-results"
+  ]
+}

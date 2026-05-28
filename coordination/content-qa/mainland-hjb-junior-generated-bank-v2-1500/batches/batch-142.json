@@ -1,0 +1,336 @@
+{
+  "batchId": "batch-142",
+  "questions": [
+    {
+      "id": "hjb-junior-ds-v2-s2-206",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "hjb-junior-s2-upper-right-triangles",
+      "unitTitle": "直角三角形",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "right-triangles",
+        "pythagorean-theorem",
+        "angle-bisector",
+        "triangle-congruence",
+        "勾股定理",
+        "直角三角形"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "直角三角形性质",
+        "直角三角形判定",
+        "全等判定",
+        "角平分线",
+        "勾股定理",
+        "逆定理"
+      ],
+      "misconceptionTags": [
+        "right angle assumed from appearance",
+        "Pythagorean theorem used with wrong side as hypotenuse",
+        "angle-bisector distance property incomplete"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-junior-s2-upper-right-triangles"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-upper-paper-right-triangles-unit",
+        "hjb-junior-s2-upper-paper-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof",
+        "pep-junior-exam-quadrilaterals-pythagorean"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在△ABC中，AB=13，AC=20，BC边上的高AD=12。求BC的长。",
+      "optionsZhHans": [],
+      "answer": "21",
+      "acceptedAnswers": [
+        "21"
+      ],
+      "explanationZhHans": "由勾股定理，BD=√(13²-12²)=5，CD=√(20²-12²)=16。若高在三角形内，BC=BD+CD=21；若高在三角形外，BC=CD-BD=11。但AB<AC，高在三角形内，故BC=21。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-207",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "hjb-junior-s2-upper-right-triangles",
+      "unitTitle": "直角三角形",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "right-triangles",
+        "pythagorean-theorem",
+        "angle-bisector",
+        "triangle-congruence",
+        "勾股定理",
+        "直角三角形"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "直角三角形性质",
+        "直角三角形判定",
+        "全等判定",
+        "角平分线",
+        "勾股定理",
+        "逆定理"
+      ],
+      "misconceptionTags": [
+        "right angle assumed from appearance",
+        "Pythagorean theorem used with wrong side as hypotenuse",
+        "angle-bisector distance property incomplete"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s2-upper-right-triangles"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-upper-paper-right-triangles-unit",
+        "hjb-junior-s2-upper-paper-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof",
+        "pep-junior-exam-quadrilaterals-pythagorean"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在△ABC中，∠C=90°，AC=9，BC=12。点D在AB上，且CD是∠C的平分线。求CD的长。",
+      "optionsZhHans": [],
+      "answer": "36√2/7",
+      "acceptedAnswers": [
+        "36√2/7",
+        "36√2/7 cm",
+        "36√2/7厘米"
+      ],
+      "explanationZhHans": "由勾股定理，AB=15。由角平分线性质，AD:DB=AC:BC=9:12=3:4，得AD=45/7，DB=60/7。在△ACD中用余弦定理，cosA=9/15=3/5，CD²=9²+(45/7)²-2×9×(45/7)×(3/5)=2592/49，CD=36√2/7。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-208",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "hjb-junior-s2-upper-right-triangles",
+      "unitTitle": "直角三角形",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "right-triangles",
+        "pythagorean-theorem",
+        "angle-bisector",
+        "triangle-congruence",
+        "勾股定理",
+        "直角三角形"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "直角三角形性质",
+        "直角三角形判定",
+        "全等判定",
+        "角平分线",
+        "勾股定理",
+        "逆定理"
+      ],
+      "misconceptionTags": [
+        "right angle assumed from appearance",
+        "Pythagorean theorem used with wrong side as hypotenuse",
+        "angle-bisector distance property incomplete"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s2-upper-right-triangles"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-upper-paper-right-triangles-unit",
+        "hjb-junior-s2-upper-paper-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof",
+        "pep-junior-exam-quadrilaterals-pythagorean"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在△ABC中，∠C=90°，AC=5，BC=12。点D在AB上，且CD⊥AB。求CD的长。",
+      "optionsZhHans": [
+        "60/13",
+        "30/13",
+        "13/2",
+        "60/17"
+      ],
+      "answer": "60/13",
+      "acceptedAnswers": [
+        "60/13"
+      ],
+      "explanationZhHans": "由勾股定理，AB=13。利用面积法，S△ABC=1/2×5×12=30。又S△ABC=1/2×AB×CD=1/2×13×CD，得13CD=60，CD=60/13。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-209",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "hjb-junior-s2-upper-right-triangles",
+      "unitTitle": "直角三角形",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "right-triangles",
+        "pythagorean-theorem",
+        "angle-bisector",
+        "triangle-congruence",
+        "勾股定理",
+        "直角三角形"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "直角三角形性质",
+        "直角三角形判定",
+        "全等判定",
+        "角平分线",
+        "勾股定理",
+        "逆定理"
+      ],
+      "misconceptionTags": [
+        "right angle assumed from appearance",
+        "Pythagorean theorem used with wrong side as hypotenuse",
+        "angle-bisector distance property incomplete"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-junior-s2-upper-right-triangles"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-upper-paper-right-triangles-unit",
+        "hjb-junior-s2-upper-paper-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof",
+        "pep-junior-exam-quadrilaterals-pythagorean"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在△ABC中，∠C=90°，AC=8，BC=15。点D在BC上，且AD平分∠BAC。求点D到AB的距离。",
+      "optionsZhHans": [],
+      "answer": "120/23",
+      "acceptedAnswers": [
+        "120/23",
+        "120/23 cm",
+        "120/23厘米"
+      ],
+      "explanationZhHans": "由勾股定理，AB=17。由角平分线性质，BD:DC=AB:AC=17:8，又BC=15，得DC=15×8/25=24/5。点D到AB的距离等于点C到AB的距离乘以DC/BC。点C到AB的距离为8×15/17=120/17，故距离为(120/17)×(24/5)/15=120/23。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-210",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "hjb-junior-s2-upper-right-triangles",
+      "unitTitle": "直角三角形",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "right-triangles",
+        "pythagorean-theorem",
+        "angle-bisector",
+        "triangle-congruence",
+        "勾股定理",
+        "直角三角形"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "直角三角形性质",
+        "直角三角形判定",
+        "全等判定",
+        "角平分线",
+        "勾股定理",
+        "逆定理"
+      ],
+      "misconceptionTags": [
+        "right angle assumed from appearance",
+        "Pythagorean theorem used with wrong side as hypotenuse",
+        "angle-bisector distance property incomplete"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s2-upper-right-triangles"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-upper-paper-right-triangles-unit",
+        "hjb-junior-s2-upper-paper-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof",
+        "pep-junior-exam-quadrilaterals-pythagorean"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在△ABC中，∠C=90°，AC=6，BC=8。点D在AB上，且CD平分∠ACB。求点D到AC和BC的距离之和。",
+      "optionsZhHans": [],
+      "answer": "48/7",
+      "acceptedAnswers": [
+        "48/7",
+        "48/7 cm",
+        "48/7厘米"
+      ],
+      "explanationZhHans": "由勾股定理，AB=10。由角平分线性质，AD:DB=AC:BC=6:8=3:4，得AD=30/7，DB=40/7。点D到AC的距离等于DB×sinB，sinB=6/10=3/5，距离为40/7×3/5=24/7。点D到BC的距离等于AD×sinA，sinA=8/10=4/5，距离为30/7×4/5=24/7。和为48/7？检查：角平分线上的点到两边距离相等，故距离均为24/7，和为48/7。更正：和为48/7。"
+    }
+  ]
+}

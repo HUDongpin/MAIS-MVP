@@ -1,0 +1,191 @@
+{
+  "batchNumber": 68,
+  "startedAt": "2026-05-25T02:22:23.783Z",
+  "completedAt": "2026-05-25T02:22:44.006Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p5-207",
+    "hjb-primary-ds-v1-p5-208",
+    "hjb-primary-ds-v1-p5-209",
+    "hjb-primary-ds-v1-p5-210",
+    "hjb-primary-ds-v1-p5-211",
+    "hjb-primary-ds-v1-p5-212",
+    "hjb-primary-ds-v1-p5-213",
+    "hjb-primary-ds-v1-p5-214",
+    "hjb-primary-ds-v1-p5-215",
+    "hjb-primary-ds-v1-p5-216",
+    "hjb-primary-ds-v1-p5-217",
+    "hjb-primary-ds-v1-p5-218",
+    "hjb-primary-ds-v1-p5-219",
+    "hjb-primary-ds-v1-p5-220",
+    "hjb-primary-ds-v1-p5-221",
+    "hjb-primary-ds-v1-p5-222",
+    "hjb-primary-ds-v1-p5-223",
+    "hjb-primary-ds-v1-p5-224"
+  ],
+  "usage": {
+    "prompt_tokens": 3931,
+    "completion_tokens": 1324,
+    "total_tokens": 5255,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 3675
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p5-207",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，计算无误，选项清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-208",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案240立方厘米，接受答案合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-209",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，体积计算无误，选项合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-210",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，先求棱长再算体积，答案64立方厘米。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-211",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，体积计算无误，选项清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-212",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，棱长5厘米，表面积150平方厘米。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-213",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，计算水深4分米，离缸口1分米。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-214",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，棱长8厘米，体积512立方厘米。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-215",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，增加表面积56平方厘米，底面边长7厘米，原高5厘米，体积245立方厘米。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-216",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，上升高度1.2分米，体积28.8立方分米。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-217",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，棱长6厘米，表面积216平方厘米。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-218",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，表面积184平方分米。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-219",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，体积54立方厘米。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-220",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，3月到4月上升6℃，为最早出现的一组。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-221",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，选项B描述准确，其他选项错误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-222",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，超过20本的有3天。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-223",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，D选项正确，其他选项不准确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-224",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，增加最快的是第6天到第7天。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合沪教版小学数学要求，数学正确，答案匹配，无歧义或缺失条件。"
+    }
+  }
+}

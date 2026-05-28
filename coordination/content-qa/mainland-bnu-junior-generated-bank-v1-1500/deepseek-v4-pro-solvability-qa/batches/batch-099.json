@@ -1,0 +1,179 @@
+{
+  "batchNumber": 99,
+  "startedAt": "2026-05-27T17:56:38.245Z",
+  "completedAt": "2026-05-27T17:57:07.646Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s3-177",
+    "bnu-junior-ds-v1-s3-178",
+    "bnu-junior-ds-v1-s3-179",
+    "bnu-junior-ds-v1-s3-180",
+    "bnu-junior-ds-v1-s3-181",
+    "bnu-junior-ds-v1-s3-182",
+    "bnu-junior-ds-v1-s3-183",
+    "bnu-junior-ds-v1-s3-184",
+    "bnu-junior-ds-v1-s3-185",
+    "bnu-junior-ds-v1-s3-186",
+    "bnu-junior-ds-v1-s3-187",
+    "bnu-junior-ds-v1-s3-188"
+  ],
+  "usage": {
+    "prompt_tokens": 5437,
+    "completion_tokens": 1954,
+    "total_tokens": 7391,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 4925
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s3-177",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "18.75 cm",
+        "rationale": "题目可解，但答案错误。由∠ADE=∠C，∠A公共，得△ADE∽△ACB，对应边AD/AC=AE/AB，即5/AC=4/15，解得AC=18.75 cm。提供的答案12与解释中的18.75矛盾，且解释本身正确但答案错误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-178",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "ambiguous_mc",
+          "answer_mismatch"
+        ],
+        "correctedAnswer": "△ADE与△ABC的面积比为4:25",
+        "rationale": "题目可解，但选项D正确，而答案却写为“△ADE与△ABC的面积比为4:25”，这实际上是选项D的内容，但答案字段应填写选项标识（如D）或完整选项文本。当前答案字段与选项D文本一致，但未明确标识选项，且解释中称A、B、C错误，D正确，但答案字段未使用选项标签，可能引起歧义。此外，选项A、B、C确实错误，但答案字段应明确为“D”或完整选项文本。由于答案字段与正确选项文本相同，可视为匹配，但严格来说，答案应为选项标识。然而，题目要求“下列结论正确的是？”，答案应指出正确选项。当前答案字段内容与选项D完全一致，可接受，但解释中称A应为AE:EC=2:3，B应为DE:BC=2:5，C应为周长比2:5，这些修正后的结论与选项不符，但解释本身正确。主要问题在于答案字段未使用选项标签，但内容匹配。实际上，答案字段与正确选项文本一致，故答案匹配。但解释中“A应为AE:EC=2:3”等表述可能误导，因为选项A就是AE:EC=2:3，解释说A应为2:3，但选项A正是2:3，解释似乎认为A错误，但实际A正确？检查：由AD:DB=2:3，得AD:AB=2:5，DE∥BC，则AE:AC=AD:AB=2:5，故AE:EC=2:3，所以选项A正确。但解释称A应为AE:EC=2:3，而选项A正是AE:EC=2:3，所以A正确。解释错误地认为A错误。实际上，选项A正确，选项B错误（应为2:5），选项C错误（周长比2:5），选项D正确（面积比4:25）。因此，题目有两个正确选项A和D，导致多选题不唯一。故题目存在多个正确选项，答案不唯一，应判为失败。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-179",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，由射影定理CD²=AD·BD=4×9=36，CD=6 cm，答案正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-180",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，相似比2/5，面积比4/25，△ABC面积=4×(25/4)=25 cm²，答案正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-181",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，由平行得AD/DB=AE/EC，3/6=4/EC，EC=8 cm，答案正确，选项唯一，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-182",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，相似比3:5，ABCD周长42 cm，EFGH周长=42×(5/3)=70 cm，答案正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-183",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，相似比10/4=2.5，面积比6.25，大三角形面积=16×6.25=100 cm²，答案正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-184",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，由平行得AD/DB=AE/EC，2/3=4/EC，EC=6 cm，答案正确，选项唯一，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-185",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，由射影定理CD²=AD·BD=9×16=144，CD=12 cm，答案正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-186",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，由平行得AD/AB=DE/BC，AB=5，2/5=DE/10，DE=4 cm，答案正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-187",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，选项D两边成比例但夹角不一定相等，无法判定相似，答案正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-188",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，由相似得AD/AB=AE/AC，2/6=AE/8，AE=8/3 cm，答案正确，解释匹配。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 10,
+      "warn": 0,
+      "fail": 2,
+      "notes": "第177题答案错误，应为18.75 cm；第178题存在两个正确选项A和D，导致答案不唯一。其余题目均正确。"
+    }
+  }
+}

@@ -1,0 +1,581 @@
+{
+  "batchId": "batch-116",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p5-151",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-fraction-multiplication",
+      "unitTitle": "分数乘法",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-multiplication",
+        "part-of-part",
+        "scaling",
+        "area-model-fractions",
+        "分数乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "分数乘整数",
+        "整数乘分数",
+        "分数乘分数",
+        "约分计算",
+        "倍数关系"
+      ],
+      "misconceptionTags": [
+        "multiplication always expected to make larger",
+        "cross-simplification used without factor meaning",
+        "whole and part units mixed"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-fraction-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-fraction-multiplication-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一盒巧克力有20块，小华吃了这盒巧克力的2/5。小华吃了多少块巧克力？",
+      "optionsZhHans": [
+        "4块",
+        "8块",
+        "10块",
+        "12块"
+      ],
+      "answer": "8块",
+      "acceptedAnswers": [
+        "8块"
+      ],
+      "explanationZhHans": "求一个数的几分之几用乘法。20的2/5是20×2/5=8，所以小华吃了8块。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-152",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-fraction-multiplication",
+      "unitTitle": "分数乘法",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-multiplication",
+        "part-of-part",
+        "scaling",
+        "area-model-fractions",
+        "分数乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "分数乘整数",
+        "整数乘分数",
+        "分数乘分数",
+        "约分计算",
+        "倍数关系"
+      ],
+      "misconceptionTags": [
+        "multiplication always expected to make larger",
+        "cross-simplification used without factor meaning",
+        "whole and part units mixed"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-fraction-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-fraction-multiplication-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一根绳子长3/4米，用去了它的2/3。用去了多少米？请用分数表示，并约分成最简分数。",
+      "optionsZhHans": [],
+      "answer": "1/2米",
+      "acceptedAnswers": [
+        "1/2米",
+        "1/2"
+      ],
+      "explanationZhHans": "用去的长度是3/4米的2/3，列式3/4×2/3。分子3×2=6，分母4×3=12，得6/12，约分后是1/2米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-153",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-fraction-multiplication",
+      "unitTitle": "分数乘法",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-multiplication",
+        "part-of-part",
+        "scaling",
+        "area-model-fractions",
+        "分数乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "分数乘整数",
+        "整数乘分数",
+        "分数乘分数",
+        "约分计算",
+        "倍数关系"
+      ],
+      "misconceptionTags": [
+        "multiplication always expected to make larger",
+        "cross-simplification used without factor meaning",
+        "whole and part units mixed"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-fraction-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-fraction-multiplication-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方形，长是3/5米，宽是长的1/2。这个长方形的面积是多少平方米？请列式计算，结果用分数表示。",
+      "optionsZhHans": [],
+      "answer": "9/50平方米",
+      "acceptedAnswers": [
+        "9/50平方米",
+        "9/50"
+      ],
+      "explanationZhHans": "宽=3/5×1/2=3/10米。面积=长×宽=3/5×3/10=9/50平方米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-154",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-fraction-multiplication",
+      "unitTitle": "分数乘法",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-multiplication",
+        "part-of-part",
+        "scaling",
+        "area-model-fractions",
+        "分数乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "分数乘整数",
+        "整数乘分数",
+        "分数乘分数",
+        "约分计算",
+        "倍数关系"
+      ],
+      "misconceptionTags": [
+        "multiplication always expected to make larger",
+        "cross-simplification used without factor meaning",
+        "whole and part units mixed"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-fraction-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-fraction-multiplication-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个算式的计算结果小于1？",
+      "optionsZhHans": [
+        "3/4 × 2",
+        "5/6 × 3/2",
+        "2/3 × 3/4",
+        "4/5 × 5/4"
+      ],
+      "answer": "2/3 × 3/4",
+      "acceptedAnswers": [
+        "2/3 × 3/4"
+      ],
+      "explanationZhHans": "2/3×3/4=6/12=1/2<1。其他选项：3/4×2=1.5>1；5/6×3/2=15/12=1.25>1；4/5×5/4=1。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-155",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-fraction-multiplication",
+      "unitTitle": "分数乘法",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-multiplication",
+        "part-of-part",
+        "scaling",
+        "area-model-fractions",
+        "分数乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "分数乘整数",
+        "整数乘分数",
+        "分数乘分数",
+        "约分计算",
+        "倍数关系"
+      ],
+      "misconceptionTags": [
+        "multiplication always expected to make larger",
+        "cross-simplification used without factor meaning",
+        "whole and part units mixed"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-fraction-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-fraction-multiplication-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校食堂运来5/8吨大米，第一周吃了总量的2/5。第一周吃了多少吨大米？请用分数表示，并约分成最简分数。",
+      "optionsZhHans": [],
+      "answer": "1/4吨",
+      "acceptedAnswers": [
+        "1/4吨",
+        "1/4"
+      ],
+      "explanationZhHans": "5/8×2/5=10/40=1/4吨。计算时分子5×2=10，分母8×5=40，约分后得1/4。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-156",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-fraction-multiplication",
+      "unitTitle": "分数乘法",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-multiplication",
+        "part-of-part",
+        "scaling",
+        "area-model-fractions",
+        "分数乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "分数乘整数",
+        "整数乘分数",
+        "分数乘分数",
+        "约分计算",
+        "倍数关系"
+      ],
+      "misconceptionTags": [
+        "multiplication always expected to make larger",
+        "cross-simplification used without factor meaning",
+        "whole and part units mixed"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-fraction-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-fraction-multiplication-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一袋面粉重15千克，做蛋糕用去了这袋面粉的3/5。用去了多少千克？",
+      "optionsZhHans": [],
+      "answer": "9千克",
+      "acceptedAnswers": [
+        "9千克",
+        "9"
+      ],
+      "explanationZhHans": "15的3/5是15×3/5=9千克。整数乘分数，用整数与分子相乘作分子，分母不变，15×3=45，45/5=9。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-157",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-fraction-multiplication",
+      "unitTitle": "分数乘法",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-multiplication",
+        "part-of-part",
+        "scaling",
+        "area-model-fractions",
+        "分数乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "分数乘整数",
+        "整数乘分数",
+        "分数乘分数",
+        "约分计算",
+        "倍数关系"
+      ],
+      "misconceptionTags": [
+        "multiplication always expected to make larger",
+        "cross-simplification used without factor meaning",
+        "whole and part units mixed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-fraction-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-fraction-multiplication-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个算式的计算结果最大？",
+      "optionsZhHans": [
+        "6/7 × 1/2",
+        "6/7 × 2/3",
+        "6/7 × 3/4",
+        "6/7 × 5/6"
+      ],
+      "answer": "6/7 × 5/6",
+      "acceptedAnswers": [
+        "6/7 × 5/6"
+      ],
+      "explanationZhHans": "四个算式都是6/7乘一个真分数，乘数越大积越大。5/6最大，所以6/7×5/6的积最大。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-158",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-fraction-multiplication",
+      "unitTitle": "分数乘法",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-multiplication",
+        "part-of-part",
+        "scaling",
+        "area-model-fractions",
+        "分数乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "分数乘整数",
+        "整数乘分数",
+        "分数乘分数",
+        "约分计算",
+        "倍数关系"
+      ],
+      "misconceptionTags": [
+        "multiplication always expected to make larger",
+        "cross-simplification used without factor meaning",
+        "whole and part units mixed"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-fraction-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-fraction-multiplication-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一本故事书有120页，小丽第一天看了全书的1/4，第二天看了全书的1/3。两天一共看了多少页？",
+      "optionsZhHans": [],
+      "answer": "70页",
+      "acceptedAnswers": [
+        "70页",
+        "70"
+      ],
+      "explanationZhHans": "第一天：120×1/4=30页；第二天：120×1/3=40页；一共30+40=70页。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-159",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-fraction-multiplication",
+      "unitTitle": "分数乘法",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-multiplication",
+        "part-of-part",
+        "scaling",
+        "area-model-fractions",
+        "分数乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "分数乘整数",
+        "整数乘分数",
+        "分数乘分数",
+        "约分计算",
+        "倍数关系"
+      ],
+      "misconceptionTags": [
+        "multiplication always expected to make larger",
+        "cross-simplification used without factor meaning",
+        "whole and part units mixed"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-fraction-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-fraction-multiplication-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一块菜地，其中1/3种黄瓜，剩下的种西红柿。种西红柿的面积占这块地的几分之几？如果这块地有90平方米，种西红柿的面积是多少平方米？",
+      "optionsZhHans": [],
+      "answer": "2/3，60平方米",
+      "acceptedAnswers": [
+        "2/3，60平方米",
+        "2/3 60平方米"
+      ],
+      "explanationZhHans": "西红柿占1-1/3=2/3。面积：90×2/3=60平方米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-160",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-fraction-multiplication",
+      "unitTitle": "分数乘法",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-multiplication",
+        "part-of-part",
+        "scaling",
+        "area-model-fractions",
+        "分数乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "分数乘整数",
+        "整数乘分数",
+        "分数乘分数",
+        "约分计算",
+        "倍数关系"
+      ],
+      "misconceptionTags": [
+        "multiplication always expected to make larger",
+        "cross-simplification used without factor meaning",
+        "whole and part units mixed"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-fraction-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-fraction-multiplication-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个正方形的边长是2/3米，它的周长是多少米？",
+      "optionsZhHans": [
+        "2/3米",
+        "4/3米",
+        "8/3米",
+        "16/9米"
+      ],
+      "answer": "8/3米",
+      "acceptedAnswers": [
+        "8/3米"
+      ],
+      "explanationZhHans": "正方形周长=边长×4，所以2/3×4=8/3米。"
+    }
+  ]
+}

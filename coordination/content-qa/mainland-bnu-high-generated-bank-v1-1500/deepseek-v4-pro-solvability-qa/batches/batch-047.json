@@ -1,0 +1,158 @@
+{
+  "batchNumber": 47,
+  "startedAt": "2026-05-27T13:51:40.805Z",
+  "completedAt": "2026-05-27T13:52:37.069Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-369",
+    "bnu-high-ds-v1-s4-370",
+    "bnu-high-ds-v1-s4-371",
+    "bnu-high-ds-v1-s4-372",
+    "bnu-high-ds-v1-s4-373",
+    "bnu-high-ds-v1-s4-374",
+    "bnu-high-ds-v1-s4-375",
+    "bnu-high-ds-v1-s4-376"
+  ],
+  "usage": {
+    "prompt_tokens": 11898,
+    "completion_tokens": 3114,
+    "total_tokens": 15012,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 11386
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-369",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "25(√3+1)米",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可独立求解。设塔高h，由仰角得BC=h，AC=h+50，利用tan30°=h/(h+50)=√3/3，解得h=25(√3+1)米。答案与解析一致，无问题。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-370",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "50√((4+√3)/13) ≈ 33.2",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction",
+          "bad_options"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件：AB=50，仰角30°和45°，∠ACB=60°。设塔高h，则AC=√3h，BC=h。在△ABC中用余弦定理：50²=(√3h)²+h²-2·√3h·h·cos60°=3h²+h²-√3h²=(4-√3)h²，得h²=2500/(4-√3)=2500(4+√3)/13，h=50√((4+√3)/13)≈33.2。选项25√2≈35.4，25√3≈43.3，50√2≈70.7，50√3≈86.6，均不匹配。解析中错误地近似为25√2，且计算过程有误（如得出h²=2500/(4-√3)后直接近似为25√2，但实际25√2=√1250，而2500/(4-√3)≈1612，不一致）。题目不可解出选项中的值，答案错误，解析矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-371",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "12√39/13 或 (24√3)/√13",
+        "correctedAnswer": "12√39/13",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "由余弦定理得BC=√(8²+6²-2·8·6·cos60°)=√(64+36-48)=√52=2√13。面积法：½·8·6·sin60°=½·2√13·h，得h=24√3/(2√13)=12√3/√13=12√39/13。答案给出24√3/7，解析中错误化简为24√3/7，实际应为12√39/13。答案与解析均错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-372",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "50√((4+√3)/13) ≈ 33.2",
+        "correctedAnswer": "50√((4+√3)/13) 米",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件与370题类似：AB=50，仰角30°和45°，∠ACB=60°。设塔高h，AC=√3h，BC=h。余弦定理：50²=(4-√3)h²，h=50/√(4-√3)=50√((4+√3)/13)≈33.2。答案给出25√6≈61.2，解析中错误得出25√6，计算过程有误（如从(4-√3)h²=2500直接得h=25√6，但25√6=√3750，而2500/(4-√3)≈1612，不一致）。答案错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-373",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "100(√3+1)米",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "设BD=x，则AD=200+x。由tan30°=h/(200+x)，tan45°=h/x，得h=x，且h=(200+x)/√3，解得x=200/(√3-1)=100(√3+1)，故h=100(√3+1)米。答案与解析一致，选项唯一正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-374",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "约15.0米",
+        "correctedAnswer": "15.0米",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件：AB=30，仰角30°和45°，∠CAB=60°。设塔高h，AC=√3h，BC=h。在△ABC中用余弦定理：30²=(√3h)²+h²-2·√3h·h·cos60°=(4-√3)h²，得h²=900/(4-√3)≈900/2.268≈396.8，h≈19.9米。解析中错误近似为225，得h≈15.0，实际应为约19.9米。答案错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-375",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "20√3 米",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件：AB=20，仰角30°和45°，∠CAB=60°。设塔高h，AC=√3h，BC=h。在△ABC中，已知两边AC、AB及夹角∠CAB，用余弦定理求BC：BC²=AC²+AB²-2·AC·AB·cos60°，即h²=3h²+400-2·√3h·20·0.5=3h²+400-20√3h，整理得2h²-20√3h+400=0，解得h=20√3或h=10√3（舍去？需验证）。但解析中直接得h=20√3，且未舍去另一根。实际上方程解为h=20√3或h=10√3，需根据几何意义判断。若h=10√3≈17.32，则AC=30，BC=17.32，AB=20，满足三角形条件。但题目未明确A、B、C的相对位置，可能有多解。然而解析中直接取20√3，且答案给出20√3，但独立求解发现h=10√3也满足方程，需进一步判断。但更关键的是，解析中余弦定理应用错误：应为BC²=AC²+AB²-2·AC·AB·cos∠CAB，但∠CAB是A点处观测B与C的方向角，即∠CAB=60°，正确。但解析中写为“BC²=AC²+AB²-2·AC·AB·cos60°”，代入得h²=3h²+400-20√3h，整理得2h²-20√3h+400=0，解得h=20√3或h=10√3。若h=10√3，则AC=30，BC=10√3≈17.32，AB=20，三角形中AC最大，对应角B最大，但∠CAB=60°，可能合理。但题目未给出图形，无法确定唯一解。然而解析直接取20√3，且答案如此，但独立求解发现有两解，题目可能隐含条件使h=10√3不合理？需检查：若h=10√3，则BC=10√3，AC=30，AB=20，由余弦定理求cos∠CAB=(AC²+AB²-BC²)/(2·AC·AB)=(900+400-300)/(2·30·20)=1000/1200≈0.833，∠CAB≈33.6°，与给定60°矛盾！因此h=10√3不满足∠CAB=60°，只有h=20√3满足。所以独立求解正确，答案20√3正确。但解析中未说明舍去另一根的原因，且计算过程有跳步，但最终答案正确。然而，解析中写“整理得2h²-20√3h+400=0，解得h=20√3（舍去负根）”，实际上方程两根均为正，需舍去h=10√3，但解析未说明。因此解析不严谨，但答案正确。但独立验证：将h=20√3代入，AC=20√3*√3=60，BC=20√3，AB=20，cos∠CAB=(60²+20²-(20√3)²)/(2*60*20)=(3600+400-1200)/(2400)=2800/2400≈1.1667>1，不可能！这说明h=20√3也不满足三角形条件！计算错误：AC=√3h=√3*20√3=60，BC=h=20√3≈34.64，AB=20。用余弦定理求cos∠CAB=(AC²+AB²-BC²)/(2*AC*AB)=(3600+400-1200)/(2*60*20)=2800/2400≈1.1667>1，矛盾！因此h=20√3也不成立。实际上，方程2h²-20√3h+400=0的判别式Δ=(20√3)²-4*2*400=1200-3200=-2000<0，无实数解！解析中错误地认为有解，实际无解。因此题目条件矛盾，不可解。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-376",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "约40.15米，最接近35米",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件：AB=50，仰角30°和45°，∠CAB=75°，∠CBA=60°，则∠ACB=45°。设塔高h，AC=√3h，BC=h。在△ABC中用余弦定理：50²=(√3h)²+h²-2·√3h·h·cos45°=4h²-√6h²，得h²=2500/(4-√6)≈2500/1.5505≈1612.5，h≈40.15。选项25、35、50、70，最接近35。解析中计算得h≈40.15，但结论为最接近35，正确。但解析中写“最接近的选项为35 m”，与计算一致。然而，独立计算h≈40.15，与35差5.15，与50差9.85，确实35更近。但题目要求“最接近下列哪个值”，35是合理选择。但解析中未给出精确比较，但答案35 m正确。然而，解析中写“得h²=2500/(4-√6)≈2500/1.551≈1612，h≈40.15”，正确。但答案给出35 m，与计算一致。但需注意，选项35 m与计算值40.15有差距，但确实是最近选项。因此答案匹配。但解析中未说明为何选35，但结论正确。无问题。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 2,
+      "warn": 0,
+      "fail": 6,
+      "notes": "8题中2题通过（369、373），6题失败（370、371、372、374、375、376）。主要问题：数学计算错误导致答案不匹配，解析与答案矛盾，部分题目条件矛盾或无解。"
+    }
+  }
+}

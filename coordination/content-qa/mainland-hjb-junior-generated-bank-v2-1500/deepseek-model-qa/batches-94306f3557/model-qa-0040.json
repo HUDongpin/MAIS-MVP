@@ -1,0 +1,105 @@
+{
+  "batchId": "model-qa-0040",
+  "ids": [
+    "hjb-junior-ds-v2-s1-313",
+    "hjb-junior-ds-v2-s1-314",
+    "hjb-junior-ds-v2-s1-315",
+    "hjb-junior-ds-v2-s1-316",
+    "hjb-junior-ds-v2-s1-317",
+    "hjb-junior-ds-v2-s1-318",
+    "hjb-junior-ds-v2-s1-319",
+    "hjb-junior-ds-v2-s1-320"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-313",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "B",
+      "answerCheckZhHans": "标准答案B正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-314",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "题干未明确EF是截线，也未说明G、H的位置关系。若EF与AB、CD相交，∠EGB与∠GHD不一定是同位角，可能为同旁内角或内错角，无法唯一确定∠GHD的度数。标准答案65°可能错误。",
+      "independentAnswerZhHans": "无法确定",
+      "answerCheckZhHans": "标准答案65°可能错误，解析假设了同位角，但条件不足。",
+      "recommendedActionZhHans": "需补充图形或明确EF为截线且G、H为对应交点。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-315",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "平行，内错角相等，两直线平行",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-316",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "70°",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-317",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "70°",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-318",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "∠BOD = 70°。理由：因为OE平分∠AOC，所以∠AOC = 2∠AOE = 70°。又因为∠BOD与∠AOC是对顶角，所以∠BOD = ∠AOC = 70°。",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-319",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "115°",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-320",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "70°",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

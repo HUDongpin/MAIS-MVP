@@ -1,0 +1,103 @@
+{
+  "scope": "pilot-100",
+  "batchIndex": 16,
+  "startedAt": "2026-05-28T03:19:17.600Z",
+  "completedAt": "2026-05-28T03:19:49.161Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "itemIds": [
+    "181",
+    "446",
+    "100",
+    "10345",
+    "10634"
+  ],
+  "usage": {
+    "prompt_tokens": 1895,
+    "completion_tokens": 1749,
+    "total_tokens": 3644,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1069
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1511
+  },
+  "finishReason": "stop",
+  "jsonModeFallback": false,
+  "result": {
+    "items": [
+      {
+        "questionId": "181",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "(2^2×3×5×7^2 )",
+        "independentAnswer": "2^2 × 3 × 5 × 7^2",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "可從文字計算，答案與標準答案一致。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "446",
+        "questionType": "MCQ",
+        "hasImage": true,
+        "standardAnswer": "B",
+        "independentAnswer": "B",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "題目文字已提供數列 1, 5, 9，可推得第7項為25，無需圖片。標準答案 B 正確。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "100",
+        "questionType": "MCQ",
+        "hasImage": false,
+        "standardAnswer": "C",
+        "independentAnswer": "C",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "180的質因數分解為2^2×3^2×5，選項C正確。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10345",
+        "questionType": "FRQ",
+        "hasImage": true,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": null,
+        "solvabilityStatus": "image-context-required",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "需圖片讀取容器刻度才能判斷容量，且學校未提供標準答案。",
+        "recommendedAction": "提供圖片或描述容器刻度，並補充答案。"
+      },
+      {
+        "questionId": "10634",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "105",
+        "independentAnswer": "105",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "計算正確，12×5+45=60+45=105，與答案一致。",
+        "recommendedAction": "No blocking action."
+      }
+    ],
+    "batchSummary": {
+      "pass": 4,
+      "unsolvable": 0,
+      "ambiguous": 0,
+      "imageContextRequired": 1,
+      "answerMismatch": 0,
+      "missingAnswerKey": 1,
+      "notes": "四題可由文字直接解題且答案相符；一題（10345）需依賴圖片且無答案鍵，標記為 P1。"
+    }
+  }
+}

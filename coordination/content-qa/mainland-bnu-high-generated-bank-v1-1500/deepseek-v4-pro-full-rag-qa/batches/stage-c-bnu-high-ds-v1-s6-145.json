@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-145",
+  "startedAt": "2026-05-28T01:43:14.057Z",
+  "completedAt": "2026-05-28T01:43:19.422Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-145"
+  ],
+  "usage": {
+    "prompt_tokens": 2137,
+    "completion_tokens": 262,
+    "total_tokens": 2399,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1753
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-145",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "27",
+        "correctedAnswer": "27",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合BNU数列章节。独立求解得a_n=2n+1，a_3+a_4+a_5=27。存储答案33错误，解析中S5-S2=27却强行调整Sn公式得出33，逻辑矛盾。选项唯一，正确答案为27。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1题答案错误，解析矛盾，判定为blocker。"
+    }
+  }
+}

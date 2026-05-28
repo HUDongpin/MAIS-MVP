@@ -1,0 +1,191 @@
+{
+  "batchNumber": 63,
+  "startedAt": "2026-05-27T13:58:58.338Z",
+  "completedAt": "2026-05-27T13:59:16.251Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p5-117",
+    "bnu-primary-ds-v2-p5-118",
+    "bnu-primary-ds-v2-p5-119",
+    "bnu-primary-ds-v2-p5-120",
+    "bnu-primary-ds-v2-p5-121",
+    "bnu-primary-ds-v2-p5-122",
+    "bnu-primary-ds-v2-p5-123",
+    "bnu-primary-ds-v2-p5-124",
+    "bnu-primary-ds-v2-p5-125",
+    "bnu-primary-ds-v2-p5-126",
+    "bnu-primary-ds-v2-p5-127",
+    "bnu-primary-ds-v2-p5-128",
+    "bnu-primary-ds-v2-p5-129",
+    "bnu-primary-ds-v2-p5-130",
+    "bnu-primary-ds-v2-p5-131",
+    "bnu-primary-ds-v2-p5-132",
+    "bnu-primary-ds-v2-p5-133",
+    "bnu-primary-ds-v2-p5-134"
+  ],
+  "usage": {
+    "prompt_tokens": 3837,
+    "completion_tokens": 1291,
+    "total_tokens": 5128,
+    "prompt_tokens_details": {
+      "cached_tokens": 3712
+    },
+    "prompt_cache_hit_tokens": 3712,
+    "prompt_cache_miss_tokens": 125
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p5-117",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解释一致，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-118",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项唯一，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-119",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "面积增加计算正确，答案24平方厘米无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-120",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分数比较正确，通分方法合理，答案与解释一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-121",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "同分母加法正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-122",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "带分数减法正确，答案1 1/4或5/4均可。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-123",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "异分母加法正确，结果13/20已最简。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-124",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "等价算式正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-125",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分数基本性质应用正确，填12无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-126",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "牛奶问题解答正确，思路清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-127",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "补数计算正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-128",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "连减计算正确，结果3/8无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-129",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "异分母减法正确，结果1/6米无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-130",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项A正确，其他选项错误，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-131",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "错误分析正确，答案与解释一致，acceptedAnswers覆盖合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-132",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "剩余分数计算正确，答案7/20无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-133",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "异分母减法正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-134",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "公分母识别正确，答案20无误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部18道题目数学正确，答案与解释一致，无歧义或缺失条件，适合北师大版五年级。"
+    }
+  }
+}

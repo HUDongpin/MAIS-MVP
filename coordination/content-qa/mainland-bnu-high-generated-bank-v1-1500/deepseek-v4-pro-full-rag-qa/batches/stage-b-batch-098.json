@@ -1,0 +1,142 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-098",
+  "startedAt": "2026-05-28T01:23:27.178Z",
+  "completedAt": "2026-05-28T01:23:46.013Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-277",
+    "bnu-high-ds-v1-s5-278",
+    "bnu-high-ds-v1-s5-279",
+    "bnu-high-ds-v1-s5-280",
+    "bnu-high-ds-v1-s5-281",
+    "bnu-high-ds-v1-s5-282",
+    "bnu-high-ds-v1-s5-283",
+    "bnu-high-ds-v1-s5-284"
+  ],
+  "usage": {
+    "prompt_tokens": 14537,
+    "completion_tokens": 1303,
+    "total_tokens": 15840,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 14153
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-277",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，均为(-∞, -2] ∪ [0, +∞)，解析推导正确，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-278",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "(1) 四个顶点坐标为(4,3), (4,-3), (-4,-3), (-4,3)（顺序可不同）\n(2) P到各顶点距离分别为√34, 5, √34, 5，最小喷水半径r=√34米\n(3) 恰好覆盖。因为花坛内任意点到P的最大距离为√34，半径为√34的圆包含整个矩形。",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案错误：P到顶点距离并非均为5，最大距离为√34，半径应为√34；解析中计算距离有误且与答案矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-279",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "1, -1/3",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案为1, -1/2，独立解为1, -1/3；解析中k=-1/2错误，正确解为k=-1/3。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-280",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": "C. 1",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案选B(-1)，独立解为C(1)；解析推导得k=-1，但正确解为k=1。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-281",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "(1) y-2=(4/5)(x-3) 或 y=(4/5)x-2/5；(2) 截距为 -2/5；(3) 能，因为直线与y=6交点为(8,6)，恰为顶点，水柱可到达。",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "medium",
+        "rationaleZhHans": "存储答案(3)认为不能到达，但独立解判断能到达；解析中“无法继续到达y=6的其他部分”曲解题意，水柱只需到达边界即可。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-282",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，均为(4,4)和(-4,4)，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-283",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，均为x+y-3=0，解析推导正确，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-284",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，建系合理，半径3.6，点D在内部，解析正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 4,
+      "warn": 0,
+      "fail": 4,
+      "notes": "8题中4题通过，4题失败：278半径错误，279斜率错误，280选项错误，281第(3)问判断错误。"
+    }
+  }
+}

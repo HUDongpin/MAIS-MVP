@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0042",
+  "ids": [
+    "hjb-junior-ds-v2-s1-329",
+    "hjb-junior-ds-v2-s1-330",
+    "hjb-junior-ds-v2-s1-331",
+    "hjb-junior-ds-v2-s1-332",
+    "hjb-junior-ds-v2-s1-333",
+    "hjb-junior-ds-v2-s1-334",
+    "hjb-junior-ds-v2-s1-335",
+    "hjb-junior-ds-v2-s1-336"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-329",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "115°",
+      "answerCheckZhHans": "标准答案115°正确，解析推导一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-330",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "119°",
+      "answerCheckZhHans": "标准答案119°正确，解析推导一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-331",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "115°",
+      "answerCheckZhHans": "标准答案115°正确，解析推导一致，选项唯一。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-332",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "119°",
+      "answerCheckZhHans": "标准答案119°正确，解析推导一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-333",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "119°",
+      "answerCheckZhHans": "标准答案119°正确，解析推导一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-334",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "72°",
+      "answerCheckZhHans": "标准答案72°正确，解析推导一致，选项唯一。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-335",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "115°",
+      "answerCheckZhHans": "标准答案115°正确，解析推导一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-336",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案136°错误，正确应为112°。解析中得出∠BOE=112°，与答案矛盾。",
+      "independentAnswerZhHans": "112°",
+      "answerCheckZhHans": "标准答案136°与解析推导的112°不一致，且独立计算得112°。",
+      "recommendedActionZhHans": "将答案修正为112°，并更新acceptedAnswers。",
+      "confidence": "high"
+    }
+  ]
+}

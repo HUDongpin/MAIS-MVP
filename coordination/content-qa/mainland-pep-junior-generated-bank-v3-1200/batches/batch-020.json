@@ -1,0 +1,315 @@
+{
+  "batchId": "batch-020",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s1-k03-sa-013",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-geometric-figures",
+      "unitTitle": "几何图形初步",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-geometric-figures"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-rational-number-operations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "已知线段AB的长度为8 cm，点C在直线AB上，且AC = 3 cm。求线段BC的长度。",
+      "optionsZhHans": [],
+      "answer": "5 cm 或 11 cm",
+      "acceptedAnswers": [
+        "5 cm 或 11 cm",
+        "5cm或11cm",
+        "5厘米或11厘米",
+        "5 厘米或 11 厘米"
+      ],
+      "explanationZhHans": "当点C在线段AB上时，BC = AB - AC = 8 - 3 = 5 cm；当点C在线段AB的延长线上时，BC = AB + AC = 8 + 3 = 11 cm。因此线段BC的长度为5 cm 或 11 cm。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k03-sa-014",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-geometric-figures",
+      "unitTitle": "几何图形初步",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-geometric-figures"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-expression-simplification"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "一个角的补角比它的余角的2倍多20°，求这个角的度数。",
+      "optionsZhHans": [],
+      "answer": "20°",
+      "acceptedAnswers": [
+        "20°",
+        "20度",
+        "20"
+      ],
+      "explanationZhHans": "设这个角为x°，则补角为(180-x)°，余角为(90-x)°。由题意得180-x=2(90-x)+20，即180-x=200-2x，解得x=20。所以这个角的度数为20°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k03-sa-015",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-geometric-figures",
+      "unitTitle": "几何图形初步",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-geometric-figures"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-linear-equation-modeling"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "用一根长24 cm的铁丝围成一个长方形，使长比宽的2倍少3 cm，求长方形的面积。",
+      "optionsZhHans": [],
+      "answer": "35 cm²",
+      "acceptedAnswers": [
+        "35 cm²",
+        "35平方厘米",
+        "35"
+      ],
+      "explanationZhHans": "设宽为x cm，则长为(2x - 3) cm。周长2(x + 2x - 3) = 24，化简得2(3x - 3) = 24，6x - 6 = 24，6x = 30，x = 5。宽为5 cm，长为2×5 - 3 = 7 cm。面积 = 5 × 7 = 35 cm²。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k03-sa-016",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-geometric-figures",
+      "unitTitle": "几何图形初步",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-geometric-figures"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-geometric-figures"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "一个正方体有8个顶点，经过每个顶点有几条棱？这些棱的条数之和是多少？",
+      "optionsZhHans": [],
+      "answer": "3条；24条",
+      "acceptedAnswers": [
+        "3条；24条",
+        "3条,24条",
+        "3条 24条"
+      ],
+      "explanationZhHans": "正方体每个顶点处有3条棱相交。共有8个顶点，若直接相乘得3×8=24条，但每条棱被两个顶点计算，所以实际棱数为24÷2=12条。但题目问的是“经过每个顶点的棱的条数”和“这些棱的条数之和”，即每个顶点处棱的条数是3条，所有顶点的棱条数之和为3×8=24条。因此答案为3条；24条。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k03-sa-017",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-geometric-figures",
+      "unitTitle": "几何图形初步",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-geometric-figures"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "已知∠AOB = 70°，∠BOC = 30°，OM平分∠AOB，ON平分∠BOC。求∠MON的度数。",
+      "optionsZhHans": [],
+      "answer": "50° 或 20°",
+      "acceptedAnswers": [
+        "50° 或 20°",
+        "50度或20度",
+        "50或20"
+      ],
+      "explanationZhHans": "当OC在∠AOB内部时，∠AOC = 70° - 30° = 40°。OM平分∠AOB得∠AOM = 35°，ON平分∠BOC得∠BON = 15°。∠MON = ∠AOM - ∠AON？更直接：∠MON = ∠MOB + ∠BON = 35° + 15° = 50°？不对，当OC在内部时，∠MON = ∠MOB - ∠NOB = 35° - 15° = 20°。当OC在∠AOB外部时，∠AOC = 70° + 30° = 100°，∠MON = ∠MOB + ∠BON = 35° + 15° = 50°。所以∠MON的度数为50° 或 20°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k03-sa-018",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-geometric-figures",
+      "unitTitle": "几何图形初步",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-geometric-figures"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-rational-number-operations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "在数轴上，点A表示-3，点B表示5。一只蚂蚁从点A出发，以每秒2个单位长度的速度向右爬行，同时另一只蚂蚁从点B出发，以每秒1个单位长度的速度向左爬行。几秒后两只蚂蚁相遇？相遇点表示的数是多少？",
+      "optionsZhHans": [],
+      "answer": "8/3秒；7/3",
+      "acceptedAnswers": [
+        "8/3秒；7/3",
+        "8/3秒,7/3",
+        "8/3秒 7/3"
+      ],
+      "explanationZhHans": "设t秒后相遇，则从A出发的蚂蚁向右爬行2t个单位，到达-3 + 2t；从B出发的蚂蚁向左爬行t个单位，到达5 - t。相遇时位置相同：-3 + 2t = 5 - t，解得3t = 8，t = 8/3秒。相遇点表示的数为-3 + 2×(8/3) = -3 + 16/3 = 7/3。所以答案为8/3秒；7/3。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k03-sa-019",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-geometric-figures",
+      "unitTitle": "几何图形初步",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-geometric-figures"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-expression-simplification"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "一个多项式加上-2x² + 3x - 5得到x² - 2x + 1，求这个多项式。",
+      "optionsZhHans": [],
+      "answer": "3x² - 5x + 6",
+      "acceptedAnswers": [
+        "3x² - 5x + 6",
+        "3x^2-5x+6"
+      ],
+      "explanationZhHans": "设所求多项式为A，则A + (-2x² + 3x - 5) = x² - 2x + 1。所以A = (x² - 2x + 1) - (-2x² + 3x - 5) = x² - 2x + 1 + 2x² - 3x + 5 = 3x² - 5x + 6。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k03-sa-020",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-geometric-figures",
+      "unitTitle": "几何图形初步",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-geometric-figures"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-linear-equation-modeling"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "某商店将进价为每件40元的商品按每件60元出售，每天可售出100件。经过市场调查发现，这种商品每降价1元，每天的销售量可增加10件。为了每天盈利2240元，应将售价定为每件多少元？",
+      "optionsZhHans": [],
+      "answer": "56元或54元",
+      "acceptedAnswers": [
+        "56元或54元",
+        "56或54",
+        "56元或54"
+      ],
+      "explanationZhHans": "设降价x元，则售价为(60 - x)元，每件利润为(60 - x - 40) = (20 - x)元，销量为(100 + 10x)件。总利润为(20 - x)(100 + 10x) = 2240。展开得2000 + 200x - 100x - 10x² = 2240，即-10x² + 100x + 2000 = 2240，整理得-10x² + 100x - 240 = 0，两边除以-10得x² - 10x + 24 = 0，解得x = 4或x = 6。售价为60 - 4 = 56元或60 - 6 = 54元。所以应将售价定为每件56元或54元。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k03-sa-021",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-geometric-figures",
+      "unitTitle": "几何图形初步",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-geometric-figures"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-geometric-figures"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "一个几何体由几个大小相同的小立方块搭成，从上面看得到的形状图是3×3的网格，每个位置上的数字表示该位置小立方块的个数，具体数字如下：第一行从左到右依次为1、2、1，第二行从左到右依次为2、3、2，第三行从左到右依次为1、2、1。请画出从正面看和从左面看得到的形状图。",
+      "optionsZhHans": [],
+      "answer": "从正面看：第一列3个，第二列2个，第三列1个；从左面看：第一列3个，第二列2个，第三列2个。",
+      "acceptedAnswers": [
+        "从正面看：第一列3个，第二列2个，第三列1个；从左面看：第一列3个，第二列2个，第三列2个。",
+        "正面：3,2,1；左面：3,2,2",
+        "正面3-2-1，左面3-2-2"
+      ],
+      "explanationZhHans": "根据俯视图数字，第一行1,2,1表示最左列最高1个，中间列最高2个，最右列最高1个；第二行2,3,2表示最左列最高2个，中间列最高3个，最右列最高2个；第三行1,2,1同理。综合各列最高值：从正面看，最左列最高3个（第二行中间列3），中间列最高2个（第二行左列2或右列2），最右列最高1个（第一行右列1），所以正面图为3,2,1。从左面看，最左列最高3个（第二行中间列3），中间列最高2个（第二行左列2），最右列最高2个（第二行右列2），所以左面图为3,2,2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k03-sa-022",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-geometric-figures",
+      "unitTitle": "几何图形初步",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-geometric-figures"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "已知点C在线段AB上，点M、N分别是AC、BC的中点。若AB = 12 cm，求MN的长度。",
+      "optionsZhHans": [],
+      "answer": "6 cm",
+      "acceptedAnswers": [
+        "6 cm",
+        "6厘米",
+        "6"
+      ],
+      "explanationZhHans": "设AC = a，BC = b，则a + b = AB = 12 cm。M为AC中点，则MC = a/2；N为BC中点，则CN = b/2。MN = MC + CN = a/2 + b/2 = (a + b)/2 = 12/2 = 6 cm。所以MN的长度为6 cm。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

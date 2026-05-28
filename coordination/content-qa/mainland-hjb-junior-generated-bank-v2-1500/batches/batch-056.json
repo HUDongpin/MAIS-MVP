@@ -1,0 +1,330 @@
+{
+  "batchId": "batch-056",
+  "questions": [
+    {
+      "id": "hjb-junior-ds-v2-s1-276",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "hjb-junior-s1-lower-linear-inequalities",
+      "unitTitle": "一元一次不等式",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "linear-inequalities-one-variable",
+        "inequality-properties",
+        "solution-set",
+        "number-line",
+        "一元一次不等式"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "模型意识"
+      ],
+      "skillTags": [
+        "不等式性质",
+        "解一元一次不等式",
+        "解集表示",
+        "数轴表达",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "inequality direction not reversed",
+        "boundary point marked incorrectly",
+        "solution set treated as a single value"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s1-lower-linear-inequalities"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-linear-inequalities",
+        "hjb-junior-s1-lower-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校组织七年级学生参加社会实践活动，计划租用客车。若每辆客车坐45人，则有15人没有座位；若每辆客车坐50人，则最后一辆客车空出10个座位。设租用客车x辆，求x的值，并写出满足的不等式。",
+      "optionsZhHans": [],
+      "answer": "x=5，不等式为45x+15=50x-10",
+      "acceptedAnswers": [
+        "x=5，不等式为45x+15=50x-10",
+        "x=5",
+        "5"
+      ],
+      "explanationZhHans": "设客车x辆，学生总人数不变：45x+15=50x-10，解得x=5。注意此题实为方程，但可转化为不等式：45x+15≤50x-10，解集x≥5，结合整数x=5。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-277",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "hjb-junior-s1-lower-linear-inequalities",
+      "unitTitle": "一元一次不等式",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "linear-inequalities-one-variable",
+        "inequality-properties",
+        "solution-set",
+        "number-line",
+        "一元一次不等式"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "模型意识"
+      ],
+      "skillTags": [
+        "不等式性质",
+        "解一元一次不等式",
+        "解集表示",
+        "数轴表达",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "inequality direction not reversed",
+        "boundary point marked incorrectly",
+        "solution set treated as a single value"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s1-lower-linear-inequalities"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-linear-inequalities",
+        "hjb-junior-s1-lower-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "解不等式3-2x>7，并把解集在数轴上表示出来。下列数轴表示正确的是（ ）",
+      "optionsZhHans": [
+        "A. 数轴上从-2向左画线，-2处为空心圆圈",
+        "B. 数轴上从-2向右画线，-2处为实心圆点",
+        "C. 数轴上从-2向左画线，-2处为实心圆点",
+        "D. 数轴上从-2向右画线，-2处为空心圆圈"
+      ],
+      "answer": "A. 数轴上从-2向左画线，-2处为空心圆圈",
+      "acceptedAnswers": [
+        "A. 数轴上从-2向左画线，-2处为空心圆圈"
+      ],
+      "explanationZhHans": "3-2x>7 ⇒ -2x>4 ⇒ x<-2。解集为x<-2，数轴上从-2向左画线，-2处空心圆圈。注意除以负数要变号。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-278",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "hjb-junior-s1-lower-linear-inequalities",
+      "unitTitle": "一元一次不等式",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "linear-inequalities-one-variable",
+        "inequality-properties",
+        "solution-set",
+        "number-line",
+        "一元一次不等式"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "模型意识"
+      ],
+      "skillTags": [
+        "不等式性质",
+        "解一元一次不等式",
+        "解集表示",
+        "数轴表达",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "inequality direction not reversed",
+        "boundary point marked incorrectly",
+        "solution set treated as a single value"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-junior-s1-lower-linear-inequalities"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-linear-inequalities",
+        "hjb-junior-s1-lower-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "不等式2x-1≤3的正整数解是______。",
+      "optionsZhHans": [],
+      "answer": "1，2",
+      "acceptedAnswers": [
+        "1，2",
+        "1,2",
+        "1和2"
+      ],
+      "explanationZhHans": "2x-1≤3 ⇒ 2x≤4 ⇒ x≤2。正整数解为1和2。注意边界点2包含在内。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-279",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "hjb-junior-s1-lower-linear-inequalities",
+      "unitTitle": "一元一次不等式",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "linear-inequalities-one-variable",
+        "inequality-properties",
+        "solution-set",
+        "number-line",
+        "一元一次不等式"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "模型意识"
+      ],
+      "skillTags": [
+        "不等式性质",
+        "解一元一次不等式",
+        "解集表示",
+        "数轴表达",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "inequality direction not reversed",
+        "boundary point marked incorrectly",
+        "solution set treated as a single value"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s1-lower-linear-inequalities"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-linear-inequalities",
+        "hjb-junior-s1-lower-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用不等式表示“a的3倍与2的差是非负数”：______。",
+      "optionsZhHans": [],
+      "answer": "3a-2≥0",
+      "acceptedAnswers": [
+        "3a-2≥0",
+        "3a-2>=0"
+      ],
+      "explanationZhHans": "非负数即大于或等于0，所以3a-2≥0。注意“差”的顺序是3a-2，不是2-3a。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-280",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "hjb-junior-s1-lower-linear-inequalities",
+      "unitTitle": "一元一次不等式",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "linear-inequalities-one-variable",
+        "inequality-properties",
+        "solution-set",
+        "number-line",
+        "一元一次不等式"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "模型意识"
+      ],
+      "skillTags": [
+        "不等式性质",
+        "解一元一次不等式",
+        "解集表示",
+        "数轴表达",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "inequality direction not reversed",
+        "boundary point marked incorrectly",
+        "solution set treated as a single value"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s1-lower-linear-inequalities"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-linear-inequalities",
+        "hjb-junior-s1-lower-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某商店以每件15元的价格购进一批商品，若每件售价定为x元，则可卖出(200-10x)件。商店计划获利不低于400元，则x应满足的不等式是（ ）",
+      "optionsZhHans": [
+        "A. (x-15)(200-10x)≥400",
+        "B. (15-x)(200-10x)≥400",
+        "C. (x-15)(200-10x)≤400",
+        "D. (15-x)(200-10x)≤400"
+      ],
+      "answer": "A. (x-15)(200-10x)≥400",
+      "acceptedAnswers": [
+        "A. (x-15)(200-10x)≥400"
+      ],
+      "explanationZhHans": "单件利润为(x-15)元，销量为(200-10x)件，总利润为(x-15)(200-10x)。获利不低于400元即≥400，故选A。注意利润=售价-进价。"
+    }
+  ]
+}

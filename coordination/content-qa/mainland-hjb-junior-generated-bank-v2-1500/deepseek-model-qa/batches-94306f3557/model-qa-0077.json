@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0077",
+  "ids": [
+    "hjb-junior-ds-v2-s2-109",
+    "hjb-junior-ds-v2-s2-110",
+    "hjb-junior-ds-v2-s2-111",
+    "hjb-junior-ds-v2-s2-112",
+    "hjb-junior-ds-v2-s2-113",
+    "hjb-junior-ds-v2-s2-114",
+    "hjb-junior-ds-v2-s2-115",
+    "hjb-junior-ds-v2-s2-116"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-109",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "√18",
+      "answerCheckZhHans": "标准答案 √18 正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-110",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "√5 + 2",
+      "answerCheckZhHans": "标准答案 √5 + 2 正确，acceptedAnswers 覆盖了带空格和不带空格的形式，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-111",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "4√3",
+      "answerCheckZhHans": "标准答案 4√3 正确，acceptedAnswers 包含 4√3 和 4根号3，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-112",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题干要求最简二次根式 √(2x+5) 与 √(3x-1) 是同类二次根式，但同类二次根式要求被开方数相同，而解析直接令 2x+5 = 3x-1 解得 x=6，此时被开方数均为 17，但 17 不是完全平方数，√17 是最简二次根式，符合条件。然而，当 x=6 时，√(2x+5)=√17，√(3x-1)=√17，确实是同类二次根式。但题目要求整数 x，x=6 是唯一解吗？如果考虑被开方数化简后相同，例如 √(2x+5) 和 √(3x-1) 可能化简为 k√a 形式，但这里 2x+5 和 3x-1 是一次式，且 x 为整数，若它们不相等但化简后相同，例如 2x+5=2a², 3x-1=2b² 等，但题目未说明系数，通常同类二次根式指最简二次根式被开方数相同，所以直接令被开方数相等是合理的。但解析中“由同类二次根式定义得 2x+5 = 3x-1”不够严谨，因为同类二次根式定义是化成最简二次根式后被开方数相同，而不是原被开方数直接相等。但这里两个根式已经是最简（因为 2x+5 和 3x-1 不含能开方的因数），所以相等是必要条件。但 x=6 时，2x+5=17，3x-1=17，确实是最简且相等。然而，是否存在其他整数 x 使得 2x+5 和 3x-1 化简后相同？例如 2x+5=2*? 但 x 为整数，2x+5 和 3x-1 都是整数，若它们不相等但化简后相同，则它们必须含有平方因子，比如 2x+5=2*9=18, 3x-1=2*? 但这样 x 不是整数。所以 x=6 是唯一解。但解析直接写“由同类二次根式定义得 2x+5 = 3x-1”可能引起误解，因为定义不是直接相等。但答案正确。然而，检查选项：6,5,4,3。当 x=5 时，2x+5=15，√15 最简；3x-1=14，√14 最简，不是同类。x=4 时，2x+5=13，3x-1=11，不是同类。x=3 时，2x+5=11，3x-1=8=2√2，不是同类。所以只有 x=6 正确。但解析说“检验：当 x=6 时，2x+5=17，3x-1=17，均为最简二次根式，符合条件。”这没问题。但严格来说，同类二次根式定义是“几个二次根式化成最简二次根式后，如果被开方数相同，这几个二次根式叫做同类二次根式”。所以直接令被开方数相等的前提是它们已经是最简，但这里 2x+5 和 3x-1 不一定是最简，例如若 2x+5 含有平方因子，则需化简。但解析未考虑化简情况，直接相等，可能漏解。例如，若 2x+5=4*2=8, 3x-1=2，则 x=1.5 不是整数。所以整数解只有 x=6。但解析的逻辑跳跃可能被判定为不严谨，但答案正确。因此，我标记为 needs-review，因为解析可能不完整，但答案正确。",
+      "independentAnswerZhHans": "6",
+      "answerCheckZhHans": "标准答案 6 正确，但解析中“由同类二次根式定义得 2x+5 = 3x-1”不够严谨，应说明因为两个根式已是最简，所以被开方数相等。",
+      "recommendedActionZhHans": "建议修改解析，明确说明因为 √(2x+5) 和 √(3x-1) 已是最简二次根式，所以被开方数相等，解得 x=6。",
+      "confidence": "medium"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-113",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x ≥ 2；当 x = 2 时，值为 0",
+      "answerCheckZhHans": "标准答案正确，acceptedAnswers 覆盖了完整表述，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-114",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "8√6",
+      "answerCheckZhHans": "标准答案 8√6 正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-115",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "√3",
+      "answerCheckZhHans": "标准答案 √3 正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-116",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x ≥ -2",
+      "answerCheckZhHans": "标准答案 x ≥ -2 正确，acceptedAnswers 覆盖了带空格和不带空格的形式，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

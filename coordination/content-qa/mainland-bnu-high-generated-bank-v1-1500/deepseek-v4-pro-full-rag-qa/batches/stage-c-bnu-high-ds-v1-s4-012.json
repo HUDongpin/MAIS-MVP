@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-012",
+  "startedAt": "2026-05-28T00:56:04.900Z",
+  "completedAt": "2026-05-28T00:56:13.181Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-012"
+  ],
+  "usage": {
+    "prompt_tokens": 2480,
+    "completion_tokens": 363,
+    "total_tokens": 2843,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 2480
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-012",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "无解（条件矛盾）",
+        "correctedAnswer": "无解（条件矛盾）",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "命题 p：|x-a|<1 ⇒ a-1<x<a+1；命题 q：x²-3x+2<0 ⇒ 1<x<2。若 p 是 q 的充分不必要条件，则 p⇒q 且 q⇏p，即 (a-1, a+1) 是 (1,2) 的真子集。需满足 a-1≥1 且 a+1≤2，且等号不能同时成立，解得 a≥2 且 a≤1，矛盾，无解。存储答案 [2,3] 错误，解析推导与答案矛盾，题目条件导致无解，属于数学错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目条件 p 是 q 的充分不必要条件导致无解，存储答案错误，判定为 blocker。"
+    }
+  }
+}

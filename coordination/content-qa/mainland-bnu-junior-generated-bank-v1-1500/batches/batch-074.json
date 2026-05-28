@@ -1,0 +1,653 @@
+{
+  "batchId": "batch-074",
+  "questions": [
+    {
+      "id": "bnu-junior-ds-v1-s2-231",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-data-analysis",
+      "unitTitle": "数据的分析",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "data-analysis",
+        "mean",
+        "median",
+        "variance",
+        "box-plot",
+        "data-decision",
+        "平均数",
+        "方差",
+        "中位数",
+        "箱线图"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均数",
+        "方差",
+        "中位数",
+        "箱线图",
+        "数据比较",
+        "决策解释"
+      ],
+      "misconceptionTags": [
+        "mean used without checking spread",
+        "median position counted incorrectly",
+        "box-plot features treated as raw data values"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-data-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-data-analysis-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校八年级两个班级进行投篮比赛，每班各派5名学生参赛，每人投篮10次，命中次数如下：\n甲班：8，6，9，7，5\n乙班：7，7，8，6，7\n请回答以下问题：\n(1) 计算甲班命中次数的平均数和中位数；\n(2) 计算乙班命中次数的方差；\n(3) 若要从两个班级中选择一个班级代表年级参加校级比赛，要求发挥更稳定，你会选择哪个班级？请结合数据说明理由。",
+      "optionsZhHans": [],
+      "answer": "(1) 平均数为7，中位数为7；(2) 方差为0.4；(3) 选择乙班，因为乙班的方差更小，数据更稳定。",
+      "acceptedAnswers": [
+        "(1) 平均数为7，中位数为7；(2) 方差为0.4；(3) 选择乙班，因为乙班的方差更小，数据更稳定。"
+      ],
+      "explanationZhHans": "(1) 甲班数据排序：5,6,7,8,9，平均数=(8+6+9+7+5)/5=7，中位数为7。(2) 乙班平均数=(7+7+8+6+7)/5=7，方差=[(7-7)²+(7-7)²+(8-7)²+(6-7)²+(7-7)²]/5=0.4。(3) 甲班方差=[(8-7)²+(6-7)²+(9-7)²+(7-7)²+(5-7)²]/5=2，乙班方差0.4更小，发挥更稳定，故选择乙班。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-232",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-data-analysis",
+      "unitTitle": "数据的分析",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "data-analysis",
+        "mean",
+        "median",
+        "variance",
+        "box-plot",
+        "data-decision",
+        "平均数",
+        "方差",
+        "中位数",
+        "箱线图"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均数",
+        "方差",
+        "中位数",
+        "箱线图",
+        "数据比较",
+        "决策解释"
+      ],
+      "misconceptionTags": [
+        "mean used without checking spread",
+        "median position counted incorrectly",
+        "box-plot features treated as raw data values"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-data-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-data-analysis-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "甲、乙两名射击运动员在相同条件下各射击5次，命中的环数如下：\n甲：7，8，9，8，8\n乙：5，10，6，9，10\n教练准备从两人中选一人参加比赛。若希望成绩更稳定，应选谁？请根据方差大小进行判断。",
+      "optionsZhHans": [
+        "选甲，因为甲的方差较小",
+        "选甲，因为甲的平均数较高",
+        "选乙，因为乙的方差较小",
+        "选乙，因为乙的平均数较高"
+      ],
+      "answer": "选甲，因为甲的方差较小",
+      "acceptedAnswers": [
+        "选甲，因为甲的方差较小"
+      ],
+      "explanationZhHans": "甲的平均数为8，方差为[(7-8)²+(8-8)²+(9-8)²+(8-8)²+(8-8)²]/5=0.4；乙的平均数为8，方差为[(5-8)²+(10-8)²+(6-8)²+(9-8)²+(10-8)²]/5=4.4。甲的方差更小，成绩更稳定，故应选甲。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-233",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-data-analysis",
+      "unitTitle": "数据的分析",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "data-analysis",
+        "mean",
+        "median",
+        "variance",
+        "box-plot",
+        "data-decision",
+        "平均数",
+        "方差",
+        "中位数",
+        "箱线图"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均数",
+        "方差",
+        "中位数",
+        "箱线图",
+        "数据比较",
+        "决策解释"
+      ],
+      "misconceptionTags": [
+        "mean used without checking spread",
+        "median position counted incorrectly",
+        "box-plot features treated as raw data values"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-data-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-data-analysis-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校八年级两个班各5名同学参加定点投篮比赛，每人投10次，投中次数记录如下：\n甲班：8，6，9，7，5\n乙班：7，7，6，8，7\n请回答下列问题：\n(1) 计算甲班投中次数的平均数和中位数。\n(2) 计算乙班投中次数的平均数和方差。\n(3) 如果要从两个班中选出一个班代表年级参加校赛，你认为选哪个班更合适？请结合上述计算结果说明理由。",
+      "optionsZhHans": [],
+      "answer": "(1) 甲班平均数7，中位数7；(2) 乙班平均数7，方差0.4；(3) 选乙班更合适，因为两班平均数相同，但乙班方差更小，成绩更稳定。",
+      "acceptedAnswers": [
+        "(1) 甲班平均数7，中位数7；(2) 乙班平均数7，方差0.4；(3) 选乙班更合适，因为两班平均数相同，但乙班方差更小，成绩更稳定。",
+        "甲班平均数7，中位数7；乙班平均数7，方差0.4；选乙班，因为平均数相同但乙班方差小，更稳定。",
+        "甲班平均7中位7，乙班平均7方差0.4，选乙班，因为更稳定。"
+      ],
+      "explanationZhHans": "甲班数据排序5,6,7,8,9，平均(8+6+9+7+5)/5=7，中位为7。乙班平均(7+7+6+8+7)/5=7，方差=[(7-7)²+(7-7)²+(6-7)²+(8-7)²+(7-7)²]/5=0.4。两班平均水平相同，但乙班方差小，发挥更稳定，故选乙班。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-234",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-data-analysis",
+      "unitTitle": "数据的分析",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "data-analysis",
+        "mean",
+        "median",
+        "variance",
+        "box-plot",
+        "data-decision",
+        "平均数",
+        "方差",
+        "中位数",
+        "箱线图"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均数",
+        "方差",
+        "中位数",
+        "箱线图",
+        "数据比较",
+        "决策解释"
+      ],
+      "misconceptionTags": [
+        "mean used without checking spread",
+        "median position counted incorrectly",
+        "box-plot features treated as raw data values"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-data-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-data-analysis-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "甲、乙两名射击运动员在相同条件下各射击10次，每次命中的环数如下：\n甲：7，8，8，9，7，8，8，9，7，9\n乙：6，10，7，9，8，10，9，6，8，7\n教练准备从两人中选一人参加比赛，希望成绩更稳定。请分别计算甲、乙成绩的方差（精确到0.01），并说明应选择哪位运动员参赛。",
+      "optionsZhHans": [],
+      "answer": "甲的方差为0.60，乙的方差为2.00，应选择甲参赛。",
+      "acceptedAnswers": [
+        "甲的方差为0.60，乙的方差为2.00，应选择甲参赛。",
+        "甲：0.60，乙：2.00，选甲",
+        "甲的方差0.60，乙的方差2.00，选择甲",
+        "甲方差0.60，乙方差2.00，应选甲"
+      ],
+      "explanationZhHans": "甲平均数为8，方差=[(7-8)²×3+(8-8)²×4+(9-8)²×3]/10=0.60；乙平均数为8，方差=[(6-8)²×2+(7-8)²×2+(8-8)²×2+(9-8)²×2+(10-8)²×2]/10=2.00。乙方差更大，成绩波动大，甲更稳定，故选择甲。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-235",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-parallel-lines-proof",
+      "unitTitle": "平行线的证明",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "parallel-lines-proof",
+        "parallel-lines",
+        "transversal-angles",
+        "geometric-proof",
+        "平行线",
+        "证明"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平行线判定",
+        "平行线性质",
+        "角关系推理",
+        "证明书写",
+        "条件结论识别"
+      ],
+      "misconceptionTags": [
+        "parallel relation assumed from appearance",
+        "criterion and property reversed",
+        "angle-pair names confused",
+        "proof step lacks stated reason"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-parallel-lines-proof"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-parallel-lines-proof-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知直线AB与直线CD被直线EF所截，交点分别为G和H。给出以下四个条件：① ∠EGB = 60°，∠GHD = 120°；② ∠AGH = 70°，∠GHC = 110°；③ ∠BGH = 80°，∠DHF = 80°；④ ∠AGE = 50°，∠CHF = 130°。其中能判定AB∥CD的条件是哪一个？",
+      "optionsZhHans": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ],
+      "answer": "③",
+      "acceptedAnswers": [
+        "③"
+      ],
+      "explanationZhHans": "条件③中∠BGH与∠DHF是同位角，且都等于80°，根据同位角相等两直线平行可判定AB∥CD。条件①∠EGB与∠GHD是同旁内角，和为180°能判定平行，但60°+120°=180°确实成立，但∠EGB与∠GHD不是同旁内角关系；∠EGB与∠GHD是内错角？需仔细：∠EGB与∠GHD是内错角，相等才平行，60°≠120°，所以①不能判定。条件②∠AGH与∠GHC是内错角，70°≠110°，不能判定。条件④∠AGE与∠CHF是同位角，50°≠130°，不能判定。故只有③正确。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-236",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-parallel-lines-proof",
+      "unitTitle": "平行线的证明",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "parallel-lines-proof",
+        "parallel-lines",
+        "transversal-angles",
+        "geometric-proof",
+        "平行线",
+        "证明"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平行线判定",
+        "平行线性质",
+        "角关系推理",
+        "证明书写",
+        "条件结论识别"
+      ],
+      "misconceptionTags": [
+        "parallel relation assumed from appearance",
+        "criterion and property reversed",
+        "angle-pair names confused",
+        "proof step lacks stated reason"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-parallel-lines-proof"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-parallel-lines-proof-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知直线AB与CD被直线EF所截，交点分别为G和H。若∠AGE = 70°，∠CHF = 110°，判断AB与CD是否平行，并写出推理依据。",
+      "optionsZhHans": [],
+      "answer": "AB与CD平行。因为∠AGE与∠CHF是同位角，且∠AGE = 70°，∠CHF = 110°，∠AGE + ∠CHF = 180°，所以同位角互补，故AB∥CD。",
+      "acceptedAnswers": [
+        "AB与CD平行。因为∠AGE与∠CHF是同位角，且∠AGE = 70°，∠CHF = 110°，∠AGE + ∠CHF = 180°，所以同位角互补，故AB∥CD。",
+        "AB∥CD。因为同位角互补，两直线平行。",
+        "平行。同位角互补，所以平行。"
+      ],
+      "explanationZhHans": "由条件知∠AGE与∠CHF是同位角。计算∠AGE+∠CHF=70°+110°=180°，同位角互补，根据平行线判定定理，两直线平行。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-237",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-parallel-lines-proof",
+      "unitTitle": "平行线的证明",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "parallel-lines-proof",
+        "parallel-lines",
+        "transversal-angles",
+        "geometric-proof",
+        "平行线",
+        "证明"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平行线判定",
+        "平行线性质",
+        "角关系推理",
+        "证明书写",
+        "条件结论识别"
+      ],
+      "misconceptionTags": [
+        "parallel relation assumed from appearance",
+        "criterion and property reversed",
+        "angle-pair names confused",
+        "proof step lacks stated reason"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-parallel-lines-proof"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-parallel-lines-proof-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知直线AB与直线CD被直线EF所截，交点分别为G和H。给出以下四个条件：①∠EGB = 60°，∠GHD = 60°；②∠AGH = 110°，∠CHF = 70°；③∠BGH = 80°，∠DHF = 100°；④∠AGE = 50°，∠CHG = 130°。其中能判定AB∥CD的条件序号是______。（填写所有正确条件的序号，用逗号分隔，如：①,②）",
+      "optionsZhHans": [],
+      "answer": "①,③",
+      "acceptedAnswers": [
+        "①,③",
+        "③,①",
+        "①③",
+        "③①"
+      ],
+      "explanationZhHans": "①同位角相等，两直线平行；②∠AGH与∠CHF不是同位角、内错角或同旁内角，无法判定；③同旁内角互补，两直线平行；④∠AGE与∠CHG不是特殊位置角，无法判定。故填①,③。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-238",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-parallel-lines-proof",
+      "unitTitle": "平行线的证明",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "parallel-lines-proof",
+        "parallel-lines",
+        "transversal-angles",
+        "geometric-proof",
+        "平行线",
+        "证明"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平行线判定",
+        "平行线性质",
+        "角关系推理",
+        "证明书写",
+        "条件结论识别"
+      ],
+      "misconceptionTags": [
+        "parallel relation assumed from appearance",
+        "criterion and property reversed",
+        "angle-pair names confused",
+        "proof step lacks stated reason"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-parallel-lines-proof"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-parallel-lines-proof-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知直线AB与CD被直线EF所截，交点分别为G和H。给出下列四个条件：①∠EGB=50°，∠GHD=50°；②∠AGH=130°，∠GHD=50°；③∠EGB=50°，∠CHF=130°；④∠AGE=130°，∠CHF=130°。其中能判定AB∥CD的条件有（ ）",
+      "optionsZhHans": [
+        "1个",
+        "2个",
+        "3个",
+        "4个"
+      ],
+      "answer": "3个",
+      "acceptedAnswers": [
+        "3个"
+      ],
+      "explanationZhHans": "条件①中∠EGB与∠GHD是同位角，相等则AB∥CD；条件②中∠AGH与∠GHD是同旁内角，互补则AB∥CD；条件③中∠EGB与∠CHF不是直接角，但∠CHF=∠GHD（对顶角），所以∠EGB=∠GHD，同位角相等；条件④中∠AGE与∠CHF是内错角，但130°+130°=260°≠180°，不满足判定。故能判定的有①②③，共3个。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-239",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-parallel-lines-proof",
+      "unitTitle": "平行线的证明",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "parallel-lines-proof",
+        "parallel-lines",
+        "transversal-angles",
+        "geometric-proof",
+        "平行线",
+        "证明"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平行线判定",
+        "平行线性质",
+        "角关系推理",
+        "证明书写",
+        "条件结论识别"
+      ],
+      "misconceptionTags": [
+        "parallel relation assumed from appearance",
+        "criterion and property reversed",
+        "angle-pair names confused",
+        "proof step lacks stated reason"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-parallel-lines-proof"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-parallel-lines-proof-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知直线 AB 与直线 CD 被直线 EF 所截，交点分别为 G 和 H。给出以下条件：\n① ∠AGE = 60°，∠CHG = 120°；\n② ∠BGE = 70°，∠DHF = 70°；\n③ ∠AGH = 50°，∠GHD = 50°；\n④ ∠BGH = 80°，∠CHF = 100°。\n请分别判断每种条件是否能推出 AB ∥ CD，并说明理由（只需写出“能”或“不能”，并简要说明依据的定理或性质）。",
+      "optionsZhHans": [],
+      "answer": "①能，同旁内角互补，两直线平行；②能，同位角相等，两直线平行；③能，内错角相等，两直线平行；④不能，同旁内角不互补。",
+      "acceptedAnswers": [
+        "①能，同旁内角互补，两直线平行；②能，同位角相等，两直线平行；③能，内错角相等，两直线平行；④不能，同旁内角不互补。",
+        "①能，同旁内角互补；②能，同位角相等；③能，内错角相等；④不能，同旁内角不互补。",
+        "①能，根据同旁内角互补，两直线平行；②能，根据同位角相等，两直线平行；③能，根据内错角相等，两直线平行；④不能，因为同旁内角不互补。"
+      ],
+      "explanationZhHans": "①∠AGE与∠CHG是同旁内角，60°+120°=180°，互补，故AB∥CD。②∠BGE与∠DHF是同位角，均为70°，相等，故AB∥CD。③∠AGH与∠GHD是内错角，均为50°，相等，故AB∥CD。④∠BGH与∠CHF是同旁内角，80°+100°=180°？实际和为180°，但需确认位置：∠BGH与∠CHF不是同旁内角，∠BGH与∠DHG才是，此处∠CHF=100°与∠BGH=80°不构成同旁内角，故不能判定。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-240",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-parallel-lines-proof",
+      "unitTitle": "平行线的证明",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "parallel-lines-proof",
+        "parallel-lines",
+        "transversal-angles",
+        "geometric-proof",
+        "平行线",
+        "证明"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平行线判定",
+        "平行线性质",
+        "角关系推理",
+        "证明书写",
+        "条件结论识别"
+      ],
+      "misconceptionTags": [
+        "parallel relation assumed from appearance",
+        "criterion and property reversed",
+        "angle-pair names confused",
+        "proof step lacks stated reason"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-parallel-lines-proof"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-parallel-lines-proof-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知直线AB与直线CD被直线EF所截，交点分别为G和H。给出以下条件：①∠AGE=60°，∠CHG=120°；②∠BGE=70°，∠DHF=70°；③∠AGH=110°，∠CHF=70°；④∠BGH=80°，∠CHG=100°。其中能判定AB∥CD的条件序号是______。",
+      "optionsZhHans": [],
+      "answer": "②③",
+      "acceptedAnswers": [
+        "②③",
+        "②和③",
+        "②、③",
+        "③②",
+        "③和②",
+        "③、②"
+      ],
+      "explanationZhHans": "①∠AGE与∠CHG是同位角，60°≠120°，不平行；②∠BGE与∠DHF是同位角，70°=70°，平行；③∠AGH与∠CHF是内错角，110°≠70°，但∠AGH=110°得∠BGH=70°，与∠CHF=70°构成内错角相等，平行；④∠BGH与∠CHG是同旁内角，80°+100°=180°，平行。故能判定的有②③④。"
+    }
+  ]
+}

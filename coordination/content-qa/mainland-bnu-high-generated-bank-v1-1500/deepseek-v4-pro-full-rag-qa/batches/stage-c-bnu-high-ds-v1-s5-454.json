@@ -1,0 +1,45 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-454",
+  "startedAt": "2026-05-28T01:31:47.917Z",
+  "completedAt": "2026-05-28T01:31:52.507Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-454"
+  ],
+  "usage": {
+    "prompt_tokens": 2047,
+    "completion_tokens": 267,
+    "total_tokens": 2314,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1663
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-454",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "（1）60%；（2）比较实际频数与假设独立时期望频数的差异，若差异大则认为有关。",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合BNU统计案例范围。答案（1）60%正确；（2）思路正确，与独立解一致。解析虽提及理论频数比较，但未完整阐述独立性检验基本思想，属弱匹配，不影响答案正确性。无数学错误或歧义。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 1,
+      "warn": 0,
+      "fail": 0,
+      "notes": "题目清晰，答案正确，解析弱匹配但无实质错误，整体通过。"
+    }
+  }
+}

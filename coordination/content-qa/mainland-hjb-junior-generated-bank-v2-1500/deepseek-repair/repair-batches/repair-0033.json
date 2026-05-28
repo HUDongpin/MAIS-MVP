@@ -1,0 +1,351 @@
+{
+  "batchId": "repair-0033",
+  "generatedAt": "2026-05-25T05:01:35.270Z",
+  "targetIds": [
+    "hjb-junior-ds-v2-s3-166",
+    "hjb-junior-ds-v2-s3-172",
+    "hjb-junior-ds-v2-s3-175",
+    "hjb-junior-ds-v2-s3-183",
+    "hjb-junior-ds-v2-s3-202"
+  ],
+  "questions": [
+    {
+      "id": "hjb-junior-ds-v2-s3-166",
+      "batch": "hjb-junior-v2",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "hjb-junior-s3-upper-acute-trigonometry",
+      "unitTitle": "锐角的三角比",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "right-triangle-trigonometry",
+        "trigonometric-ratios",
+        "sine",
+        "cosine",
+        "tangent",
+        "solving-right-triangles",
+        "锐角三角比"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "运算能力",
+        "直观想象"
+      ],
+      "skillTags": [
+        "正弦",
+        "余弦",
+        "正切",
+        "解直角三角形",
+        "测量建模",
+        "三角比应用"
+      ],
+      "misconceptionTags": [
+        "opposite and adjacent sides swapped",
+        "hypotenuse not identified",
+        "degree-mode or rounding error"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s3-upper-acute-trigonometry"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s3-upper-paper-acute-trigonometry-unit",
+        "hjb-junior-s3-upper-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Repaired offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某数学兴趣小组测量一座垂直于地面的电视塔的高度。他们在与塔底在同一水平面上的点A处测得塔顶的仰角为35°，然后沿水平方向向远离塔底的方向移动40米到达点B，在点B处测得塔顶的仰角为25°。点A、点B与塔底在同一直线上。求电视塔的高度最接近下列哪个值？（参考数据：sin35°≈0.574，cos35°≈0.819，tan35°≈0.700；sin25°≈0.423，cos25°≈0.906，tan25°≈0.466）",
+      "optionsZhHans": [
+        "约52米",
+        "约58米",
+        "约64米",
+        "约70米"
+      ],
+      "answer": "约58米",
+      "acceptedAnswers": [
+        "约58米"
+      ],
+      "explanationZhHans": "设塔高h米，A距塔底d米。由tan35°=h/d得d=h/0.700。由tan25°=h/(d+40)得h=(h/0.700+40)×0.466，解得h=40×0.466×0.700/(0.700-0.466)≈55.8米，最接近58米。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-172",
+      "batch": "hjb-junior-v2",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "hjb-junior-s3-upper-quadratic-functions",
+      "unitTitle": "二次函数",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "quadratic-functions",
+        "parabolas",
+        "vertex-form",
+        "function-graphs",
+        "quadratic-modeling",
+        "二次函数"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学抽象",
+        "数学建模"
+      ],
+      "skillTags": [
+        "二次函数概念",
+        "抛物线图像",
+        "顶点与对称轴",
+        "平移变换",
+        "二次函数应用"
+      ],
+      "misconceptionTags": [
+        "vertex coordinates read from wrong form",
+        "opening direction ignored",
+        "context domain omitted"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s3-upper-quadratic-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s3-upper-paper-quadratic-functions-unit",
+        "hjb-junior-s3-upper-paper-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions",
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Repaired offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知二次函数y=ax²+bx+c中，a<0，b>0，c<0，且对称轴在y轴右侧。关于该二次函数的图像，下列说法一定正确的是（ ）",
+      "optionsZhHans": [
+        "与x轴有两个交点，且都在y轴右侧",
+        "与x轴有两个交点，一个在y轴左侧，一个在y轴右侧",
+        "与x轴没有交点",
+        "与x轴只有一个交点"
+      ],
+      "answer": "与x轴有两个交点，且都在y轴右侧",
+      "acceptedAnswers": [
+        "与x轴有两个交点，且都在y轴右侧"
+      ],
+      "explanationZhHans": "由a<0，c<0得ac>0，判别式Δ=b²-4ac>b²>0，故与x轴有两个交点。设两根x₁,x₂，则x₁x₂=c/a>0，x₁+x₂=-b/a>0，因此两根均为正，即交点都在y轴右侧。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-175",
+      "batch": "hjb-junior-v2",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "hjb-junior-s3-upper-quadratic-functions",
+      "unitTitle": "二次函数",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "quadratic-functions",
+        "parabolas",
+        "vertex-form",
+        "function-graphs",
+        "quadratic-modeling",
+        "二次函数"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学抽象",
+        "数学建模"
+      ],
+      "skillTags": [
+        "二次函数概念",
+        "抛物线图像",
+        "顶点与对称轴",
+        "平移变换",
+        "二次函数应用"
+      ],
+      "misconceptionTags": [
+        "vertex coordinates read from wrong form",
+        "opening direction ignored",
+        "context domain omitted"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s3-upper-quadratic-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s3-upper-paper-quadratic-functions-unit",
+        "hjb-junior-s3-upper-paper-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions",
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Repaired offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知二次函数y=(x-m)²-m+1，其中m为常数。下列说法正确的是（ ）",
+      "optionsZhHans": [
+        "当m=1时，函数的最小值为0",
+        "该函数图像的顶点始终在直线y=-x+1上",
+        "当m=0时，函数图像与x轴有两个交点",
+        "该函数图像的对称轴为直线x=-m"
+      ],
+      "answer": "该函数图像的顶点始终在直线y=-x+1上",
+      "acceptedAnswers": [
+        "该函数图像的顶点始终在直线y=-x+1上"
+      ],
+      "explanationZhHans": "顶点为(m, -m+1)，满足y=-x+1，故B正确。A：m=1时y=(x-1)²，最小值为0，但非唯一正确项。C：m=0时y=x²+1，Δ=-4<0，无交点。D：对称轴为x=m。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-183",
+      "batch": "hjb-junior-v2",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "hjb-junior-s3-upper-quadratic-functions",
+      "unitTitle": "二次函数",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "quadratic-functions",
+        "parabolas",
+        "vertex-form",
+        "function-graphs",
+        "quadratic-modeling",
+        "二次函数"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学抽象",
+        "数学建模"
+      ],
+      "skillTags": [
+        "二次函数概念",
+        "抛物线图像",
+        "顶点与对称轴",
+        "平移变换",
+        "二次函数应用"
+      ],
+      "misconceptionTags": [
+        "vertex coordinates read from wrong form",
+        "opening direction ignored",
+        "context domain omitted"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s3-upper-quadratic-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s3-upper-paper-quadratic-functions-unit",
+        "hjb-junior-s3-upper-paper-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions",
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Repaired offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某商店销售一种成本为每件30元的商品，经调查发现，若每件售价为50元，每月可售出400件，售价每上涨1元，月销量减少10件。设每件售价为x元（x≥50），月利润为y元。\n（1）求y关于x的函数解析式，并写出x的取值范围；\n（2）当售价定为多少元时，月利润最大？最大月利润是多少元？",
+      "optionsZhHans": [],
+      "answer": "（1）y=-10x²+1200x-27000，50≤x≤90；（2）售价定为60元时，月利润最大，最大利润为9000元",
+      "acceptedAnswers": [
+        "（1）y=-10x²+1200x-27000，50≤x≤90；（2）售价定为60元时，月利润最大，最大利润为9000元",
+        "（1）y=-10x²+1200x-27000，50≤x≤90；（2）60元，9000元"
+      ],
+      "explanationZhHans": "（1）销量为400-10(x-50)=900-10x，利润y=(x-30)(900-10x)=-10x²+1200x-27000。由x≥50且900-10x≥0得50≤x≤90。（2）y=-10(x-60)²+9000，当x=60时，y最大=9000。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-202",
+      "batch": "hjb-junior-v2",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "hjb-junior-s3-upper-quadratic-functions",
+      "unitTitle": "二次函数",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "quadratic-functions",
+        "parabolas",
+        "vertex-form",
+        "function-graphs",
+        "quadratic-modeling",
+        "二次函数"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学抽象",
+        "数学建模"
+      ],
+      "skillTags": [
+        "二次函数概念",
+        "抛物线图像",
+        "顶点与对称轴",
+        "平移变换",
+        "二次函数应用"
+      ],
+      "misconceptionTags": [
+        "vertex coordinates read from wrong form",
+        "opening direction ignored",
+        "context domain omitted"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s3-upper-quadratic-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s3-upper-paper-quadratic-functions-unit",
+        "hjb-junior-s3-upper-paper-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions",
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Repaired offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某社区在一块长30米、宽20米的矩形空地上修建一个矩形花坛，花坛四周留出宽度相等的小路。设小路宽度为x米，花坛的面积为y平方米。若要求花坛的面积不小于400平方米，则x的取值范围是（ ）",
+      "optionsZhHans": [
+        "0≤x≤5",
+        "5≤x≤10",
+        "0≤x≤10",
+        "5≤x≤15"
+      ],
+      "answer": "0≤x≤5",
+      "acceptedAnswers": [
+        "0≤x≤5"
+      ],
+      "explanationZhHans": "花坛长30-2x，宽20-2x，面积y=(30-2x)(20-2x)。由y≥400得4x²-100x+200≥0，即x²-25x+50≤0，解得5≤x≤20。又边长非负，0≤x≤10，故x的取值范围是5≤x≤10。"
+    }
+  ]
+}

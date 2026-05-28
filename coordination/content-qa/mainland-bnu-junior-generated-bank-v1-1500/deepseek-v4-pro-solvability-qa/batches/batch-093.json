@@ -1,0 +1,173 @@
+{
+  "batchNumber": 93,
+  "startedAt": "2026-05-27T17:54:53.974Z",
+  "completedAt": "2026-05-27T17:55:11.141Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s3-105",
+    "bnu-junior-ds-v1-s3-106",
+    "bnu-junior-ds-v1-s3-107",
+    "bnu-junior-ds-v1-s3-108",
+    "bnu-junior-ds-v1-s3-109",
+    "bnu-junior-ds-v1-s3-110",
+    "bnu-junior-ds-v1-s3-111",
+    "bnu-junior-ds-v1-s3-112",
+    "bnu-junior-ds-v1-s3-113",
+    "bnu-junior-ds-v1-s3-114",
+    "bnu-junior-ds-v1-s3-115",
+    "bnu-junior-ds-v1-s3-116"
+  ],
+  "usage": {
+    "prompt_tokens": 5980,
+    "completion_tokens": 1400,
+    "total_tokens": 7380,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 5468
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s3-105",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件完整，有放回摸球，总结果25种，颜色相同13种，概率13/25，答案正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-106",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件完整，有放回摸球，总结果25种，颜色不同12种，概率12/25，选项C正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-107",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件完整，有放回摸球，总结果25种，颜色不同16种，概率16/25，答案正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-108",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件完整，有放回摸球，每次摸白球4种可能，两次都白球4×4=16种，答案正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-109",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件完整，有放回摸球，总结果36种，蓝蓝概率1/36最小，选项D正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-110",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件完整，有放回摸球，总结果16种，颜色不同8种，概率1/2，答案正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-111",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件完整，有放回摸球，总结果25种，颜色相同13种，概率13/25，答案正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-112",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件完整，有放回摸球，总结果9种，颜色相同5种，概率5/9，选项C正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-113",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件完整，不放回摸球，总结果12种，颜色相同4种，概率1/3，答案正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-114",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件完整，有放回摸球，总结果16种，颜色不同6种，概率3/8，答案正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-115",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件完整，不放回摸球，总结果20种，颜色不同12种，概率3/5，选项B正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-116",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件完整，有放回摸球，总结果36种，颜色相同20种，概率5/9，答案正确，解释匹配。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目条件完整，可解，答案与解释均正确匹配，无任何问题。"
+    }
+  }
+}

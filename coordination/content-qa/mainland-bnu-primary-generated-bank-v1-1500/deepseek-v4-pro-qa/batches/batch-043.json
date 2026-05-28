@@ -1,0 +1,193 @@
+{
+  "batchNumber": 43,
+  "startedAt": "2026-05-27T13:28:15.689Z",
+  "completedAt": "2026-05-27T13:28:35.012Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p4-007",
+    "bnu-primary-ds-v1-p4-008",
+    "bnu-primary-ds-v1-p4-009",
+    "bnu-primary-ds-v1-p4-010",
+    "bnu-primary-ds-v1-p4-011",
+    "bnu-primary-ds-v1-p4-012",
+    "bnu-primary-ds-v1-p4-013",
+    "bnu-primary-ds-v1-p4-014",
+    "bnu-primary-ds-v1-p4-015",
+    "bnu-primary-ds-v1-p4-016",
+    "bnu-primary-ds-v1-p4-017",
+    "bnu-primary-ds-v1-p4-018",
+    "bnu-primary-ds-v1-p4-019",
+    "bnu-primary-ds-v1-p4-020",
+    "bnu-primary-ds-v1-p4-021",
+    "bnu-primary-ds-v1-p4-022",
+    "bnu-primary-ds-v1-p4-023",
+    "bnu-primary-ds-v1-p4-024"
+  ],
+  "usage": {
+    "prompt_tokens": 3772,
+    "completion_tokens": 1452,
+    "total_tokens": 5224,
+    "prompt_tokens_details": {
+      "cached_tokens": 3712
+    },
+    "prompt_cache_hit_tokens": 3712,
+    "prompt_cache_miss_tokens": 60
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p4-007",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解释一致，选项合理，适合P4大数主题。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-008",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解释一致，适合P4大数主题。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-009",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解释一致，适合P4大数主题。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-010",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解释一致，选项合理，适合P4大数主题。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-011",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解释一致，acceptedAnswers覆盖多种格式，适合P4大数主题。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-012",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解释一致，适合P4大数主题。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-013",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解释一致，选项合理，适合P4大数主题。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-014",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解释一致，acceptedAnswers覆盖多种格式，适合P4大数主题。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-015",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解释一致，适合P4大数主题。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-016",
+        "status": "warn",
+        "severity": "minor",
+        "issueTags": [
+          "ambiguous_mc"
+        ],
+        "correctedAnswer": null,
+        "rationale": "999999999和1000000001与10亿的差都是1，题目未明确说明取较大者，存在歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-017",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解释一致，acceptedAnswers覆盖多种格式，适合P4线与角主题。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-018",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解释一致，适合P4线与角主题。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-019",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解释一致，选项合理，适合P4线与角主题。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-020",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解释一致，适合P4线与角主题。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-021",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解释一致，适合P4线与角主题。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-022",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解释一致，选项合理，适合P4线与角主题。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-023",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解释一致，acceptedAnswers覆盖多种格式，适合P4线与角主题。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-024",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解释一致，适合P4线与角主题。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 17,
+      "warn": 1,
+      "fail": 0,
+      "notes": "大部分题目数学正确，表述清晰，适合北师大版P4。仅bnu-primary-ds-v1-p4-016存在两个选项与10亿差相同，未明确选择标准，建议修改选项或说明。"
+    }
+  }
+}

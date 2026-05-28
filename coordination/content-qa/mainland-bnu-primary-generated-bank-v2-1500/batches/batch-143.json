@@ -1,0 +1,589 @@
+{
+  "batchId": "batch-143",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p6-171",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-proportion",
+      "unitTitle": "比例",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "proportion",
+        "scale",
+        "equivalent-ratios",
+        "solve-proportions",
+        "比例",
+        "比例尺"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "比例的意义",
+        "判断比例",
+        "解比例",
+        "比例尺",
+        "图形放大缩小"
+      ],
+      "misconceptionTags": [
+        "additive pattern mistaken for proportion",
+        "cross-product used without ratio meaning",
+        "scale direction reversed"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-proportion-unit",
+        "bnu-primary-p6-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在比例尺为1:5000000的地图上，甲城到乙城的距离是3.4厘米。一辆汽车以每小时85千米的速度从甲城开往乙城，需要多少小时才能到达？",
+      "optionsZhHans": [],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2",
+        "2小时"
+      ],
+      "explanationZhHans": "先求实际距离：3.4×5000000=17000000厘米=170千米。再求时间：170÷85=2（小时）。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-172",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-proportion",
+      "unitTitle": "比例",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "proportion",
+        "scale",
+        "equivalent-ratios",
+        "solve-proportions",
+        "比例",
+        "比例尺"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "比例的意义",
+        "判断比例",
+        "解比例",
+        "比例尺",
+        "图形放大缩小"
+      ],
+      "misconceptionTags": [
+        "additive pattern mistaken for proportion",
+        "cross-product used without ratio meaning",
+        "scale direction reversed"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-proportion-unit",
+        "bnu-primary-p6-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在比例尺为1:5000000的地图上，量得甲、乙两城的距离为7.2厘米。一辆汽车以每小时90千米的速度从甲城开往乙城，需要多少小时？",
+      "optionsZhHans": [
+        "3.6小时",
+        "4小时",
+        "4.5小时",
+        "5小时"
+      ],
+      "answer": "4小时",
+      "acceptedAnswers": [
+        "4小时"
+      ],
+      "explanationZhHans": "实际距离=7.2×5000000=36000000厘米=360千米。时间=360÷90=4小时。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-173",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-proportion",
+      "unitTitle": "比例",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "proportion",
+        "scale",
+        "equivalent-ratios",
+        "solve-proportions",
+        "比例",
+        "比例尺"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "比例的意义",
+        "判断比例",
+        "解比例",
+        "比例尺",
+        "图形放大缩小"
+      ],
+      "misconceptionTags": [
+        "additive pattern mistaken for proportion",
+        "cross-product used without ratio meaning",
+        "scale direction reversed"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-proportion-unit",
+        "bnu-primary-p6-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在比例尺为1:5000000的地图上，量得甲、乙两城的距离是6.4厘米。一辆汽车以每小时80千米的速度从甲城开往乙城，需要多少小时？",
+      "optionsZhHans": [],
+      "answer": "4",
+      "acceptedAnswers": [
+        "4",
+        "4小时"
+      ],
+      "explanationZhHans": "实际距离=6.4×5000000=32000000厘米=320千米。时间=320÷80=4小时。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-174",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-proportion",
+      "unitTitle": "比例",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "proportion",
+        "scale",
+        "equivalent-ratios",
+        "solve-proportions",
+        "比例",
+        "比例尺"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "比例的意义",
+        "判断比例",
+        "解比例",
+        "比例尺",
+        "图形放大缩小"
+      ],
+      "misconceptionTags": [
+        "additive pattern mistaken for proportion",
+        "cross-product used without ratio meaning",
+        "scale direction reversed"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-proportion-unit",
+        "bnu-primary-p6-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在比例尺为1:5000000的地图上，量得甲、乙两城的距离是7.2厘米。一辆汽车以每小时90千米的速度从甲城开往乙城，需要多少小时到达？",
+      "optionsZhHans": [],
+      "answer": "4",
+      "acceptedAnswers": [
+        "4",
+        "4小时",
+        "4个小时"
+      ],
+      "explanationZhHans": "实际距离=7.2×5000000=36000000厘米=360千米，时间=360÷90=4小时。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-175",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-proportion",
+      "unitTitle": "比例",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "proportion",
+        "scale",
+        "equivalent-ratios",
+        "solve-proportions",
+        "比例",
+        "比例尺"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "比例的意义",
+        "判断比例",
+        "解比例",
+        "比例尺",
+        "图形放大缩小"
+      ],
+      "misconceptionTags": [
+        "additive pattern mistaken for proportion",
+        "cross-product used without ratio meaning",
+        "scale direction reversed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-proportion-unit",
+        "bnu-primary-p6-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在一幅比例尺为1:5000000的地图上，量得甲、乙两城的图上距离是6.8厘米。一辆汽车以每小时85千米的速度从甲城开往乙城，需要多少小时？",
+      "optionsZhHans": [
+        "3.4小时",
+        "4小时",
+        "3.6小时",
+        "4.2小时"
+      ],
+      "answer": "4小时",
+      "acceptedAnswers": [
+        "4小时"
+      ],
+      "explanationZhHans": "实际距离=6.8×5000000=34000000厘米=340千米。时间=340÷85=4小时。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-176",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-proportion",
+      "unitTitle": "比例",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "proportion",
+        "scale",
+        "equivalent-ratios",
+        "solve-proportions",
+        "比例",
+        "比例尺"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "比例的意义",
+        "判断比例",
+        "解比例",
+        "比例尺",
+        "图形放大缩小"
+      ],
+      "misconceptionTags": [
+        "additive pattern mistaken for proportion",
+        "cross-product used without ratio meaning",
+        "scale direction reversed"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-proportion-unit",
+        "bnu-primary-p6-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在一幅比例尺为1:5000000的地图上，量得甲、乙两城的距离是3.6厘米。一辆汽车以每小时60千米的速度从甲城开往乙城，需要多少小时到达？",
+      "optionsZhHans": [],
+      "answer": "3",
+      "acceptedAnswers": [
+        "3",
+        "3小时",
+        "3个小时"
+      ],
+      "explanationZhHans": "实际距离=图上距离÷比例尺=3.6÷(1/5000000)=18000000厘米=180千米。时间=路程÷速度=180÷60=3（小时）。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-177",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-proportion",
+      "unitTitle": "比例",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "proportion",
+        "scale",
+        "equivalent-ratios",
+        "solve-proportions",
+        "比例",
+        "比例尺"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "比例的意义",
+        "判断比例",
+        "解比例",
+        "比例尺",
+        "图形放大缩小"
+      ],
+      "misconceptionTags": [
+        "additive pattern mistaken for proportion",
+        "cross-product used without ratio meaning",
+        "scale direction reversed"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-proportion-unit",
+        "bnu-primary-p6-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在一幅比例尺为1:5000000的地图上，量得甲、乙两城的距离是7.2厘米。一辆汽车以每小时90千米的速度从甲城开往乙城，需要多少小时？",
+      "optionsZhHans": [],
+      "answer": "4",
+      "acceptedAnswers": [
+        "4",
+        "4小时"
+      ],
+      "explanationZhHans": "实际距离=7.2×5000000=36000000厘米=360千米。时间=360÷90=4小时。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-178",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-proportion",
+      "unitTitle": "比例",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "proportion",
+        "scale",
+        "equivalent-ratios",
+        "solve-proportions",
+        "比例",
+        "比例尺"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "比例的意义",
+        "判断比例",
+        "解比例",
+        "比例尺",
+        "图形放大缩小"
+      ],
+      "misconceptionTags": [
+        "additive pattern mistaken for proportion",
+        "cross-product used without ratio meaning",
+        "scale direction reversed"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-proportion-unit",
+        "bnu-primary-p6-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在一幅比例尺为1:4000000的地图上，量得甲、乙两城的距离是3.5厘米。甲、乙两城的实际距离是多少千米？",
+      "optionsZhHans": [
+        "14千米",
+        "140千米",
+        "1400千米",
+        "1.4千米"
+      ],
+      "answer": "140千米",
+      "acceptedAnswers": [
+        "140千米"
+      ],
+      "explanationZhHans": "根据比例尺1:4000000，图上1厘米代表实际4000000厘米，即40千米。3.5厘米对应的实际距离为3.5×40=140千米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-179",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-proportion",
+      "unitTitle": "比例",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "proportion",
+        "scale",
+        "equivalent-ratios",
+        "solve-proportions",
+        "比例",
+        "比例尺"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "比例的意义",
+        "判断比例",
+        "解比例",
+        "比例尺",
+        "图形放大缩小"
+      ],
+      "misconceptionTags": [
+        "additive pattern mistaken for proportion",
+        "cross-product used without ratio meaning",
+        "scale direction reversed"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-proportion-unit",
+        "bnu-primary-p6-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在一幅地图上，量得甲、乙两地的图上距离是8厘米，而甲、乙两地的实际距离是400千米。这幅地图的比例尺是多少？请写成数值比例尺的形式。",
+      "optionsZhHans": [],
+      "answer": "1:5000000",
+      "acceptedAnswers": [
+        "1:5000000",
+        "1：5000000"
+      ],
+      "explanationZhHans": "比例尺=图上距离:实际距离，单位需统一。400千米=40000000厘米，8:40000000=1:5000000。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-180",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-proportion",
+      "unitTitle": "比例",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "proportion",
+        "scale",
+        "equivalent-ratios",
+        "solve-proportions",
+        "比例",
+        "比例尺"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "比例的意义",
+        "判断比例",
+        "解比例",
+        "比例尺",
+        "图形放大缩小"
+      ],
+      "misconceptionTags": [
+        "additive pattern mistaken for proportion",
+        "cross-product used without ratio meaning",
+        "scale direction reversed"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-proportion-unit",
+        "bnu-primary-p6-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在一幅比例尺为1:5000000的地图上，量得甲、乙两城的距离是3.6厘米。一辆汽车以每小时90千米的速度从甲城开往乙城，需要多少小时？",
+      "optionsZhHans": [],
+      "answer": "2小时",
+      "acceptedAnswers": [
+        "2小时",
+        "2"
+      ],
+      "explanationZhHans": "实际距离=3.6×5000000=18000000厘米=180千米。时间=180÷90=2小时。"
+    }
+  ]
+}

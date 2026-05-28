@@ -1,0 +1,108 @@
+{
+  "batchId": "model-qa-0156",
+  "ids": [
+    "hjb-junior-ds-v2-s3-241",
+    "hjb-junior-ds-v2-s3-242",
+    "hjb-junior-ds-v2-s3-243",
+    "hjb-junior-ds-v2-s3-244",
+    "hjb-junior-ds-v2-s3-245",
+    "hjb-junior-ds-v2-s3-246",
+    "hjb-junior-ds-v2-s3-247",
+    "hjb-junior-ds-v2-s3-248"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-241",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "开口向下，顶点坐标为 (2, 4)",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-242",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-2",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-243",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "顶点坐标 (2, 3)，对称轴为直线 x = 2",
+      "answerCheckZhHans": "标准答案正确，解析一致。acceptedAnswers 覆盖了多种合理写法。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-244",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "multiple-correct-options"
+      ],
+      "issueDetailsZhHans": "选项C和D都正确。a<0，开口向下，对称轴x=1，在对称轴左侧（x<1）y随x增大而增大，右侧（x>1）y随x增大而减小。因此C和D均正确，但标准答案只选了C。",
+      "independentAnswerZhHans": "C和D都正确",
+      "answerCheckZhHans": "标准答案只选了C，但D也正确，存在多个正确选项。",
+      "recommendedActionZhHans": "修改选项或题干，确保只有一个正确选项。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-245",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为1225，但解析中p+q=1290，与答案矛盾。正确计算：y=-(x-65)^2+1225，p=65，q=1225，p+q=1290。答案应为1290。",
+      "independentAnswerZhHans": "1290",
+      "answerCheckZhHans": "标准答案1225错误，解析中p+q=1290，但答案写成了1225。",
+      "recommendedActionZhHans": "将答案改为1290，并更新acceptedAnswers。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-246",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "（1）S = -2x² + 40x，0 < x < 20；（2）当x = 10时，面积最大，最大面积为200平方米。",
+      "answerCheckZhHans": "标准答案正确，解析一致。acceptedAnswers 覆盖了多种合理写法。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-247",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "B. (-3, -5)",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-248",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "y = 3(x - 2)² - 1",
+      "answerCheckZhHans": "标准答案正确，解析一致。acceptedAnswers 覆盖了多种合理写法。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

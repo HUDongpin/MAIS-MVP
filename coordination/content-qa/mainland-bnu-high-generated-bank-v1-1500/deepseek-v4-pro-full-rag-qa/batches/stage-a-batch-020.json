@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-020",
+  "startedAt": "2026-05-28T00:38:16.751Z",
+  "completedAt": "2026-05-28T00:38:33.877Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-153",
+    "bnu-high-ds-v1-s4-154",
+    "bnu-high-ds-v1-s4-155",
+    "bnu-high-ds-v1-s4-156",
+    "bnu-high-ds-v1-s4-157",
+    "bnu-high-ds-v1-s4-158",
+    "bnu-high-ds-v1-s4-159",
+    "bnu-high-ds-v1-s4-160"
+  ],
+  "usage": {
+    "prompt_tokens": 9931,
+    "completion_tokens": 1057,
+    "total_tokens": 10988,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9547
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-153",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "[1,2]",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f(0)=ln2-1≈-0.307<0，f(2)=ln4-1≈0.386>0，中点1处f(1)=ln3-1≈0.099>0，故零点在[0,1]内。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-154",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "约4.6周",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "解50e^{0.3t}=200得e^{0.3t}=4，t=ln4/0.3=2ln2/0.3≈1.386/0.3≈4.62，故约4.6周。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-155",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "p随x增大而减小，趋近于0.02；模型合理，因为批量增大时次品率下降并趋于稳定。",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "p=0.02+0.1/x，x≥1，当x增大时0.1/x减小，p减小且趋向0.02，符合生产实际。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-156",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "[2,2.5]",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f(2)=-1<0，f(3)=16>0，中点2.5处f(2.5)=5.625>0，故解在[2,2.5]内。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-157",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "指数函数y=0.8·1.5^x",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "计算各模型预测值，指数函数误差最小且数据增长比例接近1.5，拟合最佳。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-158",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "约34.65年",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "解100e^{0.02t}=200得e^{0.02t}=2，t=ln2/0.02≈0.693/0.02=34.65年。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-159",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "0.25",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "初始区间[1,2]长1，一次二分后长0.5，两次二分后长0.25。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-160",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "25元",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "S=p(100-2p)=-2p^2+100p，二次函数最大值在p=25处。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，无数学错误、歧义或缺失条件，符合北师大版高一函数应用章节要求。"
+    }
+  }
+}

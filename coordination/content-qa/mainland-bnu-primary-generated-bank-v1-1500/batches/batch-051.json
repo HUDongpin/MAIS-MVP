@@ -1,0 +1,580 @@
+{
+  "batchId": "batch-051",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p3-001",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-mixed-operations",
+      "unitTitle": "混合运算",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "mixed-operations",
+        "operation-order",
+        "addition-subtraction-multiplication-division",
+        "混合运算",
+        "运算顺序"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "两步计算",
+        "运算顺序",
+        "数量关系",
+        "列综合算式",
+        "估算检查"
+      ],
+      "misconceptionTags": [
+        "operations applied strictly left to right",
+        "intermediate quantity not named",
+        "keyword-based operation choice"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-mixed-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈买了3千克苹果，每千克8元；又买了2千克梨，每千克6元。妈妈一共要付多少元？下面列式正确的是（ ）。",
+      "optionsZhHans": [
+        "3×8+2×6",
+        "3×8+6",
+        "3+8×2+6",
+        "8+6×3+2"
+      ],
+      "answer": "3×8+2×6",
+      "acceptedAnswers": [
+        "3×8+2×6"
+      ],
+      "explanationZhHans": "先分别算出苹果和梨的总价，再相加。苹果总价：3×8=24元，梨总价：2×6=12元，一共24+12=36元，对应综合算式3×8+2×6。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-002",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-mixed-operations",
+      "unitTitle": "混合运算",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "mixed-operations",
+        "operation-order",
+        "addition-subtraction-multiplication-division",
+        "混合运算",
+        "运算顺序"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "两步计算",
+        "运算顺序",
+        "数量关系",
+        "列综合算式",
+        "估算检查"
+      ],
+      "misconceptionTags": [
+        "operations applied strictly left to right",
+        "intermediate quantity not named",
+        "keyword-based operation choice"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-mixed-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算45−18÷3时，应先算（ ）法，再算（ ）法，结果是（ ）。",
+      "optionsZhHans": [],
+      "answer": "除，减，39",
+      "acceptedAnswers": [
+        "除，减，39",
+        "除法，减法，39"
+      ],
+      "explanationZhHans": "混合运算中，先算除法：18÷3=6，再算减法：45−6=39。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-003",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-mixed-operations",
+      "unitTitle": "混合运算",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "mixed-operations",
+        "operation-order",
+        "addition-subtraction-multiplication-division",
+        "混合运算",
+        "运算顺序"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "两步计算",
+        "运算顺序",
+        "数量关系",
+        "列综合算式",
+        "估算检查"
+      ],
+      "misconceptionTags": [
+        "operations applied strictly left to right",
+        "intermediate quantity not named",
+        "keyword-based operation choice"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-mixed-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明有50元，买一个书包用了36元，剩下的钱买了4本同样的笔记本。每本笔记本多少元？请写出分步算式和综合算式。",
+      "optionsZhHans": [],
+      "answer": "分步：50−36=14（元），14÷4=3.5（元）；综合：(50−36)÷4=3.5（元）",
+      "acceptedAnswers": [
+        "分步：50−36=14（元），14÷4=3.5（元）；综合：(50−36)÷4=3.5（元）",
+        "分步：50-36=14元，14÷4=3.5元；综合：(50-36)÷4=3.5元"
+      ],
+      "explanationZhHans": "先求剩下的钱：50−36=14元，再平均分成4份：14÷4=3.5元。综合算式需加小括号保证先减后除。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-004",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-mixed-operations",
+      "unitTitle": "混合运算",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "mixed-operations",
+        "operation-order",
+        "addition-subtraction-multiplication-division",
+        "混合运算",
+        "运算顺序"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "两步计算",
+        "运算顺序",
+        "数量关系",
+        "列综合算式",
+        "估算检查"
+      ],
+      "misconceptionTags": [
+        "operations applied strictly left to right",
+        "intermediate quantity not named",
+        "keyword-based operation choice"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-mixed-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面算式中，先算加法的是（ ）。",
+      "optionsZhHans": [
+        "36+24÷6",
+        "5×(3+7)",
+        "18−9+5",
+        "40÷8+12"
+      ],
+      "answer": "5×(3+7)",
+      "acceptedAnswers": [
+        "5×(3+7)"
+      ],
+      "explanationZhHans": "有小括号时先算小括号里的。5×(3+7)先算3+7=10，再算5×10=50。其他选项均先算乘除或从左往右。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-005",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-mixed-operations",
+      "unitTitle": "混合运算",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "mixed-operations",
+        "operation-order",
+        "addition-subtraction-multiplication-division",
+        "混合运算",
+        "运算顺序"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "两步计算",
+        "运算顺序",
+        "数量关系",
+        "列综合算式",
+        "估算检查"
+      ],
+      "misconceptionTags": [
+        "operations applied strictly left to right",
+        "intermediate quantity not named",
+        "keyword-based operation choice"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-mixed-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把“24÷6=4”和“30+4=34”合并成一个综合算式：（ ）。",
+      "optionsZhHans": [],
+      "answer": "30+24÷6=34",
+      "acceptedAnswers": [
+        "30+24÷6=34"
+      ],
+      "explanationZhHans": "第二个算式的4来自24÷6，替换后得30+24÷6。计算时先算除法24÷6=4，再算加法30+4=34。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-006",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-mixed-operations",
+      "unitTitle": "混合运算",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "mixed-operations",
+        "operation-order",
+        "addition-subtraction-multiplication-division",
+        "混合运算",
+        "运算顺序"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "两步计算",
+        "运算顺序",
+        "数量关系",
+        "列综合算式",
+        "估算检查"
+      ],
+      "misconceptionTags": [
+        "operations applied strictly left to right",
+        "intermediate quantity not named",
+        "keyword-based operation choice"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-mixed-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校买来5盒羽毛球，每盒12个，用去38个，还剩多少个？请列综合算式解答。",
+      "optionsZhHans": [],
+      "answer": "5×12−38=22（个）",
+      "acceptedAnswers": [
+        "5×12−38=22（个）",
+        "5×12-38=22个"
+      ],
+      "explanationZhHans": "先求总数：5×12=60个，再减去用去的：60−38=22个。综合算式为5×12−38=22（个）。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-007",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-mixed-operations",
+      "unitTitle": "混合运算",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "mixed-operations",
+        "operation-order",
+        "addition-subtraction-multiplication-division",
+        "混合运算",
+        "运算顺序"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "两步计算",
+        "运算顺序",
+        "数量关系",
+        "列综合算式",
+        "估算检查"
+      ],
+      "misconceptionTags": [
+        "operations applied strictly left to right",
+        "intermediate quantity not named",
+        "keyword-based operation choice"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-mixed-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个问题可以用算式(45−15)÷5解决？",
+      "optionsZhHans": [
+        "有45个苹果，吃了15个，又买来5个，现在有多少个？",
+        "有45元，买书用去15元，剩下的钱买5元一本的笔记本，可以买几本？",
+        "有45个学生，走了15个，又来了5个，现在有多少个学生？",
+        "一本书45页，第一天看15页，第二天看5页，还剩多少页？"
+      ],
+      "answer": "有45元，买书用去15元，剩下的钱买5元一本的笔记本，可以买几本？",
+      "acceptedAnswers": [
+        "有45元，买书用去15元，剩下的钱买5元一本的笔记本，可以买几本？"
+      ],
+      "explanationZhHans": "算式先求剩下45−15=30元，再除以5求本数。选项B符合：剩下钱÷单价=数量。其他选项运算顺序或含义不同。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-008",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-mixed-operations",
+      "unitTitle": "混合运算",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "mixed-operations",
+        "operation-order",
+        "addition-subtraction-multiplication-division",
+        "混合运算",
+        "运算顺序"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "两步计算",
+        "运算顺序",
+        "数量关系",
+        "列综合算式",
+        "估算检查"
+      ],
+      "misconceptionTags": [
+        "operations applied strictly left to right",
+        "intermediate quantity not named",
+        "keyword-based operation choice"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-mixed-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在○里填上“＞”“＜”或“＝”。\n36÷4+2 ○ 36÷(4+2)",
+      "optionsZhHans": [],
+      "answer": "＞",
+      "acceptedAnswers": [
+        "＞",
+        "大于"
+      ],
+      "explanationZhHans": "左边：36÷4=9，9+2=11；右边：4+2=6，36÷6=6。11＞6，所以填“＞”。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-009",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-mixed-operations",
+      "unitTitle": "混合运算",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "mixed-operations",
+        "operation-order",
+        "addition-subtraction-multiplication-division",
+        "混合运算",
+        "运算顺序"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "两步计算",
+        "运算顺序",
+        "数量关系",
+        "列综合算式",
+        "估算检查"
+      ],
+      "misconceptionTags": [
+        "operations applied strictly left to right",
+        "intermediate quantity not named",
+        "keyword-based operation choice"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-mixed-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "李老师带100元去买文具。买了8支钢笔，每支9元，剩下的钱想买7元一个的文具盒，最多能买几个？请写出解答过程。",
+      "optionsZhHans": [],
+      "answer": "100−8×9=28（元），28÷7=4（个）",
+      "acceptedAnswers": [
+        "100−8×9=28（元），28÷7=4（个）",
+        "100-8×9=28元，28÷7=4个"
+      ],
+      "explanationZhHans": "先算钢笔总价：8×9=72元，剩余100−72=28元。再算文具盒数量：28÷7=4个。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-010",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-mixed-operations",
+      "unitTitle": "混合运算",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "mixed-operations",
+        "operation-order",
+        "addition-subtraction-multiplication-division",
+        "混合运算",
+        "运算顺序"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "两步计算",
+        "运算顺序",
+        "数量关系",
+        "列综合算式",
+        "估算检查"
+      ],
+      "misconceptionTags": [
+        "operations applied strictly left to right",
+        "intermediate quantity not named",
+        "keyword-based operation choice"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-mixed-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算6+3×4时，正确的得数是（ ）。",
+      "optionsZhHans": [
+        "36",
+        "18",
+        "24",
+        "13"
+      ],
+      "answer": "18",
+      "acceptedAnswers": [
+        "18"
+      ],
+      "explanationZhHans": "先算乘法：3×4=12，再算加法：6+12=18。"
+    }
+  ]
+}

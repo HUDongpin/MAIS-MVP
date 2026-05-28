@@ -1,0 +1,345 @@
+{
+  "batchId": "repair-0016",
+  "generatedAt": "2026-05-25T02:03:13.167Z",
+  "targetIds": [
+    "hjb-junior-ds-v2-s2-033",
+    "hjb-junior-ds-v2-s2-039",
+    "hjb-junior-ds-v2-s2-042",
+    "hjb-junior-ds-v2-s2-044",
+    "hjb-junior-ds-v2-s2-048"
+  ],
+  "questions": [
+    {
+      "id": "hjb-junior-ds-v2-s2-033",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "hjb-junior-s2-upper-real-numbers",
+      "unitTitle": "实数",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "real-numbers",
+        "square-roots",
+        "cube-roots",
+        "irrational-numbers",
+        "number-line",
+        "实数",
+        "平方根",
+        "立方根"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "平方根",
+        "立方根",
+        "无理数识别",
+        "实数分类",
+        "数轴表示",
+        "大小比较"
+      ],
+      "misconceptionTags": [
+        "square root sign treated as both roots",
+        "irrational number mistaken for any decimal",
+        "approximation order reversed"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s2-upper-real-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-upper-paper-real-numbers-unit",
+        "hjb-junior-s2-upper-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Repaired offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "比较下列三个数的大小，并用“<”连接：√3，1.7，∛8。",
+      "optionsZhHans": [],
+      "answer": "∛8 < 1.7 < √3",
+      "acceptedAnswers": [
+        "∛8 < 1.7 < √3",
+        "2 < 1.7 < √3",
+        "∛8<1.7<√3"
+      ],
+      "explanationZhHans": "∛8=2，√3≈1.732，1.7=1.7。比较得2>1.732>1.7，所以从小到大为∛8<1.7<√3。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-039",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "hjb-junior-s2-upper-real-numbers",
+      "unitTitle": "实数",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "real-numbers",
+        "square-roots",
+        "cube-roots",
+        "irrational-numbers",
+        "number-line",
+        "实数",
+        "平方根",
+        "立方根"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "平方根",
+        "立方根",
+        "无理数识别",
+        "实数分类",
+        "数轴表示",
+        "大小比较"
+      ],
+      "misconceptionTags": [
+        "square root sign treated as both roots",
+        "irrational number mistaken for any decimal",
+        "approximation order reversed"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s2-upper-real-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-upper-paper-real-numbers-unit",
+        "hjb-junior-s2-upper-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Repaired offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "比较大小：-√6 ______ -2.4（填“>”“<”或“=”）。",
+      "optionsZhHans": [],
+      "answer": "<",
+      "acceptedAnswers": [
+        "<"
+      ],
+      "explanationZhHans": "√6≈2.449，所以-√6≈-2.449。因为-2.449<-2.4，所以-√6<-2.4。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-042",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "hjb-junior-s2-upper-real-numbers",
+      "unitTitle": "实数",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "real-numbers",
+        "square-roots",
+        "cube-roots",
+        "irrational-numbers",
+        "number-line",
+        "实数",
+        "平方根",
+        "立方根"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "平方根",
+        "立方根",
+        "无理数识别",
+        "实数分类",
+        "数轴表示",
+        "大小比较"
+      ],
+      "misconceptionTags": [
+        "square root sign treated as both roots",
+        "irrational number mistaken for any decimal",
+        "approximation order reversed"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s2-upper-real-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-upper-paper-real-numbers-unit",
+        "hjb-junior-s2-upper-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Repaired offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知a是√7的整数部分，b是√7的小数部分，求a²+b²的值。",
+      "optionsZhHans": [],
+      "answer": "13-4√7",
+      "acceptedAnswers": [
+        "13-4√7"
+      ],
+      "explanationZhHans": "√7≈2.645，整数部分a=2，小数部分b=√7-2。a²+b²=4+(√7-2)²=4+7-4√7+4=15-4√7。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-044",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "hjb-junior-s2-upper-real-numbers",
+      "unitTitle": "实数",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "real-numbers",
+        "square-roots",
+        "cube-roots",
+        "irrational-numbers",
+        "number-line",
+        "实数",
+        "平方根",
+        "立方根"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "平方根",
+        "立方根",
+        "无理数识别",
+        "实数分类",
+        "数轴表示",
+        "大小比较"
+      ],
+      "misconceptionTags": [
+        "square root sign treated as both roots",
+        "irrational number mistaken for any decimal",
+        "approximation order reversed"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-junior-s2-upper-real-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-upper-paper-real-numbers-unit",
+        "hjb-junior-s2-upper-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Repaired offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知x是√3的整数部分，y是√3的小数部分，求x²+y²的值。",
+      "optionsZhHans": [],
+      "answer": "5-2√3",
+      "acceptedAnswers": [
+        "5-2√3"
+      ],
+      "explanationZhHans": "√3≈1.732，整数部分x=1，小数部分y=√3-1。x²+y²=1+(√3-1)²=1+3-2√3+1=5-2√3。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-048",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "hjb-junior-s2-upper-real-numbers",
+      "unitTitle": "实数",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "real-numbers",
+        "square-roots",
+        "cube-roots",
+        "irrational-numbers",
+        "number-line",
+        "实数",
+        "平方根",
+        "立方根"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "平方根",
+        "立方根",
+        "无理数识别",
+        "实数分类",
+        "数轴表示",
+        "大小比较"
+      ],
+      "misconceptionTags": [
+        "square root sign treated as both roots",
+        "irrational number mistaken for any decimal",
+        "approximation order reversed"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s2-upper-real-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-upper-paper-real-numbers-unit",
+        "hjb-junior-s2-upper-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Repaired offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知a是√11的整数部分，b是√11的小数部分，求a²-b²的值。",
+      "optionsZhHans": [],
+      "answer": "6√11-2",
+      "acceptedAnswers": [
+        "6√11-2"
+      ],
+      "explanationZhHans": "√11≈3.316，整数部分a=3，小数部分b=√11-3。a²-b²=(a+b)(a-b)=√11·(6-√11)=6√11-11。"
+    }
+  ]
+}

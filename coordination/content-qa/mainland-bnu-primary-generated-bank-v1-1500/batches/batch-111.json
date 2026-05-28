@@ -1,0 +1,570 @@
+{
+  "batchId": "batch-111",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p5-101",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-probability",
+      "unitTitle": "可能性",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "probability-intuition",
+        "likelihood",
+        "fairness",
+        "random-events",
+        "可能性"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "判断可能性大小",
+        "描述随机事件",
+        "比较机会",
+        "公平性判断",
+        "实验与预测"
+      ],
+      "misconceptionTags": [
+        "all listed outcomes assumed equally likely",
+        "recent result treated as changing the next chance",
+        "fairness judged by preference rather than outcome structure"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-probability"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-probability-unit",
+        "bnu-primary-p4-upper-assessment-probability-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个不透明的袋子里装有5个红球、3个蓝球和2个黄球，这些球除颜色外完全相同。每次从袋中任意摸出一个球，记录颜色后放回并摇匀。小明连续摸了10次，前9次摸到的都是红球。关于第10次摸球，下面哪种说法正确？",
+      "optionsZhHans": [],
+      "answer": "摸到红球的可能性最大，但摸到蓝球和黄球也是有可能的",
+      "acceptedAnswers": [
+        "摸到红球的可能性最大，但摸到蓝球和黄球也是有可能的"
+      ],
+      "explanationZhHans": "袋中红球数量最多，所以摸到红球的可能性最大。每次摸球后放回，袋中球的组成不变，因此前9次的结果不影响第10次的可能性，蓝球和黄球仍有可能被摸到。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-102",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-probability",
+      "unitTitle": "可能性",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "probability-intuition",
+        "likelihood",
+        "fairness",
+        "random-events",
+        "可能性"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "判断可能性大小",
+        "描述随机事件",
+        "比较机会",
+        "公平性判断",
+        "实验与预测"
+      ],
+      "misconceptionTags": [
+        "all listed outcomes assumed equally likely",
+        "recent result treated as changing the next chance",
+        "fairness judged by preference rather than outcome structure"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-probability"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-probability-unit",
+        "bnu-primary-p4-upper-assessment-probability-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个转盘被平均分成8个扇形区域，分别涂上红色、黄色和蓝色。其中红色区域有3个，黄色区域有2个，蓝色区域有3个。转动转盘，指针落在哪种颜色区域的可能性最大？落在哪种颜色区域的可能性最小？请说明理由。",
+      "optionsZhHans": [],
+      "answer": "落在红色和蓝色区域的可能性一样大，落在黄色区域的可能性最小。因为红色和蓝色区域都是3个，黄色区域只有2个，所以指针落在红色和蓝色区域的机会相等且最大，落在黄色区域的机会最小。",
+      "acceptedAnswers": [
+        "落在红色和蓝色区域的可能性一样大，落在黄色区域的可能性最小。因为红色和蓝色区域都是3个，黄色区域只有2个，所以指针落在红色和蓝色区域的机会相等且最大，落在黄色区域的机会最小。"
+      ],
+      "explanationZhHans": "转盘被平均分成8份，红色占3份，蓝色占3份，黄色占2份。份数越多，可能性越大。红色和蓝色份数相同，可能性相等且最大；黄色份数最少，可能性最小。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-103",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-probability",
+      "unitTitle": "可能性",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "probability-intuition",
+        "likelihood",
+        "fairness",
+        "random-events",
+        "可能性"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "判断可能性大小",
+        "描述随机事件",
+        "比较机会",
+        "公平性判断",
+        "实验与预测"
+      ],
+      "misconceptionTags": [
+        "all listed outcomes assumed equally likely",
+        "recent result treated as changing the next chance",
+        "fairness judged by preference rather than outcome structure"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-probability"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-probability-unit",
+        "bnu-primary-p4-upper-assessment-probability-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个盒子里有10张卡片，分别写着数字1～10，卡片除数字外完全相同。从中任意摸出一张卡片，下面哪种情况的可能性最大？",
+      "optionsZhHans": [
+        "摸到数字5",
+        "摸到一位数",
+        "摸到两位数",
+        "摸到偶数"
+      ],
+      "answer": "摸到一位数",
+      "acceptedAnswers": [
+        "摸到一位数"
+      ],
+      "explanationZhHans": "数字1～10中，一位数有9个（1～9），两位数只有1个（10），偶数有5个（2,4,6,8,10）。一位数最多，所以摸到一位数的可能性最大。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-104",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-probability",
+      "unitTitle": "可能性",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "probability-intuition",
+        "likelihood",
+        "fairness",
+        "random-events",
+        "可能性"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "判断可能性大小",
+        "描述随机事件",
+        "比较机会",
+        "公平性判断",
+        "实验与预测"
+      ],
+      "misconceptionTags": [
+        "all listed outcomes assumed equally likely",
+        "recent result treated as changing the next chance",
+        "fairness judged by preference rather than outcome structure"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-probability"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-probability-unit",
+        "bnu-primary-p4-upper-assessment-probability-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明和小红玩掷骰子游戏，骰子的六个面上分别写着1、1、2、2、3、3。两人约定：掷一次骰子，如果朝上的数字是1，小明赢；如果朝上的数字是2，小红赢；如果朝上的数字是3，则平局。这个游戏规则公平吗？为什么？如果不公平，怎样修改规则可以使游戏公平？",
+      "optionsZhHans": [],
+      "answer": "不公平。因为数字1、2、3出现的可能性相等，但小明和小红赢的机会一样，平局也占一份，所以对两人来说赢的机会相同，实际上是公平的。",
+      "acceptedAnswers": [
+        "不公平。因为数字1、2、3出现的可能性相等，但小明和小红赢的机会一样，平局也占一份，所以对两人来说赢的机会相同，实际上是公平的。"
+      ],
+      "explanationZhHans": "骰子上1、2、3各有2个面，掷出每个数字的可能性相等。小明赢对应数字1，小红赢对应数字2，平局对应数字3，两人赢的可能性相同，所以游戏公平。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-105",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-probability",
+      "unitTitle": "可能性",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "probability-intuition",
+        "likelihood",
+        "fairness",
+        "random-events",
+        "可能性"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "判断可能性大小",
+        "描述随机事件",
+        "比较机会",
+        "公平性判断",
+        "实验与预测"
+      ],
+      "misconceptionTags": [
+        "all listed outcomes assumed equally likely",
+        "recent result treated as changing the next chance",
+        "fairness judged by preference rather than outcome structure"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-probability"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-probability-unit",
+        "bnu-primary-p4-upper-assessment-probability-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个袋子里有形状、大小相同的球，其中红球5个，白球3个，黑球2个。每次摸出一个球，记录颜色后放回。小华摸了20次，结果摸到红球12次，白球5次，黑球3次。根据这个实验结果，下面哪种说法正确？",
+      "optionsZhHans": [],
+      "answer": "摸到红球的可能性最大，摸到黑球的可能性最小，实验结果与理论可能性基本一致。",
+      "acceptedAnswers": [
+        "摸到红球的可能性最大，摸到黑球的可能性最小，实验结果与理论可能性基本一致。"
+      ],
+      "explanationZhHans": "红球最多，摸到红球的可能性最大；黑球最少，摸到的可能性最小。实验次数有限，结果会有波动，但大致反映了可能性的大小。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-106",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "p5-upper-review",
+        "integrated-application",
+        "mathematical-activity",
+        "strategy-reflection",
+        "五年级上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "错因分析",
+        "整理知识",
+        "表达理由"
+      ],
+      "misconceptionTags": [
+        "formula selected before concept identification",
+        "multi-step work not checked",
+        "review treated as isolated drill rather than connected reasoning"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-final-topic-drill",
+        "bnu-primary-p5-lower-assessment-final-topic-drill"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在计算3.6÷0.4时，下面哪种想法是正确的？",
+      "optionsZhHans": [
+        "把3.6和0.4都乘10，变成36÷4，商不变",
+        "把3.6和0.4都乘100，变成360÷40，商不变",
+        "把3.6和0.4都除以10，变成0.36÷0.04，商不变",
+        "把3.6和0.4都加10，变成13.6÷10.4，商不变"
+      ],
+      "answer": "把3.6和0.4都乘10，变成36÷4，商不变",
+      "acceptedAnswers": [
+        "把3.6和0.4都乘10，变成36÷4，商不变"
+      ],
+      "explanationZhHans": "除数是小数的除法，利用商不变的性质，把被除数和除数同时乘相同的数（10、100等），使除数变成整数。乘10后除数变成4，计算简便。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-107",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "p5-upper-review",
+        "integrated-application",
+        "mathematical-activity",
+        "strategy-reflection",
+        "五年级上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "错因分析",
+        "整理知识",
+        "表达理由"
+      ],
+      "misconceptionTags": [
+        "formula selected before concept identification",
+        "multi-step work not checked",
+        "review treated as isolated drill rather than connected reasoning"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-final-topic-drill",
+        "bnu-primary-p5-lower-assessment-final-topic-drill"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个三角形的底是8厘米，高是5厘米。如果把这个三角形的底增加2厘米，高减少1厘米，新三角形的面积与原三角形的面积相比，发生了什么变化？请计算说明。",
+      "optionsZhHans": [],
+      "answer": "面积不变，都是20平方厘米。",
+      "acceptedAnswers": [
+        "面积不变，都是20平方厘米。"
+      ],
+      "explanationZhHans": "原面积：8×5÷2=20平方厘米。新底10厘米，新高4厘米，新面积：10×4÷2=20平方厘米。所以面积不变。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-108",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "p5-upper-review",
+        "integrated-application",
+        "mathematical-activity",
+        "strategy-reflection",
+        "五年级上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "错因分析",
+        "整理知识",
+        "表达理由"
+      ],
+      "misconceptionTags": [
+        "formula selected before concept identification",
+        "multi-step work not checked",
+        "review treated as isolated drill rather than connected reasoning"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-final-topic-drill",
+        "bnu-primary-p5-lower-assessment-final-topic-drill"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明在计算一道小数除法时，把除数1.8看成了18，得到的商是0.45。正确的商应该是多少？请写出你的思考过程。",
+      "optionsZhHans": [],
+      "answer": "4.5",
+      "acceptedAnswers": [
+        "4.5"
+      ],
+      "explanationZhHans": "除数1.8看成18，相当于除数乘10，根据商的变化规律，商反而除以10。所以正确的商是0.45×10=4.5。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-109",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "p5-upper-review",
+        "integrated-application",
+        "mathematical-activity",
+        "strategy-reflection",
+        "五年级上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "错因分析",
+        "整理知识",
+        "表达理由"
+      ],
+      "misconceptionTags": [
+        "formula selected before concept identification",
+        "multi-step work not checked",
+        "review treated as isolated drill rather than connected reasoning"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-final-topic-drill",
+        "bnu-primary-p5-lower-assessment-final-topic-drill"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "复习平移知识时，下面哪句话是正确的？",
+      "optionsZhHans": [
+        "平移不改变图形的大小和形状",
+        "平移一定改变图形的面积",
+        "平移一定会让图形旋转",
+        "平移后图形的边数会减少"
+      ],
+      "answer": "平移不改变图形的大小和形状",
+      "acceptedAnswers": [
+        "平移不改变图形的大小和形状"
+      ],
+      "explanationZhHans": "平移只改变图形的位置，不改变大小、形状、面积和边数。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-110",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "p5-upper-review",
+        "integrated-application",
+        "mathematical-activity",
+        "strategy-reflection",
+        "五年级上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "错因分析",
+        "整理知识",
+        "表达理由"
+      ],
+      "misconceptionTags": [
+        "formula selected before concept identification",
+        "multi-step work not checked",
+        "review treated as isolated drill rather than connected reasoning"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-final-topic-drill",
+        "bnu-primary-p5-lower-assessment-final-topic-drill"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个梯形的上底是4厘米，下底是6厘米，高是5厘米。如果从这个梯形中剪去一个最大的平行四边形，剩下的图形是什么？它的面积是多少平方厘米？",
+      "optionsZhHans": [],
+      "answer": "三角形，5平方厘米",
+      "acceptedAnswers": [
+        "三角形，5平方厘米"
+      ],
+      "explanationZhHans": "剪去的最大平行四边形以梯形上底为边，高相同。剩下一个三角形，底是下底减上底=2厘米，高5厘米，面积2×5÷2=5平方厘米。"
+    }
+  ]
+}

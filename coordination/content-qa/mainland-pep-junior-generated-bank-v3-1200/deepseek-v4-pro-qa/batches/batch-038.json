@@ -1,0 +1,137 @@
+{
+  "batchNumber": 38,
+  "startedAt": "2026-05-25T02:58:35.434Z",
+  "completedAt": "2026-05-25T02:58:51.452Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s2-k06-fi-011",
+    "pep-junior-v3-s2-k06-fi-012",
+    "pep-junior-v3-s2-k06-fi-013",
+    "pep-junior-v3-s2-k06-fi-014",
+    "pep-junior-v3-s2-k06-fi-015",
+    "pep-junior-v3-s2-k06-fi-016",
+    "pep-junior-v3-s2-k06-fi-017",
+    "pep-junior-v3-s2-k06-fi-018",
+    "pep-junior-v3-s2-k06-fi-019",
+    "pep-junior-v3-s2-k06-fi-020",
+    "pep-junior-v3-s2-k06-fi-021",
+    "pep-junior-v3-s2-k06-fi-022"
+  ],
+  "usage": {
+    "prompt_tokens": 2991,
+    "completion_tokens": 944,
+    "total_tokens": 3935,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 2735
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s2-k06-fi-011",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案与解释一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-fi-012",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分式为零条件正确，答案2满足分母不为零。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-fi-013",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "关于x轴对称坐标变换正确，答案(3,2)无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-fi-014",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平方比较法正确，√5>2.2。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-fi-015",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "三角形内角和计算正确，75°。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-fi-016",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "等腰三角形与高线角度计算正确，20°。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-fi-017",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "等腰三角形与角平分线角度推导正确，90°。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-fi-018",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "全等三角形判定与对应边相等正确，DE=5。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-fi-019",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "直角三角形与角平分线角度计算正确，60°。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-fi-020",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "全等三角形对应角相等，∠F=80°正确。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-fi-021",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "外角等于不相邻两内角和，140°正确。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-fi-022",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "对顶角相等，全等三角形对应角相等，50°正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部12道填空题数学正确，答案与解释一致，无歧义或缺失条件，适合人教版初中数学。"
+    }
+  }
+}

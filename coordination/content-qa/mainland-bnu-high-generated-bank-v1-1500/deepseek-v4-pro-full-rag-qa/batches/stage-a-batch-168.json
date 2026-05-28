@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-168",
+  "startedAt": "2026-05-28T01:47:58.752Z",
+  "completedAt": "2026-05-28T01:48:13.481Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-337",
+    "bnu-high-ds-v1-s6-338",
+    "bnu-high-ds-v1-s6-339",
+    "bnu-high-ds-v1-s6-340",
+    "bnu-high-ds-v1-s6-341",
+    "bnu-high-ds-v1-s6-342",
+    "bnu-high-ds-v1-s6-343",
+    "bnu-high-ds-v1-s6-344"
+  ],
+  "usage": {
+    "prompt_tokens": 10108,
+    "completion_tokens": 1107,
+    "total_tokens": 11215,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9724
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-337",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "a ≤ 3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导得 f'(x)=3x²-a，在[1,+∞)上单调递增需 f'(x)≥0 恒成立，即 a≤3x² 恒成立，x≥1 时 3x² 最小值为 3，故 a≤3。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-338",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "极大值 4，极小值 0",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x²-12x+9=3(x-1)(x-3)，驻点 x=1,3。x<1 时 f'>0，1<x<3 时 f'<0，x>3 时 f'>0。极大值 f(1)=4，极小值 f(3)=0。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-339",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "0",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "y'=3x²-6x，在 x=2 处斜率 k=3·4-6·2=12-12=0。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-340",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x²-3，驻点 x=±1。f(-2)=-2，f(-1)=2，f(1)=-2，f(2)=2，最大值为 2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-341",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "最大值 10，最小值 -22",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x²-6x-9=3(x-3)(x+1)，驻点 x=-1,3。f(-2)=3，f(-1)=10，f(3)=-22，f(4)=-15，最大 10，最小 -22。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-342",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "y = x - 1",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "y'=3x²-2，在 x=1 处斜率 k=1，切线方程 y-0=1·(x-1)，即 y=x-1。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-343",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "C",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "同 340 题，f(x)=x³-3x 在 [-2,2] 上最大值为 2，对应选项 C。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-344",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(1, 2)",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=6x²-18x+12=6(x-1)(x-2)，f'(x)<0 得 1<x<2，故单调递减区间为 (1,2)。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部 8 题均可独立求解，无数学错误、歧义或缺失条件，符合北师大版高中导数章节要求。"
+    }
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "batchId": "model-qa-0021",
+  "ids": [
+    "hjb-junior-ds-v2-s1-161",
+    "hjb-junior-ds-v2-s1-162",
+    "hjb-junior-ds-v2-s1-163",
+    "hjb-junior-ds-v2-s1-164",
+    "hjb-junior-ds-v2-s1-165",
+    "hjb-junior-ds-v2-s1-166",
+    "hjb-junior-ds-v2-s1-167",
+    "hjb-junior-ds-v2-s1-168"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-161",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-3",
+      "answerCheckZhHans": "标准答案 -3 正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-162",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "1",
+      "answerCheckZhHans": "化简后为常数1，与x无关，代入x=-2仍为1，答案正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-163",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-1",
+      "answerCheckZhHans": "选项B为-1，正确；其他选项均不相等。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-164",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x ≠ ±2",
+      "answerCheckZhHans": "标准答案 x ≠ ±2 正确，acceptedAnswers 覆盖了常见等价表述。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-165",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2/(x-1)",
+      "answerCheckZhHans": "计算得 2/(x-1)，与标准答案一致，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-166",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x ≠ 2 且 x ≠ -2",
+      "answerCheckZhHans": "选项C正确，其他选项不完整或错误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-167",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "分子为零得x=3，分母不为零，答案正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-168",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "7",
+      "answerCheckZhHans": "化简得 (x+3)/(x-3)，代入x=4得7，答案正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

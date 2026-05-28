@@ -1,0 +1,142 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-062",
+  "startedAt": "2026-05-28T02:00:26.182Z",
+  "completedAt": "2026-05-28T02:00:42.250Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-489",
+    "bnu-high-ds-v1-s4-490",
+    "bnu-high-ds-v1-s4-491",
+    "bnu-high-ds-v1-s4-492",
+    "bnu-high-ds-v1-s4-493",
+    "bnu-high-ds-v1-s4-494",
+    "bnu-high-ds-v1-s4-495",
+    "bnu-high-ds-v1-s4-496"
+  ],
+  "usage": {
+    "prompt_tokens": 13145,
+    "completion_tokens": 1147,
+    "total_tokens": 14292,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 12761
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-489",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": "√6/2",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案√6/2与解析中计算出的3/2矛盾；Stage A独立解为√6/2，解析用等体积法算错，正确距离应为√6/2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-490",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案9√3+36与Stage A独立解一致，解析计算正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-491",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案直线A₁C₁与Stage A独立解一致；解析中“AC∥平面BDE”推理不严谨，但结论正确，可判为weak。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-492",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "16/3",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案16√2/3与Stage A独立解16/3不符；解析中高为2，体积应为32/3，但最终给出16√2/3，计算错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-493",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": "若m⊥α，n⊥β，α⊥β，则m⊥n",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案选D，但Stage A独立解选B；解析对B的判断错误，B正确，D错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-494",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案15π与Stage A独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-495",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": "1/7",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案2/7与Stage A独立解1/7不符；解析中计算得9/13，与选项均不符，最终强行修改题目，答案错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-496",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案18与Stage A独立解一致，解析正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 3,
+      "warn": 1,
+      "fail": 4,
+      "notes": "8题中3题完全一致，1题解析有瑕疵但答案正确，4题答案错误或与独立解不符，需修正。"
+    }
+  }
+}

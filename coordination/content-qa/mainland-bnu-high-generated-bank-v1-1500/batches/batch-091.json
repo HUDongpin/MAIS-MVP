@@ -1,0 +1,690 @@
+{
+  "batchId": "batch-091",
+  "questions": [
+    {
+      "id": "bnu-high-ds-v1-s5-401",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-概率",
+      "topicTitleZhHans": "概率",
+      "volume": "选择性必修 第一册",
+      "chapter": "概率",
+      "conceptIds": [
+        "conditional-probability",
+        "random-variables",
+        "discrete-distribution",
+        "mean-variance",
+        "binomial-distribution",
+        "normal-distribution"
+      ],
+      "competencyTags": [
+        "数据分析",
+        "数学运算",
+        "逻辑推理",
+        "数学建模"
+      ],
+      "skillTags": [
+        "样本空间建立",
+        "事件关系",
+        "互斥与对立",
+        "等可能模型",
+        "概率计算",
+        "计数与概率结合",
+        "条件信息",
+        "分步试验"
+      ],
+      "misconceptionTags": [
+        "conditional direction reversed",
+        "distribution probabilities do not sum to one",
+        "expectation and most likely value confused",
+        "normal interval read incorrectly",
+        "sample space incomplete",
+        "complement and mutual exclusion confused",
+        "equal likelihood assumed without support",
+        "conditional information ignored"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-probability-distributions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-probability-unit-core",
+        "bnu-high-s5-assessment-probability-unit-synthesis",
+        "bnu-high-s5-assessment-final-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某班有40名学生，其中男生24人，女生16人。随机抽取3人参加数学竞赛。已知抽到的3人中至少有1名女生，求抽到的3人中恰有2名女生的概率。",
+      "optionsZhHans": [],
+      "answer": "\\frac{72}{185}",
+      "acceptedAnswers": [
+        "\\frac{72}{185}",
+        "72/185"
+      ],
+      "explanationZhHans": "设事件A为“至少有1名女生”，事件B为“恰有2名女生”。P(A)=1-P(无女生)=1-C(24,3)/C(40,3)=1-2024/9880=7856/9880。P(B)=C(16,2)*C(24,1)/C(40,3)=120*24/9880=2880/9880。P(B|A)=P(AB)/P(A)=P(B)/P(A)=2880/7856=72/185。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-402",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-概率",
+      "topicTitleZhHans": "概率",
+      "volume": "选择性必修 第一册",
+      "chapter": "概率",
+      "conceptIds": [
+        "conditional-probability",
+        "random-variables",
+        "discrete-distribution",
+        "mean-variance",
+        "binomial-distribution",
+        "normal-distribution"
+      ],
+      "competencyTags": [
+        "数据分析",
+        "数学运算",
+        "逻辑推理",
+        "数学建模"
+      ],
+      "skillTags": [
+        "样本空间建立",
+        "事件关系",
+        "互斥与对立",
+        "等可能模型",
+        "概率计算",
+        "计数与概率结合",
+        "条件信息",
+        "分步试验"
+      ],
+      "misconceptionTags": [
+        "conditional direction reversed",
+        "distribution probabilities do not sum to one",
+        "expectation and most likely value confused",
+        "normal interval read incorrectly",
+        "sample space incomplete",
+        "complement and mutual exclusion confused",
+        "equal likelihood assumed without support",
+        "conditional information ignored"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-probability-distributions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-probability-unit-core",
+        "bnu-high-s5-assessment-probability-unit-synthesis",
+        "bnu-high-s5-assessment-final-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "设随机变量X的分布列为P(X=k)=c/(k+1)(k+2)，k=0,1,2,3。则常数c=______。",
+      "optionsZhHans": [],
+      "answer": "\\frac{5}{4}",
+      "acceptedAnswers": [
+        "\\frac{5}{4}",
+        "5/4",
+        "1.25"
+      ],
+      "explanationZhHans": "由分布列性质，∑_{k=0}^3 c/((k+1)(k+2)) = c*(1/(1*2)+1/(2*3)+1/(3*4)+1/(4*5)) = c*(1/2+1/6+1/12+1/20) = c*(30/60+10/60+5/60+3/60)=c*48/60=4c/5=1，得c=5/4。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-403",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-概率",
+      "topicTitleZhHans": "概率",
+      "volume": "选择性必修 第一册",
+      "chapter": "概率",
+      "conceptIds": [
+        "conditional-probability",
+        "random-variables",
+        "discrete-distribution",
+        "mean-variance",
+        "binomial-distribution",
+        "normal-distribution"
+      ],
+      "competencyTags": [
+        "数据分析",
+        "数学运算",
+        "逻辑推理",
+        "数学建模"
+      ],
+      "skillTags": [
+        "样本空间建立",
+        "事件关系",
+        "互斥与对立",
+        "等可能模型",
+        "概率计算",
+        "计数与概率结合",
+        "条件信息",
+        "分步试验"
+      ],
+      "misconceptionTags": [
+        "conditional direction reversed",
+        "distribution probabilities do not sum to one",
+        "expectation and most likely value confused",
+        "normal interval read incorrectly",
+        "sample space incomplete",
+        "complement and mutual exclusion confused",
+        "equal likelihood assumed without support",
+        "conditional information ignored"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-probability-distributions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-probability-unit-core",
+        "bnu-high-s5-assessment-probability-unit-synthesis",
+        "bnu-high-s5-assessment-final-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知随机变量X服从正态分布N(2,σ²)，且P(X<4)=0.8，则P(0<X<2)等于（　）",
+      "optionsZhHans": [
+        "0.1",
+        "0.2",
+        "0.3",
+        "0.4"
+      ],
+      "answer": "0.3",
+      "acceptedAnswers": [
+        "0.3"
+      ],
+      "explanationZhHans": "由正态分布对称性，P(X<2)=0.5。P(2<X<4)=P(X<4)-P(X<2)=0.8-0.5=0.3。又P(0<X<2)=P(2<X<4)=0.3。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-404",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-概率",
+      "topicTitleZhHans": "概率",
+      "volume": "选择性必修 第一册",
+      "chapter": "概率",
+      "conceptIds": [
+        "conditional-probability",
+        "random-variables",
+        "discrete-distribution",
+        "mean-variance",
+        "binomial-distribution",
+        "normal-distribution"
+      ],
+      "competencyTags": [
+        "数据分析",
+        "数学运算",
+        "逻辑推理",
+        "数学建模"
+      ],
+      "skillTags": [
+        "样本空间建立",
+        "事件关系",
+        "互斥与对立",
+        "等可能模型",
+        "概率计算",
+        "计数与概率结合",
+        "条件信息",
+        "分步试验"
+      ],
+      "misconceptionTags": [
+        "conditional direction reversed",
+        "distribution probabilities do not sum to one",
+        "expectation and most likely value confused",
+        "normal interval read incorrectly",
+        "sample space incomplete",
+        "complement and mutual exclusion confused",
+        "equal likelihood assumed without support",
+        "conditional information ignored"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-probability-distributions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-probability-unit-core",
+        "bnu-high-s5-assessment-probability-unit-synthesis",
+        "bnu-high-s5-assessment-final-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "甲、乙两人独立地破译一个密码，他们能译出的概率分别为1/3和1/4。求密码被译出的概率。",
+      "optionsZhHans": [],
+      "answer": "\\frac{1}{2}",
+      "acceptedAnswers": [
+        "\\frac{1}{2}",
+        "1/2",
+        "0.5"
+      ],
+      "explanationZhHans": "密码被译出即至少一人译出。P=1-P(两人都未译出)=1-(1-1/3)*(1-1/4)=1-(2/3)*(3/4)=1-1/2=1/2。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-405",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-概率",
+      "topicTitleZhHans": "概率",
+      "volume": "选择性必修 第一册",
+      "chapter": "概率",
+      "conceptIds": [
+        "conditional-probability",
+        "random-variables",
+        "discrete-distribution",
+        "mean-variance",
+        "binomial-distribution",
+        "normal-distribution"
+      ],
+      "competencyTags": [
+        "数据分析",
+        "数学运算",
+        "逻辑推理",
+        "数学建模"
+      ],
+      "skillTags": [
+        "样本空间建立",
+        "事件关系",
+        "互斥与对立",
+        "等可能模型",
+        "概率计算",
+        "计数与概率结合",
+        "条件信息",
+        "分步试验"
+      ],
+      "misconceptionTags": [
+        "conditional direction reversed",
+        "distribution probabilities do not sum to one",
+        "expectation and most likely value confused",
+        "normal interval read incorrectly",
+        "sample space incomplete",
+        "complement and mutual exclusion confused",
+        "equal likelihood assumed without support",
+        "conditional information ignored"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-probability-distributions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-probability-unit-core",
+        "bnu-high-s5-assessment-probability-unit-synthesis",
+        "bnu-high-s5-assessment-final-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "设随机变量X~B(3,0.4)，则P(X=1)=______。",
+      "optionsZhHans": [],
+      "answer": "0.432",
+      "acceptedAnswers": [
+        "0.432",
+        "\\frac{54}{125}",
+        "54/125"
+      ],
+      "explanationZhHans": "X~B(3,0.4)，P(X=1)=C(3,1)*0.4^1*0.6^2=3*0.4*0.36=0.432。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-406",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-概率",
+      "topicTitleZhHans": "概率",
+      "volume": "选择性必修 第一册",
+      "chapter": "概率",
+      "conceptIds": [
+        "conditional-probability",
+        "random-variables",
+        "discrete-distribution",
+        "mean-variance",
+        "binomial-distribution",
+        "normal-distribution"
+      ],
+      "competencyTags": [
+        "数据分析",
+        "数学运算",
+        "逻辑推理",
+        "数学建模"
+      ],
+      "skillTags": [
+        "样本空间建立",
+        "事件关系",
+        "互斥与对立",
+        "等可能模型",
+        "概率计算",
+        "计数与概率结合",
+        "条件信息",
+        "分步试验"
+      ],
+      "misconceptionTags": [
+        "conditional direction reversed",
+        "distribution probabilities do not sum to one",
+        "expectation and most likely value confused",
+        "normal interval read incorrectly",
+        "sample space incomplete",
+        "complement and mutual exclusion confused",
+        "equal likelihood assumed without support",
+        "conditional information ignored"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-probability-distributions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-probability-unit-core",
+        "bnu-high-s5-assessment-probability-unit-synthesis",
+        "bnu-high-s5-assessment-final-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知离散型随机变量X的分布列为P(X=1)=0.2，P(X=2)=a，P(X=3)=0.5，且E(X)=2.3，则a等于（　）",
+      "optionsZhHans": [
+        "0.1",
+        "0.2",
+        "0.3",
+        "0.4"
+      ],
+      "answer": "0.3",
+      "acceptedAnswers": [
+        "0.3"
+      ],
+      "explanationZhHans": "由分布列性质，0.2+a+0.5=1，得a=0.3。验证期望：E(X)=1*0.2+2*0.3+3*0.5=0.2+0.6+1.5=2.3，符合。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-407",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-概率",
+      "topicTitleZhHans": "概率",
+      "volume": "选择性必修 第一册",
+      "chapter": "概率",
+      "conceptIds": [
+        "conditional-probability",
+        "random-variables",
+        "discrete-distribution",
+        "mean-variance",
+        "binomial-distribution",
+        "normal-distribution"
+      ],
+      "competencyTags": [
+        "数据分析",
+        "数学运算",
+        "逻辑推理",
+        "数学建模"
+      ],
+      "skillTags": [
+        "样本空间建立",
+        "事件关系",
+        "互斥与对立",
+        "等可能模型",
+        "概率计算",
+        "计数与概率结合",
+        "条件信息",
+        "分步试验"
+      ],
+      "misconceptionTags": [
+        "conditional direction reversed",
+        "distribution probabilities do not sum to one",
+        "expectation and most likely value confused",
+        "normal interval read incorrectly",
+        "sample space incomplete",
+        "complement and mutual exclusion confused",
+        "equal likelihood assumed without support",
+        "conditional information ignored"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-probability-distributions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-probability-unit-core",
+        "bnu-high-s5-assessment-probability-unit-synthesis",
+        "bnu-high-s5-assessment-final-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某射手每次射击击中目标的概率为0.7，现连续射击5次，求击中次数不少于3次的概率。",
+      "optionsZhHans": [],
+      "answer": "0.83692",
+      "acceptedAnswers": [
+        "0.83692",
+        "0.8369"
+      ],
+      "explanationZhHans": "击中次数X~B(5,0.7)。P(X≥3)=P(X=3)+P(X=4)+P(X=5)=C(5,3)*0.7^3*0.3^2+C(5,4)*0.7^4*0.3+C(5,5)*0.7^5=10*0.343*0.09+5*0.2401*0.3+0.16807=0.3087+0.36015+0.16807=0.83692。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-408",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-概率",
+      "topicTitleZhHans": "概率",
+      "volume": "选择性必修 第一册",
+      "chapter": "概率",
+      "conceptIds": [
+        "conditional-probability",
+        "random-variables",
+        "discrete-distribution",
+        "mean-variance",
+        "binomial-distribution",
+        "normal-distribution"
+      ],
+      "competencyTags": [
+        "数据分析",
+        "数学运算",
+        "逻辑推理",
+        "数学建模"
+      ],
+      "skillTags": [
+        "样本空间建立",
+        "事件关系",
+        "互斥与对立",
+        "等可能模型",
+        "概率计算",
+        "计数与概率结合",
+        "条件信息",
+        "分步试验"
+      ],
+      "misconceptionTags": [
+        "conditional direction reversed",
+        "distribution probabilities do not sum to one",
+        "expectation and most likely value confused",
+        "normal interval read incorrectly",
+        "sample space incomplete",
+        "complement and mutual exclusion confused",
+        "equal likelihood assumed without support",
+        "conditional information ignored"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-probability-distributions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-probability-unit-core",
+        "bnu-high-s5-assessment-probability-unit-synthesis",
+        "bnu-high-s5-assessment-final-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "设随机变量X的分布列为P(X=k)=k/10，k=1,2,3,4，则D(X)=______。",
+      "optionsZhHans": [],
+      "answer": "1",
+      "acceptedAnswers": [
+        "1"
+      ],
+      "explanationZhHans": "E(X)=1*0.1+2*0.2+3*0.3+4*0.4=0.1+0.4+0.9+1.6=3。E(X²)=1*0.1+4*0.2+9*0.3+16*0.4=0.1+0.8+2.7+6.4=10。D(X)=E(X²)-[E(X)]²=10-9=1。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-409",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-概率",
+      "topicTitleZhHans": "概率",
+      "volume": "选择性必修 第一册",
+      "chapter": "概率",
+      "conceptIds": [
+        "conditional-probability",
+        "random-variables",
+        "discrete-distribution",
+        "mean-variance",
+        "binomial-distribution",
+        "normal-distribution"
+      ],
+      "competencyTags": [
+        "数据分析",
+        "数学运算",
+        "逻辑推理",
+        "数学建模"
+      ],
+      "skillTags": [
+        "样本空间建立",
+        "事件关系",
+        "互斥与对立",
+        "等可能模型",
+        "概率计算",
+        "计数与概率结合",
+        "条件信息",
+        "分步试验"
+      ],
+      "misconceptionTags": [
+        "conditional direction reversed",
+        "distribution probabilities do not sum to one",
+        "expectation and most likely value confused",
+        "normal interval read incorrectly",
+        "sample space incomplete",
+        "complement and mutual exclusion confused",
+        "equal likelihood assumed without support",
+        "conditional information ignored"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-probability-distributions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-probability-unit-core",
+        "bnu-high-s5-assessment-probability-unit-synthesis",
+        "bnu-high-s5-assessment-final-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知随机变量X服从正态分布N(3,4)，且P(X>a)=0.16，则a约等于（　）\n（参考数据：P(μ-σ<X≤μ+σ)=0.6826，P(μ-2σ<X≤μ+2σ)=0.9544）",
+      "optionsZhHans": [
+        "5",
+        "6",
+        "7",
+        "8"
+      ],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5"
+      ],
+      "explanationZhHans": "μ=3，σ=2。P(X>μ+σ)=P(X>5)=0.1587≈0.16，故a≈5。或由对称性，P(X>3+2)=0.5-0.4772=0.0228，更精确值需查表，但选项中最接近5。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-410",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-概率",
+      "topicTitleZhHans": "概率",
+      "volume": "选择性必修 第一册",
+      "chapter": "概率",
+      "conceptIds": [
+        "conditional-probability",
+        "random-variables",
+        "discrete-distribution",
+        "mean-variance",
+        "binomial-distribution",
+        "normal-distribution"
+      ],
+      "competencyTags": [
+        "数据分析",
+        "数学运算",
+        "逻辑推理",
+        "数学建模"
+      ],
+      "skillTags": [
+        "样本空间建立",
+        "事件关系",
+        "互斥与对立",
+        "等可能模型",
+        "概率计算",
+        "计数与概率结合",
+        "条件信息",
+        "分步试验"
+      ],
+      "misconceptionTags": [
+        "conditional direction reversed",
+        "distribution probabilities do not sum to one",
+        "expectation and most likely value confused",
+        "normal interval read incorrectly",
+        "sample space incomplete",
+        "complement and mutual exclusion confused",
+        "equal likelihood assumed without support",
+        "conditional information ignored"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-probability-distributions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-probability-unit-core",
+        "bnu-high-s5-assessment-probability-unit-synthesis",
+        "bnu-high-s5-assessment-final-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "甲、乙、丙三人参加某项测试，他们能达标的概率分别是0.8、0.6、0.5，且各人能否达标相互独立。求三人中恰有两人达标的概率。",
+      "optionsZhHans": [],
+      "answer": "0.46",
+      "acceptedAnswers": [
+        "0.46",
+        "\\frac{23}{50}",
+        "23/50"
+      ],
+      "explanationZhHans": "恰有两人达标有三种情况：甲乙达标丙未达标：0.8*0.6*0.5=0.24；甲丙达标乙未达标：0.8*0.4*0.5=0.16；乙丙达标甲未达标：0.2*0.6*0.5=0.06。总和=0.24+0.16+0.06=0.46。"
+    }
+  ]
+}

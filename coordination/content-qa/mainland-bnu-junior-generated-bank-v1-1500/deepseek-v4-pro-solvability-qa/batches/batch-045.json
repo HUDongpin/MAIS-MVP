@@ -1,0 +1,177 @@
+{
+  "batchNumber": 45,
+  "startedAt": "2026-05-27T17:35:10.981Z",
+  "completedAt": "2026-05-27T17:35:31.237Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s2-029",
+    "bnu-junior-ds-v1-s2-030",
+    "bnu-junior-ds-v1-s2-031",
+    "bnu-junior-ds-v1-s2-032",
+    "bnu-junior-ds-v1-s2-033",
+    "bnu-junior-ds-v1-s2-034",
+    "bnu-junior-ds-v1-s2-035",
+    "bnu-junior-ds-v1-s2-036",
+    "bnu-junior-ds-v1-s2-037",
+    "bnu-junior-ds-v1-s2-038",
+    "bnu-junior-ds-v1-s2-039",
+    "bnu-junior-ds-v1-s2-040"
+  ],
+  "usage": {
+    "prompt_tokens": 6414,
+    "completion_tokens": 1344,
+    "total_tokens": 7758,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 5902
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s2-029",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，需分类讨论，答案“5或√7”正确，解释清晰，符合北师大版勾股定理要求。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-030",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件完整，利用勾股定理和角平分线性质可解，答案120/23正确，解释步骤合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-031",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch",
+          "ambiguous_mc"
+        ],
+        "correctedAnswer": "三角形ABC是直角三角形，∠B是直角",
+        "rationale": "解释中正确指出∠B是直角，但答案却写“∠C是直角”，选项C对应∠A是直角，选项B对应∠C是直角，选项A对应∠B是直角。正确答案应为选项A，答案与解释矛盾，且选项设置导致答案不唯一。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-032",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目描述清晰，构成直角三角形，答案10km正确，解释符合勾股定理应用。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-033",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "直接应用勾股定理，答案15正确，解释无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-034",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "需分类讨论，答案“10或2√7”正确，选项C匹配，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-035",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "梯子问题典型，答案12米正确，解释符合勾股定理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-036",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "先判定直角三角形，再求面积，答案84正确，解释清晰。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-037",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "勾股数判定，选项C正确，解释无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-038",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "在直角三角形ABC中直接应用勾股定理，答案5正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-039",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "已知斜边和一直角边求另一直角边，答案8正确，解释无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-040",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "无理数辨识，√8是无理数，答案正确，解释清晰。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 11,
+      "warn": 0,
+      "fail": 1,
+      "notes": "共12题，11题通过，1题失败。失败题bnu-junior-ds-v1-s2-031答案与解释矛盾，正确答案应为∠B是直角，选项A。"
+    }
+  }
+}

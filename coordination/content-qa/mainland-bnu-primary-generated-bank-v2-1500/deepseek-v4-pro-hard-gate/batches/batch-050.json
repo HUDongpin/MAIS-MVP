@@ -1,0 +1,330 @@
+{
+  "batchNumber": 50,
+  "startedAt": "2026-05-26T17:02:06.514Z",
+  "completedAt": "2026-05-26T17:02:32.501Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p6-221",
+    "bnu-primary-ds-v2-p6-222",
+    "bnu-primary-ds-v2-p6-223",
+    "bnu-primary-ds-v2-p6-224",
+    "bnu-primary-ds-v2-p6-225",
+    "bnu-primary-ds-v2-p6-226",
+    "bnu-primary-ds-v2-p6-227",
+    "bnu-primary-ds-v2-p6-228",
+    "bnu-primary-ds-v2-p6-229",
+    "bnu-primary-ds-v2-p6-230",
+    "bnu-primary-ds-v2-p6-231",
+    "bnu-primary-ds-v2-p6-232",
+    "bnu-primary-ds-v2-p6-233",
+    "bnu-primary-ds-v2-p6-234",
+    "bnu-primary-ds-v2-p6-235",
+    "bnu-primary-ds-v2-p6-236",
+    "bnu-primary-ds-v2-p6-237",
+    "bnu-primary-ds-v2-p6-238",
+    "bnu-primary-ds-v2-p6-239",
+    "bnu-primary-ds-v2-p6-240",
+    "bnu-primary-ds-v2-p6-241",
+    "bnu-primary-ds-v2-p6-242",
+    "bnu-primary-ds-v2-p6-243",
+    "bnu-primary-ds-v2-p6-244",
+    "bnu-primary-ds-v2-p6-245",
+    "bnu-primary-ds-v2-p6-246",
+    "bnu-primary-ds-v2-p6-247",
+    "bnu-primary-ds-v2-p6-248",
+    "bnu-primary-ds-v2-p6-249",
+    "bnu-primary-ds-v2-p6-250"
+  ],
+  "usage": {
+    "prompt_tokens": 6082,
+    "completion_tokens": 2315,
+    "total_tokens": 8397,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 5698
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p6-221",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "周长计算正确，选项唯一，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-222",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "除法计算正确，答案完整。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-223",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "比例应用正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-224",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "正方体棱长计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-225",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "侧面积计算正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-226",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "圆锥体积与质量计算正确，保留整数合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-227",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "比例尺与面积计算正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-228",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "体积转换计算正确，保留整数合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-229",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "等底等高圆柱圆锥体积关系正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-230",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "侧面展开正方形，高等于底面周长，计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-231",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "小路宽度忽略，总面积不变，推理正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-232",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "按面积比求概率，分数最简，正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-233",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "规律为连续奇数，选项A正确，其他选项错误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-234",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "圆柱容积计算正确，单位换算无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-235",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "正比例判断正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-236",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "比例尺与行程计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-237",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "按比例分配角度，最大角80°，锐角三角形，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-238",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "锯木料增加底面积，体积计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-239",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "对称轴数量比较正确，圆有无数条。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-240",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "圆锥体积与质量计算正确，保留整数合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-241",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "计算结果比较正确，25最大。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-242",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "圆柱容积公式正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-243",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "求多百分之几列式正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-244",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "三角形分类正确，与237题类似。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-245",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "正反比例判断正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-246",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "圆锥体积公式应用正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-247",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "列方程正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-248",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "众数判断正确，所有数据出现一次，无众数。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-249",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "长方体体积变化正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-250",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "体积转换求高，算式正确，选项唯一。"
+      }
+    ],
+    "batchSummary": {
+      "solvableYes": 30,
+      "solvableNo": 0,
+      "answerMatchYes": 30,
+      "answerMatchNo": 0,
+      "notes": "全部30题均可解，答案匹配，无问题。"
+    }
+  }
+}

@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-104",
+  "startedAt": "2026-05-28T01:26:23.184Z",
+  "completedAt": "2026-05-28T01:26:39.320Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-325",
+    "bnu-high-ds-v1-s5-326",
+    "bnu-high-ds-v1-s5-327",
+    "bnu-high-ds-v1-s5-328",
+    "bnu-high-ds-v1-s5-329",
+    "bnu-high-ds-v1-s5-330",
+    "bnu-high-ds-v1-s5-331",
+    "bnu-high-ds-v1-s5-332"
+  ],
+  "usage": {
+    "prompt_tokens": 10001,
+    "completion_tokens": 1134,
+    "total_tokens": 11135,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9617
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-325",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "310",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "总选法C(11,4)=330，减去全男C(6,4)=15和全女C(5,4)=5，得330-20=310。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-326",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "60",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "甲得2本：选书C(5,2)=10种；剩余3本分给乙丙，每人至少1本，只能是1+2分配，先选1本给乙C(3,1)=3，剩下2本给丙，共10×3×2=60种。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-327",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "第5项",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "(1+x)^7展开共8项，二项式系数C(7,k)在k=3或4时最大，对应第4项和第5项，通常取第5项。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-328",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "0.475",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "至少参加一项人数=15+12-8=19，概率=19/40=0.475。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-329",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "正四面体相邻面不同色，相当于用3种颜色给4个面涂色，每种颜色至少用一次，旋转等价类只有3种：一种颜色用两次，另两种各一次，且两次的颜色有3种选择。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-330",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "1792",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "通项C(8,k)(2x)^{8-k}(-1/x)^k = C(8,k)2^{8-k}(-1)^k x^{8-2k}，令8-2k=0得k=4，常数项=C(8,4)2^4=70×16=1120。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-331",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "52",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "偶数要求个位0,2,4。个位0：百位十位从剩下5个选2个排列A(5,2)=20；个位2或4：百位不能是0，先选百位4种，再选十位4种，共2×4×4=32；总计52。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-332",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "-160",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "通项C(6,k)(2x)^{6-k}(-1/x)^k = C(6,k)2^{6-k}(-1)^k x^{6-2k}，令6-2k=0得k=3，常数项=C(6,3)2^3(-1)^3=20×8×(-1)=-160。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均能独立求解，答案明确，无歧义或缺失条件，符合北师大版高中计数原理章节要求。"
+    }
+  }
+}

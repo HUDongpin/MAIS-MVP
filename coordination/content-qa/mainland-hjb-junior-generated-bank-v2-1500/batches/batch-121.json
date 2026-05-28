@@ -1,0 +1,325 @@
+{
+  "batchId": "batch-121",
+  "questions": [
+    {
+      "id": "hjb-junior-ds-v2-s2-101",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "hjb-junior-s2-upper-quadratic-radicals",
+      "unitTitle": "二次根式",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "radicals",
+        "quadratic-radicals",
+        "radical-simplification",
+        "radical-operations",
+        "二次根式"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "符号意识",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "二次根式意义",
+        "最简二次根式",
+        "二次根式乘除",
+        "二次根式加减",
+        "化简求值"
+      ],
+      "misconceptionTags": [
+        "nonnegative condition ignored",
+        "radicals combined across unlike radicands",
+        "factor extraction incomplete"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-junior-s2-upper-quadratic-radicals"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-upper-paper-quadratic-radicals-unit",
+        "hjb-junior-s2-upper-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "若二次根式 \\(\\sqrt{3x-6}\\) 在实数范围内有意义，则 \\(x\\) 的取值范围是______。",
+      "optionsZhHans": [],
+      "answer": "\\(x \\geq 2\\)",
+      "acceptedAnswers": [
+        "\\(x \\geq 2\\)",
+        "x≥2",
+        "x>=2"
+      ],
+      "explanationZhHans": "被开方数非负：\\(3x-6 \\ge 0\\)，解得 \\(x \\ge 2\\)。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-102",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "hjb-junior-s2-upper-quadratic-radicals",
+      "unitTitle": "二次根式",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "radicals",
+        "quadratic-radicals",
+        "radical-simplification",
+        "radical-operations",
+        "二次根式"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "符号意识",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "二次根式意义",
+        "最简二次根式",
+        "二次根式乘除",
+        "二次根式加减",
+        "化简求值"
+      ],
+      "misconceptionTags": [
+        "nonnegative condition ignored",
+        "radicals combined across unlike radicands",
+        "factor extraction incomplete"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s2-upper-quadratic-radicals"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-upper-paper-quadratic-radicals-unit",
+        "hjb-junior-s2-upper-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算：\\(\\sqrt{48} - \\sqrt{27} + \\sqrt{12}\\)，并将结果化为最简二次根式。",
+      "optionsZhHans": [],
+      "answer": "\\(3\\sqrt{3}\\)",
+      "acceptedAnswers": [
+        "\\(3\\sqrt{3}\\)",
+        "3√3"
+      ],
+      "explanationZhHans": "化简：\\(\\sqrt{48}=4\\sqrt{3}\\)，\\(\\sqrt{27}=3\\sqrt{3}\\)，\\(\\sqrt{12}=2\\sqrt{3}\\)。原式=\\(4\\sqrt{3}-3\\sqrt{3}+2\\sqrt{3}=3\\sqrt{3}\\)。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-103",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "hjb-junior-s2-upper-quadratic-radicals",
+      "unitTitle": "二次根式",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "radicals",
+        "quadratic-radicals",
+        "radical-simplification",
+        "radical-operations",
+        "二次根式"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "符号意识",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "二次根式意义",
+        "最简二次根式",
+        "二次根式乘除",
+        "二次根式加减",
+        "化简求值"
+      ],
+      "misconceptionTags": [
+        "nonnegative condition ignored",
+        "radicals combined across unlike radicands",
+        "factor extraction incomplete"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s2-upper-quadratic-radicals"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-upper-paper-quadratic-radicals-unit",
+        "hjb-junior-s2-upper-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下列二次根式中，与 \\(\\sqrt{18}\\) 是同类二次根式的是（　）。",
+      "optionsZhHans": [
+        "\\(\\sqrt{8}\\)",
+        "\\(\\sqrt{12}\\)",
+        "\\(\\sqrt{20}\\)",
+        "\\(\\sqrt{27}\\)"
+      ],
+      "answer": "\\(\\sqrt{8}\\)",
+      "acceptedAnswers": [
+        "\\(\\sqrt{8}\\)"
+      ],
+      "explanationZhHans": "\\(\\sqrt{18}=3\\sqrt{2}\\)，\\(\\sqrt{8}=2\\sqrt{2}\\)，被开方数相同，是同类二次根式。其他选项化简后分别为\\(2\\sqrt{3}\\)、\\(2\\sqrt{5}\\)、\\(3\\sqrt{3}\\)。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-104",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "hjb-junior-s2-upper-quadratic-radicals",
+      "unitTitle": "二次根式",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "radicals",
+        "quadratic-radicals",
+        "radical-simplification",
+        "radical-operations",
+        "二次根式"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "符号意识",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "二次根式意义",
+        "最简二次根式",
+        "二次根式乘除",
+        "二次根式加减",
+        "化简求值"
+      ],
+      "misconceptionTags": [
+        "nonnegative condition ignored",
+        "radicals combined across unlike radicands",
+        "factor extraction incomplete"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-junior-s2-upper-quadratic-radicals"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-upper-paper-quadratic-radicals-unit",
+        "hjb-junior-s2-upper-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "化简：\\(\\sqrt{72a^2b}\\)（其中 \\(a>0, b>0\\)），结果为______。",
+      "optionsZhHans": [],
+      "answer": "\\(6a\\sqrt{2b}\\)",
+      "acceptedAnswers": [
+        "\\(6a\\sqrt{2b}\\)",
+        "6a√(2b)"
+      ],
+      "explanationZhHans": "\\(\\sqrt{72a^2b}=\\sqrt{36\\cdot 2 \\cdot a^2 \\cdot b}=6a\\sqrt{2b}\\)。注意 \\(a>0\\) 保证 \\(\\sqrt{a^2}=a\\)。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-105",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "hjb-junior-s2-upper-quadratic-radicals",
+      "unitTitle": "二次根式",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "radicals",
+        "quadratic-radicals",
+        "radical-simplification",
+        "radical-operations",
+        "二次根式"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "符号意识",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "二次根式意义",
+        "最简二次根式",
+        "二次根式乘除",
+        "二次根式加减",
+        "化简求值"
+      ],
+      "misconceptionTags": [
+        "nonnegative condition ignored",
+        "radicals combined across unlike radicands",
+        "factor extraction incomplete"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s2-upper-quadratic-radicals"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-upper-paper-quadratic-radicals-unit",
+        "hjb-junior-s2-upper-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "先化简，再求值：\\(\\frac{\\sqrt{x^2-4x+4}}{x-2} - \\frac{\\sqrt{x^2+2x+1}}{x+1}\\)，其中 \\(x=3\\)。",
+      "optionsZhHans": [],
+      "answer": "\\(0\\)",
+      "acceptedAnswers": [
+        "\\(0\\)",
+        "0"
+      ],
+      "explanationZhHans": "原式=\\(\\frac{|x-2|}{x-2} - \\frac{|x+1|}{x+1}\\)。当 \\(x=3\\) 时，\\(x-2>0, x+1>0\\)，故原式=\\(1-1=0\\)。"
+    }
+  ]
+}

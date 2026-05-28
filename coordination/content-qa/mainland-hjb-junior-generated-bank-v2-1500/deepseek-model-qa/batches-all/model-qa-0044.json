@@ -1,0 +1,112 @@
+{
+  "batchId": "model-qa-0044",
+  "ids": [
+    "hjb-junior-ds-v2-s1-345",
+    "hjb-junior-ds-v2-s1-346",
+    "hjb-junior-ds-v2-s1-347",
+    "hjb-junior-ds-v2-s1-348",
+    "hjb-junior-ds-v2-s1-349",
+    "hjb-junior-ds-v2-s1-350",
+    "hjb-junior-ds-v2-s1-351",
+    "hjb-junior-ds-v2-s1-352"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-345",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "missing-condition",
+        "ambiguous-prompt"
+      ],
+      "issueDetailsZhHans": "题干未给出图形，也未说明∠1和∠2的位置关系。解析中称∠1与∠2是同旁内角，但题干未提供此信息，无法唯一确定∠2的度数。",
+      "independentAnswerZhHans": "无法确定，缺少∠1和∠2的位置关系。",
+      "answerCheckZhHans": "给定答案70°基于∠1与∠2是同旁内角的假设，但题干未说明，因此答案不可靠。",
+      "recommendedActionZhHans": "补充图形或明确∠1与∠2的位置关系（如同旁内角）。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-346",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "84°",
+      "answerCheckZhHans": "答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-347",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "70",
+      "answerCheckZhHans": "答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-348",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "missing-condition",
+        "ambiguous-prompt"
+      ],
+      "issueDetailsZhHans": "题干未给出图形，点E在AB上且在O左侧，点F在CD上且在O下方，但未明确∠EOB和∠DOF的边与已知射线的关系。解析中假设∠EOB与∠BOF是邻补角，但未说明F在OB上，且∠DOF的计算依赖于F的位置，无法唯一确定。",
+      "independentAnswerZhHans": "无法确定，缺少图形或更精确的位置描述。",
+      "answerCheckZhHans": "给定答案88°基于特定假设，但题干条件不充分。",
+      "recommendedActionZhHans": "补充图形或明确点F的位置（如F在射线OD上）。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-349",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "70°",
+      "answerCheckZhHans": "答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-350",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析中称∠COE=∠BOD+∠DOE，但∠BOD与∠AOC是对顶角，而∠COE是∠BOD与∠DOE之和的前提是点E在∠BOD内部，但题干说OE在∠AOD内部，这可能导致∠COE不等于∠BOD+∠DOE。实际上，∠COE=90°，∠AOC=50°，则∠AOE=40°，而∠DOE=∠AOD-∠AOE，∠AOD=180°-∠AOC=130°，所以∠DOE=130°-40°=90°。答案应为90°，而非40°。",
+      "independentAnswerZhHans": "90°",
+      "answerCheckZhHans": "给定答案40°错误，正确应为90°。",
+      "recommendedActionZhHans": "修正答案和解析。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-351",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "50°",
+      "answerCheckZhHans": "答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-352",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "a∥b，因为同旁内角互补",
+      "answerCheckZhHans": "答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

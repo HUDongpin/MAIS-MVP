@@ -1,0 +1,47 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-470",
+  "startedAt": "2026-05-28T01:35:14.443Z",
+  "completedAt": "2026-05-28T01:35:18.702Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-470"
+  ],
+  "usage": {
+    "prompt_tokens": 2256,
+    "completion_tokens": 248,
+    "total_tokens": 2504,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1872
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-470",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "3.9",
+        "correctedAnswer": null,
+        "issueTags": [
+          "explanation_contradiction"
+        ],
+        "severity": "major",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，回归计算正确得预测值3.9万元。存储答案3.9与独立解一致，但解析中a值计算错误（0.2218应为0.46），导致解析过程与最终答案矛盾，需修正解析。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 1,
+      "fail": 0,
+      "notes": "1题解析存在计算错误，答案数值正确但解析矛盾，建议修正解析。"
+    }
+  }
+}

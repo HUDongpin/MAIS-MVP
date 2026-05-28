@@ -1,0 +1,48 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-492",
+  "startedAt": "2026-05-28T01:57:28.485Z",
+  "completedAt": "2026-05-28T01:57:32.840Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-492"
+  ],
+  "usage": {
+    "prompt_tokens": 2286,
+    "completion_tokens": 255,
+    "total_tokens": 2541,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1902
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-492",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "y = -9x + 11",
+        "correctedAnswer": "y = -9x + 11",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，独立计算得切线方程 y=-9x+11。存储答案 y=-9x+15 错误，解析中 y=-9x+1 与答案不一致，存在数学错误和解释矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1题答案错误，解析矛盾，判定为blocker。"
+    }
+  }
+}

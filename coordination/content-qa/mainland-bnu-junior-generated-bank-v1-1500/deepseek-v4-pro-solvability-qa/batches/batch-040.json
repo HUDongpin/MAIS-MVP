@@ -1,0 +1,173 @@
+{
+  "batchNumber": 40,
+  "startedAt": "2026-05-27T17:33:31.974Z",
+  "completedAt": "2026-05-27T17:33:48.442Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s1-469",
+    "bnu-junior-ds-v1-s1-470",
+    "bnu-junior-ds-v1-s1-471",
+    "bnu-junior-ds-v1-s1-472",
+    "bnu-junior-ds-v1-s1-473",
+    "bnu-junior-ds-v1-s1-474",
+    "bnu-junior-ds-v1-s1-475",
+    "bnu-junior-ds-v1-s1-476",
+    "bnu-junior-ds-v1-s1-477",
+    "bnu-junior-ds-v1-s1-478",
+    "bnu-junior-ds-v1-s1-479",
+    "bnu-junior-ds-v1-s1-480"
+  ],
+  "usage": {
+    "prompt_tokens": 5358,
+    "completion_tokens": 1193,
+    "total_tokens": 6551,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 4846
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s1-469",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目明确，选项概率计算正确，答案唯一且与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-470",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "条件充分，计算正确，答案与解释匹配，接受答案覆盖合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-471",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项设计合理，答案唯一，概率计算正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-472",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "转盘等分，偶数个数明确，概率计算正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-473",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "骰子等可能，点数大于4的结果明确，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-474",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "扑克牌去掉大小王后红桃张数明确，概率计算正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-475",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "通过概率列方程求解，条件充分，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-476",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "蓝球数量可求，概率计算正确，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-477",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "转盘等分，红色扇形数量明确，概率计算正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-478",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "红球和白球数量明确，总球数已知，概率计算正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-479",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "两枚硬币等可能结果明确，概率计算正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-480",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "通过概率列方程求解，条件充分，答案正确。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均条件充分、可解，答案与解释匹配，无错误或歧义。"
+    }
+  }
+}

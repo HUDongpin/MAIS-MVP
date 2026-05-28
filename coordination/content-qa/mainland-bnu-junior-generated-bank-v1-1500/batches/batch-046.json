@@ -1,0 +1,620 @@
+{
+  "batchId": "batch-046",
+  "questions": [
+    {
+      "id": "bnu-junior-ds-v1-s1-451",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-axis-symmetry",
+      "unitTitle": "生活中的轴对称",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "axis-symmetry",
+        "symmetric-figures",
+        "perpendicular-bisector",
+        "reflection",
+        "轴对称"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "识别轴对称图形",
+        "作对称轴",
+        "画对称点",
+        "垂直平分线",
+        "对称性质应用"
+      ],
+      "misconceptionTags": [
+        "symmetry axis guessed from near balance",
+        "corresponding points mismatched",
+        "perpendicular bisector condition incomplete"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-axis-symmetry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-axis-symmetry-unit",
+        "bnu-junior-s1-lower-assessment-final-1-to-6-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations",
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系中，点A的坐标为(2,3)。点B是点A关于x轴的对称点，点C是点B关于y轴的对称点。求点C的坐标。",
+      "optionsZhHans": [
+        "(2,3)",
+        "(-2,3)",
+        "(-2,-3)",
+        "(2,-3)"
+      ],
+      "answer": "(-2,-3)",
+      "acceptedAnswers": [
+        "(-2,-3)"
+      ],
+      "explanationZhHans": "点A(2,3)关于x轴对称得B(2,-3)；B关于y轴对称得C(-2,-3)。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-452",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-axis-symmetry",
+      "unitTitle": "生活中的轴对称",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "axis-symmetry",
+        "symmetric-figures",
+        "perpendicular-bisector",
+        "reflection",
+        "轴对称"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "识别轴对称图形",
+        "作对称轴",
+        "画对称点",
+        "垂直平分线",
+        "对称性质应用"
+      ],
+      "misconceptionTags": [
+        "symmetry axis guessed from near balance",
+        "corresponding points mismatched",
+        "perpendicular bisector condition incomplete"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-axis-symmetry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-axis-symmetry-unit",
+        "bnu-junior-s1-lower-assessment-final-1-to-6-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations",
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系中，点A的坐标为(3, -2)。点B与点A关于x轴对称，点C与点B关于y轴对称。求点C的坐标。",
+      "optionsZhHans": [],
+      "answer": "(-3, 2)",
+      "acceptedAnswers": [
+        "(-3, 2)",
+        "（-3，2）"
+      ],
+      "explanationZhHans": "点A(3,-2)关于x轴对称得B(3,2)；B关于y轴对称得C(-3,2)。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-453",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-axis-symmetry",
+      "unitTitle": "生活中的轴对称",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "axis-symmetry",
+        "symmetric-figures",
+        "perpendicular-bisector",
+        "reflection",
+        "轴对称"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "识别轴对称图形",
+        "作对称轴",
+        "画对称点",
+        "垂直平分线",
+        "对称性质应用"
+      ],
+      "misconceptionTags": [
+        "symmetry axis guessed from near balance",
+        "corresponding points mismatched",
+        "perpendicular bisector condition incomplete"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-axis-symmetry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-axis-symmetry-unit",
+        "bnu-junior-s1-lower-assessment-final-1-to-6-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations",
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系中，点A的坐标为(2, 5)，点B的坐标为(2, -1)。线段AB关于x轴对称得到线段A'B'，其中点A的对称点为A'，点B的对称点为B'。求线段A'B'的长度。",
+      "optionsZhHans": [
+        "4",
+        "5",
+        "6",
+        "7"
+      ],
+      "answer": "6",
+      "acceptedAnswers": [
+        "6"
+      ],
+      "explanationZhHans": "点A(2,5)关于x轴对称得A'(2,-5)；点B(2,-1)关于x轴对称得B'(2,1)。A'B'为竖直线段，长度=1-(-5)=6。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-454",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-axis-symmetry",
+      "unitTitle": "生活中的轴对称",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "axis-symmetry",
+        "symmetric-figures",
+        "perpendicular-bisector",
+        "reflection",
+        "轴对称"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "识别轴对称图形",
+        "作对称轴",
+        "画对称点",
+        "垂直平分线",
+        "对称性质应用"
+      ],
+      "misconceptionTags": [
+        "symmetry axis guessed from near balance",
+        "corresponding points mismatched",
+        "perpendicular bisector condition incomplete"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-axis-symmetry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-axis-symmetry-unit",
+        "bnu-junior-s1-lower-assessment-final-1-to-6-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations",
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系中，点 A 的坐标是 (2, 5)，点 B 的坐标是 (6, 5)。点 A 与点 B 关于某条直线对称。请写出这条对称轴的方程，并说明理由。",
+      "optionsZhHans": [],
+      "answer": "对称轴是直线 x = 4。因为点 A 和点 B 的纵坐标相同，所以对称轴是垂直于 x 轴的直线，且经过线段 AB 的中点。线段 AB 的中点横坐标为 (2+6)/2 = 4，纵坐标为 5，所以对称轴是直线 x = 4。",
+      "acceptedAnswers": [
+        "对称轴是直线 x = 4。因为点 A 和点 B 的纵坐标相同，所以对称轴是垂直于 x 轴的直线，且经过线段 AB 的中点。线段 AB 的中点横坐标为 (2+6)/2 = 4，纵坐标为 5，所以对称轴是直线 x = 4。",
+        "x=4",
+        "直线 x=4"
+      ],
+      "explanationZhHans": "点 A(2,5) 与 B(6,5) 纵坐标相等，对称轴为线段 AB 的垂直平分线，即过中点 (4,5) 且垂直于 AB 的直线，故方程为 x=4。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-455",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-axis-symmetry",
+      "unitTitle": "生活中的轴对称",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "axis-symmetry",
+        "symmetric-figures",
+        "perpendicular-bisector",
+        "reflection",
+        "轴对称"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "识别轴对称图形",
+        "作对称轴",
+        "画对称点",
+        "垂直平分线",
+        "对称性质应用"
+      ],
+      "misconceptionTags": [
+        "symmetry axis guessed from near balance",
+        "corresponding points mismatched",
+        "perpendicular bisector condition incomplete"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-axis-symmetry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-axis-symmetry-unit",
+        "bnu-junior-s1-lower-assessment-final-1-to-6-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations",
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系中，点A的坐标是(2, 3)，点B的坐标是(2, -1)。点C是线段AB的垂直平分线上的一个点，且点C的横坐标是4。求点C的纵坐标。",
+      "optionsZhHans": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "answer": "1",
+      "acceptedAnswers": [
+        "1"
+      ],
+      "explanationZhHans": "线段AB的端点A(2,3)和B(2,-1)的横坐标相同，故AB为竖直线段，其中点为(2,1)。垂直平分线为水平线y=1。点C在垂直平分线上且横坐标为4，因此纵坐标为1。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-456",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-axis-symmetry",
+      "unitTitle": "生活中的轴对称",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "axis-symmetry",
+        "symmetric-figures",
+        "perpendicular-bisector",
+        "reflection",
+        "轴对称"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "识别轴对称图形",
+        "作对称轴",
+        "画对称点",
+        "垂直平分线",
+        "对称性质应用"
+      ],
+      "misconceptionTags": [
+        "symmetry axis guessed from near balance",
+        "corresponding points mismatched",
+        "perpendicular bisector condition incomplete"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-axis-symmetry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-axis-symmetry-unit",
+        "bnu-junior-s1-lower-assessment-final-1-to-6-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations",
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系中，点A的坐标为(2,3)，点B的坐标为(2,-1)。点C与点A关于x轴对称，点D与点B关于y轴对称。连接AC、BD，设AC与BD相交于点P。求点P的坐标。",
+      "optionsZhHans": [],
+      "answer": "(2,0)",
+      "acceptedAnswers": [
+        "(2,0)",
+        "（2，0）",
+        "2,0",
+        "x=2,y=0"
+      ],
+      "explanationZhHans": "点A(2,3)关于x轴对称得C(2,-3)；点B(2,-1)关于y轴对称得D(-2,-1)。直线AC为x=2，直线BD为y=-1，交点P为(2,-1)。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-457",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-axis-symmetry",
+      "unitTitle": "生活中的轴对称",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "axis-symmetry",
+        "symmetric-figures",
+        "perpendicular-bisector",
+        "reflection",
+        "轴对称"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "识别轴对称图形",
+        "作对称轴",
+        "画对称点",
+        "垂直平分线",
+        "对称性质应用"
+      ],
+      "misconceptionTags": [
+        "symmetry axis guessed from near balance",
+        "corresponding points mismatched",
+        "perpendicular bisector condition incomplete"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-axis-symmetry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-axis-symmetry-unit",
+        "bnu-junior-s1-lower-assessment-final-1-to-6-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations",
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系中，点A的坐标为(2, 3)，点B的坐标为(2, -1)。点A与点B关于一条直线对称，这条直线是（ ）。",
+      "optionsZhHans": [
+        "x轴",
+        "y轴",
+        "直线y=1",
+        "直线x=2"
+      ],
+      "answer": "直线y=1",
+      "acceptedAnswers": [
+        "直线y=1"
+      ],
+      "explanationZhHans": "点A(2,3)与点B(2,-1)的横坐标相同，纵坐标的平均值为(3+(-1))/2=1，所以对称轴是水平直线y=1。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-458",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-axis-symmetry",
+      "unitTitle": "生活中的轴对称",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "axis-symmetry",
+        "symmetric-figures",
+        "perpendicular-bisector",
+        "reflection",
+        "轴对称"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "识别轴对称图形",
+        "作对称轴",
+        "画对称点",
+        "垂直平分线",
+        "对称性质应用"
+      ],
+      "misconceptionTags": [
+        "symmetry axis guessed from near balance",
+        "corresponding points mismatched",
+        "perpendicular bisector condition incomplete"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-axis-symmetry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-axis-symmetry-unit",
+        "bnu-junior-s1-lower-assessment-final-1-to-6-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations",
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系中，点A的坐标为(2,3)，点B的坐标为(4,1)。直线l是线段AB的垂直平分线。点P是点A关于直线l的对称点。求点P的坐标。",
+      "optionsZhHans": [],
+      "answer": "(4, -1)",
+      "acceptedAnswers": [
+        "(4, -1)",
+        "(4,-1)"
+      ],
+      "explanationZhHans": "先求AB中点M(3,2)。AB斜率为(1-3)/(4-2)=-1，故垂直平分线l斜率为1。l过M，方程为y-2=1(x-3)，即y=x-1。设P(a,b)，则AP中点在l上且AP⊥l。由对称得P(4,-1)。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-459",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-axis-symmetry",
+      "unitTitle": "生活中的轴对称",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "axis-symmetry",
+        "symmetric-figures",
+        "perpendicular-bisector",
+        "reflection",
+        "轴对称"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "识别轴对称图形",
+        "作对称轴",
+        "画对称点",
+        "垂直平分线",
+        "对称性质应用"
+      ],
+      "misconceptionTags": [
+        "symmetry axis guessed from near balance",
+        "corresponding points mismatched",
+        "perpendicular bisector condition incomplete"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-axis-symmetry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-axis-symmetry-unit",
+        "bnu-junior-s1-lower-assessment-final-1-to-6-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations",
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系中，点A的坐标为(2, 3)，点B的坐标为(5, 1)。将线段AB关于x轴作轴对称变换，得到线段A'B'，其中A'是A的对应点，B'是B的对应点。则点A'的坐标是（　）",
+      "optionsZhHans": [
+        "(2, -3)",
+        "(-2, 3)",
+        "(2, 3)",
+        "(-2, -3)"
+      ],
+      "answer": "(2, -3)",
+      "acceptedAnswers": [
+        "(2, -3)"
+      ],
+      "explanationZhHans": "关于x轴对称，横坐标不变，纵坐标变为相反数。A(2,3)关于x轴对称得A'(2,-3)。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-460",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-probability-introduction",
+      "unitTitle": "概率初步",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "probability-introduction",
+        "random-events",
+        "equally-likely-outcomes",
+        "experimental-probability",
+        "概率初步"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "随机事件",
+        "可能性大小",
+        "等可能结果",
+        "简单概率计算",
+        "试验频率解释"
+      ],
+      "misconceptionTags": [
+        "all listed outcomes assumed equally likely",
+        "frequency treated as exact probability after few trials",
+        "event and outcome confused"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-probability-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-probability-introduction-unit",
+        "bnu-junior-s1-lower-assessment-midterm-1-to-3-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个不透明的袋子里装有3个红球和2个白球，这些球除颜色外完全相同。搅匀后从中随机摸出1个球，记录颜色后放回，再搅匀，再随机摸出1个球。请回答：两次摸球的结果共有多少种等可能的情况？其中两次都摸到红球的情况有多少种？",
+      "optionsZhHans": [],
+      "answer": "共有25种等可能的情况，其中两次都摸到红球的情况有9种。",
+      "acceptedAnswers": [
+        "共有25种等可能的情况，其中两次都摸到红球的情况有9种。",
+        "25种，9种",
+        "25,9",
+        "25和9"
+      ],
+      "explanationZhHans": "第一次摸球有5种等可能结果（3红2白），放回后第二次仍有5种等可能结果，因此总情况数为5×5=25。两次都摸到红球：第一次摸到红球有3种，第二次摸到红球也有3种，共3×3=9种。"
+    }
+  ]
+}

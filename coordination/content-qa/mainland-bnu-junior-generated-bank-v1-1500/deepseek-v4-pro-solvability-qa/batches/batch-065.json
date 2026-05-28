@@ -1,0 +1,176 @@
+{
+  "batchNumber": 65,
+  "startedAt": "2026-05-27T17:41:19.045Z",
+  "completedAt": "2026-05-27T17:41:40.772Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s2-269",
+    "bnu-junior-ds-v1-s2-270",
+    "bnu-junior-ds-v1-s2-271",
+    "bnu-junior-ds-v1-s2-272",
+    "bnu-junior-ds-v1-s2-273",
+    "bnu-junior-ds-v1-s2-274",
+    "bnu-junior-ds-v1-s2-275",
+    "bnu-junior-ds-v1-s2-276",
+    "bnu-junior-ds-v1-s2-277",
+    "bnu-junior-ds-v1-s2-278",
+    "bnu-junior-ds-v1-s2-279",
+    "bnu-junior-ds-v1-s2-280"
+  ],
+  "usage": {
+    "prompt_tokens": 7815,
+    "completion_tokens": 1454,
+    "total_tokens": 9269,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 7303
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s2-269",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件完整，角度关系明确，可判定平行，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-270",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "证明过程完整，填空处为判定依据，答案正确且与解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-271",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项唯一正确，内错角相等判定平行，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-272",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "条件充分，同旁内角互补可证平行，答案与解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-273",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "110°",
+        "rationale": "题目可解，但答案应为110°，而提供的答案是110°，但解释中计算得出∠ADB=90°，∠ADC=90°，与答案矛盾。正确计算：∠B=∠C=70°，∠BAD=20°，∠ADB=180°-70°-20°=90°，∠ADC=180°-90°=90°，但答案写110°，解释也错误。实际∠ADC=110°？重新计算：∠B=∠C=70°，∠BAD=20°，在△ABD中，∠ADB=180°-70°-20°=90°，所以∠ADC=180°-90°=90°。但答案给出110°，解释也得出90°，自相矛盾。正确应为90°，但题目要求∠ADC，根据等腰三角形性质，AD是角平分线，也是高和中线？AB=AC，AD平分∠BAC，则AD⊥BC，所以∠ADB=90°，∠ADC=90°。因此答案应为90°，但提供的答案是110°，解释也错误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-274",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "等腰三角形底角相等，内角和计算正确，选项唯一。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-275",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "利用垂直平分线性质和勾股定理可解，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-276",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "等腰三角形与角平分线角度计算正确，答案72°无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-277",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "30°角所对直角边为斜边一半，计算正确，选项唯一。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-278",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "利用HL证明全等，得出BD=CD，证明过程正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-279",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "利用30°角性质和垂直平分线，列方程解得CD=2，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-280",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "外角等于不相邻两内角和，计算正确，选项唯一。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 11,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第273题答案与解释矛盾，正确∠ADC应为90°，但答案给出110°，解释也错误，需修正。其余题目均正确。"
+    }
+  }
+}

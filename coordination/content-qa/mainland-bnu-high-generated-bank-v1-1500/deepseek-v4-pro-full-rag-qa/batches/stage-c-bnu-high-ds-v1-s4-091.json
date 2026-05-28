@@ -1,0 +1,48 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-091",
+  "startedAt": "2026-05-28T01:00:44.757Z",
+  "completedAt": "2026-05-28T01:00:49.944Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-091"
+  ],
+  "usage": {
+    "prompt_tokens": 2542,
+    "completion_tokens": 251,
+    "total_tokens": 2793,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2158
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-091",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "(-∞, log₂3 - 1)",
+        "correctedAnswer": "(-∞, log₂3 - 1)",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，由 f(m)<0 直接解得 m<log₂3-1，对应选项A。存储答案为选项B，解析中反函数推导有误且与答案矛盾，属于严重错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "答案与解析均错误，需修正为选项A。"
+    }
+  }
+}

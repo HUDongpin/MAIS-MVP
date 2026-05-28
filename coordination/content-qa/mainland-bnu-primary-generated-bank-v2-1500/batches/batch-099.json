@@ -1,0 +1,590 @@
+{
+  "batchId": "batch-099",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p4-231",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-data-representation-analysis",
+      "unitTitle": "数据的表示和分析",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "data-representation-analysis",
+        "statistical-charts",
+        "average",
+        "数据表示",
+        "数据分析"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "收集整理数据",
+        "读统计图",
+        "比较数据",
+        "平均数",
+        "解释结论"
+      ],
+      "misconceptionTags": [
+        "chart scale ignored",
+        "average treated as a required actual value",
+        "conclusion not supported by the displayed data"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-data-representation-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-data-representation-analysis-unit",
+        "bnu-primary-p5-lower-assessment-data-analysis-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是四（1）班同学最喜欢的水果统计表。\n\n| 水果 | 苹果 | 香蕉 | 橘子 | 葡萄 | 西瓜 |\n|------|------|------|------|------|------|\n| 人数 | 12   | 8    | 5    | 10   | 15   |\n\n根据统计表，喜欢西瓜的人数比喜欢橘子的人数多多少人？",
+      "optionsZhHans": [
+        "10人",
+        "5人",
+        "15人",
+        "20人"
+      ],
+      "answer": "10人",
+      "acceptedAnswers": [
+        "10人"
+      ],
+      "explanationZhHans": "喜欢西瓜的有15人，喜欢橘子的有5人，相差15-5=10人。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-232",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-data-representation-analysis",
+      "unitTitle": "数据的表示和分析",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "data-representation-analysis",
+        "statistical-charts",
+        "average",
+        "数据表示",
+        "数据分析"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "收集整理数据",
+        "读统计图",
+        "比较数据",
+        "平均数",
+        "解释结论"
+      ],
+      "misconceptionTags": [
+        "chart scale ignored",
+        "average treated as a required actual value",
+        "conclusion not supported by the displayed data"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-data-representation-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-data-representation-analysis-unit",
+        "bnu-primary-p5-lower-assessment-data-analysis-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "四（2）班5名同学的1分钟跳绳成绩如下（单位：下）：120、135、110、125、130。这5名同学的平均成绩是多少下？",
+      "optionsZhHans": [],
+      "answer": "124",
+      "acceptedAnswers": [
+        "124",
+        "124下"
+      ],
+      "explanationZhHans": "总成绩：120+135+110+125+130=620下，平均成绩：620÷5=124下。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-233",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-data-representation-analysis",
+      "unitTitle": "数据的表示和分析",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "data-representation-analysis",
+        "statistical-charts",
+        "average",
+        "数据表示",
+        "数据分析"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "收集整理数据",
+        "读统计图",
+        "比较数据",
+        "平均数",
+        "解释结论"
+      ],
+      "misconceptionTags": [
+        "chart scale ignored",
+        "average treated as a required actual value",
+        "conclusion not supported by the displayed data"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-data-representation-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-data-representation-analysis-unit",
+        "bnu-primary-p5-lower-assessment-data-analysis-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "四（3）班四个小组收集废电池的数量如下：第一组18节，第二组24节，第三组20节，第四组22节。这四个小组平均每组收集废电池多少节？",
+      "optionsZhHans": [
+        "21节",
+        "22节",
+        "20节",
+        "24节"
+      ],
+      "answer": "21节",
+      "acceptedAnswers": [
+        "21节"
+      ],
+      "explanationZhHans": "总数量：18+24+20+22=84节，平均每组：84÷4=21节。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-234",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-data-representation-analysis",
+      "unitTitle": "数据的表示和分析",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "data-representation-analysis",
+        "statistical-charts",
+        "average",
+        "数据表示",
+        "数据分析"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "收集整理数据",
+        "读统计图",
+        "比较数据",
+        "平均数",
+        "解释结论"
+      ],
+      "misconceptionTags": [
+        "chart scale ignored",
+        "average treated as a required actual value",
+        "conclusion not supported by the displayed data"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-data-representation-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-data-representation-analysis-unit",
+        "bnu-primary-p5-lower-assessment-data-analysis-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是四（4）班第一小组同学的身高数据（单位：厘米）：135、142、138、140、145。这组同学的平均身高是多少厘米？",
+      "optionsZhHans": [],
+      "answer": "140",
+      "acceptedAnswers": [
+        "140",
+        "140厘米"
+      ],
+      "explanationZhHans": "总身高：135+142+138+140+145=700厘米，平均身高：700÷5=140厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-235",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-data-representation-analysis",
+      "unitTitle": "数据的表示和分析",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "data-representation-analysis",
+        "statistical-charts",
+        "average",
+        "数据表示",
+        "数据分析"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "收集整理数据",
+        "读统计图",
+        "比较数据",
+        "平均数",
+        "解释结论"
+      ],
+      "misconceptionTags": [
+        "chart scale ignored",
+        "average treated as a required actual value",
+        "conclusion not supported by the displayed data"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-data-representation-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-data-representation-analysis-unit",
+        "bnu-primary-p5-lower-assessment-data-analysis-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "四（5）班同学参加兴趣小组的情况如下：绘画组12人，书法组8人，舞蹈组10人，合唱组14人。参加人数最多的小组比最少的小组多几人？",
+      "optionsZhHans": [
+        "6人",
+        "4人",
+        "2人",
+        "8人"
+      ],
+      "answer": "6人",
+      "acceptedAnswers": [
+        "6人"
+      ],
+      "explanationZhHans": "人数最多的是合唱组14人，最少的是书法组8人，相差14-8=6人。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-236",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "p4-lower-review",
+        "mathematical-activity",
+        "integrated-application",
+        "整理与复习",
+        "数学好玩",
+        "总复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "model chosen from keyword alone",
+        "representation selected without purpose",
+        "review solved as unrelated answer drills only"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-final-topic-drill",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小马虎在计算一道小数加法时，把其中一个加数3.6看成了36，结果得到48.5。正确的和应该是多少？",
+      "optionsZhHans": [],
+      "answer": "16.1",
+      "acceptedAnswers": [
+        "16.1"
+      ],
+      "explanationZhHans": "另一个加数：48.5-36=12.5，正确的和：12.5+3.6=16.1。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-237",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "p4-lower-review",
+        "mathematical-activity",
+        "integrated-application",
+        "整理与复习",
+        "数学好玩",
+        "总复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "model chosen from keyword alone",
+        "representation selected without purpose",
+        "review solved as unrelated answer drills only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-final-topic-drill",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个三角形中，∠1=45°，∠2=55°，∠3是多少度？这个三角形按角分类是什么三角形？",
+      "optionsZhHans": [
+        "80°，锐角三角形",
+        "80°，直角三角形",
+        "100°，钝角三角形",
+        "70°，锐角三角形"
+      ],
+      "answer": "80°，锐角三角形",
+      "acceptedAnswers": [
+        "80°，锐角三角形"
+      ],
+      "explanationZhHans": "∠3=180°-45°-55°=80°，三个角都小于90°，所以是锐角三角形。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-238",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "p4-lower-review",
+        "mathematical-activity",
+        "integrated-application",
+        "整理与复习",
+        "数学好玩",
+        "总复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "model chosen from keyword alone",
+        "representation selected without purpose",
+        "review solved as unrelated answer drills only"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-final-topic-drill",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个等腰三角形的顶角是70°，它的一个底角是多少度？",
+      "optionsZhHans": [],
+      "answer": "55",
+      "acceptedAnswers": [
+        "55",
+        "55°",
+        "55度"
+      ],
+      "explanationZhHans": "等腰三角形两个底角相等，底角=(180°-70°)÷2=55°。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-239",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "p4-lower-review",
+        "mathematical-activity",
+        "integrated-application",
+        "整理与复习",
+        "数学好玩",
+        "总复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "model chosen from keyword alone",
+        "representation selected without purpose",
+        "review solved as unrelated answer drills only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-final-topic-drill",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个三角形三条边的长度分别是5厘米、5厘米、8厘米，这个三角形按边分类是什么三角形？",
+      "optionsZhHans": [
+        "等腰三角形",
+        "等边三角形",
+        "不等边三角形",
+        "直角三角形"
+      ],
+      "answer": "等腰三角形",
+      "acceptedAnswers": [
+        "等腰三角形"
+      ],
+      "explanationZhHans": "有两条边长度相等（5厘米=5厘米），所以是等腰三角形。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-240",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "p4-lower-review",
+        "mathematical-activity",
+        "integrated-application",
+        "整理与复习",
+        "数学好玩",
+        "总复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "model chosen from keyword alone",
+        "representation selected without purpose",
+        "review solved as unrelated answer drills only"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-final-topic-drill",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个三角形中，∠1=30°，∠2=60°，∠3是多少度？这个三角形按角分类是什么三角形？",
+      "optionsZhHans": [],
+      "answer": "90°，直角三角形",
+      "acceptedAnswers": [
+        "90°，直角三角形",
+        "90度，直角三角形"
+      ],
+      "explanationZhHans": "∠3=180°-30°-60°=90°，有一个角是直角，所以是直角三角形。"
+    }
+  ]
+}

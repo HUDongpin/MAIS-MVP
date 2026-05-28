@@ -1,0 +1,330 @@
+{
+  "batchNumber": 36,
+  "startedAt": "2026-05-27T14:16:52.719Z",
+  "completedAt": "2026-05-27T14:17:25.642Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p5-051",
+    "bnu-primary-ds-v2-p5-052",
+    "bnu-primary-ds-v2-p5-053",
+    "bnu-primary-ds-v2-p5-054",
+    "bnu-primary-ds-v2-p5-055",
+    "bnu-primary-ds-v2-p5-056",
+    "bnu-primary-ds-v2-p5-057",
+    "bnu-primary-ds-v2-p5-058",
+    "bnu-primary-ds-v2-p5-059",
+    "bnu-primary-ds-v2-p5-060",
+    "bnu-primary-ds-v2-p5-061",
+    "bnu-primary-ds-v2-p5-062",
+    "bnu-primary-ds-v2-p5-063",
+    "bnu-primary-ds-v2-p5-064",
+    "bnu-primary-ds-v2-p5-065",
+    "bnu-primary-ds-v2-p5-066",
+    "bnu-primary-ds-v2-p5-067",
+    "bnu-primary-ds-v2-p5-068",
+    "bnu-primary-ds-v2-p5-069",
+    "bnu-primary-ds-v2-p5-070",
+    "bnu-primary-ds-v2-p5-071",
+    "bnu-primary-ds-v2-p5-072",
+    "bnu-primary-ds-v2-p5-073",
+    "bnu-primary-ds-v2-p5-074",
+    "bnu-primary-ds-v2-p5-075",
+    "bnu-primary-ds-v2-p5-076",
+    "bnu-primary-ds-v2-p5-077",
+    "bnu-primary-ds-v2-p5-078",
+    "bnu-primary-ds-v2-p5-079",
+    "bnu-primary-ds-v2-p5-080"
+  ],
+  "usage": {
+    "prompt_tokens": 5900,
+    "completion_tokens": 2419,
+    "total_tokens": 8319,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 5516
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p5-051",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目条件充分，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-052",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "等底等高三角形面积是平行四边形一半，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-053",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "平行四边形面积=底×高，计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-054",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "梯形面积公式应用正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-055",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "拼成平行四边形底为10厘米，面积40平方厘米，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-056",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "由面积和底求高，计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-057",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "平行四边形高=面积÷底，计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-058",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "三角形面积=底×高÷2，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-059",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "由梯形面积公式反推下底，计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-060",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "先求面积再乘单位产量，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-061",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "将3块蛋糕看作整体，平均分4份，每份占1/4，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-062",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "3÷5=3/5块，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-063",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "每段占全长1/5，每段长3/5米，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-064",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项A正确，其他选项错误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-065",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "每人分得3/5块，是真分数，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-066",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "5÷8=5/8米，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-067",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项A正确，其他选项错误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-068",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "每段占全长1/8，每段长3/8米，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-069",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "3÷4=3/4块，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-070",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项A正确，其他选项错误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-071",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "对折三次分8份，每段占1/8，长1米，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-072",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "每人分得3/4块，分数单位1/4，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-073",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "3/7与其他三个分数值不同，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-074",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "分子分母和28，约分后3/4，原分数12/16，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-075",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "等值分数填空，答案12,20,15正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-076",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "正方形面积36，三角形面积12，总和48，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-077",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "长方形面积80，减去正方形16，得64，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-078",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "梯形面积28，三角形面积13.5，总和41.5，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-079",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "一个梯形面积25，两个拼成50，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-080",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "平行四边形60，三角形16，减去重叠4，得72，答案正确。"
+      }
+    ],
+    "batchSummary": {
+      "solvableYes": 30,
+      "solvableNo": 0,
+      "answerMatchYes": 30,
+      "answerMatchNo": 0,
+      "notes": "全部30道题目均可解，答案均正确。"
+    }
+  }
+}

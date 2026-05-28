@@ -1,0 +1,107 @@
+{
+  "batchId": "model-qa-0067",
+  "ids": [
+    "hjb-junior-ds-v2-s2-029",
+    "hjb-junior-ds-v2-s2-030",
+    "hjb-junior-ds-v2-s2-031",
+    "hjb-junior-ds-v2-s2-032",
+    "hjb-junior-ds-v2-s2-033",
+    "hjb-junior-ds-v2-s2-034",
+    "hjb-junior-ds-v2-s2-035",
+    "hjb-junior-ds-v2-s2-036"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-029",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": ">",
+      "answerCheckZhHans": "标准答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-030",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "标准答案3.7 cm可能不精确。3.7³=50.653，3.6³=46.656，50更接近46.656（差3.344）而非50.653（差0.653），因此³√50≈3.684，精确到0.1 cm应为3.7 cm，但解析中“50更接近50.653”错误，应为“50更接近46.656”，但四舍五入后仍为3.7。解析错误，但答案巧合正确。需修正解析。",
+      "independentAnswerZhHans": "3.7 cm",
+      "answerCheckZhHans": "答案3.7 cm正确，但解析中比较逻辑错误。",
+      "recommendedActionZhHans": "修正解析：3.7³=50.653，3.6³=46.656，50-46.656=3.344，50.653-50=0.653，50更接近50.653，故³√50≈3.7。或直接计算³√50≈3.684，四舍五入得3.7。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-031",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2个",
+      "answerCheckZhHans": "标准答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-032",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "25",
+      "answerCheckZhHans": "标准答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-033",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "标准答案1.5<√2<√3错误。√2≈1.414，1.5=1.5，√3≈1.732，正确顺序应为√2<1.5<√3。解析中比较得1.414<1.5<1.732，却得出1.5<√2<√3，自相矛盾。",
+      "independentAnswerZhHans": "√2<1.5<√3",
+      "answerCheckZhHans": "标准答案错误，解析矛盾。",
+      "recommendedActionZhHans": "修正答案为√2<1.5<√3，并修正解析。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-034",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "c 和 d 都是无理数",
+      "answerCheckZhHans": "标准答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-035",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-036",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "a < b < c < d",
+      "answerCheckZhHans": "标准答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

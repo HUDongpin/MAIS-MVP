@@ -1,0 +1,105 @@
+{
+  "batchId": "model-qa-0062",
+  "ids": [
+    "hjb-junior-ds-v2-s1-489",
+    "hjb-junior-ds-v2-s1-490",
+    "hjb-junior-ds-v2-s1-491",
+    "hjb-junior-ds-v2-s1-492",
+    "hjb-junior-ds-v2-s1-493",
+    "hjb-junior-ds-v2-s1-494",
+    "hjb-junior-ds-v2-s1-495",
+    "hjb-junior-ds-v2-s1-496"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-489",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "ambiguous-prompt"
+      ],
+      "issueDetailsZhHans": "题干中“求∠DBC的度数”有歧义：点D在边BC上，∠DBC通常指以B为顶点、BD和BC为边的角，但D在BC上时，BD与BC共线，∠DBC为0°或180°，与选项不符。可能意图是求∠DAC或其他角，但当前表述无法得到40°。",
+      "independentAnswerZhHans": "无法确定，因为D在BC上时∠DBC为0°或180°。",
+      "answerCheckZhHans": "给定答案40°与题干矛盾，解析中“∠DBC=∠ABC=40°”错误，因为D在BC上时∠DBC不是∠ABC。",
+      "recommendedActionZhHans": "修改题干，明确求哪个角，例如“求∠DAC的度数”或调整点D的位置。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-490",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "20°",
+      "answerCheckZhHans": "答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-491",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "75°",
+      "answerCheckZhHans": "答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-492",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "65°",
+      "answerCheckZhHans": "答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-493",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "30°",
+      "answerCheckZhHans": "答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-494",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "30°",
+      "answerCheckZhHans": "答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-495",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "36°",
+      "answerCheckZhHans": "答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-496",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "25°",
+      "answerCheckZhHans": "答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

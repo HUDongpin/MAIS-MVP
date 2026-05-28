@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0144",
+  "ids": [
+    "hjb-junior-ds-v2-s3-145",
+    "hjb-junior-ds-v2-s3-146",
+    "hjb-junior-ds-v2-s3-147",
+    "hjb-junior-ds-v2-s3-148",
+    "hjb-junior-ds-v2-s3-149",
+    "hjb-junior-ds-v2-s3-150",
+    "hjb-junior-ds-v2-s3-151",
+    "hjb-junior-ds-v2-s3-152"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-145",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "4/5",
+      "answerCheckZhHans": "标准答案为4/5，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-146",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "ambiguous-prompt",
+        "missing-condition"
+      ],
+      "issueDetailsZhHans": "题干中“观测点到旗杆底部的水平距离等于影长”与“同时测得旗杆顶端仰角为35°”存在矛盾：若观测点与旗杆底部在同一水平面且水平距离等于影长8米，则仰角应为arctan(旗杆高度/8)，但题干未给出旗杆高度，却要求用仰角求高度，形成循环。此外，影长通常用于太阳高度角测量，与仰角测量无关，条件可能冗余或混淆。",
+      "independentAnswerZhHans": "无法唯一确定，条件矛盾。",
+      "answerCheckZhHans": "标准答案5.6米基于tan35°=h/8，但题干中“影长8米”与仰角测量无关，且未说明观测点位置与影长的关系，导致条件不明确。",
+      "recommendedActionZhHans": "建议修改题干，明确观测点位置与影长的关系，或删除影长条件，直接给出水平距离。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-147",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "30.4海里",
+      "answerCheckZhHans": "标准答案为30.4海里，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-148",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "5/13",
+      "answerCheckZhHans": "标准答案为5/13，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-149",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "6.43",
+      "answerCheckZhHans": "标准答案为6.43，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-150",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "473米",
+      "answerCheckZhHans": "标准答案为473米，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-151",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "54.6米",
+      "answerCheckZhHans": "标准答案为54.6米，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-152",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "6",
+      "answerCheckZhHans": "标准答案为6，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

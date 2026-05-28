@@ -1,0 +1,308 @@
+{
+  "batchId": "batch-193",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p4-211",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "hjb-primary-p4-lower-vertical-parallel-lines",
+      "unitTitle": "几何小实践",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "perpendicular-lines",
+        "parallel-lines",
+        "geometric-construction",
+        "position-relationships",
+        "垂直",
+        "平行"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "垂直",
+        "平行",
+        "画垂线",
+        "画平行线",
+        "三角尺作图",
+        "位置关系"
+      ],
+      "misconceptionTags": [
+        "near-parallel lines assumed parallel",
+        "perpendicular treated as any crossing",
+        "construction tool used without checking the right angle"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p4-lower-vertical-parallel-lines"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-lower-assessment-vertical-parallel-lines",
+        "hjb-primary-p4-lower-assessment-review-operation-properties"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪组直线互相垂直？\nA. 两条直线相交成85°角\nB. 两条直线相交成90°角\nC. 两条直线相交成95°角\nD. 两条直线没有交点",
+      "optionsZhHans": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "B",
+      "acceptedAnswers": [
+        "B"
+      ],
+      "explanationZhHans": "垂直的定义是两条直线相交成直角（90°）。选项B是90°，所以互相垂直。A和C不是直角，D没有交点，是平行或异面，都不垂直。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-212",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "hjb-primary-p4-lower-vertical-parallel-lines",
+      "unitTitle": "几何小实践",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "perpendicular-lines",
+        "parallel-lines",
+        "geometric-construction",
+        "position-relationships",
+        "垂直",
+        "平行"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "垂直",
+        "平行",
+        "画垂线",
+        "画平行线",
+        "三角尺作图",
+        "位置关系"
+      ],
+      "misconceptionTags": [
+        "near-parallel lines assumed parallel",
+        "perpendicular treated as any crossing",
+        "construction tool used without checking the right angle"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p4-lower-vertical-parallel-lines"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-lower-assessment-vertical-parallel-lines",
+        "hjb-primary-p4-lower-assessment-review-operation-properties"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用三角尺画一条直线L的垂线时，三角尺的直角边应该与直线L怎样放置？",
+      "optionsZhHans": [],
+      "answer": "一条直角边与直线L重合，另一条直角边紧贴直线L",
+      "acceptedAnswers": [
+        "一条直角边与直线L重合，另一条直角边紧贴直线L",
+        "一条直角边与直线L重合，另一条直角边紧贴直线",
+        "直角边与直线L重合，另一条直角边紧贴直线L"
+      ],
+      "explanationZhHans": "画垂线时，将三角尺的一条直角边与已知直线重合，沿另一条直角边画出的直线就是已知直线的垂线，这样能保证夹角是直角。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-213",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "hjb-primary-p4-lower-vertical-parallel-lines",
+      "unitTitle": "几何小实践",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "perpendicular-lines",
+        "parallel-lines",
+        "geometric-construction",
+        "position-relationships",
+        "垂直",
+        "平行"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "垂直",
+        "平行",
+        "画垂线",
+        "画平行线",
+        "三角尺作图",
+        "位置关系"
+      ],
+      "misconceptionTags": [
+        "near-parallel lines assumed parallel",
+        "perpendicular treated as any crossing",
+        "construction tool used without checking the right angle"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p4-lower-vertical-parallel-lines"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-lower-assessment-vertical-parallel-lines",
+        "hjb-primary-p4-lower-assessment-review-operation-properties"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪句话是正确的？\nA. 两条直线不相交就一定平行\nB. 两条直线相交就一定垂直\nC. 过直线外一点可以画无数条已知直线的平行线\nD. 过直线外一点只能画一条已知直线的垂线",
+      "optionsZhHans": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "D",
+      "acceptedAnswers": [
+        "D"
+      ],
+      "explanationZhHans": "A错，同一平面内不相交才平行；B错，相交不一定垂直；C错，过直线外一点只能画一条平行线；D对，过直线外一点有且只有一条直线与已知直线垂直。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-214",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "hjb-primary-p4-lower-vertical-parallel-lines",
+      "unitTitle": "几何小实践",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "perpendicular-lines",
+        "parallel-lines",
+        "geometric-construction",
+        "position-relationships",
+        "垂直",
+        "平行"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "垂直",
+        "平行",
+        "画垂线",
+        "画平行线",
+        "三角尺作图",
+        "位置关系"
+      ],
+      "misconceptionTags": [
+        "near-parallel lines assumed parallel",
+        "perpendicular treated as any crossing",
+        "construction tool used without checking the right angle"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p4-lower-vertical-parallel-lines"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-lower-assessment-vertical-parallel-lines",
+        "hjb-primary-p4-lower-assessment-review-operation-properties"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在同一平面内，如果直线a与直线b互相垂直，直线b与直线c互相垂直，那么直线a与直线c的位置关系是______。",
+      "optionsZhHans": [],
+      "answer": "互相平行",
+      "acceptedAnswers": [
+        "互相平行",
+        "平行"
+      ],
+      "explanationZhHans": "根据垂直的性质，如果两条直线都与同一条直线垂直，那么这两条直线互相平行。所以a与c互相平行。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-215",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "hjb-primary-p4-lower-vertical-parallel-lines",
+      "unitTitle": "几何小实践",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "perpendicular-lines",
+        "parallel-lines",
+        "geometric-construction",
+        "position-relationships",
+        "垂直",
+        "平行"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "垂直",
+        "平行",
+        "画垂线",
+        "画平行线",
+        "三角尺作图",
+        "位置关系"
+      ],
+      "misconceptionTags": [
+        "near-parallel lines assumed parallel",
+        "perpendicular treated as any crossing",
+        "construction tool used without checking the right angle"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p4-lower-vertical-parallel-lines"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-lower-assessment-vertical-parallel-lines",
+        "hjb-primary-p4-lower-assessment-review-operation-properties"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用三角尺和直尺画平行线时，第一步应该做什么？\nA. 用三角尺的一条直角边贴住直尺\nB. 用三角尺画一条直线\nC. 用直尺画一条直线\nD. 把三角尺和直尺分开",
+      "optionsZhHans": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "A",
+      "acceptedAnswers": [
+        "A"
+      ],
+      "explanationZhHans": "画平行线的步骤：先用三角尺的一条直角边贴住直尺，再沿三角尺的另一条直角边画第一条直线，然后移动三角尺画第二条直线。所以第一步是A。"
+    }
+  ]
+}

@@ -1,0 +1,191 @@
+{
+  "batchNumber": 16,
+  "startedAt": "2026-05-25T01:51:46.878Z",
+  "completedAt": "2026-05-25T01:52:06.416Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p2-021",
+    "hjb-primary-ds-v1-p2-022",
+    "hjb-primary-ds-v1-p2-023",
+    "hjb-primary-ds-v1-p2-024",
+    "hjb-primary-ds-v1-p2-025",
+    "hjb-primary-ds-v1-p2-026",
+    "hjb-primary-ds-v1-p2-027",
+    "hjb-primary-ds-v1-p2-028",
+    "hjb-primary-ds-v1-p2-029",
+    "hjb-primary-ds-v1-p2-030",
+    "hjb-primary-ds-v1-p2-031",
+    "hjb-primary-ds-v1-p2-032",
+    "hjb-primary-ds-v1-p2-033",
+    "hjb-primary-ds-v1-p2-034",
+    "hjb-primary-ds-v1-p2-035",
+    "hjb-primary-ds-v1-p2-036",
+    "hjb-primary-ds-v1-p2-037",
+    "hjb-primary-ds-v1-p2-038"
+  ],
+  "usage": {
+    "prompt_tokens": 3556,
+    "completion_tokens": 1363,
+    "total_tokens": 4919,
+    "prompt_tokens_details": {
+      "cached_tokens": 3456
+    },
+    "prompt_cache_hit_tokens": 3456,
+    "prompt_cache_miss_tokens": 100
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p2-021",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "竖式计算和验算过程正确，答案27无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-022",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项B计算正确，其他选项错误，答案唯一。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-023",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "个位填2符合竖式减法，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-024",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，单位统一，答案3元无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-025",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比较和计算正确，选项A为唯一正确答案。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-026",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "8角+5角=13角=1元3角，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-027",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "总钱数计算正确，找回2元4角无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-028",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项C正好3元8角，其他选项金额不符，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-029",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "20元换4张5元，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-030",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，2元5角+6元8角+4元=13元3角。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-031",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项B总钱数3元3角正好，其他选项不对，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-032",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "小明有9元，找回2元2角，计算正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-033",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "3元6角+4元5角+1元2角=9元3角，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-034",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "B选项总价9元4角，剩6角最少，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-035",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "10元换2张5元或10张1元，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-036",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "12元8角+1元5角=14元3角，计算正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-037",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "20元-15元6角=4元4角，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-038",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "10元换2张5元，答案正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合沪教版二年级上册要求，计算正确，答案无误，无歧义或缺失条件。"
+    }
+  }
+}

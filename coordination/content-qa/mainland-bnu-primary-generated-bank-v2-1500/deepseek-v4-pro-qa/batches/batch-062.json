@@ -1,0 +1,191 @@
+{
+  "batchNumber": 62,
+  "startedAt": "2026-05-27T13:58:39.925Z",
+  "completedAt": "2026-05-27T13:58:58.338Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p5-099",
+    "bnu-primary-ds-v2-p5-100",
+    "bnu-primary-ds-v2-p5-101",
+    "bnu-primary-ds-v2-p5-102",
+    "bnu-primary-ds-v2-p5-103",
+    "bnu-primary-ds-v2-p5-104",
+    "bnu-primary-ds-v2-p5-105",
+    "bnu-primary-ds-v2-p5-106",
+    "bnu-primary-ds-v2-p5-107",
+    "bnu-primary-ds-v2-p5-108",
+    "bnu-primary-ds-v2-p5-109",
+    "bnu-primary-ds-v2-p5-110",
+    "bnu-primary-ds-v2-p5-111",
+    "bnu-primary-ds-v2-p5-112",
+    "bnu-primary-ds-v2-p5-113",
+    "bnu-primary-ds-v2-p5-114",
+    "bnu-primary-ds-v2-p5-115",
+    "bnu-primary-ds-v2-p5-116"
+  ],
+  "usage": {
+    "prompt_tokens": 4389,
+    "completion_tokens": 1262,
+    "total_tokens": 5651,
+    "prompt_tokens_details": {
+      "cached_tokens": 4352
+    },
+    "prompt_cache_hit_tokens": 4352,
+    "prompt_cache_miss_tokens": 37
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p5-099",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，符合五年级可能性主题。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-100",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项唯一正确，无歧义，适合基础题。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-101",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，接受约分形式，符合挑战题要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-102",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "理由充分，答案覆盖多种表述，无问题。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-103",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-104",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "质数合数判断正确，答案合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-105",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "推理正确，答案明确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-106",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项唯一正确，符合小数除法方法。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-107",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案格式灵活。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-108",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程解法正确，答案清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-109",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "梯形面积计算正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-110",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "拼法正确，表面积最小，答案合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-111",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "错因分析准确，正确过程完整。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-112",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "正确选项唯一，其他选项有明显错误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-113",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "等底等高关系正确，答案无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-114",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "错误分析到位，正确面积计算无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-115",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "对称轴数量正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-116",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "可能性计算正确，分数答案无误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版小学数学要求，数学正确，答案匹配，无歧义或缺失条件，适合公共题库推广。"
+    }
+  }
+}

@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-149",
+  "startedAt": "2026-05-28T01:41:19.002Z",
+  "completedAt": "2026-05-28T01:41:37.965Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-185",
+    "bnu-high-ds-v1-s6-186",
+    "bnu-high-ds-v1-s6-187",
+    "bnu-high-ds-v1-s6-188",
+    "bnu-high-ds-v1-s6-189",
+    "bnu-high-ds-v1-s6-190",
+    "bnu-high-ds-v1-s6-191",
+    "bnu-high-ds-v1-s6-192"
+  ],
+  "usage": {
+    "prompt_tokens": 10030,
+    "completion_tokens": 1466,
+    "total_tokens": 11496,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9646
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-185",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "11",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由 S_n = n^2 + 2n，a_5 = S_5 - S_4 = (25+10) - (16+8) = 35 - 24 = 11。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-186",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "设首项为 a_1，公差为 d。a_2 + a_5 = (a_1+d)+(a_1+4d)=2a_1+5d=16，a_4 = a_1+3d=11。解得 d=3。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-187",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "b_n = 2n - 1",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由 a_{n+1} = 2a_n + 3^n，两边同除以 3^n 得 a_{n+1}/3^n = 2(a_n/3^n) + 1。令 b_n = a_n/3^{n-1}，则 b_{n+1} = a_{n+1}/3^n = 2(a_n/3^n) + 1 = 2(b_n/3) + 1，整理得 3b_{n+1} = 2b_n + 3。构造等比数列，解得 b_n = 2n - 1。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-188",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "155",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由 a_{n+1} - a_n = 3n + 1，累加得 a_n = a_1 + ∑_{k=1}^{n-1} (3k+1) = 2 + 3·(n-1)n/2 + (n-1) = (3n^2 - n + 2)/2。代入 n=10 得 a_10 = (300 - 10 + 2)/2 = 292/2 = 146？检查：a_1=2，a_2=2+3+1=6，a_3=6+6+1=13，a_4=13+9+1=23，a_5=23+12+1=36，a_6=36+15+1=52，a_7=52+18+1=71，a_8=71+21+1=93，a_9=93+24+1=118，a_10=118+27+1=146。修正答案为 146。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-189",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由 S_3 = a_1(1 - q^3)/(1 - q) = 7，S_6 = a_1(1 - q^6)/(1 - q) = 63。两式相除得 (1 - q^6)/(1 - q^3) = 9，即 1 + q^3 = 9，q^3 = 8，q = 2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-190",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "31",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由 a_{n+1} + 1 = 2(a_n + 1)，得 {a_n + 1} 是等比数列，首项 2，公比 2，故 a_n + 1 = 2^n，a_5 = 2^5 - 1 = 31。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-191",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(1) a_2 = 5, a_3 = 19; (2) 猜想 a_n = 3^n - 2^n，证明略。",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由 a_1=1，a_2=2×1+3=5，a_3=2×5+9=19。猜想 a_n = 3^n - 2^n，用数学归纳法证明：n=1 成立；假设 n=k 成立，则 a_{k+1}=2(3^k - 2^k)+3^k=3^{k+1} - 2^{k+1}。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-192",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "20",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "等差数列中，a_3 + a_8 = a_5 + a_6 = 20。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部题目条件充分，可独立求解，答案唯一，符合北师大版高中数列内容要求。"
+    }
+  }
+}

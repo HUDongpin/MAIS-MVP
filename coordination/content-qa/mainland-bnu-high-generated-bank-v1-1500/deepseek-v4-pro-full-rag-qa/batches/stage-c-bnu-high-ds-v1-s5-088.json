@@ -1,0 +1,47 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-088",
+  "startedAt": "2026-05-28T02:07:53.033Z",
+  "completedAt": "2026-05-28T02:07:56.398Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-088"
+  ],
+  "usage": {
+    "prompt_tokens": 2256,
+    "completion_tokens": 220,
+    "total_tokens": 2476,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1872
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-088",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "1",
+        "correctedAnswer": null,
+        "issueTags": [
+          "explanation_contradiction"
+        ],
+        "severity": "minor",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，答案1正确，选项唯一。但解析推导不完整，未明确解出a=1，存在逻辑跳跃，解释与正确解法有差距。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 1,
+      "warn": 0,
+      "fail": 0,
+      "notes": "题目本身无问题，答案正确，但解析需完善。"
+    }
+  }
+}

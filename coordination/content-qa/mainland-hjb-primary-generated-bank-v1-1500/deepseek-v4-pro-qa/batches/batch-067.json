@@ -1,0 +1,191 @@
+{
+  "batchNumber": 67,
+  "startedAt": "2026-05-25T02:22:00.981Z",
+  "completedAt": "2026-05-25T02:22:19.015Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p5-189",
+    "hjb-primary-ds-v1-p5-190",
+    "hjb-primary-ds-v1-p5-191",
+    "hjb-primary-ds-v1-p5-192",
+    "hjb-primary-ds-v1-p5-193",
+    "hjb-primary-ds-v1-p5-194",
+    "hjb-primary-ds-v1-p5-195",
+    "hjb-primary-ds-v1-p5-196",
+    "hjb-primary-ds-v1-p5-197",
+    "hjb-primary-ds-v1-p5-198",
+    "hjb-primary-ds-v1-p5-199",
+    "hjb-primary-ds-v1-p5-200",
+    "hjb-primary-ds-v1-p5-201",
+    "hjb-primary-ds-v1-p5-202",
+    "hjb-primary-ds-v1-p5-203",
+    "hjb-primary-ds-v1-p5-204",
+    "hjb-primary-ds-v1-p5-205",
+    "hjb-primary-ds-v1-p5-206"
+  ],
+  "usage": {
+    "prompt_tokens": 3346,
+    "completion_tokens": 1315,
+    "total_tokens": 4661,
+    "prompt_tokens_details": {
+      "cached_tokens": 3328
+    },
+    "prompt_cache_hit_tokens": 3328,
+    "prompt_cache_miss_tokens": 18
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p5-189",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，单位换算合理，答案与解释一致。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-190",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "体积计算正确，答案160立方厘米无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-191",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "表面积计算正确，选项唯一，答案匹配。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-192",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "棱长与体积计算正确，答案125无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-193",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "体积计算正确，所需小正方体数量36个无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-194",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "水的体积计算正确，单位换算合理，答案240升无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-195",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "体积变化倍数计算正确，答案8倍无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-196",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "水的体积计算正确，区分了鱼缸高度和水深，答案160立方分米无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-197",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "表面积计算正确，答案150平方厘米无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-198",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "减少的表面积计算正确，答案16平方厘米无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-199",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "最小占地面积计算正确，答案48平方厘米无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-200",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由表面积求体积计算正确，答案64立方厘米无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-201",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "贴膜面积计算正确，答案196平方分米无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-202",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "所需小正方体数量计算正确，答案24块无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-203",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "表面积计算正确，答案96平方厘米无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-204",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由表面积求体积计算正确，答案125立方厘米无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-205",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "切割数量计算正确，答案60个无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-206",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "切割数量计算正确，答案160个无误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合沪教版小学数学五年级下册长方体与正方体单元要求，计算正确，答案与解释一致，无歧义或错误。"
+    }
+  }
+}

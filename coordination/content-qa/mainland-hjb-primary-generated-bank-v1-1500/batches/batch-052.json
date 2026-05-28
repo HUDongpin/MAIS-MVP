@@ -1,0 +1,295 @@
+{
+  "batchId": "batch-052",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p2-006",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-within-100-add-sub",
+      "unitTitle": "100以内数的加减法（二）",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "within-100-addition-subtraction",
+        "two-digit-subtraction",
+        "vertical-calculation",
+        "inverse-operation-check",
+        "100以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "不退位减法",
+        "退位减法",
+        "两位数加减",
+        "竖式计算",
+        "加减关系",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "place-value columns misaligned",
+        "borrowing treated as changing both digits randomly",
+        "inverse check skipped after vertical calculation"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-within-100-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-upper-assessment-within-100-add-sub-unit",
+        "hjb-primary-p2-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丽有56颗糖果，她送给好朋友23颗。小丽还剩多少颗糖果？请用竖式计算，并用加法验算。",
+      "optionsZhHans": [],
+      "answer": "33",
+      "acceptedAnswers": [
+        "33"
+      ],
+      "explanationZhHans": "56-23，个位6-3=3，十位5-2=3，得33。验算：33+23=56，结果正确。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-007",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-within-100-add-sub",
+      "unitTitle": "100以内数的加减法（二）",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "within-100-addition-subtraction",
+        "two-digit-subtraction",
+        "vertical-calculation",
+        "inverse-operation-check",
+        "100以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "不退位减法",
+        "退位减法",
+        "两位数加减",
+        "竖式计算",
+        "加减关系",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "place-value columns misaligned",
+        "borrowing treated as changing both digits randomly",
+        "inverse check skipped after vertical calculation"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-within-100-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-upper-assessment-within-100-add-sub-unit",
+        "hjb-primary-p2-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个竖式计算是正确的？\nA.  45\n  - 28\n  -----\n    27\nB.  45\n  - 28\n  -----\n    17\nC.  45\n  - 28\n  -----\n    23\nD.  45\n  - 28\n  -----\n    13",
+      "optionsZhHans": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "B",
+      "acceptedAnswers": [
+        "B"
+      ],
+      "explanationZhHans": "45-28，个位5减8不够，从十位借1当10，15-8=7，十位4借1剩3，3-2=1，得17。B正确。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-008",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-within-100-add-sub",
+      "unitTitle": "100以内数的加减法（二）",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "within-100-addition-subtraction",
+        "two-digit-subtraction",
+        "vertical-calculation",
+        "inverse-operation-check",
+        "100以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "不退位减法",
+        "退位减法",
+        "两位数加减",
+        "竖式计算",
+        "加减关系",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "place-value columns misaligned",
+        "borrowing treated as changing both digits randomly",
+        "inverse check skipped after vertical calculation"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-within-100-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-upper-assessment-within-100-add-sub-unit",
+        "hjb-primary-p2-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在竖式计算 72 - 46 时，个位不够减，从十位借1后，个位变成 ___ 减 6。",
+      "optionsZhHans": [],
+      "answer": "12",
+      "acceptedAnswers": [
+        "12"
+      ],
+      "explanationZhHans": "72-46，个位2减6不够，从十位借1作10，个位变成12，12-6=6，十位7借1剩6，6-4=2，得26。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-009",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-within-100-add-sub",
+      "unitTitle": "100以内数的加减法（二）",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "within-100-addition-subtraction",
+        "two-digit-subtraction",
+        "vertical-calculation",
+        "inverse-operation-check",
+        "100以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "不退位减法",
+        "退位减法",
+        "两位数加减",
+        "竖式计算",
+        "加减关系",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "place-value columns misaligned",
+        "borrowing treated as changing both digits randomly",
+        "inverse check skipped after vertical calculation"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-within-100-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-upper-assessment-within-100-add-sub-unit",
+        "hjb-primary-p2-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用竖式计算 34 + 29，并写出验算过程。",
+      "optionsZhHans": [],
+      "answer": "63",
+      "acceptedAnswers": [
+        "63"
+      ],
+      "explanationZhHans": "34+29，个位4+9=13，写3进1，十位3+2+1=6，得63。验算：63-29=34，或63-34=29。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-010",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-within-100-add-sub",
+      "unitTitle": "100以内数的加减法（二）",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "within-100-addition-subtraction",
+        "two-digit-subtraction",
+        "vertical-calculation",
+        "inverse-operation-check",
+        "100以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "不退位减法",
+        "退位减法",
+        "两位数加减",
+        "竖式计算",
+        "加减关系",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "place-value columns misaligned",
+        "borrowing treated as changing both digits randomly",
+        "inverse check skipped after vertical calculation"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-within-100-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-upper-assessment-within-100-add-sub-unit",
+        "hjb-primary-p2-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明计算 81 - 47 时，得到的结果是 44。他算得对吗？\nA. 对，因为 44 + 47 = 91\nB. 不对，因为 44 + 47 = 91，不等于 81\nC. 对，因为 81 - 44 = 37\nD. 不对，因为 81 - 44 = 47",
+      "optionsZhHans": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "B",
+      "acceptedAnswers": [
+        "B"
+      ],
+      "explanationZhHans": "用加法验算：44+47=91，不等于81，所以44不对。正确结果应为81-47=34。"
+    }
+  ]
+}

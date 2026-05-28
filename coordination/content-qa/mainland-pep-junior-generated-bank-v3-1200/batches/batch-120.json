@@ -1,0 +1,314 @@
+{
+  "batchId": "batch-120",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s3-k11-sa-058",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-inverse-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-dynamic-geometry-functions"
+      ],
+      "promptZhHans": "小明在探究反比例函数时，发现函数 y = k/x 的图象经过点 (a, b)，其中 a 和 b 是一元二次方程 x^2 - 5x + 4 = 0 的两个根，且 a < b。若将该反比例函数图象先向右平移 2 个单位，再向上平移 1 个单位，得到新函数图象。求新函数图象的对称中心坐标。",
+      "optionsZhHans": [],
+      "answer": "(2, 1)",
+      "acceptedAnswers": [
+        "(2, 1)"
+      ],
+      "explanationZhHans": "由一元二次方程 x^2 - 5x + 4 = 0，解得 x1 = 1, x2 = 4。因为 a < b，所以 a = 1, b = 4。反比例函数 y = k/x 的图象经过点 (1, 4)，代入得 4 = k/1，解得 k = 4。原反比例函数为 y = 4/x，其对称中心为原点 (0, 0)。将图象向右平移 2 个单位，再向上平移 1 个单位，对称中心相应平移，得到新对称中心坐标为 (2, 1)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-059",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-right-triangle-trigonometry"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "某银行推出一种“成长储蓄”计划：一年利息 I 满足 I=P×r/100，其中 P 为本金（元），r 为年利率的百分数值（例如4%写作4）。如果希望一年利息为2400元，且年利率不超过5%，那么本金至少需要存入多少元？请写出计算过程并给出答案。",
+      "optionsZhHans": [],
+      "answer": "48000元",
+      "acceptedAnswers": [
+        "48000元",
+        "48000"
+      ],
+      "explanationZhHans": "由 I=P×r/100 且 I=2400，得 P×r/100=2400，即 P×r=240000。要求年利率不超过5%，即 r≤5。要使本金 P 尽可能小，应取允许的最大年利率 r=5。于是 P=240000÷5=48000。因此，本金至少需要存入48000元。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-060",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-projection-views"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-proof-calculation-integrated"
+      ],
+      "promptZhHans": "小雅在综合实践活动中研究“相似与测量”。她站在水平地面上，利用一根竖直标杆和阳光下的影子测量远处一棵树的高度。小雅的身高为1.6 m，她测得自己影子的长度为2.0 m。此时，她将标杆竖直插在地面上，标杆露出地面部分的高度为1.2 m，测得标杆影子的长度为1.5 m。同时，她测得树的影子完全落在地面上，长度为9.0 m。假设阳光光线互相平行，且地面水平。求树的高度。",
+      "optionsZhHans": [],
+      "answer": "7.2 m",
+      "acceptedAnswers": [
+        "7.2 m",
+        "7.2米",
+        "7.2"
+      ],
+      "explanationZhHans": "由于阳光光线平行，物体高度与影子长度成正比。由小雅的身高和影子长度可得比例系数为 1.6 m / 2.0 m = 0.8。标杆高度与影子长度之比为 1.2 m / 1.5 m = 0.8，验证了比例的一致性。因此，树的高度与影子长度之比也为0.8。设树的高度为 h，则 h / 9.0 m = 0.8，解得 h = 0.8 × 9.0 m = 7.2 m。所以树的高度为7.2 m。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-061",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-function-geometry-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig"
+      ],
+      "promptZhHans": "已知反比例函数 y = k/x 的图象经过点 A(2, -3)。若点 B(m, n) 在该图象上，且 m > 0，n < 0，求 k 的值，并说明该图象位于哪些象限。",
+      "optionsZhHans": [],
+      "answer": "k = -6，图象位于第二、四象限",
+      "acceptedAnswers": [
+        "k = -6，图象位于第二、四象限",
+        "k=-6，图象在第二和第四象限",
+        "k=-6，图象在第二、四象限"
+      ],
+      "explanationZhHans": "将点 A(2, -3) 代入 y = k/x，得 -3 = k/2，解得 k = -6。因为 k < 0，所以反比例函数图象位于第二、四象限。点 B(m, n) 满足 m > 0, n < 0，即点 B 在第四象限，与图象所在象限一致。故答案为 k = -6，图象位于第二、四象限。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-062",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-similarity"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models"
+      ],
+      "promptZhHans": "小明在数学实践活动中，利用相似三角形和反比例函数的知识测量学校旗杆的高度。他在平地上直立一根长度为1.5米的标杆，测得标杆的影长为2米。同时，他测得旗杆的影长为16米。已知太阳光线是平行光线，且地面水平。之后，小明发现旗杆顶端与旗杆影子端点的连线与地面夹角的正切值，恰好等于反比例函数 y=k/x（k>0）在 x=4 时的函数值。求旗杆的高度，并求出 k 的值。",
+      "optionsZhHans": [],
+      "answer": "旗杆高度为12米，k=3",
+      "acceptedAnswers": [
+        "旗杆高度为12米，k=3",
+        "12米，k=3",
+        "旗杆高12米，k=3",
+        "高度12米，k=3"
+      ],
+      "explanationZhHans": "标杆和旗杆与各自影长构成的直角三角形相似。设旗杆高度为 h 米，则 1.5/2=h/16，解得 h=12。旗杆顶端与影子端点连线和地面的夹角满足 tanθ=12/16=3/4。反比例函数 y=k/x 在 x=4 时的函数值为 k/4，因此 k/4=3/4，解得 k=3。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-063",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-graduation-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "promptZhHans": "小明在操场上测量旗杆的高度。他在点A处测得旗杆顶端C的仰角为30°，然后向旗杆方向前进20米到达点B，此时测得旗杆顶端C的仰角为45°。已知小明的身高忽略不计，求旗杆的高度（结果保留根号）。",
+      "optionsZhHans": [],
+      "answer": "10(√3+1)米",
+      "acceptedAnswers": [
+        "10(√3+1)米",
+        "10(1+√3)米"
+      ],
+      "explanationZhHans": "设旗杆底部为D，顶端为C，CD为旗杆高度h。在点B测得仰角45°，所以BD = h。在点A测得仰角30°，所以AD = h/tan30° = h√3。由题意AB = AD - BD = h√3 - h = h(√3 - 1) = 20，解得h = 20/(√3 - 1) = 20(√3 + 1)/(3 - 1) = 10(√3 + 1)。因此旗杆高度为10(√3+1)米。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-064",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-inverse-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions"
+      ],
+      "promptZhHans": "在反比例函数 y = k/x（k ≠ 0）的图象上，有两点 A(2, -3) 和 B(-1, m)。已知点 A 在第四象限，点 B 在第二象限，且直线 AB 与 x 轴交于点 C。求 m 的值和点 C 的坐标。",
+      "optionsZhHans": [],
+      "answer": "m = 6，点 C 的坐标为 (1, 0)",
+      "acceptedAnswers": [
+        "m = 6，点 C 的坐标为 (1, 0)",
+        "m=6, C(1,0)",
+        "m = 6，C(1,0)",
+        "m=6, 点C(1,0)",
+        "m=6，点C的坐标为(1,0)"
+      ],
+      "explanationZhHans": "由点 A(2, -3) 在反比例函数 y = k/x 上，代入得 -3 = k/2，解得 k = -6。函数为 y = -6/x。点 B(-1, m) 也在图象上，代入得 m = -6/(-1) = 6。设直线 AB 的解析式为 y = ax + b，将 A(2, -3) 和 B(-1, 6) 代入：-3 = 2a + b，6 = -a + b。两式相减得 -9 = 3a，a = -3，代入得 b = 3。直线为 y = -3x + 3。令 y = 0，得 0 = -3x + 3，x = 1。所以点 C 的坐标为 (1, 0)。因此 m = 6，点 C 的坐标为 (1, 0)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-065",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-right-triangle-trigonometry"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "在平面直角坐标系中，点A的坐标为(2, 1)，点B的坐标为(6, 4)。将线段AB绕点A顺时针旋转90°得到线段AC。求点C的坐标。",
+      "optionsZhHans": [],
+      "answer": "(5, -3)",
+      "acceptedAnswers": [
+        "(5, -3)",
+        "(5,-3)"
+      ],
+      "explanationZhHans": "由点A(2,1)和点B(6,4)可得向量AB = (4, 3)。顺时针旋转90°的变换规则为 (x, y) → (y, -x)，故旋转后的向量AC = (3, -4)。点C = A + AC = (2+3, 1-4) = (5, -3)。因此，点C的坐标是(5, -3)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-066",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-projection-views"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "小明在测量学校旗杆的高度时，采用了如下方法：他在旗杆底部正东方向12米处的地面上放置一面平面镜，然后向正东方向后退，直到在平面镜中看到旗杆顶端的像。此时，小明眼睛的位置距离平面镜2米，且眼睛离地面的高度为1.6米。已知入射光线与反射光线关于法线对称，且旗杆、平面镜和小明眼睛均在同一竖直平面内。求旗杆的高度。",
+      "optionsZhHans": [],
+      "answer": "9.6米",
+      "acceptedAnswers": [
+        "9.6米",
+        "9.6 m",
+        "9.6"
+      ],
+      "explanationZhHans": "根据平面镜成像的对称性，入射角等于反射角，因此旗杆顶端到平面镜的入射光线与平面镜到小明眼睛的反射光线与地面夹角相等，从而构成两个相似的直角三角形。设旗杆高度为h米，由相似三角形对应边成比例可得 h/12 = 1.6/2，解得 h = 1.6 × 12 / 2 = 9.6。因此旗杆的高度为9.6米。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-067",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-function-geometry-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions"
+      ],
+      "promptZhHans": "在反比例函数 y=k/x（k≠0）的图象上，有两点 A(-2,3) 和 B(1,m)。求 k 和 m 的值，并说明理由。",
+      "optionsZhHans": [],
+      "answer": "k=-6，m=-6",
+      "acceptedAnswers": [
+        "k=-6，m=-6",
+        "k = -6，m = -6",
+        "k=-6,m=-6",
+        "-6，-6"
+      ],
+      "explanationZhHans": "点 A(-2,3) 在反比例函数 y=k/x 上，代入得 3=k/(-2)，所以 k=-6。函数解析式为 y=-6/x。点 B(1,m) 也在该函数图象上，代入 x=1，得 m=-6/1=-6。因此 k=-6，m=-6。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

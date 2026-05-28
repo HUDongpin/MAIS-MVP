@@ -1,0 +1,132 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-076",
+  "startedAt": "2026-05-28T02:06:21.969Z",
+  "completedAt": "2026-05-28T02:06:33.991Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-101",
+    "bnu-high-ds-v1-s5-102",
+    "bnu-high-ds-v1-s5-103",
+    "bnu-high-ds-v1-s5-104",
+    "bnu-high-ds-v1-s5-105",
+    "bnu-high-ds-v1-s5-106",
+    "bnu-high-ds-v1-s5-107",
+    "bnu-high-ds-v1-s5-108"
+  ],
+  "usage": {
+    "prompt_tokens": 12008,
+    "completion_tokens": 1046,
+    "total_tokens": 13054,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 11624
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-101",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析正确推导出a=5, c=3, b²=16，方程正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-102",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析正确利用渐近线和焦距条件解得a=3, b=4。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-103",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案4正确，解析正确指出焦点到准线距离为p=4，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-104",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析正确使用点差法求得斜率并化简方程。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-105",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案(2, 7/2)与独立解2<k<3.5一致，解析正确列出不等式组并求解。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-106",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "correctedAnswer": null,
+        "issueTags": [
+          "unsolvable",
+          "missing_condition",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "Stage A判定题目不可解，缺少条件无法唯一确定离心率；存储答案√2无依据，解析推导假设a=b不成立，且选项不唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-107",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [
+          "explanation_contradiction"
+        ],
+        "severity": "minor",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，但解析中错误得出x=1，与最终答案x=3矛盾，需修正推导过程。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-108",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "medium",
+        "rationaleZhHans": "存储答案与独立解一致，解析正确利用垂直条件和韦达定理得出定点坐标。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 1,
+      "fail": 1,
+      "notes": "第106题Stage A判定不可解，存储答案和解析均错误；第107题解析存在推导矛盾但答案正确；其余题目均通过。"
+    }
+  }
+}

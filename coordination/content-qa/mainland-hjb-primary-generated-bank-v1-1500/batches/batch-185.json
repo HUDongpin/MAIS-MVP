@@ -1,0 +1,298 @@
+{
+  "batchId": "batch-185",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p4-171",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "hjb-primary-p4-lower-decimals-meaning-add-sub",
+      "unitTitle": "小数的认识与加减法",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "decimal-meaning",
+        "decimal-place-value",
+        "decimal-comparison",
+        "decimal-addition-subtraction",
+        "小数"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "生活中的小数",
+        "小数意义",
+        "小数大小比较",
+        "小数性质",
+        "小数点移动",
+        "小数加减法"
+      ],
+      "misconceptionTags": [
+        "decimal compared as whole-number digit strings",
+        "place values not aligned in addition",
+        "trailing zero treated as changing value"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p4-lower-decimals-meaning-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-lower-assessment-decimals-meaning-add-sub",
+        "hjb-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丽在超市买了一瓶果汁，价格是5元4角。她用小数表示这个价格，写成了5.04元。请判断她写得是否正确，并说明理由。",
+      "optionsZhHans": [],
+      "answer": "不正确。5元4角应该写成5.4元，而不是5.04元。因为1元=10角，4角=0.4元，所以5元4角=5.4元。5.04元表示5元0角4分，与5元4角不同。",
+      "acceptedAnswers": [
+        "不正确。5元4角应该写成5.4元，而不是5.04元。因为1元=10角，4角=0.4元，所以5元4角=5.4元。5.04元表示5元0角4分，与5元4角不同。"
+      ],
+      "explanationZhHans": "5元4角中，4角是0.4元，合起来是5.4元。小丽写成了5.04元，混淆了角和分的进率，把角当成了分。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-172",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "hjb-primary-p4-lower-decimals-meaning-add-sub",
+      "unitTitle": "小数的认识与加减法",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "decimal-meaning",
+        "decimal-place-value",
+        "decimal-comparison",
+        "decimal-addition-subtraction",
+        "小数"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "生活中的小数",
+        "小数意义",
+        "小数大小比较",
+        "小数性质",
+        "小数点移动",
+        "小数加减法"
+      ],
+      "misconceptionTags": [
+        "decimal compared as whole-number digit strings",
+        "place values not aligned in addition",
+        "trailing zero treated as changing value"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p4-lower-decimals-meaning-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-lower-assessment-decimals-meaning-add-sub",
+        "hjb-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面四个小数中，哪一个与0.7相等？",
+      "optionsZhHans": [
+        "0.07",
+        "0.70",
+        "0.007",
+        "7.0"
+      ],
+      "answer": "0.70",
+      "acceptedAnswers": [
+        "0.70"
+      ],
+      "explanationZhHans": "小数的末尾添上0或去掉0，小数的大小不变。0.7的末尾添上一个0就是0.70，所以0.7=0.70。其他选项都改变了小数的大小。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-173",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "hjb-primary-p4-lower-decimals-meaning-add-sub",
+      "unitTitle": "小数的认识与加减法",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "decimal-meaning",
+        "decimal-place-value",
+        "decimal-comparison",
+        "decimal-addition-subtraction",
+        "小数"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "生活中的小数",
+        "小数意义",
+        "小数大小比较",
+        "小数性质",
+        "小数点移动",
+        "小数加减法"
+      ],
+      "misconceptionTags": [
+        "decimal compared as whole-number digit strings",
+        "place values not aligned in addition",
+        "trailing zero treated as changing value"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p4-lower-decimals-meaning-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-lower-assessment-decimals-meaning-add-sub",
+        "hjb-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "S18 remediated after DeepSeek-v4-pro QA on 2026-05-25; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在计算3.25 + 1.8时，小明列竖式把两个小数的小数点对齐，然后从百分位开始加。百分位上5加0得5，十分位上2加8得10，向个位进1，十分位写0；个位上3加1再加进位1得5。他算出的结果是5.05。请你帮小明检查，他的计算正确吗？如果不正确，正确的得数应该是多少？",
+      "optionsZhHans": [],
+      "answer": "正确，得数是5.05。",
+      "acceptedAnswers": [
+        "正确，得数是5.05。",
+        "正确，5.05",
+        "正确"
+      ],
+      "explanationZhHans": "3.25+1.8要把小数点对齐，1.8可看作1.80。3.25+1.80=5.05，小明的计算过程和结果都是正确的。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-174",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "hjb-primary-p4-lower-decimals-meaning-add-sub",
+      "unitTitle": "小数的认识与加减法",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "decimal-meaning",
+        "decimal-place-value",
+        "decimal-comparison",
+        "decimal-addition-subtraction",
+        "小数"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "生活中的小数",
+        "小数意义",
+        "小数大小比较",
+        "小数性质",
+        "小数点移动",
+        "小数加减法"
+      ],
+      "misconceptionTags": [
+        "decimal compared as whole-number digit strings",
+        "place values not aligned in addition",
+        "trailing zero treated as changing value"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p4-lower-decimals-meaning-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-lower-assessment-decimals-meaning-add-sub",
+        "hjb-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一根绳子长2.6米，用去1.35米后，还剩多少米？请列竖式计算。",
+      "optionsZhHans": [],
+      "answer": "1.25米",
+      "acceptedAnswers": [
+        "1.25米",
+        "1.25"
+      ],
+      "explanationZhHans": "2.6可以看作2.60，减去1.35：百分位0-5不够减，向十分位借1，10-5=5；十分位5-3=2；个位2-1=1，所以得1.25米。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-175",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "hjb-primary-p4-lower-decimals-meaning-add-sub",
+      "unitTitle": "小数的认识与加减法",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "decimal-meaning",
+        "decimal-place-value",
+        "decimal-comparison",
+        "decimal-addition-subtraction",
+        "小数"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "生活中的小数",
+        "小数意义",
+        "小数大小比较",
+        "小数性质",
+        "小数点移动",
+        "小数加减法"
+      ],
+      "misconceptionTags": [
+        "decimal compared as whole-number digit strings",
+        "place values not aligned in addition",
+        "trailing zero treated as changing value"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p4-lower-decimals-meaning-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-lower-assessment-decimals-meaning-add-sub",
+        "hjb-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在50米跑测试中，小杰的成绩是8.9秒，小宇的成绩是9.2秒，小浩的成绩是8.5秒，小轩的成绩是9.0秒。谁跑得最快？",
+      "optionsZhHans": [
+        "小杰",
+        "小宇",
+        "小浩",
+        "小轩"
+      ],
+      "answer": "小浩",
+      "acceptedAnswers": [
+        "小浩"
+      ],
+      "explanationZhHans": "跑步成绩中，时间越短越快。比较小数：8.5 < 8.9 < 9.0 < 9.2，所以小浩的8.5秒最短，他跑得最快。"
+    }
+  ]
+}

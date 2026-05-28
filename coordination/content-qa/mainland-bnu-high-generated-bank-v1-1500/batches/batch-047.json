@@ -1,0 +1,670 @@
+{
+  "batchId": "batch-047",
+  "questions": [
+    {
+      "id": "bnu-high-ds-v1-s4-461",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-复数",
+      "topicTitleZhHans": "复数",
+      "volume": "必修 第二册",
+      "chapter": "复数",
+      "conceptIds": [
+        "complex-numbers",
+        "complex-operations",
+        "complex-plane",
+        "complex-modulus",
+        "complex-representation"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "数学运算",
+        "直观想象"
+      ],
+      "skillTags": [
+        "复数概念",
+        "四则运算",
+        "共轭与模",
+        "复平面表示",
+        "方程求解",
+        "复平面几何",
+        "模与距离",
+        "共轭性质"
+      ],
+      "misconceptionTags": [
+        "imaginary unit power cycle error",
+        "conjugate sign error",
+        "modulus confused with real part",
+        "complex-plane coordinate reversed",
+        "imaginary unit powers miscycled",
+        "real and imaginary parts mixed",
+        "conjugate sign reversed",
+        "modulus interpreted value"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-complex-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-unit-complex-numbers",
+        "bnu-high-s4-lower-assessment-review-complex-numbers",
+        "bnu-high-s4-lower-assessment-final-integrated-s4-lower"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知复数 z 满足 (1 + i)z = 3 - i，则 z 的共轭复数在复平面内对应的点位于第几象限？",
+      "optionsZhHans": [
+        "第一象限",
+        "第二象限",
+        "第三象限",
+        "第四象限"
+      ],
+      "answer": "第一象限",
+      "acceptedAnswers": [
+        "第一象限"
+      ],
+      "explanationZhHans": "由 (1+i)z=3-i 得 z=(3-i)/(1+i)=(3-i)(1-i)/(1+i)(1-i)=(3-3i-i+i²)/(1-i²)=(3-4i-1)/(1+1)=(2-4i)/2=1-2i。共轭复数为 1+2i，对应点 (1,2) 在第一象限。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-462",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-复数",
+      "topicTitleZhHans": "复数",
+      "volume": "必修 第二册",
+      "chapter": "复数",
+      "conceptIds": [
+        "complex-numbers",
+        "complex-operations",
+        "complex-plane",
+        "complex-modulus",
+        "complex-representation"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "数学运算",
+        "直观想象"
+      ],
+      "skillTags": [
+        "复数概念",
+        "四则运算",
+        "共轭与模",
+        "复平面表示",
+        "方程求解",
+        "复平面几何",
+        "模与距离",
+        "共轭性质"
+      ],
+      "misconceptionTags": [
+        "imaginary unit power cycle error",
+        "conjugate sign error",
+        "modulus confused with real part",
+        "complex-plane coordinate reversed",
+        "imaginary unit powers miscycled",
+        "real and imaginary parts mixed",
+        "conjugate sign reversed",
+        "modulus interpreted value"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-complex-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-unit-complex-numbers",
+        "bnu-high-s4-lower-assessment-review-complex-numbers",
+        "bnu-high-s4-lower-assessment-final-integrated-s4-lower"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算 i²⁰²³ 的值。",
+      "optionsZhHans": [],
+      "answer": "-i",
+      "acceptedAnswers": [
+        "-i"
+      ],
+      "explanationZhHans": "i 的幂以 4 为周期：i¹=i, i²=-1, i³=-i, i⁴=1。2023÷4=505 余 3，所以 i²⁰²³=i³=-i。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-463",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-复数",
+      "topicTitleZhHans": "复数",
+      "volume": "必修 第二册",
+      "chapter": "复数",
+      "conceptIds": [
+        "complex-numbers",
+        "complex-operations",
+        "complex-plane",
+        "complex-modulus",
+        "complex-representation"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "数学运算",
+        "直观想象"
+      ],
+      "skillTags": [
+        "复数概念",
+        "四则运算",
+        "共轭与模",
+        "复平面表示",
+        "方程求解",
+        "复平面几何",
+        "模与距离",
+        "共轭性质"
+      ],
+      "misconceptionTags": [
+        "imaginary unit power cycle error",
+        "conjugate sign error",
+        "modulus confused with real part",
+        "complex-plane coordinate reversed",
+        "imaginary unit powers miscycled",
+        "real and imaginary parts mixed",
+        "conjugate sign reversed",
+        "modulus interpreted value"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-complex-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-unit-complex-numbers",
+        "bnu-high-s4-lower-assessment-review-complex-numbers",
+        "bnu-high-s4-lower-assessment-final-integrated-s4-lower"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知复数 z = a + bi (a, b ∈ R)，则“z 为纯虚数”是“a = 0”的什么条件？",
+      "optionsZhHans": [
+        "充分不必要条件",
+        "必要不充分条件",
+        "充要条件",
+        "既不充分也不必要条件"
+      ],
+      "answer": "必要不充分条件",
+      "acceptedAnswers": [
+        "必要不充分条件"
+      ],
+      "explanationZhHans": "z 为纯虚数要求 a=0 且 b≠0，所以 a=0 是必要条件；但 a=0 时若 b=0 则 z=0 为实数，不是纯虚数，故不是充分条件。因此是必要不充分条件。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-464",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-复数",
+      "topicTitleZhHans": "复数",
+      "volume": "必修 第二册",
+      "chapter": "复数",
+      "conceptIds": [
+        "complex-numbers",
+        "complex-operations",
+        "complex-plane",
+        "complex-modulus",
+        "complex-representation"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "数学运算",
+        "直观想象"
+      ],
+      "skillTags": [
+        "复数概念",
+        "四则运算",
+        "共轭与模",
+        "复平面表示",
+        "方程求解",
+        "复平面几何",
+        "模与距离",
+        "共轭性质"
+      ],
+      "misconceptionTags": [
+        "imaginary unit power cycle error",
+        "conjugate sign error",
+        "modulus confused with real part",
+        "complex-plane coordinate reversed",
+        "imaginary unit powers miscycled",
+        "real and imaginary parts mixed",
+        "conjugate sign reversed",
+        "modulus interpreted value"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-complex-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-unit-complex-numbers",
+        "bnu-high-s4-lower-assessment-review-complex-numbers",
+        "bnu-high-s4-lower-assessment-final-integrated-s4-lower"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在复平面内，复数 z₁ = 2 + 3i 与 z₂ = -1 + 4i 对应的点分别为 A 和 B，求线段 AB 的长度。",
+      "optionsZhHans": [],
+      "answer": "√10",
+      "acceptedAnswers": [
+        "√10"
+      ],
+      "explanationZhHans": "A(2,3)，B(-1,4)，则 |AB| = √[(-1-2)² + (4-3)²] = √(9+1) = √10。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-465",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-复数",
+      "topicTitleZhHans": "复数",
+      "volume": "必修 第二册",
+      "chapter": "复数",
+      "conceptIds": [
+        "complex-numbers",
+        "complex-operations",
+        "complex-plane",
+        "complex-modulus",
+        "complex-representation"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "数学运算",
+        "直观想象"
+      ],
+      "skillTags": [
+        "复数概念",
+        "四则运算",
+        "共轭与模",
+        "复平面表示",
+        "方程求解",
+        "复平面几何",
+        "模与距离",
+        "共轭性质"
+      ],
+      "misconceptionTags": [
+        "imaginary unit power cycle error",
+        "conjugate sign error",
+        "modulus confused with real part",
+        "complex-plane coordinate reversed",
+        "imaginary unit powers miscycled",
+        "real and imaginary parts mixed",
+        "conjugate sign reversed",
+        "modulus interpreted value"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-complex-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-unit-complex-numbers",
+        "bnu-high-s4-lower-assessment-review-complex-numbers",
+        "bnu-high-s4-lower-assessment-final-integrated-s4-lower"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "若复数 z 满足 |z - 2i| = 1，则 |z| 的最大值是多少？",
+      "optionsZhHans": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "answer": "3",
+      "acceptedAnswers": [
+        "3"
+      ],
+      "explanationZhHans": "|z-2i|=1 表示以 (0,2) 为圆心、1 为半径的圆。|z| 表示圆上点到原点的距离，最大值为圆心到原点距离加半径，即 2+1=3。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-466",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-立体几何初步",
+      "topicTitleZhHans": "立体几何初步",
+      "volume": "必修 第二册",
+      "chapter": "立体几何初步",
+      "conceptIds": [
+        "solid-geometry",
+        "spatial-lines-planes",
+        "parallel-perpendicular",
+        "surface-volume",
+        "spatial-reasoning"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "逻辑推理",
+        "数学运算"
+      ],
+      "skillTags": [
+        "空间位置关系",
+        "线面平行垂直",
+        "截面与展开",
+        "表面积体积",
+        "空间证明",
+        "全卷结构",
+        "三角综合",
+        "向量应用"
+      ],
+      "misconceptionTags": [
+        "spatial relation inferred from drawing only",
+        "parallel criterion incomplete",
+        "perpendicular condition overgeneralized",
+        "surface and volume formulas mixed",
+        "drawing treated",
+        "parallel and perpendicular relation overclaimed",
+        "hidden line relation missed",
+        "area and volume units mixed"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-solid-geometry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-unit-solid-geometry-introduction",
+        "bnu-high-s4-lower-assessment-final-integrated-s4-lower",
+        "bnu-high-s4-lower-assessment-unit-trigonometric-functions"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知正方体 ABCD-A₁B₁C₁D₁ 的棱长为 2，E 为棱 CC₁ 的中点，求三棱锥 D₁-BDE 的体积。",
+      "optionsZhHans": [],
+      "answer": "2/3",
+      "acceptedAnswers": [
+        "2/3"
+      ],
+      "explanationZhHans": "以 D₁ 为顶点，底面为 △BDE。易求 △BDE 面积为 2，点 D₁ 到平面 BDE 的距离为 1，故体积 V = (1/3)×2×1 = 2/3。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-467",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-立体几何初步",
+      "topicTitleZhHans": "立体几何初步",
+      "volume": "必修 第二册",
+      "chapter": "立体几何初步",
+      "conceptIds": [
+        "solid-geometry",
+        "spatial-lines-planes",
+        "parallel-perpendicular",
+        "surface-volume",
+        "spatial-reasoning"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "逻辑推理",
+        "数学运算"
+      ],
+      "skillTags": [
+        "空间位置关系",
+        "线面平行垂直",
+        "截面与展开",
+        "表面积体积",
+        "空间证明",
+        "全卷结构",
+        "三角综合",
+        "向量应用"
+      ],
+      "misconceptionTags": [
+        "spatial relation inferred from drawing only",
+        "parallel criterion incomplete",
+        "perpendicular condition overgeneralized",
+        "surface and volume formulas mixed",
+        "drawing treated",
+        "parallel and perpendicular relation overclaimed",
+        "hidden line relation missed",
+        "area and volume units mixed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-solid-geometry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-unit-solid-geometry-introduction",
+        "bnu-high-s4-lower-assessment-final-integrated-s4-lower",
+        "bnu-high-s4-lower-assessment-unit-trigonometric-functions"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知直线 l 与平面 α 相交但不垂直，则在平面 α 内与直线 l 平行的直线有多少条？",
+      "optionsZhHans": [
+        "0 条",
+        "1 条",
+        "2 条",
+        "无数条"
+      ],
+      "answer": "0 条",
+      "acceptedAnswers": [
+        "0 条"
+      ],
+      "explanationZhHans": "若平面 α 内存在直线与 l 平行，则 l 平行于该直线，从而 l 平行于 α，与 l 与 α 相交矛盾。故不存在这样的直线。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-468",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-立体几何初步",
+      "topicTitleZhHans": "立体几何初步",
+      "volume": "必修 第二册",
+      "chapter": "立体几何初步",
+      "conceptIds": [
+        "solid-geometry",
+        "spatial-lines-planes",
+        "parallel-perpendicular",
+        "surface-volume",
+        "spatial-reasoning"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "逻辑推理",
+        "数学运算"
+      ],
+      "skillTags": [
+        "空间位置关系",
+        "线面平行垂直",
+        "截面与展开",
+        "表面积体积",
+        "空间证明",
+        "全卷结构",
+        "三角综合",
+        "向量应用"
+      ],
+      "misconceptionTags": [
+        "spatial relation inferred from drawing only",
+        "parallel criterion incomplete",
+        "perpendicular condition overgeneralized",
+        "surface and volume formulas mixed",
+        "drawing treated",
+        "parallel and perpendicular relation overclaimed",
+        "hidden line relation missed",
+        "area and volume units mixed"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-solid-geometry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-unit-solid-geometry-introduction",
+        "bnu-high-s4-lower-assessment-final-integrated-s4-lower",
+        "bnu-high-s4-lower-assessment-unit-trigonometric-functions"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知正四棱锥的底面边长为 4，侧棱长为 3，求其表面积。",
+      "optionsZhHans": [],
+      "answer": "16 + 8√5",
+      "acceptedAnswers": [
+        "16 + 8√5"
+      ],
+      "explanationZhHans": "底面积 4²=16。斜高 h' = √(3² - 2²) = √5，侧面积 = 4×(1/2)×4×√5 = 8√5。表面积 = 16 + 8√5。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-469",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-立体几何初步",
+      "topicTitleZhHans": "立体几何初步",
+      "volume": "必修 第二册",
+      "chapter": "立体几何初步",
+      "conceptIds": [
+        "solid-geometry",
+        "spatial-lines-planes",
+        "parallel-perpendicular",
+        "surface-volume",
+        "spatial-reasoning"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "逻辑推理",
+        "数学运算"
+      ],
+      "skillTags": [
+        "空间位置关系",
+        "线面平行垂直",
+        "截面与展开",
+        "表面积体积",
+        "空间证明",
+        "全卷结构",
+        "三角综合",
+        "向量应用"
+      ],
+      "misconceptionTags": [
+        "spatial relation inferred from drawing only",
+        "parallel criterion incomplete",
+        "perpendicular condition overgeneralized",
+        "surface and volume formulas mixed",
+        "drawing treated",
+        "parallel and perpendicular relation overclaimed",
+        "hidden line relation missed",
+        "area and volume units mixed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-solid-geometry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-unit-solid-geometry-introduction",
+        "bnu-high-s4-lower-assessment-final-integrated-s4-lower",
+        "bnu-high-s4-lower-assessment-unit-trigonometric-functions"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知 m, n 是两条不同的直线，α, β 是两个不同的平面，则下列命题正确的是？",
+      "optionsZhHans": [
+        "若 m∥α，n∥α，则 m∥n",
+        "若 m⊥α，n⊥α，则 m∥n",
+        "若 m∥α，m∥β，则 α∥β",
+        "若 m⊥α，m⊥β，则 α⊥β"
+      ],
+      "answer": "若 m⊥α，n⊥α，则 m∥n",
+      "acceptedAnswers": [
+        "若 m⊥α，n⊥α，则 m∥n"
+      ],
+      "explanationZhHans": "垂直于同一平面的两条直线互相平行，故 B 正确。A 中 m,n 可能相交或异面；C 中 α,β 可能相交；D 中 α,β 平行。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-470",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-立体几何初步",
+      "topicTitleZhHans": "立体几何初步",
+      "volume": "必修 第二册",
+      "chapter": "立体几何初步",
+      "conceptIds": [
+        "solid-geometry",
+        "spatial-lines-planes",
+        "parallel-perpendicular",
+        "surface-volume",
+        "spatial-reasoning"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "逻辑推理",
+        "数学运算"
+      ],
+      "skillTags": [
+        "空间位置关系",
+        "线面平行垂直",
+        "截面与展开",
+        "表面积体积",
+        "空间证明",
+        "全卷结构",
+        "三角综合",
+        "向量应用"
+      ],
+      "misconceptionTags": [
+        "spatial relation inferred from drawing only",
+        "parallel criterion incomplete",
+        "perpendicular condition overgeneralized",
+        "surface and volume formulas mixed",
+        "drawing treated",
+        "parallel and perpendicular relation overclaimed",
+        "hidden line relation missed",
+        "area and volume units mixed"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-solid-geometry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-unit-solid-geometry-introduction",
+        "bnu-high-s4-lower-assessment-final-integrated-s4-lower",
+        "bnu-high-s4-lower-assessment-unit-trigonometric-functions"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知圆锥的底面半径为 3，母线长为 5，求其侧面展开图扇形的圆心角（用弧度表示）。",
+      "optionsZhHans": [],
+      "answer": "6π/5",
+      "acceptedAnswers": [
+        "6π/5"
+      ],
+      "explanationZhHans": "底面周长 2π×3=6π，扇形弧长等于底面周长，扇形半径等于母线长 5，故圆心角 θ = 弧长/半径 = 6π/5。"
+    }
+  ]
+}

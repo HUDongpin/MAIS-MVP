@@ -1,0 +1,290 @@
+{
+  "batchId": "batch-230",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p5-146",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-factors-multiples",
+      "unitTitle": "因数、倍数与数的结构",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "factors-multiples",
+        "prime-composite",
+        "greatest-common-factor",
+        "least-common-multiple",
+        "因数倍数"
+      ],
+      "competencyTags": [
+        "数感",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "因数倍数",
+        "质数合数",
+        "公因数",
+        "公倍数",
+        "数的分类"
+      ],
+      "misconceptionTags": [
+        "factor and multiple reversed",
+        "prime number confused with odd number",
+        "least common multiple chosen without common check"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-factors-multiples"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit",
+        "hjb-primary-p5-upper-assessment-equations-relationships-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "有甲、乙两个数，甲数的最大因数是18，乙数的最小倍数是24。甲、乙两数的最大公因数是多少？",
+      "optionsZhHans": [],
+      "answer": "6",
+      "acceptedAnswers": [
+        "6"
+      ],
+      "explanationZhHans": "甲数的最大因数是18，说明甲数就是18。乙数的最小倍数是24，说明乙数就是24。18和24的最大公因数是6。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-147",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-factors-multiples",
+      "unitTitle": "因数、倍数与数的结构",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "factors-multiples",
+        "prime-composite",
+        "greatest-common-factor",
+        "least-common-multiple",
+        "因数倍数"
+      ],
+      "competencyTags": [
+        "数感",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "因数倍数",
+        "质数合数",
+        "公因数",
+        "公倍数",
+        "数的分类"
+      ],
+      "misconceptionTags": [
+        "factor and multiple reversed",
+        "prime number confused with odd number",
+        "least common multiple chosen without common check"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-factors-multiples"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit",
+        "hjb-primary-p5-upper-assessment-equations-relationships-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把36个苹果和48个橘子分给一些小朋友，每个小朋友分得的苹果同样多，分得的橘子也同样多，且正好分完。最多可以分给多少个小朋友？",
+      "optionsZhHans": [],
+      "answer": "12",
+      "acceptedAnswers": [
+        "12",
+        "12个",
+        "12个小朋友"
+      ],
+      "explanationZhHans": "求最多分给多少个小朋友，就是求36和48的最大公因数。36的因数有1,2,3,4,6,9,12,18,36；48的因数有1,2,3,4,6,8,12,16,24,48。最大公因数是12。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-148",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-factors-multiples",
+      "unitTitle": "因数、倍数与数的结构",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "factors-multiples",
+        "prime-composite",
+        "greatest-common-factor",
+        "least-common-multiple",
+        "因数倍数"
+      ],
+      "competencyTags": [
+        "数感",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "因数倍数",
+        "质数合数",
+        "公因数",
+        "公倍数",
+        "数的分类"
+      ],
+      "misconceptionTags": [
+        "factor and multiple reversed",
+        "prime number confused with odd number",
+        "least common multiple chosen without common check"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-factors-multiples"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit",
+        "hjb-primary-p5-upper-assessment-equations-relationships-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个数既是42的因数，又是7的倍数？",
+      "optionsZhHans": [
+        "14",
+        "21",
+        "28",
+        "35"
+      ],
+      "answer": "21",
+      "acceptedAnswers": [
+        "21"
+      ],
+      "explanationZhHans": "42的因数有1,2,3,6,7,14,21,42。7的倍数有7,14,21,28,35,…。同时满足的只有21。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-149",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-factors-multiples",
+      "unitTitle": "因数、倍数与数的结构",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "factors-multiples",
+        "prime-composite",
+        "greatest-common-factor",
+        "least-common-multiple",
+        "因数倍数"
+      ],
+      "competencyTags": [
+        "数感",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "因数倍数",
+        "质数合数",
+        "公因数",
+        "公倍数",
+        "数的分类"
+      ],
+      "misconceptionTags": [
+        "factor and multiple reversed",
+        "prime number confused with odd number",
+        "least common multiple chosen without common check"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-factors-multiples"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit",
+        "hjb-primary-p5-upper-assessment-equations-relationships-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个数既是60的因数，又是15的倍数，这个数可能是多少？写出所有可能的答案。",
+      "optionsZhHans": [],
+      "answer": "15,30,60",
+      "acceptedAnswers": [
+        "15,30,60",
+        "15、30、60",
+        "15，30，60"
+      ],
+      "explanationZhHans": "60的因数有1,2,3,4,5,6,10,12,15,20,30,60；15的倍数有15,30,45,60,…。同时满足的有15,30,60。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-150",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-factors-multiples",
+      "unitTitle": "因数、倍数与数的结构",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "factors-multiples",
+        "prime-composite",
+        "greatest-common-factor",
+        "least-common-multiple",
+        "因数倍数"
+      ],
+      "competencyTags": [
+        "数感",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "因数倍数",
+        "质数合数",
+        "公因数",
+        "公倍数",
+        "数的分类"
+      ],
+      "misconceptionTags": [
+        "factor and multiple reversed",
+        "prime number confused with odd number",
+        "least common multiple chosen without common check"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-factors-multiples"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit",
+        "hjb-primary-p5-upper-assessment-equations-relationships-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一包糖果，如果平均分给8个小朋友，正好分完；如果平均分给12个小朋友，也正好分完。这包糖果至少有多少颗？",
+      "optionsZhHans": [],
+      "answer": "24",
+      "acceptedAnswers": [
+        "24",
+        "24颗"
+      ],
+      "explanationZhHans": "求至少有多少颗，就是求8和12的最小公倍数。8的倍数有8,16,24,32,…；12的倍数有12,24,36,…。最小公倍数是24。"
+    }
+  ]
+}

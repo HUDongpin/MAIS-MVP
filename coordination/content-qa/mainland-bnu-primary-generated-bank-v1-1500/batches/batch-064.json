@@ -1,0 +1,585 @@
+{
+  "batchId": "batch-064",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p3-131",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "p3-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "数学好玩",
+        "上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略表达",
+        "整理知识",
+        "错因分析",
+        "合作探究"
+      ],
+      "misconceptionTags": [
+        "activity goal confused with calculation target",
+        "topic not identified before solving",
+        "reflection reduced to final answer only"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "三年级同学在“数学好玩”活动中整理错题。小明发现自己做一道两步计算题时，错误地按照从左到右的顺序计算：36 + 24 ÷ 6，他先算36 + 24 = 60，再算60 ÷ 6 = 10，得到结果10。请你写出正确的计算过程和结果。",
+      "optionsZhHans": [],
+      "answer": "先算除法，24 ÷ 6 = 4，再算加法，36 + 4 = 40，正确结果是40。",
+      "acceptedAnswers": [
+        "先算除法，24 ÷ 6 = 4，再算加法，36 + 4 = 40，正确结果是40。",
+        "36 + 24 ÷ 6 = 36 + 4 = 40，正确结果是40。",
+        "正确结果是40。"
+      ],
+      "explanationZhHans": "题目中的算式有加法和除法，应先算除法再算加法。24 ÷ 6 = 4，然后36 + 4 = 40。小明先算了加法，违反了运算顺序。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-132",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "p3-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "数学好玩",
+        "上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略表达",
+        "整理知识",
+        "错因分析",
+        "合作探究"
+      ],
+      "misconceptionTags": [
+        "activity goal confused with calculation target",
+        "topic not identified before solving",
+        "reflection reduced to final answer only"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "三年级同学在“数学好玩”活动中整理错题。小宇发现一道题：36 + 24 ÷ 6，他先算了36 + 24得到60，再算60 ÷ 6得到10。请写出正确的计算过程，并说明小宇错在哪里。",
+      "optionsZhHans": [],
+      "answer": "正确计算过程：先算24 ÷ 6 = 4，再算36 + 4 = 40。小宇错在运算顺序，没有先算除法。",
+      "acceptedAnswers": [
+        "正确计算过程：先算24 ÷ 6 = 4，再算36 + 4 = 40。小宇错在运算顺序，没有先算除法。",
+        "先算除法：24÷6=4，再算加法：36+4=40。错误原因：运算顺序错误，应先乘除后加减。",
+        "36+24÷6=36+4=40，小宇错误地先算了加法。"
+      ],
+      "explanationZhHans": "题目中的算式有加法和除法，根据运算顺序，应先算除法再算加法。小宇先算了加法，导致结果错误。正确结果是40。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-133",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "p3-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "数学好玩",
+        "上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略表达",
+        "整理知识",
+        "错因分析",
+        "合作探究"
+      ],
+      "misconceptionTags": [
+        "activity goal confused with calculation target",
+        "topic not identified before solving",
+        "reflection reduced to final answer only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明在整理三年级上册的错题时，发现下面有一道题的解答过程出错了。请你帮他找出来，并选出错误的原因。\n题目：一盒水彩笔有12支，美术课上老师又给每组发了3盒，每组一共有多少支水彩笔？\n小明的解答：12 + 3 = 15（支）\n错误的原因是：",
+      "optionsZhHans": [
+        "没有先算出3盒有多少支，直接用盒数加了支数",
+        "计算12+3时算错了",
+        "单位写错了，应该是盒",
+        "应该用减法，12-3=9"
+      ],
+      "answer": "没有先算出3盒有多少支，直接用盒数加了支数",
+      "acceptedAnswers": [
+        "没有先算出3盒有多少支，直接用盒数加了支数"
+      ],
+      "explanationZhHans": "题目中的条件是每盒12支，又发了3盒，要求总数。正确解法是先算3盒有多少支：12×3=36（支），再算一共：12+36=48（支）。小明直接把盒数3和支数12相加，混淆了数量关系，所以错误原因是没先算3盒的支数。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-134",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "p3-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "数学好玩",
+        "上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略表达",
+        "整理知识",
+        "错因分析",
+        "合作探究"
+      ],
+      "misconceptionTags": [
+        "activity goal confused with calculation target",
+        "topic not identified before solving",
+        "reflection reduced to final answer only"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在“数学好玩”活动中，小北用一根长2米的彩带做手工。她先剪下4分米做了一朵花，又剪下30厘米做了一个蝴蝶结。剩下的彩带长多少厘米？请先写出你的思考过程，再列式解答。",
+      "optionsZhHans": [],
+      "answer": "思考过程：先把2米换算成200厘米，4分米换算成40厘米，然后用总长度减去两次剪下的长度。算式：200 - 40 - 30 = 130（厘米）。答：剩下的彩带长130厘米。",
+      "acceptedAnswers": [
+        "思考过程：先把2米换算成200厘米，4分米换算成40厘米，然后用总长度减去两次剪下的长度。算式：200 - 40 - 30 = 130（厘米）。答：剩下的彩带长130厘米。",
+        "2米=200厘米，4分米=40厘米，200-40=160厘米，160-30=130厘米。答：剩下的彩带长130厘米。",
+        "200-40-30=130厘米"
+      ],
+      "explanationZhHans": "题目要求先思考再解答。2米=200厘米，4分米=40厘米。从200厘米里先减去40厘米，再减去30厘米，得到130厘米。注意统一单位后再计算。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-135",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "p3-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "数学好玩",
+        "上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略表达",
+        "整理知识",
+        "错因分析",
+        "合作探究"
+      ],
+      "misconceptionTags": [
+        "activity goal confused with calculation target",
+        "topic not identified before solving",
+        "reflection reduced to final answer only"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在数学好玩活动中，小乐和小思一起整理三年级上册的知识。小乐说：“我每次做混合运算时，都从左往右依次计算。”小思说：“我测量课桌长度时，直接用厘米作单位，量出是120，所以课桌长120。”请你分别指出他们说法中的错误，并给出正确的做法。",
+      "optionsZhHans": [],
+      "answer": "小乐的错误：没有考虑运算顺序，应该先乘除后加减，有括号的先算括号里的。正确做法：先观察算式中有哪些运算，再按照先乘除后加减的顺序计算，如果有括号要先算括号里面的。小思的错误：测量结果没有写单位，且没有根据实际长度选择合适的单位。正确做法：测量课桌长度可以用厘米作单位，但结果要写上单位，比如120厘米，也可以说1米20厘米。",
+      "acceptedAnswers": [
+        "小乐的错误：没有考虑运算顺序，应该先乘除后加减，有括号的先算括号里的。正确做法：先观察算式中有哪些运算，再按照先乘除后加减的顺序计算，如果有括号要先算括号里面的。小思的错误：测量结果没有写单位，且没有根据实际长度选择合适的单位。正确做法：测量课桌长度可以用厘米作单位，但结果要写上单位，比如120厘米，也可以说1米20厘米。"
+      ],
+      "explanationZhHans": "小乐忽略了混合运算的顺序规则，不是简单从左往右。小思忘记写单位，且120厘米应合理表达为1米20厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-136",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-division",
+      "unitTitle": "除法",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "multi-digit-division",
+        "division-with-remainder",
+        "division-estimation",
+        "除法",
+        "有余数除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "一位数除多位数",
+        "余数意义",
+        "估商",
+        "验算",
+        "除法应用"
+      ],
+      "misconceptionTags": [
+        "remainder larger than divisor accepted",
+        "quotient estimate disconnected from place value",
+        "remainder ignored in the story answer"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-division-unit",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "三（1）班有45名学生去划船，每条船最多坐6人。他们至少需要租多少条船？",
+      "optionsZhHans": [
+        "7条",
+        "8条",
+        "9条",
+        "10条"
+      ],
+      "answer": "8条",
+      "acceptedAnswers": [
+        "8条"
+      ],
+      "explanationZhHans": "45÷6=7（条）……3（人）。余下的3人还需要1条船，所以至少需要7+1=8条船。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-137",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-division",
+      "unitTitle": "除法",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "multi-digit-division",
+        "division-with-remainder",
+        "division-estimation",
+        "除法",
+        "有余数除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "一位数除多位数",
+        "余数意义",
+        "估商",
+        "验算",
+        "除法应用"
+      ],
+      "misconceptionTags": [
+        "remainder larger than divisor accepted",
+        "quotient estimate disconnected from place value",
+        "remainder ignored in the story answer"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-division-unit",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "三年级一班有 146 本练习本，平均分给 7 个小组，每个小组最多能分到多少本？还剩多少本？请填写商和余数：商是____，余数是____。",
+      "optionsZhHans": [],
+      "answer": "商是20，余数是6",
+      "acceptedAnswers": [
+        "商是20，余数是6",
+        "20，6",
+        "20,6",
+        "20 6"
+      ],
+      "explanationZhHans": "146 ÷ 7，先看前两位14，14÷7=2，商2在十位表示20；落下个位6，6÷7不够商1，商0占位，余6。所以每个小组分到20本，还剩6本。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-138",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-division",
+      "unitTitle": "除法",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "multi-digit-division",
+        "division-with-remainder",
+        "division-estimation",
+        "除法",
+        "有余数除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "一位数除多位数",
+        "余数意义",
+        "估商",
+        "验算",
+        "除法应用"
+      ],
+      "misconceptionTags": [
+        "remainder larger than divisor accepted",
+        "quotient estimate disconnected from place value",
+        "remainder ignored in the story answer"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-division-unit",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "李老师买了 125 本练习本，平均分给 4 个小组，每个小组能分到多少本？还剩多少本？请写出除法算式、商和余数，并用乘法验算。",
+      "optionsZhHans": [],
+      "answer": "125 ÷ 4 = 31（本）……1（本）；验算：31 × 4 + 1 = 125",
+      "acceptedAnswers": [
+        "125 ÷ 4 = 31（本）……1（本）；验算：31 × 4 + 1 = 125",
+        "125÷4=31（本）……1（本）；验算：31×4+1=125",
+        "125 ÷ 4 = 31 本 余 1 本；验算：31 × 4 + 1 = 125",
+        "125÷4=31本余1本；验算：31×4+1=125"
+      ],
+      "explanationZhHans": "125 本练习本平均分给 4 个小组，用除法：125 ÷ 4 = 31 本余 1 本。余数 1 比除数 4 小，符合要求。验算：31 × 4 + 1 = 124 + 1 = 125，等于被除数，说明计算正确。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-139",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-division",
+      "unitTitle": "除法",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "multi-digit-division",
+        "division-with-remainder",
+        "division-estimation",
+        "除法",
+        "有余数除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "一位数除多位数",
+        "余数意义",
+        "估商",
+        "验算",
+        "除法应用"
+      ],
+      "misconceptionTags": [
+        "remainder larger than divisor accepted",
+        "quotient estimate disconnected from place value",
+        "remainder ignored in the story answer"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-division-unit",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "李老师买了 4 盒同样的彩笔，付了 100 元，找回 12 元。每盒彩笔多少元？",
+      "optionsZhHans": [
+        "A. 20 元",
+        "B. 22 元",
+        "C. 25 元",
+        "D. 28 元"
+      ],
+      "answer": "B. 22 元",
+      "acceptedAnswers": [
+        "B. 22 元"
+      ],
+      "explanationZhHans": "先算实际付款：100 - 12 = 88（元）。再算每盒价格：88 ÷ 4 = 22（元）。验算：22 × 4 + 12 = 100，符合题意。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-140",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-division",
+      "unitTitle": "除法",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "multi-digit-division",
+        "division-with-remainder",
+        "division-estimation",
+        "除法",
+        "有余数除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "一位数除多位数",
+        "余数意义",
+        "估商",
+        "验算",
+        "除法应用"
+      ],
+      "misconceptionTags": [
+        "remainder larger than divisor accepted",
+        "quotient estimate disconnected from place value",
+        "remainder ignored in the story answer"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-division-unit",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校把 137 本练习本平均分给 4 个班，每个班能分到多少本？还剩多少本？先估一估商大约是多少，再用竖式计算，最后用乘法验算。",
+      "optionsZhHans": [],
+      "answer": "每个班分到 34 本，还剩 1 本。",
+      "acceptedAnswers": [
+        "每个班分到 34 本，还剩 1 本。",
+        "34本余1本",
+        "34本剩1本",
+        "34本，还剩1本"
+      ],
+      "explanationZhHans": "137÷4，先估商：4×30=120，4×40=160，所以商在30到40之间。用竖式计算：十位13÷4商3余1，个位17÷4商4余1，得34余1。验算：34×4+1=136+1=137，等于被除数，计算正确。"
+    }
+  ]
+}

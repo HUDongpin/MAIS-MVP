@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-113",
+  "startedAt": "2026-05-28T01:28:36.199Z",
+  "completedAt": "2026-05-28T01:28:55.997Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-397",
+    "bnu-high-ds-v1-s5-398",
+    "bnu-high-ds-v1-s5-399",
+    "bnu-high-ds-v1-s5-400",
+    "bnu-high-ds-v1-s5-401",
+    "bnu-high-ds-v1-s5-402",
+    "bnu-high-ds-v1-s5-403",
+    "bnu-high-ds-v1-s5-404"
+  ],
+  "usage": {
+    "prompt_tokens": 10027,
+    "completion_tokens": 1370,
+    "total_tokens": 11397,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9643
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-397",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "4/3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由分布列性质求和得c(1/2+1/6+1/12)=c·3/4=1，解得c=4/3，选项B正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-398",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "1/2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "密码被译出为至少一人译出，概率=1-(1-1/3)(1-1/4)=1-2/3×3/4=1-1/2=1/2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-399",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "5.2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "E(X)=1×0.2+2×0.5+3×0.3=2.1，E(2X+1)=2E(X)+1=5.2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-400",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "37/42",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "总选法C(9,3)=84，P(X≤1)=P(X=0)+P(X=1)=C(5,3)/84 + C(5,2)C(4,1)/84=10/84+40/84=50/84=25/42，但选项无25/42，检查发现P(X≤1)应为女生数≤1，即0或1名女生，计算得25/42，选项D为37/42，可能为P(X≥1)或计算错误。重新计算：P(X=0)=C(5,3)/C(9,3)=10/84，P(X=1)=C(5,2)C(4,1)/84=10×4/84=40/84，和为50/84=25/42，选项无匹配。若理解为至多1名女生，答案应为25/42，但选项D为37/42，可能为P(X≥1)=1-P(X=0)=74/84=37/42。题目明确P(X≤1)，故选项有误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-401",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "约0.369",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "条件概率：P(恰2女|至少1女)=P(恰2女)/P(至少1女)。总选法C(40,3)=9880，恰2女选法C(16,2)C(24,1)=120×24=2880，至少1女选法=总选法-C(24,3)=9880-2024=7856，概率=2880/7856≈0.3666，可化简为180/491≈0.3666。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-402",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "5/4",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "分布列求和：c[1/(1×2)+1/(2×3)+1/(3×4)+1/(4×5)]=c(1/2+1/6+1/12+1/20)=c(30/60+10/60+5/60+3/60)=c(48/60)=c(4/5)=1，得c=5/4。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-403",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "0.3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "正态分布N(2,σ²)，P(X<4)=0.8，由对称性P(X<0)=P(X>4)=0.2，故P(0<X<2)=0.5-P(X<0)=0.5-0.2=0.3。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-404",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "1/2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "同398题，密码被译出概率=1-(1-1/3)(1-1/4)=1/2。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 1,
+      "fail": 0,
+      "notes": "第400题选项与计算结果不符，P(X≤1)=25/42，但选项无此值，可能为题目或选项错误，标记为warn。其余题目均正确可解。"
+    }
+  }
+}

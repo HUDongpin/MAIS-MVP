@@ -1,0 +1,133 @@
+{
+  "batchNumber": 99,
+  "startedAt": "2026-05-27T14:00:41.282Z",
+  "completedAt": "2026-05-27T14:01:00.388Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-285",
+    "bnu-high-ds-v1-s5-286",
+    "bnu-high-ds-v1-s5-287",
+    "bnu-high-ds-v1-s5-288",
+    "bnu-high-ds-v1-s5-289",
+    "bnu-high-ds-v1-s5-290",
+    "bnu-high-ds-v1-s5-291",
+    "bnu-high-ds-v1-s5-292"
+  ],
+  "usage": {
+    "prompt_tokens": 11561,
+    "completion_tokens": 1200,
+    "total_tokens": 12761,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 11049
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-285",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(2,7)或(3,9)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可独立求解。设C(x,2x+3)，由AC⊥BC得向量点积为零，解得x=2或3，对应C(2,7)或(3,9)。答案与解析一致，无歧义。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-286",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(-∞, -1] ∪ [1, +∞)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可独立求解。设l: y=kx+2，联立圆得中点M坐标，由M在y=x上得k=-1，但需弦存在且M在圆内，得k²>1，故k≤-1或k≥1。选项A正确，解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-287",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(1) 圆心(3,4)，半径2；(2) 距离3，不穿过",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可独立求解。配方得圆心(3,4)，半径2；点到直线距离d=3>2，故不穿过。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-288",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "100",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可独立求解。总选法C(10,3)=120，全男生C(6,3)=20，故至少1女生为120-20=100。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-289",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "65",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可独立求解。分类讨论：选0个双擅长时34种，选1个双擅长时31种，合计65。解析过程虽有笔误但最终结果正确，与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-290",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "74",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可独立求解。直接法或间接法均得74。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-291",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "60",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可独立求解。末位0有24个，末位2或4有36个，共60。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-292",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "96",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可独立求解。总选法120，减去全男20和全女4，得96。答案与解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，答案与解析匹配，无错误或歧义。"
+    }
+  }
+}

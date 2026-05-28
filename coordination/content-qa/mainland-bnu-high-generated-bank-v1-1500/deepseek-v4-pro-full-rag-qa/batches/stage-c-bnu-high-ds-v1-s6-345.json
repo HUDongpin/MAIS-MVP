@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-345",
+  "startedAt": "2026-05-28T01:50:08.724Z",
+  "completedAt": "2026-05-28T01:50:13.404Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-345"
+  ],
+  "usage": {
+    "prompt_tokens": 2325,
+    "completion_tokens": 263,
+    "total_tokens": 2588,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1941
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-345",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "-3",
+        "correctedAnswer": "-3",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合导数极值章节。独立求解得 a=0, b=-3, a+b=-3。存储答案为 1，与正确结果矛盾；解析过程虽得出 a=0, b=-3，但最终答案写为 1，存在计算错误和答案矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1 题答案错误，需修正为 -3。"
+    }
+  }
+}

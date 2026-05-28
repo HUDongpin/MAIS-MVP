@@ -1,0 +1,191 @@
+{
+  "batchNumber": 46,
+  "startedAt": "2026-05-25T02:09:05.555Z",
+  "completedAt": "2026-05-25T02:09:25.220Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p4-061",
+    "hjb-primary-ds-v1-p4-062",
+    "hjb-primary-ds-v1-p4-063",
+    "hjb-primary-ds-v1-p4-064",
+    "hjb-primary-ds-v1-p4-065",
+    "hjb-primary-ds-v1-p4-066",
+    "hjb-primary-ds-v1-p4-067",
+    "hjb-primary-ds-v1-p4-068",
+    "hjb-primary-ds-v1-p4-069",
+    "hjb-primary-ds-v1-p4-070",
+    "hjb-primary-ds-v1-p4-071",
+    "hjb-primary-ds-v1-p4-072",
+    "hjb-primary-ds-v1-p4-073",
+    "hjb-primary-ds-v1-p4-074",
+    "hjb-primary-ds-v1-p4-075",
+    "hjb-primary-ds-v1-p4-076",
+    "hjb-primary-ds-v1-p4-077",
+    "hjb-primary-ds-v1-p4-078"
+  ],
+  "usage": {
+    "prompt_tokens": 3694,
+    "completion_tokens": 1283,
+    "total_tokens": 4977,
+    "prompt_tokens_details": {
+      "cached_tokens": 3584
+    },
+    "prompt_cache_hit_tokens": 3584,
+    "prompt_cache_miss_tokens": 110
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p4-061",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，分数比较清晰，答案与解释一致。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-062",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "同分母分数比较，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-063",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "同分母分数加减，计算正确，答案完整。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-064",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分数大小比较，计算正确，选项D最大。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-065",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "同分母分数加法，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-066",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分数单位比较，推理正确，答案合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-067",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "异分母分数比较，通分正确，答案小红。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-068",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "同分母分数加法，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-069",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分数应用，计算正确，答案1/4。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-070",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "归总问题，计算正确，提前3天。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-071",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "运算定律填空，答案正确，acceptedAnswers覆盖多种格式。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-072",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "归总问题，计算正确，提前3天。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-073",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "去括号规则，选项C正确，解释合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-074",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估算比较，答案正确，acceptedAnswers覆盖多种格式。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-075",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "逆推问题，计算正确，答案是1。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-076",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "归总问题，算式正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-077",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "乘法分配律计算，答案11000正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-078",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "逆推问题，计算正确，答案完整。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均通过审核，数学正确，答案匹配，无歧义或缺失条件，适合沪教版四年级。"
+    }
+  }
+}

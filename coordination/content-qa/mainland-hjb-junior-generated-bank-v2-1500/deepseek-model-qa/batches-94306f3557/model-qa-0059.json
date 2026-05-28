@@ -1,0 +1,109 @@
+{
+  "batchId": "model-qa-0059",
+  "ids": [
+    "hjb-junior-ds-v2-s1-465",
+    "hjb-junior-ds-v2-s1-466",
+    "hjb-junior-ds-v2-s1-467",
+    "hjb-junior-ds-v2-s1-468",
+    "hjb-junior-ds-v2-s1-469",
+    "hjb-junior-ds-v2-s1-470",
+    "hjb-junior-ds-v2-s1-471",
+    "hjb-junior-ds-v2-s1-472"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-465",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为40,140，但根据题干条件，当高BH在三角形外部时，∠ABH=20°无法成立，因此只有40°一种情况。解析中第二种情况的计算有误，导致答案错误。",
+      "independentAnswerZhHans": "40°",
+      "answerCheckZhHans": "标准答案为40,140，但实际只有40°可能。",
+      "recommendedActionZhHans": "修正答案和解析，或修改题干条件使两种情况均可能。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-466",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "90°",
+      "answerCheckZhHans": "标准答案90°正确，解析无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-467",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "90",
+      "answerCheckZhHans": "标准答案90正确，解析无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-468",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为30°，但根据条件，点D在边BC上，而解析中认为点D在BC延长线上，与题干矛盾。若D在BC上，则AD=BD无法满足，题目无解。",
+      "independentAnswerZhHans": "无解（点D在边BC上时，AD=BD与∠A=40°矛盾）",
+      "answerCheckZhHans": "标准答案30°基于D在延长线上，与题干“点D在边BC上”不符。",
+      "recommendedActionZhHans": "修改题干，明确点D在BC延长线上，或调整条件使D在BC上可解。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-469",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "30°",
+      "answerCheckZhHans": "标准答案30正确，解析无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-470",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "58°",
+      "answerCheckZhHans": "标准答案58°正确，解析无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-471",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "65°",
+      "answerCheckZhHans": "标准答案65°正确，解析无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-472",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "∠B = ∠C",
+      "answerCheckZhHans": "标准答案∠B = ∠C正确，解析无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

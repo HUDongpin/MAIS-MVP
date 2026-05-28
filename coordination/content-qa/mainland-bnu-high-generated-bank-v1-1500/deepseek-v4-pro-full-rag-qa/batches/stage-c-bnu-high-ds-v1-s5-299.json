@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-299",
+  "startedAt": "2026-05-28T01:25:59.731Z",
+  "completedAt": "2026-05-28T01:26:04.434Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-299"
+  ],
+  "usage": {
+    "prompt_tokens": 2249,
+    "completion_tokens": 273,
+    "total_tokens": 2522,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1865
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-299",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "672x^5",
+        "correctedAnswer": "672x^5",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合教材范围。独立求解得系数最大项为第6项672x^5。存储答案672x^4错误，解析中r=4得出系数560，但实际最大系数对应r=5，项为672x^5，解析自相矛盾。判定为严重错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1题答案错误，解析矛盾，判定为blocker。"
+    }
+  }
+}

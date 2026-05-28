@@ -1,0 +1,115 @@
+{
+  "batchId": "model-qa-0151",
+  "ids": [
+    "hjb-junior-ds-v2-s3-201",
+    "hjb-junior-ds-v2-s3-202",
+    "hjb-junior-ds-v2-s3-203",
+    "hjb-junior-ds-v2-s3-204",
+    "hjb-junior-ds-v2-s3-205",
+    "hjb-junior-ds-v2-s3-206",
+    "hjb-junior-ds-v2-s3-207",
+    "hjb-junior-ds-v2-s3-208"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-201",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(1) 顶点坐标(-3, 8)，对称轴为直线x = -3；(2) 平移后解析式为y = -2(x - 2)^2 + 6；(3) 最大值为6，最小值为-2。",
+      "answerCheckZhHans": "标准答案与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-202",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析中解不等式得5≤x≤7.5，但答案选0≤x≤5，且选项无5≤x≤7.5。实际花坛面积S=(20-2x)(15-2x)，由S≥150解得5≤x≤7.5，结合边长非负得0≤x≤7.5，故x范围应为5≤x≤7.5，无正确选项。",
+      "independentAnswerZhHans": "空地面积=300，花坛面积S=(20-2x)(15-2x)=4x²-70x+300。由S≥150得4x²-70x+150≤0，即2x²-35x+75≤0，解得5≤x≤7.5。又边长非负：20-2x≥0且15-2x≥0，得x≤10且x≤7.5，故0≤x≤7.5。综合得5≤x≤7.5。选项均不匹配。",
+      "answerCheckZhHans": "标准答案0≤x≤5与正确范围5≤x≤7.5不符，解析自相矛盾。",
+      "recommendedActionZhHans": "修正答案或选项，使正确范围为5≤x≤7.5。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-203",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "顶点坐标为(-3, 5)，对称轴为直线x = -3",
+      "answerCheckZhHans": "标准答案与独立解题结果一致，acceptedAnswers覆盖多种格式。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-204",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析中配方得S=4(x-5)²+500，但开口向上，顶点为最小值，而题目求最大值。实际S=4x²-140x+1200，开口向上，在定义域0<x<15内，最大值在端点x→0或x→15处，但端点取不到，故无最大值。解析错误。",
+      "independentAnswerZhHans": "S=(40-2x)(30-2x)=4x²-140x+1200，开口向上，对称轴x=17.5，定义域0<x<15，函数在(0,15)上递减，故x越小S越大，但x>0，无最大值。",
+      "answerCheckZhHans": "标准答案x=5时S最大=500错误，实际x=5时S=4*25-140*5+1200=100-700+1200=600，并非500，且不是最大值。",
+      "recommendedActionZhHans": "检查题目条件或修正答案，可能花坛位置描述有误导致面积表达式不同。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-205",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "顶点坐标为 (-3, 8)，开口向下",
+      "answerCheckZhHans": "标准答案与独立解题结果一致，选项唯一正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-206",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "顶点式：y = -2(x - 2)² + 3；顶点坐标：(2, 3)；对称轴：直线 x = 2",
+      "answerCheckZhHans": "标准答案与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-207",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析中x取值范围为40<x<50，但答案写40<x<50，实际销量100-2x>0得x<50，且x>40，但x=40时利润为0，通常售价应大于进价，故x>40，但答案未明确是否包含等号。另计算最大利润：y=(x-40)(100-2x)=-2x²+180x-4000，顶点x=45，y=-2*2025+180*45-4000=-4050+8100-4000=50，正确。但答案中最大利润50元，单位应为元，无误。但x取值范围表述可能不严谨。",
+      "independentAnswerZhHans": "(1) y = (x-40)(100-2x) = -2x²+180x-4000，由x>40且100-2x>0得40<x<50；(2) 顶点x=45，y=50，售价45元时最大利润50元。",
+      "answerCheckZhHans": "标准答案与独立解题结果一致，但x取值范围应明确为40<x<50，答案已写40<x<50，可接受。",
+      "recommendedActionZhHans": "确认x取值范围是否需包含等号，通常售价可等于进价但利润为0，非最大利润问题，可保留。",
+      "confidence": "medium"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-208",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析中由顶点(1,2)得a+b+c=2，但答案选A. -2，矛盾。实际计算：过(0,-3)得c=-3；对称轴x=1得-b/(2a)=1，b=-2a；最大值2即顶点纵坐标2，代入x=1得a+b+c=2，即a-2a-3=2，-a=5，a=-5，b=10，c=-3，a+b+c=2。故正确值为2，选项无2。",
+      "independentAnswerZhHans": "由条件得c=-3，对称轴x=1得b=-2a，最大值2即顶点(1,2)，代入得a+b+c=2，解得a=-5，b=10，c=-3，a+b+c=2。",
+      "answerCheckZhHans": "标准答案A. -2错误，正确值为2，无正确选项。",
+      "recommendedActionZhHans": "修正答案或选项，使正确选项为2。",
+      "confidence": "high"
+    }
+  ]
+}

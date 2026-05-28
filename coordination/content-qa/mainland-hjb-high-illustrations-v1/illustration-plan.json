@@ -1,0 +1,2471 @@
+{
+  "version": "mainland-hjb-high-illustrations-v1",
+  "scope": "MAINLAND_HJB_HIGH",
+  "model": "gpt-image-2-review-workflow; generated via Codex built-in image_gen after bl auth unavailable",
+  "size": {
+    "width": 1600,
+    "height": 900
+  },
+  "reviewStatus": "approved-for-production",
+  "productionIntegrated": true,
+  "generationPolicy": [
+    "Use MAIS safe-RAG abstractions only.",
+    "Do not copy, reconstruct, or imitate textbook screenshots, page layouts, figures, or publisher visual style.",
+    "Generate fresh MAIS-authored educational visuals with no logos, no watermarks, and no embedded textbook text.",
+    "Avoid in-image formulas and labels where possible; learner-facing wording belongs in captions and alt text."
+  ],
+  "topics": [
+    {
+      "id": "hjb-high-s4-等式与不等式",
+      "grade": "S4",
+      "titleZhHans": "等式与不等式",
+      "volume": "必修 第一册",
+      "chapter": "等式与不等式",
+      "conceptIds": [
+        "inequality-properties",
+        "quadratic-equations",
+        "quadratic-inequalities",
+        "basic-inequality"
+      ],
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities"
+      ],
+      "questionCount": 200
+    },
+    {
+      "id": "hjb-high-s4-复数",
+      "grade": "S4",
+      "titleZhHans": "复数",
+      "volume": "必修 第二册",
+      "chapter": "复数",
+      "conceptIds": [
+        "complex-numbers",
+        "complex-operations",
+        "complex-plane",
+        "complex-roots"
+      ],
+      "evidenceCardIds": [
+        "hjb-high-compulsory-2-complex-numbers"
+      ],
+      "questionCount": 248
+    },
+    {
+      "id": "hjb-high-s4-函数的概念-性质及应用",
+      "grade": "S4",
+      "titleZhHans": "函数的概念、性质及应用",
+      "volume": "必修 第一册",
+      "chapter": "函数的概念、性质及应用",
+      "conceptIds": [
+        "function-definition",
+        "domain-range",
+        "monotonicity",
+        "parity",
+        "function-zero",
+        "inverse-functions"
+      ],
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-function-concepts-applications"
+      ],
+      "questionCount": 200
+    },
+    {
+      "id": "hjb-high-s4-集合与逻辑",
+      "grade": "S4",
+      "titleZhHans": "集合与逻辑",
+      "volume": "必修 第一册",
+      "chapter": "集合与逻辑",
+      "conceptIds": [
+        "sets",
+        "set-operations",
+        "logic-conditions",
+        "quantifiers"
+      ],
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-sets-logic"
+      ],
+      "questionCount": 200
+    },
+    {
+      "id": "hjb-high-s4-幂-指数与对数",
+      "grade": "S4",
+      "titleZhHans": "幂、指数与对数",
+      "volume": "必修 第一册",
+      "chapter": "幂、指数与对数",
+      "conceptIds": [
+        "exponents",
+        "radicals",
+        "logarithmic-operations",
+        "base-conversion"
+      ],
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-powers-exponents-logarithms"
+      ],
+      "questionCount": 200
+    },
+    {
+      "id": "hjb-high-s4-幂函数-指数函数与对数函数",
+      "grade": "S4",
+      "titleZhHans": "幂函数、指数函数与对数函数",
+      "volume": "必修 第一册",
+      "chapter": "幂函数、指数函数与对数函数",
+      "conceptIds": [
+        "power-functions",
+        "exponential-functions",
+        "logarithmic-functions",
+        "function-graphs"
+      ],
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-power-exponential-log-functions"
+      ],
+      "questionCount": 200
+    },
+    {
+      "id": "hjb-high-s4-平面向量",
+      "grade": "S4",
+      "titleZhHans": "平面向量",
+      "volume": "必修 第二册",
+      "chapter": "平面向量",
+      "conceptIds": [
+        "plane-vectors",
+        "vector-operations",
+        "dot-product",
+        "vector-coordinates",
+        "vector-applications"
+      ],
+      "evidenceCardIds": [
+        "hjb-high-compulsory-2-plane-vectors"
+      ],
+      "questionCount": 248
+    },
+    {
+      "id": "hjb-high-s4-三角",
+      "grade": "S4",
+      "titleZhHans": "三角",
+      "volume": "必修 第二册",
+      "chapter": "三角",
+      "conceptIds": [
+        "unit-circle",
+        "trigonometric-ratios",
+        "trigonometric-identities",
+        "sine-theorem",
+        "cosine-theorem"
+      ],
+      "evidenceCardIds": [
+        "hjb-high-compulsory-2-trigonometry-foundations"
+      ],
+      "questionCount": 252
+    },
+    {
+      "id": "hjb-high-s4-三角函数",
+      "grade": "S4",
+      "titleZhHans": "三角函数",
+      "volume": "必修 第二册",
+      "chapter": "三角函数",
+      "conceptIds": [
+        "trigonometric-functions",
+        "trigonometric-graphs",
+        "periodicity",
+        "trigonometric-transformations"
+      ],
+      "evidenceCardIds": [
+        "hjb-high-compulsory-2-trigonometric-functions"
+      ],
+      "questionCount": 252
+    },
+    {
+      "id": "hjb-high-s5-概率初步",
+      "grade": "S5",
+      "titleZhHans": "概率初步",
+      "volume": "必修 第三册",
+      "chapter": "概率初步",
+      "conceptIds": [
+        "probability-foundations",
+        "sample-space",
+        "random-events",
+        "probability-operations",
+        "independence"
+      ],
+      "evidenceCardIds": [
+        "hjb-high-compulsory-3-probability-foundations"
+      ],
+      "questionCount": 220
+    },
+    {
+      "id": "hjb-high-s5-简单几何体",
+      "grade": "S5",
+      "titleZhHans": "简单几何体",
+      "volume": "必修 第三册",
+      "chapter": "简单几何体",
+      "conceptIds": [
+        "solid-geometry",
+        "surface-volume",
+        "polyhedra",
+        "rotational-solids"
+      ],
+      "evidenceCardIds": [
+        "hjb-high-compulsory-3-simple-solids"
+      ],
+      "questionCount": 220
+    },
+    {
+      "id": "hjb-high-s5-空间向量及其应用",
+      "grade": "S5",
+      "titleZhHans": "空间向量及其应用",
+      "volume": "选择性必修 第一册",
+      "chapter": "空间向量及其应用",
+      "conceptIds": [
+        "space-vectors",
+        "spatial-coordinate-system",
+        "line-plane-angle",
+        "distance-in-space",
+        "parallel-perpendicular"
+      ],
+      "evidenceCardIds": [
+        "hjb-high-selective-1-space-vectors"
+      ],
+      "questionCount": 280
+    },
+    {
+      "id": "hjb-high-s5-空间直线与平面",
+      "grade": "S5",
+      "titleZhHans": "空间直线与平面",
+      "volume": "必修 第三册",
+      "chapter": "空间直线与平面",
+      "conceptIds": [
+        "solid-geometry",
+        "spatial-lines-planes",
+        "parallel-perpendicular",
+        "line-plane-angle",
+        "distance-in-space"
+      ],
+      "evidenceCardIds": [
+        "hjb-high-compulsory-3-spatial-lines-planes"
+      ],
+      "questionCount": 220
+    },
+    {
+      "id": "hjb-high-s5-平面直角坐标系中的直线",
+      "grade": "S5",
+      "titleZhHans": "平面直角坐标系中的直线",
+      "volume": "选择性必修 第一册",
+      "chapter": "平面直角坐标系中的直线",
+      "conceptIds": [
+        "analytic-geometry",
+        "line-equations",
+        "slope",
+        "point-line-distance"
+      ],
+      "evidenceCardIds": [
+        "hjb-high-selective-1-lines"
+      ],
+      "questionCount": 280
+    },
+    {
+      "id": "hjb-high-s5-数列",
+      "grade": "S5",
+      "titleZhHans": "数列",
+      "volume": "选择性必修 第一册",
+      "chapter": "数列",
+      "conceptIds": [
+        "sequences",
+        "arithmetic-sequences",
+        "geometric-sequences",
+        "recurrence",
+        "mathematical-induction"
+      ],
+      "evidenceCardIds": [
+        "hjb-high-selective-1-sequences"
+      ],
+      "questionCount": 280
+    },
+    {
+      "id": "hjb-high-s5-统计",
+      "grade": "S5",
+      "titleZhHans": "统计",
+      "volume": "必修 第三册",
+      "chapter": "统计",
+      "conceptIds": [
+        "sampling",
+        "data-distribution",
+        "statistical-charts",
+        "statistical-estimation",
+        "percentiles"
+      ],
+      "evidenceCardIds": [
+        "hjb-high-compulsory-3-statistics"
+      ],
+      "questionCount": 220
+    },
+    {
+      "id": "hjb-high-s5-圆锥曲线",
+      "grade": "S5",
+      "titleZhHans": "圆锥曲线",
+      "volume": "选择性必修 第一册",
+      "chapter": "圆锥曲线",
+      "conceptIds": [
+        "circle-equations",
+        "ellipse",
+        "hyperbola",
+        "parabola-conic",
+        "parametric-equations",
+        "polar-coordinates"
+      ],
+      "evidenceCardIds": [
+        "hjb-high-selective-1-conics"
+      ],
+      "questionCount": 280
+    },
+    {
+      "id": "hjb-high-s6-成对数据的统计分析",
+      "grade": "S6",
+      "titleZhHans": "成对数据的统计分析",
+      "volume": "选择性必修 第二册",
+      "chapter": "成对数据的统计分析",
+      "conceptIds": [
+        "bivariate-data",
+        "correlation",
+        "linear-regression",
+        "independence-test"
+      ],
+      "evidenceCardIds": [
+        "hjb-high-selective-2-bivariate-data"
+      ],
+      "questionCount": 300
+    },
+    {
+      "id": "hjb-high-s6-导数及其运用",
+      "grade": "S6",
+      "titleZhHans": "导数及其运用",
+      "volume": "选择性必修 第二册",
+      "chapter": "导数及其运用",
+      "conceptIds": [
+        "derivatives",
+        "tangent-line",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "evidenceCardIds": [
+        "hjb-high-selective-2-derivatives"
+      ],
+      "questionCount": 300
+    },
+    {
+      "id": "hjb-high-s6-概率初步续",
+      "grade": "S6",
+      "titleZhHans": "概率初步续",
+      "volume": "选择性必修 第二册",
+      "chapter": "概率初步续",
+      "conceptIds": [
+        "conditional-probability",
+        "total-probability",
+        "bayes-formula",
+        "random-variables",
+        "binomial-distribution",
+        "normal-distribution"
+      ],
+      "evidenceCardIds": [
+        "hjb-high-selective-2-probability-continuation"
+      ],
+      "questionCount": 300
+    },
+    {
+      "id": "hjb-high-s6-概率统计综合",
+      "grade": "S6",
+      "titleZhHans": "概率统计综合",
+      "volume": "跨册综合复习",
+      "chapter": "跨册综合：概率统计",
+      "conceptIds": [
+        "probability-foundations",
+        "sample-space",
+        "random-events",
+        "probability-operations",
+        "independence",
+        "sampling",
+        "data-distribution",
+        "statistical-charts",
+        "statistical-estimation",
+        "percentiles"
+      ],
+      "evidenceCardIds": [
+        "hjb-high-compulsory-3-probability-foundations",
+        "hjb-high-compulsory-3-statistics",
+        "hjb-high-selective-2-probability-continuation",
+        "hjb-high-selective-2-bivariate-data"
+      ],
+      "questionCount": 80
+    },
+    {
+      "id": "hjb-high-s6-函数-导数与不等式综合",
+      "grade": "S6",
+      "titleZhHans": "函数、导数与不等式综合",
+      "volume": "跨册综合复习",
+      "chapter": "跨册综合：函数与导数",
+      "conceptIds": [
+        "function-definition",
+        "domain-range",
+        "monotonicity",
+        "parity",
+        "function-zero",
+        "inverse-functions",
+        "derivatives",
+        "tangent-line",
+        "monotonicity-extrema",
+        "optimization"
+      ],
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-function-concepts-applications",
+        "hjb-high-selective-2-derivatives"
+      ],
+      "questionCount": 80
+    },
+    {
+      "id": "hjb-high-s6-计数原理",
+      "grade": "S6",
+      "titleZhHans": "计数原理",
+      "volume": "选择性必修 第二册",
+      "chapter": "计数原理",
+      "conceptIds": [
+        "counting-principles",
+        "permutations-combinations",
+        "binomial-theorem",
+        "case-analysis"
+      ],
+      "evidenceCardIds": [
+        "hjb-high-selective-2-counting-principles"
+      ],
+      "questionCount": 300
+    },
+    {
+      "id": "hjb-high-s6-解析几何直线综合复习",
+      "grade": "S6",
+      "titleZhHans": "解析几何直线综合复习",
+      "volume": "选择性必修 第一册复习",
+      "chapter": "平面直角坐标系中的直线",
+      "conceptIds": [
+        "analytic-geometry",
+        "line-equations",
+        "slope",
+        "point-line-distance"
+      ],
+      "evidenceCardIds": [
+        "hjb-high-selective-1-lines"
+      ],
+      "questionCount": 100
+    },
+    {
+      "id": "hjb-high-s6-空间向量综合复习",
+      "grade": "S6",
+      "titleZhHans": "空间向量综合复习",
+      "volume": "选择性必修 第一册复习",
+      "chapter": "空间向量及其应用",
+      "conceptIds": [
+        "space-vectors",
+        "spatial-coordinate-system",
+        "line-plane-angle",
+        "distance-in-space",
+        "parallel-perpendicular"
+      ],
+      "evidenceCardIds": [
+        "hjb-high-selective-1-space-vectors"
+      ],
+      "questionCount": 100
+    },
+    {
+      "id": "hjb-high-s6-立体几何与空间向量综合",
+      "grade": "S6",
+      "titleZhHans": "立体几何与空间向量综合",
+      "volume": "跨册综合复习",
+      "chapter": "跨册综合：立体几何与空间向量",
+      "conceptIds": [
+        "solid-geometry",
+        "spatial-lines-planes",
+        "parallel-perpendicular",
+        "line-plane-angle",
+        "distance-in-space",
+        "space-vectors",
+        "spatial-coordinate-system"
+      ],
+      "evidenceCardIds": [
+        "hjb-high-compulsory-3-spatial-lines-planes",
+        "hjb-high-selective-1-space-vectors"
+      ],
+      "questionCount": 80
+    },
+    {
+      "id": "hjb-high-s6-三角-向量与解析几何综合",
+      "grade": "S6",
+      "titleZhHans": "三角、向量与解析几何综合",
+      "volume": "跨册综合复习",
+      "chapter": "跨册综合：三角向量解析几何",
+      "conceptIds": [
+        "trigonometric-functions",
+        "trigonometric-graphs",
+        "periodicity",
+        "trigonometric-transformations",
+        "plane-vectors",
+        "vector-operations",
+        "dot-product",
+        "vector-coordinates",
+        "vector-applications",
+        "analytic-geometry"
+      ],
+      "evidenceCardIds": [
+        "hjb-high-compulsory-2-trigonometric-functions",
+        "hjb-high-compulsory-2-plane-vectors",
+        "hjb-high-selective-1-lines"
+      ],
+      "questionCount": 80
+    },
+    {
+      "id": "hjb-high-s6-数列与计数综合",
+      "grade": "S6",
+      "titleZhHans": "数列与计数综合",
+      "volume": "跨册综合复习",
+      "chapter": "跨册综合：数列与计数",
+      "conceptIds": [
+        "sequences",
+        "arithmetic-sequences",
+        "geometric-sequences",
+        "recurrence",
+        "mathematical-induction",
+        "counting-principles",
+        "permutations-combinations",
+        "binomial-theorem",
+        "case-analysis"
+      ],
+      "evidenceCardIds": [
+        "hjb-high-selective-1-sequences",
+        "hjb-high-selective-2-counting-principles"
+      ],
+      "questionCount": 80
+    },
+    {
+      "id": "hjb-high-s6-数列综合复习",
+      "grade": "S6",
+      "titleZhHans": "数列综合复习",
+      "volume": "选择性必修 第一册复习",
+      "chapter": "数列",
+      "conceptIds": [
+        "sequences",
+        "arithmetic-sequences",
+        "geometric-sequences",
+        "recurrence",
+        "mathematical-induction"
+      ],
+      "evidenceCardIds": [
+        "hjb-high-selective-1-sequences"
+      ],
+      "questionCount": 100
+    },
+    {
+      "id": "hjb-high-s6-圆锥曲线综合复习",
+      "grade": "S6",
+      "titleZhHans": "圆锥曲线综合复习",
+      "volume": "选择性必修 第一册复习",
+      "chapter": "圆锥曲线",
+      "conceptIds": [
+        "circle-equations",
+        "ellipse",
+        "hyperbola",
+        "parabola-conic",
+        "parametric-equations",
+        "polar-coordinates"
+      ],
+      "evidenceCardIds": [
+        "hjb-high-selective-1-conics"
+      ],
+      "questionCount": 100
+    }
+  ],
+  "illustrations": [
+    {
+      "id": "hjb-high-s4-等式与不等式-concept",
+      "topicId": "hjb-high-s4-等式与不等式",
+      "grade": "S4",
+      "titleZhHans": "等式与不等式",
+      "volume": "必修 第一册",
+      "chapter": "等式与不等式",
+      "slot": "concept",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s4-等式与不等式/concept.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s4-等式与不等式/concept.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities"
+      ],
+      "alt": {
+        "en": "A balance scale, number line, and parabola connect equality, inequality, roots, and sign intervals.",
+        "zh": "天平、数轴和抛物线把等式、不等式、根和符号区间联系起来。",
+        "zhHans": "天平、数轴和抛物线把等式、不等式、根和符号区间联系起来。"
+      },
+      "caption": {
+        "en": "Equivalent transformations must preserve the solution set and interval endpoints.",
+        "zh": "等价变形要保持解集和端点判断不变。",
+        "zhHans": "等价变形要保持解集和端点判断不变。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning core concept visual for Shanghai Education Press high-school mathematics. Topic: Equations and Inequalities / 等式与不等式. Visual focus: a balanced scale, a number line split into solution intervals, and a softly drawn parabola crossing an axis to connect equality, inequality, roots, and sign regions. Safe RAG concept spine: inequality-properties, quadratic-equations, quadratic-inequalities, basic-inequality. Safe RAG summary basis: This unit connects equation solution sets, inequality transformations, quadratic sign reasoning, absolute-value or rational inequalities, and basic inequality applications. Common misconception cues to avoid or clarify visually: inequality direction error, solution interval endpoint error, basic inequality condition omitted. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s4-等式与不等式-worked-example",
+      "topicId": "hjb-high-s4-等式与不等式",
+      "grade": "S4",
+      "titleZhHans": "等式与不等式",
+      "volume": "必修 第一册",
+      "chapter": "等式与不等式",
+      "slot": "worked-example",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s4-等式与不等式/worked-example.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s4-等式与不等式/worked-example.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities"
+      ],
+      "alt": {
+        "en": "A sign chart beside a parabola highlights endpoint choices and valid solution intervals.",
+        "zh": "抛物线旁的符号表突出端点选择和有效解区间。",
+        "zhHans": "抛物线旁的符号表突出端点选择和有效解区间。"
+      },
+      "caption": {
+        "en": "Mark roots, test intervals, then write only the regions that satisfy the inequality.",
+        "zh": "先标根，再测区间，最后只写满足不等式的部分。",
+        "zhHans": "先标根，再测区间，最后只写满足不等式的部分。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning worked-example visual support for Shanghai Education Press high-school mathematics. Topic: Equations and Inequalities / 等式与不等式. Visual focus: a worked-example sign chart beside a parabola and interval rail, with endpoint dots and shaded valid regions but no readable formulas. Safe RAG concept spine: inequality-properties, quadratic-equations, quadratic-inequalities, basic-inequality. Safe RAG summary basis: This unit connects equation solution sets, inequality transformations, quadratic sign reasoning, absolute-value or rational inequalities, and basic inequality applications. Common misconception cues to avoid or clarify visually: inequality direction error, solution interval endpoint error, basic inequality condition omitted. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s4-复数-concept",
+      "topicId": "hjb-high-s4-复数",
+      "grade": "S4",
+      "titleZhHans": "复数",
+      "volume": "必修 第二册",
+      "chapter": "复数",
+      "slot": "concept",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s4-复数/concept.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s4-复数/concept.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-compulsory-2-complex-numbers"
+      ],
+      "alt": {
+        "en": "A complex plane shows real-imaginary location, conjugate reflection, modulus circles, and arrows.",
+        "zh": "复平面展示实部虚部定位、共轭反射、模长圆和箭头运算。",
+        "zhHans": "复平面展示实部虚部定位、共轭反射、模长圆和箭头运算。"
+      },
+      "caption": {
+        "en": "Complex numbers can be checked algebraically and geometrically on the same plane.",
+        "zh": "复数可以同时用代数运算和复平面几何来检查。",
+        "zhHans": "复数可以同时用代数运算和复平面几何来检查。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning core concept visual for Shanghai Education Press high-school mathematics. Topic: Complex Numbers / 复数. Visual focus: a complex plane with real and imaginary axes, conjugate reflection, modulus circles, and arrow addition cues. Safe RAG concept spine: complex-numbers, complex-operations, complex-plane, complex-roots. Safe RAG summary basis: This unit extends number systems to complex numbers, operations, geometric representation, quadratic roots, and trigonometric form where appropriate. Common misconception cues to avoid or clarify visually: imaginary unit cycle error, conjugate sign error, modulus confused with real part. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s4-复数-worked-example",
+      "topicId": "hjb-high-s4-复数",
+      "grade": "S4",
+      "titleZhHans": "复数",
+      "volume": "必修 第二册",
+      "chapter": "复数",
+      "slot": "worked-example",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s4-复数/worked-example.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s4-复数/worked-example.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-compulsory-2-complex-numbers"
+      ],
+      "alt": {
+        "en": "A complex-plane worked example combines arrows and reflects a point to check conjugates.",
+        "zh": "复平面例题把箭头合成为结果点，并通过反射检查共轭。",
+        "zhHans": "复平面例题把箭头合成为结果点，并通过反射检查共轭。"
+      },
+      "caption": {
+        "en": "Track real and imaginary movement separately, then check the final point visually.",
+        "zh": "分别追踪实部和虚部移动，再用图像检查最终点。",
+        "zhHans": "分别追踪实部和虚部移动，再用图像检查最终点。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning worked-example visual support for Shanghai Education Press high-school mathematics. Topic: Complex Numbers / 复数. Visual focus: a complex-number worked-example scene combining two arrows into a resulting point and reflecting it to verify conjugate behavior. Safe RAG concept spine: complex-numbers, complex-operations, complex-plane, complex-roots. Safe RAG summary basis: This unit extends number systems to complex numbers, operations, geometric representation, quadratic roots, and trigonometric form where appropriate. Common misconception cues to avoid or clarify visually: imaginary unit cycle error, conjugate sign error, modulus confused with real part. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s4-函数的概念-性质及应用-concept",
+      "topicId": "hjb-high-s4-函数的概念-性质及应用",
+      "grade": "S4",
+      "titleZhHans": "函数的概念、性质及应用",
+      "volume": "必修 第一册",
+      "chapter": "函数的概念、性质及应用",
+      "slot": "concept",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s4-函数的概念-性质及应用/concept.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s4-函数的概念-性质及应用/concept.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-compulsory-1-function-concepts-applications"
+      ],
+      "alt": {
+        "en": "A function machine and graph windows show domain, range, monotonicity, and symmetry cues.",
+        "zh": "函数机器和图像窗口展示定义域、值域、单调性和对称线索。",
+        "zhHans": "函数机器和图像窗口展示定义域、值域、单调性和对称线索。"
+      },
+      "caption": {
+        "en": "Start with the allowed inputs, then read how outputs behave across intervals.",
+        "zh": "先确定允许输入，再分区间读取输出怎样变化。",
+        "zhHans": "先确定允许输入，再分区间读取输出怎样变化。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning core concept visual for Shanghai Education Press high-school mathematics. Topic: Function Concepts, Properties, and Applications / 函数的概念、性质及应用. Visual focus: a function machine, input-output mapping dots, domain and range windows, monotonic intervals, and symmetry/parity cues on a graph. Safe RAG concept spine: function-definition, domain-range, monotonicity, parity, function-zero, inverse-functions. Safe RAG summary basis: This unit consolidates function definition, representation, basic properties, application modeling, zero location, and optional inverse-function reasoning. Common misconception cues to avoid or clarify visually: range and value confused, increasing interval confused with positive values, parity checked outside domain. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s4-函数的概念-性质及应用-worked-example",
+      "topicId": "hjb-high-s4-函数的概念-性质及应用",
+      "grade": "S4",
+      "titleZhHans": "函数的概念、性质及应用",
+      "volume": "必修 第一册",
+      "chapter": "函数的概念、性质及应用",
+      "slot": "worked-example",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s4-函数的概念-性质及应用/worked-example.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s4-函数的概念-性质及应用/worked-example.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-compulsory-1-function-concepts-applications"
+      ],
+      "alt": {
+        "en": "A graph-reading board highlights input windows, output heights, zeros, and interval arrows.",
+        "zh": "读图板突出输入范围、输出高度、零点和区间箭头。",
+        "zhHans": "读图板突出输入范围、输出高度、零点和区间箭头。"
+      },
+      "caption": {
+        "en": "Domain, zeros, and monotonicity should be checked as separate graph features.",
+        "zh": "定义域、零点和单调性要作为不同图像特征分别检查。",
+        "zhHans": "定义域、零点和单调性要作为不同图像特征分别检查。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning worked-example visual support for Shanghai Education Press high-school mathematics. Topic: Function Concepts, Properties, and Applications / 函数的概念、性质及应用. Visual focus: a graph-reading board that highlights a valid input window, output heights, zero crossings, and interval arrows. Safe RAG concept spine: function-definition, domain-range, monotonicity, parity, function-zero, inverse-functions. Safe RAG summary basis: This unit consolidates function definition, representation, basic properties, application modeling, zero location, and optional inverse-function reasoning. Common misconception cues to avoid or clarify visually: range and value confused, increasing interval confused with positive values, parity checked outside domain. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s4-集合与逻辑-concept",
+      "topicId": "hjb-high-s4-集合与逻辑",
+      "grade": "S4",
+      "titleZhHans": "集合与逻辑",
+      "volume": "必修 第一册",
+      "chapter": "集合与逻辑",
+      "slot": "concept",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s4-集合与逻辑/concept.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s4-集合与逻辑/concept.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-compulsory-1-sets-logic"
+      ],
+      "alt": {
+        "en": "Overlapping set regions inside a universe frame show membership, operations, and condition filtering.",
+        "zh": "全集框中的重叠集合区域展示元素归属、集合运算和条件筛选。",
+        "zhHans": "全集框中的重叠集合区域展示元素归属、集合运算和条件筛选。"
+      },
+      "caption": {
+        "en": "Fix the universe first, then compare which region satisfies each condition.",
+        "zh": "先确定全集，再比较每个条件对应的区域。",
+        "zhHans": "先确定全集，再比较每个条件对应的区域。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning core concept visual for Shanghai Education Press high-school mathematics. Topic: Sets and Logic / 集合与逻辑. Visual focus: a large universe frame with two translucent overlapping sets, condition gates, boundary markers, and small abstract dots showing membership and logical condition filtering. Safe RAG concept spine: sets, set-operations, logic-conditions, quantifiers. Safe RAG summary basis: This opening unit establishes high-school mathematical language through sets, relations, operations, propositions, and condition reasoning. Common misconception cues to avoid or clarify visually: confusing element and subset, universe set omitted, sufficient and necessary reversed. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s4-集合与逻辑-worked-example",
+      "topicId": "hjb-high-s4-集合与逻辑",
+      "grade": "S4",
+      "titleZhHans": "集合与逻辑",
+      "volume": "必修 第一册",
+      "chapter": "集合与逻辑",
+      "slot": "worked-example",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s4-集合与逻辑/worked-example.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s4-集合与逻辑/worked-example.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-compulsory-1-sets-logic"
+      ],
+      "alt": {
+        "en": "A set-operation workspace narrows to an intersection region and checks the complement visually.",
+        "zh": "集合运算工作区逐步缩小到交集区域，并用补集区域作目视检查。",
+        "zhHans": "集合运算工作区逐步缩小到交集区域，并用补集区域作目视检查。"
+      },
+      "caption": {
+        "en": "Use the shared region and its complement to avoid reversing the condition.",
+        "zh": "用公共区域和补集一起检查，避免把条件方向弄反。",
+        "zhHans": "用公共区域和补集一起检查，避免把条件方向弄反。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning worked-example visual support for Shanghai Education Press high-school mathematics. Topic: Sets and Logic / 集合与逻辑. Visual focus: a set-operation workspace that narrows from a universe rectangle to an intersection region and then checks a complementary region with clean color overlays. Safe RAG concept spine: sets, set-operations, logic-conditions, quantifiers. Safe RAG summary basis: This opening unit establishes high-school mathematical language through sets, relations, operations, propositions, and condition reasoning. Common misconception cues to avoid or clarify visually: confusing element and subset, universe set omitted, sufficient and necessary reversed. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s4-幂-指数与对数-concept",
+      "topicId": "hjb-high-s4-幂-指数与对数",
+      "grade": "S4",
+      "titleZhHans": "幂、指数与对数",
+      "volume": "必修 第一册",
+      "chapter": "幂、指数与对数",
+      "slot": "concept",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s4-幂-指数与对数/concept.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s4-幂-指数与对数/concept.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-compulsory-1-powers-exponents-logarithms"
+      ],
+      "alt": {
+        "en": "Exponent tiles, radical blocks, and logarithm arrows show reversible power-log relationships.",
+        "zh": "指数方块、根式模块和对数箭头展示幂与对数的可逆关系。",
+        "zhHans": "指数方块、根式模块和对数箭头展示幂与对数的可逆关系。"
+      },
+      "caption": {
+        "en": "Power and logarithm rules work only after checking base and domain conditions.",
+        "zh": "使用幂和对数法则前，必须先检查底数和定义域条件。",
+        "zhHans": "使用幂和对数法则前，必须先检查底数和定义域条件。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning core concept visual for Shanghai Education Press high-school mathematics. Topic: Powers, Exponents, and Logarithms / 幂、指数与对数. Visual focus: stacked exponent tiles, radical blocks, and logarithm arrows that show reversible power-log relationships with domain and base-condition checkpoints. Safe RAG concept spine: exponents, radicals, logarithmic-operations, base-conversion. Safe RAG summary basis: This unit develops exponent extension, logarithm definitions, operation laws, and base-change fluency as preparation for function study. Common misconception cues to avoid or clarify visually: base condition forgotten, logarithm domain ignored, power-law overgeneralized. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s4-幂-指数与对数-worked-example",
+      "topicId": "hjb-high-s4-幂-指数与对数",
+      "grade": "S4",
+      "titleZhHans": "幂、指数与对数",
+      "volume": "必修 第一册",
+      "chapter": "幂、指数与对数",
+      "slot": "worked-example",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s4-幂-指数与对数/worked-example.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s4-幂-指数与对数/worked-example.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-compulsory-1-powers-exponents-logarithms"
+      ],
+      "alt": {
+        "en": "A conversion board links exponent, radical, and logarithm forms through reversible arrows.",
+        "zh": "转换板用可逆箭头连接指数式、根式和对数式。",
+        "zhHans": "转换板用可逆箭头连接指数式、根式和对数式。"
+      },
+      "caption": {
+        "en": "Rewrite one step at a time, and verify that each form keeps the same restriction.",
+        "zh": "每次只改写一步，并确认不同形式保留相同限制。",
+        "zhHans": "每次只改写一步，并确认不同形式保留相同限制。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning worked-example visual support for Shanghai Education Press high-school mathematics. Topic: Powers, Exponents, and Logarithms / 幂、指数与对数. Visual focus: a conversion board where exponent, radical, and logarithm forms are linked by arrows and checkpoint badges, with no actual textbook expressions. Safe RAG concept spine: exponents, radicals, logarithmic-operations, base-conversion. Safe RAG summary basis: This unit develops exponent extension, logarithm definitions, operation laws, and base-change fluency as preparation for function study. Common misconception cues to avoid or clarify visually: base condition forgotten, logarithm domain ignored, power-law overgeneralized. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s4-幂函数-指数函数与对数函数-concept",
+      "topicId": "hjb-high-s4-幂函数-指数函数与对数函数",
+      "grade": "S4",
+      "titleZhHans": "幂函数、指数函数与对数函数",
+      "volume": "必修 第一册",
+      "chapter": "幂函数、指数函数与对数函数",
+      "slot": "concept",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s4-幂函数-指数函数与对数函数/concept.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s4-幂函数-指数函数与对数函数/concept.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-compulsory-1-power-exponential-log-functions"
+      ],
+      "alt": {
+        "en": "Power, exponential, and logarithmic curves compare growth, domain, range, and inverse structure.",
+        "zh": "幂函数、指数函数和对数函数曲线比较增长、定义域、值域和互逆结构。",
+        "zhHans": "幂函数、指数函数和对数函数曲线比较增长、定义域、值域和互逆结构。"
+      },
+      "caption": {
+        "en": "Compare function families by shape, domain, monotonicity, and transformation behavior.",
+        "zh": "比较函数族时，要同时看形状、定义域、单调性和变换。",
+        "zhHans": "比较函数族时，要同时看形状、定义域、单调性和变换。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning core concept visual for Shanghai Education Press high-school mathematics. Topic: Power, Exponential, and Logarithmic Functions / 幂函数、指数函数与对数函数. Visual focus: power, exponential, and logarithmic curves on one clean coordinate plane, with inverse-like mirroring, growth comparison bands, and domain-range cues. Safe RAG concept spine: power-functions, exponential-functions, logarithmic-functions, function-graphs. Safe RAG summary basis: This unit studies power, exponential, and logarithmic functions through definitions, graphs, monotonicity, transformations, and growth comparison. Common misconception cues to avoid or clarify visually: domain restriction omitted, base range misread, monotonicity direction reversed. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s4-幂函数-指数函数与对数函数-worked-example",
+      "topicId": "hjb-high-s4-幂函数-指数函数与对数函数",
+      "grade": "S4",
+      "titleZhHans": "幂函数、指数函数与对数函数",
+      "volume": "必修 第一册",
+      "chapter": "幂函数、指数函数与对数函数",
+      "slot": "worked-example",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s4-幂函数-指数函数与对数函数/worked-example.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s4-幂函数-指数函数与对数函数/worked-example.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-compulsory-1-power-exponential-log-functions"
+      ],
+      "alt": {
+        "en": "A graph-reading workspace matches curve shapes with parameters and highlighted intervals.",
+        "zh": "读图工作区把曲线形状、参数线索和高亮区间对应起来。",
+        "zhHans": "读图工作区把曲线形状、参数线索和高亮区间对应起来。"
+      },
+      "caption": {
+        "en": "Move between graph features and symbolic choices by checking the same restriction twice.",
+        "zh": "在图像特征和式子选择之间转换时，要重复检查同一限制条件。",
+        "zhHans": "在图像特征和式子选择之间转换时，要重复检查同一限制条件。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning worked-example visual support for Shanghai Education Press high-school mathematics. Topic: Power, Exponential, and Logarithmic Functions / 幂函数、指数函数与对数函数. Visual focus: a graph-reading workspace matching curve shape to parameter cards and highlighted intervals, without any readable symbolic equations. Safe RAG concept spine: power-functions, exponential-functions, logarithmic-functions, function-graphs. Safe RAG summary basis: This unit studies power, exponential, and logarithmic functions through definitions, graphs, monotonicity, transformations, and growth comparison. Common misconception cues to avoid or clarify visually: domain restriction omitted, base range misread, monotonicity direction reversed. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s4-平面向量-concept",
+      "topicId": "hjb-high-s4-平面向量",
+      "grade": "S4",
+      "titleZhHans": "平面向量",
+      "volume": "必修 第二册",
+      "chapter": "平面向量",
+      "slot": "concept",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s4-平面向量/concept.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s4-平面向量/concept.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-compulsory-2-plane-vectors"
+      ],
+      "alt": {
+        "en": "Directed grid arrows show vector addition, decomposition, projection, and angle comparison.",
+        "zh": "坐标网格上的有向箭头展示向量加法、分解、投影和夹角比较。",
+        "zhHans": "坐标网格上的有向箭头展示向量加法、分解、投影和夹角比较。"
+      },
+      "caption": {
+        "en": "Vector diagrams must preserve both length and direction before calculation.",
+        "zh": "向量图示在计算前必须同时保留长度和方向。",
+        "zhHans": "向量图示在计算前必须同时保留长度和方向。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning core concept visual for Shanghai Education Press high-school mathematics. Topic: Plane Vectors / 平面向量. Visual focus: directed arrows on a coordinate grid showing vector addition, decomposition, dot-product projection, and angle comparison through color and shadows. Safe RAG concept spine: plane-vectors, vector-operations, dot-product, vector-coordinates, vector-applications. Safe RAG summary basis: This unit uses directed quantities, linear operations, dot product, coordinate representation, and applications to solve plane-geometry or context problems. Common misconception cues to avoid or clarify visually: vector direction ignored, dot product sign misread, coordinate decomposition mismatch. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s4-平面向量-worked-example",
+      "topicId": "hjb-high-s4-平面向量",
+      "grade": "S4",
+      "titleZhHans": "平面向量",
+      "volume": "必修 第二册",
+      "chapter": "平面向量",
+      "slot": "worked-example",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s4-平面向量/worked-example.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s4-平面向量/worked-example.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-compulsory-2-plane-vectors"
+      ],
+      "alt": {
+        "en": "A vector board decomposes an arrow into components and checks projection direction.",
+        "zh": "向量板把箭头分解为分量，并检查投影方向。",
+        "zhHans": "向量板把箭头分解为分量，并检查投影方向。"
+      },
+      "caption": {
+        "en": "Break the vector into components before using projection or dot-product reasoning.",
+        "zh": "使用投影或数量积前，先把向量分解为清楚分量。",
+        "zhHans": "使用投影或数量积前，先把向量分解为清楚分量。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning worked-example visual support for Shanghai Education Press high-school mathematics. Topic: Plane Vectors / 平面向量. Visual focus: a vector worked-example board decomposing one arrow into components, projecting onto another direction, and checking the dot-product sign visually. Safe RAG concept spine: plane-vectors, vector-operations, dot-product, vector-coordinates, vector-applications. Safe RAG summary basis: This unit uses directed quantities, linear operations, dot product, coordinate representation, and applications to solve plane-geometry or context problems. Common misconception cues to avoid or clarify visually: vector direction ignored, dot product sign misread, coordinate decomposition mismatch. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s4-三角-concept",
+      "topicId": "hjb-high-s4-三角",
+      "grade": "S4",
+      "titleZhHans": "三角",
+      "volume": "必修 第二册",
+      "chapter": "三角",
+      "slot": "concept",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s4-三角/concept.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s4-三角/concept.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-compulsory-2-trigonometry-foundations"
+      ],
+      "alt": {
+        "en": "A unit circle links angle rotation to trigonometric waveforms, signs, and periods.",
+        "zh": "单位圆把角的旋转与三角函数波形、符号和周期联系起来。",
+        "zhHans": "单位圆把角的旋转与三角函数波形、符号和周期联系起来。"
+      },
+      "caption": {
+        "en": "Use the unit circle to explain signs, reference angles, and periodic graph behavior.",
+        "zh": "用单位圆解释符号、参考角和图像周期。",
+        "zhHans": "用单位圆解释符号、参考角和图像周期。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning core concept visual for Shanghai Education Press high-school mathematics. Topic: Trigonometry / 三角. Visual focus: a unit circle linked to sine and cosine waveforms, with angle rotation, sign quadrants, period bands, and transformation handles. Safe RAG concept spine: unit-circle, trigonometric-ratios, trigonometric-identities, sine-theorem, cosine-theorem. Safe RAG summary basis: This unit builds trigonometric ratios, angle measures, identities, and triangle-solving methods as a bridge from geometry to functions. Common misconception cues to avoid or clarify visually: degree-radian confusion, identity condition ignored, ambiguous triangle case missed. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s4-三角-worked-example",
+      "topicId": "hjb-high-s4-三角",
+      "grade": "S4",
+      "titleZhHans": "三角",
+      "volume": "必修 第二册",
+      "chapter": "三角",
+      "slot": "worked-example",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s4-三角/worked-example.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s4-三角/worked-example.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-compulsory-2-trigonometry-foundations"
+      ],
+      "alt": {
+        "en": "A trigonometry workspace checks a unit-circle angle against highlighted waveform intervals.",
+        "zh": "三角工作区把单位圆上的角与波形中的高亮区间互相检查。",
+        "zhHans": "三角工作区把单位圆上的角与波形中的高亮区间互相检查。"
+      },
+      "caption": {
+        "en": "Judge the sign and reference angle first, then use the period to complete the solution.",
+        "zh": "先判断符号和参考角，再利用周期补全解。",
+        "zhHans": "先判断符号和参考角，再利用周期补全解。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning worked-example visual support for Shanghai Education Press high-school mathematics. Topic: Trigonometry / 三角. Visual focus: a trigonometry solution workspace that checks a highlighted angle on a unit circle against matching intervals on a waveform. Safe RAG concept spine: unit-circle, trigonometric-ratios, trigonometric-identities, sine-theorem, cosine-theorem. Safe RAG summary basis: This unit builds trigonometric ratios, angle measures, identities, and triangle-solving methods as a bridge from geometry to functions. Common misconception cues to avoid or clarify visually: degree-radian confusion, identity condition ignored, ambiguous triangle case missed. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s4-三角函数-concept",
+      "topicId": "hjb-high-s4-三角函数",
+      "grade": "S4",
+      "titleZhHans": "三角函数",
+      "volume": "必修 第二册",
+      "chapter": "三角函数",
+      "slot": "concept",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s4-三角函数/concept.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s4-三角函数/concept.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-compulsory-2-trigonometric-functions"
+      ],
+      "alt": {
+        "en": "A function machine and graph windows show domain, range, monotonicity, and symmetry cues.",
+        "zh": "函数机器和图像窗口展示定义域、值域、单调性和对称线索。",
+        "zhHans": "函数机器和图像窗口展示定义域、值域、单调性和对称线索。"
+      },
+      "caption": {
+        "en": "Start with the allowed inputs, then read how outputs behave across intervals.",
+        "zh": "先确定允许输入，再分区间读取输出怎样变化。",
+        "zhHans": "先确定允许输入，再分区间读取输出怎样变化。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning core concept visual for Shanghai Education Press high-school mathematics. Topic: Trigonometric Functions / 三角函数. Visual focus: a function machine, input-output mapping dots, domain and range windows, monotonic intervals, and symmetry/parity cues on a graph. Safe RAG concept spine: trigonometric-functions, trigonometric-graphs, periodicity, trigonometric-transformations. Safe RAG summary basis: This unit studies sine, cosine, tangent, graph features, periodicity, transformations, and interval-based interpretation. Common misconception cues to avoid or clarify visually: period formula error, phase shift sign reversed, solution interval incomplete. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s4-三角函数-worked-example",
+      "topicId": "hjb-high-s4-三角函数",
+      "grade": "S4",
+      "titleZhHans": "三角函数",
+      "volume": "必修 第二册",
+      "chapter": "三角函数",
+      "slot": "worked-example",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s4-三角函数/worked-example.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s4-三角函数/worked-example.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-compulsory-2-trigonometric-functions"
+      ],
+      "alt": {
+        "en": "A graph-reading board highlights input windows, output heights, zeros, and interval arrows.",
+        "zh": "读图板突出输入范围、输出高度、零点和区间箭头。",
+        "zhHans": "读图板突出输入范围、输出高度、零点和区间箭头。"
+      },
+      "caption": {
+        "en": "Domain, zeros, and monotonicity should be checked as separate graph features.",
+        "zh": "定义域、零点和单调性要作为不同图像特征分别检查。",
+        "zhHans": "定义域、零点和单调性要作为不同图像特征分别检查。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning worked-example visual support for Shanghai Education Press high-school mathematics. Topic: Trigonometric Functions / 三角函数. Visual focus: a graph-reading board that highlights a valid input window, output heights, zero crossings, and interval arrows. Safe RAG concept spine: trigonometric-functions, trigonometric-graphs, periodicity, trigonometric-transformations. Safe RAG summary basis: This unit studies sine, cosine, tangent, graph features, periodicity, transformations, and interval-based interpretation. Common misconception cues to avoid or clarify visually: period formula error, phase shift sign reversed, solution interval incomplete. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s5-概率初步-concept",
+      "topicId": "hjb-high-s5-概率初步",
+      "grade": "S5",
+      "titleZhHans": "概率初步",
+      "volume": "必修 第三册",
+      "chapter": "概率初步",
+      "slot": "concept",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s5-概率初步/concept.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s5-概率初步/concept.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-compulsory-3-probability-foundations"
+      ],
+      "alt": {
+        "en": "A sample-space grid, event regions, branches, and simulation trail show probability structure.",
+        "zh": "样本空间网格、事件区域、分支和模拟轨迹展示概率结构。",
+        "zhHans": "样本空间网格、事件区域、分支和模拟轨迹展示概率结构。"
+      },
+      "caption": {
+        "en": "Begin with the sample space, then describe events and their relationships.",
+        "zh": "先确定样本空间，再描述事件及其关系。",
+        "zhHans": "先确定样本空间，再描述事件及其关系。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning core concept visual for Shanghai Education Press high-school mathematics. Topic: Introductory Probability / 概率初步. Visual focus: a sample-space grid with event regions, complement shading, tree-diagram branches, and a small simulation trail of random outcomes. Safe RAG concept spine: probability-foundations, sample-space, random-events, probability-operations, independence. Safe RAG summary basis: This unit introduces random phenomena, sample spaces, event relations, classical probability, frequency interpretation, and independence. Common misconception cues to avoid or clarify visually: sample space incomplete, frequency treated as exact probability, event relation confused. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s5-概率初步-worked-example",
+      "topicId": "hjb-high-s5-概率初步",
+      "grade": "S5",
+      "titleZhHans": "概率初步",
+      "volume": "必修 第三册",
+      "chapter": "概率初步",
+      "slot": "worked-example",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s5-概率初步/worked-example.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s5-概率初步/worked-example.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-compulsory-3-probability-foundations"
+      ],
+      "alt": {
+        "en": "A probability board narrows all outcomes to a highlighted event and checks complement counts.",
+        "zh": "概率板从全部结果缩小到高亮事件，并检查补集或分支计数。",
+        "zhHans": "概率板从全部结果缩小到高亮事件，并检查补集或分支计数。"
+      },
+      "caption": {
+        "en": "List the possible outcomes first to avoid missing or double-counting favorable cases.",
+        "zh": "先列清所有可能结果，避免漏数或重复计数。",
+        "zhHans": "先列清所有可能结果，避免漏数或重复计数。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning worked-example visual support for Shanghai Education Press high-school mathematics. Topic: Introductory Probability / 概率初步. Visual focus: a probability worked-example board that narrows from all outcomes to a highlighted event and checks complement or branch counts. Safe RAG concept spine: probability-foundations, sample-space, random-events, probability-operations, independence. Safe RAG summary basis: This unit introduces random phenomena, sample spaces, event relations, classical probability, frequency interpretation, and independence. Common misconception cues to avoid or clarify visually: sample space incomplete, frequency treated as exact probability, event relation confused. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s5-简单几何体-concept",
+      "topicId": "hjb-high-s5-简单几何体",
+      "grade": "S5",
+      "titleZhHans": "简单几何体",
+      "volume": "必修 第三册",
+      "chapter": "简单几何体",
+      "slot": "concept",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s5-简单几何体/concept.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s5-简单几何体/concept.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-compulsory-3-simple-solids"
+      ],
+      "alt": {
+        "en": "Transparent solids and planes show line-plane relations, parallelism, perpendicularity, and distance cues.",
+        "zh": "透明立体和辅助平面展示线面关系、平行、垂直和距离线索。",
+        "zhHans": "透明立体和辅助平面展示线面关系、平行、垂直和距离线索。"
+      },
+      "caption": {
+        "en": "Spatial geometry needs explicit line-plane relations, not only visual appearance.",
+        "zh": "立体几何要依据明确的线面关系推理，不能只凭外观。",
+        "zhHans": "立体几何要依据明确的线面关系推理，不能只凭外观。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning core concept visual for Shanghai Education Press high-school mathematics. Topic: Basic Solid Geometry / 简单几何体. Visual focus: transparent solids, planes, line segments, parallel-perpendicular cues, and distance markers in a clean spatial-geometry composition. Safe RAG concept spine: solid-geometry, surface-volume, polyhedra, rotational-solids. Safe RAG summary basis: This unit treats prisms, pyramids, cylinders, cones, spheres, surface area, volume, and spatial composition through measurement reasoning. Common misconception cues to avoid or clarify visually: surface area and volume mixed, height chosen incorrectly, unit conversion skipped. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s5-简单几何体-worked-example",
+      "topicId": "hjb-high-s5-简单几何体",
+      "grade": "S5",
+      "titleZhHans": "简单几何体",
+      "volume": "必修 第三册",
+      "chapter": "简单几何体",
+      "slot": "worked-example",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s5-简单几何体/worked-example.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s5-简单几何体/worked-example.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-compulsory-3-simple-solids"
+      ],
+      "alt": {
+        "en": "A spatial-geometry workspace adds an auxiliary plane and right-angle cue inside a transparent solid.",
+        "zh": "立体几何工作区在透明几何体内加入辅助平面和直角线索。",
+        "zhHans": "立体几何工作区在透明几何体内加入辅助平面和直角线索。"
+      },
+      "caption": {
+        "en": "Add auxiliary planes or segments to turn spatial relations into visible arguments.",
+        "zh": "加入辅助平面或线段，把空间关系转化为可见论证。",
+        "zhHans": "加入辅助平面或线段，把空间关系转化为可见论证。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning worked-example visual support for Shanghai Education Press high-school mathematics. Topic: Basic Solid Geometry / 简单几何体. Visual focus: a spatial-geometry proof workspace adding an auxiliary plane and right-angle cue inside a transparent prism-like solid. Safe RAG concept spine: solid-geometry, surface-volume, polyhedra, rotational-solids. Safe RAG summary basis: This unit treats prisms, pyramids, cylinders, cones, spheres, surface area, volume, and spatial composition through measurement reasoning. Common misconception cues to avoid or clarify visually: surface area and volume mixed, height chosen incorrectly, unit conversion skipped. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s5-空间向量及其应用-concept",
+      "topicId": "hjb-high-s5-空间向量及其应用",
+      "grade": "S5",
+      "titleZhHans": "空间向量及其应用",
+      "volume": "选择性必修 第一册",
+      "chapter": "空间向量及其应用",
+      "slot": "concept",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s5-空间向量及其应用/concept.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s5-空间向量及其应用/concept.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-selective-1-space-vectors"
+      ],
+      "alt": {
+        "en": "3D coordinate arrows and component shadows show spatial vectors, angles, and plane normals.",
+        "zh": "三维坐标箭头和分量投影展示空间向量、夹角和平面法向量。",
+        "zhHans": "三维坐标箭头和分量投影展示空间向量、夹角和平面法向量。"
+      },
+      "caption": {
+        "en": "Spatial vectors translate geometry into coordinates, components, and products.",
+        "zh": "空间向量把几何关系转化为坐标、分量和数量积。",
+        "zhHans": "空间向量把几何关系转化为坐标、分量和数量积。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning core concept visual for Shanghai Education Press high-school mathematics. Topic: Spatial Vectors and Applications / 空间向量及其应用. Visual focus: 3D coordinate axes with spatial arrows, component shadows on coordinate planes, angle markers, and plane-normal cues. Safe RAG concept spine: space-vectors, spatial-coordinate-system, line-plane-angle, distance-in-space, parallel-perpendicular. Safe RAG summary basis: This unit upgrades solid-geometry reasoning with space-vector operations, coordinate representation, and vector methods for distance, angle, and positional relations. Common misconception cues to avoid or clarify visually: normal vector chosen incorrectly, angle complement error, point-to-plane distance formula misuse. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s5-空间向量及其应用-worked-example",
+      "topicId": "hjb-high-s5-空间向量及其应用",
+      "grade": "S5",
+      "titleZhHans": "空间向量及其应用",
+      "volume": "选择性必修 第一册",
+      "chapter": "空间向量及其应用",
+      "slot": "worked-example",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s5-空间向量及其应用/worked-example.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s5-空间向量及其应用/worked-example.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-selective-1-space-vectors"
+      ],
+      "alt": {
+        "en": "A 3D vector workspace projects an arrow and compares it with a plane normal.",
+        "zh": "三维向量工作区投影箭头，并与平面法向量比较。",
+        "zhHans": "三维向量工作区投影箭头，并与平面法向量比较。"
+      },
+      "caption": {
+        "en": "Use components and normal directions to check angle, distance, or perpendicularity.",
+        "zh": "用分量和法向方向检查夹角、距离或垂直关系。",
+        "zhHans": "用分量和法向方向检查夹角、距离或垂直关系。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning worked-example visual support for Shanghai Education Press high-school mathematics. Topic: Spatial Vectors and Applications / 空间向量及其应用. Visual focus: a 3D vector workspace projecting an arrow onto coordinate planes and comparing it with a plane normal to check angle or distance. Safe RAG concept spine: space-vectors, spatial-coordinate-system, line-plane-angle, distance-in-space, parallel-perpendicular. Safe RAG summary basis: This unit upgrades solid-geometry reasoning with space-vector operations, coordinate representation, and vector methods for distance, angle, and positional relations. Common misconception cues to avoid or clarify visually: normal vector chosen incorrectly, angle complement error, point-to-plane distance formula misuse. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s5-空间直线与平面-concept",
+      "topicId": "hjb-high-s5-空间直线与平面",
+      "grade": "S5",
+      "titleZhHans": "空间直线与平面",
+      "volume": "必修 第三册",
+      "chapter": "空间直线与平面",
+      "slot": "concept",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s5-空间直线与平面/concept.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s5-空间直线与平面/concept.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-compulsory-3-spatial-lines-planes"
+      ],
+      "alt": {
+        "en": "Transparent solids and planes show line-plane relations, parallelism, perpendicularity, and distance cues.",
+        "zh": "透明立体和辅助平面展示线面关系、平行、垂直和距离线索。",
+        "zhHans": "透明立体和辅助平面展示线面关系、平行、垂直和距离线索。"
+      },
+      "caption": {
+        "en": "Spatial geometry needs explicit line-plane relations, not only visual appearance.",
+        "zh": "立体几何要依据明确的线面关系推理，不能只凭外观。",
+        "zhHans": "立体几何要依据明确的线面关系推理，不能只凭外观。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning core concept visual for Shanghai Education Press high-school mathematics. Topic: Lines and Planes in Space / 空间直线与平面. Visual focus: transparent solids, planes, line segments, parallel-perpendicular cues, and distance markers in a clean spatial-geometry composition. Safe RAG concept spine: solid-geometry, spatial-lines-planes, parallel-perpendicular, line-plane-angle, distance-in-space. Safe RAG summary basis: This unit develops spatial reasoning for points, lines, planes, parallelism, perpendicularity, angles, distances, and basic drawing conventions. Common misconception cues to avoid or clarify visually: drawing treated as proof, parallel criterion incomplete, angle complement confused. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s5-空间直线与平面-worked-example",
+      "topicId": "hjb-high-s5-空间直线与平面",
+      "grade": "S5",
+      "titleZhHans": "空间直线与平面",
+      "volume": "必修 第三册",
+      "chapter": "空间直线与平面",
+      "slot": "worked-example",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s5-空间直线与平面/worked-example.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s5-空间直线与平面/worked-example.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-compulsory-3-spatial-lines-planes"
+      ],
+      "alt": {
+        "en": "A spatial-geometry workspace adds an auxiliary plane and right-angle cue inside a transparent solid.",
+        "zh": "立体几何工作区在透明几何体内加入辅助平面和直角线索。",
+        "zhHans": "立体几何工作区在透明几何体内加入辅助平面和直角线索。"
+      },
+      "caption": {
+        "en": "Add auxiliary planes or segments to turn spatial relations into visible arguments.",
+        "zh": "加入辅助平面或线段，把空间关系转化为可见论证。",
+        "zhHans": "加入辅助平面或线段，把空间关系转化为可见论证。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning worked-example visual support for Shanghai Education Press high-school mathematics. Topic: Lines and Planes in Space / 空间直线与平面. Visual focus: a spatial-geometry proof workspace adding an auxiliary plane and right-angle cue inside a transparent prism-like solid. Safe RAG concept spine: solid-geometry, spatial-lines-planes, parallel-perpendicular, line-plane-angle, distance-in-space. Safe RAG summary basis: This unit develops spatial reasoning for points, lines, planes, parallelism, perpendicularity, angles, distances, and basic drawing conventions. Common misconception cues to avoid or clarify visually: drawing treated as proof, parallel criterion incomplete, angle complement confused. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s5-平面直角坐标系中的直线-concept",
+      "topicId": "hjb-high-s5-平面直角坐标系中的直线",
+      "grade": "S5",
+      "titleZhHans": "平面直角坐标系中的直线",
+      "volume": "选择性必修 第一册",
+      "chapter": "平面直角坐标系中的直线",
+      "slot": "concept",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s5-平面直角坐标系中的直线/concept.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s5-平面直角坐标系中的直线/concept.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-selective-1-lines"
+      ],
+      "alt": {
+        "en": "Coordinate lines with slope triangles and intercept markers show analytic-geometry structure.",
+        "zh": "坐标直线、斜率三角形和截距标记展示解析几何结构。",
+        "zhHans": "坐标直线、斜率三角形和截距标记展示解析几何结构。"
+      },
+      "caption": {
+        "en": "Line problems become clearer when slope, intercept, distance, and position are separated.",
+        "zh": "直线问题要分清斜率、截距、距离和位置关系。",
+        "zhHans": "直线问题要分清斜率、截距、距离和位置关系。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning core concept visual for Shanghai Education Press high-school mathematics. Topic: Lines in the Coordinate Plane / 平面直角坐标系中的直线. Visual focus: coordinate-plane lines with slope triangles, intercept markers, distance bands, and perpendicular-parallel cues. Safe RAG concept spine: analytic-geometry, line-equations, slope, point-line-distance. Safe RAG summary basis: This unit uses coordinate methods to describe line slope, line equations, line relationships, angle, and point-to-line distance. Common misconception cues to avoid or clarify visually: undefined slope ignored, equation form chosen inefficiently, distance formula target mismatch. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s5-平面直角坐标系中的直线-worked-example",
+      "topicId": "hjb-high-s5-平面直角坐标系中的直线",
+      "grade": "S5",
+      "titleZhHans": "平面直角坐标系中的直线",
+      "volume": "选择性必修 第一册",
+      "chapter": "平面直角坐标系中的直线",
+      "slot": "worked-example",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s5-平面直角坐标系中的直线/worked-example.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s5-平面直角坐标系中的直线/worked-example.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-selective-1-lines"
+      ],
+      "alt": {
+        "en": "An analytic-geometry workspace builds a line from points and checks slope and distance.",
+        "zh": "解析几何工作区由点构造直线，并检查斜率和距离。",
+        "zhHans": "解析几何工作区由点构造直线，并检查斜率和距离。"
+      },
+      "caption": {
+        "en": "Translate geometric conditions into coordinate checks before solving.",
+        "zh": "求解前先把几何条件转化为坐标检查。",
+        "zhHans": "求解前先把几何条件转化为坐标检查。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning worked-example visual support for Shanghai Education Press high-school mathematics. Topic: Lines in the Coordinate Plane / 平面直角坐标系中的直线. Visual focus: an analytic-geometry workspace constructing a line from two points, then checking slope, intercept, and a perpendicular distance cue. Safe RAG concept spine: analytic-geometry, line-equations, slope, point-line-distance. Safe RAG summary basis: This unit uses coordinate methods to describe line slope, line equations, line relationships, angle, and point-to-line distance. Common misconception cues to avoid or clarify visually: undefined slope ignored, equation form chosen inefficiently, distance formula target mismatch. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s5-数列-concept",
+      "topicId": "hjb-high-s5-数列",
+      "grade": "S5",
+      "titleZhHans": "数列",
+      "volume": "选择性必修 第一册",
+      "chapter": "数列",
+      "slot": "concept",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s5-数列/concept.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s5-数列/concept.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-selective-1-sequences"
+      ],
+      "alt": {
+        "en": "Sequence tiles with difference arrows, ratio arcs, and sum blocks show ordered growth.",
+        "zh": "数列方块、差分箭头、比值弧线和求和模块展示有序增长。",
+        "zhHans": "数列方块、差分箭头、比值弧线和求和模块展示有序增长。"
+      },
+      "caption": {
+        "en": "A sequence should be read by term position, change pattern, and sum structure.",
+        "zh": "数列要从项的位置、变化规律和求和结构来读。",
+        "zhHans": "数列要从项的位置、变化规律和求和结构来读。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning core concept visual for Shanghai Education Press high-school mathematics. Topic: Sequences / 数列. Visual focus: ordered sequence tiles, difference arrows, ratio arcs, partial-sum blocks, and a growth path across a clean horizontal timeline. Safe RAG concept spine: sequences, arithmetic-sequences, geometric-sequences, recurrence, mathematical-induction. Safe RAG summary basis: This unit treats arithmetic and geometric sequences, general sequence properties, recurrence, induction, and iterative approximation as discrete-function reasoning. Common misconception cues to avoid or clarify visually: index shift error, first term omitted, induction base case missing. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s5-数列-worked-example",
+      "topicId": "hjb-high-s5-数列",
+      "grade": "S5",
+      "titleZhHans": "数列",
+      "volume": "选择性必修 第一册",
+      "chapter": "数列",
+      "slot": "worked-example",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s5-数列/worked-example.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s5-数列/worked-example.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-selective-1-sequences"
+      ],
+      "alt": {
+        "en": "A sequence workspace extends early terms to a general position and checks a sum model.",
+        "zh": "数列工作区从前几项推广到一般位置，并检查求和模型。",
+        "zhHans": "数列工作区从前几项推广到一般位置，并检查求和模型。"
+      },
+      "caption": {
+        "en": "Look for the recurrence or common change before writing a general rule.",
+        "zh": "写通项前，先寻找递推关系或共同变化。",
+        "zhHans": "写通项前，先寻找递推关系或共同变化。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning worked-example visual support for Shanghai Education Press high-school mathematics. Topic: Sequences / 数列. Visual focus: a sequence workspace extending a pattern from early terms to a general position and checking a partial-sum block model. Safe RAG concept spine: sequences, arithmetic-sequences, geometric-sequences, recurrence, mathematical-induction. Safe RAG summary basis: This unit treats arithmetic and geometric sequences, general sequence properties, recurrence, induction, and iterative approximation as discrete-function reasoning. Common misconception cues to avoid or clarify visually: index shift error, first term omitted, induction base case missing. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s5-统计-concept",
+      "topicId": "hjb-high-s5-统计",
+      "grade": "S5",
+      "titleZhHans": "统计",
+      "volume": "必修 第三册",
+      "chapter": "统计",
+      "slot": "concept",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s5-统计/concept.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s5-统计/concept.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-compulsory-3-statistics"
+      ],
+      "alt": {
+        "en": "Data points transform into distribution and scatter visuals to show center, spread, and trend.",
+        "zh": "数据点转化为分布图和散点图，展示中心、离散和趋势。",
+        "zhHans": "数据点转化为分布图和散点图，展示中心、离散和趋势。"
+      },
+      "caption": {
+        "en": "Statistics turns data into evidence by describing distribution, spread, and relationship.",
+        "zh": "统计把数据转化为证据，要描述分布、离散和关系。",
+        "zhHans": "统计把数据转化为证据，要描述分布、离散和关系。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning core concept visual for Shanghai Education Press high-school mathematics. Topic: Statistics / 统计. Visual focus: sample dots transforming into a histogram, box plot, scatter plot, and trend band, with center-spread and sampling-bias cues. Safe RAG concept spine: sampling, data-distribution, statistical-charts, statistical-estimation, percentiles. Safe RAG summary basis: This unit covers populations and samples, data collection, sampling, displays, distribution estimation, numerical features, percentiles, and statistical activity design. Common misconception cues to avoid or clarify visually: sample not representative, average treated as full distribution, chart scale misread. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s5-统计-worked-example",
+      "topicId": "hjb-high-s5-统计",
+      "grade": "S5",
+      "titleZhHans": "统计",
+      "volume": "必修 第三册",
+      "chapter": "统计",
+      "slot": "worked-example",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s5-统计/worked-example.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s5-统计/worked-example.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-compulsory-3-statistics"
+      ],
+      "alt": {
+        "en": "A data workspace compares distributions and a paired-data scatter plot with a trend band.",
+        "zh": "数据工作区比较两个分布，并用趋势带分析成对数据散点图。",
+        "zhHans": "数据工作区比较两个分布，并用趋势带分析成对数据散点图。"
+      },
+      "caption": {
+        "en": "Compare shape and spread before making a conclusion from the data.",
+        "zh": "根据数据下结论前，要先比较形状和离散程度。",
+        "zhHans": "根据数据下结论前，要先比较形状和离散程度。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning worked-example visual support for Shanghai Education Press high-school mathematics. Topic: Statistics / 统计. Visual focus: a data-analysis workspace comparing two distributions and a paired-data scatter plot with a soft regression trend band. Safe RAG concept spine: sampling, data-distribution, statistical-charts, statistical-estimation, percentiles. Safe RAG summary basis: This unit covers populations and samples, data collection, sampling, displays, distribution estimation, numerical features, percentiles, and statistical activity design. Common misconception cues to avoid or clarify visually: sample not representative, average treated as full distribution, chart scale misread. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s5-圆锥曲线-concept",
+      "topicId": "hjb-high-s5-圆锥曲线",
+      "grade": "S5",
+      "titleZhHans": "圆锥曲线",
+      "volume": "选择性必修 第一册",
+      "chapter": "圆锥曲线",
+      "slot": "concept",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s5-圆锥曲线/concept.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s5-圆锥曲线/concept.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-selective-1-conics"
+      ],
+      "alt": {
+        "en": "Conic outlines on a coordinate plane show axes, foci, and geometric constraints.",
+        "zh": "坐标平面上的圆锥曲线轮廓展示轴、焦点和几何约束。",
+        "zhHans": "坐标平面上的圆锥曲线轮廓展示轴、焦点和几何约束。"
+      },
+      "caption": {
+        "en": "Conic sections connect equations with focus, axis, and distance relationships.",
+        "zh": "圆锥曲线把方程与焦点、轴和距离关系联系起来。",
+        "zhHans": "圆锥曲线把方程与焦点、轴和距离关系联系起来。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning core concept visual for Shanghai Education Press high-school mathematics. Topic: Conic Sections / 圆锥曲线. Visual focus: ellipse, parabola, and hyperbola outlines on a coordinate plane with focus-directrix and axis cues drawn as abstract guides. Safe RAG concept spine: circle-equations, ellipse, hyperbola, parabola-conic, parametric-equations, polar-coordinates. Safe RAG summary basis: This unit develops circles, conic sections, curve-equation thinking, simple parametric representation, and polar-coordinate connections. Common misconception cues to avoid or clarify visually: wrong focal axis, radius squared mishandled, parameter range unverified. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s5-圆锥曲线-worked-example",
+      "topicId": "hjb-high-s5-圆锥曲线",
+      "grade": "S5",
+      "titleZhHans": "圆锥曲线",
+      "volume": "选择性必修 第一册",
+      "chapter": "圆锥曲线",
+      "slot": "worked-example",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s5-圆锥曲线/worked-example.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s5-圆锥曲线/worked-example.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-selective-1-conics"
+      ],
+      "alt": {
+        "en": "A conic workspace highlights one curve with focus points, an axis, and coordinate checks.",
+        "zh": "圆锥曲线工作区突出一条曲线、焦点、轴线和坐标检查。",
+        "zhHans": "圆锥曲线工作区突出一条曲线、焦点、轴线和坐标检查。"
+      },
+      "caption": {
+        "en": "Identify the curve type and key elements before calculating parameters.",
+        "zh": "计算参数前，先判断曲线类型和关键元素。",
+        "zhHans": "计算参数前，先判断曲线类型和关键元素。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning worked-example visual support for Shanghai Education Press high-school mathematics. Topic: Conic Sections / 圆锥曲线. Visual focus: a conic worked-example board highlighting one curve, its focus points, an axis line, and a coordinate-check panel without formulas. Safe RAG concept spine: circle-equations, ellipse, hyperbola, parabola-conic, parametric-equations, polar-coordinates. Safe RAG summary basis: This unit develops circles, conic sections, curve-equation thinking, simple parametric representation, and polar-coordinate connections. Common misconception cues to avoid or clarify visually: wrong focal axis, radius squared mishandled, parameter range unverified. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s6-成对数据的统计分析-concept",
+      "topicId": "hjb-high-s6-成对数据的统计分析",
+      "grade": "S6",
+      "titleZhHans": "成对数据的统计分析",
+      "volume": "选择性必修 第二册",
+      "chapter": "成对数据的统计分析",
+      "slot": "concept",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s6-成对数据的统计分析/concept.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s6-成对数据的统计分析/concept.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-selective-2-bivariate-data"
+      ],
+      "alt": {
+        "en": "Data points transform into distribution and scatter visuals to show center, spread, and trend.",
+        "zh": "数据点转化为分布图和散点图，展示中心、离散和趋势。",
+        "zhHans": "数据点转化为分布图和散点图，展示中心、离散和趋势。"
+      },
+      "caption": {
+        "en": "Statistics turns data into evidence by describing distribution, spread, and relationship.",
+        "zh": "统计把数据转化为证据，要描述分布、离散和关系。",
+        "zhHans": "统计把数据转化为证据，要描述分布、离散和关系。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning core concept visual for Shanghai Education Press high-school mathematics. Topic: Statistical Analysis of Paired Data / 成对数据的统计分析. Visual focus: sample dots transforming into a histogram, box plot, scatter plot, and trend band, with center-spread and sampling-bias cues. Safe RAG concept spine: bivariate-data, correlation, linear-regression, independence-test. Safe RAG summary basis: This unit analyzes paired data through association, correlation, simple linear regression, two-way tables, and independence testing. Common misconception cues to avoid or clarify visually: correlation treated as causation, prediction outside data range, decision threshold misread. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s6-成对数据的统计分析-worked-example",
+      "topicId": "hjb-high-s6-成对数据的统计分析",
+      "grade": "S6",
+      "titleZhHans": "成对数据的统计分析",
+      "volume": "选择性必修 第二册",
+      "chapter": "成对数据的统计分析",
+      "slot": "worked-example",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s6-成对数据的统计分析/worked-example.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s6-成对数据的统计分析/worked-example.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-selective-2-bivariate-data"
+      ],
+      "alt": {
+        "en": "A data workspace compares distributions and a paired-data scatter plot with a trend band.",
+        "zh": "数据工作区比较两个分布，并用趋势带分析成对数据散点图。",
+        "zhHans": "数据工作区比较两个分布，并用趋势带分析成对数据散点图。"
+      },
+      "caption": {
+        "en": "Compare shape and spread before making a conclusion from the data.",
+        "zh": "根据数据下结论前，要先比较形状和离散程度。",
+        "zhHans": "根据数据下结论前，要先比较形状和离散程度。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning worked-example visual support for Shanghai Education Press high-school mathematics. Topic: Statistical Analysis of Paired Data / 成对数据的统计分析. Visual focus: a data-analysis workspace comparing two distributions and a paired-data scatter plot with a soft regression trend band. Safe RAG concept spine: bivariate-data, correlation, linear-regression, independence-test. Safe RAG summary basis: This unit analyzes paired data through association, correlation, simple linear regression, two-way tables, and independence testing. Common misconception cues to avoid or clarify visually: correlation treated as causation, prediction outside data range, decision threshold misread. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s6-导数及其运用-concept",
+      "topicId": "hjb-high-s6-导数及其运用",
+      "grade": "S6",
+      "titleZhHans": "导数及其运用",
+      "volume": "选择性必修 第二册",
+      "chapter": "导数及其运用",
+      "slot": "concept",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s6-导数及其运用/concept.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s6-导数及其运用/concept.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-selective-2-derivatives"
+      ],
+      "alt": {
+        "en": "A curve with tangent lines and extrema markers shows derivative slope and interval behavior.",
+        "zh": "曲线、切线和极值标记展示导数斜率与区间变化。",
+        "zhHans": "曲线、切线和极值标记展示导数斜率与区间变化。"
+      },
+      "caption": {
+        "en": "A derivative turns local change into slope information that guides monotonicity and extrema.",
+        "zh": "导数把局部变化转化为斜率信息，用来判断单调性和极值。",
+        "zhHans": "导数把局部变化转化为斜率信息，用来判断单调性和极值。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning core concept visual for Shanghai Education Press high-school mathematics. Topic: Derivatives and Applications / 导数及其运用. Visual focus: a smooth function curve with moving tangent lines, slope arrows, local extrema markers, and interval behavior bands. Safe RAG concept spine: derivatives, tangent-line, monotonicity-extrema, optimization, function-inequalities. Safe RAG summary basis: This unit develops derivative meaning, geometric interpretation, operation rules, simple composite differentiation, monotonicity, extrema, maximum or minimum, and applications. Common misconception cues to avoid or clarify visually: derivative zero treated as sufficient for extremum, endpoint ignored, parameter case missed. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s6-导数及其运用-worked-example",
+      "topicId": "hjb-high-s6-导数及其运用",
+      "grade": "S6",
+      "titleZhHans": "导数及其运用",
+      "volume": "选择性必修 第二册",
+      "chapter": "导数及其运用",
+      "slot": "worked-example",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s6-导数及其运用/worked-example.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s6-导数及其运用/worked-example.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-selective-2-derivatives"
+      ],
+      "alt": {
+        "en": "A derivative workspace moves from tangent-slope signs to an interval chart and curve check.",
+        "zh": "导数工作区从切线斜率符号推进到区间表和曲线检查。",
+        "zhHans": "导数工作区从切线斜率符号推进到区间表和曲线检查。"
+      },
+      "caption": {
+        "en": "Use sign changes to locate behavior, then check the curve before concluding.",
+        "zh": "用符号变化定位函数行为，再用曲线检查结论。",
+        "zhHans": "用符号变化定位函数行为，再用曲线检查结论。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning worked-example visual support for Shanghai Education Press high-school mathematics. Topic: Derivatives and Applications / 导数及其运用. Visual focus: a derivative reasoning workspace moving from tangent slope signs to an interval chart and final curve-shape check. Safe RAG concept spine: derivatives, tangent-line, monotonicity-extrema, optimization, function-inequalities. Safe RAG summary basis: This unit develops derivative meaning, geometric interpretation, operation rules, simple composite differentiation, monotonicity, extrema, maximum or minimum, and applications. Common misconception cues to avoid or clarify visually: derivative zero treated as sufficient for extremum, endpoint ignored, parameter case missed. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s6-概率初步续-concept",
+      "topicId": "hjb-high-s6-概率初步续",
+      "grade": "S6",
+      "titleZhHans": "概率初步续",
+      "volume": "选择性必修 第二册",
+      "chapter": "概率初步续",
+      "slot": "concept",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s6-概率初步续/concept.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s6-概率初步续/concept.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-selective-2-probability-continuation"
+      ],
+      "alt": {
+        "en": "A sample-space grid, event regions, branches, and simulation trail show probability structure.",
+        "zh": "样本空间网格、事件区域、分支和模拟轨迹展示概率结构。",
+        "zhHans": "样本空间网格、事件区域、分支和模拟轨迹展示概率结构。"
+      },
+      "caption": {
+        "en": "Begin with the sample space, then describe events and their relationships.",
+        "zh": "先确定样本空间，再描述事件及其关系。",
+        "zhHans": "先确定样本空间，再描述事件及其关系。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning core concept visual for Shanghai Education Press high-school mathematics. Topic: Further Introductory Probability / 概率初步续. Visual focus: a sample-space grid with event regions, complement shading, tree-diagram branches, and a small simulation trail of random outcomes. Safe RAG concept spine: conditional-probability, total-probability, bayes-formula, random-variables, binomial-distribution, normal-distribution. Safe RAG summary basis: This unit extends probability to conditional formulas, random-variable distributions, expectation, variance, and common distribution models. Common misconception cues to avoid or clarify visually: condition reversed, distribution assumptions mixed, expectation interpreted as guaranteed value. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s6-概率初步续-worked-example",
+      "topicId": "hjb-high-s6-概率初步续",
+      "grade": "S6",
+      "titleZhHans": "概率初步续",
+      "volume": "选择性必修 第二册",
+      "chapter": "概率初步续",
+      "slot": "worked-example",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s6-概率初步续/worked-example.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s6-概率初步续/worked-example.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-selective-2-probability-continuation"
+      ],
+      "alt": {
+        "en": "A probability board narrows all outcomes to a highlighted event and checks complement counts.",
+        "zh": "概率板从全部结果缩小到高亮事件，并检查补集或分支计数。",
+        "zhHans": "概率板从全部结果缩小到高亮事件，并检查补集或分支计数。"
+      },
+      "caption": {
+        "en": "List the possible outcomes first to avoid missing or double-counting favorable cases.",
+        "zh": "先列清所有可能结果，避免漏数或重复计数。",
+        "zhHans": "先列清所有可能结果，避免漏数或重复计数。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning worked-example visual support for Shanghai Education Press high-school mathematics. Topic: Further Introductory Probability / 概率初步续. Visual focus: a probability worked-example board that narrows from all outcomes to a highlighted event and checks complement or branch counts. Safe RAG concept spine: conditional-probability, total-probability, bayes-formula, random-variables, binomial-distribution, normal-distribution. Safe RAG summary basis: This unit extends probability to conditional formulas, random-variable distributions, expectation, variance, and common distribution models. Common misconception cues to avoid or clarify visually: condition reversed, distribution assumptions mixed, expectation interpreted as guaranteed value. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s6-概率统计综合-concept",
+      "topicId": "hjb-high-s6-概率统计综合",
+      "grade": "S6",
+      "titleZhHans": "概率统计综合",
+      "volume": "跨册综合复习",
+      "chapter": "跨册综合：概率统计",
+      "slot": "concept",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s6-概率统计综合/concept.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s6-概率统计综合/concept.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-compulsory-3-probability-foundations",
+        "hjb-high-compulsory-3-statistics",
+        "hjb-high-selective-2-probability-continuation",
+        "hjb-high-selective-2-bivariate-data"
+      ],
+      "alt": {
+        "en": "A sample-space grid, event regions, branches, and simulation trail show probability structure.",
+        "zh": "样本空间网格、事件区域、分支和模拟轨迹展示概率结构。",
+        "zhHans": "样本空间网格、事件区域、分支和模拟轨迹展示概率结构。"
+      },
+      "caption": {
+        "en": "Begin with the sample space, then describe events and their relationships.",
+        "zh": "先确定样本空间，再描述事件及其关系。",
+        "zhHans": "先确定样本空间，再描述事件及其关系。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning core concept visual for Shanghai Education Press high-school mathematics. Topic: Introductory Probability / 概率统计综合. Visual focus: a sample-space grid with event regions, complement shading, tree-diagram branches, and a small simulation trail of random outcomes. Safe RAG concept spine: probability-foundations, sample-space, random-events, probability-operations, independence, sampling, data-distribution, statistical-charts. Safe RAG summary basis: This unit introduces random phenomena, sample spaces, event relations, classical probability, frequency interpretation, and independence. This unit covers populations and samples, data collection, sampling, displays, distribution estimation, numerical features, percentiles, and statistical activity design. This unit extends probability to conditional formulas, random-variable distributions, expectation, variance, and common distribution models. Common misconception cues to avoid or clarify visually: sample space incomplete, frequency treated as exact probability, event relation confused, sample not representative, average treated as full distribution. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s6-概率统计综合-worked-example",
+      "topicId": "hjb-high-s6-概率统计综合",
+      "grade": "S6",
+      "titleZhHans": "概率统计综合",
+      "volume": "跨册综合复习",
+      "chapter": "跨册综合：概率统计",
+      "slot": "worked-example",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s6-概率统计综合/worked-example.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s6-概率统计综合/worked-example.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-compulsory-3-probability-foundations",
+        "hjb-high-compulsory-3-statistics",
+        "hjb-high-selective-2-probability-continuation",
+        "hjb-high-selective-2-bivariate-data"
+      ],
+      "alt": {
+        "en": "A probability board narrows all outcomes to a highlighted event and checks complement counts.",
+        "zh": "概率板从全部结果缩小到高亮事件，并检查补集或分支计数。",
+        "zhHans": "概率板从全部结果缩小到高亮事件，并检查补集或分支计数。"
+      },
+      "caption": {
+        "en": "List the possible outcomes first to avoid missing or double-counting favorable cases.",
+        "zh": "先列清所有可能结果，避免漏数或重复计数。",
+        "zhHans": "先列清所有可能结果，避免漏数或重复计数。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning worked-example visual support for Shanghai Education Press high-school mathematics. Topic: Introductory Probability / 概率统计综合. Visual focus: a probability worked-example board that narrows from all outcomes to a highlighted event and checks complement or branch counts. Safe RAG concept spine: probability-foundations, sample-space, random-events, probability-operations, independence, sampling, data-distribution, statistical-charts. Safe RAG summary basis: This unit introduces random phenomena, sample spaces, event relations, classical probability, frequency interpretation, and independence. This unit covers populations and samples, data collection, sampling, displays, distribution estimation, numerical features, percentiles, and statistical activity design. This unit extends probability to conditional formulas, random-variable distributions, expectation, variance, and common distribution models. Common misconception cues to avoid or clarify visually: sample space incomplete, frequency treated as exact probability, event relation confused, sample not representative, average treated as full distribution. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s6-函数-导数与不等式综合-concept",
+      "topicId": "hjb-high-s6-函数-导数与不等式综合",
+      "grade": "S6",
+      "titleZhHans": "函数、导数与不等式综合",
+      "volume": "跨册综合复习",
+      "chapter": "跨册综合：函数与导数",
+      "slot": "concept",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s6-函数-导数与不等式综合/concept.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s6-函数-导数与不等式综合/concept.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-compulsory-1-function-concepts-applications",
+        "hjb-high-selective-2-derivatives"
+      ],
+      "alt": {
+        "en": "A balance scale, number line, and parabola connect equality, inequality, roots, and sign intervals.",
+        "zh": "天平、数轴和抛物线把等式、不等式、根和符号区间联系起来。",
+        "zhHans": "天平、数轴和抛物线把等式、不等式、根和符号区间联系起来。"
+      },
+      "caption": {
+        "en": "Equivalent transformations must preserve the solution set and interval endpoints.",
+        "zh": "等价变形要保持解集和端点判断不变。",
+        "zhHans": "等价变形要保持解集和端点判断不变。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning core concept visual for Shanghai Education Press high-school mathematics. Topic: Function Concepts, Properties, and Applications / 函数、导数与不等式综合. Visual focus: a balanced scale, a number line split into solution intervals, and a softly drawn parabola crossing an axis to connect equality, inequality, roots, and sign regions. Safe RAG concept spine: function-definition, domain-range, monotonicity, parity, function-zero, inverse-functions, derivatives, tangent-line. Safe RAG summary basis: This unit consolidates function definition, representation, basic properties, application modeling, zero location, and optional inverse-function reasoning. This unit develops derivative meaning, geometric interpretation, operation rules, simple composite differentiation, monotonicity, extrema, maximum or minimum, and applications. Common misconception cues to avoid or clarify visually: range and value confused, increasing interval confused with positive values, parity checked outside domain, derivative zero treated as sufficient for extremum, endpoint ignored. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s6-函数-导数与不等式综合-worked-example",
+      "topicId": "hjb-high-s6-函数-导数与不等式综合",
+      "grade": "S6",
+      "titleZhHans": "函数、导数与不等式综合",
+      "volume": "跨册综合复习",
+      "chapter": "跨册综合：函数与导数",
+      "slot": "worked-example",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s6-函数-导数与不等式综合/worked-example.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s6-函数-导数与不等式综合/worked-example.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-compulsory-1-function-concepts-applications",
+        "hjb-high-selective-2-derivatives"
+      ],
+      "alt": {
+        "en": "A sign chart beside a parabola highlights endpoint choices and valid solution intervals.",
+        "zh": "抛物线旁的符号表突出端点选择和有效解区间。",
+        "zhHans": "抛物线旁的符号表突出端点选择和有效解区间。"
+      },
+      "caption": {
+        "en": "Mark roots, test intervals, then write only the regions that satisfy the inequality.",
+        "zh": "先标根，再测区间，最后只写满足不等式的部分。",
+        "zhHans": "先标根，再测区间，最后只写满足不等式的部分。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning worked-example visual support for Shanghai Education Press high-school mathematics. Topic: Function Concepts, Properties, and Applications / 函数、导数与不等式综合. Visual focus: a worked-example sign chart beside a parabola and interval rail, with endpoint dots and shaded valid regions but no readable formulas. Safe RAG concept spine: function-definition, domain-range, monotonicity, parity, function-zero, inverse-functions, derivatives, tangent-line. Safe RAG summary basis: This unit consolidates function definition, representation, basic properties, application modeling, zero location, and optional inverse-function reasoning. This unit develops derivative meaning, geometric interpretation, operation rules, simple composite differentiation, monotonicity, extrema, maximum or minimum, and applications. Common misconception cues to avoid or clarify visually: range and value confused, increasing interval confused with positive values, parity checked outside domain, derivative zero treated as sufficient for extremum, endpoint ignored. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s6-计数原理-concept",
+      "topicId": "hjb-high-s6-计数原理",
+      "grade": "S6",
+      "titleZhHans": "计数原理",
+      "volume": "选择性必修 第二册",
+      "chapter": "计数原理",
+      "slot": "concept",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s6-计数原理/concept.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s6-计数原理/concept.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-selective-2-counting-principles"
+      ],
+      "alt": {
+        "en": "Branching choices, arrangement grids, and grouping boxes show counting-principle structure.",
+        "zh": "分步分支、排列网格和分组框展示计数原理结构。",
+        "zhHans": "分步分支、排列网格和分组框展示计数原理结构。"
+      },
+      "caption": {
+        "en": "Counting starts by deciding whether choices are ordered, grouped, or staged.",
+        "zh": "计数先要判断选择是有顺序、需分组，还是分步完成。",
+        "zhHans": "计数先要判断选择是有顺序、需分组，还是分步完成。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning core concept visual for Shanghai Education Press high-school mathematics. Topic: Counting Principles / 计数原理. Visual focus: branching choices, grid arrangements, grouping boxes, and permutation-combination paths shown as abstract colored routes. Safe RAG concept spine: counting-principles, permutations-combinations, binomial-theorem, case-analysis. Safe RAG summary basis: This unit studies addition and multiplication principles, permutations, combinations, binomial theorem, and counting methods used inside probability. Common misconception cues to avoid or clarify visually: case overlap, permutation and combination swapped, restriction applied twice. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s6-计数原理-worked-example",
+      "topicId": "hjb-high-s6-计数原理",
+      "grade": "S6",
+      "titleZhHans": "计数原理",
+      "volume": "选择性必修 第二册",
+      "chapter": "计数原理",
+      "slot": "worked-example",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s6-计数原理/worked-example.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s6-计数原理/worked-example.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-selective-2-counting-principles"
+      ],
+      "alt": {
+        "en": "A counting workspace separates stages and compares ordered routes with unordered groups.",
+        "zh": "计数工作区分离步骤，并比较有序路径和无序分组。",
+        "zhHans": "计数工作区分离步骤，并比较有序路径和无序分组。"
+      },
+      "caption": {
+        "en": "Partition the cases cleanly so no outcome is missed or counted twice.",
+        "zh": "把情况划分清楚，才能避免遗漏或重复计数。",
+        "zhHans": "把情况划分清楚，才能避免遗漏或重复计数。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning worked-example visual support for Shanghai Education Press high-school mathematics. Topic: Counting Principles / 计数原理. Visual focus: a counting workspace that separates stages, blocks impossible paths, and compares ordered routes with unordered groups. Safe RAG concept spine: counting-principles, permutations-combinations, binomial-theorem, case-analysis. Safe RAG summary basis: This unit studies addition and multiplication principles, permutations, combinations, binomial theorem, and counting methods used inside probability. Common misconception cues to avoid or clarify visually: case overlap, permutation and combination swapped, restriction applied twice. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s6-解析几何直线综合复习-concept",
+      "topicId": "hjb-high-s6-解析几何直线综合复习",
+      "grade": "S6",
+      "titleZhHans": "解析几何直线综合复习",
+      "volume": "选择性必修 第一册复习",
+      "chapter": "平面直角坐标系中的直线",
+      "slot": "concept",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s6-解析几何直线综合复习/concept.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s6-解析几何直线综合复习/concept.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-selective-1-lines"
+      ],
+      "alt": {
+        "en": "Coordinate lines with slope triangles and intercept markers show analytic-geometry structure.",
+        "zh": "坐标直线、斜率三角形和截距标记展示解析几何结构。",
+        "zhHans": "坐标直线、斜率三角形和截距标记展示解析几何结构。"
+      },
+      "caption": {
+        "en": "Line problems become clearer when slope, intercept, distance, and position are separated.",
+        "zh": "直线问题要分清斜率、截距、距离和位置关系。",
+        "zhHans": "直线问题要分清斜率、截距、距离和位置关系。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning core concept visual for Shanghai Education Press high-school mathematics. Topic: Lines in the Coordinate Plane / 解析几何直线综合复习. Visual focus: coordinate-plane lines with slope triangles, intercept markers, distance bands, and perpendicular-parallel cues. Safe RAG concept spine: analytic-geometry, line-equations, slope, point-line-distance. Safe RAG summary basis: This unit uses coordinate methods to describe line slope, line equations, line relationships, angle, and point-to-line distance. Common misconception cues to avoid or clarify visually: undefined slope ignored, equation form chosen inefficiently, distance formula target mismatch. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s6-解析几何直线综合复习-worked-example",
+      "topicId": "hjb-high-s6-解析几何直线综合复习",
+      "grade": "S6",
+      "titleZhHans": "解析几何直线综合复习",
+      "volume": "选择性必修 第一册复习",
+      "chapter": "平面直角坐标系中的直线",
+      "slot": "worked-example",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s6-解析几何直线综合复习/worked-example.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s6-解析几何直线综合复习/worked-example.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-selective-1-lines"
+      ],
+      "alt": {
+        "en": "An analytic-geometry workspace builds a line from points and checks slope and distance.",
+        "zh": "解析几何工作区由点构造直线，并检查斜率和距离。",
+        "zhHans": "解析几何工作区由点构造直线，并检查斜率和距离。"
+      },
+      "caption": {
+        "en": "Translate geometric conditions into coordinate checks before solving.",
+        "zh": "求解前先把几何条件转化为坐标检查。",
+        "zhHans": "求解前先把几何条件转化为坐标检查。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning worked-example visual support for Shanghai Education Press high-school mathematics. Topic: Lines in the Coordinate Plane / 解析几何直线综合复习. Visual focus: an analytic-geometry workspace constructing a line from two points, then checking slope, intercept, and a perpendicular distance cue. Safe RAG concept spine: analytic-geometry, line-equations, slope, point-line-distance. Safe RAG summary basis: This unit uses coordinate methods to describe line slope, line equations, line relationships, angle, and point-to-line distance. Common misconception cues to avoid or clarify visually: undefined slope ignored, equation form chosen inefficiently, distance formula target mismatch. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s6-空间向量综合复习-concept",
+      "topicId": "hjb-high-s6-空间向量综合复习",
+      "grade": "S6",
+      "titleZhHans": "空间向量综合复习",
+      "volume": "选择性必修 第一册复习",
+      "chapter": "空间向量及其应用",
+      "slot": "concept",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s6-空间向量综合复习/concept.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s6-空间向量综合复习/concept.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-selective-1-space-vectors"
+      ],
+      "alt": {
+        "en": "3D coordinate arrows and component shadows show spatial vectors, angles, and plane normals.",
+        "zh": "三维坐标箭头和分量投影展示空间向量、夹角和平面法向量。",
+        "zhHans": "三维坐标箭头和分量投影展示空间向量、夹角和平面法向量。"
+      },
+      "caption": {
+        "en": "Spatial vectors translate geometry into coordinates, components, and products.",
+        "zh": "空间向量把几何关系转化为坐标、分量和数量积。",
+        "zhHans": "空间向量把几何关系转化为坐标、分量和数量积。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning core concept visual for Shanghai Education Press high-school mathematics. Topic: Spatial Vectors and Applications / 空间向量综合复习. Visual focus: 3D coordinate axes with spatial arrows, component shadows on coordinate planes, angle markers, and plane-normal cues. Safe RAG concept spine: space-vectors, spatial-coordinate-system, line-plane-angle, distance-in-space, parallel-perpendicular. Safe RAG summary basis: This unit upgrades solid-geometry reasoning with space-vector operations, coordinate representation, and vector methods for distance, angle, and positional relations. Common misconception cues to avoid or clarify visually: normal vector chosen incorrectly, angle complement error, point-to-plane distance formula misuse. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s6-空间向量综合复习-worked-example",
+      "topicId": "hjb-high-s6-空间向量综合复习",
+      "grade": "S6",
+      "titleZhHans": "空间向量综合复习",
+      "volume": "选择性必修 第一册复习",
+      "chapter": "空间向量及其应用",
+      "slot": "worked-example",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s6-空间向量综合复习/worked-example.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s6-空间向量综合复习/worked-example.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-selective-1-space-vectors"
+      ],
+      "alt": {
+        "en": "A 3D vector workspace projects an arrow and compares it with a plane normal.",
+        "zh": "三维向量工作区投影箭头，并与平面法向量比较。",
+        "zhHans": "三维向量工作区投影箭头，并与平面法向量比较。"
+      },
+      "caption": {
+        "en": "Use components and normal directions to check angle, distance, or perpendicularity.",
+        "zh": "用分量和法向方向检查夹角、距离或垂直关系。",
+        "zhHans": "用分量和法向方向检查夹角、距离或垂直关系。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning worked-example visual support for Shanghai Education Press high-school mathematics. Topic: Spatial Vectors and Applications / 空间向量综合复习. Visual focus: a 3D vector workspace projecting an arrow onto coordinate planes and comparing it with a plane normal to check angle or distance. Safe RAG concept spine: space-vectors, spatial-coordinate-system, line-plane-angle, distance-in-space, parallel-perpendicular. Safe RAG summary basis: This unit upgrades solid-geometry reasoning with space-vector operations, coordinate representation, and vector methods for distance, angle, and positional relations. Common misconception cues to avoid or clarify visually: normal vector chosen incorrectly, angle complement error, point-to-plane distance formula misuse. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s6-立体几何与空间向量综合-concept",
+      "topicId": "hjb-high-s6-立体几何与空间向量综合",
+      "grade": "S6",
+      "titleZhHans": "立体几何与空间向量综合",
+      "volume": "跨册综合复习",
+      "chapter": "跨册综合：立体几何与空间向量",
+      "slot": "concept",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s6-立体几何与空间向量综合/concept.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s6-立体几何与空间向量综合/concept.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-compulsory-3-spatial-lines-planes",
+        "hjb-high-selective-1-space-vectors"
+      ],
+      "alt": {
+        "en": "Transparent solids and planes show line-plane relations, parallelism, perpendicularity, and distance cues.",
+        "zh": "透明立体和辅助平面展示线面关系、平行、垂直和距离线索。",
+        "zhHans": "透明立体和辅助平面展示线面关系、平行、垂直和距离线索。"
+      },
+      "caption": {
+        "en": "Spatial geometry needs explicit line-plane relations, not only visual appearance.",
+        "zh": "立体几何要依据明确的线面关系推理，不能只凭外观。",
+        "zhHans": "立体几何要依据明确的线面关系推理，不能只凭外观。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning core concept visual for Shanghai Education Press high-school mathematics. Topic: Lines and Planes in Space / 立体几何与空间向量综合. Visual focus: transparent solids, planes, line segments, parallel-perpendicular cues, and distance markers in a clean spatial-geometry composition. Safe RAG concept spine: solid-geometry, spatial-lines-planes, parallel-perpendicular, line-plane-angle, distance-in-space, space-vectors, spatial-coordinate-system. Safe RAG summary basis: This unit develops spatial reasoning for points, lines, planes, parallelism, perpendicularity, angles, distances, and basic drawing conventions. This unit upgrades solid-geometry reasoning with space-vector operations, coordinate representation, and vector methods for distance, angle, and positional relations. Common misconception cues to avoid or clarify visually: drawing treated as proof, parallel criterion incomplete, angle complement confused, normal vector chosen incorrectly, angle complement error. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s6-立体几何与空间向量综合-worked-example",
+      "topicId": "hjb-high-s6-立体几何与空间向量综合",
+      "grade": "S6",
+      "titleZhHans": "立体几何与空间向量综合",
+      "volume": "跨册综合复习",
+      "chapter": "跨册综合：立体几何与空间向量",
+      "slot": "worked-example",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s6-立体几何与空间向量综合/worked-example.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s6-立体几何与空间向量综合/worked-example.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-compulsory-3-spatial-lines-planes",
+        "hjb-high-selective-1-space-vectors"
+      ],
+      "alt": {
+        "en": "A spatial-geometry workspace adds an auxiliary plane and right-angle cue inside a transparent solid.",
+        "zh": "立体几何工作区在透明几何体内加入辅助平面和直角线索。",
+        "zhHans": "立体几何工作区在透明几何体内加入辅助平面和直角线索。"
+      },
+      "caption": {
+        "en": "Add auxiliary planes or segments to turn spatial relations into visible arguments.",
+        "zh": "加入辅助平面或线段，把空间关系转化为可见论证。",
+        "zhHans": "加入辅助平面或线段，把空间关系转化为可见论证。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning worked-example visual support for Shanghai Education Press high-school mathematics. Topic: Lines and Planes in Space / 立体几何与空间向量综合. Visual focus: a spatial-geometry proof workspace adding an auxiliary plane and right-angle cue inside a transparent prism-like solid. Safe RAG concept spine: solid-geometry, spatial-lines-planes, parallel-perpendicular, line-plane-angle, distance-in-space, space-vectors, spatial-coordinate-system. Safe RAG summary basis: This unit develops spatial reasoning for points, lines, planes, parallelism, perpendicularity, angles, distances, and basic drawing conventions. This unit upgrades solid-geometry reasoning with space-vector operations, coordinate representation, and vector methods for distance, angle, and positional relations. Common misconception cues to avoid or clarify visually: drawing treated as proof, parallel criterion incomplete, angle complement confused, normal vector chosen incorrectly, angle complement error. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s6-三角-向量与解析几何综合-concept",
+      "topicId": "hjb-high-s6-三角-向量与解析几何综合",
+      "grade": "S6",
+      "titleZhHans": "三角、向量与解析几何综合",
+      "volume": "跨册综合复习",
+      "chapter": "跨册综合：三角向量解析几何",
+      "slot": "concept",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s6-三角-向量与解析几何综合/concept.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s6-三角-向量与解析几何综合/concept.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-compulsory-2-trigonometric-functions",
+        "hjb-high-compulsory-2-plane-vectors",
+        "hjb-high-selective-1-lines"
+      ],
+      "alt": {
+        "en": "A unit circle links angle rotation to trigonometric waveforms, signs, and periods.",
+        "zh": "单位圆把角的旋转与三角函数波形、符号和周期联系起来。",
+        "zhHans": "单位圆把角的旋转与三角函数波形、符号和周期联系起来。"
+      },
+      "caption": {
+        "en": "Use the unit circle to explain signs, reference angles, and periodic graph behavior.",
+        "zh": "用单位圆解释符号、参考角和图像周期。",
+        "zhHans": "用单位圆解释符号、参考角和图像周期。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning core concept visual for Shanghai Education Press high-school mathematics. Topic: Trigonometric Functions / 三角、向量与解析几何综合. Visual focus: a unit circle linked to sine and cosine waveforms, with angle rotation, sign quadrants, period bands, and transformation handles. Safe RAG concept spine: trigonometric-functions, trigonometric-graphs, periodicity, trigonometric-transformations, plane-vectors, vector-operations, dot-product, vector-coordinates. Safe RAG summary basis: This unit studies sine, cosine, tangent, graph features, periodicity, transformations, and interval-based interpretation. This unit uses directed quantities, linear operations, dot product, coordinate representation, and applications to solve plane-geometry or context problems. This unit uses coordinate methods to describe line slope, line equations, line relationships, angle, and point-to-line distance. Common misconception cues to avoid or clarify visually: period formula error, phase shift sign reversed, solution interval incomplete, vector direction ignored, dot product sign misread. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s6-三角-向量与解析几何综合-worked-example",
+      "topicId": "hjb-high-s6-三角-向量与解析几何综合",
+      "grade": "S6",
+      "titleZhHans": "三角、向量与解析几何综合",
+      "volume": "跨册综合复习",
+      "chapter": "跨册综合：三角向量解析几何",
+      "slot": "worked-example",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s6-三角-向量与解析几何综合/worked-example.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s6-三角-向量与解析几何综合/worked-example.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-compulsory-2-trigonometric-functions",
+        "hjb-high-compulsory-2-plane-vectors",
+        "hjb-high-selective-1-lines"
+      ],
+      "alt": {
+        "en": "A trigonometry workspace checks a unit-circle angle against highlighted waveform intervals.",
+        "zh": "三角工作区把单位圆上的角与波形中的高亮区间互相检查。",
+        "zhHans": "三角工作区把单位圆上的角与波形中的高亮区间互相检查。"
+      },
+      "caption": {
+        "en": "Judge the sign and reference angle first, then use the period to complete the solution.",
+        "zh": "先判断符号和参考角，再利用周期补全解。",
+        "zhHans": "先判断符号和参考角，再利用周期补全解。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning worked-example visual support for Shanghai Education Press high-school mathematics. Topic: Trigonometric Functions / 三角、向量与解析几何综合. Visual focus: a trigonometry solution workspace that checks a highlighted angle on a unit circle against matching intervals on a waveform. Safe RAG concept spine: trigonometric-functions, trigonometric-graphs, periodicity, trigonometric-transformations, plane-vectors, vector-operations, dot-product, vector-coordinates. Safe RAG summary basis: This unit studies sine, cosine, tangent, graph features, periodicity, transformations, and interval-based interpretation. This unit uses directed quantities, linear operations, dot product, coordinate representation, and applications to solve plane-geometry or context problems. This unit uses coordinate methods to describe line slope, line equations, line relationships, angle, and point-to-line distance. Common misconception cues to avoid or clarify visually: period formula error, phase shift sign reversed, solution interval incomplete, vector direction ignored, dot product sign misread. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s6-数列与计数综合-concept",
+      "topicId": "hjb-high-s6-数列与计数综合",
+      "grade": "S6",
+      "titleZhHans": "数列与计数综合",
+      "volume": "跨册综合复习",
+      "chapter": "跨册综合：数列与计数",
+      "slot": "concept",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s6-数列与计数综合/concept.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s6-数列与计数综合/concept.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-selective-1-sequences",
+        "hjb-high-selective-2-counting-principles"
+      ],
+      "alt": {
+        "en": "Sequence tiles with difference arrows, ratio arcs, and sum blocks show ordered growth.",
+        "zh": "数列方块、差分箭头、比值弧线和求和模块展示有序增长。",
+        "zhHans": "数列方块、差分箭头、比值弧线和求和模块展示有序增长。"
+      },
+      "caption": {
+        "en": "A sequence should be read by term position, change pattern, and sum structure.",
+        "zh": "数列要从项的位置、变化规律和求和结构来读。",
+        "zhHans": "数列要从项的位置、变化规律和求和结构来读。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning core concept visual for Shanghai Education Press high-school mathematics. Topic: Sequences / 数列与计数综合. Visual focus: ordered sequence tiles, difference arrows, ratio arcs, partial-sum blocks, and a growth path across a clean horizontal timeline. Safe RAG concept spine: sequences, arithmetic-sequences, geometric-sequences, recurrence, mathematical-induction, counting-principles, permutations-combinations, binomial-theorem. Safe RAG summary basis: This unit treats arithmetic and geometric sequences, general sequence properties, recurrence, induction, and iterative approximation as discrete-function reasoning. This unit studies addition and multiplication principles, permutations, combinations, binomial theorem, and counting methods used inside probability. Common misconception cues to avoid or clarify visually: index shift error, first term omitted, induction base case missing, case overlap, permutation and combination swapped. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s6-数列与计数综合-worked-example",
+      "topicId": "hjb-high-s6-数列与计数综合",
+      "grade": "S6",
+      "titleZhHans": "数列与计数综合",
+      "volume": "跨册综合复习",
+      "chapter": "跨册综合：数列与计数",
+      "slot": "worked-example",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s6-数列与计数综合/worked-example.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s6-数列与计数综合/worked-example.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-selective-1-sequences",
+        "hjb-high-selective-2-counting-principles"
+      ],
+      "alt": {
+        "en": "A sequence workspace extends early terms to a general position and checks a sum model.",
+        "zh": "数列工作区从前几项推广到一般位置，并检查求和模型。",
+        "zhHans": "数列工作区从前几项推广到一般位置，并检查求和模型。"
+      },
+      "caption": {
+        "en": "Look for the recurrence or common change before writing a general rule.",
+        "zh": "写通项前，先寻找递推关系或共同变化。",
+        "zhHans": "写通项前，先寻找递推关系或共同变化。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning worked-example visual support for Shanghai Education Press high-school mathematics. Topic: Sequences / 数列与计数综合. Visual focus: a sequence workspace extending a pattern from early terms to a general position and checking a partial-sum block model. Safe RAG concept spine: sequences, arithmetic-sequences, geometric-sequences, recurrence, mathematical-induction, counting-principles, permutations-combinations, binomial-theorem. Safe RAG summary basis: This unit treats arithmetic and geometric sequences, general sequence properties, recurrence, induction, and iterative approximation as discrete-function reasoning. This unit studies addition and multiplication principles, permutations, combinations, binomial theorem, and counting methods used inside probability. Common misconception cues to avoid or clarify visually: index shift error, first term omitted, induction base case missing, case overlap, permutation and combination swapped. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s6-数列综合复习-concept",
+      "topicId": "hjb-high-s6-数列综合复习",
+      "grade": "S6",
+      "titleZhHans": "数列综合复习",
+      "volume": "选择性必修 第一册复习",
+      "chapter": "数列",
+      "slot": "concept",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s6-数列综合复习/concept.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s6-数列综合复习/concept.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-selective-1-sequences"
+      ],
+      "alt": {
+        "en": "Sequence tiles with difference arrows, ratio arcs, and sum blocks show ordered growth.",
+        "zh": "数列方块、差分箭头、比值弧线和求和模块展示有序增长。",
+        "zhHans": "数列方块、差分箭头、比值弧线和求和模块展示有序增长。"
+      },
+      "caption": {
+        "en": "A sequence should be read by term position, change pattern, and sum structure.",
+        "zh": "数列要从项的位置、变化规律和求和结构来读。",
+        "zhHans": "数列要从项的位置、变化规律和求和结构来读。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning core concept visual for Shanghai Education Press high-school mathematics. Topic: Sequences / 数列综合复习. Visual focus: ordered sequence tiles, difference arrows, ratio arcs, partial-sum blocks, and a growth path across a clean horizontal timeline. Safe RAG concept spine: sequences, arithmetic-sequences, geometric-sequences, recurrence, mathematical-induction. Safe RAG summary basis: This unit treats arithmetic and geometric sequences, general sequence properties, recurrence, induction, and iterative approximation as discrete-function reasoning. Common misconception cues to avoid or clarify visually: index shift error, first term omitted, induction base case missing. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s6-数列综合复习-worked-example",
+      "topicId": "hjb-high-s6-数列综合复习",
+      "grade": "S6",
+      "titleZhHans": "数列综合复习",
+      "volume": "选择性必修 第一册复习",
+      "chapter": "数列",
+      "slot": "worked-example",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s6-数列综合复习/worked-example.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s6-数列综合复习/worked-example.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-selective-1-sequences"
+      ],
+      "alt": {
+        "en": "A sequence workspace extends early terms to a general position and checks a sum model.",
+        "zh": "数列工作区从前几项推广到一般位置，并检查求和模型。",
+        "zhHans": "数列工作区从前几项推广到一般位置，并检查求和模型。"
+      },
+      "caption": {
+        "en": "Look for the recurrence or common change before writing a general rule.",
+        "zh": "写通项前，先寻找递推关系或共同变化。",
+        "zhHans": "写通项前，先寻找递推关系或共同变化。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning worked-example visual support for Shanghai Education Press high-school mathematics. Topic: Sequences / 数列综合复习. Visual focus: a sequence workspace extending a pattern from early terms to a general position and checking a partial-sum block model. Safe RAG concept spine: sequences, arithmetic-sequences, geometric-sequences, recurrence, mathematical-induction. Safe RAG summary basis: This unit treats arithmetic and geometric sequences, general sequence properties, recurrence, induction, and iterative approximation as discrete-function reasoning. Common misconception cues to avoid or clarify visually: index shift error, first term omitted, induction base case missing. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s6-圆锥曲线综合复习-concept",
+      "topicId": "hjb-high-s6-圆锥曲线综合复习",
+      "grade": "S6",
+      "titleZhHans": "圆锥曲线综合复习",
+      "volume": "选择性必修 第一册复习",
+      "chapter": "圆锥曲线",
+      "slot": "concept",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s6-圆锥曲线综合复习/concept.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s6-圆锥曲线综合复习/concept.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-selective-1-conics"
+      ],
+      "alt": {
+        "en": "Conic outlines on a coordinate plane show axes, foci, and geometric constraints.",
+        "zh": "坐标平面上的圆锥曲线轮廓展示轴、焦点和几何约束。",
+        "zhHans": "坐标平面上的圆锥曲线轮廓展示轴、焦点和几何约束。"
+      },
+      "caption": {
+        "en": "Conic sections connect equations with focus, axis, and distance relationships.",
+        "zh": "圆锥曲线把方程与焦点、轴和距离关系联系起来。",
+        "zhHans": "圆锥曲线把方程与焦点、轴和距离关系联系起来。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning core concept visual for Shanghai Education Press high-school mathematics. Topic: Conic Sections / 圆锥曲线综合复习. Visual focus: ellipse, parabola, and hyperbola outlines on a coordinate plane with focus-directrix and axis cues drawn as abstract guides. Safe RAG concept spine: circle-equations, ellipse, hyperbola, parabola-conic, parametric-equations, polar-coordinates. Safe RAG summary basis: This unit develops circles, conic sections, curve-equation thinking, simple parametric representation, and polar-coordinate connections. Common misconception cues to avoid or clarify visually: wrong focal axis, radius squared mishandled, parameter range unverified. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    },
+    {
+      "id": "hjb-high-s6-圆锥曲线综合复习-worked-example",
+      "topicId": "hjb-high-s6-圆锥曲线综合复习",
+      "grade": "S6",
+      "titleZhHans": "圆锥曲线综合复习",
+      "volume": "选择性必修 第一册复习",
+      "chapter": "圆锥曲线",
+      "slot": "worked-example",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "srcAfterApproval": "/lesson-illustrations/mainland-hjb-high/hjb-high-s6-圆锥曲线综合复习/worked-example.png",
+      "candidatePath": "coordination/content-qa/mainland-hjb-high-illustrations-v1/candidates/hjb-high-s6-圆锥曲线综合复习/worked-example.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "hjb-high-selective-1-conics"
+      ],
+      "alt": {
+        "en": "A conic workspace highlights one curve with focus points, an axis, and coordinate checks.",
+        "zh": "圆锥曲线工作区突出一条曲线、焦点、轴线和坐标检查。",
+        "zhHans": "圆锥曲线工作区突出一条曲线、焦点、轴线和坐标检查。"
+      },
+      "caption": {
+        "en": "Identify the curve type and key elements before calculating parameters.",
+        "zh": "计算参数前，先判断曲线类型和关键元素。",
+        "zhHans": "计算参数前，先判断曲线类型和关键元素。"
+      },
+      "generationPrompt": "Use case: scientific-educational lesson illustration. Create a clean 16:9 MAIS math-learning worked-example visual support for Shanghai Education Press high-school mathematics. Topic: Conic Sections / 圆锥曲线综合复习. Visual focus: a conic worked-example board highlighting one curve, its focus points, an axis line, and a coordinate-check panel without formulas. Safe RAG concept spine: circle-equations, ellipse, hyperbola, parabola-conic, parametric-equations, polar-coordinates. Safe RAG summary basis: This unit develops circles, conic sections, curve-equation thinking, simple parametric representation, and polar-coordinate connections. Common misconception cues to avoid or clarify visually: wrong focal axis, radius squared mishandled, parameter range unverified. Style: modern vector-like raster, crisp geometric forms, cyan/violet/emerald accents with restrained warm highlight, soft shadows, generous whitespace, suitable for a polished lesson page. Do not copy, reconstruct, or imitate Shanghai Education Press textbook pages, screenshots, diagrams, exercise layouts, worked examples, publisher marks, logos, or watermarks. No readable embedded text, no long formulas, no textbook page layout, no brand marks, no photo of printed material, no low-resolution artifacts.",
+      "generator": "Codex built-in image_gen after bl unavailable; intended model path GPT Image2-style review generation",
+      "reviewerNotes": "Owner/manual review approved on 2026-05-27"
+    }
+  ],
+  "generator": "S05 Codex",
+  "generatedAt": "2026-05-27T11:34:15.087Z",
+  "summary": {
+    "topicCount": 30,
+    "candidateCount": 60,
+    "slots": [
+      "concept",
+      "worked-example"
+    ]
+  },
+  "approvedAt": "2026-05-27",
+  "approvalNote": "Owner/manual review approved on 2026-05-27"
+}

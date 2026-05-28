@@ -1,0 +1,48 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-394",
+  "startedAt": "2026-05-28T02:44:25.612Z",
+  "completedAt": "2026-05-28T02:44:31.297Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-394"
+  ],
+  "usage": {
+    "prompt_tokens": 2961,
+    "completion_tokens": 274,
+    "total_tokens": 3235,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2577
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-394",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "independentAnswer": null,
+        "correctedAnswer": "B或C，题目有歧义",
+        "issueTags": [
+          "ambiguous_mc",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "由面积公式得 sinC=√3/2，C=60° 或 120° 均满足条件，且无其他限制排除任一解，单选题存在两个正确选项，答案不唯一，解析未合理排除 120°，构成严重歧义。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目存在歧义，sinC=√3/2 对应两个可能角，无额外条件排除，导致单选题答案不唯一，判定为 blocker。"
+    }
+  }
+}

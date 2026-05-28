@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-057",
+  "startedAt": "2026-05-28T01:38:48.688Z",
+  "completedAt": "2026-05-28T01:38:53.072Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-057"
+  ],
+  "usage": {
+    "prompt_tokens": 2352,
+    "completion_tokens": 316,
+    "total_tokens": 2668,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1968
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-057",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "a_n = 6·2^{n-1} - 3n - 2",
+        "correctedAnswer": "a_n = 6·2^{n-1} - 3n - 2",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "递推关系可解，正确通项为 a_n = 6·2^{n-1} - 3n - 2，存储答案 5·2^{n-1} - 3n - 2 错误，且解析推导出 6·2^{n-1} 却给出矛盾答案，属于严重数学错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目可解，但答案错误且解析自相矛盾，判定为 blocker。"
+    }
+  }
+}

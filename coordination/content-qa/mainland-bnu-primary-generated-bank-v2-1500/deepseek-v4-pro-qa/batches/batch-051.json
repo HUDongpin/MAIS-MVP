@@ -1,0 +1,191 @@
+{
+  "batchNumber": 51,
+  "startedAt": "2026-05-27T13:55:26.726Z",
+  "completedAt": "2026-05-27T13:55:43.764Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p4-151",
+    "bnu-primary-ds-v2-p4-152",
+    "bnu-primary-ds-v2-p4-153",
+    "bnu-primary-ds-v2-p4-154",
+    "bnu-primary-ds-v2-p4-155",
+    "bnu-primary-ds-v2-p4-156",
+    "bnu-primary-ds-v2-p4-157",
+    "bnu-primary-ds-v2-p4-158",
+    "bnu-primary-ds-v2-p4-159",
+    "bnu-primary-ds-v2-p4-160",
+    "bnu-primary-ds-v2-p4-161",
+    "bnu-primary-ds-v2-p4-162",
+    "bnu-primary-ds-v2-p4-163",
+    "bnu-primary-ds-v2-p4-164",
+    "bnu-primary-ds-v2-p4-165",
+    "bnu-primary-ds-v2-p4-166",
+    "bnu-primary-ds-v2-p4-167",
+    "bnu-primary-ds-v2-p4-168"
+  ],
+  "usage": {
+    "prompt_tokens": 3726,
+    "completion_tokens": 1214,
+    "total_tokens": 4940,
+    "prompt_tokens_details": {
+      "cached_tokens": 3712
+    },
+    "prompt_cache_hit_tokens": 3712,
+    "prompt_cache_miss_tokens": 14
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p4-151",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项合理，解释清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-152",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比较正确，答案准确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-153",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "解题思路正确，答案无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-154",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项设计合理，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-155",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "减法计算正确，解释到位。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-156",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "加法计算正确，解释清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-157",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项唯一正确，解释合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-158",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "单位换算正确，答案准确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-159",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比较正确，答案覆盖合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-160",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "读数正确，选项无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-161",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "图形判断正确，符合定义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-162",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案合理，理由充分。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-163",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "正方形特征明确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-164",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，解释清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-165",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "三边关系应用正确，答案完整。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-166",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "正方形判断正确，选项合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-167",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "梯形定义准确，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-168",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "直接根据定义判断，答案无误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版小学数学要求，无错误或风险。"
+    }
+  }
+}

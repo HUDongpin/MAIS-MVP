@@ -1,0 +1,181 @@
+{
+  "startedAt": "2026-05-26T06:05:58.196Z",
+  "completedAt": "2026-05-26T06:06:17.596Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "usage": {
+    "prompt_tokens": 2371,
+    "completion_tokens": 1576,
+    "total_tokens": 3947,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 2371
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "questionId": "pep-primary-p4-l-fi-101",
+        "solvableStatus": "pass",
+        "independentAnswer": "4.2",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "1.5+2.7=4.2，直接小数加法，条件充分。"
+      },
+      {
+        "questionId": "pep-primary-p4-l-fi-102",
+        "solvableStatus": "pass",
+        "independentAnswer": "3.3",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "1+2.3=3.3，整数加小数，条件充分。"
+      },
+      {
+        "questionId": "pep-primary-p4-l-fi-103",
+        "solvableStatus": "pass",
+        "independentAnswer": "3.8",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "1.2+2.6=3.8，直接小数加法，条件充分。"
+      },
+      {
+        "questionId": "pep-primary-p4-l-fi-104",
+        "solvableStatus": "pass",
+        "independentAnswer": "3.4",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "1.4+2=3.4，小数加整数，条件充分。"
+      },
+      {
+        "questionId": "pep-primary-p4-l-fi-105",
+        "solvableStatus": "pass",
+        "independentAnswer": "3.9",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "1.6+2.3=3.9，直接小数加法，条件充分。"
+      },
+      {
+        "questionId": "pep-primary-p4-l-fi-106",
+        "solvableStatus": "pass",
+        "independentAnswer": "4.2",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "1.7+2.5=4.2，直接小数加法，条件充分。"
+      },
+      {
+        "questionId": "pep-primary-p4-l-fi-107",
+        "solvableStatus": "pass",
+        "independentAnswer": "4.5",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "1.8+2.7=4.5，直接小数加法，条件充分。"
+      },
+      {
+        "questionId": "pep-primary-p4-l-fi-108",
+        "solvableStatus": "pass",
+        "independentAnswer": "3",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "1+2=3，整数加法，条件充分。"
+      },
+      {
+        "questionId": "pep-primary-p4-l-fi-109",
+        "solvableStatus": "pass",
+        "independentAnswer": "3.3",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "1.1+2.2=3.3，直接小数加法，条件充分。"
+      },
+      {
+        "questionId": "pep-primary-p4-l-fi-110",
+        "solvableStatus": "pass",
+        "independentAnswer": "3.6",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "1.2+2.4=3.6，直接小数加法，条件充分。"
+      },
+      {
+        "questionId": "pep-primary-p4-l-fi-111",
+        "solvableStatus": "pass",
+        "independentAnswer": "3.9",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "1.3+2.6=3.9，直接小数加法，条件充分。"
+      },
+      {
+        "questionId": "pep-primary-p4-l-fi-112",
+        "solvableStatus": "pass",
+        "independentAnswer": "4.2",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "1.4+2.8=4.2，直接小数加法，条件充分。"
+      },
+      {
+        "questionId": "pep-primary-p4-l-fi-113",
+        "solvableStatus": "pass",
+        "independentAnswer": "3.6",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "1.5+2.1=3.6，直接小数加法，条件充分。"
+      },
+      {
+        "questionId": "pep-primary-p4-l-fi-114",
+        "solvableStatus": "pass",
+        "independentAnswer": "3.9",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "1.6+2.3=3.9，直接小数加法，条件充分。"
+      },
+      {
+        "questionId": "pep-primary-p4-l-fi-115",
+        "solvableStatus": "pass",
+        "independentAnswer": "4.2",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "1.7+2.5=4.2，直接小数加法，条件充分。"
+      },
+      {
+        "questionId": "pep-primary-p4-l-fi-116",
+        "solvableStatus": "pass",
+        "independentAnswer": "4.5",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "1.8+2.7=4.5，直接小数加法，条件充分。"
+      },
+      {
+        "questionId": "pep-primary-p4-l-fi-117",
+        "solvableStatus": "pass",
+        "independentAnswer": "3.2",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "1.1+2.1=3.2，直接小数加法，条件充分。"
+      },
+      {
+        "questionId": "pep-primary-p4-l-fi-118",
+        "solvableStatus": "pass",
+        "independentAnswer": "3.3",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "1.1+2.2=3.3，直接小数加法，条件充分。"
+      },
+      {
+        "questionId": "pep-primary-p4-l-fi-119",
+        "solvableStatus": "pass",
+        "independentAnswer": "3.6",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "1.2+2.4=3.6，直接小数加法，条件充分。"
+      },
+      {
+        "questionId": "pep-primary-p4-l-fi-120",
+        "solvableStatus": "pass",
+        "independentAnswer": "3.9",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "1.3+2.6=3.9，直接小数加法，条件充分。"
+      }
+    ]
+  }
+}

@@ -1,0 +1,176 @@
+{
+  "batchNumber": 78,
+  "startedAt": "2026-05-27T17:45:21.436Z",
+  "completedAt": "2026-05-27T17:45:38.815Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s2-425",
+    "bnu-junior-ds-v1-s2-426",
+    "bnu-junior-ds-v1-s2-427",
+    "bnu-junior-ds-v1-s2-428",
+    "bnu-junior-ds-v1-s2-429",
+    "bnu-junior-ds-v1-s2-430",
+    "bnu-junior-ds-v1-s2-431",
+    "bnu-junior-ds-v1-s2-432",
+    "bnu-junior-ds-v1-s2-433",
+    "bnu-junior-ds-v1-s2-434",
+    "bnu-junior-ds-v1-s2-435",
+    "bnu-junior-ds-v1-s2-436"
+  ],
+  "usage": {
+    "prompt_tokens": 6197,
+    "completion_tokens": 1327,
+    "total_tokens": 7524,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 5685
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s2-425",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "-8",
+        "rationale": "化简过程有误，正确化简结果为 (x^2-x+6)/(x^2+2x)，代入 x=-1 得 -8，但答案给出 1，与计算结果不符。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-426",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，分子为零得 x=±2，分母不为零排除 x=2，故 x=-2，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-427",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "解方程得 x=0，检验分母不为零，是原方程的解，选项“方程的解为 x=0”正确且唯一。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-428",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "化简过程正确，结果为 1，答案匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-429",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "增根为 x=3，代入解得 m=-6，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-430",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由完全平方公式得 a^2+1/a^2=7，选项 7 正确且唯一。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-431",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "化简得 (x+3)/(x-3)，x≠3，代入 x=5 得 4，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-432",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分子为零得 x=1/2，分母不为零，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-433",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "通分计算得 1/(x+2)，选项 A 正确且唯一。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-434",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "解方程得 x=8，检验分母不为零且等式成立，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-435",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "增根为 x=1 时 m=4，x=-1 时 m=0 但无解，故 m=4，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-436",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "a/b 化简得 (y-x)/(y+x)，选项 A 正确且唯一。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 11,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第425题化简结果错误，答案应为-8而非1，其余题目均正确。"
+    }
+  }
+}

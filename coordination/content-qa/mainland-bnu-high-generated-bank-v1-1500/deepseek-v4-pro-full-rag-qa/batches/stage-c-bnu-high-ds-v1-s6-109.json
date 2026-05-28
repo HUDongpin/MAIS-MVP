@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-109",
+  "startedAt": "2026-05-28T01:39:35.424Z",
+  "completedAt": "2026-05-28T01:39:39.623Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-109"
+  ],
+  "usage": {
+    "prompt_tokens": 2094,
+    "completion_tokens": 270,
+    "total_tokens": 2364,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1710
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-109",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "A. 27",
+        "correctedAnswer": "A. 27",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "由 S_n=n^2+2n 得 a_n=2n+1，a_3+a_4+a_5=7+9+11=27，对应选项 A。存储答案 C.33 错误，解析虽算出 27 却选 C，自相矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目答案错误，解析自相矛盾，需修正为 A.27。"
+    }
+  }
+}

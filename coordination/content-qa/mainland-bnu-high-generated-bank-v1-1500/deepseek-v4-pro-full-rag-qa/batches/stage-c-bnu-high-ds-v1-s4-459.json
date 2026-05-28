@@ -1,0 +1,48 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-459",
+  "startedAt": "2026-05-28T01:59:39.606Z",
+  "completedAt": "2026-05-28T01:59:43.656Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-459"
+  ],
+  "usage": {
+    "prompt_tokens": 2304,
+    "completion_tokens": 237,
+    "total_tokens": 2541,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1920
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-459",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "1 + i",
+        "correctedAnswer": "1 + i",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，独立解为 1+i。存储答案 1-i 错误，解析计算得 x=0 与选项矛盾且自行修改条件，属严重错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目本身可解，但存储答案错误，解析矛盾，判定为 blocker。"
+    }
+  }
+}

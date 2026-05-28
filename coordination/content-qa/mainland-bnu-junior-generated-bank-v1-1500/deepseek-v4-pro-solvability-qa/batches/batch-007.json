@@ -1,0 +1,173 @@
+{
+  "batchNumber": 7,
+  "startedAt": "2026-05-27T17:22:46.676Z",
+  "completedAt": "2026-05-27T17:23:04.170Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s1-073",
+    "bnu-junior-ds-v1-s1-074",
+    "bnu-junior-ds-v1-s1-075",
+    "bnu-junior-ds-v1-s1-076",
+    "bnu-junior-ds-v1-s1-077",
+    "bnu-junior-ds-v1-s1-078",
+    "bnu-junior-ds-v1-s1-079",
+    "bnu-junior-ds-v1-s1-080",
+    "bnu-junior-ds-v1-s1-081",
+    "bnu-junior-ds-v1-s1-082",
+    "bnu-junior-ds-v1-s1-083",
+    "bnu-junior-ds-v1-s1-084"
+  ],
+  "usage": {
+    "prompt_tokens": 5723,
+    "completion_tokens": 1205,
+    "total_tokens": 6928,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 5211
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s1-073",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，计算正确，选项唯一，答案与解析一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-074",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，答案正确，数轴表示要求合理，解析匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-075",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "温差计算正确，答案17/3小时合理，解析清晰。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-076",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "时间间隔和降温计算正确，选项唯一，答案与解析一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-077",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，答案0℃正确，解析匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-078",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "升温计算正确，答案2℃合理，解析匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-079",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "多步温度变化计算正确，选项唯一，答案与解析一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-080",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程建模正确，答案13/3小时（4小时20分钟）合理，解析匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-081",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "温差算式和计算正确，答案8℃合理，解析匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-082",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "绝对值比较正确，点C离原点最远，选项唯一，解析匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-083",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "运算顺序和符号处理正确，答案-24，解析匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-084",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "非负数和为零条件应用正确，a+b=-1，解析匹配。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均条件充分、可解，答案与解析匹配，无错误或歧义。"
+    }
+  }
+}

@@ -1,0 +1,133 @@
+{
+  "batchNumber": 28,
+  "startedAt": "2026-05-27T13:48:35.985Z",
+  "completedAt": "2026-05-27T13:48:53.296Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-217",
+    "bnu-high-ds-v1-s4-218",
+    "bnu-high-ds-v1-s4-219",
+    "bnu-high-ds-v1-s4-220",
+    "bnu-high-ds-v1-s4-221",
+    "bnu-high-ds-v1-s4-222",
+    "bnu-high-ds-v1-s4-223",
+    "bnu-high-ds-v1-s4-224"
+  ],
+  "usage": {
+    "prompt_tokens": 10141,
+    "completion_tokens": 1217,
+    "total_tokens": 11358,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 9629
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-217",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "不互斥也不对立",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可独立求解。A={1,3,5}，B={1,2,3}，A∩B非空故不互斥，A∪B≠全集故不对立，答案正确，解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-218",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "样本空间：{(正,正), (正,反), (反,正), (反,反)}；概率：3/4",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目明确，可解。样本空间4个等可能结果，至少一枚正面有3个，概率3/4，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-219",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "15/28",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "条件充分，可解。总取法C(8,2)=28，一红一白C(5,1)C(3,1)=15，概率15/28，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-220",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0.5",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目给出各环数概率，不低于9环即9环或10环，概率0.3+0.2=0.5，选项C正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-221",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "样本空间为{(1,1),(1,2),...,(6,6)}，共36个样本点；概率为1/6。",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目明确，可解。样本空间36个等可能结果，和为7有6个，概率1/6，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-222",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "3/5",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "条件充分，可解。抽签公平性，第二次取红球概率与第一次相同，为3/5，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-223",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "D. 经过大量重复试验，随机事件的频率会稳定在概率附近",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目考查概率的频率定义，选项D正确，A、B、C均为常见误解，解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-224",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "样本空间为{正正, 正反, 反正, 反反}，共4个样本点；概率为3/4。",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目明确，可解。样本空间4个等可能结果，至少一枚正面有3个，概率3/4，答案与解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，答案正确，解析与答案一致，无任何问题。"
+    }
+  }
+}

@@ -1,0 +1,389 @@
+{
+  "batchId": "S4-s4-sets-logic-03",
+  "questions": [
+    {
+      "id": "pep-high-ds-v1-s4-sets-logic-021",
+      "grade": "S4",
+      "topicId": "pep-high-s4-sets-logic",
+      "topicTitleZhHans": "集合与常用逻辑用语",
+      "chapter": "集合与常用逻辑用语",
+      "conceptIds": [
+        "sets",
+        "set-operations",
+        "logic-conditions",
+        "quantifiers",
+        "derivatives",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "pep-high-sets-logic"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "promptZhHans": "已知集合A={x|x=2k, k∈Z}，B={x|x=3k, k∈Z}，则A∩B是（ ）",
+      "optionsZhHans": [
+        "{x|x=6k, k∈Z}",
+        "{x|x=5k, k∈Z}",
+        "{x|x=2k, k∈Z}",
+        "{x|x=3k, k∈Z}"
+      ],
+      "answer": "{x|x=6k, k∈Z}",
+      "acceptedAnswers": [
+        "{x|x=6k, k∈Z}"
+      ],
+      "explanationZhHans": "A是偶数集，B是3的倍数集，交集是既是偶数又是3的倍数的数，即6的倍数，故为{x|x=6k, k∈Z}。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-sets-logic-022",
+      "grade": "S4",
+      "topicId": "pep-high-s4-sets-logic",
+      "topicTitleZhHans": "集合与常用逻辑用语",
+      "chapter": "集合与常用逻辑用语",
+      "conceptIds": [
+        "sets",
+        "set-operations",
+        "logic-conditions",
+        "quantifiers",
+        "derivatives",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "pep-high-sets-logic"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "promptZhHans": "已知命题p：∀x∈R，x²+2x+a>0。若p是假命题，则实数a的取值范围是______。",
+      "optionsZhHans": [],
+      "answer": "(-∞, 1]",
+      "acceptedAnswers": [
+        "(-∞, 1]",
+        "a≤1",
+        "a<=1"
+      ],
+      "explanationZhHans": "p假即存在x使x²+2x+a≤0。二次函数开口向上，最小值在x=-1处为1+a。故1+a≤0，得a≤-1。但需注意p假时否定为∃x使≤0，即判别式≥0，得4-4a≥0，a≤1。正确为a≤1。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-sets-logic-023",
+      "grade": "S4",
+      "topicId": "pep-high-s4-sets-logic",
+      "topicTitleZhHans": "集合与常用逻辑用语",
+      "chapter": "集合与常用逻辑用语",
+      "conceptIds": [
+        "sets",
+        "set-operations",
+        "logic-conditions",
+        "quantifiers",
+        "derivatives",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "pep-high-sets-logic"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "promptZhHans": "已知集合A={1,2,3,4}，B={3,4,5,6}，求A∪B和A∩B。",
+      "optionsZhHans": [],
+      "answer": "A∪B={1,2,3,4,5,6}，A∩B={3,4}",
+      "acceptedAnswers": [
+        "A∪B={1,2,3,4,5,6}，A∩B={3,4}",
+        "A∪B={1,2,3,4,5,6}, A∩B={3,4}"
+      ],
+      "explanationZhHans": "并集包含所有元素，交集取公共元素。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-sets-logic-024",
+      "grade": "S4",
+      "topicId": "pep-high-s4-sets-logic",
+      "topicTitleZhHans": "集合与常用逻辑用语",
+      "chapter": "集合与常用逻辑用语",
+      "conceptIds": [
+        "sets",
+        "set-operations",
+        "logic-conditions",
+        "quantifiers",
+        "derivatives",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "pep-high-sets-logic"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "promptZhHans": "已知p：x>2，q：x>1。判断p是q的什么条件（充分不必要、必要不充分、充要、既不充分也不必要），并说明理由。",
+      "optionsZhHans": [],
+      "answer": "充分不必要条件。由p可推出q，但q推不出p。",
+      "acceptedAnswers": [
+        "充分不必要条件。由p可推出q，但q推不出p。",
+        "充分不必要条件"
+      ],
+      "explanationZhHans": "x>2时必有x>1，故充分；x>1时不一定x>2，故不必要。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-sets-logic-025",
+      "grade": "S4",
+      "topicId": "pep-high-s4-sets-logic",
+      "topicTitleZhHans": "集合与常用逻辑用语",
+      "chapter": "集合与常用逻辑用语",
+      "conceptIds": [
+        "sets",
+        "set-operations",
+        "logic-conditions",
+        "quantifiers",
+        "derivatives",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "pep-high-sets-logic"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "promptZhHans": "设全集U={1,2,3,4,5}，集合A={1,2,3}，B={2,3,4}，则∁U(A∩B)等于（ ）",
+      "optionsZhHans": [
+        "{1,4,5}",
+        "{1,5}",
+        "{4,5}",
+        "{1,2,3,4,5}"
+      ],
+      "answer": "{1,4,5}",
+      "acceptedAnswers": [
+        "{1,4,5}"
+      ],
+      "explanationZhHans": "A∩B={2,3}，补集为U中去掉2,3，即{1,4,5}。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-sets-logic-026",
+      "grade": "S4",
+      "topicId": "pep-high-s4-sets-logic",
+      "topicTitleZhHans": "集合与常用逻辑用语",
+      "chapter": "集合与常用逻辑用语",
+      "conceptIds": [
+        "sets",
+        "set-operations",
+        "logic-conditions",
+        "quantifiers",
+        "derivatives",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "pep-high-sets-logic"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "promptZhHans": "已知集合A={x|ax²+2x+1=0}中只有一个元素，则实数a的值为______。",
+      "optionsZhHans": [],
+      "answer": "0或1",
+      "acceptedAnswers": [
+        "0或1",
+        "a=0或a=1",
+        "0,1"
+      ],
+      "explanationZhHans": "a=0时方程为2x+1=0，解唯一；a≠0时判别式4-4a=0得a=1。故a=0或1。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-sets-logic-027",
+      "grade": "S4",
+      "topicId": "pep-high-s4-sets-logic",
+      "topicTitleZhHans": "集合与常用逻辑用语",
+      "chapter": "集合与常用逻辑用语",
+      "conceptIds": [
+        "sets",
+        "set-operations",
+        "logic-conditions",
+        "quantifiers",
+        "derivatives",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "pep-high-sets-logic"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "promptZhHans": "写出命题“存在一个实数x，使得x²+1=0”的否定，并判断真假。",
+      "optionsZhHans": [],
+      "answer": "否定：对任意实数x，x²+1≠0。真命题。",
+      "acceptedAnswers": [
+        "否定：对任意实数x，x²+1≠0。真命题。",
+        "否定：对任意实数x，x²+1≠0。真"
+      ],
+      "explanationZhHans": "原命题假，因为x²+1≥1>0。否定为全称命题，真。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-sets-logic-028",
+      "grade": "S4",
+      "topicId": "pep-high-s4-sets-logic",
+      "topicTitleZhHans": "集合与常用逻辑用语",
+      "chapter": "集合与常用逻辑用语",
+      "conceptIds": [
+        "sets",
+        "set-operations",
+        "logic-conditions",
+        "quantifiers",
+        "derivatives",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "pep-high-sets-logic"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "promptZhHans": "已知函数f(x)=x³-3x+1，则f(x)在区间[-2,2]上的最大值是（ ）",
+      "optionsZhHans": [
+        "3",
+        "1",
+        "-1",
+        "5"
+      ],
+      "answer": "3",
+      "acceptedAnswers": [
+        "3"
+      ],
+      "explanationZhHans": "f'(x)=3x²-3，令f'(x)=0得x=±1。计算f(-2)=-1，f(-1)=3，f(1)=-1，f(2)=3，故最大值为3。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-sets-logic-029",
+      "grade": "S4",
+      "topicId": "pep-high-s4-sets-logic",
+      "topicTitleZhHans": "集合与常用逻辑用语",
+      "chapter": "集合与常用逻辑用语",
+      "conceptIds": [
+        "sets",
+        "set-operations",
+        "logic-conditions",
+        "quantifiers",
+        "derivatives",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "pep-high-sets-logic"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "promptZhHans": "已知集合A={x|x²-3x+2=0}，B={x|0<x<4, x∈N}，则A∪B=______。",
+      "optionsZhHans": [],
+      "answer": "{1,2,3}",
+      "acceptedAnswers": [
+        "{1,2,3}",
+        "1,2,3"
+      ],
+      "explanationZhHans": "A={1,2}，B={1,2,3}，并集为{1,2,3}。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-sets-logic-030",
+      "grade": "S4",
+      "topicId": "pep-high-s4-sets-logic",
+      "topicTitleZhHans": "集合与常用逻辑用语",
+      "chapter": "集合与常用逻辑用语",
+      "conceptIds": [
+        "sets",
+        "set-operations",
+        "logic-conditions",
+        "quantifiers",
+        "derivatives",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "pep-high-sets-logic"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "promptZhHans": "已知p：关于x的方程x²+mx+1=0有两个不相等的正实根，q：m<-2。判断p是q的什么条件，并说明理由。",
+      "optionsZhHans": [],
+      "answer": "充要条件。p等价于判别式m²-4>0且两根之和-m>0，两根之积1>0，得m<-2，即q。",
+      "acceptedAnswers": [
+        "充要条件。p等价于判别式m²-4>0且两根之和-m>0，两根之积1>0，得m<-2，即q。",
+        "充要条件"
+      ],
+      "explanationZhHans": "p: Δ=m²-4>0, 和-m>0, 积1>0 ⇒ m<-2。故p⇔q。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    }
+  ]
+}

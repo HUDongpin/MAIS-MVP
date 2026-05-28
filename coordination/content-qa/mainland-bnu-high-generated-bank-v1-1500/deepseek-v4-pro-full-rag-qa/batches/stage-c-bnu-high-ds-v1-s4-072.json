@@ -1,0 +1,48 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-072",
+  "startedAt": "2026-05-28T00:57:42.402Z",
+  "completedAt": "2026-05-28T00:57:48.582Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-072"
+  ],
+  "usage": {
+    "prompt_tokens": 2725,
+    "completion_tokens": 284,
+    "total_tokens": 3009,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2341
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-072",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "3",
+        "correctedAnswer": "3",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合北师大函数性质要求。独立求解得唯一解 a=3，存储答案“3 或 -1”错误，a=-1 代入不满足 f(a)=3。解析中 a<0 时方程 - (a²+2a)=3 解得 a=-1 有误，实际该方程无实数解。答案与解析均存在数学错误，须修正为 a=3。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1 题答案错误，解析矛盾，判定为 blocker。"
+    }
+  }
+}

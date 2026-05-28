@@ -1,0 +1,81 @@
+{
+  "batchNumber": 188,
+  "startedAt": "2026-05-27T14:15:32.585Z",
+  "completedAt": "2026-05-27T14:15:42.857Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-497",
+    "bnu-high-ds-v1-s6-498",
+    "bnu-high-ds-v1-s6-499",
+    "bnu-high-ds-v1-s6-500"
+  ],
+  "usage": {
+    "prompt_tokens": 6375,
+    "completion_tokens": 591,
+    "total_tokens": 6966,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 5863
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-497",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由等比数列性质 a5 = a2 * q^3，代入得 48 = 6 * q^3，解得 q = 2，选项唯一，答案与解析均正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-498",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "最大值为2，最小值为-2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导得 f'(x)=3x^2-3，驻点 x=±1，比较端点及驻点函数值得最大值 2，最小值 -2，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-499",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "31",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "递推构造等比数列 {an+1}，得 an=2^n-1，a5=31，选项唯一，答案与解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-500",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "a=1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=e^x-a，由 f'(0)=0 得 a=1，答案与解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 4,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部4题均可独立求解，答案与解析匹配，无错误或歧义。"
+    }
+  }
+}

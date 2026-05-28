@@ -1,0 +1,686 @@
+{
+  "batchId": "batch-015",
+  "questions": [
+    {
+      "id": "bnu-high-ds-v1-s4-141",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-对数运算与对数函数",
+      "topicTitleZhHans": "对数运算与对数函数",
+      "volume": "必修 第一册",
+      "chapter": "对数运算与对数函数",
+      "conceptIds": [
+        "logarithmic-operations",
+        "logarithmic-functions",
+        "base-conversion",
+        "inverse-functions",
+        "function-graphs",
+        "logarithmic-equations"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "数学运算",
+        "直观想象",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "对数定义",
+        "换底公式",
+        "对数函数图像",
+        "定义域",
+        "反函数联系",
+        "函数性质综合",
+        "定义域检查",
+        "指数对数转化"
+      ],
+      "misconceptionTags": [
+        "logarithm domain ignored",
+        "base condition omitted",
+        "base-change denominator invalid",
+        "inverse relation reversed",
+        "domain omitted in property check",
+        "exponential and logarithmic monotonicity mixed",
+        "condition direction unsupported",
+        "statistical conclusion overstated"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-logarithmic-operations-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-logarithmic-unit-pattern",
+        "bnu-high-s4-upper-midterm-function-properties-review",
+        "bnu-high-s4-upper-final-full-volume-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知函数 f(x) = log_{a}(x^2 - 3x + 2) 在区间 [3, +∞) 上单调递增，求实数 a 的取值范围。",
+      "optionsZhHans": [],
+      "answer": "a > 1",
+      "acceptedAnswers": [
+        "a > 1",
+        "a>1",
+        "(1, +∞)",
+        "(1,+∞)"
+      ],
+      "explanationZhHans": "由 x^2-3x+2>0 得 x<1 或 x>2，故 [3,+∞) 在定义域内。内函数 u=x^2-3x+2 在 [3,+∞) 上递增，且 u≥2。外函数 log_a(u) 递增需 a>1。综上 a>1。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-142",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-对数运算与对数函数",
+      "topicTitleZhHans": "对数运算与对数函数",
+      "volume": "必修 第一册",
+      "chapter": "对数运算与对数函数",
+      "conceptIds": [
+        "logarithmic-operations",
+        "logarithmic-functions",
+        "base-conversion",
+        "inverse-functions",
+        "function-graphs",
+        "logarithmic-equations"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "数学运算",
+        "直观想象",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "对数定义",
+        "换底公式",
+        "对数函数图像",
+        "定义域",
+        "反函数联系",
+        "函数性质综合",
+        "定义域检查",
+        "指数对数转化"
+      ],
+      "misconceptionTags": [
+        "logarithm domain ignored",
+        "base condition omitted",
+        "base-change denominator invalid",
+        "inverse relation reversed",
+        "domain omitted in property check",
+        "exponential and logarithmic monotonicity mixed",
+        "condition direction unsupported",
+        "range and value confused"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-logarithmic-operations-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-logarithmic-unit-pattern",
+        "bnu-high-s4-upper-midterm-function-properties-review",
+        "bnu-high-s4-upper-functions-unit-pattern"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "设 a = log_2 3，b = log_3 4，c = log_4 5，则 a, b, c 的大小关系是（　）",
+      "optionsZhHans": [
+        "a < b < c",
+        "c < b < a",
+        "b < c < a",
+        "a < c < b"
+      ],
+      "answer": "c < b < a",
+      "acceptedAnswers": [
+        "c < b < a"
+      ],
+      "explanationZhHans": "利用换底公式，a=lg3/lg2≈1.585，b=lg4/lg3≈1.261，c=lg5/lg4≈1.161，故 c<b<a。也可用对数函数单调性及不等式放缩判断。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-143",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-对数运算与对数函数",
+      "topicTitleZhHans": "对数运算与对数函数",
+      "volume": "必修 第一册",
+      "chapter": "对数运算与对数函数",
+      "conceptIds": [
+        "logarithmic-operations",
+        "logarithmic-functions",
+        "base-conversion",
+        "inverse-functions",
+        "function-graphs",
+        "logarithmic-equations"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "数学运算",
+        "直观想象",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "对数定义",
+        "换底公式",
+        "对数函数图像",
+        "定义域",
+        "反函数联系",
+        "函数性质综合",
+        "定义域检查",
+        "指数对数转化"
+      ],
+      "misconceptionTags": [
+        "logarithm domain ignored",
+        "base condition omitted",
+        "base-change denominator invalid",
+        "inverse relation reversed",
+        "domain omitted in property check",
+        "exponential and logarithmic monotonicity mixed",
+        "condition direction unsupported",
+        "range and value confused"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-logarithmic-operations-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-logarithmic-unit-pattern",
+        "bnu-high-s4-upper-midterm-function-properties-review",
+        "bnu-high-s4-upper-functions-unit-pattern"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "求函数 y = log_{0.5}(-x^2 + 2x + 3) 的定义域。",
+      "optionsZhHans": [],
+      "answer": "(-1, 3)",
+      "acceptedAnswers": [
+        "(-1, 3)",
+        "-1<x<3",
+        "(-1,3)"
+      ],
+      "explanationZhHans": "由真数 -x^2+2x+3>0 得 x^2-2x-3<0，即 (x-3)(x+1)<0，解得 -1<x<3。故定义域为 (-1, 3)。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-144",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-对数运算与对数函数",
+      "topicTitleZhHans": "对数运算与对数函数",
+      "volume": "必修 第一册",
+      "chapter": "对数运算与对数函数",
+      "conceptIds": [
+        "logarithmic-operations",
+        "logarithmic-functions",
+        "base-conversion",
+        "inverse-functions",
+        "function-graphs",
+        "logarithmic-equations"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "数学运算",
+        "直观想象",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "对数定义",
+        "换底公式",
+        "对数函数图像",
+        "定义域",
+        "反函数联系",
+        "函数性质综合",
+        "定义域检查",
+        "指数对数转化"
+      ],
+      "misconceptionTags": [
+        "logarithm domain ignored",
+        "base condition omitted",
+        "base-change denominator invalid",
+        "inverse relation reversed",
+        "domain omitted in property check",
+        "exponential and logarithmic monotonicity mixed",
+        "condition direction unsupported",
+        "statistical conclusion overstated"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-logarithmic-operations-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-logarithmic-unit-pattern",
+        "bnu-high-s4-upper-midterm-function-properties-review",
+        "bnu-high-s4-upper-final-full-volume-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "若 log_2 (log_3 x) = 1，则 x 的值为______。",
+      "optionsZhHans": [],
+      "answer": "9",
+      "acceptedAnswers": [
+        "9"
+      ],
+      "explanationZhHans": "由 log_2 (log_3 x)=1 得 log_3 x=2^1=2，所以 x=3^2=9。经检验 x=9 满足真数大于0。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-145",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-函数应用",
+      "topicTitleZhHans": "函数应用",
+      "volume": "必修 第一册",
+      "chapter": "函数应用",
+      "conceptIds": [
+        "function-applications",
+        "function-zero",
+        "mathematical-modeling",
+        "growth-models",
+        "approximation",
+        "model-interpretation"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学运算",
+        "应用意识"
+      ],
+      "skillTags": [
+        "函数零点",
+        "模型选择",
+        "参数解释",
+        "近似求解",
+        "结果检验",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "zero meaning not interpreted",
+        "model domain overstated",
+        "growth comparison outside interval",
+        "parameter conclusion unsupported",
+        "zero not interpreted",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-function-applications"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-function-applications-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s4-upper-functions-unit-pattern"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某公司今年年初投入 100 万元用于研发，预计研发投入每年比上一年增长 20%。设经过 x 年后研发投入首次超过 300 万元，则 x 的最小整数值为（　）\n（参考数据：lg2≈0.3010，lg3≈0.4771）",
+      "optionsZhHans": [
+        "5",
+        "6",
+        "7",
+        "8"
+      ],
+      "answer": "7",
+      "acceptedAnswers": [
+        "7"
+      ],
+      "explanationZhHans": "由 100×(1+20%)^x>300 得 1.2^x>3，取对数 x>lg3/lg1.2。lg1.2=lg(12/10)=lg12-1=lg3+2lg2-1≈0.0791，故 x>0.4771/0.0791≈6.03，最小整数为7。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-146",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-函数应用",
+      "topicTitleZhHans": "函数应用",
+      "volume": "必修 第一册",
+      "chapter": "函数应用",
+      "conceptIds": [
+        "function-applications",
+        "function-zero",
+        "mathematical-modeling",
+        "growth-models",
+        "approximation",
+        "model-interpretation"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学运算",
+        "应用意识"
+      ],
+      "skillTags": [
+        "函数零点",
+        "模型选择",
+        "参数解释",
+        "近似求解",
+        "结果检验",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "zero meaning not interpreted",
+        "model domain overstated",
+        "growth comparison outside interval",
+        "parameter conclusion unsupported",
+        "zero not interpreted",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-function-applications"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-function-applications-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s4-upper-functions-unit-pattern"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知函数 f(x) = 2^x + x - 3 的零点在区间 (k, k+1) (k∈Z) 内，求 k 的值。",
+      "optionsZhHans": [],
+      "answer": "0",
+      "acceptedAnswers": [
+        "0"
+      ],
+      "explanationZhHans": "计算 f(0)=2^0+0-3=-2<0，f(1)=2+1-3=0，故零点为 x=1，在 (0,1) 内，所以 k=0。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-147",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-函数应用",
+      "topicTitleZhHans": "函数应用",
+      "volume": "必修 第一册",
+      "chapter": "函数应用",
+      "conceptIds": [
+        "function-applications",
+        "function-zero",
+        "mathematical-modeling",
+        "growth-models",
+        "approximation",
+        "model-interpretation"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学运算",
+        "应用意识"
+      ],
+      "skillTags": [
+        "函数零点",
+        "模型选择",
+        "参数解释",
+        "近似求解",
+        "结果检验",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "zero meaning not interpreted",
+        "model domain overstated",
+        "growth comparison outside interval",
+        "parameter conclusion unsupported",
+        "zero not interpreted",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-function-applications"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-function-applications-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s4-upper-midterm-function-properties-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用二分法求方程 x^3 - 2x - 5 = 0 在区间 [2, 3] 内的近似解，精确到 0.1，则至少需要二分______次。",
+      "optionsZhHans": [],
+      "answer": "4",
+      "acceptedAnswers": [
+        "4"
+      ],
+      "explanationZhHans": "初始区间长度 1，精确度 0.1，需 (1/2^n)≤0.1，即 2^n≥10，n≥4。故至少二分 4 次。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-148",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-函数应用",
+      "topicTitleZhHans": "函数应用",
+      "volume": "必修 第一册",
+      "chapter": "函数应用",
+      "conceptIds": [
+        "function-applications",
+        "function-zero",
+        "mathematical-modeling",
+        "growth-models",
+        "approximation",
+        "model-interpretation"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学运算",
+        "应用意识"
+      ],
+      "skillTags": [
+        "函数零点",
+        "模型选择",
+        "参数解释",
+        "近似求解",
+        "结果检验",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "zero meaning not interpreted",
+        "model domain overstated",
+        "growth comparison outside interval",
+        "parameter conclusion unsupported",
+        "zero not interpreted",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-function-applications"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-function-applications-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s4-upper-functions-unit-pattern"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某地区 2018 年人口为 50 万，2023 年人口为 60 万。若人口按指数模型 y = ae^{kt}（t 为年份，设 2018 年 t=0）增长，则 k 的值最接近（　）\n（参考数据：ln2≈0.6931，ln3≈1.0986，ln5≈1.6094）",
+      "optionsZhHans": [
+        "0.03",
+        "0.04",
+        "0.05",
+        "0.06"
+      ],
+      "answer": "0.04",
+      "acceptedAnswers": [
+        "0.04"
+      ],
+      "explanationZhHans": "由 50e^{5k}=60 得 e^{5k}=1.2，5k=ln1.2=ln(6/5)=ln2+ln3-ln5≈0.1823，k≈0.0365，最接近 0.04。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-149",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-函数应用",
+      "topicTitleZhHans": "函数应用",
+      "volume": "必修 第一册",
+      "chapter": "函数应用",
+      "conceptIds": [
+        "function-applications",
+        "function-zero",
+        "mathematical-modeling",
+        "growth-models",
+        "approximation",
+        "model-interpretation"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学运算",
+        "应用意识"
+      ],
+      "skillTags": [
+        "函数零点",
+        "模型选择",
+        "参数解释",
+        "近似求解",
+        "结果检验",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "zero meaning not interpreted",
+        "model domain overstated",
+        "growth comparison outside interval",
+        "parameter conclusion unsupported",
+        "zero not interpreted",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-function-applications"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-function-applications-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s4-upper-functions-unit-pattern"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某商品单价为 100 元时，月销量为 200 件；单价每提高 10 元，月销量减少 20 件。设单价为 x 元，月利润为 y 元，成本为每件 60 元。求 y 关于 x 的函数解析式，并写出定义域。",
+      "optionsZhHans": [],
+      "answer": "y = (x - 60)(400 - 2x)，定义域为 [100, 200]",
+      "acceptedAnswers": [
+        "y = (x - 60)(400 - 2x)，定义域为 [100, 200]",
+        "y=(x-60)(400-2x)，定义域为[100,200]"
+      ],
+      "explanationZhHans": "销量为 200 - 20*(x-100)/10 = 400-2x，利润 y=(x-60)(400-2x)。由销量≥0 得 x≤200，又 x≥100，故定义域 [100,200]。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-150",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-函数应用",
+      "topicTitleZhHans": "函数应用",
+      "volume": "必修 第一册",
+      "chapter": "函数应用",
+      "conceptIds": [
+        "function-applications",
+        "function-zero",
+        "mathematical-modeling",
+        "growth-models",
+        "approximation",
+        "model-interpretation"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学运算",
+        "应用意识"
+      ],
+      "skillTags": [
+        "函数零点",
+        "模型选择",
+        "参数解释",
+        "近似求解",
+        "结果检验",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "zero meaning not interpreted",
+        "model domain overstated",
+        "growth comparison outside interval",
+        "parameter conclusion unsupported",
+        "zero not interpreted",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-function-applications"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-function-applications-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s4-upper-midterm-function-properties-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知函数 f(x) = x^2 - 2x + a 在区间 [0, 3] 上的最大值为 4，则实数 a 的值为______。",
+      "optionsZhHans": [],
+      "answer": "1",
+      "acceptedAnswers": [
+        "1"
+      ],
+      "explanationZhHans": "f(x)=(x-1)^2+a-1，对称轴 x=1∈[0,3]。最大值在端点取得，f(0)=a，f(3)=3+a。由 3+a=4 得 a=1，此时 f(0)=1<4，符合。"
+    }
+  ]
+}

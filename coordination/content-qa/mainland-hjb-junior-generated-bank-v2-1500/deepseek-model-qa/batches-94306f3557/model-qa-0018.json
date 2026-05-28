@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0018",
+  "ids": [
+    "hjb-junior-ds-v2-s1-137",
+    "hjb-junior-ds-v2-s1-138",
+    "hjb-junior-ds-v2-s1-139",
+    "hjb-junior-ds-v2-s1-140",
+    "hjb-junior-ds-v2-s1-141",
+    "hjb-junior-ds-v2-s1-142",
+    "hjb-junior-ds-v2-s1-143",
+    "hjb-junior-ds-v2-s1-144"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-137",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-5x^2y(x - 3y + 2)",
+      "answerCheckZhHans": "标准答案正确，解析一致，acceptedAnswers覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-138",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为3(7x+2)(x-8)，但解析中写为(7x+2)(3x-8)=3(7x+2)(x-8)，实际计算应为(7x+2)(3x-8)，而3(7x+2)(x-8)展开为3(7x+2)(x-8)=3(7x^2-56x+2x-16)=3(7x^2-54x-16)=21x^2-162x-48，与原式(5x-3)^2-(2x+5)^2=25x^2-30x+9-4x^2-20x-25=21x^2-50x-16不一致。正确分解应为(7x+2)(3x-8)。",
+      "independentAnswerZhHans": "(7x+2)(3x-8)",
+      "answerCheckZhHans": "标准答案错误，解析中(7x+2)(3x-8)正确，但给出的最终答案3(7x+2)(x-8)错误。",
+      "recommendedActionZhHans": "修正答案为(7x+2)(3x-8)或3(7x+2)(x-8/3)，但后者含分数，建议用(7x+2)(3x-8)。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-139",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "D",
+      "answerCheckZhHans": "选项D正确，其他选项均有错误，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-140",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(3a-1)^2",
+      "answerCheckZhHans": "标准答案正确，解析一致，acceptedAnswers覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-141",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3x^2y(2x - 3y + 4)",
+      "answerCheckZhHans": "标准答案正确，解析一致，acceptedAnswers覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-142",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(2a+3b)(2a-3b)",
+      "answerCheckZhHans": "标准答案正确，解析一致，选项唯一正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-143",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(x-3)^2",
+      "answerCheckZhHans": "标准答案正确，解析一致，acceptedAnswers覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-144",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2x(x+2)(x-2)",
+      "answerCheckZhHans": "标准答案正确，解析一致，acceptedAnswers覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,550 @@
+{
+  "batchId": "batch-017",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p1-161",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "viewpoints",
+        "spatial-visualization",
+        "observe-objects",
+        "观察物体"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "前面侧面上面",
+        "视角判断",
+        "物体描述",
+        "对应观察"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "object identity confused with view",
+        "left-right relation reversed after turning"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-shape-transformation",
+        "bnu-primary-p4-lower-assessment-observe-objects-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小华从前面观察一个玩具房子，看到的是一个长方形，上面有一个三角形屋顶。他从上面观察，看到的是一个正方形。这个玩具房子从前面看是什么形状？",
+      "optionsZhHans": [],
+      "answer": "长方形上面有一个三角形",
+      "acceptedAnswers": [
+        "长方形上面有一个三角形"
+      ],
+      "explanationZhHans": "从前面看，房子主体是长方形，屋顶是三角形，所以看到长方形上面有一个三角形。从上面看是正方形，说明房子底面是正方形。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-162",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "viewpoints",
+        "spatial-visualization",
+        "observe-objects",
+        "观察物体"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "前面侧面上面",
+        "视角判断",
+        "物体描述",
+        "对应观察"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "object identity confused with view",
+        "left-right relation reversed after turning"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-shape-transformation",
+        "bnu-primary-p4-lower-assessment-observe-objects-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "桌子上放着一个水杯。小明从前面看，看到杯身是长方形，杯把在右边。小丽从后面看，杯把会在哪一边？请用一句话回答。",
+      "optionsZhHans": [],
+      "answer": "杯把在左边",
+      "acceptedAnswers": [
+        "杯把在左边"
+      ],
+      "explanationZhHans": "从前面看杯把在右边，转到后面时左右方向相反，所以从后面看杯把在左边。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-163",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "viewpoints",
+        "spatial-visualization",
+        "observe-objects",
+        "观察物体"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "前面侧面上面",
+        "视角判断",
+        "物体描述",
+        "对应观察"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "object identity confused with view",
+        "left-right relation reversed after turning"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-shape-transformation",
+        "bnu-primary-p4-lower-assessment-observe-objects-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个布娃娃，从前面看能看到它的脸和两只手。从上面看，能看到什么？",
+      "optionsZhHans": [
+        "脸和两只手",
+        "头顶和两只手",
+        "头顶和两只脚",
+        "后背和两只手"
+      ],
+      "answer": "头顶和两只手",
+      "acceptedAnswers": [
+        "头顶和两只手"
+      ],
+      "explanationZhHans": "从上面往下看，先看到头顶，手在身体两侧也会被看到，所以是头顶和两只手。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-164",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "viewpoints",
+        "spatial-visualization",
+        "observe-objects",
+        "观察物体"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "前面侧面上面",
+        "视角判断",
+        "物体描述",
+        "对应观察"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "object identity confused with view",
+        "left-right relation reversed after turning"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-shape-transformation",
+        "bnu-primary-p4-lower-assessment-observe-objects-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小东从侧面观察一辆玩具小汽车，看到两个车轮和一个车门。他从上面观察，能看到什么？请填空：从上面看，能看到______。",
+      "optionsZhHans": [],
+      "answer": "车顶和四个车轮",
+      "acceptedAnswers": [
+        "车顶和四个车轮"
+      ],
+      "explanationZhHans": "从上面俯视，能看到整个车顶，并且四个车轮在车身两侧都能看到。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-165",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "viewpoints",
+        "spatial-visualization",
+        "observe-objects",
+        "观察物体"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "前面侧面上面",
+        "视角判断",
+        "物体描述",
+        "对应观察"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "object identity confused with view",
+        "left-right relation reversed after turning"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-shape-transformation",
+        "bnu-primary-p4-lower-assessment-observe-objects-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方体纸盒，从前面看是长方形，从上面看也是长方形。这两个长方形一样大吗？为什么？",
+      "optionsZhHans": [],
+      "answer": "不一定一样大，因为前面和上面的长方形可能长宽不同。",
+      "acceptedAnswers": [
+        "不一定一样大，因为前面和上面的长方形可能长宽不同。"
+      ],
+      "explanationZhHans": "长方体前面和上面的长方形对应不同的面，长宽可能不同，所以不一定一样大。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-166",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "viewpoints",
+        "spatial-visualization",
+        "observe-objects",
+        "观察物体"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "前面侧面上面",
+        "视角判断",
+        "物体描述",
+        "对应观察"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "object identity confused with view",
+        "left-right relation reversed after turning"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-shape-transformation",
+        "bnu-primary-p4-lower-assessment-observe-objects-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个圆柱形积木，从前面看是长方形，从上面看是什么形状？",
+      "optionsZhHans": [
+        "长方形",
+        "正方形",
+        "圆形",
+        "三角形"
+      ],
+      "answer": "圆形",
+      "acceptedAnswers": [
+        "圆形"
+      ],
+      "explanationZhHans": "圆柱从上面看是圆形，因为上下两个底面都是圆。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-167",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "viewpoints",
+        "spatial-visualization",
+        "observe-objects",
+        "观察物体"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "前面侧面上面",
+        "视角判断",
+        "物体描述",
+        "对应观察"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "object identity confused with view",
+        "left-right relation reversed after turning"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-shape-transformation",
+        "bnu-primary-p4-lower-assessment-observe-objects-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小芳从前面看一个文具盒，看到长方形，上面有卡通图案。她从右面看，看到的是长方形，没有图案。这个文具盒从上面看是什么形状？",
+      "optionsZhHans": [],
+      "answer": "长方形",
+      "acceptedAnswers": [
+        "长方形"
+      ],
+      "explanationZhHans": "文具盒通常是长方体，从上面看也是长方形。前面有图案，右面没有图案，符合实际。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-168",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "viewpoints",
+        "spatial-visualization",
+        "observe-objects",
+        "观察物体"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "前面侧面上面",
+        "视角判断",
+        "物体描述",
+        "对应观察"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "object identity confused with view",
+        "left-right relation reversed after turning"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-shape-transformation",
+        "bnu-primary-p4-lower-assessment-observe-objects-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个球，从前面、后面、左面、右面、上面看，看到的形状都一样吗？请回答“一样”或“不一样”。",
+      "optionsZhHans": [],
+      "answer": "一样",
+      "acceptedAnswers": [
+        "一样"
+      ],
+      "explanationZhHans": "球从任何方向看都是圆形，所以看到的形状都一样。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-169",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "viewpoints",
+        "spatial-visualization",
+        "observe-objects",
+        "观察物体"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "前面侧面上面",
+        "视角判断",
+        "物体描述",
+        "对应观察"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "object identity confused with view",
+        "left-right relation reversed after turning"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-shape-transformation",
+        "bnu-primary-p4-lower-assessment-observe-objects-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个正方体积木，从前面看是正方形。从上面看是什么形状？",
+      "optionsZhHans": [
+        "正方形",
+        "长方形",
+        "圆形",
+        "三角形"
+      ],
+      "answer": "正方形",
+      "acceptedAnswers": [
+        "正方形"
+      ],
+      "explanationZhHans": "正方体每个面都是正方形，所以从上面看也是正方形。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-170",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "viewpoints",
+        "spatial-visualization",
+        "observe-objects",
+        "观察物体"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "前面侧面上面",
+        "视角判断",
+        "物体描述",
+        "对应观察"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "object identity confused with view",
+        "left-right relation reversed after turning"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-shape-transformation",
+        "bnu-primary-p4-lower-assessment-observe-objects-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "从前面看一个书包，看到的是长方形，上面有两条背带。从后面看，能看到什么？请填空：从后面看，能看到______。",
+      "optionsZhHans": [],
+      "answer": "长方形和两条背带",
+      "acceptedAnswers": [
+        "长方形和两条背带"
+      ],
+      "explanationZhHans": "书包前后形状相似，从后面看也能看到长方形和背带，只是可能看不到前面的图案。"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-480",
+  "startedAt": "2026-05-28T01:57:03.823Z",
+  "completedAt": "2026-05-28T01:57:07.838Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-480"
+  ],
+  "usage": {
+    "prompt_tokens": 2434,
+    "completion_tokens": 259,
+    "total_tokens": 2693,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2050
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-480",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "a_n = n(n+1)/2 + n",
+        "correctedAnswer": "a_n = n(n+1)/2 + n",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，独立解为 a_n = n(n+1)/2 + n，存储答案 a_n = n^2 + n 错误，解析中猜测验证不严谨且结果矛盾，属于严重数学错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "存储答案错误，解析矛盾，判定为 blocker。"
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-283",
+  "startedAt": "2026-05-28T01:49:37.963Z",
+  "completedAt": "2026-05-28T01:49:41.992Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-283"
+  ],
+  "usage": {
+    "prompt_tokens": 1950,
+    "completion_tokens": 228,
+    "total_tokens": 2178,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1566
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-283",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "[-1, 1]",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "函数可导，f'(x)=3x^2-3，令f'(x)≤0得-1≤x≤1，单调递减区间为[-1,1]，选项D唯一匹配，解析一致，无争议。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 1,
+      "warn": 0,
+      "fail": 0,
+      "notes": "题目可解，答案匹配，选项唯一，无问题。"
+    }
+  }
+}

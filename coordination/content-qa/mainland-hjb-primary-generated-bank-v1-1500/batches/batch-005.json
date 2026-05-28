@@ -1,0 +1,294 @@
+{
+  "batchId": "batch-005",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p1-021",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "hjb-primary-p1-upper-solids-introduction",
+      "unitTitle": "认识立体图形",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-solid-shapes",
+        "cuboid-cube-cylinder-sphere",
+        "shape-classification",
+        "立体图形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "观察比较",
+        "数学表达"
+      ],
+      "skillTags": [
+        "长方体",
+        "正方体",
+        "圆柱",
+        "球",
+        "分类描述"
+      ],
+      "misconceptionTags": [
+        "shape named by object use only",
+        "orientation treated as a different shape",
+        "flat and solid shapes mixed"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p1-upper-solids-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-upper-assessment-solid-shapes",
+        "hjb-primary-p1-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面这些物品中，哪些的形状是圆柱？请写出它们的序号。\n① 一个易拉罐 ② 一个魔方 ③ 一卷卫生纸 ④ 一个篮球 ⑤ 一支没有削过的圆柱形铅笔",
+      "optionsZhHans": [],
+      "answer": "①③⑤",
+      "acceptedAnswers": [
+        "①③⑤",
+        "①、③、⑤",
+        "①,③,⑤",
+        "①，③，⑤"
+      ],
+      "explanationZhHans": "圆柱上下一样粗，两头是圆圆的平面，可以滚动。易拉罐、卫生纸卷和圆柱形铅笔都有这些特点。魔方是正方体，篮球是球。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-022",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "hjb-primary-p1-upper-solids-introduction",
+      "unitTitle": "认识立体图形",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-solid-shapes",
+        "cuboid-cube-cylinder-sphere",
+        "shape-classification",
+        "立体图形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "观察比较",
+        "数学表达"
+      ],
+      "skillTags": [
+        "长方体",
+        "正方体",
+        "圆柱",
+        "球",
+        "分类描述"
+      ],
+      "misconceptionTags": [
+        "shape named by object use only",
+        "orientation treated as a different shape",
+        "flat and solid shapes mixed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p1-upper-solids-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-upper-assessment-solid-shapes",
+        "hjb-primary-p1-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个物品的形状是正方体？",
+      "optionsZhHans": [
+        "A. 一个鞋盒",
+        "B. 一个骰子",
+        "C. 一个皮球",
+        "D. 一个茶叶罐"
+      ],
+      "answer": "B. 一个骰子",
+      "acceptedAnswers": [
+        "B. 一个骰子"
+      ],
+      "explanationZhHans": "正方体有6个一样大小的正方形面。骰子每个面都是正方形且大小相同。鞋盒是长方体，皮球是球，茶叶罐通常是圆柱。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-023",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "hjb-primary-p1-upper-solids-introduction",
+      "unitTitle": "认识立体图形",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-solid-shapes",
+        "cuboid-cube-cylinder-sphere",
+        "shape-classification",
+        "立体图形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "观察比较",
+        "数学表达"
+      ],
+      "skillTags": [
+        "长方体",
+        "正方体",
+        "圆柱",
+        "球",
+        "分类描述"
+      ],
+      "misconceptionTags": [
+        "shape named by object use only",
+        "orientation treated as a different shape",
+        "flat and solid shapes mixed"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p1-upper-solids-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-upper-assessment-solid-shapes",
+        "hjb-primary-p1-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "数一数，下面的积木中，长方体有____个，正方体有____个，圆柱有____个，球有____个。\n积木描述：\n- 一个红色长方体\n- 一个蓝色正方体\n- 一个绿色圆柱\n- 一个黄色球\n- 一个蓝色长方体\n- 一个红色圆柱\n- 一个绿色正方体\n- 一个黄色圆柱",
+      "optionsZhHans": [],
+      "answer": "2,2,3,1",
+      "acceptedAnswers": [
+        "2,2,3,1",
+        "2，2，3，1",
+        "2、2、3、1",
+        "2 2 3 1"
+      ],
+      "explanationZhHans": "按形状分类数：长方体有红色和蓝色共2个；正方体有蓝色和绿色共2个；圆柱有绿色、红色和黄色共3个；球只有黄色1个。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-024",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "hjb-primary-p1-upper-solids-introduction",
+      "unitTitle": "认识立体图形",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-solid-shapes",
+        "cuboid-cube-cylinder-sphere",
+        "shape-classification",
+        "立体图形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "观察比较",
+        "数学表达"
+      ],
+      "skillTags": [
+        "长方体",
+        "正方体",
+        "圆柱",
+        "球",
+        "分类描述"
+      ],
+      "misconceptionTags": [
+        "shape named by object use only",
+        "orientation treated as a different shape",
+        "flat and solid shapes mixed"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p1-upper-solids-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-upper-assessment-solid-shapes",
+        "hjb-primary-p1-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "观察下面的立体图形，写出它们的名称。\n图形描述：\n第一个：长长方方的，有6个平平的面，面有大有小。\n第二个：四四方方的，有6个平平的面，每个面都一样大。\n第三个：直直的，上下一样粗，两头是圆圆的平面。\n第四个：圆滚滚的，没有平平的面。",
+      "optionsZhHans": [],
+      "answer": "长方体，正方体，圆柱，球",
+      "acceptedAnswers": [
+        "长方体，正方体，圆柱，球",
+        "长方体、正方体、圆柱、球",
+        "长方体,正方体,圆柱,球",
+        "长方体 正方体 圆柱 球"
+      ],
+      "explanationZhHans": "根据特征判断：长长方方、面有大有小是长方体；四四方方、每个面一样大是正方体；直直的、上下一样粗、两头圆是圆柱；圆滚滚、没有平面是球。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-025",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "hjb-primary-p1-upper-solids-introduction",
+      "unitTitle": "认识立体图形",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-solid-shapes",
+        "cuboid-cube-cylinder-sphere",
+        "shape-classification",
+        "立体图形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "观察比较",
+        "数学表达"
+      ],
+      "skillTags": [
+        "长方体",
+        "正方体",
+        "圆柱",
+        "球",
+        "分类描述"
+      ],
+      "misconceptionTags": [
+        "shape named by object use only",
+        "orientation treated as a different shape",
+        "flat and solid shapes mixed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p1-upper-solids-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-upper-assessment-solid-shapes",
+        "hjb-primary-p1-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪种立体图形既能滚动，又能上下堆叠？",
+      "optionsZhHans": [
+        "A. 长方体",
+        "B. 正方体",
+        "C. 圆柱",
+        "D. 球"
+      ],
+      "answer": "C. 圆柱",
+      "acceptedAnswers": [
+        "C. 圆柱"
+      ],
+      "explanationZhHans": "圆柱横放时可以滚动，竖放时上下有平面可以堆叠。长方体、正方体不能滚动；球能滚动但不能堆叠。"
+    }
+  ]
+}

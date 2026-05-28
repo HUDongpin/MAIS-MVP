@@ -1,0 +1,191 @@
+{
+  "batchNumber": 3,
+  "startedAt": "2026-05-27T13:24:58.461Z",
+  "completedAt": "2026-05-27T13:25:17.493Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p1-037",
+    "bnu-primary-ds-v1-p1-038",
+    "bnu-primary-ds-v1-p1-039",
+    "bnu-primary-ds-v1-p1-040",
+    "bnu-primary-ds-v1-p1-041",
+    "bnu-primary-ds-v1-p1-042",
+    "bnu-primary-ds-v1-p1-043",
+    "bnu-primary-ds-v1-p1-044",
+    "bnu-primary-ds-v1-p1-045",
+    "bnu-primary-ds-v1-p1-046",
+    "bnu-primary-ds-v1-p1-047",
+    "bnu-primary-ds-v1-p1-048",
+    "bnu-primary-ds-v1-p1-049",
+    "bnu-primary-ds-v1-p1-050",
+    "bnu-primary-ds-v1-p1-051",
+    "bnu-primary-ds-v1-p1-052",
+    "bnu-primary-ds-v1-p1-053",
+    "bnu-primary-ds-v1-p1-054"
+  ],
+  "usage": {
+    "prompt_tokens": 3262,
+    "completion_tokens": 1382,
+    "total_tokens": 4644,
+    "prompt_tokens_details": {
+      "cached_tokens": 3200
+    },
+    "prompt_cache_hit_tokens": 3200,
+    "prompt_cache_miss_tokens": 62
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p1-037",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，算式与解释一致，选项无歧义，适合P1。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-038",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案8，解释清晰，适合P1。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-039",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案4-1=3，接受答案合理，适合P1。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-040",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，选项唯一，解释清晰，适合P1。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-041",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案5，接受答案合理，适合P1。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-042",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案7-2=5，接受答案合理，适合P1。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-043",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，选项唯一，解释清晰，适合P1。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-044",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案6，接受答案合理，适合P1。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-045",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案5+3=8，接受答案合理，适合P1。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-046",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，选项唯一，解释清晰，适合P1。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-047",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案7，接受答案合理，适合P1。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-048",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案8-5=3，接受答案合理，适合P1。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-049",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分类正确，选项D明确按颜色分，解释清晰，适合P1。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-050",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分类标准明确，答案合理，接受答案覆盖主要表述，适合P1。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-051",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分类正确，答案完整，接受答案覆盖常见表述，适合P1。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-052",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分类正确，选项A唯一符合，解释清晰，适合P1。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-053",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分类标准合理，答案“是否由曲线围成”准确，接受答案覆盖多种表述，适合P1。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-054",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分类正确，答案完整，接受答案覆盖常见表述，适合P1。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案匹配，无歧义，适合北师大版P1年级，可直接用于题库。"
+    }
+  }
+}

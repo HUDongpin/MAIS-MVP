@@ -1,0 +1,45 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-265",
+  "startedAt": "2026-05-28T01:25:18.709Z",
+  "completedAt": "2026-05-28T01:25:22.811Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-265"
+  ],
+  "usage": {
+    "prompt_tokens": 2268,
+    "completion_tokens": 236,
+    "total_tokens": 2504,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1884
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-265",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "(x - 2)² + y² = 2（去掉点(4,0)）",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，轨迹方程推导正确，选项B唯一匹配。解析中未充分说明去掉点(4,0)的原因，但答案无误，不影响整体正确性。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 1,
+      "warn": 0,
+      "fail": 0,
+      "notes": "题目数学正确，答案匹配，选项唯一，解析稍弱但无错误，通过。"
+    }
+  }
+}

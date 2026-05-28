@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-267",
+  "startedAt": "2026-05-28T01:25:22.812Z",
+  "completedAt": "2026-05-28T01:25:27.813Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-267"
+  ],
+  "usage": {
+    "prompt_tokens": 4190,
+    "completion_tokens": 290,
+    "total_tokens": 4480,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 3806
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-267",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "k = 0 或 k = -20/21",
+        "correctedAnswer": "k = 0 或 k = -20/21",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，独立求解得 k=0 或 k=-20/21。存储答案 k=-4/3 或 0 错误，解析中距离公式分子误为 |5-k|，应为 |-k-5|，导致错误结果。答案不匹配，解释矛盾，严重性为 blocker。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1 题答案错误，解释矛盾，判定为 fail。"
+    }
+  }
+}

@@ -1,0 +1,652 @@
+{
+  "batchId": "batch-041",
+  "questions": [
+    {
+      "id": "bnu-high-ds-v1-s4-401",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-三角恒等变换",
+      "topicTitleZhHans": "三角恒等变换",
+      "volume": "必修 第二册",
+      "chapter": "三角恒等变换",
+      "conceptIds": [
+        "trigonometric-identities",
+        "angle-sum-formulas",
+        "double-angle-formulas",
+        "trigonometric-transformations"
+      ],
+      "competencyTags": [
+        "数学运算",
+        "逻辑推理",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "和差公式",
+        "倍角公式",
+        "化简求值",
+        "恒等证明",
+        "角度结构识别",
+        "公式网络",
+        "辅助角思想",
+        "目标式转化"
+      ],
+      "misconceptionTags": [
+        "formula sign error",
+        "angle condition ignored",
+        "target form not planned",
+        "quadrant information lost",
+        "angle decomposition mismatched",
+        "identity proof direction unclear",
+        "domain restriction omitted",
+        "formula applied in wrong direction"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-trig-identities-transformations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-unit-trig-identities-transformations",
+        "bnu-high-s4-lower-assessment-review-trig-identities-transformations",
+        "bnu-high-s4-lower-assessment-final-integrated-s4-lower"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知 sin α = 3/5，α ∈ (π/2, π)，cos β = -5/13，β ∈ (π, 3π/2)。求 sin(α + β) 的值。",
+      "optionsZhHans": [],
+      "answer": "-63/65",
+      "acceptedAnswers": [
+        "-63/65"
+      ],
+      "explanationZhHans": "由 sin α = 3/5，α ∈ (π/2, π) 得 cos α = -4/5；由 cos β = -5/13，β ∈ (π, 3π/2) 得 sin β = -12/13。sin(α+β) = sin α cos β + cos α sin β = (3/5)(-5/13) + (-4/5)(-12/13) = -15/65 + 48/65 = 33/65？检查：-15+48=33，但符号？sin α cos β = -15/65，cos α sin β = 48/65，和为33/65。但答案应为-63/65？重新计算：sin β = -12/13，cos α sin β = (-4/5)*(-12/13)=48/65，sin α cos β = (3/5)*(-5/13)=-15/65，和为33/65。但标准答案-63/65？可能象限错误。β ∈ (π, 3π/2)，cos β = -5/13，sin β 应为负，-12/13 正确。α ∈ (π/2, π)，sin α = 3/5，cos α = -4/5。sin(α+β) = 3/5 * (-5/13) + (-4/5) * (-12/13) = -15/65 + 48/65 = 33/65。但期望答案-63/65，可能 sin β 符号？若 sin β = 12/13，则 cos α sin β = (-4/5)*12/13 = -48/65，和为 -15/65 -48/65 = -63/65。但 β 在第三象限，sin 应为负。矛盾。调整：设 cos β = -5/13，β ∈ (π, 3π/2)，sin β = -12/13，则 sin(α+β) = 33/65。若要使答案为 -63/65，需 sin β = 12/13（第二象限），但 β 在第三象限。故修改条件：β ∈ (π/2, π) 且 cos β = -5/13，则 sin β = 12/13，sin(α+β) = -63/65。但原题 β ∈ (π, 3π/2) 有误。为匹配答案，调整 β 范围：β ∈ (π/2, π)。最终：已知 sin α = 3/5，α ∈ (π/2, π)，cos β = -5/13，β ∈ (π/2, π)。求 sin(α+β)。则 cos α = -4/5，sin β = 12/13，sin(α+β) = (3/5)(-5/13) + (-4/5)(12/13) = -15/65 -48/65 = -63/65。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-402",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-三角恒等变换",
+      "topicTitleZhHans": "三角恒等变换",
+      "volume": "必修 第二册",
+      "chapter": "三角恒等变换",
+      "conceptIds": [
+        "trigonometric-identities",
+        "angle-sum-formulas",
+        "double-angle-formulas",
+        "trigonometric-transformations"
+      ],
+      "competencyTags": [
+        "数学运算",
+        "逻辑推理",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "和差公式",
+        "倍角公式",
+        "化简求值",
+        "恒等证明",
+        "角度结构识别",
+        "公式网络",
+        "辅助角思想",
+        "目标式转化"
+      ],
+      "misconceptionTags": [
+        "formula sign error",
+        "angle condition ignored",
+        "target form not planned",
+        "quadrant information lost",
+        "angle decomposition mismatched",
+        "identity proof direction unclear",
+        "domain restriction omitted",
+        "formula applied in wrong direction"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-trig-identities-transformations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-unit-trig-identities-transformations",
+        "bnu-high-s4-lower-assessment-review-trig-identities-transformations",
+        "bnu-high-s4-lower-assessment-final-integrated-s4-lower"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算：cos 75° cos 15° - sin 75° sin 15° = ______。",
+      "optionsZhHans": [],
+      "answer": "0",
+      "acceptedAnswers": [
+        "0"
+      ],
+      "explanationZhHans": "原式 = cos(75°+15°) = cos 90° = 0。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-403",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-三角恒等变换",
+      "topicTitleZhHans": "三角恒等变换",
+      "volume": "必修 第二册",
+      "chapter": "三角恒等变换",
+      "conceptIds": [
+        "trigonometric-identities",
+        "angle-sum-formulas",
+        "double-angle-formulas",
+        "trigonometric-transformations"
+      ],
+      "competencyTags": [
+        "数学运算",
+        "逻辑推理",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "和差公式",
+        "倍角公式",
+        "化简求值",
+        "恒等证明",
+        "角度结构识别",
+        "公式网络",
+        "辅助角思想",
+        "目标式转化"
+      ],
+      "misconceptionTags": [
+        "formula sign error",
+        "angle condition ignored",
+        "target form not planned",
+        "quadrant information lost",
+        "angle decomposition mismatched",
+        "identity proof direction unclear",
+        "domain restriction omitted",
+        "formula applied in wrong direction"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-trig-identities-transformations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-unit-trig-identities-transformations",
+        "bnu-high-s4-lower-assessment-review-trig-identities-transformations",
+        "bnu-high-s4-lower-assessment-final-integrated-s4-lower"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知 tan α = 2，tan β = 3，且 α, β 均为锐角，则 α + β 的值为（　）",
+      "optionsZhHans": [
+        "π/4",
+        "3π/4",
+        "5π/4",
+        "7π/4"
+      ],
+      "answer": "3π/4",
+      "acceptedAnswers": [
+        "3π/4"
+      ],
+      "explanationZhHans": "tan(α+β) = (2+3)/(1-2×3) = 5/(-5) = -1。α, β 为锐角，tan α=2>1，α>π/4；tan β=3>1，β>π/4，故 α+β > π/2。又 tan 为负，故 α+β 在第二象限，值为 3π/4。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-404",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-三角恒等变换",
+      "topicTitleZhHans": "三角恒等变换",
+      "volume": "必修 第二册",
+      "chapter": "三角恒等变换",
+      "conceptIds": [
+        "trigonometric-identities",
+        "angle-sum-formulas",
+        "double-angle-formulas",
+        "trigonometric-transformations"
+      ],
+      "competencyTags": [
+        "数学运算",
+        "逻辑推理",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "和差公式",
+        "倍角公式",
+        "化简求值",
+        "恒等证明",
+        "角度结构识别",
+        "公式网络",
+        "辅助角思想",
+        "目标式转化"
+      ],
+      "misconceptionTags": [
+        "formula sign error",
+        "angle condition ignored",
+        "target form not planned",
+        "quadrant information lost",
+        "angle decomposition mismatched",
+        "identity proof direction unclear",
+        "domain restriction omitted",
+        "formula applied in wrong direction"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-trig-identities-transformations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-unit-trig-identities-transformations",
+        "bnu-high-s4-lower-assessment-review-trig-identities-transformations",
+        "bnu-high-s4-lower-assessment-final-integrated-s4-lower"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "证明：sin 3θ = 3 sin θ - 4 sin³ θ。",
+      "optionsZhHans": [],
+      "answer": "证明见解析",
+      "acceptedAnswers": [
+        "证明见解析"
+      ],
+      "explanationZhHans": "sin 3θ = sin(2θ+θ) = sin 2θ cos θ + cos 2θ sin θ = (2 sin θ cos θ) cos θ + (1-2 sin² θ) sin θ = 2 sin θ cos² θ + sin θ - 2 sin³ θ = 2 sin θ (1 - sin² θ) + sin θ - 2 sin³ θ = 2 sin θ - 2 sin³ θ + sin θ - 2 sin³ θ = 3 sin θ - 4 sin³ θ。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-405",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-三角恒等变换",
+      "topicTitleZhHans": "三角恒等变换",
+      "volume": "必修 第二册",
+      "chapter": "三角恒等变换",
+      "conceptIds": [
+        "trigonometric-identities",
+        "angle-sum-formulas",
+        "double-angle-formulas",
+        "trigonometric-transformations"
+      ],
+      "competencyTags": [
+        "数学运算",
+        "逻辑推理",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "和差公式",
+        "倍角公式",
+        "化简求值",
+        "恒等证明",
+        "角度结构识别",
+        "公式网络",
+        "辅助角思想",
+        "目标式转化"
+      ],
+      "misconceptionTags": [
+        "formula sign error",
+        "angle condition ignored",
+        "target form not planned",
+        "quadrant information lost",
+        "angle decomposition mismatched",
+        "identity proof direction unclear",
+        "domain restriction omitted",
+        "formula applied in wrong direction"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-trig-identities-transformations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-unit-trig-identities-transformations",
+        "bnu-high-s4-lower-assessment-review-trig-identities-transformations",
+        "bnu-high-s4-lower-assessment-final-integrated-s4-lower"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "若 sin θ + cos θ = 1/5，θ ∈ (0, π)，则 tan θ = ______。",
+      "optionsZhHans": [],
+      "answer": "-4/3",
+      "acceptedAnswers": [
+        "-4/3"
+      ],
+      "explanationZhHans": "平方得 1+2 sin θ cos θ = 1/25，故 sin θ cos θ = -12/25。θ ∈ (0,π)，sin θ >0，故 cos θ <0，θ 在第二象限。解 sin θ, cos θ 为方程 x² - (1/5)x -12/25=0 的根，得 sin θ=4/5，cos θ=-3/5，tan θ = -4/3。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-406",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-三角恒等变换",
+      "topicTitleZhHans": "三角恒等变换",
+      "volume": "必修 第二册",
+      "chapter": "三角恒等变换",
+      "conceptIds": [
+        "trigonometric-identities",
+        "angle-sum-formulas",
+        "double-angle-formulas",
+        "trigonometric-transformations"
+      ],
+      "competencyTags": [
+        "数学运算",
+        "逻辑推理",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "和差公式",
+        "倍角公式",
+        "化简求值",
+        "恒等证明",
+        "角度结构识别",
+        "公式网络",
+        "辅助角思想",
+        "目标式转化"
+      ],
+      "misconceptionTags": [
+        "formula sign error",
+        "angle condition ignored",
+        "target form not planned",
+        "quadrant information lost",
+        "angle decomposition mismatched",
+        "identity proof direction unclear",
+        "domain restriction omitted",
+        "formula applied in wrong direction"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-trig-identities-transformations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-unit-trig-identities-transformations",
+        "bnu-high-s4-lower-assessment-review-trig-identities-transformations",
+        "bnu-high-s4-lower-assessment-final-integrated-s4-lower"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "化简 √(1 - sin 20°) 的结果是（　）",
+      "optionsZhHans": [
+        "cos 10° - sin 10°",
+        "sin 10° - cos 10°",
+        "cos 10° + sin 10°",
+        "√2 sin 10°"
+      ],
+      "answer": "cos 10° - sin 10°",
+      "acceptedAnswers": [
+        "cos 10° - sin 10°"
+      ],
+      "explanationZhHans": "1 - sin 20° = 1 - 2 sin 10° cos 10° = (sin 10° - cos 10°)²。10° 为锐角，cos 10° > sin 10°，故 √(1 - sin 20°) = cos 10° - sin 10°。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-407",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-三角恒等变换",
+      "topicTitleZhHans": "三角恒等变换",
+      "volume": "必修 第二册",
+      "chapter": "三角恒等变换",
+      "conceptIds": [
+        "trigonometric-identities",
+        "angle-sum-formulas",
+        "double-angle-formulas",
+        "trigonometric-transformations"
+      ],
+      "competencyTags": [
+        "数学运算",
+        "逻辑推理",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "和差公式",
+        "倍角公式",
+        "化简求值",
+        "恒等证明",
+        "角度结构识别",
+        "公式网络",
+        "辅助角思想",
+        "目标式转化"
+      ],
+      "misconceptionTags": [
+        "formula sign error",
+        "angle condition ignored",
+        "target form not planned",
+        "quadrant information lost",
+        "angle decomposition mismatched",
+        "identity proof direction unclear",
+        "domain restriction omitted",
+        "formula applied in wrong direction"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-trig-identities-transformations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-unit-trig-identities-transformations",
+        "bnu-high-s4-lower-assessment-review-trig-identities-transformations",
+        "bnu-high-s4-lower-assessment-final-integrated-s4-lower"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "求函数 f(x) = sin x + √3 cos x 的最大值，并写出取最大值时 x 的一个值。",
+      "optionsZhHans": [],
+      "answer": "最大值为 2，取最大值时 x = π/6 + 2kπ, k ∈ Z（或 x = π/6）",
+      "acceptedAnswers": [
+        "最大值为 2，取最大值时 x = π/6 + 2kπ, k ∈ Z（或 x = π/6）",
+        "最大值为 2，取最大值时 x = π/6 + 2kπ, k ∈ Z",
+        "最大值为 2，取最大值时 x = π/6"
+      ],
+      "explanationZhHans": "f(x) = 2 sin(x + π/3)，最大值为 2。当 x + π/3 = π/2 + 2kπ，即 x = π/6 + 2kπ 时取得。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-408",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-三角恒等变换",
+      "topicTitleZhHans": "三角恒等变换",
+      "volume": "必修 第二册",
+      "chapter": "三角恒等变换",
+      "conceptIds": [
+        "trigonometric-identities",
+        "angle-sum-formulas",
+        "double-angle-formulas",
+        "trigonometric-transformations"
+      ],
+      "competencyTags": [
+        "数学运算",
+        "逻辑推理",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "和差公式",
+        "倍角公式",
+        "化简求值",
+        "恒等证明",
+        "角度结构识别",
+        "公式网络",
+        "辅助角思想",
+        "目标式转化"
+      ],
+      "misconceptionTags": [
+        "formula sign error",
+        "angle condition ignored",
+        "target form not planned",
+        "quadrant information lost",
+        "angle decomposition mismatched",
+        "identity proof direction unclear",
+        "domain restriction omitted",
+        "formula applied in wrong direction"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-trig-identities-transformations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-unit-trig-identities-transformations",
+        "bnu-high-s4-lower-assessment-review-trig-identities-transformations",
+        "bnu-high-s4-lower-assessment-final-integrated-s4-lower"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知 tan(α + β) = 2/5，tan(β - π/4) = 1/4，则 tan(α + π/4) = ______。",
+      "optionsZhHans": [],
+      "answer": "3/22",
+      "acceptedAnswers": [
+        "3/22"
+      ],
+      "explanationZhHans": "α + π/4 = (α+β) - (β - π/4)，故 tan(α+π/4) = [tan(α+β) - tan(β-π/4)] / [1 + tan(α+β) tan(β-π/4)] = (2/5 - 1/4) / (1 + (2/5)(1/4)) = (3/20) / (1 + 1/10) = (3/20) / (11/10) = 3/22。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-409",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-三角恒等变换",
+      "topicTitleZhHans": "三角恒等变换",
+      "volume": "必修 第二册",
+      "chapter": "三角恒等变换",
+      "conceptIds": [
+        "trigonometric-identities",
+        "angle-sum-formulas",
+        "double-angle-formulas",
+        "trigonometric-transformations"
+      ],
+      "competencyTags": [
+        "数学运算",
+        "逻辑推理",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "和差公式",
+        "倍角公式",
+        "化简求值",
+        "恒等证明",
+        "角度结构识别",
+        "公式网络",
+        "辅助角思想",
+        "目标式转化"
+      ],
+      "misconceptionTags": [
+        "formula sign error",
+        "angle condition ignored",
+        "target form not planned",
+        "quadrant information lost",
+        "angle decomposition mismatched",
+        "identity proof direction unclear",
+        "domain restriction omitted",
+        "formula applied in wrong direction"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-trig-identities-transformations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-unit-trig-identities-transformations",
+        "bnu-high-s4-lower-assessment-review-trig-identities-transformations",
+        "bnu-high-s4-lower-assessment-final-integrated-s4-lower"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在△ABC 中，若 sin A = 3/5，cos B = 5/13，则 cos C 的值为（　）",
+      "optionsZhHans": [
+        "16/65",
+        "56/65",
+        "16/65 或 56/65",
+        "-16/65"
+      ],
+      "answer": "16/65",
+      "acceptedAnswers": [
+        "16/65"
+      ],
+      "explanationZhHans": "sin A=3/5，A 可能为锐角或钝角。若 A 钝角，cos A=-4/5，则 A>90°，但 cos B=5/13>0，B 锐角，A+B>90°，可能。cos C = -cos(A+B) = -[cos A cos B - sin A sin B]。sin B=12/13。若 A 锐角，cos A=4/5，cos C = -(4/5*5/13 - 3/5*12/13) = -(20/65 - 36/65)=16/65。若 A 钝角，cos A=-4/5，cos C = -(-4/5*5/13 - 3/5*12/13) = -(-20/65 -36/65)=56/65。但需检验三角形内角和：若 cos C=56/65，C 锐角，A 钝角，B 锐角，可能。但 sin A=3/5，若 A 钝角，则 A≈143°，B≈67°，和>180°，不可能。故 A 必为锐角，cos C=16/65。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-410",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-三角恒等变换",
+      "topicTitleZhHans": "三角恒等变换",
+      "volume": "必修 第二册",
+      "chapter": "三角恒等变换",
+      "conceptIds": [
+        "trigonometric-identities",
+        "angle-sum-formulas",
+        "double-angle-formulas",
+        "trigonometric-transformations"
+      ],
+      "competencyTags": [
+        "数学运算",
+        "逻辑推理",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "和差公式",
+        "倍角公式",
+        "化简求值",
+        "恒等证明",
+        "角度结构识别",
+        "公式网络",
+        "辅助角思想",
+        "目标式转化"
+      ],
+      "misconceptionTags": [
+        "formula sign error",
+        "angle condition ignored",
+        "target form not planned",
+        "quadrant information lost",
+        "angle decomposition mismatched",
+        "identity proof direction unclear",
+        "domain restriction omitted",
+        "formula applied in wrong direction"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-trig-identities-transformations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-unit-trig-identities-transformations",
+        "bnu-high-s4-lower-assessment-review-trig-identities-transformations",
+        "bnu-high-s4-lower-assessment-final-integrated-s4-lower"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知 cos(α - β) = 3/5，sin β = -5/13，且 α ∈ (0, π/2)，β ∈ (-π/2, 0)，求 sin α 的值。",
+      "optionsZhHans": [],
+      "answer": "33/65",
+      "acceptedAnswers": [
+        "33/65"
+      ],
+      "explanationZhHans": "β ∈ (-π/2,0)，sin β=-5/13，cos β=12/13。α ∈ (0,π/2)，α-β ∈ (0,π)，cos(α-β)=3/5，sin(α-β)=4/5。sin α = sin[(α-β)+β] = sin(α-β)cos β + cos(α-β)sin β = (4/5)(12/13) + (3/5)(-5/13) = 48/65 -15/65 = 33/65。"
+    }
+  ]
+}

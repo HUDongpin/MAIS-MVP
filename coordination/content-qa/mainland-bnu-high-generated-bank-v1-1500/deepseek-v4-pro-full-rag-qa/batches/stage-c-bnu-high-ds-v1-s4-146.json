@@ -1,0 +1,48 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-146",
+  "startedAt": "2026-05-28T03:03:53.770Z",
+  "completedAt": "2026-05-28T03:03:58.990Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-146"
+  ],
+  "usage": {
+    "prompt_tokens": 1898,
+    "completion_tokens": 246,
+    "total_tokens": 2144,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1514
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-146",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "1",
+        "correctedAnswer": "1",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "f(1)=0，零点为1，在区间(1,2)内，故k=1。存储答案0错误，解析称零点在(0,1)内与计算矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目可解，符合教材范围，但答案和解析均错误，需修正为k=1。"
+    }
+  }
+}

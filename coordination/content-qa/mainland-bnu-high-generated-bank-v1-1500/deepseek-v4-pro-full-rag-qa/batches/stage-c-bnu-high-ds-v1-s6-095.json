@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-095",
+  "startedAt": "2026-05-28T01:39:18.362Z",
+  "completedAt": "2026-05-28T01:39:22.458Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-095"
+  ],
+  "usage": {
+    "prompt_tokens": 2281,
+    "completion_tokens": 287,
+    "total_tokens": 2568,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1897
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-095",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "a_n = 2^n - 3^{n-1}",
+        "correctedAnswer": "a_n = 2^n - 3^{n-1}",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，正确通项为 a_n = 2^n - 3^{n-1}。存储答案 a_n = 3^{n-1} + 2^{n-1} 错误，且解析中构造方法错误，导致结果矛盾，必须修正。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1 题答案错误，解析矛盾，判定为 blocker。"
+    }
+  }
+}

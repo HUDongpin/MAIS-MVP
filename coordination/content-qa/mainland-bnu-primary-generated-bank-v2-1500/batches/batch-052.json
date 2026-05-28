@@ -1,0 +1,586 @@
+{
+  "batchId": "batch-052",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p3-011",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-mixed-operations",
+      "unitTitle": "混合运算",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "mixed-operations",
+        "operation-order",
+        "addition-subtraction-multiplication-division",
+        "混合运算",
+        "运算顺序"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "两步计算",
+        "运算顺序",
+        "数量关系",
+        "列综合算式",
+        "估算检查"
+      ],
+      "misconceptionTags": [
+        "operations applied strictly left to right",
+        "intermediate quantity not named",
+        "keyword-based operation choice"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-mixed-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "文具店有8盒铅笔，每盒12支，卖出45支后，又进货3盒。现在文具店有多少支铅笔？请列综合算式并计算。",
+      "optionsZhHans": [],
+      "answer": "8×12-45+3×12=96-45+36=87（支）",
+      "acceptedAnswers": [
+        "8×12-45+3×12=96-45+36=87（支）",
+        "87支",
+        "87"
+      ],
+      "explanationZhHans": "先算原有铅笔8×12=96支，卖出45支后剩96-45=51支，又进货3×12=36支，现在有51+36=87支。综合算式为8×12-45+3×12，按先乘后加减顺序得87支。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-012",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-mixed-operations",
+      "unitTitle": "混合运算",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "mixed-operations",
+        "operation-order",
+        "addition-subtraction-multiplication-division",
+        "混合运算",
+        "运算顺序"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "两步计算",
+        "运算顺序",
+        "数量关系",
+        "列综合算式",
+        "估算检查"
+      ],
+      "misconceptionTags": [
+        "operations applied strictly left to right",
+        "intermediate quantity not named",
+        "keyword-based operation choice"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-mixed-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校组织三年级学生去科技馆参观，每辆大巴车限乘45人。三年级一班有38人，二班有42人，三班有39人。如果租两辆大巴车，能一次把所有学生都带上吗？如果不能，还差几个座位？请列式解答。",
+      "optionsZhHans": [],
+      "answer": "不能，还差29个座位。",
+      "acceptedAnswers": [
+        "不能，还差29个座位。",
+        "不能，还差29个座位",
+        "不能，差29个座位",
+        "不能，还差29座",
+        "不能，差29座"
+      ],
+      "explanationZhHans": "总人数：38+42+39=119人。两辆车可乘45×2=90人。119>90，所以不能。还差119-90=29个座位。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-013",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-mixed-operations",
+      "unitTitle": "混合运算",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "mixed-operations",
+        "operation-order",
+        "addition-subtraction-multiplication-division",
+        "混合运算",
+        "运算顺序"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "两步计算",
+        "运算顺序",
+        "数量关系",
+        "列综合算式",
+        "估算检查"
+      ],
+      "misconceptionTags": [
+        "operations applied strictly left to right",
+        "intermediate quantity not named",
+        "keyword-based operation choice"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-mixed-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个算式的运算顺序是“先算乘法，再算减法”？",
+      "optionsZhHans": [
+        "A. 50 - 5 × 4",
+        "B. (50 - 5) × 4",
+        "C. 50 ÷ 5 - 4",
+        "D. 50 - 5 + 4"
+      ],
+      "answer": "A. 50 - 5 × 4",
+      "acceptedAnswers": [
+        "A. 50 - 5 × 4",
+        "A",
+        "50 - 5 × 4"
+      ],
+      "explanationZhHans": "A中有减法和乘法，先算乘法5×4=20，再算减法50-20=30。B有括号先算减法。C先算除法。D按从左到右算。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-014",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-mixed-operations",
+      "unitTitle": "混合运算",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "mixed-operations",
+        "operation-order",
+        "addition-subtraction-multiplication-division",
+        "混合运算",
+        "运算顺序"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "两步计算",
+        "运算顺序",
+        "数量关系",
+        "列综合算式",
+        "估算检查"
+      ],
+      "misconceptionTags": [
+        "operations applied strictly left to right",
+        "intermediate quantity not named",
+        "keyword-based operation choice"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-mixed-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算 36 + 64 ÷ 8 时，应先算（ ）法，再算（ ）法，结果是（ ）。",
+      "optionsZhHans": [],
+      "answer": "除，加，44",
+      "acceptedAnswers": [
+        "除，加，44",
+        "除法，加法，44"
+      ],
+      "explanationZhHans": "算式中有加法和除法，先算除法64÷8=8，再算加法36+8=44。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-015",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-mixed-operations",
+      "unitTitle": "混合运算",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "mixed-operations",
+        "operation-order",
+        "addition-subtraction-multiplication-division",
+        "混合运算",
+        "运算顺序"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "两步计算",
+        "运算顺序",
+        "数量关系",
+        "列综合算式",
+        "估算检查"
+      ],
+      "misconceptionTags": [
+        "operations applied strictly left to right",
+        "intermediate quantity not named",
+        "keyword-based operation choice"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-mixed-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明在计算“4 + 5 × 6”时，错误地先算了加法。他的计算结果与正确结果相差多少？请写出你的思考过程。",
+      "optionsZhHans": [],
+      "answer": "相差20。",
+      "acceptedAnswers": [
+        "相差20。",
+        "相差20",
+        "20",
+        "20。"
+      ],
+      "explanationZhHans": "正确结果：先乘后加，5×6=30，4+30=34。错误结果：先加后乘，(4+5)×6=54。相差54-34=20。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-016",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "views-of-objects",
+        "spatial-visualization",
+        "front-side-top",
+        "观察物体",
+        "空间观念"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "从不同方向观察",
+        "视图匹配",
+        "立体想象",
+        "描述相对位置"
+      ],
+      "misconceptionTags": [
+        "viewpoint left unstated",
+        "front and side views interchanged",
+        "hidden parts drawn as visible"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-living-space-unit",
+        "bnu-primary-p6-upper-assessment-observe-objects-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用4个同样的小正方体搭成一个立体图形。从正面看，看到的是横着排成一行的3个正方形；从上面看，看到的是“田”字形状（即2行2列的正方形）。这个立体图形从右面看是什么形状？",
+      "optionsZhHans": [
+        "A. 竖着排成一列的2个正方形",
+        "B. 横着排成一行的2个正方形",
+        "C. 横着排成一行的3个正方形",
+        "D. 竖着排成一列的3个正方形"
+      ],
+      "answer": "A. 竖着排成一列的2个正方形",
+      "acceptedAnswers": [
+        "A. 竖着排成一列的2个正方形",
+        "A",
+        "竖着排成一列的2个正方形"
+      ],
+      "explanationZhHans": "由正面看一行3个，上面看田字，可知底层有3个排成一行，第4个放在中间一个的上面。从右面看，看到的是上下两个正方形。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-017",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "views-of-objects",
+        "spatial-visualization",
+        "front-side-top",
+        "观察物体",
+        "空间观念"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "从不同方向观察",
+        "视图匹配",
+        "立体想象",
+        "描述相对位置"
+      ],
+      "misconceptionTags": [
+        "viewpoint left unstated",
+        "front and side views interchanged",
+        "hidden parts drawn as visible"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-living-space-unit",
+        "bnu-primary-p6-upper-assessment-observe-objects-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个立体图形由5个同样的小正方体搭成。从正面看，看到的是下面一排3个正方形，上面一排中间有1个正方形。从上面看，看到的是下面一排3个正方形，上面一排靠左边有1个正方形。这个立体图形从左面看，会看到什么形状？请用文字描述。",
+      "optionsZhHans": [],
+      "answer": "看到的是竖着排成一列的2个正方形，下面一个在左，上面一个在右。",
+      "acceptedAnswers": [
+        "看到的是竖着排成一列的2个正方形，下面一个在左，上面一个在右。",
+        "竖着排成一列的2个正方形，下面一个在左，上面一个在右",
+        "竖着2个正方形，左下一个，右上一下"
+      ],
+      "explanationZhHans": "由正面和上面可推知：底层有4个摆成L形，第5个放在底层前排中间的上方。从左面看，看到前排上下两个正方形，位置一左一右。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-018",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "views-of-objects",
+        "spatial-visualization",
+        "front-side-top",
+        "观察物体",
+        "空间观念"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "从不同方向观察",
+        "视图匹配",
+        "立体想象",
+        "描述相对位置"
+      ],
+      "misconceptionTags": [
+        "viewpoint left unstated",
+        "front and side views interchanged",
+        "hidden parts drawn as visible"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-living-space-unit",
+        "bnu-primary-p6-upper-assessment-observe-objects-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "站在一个正方体积木的前面，看到的是什么形状？站在它的右面呢？这两个形状一样吗？为什么？",
+      "optionsZhHans": [],
+      "answer": "从前面看到正方形，从右面也看到正方形，两个形状一样，因为正方体每个面都是相同的正方形。",
+      "acceptedAnswers": [
+        "从前面看到正方形，从右面也看到正方形，两个形状一样，因为正方体每个面都是相同的正方形。",
+        "都是正方形，一样，因为正方体每个面都是正方形"
+      ],
+      "explanationZhHans": "正方体六个面都是完全相同的正方形，所以从任何方向看都是正方形，形状相同。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-019",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "views-of-objects",
+        "spatial-visualization",
+        "front-side-top",
+        "观察物体",
+        "空间观念"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "从不同方向观察",
+        "视图匹配",
+        "立体想象",
+        "描述相对位置"
+      ],
+      "misconceptionTags": [
+        "viewpoint left unstated",
+        "front and side views interchanged",
+        "hidden parts drawn as visible"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-living-space-unit",
+        "bnu-primary-p6-upper-assessment-observe-objects-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个立体图形从正面看是“田”字形（2行2列正方形），从上面看是“一”字形（横着的一行2个正方形）。这个立体图形可能是由几个小正方体搭成的？",
+      "optionsZhHans": [
+        "A. 3个",
+        "B. 4个",
+        "C. 5个",
+        "D. 6个"
+      ],
+      "answer": "B. 4个",
+      "acceptedAnswers": [
+        "B. 4个",
+        "B",
+        "4个"
+      ],
+      "explanationZhHans": "从上面看一行2个，说明底层有2个并排。从正面看田字，说明有两层，每层2个。所以共4个小正方体，摆成2层，每层2个并排。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-020",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "views-of-objects",
+        "spatial-visualization",
+        "front-side-top",
+        "观察物体",
+        "空间观念"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "从不同方向观察",
+        "视图匹配",
+        "立体想象",
+        "描述相对位置"
+      ],
+      "misconceptionTags": [
+        "viewpoint left unstated",
+        "front and side views interchanged",
+        "hidden parts drawn as visible"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-living-space-unit",
+        "bnu-primary-p6-upper-assessment-observe-objects-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用3个同样的小正方体搭成一个立体图形。从正面看是横着排成一行的3个正方形，从上面看是横着排成一行的3个正方形。这个立体图形从右面看是什么形状？请用文字描述。",
+      "optionsZhHans": [],
+      "answer": "看到的是1个正方形。",
+      "acceptedAnswers": [
+        "看到的是1个正方形。",
+        "1个正方形",
+        "一个正方形"
+      ],
+      "explanationZhHans": "3个小正方体排成一行，从正面和上面看都是一行3个。从右面看，只能看到最右边的一个正方体的一个面，所以是1个正方形。"
+    }
+  ]
+}

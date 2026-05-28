@@ -1,0 +1,70 @@
+{
+  "batchId": "model-qa-0008",
+  "ids": [
+    "hjb-junior-ds-v2-s1-314",
+    "hjb-junior-ds-v2-s1-318",
+    "hjb-junior-ds-v2-s1-326",
+    "hjb-junior-ds-v2-s1-348",
+    "hjb-junior-ds-v2-s1-371"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-314",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "65°",
+      "answerCheckZhHans": "标准答案为65°，与独立解题结果一致。解析正确，同位角相等。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-318",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "70°",
+      "answerCheckZhHans": "标准答案为70°，与独立解题结果一致。解析正确，角平分线和对顶角性质。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-326",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "115°",
+      "answerCheckZhHans": "标准答案为115°，与独立解题结果一致。解析正确，利用对顶角、邻补角和角平分线。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-348",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题干描述点E在AB上且在O左侧，点F在CD上且在O下方，但未明确EF是直线还是射线，也未说明E、O、B共线及F、O、D共线。解析中假设∠EOB与∠BOF是邻补角，但∠BOF并非由已知条件直接得出，且∠DOF的计算依赖于未明确的位置关系。独立解题无法唯一确定∠DOF，可能为88°或92°等。标准答案88°可能错误。",
+      "independentAnswerZhHans": "无法唯一确定，可能为88°或92°等。",
+      "answerCheckZhHans": "标准答案88°可能错误，解析中的推理不严谨，存在歧义。",
+      "recommendedActionZhHans": "需重新审题，明确点E、F的位置关系，或修改解析。",
+      "confidence": "medium"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-371",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "50°",
+      "answerCheckZhHans": "标准答案为50，与独立解题结果一致。解析正确，对顶角相等。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,295 @@
+{
+  "batchId": "batch-248",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p5-236",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-statistics-review",
+      "unitTitle": "统计表达与综合应用",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "statistical-displays",
+        "line-graphs",
+        "data-comparison",
+        "mixed-review",
+        "统计"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "反思整理"
+      ],
+      "skillTags": [
+        "统计图读取",
+        "数据比较",
+        "趋势描述",
+        "综合应用",
+        "错因检查"
+      ],
+      "misconceptionTags": [
+        "trend inferred from one point only",
+        "vertical scale read incorrectly",
+        "model chosen from keywords rather than quantities"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-statistics-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-data-average-unit",
+        "hjb-primary-p4-lower-assessment-line-statistics"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小玲记录了连续6天每天上午8时的气温，数据如下：\n第1天：12°C，第2天：14°C，第3天：11°C，第4天：13°C，第5天：15°C，第6天：16°C。\n她将这些数据画成了折线统计图，横轴表示天数，纵轴表示气温（°C），从0°C开始，每格表示1°C。\n请根据数据回答：这6天的最高气温出现在第几天？",
+      "optionsZhHans": [],
+      "answer": "第6天",
+      "acceptedAnswers": [
+        "第6天",
+        "6",
+        "第六天"
+      ],
+      "explanationZhHans": "比较6个数据：12、14、11、13、15、16，最大的是16°C，对应第6天。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-237",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-statistics-review",
+      "unitTitle": "统计表达与综合应用",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "statistical-displays",
+        "line-graphs",
+        "data-comparison",
+        "mixed-review",
+        "统计"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "反思整理"
+      ],
+      "skillTags": [
+        "统计图读取",
+        "数据比较",
+        "趋势描述",
+        "综合应用",
+        "错因检查"
+      ],
+      "misconceptionTags": [
+        "trend inferred from one point only",
+        "vertical scale read incorrectly",
+        "model chosen from keywords rather than quantities"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-statistics-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-data-average-unit",
+        "hjb-primary-p4-lower-assessment-line-statistics"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是某商店一周内每天售出的笔记本数量：\n星期一：15本，星期二：12本，星期三：18本，星期四：20本，星期五：25本，星期六：30本，星期日：22本。\n根据这些数据，下面哪种说法是正确的？",
+      "optionsZhHans": [
+        "售出数量一直在增加",
+        "星期五比星期四多售出5本",
+        "星期六售出的数量是星期日的2倍",
+        "星期三售出的数量最少"
+      ],
+      "answer": "星期五比星期四多售出5本",
+      "acceptedAnswers": [
+        "星期五比星期四多售出5本"
+      ],
+      "explanationZhHans": "星期五25本，星期四20本，25-20=5，正确。其他选项：数量有增有减，不是一直增加；星期六30本，星期日22本，30不是22的2倍；最少的是星期二12本，不是星期三。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-238",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-statistics-review",
+      "unitTitle": "统计表达与综合应用",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "statistical-displays",
+        "line-graphs",
+        "data-comparison",
+        "mixed-review",
+        "统计"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "反思整理"
+      ],
+      "skillTags": [
+        "统计图读取",
+        "数据比较",
+        "趋势描述",
+        "综合应用",
+        "错因检查"
+      ],
+      "misconceptionTags": [
+        "trend inferred from one point only",
+        "vertical scale read incorrectly",
+        "model chosen from keywords rather than quantities"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-statistics-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-data-average-unit",
+        "hjb-primary-p4-lower-assessment-line-statistics"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小杰记录了自己一周内每天做作业所用的时间（单位：分钟）：\n星期一：30，星期二：25，星期三：35，星期四：40，星期五：20，星期六：15，星期日：10。\n他想用折线统计图展示这一周作业时间的变化趋势。横轴表示星期，纵轴表示时间（分钟），从0开始，每格表示5分钟。\n请根据数据回答：作业时间减少最快的是哪两天之间？",
+      "optionsZhHans": [],
+      "answer": "星期四到星期五",
+      "acceptedAnswers": [
+        "星期四到星期五",
+        "星期四和星期五之间",
+        "星期四至星期五"
+      ],
+      "explanationZhHans": "计算相邻两天的减少量：星期一到星期二减少5，星期二到星期三增加10，星期三到星期四增加5，星期四到星期五减少20，星期五到星期六减少5，星期六到星期日减少5。减少最多的是星期四到星期五的20分钟。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-239",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-statistics-review",
+      "unitTitle": "统计表达与综合应用",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "statistical-displays",
+        "line-graphs",
+        "data-comparison",
+        "mixed-review",
+        "统计"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "反思整理"
+      ],
+      "skillTags": [
+        "统计图读取",
+        "数据比较",
+        "趋势描述",
+        "综合应用",
+        "错因检查"
+      ],
+      "misconceptionTags": [
+        "trend inferred from one point only",
+        "vertical scale read incorrectly",
+        "model chosen from keywords rather than quantities"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-statistics-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-data-average-unit",
+        "hjb-primary-p4-lower-assessment-line-statistics"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某城市2023年1月至6月的月平均气温如下：\n1月：2°C，2月：5°C，3月：10°C，4月：16°C，5月：22°C，6月：28°C。\n如果将这些数据绘制成折线统计图，下面哪一项描述是正确的？",
+      "optionsZhHans": [
+        "气温一直快速上升",
+        "3月到4月气温上升了6°C",
+        "6月的气温是1月的14倍",
+        "2月到3月气温上升了4°C"
+      ],
+      "answer": "3月到4月气温上升了6°C",
+      "acceptedAnswers": [
+        "3月到4月气温上升了6°C"
+      ],
+      "explanationZhHans": "3月10°C，4月16°C，上升6°C，正确。其他选项：气温整体上升但速度不同，不是一直快速上升；6月28°C，1月2°C，28÷2=14倍，但气温倍数无意义；2月5°C，3月10°C，上升5°C，不是4°C。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-240",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-statistics-review",
+      "unitTitle": "统计表达与综合应用",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "statistical-displays",
+        "line-graphs",
+        "data-comparison",
+        "mixed-review",
+        "统计"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "反思整理"
+      ],
+      "skillTags": [
+        "统计图读取",
+        "数据比较",
+        "趋势描述",
+        "综合应用",
+        "错因检查"
+      ],
+      "misconceptionTags": [
+        "trend inferred from one point only",
+        "vertical scale read incorrectly",
+        "model chosen from keywords rather than quantities"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-statistics-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-data-average-unit",
+        "hjb-primary-p4-lower-assessment-line-statistics"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是四（1）班第一小组5名同学的身高数据（单位：厘米）：\n小华：145，小丽：138，小刚：150，小敏：142，小强：135。\n他们想用统计图比较身高，并计算平均身高。\n请根据数据回答：这5名同学的平均身高是多少厘米？",
+      "optionsZhHans": [],
+      "answer": "142",
+      "acceptedAnswers": [
+        "142",
+        "142厘米"
+      ],
+      "explanationZhHans": "总身高：145+138+150+142+135=710厘米，人数5，平均身高710÷5=142厘米。"
+    }
+  ]
+}

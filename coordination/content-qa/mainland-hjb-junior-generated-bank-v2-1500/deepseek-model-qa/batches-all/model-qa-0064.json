@@ -1,0 +1,112 @@
+{
+  "batchId": "model-qa-0064",
+  "ids": [
+    "hjb-junior-ds-v2-s2-005",
+    "hjb-junior-ds-v2-s2-006",
+    "hjb-junior-ds-v2-s2-007",
+    "hjb-junior-ds-v2-s2-008",
+    "hjb-junior-ds-v2-s2-009",
+    "hjb-junior-ds-v2-s2-010",
+    "hjb-junior-ds-v2-s2-011",
+    "hjb-junior-ds-v2-s2-012"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-005",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "左",
+      "answerCheckZhHans": "标准答案为“左”，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-006",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "7 cm",
+      "answerCheckZhHans": "标准答案为“7 cm”，与独立解题结果一致。acceptedAnswers 覆盖了“7 cm”、“7cm”、“7”，合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-007",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "√(5)",
+      "answerCheckZhHans": "标准答案为“√(5)”，与独立解题结果一致。选项互异，且只有√(5)是无理数。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-008",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为“125 cm³”，但根据题干条件计算，第二个正方体的体积应为 125/(6√6) cm³，与答案不符。解析中也得出 125/(6√6) cm³，与答案矛盾。",
+      "independentAnswerZhHans": "125/(6√6) cm³",
+      "answerCheckZhHans": "独立解题：第一个正方体棱长=∛125=5 cm。设第二个正方体棱长为a，表面积为6a²，算术平方根为√(6a²)=a√6。由条件5=a√6，得a=5/√6，体积a³=125/(6√6) cm³。标准答案125 cm³错误。",
+      "recommendedActionZhHans": "修正答案或题干。若题干意图是“棱长等于另一个正方体表面积的算术平方根的数值”，则需调整表述；否则答案应为125/(6√6) cm³。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-009",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为“2”，但4的立方根是∛4，不是2。解析中写“4 的立方根为 2”错误，2³=8≠4。",
+      "independentAnswerZhHans": "∛4",
+      "answerCheckZhHans": "独立解题：由平方根性质得(3a-5)+(a+1)=0，解得a=1。平方根为-2和2，正数为4。4的立方根是∛4，不是2。标准答案错误。",
+      "recommendedActionZhHans": "修正答案为“∛4”或调整题干使正数为8。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-010",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2个",
+      "answerCheckZhHans": "标准答案为“2个”，与独立解题结果一致。选项互异，且只有③④是无理数。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-011",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2√3",
+      "answerCheckZhHans": "标准答案为“2√3”，与独立解题结果一致。acceptedAnswers 覆盖了常见写法。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-012",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为“棱长为 3∛3 cm，介于 4 和 5 之间”，但3∛3≈4.326，介于4和5之间正确；然而解析中写“3<∛81<5，即棱长在4和5之间”，但3∛3确实在4和5之间，答案本身正确。但解析中“3<∛81<5”应为“4<∛81<5”，因为∛81≈4.326。答案正确，解析有小误，但答案与解析结论一致。",
+      "independentAnswerZhHans": "棱长为 3∛3 cm，介于 4 和 5 之间。",
+      "answerCheckZhHans": "独立解题：a=∛81=3∛3，3∛3≈4.326，介于4和5之间。标准答案正确。解析中“3<∛81<5”不严谨，应为“4<∛81<5”，但未导致答案错误。",
+      "recommendedActionZhHans": "修正解析中的不等式为“4<∛81<5”。",
+      "confidence": "medium"
+    }
+  ]
+}

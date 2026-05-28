@@ -1,0 +1,570 @@
+{
+  "batchId": "batch-112",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p5-111",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "p5-upper-review",
+        "integrated-application",
+        "mathematical-activity",
+        "strategy-reflection",
+        "五年级上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "错因分析",
+        "整理知识",
+        "表达理由"
+      ],
+      "misconceptionTags": [
+        "formula selected before concept identification",
+        "multi-step work not checked",
+        "review treated as isolated drill rather than connected reasoning"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-final-topic-drill",
+        "bnu-primary-p5-lower-assessment-final-topic-drill"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小乐在整理五年级上册的错题时，发现一道小数除法题：计算 7.2 ÷ 0.18 时，他错误地先算了 7.2 ÷ 18 = 0.4，然后说结果是 0.4。请你指出他错在哪里，并写出正确的计算过程和结果。",
+      "optionsZhHans": [],
+      "answer": "他错误地把除数0.18当成18来计算，没有将除数转化为整数时被除数也扩大相同的倍数。正确过程：7.2 ÷ 0.18 = (7.2 × 100) ÷ (0.18 × 100) = 720 ÷ 18 = 40。",
+      "acceptedAnswers": [
+        "他错误地把除数0.18当成18来计算，没有将除数转化为整数时被除数也扩大相同的倍数。正确过程：7.2 ÷ 0.18 = (7.2 × 100) ÷ (0.18 × 100) = 720 ÷ 18 = 40。"
+      ],
+      "explanationZhHans": "错因是没根据商不变规律同时扩大被除数和除数。正确做法：除数0.18乘100变18，被除数7.2也乘100变720，720÷18=40。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-112",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "p5-upper-review",
+        "integrated-application",
+        "mathematical-activity",
+        "strategy-reflection",
+        "五年级上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "错因分析",
+        "整理知识",
+        "表达理由"
+      ],
+      "misconceptionTags": [
+        "formula selected before concept identification",
+        "multi-step work not checked",
+        "review treated as isolated drill rather than connected reasoning"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-final-topic-drill",
+        "bnu-primary-p5-lower-assessment-final-topic-drill"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面计算 3.6 ÷ 0.24 的方法中，正确的是（ ）。",
+      "optionsZhHans": [
+        "3.6 ÷ 0.24 = (3.6 × 10) ÷ (0.24 × 10) = 36 ÷ 2.4 = 15",
+        "3.6 ÷ 0.24 = (3.6 × 100) ÷ (0.24 × 100) = 360 ÷ 24 = 15",
+        "3.6 ÷ 0.24 = (3.6 ÷ 100) ÷ (0.24 ÷ 100) = 0.036 ÷ 0.0024 = 15",
+        "3.6 ÷ 0.24 = (3.6 × 1000) ÷ (0.24 × 1000) = 3600 ÷ 240 = 15"
+      ],
+      "answer": "3.6 ÷ 0.24 = (3.6 × 100) ÷ (0.24 × 100) = 360 ÷ 24 = 15",
+      "acceptedAnswers": [
+        "3.6 ÷ 0.24 = (3.6 × 100) ÷ (0.24 × 100) = 360 ÷ 24 = 15"
+      ],
+      "explanationZhHans": "商不变规律要求被除数和除数扩大相同倍数。除数0.24有两位小数，应乘100变成整数24，被除数也乘100得360，360÷24=15。其他选项倍数不一致或缩小。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-113",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "p5-upper-review",
+        "integrated-application",
+        "mathematical-activity",
+        "strategy-reflection",
+        "五年级上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "错因分析",
+        "整理知识",
+        "表达理由"
+      ],
+      "misconceptionTags": [
+        "formula selected before concept identification",
+        "multi-step work not checked",
+        "review treated as isolated drill rather than connected reasoning"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-final-topic-drill",
+        "bnu-primary-p5-lower-assessment-final-topic-drill"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个三角形与一个平行四边形等底等高。已知平行四边形的面积是 48 平方厘米，那么三角形的面积是（ ）平方厘米。",
+      "optionsZhHans": [],
+      "answer": "24",
+      "acceptedAnswers": [
+        "24"
+      ],
+      "explanationZhHans": "等底等高的三角形面积是平行四边形面积的一半。48 ÷ 2 = 24平方厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-114",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "p5-upper-review",
+        "integrated-application",
+        "mathematical-activity",
+        "strategy-reflection",
+        "五年级上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "错因分析",
+        "整理知识",
+        "表达理由"
+      ],
+      "misconceptionTags": [
+        "formula selected before concept identification",
+        "multi-step work not checked",
+        "review treated as isolated drill rather than connected reasoning"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-final-topic-drill",
+        "bnu-primary-p5-lower-assessment-final-topic-drill"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明在复习“多边形的面积”时，画了一个梯形，上底 4 厘米，下底 10 厘米，高 5 厘米。他计算面积时列式为 (4+10)×5÷2，但算出的结果是 70 平方厘米。请你帮他分析错误原因，并写出正确的面积。",
+      "optionsZhHans": [],
+      "answer": "他忘记除以2了，梯形面积公式是(上底+下底)×高÷2，他可能只算了(4+10)×5=70。正确面积：(4+10)×5÷2=35平方厘米。",
+      "acceptedAnswers": [
+        "他忘记除以2了，梯形面积公式是(上底+下底)×高÷2，他可能只算了(4+10)×5=70。正确面积：(4+10)×5÷2=35平方厘米。"
+      ],
+      "explanationZhHans": "梯形面积=(上底+下底)×高÷2。小明漏掉除以2，得到70。正确计算：(4+10)×5÷2=14×5÷2=70÷2=35平方厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-115",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "p5-upper-review",
+        "integrated-application",
+        "mathematical-activity",
+        "strategy-reflection",
+        "五年级上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "错因分析",
+        "整理知识",
+        "表达理由"
+      ],
+      "misconceptionTags": [
+        "formula selected before concept identification",
+        "multi-step work not checked",
+        "review treated as isolated drill rather than connected reasoning"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-final-topic-drill",
+        "bnu-primary-p5-lower-assessment-final-topic-drill"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个图形有两条对称轴？（ ）",
+      "optionsZhHans": [
+        "长方形",
+        "等边三角形",
+        "正方形",
+        "等腰梯形"
+      ],
+      "answer": "长方形",
+      "acceptedAnswers": [
+        "长方形"
+      ],
+      "explanationZhHans": "长方形有两条对称轴（对边中点连线）。等边三角形有3条，正方形有4条，等腰梯形只有1条。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-116",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "p5-upper-review",
+        "integrated-application",
+        "mathematical-activity",
+        "strategy-reflection",
+        "五年级上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "错因分析",
+        "整理知识",
+        "表达理由"
+      ],
+      "misconceptionTags": [
+        "formula selected before concept identification",
+        "multi-step work not checked",
+        "review treated as isolated drill rather than connected reasoning"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-final-topic-drill",
+        "bnu-primary-p5-lower-assessment-final-topic-drill"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个袋子里有红、黄、蓝三种颜色的球共 20 个，其中红球 5 个，黄球 8 个，其余是蓝球。任意摸出一个球，摸到蓝球的可能性是（ ）。（填分数）",
+      "optionsZhHans": [],
+      "answer": "7/20",
+      "acceptedAnswers": [
+        "7/20"
+      ],
+      "explanationZhHans": "蓝球个数：20-5-8=7个。总球数20，摸到蓝球的可能性是7/20。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-117",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "p5-upper-review",
+        "integrated-application",
+        "mathematical-activity",
+        "strategy-reflection",
+        "五年级上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "错因分析",
+        "整理知识",
+        "表达理由"
+      ],
+      "misconceptionTags": [
+        "formula selected before concept identification",
+        "multi-step work not checked",
+        "review treated as isolated drill rather than connected reasoning"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-final-topic-drill",
+        "bnu-primary-p5-lower-assessment-final-topic-drill"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校举行“数学好玩”活动，需要用彩带装饰展板。一根彩带长 3.6 米，剪成每段 0.4 米长的小段，可以剪成几段？如果每剪一次需要 2 分钟，剪完这根彩带一共需要多少分钟？",
+      "optionsZhHans": [],
+      "answer": "可以剪成9段；需要16分钟。",
+      "acceptedAnswers": [
+        "可以剪成9段；需要16分钟。"
+      ],
+      "explanationZhHans": "段数：3.6÷0.4=9段。剪的次数比段数少1，即8次，8×2=16分钟。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-118",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "p5-upper-review",
+        "integrated-application",
+        "mathematical-activity",
+        "strategy-reflection",
+        "五年级上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "错因分析",
+        "整理知识",
+        "表达理由"
+      ],
+      "misconceptionTags": [
+        "formula selected before concept identification",
+        "multi-step work not checked",
+        "review treated as isolated drill rather than connected reasoning"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-final-topic-drill",
+        "bnu-primary-p5-lower-assessment-final-topic-drill"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算 12.5 × 0.8 的结果是（ ）。",
+      "optionsZhHans": [
+        "1",
+        "10",
+        "100",
+        "0.1"
+      ],
+      "answer": "10",
+      "acceptedAnswers": [
+        "10"
+      ],
+      "explanationZhHans": "12.5×0.8=10。可以先算125×8=1000，因数共有两位小数，所以结果是10.00即10。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-119",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "p5-upper-review",
+        "integrated-application",
+        "mathematical-activity",
+        "strategy-reflection",
+        "五年级上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "错因分析",
+        "整理知识",
+        "表达理由"
+      ],
+      "misconceptionTags": [
+        "formula selected before concept identification",
+        "multi-step work not checked",
+        "review treated as isolated drill rather than connected reasoning"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-final-topic-drill",
+        "bnu-primary-p5-lower-assessment-final-topic-drill"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个平行四边形的底是 12 厘米，高是 8 厘米。如果底不变，高增加 2 厘米，面积增加（ ）平方厘米。",
+      "optionsZhHans": [],
+      "answer": "24",
+      "acceptedAnswers": [
+        "24"
+      ],
+      "explanationZhHans": "原面积：12×8=96平方厘米。新高10厘米，新面积12×10=120平方厘米。增加120-96=24平方厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-120",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "p5-upper-review",
+        "integrated-application",
+        "mathematical-activity",
+        "strategy-reflection",
+        "五年级上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "错因分析",
+        "整理知识",
+        "表达理由"
+      ],
+      "misconceptionTags": [
+        "formula selected before concept identification",
+        "multi-step work not checked",
+        "review treated as isolated drill rather than connected reasoning"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-final-topic-drill",
+        "bnu-primary-p5-lower-assessment-final-topic-drill"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在“总复习”中，老师让同学们用自己喜欢的方式整理“分数的意义”。小芳画了一个圆，把它平均分成 8 份，涂色部分占 3 份，用分数表示是 3/8。小刚画了一条线段，平均分成 5 份，取了其中的 2 份，用分数表示是 2/5。请你比较这两个分数的大小，并说明比较的方法。",
+      "optionsZhHans": [],
+      "answer": "3/8 < 2/5。比较方法：先通分，3/8=15/40，2/5=16/40，因为15/40<16/40，所以3/8<2/5。",
+      "acceptedAnswers": [
+        "3/8 < 2/5。比较方法：先通分，3/8=15/40，2/5=16/40，因为15/40<16/40，所以3/8<2/5。"
+      ],
+      "explanationZhHans": "异分母分数比较大小，先通分再比较分子。3/8=15/40，2/5=16/40，15<16，所以3/8<2/5。"
+    }
+  ]
+}

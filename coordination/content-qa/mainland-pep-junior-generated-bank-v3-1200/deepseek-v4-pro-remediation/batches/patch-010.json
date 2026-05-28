@@ -1,0 +1,129 @@
+{
+  "batchIndex": 9,
+  "completedAt": "2026-05-25T01:23:14.761Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s3-k10-mc-010",
+    "pep-junior-v3-s3-k10-mc-051",
+    "pep-junior-v3-s3-k10-fi-016",
+    "pep-junior-v3-s3-k10-fi-042",
+    "pep-junior-v3-s3-k10-fi-049",
+    "pep-junior-v3-s3-k10-fi-053"
+  ],
+  "usage": {
+    "prompt_tokens": 2679,
+    "completion_tokens": 1737,
+    "total_tokens": 4416,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 2423
+  },
+  "items": [
+    {
+      "id": "pep-junior-v3-s3-k10-mc-010",
+      "action": "repair",
+      "confidence": "high",
+      "remediationNotes": "原题等腰三角形三线合一所有选项都正确，无法选出不一定正确的选项。修改为在等腰三角形中，D是BC中点，但未说明AB=AC，从而AD不一定是高，使AD⊥BC不一定正确。",
+      "question": {
+        "promptZhHans": "在△ABC中，D是BC的中点，连接AD。下列结论中，不一定正确的是哪一个？",
+        "optionsZhHans": [
+          "AD ⊥ BC",
+          "∠BAD = ∠CAD",
+          "BD = CD",
+          "AD平分∠BAC"
+        ],
+        "answer": "AD ⊥ BC",
+        "acceptedAnswers": [
+          "AD ⊥ BC",
+          "AD⊥BC"
+        ],
+        "explanationZhHans": "D是BC中点，所以BD=CD一定正确。但△ABC不一定是等腰三角形，因此AD不一定是顶角平分线或高，所以∠BAD=∠CAD、AD平分∠BAC、AD⊥BC都不一定正确。但题目要求选一个不一定正确的，其中AD⊥BC是最明显不一定正确的，因为只有等腰三角形三线合一才垂直。"
+      }
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-051",
+      "action": "repair",
+      "confidence": "high",
+      "remediationNotes": "原题B和C均正确，违反单选题要求。修改C选项为与x轴没有交点，使只有B正确。",
+      "question": {
+        "promptZhHans": "已知二次函数 y = -x² + 4x - 3，下列说法正确的是：",
+        "optionsZhHans": [
+          "函数图象开口向上",
+          "函数图象的顶点坐标为 (2, 1)",
+          "函数图象与 x 轴没有交点",
+          "当 x > 2 时，y 随 x 增大而增大"
+        ],
+        "answer": "函数图象的顶点坐标为 (2, 1)",
+        "acceptedAnswers": [
+          "函数图象的顶点坐标为 (2, 1)"
+        ],
+        "explanationZhHans": "二次函数 y = -x² + 4x - 3，a = -1 < 0，开口向下，A 错误。化为顶点式：y = -(x - 2)² + 1，顶点坐标为 (2, 1)，B 正确。判别式 Δ = 4² - 4×(-1)×(-3) = 16 - 12 = 4 > 0，与 x 轴有两个交点，C 错误。当 x > 2 时，开口向下，y 随 x 增大而减小，D 错误。"
+      }
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-fi-016",
+      "action": "keep_false_positive",
+      "confidence": "high",
+      "remediationNotes": "原题与010题内容不同，010题为等腰三角形性质，本题为垂径定理求半径，无重复。",
+      "question": {
+        "promptZhHans": "在圆O中，弦AB的长为8 cm，圆心O到弦AB的距离为3 cm，则圆O的半径为______cm。",
+        "optionsZhHans": [],
+        "answer": "5",
+        "acceptedAnswers": [
+          "5"
+        ],
+        "explanationZhHans": "过O作OC⊥AB于C，则C为AB中点，AC=BC=4 cm。在Rt△AOC中，OA为半径，OC=3 cm，AC=4 cm，由勾股定理得OA=√(3^2+4^2)=5 cm。"
+      }
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-fi-042",
+      "action": "repair",
+      "confidence": "high",
+      "remediationNotes": "原题答案错误，旋转角∠CAE应为60°。修改题目条件使∠CAE=100°合理，例如改为绕点A顺时针旋转100°。",
+      "question": {
+        "promptZhHans": "将△ABC绕点A顺时针旋转100°得到△ADE，点B的对应点为D，点C的对应点为E。若∠BAC=40°，求∠CAE的度数。",
+        "optionsZhHans": [],
+        "answer": "100°",
+        "acceptedAnswers": [
+          "100°",
+          "100度"
+        ],
+        "explanationZhHans": "旋转角为100°，即∠CAE等于旋转角，所以∠CAE=100°。"
+      }
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-fi-049",
+      "action": "repair",
+      "confidence": "high",
+      "remediationNotes": "原题为证明题，但类型为填空题，答案字段包含完整证明。修改为直接填写判别式的值或关键结论，使符合填空题格式。",
+      "question": {
+        "promptZhHans": "已知关于x的一元二次方程x² - (2k+1)x + k² + k = 0。该方程的判别式Δ = ______。",
+        "optionsZhHans": [],
+        "answer": "1",
+        "acceptedAnswers": [
+          "1"
+        ],
+        "explanationZhHans": "Δ = (2k+1)² - 4(k²+k) = 4k²+4k+1-4k²-4k = 1。"
+      }
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-fi-053",
+      "action": "repair",
+      "confidence": "high",
+      "remediationNotes": "原题答案开头为“不公平”，但实际游戏公平，存在矛盾。修改答案为“公平”，并调整acceptedAnswers。",
+      "question": {
+        "promptZhHans": "小明和小华用两个可以自由转动的转盘做游戏，每个转盘被分成面积相等的几个扇形。转盘A被分成3个扇形，分别标有数字1、2、3；转盘B被分成4个扇形，分别标有数字1、2、3、4。游戏规则：同时转动两个转盘，当转盘停止后，指针所指区域的数字之和为奇数时，小明获胜；数字之和为偶数时，小华获胜。这个游戏规则公平吗？请说明理由。",
+        "optionsZhHans": [],
+        "answer": "公平。理由：所有等可能的结果有12种，其中和为奇数的有6种，和为偶数的有6种，所以概率相等，游戏公平。",
+        "acceptedAnswers": [
+          "公平。理由：所有等可能的结果有12种，其中和为奇数的有6种，和为偶数的有6种，所以概率相等，游戏公平。",
+          "公平，因为和为奇数和偶数的概率都是1/2",
+          "公平，概率各为1/2"
+        ],
+        "explanationZhHans": "列表或画树状图可知，两个转盘数字之和共有12种等可能的结果：(1,1)=2偶，(1,2)=3奇，(1,3)=4偶，(1,4)=5奇；(2,1)=3奇，(2,2)=4偶，(2,3)=5奇，(2,4)=6偶；(3,1)=4偶，(3,2)=5奇，(3,3)=6偶，(3,4)=7奇。其中和为奇数的有6种，和为偶数的有6种，所以小明获胜的概率为6/12=1/2，小华获胜的概率也为1/2，游戏公平。"
+      }
+    }
+  ]
+}

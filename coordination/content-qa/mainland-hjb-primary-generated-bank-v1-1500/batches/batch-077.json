@@ -1,0 +1,302 @@
+{
+  "batchId": "batch-077",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p2-131",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-math-square-review",
+      "unitTitle": "二年级上册数学广场与整理复习",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "p2-upper-review",
+        "math-square-exploration",
+        "within-100-review",
+        "money-direction-multiplication-review",
+        "数学广场",
+        "复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "综合应用",
+        "规律观察",
+        "策略说明",
+        "错因检查",
+        "知识整理"
+      ],
+      "misconceptionTags": [
+        "operation chosen from surface words",
+        "unit and direction labels omitted",
+        "review treated as unrelated drill rather than model selection"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-math-square-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-math-square-review",
+        "hjb-primary-p2-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小乐在整理自己的错题本，他发现一道题：\"一盒巧克力有6颗，妈妈买了4盒，一共有多少颗？\"他原来写的算式是6+4=10（颗）。请你写出正确的算式和得数，并简单说一说小乐错在哪里。",
+      "optionsZhHans": [],
+      "answer": "6×4=24（颗），小乐把乘法问题当成了加法。",
+      "acceptedAnswers": [
+        "6×4=24（颗），小乐把乘法问题当成了加法。",
+        "6×4=24颗，小乐把乘法问题当成了加法。",
+        "6×4=24（颗），小乐错误地用了加法。",
+        "6×4=24颗，小乐错误地用了加法。"
+      ],
+      "explanationZhHans": "每盒6颗，4盒就是4个6，用乘法6×4=24（颗）。小乐看到“一共”就用了加法，没有根据数量关系选择正确运算。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-132",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-math-square-review",
+      "unitTitle": "二年级上册数学广场与整理复习",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "p2-upper-review",
+        "math-square-exploration",
+        "within-100-review",
+        "money-direction-multiplication-review",
+        "数学广场",
+        "复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "综合应用",
+        "规律观察",
+        "策略说明",
+        "错因检查",
+        "知识整理"
+      ],
+      "misconceptionTags": [
+        "operation chosen from surface words",
+        "unit and direction labels omitted",
+        "review treated as unrelated drill rather than model selection"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-math-square-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-math-square-review",
+        "hjb-primary-p2-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丁有35元，他想买一个28元的文具盒和一支6元的笔。他带的钱够吗？如果够，还剩多少元？如果不够，还差多少元？请列式解答。",
+      "optionsZhHans": [],
+      "answer": "够，还剩1元。",
+      "acceptedAnswers": [
+        "够，还剩1元。",
+        "够，还剩1元",
+        "够，剩下1元。",
+        "够，剩下1元"
+      ],
+      "explanationZhHans": "先算总价：28+6=34（元）。35>34，所以够。再算剩余：35-34=1（元）。注意单位是元，计算后要检查。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-133",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-math-square-review",
+      "unitTitle": "二年级上册数学广场与整理复习",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "p2-upper-review",
+        "math-square-exploration",
+        "within-100-review",
+        "money-direction-multiplication-review",
+        "数学广场",
+        "复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "综合应用",
+        "规律观察",
+        "策略说明",
+        "错因检查",
+        "知识整理"
+      ],
+      "misconceptionTags": [
+        "operation chosen from surface words",
+        "unit and direction labels omitted",
+        "review treated as unrelated drill rather than model selection"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-math-square-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-math-square-review",
+        "hjb-primary-p2-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪句话在描述方向时是正确的？",
+      "optionsZhHans": [
+        "学校在书店的东面。",
+        "书店在学校的东面，学校在书店的西面。",
+        "书店的东面是学校，学校的西面是书店。",
+        "学校在书店的东面，书店在学校的东面。"
+      ],
+      "answer": "书店在学校的东面，学校在书店的西面。",
+      "acceptedAnswers": [
+        "书店在学校的东面，学校在书店的西面。"
+      ],
+      "explanationZhHans": "方向是相对的，如果书店在学校的东面，那么学校就在书店的西面。其他选项要么缺少参照物，要么方向矛盾。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-134",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-math-square-review",
+      "unitTitle": "二年级上册数学广场与整理复习",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "p2-upper-review",
+        "math-square-exploration",
+        "within-100-review",
+        "money-direction-multiplication-review",
+        "数学广场",
+        "复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "综合应用",
+        "规律观察",
+        "策略说明",
+        "错因检查",
+        "知识整理"
+      ],
+      "misconceptionTags": [
+        "operation chosen from surface words",
+        "unit and direction labels omitted",
+        "review treated as unrelated drill rather than model selection"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-math-square-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-math-square-review",
+        "hjb-primary-p2-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把下面的加法算式改写成乘法算式：7+7+7+7+7=______。",
+      "optionsZhHans": [],
+      "answer": "7×5=35",
+      "acceptedAnswers": [
+        "7×5=35",
+        "7×5=35。",
+        "5×7=35",
+        "5×7=35。"
+      ],
+      "explanationZhHans": "5个7相加，写成乘法是7×5或5×7，结果都是35。注意乘法是求几个相同加数和的简便运算。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-135",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-math-square-review",
+      "unitTitle": "二年级上册数学广场与整理复习",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "p2-upper-review",
+        "math-square-exploration",
+        "within-100-review",
+        "money-direction-multiplication-review",
+        "数学广场",
+        "复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "综合应用",
+        "规律观察",
+        "策略说明",
+        "错因检查",
+        "知识整理"
+      ],
+      "misconceptionTags": [
+        "operation chosen from surface words",
+        "unit and direction labels omitted",
+        "review treated as unrelated drill rather than model selection"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-math-square-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-math-square-review",
+        "hjb-primary-p2-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "二（1）班同学参加兴趣小组的情况如下：绘画组12人，舞蹈组8人，科技组15人，书法组9人。请你把人数按从多到少的顺序排列，并回答：人数最多的组比人数最少的组多几人？",
+      "optionsZhHans": [],
+      "answer": "15>12>9>8，多7人。",
+      "acceptedAnswers": [
+        "15>12>9>8，多7人。",
+        "15>12>9>8，多7人",
+        "15人>12人>9人>8人，多7人。",
+        "15人>12人>9人>8人，多7人"
+      ],
+      "explanationZhHans": "先排序：科技组15人最多，舞蹈组8人最少。相差：15-8=7（人）。整理数据时要看清最大和最小值。"
+    }
+  ]
+}

@@ -1,0 +1,126 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-101",
+  "startedAt": "2026-05-28T02:58:52.138Z",
+  "completedAt": "2026-05-28T02:59:06.261Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-301",
+    "bnu-high-ds-v1-s5-302",
+    "bnu-high-ds-v1-s5-303",
+    "bnu-high-ds-v1-s5-304",
+    "bnu-high-ds-v1-s5-305",
+    "bnu-high-ds-v1-s5-306",
+    "bnu-high-ds-v1-s5-307",
+    "bnu-high-ds-v1-s5-308"
+  ],
+  "usage": {
+    "prompt_tokens": 11727,
+    "completion_tokens": 931,
+    "total_tokens": 12658,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 11343
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-301",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案A.195与独立解一致，解析正确使用补集法，无矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-302",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案65与独立解一致，解析分类清晰，计算正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-303",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案-160与独立解一致，解析通项正确，系数计算无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-304",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案A.30与独立解一致，解析分类讨论个位，计算正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-305",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案36与独立解一致，解析先分组后分配，计算正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-306",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案9与独立解一致，解析解方程正确，舍去负根。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-307",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案A.30与独立解一致，解析分类计算正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-308",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案24与独立解一致，解析通项正确，常数项计算无误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题存储答案、解析与Stage A独立解一致，无错误或矛盾。"
+    }
+  }
+}

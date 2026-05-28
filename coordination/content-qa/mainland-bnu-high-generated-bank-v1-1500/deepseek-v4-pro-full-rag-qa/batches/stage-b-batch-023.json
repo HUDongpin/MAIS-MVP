@@ -1,0 +1,130 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-023",
+  "startedAt": "2026-05-28T01:02:55.174Z",
+  "completedAt": "2026-05-28T01:03:10.229Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-177",
+    "bnu-high-ds-v1-s4-178",
+    "bnu-high-ds-v1-s4-179",
+    "bnu-high-ds-v1-s4-180",
+    "bnu-high-ds-v1-s4-181",
+    "bnu-high-ds-v1-s4-182",
+    "bnu-high-ds-v1-s4-183",
+    "bnu-high-ds-v1-s4-184"
+  ],
+  "usage": {
+    "prompt_tokens": 11206,
+    "completion_tokens": 968,
+    "total_tokens": 12174,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 10822
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-177",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案[100,100]与独立解x=100一致，解析正确推导出x=100。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-178",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案1与独立解一致，解析正确判断零点在(1,2)内。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-179",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案35与独立解35年一致，解析计算正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-180",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案6与独立解一致，解析推导正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-181",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案C与独立解一致，解析正确解释样本平均数是估计值。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-182",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "76.5",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案77.0错误，独立解为76.5；解析计算得76.5但最终给出77.0，自相矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-183",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案5.76与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-184",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案分层抽样与独立解B一致，解析正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第182题存储答案错误，应为76.5而非77.0，解析自相矛盾；其余题目均通过。"
+    }
+  }
+}

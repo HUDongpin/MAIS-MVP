@@ -1,0 +1,452 @@
+{
+  "batchId": "batch-142",
+  "generationMode": "batch-fallback",
+  "fallbackReason": "fill-missing-local",
+  "questions": [
+    {
+      "id": "hjb-high-ds-v2-s6-411",
+      "grade": "S6",
+      "topicId": "hjb-high-s6-函数-导数与不等式综合",
+      "topicTitleZhHans": "函数、导数与不等式综合",
+      "volume": "跨册综合复习",
+      "chapter": "跨册综合：函数与导数",
+      "conceptIds": [
+        "function-definition",
+        "domain-range",
+        "monotonicity",
+        "parity",
+        "function-zero",
+        "inverse-functions",
+        "derivatives",
+        "tangent-line",
+        "monotonicity-extrema",
+        "optimization"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-function-concepts-applications",
+        "hjb-high-selective-2-derivatives"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-function-concepts-applications-topic-review",
+        "hjb-high-compulsory-1-function-concepts-applications-unit-core",
+        "pep-high-exam-functions-parameters"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式1411：填空：已知 f(x)=12x+10，求 f(6)。",
+      "optionsZhHans": [],
+      "answer": "82",
+      "acceptedAnswers": [
+        "82"
+      ],
+      "explanationZhHans": "f(6)=12×6+10=82。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-412",
+      "grade": "S6",
+      "topicId": "hjb-high-s6-函数-导数与不等式综合",
+      "topicTitleZhHans": "函数、导数与不等式综合",
+      "volume": "跨册综合复习",
+      "chapter": "跨册综合：函数与导数",
+      "conceptIds": [
+        "function-definition",
+        "domain-range",
+        "monotonicity",
+        "parity",
+        "function-zero",
+        "inverse-functions",
+        "derivatives",
+        "tangent-line",
+        "monotonicity-extrema",
+        "optimization"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-function-concepts-applications",
+        "hjb-high-selective-2-derivatives"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-function-concepts-applications-topic-review",
+        "hjb-high-compulsory-1-function-concepts-applications-unit-core",
+        "pep-high-exam-functions-parameters"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式1412：选择：已知 f(x)=8x+8，求 f(7)。",
+      "optionsZhHans": [
+        "72",
+        "64",
+        "56",
+        "80"
+      ],
+      "answer": "64",
+      "acceptedAnswers": [
+        "64"
+      ],
+      "explanationZhHans": "f(7)=8×7+8=64。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-413",
+      "grade": "S6",
+      "topicId": "hjb-high-s6-函数-导数与不等式综合",
+      "topicTitleZhHans": "函数、导数与不等式综合",
+      "volume": "跨册综合复习",
+      "chapter": "跨册综合：函数与导数",
+      "conceptIds": [
+        "function-definition",
+        "domain-range",
+        "monotonicity",
+        "parity",
+        "function-zero",
+        "inverse-functions",
+        "derivatives",
+        "tangent-line",
+        "monotonicity-extrema",
+        "optimization"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-function-concepts-applications",
+        "hjb-high-selective-2-derivatives"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-function-concepts-applications-topic-review",
+        "hjb-high-compulsory-1-function-concepts-applications-unit-core",
+        "pep-high-exam-functions-parameters"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式1413：填空：已知 f(x)=3x+6，求 f(20)。",
+      "optionsZhHans": [],
+      "answer": "66",
+      "acceptedAnswers": [
+        "66"
+      ],
+      "explanationZhHans": "f(20)=3×20+6=66。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-414",
+      "grade": "S6",
+      "topicId": "hjb-high-s6-函数-导数与不等式综合",
+      "topicTitleZhHans": "函数、导数与不等式综合",
+      "volume": "跨册综合复习",
+      "chapter": "跨册综合：函数与导数",
+      "conceptIds": [
+        "function-definition",
+        "domain-range",
+        "monotonicity",
+        "parity",
+        "function-zero",
+        "inverse-functions",
+        "derivatives",
+        "tangent-line",
+        "monotonicity-extrema",
+        "optimization"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-function-concepts-applications",
+        "hjb-high-selective-2-derivatives"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-function-concepts-applications-topic-review",
+        "hjb-high-compulsory-1-function-concepts-applications-unit-core",
+        "pep-high-exam-functions-parameters"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式1414：选择：已知 f(x)=7x+12，求 f(19)。",
+      "optionsZhHans": [
+        "152",
+        "138",
+        "159",
+        "145"
+      ],
+      "answer": "145",
+      "acceptedAnswers": [
+        "145"
+      ],
+      "explanationZhHans": "f(19)=7×19+12=145。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-415",
+      "grade": "S6",
+      "topicId": "hjb-high-s6-函数-导数与不等式综合",
+      "topicTitleZhHans": "函数、导数与不等式综合",
+      "volume": "跨册综合复习",
+      "chapter": "跨册综合：函数与导数",
+      "conceptIds": [
+        "function-definition",
+        "domain-range",
+        "monotonicity",
+        "parity",
+        "function-zero",
+        "inverse-functions",
+        "derivatives",
+        "tangent-line",
+        "monotonicity-extrema",
+        "optimization"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-function-concepts-applications",
+        "hjb-high-selective-2-derivatives"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-function-concepts-applications-topic-review",
+        "hjb-high-compulsory-1-function-concepts-applications-unit-core",
+        "pep-high-exam-functions-parameters"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式1415：填空：已知 f(x)=11x+5，求 f(11)。",
+      "optionsZhHans": [],
+      "answer": "126",
+      "acceptedAnswers": [
+        "126"
+      ],
+      "explanationZhHans": "f(11)=11×11+5=126。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-416",
+      "grade": "S6",
+      "topicId": "hjb-high-s6-函数-导数与不等式综合",
+      "topicTitleZhHans": "函数、导数与不等式综合",
+      "volume": "跨册综合复习",
+      "chapter": "跨册综合：函数与导数",
+      "conceptIds": [
+        "function-definition",
+        "domain-range",
+        "monotonicity",
+        "parity",
+        "function-zero",
+        "inverse-functions",
+        "derivatives",
+        "tangent-line",
+        "monotonicity-extrema",
+        "optimization"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-function-concepts-applications",
+        "hjb-high-selective-2-derivatives"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-function-concepts-applications-topic-review",
+        "hjb-high-compulsory-1-function-concepts-applications-unit-core",
+        "pep-high-exam-functions-parameters"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式1416：选择：已知 f(x)=10x+11，求 f(11)。",
+      "optionsZhHans": [
+        "131",
+        "121",
+        "111",
+        "141"
+      ],
+      "answer": "121",
+      "acceptedAnswers": [
+        "121"
+      ],
+      "explanationZhHans": "f(11)=10×11+11=121。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-417",
+      "grade": "S6",
+      "topicId": "hjb-high-s6-函数-导数与不等式综合",
+      "topicTitleZhHans": "函数、导数与不等式综合",
+      "volume": "跨册综合复习",
+      "chapter": "跨册综合：函数与导数",
+      "conceptIds": [
+        "function-definition",
+        "domain-range",
+        "monotonicity",
+        "parity",
+        "function-zero",
+        "inverse-functions",
+        "derivatives",
+        "tangent-line",
+        "monotonicity-extrema",
+        "optimization"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-function-concepts-applications",
+        "hjb-high-selective-2-derivatives"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-function-concepts-applications-topic-review",
+        "hjb-high-compulsory-1-function-concepts-applications-unit-core",
+        "pep-high-exam-functions-parameters"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式1417：填空：已知 f(x)=11x+13，求 f(8)。",
+      "optionsZhHans": [],
+      "answer": "101",
+      "acceptedAnswers": [
+        "101"
+      ],
+      "explanationZhHans": "f(8)=11×8+13=101。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-418",
+      "grade": "S6",
+      "topicId": "hjb-high-s6-函数-导数与不等式综合",
+      "topicTitleZhHans": "函数、导数与不等式综合",
+      "volume": "跨册综合复习",
+      "chapter": "跨册综合：函数与导数",
+      "conceptIds": [
+        "function-definition",
+        "domain-range",
+        "monotonicity",
+        "parity",
+        "function-zero",
+        "inverse-functions",
+        "derivatives",
+        "tangent-line",
+        "monotonicity-extrema",
+        "optimization"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-function-concepts-applications",
+        "hjb-high-selective-2-derivatives"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-function-concepts-applications-topic-review",
+        "hjb-high-compulsory-1-function-concepts-applications-unit-core",
+        "pep-high-exam-functions-parameters"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式1418：选择：已知 f(x)=9x+10，求 f(15)。",
+      "optionsZhHans": [
+        "154",
+        "136",
+        "163",
+        "145"
+      ],
+      "answer": "145",
+      "acceptedAnswers": [
+        "145"
+      ],
+      "explanationZhHans": "f(15)=9×15+10=145。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-419",
+      "grade": "S6",
+      "topicId": "hjb-high-s6-函数-导数与不等式综合",
+      "topicTitleZhHans": "函数、导数与不等式综合",
+      "volume": "跨册综合复习",
+      "chapter": "跨册综合：函数与导数",
+      "conceptIds": [
+        "function-definition",
+        "domain-range",
+        "monotonicity",
+        "parity",
+        "function-zero",
+        "inverse-functions",
+        "derivatives",
+        "tangent-line",
+        "monotonicity-extrema",
+        "optimization"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-function-concepts-applications",
+        "hjb-high-selective-2-derivatives"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-function-concepts-applications-topic-review",
+        "hjb-high-compulsory-1-function-concepts-applications-unit-core",
+        "pep-high-exam-functions-parameters"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式1419：填空：已知 f(x)=11x+13，求 f(10)。",
+      "optionsZhHans": [],
+      "answer": "123",
+      "acceptedAnswers": [
+        "123"
+      ],
+      "explanationZhHans": "f(10)=11×10+13=123。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-420",
+      "grade": "S6",
+      "topicId": "hjb-high-s6-函数-导数与不等式综合",
+      "topicTitleZhHans": "函数、导数与不等式综合",
+      "volume": "跨册综合复习",
+      "chapter": "跨册综合：函数与导数",
+      "conceptIds": [
+        "function-definition",
+        "domain-range",
+        "monotonicity",
+        "parity",
+        "function-zero",
+        "inverse-functions",
+        "derivatives",
+        "tangent-line",
+        "monotonicity-extrema",
+        "optimization"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-function-concepts-applications",
+        "hjb-high-selective-2-derivatives"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-function-concepts-applications-topic-review",
+        "hjb-high-compulsory-1-function-concepts-applications-unit-core",
+        "pep-high-exam-functions-parameters"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式1420：选择：已知 f(x)=4x+1，求 f(17)。",
+      "optionsZhHans": [
+        "69",
+        "73",
+        "65",
+        "77"
+      ],
+      "answer": "69",
+      "acceptedAnswers": [
+        "69"
+      ],
+      "explanationZhHans": "f(17)=4×17+1=69。"
+    }
+  ]
+}

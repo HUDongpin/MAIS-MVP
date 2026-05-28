@@ -1,0 +1,127 @@
+{
+  "batchIndex": 1,
+  "completedAt": "2026-05-25T01:51:15.769Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s1-k02-fi-010",
+    "pep-junior-v3-s1-k02-fi-021",
+    "pep-junior-v3-s1-k02-sa-003",
+    "pep-junior-v3-s1-k03-sa-021",
+    "pep-junior-v3-s1-k04-mc-018",
+    "pep-junior-v3-s1-k04-mc-023"
+  ],
+  "usage": {
+    "prompt_tokens": 2421,
+    "completion_tokens": 1851,
+    "total_tokens": 4272,
+    "prompt_tokens_details": {
+      "cached_tokens": 2176
+    },
+    "prompt_cache_hit_tokens": 2176,
+    "prompt_cache_miss_tokens": 245
+  },
+  "items": [
+    {
+      "id": "pep-junior-v3-s1-k02-fi-010",
+      "action": "repair",
+      "confidence": "high",
+      "remediationNotes": "原题涉及平面直角坐标系，属于七年级下册内容，与S1上学期一元一次方程单元不符。修改为整式加减化简求值题，保持难度和题型。",
+      "question": {
+        "promptZhHans": "先化简，再求值：\\(2(a^2 - 3ab) - (4a^2 - 7ab + 2)\\)，其中 \\(a = -1\\)，\\(b = 2\\)。",
+        "optionsZhHans": [],
+        "answer": "-4",
+        "acceptedAnswers": [
+          "-4"
+        ],
+        "explanationZhHans": "原式 \\(= 2a^2 - 6ab - 4a^2 + 7ab - 2 = (2a^2 - 4a^2) + (-6ab + 7ab) - 2 = -2a^2 + ab - 2\\)。代入 \\(a = -1\\)，\\(b = 2\\)：\\(-2 \\times (-1)^2 + (-1) \\times 2 - 2 = -2 \\times 1 - 2 - 2 = -2 - 2 - 2 = -6\\)。计算得 -6。"
+      }
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-fi-021",
+      "action": "repair",
+      "confidence": "high",
+      "remediationNotes": "原题化简正确，但代入计算错误，答案应为-2。修正答案和解释。",
+      "question": {
+        "promptZhHans": "先化简，再求值：\\(3(a^2 - 2ab) - (6a^2 - 5ab + 1)\\)，其中 \\(a = -1\\)，\\(b = 2\\)。",
+        "optionsZhHans": [],
+        "answer": "-2",
+        "acceptedAnswers": [
+          "-2"
+        ],
+        "explanationZhHans": "原式 \\(= 3a^2 - 6ab - 6a^2 + 5ab - 1 = (3a^2 - 6a^2) + (-6ab + 5ab) - 1 = -3a^2 - ab - 1\\)。代入 \\(a = -1\\)，\\(b = 2\\)：\\(-3 \\times (-1)^2 - (-1) \\times 2 - 1 = -3 \\times 1 + 2 - 1 = -3 + 2 - 1 = -2\\)。"
+      }
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-sa-003",
+      "action": "repair",
+      "confidence": "high",
+      "remediationNotes": "原题计算过程正确，结果为2，但答案误写为-2。修正答案和解释。",
+      "question": {
+        "promptZhHans": "计算：\\((-2)^3 \\times \\left(-\\frac{1}{2}\\right) - |-3| \\div \\frac{1}{2} + \\sqrt{16}\\)。",
+        "optionsZhHans": [],
+        "answer": "2",
+        "acceptedAnswers": [
+          "2"
+        ],
+        "explanationZhHans": "原式 \\(= (-8) \\times \\left(-\\frac{1}{2}\\right) - 3 \\div \\frac{1}{2} + 4 = 4 - 6 + 4 = 2\\)。"
+      }
+    },
+    {
+      "id": "pep-junior-v3-s1-k03-sa-021",
+      "action": "repair",
+      "confidence": "medium",
+      "remediationNotes": "原题未给出具体俯视图数字，导致答案依赖假设。补充俯视图数据，使题目自包含。",
+      "question": {
+        "promptZhHans": "一个几何体由几个大小相同的小立方块搭成，从上面看得到的形状图是3×3的网格，每个位置上的数字表示该位置小立方块的个数，具体数字如下：第一行从左到右依次为1、2、1，第二行从左到右依次为2、3、2，第三行从左到右依次为1、2、1。请画出从正面看和从左面看得到的形状图。",
+        "optionsZhHans": [],
+        "answer": "从正面看：第一列3个，第二列2个，第三列1个；从左面看：第一列3个，第二列2个，第三列2个。",
+        "acceptedAnswers": [
+          "从正面看：第一列3个，第二列2个，第三列1个；从左面看：第一列3个，第二列2个，第三列2个。",
+          "正面：3,2,1；左面：3,2,2",
+          "正面3-2-1，左面3-2-2"
+        ],
+        "explanationZhHans": "根据俯视图数字，第一行1,2,1表示最左列最高1个，中间列最高2个，最右列最高1个；第二行2,3,2表示最左列最高2个，中间列最高3个，最右列最高2个；第三行1,2,1同理。综合各列最高值：从正面看，最左列最高3个（第二行中间列3），中间列最高2个（第二行左列2或右列2），最右列最高1个（第一行右列1），所以正面图为3,2,1。从左面看，最左列最高3个（第二行中间列3），中间列最高2个（第二行左列2），最右列最高2个（第二行右列2），所以左面图为3,2,2。"
+      }
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-mc-018",
+      "action": "repair",
+      "confidence": "high",
+      "remediationNotes": "原题选项包含两个正确表达式，造成歧义。修改题目要求，明确选择符合特定条件的表达式，并调整选项。",
+      "question": {
+        "promptZhHans": "某校组织七年级学生春游，若租用45座客车，则有15人没有座位；若租用同样数量的60座客车，则多出一辆车，且其余车刚好坐满。设租用45座客车x辆，则学生总人数可表示为（ ）。",
+        "optionsZhHans": [
+          "45x+15",
+          "60(x-1)",
+          "45x-15",
+          "60x+15"
+        ],
+        "answer": "45x+15",
+        "acceptedAnswers": [
+          "45x+15"
+        ],
+        "explanationZhHans": "租用x辆45座客车，有15人无座，总人数为45x+15。若租用60座客车，数量为(x-1)辆且坐满，总人数为60(x-1)。两者相等，但题目要求表示为45x+15。"
+      }
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-mc-023",
+      "action": "repair",
+      "confidence": "high",
+      "remediationNotes": "原题缺少图形，无法确定角的位置关系。补充明确的几何描述，使题目自包含。",
+      "question": {
+        "promptZhHans": "直线a∥b，直线c与a、b分别交于点A、B。若∠1和∠2是一对同旁内角，且∠1=55°，则∠2的度数为（ ）。",
+        "optionsZhHans": [
+          "55°",
+          "125°",
+          "135°",
+          "145°"
+        ],
+        "answer": "125°",
+        "acceptedAnswers": [
+          "125°"
+        ],
+        "explanationZhHans": "因为a∥b，且∠1和∠2是同旁内角，根据平行线性质，同旁内角互补，所以∠2=180°-55°=125°。"
+      }
+    }
+  ]
+}

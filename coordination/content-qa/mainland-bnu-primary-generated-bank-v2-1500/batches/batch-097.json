@@ -1,0 +1,586 @@
+{
+  "batchId": "batch-097",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p4-211",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-equations",
+      "unitTitle": "认识方程",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "equations-introduction",
+        "unknown-quantity",
+        "equality",
+        "认识方程",
+        "方程"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "用字母表示未知数",
+        "等量关系",
+        "列方程",
+        "解简单方程",
+        "检验"
+      ],
+      "misconceptionTags": [
+        "unknown chosen after equation writing",
+        "equals sign read as calculate-next only",
+        "solution not checked in the original context"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-equations-unit",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈买了5千克苹果，每千克苹果的价格是a元，她付给售货员50元，找回15元。下面哪个方程是正确的？",
+      "optionsZhHans": [
+        "5a + 15 = 50",
+        "5a = 50 + 15",
+        "50 - 5a = 15",
+        "5a - 15 = 50"
+      ],
+      "answer": "50 - 5a = 15",
+      "acceptedAnswers": [
+        "50 - 5a = 15"
+      ],
+      "explanationZhHans": "找回的钱等于付的钱减去花的钱。花的钱是5a元，所以50 - 5a = 15。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-212",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-equations",
+      "unitTitle": "认识方程",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "equations-introduction",
+        "unknown-quantity",
+        "equality",
+        "认识方程",
+        "方程"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "用字母表示未知数",
+        "等量关系",
+        "列方程",
+        "解简单方程",
+        "检验"
+      ],
+      "misconceptionTags": [
+        "unknown chosen after equation writing",
+        "equals sign read as calculate-next only",
+        "solution not checked in the original context"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-equations-unit",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方形的长是x厘米，宽是8厘米，周长是36厘米。根据等量关系列出方程。",
+      "optionsZhHans": [],
+      "answer": "2(x + 8) = 36",
+      "acceptedAnswers": [
+        "2(x + 8) = 36",
+        "2x + 16 = 36",
+        "(x + 8) × 2 = 36"
+      ],
+      "explanationZhHans": "长方形周长 = (长 + 宽) × 2，所以 (x + 8) × 2 = 36，即2(x + 8) = 36。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-213",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-equations",
+      "unitTitle": "认识方程",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "equations-introduction",
+        "unknown-quantity",
+        "equality",
+        "认识方程",
+        "方程"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "用字母表示未知数",
+        "等量关系",
+        "列方程",
+        "解简单方程",
+        "检验"
+      ],
+      "misconceptionTags": [
+        "unknown chosen after equation writing",
+        "equals sign read as calculate-next only",
+        "solution not checked in the original context"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-equations-unit",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "篮子里有鸡蛋和鸭蛋共30个，其中鸡蛋有y个，鸭蛋比鸡蛋少6个。下面哪个方程是正确的？",
+      "optionsZhHans": [
+        "y + (y - 6) = 30",
+        "y + 6 = 30",
+        "y - 6 = 30",
+        "2y + 6 = 30"
+      ],
+      "answer": "y + (y - 6) = 30",
+      "acceptedAnswers": [
+        "y + (y - 6) = 30"
+      ],
+      "explanationZhHans": "鸡蛋y个，鸭蛋比鸡蛋少6个，即(y - 6)个，总数为30，所以y + (y - 6) = 30。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-214",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-equations",
+      "unitTitle": "认识方程",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "equations-introduction",
+        "unknown-quantity",
+        "equality",
+        "认识方程",
+        "方程"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "用字母表示未知数",
+        "等量关系",
+        "列方程",
+        "解简单方程",
+        "检验"
+      ],
+      "misconceptionTags": [
+        "unknown chosen after equation writing",
+        "equals sign read as calculate-next only",
+        "solution not checked in the original context"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-equations-unit",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明今年m岁，爸爸的年龄是小明的4倍少3岁，爸爸今年37岁。根据等量关系列出方程。",
+      "optionsZhHans": [],
+      "answer": "4m - 3 = 37",
+      "acceptedAnswers": [
+        "4m - 3 = 37",
+        "4m = 37 + 3"
+      ],
+      "explanationZhHans": "爸爸年龄 = 小明年龄的4倍减3，即4m - 3 = 37。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-215",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-equations",
+      "unitTitle": "认识方程",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "equations-introduction",
+        "unknown-quantity",
+        "equality",
+        "认识方程",
+        "方程"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "用字母表示未知数",
+        "等量关系",
+        "列方程",
+        "解简单方程",
+        "检验"
+      ],
+      "misconceptionTags": [
+        "unknown chosen after equation writing",
+        "equals sign read as calculate-next only",
+        "solution not checked in the original context"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-equations-unit",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校买来一些篮球和足球，篮球每个65元，足球每个48元，共买了10个球，总价530元。设篮球买了x个，下面哪个方程是正确的？",
+      "optionsZhHans": [
+        "65x + 48(10 - x) = 530",
+        "65x + 48x = 530",
+        "65x + 48 = 530",
+        "65(10 - x) + 48x = 530"
+      ],
+      "answer": "65x + 48(10 - x) = 530",
+      "acceptedAnswers": [
+        "65x + 48(10 - x) = 530"
+      ],
+      "explanationZhHans": "篮球x个，足球(10 - x)个，总价65x + 48(10 - x) = 530。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-216",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-equations",
+      "unitTitle": "认识方程",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "equations-introduction",
+        "unknown-quantity",
+        "equality",
+        "认识方程",
+        "方程"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "用字母表示未知数",
+        "等量关系",
+        "列方程",
+        "解简单方程",
+        "检验"
+      ],
+      "misconceptionTags": [
+        "unknown chosen after equation writing",
+        "equals sign read as calculate-next only",
+        "solution not checked in the original context"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-equations-unit",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一本书有120页，小红已经看了n页，剩下的页数比已看的2倍少10页。根据等量关系列出方程。",
+      "optionsZhHans": [],
+      "answer": "120 - n = 2n - 10",
+      "acceptedAnswers": [
+        "120 - n = 2n - 10",
+        "2n - 10 = 120 - n"
+      ],
+      "explanationZhHans": "剩下的页数是120 - n，等于已看页数的2倍减10，即2n - 10，所以120 - n = 2n - 10。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-217",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-equations",
+      "unitTitle": "认识方程",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "equations-introduction",
+        "unknown-quantity",
+        "equality",
+        "认识方程",
+        "方程"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "用字母表示未知数",
+        "等量关系",
+        "列方程",
+        "解简单方程",
+        "检验"
+      ],
+      "misconceptionTags": [
+        "unknown chosen after equation writing",
+        "equals sign read as calculate-next only",
+        "solution not checked in the original context"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-equations-unit",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个等腰三角形的周长是24厘米，腰长是底边长的2倍。设底边长为x厘米，下面哪个方程是正确的？",
+      "optionsZhHans": [
+        "x + 2x + 2x = 24",
+        "x + 2x = 24",
+        "2x + 2x = 24",
+        "x + x + 2x = 24"
+      ],
+      "answer": "x + 2x + 2x = 24",
+      "acceptedAnswers": [
+        "x + 2x + 2x = 24"
+      ],
+      "explanationZhHans": "底边长x，腰长2x，周长 = 底边 + 腰 + 腰 = x + 2x + 2x = 24。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-218",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-equations",
+      "unitTitle": "认识方程",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "equations-introduction",
+        "unknown-quantity",
+        "equality",
+        "认识方程",
+        "方程"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "用字母表示未知数",
+        "等量关系",
+        "列方程",
+        "解简单方程",
+        "检验"
+      ],
+      "misconceptionTags": [
+        "unknown chosen after equation writing",
+        "equals sign read as calculate-next only",
+        "solution not checked in the original context"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-equations-unit",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "停车场有小汽车和三轮车共15辆，总共有55个轮子。设小汽车有a辆，根据等量关系列出方程。",
+      "optionsZhHans": [],
+      "answer": "4a + 3(15 - a) = 55",
+      "acceptedAnswers": [
+        "4a + 3(15 - a) = 55",
+        "4a + 45 - 3a = 55"
+      ],
+      "explanationZhHans": "小汽车a辆，三轮车(15 - a)辆，轮子总数4a + 3(15 - a) = 55。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-219",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-equations",
+      "unitTitle": "认识方程",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "equations-introduction",
+        "unknown-quantity",
+        "equality",
+        "认识方程",
+        "方程"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "用字母表示未知数",
+        "等量关系",
+        "列方程",
+        "解简单方程",
+        "检验"
+      ],
+      "misconceptionTags": [
+        "unknown chosen after equation writing",
+        "equals sign read as calculate-next only",
+        "solution not checked in the original context"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-equations-unit",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "姐姐和弟弟共有邮票96张，姐姐的邮票张数是弟弟的3倍。设弟弟有x张邮票，下面哪个方程是正确的？",
+      "optionsZhHans": [
+        "x + 3x = 96",
+        "x + 3 = 96",
+        "3x - x = 96",
+        "x + x + 3 = 96"
+      ],
+      "answer": "x + 3x = 96",
+      "acceptedAnswers": [
+        "x + 3x = 96"
+      ],
+      "explanationZhHans": "弟弟x张，姐姐3x张，总张数x + 3x = 96。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-220",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-equations",
+      "unitTitle": "认识方程",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "equations-introduction",
+        "unknown-quantity",
+        "equality",
+        "认识方程",
+        "方程"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "用字母表示未知数",
+        "等量关系",
+        "列方程",
+        "解简单方程",
+        "检验"
+      ],
+      "misconceptionTags": [
+        "unknown chosen after equation writing",
+        "equals sign read as calculate-next only",
+        "solution not checked in the original context"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-equations-unit",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一盒巧克力，平均分给5个小朋友，每人分得b块，还剩3块。这盒巧克力一共有38块。根据等量关系列出方程。",
+      "optionsZhHans": [],
+      "answer": "5b + 3 = 38",
+      "acceptedAnswers": [
+        "5b + 3 = 38",
+        "5b = 38 - 3"
+      ],
+      "explanationZhHans": "分掉的巧克力是5b块，加上剩下的3块等于总数38，所以5b + 3 = 38。"
+    }
+  ]
+}

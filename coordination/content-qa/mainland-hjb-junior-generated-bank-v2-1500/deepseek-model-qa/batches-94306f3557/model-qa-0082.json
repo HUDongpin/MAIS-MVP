@@ -1,0 +1,109 @@
+{
+  "batchId": "model-qa-0082",
+  "ids": [
+    "hjb-junior-ds-v2-s2-149",
+    "hjb-junior-ds-v2-s2-150",
+    "hjb-junior-ds-v2-s2-151",
+    "hjb-junior-ds-v2-s2-152",
+    "hjb-junior-ds-v2-s2-153",
+    "hjb-junior-ds-v2-s2-154",
+    "hjb-junior-ds-v2-s2-155",
+    "hjb-junior-ds-v2-s2-156"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-149",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3/2",
+      "answerCheckZhHans": "标准答案为3/2，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-150",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "第(2)问解析中由α^2+β^2=13得到k^2+2k+5=13，解得k=2或k=-4。但代入原方程检验：当k=-4时，方程为x^2 - (-1)x -6=0即x^2+x-6=0，两根为2和-3，平方和为4+9=13，符合；当k=2时，方程为x^2-5x+6=0，两根为2和3，平方和为4+9=13，符合。但解析中计算α^2+β^2=(k+3)^2-2(2k+2)=k^2+6k+9-4k-4=k^2+2k+5，正确。令其等于13得k^2+2k-8=0，解得k=2或k=-4。答案正确。然而，解析中写“解得m=1或m=-2”是笔误，应为k=2或k=-4。但答案部分写的是k=2或k=-4，与解析不一致。实际上解析最后一句写的是“解得m=1或m=-2”，但题目中变量是k，且前面都是k，这里突然出现m，明显错误。因此解析与答案矛盾，且解析有误。",
+      "independentAnswerZhHans": "k=2 或 k=-4",
+      "answerCheckZhHans": "标准答案为k=2或k=-4，与独立计算结果一致，但解析中错误地写成了m=1或m=-2，导致解析与答案不匹配。",
+      "recommendedActionZhHans": "修正解析中的变量错误，将“解得m=1或m=-2”改为“解得k=2或k=-4”。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-151",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2x² - 5x + 1 = 0",
+      "answerCheckZhHans": "标准答案为2x² - 5x + 1 = 0，与独立判断一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-152",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "12",
+      "answerCheckZhHans": "标准答案为12，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-153",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x₁ = 3, x₂ = 1/2",
+      "answerCheckZhHans": "标准答案为x₁ = 3, x₂ = 1/2，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-154",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "k < 1/4 且 k ≠ 0",
+      "answerCheckZhHans": "标准答案为k < 1/4 且 k ≠ 0，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-155",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "标准答案为3，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-156",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "第(2)问解析中由x1^2+x2^2=7得到2m^2+2m+1=7，即2m^2+2m-6=0，化简为m^2+m-3=0，解得m=1或m=-2。但m^2+m-3=0的根应为m=(-1±√13)/2，不是1和-2。代入原方程检验：当m=1时，方程为x^2-3x+2=0，两根为1和2，平方和为1+4=5≠7；当m=-2时，方程为x^2+3x+2=0，两根为-1和-2，平方和为1+4=5≠7。因此答案错误。正确解法：由2m^2+2m-6=0得m^2+m-3=0，解得m=(-1±√13)/2。",
+      "independentAnswerZhHans": "m=(-1+√13)/2 或 m=(-1-√13)/2",
+      "answerCheckZhHans": "标准答案为m=1或m=-2，但独立计算得到m=(-1±√13)/2，且代入验证不符合，故标准答案错误。",
+      "recommendedActionZhHans": "修正答案和解析，正确解出m的值。",
+      "confidence": "high"
+    }
+  ]
+}

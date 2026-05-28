@@ -1,0 +1,182 @@
+{
+  "batchNumber": 58,
+  "startedAt": "2026-05-27T17:39:03.542Z",
+  "completedAt": "2026-05-27T17:39:21.701Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s2-185",
+    "bnu-junior-ds-v1-s2-186",
+    "bnu-junior-ds-v1-s2-187",
+    "bnu-junior-ds-v1-s2-188",
+    "bnu-junior-ds-v1-s2-189",
+    "bnu-junior-ds-v1-s2-190",
+    "bnu-junior-ds-v1-s2-191",
+    "bnu-junior-ds-v1-s2-192",
+    "bnu-junior-ds-v1-s2-193",
+    "bnu-junior-ds-v1-s2-194",
+    "bnu-junior-ds-v1-s2-195",
+    "bnu-junior-ds-v1-s2-196"
+  ],
+  "usage": {
+    "prompt_tokens": 7918,
+    "completion_tokens": 1296,
+    "total_tokens": 9214,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 7406
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s2-185",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，方程组正确，解答无误，答案与解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-186",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": false,
+        "answerMatches": false,
+        "issueTags": [
+          "missing_condition",
+          "answer_mismatch"
+        ],
+        "correctedAnswer": null,
+        "rationale": "题目已明确给出每辆A型客车可载45人、B型客车可载30人，却要求求解实际载客量，条件与问题矛盾，无法求解。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-187",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程组正确，选项唯一且符合实际意义，答案与解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-188",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": null,
+        "rationale": "解为分数，但笔记本数量应为整数，不符合实际意义，答案与解释虽一致但题目本身存在逻辑缺陷。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-189",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程组正确，解答无误，答案与解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-190",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项唯一正确，答案与解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-191",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程组正确，解答无误，答案与解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-192",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "3",
+        "rationale": "答案应为3，但给出的答案是7，解释中计算过程得出a=3，答案与解释矛盾。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-193",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程组正确，选项唯一，答案与解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-194",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，解答正确，答案与解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-195",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程组正确，解答无误，答案与解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-196",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数据正确，中位数计算无误，选项唯一，答案与解释匹配。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 9,
+      "warn": 0,
+      "fail": 3,
+      "notes": "共12题，9题通过，3题不通过。不通过原因：186题条件矛盾无法求解；188题解为分数不符合实际意义；192题答案与解释矛盾。"
+    }
+  }
+}

@@ -1,0 +1,580 @@
+{
+  "batchId": "batch-096",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p4-201",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "observe-objects",
+        "spatial-visualization",
+        "views-of-solids",
+        "观察物体",
+        "视图"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "从不同方向观察",
+        "视图匹配",
+        "立体想象",
+        "还原物体",
+        "相对位置"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "front and side views interchanged",
+        "hidden cubes counted as visible"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-observe-objects-unit",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用4个同样的小正方体搭成一个立体图形。从正面看，看到的是横着排成一行的3个小正方形；从左面看，看到的是竖着排成一列的2个小正方形。下面哪种搭法符合要求？",
+      "optionsZhHans": [
+        "第一层放3个小正方体横着排成一排，第二层在中间那个的上面放1个小正方体。",
+        "第一层放2个小正方体横着排成一排，第二层在左边那个的上面放2个小正方体，第三层再在第二层左边那个的上面放1个小正方体。",
+        "第一层放3个小正方体横着排成一排，第二层在最左边那个的上面放1个小正方体。",
+        "第一层放2个小正方体横着排成一排，第二层在右边那个的上面放2个小正方体，第三层再在第二层右边那个的上面放1个小正方体。"
+      ],
+      "answer": "第一层放3个小正方体横着排成一排，第二层在最左边那个的上面放1个小正方体。",
+      "acceptedAnswers": [
+        "第一层放3个小正方体横着排成一排，第二层在最左边那个的上面放1个小正方体。"
+      ],
+      "explanationZhHans": "正面看到一行3个正方形，说明第一层至少有3个并排。左面看到一列2个正方形，说明从左边看最高有2层，且只有一列。选项C第一层3个，第二层在最左边上面放1个，从左面看就是左边一列2个，右边没有，符合要求。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-202",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "observe-objects",
+        "spatial-visualization",
+        "views-of-solids",
+        "观察物体",
+        "视图"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "从不同方向观察",
+        "视图匹配",
+        "立体想象",
+        "还原物体",
+        "相对位置"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "front and side views interchanged",
+        "hidden cubes counted as visible"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-observe-objects-unit",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个立体图形由5个同样的小正方体搭成。从上面看，看到的是“田”字形，即2行2列共4个小正方形；从正面看，看到的是下面一排2个小正方形，上面一排中间1个小正方形。这个立体图形一共有______个小正方体。",
+      "optionsZhHans": [],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5"
+      ],
+      "explanationZhHans": "从上面看是田字形，说明底层有4个小正方体排成2行2列。从正面看下面一排2个，上面一排中间1个，说明在底层前排中间位置的上方还有1个小正方体。所以总数为4+1=5个。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-203",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "observe-objects",
+        "spatial-visualization",
+        "views-of-solids",
+        "观察物体",
+        "视图"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "从不同方向观察",
+        "视图匹配",
+        "立体想象",
+        "还原物体",
+        "相对位置"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "front and side views interchanged",
+        "hidden cubes counted as visible"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-observe-objects-unit",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个立体图形由一些同样的小正方体搭成。从正面看，看到的是左右并排的2个小正方形；从右面看，看到的是上下并排的2个小正方形。这个立体图形最少由几个小正方体搭成？",
+      "optionsZhHans": [
+        "2个",
+        "3个",
+        "4个",
+        "5个"
+      ],
+      "answer": "2个",
+      "acceptedAnswers": [
+        "2个"
+      ],
+      "explanationZhHans": "从正面看左右并排2个，说明至少有2个在同一排。从右面看上下并排2个，说明从右边看有2层。最少情况是2个小正方体，一个在前，一个在后且叠在上面，这样正面看左右2个，右面看上下2个。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-204",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "observe-objects",
+        "spatial-visualization",
+        "views-of-solids",
+        "观察物体",
+        "视图"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "从不同方向观察",
+        "视图匹配",
+        "立体想象",
+        "还原物体",
+        "相对位置"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "front and side views interchanged",
+        "hidden cubes counted as visible"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-observe-objects-unit",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用4个同样的小正方体搭成一个立体图形。从正面看，看到的是横着排成一行的3个小正方形；从上面看，看到的是前后两行，前面一行3个小正方形，后面一行中间1个小正方形。这个立体图形中，第二层有______个小正方体。",
+      "optionsZhHans": [],
+      "answer": "1",
+      "acceptedAnswers": [
+        "1"
+      ],
+      "explanationZhHans": "从上面看，前面一行3个，后面一行中间1个，说明底层有4个小正方体。从正面看一行3个，说明第二层的小正方体只能放在底层中间位置的上方，否则正面会看到更多。所以第二层有1个小正方体。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-205",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "observe-objects",
+        "spatial-visualization",
+        "views-of-solids",
+        "观察物体",
+        "视图"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "从不同方向观察",
+        "视图匹配",
+        "立体想象",
+        "还原物体",
+        "相对位置"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "front and side views interchanged",
+        "hidden cubes counted as visible"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-observe-objects-unit",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个立体图形由一些同样的小正方体搭成。从正面看，看到的是下面一排3个小正方形，上面一排中间1个小正方形；从左面看，看到的是下面一排2个小正方形，上面一排左边1个小正方形。下面哪种描述符合这个立体图形？",
+      "optionsZhHans": [
+        "底层有3个小正方体排成一排，第二层中间放1个。",
+        "底层有4个小正方体排成2行2列，第二层左前方放1个。",
+        "底层有3个小正方体排成一排，第二层左边放1个。",
+        "底层有4个小正方体排成2行2列，第二层右后方放1个。"
+      ],
+      "answer": "底层有4个小正方体排成2行2列，第二层左前方放1个。",
+      "acceptedAnswers": [
+        "底层有4个小正方体排成2行2列，第二层左前方放1个。"
+      ],
+      "explanationZhHans": "从正面看下面一排3个，说明底层前排至少有3个。从左面看下面一排2个，说明底层左边一列至少有2个。综合可知底层是2行2列共4个。第二层在左前方，正面看中间，左面看左边，符合视图。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-206",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-equations",
+      "unitTitle": "认识方程",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "equations-introduction",
+        "unknown-quantity",
+        "equality",
+        "认识方程",
+        "方程"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "用字母表示未知数",
+        "等量关系",
+        "列方程",
+        "解简单方程",
+        "检验"
+      ],
+      "misconceptionTags": [
+        "unknown chosen after equation writing",
+        "equals sign read as calculate-next only",
+        "solution not checked in the original context"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-equations-unit",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校买来一些篮球和足球，篮球有15个，足球比篮球多8个。如果用字母x表示足球的个数，可以列出方程：x - ______ = 8。",
+      "optionsZhHans": [],
+      "answer": "15",
+      "acceptedAnswers": [
+        "15"
+      ],
+      "explanationZhHans": "足球比篮球多8个，即足球个数减去篮球个数等于8。篮球有15个，所以方程为x - 15 = 8。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-207",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-equations",
+      "unitTitle": "认识方程",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "equations-introduction",
+        "unknown-quantity",
+        "equality",
+        "认识方程",
+        "方程"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "用字母表示未知数",
+        "等量关系",
+        "列方程",
+        "解简单方程",
+        "检验"
+      ],
+      "misconceptionTags": [
+        "unknown chosen after equation writing",
+        "equals sign read as calculate-next only",
+        "solution not checked in the original context"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-equations-unit",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个式子是方程？",
+      "optionsZhHans": [
+        "3x + 5 > 14",
+        "7y - 2 = 19",
+        "8 + 4 × 2",
+        "6a + 3"
+      ],
+      "answer": "7y - 2 = 19",
+      "acceptedAnswers": [
+        "7y - 2 = 19"
+      ],
+      "explanationZhHans": "方程是含有未知数的等式。选项A是不等式，选项C和D不是等式，只有选项B是含有未知数y的等式，因此是方程。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-208",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-equations",
+      "unitTitle": "认识方程",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "equations-introduction",
+        "unknown-quantity",
+        "equality",
+        "认识方程",
+        "方程"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "用字母表示未知数",
+        "等量关系",
+        "列方程",
+        "解简单方程",
+        "检验"
+      ],
+      "misconceptionTags": [
+        "unknown chosen after equation writing",
+        "equals sign read as calculate-next only",
+        "solution not checked in the original context"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-equations-unit",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方形的周长是24厘米，长是8厘米。设宽为x厘米，可以列出方程：2×(8 + x) = 24。解这个方程，x = ______。",
+      "optionsZhHans": [],
+      "answer": "4",
+      "acceptedAnswers": [
+        "4"
+      ],
+      "explanationZhHans": "方程两边同时除以2得8 + x = 12，再两边同时减去8得x = 4。所以宽是4厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-209",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-equations",
+      "unitTitle": "认识方程",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "equations-introduction",
+        "unknown-quantity",
+        "equality",
+        "认识方程",
+        "方程"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "用字母表示未知数",
+        "等量关系",
+        "列方程",
+        "解简单方程",
+        "检验"
+      ],
+      "misconceptionTags": [
+        "unknown chosen after equation writing",
+        "equals sign read as calculate-next only",
+        "solution not checked in the original context"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-equations-unit",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明的年龄是a岁，爸爸的年龄是小明的4倍少3岁。爸爸今年37岁。下面哪个方程是正确的？",
+      "optionsZhHans": [
+        "4a + 3 = 37",
+        "4a - 3 = 37",
+        "a ÷ 4 - 3 = 37",
+        "4(a - 3) = 37"
+      ],
+      "answer": "4a - 3 = 37",
+      "acceptedAnswers": [
+        "4a - 3 = 37"
+      ],
+      "explanationZhHans": "爸爸年龄是小明的4倍少3岁，即4a - 3。已知爸爸37岁，所以方程为4a - 3 = 37。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-210",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-equations",
+      "unitTitle": "认识方程",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "equations-introduction",
+        "unknown-quantity",
+        "equality",
+        "认识方程",
+        "方程"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "用字母表示未知数",
+        "等量关系",
+        "列方程",
+        "解简单方程",
+        "检验"
+      ],
+      "misconceptionTags": [
+        "unknown chosen after equation writing",
+        "equals sign read as calculate-next only",
+        "solution not checked in the original context"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-equations-unit",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "解方程：5y + 12 = 47。y = ______。",
+      "optionsZhHans": [],
+      "answer": "7",
+      "acceptedAnswers": [
+        "7"
+      ],
+      "explanationZhHans": "方程两边同时减去12得5y = 35，再两边同时除以5得y = 7。"
+    }
+  ]
+}

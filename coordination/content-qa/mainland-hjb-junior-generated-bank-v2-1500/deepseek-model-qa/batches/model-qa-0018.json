@@ -1,0 +1,67 @@
+{
+  "batchId": "model-qa-0018",
+  "ids": [
+    "hjb-junior-ds-v2-s2-349",
+    "hjb-junior-ds-v2-s2-358",
+    "hjb-junior-ds-v2-s2-372",
+    "hjb-junior-ds-v2-s2-375",
+    "hjb-junior-ds-v2-s2-418"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-349",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(2, -4)",
+      "answerCheckZhHans": "标准答案 (2, -4) 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-358",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "第一象限",
+      "answerCheckZhHans": "标准答案 第一象限 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-372",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "6，点P和点Q在同一水平线上（纵坐标相同）",
+      "answerCheckZhHans": "标准答案与独立计算结果一致，acceptedAnswers 覆盖了标准答案及常见变体。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-375",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "点C的坐标为(3, -1)，点C到x轴的距离为1",
+      "answerCheckZhHans": "标准答案与独立计算结果一致，acceptedAnswers 覆盖了标准答案及常见变体。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-418",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "k=2，b=1",
+      "answerCheckZhHans": "标准答案 k=2，b=1 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,295 @@
+{
+  "batchId": "batch-176",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p4-126",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-review-integration",
+      "unitTitle": "四年级上册整理与提高",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "p4-upper-integration",
+        "large-number-review",
+        "fraction-review",
+        "operation-geometry-review",
+        "整理与提高"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "大数凑整",
+        "数射线上的分数",
+        "圆与角复习",
+        "估测",
+        "综合应用"
+      ],
+      "misconceptionTags": [
+        "model chosen by surface wording",
+        "rounding and exact calculation goals mixed",
+        "geometry labels used without checking the diagram"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-review-integration"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-review-integration",
+        "hjb-primary-p4-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆有藏书 384 592 本。请你把这个数分别用“四舍五入法”和“去尾法”凑整到万位，并写出两个结果。然后想一想：如果图书馆计划再购买一些新书，使藏书总数达到 40 万本，至少需要购买多少本？请写出你的计算过程。",
+      "optionsZhHans": [],
+      "answer": "四舍五入法：38万；去尾法：38万；至少需要购买 15 408 本。",
+      "acceptedAnswers": [
+        "四舍五入法：38万；去尾法：38万；至少需要购买 15 408 本。",
+        "四舍五入法：38万；去尾法：38万；至少需要购买15408本。",
+        "四舍五入法：38万，去尾法：38万，至少需要购买15408本。"
+      ],
+      "explanationZhHans": "384592 四舍五入到万位看千位 4，舍去得 38 万；去尾法直接舍去尾数也得 38 万。40 万 = 400000，400000 - 384592 = 15408，所以至少买 15408 本。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-127",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-review-integration",
+      "unitTitle": "四年级上册整理与提高",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "p4-upper-integration",
+        "large-number-review",
+        "fraction-review",
+        "operation-geometry-review",
+        "整理与提高"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "大数凑整",
+        "数射线上的分数",
+        "圆与角复习",
+        "估测",
+        "综合应用"
+      ],
+      "misconceptionTags": [
+        "model chosen by surface wording",
+        "rounding and exact calculation goals mixed",
+        "geometry labels used without checking the diagram"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-review-integration"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-review-integration",
+        "hjb-primary-p4-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在一条数射线上，点 A 表示 0，点 B 表示 1。把线段 AB 平均分成 10 份，从左往右第 3 个分点表示哪个分数？",
+      "optionsZhHans": [
+        "1/3",
+        "3/10",
+        "3/7",
+        "1/10"
+      ],
+      "answer": "3/10",
+      "acceptedAnswers": [
+        "3/10"
+      ],
+      "explanationZhHans": "把 0 到 1 平均分成 10 份，每份是 1/10。从左往右第 3 个分点表示 3 个 1/10，即 3/10。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-128",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-review-integration",
+      "unitTitle": "四年级上册整理与提高",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "p4-upper-integration",
+        "large-number-review",
+        "fraction-review",
+        "operation-geometry-review",
+        "整理与提高"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "大数凑整",
+        "数射线上的分数",
+        "圆与角复习",
+        "估测",
+        "综合应用"
+      ],
+      "misconceptionTags": [
+        "model chosen by surface wording",
+        "rounding and exact calculation goals mixed",
+        "geometry labels used without checking the diagram"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-review-integration"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-review-integration",
+        "hjb-primary-p4-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个数由 5 个百万、3 个万和 6 个千组成，这个数写作 ________。",
+      "optionsZhHans": [],
+      "answer": "5036000",
+      "acceptedAnswers": [
+        "5036000",
+        "5 036 000"
+      ],
+      "explanationZhHans": "5 个百万是 5000000，3 个万是 30000，6 个千是 6000，合起来是 5000000+30000+6000=5036000。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-129",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-review-integration",
+      "unitTitle": "四年级上册整理与提高",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "p4-upper-integration",
+        "large-number-review",
+        "fraction-review",
+        "operation-geometry-review",
+        "整理与提高"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "大数凑整",
+        "数射线上的分数",
+        "圆与角复习",
+        "估测",
+        "综合应用"
+      ],
+      "misconceptionTags": [
+        "model chosen by surface wording",
+        "rounding and exact calculation goals mixed",
+        "geometry labels used without checking the diagram"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-review-integration"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-review-integration",
+        "hjb-primary-p4-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丁丁用圆规画了一个圆，圆心是 O，半径是 3 厘米。他又在圆上取两点 A 和 B，连接 OA 和 OB，量得 ∠AOB = 60°。请问三角形 AOB 是什么三角形？请说明理由。",
+      "optionsZhHans": [],
+      "answer": "等边三角形。因为 OA = OB = 3 厘米，所以三角形 AOB 是等腰三角形，又因为 ∠AOB = 60°，所以三角形 AOB 是等边三角形。",
+      "acceptedAnswers": [
+        "等边三角形。因为 OA = OB = 3 厘米，所以三角形 AOB 是等腰三角形，又因为 ∠AOB = 60°，所以三角形 AOB 是等边三角形。",
+        "等边三角形。因为 OA=OB=3厘米，所以是等腰三角形，又因为顶角是60度，所以是等边三角形。",
+        "等边三角形。"
+      ],
+      "explanationZhHans": "OA 和 OB 都是半径，长度相等，所以三角形 AOB 是等腰三角形。顶角 ∠AOB = 60°，那么底角也是 60°，因此是等边三角形。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-130",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-review-integration",
+      "unitTitle": "四年级上册整理与提高",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "p4-upper-integration",
+        "large-number-review",
+        "fraction-review",
+        "operation-geometry-review",
+        "整理与提高"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "大数凑整",
+        "数射线上的分数",
+        "圆与角复习",
+        "估测",
+        "综合应用"
+      ],
+      "misconceptionTags": [
+        "model chosen by surface wording",
+        "rounding and exact calculation goals mixed",
+        "geometry labels used without checking the diagram"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-review-integration"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-review-integration",
+        "hjb-primary-p4-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小胖在计算 125 × 24 时，想到了两种不同的方法。方法一：125 × 24 = 125 × 8 × 3 = 1000 × 3 = 3000。方法二：125 × 24 = 125 × (20 + 4) = 125 × 20 + 125 × 4 = 2500 + 500 = 3000。这两种方法分别运用了什么运算定律？",
+      "optionsZhHans": [
+        "方法一运用了乘法结合律，方法二运用了乘法分配律",
+        "方法一运用了乘法分配律，方法二运用了乘法结合律",
+        "两种方法都运用了乘法结合律",
+        "两种方法都运用了乘法分配律"
+      ],
+      "answer": "方法一运用了乘法结合律，方法二运用了乘法分配律",
+      "acceptedAnswers": [
+        "方法一运用了乘法结合律，方法二运用了乘法分配律"
+      ],
+      "explanationZhHans": "方法一把 24 拆成 8×3，先算 125×8 再乘 3，是乘法结合律。方法二把 24 拆成 20+4，分别乘 125 再相加，是乘法分配律。"
+    }
+  ]
+}

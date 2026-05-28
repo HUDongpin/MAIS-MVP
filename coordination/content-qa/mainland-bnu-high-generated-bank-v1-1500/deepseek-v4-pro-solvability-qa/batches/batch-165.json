@@ -1,0 +1,137 @@
+{
+  "batchNumber": 165,
+  "startedAt": "2026-05-27T14:11:56.706Z",
+  "completedAt": "2026-05-27T14:12:13.888Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-313",
+    "bnu-high-ds-v1-s6-314",
+    "bnu-high-ds-v1-s6-315",
+    "bnu-high-ds-v1-s6-316",
+    "bnu-high-ds-v1-s6-317",
+    "bnu-high-ds-v1-s6-318",
+    "bnu-high-ds-v1-s6-319",
+    "bnu-high-ds-v1-s6-320"
+  ],
+  "usage": {
+    "prompt_tokens": 10684,
+    "completion_tokens": 1179,
+    "total_tokens": 11863,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10172
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-313",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "[-1, 1]",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "可解，导数 f'(x)=3x^2-3，令 f'(x)≤0 得 -1≤x≤1，单调递减区间为 [-1,1]，选项 D 正确。解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-314",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "最大值为 10/3，最小值为 2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "可解，f'(x)=1-1/x^2，驻点 x=1，比较端点得最大值 10/3，最小值 2。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-315",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "0",
+        "correctedAnswer": "0",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "由 f(1)=2 得 a+b=0，f'(1)=0 得 3+2a+b=0，解得 a=-3, b=3，a+b=0。答案 -3 错误，解析自相矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-316",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "定义域 x>0，f'(x)=2x-2/x，驻点 x=1，极小值 f(1)=1。选项 B 正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-317",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "a ≤ 0",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=e^x-a≥0 恒成立，e^x>0，故 a≤0。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-318",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "1/e",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "y'=1/x，x=e 时斜率 1/e。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-319",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x^2-6x，驻点 0,2，极大值 f(0)=1。选项 A 正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-320",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "极大值为 4，极小值为 0",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x^2-3，驻点 ±1，极大值 4，极小值 0。答案与解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第315题答案错误，a+b应为0而非-3，解析自相矛盾，需修正。其余题目均通过审核。"
+    }
+  }
+}

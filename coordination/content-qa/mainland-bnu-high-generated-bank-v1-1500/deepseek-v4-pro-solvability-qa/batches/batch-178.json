@@ -1,0 +1,143 @@
+{
+  "batchNumber": 178,
+  "startedAt": "2026-05-27T14:13:47.772Z",
+  "completedAt": "2026-05-27T14:14:11.784Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-417",
+    "bnu-high-ds-v1-s6-418",
+    "bnu-high-ds-v1-s6-419",
+    "bnu-high-ds-v1-s6-420",
+    "bnu-high-ds-v1-s6-421",
+    "bnu-high-ds-v1-s6-422",
+    "bnu-high-ds-v1-s6-423",
+    "bnu-high-ds-v1-s6-424"
+  ],
+  "usage": {
+    "prompt_tokens": 12449,
+    "completion_tokens": 1566,
+    "total_tokens": 14015,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 11937
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-417",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "-1 或 1",
+        "correctedAnswer": "-1 或 1",
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_contradiction",
+          "accepted_answer_gap"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "区间长度为2，最小值为-2。f(x)=x³-3x，f'(x)=3x²-3，驻点x=±1。f(1)=-2，f(-1)=2。若区间包含x=1，则a≤1≤a+2，得-1≤a≤1，此时最小值可能为f(1)=-2，但需检查端点。当a=-1时区间[-1,1]，f(-1)=2，f(1)=-2，最小值-2；当a=1时区间[1,3]，f(1)=-2，f(3)=18，最小值-2。故a=-1或1。题目仅给出a=-1，遗漏a=1，答案不完整。解析仅讨论包含x=1的情况，未考虑a=1，且错误认为只有a=-1符合。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-418",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x²-6x=3x(x-2)，驻点0,2。f''(x)=6x-6，f''(0)=-6<0，极大值f(0)=1。选项唯一，答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-419",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "长为6 m，宽为3 m，最大面积为18 m²",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "设宽x，长12-2x，面积S=x(12-2x)，0<x<6。S'=12-4x，驻点x=3，S(3)=18，端点S(0)=S(6)=0，最大面积18。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-420",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x²-6x-9=3(x-3)(x+1)，驻点-1,3。f''(x)=6x-6，f''(3)=12>0，极小值点x=3。答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-421",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "无正确选项",
+        "correctedAnswer": "a=5",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "bad_options",
+          "explanation_contradiction",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "f(x)=x³-3x²+a，f'(x)=3x²-6x，驻点0,2。在[-1,3]上，f(-1)=a-4，f(0)=a，f(2)=a-4，f(3)=a。最大值为a，令a=5得a=5，但选项无5。若最大值为a-4=5，则a=9，亦无。题目条件与选项矛盾，无法选出正确选项。解析中自行将最大值改为2以匹配选项，但题目仍为5，属于题目错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-422",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(-1, 3)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x²-6x-9=3(x-3)(x+1)，令f'(x)<0得-1<x<3。答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-423",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "y = -x + 1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "y'=3x²-4x，k=y'(1)=-1，切线y-0=-1(x-1)，即y=-x+1。答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-424",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x²-3，驻点±1。f(-2)=-2，f(-1)=2，f(1)=-2，f(2)=2，最大值2。选项唯一，答案正确，解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 0,
+      "fail": 2,
+      "notes": "417题答案不完整，遗漏a=1；421题条件与选项矛盾，无法求解，题目错误。其余题目通过。"
+    }
+  }
+}

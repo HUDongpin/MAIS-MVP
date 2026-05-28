@@ -1,0 +1,168 @@
+{
+  "scope": "full",
+  "batchIndex": 71,
+  "startedAt": "2026-05-28T03:58:54.841Z",
+  "completedAt": "2026-05-28T03:59:31.785Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "itemIds": [
+    "1275",
+    "1276",
+    "1277",
+    "1278",
+    "1759",
+    "1760",
+    "1761",
+    "1762",
+    "1763",
+    "1764"
+  ],
+  "usage": {
+    "prompt_tokens": 2767,
+    "completion_tokens": 2485,
+    "total_tokens": 5252,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1603
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2383
+  },
+  "finishReason": "stop",
+  "jsonModeFallback": false,
+  "result": {
+    "items": [
+      {
+        "questionId": "1275",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "\\[\n120 = 2^3 \\times 3^1 \\times 5^1 \n\\]",
+        "independentAnswer": "120 = 2^3 × 3 × 5",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "题目明确，答案正确。",
+        "recommendedAction": "None"
+      },
+      {
+        "questionId": "1276",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "H.C.F. = 9\nL.C.M. = 108",
+        "independentAnswer": "H.C.F. = 9, L.C.M. = 108",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "题目明确，答案正确。",
+        "recommendedAction": "None"
+      },
+      {
+        "questionId": "1277",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "32、48及64的H.C.F. 是16。\n32、48及64的L.C.M. 是192。",
+        "independentAnswer": "H.C.F. = 16, L.C.M. = 192",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "题目明确，答案正确。",
+        "recommendedAction": "None"
+      },
+      {
+        "questionId": "1278",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "\\[ \n150 = 2^1 \\times 3^1 \\times 5^2 \n\\]",
+        "independentAnswer": "150 = 2 × 3 × 5^2",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "题目明确，答案正确。",
+        "recommendedAction": "None"
+      },
+      {
+        "questionId": "1759",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "1248 能被 4 整除",
+        "independentAnswer": "1248 能被 4 整除",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "题目明确，答案正确。",
+        "recommendedAction": "None"
+      },
+      {
+        "questionId": "1760",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "378 能被 6 整除",
+        "independentAnswer": "378 能被 6 整除",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "题目明确，答案正确。",
+        "recommendedAction": "None"
+      },
+      {
+        "questionId": "1761",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "864 能被 8 整除",
+        "independentAnswer": "864 能被 8 整除",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "题目明确，答案正确。",
+        "recommendedAction": "None"
+      },
+      {
+        "questionId": "1762",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "729 能被 9 整除",
+        "independentAnswer": "729 能被 9 整除",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "题目明确，答案正确。",
+        "recommendedAction": "None"
+      },
+      {
+        "questionId": "1763",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "1236 能被 4 整除",
+        "independentAnswer": "1236 能被 4 整除",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "题目明确，答案正确。",
+        "recommendedAction": "None"
+      },
+      {
+        "questionId": "1764",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "252 能被 6 整除",
+        "independentAnswer": "252 能被 6 整除",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "题目明确，答案正确。",
+        "recommendedAction": "None"
+      }
+    ],
+    "batchSummary": {
+      "pass": 10,
+      "unsolvable": 0,
+      "ambiguous": 0,
+      "imageContextRequired": 0,
+      "answerMismatch": 0,
+      "missingAnswerKey": 0,
+      "notes": "All questions are solvable and answer keys match."
+    }
+  }
+}

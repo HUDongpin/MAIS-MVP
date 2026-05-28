@@ -1,0 +1,51 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-187",
+  "startedAt": "2026-05-28T01:43:27.645Z",
+  "completedAt": "2026-05-28T01:43:33.747Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-187"
+  ],
+  "usage": {
+    "prompt_tokens": 2641,
+    "completion_tokens": 336,
+    "total_tokens": 2977,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2257
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-187",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "independentAnswer": "b_n = 2n - 1",
+        "correctedAnswer": "b_n = 2n - 1",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction",
+          "ambiguous_mc",
+          "bad_options"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目递推关系 a_{n+1}=2a_n+3^n 与选项不匹配。正确推导得 b_n=3-2·(2/3)^{n-1}，不在选项中。若修改递推为 a_{n+1}=3a_n+2·3^n，则 b_n=2n-1，对应选项B。当前题目无正确选项，答案错误，解析自相矛盾，严重不可用。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目存在数学错误，递推关系与选项不匹配，无正确选项，答案和解析均错误，判定为阻断性问题。"
+    }
+  }
+}

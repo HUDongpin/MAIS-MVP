@@ -1,0 +1,191 @@
+{
+  "batchNumber": 61,
+  "startedAt": "2026-05-25T02:19:27.049Z",
+  "completedAt": "2026-05-25T02:19:48.840Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p5-081",
+    "hjb-primary-ds-v1-p5-082",
+    "hjb-primary-ds-v1-p5-083",
+    "hjb-primary-ds-v1-p5-084",
+    "hjb-primary-ds-v1-p5-085",
+    "hjb-primary-ds-v1-p5-086",
+    "hjb-primary-ds-v1-p5-087",
+    "hjb-primary-ds-v1-p5-088",
+    "hjb-primary-ds-v1-p5-089",
+    "hjb-primary-ds-v1-p5-090",
+    "hjb-primary-ds-v1-p5-091",
+    "hjb-primary-ds-v1-p5-092",
+    "hjb-primary-ds-v1-p5-093",
+    "hjb-primary-ds-v1-p5-094",
+    "hjb-primary-ds-v1-p5-095",
+    "hjb-primary-ds-v1-p5-096",
+    "hjb-primary-ds-v1-p5-097",
+    "hjb-primary-ds-v1-p5-098"
+  ],
+  "usage": {
+    "prompt_tokens": 3545,
+    "completion_tokens": 1309,
+    "total_tokens": 4854,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 3289
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p5-081",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，割补后面积不变，答案96平方厘米合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-082",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "三角形面积计算正确，选项30无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-083",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "梯形面积与最大平行四边形面积计算正确，剩余三角形面积8平方厘米无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-084",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "面积与产量计算正确，答案3200千克无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-085",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "梯形高计算正确，选项6分米无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-086",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平行四边形面积求高，再求三角形面积，梯形总面积60平方厘米正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-087",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "三角形高计算正确，答案7分米无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-088",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "等底等高三角形面积是平行四边形一半，18平方米正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-089",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "剪去最大平行四边形后剩余三角形面积12平方厘米正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-090",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "面积与产量计算正确，答案1440千克无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-091",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "等底等高三角形面积20平方厘米正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-092",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "梯形高计算正确，答案6厘米无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-093",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "面积与产量计算正确，答案1440千克无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-094",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "三角形高计算正确，选项8厘米无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-095",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "剪去最大平行四边形后剩余面积4平方分米正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-096",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均数计算正确，结论开放合理，答案覆盖多种表述。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-097",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均数计算正确，选项141下无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-098",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均数计算正确，解释合理，答案覆盖多种表述。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案匹配，无歧义或缺失条件，适合沪教版P5年级。"
+    }
+  }
+}

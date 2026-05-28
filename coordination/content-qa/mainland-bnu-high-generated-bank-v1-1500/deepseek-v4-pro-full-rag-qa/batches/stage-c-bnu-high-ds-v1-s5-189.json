@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-189",
+  "startedAt": "2026-05-28T02:55:29.558Z",
+  "completedAt": "2026-05-28T02:55:35.705Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-189"
+  ],
+  "usage": {
+    "prompt_tokens": 2143,
+    "completion_tokens": 298,
+    "total_tokens": 2441,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1759
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-189",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": null,
+        "correctedAnswer": null,
+        "issueTags": [
+          "unsolvable",
+          "missing_condition",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "点B在平面ABC上，到该平面的距离恒为0，与法向量求解无关。题目要求计算距离，但结果平凡，且法向量的附加条件（坐标均为正数、模为√3）无法唯一确定，导致题目无实际计算意义，不可解。解析中法向量求解过程与距离0无逻辑关联，存在矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目因点B在平面上导致距离恒为0，且法向量条件无法唯一确定，判定为不可解，答案虽为0但题目本身存在缺陷。"
+    }
+  }
+}

@@ -1,0 +1,589 @@
+{
+  "batchId": "batch-066",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p3-151",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-shape-motion",
+      "unitTitle": "图形的运动",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "shape-motion",
+        "translation-rotation-symmetry",
+        "spatial-transformation",
+        "图形运动",
+        "轴对称"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "平移",
+        "旋转",
+        "轴对称",
+        "方向距离描述",
+        "图形变换"
+      ],
+      "misconceptionTags": [
+        "translation and rotation language mixed",
+        "shape size treated as changing after motion",
+        "symmetry axis drawn from visual guess only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-shape-motion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-shape-motion-unit",
+        "bnu-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪句话描述的运动是平移？",
+      "optionsZhHans": [
+        "钟面上的指针从12走到3",
+        "电梯从1楼上升到5楼",
+        "风车被风吹动",
+        "拧开饮料瓶的瓶盖"
+      ],
+      "answer": "电梯从1楼上升到5楼",
+      "acceptedAnswers": [
+        "电梯从1楼上升到5楼"
+      ],
+      "explanationZhHans": "平移是物体沿直线移动，形状大小不变。电梯上升是沿直线运动，属于平移。指针转动、风车转动和拧瓶盖都是绕点旋转，属于旋转。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-152",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-shape-motion",
+      "unitTitle": "图形的运动",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "shape-motion",
+        "translation-rotation-symmetry",
+        "spatial-transformation",
+        "图形运动",
+        "轴对称"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "平移",
+        "旋转",
+        "轴对称",
+        "方向距离描述",
+        "图形变换"
+      ],
+      "misconceptionTags": [
+        "translation and rotation language mixed",
+        "shape size treated as changing after motion",
+        "symmetry axis drawn from visual guess only"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-shape-motion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-shape-motion-unit",
+        "bnu-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在方格纸上，一个三角形先向右平移5格，再向下平移3格。平移后，三角形的形状和大小与原来相比（    ）。",
+      "optionsZhHans": [],
+      "answer": "不变",
+      "acceptedAnswers": [
+        "不变",
+        "没有变化",
+        "完全相同"
+      ],
+      "explanationZhHans": "平移只改变图形的位置，不改变图形的形状和大小，所以平移后的三角形和原来完全一样。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-153",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-shape-motion",
+      "unitTitle": "图形的运动",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "shape-motion",
+        "translation-rotation-symmetry",
+        "spatial-transformation",
+        "图形运动",
+        "轴对称"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "平移",
+        "旋转",
+        "轴对称",
+        "方向距离描述",
+        "图形变换"
+      ],
+      "misconceptionTags": [
+        "translation and rotation language mixed",
+        "shape size treated as changing after motion",
+        "symmetry axis drawn from visual guess only"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-shape-motion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-shape-motion-unit",
+        "bnu-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在方格纸上，有一个三角形，三个顶点分别是A(2,3)、B(4,5)、C(6,3)。将这个三角形先向右平移5格，再向下平移2格。平移后，点A移动到了点A'。请写出点A'的位置，用数对表示。",
+      "optionsZhHans": [],
+      "answer": "(7,1)",
+      "acceptedAnswers": [
+        "(7,1)",
+        "7,1"
+      ],
+      "explanationZhHans": "点A(2,3)向右平移5格，列数加5，变为2+5=7；再向下平移2格，行数减2，变为3-2=1。所以A'的位置是(7,1)。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-154",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-shape-motion",
+      "unitTitle": "图形的运动",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "shape-motion",
+        "translation-rotation-symmetry",
+        "spatial-transformation",
+        "图形运动",
+        "轴对称"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "平移",
+        "旋转",
+        "轴对称",
+        "方向距离描述",
+        "图形变换"
+      ],
+      "misconceptionTags": [
+        "translation and rotation language mixed",
+        "shape size treated as changing after motion",
+        "symmetry axis drawn from visual guess only"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-shape-motion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-shape-motion-unit",
+        "bnu-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪种运动方式属于旋转？",
+      "optionsZhHans": [
+        "电梯上下移动",
+        "推拉门左右移动",
+        "风车叶片绕中心转动",
+        "国旗沿旗杆缓缓上升"
+      ],
+      "answer": "风车叶片绕中心转动",
+      "acceptedAnswers": [
+        "风车叶片绕中心转动"
+      ],
+      "explanationZhHans": "旋转是物体绕一个固定点或轴转动。风车叶片绕中心转动符合旋转特征；电梯、推拉门和国旗上升都是沿直线运动，属于平移。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-155",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-shape-motion",
+      "unitTitle": "图形的运动",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "shape-motion",
+        "translation-rotation-symmetry",
+        "spatial-transformation",
+        "图形运动",
+        "轴对称"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "平移",
+        "旋转",
+        "轴对称",
+        "方向距离描述",
+        "图形变换"
+      ],
+      "misconceptionTags": [
+        "translation and rotation language mixed",
+        "shape size treated as changing after motion",
+        "symmetry axis drawn from visual guess only"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-shape-motion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-shape-motion-unit",
+        "bnu-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在方格纸上，一个三角形三个顶点的位置分别是（2，3）、（4，3）、（3，5）。将这个三角形先向右平移5格，再向下平移2格。平移后，原来在（2，3）的顶点现在位于（ ， ）。",
+      "optionsZhHans": [],
+      "answer": "7,1",
+      "acceptedAnswers": [
+        "7,1",
+        "（7，1）",
+        "(7,1)"
+      ],
+      "explanationZhHans": "向右平移5格，列数加5：2+5=7；向下平移2格，行数减2：3-2=1。所以新位置是（7，1）。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-156",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-shape-motion",
+      "unitTitle": "图形的运动",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "shape-motion",
+        "translation-rotation-symmetry",
+        "spatial-transformation",
+        "图形运动",
+        "轴对称"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "平移",
+        "旋转",
+        "轴对称",
+        "方向距离描述",
+        "图形变换"
+      ],
+      "misconceptionTags": [
+        "translation and rotation language mixed",
+        "shape size treated as changing after motion",
+        "symmetry axis drawn from visual guess only"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-shape-motion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-shape-motion-unit",
+        "bnu-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在方格纸上，有一个三角形，三个顶点分别是A、B、C。现在将这个三角形先向右平移5格，再向下平移3格。平移后，原来的顶点A移动到了新位置A'。请问：平移前后，三角形的大小和形状是否发生了变化？平移过程中，从A到A'的运动属于平移还是旋转？请分别回答这两个问题。",
+      "optionsZhHans": [],
+      "answer": "大小和形状没有变化；平移",
+      "acceptedAnswers": [
+        "大小和形状没有变化；平移",
+        "没有变化；平移",
+        "大小和形状不变；平移",
+        "形状大小不变；平移"
+      ],
+      "explanationZhHans": "平移只改变图形的位置，不改变大小和形状。从A到A'是沿直线移动，方向不变，所以是平移。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-157",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-shape-motion",
+      "unitTitle": "图形的运动",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "shape-motion",
+        "translation-rotation-symmetry",
+        "spatial-transformation",
+        "图形运动",
+        "轴对称"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "平移",
+        "旋转",
+        "轴对称",
+        "方向距离描述",
+        "图形变换"
+      ],
+      "misconceptionTags": [
+        "translation and rotation language mixed",
+        "shape size treated as changing after motion",
+        "symmetry axis drawn from visual guess only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-shape-motion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-shape-motion-unit",
+        "bnu-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在方格纸上，有一个三角形，它的三个顶点分别是A(2,3)、B(4,3)、C(3,5)。将这个三角形先向右平移5格，再向下平移2格。平移后，点A的对应点A'的位置是（ ）。",
+      "optionsZhHans": [
+        "A. (7,1)",
+        "B. (7,5)",
+        "C. (3,1)",
+        "D. (3,5)"
+      ],
+      "answer": "A. (7,1)",
+      "acceptedAnswers": [
+        "A. (7,1)"
+      ],
+      "explanationZhHans": "点A(2,3)向右平移5格，列数加5，变为(7,3)；再向下平移2格，行数减2，变为(7,1)。所以A'的位置是(7,1)。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-158",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-shape-motion",
+      "unitTitle": "图形的运动",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "shape-motion",
+        "translation-rotation-symmetry",
+        "spatial-transformation",
+        "图形运动",
+        "轴对称"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "平移",
+        "旋转",
+        "轴对称",
+        "方向距离描述",
+        "图形变换"
+      ],
+      "misconceptionTags": [
+        "translation and rotation language mixed",
+        "shape size treated as changing after motion",
+        "symmetry axis drawn from visual guess only"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-shape-motion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-shape-motion-unit",
+        "bnu-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪些运动是平移？哪些是旋转？连一连。\n① 电梯上下移动\n② 风车转动\n③ 推拉窗左右移动\n④ 钟摆摆动\n⑤ 火车在笔直轨道上行驶\n⑥ 方向盘转动",
+      "optionsZhHans": [],
+      "answer": "平移：①、③、⑤；旋转：②、④、⑥",
+      "acceptedAnswers": [
+        "平移：①、③、⑤；旋转：②、④、⑥",
+        "平移:①③⑤;旋转:②④⑥",
+        "平移：①③⑤，旋转：②④⑥",
+        "平移:①,③,⑤;旋转:②,④,⑥"
+      ],
+      "explanationZhHans": "平移是物体沿直线方向移动，形状、大小和方向都不变。①电梯上下、③推拉窗左右、⑤火车直行都是平移。旋转是物体绕一个点或轴转动，方向改变。②风车、④钟摆、⑥方向盘都是旋转。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-159",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-shape-motion",
+      "unitTitle": "图形的运动",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "shape-motion",
+        "translation-rotation-symmetry",
+        "spatial-transformation",
+        "图形运动",
+        "轴对称"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "平移",
+        "旋转",
+        "轴对称",
+        "方向距离描述",
+        "图形变换"
+      ],
+      "misconceptionTags": [
+        "translation and rotation language mixed",
+        "shape size treated as changing after motion",
+        "symmetry axis drawn from visual guess only"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-shape-motion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-shape-motion-unit",
+        "bnu-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在一张方格纸上，有一个三角形，它的三个顶点分别是A、B、C。现在将这个三角形向右平移4格，再向下平移2格，得到新的三角形A'B'C'。请问：平移后，三角形A'B'C'的形状和大小与原来的三角形ABC相比，有什么变化？",
+      "optionsZhHans": [],
+      "answer": "形状和大小都不变",
+      "acceptedAnswers": [
+        "形状和大小都不变",
+        "形状不变，大小不变",
+        "没有变化",
+        "不变"
+      ],
+      "explanationZhHans": "平移只改变图形的位置，不改变图形的形状和大小。所以平移后的三角形和原来的三角形完全一样，只是位置移动了。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-160",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-shape-motion",
+      "unitTitle": "图形的运动",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "shape-motion",
+        "translation-rotation-symmetry",
+        "spatial-transformation",
+        "图形运动",
+        "轴对称"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "平移",
+        "旋转",
+        "轴对称",
+        "方向距离描述",
+        "图形变换"
+      ],
+      "misconceptionTags": [
+        "translation and rotation language mixed",
+        "shape size treated as changing after motion",
+        "symmetry axis drawn from visual guess only"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-shape-motion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-shape-motion-unit",
+        "bnu-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪种运动方式属于平移？",
+      "optionsZhHans": [
+        "A. 荡秋千",
+        "B. 推拉抽屉",
+        "C. 旋转木马",
+        "D. 翻书页"
+      ],
+      "answer": "B. 推拉抽屉",
+      "acceptedAnswers": [
+        "B. 推拉抽屉"
+      ],
+      "explanationZhHans": "平移是物体沿直线方向移动，形状和大小不变。推拉抽屉是沿直线移动，属于平移。荡秋千和旋转木马是旋转，翻书页是翻转。"
+    }
+  ]
+}

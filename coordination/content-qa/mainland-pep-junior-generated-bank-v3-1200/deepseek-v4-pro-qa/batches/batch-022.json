@@ -1,0 +1,137 @@
+{
+  "batchNumber": 22,
+  "startedAt": "2026-05-25T02:52:04.214Z",
+  "completedAt": "2026-05-25T02:52:18.226Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s1-k04-fi-019",
+    "pep-junior-v3-s1-k04-fi-020",
+    "pep-junior-v3-s1-k04-fi-021",
+    "pep-junior-v3-s1-k04-fi-022",
+    "pep-junior-v3-s1-k04-fi-023",
+    "pep-junior-v3-s1-k04-fi-024",
+    "pep-junior-v3-s1-k04-fi-025",
+    "pep-junior-v3-s1-k04-fi-026",
+    "pep-junior-v3-s1-k04-fi-027",
+    "pep-junior-v3-s1-k04-fi-028",
+    "pep-junior-v3-s1-k04-fi-029",
+    "pep-junior-v3-s1-k04-fi-030"
+  ],
+  "usage": {
+    "prompt_tokens": 3380,
+    "completion_tokens": 978,
+    "total_tokens": 4358,
+    "prompt_tokens_details": {
+      "cached_tokens": 3328
+    },
+    "prompt_cache_hit_tokens": 3328,
+    "prompt_cache_miss_tokens": 52
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s1-k04-fi-019",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "概率计算正确，答案与解释一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-fi-020",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "不等式推导正确，答案与解释一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-fi-021",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移坐标计算正确，答案与解释一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-fi-022",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "x轴上点的坐标及距离计算正确，答案与解释一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-fi-023",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平行线同旁内角互补计算正确，答案与解释一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-fi-024",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "中位数计算正确，答案与解释一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-fi-025",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平方根比较大小正确，答案与解释一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-fi-026",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移不改变线段长度，计算正确，答案与解释一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-fi-027",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移后坐标及象限判断正确，答案与解释一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-fi-028",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "总体定义正确，答案与解释一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-fi-029",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "第二象限点到坐标轴距离计算正确，答案与解释一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-fi-030",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "对顶角及角平分线计算正确，答案与解释一致，无歧义。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部12道题均通过审核，数学正确，答案与解释一致，无歧义或错误。"
+    }
+  }
+}

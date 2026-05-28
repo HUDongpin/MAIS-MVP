@@ -1,0 +1,347 @@
+{
+  "batchId": "model-qa-0072",
+  "ids": [
+    "hjb-high-ds-v1-s6-421",
+    "hjb-high-ds-v1-s6-422",
+    "hjb-high-ds-v1-s6-423",
+    "hjb-high-ds-v1-s6-424",
+    "hjb-high-ds-v1-s6-425",
+    "hjb-high-ds-v1-s6-426",
+    "hjb-high-ds-v1-s6-427",
+    "hjb-high-ds-v1-s6-428",
+    "hjb-high-ds-v1-s6-429",
+    "hjb-high-ds-v1-s6-430",
+    "hjb-high-ds-v1-s6-431",
+    "hjb-high-ds-v1-s6-432",
+    "hjb-high-ds-v1-s6-433",
+    "hjb-high-ds-v1-s6-434",
+    "hjb-high-ds-v1-s6-435",
+    "hjb-high-ds-v1-s6-436",
+    "hjb-high-ds-v1-s6-437",
+    "hjb-high-ds-v1-s6-438",
+    "hjb-high-ds-v1-s6-439",
+    "hjb-high-ds-v1-s6-440"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-high-ds-v1-s6-421",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题目中 AB·AC 在向量语境下通常表示点积，但解析和答案仅计算长度乘积，忽略了夹角。若按点积计算，应为 7×20×cos60°=70，而非 140。题目条件包含角度，暗示点积运算。",
+      "independentAnswerZhHans": "70",
+      "answerCheckZhHans": "标准答案为 140，但正确点积应为 70。",
+      "recommendedActionZhHans": "需明确题目意图：若为长度乘积，应去掉角度条件；若为点积，答案应为 70。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v1-s6-422",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题目中 AB·AC 在向量语境下通常表示点积，但解析和答案仅计算长度乘积，忽略了夹角。若按点积计算，应为 4×17×cos60°=34，而非 68。题目条件包含角度，暗示点积运算。",
+      "independentAnswerZhHans": "34",
+      "answerCheckZhHans": "标准答案为 68，但正确点积应为 34。",
+      "recommendedActionZhHans": "需明确题目意图：若为长度乘积，应去掉角度条件；若为点积，答案应为 34。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v1-s6-423",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题目中 AB·AC 在向量语境下通常表示点积，但解析和答案仅计算长度乘积，忽略了夹角。若按点积计算，应为 6×14×cos60°=42，而非 84。题目条件包含角度，暗示点积运算。",
+      "independentAnswerZhHans": "42",
+      "answerCheckZhHans": "标准答案为 84，但正确点积应为 42。",
+      "recommendedActionZhHans": "需明确题目意图：若为长度乘积，应去掉角度条件；若为点积，答案应为 42。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v1-s6-424",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题目中 AB·AC 在向量语境下通常表示点积，但解析和答案仅计算长度乘积，忽略了夹角。若按点积计算，应为 4×10×cos60°=20，而非 40。题目条件包含角度，暗示点积运算。",
+      "independentAnswerZhHans": "20",
+      "answerCheckZhHans": "标准答案为 40，但正确点积应为 20。",
+      "recommendedActionZhHans": "需明确题目意图：若为长度乘积，应去掉角度条件；若为点积，答案应为 20。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v1-s6-425",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题目中 AB·AC 在向量语境下通常表示点积，但解析和答案仅计算长度乘积，忽略了夹角。若按点积计算，应为 2×16×cos60°=16，而非 32。题目条件包含角度，暗示点积运算。",
+      "independentAnswerZhHans": "16",
+      "answerCheckZhHans": "标准答案为 32，但正确点积应为 16。",
+      "recommendedActionZhHans": "需明确题目意图：若为长度乘积，应去掉角度条件；若为点积，答案应为 16。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v1-s6-426",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题目中 AB·AC 在向量语境下通常表示点积，但解析和答案仅计算长度乘积，忽略了夹角。若按点积计算，应为 4×14×cos60°=28，而非 56。题目条件包含角度，暗示点积运算。",
+      "independentAnswerZhHans": "28",
+      "answerCheckZhHans": "标准答案为 56，但正确点积应为 28。",
+      "recommendedActionZhHans": "需明确题目意图：若为长度乘积，应去掉角度条件；若为点积，答案应为 28。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v1-s6-427",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题目中 AB·AC 在向量语境下通常表示点积，但解析和答案仅计算长度乘积，忽略了夹角。若按点积计算，应为 6×18×cos60°=54，而非 108。题目条件包含角度，暗示点积运算。",
+      "independentAnswerZhHans": "54",
+      "answerCheckZhHans": "标准答案为 108，但正确点积应为 54。",
+      "recommendedActionZhHans": "需明确题目意图：若为长度乘积，应去掉角度条件；若为点积，答案应为 54。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v1-s6-428",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题目中 AB·AC 在向量语境下通常表示点积，但解析和答案仅计算长度乘积，忽略了夹角。若按点积计算，应为 12×5×cos60°=30，而非 60。题目条件包含角度，暗示点积运算。",
+      "independentAnswerZhHans": "30",
+      "answerCheckZhHans": "标准答案为 60，但正确点积应为 30。",
+      "recommendedActionZhHans": "需明确题目意图：若为长度乘积，应去掉角度条件；若为点积，答案应为 30。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v1-s6-429",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题目中 AB·AC 在向量语境下通常表示点积，但解析和答案仅计算长度乘积，忽略了夹角。若按点积计算，应为 8×20×cos60°=80，而非 160。题目条件包含角度，暗示点积运算。",
+      "independentAnswerZhHans": "80",
+      "answerCheckZhHans": "标准答案为 160，但正确点积应为 80。",
+      "recommendedActionZhHans": "需明确题目意图：若为长度乘积，应去掉角度条件；若为点积，答案应为 80。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v1-s6-430",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题目中 AB·AC 在向量语境下通常表示点积，但解析和答案仅计算长度乘积，忽略了夹角。若按点积计算，应为 5×11×cos60°=27.5，而非 55。题目条件包含角度，暗示点积运算。",
+      "independentAnswerZhHans": "27.5",
+      "answerCheckZhHans": "标准答案为 55，但正确点积应为 27.5。",
+      "recommendedActionZhHans": "需明确题目意图：若为长度乘积，应去掉角度条件；若为点积，答案应为 27.5。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v1-s6-431",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题目中 AB·AC 在向量语境下通常表示点积，但解析和答案仅计算长度乘积，忽略了夹角。若按点积计算，应为 8×13×cos60°=52，而非 104。题目条件包含角度，暗示点积运算。",
+      "independentAnswerZhHans": "52",
+      "answerCheckZhHans": "标准答案为 104，但正确点积应为 52。",
+      "recommendedActionZhHans": "需明确题目意图：若为长度乘积，应去掉角度条件；若为点积，答案应为 52。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v1-s6-432",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题目中 AB·AC 在向量语境下通常表示点积，但解析和答案仅计算长度乘积，忽略了夹角。若按点积计算，应为 4×20×cos60°=40，而非 80。题目条件包含角度，暗示点积运算。",
+      "independentAnswerZhHans": "40",
+      "answerCheckZhHans": "标准答案为 80，但正确点积应为 40。",
+      "recommendedActionZhHans": "需明确题目意图：若为长度乘积，应去掉角度条件；若为点积，答案应为 40。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v1-s6-433",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题目中 AB·AC 在向量语境下通常表示点积，但解析和答案仅计算长度乘积，忽略了夹角。若按点积计算，应为 8×10×cos60°=40，而非 80。题目条件包含角度，暗示点积运算。",
+      "independentAnswerZhHans": "40",
+      "answerCheckZhHans": "标准答案为 80，但正确点积应为 40。",
+      "recommendedActionZhHans": "需明确题目意图：若为长度乘积，应去掉角度条件；若为点积，答案应为 40。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v1-s6-434",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题目中 AB·AC 在向量语境下通常表示点积，但解析和答案仅计算长度乘积，忽略了夹角。若按点积计算，应为 5×15×cos60°=37.5，而非 75。题目条件包含角度，暗示点积运算。",
+      "independentAnswerZhHans": "37.5",
+      "answerCheckZhHans": "标准答案为 75，但正确点积应为 37.5。",
+      "recommendedActionZhHans": "需明确题目意图：若为长度乘积，应去掉角度条件；若为点积，答案应为 37.5。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v1-s6-435",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题目中 AB·AC 在向量语境下通常表示点积，但解析和答案仅计算长度乘积，忽略了夹角。若按点积计算，应为 12×13×cos60°=78，而非 156。题目条件包含角度，暗示点积运算。",
+      "independentAnswerZhHans": "78",
+      "answerCheckZhHans": "标准答案为 156，但正确点积应为 78。",
+      "recommendedActionZhHans": "需明确题目意图：若为长度乘积，应去掉角度条件；若为点积，答案应为 78。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v1-s6-436",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题目中 AB·AC 在向量语境下通常表示点积，但解析和答案仅计算长度乘积，忽略了夹角。若按点积计算，应为 3×5×cos60°=7.5，而非 15。题目条件包含角度，暗示点积运算。",
+      "independentAnswerZhHans": "7.5",
+      "answerCheckZhHans": "标准答案为 15，但正确点积应为 7.5。",
+      "recommendedActionZhHans": "需明确题目意图：若为长度乘积，应去掉角度条件；若为点积，答案应为 7.5。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v1-s6-437",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题目中 AB·AC 在向量语境下通常表示点积，但解析和答案仅计算长度乘积，忽略了夹角。若按点积计算，应为 2×4×cos60°=4，而非 8。题目条件包含角度，暗示点积运算。",
+      "independentAnswerZhHans": "4",
+      "answerCheckZhHans": "标准答案为 8，但正确点积应为 4。",
+      "recommendedActionZhHans": "需明确题目意图：若为长度乘积，应去掉角度条件；若为点积，答案应为 4。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v1-s6-438",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题目中 AB·AC 在向量语境下通常表示点积，但解析和答案仅计算长度乘积，忽略了夹角。若按点积计算，应为 6×19×cos60°=57，而非 114。题目条件包含角度，暗示点积运算。",
+      "independentAnswerZhHans": "57",
+      "answerCheckZhHans": "标准答案为 114，但正确点积应为 57。",
+      "recommendedActionZhHans": "需明确题目意图：若为长度乘积，应去掉角度条件；若为点积，答案应为 57。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v1-s6-439",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题目中 AB·AC 在向量语境下通常表示点积，但解析和答案仅计算长度乘积，忽略了夹角。若按点积计算，应为 4×13×cos60°=26，而非 52。题目条件包含角度，暗示点积运算。",
+      "independentAnswerZhHans": "26",
+      "answerCheckZhHans": "标准答案为 52，但正确点积应为 26。",
+      "recommendedActionZhHans": "需明确题目意图：若为长度乘积，应去掉角度条件；若为点积，答案应为 26。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v1-s6-440",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题目中 AB·AC 在向量语境下通常表示点积，但解析和答案仅计算长度乘积，忽略了夹角。若按点积计算，应为 6×10×cos60°=30，而非 60。题目条件包含角度，暗示点积运算。",
+      "independentAnswerZhHans": "30",
+      "answerCheckZhHans": "标准答案为 60，但正确点积应为 30。",
+      "recommendedActionZhHans": "需明确题目意图：若为长度乘积，应去掉角度条件；若为点积，答案应为 30。",
+      "confidence": "high"
+    }
+  ]
+}

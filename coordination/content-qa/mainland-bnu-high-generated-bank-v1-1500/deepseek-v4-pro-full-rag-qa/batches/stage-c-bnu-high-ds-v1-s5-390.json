@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-390",
+  "startedAt": "2026-05-28T01:31:10.594Z",
+  "completedAt": "2026-05-28T01:31:15.604Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-390"
+  ],
+  "usage": {
+    "prompt_tokens": 2448,
+    "completion_tokens": 297,
+    "total_tokens": 2745,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2064
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-390",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "0.1",
+        "correctedAnswer": "1/6",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立解计算错误：P(X=3)=(6/10)*(5/9)*(4/8)=120/720=1/6≈0.1667，而非0.1。存储答案1/6正确，但独立解给出0.1，导致答案不匹配。解析中计算过程正确但结果写为1/6，与独立解矛盾。需修正独立解为1/6。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "独立解计算错误，存储答案正确，但两者不匹配，判定为fail。"
+    }
+  }
+}

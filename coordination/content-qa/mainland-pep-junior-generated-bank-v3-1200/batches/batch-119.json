@@ -1,0 +1,314 @@
+{
+  "batchId": "batch-119",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s3-k11-sa-048",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-projection-views"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "promptZhHans": "在反比例函数 y = k/x (k ≠ 0) 的图象上，取两点 A(-2, a) 和 B(4, b)。若 a - b = 3，求 k 的值。",
+      "optionsZhHans": [],
+      "answer": "k = -8",
+      "acceptedAnswers": [
+        "k = -8",
+        "-8",
+        "k=-8"
+      ],
+      "explanationZhHans": "因为点 A(-2, a) 和 B(4, b) 在反比例函数 y = k/x 的图象上，所以 a = k/(-2) = -k/2，b = k/4。由 a - b = 3，得 -k/2 - k/4 = 3。通分得 -2k/4 - k/4 = 3，即 -3k/4 = 3，解得 k = -8。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-049",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-function-geometry-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions"
+      ],
+      "promptZhHans": "已知反比例函数 y=k/x（k≠0）的图象经过点 A(2,-3)。过点 A 分别作 x 轴、y 轴的垂线，垂足为 B、C。求 k 的值，并求矩形 OBAC 的面积。",
+      "optionsZhHans": [],
+      "answer": "k=-6，面积为6",
+      "acceptedAnswers": [
+        "k=-6，面积为6",
+        "k = -6，面积为6",
+        "-6，6",
+        "k=-6, 面积=6"
+      ],
+      "explanationZhHans": "点 A(2,-3) 在反比例函数 y=k/x 上，代入得 -3=k/2，所以 k=-6。点 B 为 (2,0)，点 C 为 (0,-3)，矩形 OBAC 的两条邻边长分别为2和3，因此面积为2×3=6。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-050",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-similarity"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "在反比例函数 y = k/x (k ≠ 0) 的图象上，点 A 的横坐标为 6，点 B 的横坐标为 8。已知线段 AB 的长度为 √13，求 k 的值。",
+      "optionsZhHans": [],
+      "answer": "k = ±24",
+      "acceptedAnswers": [
+        "k = ±24",
+        "k=±24",
+        "k=24或k=-24",
+        "k=24 或 k=-24",
+        "±24"
+      ],
+      "explanationZhHans": "设点 A 坐标为 (6, k/6)，点 B 坐标为 (8, k/8)。根据两点间距离公式，AB² = (8 - 6)² + (k/8 - k/6)² = 4 + (k(1/8 - 1/6))² = 4 + (k(-1/24))² = 4 + k²/576。已知 AB = √13，所以 AB² = 13，即 4 + k²/576 = 13。解得 k²/576 = 9，k² = 5184，故 k = ±24。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-051",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-graduation-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "在平面直角坐标系中，反比例函数 y = k/x (k ≠ 0) 的图象经过点 A(2, 3)。过点 A 作 x 轴的垂线，垂足为 B；作 y 轴的垂线，垂足为 C。连接 BC。求 k 的值，并判断四边形 OBAC 的形状。",
+      "optionsZhHans": [],
+      "answer": "k = 6，四边形 OBAC 是矩形",
+      "acceptedAnswers": [
+        "k = 6，四边形 OBAC 是矩形",
+        "k=6，四边形OBAC是矩形",
+        "6，矩形",
+        "k的值为6，四边形OBAC为矩形"
+      ],
+      "explanationZhHans": "由点 A(2, 3) 在反比例函数 y = k/x 的图象上，代入得 3 = k/2，解得 k = 6。因为 AB ⊥ x 轴，AC ⊥ y 轴，所以 ∠ABO = 90°，∠ACO = 90°。又因为 x 轴 ⊥ y 轴，所以 ∠BOC = 90°。因此四边形 OBAC 有三个直角，故四边形 OBAC 是矩形。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-052",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-inverse-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions"
+      ],
+      "promptZhHans": "已知反比例函数 y = k/x 的图象经过点 A(2, -3)。点 B(m, 6) 也在该函数图象上。求 m 的值。",
+      "optionsZhHans": [],
+      "answer": "-1",
+      "acceptedAnswers": [
+        "-1"
+      ],
+      "explanationZhHans": "将点 A(2, -3) 代入 y = k/x，得 -3 = k/2，解得 k = -6。所以反比例函数为 y = -6/x。将点 B(m, 6) 代入，得 6 = -6/m，解得 m = -1。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-053",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-right-triangle-trigonometry"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "promptZhHans": "小明在练习本上画了一个锐角三角形ABC，其中∠C=90°，AC=6 cm，BC=8 cm。他想计算∠A的正弦值，但他忘记了正弦的定义。请你帮他写出∠A的正弦值，并说明你是如何确定这个值的。",
+      "optionsZhHans": [],
+      "answer": "4/5",
+      "acceptedAnswers": [
+        "4/5",
+        "0.8",
+        "8/10",
+        "80%"
+      ],
+      "explanationZhHans": "在直角三角形ABC中，∠C=90°，所以AB是斜边。根据勾股定理，AB = √(AC² + BC²) = √(6² + 8²) = √(36 + 64) = √100 = 10 cm。∠A的对边是BC，长度为8 cm，斜边AB长度为10 cm。正弦定义为对边比斜边，所以sin A = BC/AB = 8/10 = 4/5。因此∠A的正弦值为4/5。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-054",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-projection-views"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean"
+      ],
+      "promptZhHans": "在反比例函数 y = k/x 的图象上，点 P 的横坐标是 4，纵坐标是 -3。若点 Q 在同一个反比例函数图象上，且点 Q 的横坐标是 -6，求点 Q 的纵坐标。",
+      "optionsZhHans": [],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2"
+      ],
+      "explanationZhHans": "由点 P(4, -3) 在反比例函数 y = k/x 上，得 k = 4 × (-3) = -12，所以函数为 y = -12/x。当点 Q 的横坐标为 -6 时，纵坐标 y = -12/(-6) = 2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-055",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-function-geometry-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-circle-geometry"
+      ],
+      "promptZhHans": "在反比例函数 y = k/x (k ≠ 0) 的图象上，取一点 P，向 x 轴和 y 轴分别作垂线，垂足为 A 和 B。若矩形 OAPB 的面积为 8，且点 P 位于第二象限，求该反比例函数的解析式，并说明该函数图象所在的象限。",
+      "optionsZhHans": [],
+      "answer": "y = -8/x，图象在第二、四象限",
+      "acceptedAnswers": [
+        "y = -8/x，图象在第二、四象限",
+        "y=-8/x，图象在第二、四象限"
+      ],
+      "explanationZhHans": "由反比例函数系数 k 的几何意义，矩形 OAPB 的面积等于 |k|。已知面积为 8，故 |k| = 8。又点 P 在第二象限，横坐标为负，纵坐标为正，所以 k = xy < 0，因此 k = -8。反比例函数解析式为 y = -8/x。由于 k < 0，图象位于第二、四象限。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-056",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-similarity"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "在△ABC中，点D在边AB上，点E在边AC上，DE∥BC。已知AD=4，DB=6，AE=5，求EC的长。",
+      "optionsZhHans": [],
+      "answer": "7.5",
+      "acceptedAnswers": [
+        "7.5",
+        "15/2"
+      ],
+      "explanationZhHans": "因为DE∥BC，所以△ADE∽△ABC，对应边成比例。AD:AB=AE:AC，其中AB=AD+DB=4+6=10，所以4:10=5:AC，解得AC=12.5。EC=AC-AE=12.5-5=7.5。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-057",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-graduation-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "在平面直角坐标系中，点A的坐标为(2, 0)，点B的坐标为(0, 4)。将线段AB绕点A逆时针旋转90°得到线段AC，再将线段AC绕点C逆时针旋转90°得到线段CD。求点D的坐标。",
+      "optionsZhHans": [],
+      "answer": "(-4, 2)",
+      "acceptedAnswers": [
+        "(-4, 2)",
+        "(-4,2)",
+        "（-4，2）"
+      ],
+      "explanationZhHans": "向量 AB=(0-2,4-0)=(-2,4)。逆时针旋转90°后变为(-4,-2)，所以 C=(2,0)+(-4,-2)=(-2,-2)。再看向量 CA=(2-(-2),0-(-2))=(4,2)，逆时针旋转90°后变为(-2,4)，所以 D=(-2,-2)+(-2,4)=(-4,2)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

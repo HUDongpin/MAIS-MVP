@@ -1,0 +1,50 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-165",
+  "startedAt": "2026-05-28T02:54:08.163Z",
+  "completedAt": "2026-05-28T02:54:13.417Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-165"
+  ],
+  "usage": {
+    "prompt_tokens": 2082,
+    "completion_tokens": 270,
+    "total_tokens": 2352,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1698
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-165",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": null,
+        "correctedAnswer": null,
+        "issueTags": [
+          "missing_condition",
+          "unsolvable",
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "点A(1,2,3)、B(4,5,6)、C(7,8,9)共线，无法确定唯一平面ABC及其法向量，题目条件不足，不可解。存储答案0及解析基于错误假设，与数学事实矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目因三点共线导致平面不唯一，条件缺失，不可解，判定为blocker。"
+    }
+  }
+}

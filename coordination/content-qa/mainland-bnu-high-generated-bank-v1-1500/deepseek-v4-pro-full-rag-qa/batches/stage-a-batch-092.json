@@ -1,0 +1,121 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-092",
+  "startedAt": "2026-05-28T01:19:51.509Z",
+  "completedAt": "2026-05-28T01:20:12.853Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-229",
+    "bnu-high-ds-v1-s5-230",
+    "bnu-high-ds-v1-s5-231",
+    "bnu-high-ds-v1-s5-232",
+    "bnu-high-ds-v1-s5-233",
+    "bnu-high-ds-v1-s5-234",
+    "bnu-high-ds-v1-s5-235",
+    "bnu-high-ds-v1-s5-236"
+  ],
+  "usage": {
+    "prompt_tokens": 10619,
+    "completion_tokens": 1308,
+    "total_tokens": 11927,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 10235
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-229",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "A. x-2y-1=0",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由焦点和点P求得椭圆方程x²/4+y²/3=1，设直线l: y=k(x-1)，联立椭圆利用中点M坐标及OM斜率1/2解得k=1/2，直线方程为x-2y-1=0，对应选项A。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-230",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "圆的方程为(x-5)²+(y-3)²=20，半径2√5",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "圆心在x=5上，设圆心(5,b)，由|CA|=|CB|解得b=3，半径r=√((5-1)²+(3-5)²)=√20=2√5，圆方程(x-5)²+(y-3)²=20。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-231",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "3a-4b=0或3a+4b-24=0",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "矩形对角线方程为3x-4y=0和3x+4y-24=0，点P到两线距离相等得|3a-4b|/5=|3a+4b-24|/5，化简得3a-4b=0或3a+4b-24=0。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-232",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "independentAnswer": null,
+        "issueTags": [
+          "ambiguous_mc",
+          "bad_options"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "由弦中点横坐标为2及直线过A(1,0)得中点M(2,k)，代入圆方程得k²=8，k=±2√2，但选项均为区间，无正确选项。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-233",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "圆的方程为(x-4)²+(y-3)²=5，建模假设：花坛边界为理想圆，三点测量无误差，坐标系为平面直角坐标系。",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由三点A(2,1),B(6,3),C(4,5)求得圆心(4,3)，半径√5，标准方程(x-4)²+(y-3)²=5。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-234",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(3,0)或(7,0)",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "设P(x,0)，由∠APB=90°得向量PA·PB=0，即(1-x)(5-x)+2*6=0，解得x=3或7。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-235",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "k=-2或k=1/2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "圆心C(2,-1)，半径2，直线y=kx+3，弦心距d=|2k+4|/√(k²+1)，弦长|AB|=2√(4-d²)，面积S=1/2*|AB|*d=2√3，解得k=-2或1/2，对应选项A。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-236",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "圆的方程为(x-4)²+(y-3)²=5，建模假设：花坛边界为理想圆，三点测量无误差，坐标系为平面直角坐标系。",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "与233题相同，由三点A(2,1),B(6,3),C(4,5)求得圆心(4,3)，半径√5，标准方程(x-4)²+(y-3)²=5。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第232题无正确选项，弦中点横坐标固定导致斜率确定值而非区间，选项均为区间，判定为失败。其余题目均可独立求解且符合北师大版要求。"
+    }
+  }
+}

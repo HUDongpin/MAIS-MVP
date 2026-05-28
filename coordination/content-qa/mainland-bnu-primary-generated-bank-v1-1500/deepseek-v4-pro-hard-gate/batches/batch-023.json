@@ -1,0 +1,330 @@
+{
+  "batchNumber": 23,
+  "startedAt": "2026-05-27T03:38:51.197Z",
+  "completedAt": "2026-05-27T03:39:19.737Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p3-161",
+    "bnu-primary-ds-v1-p3-162",
+    "bnu-primary-ds-v1-p3-163",
+    "bnu-primary-ds-v1-p3-164",
+    "bnu-primary-ds-v1-p3-165",
+    "bnu-primary-ds-v1-p3-166",
+    "bnu-primary-ds-v1-p3-167",
+    "bnu-primary-ds-v1-p3-168",
+    "bnu-primary-ds-v1-p3-169",
+    "bnu-primary-ds-v1-p3-170",
+    "bnu-primary-ds-v1-p3-171",
+    "bnu-primary-ds-v1-p3-172",
+    "bnu-primary-ds-v1-p3-173",
+    "bnu-primary-ds-v1-p3-174",
+    "bnu-primary-ds-v1-p3-175",
+    "bnu-primary-ds-v1-p3-176",
+    "bnu-primary-ds-v1-p3-177",
+    "bnu-primary-ds-v1-p3-178",
+    "bnu-primary-ds-v1-p3-179",
+    "bnu-primary-ds-v1-p3-180",
+    "bnu-primary-ds-v1-p3-181",
+    "bnu-primary-ds-v1-p3-182",
+    "bnu-primary-ds-v1-p3-183",
+    "bnu-primary-ds-v1-p3-184",
+    "bnu-primary-ds-v1-p3-185",
+    "bnu-primary-ds-v1-p3-186",
+    "bnu-primary-ds-v1-p3-187",
+    "bnu-primary-ds-v1-p3-188",
+    "bnu-primary-ds-v1-p3-189",
+    "bnu-primary-ds-v1-p3-190"
+  ],
+  "usage": {
+    "prompt_tokens": 5341,
+    "completion_tokens": 2245,
+    "total_tokens": 7586,
+    "prompt_tokens_details": {
+      "cached_tokens": 5248
+    },
+    "prompt_cache_hit_tokens": 5248,
+    "prompt_cache_miss_tokens": 93
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p3-161",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目完整，平移规则明确，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-162",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "开放题，答案示例合理，符合旋转定义。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-163",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "平移性质明确，选项唯一正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-164",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "轴对称定义填空，答案准确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-165",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "平移特征描述，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-166",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "估算比较，计算无误，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-167",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "乘法分步计算，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-168",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "连乘应用题，计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-169",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "竖式判断，正确选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-170",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "估算合理，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-171",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "竖式计算，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-172",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "竖式判断，正确选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-173",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "乘法分步填空，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-174",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "乘法应用题，计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-175",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "估算比较，计算无误，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-176",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "竖式步骤填空，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-177",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "乘法应用题，计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-178",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "计算过程判断，正确选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-179",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "估算填空，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-180",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "乘法应用题，计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-181",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "单位换算比较，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-182",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "质量单位选择，答案合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-183",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "质量估算，计算正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-184",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "单位换算，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-185",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "单位换算与减法，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-186",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "质量单位选择，答案合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-187",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "质量估计，选项唯一合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-188",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "单位换算，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-189",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "油桶问题，推理正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-190",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "质量单位选择，答案合理。"
+      }
+    ],
+    "batchSummary": {
+      "solvableYes": 30,
+      "solvableNo": 0,
+      "answerMatchYes": 30,
+      "answerMatchNo": 0,
+      "notes": "全部30道题均可解，答案匹配，无问题。"
+    }
+  }
+}

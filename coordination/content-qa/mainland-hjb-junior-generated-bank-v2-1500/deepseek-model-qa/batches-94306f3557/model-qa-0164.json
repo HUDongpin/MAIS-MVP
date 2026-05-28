@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0164",
+  "ids": [
+    "hjb-junior-ds-v2-s3-305",
+    "hjb-junior-ds-v2-s3-306",
+    "hjb-junior-ds-v2-s3-307",
+    "hjb-junior-ds-v2-s3-308",
+    "hjb-junior-ds-v2-s3-309",
+    "hjb-junior-ds-v2-s3-310",
+    "hjb-junior-ds-v2-s3-311",
+    "hjb-junior-ds-v2-s3-312"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-305",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案为2，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-306",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "ambiguous-prompt",
+        "missing-condition"
+      ],
+      "issueDetailsZhHans": "题干未明确点P与切点的关系，若P在直线上且OP=5，直线与圆相切，则P可能为切点（距离0），也可能为直线与OP垂线的交点（距离非0）。条件不足，无法唯一确定距离。",
+      "independentAnswerZhHans": "无法唯一确定，可能为0 cm或非零值。",
+      "answerCheckZhHans": "标准答案0 cm仅当P为切点时成立，但题干未限定P为切点，存在歧义。",
+      "recommendedActionZhHans": "需补充条件，如“点P为切点”或“点P在直线l上，且OP⊥l”。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-307",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "AE·EB = CE·ED，且点E在圆内",
+      "answerCheckZhHans": "标准答案与独立解题结果一致，选项A正确，其他选项错误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-308",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "8 cm",
+      "answerCheckZhHans": "标准答案为8 cm，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-309",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "边长等于R。因为正六边形的中心角为60°，连接中心与顶点得到的三角形是等边三角形。",
+      "answerCheckZhHans": "标准答案与独立解题结果一致，acceptedAnswers覆盖了标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-310",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2 < d < 8",
+      "answerCheckZhHans": "标准答案与独立解题结果一致，选项A正确，其他选项错误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-311",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "标准答案为3，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-312",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "相交",
+      "answerCheckZhHans": "标准答案为相交，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

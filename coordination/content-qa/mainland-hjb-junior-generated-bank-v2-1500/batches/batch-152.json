@@ -1,0 +1,331 @@
+{
+  "batchId": "batch-152",
+  "questions": [
+    {
+      "id": "hjb-junior-ds-v2-s2-256",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "hjb-junior-s2-lower-quadrilaterals",
+      "unitTitle": "四边形",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "polygons",
+        "quadrilaterals",
+        "parallelogram",
+        "rectangle",
+        "rhombus",
+        "square",
+        "midsegment",
+        "四边形",
+        "平行四边形"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "多边形内角和",
+        "平行四边形性质",
+        "矩形菱形正方形",
+        "三角形中位线",
+        "重心"
+      ],
+      "misconceptionTags": [
+        "quadrilateral hierarchy overgeneralized",
+        "property and criterion reversed",
+        "midpoint condition omitted"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s2-lower-quadrilaterals"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-lower-paper-quadrilaterals-unit",
+        "hjb-junior-s2-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在四边形ABCD中，对角线AC与BD相交于点O。给出下列条件：①AB∥CD，AD∥BC；②AB=CD，AD=BC；③OA=OC，OB=OD；④∠A=∠C，∠B=∠D。其中，能判定四边形ABCD是平行四边形的条件共有（ ）",
+      "optionsZhHans": [
+        "1个",
+        "2个",
+        "3个",
+        "4个"
+      ],
+      "answer": "4个",
+      "acceptedAnswers": [
+        "4个"
+      ],
+      "explanationZhHans": "①两组对边分别平行；②两组对边分别相等；③对角线互相平分；④两组对角分别相等。这四组条件均能判定平行四边形，故选4个。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-257",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "hjb-junior-s2-lower-quadrilaterals",
+      "unitTitle": "四边形",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "polygons",
+        "quadrilaterals",
+        "parallelogram",
+        "rectangle",
+        "rhombus",
+        "square",
+        "midsegment",
+        "四边形",
+        "平行四边形"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "多边形内角和",
+        "平行四边形性质",
+        "矩形菱形正方形",
+        "三角形中位线",
+        "重心"
+      ],
+      "misconceptionTags": [
+        "quadrilateral hierarchy overgeneralized",
+        "property and criterion reversed",
+        "midpoint condition omitted"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-junior-s2-lower-quadrilaterals"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-lower-paper-quadrilaterals-unit",
+        "hjb-junior-s2-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个凸多边形的内角和等于1260°，则这个多边形的边数是______。",
+      "optionsZhHans": [],
+      "answer": "9",
+      "acceptedAnswers": [
+        "9"
+      ],
+      "explanationZhHans": "设边数为n，由内角和公式(n-2)×180°=1260°，解得n-2=7，n=9。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-258",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "hjb-junior-s2-lower-quadrilaterals",
+      "unitTitle": "四边形",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "polygons",
+        "quadrilaterals",
+        "parallelogram",
+        "rectangle",
+        "rhombus",
+        "square",
+        "midsegment",
+        "四边形",
+        "平行四边形"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "多边形内角和",
+        "平行四边形性质",
+        "矩形菱形正方形",
+        "三角形中位线",
+        "重心"
+      ],
+      "misconceptionTags": [
+        "quadrilateral hierarchy overgeneralized",
+        "property and criterion reversed",
+        "midpoint condition omitted"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s2-lower-quadrilaterals"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-lower-paper-quadrilaterals-unit",
+        "hjb-junior-s2-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在△ABC中，点D、E分别是AB、AC的中点，连接DE。若BC=12cm，求DE的长，并说明理由。",
+      "optionsZhHans": [],
+      "answer": "6cm",
+      "acceptedAnswers": [
+        "6cm",
+        "6 cm"
+      ],
+      "explanationZhHans": "由三角形中位线定理，DE平行于BC且等于BC的一半，故DE=12÷2=6cm。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-259",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "hjb-junior-s2-lower-quadrilaterals",
+      "unitTitle": "四边形",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "polygons",
+        "quadrilaterals",
+        "parallelogram",
+        "rectangle",
+        "rhombus",
+        "square",
+        "midsegment",
+        "四边形",
+        "平行四边形"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "多边形内角和",
+        "平行四边形性质",
+        "矩形菱形正方形",
+        "三角形中位线",
+        "重心"
+      ],
+      "misconceptionTags": [
+        "quadrilateral hierarchy overgeneralized",
+        "property and criterion reversed",
+        "midpoint condition omitted"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s2-lower-quadrilaterals"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-lower-paper-quadrilaterals-unit",
+        "hjb-junior-s2-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平行四边形ABCD中，∠A比∠B大40°，则∠C的度数为（ ）",
+      "optionsZhHans": [
+        "70°",
+        "110°",
+        "40°",
+        "140°"
+      ],
+      "answer": "110°",
+      "acceptedAnswers": [
+        "110°"
+      ],
+      "explanationZhHans": "平行四边形邻角互补，设∠B=x，则∠A=x+40°，由x+(x+40°)=180°得x=70°，∠A=110°，对角相等故∠C=110°。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-260",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "hjb-junior-s2-lower-quadrilaterals",
+      "unitTitle": "四边形",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "polygons",
+        "quadrilaterals",
+        "parallelogram",
+        "rectangle",
+        "rhombus",
+        "square",
+        "midsegment",
+        "四边形",
+        "平行四边形"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "多边形内角和",
+        "平行四边形性质",
+        "矩形菱形正方形",
+        "三角形中位线",
+        "重心"
+      ],
+      "misconceptionTags": [
+        "quadrilateral hierarchy overgeneralized",
+        "property and criterion reversed",
+        "midpoint condition omitted"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-junior-s2-lower-quadrilaterals"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-lower-paper-quadrilaterals-unit",
+        "hjb-junior-s2-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在矩形ABCD中，对角线AC与BD相交于点O，已知∠AOB=60°，AB=4，则对角线AC的长为______。",
+      "optionsZhHans": [],
+      "answer": "8",
+      "acceptedAnswers": [
+        "8"
+      ],
+      "explanationZhHans": "矩形对角线相等且互相平分，OA=OB，又∠AOB=60°，故△AOB为等边三角形，OA=AB=4，AC=2OA=8。"
+    }
+  ]
+}

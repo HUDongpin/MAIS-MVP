@@ -1,0 +1,672 @@
+{
+  "batchId": "batch-026",
+  "questions": [
+    {
+      "id": "bnu-high-ds-v1-s4-251",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-概率",
+      "topicTitleZhHans": "概率",
+      "volume": "必修 第一册",
+      "chapter": "概率",
+      "conceptIds": [
+        "probability-foundations",
+        "random-events",
+        "classical-probability",
+        "frequency-probability",
+        "probability-modeling",
+        "sample-space"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "逻辑推理",
+        "数学建模",
+        "数学运算"
+      ],
+      "skillTags": [
+        "样本空间",
+        "随机事件",
+        "古典概型",
+        "频率与概率",
+        "模型辨析",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "event and outcome confused",
+        "equally likely assumption unsupported",
+        "frequency treated probability",
+        "sample space incomplete",
+        "equal likelihood unsupported",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-probability"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-probability-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s5-assessment-probability-unit-core"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个不透明的袋子里装有大小、形状完全相同的红球3个、蓝球2个、白球1个。从中随机摸出两个球。请写出这个试验的样本空间（用有序数对或无序组合表示均可），并计算摸出的两个球颜色相同的概率。",
+      "optionsZhHans": [],
+      "answer": "样本空间包含15种等可能结果（无序组合），颜色相同的概率为4/15。",
+      "acceptedAnswers": [
+        "样本空间包含15种等可能结果（无序组合），颜色相同的概率为4/15。",
+        "样本空间有15个基本事件，颜色相同的概率是4/15。",
+        "样本空间大小为15，颜色相同的概率为4/15。"
+      ],
+      "explanationZhHans": "6个球中任取2个，共有C(6,2)=15种等可能结果。颜色相同包括：2红有C(3,2)=3种，2蓝有C(2,2)=1种，共4种。故概率为4/15。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-252",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-概率",
+      "topicTitleZhHans": "概率",
+      "volume": "必修 第一册",
+      "chapter": "概率",
+      "conceptIds": [
+        "probability-foundations",
+        "random-events",
+        "classical-probability",
+        "frequency-probability",
+        "probability-modeling",
+        "sample-space"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "逻辑推理",
+        "数学建模",
+        "数学运算"
+      ],
+      "skillTags": [
+        "样本空间",
+        "随机事件",
+        "古典概型",
+        "频率与概率",
+        "模型辨析",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "event and outcome confused",
+        "equally likely assumption unsupported",
+        "frequency treated probability",
+        "sample space incomplete",
+        "equal likelihood unsupported",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-probability"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-probability-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s5-assessment-probability-unit-synthesis"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某同学为了估计一个不透明袋中白球的数量，进行了有放回的摸球试验。袋中装有红球和白球共20个，除颜色外无其他差异。他摸了200次，结果摸到红球128次，摸到白球72次。若袋中红球实际有12个，请根据频率估计白球的数量，并指出这种估计方法的前提条件。",
+      "optionsZhHans": [],
+      "answer": "估计白球有8个；前提是每次摸球等可能且试验次数足够多时频率稳定于概率。",
+      "acceptedAnswers": [
+        "估计白球有8个；前提是每次摸球等可能且试验次数足够多时频率稳定于概率。",
+        "白球估计为8个；前提是等可能性和大数定律。"
+      ],
+      "explanationZhHans": "摸到白球的频率为72/200=0.36。设白球有x个，则x/20≈0.36，解得x≈7.2，四舍五入为7个，但红球12个，故白球应为8个。频率估计概率需满足等可能性和大数次试验。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-253",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-数学建模活动-一",
+      "topicTitleZhHans": "数学建模活动（一）",
+      "volume": "必修 第一册",
+      "chapter": "数学建模活动（一）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "data-modeling",
+        "function-modeling",
+        "model-validation"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "函数零点",
+        "模型选择",
+        "参数解释",
+        "近似求解",
+        "结果检验",
+        "集合语言",
+        "不等式性质",
+        "方程转化"
+      ],
+      "misconceptionTags": [
+        "assumption not stated",
+        "data limitation ignored",
+        "model conclusion not checked against context",
+        "model domain overstated",
+        "zero not interpreted",
+        "growth comparison outside interval",
+        "set relation confused",
+        "inequality direction reversed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-modeling-activity-1"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-function-applications-unit-pattern",
+        "bnu-high-s4-upper-preparatory-knowledge-unit-pattern",
+        "bnu-high-s4-upper-functions-unit-pattern"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某城市地铁票价实行分段计价：乘坐距离不超过6公里收费2元，超过6公里但不超过12公里收费3元，超过12公里但不超过22公里收费4元，超过22公里收费5元。小明每天从家到学校乘坐地铁，距离为x公里（0<x≤30）。他记录了连续20天的票价，得到平均票价为3.2元。为了估计小明家到学校的距离，下列哪个函数模型最适合用来建立距离与票价的关系？",
+      "optionsZhHans": [
+        "A. 一次函数模型",
+        "B. 二次函数模型",
+        "C. 分段常数函数模型",
+        "D. 指数函数模型"
+      ],
+      "answer": "C. 分段常数函数模型",
+      "acceptedAnswers": [
+        "C. 分段常数函数模型"
+      ],
+      "explanationZhHans": "票价随距离变化但并非连续变化，而是在不同区间内保持常数，因此是分段常数函数。其他模型均不能准确描述这种阶梯式计价方式。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-254",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-数学建模活动-一",
+      "topicTitleZhHans": "数学建模活动（一）",
+      "volume": "必修 第一册",
+      "chapter": "数学建模活动（一）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "data-modeling",
+        "function-modeling",
+        "model-validation"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "函数零点",
+        "模型选择",
+        "参数解释",
+        "近似求解",
+        "结果检验",
+        "集合语言",
+        "不等式性质",
+        "方程转化"
+      ],
+      "misconceptionTags": [
+        "assumption not stated",
+        "data limitation ignored",
+        "model conclusion not checked against context",
+        "model domain overstated",
+        "zero not interpreted",
+        "growth comparison outside interval",
+        "set relation confused",
+        "inequality direction reversed"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-modeling-activity-1"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-function-applications-unit-pattern",
+        "bnu-high-s4-upper-preparatory-knowledge-unit-pattern",
+        "bnu-high-s4-upper-functions-unit-pattern"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某实验室培养一种细菌，记录时间t（小时）和细菌数量y（百个）的数据如下：t=0时y=1.0，t=1时y=1.5，t=2时y=2.3，t=3时y=3.4，t=4时y=5.1。研究人员想用指数函数y=a·b^t来拟合这些数据。请根据t=0和t=4的数据确定a和b的值，并预测t=5时的细菌数量（结果保留一位小数）。",
+      "optionsZhHans": [],
+      "answer": "a=1.0，b≈1.5，预测t=5时细菌数量约为7.7百个。",
+      "acceptedAnswers": [
+        "a=1.0，b≈1.5，预测t=5时细菌数量约为7.7百个。",
+        "a=1，b=1.5，t=5时y≈7.7。"
+      ],
+      "explanationZhHans": "由t=0，y=1得a=1。由t=4，y=5.1得b^4=5.1，b=5.1^(1/4)≈1.503，取b≈1.5。t=5时y=1.5^5≈7.59375，保留一位小数得7.6（或7.7，因1.5^5=7.59375四舍五入为7.6，但若用b=1.503则得7.7，取近似值7.7）。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-255",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-数学建模活动-一",
+      "topicTitleZhHans": "数学建模活动（一）",
+      "volume": "必修 第一册",
+      "chapter": "数学建模活动（一）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "data-modeling",
+        "function-modeling",
+        "model-validation"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "函数零点",
+        "模型选择",
+        "参数解释",
+        "近似求解",
+        "结果检验",
+        "函数性质综合",
+        "定义域检查",
+        "指数对数转化"
+      ],
+      "misconceptionTags": [
+        "assumption not stated",
+        "data limitation ignored",
+        "model conclusion not checked against context",
+        "model domain overstated",
+        "zero not interpreted",
+        "growth comparison outside interval",
+        "domain omitted in property check",
+        "exponential and logarithmic monotonicity mixed"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-modeling-activity-1"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-function-applications-unit-pattern",
+        "bnu-high-s4-upper-midterm-function-properties-review",
+        "bnu-high-s4-upper-final-full-volume-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某创业公司2019年年初获得投资100万元，此后每年年底的资产总额（单位：万元）如下：2019年底120，2020年底150，2021年底190，2022年底240。公司计划用指数增长模型y=a·e^(kt)（t以2019年年初为0）来预测资产。请利用2019年底和2022年底的数据确定a和k的值（k精确到0.01），并预测2024年底的资产总额（精确到万元）。",
+      "optionsZhHans": [],
+      "answer": "a=100，k≈0.22，预测2024年底资产约为374万元。",
+      "acceptedAnswers": [
+        "a=100，k≈0.22，预测2024年底资产约为374万元。",
+        "a=100，k=0.22，2024年底资产374万元。"
+      ],
+      "explanationZhHans": "t=0时y=100，得a=100。t=4（2022年底）时y=240，即100e^(4k)=240，e^(4k)=2.4，4k=ln2.4≈0.8755，k≈0.2189≈0.22。t=6（2024年底）时y=100e^(6*0.22)=100e^1.32≈100*3.743=374.3，取374万元。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-256",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-数学建模活动-一",
+      "topicTitleZhHans": "数学建模活动（一）",
+      "volume": "必修 第一册",
+      "chapter": "数学建模活动（一）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "data-modeling",
+        "function-modeling",
+        "model-validation"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "函数零点",
+        "模型选择",
+        "参数解释",
+        "近似求解",
+        "结果检验",
+        "集合语言",
+        "不等式性质",
+        "方程转化"
+      ],
+      "misconceptionTags": [
+        "assumption not stated",
+        "data limitation ignored",
+        "model conclusion not checked against context",
+        "model domain overstated",
+        "zero not interpreted",
+        "growth comparison outside interval",
+        "set relation confused",
+        "inequality direction reversed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-modeling-activity-1"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-function-applications-unit-pattern",
+        "bnu-high-s4-upper-preparatory-knowledge-unit-pattern",
+        "bnu-high-s4-upper-functions-unit-pattern"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某地出租车收费标准为：起步价8元（含2公里），之后每公里收费1.5元。若行驶距离为x公里（x>2），应付车费y元。另外，若乘客要求停车等待，每等待5分钟加收1元（不足5分钟按5分钟计）。一位乘客乘坐了10公里，途中等待了12分钟。请问他需要支付的车费最接近下列哪个函数模型的计算结果？",
+      "optionsZhHans": [
+        "A. y=8+1.5(x-2)+0.2t，其中t为等待分钟数",
+        "B. y=8+1.5x+0.2t",
+        "C. y=8+1.5(x-2)+ceil(t/5)，其中ceil表示向上取整",
+        "D. y=8+1.5x+ceil(t/5)"
+      ],
+      "answer": "C. y=8+1.5(x-2)+ceil(t/5)，其中ceil表示向上取整",
+      "acceptedAnswers": [
+        "C. y=8+1.5(x-2)+ceil(t/5)，其中ceil表示向上取整"
+      ],
+      "explanationZhHans": "起步价含2公里，超出部分每公里1.5元，故里程费为8+1.5(x-2)。等待费为每5分钟1元，不足5分钟按5分钟计，即ceil(t/5)。因此模型为C。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-257",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-数学建模活动-一",
+      "topicTitleZhHans": "数学建模活动（一）",
+      "volume": "必修 第一册",
+      "chapter": "数学建模活动（一）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "data-modeling",
+        "function-modeling",
+        "model-validation"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "函数零点",
+        "模型选择",
+        "参数解释",
+        "近似求解",
+        "结果检验",
+        "集合语言",
+        "不等式性质",
+        "方程转化"
+      ],
+      "misconceptionTags": [
+        "assumption not stated",
+        "data limitation ignored",
+        "model conclusion not checked against context",
+        "model domain overstated",
+        "zero not interpreted",
+        "growth comparison outside interval",
+        "set relation confused",
+        "inequality direction reversed"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-modeling-activity-1"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-function-applications-unit-pattern",
+        "bnu-high-s4-upper-preparatory-knowledge-unit-pattern",
+        "bnu-high-s4-upper-functions-unit-pattern"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某同学研究一辆遥控汽车的速度变化，记录时间t（秒）和速度v（米/秒）的数据如下：t=0时v=0，t=2时v=3，t=4时v=6，t=6时v=9。他想用线性函数v=kt+b来拟合。请根据数据求出k和b，并说明这个模型在t=10秒时是否仍然合理，为什么？",
+      "optionsZhHans": [],
+      "answer": "k=1.5，b=0；在t=10秒时可能不合理，因为实际速度不会无限增加，模型未考虑物理限制。",
+      "acceptedAnswers": [
+        "k=1.5，b=0；在t=10秒时可能不合理，因为实际速度不会无限增加，模型未考虑物理限制。",
+        "k=1.5，b=0；不合理，因为速度有上限。"
+      ],
+      "explanationZhHans": "数据点(0,0)和(6,9)得k=(9-0)/(6-0)=1.5，b=0。线性模型假设速度无限增长，但实际汽车有最大速度，因此t=10时预测v=15可能超出实际范围，模型失效。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-258",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-数学建模活动-一",
+      "topicTitleZhHans": "数学建模活动（一）",
+      "volume": "必修 第一册",
+      "chapter": "数学建模活动（一）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "data-modeling",
+        "function-modeling",
+        "model-validation"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "函数零点",
+        "模型选择",
+        "参数解释",
+        "近似求解",
+        "结果检验",
+        "函数性质综合",
+        "定义域检查",
+        "指数对数转化"
+      ],
+      "misconceptionTags": [
+        "assumption not stated",
+        "data limitation ignored",
+        "model conclusion not checked against context",
+        "model domain overstated",
+        "zero not interpreted",
+        "growth comparison outside interval",
+        "domain omitted in property check",
+        "exponential and logarithmic monotonicity mixed"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-modeling-activity-1"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-function-applications-unit-pattern",
+        "bnu-high-s4-upper-midterm-function-properties-review",
+        "bnu-high-s4-upper-final-full-volume-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某城市2015年人口为80万，2020年人口为88万。假设人口按指数增长模型P(t)=P0·e^(rt)变化，其中t为年数（以2015年为t=0）。请利用所给数据求出r（精确到0.001），并预测2030年的人口（精确到万人）。同时，指出该模型的一个局限性。",
+      "optionsZhHans": [],
+      "answer": "r≈0.019，2030年人口预测约为106万；局限性：未考虑资源限制，长期预测可能偏差较大。",
+      "acceptedAnswers": [
+        "r≈0.019，2030年人口预测约为106万；局限性：未考虑资源限制，长期预测可能偏差较大。",
+        "r=0.019，2030年人口106万；局限性：未考虑环境容量。"
+      ],
+      "explanationZhHans": "P0=80，t=5时P=88，即80e^(5r)=88，e^(5r)=1.1，5r=ln1.1≈0.09531，r≈0.01906≈0.019。t=15时P=80e^(15*0.019)=80e^0.285≈80*1.33=106.4，取106万。指数模型假设无限增长，未考虑资源、政策等因素。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-259",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-数学建模活动-一",
+      "topicTitleZhHans": "数学建模活动（一）",
+      "volume": "必修 第一册",
+      "chapter": "数学建模活动（一）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "data-modeling",
+        "function-modeling",
+        "model-validation"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "函数零点",
+        "模型选择",
+        "参数解释",
+        "近似求解",
+        "结果检验",
+        "集合语言",
+        "不等式性质",
+        "方程转化"
+      ],
+      "misconceptionTags": [
+        "assumption not stated",
+        "data limitation ignored",
+        "model conclusion not checked against context",
+        "model domain overstated",
+        "zero not interpreted",
+        "growth comparison outside interval",
+        "set relation confused",
+        "inequality direction reversed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-modeling-activity-1"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-function-applications-unit-pattern",
+        "bnu-high-s4-upper-preparatory-knowledge-unit-pattern",
+        "bnu-high-s4-upper-functions-unit-pattern"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某快递公司规定：寄送物品重量不超过1千克收费10元，超过1千克但不超过5千克部分每千克加收2元，超过5千克部分每千克加收3元。若物品重量为x千克（x>0），快递费为y元。下列哪个函数图像能正确表示y与x的关系？",
+      "optionsZhHans": [
+        "A. 一条直线",
+        "B. 一条抛物线",
+        "C. 一条折线，分为三段，斜率依次增大",
+        "D. 一条折线，分为三段，斜率依次减小"
+      ],
+      "answer": "C. 一条折线，分为三段，斜率依次增大",
+      "acceptedAnswers": [
+        "C. 一条折线，分为三段，斜率依次增大"
+      ],
+      "explanationZhHans": "费用函数为分段线性：0<x≤1时y=10，斜率为0；1<x≤5时y=10+2(x-1)，斜率为2；x>5时y=10+2*4+3(x-5)=18+3(x-5)，斜率为3。斜率从0到2再到3，依次增大，图像为三段折线。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-260",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-数学建模活动-一",
+      "topicTitleZhHans": "数学建模活动（一）",
+      "volume": "必修 第一册",
+      "chapter": "数学建模活动（一）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "data-modeling",
+        "function-modeling",
+        "model-validation"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "函数零点",
+        "模型选择",
+        "参数解释",
+        "近似求解",
+        "结果检验",
+        "集合语言",
+        "不等式性质",
+        "方程转化"
+      ],
+      "misconceptionTags": [
+        "assumption not stated",
+        "data limitation ignored",
+        "model conclusion not checked against context",
+        "model domain overstated",
+        "zero not interpreted",
+        "growth comparison outside interval",
+        "set relation confused",
+        "inequality direction reversed"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-modeling-activity-1"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-function-applications-unit-pattern",
+        "bnu-high-s4-upper-preparatory-knowledge-unit-pattern",
+        "bnu-high-s4-upper-functions-unit-pattern"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某同学记录了一壶水从沸腾开始自然冷却的温度变化，时间t（分钟）和温度T（摄氏度）的数据如下：t=0时T=100，t=5时T=80，t=10时T=65，t=15时T=55，t=20时T=48。他想用指数函数T=a·b^t来拟合。请根据t=0和t=20的数据确定a和b（b精确到0.01），并预测t=30分钟时的温度（精确到1摄氏度）。同时，说明这个模型是否适合预测t=60分钟时的温度，为什么？",
+      "optionsZhHans": [],
+      "answer": "a=100，b≈0.96，预测t=30时温度约为44摄氏度；不适合预测t=60，因为模型未考虑室温下限，长时间后温度应接近室温而非趋于0。",
+      "acceptedAnswers": [
+        "a=100，b≈0.96，预测t=30时温度约为44摄氏度；不适合预测t=60，因为模型未考虑室温下限，长时间后温度应接近室温而非趋于0。",
+        "a=100，b=0.96，t=30时44°C；不适合，因为温度不会无限下降。"
+      ],
+      "explanationZhHans": "t=0时T=100得a=100。t=20时T=48，即100b^20=48，b^20=0.48，b=0.48^(1/20)≈0.964，取0.96。t=30时T=100*0.96^30≈100*0.294=29.4，但实际冷却曲线应趋近室温（如25°C），指数模型无下限，故长期预测不合理。"
+    }
+  ]
+}

@@ -1,0 +1,108 @@
+{
+  "batchId": "model-qa-0128",
+  "ids": [
+    "hjb-junior-ds-v2-s3-017",
+    "hjb-junior-ds-v2-s3-018",
+    "hjb-junior-ds-v2-s3-019",
+    "hjb-junior-ds-v2-s3-020",
+    "hjb-junior-ds-v2-s3-021",
+    "hjb-junior-ds-v2-s3-022",
+    "hjb-junior-ds-v2-s3-023",
+    "hjb-junior-ds-v2-s3-024"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-017",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "8 cm",
+      "answerCheckZhHans": "标准答案为8，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-018",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "证明：在△OAB和△OCD中，OA/OC=2/6=1/3，OB/OD=3/9=1/3，且∠AOB=∠COD（对顶角相等），所以△OAB∽△OCD（两边对应成比例且夹角相等）。因此∠OAB=∠OCD，故AB∥CD（内错角相等，两直线平行）。",
+      "answerCheckZhHans": "标准答案与独立证明一致，逻辑正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-019",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案和解析矛盾。解析中先算出AQ=1.5 cm，然后说QR=2.5 cm，但又说QR=7.5 cm，最终选项为AQ=1.5 cm，QR=7.5 cm。但根据相似比，QR应为2.5 cm，不是7.5 cm。选项A中QR=7.5 cm错误，选项C中QR=6 cm也不对。实际上，由PQ∥BC，△APQ∽△ABC，相似比AP/AB=2/8=1/4，所以PQ/BC=1/4，PQ=2.5 cm。但QR是PR的一部分，R在BC延长线上，无法直接得到QR=7.5 cm。题目可能意图是求PR，但选项给的是QR。需要重新审题。",
+      "independentAnswerZhHans": "由PQ∥BC，AP/AB=AQ/AC，2/8=AQ/6，AQ=1.5 cm。△APQ∽△ABC，相似比1/4，PQ=BC/4=2.5 cm。但QR无法直接求出，因为R是直线与BC延长线的交点，需要更多条件。题目可能不严谨。",
+      "answerCheckZhHans": "标准答案AQ=1.5 cm正确，但QR=7.5 cm错误，应为2.5 cm或无法确定。",
+      "recommendedActionZhHans": "检查题目条件和选项，修正QR的值或明确R的位置。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-020",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "10 cm",
+      "answerCheckZhHans": "标准答案为10，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-021",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "8 cm",
+      "answerCheckZhHans": "标准答案为8 cm，acceptedAnswers覆盖了多种写法，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-022",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "multiple-correct-options"
+      ],
+      "issueDetailsZhHans": "选项C和D都能判定相似。C是三边成比例，D是两角对应相等（∠A=∠D，∠B=∠F，则∠C=∠E，所以相似）。题目要求选择一个能判定的条件，但有两个正确选项。",
+      "independentAnswerZhHans": "C和D都能判定相似。",
+      "answerCheckZhHans": "标准答案只选了C，但D也正确。",
+      "recommendedActionZhHans": "修改选项，确保只有一个正确选项，或调整题目要求。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-023",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "4",
+      "answerCheckZhHans": "标准答案为4，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-024",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "13.5 cm",
+      "answerCheckZhHans": "标准答案为13.5 cm，acceptedAnswers覆盖了多种写法，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

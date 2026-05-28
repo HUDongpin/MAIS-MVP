@@ -1,0 +1,145 @@
+{
+  "batchNumber": 134,
+  "startedAt": "2026-05-27T14:06:09.982Z",
+  "completedAt": "2026-05-27T14:06:29.878Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-065",
+    "bnu-high-ds-v1-s6-066",
+    "bnu-high-ds-v1-s6-067",
+    "bnu-high-ds-v1-s6-068",
+    "bnu-high-ds-v1-s6-069",
+    "bnu-high-ds-v1-s6-070",
+    "bnu-high-ds-v1-s6-071",
+    "bnu-high-ds-v1-s6-072"
+  ],
+  "usage": {
+    "prompt_tokens": 11205,
+    "completion_tokens": 1325,
+    "total_tokens": 12530,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10693
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-065",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "39",
+        "correctedAnswer": "39",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立求解得 a_5+a_6+a_7 = S_7 - S_4 = 63 - 24 = 39，但题目答案和解析均误为 45，解析中计算过程也错误得出 39 却标为 45，答案与解析均与正确结果矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-066",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由 S_5=30, S_10=110 列方程组解得 d=2，答案和解析均正确一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-067",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "b_n = (3/2)^n - 1",
+        "correctedAnswer": "b_n = (3/2)^n - 1",
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_contradiction",
+          "ambiguous_mc"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立求解得 b_n = (3/2)^n - 1，对应选项 B，但题目答案误标为 A，解析虽推导出正确结果却错误声称选项均不匹配，最终又指向 B，造成答案与解析矛盾且选项标注混乱。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-068",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "146",
+        "correctedAnswer": "146",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "累加法求得 a_10 = 146，但题目答案误为 155，解析中计算过程也得出 146 却标为 155，答案与解析均与正确结果矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-069",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由 S_6 = S_3(1+q^3) 解得 q=2，答案和解析均正确一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-070",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "12",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由 S_9=S_15 得 a_12>0, a_13<0，故 S_12 最大，答案和解析均正确一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-071",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(1) 证明：b_{n+1}=3b_n, b_1=4, 故 {b_n} 是首项 4 公比 3 的等比数列，b_n=4·3^{n-1}。\n(2) a_n=4·3^{n-1}-2, S_n=2·3^n-2n-2。",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "构造等比数列并求和，答案和解析均正确一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-072",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "10",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由等差数列性质 a_3+a_7=2a_5 得 a_5=10，答案和解析均正确一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 5,
+      "warn": 0,
+      "fail": 3,
+      "notes": "8 题中 5 题通过，3 题因答案错误或选项标注混乱而失败。065、068 答案计算错误；067 答案选项标注错误且解析矛盾。"
+    }
+  }
+}

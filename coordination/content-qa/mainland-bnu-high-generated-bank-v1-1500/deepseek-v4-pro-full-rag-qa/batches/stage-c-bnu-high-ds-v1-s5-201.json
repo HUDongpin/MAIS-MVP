@@ -1,0 +1,50 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-201",
+  "startedAt": "2026-05-28T02:55:57.125Z",
+  "completedAt": "2026-05-28T02:56:02.447Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-201"
+  ],
+  "usage": {
+    "prompt_tokens": 2475,
+    "completion_tokens": 274,
+    "total_tokens": 2749,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2091
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-201",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": null,
+        "correctedAnswer": null,
+        "issueTags": [
+          "unsolvable",
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "A(1,2,3), B(4,5,6), C(7,8,9) 三点共线，无法确定唯一平面，不存在法向量，题目不可解。存储答案 1,-2,1 无意义，解释中亦承认共线但未修正。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目因三点共线不可解，答案与解释均无效，判定为 blocker。"
+    }
+  }
+}

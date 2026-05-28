@@ -1,0 +1,179 @@
+{
+  "batchNumber": 88,
+  "startedAt": "2026-05-27T17:53:17.136Z",
+  "completedAt": "2026-05-27T17:53:41.116Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s3-045",
+    "bnu-junior-ds-v1-s3-046",
+    "bnu-junior-ds-v1-s3-047",
+    "bnu-junior-ds-v1-s3-048",
+    "bnu-junior-ds-v1-s3-049",
+    "bnu-junior-ds-v1-s3-050",
+    "bnu-junior-ds-v1-s3-051",
+    "bnu-junior-ds-v1-s3-052",
+    "bnu-junior-ds-v1-s3-053",
+    "bnu-junior-ds-v1-s3-054",
+    "bnu-junior-ds-v1-s3-055",
+    "bnu-junior-ds-v1-s3-056"
+  ],
+  "usage": {
+    "prompt_tokens": 6715,
+    "completion_tokens": 1541,
+    "total_tokens": 8256,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 6203
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s3-045",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "正方形性质明确，O到边AB的距离等于边长一半，计算正确，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-046",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项C“对角线互相垂直平分”是菱形的判定定理，其他选项均不充分，答案唯一且解释正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-047",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "证明过程逻辑严谨，先证平行四边形，再利用角平分线和平行线性质得邻边相等，符合菱形判定。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-048",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "△BCE以BC为底，高为AB，面积计算正确，E为中点不影响高，答案24无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-049",
+        "status": "fail",
+        "severity": "major",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "75°",
+        "rationale": "tan∠AEB=AB/BE=3，∠AEB≈71.6°，最接近的选项是75°而非60°，答案与解释矛盾。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-050",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "利用菱形性质和对角线垂直平分，结合30°-60°-90°三角形边长关系，AC=4√3正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-051",
+        "status": "fail",
+        "severity": "major",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "2",
+        "rationale": "题目要求k为正整数且方程有两个不等实根，k>2/3且k≠1，k=2满足，但答案仅为2，解释中却写“取最小正整数k=2”，未说明是否唯一，但答案2正确，然而解释中“k≥2”与答案2不完全一致，但答案本身正确，故标记为答案匹配，但解释有歧义。实际上答案2正确，解释合理，但需注意k=2是唯一解吗？k=3,4,...也满足，但题目未要求所有值，只求k的值，可能默认求最小或某个值，但表述模糊。严格来说，题目“求k的值”暗示唯一解，但条件不足，k可为2,3,4,...，因此题目条件不足，无法确定唯一k。",
+        "confidence": "medium"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-052",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项C符合一元二次方程定义，其他选项化简后不是，答案唯一且解释正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-053",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "因式分解或公式法均可解得x=2或1/2，答案与解释一致，acceptedAnswers覆盖多种写法。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-054",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "利用根与系数关系或直接解方程，两根和为6，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-055",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分类讨论m=2和m≠2，综合得m≤3，选项A正确，解释清晰。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-056",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "展开后因式分解得x=4或-1，答案与解释一致。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 10,
+      "warn": 0,
+      "fail": 2,
+      "notes": "共12题，10题通过，2题失败。bnu-junior-ds-v1-s3-049答案错误，应为75°；bnu-junior-ds-v1-s3-051条件不足，k值不唯一，无法确定唯一答案。"
+    }
+  }
+}

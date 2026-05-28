@@ -1,0 +1,194 @@
+{
+  "batchNumber": 66,
+  "startedAt": "2026-05-27T13:29:58.959Z",
+  "completedAt": "2026-05-27T13:30:15.629Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p5-171",
+    "bnu-primary-ds-v1-p5-172",
+    "bnu-primary-ds-v1-p5-173",
+    "bnu-primary-ds-v1-p5-174",
+    "bnu-primary-ds-v1-p5-175",
+    "bnu-primary-ds-v1-p5-176",
+    "bnu-primary-ds-v1-p5-177",
+    "bnu-primary-ds-v1-p5-178",
+    "bnu-primary-ds-v1-p5-179",
+    "bnu-primary-ds-v1-p5-180",
+    "bnu-primary-ds-v1-p5-181",
+    "bnu-primary-ds-v1-p5-182",
+    "bnu-primary-ds-v1-p5-183",
+    "bnu-primary-ds-v1-p5-184",
+    "bnu-primary-ds-v1-p5-185",
+    "bnu-primary-ds-v1-p5-186",
+    "bnu-primary-ds-v1-p5-187",
+    "bnu-primary-ds-v1-p5-188"
+  ],
+  "usage": {
+    "prompt_tokens": 3197,
+    "completion_tokens": 1270,
+    "total_tokens": 4467,
+    "prompt_tokens_details": {
+      "cached_tokens": 3072
+    },
+    "prompt_cache_hit_tokens": 3072,
+    "prompt_cache_miss_tokens": 125
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p5-171",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案准确，解释清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-172",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，选项唯一，答案无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-173",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案准确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-174",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，单位换算无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-175",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，计算无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-176",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，单位选择合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-177",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案准确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-178",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，计算无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-179",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案准确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-180",
+        "status": "fail",
+        "severity": "blocker",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch"
+        ],
+        "correctedAnswer": "20厘米",
+        "rationale": "水深计算错误：6升=6000立方厘米，底面积300平方厘米，水深应为6000÷300=20厘米，但容器高仅10厘米，水会溢出，实际水深只能为10厘米。答案20厘米不符合实际。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-181",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-182",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案准确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-183",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-184",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案准确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-185",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-186",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案准确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-187",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-188",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案准确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 17,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第180题水深计算未考虑容器高度限制，导致答案错误，其余题目均正确。"
+    }
+  }
+}

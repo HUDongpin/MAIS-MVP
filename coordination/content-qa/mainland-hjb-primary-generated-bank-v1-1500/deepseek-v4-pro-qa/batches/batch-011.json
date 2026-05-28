@@ -1,0 +1,191 @@
+{
+  "batchNumber": 11,
+  "startedAt": "2026-05-25T01:49:43.940Z",
+  "completedAt": "2026-05-25T01:50:04.474Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p1-181",
+    "hjb-primary-ds-v1-p1-182",
+    "hjb-primary-ds-v1-p1-183",
+    "hjb-primary-ds-v1-p1-184",
+    "hjb-primary-ds-v1-p1-185",
+    "hjb-primary-ds-v1-p1-186",
+    "hjb-primary-ds-v1-p1-187",
+    "hjb-primary-ds-v1-p1-188",
+    "hjb-primary-ds-v1-p1-189",
+    "hjb-primary-ds-v1-p1-190",
+    "hjb-primary-ds-v1-p1-191",
+    "hjb-primary-ds-v1-p1-192",
+    "hjb-primary-ds-v1-p1-193",
+    "hjb-primary-ds-v1-p1-194",
+    "hjb-primary-ds-v1-p1-195",
+    "hjb-primary-ds-v1-p1-196",
+    "hjb-primary-ds-v1-p1-197",
+    "hjb-primary-ds-v1-p1-198"
+  ],
+  "usage": {
+    "prompt_tokens": 3353,
+    "completion_tokens": 1480,
+    "total_tokens": 4833,
+    "prompt_tokens_details": {
+      "cached_tokens": 3328
+    },
+    "prompt_cache_hit_tokens": 3328,
+    "prompt_cache_miss_tokens": 25
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p1-181",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，时针在9和10之间、分针指向6是9:30，选项和答案匹配。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-182",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，分针指向12、时针指向4是4时，答案和接受答案合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-183",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，下午1:30最可能吃午饭，选项和答案匹配。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-184",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，时间顺序为起床、午饭、睡觉，答案和接受答案合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-185",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，分针指向12、时针指向8是8:00，选项和答案匹配。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-186",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，时针在8和9之间、分针指向6是8时半，答案和接受答案合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-187",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，半时特征为时针在两数之间、分针指向6，选项B符合，答案匹配。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-188",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，时间顺序为起床、到校、吃午饭，答案和接受答案合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-189",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，4时半时针在4和5之间、分针指向6，选项B正确，答案匹配。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-190",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，时针在10和11之间、分针指向6是10时半，答案和接受答案合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-191",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，时针在8和9中间、分针指向6是8时半，小明说得对，答案匹配。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-192",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，分针指向12、时针指向7是7时，答案和接受答案合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-193",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，上午9时半通常在上课，选项和答案匹配。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-194",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，从起点到第8支铅笔末尾是8支铅笔长度，答案和接受答案合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-195",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，比较长度应拉直一端对齐，选项和答案匹配。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-196",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，小华对齐起点测量更准确，答案和接受答案合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-197",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，比较长短应一端对齐看另一端，选项和答案匹配。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-198",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，用数学书长边量4次，课桌长边约4个单位，答案和接受答案合理。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合沪教版小学数学一年级要求，数学正确，答案匹配，无歧义或缺失条件，适合公开题库使用。"
+    }
+  }
+}

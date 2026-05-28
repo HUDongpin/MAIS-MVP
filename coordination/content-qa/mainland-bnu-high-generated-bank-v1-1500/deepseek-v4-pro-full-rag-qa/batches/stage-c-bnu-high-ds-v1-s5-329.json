@@ -1,0 +1,47 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-329",
+  "startedAt": "2026-05-28T03:01:52.414Z",
+  "completedAt": "2026-05-28T03:01:57.966Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-329"
+  ],
+  "usage": {
+    "prompt_tokens": 1990,
+    "completion_tokens": 243,
+    "total_tokens": 2233,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1606
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-329",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "3",
+        "correctedAnswer": null,
+        "issueTags": [
+          "explanation_contradiction"
+        ],
+        "severity": "minor",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，答案3正确，符合教材计数原理范围。但解析中列举的涂法“红-黄-黄-黄”等存在相邻面同色问题，推理不严谨，属于解释瑕疵，不影响答案正确性。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 1,
+      "warn": 0,
+      "fail": 0,
+      "notes": "题目答案正确，解析存在瑕疵，建议修正解析以消除相邻同色矛盾。"
+    }
+  }
+}

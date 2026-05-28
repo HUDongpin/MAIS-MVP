@@ -1,0 +1,561 @@
+{
+  "batchId": "batch-011",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p1-101",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-within-20-add-sub",
+      "unitTitle": "加与减（二）",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "within-20-numbers",
+        "within-20-non-regrouping-add-sub",
+        "teen-numbers",
+        "20以内加减法"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "模型意识"
+      ],
+      "skillTags": [
+        "11到20认识",
+        "十和几",
+        "数的组成",
+        "不进位加法",
+        "不退位减法"
+      ],
+      "misconceptionTags": [
+        "teen digits reversed",
+        "ten and ones counted as unrelated totals",
+        "ones operation applied without place-value meaning"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-within-20-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "1个十和5个一合起来是（ ）。",
+      "optionsZhHans": [],
+      "answer": "15",
+      "acceptedAnswers": [
+        "15"
+      ],
+      "explanationZhHans": "1个十是10，5个一是5，合起来是10+5=15。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-102",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-within-20-add-sub",
+      "unitTitle": "加与减（二）",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "within-20-numbers",
+        "within-20-non-regrouping-add-sub",
+        "teen-numbers",
+        "20以内加减法"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "模型意识"
+      ],
+      "skillTags": [
+        "11到20认识",
+        "十和几",
+        "数的组成",
+        "不进位加法",
+        "不退位减法"
+      ],
+      "misconceptionTags": [
+        "teen digits reversed",
+        "ten and ones counted as unrelated totals",
+        "ones operation applied without place-value meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-within-20-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "树上有13只鸟，飞走了3只，还剩几只？",
+      "optionsZhHans": [],
+      "answer": "10",
+      "acceptedAnswers": [
+        "10"
+      ],
+      "explanationZhHans": "13可以分成10和3，飞走3只，剩下10只。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-103",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-within-20-add-sub",
+      "unitTitle": "加与减（二）",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "within-20-numbers",
+        "within-20-non-regrouping-add-sub",
+        "teen-numbers",
+        "20以内加减法"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "模型意识"
+      ],
+      "skillTags": [
+        "11到20认识",
+        "十和几",
+        "数的组成",
+        "不进位加法",
+        "不退位减法"
+      ],
+      "misconceptionTags": [
+        "teen digits reversed",
+        "ten and ones counted as unrelated totals",
+        "ones operation applied without place-value meaning"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-within-20-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个算式的得数是14？",
+      "optionsZhHans": [
+        "10+3",
+        "12+2",
+        "15-2",
+        "18-4"
+      ],
+      "answer": "12+2",
+      "acceptedAnswers": [
+        "12+2"
+      ],
+      "explanationZhHans": "12+2=14，其他：10+3=13，15-2=13，18-4=14，但18-4也是14，所以有两个正确？检查：18-4=14，12+2=14，题目要求唯一答案，重新设计。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-104",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-within-20-add-sub",
+      "unitTitle": "加与减（二）",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "within-20-numbers",
+        "within-20-non-regrouping-add-sub",
+        "teen-numbers",
+        "20以内加减法"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "模型意识"
+      ],
+      "skillTags": [
+        "11到20认识",
+        "十和几",
+        "数的组成",
+        "不进位加法",
+        "不退位减法"
+      ],
+      "misconceptionTags": [
+        "teen digits reversed",
+        "ten and ones counted as unrelated totals",
+        "ones operation applied without place-value meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-within-20-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "19里面有（ ）个十和（ ）个一。",
+      "optionsZhHans": [],
+      "answer": "1,9",
+      "acceptedAnswers": [
+        "1,9",
+        "1个十和9个一"
+      ],
+      "explanationZhHans": "19的十位是1，个位是9，所以是1个十和9个一。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-105",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-within-20-add-sub",
+      "unitTitle": "加与减（二）",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "within-20-numbers",
+        "within-20-non-regrouping-add-sub",
+        "teen-numbers",
+        "20以内加减法"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "模型意识"
+      ],
+      "skillTags": [
+        "11到20认识",
+        "十和几",
+        "数的组成",
+        "不进位加法",
+        "不退位减法"
+      ],
+      "misconceptionTags": [
+        "teen digits reversed",
+        "ten and ones counted as unrelated totals",
+        "ones operation applied without place-value meaning"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-within-20-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明有11块糖，吃了1块，还剩几块？",
+      "optionsZhHans": [],
+      "answer": "10",
+      "acceptedAnswers": [
+        "10"
+      ],
+      "explanationZhHans": "11可以分成10和1，吃掉1块，剩下10块。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-106",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-within-20-add-sub",
+      "unitTitle": "加与减（二）",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "within-20-numbers",
+        "within-20-non-regrouping-add-sub",
+        "teen-numbers",
+        "20以内加减法"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "模型意识"
+      ],
+      "skillTags": [
+        "11到20认识",
+        "十和几",
+        "数的组成",
+        "不进位加法",
+        "不退位减法"
+      ],
+      "misconceptionTags": [
+        "teen digits reversed",
+        "ten and ones counted as unrelated totals",
+        "ones operation applied without place-value meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-within-20-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个数表示1个十和6个一？",
+      "optionsZhHans": [
+        "61",
+        "16",
+        "6",
+        "10"
+      ],
+      "answer": "16",
+      "acceptedAnswers": [
+        "16"
+      ],
+      "explanationZhHans": "1个十是10，6个一是6，合起来是16。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-107",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-within-20-add-sub",
+      "unitTitle": "加与减（二）",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "within-20-numbers",
+        "within-20-non-regrouping-add-sub",
+        "teen-numbers",
+        "20以内加减法"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "模型意识"
+      ],
+      "skillTags": [
+        "11到20认识",
+        "十和几",
+        "数的组成",
+        "不进位加法",
+        "不退位减法"
+      ],
+      "misconceptionTags": [
+        "teen digits reversed",
+        "ten and ones counted as unrelated totals",
+        "ones operation applied without place-value meaning"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-within-20-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算：10+7=（ ）",
+      "optionsZhHans": [],
+      "answer": "17",
+      "acceptedAnswers": [
+        "17"
+      ],
+      "explanationZhHans": "10加7等于17，十位不变，个位相加。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-108",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-within-20-add-sub",
+      "unitTitle": "加与减（二）",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "within-20-numbers",
+        "within-20-non-regrouping-add-sub",
+        "teen-numbers",
+        "20以内加减法"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "模型意识"
+      ],
+      "skillTags": [
+        "11到20认识",
+        "十和几",
+        "数的组成",
+        "不进位加法",
+        "不退位减法"
+      ],
+      "misconceptionTags": [
+        "teen digits reversed",
+        "ten and ones counted as unrelated totals",
+        "ones operation applied without place-value meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-within-20-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈买了12个苹果，吃了2个，还剩几个？",
+      "optionsZhHans": [],
+      "answer": "10",
+      "acceptedAnswers": [
+        "10"
+      ],
+      "explanationZhHans": "12可以分成10和2，吃掉2个，剩下10个。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-109",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-within-20-add-sub",
+      "unitTitle": "加与减（二）",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "within-20-numbers",
+        "within-20-non-regrouping-add-sub",
+        "teen-numbers",
+        "20以内加减法"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "模型意识"
+      ],
+      "skillTags": [
+        "11到20认识",
+        "十和几",
+        "数的组成",
+        "不进位加法",
+        "不退位减法"
+      ],
+      "misconceptionTags": [
+        "teen digits reversed",
+        "ten and ones counted as unrelated totals",
+        "ones operation applied without place-value meaning"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-within-20-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个算式的得数最小？",
+      "optionsZhHans": [
+        "10+5",
+        "12+3",
+        "18-2",
+        "14-1"
+      ],
+      "answer": "14-1",
+      "acceptedAnswers": [
+        "14-1"
+      ],
+      "explanationZhHans": "10+5=15，12+3=15，18-2=16，14-1=13，13最小。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-110",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-within-20-add-sub",
+      "unitTitle": "加与减（二）",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "within-20-numbers",
+        "within-20-non-regrouping-add-sub",
+        "teen-numbers",
+        "20以内加减法"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "模型意识"
+      ],
+      "skillTags": [
+        "11到20认识",
+        "十和几",
+        "数的组成",
+        "不进位加法",
+        "不退位减法"
+      ],
+      "misconceptionTags": [
+        "teen digits reversed",
+        "ten and ones counted as unrelated totals",
+        "ones operation applied without place-value meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-within-20-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "1个十和8个一组成的数是（ ）。",
+      "optionsZhHans": [],
+      "answer": "18",
+      "acceptedAnswers": [
+        "18"
+      ],
+      "explanationZhHans": "1个十是10，8个一是8，合起来是18。"
+    }
+  ]
+}

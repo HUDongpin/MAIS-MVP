@@ -1,0 +1,367 @@
+{
+  "batchId": "batch-017",
+  "generationMode": "targeted-local-repair",
+  "fallbackReason": "targeted-local-repair",
+  "questions": [
+    {
+      "id": "hjb-high-ds-v2-s4-161",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-幂函数-指数函数与对数函数",
+      "topicTitleZhHans": "幂函数、指数函数与对数函数",
+      "volume": "必修 第一册",
+      "chapter": "幂函数、指数函数与对数函数",
+      "conceptIds": [
+        "power-functions",
+        "exponential-functions",
+        "logarithmic-functions",
+        "function-graphs"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-power-exponential-log-functions"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-power-exponential-log-functions-unit-core",
+        "hjb-high-compulsory-1-power-exponential-log-functions-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "已知幂函数 f(x) = x^α 的图像经过点 (4, 8)，则 f(9) 的值为 ______。",
+      "optionsZhHans": [],
+      "answer": "27",
+      "acceptedAnswers": [
+        "27"
+      ],
+      "explanationZhHans": "由 4^α = 8，得 2^(2α) = 2^3，故 2α = 3，α = 3/2。所以 f(x) = x^(3/2)，f(9) = 9^(3/2) = (√9)^3 = 3^3 = 27。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-162",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-幂函数-指数函数与对数函数",
+      "topicTitleZhHans": "幂函数、指数函数与对数函数",
+      "volume": "必修 第一册",
+      "chapter": "幂函数、指数函数与对数函数",
+      "conceptIds": [
+        "power-functions",
+        "exponential-functions",
+        "logarithmic-functions",
+        "function-graphs"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-power-exponential-log-functions"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-power-exponential-log-functions-unit-core",
+        "hjb-high-compulsory-1-power-exponential-log-functions-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "已知函数 f(x) = a^x (a > 0 且 a ≠ 1) 在区间 [1, 2] 上的最大值与最小值之差为 6，求实数 a 的值。",
+      "optionsZhHans": [],
+      "answer": "3 或 1/3",
+      "acceptedAnswers": [
+        "3 或 1/3",
+        "3或1/3",
+        "a=3 或 a=1/3"
+      ],
+      "explanationZhHans": "当 a > 1 时，f(x) 递增，最大值 f(2)=a^2，最小值 f(1)=a，差 a^2 - a = 6，解得 a=3 (a=-2舍)。当 0 < a < 1 时，f(x) 递减，最大值 f(1)=a，最小值 f(2)=a^2，差 a - a^2 = 6，即 a^2 - a + 6 = 0 无解。故 a=3。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-163",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-幂函数-指数函数与对数函数",
+      "topicTitleZhHans": "幂函数、指数函数与对数函数",
+      "volume": "必修 第一册",
+      "chapter": "幂函数、指数函数与对数函数",
+      "conceptIds": [
+        "power-functions",
+        "exponential-functions",
+        "logarithmic-functions",
+        "function-graphs"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-power-exponential-log-functions"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-power-exponential-log-functions-unit-core",
+        "hjb-high-compulsory-1-power-exponential-log-functions-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "下列函数中，在定义域内既是奇函数又是增函数的是（ ）",
+      "optionsZhHans": [
+        "A. y = x^3",
+        "B. y = 2^x",
+        "C. y = log₂x",
+        "D. y = x^(-2)"
+      ],
+      "answer": "A. y = x^3",
+      "acceptedAnswers": [
+        "A. y = x^3"
+      ],
+      "explanationZhHans": "A：y=x^3 是奇函数且单调递增，符合。B：y=2^x 非奇非偶。C：y=log₂x 非奇非偶。D：y=x^(-2) 是偶函数。故选A。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-164",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-幂函数-指数函数与对数函数",
+      "topicTitleZhHans": "幂函数、指数函数与对数函数",
+      "volume": "必修 第一册",
+      "chapter": "幂函数、指数函数与对数函数",
+      "conceptIds": [
+        "power-functions",
+        "exponential-functions",
+        "logarithmic-functions",
+        "function-graphs"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-power-exponential-log-functions"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-power-exponential-log-functions-unit-core",
+        "hjb-high-compulsory-1-power-exponential-log-functions-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0164：填空：函数 f(x)=6^x，求 f(2)。",
+      "optionsZhHans": [],
+      "answer": "36",
+      "acceptedAnswers": [
+        "36"
+      ],
+      "explanationZhHans": "代入 x=2，f(2)=6^2=36。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-165",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-幂函数-指数函数与对数函数",
+      "topicTitleZhHans": "幂函数、指数函数与对数函数",
+      "volume": "必修 第一册",
+      "chapter": "幂函数、指数函数与对数函数",
+      "conceptIds": [
+        "power-functions",
+        "exponential-functions",
+        "logarithmic-functions",
+        "function-graphs"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-power-exponential-log-functions"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-power-exponential-log-functions-unit-core",
+        "hjb-high-compulsory-1-power-exponential-log-functions-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "比较大小：log₂3 与 log₃4，并说明理由。",
+      "optionsZhHans": [],
+      "answer": "log₂3 > log₃4",
+      "acceptedAnswers": [
+        "log₂3 > log₃4",
+        "log₂3 大于 log₃4"
+      ],
+      "explanationZhHans": "log₂3 > log₂2 = 1，log₃4 < log₃9 = 2，但需更精确比较。由换底公式，log₂3 = ln3/ln2 ≈ 1.585，log₃4 = ln4/ln3 ≈ 1.262，故 log₂3 > log₃4。或利用单调性：log₂3 > log₂(√8)=1.5，log₃4 < log₃(√27)=1.5，得证。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-166",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-幂函数-指数函数与对数函数",
+      "topicTitleZhHans": "幂函数、指数函数与对数函数",
+      "volume": "必修 第一册",
+      "chapter": "幂函数、指数函数与对数函数",
+      "conceptIds": [
+        "power-functions",
+        "exponential-functions",
+        "logarithmic-functions",
+        "function-graphs"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-power-exponential-log-functions"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-power-exponential-log-functions-unit-core",
+        "hjb-high-compulsory-1-power-exponential-log-functions-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "已知函数 f(x) = 2^x + 2^(-x)，g(x) = 2^x - 2^(-x)，则下列结论正确的是（ ）",
+      "optionsZhHans": [
+        "A. f(x) 是奇函数，g(x) 是偶函数",
+        "B. f(x) 是偶函数，g(x) 是奇函数",
+        "C. f(x) 和 g(x) 都是奇函数",
+        "D. f(x) 和 g(x) 都是偶函数"
+      ],
+      "answer": "B. f(x) 是偶函数，g(x) 是奇函数",
+      "acceptedAnswers": [
+        "B. f(x) 是偶函数，g(x) 是奇函数"
+      ],
+      "explanationZhHans": "f(-x) = 2^(-x) + 2^x = f(x)，故 f(x) 为偶函数。g(-x) = 2^(-x) - 2^x = -g(x)，故 g(x) 为奇函数。因此选B。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-167",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-幂函数-指数函数与对数函数",
+      "topicTitleZhHans": "幂函数、指数函数与对数函数",
+      "volume": "必修 第一册",
+      "chapter": "幂函数、指数函数与对数函数",
+      "conceptIds": [
+        "power-functions",
+        "exponential-functions",
+        "logarithmic-functions",
+        "function-graphs"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-power-exponential-log-functions"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-power-exponential-log-functions-unit-core",
+        "hjb-high-compulsory-1-power-exponential-log-functions-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "函数 y = log₂(x² - 2x) 的单调递增区间为 ______。",
+      "optionsZhHans": [],
+      "answer": "(2, +∞)",
+      "acceptedAnswers": [
+        "(2, +∞)",
+        "(2,+∞)"
+      ],
+      "explanationZhHans": "先求定义域：x²-2x>0，得 x<0 或 x>2。令 t=x²-2x，则 y=log₂t 递增。t 在 (2,+∞) 上递增，在 (-∞,0) 上递减。由复合函数单调性，原函数递增区间为 (2,+∞)。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-168",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-幂函数-指数函数与对数函数",
+      "topicTitleZhHans": "幂函数、指数函数与对数函数",
+      "volume": "必修 第一册",
+      "chapter": "幂函数、指数函数与对数函数",
+      "conceptIds": [
+        "power-functions",
+        "exponential-functions",
+        "logarithmic-functions",
+        "function-graphs"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-power-exponential-log-functions"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-power-exponential-log-functions-unit-core",
+        "hjb-high-compulsory-1-power-exponential-log-functions-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0168：解答：函数 f(x)=5^x，求 f(2)。",
+      "optionsZhHans": [],
+      "answer": "25",
+      "acceptedAnswers": [
+        "25"
+      ],
+      "explanationZhHans": "代入 x=2，f(2)=5^2=25。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-169",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-幂函数-指数函数与对数函数",
+      "topicTitleZhHans": "幂函数、指数函数与对数函数",
+      "volume": "必修 第一册",
+      "chapter": "幂函数、指数函数与对数函数",
+      "conceptIds": [
+        "power-functions",
+        "exponential-functions",
+        "logarithmic-functions",
+        "function-graphs"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-power-exponential-log-functions"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-power-exponential-log-functions-unit-core",
+        "hjb-high-compulsory-1-power-exponential-log-functions-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "设 a = log₀.₅0.6，b = log₁.₂0.8，c = 1.1^0.9，则 a, b, c 的大小关系是（ ）",
+      "optionsZhHans": [
+        "A. a < b < c",
+        "B. b < a < c",
+        "C. b < c < a",
+        "D. c < a < b"
+      ],
+      "answer": "B. b < a < c",
+      "acceptedAnswers": [
+        "B. b < a < c"
+      ],
+      "explanationZhHans": "a = log₀.₅0.6，底数 0.5<1，真数 0.6<1，故 a>0。b = log₁.₂0.8，底数 1.2>1，真数 0.8<1，故 b<0。c = 1.1^0.9 > 1.1^0 = 1。所以 b < 0 < a < 1 < c，即 b < a < c。选B。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-170",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-幂函数-指数函数与对数函数",
+      "topicTitleZhHans": "幂函数、指数函数与对数函数",
+      "volume": "必修 第一册",
+      "chapter": "幂函数、指数函数与对数函数",
+      "conceptIds": [
+        "power-functions",
+        "exponential-functions",
+        "logarithmic-functions",
+        "function-graphs"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-power-exponential-log-functions"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-power-exponential-log-functions-unit-core",
+        "hjb-high-compulsory-1-power-exponential-log-functions-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "若函数 f(x) = log₂(x² - ax + 3a) 在区间 [2, +∞) 上是增函数，则实数 a 的取值范围是 ______。",
+      "optionsZhHans": [],
+      "answer": "(-4, 4]",
+      "acceptedAnswers": [
+        "(-4, 4]",
+        "(-4,4]"
+      ],
+      "explanationZhHans": "令 u = x² - ax + 3a，则 y = log₂u 递增。f(x) 在 [2,+∞) 递增，需 u 在 [2,+∞) 递增且 u>0。u 的对称轴 x = a/2 ≤ 2，得 a ≤ 4。又 u(2) = 4 - 2a + 3a = 4 + a > 0，得 a > -4。综上，-4 < a ≤ 4。"
+    }
+  ]
+}

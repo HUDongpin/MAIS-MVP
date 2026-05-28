@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0023",
+  "ids": [
+    "hjb-junior-ds-v2-s1-177",
+    "hjb-junior-ds-v2-s1-178",
+    "hjb-junior-ds-v2-s1-179",
+    "hjb-junior-ds-v2-s1-180",
+    "hjb-junior-ds-v2-s1-181",
+    "hjb-junior-ds-v2-s1-182",
+    "hjb-junior-ds-v2-s1-183",
+    "hjb-junior-ds-v2-s1-184"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-177",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "5",
+      "answerCheckZhHans": "标准答案正确，解析推导无误，化简后代入得5。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-178",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "保持不变",
+      "answerCheckZhHans": "标准答案正确，解析正确，代入验证一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-179",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(a-1)/(a+1)",
+      "answerCheckZhHans": "标准答案正确，解析正确，acceptedAnswers覆盖了带括号和不带括号的写法。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-180",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案和解析不一致。解析化简得到2(x+3)/[(x+2)(x-2)]，但错误地约分成了2/(x+2)，实际上无法约去(x+3)。正确结果应为(2x+6)/[(x+2)(x-2)]，不能进一步化简。标准答案2/(x+2)错误。",
+      "independentAnswerZhHans": "(2x+6)/[(x+2)(x-2)]，x≠±2",
+      "answerCheckZhHans": "标准答案错误，解析推导有误，最终结果不正确。",
+      "recommendedActionZhHans": "修正答案和解析，正确结果为(2x+6)/[(x+2)(x-2)]，x≠±2。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-181",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "C. x ≠ 2 且 x ≠ -2",
+      "answerCheckZhHans": "标准答案正确，解析正确，分母为零解得x=±2，故需排除。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-182",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "标准答案正确，解析正确，分子为零且分母不为零。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-183",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "1",
+      "answerCheckZhHans": "标准答案正确，解析正确，化简后为1，代入x=2得1。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-184",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "C. \\(\\frac{2x-6}{x^2-6x+9}\\)",
+      "answerCheckZhHans": "标准答案正确，解析正确，C选项化简后等于2/(x-3)，其他选项或因定义域不同或因不恒等而不选。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

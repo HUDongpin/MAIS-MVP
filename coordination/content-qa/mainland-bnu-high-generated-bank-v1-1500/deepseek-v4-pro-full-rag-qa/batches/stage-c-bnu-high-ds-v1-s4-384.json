@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-384",
+  "startedAt": "2026-05-28T02:44:20.580Z",
+  "completedAt": "2026-05-28T02:44:25.609Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-384"
+  ],
+  "usage": {
+    "prompt_tokens": 2334,
+    "completion_tokens": 275,
+    "total_tokens": 2609,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1950
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-384",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": null,
+        "correctedAnswer": "无法仅用a、b表示，需补充条件",
+        "issueTags": [
+          "missing_condition",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目仅给出AB=a，AD=b，未说明四边形形状，无法唯一表示EF。存储答案(a+b)/2仅在平行四边形假设下成立，但题目未明确，条件不足。Stage A指出无法仅用a、b表示，且解释与答案矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目条件不足，无法唯一表示EF，存储答案错误，解释矛盾，判定为blocker。"
+    }
+  }
+}

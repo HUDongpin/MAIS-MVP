@@ -1,0 +1,173 @@
+{
+  "batchNumber": 42,
+  "startedAt": "2026-05-27T17:34:09.090Z",
+  "completedAt": "2026-05-27T17:34:27.468Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s1-493",
+    "bnu-junior-ds-v1-s1-494",
+    "bnu-junior-ds-v1-s1-495",
+    "bnu-junior-ds-v1-s1-496",
+    "bnu-junior-ds-v1-s1-497",
+    "bnu-junior-ds-v1-s1-498",
+    "bnu-junior-ds-v1-s1-499",
+    "bnu-junior-ds-v1-s1-500",
+    "bnu-junior-ds-v1-s2-001",
+    "bnu-junior-ds-v1-s2-002",
+    "bnu-junior-ds-v1-s2-003",
+    "bnu-junior-ds-v1-s2-004"
+  ],
+  "usage": {
+    "prompt_tokens": 6771,
+    "completion_tokens": 1374,
+    "total_tokens": 8145,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 6259
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s1-493",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件完整，等分转盘，红色占2份，概率2/8=1/4，选项唯一正确，答案匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-494",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "52张牌，红桃13张，概率13/52=1/4，答案正确，acceptedAnswers覆盖分数、百分数、小数形式。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-495",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "总球数8，黑球5，概率5/8，选项唯一正确，答案匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-496",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "不放回摸球，第一次红概率4/10，第二次蓝概率6/9，乘积4/15，计算正确，答案匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-497",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "抛硬币三次，等可能结果8种，恰好两次正面3种，概率3/8，选项唯一正确，答案匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-498",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "总球数10，黄球3，概率3/10，答案正确，acceptedAnswers覆盖多种表示。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-499",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "1-10中3的倍数3个，概率3/10，选项唯一正确，答案匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-500",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "有放回摸球，同色概率为(4/10)²+(6/10)²=16/100+36/100=52/100=13/25，答案正确，acceptedAnswers覆盖分数、百分数、小数。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-001",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "直角边5和12，斜边√(5²+12²)=13，选项唯一正确，答案匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-002",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "三边7,24,25，7²+24²=625=25²，满足逆定理，是直角三角形，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-003",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "直角边8和6，斜边√(8²+6²)=10，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-004",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "等腰直角三角形斜边4√2，直角边x满足2x²=32，x=4，选项唯一正确，答案匹配。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部12道题均条件完整、可解，答案与题目匹配，解释正确，无风险。"
+    }
+  }
+}

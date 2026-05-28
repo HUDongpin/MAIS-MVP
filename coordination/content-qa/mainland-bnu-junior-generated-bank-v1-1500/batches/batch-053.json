@@ -1,0 +1,600 @@
+{
+  "batchId": "batch-053",
+  "questions": [
+    {
+      "id": "bnu-junior-ds-v1-s2-021",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-pythagorean-theorem",
+      "unitTitle": "勾股定理",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "pythagorean-theorem",
+        "right-triangles",
+        "converse-pythagorean-theorem",
+        "distance-measurement",
+        "勾股定理"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "模型意识"
+      ],
+      "skillTags": [
+        "直角三角形判定",
+        "边长计算",
+        "逆定理",
+        "几何建模",
+        "数量关系解释"
+      ],
+      "misconceptionTags": [
+        "right-angle condition assumed from appearance",
+        "legs and hypotenuse mismatched",
+        "converse used as a calculation rule only"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-pythagorean-theorem"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-pythagorean-theorem-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在△ABC中，已知AB=9，BC=12，AC=15。求△ABC的面积。",
+      "optionsZhHans": [],
+      "answer": "54",
+      "acceptedAnswers": [
+        "54"
+      ],
+      "explanationZhHans": "因为9²+12²=81+144=225=15²，所以△ABC是直角三角形，∠B=90°。面积=1/2×AB×BC=1/2×9×12=54。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-022",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-pythagorean-theorem",
+      "unitTitle": "勾股定理",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "pythagorean-theorem",
+        "right-triangles",
+        "converse-pythagorean-theorem",
+        "distance-measurement",
+        "勾股定理"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "模型意识"
+      ],
+      "skillTags": [
+        "直角三角形判定",
+        "边长计算",
+        "逆定理",
+        "几何建模",
+        "数量关系解释"
+      ],
+      "misconceptionTags": [
+        "right-angle condition assumed from appearance",
+        "legs and hypotenuse mismatched",
+        "converse used as a calculation rule only"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-pythagorean-theorem"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-pythagorean-theorem-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个直角三角形的两条直角边长分别为5 cm和12 cm，则斜边上的高为多少厘米？",
+      "optionsZhHans": [
+        "60/13 cm",
+        "13/60 cm",
+        "30/13 cm",
+        "13/30 cm"
+      ],
+      "answer": "60/13 cm",
+      "acceptedAnswers": [
+        "60/13 cm"
+      ],
+      "explanationZhHans": "斜边=√(5²+12²)=13 cm。由面积相等：1/2×5×12=1/2×13×h，得h=60/13 cm。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-023",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-pythagorean-theorem",
+      "unitTitle": "勾股定理",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "pythagorean-theorem",
+        "right-triangles",
+        "converse-pythagorean-theorem",
+        "distance-measurement",
+        "勾股定理"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "模型意识"
+      ],
+      "skillTags": [
+        "直角三角形判定",
+        "边长计算",
+        "逆定理",
+        "几何建模",
+        "数量关系解释"
+      ],
+      "misconceptionTags": [
+        "right-angle condition assumed from appearance",
+        "legs and hypotenuse mismatched",
+        "converse used as a calculation rule only"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-pythagorean-theorem"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-pythagorean-theorem-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "判断以线段a=7，b=24，c=25为边长的三角形是否为直角三角形，并说明理由。",
+      "optionsZhHans": [],
+      "answer": "是直角三角形。因为7²+24²=49+576=625=25²，满足勾股定理逆定理。",
+      "acceptedAnswers": [
+        "是直角三角形。因为7²+24²=49+576=625=25²，满足勾股定理逆定理。"
+      ],
+      "explanationZhHans": "计算7²+24²=625，25²=625，所以a²+b²=c²，因此三角形是直角三角形，c为斜边。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-024",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-pythagorean-theorem",
+      "unitTitle": "勾股定理",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "pythagorean-theorem",
+        "right-triangles",
+        "converse-pythagorean-theorem",
+        "distance-measurement",
+        "勾股定理"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "模型意识"
+      ],
+      "skillTags": [
+        "直角三角形判定",
+        "边长计算",
+        "逆定理",
+        "几何建模",
+        "数量关系解释"
+      ],
+      "misconceptionTags": [
+        "right-angle condition assumed from appearance",
+        "legs and hypotenuse mismatched",
+        "converse used as a calculation rule only"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-pythagorean-theorem"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-pythagorean-theorem-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在△ABC中，AB=AC=10，BC=12。求底边BC上的高AD的长度。",
+      "optionsZhHans": [],
+      "answer": "8",
+      "acceptedAnswers": [
+        "8"
+      ],
+      "explanationZhHans": "等腰三角形底边上的高也是中线，BD=DC=6。在Rt△ABD中，AD=√(10²-6²)=√(100-36)=√64=8。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-025",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-pythagorean-theorem",
+      "unitTitle": "勾股定理",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "pythagorean-theorem",
+        "right-triangles",
+        "converse-pythagorean-theorem",
+        "distance-measurement",
+        "勾股定理"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "模型意识"
+      ],
+      "skillTags": [
+        "直角三角形判定",
+        "边长计算",
+        "逆定理",
+        "几何建模",
+        "数量关系解释"
+      ],
+      "misconceptionTags": [
+        "right-angle condition assumed from appearance",
+        "legs and hypotenuse mismatched",
+        "converse used as a calculation rule only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-pythagorean-theorem"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-pythagorean-theorem-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下列各组数中，能作为直角三角形三边长的是哪一组？",
+      "optionsZhHans": [
+        "1, 2, 3",
+        "2, 3, 4",
+        "3, 4, 5",
+        "4, 5, 6"
+      ],
+      "answer": "3, 4, 5",
+      "acceptedAnswers": [
+        "3, 4, 5"
+      ],
+      "explanationZhHans": "3²+4²=9+16=25=5²，满足勾股定理逆定理。其他选项均不满足。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-026",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-pythagorean-theorem",
+      "unitTitle": "勾股定理",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "pythagorean-theorem",
+        "right-triangles",
+        "converse-pythagorean-theorem",
+        "distance-measurement",
+        "勾股定理"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "模型意识"
+      ],
+      "skillTags": [
+        "直角三角形判定",
+        "边长计算",
+        "逆定理",
+        "几何建模",
+        "数量关系解释"
+      ],
+      "misconceptionTags": [
+        "right-angle condition assumed from appearance",
+        "legs and hypotenuse mismatched",
+        "converse used as a calculation rule only"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-pythagorean-theorem"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-pythagorean-theorem-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一架梯子长13米，斜靠在一面竖直的墙上，梯子底端离墙5米。如果梯子顶端沿墙下滑1米，那么梯子底端将向外滑动多少米？",
+      "optionsZhHans": [],
+      "answer": "√(13²-(12-1)²)-5=√(169-121)-5=√48-5=4√3-5≈1.93米",
+      "acceptedAnswers": [
+        "√(13²-(12-1)²)-5=√(169-121)-5=√48-5=4√3-5≈1.93米"
+      ],
+      "explanationZhHans": "初始顶端高度=√(13²-5²)=12米。下滑后高度=11米，此时底端离墙=√(13²-11²)=√48=4√3≈6.93米，滑动距离=4√3-5≈1.93米。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-027",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-pythagorean-theorem",
+      "unitTitle": "勾股定理",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "pythagorean-theorem",
+        "right-triangles",
+        "converse-pythagorean-theorem",
+        "distance-measurement",
+        "勾股定理"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "模型意识"
+      ],
+      "skillTags": [
+        "直角三角形判定",
+        "边长计算",
+        "逆定理",
+        "几何建模",
+        "数量关系解释"
+      ],
+      "misconceptionTags": [
+        "right-angle condition assumed from appearance",
+        "legs and hypotenuse mismatched",
+        "converse used as a calculation rule only"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-pythagorean-theorem"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-pythagorean-theorem-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在Rt△ABC中，∠C=90°，AC=6，BC=8。求斜边AB的长度。",
+      "optionsZhHans": [],
+      "answer": "10",
+      "acceptedAnswers": [
+        "10"
+      ],
+      "explanationZhHans": "由勾股定理，AB=√(AC²+BC²)=√(6²+8²)=√(36+64)=√100=10。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-028",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-pythagorean-theorem",
+      "unitTitle": "勾股定理",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "pythagorean-theorem",
+        "right-triangles",
+        "converse-pythagorean-theorem",
+        "distance-measurement",
+        "勾股定理"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "模型意识"
+      ],
+      "skillTags": [
+        "直角三角形判定",
+        "边长计算",
+        "逆定理",
+        "几何建模",
+        "数量关系解释"
+      ],
+      "misconceptionTags": [
+        "right-angle condition assumed from appearance",
+        "legs and hypotenuse mismatched",
+        "converse used as a calculation rule only"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-pythagorean-theorem"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-pythagorean-theorem-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在△ABC中，AB=13，BC=14，AC=15。则BC边上的高AD的长为多少？",
+      "optionsZhHans": [
+        "12",
+        "11",
+        "10",
+        "9"
+      ],
+      "answer": "12",
+      "acceptedAnswers": [
+        "12"
+      ],
+      "explanationZhHans": "设BD=x，则CD=14-x。由AD²=13²-x²=15²-(14-x)²，解得x=5，AD=√(13²-5²)=12。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-029",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-pythagorean-theorem",
+      "unitTitle": "勾股定理",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "pythagorean-theorem",
+        "right-triangles",
+        "converse-pythagorean-theorem",
+        "distance-measurement",
+        "勾股定理"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "模型意识"
+      ],
+      "skillTags": [
+        "直角三角形判定",
+        "边长计算",
+        "逆定理",
+        "几何建模",
+        "数量关系解释"
+      ],
+      "misconceptionTags": [
+        "right-angle condition assumed from appearance",
+        "legs and hypotenuse mismatched",
+        "converse used as a calculation rule only"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-pythagorean-theorem"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-pythagorean-theorem-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知直角三角形的两边长分别为3和4，求第三边的长。",
+      "optionsZhHans": [],
+      "answer": "5或√7",
+      "acceptedAnswers": [
+        "5或√7"
+      ],
+      "explanationZhHans": "若4为斜边，则第三边=√(4²-3²)=√7；若3和4为直角边，则第三边=√(3²+4²)=5。需分类讨论。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-030",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-pythagorean-theorem",
+      "unitTitle": "勾股定理",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "pythagorean-theorem",
+        "right-triangles",
+        "converse-pythagorean-theorem",
+        "distance-measurement",
+        "勾股定理"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "模型意识"
+      ],
+      "skillTags": [
+        "直角三角形判定",
+        "边长计算",
+        "逆定理",
+        "几何建模",
+        "数量关系解释"
+      ],
+      "misconceptionTags": [
+        "right-angle condition assumed from appearance",
+        "legs and hypotenuse mismatched",
+        "converse used as a calculation rule only"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-pythagorean-theorem"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-pythagorean-theorem-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在△ABC中，∠A=90°，AB=8，AC=15，点D在BC上，且AD平分∠BAC。求AD的长。",
+      "optionsZhHans": [],
+      "answer": "120/23",
+      "acceptedAnswers": [
+        "120/23"
+      ],
+      "explanationZhHans": "由勾股定理BC=17。由角平分线性质BD/DC=AB/AC=8/15，得BD=17×8/23=136/23。在Rt△ABD中用勾股定理，AD=√(8²-(136/23)²)=120/23。"
+    }
+  ]
+}

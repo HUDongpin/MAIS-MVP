@@ -1,0 +1,329 @@
+{
+  "batchId": "batch-079",
+  "questions": [
+    {
+      "id": "hjb-junior-ds-v2-s1-391",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "hjb-junior-s1-lower-triangles",
+      "unitTitle": "三角形",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "triangles",
+        "triangle-angle-sum",
+        "triangle-inequality",
+        "congruence-introduction",
+        "三角形"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "三角形分类",
+        "三边关系",
+        "内角和",
+        "外角关系",
+        "全等初步"
+      ],
+      "misconceptionTags": [
+        "triangle inequality checked partially",
+        "exterior angle relationship misused",
+        "corresponding vertices not matched"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-junior-s1-lower-triangles"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-triangles",
+        "hjb-junior-s1-lower-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知三条线段的长度分别为 5 cm、8 cm 和 x cm。若这三条线段能组成一个三角形，则 x 的取值范围是______。",
+      "optionsZhHans": [],
+      "answer": "3 < x < 13",
+      "acceptedAnswers": [
+        "3 < x < 13",
+        "3<x<13",
+        "3 cm < x < 13 cm"
+      ],
+      "explanationZhHans": "根据三角形三边关系，任意两边之和大于第三边，任意两边之差小于第三边。由 5+8>x 得 x<13；由 8-5<x 得 x>3。所以 x 的取值范围是 3<x<13。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-392",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "hjb-junior-s1-lower-triangles",
+      "unitTitle": "三角形",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "triangles",
+        "triangle-angle-sum",
+        "triangle-inequality",
+        "congruence-introduction",
+        "三角形"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "三角形分类",
+        "三边关系",
+        "内角和",
+        "外角关系",
+        "全等初步"
+      ],
+      "misconceptionTags": [
+        "triangle inequality checked partially",
+        "exterior angle relationship misused",
+        "corresponding vertices not matched"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s1-lower-triangles"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-triangles",
+        "hjb-junior-s1-lower-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在△ABC中，∠A=50°，∠B=60°，则∠C的外角等于（　）。",
+      "optionsZhHans": [
+        "70°",
+        "110°",
+        "120°",
+        "130°"
+      ],
+      "answer": "110°",
+      "acceptedAnswers": [
+        "110°"
+      ],
+      "explanationZhHans": "三角形内角和为180°，所以∠C=180°-50°-60°=70°。∠C的外角等于与它不相邻的两个内角之和，即∠A+∠B=50°+60°=110°，或由外角定义180°-70°=110°。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-393",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "hjb-junior-s1-lower-triangles",
+      "unitTitle": "三角形",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "triangles",
+        "triangle-angle-sum",
+        "triangle-inequality",
+        "congruence-introduction",
+        "三角形"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "三角形分类",
+        "三边关系",
+        "内角和",
+        "外角关系",
+        "全等初步"
+      ],
+      "misconceptionTags": [
+        "triangle inequality checked partially",
+        "exterior angle relationship misused",
+        "corresponding vertices not matched"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-junior-s1-lower-triangles"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-triangles",
+        "hjb-junior-s1-lower-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在△ABC中，∠A=40°，∠B=70°，则∠C=______°。",
+      "optionsZhHans": [],
+      "answer": "70",
+      "acceptedAnswers": [
+        "70",
+        "70°"
+      ],
+      "explanationZhHans": "三角形内角和为180°，所以∠C=180°-∠A-∠B=180°-40°-70°=70°。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-394",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "hjb-junior-s1-lower-triangles",
+      "unitTitle": "三角形",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "triangles",
+        "triangle-angle-sum",
+        "triangle-inequality",
+        "congruence-introduction",
+        "三角形"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "三角形分类",
+        "三边关系",
+        "内角和",
+        "外角关系",
+        "全等初步"
+      ],
+      "misconceptionTags": [
+        "triangle inequality checked partially",
+        "exterior angle relationship misused",
+        "corresponding vertices not matched"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s1-lower-triangles"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-triangles",
+        "hjb-junior-s1-lower-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下列长度的三条线段中，能组成三角形的是（　）。",
+      "optionsZhHans": [
+        "2 cm，3 cm，5 cm",
+        "3 cm，4 cm，8 cm",
+        "5 cm，6 cm，10 cm",
+        "4 cm，4 cm，9 cm"
+      ],
+      "answer": "5 cm，6 cm，10 cm",
+      "acceptedAnswers": [
+        "5 cm，6 cm，10 cm"
+      ],
+      "explanationZhHans": "判断能否组成三角形，需满足任意两边之和大于第三边。A：2+3=5，不大于5，不能；B：3+4=7<8，不能；C：5+6=11>10，且5+10>6，6+10>5，能；D：4+4=8<9，不能。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-395",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "hjb-junior-s1-lower-triangles",
+      "unitTitle": "三角形",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "triangles",
+        "triangle-angle-sum",
+        "triangle-inequality",
+        "congruence-introduction",
+        "三角形"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "三角形分类",
+        "三边关系",
+        "内角和",
+        "外角关系",
+        "全等初步"
+      ],
+      "misconceptionTags": [
+        "triangle inequality checked partially",
+        "exterior angle relationship misused",
+        "corresponding vertices not matched"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-junior-s1-lower-triangles"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-triangles",
+        "hjb-junior-s1-lower-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知△ABC≌△DEF，且点A与点D对应，点B与点E对应。若AB=6 cm，BC=8 cm，AC=10 cm，则DF=______ cm。",
+      "optionsZhHans": [],
+      "answer": "10",
+      "acceptedAnswers": [
+        "10",
+        "10 cm"
+      ],
+      "explanationZhHans": "全等三角形对应边相等。由对应关系A↔D，B↔E，C↔F，可知AC与DF是对应边。因为AC=10 cm，所以DF=10 cm。"
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-234",
+  "startedAt": "2026-05-28T01:24:22.021Z",
+  "completedAt": "2026-05-28T01:24:26.331Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-234"
+  ],
+  "usage": {
+    "prompt_tokens": 3389,
+    "completion_tokens": 259,
+    "total_tokens": 3648,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 3005
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-234",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "(3,0)或(7,0)",
+        "correctedAnswer": null,
+        "issueTags": [
+          "explanation_contradiction"
+        ],
+        "severity": "major",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，答案(3,0)或(7,0)正确，与Stage A独立解一致。但解析中计算混乱，出现错误方程t²-6t+17=0并多次调整数据，最终未给出正确推导，解析与答案矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 1,
+      "fail": 0,
+      "notes": "题目本身可解且答案正确，但解析存在严重矛盾，需修正解析。"
+    }
+  }
+}

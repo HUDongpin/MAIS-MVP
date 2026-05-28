@@ -1,0 +1,340 @@
+{
+  "batchId": "S4-s4-trigonometry-01",
+  "questions": [
+    {
+      "id": "pep-high-ds-v1-s4-trigonometry-001",
+      "grade": "S4",
+      "topicId": "pep-high-s4-trigonometry",
+      "topicTitleZhHans": "三角函数",
+      "chapter": "三角函数",
+      "conceptIds": [
+        "unit-circle",
+        "trigonometric-functions",
+        "trigonometric-graphs",
+        "trigonometric-identities"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "pep-high-trigonometric-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-trigonometric-graphs"
+      ],
+      "promptZhHans": "已知函数 f(x) = 2sin(2x + π/3) - 1，则 f(x) 的图像关于下列哪条直线对称？",
+      "optionsZhHans": [
+        "x = π/6",
+        "x = π/12",
+        "x = -π/6",
+        "x = π/3"
+      ],
+      "answer": "x = π/12",
+      "acceptedAnswers": [
+        "x = π/12"
+      ],
+      "explanationZhHans": "正弦型函数 y = Asin(ωx+φ) 的对称轴满足 ωx+φ = kπ+π/2。由 2x+π/3 = kπ+π/2 得 x = kπ/2 + π/12。取 k=0 得 x = π/12。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-trigonometry-002",
+      "grade": "S4",
+      "topicId": "pep-high-s4-trigonometry",
+      "topicTitleZhHans": "三角函数",
+      "chapter": "三角函数",
+      "conceptIds": [
+        "unit-circle",
+        "trigonometric-functions",
+        "trigonometric-graphs",
+        "trigonometric-identities"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "pep-high-trigonometric-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-trigonometric-graphs"
+      ],
+      "promptZhHans": "若 sinα + cosα = 1/5，且 α ∈ (0, π)，则 tanα 的值为 ______。",
+      "optionsZhHans": [],
+      "answer": "-4/3",
+      "acceptedAnswers": [
+        "-4/3"
+      ],
+      "explanationZhHans": "由 (sinα+cosα)² = 1/25 得 1+sin2α = 1/25，sin2α = -24/25。α∈(0,π)，2α∈(0,2π)，sin2α<0，故 2α∈(π,2π)，α∈(π/2,π)。sinα>0，cosα<0。解 sinα+cosα=1/5 与 sin²α+cos²α=1 得 sinα=4/5，cosα=-3/5，tanα=-4/3。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-trigonometry-003",
+      "grade": "S4",
+      "topicId": "pep-high-s4-trigonometry",
+      "topicTitleZhHans": "三角函数",
+      "chapter": "三角函数",
+      "conceptIds": [
+        "unit-circle",
+        "trigonometric-functions",
+        "trigonometric-graphs",
+        "trigonometric-identities"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "pep-high-trigonometric-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-trigonometric-graphs"
+      ],
+      "promptZhHans": "求函数 y = sin²x + 2sinx cosx + 3cos²x 的最小正周期。",
+      "optionsZhHans": [],
+      "answer": "π",
+      "acceptedAnswers": [
+        "π"
+      ],
+      "explanationZhHans": "化简：y = (sin²x+cos²x) + 2sinx cosx + 2cos²x = 1 + sin2x + 2cos²x = 1 + sin2x + (1+cos2x) = 2 + sin2x + cos2x = 2 + √2 sin(2x+π/4)。故最小正周期 T = 2π/2 = π。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-trigonometry-004",
+      "grade": "S4",
+      "topicId": "pep-high-s4-trigonometry",
+      "topicTitleZhHans": "三角函数",
+      "chapter": "三角函数",
+      "conceptIds": [
+        "unit-circle",
+        "trigonometric-functions",
+        "trigonometric-graphs",
+        "trigonometric-identities"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "pep-high-trigonometric-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-trigonometric-graphs"
+      ],
+      "promptZhHans": "已知函数 f(x) = sin(ωx + φ) (ω>0, 0<φ<π) 的最小正周期为 π，且其图像关于点 (π/3, 0) 对称。求 φ 的值。",
+      "optionsZhHans": [],
+      "answer": "π/3",
+      "acceptedAnswers": [
+        "π/3"
+      ],
+      "explanationZhHans": "由 T=π 得 ω=2。对称中心满足 2x+φ = kπ，代入 x=π/3 得 2π/3+φ = kπ，φ = kπ - 2π/3。0<φ<π，k=1 时 φ=π/3。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-trigonometry-005",
+      "grade": "S4",
+      "topicId": "pep-high-s4-trigonometry",
+      "topicTitleZhHans": "三角函数",
+      "chapter": "三角函数",
+      "conceptIds": [
+        "unit-circle",
+        "trigonometric-functions",
+        "trigonometric-graphs",
+        "trigonometric-identities"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "pep-high-trigonometric-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-trigonometric-graphs"
+      ],
+      "promptZhHans": "若将函数 f(x) = sin(2x + π/3) 的图像向右平移 φ (φ>0) 个单位后得到的图像关于 y 轴对称，则 φ 的最小值为（ ）。",
+      "optionsZhHans": [
+        "π/12",
+        "π/6",
+        "π/3",
+        "5π/12"
+      ],
+      "answer": "5π/12",
+      "acceptedAnswers": [
+        "5π/12"
+      ],
+      "explanationZhHans": "平移后 g(x)=sin[2(x-φ)+π/3]=sin(2x-2φ+π/3)。关于 y 轴对称即 g(x) 为偶函数，需 -2φ+π/3 = kπ+π/2，φ = -kπ/2 - π/12。φ>0，k=-1 时 φ=5π/12 最小。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-trigonometry-006",
+      "grade": "S4",
+      "topicId": "pep-high-s4-trigonometry",
+      "topicTitleZhHans": "三角函数",
+      "chapter": "三角函数",
+      "conceptIds": [
+        "unit-circle",
+        "trigonometric-functions",
+        "trigonometric-graphs",
+        "trigonometric-identities"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "pep-high-trigonometric-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-trigonometric-graphs"
+      ],
+      "promptZhHans": "已知角 α 的终边经过点 P(-3, 4)，则 sin(α + π/6) 的值为 ______。",
+      "optionsZhHans": [],
+      "answer": "(4√3 - 3)/10",
+      "acceptedAnswers": [
+        "(4√3 - 3)/10"
+      ],
+      "explanationZhHans": "由 P(-3,4) 得 r=5，sinα=4/5，cosα=-3/5。sin(α+π/6)=sinα cosπ/6 + cosα sinπ/6 = (4/5)(√3/2) + (-3/5)(1/2) = (4√3 - 3)/10。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-trigonometry-007",
+      "grade": "S4",
+      "topicId": "pep-high-s4-trigonometry",
+      "topicTitleZhHans": "三角函数",
+      "chapter": "三角函数",
+      "conceptIds": [
+        "unit-circle",
+        "trigonometric-functions",
+        "trigonometric-graphs",
+        "trigonometric-identities"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "pep-high-trigonometric-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-trigonometric-graphs"
+      ],
+      "promptZhHans": "求函数 f(x) = cos2x + 2sinx 在区间 [0, π/2] 上的最大值。",
+      "optionsZhHans": [],
+      "answer": "3/2",
+      "acceptedAnswers": [
+        "3/2"
+      ],
+      "explanationZhHans": "f(x)=1-2sin²x+2sinx = -2(sinx - 1/2)² + 3/2。x∈[0,π/2]，sinx∈[0,1]。当 sinx=1/2 时，f(x) 最大为 3/2。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-trigonometry-008",
+      "grade": "S4",
+      "topicId": "pep-high-s4-trigonometry",
+      "topicTitleZhHans": "三角函数",
+      "chapter": "三角函数",
+      "conceptIds": [
+        "unit-circle",
+        "trigonometric-functions",
+        "trigonometric-graphs",
+        "trigonometric-identities"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "pep-high-trigonometric-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-trigonometric-graphs"
+      ],
+      "promptZhHans": "已知函数 f(x) = Asin(ωx + φ) (A>0, ω>0, |φ|<π/2) 的部分图像如下：最高点坐标为 (π/6, 2)，相邻最低点坐标为 (2π/3, -2)。则 f(x) 的解析式为（ ）。",
+      "optionsZhHans": [
+        "f(x) = 2sin(2x + π/6)",
+        "f(x) = 2sin(2x - π/6)",
+        "f(x) = 2sin(x/2 + π/6)",
+        "f(x) = 2sin(x/2 - π/6)"
+      ],
+      "answer": "f(x) = 2sin(2x + π/6)",
+      "acceptedAnswers": [
+        "f(x) = 2sin(2x + π/6)"
+      ],
+      "explanationZhHans": "由最高点得 A=2。最高与最低横坐标差为半周期：2π/3 - π/6 = π/2，故 T=π，ω=2。代入最高点：2sin(2·π/6+φ)=2，得 π/3+φ=π/2+2kπ，φ=π/6+2kπ，|φ|<π/2，故 φ=π/6。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-trigonometry-009",
+      "grade": "S4",
+      "topicId": "pep-high-s4-trigonometry",
+      "topicTitleZhHans": "三角函数",
+      "chapter": "三角函数",
+      "conceptIds": [
+        "unit-circle",
+        "trigonometric-functions",
+        "trigonometric-graphs",
+        "trigonometric-identities"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "pep-high-trigonometric-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-trigonometric-graphs"
+      ],
+      "promptZhHans": "已知 tanα = 2，则 (sinα - 3cosα) / (sinα + cosα) 的值为 ______。",
+      "optionsZhHans": [],
+      "answer": "-1/3",
+      "acceptedAnswers": [
+        "-1/3"
+      ],
+      "explanationZhHans": "分子分母同除以 cosα：原式 = (tanα - 3) / (tanα + 1) = (2 - 3) / (2 + 1) = -1/3。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-trigonometry-010",
+      "grade": "S4",
+      "topicId": "pep-high-s4-trigonometry",
+      "topicTitleZhHans": "三角函数",
+      "chapter": "三角函数",
+      "conceptIds": [
+        "unit-circle",
+        "trigonometric-functions",
+        "trigonometric-graphs",
+        "trigonometric-identities"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "pep-high-trigonometric-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-trigonometric-graphs"
+      ],
+      "promptZhHans": "已知函数 f(x) = √3 sinωx cosωx + cos²ωx (ω>0) 的最小正周期为 π/2。求 ω 的值及 f(x) 的单调递增区间。",
+      "optionsZhHans": [],
+      "answer": "ω=2；单调递增区间为 [kπ/2 - π/6, kπ/2 + π/12] (k∈Z)",
+      "acceptedAnswers": [
+        "ω=2；单调递增区间为 [kπ/2 - π/6, kπ/2 + π/12] (k∈Z)"
+      ],
+      "explanationZhHans": "化简：f(x)= (√3/2) sin2ωx + (1+cos2ωx)/2 = sin(2ωx+π/6)+1/2。T=2π/(2ω)=π/ω=π/2，故 ω=2。f(x)=sin(4x+π/6)+1/2。增区间：-π/2+2kπ ≤ 4x+π/6 ≤ π/2+2kπ，解得 kπ/2 - π/6 ≤ x ≤ kπ/2 + π/12。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    }
+  ]
+}

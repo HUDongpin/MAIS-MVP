@@ -1,0 +1,50 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-465",
+  "startedAt": "2026-05-28T01:56:59.025Z",
+  "completedAt": "2026-05-28T01:57:03.823Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-465"
+  ],
+  "usage": {
+    "prompt_tokens": 3223,
+    "completion_tokens": 276,
+    "total_tokens": 3499,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2839
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-465",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "independentAnswer": "7",
+        "correctedAnswer": "7",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction",
+          "ambiguous_mc"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，公比q=3或-4均得最小n=7，选项A为7。存储答案9错误，解析自相矛盾（先得n≥7却给9），且选项7、8、9、10中7为唯一最小解，但原答案9导致多解歧义。正确答案应为7。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目答案错误，解析矛盾，需修正答案为7。"
+    }
+  }
+}

@@ -1,0 +1,392 @@
+{
+  "batchId": "batch-121",
+  "generationMode": "batch-fallback",
+  "fallbackReason": "fill-missing-local",
+  "questions": [
+    {
+      "id": "hjb-high-ds-v2-s6-201",
+      "grade": "S6",
+      "topicId": "hjb-high-s6-概率初步续",
+      "topicTitleZhHans": "概率初步续",
+      "volume": "选择性必修 第二册",
+      "chapter": "概率初步续",
+      "conceptIds": [
+        "conditional-probability",
+        "total-probability",
+        "bayes-formula",
+        "random-variables",
+        "binomial-distribution",
+        "normal-distribution"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-selective-2-probability-continuation"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-2-probability-continuation-unit-challenge",
+        "hjb-high-selective-2-probability-continuation-unit-core",
+        "pep-high-exam-conditional-probability-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式1201：解答：若事件 A 有 3 种情况，且每种 A 情况下事件 B 有 13 种情况，则按分步计数共有多少种结果？",
+      "optionsZhHans": [],
+      "answer": "39",
+      "acceptedAnswers": [
+        "39"
+      ],
+      "explanationZhHans": "分步计数原理：总数=3×13=39。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-202",
+      "grade": "S6",
+      "topicId": "hjb-high-s6-概率初步续",
+      "topicTitleZhHans": "概率初步续",
+      "volume": "选择性必修 第二册",
+      "chapter": "概率初步续",
+      "conceptIds": [
+        "conditional-probability",
+        "total-probability",
+        "bayes-formula",
+        "random-variables",
+        "binomial-distribution",
+        "normal-distribution"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-selective-2-probability-continuation"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-2-probability-continuation-unit-challenge",
+        "hjb-high-selective-2-probability-continuation-unit-core",
+        "pep-high-exam-conditional-probability-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式1202：选择：若事件 A 有 12 种情况，且每种 A 情况下事件 B 有 9 种情况，则按分步计数共有多少种结果？",
+      "optionsZhHans": [
+        "120",
+        "96",
+        "108",
+        "132"
+      ],
+      "answer": "108",
+      "acceptedAnswers": [
+        "108"
+      ],
+      "explanationZhHans": "分步计数原理：总数=12×9=108。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-203",
+      "grade": "S6",
+      "topicId": "hjb-high-s6-概率初步续",
+      "topicTitleZhHans": "概率初步续",
+      "volume": "选择性必修 第二册",
+      "chapter": "概率初步续",
+      "conceptIds": [
+        "conditional-probability",
+        "total-probability",
+        "bayes-formula",
+        "random-variables",
+        "binomial-distribution",
+        "normal-distribution"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-selective-2-probability-continuation"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-2-probability-continuation-unit-challenge",
+        "hjb-high-selective-2-probability-continuation-unit-core",
+        "pep-high-exam-conditional-probability-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式1203：填空：若事件 A 有 7 种情况，且每种 A 情况下事件 B 有 8 种情况，则按分步计数共有多少种结果？",
+      "optionsZhHans": [],
+      "answer": "56",
+      "acceptedAnswers": [
+        "56"
+      ],
+      "explanationZhHans": "分步计数原理：总数=7×8=56。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-204",
+      "grade": "S6",
+      "topicId": "hjb-high-s6-概率初步续",
+      "topicTitleZhHans": "概率初步续",
+      "volume": "选择性必修 第二册",
+      "chapter": "概率初步续",
+      "conceptIds": [
+        "conditional-probability",
+        "total-probability",
+        "bayes-formula",
+        "random-variables",
+        "binomial-distribution",
+        "normal-distribution"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-selective-2-probability-continuation"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-2-probability-continuation-unit-challenge",
+        "hjb-high-selective-2-probability-continuation-unit-core",
+        "pep-high-exam-conditional-probability-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式1204：解答：若事件 A 有 6 种情况，且每种 A 情况下事件 B 有 14 种情况，则按分步计数共有多少种结果？",
+      "optionsZhHans": [],
+      "answer": "84",
+      "acceptedAnswers": [
+        "84"
+      ],
+      "explanationZhHans": "分步计数原理：总数=6×14=84。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-205",
+      "grade": "S6",
+      "topicId": "hjb-high-s6-概率初步续",
+      "topicTitleZhHans": "概率初步续",
+      "volume": "选择性必修 第二册",
+      "chapter": "概率初步续",
+      "conceptIds": [
+        "conditional-probability",
+        "total-probability",
+        "bayes-formula",
+        "random-variables",
+        "binomial-distribution",
+        "normal-distribution"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-selective-2-probability-continuation"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-2-probability-continuation-unit-challenge",
+        "hjb-high-selective-2-probability-continuation-unit-core",
+        "pep-high-exam-conditional-probability-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式1205：选择：若事件 A 有 9 种情况，且每种 A 情况下事件 B 有 13 种情况，则按分步计数共有多少种结果？",
+      "optionsZhHans": [
+        "126",
+        "108",
+        "135",
+        "117"
+      ],
+      "answer": "117",
+      "acceptedAnswers": [
+        "117"
+      ],
+      "explanationZhHans": "分步计数原理：总数=9×13=117。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-206",
+      "grade": "S6",
+      "topicId": "hjb-high-s6-概率初步续",
+      "topicTitleZhHans": "概率初步续",
+      "volume": "选择性必修 第二册",
+      "chapter": "概率初步续",
+      "conceptIds": [
+        "conditional-probability",
+        "total-probability",
+        "bayes-formula",
+        "random-variables",
+        "binomial-distribution",
+        "normal-distribution"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-selective-2-probability-continuation"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-2-probability-continuation-unit-challenge",
+        "hjb-high-selective-2-probability-continuation-unit-core",
+        "pep-high-exam-conditional-probability-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式1206：填空：若事件 A 有 11 种情况，且每种 A 情况下事件 B 有 13 种情况，则按分步计数共有多少种结果？",
+      "optionsZhHans": [],
+      "answer": "143",
+      "acceptedAnswers": [
+        "143"
+      ],
+      "explanationZhHans": "分步计数原理：总数=11×13=143。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-207",
+      "grade": "S6",
+      "topicId": "hjb-high-s6-概率初步续",
+      "topicTitleZhHans": "概率初步续",
+      "volume": "选择性必修 第二册",
+      "chapter": "概率初步续",
+      "conceptIds": [
+        "conditional-probability",
+        "total-probability",
+        "bayes-formula",
+        "random-variables",
+        "binomial-distribution",
+        "normal-distribution"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-selective-2-probability-continuation"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-2-probability-continuation-unit-challenge",
+        "hjb-high-selective-2-probability-continuation-unit-core",
+        "pep-high-exam-conditional-probability-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式1207：解答：若事件 A 有 5 种情况，且每种 A 情况下事件 B 有 7 种情况，则按分步计数共有多少种结果？",
+      "optionsZhHans": [],
+      "answer": "35",
+      "acceptedAnswers": [
+        "35"
+      ],
+      "explanationZhHans": "分步计数原理：总数=5×7=35。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-208",
+      "grade": "S6",
+      "topicId": "hjb-high-s6-概率初步续",
+      "topicTitleZhHans": "概率初步续",
+      "volume": "选择性必修 第二册",
+      "chapter": "概率初步续",
+      "conceptIds": [
+        "conditional-probability",
+        "total-probability",
+        "bayes-formula",
+        "random-variables",
+        "binomial-distribution",
+        "normal-distribution"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-selective-2-probability-continuation"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-2-probability-continuation-unit-challenge",
+        "hjb-high-selective-2-probability-continuation-unit-core",
+        "pep-high-exam-conditional-probability-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式1208：选择：若事件 A 有 11 种情况，且每种 A 情况下事件 B 有 15 种情况，则按分步计数共有多少种结果？",
+      "optionsZhHans": [
+        "165",
+        "176",
+        "154",
+        "187"
+      ],
+      "answer": "165",
+      "acceptedAnswers": [
+        "165"
+      ],
+      "explanationZhHans": "分步计数原理：总数=11×15=165。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-209",
+      "grade": "S6",
+      "topicId": "hjb-high-s6-概率初步续",
+      "topicTitleZhHans": "概率初步续",
+      "volume": "选择性必修 第二册",
+      "chapter": "概率初步续",
+      "conceptIds": [
+        "conditional-probability",
+        "total-probability",
+        "bayes-formula",
+        "random-variables",
+        "binomial-distribution",
+        "normal-distribution"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-selective-2-probability-continuation"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-2-probability-continuation-unit-challenge",
+        "hjb-high-selective-2-probability-continuation-unit-core",
+        "pep-high-exam-conditional-probability-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式1209：填空：若事件 A 有 11 种情况，且每种 A 情况下事件 B 有 12 种情况，则按分步计数共有多少种结果？",
+      "optionsZhHans": [],
+      "answer": "132",
+      "acceptedAnswers": [
+        "132"
+      ],
+      "explanationZhHans": "分步计数原理：总数=11×12=132。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-210",
+      "grade": "S6",
+      "topicId": "hjb-high-s6-概率初步续",
+      "topicTitleZhHans": "概率初步续",
+      "volume": "选择性必修 第二册",
+      "chapter": "概率初步续",
+      "conceptIds": [
+        "conditional-probability",
+        "total-probability",
+        "bayes-formula",
+        "random-variables",
+        "binomial-distribution",
+        "normal-distribution"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-selective-2-probability-continuation"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-2-probability-continuation-unit-challenge",
+        "hjb-high-selective-2-probability-continuation-unit-core",
+        "pep-high-exam-conditional-probability-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式1210：解答：若事件 A 有 6 种情况，且每种 A 情况下事件 B 有 20 种情况，则按分步计数共有多少种结果？",
+      "optionsZhHans": [],
+      "answer": "120",
+      "acceptedAnswers": [
+        "120"
+      ],
+      "explanationZhHans": "分步计数原理：总数=6×20=120。"
+    }
+  ]
+}

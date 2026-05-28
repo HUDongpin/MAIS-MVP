@@ -1,0 +1,191 @@
+{
+  "batchNumber": 72,
+  "startedAt": "2026-05-27T13:30:22.849Z",
+  "completedAt": "2026-05-27T13:30:41.745Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p6-029",
+    "bnu-primary-ds-v1-p6-030",
+    "bnu-primary-ds-v1-p6-031",
+    "bnu-primary-ds-v1-p6-032",
+    "bnu-primary-ds-v1-p6-033",
+    "bnu-primary-ds-v1-p6-034",
+    "bnu-primary-ds-v1-p6-035",
+    "bnu-primary-ds-v1-p6-036",
+    "bnu-primary-ds-v1-p6-037",
+    "bnu-primary-ds-v1-p6-038",
+    "bnu-primary-ds-v1-p6-039",
+    "bnu-primary-ds-v1-p6-040",
+    "bnu-primary-ds-v1-p6-041",
+    "bnu-primary-ds-v1-p6-042",
+    "bnu-primary-ds-v1-p6-043",
+    "bnu-primary-ds-v1-p6-044",
+    "bnu-primary-ds-v1-p6-045",
+    "bnu-primary-ds-v1-p6-046"
+  ],
+  "usage": {
+    "prompt_tokens": 4257,
+    "completion_tokens": 1305,
+    "total_tokens": 5562,
+    "prompt_tokens_details": {
+      "cached_tokens": 4224
+    },
+    "prompt_cache_hit_tokens": 4224,
+    "prompt_cache_miss_tokens": 33
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p6-029",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目区分分率和具体量，答案正确，适合分数混合运算单元。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-030",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分数应用题，解答正确，步骤清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-031",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分数应用题，设未知数求解，答案正确，选项无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-032",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分数混合运算顺序正确，结果准确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-033",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "油桶问题，解答正确，适合分数混合运算单元。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-034",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "考查运算顺序，选项B有括号先算加法，正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-035",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分数应用题，解答正确，答案12米。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-036",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "和倍问题，解答正确，答案150千克。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-037",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "观察物体，选项A符合视图要求，描述清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-038",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "最少小正方体个数，答案4正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-039",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "开放描述题，答案合理，符合视图要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-040",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "最少小正方体个数，答案5正确，选项合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-041",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计数搭法种数，答案2种正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-042",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "描述搭法，答案合理，符合视图。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-043",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "最少小正方体个数，答案5正确，选项无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-044",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "最少和最多个数，答案4,5正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-045",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "描述形状和右面视图，答案合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-046",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "观察物体，选项正确，符合视图。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均通过审核，数学正确，答案匹配，无歧义或缺失条件，适合北师大版小学数学。"
+    }
+  }
+}

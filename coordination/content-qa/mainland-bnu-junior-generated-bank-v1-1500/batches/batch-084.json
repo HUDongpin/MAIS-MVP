@@ -1,0 +1,646 @@
+{
+  "batchId": "batch-084",
+  "questions": [
+    {
+      "id": "bnu-junior-ds-v1-s2-331",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-inequalities-systems",
+      "unitTitle": "不等式与不等式组",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "linear-inequalities",
+        "inequality-properties",
+        "linear-inequalities-one-variable",
+        "inequality-systems",
+        "linear-functions",
+        "不等式",
+        "不等式组"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "模型意识"
+      ],
+      "skillTags": [
+        "不等式性质",
+        "解一元一次不等式",
+        "不等式与一次函数",
+        "不等式组",
+        "数轴表示",
+        "实际约束建模"
+      ],
+      "misconceptionTags": [
+        "inequality direction not reversed",
+        "boundary point marked incorrectly",
+        "solution set treated as one value"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-inequalities-systems"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-inequalities-unit",
+        "bnu-junior-s2-lower-assessment-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知关于x的不等式组：\n3x - 5 > 1\n2x + a ≤ 10\n的解集在数轴上表示时，包含整数点x=3，但不包含整数点x=4。求a的取值范围。",
+      "optionsZhHans": [
+        "2 ≤ a < 4",
+        "2 < a ≤ 4",
+        "2 ≤ a ≤ 4",
+        "2 < a < 4"
+      ],
+      "answer": "2 ≤ a < 4",
+      "acceptedAnswers": [
+        "2 ≤ a < 4"
+      ],
+      "explanationZhHans": "解第一个不等式得x>2。由解集包含3，不包含4，知2<x≤3。代入第二个不等式：x≤(10-a)/2，故(10-a)/2≥3且(10-a)/2<4，解得2≤a<4。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-332",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-inequalities-systems",
+      "unitTitle": "不等式与不等式组",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "linear-inequalities",
+        "inequality-properties",
+        "linear-inequalities-one-variable",
+        "inequality-systems",
+        "linear-functions",
+        "不等式",
+        "不等式组"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "模型意识"
+      ],
+      "skillTags": [
+        "不等式性质",
+        "解一元一次不等式",
+        "不等式与一次函数",
+        "不等式组",
+        "数轴表示",
+        "实际约束建模"
+      ],
+      "misconceptionTags": [
+        "inequality direction not reversed",
+        "boundary point marked incorrectly",
+        "solution set treated as one value"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-inequalities-systems"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-inequalities-unit",
+        "bnu-junior-s2-lower-assessment-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校组织八年级学生春游，租用45座客车若干辆，但有15人没有座位；若租用同样数量的60座客车，则多出一辆车，且其余车恰好坐满。已知45座客车租金为每辆400元，60座客车租金为每辆500元。问：该校八年级共有多少名学生？并计算哪种租车方案更省钱。",
+      "optionsZhHans": [],
+      "answer": "学生人数为240人，租用4辆60座客车更省钱。",
+      "acceptedAnswers": [
+        "学生人数为240人，租用4辆60座客车更省钱。",
+        "240人，租4辆60座客车更省钱。",
+        "学生240人，租60座客车4辆更省钱。"
+      ],
+      "explanationZhHans": "设车辆数为x，则45x+15=60(x-1)，解得x=5，人数=240。45座需6辆，租金2400元；60座需4辆，租金2000元，故60座方案省钱。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-333",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-inequalities-systems",
+      "unitTitle": "不等式与不等式组",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "linear-inequalities",
+        "inequality-properties",
+        "linear-inequalities-one-variable",
+        "inequality-systems",
+        "linear-functions",
+        "不等式",
+        "不等式组"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "模型意识"
+      ],
+      "skillTags": [
+        "不等式性质",
+        "解一元一次不等式",
+        "不等式与一次函数",
+        "不等式组",
+        "数轴表示",
+        "实际约束建模"
+      ],
+      "misconceptionTags": [
+        "inequality direction not reversed",
+        "boundary point marked incorrectly",
+        "solution set treated as one value"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-inequalities-systems"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-inequalities-unit",
+        "bnu-junior-s2-lower-assessment-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "若关于x的不等式(2a-1)x < 4的解集为x > 4/(2a-1)，则a的取值范围是______。",
+      "optionsZhHans": [],
+      "answer": "a < 1/2",
+      "acceptedAnswers": [
+        "a < 1/2",
+        "a<1/2",
+        "a < 0.5"
+      ],
+      "explanationZhHans": "由解集方向改变，知系数2a-1<0，解得a<1/2。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-334",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-inequalities-systems",
+      "unitTitle": "不等式与不等式组",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "linear-inequalities",
+        "inequality-properties",
+        "linear-inequalities-one-variable",
+        "inequality-systems",
+        "linear-functions",
+        "不等式",
+        "不等式组"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "模型意识"
+      ],
+      "skillTags": [
+        "不等式性质",
+        "解一元一次不等式",
+        "不等式与一次函数",
+        "不等式组",
+        "数轴表示",
+        "实际约束建模"
+      ],
+      "misconceptionTags": [
+        "inequality direction not reversed",
+        "boundary point marked incorrectly",
+        "solution set treated as one value"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-inequalities-systems"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-inequalities-unit",
+        "bnu-junior-s2-lower-assessment-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知一次函数y₁ = 2x - 3与y₂ = -x + 6。当x满足什么条件时，y₁ > y₂？",
+      "optionsZhHans": [
+        "x > 3",
+        "x < 3",
+        "x > 1",
+        "x < 1"
+      ],
+      "answer": "x > 3",
+      "acceptedAnswers": [
+        "x > 3"
+      ],
+      "explanationZhHans": "由2x-3 > -x+6，移项得3x > 9，解得x > 3。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-335",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-inequalities-systems",
+      "unitTitle": "不等式与不等式组",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "linear-inequalities",
+        "inequality-properties",
+        "linear-inequalities-one-variable",
+        "inequality-systems",
+        "linear-functions",
+        "不等式",
+        "不等式组"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "模型意识"
+      ],
+      "skillTags": [
+        "不等式性质",
+        "解一元一次不等式",
+        "不等式与一次函数",
+        "不等式组",
+        "数轴表示",
+        "实际约束建模"
+      ],
+      "misconceptionTags": [
+        "inequality direction not reversed",
+        "boundary point marked incorrectly",
+        "solution set treated as one value"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-inequalities-systems"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-inequalities-unit",
+        "bnu-junior-s2-lower-assessment-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某商店购进一批单价为20元的商品，若按每件30元销售，每月可售出400件。市场调查表明：单价每上涨1元，月销量减少20件。若商店希望每月利润不低于4500元，且售价不超过40元，求售价的取值范围。",
+      "optionsZhHans": [],
+      "answer": "30 ≤ x ≤ 35",
+      "acceptedAnswers": [
+        "30 ≤ x ≤ 35",
+        "30≤x≤35",
+        "售价在30元到35元之间（含两端）"
+      ],
+      "explanationZhHans": "设售价为x元，利润=(x-20)[400-20(x-30)]≥4500，化简得x²-70x+1225≤0，即(x-35)²≤0，故x=35。结合x≤40，得30≤x≤35。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-336",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-inequalities-systems",
+      "unitTitle": "不等式与不等式组",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "linear-inequalities",
+        "inequality-properties",
+        "linear-inequalities-one-variable",
+        "inequality-systems",
+        "linear-functions",
+        "不等式",
+        "不等式组"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "模型意识"
+      ],
+      "skillTags": [
+        "不等式性质",
+        "解一元一次不等式",
+        "不等式与一次函数",
+        "不等式组",
+        "数轴表示",
+        "实际约束建模"
+      ],
+      "misconceptionTags": [
+        "inequality direction not reversed",
+        "boundary point marked incorrectly",
+        "solution set treated as one value"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-inequalities-systems"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-inequalities-unit",
+        "bnu-junior-s2-lower-assessment-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "不等式组：\n2x - 1 > 3\nx + 2 ≤ 5\n的解集在数轴上表示时，正确的是（用文字描述）：从______到______，左端点用______圆圈，右端点用______圆圈。",
+      "optionsZhHans": [],
+      "answer": "从2到3，左端点用空心圆圈，右端点用实心圆圈",
+      "acceptedAnswers": [
+        "从2到3，左端点用空心圆圈，右端点用实心圆圈",
+        "2到3，左空心，右实心",
+        "2<x≤3，左开右闭"
+      ],
+      "explanationZhHans": "解第一个得x>2，解第二个得x≤3，解集为2<x≤3，数轴上2处画空心圈，3处画实心圈。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-337",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-inequalities-systems",
+      "unitTitle": "不等式与不等式组",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "linear-inequalities",
+        "inequality-properties",
+        "linear-inequalities-one-variable",
+        "inequality-systems",
+        "linear-functions",
+        "不等式",
+        "不等式组"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "模型意识"
+      ],
+      "skillTags": [
+        "不等式性质",
+        "解一元一次不等式",
+        "不等式与一次函数",
+        "不等式组",
+        "数轴表示",
+        "实际约束建模"
+      ],
+      "misconceptionTags": [
+        "inequality direction not reversed",
+        "boundary point marked incorrectly",
+        "solution set treated as one value"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-inequalities-systems"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-inequalities-unit",
+        "bnu-junior-s2-lower-assessment-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知关于x的不等式组：\nx - m < 0\n7 - 2x ≤ 1\n只有三个整数解，则m的取值范围是（ ）。",
+      "optionsZhHans": [
+        "5 < m ≤ 6",
+        "5 ≤ m < 6",
+        "4 < m ≤ 5",
+        "4 ≤ m < 5"
+      ],
+      "answer": "5 < m ≤ 6",
+      "acceptedAnswers": [
+        "5 < m ≤ 6"
+      ],
+      "explanationZhHans": "解第二个得x≥3，故解集为3≤x<m。三个整数解为3,4,5，所以5<m≤6。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-338",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-inequalities-systems",
+      "unitTitle": "不等式与不等式组",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "linear-inequalities",
+        "inequality-properties",
+        "linear-inequalities-one-variable",
+        "inequality-systems",
+        "linear-functions",
+        "不等式",
+        "不等式组"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "模型意识"
+      ],
+      "skillTags": [
+        "不等式性质",
+        "解一元一次不等式",
+        "不等式与一次函数",
+        "不等式组",
+        "数轴表示",
+        "实际约束建模"
+      ],
+      "misconceptionTags": [
+        "inequality direction not reversed",
+        "boundary point marked incorrectly",
+        "solution set treated as one value"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-inequalities-systems"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-inequalities-unit",
+        "bnu-junior-s2-lower-assessment-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "甲、乙两家超市以同样价格出售同样的商品，且各自推出不同的优惠方案：在甲超市累计购买商品超出300元之后，超出部分按原价8折优惠；在乙超市累计购买商品超出200元之后，超出部分按原价9折优惠。设顾客预计累计购物x元（x>300）。当x为何值时，顾客在甲超市购物更划算？",
+      "optionsZhHans": [],
+      "answer": "x > 400",
+      "acceptedAnswers": [
+        "x > 400",
+        "x>400",
+        "当购物超过400元时"
+      ],
+      "explanationZhHans": "甲超市费用：300+0.8(x-300)=0.8x+60；乙超市费用：200+0.9(x-200)=0.9x+20。由0.8x+60<0.9x+20，解得x>400。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-339",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-inequalities-systems",
+      "unitTitle": "不等式与不等式组",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "linear-inequalities",
+        "inequality-properties",
+        "linear-inequalities-one-variable",
+        "inequality-systems",
+        "linear-functions",
+        "不等式",
+        "不等式组"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "模型意识"
+      ],
+      "skillTags": [
+        "不等式性质",
+        "解一元一次不等式",
+        "不等式与一次函数",
+        "不等式组",
+        "数轴表示",
+        "实际约束建模"
+      ],
+      "misconceptionTags": [
+        "inequality direction not reversed",
+        "boundary point marked incorrectly",
+        "solution set treated as one value"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-inequalities-systems"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-inequalities-unit",
+        "bnu-junior-s2-lower-assessment-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "若不等式组：\n2x - a < 1\nx - 2b > 3\n的解集为-1 < x < 1，则(a+1)(b-1)的值为______。",
+      "optionsZhHans": [],
+      "answer": "-6",
+      "acceptedAnswers": [
+        "-6",
+        "负6"
+      ],
+      "explanationZhHans": "解不等式组得2b+3<x<(a+1)/2，由解集-1<x<1得2b+3=-1，(a+1)/2=1，解得b=-2，a=1，故(a+1)(b-1)=2×(-3)=-6。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-340",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-inequalities-systems",
+      "unitTitle": "不等式与不等式组",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "linear-inequalities",
+        "inequality-properties",
+        "linear-inequalities-one-variable",
+        "inequality-systems",
+        "linear-functions",
+        "不等式",
+        "不等式组"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "模型意识"
+      ],
+      "skillTags": [
+        "不等式性质",
+        "解一元一次不等式",
+        "不等式与一次函数",
+        "不等式组",
+        "数轴表示",
+        "实际约束建模"
+      ],
+      "misconceptionTags": [
+        "inequality direction not reversed",
+        "boundary point marked incorrectly",
+        "solution set treated as one value"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-inequalities-systems"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-inequalities-unit",
+        "bnu-junior-s2-lower-assessment-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下列不等式变形中，一定正确的是（ ）。",
+      "optionsZhHans": [
+        "若a > b，则ac² > bc²",
+        "若ac² > bc²，则a > b",
+        "若a > b，则a/c > b/c",
+        "若a/c > b/c，则a > b"
+      ],
+      "answer": "若ac² > bc²，则a > b",
+      "acceptedAnswers": [
+        "若ac² > bc²，则a > b"
+      ],
+      "explanationZhHans": "A中c=0时不成立；C中c<0时不成立；D中c<0时不成立。B中由ac²>bc²知c²>0，两边除以c²得a>b。"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-237",
+  "startedAt": "2026-05-28T01:24:26.332Z",
+  "completedAt": "2026-05-28T01:24:30.441Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-237"
+  ],
+  "usage": {
+    "prompt_tokens": 2158,
+    "completion_tokens": 257,
+    "total_tokens": 2415,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1774
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-237",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "(2,0) 或 (4,0)",
+        "correctedAnswer": null,
+        "issueTags": [
+          "explanation_contradiction",
+          "math_error"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，答案正确，但解析中先错误计算得无实根，再通过调整数据得到答案，与题目条件矛盾，且包含数学错误，解析不可接受。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "解析存在矛盾与数学错误，判定为阻断级别。"
+    }
+  }
+}

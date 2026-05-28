@@ -1,0 +1,141 @@
+{
+  "batchNumber": 72,
+  "startedAt": "2026-05-27T13:55:51.887Z",
+  "completedAt": "2026-05-27T13:56:09.152Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-069",
+    "bnu-high-ds-v1-s5-070",
+    "bnu-high-ds-v1-s5-071",
+    "bnu-high-ds-v1-s5-072",
+    "bnu-high-ds-v1-s5-073",
+    "bnu-high-ds-v1-s5-074",
+    "bnu-high-ds-v1-s5-075",
+    "bnu-high-ds-v1-s5-076"
+  ],
+  "usage": {
+    "prompt_tokens": 11303,
+    "completion_tokens": 1191,
+    "total_tokens": 12494,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10791
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-069",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "m = 1/2 或 m = 11/2",
+        "correctedAnswer": "1/2 或 11/2",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立求解得 m=1/2 或 11/2，与存储答案 0 或 -4 不符；解析中计算过程正确但最终结果错误，且与答案矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-070",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "-3/4",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，独立求解得 m=-3/4，与答案和解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-071",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "4x + 3y - 5 = 0",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，独立求解得 4x+3y-5=0，与答案和解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-072",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "k = 0 或 k = -4/3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，独立求解得 k=0 或 -4/3，与答案和解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-073",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "5/3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，独立求解得点 P 到 x 轴距离为 5/3，与答案和解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-074",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "x^2 - y^2/4 = 1",
+        "correctedAnswer": "x^2 - y^2/4 = 1",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立求解得 x^2 - y^2/4 = 1，但存储答案为 x^2/5 - y^2/20 = 1；解析中计算过程正确但最终结果错误，且与答案矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-075",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，独立求解得横坐标为 3，与答案和解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-076",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "4k^2 + 3 = 2m^2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，独立求解得 4k^2+3=2m^2，与答案和解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 0,
+      "fail": 2,
+      "notes": "8 题中 6 题通过，2 题（069、074）因答案错误且解析矛盾而失败。"
+    }
+  }
+}

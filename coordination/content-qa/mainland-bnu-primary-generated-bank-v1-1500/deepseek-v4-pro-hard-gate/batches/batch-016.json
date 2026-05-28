@@ -1,0 +1,330 @@
+{
+  "batchNumber": 16,
+  "startedAt": "2026-05-27T03:37:55.764Z",
+  "completedAt": "2026-05-27T03:38:23.959Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p2-201",
+    "bnu-primary-ds-v1-p2-202",
+    "bnu-primary-ds-v1-p2-203",
+    "bnu-primary-ds-v1-p2-204",
+    "bnu-primary-ds-v1-p2-205",
+    "bnu-primary-ds-v1-p2-206",
+    "bnu-primary-ds-v1-p2-207",
+    "bnu-primary-ds-v1-p2-208",
+    "bnu-primary-ds-v1-p2-209",
+    "bnu-primary-ds-v1-p2-210",
+    "bnu-primary-ds-v1-p2-211",
+    "bnu-primary-ds-v1-p2-212",
+    "bnu-primary-ds-v1-p2-213",
+    "bnu-primary-ds-v1-p2-214",
+    "bnu-primary-ds-v1-p2-215",
+    "bnu-primary-ds-v1-p2-216",
+    "bnu-primary-ds-v1-p2-217",
+    "bnu-primary-ds-v1-p2-218",
+    "bnu-primary-ds-v1-p2-219",
+    "bnu-primary-ds-v1-p2-220",
+    "bnu-primary-ds-v1-p2-221",
+    "bnu-primary-ds-v1-p2-222",
+    "bnu-primary-ds-v1-p2-223",
+    "bnu-primary-ds-v1-p2-224",
+    "bnu-primary-ds-v1-p2-225",
+    "bnu-primary-ds-v1-p2-226",
+    "bnu-primary-ds-v1-p2-227",
+    "bnu-primary-ds-v1-p2-228",
+    "bnu-primary-ds-v1-p2-229",
+    "bnu-primary-ds-v1-p2-230"
+  ],
+  "usage": {
+    "prompt_tokens": 5873,
+    "completion_tokens": 2228,
+    "total_tokens": 8101,
+    "prompt_tokens_details": {
+      "cached_tokens": 5760
+    },
+    "prompt_cache_hit_tokens": 5760,
+    "prompt_cache_miss_tokens": 113
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p2-201",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目完整，计算正确，答案唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-202",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目信息充分，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-203",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项清晰，正确答案唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-204",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "估算合理，计算正确，验算方法得当。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-205",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目可解，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-206",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "估算和计算均正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-207",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "正确选项估算和笔算均合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-208",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "计算正确，答案756。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-209",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "长方形定义准确，选项唯一正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-210",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "图形描述清晰，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-211",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "描述符合长方形特征，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-212",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "正方形定义明确，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-213",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "三角形特征明显，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-214",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "描述符合平行四边形，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-215",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "正方形满足条件，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-216",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "长方形边角数量正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-217",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "对角线剪开得三角形，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-218",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "正方形特征描述正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-219",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "三角形不是四边形，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-220",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "填空答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-221",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "正方形符合条件，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-222",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "长方形特征填空正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-223",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "分针走6大格为30分钟，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-224",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "时间单位换算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-225",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "睡眠时间计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-226",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "时间单位选择合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-227",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "眼保健操约1分钟，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-228",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "钟面时间读取正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-229",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "时间计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-230",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "单位换算比较正确。"
+      }
+    ],
+    "batchSummary": {
+      "solvableYes": 30,
+      "solvableNo": 0,
+      "answerMatchYes": 30,
+      "answerMatchNo": 0,
+      "notes": "全部30道题均可解，答案匹配正确。"
+    }
+  }
+}

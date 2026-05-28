@@ -1,0 +1,325 @@
+{
+  "batchId": "batch-184",
+  "questions": [
+    {
+      "id": "hjb-junior-ds-v2-s2-416",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "hjb-junior-s2-lower-linear-functions",
+      "unitTitle": "一次函数",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "functions",
+        "linear-functions",
+        "direct-variation",
+        "function-graphs",
+        "slope-intercept",
+        "一次函数",
+        "正比例函数"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "变量与函数",
+        "正比例函数",
+        "一次函数图像",
+        "待定系数法",
+        "函数应用"
+      ],
+      "misconceptionTags": [
+        "slope and intercept roles confused",
+        "point not checked on graph",
+        "function value treated as input"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s2-lower-linear-functions"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-lower-paper-linear-functions-unit",
+        "hjb-junior-s2-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某快递公司收费标准如下：每件包裹首重1千克收费10元，续重每千克收费4元（不足1千克按1千克计算）。设包裹质量为x千克（x≥1），总费用为y元。下列y与x的函数关系中，正确的是（ ）。",
+      "optionsZhHans": [
+        "y=10+4x",
+        "y=10+4(x-1)",
+        "y=10+4⌈x⌉",
+        "y=10+4(⌈x⌉-1)"
+      ],
+      "answer": "y=10+4(⌈x⌉-1)",
+      "acceptedAnswers": [
+        "y=10+4(⌈x⌉-1)"
+      ],
+      "explanationZhHans": "首重1千克收费10元，续重部分为超过1千克的质量，需向上取整。设⌈x⌉表示不小于x的最小整数，则续重质量为⌈x⌉-1千克，费用为4(⌈x⌉-1)元，总费用y=10+4(⌈x⌉-1)。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-417",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "hjb-junior-s2-lower-linear-functions",
+      "unitTitle": "一次函数",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "functions",
+        "linear-functions",
+        "direct-variation",
+        "function-graphs",
+        "slope-intercept",
+        "一次函数",
+        "正比例函数"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "变量与函数",
+        "正比例函数",
+        "一次函数图像",
+        "待定系数法",
+        "函数应用"
+      ],
+      "misconceptionTags": [
+        "slope and intercept roles confused",
+        "point not checked on graph",
+        "function value treated as input"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-junior-s2-lower-linear-functions"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-lower-paper-linear-functions-unit",
+        "hjb-junior-s2-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知y是x的正比例函数，且当x=3时，y=-6。请写出该函数的解析式：______。",
+      "optionsZhHans": [],
+      "answer": "y=-2x",
+      "acceptedAnswers": [
+        "y=-2x"
+      ],
+      "explanationZhHans": "设y=kx，将x=3，y=-6代入得-6=3k，解得k=-2，所以解析式为y=-2x。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-418",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "hjb-junior-s2-lower-linear-functions",
+      "unitTitle": "一次函数",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "functions",
+        "linear-functions",
+        "direct-variation",
+        "function-graphs",
+        "slope-intercept",
+        "一次函数",
+        "正比例函数"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "变量与函数",
+        "正比例函数",
+        "一次函数图像",
+        "待定系数法",
+        "函数应用"
+      ],
+      "misconceptionTags": [
+        "slope and intercept roles confused",
+        "point not checked on graph",
+        "function value treated as input"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s2-lower-linear-functions"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-lower-paper-linear-functions-unit",
+        "hjb-junior-s2-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一次函数y=kx+b的图象经过点A(2,5)和B(-1,-1)。下列判断正确的是（ ）。",
+      "optionsZhHans": [
+        "k=2，b=1",
+        "k=2，b=-1",
+        "k=-2，b=1",
+        "k=-2，b=-1"
+      ],
+      "answer": "k=2，b=1",
+      "acceptedAnswers": [
+        "k=2，b=1"
+      ],
+      "explanationZhHans": "将A(2,5)和B(-1,-1)代入y=kx+b得方程组：5=2k+b，-1=-k+b。两式相减得6=3k，k=2，代入得b=1。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-419",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "hjb-junior-s2-lower-linear-functions",
+      "unitTitle": "一次函数",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "functions",
+        "linear-functions",
+        "direct-variation",
+        "function-graphs",
+        "slope-intercept",
+        "一次函数",
+        "正比例函数"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "变量与函数",
+        "正比例函数",
+        "一次函数图像",
+        "待定系数法",
+        "函数应用"
+      ],
+      "misconceptionTags": [
+        "slope and intercept roles confused",
+        "point not checked on graph",
+        "function value treated as input"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-junior-s2-lower-linear-functions"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-lower-paper-linear-functions-unit",
+        "hjb-junior-s2-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知一次函数y=(m-2)x+3-m的图象经过第一、二、四象限，则整数m的值为______。",
+      "optionsZhHans": [],
+      "answer": "1",
+      "acceptedAnswers": [
+        "1"
+      ],
+      "explanationZhHans": "图象经过第一、二、四象限，则斜率小于0且截距大于0，即m-2<0且3-m>0，解得m<2且m<3，所以m<2。又m为整数，故m=1。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-420",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "hjb-junior-s2-lower-linear-functions",
+      "unitTitle": "一次函数",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "functions",
+        "linear-functions",
+        "direct-variation",
+        "function-graphs",
+        "slope-intercept",
+        "一次函数",
+        "正比例函数"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "变量与函数",
+        "正比例函数",
+        "一次函数图像",
+        "待定系数法",
+        "函数应用"
+      ],
+      "misconceptionTags": [
+        "slope and intercept roles confused",
+        "point not checked on graph",
+        "function value treated as input"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s2-lower-linear-functions"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-lower-paper-linear-functions-unit",
+        "hjb-junior-s2-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "甲、乙两家商场以同样价格出售相同的商品，各自推出不同的优惠方案：在甲商场累计购物超过100元后，超出部分按原价90%收费；在乙商场累计购物超过50元后，超出部分按原价95%收费。设顾客累计购物x元（x>100）。当x在什么范围内时，在甲商场购物更划算？下列不等式正确的是（ ）。",
+      "optionsZhHans": [
+        "100+0.9(x-100) < 50+0.95(x-50)",
+        "100+0.9x < 50+0.95x",
+        "0.9(x-100) < 0.95(x-50)",
+        "100+0.9(x-100) > 50+0.95(x-50)"
+      ],
+      "answer": "100+0.9(x-100) < 50+0.95(x-50)",
+      "acceptedAnswers": [
+        "100+0.9(x-100) < 50+0.95(x-50)"
+      ],
+      "explanationZhHans": "甲商场费用：100+0.9(x-100)；乙商场费用：50+0.95(x-50)。甲更划算即甲费用小于乙费用，故不等式为100+0.9(x-100) < 50+0.95(x-50)。"
+    }
+  ]
+}

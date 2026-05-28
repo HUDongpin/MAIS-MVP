@@ -1,0 +1,130 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-128",
+  "startedAt": "2026-05-28T01:34:49.467Z",
+  "completedAt": "2026-05-28T01:35:02.742Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-017",
+    "bnu-high-ds-v1-s6-018",
+    "bnu-high-ds-v1-s6-019",
+    "bnu-high-ds-v1-s6-020",
+    "bnu-high-ds-v1-s6-021",
+    "bnu-high-ds-v1-s6-022",
+    "bnu-high-ds-v1-s6-023",
+    "bnu-high-ds-v1-s6-024"
+  ],
+  "usage": {
+    "prompt_tokens": 12356,
+    "completion_tokens": 1004,
+    "total_tokens": 13360,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 11972
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-017",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析正确构造等比数列，无问题。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-018",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析利用等比数列性质正确求解公比。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-019",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析累加正确，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-020",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析利用求和公式列方程组正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-021",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "a_n = (3^n + 4n - 3)/2",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 a_n = 3^{n-1} + 2n - 1 错误，代入 n=2 得 6，但递推得 7。独立解为 a_n = (3^n + 4n - 3)/2。解析中构造等比数列过程有误，得出错误结果。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-022",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析利用等差数列性质正确求解。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-023",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析累加正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-024",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析正确计算等比数列项。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第21题存储答案错误，解析推导有误，其余题目均通过。"
+    }
+  }
+}

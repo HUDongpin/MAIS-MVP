@@ -1,0 +1,331 @@
+{
+  "batchId": "batch-257",
+  "questions": [
+    {
+      "id": "hjb-junior-ds-v2-s3-281",
+      "batch": "hjb-junior-v2",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "hjb-junior-s3-lower-circle-regular-polygons",
+      "unitTitle": "圆与正多边形",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "circle-geometry",
+        "central-angles",
+        "arcs",
+        "chords",
+        "tangent-lines",
+        "regular-polygons",
+        "圆",
+        "正多边形"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "圆的确定",
+        "弧弦圆心角关系",
+        "垂径定理",
+        "直线与圆位置关系",
+        "圆与圆位置关系",
+        "正多边形与圆"
+      ],
+      "misconceptionTags": [
+        "circle relation inferred from drawing",
+        "tangent condition incomplete",
+        "central angle and inscribed relation confused"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-junior-s3-lower-circle-regular-polygons"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s3-lower-paper-circle-regular-polygons-unit",
+        "hjb-junior-s3-lower-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-circle-geometry",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系中，已知点A(1,2)，点B(5,2)，点C(3,6)。若以点C为圆心作一个圆，使得该圆经过点A和点B，则该圆的半径长为______。",
+      "optionsZhHans": [],
+      "answer": "2√5",
+      "acceptedAnswers": [
+        "2√5",
+        "2倍根号5",
+        "√20",
+        "根号20"
+      ],
+      "explanationZhHans": "由A(1,2)和B(5,2)知AB=4，C(3,6)到AB中点(3,2)的距离为4。根据垂径定理，圆心C在弦AB的垂直平分线上，半径r=√(2²+4²)=√20=2√5。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-282",
+      "batch": "hjb-junior-v2",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "hjb-junior-s3-lower-circle-regular-polygons",
+      "unitTitle": "圆与正多边形",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "circle-geometry",
+        "central-angles",
+        "arcs",
+        "chords",
+        "tangent-lines",
+        "regular-polygons",
+        "圆",
+        "正多边形"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "圆的确定",
+        "弧弦圆心角关系",
+        "垂径定理",
+        "直线与圆位置关系",
+        "圆与圆位置关系",
+        "正多边形与圆"
+      ],
+      "misconceptionTags": [
+        "circle relation inferred from drawing",
+        "tangent condition incomplete",
+        "central angle and inscribed relation confused"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s3-lower-circle-regular-polygons"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s3-lower-paper-circle-regular-polygons-unit",
+        "hjb-junior-s3-lower-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-circle-geometry",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知圆O的半径为5 cm，弦AB所对的圆心角∠AOB=120°。求弦AB的长。",
+      "optionsZhHans": [],
+      "answer": "5√3 cm",
+      "acceptedAnswers": [
+        "5√3 cm",
+        "5√3cm",
+        "5√3厘米",
+        "5√3"
+      ],
+      "explanationZhHans": "作OC⊥AB于C，则AC=BC，∠AOC=60°。在Rt△AOC中，AC=OA·sin60°=5×√3/2=5√3/2 cm，故AB=2AC=5√3 cm。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-283",
+      "batch": "hjb-junior-v2",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "hjb-junior-s3-lower-circle-regular-polygons",
+      "unitTitle": "圆与正多边形",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "circle-geometry",
+        "central-angles",
+        "arcs",
+        "chords",
+        "tangent-lines",
+        "regular-polygons",
+        "圆",
+        "正多边形"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "圆的确定",
+        "弧弦圆心角关系",
+        "垂径定理",
+        "直线与圆位置关系",
+        "圆与圆位置关系",
+        "正多边形与圆"
+      ],
+      "misconceptionTags": [
+        "circle relation inferred from drawing",
+        "tangent condition incomplete",
+        "central angle and inscribed relation confused"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s3-lower-circle-regular-polygons"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s3-lower-paper-circle-regular-polygons-unit",
+        "hjb-junior-s3-lower-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-circle-geometry",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知圆O的半径为5 cm，点P在圆O外，且OP = 13 cm。过点P作圆O的切线PA，切点为A，则切线长PA等于（ ）",
+      "optionsZhHans": [
+        "8 cm",
+        "12 cm",
+        "13 cm",
+        "18 cm"
+      ],
+      "answer": "12 cm",
+      "acceptedAnswers": [
+        "12 cm"
+      ],
+      "explanationZhHans": "连接OA，则OA⊥PA。在Rt△OAP中，OA=5 cm，OP=13 cm，由勾股定理得PA=√(13²-5²)=12 cm。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-284",
+      "batch": "hjb-junior-v2",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "hjb-junior-s3-lower-circle-regular-polygons",
+      "unitTitle": "圆与正多边形",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "circle-geometry",
+        "central-angles",
+        "arcs",
+        "chords",
+        "tangent-lines",
+        "regular-polygons",
+        "圆",
+        "正多边形"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "圆的确定",
+        "弧弦圆心角关系",
+        "垂径定理",
+        "直线与圆位置关系",
+        "圆与圆位置关系",
+        "正多边形与圆"
+      ],
+      "misconceptionTags": [
+        "circle relation inferred from drawing",
+        "tangent condition incomplete",
+        "central angle and inscribed relation confused"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-junior-s3-lower-circle-regular-polygons"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s3-lower-paper-circle-regular-polygons-unit",
+        "hjb-junior-s3-lower-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-circle-geometry",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知圆O的半径为5 cm，点P在圆O外，且OP = 13 cm。过点P作圆O的切线PA，切点为A，连接OA。则切线PA的长为______cm。",
+      "optionsZhHans": [],
+      "answer": "12",
+      "acceptedAnswers": [
+        "12"
+      ],
+      "explanationZhHans": "连接OA，由切线性质得OA⊥PA。在Rt△OAP中，OA=5，OP=13，由勾股定理得PA=√(13²-5²)=12 cm。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-285",
+      "batch": "hjb-junior-v2",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "hjb-junior-s3-lower-circle-regular-polygons",
+      "unitTitle": "圆与正多边形",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "circle-geometry",
+        "central-angles",
+        "arcs",
+        "chords",
+        "tangent-lines",
+        "regular-polygons",
+        "圆",
+        "正多边形"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "圆的确定",
+        "弧弦圆心角关系",
+        "垂径定理",
+        "直线与圆位置关系",
+        "圆与圆位置关系",
+        "正多边形与圆"
+      ],
+      "misconceptionTags": [
+        "circle relation inferred from drawing",
+        "tangent condition incomplete",
+        "central angle and inscribed relation confused"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s3-lower-circle-regular-polygons"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s3-lower-paper-circle-regular-polygons-unit",
+        "hjb-junior-s3-lower-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-circle-geometry",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系中，已知点A(0,0)，点B(6,0)，点C(3,4)。以点C为圆心作圆，使其与x轴相切。求该圆的半径，并说明理由。",
+      "optionsZhHans": [],
+      "answer": "半径为4。因为圆心C(3,4)到x轴的距离等于其纵坐标的绝对值，即|4|=4，而圆与x轴相切时，圆心到切线的距离等于半径，所以半径r=4。",
+      "acceptedAnswers": [
+        "半径为4。因为圆心C(3,4)到x轴的距离等于其纵坐标的绝对值，即|4|=4，而圆与x轴相切时，圆心到切线的距离等于半径，所以半径r=4。"
+      ],
+      "explanationZhHans": "圆心C(3,4)到x轴的距离为|4|=4。圆与直线相切时，圆心到直线的距离等于半径，故半径r=4。"
+    }
+  ]
+}

@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-186",
+  "startedAt": "2026-05-28T01:55:29.256Z",
+  "completedAt": "2026-05-28T01:55:43.084Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-481",
+    "bnu-high-ds-v1-s6-482",
+    "bnu-high-ds-v1-s6-483",
+    "bnu-high-ds-v1-s6-484",
+    "bnu-high-ds-v1-s6-485",
+    "bnu-high-ds-v1-s6-486",
+    "bnu-high-ds-v1-s6-487",
+    "bnu-high-ds-v1-s6-488"
+  ],
+  "usage": {
+    "prompt_tokens": 12491,
+    "completion_tokens": 982,
+    "total_tokens": 13473,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 12107
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-481",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "A",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由递推关系构造等差数列，求得b_n=n/3，前n项和S_n=n(n+1)/6，对应选项D。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-482",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "y=-3x+3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导得f'(x)=3x^2-6x，f'(1)=-3，f(1)=0，切线方程为y=-3(x-1)，即y=-3x+3。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-483",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "B",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由等差数列条件解得a1=1,d=2，an=2n-1，bn=2^{2n-1}，等比求和得Tn=2^{n+2}-4，对应选项B。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-484",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "递推计算：a1=2，a2=2，a3=2，a4=2，故a4=2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-485",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "C",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由极值条件、函数值、导数值及垂直条件解得a=-3/2,b=1,c=7/2，a+b+c=3，对应选项C。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-486",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "80",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由Sn与an关系得an=n·2^n，故a5=5×32=160。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-487",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "A",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导得f'(x)=1/x-2ax+(a-2)，由单调递减得f'(x)≤0恒成立，分离参数得a≤-1，对应选项A。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-488",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "96",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由等比数列性质得q^2=4，q=2，a1=2，a5+a6=a1q^4(1+q)=96。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，无数学错误、歧义或缺失条件，符合北师大版高三数列与导数综合复习要求。"
+    }
+  }
+}

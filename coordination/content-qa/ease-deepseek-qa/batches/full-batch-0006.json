@@ -1,0 +1,168 @@
+{
+  "scope": "full",
+  "batchIndex": 6,
+  "startedAt": "2026-05-28T03:24:12.965Z",
+  "completedAt": "2026-05-28T03:25:29.338Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "itemIds": [
+    "10346",
+    "10347",
+    "10355",
+    "10356",
+    "10340",
+    "10349",
+    "10351",
+    "10361",
+    "10350",
+    "10364"
+  ],
+  "usage": {
+    "prompt_tokens": 3797,
+    "completion_tokens": 4472,
+    "total_tokens": 8269,
+    "prompt_tokens_details": {
+      "cached_tokens": 3712
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 3195
+    },
+    "prompt_cache_hit_tokens": 3712,
+    "prompt_cache_miss_tokens": 85
+  },
+  "finishReason": "stop",
+  "jsonModeFallback": false,
+  "result": {
+    "items": [
+      {
+        "questionId": "10346",
+        "questionType": "FRQ",
+        "hasImage": true,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": null,
+        "solvabilityStatus": "image-context-required",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "题目依赖无法查看的图片（數字鐘），答案缺失。",
+        "recommendedAction": "提供数字钟面图片或说明，并补充标准答案。"
+      },
+      {
+        "questionId": "10347",
+        "questionType": "FRQ",
+        "hasImage": true,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": null,
+        "solvabilityStatus": "image-context-required",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "需查看图片（時鐘）才能确定结束时间，答案缺失。",
+        "recommendedAction": "提供时钟图片或描述，并补充标准答案。"
+      },
+      {
+        "questionId": "10355",
+        "questionType": "FRQ",
+        "hasImage": true,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": null,
+        "solvabilityStatus": "image-context-required",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "题目图片中的数字钟格式不可见，答案缺失。",
+        "recommendedAction": "提供数字钟图片或明确填空格式，并补充标准答案。"
+      },
+      {
+        "questionId": "10356",
+        "questionType": "FRQ",
+        "hasImage": true,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": null,
+        "solvabilityStatus": "image-context-required",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "需查看钟面图片才能读取时间，答案缺失。",
+        "recommendedAction": "提供图片或描述，并补充标准答案。"
+      },
+      {
+        "questionId": "10340",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": "公斤",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "答案缺失，但题目可解答：一个蛋糕重约1公斤。",
+        "recommendedAction": "补充标准答案。"
+      },
+      {
+        "questionId": "10349",
+        "questionType": "MCQ",
+        "hasImage": false,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": "C",
+        "solvabilityStatus": "ambiguous",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "选项C（四边长度相等）和D（四个角都不是直角）都不是一般平行四边形的特性，题目存在歧义。答案缺失。",
+        "recommendedAction": "明确唯一非特性选项，并补充标准答案。"
+      },
+      {
+        "questionId": "10351",
+        "questionType": "FRQ",
+        "hasImage": true,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": null,
+        "solvabilityStatus": "image-context-required",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "需查看图片中的图形及字母标注才能作答，答案缺失。",
+        "recommendedAction": "提供图片，并补充标准答案。"
+      },
+      {
+        "questionId": "10361",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": "長方形",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "答案缺失，但题目可解答：四个直角、对边平行且边长为4,6,4,6，应为长方形。",
+        "recommendedAction": "补充标准答案。"
+      },
+      {
+        "questionId": "10350",
+        "questionType": "FRQ",
+        "hasImage": true,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": null,
+        "solvabilityStatus": "image-context-required",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "需查看三角形图片才能确定其特殊名称，答案缺失。",
+        "recommendedAction": "提供图片，并补充标准答案。"
+      },
+      {
+        "questionId": "10364",
+        "questionType": "FRQ",
+        "hasImage": true,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": null,
+        "solvabilityStatus": "image-context-required",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "需查看图片中的三角形及字母标注，答案缺失。",
+        "recommendedAction": "提供图片，并补充标准答案。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 2,
+      "unsolvable": 0,
+      "ambiguous": 1,
+      "imageContextRequired": 7,
+      "answerMismatch": 0,
+      "missingAnswerKey": 10,
+      "notes": "10题均无标准答案；其中7题依赖图片无法判断可解性；1题存在选项歧义；2题可独立解答但答案缺失。"
+    }
+  }
+}

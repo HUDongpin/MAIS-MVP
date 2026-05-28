@@ -1,0 +1,191 @@
+{
+  "batchNumber": 18,
+  "startedAt": "2026-05-27T13:45:17.933Z",
+  "completedAt": "2026-05-27T13:45:35.685Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p2-057",
+    "bnu-primary-ds-v2-p2-058",
+    "bnu-primary-ds-v2-p2-059",
+    "bnu-primary-ds-v2-p2-060",
+    "bnu-primary-ds-v2-p2-061",
+    "bnu-primary-ds-v2-p2-062",
+    "bnu-primary-ds-v2-p2-063",
+    "bnu-primary-ds-v2-p2-064",
+    "bnu-primary-ds-v2-p2-065",
+    "bnu-primary-ds-v2-p2-066",
+    "bnu-primary-ds-v2-p2-067",
+    "bnu-primary-ds-v2-p2-068",
+    "bnu-primary-ds-v2-p2-069",
+    "bnu-primary-ds-v2-p2-070",
+    "bnu-primary-ds-v2-p2-071",
+    "bnu-primary-ds-v2-p2-072",
+    "bnu-primary-ds-v2-p2-073",
+    "bnu-primary-ds-v2-p2-074"
+  ],
+  "usage": {
+    "prompt_tokens": 3634,
+    "completion_tokens": 1318,
+    "total_tokens": 4952,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 3250
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p2-057",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，符合二年级图形变化内容。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-058",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移方向不变，旋转方向改变，选项A正确，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-059",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案合理，口、日、田平移可重合，符合要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-060",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "拼接结果正确，正方形和长方形均可能。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-061",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "4×6比4×5多一个4，即多4，选项正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-062",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "3个4用口诀三四十二，答案12正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-063",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "3×4=12，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-064",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "四七比四六多一个4，用24加4正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-065",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "3×4=12，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-066",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "交换因数得5×4=20，正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-067",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "四七二十八加4得四八三十二，推理正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-068",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "5×3=15，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-069",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "4×3=12或3×4=12，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-070",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "错误选项为3+4=7，其他均正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-071",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "4×3=12，口诀三四十二，正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-072",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "5×4=20，口诀四五二十，正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-073",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "五三十五不是正确口诀，选项B错误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-074",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "4×5=20，口诀四五二十，正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版二年级上册要求，数学正确，答案匹配，无歧义或缺失条件。"
+    }
+  }
+}

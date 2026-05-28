@@ -1,0 +1,581 @@
+{
+  "batchId": "batch-063",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p3-121",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "p3-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "数学好玩",
+        "上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略表达",
+        "整理知识",
+        "错因分析",
+        "合作探究"
+      ],
+      "misconceptionTags": [
+        "activity goal confused with calculation target",
+        "topic not identified before solving",
+        "reflection reduced to final answer only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "三年级同学在“数学好玩”活动中整理错题。小乐发现自己做混合运算时，总是忘记先算乘除后算加减。下面哪一道题的计算顺序是正确的？",
+      "optionsZhHans": [
+        "20 - 8 ÷ 2，先算20 - 8",
+        "12 + 3 × 4，先算12 + 3",
+        "30 - 5 × 2，先算5 × 2",
+        "18 ÷ 2 + 3，先算2 + 3"
+      ],
+      "answer": "30 - 5 × 2，先算5 × 2",
+      "acceptedAnswers": [
+        "30 - 5 × 2，先算5 × 2"
+      ],
+      "explanationZhHans": "在没有括号的算式里，有乘除法和加减法，要先算乘除法。30 - 5 × 2中，5 × 2是乘法，应先算，得到10，再算30 - 10 = 20。其他选项都先算了加减法，顺序错误。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-122",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "p3-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "数学好玩",
+        "上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略表达",
+        "整理知识",
+        "错因分析",
+        "合作探究"
+      ],
+      "misconceptionTags": [
+        "activity goal confused with calculation target",
+        "topic not identified before solving",
+        "reflection reduced to final answer only"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在“数学好玩”课上，老师让同学们测量教室前黑板的长和宽。小宇记录为：长3米50厘米，宽1米20厘米。长比宽多______厘米。",
+      "optionsZhHans": [],
+      "answer": "230",
+      "acceptedAnswers": [
+        "230",
+        "230厘米"
+      ],
+      "explanationZhHans": "先把长度都化成厘米：3米50厘米 = 350厘米，1米20厘米 = 120厘米。长比宽多350 - 120 = 230厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-123",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "p3-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "数学好玩",
+        "上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略表达",
+        "整理知识",
+        "错因分析",
+        "合作探究"
+      ],
+      "misconceptionTags": [
+        "activity goal confused with calculation target",
+        "topic not identified before solving",
+        "reflection reduced to final answer only"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "整理复习时，小芳用一根彩带围一个正方形相框，边长是15厘米。围好后还剩8厘米彩带。这根彩带原来长多少厘米？请写出你的思考过程。",
+      "optionsZhHans": [],
+      "answer": "68厘米",
+      "acceptedAnswers": [
+        "68厘米",
+        "68"
+      ],
+      "explanationZhHans": "正方形周长 = 边长 × 4 = 15 × 4 = 60厘米，这是用掉的彩带长度。原来彩带长 = 用掉的 + 剩下的 = 60 + 8 = 68厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-124",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "p3-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "数学好玩",
+        "上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略表达",
+        "整理知识",
+        "错因分析",
+        "合作探究"
+      ],
+      "misconceptionTags": [
+        "activity goal confused with calculation target",
+        "topic not identified before solving",
+        "reflection reduced to final answer only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在“数学好玩”的“时间与数学”活动中，同学们记录了自己每天写作业的时间。小杰从19:05开始写，到19:40结束。他写作业用了多长时间？",
+      "optionsZhHans": [
+        "25分钟",
+        "30分钟",
+        "35分钟",
+        "40分钟"
+      ],
+      "answer": "35分钟",
+      "acceptedAnswers": [
+        "35分钟"
+      ],
+      "explanationZhHans": "从19:05到19:40，分针从1走到8，走了7大格，每大格5分钟，共35分钟。也可用结束时刻减开始时刻：40 - 5 = 35分钟。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-125",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "p3-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "数学好玩",
+        "上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略表达",
+        "整理知识",
+        "错因分析",
+        "合作探究"
+      ],
+      "misconceptionTags": [
+        "activity goal confused with calculation target",
+        "topic not identified before solving",
+        "reflection reduced to final answer only"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在整理复习中，小丽列出了本学期学过的长度单位。请你按从短到长的顺序排列：千米、米、分米、厘米、毫米。\n______ < ______ < ______ < ______ < ______",
+      "optionsZhHans": [],
+      "answer": "毫米 < 厘米 < 分米 < 米 < 千米",
+      "acceptedAnswers": [
+        "毫米 < 厘米 < 分米 < 米 < 千米",
+        "毫米<厘米<分米<米<千米"
+      ],
+      "explanationZhHans": "学过的长度单位从小到大依次是毫米、厘米、分米、米、千米。1千米=1000米，1米=10分米，1分米=10厘米，1厘米=10毫米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-126",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "p3-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "数学好玩",
+        "上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略表达",
+        "整理知识",
+        "错因分析",
+        "合作探究"
+      ],
+      "misconceptionTags": [
+        "activity goal confused with calculation target",
+        "topic not identified before solving",
+        "reflection reduced to final answer only"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "“数学好玩”活动中，老师让同学们设计一个周长是24厘米的长方形花坛。小亮设计的长是8厘米，宽应该是多少厘米？请写出你的思考过程。",
+      "optionsZhHans": [],
+      "answer": "4厘米",
+      "acceptedAnswers": [
+        "4厘米",
+        "4"
+      ],
+      "explanationZhHans": "长方形周长 = (长 + 宽) × 2。已知周长24厘米，长8厘米。先求长+宽 = 24 ÷ 2 = 12厘米，宽 = 12 - 8 = 4厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-127",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "p3-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "数学好玩",
+        "上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略表达",
+        "整理知识",
+        "错因分析",
+        "合作探究"
+      ],
+      "misconceptionTags": [
+        "activity goal confused with calculation target",
+        "topic not identified before solving",
+        "reflection reduced to final answer only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在整理复习时，小东发现自己经常混淆周长和面积。下面哪种说法是正确的？",
+      "optionsZhHans": [
+        "周长和面积都可以用厘米作单位",
+        "一个图形的周长越长，面积就越大",
+        "周长是图形边线的总长度，面积是图形面的大小",
+        "计算周长和面积的方法完全相同"
+      ],
+      "answer": "周长是图形边线的总长度，面积是图形面的大小",
+      "acceptedAnswers": [
+        "周长是图形边线的总长度，面积是图形面的大小"
+      ],
+      "explanationZhHans": "周长是封闭图形一周的长度，面积是物体表面或平面图形的大小。周长用长度单位，面积用面积单位。周长和面积没有必然的大小关系。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-128",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "p3-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "数学好玩",
+        "上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略表达",
+        "整理知识",
+        "错因分析",
+        "合作探究"
+      ],
+      "misconceptionTags": [
+        "activity goal confused with calculation target",
+        "topic not identified before solving",
+        "reflection reduced to final answer only"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在“数学好玩”的“搭配中的学问”活动中，小美有2件上衣和3条裙子。每次穿1件上衣和1条裙子，她有______种不同的搭配方法。",
+      "optionsZhHans": [],
+      "answer": "6",
+      "acceptedAnswers": [
+        "6",
+        "6种"
+      ],
+      "explanationZhHans": "每件上衣都可以和3条裙子搭配，2件上衣就有2个3种，即2 × 3 = 6种搭配。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-129",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "p3-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "数学好玩",
+        "上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略表达",
+        "整理知识",
+        "错因分析",
+        "合作探究"
+      ],
+      "misconceptionTags": [
+        "activity goal confused with calculation target",
+        "topic not identified before solving",
+        "reflection reduced to final answer only"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "整理复习时，小华统计了自己一周内每天阅读课外书的时间，记录如下：周一30分钟，周二25分钟，周三35分钟，周四20分钟，周五40分钟，周六45分钟，周日50分钟。他这一周平均每天阅读多少分钟？请写出计算过程。",
+      "optionsZhHans": [],
+      "answer": "35分钟",
+      "acceptedAnswers": [
+        "35分钟",
+        "35"
+      ],
+      "explanationZhHans": "总时间 = 30+25+35+20+40+45+50 = 245分钟，天数 = 7天。平均 = 245 ÷ 7 = 35分钟。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-130",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "p3-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "数学好玩",
+        "上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略表达",
+        "整理知识",
+        "错因分析",
+        "合作探究"
+      ],
+      "misconceptionTags": [
+        "activity goal confused with calculation target",
+        "topic not identified before solving",
+        "reflection reduced to final answer only"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在“数学好玩”的“校园中的测量”活动中，同学们测量了操场的长和宽。操场长80米，宽比长短30米。操场的周长是多少米？",
+      "optionsZhHans": [
+        "220米",
+        "260米",
+        "300米",
+        "320米"
+      ],
+      "answer": "260米",
+      "acceptedAnswers": [
+        "260米"
+      ],
+      "explanationZhHans": "宽 = 80 - 30 = 50米。周长 = (长 + 宽) × 2 = (80 + 50) × 2 = 130 × 2 = 260米。"
+    }
+  ]
+}

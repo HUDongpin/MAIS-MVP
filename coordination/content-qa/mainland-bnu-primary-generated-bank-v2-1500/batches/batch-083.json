@@ -1,0 +1,591 @@
+{
+  "batchId": "batch-083",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p4-071",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-direction-position",
+      "unitTitle": "方向与位置",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "direction-position",
+        "map-reading",
+        "direction-distance",
+        "relative-location",
+        "方向与位置"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "模型意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "用方向描述位置",
+        "用距离描述位置",
+        "读简单地图",
+        "路线表达",
+        "参照点"
+      ],
+      "misconceptionTags": [
+        "reference point omitted",
+        "direction and distance swapped",
+        "route direction changes when viewpoint is unstated"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-direction-position"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-direction-position-unit",
+        "bnu-primary-p4-upper-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "以学校为观测点，书店在学校北偏东30°方向200米处。请用方向和距离描述学校相对于书店的位置。",
+      "optionsZhHans": [],
+      "answer": "学校在书店南偏西30°方向200米处",
+      "acceptedAnswers": [
+        "学校在书店南偏西30°方向200米处",
+        "学校在书店南偏西30°方向200米",
+        "南偏西30°方向200米",
+        "南偏西30°200米"
+      ],
+      "explanationZhHans": "观测点互换，方向相反：北变南，东变西，角度不变，距离不变。所以学校在书店南偏西30°方向200米处。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-072",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-direction-position",
+      "unitTitle": "方向与位置",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "direction-position",
+        "map-reading",
+        "direction-distance",
+        "relative-location",
+        "方向与位置"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "模型意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "用方向描述位置",
+        "用距离描述位置",
+        "读简单地图",
+        "路线表达",
+        "参照点"
+      ],
+      "misconceptionTags": [
+        "reference point omitted",
+        "direction and distance swapped",
+        "route direction changes when viewpoint is unstated"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-direction-position"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-direction-position-unit",
+        "bnu-primary-p4-upper-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小亮从家出发，先向东走300米到超市，再向北走200米到公园，最后向东偏南45°方向走250米到图书馆。请写出小亮从图书馆返回家的路线。",
+      "optionsZhHans": [],
+      "answer": "从图书馆出发，先向西偏北45°方向走250米到公园，再向南走200米到超市，最后向西走300米到家。",
+      "acceptedAnswers": [
+        "从图书馆出发，先向西偏北45°方向走250米到公园，再向南走200米到超市，最后向西走300米到家。",
+        "从图书馆出发，先向西偏北45°方向走250米到公园，再向南走200米到超市，最后向西走300米到家",
+        "先向西偏北45°方向走250米到公园，再向南走200米到超市，最后向西走300米到家",
+        "向西偏北45°走250米到公园，向南走200米到超市，向西走300米到家"
+      ],
+      "explanationZhHans": "返回路线与去程方向相反、顺序颠倒：去程最后的东偏南45°变为西偏北45°，北变为南，东变为西，距离不变。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-073",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-direction-position",
+      "unitTitle": "方向与位置",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "direction-position",
+        "map-reading",
+        "direction-distance",
+        "relative-location",
+        "方向与位置"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "模型意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "用方向描述位置",
+        "用距离描述位置",
+        "读简单地图",
+        "路线表达",
+        "参照点"
+      ],
+      "misconceptionTags": [
+        "reference point omitted",
+        "direction and distance swapped",
+        "route direction changes when viewpoint is unstated"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-direction-position"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-direction-position-unit",
+        "bnu-primary-p4-upper-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面图上，点A的位置用数对（3，5）表示，点B的位置用数对（8，5）表示。点A在点B的什么方向？",
+      "optionsZhHans": [
+        "东",
+        "西",
+        "南",
+        "北"
+      ],
+      "answer": "西",
+      "acceptedAnswers": [
+        "西"
+      ],
+      "explanationZhHans": "A（3,5）与B（8,5）在同一行，列数小的在左，即西侧。所以A在B的西面。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-074",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-direction-position",
+      "unitTitle": "方向与位置",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "direction-position",
+        "map-reading",
+        "direction-distance",
+        "relative-location",
+        "方向与位置"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "模型意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "用方向描述位置",
+        "用距离描述位置",
+        "读简单地图",
+        "路线表达",
+        "参照点"
+      ],
+      "misconceptionTags": [
+        "reference point omitted",
+        "direction and distance swapped",
+        "route direction changes when viewpoint is unstated"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-direction-position"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-direction-position-unit",
+        "bnu-primary-p4-upper-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "以广场为观测点，邮局在广场东偏南40°方向150米处。请用方向和距离描述广场相对于邮局的位置。",
+      "optionsZhHans": [],
+      "answer": "广场在邮局西偏北40°方向150米处",
+      "acceptedAnswers": [
+        "广场在邮局西偏北40°方向150米处",
+        "广场在邮局西偏北40°方向150米",
+        "西偏北40°方向150米",
+        "西偏北40°150米"
+      ],
+      "explanationZhHans": "观测点互换，方向相反：东变西，南变北，角度不变，距离不变。所以广场在邮局西偏北40°方向150米处。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-075",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-direction-position",
+      "unitTitle": "方向与位置",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "direction-position",
+        "map-reading",
+        "direction-distance",
+        "relative-location",
+        "方向与位置"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "模型意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "用方向描述位置",
+        "用距离描述位置",
+        "读简单地图",
+        "路线表达",
+        "参照点"
+      ],
+      "misconceptionTags": [
+        "reference point omitted",
+        "direction and distance swapped",
+        "route direction changes when viewpoint is unstated"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-direction-position"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-direction-position-unit",
+        "bnu-primary-p4-upper-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明从学校出发，先向北偏东20°方向走400米到书店，再向东偏南30°方向走300米到体育馆。请写出小明从体育馆直接返回学校的路线（用方向和距离表示）。",
+      "optionsZhHans": [],
+      "answer": "从体育馆出发，向西偏北30°方向走300米到书店，再向南偏西20°方向走400米到学校。",
+      "acceptedAnswers": [
+        "从体育馆出发，向西偏北30°方向走300米到书店，再向南偏西20°方向走400米到学校。",
+        "从体育馆出发，向西偏北30°方向走300米到书店，再向南偏西20°方向走400米到学校",
+        "先向西偏北30°方向走300米到书店，再向南偏西20°方向走400米到学校",
+        "向西偏北30°走300米到书店，向南偏西20°走400米到学校"
+      ],
+      "explanationZhHans": "返回时方向相反、顺序颠倒：去程最后的东偏南30°变为西偏北30°，北偏东20°变为南偏西20°，距离不变。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-076",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-direction-position",
+      "unitTitle": "方向与位置",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "direction-position",
+        "map-reading",
+        "direction-distance",
+        "relative-location",
+        "方向与位置"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "模型意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "用方向描述位置",
+        "用距离描述位置",
+        "读简单地图",
+        "路线表达",
+        "参照点"
+      ],
+      "misconceptionTags": [
+        "reference point omitted",
+        "direction and distance swapped",
+        "route direction changes when viewpoint is unstated"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-direction-position"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-direction-position-unit",
+        "bnu-primary-p4-upper-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在方格图上，点C用数对（2，4）表示，点D用数对（5，4）表示。点D在点C的什么方向？",
+      "optionsZhHans": [
+        "东",
+        "西",
+        "南",
+        "北"
+      ],
+      "answer": "东",
+      "acceptedAnswers": [
+        "东"
+      ],
+      "explanationZhHans": "C（2,4）与D（5,4）在同一行，列数大的在右，即东侧。所以D在C的东面。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-077",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-direction-position",
+      "unitTitle": "方向与位置",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "direction-position",
+        "map-reading",
+        "direction-distance",
+        "relative-location",
+        "方向与位置"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "模型意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "用方向描述位置",
+        "用距离描述位置",
+        "读简单地图",
+        "路线表达",
+        "参照点"
+      ],
+      "misconceptionTags": [
+        "reference point omitted",
+        "direction and distance swapped",
+        "route direction changes when viewpoint is unstated"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-direction-position"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-direction-position-unit",
+        "bnu-primary-p4-upper-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "以公园为观测点，学校在公园南偏西25°方向300米处。请用方向和距离描述公园相对于学校的位置。",
+      "optionsZhHans": [],
+      "answer": "公园在学校北偏东25°方向300米处",
+      "acceptedAnswers": [
+        "公园在学校北偏东25°方向300米处",
+        "公园在学校北偏东25°方向300米",
+        "北偏东25°方向300米",
+        "北偏东25°300米"
+      ],
+      "explanationZhHans": "观测点互换，方向相反：南变北，西变东，角度不变，距离不变。所以公园在学校北偏东25°方向300米处。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-078",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-direction-position",
+      "unitTitle": "方向与位置",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "direction-position",
+        "map-reading",
+        "direction-distance",
+        "relative-location",
+        "方向与位置"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "模型意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "用方向描述位置",
+        "用距离描述位置",
+        "读简单地图",
+        "路线表达",
+        "参照点"
+      ],
+      "misconceptionTags": [
+        "reference point omitted",
+        "direction and distance swapped",
+        "route direction changes when viewpoint is unstated"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-direction-position"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-direction-position-unit",
+        "bnu-primary-p4-upper-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小芳从家出发，先向西走250米到公交站，再向南偏西40°方向走350米到商场，最后向东偏北50°方向走200米到电影院。请写出小芳从电影院返回家的路线。",
+      "optionsZhHans": [],
+      "answer": "从电影院出发，先向西偏南50°方向走200米到商场，再向北偏东40°方向走350米到公交站，最后向东走250米到家。",
+      "acceptedAnswers": [
+        "从电影院出发，先向西偏南50°方向走200米到商场，再向北偏东40°方向走350米到公交站，最后向东走250米到家。",
+        "从电影院出发，先向西偏南50°方向走200米到商场，再向北偏东40°方向走350米到公交站，最后向东走250米到家",
+        "先向西偏南50°方向走200米到商场，再向北偏东40°方向走350米到公交站，最后向东走250米到家",
+        "向西偏南50°走200米到商场，向北偏东40°走350米到公交站，向东走250米到家"
+      ],
+      "explanationZhHans": "返回路线与去程方向相反、顺序颠倒：东偏北50°变为西偏南50°，南偏西40°变为北偏东40°，西变为东，距离不变。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-079",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-direction-position",
+      "unitTitle": "方向与位置",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "direction-position",
+        "map-reading",
+        "direction-distance",
+        "relative-location",
+        "方向与位置"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "模型意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "用方向描述位置",
+        "用距离描述位置",
+        "读简单地图",
+        "路线表达",
+        "参照点"
+      ],
+      "misconceptionTags": [
+        "reference point omitted",
+        "direction and distance swapped",
+        "route direction changes when viewpoint is unstated"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-direction-position"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-direction-position-unit",
+        "bnu-primary-p4-upper-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面图上，点E的位置用数对（6，2）表示，点F的位置用数对（6，7）表示。点E在点F的什么方向？",
+      "optionsZhHans": [
+        "东",
+        "西",
+        "南",
+        "北"
+      ],
+      "answer": "南",
+      "acceptedAnswers": [
+        "南"
+      ],
+      "explanationZhHans": "E（6,2）与F（6,7）在同一列，行数小的在下，即南侧。所以E在F的南面。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-080",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-direction-position",
+      "unitTitle": "方向与位置",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "direction-position",
+        "map-reading",
+        "direction-distance",
+        "relative-location",
+        "方向与位置"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "模型意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "用方向描述位置",
+        "用距离描述位置",
+        "读简单地图",
+        "路线表达",
+        "参照点"
+      ],
+      "misconceptionTags": [
+        "reference point omitted",
+        "direction and distance swapped",
+        "route direction changes when viewpoint is unstated"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-direction-position"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-direction-position-unit",
+        "bnu-primary-p4-upper-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "以图书馆为观测点，科技馆在图书馆东偏北15°方向500米处。请用方向和距离描述图书馆相对于科技馆的位置。",
+      "optionsZhHans": [],
+      "answer": "图书馆在科技馆西偏南15°方向500米处",
+      "acceptedAnswers": [
+        "图书馆在科技馆西偏南15°方向500米处",
+        "图书馆在科技馆西偏南15°方向500米",
+        "西偏南15°方向500米",
+        "西偏南15°500米"
+      ],
+      "explanationZhHans": "观测点互换，方向相反：东变西，北变南，角度不变，距离不变。所以图书馆在科技馆西偏南15°方向500米处。"
+    }
+  ]
+}

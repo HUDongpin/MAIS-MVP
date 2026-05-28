@@ -1,0 +1,47 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-089",
+  "startedAt": "2026-05-28T01:00:44.757Z",
+  "completedAt": "2026-05-28T01:00:49.693Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-089"
+  ],
+  "usage": {
+    "prompt_tokens": 2013,
+    "completion_tokens": 244,
+    "total_tokens": 2257,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1629
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-089",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "约13.51年",
+        "correctedAnswer": "约13.51年",
+        "issueTags": [
+          "answer_mismatch"
+        ],
+        "severity": "major",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，独立求解得约13.51年，但存储答案为14，两者不一致。解析正确但答案取整未说明，导致答案不匹配。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 1,
+      "fail": 0,
+      "notes": "1题答案不匹配，独立解为约13.51年，存储答案为14，需修正答案或补充取整说明。"
+    }
+  }
+}

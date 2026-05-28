@@ -1,0 +1,41 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-087-item-bnu-high-ds-v1-s5-190",
+  "startedAt": "2026-05-28T02:47:36.670Z",
+  "completedAt": "2026-05-28T02:47:40.800Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-190"
+  ],
+  "usage": {
+    "prompt_tokens": 1741,
+    "completion_tokens": 182,
+    "total_tokens": 1923,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1357
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-190",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "\\frac{3\\sqrt{14}}{14}",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "建立坐标系后，求出平面APQ的法向量和平面ABCD的法向量，利用夹角公式计算cosθ，得到唯一选项A。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 1,
+      "warn": 0,
+      "fail": 0,
+      "notes": "题目条件完整，可独立求解，答案唯一，符合北师大版空间向量与立体几何章节要求。"
+    }
+  }
+}

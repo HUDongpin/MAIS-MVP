@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-380",
+  "startedAt": "2026-05-28T02:44:10.477Z",
+  "completedAt": "2026-05-28T02:44:15.785Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-380"
+  ],
+  "usage": {
+    "prompt_tokens": 2246,
+    "completion_tokens": 280,
+    "total_tokens": 2526,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1862
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-380",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "20√3 米",
+        "correctedAnswer": "20√3 米",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合建模要求。独立求解得塔高20√3米。存储答案20√2错误，解析中余弦定理方程错误，cos60°=1/2代入后应为4h²-√3h²=1600，解得h=20√3。答案不匹配，解析矛盾，严重错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1题答案错误，解析矛盾，判定为blocker。"
+    }
+  }
+}

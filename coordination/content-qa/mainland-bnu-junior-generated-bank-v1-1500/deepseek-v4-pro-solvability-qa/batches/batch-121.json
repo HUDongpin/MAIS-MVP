@@ -1,0 +1,173 @@
+{
+  "batchNumber": 121,
+  "startedAt": "2026-05-27T18:04:07.877Z",
+  "completedAt": "2026-05-27T18:04:23.091Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s3-441",
+    "bnu-junior-ds-v1-s3-442",
+    "bnu-junior-ds-v1-s3-443",
+    "bnu-junior-ds-v1-s3-444",
+    "bnu-junior-ds-v1-s3-445",
+    "bnu-junior-ds-v1-s3-446",
+    "bnu-junior-ds-v1-s3-447",
+    "bnu-junior-ds-v1-s3-448",
+    "bnu-junior-ds-v1-s3-449",
+    "bnu-junior-ds-v1-s3-450",
+    "bnu-junior-ds-v1-s3-451",
+    "bnu-junior-ds-v1-s3-452"
+  ],
+  "usage": {
+    "prompt_tokens": 6569,
+    "completion_tokens": 1284,
+    "total_tokens": 7853,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 6057
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s3-441",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，应用垂径定理和勾股定理可解，答案2.0 cm正确，解释与答案一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-442",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "圆内角定理应用正确，计算(80°+120°)/2=100°，选项唯一且答案匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-443",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "利用切线性质和等腰三角形外角定理可解，∠A=30°正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-444",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "正六边形边长等于半径，边心距公式正确，答案2√3 cm无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-445",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "切线长定理和勾股定理应用正确，PA=4 cm，选项唯一且答案匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-446",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "相交弦定理和垂径定理结合使用，AB=8 cm正确，解释清晰。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-447",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "弧长公式应用正确，结果4π cm，保留π符合要求。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-448",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "圆周角定理应用正确，点C在优弧上对劣弧，∠ACB=50°，选项唯一。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-449",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "直径所对圆周角为直角，射影定理应用正确，CD=4 cm，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-450",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "垂径定理和勾股定理应用正确，弦心距6 cm，答案匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-451",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "成绩分布呈偏态，中位数更能反映集中趋势，选项唯一且解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-452",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "有放回摸球，等可能结果25种，颜色相同13种，概率13/25正确，解释清晰。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目条件充分、可解，答案与解释均正确匹配，无任何问题。"
+    }
+  }
+}

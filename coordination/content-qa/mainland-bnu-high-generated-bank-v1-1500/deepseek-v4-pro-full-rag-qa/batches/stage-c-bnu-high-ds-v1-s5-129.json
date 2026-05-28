@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-129",
+  "startedAt": "2026-05-28T02:08:43.736Z",
+  "completedAt": "2026-05-28T02:08:50.779Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-129"
+  ],
+  "usage": {
+    "prompt_tokens": 2098,
+    "completion_tokens": 272,
+    "total_tokens": 2370,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1714
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-129",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "k = -1",
+        "correctedAnswer": "k = -1",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "椭圆方程正确，联立后韦达定理得中点横坐标方程-50k/(16+25k²)=1，解得k=-1，而非k=1/2。解析中解方程错误，导致答案错误，且判别式验证k=-1满足条件。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目可解，但存储答案和解析存在数学错误，正确斜率为-1。"
+    }
+  }
+}

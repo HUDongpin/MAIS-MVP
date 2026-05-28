@@ -1,0 +1,103 @@
+{
+  "scope": "pilot-100",
+  "batchIndex": 4,
+  "startedAt": "2026-05-28T03:13:47.664Z",
+  "completedAt": "2026-05-28T03:14:38.828Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "itemIds": [
+    "2922",
+    "100000345",
+    "100000045",
+    "653",
+    "55"
+  ],
+  "usage": {
+    "prompt_tokens": 1690,
+    "completion_tokens": 2665,
+    "total_tokens": 4355,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1997
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1306
+  },
+  "finishReason": "stop",
+  "jsonModeFallback": false,
+  "result": {
+    "items": [
+      {
+        "questionId": "2922",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "-12.5",
+        "independentAnswer": "-12.5",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Solvable; -5 * 2.5 = -12.5 matches.",
+        "recommendedAction": "None"
+      },
+      {
+        "questionId": "100000345",
+        "questionType": "BFQ",
+        "hasImage": true,
+        "standardAnswer": "50.3\\operatorname{mm}",
+        "independentAnswer": null,
+        "solvabilityStatus": "image-context-required",
+        "answerMatchStatus": "not-checkable",
+        "severity": "P1",
+        "reason": "Image required to obtain circle dimensions for circumference.",
+        "recommendedAction": "Provide image description or include radius/diameter in text."
+      },
+      {
+        "questionId": "100000045",
+        "questionType": "BFQ",
+        "hasImage": false,
+        "standardAnswer": "144",
+        "independentAnswer": "144",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "LCM of 4,6,8,9 is 72; smallest perfect square multiple is 144.",
+        "recommendedAction": "None"
+      },
+      {
+        "questionId": "653",
+        "questionType": "FRQ",
+        "hasImage": true,
+        "standardAnswer": "70",
+        "independentAnswer": "70",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Image is decorative; all info in text. Actual score = 70.",
+        "recommendedAction": "None"
+      },
+      {
+        "questionId": "55",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "187,560",
+        "independentAnswer": "18, 7560",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "mismatch",
+        "severity": "P0",
+        "reason": "Computed HCF=18, LCM=7560, but standardAnswer is '187,560'.",
+        "recommendedAction": "Correct standardAnswer to '18, 7560' or '18,7560'."
+      }
+    ],
+    "batchSummary": {
+      "pass": 3,
+      "unsolvable": 0,
+      "ambiguous": 0,
+      "imageContextRequired": 1,
+      "answerMismatch": 1,
+      "missingAnswerKey": 0,
+      "notes": "Three items solvable and answers match. One item requires image to determine circle dimensions. One item has incorrect standardAnswer for HCF/LCM."
+    }
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0087",
+  "ids": [
+    "hjb-junior-ds-v2-s2-189",
+    "hjb-junior-ds-v2-s2-190",
+    "hjb-junior-ds-v2-s2-191",
+    "hjb-junior-ds-v2-s2-192",
+    "hjb-junior-ds-v2-s2-193",
+    "hjb-junior-ds-v2-s2-194",
+    "hjb-junior-ds-v2-s2-195",
+    "hjb-junior-ds-v2-s2-196"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-189",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "21",
+      "answerCheckZhHans": "标准答案为21，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-190",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "B. 5，12，13",
+      "answerCheckZhHans": "标准答案为B，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-191",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "标准答案为3，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-192",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "是直角三角形。因为7²+24²=49+576=625=25²，满足勾股定理的逆定理。",
+      "answerCheckZhHans": "标准答案与独立计算结果一致，acceptedAnswers覆盖了标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-193",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "D. ∠A=30°，∠B=45°",
+      "answerCheckZhHans": "标准答案为D，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-194",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "7.2",
+      "answerCheckZhHans": "标准答案为7.2，与独立计算结果一致，acceptedAnswers包含7.2和36/5，覆盖了标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-195",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案中直接给出AD=4，但未说明如何求得AD。解析中通过勾股定理逆定理得出AD=4，但逆定理只能判定直角三角形，不能直接求出边长。正确做法应先由等腰三角形三线合一得AD⊥BC，再用勾股定理求AD=√(5²-3²)=4。标准答案和解析存在逻辑错误。",
+      "independentAnswerZhHans": "证明：∵AB=AC，AD是中线，∴BD=CD=3，且AD⊥BC（等腰三角形三线合一）。在Rt△ABD中，由勾股定理得AD=√(AB²-BD²)=√(5²-3²)=4。",
+      "answerCheckZhHans": "标准答案逻辑有误，不应直接使用勾股定理逆定理求AD。",
+      "recommendedActionZhHans": "修正标准答案和解析，使用等腰三角形三线合一和勾股定理。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-196",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "△ABC是直角三角形，且BD=4",
+      "answerCheckZhHans": "标准答案与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

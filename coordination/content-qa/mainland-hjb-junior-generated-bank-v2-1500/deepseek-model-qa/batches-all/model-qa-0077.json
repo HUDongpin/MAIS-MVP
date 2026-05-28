@@ -1,0 +1,109 @@
+{
+  "batchId": "model-qa-0077",
+  "ids": [
+    "hjb-junior-ds-v2-s2-109",
+    "hjb-junior-ds-v2-s2-110",
+    "hjb-junior-ds-v2-s2-111",
+    "hjb-junior-ds-v2-s2-112",
+    "hjb-junior-ds-v2-s2-113",
+    "hjb-junior-ds-v2-s2-114",
+    "hjb-junior-ds-v2-s2-115",
+    "hjb-junior-ds-v2-s2-116"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-109",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "√18",
+      "answerCheckZhHans": "标准答案为√18，与独立解题结果一致。解析正确：√8=2√2，√18=3√2，被开方数相同，是同类二次根式。其他选项化简后分别为2√3、2√6、3√3，均不同类。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-110",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "√5 + 2",
+      "answerCheckZhHans": "标准答案为√5 + 2，与独立解题结果一致。解析正确：分子分母同乘√5+2，分母有理化得√5+2。acceptedAnswers包含√5 + 2和√5+2，覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-111",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "4√3",
+      "answerCheckZhHans": "标准答案为4√3，与独立解题结果一致。解析正确：x²y+xy²=xy(x+y)，xy=2，x+y=2√3，乘积为4√3。acceptedAnswers包含4√3和4根号3，覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-112",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为－2，但解析自相矛盾：解析称x+3不能是完全平方数，但又说x=－2时x+3=1是完全平方数，√1仍为最简二次根式，这不符合最简二次根式的定义（被开方数不含能开得尽方的因数或因式）。实际上，√1=1不是二次根式，且1是完全平方数，因此x=－2不满足最简二次根式条件。x=－3时√0=0不是二次根式；x=－4、－5无意义。因此无正确选项。",
+      "independentAnswerZhHans": "无正确选项",
+      "answerCheckZhHans": "独立解题发现：由x+3≥0得x≥－3。最简二次根式要求被开方数不含能开得尽方的因数或因式，且被开方数不含分母。x=－2时，x+3=1，√1=1，不是二次根式（通常认为√1不是最简二次根式，因为1是完全平方数）。x=－3时，√0=0，不是二次根式。x=－4、－5无意义。因此四个选项均不满足条件，题目无正确选项。",
+      "recommendedActionZhHans": "修改题目或选项，确保有唯一正确选项。例如，可将选项改为－1、0、1等，并调整条件。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-113",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x ≥ 2；当 x = 2 时，值为 0",
+      "answerCheckZhHans": "标准答案为“x ≥ 2；当 x = 2 时，值为 0”，与独立解题结果一致。解析正确：由3x-6≥0得x≥2，最小整数x=2，代入得0。acceptedAnswers包含完整答案，覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-114",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为4√7，但解析计算错误：xy=4，x+y=2√7，乘积应为8√7，而非4√7。解析最后一步写“原式 = 4 × 2√7 = 8√7”，但答案却给4√7，自相矛盾。",
+      "independentAnswerZhHans": "8√7",
+      "answerCheckZhHans": "独立解题：x²y+xy²=xy(x+y)，xy=(√7+√3)(√7-√3)=7-3=4，x+y=2√7，原式=4×2√7=8√7。标准答案4√7错误。",
+      "recommendedActionZhHans": "将答案修正为8√7，并更新acceptedAnswers。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-115",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "√3",
+      "answerCheckZhHans": "标准答案为√3，与独立解题结果一致。解析正确：√12=2√3，√27=3√3，√48=4√3，合并得√3。选项互异，唯一正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-116",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x ≥ -2",
+      "answerCheckZhHans": "标准答案为x ≥ -2，与独立解题结果一致。解析正确：5x+10≥0，解得x≥-2。acceptedAnswers包含x ≥ -2和x≥-2，覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

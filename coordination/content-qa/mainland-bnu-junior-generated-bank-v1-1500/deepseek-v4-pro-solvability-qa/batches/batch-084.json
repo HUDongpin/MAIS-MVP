@@ -1,0 +1,176 @@
+{
+  "batchNumber": 84,
+  "startedAt": "2026-05-27T17:50:32.490Z",
+  "completedAt": "2026-05-27T17:50:49.055Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s2-497",
+    "bnu-junior-ds-v1-s2-498",
+    "bnu-junior-ds-v1-s2-499",
+    "bnu-junior-ds-v1-s2-500",
+    "bnu-junior-ds-v1-s3-001",
+    "bnu-junior-ds-v1-s3-002",
+    "bnu-junior-ds-v1-s3-003",
+    "bnu-junior-ds-v1-s3-004",
+    "bnu-junior-ds-v1-s3-005",
+    "bnu-junior-ds-v1-s3-006",
+    "bnu-junior-ds-v1-s3-007",
+    "bnu-junior-ds-v1-s3-008"
+  ],
+  "usage": {
+    "prompt_tokens": 7354,
+    "completion_tokens": 1337,
+    "total_tokens": 8691,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 6842
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s2-497",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目明确，选项均为常见判定条件，正确答案为“两条对角线互相平分”，符合平行四边形判定定理，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-498",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "条件充分，由一组对边平行且相等可判定平行四边形，进而得对角线互相平分，证明过程正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-499",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "利用平行四边形对角相等、邻角互补的性质，计算正确，选项唯一。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-500",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "三角形中位线性质应用正确，周长计算无误，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-001",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项组合合理，①④能判定正方形，②③只能判定矩形，解释清晰，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-002",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": false,
+        "answerMatches": false,
+        "issueTags": [
+          "missing_condition",
+          "answer_mismatch"
+        ],
+        "correctedAnswer": null,
+        "rationale": "题目未给出AB=AC的条件，证明中却使用了“AB=AC，D是BC中点，所以AD⊥BC”，缺少等腰三角形的条件，无法完成证明。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-003",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "菱形与等边三角形条件充分，通过全等和垂线段最短求最小值，计算正确，答案3√3合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-004",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "折叠问题分类讨论，两种情况均符合勾股定理，答案3或6正确，选项唯一。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-005",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "经典半角模型，通过旋转构造全等，证明严谨，结论正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-006",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "对称性质应用正确，分类讨论A'落在CD或BC上，计算得AP=1或3，答案合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-007",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "菱形与等边三角形条件充分，通过全等和角度计算得CE=2√3-2，选项唯一。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-008",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "菱形判定条件明确，①②③均能判定菱形，④判定矩形，答案正确。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 11,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第2题（bnu-junior-ds-v1-s3-002）缺少AB=AC的条件，导致证明无法完成，判定为失败；其余题目均正确可解。"
+    }
+  }
+}

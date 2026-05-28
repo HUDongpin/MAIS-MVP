@@ -1,0 +1,137 @@
+{
+  "batchNumber": 50,
+  "startedAt": "2026-05-25T03:02:42.221Z",
+  "completedAt": "2026-05-25T03:02:58.438Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s2-k07-sa-022",
+    "pep-junior-v3-s2-k07-sa-023",
+    "pep-junior-v3-s2-k07-sa-024",
+    "pep-junior-v3-s2-k07-sa-025",
+    "pep-junior-v3-s2-k07-sa-026",
+    "pep-junior-v3-s2-k07-sa-027",
+    "pep-junior-v3-s2-k07-sa-028",
+    "pep-junior-v3-s2-k07-sa-029",
+    "pep-junior-v3-s2-k07-sa-030",
+    "pep-junior-v3-s2-k07-sa-031",
+    "pep-junior-v3-s2-k07-sa-032",
+    "pep-junior-v3-s2-k07-sa-033"
+  ],
+  "usage": {
+    "prompt_tokens": 3323,
+    "completion_tokens": 974,
+    "total_tokens": 4297,
+    "prompt_tokens_details": {
+      "cached_tokens": 3200
+    },
+    "prompt_cache_hit_tokens": 3200,
+    "prompt_cache_miss_tokens": 123
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s2-k07-sa-022",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分式值为0条件正确，答案x=-3无误，解释清晰。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-sa-023",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "整式乘除运算正确，答案ab无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-sa-024",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "多项式乘法正确，答案6x^2+11xy-10y^2无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-sa-025",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "完全平方式因式分解正确，答案(2a-5)^2无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-sa-026",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分式化简正确，答案3(x-2)/2无误，注意隐含x≠-2。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-sa-027",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "化简求值正确，答案-14无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-sa-028",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "三角形内角和比例计算正确，答案80°无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-sa-029",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "全等证明逻辑正确，SSS判定无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-sa-030",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "关于x轴对称坐标变换正确，答案(3,2)无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-sa-031",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平方差公式应用正确，答案8ab无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-sa-032",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分式方程解法正确，检验合理，答案x=3无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-sa-033",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "完全平方公式变形正确，答案13无误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部12道题均通过审核，数学正确，答案与解释一致，无歧义或缺失条件，适合人教版初中数学。"
+    }
+  }
+}

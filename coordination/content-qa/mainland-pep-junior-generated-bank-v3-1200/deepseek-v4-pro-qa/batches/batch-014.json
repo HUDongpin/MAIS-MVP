@@ -1,0 +1,137 @@
+{
+  "batchNumber": 14,
+  "startedAt": "2026-05-25T02:49:13.676Z",
+  "completedAt": "2026-05-25T02:49:30.332Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s1-k03-fi-001",
+    "pep-junior-v3-s1-k03-fi-002",
+    "pep-junior-v3-s1-k03-fi-003",
+    "pep-junior-v3-s1-k03-fi-004",
+    "pep-junior-v3-s1-k03-fi-005",
+    "pep-junior-v3-s1-k03-fi-006",
+    "pep-junior-v3-s1-k03-fi-007",
+    "pep-junior-v3-s1-k03-fi-008",
+    "pep-junior-v3-s1-k03-fi-009",
+    "pep-junior-v3-s1-k03-fi-010",
+    "pep-junior-v3-s1-k03-fi-011",
+    "pep-junior-v3-s1-k03-fi-012"
+  ],
+  "usage": {
+    "prompt_tokens": 3141,
+    "completion_tokens": 934,
+    "total_tokens": 4075,
+    "prompt_tokens_details": {
+      "cached_tokens": 3072
+    },
+    "prompt_cache_hit_tokens": 3072,
+    "prompt_cache_miss_tokens": 69
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s1-k03-fi-001",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "角度计算正确，余角定义准确，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k03-fi-002",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "中点性质应用正确，计算无误，答案合理。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k03-fi-003",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "棱柱顶点数公式正确，答案六棱柱无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k03-fi-004",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "补角定义和方程列解正确，答案70°无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k03-fi-005",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程列式正确，符合周长公式，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k03-fi-006",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "线段和差及中点计算正确，OB=1cm无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k03-fi-007",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "利润问题方程正确，标价120元无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k03-fi-008",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "概率计算正确，3/8无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k03-fi-009",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移坐标变化正确，答案(2,2)无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k03-fi-010",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "相遇问题计算正确，10分钟无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k03-fi-011",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "补角余角关系方程正确，解得50°无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k03-fi-012",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "盈亏问题方程正确，学生数240无误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部12道题数学正确，答案与解释一致，无歧义或缺失条件，适合人教版初中数学。"
+    }
+  }
+}

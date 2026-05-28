@@ -1,0 +1,137 @@
+{
+  "batchNumber": 11,
+  "startedAt": "2026-05-25T02:48:21.228Z",
+  "completedAt": "2026-05-25T02:48:38.517Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s1-k02-sa-009",
+    "pep-junior-v3-s1-k02-sa-010",
+    "pep-junior-v3-s1-k02-sa-011",
+    "pep-junior-v3-s1-k02-sa-012",
+    "pep-junior-v3-s1-k02-sa-013",
+    "pep-junior-v3-s1-k02-sa-014",
+    "pep-junior-v3-s1-k02-sa-015",
+    "pep-junior-v3-s1-k02-sa-016",
+    "pep-junior-v3-s1-k02-sa-017",
+    "pep-junior-v3-s1-k02-sa-018",
+    "pep-junior-v3-s1-k02-sa-019",
+    "pep-junior-v3-s1-k02-sa-020"
+  ],
+  "usage": {
+    "prompt_tokens": 3676,
+    "completion_tokens": 956,
+    "total_tokens": 4632,
+    "prompt_tokens_details": {
+      "cached_tokens": 3584
+    },
+    "prompt_cache_hit_tokens": 3584,
+    "prompt_cache_miss_tokens": 92
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s1-k02-sa-009",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，方程正确，答案4小时无误，解释合理。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k02-sa-010",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "代数式表示正确，化简结果6x-6无误，解释清晰。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k02-sa-011",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "解方程步骤正确，x=3无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k02-sa-012",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "利润问题方程正确，标价120元无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k02-sa-013",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "相反数、倒数、绝对值概念正确，分类讨论完整，答案1或-3无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k02-sa-014",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "温差计算正确，8℃无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k02-sa-015",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "线段计算正确，AD=6.5cm无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k02-sa-016",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "化简求值正确，结果为9无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k02-sa-017",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "相遇问题方程正确，2小时无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k02-sa-018",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "非负性应用正确，x+y=-1无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k02-sa-019",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "代数式含义解释正确，答案合理，符合核心素养要求。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k02-sa-020",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "错中求解思路正确，计算结果x²+8x-5无误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部12道题均通过审核，数学正确，答案与解释一致，无歧义或缺失条件，适合人教版初中数学。"
+    }
+  }
+}

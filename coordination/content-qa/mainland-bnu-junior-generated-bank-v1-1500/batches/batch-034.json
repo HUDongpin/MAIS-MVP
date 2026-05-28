@@ -1,0 +1,623 @@
+{
+  "batchId": "batch-034",
+  "questions": [
+    {
+      "id": "bnu-junior-ds-v1-s1-331",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-intersecting-parallel-lines",
+      "unitTitle": "相交线与平行线",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "intersecting-lines",
+        "parallel-lines",
+        "transversal-angles",
+        "angle-relations",
+        "平行线",
+        "相交线"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "邻补角",
+        "对顶角",
+        "垂线",
+        "平行线性质",
+        "平行线判定",
+        "角度推理"
+      ],
+      "misconceptionTags": [
+        "parallel condition assumed from the drawing",
+        "corresponding and alternate angles confused",
+        "supplementary relation overgeneralized"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-intersecting-parallel-lines"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-intersecting-parallel-lines-unit",
+        "bnu-junior-s1-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知直线AB与CD相交于点O，射线OE在∠AOD内部，且∠COE=90°。若∠AOC=50°，求∠BOE的度数。",
+      "optionsZhHans": [
+        "40°",
+        "50°",
+        "130°",
+        "140°"
+      ],
+      "answer": "140°",
+      "acceptedAnswers": [
+        "140°"
+      ],
+      "explanationZhHans": "由对顶角相等得∠BOD=∠AOC=50°。∠COE=90°，故∠DOE=90°-∠COD？需重新推导：∠AOC=50°，则∠AOD=180°-50°=130°（邻补角）。∠COE=90°，所以∠DOE=∠COE-∠COD？正确：∠COD=180°-∠AOC=130°？不对。∠AOC与∠BOD对顶，∠AOD与∠BOC对顶。∠AOC=50°，则∠BOD=50°。∠AOD=180°-50°=130°。∠COE=90°，OE在∠AOD内部，故∠DOE=∠AOD-∠AOE？更直接：∠BOE=∠BOD+∠DOE。∠BOD=50°。∠DOE=∠COE-∠COD？∠COD=∠AOC？不对，∠COD是平角？点C、O、D共线？题目说直线AB与CD相交，所以C、O、D共线，∠COD=180°。∠COE=90°，所以∠DOE=180°-90°=90°？但OE在∠AOD内部，∠AOD=130°，∠DOE应小于130°。实际上，∠COE=90°，射线OE在∠AOD内部，则∠DOE=∠COE-∠COD？∠COD是180°，∠COE=90°，所以∠DOE=90°？那∠AOE=∠AOD-∠DOE=130°-90°=40°。∠BOE=∠BOD+∠DOE=50°+90°=140°。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-332",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-intersecting-parallel-lines",
+      "unitTitle": "相交线与平行线",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "intersecting-lines",
+        "parallel-lines",
+        "transversal-angles",
+        "angle-relations",
+        "平行线",
+        "相交线"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "邻补角",
+        "对顶角",
+        "垂线",
+        "平行线性质",
+        "平行线判定",
+        "角度推理"
+      ],
+      "misconceptionTags": [
+        "parallel condition assumed from the drawing",
+        "corresponding and alternate angles confused",
+        "supplementary relation overgeneralized"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-intersecting-parallel-lines"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-intersecting-parallel-lines-unit",
+        "bnu-junior-s1-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知直线 AB 与 CD 相交于点 O，射线 OE 在角 AOD 内部，且角 AOE 的度数是 35°，角 EOD 的度数是 55°。点 F 在直线 CD 上，且点 F 与点 C 在点 O 的同侧。若角 BOF 的度数是 110°，请判断直线 OE 与直线 OF 是否平行，并说明理由。",
+      "optionsZhHans": [],
+      "answer": "平行",
+      "acceptedAnswers": [
+        "平行",
+        "OE∥OF",
+        "OE//OF"
+      ],
+      "explanationZhHans": "由对顶角相等得∠BOD=∠AOC=35°+55°=90°。∠DOF=180°-∠BOF=180°-110°=70°。∠EOD=55°，故∠EOF=∠EOD+∠DOF=55°+70°=125°。∠AOE=35°，∠AOC=90°，得∠COE=55°。∠COF=180°-∠BOF=70°。∠COE+∠COF=125°≠180°，所以OE与OF不平行。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-333",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-intersecting-parallel-lines",
+      "unitTitle": "相交线与平行线",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "intersecting-lines",
+        "parallel-lines",
+        "transversal-angles",
+        "angle-relations",
+        "平行线",
+        "相交线"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "邻补角",
+        "对顶角",
+        "垂线",
+        "平行线性质",
+        "平行线判定",
+        "角度推理"
+      ],
+      "misconceptionTags": [
+        "parallel condition assumed from the drawing",
+        "corresponding and alternate angles confused",
+        "supplementary relation overgeneralized"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-intersecting-parallel-lines"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-intersecting-parallel-lines-unit",
+        "bnu-junior-s1-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知直线AB与CD相交于点O，射线OE在∠AOD内部，且∠AOE = 50°。若∠AOC = 30°，求∠EOD的度数。",
+      "optionsZhHans": [],
+      "answer": "100°",
+      "acceptedAnswers": [
+        "100°",
+        "100度"
+      ],
+      "explanationZhHans": "由对顶角相等得∠BOD = ∠AOC = 30°。∠AOD与∠BOD为邻补角，故∠AOD = 180° - 30° = 150°。∠EOD = ∠AOD - ∠AOE = 150° - 50° = 100°。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-334",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-intersecting-parallel-lines",
+      "unitTitle": "相交线与平行线",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "intersecting-lines",
+        "parallel-lines",
+        "transversal-angles",
+        "angle-relations",
+        "平行线",
+        "相交线"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "邻补角",
+        "对顶角",
+        "垂线",
+        "平行线性质",
+        "平行线判定",
+        "角度推理"
+      ],
+      "misconceptionTags": [
+        "parallel condition assumed from the drawing",
+        "corresponding and alternate angles confused",
+        "supplementary relation overgeneralized"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-intersecting-parallel-lines"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-intersecting-parallel-lines-unit",
+        "bnu-junior-s1-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知直线AB与CD相交于点O，射线OE在∠AOD内部，且∠AOE=35°，∠EOD=55°。若OF是∠BOC的平分线，求∠COF的度数。",
+      "optionsZhHans": [
+        "35°",
+        "45°",
+        "55°",
+        "90°"
+      ],
+      "answer": "45°",
+      "acceptedAnswers": [
+        "45°"
+      ],
+      "explanationZhHans": "由对顶角相等得∠BOC=∠AOD=35°+55°=90°。OF平分∠BOC，故∠COF=½×90°=45°。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-335",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-intersecting-parallel-lines",
+      "unitTitle": "相交线与平行线",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "intersecting-lines",
+        "parallel-lines",
+        "transversal-angles",
+        "angle-relations",
+        "平行线",
+        "相交线"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "邻补角",
+        "对顶角",
+        "垂线",
+        "平行线性质",
+        "平行线判定",
+        "角度推理"
+      ],
+      "misconceptionTags": [
+        "parallel condition assumed from the drawing",
+        "corresponding and alternate angles confused",
+        "supplementary relation overgeneralized"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-intersecting-parallel-lines"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-intersecting-parallel-lines-unit",
+        "bnu-junior-s1-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知直线AB与CD相交于点O，射线OE在∠AOD内部，且∠AOE=35°，∠EOD=55°。过点O作直线MN，使得∠BOM=40°。若∠CON=85°，判断直线AB与MN是否平行，并说明理由。",
+      "optionsZhHans": [],
+      "answer": "不平行。因为∠AOD=90°，所以AB⊥CD。由∠BOM=40°得∠AOM=140°，而∠CON=85°，∠AOC=90°，故∠AON=5°，∠AOM与∠AON不相等，同位角不相等，所以AB与MN不平行。",
+      "acceptedAnswers": [
+        "不平行。因为∠AOD=90°，所以AB⊥CD。由∠BOM=40°得∠AOM=140°，而∠CON=85°，∠AOC=90°，故∠AON=5°，∠AOM与∠AON不相等，同位角不相等，所以AB与MN不平行。"
+      ],
+      "explanationZhHans": "由∠AOE=35°，∠EOD=55°得∠AOD=90°，故AB⊥CD。∠BOM=40°，则∠AOM=180°-40°=140°。∠CON=85°，∠AOC=90°，得∠AON=90°-85°=5°。∠AOM与∠AON是同位角，但不相等，故AB与MN不平行。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-336",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-intersecting-parallel-lines",
+      "unitTitle": "相交线与平行线",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "intersecting-lines",
+        "parallel-lines",
+        "transversal-angles",
+        "angle-relations",
+        "平行线",
+        "相交线"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "邻补角",
+        "对顶角",
+        "垂线",
+        "平行线性质",
+        "平行线判定",
+        "角度推理"
+      ],
+      "misconceptionTags": [
+        "parallel condition assumed from the drawing",
+        "corresponding and alternate angles confused",
+        "supplementary relation overgeneralized"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-intersecting-parallel-lines"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-intersecting-parallel-lines-unit",
+        "bnu-junior-s1-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知直线AB与CD相交于点O，射线OE在∠AOD内部，且∠AOE=35°，∠EOD=55°。若OF是∠BOC的平分线，求∠BOF的度数。",
+      "optionsZhHans": [],
+      "answer": "55°",
+      "acceptedAnswers": [
+        "55°",
+        "55"
+      ],
+      "explanationZhHans": "由对顶角相等得∠BOC=∠AOD=35°+55°=90°。OF平分∠BOC，故∠BOF=½×90°=45°。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-337",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-triangles",
+      "unitTitle": "三角形",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "triangles",
+        "triangle-angle-sum",
+        "triangle-inequality",
+        "congruence-introduction",
+        "三角形"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "三角形分类",
+        "三边关系",
+        "内角和",
+        "外角关系",
+        "全等初步"
+      ],
+      "misconceptionTags": [
+        "triangle inequality checked only once",
+        "exterior angle relationship misused",
+        "corresponding vertices not matched"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-triangles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-triangles-unit",
+        "bnu-junior-s1-lower-assessment-midterm-1-to-4-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知三条线段长度分别为 5 cm、8 cm 和 x cm。若它们能组成一个三角形，且 x 为整数，则 x 的最大可能值为多少？",
+      "optionsZhHans": [
+        "11",
+        "12",
+        "13",
+        "14"
+      ],
+      "answer": "12",
+      "acceptedAnswers": [
+        "12"
+      ],
+      "explanationZhHans": "由三角形三边关系，任意两边之和大于第三边，得 5+8>x，5+x>8，8+x>5。由 5+8>x 得 x<13；由 5+x>8 得 x>3。x 为整数，故 x 最大为 12。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-338",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-triangles",
+      "unitTitle": "三角形",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "triangles",
+        "triangle-angle-sum",
+        "triangle-inequality",
+        "congruence-introduction",
+        "三角形"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "三角形分类",
+        "三边关系",
+        "内角和",
+        "外角关系",
+        "全等初步"
+      ],
+      "misconceptionTags": [
+        "triangle inequality checked only once",
+        "exterior angle relationship misused",
+        "corresponding vertices not matched"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-triangles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-triangles-unit",
+        "bnu-junior-s1-lower-assessment-midterm-1-to-4-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知三条线段的长度分别为 5 cm、8 cm 和 x cm。若这三条线段能构成一个三角形，且 x 为整数，求 x 的所有可能值。",
+      "optionsZhHans": [],
+      "answer": "4,5,6,7,8,9,10,11,12",
+      "acceptedAnswers": [
+        "4,5,6,7,8,9,10,11,12",
+        "4、5、6、7、8、9、10、11、12",
+        "4 5 6 7 8 9 10 11 12"
+      ],
+      "explanationZhHans": "根据三角形三边关系，任意两边之和大于第三边。由5+8>x得x<13；由5+x>8得x>3；由8+x>5恒成立。所以3<x<13，x为整数，故x可取4,5,6,7,8,9,10,11,12。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-339",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-triangles",
+      "unitTitle": "三角形",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "triangles",
+        "triangle-angle-sum",
+        "triangle-inequality",
+        "congruence-introduction",
+        "三角形"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "三角形分类",
+        "三边关系",
+        "内角和",
+        "外角关系",
+        "全等初步"
+      ],
+      "misconceptionTags": [
+        "triangle inequality checked only once",
+        "exterior angle relationship misused",
+        "corresponding vertices not matched"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-triangles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-triangles-unit",
+        "bnu-junior-s1-lower-assessment-midterm-1-to-4-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知三条线段的长分别为 5 cm、8 cm 和 x cm。若这三条线段能组成一个三角形，且 x 为整数，则 x 的最大值与最小值的差是______。",
+      "optionsZhHans": [],
+      "answer": "10",
+      "acceptedAnswers": [
+        "10"
+      ],
+      "explanationZhHans": "由三角形三边关系得 8-5<x<8+5，即 3<x<13。x 为整数，最小为 4，最大为 12，差为 12-4=8。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-340",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-triangles",
+      "unitTitle": "三角形",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "triangles",
+        "triangle-angle-sum",
+        "triangle-inequality",
+        "congruence-introduction",
+        "三角形"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "三角形分类",
+        "三边关系",
+        "内角和",
+        "外角关系",
+        "全等初步"
+      ],
+      "misconceptionTags": [
+        "triangle inequality checked only once",
+        "exterior angle relationship misused",
+        "corresponding vertices not matched"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-triangles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-triangles-unit",
+        "bnu-junior-s1-lower-assessment-midterm-1-to-4-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知三条线段的长分别为 5 cm、8 cm 和 x cm。若这三条线段能组成一个三角形，且 x 为整数，则 x 可以取的值有多少个？",
+      "optionsZhHans": [
+        "5",
+        "7",
+        "9",
+        "11"
+      ],
+      "answer": "9",
+      "acceptedAnswers": [
+        "9"
+      ],
+      "explanationZhHans": "根据三角形三边关系，任意两边之和大于第三边，得 5+8>x，5+x>8，8+x>5。解得 x<13，x>3，x>-3。综合得 3<x<13。x 为整数，可取 4,5,6,7,8,9,10,11,12，共 9 个值。"
+    }
+  ]
+}

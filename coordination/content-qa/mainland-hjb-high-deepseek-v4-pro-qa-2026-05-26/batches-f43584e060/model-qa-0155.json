@@ -1,0 +1,317 @@
+{
+  "batchId": "model-qa-0155",
+  "ids": [
+    "hjb-high-ds-v3-s4-081",
+    "hjb-high-ds-v3-s4-082",
+    "hjb-high-ds-v3-s4-083",
+    "hjb-high-ds-v3-s4-084",
+    "hjb-high-ds-v3-s4-085",
+    "hjb-high-ds-v3-s4-086",
+    "hjb-high-ds-v3-s4-087",
+    "hjb-high-ds-v3-s4-088",
+    "hjb-high-ds-v3-s4-089",
+    "hjb-high-ds-v3-s4-090",
+    "hjb-high-ds-v3-s4-091",
+    "hjb-high-ds-v3-s4-092",
+    "hjb-high-ds-v3-s4-093",
+    "hjb-high-ds-v3-s4-094",
+    "hjb-high-ds-v3-s4-095",
+    "hjb-high-ds-v3-s4-096",
+    "hjb-high-ds-v3-s4-097",
+    "hjb-high-ds-v3-s4-098",
+    "hjb-high-ds-v3-s4-099",
+    "hjb-high-ds-v3-s4-100"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-high-ds-v3-s4-081",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题目要求求右端常数 12-2 的值，即 10，但题目问的是“求 x 的取值范围右端常数 12-2 的值”，这本身是一个计算题，答案 10 正确。然而，题目类型为 short-answer，但实际是计算一个常数，与解不等式无关，且解析说“两边同时减去 2，得 x>12-2=10”，但题目并未要求解不等式，而是直接求常数。这导致题目与解析不匹配，且题目表述有歧义。",
+      "independentAnswerZhHans": "10",
+      "answerCheckZhHans": "标准答案为 10，计算正确，但题目表述与解析不一致。",
+      "recommendedActionZhHans": "修改题目表述，明确是解不等式还是计算常数，或调整解析。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-082",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "5",
+      "answerCheckZhHans": "由 x+12>16 得 x>4，又 x≤9，整数解为 5,6,7,8,9，共 5 个。选项中有 5，且唯一正确。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-083",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题目要求求右端常数 15-7 的值，即 8，但题目问的是“求 x 的取值范围右端常数 15-7 的值”，这本身是一个计算题，答案 8 正确。然而，题目类型为 fill-in，但实际是计算一个常数，与解不等式无关，且解析说“两边同时减去 7，得 x>15-7=8”，但题目并未要求解不等式，而是直接求常数。这导致题目与解析不匹配，且题目表述有歧义。",
+      "independentAnswerZhHans": "8",
+      "answerCheckZhHans": "标准答案为 8，计算正确，但题目表述与解析不一致。",
+      "recommendedActionZhHans": "修改题目表述，明确是解不等式还是计算常数，或调整解析。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-084",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "7",
+      "answerCheckZhHans": "由 x+11>19 得 x>8，又 x≤15，整数解为 9,10,11,12,13,14,15，共 7 个。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-085",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题目要求求右端常数 15-2 的值，即 13，但题目问的是“求 x 的取值范围右端常数 15-2 的值”，这本身是一个计算题，答案 13 正确。然而，题目类型为 multiple-choice，但实际是计算一个常数，与解不等式无关，且解析说“两边同时减去 2，得 x>15-2=13”，但题目并未要求解不等式，而是直接求常数。这导致题目与解析不匹配，且题目表述有歧义。",
+      "independentAnswerZhHans": "13",
+      "answerCheckZhHans": "标准答案为 13，计算正确，但题目表述与解析不一致。",
+      "recommendedActionZhHans": "修改题目表述，明确是解不等式还是计算常数，或调整解析。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-086",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "4",
+      "answerCheckZhHans": "由 x+6>6 得 x>0，又 x≤4，整数解为 1,2,3,4，共 4 个。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-087",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题目要求求右端常数 13-11 的值，即 2，但题目问的是“求 x 的取值范围右端常数 13-11 的值”，这本身是一个计算题，答案 2 正确。然而，题目类型为 short-answer，但实际是计算一个常数，与解不等式无关，且解析说“两边同时减去 11，得 x>13-11=2”，但题目并未要求解不等式，而是直接求常数。这导致题目与解析不匹配，且题目表述有歧义。",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案为 2，计算正确，但题目表述与解析不一致。",
+      "recommendedActionZhHans": "修改题目表述，明确是解不等式还是计算常数，或调整解析。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-088",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "6",
+      "answerCheckZhHans": "由 x+3>12 得 x>9，又 x≤15，整数解为 10,11,12,13,14,15，共 6 个。选项中有 6，且唯一正确。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-089",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题目要求求右端常数 19-8 的值，即 11，但题目问的是“求 x 的取值范围右端常数 19-8 的值”，这本身是一个计算题，答案 11 正确。然而，题目类型为 fill-in，但实际是计算一个常数，与解不等式无关，且解析说“两边同时减去 8，得 x>19-8=11”，但题目并未要求解不等式，而是直接求常数。这导致题目与解析不匹配，且题目表述有歧义。",
+      "independentAnswerZhHans": "11",
+      "answerCheckZhHans": "标准答案为 11，计算正确，但题目表述与解析不一致。",
+      "recommendedActionZhHans": "修改题目表述，明确是解不等式还是计算常数，或调整解析。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-090",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "由 x+11>8 得 x>-3，又 x≤0，整数解为 -2,-1,0，共 3 个。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-091",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题目要求求右端常数 14-4 的值，即 10，但题目问的是“求 x 的取值范围右端常数 14-4 的值”，这本身是一个计算题，答案 10 正确。然而，题目类型为 multiple-choice，但实际是计算一个常数，与解不等式无关，且解析说“两边同时减去 4，得 x>14-4=10”，但题目并未要求解不等式，而是直接求常数。这导致题目与解析不匹配，且题目表述有歧义。",
+      "independentAnswerZhHans": "10",
+      "answerCheckZhHans": "标准答案为 10，计算正确，但题目表述与解析不一致。",
+      "recommendedActionZhHans": "修改题目表述，明确是解不等式还是计算常数，或调整解析。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-092",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "5",
+      "answerCheckZhHans": "由 x+9>14 得 x>5，又 x≤10，整数解为 6,7,8,9,10，共 5 个。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-093",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题目要求求右端常数 12-10 的值，即 2，但题目问的是“求 x 的取值范围右端常数 12-10 的值”，这本身是一个计算题，答案 2 正确。然而，题目类型为 short-answer，但实际是计算一个常数，与解不等式无关，且解析说“两边同时减去 10，得 x>12-10=2”，但题目并未要求解不等式，而是直接求常数。这导致题目与解析不匹配，且题目表述有歧义。",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案为 2，计算正确，但题目表述与解析不一致。",
+      "recommendedActionZhHans": "修改题目表述，明确是解不等式还是计算常数，或调整解析。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-094",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "7",
+      "answerCheckZhHans": "由 x+6>17 得 x>11，又 x≤18，整数解为 12,13,14,15,16,17,18，共 7 个。选项中有 7，且唯一正确。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-095",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题目要求求右端常数 12-3 的值，即 9，但题目问的是“求 x 的取值范围右端常数 12-3 的值”，这本身是一个计算题，答案 9 正确。然而，题目类型为 fill-in，但实际是计算一个常数，与解不等式无关，且解析说“两边同时减去 3，得 x>12-3=9”，但题目并未要求解不等式，而是直接求常数。这导致题目与解析不匹配，且题目表述有歧义。",
+      "independentAnswerZhHans": "9",
+      "answerCheckZhHans": "标准答案为 9，计算正确，但题目表述与解析不一致。",
+      "recommendedActionZhHans": "修改题目表述，明确是解不等式还是计算常数，或调整解析。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-096",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "4",
+      "answerCheckZhHans": "由 x+5>17 得 x>12，又 x≤16，整数解为 13,14,15,16，共 4 个。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-097",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题目要求求右端常数 13-4 的值，即 9，但题目问的是“求 x 的取值范围右端常数 13-4 的值”，这本身是一个计算题，答案 9 正确。然而，题目类型为 multiple-choice，但实际是计算一个常数，与解不等式无关，且解析说“两边同时减去 4，得 x>13-4=9”，但题目并未要求解不等式，而是直接求常数。这导致题目与解析不匹配，且题目表述有歧义。",
+      "independentAnswerZhHans": "9",
+      "answerCheckZhHans": "标准答案为 9，计算正确，但题目表述与解析不一致。",
+      "recommendedActionZhHans": "修改题目表述，明确是解不等式还是计算常数，或调整解析。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-098",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "6",
+      "answerCheckZhHans": "由 x+6>16 得 x>10，又 x≤16，整数解为 11,12,13,14,15,16，共 6 个。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-099",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题目要求求右端常数 17-6 的值，即 11，但题目问的是“求 x 的取值范围右端常数 17-6 的值”，这本身是一个计算题，答案 11 正确。然而，题目类型为 short-answer，但实际是计算一个常数，与解不等式无关，且解析说“两边同时减去 6，得 x>17-6=11”，但题目并未要求解不等式，而是直接求常数。这导致题目与解析不匹配，且题目表述有歧义。",
+      "independentAnswerZhHans": "11",
+      "answerCheckZhHans": "标准答案为 11，计算正确，但题目表述与解析不一致。",
+      "recommendedActionZhHans": "修改题目表述，明确是解不等式还是计算常数，或调整解析。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-100",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "由 x+5>12 得 x>7，又 x≤10，整数解为 8,9,10，共 3 个。选项中有 3，且唯一正确。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    }
+  ]
+}

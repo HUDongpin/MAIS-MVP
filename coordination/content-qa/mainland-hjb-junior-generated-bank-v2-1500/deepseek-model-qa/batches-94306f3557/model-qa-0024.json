@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0024",
+  "ids": [
+    "hjb-junior-ds-v2-s1-185",
+    "hjb-junior-ds-v2-s1-186",
+    "hjb-junior-ds-v2-s1-187",
+    "hjb-junior-ds-v2-s1-188",
+    "hjb-junior-ds-v2-s1-189",
+    "hjb-junior-ds-v2-s1-190",
+    "hjb-junior-ds-v2-s1-191",
+    "hjb-junior-ds-v2-s1-192"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-185",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x(x+2)(x-2)",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-186",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "（1）x≠2；（2）2(x+2)/(x-2)；（3）10",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-187",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "multiple-correct-options",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "选项A和B化简后均为2a/(3b)，但解析称B定义域不同，然而题干未限定定义域，通常分式相等指化简后形式相同且定义域一致，但初中阶段可能忽略定义域差异。若考虑定义域，原式要求ab≠0，A要求b≠0，B要求b≠0，实际定义域相同（均需b≠0，a≠0），故A和B均正确。解析自相矛盾，导致两个正确选项。",
+      "independentAnswerZhHans": "A和B均正确",
+      "answerCheckZhHans": "标准答案仅选A，但B也正确，存在多个正确选项。",
+      "recommendedActionZhHans": "修改选项B或明确题干要求（如“化简后相等”），或调整解析。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-188",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "±1",
+      "answerCheckZhHans": "标准答案正确，解析一致，acceptedAnswers覆盖多种写法。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-189",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "1",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-190",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(5x-1)/(x^2-1)",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-191",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "5/2",
+      "answerCheckZhHans": "标准答案正确，解析一致，acceptedAnswers覆盖多种写法。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-192",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "5/3",
+      "answerCheckZhHans": "标准答案正确，解析一致，acceptedAnswers覆盖带分数形式。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

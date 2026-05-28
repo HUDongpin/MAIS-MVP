@@ -1,0 +1,50 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-297",
+  "startedAt": "2026-05-28T01:49:47.687Z",
+  "completedAt": "2026-05-28T01:49:53.285Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-297"
+  ],
+  "usage": {
+    "prompt_tokens": 2879,
+    "completion_tokens": 336,
+    "total_tokens": 3215,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2495
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-297",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "9",
+        "correctedAnswer": "9",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件矛盾：由f(0)=5得c=5，f'(0)=2得b=2，f'(1)=0得a=-2.5，但f(1)=5.5≠10，无法同时满足所有条件。若忽略f(0)=5，仅用f(1)=10、f'(1)=0、f'(0)=2，解得a=-2.5, b=2, c=9.5，a+b+c=9，但原答案16错误，解析自相矛盾。题目不可解。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目条件矛盾，无法同时满足，原答案错误，解析自相矛盾，判定为不可解。"
+    }
+  }
+}

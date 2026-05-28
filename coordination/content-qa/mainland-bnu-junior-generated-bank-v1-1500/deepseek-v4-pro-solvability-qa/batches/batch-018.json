@@ -1,0 +1,173 @@
+{
+  "batchNumber": 18,
+  "startedAt": "2026-05-27T17:26:19.559Z",
+  "completedAt": "2026-05-27T17:26:38.813Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s1-205",
+    "bnu-junior-ds-v1-s1-206",
+    "bnu-junior-ds-v1-s1-207",
+    "bnu-junior-ds-v1-s1-208",
+    "bnu-junior-ds-v1-s1-209",
+    "bnu-junior-ds-v1-s1-210",
+    "bnu-junior-ds-v1-s1-211",
+    "bnu-junior-ds-v1-s1-212",
+    "bnu-junior-ds-v1-s1-213",
+    "bnu-junior-ds-v1-s1-214",
+    "bnu-junior-ds-v1-s1-215",
+    "bnu-junior-ds-v1-s1-216"
+  ],
+  "usage": {
+    "prompt_tokens": 7299,
+    "completion_tokens": 1260,
+    "total_tokens": 8559,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 6787
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s1-205",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目明确，代入检验可得唯一正确选项A，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-206",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "经典相遇问题，狗跑的时间等于两人相遇时间，计算正确，答案与解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-207",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "列方程求解，移项正确，答案7无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-208",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "去括号、移项、合并同类项，解得x=5，选项A正确，解释清晰。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-209",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "设未知数列方程，解得十位数字3，个位8，原数38，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-210",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "代入x=-1得-2+a=4，解得a=6，正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-211",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项A基于本班数据得出合理结论，其他选项存在绝对化或过度推广，答案与解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-212",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "指出仅调查一天可能受偶然因素影响，理由充分，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-213",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "10÷40×100%=25%，计算正确，答案25符合要求。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-214",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "A方案连续记录取平均最能反映每周情况，其他选项有偏或偶然，答案与解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-215",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "用样本比例估计总体，58/200×2000=580，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-216",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "极差=170-155=15cm，计算正确，答案15无误。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部12道题均可解，答案与解释匹配，无数学错误或条件缺失，符合北师大版七年级要求。"
+    }
+  }
+}

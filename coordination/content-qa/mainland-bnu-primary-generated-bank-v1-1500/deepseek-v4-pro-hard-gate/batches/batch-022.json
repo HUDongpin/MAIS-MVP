@@ -1,0 +1,330 @@
+{
+  "batchNumber": 22,
+  "startedAt": "2026-05-27T03:38:48.486Z",
+  "completedAt": "2026-05-27T03:39:20.439Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p3-131",
+    "bnu-primary-ds-v1-p3-132",
+    "bnu-primary-ds-v1-p3-133",
+    "bnu-primary-ds-v1-p3-134",
+    "bnu-primary-ds-v1-p3-135",
+    "bnu-primary-ds-v1-p3-136",
+    "bnu-primary-ds-v1-p3-137",
+    "bnu-primary-ds-v1-p3-138",
+    "bnu-primary-ds-v1-p3-139",
+    "bnu-primary-ds-v1-p3-140",
+    "bnu-primary-ds-v1-p3-141",
+    "bnu-primary-ds-v1-p3-142",
+    "bnu-primary-ds-v1-p3-143",
+    "bnu-primary-ds-v1-p3-144",
+    "bnu-primary-ds-v1-p3-145",
+    "bnu-primary-ds-v1-p3-146",
+    "bnu-primary-ds-v1-p3-147",
+    "bnu-primary-ds-v1-p3-148",
+    "bnu-primary-ds-v1-p3-149",
+    "bnu-primary-ds-v1-p3-150",
+    "bnu-primary-ds-v1-p3-151",
+    "bnu-primary-ds-v1-p3-152",
+    "bnu-primary-ds-v1-p3-153",
+    "bnu-primary-ds-v1-p3-154",
+    "bnu-primary-ds-v1-p3-155",
+    "bnu-primary-ds-v1-p3-156",
+    "bnu-primary-ds-v1-p3-157",
+    "bnu-primary-ds-v1-p3-158",
+    "bnu-primary-ds-v1-p3-159",
+    "bnu-primary-ds-v1-p3-160"
+  ],
+  "usage": {
+    "prompt_tokens": 6325,
+    "completion_tokens": 2423,
+    "total_tokens": 8748,
+    "prompt_tokens_details": {
+      "cached_tokens": 6272
+    },
+    "prompt_cache_hit_tokens": 6272,
+    "prompt_cache_miss_tokens": 53
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p3-131",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目明确给出算式和错误过程，要求写出正确计算过程和结果，信息完整，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-132",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目清晰，要求写出正确计算过程和错误原因，答案符合要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-133",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目完整，选项明确，唯一正确答案为A，解释合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-134",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目信息充分，单位换算和计算过程清晰，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-135",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目明确要求指出错误并给出正确做法，答案完整覆盖。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-136",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目清晰，选项唯一，答案8条正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-137",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目明确，计算正确，商20余6。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-138",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目要求写出算式、商、余数并验算，答案完整正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-139",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目信息完整，计算正确，选项B唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-140",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目要求估商、竖式计算、验算，答案给出正确结果34本余1本。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-141",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目清晰，计算正确，答案39本余4本。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-142",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目明确，选项唯一，答案5盒余5个正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-143",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目清晰，余数最大6，被除数90，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-144",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目要求竖式计算，答案93余2正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-145",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目清晰，选项唯一，答案5个正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-146",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目明确，计算正确，每人8支余1支。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-147",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目清晰，计算正确，至少18辆。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-148",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目明确，选项唯一，余数最大5正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-149",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目清晰，答案6、7、8、9正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-150",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目信息完整，计算正确，每个家庭19瓶余1瓶。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-151",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目清晰，选项唯一，钟面指针走动是旋转。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-152",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目明确，答案对称轴正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-153",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目清晰，平移计算正确，点B(7,5)。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-154",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目明确，选项唯一，等腰梯形是轴对称图形。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-155",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目清晰，镜面对称，实际时间9:00正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-156",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目明确，答案旋转、平移正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-157",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目清晰，选项唯一，平移后大小不变。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-158",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目明确，长方形有2条对称轴，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-159",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目信息完整，点B在对称轴上，对称点坐标(3,5)正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-160",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目清晰，选项唯一，火车行驶是平移。"
+      }
+    ],
+    "batchSummary": {
+      "solvableYes": 30,
+      "solvableNo": 0,
+      "answerMatchYes": 30,
+      "answerMatchNo": 0,
+      "notes": "所有题目均信息完整、可解，答案正确匹配。"
+    }
+  }
+}

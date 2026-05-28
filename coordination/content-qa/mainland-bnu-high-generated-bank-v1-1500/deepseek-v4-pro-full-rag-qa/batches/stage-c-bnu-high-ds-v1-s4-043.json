@@ -1,0 +1,47 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-043",
+  "startedAt": "2026-05-28T00:56:34.246Z",
+  "completedAt": "2026-05-28T00:56:39.192Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-043"
+  ],
+  "usage": {
+    "prompt_tokens": 2070,
+    "completion_tokens": 236,
+    "total_tokens": 2306,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1686
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-043",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "[-1, 0] 和 [2, +∞)",
+        "correctedAnswer": null,
+        "issueTags": [
+          "explanation_contradiction"
+        ],
+        "severity": "major",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，选项唯一，答案匹配。但解析中 x>0 时递增区间描述为 (0,2]，与正确答案 [2,+∞) 矛盾，属于解析错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 1,
+      "fail": 0,
+      "notes": "1 题解析存在矛盾，需修正解析内容。"
+    }
+  }
+}

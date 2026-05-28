@@ -1,0 +1,52 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-232",
+  "startedAt": "2026-05-28T01:24:19.820Z",
+  "completedAt": "2026-05-28T01:24:24.589Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-232"
+  ],
+  "usage": {
+    "prompt_tokens": 2217,
+    "completion_tokens": 293,
+    "total_tokens": 2510,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1833
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-232",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "independentAnswer": null,
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "ambiguous_mc",
+          "bad_options",
+          "explanation_contradiction",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目不可解：由弦中点横坐标为2及直线过A(1,0)得中点M(2,k)，代入圆方程得k²=8，k=±2√2，但选项均为区间，无正确选项。存储答案k≤-1或k≥1错误，解析中计算混乱且与中点条件矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目存在根本性数学错误，不可解，选项无正确值，判定为blocker。"
+    }
+  }
+}

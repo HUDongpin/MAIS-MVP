@@ -1,0 +1,636 @@
+{
+  "batchId": "batch-005",
+  "questions": [
+    {
+      "id": "bnu-junior-ds-v1-s1-041",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-spatial-figures",
+      "unitTitle": "丰富的图形世界",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "solid-geometry-introduction",
+        "spatial-figures",
+        "views-of-objects",
+        "nets",
+        "几何体",
+        "展开与折叠"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "识别常见几何体",
+        "描述面棱顶点",
+        "观察物体视图",
+        "展开图判断",
+        "空间想象"
+      ],
+      "misconceptionTags": [
+        "flat shape confused with solid",
+        "net foldability judged by appearance only",
+        "viewpoint not stated before describing an object"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-spatial-figures"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-spatial-figures-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个几何体由6个面、12条棱和8个顶点组成，每个面都是四边形。请写出这个几何体的名称，并说明理由。",
+      "optionsZhHans": [],
+      "answer": "长方体（或正方体）。因为长方体有6个面、12条棱、8个顶点，且每个面都是四边形，符合条件。",
+      "acceptedAnswers": [
+        "长方体（或正方体）。因为长方体有6个面、12条棱、8个顶点，且每个面都是四边形，符合条件。",
+        "长方体",
+        "正方体",
+        "长方体（或正方体）"
+      ],
+      "explanationZhHans": "长方体有6个面、12条棱、8个顶点，每个面都是长方形（四边形）。正方体是特殊的长方体，也满足条件。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-042",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-spatial-figures",
+      "unitTitle": "丰富的图形世界",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "solid-geometry-introduction",
+        "spatial-figures",
+        "views-of-objects",
+        "nets",
+        "几何体",
+        "展开与折叠"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "识别常见几何体",
+        "描述面棱顶点",
+        "观察物体视图",
+        "展开图判断",
+        "空间想象"
+      ],
+      "misconceptionTags": [
+        "flat shape confused with solid",
+        "net foldability judged by appearance only",
+        "viewpoint not stated before describing an object"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-spatial-figures"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-spatial-figures-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个棱柱有7个面，则它有______条棱。",
+      "optionsZhHans": [],
+      "answer": "15",
+      "acceptedAnswers": [
+        "15"
+      ],
+      "explanationZhHans": "棱柱面数=侧棱数+2，所以侧棱数=7-2=5，即五棱柱。棱数=3×5=15。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-043",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数及其运算",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "rational-numbers",
+        "number-line",
+        "opposite-absolute-value",
+        "signed-number-operations",
+        "有理数",
+        "数轴",
+        "绝对值"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "正负数意义",
+        "数轴表示",
+        "相反数",
+        "绝对值",
+        "有理数四则运算",
+        "运算律应用"
+      ],
+      "misconceptionTags": [
+        "negative sign treated as subtraction only",
+        "absolute value keeps the original sign",
+        "operation order ignored when signed numbers are mixed"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-rational-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-rational-numbers-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知a、b为有理数，且|a-2|与(b+3)²互为相反数，则a+b的值为（　）\nA. -1\nB. 1\nC. -5\nD. 5",
+      "optionsZhHans": [
+        "A. -1",
+        "B. 1",
+        "C. -5",
+        "D. 5"
+      ],
+      "answer": "A. -1",
+      "acceptedAnswers": [
+        "A. -1"
+      ],
+      "explanationZhHans": "由题意得|a-2|+(b+3)²=0，所以a-2=0且b+3=0，解得a=2，b=-3，a+b=-1。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-044",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数及其运算",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "rational-numbers",
+        "number-line",
+        "opposite-absolute-value",
+        "signed-number-operations",
+        "有理数",
+        "数轴",
+        "绝对值"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "正负数意义",
+        "数轴表示",
+        "相反数",
+        "绝对值",
+        "有理数四则运算",
+        "运算律应用"
+      ],
+      "misconceptionTags": [
+        "negative sign treated as subtraction only",
+        "absolute value keeps the original sign",
+        "operation order ignored when signed numbers are mixed"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-rational-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-rational-numbers-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某冷库的温度是-2℃，现有一批蔬菜要求冷藏温度为0℃±3℃，问这批蔬菜能否在此冷库存放？请通过计算说明。",
+      "optionsZhHans": [],
+      "answer": "能存放。因为0℃±3℃表示温度范围是-3℃到3℃，-2℃在这个范围内。",
+      "acceptedAnswers": [
+        "能存放。因为0℃±3℃表示温度范围是-3℃到3℃，-2℃在这个范围内。",
+        "能存放",
+        "能",
+        "可以"
+      ],
+      "explanationZhHans": "0℃±3℃即-3℃≤温度≤3℃，冷库温度-2℃满足条件，所以能存放。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-045",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数及其运算",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "rational-numbers",
+        "number-line",
+        "opposite-absolute-value",
+        "signed-number-operations",
+        "有理数",
+        "数轴",
+        "绝对值"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "正负数意义",
+        "数轴表示",
+        "相反数",
+        "绝对值",
+        "有理数四则运算",
+        "运算律应用"
+      ],
+      "misconceptionTags": [
+        "negative sign treated as subtraction only",
+        "absolute value keeps the original sign",
+        "operation order ignored when signed numbers are mixed"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-rational-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-rational-numbers-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在数轴上，点A表示-3，点B表示2，则A、B两点间的距离是______。",
+      "optionsZhHans": [],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5"
+      ],
+      "explanationZhHans": "数轴上两点距离等于右边点表示的数减去左边点表示的数，即2-(-3)=5。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-046",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数及其运算",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "rational-numbers",
+        "number-line",
+        "opposite-absolute-value",
+        "signed-number-operations",
+        "有理数",
+        "数轴",
+        "绝对值"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "正负数意义",
+        "数轴表示",
+        "相反数",
+        "绝对值",
+        "有理数四则运算",
+        "运算律应用"
+      ],
+      "misconceptionTags": [
+        "negative sign treated as subtraction only",
+        "absolute value keeps the original sign",
+        "operation order ignored when signed numbers are mixed"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-rational-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-rational-numbers-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下列各数中，比-2小的数是（　）\nA. -3\nB. -1\nC. 0\nD. 2",
+      "optionsZhHans": [
+        "A. -3",
+        "B. -1",
+        "C. 0",
+        "D. 2"
+      ],
+      "answer": "A. -3",
+      "acceptedAnswers": [
+        "A. -3"
+      ],
+      "explanationZhHans": "负数比较大小，绝对值大的反而小。|-3|=3>|-2|=2，所以-3<-2。其他选项均大于-2。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-047",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数及其运算",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "rational-numbers",
+        "number-line",
+        "opposite-absolute-value",
+        "signed-number-operations",
+        "有理数",
+        "数轴",
+        "绝对值"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "正负数意义",
+        "数轴表示",
+        "相反数",
+        "绝对值",
+        "有理数四则运算",
+        "运算律应用"
+      ],
+      "misconceptionTags": [
+        "negative sign treated as subtraction only",
+        "absolute value keeps the original sign",
+        "operation order ignored when signed numbers are mixed"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-rational-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-rational-numbers-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算：(-2)³+(-3)×[(-4)²+2]-(-5)²÷5。",
+      "optionsZhHans": [],
+      "answer": "-67",
+      "acceptedAnswers": [
+        "-67"
+      ],
+      "explanationZhHans": "原式=-8+(-3)×(16+2)-25÷5=-8+(-3)×18-5=-8-54-5=-67。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-048",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数及其运算",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "rational-numbers",
+        "number-line",
+        "opposite-absolute-value",
+        "signed-number-operations",
+        "有理数",
+        "数轴",
+        "绝对值"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "正负数意义",
+        "数轴表示",
+        "相反数",
+        "绝对值",
+        "有理数四则运算",
+        "运算律应用"
+      ],
+      "misconceptionTags": [
+        "negative sign treated as subtraction only",
+        "absolute value keeps the original sign",
+        "operation order ignored when signed numbers are mixed"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-rational-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-rational-numbers-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "若|x|=5，|y|=2，且x<y，则x-y=______。",
+      "optionsZhHans": [],
+      "answer": "-7或-3",
+      "acceptedAnswers": [
+        "-7或-3",
+        "-7,-3",
+        "-3或-7"
+      ],
+      "explanationZhHans": "由|x|=5得x=±5，|y|=2得y=±2。x<y，所以x=-5，y=±2。x-y=-5-2=-7或-5-(-2)=-3。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-049",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数及其运算",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "rational-numbers",
+        "number-line",
+        "opposite-absolute-value",
+        "signed-number-operations",
+        "有理数",
+        "数轴",
+        "绝对值"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "正负数意义",
+        "数轴表示",
+        "相反数",
+        "绝对值",
+        "有理数四则运算",
+        "运算律应用"
+      ],
+      "misconceptionTags": [
+        "negative sign treated as subtraction only",
+        "absolute value keeps the original sign",
+        "operation order ignored when signed numbers are mixed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-rational-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-rational-numbers-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "若a、b互为相反数，c、d互为倒数，m的绝对值是2，则(a+b)/m + m² - cd的值为（　）\nA. 2\nB. 3\nC. 4\nD. 5",
+      "optionsZhHans": [
+        "A. 2",
+        "B. 3",
+        "C. 4",
+        "D. 5"
+      ],
+      "answer": "B. 3",
+      "acceptedAnswers": [
+        "B. 3"
+      ],
+      "explanationZhHans": "a+b=0，cd=1，m²=4，所以原式=0/m+4-1=3。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-050",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数及其运算",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "rational-numbers",
+        "number-line",
+        "opposite-absolute-value",
+        "signed-number-operations",
+        "有理数",
+        "数轴",
+        "绝对值"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "正负数意义",
+        "数轴表示",
+        "相反数",
+        "绝对值",
+        "有理数四则运算",
+        "运算律应用"
+      ],
+      "misconceptionTags": [
+        "negative sign treated as subtraction only",
+        "absolute value keeps the original sign",
+        "operation order ignored when signed numbers are mixed"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-rational-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-rational-numbers-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某天早晨气温为-5℃，中午上升了8℃，晚上又下降了6℃，则晚上的气温是多少？",
+      "optionsZhHans": [],
+      "answer": "-3℃",
+      "acceptedAnswers": [
+        "-3℃",
+        "-3",
+        "-3度"
+      ],
+      "explanationZhHans": "-5+8=3℃，3-6=-3℃，所以晚上气温为-3℃。"
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-049-item-bnu-high-ds-v1-s4-390",
+  "startedAt": "2026-05-28T02:30:34.618Z",
+  "completedAt": "2026-05-28T02:30:41.397Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-390"
+  ],
+  "usage": {
+    "prompt_tokens": 1680,
+    "completion_tokens": 176,
+    "total_tokens": 1856,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1296
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-390",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "h = \\frac{50}{\\cot \\beta - \\cot \\alpha}",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可建立两个直角三角形，利用仰角正切关系列出方程，消去水平距离后得到高度表达式。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 1,
+      "warn": 0,
+      "fail": 0,
+      "notes": "题目条件充分，可独立求解，表达式正确。"
+    }
+  }
+}

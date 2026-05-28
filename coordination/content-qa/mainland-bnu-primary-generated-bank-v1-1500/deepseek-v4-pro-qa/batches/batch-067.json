@@ -1,0 +1,191 @@
+{
+  "batchNumber": 67,
+  "startedAt": "2026-05-27T13:30:04.050Z",
+  "completedAt": "2026-05-27T13:30:21.732Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p5-189",
+    "bnu-primary-ds-v1-p5-190",
+    "bnu-primary-ds-v1-p5-191",
+    "bnu-primary-ds-v1-p5-192",
+    "bnu-primary-ds-v1-p5-193",
+    "bnu-primary-ds-v1-p5-194",
+    "bnu-primary-ds-v1-p5-195",
+    "bnu-primary-ds-v1-p5-196",
+    "bnu-primary-ds-v1-p5-197",
+    "bnu-primary-ds-v1-p5-198",
+    "bnu-primary-ds-v1-p5-199",
+    "bnu-primary-ds-v1-p5-200",
+    "bnu-primary-ds-v1-p5-201",
+    "bnu-primary-ds-v1-p5-202",
+    "bnu-primary-ds-v1-p5-203",
+    "bnu-primary-ds-v1-p5-204",
+    "bnu-primary-ds-v1-p5-205",
+    "bnu-primary-ds-v1-p5-206"
+  ],
+  "usage": {
+    "prompt_tokens": 4089,
+    "completion_tokens": 1311,
+    "total_tokens": 5400,
+    "prompt_tokens_details": {
+      "cached_tokens": 3968
+    },
+    "prompt_cache_hit_tokens": 3968,
+    "prompt_cache_miss_tokens": 121
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p5-189",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，算式与解释一致，选项合理，适合P5分数除法。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-190",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程求解正确，答案6/5，接受1又1/5，符合要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-191",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均分用除法，列式正确，选项无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-192",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，结果1/8，最简分数。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-193",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "求1升油行驶路程，用路程除以油量，列式正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-194",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "解方程正确，结果2/3，最简分数。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-195",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "观测点互换，方向相反，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-196",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "返回路线方向相反，答案正确，接受多种格式。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-197",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方向相反，答案西偏北25°，正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-198",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "返回路线方向相反，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-199",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "北偏西反方向南偏东，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-200",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "返回路线方向相反，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-201",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "观测点互换，方向相反，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-202",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "综合路线计算正确，方向与距离合理，保留整数。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-203",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "南偏西反方向北偏东，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-204",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "综合路线计算正确，方向与距离合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-205",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "东偏南反方向西偏北，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-206",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "综合路线计算正确，方向与距离合理。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案与解释一致，无歧义，适合北师大版P5。"
+    }
+  }
+}

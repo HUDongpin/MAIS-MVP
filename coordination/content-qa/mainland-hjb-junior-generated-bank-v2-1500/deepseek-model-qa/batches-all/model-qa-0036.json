@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0036",
+  "ids": [
+    "hjb-junior-ds-v2-s1-281",
+    "hjb-junior-ds-v2-s1-282",
+    "hjb-junior-ds-v2-s1-283",
+    "hjb-junior-ds-v2-s1-284",
+    "hjb-junior-ds-v2-s1-285",
+    "hjb-junior-ds-v2-s1-286",
+    "hjb-junior-ds-v2-s1-287",
+    "hjb-junior-ds-v2-s1-288"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-281",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x > -7",
+      "answerCheckZhHans": "标准答案 x > -7 与独立求解结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-282",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "240",
+      "answerCheckZhHans": "标准答案 240 与独立求解结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-283",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "B. 数轴上从 -5 向右的射线，端点用实心圆点",
+      "answerCheckZhHans": "标准答案 B 与独立求解结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-284",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "m < 2",
+      "answerCheckZhHans": "标准答案 m < 2 与独立求解结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-285",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案中利润函数 y = -20x^2 + 1100x - 15000 的常数项错误，应为 -12000。解析中展开 (x-15)(800-20x) 得到 -20x^2 + 1100x - 12000，但答案写成了 -15000。解不等式 -20x^2 + 1100x - 12000 ≥ 2000 得 20 ≤ x ≤ 35，与答案 25 ≤ x ≤ 30 不符。",
+      "independentAnswerZhHans": "y = -20x^2 + 1100x - 12000；当 20 ≤ x ≤ 35 时，利润不低于 2000 元",
+      "answerCheckZhHans": "标准答案中利润函数常数项错误，导致 x 范围错误。",
+      "recommendedActionZhHans": "修正利润函数为 y = -20x^2 + 1100x - 12000，并更新 x 范围为 20 ≤ x ≤ 35。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-286",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x ≥ -2，数轴上从 -2 向右的射线，端点用实心圆点表示。",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-287",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-6",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-288",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "学生 240 人，租 60 座客车 4 辆",
+      "answerCheckZhHans": "标准答案正确，解析一致。acceptedAnswers 覆盖了多种合理表述。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

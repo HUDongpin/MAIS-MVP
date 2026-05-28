@@ -1,0 +1,173 @@
+{
+  "batchNumber": 96,
+  "startedAt": "2026-05-27T17:55:44.569Z",
+  "completedAt": "2026-05-27T17:56:03.244Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s3-141",
+    "bnu-junior-ds-v1-s3-142",
+    "bnu-junior-ds-v1-s3-143",
+    "bnu-junior-ds-v1-s3-144",
+    "bnu-junior-ds-v1-s3-145",
+    "bnu-junior-ds-v1-s3-146",
+    "bnu-junior-ds-v1-s3-147",
+    "bnu-junior-ds-v1-s3-148",
+    "bnu-junior-ds-v1-s3-149",
+    "bnu-junior-ds-v1-s3-150",
+    "bnu-junior-ds-v1-s3-151",
+    "bnu-junior-ds-v1-s3-152"
+  ],
+  "usage": {
+    "prompt_tokens": 7254,
+    "completion_tokens": 1345,
+    "total_tokens": 8599,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 6742
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s3-141",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件完整，放回摸球两次，每次5种结果，总情况数5×5=25，答案正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-142",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项明确，计算正确，一红一白概率0.6最大，答案唯一且与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-143",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "石头剪刀布平局概率计算正确，总结果9种，平局3种，概率1/3，答案与解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-144",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "简单概率计算，4红6白，红球概率0.4，答案正确，acceptedAnswers覆盖多种表示。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-145",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "放回摸球，总情况36，相同颜色14种，概率7/18，选项唯一正确，解释无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-146",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "不放回摸球，总情况20，不同颜色12种，概率3/5，答案正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-147",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数字卡片放回抽取，和为奇数概率1/2，计算正确，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-148",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比较可能性，红球概率5/8大于白球3/8，选项唯一正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-149",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "放回摸球，总情况25，不同颜色概率16/25，答案正确，解释使用补集法无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-150",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "独立事件，两次红球概率(3/5)^2=9/25，答案正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-151",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平行线分线段成比例，AD/DB=AE/EC，解得EC=7.5，选项唯一正确，解释无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-152",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "相似多边形周长比等于相似比，设小周长2x，大周长3x，和100，解得小周长40，答案正确。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部12道题目条件完整、可解，答案与解释匹配，无错误或歧义，符合北师大版初中数学要求。"
+    }
+  }
+}

@@ -1,0 +1,137 @@
+{
+  "batchNumber": 55,
+  "startedAt": "2026-05-25T03:04:15.108Z",
+  "completedAt": "2026-05-25T03:04:29.370Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s2-k08-fi-016",
+    "pep-junior-v3-s2-k08-fi-017",
+    "pep-junior-v3-s2-k08-fi-018",
+    "pep-junior-v3-s2-k08-fi-019",
+    "pep-junior-v3-s2-k08-fi-020",
+    "pep-junior-v3-s2-k08-fi-021",
+    "pep-junior-v3-s2-k08-fi-022",
+    "pep-junior-v3-s2-k08-fi-023",
+    "pep-junior-v3-s2-k08-fi-024",
+    "pep-junior-v3-s2-k08-fi-025",
+    "pep-junior-v3-s2-k08-fi-026",
+    "pep-junior-v3-s2-k08-fi-027"
+  ],
+  "usage": {
+    "prompt_tokens": 2997,
+    "completion_tokens": 925,
+    "total_tokens": 3922,
+    "prompt_tokens_details": {
+      "cached_tokens": 2944
+    },
+    "prompt_cache_hit_tokens": 2944,
+    "prompt_cache_miss_tokens": 53
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s2-k08-fi-016",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案与解释一致，接受答案合理。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-fi-017",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "一次函数求k值正确，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-fi-018",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移坐标计算正确，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-fi-019",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "勾股定理应用正确，答案5 km合理。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-fi-020",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平行四边形对角相等，答案正确。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-fi-021",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "二次根式化简正确，答案4√3无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-fi-022",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "斜边上的高计算正确，答案60/13符合要求。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-fi-023",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "一次函数解析式正确，答案2x+12无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-fi-024",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "众数判断正确，85出现两次，答案无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-fi-025",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "勾股定理逆定理应用正确，面积24无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-fi-026",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "矩形对角线性质应用正确，AO=5无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-fi-027",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "二次根式比较大小正确，答案“<”无误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案与解释一致，无歧义或错误，适合人教版初中数学。"
+    }
+  }
+}

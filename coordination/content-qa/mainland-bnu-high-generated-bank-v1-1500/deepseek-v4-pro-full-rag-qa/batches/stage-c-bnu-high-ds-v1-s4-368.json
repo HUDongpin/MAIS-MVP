@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-368",
+  "startedAt": "2026-05-28T02:43:16.104Z",
+  "completedAt": "2026-05-28T02:43:21.539Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-368"
+  ],
+  "usage": {
+    "prompt_tokens": 2307,
+    "completion_tokens": 289,
+    "total_tokens": 2596,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1923
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-368",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "40.0 米",
+        "correctedAnswer": "40.0 米",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目明确AB与AC垂直，由仰角得AC=h√3，BC=h，AB=80，勾股定理应为AC²+AB²=BC²，解得h=40米。存储答案56.6米错误，解析误用AB²+AC²=BC²，导致答案和解释均错误。Stage A独立解正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "存储答案和解析均存在数学错误，正确塔高为40.0米。"
+    }
+  }
+}

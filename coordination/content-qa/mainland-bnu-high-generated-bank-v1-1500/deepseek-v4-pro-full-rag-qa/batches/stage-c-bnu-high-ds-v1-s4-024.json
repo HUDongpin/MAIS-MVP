@@ -1,0 +1,48 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-024",
+  "startedAt": "2026-05-28T00:56:21.888Z",
+  "completedAt": "2026-05-28T00:56:27.988Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-024"
+  ],
+  "usage": {
+    "prompt_tokens": 1976,
+    "completion_tokens": 259,
+    "total_tokens": 2235,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1592
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-024",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "0",
+        "correctedAnswer": "0",
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合预备知识范围。独立求解得 a=-1, b=1, a+b=0。存储答案为-1，与正确结果0不符；解析过程得出0但最终答案错误，存在答案不匹配和解释矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1题答案错误，正确结果为0，存储答案为-1，解析自相矛盾，判定为阻断。"
+    }
+  }
+}

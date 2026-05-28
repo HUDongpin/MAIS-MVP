@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-266",
+  "startedAt": "2026-05-28T01:25:21.846Z",
+  "completedAt": "2026-05-28T01:25:26.338Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-266"
+  ],
+  "usage": {
+    "prompt_tokens": 2400,
+    "completion_tokens": 306,
+    "total_tokens": 2706,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2016
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-266",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "(1) 3x+4y-24=0；(2) d=4.8，相交；(3) (3,4)",
+        "correctedAnswer": "（1）3x+4y-24=0；（2）距离为4.8米，道路与花坛相交；（3）(3,4)",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "第(3)问要求入口到道路距离最短，应为唯一解(3,4)。(-3,-4)到直线距离更远，不符合题意。存储答案给出两个点，错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第(3)问答案错误，应仅(3,4)。"
+    }
+  }
+}

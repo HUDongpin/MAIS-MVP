@@ -1,0 +1,173 @@
+{
+  "batchNumber": 6,
+  "startedAt": "2026-05-27T17:22:29.066Z",
+  "completedAt": "2026-05-27T17:22:46.675Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s1-061",
+    "bnu-junior-ds-v1-s1-062",
+    "bnu-junior-ds-v1-s1-063",
+    "bnu-junior-ds-v1-s1-064",
+    "bnu-junior-ds-v1-s1-065",
+    "bnu-junior-ds-v1-s1-066",
+    "bnu-junior-ds-v1-s1-067",
+    "bnu-junior-ds-v1-s1-068",
+    "bnu-junior-ds-v1-s1-069",
+    "bnu-junior-ds-v1-s1-070",
+    "bnu-junior-ds-v1-s1-071",
+    "bnu-junior-ds-v1-s1-072"
+  ],
+  "usage": {
+    "prompt_tokens": 5763,
+    "completion_tokens": 1197,
+    "total_tokens": 6960,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 5251
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s1-061",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，计算正确，选项唯一且答案匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-062",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，答案正确，解释与答案一致，接受答案覆盖合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-063",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "条件充分，计算正确，答案与解释匹配，接受答案合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-064",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，选项唯一正确，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-065",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，答案正确且包含数轴意义说明，解释与答案一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-066",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "条件充分，计算正确，答案与解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-067",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，选项唯一正确，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-068",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，答案正确，解释包含数轴表示，接受答案覆盖合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-069",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，答案正确，解释与答案一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-070",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，选项唯一正确，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-071",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，答案正确，解释与答案一致，接受答案覆盖合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-072",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，答案正确，解释与答案一致。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均条件充分、可解，答案与解释匹配，无错误或歧义。"
+    }
+  }
+}

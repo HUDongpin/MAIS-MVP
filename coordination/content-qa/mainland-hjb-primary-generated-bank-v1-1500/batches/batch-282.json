@@ -1,0 +1,306 @@
+{
+  "batchId": "batch-282",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p6-156",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-linear-systems",
+      "unitTitle": "二元一次方程组",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "linear-systems",
+        "two-variable-linear-equations",
+        "equation-modeling",
+        "二元一次方程组",
+        "方程组"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "设未知数",
+        "等量关系",
+        "列方程组",
+        "消元思想",
+        "代入检验"
+      ],
+      "misconceptionTags": [
+        "unknowns not defined clearly",
+        "two equations represent the same relationship",
+        "elimination step breaks equivalence",
+        "solution not checked against the context"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-linear-systems"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-linear-systems",
+        "hjb-primary-p6-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆购买一批新书，其中故事书和科技书共48本，故事书的本数是科技书的3倍。设故事书有x本，科技书有y本，请列出方程组并求出两种书各有多少本。",
+      "optionsZhHans": [],
+      "answer": "故事书36本，科技书12本",
+      "acceptedAnswers": [
+        "故事书36本，科技书12本",
+        "x=36, y=12",
+        "故事书36本,科技书12本"
+      ],
+      "explanationZhHans": "设故事书x本，科技书y本。根据“共48本”得x+y=48；根据“故事书是科技书的3倍”得x=3y。解方程组得y=12，x=36。检验：36+12=48，36=3×12，符合题意。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-157",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-linear-systems",
+      "unitTitle": "二元一次方程组",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "linear-systems",
+        "two-variable-linear-equations",
+        "equation-modeling",
+        "二元一次方程组",
+        "方程组"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "设未知数",
+        "等量关系",
+        "列方程组",
+        "消元思想",
+        "代入检验"
+      ],
+      "misconceptionTags": [
+        "unknowns not defined clearly",
+        "two equations represent the same relationship",
+        "elimination step breaks equivalence",
+        "solution not checked against the context"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-linear-systems"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-linear-systems",
+        "hjb-primary-p6-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明买了若干支铅笔和圆珠笔，铅笔每支2元，圆珠笔每支3元，一共花了14元，且买的铅笔支数是圆珠笔支数的2倍。设铅笔买了x支，圆珠笔买了y支，下面哪个方程组是正确的？",
+      "optionsZhHans": [
+        "2x+3y=14，x=2y",
+        "2x+3y=14，y=2x",
+        "3x+2y=14，x=2y",
+        "2x+3y=14，x+y=2"
+      ],
+      "answer": "2x+3y=14，x=2y",
+      "acceptedAnswers": [
+        "2x+3y=14，x=2y"
+      ],
+      "explanationZhHans": "铅笔总价2x元，圆珠笔总价3y元，共14元，得2x+3y=14。铅笔支数是圆珠笔的2倍，即x=2y。选项A正确。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-158",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-linear-systems",
+      "unitTitle": "二元一次方程组",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "linear-systems",
+        "two-variable-linear-equations",
+        "equation-modeling",
+        "二元一次方程组",
+        "方程组"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "设未知数",
+        "等量关系",
+        "列方程组",
+        "消元思想",
+        "代入检验"
+      ],
+      "misconceptionTags": [
+        "unknowns not defined clearly",
+        "two equations represent the same relationship",
+        "elimination step breaks equivalence",
+        "solution not checked against the context"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-linear-systems"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-linear-systems",
+        "hjb-primary-p6-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "甲、乙两个数的和是25，甲数比乙数的2倍少5。设甲数为x，乙数为y，则可列方程组为：x+y=______，x=______。",
+      "optionsZhHans": [],
+      "answer": "25，2y-5",
+      "acceptedAnswers": [
+        "25，2y-5",
+        "25,2y-5",
+        "25 2y-5"
+      ],
+      "explanationZhHans": "根据“和是25”得x+y=25；根据“甲数比乙数的2倍少5”得x=2y-5。所以两空分别填25和2y-5。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-159",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-linear-systems",
+      "unitTitle": "二元一次方程组",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "linear-systems",
+        "two-variable-linear-equations",
+        "equation-modeling",
+        "二元一次方程组",
+        "方程组"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "设未知数",
+        "等量关系",
+        "列方程组",
+        "消元思想",
+        "代入检验"
+      ],
+      "misconceptionTags": [
+        "unknowns not defined clearly",
+        "two equations represent the same relationship",
+        "elimination step breaks equivalence",
+        "solution not checked against the context"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-linear-systems"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-linear-systems",
+        "hjb-primary-p6-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方形的周长是30厘米，长比宽的2倍多3厘米。设长为x厘米，宽为y厘米，请列出方程组，并求出长和宽。",
+      "optionsZhHans": [],
+      "answer": "长11厘米，宽4厘米",
+      "acceptedAnswers": [
+        "长11厘米，宽4厘米",
+        "x=11, y=4",
+        "长11厘米,宽4厘米"
+      ],
+      "explanationZhHans": "周长公式得2(x+y)=30，即x+y=15。长比宽的2倍多3厘米，得x=2y+3。解方程组得y=4，x=11。检验：周长2×(11+4)=30，11=2×4+3，符合。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-160",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-linear-systems",
+      "unitTitle": "二元一次方程组",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "linear-systems",
+        "two-variable-linear-equations",
+        "equation-modeling",
+        "二元一次方程组",
+        "方程组"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "设未知数",
+        "等量关系",
+        "列方程组",
+        "消元思想",
+        "代入检验"
+      ],
+      "misconceptionTags": [
+        "unknowns not defined clearly",
+        "two equations represent the same relationship",
+        "elimination step breaks equivalence",
+        "solution not checked against the context"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-linear-systems"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-linear-systems",
+        "hjb-primary-p6-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小华和小丽共有邮票40枚，小华邮票枚数比小丽的3倍少4枚。设小华有x枚，小丽有y枚，下面哪个方程组是正确的？",
+      "optionsZhHans": [
+        "x+y=40，x=3y-4",
+        "x+y=40，y=3x-4",
+        "x+y=40，x=3y+4",
+        "x-y=40，x=3y-4"
+      ],
+      "answer": "x+y=40，x=3y-4",
+      "acceptedAnswers": [
+        "x+y=40，x=3y-4"
+      ],
+      "explanationZhHans": "共有40枚得x+y=40。小华比小丽的3倍少4枚，即x=3y-4。选项A正确。"
+    }
+  ]
+}

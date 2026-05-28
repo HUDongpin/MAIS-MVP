@@ -1,0 +1,48 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-243",
+  "startedAt": "2026-05-28T01:24:34.790Z",
+  "completedAt": "2026-05-28T01:24:39.707Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-243"
+  ],
+  "usage": {
+    "prompt_tokens": 2122,
+    "completion_tokens": 261,
+    "total_tokens": 2383,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1738
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-243",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "(x-2.5)²+(y-4)²=9",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，轨迹方程为圆 (x-2.5)²+(y-4)²=9。答案匹配，但解析中常数项计算错误（3.5应为3），导致配方结果与答案矛盾，解析不可用。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "解析存在数学错误，与正确答案矛盾，判定为阻断性缺陷。"
+    }
+  }
+}

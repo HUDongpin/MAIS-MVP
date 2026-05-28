@@ -1,0 +1,606 @@
+{
+  "batchId": "batch-036",
+  "questions": [
+    {
+      "id": "bnu-junior-ds-v1-s1-351",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-triangles",
+      "unitTitle": "三角形",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "triangles",
+        "triangle-angle-sum",
+        "triangle-inequality",
+        "congruence-introduction",
+        "三角形"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "三角形分类",
+        "三边关系",
+        "内角和",
+        "外角关系",
+        "全等初步"
+      ],
+      "misconceptionTags": [
+        "triangle inequality checked only once",
+        "exterior angle relationship misused",
+        "corresponding vertices not matched"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-triangles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-triangles-unit",
+        "bnu-junior-s1-lower-assessment-midterm-1-to-4-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知三条线段的长度分别为 5 cm、8 cm 和 x cm。若这三条线段能组成一个三角形，且 x 为整数，则 x 的最大值为多少？",
+      "optionsZhHans": [],
+      "answer": "12",
+      "acceptedAnswers": [
+        "12"
+      ],
+      "explanationZhHans": "根据三角形三边关系，任意两边之和大于第三边。由5+8>x得x<13，由5+x>8得x>3，由8+x>5恒成立。所以3<x<13，x为整数，最大值为12。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-352",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-triangles",
+      "unitTitle": "三角形",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "triangles",
+        "triangle-angle-sum",
+        "triangle-inequality",
+        "congruence-introduction",
+        "三角形"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "三角形分类",
+        "三边关系",
+        "内角和",
+        "外角关系",
+        "全等初步"
+      ],
+      "misconceptionTags": [
+        "triangle inequality checked only once",
+        "exterior angle relationship misused",
+        "corresponding vertices not matched"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-triangles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-triangles-unit",
+        "bnu-junior-s1-lower-assessment-midterm-1-to-4-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在△ABC中，已知∠A=50°，∠B=60°，则∠C的外角等于多少度？",
+      "optionsZhHans": [
+        "70°",
+        "110°",
+        "120°",
+        "130°"
+      ],
+      "answer": "110°",
+      "acceptedAnswers": [
+        "110°"
+      ],
+      "explanationZhHans": "三角形内角和为180°，所以∠C=180°-50°-60°=70°。∠C的外角与∠C互补，故外角=180°-70°=110°。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-353",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-triangles",
+      "unitTitle": "三角形",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "triangles",
+        "triangle-angle-sum",
+        "triangle-inequality",
+        "congruence-introduction",
+        "三角形"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "三角形分类",
+        "三边关系",
+        "内角和",
+        "外角关系",
+        "全等初步"
+      ],
+      "misconceptionTags": [
+        "triangle inequality checked only once",
+        "exterior angle relationship misused",
+        "corresponding vertices not matched"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-triangles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-triangles-unit",
+        "bnu-junior-s1-lower-assessment-midterm-1-to-4-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知△ABC≌△DEF，点A与点D对应，点B与点E对应，∠A=40°，∠B=70°，AB=5 cm，EF=6 cm。求∠F的度数和BC的长度。",
+      "optionsZhHans": [],
+      "answer": "∠F=70°，BC=6 cm",
+      "acceptedAnswers": [
+        "∠F=70°，BC=6 cm",
+        "∠F=70°, BC=6cm"
+      ],
+      "explanationZhHans": "由全等三角形对应角相等，∠F=∠C=180°-40°-70°=70°；对应边BC=EF=6 cm。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-354",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-triangles",
+      "unitTitle": "三角形",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "triangles",
+        "triangle-angle-sum",
+        "triangle-inequality",
+        "congruence-introduction",
+        "三角形"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "三角形分类",
+        "三边关系",
+        "内角和",
+        "外角关系",
+        "全等初步"
+      ],
+      "misconceptionTags": [
+        "triangle inequality checked only once",
+        "exterior angle relationship misused",
+        "corresponding vertices not matched"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-triangles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-triangles-unit",
+        "bnu-junior-s1-lower-assessment-midterm-1-to-4-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个三角形的三个内角的度数之比为2:3:4，则这个三角形中最大的内角是多少度？",
+      "optionsZhHans": [],
+      "answer": "80°",
+      "acceptedAnswers": [
+        "80°",
+        "80"
+      ],
+      "explanationZhHans": "设三个内角分别为2k、3k、4k，由内角和2k+3k+4k=180°，得9k=180°，k=20°，最大角4k=80°。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-355",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-triangles",
+      "unitTitle": "三角形",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "triangles",
+        "triangle-angle-sum",
+        "triangle-inequality",
+        "congruence-introduction",
+        "三角形"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "三角形分类",
+        "三边关系",
+        "内角和",
+        "外角关系",
+        "全等初步"
+      ],
+      "misconceptionTags": [
+        "triangle inequality checked only once",
+        "exterior angle relationship misused",
+        "corresponding vertices not matched"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-triangles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-triangles-unit",
+        "bnu-junior-s1-lower-assessment-midterm-1-to-4-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "以下列各组线段为边，能组成三角形的是哪一组？",
+      "optionsZhHans": [
+        "2 cm, 3 cm, 5 cm",
+        "3 cm, 4 cm, 8 cm",
+        "5 cm, 6 cm, 10 cm",
+        "4 cm, 4 cm, 9 cm"
+      ],
+      "answer": "5 cm, 6 cm, 10 cm",
+      "acceptedAnswers": [
+        "5 cm, 6 cm, 10 cm"
+      ],
+      "explanationZhHans": "三角形需满足任意两边之和大于第三边。A中2+3=5，不满足；B中3+4<8；D中4+4<9；只有C中5+6>10，5+10>6，6+10>5，可以组成三角形。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-356",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-triangles",
+      "unitTitle": "三角形",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "triangles",
+        "triangle-angle-sum",
+        "triangle-inequality",
+        "congruence-introduction",
+        "三角形"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "三角形分类",
+        "三边关系",
+        "内角和",
+        "外角关系",
+        "全等初步"
+      ],
+      "misconceptionTags": [
+        "triangle inequality checked only once",
+        "exterior angle relationship misused",
+        "corresponding vertices not matched"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-triangles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-triangles-unit",
+        "bnu-junior-s1-lower-assessment-midterm-1-to-4-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在△ABC中，∠A=30°，∠B=2∠A，求∠C的度数。",
+      "optionsZhHans": [],
+      "answer": "90°",
+      "acceptedAnswers": [
+        "90°",
+        "90"
+      ],
+      "explanationZhHans": "∠B=2×30°=60°，由三角形内角和得∠C=180°-30°-60°=90°。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-357",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-triangles",
+      "unitTitle": "三角形",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "triangles",
+        "triangle-angle-sum",
+        "triangle-inequality",
+        "congruence-introduction",
+        "三角形"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "三角形分类",
+        "三边关系",
+        "内角和",
+        "外角关系",
+        "全等初步"
+      ],
+      "misconceptionTags": [
+        "triangle inequality checked only once",
+        "exterior angle relationship misused",
+        "corresponding vertices not matched"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-triangles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-triangles-unit",
+        "bnu-junior-s1-lower-assessment-midterm-1-to-4-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知等腰三角形的一条边长为6 cm，另一条边长为13 cm，则这个等腰三角形的周长为多少厘米？",
+      "optionsZhHans": [],
+      "answer": "32 cm",
+      "acceptedAnswers": [
+        "32 cm",
+        "32"
+      ],
+      "explanationZhHans": "等腰三角形有两边相等。若腰为6，底为13，则6+6<13，不能构成三角形；若腰为13，底为6，满足三边关系，周长为13+13+6=32 cm。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-358",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-triangles",
+      "unitTitle": "三角形",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "triangles",
+        "triangle-angle-sum",
+        "triangle-inequality",
+        "congruence-introduction",
+        "三角形"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "三角形分类",
+        "三边关系",
+        "内角和",
+        "外角关系",
+        "全等初步"
+      ],
+      "misconceptionTags": [
+        "triangle inequality checked only once",
+        "exterior angle relationship misused",
+        "corresponding vertices not matched"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-triangles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-triangles-unit",
+        "bnu-junior-s1-lower-assessment-midterm-1-to-4-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在△ABC中，∠A=40°，∠B=70°，则△ABC按角分类属于什么三角形？",
+      "optionsZhHans": [
+        "锐角三角形",
+        "直角三角形",
+        "钝角三角形",
+        "等腰三角形"
+      ],
+      "answer": "锐角三角形",
+      "acceptedAnswers": [
+        "锐角三角形"
+      ],
+      "explanationZhHans": "∠C=180°-40°-70°=70°，三个角都小于90°，所以是锐角三角形。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-359",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-triangles",
+      "unitTitle": "三角形",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "triangles",
+        "triangle-angle-sum",
+        "triangle-inequality",
+        "congruence-introduction",
+        "三角形"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "三角形分类",
+        "三边关系",
+        "内角和",
+        "外角关系",
+        "全等初步"
+      ],
+      "misconceptionTags": [
+        "triangle inequality checked only once",
+        "exterior angle relationship misused",
+        "corresponding vertices not matched"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-triangles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-triangles-unit",
+        "bnu-junior-s1-lower-assessment-midterm-1-to-4-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知△ABC中，∠B的外角为120°，∠A比∠C大20°，求∠A的度数。",
+      "optionsZhHans": [],
+      "answer": "70°",
+      "acceptedAnswers": [
+        "70°",
+        "70"
+      ],
+      "explanationZhHans": "∠B=180°-120°=60°。设∠C=x，则∠A=x+20°，由内角和(x+20°)+60°+x=180°，得2x=100°，x=50°，∠A=70°。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-360",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-triangles",
+      "unitTitle": "三角形",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "triangles",
+        "triangle-angle-sum",
+        "triangle-inequality",
+        "congruence-introduction",
+        "三角形"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "三角形分类",
+        "三边关系",
+        "内角和",
+        "外角关系",
+        "全等初步"
+      ],
+      "misconceptionTags": [
+        "triangle inequality checked only once",
+        "exterior angle relationship misused",
+        "corresponding vertices not matched"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-triangles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-triangles-unit",
+        "bnu-junior-s1-lower-assessment-midterm-1-to-4-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在△ABC中，∠A=50°，∠B=60°，则与∠C相邻的外角等于多少度？",
+      "optionsZhHans": [],
+      "answer": "110°",
+      "acceptedAnswers": [
+        "110°",
+        "110"
+      ],
+      "explanationZhHans": "∠C=180°-50°-60°=70°，外角=180°-70°=110°。"
+    }
+  ]
+}

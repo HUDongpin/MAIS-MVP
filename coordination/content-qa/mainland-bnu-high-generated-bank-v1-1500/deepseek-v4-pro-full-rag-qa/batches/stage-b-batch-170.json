@@ -1,0 +1,131 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-170",
+  "startedAt": "2026-05-28T01:49:22.373Z",
+  "completedAt": "2026-05-28T01:49:37.961Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-353",
+    "bnu-high-ds-v1-s6-354",
+    "bnu-high-ds-v1-s6-355",
+    "bnu-high-ds-v1-s6-356",
+    "bnu-high-ds-v1-s6-357",
+    "bnu-high-ds-v1-s6-358",
+    "bnu-high-ds-v1-s6-359",
+    "bnu-high-ds-v1-s6-360"
+  ],
+  "usage": {
+    "prompt_tokens": 12365,
+    "completion_tokens": 1081,
+    "total_tokens": 13446,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 11981
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-353",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析正确推导出a=-3,b=-9,c=2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-354",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案y=0与独立解一致，解析正确计算斜率为0并得出切线方程。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-355",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案a≤3与独立解一致，解析正确推导出a≤3，且选项唯一正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-356",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案(-1,3)与独立解一致，解析正确求解导数并得出递减区间。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-357",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "9",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案-7错误，解析中计算得a=-12,b=21,a+b=9，但最终答案写为-7，自相矛盾。独立解验证得a+b=9。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-358",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案-15与独立解一致，解析正确计算驻点和端点值并得出最小值。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-359",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [
+          "accepted_answer_gap"
+        ],
+        "severity": "minor",
+        "confidence": "medium",
+        "rationaleZhHans": "存储答案1.8 m³与独立解一致，但解析中计算过程有误（得出x=0.8时V=1.664），与最终答案1.8不符，且未给出正确推导。独立解指出x=0.8时V=1.8，但实际计算为1.664，可能存在数据或近似问题。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-360",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案-2与独立解一致，解析正确判断极小值点并计算函数值。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 1,
+      "fail": 1,
+      "notes": "8题中6题完全一致，1题（359）解析存在计算不一致但答案匹配，1题（357）答案错误且解析自相矛盾。"
+    }
+  }
+}

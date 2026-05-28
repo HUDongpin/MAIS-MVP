@@ -1,0 +1,309 @@
+{
+  "batchId": "batch-275",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p6-121",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-probability-statistics",
+      "unitTitle": "可能性与统计图表",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "probability",
+        "data-display",
+        "statistical-tables-graphs",
+        "可能性",
+        "统计图表",
+        "统计"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "可能性判断",
+        "数据整理",
+        "统计表读取",
+        "统计图比较",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "likelihood judged by preference rather than sample space",
+        "graph scale read as one-to-one count",
+        "conclusion made from a single entry only",
+        "table totals ignored"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-probability-statistics"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-probability-statistics",
+        "hjb-primary-p6-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个不透明的袋子里装有大小、形状相同的球，其中红球5个，蓝球3个，黄球2个。从袋子中任意摸出一个球，下面哪种说法是正确的？",
+      "optionsZhHans": [
+        "摸到红球的可能性最大",
+        "摸到蓝球的可能性比摸到黄球的可能性小",
+        "摸到黄球的可能性最大",
+        "摸到红球、蓝球、黄球的可能性一样大"
+      ],
+      "answer": "摸到红球的可能性最大",
+      "acceptedAnswers": [
+        "摸到红球的可能性最大"
+      ],
+      "explanationZhHans": "总球数10个。红球5个，可能性最大；蓝球3个，可能性居中；黄球2个，可能性最小。因此摸到红球的可能性最大。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-122",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-probability-statistics",
+      "unitTitle": "可能性与统计图表",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "probability",
+        "data-display",
+        "statistical-tables-graphs",
+        "可能性",
+        "统计图表",
+        "统计"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "可能性判断",
+        "数据整理",
+        "统计表读取",
+        "统计图比较",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "likelihood judged by preference rather than sample space",
+        "graph scale read as one-to-one count",
+        "conclusion made from a single entry only",
+        "table totals ignored"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-probability-statistics"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-probability-statistics",
+        "hjb-primary-p6-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "S18 remediated after DeepSeek-v4-pro QA on 2026-05-25; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个不透明的袋子里装有红、黄、蓝三种颜色的球共20个，除颜色外完全相同。下表是摸球试验的记录（每次摸出一个球，记录颜色后放回并摇匀）：\n\n| 颜色 | 红 | 黄 | 蓝 |\n|------|----|----|----|\n| 次数 | 8  | 12 | 5  |\n\n根据试验数据，摸到哪种颜色的球的可能性比摸到蓝球的可能性大？请填一种颜色。",
+      "optionsZhHans": [],
+      "answer": "黄球",
+      "acceptedAnswers": [
+        "黄球",
+        "黄色球",
+        "黄"
+      ],
+      "explanationZhHans": "试验中黄球摸出12次，蓝球摸出5次，12大于5，所以摸到黄球的可能性比摸到蓝球的可能性大。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-123",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-probability-statistics",
+      "unitTitle": "可能性与统计图表",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "probability",
+        "data-display",
+        "statistical-tables-graphs",
+        "可能性",
+        "统计图表",
+        "统计"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "可能性判断",
+        "数据整理",
+        "统计表读取",
+        "统计图比较",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "likelihood judged by preference rather than sample space",
+        "graph scale read as one-to-one count",
+        "conclusion made from a single entry only",
+        "table totals ignored"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-probability-statistics"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-probability-statistics",
+        "hjb-primary-p6-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "六（1）班进行了一次“最喜欢的运动”调查，全班40人每人只选一项。结果如下：乒乓球12人，足球10人，篮球8人，羽毛球6人，其他4人。小明说：“因为喜欢乒乓球的人最多，所以任意抽一名同学，抽到喜欢乒乓球的同学的可能性最大。”小华说：“喜欢羽毛球的人数比喜欢篮球的人数少，所以抽到喜欢羽毛球的同学的可能性比抽到喜欢篮球的同学的可能性小。”请判断两人的说法是否正确，并说明理由。（提示：可能性大小由什么决定？）",
+      "optionsZhHans": [],
+      "answer": "两人的说法都正确。因为可能性的大小由事件占全部可能情况的比例决定，喜欢乒乓球的人数占总人数的比例最大，所以抽到喜欢乒乓球的同学的可能性最大；喜欢羽毛球的人数比喜欢篮球的人数少，所以抽到喜欢羽毛球的同学的可能性比抽到喜欢篮球的同学的可能性小。",
+      "acceptedAnswers": [
+        "两人的说法都正确。因为可能性的大小由事件占全部可能情况的比例决定，喜欢乒乓球的人数占总人数的比例最大，所以抽到喜欢乒乓球的同学的可能性最大；喜欢羽毛球的人数比喜欢篮球的人数少，所以抽到喜欢羽毛球的同学的可能性比抽到喜欢篮球的同学的可能性小。"
+      ],
+      "explanationZhHans": "可能性大小由该事件占全部可能情况的比例决定。乒乓球12人，占比12/40=0.3，最大，故可能性最大；羽毛球6人少于篮球8人，故可能性较小。两人说法均正确。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-124",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-probability-statistics",
+      "unitTitle": "可能性与统计图表",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "probability",
+        "data-display",
+        "statistical-tables-graphs",
+        "可能性",
+        "统计图表",
+        "统计"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "可能性判断",
+        "数据整理",
+        "统计表读取",
+        "统计图比较",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "likelihood judged by preference rather than sample space",
+        "graph scale read as one-to-one count",
+        "conclusion made from a single entry only",
+        "table totals ignored"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-probability-statistics"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-probability-statistics",
+        "hjb-primary-p6-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个袋子里装有大小、质地完全相同的红球5个、蓝球3个、绿球2个。从袋子里任意摸出一个球，下面说法正确的是（ ）。",
+      "optionsZhHans": [
+        "A. 摸出的一定是红球",
+        "B. 摸出蓝球的可能性比摸出绿球的可能性大",
+        "C. 摸出红球的可能性最小",
+        "D. 摸出绿球的可能性比摸出蓝球的可能性大"
+      ],
+      "answer": "B. 摸出蓝球的可能性比摸出绿球的可能性大",
+      "acceptedAnswers": [
+        "B. 摸出蓝球的可能性比摸出绿球的可能性大"
+      ],
+      "explanationZhHans": "袋子里共有10个球。红球最多，摸出红球的可能性最大；蓝球3个，绿球2个，所以摸出蓝球的可能性比绿球大。选项A说“一定”错误，C说红球可能性最小错误，D说绿球比蓝球大错误。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-125",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-probability-statistics",
+      "unitTitle": "可能性与统计图表",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "probability",
+        "data-display",
+        "statistical-tables-graphs",
+        "可能性",
+        "统计图表",
+        "统计"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "可能性判断",
+        "数据整理",
+        "统计表读取",
+        "统计图比较",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "likelihood judged by preference rather than sample space",
+        "graph scale read as one-to-one count",
+        "conclusion made from a single entry only",
+        "table totals ignored"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-probability-statistics"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-probability-statistics",
+        "hjb-primary-p6-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个不透明的袋子里装有红、黄、蓝三种颜色的球共20个，除颜色外完全相同。其中红球有5个，黄球有8个，其余为蓝球。从袋子中任意摸出一个球，摸到哪种颜色球的可能性最大？摸到哪种颜色球的可能性最小？请按“最大：颜色，最小：颜色”的格式填写。",
+      "optionsZhHans": [],
+      "answer": "最大：黄，最小：红",
+      "acceptedAnswers": [
+        "最大：黄，最小：红",
+        "最大：黄色，最小：红色",
+        "最大：黄球，最小：红球"
+      ],
+      "explanationZhHans": "蓝球有20-5-8=7个。数量越多可能性越大，黄球8个最多，可能性最大；红球5个最少，可能性最小。"
+    }
+  ]
+}

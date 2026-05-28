@@ -1,0 +1,47 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-327",
+  "startedAt": "2026-05-28T03:01:47.079Z",
+  "completedAt": "2026-05-28T03:01:52.414Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-327"
+  ],
+  "usage": {
+    "prompt_tokens": 1928,
+    "completion_tokens": 250,
+    "total_tokens": 2178,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1544
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-327",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "第5项",
+        "correctedAnswer": "第4项和第5项",
+        "issueTags": [
+          "answer_mismatch"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目问二项式系数最大的项，n=7为奇数，中间两项系数最大，即第4项和第5项。独立解仅给出第5项，与正确答案不符，属于答案错误，严重性为blocker。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "独立解答案错误，应为第4项和第5项，而非仅第5项。"
+    }
+  }
+}

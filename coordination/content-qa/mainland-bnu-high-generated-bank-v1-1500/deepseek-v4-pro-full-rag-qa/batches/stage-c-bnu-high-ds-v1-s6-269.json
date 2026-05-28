@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-269",
+  "startedAt": "2026-05-28T01:46:52.531Z",
+  "completedAt": "2026-05-28T01:46:56.879Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-269"
+  ],
+  "usage": {
+    "prompt_tokens": 2079,
+    "completion_tokens": 254,
+    "total_tokens": 2333,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1695
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-269",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "a = 15",
+        "correctedAnswer": "a = 15",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，独立求解得 a=15。存储答案为 a=7，与正确解不符。解析过程正确得出 a=15，但最终答案写为 7，存在数学错误和解释矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1 题答案错误，解析与答案矛盾，判定为 blocker。"
+    }
+  }
+}

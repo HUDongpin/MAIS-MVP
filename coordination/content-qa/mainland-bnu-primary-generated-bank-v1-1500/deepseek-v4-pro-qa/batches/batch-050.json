@@ -1,0 +1,191 @@
+{
+  "batchNumber": 50,
+  "startedAt": "2026-05-27T13:28:46.655Z",
+  "completedAt": "2026-05-27T13:29:04.731Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p4-133",
+    "bnu-primary-ds-v1-p4-134",
+    "bnu-primary-ds-v1-p4-135",
+    "bnu-primary-ds-v1-p4-136",
+    "bnu-primary-ds-v1-p4-137",
+    "bnu-primary-ds-v1-p4-138",
+    "bnu-primary-ds-v1-p4-139",
+    "bnu-primary-ds-v1-p4-140",
+    "bnu-primary-ds-v1-p4-141",
+    "bnu-primary-ds-v1-p4-142",
+    "bnu-primary-ds-v1-p4-143",
+    "bnu-primary-ds-v1-p4-144",
+    "bnu-primary-ds-v1-p4-145",
+    "bnu-primary-ds-v1-p4-146",
+    "bnu-primary-ds-v1-p4-147",
+    "bnu-primary-ds-v1-p4-148",
+    "bnu-primary-ds-v1-p4-149",
+    "bnu-primary-ds-v1-p4-150"
+  ],
+  "usage": {
+    "prompt_tokens": 4411,
+    "completion_tokens": 1269,
+    "total_tokens": 5680,
+    "prompt_tokens_details": {
+      "cached_tokens": 4352
+    },
+    "prompt_cache_hit_tokens": 4352,
+    "prompt_cache_miss_tokens": 59
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p4-133",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，选项唯一，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-134",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案合理，接受答案覆盖全面。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-135",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，计算无误，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-136",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，选项唯一，130°无法拼出。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-137",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "改写正确，保留一位小数处理得当。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-138",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "判断正确，答案覆盖多种表述。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-139",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "积不变规律应用正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-140",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "四舍五入范围正确，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-141",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "综合题，判断、改正、原因分析均正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-142",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项合理，思维导图最有助于发现联系。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-143",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "填空内容正确，符合线与角知识。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-144",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "错误分析准确，正确答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-145",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "百分位判断正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-146",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "小数性质与计数单位理解正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-147",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，要求列竖式并验算，答案合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-148",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "小数末尾添0大小不变，选项正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-149",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计数单位统一正确，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-150",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "错中求解思路正确，答案无误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部18道题目均通过审核，无数学错误、答案不匹配、歧义或年级/主题不符等问题。"
+    }
+  }
+}

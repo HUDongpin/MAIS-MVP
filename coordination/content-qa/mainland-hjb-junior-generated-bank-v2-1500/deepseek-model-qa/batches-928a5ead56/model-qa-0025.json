@@ -1,0 +1,265 @@
+{
+  "batchId": "model-qa-0025",
+  "ids": [
+    "hjb-junior-ds-v2-s1-481",
+    "hjb-junior-ds-v2-s1-482",
+    "hjb-junior-ds-v2-s1-483",
+    "hjb-junior-ds-v2-s1-484",
+    "hjb-junior-ds-v2-s1-485",
+    "hjb-junior-ds-v2-s1-486",
+    "hjb-junior-ds-v2-s1-487",
+    "hjb-junior-ds-v2-s1-488",
+    "hjb-junior-ds-v2-s1-489",
+    "hjb-junior-ds-v2-s1-490",
+    "hjb-junior-ds-v2-s1-491",
+    "hjb-junior-ds-v2-s1-492",
+    "hjb-junior-ds-v2-s1-493",
+    "hjb-junior-ds-v2-s1-494",
+    "hjb-junior-ds-v2-s1-495",
+    "hjb-junior-ds-v2-s1-496",
+    "hjb-junior-ds-v2-s1-497",
+    "hjb-junior-ds-v2-s1-498",
+    "hjb-junior-ds-v2-s1-499",
+    "hjb-junior-ds-v2-s1-500"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-481",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题干条件∠BAD=40°与AD=BD、AB=AC结合，解得∠DAC=60°，但选项无60°。解析中尝试调整∠BAD为50°得到∠DAC=30°，与题干矛盾。标准答案30°错误，解析与题干不一致。",
+      "independentAnswerZhHans": "由AB=AC得∠B=∠C。AD=BD得∠B=∠BAD=40°，故∠B=40°，∠C=40°，∠BAC=100°，∠DAC=60°。",
+      "answerCheckZhHans": "标准答案30°与计算所得60°不符，选项无60°。",
+      "recommendedActionZhHans": "修正题干条件或选项，使答案唯一且正确。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-482",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "由AB=AC得∠C=∠B=50°，∠BAC=80°。AD平分∠BAC，∠BAD=∠CAD=40°。在△ABD中，∠ADB=180°-50°-40°=90°，∠ADC=180°-90°=90°。",
+      "answerCheckZhHans": "标准答案90°正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-483",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "由AB=AC得∠C=∠B=50°，∠BAC=80°。AD平分∠BAC，∠BAD=∠CAD=40°。在△ABD中，∠ADB=180°-50°-40°=90°，∠ADC=180°-90°=90°。",
+      "answerCheckZhHans": "标准答案90°正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-484",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题干要求判定△ABD是等腰三角形的条件。由AB=AC，AD平分∠BAC，可推出AD⊥BC且BD=CD，但△ABD不一定是等腰三角形。选项BD=AD直接满足等腰，但解析称AD⊥BC且BD=CD，与选项BD=AD无关。其他选项如∠B=40°不能推出等腰。标准答案BD=AD正确，但解析错误。",
+      "independentAnswerZhHans": "由AB=AC，AD平分∠BAC，得AD⊥BC，BD=CD。△ABD中，AD与BD不一定相等。选项BD=AD直接使△ABD等腰，其他选项不能。",
+      "answerCheckZhHans": "标准答案BD=AD正确，但解析中“AD⊥BC且BD=CD”与选项无关，且未解释为何BD=AD正确。",
+      "recommendedActionZhHans": "修正解析，明确BD=AD使△ABD有两边相等。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-485",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题干要求添加条件使△BDE≌△CDF。已知AB=AC，AD平分∠BAC，DE=DF。由等腰三角形三线合一得BD=CD，∠B=∠C。添加BD=CD是已知条件，不能作为新增条件判定全等。添加BE=CF可用SAS，∠BDE=∠CDF可用ASA，∠BED=∠CFD可用AAS。标准答案BD=CD错误。",
+      "independentAnswerZhHans": "由AB=AC，AD平分∠BAC，得BD=CD，∠B=∠C。已知DE=DF。添加BE=CF（SAS）或∠BDE=∠CDF（ASA）或∠BED=∠CFD（AAS）均可判定全等。BD=CD是已知，不能作为新增条件。",
+      "answerCheckZhHans": "标准答案BD=CD错误，因为BD=CD是已知条件，添加后不能判定全等。",
+      "recommendedActionZhHans": "修改标准答案为BE=CF或∠BDE=∠CDF或∠BED=∠CFD，并修正解析。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-486",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "由AB=AC，D为BC中点，得AD⊥BC且平分∠BAC。∠B=50°，∠C=50°，∠BAC=80°，∠BAD=40°。",
+      "answerCheckZhHans": "标准答案40°正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-487",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "由AB=AC，AD平分∠BAC，得AD⊥BC，∠ADC=90°。",
+      "answerCheckZhHans": "标准答案90°正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-488",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "由PQ=PR得∠Q=∠R=(180°-80°)/2=50°。PS=SQ得∠SPQ=∠Q=50°。∠SPR=∠P-∠SPQ=80°-50°=30°。",
+      "answerCheckZhHans": "标准答案30°正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-489",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题干条件BD=BC，但D在边BC上，BD<BC，矛盾。解析中计算∠DBC=50°，但标准答案为40°，不一致。",
+      "independentAnswerZhHans": "由AB=AC，∠A=50°，得∠ABC=∠C=65°。若BD=BC，则D在BC延长线上，但题干说D在边BC上，矛盾。无法求解。",
+      "answerCheckZhHans": "标准答案40°与解析计算50°不符，且题干条件矛盾。",
+      "recommendedActionZhHans": "修正题干条件，如改为BD=CD或点D在BC延长线上，并调整答案。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-490",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "由AB=AC，∠A=100°，得∠B=∠ACB=40°。AD=AC，∠D=∠ACD。∠ACD=180°-∠ACB=140°，∠D=(180°-140°)/2=20°。",
+      "answerCheckZhHans": "标准答案20°正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-491",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "由AB=AC，∠B=70°，得∠C=70°，∠A=40°。BD平分∠ABC，∠DBC=35°。∠BDC=180°-35°-70°=75°。",
+      "answerCheckZhHans": "标准答案75°正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-492",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "由AB=AC，AD⊥BC，得AD平分∠BAC，∠BAC=2∠BAD=50°。∠B=(180°-50°)/2=65°。",
+      "answerCheckZhHans": "标准答案65°正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-493",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "由AB=AC，∠A=80°，得∠B=∠ACB=50°。CD=CB，∠CDB=∠B=50°，∠BCD=80°。∠ACD=∠BCD-∠ACB=30°。",
+      "answerCheckZhHans": "标准答案30°正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-494",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题干条件∠A=80°，AD=BD，解得∠DAC=30°，但选项无30°。解析中尝试调整∠A为100°得到∠DAC=60°，仍无匹配，最终未给出正确解法。标准答案20°错误。",
+      "independentAnswerZhHans": "由AB=AC，∠A=80°，得∠B=∠C=50°。AD=BD，∠BAD=∠B=50°，∠DAC=80°-50°=30°。",
+      "answerCheckZhHans": "标准答案20°与计算所得30°不符，选项无30°。",
+      "recommendedActionZhHans": "修正题干条件或选项，使答案唯一且正确。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-495",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "设∠A=x，AD=BD得∠ABD=x，∠BDC=2x。BD=BC得∠C=∠BDC=2x。AB=AC得∠ABC=∠C=2x。x+2x+2x=180°，x=36°。",
+      "answerCheckZhHans": "标准答案36°正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-496",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "由AB=AC，D为BC中点，得AD平分∠BAC。∠B=65°，∠C=65°，∠BAC=50°，∠BAD=25°。",
+      "answerCheckZhHans": "标准答案25°正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-497",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "由AB=AC，∠B=50°，得∠C=50°，∠BAC=80°。AD平分∠BAC，∠BAD=∠CAD=40°。∠ADB=180°-50°-40°=90°，∠ADC=90°。",
+      "answerCheckZhHans": "标准答案90°正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-498",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题干要求找出无法判定△BDE≌△CDF的条件。由AB=AC，AD平分∠BAC，得BD=CD，∠B=∠C。已知DE=DF。添加BD=CD是已知条件，不能作为新增条件判定全等，故添加BD=CD后仍无法判定。但标准答案BD=CD正确，解析却称“选项A中BD=CD为已知，不能作为新增条件判定全等”，与答案一致。但选项B、C、D均可判定，故答案正确。然而解析中“选项A中BD=CD为已知”表述有误，BD=CD是已知，添加后不能判定，但答案正确。",
+      "independentAnswerZhHans": "由AB=AC，AD平分∠BAC，得BD=CD，∠B=∠C。已知DE=DF。添加BD=CD是已知，不能判定；添加BE=CF（SAS）、∠BED=∠CFD（AAS）、∠BDE=∠CDF（ASA）均可判定。故添加BD=CD后仍无法判定。",
+      "answerCheckZhHans": "标准答案BD=CD正确，解析一致。",
+      "recommendedActionZhHans": "解析中“选项A中BD=CD为已知”表述可优化，但答案正确。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-499",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "由AB=AC，BD=CD，得AD平分∠BAC。∠B=65°，∠C=65°，∠BAC=50°，∠BAD=25°。",
+      "answerCheckZhHans": "标准答案25°正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-500",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "由AB=AC，∠B=50°，得∠C=50°，∠BAC=80°。AD平分∠BAC，∠BAD=∠CAD=40°。∠ADB=180°-50°-40°=90°，∠ADC=90°。",
+      "answerCheckZhHans": "标准答案90°正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

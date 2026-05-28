@@ -1,0 +1,45 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-187",
+  "startedAt": "2026-05-28T02:55:17.825Z",
+  "completedAt": "2026-05-28T02:55:23.115Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-187"
+  ],
+  "usage": {
+    "prompt_tokens": 2335,
+    "completion_tokens": 260,
+    "total_tokens": 2595,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1951
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-187",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "\\frac{2\\sqrt{5}}{15}",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，答案唯一，选项无歧义。独立解与存储答案一致，均为2√5/15。解析中法向量取(3,4,-6)与独立解(3,4,6)符号相反，不影响正弦值，但解释存在轻微不一致，标记为weak。整体无数学错误，符合教材范围。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 1,
+      "warn": 0,
+      "fail": 0,
+      "notes": "题目通过复核，答案正确，解析存在轻微符号差异但不影响结果。"
+    }
+  }
+}

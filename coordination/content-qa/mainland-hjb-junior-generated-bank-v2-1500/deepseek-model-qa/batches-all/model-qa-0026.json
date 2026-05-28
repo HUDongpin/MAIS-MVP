@@ -1,0 +1,103 @@
+{
+  "batchId": "model-qa-0026",
+  "ids": [
+    "hjb-junior-ds-v2-s1-201",
+    "hjb-junior-ds-v2-s1-202",
+    "hjb-junior-ds-v2-s1-203",
+    "hjb-junior-ds-v2-s1-204",
+    "hjb-junior-ds-v2-s1-205",
+    "hjb-junior-ds-v2-s1-206",
+    "hjb-junior-ds-v2-s1-207",
+    "hjb-junior-ds-v2-s1-208"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-201",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(7, -3)",
+      "answerCheckZhHans": "标准答案 (7, -3) 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-202",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "三角形的形状和大小都不变",
+      "answerCheckZhHans": "标准答案与独立判断一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-203",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "5",
+      "answerCheckZhHans": "标准答案 5 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-204",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "B'(0,2)，面积不变",
+      "answerCheckZhHans": "标准答案 B'(0,2)，面积不变 与独立计算结果一致。acceptedAnswers 覆盖了多种合理写法。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-205",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "等腰三角形",
+      "answerCheckZhHans": "标准答案与独立判断一致。其他选项均不一定是轴对称图形。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-206",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(6, 1)",
+      "answerCheckZhHans": "标准答案 (6, 1) 与独立计算结果一致。acceptedAnswers 覆盖了多种合理写法。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-207",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "180°或270°",
+      "answerCheckZhHans": "标准答案 180°或270° 与独立计算结果一致。acceptedAnswers 覆盖了多种合理写法。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-208",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "B. 电梯从一楼上升到五楼",
+      "answerCheckZhHans": "标准答案与独立判断一致。其他选项均不是平移。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

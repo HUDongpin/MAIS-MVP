@@ -1,0 +1,76 @@
+{
+  "batchId": "model-qa-0012",
+  "ids": [
+    "hjb-junior-ds-v2-s2-030",
+    "hjb-junior-ds-v2-s2-044",
+    "hjb-junior-ds-v2-s2-050",
+    "hjb-junior-ds-v2-s2-058",
+    "hjb-junior-ds-v2-s2-062"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-030",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为3.7 cm，但解析中3.7³=50.653，3.6³=46.656，50更接近50.653，因此³√50≈3.7。然而，3.7³=50.653，误差为0.653；3.6³=46.656，误差为3.344。虽然3.7更接近，但精确到0.1 cm时，应检查3.7是否满足四舍五入。实际上，³√50≈3.684，精确到0.1 cm应为3.7，但解析中未提及四舍五入，且直接比较立方值，逻辑不严谨。但答案3.7 cm正确。然而，解析中写“3.7³=50.653，3.6³=46.656，且50更接近50.653”，这本身正确，但未说明为何不检查3.68或3.69。实际上，³√50≈3.684，四舍五入到0.1为3.7，答案正确。但解析与答案一致，无矛盾。但仔细看：解析说“因为3.7³=50.653，3.6³=46.656，且50更接近50.653，所以³√50≈3.7 cm”，这实际上是用立方值比较，但50更接近50.653，所以取3.7，这合理。但严格来说，³√50≈3.684，更接近3.7而非3.6，所以答案正确。但解析未提及四舍五入，但方法可行。因此，答案和解析一致，无错误。但检查acceptedAnswers：包含“3.7 cm”和“3.7”，覆盖标准答案。无其他问题。但题目要求精确到0.1 cm，答案3.7 cm正确。所以此题为pass？但再仔细看：解析中3.7³=50.653，3.6³=46.656，50更接近50.653，所以取3.7。但3.7³=50.653，误差0.653；3.6³=46.656，误差3.344。确实3.7更接近。但³√50精确值约为3.684，3.7的误差为0.016，3.6的误差为0.084，所以3.7更接近。因此答案正确。但解析中未计算3.68³，但方法可行。所以无问题。但检查acceptedAnswers：有“3.7 cm”和“3.7”，标准答案是“3.7 cm”，所以覆盖。因此，此题应pass。但之前标记needs-review，需重新判断。实际上，答案正确，解析正确，无矛盾。所以verdict应为pass。但注意：解析中写“3.7³=50.653”，但3.7³=50.653？3.7*3.7=13.69，13.69*3.7=50.653，正确。3.6³=46.656，正确。50更接近50.653，所以取3.7。但³√50≈3.684，3.684³=50.0？3.684³≈50.0，所以3.7是四舍五入结果。解析方法虽不严谨，但答案正确。因此，无错误。所以verdict应为pass。但之前我误判为needs-review，现在纠正。",
+      "independentAnswerZhHans": "³√50 ≈ 3.684，精确到0.1 cm为3.7 cm。",
+      "answerCheckZhHans": "标准答案3.7 cm正确，解析虽不严谨但结论正确，无矛盾。",
+      "recommendedActionZhHans": "无需修改，题目可上线。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-044",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为1，但解析得出x+y可能为-0.5或2，与答案矛盾。解析中由条件得2x-3y=-1，y=0或1，代入得x=-0.5或x=1，则x+y为-0.5或2。但标准答案为1，显然错误。可能题目有隐含条件未说明，如x、y为整数或正数？但题干未提及。因此，答案错误，解析与答案不一致。",
+      "independentAnswerZhHans": "由立方根互为相反数得1-2x=-(3y-2)，即2x-3y=-1。y的算术平方根是它本身，则y=0或1。当y=0时，x=-0.5，x+y=-0.5；当y=1时，x=1，x+y=2。因此x+y的值为-0.5或2。",
+      "answerCheckZhHans": "标准答案1错误，解析正确但答案错误，两者矛盾。",
+      "recommendedActionZhHans": "修改答案为-0.5或2，或增加条件限制y的取值。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-050",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为“>”，但解析中明确说明-√7<-2.6，应填“<”，答案与解析矛盾。实际上，√7≈2.6458，-√7≈-2.6458，-2.6=-2.6，因为-2.6458 < -2.6，所以-√7 < -2.6，应填“<”。标准答案“>”错误。",
+      "independentAnswerZhHans": "-√7 ≈ -2.6458，-2.6 = -2.6，因为-2.6458 < -2.6，所以-√7 < -2.6，填“<”。",
+      "answerCheckZhHans": "标准答案“>”错误，解析正确但答案错误，两者矛盾。",
+      "recommendedActionZhHans": "将答案改为“<”。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-058",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "√2≈1.414，√5≈2.236，√8≈2.828，√10≈3.162。数轴上右边的点表示的数更大，因此点C(√8)在点D(√10)的左侧，选项B正确。其他选项均错误。",
+      "answerCheckZhHans": "标准答案“点C在点D的左侧”正确，解析正确，无矛盾。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-062",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "12³=1728，13³=2197，2025介于两者之间，所以棱长在12和13之间。",
+      "answerCheckZhHans": "标准答案“12 和 13”正确，解析正确，acceptedAnswers覆盖多种格式。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

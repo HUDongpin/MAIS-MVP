@@ -1,0 +1,107 @@
+{
+  "batchId": "model-qa-0118",
+  "ids": [
+    "hjb-junior-ds-v2-s2-437",
+    "hjb-junior-ds-v2-s2-438",
+    "hjb-junior-ds-v2-s2-439",
+    "hjb-junior-ds-v2-s2-440",
+    "hjb-junior-ds-v2-s2-441",
+    "hjb-junior-ds-v2-s2-442",
+    "hjb-junior-ds-v2-s2-443",
+    "hjb-junior-ds-v2-s2-444"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-437",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-1",
+      "answerCheckZhHans": "标准答案 -1 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-438",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "16",
+      "answerCheckZhHans": "标准答案 16 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-439",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-6",
+      "answerCheckZhHans": "标准答案 -6 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-440",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch",
+        "no-correct-option"
+      ],
+      "issueDetailsZhHans": "题干函数为 y = -6/x，k = -6 < 0，图像应在第二、四象限，选项B“图像位于第一、三象限”错误。解析中承认B错误，并指出无正确选项，但标准答案仍为B。实际检查四个选项：A：2×3=6≠-6，不过点；B：错误；C：k<0时在每个象限内y随x增大而增大，C说减小，错误；D：反比例函数图像关于原点对称，非y轴，错误。因此无正确选项。解析末尾尝试修改题目但未实际更改，当前题目存在严重错误。",
+      "independentAnswerZhHans": "无正确选项",
+      "answerCheckZhHans": "标准答案为“图像位于第一、三象限”，但该选项错误，且其他选项均不正确，故无正确选项。",
+      "recommendedActionZhHans": "需重新设计题目，确保有唯一正确选项。例如将函数改为 y = 6/x，并调整选项避免多选。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-441",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-6",
+      "answerCheckZhHans": "标准答案 -6 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-442",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "m < 1",
+      "answerCheckZhHans": "标准答案 m < 1 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-443",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "y = 12/x",
+      "answerCheckZhHans": "标准答案 y = 12/x 与独立计算结果一致，acceptedAnswers 覆盖了常见写法。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-444",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "增大",
+      "answerCheckZhHans": "标准答案“增大”与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

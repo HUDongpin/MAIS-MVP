@@ -1,0 +1,108 @@
+{
+  "batchId": "model-qa-0102",
+  "ids": [
+    "hjb-junior-ds-v2-s2-309",
+    "hjb-junior-ds-v2-s2-310",
+    "hjb-junior-ds-v2-s2-311",
+    "hjb-junior-ds-v2-s2-312",
+    "hjb-junior-ds-v2-s2-313",
+    "hjb-junior-ds-v2-s2-314",
+    "hjb-junior-ds-v2-s2-315",
+    "hjb-junior-ds-v2-s2-316"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-309",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "4",
+      "answerCheckZhHans": "标准答案4，与独立解答一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-310",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "multiple-correct-options"
+      ],
+      "issueDetailsZhHans": "题干条件AB=BC=CD=DA且∠A=90°可推出四边形为正方形，但选项C“它是菱形”也正确，因为正方形是菱形的子集。题目要求“一定正确”，菱形和正方形都一定正确，存在多个正确选项。",
+      "independentAnswerZhHans": "它是正方形（同时它也是菱形）",
+      "answerCheckZhHans": "标准答案为“它是正方形”，但选项C“它是菱形”也一定正确，导致多选。",
+      "recommendedActionZhHans": "修改选项或题干，确保只有一个正确选项。例如将C改为“它是菱形但不是正方形”或调整条件。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-311",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2√13",
+      "answerCheckZhHans": "标准答案2√13，与独立解答一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-312",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析中计算四边形DGFB面积时，△DFB面积应为4 cm²，但未说明如何得到4。实际上，△DFB面积=½△BFC？需验证。独立计算得四边形DGFB面积为8 cm²，与标准答案6 cm²不符。",
+      "independentAnswerZhHans": "8 cm²",
+      "answerCheckZhHans": "标准答案为6 cm²，独立解答为8 cm²，不一致。",
+      "recommendedActionZhHans": "重新审查解析和答案，确认正确面积。",
+      "confidence": "medium"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-313",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3组",
+      "answerCheckZhHans": "标准答案3组，与独立解答一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-314",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-2",
+      "answerCheckZhHans": "标准答案-2，与独立解答一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-315",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(-3,-4)",
+      "answerCheckZhHans": "标准答案(-3,-4)，与独立解答一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-316",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "第四象限",
+      "answerCheckZhHans": "标准答案第四象限，与独立解答一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

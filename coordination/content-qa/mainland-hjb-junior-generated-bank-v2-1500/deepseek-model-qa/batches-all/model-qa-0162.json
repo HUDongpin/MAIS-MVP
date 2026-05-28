@@ -1,0 +1,109 @@
+{
+  "batchId": "model-qa-0162",
+  "ids": [
+    "hjb-junior-ds-v2-s3-289",
+    "hjb-junior-ds-v2-s3-290",
+    "hjb-junior-ds-v2-s3-291",
+    "hjb-junior-ds-v2-s3-292",
+    "hjb-junior-ds-v2-s3-293",
+    "hjb-junior-ds-v2-s3-294",
+    "hjb-junior-ds-v2-s3-295",
+    "hjb-junior-ds-v2-s3-296"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-289",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "4 cm",
+      "answerCheckZhHans": "标准答案正确。正六边形边长等于外接圆半径，半径为4 cm，故边长为4 cm。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-290",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2 < d < 8",
+      "answerCheckZhHans": "标准答案正确。两圆相交时圆心距满足 |R-r| < d < R+r，即2 < d < 8。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-291",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3 cm ≤ OP ≤ 5 cm",
+      "answerCheckZhHans": "标准答案正确。弦心距为3 cm，OP最小为3 cm，最大为半径5 cm。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-292",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "两圆有且仅有一条公切线时，应为两圆内切，此时圆心距等于半径差的绝对值，即|7-4|=3。若圆心距等于半径和，则两圆外切，此时有三条公切线（两条外公切线和一条内公切线）。因此d=11不符合条件。标准答案“3或11”错误，正确应为3。解析中“圆心距等于半径差的绝对值或半径和”与“有且仅有一条公切线”矛盾。",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "标准答案错误。两圆有且仅有一条公切线时，两圆内切，圆心距为|R-r|=3。外切时有3条公切线，故d=11不符合。",
+      "recommendedActionZhHans": "修正答案为3，并修改解析。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-293",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "40°",
+      "answerCheckZhHans": "标准答案正确。圆内角等于所对两弧度数和的一半，即(100°+弧BC)/2=70°，解得弧BC=40°。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-294",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3√3 cm",
+      "answerCheckZhHans": "标准答案正确。边心距 = 半径 × cos30° = 6 × √3/2 = 3√3 cm。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-295",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "√39 cm",
+      "answerCheckZhHans": "标准答案正确。切线长 = √(OP² - r²) = √(64 - 25) = √39 cm。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-296",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析中计算d12=3，d23=4，d31=5，和为12，但标准答案为10，两者矛盾。实际计算：O1(4,0)，O2(4,3)，O3(0,3)。d12=3，d23=4，d31=5，和应为12。标准答案10错误。",
+      "independentAnswerZhHans": "12",
+      "answerCheckZhHans": "标准答案错误。圆心距之和应为3+4+5=12。",
+      "recommendedActionZhHans": "修正答案为12，并修改解析。",
+      "confidence": "high"
+    }
+  ]
+}

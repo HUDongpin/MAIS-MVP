@@ -1,0 +1,182 @@
+{
+  "batchNumber": 26,
+  "startedAt": "2026-05-27T17:28:53.039Z",
+  "completedAt": "2026-05-27T17:29:18.145Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s1-301",
+    "bnu-junior-ds-v1-s1-302",
+    "bnu-junior-ds-v1-s1-303",
+    "bnu-junior-ds-v1-s1-304",
+    "bnu-junior-ds-v1-s1-305",
+    "bnu-junior-ds-v1-s1-306",
+    "bnu-junior-ds-v1-s1-307",
+    "bnu-junior-ds-v1-s1-308",
+    "bnu-junior-ds-v1-s1-309",
+    "bnu-junior-ds-v1-s1-310",
+    "bnu-junior-ds-v1-s1-311",
+    "bnu-junior-ds-v1-s1-312"
+  ],
+  "usage": {
+    "prompt_tokens": 5637,
+    "completion_tokens": 1728,
+    "total_tokens": 7365,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 5125
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s1-301",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，由角平分线得∠AOC=70°，对顶角相等得∠BOD=70°，答案正确，选项唯一。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-302",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "两直线平行内错角相等，直接得∠2=65°，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-303",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "对顶角相等，∠BOC=120°，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-304",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项A同位角相等可判定平行，其他选项均不满足判定条件，答案唯一正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-305",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由平行得同位角相等，∠GHD=50°，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-306",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平行线同旁内角互补，180°-70°=110°，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-307",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "125°",
+        "rationale": "题目求∠AOD，由OE⊥AB得∠AOE=90°，∠AOC=90°-55°=35°，∠AOD与∠AOC是邻补角，∠AOD=180°-35°=145°，但选项无145°。若考虑∠AOD与∠BOC对顶，∠BOC=90°+55°=145°，仍无匹配。检查解释：解释中计算了∠AOC=35°，但未求∠AOD，答案35°错误。正确应为∠AOD=180°-35°=145°或∠AOD=∠BOC=145°，但选项无145°。若∠COE=55°在∠AOE内部，则∠AOC=35°，∠AOD=145°；若∠COE在∠AOE外部，则∠AOC=90°+55°=145°，∠AOD=35°。题目未明确射线位置，但常见情况∠AOD=145°。选项无145°，故题目有误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-308",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "同旁内角互补，2x+3x=180，x=36，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-309",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由平行得同旁内角互补，∠GHD=180°-120°=60°，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-310",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "同位角相等两直线平行，∠2=75°，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-311",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "40°",
+        "rationale": "题目中∠AOE=30°，∠EOD=70°，则∠AOD=100°，对顶角∠BOC=100°，邻补角∠BOD=80°。MN⊥CD，∠MOD=90°，点M在AB上方，OM在∠BOD内部，∠BOM=∠MOD-∠BOD？错误。正确：∠BOD=80°，∠MOD=90°，若OM在∠BOD内部，则∠BOM=∠MOD-∠BOD=10°；若OM在∠BOD外部，则∠BOM=∠BOD+∠MOD=170°。解释中数值矛盾（∠AOE=20°，∠EOD=30°），且计算错误。答案40°与题目条件不符。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-312",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "65°",
+        "rationale": "由对顶角得∠BOD=80°，邻补角∠AOD=100°，∠EOD=100°-35°=65°，答案应为65°，但给出的答案是45°，解释中也算出65°，答案与解释矛盾。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 3,
+      "notes": "共12题，8题通过，3题失败。失败原因：307题答案与解释不匹配且选项无正确值；311题条件与解释数值矛盾，答案错误；312题答案与解释计算结果矛盾。"
+    }
+  }
+}

@@ -1,0 +1,191 @@
+{
+  "batchNumber": 29,
+  "startedAt": "2026-05-27T13:27:13.076Z",
+  "completedAt": "2026-05-27T13:27:30.377Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p3-005",
+    "bnu-primary-ds-v1-p3-006",
+    "bnu-primary-ds-v1-p3-007",
+    "bnu-primary-ds-v1-p3-008",
+    "bnu-primary-ds-v1-p3-009",
+    "bnu-primary-ds-v1-p3-010",
+    "bnu-primary-ds-v1-p3-011",
+    "bnu-primary-ds-v1-p3-012",
+    "bnu-primary-ds-v1-p3-013",
+    "bnu-primary-ds-v1-p3-014",
+    "bnu-primary-ds-v1-p3-015",
+    "bnu-primary-ds-v1-p3-016",
+    "bnu-primary-ds-v1-p3-017",
+    "bnu-primary-ds-v1-p3-018",
+    "bnu-primary-ds-v1-p3-019",
+    "bnu-primary-ds-v1-p3-020",
+    "bnu-primary-ds-v1-p3-021",
+    "bnu-primary-ds-v1-p3-022"
+  ],
+  "usage": {
+    "prompt_tokens": 4640,
+    "completion_tokens": 1266,
+    "total_tokens": 5906,
+    "prompt_tokens_details": {
+      "cached_tokens": 4608
+    },
+    "prompt_cache_hit_tokens": 4608,
+    "prompt_cache_miss_tokens": 32
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p3-005",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "综合算式正确，符合混合运算顺序。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-006",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "综合算式和答案正确，符合题意。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-007",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项B正确对应算式，其他选项干扰有效。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-008",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比较结果正确，计算无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-009",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分步解答清晰，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-010",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "运算顺序正确，得数18无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-011",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "综合算式和答案正确，括号使用合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-012",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分步和综合算式均正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-013",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项C运算顺序相同，其他选项不符。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-014",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "填空顺序和结果正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-015",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "综合算式和答案正确，符合题意。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-016",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项A符合三视图要求，描述准确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-017",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "观察长方体最多看到3个面，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-018",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "描述符合视图要求，答案合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-019",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项C底层只有2个，正面不可能看到3个，正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-020",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "最少需要2个小正方体，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-021",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "描述符合前面和右面视图，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-022",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项A符合前面和右面视图，描述准确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均通过审核，无数学错误、答案不匹配、歧义或年级不匹配等问题。"
+    }
+  }
+}

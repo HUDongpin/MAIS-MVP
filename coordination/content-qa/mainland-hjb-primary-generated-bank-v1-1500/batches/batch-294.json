@@ -1,0 +1,313 @@
+{
+  "batchId": "batch-294",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p6-216",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-linear-equations-inequalities",
+      "unitTitle": "一元一次方程",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "linear-equations",
+        "equation-modeling",
+        "equation-solving",
+        "solution-checking",
+        "一元一次方程",
+        "一次方程"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "符号意识",
+        "运算能力",
+        "应用意识"
+      ],
+      "skillTags": [
+        "等式性质",
+        "解一元一次方程",
+        "列方程解决问题",
+        "解的检验",
+        "简单不等关系"
+      ],
+      "misconceptionTags": [
+        "equal sign treated as a calculation signal",
+        "unknown not defined before modeling",
+        "operation applied to only one side of an equation"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-linear-equations-inequalities"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-six-up-assessment-linear-equations-unit",
+        "hjb-primary-p6-lower-assessment-linear-systems"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆购进一批新书，其中故事书的本数是科技书的3倍少12本，两种书一共有156本。设科技书有x本，下面列出的方程正确的是__________。",
+      "optionsZhHans": [],
+      "answer": "x + (3x - 12) = 156",
+      "acceptedAnswers": [
+        "x + (3x - 12) = 156",
+        "x+3x-12=156"
+      ],
+      "explanationZhHans": "设科技书为x本，则故事书为(3x-12)本。根据总本数156列出方程：x + (3x - 12) = 156。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-217",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-segments-angles",
+      "unitTitle": "线段与角",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "segments",
+        "angles",
+        "angle-measurement",
+        "geometric-language",
+        "线段",
+        "角",
+        "射线",
+        "直线"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "直线射线线段辨析",
+        "线段和差",
+        "角的表示",
+        "角的度量",
+        "角关系推理"
+      ],
+      "misconceptionTags": [
+        "line ray and segment names confused",
+        "angle named without a clear vertex",
+        "diagram appearance treated as proof"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-segments-angles"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-six-up-assessment-segments-angles-unit",
+        "hjb-primary-p6-six-up-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面关于线段、射线和直线的说法中，正确的是哪一项？",
+      "optionsZhHans": [
+        "线段有两个端点，可以向两端无限延伸",
+        "射线有一个端点，可以向一端无限延伸",
+        "直线有两个端点，不能延伸",
+        "射线有两个端点，可以向一端无限延伸"
+      ],
+      "answer": "射线有一个端点，可以向一端无限延伸",
+      "acceptedAnswers": [
+        "射线有一个端点，可以向一端无限延伸"
+      ],
+      "explanationZhHans": "线段有两个端点，不能延伸；射线有一个端点，向一端无限延伸；直线没有端点，向两端无限延伸。因此正确选项是射线有一个端点，可以向一端无限延伸。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-218",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-segments-angles",
+      "unitTitle": "线段与角",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "segments",
+        "angles",
+        "angle-measurement",
+        "geometric-language",
+        "线段",
+        "角",
+        "射线",
+        "直线"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "直线射线线段辨析",
+        "线段和差",
+        "角的表示",
+        "角的度量",
+        "角关系推理"
+      ],
+      "misconceptionTags": [
+        "line ray and segment names confused",
+        "angle named without a clear vertex",
+        "diagram appearance treated as proof"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-segments-angles"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-six-up-assessment-segments-angles-unit",
+        "hjb-primary-p6-six-up-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知点A、B、C在同一条直线上，且AB = 5 cm，BC = 3 cm。如果点B在点A和点C之间，那么线段AC的长度是__________cm。",
+      "optionsZhHans": [],
+      "answer": "8",
+      "acceptedAnswers": [
+        "8",
+        "8cm",
+        "8 cm"
+      ],
+      "explanationZhHans": "当点B在A、C之间时，AC = AB + BC = 5 + 3 = 8 cm。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-219",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-segments-angles",
+      "unitTitle": "线段与角",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "segments",
+        "angles",
+        "angle-measurement",
+        "geometric-language",
+        "线段",
+        "角",
+        "射线",
+        "直线"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "直线射线线段辨析",
+        "线段和差",
+        "角的表示",
+        "角的度量",
+        "角关系推理"
+      ],
+      "misconceptionTags": [
+        "line ray and segment names confused",
+        "angle named without a clear vertex",
+        "diagram appearance treated as proof"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-segments-angles"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-six-up-assessment-segments-angles-unit",
+        "hjb-primary-p6-six-up-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用三个大写字母表示角时，必须把表示顶点的字母写在中间。下面哪个角可以用∠AOB表示？",
+      "optionsZhHans": [
+        "以O为顶点，OA和OB为边的角",
+        "以A为顶点，OA和OB为边的角",
+        "以B为顶点，OA和OB为边的角",
+        "以O为顶点，AB为边的角"
+      ],
+      "answer": "以O为顶点，OA和OB为边的角",
+      "acceptedAnswers": [
+        "以O为顶点，OA和OB为边的角"
+      ],
+      "explanationZhHans": "∠AOB表示顶点为O，两边为射线OA和OB的角。因此正确选项是以O为顶点，OA和OB为边的角。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-220",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-segments-angles",
+      "unitTitle": "线段与角",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "segments",
+        "angles",
+        "angle-measurement",
+        "geometric-language",
+        "线段",
+        "角",
+        "射线",
+        "直线"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "直线射线线段辨析",
+        "线段和差",
+        "角的表示",
+        "角的度量",
+        "角关系推理"
+      ],
+      "misconceptionTags": [
+        "line ray and segment names confused",
+        "angle named without a clear vertex",
+        "diagram appearance treated as proof"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-segments-angles"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-six-up-assessment-segments-angles-unit",
+        "hjb-primary-p6-six-up-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个角是60°，它的余角是__________度。",
+      "optionsZhHans": [],
+      "answer": "30",
+      "acceptedAnswers": [
+        "30",
+        "30°",
+        "30度"
+      ],
+      "explanationZhHans": "如果两个角的和是90°，那么这两个角互为余角。因此60°的余角是90° - 60° = 30°。"
+    }
+  ]
+}

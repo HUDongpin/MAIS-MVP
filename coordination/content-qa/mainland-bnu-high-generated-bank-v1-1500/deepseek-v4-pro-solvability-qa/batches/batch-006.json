@@ -1,0 +1,139 @@
+{
+  "batchNumber": 6,
+  "startedAt": "2026-05-27T13:44:28.903Z",
+  "completedAt": "2026-05-27T13:44:46.043Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-041",
+    "bnu-high-ds-v1-s4-042",
+    "bnu-high-ds-v1-s4-043",
+    "bnu-high-ds-v1-s4-044",
+    "bnu-high-ds-v1-s4-045",
+    "bnu-high-ds-v1-s4-046",
+    "bnu-high-ds-v1-s4-047",
+    "bnu-high-ds-v1-s4-048"
+  ],
+  "usage": {
+    "prompt_tokens": 10506,
+    "completion_tokens": 1135,
+    "total_tokens": 11641,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 9994
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-041",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(-∞, -1] 和 [1, +∞)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由偶函数性质及x≥0时二次函数单调性可独立求解，答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-042",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "[-2, 1) ∪ (1, 2]",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由根式和分式条件可独立求出定义域，答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-043",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "[-1, 0] 和 [2, +∞)",
+        "correctedAnswer": null,
+        "issueTags": [
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "解析称x>0时在(0,2]递增，但正确答案包含[2,+∞)递增，解析自相矛盾且与答案不符。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-044",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "independentAnswer": "a = -3 或 a = 3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "利用奇函数性质可解，答案正确；解析虽简略但无矛盾，可接受。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-045",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "6",
+        "correctedAnswer": "6",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立计算值域为[2,4]，m+M=6，但答案为10，解析也得出6，答案与解析矛盾且错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-046",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "f(x) = |x| + 1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "逐一判断奇偶性和单调性可得唯一正确选项，答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-047",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "independentAnswer": "a ≤ -1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "medium",
+        "rationaleZhHans": "分段函数单调递减条件可解，答案正确；解析中“a≤-1（由右段斜率限制）”表述模糊但结论正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-048",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "a > 1/2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "分离常数后由反比例函数单调性可解，答案正确，解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 5,
+      "warn": 1,
+      "fail": 2,
+      "notes": "8题中5题完全通过；1题解析有轻微瑕疵但答案正确；2题存在严重错误：043解析与答案矛盾，045答案错误且与解析不符。"
+    }
+  }
+}

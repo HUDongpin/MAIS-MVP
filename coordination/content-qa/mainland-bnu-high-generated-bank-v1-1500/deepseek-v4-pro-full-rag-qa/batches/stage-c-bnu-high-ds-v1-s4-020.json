@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-020",
+  "startedAt": "2026-05-28T00:56:16.274Z",
+  "completedAt": "2026-05-28T00:56:21.888Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-020"
+  ],
+  "usage": {
+    "prompt_tokens": 2058,
+    "completion_tokens": 283,
+    "total_tokens": 2341,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1674
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-020",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "充要条件",
+        "correctedAnswer": "充要条件",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "p: |x-1|≤2 解得 -1≤x≤3；q: x²-2x-3≤0 解得 -1≤x≤3。解集相同，p⇔q，应为充要条件。存储答案为“充分不必要条件”，解析虽指出错误但未修正答案，存在数学错误和答案矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目答案错误，应为充要条件而非充分不必要条件，需修正。"
+    }
+  }
+}

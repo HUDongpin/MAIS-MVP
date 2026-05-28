@@ -1,0 +1,124 @@
+{
+  "schemaVersion": "mainland-hjb-junior-image2-dry-run-v1",
+  "generatedAt": "2026-05-27T13:03:32.000Z",
+  "phase": "all",
+  "onlyType": null,
+  "limit": null,
+  "model": "gpt-image-2",
+  "quality": "high",
+  "size": "1536x1024",
+  "outputFormat": "png",
+  "selectedRows": 823,
+  "checks": [
+    {
+      "name": "selectedRowsHaveRequiredFields",
+      "status": "PASS"
+    },
+    {
+      "name": "selectedRowsHaveUniqueIds",
+      "status": "PASS"
+    },
+    {
+      "name": "outputPathsFollowCandidatesQuestionIdPng",
+      "status": "PASS"
+    },
+    {
+      "name": "promptsCarryQuestionAndSafetyPolicy",
+      "status": "PASS"
+    }
+  ],
+  "byType": {
+    "geometry-diagram": 488,
+    "coordinate-grid": 118,
+    "function-graph": 122,
+    "statistics-chart": 7,
+    "measurement-scene": 51,
+    "number-line": 37
+  },
+  "sampleRows": [
+    {
+      "questionId": "hjb-junior-ds-v2-s1-202",
+      "batchPhase": "pilot",
+      "illustrationType": "geometry-diagram",
+      "outputPath": "candidates/hjb-junior-ds-v2-s1-202.png",
+      "promptPreview": "Create one original educational math illustration for a Shanghai Education Press junior-secondary question.\nQuestion ID: hjb-junior-ds-v2-s1-202\nGrade and volume: S1 upper, 七年级上册\nUnit: 图形的运动\nQuestion type: multiple-choice\nIllustration type: geometry-diagram\nQuestion prompt in Simplified Chinese: 一个三角形绕平面内一点旋转60°后，下列说法正确的是：\nIf the prompt asks students to select among figure types, show only neutral schematic figure options without marking the answer.\nGeneration brief: 为沪教版初中数学题 hjb-junior-ds-v2-s"
+    },
+    {
+      "questionId": "hjb-junior-ds-v2-s1-203",
+      "batchPhase": "pilot",
+      "illustrationType": "geometry-diagram",
+      "outputPath": "candidates/hjb-junior-ds-v2-s1-203.png",
+      "promptPreview": "Create one original educational math illustration for a Shanghai Education Press junior-secondary question.\nQuestion ID: hjb-junior-ds-v2-s1-203\nGrade and volume: S1 upper, 七年级上册\nUnit: 图形的运动\nQuestion type: fill-in\nIllustration type: geometry-diagram\nQuestion prompt in Simplified Chinese: 线段AB沿某一方向平移后得到线段A'B'。如果AB=5 cm，那么A'B'=______ cm。\nGeneration brief: 为沪教版初中数学题 hjb-junior-ds-v2-s1-203 绘制原创题目插图，单元「图形的运动」，不要复制教材或试卷版式。 画清点、线、角、平行/垂直/相交/圆等关系；仅呈现题干给出的条件，不暗示未给结论。\nStyle requirements:\n- Clean 16:9 lan"
+    },
+    {
+      "questionId": "hjb-junior-ds-v2-s1-205",
+      "batchPhase": "pilot",
+      "illustrationType": "geometry-diagram",
+      "outputPath": "candidates/hjb-junior-ds-v2-s1-205.png",
+      "promptPreview": "Create one original educational math illustration for a Shanghai Education Press junior-secondary question.\nQuestion ID: hjb-junior-ds-v2-s1-205\nGrade and volume: S1 upper, 七年级上册\nUnit: 图形的运动\nQuestion type: multiple-choice\nIllustration type: geometry-diagram\nQuestion prompt in Simplified Chinese: 下列图形中，一定是轴对称图形的是：\nIf the prompt asks students to select among figure types, show only neutral schematic figure options without marking the answer.\nGeneration brief: 为沪教版初中数学题 hjb-junior-ds-v2-s1-205 绘制原创"
+    },
+    {
+      "questionId": "hjb-junior-ds-v2-s1-207",
+      "batchPhase": "pilot",
+      "illustrationType": "geometry-diagram",
+      "outputPath": "candidates/hjb-junior-ds-v2-s1-207.png",
+      "promptPreview": "Create one original educational math illustration for a Shanghai Education Press junior-secondary question.\nQuestion ID: hjb-junior-ds-v2-s1-207\nGrade and volume: S1 upper, 七年级上册\nUnit: 图形的运动\nQuestion type: short-answer\nIllustration type: geometry-diagram\nQuestion prompt in Simplified Chinese: 一个正方形绕其中心旋转90°后，与自身重合。请再写出一个旋转角度（大于0°且小于360°），使得该正方形绕中心旋转后也能与自身重合。\nGeneration brief: 为沪教版初中数学题 hjb-junior-ds-v2-s1-207 绘制原创题目插图，单元「图形的运动」，不要复制教材或试卷版式。 画清点、线、角、平行/垂直/相交/圆等关系；仅呈现题干给出的条件，不暗示未给结论。\nStyle require"
+    },
+    {
+      "questionId": "hjb-junior-ds-v2-s1-208",
+      "batchPhase": "pilot",
+      "illustrationType": "geometry-diagram",
+      "outputPath": "candidates/hjb-junior-ds-v2-s1-208.png",
+      "promptPreview": "Create one original educational math illustration for a Shanghai Education Press junior-secondary question.\nQuestion ID: hjb-junior-ds-v2-s1-208\nGrade and volume: S1 upper, 七年级上册\nUnit: 图形的运动\nQuestion type: multiple-choice\nIllustration type: geometry-diagram\nQuestion prompt in Simplified Chinese: 在识别图形运动方式时，下列生活现象中属于平移的是（ ）\nGeneration brief: 为沪教版初中数学题 hjb-junior-ds-v2-s1-208 绘制原创题目插图，单元「图形的运动」，不要复制教材或试卷版式。 画清点、线、角、平行/垂直/相交/圆等关系；仅呈现题干给出的条件，不暗示未给结论。\nStyle requirements:\n- Clean 16:9 landscape educat"
+    },
+    {
+      "questionId": "hjb-junior-ds-v2-s1-209",
+      "batchPhase": "pilot",
+      "illustrationType": "geometry-diagram",
+      "outputPath": "candidates/hjb-junior-ds-v2-s1-209.png",
+      "promptPreview": "Create one original educational math illustration for a Shanghai Education Press junior-secondary question.\nQuestion ID: hjb-junior-ds-v2-s1-209\nGrade and volume: S1 upper, 七年级上册\nUnit: 图形的运动\nQuestion type: fill-in\nIllustration type: geometry-diagram\nQuestion prompt in Simplified Chinese: 线段AB的长度为5 cm。将其沿某一方向平移3 cm后得到线段A'B'，则线段A'B'的长度为______ cm。\nGeneration brief: 为沪教版初中数学题 hjb-junior-ds-v2-s1-209 绘制原创题目插图，单元「图形的运动」，不要复制教材或试卷版式。 画清点、线、角、平行/垂直/相交/圆等关系；仅呈现题干给出的条件，不暗示未给结论。\nStyle requirements:\n- Clean"
+    },
+    {
+      "questionId": "hjb-junior-ds-v2-s1-212",
+      "batchPhase": "full",
+      "illustrationType": "geometry-diagram",
+      "outputPath": "candidates/hjb-junior-ds-v2-s1-212.png",
+      "promptPreview": "Create one original educational math illustration for a Shanghai Education Press junior-secondary question.\nQuestion ID: hjb-junior-ds-v2-s1-212\nGrade and volume: S1 upper, 七年级上册\nUnit: 图形的运动\nQuestion type: fill-in\nIllustration type: geometry-diagram\nQuestion prompt in Simplified Chinese: 已知线段AB的长度为5 cm。将线段AB绕点A逆时针旋转90°得到线段AB'。线段AB'的长度为______ cm。\nGeneration brief: 为沪教版初中数学题 hjb-junior-ds-v2-s1-212 绘制原创题目插图，单元「图形的运动」，不要复制教材或试卷版式。 画清点、线、角、平行/垂直/相交/圆等关系；仅呈现题干给出的条件，不暗示未给结论。\nStyle requirements:\n- Clea"
+    },
+    {
+      "questionId": "hjb-junior-ds-v2-s1-215",
+      "batchPhase": "full",
+      "illustrationType": "geometry-diagram",
+      "outputPath": "candidates/hjb-junior-ds-v2-s1-215.png",
+      "promptPreview": "Create one original educational math illustration for a Shanghai Education Press junior-secondary question.\nQuestion ID: hjb-junior-ds-v2-s1-215\nGrade and volume: S1 upper, 七年级上册\nUnit: 图形的运动\nQuestion type: fill-in\nIllustration type: geometry-diagram\nQuestion prompt in Simplified Chinese: 已知三角形ABC与三角形DEF关于直线l成轴对称。若点A与点D是对应点，点B与点E是对应点，且AB=6 cm，则DE=______ cm。\nGeneration brief: 为沪教版初中数学题 hjb-junior-ds-v2-s1-215 绘制原创题目插图，单元「图形的运动」，不要复制教材或试卷版式。 画清点、线、角、平行/垂直/相交/圆等关系；仅呈现题干给出的条件，不暗示未给结论。\nStyle requireme"
+    },
+    {
+      "questionId": "hjb-junior-ds-v2-s1-218",
+      "batchPhase": "full",
+      "illustrationType": "geometry-diagram",
+      "outputPath": "candidates/hjb-junior-ds-v2-s1-218.png",
+      "promptPreview": "Create one original educational math illustration for a Shanghai Education Press junior-secondary question.\nQuestion ID: hjb-junior-ds-v2-s1-218\nGrade and volume: S1 upper, 七年级上册\nUnit: 图形的运动\nQuestion type: fill-in\nIllustration type: geometry-diagram\nQuestion prompt in Simplified Chinese: 已知线段AB的两个端点坐标分别为A(2,3)和B(5,7)。将线段AB绕原点O逆时针旋转90°，得到线段A'B'。则点A'的坐标为______。\nGeneration brief: 为沪教版初中数学题 hjb-junior-ds-v2-s1-218 绘制原创题目插图，单元「图形的运动」，不要复制教材或试卷版式。 画清点、线、角、平行/垂直/相交/圆等关系；仅呈现题干给出的条件，不暗示未给结论。\nStyle requir"
+    },
+    {
+      "questionId": "hjb-junior-ds-v2-s1-220",
+      "batchPhase": "full",
+      "illustrationType": "geometry-diagram",
+      "outputPath": "candidates/hjb-junior-ds-v2-s1-220.png",
+      "promptPreview": "Create one original educational math illustration for a Shanghai Education Press junior-secondary question.\nQuestion ID: hjb-junior-ds-v2-s1-220\nGrade and volume: S1 upper, 七年级上册\nUnit: 图形的运动\nQuestion type: multiple-choice\nIllustration type: geometry-diagram\nQuestion prompt in Simplified Chinese: 将点A(3,4)绕原点O顺时针旋转90°后，得到的点A'的坐标是（ ）。\nGeneration brief: 为沪教版初中数学题 hjb-junior-ds-v2-s1-220 绘制原创题目插图，单元「图形的运动」，不要复制教材或试卷版式。 画清点、线、角、平行/垂直/相交/圆等关系；仅呈现题干给出的条件，不暗示未给结论。\nStyle requirements:\n- Clean 16:9 landsca"
+    },
+    {
+      "questionId": "hjb-junior-ds-v2-s1-221",
+      "batchPhase": "full",
+      "illustrationType": "geometry-diagram",
+      "outputPath": "candidates/hjb-junior-ds-v2-s1-221.png",
+      "promptPreview": "Create one original educational math illustration for a Shanghai Education Press junior-secondary question.\nQuestion ID: hjb-junior-ds-v2-s1-221\nGrade and volume: S1 upper, 七年级上册\nUnit: 图形的运动\nQuestion type: fill-in\nIllustration type: geometry-diagram\nQuestion prompt in Simplified Chinese: 将点A(2, -3)先向右平移4个单位，再向上平移1个单位，得到点B。点B的坐标是______。\nGeneration brief: 为沪教版初中数学题 hjb-junior-ds-v2-s1-221 绘制原创题目插图，单元「图形的运动」，不要复制教材或试卷版式。 画清点、线、角、平行/垂直/相交/圆等关系；仅呈现题干给出的条件，不暗示未给结论。\nStyle requirements:\n- Clean 16:9 lan"
+    },
+    {
+      "questionId": "hjb-junior-ds-v2-s1-222",
+      "batchPhase": "full",
+      "illustrationType": "geometry-diagram",
+      "outputPath": "candidates/hjb-junior-ds-v2-s1-222.png",
+      "promptPreview": "Create one original educational math illustration for a Shanghai Education Press junior-secondary question.\nQuestion ID: hjb-junior-ds-v2-s1-222\nGrade and volume: S1 upper, 七年级上册\nUnit: 图形的运动\nQuestion type: short-answer\nIllustration type: geometry-diagram\nQuestion prompt in Simplified Chinese: 已知线段AB的长度为5 cm，将其绕点A逆时针旋转90°得到线段AC。请回答：线段AC的长度是多少？并说明理由。\nGeneration brief: 为沪教版初中数学题 hjb-junior-ds-v2-s1-222 绘制原创题目插图，单元「图形的运动」，不要复制教材或试卷版式。 画清点、线、角、平行/垂直/相交/圆等关系；仅呈现题干给出的条件，不暗示未给结论。\nStyle requirements:\n- C"
+    }
+  ]
+}

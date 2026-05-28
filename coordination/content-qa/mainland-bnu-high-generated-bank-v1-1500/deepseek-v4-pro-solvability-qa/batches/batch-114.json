@@ -1,0 +1,135 @@
+{
+  "batchNumber": 114,
+  "startedAt": "2026-05-27T14:03:15.839Z",
+  "completedAt": "2026-05-27T14:03:33.366Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-405",
+    "bnu-high-ds-v1-s5-406",
+    "bnu-high-ds-v1-s5-407",
+    "bnu-high-ds-v1-s5-408",
+    "bnu-high-ds-v1-s5-409",
+    "bnu-high-ds-v1-s5-410",
+    "bnu-high-ds-v1-s5-411",
+    "bnu-high-ds-v1-s5-412"
+  ],
+  "usage": {
+    "prompt_tokens": 10572,
+    "completion_tokens": 1107,
+    "total_tokens": 11679,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10060
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-405",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0.432",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "二项分布计算正确，答案0.432与解析一致，可解。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-406",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0.3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由分布列和为1得a=0.3，期望验证符合，选项C正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-407",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0.83692",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "二项分布P(X≥3)计算正确，答案0.83692与解析一致，可解。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-408",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "分布列概率和为1，期望和方差计算正确，答案1与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-409",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "independentAnswer": "5",
+        "correctedAnswer": null,
+        "issueTags": [
+          "explanation_contradiction"
+        ],
+        "severity": "minor",
+        "confidence": "medium",
+        "rationaleZhHans": "正态分布N(3,4)中σ=2，P(X>5)=0.1587≈0.16，选项5正确。但解析中“P(X>3+2)=0.5-0.4772=0.0228”计算错误，应为0.5-0.4772=0.0228，但实际P(X>5)=0.1587，该句与答案矛盾，但整体不影响答案正确性。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-410",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0.46",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "独立事件恰有两人达标概率计算正确，答案0.46与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-411",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "3/7",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "条件概率计算正确，第一次红球后剩4红3蓝，第二次蓝球概率3/7，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-412",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "1.4",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "期望计算正确，答案1.4与解析一致，选项B正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 1,
+      "fail": 0,
+      "notes": "8题中7题完全通过，1题（bnu-high-ds-v1-s5-409）解析存在轻微矛盾但不影响答案正确性，标记为warn。"
+    }
+  }
+}

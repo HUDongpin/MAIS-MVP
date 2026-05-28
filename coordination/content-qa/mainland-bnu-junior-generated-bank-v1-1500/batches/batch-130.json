@@ -1,0 +1,615 @@
+{
+  "batchId": "batch-130",
+  "questions": [
+    {
+      "id": "bnu-junior-ds-v1-s3-291",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-inverse-proportion",
+      "unitTitle": "反比例函数",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "inverse-proportional-functions",
+        "function-graphs",
+        "function-properties",
+        "modeling",
+        "反比例函数",
+        "双曲线"
+      ],
+      "competencyTags": [
+        "函数观念",
+        "模型意识",
+        "几何直观"
+      ],
+      "skillTags": [
+        "函数表达式",
+        "图象性质",
+        "象限判断",
+        "参数意义",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "inverse proportion confused with linear decrease",
+        "parameter sign ignored",
+        "domain restriction omitted in context"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-inverse-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-inverse-proportion-unit",
+        "bnu-junior-s3-upper-assessment-midterm-1-to-6-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某工厂生产一批零件，计划每天生产x个，需要y天完成。已知x与y满足反比例关系，且当每天生产40个时，需要30天完成。若工厂要求工期不超过25天，则每天至少需要生产多少个？",
+      "optionsZhHans": [],
+      "answer": "48",
+      "acceptedAnswers": [
+        "48"
+      ],
+      "explanationZhHans": "由反比例关系设xy=k，代入(40,30)得k=1200。工期不超过25天即y≤25，由x=1200/y得x≥1200/25=48，故每天至少生产48个。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-292",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-inverse-proportion",
+      "unitTitle": "反比例函数",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "inverse-proportional-functions",
+        "function-graphs",
+        "function-properties",
+        "modeling",
+        "反比例函数",
+        "双曲线"
+      ],
+      "competencyTags": [
+        "函数观念",
+        "模型意识",
+        "几何直观"
+      ],
+      "skillTags": [
+        "函数表达式",
+        "图象性质",
+        "象限判断",
+        "参数意义",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "inverse proportion confused with linear decrease",
+        "parameter sign ignored",
+        "domain restriction omitted in context"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-inverse-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-inverse-proportion-unit",
+        "bnu-junior-s3-upper-assessment-midterm-1-to-6-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知反比例函数y=(k-1)/x的图象位于第二、四象限，则k的取值范围是？",
+      "optionsZhHans": [
+        "k>1",
+        "k<1",
+        "k≥1",
+        "k≤1"
+      ],
+      "answer": "k<1",
+      "acceptedAnswers": [
+        "k<1"
+      ],
+      "explanationZhHans": "反比例函数图象在二、四象限时，比例系数为负，即k-1<0，解得k<1。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-293",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-inverse-proportion",
+      "unitTitle": "反比例函数",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "inverse-proportional-functions",
+        "function-graphs",
+        "function-properties",
+        "modeling",
+        "反比例函数",
+        "双曲线"
+      ],
+      "competencyTags": [
+        "函数观念",
+        "模型意识",
+        "几何直观"
+      ],
+      "skillTags": [
+        "函数表达式",
+        "图象性质",
+        "象限判断",
+        "参数意义",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "inverse proportion confused with linear decrease",
+        "parameter sign ignored",
+        "domain restriction omitted in context"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-inverse-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-inverse-proportion-unit",
+        "bnu-junior-s3-upper-assessment-midterm-1-to-6-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一辆汽车从甲地匀速驶往乙地，速度v(km/h)与时间t(h)满足反比例关系。已知当v=60时，t=4。求：(1)v关于t的函数表达式；(2)若要求时间不超过3小时，速度至少为多少？",
+      "optionsZhHans": [],
+      "answer": "(1) v=240/t；(2) 80 km/h",
+      "acceptedAnswers": [
+        "(1) v=240/t；(2) 80 km/h",
+        "v=240/t, 80 km/h",
+        "v=240/t，80 km/h"
+      ],
+      "explanationZhHans": "设v=k/t，代入(60,4)得k=240，故v=240/t。当t≤3时，v≥240/3=80，即速度至少80 km/h。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-294",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-inverse-proportion",
+      "unitTitle": "反比例函数",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "inverse-proportional-functions",
+        "function-graphs",
+        "function-properties",
+        "modeling",
+        "反比例函数",
+        "双曲线"
+      ],
+      "competencyTags": [
+        "函数观念",
+        "模型意识",
+        "几何直观"
+      ],
+      "skillTags": [
+        "函数表达式",
+        "图象性质",
+        "象限判断",
+        "参数意义",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "inverse proportion confused with linear decrease",
+        "parameter sign ignored",
+        "domain restriction omitted in context"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-inverse-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-inverse-proportion-unit",
+        "bnu-junior-s3-upper-assessment-midterm-1-to-6-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知点A(2, a)和点B(b, -3)都在反比例函数y=m/x的图象上，且m>0。若a=6，则b的值为______。",
+      "optionsZhHans": [],
+      "answer": "-4",
+      "acceptedAnswers": [
+        "-4"
+      ],
+      "explanationZhHans": "由A(2,6)得m=2×6=12，函数为y=12/x。将B(b,-3)代入得-3=12/b，解得b=-4。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-295",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-inverse-proportion",
+      "unitTitle": "反比例函数",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "inverse-proportional-functions",
+        "function-graphs",
+        "function-properties",
+        "modeling",
+        "反比例函数",
+        "双曲线"
+      ],
+      "competencyTags": [
+        "函数观念",
+        "模型意识",
+        "几何直观"
+      ],
+      "skillTags": [
+        "函数表达式",
+        "图象性质",
+        "象限判断",
+        "参数意义",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "inverse proportion confused with linear decrease",
+        "parameter sign ignored",
+        "domain restriction omitted in context"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-inverse-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-inverse-proportion-unit",
+        "bnu-junior-s3-upper-assessment-midterm-1-to-6-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知反比例函数y=(2m-1)/x，当x<0时，y随x的增大而增大，则m的值可能是？",
+      "optionsZhHans": [
+        "m=0",
+        "m=0.5",
+        "m=1",
+        "m=2"
+      ],
+      "answer": "m=0",
+      "acceptedAnswers": [
+        "m=0"
+      ],
+      "explanationZhHans": "x<0时y随x增大而增大，说明在第二象限函数递增，此时比例系数应为负，即2m-1<0，解得m<0.5。选项中只有m=0满足。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-296",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-inverse-proportion",
+      "unitTitle": "反比例函数",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "inverse-proportional-functions",
+        "function-graphs",
+        "function-properties",
+        "modeling",
+        "反比例函数",
+        "双曲线"
+      ],
+      "competencyTags": [
+        "函数观念",
+        "模型意识",
+        "几何直观"
+      ],
+      "skillTags": [
+        "函数表达式",
+        "图象性质",
+        "象限判断",
+        "参数意义",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "inverse proportion confused with linear decrease",
+        "parameter sign ignored",
+        "domain restriction omitted in context"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-inverse-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-inverse-proportion-unit",
+        "bnu-junior-s3-upper-assessment-midterm-1-to-6-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知反比例函数y=k/x的图象经过点(-3, 2)。判断点(6, -1)是否在该函数图象上，并说明理由。",
+      "optionsZhHans": [],
+      "answer": "是，因为k=-6，点(6,-1)满足xy=-6。",
+      "acceptedAnswers": [
+        "是，因为k=-6，点(6,-1)满足xy=-6。",
+        "是，k=-6，点(6,-1)满足xy=-6"
+      ],
+      "explanationZhHans": "由(-3,2)得k=-3×2=-6，函数为y=-6/x。将x=6代入得y=-1，故点(6,-1)在图象上。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-297",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-inverse-proportion",
+      "unitTitle": "反比例函数",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "inverse-proportional-functions",
+        "function-graphs",
+        "function-properties",
+        "modeling",
+        "反比例函数",
+        "双曲线"
+      ],
+      "competencyTags": [
+        "函数观念",
+        "模型意识",
+        "几何直观"
+      ],
+      "skillTags": [
+        "函数表达式",
+        "图象性质",
+        "象限判断",
+        "参数意义",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "inverse proportion confused with linear decrease",
+        "parameter sign ignored",
+        "domain restriction omitted in context"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-inverse-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-inverse-proportion-unit",
+        "bnu-junior-s3-upper-assessment-midterm-1-to-6-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知反比例函数y=(a+2)/x，当x>0时，y随x的增大而减小，则a的取值范围是______。",
+      "optionsZhHans": [],
+      "answer": "a>-2",
+      "acceptedAnswers": [
+        "a>-2"
+      ],
+      "explanationZhHans": "x>0时y随x增大而减小，说明在第一象限函数递减，此时比例系数为正，即a+2>0，解得a>-2。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-298",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-inverse-proportion",
+      "unitTitle": "反比例函数",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "inverse-proportional-functions",
+        "function-graphs",
+        "function-properties",
+        "modeling",
+        "反比例函数",
+        "双曲线"
+      ],
+      "competencyTags": [
+        "函数观念",
+        "模型意识",
+        "几何直观"
+      ],
+      "skillTags": [
+        "函数表达式",
+        "图象性质",
+        "象限判断",
+        "参数意义",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "inverse proportion confused with linear decrease",
+        "parameter sign ignored",
+        "domain restriction omitted in context"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-inverse-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-inverse-proportion-unit",
+        "bnu-junior-s3-upper-assessment-midterm-1-to-6-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下列各点中，在反比例函数y=-8/x图象上的是？",
+      "optionsZhHans": [
+        "(2, 4)",
+        "(-2, -4)",
+        "(-4, -2)",
+        "(4, -2)"
+      ],
+      "answer": "(4, -2)",
+      "acceptedAnswers": [
+        "(4, -2)"
+      ],
+      "explanationZhHans": "将各点横纵坐标相乘，积为-8的即在图象上。4×(-2)=-8，故选(4,-2)。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-299",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-inverse-proportion",
+      "unitTitle": "反比例函数",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "inverse-proportional-functions",
+        "function-graphs",
+        "function-properties",
+        "modeling",
+        "反比例函数",
+        "双曲线"
+      ],
+      "competencyTags": [
+        "函数观念",
+        "模型意识",
+        "几何直观"
+      ],
+      "skillTags": [
+        "函数表达式",
+        "图象性质",
+        "象限判断",
+        "参数意义",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "inverse proportion confused with linear decrease",
+        "parameter sign ignored",
+        "domain restriction omitted in context"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-inverse-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-inverse-proportion-unit",
+        "bnu-junior-s3-upper-assessment-midterm-1-to-6-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某气球内充满一定质量的气体，当温度不变时，气球内气体的气压p(kPa)是气体体积V(m³)的反比例函数。已知当V=0.8时，p=120。求：(1)p关于V的函数表达式；(2)当气体体积为1.2 m³时，气压是多少？",
+      "optionsZhHans": [],
+      "answer": "(1) p=96/V；(2) 80 kPa",
+      "acceptedAnswers": [
+        "(1) p=96/V；(2) 80 kPa",
+        "p=96/V, 80 kPa",
+        "p=96/V，80 kPa"
+      ],
+      "explanationZhHans": "设p=k/V，代入(0.8,120)得k=96，故p=96/V。当V=1.2时，p=96/1.2=80 kPa。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-300",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-inverse-proportion",
+      "unitTitle": "反比例函数",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "inverse-proportional-functions",
+        "function-graphs",
+        "function-properties",
+        "modeling",
+        "反比例函数",
+        "双曲线"
+      ],
+      "competencyTags": [
+        "函数观念",
+        "模型意识",
+        "几何直观"
+      ],
+      "skillTags": [
+        "函数表达式",
+        "图象性质",
+        "象限判断",
+        "参数意义",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "inverse proportion confused with linear decrease",
+        "parameter sign ignored",
+        "domain restriction omitted in context"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-inverse-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-inverse-proportion-unit",
+        "bnu-junior-s3-upper-assessment-midterm-1-to-6-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知反比例函数y=k/x的图象经过点(3, -4)，则k的值为______。",
+      "optionsZhHans": [],
+      "answer": "-12",
+      "acceptedAnswers": [
+        "-12"
+      ],
+      "explanationZhHans": "将点(3,-4)代入y=k/x得-4=k/3，解得k=-12。"
+    }
+  ]
+}

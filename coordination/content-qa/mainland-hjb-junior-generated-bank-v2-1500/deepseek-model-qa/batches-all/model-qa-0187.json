@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0187",
+  "ids": [
+    "hjb-junior-ds-v2-s3-489",
+    "hjb-junior-ds-v2-s3-490",
+    "hjb-junior-ds-v2-s3-491",
+    "hjb-junior-ds-v2-s3-492",
+    "hjb-junior-ds-v2-s3-493",
+    "hjb-junior-ds-v2-s3-494",
+    "hjb-junior-ds-v2-s3-495",
+    "hjb-junior-ds-v2-s3-496"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-489",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "81",
+      "answerCheckZhHans": "标准答案为81，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-490",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "方差",
+      "answerCheckZhHans": "标准答案为方差，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-491",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "中位数",
+      "answerCheckZhHans": "标准答案为中位数，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-492",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "方差计算错误。正确平均数为83.33，方差为53.33，四舍五入为53，但选项中最接近的是52，且解析中计算过程有误（平均数取83导致结果偏差）。标准答案52与正确计算结果53不符。",
+      "independentAnswerZhHans": "53",
+      "answerCheckZhHans": "标准答案为52，但正确计算应为53。解析中平均数取83，方差计算为53.33，四舍五入得53，但选项无53，最接近52，但答案应为53。",
+      "recommendedActionZhHans": "修正答案和解析，或调整选项。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-493",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "直方图",
+      "answerCheckZhHans": "标准答案为直方图，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-494",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "95",
+      "answerCheckZhHans": "标准答案为95，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-495",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "方差",
+      "answerCheckZhHans": "标准答案为方差，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-496",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "平均数",
+      "answerCheckZhHans": "标准答案为平均数，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

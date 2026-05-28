@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0076",
+  "ids": [
+    "hjb-junior-ds-v2-s2-101",
+    "hjb-junior-ds-v2-s2-102",
+    "hjb-junior-ds-v2-s2-103",
+    "hjb-junior-ds-v2-s2-104",
+    "hjb-junior-ds-v2-s2-105",
+    "hjb-junior-ds-v2-s2-106",
+    "hjb-junior-ds-v2-s2-107",
+    "hjb-junior-ds-v2-s2-108"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-101",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x ≥ 2",
+      "answerCheckZhHans": "标准答案 x ≥ 2 正确，与独立求解一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-102",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3√3",
+      "answerCheckZhHans": "标准答案 3√3 正确，与独立求解一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-103",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "√8",
+      "answerCheckZhHans": "标准答案 √8 正确，与独立求解一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-104",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "6a√(2b)",
+      "answerCheckZhHans": "标准答案 6a√(2b) 正确，与独立求解一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-105",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "0",
+      "answerCheckZhHans": "标准答案 0 正确，与独立求解一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-106",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x ≥ 3",
+      "answerCheckZhHans": "标准答案 x≥3 正确，与独立求解一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-107",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "4√3",
+      "answerCheckZhHans": "标准答案 4√3 正确，与独立求解一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-108",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为4，但解析计算得10，两者矛盾。独立计算得10，故答案错误。",
+      "independentAnswerZhHans": "10",
+      "answerCheckZhHans": "标准答案4与解析10不一致，独立求解结果为10，答案错误。",
+      "recommendedActionZhHans": "修正答案为10，并更新解析。",
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-121",
+  "startedAt": "2026-05-28T03:03:38.017Z",
+  "completedAt": "2026-05-28T03:03:43.243Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-121"
+  ],
+  "usage": {
+    "prompt_tokens": 2070,
+    "completion_tokens": 262,
+    "total_tokens": 2332,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1686
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-121",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "B",
+        "correctedAnswer": "B",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，定点 P(2,2) 代入幂函数得 2^b=2，解得 b=1，对应选项 B。存储答案选 A（0），解析中计算得 b=1 却错误选 A，答案与解析矛盾，且唯一正确选项为 B。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "答案错误，解析自相矛盾，正确选项为 B。"
+    }
+  }
+}

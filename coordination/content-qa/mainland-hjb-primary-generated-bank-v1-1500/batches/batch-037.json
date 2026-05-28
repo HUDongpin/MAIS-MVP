@@ -1,0 +1,288 @@
+{
+  "batchId": "batch-037",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p1-181",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "hjb-primary-p1-lower-time-introduction",
+      "unitTitle": "时间的初步认识",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "time-introduction",
+        "clock-reading",
+        "daily-routines",
+        "时间初步认识"
+      ],
+      "competencyTags": [
+        "量感",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "整时半时",
+        "钟面观察",
+        "时间顺序",
+        "日常安排"
+      ],
+      "misconceptionTags": [
+        "hour and minute hands confused",
+        "event order inferred from preference rather than time",
+        "half-hour language read as a whole hour"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p1-lower-time-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-lower-assessment-time-introduction",
+        "hjb-primary-p1-lower-assessment-midterm-1-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明的钟面上，时针指向9和10之间，分针指向6。这个时间是（ ）。",
+      "optionsZhHans": [
+        "9:30",
+        "10:30",
+        "9:06",
+        "10:06"
+      ],
+      "answer": "9:30",
+      "acceptedAnswers": [
+        "9:30"
+      ],
+      "explanationZhHans": "时针在9和10之间，说明是9时多；分针指向6表示30分，所以是9时30分，写作9:30。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-182",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "hjb-primary-p1-lower-time-introduction",
+      "unitTitle": "时间的初步认识",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "time-introduction",
+        "clock-reading",
+        "daily-routines",
+        "时间初步认识"
+      ],
+      "competencyTags": [
+        "量感",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "整时半时",
+        "钟面观察",
+        "时间顺序",
+        "日常安排"
+      ],
+      "misconceptionTags": [
+        "hour and minute hands confused",
+        "event order inferred from preference rather than time",
+        "half-hour language read as a whole hour"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p1-lower-time-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-lower-assessment-time-introduction",
+        "hjb-primary-p1-lower-assessment-midterm-1-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "写出下面钟面表示的时间：时针指向4，分针指向12。这个时间是______时。",
+      "optionsZhHans": [],
+      "answer": "4",
+      "acceptedAnswers": [
+        "4",
+        "4时"
+      ],
+      "explanationZhHans": "分针指向12表示整时，时针指向4就是4时。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-183",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "hjb-primary-p1-lower-time-introduction",
+      "unitTitle": "时间的初步认识",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "time-introduction",
+        "clock-reading",
+        "daily-routines",
+        "时间初步认识"
+      ],
+      "competencyTags": [
+        "量感",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "整时半时",
+        "钟面观察",
+        "时间顺序",
+        "日常安排"
+      ],
+      "misconceptionTags": [
+        "hour and minute hands confused",
+        "event order inferred from preference rather than time",
+        "half-hour language read as a whole hour"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p1-lower-time-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-lower-assessment-time-introduction",
+        "hjb-primary-p1-lower-assessment-midterm-1-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪件事最可能在下午1:30发生？",
+      "optionsZhHans": [
+        "吃午饭",
+        "吃早饭",
+        "晚上睡觉",
+        "下午放学"
+      ],
+      "answer": "吃午饭",
+      "acceptedAnswers": [
+        "吃午饭"
+      ],
+      "explanationZhHans": "下午1:30是中午之后，通常是吃午饭的时间。早饭在早上，睡觉在晚上，放学一般在下午3点以后。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-184",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "hjb-primary-p1-lower-time-introduction",
+      "unitTitle": "时间的初步认识",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "time-introduction",
+        "clock-reading",
+        "daily-routines",
+        "时间初步认识"
+      ],
+      "competencyTags": [
+        "量感",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "整时半时",
+        "钟面观察",
+        "时间顺序",
+        "日常安排"
+      ],
+      "misconceptionTags": [
+        "hour and minute hands confused",
+        "event order inferred from preference rather than time",
+        "half-hour language read as a whole hour"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p1-lower-time-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-lower-assessment-time-introduction",
+        "hjb-primary-p1-lower-assessment-midterm-1-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "按照时间顺序，把下面的活动排一排：①晚上8:00睡觉 ②早上7:00起床 ③中午12:00吃午饭。正确的顺序是______。（填序号）",
+      "optionsZhHans": [],
+      "answer": "②③①",
+      "acceptedAnswers": [
+        "②③①",
+        "2,3,1",
+        "2、3、1"
+      ],
+      "explanationZhHans": "先早上7:00起床，然后中午12:00吃午饭，最后晚上8:00睡觉，所以顺序是②③①。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-185",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "hjb-primary-p1-lower-time-introduction",
+      "unitTitle": "时间的初步认识",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "time-introduction",
+        "clock-reading",
+        "daily-routines",
+        "时间初步认识"
+      ],
+      "competencyTags": [
+        "量感",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "整时半时",
+        "钟面观察",
+        "时间顺序",
+        "日常安排"
+      ],
+      "misconceptionTags": [
+        "hour and minute hands confused",
+        "event order inferred from preference rather than time",
+        "half-hour language read as a whole hour"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p1-lower-time-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-lower-assessment-time-introduction",
+        "hjb-primary-p1-lower-assessment-midterm-1-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "钟面上，时针指向8，分针指向12。这个时间是（ ）。",
+      "optionsZhHans": [
+        "8:00",
+        "12:00",
+        "8:12",
+        "12:08"
+      ],
+      "answer": "8:00",
+      "acceptedAnswers": [
+        "8:00"
+      ],
+      "explanationZhHans": "分针指向12表示整时，时针指向8就是8时，写作8:00。"
+    }
+  ]
+}

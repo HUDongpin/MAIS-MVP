@@ -1,0 +1,306 @@
+{
+  "batchId": "batch-049",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s2-k06-sa-013",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-axis-symmetry-isosceles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean"
+      ],
+      "promptZhHans": "在△ABC中，AB = AC，点D在BC上，且AD = BD。若∠BAD = 40°，求∠B的度数。",
+      "optionsZhHans": [],
+      "answer": "40°",
+      "acceptedAnswers": [
+        "40°",
+        "40度"
+      ],
+      "explanationZhHans": "因为AD = BD，所以∠B = ∠BAD = 40°。又因为AB = AC，所以∠C = ∠B = 40°。因此∠B的度数是40°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-sa-014",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "点E、F在BC上，BE = CF，AB = DC，∠B = ∠C。求证：AF = DE。",
+      "optionsZhHans": [],
+      "answer": "证明：∵BE=CF，∴BE+EF=CF+EF，即BF=CE。在△ABF和△DCE中，AB=DC，∠B=∠C，BF=CE，∴△ABF≌△DCE(SAS)，∴AF=DE。",
+      "acceptedAnswers": [
+        "证明：∵BE=CF，∴BE+EF=CF+EF，即BF=CE。在△ABF和△DCE中，AB=DC，∠B=∠C，BF=CE，∴△ABF≌△DCE(SAS)，∴AF=DE。",
+        "由BE=CF得BF=CE，然后证△ABF≌△DCE，所以AF=DE"
+      ],
+      "explanationZhHans": "要证AF=DE，可证它们所在的三角形全等。由BE=CF，两边加公共部分EF得BF=CE。已知AB=DC，∠B=∠C，所以△ABF≌△DCE(SAS)。全等三角形对应边相等，故AF=DE。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-sa-015",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-triangle-angle-relations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "在△ABC中，∠A=45°，∠B=65°，则∠C的外角等于多少度？",
+      "optionsZhHans": [],
+      "answer": "110°",
+      "acceptedAnswers": [
+        "110°",
+        "110度",
+        "110"
+      ],
+      "explanationZhHans": "三角形的一个外角等于与它不相邻的两个内角之和，所以∠C的外角=∠A+∠B=45°+65°=110°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-sa-016",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-congruence-proof"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions"
+      ],
+      "promptZhHans": "AC = BD，∠CAB = ∠DBA。求证：BC = AD。",
+      "optionsZhHans": [],
+      "answer": "证明：在△ABC和△BAD中，AC=BD，∠CAB=∠DBA，AB=BA(公共边)，∴△ABC≌△BAD(SAS)，∴BC=AD。",
+      "acceptedAnswers": [
+        "证明：在△ABC和△BAD中，AC=BD，∠CAB=∠DBA，AB=BA(公共边)，∴△ABC≌△BAD(SAS)，∴BC=AD。",
+        "由SAS证△ABC≌△BAD，得BC=AD"
+      ],
+      "explanationZhHans": "观察图形，BC和AD分别在△ABC和△BAD中。已知AC=BD，∠CAB=∠DBA，且AB是公共边，所以△ABC≌△BAD(SAS)。全等三角形对应边BC和AD相等。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-sa-017",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-polynomial-multiplication-factorization"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "promptZhHans": "计算：(2a + 3b)(2a - 3b) - (a - 2b)^2。",
+      "optionsZhHans": [],
+      "answer": "3a^2 - 13b^2 + 4ab",
+      "acceptedAnswers": [
+        "3a^2 - 13b^2 + 4ab",
+        "3a²-13b²+4ab"
+      ],
+      "explanationZhHans": "先利用平方差公式计算(2a+3b)(2a-3b)=4a^2-9b^2。再计算(a-2b)^2=a^2-4ab+4b^2。原式=4a^2-9b^2-(a^2-4ab+4b^2)=4a^2-9b^2-a^2+4ab-4b^2=3a^2-13b^2+4ab。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-sa-018",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-algebraic-fractions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "化简分式：(x^2 - 4) / (x^2 - 4x + 4)，并求当x=3时的值。",
+      "optionsZhHans": [],
+      "answer": "化简得(x+2)/(x-2)，当x=3时值为5",
+      "acceptedAnswers": [
+        "化简得(x+2)/(x-2)，当x=3时值为5",
+        "化简为(x+2)/(x-2)，x=3时值为5"
+      ],
+      "explanationZhHans": "分子x^2-4=(x+2)(x-2)，分母x^2-4x+4=(x-2)^2。所以原式=(x+2)(x-2)/(x-2)^2=(x+2)/(x-2)。当x=3时，代入得(3+2)/(3-2)=5/1=5。注意分母不为零，x≠2，x=3符合。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-sa-019",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-axis-symmetry-isosceles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "在△ABC中，AB = AC，D是BC的中点，DE⊥AB于E，DF⊥AC于F。求证：DE = DF。",
+      "optionsZhHans": [],
+      "answer": "证明：连接AD。∵AB=AC，D为BC中点，∴AD⊥BC，AD平分∠BAC。又DE⊥AB，DF⊥AC，∴DE=DF(角平分线上的点到角两边距离相等)。",
+      "acceptedAnswers": [
+        "证明：连接AD。∵AB=AC，D为BC中点，∴AD⊥BC，AD平分∠BAC。又DE⊥AB，DF⊥AC，∴DE=DF(角平分线上的点到角两边距离相等)。",
+        "连接AD，由等腰三角形三线合一得AD平分∠BAC，然后角平分线性质得DE=DF"
+      ],
+      "explanationZhHans": "连接AD，因为AB=AC，D是BC中点，根据等腰三角形三线合一，AD是底边BC上的高，也是顶角∠BAC的平分线。DE⊥AB，DF⊥AC，所以DE和DF是角平分线上的点到两边的距离，因此DE=DF。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-sa-020",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-proof-calculation-integrated"
+      ],
+      "promptZhHans": "已知一个三角形的两边长分别为3和8，第三边长为奇数，求这个三角形的周长。",
+      "optionsZhHans": [],
+      "answer": "18或20",
+      "acceptedAnswers": [
+        "18或20"
+      ],
+      "explanationZhHans": "设第三边长为x，根据三角形三边关系，8-3 < x < 8+3，即5 < x < 11。x为奇数，所以x=7或9。当x=7时，周长=3+8+7=18；当x=9时，周长=3+8+9=20。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-sa-021",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-triangle-angle-relations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "promptZhHans": "在△ABC中，∠A = 80°，∠B和∠C的平分线相交于点O，求∠BOC的度数。",
+      "optionsZhHans": [],
+      "answer": "130°",
+      "acceptedAnswers": [
+        "130°",
+        "130度"
+      ],
+      "explanationZhHans": "因为BO、CO分别平分∠B和∠C，所以∠OBC = ∠B/2，∠OCB = ∠C/2。在△BOC中，∠BOC = 180° - (∠OBC + ∠OCB) = 180° - (∠B/2 + ∠C/2) = 180° - (∠B + ∠C)/2。又∠B + ∠C = 180° - ∠A = 180° - 80° = 100°，所以∠BOC = 180° - 100°/2 = 180° - 50° = 130°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-sa-022",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-congruence-proof"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "AD是△ABC的中线，E是AD的中点，连接BE并延长交AC于点F。若AF = 2 cm，求AC的长。",
+      "optionsZhHans": [],
+      "answer": "6 cm",
+      "acceptedAnswers": [
+        "6 cm",
+        "6厘米",
+        "6"
+      ],
+      "explanationZhHans": "过点D作DG∥BF交AC于G。因为D是BC中点，DG∥BF，所以G是CF中点，即CG=GF。又E是AD中点，EF∥DG，所以F是AG中点，即AF=FG。因此AF=FG=GC，所以AC=3AF=3×2=6 cm。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

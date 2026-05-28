@@ -1,0 +1,573 @@
+{
+  "batchId": "batch-081",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p4-051",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-operation-laws",
+      "unitTitle": "运算律",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "operation-laws",
+        "commutative-associative-distributive",
+        "mental-calculation",
+        "运算律",
+        "简便计算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "推理意识",
+        "符号意识"
+      ],
+      "skillTags": [
+        "加法运算律",
+        "乘法运算律",
+        "分配律",
+        "简便计算",
+        "等式变形解释"
+      ],
+      "misconceptionTags": [
+        "law name memorized without equality meaning",
+        "distributive structure applied to nonmatching terms",
+        "shortcut chosen even when it increases complexity"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-operation-laws"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-operation-laws-unit",
+        "bnu-primary-p4-upper-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算 25×36 时，小宇先算 25×4×9，小文先算 25×(30+6)。两人都得到了正确结果。请分别写出他们各用了什么运算律，并说明为什么两种方法都正确。",
+      "optionsZhHans": [],
+      "answer": "小宇用了乘法结合律，把36看成4×9，先算25×4得到100，再乘9得900；小文用了乘法分配律，把36拆成30+6，分别乘25再相加，也是900。两种方法都正确，因为结合律和分配律都能保证算式的结果不变。",
+      "acceptedAnswers": [
+        "小宇用了乘法结合律，把36看成4×9，先算25×4得到100，再乘9得900；小文用了乘法分配律，把36拆成30+6，分别乘25再相加，也是900。两种方法都正确，因为结合律和分配律都能保证算式的结果不变。"
+      ],
+      "explanationZhHans": "小宇将36拆为4×9，利用乘法结合律先算25×4=100，再乘9得900。小文将36拆为30+6，利用乘法分配律分别乘25再相加，也得900。两种变形都保持了等式的值，所以都正确。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-052",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-operation-laws",
+      "unitTitle": "运算律",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "operation-laws",
+        "commutative-associative-distributive",
+        "mental-calculation",
+        "运算律",
+        "简便计算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "推理意识",
+        "符号意识"
+      ],
+      "skillTags": [
+        "加法运算律",
+        "乘法运算律",
+        "分配律",
+        "简便计算",
+        "等式变形解释"
+      ],
+      "misconceptionTags": [
+        "law name memorized without equality meaning",
+        "distributive structure applied to nonmatching terms",
+        "shortcut chosen even when it increases complexity"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-operation-laws"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-operation-laws-unit",
+        "bnu-primary-p4-upper-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪一道算式在计算时最适合使用乘法分配律？",
+      "optionsZhHans": [
+        "25×4×7",
+        "25×(4×7)",
+        "25×(40+7)",
+        "25×40×7"
+      ],
+      "answer": "25×(40+7)",
+      "acceptedAnswers": [
+        "25×(40+7)"
+      ],
+      "explanationZhHans": "乘法分配律适用于一个数乘两个数的和。25×(40+7)可以变成25×40+25×7，计算更简便。其他选项都是连乘，适合用结合律或交换律。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-053",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-operation-laws",
+      "unitTitle": "运算律",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "operation-laws",
+        "commutative-associative-distributive",
+        "mental-calculation",
+        "运算律",
+        "简便计算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "推理意识",
+        "符号意识"
+      ],
+      "skillTags": [
+        "加法运算律",
+        "乘法运算律",
+        "分配律",
+        "简便计算",
+        "等式变形解释"
+      ],
+      "misconceptionTags": [
+        "law name memorized without equality meaning",
+        "distributive structure applied to nonmatching terms",
+        "shortcut chosen even when it increases complexity"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-operation-laws"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-operation-laws-unit",
+        "bnu-primary-p4-upper-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在横线上填合适的数：36×25 = 36×___×5，这里运用了乘法___律。",
+      "optionsZhHans": [],
+      "answer": "5；结合",
+      "acceptedAnswers": [
+        "5；结合",
+        "5，结合"
+      ],
+      "explanationZhHans": "36×25可以写成36×(5×5)，即36×5×5，所以横线填5。这是把25拆成5×5，运用了乘法结合律。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-054",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-operation-laws",
+      "unitTitle": "运算律",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "operation-laws",
+        "commutative-associative-distributive",
+        "mental-calculation",
+        "运算律",
+        "简便计算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "推理意识",
+        "符号意识"
+      ],
+      "skillTags": [
+        "加法运算律",
+        "乘法运算律",
+        "分配律",
+        "简便计算",
+        "等式变形解释"
+      ],
+      "misconceptionTags": [
+        "law name memorized without equality meaning",
+        "distributive structure applied to nonmatching terms",
+        "shortcut chosen even when it increases complexity"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-operation-laws"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-operation-laws-unit",
+        "bnu-primary-p4-upper-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小马虎计算 48×102 时，写成 48×100+2，得到 4802。请指出他的错误，并写出正确的简便计算过程。",
+      "optionsZhHans": [],
+      "answer": "错误：没有把102拆成100+2后用分配律分别乘48，而是只乘了100，漏乘了2。正确：48×102 = 48×(100+2) = 48×100+48×2 = 4800+96 = 4896。",
+      "acceptedAnswers": [
+        "错误：没有把102拆成100+2后用分配律分别乘48，而是只乘了100，漏乘了2。正确：48×102 = 48×(100+2) = 48×100+48×2 = 4800+96 = 4896。"
+      ],
+      "explanationZhHans": "分配律要求括号外的数分别乘括号内的每个数。小马虎只乘了100，漏了乘2，导致结果少了96。正确计算应为48×100+48×2=4800+96=4896。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-055",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-operation-laws",
+      "unitTitle": "运算律",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "operation-laws",
+        "commutative-associative-distributive",
+        "mental-calculation",
+        "运算律",
+        "简便计算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "推理意识",
+        "符号意识"
+      ],
+      "skillTags": [
+        "加法运算律",
+        "乘法运算律",
+        "分配律",
+        "简便计算",
+        "等式变形解释"
+      ],
+      "misconceptionTags": [
+        "law name memorized without equality meaning",
+        "distributive structure applied to nonmatching terms",
+        "shortcut chosen even when it increases complexity"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-operation-laws"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-operation-laws-unit",
+        "bnu-primary-p4-upper-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个算式与 125×88 的计算结果不相等？",
+      "optionsZhHans": [
+        "125×80+125×8",
+        "125×8×11",
+        "125×(80+8)",
+        "125×80×8"
+      ],
+      "answer": "125×80×8",
+      "acceptedAnswers": [
+        "125×80×8"
+      ],
+      "explanationZhHans": "125×88=11000。A和C都用分配律得11000，B用结合律得11000。D是125×80×8=80000，不等于11000，所以不相等。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-056",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-operation-laws",
+      "unitTitle": "运算律",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "operation-laws",
+        "commutative-associative-distributive",
+        "mental-calculation",
+        "运算律",
+        "简便计算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "推理意识",
+        "符号意识"
+      ],
+      "skillTags": [
+        "加法运算律",
+        "乘法运算律",
+        "分配律",
+        "简便计算",
+        "等式变形解释"
+      ],
+      "misconceptionTags": [
+        "law name memorized without equality meaning",
+        "distributive structure applied to nonmatching terms",
+        "shortcut chosen even when it increases complexity"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-operation-laws"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-operation-laws-unit",
+        "bnu-primary-p4-upper-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "根据乘法分配律，在横线上填合适的数：(40+4)×25 = 40×___ + 4×___。",
+      "optionsZhHans": [],
+      "answer": "25；25",
+      "acceptedAnswers": [
+        "25；25",
+        "25，25"
+      ],
+      "explanationZhHans": "乘法分配律：(a+b)×c = a×c + b×c。这里a=40，b=4，c=25，所以两个横线都填25。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-057",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-operation-laws",
+      "unitTitle": "运算律",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "operation-laws",
+        "commutative-associative-distributive",
+        "mental-calculation",
+        "运算律",
+        "简便计算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "推理意识",
+        "符号意识"
+      ],
+      "skillTags": [
+        "加法运算律",
+        "乘法运算律",
+        "分配律",
+        "简便计算",
+        "等式变形解释"
+      ],
+      "misconceptionTags": [
+        "law name memorized without equality meaning",
+        "distributive structure applied to nonmatching terms",
+        "shortcut chosen even when it increases complexity"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-operation-laws"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-operation-laws-unit",
+        "bnu-primary-p4-upper-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用简便方法计算 72×125，并写出每一步的依据。",
+      "optionsZhHans": [],
+      "answer": "72×125 = 9×8×125 = 9×(8×125) = 9×1000 = 9000。第一步把72拆成9×8（分解因数），第二步用乘法结合律先算8×125得到1000，第三步再乘9。",
+      "acceptedAnswers": [
+        "72×125 = 9×8×125 = 9×(8×125) = 9×1000 = 9000。第一步把72拆成9×8（分解因数），第二步用乘法结合律先算8×125得到1000，第三步再乘9。"
+      ],
+      "explanationZhHans": "看到125想到8，因为125×8=1000。把72拆成9×8，利用乘法结合律先算8×125=1000，再乘9得9000，使计算简便。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-058",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-operation-laws",
+      "unitTitle": "运算律",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "operation-laws",
+        "commutative-associative-distributive",
+        "mental-calculation",
+        "运算律",
+        "简便计算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "推理意识",
+        "符号意识"
+      ],
+      "skillTags": [
+        "加法运算律",
+        "乘法运算律",
+        "分配律",
+        "简便计算",
+        "等式变形解释"
+      ],
+      "misconceptionTags": [
+        "law name memorized without equality meaning",
+        "distributive structure applied to nonmatching terms",
+        "shortcut chosen even when it increases complexity"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-operation-laws"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-operation-laws-unit",
+        "bnu-primary-p4-upper-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪一道算式运用了加法结合律？",
+      "optionsZhHans": [
+        "36+59=59+36",
+        "(36+59)+41=36+(59+41)",
+        "36+59+41=36+100",
+        "36+59=30+6+50+9"
+      ],
+      "answer": "(36+59)+41=36+(59+41)",
+      "acceptedAnswers": [
+        "(36+59)+41=36+(59+41)"
+      ],
+      "explanationZhHans": "加法结合律改变加数的分组方式，和不变。B选项把前两个数先加改为后两个数先加，符合结合律。A是交换律，C是简便计算，D是数的分解。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-059",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-operation-laws",
+      "unitTitle": "运算律",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "operation-laws",
+        "commutative-associative-distributive",
+        "mental-calculation",
+        "运算律",
+        "简便计算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "推理意识",
+        "符号意识"
+      ],
+      "skillTags": [
+        "加法运算律",
+        "乘法运算律",
+        "分配律",
+        "简便计算",
+        "等式变形解释"
+      ],
+      "misconceptionTags": [
+        "law name memorized without equality meaning",
+        "distributive structure applied to nonmatching terms",
+        "shortcut chosen even when it increases complexity"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-operation-laws"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-operation-laws-unit",
+        "bnu-primary-p4-upper-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在横线上填合适的数：47+86+53 = 86 + (___+___)，这里运用了加法___律和加法___律。",
+      "optionsZhHans": [],
+      "answer": "47；53；交换；结合",
+      "acceptedAnswers": [
+        "47；53；交换；结合",
+        "47，53，交换，结合"
+      ],
+      "explanationZhHans": "先利用加法交换律把47和86交换位置，变成86+47+53，再利用加法结合律把47和53先加得100，最后加86得186。所以填47、53、交换、结合。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-060",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-operation-laws",
+      "unitTitle": "运算律",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "operation-laws",
+        "commutative-associative-distributive",
+        "mental-calculation",
+        "运算律",
+        "简便计算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "推理意识",
+        "符号意识"
+      ],
+      "skillTags": [
+        "加法运算律",
+        "乘法运算律",
+        "分配律",
+        "简便计算",
+        "等式变形解释"
+      ],
+      "misconceptionTags": [
+        "law name memorized without equality meaning",
+        "distributive structure applied to nonmatching terms",
+        "shortcut chosen even when it increases complexity"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-operation-laws"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-operation-laws-unit",
+        "bnu-primary-p4-upper-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算 99×38+38 时，小慧说：“这题可以看成99个38加1个38，就是100个38，等于3800。”她的话对吗？请用运算律解释。",
+      "optionsZhHans": [],
+      "answer": "对。99×38+38 = 99×38+1×38 = (99+1)×38 = 100×38 = 3800。这里把最后一个38看成1×38，然后逆用乘法分配律，提取公因数38，得到(99+1)×38，计算简便。",
+      "acceptedAnswers": [
+        "对。99×38+38 = 99×38+1×38 = (99+1)×38 = 100×38 = 3800。这里把最后一个38看成1×38，然后逆用乘法分配律，提取公因数38，得到(99+1)×38，计算简便。"
+      ],
+      "explanationZhHans": "小慧的想法正确。把38看作1×38，原式变为99×38+1×38，逆用乘法分配律提取38，得到(99+1)×38=100×38=3800。"
+    }
+  ]
+}

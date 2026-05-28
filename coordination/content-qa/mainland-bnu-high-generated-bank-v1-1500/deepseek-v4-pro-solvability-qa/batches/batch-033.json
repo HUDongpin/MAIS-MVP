@@ -1,0 +1,137 @@
+{
+  "batchNumber": 33,
+  "startedAt": "2026-05-27T13:49:18.834Z",
+  "completedAt": "2026-05-27T13:49:37.569Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-257",
+    "bnu-high-ds-v1-s4-258",
+    "bnu-high-ds-v1-s4-259",
+    "bnu-high-ds-v1-s4-260",
+    "bnu-high-ds-v1-s4-261",
+    "bnu-high-ds-v1-s4-262",
+    "bnu-high-ds-v1-s4-263",
+    "bnu-high-ds-v1-s4-264"
+  ],
+  "usage": {
+    "prompt_tokens": 10872,
+    "completion_tokens": 1239,
+    "total_tokens": 12111,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10360
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-257",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "k=1.5，b=0；在t=10秒时可能不合理，因为实际速度不会无限增加，模型未考虑物理限制。",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目数据明确，可独立求解k和b；答案与独立求解一致；解析正确且与答案相符。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-258",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "r≈0.019，2030年人口预测约为106万；局限性：未考虑资源限制，长期预测可能偏差较大。",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件充分，可独立计算r和预测人口；答案与独立计算一致；解析正确且与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-259",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "C",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目描述清晰，可独立推导分段函数；选项C正确且唯一；解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-260",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "a=100，b≈0.96，预测t=30时温度约为44摄氏度；不适合预测t=60，因为模型未考虑室温下限，长时间后温度应接近室温而非趋于0。",
+        "correctedAnswer": "a=100，b≈0.96，预测t=30时温度约为29摄氏度；不适合预测t=60，因为模型未考虑室温下限，长时间后温度应接近室温而非趋于0。",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立计算t=30时温度约为29°C，但答案和解析均错误地给出44°C；解析中计算过程与结果矛盾（计算得29.4却写44），答案错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-261",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "y=10+2.5(x-3)，定义域为{x|x>3}",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件明确，可独立建立函数模型；答案与独立求解一致；解析正确且与答案相符。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-262",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "x>40",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件充分，可独立求解不等式；选项A正确且唯一；解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-263",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "ab/(a+b)小时",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件明确，可独立求解；答案与独立求解一致；解析正确且与答案相符。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-264",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "L=20x-5000，利润为零时x=250",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件充分，可独立建立函数并求解；答案与独立求解一致；解析正确且与答案相符。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第260题答案和解析存在计算错误，预测温度应为29°C而非44°C，其余题目均通过审核。"
+    }
+  }
+}

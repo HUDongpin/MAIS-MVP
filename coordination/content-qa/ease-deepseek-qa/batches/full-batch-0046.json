@@ -1,0 +1,168 @@
+{
+  "scope": "full",
+  "batchIndex": 46,
+  "startedAt": "2026-05-28T03:40:48.186Z",
+  "completedAt": "2026-05-28T03:42:07.292Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "itemIds": [
+    "828",
+    "829",
+    "830",
+    "851",
+    "854",
+    "862",
+    "863",
+    "864",
+    "866",
+    "868"
+  ],
+  "usage": {
+    "prompt_tokens": 3555,
+    "completion_tokens": 4830,
+    "total_tokens": 8385,
+    "prompt_tokens_details": {
+      "cached_tokens": 3456
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 3442
+    },
+    "prompt_cache_hit_tokens": 3456,
+    "prompt_cache_miss_tokens": 99
+  },
+  "finishReason": "stop",
+  "jsonModeFallback": false,
+  "result": {
+    "items": [
+      {
+        "questionId": "828",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "3^3 \\times 5^4",
+        "independentAnswer": "3^3 \\times 5^4",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "題目清晰可解，答案正確。",
+        "recommendedAction": "無需修改。"
+      },
+      {
+        "questionId": "829",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "5 \\times 7^2",
+        "independentAnswer": "5 \\times 7^2",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "題目清晰可解，答案正確。",
+        "recommendedAction": "無需修改。"
+      },
+      {
+        "questionId": "830",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "8;384",
+        "independentAnswer": "16;192",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "mismatch",
+        "severity": "P0",
+        "reason": "HCF應為16而非8，LCM應為192而非384，標準答案錯誤。",
+        "recommendedAction": "更正標準答案為16;192。"
+      },
+      {
+        "questionId": "851",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "(a)所求的金額\n= \\ [(42.8 \\times 2 + 36.4 \\times  3) - (24.8 + 18.2 \\times 2)]= 133.6\n(b)(i)購買水果後還餘下的金額\n= \\ [250 - (24.8 \\times 2 + 36.4 \\times 4 + 15.1 \\times 2)]=\\ 24.6 寶莉購買水果後還有\\ 24.6。\n(ii)雪糕的總售價\n= \\ 12 \\times 2=\\ 24\n∵\\ 24.6 > \\ 24\n∴寶莉有足夠的金錢購買雪糕。",
+        "independentAnswer": "(a) 133.6 (b)(i) 24.6 (ii) 有足夠金錢",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "題目資訊完整，標準答案計算正確。",
+        "recommendedAction": "無需修改。"
+      },
+      {
+        "questionId": "854",
+        "questionType": "MCQ",
+        "hasImage": false,
+        "standardAnswer": "D",
+        "independentAnswer": "D",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "題目清晰，唯一正確選項為D。",
+        "recommendedAction": "無需修改。"
+      },
+      {
+        "questionId": "862",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "45",
+        "independentAnswer": "45",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "計算正確，答案一致。",
+        "recommendedAction": "無需修改。"
+      },
+      {
+        "questionId": "863",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "112",
+        "independentAnswer": "112",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "計算正確，答案一致。",
+        "recommendedAction": "無需修改。"
+      },
+      {
+        "questionId": "864",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "(a) 哪些可以被3整除？             66    ,   93  \n\n(b) 些可以被4整除？             104    \n \n(c) 被5整除？           65    \n\n(d)哪些可以被6整除？(1分)          66     ",
+        "independentAnswer": "(a) 66, 93; (b) 104; (c) 65; (d) 66",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "整除性判斷正確，標準答案符合。",
+        "recommendedAction": "無需修改。"
+      },
+      {
+        "questionId": "866",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "4;40",
+        "independentAnswer": "4;40",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "HCF及LCM計算正確。",
+        "recommendedAction": "無需修改。"
+      },
+      {
+        "questionId": "868",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "6;90",
+        "independentAnswer": "6;90",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "質因數分解後HCF及LCM正確。",
+        "recommendedAction": "無需修改。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 9,
+      "unsolvable": 0,
+      "ambiguous": 0,
+      "imageContextRequired": 0,
+      "answerMismatch": 1,
+      "missingAnswerKey": 0,
+      "notes": "除Q830答案錯誤外，其餘題目皆可解且答案正確。"
+    }
+  }
+}

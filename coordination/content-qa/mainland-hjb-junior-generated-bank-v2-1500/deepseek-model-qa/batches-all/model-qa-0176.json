@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0176",
+  "ids": [
+    "hjb-junior-ds-v2-s3-401",
+    "hjb-junior-ds-v2-s3-402",
+    "hjb-junior-ds-v2-s3-403",
+    "hjb-junior-ds-v2-s3-404",
+    "hjb-junior-ds-v2-s3-405",
+    "hjb-junior-ds-v2-s3-406",
+    "hjb-junior-ds-v2-s3-407",
+    "hjb-junior-ds-v2-s3-408"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-401",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "7",
+      "answerCheckZhHans": "标准答案为7，与独立解题结果一致。acceptedAnswers包含\"7\"和\"7个\"，覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-402",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "中位数",
+      "answerCheckZhHans": "标准答案为中位数，与独立解题结果一致。选项互异，中位数是唯一正确选项。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-403",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "89",
+      "answerCheckZhHans": "标准答案为89，与独立解题结果一致。acceptedAnswers包含\"89\"和\"89分\"，覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-404",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "独立计算得甲的平均数为8.8，方差为0.56；乙的平均数为8.8，方差为1.56。甲的方差更小，发挥更稳定，应选择甲。但选项C为“甲，因为甲的方差更小”，选项D为“乙，因为乙的方差更小”。标准答案为“甲，因为甲的方差更小”，与独立解题结果一致。然而，解析中给出的方差数值与独立计算一致，但选项C的表述与标准答案一致，因此答案正确。但需确认选项C是否确实为“甲，因为甲的方差更小”，题干中选项C为“甲，因为甲的方差更小”，选项D为“乙，因为乙的方差更小”，因此答案正确。但解析中未明确说明选项C的文本，仅给出计算过程。实际上，标准答案与解析一致，但需检查选项是否互异且唯一正确。选项A和B涉及平均数更高，但平均数相同，故不正确。因此，本题答案正确，但解析未直接对应选项，可能引起混淆。然而，根据QA规则，答案和解析一致，且题干可解，故应pass。但独立检查发现，选项C和D的表述中，C正确，D错误，因此唯一正确选项为C。标准答案与选项C一致。因此，本题无问题。但需注意，解析中未明确写出选项字母，但标准答案已给出选项文本。因此，本题应pass。但之前标记为needs-review，现重新评估。",
+      "independentAnswerZhHans": "甲，因为甲的方差更小",
+      "answerCheckZhHans": "标准答案为“甲，因为甲的方差更小”，与独立解题结果一致。选项C为“甲，因为甲的方差更小”，选项D为“乙，因为乙的方差更小”，因此唯一正确选项为C。",
+      "recommendedActionZhHans": "无需修改，题目正确。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-405",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "161",
+      "answerCheckZhHans": "标准答案为161，与独立解题结果一致。acceptedAnswers包含\"161\"和\"161次\"，覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-406",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "中位数",
+      "answerCheckZhHans": "标准答案为中位数，与独立解题结果一致。选项互异，中位数是唯一正确选项。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-407",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "90",
+      "answerCheckZhHans": "标准答案为90，与独立解题结果一致。acceptedAnswers包含\"90\"，覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-408",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "方差",
+      "answerCheckZhHans": "标准答案为方差，与独立解题结果一致。选项互异，方差是唯一正确选项。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

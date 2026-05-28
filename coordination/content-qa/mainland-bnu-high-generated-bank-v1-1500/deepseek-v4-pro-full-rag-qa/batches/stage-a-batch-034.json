@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-034",
+  "startedAt": "2026-05-28T00:40:57.020Z",
+  "completedAt": "2026-05-28T00:41:15.475Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-265",
+    "bnu-high-ds-v1-s4-266",
+    "bnu-high-ds-v1-s4-267",
+    "bnu-high-ds-v1-s4-268",
+    "bnu-high-ds-v1-s4-269",
+    "bnu-high-ds-v1-s4-270",
+    "bnu-high-ds-v1-s4-271",
+    "bnu-high-ds-v1-s4-272"
+  ],
+  "usage": {
+    "prompt_tokens": 10002,
+    "completion_tokens": 1069,
+    "total_tokens": 11071,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9618
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-265",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "10.5公里",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由y=8+1.6(x-3)=20解得x=10.5，与选项A一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-266",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "20%",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "设每次降价百分率为r，则200(1-r)^2=128，解得r=0.2=20%。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-267",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "y=4x-30 (x>20)",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "前10吨20元，10-20吨30元，超过20吨部分4(x-20)元，合计y=20+30+4(x-20)=4x-30。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-268",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "t>200",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "套餐A费用20+0.1t，套餐B费用0.2t，由20+0.1t<0.2t得t>200。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-269",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "10年",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "10000(1.02)^n>12000，取对数得n>lg1.2/lg1.02≈0.0792/0.0086≈9.21，至少10年。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-270",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "k≈0.04, m=100e^{-0.04t}",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由80=100e^{-5k}得k=-ln0.8/5≈0.0446，精确到0.01为0.04，函数为m=100e^{-0.04t}。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-271",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "乙同学的二次模型更合适，因为它的预测误差更小",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "计算检验点误差：一次模型在t=4,5,6的预测值为52.5,66,79.5，误差分别为1.5,4,7.5；二次模型预测值为55,71,88，误差分别为1,1,1。二次模型误差更小。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-272",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "a=100, b=2, 第5天销售量3200件",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由200=a b, 800=a b^3得b^2=4, b=2, a=100，第5天Q=100*2^5=3200。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，无数学错误、歧义或缺失条件，符合北师大版高一上数学建模活动要求。"
+    }
+  }
+}

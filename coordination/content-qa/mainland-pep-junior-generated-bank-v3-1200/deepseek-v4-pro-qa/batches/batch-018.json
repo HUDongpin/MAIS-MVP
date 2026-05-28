@@ -1,0 +1,137 @@
+{
+  "batchNumber": 18,
+  "startedAt": "2026-05-25T02:50:33.577Z",
+  "completedAt": "2026-05-25T02:50:48.003Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s1-k04-mc-005",
+    "pep-junior-v3-s1-k04-mc-006",
+    "pep-junior-v3-s1-k04-mc-007",
+    "pep-junior-v3-s1-k04-mc-008",
+    "pep-junior-v3-s1-k04-mc-009",
+    "pep-junior-v3-s1-k04-mc-010",
+    "pep-junior-v3-s1-k04-mc-011",
+    "pep-junior-v3-s1-k04-mc-012",
+    "pep-junior-v3-s1-k04-mc-013",
+    "pep-junior-v3-s1-k04-mc-014",
+    "pep-junior-v3-s1-k04-mc-015",
+    "pep-junior-v3-s1-k04-mc-016"
+  ],
+  "usage": {
+    "prompt_tokens": 3272,
+    "completion_tokens": 940,
+    "total_tokens": 4212,
+    "prompt_tokens_details": {
+      "cached_tokens": 3200
+    },
+    "prompt_cache_hit_tokens": 3200,
+    "prompt_cache_miss_tokens": 72
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s1-k04-mc-005",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案1.5，解析无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-mc-006",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案(2,3)，解析无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-mc-007",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案(2,-3)，解析无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-mc-008",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案(1,5)，解析无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-mc-009",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案第三象限，解析无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-mc-010",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案2√13，解析无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-mc-011",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案第一象限，解析无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-mc-012",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案55°，解析无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-mc-013",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案{x+y=10, 5x+3y=40}，解析无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-mc-014",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案样本容量是50，解析无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-mc-015",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案第一象限，解析无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-mc-016",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案25°，解析无误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部12道题均通过审核，无数学错误、答案不匹配、歧义或缺失条件等问题。"
+    }
+  }
+}

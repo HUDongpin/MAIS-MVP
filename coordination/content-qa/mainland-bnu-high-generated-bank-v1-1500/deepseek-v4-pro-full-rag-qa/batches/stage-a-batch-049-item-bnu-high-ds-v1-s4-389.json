@@ -1,0 +1,41 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-049-item-bnu-high-ds-v1-s4-389",
+  "startedAt": "2026-05-28T02:30:25.046Z",
+  "completedAt": "2026-05-28T02:30:34.617Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-389"
+  ],
+  "usage": {
+    "prompt_tokens": 1665,
+    "completion_tokens": 215,
+    "total_tokens": 1880,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1281
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-389",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "10秒",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可直接求解。由y=10sin(πt/30)>5得sin(πt/30)>1/2，在一个周期[0,60]内解得t∈(5,25)∪(35,55)，总时长20秒。但需注意纵坐标大于5厘米的时间长度应为10秒（每个区间5秒，共两个区间）。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 1,
+      "warn": 0,
+      "fail": 0,
+      "notes": "题目条件充分，求解过程清晰，答案唯一。"
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-067",
+  "startedAt": "2026-05-28T01:38:54.458Z",
+  "completedAt": "2026-05-28T01:38:59.059Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-067"
+  ],
+  "usage": {
+    "prompt_tokens": 2402,
+    "completion_tokens": 277,
+    "total_tokens": 2679,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2018
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-067",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "b_n = (3/2)^n - 1",
+        "correctedAnswer": "b_n = (3/2)^n - 1",
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，独立求解得 b_n = (3/2)^n - 1，对应选项B。但存储答案错误为 b_n = (3/2)^{n-1}，与正确选项不符；解析虽推导正确却指向错误答案，构成答案不匹配和解释矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1题答案错误，需修正为选项B。"
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-206",
+  "startedAt": "2026-05-28T01:04:24.594Z",
+  "completedAt": "2026-05-28T01:04:30.885Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-206"
+  ],
+  "usage": {
+    "prompt_tokens": 2223,
+    "completion_tokens": 270,
+    "total_tokens": 2493,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1839
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-206",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "甲中位数81.5，乙中位数83，乙更稳定",
+        "correctedAnswer": "甲中位数81.5，乙中位数83，乙更稳定",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案中甲中位数83、乙中位数82错误，正确应为甲81.5、乙83；解析计算混乱且与答案矛盾。独立解正确，乙更稳定。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目可解，RAG匹配通过，但答案和解析均存在数学错误，需修正。"
+    }
+  }
+}

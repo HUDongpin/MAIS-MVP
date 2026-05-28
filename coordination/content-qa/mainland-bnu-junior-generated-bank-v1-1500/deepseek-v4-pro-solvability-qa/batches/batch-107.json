@@ -1,0 +1,173 @@
+{
+  "batchNumber": 107,
+  "startedAt": "2026-05-27T17:59:44.029Z",
+  "completedAt": "2026-05-27T18:00:02.879Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s3-273",
+    "bnu-junior-ds-v1-s3-274",
+    "bnu-junior-ds-v1-s3-275",
+    "bnu-junior-ds-v1-s3-276",
+    "bnu-junior-ds-v1-s3-277",
+    "bnu-junior-ds-v1-s3-278",
+    "bnu-junior-ds-v1-s3-279",
+    "bnu-junior-ds-v1-s3-280",
+    "bnu-junior-ds-v1-s3-281",
+    "bnu-junior-ds-v1-s3-282",
+    "bnu-junior-ds-v1-s3-283",
+    "bnu-junior-ds-v1-s3-284"
+  ],
+  "usage": {
+    "prompt_tokens": 5755,
+    "completion_tokens": 1438,
+    "total_tokens": 7193,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 5243
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s3-273",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，由图象在二、四象限得2m-1<0，解得m<0.5，整数m最大值为0，答案正确，解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-274",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由点P(-1,2)得a=-2，函数为y=-2/x，点(2,-1)满足，A正确；其他选项均错误，答案唯一且解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-275",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "路程s=60×4=240千米，v=240/t，t≤5时v≥48，答案48正确，解释清晰，acceptedAnswers覆盖合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-276",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由x=-3,y=4得k=-12，代入y=-2解得x=6，答案正确，解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-277",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "联立得k₁x²=k₂，无交点则方程无解，需k₁与k₂异号，选项B正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-278",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "x>0时y随x增大而减小，说明图象在第一象限，比例系数m+1>0，得m>-1，答案正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-279",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "k=-5<0，x<0时在第二象限，y随x增大而增大，由x₁<x₂<0得y₁<y₂，答案正确，解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-280",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "矩形面积12，y=12/x，x表示宽必须为正，不能取任意实数，D错误，答案正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-281",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "总零件数2400，实际每天100个，天数24，反比例关系y=2400/x，答案完整，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-282",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "图象在二、四象限则k-1<0，得k<1，答案正确，解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-283",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "k=-6<0，x₁<x₂<0在第二象限，y>0且y随x增大而增大，故0<y₁<y₂，选项C正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-284",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "代入(2,-3)得m=-6，点(-1,6)满足y=-6/x，答案正确，解释一致。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部12道题均可解，答案与解释匹配，无错误或缺失条件，符合北师大版初三反比例函数要求。"
+    }
+  }
+}

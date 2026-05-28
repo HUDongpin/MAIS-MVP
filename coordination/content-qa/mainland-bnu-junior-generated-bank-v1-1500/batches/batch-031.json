@@ -1,0 +1,625 @@
+{
+  "batchId": "batch-031",
+  "questions": [
+    {
+      "id": "bnu-junior-ds-v1-s1-301",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-intersecting-parallel-lines",
+      "unitTitle": "相交线与平行线",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "intersecting-lines",
+        "parallel-lines",
+        "transversal-angles",
+        "angle-relations",
+        "平行线",
+        "相交线"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "邻补角",
+        "对顶角",
+        "垂线",
+        "平行线性质",
+        "平行线判定",
+        "角度推理"
+      ],
+      "misconceptionTags": [
+        "parallel condition assumed from the drawing",
+        "corresponding and alternate angles confused",
+        "supplementary relation overgeneralized"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-intersecting-parallel-lines"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-intersecting-parallel-lines-unit",
+        "bnu-junior-s1-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知直线 AB 与 CD 相交于点 O，OE 平分 ∠AOC。若 ∠AOE = 35°，则 ∠BOD 的度数是多少？",
+      "optionsZhHans": [
+        "35°",
+        "55°",
+        "70°",
+        "110°"
+      ],
+      "answer": "70°",
+      "acceptedAnswers": [
+        "70°"
+      ],
+      "explanationZhHans": "由 OE 平分 ∠AOC 得 ∠AOC = 2×35° = 70°。∠BOD 与 ∠AOC 是对顶角，对顶角相等，所以 ∠BOD = 70°。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-302",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-intersecting-parallel-lines",
+      "unitTitle": "相交线与平行线",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "intersecting-lines",
+        "parallel-lines",
+        "transversal-angles",
+        "angle-relations",
+        "平行线",
+        "相交线"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "邻补角",
+        "对顶角",
+        "垂线",
+        "平行线性质",
+        "平行线判定",
+        "角度推理"
+      ],
+      "misconceptionTags": [
+        "parallel condition assumed from the drawing",
+        "corresponding and alternate angles confused",
+        "supplementary relation overgeneralized"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-intersecting-parallel-lines"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-intersecting-parallel-lines-unit",
+        "bnu-junior-s1-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知直线 a 与 b 被直线 c 所截，∠1 与 ∠2 是一对内错角。若 ∠1 = 65°，且 a ∥ b，求 ∠2 的度数。",
+      "optionsZhHans": [],
+      "answer": "65°",
+      "acceptedAnswers": [
+        "65°"
+      ],
+      "explanationZhHans": "两直线平行，内错角相等。因为 a ∥ b，所以 ∠2 = ∠1 = 65°。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-303",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-intersecting-parallel-lines",
+      "unitTitle": "相交线与平行线",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "intersecting-lines",
+        "parallel-lines",
+        "transversal-angles",
+        "angle-relations",
+        "平行线",
+        "相交线"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "邻补角",
+        "对顶角",
+        "垂线",
+        "平行线性质",
+        "平行线判定",
+        "角度推理"
+      ],
+      "misconceptionTags": [
+        "parallel condition assumed from the drawing",
+        "corresponding and alternate angles confused",
+        "supplementary relation overgeneralized"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-intersecting-parallel-lines"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-intersecting-parallel-lines-unit",
+        "bnu-junior-s1-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知直线 AB 与 CD 相交于点 O，∠AOD 与 ∠BOC 是一对对顶角。若 ∠AOD = 120°，则 ∠BOC = ______°。",
+      "optionsZhHans": [],
+      "answer": "120",
+      "acceptedAnswers": [
+        "120"
+      ],
+      "explanationZhHans": "对顶角相等，所以 ∠BOC = ∠AOD = 120°。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-304",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-intersecting-parallel-lines",
+      "unitTitle": "相交线与平行线",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "intersecting-lines",
+        "parallel-lines",
+        "transversal-angles",
+        "angle-relations",
+        "平行线",
+        "相交线"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "邻补角",
+        "对顶角",
+        "垂线",
+        "平行线性质",
+        "平行线判定",
+        "角度推理"
+      ],
+      "misconceptionTags": [
+        "parallel condition assumed from the drawing",
+        "corresponding and alternate angles confused",
+        "supplementary relation overgeneralized"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-intersecting-parallel-lines"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-intersecting-parallel-lines-unit",
+        "bnu-junior-s1-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下列条件中，能判定直线 a ∥ b 的是（ ）",
+      "optionsZhHans": [
+        "∠1 与 ∠2 是同位角，且 ∠1 = 80°，∠2 = 80°",
+        "∠1 与 ∠2 是内错角，且 ∠1 = 70°，∠2 = 110°",
+        "∠1 与 ∠2 是同旁内角，且 ∠1 = 60°，∠2 = 60°",
+        "∠1 与 ∠2 是对顶角，且 ∠1 = 90°，∠2 = 90°"
+      ],
+      "answer": "∠1 与 ∠2 是同位角，且 ∠1 = 80°，∠2 = 80°",
+      "acceptedAnswers": [
+        "∠1 与 ∠2 是同位角，且 ∠1 = 80°，∠2 = 80°"
+      ],
+      "explanationZhHans": "同位角相等，两直线平行。A 满足。B 内错角应相等，70°≠110°，不能判定。C 同旁内角应互补，60°+60°=120°≠180°，不能判定。D 对顶角相等与平行无关。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-305",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-intersecting-parallel-lines",
+      "unitTitle": "相交线与平行线",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "intersecting-lines",
+        "parallel-lines",
+        "transversal-angles",
+        "angle-relations",
+        "平行线",
+        "相交线"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "邻补角",
+        "对顶角",
+        "垂线",
+        "平行线性质",
+        "平行线判定",
+        "角度推理"
+      ],
+      "misconceptionTags": [
+        "parallel condition assumed from the drawing",
+        "corresponding and alternate angles confused",
+        "supplementary relation overgeneralized"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-intersecting-parallel-lines"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-intersecting-parallel-lines-unit",
+        "bnu-junior-s1-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知直线 AB ∥ CD，直线 EF 与 AB、CD 分别交于点 G、H。若 ∠EGB = 50°，求 ∠GHD 的度数。",
+      "optionsZhHans": [],
+      "answer": "50°",
+      "acceptedAnswers": [
+        "50°"
+      ],
+      "explanationZhHans": "由 AB ∥ CD，同位角相等，∠EGB 与 ∠GHD 是同位角，所以 ∠GHD = 50°。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-306",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-intersecting-parallel-lines",
+      "unitTitle": "相交线与平行线",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "intersecting-lines",
+        "parallel-lines",
+        "transversal-angles",
+        "angle-relations",
+        "平行线",
+        "相交线"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "邻补角",
+        "对顶角",
+        "垂线",
+        "平行线性质",
+        "平行线判定",
+        "角度推理"
+      ],
+      "misconceptionTags": [
+        "parallel condition assumed from the drawing",
+        "corresponding and alternate angles confused",
+        "supplementary relation overgeneralized"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-intersecting-parallel-lines"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-intersecting-parallel-lines-unit",
+        "bnu-junior-s1-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知直线 a ∥ b，直线 c 与 a、b 相交，形成八个角。若其中一个角为 70°，则与它同旁内角的度数为 ______°。",
+      "optionsZhHans": [],
+      "answer": "110",
+      "acceptedAnswers": [
+        "110"
+      ],
+      "explanationZhHans": "两直线平行，同旁内角互补。所以 180° - 70° = 110°。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-307",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-intersecting-parallel-lines",
+      "unitTitle": "相交线与平行线",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "intersecting-lines",
+        "parallel-lines",
+        "transversal-angles",
+        "angle-relations",
+        "平行线",
+        "相交线"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "邻补角",
+        "对顶角",
+        "垂线",
+        "平行线性质",
+        "平行线判定",
+        "角度推理"
+      ],
+      "misconceptionTags": [
+        "parallel condition assumed from the drawing",
+        "corresponding and alternate angles confused",
+        "supplementary relation overgeneralized"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-intersecting-parallel-lines"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-intersecting-parallel-lines-unit",
+        "bnu-junior-s1-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知直线 AB 与 CD 相交于点 O，OE ⊥ AB。若 ∠COE = 55°，则 ∠AOD 的度数是（ ）",
+      "optionsZhHans": [
+        "35°",
+        "45°",
+        "55°",
+        "125°"
+      ],
+      "answer": "35°",
+      "acceptedAnswers": [
+        "35°"
+      ],
+      "explanationZhHans": "由 OE ⊥ AB 得 ∠AOE = 90°。∠AOC = ∠AOE - ∠COE = 90° - 55° = 35°。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-308",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-intersecting-parallel-lines",
+      "unitTitle": "相交线与平行线",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "intersecting-lines",
+        "parallel-lines",
+        "transversal-angles",
+        "angle-relations",
+        "平行线",
+        "相交线"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "邻补角",
+        "对顶角",
+        "垂线",
+        "平行线性质",
+        "平行线判定",
+        "角度推理"
+      ],
+      "misconceptionTags": [
+        "parallel condition assumed from the drawing",
+        "corresponding and alternate angles confused",
+        "supplementary relation overgeneralized"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-intersecting-parallel-lines"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-intersecting-parallel-lines-unit",
+        "bnu-junior-s1-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知直线 a ∥ b，直线 c 与 a、b 相交，∠1 与 ∠2 是一对同旁内角。若 ∠1 = 2x°，∠2 = 3x°，求 x 的值。",
+      "optionsZhHans": [],
+      "answer": "36",
+      "acceptedAnswers": [
+        "36"
+      ],
+      "explanationZhHans": "两直线平行，同旁内角互补，所以 2x + 3x = 180，5x = 180，x = 36。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-309",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-intersecting-parallel-lines",
+      "unitTitle": "相交线与平行线",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "intersecting-lines",
+        "parallel-lines",
+        "transversal-angles",
+        "angle-relations",
+        "平行线",
+        "相交线"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "邻补角",
+        "对顶角",
+        "垂线",
+        "平行线性质",
+        "平行线判定",
+        "角度推理"
+      ],
+      "misconceptionTags": [
+        "parallel condition assumed from the drawing",
+        "corresponding and alternate angles confused",
+        "supplementary relation overgeneralized"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-intersecting-parallel-lines"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-intersecting-parallel-lines-unit",
+        "bnu-junior-s1-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知直线 AB ∥ CD，直线 EF 与 AB 交于点 G，与 CD 交于点 H，∠AGH = 120°，则 ∠GHD 的度数为 ______°。",
+      "optionsZhHans": [],
+      "answer": "60",
+      "acceptedAnswers": [
+        "60"
+      ],
+      "explanationZhHans": "由 AB ∥ CD，同旁内角互补，∠AGH + ∠GHD = 180°，所以 ∠GHD = 180° - 120° = 60°。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-310",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-intersecting-parallel-lines",
+      "unitTitle": "相交线与平行线",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "intersecting-lines",
+        "parallel-lines",
+        "transversal-angles",
+        "angle-relations",
+        "平行线",
+        "相交线"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "邻补角",
+        "对顶角",
+        "垂线",
+        "平行线性质",
+        "平行线判定",
+        "角度推理"
+      ],
+      "misconceptionTags": [
+        "parallel condition assumed from the drawing",
+        "corresponding and alternate angles confused",
+        "supplementary relation overgeneralized"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-intersecting-parallel-lines"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-intersecting-parallel-lines-unit",
+        "bnu-junior-s1-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知直线 a 与 b 被直线 c 所截，∠1 与 ∠2 是同位角，∠1 = 75°。要使 a ∥ b，则 ∠2 的度数应为（ ）",
+      "optionsZhHans": [
+        "75°",
+        "105°",
+        "115°",
+        "180°"
+      ],
+      "answer": "75°",
+      "acceptedAnswers": [
+        "75°"
+      ],
+      "explanationZhHans": "同位角相等，两直线平行。所以 ∠2 = ∠1 = 75°。"
+    }
+  ]
+}

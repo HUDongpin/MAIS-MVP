@@ -1,0 +1,141 @@
+{
+  "startedAt": "2026-05-26T06:17:10.216Z",
+  "completedAt": "2026-05-26T06:17:26.347Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "usage": {
+    "prompt_tokens": 1297,
+    "completion_tokens": 1299,
+    "total_tokens": 2596,
+    "prompt_tokens_details": {
+      "cached_tokens": 128
+    },
+    "prompt_cache_hit_tokens": 128,
+    "prompt_cache_miss_tokens": 1169
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "questionId": "pep-primary-p6-l-fi-121",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案15与题库答案15米数值一致，单位米为默认长度单位，视为匹配。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-fi-122",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案12与题库答案12升数值一致，单位升为默认容积单位，视为匹配。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-fi-123",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案15与题库答案15升数值一致，单位升为默认容积单位，视为匹配。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-fi-124",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案18与题库答案18升数值一致，单位升为默认容积单位，视为匹配。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-fi-125",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案6与题库答案6升数值一致，单位升为默认容积单位，视为匹配。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-fi-126",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案9与题库答案9升数值一致，单位升为默认容积单位，视为匹配。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-fi-127",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案12与题库答案12升数值一致，单位升为默认容积单位，视为匹配。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-fi-128",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案15与题库答案15升数值一致，单位升为默认容积单位，视为匹配。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-fi-129",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案18与题库答案18升数值一致，单位升为默认容积单位，视为匹配。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-fi-130",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案15与题库答案15个数值一致，单位个为默认计数单位，视为匹配。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-131",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案6与题库答案6升数值一致，单位升为默认容积单位，视为匹配。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-132",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案12与题库答案12升数值一致，单位升为默认容积单位，视为匹配。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-133",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案15与题库答案15升数值一致，单位升为默认容积单位，视为匹配。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-134",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案18与题库答案18升数值一致，单位升为默认容积单位，视为匹配。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-135",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案6与题库答案6升数值一致，单位升为默认容积单位，视为匹配。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-136",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案9与题库答案9升数值一致，单位升为默认容积单位，视为匹配。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-137",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案12与题库答案12升数值一致，单位升为默认容积单位，视为匹配。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-138",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案15与题库答案15升数值一致，单位升为默认容积单位，视为匹配。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-139",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案18与题库答案18升数值一致，单位升为默认容积单位，视为匹配。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-140",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案6与题库答案6升数值一致，单位升为默认容积单位，视为匹配。"
+      }
+    ]
+  }
+}

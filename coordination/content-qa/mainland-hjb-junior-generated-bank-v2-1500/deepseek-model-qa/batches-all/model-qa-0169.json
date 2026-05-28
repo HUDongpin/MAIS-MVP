@@ -1,0 +1,109 @@
+{
+  "batchId": "model-qa-0169",
+  "ids": [
+    "hjb-junior-ds-v2-s3-345",
+    "hjb-junior-ds-v2-s3-346",
+    "hjb-junior-ds-v2-s3-347",
+    "hjb-junior-ds-v2-s3-348",
+    "hjb-junior-ds-v2-s3-349",
+    "hjb-junior-ds-v2-s3-350",
+    "hjb-junior-ds-v2-s3-351",
+    "hjb-junior-ds-v2-s3-352"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-345",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "13",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-346",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "120/13",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-347",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析中先算出DE=8，但答案给出6，且解析最后一句又说DE=8，自相矛盾。根据垂径定理，OC=3，若DE被C平分，则CD²+OC²=5²，得CD=4，DE=8。但答案写6，错误。",
+      "independentAnswerZhHans": "8",
+      "answerCheckZhHans": "标准答案6错误，应为8。",
+      "recommendedActionZhHans": "修正答案为8，并修改解析。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-348",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "答案中证明部分有误：由∠ADB=90°和∠ADC=90°不能推出B、D、C三点共线，因为D可能在AB和AC的另一侧。实际上，D是两圆交点，A、D是公共弦，B、C不共线。正确证明应利用切线判定：AD⊥O1O2，且O1D是半径，故AD是圆O1的切线；同理AD是圆O2的切线。但答案中错误地声称B、D、C共线，且计算O1D=3、O2D=4，但O1D和O2D并非半径，圆O1半径是3，圆O2半径是4，但D在圆上，所以O1D=3，O2D=4正确。然而，由O1D²+O2D²=O1O2²得O1D⊥O2D，但AD⊥O1O2是公共弦性质，所以AD同时垂直于O1D和O2D，故AD是切线。但答案中“B、D、C三点共线”是错误结论，应删除。",
+      "independentAnswerZhHans": "点D的坐标为(72/25, 96/25)。证明：连接O1D、O2D、AD。由直径所对圆周角为直角，得∠ADB=90°，∠ADC=90°，但B、D、C不共线。由圆O1和圆O2相交，O1O2垂直平分公共弦AD，故AD⊥O1O2。又O1D是圆O1的半径，O2D是圆O2的半径，且O1D⊥O2D（由坐标计算得O1D=3，O2D=4，O1O2=5，满足勾股定理逆定理），所以AD同时垂直于O1D和O2D，因此AD是圆O1和圆O2的公切线。",
+      "answerCheckZhHans": "标准答案中证明部分有逻辑错误，需修正。",
+      "recommendedActionZhHans": "修正证明部分，删除“B、D、C三点共线”的错误结论，并给出正确推理。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-349",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "8 cm",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-350",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "20√3/3",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-351",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(2.5, 2.5√3)",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-352",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "6 cm",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

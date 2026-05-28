@@ -1,0 +1,45 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-243",
+  "startedAt": "2026-05-28T01:06:16.984Z",
+  "completedAt": "2026-05-28T01:06:22.558Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-243"
+  ],
+  "usage": {
+    "prompt_tokens": 1913,
+    "completion_tokens": 227,
+    "total_tokens": 2140,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1529
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-243",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "0.80",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目明确给出10场比赛罚球命中次数，默认每场罚球10次是合理假设，总命中80次，频率0.80，可解且答案唯一。解析与答案一致，符合教材频率估计概率要求。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 1,
+      "warn": 0,
+      "fail": 0,
+      "notes": "题目可解，答案正确，解析一致，无问题。"
+    }
+  }
+}

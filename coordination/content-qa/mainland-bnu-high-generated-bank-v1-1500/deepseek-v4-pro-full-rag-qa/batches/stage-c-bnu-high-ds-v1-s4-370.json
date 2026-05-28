@@ -1,0 +1,52 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-370",
+  "startedAt": "2026-05-28T02:43:21.539Z",
+  "completedAt": "2026-05-28T02:43:26.540Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-370"
+  ],
+  "usage": {
+    "prompt_tokens": 3265,
+    "completion_tokens": 270,
+    "total_tokens": 3535,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2881
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-370",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "independentAnswer": null,
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "ambiguous_mc",
+          "bad_options",
+          "explanation_contradiction",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件∠ACB=60°时，由余弦定理得h²=2500/(4-√3)，h≈33.2，与所有选项不符；解析强行近似为25√2且计算错误，题目无正确选项，不可解。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目条件与选项矛盾，无正确选项，判定为不可解。"
+    }
+  }
+}

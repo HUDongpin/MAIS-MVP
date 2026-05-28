@@ -1,0 +1,300 @@
+{
+  "batchId": "batch-167",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p4-081",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-four-operations-problem-solving",
+      "unitTitle": "整数的四则运算",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "integer-four-operations",
+        "multi-step-word-problems",
+        "operation-laws",
+        "estimation",
+        "整数四则运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "工作效率",
+        "三步计算",
+        "正推",
+        "逆推",
+        "文字计算题",
+        "运算定律",
+        "解决问题"
+      ],
+      "misconceptionTags": [
+        "operation order chosen from keywords only",
+        "estimate omitted before complex calculation",
+        "inverse reasoning reverses the wrong step"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-four-operations-problem-solving"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-four-operations-problem-solving",
+        "hjb-primary-p4-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小杰计算一道题时，先除以8，再减去15，接着乘4，最后得到100。这道题原来的数是多少？",
+      "optionsZhHans": [],
+      "answer": "320",
+      "acceptedAnswers": [
+        "320"
+      ],
+      "explanationZhHans": "从最后结果100逆推：除以4得25，加15得40，乘8得320。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-082",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-four-operations-problem-solving",
+      "unitTitle": "整数的四则运算",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "integer-four-operations",
+        "multi-step-word-problems",
+        "operation-laws",
+        "estimation",
+        "整数四则运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "工作效率",
+        "三步计算",
+        "正推",
+        "逆推",
+        "文字计算题",
+        "运算定律",
+        "解决问题"
+      ],
+      "misconceptionTags": [
+        "operation order chosen from keywords only",
+        "estimate omitted before complex calculation",
+        "inverse reasoning reverses the wrong step"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-four-operations-problem-solving"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-four-operations-problem-solving",
+        "hjb-primary-p4-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "李师傅要加工一批零件，原计划每天加工60个，15天完成。实际每天多加工15个，实际提前几天完成？正确的列式是（ ）。",
+      "optionsZhHans": [
+        "60×15÷(60+15)",
+        "15－60×15÷(60+15)",
+        "60×15÷15",
+        "15－60×15÷60"
+      ],
+      "answer": "15－60×15÷(60+15)",
+      "acceptedAnswers": [
+        "15－60×15÷(60+15)"
+      ],
+      "explanationZhHans": "零件总数60×15=900个，实际每天加工75个，实际天数900÷75=12天，提前15－12=3天。综合列式为15－60×15÷(60+15)。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-083",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-four-operations-problem-solving",
+      "unitTitle": "整数的四则运算",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "integer-four-operations",
+        "multi-step-word-problems",
+        "operation-laws",
+        "estimation",
+        "整数四则运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "工作效率",
+        "三步计算",
+        "正推",
+        "逆推",
+        "文字计算题",
+        "运算定律",
+        "解决问题"
+      ],
+      "misconceptionTags": [
+        "operation order chosen from keywords only",
+        "estimate omitted before complex calculation",
+        "inverse reasoning reverses the wrong step"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-four-operations-problem-solving"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-four-operations-problem-solving",
+        "hjb-primary-p4-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算 125×32 时，为了简便，可以把32看作（ ）×（ ），先算125×（ ）=（ ），再算（ ）×（ ）=（ ）。",
+      "optionsZhHans": [],
+      "answer": "8×4，8，1000，1000×4，4000",
+      "acceptedAnswers": [
+        "8×4，8，1000，1000×4，4000"
+      ],
+      "explanationZhHans": "125×8=1000，把32拆成8×4，先算125×8=1000，再算1000×4=4000。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-084",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-four-operations-problem-solving",
+      "unitTitle": "整数的四则运算",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "integer-four-operations",
+        "multi-step-word-problems",
+        "operation-laws",
+        "estimation",
+        "整数四则运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "工作效率",
+        "三步计算",
+        "正推",
+        "逆推",
+        "文字计算题",
+        "运算定律",
+        "解决问题"
+      ],
+      "misconceptionTags": [
+        "operation order chosen from keywords only",
+        "estimate omitted before complex calculation",
+        "inverse reasoning reverses the wrong step"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-four-operations-problem-solving"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-four-operations-problem-solving",
+        "hjb-primary-p4-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小马虎在计算“□－24÷6”时，弄错了运算顺序，先算减法后算除法，结果得数是2。正确的得数应该是多少？",
+      "optionsZhHans": [],
+      "answer": "32",
+      "acceptedAnswers": [
+        "32"
+      ],
+      "explanationZhHans": "错误算法：(□－24)÷6=2，□－24=12，□=36。正确算法：36－24÷6=36－4=32。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-085",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-four-operations-problem-solving",
+      "unitTitle": "整数的四则运算",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "integer-four-operations",
+        "multi-step-word-problems",
+        "operation-laws",
+        "estimation",
+        "整数四则运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "工作效率",
+        "三步计算",
+        "正推",
+        "逆推",
+        "文字计算题",
+        "运算定律",
+        "解决问题"
+      ],
+      "misconceptionTags": [
+        "operation order chosen from keywords only",
+        "estimate omitted before complex calculation",
+        "inverse reasoning reverses the wrong step"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-four-operations-problem-solving"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-four-operations-problem-solving",
+        "hjb-primary-p4-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面算式中，去掉括号后计算结果不变的是（ ）。",
+      "optionsZhHans": [
+        "360÷(9×5)",
+        "200－(60－36)",
+        "45×(72÷8)",
+        "810÷(45×2)"
+      ],
+      "answer": "45×(72÷8)",
+      "acceptedAnswers": [
+        "45×(72÷8)"
+      ],
+      "explanationZhHans": "45×(72÷8)去掉括号后为45×72÷8，乘除法同级从左到右，相当于45×72÷8，结果不变。其余选项去掉括号后运算顺序改变，结果不同。"
+    }
+  ]
+}

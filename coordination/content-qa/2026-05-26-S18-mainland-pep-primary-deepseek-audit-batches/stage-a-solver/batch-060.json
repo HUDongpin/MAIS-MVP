@@ -1,0 +1,181 @@
+{
+  "startedAt": "2026-05-26T06:18:36.603Z",
+  "completedAt": "2026-05-26T06:18:55.341Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "usage": {
+    "prompt_tokens": 2578,
+    "completion_tokens": 1485,
+    "total_tokens": 4063,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 2578
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "questionId": "pep-primary-p6-l-sa-181",
+        "solvableStatus": "pass",
+        "independentAnswer": "-4°C",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "负数加法：-9+5=-4，结果正确。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-182",
+        "solvableStatus": "pass",
+        "independentAnswer": "-1°C",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "负数加法：-8+7=-1，结果正确。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-183",
+        "solvableStatus": "pass",
+        "independentAnswer": "2°C",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "负数加法：-7+9=2，结果正确。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-184",
+        "solvableStatus": "pass",
+        "independentAnswer": "-3°C",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "负数加法：-6+3=-3，结果正确。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-185",
+        "solvableStatus": "pass",
+        "independentAnswer": "0°C",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "负数加法：-5+5=0，结果正确。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-186",
+        "solvableStatus": "pass",
+        "independentAnswer": "3°C",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "负数加法：-4+7=3，结果正确。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-187",
+        "solvableStatus": "pass",
+        "independentAnswer": "6°C",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "负数加法：-3+9=6，结果正确。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-188",
+        "solvableStatus": "pass",
+        "independentAnswer": "1°C",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "负数加法：-2+3=1，结果正确。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-189",
+        "solvableStatus": "pass",
+        "independentAnswer": "4°C",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "负数加法：-1+5=4，结果正确。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-190",
+        "solvableStatus": "pass",
+        "independentAnswer": "7°C",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "0+7=7，结果正确。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-191",
+        "solvableStatus": "pass",
+        "independentAnswer": "10°C",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "正数加法：1+9=10，结果正确。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-192",
+        "solvableStatus": "pass",
+        "independentAnswer": "-7°C",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "负数加法：-10+3=-7，结果正确。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-193",
+        "solvableStatus": "pass",
+        "independentAnswer": "-4°C",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "负数加法：-9+5=-4，结果正确。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-194",
+        "solvableStatus": "pass",
+        "independentAnswer": "-1°C",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "负数加法：-8+7=-1，结果正确。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-195",
+        "solvableStatus": "pass",
+        "independentAnswer": "2°C",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "负数加法：-7+9=2，结果正确。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-196",
+        "solvableStatus": "pass",
+        "independentAnswer": "-3°C",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "负数加法：-6+3=-3，结果正确。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-197",
+        "solvableStatus": "pass",
+        "independentAnswer": "0°C",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "负数加法：-5+5=0，结果正确。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-198",
+        "solvableStatus": "pass",
+        "independentAnswer": "3°C",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "负数加法：-4+7=3，结果正确。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-199",
+        "solvableStatus": "pass",
+        "independentAnswer": "6°C",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "负数加法：-3+9=6，结果正确。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-200",
+        "solvableStatus": "pass",
+        "independentAnswer": "1°C",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "负数加法：-2+3=1，结果正确。"
+      }
+    ]
+  }
+}

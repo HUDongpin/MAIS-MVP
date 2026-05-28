@@ -1,0 +1,151 @@
+{
+  "batchNumber": 60,
+  "startedAt": "2026-05-27T13:53:56.548Z",
+  "completedAt": "2026-05-27T13:54:13.227Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-473",
+    "bnu-high-ds-v1-s4-474",
+    "bnu-high-ds-v1-s4-475",
+    "bnu-high-ds-v1-s4-476",
+    "bnu-high-ds-v1-s4-477",
+    "bnu-high-ds-v1-s4-478",
+    "bnu-high-ds-v1-s4-479",
+    "bnu-high-ds-v1-s4-480"
+  ],
+  "usage": {
+    "prompt_tokens": 11447,
+    "completion_tokens": 1168,
+    "total_tokens": 12615,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10935
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-473",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "①④",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "命题①④正确，②③错误，答案①④与独立求解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-474",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "3π√55 cm³",
+        "correctedAnswer": "3π√55 cm³",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立计算得体积为3π√55 cm³，与存储答案16π√7 cm³不符，解析也指出原答案有误，答案与解析矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-475",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "√2/2",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "bad_options",
+          "explanation_contradiction",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立计算得余弦值为√2/2，不在选项中，解析也承认计算有误且选项无匹配，题目不可解。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-476",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "2√2",
+        "correctedAnswer": "2√2",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "由条件得BC⊥平面PAB，距离为BC=2√2，与答案2不符，解析也指出矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-477",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "①③",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "命题①③正确，②④错误，答案①③与独立求解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-478",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "172π/3 cm²",
+        "correctedAnswer": "172π/3 cm²",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立计算得表面积为172π/3 cm²，与答案52π cm²不符，解析也指出数据需调整。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-479",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "independentAnswer": "2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "独立计算体积为2，与答案一致，解析虽简略但结论正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-480",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "15π cm²",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "独立计算侧面积为15π cm²，与答案一致，解析正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 4,
+      "warn": 0,
+      "fail": 4,
+      "notes": "8题中4题通过，4题因答案错误或不可解而失败，主要问题为计算错误导致答案与解析矛盾。"
+    }
+  }
+}

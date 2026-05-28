@@ -1,0 +1,45 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-109",
+  "startedAt": "2026-05-28T01:01:01.438Z",
+  "completedAt": "2026-05-28T01:01:07.854Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-109"
+  ],
+  "usage": {
+    "prompt_tokens": 1965,
+    "completion_tokens": 221,
+    "total_tokens": 2186,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1581
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-109",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "B",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，真数大于0解得x<1或x>2，定义域为(-∞,1)∪(2,+∞)，选项B正确且唯一。答案与解析均匹配，无数学错误或歧义，符合教材要求。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 1,
+      "warn": 0,
+      "fail": 0,
+      "notes": "题目质量合格，无问题。"
+    }
+  }
+}

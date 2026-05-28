@@ -1,0 +1,133 @@
+{
+  "batchNumber": 120,
+  "startedAt": "2026-05-27T14:04:08.997Z",
+  "completedAt": "2026-05-27T14:04:26.416Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-453",
+    "bnu-high-ds-v1-s5-454",
+    "bnu-high-ds-v1-s5-455",
+    "bnu-high-ds-v1-s5-456",
+    "bnu-high-ds-v1-s5-457",
+    "bnu-high-ds-v1-s5-458",
+    "bnu-high-ds-v1-s5-459",
+    "bnu-high-ds-v1-s5-460"
+  ],
+  "usage": {
+    "prompt_tokens": 10964,
+    "completion_tokens": 1148,
+    "total_tokens": 12112,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10452
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-453",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "人均可支配收入每增加1千元，人均消费支出平均增加0.7千元",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "回归系数0.7解释正确，选项A符合回归含义；其他选项均有明显错误。题目可解，答案匹配，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-454",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "（1）60%；（2）分别计算男女生喜欢数学的比例，若差异较大，则可能有关；否则可能无关。",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "列联表数据完整，比例计算正确，独立性检验思路合理。题目可解，答案匹配，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-455",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "可以直接确定相关系数的大小",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "残差图不能直接确定相关系数，选项D错误，符合题意。题目可解，答案匹配，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-456",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "（1）ŷ=2x+1；（2）13",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "数据呈完美线性，回归方程计算正确，预测值准确。题目可解，答案匹配，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-457",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "吸烟与患肺癌有关联，但不能直接断定吸烟导致肺癌",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "比例差异提示关联，但不能直接推断因果，选项A正确。题目可解，答案匹配，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-458",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "（1）r≈0.99；（2）施肥量与产量有极强的正线性相关关系。",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "数据高度线性，相关系数接近1，计算正确，解释合理。题目可解，答案匹配，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-459",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "保留该异常点，因为它可能包含重要信息，但需分析其产生原因",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "异常点处理原则正确，选项B最合理。题目可解，答案匹配，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-460",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "（1）ŷ=5x+20；（2）60万元",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "数据呈完美线性，回归方程计算正确，预测值准确。题目可解，答案匹配，解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8道题均可独立求解，答案与解析均正确匹配，无任何问题。"
+    }
+  }
+}

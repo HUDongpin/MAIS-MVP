@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-471",
+  "startedAt": "2026-05-28T01:59:43.656Z",
+  "completedAt": "2026-05-28T01:59:48.236Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-471"
+  ],
+  "usage": {
+    "prompt_tokens": 2130,
+    "completion_tokens": 280,
+    "total_tokens": 2410,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1746
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-471",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "异面",
+        "correctedAnswer": "异面",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件中AE:EB=AH:HD=2:1，故EH∥BD；但CF:FB=2:1，CG:GD=3:1，比例不同，FG不平行BD，因此EH与FG既不平行也不相交，为异面直线。存储答案“平行”错误，解析中比例错误且结论矛盾，应选“异面”。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1题答案错误，解析矛盾，判定为blocker。"
+    }
+  }
+}

@@ -1,0 +1,609 @@
+{
+  "batchId": "batch-019",
+  "questions": [
+    {
+      "id": "bnu-junior-ds-v1-s1-181",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-linear-equations",
+      "unitTitle": "一元一次方程",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "linear-equations-one-variable",
+        "equation-solving",
+        "modeling-with-equations",
+        "一元一次方程",
+        "方程建模"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "方程意义",
+        "等式性质",
+        "解一元一次方程",
+        "检验解",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "same operation not applied to both sides",
+        "unknown chosen inconsistently",
+        "solution not checked against the original situation"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-linear-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-linear-equations-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下列方程中，是一元一次方程的是（ ）",
+      "optionsZhHans": [
+        "x + y = 5",
+        "x^2 + 2x - 3 = 0",
+        "2x - 1 = 0",
+        "1/x = 2"
+      ],
+      "answer": "2x - 1 = 0",
+      "acceptedAnswers": [
+        "2x - 1 = 0"
+      ],
+      "explanationZhHans": "一元一次方程只含一个未知数且未知数次数为1。A含两个未知数，B未知数最高次数为2，D未知数在分母，均不是。C符合定义。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-182",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-linear-equations",
+      "unitTitle": "一元一次方程",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "linear-equations-one-variable",
+        "equation-solving",
+        "modeling-with-equations",
+        "一元一次方程",
+        "方程建模"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "方程意义",
+        "等式性质",
+        "解一元一次方程",
+        "检验解",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "same operation not applied to both sides",
+        "unknown chosen inconsistently",
+        "solution not checked against the original situation"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-linear-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-linear-equations-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明买了3支铅笔和2本笔记本共花了12元，已知每本笔记本比每支铅笔贵2元。设每支铅笔x元，请列出方程并求解铅笔和笔记本的单价。",
+      "optionsZhHans": [],
+      "answer": "铅笔2元，笔记本4元",
+      "acceptedAnswers": [
+        "铅笔2元，笔记本4元",
+        "铅笔2元/支，笔记本4元/本",
+        "铅笔单价2元，笔记本单价4元"
+      ],
+      "explanationZhHans": "设铅笔单价x元，则笔记本单价(x+2)元。方程：3x+2(x+2)=12，解得x=2。笔记本单价4元。检验：3×2+2×4=12，符合。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-183",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-linear-equations",
+      "unitTitle": "一元一次方程",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "linear-equations-one-variable",
+        "equation-solving",
+        "modeling-with-equations",
+        "一元一次方程",
+        "方程建模"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "方程意义",
+        "等式性质",
+        "解一元一次方程",
+        "检验解",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "same operation not applied to both sides",
+        "unknown chosen inconsistently",
+        "solution not checked against the original situation"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-linear-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-linear-equations-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "方程3x - 7 = 2x + 5的解是x = ______。",
+      "optionsZhHans": [],
+      "answer": "12",
+      "acceptedAnswers": [
+        "12"
+      ],
+      "explanationZhHans": "移项得3x-2x=5+7，合并得x=12。检验：左=3×12-7=29，右=2×12+5=29，成立。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-184",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-linear-equations",
+      "unitTitle": "一元一次方程",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "linear-equations-one-variable",
+        "equation-solving",
+        "modeling-with-equations",
+        "一元一次方程",
+        "方程建模"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "方程意义",
+        "等式性质",
+        "解一元一次方程",
+        "检验解",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "same operation not applied to both sides",
+        "unknown chosen inconsistently",
+        "solution not checked against the original situation"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-linear-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-linear-equations-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "解方程2(x - 3) + 1 = 5时，第一步去括号正确的是（ ）",
+      "optionsZhHans": [
+        "2x - 3 + 1 = 5",
+        "2x - 6 + 1 = 5",
+        "2x - 3 - 1 = 5",
+        "2x - 6 - 1 = 5"
+      ],
+      "answer": "2x - 6 + 1 = 5",
+      "acceptedAnswers": [
+        "2x - 6 + 1 = 5"
+      ],
+      "explanationZhHans": "去括号法则：2(x-3)=2x-6，再加1得2x-6+1=5。A漏乘-3，C符号错，D符号错。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-185",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-linear-equations",
+      "unitTitle": "一元一次方程",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "linear-equations-one-variable",
+        "equation-solving",
+        "modeling-with-equations",
+        "一元一次方程",
+        "方程建模"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "方程意义",
+        "等式性质",
+        "解一元一次方程",
+        "检验解",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "same operation not applied to both sides",
+        "unknown chosen inconsistently",
+        "solution not checked against the original situation"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-linear-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-linear-equations-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "甲、乙两地相距120千米，一辆汽车从甲地开往乙地，每小时行驶40千米，同时一辆摩托车从乙地开往甲地，每小时行驶60千米。问几小时后两车相遇？请列出方程并求解。",
+      "optionsZhHans": [],
+      "answer": "1.2小时",
+      "acceptedAnswers": [
+        "1.2小时",
+        "1.2",
+        "6/5小时"
+      ],
+      "explanationZhHans": "设x小时后相遇。汽车行驶40x千米，摩托车行驶60x千米。方程：40x+60x=120，解得x=1.2。检验：40×1.2+60×1.2=120，符合。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-186",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-linear-equations",
+      "unitTitle": "一元一次方程",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "linear-equations-one-variable",
+        "equation-solving",
+        "modeling-with-equations",
+        "一元一次方程",
+        "方程建模"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "方程意义",
+        "等式性质",
+        "解一元一次方程",
+        "检验解",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "same operation not applied to both sides",
+        "unknown chosen inconsistently",
+        "solution not checked against the original situation"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-linear-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-linear-equations-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "若方程2x - a = 3的解是x = 4，则a = ______。",
+      "optionsZhHans": [],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5"
+      ],
+      "explanationZhHans": "将x=4代入方程：2×4 - a = 3，即8 - a = 3，解得a=5。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-187",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-linear-equations",
+      "unitTitle": "一元一次方程",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "linear-equations-one-variable",
+        "equation-solving",
+        "modeling-with-equations",
+        "一元一次方程",
+        "方程建模"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "方程意义",
+        "等式性质",
+        "解一元一次方程",
+        "检验解",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "same operation not applied to both sides",
+        "unknown chosen inconsistently",
+        "solution not checked against the original situation"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-linear-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-linear-equations-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "方程x/2 - 1 = x/3 + 2的解是（ ）",
+      "optionsZhHans": [
+        "x = 18",
+        "x = 6",
+        "x = -6",
+        "x = -18"
+      ],
+      "answer": "x = 18",
+      "acceptedAnswers": [
+        "x = 18"
+      ],
+      "explanationZhHans": "去分母：3x-6=2x+12，移项得x=18。检验：左=18/2-1=8，右=18/3+2=8，成立。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-188",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-linear-equations",
+      "unitTitle": "一元一次方程",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "linear-equations-one-variable",
+        "equation-solving",
+        "modeling-with-equations",
+        "一元一次方程",
+        "方程建模"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "方程意义",
+        "等式性质",
+        "解一元一次方程",
+        "检验解",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "same operation not applied to both sides",
+        "unknown chosen inconsistently",
+        "solution not checked against the original situation"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-linear-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-linear-equations-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个两位数，十位数字比个位数字小3，且这个两位数比个位数字的5倍大2。求这个两位数。",
+      "optionsZhHans": [],
+      "answer": "25",
+      "acceptedAnswers": [
+        "25"
+      ],
+      "explanationZhHans": "设个位数字为x，则十位数字为x-3。两位数为10(x-3)+x=11x-30。方程：11x-30=5x+2，解得x=5。两位数为25。检验：十位2比个位5小3，25=5×5+2，符合。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-189",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-linear-equations",
+      "unitTitle": "一元一次方程",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "linear-equations-one-variable",
+        "equation-solving",
+        "modeling-with-equations",
+        "一元一次方程",
+        "方程建模"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "方程意义",
+        "等式性质",
+        "解一元一次方程",
+        "检验解",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "same operation not applied to both sides",
+        "unknown chosen inconsistently",
+        "solution not checked against the original situation"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-linear-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-linear-equations-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "当x = ______时，代数式2x + 1与3x - 4的值相等。",
+      "optionsZhHans": [],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5"
+      ],
+      "explanationZhHans": "由2x+1=3x-4，移项得1+4=3x-2x，即x=5。检验：2×5+1=11，3×5-4=11，相等。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-190",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-linear-equations",
+      "unitTitle": "一元一次方程",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "linear-equations-one-variable",
+        "equation-solving",
+        "modeling-with-equations",
+        "一元一次方程",
+        "方程建模"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "方程意义",
+        "等式性质",
+        "解一元一次方程",
+        "检验解",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "same operation not applied to both sides",
+        "unknown chosen inconsistently",
+        "solution not checked against the original situation"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-linear-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-linear-equations-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下列变形中，根据等式性质正确的是（ ）",
+      "optionsZhHans": [
+        "由2x = 3，得x = 3/2",
+        "由x - 1 = 2，得x = 1",
+        "由3x + 1 = 4，得3x = 5",
+        "由x/2 = 3，得x = 3/2"
+      ],
+      "answer": "由2x = 3，得x = 3/2",
+      "acceptedAnswers": [
+        "由2x = 3，得x = 3/2"
+      ],
+      "explanationZhHans": "A两边除以2，正确。B应加1得x=3，错。C应减1得3x=3，错。D应乘2得x=6，错。"
+    }
+  ]
+}

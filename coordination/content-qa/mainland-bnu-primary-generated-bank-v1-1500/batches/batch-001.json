@@ -1,0 +1,578 @@
+{
+  "batchId": "batch-001",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p1-001",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-life-number-sense",
+      "unitTitle": "生活中的数",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-number-sense",
+        "within-10-numbers",
+        "counting-cardinality",
+        "生活中的数",
+        "10以内数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "数一数",
+        "认读0到10",
+        "一一对应",
+        "数量描述",
+        "数序"
+      ],
+      "misconceptionTags": [
+        "counting sequence without matching objects",
+        "last counting word not linked to total quantity",
+        "zero treated as a normal counting object"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-life-number-sense"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "教室里，老师请5位小朋友站成一排，每人手里举一张数字卡片，从左到右依次是：2、4、1、5、3。老师问：“从左数，第3个小朋友举的数字是几？”",
+      "optionsZhHans": [
+        "1",
+        "2",
+        "3",
+        "5"
+      ],
+      "answer": "1",
+      "acceptedAnswers": [
+        "1"
+      ],
+      "explanationZhHans": "从左数，第1个是2，第2个是4，第3个是1。所以第3个小朋友举的数字是1。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-002",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-life-number-sense",
+      "unitTitle": "生活中的数",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-number-sense",
+        "within-10-numbers",
+        "counting-cardinality",
+        "生活中的数",
+        "10以内数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "数一数",
+        "认读0到10",
+        "一一对应",
+        "数量描述",
+        "数序"
+      ],
+      "misconceptionTags": [
+        "counting sequence without matching objects",
+        "last counting word not linked to total quantity",
+        "zero treated as a normal counting object"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-life-number-sense"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "树上有3只小鸟，又飞来2只。现在树上一共有多少只小鸟？请填数字。",
+      "optionsZhHans": [],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5"
+      ],
+      "explanationZhHans": "原来有3只，飞来2只，合起来是5只。3和2组成5。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-003",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-life-number-sense",
+      "unitTitle": "生活中的数",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-number-sense",
+        "within-10-numbers",
+        "counting-cardinality",
+        "生活中的数",
+        "10以内数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "数一数",
+        "认读0到10",
+        "一一对应",
+        "数量描述",
+        "数序"
+      ],
+      "misconceptionTags": [
+        "counting sequence without matching objects",
+        "last counting word not linked to total quantity",
+        "zero treated as a normal counting object"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-life-number-sense"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈买了6个苹果，吃掉一些后还剩2个。妈妈吃了几个苹果？请写出算式和答案。",
+      "optionsZhHans": [],
+      "answer": "6-2=4",
+      "acceptedAnswers": [
+        "6-2=4",
+        "4"
+      ],
+      "explanationZhHans": "原来6个，剩下2个，吃掉的用减法：6-2=4。所以吃了4个苹果。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-004",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-life-number-sense",
+      "unitTitle": "生活中的数",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-number-sense",
+        "within-10-numbers",
+        "counting-cardinality",
+        "生活中的数",
+        "10以内数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "数一数",
+        "认读0到10",
+        "一一对应",
+        "数量描述",
+        "数序"
+      ],
+      "misconceptionTags": [
+        "counting sequence without matching objects",
+        "last counting word not linked to total quantity",
+        "zero treated as a normal counting object"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-life-number-sense"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小动物们排队做操。从左边数，小兔排在第2个；从右边数，小兔排在第4个。这一队一共有多少只小动物？",
+      "optionsZhHans": [
+        "4只",
+        "5只",
+        "6只",
+        "7只"
+      ],
+      "answer": "5只",
+      "acceptedAnswers": [
+        "5只"
+      ],
+      "explanationZhHans": "从左数小兔是第2个，说明左边有1只；从右数小兔是第4个，说明右边有3只。加上小兔自己：1+3+1=5只。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-005",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-life-number-sense",
+      "unitTitle": "生活中的数",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-number-sense",
+        "within-10-numbers",
+        "counting-cardinality",
+        "生活中的数",
+        "10以内数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "数一数",
+        "认读0到10",
+        "一一对应",
+        "数量描述",
+        "数序"
+      ],
+      "misconceptionTags": [
+        "counting sequence without matching objects",
+        "last counting word not linked to total quantity",
+        "zero treated as a normal counting object"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-life-number-sense"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "盘子里有一些草莓，吃掉4颗后，还剩3颗。盘子里原来有多少颗草莓？请填数字。",
+      "optionsZhHans": [],
+      "answer": "7",
+      "acceptedAnswers": [
+        "7"
+      ],
+      "explanationZhHans": "吃掉的4颗和剩下的3颗合起来就是原来的数量：4+3=7。所以原来有7颗草莓。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-006",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-life-number-sense",
+      "unitTitle": "生活中的数",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-number-sense",
+        "within-10-numbers",
+        "counting-cardinality",
+        "生活中的数",
+        "10以内数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "数一数",
+        "认读0到10",
+        "一一对应",
+        "数量描述",
+        "数序"
+      ],
+      "misconceptionTags": [
+        "counting sequence without matching objects",
+        "last counting word not linked to total quantity",
+        "zero treated as a normal counting object"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-life-number-sense"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明有9块糖，分给弟弟一些后，自己还剩5块。小明分给弟弟多少块糖？请写出算式和答案。",
+      "optionsZhHans": [],
+      "answer": "9-5=4",
+      "acceptedAnswers": [
+        "9-5=4",
+        "4"
+      ],
+      "explanationZhHans": "原来9块，剩下5块，分出去的数量用减法：9-5=4。所以分给弟弟4块糖。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-007",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-life-number-sense",
+      "unitTitle": "生活中的数",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-number-sense",
+        "within-10-numbers",
+        "counting-cardinality",
+        "生活中的数",
+        "10以内数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "数一数",
+        "认读0到10",
+        "一一对应",
+        "数量描述",
+        "数序"
+      ],
+      "misconceptionTags": [
+        "counting sequence without matching objects",
+        "last counting word not linked to total quantity",
+        "zero treated as a normal counting object"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-life-number-sense"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "数字卡片上写着0、3、5、7、9。老师把卡片扣在桌上，让小朋友抽一张。抽到比5大的数有几种可能？",
+      "optionsZhHans": [
+        "1种",
+        "2种",
+        "3种",
+        "4种"
+      ],
+      "answer": "2种",
+      "acceptedAnswers": [
+        "2种"
+      ],
+      "explanationZhHans": "卡片上的数有0、3、5、7、9。比5大的数是7和9，共2个。所以有2种可能。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-008",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-life-number-sense",
+      "unitTitle": "生活中的数",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-number-sense",
+        "within-10-numbers",
+        "counting-cardinality",
+        "生活中的数",
+        "10以内数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "数一数",
+        "认读0到10",
+        "一一对应",
+        "数量描述",
+        "数序"
+      ],
+      "misconceptionTags": [
+        "counting sequence without matching objects",
+        "last counting word not linked to total quantity",
+        "zero treated as a normal counting object"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-life-number-sense"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一盒蜡笔，用掉2支后还剩8支。这盒蜡笔原来有多少支？请填数字。",
+      "optionsZhHans": [],
+      "answer": "10",
+      "acceptedAnswers": [
+        "10"
+      ],
+      "explanationZhHans": "用掉的2支和剩下的8支合起来是原来的数量：2+8=10。所以原来有10支蜡笔。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-009",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-life-number-sense",
+      "unitTitle": "生活中的数",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-number-sense",
+        "within-10-numbers",
+        "counting-cardinality",
+        "生活中的数",
+        "10以内数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "数一数",
+        "认读0到10",
+        "一一对应",
+        "数量描述",
+        "数序"
+      ],
+      "misconceptionTags": [
+        "counting sequence without matching objects",
+        "last counting word not linked to total quantity",
+        "zero treated as a normal counting object"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-life-number-sense"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "停车场里开走3辆车后，还有6辆车。停车场原来有多少辆车？请写出算式和答案。",
+      "optionsZhHans": [],
+      "answer": "3+6=9",
+      "acceptedAnswers": [
+        "3+6=9",
+        "9"
+      ],
+      "explanationZhHans": "开走的3辆和剩下的6辆合起来就是原来的数量：3+6=9。所以原来有9辆车。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-010",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-life-number-sense",
+      "unitTitle": "生活中的数",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-number-sense",
+        "within-10-numbers",
+        "counting-cardinality",
+        "生活中的数",
+        "10以内数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "数一数",
+        "认读0到10",
+        "一一对应",
+        "数量描述",
+        "数序"
+      ],
+      "misconceptionTags": [
+        "counting sequence without matching objects",
+        "last counting word not linked to total quantity",
+        "zero treated as a normal counting object"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-life-number-sense"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丽有7张贴纸，送给好朋友一些后，还剩2张。小丽送出去多少张贴纸？",
+      "optionsZhHans": [
+        "2张",
+        "5张",
+        "7张",
+        "9张"
+      ],
+      "answer": "5张",
+      "acceptedAnswers": [
+        "5张"
+      ],
+      "explanationZhHans": "原来7张，剩下2张，送出去的数量用减法：7-2=5。所以送出去5张贴纸。"
+    }
+  ]
+}

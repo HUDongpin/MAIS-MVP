@@ -1,0 +1,137 @@
+{
+  "batchNumber": 28,
+  "startedAt": "2026-05-25T02:55:11.372Z",
+  "completedAt": "2026-05-25T02:55:27.334Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s1-k05-mc-024",
+    "pep-junior-v3-s1-k05-mc-025",
+    "pep-junior-v3-s1-k05-mc-026",
+    "pep-junior-v3-s1-k05-mc-027",
+    "pep-junior-v3-s1-k05-mc-028",
+    "pep-junior-v3-s1-k05-mc-029",
+    "pep-junior-v3-s1-k05-mc-030",
+    "pep-junior-v3-s1-k05-mc-031",
+    "pep-junior-v3-s1-k05-mc-032",
+    "pep-junior-v3-s1-k05-mc-033",
+    "pep-junior-v3-s1-k05-fi-001",
+    "pep-junior-v3-s1-k05-fi-002"
+  ],
+  "usage": {
+    "prompt_tokens": 3815,
+    "completion_tokens": 945,
+    "total_tokens": 4760,
+    "prompt_tokens_details": {
+      "cached_tokens": 3712
+    },
+    "prompt_cache_hit_tokens": 3712,
+    "prompt_cache_miss_tokens": 103
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s1-k05-mc-024",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "几何角度计算正确，选项唯一，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-mc-025",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "众数定义应用正确，答案5无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-mc-026",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "一元一次方程建模正确，解得20件，答案匹配。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-mc-027",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "普查与抽样调查概念清晰，选项C合理。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-mc-028",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "坐标平移计算正确，答案(2,2)无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-mc-029",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程组求解正确，x+y=3，答案匹配。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-mc-030",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程组列式正确，选项A符合题意。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-mc-031",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程组建模正确，选项A无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-mc-032",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "抽样调查合理性判断正确，选项C最合理。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-mc-033",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "无理数估算正确，2.5在范围内，答案无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-fi-001",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程组求解正确，a+b=3，答案匹配。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-fi-002",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "不等式列式正确，答案5x-2(20-x)>70无误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部12道题目数学正确，答案与解释一致，选项无歧义，适合人教版初中数学，无风险。"
+    }
+  }
+}

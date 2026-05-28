@@ -1,0 +1,191 @@
+{
+  "batchNumber": 62,
+  "startedAt": "2026-05-27T13:29:40.181Z",
+  "completedAt": "2026-05-27T13:29:58.959Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p5-099",
+    "bnu-primary-ds-v1-p5-100",
+    "bnu-primary-ds-v1-p5-101",
+    "bnu-primary-ds-v1-p5-102",
+    "bnu-primary-ds-v1-p5-103",
+    "bnu-primary-ds-v1-p5-104",
+    "bnu-primary-ds-v1-p5-105",
+    "bnu-primary-ds-v1-p5-106",
+    "bnu-primary-ds-v1-p5-107",
+    "bnu-primary-ds-v1-p5-108",
+    "bnu-primary-ds-v1-p5-109",
+    "bnu-primary-ds-v1-p5-110",
+    "bnu-primary-ds-v1-p5-111",
+    "bnu-primary-ds-v1-p5-112",
+    "bnu-primary-ds-v1-p5-113",
+    "bnu-primary-ds-v1-p5-114",
+    "bnu-primary-ds-v1-p5-115",
+    "bnu-primary-ds-v1-p5-116"
+  ],
+  "usage": {
+    "prompt_tokens": 4341,
+    "completion_tokens": 1358,
+    "total_tokens": 5699,
+    "prompt_tokens_details": {
+      "cached_tokens": 4224
+    },
+    "prompt_cache_hit_tokens": 4224,
+    "prompt_cache_miss_tokens": 117
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p5-099",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，理由充分，符合五年级可能性主题。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-100",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项明确，答案正确，解释合理，难度基础，适合五年级。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-101",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目考查放回实验的独立性，答案准确，解释清晰，难度挑战合适。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-102",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "转盘问题典型，答案完整，理由正确，符合核心难度。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-103",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项设计合理，答案正确，解释清晰，适合基础练习。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-104",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "游戏公平性判断正确，答案和解释一致，接受答案覆盖合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-105",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "实验与理论结合，答案正确，解释合理，符合核心要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-106",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "商不变性质应用正确，选项区分度好，答案无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-107",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "三角形面积计算正确，变化分析合理，答案准确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-108",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "小数除法错中求解，答案4.5正确，思考过程清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-109",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移性质考查准确，选项无歧义，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-110",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "梯形剪拼问题典型，答案正确，计算无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-111",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "开放题设计合理，答案灵活，评价标准明确，适合综合复习。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-112",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "错题分析选项准确，答案正确，解释到位。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-113",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "最大公因数应用正确，答案6厘米无误，接受答案合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-114",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "梯形面积推导评价正确，理由充分，符合核心难度。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-115",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项辨析清晰，正确答案D无误，解释指出其他选项错误原因。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-116",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "图形规律探索正确，答案2n+1无误，接受答案覆盖合理。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均通过审核，数学正确，答案匹配，无歧义或缺失条件，适合北师大版五年级上册。"
+    }
+  }
+}

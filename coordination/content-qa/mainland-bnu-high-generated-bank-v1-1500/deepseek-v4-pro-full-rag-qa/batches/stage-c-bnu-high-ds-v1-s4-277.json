@@ -1,0 +1,50 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-277",
+  "startedAt": "2026-05-28T01:06:45.254Z",
+  "completedAt": "2026-05-28T01:06:51.927Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-277"
+  ],
+  "usage": {
+    "prompt_tokens": 2207,
+    "completion_tokens": 321,
+    "total_tokens": 2528,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1823
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-277",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "independentAnswer": "B、C、D",
+        "correctedAnswer": "B、C、D均正确，题目存在多个正确选项，违反单选题唯一性要求。",
+        "issueTags": [
+          "math_error",
+          "ambiguous_mc",
+          "bad_options",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "利润函数L(x)=30x-2000，代入计算得L(70)=100，L(80)=400，L(100)=1000，故B、C、D均正确，A错误。单选题出现多个正确选项，违反唯一性要求，题目不可解。存储答案仅选C，与事实不符；解析承认B、C、D正确却强行选C，自相矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目存在多个正确选项，违反单选题唯一性，判定为不可解，答案与解析均错误。"
+    }
+  }
+}

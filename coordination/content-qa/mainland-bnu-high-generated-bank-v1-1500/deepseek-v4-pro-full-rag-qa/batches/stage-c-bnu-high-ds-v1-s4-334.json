@@ -1,0 +1,50 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-334",
+  "startedAt": "2026-05-28T02:42:09.527Z",
+  "completedAt": "2026-05-28T02:42:15.340Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-334"
+  ],
+  "usage": {
+    "prompt_tokens": 2198,
+    "completion_tokens": 307,
+    "total_tokens": 2505,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1814
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-334",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "independentAnswer": "−1",
+        "correctedAnswer": "−1",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction",
+          "ambiguous_mc"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，独立计算得m=−1或m=5/2，选项仅含−1，故答案应为−1。但提供的解析错误地解得m=1或2，与答案−1矛盾，且解析过程存在计算错误。选项不唯一（实际有两个解，但选项只列出一个），但根据选项仍可选出−1。解析与答案严重不符，构成阻断性错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "解析错误，解得m=1或2，与答案−1矛盾，且计算过程有误，需修正解析。"
+    }
+  }
+}

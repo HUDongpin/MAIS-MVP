@@ -1,0 +1,120 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-030",
+  "startedAt": "2026-05-28T00:40:02.760Z",
+  "completedAt": "2026-05-28T00:40:32.142Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-233",
+    "bnu-high-ds-v1-s4-234",
+    "bnu-high-ds-v1-s4-235",
+    "bnu-high-ds-v1-s4-236",
+    "bnu-high-ds-v1-s4-237",
+    "bnu-high-ds-v1-s4-238",
+    "bnu-high-ds-v1-s4-239",
+    "bnu-high-ds-v1-s4-240"
+  ],
+  "usage": {
+    "prompt_tokens": 9635,
+    "completion_tokens": 1785,
+    "total_tokens": 11420,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9251
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-233",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "样本空间Ω={(1,1),(1,2),(1,3),(1,4),(2,1),(2,2),(2,3),(2,4),(3,1),(3,2),(3,3),(3,4),(4,1),(4,2),(4,3),(4,4)}，概率为1/4。",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目明确，样本空间可列举，古典概型等可能，计算正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-234",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "0.94",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "独立事件，密码被译出为至少一人译出，用对立事件计算：1-(1-0.7)(1-0.8)=0.94。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-235",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "A",
+        "issueTags": [
+          "bad_options"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "从5个数字中取2个不同数字，总组合数C(5,2)=10。事件A：两个奇数，奇数有3个，C(3,2)=3，P(A)=3/10。事件B：和大于6，列举(2,5),(3,4),(3,5),(4,5)共4种，P(B)=4/10=2/5。选项A中P(A)=3/10，P(B)=1/2，但实际P(B)=2/5，选项A的P(B)错误。重新检查：和大于6的组合：(1,6)但6不在集合，正确组合：(2,5),(3,4),(3,5),(4,5)共4种，P(B)=4/10=2/5。选项A：P(A)=3/10，P(B)=1/2=5/10，不符。选项B：P(A)=3/10，P(B)=3/5=6/10，不符。选项C：P(A)=3/5=6/10，P(B)=1/2=5/10，不符。选项D：P(A)=3/5，P(B)=3/5，不符。所有选项均不正确？再仔细算：事件B：和大于6，即和≥7。可能组合：(2,5)=7，(3,4)=7，(3,5)=8，(4,5)=9。还有(1,6)没有6。所以4种。P(B)=4/10=2/5。选项A的P(B)=1/2=5/10，不对。选项B的P(B)=3/5=6/10，不对。选项C和D的P(A)错误。因此没有正确选项。但题目要求选择正确的说法，可能我漏了组合？检查：数字1,2,3,4,5。两个不同数字，和大于6：2+5=7，3+4=7，3+5=8，4+5=9。只有这4种。所以P(B)=0.4。选项A：P(A)=0.3, P(B)=0.5；B：0.3,0.6；C：0.6,0.5；D：0.6,0.6。都不匹配。可能题目有误，或者我理解错误？事件B是“两个数字之和大于6”，没错。也许选项中的P(B)是1/2，但实际是2/5，所以没有正确选项。这属于bad_options。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-236",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "13/28",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "总球数8，摸2球，总组合C(8,2)=28。颜色相同：两红C(5,2)=10，两白C(3,2)=3，共13种，概率13/28。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-237",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "0.648",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "独立重复试验，命中概率0.6，3次至少2次：P(X≥2)=C(3,2)(0.6)^2(0.4)+C(3,3)(0.6)^3=3*0.36*0.4+0.216=0.432+0.216=0.648。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-238",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "3/4",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "条件概率P(A|B)=P(AB)/P(B)。B：第一次正面，概率1/2。AB：第一次正面且至少一次正面，即第一次正面，后两次任意，但至少一次正面已满足，所以AB=B，P(AB)=1/2。故P(A|B)=1。但选项有1，需检查：事件A：至少一次正面，B：第一次正面。在B发生的条件下，第一次已经是正面，所以A必然发生，因此P(A|B)=1。选项D为1，正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-239",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "2/5",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "从6个数字取2个不同，总组合C(6,2)=15。和为偶数：两奇或两偶。奇数3个，偶数3个，C(3,2)+C(3,2)=3+3=6，概率6/15=2/5。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-240",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "0.94",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "三人独立解答，至少一人正确：1-(1-0.5)(1-0.6)(1-0.7)=1-0.5*0.4*0.3=1-0.06=0.94。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第235题选项均不正确，P(A)=3/10，P(B)=2/5，无匹配选项，标记为bad_options。其余题目可独立求解，符合北师大版高一概率内容。"
+    }
+  }
+}

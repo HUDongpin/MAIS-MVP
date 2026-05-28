@@ -1,0 +1,108 @@
+{
+  "batchIndex": 1,
+  "cacheValidationError": "meta remediation wording for pep-junior-v3-s1-k03-sa-021",
+  "items": [
+    {
+      "id": "pep-junior-v3-s1-k02-fi-010",
+      "action": "repair",
+      "confidence": "high",
+      "remediationNotes": "原题涉及平面直角坐标系，属于七年级下册内容，与S1上学期一元一次方程单元不符。改为整式加减求值题，符合单元主题。",
+      "question": {
+        "promptZhHans": "当x=-2时，代数式3x²-2x+1的值是______。",
+        "optionsZhHans": [],
+        "answer": "17",
+        "acceptedAnswers": [
+          "17"
+        ],
+        "explanationZhHans": "将x=-2代入代数式：3×(-2)²-2×(-2)+1=3×4+4+1=12+4+1=17。"
+      }
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-fi-021",
+      "action": "repair",
+      "confidence": "high",
+      "remediationNotes": "原题化简正确但代入计算错误，答案应为-2。修正答案和解释。",
+      "question": {
+        "promptZhHans": "先化简，再求值：\\(3(a^2 - 2ab) - (6a^2 - 5ab + 1)\\)，其中 \\(a = -1\\)，\\(b = 2\\)。",
+        "optionsZhHans": [],
+        "answer": "-2",
+        "acceptedAnswers": [
+          "-2"
+        ],
+        "explanationZhHans": "原式 \\(= 3a^2 - 6ab - 6a^2 + 5ab - 1 = -3a^2 - ab - 1\\)。代入 \\(a = -1\\)，\\(b = 2\\)：\\(-3 \\times (-1)^2 - (-1) \\times 2 - 1 = -3 \\times 1 + 2 - 1 = -3 + 2 - 1 = -2\\)。"
+      }
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-sa-003",
+      "action": "repair",
+      "confidence": "high",
+      "remediationNotes": "原题计算过程正确但答案错误，正确答案为2。修正答案和解释。",
+      "question": {
+        "promptZhHans": "计算：\\((-2)^3 \\times \\left(-\\frac{1}{2}\\right) - |-3| \\div \\frac{1}{2} + \\sqrt{16}\\)。",
+        "optionsZhHans": [],
+        "answer": "2",
+        "acceptedAnswers": [
+          "2"
+        ],
+        "explanationZhHans": "原式 \\(= (-8) \\times \\left(-\\frac{1}{2}\\right) - 3 \\div \\frac{1}{2} + 4 = 4 - 6 + 4 = 2\\)。"
+      }
+    },
+    {
+      "id": "pep-junior-v3-s1-k03-sa-021",
+      "action": "repair",
+      "confidence": "medium",
+      "remediationNotes": "原题缺少俯视图具体数字，导致答案依赖假设。补充明确的俯视图数据，使题目自包含。",
+      "question": {
+        "promptZhHans": "一个几何体由几个大小相同的小立方块搭成，从上面看得到的形状图是3×3的网格，每个位置上的数字表示该位置小立方块的个数，具体数字如下：第一行从左到右为1、2、1，第二行从左到右为2、3、2，第三行从左到右为1、2、1。请你画出从正面看和从左面看得到的形状图。",
+        "optionsZhHans": [],
+        "answer": "从正面看：第一列3个，第二列2个，第三列1个；从左面看：第一列3个，第二列2个，第三列2个。",
+        "acceptedAnswers": [
+          "从正面看：第一列3个，第二列2个，第三列1个；从左面看：第一列3个，第二列2个，第三列2个。",
+          "正面：3,2,1；左面：3,2,2",
+          "正面3-2-1，左面3-2-2"
+        ],
+        "explanationZhHans": "根据俯视图数字，从正面看，最左列最高为3（第二行第一列），中间列最高为2（第一行第二列或第三行第二列），最右列最高为1（第一行第三列），所以正面图为3,2,1。从左面看，最左列最高为3（第二行第一列），中间列最高为2（第二行第二列），最右列最高为2（第二行第三列），所以左面图为3,2,2。"
+      }
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-mc-018",
+      "action": "repair",
+      "confidence": "high",
+      "remediationNotes": "原题选项包含两个正确表达式，造成歧义。修改选项，使只有45x+15正确，并调整题目表述。",
+      "question": {
+        "promptZhHans": "某校组织七年级学生春游，若租用45座客车，则有15人没有座位；若租用同样数量的60座客车，则多出一辆车，且其余车刚好坐满。设租用45座客车x辆，则学生总人数可表示为（ ）。",
+        "optionsZhHans": [
+          "45x+15",
+          "60x-15",
+          "45x-15",
+          "60x+15"
+        ],
+        "answer": "45x+15",
+        "acceptedAnswers": [
+          "45x+15"
+        ],
+        "explanationZhHans": "租用x辆45座客车，有15人无座，总人数为45x+15。若租用60座客车，数量为(x-1)辆且坐满，总人数为60(x-1)=60x-60，但选项中没有该表达式，因此只能选45x+15。"
+      }
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-mc-023",
+      "action": "repair",
+      "confidence": "high",
+      "remediationNotes": "原题缺少图形，无法确定角的位置关系。补充明确的文字描述，使题目自包含。",
+      "question": {
+        "promptZhHans": "直线a平行于直线b，直线c与a、b分别交于点A、B。已知∠1=55°，∠1与∠2是同旁内角，则∠2的度数为（ ）。",
+        "optionsZhHans": [
+          "55°",
+          "125°",
+          "135°",
+          "145°"
+        ],
+        "answer": "125°",
+        "acceptedAnswers": [
+          "125°"
+        ],
+        "explanationZhHans": "因为a∥b，且∠1与∠2是同旁内角，根据平行线性质，同旁内角互补，所以∠2=180°-55°=125°。"
+      }
+    }
+  ]
+}

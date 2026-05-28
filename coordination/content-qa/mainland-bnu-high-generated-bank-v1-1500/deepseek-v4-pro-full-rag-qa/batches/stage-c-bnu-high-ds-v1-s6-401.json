@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-401",
+  "startedAt": "2026-05-28T01:54:04.932Z",
+  "completedAt": "2026-05-28T01:54:09.604Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-401"
+  ],
+  "usage": {
+    "prompt_tokens": 2106,
+    "completion_tokens": 264,
+    "total_tokens": 2370,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1722
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-401",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "a = 6",
+        "correctedAnswer": "a = 6",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合教材范围。Stage A 独立求解得 a=6，但存储答案和解析最终答案误写为 a=2，解析过程本身得出 a=6，存在答案错误和解释矛盾，必须修正为 a=6。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1 题答案错误，解析矛盾，需修正为 a=6。"
+    }
+  }
+}

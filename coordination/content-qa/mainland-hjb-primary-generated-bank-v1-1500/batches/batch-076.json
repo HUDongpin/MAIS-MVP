@@ -1,0 +1,305 @@
+{
+  "batchId": "batch-076",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p2-126",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-math-square-review",
+      "unitTitle": "二年级上册数学广场与整理复习",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "p2-upper-review",
+        "math-square-exploration",
+        "within-100-review",
+        "money-direction-multiplication-review",
+        "数学广场",
+        "复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "综合应用",
+        "规律观察",
+        "策略说明",
+        "错因检查",
+        "知识整理"
+      ],
+      "misconceptionTags": [
+        "operation chosen from surface words",
+        "unit and direction labels omitted",
+        "review treated as unrelated drill rather than model selection"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-math-square-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-math-square-review",
+        "hjb-primary-p2-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小华有45元，买了一本故事书花了18元，又买了一盒彩笔花了12元。小华还剩多少元？请写出计算过程，并说说你是怎样检查的。",
+      "optionsZhHans": [],
+      "answer": "45 - 18 - 12 = 15（元）",
+      "acceptedAnswers": [
+        "45 - 18 - 12 = 15（元）",
+        "45-18-12=15（元）",
+        "45-18-12=15元",
+        "15元",
+        "15"
+      ],
+      "explanationZhHans": "先算买书后剩45-18=27元，再减彩笔27-12=15元。检查：用剩的钱加花掉的钱，15+18+12=45，等于原来的钱，说明计算正确。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-127",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-math-square-review",
+      "unitTitle": "二年级上册数学广场与整理复习",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "p2-upper-review",
+        "math-square-exploration",
+        "within-100-review",
+        "money-direction-multiplication-review",
+        "数学广场",
+        "复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "综合应用",
+        "规律观察",
+        "策略说明",
+        "错因检查",
+        "知识整理"
+      ],
+      "misconceptionTags": [
+        "operation chosen from surface words",
+        "unit and direction labels omitted",
+        "review treated as unrelated drill rather than model selection"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-math-square-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-math-square-review",
+        "hjb-primary-p2-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪一道题可以用“3×5”来计算？",
+      "optionsZhHans": [
+        "A. 3个5相加",
+        "B. 3和5相加",
+        "C. 5个3相乘",
+        "D. 3和5相减"
+      ],
+      "answer": "A. 3个5相加",
+      "acceptedAnswers": [
+        "A. 3个5相加"
+      ],
+      "explanationZhHans": "3×5表示3个5相加，即5+5+5。B是3+5，C是3×3×3×3×3，D是5-3，都不符合。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-128",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-math-square-review",
+      "unitTitle": "二年级上册数学广场与整理复习",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "p2-upper-review",
+        "math-square-exploration",
+        "within-100-review",
+        "money-direction-multiplication-review",
+        "数学广场",
+        "复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "综合应用",
+        "规律观察",
+        "策略说明",
+        "错因检查",
+        "知识整理"
+      ],
+      "misconceptionTags": [
+        "operation chosen from surface words",
+        "unit and direction labels omitted",
+        "review treated as unrelated drill rather than model selection"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-math-square-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-math-square-review",
+        "hjb-primary-p2-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在括号里填上合适的数：\n（1）1元＝（ ）角\n（2）50角＝（ ）元\n（3）3元6角＝（ ）角",
+      "optionsZhHans": [],
+      "answer": "（1）10；（2）5；（3）36",
+      "acceptedAnswers": [
+        "（1）10；（2）5；（3）36",
+        "10；5；36",
+        "10,5,36",
+        "10 5 36"
+      ],
+      "explanationZhHans": "1元=10角；50角里有5个10角，所以是5元；3元=30角，再加6角是36角。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-129",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-math-square-review",
+      "unitTitle": "二年级上册数学广场与整理复习",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "p2-upper-review",
+        "math-square-exploration",
+        "within-100-review",
+        "money-direction-multiplication-review",
+        "数学广场",
+        "复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "综合应用",
+        "规律观察",
+        "策略说明",
+        "错因检查",
+        "知识整理"
+      ],
+      "misconceptionTags": [
+        "operation chosen from surface words",
+        "unit and direction labels omitted",
+        "review treated as unrelated drill rather than model selection"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-math-square-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-math-square-review",
+        "hjb-primary-p2-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明面向东站立，他向右转两次后，面向哪个方向？请写出方向，并说明你是怎样想的。",
+      "optionsZhHans": [],
+      "answer": "西",
+      "acceptedAnswers": [
+        "西",
+        "西面",
+        "西方",
+        "西方向"
+      ],
+      "explanationZhHans": "面向东，右转一次面向南，再右转一次面向西。可以画方向标帮助思考：东→南→西。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-130",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-math-square-review",
+      "unitTitle": "二年级上册数学广场与整理复习",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "p2-upper-review",
+        "math-square-exploration",
+        "within-100-review",
+        "money-direction-multiplication-review",
+        "数学广场",
+        "复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "综合应用",
+        "规律观察",
+        "策略说明",
+        "错因检查",
+        "知识整理"
+      ],
+      "misconceptionTags": [
+        "operation chosen from surface words",
+        "unit and direction labels omitted",
+        "review treated as unrelated drill rather than model selection"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-math-square-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-math-square-review",
+        "hjb-primary-p2-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪种分法是平均分？",
+      "optionsZhHans": [
+        "A. 把8个苹果分成2堆，一堆3个，一堆5个",
+        "B. 把12块糖分给3个小朋友，每人4块",
+        "C. 把9支铅笔分给2个小朋友，一人4支，一人5支",
+        "D. 把10个气球分成3份，每份不一样多"
+      ],
+      "answer": "B. 把12块糖分给3个小朋友，每人4块",
+      "acceptedAnswers": [
+        "B. 把12块糖分给3个小朋友，每人4块"
+      ],
+      "explanationZhHans": "平均分是每份同样多。B中12块糖分3人，每人4块，每份相等。A、C、D每份数量不同，不是平均分。"
+    }
+  ]
+}

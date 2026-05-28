@@ -1,0 +1,330 @@
+{
+  "batchNumber": 50,
+  "startedAt": "2026-05-27T03:42:07.261Z",
+  "completedAt": "2026-05-27T03:42:38.056Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p6-221",
+    "bnu-primary-ds-v1-p6-222",
+    "bnu-primary-ds-v1-p6-223",
+    "bnu-primary-ds-v1-p6-224",
+    "bnu-primary-ds-v1-p6-225",
+    "bnu-primary-ds-v1-p6-226",
+    "bnu-primary-ds-v1-p6-227",
+    "bnu-primary-ds-v1-p6-228",
+    "bnu-primary-ds-v1-p6-229",
+    "bnu-primary-ds-v1-p6-230",
+    "bnu-primary-ds-v1-p6-231",
+    "bnu-primary-ds-v1-p6-232",
+    "bnu-primary-ds-v1-p6-233",
+    "bnu-primary-ds-v1-p6-234",
+    "bnu-primary-ds-v1-p6-235",
+    "bnu-primary-ds-v1-p6-236",
+    "bnu-primary-ds-v1-p6-237",
+    "bnu-primary-ds-v1-p6-238",
+    "bnu-primary-ds-v1-p6-239",
+    "bnu-primary-ds-v1-p6-240",
+    "bnu-primary-ds-v1-p6-241",
+    "bnu-primary-ds-v1-p6-242",
+    "bnu-primary-ds-v1-p6-243",
+    "bnu-primary-ds-v1-p6-244",
+    "bnu-primary-ds-v1-p6-245",
+    "bnu-primary-ds-v1-p6-246",
+    "bnu-primary-ds-v1-p6-247",
+    "bnu-primary-ds-v1-p6-248",
+    "bnu-primary-ds-v1-p6-249",
+    "bnu-primary-ds-v1-p6-250"
+  ],
+  "usage": {
+    "prompt_tokens": 8281,
+    "completion_tokens": 2359,
+    "total_tokens": 10640,
+    "prompt_tokens_details": {
+      "cached_tokens": 8192
+    },
+    "prompt_cache_hit_tokens": 8192,
+    "prompt_cache_miss_tokens": 89
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p6-221",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目信息完整，可计算各方案容积，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-222",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目明确，计算无误，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-223",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "体积计算正确，运输次数整除，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-224",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "方案设计合理，计算正确，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-225",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "面积和费用计算正确，选项B为正确答案。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-226",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "容积计算正确，修改方案合理，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-227",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "方案计算正确，选项描述准确，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-228",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "小路面积计算正确，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-229",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "无法划分成两个相同正方形，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-230",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "答案给出多种可行方案，均符合要求，匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-231",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项B体现规划思路，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-232",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "计算正确，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-233",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "计算正确，B型更省钱，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-234",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "容积计算正确，答案62.8升匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-235",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "体积计算正确，水高1.25分米，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-236",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "容积计算正确，答案62.8匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-237",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "按比例分配计算正确，体积48立方厘米，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-238",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "容积计算正确，答案62.8匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-239",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "判断正确，侧面积公式为底面周长乘高，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-240",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "小刚说法错误，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-241",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "根据体积比计算圆柱高12厘米，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-242",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "比值相等，8:15正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-243",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "实际距离和时间计算正确，3小时匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-244",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "最大角80°，锐角三角形，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-245",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "比例尺换算正确，1:4000000匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-246",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "圆锥体积和重量计算正确，10.676吨匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-247",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "长×宽=面积（一定），成反比例，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-248",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "底面周长等于高，直径与高的比为1:π，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-249",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "成活与未成活比96:4=24:1，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-250",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "比例尺计算正确，50:1匹配。"
+      }
+    ],
+    "batchSummary": {
+      "solvableYes": 30,
+      "solvableNo": 0,
+      "answerMatchYes": 30,
+      "answerMatchNo": 0,
+      "notes": "全部30道题目均可解，答案匹配，无问题。"
+    }
+  }
+}

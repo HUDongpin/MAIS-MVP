@@ -1,0 +1,103 @@
+{
+  "batchId": "model-qa-0027",
+  "ids": [
+    "hjb-junior-ds-v2-s1-209",
+    "hjb-junior-ds-v2-s1-210",
+    "hjb-junior-ds-v2-s1-211",
+    "hjb-junior-ds-v2-s1-212",
+    "hjb-junior-ds-v2-s1-213",
+    "hjb-junior-ds-v2-s1-214",
+    "hjb-junior-ds-v2-s1-215",
+    "hjb-junior-ds-v2-s1-216"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-209",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "5 cm",
+      "answerCheckZhHans": "标准答案为5，acceptedAnswers包含5、5cm、5 cm，均表示5厘米，与独立答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-210",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "R(-3, 2)，点P与点R关于原点对称",
+      "answerCheckZhHans": "标准答案与独立答案一致，acceptedAnswers覆盖了标准答案的几种合理表述。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-211",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(6, 2)",
+      "answerCheckZhHans": "标准答案与独立答案一致，选项互异，且只有(6,2)正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-212",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "5 cm",
+      "answerCheckZhHans": "标准答案为5，acceptedAnswers为[\"5\"]，未包含单位，但题目要求填空，数字5可接受。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-213",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(-3, 2)",
+      "answerCheckZhHans": "标准答案与独立答案一致，acceptedAnswers覆盖。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-214",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(4, 1)",
+      "answerCheckZhHans": "标准答案与独立答案一致，选项互异，且只有(4,1)正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-215",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "6 cm",
+      "answerCheckZhHans": "标准答案为6，acceptedAnswers为[\"6\"]，未包含单位，但题目要求填空，数字6可接受。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-216",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "A'(4,0)，相等，因为平移不改变图形的形状和大小。",
+      "answerCheckZhHans": "标准答案与独立答案一致，acceptedAnswers覆盖了标准答案的两种表述。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

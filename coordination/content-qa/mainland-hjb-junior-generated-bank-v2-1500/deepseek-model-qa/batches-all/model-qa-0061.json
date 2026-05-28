@@ -1,0 +1,112 @@
+{
+  "batchId": "model-qa-0061",
+  "ids": [
+    "hjb-junior-ds-v2-s1-481",
+    "hjb-junior-ds-v2-s1-482",
+    "hjb-junior-ds-v2-s1-483",
+    "hjb-junior-ds-v2-s1-484",
+    "hjb-junior-ds-v2-s1-485",
+    "hjb-junior-ds-v2-s1-486",
+    "hjb-junior-ds-v2-s1-487",
+    "hjb-junior-ds-v2-s1-488"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-481",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析得出∠ADE=70°，∠DAE=20°，不相等，故△ADE不是等腰三角形。正确结论应为∠ADE=70°。答案与解析矛盾。",
+      "independentAnswerZhHans": "∠B=∠C=70°，∠BAD=∠CAD=20°，∠ADB=90°，∠AED=90°，∠ADE=70°。△ADE中∠DAE=20°，∠ADE=70°，∠AED=90°，不是等腰三角形。正确选项是∠ADE=70°。",
+      "answerCheckZhHans": "给定答案△ADE是等腰三角形错误，解析中∠ADE=70°与∠DAE=20°不相等，不能推出AD=DE。",
+      "recommendedActionZhHans": "修正答案为∠ADE=70°，并修改解析，指出△ADE不是等腰三角形。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-482",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "∠C=∠B=50°，∠BAC=80°，∠BAD=∠CAD=40°，∠ADB=90°，∠ADC=90°。",
+      "answerCheckZhHans": "答案90°正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-483",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "∠C=∠B=50°，∠BAC=80°，∠BAD=∠CAD=40°，∠ADB=90°，∠ADC=90°。",
+      "answerCheckZhHans": "答案90°正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-484",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析称AD⊥BC且BD=CD，但题干未说明D是BC中点，仅AD平分∠BAC，等腰三角形顶角平分线也是底边中线和高，故BD=CD成立。但选项BD=AD能直接使△ABD等腰，其他选项不能。然而解析说“若BD=AD，则△ABD中BD=AD，故为等腰三角形”，这正确。但选项BD=AD是条件，不是结论，题目问“能判定△ABD是等腰三角形的是”，BD=AD本身就是等腰三角形的定义，所以选BD=AD正确。但解析中“AD⊥BC且BD=CD”是已知推出的，不是判定条件。答案和解析一致，但需确认是否有其他选项也能判定。∠B=30°不能推出等腰；∠BAD=30°不能；AB=BD不能，因为AB=AC，若AB=BD则BD=AC，但△ABD中AB和BD不一定相等。所以唯一正确选项是BD=AD。题目无问题。",
+      "independentAnswerZhHans": "由AB=AC，AD平分∠BAC，得AD⊥BC，BD=CD。选项BD=AD直接使△ABD等腰。其他选项不能。",
+      "answerCheckZhHans": "答案BD=AD正确，解析一致。",
+      "recommendedActionZhHans": "无需修改，题目正确。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-485",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "由等腰三角形三线合一，BD=CD，∠B=∠C，DE=DF，添加BD=CD可用SAS证全等。其他选项不能唯一确定。",
+      "answerCheckZhHans": "答案BD=CD正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-486",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "∠B=∠C=50°，∠BAC=80°，D为BC中点，AD平分∠BAC，∠BAD=40°。",
+      "answerCheckZhHans": "答案40°正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-487",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "等腰三角形顶角平分线也是高，AD⊥BC，∠ADC=90°。",
+      "answerCheckZhHans": "答案90°正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-488",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析得出∠DAC=30°，但答案误写为20°。正确选项应为30°。",
+      "independentAnswerZhHans": "∠B=∠C=50°，AD=BD得∠BAD=∠B=50°，∠DAC=80°-50°=30°。",
+      "answerCheckZhHans": "给定答案20°错误，解析计算得30°，矛盾。",
+      "recommendedActionZhHans": "修正答案为30°，并确保选项中有30°。",
+      "confidence": "high"
+    }
+  ]
+}

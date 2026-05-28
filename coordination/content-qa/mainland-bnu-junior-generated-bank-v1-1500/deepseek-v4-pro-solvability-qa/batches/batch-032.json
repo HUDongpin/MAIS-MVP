@@ -1,0 +1,173 @@
+{
+  "batchNumber": 32,
+  "startedAt": "2026-05-27T17:30:51.421Z",
+  "completedAt": "2026-05-27T17:31:09.919Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s1-373",
+    "bnu-junior-ds-v1-s1-374",
+    "bnu-junior-ds-v1-s1-375",
+    "bnu-junior-ds-v1-s1-376",
+    "bnu-junior-ds-v1-s1-377",
+    "bnu-junior-ds-v1-s1-378",
+    "bnu-junior-ds-v1-s1-379",
+    "bnu-junior-ds-v1-s1-380",
+    "bnu-junior-ds-v1-s1-381",
+    "bnu-junior-ds-v1-s1-382",
+    "bnu-junior-ds-v1-s1-383",
+    "bnu-junior-ds-v1-s1-384"
+  ],
+  "usage": {
+    "prompt_tokens": 7298,
+    "completion_tokens": 1250,
+    "total_tokens": 8548,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 6786
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s1-373",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件完整，三角形三边关系应用正确，选项唯一且答案匹配，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-374",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "等腰三角形边长讨论完整，三边关系验证正确，周长计算无误，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-375",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "内角和计算正确，三角形分类准确，答案与解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-376",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "内角和计算正确，选项唯一且答案匹配，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-377",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "全等三角形对应边角关系应用正确，答案与解释一致，acceptedAnswers覆盖合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-378",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "变量关系式正确，自变量因变量识别准确，答案与解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-379",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "表格数据与关系式匹配，选项唯一且答案正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-380",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "路程与速度计算正确，答案与解释一致，acceptedAnswers覆盖分数和小数形式。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-381",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "表格数据解读正确，变量识别、速度计算和关系式均无误，答案与解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-382",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "图象信息解读正确，选项分析准确，唯一正确答案B，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-383",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "出租车收费模型正确，不足1千米按1千米计处理得当，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-384",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "长方形面积关系应用正确，填空答案与关系式匹配，解释合理。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部12道题目均条件完整、可解，答案与解释匹配，无数学错误或选项问题，适合北师大版七年级下册使用。"
+    }
+  }
+}

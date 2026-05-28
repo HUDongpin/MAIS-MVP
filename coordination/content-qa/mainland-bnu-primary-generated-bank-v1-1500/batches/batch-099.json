@@ -1,0 +1,587 @@
+{
+  "batchId": "batch-099",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p4-231",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-data-representation-analysis",
+      "unitTitle": "数据的表示和分析",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "data-representation-analysis",
+        "statistical-charts",
+        "average",
+        "数据表示",
+        "数据分析"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "收集整理数据",
+        "读统计图",
+        "比较数据",
+        "平均数",
+        "解释结论"
+      ],
+      "misconceptionTags": [
+        "chart scale ignored",
+        "average treated as a required actual value",
+        "conclusion not supported by the displayed data"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-data-representation-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-data-representation-analysis-unit",
+        "bnu-primary-p5-lower-assessment-data-analysis-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是四（2）班第一小组5名同学1分钟跳绳成绩的统计表。\n\n| 姓名 | 小明 | 小红 | 小刚 | 小丽 | 小宇 |\n|------|------|------|------|------|------|\n| 成绩（下） | 132 | 145 | 128 | 139 | 151 |\n\n根据统计表，下面哪种说法是正确的？",
+      "optionsZhHans": [
+        "小红的成绩比小明多13下。",
+        "小宇的成绩比小刚多28下。",
+        "小丽的成绩比小明多7下。",
+        "小红的成绩比小丽多8下。"
+      ],
+      "answer": "小红的成绩比小明多13下。",
+      "acceptedAnswers": [
+        "小红的成绩比小明多13下。"
+      ],
+      "explanationZhHans": "计算差值：小红145下，小明132下，145-132=13下，所以A正确。小宇151下，小刚128下，151-128=23下，B错误。小丽139下，小明132下，139-132=7下，C错误。小红145下，小丽139下，145-139=6下，D错误。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-232",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-data-representation-analysis",
+      "unitTitle": "数据的表示和分析",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "data-representation-analysis",
+        "statistical-charts",
+        "average",
+        "数据表示",
+        "数据分析"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "收集整理数据",
+        "读统计图",
+        "比较数据",
+        "平均数",
+        "解释结论"
+      ],
+      "misconceptionTags": [
+        "chart scale ignored",
+        "average treated as a required actual value",
+        "conclusion not supported by the displayed data"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-data-representation-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-data-representation-analysis-unit",
+        "bnu-primary-p5-lower-assessment-data-analysis-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是四（1）班同学最喜欢的水果统计表。\n\n| 水果 | 苹果 | 香蕉 | 橘子 | 葡萄 | 西瓜 |\n|------|------|------|------|------|------|\n| 人数 | 12 | 8 | 10 | 6 | 14 |\n\n最喜欢西瓜的人数比最喜欢苹果的人数多______人。",
+      "optionsZhHans": [],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2"
+      ],
+      "explanationZhHans": "最喜欢西瓜的有14人，最喜欢苹果的有12人，14-12=2人，所以多2人。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-233",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-data-representation-analysis",
+      "unitTitle": "数据的表示和分析",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "data-representation-analysis",
+        "statistical-charts",
+        "average",
+        "数据表示",
+        "数据分析"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "收集整理数据",
+        "读统计图",
+        "比较数据",
+        "平均数",
+        "解释结论"
+      ],
+      "misconceptionTags": [
+        "chart scale ignored",
+        "average treated as a required actual value",
+        "conclusion not supported by the displayed data"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-data-representation-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-data-representation-analysis-unit",
+        "bnu-primary-p5-lower-assessment-data-analysis-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "四（3）班第一小组6名同学的身高数据如下（单位：厘米）：135, 142, 138, 140, 137, 146。下面哪种说法是正确的？",
+      "optionsZhHans": [
+        "这组数据的平均数是140厘米。",
+        "这组数据的平均数是139厘米。",
+        "这组数据的平均数是141厘米。",
+        "这组数据的平均数是138厘米。"
+      ],
+      "answer": "这组数据的平均数是140厘米。",
+      "acceptedAnswers": [
+        "这组数据的平均数是140厘米。"
+      ],
+      "explanationZhHans": "计算总和：135+142+138+140+137+148=840，840÷6=140，所以平均数是140厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-234",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-data-representation-analysis",
+      "unitTitle": "数据的表示和分析",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "data-representation-analysis",
+        "statistical-charts",
+        "average",
+        "数据表示",
+        "数据分析"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "收集整理数据",
+        "读统计图",
+        "比较数据",
+        "平均数",
+        "解释结论"
+      ],
+      "misconceptionTags": [
+        "chart scale ignored",
+        "average treated as a required actual value",
+        "conclusion not supported by the displayed data"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-data-representation-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-data-representation-analysis-unit",
+        "bnu-primary-p5-lower-assessment-data-analysis-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是四（2）班四个小组收集废电池的数量统计表。\n\n| 小组 | 第一组 | 第二组 | 第三组 | 第四组 |\n|------|--------|--------|--------|--------|\n| 数量（节） | 15 | 20 | 18 | 23 |\n\n这四个小组平均每组收集废电池______节。",
+      "optionsZhHans": [],
+      "answer": "19",
+      "acceptedAnswers": [
+        "19"
+      ],
+      "explanationZhHans": "总和：15+20+18+23=76，76÷4=19，所以平均每组收集19节。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-235",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-data-representation-analysis",
+      "unitTitle": "数据的表示和分析",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "data-representation-analysis",
+        "statistical-charts",
+        "average",
+        "数据表示",
+        "数据分析"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "收集整理数据",
+        "读统计图",
+        "比较数据",
+        "平均数",
+        "解释结论"
+      ],
+      "misconceptionTags": [
+        "chart scale ignored",
+        "average treated as a required actual value",
+        "conclusion not supported by the displayed data"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-data-representation-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-data-representation-analysis-unit",
+        "bnu-primary-p5-lower-assessment-data-analysis-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "四（1）班同学参加兴趣小组的情况如下：绘画组12人，舞蹈组8人，书法组10人，合唱组14人。下面哪种说法是正确的？",
+      "optionsZhHans": [
+        "参加合唱组的人数比绘画组多2人。",
+        "参加舞蹈组的人数比书法组少4人。",
+        "参加绘画组的人数比合唱组少2人。",
+        "参加书法组的人数比舞蹈组多2人。"
+      ],
+      "answer": "参加绘画组的人数比合唱组少2人。",
+      "acceptedAnswers": [
+        "参加绘画组的人数比合唱组少2人。"
+      ],
+      "explanationZhHans": "合唱组14人，绘画组12人，14-12=2，所以绘画组比合唱组少2人，C正确。A：14-12=2，A说多4人，错误。B：10-8=2，B说少4人，错误。D：10-8=2，D说多4人，错误。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-236",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "p4-lower-review",
+        "mathematical-activity",
+        "integrated-application",
+        "整理与复习",
+        "数学好玩",
+        "总复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "model chosen from keyword alone",
+        "representation selected without purpose",
+        "review solved as unrelated answer drills only"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-final-topic-drill",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在计算小数加法时，小马虎把3.25+2.7算成了3.25+2.07=5.32。他出错的原因是______。",
+      "optionsZhHans": [],
+      "answer": "没有把相同数位对齐",
+      "acceptedAnswers": [
+        "没有把相同数位对齐",
+        "小数点没有对齐",
+        "数位没有对齐"
+      ],
+      "explanationZhHans": "2.7是2.70，应该与3.25的小数点对齐，即百分位加0，但小马虎写成了2.07，导致百分位上的5加7，十分位上的2加0，所以数位没有对齐。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-237",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "p4-lower-review",
+        "mathematical-activity",
+        "integrated-application",
+        "整理与复习",
+        "数学好玩",
+        "总复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "model chosen from keyword alone",
+        "representation selected without purpose",
+        "review solved as unrelated answer drills only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-final-topic-drill",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个问题适合用“平均数”来解决？",
+      "optionsZhHans": [
+        "四（1）班第一小组6名同学的身高各是多少厘米？",
+        "四（1）班第一小组6名同学中，谁的身高最高？",
+        "四（1）班第一小组6名同学的平均身高是多少厘米？",
+        "四（1）班第一小组6名同学的身高总和是多少厘米？"
+      ],
+      "answer": "四（1）班第一小组6名同学的平均身高是多少厘米？",
+      "acceptedAnswers": [
+        "四（1）班第一小组6名同学的平均身高是多少厘米？"
+      ],
+      "explanationZhHans": "平均数用于描述一组数据的整体水平，选项C直接求平均身高，适合用平均数解决。其他选项分别是求个体数据、最大值和总和，不需要平均数。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-238",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "p4-lower-review",
+        "mathematical-activity",
+        "integrated-application",
+        "整理与复习",
+        "数学好玩",
+        "总复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "model chosen from keyword alone",
+        "representation selected without purpose",
+        "review solved as unrelated answer drills only"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-final-topic-drill",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个等腰三角形的顶角是80°，它的一个底角是______°。",
+      "optionsZhHans": [],
+      "answer": "50",
+      "acceptedAnswers": [
+        "50"
+      ],
+      "explanationZhHans": "等腰三角形两个底角相等，三角形内角和180°，所以底角=(180°-80°)÷2=50°。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-239",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "p4-lower-review",
+        "mathematical-activity",
+        "integrated-application",
+        "整理与复习",
+        "数学好玩",
+        "总复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "model chosen from keyword alone",
+        "representation selected without purpose",
+        "review solved as unrelated answer drills only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-final-topic-drill",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "判断一条折痕是不是长方形的对称轴，关键要看折叠后两部分是否怎样？",
+      "optionsZhHans": [
+        "完全重合",
+        "面积变大",
+        "边数变少",
+        "方向相同但不能重合"
+      ],
+      "answer": "完全重合",
+      "acceptedAnswers": [
+        "完全重合"
+      ],
+      "explanationZhHans": "如果沿折痕对折后两部分完全重合，这条折痕就是图形的对称轴。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-240",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "p4-lower-review",
+        "mathematical-activity",
+        "integrated-application",
+        "整理与复习",
+        "数学好玩",
+        "总复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "model chosen from keyword alone",
+        "representation selected without purpose",
+        "review solved as unrelated answer drills only"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-final-topic-drill",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把0.8的小数点向右移动两位，得到的数是______。",
+      "optionsZhHans": [],
+      "answer": "80",
+      "acceptedAnswers": [
+        "80"
+      ],
+      "explanationZhHans": "小数点向右移动两位，相当于乘以100，0.8×100=80。"
+    }
+  ]
+}

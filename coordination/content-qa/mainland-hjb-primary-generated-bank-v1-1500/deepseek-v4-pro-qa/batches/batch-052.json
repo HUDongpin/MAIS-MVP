@@ -1,0 +1,191 @@
+{
+  "batchNumber": 52,
+  "startedAt": "2026-05-25T02:15:28.810Z",
+  "completedAt": "2026-05-25T02:15:50.035Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p4-169",
+    "hjb-primary-ds-v1-p4-170",
+    "hjb-primary-ds-v1-p4-171",
+    "hjb-primary-ds-v1-p4-172",
+    "hjb-primary-ds-v1-p4-173",
+    "hjb-primary-ds-v1-p4-174",
+    "hjb-primary-ds-v1-p4-175",
+    "hjb-primary-ds-v1-p4-176",
+    "hjb-primary-ds-v1-p4-177",
+    "hjb-primary-ds-v1-p4-178",
+    "hjb-primary-ds-v1-p4-179",
+    "hjb-primary-ds-v1-p4-180",
+    "hjb-primary-ds-v1-p4-181",
+    "hjb-primary-ds-v1-p4-182",
+    "hjb-primary-ds-v1-p4-183",
+    "hjb-primary-ds-v1-p4-184",
+    "hjb-primary-ds-v1-p4-185",
+    "hjb-primary-ds-v1-p4-186"
+  ],
+  "usage": {
+    "prompt_tokens": 3745,
+    "completion_tokens": 1291,
+    "total_tokens": 5036,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 3489
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p4-169",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，选项清晰，答案与解释一致。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-170",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案80无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-171",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案与解释合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-172",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，选项唯一，答案0.70无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-173",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，计算过程和结果均无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-174",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案1.25米无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-175",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，比较逻辑清晰，答案小浩无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-176",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，比较过程合理，答案小宇无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-177",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，计算无误，答案3.75元。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-178",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，比较过程严谨，答案0.699无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-179",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，化简结果3.05无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-180",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，解题步骤清晰，答案0.6千克无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-181",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，比较无误，答案小华。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-182",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，改写结果0.80无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-183",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，选项唯一，答案6.050无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-184",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，计算无误，答案4.08。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-185",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，趋势判断无误，答案先上升后下降再上升。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-186",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，比较无误，答案星期三。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合沪教版小学数学要求，数学正确，答案与解释一致，无歧义或风险。"
+    }
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-225",
+  "startedAt": "2026-05-28T01:24:06.591Z",
+  "completedAt": "2026-05-28T01:24:11.746Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-225"
+  ],
+  "usage": {
+    "prompt_tokens": 2386,
+    "completion_tokens": 335,
+    "total_tokens": 2721,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2002
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-225",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "2x-y-1=0 或 4x-3y+1=0",
+        "correctedAnswer": "2x-y-1=0 或 4x-3y+1=0",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction",
+          "accepted_answer_gap"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合BNU建模活动章节要求。正确答案应为2x-y-1=0或4x-3y+1=0，存储答案x-2y+4=0错误，解析中虽提及两解但最终给出错误答案，且acceptedAnswers包含错误答案，存在数学错误和答案不匹配，需修正。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目存储答案错误，正确答案为2x-y-1=0或4x-3y+1=0，需修正。"
+    }
+  }
+}

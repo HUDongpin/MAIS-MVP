@@ -1,0 +1,110 @@
+{
+  "batchId": "model-qa-0020",
+  "ids": [
+    "hjb-junior-ds-v2-s1-153",
+    "hjb-junior-ds-v2-s1-154",
+    "hjb-junior-ds-v2-s1-155",
+    "hjb-junior-ds-v2-s1-156",
+    "hjb-junior-ds-v2-s1-157",
+    "hjb-junior-ds-v2-s1-158",
+    "hjb-junior-ds-v2-s1-159",
+    "hjb-junior-ds-v2-s1-160"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-153",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "标准答案化简结果为 (x-2)/(x+2)，但正确化简应为 (x-2)/(x+2)？经独立计算，原式化简为 (x-2)/(x+2)，代入 x=0 得 -1，答案正确。但解析中化简步骤有误：原式 = (x+2)(x-2)/(x-2)^2 ÷ (x+2)/(x-2) = (x+2)/(x-2) × (x-2)/(x+2) = 1？重新计算：原式 = (x^2-4)/(x^2-4x+4) ÷ (x+2)/(x-2) = [(x+2)(x-2)]/(x-2)^2 × (x-2)/(x+2) = (x+2)/(x-2) × (x-2)/(x+2) = 1。但答案给出 (x-2)/(x+2)，矛盾。独立计算：原式 = (x^2-4)/(x^2-4x+4) × (x-2)/(x+2) = [(x+2)(x-2)]/(x-2)^2 × (x-2)/(x+2) = (x+2)/(x-2) × (x-2)/(x+2) = 1。因此化简结果应为 1，代入 x=0 得 1，而非 -1。答案错误。",
+      "independentAnswerZhHans": "化简得 1，取 x=0 时值为 1",
+      "answerCheckZhHans": "标准答案化简为 (x-2)/(x+2)，代入 x=0 得 -1，但正确化简为 1，代入得 1。答案错误。",
+      "recommendedActionZhHans": "修正答案和解析，正确化简结果为 1，代入 x=0 得 1。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-154",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "C. 1/(x+1)",
+      "answerCheckZhHans": "原式约分得 1/(x+1)，选项 C 正确。注意定义域 x≠1，但选项 C 定义域为 x≠-1，两者不完全等价，但题目问“相等”，通常指代数式恒等变形，不考虑定义域差异，符合初中要求。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-155",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(x-3)(x+2)",
+      "answerCheckZhHans": "分母互质，最简公分母为乘积，正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-156",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案（2）最简分式为 2(x+2)/(x-3)，但正确化简应为 2(x-2)/(x-3)。解析中写“约去公因式 (x+2) 得 2(x-2)/(x-3)”，但答案却写成了 2(x+2)/(x-3)，矛盾。且（3）代入 x=-1 计算，原式值应为 3/2，最简式值也为 3/2，但答案写为 1，错误。",
+      "independentAnswerZhHans": "（1）x≠3 且 x≠-2；（2）最简分式为 2(x-2)/(x-3)，x≠3；（3）原分式值 = 3/2，最简分式值 = 3/2，相等。",
+      "answerCheckZhHans": "答案（2）错误，应为 2(x-2)/(x-3)；（3）值错误，应为 3/2。",
+      "recommendedActionZhHans": "修正答案和解析，最简分式为 2(x-2)/(x-3)，代入 x=-1 得 3/2。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-157",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "multiple-correct-options"
+      ],
+      "issueDetailsZhHans": "选项 A 约分后为 (x+2)/(x-3)，但定义域多了 x≠0；选项 B 约分后为 (x+2)/(x-3)，但定义域多了 x≠2；选项 C 约分后为 (x+2)/(x-3)，但定义域多了 x≠-3；选项 D 约分后为 (x+2)/(x-3)，定义域为 x≠3 且 x≠-1，与原分式定义域 x≠3 不同。严格来说，所有选项化简后代数式相同，但定义域均不完全相同。初中通常不考虑定义域差异，认为相等。但若考虑定义域，则无一完全相等。题目未明确是否考虑定义域，可能引起争议。但按常规，选项 D 定义域最接近，且解析认为 D 正确。然而选项 A、B、C 约分后也得到相同代数式，若忽略定义域，则多个选项正确。需明确题目意图。",
+      "independentAnswerZhHans": "若忽略定义域，A、B、C、D 化简后均为 (x+2)/(x-3)，多个正确选项。",
+      "answerCheckZhHans": "题目可能期望选择定义域一致的选项，但 D 的定义域为 x≠3 且 x≠-1，与原式 x≠3 不同。严格来说，没有完全相等的选项。",
+      "recommendedActionZhHans": "明确题目是否考虑定义域，或修改选项使只有一个定义域完全一致。",
+      "confidence": "medium"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-158",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-3",
+      "answerCheckZhHans": "分子为零得 x=±3，分母不为零排除 x=3 和 x=1，故 x=-3，正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-159",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "化简得 x，代入 x=3 得 3，正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-160",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "A. (3x+2)/[(x+2)^2(x-2)]",
+      "answerCheckZhHans": "通分计算正确，结果为 A。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

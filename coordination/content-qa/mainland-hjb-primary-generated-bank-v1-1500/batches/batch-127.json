@@ -1,0 +1,288 @@
+{
+  "batchId": "batch-127",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p3-131",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-math-square-review",
+      "unitTitle": "三年级上册数学广场与整理复习",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "p3-upper-review",
+        "math-square-exploration",
+        "operation-geometry-fraction-review",
+        "数学广场",
+        "整理复习"
+      ],
+      "competencyTags": [
+        "推理意识",
+        "反思整理",
+        "应用意识"
+      ],
+      "skillTags": [
+        "规律探索",
+        "综合应用",
+        "策略表达",
+        "错因归纳",
+        "模型选择"
+      ],
+      "misconceptionTags": [
+        "review solved by memorized procedure only",
+        "diagram and equation not connected",
+        "strategy chosen from surface keywords"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-math-square-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-review-operations",
+        "hjb-primary-p3-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在数学广场探索中，小丁发现了一个规律：1，1，2，3，5，8，13，21，… 按照这个规律，第10个数是____。",
+      "optionsZhHans": [],
+      "answer": "55",
+      "acceptedAnswers": [
+        "55"
+      ],
+      "explanationZhHans": "从第三个数起，每个数都是前两个数的和。第8个数是21，第9个数是13+21=34，第10个数是21+34=55。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-132",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-math-square-review",
+      "unitTitle": "三年级上册数学广场与整理复习",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "p3-upper-review",
+        "math-square-exploration",
+        "operation-geometry-fraction-review",
+        "数学广场",
+        "整理复习"
+      ],
+      "competencyTags": [
+        "推理意识",
+        "反思整理",
+        "应用意识"
+      ],
+      "skillTags": [
+        "规律探索",
+        "综合应用",
+        "策略表达",
+        "错因归纳",
+        "模型选择"
+      ],
+      "misconceptionTags": [
+        "review solved by memorized procedure only",
+        "diagram and equation not connected",
+        "strategy chosen from surface keywords"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-math-square-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-review-operations",
+        "hjb-primary-p3-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小胖在整理错题时发现，计算 36+64÷8 时，他先算了加法得到100，再除以8得到12.5，但这是错误的。请你写出正确的计算过程和结果。",
+      "optionsZhHans": [],
+      "answer": "36+64÷8=36+8=44",
+      "acceptedAnswers": [
+        "36+64÷8=36+8=44",
+        "44"
+      ],
+      "explanationZhHans": "在没有括号的算式里，有除法和加法，要先算除法，再算加法。64÷8=8，36+8=44。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-133",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-math-square-review",
+      "unitTitle": "三年级上册数学广场与整理复习",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "p3-upper-review",
+        "math-square-exploration",
+        "operation-geometry-fraction-review",
+        "数学广场",
+        "整理复习"
+      ],
+      "competencyTags": [
+        "推理意识",
+        "反思整理",
+        "应用意识"
+      ],
+      "skillTags": [
+        "规律探索",
+        "综合应用",
+        "策略表达",
+        "错因归纳",
+        "模型选择"
+      ],
+      "misconceptionTags": [
+        "review solved by memorized procedure only",
+        "diagram and equation not connected",
+        "strategy chosen from surface keywords"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-math-square-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-review-operations",
+        "hjb-primary-p3-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆买来4包新书，每包25本，借出68本后，还剩多少本？正确的列式是（ ）。",
+      "optionsZhHans": [
+        "25×4-68",
+        "25×4+68",
+        "68-25×4",
+        "25+4-68"
+      ],
+      "answer": "25×4-68",
+      "acceptedAnswers": [
+        "25×4-68"
+      ],
+      "explanationZhHans": "先求总本数：每包25本，4包就是25×4=100本。借出68本，剩下100-68=32本。列式为25×4-68。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-134",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-math-square-review",
+      "unitTitle": "三年级上册数学广场与整理复习",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "p3-upper-review",
+        "math-square-exploration",
+        "operation-geometry-fraction-review",
+        "数学广场",
+        "整理复习"
+      ],
+      "competencyTags": [
+        "推理意识",
+        "反思整理",
+        "应用意识"
+      ],
+      "skillTags": [
+        "规律探索",
+        "综合应用",
+        "策略表达",
+        "错因归纳",
+        "模型选择"
+      ],
+      "misconceptionTags": [
+        "review solved by memorized procedure only",
+        "diagram and equation not connected",
+        "strategy chosen from surface keywords"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-math-square-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-review-operations",
+        "hjb-primary-p3-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在整理复习中，小亚发现一道题：一个正方形的边长是8厘米，它的周长是____厘米。",
+      "optionsZhHans": [],
+      "answer": "32",
+      "acceptedAnswers": [
+        "32"
+      ],
+      "explanationZhHans": "正方形四条边都相等，周长=边长×4。8×4=32厘米。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-135",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-math-square-review",
+      "unitTitle": "三年级上册数学广场与整理复习",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "p3-upper-review",
+        "math-square-exploration",
+        "operation-geometry-fraction-review",
+        "数学广场",
+        "整理复习"
+      ],
+      "competencyTags": [
+        "推理意识",
+        "反思整理",
+        "应用意识"
+      ],
+      "skillTags": [
+        "规律探索",
+        "综合应用",
+        "策略表达",
+        "错因归纳",
+        "模型选择"
+      ],
+      "misconceptionTags": [
+        "review solved by memorized procedure only",
+        "diagram and equation not connected",
+        "strategy chosen from surface keywords"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-math-square-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-review-operations",
+        "hjb-primary-p3-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈买了3盒鸡蛋，每盒有10个。做蛋糕用掉了18个，剩下的鸡蛋平均放在2个盘子里，每个盘子放几个？请写出你的思考过程。",
+      "optionsZhHans": [],
+      "answer": "每个盘子放6个。",
+      "acceptedAnswers": [
+        "每个盘子放6个。",
+        "6个",
+        "6"
+      ],
+      "explanationZhHans": "鸡蛋总数：3×10=30个。用掉18个后剩下30-18=12个。平均放2盘，每盘12÷2=6个。"
+    }
+  ]
+}

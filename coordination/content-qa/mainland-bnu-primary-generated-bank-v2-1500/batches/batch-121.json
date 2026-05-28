@@ -1,0 +1,587 @@
+{
+  "batchId": "batch-121",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p5-201",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-position",
+      "unitTitle": "确定位置",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "position-location",
+        "coordinate-like-representation",
+        "direction-distance",
+        "route-description",
+        "确定位置"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "模型意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "用方向确定位置",
+        "用距离确定位置",
+        "描述路线",
+        "读图定位",
+        "位置表达"
+      ],
+      "misconceptionTags": [
+        "reference point omitted",
+        "direction and distance swapped",
+        "route description changes when viewpoint is not stated"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-position"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-position-unit",
+        "bnu-primary-p5-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "以学校大门为观测点，图书馆在学校大门北偏东30°方向200米处。下面描述正确的是（ ）。",
+      "optionsZhHans": [
+        "学校大门在图书馆南偏西30°方向200米处",
+        "学校大门在图书馆北偏东30°方向200米处",
+        "学校大门在图书馆南偏东30°方向200米处",
+        "学校大门在图书馆西偏南30°方向200米处"
+      ],
+      "answer": "学校大门在图书馆南偏西30°方向200米处",
+      "acceptedAnswers": [
+        "学校大门在图书馆南偏西30°方向200米处"
+      ],
+      "explanationZhHans": "观测点互换后，方向相反，角度和距离不变。北偏东30°的反方向是南偏西30°，距离200米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-202",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-position",
+      "unitTitle": "确定位置",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "position-location",
+        "coordinate-like-representation",
+        "direction-distance",
+        "route-description",
+        "确定位置"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "模型意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "用方向确定位置",
+        "用距离确定位置",
+        "描述路线",
+        "读图定位",
+        "位置表达"
+      ],
+      "misconceptionTags": [
+        "reference point omitted",
+        "direction and distance swapped",
+        "route description changes when viewpoint is not stated"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-position"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-position-unit",
+        "bnu-primary-p5-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "以体育馆为观测点，足球场在体育馆东偏南40°方向150米处。那么，体育馆在足球场（ ）偏（ ）（ ）°方向（ ）米处。",
+      "optionsZhHans": [],
+      "answer": "西偏北40°方向150米",
+      "acceptedAnswers": [
+        "西偏北40°方向150米",
+        "西偏北40°150米",
+        "西偏北40度150米"
+      ],
+      "explanationZhHans": "观测点互换，方向相反，角度和距离不变。东偏南40°的反方向是西偏北40°，距离150米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-203",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-position",
+      "unitTitle": "确定位置",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "position-location",
+        "coordinate-like-representation",
+        "direction-distance",
+        "route-description",
+        "确定位置"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "模型意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "用方向确定位置",
+        "用距离确定位置",
+        "描述路线",
+        "读图定位",
+        "位置表达"
+      ],
+      "misconceptionTags": [
+        "reference point omitted",
+        "direction and distance swapped",
+        "route description changes when viewpoint is not stated"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-position"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-position-unit",
+        "bnu-primary-p5-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小华从家出发，先向东走300米到达超市，再向北偏东60°方向走200米到达书店，最后向东偏南30°方向走400米到达学校。小华放学回家，从学校出发，应该怎样走？",
+      "optionsZhHans": [
+        "先向西偏北30°走400米到书店，再向南偏西60°走200米到超市，最后向西走300米到家",
+        "先向西偏南30°走400米到书店，再向南偏西60°走200米到超市，最后向西走300米到家",
+        "先向西偏北30°走400米到书店，再向北偏东60°走200米到超市，最后向西走300米到家",
+        "先向东偏南30°走400米到书店，再向南偏西60°走200米到超市，最后向西走300米到家"
+      ],
+      "answer": "先向西偏北30°走400米到书店，再向南偏西60°走200米到超市，最后向西走300米到家",
+      "acceptedAnswers": [
+        "先向西偏北30°走400米到书店，再向南偏西60°走200米到超市，最后向西走300米到家"
+      ],
+      "explanationZhHans": "返回时方向相反，距离不变。东偏南30°的反方向是西偏北30°；北偏东60°的反方向是南偏西60°；东的反方向是西。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-204",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-position",
+      "unitTitle": "确定位置",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "position-location",
+        "coordinate-like-representation",
+        "direction-distance",
+        "route-description",
+        "确定位置"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "模型意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "用方向确定位置",
+        "用距离确定位置",
+        "描述路线",
+        "读图定位",
+        "位置表达"
+      ],
+      "misconceptionTags": [
+        "reference point omitted",
+        "direction and distance swapped",
+        "route description changes when viewpoint is not stated"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-position"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-position-unit",
+        "bnu-primary-p5-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "以公园为观测点，学校在公园西偏北25°方向500米处。那么，公园在学校（ ）偏（ ）（ ）°方向（ ）米处。",
+      "optionsZhHans": [],
+      "answer": "东偏南25°方向500米",
+      "acceptedAnswers": [
+        "东偏南25°方向500米",
+        "东偏南25°500米",
+        "东偏南25度500米"
+      ],
+      "explanationZhHans": "观测点互换，方向相反。西偏北25°的反方向是东偏南25°，距离不变。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-205",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-position",
+      "unitTitle": "确定位置",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "position-location",
+        "coordinate-like-representation",
+        "direction-distance",
+        "route-description",
+        "确定位置"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "模型意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "用方向确定位置",
+        "用距离确定位置",
+        "描述路线",
+        "读图定位",
+        "位置表达"
+      ],
+      "misconceptionTags": [
+        "reference point omitted",
+        "direction and distance swapped",
+        "route description changes when viewpoint is not stated"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-position"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-position-unit",
+        "bnu-primary-p5-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "以灯塔为观测点，渔船在灯塔南偏西50°方向30千米处。下面描述正确的是（ ）。",
+      "optionsZhHans": [
+        "灯塔在渔船北偏东50°方向30千米处",
+        "灯塔在渔船南偏东50°方向30千米处",
+        "灯塔在渔船北偏西50°方向30千米处",
+        "灯塔在渔船东偏北50°方向30千米处"
+      ],
+      "answer": "灯塔在渔船北偏东50°方向30千米处",
+      "acceptedAnswers": [
+        "灯塔在渔船北偏东50°方向30千米处"
+      ],
+      "explanationZhHans": "观测点互换，方向相反。南偏西50°的反方向是北偏东50°，距离不变。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-206",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-position",
+      "unitTitle": "确定位置",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "position-location",
+        "coordinate-like-representation",
+        "direction-distance",
+        "route-description",
+        "确定位置"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "模型意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "用方向确定位置",
+        "用距离确定位置",
+        "描述路线",
+        "读图定位",
+        "位置表达"
+      ],
+      "misconceptionTags": [
+        "reference point omitted",
+        "direction and distance swapped",
+        "route description changes when viewpoint is not stated"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-position"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-position-unit",
+        "bnu-primary-p5-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小红从家出发，先向南偏东30°方向走400米到达邮局，再向东偏北20°方向走300米到达电影院。那么，小红从电影院回家，应先向（ ）偏（ ）（ ）°方向走（ ）米到达邮局，再向（ ）偏（ ）（ ）°方向走（ ）米到家。",
+      "optionsZhHans": [],
+      "answer": "西偏南20°方向300米，北偏西30°方向400米",
+      "acceptedAnswers": [
+        "西偏南20°方向300米，北偏西30°方向400米",
+        "西偏南20°300米，北偏西30°400米"
+      ],
+      "explanationZhHans": "返回时方向相反。东偏北20°的反方向是西偏南20°；南偏东30°的反方向是北偏西30°。距离不变。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-207",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-position",
+      "unitTitle": "确定位置",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "position-location",
+        "coordinate-like-representation",
+        "direction-distance",
+        "route-description",
+        "确定位置"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "模型意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "用方向确定位置",
+        "用距离确定位置",
+        "描述路线",
+        "读图定位",
+        "位置表达"
+      ],
+      "misconceptionTags": [
+        "reference point omitted",
+        "direction and distance swapped",
+        "route description changes when viewpoint is not stated"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-position"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-position-unit",
+        "bnu-primary-p5-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "以广场为观测点，医院在广场北偏西60°方向800米处。下面描述正确的是（ ）。",
+      "optionsZhHans": [
+        "广场在医院南偏东60°方向800米处",
+        "广场在医院北偏东60°方向800米处",
+        "广场在医院南偏西60°方向800米处",
+        "广场在医院东偏南60°方向800米处"
+      ],
+      "answer": "广场在医院南偏东60°方向800米处",
+      "acceptedAnswers": [
+        "广场在医院南偏东60°方向800米处"
+      ],
+      "explanationZhHans": "观测点互换，方向相反。北偏西60°的反方向是南偏东60°，距离不变。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-208",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-position",
+      "unitTitle": "确定位置",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "position-location",
+        "coordinate-like-representation",
+        "direction-distance",
+        "route-description",
+        "确定位置"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "模型意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "用方向确定位置",
+        "用距离确定位置",
+        "描述路线",
+        "读图定位",
+        "位置表达"
+      ],
+      "misconceptionTags": [
+        "reference point omitted",
+        "direction and distance swapped",
+        "route description changes when viewpoint is not stated"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-position"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-position-unit",
+        "bnu-primary-p5-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "以火车站为观测点，汽车站在火车站东偏北15°方向2千米处。那么，火车站在汽车站（ ）偏（ ）（ ）°方向（ ）千米处。",
+      "optionsZhHans": [],
+      "answer": "西偏南15°方向2千米",
+      "acceptedAnswers": [
+        "西偏南15°方向2千米",
+        "西偏南15°2千米",
+        "西偏南15度2千米"
+      ],
+      "explanationZhHans": "观测点互换，方向相反。东偏北15°的反方向是西偏南15°，距离不变。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-209",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-equations",
+      "unitTitle": "用方程解决问题",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "equation-problem-solving",
+        "unknown-quantity",
+        "linear-equations-primary",
+        "quantitative-relationships",
+        "方程解决问题"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "设未知数",
+        "等量关系",
+        "列方程",
+        "解方程",
+        "检验答案"
+      ],
+      "misconceptionTags": [
+        "unknown chosen after equation writing",
+        "comparison language reversed",
+        "solution not checked against the context"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-equations-unit",
+        "bnu-primary-p5-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校合唱队有女生36人，比男生人数的2倍少4人。设男生有x人，下面方程正确的是（ ）。",
+      "optionsZhHans": [
+        "2x - 4 = 36",
+        "2x + 4 = 36",
+        "36 - 2x = 4",
+        "2(x - 4) = 36"
+      ],
+      "answer": "2x - 4 = 36",
+      "acceptedAnswers": [
+        "2x - 4 = 36"
+      ],
+      "explanationZhHans": "男生人数x的2倍少4等于女生人数36，即2x - 4 = 36。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-210",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-equations",
+      "unitTitle": "用方程解决问题",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "equation-problem-solving",
+        "unknown-quantity",
+        "linear-equations-primary",
+        "quantitative-relationships",
+        "方程解决问题"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "设未知数",
+        "等量关系",
+        "列方程",
+        "解方程",
+        "检验答案"
+      ],
+      "misconceptionTags": [
+        "unknown chosen after equation writing",
+        "comparison language reversed",
+        "solution not checked against the context"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-equations-unit",
+        "bnu-primary-p5-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "果园里苹果树和梨树共有180棵，苹果树的棵数是梨树的3倍。设梨树有x棵，苹果树有3x棵。列出方程并求解，梨树有（ ）棵。",
+      "optionsZhHans": [],
+      "answer": "45",
+      "acceptedAnswers": [
+        "45"
+      ],
+      "explanationZhHans": "根据题意列方程：x + 3x = 180，解得4x = 180，x = 45。"
+    }
+  ]
+}

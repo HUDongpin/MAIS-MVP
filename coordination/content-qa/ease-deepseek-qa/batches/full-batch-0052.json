@@ -1,0 +1,168 @@
+{
+  "scope": "full",
+  "batchIndex": 52,
+  "startedAt": "2026-05-28T03:43:14.356Z",
+  "completedAt": "2026-05-28T03:43:39.384Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "itemIds": [
+    "1078",
+    "1079",
+    "1080",
+    "1081",
+    "1082",
+    "1083",
+    "1084",
+    "1085",
+    "1086",
+    "1087"
+  ],
+  "usage": {
+    "prompt_tokens": 2598,
+    "completion_tokens": 1899,
+    "total_tokens": 4497,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 765
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2214
+  },
+  "finishReason": "stop",
+  "jsonModeFallback": false,
+  "result": {
+    "items": [
+      {
+        "questionId": "1078",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "B,D",
+        "independentAnswer": "B,D",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "All options can be checked for divisibility by 8 without additional context.",
+        "recommendedAction": "none"
+      },
+      {
+        "questionId": "1079",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "48",
+        "independentAnswer": "48",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Direct computation yields 48.",
+        "recommendedAction": "none"
+      },
+      {
+        "questionId": "1080",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "288",
+        "independentAnswer": "288",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Direct computation yields 288.",
+        "recommendedAction": "none"
+      },
+      {
+        "questionId": "1081",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "675",
+        "independentAnswer": "675",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Direct computation yields 675.",
+        "recommendedAction": "none"
+      },
+      {
+        "questionId": "1082",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "196",
+        "independentAnswer": "196",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Direct computation yields 196.",
+        "recommendedAction": "none"
+      },
+      {
+        "questionId": "1083",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "600",
+        "independentAnswer": "600",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Direct computation yields 600.",
+        "recommendedAction": "none"
+      },
+      {
+        "questionId": "1084",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "7875",
+        "independentAnswer": "7875",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Direct computation yields 7875.",
+        "recommendedAction": "none"
+      },
+      {
+        "questionId": "1085",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "3 \\times 5^4",
+        "independentAnswer": "3 \\times 5^4",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Four 5's correctly expressed as 5^4, times 3.",
+        "recommendedAction": "none"
+      },
+      {
+        "questionId": "1086",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "5^3 \\times 7^2",
+        "independentAnswer": "5^3 \\times 7^2",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Three 5's and two 7's correctly expressed as 5^3 × 7^2.",
+        "recommendedAction": "none"
+      },
+      {
+        "questionId": "1087",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "2^2 \\times 3 \\times 5^4",
+        "independentAnswer": "2^2 \\times 3 \\times 5^4",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Two 2's, one 3, four 5's correctly expressed as 2^2 × 3 × 5^4.",
+        "recommendedAction": "none"
+      }
+    ],
+    "batchSummary": {
+      "pass": 10,
+      "unsolvable": 0,
+      "ambiguous": 0,
+      "imageContextRequired": 0,
+      "answerMismatch": 0,
+      "missingAnswerKey": 0,
+      "notes": "All items are FRQ computations or express in exponential notation. Text is clear, no images needed. Answers match independent verification."
+    }
+  }
+}

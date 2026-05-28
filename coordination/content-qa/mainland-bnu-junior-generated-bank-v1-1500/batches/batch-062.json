@@ -1,0 +1,638 @@
+{
+  "batchId": "batch-062",
+  "questions": [
+    {
+      "id": "bnu-junior-ds-v1-s2-111",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-position-coordinates",
+      "unitTitle": "位置与坐标",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "coordinate-plane",
+        "ordered-pairs",
+        "axis-symmetry",
+        "coordinate-transformations",
+        "位置",
+        "坐标",
+        "平面直角坐标系"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "确定位置",
+        "坐标表示",
+        "象限判断",
+        "轴对称坐标变化",
+        "点的变换"
+      ],
+      "misconceptionTags": [
+        "x and y coordinates swapped",
+        "axis points assigned to a quadrant",
+        "symmetry direction confused"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-position-coordinates"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-position-coordinates-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系中，点A的坐标是(3, -4)。点B与点A关于x轴对称，则点B的坐标是______。",
+      "optionsZhHans": [],
+      "answer": "(3, 4)",
+      "acceptedAnswers": [
+        "(3, 4)",
+        "（3，4）",
+        "3,4",
+        "3 4"
+      ],
+      "explanationZhHans": "关于x轴对称，横坐标不变，纵坐标互为相反数。点A(3,-4)的对称点B的横坐标仍为3，纵坐标为4，故B(3,4)。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-112",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-position-coordinates",
+      "unitTitle": "位置与坐标",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "coordinate-plane",
+        "ordered-pairs",
+        "axis-symmetry",
+        "coordinate-transformations",
+        "位置",
+        "坐标",
+        "平面直角坐标系"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "确定位置",
+        "坐标表示",
+        "象限判断",
+        "轴对称坐标变化",
+        "点的变换"
+      ],
+      "misconceptionTags": [
+        "x and y coordinates swapped",
+        "axis points assigned to a quadrant",
+        "symmetry direction confused"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-position-coordinates"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-position-coordinates-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系中，点P的坐标是(a, b)。若点P先向右平移3个单位，再向下平移2个单位后，落在第四象限，则a和b可能满足的条件是（ ）。",
+      "optionsZhHans": [
+        "a > -3, b > 2",
+        "a > -3, b < 2",
+        "a < -3, b > 2",
+        "a < -3, b < 2"
+      ],
+      "answer": "a > -3, b < 2",
+      "acceptedAnswers": [
+        "a > -3, b < 2"
+      ],
+      "explanationZhHans": "平移后点P'的坐标为(a+3, b-2)。第四象限要求横坐标>0且纵坐标<0，即a+3>0且b-2<0，解得a>-3且b<2。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-113",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-position-coordinates",
+      "unitTitle": "位置与坐标",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "coordinate-plane",
+        "ordered-pairs",
+        "axis-symmetry",
+        "coordinate-transformations",
+        "位置",
+        "坐标",
+        "平面直角坐标系"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "确定位置",
+        "坐标表示",
+        "象限判断",
+        "轴对称坐标变化",
+        "点的变换"
+      ],
+      "misconceptionTags": [
+        "x and y coordinates swapped",
+        "axis points assigned to a quadrant",
+        "symmetry direction confused"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-position-coordinates"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-position-coordinates-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系中，已知点M(2, -1)，点N与点M关于y轴对称。请写出点N的坐标，并说明点N在第几象限。",
+      "optionsZhHans": [],
+      "answer": "点N的坐标是(-2, -1)，在第三象限。",
+      "acceptedAnswers": [
+        "点N的坐标是(-2, -1)，在第三象限。",
+        "(-2, -1)，第三象限",
+        "（-2，-1），第三象限",
+        "N(-2,-1)，第三象限",
+        "(-2,-1) 第三象限"
+      ],
+      "explanationZhHans": "关于y轴对称，纵坐标不变，横坐标互为相反数。M(2,-1)的对称点N为(-2,-1)。横纵坐标均为负，故在第三象限。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-114",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-position-coordinates",
+      "unitTitle": "位置与坐标",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "coordinate-plane",
+        "ordered-pairs",
+        "axis-symmetry",
+        "coordinate-transformations",
+        "位置",
+        "坐标",
+        "平面直角坐标系"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "确定位置",
+        "坐标表示",
+        "象限判断",
+        "轴对称坐标变化",
+        "点的变换"
+      ],
+      "misconceptionTags": [
+        "x and y coordinates swapped",
+        "axis points assigned to a quadrant",
+        "symmetry direction confused"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-position-coordinates"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-position-coordinates-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系中，点A的坐标是(-5, 0)，点B的坐标是(3, 0)。点C在y轴上，且三角形ABC的面积为12，则点C的坐标是______。",
+      "optionsZhHans": [],
+      "answer": "(0, 3)或(0, -3)",
+      "acceptedAnswers": [
+        "(0, 3)或(0, -3)",
+        "（0，3）或（0，-3）",
+        "(0,3)或(0,-3)",
+        "0,3或0,-3"
+      ],
+      "explanationZhHans": "A(-5,0),B(3,0)在x轴上，AB=8。C在y轴上，设C(0,y)。三角形面积=1/2×AB×|y|=1/2×8×|y|=12，得|y|=3，故y=±3，C(0,3)或(0,-3)。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-115",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-position-coordinates",
+      "unitTitle": "位置与坐标",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "coordinate-plane",
+        "ordered-pairs",
+        "axis-symmetry",
+        "coordinate-transformations",
+        "位置",
+        "坐标",
+        "平面直角坐标系"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "确定位置",
+        "坐标表示",
+        "象限判断",
+        "轴对称坐标变化",
+        "点的变换"
+      ],
+      "misconceptionTags": [
+        "x and y coordinates swapped",
+        "axis points assigned to a quadrant",
+        "symmetry direction confused"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-position-coordinates"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-position-coordinates-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系中，点P的坐标是(-2, 3)。将点P先向左平移1个单位，再向上平移2个单位，得到点Q。点Q所在的象限是（ ）。",
+      "optionsZhHans": [
+        "第一象限",
+        "第二象限",
+        "第三象限",
+        "第四象限"
+      ],
+      "answer": "第二象限",
+      "acceptedAnswers": [
+        "第二象限"
+      ],
+      "explanationZhHans": "点P(-2,3)向左平移1个单位得(-3,3)，再向上平移2个单位得(-3,5)。横坐标为负、纵坐标为正，故点Q在第二象限。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-116",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-position-coordinates",
+      "unitTitle": "位置与坐标",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "coordinate-plane",
+        "ordered-pairs",
+        "axis-symmetry",
+        "coordinate-transformations",
+        "位置",
+        "坐标",
+        "平面直角坐标系"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "确定位置",
+        "坐标表示",
+        "象限判断",
+        "轴对称坐标变化",
+        "点的变换"
+      ],
+      "misconceptionTags": [
+        "x and y coordinates swapped",
+        "axis points assigned to a quadrant",
+        "symmetry direction confused"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-position-coordinates"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-position-coordinates-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系中，点A的坐标是(4, 0)，点B的坐标是(0, -3)。将线段AB绕原点O顺时针旋转90°后，点A的对应点A'落在x轴上，点B的对应点B'落在y轴上。请写出点A'和点B'的坐标。",
+      "optionsZhHans": [],
+      "answer": "A'(0, -4)，B'(-3, 0)",
+      "acceptedAnswers": [
+        "A'(0, -4)，B'(-3, 0)",
+        "A'(0,-4)，B'(-3,0)",
+        "（0，-4），（-3，0）",
+        "A'(0,-4),B'(-3,0)"
+      ],
+      "explanationZhHans": "点A(4,0)绕原点顺时针旋转90°到y轴负半轴，坐标为(0,-4)。点B(0,-3)绕原点顺时针旋转90°到x轴负半轴，坐标为(-3,0)。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-117",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-position-coordinates",
+      "unitTitle": "位置与坐标",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "coordinate-plane",
+        "ordered-pairs",
+        "axis-symmetry",
+        "coordinate-transformations",
+        "位置",
+        "坐标",
+        "平面直角坐标系"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "确定位置",
+        "坐标表示",
+        "象限判断",
+        "轴对称坐标变化",
+        "点的变换"
+      ],
+      "misconceptionTags": [
+        "x and y coordinates swapped",
+        "axis points assigned to a quadrant",
+        "symmetry direction confused"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-position-coordinates"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-position-coordinates-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系中，点P在第二象限，且到x轴的距离为2，到y轴的距离为5，则点P的坐标是______。",
+      "optionsZhHans": [],
+      "answer": "(-5, 2)",
+      "acceptedAnswers": [
+        "(-5, 2)",
+        "（-5，2）",
+        "-5,2",
+        "-5 2"
+      ],
+      "explanationZhHans": "第二象限横坐标为负、纵坐标为正。到x轴距离为纵坐标绝对值，故纵坐标为2；到y轴距离为横坐标绝对值，故横坐标为-5。点P(-5,2)。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-118",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-linear-functions",
+      "unitTitle": "一次函数",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "functions",
+        "linear-functions",
+        "function-graphs",
+        "slope-intercept",
+        "linear-models",
+        "一次函数",
+        "函数图象"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "符号意识"
+      ],
+      "skillTags": [
+        "函数关系",
+        "一次函数识别",
+        "图象与性质",
+        "待定系数法",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "slope and intercept roles confused",
+        "point substitution not checked",
+        "graph direction inferred from one plotted point"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-linear-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-linear-functions-unit",
+        "bnu-junior-s2-upper-assessment-linear-systems-unit"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某出租车公司收费标准如下：起步价8元（含3千米），超过3千米后每千米加收1.5元。设行驶路程为x千米（x≥3），应付车费为y元。下列y与x的函数关系式正确的是（ ）。",
+      "optionsZhHans": [
+        "y = 1.5x + 8",
+        "y = 1.5x + 3.5",
+        "y = 1.5(x - 3) + 8",
+        "y = 1.5(x - 3) + 3.5"
+      ],
+      "answer": "y = 1.5(x - 3) + 8",
+      "acceptedAnswers": [
+        "y = 1.5(x - 3) + 8"
+      ],
+      "explanationZhHans": "当x≥3时，超过3千米的部分为(x-3)千米，费用为1.5(x-3)元，加上起步价8元，总费用y=1.5(x-3)+8。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-119",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-linear-functions",
+      "unitTitle": "一次函数",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "functions",
+        "linear-functions",
+        "function-graphs",
+        "slope-intercept",
+        "linear-models",
+        "一次函数",
+        "函数图象"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "符号意识"
+      ],
+      "skillTags": [
+        "函数关系",
+        "一次函数识别",
+        "图象与性质",
+        "待定系数法",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "slope and intercept roles confused",
+        "point substitution not checked",
+        "graph direction inferred from one plotted point"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-linear-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-linear-functions-unit",
+        "bnu-junior-s2-upper-assessment-linear-systems-unit"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知一次函数y = kx + b，当x = 2时，y = 5；当x = -1时，y = -4。求这个一次函数的表达式。",
+      "optionsZhHans": [],
+      "answer": "y = 3x - 1",
+      "acceptedAnswers": [
+        "y = 3x - 1",
+        "y=3x-1"
+      ],
+      "explanationZhHans": "将两点(2,5)和(-1,-4)代入y=kx+b，得方程组：2k+b=5，-k+b=-4。两式相减得3k=9，k=3；代入得b=-1。故表达式为y=3x-1。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-120",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-linear-functions",
+      "unitTitle": "一次函数",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "functions",
+        "linear-functions",
+        "function-graphs",
+        "slope-intercept",
+        "linear-models",
+        "一次函数",
+        "函数图象"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "符号意识"
+      ],
+      "skillTags": [
+        "函数关系",
+        "一次函数识别",
+        "图象与性质",
+        "待定系数法",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "slope and intercept roles confused",
+        "point substitution not checked",
+        "graph direction inferred from one plotted point"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-linear-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-linear-functions-unit",
+        "bnu-junior-s2-upper-assessment-linear-systems-unit"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一次函数y = (2m - 6)x + 5的y随x的增大而减小，则m的取值范围是______。",
+      "optionsZhHans": [],
+      "answer": "m < 3",
+      "acceptedAnswers": [
+        "m < 3",
+        "m<3"
+      ],
+      "explanationZhHans": "一次函数y随x增大而减小，则斜率k<0。这里k=2m-6，故2m-6<0，解得m<3。"
+    }
+  ]
+}

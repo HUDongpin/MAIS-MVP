@@ -1,0 +1,565 @@
+{
+  "batchId": "batch-034",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p2-081",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-measurement",
+      "unitTitle": "测量",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "length-measurement",
+        "centimeter-meter",
+        "measurement-units",
+        "测量"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "应用意识"
+      ],
+      "skillTags": [
+        "厘米",
+        "米",
+        "估测",
+        "选择单位",
+        "测量记录"
+      ],
+      "misconceptionTags": [
+        "starting point not aligned",
+        "centimeter and meter confused",
+        "larger unit count read as longer object"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-measurement-unit",
+        "bnu-primary-p2-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丽用一把刻度尺测量一支铅笔的长度。她把铅笔的一端对准刻度尺的0厘米刻度线，另一端对准刻度尺的15厘米刻度线。这支铅笔长多少厘米？",
+      "optionsZhHans": [],
+      "answer": "15厘米",
+      "acceptedAnswers": [
+        "15厘米",
+        "15cm"
+      ],
+      "explanationZhHans": "铅笔一端对准0刻度，另一端对准15厘米，所以长度是15厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-082",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-measurement",
+      "unitTitle": "测量",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "length-measurement",
+        "centimeter-meter",
+        "measurement-units",
+        "测量"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "应用意识"
+      ],
+      "skillTags": [
+        "厘米",
+        "米",
+        "估测",
+        "选择单位",
+        "测量记录"
+      ],
+      "misconceptionTags": [
+        "starting point not aligned",
+        "centimeter and meter confused",
+        "larger unit count read as longer object"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-measurement-unit",
+        "bnu-primary-p2-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪种物体的长度最接近1米？",
+      "optionsZhHans": [
+        "教室黑板的长度",
+        "一根新铅笔的长度",
+        "一张课桌的高度",
+        "一枚回形针的长度"
+      ],
+      "answer": "一张课桌的高度",
+      "acceptedAnswers": [
+        "一张课桌的高度"
+      ],
+      "explanationZhHans": "1米大约是课桌的高度。黑板比1米长得多，铅笔约18厘米，回形针约3厘米，所以课桌高度最接近1米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-083",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-measurement",
+      "unitTitle": "测量",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "length-measurement",
+        "centimeter-meter",
+        "measurement-units",
+        "测量"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "应用意识"
+      ],
+      "skillTags": [
+        "厘米",
+        "米",
+        "估测",
+        "选择单位",
+        "测量记录"
+      ],
+      "misconceptionTags": [
+        "starting point not aligned",
+        "centimeter and meter confused",
+        "larger unit count read as longer object"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-measurement-unit",
+        "bnu-primary-p2-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在括号里填上合适的长度单位（厘米或米）。一棵大树高约8（  ）。",
+      "optionsZhHans": [],
+      "answer": "米",
+      "acceptedAnswers": [
+        "米",
+        "m"
+      ],
+      "explanationZhHans": "大树很高，用米作单位合适，8厘米太矮，不符合实际。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-084",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-measurement",
+      "unitTitle": "测量",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "length-measurement",
+        "centimeter-meter",
+        "measurement-units",
+        "测量"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "应用意识"
+      ],
+      "skillTags": [
+        "厘米",
+        "米",
+        "估测",
+        "选择单位",
+        "测量记录"
+      ],
+      "misconceptionTags": [
+        "starting point not aligned",
+        "centimeter and meter confused",
+        "larger unit count read as longer object"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-measurement-unit",
+        "bnu-primary-p2-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明测量一根绳子的长度。他把绳子的一端对准尺子的2厘米刻度，另一端对准18厘米刻度。这根绳子长多少厘米？",
+      "optionsZhHans": [],
+      "answer": "16厘米",
+      "acceptedAnswers": [
+        "16厘米",
+        "16cm"
+      ],
+      "explanationZhHans": "绳子长度等于末端刻度减去起始刻度：18-2=16（厘米）。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-085",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-measurement",
+      "unitTitle": "测量",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "length-measurement",
+        "centimeter-meter",
+        "measurement-units",
+        "测量"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "应用意识"
+      ],
+      "skillTags": [
+        "厘米",
+        "米",
+        "估测",
+        "选择单位",
+        "测量记录"
+      ],
+      "misconceptionTags": [
+        "starting point not aligned",
+        "centimeter and meter confused",
+        "larger unit count read as longer object"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-measurement-unit",
+        "bnu-primary-p2-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小华用断尺测量橡皮的长度，他把橡皮左端对准3厘米刻度，右端对准6厘米刻度。这块橡皮长多少厘米？",
+      "optionsZhHans": [
+        "3厘米",
+        "6厘米",
+        "9厘米",
+        "2厘米"
+      ],
+      "answer": "3厘米",
+      "acceptedAnswers": [
+        "3厘米"
+      ],
+      "explanationZhHans": "橡皮长度=6-3=3（厘米）。断尺测量时，用右端刻度减左端刻度即可。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-086",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-measurement",
+      "unitTitle": "测量",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "length-measurement",
+        "centimeter-meter",
+        "measurement-units",
+        "测量"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "应用意识"
+      ],
+      "skillTags": [
+        "厘米",
+        "米",
+        "估测",
+        "选择单位",
+        "测量记录"
+      ],
+      "misconceptionTags": [
+        "starting point not aligned",
+        "centimeter and meter confused",
+        "larger unit count read as longer object"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-measurement-unit",
+        "bnu-primary-p2-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在括号里填上合适的长度单位（厘米或米）。一本数学书的厚度大约是1（  ）。",
+      "optionsZhHans": [],
+      "answer": "厘米",
+      "acceptedAnswers": [
+        "厘米",
+        "cm"
+      ],
+      "explanationZhHans": "数学书厚度较小，用厘米作单位，1米太厚，不符合实际。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-087",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-measurement",
+      "unitTitle": "测量",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "length-measurement",
+        "centimeter-meter",
+        "measurement-units",
+        "测量"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "应用意识"
+      ],
+      "skillTags": [
+        "厘米",
+        "米",
+        "估测",
+        "选择单位",
+        "测量记录"
+      ],
+      "misconceptionTags": [
+        "starting point not aligned",
+        "centimeter and meter confused",
+        "larger unit count read as longer object"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-measurement-unit",
+        "bnu-primary-p2-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "先估一估，再量一量。你的食指宽度大约是多少厘米？请写出你估计的长度和实际测量的长度。",
+      "optionsZhHans": [],
+      "answer": "估计和测量结果合理即可",
+      "acceptedAnswers": [
+        "估计和测量结果合理即可"
+      ],
+      "explanationZhHans": "食指宽度通常约1厘米，学生需先估计再测量，答案在1厘米左右均合理。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-088",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-measurement",
+      "unitTitle": "测量",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "length-measurement",
+        "centimeter-meter",
+        "measurement-units",
+        "测量"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "应用意识"
+      ],
+      "skillTags": [
+        "厘米",
+        "米",
+        "估测",
+        "选择单位",
+        "测量记录"
+      ],
+      "misconceptionTags": [
+        "starting point not aligned",
+        "centimeter and meter confused",
+        "larger unit count read as longer object"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-measurement-unit",
+        "bnu-primary-p2-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一根绳子用去30厘米后，还剩70厘米。这根绳子原来长多少？",
+      "optionsZhHans": [
+        "40厘米",
+        "1米",
+        "100厘米",
+        "70厘米"
+      ],
+      "answer": "100厘米",
+      "acceptedAnswers": [
+        "100厘米"
+      ],
+      "explanationZhHans": "原来长度=用去的+剩下的=30+70=100厘米，也就是1米。选项中有100厘米，所以选它。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-089",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-measurement",
+      "unitTitle": "测量",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "length-measurement",
+        "centimeter-meter",
+        "measurement-units",
+        "测量"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "应用意识"
+      ],
+      "skillTags": [
+        "厘米",
+        "米",
+        "估测",
+        "选择单位",
+        "测量记录"
+      ],
+      "misconceptionTags": [
+        "starting point not aligned",
+        "centimeter and meter confused",
+        "larger unit count read as longer object"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-measurement-unit",
+        "bnu-primary-p2-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在括号里填上合适的数。1米=（  ）厘米。",
+      "optionsZhHans": [],
+      "answer": "100",
+      "acceptedAnswers": [
+        "100"
+      ],
+      "explanationZhHans": "1米等于100厘米，这是长度单位的基本换算关系。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-090",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-measurement",
+      "unitTitle": "测量",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "length-measurement",
+        "centimeter-meter",
+        "measurement-units",
+        "测量"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "应用意识"
+      ],
+      "skillTags": [
+        "厘米",
+        "米",
+        "估测",
+        "选择单位",
+        "测量记录"
+      ],
+      "misconceptionTags": [
+        "starting point not aligned",
+        "centimeter and meter confused",
+        "larger unit count read as longer object"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-measurement-unit",
+        "bnu-primary-p2-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小东的身高是1米25厘米，合多少厘米？",
+      "optionsZhHans": [],
+      "answer": "125厘米",
+      "acceptedAnswers": [
+        "125厘米",
+        "125cm"
+      ],
+      "explanationZhHans": "1米=100厘米，100+25=125厘米。"
+    }
+  ]
+}

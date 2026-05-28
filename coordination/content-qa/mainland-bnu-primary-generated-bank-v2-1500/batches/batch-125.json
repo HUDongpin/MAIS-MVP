@@ -1,0 +1,605 @@
+{
+  "batchId": "batch-125",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p5-241",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "p5-lower-review",
+        "integrated-application",
+        "mathematical-activity",
+        "model-selection",
+        "五年级下册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "模型选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "model chosen from keyword alone",
+        "units dropped in geometry tasks",
+        "answer accepted without context check"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-final-topic-drill",
+        "bnu-primary-p5-lower-assessment-fraction-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "S18 BNU primary V2 automated source-distance/structure/v1-distance gate passed with 300-row grade sample queue generated; candidate QA package only, not approved for public integration. S18 broad QA remediation applied on 2026-05-27: Replace the algebraically equivalent distractor with an actually incorrect expression.",
+      "promptZhHans": "学校图书馆新购入一批图书，其中科普书占这批书的2/5，文学书占这批书的1/4，其余是历史书。历史书占这批书的几分之几？下面列式正确的是（ ）。",
+      "optionsZhHans": [
+        "1 - 2/5 + 1/4",
+        "1 - (2/5 + 1/4)",
+        "2/5 + 1/4",
+        "1 - (2/5 - 1/4)"
+      ],
+      "answer": "1 - (2/5 + 1/4)",
+      "acceptedAnswers": [
+        "1 - (2/5 + 1/4)"
+      ],
+      "explanationZhHans": "把这批书看作单位“1”，历史书占剩下的部分，应从1中减去科普书和文学书的分率和，即1 - (2/5 + 1/4)。其他列式没有同时减去这两部分的和。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-242",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "p5-lower-review",
+        "integrated-application",
+        "mathematical-activity",
+        "model-selection",
+        "五年级下册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "模型选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "model chosen from keyword alone",
+        "units dropped in geometry tasks",
+        "answer accepted without context check"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-final-topic-drill",
+        "bnu-primary-p5-lower-assessment-fraction-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方体水箱，从里面量长5 dm、宽4 dm、高3 dm。水箱内水深2 dm，放入一块石头后（石头完全浸没），水面上升到2.5 dm。这块石头的体积是多少立方分米？下面列式正确的是（ ）。",
+      "optionsZhHans": [
+        "5 × 4 × 2.5",
+        "5 × 4 × 3",
+        "5 × 4 × (2.5 - 2)",
+        "5 × 4 × 2"
+      ],
+      "answer": "5 × 4 × (2.5 - 2)",
+      "acceptedAnswers": [
+        "5 × 4 × (2.5 - 2)"
+      ],
+      "explanationZhHans": "石头体积等于上升部分水的体积，即底面积乘水面上升的高度。底面积5×4，上升高度2.5-2=0.5 dm，所以列式为5×4×(2.5-2)。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-243",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "p5-lower-review",
+        "integrated-application",
+        "mathematical-activity",
+        "model-selection",
+        "五年级下册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "模型选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "model chosen from keyword alone",
+        "units dropped in geometry tasks",
+        "answer accepted without context check"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-final-topic-drill",
+        "bnu-primary-p5-lower-assessment-fraction-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "五（1）班同学参加植树活动，计划植树120棵，实际植树150棵。实际植树棵数比计划多百分之几？下面列式正确的是（ ）。",
+      "optionsZhHans": [
+        "150 ÷ 120",
+        "(150 - 120) ÷ 150",
+        "(150 - 120) ÷ 120",
+        "120 ÷ 150"
+      ],
+      "answer": "(150 - 120) ÷ 120",
+      "acceptedAnswers": [
+        "(150 - 120) ÷ 120"
+      ],
+      "explanationZhHans": "求实际比计划多百分之几，用多出的棵数除以计划棵数。多出150-120=30棵，计划120棵，所以列式为(150-120)÷120。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-244",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "p5-lower-review",
+        "integrated-application",
+        "mathematical-activity",
+        "model-selection",
+        "五年级下册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "模型选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "model chosen from keyword alone",
+        "units dropped in geometry tasks",
+        "answer accepted without context check"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-final-topic-drill",
+        "bnu-primary-p5-lower-assessment-fraction-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个正方体木块，棱长总和是72 cm。这个正方体的体积是多少立方厘米？下面列式正确的是（ ）。",
+      "optionsZhHans": [
+        "72 ÷ 12 × 72 ÷ 12 × 72 ÷ 12",
+        "72 ÷ 6 × 72 ÷ 6 × 72 ÷ 6",
+        "72 × 72 × 72",
+        "72 ÷ 4 × 72 ÷ 4 × 72 ÷ 4"
+      ],
+      "answer": "72 ÷ 12 × 72 ÷ 12 × 72 ÷ 12",
+      "acceptedAnswers": [
+        "72 ÷ 12 × 72 ÷ 12 × 72 ÷ 12"
+      ],
+      "explanationZhHans": "正方体有12条棱，棱长=72÷12=6 cm，体积=棱长×棱长×棱长=6×6×6。选项A正确，选项B误用6个面，选项C直接乘72，选项D误用4条棱。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-245",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "p5-lower-review",
+        "integrated-application",
+        "mathematical-activity",
+        "model-selection",
+        "五年级下册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "模型选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "model chosen from keyword alone",
+        "units dropped in geometry tasks",
+        "answer accepted without context check"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-final-topic-drill",
+        "bnu-primary-p5-lower-assessment-fraction-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈买了3/4千克苹果和2/5千克梨，一共买了多少千克水果？下面列式正确的是（ ）。",
+      "optionsZhHans": [
+        "3/4 + 2/5 = 5/9",
+        "3/4 + 2/5 = 15/20 + 8/20 = 23/20",
+        "3/4 + 2/5 = 3/4 + 2/5 = 5/20",
+        "3/4 + 2/5 = 15/20 + 8/20 = 7/20"
+      ],
+      "answer": "3/4 + 2/5 = 15/20 + 8/20 = 23/20",
+      "acceptedAnswers": [
+        "3/4 + 2/5 = 15/20 + 8/20 = 23/20"
+      ],
+      "explanationZhHans": "异分母分数相加，先通分。3/4=15/20，2/5=8/20，和是23/20千克。选项A分母直接相加错，选项C通分后分子加错，选项D分子相减错。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-246",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "p5-lower-review",
+        "integrated-application",
+        "mathematical-activity",
+        "model-selection",
+        "五年级下册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "模型选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "model chosen from keyword alone",
+        "units dropped in geometry tasks",
+        "answer accepted without context check"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-final-topic-drill",
+        "bnu-primary-p5-lower-assessment-fraction-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方体玻璃鱼缸，从里面量长8 dm、宽3 dm、高5 dm。鱼缸内水深4 dm，把一块假山石完全浸入水中后，水溢出6升。这块假山石的体积是多少立方分米？下面列式正确的是（ ）。",
+      "optionsZhHans": [
+        "8 × 3 × 5",
+        "8 × 3 × (5 - 4) + 6",
+        "8 × 3 × 4 + 6",
+        "8 × 3 × 5 + 6"
+      ],
+      "answer": "8 × 3 × (5 - 4) + 6",
+      "acceptedAnswers": [
+        "8 × 3 × (5 - 4) + 6"
+      ],
+      "explanationZhHans": "假山石体积=上升部分水的体积+溢出水的体积。鱼缸剩余空间高5-4=1 dm，上升体积8×3×1=24 dm³，溢出6升=6 dm³，总体积24+6=30 dm³。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-247",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "p5-lower-review",
+        "integrated-application",
+        "mathematical-activity",
+        "model-selection",
+        "五年级下册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "模型选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "model chosen from keyword alone",
+        "units dropped in geometry tasks",
+        "answer accepted without context check"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-final-topic-drill",
+        "bnu-primary-p5-lower-assessment-fraction-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "五（2）班男生人数占全班人数的5/9，女生人数占全班人数的几分之几？下面列式正确的是（ ）。",
+      "optionsZhHans": [
+        "5/9",
+        "1 - 5/9",
+        "5/9 + 1",
+        "1 + 5/9"
+      ],
+      "answer": "1 - 5/9",
+      "acceptedAnswers": [
+        "1 - 5/9"
+      ],
+      "explanationZhHans": "全班人数看作单位“1”，女生占1 - 5/9 = 4/9。选项A是男生占比，选项C和D运算错误。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-248",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "p5-lower-review",
+        "integrated-application",
+        "mathematical-activity",
+        "model-selection",
+        "五年级下册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "模型选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "model chosen from keyword alone",
+        "units dropped in geometry tasks",
+        "answer accepted without context check"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-final-topic-drill",
+        "bnu-primary-p5-lower-assessment-fraction-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方体，长是10 cm，宽是8 cm，高是6 cm。如果把这个长方体切成两个完全相同的小长方体，表面积最多增加多少平方厘米？下面列式正确的是（ ）。",
+      "optionsZhHans": [
+        "10 × 8 × 2",
+        "10 × 6 × 2",
+        "8 × 6 × 2",
+        "(10 × 8 + 10 × 6 + 8 × 6) × 2"
+      ],
+      "answer": "10 × 8 × 2",
+      "acceptedAnswers": [
+        "10 × 8 × 2"
+      ],
+      "explanationZhHans": "切成两个小长方体，增加两个切面的面积。要使增加最多，应平行于最大面切，即平行于长10 cm、宽8 cm的面，增加面积10×8×2=160 cm²。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-249",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "p5-lower-review",
+        "integrated-application",
+        "mathematical-activity",
+        "model-selection",
+        "五年级下册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "模型选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "model chosen from keyword alone",
+        "units dropped in geometry tasks",
+        "answer accepted without context check"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-final-topic-drill",
+        "bnu-primary-p5-lower-assessment-fraction-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一根绳子长5米，第一次用去1/4，第二次用去1/4米，两次一共用去多少米？下面列式正确的是（ ）。",
+      "optionsZhHans": [
+        "5 × 1/4 + 1/4",
+        "5 × (1/4 + 1/4)",
+        "5 × 1/4 + 5 × 1/4",
+        "1/4 + 1/4"
+      ],
+      "answer": "5 × 1/4 + 1/4",
+      "acceptedAnswers": [
+        "5 × 1/4 + 1/4"
+      ],
+      "explanationZhHans": "第一次用去5米的1/4，即5×1/4=1.25米；第二次用去1/4米，是具体长度。总用去5×1/4 + 1/4。注意区分分率和具体数量。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-250",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "p5-lower-review",
+        "integrated-application",
+        "mathematical-activity",
+        "model-selection",
+        "五年级下册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "模型选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "model chosen from keyword alone",
+        "units dropped in geometry tasks",
+        "answer accepted without context check"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-final-topic-drill",
+        "bnu-primary-p5-lower-assessment-fraction-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个正方体容器，从里面量棱长4 dm，装满水后倒入一个长8 dm、宽4 dm的长方体容器中，长方体容器内水深多少分米？下面列式正确的是（ ）。",
+      "optionsZhHans": [
+        "4 × 4 × 4 ÷ (8 × 4)",
+        "4 × 4 × 4 ÷ 8 ÷ 4",
+        "8 × 4 ÷ (4 × 4 × 4)",
+        "4 × 4 × 4 ÷ 8"
+      ],
+      "answer": "4 × 4 × 4 ÷ (8 × 4)",
+      "acceptedAnswers": [
+        "4 × 4 × 4 ÷ (8 × 4)"
+      ],
+      "explanationZhHans": "水的体积=正方体容积=4×4×4=64 dm³，长方体底面积=8×4=32 dm²，水深=体积÷底面积=64÷32=2 dm。列式4×4×4÷(8×4)。"
+    }
+  ]
+}

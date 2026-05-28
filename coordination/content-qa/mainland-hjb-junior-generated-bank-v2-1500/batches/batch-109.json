@@ -1,0 +1,343 @@
+{
+  "batchId": "batch-109",
+  "questions": [
+    {
+      "id": "hjb-junior-ds-v2-s2-041",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "hjb-junior-s2-upper-real-numbers",
+      "unitTitle": "实数",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "real-numbers",
+        "square-roots",
+        "cube-roots",
+        "irrational-numbers",
+        "number-line",
+        "实数",
+        "平方根",
+        "立方根"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "平方根",
+        "立方根",
+        "无理数识别",
+        "实数分类",
+        "数轴表示",
+        "大小比较"
+      ],
+      "misconceptionTags": [
+        "square root sign treated as both roots",
+        "irrational number mistaken for any decimal",
+        "approximation order reversed"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-junior-s2-upper-real-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-upper-paper-real-numbers-unit",
+        "hjb-junior-s2-upper-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "若一个正数的平方根分别是 $2a-1$ 与 $3-a$，则 $a$ 的值为______。",
+      "optionsZhHans": [],
+      "answer": "-2",
+      "acceptedAnswers": [
+        "-2"
+      ],
+      "explanationZhHans": "一个正数的两个平方根互为相反数，所以 $(2a-1)+(3-a)=0$，解得 $a=-2$。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-042",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "hjb-junior-s2-upper-real-numbers",
+      "unitTitle": "实数",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "real-numbers",
+        "square-roots",
+        "cube-roots",
+        "irrational-numbers",
+        "number-line",
+        "实数",
+        "平方根",
+        "立方根"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "平方根",
+        "立方根",
+        "无理数识别",
+        "实数分类",
+        "数轴表示",
+        "大小比较"
+      ],
+      "misconceptionTags": [
+        "square root sign treated as both roots",
+        "irrational number mistaken for any decimal",
+        "approximation order reversed"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s2-upper-real-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-upper-paper-real-numbers-unit",
+        "hjb-junior-s2-upper-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知 $\\sqrt{5}$ 的整数部分为 $a$，小数部分为 $b$，求 $a^2+b^2$ 的值。",
+      "optionsZhHans": [],
+      "answer": "14-4√5",
+      "acceptedAnswers": [
+        "14-4√5",
+        "14-4*√5",
+        "14-4*根号5"
+      ],
+      "explanationZhHans": "由 $2<\\sqrt{5}<3$ 得 $a=2$，$b=\\sqrt{5}-2$。计算 $a^2+b^2=4+(\\sqrt{5}-2)^2=4+5-4\\sqrt{5}+4=13-4\\sqrt{5}$。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-043",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "hjb-junior-s2-upper-real-numbers",
+      "unitTitle": "实数",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "real-numbers",
+        "square-roots",
+        "cube-roots",
+        "irrational-numbers",
+        "number-line",
+        "实数",
+        "平方根",
+        "立方根"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "平方根",
+        "立方根",
+        "无理数识别",
+        "实数分类",
+        "数轴表示",
+        "大小比较"
+      ],
+      "misconceptionTags": [
+        "square root sign treated as both roots",
+        "irrational number mistaken for any decimal",
+        "approximation order reversed"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s2-upper-real-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-upper-paper-real-numbers-unit",
+        "hjb-junior-s2-upper-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在实数 $\\sqrt{9}$，$\\frac{22}{7}$，$\\sqrt{8}$，$0.1010010001\\ldots$（每两个1之间依次多一个0）中，无理数的个数是（　）",
+      "optionsZhHans": [
+        "1个",
+        "2个",
+        "3个",
+        "4个"
+      ],
+      "answer": "2个",
+      "acceptedAnswers": [
+        "2个"
+      ],
+      "explanationZhHans": "$\\sqrt{9}=3$ 是有理数，$\\frac{22}{7}$ 是分数，有理数；$\\sqrt{8}=2\\sqrt{2}$ 是无理数；无限不循环小数是无理数。共2个。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-044",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "hjb-junior-s2-upper-real-numbers",
+      "unitTitle": "实数",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "real-numbers",
+        "square-roots",
+        "cube-roots",
+        "irrational-numbers",
+        "number-line",
+        "实数",
+        "平方根",
+        "立方根"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "平方根",
+        "立方根",
+        "无理数识别",
+        "实数分类",
+        "数轴表示",
+        "大小比较"
+      ],
+      "misconceptionTags": [
+        "square root sign treated as both roots",
+        "irrational number mistaken for any decimal",
+        "approximation order reversed"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-junior-s2-upper-real-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-upper-paper-real-numbers-unit",
+        "hjb-junior-s2-upper-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "若 $\\sqrt[3]{1-2x}$ 与 $\\sqrt[3]{3y-2}$ 互为相反数，且 $y$ 的算术平方根是它本身，则 $x+y$ 的值为______。",
+      "optionsZhHans": [],
+      "answer": "1",
+      "acceptedAnswers": [
+        "1"
+      ],
+      "explanationZhHans": "由立方根互为相反数得 $1-2x=-(3y-2)$，即 $1-2x=-3y+2$，整理得 $2x-3y=-1$。$y$ 的算术平方根是它本身，则 $y=0$ 或 $1$。代入得 $x=-0.5$ 或 $x=1$，$x+y$ 为 $-0.5$ 或 $2$。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-045",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "hjb-junior-s2-upper-real-numbers",
+      "unitTitle": "实数",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "real-numbers",
+        "square-roots",
+        "cube-roots",
+        "irrational-numbers",
+        "number-line",
+        "实数",
+        "平方根",
+        "立方根"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "平方根",
+        "立方根",
+        "无理数识别",
+        "实数分类",
+        "数轴表示",
+        "大小比较"
+      ],
+      "misconceptionTags": [
+        "square root sign treated as both roots",
+        "irrational number mistaken for any decimal",
+        "approximation order reversed"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s2-upper-real-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-upper-paper-real-numbers-unit",
+        "hjb-junior-s2-upper-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在数轴上，点 $A$ 表示 $\\sqrt{2}$，点 $B$ 表示 $\\sqrt{3}$，点 $C$ 表示 $\\frac{\\sqrt{2}+\\sqrt{3}}{2}$。请用“<”连接 $A$、$B$、$C$ 三点表示的数，并说明理由。",
+      "optionsZhHans": [],
+      "answer": "√2 < (√2+√3)/2 < √3",
+      "acceptedAnswers": [
+        "√2 < (√2+√3)/2 < √3",
+        "根号2 < (根号2+根号3)/2 < 根号3"
+      ],
+      "explanationZhHans": "因为 $\\sqrt{2}<\\sqrt{3}$，所以 $\\frac{\\sqrt{2}+\\sqrt{3}}{2}$ 介于两者之间，即 $\\sqrt{2} < \\frac{\\sqrt{2}+\\sqrt{3}}{2} < \\sqrt{3}$。"
+    }
+  ]
+}

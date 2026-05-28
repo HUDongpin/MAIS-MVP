@@ -1,0 +1,132 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-014",
+  "startedAt": "2026-05-28T00:59:02.201Z",
+  "completedAt": "2026-05-28T00:59:21.257Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-105",
+    "bnu-high-ds-v1-s4-106",
+    "bnu-high-ds-v1-s4-107",
+    "bnu-high-ds-v1-s4-108",
+    "bnu-high-ds-v1-s4-109",
+    "bnu-high-ds-v1-s4-110",
+    "bnu-high-ds-v1-s4-111",
+    "bnu-high-ds-v1-s4-112"
+  ],
+  "usage": {
+    "prompt_tokens": 12534,
+    "completion_tokens": 1113,
+    "total_tokens": 13647,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 12150
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-105",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案“<”与独立解一致，解析正确说明单调性，无问题。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-106",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案“y = 3^x”与独立解C一致，解析正确，唯一正确选项，无问题。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-107",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案“x = 3”与独立解一致，解析正确，无问题。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-108",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "[-1-√7, -1+√7]",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案“[-2, 3]”错误，独立解为[-1-√7, -1+√7]；解析中写“解得 -1-√7 ≤ x ≤ -1+√7”却得出“实际解集为 [-2,3]”，自相矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-109",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解B一致，解析正确，唯一正确选项，无问题。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-110",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案“6”与独立解一致，解析正确，无问题。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-111",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "∅",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案“(0, 1) ∪ (1, +∞)”错误，真数最小值为1，值域不可能为R，满足条件的a不存在；解析虽指出值域非R却给出空集，但存储答案仍为错误范围。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-112",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案“(-√3, 1]”与独立解B一致，解析正确，唯一正确选项，无问题。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 0,
+      "fail": 2,
+      "notes": "8题中6题通过，2题失败：bnu-high-ds-v1-s4-108存储答案错误且解析自相矛盾；bnu-high-ds-v1-s4-111存储答案错误，满足条件的a不存在。"
+    }
+  }
+}

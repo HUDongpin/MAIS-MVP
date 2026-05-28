@@ -1,0 +1,294 @@
+{
+  "batchId": "batch-262",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p6-056",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "hjb-primary-p6-upper-circle-sector",
+      "unitTitle": "圆和扇形",
+      "volume": "6年级上册",
+      "conceptIds": [
+        "circle",
+        "sector",
+        "circumference",
+        "area",
+        "圆",
+        "扇形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "半径直径",
+        "圆周长",
+        "圆面积",
+        "扇形认识",
+        "组合图形估算"
+      ],
+      "misconceptionTags": [
+        "radius and diameter confused",
+        "circumference formula used for area",
+        "sector treated as any curved shape"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p6-upper-circle-sector"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-circle-sector",
+        "hjb-primary-p4-upper-assessment-geometry-circle-lines-angles"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个圆形花坛的半径是5米。园丁沿着花坛边缘铺设一圈石子路，石子路的外沿形成一个半径是6米的圆。石子路的面积是多少平方米？（结果保留π）",
+      "optionsZhHans": [],
+      "answer": "11π",
+      "acceptedAnswers": [
+        "11π",
+        "11π平方米"
+      ],
+      "explanationZhHans": "石子路是一个圆环，面积等于大圆面积减小圆面积。大圆半径6米，面积36π平方米；小圆半径5米，面积25π平方米。相减得11π平方米。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-057",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "hjb-primary-p6-upper-circle-sector",
+      "unitTitle": "圆和扇形",
+      "volume": "6年级上册",
+      "conceptIds": [
+        "circle",
+        "sector",
+        "circumference",
+        "area",
+        "圆",
+        "扇形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "半径直径",
+        "圆周长",
+        "圆面积",
+        "扇形认识",
+        "组合图形估算"
+      ],
+      "misconceptionTags": [
+        "radius and diameter confused",
+        "circumference formula used for area",
+        "sector treated as any curved shape"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p6-upper-circle-sector"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-circle-sector",
+        "hjb-primary-p4-upper-assessment-geometry-circle-lines-angles"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个扇形的圆心角是60°，半径是10厘米。这个扇形的面积是多少平方厘米？（结果保留π）",
+      "optionsZhHans": [],
+      "answer": "50π/3",
+      "acceptedAnswers": [
+        "50π/3",
+        "50π/3平方厘米"
+      ],
+      "explanationZhHans": "扇形面积公式为nπr²/360。n=60，r=10，代入得60×π×100/360=6000π/360=50π/3平方厘米。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-058",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "hjb-primary-p6-upper-circle-sector",
+      "unitTitle": "圆和扇形",
+      "volume": "6年级上册",
+      "conceptIds": [
+        "circle",
+        "sector",
+        "circumference",
+        "area",
+        "圆",
+        "扇形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "半径直径",
+        "圆周长",
+        "圆面积",
+        "扇形认识",
+        "组合图形估算"
+      ],
+      "misconceptionTags": [
+        "radius and diameter confused",
+        "circumference formula used for area",
+        "sector treated as any curved shape"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p6-upper-circle-sector"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-circle-sector",
+        "hjb-primary-p4-upper-assessment-geometry-circle-lines-angles"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面关于圆和扇形的说法，正确的是哪一项？",
+      "optionsZhHans": [
+        "圆的直径是半径的两倍，所以直径总是比半径长。",
+        "计算圆的周长可以用公式C=πd，计算面积也可以用同一个公式。",
+        "扇形是圆的一部分，所以扇形的面积一定比圆的面积小。",
+        "圆心角是90°的扇形，它的面积等于圆面积的四分之一。"
+      ],
+      "answer": "圆心角是90°的扇形，它的面积等于圆面积的四分之一。",
+      "acceptedAnswers": [
+        "圆心角是90°的扇形，它的面积等于圆面积的四分之一。"
+      ],
+      "explanationZhHans": "选项A错误，直径和半径是不同概念，不能说直径比半径长；选项B错误，面积公式是S=πr²；选项C错误，扇形面积可能等于圆面积（当圆心角为360°时）；选项D正确，90°是360°的四分之一，所以面积也是四分之一。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-059",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "hjb-primary-p6-upper-circle-sector",
+      "unitTitle": "圆和扇形",
+      "volume": "6年级上册",
+      "conceptIds": [
+        "circle",
+        "sector",
+        "circumference",
+        "area",
+        "圆",
+        "扇形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "半径直径",
+        "圆周长",
+        "圆面积",
+        "扇形认识",
+        "组合图形估算"
+      ],
+      "misconceptionTags": [
+        "radius and diameter confused",
+        "circumference formula used for area",
+        "sector treated as any curved shape"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p6-upper-circle-sector"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-circle-sector",
+        "hjb-primary-p4-upper-assessment-geometry-circle-lines-angles"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个圆的周长是31.4厘米。在这个圆内画一个圆心角是120°的扇形，这个扇形的弧长是多少厘米？（π取3.14）",
+      "optionsZhHans": [],
+      "answer": "10.47",
+      "acceptedAnswers": [
+        "10.47",
+        "10.47厘米"
+      ],
+      "explanationZhHans": "先求半径：C=2πr，31.4=2×3.14×r，得r=5厘米。弧长公式为nπr/180，代入120×3.14×5/180=1884/180=10.466...≈10.47厘米。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-060",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "hjb-primary-p6-upper-circle-sector",
+      "unitTitle": "圆和扇形",
+      "volume": "6年级上册",
+      "conceptIds": [
+        "circle",
+        "sector",
+        "circumference",
+        "area",
+        "圆",
+        "扇形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "半径直径",
+        "圆周长",
+        "圆面积",
+        "扇形认识",
+        "组合图形估算"
+      ],
+      "misconceptionTags": [
+        "radius and diameter confused",
+        "circumference formula used for area",
+        "sector treated as any curved shape"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p6-upper-circle-sector"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-circle-sector",
+        "hjb-primary-p4-upper-assessment-geometry-circle-lines-angles"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个半径为8米的圆形水池，在水池周围修一条宽2米的小路。这条小路的面积是多少平方米？（π取3.14）",
+      "optionsZhHans": [],
+      "answer": "113.04",
+      "acceptedAnswers": [
+        "113.04",
+        "113.04平方米"
+      ],
+      "explanationZhHans": "小路是圆环，外半径8+2=10米。面积=π(R²-r²)=3.14×(100-64)=3.14×36=113.04平方米。"
+    }
+  ]
+}

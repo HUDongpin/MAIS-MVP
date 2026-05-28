@@ -1,0 +1,48 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-085",
+  "startedAt": "2026-05-28T02:07:49.878Z",
+  "completedAt": "2026-05-28T02:07:55.549Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-085"
+  ],
+  "usage": {
+    "prompt_tokens": 2055,
+    "completion_tokens": 250,
+    "total_tokens": 2305,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1671
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-085",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "2",
+        "correctedAnswer": "2",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，RAG匹配安全。独立求解得a=2，与存储答案一致。但解析中设a=2t，由t=2错误得出a=4，与正确答案矛盾，存在数学错误和解释矛盾，需修正解析。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1题因解析存在数学错误且与答案矛盾，判定为blocker。"
+    }
+  }
+}

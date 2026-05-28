@@ -1,0 +1,290 @@
+{
+  "batchId": "batch-228",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p5-136",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-factors-multiples",
+      "unitTitle": "因数、倍数与数的结构",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "factors-multiples",
+        "prime-composite",
+        "greatest-common-factor",
+        "least-common-multiple",
+        "因数倍数"
+      ],
+      "competencyTags": [
+        "数感",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "因数倍数",
+        "质数合数",
+        "公因数",
+        "公倍数",
+        "数的分类"
+      ],
+      "misconceptionTags": [
+        "factor and multiple reversed",
+        "prime number confused with odd number",
+        "least common multiple chosen without common check"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-factors-multiples"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit",
+        "hjb-primary-p5-upper-assessment-equations-relationships-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个数既是 24 的因数，又是 36 的因数？",
+      "optionsZhHans": [
+        "8",
+        "9",
+        "12",
+        "18"
+      ],
+      "answer": "12",
+      "acceptedAnswers": [
+        "12"
+      ],
+      "explanationZhHans": "24 的因数有 1,2,3,4,6,8,12,24；36 的因数有 1,2,3,4,6,9,12,18,36。公因数中 12 符合选项，所以选 12。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-137",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-factors-multiples",
+      "unitTitle": "因数、倍数与数的结构",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "factors-multiples",
+        "prime-composite",
+        "greatest-common-factor",
+        "least-common-multiple",
+        "因数倍数"
+      ],
+      "competencyTags": [
+        "数感",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "因数倍数",
+        "质数合数",
+        "公因数",
+        "公倍数",
+        "数的分类"
+      ],
+      "misconceptionTags": [
+        "factor and multiple reversed",
+        "prime number confused with odd number",
+        "least common multiple chosen without common check"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-factors-multiples"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit",
+        "hjb-primary-p5-upper-assessment-equations-relationships-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个两位数，十位数字与个位数字都是质数，且它们的和是 10。这个两位数最大是______。",
+      "optionsZhHans": [],
+      "answer": "73",
+      "acceptedAnswers": [
+        "73"
+      ],
+      "explanationZhHans": "一位质数有 2,3,5,7。和为 10 的组合有 (3,7) 和 (5,5)。组成的两位数有 37,73,55。最大是 73。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-138",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-factors-multiples",
+      "unitTitle": "因数、倍数与数的结构",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "factors-multiples",
+        "prime-composite",
+        "greatest-common-factor",
+        "least-common-multiple",
+        "因数倍数"
+      ],
+      "competencyTags": [
+        "数感",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "因数倍数",
+        "质数合数",
+        "公因数",
+        "公倍数",
+        "数的分类"
+      ],
+      "misconceptionTags": [
+        "factor and multiple reversed",
+        "prime number confused with odd number",
+        "least common multiple chosen without common check"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-factors-multiples"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit",
+        "hjb-primary-p5-upper-assessment-equations-relationships-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "求 18 和 30 的最大公因数。",
+      "optionsZhHans": [],
+      "answer": "6",
+      "acceptedAnswers": [
+        "6"
+      ],
+      "explanationZhHans": "18 的因数：1,2,3,6,9,18；30 的因数：1,2,3,5,6,10,15,30。最大公因数是 6。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-139",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-factors-multiples",
+      "unitTitle": "因数、倍数与数的结构",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "factors-multiples",
+        "prime-composite",
+        "greatest-common-factor",
+        "least-common-multiple",
+        "因数倍数"
+      ],
+      "competencyTags": [
+        "数感",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "因数倍数",
+        "质数合数",
+        "公因数",
+        "公倍数",
+        "数的分类"
+      ],
+      "misconceptionTags": [
+        "factor and multiple reversed",
+        "prime number confused with odd number",
+        "least common multiple chosen without common check"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-factors-multiples"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit",
+        "hjb-primary-p5-upper-assessment-equations-relationships-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个数不是质数？",
+      "optionsZhHans": [
+        "17",
+        "23",
+        "27",
+        "31"
+      ],
+      "answer": "27",
+      "acceptedAnswers": [
+        "27"
+      ],
+      "explanationZhHans": "27 除了 1 和 27，还有因数 3 和 9，所以是合数。其他选项都只有两个因数，是质数。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-140",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-factors-multiples",
+      "unitTitle": "因数、倍数与数的结构",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "factors-multiples",
+        "prime-composite",
+        "greatest-common-factor",
+        "least-common-multiple",
+        "因数倍数"
+      ],
+      "competencyTags": [
+        "数感",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "因数倍数",
+        "质数合数",
+        "公因数",
+        "公倍数",
+        "数的分类"
+      ],
+      "misconceptionTags": [
+        "factor and multiple reversed",
+        "prime number confused with odd number",
+        "least common multiple chosen without common check"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-factors-multiples"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit",
+        "hjb-primary-p5-upper-assessment-equations-relationships-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "两个数的最大公因数是 6，最小公倍数是 72。如果其中一个数是 18，那么另一个数是______。",
+      "optionsZhHans": [],
+      "answer": "24",
+      "acceptedAnswers": [
+        "24"
+      ],
+      "explanationZhHans": "两数积等于最大公因数乘最小公倍数，即 6×72=432。已知一数为 18，另一数为 432÷18=24。"
+    }
+  ]
+}

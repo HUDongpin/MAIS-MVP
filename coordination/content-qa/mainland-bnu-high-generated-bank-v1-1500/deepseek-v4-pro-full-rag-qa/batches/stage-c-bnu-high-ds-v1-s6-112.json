@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-112",
+  "startedAt": "2026-05-28T01:39:39.624Z",
+  "completedAt": "2026-05-28T01:40:17.553Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-112"
+  ],
+  "usage": {
+    "prompt_tokens": 1976,
+    "completion_tokens": 241,
+    "total_tokens": 2217,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1592
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-112",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_checkable",
+        "independentAnswer": null,
+        "correctedAnswer": null,
+        "issueTags": [
+          "missing_condition",
+          "unsolvable",
+          "math_error"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件矛盾：由等差数列性质得 a_3+a_7=2a_5=20，故 a_5=10，与已知 a_5=12 冲突，题目不可解。存储答案 4 无效。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目条件矛盾，不可解，答案无效。"
+    }
+  }
+}

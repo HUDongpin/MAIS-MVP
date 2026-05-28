@@ -1,0 +1,133 @@
+{
+  "batchNumber": 79,
+  "startedAt": "2026-05-27T13:57:05.365Z",
+  "completedAt": "2026-05-27T13:57:24.697Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-125",
+    "bnu-high-ds-v1-s5-126",
+    "bnu-high-ds-v1-s5-127",
+    "bnu-high-ds-v1-s5-128",
+    "bnu-high-ds-v1-s5-129",
+    "bnu-high-ds-v1-s5-130",
+    "bnu-high-ds-v1-s5-131",
+    "bnu-high-ds-v1-s5-132"
+  ],
+  "usage": {
+    "prompt_tokens": 11520,
+    "completion_tokens": 1224,
+    "total_tokens": 12744,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 11008
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-125",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "y = -x + 2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件充分，可独立求解。椭圆方程推导正确，直线方程联立及中点条件计算无误，最终直线方程为y=-x+2，与答案一致。解析过程与答案匹配。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-126",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "k = ±1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件充分，可独立求解。椭圆方程正确，以AB为直径的圆过原点转化为OA⊥OB，利用韦达定理化简得k²=1，k=±1。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-127",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "m = 2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件充分，可独立求解。椭圆方程正确，联立直线后利用中点横坐标条件解得m=2，且判别式验证符合。选项唯一正确，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-128",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "y = -1/2 x + 3/2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件充分，可独立求解。椭圆方程推导正确，利用点差法求得斜率-1/2，直线方程y=-1/2x+3/2。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-129",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "1/2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件充分，可独立求解。椭圆方程正确，联立直线后利用中点横坐标条件解得k=1/2，另一解舍去。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-130",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "k = -1/2，m = 1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件充分，可独立求解。椭圆方程正确，联立直线后利用中点坐标条件解得k=-1/2，m=1，且判别式验证符合。选项唯一正确，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-131",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "x^2/25 + y^2/16 = 1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件充分，可独立求解。由长轴长和离心率直接求得a=5，b=4，标准方程正确。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-132",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "x^2/16 - y^2/9 = 1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件充分，可独立求解。由渐近线斜率和虚轴长得b=3，a=4，焦点在x轴，标准方程正确。答案与解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8道题目条件充分，可独立求解；答案与独立求解结果一致；解析过程正确且与答案匹配。无任何问题。"
+    }
+  }
+}

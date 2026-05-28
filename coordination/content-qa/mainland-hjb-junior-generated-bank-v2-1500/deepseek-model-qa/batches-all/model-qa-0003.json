@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0003",
+  "ids": [
+    "hjb-junior-ds-v2-s1-017",
+    "hjb-junior-ds-v2-s1-018",
+    "hjb-junior-ds-v2-s1-019",
+    "hjb-junior-ds-v2-s1-020",
+    "hjb-junior-ds-v2-s1-021",
+    "hjb-junior-ds-v2-s1-022",
+    "hjb-junior-ds-v2-s1-023",
+    "hjb-junior-ds-v2-s1-024"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-017",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "35",
+      "answerCheckZhHans": "标准答案为35，独立计算得35，一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-018",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3m²n + 4mn²",
+      "answerCheckZhHans": "标准答案为3m²n + 4mn²，独立计算得3m²n + 4mn²，一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-019",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x² + x - 4",
+      "answerCheckZhHans": "标准答案为x² + x - 4，独立计算得x² + x - 4，一致。选项A为x² + x - 4，唯一正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-020",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为-4，但独立计算得-2。解析中正确得出a=-3, b=1，但a+b=-2，与答案-4矛盾。",
+      "independentAnswerZhHans": "-2",
+      "answerCheckZhHans": "标准答案为-4，独立计算得-2，不一致。解析过程正确但最终答案错误。",
+      "recommendedActionZhHans": "修正答案为-2，或检查解析与答案的一致性。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-021",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "5x² - 10xy + 11",
+      "answerCheckZhHans": "标准答案为5x² - 10xy + 11，独立计算得5x² - 10xy + 11，一致。acceptedAnswers覆盖了标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-022",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2a³b 与 -4a³b",
+      "answerCheckZhHans": "标准答案为2a³b 与 -4a³b，独立判断选项B为同类项，一致。其他选项均不是同类项。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-023",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "5",
+      "answerCheckZhHans": "标准答案为5，独立计算得5，一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-024",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "化简得2x² + xy - 4，代入x=-1,y=2得-4",
+      "answerCheckZhHans": "标准答案为2x² + xy - 4，代入得-4，独立计算一致。acceptedAnswers覆盖了标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

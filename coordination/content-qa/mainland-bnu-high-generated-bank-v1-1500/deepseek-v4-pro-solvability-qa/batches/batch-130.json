@@ -1,0 +1,133 @@
+{
+  "batchNumber": 130,
+  "startedAt": "2026-05-27T14:05:35.564Z",
+  "completedAt": "2026-05-27T14:05:50.324Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-033",
+    "bnu-high-ds-v1-s6-034",
+    "bnu-high-ds-v1-s6-035",
+    "bnu-high-ds-v1-s6-036",
+    "bnu-high-ds-v1-s6-037",
+    "bnu-high-ds-v1-s6-038",
+    "bnu-high-ds-v1-s6-039",
+    "bnu-high-ds-v1-s6-040"
+  ],
+  "usage": {
+    "prompt_tokens": 10287,
+    "completion_tokens": 1031,
+    "total_tokens": 11318,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 9775
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-033",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由等比数列前n项和公式，S3和S6相除得1+q^3=9，解得q=2，题目条件充分，答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-034",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "101",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "递推累加得通项an=n^2+1，a10=101，选项唯一，答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-035",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "a_n = 2·3^{n-1} - 1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "构造等比数列得通项，答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-036",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由a4=a1q^3解得q=2，题目条件充分，答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-037",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "39",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由Sn求部分和，S7-S4=39，选项唯一，答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-038",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "21",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由等差数列条件解得a1=1，再求a2+a4+a6=21，答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-039",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2^n - 1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "累加得an=2^n-1，答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-040",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由a5=a2+3d解得d=3，选项唯一，答案正确，解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，答案与解析均正确且一致，无任何问题。"
+    }
+  }
+}

@@ -1,0 +1,140 @@
+{
+  "batchNumber": 37,
+  "startedAt": "2026-05-27T13:49:56.193Z",
+  "completedAt": "2026-05-27T13:50:14.361Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-289",
+    "bnu-high-ds-v1-s4-290",
+    "bnu-high-ds-v1-s4-291",
+    "bnu-high-ds-v1-s4-292",
+    "bnu-high-ds-v1-s4-293",
+    "bnu-high-ds-v1-s4-294",
+    "bnu-high-ds-v1-s4-295",
+    "bnu-high-ds-v1-s4-296"
+  ],
+  "usage": {
+    "prompt_tokens": 11676,
+    "completion_tokens": 1181,
+    "total_tokens": 12857,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 11164
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-289",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "D",
+        "correctedAnswer": null,
+        "issueTags": [
+          "ambiguous_mc",
+          "explanation_contradiction",
+          "answer_mismatch"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目要求选择正确结论，但独立求解发现A、B、C、D均正确，存在多个正确选项，不符合单选题要求。解析声称所有选项正确并建议修改，与题目和答案矛盾。答案仅选D，但实际不止D正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-290",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "sinα = 4/5, cosα = -3/5, tanα = -4/3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件充分，可独立求解。答案与独立计算结果一致，解析正确且与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-291",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "[0, 5π/12] 和 [11π/12, π]",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件充分，可独立求解。答案与独立计算结果一致，解析正确且与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-292",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "y = sin x",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件充分，可独立求解。答案与独立计算结果一致，解析正确且与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-293",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "1/5",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件充分，可独立求解。答案与独立计算结果一致，解析正确且与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-294",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "π/6",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件充分，可独立求解。答案与独立计算结果一致，解析正确且与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-295",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "y = cos 2x 或 y = |sin x|",
+        "correctedAnswer": null,
+        "issueTags": [
+          "ambiguous_mc",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目要求最小正周期为π且为偶函数，y=cos2x和y=|sin x|均满足，存在两个正确选项，不符合单选题要求。解析承认y=|sin x|也正确，但答案仅选y=cos2x，矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-296",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "1/3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件充分，可独立求解。答案与独立计算结果一致，解析正确且与答案一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 0,
+      "fail": 2,
+      "notes": "8题中6题通过，2题失败：289题四个选项均正确，295题有两个正确选项，均不符合单选题要求，解析与答案矛盾。"
+    }
+  }
+}

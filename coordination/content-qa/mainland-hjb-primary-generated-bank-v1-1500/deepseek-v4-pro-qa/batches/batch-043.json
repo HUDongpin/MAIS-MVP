@@ -1,0 +1,191 @@
+{
+  "batchNumber": 43,
+  "startedAt": "2026-05-25T02:07:47.454Z",
+  "completedAt": "2026-05-25T02:08:09.899Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p4-007",
+    "hjb-primary-ds-v1-p4-008",
+    "hjb-primary-ds-v1-p4-009",
+    "hjb-primary-ds-v1-p4-010",
+    "hjb-primary-ds-v1-p4-011",
+    "hjb-primary-ds-v1-p4-012",
+    "hjb-primary-ds-v1-p4-013",
+    "hjb-primary-ds-v1-p4-014",
+    "hjb-primary-ds-v1-p4-015",
+    "hjb-primary-ds-v1-p4-016",
+    "hjb-primary-ds-v1-p4-017",
+    "hjb-primary-ds-v1-p4-018",
+    "hjb-primary-ds-v1-p4-019",
+    "hjb-primary-ds-v1-p4-020",
+    "hjb-primary-ds-v1-p4-021",
+    "hjb-primary-ds-v1-p4-022",
+    "hjb-primary-ds-v1-p4-023",
+    "hjb-primary-ds-v1-p4-024"
+  ],
+  "usage": {
+    "prompt_tokens": 3545,
+    "completion_tokens": 1454,
+    "total_tokens": 4999,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 3289
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p4-007",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，被除数=54×12+8=656，656÷45=14余38，选项匹配，无歧义。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-008",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "减数看大多减了27，差应加回27得54，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-009",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "另一个乘数=189÷21=9，正确积=12×9=108，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-010",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "3/8 > 2/8，小丁丁吃得多，选项正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-011",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "正确逆运算为84÷7=12，答案覆盖多种写法，无问题。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-012",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "每段1/8，3段3/8，答案正确，acceptedAnswers覆盖合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-013",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "各选项□值分别为9,8,12,11，C最大，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-014",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "乘除互逆，345÷23=15，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-015",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分子相同分母大反而小，1/4<1/3，答案正确，acceptedAnswers合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-016",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "被除数差18，商多1余数同，除数=18，768÷18=42余12，商42正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-017",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "1081÷23=47，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-018",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "对折两次平均分4份，每份1/4，答案及acceptedAnswers合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-019",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "减数看大多减36，差少36，正确差=156+36=192，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-020",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "余数最大24，被除数=18×25+24=474，答案正确，acceptedAnswers覆盖合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-021",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "验算用除法，360÷15=24或360÷24=15，答案及acceptedAnswers合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-022",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "3/8表示平均分8份取3份，选项正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-023",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "12×15=180，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-024",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "50000平方米=0.05平方千米，换算正确，acceptedAnswers合理。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部18题均通过审核，数学正确，答案匹配，无歧义或缺失条件，适合沪教版P4年级。"
+    }
+  }
+}

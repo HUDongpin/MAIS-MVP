@@ -1,0 +1,330 @@
+{
+  "batchNumber": 24,
+  "startedAt": "2026-05-27T03:38:51.291Z",
+  "completedAt": "2026-05-27T03:39:19.327Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p3-191",
+    "bnu-primary-ds-v1-p3-192",
+    "bnu-primary-ds-v1-p3-193",
+    "bnu-primary-ds-v1-p3-194",
+    "bnu-primary-ds-v1-p3-195",
+    "bnu-primary-ds-v1-p3-196",
+    "bnu-primary-ds-v1-p3-197",
+    "bnu-primary-ds-v1-p3-198",
+    "bnu-primary-ds-v1-p3-199",
+    "bnu-primary-ds-v1-p3-200",
+    "bnu-primary-ds-v1-p3-201",
+    "bnu-primary-ds-v1-p3-202",
+    "bnu-primary-ds-v1-p3-203",
+    "bnu-primary-ds-v1-p3-204",
+    "bnu-primary-ds-v1-p3-205",
+    "bnu-primary-ds-v1-p3-206",
+    "bnu-primary-ds-v1-p3-207",
+    "bnu-primary-ds-v1-p3-208",
+    "bnu-primary-ds-v1-p3-209",
+    "bnu-primary-ds-v1-p3-210",
+    "bnu-primary-ds-v1-p3-211",
+    "bnu-primary-ds-v1-p3-212",
+    "bnu-primary-ds-v1-p3-213",
+    "bnu-primary-ds-v1-p3-214",
+    "bnu-primary-ds-v1-p3-215",
+    "bnu-primary-ds-v1-p3-216",
+    "bnu-primary-ds-v1-p3-217",
+    "bnu-primary-ds-v1-p3-218",
+    "bnu-primary-ds-v1-p3-219",
+    "bnu-primary-ds-v1-p3-220"
+  ],
+  "usage": {
+    "prompt_tokens": 4926,
+    "completion_tokens": 2201,
+    "total_tokens": 7127,
+    "prompt_tokens_details": {
+      "cached_tokens": 4864
+    },
+    "prompt_cache_hit_tokens": 4864,
+    "prompt_cache_miss_tokens": 62
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p3-191",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "单位换算正确，答案唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-192",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "常识判断，答案合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-193",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "单位换算与减法计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-194",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "单位换算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-195",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "面积公式应用正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-196",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "正方形面积计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-197",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "面积守恒概念正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-198",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "面积单位选择合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-199",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "面积与周长计算正确，单位无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-200",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "周长计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-201",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "面积计算正确，选项无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-202",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "正方形面积计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-203",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "面积守恒，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-204",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "面积与乘法计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-205",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "面积计算与比较正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-206",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "由周长求面积，步骤正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-207",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "周长求面积，计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-208",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "面积单位选择合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-209",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "对折次数与份数关系正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-210",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "平均分概念正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-211",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "对折与分数理解正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-212",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "分数表示正确，答案接受多种写法。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-213",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "强调平均分，答案唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-214",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "分数表示正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-215",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "分数概念正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-216",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "整体平均分，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-217",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "平均分判断正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-218",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "分数读写正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-219",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "部分与整体关系正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-220",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "分数书写正确。"
+      }
+    ],
+    "batchSummary": {
+      "solvableYes": 30,
+      "solvableNo": 0,
+      "answerMatchYes": 30,
+      "answerMatchNo": 0,
+      "notes": "全部30题均可解且答案匹配，无问题。"
+    }
+  }
+}

@@ -1,0 +1,341 @@
+{
+  "batchId": "batch-126",
+  "questions": [
+    {
+      "id": "hjb-junior-ds-v2-s2-126",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "hjb-junior-s2-upper-quadratic-equations",
+      "unitTitle": "一元二次方程",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "quadratic-equations",
+        "factoring-method",
+        "completing-square",
+        "quadratic-formula",
+        "discriminant",
+        "roots-coefficients",
+        "一元二次方程"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "方程概念",
+        "配方法",
+        "公式法",
+        "判别式",
+        "根与系数关系",
+        "应用建模"
+      ],
+      "misconceptionTags": [
+        "linear term omitted in formula",
+        "discriminant meaning misread",
+        "extraneous context value accepted"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s2-upper-quadratic-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-upper-paper-quadratic-equations-unit",
+        "hjb-junior-s2-upper-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知关于x的一元二次方程 x² - (2k+1)x + k² + k = 0。\n(1) 求证：无论k取何实数，该方程总有两个不相等的实数根。\n(2) 若方程的两个实数根分别为α和β，且满足 α² + β² = 25，求k的值。",
+      "optionsZhHans": [],
+      "answer": "(1) 证明：Δ = (2k+1)² - 4(k²+k) = 4k²+4k+1-4k²-4k = 1 > 0，所以方程总有两个不相等的实数根。\n(2) k = 3 或 k = -4",
+      "acceptedAnswers": [
+        "(1) 证明：Δ = (2k+1)² - 4(k²+k) = 4k²+4k+1-4k²-4k = 1 > 0，所以方程总有两个不相等的实数根。\n(2) k = 3 或 k = -4"
+      ],
+      "explanationZhHans": "(1) 计算判别式Δ=1>0，故总有两个不等实根。(2) 由根与系数关系得α+β=2k+1，αβ=k²+k，代入α²+β²=(α+β)²-2αβ=25，解得k=3或k=-4。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-127",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "hjb-junior-s2-upper-quadratic-equations",
+      "unitTitle": "一元二次方程",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "quadratic-equations",
+        "factoring-method",
+        "completing-square",
+        "quadratic-formula",
+        "discriminant",
+        "roots-coefficients",
+        "一元二次方程"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "方程概念",
+        "配方法",
+        "公式法",
+        "判别式",
+        "根与系数关系",
+        "应用建模"
+      ],
+      "misconceptionTags": [
+        "linear term omitted in formula",
+        "discriminant meaning misread",
+        "extraneous context value accepted"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s2-upper-quadratic-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-upper-paper-quadratic-equations-unit",
+        "hjb-junior-s2-upper-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下列方程中，有两个相等实数根的是（ ）",
+      "optionsZhHans": [
+        "A. x² - 4x + 3 = 0",
+        "B. x² - 6x + 9 = 0",
+        "C. x² + 2x - 1 = 0",
+        "D. x² + x + 1 = 0"
+      ],
+      "answer": "B. x² - 6x + 9 = 0",
+      "acceptedAnswers": [
+        "B. x² - 6x + 9 = 0"
+      ],
+      "explanationZhHans": "分别计算判别式：A的Δ=4>0，有两个不等实根；B的Δ=0，有两个相等实根；C的Δ=8>0，有两个不等实根；D的Δ=-3<0，无实数根。故选B。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-128",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "hjb-junior-s2-upper-quadratic-equations",
+      "unitTitle": "一元二次方程",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "quadratic-equations",
+        "factoring-method",
+        "completing-square",
+        "quadratic-formula",
+        "discriminant",
+        "roots-coefficients",
+        "一元二次方程"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "方程概念",
+        "配方法",
+        "公式法",
+        "判别式",
+        "根与系数关系",
+        "应用建模"
+      ],
+      "misconceptionTags": [
+        "linear term omitted in formula",
+        "discriminant meaning misread",
+        "extraneous context value accepted"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-junior-s2-upper-quadratic-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-upper-paper-quadratic-equations-unit",
+        "hjb-junior-s2-upper-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一元二次方程 2x² - 3x - 5 = 0 的两根之和为______。",
+      "optionsZhHans": [],
+      "answer": "3/2",
+      "acceptedAnswers": [
+        "3/2",
+        "1.5"
+      ],
+      "explanationZhHans": "方程化为一般形式，a=2，b=-3，c=-5。根据根与系数关系，两根之和为 -b/a = -(-3)/2 = 3/2。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-129",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "hjb-junior-s2-upper-quadratic-equations",
+      "unitTitle": "一元二次方程",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "quadratic-equations",
+        "factoring-method",
+        "completing-square",
+        "quadratic-formula",
+        "discriminant",
+        "roots-coefficients",
+        "一元二次方程"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "方程概念",
+        "配方法",
+        "公式法",
+        "判别式",
+        "根与系数关系",
+        "应用建模"
+      ],
+      "misconceptionTags": [
+        "linear term omitted in formula",
+        "discriminant meaning misread",
+        "extraneous context value accepted"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s2-upper-quadratic-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-upper-paper-quadratic-equations-unit",
+        "hjb-junior-s2-upper-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某商店销售一种商品，进价为每件40元。当售价为每件60元时，每月可售出100件。经市场调查发现：售价每降低1元，月销量增加10件。设每件商品降价x元（x为正整数），月销售利润为y元。\n(1) 求y关于x的函数关系式，并写出x的取值范围。\n(2) 当降价多少元时，月销售利润最大？最大利润是多少元？\n(3) 若商店希望月销售利润不低于2160元，请直接写出x的取值范围。",
+      "optionsZhHans": [],
+      "answer": "(1) y = (20 - x)(100 + 10x) = -10x² + 100x + 2000，x的取值范围为0≤x≤20的整数。\n(2) 当降价5元时，月销售利润最大，最大利润为2250元。\n(3) 2≤x≤8",
+      "acceptedAnswers": [
+        "(1) y = (20 - x)(100 + 10x) = -10x² + 100x + 2000，x的取值范围为0≤x≤20的整数。\n(2) 当降价5元时，月销售利润最大，最大利润为2250元。\n(3) 2≤x≤8"
+      ],
+      "explanationZhHans": "(1) 每件利润(60-x-40)=20-x，销量100+10x，y=(20-x)(100+10x)，x≤20且为正整数。(2) 配方得y=-10(x-5)²+2250，x=5时最大2250。(3) 解-10x²+100x+2000≥2160得2≤x≤8。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-130",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "hjb-junior-s2-upper-quadratic-equations",
+      "unitTitle": "一元二次方程",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "quadratic-equations",
+        "factoring-method",
+        "completing-square",
+        "quadratic-formula",
+        "discriminant",
+        "roots-coefficients",
+        "一元二次方程"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "方程概念",
+        "配方法",
+        "公式法",
+        "判别式",
+        "根与系数关系",
+        "应用建模"
+      ],
+      "misconceptionTags": [
+        "linear term omitted in formula",
+        "discriminant meaning misread",
+        "extraneous context value accepted"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s2-upper-quadratic-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-upper-paper-quadratic-equations-unit",
+        "hjb-junior-s2-upper-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用配方法解方程 x² - 8x + 12 = 0，下列配方正确的是（ ）",
+      "optionsZhHans": [
+        "A. (x - 4)² = 4",
+        "B. (x - 4)² = 28",
+        "C. (x - 8)² = 52",
+        "D. (x - 4)² = -4"
+      ],
+      "answer": "A. (x - 4)² = 4",
+      "acceptedAnswers": [
+        "A. (x - 4)² = 4"
+      ],
+      "explanationZhHans": "移项得x²-8x=-12，配方：x²-8x+16=-12+16，即(x-4)²=4。故选A。"
+    }
+  ]
+}

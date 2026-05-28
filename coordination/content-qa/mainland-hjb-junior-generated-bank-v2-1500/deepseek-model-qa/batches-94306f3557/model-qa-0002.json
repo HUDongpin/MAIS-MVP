@@ -1,0 +1,103 @@
+{
+  "batchId": "model-qa-0002",
+  "ids": [
+    "hjb-junior-ds-v2-s1-009",
+    "hjb-junior-ds-v2-s1-010",
+    "hjb-junior-ds-v2-s1-011",
+    "hjb-junior-ds-v2-s1-012",
+    "hjb-junior-ds-v2-s1-013",
+    "hjb-junior-ds-v2-s1-014",
+    "hjb-junior-ds-v2-s1-015",
+    "hjb-junior-ds-v2-s1-016"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-009",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "化简得 -x² - 4x + 9，代入 x=-1 得 12",
+      "answerCheckZhHans": "标准答案正确，解析一致",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-010",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "多项式为 7x² - x - 3，对应选项 B",
+      "answerCheckZhHans": "标准答案正确，解析一致，选项互异且唯一正确",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-011",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x³ - 5x²y + 10xy² - 7y³",
+      "answerCheckZhHans": "标准答案正确，解析一致，按 x 降幂排列",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-012",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "11x²y + 4xy²",
+      "answerCheckZhHans": "标准答案正确，解析一致，acceptedAnswers 覆盖",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-013",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "C 是同类项，其他不是",
+      "answerCheckZhHans": "标准答案正确，解析一致，选项互异且唯一正确",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-014",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "m=2, n=3, m+n=5",
+      "answerCheckZhHans": "标准答案正确，解析一致",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-015",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "化简得 -5x²y，代入得 -10",
+      "answerCheckZhHans": "标准答案正确，解析一致",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-016",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "7x² - 11xy + 10y²，对应第一个选项",
+      "answerCheckZhHans": "标准答案正确，解析一致，选项互异且唯一正确",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

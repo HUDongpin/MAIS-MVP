@@ -1,0 +1,582 @@
+{
+  "batchId": "batch-102",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p5-011",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-decimal-division",
+      "unitTitle": "小数除法",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "decimal-division",
+        "decimal-place-value",
+        "quotient-estimation",
+        "recurring-decimals",
+        "小数除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "小数除以整数",
+        "除数是小数的除法",
+        "商的近似值",
+        "循环小数",
+        "估算检验"
+      ],
+      "misconceptionTags": [
+        "decimal point placed by digit counting only",
+        "divisor transformation applied to one number only",
+        "rounded quotient treated as exact"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-decimal-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-decimal-division-unit",
+        "bnu-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明在计算一道小数除法时，把被除数 12.6 的小数点向右移动了一位，除数 0.7 的小数点也向右移动了一位，得到的结果是 18。他检查后发现，正确的商应该是一个循环小数。请写出这个循环小数的简便记法。",
+      "optionsZhHans": [],
+      "answer": "18.0",
+      "acceptedAnswers": [
+        "18.0",
+        "18"
+      ],
+      "explanationZhHans": "被除数和除数的小数点都向右移动一位，相当于同时乘10，商不变。所以正确的商就是18，写成循环小数的简便记法为18.0。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-012",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-decimal-division",
+      "unitTitle": "小数除法",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "decimal-division",
+        "decimal-place-value",
+        "quotient-estimation",
+        "recurring-decimals",
+        "小数除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "小数除以整数",
+        "除数是小数的除法",
+        "商的近似值",
+        "循环小数",
+        "估算检验"
+      ],
+      "misconceptionTags": [
+        "decimal point placed by digit counting only",
+        "divisor transformation applied to one number only",
+        "rounded quotient treated as exact"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-decimal-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-decimal-division-unit",
+        "bnu-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈买了 2.5 千克苹果，付了 20 元，找回 4.5 元。每千克苹果多少元？请列竖式计算，并说明你如何用估算检验结果是否合理。",
+      "optionsZhHans": [],
+      "answer": "6.2",
+      "acceptedAnswers": [
+        "6.2",
+        "6.2元"
+      ],
+      "explanationZhHans": "实际付款20-4.5=15.5元，单价=15.5÷2.5=6.2元。估算：15.5≈15，2.5≈2.5，15÷2.5=6，与6.2接近，结果合理。竖式：将除数2.5变为25，被除数15.5变为155，155÷25=6.2。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-013",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-decimal-division",
+      "unitTitle": "小数除法",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "decimal-division",
+        "decimal-place-value",
+        "quotient-estimation",
+        "recurring-decimals",
+        "小数除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "小数除以整数",
+        "除数是小数的除法",
+        "商的近似值",
+        "循环小数",
+        "估算检验"
+      ],
+      "misconceptionTags": [
+        "decimal point placed by digit counting only",
+        "divisor transformation applied to one number only",
+        "rounded quotient treated as exact"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-decimal-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-decimal-division-unit",
+        "bnu-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个算式的商是循环小数？",
+      "optionsZhHans": [
+        "3.6 ÷ 0.9",
+        "1.2 ÷ 0.8",
+        "5.5 ÷ 1.1",
+        "2.3 ÷ 0.6"
+      ],
+      "answer": "2.3 ÷ 0.6",
+      "acceptedAnswers": [
+        "2.3 ÷ 0.6"
+      ],
+      "explanationZhHans": "选项A：3.6÷0.9=4；B：1.2÷0.8=1.5；C：5.5÷1.1=5；D：2.3÷0.6=3.8333…，商是循环小数。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-014",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-decimal-division",
+      "unitTitle": "小数除法",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "decimal-division",
+        "decimal-place-value",
+        "quotient-estimation",
+        "recurring-decimals",
+        "小数除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "小数除以整数",
+        "除数是小数的除法",
+        "商的近似值",
+        "循环小数",
+        "估算检验"
+      ],
+      "misconceptionTags": [
+        "decimal point placed by digit counting only",
+        "divisor transformation applied to one number only",
+        "rounded quotient treated as exact"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-decimal-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-decimal-division-unit",
+        "bnu-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算 7.2 ÷ 0.9 时，可以把被除数和除数同时乘 ___，转化成 72 ÷ 9 来计算。",
+      "optionsZhHans": [],
+      "answer": "10",
+      "acceptedAnswers": [
+        "10"
+      ],
+      "explanationZhHans": "除数是0.9，要转化成整数9，需要乘10。根据商不变的性质，被除数7.2也要乘10，变成72。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-015",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-decimal-division",
+      "unitTitle": "小数除法",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "decimal-division",
+        "decimal-place-value",
+        "quotient-estimation",
+        "recurring-decimals",
+        "小数除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "小数除以整数",
+        "除数是小数的除法",
+        "商的近似值",
+        "循环小数",
+        "估算检验"
+      ],
+      "misconceptionTags": [
+        "decimal point placed by digit counting only",
+        "divisor transformation applied to one number only",
+        "rounded quotient treated as exact"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-decimal-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-decimal-division-unit",
+        "bnu-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一根绳子长 34.5 米，每 1.8 米剪成一段，最多可以剪成多少段？还剩多少米？请写出计算过程并验算。",
+      "optionsZhHans": [],
+      "answer": "19段，还剩0.3米",
+      "acceptedAnswers": [
+        "19段，还剩0.3米",
+        "19段还剩0.3米",
+        "19段,还剩0.3米"
+      ],
+      "explanationZhHans": "34.5÷1.8=19.166…，取整数部分19段。剩余：34.5-1.8×19=34.5-34.2=0.3米。验算：1.8×19+0.3=34.5，正确。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-016",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-symmetry-translation",
+      "unitTitle": "轴对称和平移",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "axis-symmetry",
+        "translation",
+        "geometric-transformation",
+        "spatial-visualization",
+        "轴对称",
+        "平移"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "识别对称轴",
+        "补全轴对称图形",
+        "描述平移方向",
+        "描述平移距离",
+        "变换前后比较"
+      ],
+      "misconceptionTags": [
+        "translation distance counted from the wrong point",
+        "mirror image confused with rotation",
+        "shape orientation treated as changing under translation"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-symmetry-translation"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-symmetry-translation-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面关于平移的说法，哪一个是正确的？",
+      "optionsZhHans": [
+        "平移后图形的大小和形状都变了",
+        "平移时图形上每个点移动的距离可能不同",
+        "平移后图形的位置变了，但方向不变",
+        "平移就是绕着一点转动"
+      ],
+      "answer": "平移后图形的位置变了，但方向不变",
+      "acceptedAnswers": [
+        "平移后图形的位置变了，但方向不变"
+      ],
+      "explanationZhHans": "平移是图形沿直线移动，大小、形状、方向都不变，只有位置改变。每个点移动的距离和方向都相同。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-017",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-symmetry-translation",
+      "unitTitle": "轴对称和平移",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "axis-symmetry",
+        "translation",
+        "geometric-transformation",
+        "spatial-visualization",
+        "轴对称",
+        "平移"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "识别对称轴",
+        "补全轴对称图形",
+        "描述平移方向",
+        "描述平移距离",
+        "变换前后比较"
+      ],
+      "misconceptionTags": [
+        "translation distance counted from the wrong point",
+        "mirror image confused with rotation",
+        "shape orientation treated as changing under translation"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-symmetry-translation"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-symmetry-translation-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个三角形在方格纸上，三个顶点分别是 A(2,3)、B(4,5)、C(6,3)。它关于直线 x=4 对称的图形，顶点 A 的对应点 A' 的坐标是 (___ , 3)。",
+      "optionsZhHans": [],
+      "answer": "6",
+      "acceptedAnswers": [
+        "6"
+      ],
+      "explanationZhHans": "对称轴是x=4，点A(2,3)到轴的距离是2，对称点A'应在轴的另一侧距离2处，即横坐标4+2=6，纵坐标不变。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-018",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-symmetry-translation",
+      "unitTitle": "轴对称和平移",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "axis-symmetry",
+        "translation",
+        "geometric-transformation",
+        "spatial-visualization",
+        "轴对称",
+        "平移"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "识别对称轴",
+        "补全轴对称图形",
+        "描述平移方向",
+        "描述平移距离",
+        "变换前后比较"
+      ],
+      "misconceptionTags": [
+        "translation distance counted from the wrong point",
+        "mirror image confused with rotation",
+        "shape orientation treated as changing under translation"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-symmetry-translation"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-symmetry-translation-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在方格纸上，有一个四边形，四个顶点分别是 (1,1)、(3,1)、(4,3)、(2,3)。请画出这个四边形，并写出它向右平移 5 格后的四个顶点坐标。",
+      "optionsZhHans": [],
+      "answer": "(6,1)、(8,1)、(9,3)、(7,3)",
+      "acceptedAnswers": [
+        "(6,1)、(8,1)、(9,3)、(7,3)",
+        "（6，1）、（8，1）、（9，3）、（7，3）",
+        "(6,1) (8,1) (9,3) (7,3)"
+      ],
+      "explanationZhHans": "向右平移5格，每个点的横坐标加5，纵坐标不变。原坐标依次加5得新坐标。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-019",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-symmetry-translation",
+      "unitTitle": "轴对称和平移",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "axis-symmetry",
+        "translation",
+        "geometric-transformation",
+        "spatial-visualization",
+        "轴对称",
+        "平移"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "识别对称轴",
+        "补全轴对称图形",
+        "描述平移方向",
+        "描述平移距离",
+        "变换前后比较"
+      ],
+      "misconceptionTags": [
+        "translation distance counted from the wrong point",
+        "mirror image confused with rotation",
+        "shape orientation treated as changing under translation"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-symmetry-translation"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-symmetry-translation-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个图案先向右平移3格，再向上平移2格。下面说法正确的是哪一项？",
+      "optionsZhHans": [
+        "图案的形状和大小不变",
+        "图案一定变大",
+        "图案一定旋转了90°",
+        "图案的边数会减少"
+      ],
+      "answer": "图案的形状和大小不变",
+      "acceptedAnswers": [
+        "图案的形状和大小不变"
+      ],
+      "explanationZhHans": "平移只改变位置，不改变图案的形状、大小和边数。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-020",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-symmetry-translation",
+      "unitTitle": "轴对称和平移",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "axis-symmetry",
+        "translation",
+        "geometric-transformation",
+        "spatial-visualization",
+        "轴对称",
+        "平移"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "识别对称轴",
+        "补全轴对称图形",
+        "描述平移方向",
+        "描述平移距离",
+        "变换前后比较"
+      ],
+      "misconceptionTags": [
+        "translation distance counted from the wrong point",
+        "mirror image confused with rotation",
+        "shape orientation treated as changing under translation"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-symmetry-translation"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-symmetry-translation-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个图形先向右平移 4 格，再向下平移 2 格后，某个顶点从 (3,5) 移动到了 (7,3)。如果这个图形先向下平移 2 格，再向右平移 4 格，这个顶点会移动到 (___ , ___)。",
+      "optionsZhHans": [],
+      "answer": "7,3",
+      "acceptedAnswers": [
+        "7,3",
+        "（7，3）"
+      ],
+      "explanationZhHans": "平移的顺序不影响最终位置。先右4下2：3+4=7，5-2=3，得(7,3)。先下2右4：5-2=3，3+4=7，同样得(7,3)。"
+    }
+  ]
+}

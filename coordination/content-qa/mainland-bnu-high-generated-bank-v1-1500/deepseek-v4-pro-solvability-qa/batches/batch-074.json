@@ -1,0 +1,143 @@
+{
+  "batchNumber": 74,
+  "startedAt": "2026-05-27T13:56:09.153Z",
+  "completedAt": "2026-05-27T13:56:26.130Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-085",
+    "bnu-high-ds-v1-s5-086",
+    "bnu-high-ds-v1-s5-087",
+    "bnu-high-ds-v1-s5-088",
+    "bnu-high-ds-v1-s5-089",
+    "bnu-high-ds-v1-s5-090",
+    "bnu-high-ds-v1-s5-091",
+    "bnu-high-ds-v1-s5-092"
+  ],
+  "usage": {
+    "prompt_tokens": 11549,
+    "completion_tokens": 1145,
+    "total_tokens": 12694,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 11037
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-085",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "4",
+        "correctedAnswer": "4",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立求解得a=4，但题目答案和acceptedAnswers均为2，解析最后也写a=4，与答案矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-086",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "可解，答案3正确，解析推导一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-087",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "x^2/9 + y^2/5 = 1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "可解，答案正确，解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-088",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "independentAnswer": "1",
+        "correctedAnswer": null,
+        "issueTags": [
+          "explanation_contradiction"
+        ],
+        "severity": "minor",
+        "confidence": "high",
+        "rationaleZhHans": "可解，答案1正确，但解析过程混乱，出现恒等式和未定a的表述，最后才说a=1，不够严谨。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-089",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "k = -2 或 k = 1/2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "可解，答案正确，解析推导一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-090",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "3x + 4y - 7 = 0",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "可解，答案正确，解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-091",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "x^2/25 + y^2/9 = 1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "可解，答案正确，解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-092",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "y^2/16 - x^2/9 = 1",
+        "correctedAnswer": "y^2/16 - x^2/9 = 1",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立求解得焦点在y轴，方程为y^2/16 - x^2/9 = 1，但题目答案和acceptedAnswers为x^2/9 - y^2/16 = 1，解析最终也得出y^2/16 - x^2/9 = 1，与答案矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 5,
+      "warn": 1,
+      "fail": 2,
+      "notes": "8题中5题通过，1题解析有瑕疵，2题答案错误（085和092），需修正答案。"
+    }
+  }
+}

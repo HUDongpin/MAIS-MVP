@@ -1,0 +1,130 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-154",
+  "startedAt": "2026-05-28T01:45:20.759Z",
+  "completedAt": "2026-05-28T01:45:34.395Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-225",
+    "bnu-high-ds-v1-s6-226",
+    "bnu-high-ds-v1-s6-227",
+    "bnu-high-ds-v1-s6-228",
+    "bnu-high-ds-v1-s6-229",
+    "bnu-high-ds-v1-s6-230",
+    "bnu-high-ds-v1-s6-231",
+    "bnu-high-ds-v1-s6-232"
+  ],
+  "usage": {
+    "prompt_tokens": 12011,
+    "completion_tokens": 986,
+    "total_tokens": 12997,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 11627
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-225",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案3与独立解一致，解析推导正确，无问题。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-226",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案B与独立解一致，解析正确，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-227",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案a≤1与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-228",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案y=-2与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-229",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案B与独立解一致，解析正确，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-230",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案a=-3,b=-9,c=2与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-231",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案32与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-232",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "correctedAnswer": "B",
+        "issueTags": [
+          "math_error",
+          "ambiguous_mc",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立解得单调递减区间为(-1,1)，对应选项B。存储答案[-1,1]错误，且解析中令f'(x)≤0包含端点，但题目选项B为开区间，导致答案与选项不匹配，且解析与正确解法矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第232题存储答案错误，应为B而非[-1,1]，且解析与正确解法矛盾，导致选项不唯一。其余题目均通过。"
+    }
+  }
+}

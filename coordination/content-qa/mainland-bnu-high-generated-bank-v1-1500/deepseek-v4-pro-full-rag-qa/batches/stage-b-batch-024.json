@@ -1,0 +1,130 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-024",
+  "startedAt": "2026-05-28T01:02:57.254Z",
+  "completedAt": "2026-05-28T01:03:12.964Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-185",
+    "bnu-high-ds-v1-s4-186",
+    "bnu-high-ds-v1-s4-187",
+    "bnu-high-ds-v1-s4-188",
+    "bnu-high-ds-v1-s4-189",
+    "bnu-high-ds-v1-s4-190",
+    "bnu-high-ds-v1-s4-191",
+    "bnu-high-ds-v1-s4-192"
+  ],
+  "usage": {
+    "prompt_tokens": 11421,
+    "completion_tokens": 1082,
+    "total_tokens": 12503,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 11037
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-185",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "22",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "Stage A 独立解为 22，存储答案为 22，但 Stage A 内部推理存在矛盾：先得出 22，又考虑插值 21.6 或 23.2，最终选择 22。然而，按北师大版教材常用方法，第 60 百分位数应为 22，存储答案正确。但 Stage A 的独立答案字段为 22.4，与存储答案 22 不一致，且独立答案 22.4 无合理依据，属于错误。因此存储答案与独立答案不匹配，判定为 fail。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-186",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "离散系数计算正确，存储答案 0.111 与独立答案一致，解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-187",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "选项唯一，存储答案与独立答案一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-188",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "分层抽样均值估计正确，存储答案 166 与独立答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-189",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "极差计算正确，存储答案 24 与独立答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-190",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "频率分布直方图面积含义正确，存储答案与独立答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-191",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "组中值加权平均计算正确，存储答案与独立答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-192",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "分层抽样人数分配正确，存储答案 50,30 与独立答案一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第 185 题存储答案与 Stage A 独立答案不一致，Stage A 独立答案字段为 22.4，但推理过程最终选择 22，存在内部矛盾，判定为 fail。其余题目均通过。"
+    }
+  }
+}

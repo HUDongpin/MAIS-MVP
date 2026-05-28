@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-217",
+  "startedAt": "2026-05-28T02:56:39.302Z",
+  "completedAt": "2026-05-28T02:56:44.663Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-217"
+  ],
+  "usage": {
+    "prompt_tokens": 3729,
+    "completion_tokens": 257,
+    "total_tokens": 3986,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 3345
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-217",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "independentAnswer": "±√2/4",
+        "correctedAnswer": "±√2/4",
+        "issueTags": [
+          "math_error",
+          "bad_options",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立求解得斜率 k=±√2/4，但选项无此值，且存储答案 ±√3/3 错误，解析推导有误，题目不可解。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目条件与选项不匹配，正确斜率 ±√2/4 不在选项中，导致无正确选项，判定为不可解。"
+    }
+  }
+}

@@ -1,0 +1,314 @@
+{
+  "batchId": "batch-118",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s3-k11-sa-038",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-similarity"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "promptZhHans": "小明在测量学校旗杆的高度时，采用了如下方法：他在平地上直立一根长2米的标杆，测得标杆的影子长为1.6米，同时测得旗杆的影子长为9.6米。已知太阳光线是平行光线，且旗杆与标杆均垂直于地面。求旗杆的高度。",
+      "optionsZhHans": [],
+      "answer": "12米",
+      "acceptedAnswers": [
+        "12米",
+        "12 m"
+      ],
+      "explanationZhHans": "根据相似三角形原理，由于太阳光线平行，标杆与其影子构成的直角三角形与旗杆与其影子构成的直角三角形相似。设旗杆高度为h米，则有比例关系：标杆高度/标杆影长 = 旗杆高度/旗杆影长，即2/1.6 = h/9.6。解得h = (2 × 9.6) / 1.6 = 12米。因此旗杆的高度为12米。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-039",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-graduation-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean"
+      ],
+      "promptZhHans": "在平面直角坐标系中，反比例函数 y=k/x（k≠0）的图象经过点 A(3,4)。过点 A 作 x 轴的垂线，垂足为 B，过点 A 作 y 轴的垂线，垂足为 C。连接 BC。点 P 是线段 BC 上一点（不与端点重合），过点 P 作 x 轴的垂线，交反比例函数图象于点 Q，交线段 AC 于点 R。设点 P 的横坐标为 m（0<m<3）。\n（1）求 k 的值；\n（2）用含 m 的代数式表示线段 QR 的长；\n（3）当 QR=1 时，求点 P 的坐标。",
+      "optionsZhHans": [],
+      "answer": "（1）k=12；（2）QR=12/m-4；（3）P的坐标为(12/5,4/5)",
+      "acceptedAnswers": [
+        "（1）k=12；（2）QR=12/m-4；（3）P的坐标为(12/5,4/5)",
+        "k=12；QR=12/m-4；P(12/5,4/5)",
+        "（1）k = 12；（2）QR = 12/m - 4；（3）P 的坐标为 (12/5, 4/5)"
+      ],
+      "explanationZhHans": "（1）点A(3,4)在反比例函数上，得4=k/3，所以k=12。\n（2）B(3,0)，C(0,4)，直线BC的解析式为 y=-4/3x+4。点P横坐标为m，则P的纵坐标为 -4m/3+4。点Q在反比例函数上，纵坐标为12/m；点R在线段AC上，纵坐标为4。因为0<m<3，所以12/m>4，QR=12/m-4。\n（3）令12/m-4=1，得m=12/5。此时P的纵坐标为 -4/3×12/5+4=4/5，所以P的坐标为(12/5,4/5)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-040",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-inverse-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-circle-geometry"
+      ],
+      "promptZhHans": "在平面直角坐标系中，点A的坐标为(2, 3)，点B的坐标为(6, 7)。将线段AB绕点A逆时针旋转90°得到线段AC。求点C的坐标。",
+      "optionsZhHans": [],
+      "answer": "(-2, 7)",
+      "acceptedAnswers": [
+        "(-2, 7)",
+        "(-2,7)"
+      ],
+      "explanationZhHans": "设点C的坐标为(x, y)。由旋转90°的坐标变换规律：点P(a, b)绕点O(0,0)逆时针旋转90°得到P'(-b, a)。但此处旋转中心为A(2,3)，需先将A平移至原点。将A、B平移：A'(0,0)，B'(6-2, 7-3) = (4, 4)。将B'绕原点逆时针旋转90°得C'(-4, 4)。再将C'平移回原坐标系：C(-4+2, 4+3) = (-2, 7)。因此点C的坐标为(-2, 7)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-041",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-right-triangle-trigonometry"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "小明在数学活动课上研究一个直角三角形工件，已知该三角形的一个锐角为35°，且该锐角所对的直角边长为12 cm。小明想计算这个锐角相邻的直角边的长度（精确到0.1 cm）。请你帮助小明完成计算，并说明你选择的三角函数及其理由。",
+      "optionsZhHans": [],
+      "answer": "约17.1 cm",
+      "acceptedAnswers": [
+        "约17.1 cm",
+        "约17.1cm",
+        "17.1 cm",
+        "17.1cm",
+        "约17.1"
+      ],
+      "explanationZhHans": "在直角三角形中，已知一个锐角为35°，其对边长为12 cm，求邻边长。根据正切函数的定义，tan(35°) = 对边/邻边，因此邻边 = 对边 / tan(35°) = 12 / tan(35°)。使用计算器求得tan(35°) ≈ 0.7002，则邻边 ≈ 12 / 0.7002 ≈ 17.14 cm，精确到0.1 cm为约17.1 cm。选择正切函数是因为已知对边和角度，求邻边，正切函数直接关联这两个量。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-042",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-projection-views"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "在平面直角坐标系中，反比例函数 y = k/x (k > 0) 的图象经过点 A(2, 3)。点 B 在 x 轴正半轴上，且 AB ⊥ x 轴，点 C 在 y 轴正半轴上，且 AC ⊥ y 轴。连接 BC，求 BC 所在直线的函数解析式。",
+      "optionsZhHans": [],
+      "answer": "y = -3/2 x + 3",
+      "acceptedAnswers": [
+        "y = -3/2 x + 3",
+        "y = -1.5x + 3",
+        "y = 3 - 3/2 x",
+        "y = 3 - 1.5x"
+      ],
+      "explanationZhHans": "由点 A(2,3) 在反比例函数 y = k/x 上，得 3 = k/2，解得 k = 6。故反比例函数为 y = 6/x。因 AB ⊥ x 轴且 B 在 x 轴正半轴，故 B 点横坐标与 A 相同，纵坐标为 0，得 B(2,0)。因 AC ⊥ y 轴且 C 在 y 轴正半轴，故 C 点纵坐标与 A 相同，横坐标为 0，得 C(0,3)。设直线 BC 的解析式为 y = mx + b，将 B(2,0) 和 C(0,3) 代入，得 0 = 2m + b 和 3 = b，解得 b = 3，m = -3/2。所以直线 BC 的解析式为 y = -3/2 x + 3。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-043",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-function-geometry-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-dynamic-geometry-functions"
+      ],
+      "promptZhHans": "在平面直角坐标系中，点A(2, 4)在反比例函数y = k/x (x > 0)的图象上，点B的横坐标为6，也在该反比例函数图象上。过点A作x轴的垂线，垂足为C；过点B作x轴的垂线，垂足为D。连接OA、OB、AB。若将△OAB绕点O逆时针旋转90°得到△OA'B'，求点A'的坐标。",
+      "optionsZhHans": [],
+      "answer": "(-4, 2)",
+      "acceptedAnswers": [
+        "(-4, 2)",
+        "(-4,2)"
+      ],
+      "explanationZhHans": "由点A(2,4)在y=k/x上，得4=k/2，所以k=8，反比例函数为y=8/x。点B横坐标为6，代入得y=8/6=4/3，所以B(6, 4/3)。将△OAB绕点O逆时针旋转90°，点A(2,4)绕原点逆时针旋转90°的坐标变换规则为(x,y)→(-y,x)，故A'坐标为(-4,2)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-044",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-similarity"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "小明在测量学校旗杆高度时，发现旗杆的影子一部分落在地面上，一部分落在教学楼的墙上。他测得落在地面上的影子长8米，落在墙上的影子高2米。同一时刻，他测得一根1米长的竹竿竖直放置时，地面上的影子长0.8米。求旗杆的高度。",
+      "optionsZhHans": [],
+      "answer": "12米",
+      "acceptedAnswers": [
+        "12米",
+        "12m",
+        "12"
+      ],
+      "explanationZhHans": "设旗杆高度为h米。同一时刻物高与影长成正比，竹竿的物高与影长比为1:0.8=5:4。墙上影子高2米对应的部分若落在地面上，影长应为2×0.8=1.6米，所以旗杆的等效地面影长为8+1.6=9.6米。由h:9.6=5:4，得h=12。旗杆高度为12米。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-045",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-graduation-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-proof-calculation-integrated"
+      ],
+      "promptZhHans": "在平面直角坐标系中，反比例函数 y=k/x（k≠0）的图象经过点 A(2,3)。过点 A 作 AB⊥x轴，垂足为 B；过点 A 作 AC⊥y轴，垂足为 C。求反比例函数的解析式，并写出点 B、点 C 的坐标。",
+      "optionsZhHans": [],
+      "answer": "y=6/x，B(2,0)，C(0,3)",
+      "acceptedAnswers": [
+        "y=6/x，B(2,0)，C(0,3)",
+        "y=6/x, B(2,0), C(0,3)",
+        "B(2,0)，C(0,3)，y=6/x"
+      ],
+      "explanationZhHans": "点 A(2,3) 在反比例函数 y=k/x 上，代入得 k=2×3=6，所以解析式为 y=6/x。点 B 是点 A 到 x 轴的垂足，横坐标不变且纵坐标为0，所以 B(2,0)。点 C 是点 A 到 y 轴的垂足，横坐标为0且纵坐标不变，所以 C(0,3)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-046",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-inverse-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig"
+      ],
+      "promptZhHans": "在反比例函数 y = k/x (k ≠ 0) 的图象上，点 A(2, -3) 和点 B(m, 6) 位于同一象限。求 m 的值。",
+      "optionsZhHans": [],
+      "answer": "-1",
+      "acceptedAnswers": [
+        "-1"
+      ],
+      "explanationZhHans": "由点 A(2, -3) 在反比例函数 y = k/x 上，代入得 -3 = k/2，解得 k = -6。函数解析式为 y = -6/x。将点 B(m, 6) 代入，得 6 = -6/m，解得 m = -1。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-047",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-right-triangle-trigonometry"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models"
+      ],
+      "promptZhHans": "某校数学兴趣小组在测量活动中，需要计算旗杆的高度。他们在地面点A处测得旗杆顶端C的仰角为30°，然后向旗杆方向前进20米到达点B，此时测得旗杆顶端C的仰角为45°。已知测角仪的高度为1.5米，且点A、B与旗杆底部D在同一直线上。请计算旗杆CD的高度（结果保留根号）。",
+      "optionsZhHans": [],
+      "answer": "10√3 + 11.5",
+      "acceptedAnswers": [
+        "10√3 + 11.5",
+        "10√3+11.5",
+        "11.5 + 10√3",
+        "11.5+10√3"
+      ],
+      "explanationZhHans": "设旗杆底部D到点B的水平距离为x米。由题意，在点B处仰角为45°，所以从测角仪位置E（B上方1.5米）看，CE = x米；在点A处仰角为30°，从测角仪位置F（A上方1.5米）看，CF = (x+20)米，且∠CFE=30°。在直角三角形CFE中，tan30° = CE/CF = x/(x+20) = 1/√3，解得x = 10√3 + 10。因此旗杆高度CD = CE + 1.5 = x + 1.5 = 10√3 + 11.5米。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-492",
+  "startedAt": "2026-05-28T01:35:35.442Z",
+  "completedAt": "2026-05-28T01:35:39.734Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-492"
+  ],
+  "usage": {
+    "prompt_tokens": 2139,
+    "completion_tokens": 292,
+    "total_tokens": 2431,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1755
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-492",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "y = -1.00 + 0.60x",
+        "correctedAnswer": "y = -1.00 + 0.60x",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，回归方程应为 y = -1.00 + 0.60x。存储答案 y = 0.45x + 1.25 错误，且与解析中 b=0.6, a=-1 矛盾，属于严重错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "存储答案与解析矛盾且计算错误，回归方程应为 y = -1.00 + 0.60x。"
+    }
+  }
+}

@@ -1,0 +1,319 @@
+{
+  "batchId": "batch-195",
+  "questions": [
+    {
+      "id": "hjb-junior-ds-v2-s2-471",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "hjb-junior-s2-lower-inverse-functions",
+      "unitTitle": "反比例函数",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "inverse-variation",
+        "inverse-functions",
+        "rational-function-graphs",
+        "function-applications",
+        "反比例函数"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "反比例函数概念",
+        "图像与性质",
+        "象限关系",
+        "待定系数法",
+        "实际应用"
+      ],
+      "misconceptionTags": [
+        "parameter sign ignored",
+        "branch behavior treated as linear",
+        "domain restriction omitted"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-junior-s2-lower-inverse-functions"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-lower-paper-inverse-functions-unit",
+        "hjb-junior-s2-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知反比例函数 y = k/x 的图像经过点 A(3, -4)。求 k 的值，并说明该函数图像位于哪些象限。",
+      "optionsZhHans": [],
+      "answer": "k = -12，图像位于第二、四象限",
+      "acceptedAnswers": [
+        "k = -12，图像位于第二、四象限",
+        "k=-12，图像位于第二、四象限",
+        "k = -12，图像位于第二、第四象限",
+        "k=-12，图像位于第二、第四象限"
+      ],
+      "explanationZhHans": "将点 A(3, -4) 代入 y = k/x，得 -4 = k/3，解得 k = -12。因为 k < 0，所以双曲线的两支分别位于第二、四象限。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-472",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "hjb-junior-s2-lower-inverse-functions",
+      "unitTitle": "反比例函数",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "inverse-variation",
+        "inverse-functions",
+        "rational-function-graphs",
+        "function-applications",
+        "反比例函数"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "反比例函数概念",
+        "图像与性质",
+        "象限关系",
+        "待定系数法",
+        "实际应用"
+      ],
+      "misconceptionTags": [
+        "parameter sign ignored",
+        "branch behavior treated as linear",
+        "domain restriction omitted"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s2-lower-inverse-functions"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-lower-paper-inverse-functions-unit",
+        "hjb-junior-s2-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下列各点中，在反比例函数 y = -6/x 图像上的是（ ）",
+      "optionsZhHans": [
+        "A. (2, 3)",
+        "B. (-2, -3)",
+        "C. (3, -2)",
+        "D. (-3, -2)"
+      ],
+      "answer": "C. (3, -2)",
+      "acceptedAnswers": [
+        "C. (3, -2)"
+      ],
+      "explanationZhHans": "将各点坐标代入 y = -6/x，验证等号是否成立。对于 C，当 x=3 时，y = -6/3 = -2，符合点 (3, -2)。其他选项代入后均不满足函数关系。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-473",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "hjb-junior-s2-lower-inverse-functions",
+      "unitTitle": "反比例函数",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "inverse-variation",
+        "inverse-functions",
+        "rational-function-graphs",
+        "function-applications",
+        "反比例函数"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "反比例函数概念",
+        "图像与性质",
+        "象限关系",
+        "待定系数法",
+        "实际应用"
+      ],
+      "misconceptionTags": [
+        "parameter sign ignored",
+        "branch behavior treated as linear",
+        "domain restriction omitted"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-junior-s2-lower-inverse-functions"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-lower-paper-inverse-functions-unit",
+        "hjb-junior-s2-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知 y 与 x 成反比例，且当 x = 4 时，y = 6。求 y 关于 x 的函数解析式，并写出自变量 x 的取值范围。",
+      "optionsZhHans": [],
+      "answer": "y = 24/x，x ≠ 0",
+      "acceptedAnswers": [
+        "y = 24/x，x ≠ 0",
+        "y=24/x，x≠0",
+        "y = 24/x，x≠0",
+        "y=24/x，x ≠ 0"
+      ],
+      "explanationZhHans": "设 y = k/x，将 x=4, y=6 代入得 6 = k/4，解得 k=24。所以解析式为 y = 24/x。因为分母不能为零，所以自变量 x 的取值范围是 x ≠ 0。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-474",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "hjb-junior-s2-lower-inverse-functions",
+      "unitTitle": "反比例函数",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "inverse-variation",
+        "inverse-functions",
+        "rational-function-graphs",
+        "function-applications",
+        "反比例函数"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "反比例函数概念",
+        "图像与性质",
+        "象限关系",
+        "待定系数法",
+        "实际应用"
+      ],
+      "misconceptionTags": [
+        "parameter sign ignored",
+        "branch behavior treated as linear",
+        "domain restriction omitted"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s2-lower-inverse-functions"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-lower-paper-inverse-functions-unit",
+        "hjb-junior-s2-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "对于反比例函数 y = (m-1)/x，当 x > 0 时，y 随 x 的增大而减小，则 m 的取值范围是（ ）",
+      "optionsZhHans": [
+        "A. m > 1",
+        "B. m < 1",
+        "C. m > 0",
+        "D. m < 0"
+      ],
+      "answer": "A. m > 1",
+      "acceptedAnswers": [
+        "A. m > 1"
+      ],
+      "explanationZhHans": "当 x > 0 时，y 随 x 增大而减小，说明该分支在第一象限，且函数值随 x 增大而减小，这要求比例系数为正，即 m-1 > 0，解得 m > 1。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-475",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "hjb-junior-s2-lower-inverse-functions",
+      "unitTitle": "反比例函数",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "inverse-variation",
+        "inverse-functions",
+        "rational-function-graphs",
+        "function-applications",
+        "反比例函数"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "反比例函数概念",
+        "图像与性质",
+        "象限关系",
+        "待定系数法",
+        "实际应用"
+      ],
+      "misconceptionTags": [
+        "parameter sign ignored",
+        "branch behavior treated as linear",
+        "domain restriction omitted"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-junior-s2-lower-inverse-functions"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-lower-paper-inverse-functions-unit",
+        "hjb-junior-s2-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某工厂生产一批零件，每天生产 60 个，需要 20 天完成。若每天生产 x 个，需要 y 天完成。写出 y 关于 x 的函数解析式，并求当每天生产 80 个时，需要多少天完成。",
+      "optionsZhHans": [],
+      "answer": "y = 1200/x，15 天",
+      "acceptedAnswers": [
+        "y = 1200/x，15 天",
+        "y=1200/x，15天",
+        "y = 1200/x，15天",
+        "y=1200/x，15 天"
+      ],
+      "explanationZhHans": "零件总量为 60×20=1200 个。由题意得 xy=1200，所以 y=1200/x。当 x=80 时，y=1200/80=15，即需要 15 天完成。"
+    }
+  ]
+}

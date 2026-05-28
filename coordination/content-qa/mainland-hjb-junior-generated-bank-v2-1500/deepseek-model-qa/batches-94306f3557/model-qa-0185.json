@@ -1,0 +1,105 @@
+{
+  "batchId": "model-qa-0185",
+  "ids": [
+    "hjb-junior-ds-v2-s3-473",
+    "hjb-junior-ds-v2-s3-474",
+    "hjb-junior-ds-v2-s3-475",
+    "hjb-junior-ds-v2-s3-476",
+    "hjb-junior-ds-v2-s3-477",
+    "hjb-junior-ds-v2-s3-478",
+    "hjb-junior-ds-v2-s3-479",
+    "hjb-junior-ds-v2-s3-480"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-473",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "8",
+      "answerCheckZhHans": "标准答案为8，计算正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-474",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "甲方差计算错误：甲数据为8,9,7,10,8,9,9,8,7,9，平均数为8.4，方差应为[(8-8.4)²+(9-8.4)²+(7-8.4)²+(10-8.4)²+(8-8.4)²+(9-8.4)²+(9-8.4)²+(8-8.4)²+(7-8.4)²+(9-8.4)²]/10 = [0.16+0.36+1.96+2.56+0.16+0.36+0.36+0.16+1.96+0.36]/10 = 8.4/10 = 0.84，而非0.64。乙方差计算正确为1.04。选项均错误，无正确选项。",
+      "independentAnswerZhHans": "甲方差0.84，乙方差1.04，应选择甲，但无对应选项。",
+      "answerCheckZhHans": "标准答案甲方差0.64错误，实际为0.84。",
+      "recommendedActionZhHans": "修正甲方差为0.84，并调整选项或答案。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-475",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "4",
+      "answerCheckZhHans": "标准答案为4，计算正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-476",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "中位数是88分",
+      "answerCheckZhHans": "标准答案为中位数是88分，计算正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-477",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "A. 6吨，6吨",
+      "answerCheckZhHans": "标准答案为A，计算正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-478",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "C. 甲，因为甲的方差小",
+      "answerCheckZhHans": "标准答案为C，计算正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-479",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "A. 26人",
+      "answerCheckZhHans": "标准答案为A，计算正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-480",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "C. 30~35次",
+      "answerCheckZhHans": "标准答案为C，计算正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

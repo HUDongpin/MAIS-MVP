@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-185",
+  "startedAt": "2026-05-28T01:55:16.163Z",
+  "completedAt": "2026-05-28T01:55:30.623Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-473",
+    "bnu-high-ds-v1-s6-474",
+    "bnu-high-ds-v1-s6-475",
+    "bnu-high-ds-v1-s6-476",
+    "bnu-high-ds-v1-s6-477",
+    "bnu-high-ds-v1-s6-478",
+    "bnu-high-ds-v1-s6-479",
+    "bnu-high-ds-v1-s6-480"
+  ],
+  "usage": {
+    "prompt_tokens": 12440,
+    "completion_tokens": 1102,
+    "total_tokens": 13542,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 12056
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-473",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "B",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导得 f'(x)=3x^2-6x-9=3(x-3)(x+1)，令 f'(x)<0 得 -1<x<3，故单调递减区间为 (-1,3)，对应选项 B。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-474",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "q=2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "设公比为 q，由 a1+a2=a1(1+q)=6，a3+a4=a1 q^2(1+q)=24，两式相除得 q^2=4，各项为正故 q=2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-475",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "A",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "a5=S5-S4=(25+10)-(16+8)=35-24=11，对应选项 A。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-476",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "a=0, b=-3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x^2+2ax+b，由 f'(0)=b=-3；由 f'(1)=3+2a-3=0 得 a=0。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-477",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "A",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "累加得 an=a1+∑_{k=1}^{n-1}(2k+1)=1+(n-1)n+(n-1)=n^2，故 a10=100，对应选项 A。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-478",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "13/16",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由 a3^2=a1·a9 得 (a1+2d)^2=a1(a1+8d)，解得 a1=d，代入所求式得 (d+3d+9d)/(2d+4d+10d)=13/16。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-479",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "B",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f(1)=-1，f'(x)=3x^2-3，f'(1)=0，切线为 y=-1，对应选项 B。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-480",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "a_n = n(n+1)/2 + n",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "两边同除以 n+1 得 a_{n+1}/(n+1)=a_n/n + 1/(n+1)，令 bn=an/n，则 b1=2，bn=2+∑_{k=2}^{n}1/k，故 an=n(2+H_{n-1})，化简得 an=n(n+1)/2 + n。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部 8 题均可独立求解，无数学错误、歧义或缺失条件，符合北师大版高三数列与导数综合复习要求。"
+    }
+  }
+}

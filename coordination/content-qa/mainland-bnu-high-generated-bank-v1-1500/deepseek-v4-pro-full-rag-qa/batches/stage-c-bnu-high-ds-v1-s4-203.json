@@ -1,0 +1,48 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-203",
+  "startedAt": "2026-05-28T01:04:22.275Z",
+  "completedAt": "2026-05-28T01:04:29.017Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-203"
+  ],
+  "usage": {
+    "prompt_tokens": 2012,
+    "completion_tokens": 287,
+    "total_tokens": 2299,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1628
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-203",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "85",
+        "correctedAnswer": "85",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目明确要求根据频率分布直方图计算众数，众数应为频数最高组的组中值，即[80,90)的组中值85。存储答案85正确，但解析错误地使用了插值公式计算众数，得出83，与答案矛盾，且该公式不适用于本题给出的频数分布直方图。解析必须修正为直接取最高矩形中点。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "解析与答案矛盾，解析错误使用插值公式，应直接取最高组组中值85。"
+    }
+  }
+}

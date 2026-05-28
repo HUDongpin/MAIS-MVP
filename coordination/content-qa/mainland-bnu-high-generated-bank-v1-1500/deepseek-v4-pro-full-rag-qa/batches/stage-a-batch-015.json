@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-015",
+  "startedAt": "2026-05-28T00:37:16.500Z",
+  "completedAt": "2026-05-28T00:37:35.896Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-113",
+    "bnu-high-ds-v1-s4-114",
+    "bnu-high-ds-v1-s4-115",
+    "bnu-high-ds-v1-s4-116",
+    "bnu-high-ds-v1-s4-117",
+    "bnu-high-ds-v1-s4-118",
+    "bnu-high-ds-v1-s4-119",
+    "bnu-high-ds-v1-s4-120"
+  ],
+  "usage": {
+    "prompt_tokens": 10138,
+    "completion_tokens": 1109,
+    "total_tokens": 11247,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9754
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-113",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "利用换底公式将连乘积化简为 log₂8，结果为 3。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-114",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "12",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由对数定义得 a^m=2, a^n=3，则 a^{2m+n}=a^{2m}·a^n=(a^m)^2·a^n=4×3=12。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-115",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(0, 1)",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "令真数 x+1=1 得 x=0，此时 log_a(1)=0，f(0)=1，故恒过定点 (0,1)。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-116",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "x=2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由对数运算法则得 log₂[(x-1)(x+2)]=2，即 (x-1)(x+2)=4，解得 x=2 或 x=-3，经定义域检验 x>1，故 x=2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-117",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "2 或 1/2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "分 a>1 和 0<a<1 讨论单调性，由 |log_a 4 - log_a 2|=1 得 |log_a 2|=1，解得 a=2 或 a=1/2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-118",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "b < a < c",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "a=log_{0.3}2, b=log_{0.3}3，底数 0.3∈(0,1)，对数函数递减，故 b<a<0；c=0.3^2=0.09>0，所以 b<a<c。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-119",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "A=R, B=[0,+∞)",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "真数 x²-2x+2=(x-1)²+1≥1>0 恒成立，故定义域为 R；真数最小值为 1，log₂ 递增，值域为 [0,+∞)。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-120",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(1, 2]",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由复合函数单调性，外层 log_a 与内层 2-ax 同增同减。内层递减，故外层须递增，得 a>1；又真数 2-ax>0 在 [0,1] 恒成立，得 a<2；结合 a>1 得 1<a≤2。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部 8 题均能独立求解，符合北师大版高一上对数运算与对数函数章节要求，无数学错误或歧义。"
+    }
+  }
+}

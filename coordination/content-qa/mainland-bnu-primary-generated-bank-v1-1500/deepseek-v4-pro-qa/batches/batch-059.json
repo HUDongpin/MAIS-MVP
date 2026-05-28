@@ -1,0 +1,191 @@
+{
+  "batchNumber": 59,
+  "startedAt": "2026-05-27T13:29:28.459Z",
+  "completedAt": "2026-05-27T13:29:47.099Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p5-045",
+    "bnu-primary-ds-v1-p5-046",
+    "bnu-primary-ds-v1-p5-047",
+    "bnu-primary-ds-v1-p5-048",
+    "bnu-primary-ds-v1-p5-049",
+    "bnu-primary-ds-v1-p5-050",
+    "bnu-primary-ds-v1-p5-051",
+    "bnu-primary-ds-v1-p5-052",
+    "bnu-primary-ds-v1-p5-053",
+    "bnu-primary-ds-v1-p5-054",
+    "bnu-primary-ds-v1-p5-055",
+    "bnu-primary-ds-v1-p5-056",
+    "bnu-primary-ds-v1-p5-057",
+    "bnu-primary-ds-v1-p5-058",
+    "bnu-primary-ds-v1-p5-059",
+    "bnu-primary-ds-v1-p5-060",
+    "bnu-primary-ds-v1-p5-061",
+    "bnu-primary-ds-v1-p5-062"
+  ],
+  "usage": {
+    "prompt_tokens": 3111,
+    "completion_tokens": 1336,
+    "total_tokens": 4447,
+    "prompt_tokens_details": {
+      "cached_tokens": 3072
+    },
+    "prompt_cache_hit_tokens": 3072,
+    "prompt_cache_miss_tokens": 39
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p5-045",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，50以内7的倍数完整列出，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-046",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "三角形面积计算正确，选项唯一，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-047",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "梯形面积计算正确，答案30无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-048",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平行四边形面积计算正确，答案84无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-049",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "已知面积和底求高，计算正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-050",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "已知面积和高求底，计算正确，答案8无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-051",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "需判断高对应的底，推理正确，答案72平方厘米无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-052",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "三角形面积算式选择正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-053",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "梯形面积计算正确，答案30无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-054",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平行四边形面积计算正确，答案120平方厘米无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-055",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "等底等高三角形面积是平行四边形一半，计算正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-056",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "直角三角形面积用直角边计算，正确，斜边为干扰项。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-057",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "已知梯形面积求高，计算正确，答案5分米无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-058",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平行四边形面积公式为底×高，选项唯一，其他图形公式不同。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-059",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "已知面积和高求底，计算正确，答案8无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-060",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "梯形面积及总产量计算正确，答案1200千克无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-061",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分数意义理解正确，每段占全长1/5，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-062",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分数与除法关系正确，答案7/4或1又3/4均可接受。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版小学数学要求，数学正确，答案匹配，无歧义或缺失条件，适合对应年级和主题。"
+    }
+  }
+}

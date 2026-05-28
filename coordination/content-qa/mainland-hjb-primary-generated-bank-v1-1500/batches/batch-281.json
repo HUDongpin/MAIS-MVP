@@ -1,0 +1,303 @@
+{
+  "batchId": "batch-281",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p6-151",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-linear-systems",
+      "unitTitle": "二元一次方程组",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "linear-systems",
+        "two-variable-linear-equations",
+        "equation-modeling",
+        "二元一次方程组",
+        "方程组"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "设未知数",
+        "等量关系",
+        "列方程组",
+        "消元思想",
+        "代入检验"
+      ],
+      "misconceptionTags": [
+        "unknowns not defined clearly",
+        "two equations represent the same relationship",
+        "elimination step breaks equivalence",
+        "solution not checked against the context"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-linear-systems"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-linear-systems",
+        "hjb-primary-p6-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小华买了3支铅笔和2本练习本，共花了11元；小丽买了2支铅笔和3本练习本，共花了9元。设每支铅笔x元，每本练习本y元，下列方程组正确的是（ ）。",
+      "optionsZhHans": [
+        "3x + 2y = 11, 2x + 3y = 9",
+        "2x + 3y = 11, 3x + 2y = 9",
+        "3x + 2y = 9, 2x + 3y = 11",
+        "2x + 3y = 9, 3x + 2y = 11"
+      ],
+      "answer": "3x + 2y = 11, 2x + 3y = 9",
+      "acceptedAnswers": [
+        "3x + 2y = 11, 2x + 3y = 9"
+      ],
+      "explanationZhHans": "小华：3支铅笔和2本练习本共11元，得3x+2y=11；小丽：2支铅笔和3本练习本共9元，得2x+3y=9。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-152",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-linear-systems",
+      "unitTitle": "二元一次方程组",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "linear-systems",
+        "two-variable-linear-equations",
+        "equation-modeling",
+        "二元一次方程组",
+        "方程组"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "设未知数",
+        "等量关系",
+        "列方程组",
+        "消元思想",
+        "代入检验"
+      ],
+      "misconceptionTags": [
+        "unknowns not defined clearly",
+        "two equations represent the same relationship",
+        "elimination step breaks equivalence",
+        "solution not checked against the context"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-linear-systems"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-linear-systems",
+        "hjb-primary-p6-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "甲、乙两数的和是35，甲数的2倍与乙数的3倍的和是85。设甲数为a，乙数为b，可列方程组为：a + b = 35，2a + 3b = 85。则甲数a = ______。",
+      "optionsZhHans": [],
+      "answer": "20",
+      "acceptedAnswers": [
+        "20"
+      ],
+      "explanationZhHans": "由a+b=35得b=35-a，代入2a+3(35-a)=85，得2a+105-3a=85，-a=-20，a=20。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-153",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-linear-systems",
+      "unitTitle": "二元一次方程组",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "linear-systems",
+        "two-variable-linear-equations",
+        "equation-modeling",
+        "二元一次方程组",
+        "方程组"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "设未知数",
+        "等量关系",
+        "列方程组",
+        "消元思想",
+        "代入检验"
+      ],
+      "misconceptionTags": [
+        "unknowns not defined clearly",
+        "two equations represent the same relationship",
+        "elimination step breaks equivalence",
+        "solution not checked against the context"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-linear-systems"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-linear-systems",
+        "hjb-primary-p6-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校买来一批篮球和足球，篮球每个80元，足球每个60元，共买了10个球，总价700元。设篮球买了x个，足球买了y个。请列出方程组并求出篮球和足球各买了多少个。",
+      "optionsZhHans": [],
+      "answer": "篮球5个，足球5个",
+      "acceptedAnswers": [
+        "篮球5个，足球5个",
+        "篮球5个,足球5个",
+        "x=5,y=5",
+        "5个篮球，5个足球"
+      ],
+      "explanationZhHans": "方程组：x+y=10，80x+60y=700。由①得y=10-x，代入②：80x+60(10-x)=700，20x=100，x=5，y=5。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-154",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-linear-systems",
+      "unitTitle": "二元一次方程组",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "linear-systems",
+        "two-variable-linear-equations",
+        "equation-modeling",
+        "二元一次方程组",
+        "方程组"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "设未知数",
+        "等量关系",
+        "列方程组",
+        "消元思想",
+        "代入检验"
+      ],
+      "misconceptionTags": [
+        "unknowns not defined clearly",
+        "two equations represent the same relationship",
+        "elimination step breaks equivalence",
+        "solution not checked against the context"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-linear-systems"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-linear-systems",
+        "hjb-primary-p6-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个两位数，十位数字与个位数字的和是12，如果交换十位数字与个位数字的位置，所得新数比原数大36。设原数十位数字为x，个位数字为y，下列方程组正确的是（ ）。",
+      "optionsZhHans": [
+        "x + y = 12, 10y + x = 10x + y + 36",
+        "x + y = 12, 10x + y = 10y + x + 36",
+        "x + y = 12, 10y + x = 10x + y - 36",
+        "x + y = 12, 10x + y = 10y + x - 36"
+      ],
+      "answer": "x + y = 12, 10y + x = 10x + y + 36",
+      "acceptedAnswers": [
+        "x + y = 12, 10y + x = 10x + y + 36"
+      ],
+      "explanationZhHans": "原数=10x+y，新数=10y+x，新数比原数大36，得10y+x=10x+y+36。数字和x+y=12。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-155",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-linear-systems",
+      "unitTitle": "二元一次方程组",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "linear-systems",
+        "two-variable-linear-equations",
+        "equation-modeling",
+        "二元一次方程组",
+        "方程组"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "设未知数",
+        "等量关系",
+        "列方程组",
+        "消元思想",
+        "代入检验"
+      ],
+      "misconceptionTags": [
+        "unknowns not defined clearly",
+        "two equations represent the same relationship",
+        "elimination step breaks equivalence",
+        "solution not checked against the context"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-linear-systems"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-linear-systems",
+        "hjb-primary-p6-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈买了苹果和梨共8千克，苹果每千克12元，梨每千克8元，一共花了80元。设苹果买了x千克，梨买了y千克，可列方程组：x + y = 8，12x + 8y = 80。则苹果买了______千克。",
+      "optionsZhHans": [],
+      "answer": "4",
+      "acceptedAnswers": [
+        "4"
+      ],
+      "explanationZhHans": "由x+y=8得y=8-x，代入12x+8(8-x)=80，12x+64-8x=80，4x=16，x=4。"
+    }
+  ]
+}

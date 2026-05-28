@@ -1,0 +1,623 @@
+{
+  "batchId": "batch-010",
+  "questions": [
+    {
+      "id": "bnu-junior-ds-v1-s1-091",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-algebraic-expressions",
+      "unitTitle": "整式及其加减",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "algebraic-expressions",
+        "monomials-polynomials",
+        "like-terms",
+        "polynomial-addition-subtraction",
+        "整式",
+        "同类项"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "列代数式",
+        "识别单项式和多项式",
+        "合并同类项",
+        "去括号",
+        "整式加减"
+      ],
+      "misconceptionTags": [
+        "like terms judged by coefficient only",
+        "minus sign lost before parentheses",
+        "variable part changed during simplification"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-algebraic-expressions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-algebraic-expressions-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知多项式 A = 3x² - 2x + 5，多项式 B = -x² + 4x - 3。计算 A - 2B 的结果，并指出化简后多项式的次数和常数项。",
+      "optionsZhHans": [
+        "5x² - 10x + 11，次数为2，常数项为11",
+        "5x² - 10x + 11，次数为2，常数项为-11",
+        "x² + 6x - 1，次数为2，常数项为-1",
+        "5x² - 10x + 11，次数为1，常数项为11"
+      ],
+      "answer": "5x² - 10x + 11，次数为2，常数项为11",
+      "acceptedAnswers": [
+        "5x² - 10x + 11，次数为2，常数项为11"
+      ],
+      "explanationZhHans": "A - 2B = (3x² - 2x + 5) - 2(-x² + 4x - 3) = 3x² - 2x + 5 + 2x² - 8x + 6 = 5x² - 10x + 11。最高次项为5x²，故次数为2；常数项为11。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-092",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-algebraic-expressions",
+      "unitTitle": "整式及其加减",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "algebraic-expressions",
+        "monomials-polynomials",
+        "like-terms",
+        "polynomial-addition-subtraction",
+        "整式",
+        "同类项"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "列代数式",
+        "识别单项式和多项式",
+        "合并同类项",
+        "去括号",
+        "整式加减"
+      ],
+      "misconceptionTags": [
+        "like terms judged by coefficient only",
+        "minus sign lost before parentheses",
+        "variable part changed during simplification"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-algebraic-expressions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-algebraic-expressions-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某学校计划用围栏围成一个长方形劳动实践基地，基地的一边靠墙（墙长足够），另外三边用总长为 40 米的围栏围成。设与墙垂直的一边长为 x 米。\n（1）用含 x 的代数式表示基地的面积 S；\n（2）当 x = 8 时，求基地的面积。",
+      "optionsZhHans": [],
+      "answer": "（1）S = x(40 - 2x) 或 S = -2x² + 40x；（2）192 平方米",
+      "acceptedAnswers": [
+        "（1）S = x(40 - 2x) 或 S = -2x² + 40x；（2）192 平方米",
+        "（1）S = x(40 - 2x)；（2）192 平方米",
+        "（1）S = -2x² + 40x；（2）192 平方米"
+      ],
+      "explanationZhHans": "（1）与墙垂直边为x米，则平行于墙的边长为(40-2x)米，面积S=x(40-2x)。（2）代入x=8得S=8×(40-16)=8×24=192平方米。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-093",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-algebraic-expressions",
+      "unitTitle": "整式及其加减",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "algebraic-expressions",
+        "monomials-polynomials",
+        "like-terms",
+        "polynomial-addition-subtraction",
+        "整式",
+        "同类项"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "列代数式",
+        "识别单项式和多项式",
+        "合并同类项",
+        "去括号",
+        "整式加减"
+      ],
+      "misconceptionTags": [
+        "like terms judged by coefficient only",
+        "minus sign lost before parentheses",
+        "variable part changed during simplification"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-algebraic-expressions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-algebraic-expressions-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知多项式 A = 3x^2 - 2x + 5，多项式 B = -x^2 + 4x - 3。计算 A - 2B，并将结果按 x 的降幂排列。",
+      "optionsZhHans": [],
+      "answer": "5x^2 - 10x + 11",
+      "acceptedAnswers": [
+        "5x^2 - 10x + 11",
+        "5x^2-10x+11"
+      ],
+      "explanationZhHans": "先计算 2B = -2x^2 + 8x - 6，然后 A - 2B = (3x^2 - 2x + 5) - (-2x^2 + 8x - 6) = 3x^2 - 2x + 5 + 2x^2 - 8x + 6 = 5x^2 - 10x + 11。注意去括号时符号变化，合并同类项时只合并系数，字母部分不变。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-094",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-algebraic-expressions",
+      "unitTitle": "整式及其加减",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "algebraic-expressions",
+        "monomials-polynomials",
+        "like-terms",
+        "polynomial-addition-subtraction",
+        "整式",
+        "同类项"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "列代数式",
+        "识别单项式和多项式",
+        "合并同类项",
+        "去括号",
+        "整式加减"
+      ],
+      "misconceptionTags": [
+        "like terms judged by coefficient only",
+        "minus sign lost before parentheses",
+        "variable part changed during simplification"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-algebraic-expressions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-algebraic-expressions-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知一个多项式减去 3x^2 - 2x + 1 等于 5x^2 + 4x - 3，求这个多项式。",
+      "optionsZhHans": [
+        "8x^2 + 2x - 2",
+        "2x^2 + 6x - 4",
+        "8x^2 + 6x - 4",
+        "2x^2 + 2x - 2"
+      ],
+      "answer": "8x^2 + 2x - 2",
+      "acceptedAnswers": [
+        "8x^2 + 2x - 2"
+      ],
+      "explanationZhHans": "设所求多项式为 A，则 A - (3x^2 - 2x + 1) = 5x^2 + 4x - 3，所以 A = (5x^2 + 4x - 3) + (3x^2 - 2x + 1) = 8x^2 + 2x - 2。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-095",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-algebraic-expressions",
+      "unitTitle": "整式及其加减",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "algebraic-expressions",
+        "monomials-polynomials",
+        "like-terms",
+        "polynomial-addition-subtraction",
+        "整式",
+        "同类项"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "列代数式",
+        "识别单项式和多项式",
+        "合并同类项",
+        "去括号",
+        "整式加减"
+      ],
+      "misconceptionTags": [
+        "like terms judged by coefficient only",
+        "minus sign lost before parentheses",
+        "variable part changed during simplification"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-algebraic-expressions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-algebraic-expressions-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知多项式 A = 3x² - 2x + 5，B = -x² + 4x - 1。计算 A - 2B，并将结果按 x 的降幂排列。",
+      "optionsZhHans": [],
+      "answer": "5x² - 10x + 7",
+      "acceptedAnswers": [
+        "5x² - 10x + 7",
+        "5x^2 - 10x + 7"
+      ],
+      "explanationZhHans": "先计算 2B = -2x² + 8x - 2，然后 A - 2B = (3x² - 2x + 5) - (-2x² + 8x - 2) = 3x² - 2x + 5 + 2x² - 8x + 2 = 5x² - 10x + 7。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-096",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-algebraic-expressions",
+      "unitTitle": "整式及其加减",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "algebraic-expressions",
+        "monomials-polynomials",
+        "like-terms",
+        "polynomial-addition-subtraction",
+        "整式",
+        "同类项"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "列代数式",
+        "识别单项式和多项式",
+        "合并同类项",
+        "去括号",
+        "整式加减"
+      ],
+      "misconceptionTags": [
+        "like terms judged by coefficient only",
+        "minus sign lost before parentheses",
+        "variable part changed during simplification"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-algebraic-expressions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-algebraic-expressions-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知一个多项式与 2x² - 5x + 3 的和为 4x² - x - 2，求这个多项式。",
+      "optionsZhHans": [],
+      "answer": "2x² + 4x - 5",
+      "acceptedAnswers": [
+        "2x² + 4x - 5",
+        "2x^2 + 4x - 5"
+      ],
+      "explanationZhHans": "设所求多项式为 P，则 P + (2x² - 5x + 3) = 4x² - x - 2。移项得 P = (4x² - x - 2) - (2x² - 5x + 3) = 4x² - x - 2 - 2x² + 5x - 3 = 2x² + 4x - 5。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-097",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-algebraic-expressions",
+      "unitTitle": "整式及其加减",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "algebraic-expressions",
+        "monomials-polynomials",
+        "like-terms",
+        "polynomial-addition-subtraction",
+        "整式",
+        "同类项"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "列代数式",
+        "识别单项式和多项式",
+        "合并同类项",
+        "去括号",
+        "整式加减"
+      ],
+      "misconceptionTags": [
+        "like terms judged by coefficient only",
+        "minus sign lost before parentheses",
+        "variable part changed during simplification"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-algebraic-expressions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-algebraic-expressions-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知多项式 A = 3x² - 2x + 5，多项式 B = -x² + 4x - 3。求 A - 2B 的结果。",
+      "optionsZhHans": [
+        "5x² - 10x + 11",
+        "5x² - 10x - 1",
+        "x² + 6x + 2",
+        "5x² + 6x + 11"
+      ],
+      "answer": "5x² - 10x + 11",
+      "acceptedAnswers": [
+        "5x² - 10x + 11"
+      ],
+      "explanationZhHans": "先算 2B = -2x² + 8x - 6，再算 A - 2B = (3x² - 2x + 5) - (-2x² + 8x - 6) = 3x² - 2x + 5 + 2x² - 8x + 6 = 5x² - 10x + 11。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-098",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-algebraic-expressions",
+      "unitTitle": "整式及其加减",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "algebraic-expressions",
+        "monomials-polynomials",
+        "like-terms",
+        "polynomial-addition-subtraction",
+        "整式",
+        "同类项"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "列代数式",
+        "识别单项式和多项式",
+        "合并同类项",
+        "去括号",
+        "整式加减"
+      ],
+      "misconceptionTags": [
+        "like terms judged by coefficient only",
+        "minus sign lost before parentheses",
+        "variable part changed during simplification"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-algebraic-expressions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-algebraic-expressions-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校组织七年级学生参加社会实践活动，原计划租用45座客车若干辆，但有15人没有座位；若租用同样数量的60座客车，则多出一辆车，且其余客车恰好坐满。已知45座客车租金为每辆220元，60座客车租金为每辆300元。\n（1）该校七年级学生有多少人？\n（2）怎样租车更合算？请通过计算说明。",
+      "optionsZhHans": [],
+      "answer": "（1）240人；（2）租4辆60座客车更合算，总租金1200元，比租45座客车少20元。",
+      "acceptedAnswers": [
+        "（1）240人；（2）租4辆60座客车更合算，总租金1200元，比租45座客车少20元。"
+      ],
+      "explanationZhHans": "设原计划租用45座客车x辆，则学生人数为45x+15。改用60座客车时，车辆数为x-1，且坐满，故60(x-1)=45x+15，解得x=5，人数为240。租45座客车需6辆，租金1320元；租60座客车需4辆，租金1200元，所以租60座客车更合算。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-099",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-algebraic-expressions",
+      "unitTitle": "整式及其加减",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "algebraic-expressions",
+        "monomials-polynomials",
+        "like-terms",
+        "polynomial-addition-subtraction",
+        "整式",
+        "同类项"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "列代数式",
+        "识别单项式和多项式",
+        "合并同类项",
+        "去括号",
+        "整式加减"
+      ],
+      "misconceptionTags": [
+        "like terms judged by coefficient only",
+        "minus sign lost before parentheses",
+        "variable part changed during simplification"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-algebraic-expressions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-algebraic-expressions-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知多项式 A = 3x² - 2x + 5，多项式 B = -x² + 4x - 3。计算 A - 2B 的结果，并指出该结果中 x² 项的系数。",
+      "optionsZhHans": [],
+      "answer": "5x² - 10x + 11，x² 项的系数为 5",
+      "acceptedAnswers": [
+        "5x² - 10x + 11，x² 项的系数为 5",
+        "5x²-10x+11，x²项的系数为5",
+        "5x² - 10x + 11，系数为5",
+        "5x²-10x+11，系数5"
+      ],
+      "explanationZhHans": "先计算 2B = -2x² + 8x - 6，则 A - 2B = (3x² - 2x + 5) - (-2x² + 8x - 6) = 3x² - 2x + 5 + 2x² - 8x + 6 = 5x² - 10x + 11。x² 项的系数为 5。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-100",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-algebraic-expressions",
+      "unitTitle": "整式及其加减",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "algebraic-expressions",
+        "monomials-polynomials",
+        "like-terms",
+        "polynomial-addition-subtraction",
+        "整式",
+        "同类项"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "列代数式",
+        "识别单项式和多项式",
+        "合并同类项",
+        "去括号",
+        "整式加减"
+      ],
+      "misconceptionTags": [
+        "like terms judged by coefficient only",
+        "minus sign lost before parentheses",
+        "variable part changed during simplification"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-algebraic-expressions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-algebraic-expressions-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知多项式 A = 3x² - 2x + 5，多项式 B = -x² + 4x - 3。计算 A - 2B 的结果，并指出化简后多项式的次数。",
+      "optionsZhHans": [
+        "5x² - 10x + 11，二次",
+        "5x² + 6x - 1，二次",
+        "x² - 10x + 11，二次",
+        "5x² - 10x + 11，三次"
+      ],
+      "answer": "5x² - 10x + 11，二次",
+      "acceptedAnswers": [
+        "5x² - 10x + 11，二次"
+      ],
+      "explanationZhHans": "A - 2B = (3x² - 2x + 5) - 2(-x² + 4x - 3) = 3x² - 2x + 5 + 2x² - 8x + 6 = 5x² - 10x + 11。最高次项为5x²，次数为2，故为二次多项式。"
+    }
+  ]
+}

@@ -1,0 +1,191 @@
+{
+  "batchNumber": 25,
+  "startedAt": "2026-05-25T02:00:30.011Z",
+  "completedAt": "2026-05-25T02:00:47.030Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p2-183",
+    "hjb-primary-ds-v1-p2-184",
+    "hjb-primary-ds-v1-p2-185",
+    "hjb-primary-ds-v1-p2-186",
+    "hjb-primary-ds-v1-p2-187",
+    "hjb-primary-ds-v1-p2-188",
+    "hjb-primary-ds-v1-p2-189",
+    "hjb-primary-ds-v1-p2-190",
+    "hjb-primary-ds-v1-p2-191",
+    "hjb-primary-ds-v1-p2-192",
+    "hjb-primary-ds-v1-p2-193",
+    "hjb-primary-ds-v1-p2-194",
+    "hjb-primary-ds-v1-p2-195",
+    "hjb-primary-ds-v1-p2-196",
+    "hjb-primary-ds-v1-p2-197",
+    "hjb-primary-ds-v1-p2-198",
+    "hjb-primary-ds-v1-p2-199",
+    "hjb-primary-ds-v1-p2-200"
+  ],
+  "usage": {
+    "prompt_tokens": 3182,
+    "completion_tokens": 1258,
+    "total_tokens": 4440,
+    "prompt_tokens_details": {
+      "cached_tokens": 3072
+    },
+    "prompt_cache_hit_tokens": 3072,
+    "prompt_cache_miss_tokens": 110
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p2-183",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目合理，选项区分度好，答案正确，解释清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-184",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案格式符合要求，解释清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-185",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目与答案匹配，选项无歧义，解释正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-186",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "写作和读作均正确，解释到位。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-187",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项设置合理，答案唯一，解释正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-188",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "最大最小数正确，解释清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-189",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比较大小正确，解释清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-190",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "写作正确，解释清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-191",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，选项无歧义，解释清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-192",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "最大数正确，解释清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-193",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "只读一个零的判断正确，解释清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-194",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数位顺序正确，解释清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-195",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比较大小正确，解释清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-196",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "写作正确，解释清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-197",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "读数与写作匹配，选项合理，解释正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-198",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "最大数正确，解释清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-199",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比较大小正确，解释清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-200",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "相邻数正确，解释清晰。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合沪教版二年级要求，数学正确，答案匹配，无歧义或缺失条件，适合公开题库使用。"
+    }
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "batchId": "model-qa-0092",
+  "ids": [
+    "hjb-junior-ds-v2-s2-229",
+    "hjb-junior-ds-v2-s2-230",
+    "hjb-junior-ds-v2-s2-231",
+    "hjb-junior-ds-v2-s2-232",
+    "hjb-junior-ds-v2-s2-233",
+    "hjb-junior-ds-v2-s2-234",
+    "hjb-junior-ds-v2-s2-235",
+    "hjb-junior-ds-v2-s2-236"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-229",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "1:1",
+      "answerCheckZhHans": "标准答案正确。由7²+24²=25²得三角形为直角三角形，∠B=90°。AD平分∠A，根据角平分线性质，点D到角两边AB和AC的距离相等，故比为1:1。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-230",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "6.5",
+      "answerCheckZhHans": "标准答案正确。5²+12²=13²，三角形为直角三角形，斜边13上的中线等于斜边一半，即6.5。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-231",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "14",
+      "answerCheckZhHans": "标准答案正确。在Rt△ABD中，BD=√(15²-12²)=9；在Rt△ACD中，CD=√(13²-12²)=5。D在BC上，BC=BD+CD=14。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-232",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "BD=3，CD=5",
+      "answerCheckZhHans": "标准答案正确。由6²+8²=10²得∠B=90°。AD平分∠BAC，由角平分线性质BD/DC=AB/AC=6/10=3/5，又BD+DC=8，解得BD=3，CD=5。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-233",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "6.5",
+      "answerCheckZhHans": "标准答案正确。由角平分线性质AB/AC=BD/DC，即13/15=BD/(14-BD)，解得BD=6.5。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-234",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "24/7",
+      "answerCheckZhHans": "标准答案正确。由勾股定理得AB=10。CD平分∠ACB，点D到BC的距离等于到AC的距离，设为x。利用面积法：(1/2)*6*x+(1/2)*8*x=(1/2)*6*8，解得x=24/7。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-235",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "△ABC是直角三角形，且∠C=90°",
+      "answerCheckZhHans": "标准答案正确。7²+24²=625=25²，满足勾股定理逆定理，最大边c=25所对角∠C=90°。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-236",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "标准答案正确。由勾股定理得AB=10。作DE⊥AB于E，由角平分线性质得DE=DC。设DC=x，则BD=8-x。由△BDE∽△BAC得(8-x)/10=x/6，解得x=3。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

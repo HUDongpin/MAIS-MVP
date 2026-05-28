@@ -1,0 +1,581 @@
+{
+  "batchId": "batch-090",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p4-141",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "p4-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "整理与复习",
+        "数学好玩",
+        "总复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "topic not identified before solving",
+        "review treated as isolated drill only",
+        "answer accepted without reasonableness check"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-large-numbers-unit",
+        "bnu-primary-p4-upper-assessment-lines-angles-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在四年级上册的整理与复习中，小芳整理了本学期学过的几种运算律。她写了三个算式：① 25×(4+8)=25×4+25×8；② 125×32×25=(125×8)×(4×25)；③ 99×46=100×46−46。她发现有一个算式用到的运算律与其他两个不同。请你写出这个算式的编号，并说明它主要运用了什么运算律。",
+      "optionsZhHans": [],
+      "answer": "②，乘法结合律",
+      "acceptedAnswers": [
+        "②，乘法结合律",
+        "② 乘法结合律",
+        "②,乘法结合律"
+      ],
+      "explanationZhHans": "①和③都用了乘法分配律，②是把32拆成8×4，再用乘法结合律，所以不同。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-142",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "p4-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "整理与复习",
+        "数学好玩",
+        "总复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "topic not identified before solving",
+        "review treated as isolated drill only",
+        "answer accepted without reasonableness check"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-large-numbers-unit",
+        "bnu-primary-p4-upper-assessment-lines-angles-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在整理本学期知识时，小东列出了四个算式，想选出计算结果最大的一个。这四个算式是：A. 360÷12+24×5；B. (360÷12+24)×5；C. 360÷(12+24)×5；D. 360÷(12+24×5)。请你帮他选出计算结果最大的算式。",
+      "optionsZhHans": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "B",
+      "acceptedAnswers": [
+        "B"
+      ],
+      "explanationZhHans": "A=30+120=150；B=(30+24)×5=270；C=360÷36×5=50；D=360÷(12+120)=360÷132≈2.73。B最大。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-143",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "p4-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "整理与复习",
+        "数学好玩",
+        "总复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "topic not identified before solving",
+        "review treated as isolated drill only",
+        "answer accepted without reasonableness check"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-large-numbers-unit",
+        "bnu-primary-p4-upper-assessment-lines-angles-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在数学好玩活动中，老师让同学们用计算器探索规律。小明输入 1×8+1=9，12×8+2=98，123×8+3=987。按照这个规律，1234×8+4 的结果是______。",
+      "optionsZhHans": [],
+      "answer": "9876",
+      "acceptedAnswers": [
+        "9876"
+      ],
+      "explanationZhHans": "规律：第一个因数依次增加一位，结果从9开始依次递减一位，所以1234×8+4=9876。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-144",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "p4-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "整理与复习",
+        "数学好玩",
+        "总复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "topic not identified before solving",
+        "review treated as isolated drill only",
+        "answer accepted without reasonableness check"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-large-numbers-unit",
+        "bnu-primary-p4-upper-assessment-lines-angles-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在整理与复习中，小丽检查了一道除法竖式：计算 756÷28 时，她先试商 2，28×2=56，75−56=19，落下6得196，再商7，28×7=196，刚好除尽。她发现商是27。请你写出检验这个除法结果的一种方法。",
+      "optionsZhHans": [],
+      "answer": "用商乘除数，看是否等于被除数，即27×28=756。",
+      "acceptedAnswers": [
+        "用商乘除数，看是否等于被除数，即27×28=756。",
+        "27×28=756",
+        "用乘法验算"
+      ],
+      "explanationZhHans": "除法可以用乘法验算：商×除数=被除数。27×28=756，说明计算正确。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-145",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-decimal-meaning-add-sub",
+      "unitTitle": "小数的意义和加减法",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "decimal-meaning",
+        "decimal-addition-subtraction",
+        "place-value-decimals",
+        "小数的意义",
+        "小数加减法"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "小数意义",
+        "小数读写",
+        "小数比较",
+        "小数加法",
+        "小数减法"
+      ],
+      "misconceptionTags": [
+        "more decimal digits assumed larger",
+        "decimal points not aligned in calculation",
+        "tenths and hundredths roles reversed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-decimal-meaning-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit",
+        "bnu-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面四个小数中，哪一个在百分位上的数字是7？选项：A. 0.573；B. 0.357；C. 0.735；D. 0.375。",
+      "optionsZhHans": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "B",
+      "acceptedAnswers": [
+        "B"
+      ],
+      "explanationZhHans": "百分位是小数点后第二位。0.375的百分位是7，其他选项的百分位都不是7。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-146",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-decimal-meaning-add-sub",
+      "unitTitle": "小数的意义和加减法",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "decimal-meaning",
+        "decimal-addition-subtraction",
+        "place-value-decimals",
+        "小数的意义",
+        "小数加减法"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "小数意义",
+        "小数读写",
+        "小数比较",
+        "小数加法",
+        "小数减法"
+      ],
+      "misconceptionTags": [
+        "more decimal digits assumed larger",
+        "decimal points not aligned in calculation",
+        "tenths and hundredths roles reversed"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-decimal-meaning-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit",
+        "bnu-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把0.6、0.60、0.600这三个数按从大到小的顺序排列，并用“>”连接。",
+      "optionsZhHans": [],
+      "answer": "0.6=0.60=0.600",
+      "acceptedAnswers": [
+        "0.6=0.60=0.600",
+        "0.600=0.60=0.6"
+      ],
+      "explanationZhHans": "小数的末尾添上0或去掉0，小数的大小不变，所以这三个数相等。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-147",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-decimal-meaning-add-sub",
+      "unitTitle": "小数的意义和加减法",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "decimal-meaning",
+        "decimal-addition-subtraction",
+        "place-value-decimals",
+        "小数的意义",
+        "小数加减法"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "小数意义",
+        "小数读写",
+        "小数比较",
+        "小数加法",
+        "小数减法"
+      ],
+      "misconceptionTags": [
+        "more decimal digits assumed larger",
+        "decimal points not aligned in calculation",
+        "tenths and hundredths roles reversed"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-decimal-meaning-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit",
+        "bnu-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈在超市买了1.25千克苹果和0.8千克香蕉。苹果每千克8.4元，香蕉每千克5.6元。妈妈一共要付多少元？",
+      "optionsZhHans": [],
+      "answer": "14.98元",
+      "acceptedAnswers": [
+        "14.98元",
+        "14.98"
+      ],
+      "explanationZhHans": "苹果：1.25×8.4=10.5元，香蕉：0.8×5.6=4.48元，合计10.5+4.48=14.98元。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-148",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-decimal-meaning-add-sub",
+      "unitTitle": "小数的意义和加减法",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "decimal-meaning",
+        "decimal-addition-subtraction",
+        "place-value-decimals",
+        "小数的意义",
+        "小数加减法"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "小数意义",
+        "小数读写",
+        "小数比较",
+        "小数加法",
+        "小数减法"
+      ],
+      "misconceptionTags": [
+        "more decimal digits assumed larger",
+        "decimal points not aligned in calculation",
+        "tenths and hundredths roles reversed"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-decimal-meaning-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit",
+        "bnu-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个小数中的“3”表示3个十分之一？选项：A. 0.37；B. 0.73；C. 3.07；D. 0.03。",
+      "optionsZhHans": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "A",
+      "acceptedAnswers": [
+        "A"
+      ],
+      "explanationZhHans": "十分之一即十分位。A的3在十分位，表示3个0.1；B的3在百分位；C的3在个位；D的3在百分位。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-149",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-decimal-meaning-add-sub",
+      "unitTitle": "小数的意义和加减法",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "decimal-meaning",
+        "decimal-addition-subtraction",
+        "place-value-decimals",
+        "小数的意义",
+        "小数加减法"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "小数意义",
+        "小数读写",
+        "小数比较",
+        "小数加法",
+        "小数减法"
+      ],
+      "misconceptionTags": [
+        "more decimal digits assumed larger",
+        "decimal points not aligned in calculation",
+        "tenths and hundredths roles reversed"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-decimal-meaning-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit",
+        "bnu-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在计算小数加减法时，小马虎把5.4+3.26算成了5.4+3.26=8.66，他忘了把小数点对齐。正确的计算结果应该是______。",
+      "optionsZhHans": [],
+      "answer": "8.66",
+      "acceptedAnswers": [
+        "8.66"
+      ],
+      "explanationZhHans": "5.4+3.26，对齐小数点，5.40+3.26=8.66。小马虎虽然没对齐，但结果碰巧对了，因为5.4就是5.40。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-150",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-decimal-meaning-add-sub",
+      "unitTitle": "小数的意义和加减法",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "decimal-meaning",
+        "decimal-addition-subtraction",
+        "place-value-decimals",
+        "小数的意义",
+        "小数加减法"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "小数意义",
+        "小数读写",
+        "小数比较",
+        "小数加法",
+        "小数减法"
+      ],
+      "misconceptionTags": [
+        "more decimal digits assumed larger",
+        "decimal points not aligned in calculation",
+        "tenths and hundredths roles reversed"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-decimal-meaning-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit",
+        "bnu-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一根绳子长2.5米，用去1.38米，还剩多少米？请列竖式计算。",
+      "optionsZhHans": [],
+      "answer": "1.12米",
+      "acceptedAnswers": [
+        "1.12米",
+        "1.12"
+      ],
+      "explanationZhHans": "2.5−1.38，对齐小数点，2.50−1.38=1.12米。"
+    }
+  ]
+}

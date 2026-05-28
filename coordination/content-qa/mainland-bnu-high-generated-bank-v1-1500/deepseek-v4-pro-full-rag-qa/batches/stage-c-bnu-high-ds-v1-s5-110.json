@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-110",
+  "startedAt": "2026-05-28T02:08:13.546Z",
+  "completedAt": "2026-05-28T02:08:17.096Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-110"
+  ],
+  "usage": {
+    "prompt_tokens": 2126,
+    "completion_tokens": 265,
+    "total_tokens": 2391,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1742
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-110",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "定直线为x=4",
+        "correctedAnswer": "定直线为x=4",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立求解得椭圆方程为x²/4+y²=1，a=2，定直线为x=4。存储答案“x=a”且解析称横坐标为2，与正确结果矛盾，属于错误答案。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目答案错误，正确结果为x=4，存储答案和解析均不正确，需修正。"
+    }
+  }
+}

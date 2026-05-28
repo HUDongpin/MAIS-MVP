@@ -1,0 +1,191 @@
+{
+  "batchNumber": 45,
+  "startedAt": "2026-05-25T02:08:39.782Z",
+  "completedAt": "2026-05-25T02:09:01.229Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p4-043",
+    "hjb-primary-ds-v1-p4-044",
+    "hjb-primary-ds-v1-p4-045",
+    "hjb-primary-ds-v1-p4-046",
+    "hjb-primary-ds-v1-p4-047",
+    "hjb-primary-ds-v1-p4-048",
+    "hjb-primary-ds-v1-p4-049",
+    "hjb-primary-ds-v1-p4-050",
+    "hjb-primary-ds-v1-p4-051",
+    "hjb-primary-ds-v1-p4-052",
+    "hjb-primary-ds-v1-p4-053",
+    "hjb-primary-ds-v1-p4-054",
+    "hjb-primary-ds-v1-p4-055",
+    "hjb-primary-ds-v1-p4-056",
+    "hjb-primary-ds-v1-p4-057",
+    "hjb-primary-ds-v1-p4-058",
+    "hjb-primary-ds-v1-p4-059",
+    "hjb-primary-ds-v1-p4-060"
+  ],
+  "usage": {
+    "prompt_tokens": 4014,
+    "completion_tokens": 1314,
+    "total_tokens": 5328,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 3758
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p4-043",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项合理，答案唯一，适合P4。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-044",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "单位选择符合实际，答案明确，无歧义。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-045",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "四舍五入求最大最小正确，答案54999和45000无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-046",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "读数写数正确，选项唯一，无干扰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-047",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "同分母分数比较，答案正确，理由充分。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-048",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "强调整体相同，比较正确，解释合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-049",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "同分母分数比较，6/7最大，选项清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-050",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "同分母加法正确，答案7/9。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-051",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "异分母比较，通分正确，过程完整。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-052",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "通分比较正确，选项唯一，无歧义。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-053",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "同分母比较，答案“<”正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-054",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "通分比较，答案正确，理由清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-055",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项分析正确，唯一正确选项2/7<3/7。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-056",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "同分母加法，答案5/8正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-057",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "整体相同，分子为1时比较分母，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-058",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "同分母比较，2/9<4/9正确，其他错误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-059",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比较1/4和1/3，答案小刚正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-060",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分子相同比分母，3/8>3/10，答案正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案匹配，无歧义，适合P4沪教版。"
+    }
+  }
+}

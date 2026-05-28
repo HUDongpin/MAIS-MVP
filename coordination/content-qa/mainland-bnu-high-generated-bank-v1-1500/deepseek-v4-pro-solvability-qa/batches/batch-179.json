@@ -1,0 +1,137 @@
+{
+  "batchNumber": 179,
+  "startedAt": "2026-05-27T14:13:56.216Z",
+  "completedAt": "2026-05-27T14:14:13.440Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-425",
+    "bnu-high-ds-v1-s6-426",
+    "bnu-high-ds-v1-s6-427",
+    "bnu-high-ds-v1-s6-428",
+    "bnu-high-ds-v1-s6-429",
+    "bnu-high-ds-v1-s6-430",
+    "bnu-high-ds-v1-s6-431",
+    "bnu-high-ds-v1-s6-432"
+  ],
+  "usage": {
+    "prompt_tokens": 10912,
+    "completion_tokens": 1133,
+    "total_tokens": 12045,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10400
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-425",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "a = -3, b = -9, c = 0",
+        "correctedAnswer": "a = -3, b = -9, c = 0",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "由条件解得 a=-3, b=-9, c=0，但答案给出 c=2，解析中计算过程也得到 c=0 却最终写 c=2，答案与解析均错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-426",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导得驻点 x=0，比较端点与驻点函数值得最小值为 0，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-427",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "a = 3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由 f'(2)=0 解得 a=3，选项唯一，答案与解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-428",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "极大值 10，极小值 -22",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导得驻点 -1 和 3，二阶导判断极值类型，计算得极大值 10、极小值 -22，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-429",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导代入 x=1 得斜率为 0，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-430",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(-∞, 0) 和 (2, +∞)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "解 f'(x)>0 得递增区间为 (-∞,0) 和 (2,+∞)，选项 A 正确，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-431",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "a = 5",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导得临界点，比较端点与极值点得最大值为 a，令 a=5 得 a=5，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-432",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "9",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导代入 x=2 得斜率为 9，答案与解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第425题因极大值条件与答案矛盾，导致答案和解析均错误，其余题目均正确。"
+    }
+  }
+}

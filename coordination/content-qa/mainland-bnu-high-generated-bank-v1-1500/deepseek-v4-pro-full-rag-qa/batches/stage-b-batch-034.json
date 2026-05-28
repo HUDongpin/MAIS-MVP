@@ -1,0 +1,129 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-034",
+  "startedAt": "2026-05-28T01:05:03.083Z",
+  "completedAt": "2026-05-28T01:05:19.501Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-265",
+    "bnu-high-ds-v1-s4-266",
+    "bnu-high-ds-v1-s4-267",
+    "bnu-high-ds-v1-s4-268",
+    "bnu-high-ds-v1-s4-269",
+    "bnu-high-ds-v1-s4-270",
+    "bnu-high-ds-v1-s4-271",
+    "bnu-high-ds-v1-s4-272"
+  ],
+  "usage": {
+    "prompt_tokens": 11824,
+    "completion_tokens": 1055,
+    "total_tokens": 12879,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 11440
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-265",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，均为10.5公里，解析正确，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-266",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案20%与独立解一致，acceptedAnswers包含20%和0.2，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-267",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案y=2×10+3×10+4(x-20)=50+4(x-20)与独立解y=4x-30等价，acceptedAnswers包含多种形式，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-268",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案t>200与独立解一致，解析正确，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-269",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案10年与独立解一致，acceptedAnswers包含10年和10，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-270",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案k≈0.04, m=100e^{-0.04t}与独立解一致，acceptedAnswers包含多种形式，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-271",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": "乙同学的二次模型更合适，因为它的预测误差更小",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，但解析中乙模型预测值计算错误（y(4)=51应为55，y(5)=66应为71，y(6)=82应为88），导致误差计算错误，结论虽正确但过程矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-272",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第271题解析中乙模型预测值计算错误，导致误差计算错误，但最终结论与独立解一致，判定为fail。其余题目均通过。"
+    }
+  }
+}

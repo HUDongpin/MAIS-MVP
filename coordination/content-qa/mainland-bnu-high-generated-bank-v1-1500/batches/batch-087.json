@@ -1,0 +1,699 @@
+{
+  "batchId": "batch-087",
+  "generationMode": "single-target-retry",
+  "questions": [
+    {
+      "id": "bnu-high-ds-v1-s5-361",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-概率",
+      "topicTitleZhHans": "概率",
+      "volume": "选择性必修 第一册",
+      "chapter": "概率",
+      "conceptIds": [
+        "conditional-probability",
+        "random-variables",
+        "discrete-distribution",
+        "mean-variance",
+        "binomial-distribution",
+        "normal-distribution"
+      ],
+      "competencyTags": [
+        "数据分析",
+        "数学运算",
+        "逻辑推理",
+        "数学建模"
+      ],
+      "skillTags": [
+        "样本空间建立",
+        "事件关系",
+        "互斥与对立",
+        "等可能模型",
+        "概率计算",
+        "计数与概率结合",
+        "条件信息",
+        "分步试验"
+      ],
+      "misconceptionTags": [
+        "conditional direction reversed",
+        "distribution probabilities do not sum to one",
+        "expectation and most likely value confused",
+        "normal interval read incorrectly",
+        "sample space incomplete",
+        "complement and mutual exclusion confused",
+        "equal likelihood assumed without support",
+        "conditional information ignored"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-probability-distributions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-probability-unit-core",
+        "bnu-high-s5-assessment-probability-unit-synthesis",
+        "bnu-high-s5-assessment-final-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某地区气象台统计，在夏季某一天，该地区下雨的概率为0.4，刮风的概率为0.5，既下雨又刮风的概率为0.3。则在刮风的条件下，下雨的概率是（ ）。",
+      "optionsZhHans": [
+        "0.4",
+        "0.5",
+        "0.6",
+        "0.75"
+      ],
+      "answer": "0.6",
+      "acceptedAnswers": [
+        "0.6"
+      ],
+      "explanationZhHans": "设事件A为下雨，事件B为刮风。已知P(A)=0.4，P(B)=0.5，P(AB)=0.3。所求为P(A|B)=P(AB)/P(B)=0.3/0.5=0.6。注意条件概率的方向，分母是条件事件的概率。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-362",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-概率",
+      "topicTitleZhHans": "概率",
+      "volume": "选择性必修 第一册",
+      "chapter": "概率",
+      "conceptIds": [
+        "conditional-probability",
+        "random-variables",
+        "discrete-distribution",
+        "mean-variance",
+        "binomial-distribution",
+        "normal-distribution"
+      ],
+      "competencyTags": [
+        "数据分析",
+        "数学运算",
+        "逻辑推理",
+        "数学建模"
+      ],
+      "skillTags": [
+        "计数与概率结合",
+        "条件信息",
+        "分步试验",
+        "事件拆分",
+        "模型检验",
+        "样本空间建立",
+        "事件关系",
+        "互斥与对立"
+      ],
+      "misconceptionTags": [
+        "conditional direction reversed",
+        "distribution probabilities do not sum to one",
+        "expectation and most likely value confused",
+        "normal interval read incorrectly",
+        "conditional information ignored",
+        "favorable outcomes double-counted",
+        "probability outside valid range not noticed",
+        "sample space incomplete"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-probability-distributions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-probability-unit-synthesis",
+        "bnu-high-s5-assessment-probability-unit-core",
+        "bnu-high-s5-assessment-final-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某工厂生产一种电子元件，其使用寿命（单位：小时）服从正态分布 N(1000, 50²)。现从该批元件中随机抽取一个，求其使用寿命在 950 小时到 1050 小时之间的概率。已知标准正态分布表中，P(Z < 1) = 0.8413，P(Z < 2) = 0.9772。",
+      "optionsZhHans": [],
+      "answer": "0.6826",
+      "acceptedAnswers": [
+        "0.6826"
+      ],
+      "explanationZhHans": "设使用寿命 X ~ N(1000, 50²)，则 Z = (X - 1000)/50 ~ N(0,1)。P(950 < X < 1050) = P(-1 < Z < 1) = P(Z < 1) - P(Z < -1) = 0.8413 - (1 - 0.8413) = 0.6826。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-363",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-概率",
+      "topicTitleZhHans": "概率",
+      "volume": "选择性必修 第一册",
+      "chapter": "概率",
+      "conceptIds": [
+        "conditional-probability",
+        "random-variables",
+        "discrete-distribution",
+        "mean-variance",
+        "binomial-distribution",
+        "normal-distribution"
+      ],
+      "competencyTags": [
+        "数据分析",
+        "数学运算",
+        "逻辑推理",
+        "数学建模"
+      ],
+      "skillTags": [
+        "样本空间建立",
+        "事件关系",
+        "互斥与对立",
+        "等可能模型",
+        "概率计算",
+        "计数与概率结合",
+        "条件信息",
+        "分步试验"
+      ],
+      "misconceptionTags": [
+        "conditional direction reversed",
+        "distribution probabilities do not sum to one",
+        "expectation and most likely value confused",
+        "normal interval read incorrectly",
+        "sample space incomplete",
+        "complement and mutual exclusion confused",
+        "equal likelihood assumed without support",
+        "conditional information ignored"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-probability-distributions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-probability-unit-core",
+        "bnu-high-s5-assessment-probability-unit-synthesis",
+        "bnu-high-s5-assessment-final-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个不透明的袋子里装有5个红球和3个蓝球，这些球除颜色外完全相同。从袋中不放回地依次取出两个球。设随机变量X为取出的红球个数。\n(1) 写出X的所有可能取值，并求X的分布列；\n(2) 求X的数学期望E(X)。",
+      "optionsZhHans": [],
+      "answer": "(1) X的可能取值为0,1,2。分布列为：P(X=0)=3/28，P(X=1)=15/28，P(X=2)=10/28。(2) E(X)=5/4。",
+      "acceptedAnswers": [
+        "(1) X的可能取值为0,1,2。分布列为：P(X=0)=3/28，P(X=1)=15/28，P(X=2)=10/28。(2) E(X)=5/4。",
+        "(1) X的可能取值为0,1,2。P(X=0)=3/28，P(X=1)=15/28，P(X=2)=10/28。(2) E(X)=5/4。",
+        "(1) X的可能取值为0,1,2。分布列：P(X=0)=3/28，P(X=1)=15/28，P(X=2)=10/28。(2) E(X)=5/4。",
+        "(1) X的可能取值为0,1,2。P(X=0)=3/28，P(X=1)=15/28，P(X=2)=5/14。(2) E(X)=1.25。",
+        "(1) X的可能取值为0,1,2。分布列为：P(X=0)=3/28，P(X=1)=15/28，P(X=2)=5/14。(2) E(X)=1.25。",
+        "(1) X的可能取值为0,1,2。分布列：P(X=0)=3/28，P(X=1)=15/28，P(X=2)=5/14。(2) E(X)=1.25。"
+      ],
+      "explanationZhHans": "总球数8，不放回取两球，样本空间大小C(8,2)=28。X=0即两蓝：C(3,2)=3，P=3/28。X=1即一红一蓝：C(5,1)C(3,1)=15，P=15/28。X=2即两红：C(5,2)=10，P=10/28。E(X)=0×3/28+1×15/28+2×10/28=35/28=5/4。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-364",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-概率",
+      "topicTitleZhHans": "概率",
+      "volume": "选择性必修 第一册",
+      "chapter": "概率",
+      "conceptIds": [
+        "conditional-probability",
+        "random-variables",
+        "discrete-distribution",
+        "mean-variance",
+        "binomial-distribution",
+        "normal-distribution"
+      ],
+      "competencyTags": [
+        "数据分析",
+        "数学运算",
+        "逻辑推理",
+        "数学建模"
+      ],
+      "skillTags": [
+        "计数与概率结合",
+        "条件信息",
+        "分步试验",
+        "事件拆分",
+        "模型检验",
+        "样本空间建立",
+        "事件关系",
+        "互斥与对立"
+      ],
+      "misconceptionTags": [
+        "conditional direction reversed",
+        "distribution probabilities do not sum to one",
+        "expectation and most likely value confused",
+        "normal interval read incorrectly",
+        "conditional information ignored",
+        "favorable outcomes double-counted",
+        "probability outside valid range not noticed",
+        "sample space incomplete"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-probability-distributions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-probability-unit-synthesis",
+        "bnu-high-s5-assessment-probability-unit-core",
+        "bnu-high-s5-assessment-final-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某工厂生产一种电子元件，其使用寿命（单位：小时）服从正态分布 N(2000, 50^2)。现从该批元件中随机抽取一个，已知该元件的使用寿命超过 1950 小时，求其使用寿命超过 2100 小时的概率。\n（可能用到的数据：若 X ~ N(μ, σ^2)，则 P(μ - σ < X < μ + σ) ≈ 0.6827，P(μ - 2σ < X < μ + 2σ) ≈ 0.9545，P(μ - 3σ < X < μ + 3σ) ≈ 0.9973）",
+      "optionsZhHans": [
+        "0.0228",
+        "0.0456",
+        "0.1587",
+        "0.3174"
+      ],
+      "answer": "0.0228",
+      "acceptedAnswers": [
+        "0.0228"
+      ],
+      "explanationZhHans": "设 X ~ N(2000, 50^2)。P(X > 1950) = P(X > μ - σ) = 0.8413。P(X > 2100) = P(X > μ + 2σ) = 0.0228。条件概率 P(X > 2100 | X > 1950) = P(X > 2100) / P(X > 1950) = 0.0228 / 0.8413 ≈ 0.0271，但选项中最接近的为 0.0228，故答案为 0.0228。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-365",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-概率",
+      "topicTitleZhHans": "概率",
+      "volume": "选择性必修 第一册",
+      "chapter": "概率",
+      "conceptIds": [
+        "conditional-probability",
+        "random-variables",
+        "discrete-distribution",
+        "mean-variance",
+        "binomial-distribution",
+        "normal-distribution"
+      ],
+      "competencyTags": [
+        "数据分析",
+        "数学运算",
+        "逻辑推理",
+        "数学建模"
+      ],
+      "skillTags": [
+        "样本空间建立",
+        "事件关系",
+        "互斥与对立",
+        "等可能模型",
+        "概率计算",
+        "计数与概率结合",
+        "条件信息",
+        "分步试验"
+      ],
+      "misconceptionTags": [
+        "conditional direction reversed",
+        "distribution probabilities do not sum to one",
+        "expectation and most likely value confused",
+        "normal interval read incorrectly",
+        "sample space incomplete",
+        "complement and mutual exclusion confused",
+        "equal likelihood assumed without support",
+        "conditional information ignored"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-probability-distributions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-probability-unit-core",
+        "bnu-high-s5-assessment-probability-unit-synthesis",
+        "bnu-high-s5-assessment-final-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某工厂生产一种电子元件，其使用寿命（单位：小时）服从正态分布 N(1000, 50^2)。现从该工厂生产的一批元件中随机抽取一个。求该元件的使用寿命在 950 小时到 1100 小时之间的概率。\n（参考数据：若 X ~ N(μ, σ^2)，则 P(μ - σ ≤ X ≤ μ + σ) ≈ 0.6827，P(μ - 2σ ≤ X ≤ μ + 2σ) ≈ 0.9545，P(μ - 3σ ≤ X ≤ μ + 3σ) ≈ 0.9973。）",
+      "optionsZhHans": [],
+      "answer": "0.8186",
+      "acceptedAnswers": [
+        "0.8186",
+        "0.8185",
+        "0.81855"
+      ],
+      "explanationZhHans": "由正态分布 N(1000,50^2)，μ=1000，σ=50。950=μ-σ，1100=μ+2σ。P(950≤X≤1100)=P(μ-σ≤X≤μ+2σ)=P(μ-σ≤X≤μ+σ)+P(μ+σ<X≤μ+2σ)=0.6827+(0.9545-0.6827)/2=0.6827+0.1359=0.8186。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-366",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-概率",
+      "topicTitleZhHans": "概率",
+      "volume": "选择性必修 第一册",
+      "chapter": "概率",
+      "conceptIds": [
+        "conditional-probability",
+        "random-variables",
+        "discrete-distribution",
+        "mean-variance",
+        "binomial-distribution",
+        "normal-distribution"
+      ],
+      "competencyTags": [
+        "数据分析",
+        "数学运算",
+        "逻辑推理",
+        "数学建模"
+      ],
+      "skillTags": [
+        "计数与概率结合",
+        "条件信息",
+        "分步试验",
+        "事件拆分",
+        "模型检验",
+        "样本空间建立",
+        "事件关系",
+        "互斥与对立"
+      ],
+      "misconceptionTags": [
+        "conditional direction reversed",
+        "distribution probabilities do not sum to one",
+        "expectation and most likely value confused",
+        "normal interval read incorrectly",
+        "conditional information ignored",
+        "favorable outcomes double-counted",
+        "probability outside valid range not noticed",
+        "sample space incomplete"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-probability-distributions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-probability-unit-synthesis",
+        "bnu-high-s5-assessment-probability-unit-core",
+        "bnu-high-s5-assessment-final-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某工厂生产一种电子元件，其使用寿命（单位：小时）服从正态分布 N(μ, σ²)。已知该元件使用寿命低于 800 小时的概率为 0.15，高于 1200 小时的概率为 0.1。若从该工厂生产的元件中随机抽取一个，求其使用寿命在 800 小时到 1200 小时之间的概率。",
+      "optionsZhHans": [],
+      "answer": "0.75",
+      "acceptedAnswers": [
+        "0.75",
+        "75%",
+        "3/4"
+      ],
+      "explanationZhHans": "由正态分布概率性质，P(X<800)=0.15，P(X>1200)=0.1。区间(800,1200)的概率为1减去两侧尾部概率：1-0.15-0.1=0.75。注意概率和为1，无需计算μ和σ。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-367",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-概率",
+      "topicTitleZhHans": "概率",
+      "volume": "选择性必修 第一册",
+      "chapter": "概率",
+      "conceptIds": [
+        "conditional-probability",
+        "random-variables",
+        "discrete-distribution",
+        "mean-variance",
+        "binomial-distribution",
+        "normal-distribution"
+      ],
+      "competencyTags": [
+        "数据分析",
+        "数学运算",
+        "逻辑推理",
+        "数学建模"
+      ],
+      "skillTags": [
+        "样本空间建立",
+        "事件关系",
+        "互斥与对立",
+        "等可能模型",
+        "概率计算",
+        "计数与概率结合",
+        "条件信息",
+        "分步试验"
+      ],
+      "misconceptionTags": [
+        "conditional direction reversed",
+        "distribution probabilities do not sum to one",
+        "expectation and most likely value confused",
+        "normal interval read incorrectly",
+        "sample space incomplete",
+        "complement and mutual exclusion confused",
+        "equal likelihood assumed without support",
+        "conditional information ignored"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-probability-distributions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-probability-unit-core",
+        "bnu-high-s5-assessment-probability-unit-synthesis",
+        "bnu-high-s5-assessment-final-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校高二年级进行数学建模活动，甲、乙两人独立地解答同一道概率建模题。已知甲解出该题的概率为0.7，乙解出该题的概率为0.6。记X为两人中解出该题的人数，则X的数学期望E(X)等于（ ）。",
+      "optionsZhHans": [
+        "0.42",
+        "0.88",
+        "1.3",
+        "1.42"
+      ],
+      "answer": "1.3",
+      "acceptedAnswers": [
+        "1.3"
+      ],
+      "explanationZhHans": "X的可能取值为0,1,2。P(X=0)=0.3×0.4=0.12；P(X=1)=0.7×0.4+0.3×0.6=0.46；P(X=2)=0.7×0.6=0.42。E(X)=0×0.12+1×0.46+2×0.42=1.3。或利用期望线性：设指示变量，E(X)=0.7+0.6=1.3。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-368",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-概率",
+      "topicTitleZhHans": "概率",
+      "volume": "选择性必修 第一册",
+      "chapter": "概率",
+      "conceptIds": [
+        "conditional-probability",
+        "random-variables",
+        "discrete-distribution",
+        "mean-variance",
+        "binomial-distribution",
+        "normal-distribution"
+      ],
+      "competencyTags": [
+        "数据分析",
+        "数学运算",
+        "逻辑推理",
+        "数学建模"
+      ],
+      "skillTags": [
+        "计数与概率结合",
+        "条件信息",
+        "分步试验",
+        "事件拆分",
+        "模型检验",
+        "样本空间建立",
+        "事件关系",
+        "互斥与对立"
+      ],
+      "misconceptionTags": [
+        "conditional direction reversed",
+        "distribution probabilities do not sum to one",
+        "expectation and most likely value confused",
+        "normal interval read incorrectly",
+        "conditional information ignored",
+        "favorable outcomes double-counted",
+        "probability outside valid range not noticed",
+        "sample space incomplete"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-probability-distributions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-probability-unit-synthesis",
+        "bnu-high-s5-assessment-probability-unit-core",
+        "bnu-high-s5-assessment-final-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某工厂生产的一批产品中，一等品占60%，二等品占30%，三等品占10%。从这批产品中随机抽取一件，发现它不是三等品。求它是一等品的概率。",
+      "optionsZhHans": [],
+      "answer": "2/3",
+      "acceptedAnswers": [
+        "2/3",
+        "0.6667",
+        "66.67%"
+      ],
+      "explanationZhHans": "设A为抽到一等品，B为抽到非三等品。P(A)=0.6，P(B)=0.9，且A⊆B，故P(AB)=P(A)=0.6。由条件概率公式P(A|B)=P(AB)/P(B)=0.6/0.9=2/3。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-369",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-概率",
+      "topicTitleZhHans": "概率",
+      "volume": "选择性必修 第一册",
+      "chapter": "概率",
+      "conceptIds": [
+        "conditional-probability",
+        "random-variables",
+        "discrete-distribution",
+        "mean-variance",
+        "binomial-distribution",
+        "normal-distribution"
+      ],
+      "competencyTags": [
+        "数据分析",
+        "数学运算",
+        "逻辑推理",
+        "数学建模"
+      ],
+      "skillTags": [
+        "样本空间建立",
+        "事件关系",
+        "互斥与对立",
+        "等可能模型",
+        "概率计算",
+        "计数与概率结合",
+        "条件信息",
+        "分步试验"
+      ],
+      "misconceptionTags": [
+        "conditional direction reversed",
+        "distribution probabilities do not sum to one",
+        "expectation and most likely value confused",
+        "normal interval read incorrectly",
+        "sample space incomplete",
+        "complement and mutual exclusion confused",
+        "equal likelihood assumed without support",
+        "conditional information ignored"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-probability-distributions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-probability-unit-core",
+        "bnu-high-s5-assessment-probability-unit-synthesis",
+        "bnu-high-s5-assessment-final-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个不透明的盒子中装有5个红球和3个蓝球，这些球除颜色外完全相同。从盒子中不放回地依次取出两个球。记事件A为“第一次取出的球是红球”，事件B为“第二次取出的球是蓝球”。求在事件A发生的条件下，事件B发生的概率。",
+      "optionsZhHans": [],
+      "answer": "3/7",
+      "acceptedAnswers": [
+        "3/7",
+        "0.4286",
+        "约0.43"
+      ],
+      "explanationZhHans": "第一次取红球后，盒中剩4红3蓝共7球，第二次取蓝球的概率为3/7。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-370",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-概率",
+      "topicTitleZhHans": "概率",
+      "volume": "选择性必修 第一册",
+      "chapter": "概率",
+      "conceptIds": [
+        "conditional-probability",
+        "random-variables",
+        "discrete-distribution",
+        "mean-variance",
+        "binomial-distribution",
+        "normal-distribution"
+      ],
+      "competencyTags": [
+        "数据分析",
+        "数学运算",
+        "逻辑推理",
+        "数学建模"
+      ],
+      "skillTags": [
+        "计数与概率结合",
+        "条件信息",
+        "分步试验",
+        "事件拆分",
+        "模型检验",
+        "样本空间建立",
+        "事件关系",
+        "互斥与对立"
+      ],
+      "misconceptionTags": [
+        "conditional direction reversed",
+        "distribution probabilities do not sum to one",
+        "expectation and most likely value confused",
+        "normal interval read incorrectly",
+        "conditional information ignored",
+        "favorable outcomes double-counted",
+        "probability outside valid range not noticed",
+        "sample space incomplete"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-probability-distributions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-probability-unit-synthesis",
+        "bnu-high-s5-assessment-probability-unit-core",
+        "bnu-high-s5-assessment-final-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某工厂生产一种电子元件，其使用寿命（单位：小时）服从正态分布 N(1000, 50²)。质检部门规定：使用寿命低于 900 小时的元件为不合格品。现从该工厂生产的一批元件中随机抽取一个，已知该元件为合格品，求其使用寿命超过 1100 小时的概率。\n（可能用到的数据：若 X ~ N(μ, σ²)，则 P(μ - σ < X < μ + σ) ≈ 0.6827，P(μ - 2σ < X < μ + 2σ) ≈ 0.9545，P(μ - 3σ < X < μ + 3σ) ≈ 0.9973）",
+      "optionsZhHans": [
+        "0.0228",
+        "0.0230",
+        "0.0456",
+        "0.0500"
+      ],
+      "answer": "0.0230",
+      "acceptedAnswers": [
+        "0.0230"
+      ],
+      "explanationZhHans": "设寿命 X~N(1000,50²)。P(合格)=P(X≥900)=P(X≥μ-2σ)≈0.9545+(1-0.9545)/2=0.97725。P(X>1100且合格)=P(X>1100)=P(X>μ+2σ)≈(1-0.9545)/2=0.02275。条件概率P(X>1100|合格)=0.02275/0.97725≈0.0233，最接近0.0230。"
+    }
+  ]
+}

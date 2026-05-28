@@ -1,0 +1,833 @@
+<!doctype html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MAIS Login Curriculum Selector - Three Design Options</title>
+    <style>
+      :root {
+        --cyan: #22c7e6;
+        --teal: #14b8a6;
+        --emerald: #2fce72;
+        --amber: #f7a61b;
+        --rose: #f0526b;
+        --ink: #07111f;
+        --muted: #627086;
+        --line: #dce5ef;
+        --panel: rgba(255, 255, 255, 0.88);
+        --bg: #eef8ff;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background:
+          radial-gradient(circle at 8% 16%, rgba(34, 199, 230, 0.16), transparent 28%),
+          radial-gradient(circle at 85% 8%, rgba(99, 102, 241, 0.1), transparent 28%),
+          linear-gradient(135deg, #eefaff 0%, #f7fbff 42%, #f6f7ff 100%);
+        color: var(--ink);
+        font-family: Inter, "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+      }
+
+      .sheet {
+        width: 2100px;
+        min-height: 1520px;
+        padding: 44px;
+      }
+
+      .header {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 24px;
+        margin-bottom: 28px;
+      }
+
+      .kicker {
+        margin: 0 0 10px;
+        color: var(--cyan);
+        font-size: 20px;
+        font-weight: 900;
+        letter-spacing: 0.22em;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 46px;
+        line-height: 1.08;
+        letter-spacing: 0;
+      }
+
+      .header p:last-child {
+        width: 680px;
+        margin: 0;
+        color: var(--muted);
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 1.45;
+      }
+
+      .options {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+      }
+
+      .option {
+        display: grid;
+        gap: 16px;
+      }
+
+      .option-title {
+        min-height: 122px;
+        padding: 22px 24px;
+        border: 1px solid rgba(220, 229, 239, 0.92);
+        border-radius: 24px;
+        background: rgba(255, 255, 255, 0.76);
+        box-shadow: 0 22px 44px rgba(15, 23, 42, 0.06);
+      }
+
+      .option-title strong {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--cyan);
+        font-size: 18px;
+        letter-spacing: 0.18em;
+      }
+
+      .option-title h2 {
+        margin: 0;
+        font-size: 28px;
+        line-height: 1.16;
+      }
+
+      .option-title p {
+        margin: 10px 0 0;
+        color: var(--muted);
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 1.38;
+      }
+
+      .mock {
+        height: 1240px;
+        overflow: hidden;
+        border: 1px solid rgba(220, 229, 239, 0.92);
+        border-radius: 32px;
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(255, 255, 255, 0.72)),
+          var(--bg);
+        box-shadow: 0 24px 70px rgba(15, 23, 42, 0.1);
+      }
+
+      .nav {
+        height: 84px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 30px;
+        border-bottom: 1px solid rgba(220, 229, 239, 0.8);
+        background: rgba(255, 255, 255, 0.7);
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 950;
+      }
+
+      .logo {
+        display: grid;
+        width: 48px;
+        height: 48px;
+        place-items: center;
+        border-radius: 14px;
+        background: #07111f;
+        color: #fff;
+        font-size: 26px;
+      }
+
+      .brand small {
+        display: block;
+        margin-top: 2px;
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 22px;
+        color: #334155;
+        font-size: 16px;
+        font-weight: 900;
+      }
+
+      .login-pill {
+        padding: 12px 18px;
+        border-radius: 999px;
+        background: var(--cyan);
+        color: #06111f;
+        box-shadow: 0 10px 22px rgba(34, 199, 230, 0.34);
+      }
+
+      .mock-body {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 275px;
+        gap: 24px;
+        padding: 70px 28px 34px;
+      }
+
+      .mock-body.topbar {
+        grid-template-columns: minmax(0, 1fr) 275px;
+        padding-top: 38px;
+      }
+
+      .full-row {
+        grid-column: 1 / -1;
+      }
+
+      .glass {
+        border: 1px solid rgba(220, 229, 239, 0.9);
+        border-radius: 24px;
+        background: var(--panel);
+        box-shadow: 0 18px 42px rgba(15, 23, 42, 0.07);
+      }
+
+      .form-card {
+        min-height: 700px;
+        padding: 36px;
+      }
+
+      .eyebrow {
+        margin: 0;
+        color: var(--cyan);
+        font-size: 16px;
+        font-weight: 950;
+        letter-spacing: 0.22em;
+      }
+
+      .login-title {
+        margin: 18px 0 12px;
+        font-size: 48px;
+        line-height: 1;
+        letter-spacing: 0;
+      }
+
+      .subcopy {
+        margin: 0 0 28px;
+        color: #536276;
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 1.5;
+      }
+
+      .field {
+        display: grid;
+        gap: 10px;
+        margin-top: 22px;
+      }
+
+      .field span {
+        font-size: 16px;
+        font-weight: 950;
+      }
+
+      .input {
+        height: 64px;
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        background: #fff;
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.9), 0 8px 20px rgba(15, 23, 42, 0.04);
+        padding: 0 22px;
+        font-size: 20px;
+        font-weight: 950;
+        display: flex;
+        align-items: center;
+      }
+
+      .notice {
+        margin-top: 22px;
+        color: #6a7486;
+        font-size: 14px;
+        font-style: italic;
+        font-weight: 700;
+        line-height: 1.6;
+      }
+
+      .button {
+        display: grid;
+        height: 60px;
+        margin-top: 24px;
+        place-items: center;
+        border-radius: 999px;
+        background: var(--ink);
+        color: #fff;
+        font-size: 18px;
+        font-weight: 950;
+      }
+
+      .side-card {
+        padding: 26px;
+      }
+
+      .side-title {
+        margin: 0 0 18px;
+        color: var(--cyan);
+        font-size: 16px;
+        font-weight: 950;
+        letter-spacing: 0.22em;
+      }
+
+      .grade-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+      }
+
+      .grade {
+        display: grid;
+        min-height: 64px;
+        place-items: center;
+        border: 1px solid var(--line);
+        border-top-width: 4px;
+        border-radius: 17px;
+        background: #fff;
+        font-size: 23px;
+        font-weight: 950;
+        line-height: 1.05;
+        text-align: center;
+      }
+
+      .grade.active {
+        border-color: var(--cyan);
+        background: var(--ink);
+        color: #fff;
+      }
+
+      .mission {
+        margin-top: 24px;
+        padding: 28px;
+      }
+
+      .mission h3 {
+        margin: 20px 0 0;
+        font-size: 34px;
+        line-height: 1.08;
+      }
+
+      .selector {
+        display: grid;
+        gap: 12px;
+      }
+
+      .selector-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+      }
+
+      .selector-title h3,
+      .selector-title p {
+        margin: 0;
+      }
+
+      .selector-title h3 {
+        font-size: 20px;
+        font-weight: 950;
+      }
+
+      .selector-title p {
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 800;
+      }
+
+      .regions {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+      }
+
+      .region,
+      .course {
+        position: relative;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: #fff;
+        color: #142033;
+        font-weight: 950;
+      }
+
+      .region {
+        min-height: 82px;
+        padding: 14px 12px;
+      }
+
+      .region small,
+      .course small {
+        display: block;
+        margin-top: 6px;
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 800;
+        line-height: 1.25;
+      }
+
+      .region::before {
+        content: "";
+        position: absolute;
+        inset: 0 0 auto 0;
+        height: 5px;
+        border-radius: 18px 18px 0 0;
+        background: var(--region-color, var(--cyan));
+      }
+
+      .region.active {
+        border-color: var(--cyan);
+        background: var(--ink);
+        color: #fff;
+        box-shadow: 0 12px 24px rgba(7, 17, 31, 0.16);
+      }
+
+      .region.active small {
+        color: rgba(255, 255, 255, 0.74);
+      }
+
+      .courses {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .course {
+        padding: 14px 14px;
+        min-height: 68px;
+      }
+
+      .course.active {
+        border-color: #34d399;
+        background: #eafff4;
+        color: #065f46;
+      }
+
+      .course.wide {
+        grid-column: 1 / -1;
+      }
+
+      .compact-selector {
+        margin: 4px 0 20px;
+        padding: 18px;
+      }
+
+      .compact-selector .regions {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .compact-selector .region {
+        min-height: 74px;
+      }
+
+      .top-strip {
+        padding: 22px;
+      }
+
+      .top-strip-inner {
+        display: grid;
+        grid-template-columns: 225px 1fr 280px;
+        gap: 18px;
+        align-items: stretch;
+      }
+
+      .top-strip h3 {
+        margin: 0 0 8px;
+        font-size: 24px;
+      }
+
+      .top-strip p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 14px;
+        font-weight: 800;
+        line-height: 1.45;
+      }
+
+      .summary {
+        border: 1px solid #bdebd8;
+        border-radius: 18px;
+        background: #effdf6;
+        padding: 16px;
+      }
+
+      .summary strong {
+        display: block;
+        color: #047857;
+        font-size: 15px;
+        margin-bottom: 8px;
+      }
+
+      .summary span {
+        display: block;
+        color: #163025;
+        font-size: 20px;
+        font-weight: 950;
+        line-height: 1.24;
+      }
+
+      .mini-note {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 12px;
+        color: #047857;
+        font-size: 13px;
+        font-weight: 900;
+      }
+
+      .option-a .side-card:first-child {
+        padding-bottom: 18px;
+      }
+
+      .option-a .side-card + .side-card {
+        margin-top: 18px;
+      }
+
+      .option-a .side-title {
+        margin-bottom: 14px;
+      }
+
+      .option-a .regions {
+        grid-template-columns: 1fr;
+      }
+
+      .option-a .region {
+        min-height: 62px;
+        padding: 13px 14px 13px 16px;
+      }
+
+      .option-a .region small {
+        display: inline;
+        margin-left: 6px;
+      }
+
+      .option-a .courses {
+        grid-template-columns: 1fr;
+      }
+
+      .option-a .course {
+        min-height: 56px;
+      }
+
+      .option-b .form-card {
+        padding-top: 32px;
+      }
+
+      .option-b .login-title {
+        font-size: 44px;
+      }
+
+      .option-b .field {
+        margin-top: 18px;
+      }
+
+      .option-c .form-card {
+        min-height: 610px;
+      }
+
+      .option-c .mock-body {
+        gap: 18px;
+      }
+
+      .option-c .top-strip-inner {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .option-c .top-strip h3 {
+        margin-bottom: 6px;
+      }
+
+      .option-c .top-strip .regions {
+        gap: 8px;
+      }
+
+      .option-c .top-strip .region {
+        min-height: 64px;
+        padding: 12px 10px;
+        font-size: 15px;
+      }
+
+      .option-c .top-strip .region small {
+        font-size: 10px;
+      }
+
+      .option-c .top-strip .courses {
+        gap: 8px;
+      }
+
+      .option-c .top-strip .course {
+        min-height: 54px;
+        padding: 11px 12px;
+      }
+
+      .option-c .summary {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        padding: 14px 16px;
+      }
+
+      .option-c .summary strong {
+        margin-bottom: 0;
+        white-space: nowrap;
+      }
+
+      .option-c .summary span {
+        font-size: 18px;
+        line-height: 1.2;
+      }
+
+      .option-c .mini-note {
+        margin-top: 0;
+        font-size: 12px;
+        white-space: nowrap;
+      }
+
+      .callout {
+        margin-top: 18px;
+        border: 1px solid #c8f1fb;
+        border-radius: 18px;
+        background: #ecfbff;
+        padding: 14px 16px;
+        color: #0f6372;
+        font-size: 14px;
+        font-weight: 850;
+        line-height: 1.45;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="sheet">
+      <div class="header">
+        <div>
+          <p class="kicker">LOGIN CURRICULUM SELECTOR</p>
+          <h1>登录页课程选择：3 个可落地 UI 方案</h1>
+        </div>
+        <p>目标是在登录前清楚选择“内地课程 / 美国课程 / 香港课程”，并立即显示每个课程体系下的具体课程版本。</p>
+      </div>
+
+      <section class="options">
+        <article class="option option-a">
+          <div class="option-title">
+            <strong>方案 A</strong>
+            <h2>右侧“课程与年级”一体面板</h2>
+            <p>把课程选择放在右侧年级卡上方，用户先选课程，再选年级。</p>
+          </div>
+
+          <div class="mock">
+            <div class="nav">
+              <div class="brand"><div class="logo">M</div><div>妙思数<small>数学自适应互动系统</small></div></div>
+              <div class="nav-links"><span>课时</span><span>自适应学习</span><span>练习场</span><span class="login-pill">登录</span></div>
+            </div>
+            <div class="mock-body">
+              <section class="glass form-card">
+                <p class="eyebrow">妙思数</p>
+                <h2 class="login-title">学生登录</h2>
+                <p class="subcopy">选择账号并进入对应的学习空间。</p>
+                <div class="field"><span>用户名</span><div class="input">彼得同学</div></div>
+                <div class="field"><span>密码</span><div class="input">•••••</div></div>
+                <p class="notice">根据美国和中国法律，MAIS 受已注册知识产权保护。严禁任何未经授权的使用，包括但不限于复制其功能或仿制其用户界面。</p>
+                <div class="button">登录</div>
+              </section>
+
+              <aside>
+                <section class="glass side-card">
+                  <p class="side-title">课程与年级</p>
+                  <div class="selector">
+                    <div class="regions">
+                      <div class="region" style="--region-color: var(--emerald)">内地课程 <small>人教版</small></div>
+                      <div class="region active" style="--region-color: var(--cyan)">美国课程 <small>CA / NC</small></div>
+                      <div class="region" style="--region-color: var(--amber)">香港课程 <small>DSE</small></div>
+                    </div>
+                    <div class="selector-title"><h3>具体课程</h3><p>随课程体系更新</p></div>
+                    <div class="courses">
+                      <div class="course active">加州课程<small>California</small></div>
+                      <div class="course">北卡课程<small>North Carolina</small></div>
+                    </div>
+                  </div>
+                </section>
+
+                <section class="glass side-card">
+                  <p class="side-title">学习年级</p>
+                  <div class="grade-grid">
+                    <div class="grade" style="border-top-color: var(--teal)">小一</div>
+                    <div class="grade" style="border-top-color: var(--emerald)">小二</div>
+                    <div class="grade" style="border-top-color: var(--amber)">小三</div>
+                    <div class="grade" style="border-top-color: var(--rose)">小四</div>
+                    <div class="grade" style="border-top-color: #c084fc">小五</div>
+                    <div class="grade" style="border-top-color: #818cf8">小六</div>
+                    <div class="grade" style="border-top-color: #38bdf8">初一</div>
+                    <div class="grade" style="border-top-color: #60a5fa">初二</div>
+                    <div class="grade" style="border-top-color: #a78bfa">初三</div>
+                    <div class="grade active">高一</div>
+                    <div class="grade" style="border-top-color: #fb923c">高二</div>
+                    <div class="grade" style="border-top-color: #e879f9">高三</div>
+                  </div>
+                </section>
+              </aside>
+            </div>
+          </div>
+        </article>
+
+        <article class="option option-b">
+          <div class="option-title">
+            <strong>方案 B</strong>
+            <h2>登录表单内“先选课程”模块</h2>
+            <p>把课程选择放在账号密码之前，最明确，适合新用户和展示账号。</p>
+          </div>
+
+          <div class="mock">
+            <div class="nav">
+              <div class="brand"><div class="logo">M</div><div>妙思数<small>数学自适应互动系统</small></div></div>
+              <div class="nav-links"><span>课时</span><span>自适应学习</span><span>练习场</span><span class="login-pill">登录</span></div>
+            </div>
+            <div class="mock-body">
+              <section class="glass form-card">
+                <p class="eyebrow">妙思数</p>
+                <h2 class="login-title">学生登录</h2>
+                <p class="subcopy">先选择课程，再进入对应学习空间。</p>
+
+                <div class="glass compact-selector">
+                  <div class="selector-title"><h3>课程体系</h3><p>登录后将保存到账号</p></div>
+                  <div class="regions" style="margin-top: 12px">
+                    <div class="region" style="--region-color: var(--emerald)">内地课程<small>人教版数学</small></div>
+                    <div class="region active" style="--region-color: var(--cyan)">美国课程<small>加州 / 北卡</small></div>
+                    <div class="region" style="--region-color: var(--amber)">香港课程<small>DSE 课程</small></div>
+                  </div>
+                  <div class="courses" style="margin-top: 12px">
+                    <div class="course active">加州课程<small>默认进入 CA Math</small></div>
+                    <div class="course">北卡课程<small>NC Math</small></div>
+                  </div>
+                </div>
+
+                <div class="field"><span>用户名</span><div class="input">彼得同学</div></div>
+                <div class="field"><span>密码</span><div class="input">•••••</div></div>
+                <p class="notice">根据美国和中国法律，MAIS 受已注册知识产权保护。严禁任何未经授权的使用。</p>
+                <div class="button">登录美国课程 · 加州课程</div>
+              </section>
+
+              <aside>
+                <section class="glass side-card">
+                  <p class="side-title">学习年级</p>
+                  <div class="grade-grid">
+                    <div class="grade" style="border-top-color: var(--teal)">小一</div>
+                    <div class="grade" style="border-top-color: var(--emerald)">小二</div>
+                    <div class="grade" style="border-top-color: var(--amber)">小三</div>
+                    <div class="grade" style="border-top-color: var(--rose)">小四</div>
+                    <div class="grade" style="border-top-color: #c084fc">小五</div>
+                    <div class="grade" style="border-top-color: #818cf8">小六</div>
+                    <div class="grade" style="border-top-color: #38bdf8">初一</div>
+                    <div class="grade" style="border-top-color: #60a5fa">初二</div>
+                    <div class="grade" style="border-top-color: #a78bfa">初三</div>
+                    <div class="grade active">高一</div>
+                    <div class="grade" style="border-top-color: #fb923c">高二</div>
+                    <div class="grade" style="border-top-color: #e879f9">高三</div>
+                  </div>
+                </section>
+
+                <section class="glass mission">
+                  <p class="side-title">使命</p>
+                  <h3>加速世界<br />迈向个性化<br />学习与教学。</h3>
+                </section>
+              </aside>
+            </div>
+          </div>
+        </article>
+
+        <article class="option option-c">
+          <div class="option-title">
+            <strong>方案 C</strong>
+            <h2>页面顶部课程条 + 右侧摘要</h2>
+            <p>把课程设为页面级上下文，登录卡和年级卡都跟随当前课程。</p>
+          </div>
+
+          <div class="mock">
+            <div class="nav">
+              <div class="brand"><div class="logo">M</div><div>妙思数<small>数学自适应互动系统</small></div></div>
+              <div class="nav-links"><span>课时</span><span>自适应学习</span><span>练习场</span><span class="login-pill">登录</span></div>
+            </div>
+            <div class="mock-body topbar">
+              <section class="glass top-strip full-row">
+                <div class="top-strip-inner">
+                  <div>
+                    <h3>选择课程</h3>
+                    <p>课程选择会影响年级名称、题库、学习路径和 AI 导师术语。</p>
+                  </div>
+                  <div class="selector">
+                    <div class="regions">
+                      <div class="region" style="--region-color: var(--emerald)">内地课程<small>人教版数学</small></div>
+                      <div class="region active" style="--region-color: var(--cyan)">美国课程<small>CA / NC</small></div>
+                      <div class="region" style="--region-color: var(--amber)">香港课程<small>DSE 课程</small></div>
+                    </div>
+                    <div class="courses">
+                      <div class="course active">加州课程<small>California standards</small></div>
+                      <div class="course">北卡课程<small>North Carolina standards</small></div>
+                    </div>
+                  </div>
+                  <div class="summary">
+                    <strong>当前进入</strong>
+                    <span>美国课程<br />加州课程 · 高一</span>
+                    <div class="mini-note">已准备匹配题库与路线图</div>
+                  </div>
+                </div>
+              </section>
+
+              <section class="glass form-card">
+                <p class="eyebrow">妙思数</p>
+                <h2 class="login-title">学生登录</h2>
+                <p class="subcopy">选择账号并进入当前课程学习空间。</p>
+                <div class="field"><span>用户名</span><div class="input">彼得同学</div></div>
+                <div class="field"><span>密码</span><div class="input">•••••</div></div>
+                <div class="callout">登录后继续使用：美国课程 / 加州课程 / 高一。可在账号设置中变更课程。</div>
+                <p class="notice">根据美国和中国法律，MAIS 受已注册知识产权保护。严禁任何未经授权的使用。</p>
+                <div class="button">登录并进入当前课程</div>
+              </section>
+
+              <aside>
+                <section class="glass side-card">
+                  <p class="side-title">学习年级</p>
+                  <div class="grade-grid">
+                    <div class="grade" style="border-top-color: var(--teal)">小一</div>
+                    <div class="grade" style="border-top-color: var(--emerald)">小二</div>
+                    <div class="grade" style="border-top-color: var(--amber)">小三</div>
+                    <div class="grade" style="border-top-color: var(--rose)">小四</div>
+                    <div class="grade" style="border-top-color: #c084fc">小五</div>
+                    <div class="grade" style="border-top-color: #818cf8">小六</div>
+                    <div class="grade" style="border-top-color: #38bdf8">初一</div>
+                    <div class="grade" style="border-top-color: #60a5fa">初二</div>
+                    <div class="grade" style="border-top-color: #a78bfa">初三</div>
+                    <div class="grade active">高一</div>
+                    <div class="grade" style="border-top-color: #fb923c">高二</div>
+                    <div class="grade" style="border-top-color: #e879f9">高三</div>
+                  </div>
+                </section>
+
+                <section class="glass mission">
+                  <p class="side-title">使命</p>
+                  <h3>加速世界<br />迈向个性化<br />学习与教学。</h3>
+                </section>
+              </aside>
+            </div>
+          </div>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>

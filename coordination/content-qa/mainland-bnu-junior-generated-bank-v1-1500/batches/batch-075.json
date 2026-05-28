@@ -1,0 +1,638 @@
+{
+  "batchId": "batch-075",
+  "questions": [
+    {
+      "id": "bnu-junior-ds-v1-s2-241",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-parallel-lines-proof",
+      "unitTitle": "平行线的证明",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "parallel-lines-proof",
+        "parallel-lines",
+        "transversal-angles",
+        "geometric-proof",
+        "平行线",
+        "证明"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平行线判定",
+        "平行线性质",
+        "角关系推理",
+        "证明书写",
+        "条件结论识别"
+      ],
+      "misconceptionTags": [
+        "parallel relation assumed from appearance",
+        "criterion and property reversed",
+        "angle-pair names confused",
+        "proof step lacks stated reason"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-parallel-lines-proof"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-parallel-lines-proof-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知直线 a 与直线 b 被直线 c 所截，交点分别为 A 和 B。给出下列条件：① ∠1 和 ∠2 是同位角，且 ∠1 = ∠2；② ∠3 和 ∠4 是内错角，且 ∠3 = ∠4；③ ∠5 和 ∠6 是同旁内角，且 ∠5 + ∠6 = 180°。其中能判定 a ∥ b 的条件有（ ）",
+      "optionsZhHans": [
+        "①②③",
+        "①②",
+        "②③",
+        "①③"
+      ],
+      "answer": "①②③",
+      "acceptedAnswers": [
+        "①②③"
+      ],
+      "explanationZhHans": "同位角相等、内错角相等、同旁内角互补都能判定两直线平行，因此三个条件均成立，选①②③。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-242",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-parallel-lines-proof",
+      "unitTitle": "平行线的证明",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "parallel-lines-proof",
+        "parallel-lines",
+        "transversal-angles",
+        "geometric-proof",
+        "平行线",
+        "证明"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平行线判定",
+        "平行线性质",
+        "角关系推理",
+        "证明书写",
+        "条件结论识别"
+      ],
+      "misconceptionTags": [
+        "parallel relation assumed from appearance",
+        "criterion and property reversed",
+        "angle-pair names confused",
+        "proof step lacks stated reason"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-parallel-lines-proof"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-parallel-lines-proof-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知直线AB与直线CD被直线EF所截，交点分别为G、H。给出以下条件：①∠AGE=60°，②∠CHF=120°，③∠BGE=120°，④∠DHF=60°。若要证明AB∥CD，需要选择哪两个条件组合？并写出证明过程。",
+      "optionsZhHans": [],
+      "answer": "选择条件①和②。证明：∵∠AGE=60°，∠CHF=120°，∴∠AGE+∠CHF=180°。又∵∠AGE与∠CHF是同旁内角，且同旁内角互补，两直线平行，∴AB∥CD。",
+      "acceptedAnswers": [
+        "选择条件①和②。证明：∵∠AGE=60°，∠CHF=120°，∴∠AGE+∠CHF=180°。又∵∠AGE与∠CHF是同旁内角，且同旁内角互补，两直线平行，∴AB∥CD。",
+        "选择条件①和②。证明：因为∠AGE=60°，∠CHF=120°，所以∠AGE+∠CHF=180°。而∠AGE与∠CHF是同旁内角，根据同旁内角互补，两直线平行，所以AB∥CD。"
+      ],
+      "explanationZhHans": "由几何条件，∠AGE与∠CHF是直线AB、CD被EF所截形成的同旁内角。计算得60°+120°=180°，满足同旁内角互补，故AB∥CD。其他组合无法直接推出平行。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-243",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-parallel-lines-proof",
+      "unitTitle": "平行线的证明",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "parallel-lines-proof",
+        "parallel-lines",
+        "transversal-angles",
+        "geometric-proof",
+        "平行线",
+        "证明"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平行线判定",
+        "平行线性质",
+        "角关系推理",
+        "证明书写",
+        "条件结论识别"
+      ],
+      "misconceptionTags": [
+        "parallel relation assumed from appearance",
+        "criterion and property reversed",
+        "angle-pair names confused",
+        "proof step lacks stated reason"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-parallel-lines-proof"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-parallel-lines-proof-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知直线AB与直线CD被直线EF所截，交点分别为G和H。给出以下四个条件：①∠EGB=60°，∠GHD=120°；②∠AGH=70°，∠CHF=70°；③∠BGH=110°，∠DHF=110°；④∠AGE=50°，∠CHG=130°。其中能判定AB∥CD的条件有（ ）个。",
+      "optionsZhHans": [],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2",
+        "两个",
+        "二"
+      ],
+      "explanationZhHans": "条件①：∠EGB与∠GHD是同旁内角，60°+120°=180°，可判定平行。条件②：∠AGH与∠CHF是同位角，相等，可判定平行。条件③：∠BGH与∠DHF不是同位角、内错角或同旁内角，不能判定。条件④：∠AGE与∠CHG不是同位角、内错角或同旁内角，不能判定。故能判定的有2个。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-244",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-parallel-lines-proof",
+      "unitTitle": "平行线的证明",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "parallel-lines-proof",
+        "parallel-lines",
+        "transversal-angles",
+        "geometric-proof",
+        "平行线",
+        "证明"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平行线判定",
+        "平行线性质",
+        "角关系推理",
+        "证明书写",
+        "条件结论识别"
+      ],
+      "misconceptionTags": [
+        "parallel relation assumed from appearance",
+        "criterion and property reversed",
+        "angle-pair names confused",
+        "proof step lacks stated reason"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-parallel-lines-proof"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-parallel-lines-proof-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知直线AB与CD被直线EF所截，交点分别为G和H。给出下列条件：①∠EGB = 60°，∠GHD = 120°；②∠AGE = 110°，∠CHG = 70°；③∠BGH = 80°，∠DHF = 100°；④∠AGH = 90°，∠GHC = 90°。其中能判定AB∥CD的条件共有几个？",
+      "optionsZhHans": [
+        "1个",
+        "2个",
+        "3个",
+        "4个"
+      ],
+      "answer": "2个",
+      "acceptedAnswers": [
+        "2个"
+      ],
+      "explanationZhHans": "①∠EGB与∠GHD是同旁内角，60°+120°=180°，可判定平行；②∠AGE与∠CHG是同位角，110°≠70°，不能判定；③∠BGH与∠DHF是内错角，80°≠100°，不能判定；④∠AGH与∠GHC是同旁内角，90°+90°=180°，可判定平行。共2个。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-245",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-parallel-lines-proof",
+      "unitTitle": "平行线的证明",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "parallel-lines-proof",
+        "parallel-lines",
+        "transversal-angles",
+        "geometric-proof",
+        "平行线",
+        "证明"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平行线判定",
+        "平行线性质",
+        "角关系推理",
+        "证明书写",
+        "条件结论识别"
+      ],
+      "misconceptionTags": [
+        "parallel relation assumed from appearance",
+        "criterion and property reversed",
+        "angle-pair names confused",
+        "proof step lacks stated reason"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-parallel-lines-proof"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-parallel-lines-proof-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知直线AB与直线CD被直线EF所截，交点分别为G和H。给出以下四个条件：①∠EGB = 60°，∠GHD = 120°；②∠AGE = 110°，∠CHF = 110°；③∠AGH = 70°，∠GHD = 70°；④∠BGH = 50°，∠DHF = 130°。其中能判定AB∥CD的条件有几个？",
+      "optionsZhHans": [],
+      "answer": "3",
+      "acceptedAnswers": [
+        "3",
+        "三个",
+        "3个"
+      ],
+      "explanationZhHans": "条件①：∠EGB与∠GHD是同旁内角，60°+120°=180°，可判定平行；条件②：∠AGE与∠CHF是同位角，相等，可判定平行；条件③：∠AGH与∠GHD是内错角，相等，可判定平行；条件④：∠BGH与∠DHF不是同位角、内错角或同旁内角，无法判定。故能判定的有3个。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-246",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-parallel-lines-proof",
+      "unitTitle": "平行线的证明",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "parallel-lines-proof",
+        "parallel-lines",
+        "transversal-angles",
+        "geometric-proof",
+        "平行线",
+        "证明"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平行线判定",
+        "平行线性质",
+        "角关系推理",
+        "证明书写",
+        "条件结论识别"
+      ],
+      "misconceptionTags": [
+        "parallel relation assumed from appearance",
+        "criterion and property reversed",
+        "angle-pair names confused",
+        "proof step lacks stated reason"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-parallel-lines-proof"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-parallel-lines-proof-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知直线AB与直线CD被直线EF所截，交点分别为G和H。给出以下条件：①∠EGB=70°，∠GHD=110°；②∠AGH=60°，∠CHF=60°；③∠BGH=80°，∠DHF=100°；④∠AGE=50°，∠CHG=130°。其中能判定AB∥CD的条件序号是______。",
+      "optionsZhHans": [],
+      "answer": "①②④",
+      "acceptedAnswers": [
+        "①②④",
+        "①,②,④",
+        "①、②、④"
+      ],
+      "explanationZhHans": "①∠EGB与∠GHD是同旁内角，70°+110°=180°，可判定平行；②∠AGH与∠CHF是同位角，相等可判定平行；③∠BGH与∠DHF是内错角，80°≠100°，不能判定；④∠AGE与∠CHG是同旁内角，50°+130°=180°，可判定平行。故填①②④。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-247",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-parallel-lines-proof",
+      "unitTitle": "平行线的证明",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "parallel-lines-proof",
+        "parallel-lines",
+        "transversal-angles",
+        "geometric-proof",
+        "平行线",
+        "证明"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平行线判定",
+        "平行线性质",
+        "角关系推理",
+        "证明书写",
+        "条件结论识别"
+      ],
+      "misconceptionTags": [
+        "parallel relation assumed from appearance",
+        "criterion and property reversed",
+        "angle-pair names confused",
+        "proof step lacks stated reason"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-parallel-lines-proof"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-parallel-lines-proof-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知：直线AB与直线CD被直线EF所截，交点分别为G、H。给出以下四个条件：①∠EGB = 60°，∠GHD = 60°；②∠AGH = 120°，∠GHD = 60°；③∠BGH = 120°，∠GHC = 120°；④∠AGH = 60°，∠CHF = 120°。其中能判定AB∥CD的条件有几个？",
+      "optionsZhHans": [
+        "1个",
+        "2个",
+        "3个",
+        "4个"
+      ],
+      "answer": "3个",
+      "acceptedAnswers": [
+        "3个"
+      ],
+      "explanationZhHans": "①∠EGB与∠GHD是同位角，相等则AB∥CD。②∠AGH=120°，∠GHD=60°，和为180°，是同旁内角互补，可判定平行。③∠BGH与∠GHC是同旁内角，均为120°，和为240°≠180°，不能判定。④∠AGH=60°，∠CHF=120°，∠CHF=∠GHD（对顶角），得∠AGH+∠GHD=180°，同旁内角互补，可判定。故①②④正确，共3个。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-248",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-parallel-lines-proof",
+      "unitTitle": "平行线的证明",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "parallel-lines-proof",
+        "parallel-lines",
+        "transversal-angles",
+        "geometric-proof",
+        "平行线",
+        "证明"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平行线判定",
+        "平行线性质",
+        "角关系推理",
+        "证明书写",
+        "条件结论识别"
+      ],
+      "misconceptionTags": [
+        "parallel relation assumed from appearance",
+        "criterion and property reversed",
+        "angle-pair names confused",
+        "proof step lacks stated reason"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-parallel-lines-proof"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-parallel-lines-proof-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知直线AB与直线CD被直线EF所截，交点分别为G和H。给出以下四个条件：①∠AGE=60°，∠CHG=120°；②∠BGE=70°，∠DHF=70°；③∠AGH=110°，∠CHF=70°；④∠BGH=80°，∠CHG=100°。其中能够判定AB∥CD的条件有哪些？请写出所有满足条件的序号，并简要说明理由。",
+      "optionsZhHans": [],
+      "answer": "②和③",
+      "acceptedAnswers": [
+        "②和③",
+        "②③",
+        "③和②",
+        "③②"
+      ],
+      "explanationZhHans": "条件①：∠AGE与∠CHG是同位角，60°≠120°，不平行。条件②：∠BGE与∠DHF是同位角，70°=70°，可判定平行。条件③：∠AGH与∠CHF是内错角，110°的补角是70°，内错角相等，可判定平行。条件④：∠BGH与∠CHG是同旁内角，80°+100°=180°，但同旁内角互补是性质而非判定，不能直接判定平行。故只有②和③。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-249",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-parallel-lines-proof",
+      "unitTitle": "平行线的证明",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "parallel-lines-proof",
+        "parallel-lines",
+        "transversal-angles",
+        "geometric-proof",
+        "平行线",
+        "证明"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平行线判定",
+        "平行线性质",
+        "角关系推理",
+        "证明书写",
+        "条件结论识别"
+      ],
+      "misconceptionTags": [
+        "parallel relation assumed from appearance",
+        "criterion and property reversed",
+        "angle-pair names confused",
+        "proof step lacks stated reason"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-parallel-lines-proof"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-parallel-lines-proof-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知直线AB与CD被直线EF所截，交点分别为G和H。给出以下四个条件：①∠EGB=60°，∠GHD=60°；②∠AGH=120°，∠GHD=60°；③∠EGB=60°，∠CHF=120°；④∠AGH=120°，∠CHF=120°。其中能够判定AB∥CD的条件序号是______。（填写所有正确条件的序号，用逗号分隔）",
+      "optionsZhHans": [],
+      "answer": "①,②",
+      "acceptedAnswers": [
+        "①,②",
+        "①，②",
+        "1,2",
+        "①②"
+      ],
+      "explanationZhHans": "条件①：∠EGB与∠GHD是同位角，相等则AB∥CD。条件②：∠AGH与∠GHD是同旁内角，和为180°则AB∥CD。条件③：∠EGB与∠CHF不是同位角、内错角或同旁内角，无法判定。条件④：∠AGH与∠CHF不是同旁内角，无法判定。故正确序号为①和②。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-250",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-parallel-lines-proof",
+      "unitTitle": "平行线的证明",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "parallel-lines-proof",
+        "parallel-lines",
+        "transversal-angles",
+        "geometric-proof",
+        "平行线",
+        "证明"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平行线判定",
+        "平行线性质",
+        "角关系推理",
+        "证明书写",
+        "条件结论识别"
+      ],
+      "misconceptionTags": [
+        "parallel relation assumed from appearance",
+        "criterion and property reversed",
+        "angle-pair names confused",
+        "proof step lacks stated reason"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-parallel-lines-proof"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-parallel-lines-proof-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知直线AB与直线CD被直线EF所截，交点分别为G和H。给出以下四个条件：①∠EGB=60°，∠GHD=60°；②∠AGH=120°，∠GHD=60°；③∠EGB=60°，∠CHF=120°；④∠AGH=120°，∠CHF=120°。其中能判定AB∥CD的条件有几个？",
+      "optionsZhHans": [
+        "1个",
+        "2个",
+        "3个",
+        "4个"
+      ],
+      "answer": "3个",
+      "acceptedAnswers": [
+        "3个"
+      ],
+      "explanationZhHans": "条件①：∠EGB与∠GHD是同位角，相等则AB∥CD，正确。条件②：∠AGH与∠GHD是同旁内角，和为180°则AB∥CD，正确。条件③：∠EGB与∠CHF不是同位角，∠CHF的对顶角是∠GHD，∠EGB=∠GHD=60°可判定，正确。条件④：∠AGH与∠CHF不是同旁内角，∠CHF的对顶角是∠GHD，∠AGH+∠GHD=120°+120°=240°≠180°，不能判定。共3个正确。"
+    }
+  ]
+}

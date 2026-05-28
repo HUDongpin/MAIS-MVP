@@ -1,0 +1,191 @@
+{
+  "batchNumber": 55,
+  "startedAt": "2026-05-27T13:29:10.767Z",
+  "completedAt": "2026-05-27T13:29:28.459Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p4-223",
+    "bnu-primary-ds-v1-p4-224",
+    "bnu-primary-ds-v1-p4-225",
+    "bnu-primary-ds-v1-p4-226",
+    "bnu-primary-ds-v1-p4-227",
+    "bnu-primary-ds-v1-p4-228",
+    "bnu-primary-ds-v1-p4-229",
+    "bnu-primary-ds-v1-p4-230",
+    "bnu-primary-ds-v1-p4-231",
+    "bnu-primary-ds-v1-p4-232",
+    "bnu-primary-ds-v1-p4-233",
+    "bnu-primary-ds-v1-p4-234",
+    "bnu-primary-ds-v1-p4-235",
+    "bnu-primary-ds-v1-p4-236",
+    "bnu-primary-ds-v1-p4-237",
+    "bnu-primary-ds-v1-p4-238",
+    "bnu-primary-ds-v1-p4-239",
+    "bnu-primary-ds-v1-p4-240"
+  ],
+  "usage": {
+    "prompt_tokens": 4566,
+    "completion_tokens": 1277,
+    "total_tokens": 5843,
+    "prompt_tokens_details": {
+      "cached_tokens": 4480
+    },
+    "prompt_cache_hit_tokens": 4480,
+    "prompt_cache_miss_tokens": 86
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p4-223",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案与解释一致，选项无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-224",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案格式合理，acceptedAnswers覆盖多种写法。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-225",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均数计算正确，选项C为唯一正确答案。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-226",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案与解释一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-227",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均数计算正确，选项D描述准确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-228",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案与解释一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-229",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项A正确，其他选项错误，解释清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-230",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，第二问理由合理，acceptedAnswers覆盖多种表述。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-231",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "差值计算正确，选项A为唯一正确答案。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-232",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "简单减法，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-233",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均数计算正确，选项A为正确答案。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-234",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均数计算正确，答案无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-235",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项C正确，其他选项错误，解释清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-236",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目考查小数加法数位对齐，答案合理，acceptedAnswers覆盖常见表述。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-237",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项C直接求平均数，符合题意。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-238",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "等腰三角形底角计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-239",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "对称轴定义正确，选项A为唯一正确答案。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-240",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "小数点移动规则正确，答案无误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均通过审核，无数学错误、答案不匹配、歧义或年级不匹配等问题。"
+    }
+  }
+}

@@ -1,0 +1,347 @@
+{
+  "batchId": "batch-102",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s3-k11-mc-011",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-right-triangle-trigonometry"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "在Rt△ABC中，∠C=90°，AB=5，BC=3，则sinA的值为（ ）",
+      "optionsZhHans": [
+        "3/5",
+        "4/5",
+        "3/4",
+        "4/3"
+      ],
+      "answer": "3/5",
+      "acceptedAnswers": [
+        "3/5",
+        "0.6"
+      ],
+      "explanationZhHans": "在Rt△ABC中，∠C=90°，AB为斜边，BC为∠A的对边。由勾股定理得AC=√(AB²-BC²)=√(5²-3²)=4。根据正弦定义，sinA=对边/斜边=BC/AB=3/5。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-mc-012",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-projection-views"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "在Rt△ABC中，∠C=90°，AC=3，BC=4，则 sinA 的值是（ ）",
+      "optionsZhHans": [
+        "3/5",
+        "4/5",
+        "3/4",
+        "5/4"
+      ],
+      "answer": "4/5",
+      "acceptedAnswers": [
+        "4/5",
+        "0.8"
+      ],
+      "explanationZhHans": "在Rt△ABC中，AB=√(3²+4²)=5。对于∠A，所对的直角边是BC=4，斜边是AB=5，所以 sinA=4/5。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-mc-013",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-function-geometry-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-dynamic-geometry-functions"
+      ],
+      "promptZhHans": "在平面直角坐标系中，点A是反比例函数y=k/x（k>0，x>0）图象上一点，AB⊥x轴于点B，点C是y轴上一点，且△ABC的面积为4，则k的值为（ ）",
+      "optionsZhHans": [
+        "4",
+        "-4",
+        "8",
+        "-8"
+      ],
+      "answer": "8",
+      "acceptedAnswers": [
+        "8"
+      ],
+      "explanationZhHans": "设A(a,k/a)，其中a>0且k>0，则B(a,0)，AB=k/a。点C在y轴上，C到直线AB的距离为a，所以△ABC面积=1/2×(k/a)×a=k/2。由k/2=4，得k=8。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-mc-014",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-similarity"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "某市为鼓励居民节约用水，对自来水用户按分段计费方式收取水费：若每月用水不超过7立方米，则按每立方米1元收费；若每月用水超过7立方米，则超过部分按每立方米2元收费。如果某居民今年5月份缴纳了17元水费，那么这户居民今年5月份的用水量为多少立方米？",
+      "optionsZhHans": [
+        "12",
+        "13",
+        "14",
+        "15"
+      ],
+      "answer": "12",
+      "acceptedAnswers": [
+        "12"
+      ],
+      "explanationZhHans": "设用水量为x立方米。若x≤7，则水费为x元，最大为7元，而17>7，故x>7。因此水费为7×1+(x-7)×2=17，解得x=12。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-mc-015",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-graduation-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-proof-calculation-integrated"
+      ],
+      "promptZhHans": "在△ABC中，点D、E分别在AB、AC上，DE∥BC，若AD=2，BD=3，BC=10，则DE的长为（ ）",
+      "optionsZhHans": [
+        "4",
+        "5",
+        "6",
+        "8"
+      ],
+      "answer": "4",
+      "acceptedAnswers": [
+        "4"
+      ],
+      "explanationZhHans": "由DE∥BC得△ADE∽△ABC，相似比为AD/AB=2/(2+3)=2/5，所以DE/BC=2/5，DE=10×2/5=4。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-mc-016",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-inverse-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig"
+      ],
+      "promptZhHans": "已知反比例函数y=(m-1)/x的图象在第二、四象限，则m的取值范围是（ ）",
+      "optionsZhHans": [
+        "m>1",
+        "m<1",
+        "m≥1",
+        "m≤1"
+      ],
+      "answer": "m<1",
+      "acceptedAnswers": [
+        "m<1"
+      ],
+      "explanationZhHans": "反比例函数y=k/x的图象在第二、四象限时，k<0。这里k=m-1，所以m-1<0，即m<1。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-mc-017",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-right-triangle-trigonometry"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models"
+      ],
+      "promptZhHans": "某气球内充满了一定质量的气体，当温度不变时，气球内气体的气压p（kPa）是气体体积V（m³）的反比例函数，其图象经过点（1.6，60）。当气球内的气压大于120kPa时，气球将爆炸，为了安全起见，气体的体积应（ ）",
+      "optionsZhHans": [
+        "不小于0.8m³",
+        "小于0.8m³",
+        "不小于1.6m³",
+        "小于1.6m³"
+      ],
+      "answer": "不小于0.8m³",
+      "acceptedAnswers": [
+        "不小于0.8m³"
+      ],
+      "explanationZhHans": "设p=k/V，将（1.6，60）代入得k=96，所以p=96/V。当p≤120时安全，即96/V≤120，解得V≥0.8。因此体积应不小于0.8m³。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-mc-018",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-projection-views"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "promptZhHans": "将Rt△ABC绕直角边AC旋转一周，其中AC=4，BC=3，所得几何体的主视图是（ ）",
+      "optionsZhHans": [
+        "等腰三角形，底边6，高4",
+        "圆，半径3",
+        "等腰三角形，底边8，高3",
+        "矩形，长4宽3"
+      ],
+      "answer": "等腰三角形，底边6，高4",
+      "acceptedAnswers": [
+        "等腰三角形，底边6，高4"
+      ],
+      "explanationZhHans": "Rt△ABC绕直角边AC旋转一周得到圆锥，其中AC为高，底面半径为BC=3。主视图是从正面看，看到的是等腰三角形，底边等于直径2×3=6，高为AC=4，因此选项A. 等腰三角形，底边6，高4符合。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-mc-019",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-function-geometry-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions"
+      ],
+      "promptZhHans": "二次函数y=ax²+bx+c的图象开口向上，对称轴在y轴左侧，则一次函数y=bx+a的图象不经过（ ）",
+      "optionsZhHans": [
+        "第一象限",
+        "第二象限",
+        "第三象限",
+        "第四象限"
+      ],
+      "answer": "第四象限",
+      "acceptedAnswers": [
+        "第四象限"
+      ],
+      "explanationZhHans": "由二次函数图象开口向上知a>0，对称轴在y轴左侧得-b/(2a)<0，结合a>0得b>0。一次函数y=bx+a中，b>0，a>0，故图象经过一、二、三象限，不经过第四象限。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-mc-020",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-similarity"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "在△ABC中，点D、E分别在边AB、AC上，下列条件中不能判断△ADE∽△ACB的是（ ）",
+      "optionsZhHans": [
+        "∠ADE=∠C",
+        "∠AED=∠B",
+        "AD/AC=AE/AB",
+        "AD/AB=AE/AC"
+      ],
+      "answer": "AD/AB=AE/AC",
+      "acceptedAnswers": [
+        "AD/AB=AE/AC"
+      ],
+      "explanationZhHans": "选项A和B分别给出两组角相等，可判定相似；选项C中，AD/AC=AE/AB，且夹角∠A公共，符合两边对应成比例且夹角相等，可判定△ADE∽△ACB；选项D中，AD/AB=AE/AC，但∠A不是AD与AE的夹角，也不是AB与AC的夹角，对应边成比例但夹角不一定相等，故不能判定相似。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

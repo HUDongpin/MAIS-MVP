@@ -1,0 +1,137 @@
+{
+  "batchNumber": 100,
+  "startedAt": "2026-05-27T14:01:00.389Z",
+  "completedAt": "2026-05-27T14:01:18.128Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-293",
+    "bnu-high-ds-v1-s5-294",
+    "bnu-high-ds-v1-s5-295",
+    "bnu-high-ds-v1-s5-296",
+    "bnu-high-ds-v1-s5-297",
+    "bnu-high-ds-v1-s5-298",
+    "bnu-high-ds-v1-s5-299",
+    "bnu-high-ds-v1-s5-300"
+  ],
+  "usage": {
+    "prompt_tokens": 10935,
+    "completion_tokens": 1076,
+    "total_tokens": 12011,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10423
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-293",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "80",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "二项式定理直接可解，通项正确，系数计算无误，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-294",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "150",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "分组分配问题可解，答案150正确，解析中两种方法均得出150，无矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-295",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "第4项",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "二项式系数最大项问题，n=6为偶数，中间一项为第4项，选项唯一正确，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-296",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "36",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "数字排列问题可解，末位奇数、首位非零限制处理正确，计算得36，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-297",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "1316",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "分类组合计数，三类情况计算正确，总和1316，解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-298",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "-160",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "二项式常数项问题，通项正确，r=3时系数-160，选项唯一，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-299",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "672x^5",
+        "correctedAnswer": "672x^5",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "系数最大项应为r=5时的672x^5，原答案672x^4错误，解析中计算过程也得出r=5但最终写错指数，答案与解析矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-300",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "36",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "小球入盒问题，先选盒子放2球再分配剩余，计算得36，解析正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第299题答案错误，应为672x^5而非672x^4，解析中虽算出r=5但最终项写错，需修正。其余题目均通过审核。"
+    }
+  }
+}

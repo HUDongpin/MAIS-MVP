@@ -1,0 +1,147 @@
+{
+  "batchNumber": 135,
+  "startedAt": "2026-05-27T14:06:27.224Z",
+  "completedAt": "2026-05-27T14:06:47.528Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-073",
+    "bnu-high-ds-v1-s6-074",
+    "bnu-high-ds-v1-s6-075",
+    "bnu-high-ds-v1-s6-076",
+    "bnu-high-ds-v1-s6-077",
+    "bnu-high-ds-v1-s6-078",
+    "bnu-high-ds-v1-s6-079",
+    "bnu-high-ds-v1-s6-080"
+  ],
+  "usage": {
+    "prompt_tokens": 11702,
+    "completion_tokens": 1269,
+    "total_tokens": 12971,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 11190
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-073",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "27",
+        "correctedAnswer": "27",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "bad_options",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "由S_n=n^2+2n得a_n=2n+1，a_3+a_4+a_5=7+9+11=27，选项无27，题目不可解。解析承认计算得27但选项无，并试图修改题目，与题干矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-074",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(1) a_n=2^n; (2) T_n=n(n+1)/2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "条件充分，解得q=2, a1=2，通项正确；对数转化后得等差数列求和，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-075",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "n^2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "累加得a_n=1+∑(2k+1)=n^2，答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-076",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "21/16",
+        "correctedAnswer": "21/16",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "计算S_6=2[1-(-1/2)^6]/(1+1/2)=21/16，选项A为21/16，但答案设为21/32，解析也指出正确答案应为21/16，答案与解析矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-077",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(1) 证明见解析; (2) a_n=3^n-2^n",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "构造b_n=a_n-3^n，证得等比，通项正确，解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-078",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "S_3=3a_1+3d=15，解得d=3，答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-079",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "无法确定a_100与20的大小关系",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "由递推得a_n^2>2n-1，a_100>14，但无法推出>20；解析也承认可能不成立，题目不可解，选项无正确结论。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-080",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "21",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由S_n求a_n，得a_1=1, a_3=4, a_5=16，和为21，答案正确，解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 5,
+      "warn": 0,
+      "fail": 3,
+      "notes": "8题中5题通过，3题失败：073选项无正确答案且解析矛盾；076答案错误且解析矛盾；079不可解且选项无正确结论。"
+    }
+  }
+}

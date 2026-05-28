@@ -1,0 +1,173 @@
+{
+  "batchNumber": 122,
+  "startedAt": "2026-05-27T18:04:23.091Z",
+  "completedAt": "2026-05-27T18:04:43.705Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s3-453",
+    "bnu-junior-ds-v1-s3-454",
+    "bnu-junior-ds-v1-s3-455",
+    "bnu-junior-ds-v1-s3-456",
+    "bnu-junior-ds-v1-s3-457",
+    "bnu-junior-ds-v1-s3-458",
+    "bnu-junior-ds-v1-s3-459",
+    "bnu-junior-ds-v1-s3-460",
+    "bnu-junior-ds-v1-s3-461",
+    "bnu-junior-ds-v1-s3-462",
+    "bnu-junior-ds-v1-s3-463",
+    "bnu-junior-ds-v1-s3-464"
+  ],
+  "usage": {
+    "prompt_tokens": 6011,
+    "completion_tokens": 1355,
+    "total_tokens": 7366,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 5499
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s3-453",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，选项C正确表达了样本标准差用于估计总体波动程度，其他选项过于绝对，答案与解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-454",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数据明确，方差计算正确，答案为50，解释步骤无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-455",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "有放回摸球，每次黄球概率3/5，两次独立，概率为9/25，选项B正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-456",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目给出平均数、中位数、众数，要求解释平均数小于中位数的原因并选择代表统计量，答案正确指出左偏分布及中位数的稳健性，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-457",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算甲、乙方差，甲更小，选项C正确，解释中方差数值准确，答案匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-458",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "有放回抽取，和为奇数的组合共8种，总可能16种，概率1/2，答案及解释正确，acceptedAnswers覆盖分数、小数、百分数形式。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-459",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "频数表显示160～165 cm组人数最多，众数所在范围正确，选项C无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-460",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数据排序后中位数为190，计算正确，答案匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-461",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数据统计显示众数为7和8，中位数7，平均数7.1，方差约1.29，选项A正确，其他选项错误，答案唯一且解释清晰。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-462",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "累计频数计算正确，第20、21个数据落在80~90分段，答案及解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-463",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "甲、乙方差计算正确，甲更稳定，选项C正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-464",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "总球数6，红球概率1/2，黄球概率1/3，答案及解释正确，acceptedAnswers覆盖不同表述。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部12道题均条件充分、可解，答案与解释匹配，无错误或歧义，适合北师大版九年级统计与概率内容。"
+    }
+  }
+}

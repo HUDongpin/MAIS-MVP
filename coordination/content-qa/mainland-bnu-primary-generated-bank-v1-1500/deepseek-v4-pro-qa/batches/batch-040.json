@@ -1,0 +1,191 @@
+{
+  "batchNumber": 40,
+  "startedAt": "2026-05-27T13:28:00.035Z",
+  "completedAt": "2026-05-27T13:28:19.558Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p3-203",
+    "bnu-primary-ds-v1-p3-204",
+    "bnu-primary-ds-v1-p3-205",
+    "bnu-primary-ds-v1-p3-206",
+    "bnu-primary-ds-v1-p3-207",
+    "bnu-primary-ds-v1-p3-208",
+    "bnu-primary-ds-v1-p3-209",
+    "bnu-primary-ds-v1-p3-210",
+    "bnu-primary-ds-v1-p3-211",
+    "bnu-primary-ds-v1-p3-212",
+    "bnu-primary-ds-v1-p3-213",
+    "bnu-primary-ds-v1-p3-214",
+    "bnu-primary-ds-v1-p3-215",
+    "bnu-primary-ds-v1-p3-216",
+    "bnu-primary-ds-v1-p3-217",
+    "bnu-primary-ds-v1-p3-218",
+    "bnu-primary-ds-v1-p3-219",
+    "bnu-primary-ds-v1-p3-220"
+  ],
+  "usage": {
+    "prompt_tokens": 3171,
+    "completion_tokens": 1383,
+    "total_tokens": 4554,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 2915
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p3-203",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，面积守恒，选项D明确，解释清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-204",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，面积9×6=54，总产量54×8=432，答案无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-205",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "原面积28，选项B面积28，相等，其他选项面积不同，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-206",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "周长36，边长9，面积81，计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-207",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "周长24，边长6，面积36，选项A正确，解释合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-208",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "邮票面积约6平方厘米，单位合适，符合实际。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-209",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "对折三次分8份，每份八分之一，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-210",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均分4份，每份四分之一，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-211",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "对折两次分4份，每份四分之一，选项B正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-212",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均分9份，每份九分之一，写作1/9，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-213",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "强调平均分，选项B正确，解释清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-214",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "涂色3份，总8份，分数3/8，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-215",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均分5段，每段五分之一，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-216",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "12个苹果平均分4份，每份1/4，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-217",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项B平均分3份取1份，表示1/3，其他选项未平均分或份数不对，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-218",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "7/10读作十分之七，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-219",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "8个面包吃3个，占3/8，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-220",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "六分之一写作1/6，九分之五写作5/9，答案正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版小学数学要求，数学正确，答案匹配，无歧义，适合对应年级和主题。"
+    }
+  }
+}

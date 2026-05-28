@@ -1,0 +1,179 @@
+{
+  "batchNumber": 53,
+  "startedAt": "2026-05-27T17:37:34.651Z",
+  "completedAt": "2026-05-27T17:37:54.305Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s2-125",
+    "bnu-junior-ds-v1-s2-126",
+    "bnu-junior-ds-v1-s2-127",
+    "bnu-junior-ds-v1-s2-128",
+    "bnu-junior-ds-v1-s2-129",
+    "bnu-junior-ds-v1-s2-130",
+    "bnu-junior-ds-v1-s2-131",
+    "bnu-junior-ds-v1-s2-132",
+    "bnu-junior-ds-v1-s2-133",
+    "bnu-junior-ds-v1-s2-134",
+    "bnu-junior-ds-v1-s2-135",
+    "bnu-junior-ds-v1-s2-136"
+  ],
+  "usage": {
+    "prompt_tokens": 6249,
+    "completion_tokens": 1461,
+    "total_tokens": 7710,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 5737
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s2-125",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件完整，分段函数关系正确，计算7.8千米车费15.5元无误，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-126",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "阶梯水价条件明确，计算25立方米水费70元正确，答案与解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-127",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项唯一正确，y=2x+2符合题意，解释推导无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-128",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "函数表达式y=1.5x+3.5正确，10公里车费18.5元计算无误，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-129",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "函数关系式y=2.5x+0.5正确，解释推导无误，答案与题目匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-130",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项唯一正确，y=2.5x+0.5符合题意，解释验证无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-131",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "函数表达式y=1.5x+3.5正确，10千米车费18.5元计算无误，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-132",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "1/6",
+        "rationale": "由两点求得一次函数为y=3x-1，与x轴交点A(1/3,0)，与y轴交点B(0,-1)，三角形AOB面积为1/2×|1/3|×|-1|=1/6，但答案为1，解释中也提到面积为1/6，答案与解释矛盾，且答案错误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-133",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项B的k=-3<0，y随x增大而减小，其他选项k>0，答案正确，解释无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-134",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "函数关系y=0.5x+6正确，挂4千克时总长8厘米计算无误，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-135",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "代入原点解得m=3正确，答案与解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-136",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "4",
+        "rationale": "由两点求得k=2，b=2，k+b=4，但答案为6，解释中也算出k+b=4，答案与解释矛盾，且答案错误。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 10,
+      "warn": 0,
+      "fail": 2,
+      "notes": "12道题中10道通过，2道失败：bnu-junior-ds-v1-s2-132答案错误（应为1/6而非1），bnu-junior-ds-v1-s2-136答案错误（应为4而非6），均存在答案与解释不匹配。"
+    }
+  }
+}

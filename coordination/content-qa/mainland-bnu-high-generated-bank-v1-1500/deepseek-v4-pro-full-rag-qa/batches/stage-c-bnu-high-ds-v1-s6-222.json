@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-222",
+  "startedAt": "2026-05-28T01:46:19.808Z",
+  "completedAt": "2026-05-28T01:46:23.794Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-222"
+  ],
+  "usage": {
+    "prompt_tokens": 2110,
+    "completion_tokens": 258,
+    "total_tokens": 2368,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1726
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-222",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "题目条件矛盾，无法求解",
+        "correctedAnswer": "题目条件矛盾，无法求解",
+        "issueTags": [
+          "math_error",
+          "unsolvable",
+          "missing_condition"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "由等差数列性质 a3+a7=2a5=20 得 a5=10，与已知 a5=9 矛盾，题目条件冲突，无法求解。存储答案 682 基于错误假设，应判定为不可解。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目条件矛盾，无法求解，应判定为不可解。"
+    }
+  }
+}

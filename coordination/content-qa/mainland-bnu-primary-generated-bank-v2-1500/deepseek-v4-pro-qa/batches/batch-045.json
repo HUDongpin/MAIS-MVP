@@ -1,0 +1,191 @@
+{
+  "batchNumber": 45,
+  "startedAt": "2026-05-27T13:53:41.588Z",
+  "completedAt": "2026-05-27T13:54:01.015Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p4-043",
+    "bnu-primary-ds-v2-p4-044",
+    "bnu-primary-ds-v2-p4-045",
+    "bnu-primary-ds-v2-p4-046",
+    "bnu-primary-ds-v2-p4-047",
+    "bnu-primary-ds-v2-p4-048",
+    "bnu-primary-ds-v2-p4-049",
+    "bnu-primary-ds-v2-p4-050",
+    "bnu-primary-ds-v2-p4-051",
+    "bnu-primary-ds-v2-p4-052",
+    "bnu-primary-ds-v2-p4-053",
+    "bnu-primary-ds-v2-p4-054",
+    "bnu-primary-ds-v2-p4-055",
+    "bnu-primary-ds-v2-p4-056",
+    "bnu-primary-ds-v2-p4-057",
+    "bnu-primary-ds-v2-p4-058",
+    "bnu-primary-ds-v2-p4-059",
+    "bnu-primary-ds-v2-p4-060"
+  ],
+  "usage": {
+    "prompt_tokens": 3995,
+    "completion_tokens": 1359,
+    "total_tokens": 5354,
+    "prompt_tokens_details": {
+      "cached_tokens": 3968
+    },
+    "prompt_cache_hit_tokens": 3968,
+    "prompt_cache_miss_tokens": 27
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p4-043",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，估算与精确计算均支持C为最接近10000的选项。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-044",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，两种解法均得1035，符合题意。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-045",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案1416正确，估算与精确计算过程清晰，符合要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-046",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "竖式解释正确，箭头所指472表示236×20，选项C无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-047",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "积的变化规律应用正确，150×240=36000。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-048",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，苹果树比梨树多516棵。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-049",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项B正确，25×4×11=1100，与25×44相等，其他选项均不等。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-050",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "填空答案100, 900正确，符合简便计算过程。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-051",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确解释了结合律和分配律的应用，两种方法均正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-052",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项25×(40+7)最适合使用乘法分配律，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-053",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "填空5和结合律正确，36×25=36×5×5。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-054",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "错误分析正确，正确计算过程为48×102=4896。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-055",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项D 125×80×8=80000，与125×88不相等，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-056",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "填空均为25，符合乘法分配律。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-057",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "简便计算过程正确，依据清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-058",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项B正确运用了加法结合律。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-059",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "填空47、53、交换、结合正确，符合运算律。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-060",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "解释正确，逆用乘法分配律得3800。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均通过审核，数学正确，答案匹配，无歧义或缺失条件，适合北师大版小学数学四年级上册。"
+    }
+  }
+}

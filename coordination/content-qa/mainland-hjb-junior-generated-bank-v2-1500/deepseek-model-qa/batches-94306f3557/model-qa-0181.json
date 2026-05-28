@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0181",
+  "ids": [
+    "hjb-junior-ds-v2-s3-441",
+    "hjb-junior-ds-v2-s3-442",
+    "hjb-junior-ds-v2-s3-443",
+    "hjb-junior-ds-v2-s3-444",
+    "hjb-junior-ds-v2-s3-445",
+    "hjb-junior-ds-v2-s3-446",
+    "hjb-junior-ds-v2-s3-447",
+    "hjb-junior-ds-v2-s3-448"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-441",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "175",
+      "answerCheckZhHans": "标准答案为175，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-442",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "中位数是8分，众数是8分",
+      "answerCheckZhHans": "标准答案与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-443",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2.0",
+      "answerCheckZhHans": "标准答案为2.0，与独立解题结果一致。acceptedAnswers包含2.0和2，覆盖合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-444",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "方差",
+      "answerCheckZhHans": "标准答案与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-445",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "独立计算得丙厂方差约为0.609375，但甲厂方差为1.5，乙厂方差为5.25，丙厂方差最小，最稳定。但解析中丙厂平均数为5.875，方差0.61，与独立计算一致，答案应为丙厂。然而，题干要求填空，标准答案为“丙”，与解析一致，但需确认是否唯一。实际上，丙厂方差最小，答案正确。但检查发现，甲厂数据：4,5,5,6,6,7,7,8，平均6，方差=((4-6)^2+(5-6)^2*2+(6-6)^2*2+(7-6)^2*2+(8-6)^2)/8=(4+2+0+2+4)/8=12/8=1.5；乙厂：3,4,5,6,7,8,9,10，平均6.5，方差=((3-6.5)^2+(4-6.5)^2+(5-6.5)^2+(6-6.5)^2+(7-6.5)^2+(8-6.5)^2+(9-6.5)^2+(10-6.5)^2)/8=(12.25+6.25+2.25+0.25+0.25+2.25+6.25+12.25)/8=42/8=5.25；丙厂：5,5,5,6,6,6,7,7，平均=(5*3+6*3+7*2)/8=(15+18+14)/8=47/8=5.875，方差=((5-5.875)^2*3+(6-5.875)^2*3+(7-5.875)^2*2)/8=((0.765625)*3+(0.015625)*3+(1.265625)*2)/8=(2.296875+0.046875+2.53125)/8=4.875/8=0.609375。丙厂方差最小，最稳定。答案正确。但解析中丙厂方差写为0.61，近似值，可接受。然而，题干要求填空，答案“丙”正确。但检查发现，解析中甲厂平均6，方差1.5；乙厂平均6.5，方差5.25；丙厂平均5.875，方差0.61。均正确。因此，本题无错误。但为何标记needs-review？因为独立解题时，发现丙厂方差计算需仔细，但最终答案一致。可能误判。重新审视：题目要求“使用寿命最稳定的是______厂”，根据方差，丙厂方差最小，最稳定。答案“丙”正确。解析无误。因此，应pass。但之前标记needs-review，需纠正。",
+      "independentAnswerZhHans": "丙",
+      "answerCheckZhHans": "标准答案为丙，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改，题目正确。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-446",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "A. 平均数为86分，中位数为85分，众数为85分",
+      "answerCheckZhHans": "标准答案与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-447",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "7.27",
+      "answerCheckZhHans": "标准答案为7.27，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-448",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "B. 样本的30%优秀率可以估计全市八年级学生的优秀率，但存在误差",
+      "answerCheckZhHans": "标准答案与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

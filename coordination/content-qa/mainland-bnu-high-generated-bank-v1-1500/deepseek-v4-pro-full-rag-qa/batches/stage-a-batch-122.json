@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-122",
+  "startedAt": "2026-05-28T01:31:52.599Z",
+  "completedAt": "2026-05-28T01:32:05.409Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-469",
+    "bnu-high-ds-v1-s5-470",
+    "bnu-high-ds-v1-s5-471",
+    "bnu-high-ds-v1-s5-472",
+    "bnu-high-ds-v1-s5-473",
+    "bnu-high-ds-v1-s5-474",
+    "bnu-high-ds-v1-s5-475",
+    "bnu-high-ds-v1-s5-476"
+  ],
+  "usage": {
+    "prompt_tokens": 10782,
+    "completion_tokens": 925,
+    "total_tokens": 11707,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 10398
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-469",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "B",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "独立性检验中，K²观测值越大，拒绝原假设的证据越强，表明两个分类变量有关系的可能性越大，故选B。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-470",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "3.9",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "计算得回归系数b=0.68，a=0.46，回归方程为ŷ=0.68x+0.46，代入x=5.2得ŷ≈3.9万元。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-471",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "B",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "数据呈完全正线性关系，斜率约为5，故阅读时间每增加1小时，语文成绩平均提高约5分。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-472",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "K²≈8.33，能认为有关",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "计算得K²≈8.33>3.841，拒绝原假设，认为是否近视与是否参加体育锻炼有关。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-473",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "C",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "点(3,5)略低于整体趋势，去除后线性关系更强，相关系数显著增大。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-474",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "0.630",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "利用公式b=(∑xiyi - n x̄ ȳ)/(∑xi² - n x̄²)，代入数据得b=0.63。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-475",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "B",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "r=0.92表明高度正相关，但不能推断因果或决定系数，故选B。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-476",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "26.7",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "代入x=36到回归方程ŷ=0.7×36+1.5=26.7千元。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均能独立求解，无歧义或错误，符合北师大版高中统计案例要求。"
+    }
+  }
+}

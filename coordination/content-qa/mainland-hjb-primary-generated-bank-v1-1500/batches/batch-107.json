@@ -1,0 +1,291 @@
+{
+  "batchId": "batch-107",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p3-031",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-multiplication-division-extension",
+      "unitTitle": "乘与除",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "multiplication-division-extension",
+        "multiplicative-comparison",
+        "division-with-remainder",
+        "乘与除"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "乘法含义",
+        "除法含义",
+        "有余数除法",
+        "倍的理解",
+        "算式表达"
+      ],
+      "misconceptionTags": [
+        "remainder treated as another full group",
+        "times language read as addition keyword only",
+        "divisor and quotient roles reversed"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-multiplication-division-extension"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-one-digit-division",
+        "hjb-primary-p3-upper-assessment-review-operations"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小雅有 45 张贴纸，每 6 张贴成一行。她贴了完整的行后，剩下的贴纸不够贴满一行。下面哪句话是正确的？",
+      "optionsZhHans": [
+        "她贴了 7 行，剩下 3 张",
+        "她贴了 8 行，剩下 3 张",
+        "她贴了 7 行，剩下 9 张",
+        "她贴了 6 行，剩下 9 张"
+      ],
+      "answer": "她贴了 7 行，剩下 3 张",
+      "acceptedAnswers": [
+        "她贴了 7 行，剩下 3 张"
+      ],
+      "explanationZhHans": "45 ÷ 6 = 7（行）……3（张）。商是完整的行数，余数是剩下的张数。余数 3 小于除数 6，所以不能再贴满一行。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-032",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-multiplication-division-extension",
+      "unitTitle": "乘与除",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "multiplication-division-extension",
+        "multiplicative-comparison",
+        "division-with-remainder",
+        "乘与除"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "乘法含义",
+        "除法含义",
+        "有余数除法",
+        "倍的理解",
+        "算式表达"
+      ],
+      "misconceptionTags": [
+        "remainder treated as another full group",
+        "times language read as addition keyword only",
+        "divisor and quotient roles reversed"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-multiplication-division-extension"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-one-digit-division",
+        "hjb-primary-p3-upper-assessment-review-operations"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一盒巧克力有 8 颗。老师买了若干盒，全部分给小朋友，每人分得 5 颗，正好分完。老师最少买了多少颗巧克力？",
+      "optionsZhHans": [],
+      "answer": "40",
+      "acceptedAnswers": [
+        "40",
+        "40颗",
+        "40 颗"
+      ],
+      "explanationZhHans": "巧克力总数既是 8 的倍数（整盒），又是 5 的倍数（每人 5 颗正好分完）。8 和 5 的最小公倍数是 40，所以最少 40 颗。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-033",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-multiplication-division-extension",
+      "unitTitle": "乘与除",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "multiplication-division-extension",
+        "multiplicative-comparison",
+        "division-with-remainder",
+        "乘与除"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "乘法含义",
+        "除法含义",
+        "有余数除法",
+        "倍的理解",
+        "算式表达"
+      ],
+      "misconceptionTags": [
+        "remainder treated as another full group",
+        "times language read as addition keyword only",
+        "divisor and quotient roles reversed"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-multiplication-division-extension"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-one-digit-division",
+        "hjb-primary-p3-upper-assessment-review-operations"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校买来 86 本新书，每个书架放 9 本。全部放完后，最后一个书架没有放满。最后一个书架放了多少本？",
+      "optionsZhHans": [],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5",
+        "5本",
+        "5 本"
+      ],
+      "explanationZhHans": "86 ÷ 9 = 9（个）……5（本）。9 个书架放满后还剩 5 本，放在第 10 个书架上，所以最后一个书架放 5 本。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-034",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-multiplication-division-extension",
+      "unitTitle": "乘与除",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "multiplication-division-extension",
+        "multiplicative-comparison",
+        "division-with-remainder",
+        "乘与除"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "乘法含义",
+        "除法含义",
+        "有余数除法",
+        "倍的理解",
+        "算式表达"
+      ],
+      "misconceptionTags": [
+        "remainder treated as another full group",
+        "times language read as addition keyword only",
+        "divisor and quotient roles reversed"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-multiplication-division-extension"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-one-digit-division",
+        "hjb-primary-p3-upper-assessment-review-operations"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小杰有 24 块积木，小雅的积木数量是小杰的 3 倍。小雅有多少块积木？",
+      "optionsZhHans": [
+        "8 块",
+        "27 块",
+        "72 块",
+        "21 块"
+      ],
+      "answer": "72 块",
+      "acceptedAnswers": [
+        "72 块"
+      ],
+      "explanationZhHans": "求一个数的几倍用乘法。小杰的 3 倍就是 24 × 3 = 72（块）。选项 8 块是 24 ÷ 3 的错误结果。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-035",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-multiplication-division-extension",
+      "unitTitle": "乘与除",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "multiplication-division-extension",
+        "multiplicative-comparison",
+        "division-with-remainder",
+        "乘与除"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "乘法含义",
+        "除法含义",
+        "有余数除法",
+        "倍的理解",
+        "算式表达"
+      ],
+      "misconceptionTags": [
+        "remainder treated as another full group",
+        "times language read as addition keyword only",
+        "divisor and quotient roles reversed"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-multiplication-division-extension"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-one-digit-division",
+        "hjb-primary-p3-upper-assessment-review-operations"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用一堆小棒摆三角形，每个三角形用 3 根小棒。摆完后小棒没有剩余。如果改用这些小棒摆正方形，每个正方形用 4 根，摆完后也没有剩余。这堆小棒最少有多少根？",
+      "optionsZhHans": [],
+      "answer": "12",
+      "acceptedAnswers": [
+        "12",
+        "12根",
+        "12 根"
+      ],
+      "explanationZhHans": "小棒根数既是 3 的倍数（摆三角形无剩余），又是 4 的倍数（摆正方形无剩余）。3 和 4 的最小公倍数是 12，所以最少 12 根。"
+    }
+  ]
+}

@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-081",
+  "startedAt": "2026-05-28T01:17:35.407Z",
+  "completedAt": "2026-05-28T01:17:56.655Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-141",
+    "bnu-high-ds-v1-s5-142",
+    "bnu-high-ds-v1-s5-143",
+    "bnu-high-ds-v1-s5-144",
+    "bnu-high-ds-v1-s5-145",
+    "bnu-high-ds-v1-s5-146",
+    "bnu-high-ds-v1-s5-147",
+    "bnu-high-ds-v1-s5-148"
+  ],
+  "usage": {
+    "prompt_tokens": 10341,
+    "completion_tokens": 1383,
+    "total_tokens": 11724,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9957
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-141",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "x^2/25 + y^2/16 = 1",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由长轴长10得a=5，离心率e=c/a=0.6得c=3，b^2=a^2-c^2=16，焦点在x轴，标准方程为x^2/25+y^2/16=1。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-142",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "√5/2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "渐近线y=0.5x得b/a=1/2，设a=2k,b=k，代入点(4,√3)得16/(4k^2)-3/k^2=1，解得k^2=1，故a=2,b=1,c=√5，离心率e=c/a=√5/2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-143",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "p=2，准线方程为x=-1",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "点A(4,4)在抛物线y^2=2px上，代入得16=8p，p=2。准线方程为x=-p/2=-1。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-144",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "k < -2√3/3 或 k > 2√3/3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "联立椭圆与直线方程，消去y得(4+9k^2)x^2+36kx+72=0，判别式Δ>0得1296k^2-288(4+9k^2)>0，化简得k^2>4/3，故k<-2√3/3或k>2√3/3。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-145",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(1,1,1)",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "向量AB=(2,-1,-1)，AC=(1,1,-2)，设法向量n=(x,y,z)，由n·AB=0，n·AC=0得2x-y-z=0，x+y-2z=0，取z=1得x=1,y=1，故(1,1,1)为法向量。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-146",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "6√61/61",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "建系得D(0,0,0),A(1,0,0),B(1,2,0),A1(1,0,3),B1(1,2,3)。平面A1BD的法向量n=DA1×DB=(1,0,3)×(1,2,0)=(-6,3,2)，点B1到平面距离d=|n·DB1|/|n|=|(-6,3,2)·(1,2,3)|/√(36+9+4)=| -6+6+6 |/7=6/7=6√61/61。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-147",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "-12/√(14×21) = -12/√294 = -12/(7√6) = -2√6/7",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "a·b=2×(-1)+(-1)×4+3×(-2)=-2-4-6=-12，|a|=√(4+1+9)=√14，|b|=√(1+16+4)=√21，cosθ=-12/(√14√21)=-12/√294=-12/(7√6)=-2√6/7。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-148",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(1/3,1/3,1/3)",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "设P(x,y,z)，由PA⊥PB得(x-1,y,z)·(x,y-1,z)=0，同理PB⊥PC，PC⊥PA，且P在平面ABC上即x+y+z=1。解得x=y=z=1/3。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，无数学错误、歧义或缺失条件，符合北师大版高中对应章节要求。"
+    }
+  }
+}

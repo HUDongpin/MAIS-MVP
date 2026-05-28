@@ -1,0 +1,582 @@
+{
+  "batchId": "batch-123",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p5-221",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-equations",
+      "unitTitle": "用方程解决问题",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "equation-problem-solving",
+        "unknown-quantity",
+        "linear-equations-primary",
+        "quantitative-relationships",
+        "方程解决问题"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "设未知数",
+        "等量关系",
+        "列方程",
+        "解方程",
+        "检验答案"
+      ],
+      "misconceptionTags": [
+        "unknown chosen after equation writing",
+        "comparison language reversed",
+        "solution not checked against the context"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-equations-unit",
+        "bnu-primary-p5-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈今年的年龄是小明的4倍，妈妈比小明大27岁。如果设小明今年x岁，下面哪个方程是正确的？",
+      "optionsZhHans": [
+        "4x = 27",
+        "4x - x = 27",
+        "x + 27 = 4x",
+        "4x + x = 27"
+      ],
+      "answer": "4x - x = 27",
+      "acceptedAnswers": [
+        "4x - x = 27"
+      ],
+      "explanationZhHans": "设小明今年x岁，则妈妈今年4x岁。妈妈比小明大27岁，所以4x - x = 27。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-222",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-equations",
+      "unitTitle": "用方程解决问题",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "equation-problem-solving",
+        "unknown-quantity",
+        "linear-equations-primary",
+        "quantitative-relationships",
+        "方程解决问题"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "设未知数",
+        "等量关系",
+        "列方程",
+        "解方程",
+        "检验答案"
+      ],
+      "misconceptionTags": [
+        "unknown chosen after equation writing",
+        "comparison language reversed",
+        "solution not checked against the context"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-equations-unit",
+        "bnu-primary-p5-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆有故事书和科技书共360本，故事书的本数是科技书的3倍。设科技书有x本，列出方程：______。",
+      "optionsZhHans": [],
+      "answer": "x + 3x = 360",
+      "acceptedAnswers": [
+        "x + 3x = 360",
+        "3x + x = 360"
+      ],
+      "explanationZhHans": "科技书x本，故事书3x本，总本数为x + 3x = 360。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-223",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-data-analysis",
+      "unitTitle": "数据的表示和分析",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "data-representation-analysis",
+        "statistical-charts",
+        "average",
+        "data-comparison",
+        "数据表示分析"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "选择统计图",
+        "读统计图",
+        "比较数据",
+        "平均数",
+        "解释结论"
+      ],
+      "misconceptionTags": [
+        "chart scale ignored",
+        "average treated as a required actual value",
+        "conclusion not supported by the displayed data"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-data-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-data-analysis-unit",
+        "bnu-primary-p4-lower-assessment-data-representation-analysis-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下表是四（1）班同学最喜欢的水果情况统计表：苹果18人，香蕉12人，橘子10人，葡萄8人。要直观比较喜欢每种水果的人数，最适合用哪种统计图？",
+      "optionsZhHans": [
+        "条形统计图",
+        "折线统计图",
+        "扇形统计图",
+        "复式条形统计图"
+      ],
+      "answer": "条形统计图",
+      "acceptedAnswers": [
+        "条形统计图"
+      ],
+      "explanationZhHans": "比较不同类别的数量，用条形统计图最直观。折线图适合表示变化趋势，扇形图适合表示部分与整体的关系。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-224",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-data-analysis",
+      "unitTitle": "数据的表示和分析",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "data-representation-analysis",
+        "statistical-charts",
+        "average",
+        "data-comparison",
+        "数据表示分析"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "选择统计图",
+        "读统计图",
+        "比较数据",
+        "平均数",
+        "解释结论"
+      ],
+      "misconceptionTags": [
+        "chart scale ignored",
+        "average treated as a required actual value",
+        "conclusion not supported by the displayed data"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-data-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-data-analysis-unit",
+        "bnu-primary-p4-lower-assessment-data-representation-analysis-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小华记录了一周每天阅读的页数：周一20页，周二25页，周三30页，周四35页，周五40页，周六45页，周日50页。这一周他平均每天阅读______页。",
+      "optionsZhHans": [],
+      "answer": "35",
+      "acceptedAnswers": [
+        "35"
+      ],
+      "explanationZhHans": "总页数=20+25+30+35+40+45+50=245，天数=7，平均=245÷7=35页。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-225",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-data-analysis",
+      "unitTitle": "数据的表示和分析",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "data-representation-analysis",
+        "statistical-charts",
+        "average",
+        "data-comparison",
+        "数据表示分析"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "选择统计图",
+        "读统计图",
+        "比较数据",
+        "平均数",
+        "解释结论"
+      ],
+      "misconceptionTags": [
+        "chart scale ignored",
+        "average treated as a required actual value",
+        "conclusion not supported by the displayed data"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-data-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-data-analysis-unit",
+        "bnu-primary-p4-lower-assessment-data-representation-analysis-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是某地一周每天的最高气温记录：周一28℃，周二30℃，周三32℃，周四31℃，周五29℃，周六27℃，周日26℃。下面哪种说法是正确的？",
+      "optionsZhHans": [
+        "这周最高气温是32℃",
+        "这周每天的最高气温都在上升",
+        "这周的平均最高气温是30℃",
+        "这周最高气温出现在周日"
+      ],
+      "answer": "这周最高气温是32℃",
+      "acceptedAnswers": [
+        "这周最高气温是32℃"
+      ],
+      "explanationZhHans": "从数据看，最高气温是周三的32℃。气温有升有降，平均气温约为(28+30+32+31+29+27+26)÷7≈29℃，周日气温最低。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-226",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-data-analysis",
+      "unitTitle": "数据的表示和分析",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "data-representation-analysis",
+        "statistical-charts",
+        "average",
+        "data-comparison",
+        "数据表示分析"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "选择统计图",
+        "读统计图",
+        "比较数据",
+        "平均数",
+        "解释结论"
+      ],
+      "misconceptionTags": [
+        "chart scale ignored",
+        "average treated as a required actual value",
+        "conclusion not supported by the displayed data"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-data-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-data-analysis-unit",
+        "bnu-primary-p4-lower-assessment-data-representation-analysis-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是五年级三个班在植树节种树的数量：五（1）班种了45棵，五（2）班种了50棵，五（3）班种了40棵。平均每个班种树______棵。",
+      "optionsZhHans": [],
+      "answer": "45",
+      "acceptedAnswers": [
+        "45"
+      ],
+      "explanationZhHans": "总棵数=45+50+40=135，班级数=3，平均=135÷3=45棵。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-227",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-data-analysis",
+      "unitTitle": "数据的表示和分析",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "data-representation-analysis",
+        "statistical-charts",
+        "average",
+        "data-comparison",
+        "数据表示分析"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "选择统计图",
+        "读统计图",
+        "比较数据",
+        "平均数",
+        "解释结论"
+      ],
+      "misconceptionTags": [
+        "chart scale ignored",
+        "average treated as a required actual value",
+        "conclusion not supported by the displayed data"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-data-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-data-analysis-unit",
+        "bnu-primary-p4-lower-assessment-data-representation-analysis-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小东调查了本班同学最喜欢的运动项目，结果如下：足球15人，篮球12人，乒乓球10人，羽毛球8人。下面哪个说法是正确的？",
+      "optionsZhHans": [
+        "喜欢足球的人数是羽毛球的2倍",
+        "喜欢篮球的人数比乒乓球多2人",
+        "全班共有45人",
+        "喜欢乒乓球的人数最少"
+      ],
+      "answer": "喜欢篮球的人数比乒乓球多2人",
+      "acceptedAnswers": [
+        "喜欢篮球的人数比乒乓球多2人"
+      ],
+      "explanationZhHans": "篮球12人，乒乓球10人，12-10=2，所以多2人。足球15人，羽毛球9人，15不是9的2倍。全班总人数15+12+10+9=46人。羽毛球9人最少。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-228",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-data-analysis",
+      "unitTitle": "数据的表示和分析",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "data-representation-analysis",
+        "statistical-charts",
+        "average",
+        "data-comparison",
+        "数据表示分析"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "选择统计图",
+        "读统计图",
+        "比较数据",
+        "平均数",
+        "解释结论"
+      ],
+      "misconceptionTags": [
+        "chart scale ignored",
+        "average treated as a required actual value",
+        "conclusion not supported by the displayed data"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-data-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-data-analysis-unit",
+        "bnu-primary-p4-lower-assessment-data-representation-analysis-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是某商店一周内两种饮料的销售数量统计表（单位：瓶）：\n周一：可乐30，雪碧25；周二：可乐35，雪碧28；周三：可乐40，雪碧32；周四：可乐38，雪碧30；周五：可乐45，雪碧35；周六：可乐50，雪碧40；周日：可乐55，雪碧45。\n这一周可乐平均每天比雪碧多卖______瓶。",
+      "optionsZhHans": [],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5"
+      ],
+      "explanationZhHans": "可乐总销量=30+35+40+45+50+55+60=315，雪碧总销量=25+30+35+40+45+50+55=280，总差=35，平均每天差=35÷7=5瓶。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-229",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-data-analysis",
+      "unitTitle": "数据的表示和分析",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "data-representation-analysis",
+        "statistical-charts",
+        "average",
+        "data-comparison",
+        "数据表示分析"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "选择统计图",
+        "读统计图",
+        "比较数据",
+        "平均数",
+        "解释结论"
+      ],
+      "misconceptionTags": [
+        "chart scale ignored",
+        "average treated as a required actual value",
+        "conclusion not supported by the displayed data"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-data-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-data-analysis-unit",
+        "bnu-primary-p4-lower-assessment-data-representation-analysis-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是四（2）班第一小组同学的身高数据（单位：厘米）：135, 140, 138, 142, 136, 139, 141。这组数据的平均数是多少？",
+      "optionsZhHans": [
+        "138厘米",
+        "139厘米",
+        "140厘米",
+        "141厘米"
+      ],
+      "answer": "139厘米",
+      "acceptedAnswers": [
+        "139厘米"
+      ],
+      "explanationZhHans": "总和=135+140+138+142+136+139+141=971，人数=7，平均数=971÷7≈138.7，四舍五入为139厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-230",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-data-analysis",
+      "unitTitle": "数据的表示和分析",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "data-representation-analysis",
+        "statistical-charts",
+        "average",
+        "data-comparison",
+        "数据表示分析"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "选择统计图",
+        "读统计图",
+        "比较数据",
+        "平均数",
+        "解释结论"
+      ],
+      "misconceptionTags": [
+        "chart scale ignored",
+        "average treated as a required actual value",
+        "conclusion not supported by the displayed data"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-data-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-data-analysis-unit",
+        "bnu-primary-p4-lower-assessment-data-representation-analysis-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丽记录了自己一周每天做作业的时间（单位：分钟）：周一30，周二35，周三40，周四30，周五25，周六20，周日15。她这一周平均每天做作业______分钟。",
+      "optionsZhHans": [],
+      "answer": "27.5",
+      "acceptedAnswers": [
+        "27.5",
+        "27.5分钟"
+      ],
+      "explanationZhHans": "总时间=30+35+40+30+25+20+15=195分钟，天数=7，平均=195÷7≈27.9分钟。"
+    }
+  ]
+}

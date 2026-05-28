@@ -1,0 +1,584 @@
+{
+  "batchId": "batch-136",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p6-101",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-ratio",
+      "unitTitle": "比的认识",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "ratio",
+        "equivalent-ratios",
+        "ratio-simplification",
+        "ratio-application",
+        "比",
+        "比值"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "理解比的意义",
+        "求比值",
+        "化简比",
+        "按比分配",
+        "用比描述关系"
+      ],
+      "misconceptionTags": [
+        "ratio order reversed",
+        "ratio value confused with the ratio expression",
+        "additive comparison used for multiplicative comparison"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-ratio"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-ratio-unit",
+        "bnu-primary-p6-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一种清洁剂由浓缩液和水按1:4的体积比混合而成。现在要配制600毫升这种清洁剂，需要浓缩液多少毫升？",
+      "optionsZhHans": [],
+      "answer": "120",
+      "acceptedAnswers": [
+        "120",
+        "120毫升"
+      ],
+      "explanationZhHans": "浓缩液和水的体积比是1:4，总份数是1+4=5份。每份是600÷5=120毫升，浓缩液占1份，所以需要120毫升。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-102",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-ratio",
+      "unitTitle": "比的认识",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "ratio",
+        "equivalent-ratios",
+        "ratio-simplification",
+        "ratio-application",
+        "比",
+        "比值"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "理解比的意义",
+        "求比值",
+        "化简比",
+        "按比分配",
+        "用比描述关系"
+      ],
+      "misconceptionTags": [
+        "ratio order reversed",
+        "ratio value confused with the ratio expression",
+        "additive comparison used for multiplicative comparison"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-ratio"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-ratio-unit",
+        "bnu-primary-p6-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校合唱队男生和女生的人数比是3:5。如果男生有24人，女生有多少人？请写出计算过程。",
+      "optionsZhHans": [],
+      "answer": "40",
+      "acceptedAnswers": [
+        "40",
+        "40人"
+      ],
+      "explanationZhHans": "男生对应3份，每份是24÷3=8人。女生占5份，所以女生有8×5=40人。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-103",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-ratio",
+      "unitTitle": "比的认识",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "ratio",
+        "equivalent-ratios",
+        "ratio-simplification",
+        "ratio-application",
+        "比",
+        "比值"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "理解比的意义",
+        "求比值",
+        "化简比",
+        "按比分配",
+        "用比描述关系"
+      ],
+      "misconceptionTags": [
+        "ratio order reversed",
+        "ratio value confused with the ratio expression",
+        "additive comparison used for multiplicative comparison"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-ratio"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-ratio-unit",
+        "bnu-primary-p6-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明用20克糖和100克水调了一杯糖水，糖与糖水的质量比是多少？",
+      "optionsZhHans": [
+        "1:5",
+        "1:6",
+        "5:1",
+        "6:1"
+      ],
+      "answer": "1:6",
+      "acceptedAnswers": [
+        "1:6"
+      ],
+      "explanationZhHans": "糖水总质量是20+100=120克，糖与糖水的比是20:120，化简得1:6。注意比的前项是糖，后项是糖水。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-104",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-ratio",
+      "unitTitle": "比的认识",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "ratio",
+        "equivalent-ratios",
+        "ratio-simplification",
+        "ratio-application",
+        "比",
+        "比值"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "理解比的意义",
+        "求比值",
+        "化简比",
+        "按比分配",
+        "用比描述关系"
+      ],
+      "misconceptionTags": [
+        "ratio order reversed",
+        "ratio value confused with the ratio expression",
+        "additive comparison used for multiplicative comparison"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-ratio"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-ratio-unit",
+        "bnu-primary-p6-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一块合金中铜与锌的质量比是3:2，现在加入5克锌后，铜与锌的质量比变为6:5。原来合金中铜的质量是多少克？",
+      "optionsZhHans": [],
+      "answer": "30",
+      "acceptedAnswers": [
+        "30",
+        "30克"
+      ],
+      "explanationZhHans": "设原来铜3x克，锌2x克。加锌后锌为2x+5，列比例3x:(2x+5)=6:5，解得x=10，铜为3×10=30克。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-105",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-ratio",
+      "unitTitle": "比的认识",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "ratio",
+        "equivalent-ratios",
+        "ratio-simplification",
+        "ratio-application",
+        "比",
+        "比值"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "理解比的意义",
+        "求比值",
+        "化简比",
+        "按比分配",
+        "用比描述关系"
+      ],
+      "misconceptionTags": [
+        "ratio order reversed",
+        "ratio value confused with the ratio expression",
+        "additive comparison used for multiplicative comparison"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-ratio"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-ratio-unit",
+        "bnu-primary-p6-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方形的周长是48厘米，长与宽的比是5:3。这个长方形的面积是多少平方厘米？请写出计算过程。",
+      "optionsZhHans": [],
+      "answer": "135",
+      "acceptedAnswers": [
+        "135",
+        "135平方厘米"
+      ],
+      "explanationZhHans": "长+宽=48÷2=24厘米。按5:3分配，长=24×5/8=15厘米，宽=24×3/8=9厘米。面积=15×9=135平方厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-106",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-ratio",
+      "unitTitle": "比的认识",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "ratio",
+        "equivalent-ratios",
+        "ratio-simplification",
+        "ratio-application",
+        "比",
+        "比值"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "理解比的意义",
+        "求比值",
+        "化简比",
+        "按比分配",
+        "用比描述关系"
+      ],
+      "misconceptionTags": [
+        "ratio order reversed",
+        "ratio value confused with the ratio expression",
+        "additive comparison used for multiplicative comparison"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-ratio"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-ratio-unit",
+        "bnu-primary-p6-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "从甲地到乙地，客车需要4小时，货车需要6小时。客车与货车的速度比是多少？",
+      "optionsZhHans": [
+        "2:3",
+        "3:2",
+        "4:6",
+        "1:1"
+      ],
+      "answer": "3:2",
+      "acceptedAnswers": [
+        "3:2"
+      ],
+      "explanationZhHans": "路程相同，速度与时间成反比。时间比是4:6=2:3，所以速度比是3:2。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-107",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-ratio",
+      "unitTitle": "比的认识",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "ratio",
+        "equivalent-ratios",
+        "ratio-simplification",
+        "ratio-application",
+        "比",
+        "比值"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "理解比的意义",
+        "求比值",
+        "化简比",
+        "按比分配",
+        "用比描述关系"
+      ],
+      "misconceptionTags": [
+        "ratio order reversed",
+        "ratio value confused with the ratio expression",
+        "additive comparison used for multiplicative comparison"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-ratio"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-ratio-unit",
+        "bnu-primary-p6-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "甲、乙、丙三人合租一套房，甲住了20天，乙住了30天，丙住了50天，三人共付房租1200元。如果按居住天数分配，甲应付多少元？",
+      "optionsZhHans": [],
+      "answer": "240",
+      "acceptedAnswers": [
+        "240",
+        "240元"
+      ],
+      "explanationZhHans": "天数比20:30:50=2:3:5，总份数2+3+5=10。甲占2份，应付1200×2/10=240元。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-108",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-ratio",
+      "unitTitle": "比的认识",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "ratio",
+        "equivalent-ratios",
+        "ratio-simplification",
+        "ratio-application",
+        "比",
+        "比值"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "理解比的意义",
+        "求比值",
+        "化简比",
+        "按比分配",
+        "用比描述关系"
+      ],
+      "misconceptionTags": [
+        "ratio order reversed",
+        "ratio value confused with the ratio expression",
+        "additive comparison used for multiplicative comparison"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-ratio"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-ratio-unit",
+        "bnu-primary-p6-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "两个圆的半径比是2:3，那么它们的面积比是多少？请写出计算过程。",
+      "optionsZhHans": [],
+      "answer": "4:9",
+      "acceptedAnswers": [
+        "4:9"
+      ],
+      "explanationZhHans": "面积比等于半径的平方比。半径比2:3，平方后得4:9。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-109",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-percentage-applications",
+      "unitTitle": "百分数的应用",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "percentage-applications",
+        "increase-decrease-percent",
+        "discount-interest-tax",
+        "percent-word-problems",
+        "百分数应用"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "应用意识"
+      ],
+      "skillTags": [
+        "求一个数的百分之几",
+        "求单位一",
+        "增长率下降率",
+        "折扣利率税率",
+        "百分数问题检验"
+      ],
+      "misconceptionTags": [
+        "unit whole misidentified",
+        "increase and decrease applied to the wrong base",
+        "percent point and percent change confused"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-percentage-applications"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-percentage-applications-unit",
+        "bnu-primary-p6-upper-assessment-percentage-meaning-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一件衣服原价200元，先涨价10%，再打九折出售。现价与原价相比，下面哪种说法正确？",
+      "optionsZhHans": [
+        "现价比原价高",
+        "现价比原价低",
+        "现价与原价相同",
+        "无法比较"
+      ],
+      "answer": "现价比原价低",
+      "acceptedAnswers": [
+        "现价比原价低"
+      ],
+      "explanationZhHans": "涨价后：200×(1+10%)=220元；打九折：220×90%=198元。198<200，所以现价比原价低。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-110",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-percentage-applications",
+      "unitTitle": "百分数的应用",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "percentage-applications",
+        "increase-decrease-percent",
+        "discount-interest-tax",
+        "percent-word-problems",
+        "百分数应用"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "应用意识"
+      ],
+      "skillTags": [
+        "求一个数的百分之几",
+        "求单位一",
+        "增长率下降率",
+        "折扣利率税率",
+        "百分数问题检验"
+      ],
+      "misconceptionTags": [
+        "unit whole misidentified",
+        "increase and decrease applied to the wrong base",
+        "percent point and percent change confused"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-percentage-applications"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-percentage-applications-unit",
+        "bnu-primary-p6-upper-assessment-percentage-meaning-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某超市五月份的营业额是40万元，六月份比五月份增加了15%，七月份比六月份减少了10%。七月份的营业额是多少万元？",
+      "optionsZhHans": [],
+      "answer": "41.4",
+      "acceptedAnswers": [
+        "41.4",
+        "41.4万元"
+      ],
+      "explanationZhHans": "六月份：40×(1+15%)=46万元；七月份：46×(1-10%)=41.4万元。注意每次变化的单位一不同。"
+    }
+  ]
+}

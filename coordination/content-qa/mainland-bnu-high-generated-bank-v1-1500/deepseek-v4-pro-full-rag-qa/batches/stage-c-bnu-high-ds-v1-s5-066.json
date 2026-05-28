@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-066",
+  "startedAt": "2026-05-28T02:07:27.238Z",
+  "completedAt": "2026-05-28T02:07:32.991Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-066"
+  ],
+  "usage": {
+    "prompt_tokens": 2149,
+    "completion_tokens": 267,
+    "total_tokens": 2416,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1765
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-066",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "8/5",
+        "correctedAnswer": "8/5",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "圆心(2,-3)到直线3x+4y-2=0的距离为|3*2+4*(-3)-2|/5=8/5，但存储答案为2，解析中计算得8/5却给出2，答案错误且与解析矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目可解，但答案错误，需修正为8/5。"
+    }
+  }
+}

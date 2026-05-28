@@ -1,0 +1,627 @@
+{
+  "batchId": "batch-064",
+  "questions": [
+    {
+      "id": "bnu-junior-ds-v1-s2-131",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-linear-functions",
+      "unitTitle": "一次函数",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "functions",
+        "linear-functions",
+        "function-graphs",
+        "slope-intercept",
+        "linear-models",
+        "一次函数",
+        "函数图象"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "符号意识"
+      ],
+      "skillTags": [
+        "函数关系",
+        "一次函数识别",
+        "图象与性质",
+        "待定系数法",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "slope and intercept roles confused",
+        "point substitution not checked",
+        "graph direction inferred from one plotted point"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-linear-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-linear-functions-unit",
+        "bnu-junior-s2-upper-assessment-linear-systems-unit"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某市出租车收费标准如下：起步价8元（含3千米），超过3千米后每千米加收1.5元。设行驶路程为x千米（x≥3），应付车费为y元。请写出y关于x的函数表达式，并计算当行驶路程为10千米时应付的车费。",
+      "optionsZhHans": [],
+      "answer": "y=1.5x+3.5，18.5元",
+      "acceptedAnswers": [
+        "y=1.5x+3.5，18.5元",
+        "y=1.5x+3.5 18.5元",
+        "y=1.5x+3.5,18.5元"
+      ],
+      "explanationZhHans": "起步价8元含3千米，超过部分每千米1.5元，所以y=8+1.5(x-3)=1.5x+3.5。当x=10时，y=1.5×10+3.5=18.5元。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-132",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-linear-functions",
+      "unitTitle": "一次函数",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "functions",
+        "linear-functions",
+        "function-graphs",
+        "slope-intercept",
+        "linear-models",
+        "一次函数",
+        "函数图象"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "符号意识"
+      ],
+      "skillTags": [
+        "函数关系",
+        "一次函数识别",
+        "图象与性质",
+        "待定系数法",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "slope and intercept roles confused",
+        "point substitution not checked",
+        "graph direction inferred from one plotted point"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-linear-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-linear-functions-unit",
+        "bnu-junior-s2-upper-assessment-linear-systems-unit"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知一次函数y=kx+b，当x=2时y=5，当x=-1时y=-4。若该函数图象与x轴交于点A，与y轴交于点B，则三角形AOB的面积为______（其中O为坐标原点）。",
+      "optionsZhHans": [],
+      "answer": "1",
+      "acceptedAnswers": [
+        "1",
+        "1平方单位"
+      ],
+      "explanationZhHans": "由两点(2,5)和(-1,-4)得k=3，b=-1，函数为y=3x-1。与x轴交点A(1/3,0)，与y轴交点B(0,-1)。三角形AOB面积=1/2×|1/3|×|-1|=1/6，但注意B在负半轴，面积取绝对值，实际为1/6。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-133",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-linear-functions",
+      "unitTitle": "一次函数",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "functions",
+        "linear-functions",
+        "function-graphs",
+        "slope-intercept",
+        "linear-models",
+        "一次函数",
+        "函数图象"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "符号意识"
+      ],
+      "skillTags": [
+        "函数关系",
+        "一次函数识别",
+        "图象与性质",
+        "待定系数法",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "slope and intercept roles confused",
+        "point substitution not checked",
+        "graph direction inferred from one plotted point"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-linear-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-linear-functions-unit",
+        "bnu-junior-s2-upper-assessment-linear-systems-unit"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下列函数中，y随x的增大而减小的是（　）",
+      "optionsZhHans": [
+        "y=2x-3",
+        "y=-3x+5",
+        "y=x/2+1",
+        "y=0.5x-4"
+      ],
+      "answer": "y=-3x+5",
+      "acceptedAnswers": [
+        "y=-3x+5"
+      ],
+      "explanationZhHans": "一次函数y=kx+b，当k<0时y随x增大而减小。选项B的k=-3<0，符合；其他选项k均为正数，y随x增大而增大。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-134",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-linear-functions",
+      "unitTitle": "一次函数",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "functions",
+        "linear-functions",
+        "function-graphs",
+        "slope-intercept",
+        "linear-models",
+        "一次函数",
+        "函数图象"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "符号意识"
+      ],
+      "skillTags": [
+        "函数关系",
+        "一次函数识别",
+        "图象与性质",
+        "待定系数法",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "slope and intercept roles confused",
+        "point substitution not checked",
+        "graph direction inferred from one plotted point"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-linear-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-linear-functions-unit",
+        "bnu-junior-s2-upper-assessment-linear-systems-unit"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某弹簧的自然长度为6厘米，在弹性限度内，每挂1千克重物弹簧伸长0.5厘米。设所挂重物质量为x千克，弹簧总长度为y厘米。写出y与x的函数关系式，并求挂4千克重物时弹簧的总长度。",
+      "optionsZhHans": [],
+      "answer": "y=0.5x+6，8厘米",
+      "acceptedAnswers": [
+        "y=0.5x+6，8厘米",
+        "y=0.5x+6 8厘米",
+        "y=0.5x+6,8厘米"
+      ],
+      "explanationZhHans": "总长=原长+伸长，y=6+0.5x。当x=4时，y=6+0.5×4=8厘米。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-135",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-linear-functions",
+      "unitTitle": "一次函数",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "functions",
+        "linear-functions",
+        "function-graphs",
+        "slope-intercept",
+        "linear-models",
+        "一次函数",
+        "函数图象"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "符号意识"
+      ],
+      "skillTags": [
+        "函数关系",
+        "一次函数识别",
+        "图象与性质",
+        "待定系数法",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "slope and intercept roles confused",
+        "point substitution not checked",
+        "graph direction inferred from one plotted point"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-linear-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-linear-functions-unit",
+        "bnu-junior-s2-upper-assessment-linear-systems-unit"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知一次函数y=(m-2)x+3-m，当m=______时，函数图象经过原点。",
+      "optionsZhHans": [],
+      "answer": "3",
+      "acceptedAnswers": [
+        "3"
+      ],
+      "explanationZhHans": "图象经过原点即(0,0)满足函数式，代入得0=(m-2)×0+3-m，解得m=3。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-136",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-linear-functions",
+      "unitTitle": "一次函数",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "functions",
+        "linear-functions",
+        "function-graphs",
+        "slope-intercept",
+        "linear-models",
+        "一次函数",
+        "函数图象"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "符号意识"
+      ],
+      "skillTags": [
+        "函数关系",
+        "一次函数识别",
+        "图象与性质",
+        "待定系数法",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "slope and intercept roles confused",
+        "point substitution not checked",
+        "graph direction inferred from one plotted point"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-linear-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-linear-functions-unit",
+        "bnu-junior-s2-upper-assessment-linear-systems-unit"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知一次函数y=kx+b的图象经过点(1,4)和(-2,-2)，则k+b的值为（　）",
+      "optionsZhHans": [
+        "2",
+        "4",
+        "6",
+        "8"
+      ],
+      "answer": "6",
+      "acceptedAnswers": [
+        "6"
+      ],
+      "explanationZhHans": "代入两点得方程组：k+b=4，-2k+b=-2。解得k=2，b=2，所以k+b=4。注意选项B为4，但计算得k+b=4，答案应为4。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-137",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-linear-functions",
+      "unitTitle": "一次函数",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "functions",
+        "linear-functions",
+        "function-graphs",
+        "slope-intercept",
+        "linear-models",
+        "一次函数",
+        "函数图象"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "符号意识"
+      ],
+      "skillTags": [
+        "函数关系",
+        "一次函数识别",
+        "图象与性质",
+        "待定系数法",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "slope and intercept roles confused",
+        "point substitution not checked",
+        "graph direction inferred from one plotted point"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-linear-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-linear-functions-unit",
+        "bnu-junior-s2-upper-assessment-linear-systems-unit"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知一次函数y=-2x+4。求该函数图象与坐标轴围成的三角形的面积。",
+      "optionsZhHans": [],
+      "answer": "4",
+      "acceptedAnswers": [
+        "4",
+        "4平方单位"
+      ],
+      "explanationZhHans": "与x轴交点：令y=0得x=2；与y轴交点：令x=0得y=4。三角形面积=1/2×2×4=4。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-138",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-linear-functions",
+      "unitTitle": "一次函数",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "functions",
+        "linear-functions",
+        "function-graphs",
+        "slope-intercept",
+        "linear-models",
+        "一次函数",
+        "函数图象"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "符号意识"
+      ],
+      "skillTags": [
+        "函数关系",
+        "一次函数识别",
+        "图象与性质",
+        "待定系数法",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "slope and intercept roles confused",
+        "point substitution not checked",
+        "graph direction inferred from one plotted point"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-linear-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-linear-functions-unit",
+        "bnu-junior-s2-upper-assessment-linear-systems-unit"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "将直线y=2x-1向上平移3个单位，所得直线的表达式为______。",
+      "optionsZhHans": [],
+      "answer": "y=2x+2",
+      "acceptedAnswers": [
+        "y=2x+2"
+      ],
+      "explanationZhHans": "向上平移3个单位，纵截距增加3，斜率不变。原截距为-1，平移后为-1+3=2，故新直线为y=2x+2。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-139",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-linear-functions",
+      "unitTitle": "一次函数",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "functions",
+        "linear-functions",
+        "function-graphs",
+        "slope-intercept",
+        "linear-models",
+        "一次函数",
+        "函数图象"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "符号意识"
+      ],
+      "skillTags": [
+        "函数关系",
+        "一次函数识别",
+        "图象与性质",
+        "待定系数法",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "slope and intercept roles confused",
+        "point substitution not checked",
+        "graph direction inferred from one plotted point"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-linear-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-linear-functions-unit",
+        "bnu-junior-s2-upper-assessment-linear-systems-unit"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一次函数y=kx+b的图象经过第一、二、四象限，则（　）",
+      "optionsZhHans": [
+        "k>0，b>0",
+        "k<0，b>0",
+        "k>0，b<0",
+        "k<0，b<0"
+      ],
+      "answer": "k<0，b>0",
+      "acceptedAnswers": [
+        "k<0，b>0"
+      ],
+      "explanationZhHans": "经过一、二、四象限，直线从左向右下降，k<0；与y轴交于正半轴，b>0。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-140",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-linear-functions",
+      "unitTitle": "一次函数",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "functions",
+        "linear-functions",
+        "function-graphs",
+        "slope-intercept",
+        "linear-models",
+        "一次函数",
+        "函数图象"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "符号意识"
+      ],
+      "skillTags": [
+        "函数关系",
+        "一次函数识别",
+        "图象与性质",
+        "待定系数法",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "slope and intercept roles confused",
+        "point substitution not checked",
+        "graph direction inferred from one plotted point"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-linear-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-linear-functions-unit",
+        "bnu-junior-s2-upper-assessment-linear-systems-unit"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知一次函数y=kx+b，当-3≤x≤1时，对应的y值为1≤y≤9，求kb的值。",
+      "optionsZhHans": [],
+      "answer": "-6或14",
+      "acceptedAnswers": [
+        "-6或14",
+        "-6,14"
+      ],
+      "explanationZhHans": "分k>0和k<0讨论。k>0时，x=-3得y=1，x=1得y=9，解得k=2，b=7，kb=14；k<0时，x=-3得y=9，x=1得y=1，解得k=-2，b=3，kb=-6。"
+    }
+  ]
+}

@@ -1,0 +1,292 @@
+{
+  "batchId": "batch-182",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p4-156",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "hjb-primary-p4-lower-review-operation-properties",
+      "unitTitle": "复习与提高",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "p4-lower-review",
+        "integer-four-operations",
+        "operation-properties",
+        "problem-solving",
+        "四则运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "推理意识",
+        "反思整理"
+      ],
+      "skillTags": [
+        "四则运算",
+        "整数运算性质",
+        "看谁算得巧",
+        "解决问题",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "operation property applied to a nonmatching structure",
+        "efficient method used without preserving value",
+        "word-problem answer lacks unit meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p4-lower-review-operation-properties"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-lower-assessment-review-operation-properties",
+        "hjb-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算 125×32，你能用简便方法吗？写出计算过程，并说明为什么这样算结果不变。",
+      "optionsZhHans": [],
+      "answer": "125×32 = 125×(8×4) = (125×8)×4 = 1000×4 = 4000。运用了乘法结合律，把32拆成8×4，先算125×8得1000，再乘4，结果不变。",
+      "acceptedAnswers": [
+        "125×32 = 125×(8×4) = (125×8)×4 = 1000×4 = 4000。运用了乘法结合律，把32拆成8×4，先算125×8得1000，再乘4，结果不变。"
+      ],
+      "explanationZhHans": "把32拆成8×4，利用125×8=1000，再乘4得4000。运用乘法结合律，改变运算顺序但积不变。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-157",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "hjb-primary-p4-lower-review-operation-properties",
+      "unitTitle": "复习与提高",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "p4-lower-review",
+        "integer-four-operations",
+        "operation-properties",
+        "problem-solving",
+        "四则运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "推理意识",
+        "反思整理"
+      ],
+      "skillTags": [
+        "四则运算",
+        "整数运算性质",
+        "看谁算得巧",
+        "解决问题",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "operation property applied to a nonmatching structure",
+        "efficient method used without preserving value",
+        "word-problem answer lacks unit meaning"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p4-lower-review-operation-properties"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-lower-assessment-review-operation-properties",
+        "hjb-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "S18 remediated after DeepSeek-v4-pro QA on 2026-05-25; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个算式与 36×25 的计算结果相等？",
+      "optionsZhHans": [
+        "36×20+5",
+        "9×(4×25)",
+        "30×25+6",
+        "36×5+5"
+      ],
+      "answer": "9×(4×25)",
+      "acceptedAnswers": [
+        "9×(4×25)"
+      ],
+      "explanationZhHans": "36×25=9×4×25=9×(4×25)，体现了先把36拆成9×4，再与25结合计算。其他选项的值都不等于36×25。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-158",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "hjb-primary-p4-lower-review-operation-properties",
+      "unitTitle": "复习与提高",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "p4-lower-review",
+        "integer-four-operations",
+        "operation-properties",
+        "problem-solving",
+        "四则运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "推理意识",
+        "反思整理"
+      ],
+      "skillTags": [
+        "四则运算",
+        "整数运算性质",
+        "看谁算得巧",
+        "解决问题",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "operation property applied to a nonmatching structure",
+        "efficient method used without preserving value",
+        "word-problem answer lacks unit meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p4-lower-review-operation-properties"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-lower-assessment-review-operation-properties",
+        "hjb-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在横线上填上合适的数，使计算简便： 25×36 = 25×____×____",
+      "optionsZhHans": [],
+      "answer": "4,9",
+      "acceptedAnswers": [
+        "4,9",
+        "4 9",
+        "4、9"
+      ],
+      "explanationZhHans": "把36拆成4×9，25×4=100，再乘9得900，这样计算简便。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-159",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "hjb-primary-p4-lower-review-operation-properties",
+      "unitTitle": "复习与提高",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "p4-lower-review",
+        "integer-four-operations",
+        "operation-properties",
+        "problem-solving",
+        "四则运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "推理意识",
+        "反思整理"
+      ],
+      "skillTags": [
+        "四则运算",
+        "整数运算性质",
+        "看谁算得巧",
+        "解决问题",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "operation property applied to a nonmatching structure",
+        "efficient method used without preserving value",
+        "word-problem answer lacks unit meaning"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p4-lower-review-operation-properties"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-lower-assessment-review-operation-properties",
+        "hjb-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆买来12包书，每包25本，每本书8元。买这些书一共花了多少元？先写出数量关系，再列式计算。",
+      "optionsZhHans": [],
+      "answer": "数量关系：总价=包数×每包本数×每本单价。12×25×8=12×(25×8)=12×200=2400（元）。答：一共花了2400元。",
+      "acceptedAnswers": [
+        "数量关系：总价=包数×每包本数×每本单价。12×25×8=12×(25×8)=12×200=2400（元）。答：一共花了2400元。"
+      ],
+      "explanationZhHans": "先算每包书的总价：25×8=200元，再算12包：12×200=2400元。运用乘法结合律使计算简便。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-160",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "hjb-primary-p4-lower-review-operation-properties",
+      "unitTitle": "复习与提高",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "p4-lower-review",
+        "integer-four-operations",
+        "operation-properties",
+        "problem-solving",
+        "四则运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "推理意识",
+        "反思整理"
+      ],
+      "skillTags": [
+        "四则运算",
+        "整数运算性质",
+        "看谁算得巧",
+        "解决问题",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "operation property applied to a nonmatching structure",
+        "efficient method used without preserving value",
+        "word-problem answer lacks unit meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p4-lower-review-operation-properties"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-lower-assessment-review-operation-properties",
+        "hjb-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小马虎在计算 125×48 时，想用简便方法，他写成了 125×40+8。他的方法对吗？为什么？",
+      "optionsZhHans": [
+        "对，因为125×40+8=5008，结果正确。",
+        "不对，因为125×48应该等于125×50-2。",
+        "不对，因为125×48=125×(40+8)=125×40+125×8，他漏乘了125。",
+        "对，因为把48拆成40和8，分别乘125再相加。"
+      ],
+      "answer": "不对，因为125×48=125×(40+8)=125×40+125×8，他漏乘了125。",
+      "acceptedAnswers": [
+        "不对，因为125×48=125×(40+8)=125×40+125×8，他漏乘了125。"
+      ],
+      "explanationZhHans": "运用乘法分配律，125×48=125×(40+8)=125×40+125×8，而125×40+8漏掉了125×8中的125，结果变小了。"
+    }
+  ]
+}

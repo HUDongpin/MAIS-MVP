@@ -1,0 +1,140 @@
+{
+  "batchNumber": 65,
+  "startedAt": "2026-05-25T03:10:57.973Z",
+  "completedAt": "2026-05-25T03:11:14.110Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s2-k09-sa-002",
+    "pep-junior-v3-s2-k09-sa-003",
+    "pep-junior-v3-s2-k09-sa-004",
+    "pep-junior-v3-s2-k09-sa-005",
+    "pep-junior-v3-s2-k09-sa-006",
+    "pep-junior-v3-s2-k09-sa-007",
+    "pep-junior-v3-s2-k09-sa-008",
+    "pep-junior-v3-s2-k09-sa-009",
+    "pep-junior-v3-s2-k09-sa-010",
+    "pep-junior-v3-s2-k09-sa-011",
+    "pep-junior-v3-s2-k09-sa-012",
+    "pep-junior-v3-s2-k09-sa-013"
+  ],
+  "usage": {
+    "prompt_tokens": 3767,
+    "completion_tokens": 998,
+    "total_tokens": 4765,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 3511
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s2-k09-sa-002",
+        "status": "fail",
+        "severity": "blocker",
+        "issueTags": [
+          "answer_mismatch",
+          "math_error"
+        ],
+        "correctedAnswer": "甲班平均分81.8，乙班平均分84.4，乙班更稳定",
+        "rationale": "答案与解析矛盾：解析中计算方差得出乙班更稳定，但答案写的是甲班更稳定。正确答案应为乙班更稳定。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-sa-003",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "函数关系式正确，计算无误，答案与解析一致。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-sa-004",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分段计费计算正确，答案与解析一致。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-sa-005",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "路程计算正确，答案与解析一致。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-sa-006",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "中位数计算正确，答案与解析一致。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-sa-007",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "一次函数解析式求解正确，答案与解析一致。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-sa-008",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "众数所在分数段判断正确，答案与解析一致。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-sa-009",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "坐标平移计算正确，答案与解析一致。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-sa-010",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "二次根式化简正确，答案与解析一致。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-sa-011",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "一次函数关系式求解正确，答案与解析一致。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-sa-012",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "概率计算正确，答案与解析一致。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-sa-013",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程求解正确，答案与解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 11,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第2题答案与解析矛盾，解析中方差计算表明乙班更稳定，但答案误写为甲班更稳定，需修正。其余题目均正确。"
+    }
+  }
+}

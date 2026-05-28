@@ -1,0 +1,288 @@
+{
+  "batchId": "batch-132",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p3-156",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-two-digit-multiplication-division",
+      "unitTitle": "两位数乘除与问题解决",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "two-digit-multiplication",
+        "division-extension",
+        "multi-step-problem-solving",
+        "两位数乘除"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "两位数乘法",
+        "除法估算",
+        "分步列式",
+        "数量关系",
+        "结果检查"
+      ],
+      "misconceptionTags": [
+        "partial products misaligned",
+        "operation order chosen from keywords",
+        "answer unit does not match the question"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-two-digit-multiplication-division"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-two-digit-multiplication-division",
+        "hjb-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆有15个书架，每个书架有4层，每层可以放28本书。这些书架一共可以放多少本书？",
+      "optionsZhHans": [],
+      "answer": "1680本",
+      "acceptedAnswers": [
+        "1680本",
+        "1680"
+      ],
+      "explanationZhHans": "先算每个书架放书：28×4=112本；再算15个书架：112×15=1680本。注意单位是“本”。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-157",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-two-digit-multiplication-division",
+      "unitTitle": "两位数乘除与问题解决",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "two-digit-multiplication",
+        "division-extension",
+        "multi-step-problem-solving",
+        "两位数乘除"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "两位数乘法",
+        "除法估算",
+        "分步列式",
+        "数量关系",
+        "结果检查"
+      ],
+      "misconceptionTags": [
+        "partial products misaligned",
+        "operation order chosen from keywords",
+        "answer unit does not match the question"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-two-digit-multiplication-division"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-two-digit-multiplication-division",
+        "hjb-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "三年级同学去春游，一共192人。每辆大巴车可以坐32人，已经租了5辆车，还需要再租几辆车？",
+      "optionsZhHans": [
+        "1辆",
+        "2辆",
+        "3辆",
+        "4辆"
+      ],
+      "answer": "1辆",
+      "acceptedAnswers": [
+        "1辆"
+      ],
+      "explanationZhHans": "5辆车可坐32×5=160人，还剩192-160=32人，32÷32=1辆，所以还需1辆。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-158",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-two-digit-multiplication-division",
+      "unitTitle": "两位数乘除与问题解决",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "two-digit-multiplication",
+        "division-extension",
+        "multi-step-problem-solving",
+        "两位数乘除"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "两位数乘法",
+        "除法估算",
+        "分步列式",
+        "数量关系",
+        "结果检查"
+      ],
+      "misconceptionTags": [
+        "partial products misaligned",
+        "operation order chosen from keywords",
+        "answer unit does not match the question"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-two-digit-multiplication-division"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-two-digit-multiplication-division",
+        "hjb-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一盒巧克力有24块，李老师买了18盒。她一共买了______块巧克力。",
+      "optionsZhHans": [],
+      "answer": "432",
+      "acceptedAnswers": [
+        "432",
+        "432块"
+      ],
+      "explanationZhHans": "用两位数乘法：24×18，先算24×8=192，再算24×10=240，合起来是432块。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-159",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-two-digit-multiplication-division",
+      "unitTitle": "两位数乘除与问题解决",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "two-digit-multiplication",
+        "division-extension",
+        "multi-step-problem-solving",
+        "两位数乘除"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "两位数乘法",
+        "除法估算",
+        "分步列式",
+        "数量关系",
+        "结果检查"
+      ],
+      "misconceptionTags": [
+        "partial products misaligned",
+        "operation order chosen from keywords",
+        "answer unit does not match the question"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-two-digit-multiplication-division"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-two-digit-multiplication-division",
+        "hjb-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "文具店促销，每支钢笔原价12元，现在买5支送1支。王老师要买30支钢笔，最少需要付多少钱？",
+      "optionsZhHans": [],
+      "answer": "300元",
+      "acceptedAnswers": [
+        "300元",
+        "300"
+      ],
+      "explanationZhHans": "买5送1，即6支为一组，30÷6=5组。每组付5支的钱：12×5=60元，5组共60×5=300元。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-160",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-two-digit-multiplication-division",
+      "unitTitle": "两位数乘除与问题解决",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "two-digit-multiplication",
+        "division-extension",
+        "multi-step-problem-solving",
+        "两位数乘除"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "两位数乘法",
+        "除法估算",
+        "分步列式",
+        "数量关系",
+        "结果检查"
+      ],
+      "misconceptionTags": [
+        "partial products misaligned",
+        "operation order chosen from keywords",
+        "answer unit does not match the question"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-two-digit-multiplication-division"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-two-digit-multiplication-division",
+        "hjb-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "果园里摘了276个苹果，每箱装18个。装完一些整箱后，还剩6个苹果。已经装了多少箱？",
+      "optionsZhHans": [
+        "14箱",
+        "15箱",
+        "16箱",
+        "17箱"
+      ],
+      "answer": "15箱",
+      "acceptedAnswers": [
+        "15箱"
+      ],
+      "explanationZhHans": "装进箱子的苹果有276-6=270个，270÷18=15箱。注意先减去剩余，再除以每箱个数。"
+    }
+  ]
+}

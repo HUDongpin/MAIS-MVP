@@ -1,0 +1,126 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-152",
+  "startedAt": "2026-05-28T01:45:07.859Z",
+  "completedAt": "2026-05-28T01:45:20.758Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-209",
+    "bnu-high-ds-v1-s6-210",
+    "bnu-high-ds-v1-s6-211",
+    "bnu-high-ds-v1-s6-212",
+    "bnu-high-ds-v1-s6-213",
+    "bnu-high-ds-v1-s6-214",
+    "bnu-high-ds-v1-s6-215",
+    "bnu-high-ds-v1-s6-216"
+  ],
+  "usage": {
+    "prompt_tokens": 12033,
+    "completion_tokens": 958,
+    "total_tokens": 12991,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 11649
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-209",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，均为 (3^n+1)/2；解析正确使用累加法，无矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-210",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案4与独立解一致；解析由S_n求a_3正确，无矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-211",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案7与独立解一致；解析正确识别等差数列并求解，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-212",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，证明和通项均正确；解析符合构造辅助数列方法。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-213",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案48与独立解一致；解析正确应用等比数列通项公式。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-214",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案50与独立解一致；解析利用等差数列性质正确，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-215",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，a_2=4, a_3=9, a_n=n^2；解析累加法正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-216",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案21与独立解一致；解析利用等差数列性质正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8道题存储答案、解析与Stage A独立解一致，无错误或矛盾。"
+    }
+  }
+}

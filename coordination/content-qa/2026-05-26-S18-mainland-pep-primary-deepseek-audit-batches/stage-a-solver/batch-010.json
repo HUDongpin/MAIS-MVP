@@ -1,0 +1,181 @@
+{
+  "startedAt": "2026-05-26T05:53:03.264Z",
+  "completedAt": "2026-05-26T05:53:20.295Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "usage": {
+    "prompt_tokens": 2824,
+    "completion_tokens": 1409,
+    "total_tokens": 4233,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 2824
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "questionId": "pep-primary-p1-l-sa-181",
+        "solvableStatus": "pass",
+        "independentAnswer": "8",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "比较8、8、6，最大值为8。"
+      },
+      {
+        "questionId": "pep-primary-p1-l-sa-182",
+        "solvableStatus": "pass",
+        "independentAnswer": "9",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "比较5、9、5，最大值为9。"
+      },
+      {
+        "questionId": "pep-primary-p1-l-sa-183",
+        "solvableStatus": "pass",
+        "independentAnswer": "8",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "比较6、5、8，最大值为8。"
+      },
+      {
+        "questionId": "pep-primary-p1-l-sa-184",
+        "solvableStatus": "pass",
+        "independentAnswer": "7",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "比较7、7、6，最大值为7。"
+      },
+      {
+        "questionId": "pep-primary-p1-l-sa-185",
+        "solvableStatus": "pass",
+        "independentAnswer": "9",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "比较3、9、4，最大值为9。"
+      },
+      {
+        "questionId": "pep-primary-p1-l-sa-186",
+        "solvableStatus": "pass",
+        "independentAnswer": "7",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "比较4、5、7，最大值为7。"
+      },
+      {
+        "questionId": "pep-primary-p1-l-sa-187",
+        "solvableStatus": "pass",
+        "independentAnswer": "7",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "比较5、7、5，最大值为7。"
+      },
+      {
+        "questionId": "pep-primary-p1-l-sa-188",
+        "solvableStatus": "pass",
+        "independentAnswer": "9",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "比较6、9、8，最大值为9。"
+      },
+      {
+        "questionId": "pep-primary-p1-l-sa-189",
+        "solvableStatus": "pass",
+        "independentAnswer": "7",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "比较7、5、6，最大值为7。"
+      },
+      {
+        "questionId": "pep-primary-p1-l-sa-190",
+        "solvableStatus": "pass",
+        "independentAnswer": "7",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "比较3、7、4，最大值为7。"
+      },
+      {
+        "questionId": "pep-primary-p1-l-sa-191",
+        "solvableStatus": "pass",
+        "independentAnswer": "11",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "比较4、11、7，最大值为11。"
+      },
+      {
+        "questionId": "pep-primary-p1-l-sa-192",
+        "solvableStatus": "pass",
+        "independentAnswer": "5",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "比较5、5、5，最大值为5。"
+      },
+      {
+        "questionId": "pep-primary-p1-l-sa-193",
+        "solvableStatus": "pass",
+        "independentAnswer": "8",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "比较6、7、8，最大值为8。"
+      },
+      {
+        "questionId": "pep-primary-p1-l-sa-194",
+        "solvableStatus": "pass",
+        "independentAnswer": "9",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "比较7、9、6，最大值为9。"
+      },
+      {
+        "questionId": "pep-primary-p1-l-sa-195",
+        "solvableStatus": "pass",
+        "independentAnswer": "5",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "比较3、5、4，最大值为5。"
+      },
+      {
+        "questionId": "pep-primary-p1-l-sa-196",
+        "solvableStatus": "pass",
+        "independentAnswer": "7",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "比较4、7、7，最大值为7。"
+      },
+      {
+        "questionId": "pep-primary-p1-l-sa-197",
+        "solvableStatus": "pass",
+        "independentAnswer": "9",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "比较5、9、5，最大值为9。"
+      },
+      {
+        "questionId": "pep-primary-p1-l-sa-198",
+        "solvableStatus": "pass",
+        "independentAnswer": "8",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "比较6、5、8，最大值为8。"
+      },
+      {
+        "questionId": "pep-primary-p1-l-sa-199",
+        "solvableStatus": "pass",
+        "independentAnswer": "7",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "比较7、7、6，最大值为7。"
+      },
+      {
+        "questionId": "pep-primary-p1-l-sa-200",
+        "solvableStatus": "pass",
+        "independentAnswer": "6",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "比较4、6、5，最大值为6。"
+      }
+    ]
+  }
+}

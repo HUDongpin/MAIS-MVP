@@ -1,0 +1,355 @@
+{
+  "batchId": "batch-081",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s3-k10-mc-001",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions"
+      ],
+      "promptZhHans": "一元二次方程 x² - 5x + c = 0 有两个不相等的实数根，则常数 c 可以是下列哪个数？",
+      "optionsZhHans": [
+        "c = 6",
+        "c = 7",
+        "c = 8",
+        "c = 9"
+      ],
+      "answer": "c = 6",
+      "acceptedAnswers": [
+        "c = 6",
+        "6"
+      ],
+      "explanationZhHans": "方程有两个不相等的实数根，判别式 Δ = (-5)² - 4×1×c = 25 - 4c > 0，解得 c < 6.25。选项中只有 c = 6 满足 c < 6.25。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-002",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-quadratic-equations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-circle-geometry"
+      ],
+      "promptZhHans": "在⊙O中，弦AB与弦CD相交于点P，若∠APC = 70°，且弧AC的度数为80°，则弧BD的度数是多少？",
+      "optionsZhHans": [
+        "60°",
+        "70°",
+        "80°",
+        "100°"
+      ],
+      "answer": "60°",
+      "acceptedAnswers": [
+        "60°",
+        "60"
+      ],
+      "explanationZhHans": "圆内角∠APC的度数等于它所对的两段弧的度数之和的一半，即∠APC = (弧AC的度数 + 弧BD的度数) / 2。代入70° = (80° + 弧BD的度数) / 2，解得弧BD的度数为60°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-003",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-quadratic-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "一个不透明的袋子里装有3个红球和2个白球，除颜色外完全相同。随机摸出一个球，记录颜色后放回，再随机摸出一个球。两次都摸到红球的概率是多少？",
+      "optionsZhHans": [
+        "3/10",
+        "9/25",
+        "3/5",
+        "6/25"
+      ],
+      "answer": "9/25",
+      "acceptedAnswers": [
+        "9/25",
+        "0.36"
+      ],
+      "explanationZhHans": "每次摸到红球的概率是3/5，因为是有放回，两次独立。两次都摸到红球的概率为(3/5)×(3/5)=9/25。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-004",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-circle-geometry"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "promptZhHans": "一次函数 y = kx + b 的图象经过点 (2, 5) 和 (4, 9)，则 k 和 b 的值分别是多少？",
+      "optionsZhHans": [
+        "k = 2, b = 1",
+        "k = 2, b = 3",
+        "k = 3, b = -1",
+        "k = 1, b = 3"
+      ],
+      "answer": "k = 2, b = 1",
+      "acceptedAnswers": [
+        "k = 2, b = 1",
+        "k=2, b=1"
+      ],
+      "explanationZhHans": "将两点代入得方程组：5 = 2k + b，9 = 4k + b。两式相减得4 = 2k，k = 2。代入5 = 4 + b，b = 1。所以k = 2, b = 1。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-005",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-probability-introduction"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "抛掷一枚质地均匀的硬币两次，至少有一次正面朝上的概率是多少？",
+      "optionsZhHans": [
+        "1/4",
+        "1/2",
+        "3/4",
+        "1"
+      ],
+      "answer": "3/4",
+      "acceptedAnswers": [
+        "3/4",
+        "0.75"
+      ],
+      "explanationZhHans": "所有等可能的结果为：正正、正反、反正、反反，共4种。至少有一次正面朝上的有3种。概率为3/4。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-006",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-rotation-transformations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models"
+      ],
+      "promptZhHans": "点A的坐标是 (3, -2)，将点A绕原点顺时针旋转90°后得到点B，则点B的坐标是什么？",
+      "optionsZhHans": [
+        "(-2, -3)",
+        "(2, 3)",
+        "(-2, 3)",
+        "(2, -3)"
+      ],
+      "answer": "(-2, -3)",
+      "acceptedAnswers": [
+        "(-2, -3)",
+        "(-2,-3)"
+      ],
+      "explanationZhHans": "点 (x, y) 绕原点顺时针旋转90°后坐标为 (y, -x)。所以 (3, -2) 变为 (-2, -3)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-007",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "下列各数中，绝对值最小的是哪一个？",
+      "optionsZhHans": [
+        "-3.5",
+        "0",
+        "2.1",
+        "-1.8"
+      ],
+      "answer": "0",
+      "acceptedAnswers": [
+        "0"
+      ],
+      "explanationZhHans": "绝对值表示数在数轴上的点到原点的距离。|-3.5|=3.5，|0|=0，|2.1|=2.1，|-1.8|=1.8。0的绝对值最小，为0。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-008",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-quadratic-equations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "某商店将进价为每件40元的商品按每件50元出售，每天可售出100件。经调查发现，售价每提高1元，日销量减少2件。设售价定为x元，每天的利润为y元，则y与x的函数关系式是什么？",
+      "optionsZhHans": [
+        "y = -2x² + 280x - 8000",
+        "y = -2x² + 260x - 8000",
+        "y = -2x² + 280x - 8800",
+        "y = -2x² + 260x - 8800"
+      ],
+      "answer": "y = -2x² + 280x - 8000",
+      "acceptedAnswers": [
+        "y = -2x² + 280x - 8000",
+        "y=-2x²+280x-8000"
+      ],
+      "explanationZhHans": "售价为x元，每件利润为(x-40)元。售价提高(x-50)元，日销量减少2(x-50)件，日销量为100 - 2(x-50) = 200 - 2x件。利润y = (x-40)(200-2x) = -2x² + 280x - 8000。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-009",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-quadratic-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions"
+      ],
+      "promptZhHans": "化简分式 (x² - 4) / (x² - 4x + 4)，并求当 x = 3 时的值。",
+      "optionsZhHans": [
+        "(x+2)/(x-2)，值为5",
+        "(x+2)/(x-2)，值为-5",
+        "(x-2)/(x+2)，值为1/5",
+        "(x-2)/(x+2)，值为5"
+      ],
+      "answer": "(x+2)/(x-2)，值为5",
+      "acceptedAnswers": [
+        "(x+2)/(x-2)，值为5",
+        "5"
+      ],
+      "explanationZhHans": "分子因式分解为(x+2)(x-2)，分母为(x-2)²。约去公因式(x-2)得(x+2)/(x-2)。当x=3时，值为(3+2)/(3-2)=5。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-010",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-circle-geometry"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "promptZhHans": "一元二次方程 x²-5x+6=0 的两个根是？",
+      "optionsZhHans": [
+        "x=1或x=6",
+        "x=2或x=3",
+        "x=-2或x=-3",
+        "x=0或x=5"
+      ],
+      "answer": "x=2或x=3",
+      "acceptedAnswers": [
+        "x=2或x=3",
+        "2和3",
+        "x=3或x=2"
+      ],
+      "explanationZhHans": "分解因式得 x²-5x+6=(x-2)(x-3)。令(x-2)(x-3)=0，得x=2或x=3。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

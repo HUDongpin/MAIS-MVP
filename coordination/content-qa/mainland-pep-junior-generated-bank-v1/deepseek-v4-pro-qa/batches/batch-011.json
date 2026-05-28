@@ -1,0 +1,191 @@
+{
+  "batchNumber": 11,
+  "startedAt": "2026-05-24T17:25:26.285Z",
+  "completedAt": "2026-05-24T17:25:47.232Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-candidate-k03-mc-017",
+    "pep-junior-candidate-k03-mc-018",
+    "pep-junior-candidate-k03-mc-019",
+    "pep-junior-candidate-k03-mc-020",
+    "pep-junior-candidate-k03-mc-021",
+    "pep-junior-candidate-k03-mc-022",
+    "pep-junior-candidate-k03-mc-023",
+    "pep-junior-candidate-k03-mc-024",
+    "pep-junior-candidate-k03-mc-025",
+    "pep-junior-candidate-k03-mc-026",
+    "pep-junior-candidate-k03-mc-027",
+    "pep-junior-candidate-k03-fi-001",
+    "pep-junior-candidate-k03-fi-002",
+    "pep-junior-candidate-k03-fi-003",
+    "pep-junior-candidate-k03-fi-004",
+    "pep-junior-candidate-k03-fi-005",
+    "pep-junior-candidate-k03-fi-006",
+    "pep-junior-candidate-k03-fi-007"
+  ],
+  "usage": {
+    "prompt_tokens": 2756,
+    "completion_tokens": 1355,
+    "total_tokens": 4111,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 2500
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-candidate-k03-mc-017",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，选项无歧义，适合基础练习。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-mc-018",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，选项无歧义，适合基础练习。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-mc-019",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，选项无歧义，适合基础练习。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-mc-020",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，选项无歧义，适合核心练习。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-mc-021",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，选项无歧义，适合基础练习。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-mc-022",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，选项无歧义，适合基础练习。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-mc-023",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，选项无歧义，适合基础练习。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-mc-024",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，选项无歧义，适合基础练习。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-mc-025",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，选项无歧义，适合核心练习。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-mc-026",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，选项无歧义，适合基础练习。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-mc-027",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，选项无歧义，适合基础练习。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-fi-001",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案和可接受答案合理，适合基础练习。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-fi-002",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案和可接受答案合理，适合基础练习。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-fi-003",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案和可接受答案合理，适合基础练习。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-fi-004",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案和可接受答案合理，适合基础练习。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-fi-005",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案和可接受答案合理，适合基础练习。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-fi-006",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案和可接受答案合理，适合基础练习。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-fi-007",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案和可接受答案合理，适合基础练习。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，选项无歧义，答案与解释一致，适合人教版初中数学基础练习，无风险。"
+    }
+  }
+}

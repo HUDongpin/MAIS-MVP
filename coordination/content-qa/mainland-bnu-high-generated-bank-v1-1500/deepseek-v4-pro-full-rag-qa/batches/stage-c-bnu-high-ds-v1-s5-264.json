@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-264",
+  "startedAt": "2026-05-28T01:25:16.690Z",
+  "completedAt": "2026-05-28T01:25:21.845Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-264"
+  ],
+  "usage": {
+    "prompt_tokens": 2396,
+    "completion_tokens": 324,
+    "total_tokens": 2720,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2012
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-264",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "3x - 4y - 2 = 0 或 4x + 3y - 11 = 0",
+        "correctedAnswer": "3x - 4y - 2 = 0 或 4x + 3y - 11 = 0",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合BNU建模活动要求。独立求解得两条切线：3x-4y-2=0和4x+3y-11=0。存储答案3x+4y-10=0错误，且解析中方程求解错误、舍去一解理由不成立，与正确解答矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "存储答案错误，解析存在数学错误，判定为blocker。"
+    }
+  }
+}

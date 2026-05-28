@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-137",
+  "startedAt": "2026-05-28T03:03:48.639Z",
+  "completedAt": "2026-05-28T03:03:53.770Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-137"
+  ],
+  "usage": {
+    "prompt_tokens": 2118,
+    "completion_tokens": 258,
+    "total_tokens": 2376,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1734
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-137",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "x = 5",
+        "correctedAnswer": "x = 5",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "方程可解，正确解为 x=5（x=-3 舍去）。存储答案 x=2 错误，解析过程虽正确但最终给出错误答案，与正确解矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1 题答案错误，正确解为 x=5，存储答案为 x=2，判定为 blocker。"
+    }
+  }
+}

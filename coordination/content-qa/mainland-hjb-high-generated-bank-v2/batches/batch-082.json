@@ -1,0 +1,392 @@
+{
+  "batchId": "batch-082",
+  "generationMode": "batch-fallback",
+  "fallbackReason": "fill-missing-local",
+  "questions": [
+    {
+      "id": "hjb-high-ds-v2-s5-311",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-圆锥曲线",
+      "topicTitleZhHans": "圆锥曲线",
+      "volume": "选择性必修 第一册",
+      "chapter": "圆锥曲线",
+      "conceptIds": [
+        "circle-equations",
+        "ellipse",
+        "hyperbola",
+        "parabola-conic",
+        "parametric-equations",
+        "polar-coordinates"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-selective-1-conics"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-1-conics-unit-core",
+        "hjb-high-selective-1-lines-conics-synthesis",
+        "pep-high-exam-conics-analytic-geometry"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0811：填空：椭圆 x²/225+y²/121=1 中，求 c²=a²-b² 的值。",
+      "optionsZhHans": [],
+      "answer": "104",
+      "acceptedAnswers": [
+        "104"
+      ],
+      "explanationZhHans": "这里 a²=225，b²=121，所以 c²=225-121=104。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-312",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-圆锥曲线",
+      "topicTitleZhHans": "圆锥曲线",
+      "volume": "选择性必修 第一册",
+      "chapter": "圆锥曲线",
+      "conceptIds": [
+        "circle-equations",
+        "ellipse",
+        "hyperbola",
+        "parabola-conic",
+        "parametric-equations",
+        "polar-coordinates"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-selective-1-conics"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-1-conics-unit-core",
+        "hjb-high-selective-1-lines-conics-synthesis",
+        "pep-high-exam-conics-analytic-geometry"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0812：解答：椭圆 x²/289+y²/81=1 中，求 c²=a²-b² 的值。",
+      "optionsZhHans": [],
+      "answer": "208",
+      "acceptedAnswers": [
+        "208"
+      ],
+      "explanationZhHans": "这里 a²=289，b²=81，所以 c²=289-81=208。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-313",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-圆锥曲线",
+      "topicTitleZhHans": "圆锥曲线",
+      "volume": "选择性必修 第一册",
+      "chapter": "圆锥曲线",
+      "conceptIds": [
+        "circle-equations",
+        "ellipse",
+        "hyperbola",
+        "parabola-conic",
+        "parametric-equations",
+        "polar-coordinates"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-selective-1-conics"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-1-conics-unit-core",
+        "hjb-high-selective-1-lines-conics-synthesis",
+        "pep-high-exam-conics-analytic-geometry"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0813：选择：椭圆 x²/441+y²/225=1 中，求 c²=a²-b² 的值。",
+      "optionsZhHans": [
+        "222",
+        "210",
+        "216",
+        "228"
+      ],
+      "answer": "216",
+      "acceptedAnswers": [
+        "216"
+      ],
+      "explanationZhHans": "这里 a²=441，b²=225，所以 c²=441-225=216。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-314",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-圆锥曲线",
+      "topicTitleZhHans": "圆锥曲线",
+      "volume": "选择性必修 第一册",
+      "chapter": "圆锥曲线",
+      "conceptIds": [
+        "circle-equations",
+        "ellipse",
+        "hyperbola",
+        "parabola-conic",
+        "parametric-equations",
+        "polar-coordinates"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-selective-1-conics"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-1-conics-unit-core",
+        "hjb-high-selective-1-lines-conics-synthesis",
+        "pep-high-exam-conics-analytic-geometry"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0814：填空：椭圆 x²/529+y²/289=1 中，求 c²=a²-b² 的值。",
+      "optionsZhHans": [],
+      "answer": "240",
+      "acceptedAnswers": [
+        "240"
+      ],
+      "explanationZhHans": "这里 a²=529，b²=289，所以 c²=529-289=240。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-315",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-圆锥曲线",
+      "topicTitleZhHans": "圆锥曲线",
+      "volume": "选择性必修 第一册",
+      "chapter": "圆锥曲线",
+      "conceptIds": [
+        "circle-equations",
+        "ellipse",
+        "hyperbola",
+        "parabola-conic",
+        "parametric-equations",
+        "polar-coordinates"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-selective-1-conics"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-1-conics-unit-core",
+        "hjb-high-selective-1-lines-conics-synthesis",
+        "pep-high-exam-conics-analytic-geometry"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0815：解答：椭圆 x²/441+y²/361=1 中，求 c²=a²-b² 的值。",
+      "optionsZhHans": [],
+      "answer": "80",
+      "acceptedAnswers": [
+        "80"
+      ],
+      "explanationZhHans": "这里 a²=441，b²=361，所以 c²=441-361=80。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-316",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-圆锥曲线",
+      "topicTitleZhHans": "圆锥曲线",
+      "volume": "选择性必修 第一册",
+      "chapter": "圆锥曲线",
+      "conceptIds": [
+        "circle-equations",
+        "ellipse",
+        "hyperbola",
+        "parabola-conic",
+        "parametric-equations",
+        "polar-coordinates"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-selective-1-conics"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-1-conics-unit-core",
+        "hjb-high-selective-1-lines-conics-synthesis",
+        "pep-high-exam-conics-analytic-geometry"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0816：选择：椭圆 x²/484+y²/100=1 中，求 c²=a²-b² 的值。",
+      "optionsZhHans": [
+        "396",
+        "384",
+        "372",
+        "408"
+      ],
+      "answer": "384",
+      "acceptedAnswers": [
+        "384"
+      ],
+      "explanationZhHans": "这里 a²=484，b²=100，所以 c²=484-100=384。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-317",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-圆锥曲线",
+      "topicTitleZhHans": "圆锥曲线",
+      "volume": "选择性必修 第一册",
+      "chapter": "圆锥曲线",
+      "conceptIds": [
+        "circle-equations",
+        "ellipse",
+        "hyperbola",
+        "parabola-conic",
+        "parametric-equations",
+        "polar-coordinates"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-selective-1-conics"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-1-conics-unit-core",
+        "hjb-high-selective-1-lines-conics-synthesis",
+        "pep-high-exam-conics-analytic-geometry"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0817：填空：椭圆 x²/324+y²/196=1 中，求 c²=a²-b² 的值。",
+      "optionsZhHans": [],
+      "answer": "128",
+      "acceptedAnswers": [
+        "128"
+      ],
+      "explanationZhHans": "这里 a²=324，b²=196，所以 c²=324-196=128。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-318",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-圆锥曲线",
+      "topicTitleZhHans": "圆锥曲线",
+      "volume": "选择性必修 第一册",
+      "chapter": "圆锥曲线",
+      "conceptIds": [
+        "circle-equations",
+        "ellipse",
+        "hyperbola",
+        "parabola-conic",
+        "parametric-equations",
+        "polar-coordinates"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-selective-1-conics"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-1-conics-unit-core",
+        "hjb-high-selective-1-lines-conics-synthesis",
+        "pep-high-exam-conics-analytic-geometry"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0818：解答：椭圆 x²/529+y²/169=1 中，求 c²=a²-b² 的值。",
+      "optionsZhHans": [],
+      "answer": "360",
+      "acceptedAnswers": [
+        "360"
+      ],
+      "explanationZhHans": "这里 a²=529，b²=169，所以 c²=529-169=360。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-319",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-圆锥曲线",
+      "topicTitleZhHans": "圆锥曲线",
+      "volume": "选择性必修 第一册",
+      "chapter": "圆锥曲线",
+      "conceptIds": [
+        "circle-equations",
+        "ellipse",
+        "hyperbola",
+        "parabola-conic",
+        "parametric-equations",
+        "polar-coordinates"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-selective-1-conics"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-1-conics-unit-core",
+        "hjb-high-selective-1-lines-conics-synthesis",
+        "pep-high-exam-conics-analytic-geometry"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0819：选择：椭圆 x²/256+y²/169=1 中，求 c²=a²-b² 的值。",
+      "optionsZhHans": [
+        "87",
+        "90",
+        "84",
+        "93"
+      ],
+      "answer": "87",
+      "acceptedAnswers": [
+        "87"
+      ],
+      "explanationZhHans": "这里 a²=256，b²=169，所以 c²=256-169=87。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-320",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-圆锥曲线",
+      "topicTitleZhHans": "圆锥曲线",
+      "volume": "选择性必修 第一册",
+      "chapter": "圆锥曲线",
+      "conceptIds": [
+        "circle-equations",
+        "ellipse",
+        "hyperbola",
+        "parabola-conic",
+        "parametric-equations",
+        "polar-coordinates"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-selective-1-conics"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-1-conics-unit-core",
+        "hjb-high-selective-1-lines-conics-synthesis",
+        "pep-high-exam-conics-analytic-geometry"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0820：填空：椭圆 x²/484+y²/144=1 中，求 c²=a²-b² 的值。",
+      "optionsZhHans": [],
+      "answer": "340",
+      "acceptedAnswers": [
+        "340"
+      ],
+      "explanationZhHans": "这里 a²=484，b²=144，所以 c²=484-144=340。"
+    }
+  ]
+}

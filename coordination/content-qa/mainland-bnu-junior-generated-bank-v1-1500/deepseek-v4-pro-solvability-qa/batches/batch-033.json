@@ -1,0 +1,173 @@
+{
+  "batchNumber": 33,
+  "startedAt": "2026-05-27T17:31:09.919Z",
+  "completedAt": "2026-05-27T17:31:28.126Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s1-385",
+    "bnu-junior-ds-v1-s1-386",
+    "bnu-junior-ds-v1-s1-387",
+    "bnu-junior-ds-v1-s1-388",
+    "bnu-junior-ds-v1-s1-389",
+    "bnu-junior-ds-v1-s1-390",
+    "bnu-junior-ds-v1-s1-391",
+    "bnu-junior-ds-v1-s1-392",
+    "bnu-junior-ds-v1-s1-393",
+    "bnu-junior-ds-v1-s1-394",
+    "bnu-junior-ds-v1-s1-395",
+    "bnu-junior-ds-v1-s1-396"
+  ],
+  "usage": {
+    "prompt_tokens": 7058,
+    "completion_tokens": 1402,
+    "total_tokens": 8460,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 6546
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s1-385",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，由表格数据可推导出关系式 y=2x+12，选项 B 正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-386",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目明确 x>5 时打九折，可推导出 y=7.2x，计算 8 千克得 57.6 元，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-387",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件完整，可求出进排水效率，关系式 Q=(1/12)t，半满时 t=6，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-388",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目描述清晰，匀速耗油，图象为直线，起点 (0,40)，与 t 轴交于 (8,0)，选项 A 正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-389",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "追及问题条件充分，可列出 s₁=4(t+2), s₂=12t，解得 t=1，距离 12 千米，答案与解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-390",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "阶梯水价条件明确，x=25 时费用 67.5 元，关系式 y=50+3.5(x-20)，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-391",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "表格数据表明 t 为自变量，s 为因变量，速度 50 千米/小时，选项表述准确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-392",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "弹簧伸长问题条件充分，关系式 y=12+0.5x，x=4 时 y=14，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-393",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分段行程描述清晰，0-5 分钟距离增大，5-8 分钟不变，总距离 1600 米，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-394",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "面积固定，a 与 b 成反比例关系，选项表述正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-395",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "出租车收费规则明确，关系式 y=8+1.5(x-3)，x=10 时 y=18.5，答案与解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-396",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "表格数据完整，自变量为时间 t，因变量为气温 T，趋势上升，10 时气温 22℃，答案正确。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部 12 道题目条件充分、可解，答案与解释均匹配，无任何问题。"
+    }
+  }
+}

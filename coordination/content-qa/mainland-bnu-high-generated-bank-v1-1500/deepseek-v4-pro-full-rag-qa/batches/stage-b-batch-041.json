@@ -1,0 +1,133 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-041",
+  "startedAt": "2026-05-28T02:39:12.089Z",
+  "completedAt": "2026-05-28T02:39:27.341Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-321",
+    "bnu-high-ds-v1-s4-322",
+    "bnu-high-ds-v1-s4-323",
+    "bnu-high-ds-v1-s4-324",
+    "bnu-high-ds-v1-s4-325",
+    "bnu-high-ds-v1-s4-326",
+    "bnu-high-ds-v1-s4-327",
+    "bnu-high-ds-v1-s4-328"
+  ],
+  "usage": {
+    "prompt_tokens": 13465,
+    "completion_tokens": 1034,
+    "total_tokens": 14499,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 13081
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-321",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "[0, π/12] 和 [5π/12, π/2]",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案包含错误区间[π/4, π/2]，正确应为[5π/12, π/2]；解析中虽指出错误但未修正答案，且最终答案仍为错误区间。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-322",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，均为C，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-323",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案1/5与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-324",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案4π与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-325",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "ambiguous_mc",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "向量(1,2)与(3,-1)点积为1，模长√5和√10，cosθ=√2/10，θ不是45°，无正确选项；解析也指出错误，但存储答案仍为B，题目不可解。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-326",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案0与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-327",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案(-1/10, -3/10)与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-328",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案A与独立解一致，解析正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 0,
+      "fail": 2,
+      "notes": "第1题单调区间错误，第5题向量夹角无正确选项，两道题均需修正。"
+    }
+  }
+}

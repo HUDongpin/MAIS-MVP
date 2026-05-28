@@ -1,0 +1,577 @@
+{
+  "batchId": "batch-056",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p3-051",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-multiplication-division-fluency",
+      "unitTitle": "乘与除",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "multiplication-division-relationships",
+        "fact-fluency",
+        "mental-calculation",
+        "乘与除",
+        "乘除关系"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "推理意识"
+      ],
+      "skillTags": [
+        "口算乘除",
+        "乘除互逆",
+        "倍数关系",
+        "估算",
+        "应用题建模"
+      ],
+      "misconceptionTags": [
+        "division treated only as sharing",
+        "factor and product roles confused",
+        "inverse check not connected to the story"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-multiplication-division-fluency"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆新买来一些图书，管理员把这些图书平均放到6个书架上，每个书架放24本，正好放完。如果用这些图书布置4个阅读角，每个阅读角放的本数相同，那么每个阅读角可以放多少本？",
+      "optionsZhHans": [],
+      "answer": "36",
+      "acceptedAnswers": [
+        "36",
+        "36本"
+      ],
+      "explanationZhHans": "先求图书总本数：6×24=144（本）。再平均分成4份：144÷4=36（本）。所以每个阅读角放36本。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-052",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-multiplication-division-fluency",
+      "unitTitle": "乘与除",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "multiplication-division-relationships",
+        "fact-fluency",
+        "mental-calculation",
+        "乘与除",
+        "乘除关系"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "推理意识"
+      ],
+      "skillTags": [
+        "口算乘除",
+        "乘除互逆",
+        "倍数关系",
+        "估算",
+        "应用题建模"
+      ],
+      "misconceptionTags": [
+        "division treated only as sharing",
+        "factor and product roles confused",
+        "inverse check not connected to the story"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-multiplication-division-fluency"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一盒巧克力有8颗，李老师买了9盒。他把这些巧克力平均分给6个小朋友，每个小朋友分到多少颗？下面列式正确的是（ ）。",
+      "optionsZhHans": [
+        "A. 8×9÷6",
+        "B. 8×9×6",
+        "C. 8÷9×6",
+        "D. 9÷8×6"
+      ],
+      "answer": "A. 8×9÷6",
+      "acceptedAnswers": [
+        "A. 8×9÷6"
+      ],
+      "explanationZhHans": "先算巧克力总数：每盒8颗，9盒共8×9=72颗。再平均分给6人：72÷6=12颗。综合算式为8×9÷6，选A。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-053",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-multiplication-division-fluency",
+      "unitTitle": "乘与除",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "multiplication-division-relationships",
+        "fact-fluency",
+        "mental-calculation",
+        "乘与除",
+        "乘除关系"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "推理意识"
+      ],
+      "skillTags": [
+        "口算乘除",
+        "乘除互逆",
+        "倍数关系",
+        "估算",
+        "应用题建模"
+      ],
+      "misconceptionTags": [
+        "division treated only as sharing",
+        "factor and product roles confused",
+        "inverse check not connected to the story"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-multiplication-division-fluency"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "根据乘法算式5×7=35，写出两个除法算式：______÷______=______，______÷______=______。",
+      "optionsZhHans": [],
+      "answer": "35÷5=7，35÷7=5",
+      "acceptedAnswers": [
+        "35÷5=7，35÷7=5",
+        "35÷5=7 35÷7=5"
+      ],
+      "explanationZhHans": "乘除互逆：积÷一个乘数=另一个乘数。35÷5=7，35÷7=5。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-054",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-multiplication-division-fluency",
+      "unitTitle": "乘与除",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "multiplication-division-relationships",
+        "fact-fluency",
+        "mental-calculation",
+        "乘与除",
+        "乘除关系"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "推理意识"
+      ],
+      "skillTags": [
+        "口算乘除",
+        "乘除互逆",
+        "倍数关系",
+        "估算",
+        "应用题建模"
+      ],
+      "misconceptionTags": [
+        "division treated only as sharing",
+        "factor and product roles confused",
+        "inverse check not connected to the story"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-multiplication-division-fluency"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "三（1）班同学排队做操，如果每行站8人，正好站成6行。如果每行站4人，可以站成多少行？",
+      "optionsZhHans": [],
+      "answer": "12",
+      "acceptedAnswers": [
+        "12",
+        "12行"
+      ],
+      "explanationZhHans": "总人数不变：8×6=48（人）。每行站4人时，行数=48÷4=12（行）。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-055",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-multiplication-division-fluency",
+      "unitTitle": "乘与除",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "multiplication-division-relationships",
+        "fact-fluency",
+        "mental-calculation",
+        "乘与除",
+        "乘除关系"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "推理意识"
+      ],
+      "skillTags": [
+        "口算乘除",
+        "乘除互逆",
+        "倍数关系",
+        "估算",
+        "应用题建模"
+      ],
+      "misconceptionTags": [
+        "division treated only as sharing",
+        "factor and product roles confused",
+        "inverse check not connected to the story"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-multiplication-division-fluency"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个问题可以用算式24÷3来解决？（ ）",
+      "optionsZhHans": [
+        "A. 有24个苹果，吃了3个，还剩几个？",
+        "B. 有24个苹果，每3个装一袋，可以装几袋？",
+        "C. 有24个苹果，又拿来3个，一共有几个？",
+        "D. 有24个苹果，每袋装8个，可以装几袋？"
+      ],
+      "answer": "B. 有24个苹果，每3个装一袋，可以装几袋？",
+      "acceptedAnswers": [
+        "B. 有24个苹果，每3个装一袋，可以装几袋？"
+      ],
+      "explanationZhHans": "24÷3表示把24按每3个一份来分，求份数。选项B符合。A是减法，C是加法，D是24÷8。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-056",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-multiplication-division-fluency",
+      "unitTitle": "乘与除",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "multiplication-division-relationships",
+        "fact-fluency",
+        "mental-calculation",
+        "乘与除",
+        "乘除关系"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "推理意识"
+      ],
+      "skillTags": [
+        "口算乘除",
+        "乘除互逆",
+        "倍数关系",
+        "估算",
+        "应用题建模"
+      ],
+      "misconceptionTags": [
+        "division treated only as sharing",
+        "factor and product roles confused",
+        "inverse check not connected to the story"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-multiplication-division-fluency"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在括号里填上合适的数：4×（ ）=36， （ ）÷5=7。",
+      "optionsZhHans": [],
+      "answer": "9，35",
+      "acceptedAnswers": [
+        "9，35",
+        "9 35"
+      ],
+      "explanationZhHans": "根据乘除关系：4×9=36，所以填9；7×5=35，所以35÷5=7，填35。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-057",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-multiplication-division-fluency",
+      "unitTitle": "乘与除",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "multiplication-division-relationships",
+        "fact-fluency",
+        "mental-calculation",
+        "乘与除",
+        "乘除关系"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "推理意识"
+      ],
+      "skillTags": [
+        "口算乘除",
+        "乘除互逆",
+        "倍数关系",
+        "估算",
+        "应用题建模"
+      ],
+      "misconceptionTags": [
+        "division treated only as sharing",
+        "factor and product roles confused",
+        "inverse check not connected to the story"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-multiplication-division-fluency"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一本故事书，小明每天看9页，看了6天后，还剩18页。如果小明想用9天看完这本书，他平均每天要看多少页？",
+      "optionsZhHans": [],
+      "answer": "8",
+      "acceptedAnswers": [
+        "8",
+        "8页"
+      ],
+      "explanationZhHans": "已看页数：9×6=54（页）。总页数：54+18=72（页）。9天看完，平均每天看72÷9=8（页）。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-058",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-multiplication-division-fluency",
+      "unitTitle": "乘与除",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "multiplication-division-relationships",
+        "fact-fluency",
+        "mental-calculation",
+        "乘与除",
+        "乘除关系"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "推理意识"
+      ],
+      "skillTags": [
+        "口算乘除",
+        "乘除互逆",
+        "倍数关系",
+        "估算",
+        "应用题建模"
+      ],
+      "misconceptionTags": [
+        "division treated only as sharing",
+        "factor and product roles confused",
+        "inverse check not connected to the story"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-multiplication-division-fluency"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面算式中，与36÷4的结果相同的是（ ）。",
+      "optionsZhHans": [
+        "A. 36÷6",
+        "B. 4×9",
+        "C. 27÷3",
+        "D. 18÷3"
+      ],
+      "answer": "C. 27÷3",
+      "acceptedAnswers": [
+        "C. 27÷3"
+      ],
+      "explanationZhHans": "36÷4=9。A：36÷6=6；B：4×9=36；C：27÷3=9；D：18÷3=6。所以选C。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-059",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-multiplication-division-fluency",
+      "unitTitle": "乘与除",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "multiplication-division-relationships",
+        "fact-fluency",
+        "mental-calculation",
+        "乘与除",
+        "乘除关系"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "推理意识"
+      ],
+      "skillTags": [
+        "口算乘除",
+        "乘除互逆",
+        "倍数关系",
+        "估算",
+        "应用题建模"
+      ],
+      "misconceptionTags": [
+        "division treated only as sharing",
+        "factor and product roles confused",
+        "inverse check not connected to the story"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-multiplication-division-fluency"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "看图列式：每盘有5个桃子，有4盘，一共有多少个桃子？乘法算式：______，除法算式：______。",
+      "optionsZhHans": [],
+      "answer": "5×4=20，20÷5=4",
+      "acceptedAnswers": [
+        "5×4=20，20÷5=4",
+        "5×4=20 20÷5=4"
+      ],
+      "explanationZhHans": "每盘5个，4盘就是4个5，乘法：5×4=20。根据总数20和每份数5，除法：20÷5=4（盘）。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-060",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-multiplication-division-fluency",
+      "unitTitle": "乘与除",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "multiplication-division-relationships",
+        "fact-fluency",
+        "mental-calculation",
+        "乘与除",
+        "乘除关系"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "推理意识"
+      ],
+      "skillTags": [
+        "口算乘除",
+        "乘除互逆",
+        "倍数关系",
+        "估算",
+        "应用题建模"
+      ],
+      "misconceptionTags": [
+        "division treated only as sharing",
+        "factor and product roles confused",
+        "inverse check not connected to the story"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-multiplication-division-fluency"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "王老师买了5盒水彩笔，每盒12支。她把这些水彩笔平均分给美术兴趣小组的8个同学，每人分到几支？",
+      "optionsZhHans": [],
+      "answer": "7",
+      "acceptedAnswers": [
+        "7",
+        "7支"
+      ],
+      "explanationZhHans": "水彩笔总数：5×12=60（支）。平均分给8人：60÷8=7（支）……4（支）。每人分到7支。"
+    }
+  ]
+}

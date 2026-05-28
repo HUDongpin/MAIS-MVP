@@ -1,0 +1,308 @@
+{
+  "batchId": "batch-113",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s3-k11-fi-055",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-function-geometry-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-circle-geometry"
+      ],
+      "promptZhHans": "已知反比例函数 y = k/x 的图象经过点 (3, -4)。若点 A(a, b) 和点 B(c, d) 都在该函数图象上，且 a < 0 < c，比较 b 和 d 的大小。",
+      "optionsZhHans": [],
+      "answer": "b > d",
+      "acceptedAnswers": [
+        "b > d",
+        "b 大于 d",
+        "d < b"
+      ],
+      "explanationZhHans": "将点 (3, -4) 代入 y = k/x，得 -4 = k/3，解得 k = -12。所以反比例函数为 y = -12/x，图象位于第二、四象限。因为 a < 0，点 A 在第二象限，b > 0；c > 0，点 C 在第四象限，d < 0。因此 b > d。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-fi-056",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-similarity"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "在△ABC中，DE∥BC，AD=2，DB=3，AE=4，求EC的长。",
+      "optionsZhHans": [],
+      "answer": "6",
+      "acceptedAnswers": [
+        "6",
+        "六"
+      ],
+      "explanationZhHans": "由DE∥BC，可得AD/DB = AE/EC。代入已知数据，2/3 = 4/EC，解得EC = 6。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-fi-057",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-graduation-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "在平面直角坐标系中，点P的坐标为(2, -3)，将点P绕原点顺时针旋转90°后得到点Q，求点Q的坐标。",
+      "optionsZhHans": [],
+      "answer": "(-3, -2)",
+      "acceptedAnswers": [
+        "(-3, -2)",
+        "（-3，-2）"
+      ],
+      "explanationZhHans": "点P(2, -3)绕原点顺时针旋转90°，坐标变化规律为(x, y) → (y, -x)，所以Q的坐标为(-3, -2)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-fi-058",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-inverse-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-dynamic-geometry-functions"
+      ],
+      "promptZhHans": "已知反比例函数 y = (m-1)/x 的图象在每一象限内，y随x的增大而增大，求m的取值范围。",
+      "optionsZhHans": [],
+      "answer": "m < 1",
+      "acceptedAnswers": [
+        "m < 1",
+        "m<1"
+      ],
+      "explanationZhHans": "反比例函数 y = k/x，当 k < 0 时，图象在每一象限内 y 随 x 的增大而增大。这里 k = m-1，所以 m-1 < 0，即 m < 1。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-fi-059",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-right-triangle-trigonometry"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "某商场将进价为每件40元的商品按每件50元出售，每天可售出100件。经调查发现，售价每降低1元，每天多售出10件。若商场希望每天盈利最大，应将售价定为每件多少元？",
+      "optionsZhHans": [],
+      "answer": "45",
+      "acceptedAnswers": [
+        "45",
+        "45元"
+      ],
+      "explanationZhHans": "设降价x元，则售价为(50-x)元，每天销量为(100+10x)件。每件利润为(50-x-40)=(10-x)元。总盈利W=(10-x)(100+10x)=-10x²+100x+1000。当x=-100/(2*(-10))=5时，W最大。此时售价为50-5=45元。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-fi-060",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-projection-views"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-proof-calculation-integrated"
+      ],
+      "promptZhHans": "已知△ABC中，AB=AC=5，BC=6，求tanB的值。",
+      "optionsZhHans": [],
+      "answer": "4/3",
+      "acceptedAnswers": [
+        "4/3",
+        "1.333",
+        "三分之四"
+      ],
+      "explanationZhHans": "作AD⊥BC于D，由AB=AC，则BD=DC=3。在Rt△ABD中，AD=√(5²-3²)=4。所以tanB=AD/BD=4/3。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-fi-061",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-function-geometry-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig"
+      ],
+      "promptZhHans": "在△ABC中，∠C=90°，AC=6，BC=8，D是AB上一点，DE⊥AC于E，DF⊥BC于F。设DE=x，DF=y，求y关于x的函数关系式。",
+      "optionsZhHans": [],
+      "answer": "y = -4/3 x + 8",
+      "acceptedAnswers": [
+        "y = -4/3 x + 8",
+        "y=-4/3x+8",
+        "y = -4x/3 + 8"
+      ],
+      "explanationZhHans": "由勾股定理得AB=10。由△ADE∽△ABC，得DE/BC=AD/AB，即x/8=AD/10，AD=5x/4。同理，由△BDF∽△BAC，得DF/AC=BD/AB，即y/6=BD/10，BD=5y/3。又AD+BD=AB=10，所以5x/4+5y/3=10，化简得y = -4/3 x + 8。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-fi-062",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-similarity"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models"
+      ],
+      "promptZhHans": "某工厂要加工一批零件，原计划每天加工30个，若干天完成。实际加工时，每天加工40个，结果提前2天完成。求原计划加工的天数。",
+      "optionsZhHans": [],
+      "answer": "8",
+      "acceptedAnswers": [
+        "8",
+        "八天",
+        "8天"
+      ],
+      "explanationZhHans": "设原计划加工x天，则零件总数为30x个。实际每天加工40个，用了(x-2)天，零件总数也为40(x-2)。所以30x=40(x-2)，解得x=8。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-fi-063",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-graduation-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "promptZhHans": "已知一次函数y=kx+b的图象经过点(1, -1)和(3, 5)，求该函数图象与坐标轴围成的三角形面积。",
+      "optionsZhHans": [],
+      "answer": "4",
+      "acceptedAnswers": [
+        "4",
+        "4平方单位"
+      ],
+      "explanationZhHans": "将两点代入得：-2=k+b，2=3k+b，解得k=2，b=-4。所以函数为y=2x-4。与x轴交点：令y=0，得x=2；与y轴交点：令x=0，得y=-4。三角形面积为1/2×2×4=4。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-fi-064",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-inverse-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions"
+      ],
+      "promptZhHans": "已知二次函数y=ax²+bx+c的图象开口向上，顶点坐标为(2, -3)，且经过点(0, 17)，求a+b+c的值。",
+      "optionsZhHans": [],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2"
+      ],
+      "explanationZhHans": "由顶点坐标设函数为y=a(x-2)²-3。代入点(0,17)：17=a(0-2)²-3，17=4a-3，解得a=5。所以函数为y=5(x-2)²-3=5x²-20x+17。因此a=5, b=-20, c=17，a+b+c=5-20+17=2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

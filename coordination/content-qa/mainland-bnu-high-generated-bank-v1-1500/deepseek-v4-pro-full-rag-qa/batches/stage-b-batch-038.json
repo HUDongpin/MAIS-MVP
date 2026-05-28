@@ -1,0 +1,132 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-038",
+  "startedAt": "2026-05-28T01:05:41.412Z",
+  "completedAt": "2026-05-28T01:06:03.035Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-297",
+    "bnu-high-ds-v1-s4-298",
+    "bnu-high-ds-v1-s4-299",
+    "bnu-high-ds-v1-s4-300",
+    "bnu-high-ds-v1-s4-301",
+    "bnu-high-ds-v1-s4-302",
+    "bnu-high-ds-v1-s4-303",
+    "bnu-high-ds-v1-s4-304"
+  ],
+  "usage": {
+    "prompt_tokens": 14975,
+    "completion_tokens": 1287,
+    "total_tokens": 16262,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 14591
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-297",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 x=π/12 是独立解 x=π/12+kπ/2 的一个特例，符合题目要求的一条对称轴方程。解析正确推导了通解并取 k=0 得到 x=π/12，与独立解一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-298",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 f(x)=2sin(2x+π/6) 与独立解选项A一致。解析正确求出 A=2, ω=2, φ=π/6，推导无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-299",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 π 与独立解一致。解析通过降幂和辅助角公式得到 y=1+√2sin(2x-π/4)，周期 T=2π/2=π，正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-300",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "无解（条件矛盾）",
+        "issueTags": [
+          "math_error",
+          "missing_condition",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "由周期得 ω=2，f(π/3) 为最大值要求 sin(2π/3+φ)=1，解得 φ=-π/6+2kπ，在 0<φ<π 内无解。存储答案 5π/6 代入得 sin(2π/3+5π/6)=sin(3π/2)=-1，是最小值，与 f(x)≤f(π/3) 矛盾。题目条件无法满足，应判为不可解。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-301",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 [kπ-π/12, kπ+5π/12] 与独立解选项A一致。解析通过整体代入正弦增区间正确求解，推导无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-302",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "3π/4",
+        "issueTags": [
+          "math_error"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "-2025° 终边相同的最小正角为 135°，弧度表示为 3π/4。存储答案 7π/4 对应 315°，错误。解析中计算 -2025° = -6×360°+135° 正确，但最终给出 7π/4 自相矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-303",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 2π/3 与独立解一致。解析正确应用周期公式 T=2π/|ω|=2π/3。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-304",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 1/5 与独立解选项A一致。解析正确计算 r=5，sinα=4/5，cosα=-3/5，和为 1/5。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 0,
+      "fail": 2,
+      "notes": "8题中6题通过，2题失败。第300题条件矛盾无解，存储答案错误；第302题存储答案弧度错误，应为3π/4而非7π/4。"
+    }
+  }
+}

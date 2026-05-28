@@ -1,0 +1,50 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-375",
+  "startedAt": "2026-05-28T02:43:42.065Z",
+  "completedAt": "2026-05-28T02:43:47.652Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-375"
+  ],
+  "usage": {
+    "prompt_tokens": 2406,
+    "completion_tokens": 301,
+    "total_tokens": 2707,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2022
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-375",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": null,
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "missing_condition",
+          "explanation_contradiction",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件矛盾：设纪念碑高h，由仰角得AC=√3h，BC=h，在△ABC中AB=20，∠CAB=60°，由余弦定理得h²-10√3h+200=0，判别式Δ=300-800<0，无实数解，无法求出高度。存储答案20√3米基于错误求解，解析中方程整理错误。题目不可解，需修正条件。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目条件矛盾导致无解，存储答案错误，判定为blocker。"
+    }
+  }
+}

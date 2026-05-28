@@ -1,0 +1,137 @@
+{
+  "batchNumber": 16,
+  "startedAt": "2026-05-25T02:49:57.786Z",
+  "completedAt": "2026-05-25T02:50:10.066Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s1-k03-sa-003",
+    "pep-junior-v3-s1-k03-sa-004",
+    "pep-junior-v3-s1-k03-sa-005",
+    "pep-junior-v3-s1-k03-sa-006",
+    "pep-junior-v3-s1-k03-sa-007",
+    "pep-junior-v3-s1-k03-sa-008",
+    "pep-junior-v3-s1-k03-sa-009",
+    "pep-junior-v3-s1-k03-sa-010",
+    "pep-junior-v3-s1-k03-sa-011",
+    "pep-junior-v3-s1-k03-sa-012",
+    "pep-junior-v3-s1-k03-sa-013",
+    "pep-junior-v3-s1-k03-sa-014"
+  ],
+  "usage": {
+    "prompt_tokens": 3080,
+    "completion_tokens": 906,
+    "total_tokens": 3986,
+    "prompt_tokens_details": {
+      "cached_tokens": 3072
+    },
+    "prompt_cache_hit_tokens": 3072,
+    "prompt_cache_miss_tokens": 8
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s1-k03-sa-003",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，解释合理。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k03-sa-004",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，解释合理。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k03-sa-005",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，解释合理。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k03-sa-006",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，解释合理。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k03-sa-007",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，解释合理。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k03-sa-008",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，解释合理。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k03-sa-009",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，解释合理。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k03-sa-010",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，解释合理。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k03-sa-011",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，解释合理。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k03-sa-012",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，解释合理。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k03-sa-013",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，解释合理。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k03-sa-014",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，解释合理。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均通过审核，无数学错误、答案不匹配、歧义或缺失条件等问题。"
+    }
+  }
+}

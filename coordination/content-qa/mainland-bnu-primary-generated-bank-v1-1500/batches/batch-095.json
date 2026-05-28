@@ -1,0 +1,586 @@
+{
+  "batchId": "batch-095",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p4-191",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "observe-objects",
+        "spatial-visualization",
+        "views-of-solids",
+        "观察物体",
+        "视图"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "从不同方向观察",
+        "视图匹配",
+        "立体想象",
+        "还原物体",
+        "相对位置"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "front and side views interchanged",
+        "hidden cubes counted as visible"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-observe-objects-unit",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用4个同样的小正方体搭成一个立体图形。从正面看，看到的是横着排成一行的3个正方形；从左面看，看到的是竖着排成一列的2个正方形。下面哪种搭法符合要求？",
+      "optionsZhHans": [
+        "下面一层横着放3个，上面一层的中间放1个",
+        "下面一层横着放2个，上面一层左边放1个，右边再放1个",
+        "下面一层横着放3个，上面一层的左边放1个",
+        "下面一层横着放3个，上面一层的右边放1个"
+      ],
+      "answer": "下面一层横着放3个，上面一层的中间放1个",
+      "acceptedAnswers": [
+        "下面一层横着放3个，上面一层的中间放1个"
+      ],
+      "explanationZhHans": "正面看是横排3个，说明下面一层至少有3个排成一行；左面看是竖排2个，说明从左边能看到上下两层各1个。选项A下面3个上面中间1个，从左面看正好是竖排2个，符合要求。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-192",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "observe-objects",
+        "spatial-visualization",
+        "views-of-solids",
+        "观察物体",
+        "视图"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "从不同方向观察",
+        "视图匹配",
+        "立体想象",
+        "还原物体",
+        "相对位置"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "front and side views interchanged",
+        "hidden cubes counted as visible"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-observe-objects-unit",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用4个同样的小正方体搭成一个立体图形。从正面看，能看到3个小正方形，分两层，下层2个，上层1个靠左边；从左面看，也能看到3个小正方形，分两层，下层2个，上层1个靠左边。这个立体图形一共有多少种不同的搭法？",
+      "optionsZhHans": [],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2",
+        "两种",
+        "2种"
+      ],
+      "explanationZhHans": "根据从正面和左面看到的形状，可以确定下层有3个小正方体，上层有1个。上层的小正方体可以放在下层前排的左角或后排的左角，共2种搭法。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-193",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "observe-objects",
+        "spatial-visualization",
+        "views-of-solids",
+        "观察物体",
+        "视图"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "从不同方向观察",
+        "视图匹配",
+        "立体想象",
+        "还原物体",
+        "相对位置"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "front and side views interchanged",
+        "hidden cubes counted as visible"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-observe-objects-unit",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用5个同样的小正方体搭成一个立体图形。从正面看，能看到3个小正方形，分两层，下层2个，上层1个靠左边；从右面看，能看到3个小正方形，分两层，下层2个，上层1个靠右边；从上面看，能看到4个小正方形，分两排，前排2个，后排2个，且前排左边与后排左边对齐。下面哪个立体图形符合要求？",
+      "optionsZhHans": [
+        "第一层放3个小正方体排成一排，第二层左边放1个小正方体，第三层右边放1个小正方体",
+        "第一层放4个小正方体排成两排两列，第二层左边放1个小正方体",
+        "第一层放4个小正方体排成两排两列，第二层右边放1个小正方体",
+        "第一层放3个小正方体排成一排，第二层中间放1个小正方体，第三层中间放1个小正方体"
+      ],
+      "answer": "第一层放4个小正方体排成两排两列，第二层左边放1个小正方体",
+      "acceptedAnswers": [
+        "第一层放4个小正方体排成两排两列，第二层左边放1个小正方体"
+      ],
+      "explanationZhHans": "从上面看是两排两列，说明底层有4个正方体排成正方形。从正面看下层2个、上层1个靠左，说明第二层左边有1个。从右面看下层2个、上层1个靠右，说明第二层在右边也有1个，但只有5个正方体，所以第二层左边那个同时满足正面和右面视图。因此立体图形为底层4个，第二层左边放1个。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-194",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "observe-objects",
+        "spatial-visualization",
+        "views-of-solids",
+        "观察物体",
+        "视图"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "从不同方向观察",
+        "视图匹配",
+        "立体想象",
+        "还原物体",
+        "相对位置"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "front and side views interchanged",
+        "hidden cubes counted as visible"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-observe-objects-unit",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用4个同样的小正方体搭成一个立体图形。从前面看，看到的是横着排成一行的3个小正方形；从右面看，看到的是竖着排成一列的2个小正方形。这个立体图形一共有多少种不同的搭法？",
+      "optionsZhHans": [],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2",
+        "两种",
+        "2种"
+      ],
+      "explanationZhHans": "从前面看是横排3个，说明第一层至少有3个并排；从右面看是竖排2个，说明有一列有两层。唯一可能：底层3个并排，上面一个可放在左端或右端，共2种搭法。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-195",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "observe-objects",
+        "spatial-visualization",
+        "views-of-solids",
+        "观察物体",
+        "视图"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "从不同方向观察",
+        "视图匹配",
+        "立体想象",
+        "还原物体",
+        "相对位置"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "front and side views interchanged",
+        "hidden cubes counted as visible"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-observe-objects-unit",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用4个同样大的小正方体搭成一个立体图形。从正面看，看到的是横着排成一行的3个正方形；从左面看，看到的是竖着排成一列的2个正方形。下面哪个立体图形符合要求？",
+      "optionsZhHans": [
+        "第一层放3个小正方体横着排成一行，第二层在左边第一个小正方体上面放1个小正方体",
+        "第一层放2个小正方体横着排成一行，第二层在左边第一个小正方体上面放1个小正方体，第三层在第二层的小正方体上面再放1个小正方体",
+        "第一层放3个小正方体横着排成一行，第二层在中间的小正方体上面放1个小正方体",
+        "第一层放2个小正方体横着排成一行，第二层在右边的小正方体上面放1个小正方体，第三层在第二层的小正方体上面再放1个小正方体"
+      ],
+      "answer": "第一层放3个小正方体横着排成一行，第二层在左边第一个小正方体上面放1个小正方体",
+      "acceptedAnswers": [
+        "第一层放3个小正方体横着排成一行，第二层在左边第一个小正方体上面放1个小正方体"
+      ],
+      "explanationZhHans": "从正面看要看到横着的一行3个正方形，说明第一层至少有3个正方体排成一行。从左面看要看到竖着的一列2个正方形，说明在左边位置有上下两层。选项A满足：第一层3个横排，第二层在左边第一个上面放一个，从左面看正好看到左边一列上下两个正方形。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-196",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "observe-objects",
+        "spatial-visualization",
+        "views-of-solids",
+        "观察物体",
+        "视图"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "从不同方向观察",
+        "视图匹配",
+        "立体想象",
+        "还原物体",
+        "相对位置"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "front and side views interchanged",
+        "hidden cubes counted as visible"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-observe-objects-unit",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用4个相同的小正方体搭成一个立体图形。从正面看到的形状是 □□（横着并排的两个正方形），从左面看到的形状是 □（一个正方形）。这个立体图形一共有多少种不同的搭法？",
+      "optionsZhHans": [],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2",
+        "两种",
+        "2种"
+      ],
+      "explanationZhHans": "从正面看是横排两个正方形，说明第一层至少有两个并排的正方体。从左面看是一个正方形，说明从左边只能看到一列，因此第二层只能有一个正方体，且必须放在左边或右边正方体的上面，但不能同时放两个。所以有两种搭法：第二层放在左边上面，或放在右边上面。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-197",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "observe-objects",
+        "spatial-visualization",
+        "views-of-solids",
+        "观察物体",
+        "视图"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "从不同方向观察",
+        "视图匹配",
+        "立体想象",
+        "还原物体",
+        "相对位置"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "front and side views interchanged",
+        "hidden cubes counted as visible"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-observe-objects-unit",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用4个同样的小正方体搭成一个立体图形。从正面看，看到的是横着排成一行的3个小正方形；从左面看，看到的是上下两层的2个小正方形，上层1个在左边，下层1个在右边。下面哪个立体图形符合这些条件？",
+      "optionsZhHans": [
+        "第一层摆3个正方体横着排成一行，第二层在左边第一个正方体上面再放1个正方体",
+        "第一层摆3个正方体横着排成一行，第二层在中间正方体上面再放1个正方体",
+        "第一层摆2个正方体横着排成一行，第二层在左边第一个正方体上面再放1个正方体，第三层在第二层正方体上面再放1个正方体",
+        "第一层摆3个正方体横着排成一行，第二层在右边第一个正方体上面再放1个正方体"
+      ],
+      "answer": "第一层摆3个正方体横着排成一行，第二层在左边第一个正方体上面再放1个正方体",
+      "acceptedAnswers": [
+        "第一层摆3个正方体横着排成一行，第二层在左边第一个正方体上面再放1个正方体"
+      ],
+      "explanationZhHans": "从正面看到一行3个正方形，说明底层至少有3个正方体横排。从左面看到上下两层，上层在左、下层在右，说明第二层正方体位于底层最左边正方体的上方。选项A符合。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-198",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "observe-objects",
+        "spatial-visualization",
+        "views-of-solids",
+        "观察物体",
+        "视图"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "从不同方向观察",
+        "视图匹配",
+        "立体想象",
+        "还原物体",
+        "相对位置"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "front and side views interchanged",
+        "hidden cubes counted as visible"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-observe-objects-unit",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用4个同样的小正方体搭成一个立体图形。从正面看，看到的是横着并排的3个小正方形；从左面看，看到的是上下两层的2个小正方形，下层2个并排，上层1个靠右。这个立体图形一共有多少个小正方体？",
+      "optionsZhHans": [],
+      "answer": "4",
+      "acceptedAnswers": [
+        "4"
+      ],
+      "explanationZhHans": "题目已说明用4个小正方体搭成，所以总数就是4。从正面看到3个并排，从左面看到下层2个、上层1个靠右，符合4个小正方体的摆放方式，没有隐藏或缺少的部分。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-199",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "observe-objects",
+        "spatial-visualization",
+        "views-of-solids",
+        "观察物体",
+        "视图"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "从不同方向观察",
+        "视图匹配",
+        "立体想象",
+        "还原物体",
+        "相对位置"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "front and side views interchanged",
+        "hidden cubes counted as visible"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-observe-objects-unit",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用4个同样的小正方体搭成一个立体图形。从正面看，能看到3个小正方形，分两层，下层2个，上层1个靠左边；从左面看，也能看到3个小正方形，分两层，下层2个，上层1个靠右边。下面哪一个立体图形符合要求？",
+      "optionsZhHans": [
+        "A. 下层摆3个小正方体排成一排，上层在左边第一个上面放1个",
+        "B. 下层摆2个小正方体左右并排，上层在左边一个上面放1个，右边一个上面放1个",
+        "C. 下层摆2个小正方体左右并排，上层在右边一个上面放1个",
+        "D. 下层摆2个小正方体前后摆放，上层在前面一个上面放1个"
+      ],
+      "answer": "A. 下层摆3个小正方体排成一排，上层在左边第一个上面放1个",
+      "acceptedAnswers": [
+        "A. 下层摆3个小正方体排成一排，上层在左边第一个上面放1个"
+      ],
+      "explanationZhHans": "从正面看，下层2个上层1个靠左，说明正面下层有2个并排，上层在左边。从左面看，下层2个上层1个靠右，说明从左面看时，下层有2个并排，上层在右边。综合两个方向，立体图形应为下层3个排成一排，上层在左边第一个上面放1个，这样正面看左边有上层，左面看右边有上层，符合要求。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-200",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "observe-objects",
+        "spatial-visualization",
+        "views-of-solids",
+        "观察物体",
+        "视图"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "从不同方向观察",
+        "视图匹配",
+        "立体想象",
+        "还原物体",
+        "相对位置"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "front and side views interchanged",
+        "hidden cubes counted as visible"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-observe-objects-unit",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用4个同样的小正方体搭成一个立体图形。从正面看，看到的是横着排成一行的3个正方形；从上面看，看到的是前后两行，每行都有2个正方形，并且这两行左端对齐。这个立体图形一共有多少个小正方体？",
+      "optionsZhHans": [],
+      "answer": "4",
+      "acceptedAnswers": [
+        "4"
+      ],
+      "explanationZhHans": "从上面看有两行两列，说明底层至少有4个小正方体。从正面看是一行3个正方形，说明前排有3个，后排只有1个且被前排挡住。因此立体图形由4个小正方体组成，与总数一致。"
+    }
+  ]
+}

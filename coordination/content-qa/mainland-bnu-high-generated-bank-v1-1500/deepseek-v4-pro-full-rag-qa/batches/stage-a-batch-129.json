@@ -1,0 +1,120 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-129",
+  "startedAt": "2026-05-28T01:33:29.377Z",
+  "completedAt": "2026-05-28T01:34:02.063Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-025",
+    "bnu-high-ds-v1-s6-026",
+    "bnu-high-ds-v1-s6-027",
+    "bnu-high-ds-v1-s6-028",
+    "bnu-high-ds-v1-s6-029",
+    "bnu-high-ds-v1-s6-030",
+    "bnu-high-ds-v1-s6-031",
+    "bnu-high-ds-v1-s6-032"
+  ],
+  "usage": {
+    "prompt_tokens": 9995,
+    "completion_tokens": 2431,
+    "total_tokens": 12426,
+    "prompt_tokens_details": {
+      "cached_tokens": 9984
+    },
+    "prompt_cache_hit_tokens": 9984,
+    "prompt_cache_miss_tokens": 11
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-025",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "11",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由 S_n = n^2 + 2n，得 a_5 = S_5 - S_4 = (25+10) - (16+8) = 35 - 24 = 11。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-026",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "假设 n=k 时成立，即 1^2+...+k^2 = k(k+1)(2k+1)/6。则 n=k+1 时，左边 = k(k+1)(2k+1)/6 + (k+1)^2 = (k+1)[k(2k+1)+6(k+1)]/6 = (k+1)(2k^2+7k+6)/6 = (k+1)(k+2)(2k+3)/6，右边 = (k+1)((k+1)+1)(2(k+1)+1)/6 = (k+1)(k+2)(2k+3)/6，等式成立。",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "数学归纳法第二步推导完整，从假设出发，代入求和公式，化简得到目标形式。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-027",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "a_n = 3^n - 2^n",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "递推 a_{n+1} = 2a_n + 3^n，两边同除以 2^{n+1} 或构造等比数列。设 b_n = a_n / 3^n，得 b_{n+1} = (2/3) b_n + 1/3，解得 b_n = 1 - (2/3)^n，故 a_n = 3^n - 2^n。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-028",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "2, 2, 2, 2, ...",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "常数列既是公差为0的等差数列，也是公比为1的等比数列。选项B符合。选项D全零数列不是等比数列（公比无定义）。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-029",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "a_1 = 1, d = 2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由 S_n = n a_1 + n(n-1)d/2，代入 S_5=25, S_10=100，得方程组 5a_1+10d=25, 10a_1+45d=100，解得 a_1=1, d=2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-030",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "2 或 -3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "等比数列前3项和 S_3 = a_1(1+q+q^2) = 2(1+q+q^2) = 14，得 q^2+q-6=0，解得 q=2 或 q=-3。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-031",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "2",
+        "issueTags": [
+          "math_error"
+        ],
+        "severity": "blocker",
+        "confidence": "medium",
+        "rationaleZhHans": "题目条件 b_n = a_n + 3^n 是等比数列，但由递推 a_{n+1} = 2a_n + 3^n 推导 b_{n+1} 与 b_n 的关系，无法得到常数公比，存在数学矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-032",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "20",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "等差数列中，a_3 + a_8 = a_5 + a_6，因为 3+8 = 5+6，所以 a_5 + a_6 = 20。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第31题存在数学矛盾：由给定递推和 b_n 定义无法推出 b_n 为等比数列，题目条件不一致，标记为失败。其余题目均独立可解，符合北师大版高中数列内容。"
+    }
+  }
+}

@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-155",
+  "startedAt": "2026-05-28T01:44:08.454Z",
+  "completedAt": "2026-05-28T01:44:24.391Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-233",
+    "bnu-high-ds-v1-s6-234",
+    "bnu-high-ds-v1-s6-235",
+    "bnu-high-ds-v1-s6-236",
+    "bnu-high-ds-v1-s6-237",
+    "bnu-high-ds-v1-s6-238",
+    "bnu-high-ds-v1-s6-239",
+    "bnu-high-ds-v1-s6-240"
+  ],
+  "usage": {
+    "prompt_tokens": 10152,
+    "completion_tokens": 1117,
+    "total_tokens": 11269,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9768
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-233",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "a=0, b=-12, c=4",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由极值条件得f'(-2)=0, f'(2)=0，结合f(-2)=20, f(2)=-12，解方程组得a=0, b=-12, c=4。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-234",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "y = 9x - 16",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导得y'=3x^2-3，在x=2处斜率k=9，切线方程为y-2=9(x-2)，即y=9x-16。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-235",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x^2-6x，临界点x=0,2，比较f(-1)=-2, f(0)=2, f(2)=-2, f(3)=2，最大值为2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-236",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "162 m²",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "设宽为x，则长为36-2x，面积S=x(36-2x)，求导得S'=36-4x，x=9时S最大，最大面积162 m²。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-237",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "a ≤ 5/4",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x^2-6ax+3≥0在(2,3)恒成立，分离参数得a≤(x^2+1)/(2x)，求导得右边在(2,3)递增，最小值为5/4，故a≤5/4。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-238",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "32",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x^2-6x-9，临界点x=-1,3，极大值f(-1)=10，极小值f(3)=-22，差为32。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-239",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "a = e - 1",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=e^x-a，若a≤1则最小值f(0)=1得a=0；若a>1则最小值f(ln a)=a - a ln a=1，解得a=e，但e>1，且f(0)=1，故a=e。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-240",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "0 < k < 4",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x^2-3，极大值f(-1)=4，极小值f(1)=0，方程有三个不同实根则k介于极值之间，即0<k<4。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均能独立求解，答案明确，无歧义或缺失条件，符合北师大版高中导数章节要求。"
+    }
+  }
+}

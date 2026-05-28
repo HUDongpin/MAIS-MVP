@@ -1,0 +1,294 @@
+{
+  "batchId": "batch-154",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p4-016",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-review-operations-fractions",
+      "unitTitle": "复习与提高",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "p4-upper-review",
+        "operation-relationships",
+        "fraction-review",
+        "两位数乘除",
+        "分数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "反思整理"
+      ],
+      "skillTags": [
+        "加减关系",
+        "乘除关系",
+        "两位数乘除",
+        "分数意义",
+        "错因检查"
+      ],
+      "misconceptionTags": [
+        "inverse relationship used only after an error",
+        "fraction denominator read as a count to add",
+        "review facts applied without context check"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-review-operations-fractions"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-review-operations-fractions",
+        "hjb-primary-p4-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小杰在计算一道除法题时，把被除数 768 错看成了 786，得到的商比正确的商多 1，余数相同。正确的商是（    ）。",
+      "optionsZhHans": [
+        "42",
+        "43",
+        "44",
+        "45"
+      ],
+      "answer": "42",
+      "acceptedAnswers": [
+        "42"
+      ],
+      "explanationZhHans": "被除数增加了786-768=18，商多1而余数不变，说明除数就是18。用正确的被除数768除以18，768÷18=42余12，所以正确的商是42。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-017",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-review-operations-fractions",
+      "unitTitle": "复习与提高",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "p4-upper-review",
+        "operation-relationships",
+        "fraction-review",
+        "两位数乘除",
+        "分数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "反思整理"
+      ],
+      "skillTags": [
+        "加减关系",
+        "乘除关系",
+        "两位数乘除",
+        "分数意义",
+        "错因检查"
+      ],
+      "misconceptionTags": [
+        "inverse relationship used only after an error",
+        "fraction denominator read as a count to add",
+        "review facts applied without context check"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-review-operations-fractions"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-review-operations-fractions",
+        "hjb-primary-p4-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "根据 23 × 47 = 1081，直接写出下面括号里的数。\n1081 ÷ 23 = （    ）",
+      "optionsZhHans": [],
+      "answer": "47",
+      "acceptedAnswers": [
+        "47"
+      ],
+      "explanationZhHans": "根据乘除法的关系，积除以一个因数等于另一个因数。1081 ÷ 23 = 47。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-018",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-review-operations-fractions",
+      "unitTitle": "复习与提高",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "p4-upper-review",
+        "operation-relationships",
+        "fraction-review",
+        "两位数乘除",
+        "分数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "反思整理"
+      ],
+      "skillTags": [
+        "加减关系",
+        "乘除关系",
+        "两位数乘除",
+        "分数意义",
+        "错因检查"
+      ],
+      "misconceptionTags": [
+        "inverse relationship used only after an error",
+        "fraction denominator read as a count to add",
+        "review facts applied without context check"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-review-operations-fractions"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-review-operations-fractions",
+        "hjb-primary-p4-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把一根绳子对折两次后，每段是这根绳子的几分之几？",
+      "optionsZhHans": [],
+      "answer": "四分之一",
+      "acceptedAnswers": [
+        "四分之一",
+        "1/4",
+        "¼"
+      ],
+      "explanationZhHans": "对折一次平均分成2份，对折两次平均分成4份，每份是这根绳子的四分之一。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-019",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-review-operations-fractions",
+      "unitTitle": "复习与提高",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "p4-upper-review",
+        "operation-relationships",
+        "fraction-review",
+        "两位数乘除",
+        "分数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "反思整理"
+      ],
+      "skillTags": [
+        "加减关系",
+        "乘除关系",
+        "两位数乘除",
+        "分数意义",
+        "错因检查"
+      ],
+      "misconceptionTags": [
+        "inverse relationship used only after an error",
+        "fraction denominator read as a count to add",
+        "review facts applied without context check"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-review-operations-fractions"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-review-operations-fractions",
+        "hjb-primary-p4-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小马虎在计算一道减法题时，把减数 37 看成了 73，算出的结果是 156。正确的结果应该是（    ）。",
+      "optionsZhHans": [
+        "192",
+        "120",
+        "110",
+        "202"
+      ],
+      "answer": "192",
+      "acceptedAnswers": [
+        "192"
+      ],
+      "explanationZhHans": "减数看大了73-37=36，差就少了36。错误结果是156，正确结果应为156+36=192。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-020",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-review-operations-fractions",
+      "unitTitle": "复习与提高",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "p4-upper-review",
+        "operation-relationships",
+        "fraction-review",
+        "两位数乘除",
+        "分数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "反思整理"
+      ],
+      "skillTags": [
+        "加减关系",
+        "乘除关系",
+        "两位数乘除",
+        "分数意义",
+        "错因检查"
+      ],
+      "misconceptionTags": [
+        "inverse relationship used only after an error",
+        "fraction denominator read as a count to add",
+        "review facts applied without context check"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-review-operations-fractions"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-review-operations-fractions",
+        "hjb-primary-p4-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在算式 □ ÷ 25 = 18……△ 中，△ 最大是（    ），这时 □ 是（    ）。",
+      "optionsZhHans": [],
+      "answer": "24, 474",
+      "acceptedAnswers": [
+        "24, 474",
+        "24 474",
+        "24和474"
+      ],
+      "explanationZhHans": "余数要比除数小，除数是25，余数最大是24。被除数=商×除数+余数=18×25+24=450+24=474。"
+    }
+  ]
+}

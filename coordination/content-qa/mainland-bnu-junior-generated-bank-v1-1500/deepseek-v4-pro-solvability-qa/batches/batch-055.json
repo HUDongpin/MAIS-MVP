@@ -1,0 +1,185 @@
+{
+  "batchNumber": 55,
+  "startedAt": "2026-05-27T17:38:11.300Z",
+  "completedAt": "2026-05-27T17:38:30.123Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s2-149",
+    "bnu-junior-ds-v1-s2-150",
+    "bnu-junior-ds-v1-s2-151",
+    "bnu-junior-ds-v1-s2-152",
+    "bnu-junior-ds-v1-s2-153",
+    "bnu-junior-ds-v1-s2-154",
+    "bnu-junior-ds-v1-s2-155",
+    "bnu-junior-ds-v1-s2-156",
+    "bnu-junior-ds-v1-s2-157",
+    "bnu-junior-ds-v1-s2-158",
+    "bnu-junior-ds-v1-s2-159",
+    "bnu-junior-ds-v1-s2-160"
+  ],
+  "usage": {
+    "prompt_tokens": 6807,
+    "completion_tokens": 1410,
+    "total_tokens": 8217,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 6295
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s2-149",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，可解；答案与解析一致，交点坐标正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-150",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，可解；答案与解析一致，k+b=4正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-151",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，可解；答案选项C正确，解析合理，其他选项均为错误干扰项。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-152",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，可解；答案与解析一致，表达式和变化量均正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-153",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，可解；答案与解析一致，交点坐标正确，且acceptedAnswers覆盖了分数和小数形式。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-154",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，可解；答案选项A正确，解析合理，其他选项均为错误干扰项。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-155",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，可解；答案与解析一致，m<2正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-156",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "-2",
+        "rationale": "题目可解，但答案错误。解析中正确计算出k=-2, b=0，k+b=-2，但答案误写为2。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-157",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "3",
+        "rationale": "题目可解，但答案错误。解析中正确计算出x=1, y=2，x+y=3，但答案误写为2。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-158",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，可解；答案与解析一致，篮球8个、排球12个正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-159",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "-1",
+        "rationale": "题目可解，但答案错误。解析中正确计算出a=1, b=2，a-b=-1，但答案误写为0。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-160",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "a > 3",
+        "rationale": "题目可解，但答案错误。解析中正确推导出a>3，但答案误写为a<-6。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 4,
+      "notes": "共12题，8题通过，4题因答案与解析矛盾而失败（bnu-junior-ds-v1-s2-156、157、159、160），需修正答案。"
+    }
+  }
+}

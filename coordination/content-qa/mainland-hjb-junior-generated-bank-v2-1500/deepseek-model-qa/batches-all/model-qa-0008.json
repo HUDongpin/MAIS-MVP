@@ -1,0 +1,112 @@
+{
+  "batchId": "model-qa-0008",
+  "ids": [
+    "hjb-junior-ds-v2-s1-057",
+    "hjb-junior-ds-v2-s1-058",
+    "hjb-junior-ds-v2-s1-059",
+    "hjb-junior-ds-v2-s1-060",
+    "hjb-junior-ds-v2-s1-061",
+    "hjb-junior-ds-v2-s1-062",
+    "hjb-junior-ds-v2-s1-063",
+    "hjb-junior-ds-v2-s1-064"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-057",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为 4x^4 y^5，但解析计算得 12x^4 y^4，两者不一致。独立计算得 12x^4 y^4，故答案错误。",
+      "independentAnswerZhHans": "12x^4 y^4",
+      "answerCheckZhHans": "标准答案 4x^4 y^5 与解析结果 12x^4 y^4 矛盾，且独立计算支持 12x^4 y^4。",
+      "recommendedActionZhHans": "修正答案为 12x^4 y^4 并更新解析，或检查题目是否有误。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-058",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为 12a^4 b^5，但解析计算得 12a^4 b^4，两者不一致。独立计算得 12a^4 b^4，故答案错误。",
+      "independentAnswerZhHans": "12a^4 b^4",
+      "answerCheckZhHans": "标准答案 12a^4 b^5 与解析结果 12a^4 b^4 矛盾，且独立计算支持 12a^4 b^4。",
+      "recommendedActionZhHans": "修正答案为 12a^4 b^4 并更新解析，或检查题目是否有误。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-059",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-17",
+      "answerCheckZhHans": "标准答案 -17 与独立计算结果一致，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-060",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "商式为 2x+1，余式为 9x-3",
+      "answerCheckZhHans": "标准答案与独立计算结果一致，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-061",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "72a¹²",
+      "answerCheckZhHans": "标准答案与独立计算结果一致，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-062",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x⁴",
+      "answerCheckZhHans": "标准答案与独立计算结果一致，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-063",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为 −13，但解析计算得 −11，两者不一致。独立计算得 −11，故答案错误。",
+      "independentAnswerZhHans": "-11",
+      "answerCheckZhHans": "标准答案 −13 与解析结果 −11 矛盾，且独立计算支持 −11。",
+      "recommendedActionZhHans": "修正答案为 −11 并更新解析，或检查题目是否有误。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-064",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "C",
+      "answerCheckZhHans": "标准答案 C 正确，解析指出其他选项错误，独立计算确认 C 正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

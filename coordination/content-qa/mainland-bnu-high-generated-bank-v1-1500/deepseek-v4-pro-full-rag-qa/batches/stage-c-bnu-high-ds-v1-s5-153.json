@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-153",
+  "startedAt": "2026-05-28T02:53:29.672Z",
+  "completedAt": "2026-05-28T02:53:35.486Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-153"
+  ],
+  "usage": {
+    "prompt_tokens": 2141,
+    "completion_tokens": 279,
+    "total_tokens": 2420,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1757
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-153",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "arccos(-√21/14)",
+        "correctedAnswer": "arccos(-√21/14)",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合北师大版空间向量章节。独立计算得夹角余弦为-√21/14，故正确答案为arccos(-√21/14)。存储答案arccos(-1/14)错误，解析中化简步骤有误，导致答案与解释矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1题答案错误，需修正为arccos(-√21/14)。"
+    }
+  }
+}

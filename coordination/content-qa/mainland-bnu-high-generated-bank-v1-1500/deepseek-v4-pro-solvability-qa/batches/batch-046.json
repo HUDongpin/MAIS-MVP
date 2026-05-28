@@ -1,0 +1,145 @@
+{
+  "batchNumber": 46,
+  "startedAt": "2026-05-27T13:51:23.603Z",
+  "completedAt": "2026-05-27T13:51:44.361Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-361",
+    "bnu-high-ds-v1-s4-362",
+    "bnu-high-ds-v1-s4-363",
+    "bnu-high-ds-v1-s4-364",
+    "bnu-high-ds-v1-s4-365",
+    "bnu-high-ds-v1-s4-366",
+    "bnu-high-ds-v1-s4-367",
+    "bnu-high-ds-v1-s4-368"
+  ],
+  "usage": {
+    "prompt_tokens": 11909,
+    "completion_tokens": 1302,
+    "total_tokens": 13211,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 11397
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-361",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "40√2 m",
+        "correctedAnswer": "40√2 m",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，但答案错误。独立求解得塔高为40√2 m，而给定答案为40 m。解析中错误计算AC=40√3，实际应为40√6，导致最终答案错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-362",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "50√(4+√3) 米",
+        "correctedAnswer": "50√(4+√3) 米",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，但答案错误。独立求解得h=50√(4+√3)米，而给定答案为50√3米。解析中余弦定理列式错误，应为AB²=AC²+BC²-2·AC·BC·cos∠ACB，但∠ACB未知，无法直接使用∠CAB=60°。正确做法需先求∠ACB，再解三角形。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-363",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "60(√3+1) 米",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，答案正确，解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-364",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "约53.1米，最接近56米",
+        "correctedAnswer": "56米",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，但解析计算有误。解析中余弦定理列式正确，但计算h²=6400/(4-√3)≈2822，h≈53.1米，最接近56米，答案选56米合理。但解析中h≈53.1米与选项56米有差距，且未说明为何最接近。严格来说，53.1更接近56而非69，但题目要求“最接近”，答案56米可接受。然而解析中h≈53.1米与最终答案56米不一致，存在矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-365",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "影长8√3≈13.86米，影子超出南边界",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，答案正确，解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-366",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "40√2≈56.6米",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，答案正确，解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-367",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "40√2 m",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，答案正确，解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-368",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "40√2≈56.6米",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，答案正确，解析与答案一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 5,
+      "warn": 0,
+      "fail": 3,
+      "notes": "8题中5题通过，3题失败。失败题目均为数学错误或答案不匹配，其中361、362答案错误，364解析与答案矛盾。"
+    }
+  }
+}

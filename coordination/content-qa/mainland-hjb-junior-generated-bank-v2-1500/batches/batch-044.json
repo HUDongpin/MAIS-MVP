@@ -1,0 +1,335 @@
+{
+  "batchId": "batch-044",
+  "questions": [
+    {
+      "id": "hjb-junior-ds-v2-s1-216",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "hjb-junior-s1-upper-figure-transformations",
+      "unitTitle": "图形的运动",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "geometric-transformations",
+        "translation",
+        "rotation",
+        "reflection",
+        "symmetry",
+        "图形运动"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "平移",
+        "旋转",
+        "翻折",
+        "轴对称",
+        "变换前后关系"
+      ],
+      "misconceptionTags": [
+        "movement changes shape size",
+        "corresponding points mismatched",
+        "rotation direction confused"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s1-upper-figure-transformations"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-figure-transformations-unit",
+        "hjb-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-linear-inequalities",
+        "hjb-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系中，三角形ABC的顶点坐标分别为A(1,2)，B(3,5)，C(4,1)。将三角形ABC先向右平移3个单位，再向下平移2个单位，得到三角形A'B'C'。请写出点A'的坐标，并说明平移前后对应线段AB与A'B'的长度是否相等，为什么？",
+      "optionsZhHans": [],
+      "answer": "A'(4,0)，相等，因为平移不改变图形的形状和大小。",
+      "acceptedAnswers": [
+        "A'(4,0)，相等，因为平移不改变图形的形状和大小。",
+        "A'(4,0)，相等，因为平移不改变图形的形状和大小"
+      ],
+      "explanationZhHans": "点A(1,2)向右平移3个单位得(4,2)，再向下平移2个单位得(4,0)。平移是全等变换，对应线段长度不变。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-217",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "hjb-junior-s1-upper-figure-transformations",
+      "unitTitle": "图形的运动",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "geometric-transformations",
+        "translation",
+        "rotation",
+        "reflection",
+        "symmetry",
+        "图形运动"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "平移",
+        "旋转",
+        "翻折",
+        "轴对称",
+        "变换前后关系"
+      ],
+      "misconceptionTags": [
+        "movement changes shape size",
+        "corresponding points mismatched",
+        "rotation direction confused"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s1-upper-figure-transformations"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-figure-transformations-unit",
+        "hjb-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-linear-inequalities",
+        "hjb-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下列哪种运动一定会改变图形的位置但不会改变图形的形状和大小？",
+      "optionsZhHans": [
+        "A. 平移",
+        "B. 放大",
+        "C. 缩小",
+        "D. 拉伸"
+      ],
+      "answer": "A. 平移",
+      "acceptedAnswers": [
+        "A. 平移"
+      ],
+      "explanationZhHans": "平移、旋转、翻折都是全等变换，只改变位置，不改变形状和大小。放大、缩小、拉伸会改变大小或形状。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-218",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "hjb-junior-s1-upper-figure-transformations",
+      "unitTitle": "图形的运动",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "geometric-transformations",
+        "translation",
+        "rotation",
+        "reflection",
+        "symmetry",
+        "图形运动"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "平移",
+        "旋转",
+        "翻折",
+        "轴对称",
+        "变换前后关系"
+      ],
+      "misconceptionTags": [
+        "movement changes shape size",
+        "corresponding points mismatched",
+        "rotation direction confused"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-junior-s1-upper-figure-transformations"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-figure-transformations-unit",
+        "hjb-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-linear-inequalities",
+        "hjb-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知线段AB的两个端点坐标分别为A(2,3)和B(5,7)。将线段AB绕原点O逆时针旋转90°，得到线段A'B'。则点A'的坐标为______。",
+      "optionsZhHans": [],
+      "answer": "(-3,2)",
+      "acceptedAnswers": [
+        "(-3,2)",
+        "(-3, 2)"
+      ],
+      "explanationZhHans": "点(x,y)绕原点逆时针旋转90°得(-y,x)。A(2,3)旋转后为(-3,2)。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-219",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "hjb-junior-s1-upper-figure-transformations",
+      "unitTitle": "图形的运动",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "geometric-transformations",
+        "translation",
+        "rotation",
+        "reflection",
+        "symmetry",
+        "图形运动"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "平移",
+        "旋转",
+        "翻折",
+        "轴对称",
+        "变换前后关系"
+      ],
+      "misconceptionTags": [
+        "movement changes shape size",
+        "corresponding points mismatched",
+        "rotation direction confused"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s1-upper-figure-transformations"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-figure-transformations-unit",
+        "hjb-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-linear-inequalities",
+        "hjb-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系中，点P的坐标为(4,-3)。点P关于y轴的对称点P'的坐标是什么？请写出坐标，并说明对称轴是哪条直线。",
+      "optionsZhHans": [],
+      "answer": "P'(-4,-3)，对称轴是y轴。",
+      "acceptedAnswers": [
+        "P'(-4,-3)，对称轴是y轴。",
+        "P'(-4,-3)，对称轴是y轴",
+        "(-4,-3)，对称轴是y轴",
+        "(-4,-3)，对称轴是y轴。"
+      ],
+      "explanationZhHans": "关于y轴对称，横坐标互为相反数，纵坐标不变。所以P(4,-3)的对称点为(-4,-3)，对称轴是y轴。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-220",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "hjb-junior-s1-upper-figure-transformations",
+      "unitTitle": "图形的运动",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "geometric-transformations",
+        "translation",
+        "rotation",
+        "reflection",
+        "symmetry",
+        "图形运动"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "平移",
+        "旋转",
+        "翻折",
+        "轴对称",
+        "变换前后关系"
+      ],
+      "misconceptionTags": [
+        "movement changes shape size",
+        "corresponding points mismatched",
+        "rotation direction confused"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s1-upper-figure-transformations"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-figure-transformations-unit",
+        "hjb-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-linear-inequalities",
+        "hjb-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "将点A(3,4)绕原点O顺时针旋转90°后，得到的点A'的坐标是（ ）。",
+      "optionsZhHans": [
+        "A. (-4,3)",
+        "B. (4,-3)",
+        "C. (-3,-4)",
+        "D. (3,-4)"
+      ],
+      "answer": "B. (4,-3)",
+      "acceptedAnswers": [
+        "B. (4,-3)"
+      ],
+      "explanationZhHans": "点(x,y)绕原点顺时针旋转90°得(y,-x)。A(3,4)旋转后为(4,-3)。"
+    }
+  ]
+}

@@ -1,0 +1,179 @@
+{
+  "batchNumber": 70,
+  "startedAt": "2026-05-27T17:43:03.468Z",
+  "completedAt": "2026-05-27T17:43:22.538Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s2-329",
+    "bnu-junior-ds-v1-s2-330",
+    "bnu-junior-ds-v1-s2-331",
+    "bnu-junior-ds-v1-s2-332",
+    "bnu-junior-ds-v1-s2-333",
+    "bnu-junior-ds-v1-s2-334",
+    "bnu-junior-ds-v1-s2-335",
+    "bnu-junior-ds-v1-s2-336",
+    "bnu-junior-ds-v1-s2-337",
+    "bnu-junior-ds-v1-s2-338",
+    "bnu-junior-ds-v1-s2-339",
+    "bnu-junior-ds-v1-s2-340"
+  ],
+  "usage": {
+    "prompt_tokens": 6117,
+    "completion_tokens": 1347,
+    "total_tokens": 7464,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 5605
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s2-329",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，可解出篮球数量范围8≤x≤10且为整数，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-330",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": false,
+        "answerMatches": false,
+        "issueTags": [
+          "missing_condition",
+          "answer_mismatch"
+        ],
+        "correctedAnswer": null,
+        "rationale": "题目为填空题，但未提供选项，仅凭“若a>b，c为任意实数”无法确定唯一答案，因为题目要求“一定成立的是_______”，但未列出选项，学生无法作答。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-331",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "不等式组可解，解集包含3不包含4，推导出2≤a<4，选项唯一且正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-332",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "通过方程可解出学生人数240人，租车方案比较正确，答案与解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-333",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由解集方向改变得系数为负，解得a<1/2，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-334",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "解不等式得x>3，选项A正确，唯一且匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-335",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "售价为35元",
+        "rationale": "利润不等式化简得(x-35)²≤0，仅x=35满足，但答案给出30≤x≤35，与解释矛盾。实际售价只能为35元。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-336",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "解集为2<x≤3，数轴表示描述正确，答案匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-337",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "解集为3≤x<m，三个整数解3,4,5，得5<m≤6，选项A正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-338",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "列不等式解得x>400，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-339",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "解方程组得a=1,b=-2，代入得-6，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-340",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项B正确，其他选项均有反例，答案唯一且匹配。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 10,
+      "warn": 0,
+      "fail": 2,
+      "notes": "第330题缺少选项无法作答，第335题答案与解释矛盾，实际售价应为35元。其余题目均正确。"
+    }
+  }
+}

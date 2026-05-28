@@ -1,0 +1,139 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-135",
+  "startedAt": "2026-05-28T01:37:56.874Z",
+  "completedAt": "2026-05-28T01:38:11.256Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-073",
+    "bnu-high-ds-v1-s6-074",
+    "bnu-high-ds-v1-s6-075",
+    "bnu-high-ds-v1-s6-076",
+    "bnu-high-ds-v1-s6-077",
+    "bnu-high-ds-v1-s6-078",
+    "bnu-high-ds-v1-s6-079",
+    "bnu-high-ds-v1-s6-080"
+  ],
+  "usage": {
+    "prompt_tokens": 14248,
+    "completion_tokens": 1090,
+    "total_tokens": 15338,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 13864
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-073",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "ambiguous_mc",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "Stage A 独立解为 27，但选项无 27，存储答案 25 错误，解析中计算得 27 却给出 25，自相矛盾，且无唯一正确选项。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-074",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与 Stage A 独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-075",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 n^2 与 Stage A 独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-076",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": "21/16",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "Stage A 独立解为 21/16，存储答案 21/32 错误，解析中计算得 21/16 却给出 21/32，自相矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-077",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与 Stage A 独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-078",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 3 与 Stage A 独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-079",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": "a_100 < 20",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "medium",
+        "rationaleZhHans": "Stage A 独立解为 a_100 < 20，存储答案 a_100 > 20 错误，解析中估计 a_100 < 20 却给出 >20，自相矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-080",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 21 与 Stage A 独立解一致，解析正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 5,
+      "warn": 0,
+      "fail": 3,
+      "notes": "3 题存储答案错误：073 无正确选项，076 和 079 答案与解析矛盾且与独立解不符。"
+    }
+  }
+}

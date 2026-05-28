@@ -1,0 +1,50 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-362",
+  "startedAt": "2026-05-28T02:42:55.382Z",
+  "completedAt": "2026-05-28T02:43:00.603Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-362"
+  ],
+  "usage": {
+    "prompt_tokens": 2219,
+    "completion_tokens": 278,
+    "total_tokens": 2497,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1835
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-362",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": null,
+        "correctedAnswer": null,
+        "issueTags": [
+          "missing_condition",
+          "unsolvable",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目仅给出∠CAB=60°，未明确A、B与山脚C的相对位置，无法唯一确定△ABC的形状，缺少AC或BC的距离，条件不足，无法求解唯一山高。存储答案50√3米基于错误假设，解析中余弦定理应用不当，实际不可解。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目条件不足，无法唯一确定山高，判定为不可解，答案和解析均错误。"
+    }
+  }
+}

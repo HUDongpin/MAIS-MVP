@@ -1,0 +1,191 @@
+{
+  "batchNumber": 47,
+  "startedAt": "2026-05-27T13:54:19.321Z",
+  "completedAt": "2026-05-27T13:54:36.452Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p4-079",
+    "bnu-primary-ds-v2-p4-080",
+    "bnu-primary-ds-v2-p4-081",
+    "bnu-primary-ds-v2-p4-082",
+    "bnu-primary-ds-v2-p4-083",
+    "bnu-primary-ds-v2-p4-084",
+    "bnu-primary-ds-v2-p4-085",
+    "bnu-primary-ds-v2-p4-086",
+    "bnu-primary-ds-v2-p4-087",
+    "bnu-primary-ds-v2-p4-088",
+    "bnu-primary-ds-v2-p4-089",
+    "bnu-primary-ds-v2-p4-090",
+    "bnu-primary-ds-v2-p4-091",
+    "bnu-primary-ds-v2-p4-092",
+    "bnu-primary-ds-v2-p4-093",
+    "bnu-primary-ds-v2-p4-094",
+    "bnu-primary-ds-v2-p4-095",
+    "bnu-primary-ds-v2-p4-096"
+  ],
+  "usage": {
+    "prompt_tokens": 4325,
+    "completion_tokens": 1245,
+    "total_tokens": 5570,
+    "prompt_tokens_details": {
+      "cached_tokens": 4224
+    },
+    "prompt_cache_hit_tokens": 4224,
+    "prompt_cache_miss_tokens": 101
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p4-079",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数对表示位置正确，方向判断无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-080",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "观测点互换方向相反，答案正确，接受答案覆盖合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-081",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估算、计算、验算均正确，符合要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-082",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "进一法应用正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-083",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "除法计算正确，答案28无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-084",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估算合理，计算正确，接受答案覆盖多种表述。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-085",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-086",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "整除情况，答案正确，接受答案灵活。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-087",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估算、计算正确，答案表述清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-088",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-089",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "试商调商正确，答案无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-090",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估算合理，计算验算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-091",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-092",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案格式清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-093",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "利用差价求单价，方法正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-094",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "试商方法合理，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-095",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "试商规律正确，答案无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-096",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "整除情况，答案正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案匹配，无歧义，适合北师大版四年级上册。"
+    }
+  }
+}

@@ -1,0 +1,191 @@
+{
+  "batchNumber": 28,
+  "startedAt": "2026-05-24T17:30:45.157Z",
+  "completedAt": "2026-05-24T17:31:02.909Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-candidate-k06-sa-023",
+    "pep-junior-candidate-k06-sa-024",
+    "pep-junior-candidate-k06-sa-025",
+    "pep-junior-candidate-k06-sa-026",
+    "pep-junior-candidate-k06-sa-027",
+    "pep-junior-candidate-k07-mc-001",
+    "pep-junior-candidate-k07-mc-002",
+    "pep-junior-candidate-k07-mc-003",
+    "pep-junior-candidate-k07-mc-004",
+    "pep-junior-candidate-k07-mc-005",
+    "pep-junior-candidate-k07-mc-006",
+    "pep-junior-candidate-k07-mc-007",
+    "pep-junior-candidate-k07-mc-008",
+    "pep-junior-candidate-k07-mc-009",
+    "pep-junior-candidate-k07-mc-010",
+    "pep-junior-candidate-k07-mc-011",
+    "pep-junior-candidate-k07-mc-012",
+    "pep-junior-candidate-k07-mc-013"
+  ],
+  "usage": {
+    "prompt_tokens": 3541,
+    "completion_tokens": 1377,
+    "total_tokens": 4918,
+    "prompt_tokens_details": {
+      "cached_tokens": 3456
+    },
+    "prompt_cache_hit_tokens": 3456,
+    "prompt_cache_miss_tokens": 85
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-candidate-k06-sa-023",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，三边对应相等，SSS判定正确，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k06-sa-024",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，三边对应相等，SSS判定正确，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k06-sa-025",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，三边对应相等，SSS判定正确，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k06-sa-026",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，三边对应相等，SSS判定正确，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k06-sa-027",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，三边对应相等，SSS判定正确，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k07-mc-001",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "因式分解正确，选项唯一，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k07-mc-002",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "因式分解正确，选项唯一，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k07-mc-003",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "因式分解正确，选项唯一，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k07-mc-004",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "因式分解正确，选项唯一，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k07-mc-005",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "因式分解正确，选项唯一，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k07-mc-006",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "因式分解正确，选项唯一，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k07-mc-007",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "因式分解正确，选项唯一，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k07-mc-008",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "因式分解正确，选项唯一，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k07-mc-009",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "因式分解正确，选项唯一，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k07-mc-010",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "因式分解正确，选项唯一，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k07-mc-011",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "因式分解正确，选项唯一，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k07-mc-012",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "因式分解正确，选项唯一，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k07-mc-013",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "因式分解正确，选项唯一，无歧义。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合人教版初中数学要求，数学正确，答案与解析一致，选项无歧义，无缺失条件，适合入库。"
+    }
+  }
+}

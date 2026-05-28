@@ -1,0 +1,349 @@
+{
+  "batchId": "batch-108",
+  "questions": [
+    {
+      "id": "hjb-junior-ds-v2-s2-036",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "hjb-junior-s2-upper-real-numbers",
+      "unitTitle": "实数",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "real-numbers",
+        "square-roots",
+        "cube-roots",
+        "irrational-numbers",
+        "number-line",
+        "实数",
+        "平方根",
+        "立方根"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "平方根",
+        "立方根",
+        "无理数识别",
+        "实数分类",
+        "数轴表示",
+        "大小比较"
+      ],
+      "misconceptionTags": [
+        "square root sign treated as both roots",
+        "irrational number mistaken for any decimal",
+        "approximation order reversed"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s2-upper-real-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-upper-paper-real-numbers-unit",
+        "hjb-junior-s2-upper-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知数轴上从左到右依次有四个点 A、B、C、D，它们表示的数分别是 a、b、c、d。其中 a = -√7，b = -³√8，c = √2，d = ³√9。请将这四个数按从小到大的顺序用“<”连接，并说明比较过程中用到的依据。",
+      "optionsZhHans": [],
+      "answer": "a < b < c < d",
+      "acceptedAnswers": [
+        "a < b < c < d",
+        "-√7 < -³√8 < √2 < ³√9"
+      ],
+      "explanationZhHans": "a = -√7 ≈ -2.646，b = -³√8 = -2，c = √2 ≈ 1.414，d = ³√9 ≈ 2.080。负数比较绝对值大的反而小，正数都大于负数，所以 a < b < c < d。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-037",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "hjb-junior-s2-upper-real-numbers",
+      "unitTitle": "实数",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "real-numbers",
+        "square-roots",
+        "cube-roots",
+        "irrational-numbers",
+        "number-line",
+        "实数",
+        "平方根",
+        "立方根"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "平方根",
+        "立方根",
+        "无理数识别",
+        "实数分类",
+        "数轴表示",
+        "大小比较"
+      ],
+      "misconceptionTags": [
+        "square root sign treated as both roots",
+        "irrational number mistaken for any decimal",
+        "approximation order reversed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s2-upper-real-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-upper-paper-real-numbers-unit",
+        "hjb-junior-s2-upper-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在实数范围内，下列各数中，属于无理数的是（ ）。",
+      "optionsZhHans": [
+        "A. √(16)",
+        "B. ³√(-27)",
+        "C. 0.1010010001…（相邻两个1之间0的个数逐次增加1）",
+        "D. 22/7"
+      ],
+      "answer": "C. 0.1010010001…（相邻两个1之间0的个数逐次增加1）",
+      "acceptedAnswers": [
+        "C. 0.1010010001…（相邻两个1之间0的个数逐次增加1）"
+      ],
+      "explanationZhHans": "√(16)=4是有理数；³√(-27)=-3是有理数；22/7是分数，属于有理数；0.1010010001…是无限不循环小数，因此是无理数。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-038",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "hjb-junior-s2-upper-real-numbers",
+      "unitTitle": "实数",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "real-numbers",
+        "square-roots",
+        "cube-roots",
+        "irrational-numbers",
+        "number-line",
+        "实数",
+        "平方根",
+        "立方根"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "平方根",
+        "立方根",
+        "无理数识别",
+        "实数分类",
+        "数轴表示",
+        "大小比较"
+      ],
+      "misconceptionTags": [
+        "square root sign treated as both roots",
+        "irrational number mistaken for any decimal",
+        "approximation order reversed"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-junior-s2-upper-real-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-upper-paper-real-numbers-unit",
+        "hjb-junior-s2-upper-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知 a = √(3+√5) - √(3-√5)，b = ³√(7+5√2) + ³√(7-5√2)。请计算 a² + b³ 的值。",
+      "optionsZhHans": [],
+      "answer": "10",
+      "acceptedAnswers": [
+        "10"
+      ],
+      "explanationZhHans": "先求 a²：a² = (√(3+√5) - √(3-√5))² = (3+√5) + (3-√5) - 2√((3+√5)(3-√5)) = 6 - 2√(9-5) = 6 - 4 = 2。再求 b³：设 u = ³√(7+5√2)，v = ³√(7-5√2)，则 u³+v³=14，uv = ³√(49-50) = -1。由 (u+v)³ = u³+v³+3uv(u+v) 得 b³ = 14 + 3(-1)b，即 b³+3b-14=0，解得 b=2，故 b³=8。所以 a²+b³=2+8=10。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-039",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "hjb-junior-s2-upper-real-numbers",
+      "unitTitle": "实数",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "real-numbers",
+        "square-roots",
+        "cube-roots",
+        "irrational-numbers",
+        "number-line",
+        "实数",
+        "平方根",
+        "立方根"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "平方根",
+        "立方根",
+        "无理数识别",
+        "实数分类",
+        "数轴表示",
+        "大小比较"
+      ],
+      "misconceptionTags": [
+        "square root sign treated as both roots",
+        "irrational number mistaken for any decimal",
+        "approximation order reversed"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s2-upper-real-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-upper-paper-real-numbers-unit",
+        "hjb-junior-s2-upper-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在数轴上，点A表示√5，点B表示2.5，点C表示∛8。请将这三个点表示的数按从小到大的顺序排列，并用“<”连接。",
+      "optionsZhHans": [],
+      "answer": "∛8 < 2.5 < √5",
+      "acceptedAnswers": [
+        "∛8 < 2.5 < √5",
+        "2 < 2.5 < √5",
+        "∛8<2.5<√5",
+        "2<2.5<√5"
+      ],
+      "explanationZhHans": "∛8=2，√5≈2.236，故2<2.236<2.5，即∛8<√5<2.5。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-040",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "hjb-junior-s2-upper-real-numbers",
+      "unitTitle": "实数",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "real-numbers",
+        "square-roots",
+        "cube-roots",
+        "irrational-numbers",
+        "number-line",
+        "实数",
+        "平方根",
+        "立方根"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "平方根",
+        "立方根",
+        "无理数识别",
+        "实数分类",
+        "数轴表示",
+        "大小比较"
+      ],
+      "misconceptionTags": [
+        "square root sign treated as both roots",
+        "irrational number mistaken for any decimal",
+        "approximation order reversed"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s2-upper-real-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-upper-paper-real-numbers-unit",
+        "hjb-junior-s2-upper-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在实数范围内，下列说法正确的是（ ）",
+      "optionsZhHans": [
+        "A. 无理数都是无限不循环小数",
+        "B. 带根号的数都是无理数",
+        "C. 无限小数都是无理数",
+        "D. 无理数都是开方开不尽的数"
+      ],
+      "answer": "A. 无理数都是无限不循环小数",
+      "acceptedAnswers": [
+        "A. 无理数都是无限不循环小数"
+      ],
+      "explanationZhHans": "无理数的定义是无限不循环小数，故A正确。B错，如√4=2是有理数。C错，无限循环小数是有理数。D错，π是无理数但不是开方开不尽的数。"
+    }
+  ]
+}

@@ -1,0 +1,191 @@
+{
+  "batchNumber": 12,
+  "startedAt": "2026-05-25T01:50:13.234Z",
+  "completedAt": "2026-05-25T01:50:34.131Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p1-199",
+    "hjb-primary-ds-v1-p1-200",
+    "hjb-primary-ds-v1-p1-201",
+    "hjb-primary-ds-v1-p1-202",
+    "hjb-primary-ds-v1-p1-203",
+    "hjb-primary-ds-v1-p1-204",
+    "hjb-primary-ds-v1-p1-205",
+    "hjb-primary-ds-v1-p1-206",
+    "hjb-primary-ds-v1-p1-207",
+    "hjb-primary-ds-v1-p1-208",
+    "hjb-primary-ds-v1-p1-209",
+    "hjb-primary-ds-v1-p1-210",
+    "hjb-primary-ds-v1-p1-211",
+    "hjb-primary-ds-v1-p1-212",
+    "hjb-primary-ds-v1-p1-213",
+    "hjb-primary-ds-v1-p1-214",
+    "hjb-primary-ds-v1-p1-215",
+    "hjb-primary-ds-v1-p1-216"
+  ],
+  "usage": {
+    "prompt_tokens": 3944,
+    "completion_tokens": 1327,
+    "total_tokens": 5271,
+    "prompt_tokens_details": {
+      "cached_tokens": 3840
+    },
+    "prompt_cache_hit_tokens": 3840,
+    "prompt_cache_miss_tokens": 104
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p1-199",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，选项合理，答案正确，解释恰当。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-200",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目逻辑正确，答案与解释一致，acceptedAnswers覆盖合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-201",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目考查测量起点对齐，选项无歧义，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-202",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "简单比较，答案明确，acceptedAnswers包含数字形式。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-203",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项唯一正确，解释合理，无歧义。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-204",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "步数少步子大，答案正确，解释清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-205",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项唯一正确，其他明显错误，解释到位。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-206",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目考查测量方法，答案正确，acceptedAnswers覆盖多种表述。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-207",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项唯一正确，解释强调对齐起点，符合要求。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-208",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目考查测量无空隙，答案正确，acceptedAnswers合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-209",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项唯一正确，解释强调首尾相连，无问题。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-210",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案明确，acceptedAnswers覆盖简略表述，解释合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-211",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项唯一正确，解释强调对齐，符合测量原则。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-212",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，acceptedAnswers覆盖简答，解释清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-213",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项唯一正确，解释合理，适合P1。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-214",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，解释清晰，与之前类似题一致。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-215",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "规律简单，答案正确，选项无歧义。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-216",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，acceptedAnswers覆盖约数表述，解释合理。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合沪教版P1要求，数学正确，答案匹配，无歧义或缺失条件，适合公共题库。"
+    }
+  }
+}

@@ -1,0 +1,126 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-164",
+  "startedAt": "2026-05-28T01:48:42.571Z",
+  "completedAt": "2026-05-28T01:48:55.494Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-305",
+    "bnu-high-ds-v1-s6-306",
+    "bnu-high-ds-v1-s6-307",
+    "bnu-high-ds-v1-s6-308",
+    "bnu-high-ds-v1-s6-309",
+    "bnu-high-ds-v1-s6-310",
+    "bnu-high-ds-v1-s6-311",
+    "bnu-high-ds-v1-s6-312"
+  ],
+  "usage": {
+    "prompt_tokens": 11759,
+    "completion_tokens": 954,
+    "total_tokens": 12713,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 11375
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-305",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析正确推导出a=-3, b=-9, c=5，无矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-306",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案3与独立解一致，解析通过求导和端点比较得出最大值3，正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-307",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案a≥3与独立解一致，解析推导正确，选项唯一，无问题。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-308",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案极大值10，极小值-22与独立解一致，解析正确，无矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-309",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案9与独立解一致，解析正确计算斜率为9，无问题。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-310",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案2与独立解一致，解析正确，选项唯一，无问题。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-311",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案最大值10，最小值-22与独立解一致，解析正确，无矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-312",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案y=x-1与独立解一致，解析正确，无问题。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8道题存储答案、解析与Stage A独立解一致，无错误或矛盾。"
+    }
+  }
+}

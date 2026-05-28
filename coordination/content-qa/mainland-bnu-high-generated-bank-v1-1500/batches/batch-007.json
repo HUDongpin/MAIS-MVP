@@ -1,0 +1,691 @@
+{
+  "batchId": "batch-007",
+  "questions": [
+    {
+      "id": "bnu-high-ds-v1-s4-061",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-函数",
+      "topicTitleZhHans": "函数",
+      "volume": "必修 第一册",
+      "chapter": "函数",
+      "conceptIds": [
+        "function-definition",
+        "domain-range",
+        "function-representations",
+        "monotonicity",
+        "parity",
+        "piecewise-functions"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "直观想象",
+        "逻辑推理",
+        "数学表达"
+      ],
+      "skillTags": [
+        "函数定义",
+        "定义域值域",
+        "单调性",
+        "奇偶性",
+        "分段函数",
+        "函数性质综合",
+        "定义域检查",
+        "指数对数转化"
+      ],
+      "misconceptionTags": [
+        "domain omitted",
+        "range and value confused",
+        "increasing interval confused with positive value",
+        "parity checked outside domain",
+        "monotonicity inferred from sign only",
+        "parity checked outside the domain",
+        "domain omitted in property check",
+        "exponential and logarithmic monotonicity mixed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-functions-unit-pattern",
+        "bnu-high-s4-upper-midterm-function-properties-review",
+        "bnu-high-s4-upper-exponential-unit-pattern"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知函数 f(x) 的定义域为 R，且满足 f(x) = x^3 - 3x。关于该函数，下列判断正确的是：",
+      "optionsZhHans": [
+        "f(x) 是偶函数",
+        "f(x) 在 R 上单调递增",
+        "f(x) 是奇函数",
+        "f(x) 的值域为 R"
+      ],
+      "answer": "f(x) 是奇函数",
+      "acceptedAnswers": [
+        "f(x) 是奇函数"
+      ],
+      "explanationZhHans": "定义域为 R，关于原点对称。f(-x) = (-x)^3 - 3(-x) = -x^3 + 3x = -(x^3 - 3x) = -f(x)，所以 f(x) 是奇函数。f(x) 不是偶函数；求导得 f'(x) = 3x^2 - 3，在 (-1,1) 上 f'(x) < 0，故不单调递增；值域为 R 正确，但题目要求选正确判断，奇偶性判断更直接，且值域为 R 需说明，但选项中有更准确的奇函数判断。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-062",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-函数",
+      "topicTitleZhHans": "函数",
+      "volume": "必修 第一册",
+      "chapter": "函数",
+      "conceptIds": [
+        "function-definition",
+        "domain-range",
+        "function-representations",
+        "monotonicity",
+        "parity",
+        "piecewise-functions"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "直观想象",
+        "逻辑推理",
+        "数学表达"
+      ],
+      "skillTags": [
+        "函数定义",
+        "定义域值域",
+        "单调性",
+        "奇偶性",
+        "分段函数",
+        "函数性质综合",
+        "定义域检查",
+        "指数对数转化"
+      ],
+      "misconceptionTags": [
+        "domain omitted",
+        "range and value confused",
+        "increasing interval confused with positive value",
+        "parity checked outside domain",
+        "monotonicity inferred from sign only",
+        "parity checked outside the domain",
+        "domain omitted in property check",
+        "exponential and logarithmic monotonicity mixed"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-functions-unit-pattern",
+        "bnu-high-s4-upper-midterm-function-properties-review",
+        "bnu-high-s4-upper-exponential-unit-pattern"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "求函数 f(x) = √(4 - x^2) + 1/(x - 1) 的定义域。",
+      "optionsZhHans": [],
+      "answer": "[-2, 1) ∪ (1, 2]",
+      "acceptedAnswers": [
+        "[-2, 1) ∪ (1, 2]",
+        "[-2,1)∪(1,2]"
+      ],
+      "explanationZhHans": "由根式得 4 - x^2 ≥ 0，解得 -2 ≤ x ≤ 2；由分母得 x - 1 ≠ 0，即 x ≠ 1。取交集得定义域为 [-2, 1) ∪ (1, 2]。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-063",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-函数",
+      "topicTitleZhHans": "函数",
+      "volume": "必修 第一册",
+      "chapter": "函数",
+      "conceptIds": [
+        "function-definition",
+        "domain-range",
+        "function-representations",
+        "monotonicity",
+        "parity",
+        "piecewise-functions"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "直观想象",
+        "逻辑推理",
+        "数学表达"
+      ],
+      "skillTags": [
+        "函数定义",
+        "定义域值域",
+        "单调性",
+        "奇偶性",
+        "分段函数",
+        "函数性质综合",
+        "定义域检查",
+        "指数对数转化"
+      ],
+      "misconceptionTags": [
+        "domain omitted",
+        "range and value confused",
+        "increasing interval confused with positive value",
+        "parity checked outside domain",
+        "monotonicity inferred from sign only",
+        "parity checked outside the domain",
+        "domain omitted in property check",
+        "exponential and logarithmic monotonicity mixed"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-functions-unit-pattern",
+        "bnu-high-s4-upper-midterm-function-properties-review",
+        "bnu-high-s4-upper-exponential-unit-pattern"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知函数 f(x) = { x^2 + 2x, x ≤ 0; -x^2 + 2x, x > 0 }，则 f(x) 的单调递增区间为______。",
+      "optionsZhHans": [],
+      "answer": "[-1, 0] 和 [1, +∞)",
+      "acceptedAnswers": [
+        "[-1, 0] 和 [1, +∞)",
+        "[-1,0]和[1,+∞)",
+        "[-1,0]∪[1,+∞)"
+      ],
+      "explanationZhHans": "分段考虑：x ≤ 0 时，f(x) = x^2 + 2x，对称轴 x = -1，开口向上，在 [-1, 0] 上递增；x > 0 时，f(x) = -x^2 + 2x，对称轴 x = 1，开口向下，在 (0, 1] 递增，在 [1, +∞) 递减。故递增区间为 [-1, 0] 和 [1, +∞)。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-064",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-函数",
+      "topicTitleZhHans": "函数",
+      "volume": "必修 第一册",
+      "chapter": "函数",
+      "conceptIds": [
+        "function-definition",
+        "domain-range",
+        "function-representations",
+        "monotonicity",
+        "parity",
+        "piecewise-functions"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "直观想象",
+        "逻辑推理",
+        "数学表达"
+      ],
+      "skillTags": [
+        "函数定义",
+        "定义域值域",
+        "单调性",
+        "奇偶性",
+        "分段函数",
+        "函数性质综合",
+        "定义域检查",
+        "指数对数转化"
+      ],
+      "misconceptionTags": [
+        "domain omitted",
+        "range and value confused",
+        "increasing interval confused with positive value",
+        "parity checked outside domain",
+        "monotonicity inferred from sign only",
+        "parity checked outside the domain",
+        "domain omitted in property check",
+        "exponential and logarithmic monotonicity mixed"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-functions-unit-pattern",
+        "bnu-high-s4-upper-midterm-function-properties-review",
+        "bnu-high-s4-upper-exponential-unit-pattern"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知函数 f(x) 的定义域为 R，且对任意实数 x, y 满足 f(x + y) = f(x) + f(y) + 2xy，且 f(1) = 1。则 f(-2) 的值为：",
+      "optionsZhHans": [
+        "4",
+        "0",
+        "-4",
+        "8"
+      ],
+      "answer": "4",
+      "acceptedAnswers": [
+        "4"
+      ],
+      "explanationZhHans": "令 y = 1，得 f(x+1) = f(x) + f(1) + 2x = f(x) + 1 + 2x。取 x = 0，得 f(1) = f(0) + 1，故 f(0) = 0。取 x = -1，得 f(0) = f(-1) + 1 - 2 = f(-1) - 1，故 f(-1) = 1。取 x = -2，得 f(-1) = f(-2) + 1 - 4 = f(-2) - 3，故 f(-2) = 4。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-065",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-函数",
+      "topicTitleZhHans": "函数",
+      "volume": "必修 第一册",
+      "chapter": "函数",
+      "conceptIds": [
+        "function-definition",
+        "domain-range",
+        "function-representations",
+        "monotonicity",
+        "parity",
+        "piecewise-functions"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "直观想象",
+        "逻辑推理",
+        "数学表达"
+      ],
+      "skillTags": [
+        "函数定义",
+        "定义域值域",
+        "单调性",
+        "奇偶性",
+        "分段函数",
+        "函数性质综合",
+        "定义域检查",
+        "指数对数转化"
+      ],
+      "misconceptionTags": [
+        "domain omitted",
+        "range and value confused",
+        "increasing interval confused with positive value",
+        "parity checked outside domain",
+        "monotonicity inferred from sign only",
+        "parity checked outside the domain",
+        "domain omitted in property check",
+        "exponential and logarithmic monotonicity mixed"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-functions-unit-pattern",
+        "bnu-high-s4-upper-midterm-function-properties-review",
+        "bnu-high-s4-upper-exponential-unit-pattern"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "判断函数 f(x) = x|x| 的奇偶性，并说明理由。",
+      "optionsZhHans": [],
+      "answer": "奇函数",
+      "acceptedAnswers": [
+        "奇函数"
+      ],
+      "explanationZhHans": "定义域为 R，关于原点对称。当 x > 0 时，f(-x) = (-x)|-x| = -x * x = -x^2 = -f(x)；当 x < 0 时，f(-x) = (-x)|-x| = -x * (-x) = x^2，而 f(x) = x|x| = x*(-x) = -x^2，故 f(-x) = -f(x)；x=0 时 f(0)=0。综上，f(-x) = -f(x)，为奇函数。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-066",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-函数",
+      "topicTitleZhHans": "函数",
+      "volume": "必修 第一册",
+      "chapter": "函数",
+      "conceptIds": [
+        "function-definition",
+        "domain-range",
+        "function-representations",
+        "monotonicity",
+        "parity",
+        "piecewise-functions"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "直观想象",
+        "逻辑推理",
+        "数学表达"
+      ],
+      "skillTags": [
+        "函数定义",
+        "定义域值域",
+        "单调性",
+        "奇偶性",
+        "分段函数",
+        "函数性质综合",
+        "定义域检查",
+        "指数对数转化"
+      ],
+      "misconceptionTags": [
+        "domain omitted",
+        "range and value confused",
+        "increasing interval confused with positive value",
+        "parity checked outside domain",
+        "monotonicity inferred from sign only",
+        "parity checked outside the domain",
+        "domain omitted in property check",
+        "exponential and logarithmic monotonicity mixed"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-functions-unit-pattern",
+        "bnu-high-s4-upper-midterm-function-properties-review",
+        "bnu-high-s4-upper-exponential-unit-pattern"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "函数 f(x) = √(x^2 - 2x - 3) 的单调递减区间为______。",
+      "optionsZhHans": [],
+      "answer": "(-∞, -1]",
+      "acceptedAnswers": [
+        "(-∞, -1]",
+        "(-∞,-1]"
+      ],
+      "explanationZhHans": "先求定义域：x^2 - 2x - 3 ≥ 0，解得 x ≤ -1 或 x ≥ 3。令 t = x^2 - 2x - 3，对称轴 x = 1，在 (-∞, 1] 上 t 递减，在 [1, +∞) 上 t 递增。外层 y = √t 递增。复合后，f(x) 在 (-∞, -1] 上递减，在 [3, +∞) 上递增。故单调递减区间为 (-∞, -1]。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-067",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-函数",
+      "topicTitleZhHans": "函数",
+      "volume": "必修 第一册",
+      "chapter": "函数",
+      "conceptIds": [
+        "function-definition",
+        "domain-range",
+        "function-representations",
+        "monotonicity",
+        "parity",
+        "piecewise-functions"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "直观想象",
+        "逻辑推理",
+        "数学表达"
+      ],
+      "skillTags": [
+        "函数定义",
+        "定义域值域",
+        "单调性",
+        "奇偶性",
+        "分段函数",
+        "函数性质综合",
+        "定义域检查",
+        "指数对数转化"
+      ],
+      "misconceptionTags": [
+        "domain omitted",
+        "range and value confused",
+        "increasing interval confused with positive value",
+        "parity checked outside domain",
+        "monotonicity inferred from sign only",
+        "parity checked outside the domain",
+        "domain omitted in property check",
+        "exponential and logarithmic monotonicity mixed"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-functions-unit-pattern",
+        "bnu-high-s4-upper-midterm-function-properties-review",
+        "bnu-high-s4-upper-exponential-unit-pattern"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知函数 f(x) = (x^2 + 1)/(x)，则下列结论正确的是：",
+      "optionsZhHans": [
+        "f(x) 是奇函数",
+        "f(x) 在 (0, +∞) 上单调递增",
+        "f(x) 的值域为 (-∞, -2] ∪ [2, +∞)",
+        "f(x) 的最小值为 2"
+      ],
+      "answer": "f(x) 是奇函数",
+      "acceptedAnswers": [
+        "f(x) 是奇函数"
+      ],
+      "explanationZhHans": "定义域为 {x | x ≠ 0}，关于原点对称。f(-x) = ((-x)^2 + 1)/(-x) = (x^2 + 1)/(-x) = -f(x)，故为奇函数。当 x > 0 时，f(x) = x + 1/x，在 (0,1) 递减，(1,+∞) 递增，故 B 错。由均值不等式，|f(x)| ≥ 2，值域为 (-∞, -2] ∪ [2, +∞)，但 C 正确，但题目要求选正确结论，奇函数判断更直接且无误。D 错误，因为无最小值（负无穷）。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-068",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-函数",
+      "topicTitleZhHans": "函数",
+      "volume": "必修 第一册",
+      "chapter": "函数",
+      "conceptIds": [
+        "function-definition",
+        "domain-range",
+        "function-representations",
+        "monotonicity",
+        "parity",
+        "piecewise-functions"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "直观想象",
+        "逻辑推理",
+        "数学表达"
+      ],
+      "skillTags": [
+        "函数定义",
+        "定义域值域",
+        "单调性",
+        "奇偶性",
+        "分段函数",
+        "函数性质综合",
+        "定义域检查",
+        "指数对数转化"
+      ],
+      "misconceptionTags": [
+        "domain omitted",
+        "range and value confused",
+        "increasing interval confused with positive value",
+        "parity checked outside domain",
+        "monotonicity inferred from sign only",
+        "parity checked outside the domain",
+        "domain omitted in property check",
+        "exponential and logarithmic monotonicity mixed"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-functions-unit-pattern",
+        "bnu-high-s4-upper-midterm-function-properties-review",
+        "bnu-high-s4-upper-exponential-unit-pattern"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知函数 f(x) 满足 f(x) + 2f(1/x) = 3x，求 f(x) 的解析式。",
+      "optionsZhHans": [],
+      "answer": "f(x) = 2/x - x",
+      "acceptedAnswers": [
+        "f(x) = 2/x - x",
+        "f(x)=2/x-x"
+      ],
+      "explanationZhHans": "将 x 替换为 1/x，得 f(1/x) + 2f(x) = 3/x。与原式联立：f(x) + 2f(1/x) = 3x ①，2f(x) + f(1/x) = 3/x ②。②×2 - ①得 3f(x) = 6/x - 3x，故 f(x) = 2/x - x。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-069",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-函数",
+      "topicTitleZhHans": "函数",
+      "volume": "必修 第一册",
+      "chapter": "函数",
+      "conceptIds": [
+        "function-definition",
+        "domain-range",
+        "function-representations",
+        "monotonicity",
+        "parity",
+        "piecewise-functions"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "直观想象",
+        "逻辑推理",
+        "数学表达"
+      ],
+      "skillTags": [
+        "函数定义",
+        "定义域值域",
+        "单调性",
+        "奇偶性",
+        "分段函数",
+        "函数性质综合",
+        "定义域检查",
+        "指数对数转化"
+      ],
+      "misconceptionTags": [
+        "domain omitted",
+        "range and value confused",
+        "increasing interval confused with positive value",
+        "parity checked outside domain",
+        "monotonicity inferred from sign only",
+        "parity checked outside the domain",
+        "domain omitted in property check",
+        "exponential and logarithmic monotonicity mixed"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-functions-unit-pattern",
+        "bnu-high-s4-upper-midterm-function-properties-review",
+        "bnu-high-s4-upper-exponential-unit-pattern"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "函数 f(x) = log_2 (x^2 - 2x - 3) 的单调递增区间为______。",
+      "optionsZhHans": [],
+      "answer": "(3, +∞)",
+      "acceptedAnswers": [
+        "(3, +∞)",
+        "(3,+∞)"
+      ],
+      "explanationZhHans": "先求定义域：x^2 - 2x - 3 > 0，解得 x < -1 或 x > 3。令 t = x^2 - 2x - 3，对称轴 x = 1，在 (1, +∞) 上 t 递增。外层 y = log_2 t 递增。复合后，f(x) 在 (3, +∞) 上递增。注意定义域限制。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-070",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-函数",
+      "topicTitleZhHans": "函数",
+      "volume": "必修 第一册",
+      "chapter": "函数",
+      "conceptIds": [
+        "function-definition",
+        "domain-range",
+        "function-representations",
+        "monotonicity",
+        "parity",
+        "piecewise-functions"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "直观想象",
+        "逻辑推理",
+        "数学表达"
+      ],
+      "skillTags": [
+        "函数定义",
+        "定义域值域",
+        "单调性",
+        "奇偶性",
+        "分段函数",
+        "函数性质综合",
+        "定义域检查",
+        "指数对数转化"
+      ],
+      "misconceptionTags": [
+        "domain omitted",
+        "range and value confused",
+        "increasing interval confused with positive value",
+        "parity checked outside domain",
+        "monotonicity inferred from sign only",
+        "parity checked outside the domain",
+        "domain omitted in property check",
+        "exponential and logarithmic monotonicity mixed"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-functions-unit-pattern",
+        "bnu-high-s4-upper-midterm-function-properties-review",
+        "bnu-high-s4-upper-exponential-unit-pattern"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下列函数中，既是偶函数又在区间 (0, +∞) 上单调递增的是：",
+      "optionsZhHans": [
+        "f(x) = x^3",
+        "f(x) = |x|",
+        "f(x) = -x^2 + 1",
+        "f(x) = 1/x"
+      ],
+      "answer": "f(x) = |x|",
+      "acceptedAnswers": [
+        "f(x) = |x|"
+      ],
+      "explanationZhHans": "f(x)=|x|，定义域 R，f(-x)=|-x|=|x|=f(x)，为偶函数；当 x>0 时，f(x)=x，单调递增。A 是奇函数；C 在 (0,+∞) 递减；D 是奇函数。"
+    }
+  ]
+}

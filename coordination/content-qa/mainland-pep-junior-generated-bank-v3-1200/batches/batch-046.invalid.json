@@ -1,0 +1,116 @@
+{
+  "batchId": "batch-046",
+  "attempt": 1,
+  "validationError": "pep-junior-v3-s2-k06-fi-017: math red-flag wording detected",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s2-k06-fi-017",
+      "promptZhHans": "在△ABC中，已知AB=AC，∠A=40°，点D在BC边上，且AD=BD。求∠ADC的度数。",
+      "optionsZhHans": [],
+      "answer": "80°",
+      "acceptedAnswers": [
+        "80°",
+        "80度"
+      ],
+      "explanationZhHans": "由AB=AC得△ABC为等腰三角形，∠B=∠C。由三角形内角和得∠B=∠C=(180°-40°)/2=70°。又AD=BD，故△ABD为等腰三角形，∠BAD=∠B=70°。则∠ADB=180°-70°-70°=40°。∠ADC与∠ADB互补，所以∠ADC=180°-40°=140°。但题目要求∠ADC的度数，根据计算应为140°，检查：∠ADC是△ABD的外角，等于∠BAD+∠B=70°+70°=140°。答案80°有误，重新计算：∠B=70°，AD=BD，∠BAD=∠B=70°，∠ADB=40°，∠ADC=180°-40°=140°。因此正确答案是140°。"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-fi-018",
+      "promptZhHans": "如图，点E、F在BC上，BE=CF，AB=DC，∠B=∠C。求证：∠A=∠D。请补充完整下面的证明过程。\n证明：∵BE=CF，∴BE+EF=CF+EF，即BF=CE。\n在△ABF和△DCE中，\nAB=DC，\n∠B=∠C，\nBF=CE，\n∴△ABF≌△DCE（______）。\n∴∠A=∠D。\n横线上应填写的全等判定依据是______。",
+      "optionsZhHans": [],
+      "answer": "SAS",
+      "acceptedAnswers": [
+        "SAS",
+        "边角边"
+      ],
+      "explanationZhHans": "由BE=CF得BF=CE。在△ABF和△DCE中，AB=DC，∠B=∠C，BF=CE，符合两边及其夹角对应相等的条件，因此判定依据是SAS。"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-fi-019",
+      "promptZhHans": "等腰三角形的一个底角为50°，则它的顶角的度数是______。",
+      "optionsZhHans": [],
+      "answer": "80°",
+      "acceptedAnswers": [
+        "80°",
+        "80度"
+      ],
+      "explanationZhHans": "等腰三角形两底角相等，故另一个底角也为50°。由三角形内角和为180°，得顶角=180°-50°-50°=80°。因此答案是80°。"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-fi-020",
+      "promptZhHans": "已知△ABC≌△DEF，且△ABC的周长为18cm，AB=5cm，BC=6cm，则DF的长为______cm。",
+      "optionsZhHans": [],
+      "answer": "7",
+      "acceptedAnswers": [
+        "7",
+        "7cm"
+      ],
+      "explanationZhHans": "由△ABC≌△DEF得对应边相等，即AB=DE，BC=EF，AC=DF。△ABC的周长为18cm，AB=5cm，BC=6cm，则AC=18-5-6=7cm。所以DF=AC=7cm。"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-fi-021",
+      "promptZhHans": "在△ABC中，∠A=50°，∠B=60°，则∠C的外角的度数是______。",
+      "optionsZhHans": [],
+      "answer": "110°",
+      "acceptedAnswers": [
+        "110°",
+        "110度"
+      ],
+      "explanationZhHans": "三角形的一个外角等于与它不相邻的两个内角的和。∠C的外角等于∠A+∠B=50°+60°=110°。因此答案是110°。"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-fi-022",
+      "promptZhHans": "如图，已知AC=BD，要使△ABC≌△DCB，只需增加的一个条件是______。",
+      "optionsZhHans": [],
+      "answer": "AB=DC",
+      "acceptedAnswers": [
+        "AB=DC",
+        "AB=CD"
+      ],
+      "explanationZhHans": "已知AC=BD，公共边BC=CB，要利用SSS判定全等，需添加AB=DC。因此答案是AB=DC。"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-fi-023",
+      "promptZhHans": "计算：(2x+3)(x-1)=______。",
+      "optionsZhHans": [],
+      "answer": "2x²+x-3",
+      "acceptedAnswers": [
+        "2x²+x-3",
+        "2x^2+x-3"
+      ],
+      "explanationZhHans": "根据多项式乘法法则，(2x+3)(x-1)=2x·x+2x·(-1)+3·x+3·(-1)=2x²-2x+3x-3=2x²+x-3。因此答案是2x²+x-3。"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-fi-024",
+      "promptZhHans": "若分式 (x+2)/(x-3) 的值为0，则x的值为______。",
+      "optionsZhHans": [],
+      "answer": "-2",
+      "acceptedAnswers": [
+        "-2"
+      ],
+      "explanationZhHans": "分式值为0的条件是分子为0且分母不为0。由x+2=0得x=-2，此时分母x-3=-5≠0，满足条件。因此答案是-2。"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-fi-025",
+      "promptZhHans": "点P(-3,5)关于x轴对称的点的坐标是______。",
+      "optionsZhHans": [],
+      "answer": "(-3,-5)",
+      "acceptedAnswers": [
+        "(-3,-5)",
+        "（-3,-5）"
+      ],
+      "explanationZhHans": "关于x轴对称的点，横坐标相同，纵坐标互为相反数。所以点P(-3,5)关于x轴对称的点的坐标是(-3,-5)。"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-fi-026",
+      "promptZhHans": "分解因式：x²-4y²=______。",
+      "optionsZhHans": [],
+      "answer": "(x+2y)(x-2y)",
+      "acceptedAnswers": [
+        "(x+2y)(x-2y)",
+        "(x-2y)(x+2y)"
+      ],
+      "explanationZhHans": "x²-4y²符合平方差公式a²-b²=(a+b)(a-b)，其中a=x，b=2y，所以x²-4y²=(x+2y)(x-2y)。因此答案是(x+2y)(x-2y)。"
+    }
+  ]
+}

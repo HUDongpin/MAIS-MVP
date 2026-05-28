@@ -1,0 +1,191 @@
+{
+  "batchNumber": 1,
+  "startedAt": "2026-05-25T01:45:57.835Z",
+  "completedAt": "2026-05-25T01:46:21.852Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p1-001",
+    "hjb-primary-ds-v1-p1-002",
+    "hjb-primary-ds-v1-p1-003",
+    "hjb-primary-ds-v1-p1-004",
+    "hjb-primary-ds-v1-p1-005",
+    "hjb-primary-ds-v1-p1-006",
+    "hjb-primary-ds-v1-p1-007",
+    "hjb-primary-ds-v1-p1-008",
+    "hjb-primary-ds-v1-p1-009",
+    "hjb-primary-ds-v1-p1-010",
+    "hjb-primary-ds-v1-p1-011",
+    "hjb-primary-ds-v1-p1-012",
+    "hjb-primary-ds-v1-p1-013",
+    "hjb-primary-ds-v1-p1-014",
+    "hjb-primary-ds-v1-p1-015",
+    "hjb-primary-ds-v1-p1-016",
+    "hjb-primary-ds-v1-p1-017",
+    "hjb-primary-ds-v1-p1-018"
+  ],
+  "usage": {
+    "prompt_tokens": 4185,
+    "completion_tokens": 1420,
+    "total_tokens": 5605,
+    "prompt_tokens_details": {
+      "cached_tokens": 4096
+    },
+    "prompt_cache_hit_tokens": 4096,
+    "prompt_cache_miss_tokens": 89
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p1-001",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，选项区分度好，答案正确，符合一年级学习习惯培养目标。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-002",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案8正确，接受中文数字，符合听力与加法练习要求。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-003",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案合理，接受多种表述，考察数学语言识别，难度适合挑战。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-004",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项B明确包含数量和比较，是数学发现，其他选项无关，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-005",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比3多2是5，答案正确，接受中文数字，符合基础计算。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-006",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "小红提到圆形（形状）和一个（数字1），符合既有数字又有形状，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-007",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项描述清晰，正确答案强调认真听、想、举手，符合学习习惯要求。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-008",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "3+2=5，答案正确，题目考察按指令操作和加法，难度适合考试。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-009",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案合理，接受多种相近表述，考察倾听习惯，符合基础要求。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-010",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "小刚说出形状，是数学发现，其他选项无关，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-011",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "填空2,3,5正确，接受逗号分隔，题目复述指令，考察听力与记忆。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-012",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案6下，解释合理，接受多种表述，符合考试难度。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-013",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "小丽先听后说，符合良好习惯，答案正确，选项区分度好。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-014",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "填空内容与示例一致，答案正确，考察观察与数学特征描述。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-015",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案开放，接受两种规则，要求写出数学内容，符合挑战难度。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-016",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "C选项符合先交流再回答，且答案多1个正确，其他选项有误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-017",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案拍手3下，跺脚2下正确，接受顺序表述，符合基础要求。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-018",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案开放，比较或求和均可，接受多种数学描述，符合核心难度。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部18道题目均符合沪教版一年级上学期数学学习习惯单元要求，答案正确，表述清晰，无歧义或错误。"
+    }
+  }
+}

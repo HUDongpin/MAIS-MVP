@@ -1,0 +1,173 @@
+{
+  "batchNumber": 11,
+  "startedAt": "2026-05-27T17:23:57.375Z",
+  "completedAt": "2026-05-27T17:24:16.156Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s1-121",
+    "bnu-junior-ds-v1-s1-122",
+    "bnu-junior-ds-v1-s1-123",
+    "bnu-junior-ds-v1-s1-124",
+    "bnu-junior-ds-v1-s1-125",
+    "bnu-junior-ds-v1-s1-126",
+    "bnu-junior-ds-v1-s1-127",
+    "bnu-junior-ds-v1-s1-128",
+    "bnu-junior-ds-v1-s1-129",
+    "bnu-junior-ds-v1-s1-130",
+    "bnu-junior-ds-v1-s1-131",
+    "bnu-junior-ds-v1-s1-132"
+  ],
+  "usage": {
+    "prompt_tokens": 6608,
+    "completion_tokens": 1291,
+    "total_tokens": 7899,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 6096
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s1-121",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，周长计算正确，选项唯一且答案匹配，解释无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-122",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，代数式正确，答案与解释一致，acceptedAnswers覆盖合理变体。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-123",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "条件充足，化简结果正确，答案与解释匹配，acceptedAnswers包含等价形式。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-124",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目明确，周长表达式正确，选项唯一且答案匹配，解释无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-125",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，正确结果推导无误，答案与解释一致，acceptedAnswers覆盖合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-126",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "条件充分，周长计算正确，答案与解释匹配，acceptedAnswers包含带单位和不带单位的等价形式。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-127",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目明确点B在A、C之间，AC=AB+BC=8 cm，选项唯一且答案匹配，解释正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-128",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "条件充分，角度计算正确，答案与解释一致，acceptedAnswers覆盖合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-129",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "条件明确，AC=8 cm，答案与解释匹配，acceptedAnswers包含多种单位表示。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-130",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，AD=7 cm，选项唯一且答案匹配，解释正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-131",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目未明确点C位置，需分类讨论，答案给出两种可能，解释正确，acceptedAnswers覆盖合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-132",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "条件充分，∠BOC=40°，答案与解释匹配，acceptedAnswers包含度数和符号表示。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部12道题目均条件充分、可解，答案与解释匹配，选项或acceptedAnswers合理，无数学错误或歧义，适合北师大版七年级使用。"
+    }
+  }
+}

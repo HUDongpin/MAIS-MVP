@@ -1,0 +1,115 @@
+{
+  "batchId": "model-qa-0137",
+  "ids": [
+    "hjb-junior-ds-v2-s3-089",
+    "hjb-junior-ds-v2-s3-090",
+    "hjb-junior-ds-v2-s3-091",
+    "hjb-junior-ds-v2-s3-092",
+    "hjb-junior-ds-v2-s3-093",
+    "hjb-junior-ds-v2-s3-094",
+    "hjb-junior-ds-v2-s3-095",
+    "hjb-junior-ds-v2-s3-096"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-089",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "10(√3+1)米",
+      "answerCheckZhHans": "标准答案正确，解析推导无误，acceptedAnswers覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-090",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案16.8米与解析计算不符。解析中方程(h/0.700)²+10²=(h/0.577)²解得h²≈282.24，h≈16.8，但实际计算：(h/0.7)²+100=(h/0.577)² => h²(1/0.577² - 1/0.7²)=100 => h²(1/0.332929 - 1/0.49)=100 => h²(3.0036 - 2.0408)=100 => h²(0.9628)=100 => h²≈103.86，h≈10.19米。解析中h²≈282.24错误，导致答案错误。",
+      "independentAnswerZhHans": "约10.2米",
+      "answerCheckZhHans": "标准答案16.8米错误，正确值约10.2米。",
+      "recommendedActionZhHans": "修正答案和解析，重新计算。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-091",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch",
+        "ambiguous-prompt"
+      ],
+      "issueDetailsZhHans": "题干中A点在D正东24米，B点从A沿正东继续走10米，则B在D正东34米。解析用A点仰角30°直接计算CD=24×tan30°≈13.856米，但未使用B点条件验证，且B点条件tanα=5/12与计算值不符（13.856/34≈0.4075≠0.4167），存在矛盾。若用B点条件反推CD=34×(5/12)≈14.167米，与A点条件不一致。题目条件可能矛盾，无法唯一确定高度。",
+      "independentAnswerZhHans": "条件矛盾，无法唯一确定。",
+      "answerCheckZhHans": "标准答案13.9米仅由A点条件得出，忽略B点条件，且B点条件不吻合，题目有误。",
+      "recommendedActionZhHans": "检查题目条件，修正或删除矛盾条件。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-092",
+      "verdict": "needs-review",
+      "severity": "P2",
+      "issueCodes": [
+        "accepted-answer-gap"
+      ],
+      "issueDetailsZhHans": "标准答案为8.5，但题干要求精确到0.1米，答案应带单位“米”。acceptedAnswers包含“8.5”、“8.5米”、“约8.5米”，但标准答案仅为“8.5”，可能造成匹配问题。建议统一为“8.5米”。",
+      "independentAnswerZhHans": "8.5米",
+      "answerCheckZhHans": "计算正确，但答案格式不统一。",
+      "recommendedActionZhHans": "将标准答案改为“8.5米”，并调整acceptedAnswers。",
+      "confidence": "medium"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-093",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "10(√3+1)米",
+      "answerCheckZhHans": "标准答案正确，解析无误，acceptedAnswers覆盖。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-094",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "8.40米",
+      "answerCheckZhHans": "标准答案正确，解析正确，选项唯一。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-095",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "9.9米",
+      "answerCheckZhHans": "标准答案正确，解析正确，acceptedAnswers覆盖。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-096",
+      "verdict": "needs-review",
+      "severity": "P2",
+      "issueCodes": [
+        "accepted-answer-gap",
+        "terminology-risk"
+      ],
+      "issueDetailsZhHans": "标准答案为5.7，但解析中sin35°≈0.5736，计算得5.736，四舍五入为5.7。acceptedAnswers包含5.7、5.74、5.735，但5.74和5.735不是精确到一位小数，可能引起混淆。建议acceptedAnswers仅保留5.7和5.7米。另外，题目未提供sin35°的值，学生需查表或记忆，可能超出范围。",
+      "independentAnswerZhHans": "5.7",
+      "answerCheckZhHans": "答案正确，但acceptedAnswers范围过宽。",
+      "recommendedActionZhHans": "调整acceptedAnswers为['5.7','5.7米']，并考虑提供sin35°的值。",
+      "confidence": "medium"
+    }
+  ]
+}

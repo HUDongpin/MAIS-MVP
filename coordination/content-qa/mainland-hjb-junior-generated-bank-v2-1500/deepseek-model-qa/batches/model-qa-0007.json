@@ -1,0 +1,70 @@
+{
+  "batchId": "model-qa-0007",
+  "ids": [
+    "hjb-junior-ds-v2-s1-276",
+    "hjb-junior-ds-v2-s1-279",
+    "hjb-junior-ds-v2-s1-294",
+    "hjb-junior-ds-v2-s1-302",
+    "hjb-junior-ds-v2-s1-309"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-276",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "ambiguous-prompt",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题目要求“写出满足的不等式”，但实际等量关系是方程45x+15=50x-10，解得x=5。解析中称“可转化为不等式：45x+15≤50x-10，解集x≥5，结合整数x=5”，但该不等式与题意不符（若用≤，则允许x>5，但实际只有x=5满足）。题目表述可能引起混淆，且答案中的“不等式”实为方程。",
+      "independentAnswerZhHans": "设租用客车x辆，学生总人数为45x+15。若每辆坐50人，则最后一辆空出10个座位，即总座位数为50x，实际坐的人数为50x-10。由人数相等得方程45x+15=50x-10，解得x=5。若必须用不等式表示，可写为45x+15≤50x-10，但解集为x≥5，结合x为整数且实际情况，x=5。",
+      "answerCheckZhHans": "标准答案“x=5，不等式为45x+15=50x-10”中，45x+15=50x-10是等式而非不等式，与题目要求“写出满足的不等式”不符。解析试图用不等式解释，但逻辑牵强。",
+      "recommendedActionZhHans": "建议修改题目要求，明确是列方程还是列不等式，或调整题目情境使其自然产生不等式。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-279",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3a-2≥0",
+      "answerCheckZhHans": "标准答案正确，解析正确，acceptedAnswers覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-294",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "设租用45座客车x辆，则学生人数为45x+15。若租用60座客车，数量为x-1辆，且恰好坐满，故60(x-1)=45x+15，解得x=5，学生人数为240。租车方案：若全租45座，需6辆，租金1320元；若全租60座，需4辆，租金1200元。因此租4辆60座最合算。",
+      "answerCheckZhHans": "标准答案正确，解析正确，acceptedAnswers覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-302",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x≤4",
+      "answerCheckZhHans": "标准答案正确，解析正确，acceptedAnswers覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-309",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3(x+1)-2≥5x-7 → 3x+3-2≥5x-7 → 3x+1≥5x-7 → 1+7≥5x-3x → 8≥2x → x≤4。数轴表示：在4处画实心点，向左画射线。",
+      "answerCheckZhHans": "标准答案正确，解析正确，acceptedAnswers覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

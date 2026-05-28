@@ -1,0 +1,158 @@
+{
+  "batchNumber": 92,
+  "startedAt": "2026-05-27T13:59:10.642Z",
+  "completedAt": "2026-05-27T13:59:42.256Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-229",
+    "bnu-high-ds-v1-s5-230",
+    "bnu-high-ds-v1-s5-231",
+    "bnu-high-ds-v1-s5-232",
+    "bnu-high-ds-v1-s5-233",
+    "bnu-high-ds-v1-s5-234",
+    "bnu-high-ds-v1-s5-235",
+    "bnu-high-ds-v1-s5-236"
+  ],
+  "usage": {
+    "prompt_tokens": 14954,
+    "completion_tokens": 1818,
+    "total_tokens": 16772,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 14442
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-229",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "无法求解，题目条件矛盾：点P不在椭圆上，且由OM斜率1/2推出的直线方程与所有选项均不匹配。",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "missing_condition",
+          "explanation_contradiction",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件矛盾：由c=1和点P(√3,1/2)代入椭圆方程解得a²=4,b²=3，但点P不满足该椭圆方程。即使忽略此矛盾，由OM斜率1/2推导出的直线方程为3x+2y-3=0或2x+3y-2=0，均不在选项中。解析承认无匹配选项，且计算过程混乱，最终强行选A，答案错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-230",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "圆心(5,3)，半径2√5，方程(x-5)²+(y-3)²=20。",
+        "correctedAnswer": "圆的方程：(x-5)²+(y-3)²=20，半径：2√5",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "由A(1,5)、B(9,1)和圆心在x=5上，解得圆心(5,3)，半径√20=2√5，方程(x-5)²+(y-3)²=20。答案给出半径4和方程(x-5)²+(y-1)²=16，计算错误。解析中虽指出圆心应为(5,3)，但最终答案未修正，与正确结果不符。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-231",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "a=b",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "矩形对角线方程为y=3x/4和y=-3x/4+6，点P(a,b)到两线距离相等，结合P在矩形内可去绝对值，化简得a=b。答案正确，解析合理。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-232",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "无法求解，题目条件矛盾：由中点横坐标为2解得k=2±√5，但代入判别式Δ>0得k<-1或k>1，两者交集为k=2±√5，并非k≤-1或k≥1。",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "设直线y=k(x-1)，联立圆方程得中点横坐标x_M=(k²+4k+3)/(1+k²)=2，解得k=2±√5。判别式Δ>0得k<-1或k>1，k=2±√5满足。但答案给出k≤-1或k≥1，范围过大，且解析中称“结合中点条件得k≤-1或k≥1”逻辑错误。正确结果应为两个具体值，而非范围。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-233",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(x-4)²+(y-3)²=5",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "三点A(2,1), B(6,3), C(4,5)不共线，可唯一确定圆。计算得圆心(4,3)，半径√5，方程正确。解析合理，建模假设恰当。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-234",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "无实数解，以AB为直径的圆与x轴无交点。",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "A(1,2), B(5,6)，设P(t,0)，由PA⊥PB得(t-1)(t-5)+(-2)(-6)=t²-6t+17=0，判别式Δ=-32<0，无实数解。答案给出(3,0)或(7,0)错误，解析中虽指出无解但最终未修正，且尝试修改数据，与题目不符。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-235",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "无法求解，题目条件矛盾：由面积2√3得d²(4-d²)=12，即d⁴-4d²+12=0，无实数解。",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "圆心(2,-1)，半径2，直线y=kx+3，距离d=|2k+4|/√(k²+1)。面积S=d√(4-d²)=2√3，平方得d⁴-4d²+12=0，无实数解。答案k=-2或1/2代入也不满足。解析中尝试修改数据，但未给出正确结果，答案错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-236",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(x-4)²+(y-3)²=5",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "与233题相同，三点确定圆，计算正确，解析合理。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 3,
+      "warn": 0,
+      "fail": 5,
+      "notes": "8题中3题通过（231、233、236），5题失败（229、230、232、234、235）。失败题目均存在数学错误或条件矛盾，导致无法求解或答案错误，需修正题目数据或答案。"
+    }
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "batchId": "model-qa-0047",
+  "ids": [
+    "hjb-junior-ds-v2-s1-369",
+    "hjb-junior-ds-v2-s1-370",
+    "hjb-junior-ds-v2-s1-371",
+    "hjb-junior-ds-v2-s1-372",
+    "hjb-junior-ds-v2-s1-373",
+    "hjb-junior-ds-v2-s1-374",
+    "hjb-junior-ds-v2-s1-375",
+    "hjb-junior-ds-v2-s1-376"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-369",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "91.5°",
+      "answerCheckZhHans": "标准答案 91.5° 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-370",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "a∥b，因为同旁内角互补",
+      "answerCheckZhHans": "标准答案与独立判断一致，且其他选项均不正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-371",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "50",
+      "answerCheckZhHans": "标准答案 50 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-372",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "65°",
+      "answerCheckZhHans": "标准答案 65° 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-373",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "110°",
+      "answerCheckZhHans": "标准答案 110° 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-374",
+      "verdict": "needs-review",
+      "severity": "P2",
+      "issueCodes": [
+        "accepted-answer-gap"
+      ],
+      "issueDetailsZhHans": "标准答案为 2，但 acceptedAnswers 包含大量小于等于 3 的值，而题干要求“写出一个满足条件的值即可”，理论上任何 ≤3 的正数均可。但 acceptedAnswers 列表虽广，却未明确覆盖所有可能（如 0.05 等），且标准答案仅为 2，可能造成评分歧义。建议明确 acceptedAnswers 范围或改为任意 ≤3 的正数。",
+      "independentAnswerZhHans": "2（或任何 ≤3 的正数）",
+      "answerCheckZhHans": "标准答案 2 是正确的一个可能值，但 acceptedAnswers 列表与标准答案不完全一致，且未覆盖所有合理答案。",
+      "recommendedActionZhHans": "建议将 acceptedAnswers 改为描述性规则（如“≤3 的正数”）或扩大列表以覆盖常见值，并确保标准答案在列表中。",
+      "confidence": "medium"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-375",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "能",
+      "answerCheckZhHans": "标准答案“能”与独立判断一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-376",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "这三条线段一定不能组成三角形",
+      "answerCheckZhHans": "标准答案与独立判断一致，且其他选项均不正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

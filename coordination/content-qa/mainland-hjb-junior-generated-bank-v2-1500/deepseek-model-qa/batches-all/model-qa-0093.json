@@ -1,0 +1,122 @@
+{
+  "batchId": "model-qa-0093",
+  "ids": [
+    "hjb-junior-ds-v2-s2-237",
+    "hjb-junior-ds-v2-s2-238",
+    "hjb-junior-ds-v2-s2-239",
+    "hjb-junior-ds-v2-s2-240",
+    "hjb-junior-ds-v2-s2-241",
+    "hjb-junior-ds-v2-s2-242",
+    "hjb-junior-ds-v2-s2-243",
+    "hjb-junior-ds-v2-s2-244"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-237",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案给出12，但解析中计算AD=√146.25≈12.09，并非精确值12。题干要求求线段AD的长，通常应给出精确值或化简根式，12.09是近似值，且与12不符。解析中cosB计算有误：cosB=(AB²+BC²-AC²)/(2·AB·BC)=(169+196-225)/(2·13·14)=140/364=5/13，但5/13≈0.3846，代入AD²=169+42.25-2·13·6.5·5/13=211.25-65=146.25，AD=√146.25=√(585/4)=√585/2≈12.09，不是12。因此答案错误，解析与答案矛盾。",
+      "independentAnswerZhHans": "AD=√146.25=√(585/4)=√585/2≈12.09",
+      "answerCheckZhHans": "标准答案12与解析计算结果√146.25不一致，解析中cosB计算正确但最终AD不是12。",
+      "recommendedActionZhHans": "修正答案为√146.25或化简形式，并调整解析中的近似说明。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-238",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch",
+        "missing-condition"
+      ],
+      "issueDetailsZhHans": "题干给出AB=5，BC=12，AC=13，但解析中却使用6、8、10，并称∠B=90°。实际由5²+12²=13²，∠B=90°正确，但解析中边长数值错误（6、8、10与题干不符）。解析中BD:DC=AB:AC=6:10=3:5，但AB=5，AC=13，正确比例应为5:13。BC=12，则BD=5/18×12=10/3，不是3。因此答案3错误，点D到AB的距离应为BD=10/3。",
+      "independentAnswerZhHans": "由5²+12²=13²得∠B=90°，AD平分∠BAC，由角平分线性质BD:DC=AB:AC=5:13，BD=5/18×12=10/3，点D到AB的距离即为BD=10/3。",
+      "answerCheckZhHans": "标准答案3与正确计算结果10/3不符，解析中边长数据与题干矛盾。",
+      "recommendedActionZhHans": "修正答案为10/3，并更正解析中的边长数值。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-239",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "标准答案3正确，解析中面积法计算无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-240",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析中证明四边形AEDF是正方形，但由条件只能推出DE=DF且∠AED=∠AFD=90°，无法直接得出∠EAF=90°或四边形是矩形。实际上，∠EAF=∠BAC，而∠BAC不一定是直角，因此四边形AEDF不一定是正方形。正确结论应为菱形或仅能证明DE=DF。求EF的长基于正方形假设，因此答案12√2/5错误。",
+      "independentAnswerZhHans": "无法证明四边形AEDF是正方形，只能证明DE=DF，EF的长无法唯一确定。",
+      "answerCheckZhHans": "标准答案的证明过程有逻辑漏洞，四边形AEDF不一定是正方形，因此EF的长计算错误。",
+      "recommendedActionZhHans": "重新审查题目条件或修改问题，确保可证正方形或调整答案。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-241",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析中计算面积：S△ABC=1/2×5×12=30，但AB=5，BC=12，AC=13，∠B=90°，面积应为1/2×5×12=30正确。设D到AB和AC的距离为x，则S△ABD=1/2×5x，S△ACD=1/2×13x，和=9x，得x=30/9=10/3。但10/3不等于60/13（60/13≈4.615，10/3≈3.333）。解析最后写x=10/3=60/13，这是错误的，10/3≠60/13。因此答案60/13错误，正确距离应为10/3。",
+      "independentAnswerZhHans": "10/3",
+      "answerCheckZhHans": "标准答案60/13与解析中计算出的10/3不一致，解析中错误地将10/3等于60/13。",
+      "recommendedActionZhHans": "修正答案为10/3，并更正解析中的等式错误。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-242",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析中计算S△ABC=1/2×6×8=24，设CD=DE=x，则S△ACD=1/2×6×x=3x，S△ABD=1/2×10×x=5x，得8x=24，x=3。但解析最后写“点D到AB的距离即DE=3”，而标准答案给出2.4和12/5。2.4=12/5，与3矛盾。正确距离应为3，因此标准答案错误。",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "标准答案2.4（12/5）与解析计算结果3不一致，解析正确，答案错误。",
+      "recommendedActionZhHans": "修正答案为3，并删除错误的acceptedAnswers。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-243",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "△ABC不是直角三角形，因为15²=225，13²+14²=365，225≠365。",
+      "answerCheckZhHans": "标准答案正确，解析中判断方法无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-244",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析中由5²+12²=13²得△ABC为直角三角形，∠BAC=90°。AD平分直角，由角平分线性质得BD:DC=AB:AC=5:12，BD=5/17×13=65/17，DC=12/17×13=156/17。在直角△ABD中，AD²=AB²-BD²=25-(65/17)²=25-4225/289=(7225-4225)/289=3000/289，AD=√(3000/289)=√3000/17=10√30/17≈3.22。而60/17≈3.53，两者不等。解析中计算AD²=AB²-BD²正确，但结果应为10√30/17，不是60/17。因此选项A中AD=60/17错误。",
+      "independentAnswerZhHans": "△ABC是直角三角形，AD=10√30/17",
+      "answerCheckZhHans": "标准答案AD=60/17与正确计算结果10√30/17不符，解析中计算过程有误。",
+      "recommendedActionZhHans": "修正答案为10√30/17，并调整选项或答案。",
+      "confidence": "high"
+    }
+  ]
+}

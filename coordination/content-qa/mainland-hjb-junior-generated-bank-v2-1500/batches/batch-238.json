@@ -1,0 +1,335 @@
+{
+  "batchId": "batch-238",
+  "questions": [
+    {
+      "id": "hjb-junior-ds-v2-s3-186",
+      "batch": "hjb-junior-v2",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "hjb-junior-s3-upper-quadratic-functions",
+      "unitTitle": "二次函数",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "quadratic-functions",
+        "parabolas",
+        "vertex-form",
+        "function-graphs",
+        "quadratic-modeling",
+        "二次函数"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学抽象",
+        "数学建模"
+      ],
+      "skillTags": [
+        "二次函数概念",
+        "抛物线图像",
+        "顶点与对称轴",
+        "平移变换",
+        "二次函数应用"
+      ],
+      "misconceptionTags": [
+        "vertex coordinates read from wrong form",
+        "opening direction ignored",
+        "context domain omitted"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s3-upper-quadratic-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s3-upper-paper-quadratic-functions-unit",
+        "hjb-junior-s3-upper-paper-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions",
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某工厂生产一种产品，每件产品的生产成本为20元。市场调研表明，当售价为x元（x≥20）时，每天的销售量为(100−2x)件。设每天的利润为y元。\n（1）求y关于x的函数解析式，并写出x的取值范围；\n（2）当售价定为多少元时，每天的利润最大？最大利润是多少元？",
+      "optionsZhHans": [],
+      "answer": "（1）y = (x - 20)(100 - 2x) = -2x² + 140x - 2000，x的取值范围是20 ≤ x ≤ 50；（2）售价定为35元时，每天的利润最大，最大利润是450元。",
+      "acceptedAnswers": [
+        "（1）y = (x - 20)(100 - 2x) = -2x² + 140x - 2000，x的取值范围是20 ≤ x ≤ 50；（2）售价定为35元时，每天的利润最大，最大利润是450元。",
+        "（1）y=-2x²+140x-2000，20≤x≤50；（2）售价35元，最大利润450元。",
+        "（1）y = -2x^2 + 140x - 2000, 20 ≤ x ≤ 50；（2）售价35元，最大利润450元。"
+      ],
+      "explanationZhHans": "利润=单件利润×销量，单件利润为(x-20)，销量为(100-2x)，故y=(x-20)(100-2x)。展开得y=-2x²+140x-2000。由销量≥0得x≤50，结合x≥20得定义域20≤x≤50。配方得y=-2(x-35)²+450，开口向下，顶点(35,450)为最大值点，在定义域内，故售价35元时最大利润450元。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-187",
+      "batch": "hjb-junior-v2",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "hjb-junior-s3-upper-quadratic-functions",
+      "unitTitle": "二次函数",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "quadratic-functions",
+        "parabolas",
+        "vertex-form",
+        "function-graphs",
+        "quadratic-modeling",
+        "二次函数"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学抽象",
+        "数学建模"
+      ],
+      "skillTags": [
+        "二次函数概念",
+        "抛物线图像",
+        "顶点与对称轴",
+        "平移变换",
+        "二次函数应用"
+      ],
+      "misconceptionTags": [
+        "vertex coordinates read from wrong form",
+        "opening direction ignored",
+        "context domain omitted"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s3-upper-quadratic-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s3-upper-paper-quadratic-functions-unit",
+        "hjb-junior-s3-upper-paper-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions",
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知二次函数y = ax² + bx + c的图象经过点A(0, 3)，B(1, 0)，C(3, 0)。下列说法正确的是（ ）",
+      "optionsZhHans": [
+        "A. a = 1, b = -4, c = 3",
+        "B. a = 1, b = 4, c = 3",
+        "C. a = -1, b = 4, c = 3",
+        "D. a = -1, b = -4, c = 3"
+      ],
+      "answer": "A. a = 1, b = -4, c = 3",
+      "acceptedAnswers": [
+        "A. a = 1, b = -4, c = 3"
+      ],
+      "explanationZhHans": "由点A(0,3)得c=3。由B(1,0)、C(3,0)知1和3是方程ax²+bx+3=0的两根，故函数可写为y=a(x-1)(x-3)。代入A(0,3)得a(0-1)(0-3)=3，即3a=3，a=1。展开得y=(x-1)(x-3)=x²-4x+3，所以b=-4。选项A正确。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-188",
+      "batch": "hjb-junior-v2",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "hjb-junior-s3-upper-quadratic-functions",
+      "unitTitle": "二次函数",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "quadratic-functions",
+        "parabolas",
+        "vertex-form",
+        "function-graphs",
+        "quadratic-modeling",
+        "二次函数"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学抽象",
+        "数学建模"
+      ],
+      "skillTags": [
+        "二次函数概念",
+        "抛物线图像",
+        "顶点与对称轴",
+        "平移变换",
+        "二次函数应用"
+      ],
+      "misconceptionTags": [
+        "vertex coordinates read from wrong form",
+        "opening direction ignored",
+        "context domain omitted"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-junior-s3-upper-quadratic-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s3-upper-paper-quadratic-functions-unit",
+        "hjb-junior-s3-upper-paper-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions",
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "将抛物线y = 2x²先向左平移3个单位，再向下平移5个单位，所得新抛物线的顶点坐标是______。",
+      "optionsZhHans": [],
+      "answer": "(-3, -5)",
+      "acceptedAnswers": [
+        "(-3, -5)",
+        "（-3，-5）",
+        "(-3,-5)"
+      ],
+      "explanationZhHans": "原抛物线y=2x²的顶点为(0,0)。向左平移3个单位，横坐标减3得(-3,0)；再向下平移5个单位，纵坐标减5得(-3,-5)。平移不改变开口方向和形状，故新顶点为(-3,-5)。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-189",
+      "batch": "hjb-junior-v2",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "hjb-junior-s3-upper-quadratic-functions",
+      "unitTitle": "二次函数",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "quadratic-functions",
+        "parabolas",
+        "vertex-form",
+        "function-graphs",
+        "quadratic-modeling",
+        "二次函数"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学抽象",
+        "数学建模"
+      ],
+      "skillTags": [
+        "二次函数概念",
+        "抛物线图像",
+        "顶点与对称轴",
+        "平移变换",
+        "二次函数应用"
+      ],
+      "misconceptionTags": [
+        "vertex coordinates read from wrong form",
+        "opening direction ignored",
+        "context domain omitted"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s3-upper-quadratic-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s3-upper-paper-quadratic-functions-unit",
+        "hjb-junior-s3-upper-paper-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions",
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知二次函数y = -x² + 2x + m的图象与x轴有两个交点，求m的取值范围。",
+      "optionsZhHans": [],
+      "answer": "m > -1",
+      "acceptedAnswers": [
+        "m > -1",
+        "m>-1"
+      ],
+      "explanationZhHans": "二次函数与x轴有两个交点，即方程-x²+2x+m=0有两个不等实根，判别式Δ>0。Δ=2²-4×(-1)×m=4+4m>0，解得m>-1。注意a=-1≠0，满足二次函数条件。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-190",
+      "batch": "hjb-junior-v2",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "hjb-junior-s3-upper-quadratic-functions",
+      "unitTitle": "二次函数",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "quadratic-functions",
+        "parabolas",
+        "vertex-form",
+        "function-graphs",
+        "quadratic-modeling",
+        "二次函数"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学抽象",
+        "数学建模"
+      ],
+      "skillTags": [
+        "二次函数概念",
+        "抛物线图像",
+        "顶点与对称轴",
+        "平移变换",
+        "二次函数应用"
+      ],
+      "misconceptionTags": [
+        "vertex coordinates read from wrong form",
+        "opening direction ignored",
+        "context domain omitted"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s3-upper-quadratic-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s3-upper-paper-quadratic-functions-unit",
+        "hjb-junior-s3-upper-paper-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions",
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系中，抛物线y = x² - 2x - 3与x轴交于A、B两点（点A在点B左侧），与y轴交于点C。点P是直线BC下方抛物线上的一个动点，过点P作y轴的平行线交BC于点Q。当线段PQ的长度最大时，点P的横坐标为（ ）",
+      "optionsZhHans": [
+        "A. 1/2",
+        "B. 1",
+        "C. 3/2",
+        "D. 2"
+      ],
+      "answer": "C. 3/2",
+      "acceptedAnswers": [
+        "C. 3/2"
+      ],
+      "explanationZhHans": "易得A(-1,0), B(3,0), C(0,-3)。直线BC: y=x-3。设P(t, t²-2t-3)，则Q(t, t-3)。PQ=(t-3)-(t²-2t-3)=-t²+3t=-(t-3/2)²+9/4。当t=3/2时，PQ最大。点P横坐标为3/2，选项C正确。"
+    }
+  ]
+}

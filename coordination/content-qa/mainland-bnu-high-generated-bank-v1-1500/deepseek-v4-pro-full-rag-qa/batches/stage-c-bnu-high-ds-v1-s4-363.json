@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-363",
+  "startedAt": "2026-05-28T02:43:00.603Z",
+  "completedAt": "2026-05-28T02:43:05.479Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-363"
+  ],
+  "usage": {
+    "prompt_tokens": 2235,
+    "completion_tokens": 279,
+    "total_tokens": 2514,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1851
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-363",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "h = 60(√3 - 1) 米",
+        "correctedAnswer": "h = 60(√3 - 1) 米",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，RAG匹配。但存储答案h=60(√3+1)错误，解析中方程求解有误，正确解为h=60(√3-1)。Stage A独立解正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1题答案错误，解析矛盾，需修正为h=60(√3-1)。"
+    }
+  }
+}

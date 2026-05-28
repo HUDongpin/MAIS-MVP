@@ -1,0 +1,191 @@
+{
+  "batchNumber": 8,
+  "startedAt": "2026-05-27T13:25:17.494Z",
+  "completedAt": "2026-05-27T13:25:35.863Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p1-127",
+    "bnu-primary-ds-v1-p1-128",
+    "bnu-primary-ds-v1-p1-129",
+    "bnu-primary-ds-v1-p1-130",
+    "bnu-primary-ds-v1-p1-131",
+    "bnu-primary-ds-v1-p1-132",
+    "bnu-primary-ds-v1-p1-133",
+    "bnu-primary-ds-v1-p1-134",
+    "bnu-primary-ds-v1-p1-135",
+    "bnu-primary-ds-v1-p1-136",
+    "bnu-primary-ds-v1-p1-137",
+    "bnu-primary-ds-v1-p1-138",
+    "bnu-primary-ds-v1-p1-139",
+    "bnu-primary-ds-v1-p1-140",
+    "bnu-primary-ds-v1-p1-141",
+    "bnu-primary-ds-v1-p1-142",
+    "bnu-primary-ds-v1-p1-143",
+    "bnu-primary-ds-v1-p1-144"
+  ],
+  "usage": {
+    "prompt_tokens": 3179,
+    "completion_tokens": 1310,
+    "total_tokens": 4489,
+    "prompt_tokens_details": {
+      "cached_tokens": 3072
+    },
+    "prompt_cache_hit_tokens": 3072,
+    "prompt_cache_miss_tokens": 107
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p1-127",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，选项合理，答案正确，符合一年级认识钟表内容。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-128",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "整时认读基础题，答案正确，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-129",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "判断整时说法，答案正确，解释清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-130",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项设计合理，正确选项唯一，解释到位。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-131",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "凑十法应用，答案正确，acceptedAnswers覆盖合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-132",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "长方体特征辨析，答案正确，符合一年级认知。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-133",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算比较，答案正确，选项无重复。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-134",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计数器表示，答案正确，基础题。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-135",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "统计比较，答案正确，计算无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-136",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "接近数概念，答案正确，选项合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-137",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "凑十法填空，答案正确，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-138",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "位置关系，答案正确，acceptedAnswers覆盖多种写法。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-139",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "立体图形特征，答案正确，选项无争议。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-140",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比较多少，答案正确，基础题。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-141",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "判断并说理，答案正确，acceptedAnswers合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-142",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "立体图形特征判断，正确选项唯一，解释清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-143",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "凑十法分解填空，答案正确，格式清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-144",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "左右位置推理，答案正确，acceptedAnswers覆盖常见表述。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版一年级上册要求，数学正确，答案匹配，无歧义或缺失条件，适合公共题库使用。"
+    }
+  }
+}

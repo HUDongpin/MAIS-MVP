@@ -1,0 +1,131 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-126",
+  "startedAt": "2026-05-28T01:34:34.747Z",
+  "completedAt": "2026-05-28T01:34:49.466Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-001",
+    "bnu-high-ds-v1-s6-002",
+    "bnu-high-ds-v1-s6-003",
+    "bnu-high-ds-v1-s6-004",
+    "bnu-high-ds-v1-s6-005",
+    "bnu-high-ds-v1-s6-006",
+    "bnu-high-ds-v1-s6-007",
+    "bnu-high-ds-v1-s6-008"
+  ],
+  "usage": {
+    "prompt_tokens": 12724,
+    "completion_tokens": 1073,
+    "total_tokens": 13797,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 12340
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-001",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "correctedAnswer": "5 × 2^11 - 30",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction",
+          "ambiguous_mc"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案5×2^10-30错误，Stage A独立解为5×2^11-30（选项B）。解析中计算得S_10=5×2^10-5，但选项无此结果，解析未指出错误反而选择A，与正确解法矛盾。单选题无唯一正确选项，存储答案与正确选项不符。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-002",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案a_n=2n+1与Stage A独立解一致，解析正确推导，无问题。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-003",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案n^2与Stage A独立解一致，解析正确使用累加法，无问题。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-004",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案-54与Stage A独立解一致，解析正确，选项唯一，无问题。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-005",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案11与Stage A独立解一致，解析正确使用S_n求a_n，无问题。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-006",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案10与Stage A独立解一致，解析正确利用等差中项性质，无问题。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-007",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案8与Stage A独立解一致，解析正确构造等比数列并解不等式，选项唯一，无问题。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-008",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案n^2与Stage A独立解一致，解析正确使用等差数列求和公式，无问题。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第1题存储答案错误，解析与正确解法矛盾且未指出选项无正确结果，导致单选题无唯一正确选项，其余7题均通过。"
+    }
+  }
+}

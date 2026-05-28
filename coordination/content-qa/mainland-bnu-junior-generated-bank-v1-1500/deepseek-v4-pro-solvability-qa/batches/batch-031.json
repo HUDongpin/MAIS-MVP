@@ -1,0 +1,173 @@
+{
+  "batchNumber": 31,
+  "startedAt": "2026-05-27T17:30:33.239Z",
+  "completedAt": "2026-05-27T17:30:51.420Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s1-361",
+    "bnu-junior-ds-v1-s1-362",
+    "bnu-junior-ds-v1-s1-363",
+    "bnu-junior-ds-v1-s1-364",
+    "bnu-junior-ds-v1-s1-365",
+    "bnu-junior-ds-v1-s1-366",
+    "bnu-junior-ds-v1-s1-367",
+    "bnu-junior-ds-v1-s1-368",
+    "bnu-junior-ds-v1-s1-369",
+    "bnu-junior-ds-v1-s1-370",
+    "bnu-junior-ds-v1-s1-371",
+    "bnu-junior-ds-v1-s1-372"
+  ],
+  "usage": {
+    "prompt_tokens": 5204,
+    "completion_tokens": 1287,
+    "total_tokens": 6491,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 4692
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s1-361",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，等腰三角形需两边相等，结合三边关系验证，x可为5或8，答案与选项C一致，解释正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-362",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "已知两角，用内角和求第三角，答案70°正确，解释无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-363",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由三边关系得5<x<13，整数解6~12，答案6 cm是其中之一，解释正确，acceptedAnswers覆盖所有可能。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-364",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项C满足三角形三边关系，其他均不满足，答案正确，解释清晰。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-365",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "利用外角等于不相邻两内角和，直接计算得∠C=70°，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-366",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "内角和求第三角，70°正确，答案与acceptedAnswers一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-367",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "第三边范围3<x<17，只有5 cm符合，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-368",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "按比例设未知数，利用内角和求解，最大角80°正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-369",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "第三边范围2<x<14，偶数解4,6,8,10,12，答案4 cm是其中之一，解释正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-370",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "先求∠C=70°，外角等于不相邻两内角和110°，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-371",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由三边关系得3<x<13，整数解4~12，答案列出所有可能值，解释正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-372",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "∠C=70°，外角110°，答案110正确，解释无误。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均条件充分、可解，答案与解释匹配，无错误或歧义。"
+    }
+  }
+}

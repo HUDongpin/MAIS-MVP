@@ -1,0 +1,191 @@
+{
+  "batchNumber": 82,
+  "startedAt": "2026-05-25T02:28:12.890Z",
+  "completedAt": "2026-05-25T02:28:31.870Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p6-209",
+    "hjb-primary-ds-v1-p6-210",
+    "hjb-primary-ds-v1-p6-211",
+    "hjb-primary-ds-v1-p6-212",
+    "hjb-primary-ds-v1-p6-213",
+    "hjb-primary-ds-v1-p6-214",
+    "hjb-primary-ds-v1-p6-215",
+    "hjb-primary-ds-v1-p6-216",
+    "hjb-primary-ds-v1-p6-217",
+    "hjb-primary-ds-v1-p6-218",
+    "hjb-primary-ds-v1-p6-219",
+    "hjb-primary-ds-v1-p6-220",
+    "hjb-primary-ds-v1-p6-221",
+    "hjb-primary-ds-v1-p6-222",
+    "hjb-primary-ds-v1-p6-223",
+    "hjb-primary-ds-v1-p6-224",
+    "hjb-primary-ds-v1-p6-225",
+    "hjb-primary-ds-v1-p6-226"
+  ],
+  "usage": {
+    "prompt_tokens": 4066,
+    "completion_tokens": 1305,
+    "total_tokens": 5371,
+    "prompt_tokens_details": {
+      "cached_tokens": 3968
+    },
+    "prompt_cache_hit_tokens": 3968,
+    "prompt_cache_miss_tokens": 98
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p6-209",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程列式正确，答案与解释一致，无歧义。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-210",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程与求解正确，答案格式符合要求，解释清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-211",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程列式正确，选项唯一，解释合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-212",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "解方程步骤正确，答案无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-213",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程变形正确，选项A解相同，其他选项解不同，无歧义。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-214",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程列式正确，符合题意。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-215",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "年龄问题方程列式正确，选项唯一。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-216",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程列式正确，acceptedAnswers覆盖了常见写法。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-217",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "线段、射线、直线的定义描述正确，选项唯一。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-218",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "线段和计算正确，答案8 cm无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-219",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "角的表示方法正确，选项唯一。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-220",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "余角计算正确，答案30°无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-221",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "线段中点计算正确，选项A唯一正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-222",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "延长线和中点计算正确，答案5.5 cm无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-223",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "线段和计算正确，选项8厘米唯一正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-224",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "射线列举完整，线段长度计算正确，acceptedAnswers覆盖了多种格式。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-225",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "线段和计算正确，选项8 cm唯一正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-226",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "中点计算正确，答案4 cm无误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合沪教版小学数学要求，数学正确，答案匹配，无歧义或缺失条件，适合公开题库使用。"
+    }
+  }
+}

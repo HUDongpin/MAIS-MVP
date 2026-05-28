@@ -1,0 +1,137 @@
+{
+  "batchNumber": 27,
+  "startedAt": "2026-05-25T02:54:40.568Z",
+  "completedAt": "2026-05-25T02:54:56.779Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s1-k05-mc-012",
+    "pep-junior-v3-s1-k05-mc-013",
+    "pep-junior-v3-s1-k05-mc-014",
+    "pep-junior-v3-s1-k05-mc-015",
+    "pep-junior-v3-s1-k05-mc-016",
+    "pep-junior-v3-s1-k05-mc-017",
+    "pep-junior-v3-s1-k05-mc-018",
+    "pep-junior-v3-s1-k05-mc-019",
+    "pep-junior-v3-s1-k05-mc-020",
+    "pep-junior-v3-s1-k05-mc-021",
+    "pep-junior-v3-s1-k05-mc-022",
+    "pep-junior-v3-s1-k05-mc-023"
+  ],
+  "usage": {
+    "prompt_tokens": 3620,
+    "completion_tokens": 924,
+    "total_tokens": 4544,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 3364
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s1-k05-mc-012",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，对顶角相等，计算无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-mc-013",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比较算术平方根大小，被开方数越大值越大，正确。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-mc-014",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移坐标计算正确，象限判断无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-mc-015",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程组列式正确，选项无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-mc-016",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "不等式列式正确，不低于即≥，无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-mc-017",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "用样本频率估计总体，计算正确。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-mc-018",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "折线图适合显示变化趋势，选择合理。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-mc-019",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移和对称坐标计算正确。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-mc-020",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分段函数关系式正确，选项唯一。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-mc-021",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "ab<0异号，象限判断正确。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-mc-022",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "随机抽样具有代表性，选择合理。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-mc-023",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估算无理数范围，整数2符合条件。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部12道题均通过审核，数学正确，答案与解析一致，选项无歧义，适合人教版初中数学。"
+    }
+  }
+}

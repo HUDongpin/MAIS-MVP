@@ -1,0 +1,137 @@
+{
+  "batchNumber": 34,
+  "startedAt": "2026-05-25T02:57:14.665Z",
+  "completedAt": "2026-05-25T02:57:31.224Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s1-k05-sa-030",
+    "pep-junior-v3-s1-k05-sa-031",
+    "pep-junior-v3-s1-k05-sa-032",
+    "pep-junior-v3-s1-k05-sa-033",
+    "pep-junior-v3-s2-k06-mc-001",
+    "pep-junior-v3-s2-k06-mc-002",
+    "pep-junior-v3-s2-k06-mc-003",
+    "pep-junior-v3-s2-k06-mc-004",
+    "pep-junior-v3-s2-k06-mc-005",
+    "pep-junior-v3-s2-k06-mc-006",
+    "pep-junior-v3-s2-k06-mc-007",
+    "pep-junior-v3-s2-k06-mc-008"
+  ],
+  "usage": {
+    "prompt_tokens": 3658,
+    "completion_tokens": 994,
+    "total_tokens": 4652,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 3402
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s1-k05-sa-030",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，函数关系式推导无误，最值计算准确，答案与解析一致。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-sa-031",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程组求解正确，不等式推导无误，答案m>4准确。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-sa-032",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "频数计算正确，平均时间计算无误，答案与解析一致。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-sa-033",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "无理数估算正确，连续整数判断无误，答案11准确。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-mc-001",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "等腰三角形性质应用正确，角度计算无误，选项唯一且答案正确。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-mc-002",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "关于x轴对称点坐标规则正确，选项无歧义，答案准确。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-mc-003",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "三角形外角性质应用正确，计算无误，答案110°准确。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-mc-004",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "勾股定理逆定理应用正确，选项5,12,13符合，答案无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-mc-005",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "多项式乘法计算正确，选项无重复，答案2x²+5x-12准确。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-mc-006",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分式值为零条件判断正确，分母不为零验证无误，答案1准确。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-mc-007",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "等腰三角形底角相等，顶角计算正确，答案80°无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-mc-008",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "众数定义应用正确，85出现次数最多，答案准确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案与解析一致，无歧义或错误，适合人教版初中数学。"
+    }
+  }
+}

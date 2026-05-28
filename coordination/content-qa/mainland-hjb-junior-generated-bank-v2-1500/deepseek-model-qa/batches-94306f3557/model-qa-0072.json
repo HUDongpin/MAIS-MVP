@@ -1,0 +1,105 @@
+{
+  "batchId": "model-qa-0072",
+  "ids": [
+    "hjb-junior-ds-v2-s2-069",
+    "hjb-junior-ds-v2-s2-070",
+    "hjb-junior-ds-v2-s2-071",
+    "hjb-junior-ds-v2-s2-072",
+    "hjb-junior-ds-v2-s2-073",
+    "hjb-junior-ds-v2-s2-074",
+    "hjb-junior-ds-v2-s2-075",
+    "hjb-junior-ds-v2-s2-076"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-069",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "1",
+      "answerCheckZhHans": "标准答案为1，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-070",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "1",
+      "answerCheckZhHans": "标准答案为1，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-071",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x≥2",
+      "answerCheckZhHans": "标准答案为x≥2，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-072",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2√5",
+      "answerCheckZhHans": "标准答案为2√5，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-073",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "√45",
+      "answerCheckZhHans": "标准答案为√45，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-074",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "1",
+      "answerCheckZhHans": "标准答案为1，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-075",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "a√b",
+      "answerCheckZhHans": "标准答案为a√b，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-076",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "multiple-correct-options"
+      ],
+      "issueDetailsZhHans": "选项C和D均表示-3≤a≤5，存在两个正确选项。",
+      "independentAnswerZhHans": "-3 ≤ a ≤ 5",
+      "answerCheckZhHans": "标准答案为-3 ≤ a ≤ 5，但选项C和D均正确。",
+      "recommendedActionZhHans": "修改选项D，使其与C区分，或删除其中一个选项。",
+      "confidence": "high"
+    }
+  ]
+}

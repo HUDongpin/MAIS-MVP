@@ -1,0 +1,145 @@
+{
+  "batchNumber": 158,
+  "startedAt": "2026-05-27T14:10:12.386Z",
+  "completedAt": "2026-05-27T14:10:29.859Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-257",
+    "bnu-high-ds-v1-s6-258",
+    "bnu-high-ds-v1-s6-259",
+    "bnu-high-ds-v1-s6-260",
+    "bnu-high-ds-v1-s6-261",
+    "bnu-high-ds-v1-s6-262",
+    "bnu-high-ds-v1-s6-263",
+    "bnu-high-ds-v1-s6-264"
+  ],
+  "usage": {
+    "prompt_tokens": 10896,
+    "completion_tokens": 1134,
+    "total_tokens": 12030,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10384
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-257",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "15",
+        "correctedAnswer": "15",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立求解得 m=15，但题目答案和 acceptedAnswers 均为 3，解析也指出答案应为 15 却仍保留错误答案 3，答案与解析均错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-258",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "18",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，独立计算最大值为 18，与答案和解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-259",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(0, 1)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，单调递增区间为 (0,1)，选项唯一正确，答案与解析匹配。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-260",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "最大值为 11，最小值为 2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，独立计算最值与答案和解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-261",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "10",
+        "correctedAnswer": "10",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立求解得 a=10，但题目答案和 acceptedAnswers 均为 2，解析也得出 a=10 却给出错误答案 2，答案与解析矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-262",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(-1, 1)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，单调递减区间为 (-1,1)，选项唯一正确，答案与解析匹配。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-263",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "a=-3, b=-9, c=2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，独立求解参数与答案和解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-264",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "0",
+        "correctedAnswer": "0",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立计算得 k+b=0，但题目答案和 acceptedAnswers 均为 -1，解析也得出 0 却给出错误答案 -1，答案与解析矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 4,
+      "warn": 0,
+      "fail": 4,
+      "notes": "8 题中 4 题通过，4 题因答案错误或答案与解析矛盾而失败，需修正答案。"
+    }
+  }
+}

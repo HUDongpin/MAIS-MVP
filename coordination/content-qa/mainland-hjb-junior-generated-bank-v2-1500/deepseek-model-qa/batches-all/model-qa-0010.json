@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0010",
+  "ids": [
+    "hjb-junior-ds-v2-s1-073",
+    "hjb-junior-ds-v2-s1-074",
+    "hjb-junior-ds-v2-s1-075",
+    "hjb-junior-ds-v2-s1-076",
+    "hjb-junior-ds-v2-s1-077",
+    "hjb-junior-ds-v2-s1-078",
+    "hjb-junior-ds-v2-s1-079",
+    "hjb-junior-ds-v2-s1-080"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-073",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "D",
+      "answerCheckZhHans": "标准答案 D 正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-074",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "12.5",
+      "answerCheckZhHans": "标准答案 12.5 正确，acceptedAnswers 覆盖了 12.5、25/2、\\frac{25}{2}，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-075",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3a+b",
+      "answerCheckZhHans": "标准答案 3a+b 正确，acceptedAnswers 覆盖了 3a+b 和 3a + b，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-076",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "72a^8b^7",
+      "answerCheckZhHans": "标准答案 72a^8b^7 正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-077",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "6a^6b",
+      "answerCheckZhHans": "标准答案 6a^6b 正确，acceptedAnswers 覆盖了 6a^6b 和 6 a^6 b，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-078",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "商式为 2x - 1，余式为 -x - 6",
+      "answerCheckZhHans": "标准答案正确，acceptedAnswers 覆盖了多种表述，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-079",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为 -72x^{12}，但独立计算得 -108x^{12}。解析中计算 (2x^3)^2 = 4x^6，(-3x^2)^3 = -27x^6，相乘得 -108x^{12}，与答案矛盾。选项中也无 -108x^{12}，可能题目或答案有误。",
+      "independentAnswerZhHans": "-108x^{12}",
+      "answerCheckZhHans": "标准答案 -72x^{12} 错误，应为 -108x^{12}。解析过程得出 -108x^{12}，但最终答案写为 -72x^{12}，不一致。",
+      "recommendedActionZhHans": "修正答案为 -108x^{12} 或调整题目系数使结果为 -72x^{12}。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-080",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-8a^3",
+      "answerCheckZhHans": "标准答案 -8a^3 正确，acceptedAnswers 覆盖了 -8a^3 和 -8a³，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,147 @@
+{
+  "batchNumber": 166,
+  "startedAt": "2026-05-27T14:11:57.698Z",
+  "completedAt": "2026-05-27T14:12:14.995Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-321",
+    "bnu-high-ds-v1-s6-322",
+    "bnu-high-ds-v1-s6-323",
+    "bnu-high-ds-v1-s6-324",
+    "bnu-high-ds-v1-s6-325",
+    "bnu-high-ds-v1-s6-326",
+    "bnu-high-ds-v1-s6-327",
+    "bnu-high-ds-v1-s6-328"
+  ],
+  "usage": {
+    "prompt_tokens": 10726,
+    "completion_tokens": 1131,
+    "total_tokens": 11857,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10214
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-321",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "10",
+        "correctedAnswer": "10",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立求解得a=10，但题目答案为6，解析过程也得出a=10却给出错误答案6，答案与解析矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-322",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "-1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "可解，最小值-1，选项A正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-323",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(-1, 3)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "可解，单调递减区间(-1,3)，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-324",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "0",
+        "correctedAnswer": "0",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立求解得k+b=0，但题目答案为-1，解析过程也得出0却给出错误答案-1，答案与解析矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-325",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "0",
+        "correctedAnswer": "0",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立求解得a+b=0，但题目答案为-3，解析过程也得出0却给出错误答案-3，答案与解析矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-326",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "最大值为10，最小值为-22",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "可解，最大值10，最小值-22，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-327",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "independentAnswer": "0 或 9/4",
+        "correctedAnswer": null,
+        "issueTags": [
+          "explanation_contradiction"
+        ],
+        "severity": "minor",
+        "confidence": "medium",
+        "rationaleZhHans": "可解，k=0或9/4，答案正确。但解析中推导过程不完整且部分错误（如仅得t=1），虽最终结果正确，但解释不够严谨。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-328",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "可解，极大值为2，选项A正确，解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 4,
+      "warn": 1,
+      "fail": 3,
+      "notes": "8题中4题通过，1题解析有瑕疵但答案正确，3题答案与解析矛盾且答案错误，需修正答案。"
+    }
+  }
+}

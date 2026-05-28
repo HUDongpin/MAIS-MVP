@@ -1,0 +1,320 @@
+{
+  "batchId": "batch-030",
+  "questions": [
+    {
+      "id": "hjb-junior-ds-v2-s1-146",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "hjb-junior-s1-upper-factorization",
+      "unitTitle": "因式分解",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "factorization",
+        "common-factor",
+        "formula-factorization",
+        "polynomial-structure",
+        "因式分解"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "逻辑推理",
+        "符号意识"
+      ],
+      "skillTags": [
+        "因式分解意义",
+        "提公因式",
+        "公式法",
+        "分解检查",
+        "结构识别"
+      ],
+      "misconceptionTags": [
+        "common factor not complete",
+        "factorization stops too early",
+        "sign error when extracting negative factor"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-junior-s1-upper-factorization"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-factorization-unit",
+        "hjb-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-linear-inequalities",
+        "hjb-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "将多项式 \\(6x^3y - 9x^2y^2 + 12x^2y\\) 因式分解，应提取的公因式为______。",
+      "optionsZhHans": [],
+      "answer": "3x^2y",
+      "acceptedAnswers": [
+        "3x^2y"
+      ],
+      "explanationZhHans": "系数6、-9、12的最大公因数为3；字母部分x的最低次幂为x^2，y的最低次幂为y，故公因式为3x^2y。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-147",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "hjb-junior-s1-upper-factorization",
+      "unitTitle": "因式分解",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "factorization",
+        "common-factor",
+        "formula-factorization",
+        "polynomial-structure",
+        "因式分解"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "逻辑推理",
+        "符号意识"
+      ],
+      "skillTags": [
+        "因式分解意义",
+        "提公因式",
+        "公式法",
+        "分解检查",
+        "结构识别"
+      ],
+      "misconceptionTags": [
+        "common factor not complete",
+        "factorization stops too early",
+        "sign error when extracting negative factor"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s1-upper-factorization"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-factorization-unit",
+        "hjb-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-linear-inequalities",
+        "hjb-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "将多项式 \\(4a^2b - 8ab^2 + 2ab\\) 因式分解，并写出分解过程。",
+      "optionsZhHans": [],
+      "answer": "2ab(2a - 4b + 1)",
+      "acceptedAnswers": [
+        "2ab(2a - 4b + 1)"
+      ],
+      "explanationZhHans": "提取公因式2ab：4a^2b÷2ab=2a，-8ab^2÷2ab=-4b，2ab÷2ab=1，得2ab(2a-4b+1)。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-148",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "hjb-junior-s1-upper-factorization",
+      "unitTitle": "因式分解",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "factorization",
+        "common-factor",
+        "formula-factorization",
+        "polynomial-structure",
+        "因式分解"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "逻辑推理",
+        "符号意识"
+      ],
+      "skillTags": [
+        "因式分解意义",
+        "提公因式",
+        "公式法",
+        "分解检查",
+        "结构识别"
+      ],
+      "misconceptionTags": [
+        "common factor not complete",
+        "factorization stops too early",
+        "sign error when extracting negative factor"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s1-upper-factorization"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-factorization-unit",
+        "hjb-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-linear-inequalities",
+        "hjb-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "将 \\(x^2 - 10x + 25\\) 因式分解，正确的结果是（ ）",
+      "optionsZhHans": [
+        "(x-5)^2",
+        "(x+5)^2",
+        "(x-5)(x+5)",
+        "(x-10)^2"
+      ],
+      "answer": "(x-5)^2",
+      "acceptedAnswers": [
+        "(x-5)^2"
+      ],
+      "explanationZhHans": "x^2-10x+25符合完全平方公式a^2-2ab+b^2=(a-b)^2，其中a=x，b=5，故分解为(x-5)^2。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-149",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "hjb-junior-s1-upper-factorization",
+      "unitTitle": "因式分解",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "factorization",
+        "common-factor",
+        "formula-factorization",
+        "polynomial-structure",
+        "因式分解"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "逻辑推理",
+        "符号意识"
+      ],
+      "skillTags": [
+        "因式分解意义",
+        "提公因式",
+        "公式法",
+        "分解检查",
+        "结构识别"
+      ],
+      "misconceptionTags": [
+        "common factor not complete",
+        "factorization stops too early",
+        "sign error when extracting negative factor"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-junior-s1-upper-factorization"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-factorization-unit",
+        "hjb-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-linear-inequalities",
+        "hjb-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "因式分解：\\(9m^2 - 16n^2 =\\) ______。",
+      "optionsZhHans": [],
+      "answer": "(3m+4n)(3m-4n)",
+      "acceptedAnswers": [
+        "(3m+4n)(3m-4n)"
+      ],
+      "explanationZhHans": "9m^2-16n^2=(3m)^2-(4n)^2，运用平方差公式a^2-b^2=(a+b)(a-b)，得(3m+4n)(3m-4n)。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-150",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "hjb-junior-s1-upper-factorization",
+      "unitTitle": "因式分解",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "factorization",
+        "common-factor",
+        "formula-factorization",
+        "polynomial-structure",
+        "因式分解"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "逻辑推理",
+        "符号意识"
+      ],
+      "skillTags": [
+        "因式分解意义",
+        "提公因式",
+        "公式法",
+        "分解检查",
+        "结构识别"
+      ],
+      "misconceptionTags": [
+        "common factor not complete",
+        "factorization stops too early",
+        "sign error when extracting negative factor"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s1-upper-factorization"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-factorization-unit",
+        "hjb-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-linear-inequalities",
+        "hjb-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "将 \\(-2x^3 + 8x\\) 因式分解，并写出完整步骤。",
+      "optionsZhHans": [],
+      "answer": "-2x(x+2)(x-2)",
+      "acceptedAnswers": [
+        "-2x(x+2)(x-2)"
+      ],
+      "explanationZhHans": "先提取公因式-2x：-2x^3+8x=-2x(x^2-4)；再对x^2-4用平方差公式：x^2-4=(x+2)(x-2)，故原式=-2x(x+2)(x-2)。"
+    }
+  ]
+}

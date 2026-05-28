@@ -1,0 +1,70 @@
+{
+  "batchId": "model-qa-0030",
+  "ids": [
+    "hjb-junior-ds-v2-s3-442",
+    "hjb-junior-ds-v2-s3-443",
+    "hjb-junior-ds-v2-s3-444",
+    "hjb-junior-ds-v2-s3-458",
+    "hjb-junior-ds-v2-s3-465"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-442",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "中位数是8分，众数是8分",
+      "answerCheckZhHans": "标准答案正确，解析正确，选项唯一且互异。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-443",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "乙的方差计算错误。乙的平均数为8.5，方差应为[(9-8.5)^2+(8-8.5)^2+(10-8.5)^2+(7-8.5)^2+(9-8.5)^2+(8-8.5)^2+(9-8.5)^2+(10-8.5)^2+(8-8.5)^2+(7-8.5)^2]/10 = [0.25+0.25+2.25+2.25+0.25+0.25+0.25+2.25+0.25+2.25]/10 = 10.5/10 = 1.05，保留一位小数应为1.1，而非1.0。解析中写1.05≈1.0，但四舍五入应为1.1。",
+      "independentAnswerZhHans": "1.1",
+      "answerCheckZhHans": "标准答案1.0错误，应为1.1。acceptedAnswers包含1.0和1，均不正确。",
+      "recommendedActionZhHans": "修正答案为1.1，并更新acceptedAnswers为['1.1']。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-444",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "方差",
+      "answerCheckZhHans": "标准答案正确，解析正确，选项唯一且互异。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-458",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "中位数",
+      "answerCheckZhHans": "标准答案正确，解析正确，选项唯一且互异。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-465",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "4.1",
+      "answerCheckZhHans": "标准答案正确，解析正确，acceptedAnswers覆盖答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

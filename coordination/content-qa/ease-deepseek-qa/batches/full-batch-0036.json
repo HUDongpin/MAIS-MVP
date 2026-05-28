@@ -1,0 +1,168 @@
+{
+  "scope": "full",
+  "batchIndex": 36,
+  "startedAt": "2026-05-28T03:31:55.438Z",
+  "completedAt": "2026-05-28T03:32:33.716Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "itemIds": [
+    "10669",
+    "10670",
+    "10671",
+    "10672",
+    "10366",
+    "10368",
+    "40",
+    "41",
+    "47",
+    "48"
+  ],
+  "usage": {
+    "prompt_tokens": 3220,
+    "completion_tokens": 2680,
+    "total_tokens": 5900,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1777
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2836
+  },
+  "finishReason": "stop",
+  "jsonModeFallback": false,
+  "result": {
+    "items": [
+      {
+        "questionId": "10669",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "$10\\frac{1}{2} \\times 4 = \\frac{21}{2} \\times 4 = \\mathbf{42}$ (平方厘米/$cm^2$)",
+        "independentAnswer": "42 cm²",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "完全可解，答案正確。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10670",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "$\\frac{3}{4} \\times \\frac{1}{3} = \\mathbf{\\frac{1}{4}}$ (升/L)",
+        "independentAnswer": "1/4 L",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "完全可解，答案正確。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10671",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "$1\\frac{1}{5} \\times 3 \\times \\frac{1}{2} = \\frac{6}{5} \\times 3 \\times \\frac{1}{2} = \\frac{18}{10} = \\mathbf{1\\frac{4}{5}}$ (公斤/kg)",
+        "independentAnswer": "1 4/5 kg",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "完全可解，答案正確。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10672",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "$12 \\times \\frac{1}{4} \\times \\frac{2}{3} = 3 \\times \\frac{2}{3} = \\mathbf{2}$ (米/m)",
+        "independentAnswer": "2 m",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "完全可解，答案正確。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10366",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": "6\\frac{1}{4}",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "缺少答案，但題目可解。",
+        "recommendedAction": "提供標準答案。"
+      },
+      {
+        "questionId": "10368",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": "600克",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "缺少答案，但題目可解。",
+        "recommendedAction": "提供標準答案。"
+      },
+      {
+        "questionId": "40",
+        "questionType": "MCQ",
+        "hasImage": false,
+        "standardAnswer": "D",
+        "independentAnswer": "D",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "選項唯一，答案正確。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "41",
+        "questionType": "MCQ",
+        "hasImage": false,
+        "standardAnswer": "D",
+        "independentAnswer": "D",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "質因數分解唯一，答案正確。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "47",
+        "questionType": "MCQ",
+        "hasImage": false,
+        "standardAnswer": "A",
+        "independentAnswer": "A",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "整除性判斷正確，答案正確。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "48",
+        "questionType": "MCQ",
+        "hasImage": false,
+        "standardAnswer": "D",
+        "independentAnswer": "D",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "整除性判斷正確，答案正確。",
+        "recommendedAction": "No blocking action."
+      }
+    ],
+    "batchSummary": {
+      "pass": 10,
+      "unsolvable": 0,
+      "ambiguous": 0,
+      "imageContextRequired": 0,
+      "answerMismatch": 0,
+      "missingAnswerKey": 2,
+      "notes": "所有題目均可從文字題解決，無需圖片。兩題缺少標準答案，其餘答案均正確。"
+    }
+  }
+}

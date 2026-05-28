@@ -1,0 +1,191 @@
+{
+  "batchNumber": 77,
+  "startedAt": "2026-05-27T13:30:51.617Z",
+  "completedAt": "2026-05-27T13:31:10.925Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p6-119",
+    "bnu-primary-ds-v1-p6-120",
+    "bnu-primary-ds-v1-p6-121",
+    "bnu-primary-ds-v1-p6-122",
+    "bnu-primary-ds-v1-p6-123",
+    "bnu-primary-ds-v1-p6-124",
+    "bnu-primary-ds-v1-p6-125",
+    "bnu-primary-ds-v1-p6-126",
+    "bnu-primary-ds-v1-p6-127",
+    "bnu-primary-ds-v1-p6-128",
+    "bnu-primary-ds-v1-p6-129",
+    "bnu-primary-ds-v1-p6-130",
+    "bnu-primary-ds-v1-p6-131",
+    "bnu-primary-ds-v1-p6-132",
+    "bnu-primary-ds-v1-p6-133",
+    "bnu-primary-ds-v1-p6-134",
+    "bnu-primary-ds-v1-p6-135",
+    "bnu-primary-ds-v1-p6-136"
+  ],
+  "usage": {
+    "prompt_tokens": 4447,
+    "completion_tokens": 1329,
+    "total_tokens": 5776,
+    "prompt_tokens_details": {
+      "cached_tokens": 4352
+    },
+    "prompt_cache_hit_tokens": 4352,
+    "prompt_cache_miss_tokens": 95
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p6-119",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案匹配，表述清晰，适合六年级百分数应用。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-120",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案与解释一致，符合折扣问题要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-121",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项唯一正确，解释合理，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-122",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "已知折后价求原价，除法正确，答案无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-123",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "节约20%即求80%的量，计算正确，答案完整。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-124",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "单位“1”为女生人数，计算正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-125",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "已知增产后的量求单位“1”，用除法，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-126",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "利息计算正确，本息和准确，符合利率问题要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-127",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项区分了意义和单位，正确选项明确，解释合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-128",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "环形面积计算正确，π取值明确，答案无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-129",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "可能性计算正确，答案表述清晰，接受多种格式。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-130",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项唯一正确，错误选项有典型误导，解释到位。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-131",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "判断正确，计算无误，答案与解释一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-132",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "过程完整，计算正确，答案覆盖主要步骤。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-133",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "面积与半径平方成正比，选项正确，解释清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-134",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "半圆周长需加直径，判断正确，答案准确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-135",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算比较正确，结论明确，答案覆盖多种表述。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-136",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "正确选项唯一，错误选项解释合理，无歧义。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部18道题均通过审核，数学正确，答案匹配，表述清晰，适合北师大版六年级相应单元。"
+    }
+  }
+}

@@ -1,0 +1,304 @@
+{
+  "batchId": "batch-055",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s2-k07-fi-007",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-polynomial-multiplication-factorization"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "将多项式 \\(6x^2y - 9xy^2 + 3xy\\) 分解因式。",
+      "optionsZhHans": [],
+      "answer": "3xy(2x - 3y + 1)",
+      "acceptedAnswers": [
+        "3xy(2x - 3y + 1)",
+        "3xy(2x-3y+1)"
+      ],
+      "explanationZhHans": "观察多项式各项，系数6、-9、3的最大公约数是3，字母部分都有x和y，且最低次数均为1，因此公因式为3xy。提取公因式后，第一项6x²y÷3xy=2x，第二项-9xy²÷3xy=-3y，第三项3xy÷3xy=1，所以分解结果为3xy(2x - 3y + 1)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-fi-008",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-algebraic-fractions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "化简分式 \\(\\frac{x^2 - 9}{x^2 - 6x + 9}\\)，并写出x的取值范围。",
+      "optionsZhHans": [],
+      "answer": "\\frac{x+3}{x-3}，x≠3",
+      "acceptedAnswers": [
+        "\\frac{x+3}{x-3}，x≠3",
+        "(x+3)/(x-3)，x≠3",
+        "\\frac{x+3}{x-3}, x≠3"
+      ],
+      "explanationZhHans": "分子x²-9=(x+3)(x-3)，分母x²-6x+9=(x-3)²。约分时分子和分母同除以公因式(x-3)，得到(x+3)/(x-3)。分母不能为零，即x-3≠0，所以x≠3。故答案为\\frac{x+3}{x-3}，x≠3。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-fi-009",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "解分式方程 \\(\\frac{2}{x-1} = \\frac{3}{x+1}\\)。",
+      "optionsZhHans": [],
+      "answer": "x=5",
+      "acceptedAnswers": [
+        "x=5",
+        "5"
+      ],
+      "explanationZhHans": "方程两边同乘最简公分母(x-1)(x+1)，得2(x+1)=3(x-1)。去括号：2x+2=3x-3，移项合并：2+3=3x-2x，即5=x。检验：当x=5时，分母x-1=4≠0，x+1=6≠0，所以x=5是原方程的根。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-fi-010",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-triangle-angle-relations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-proof-calculation-integrated"
+      ],
+      "promptZhHans": "在△ABC中，∠A=50°，∠B=∠C，求∠B的度数。",
+      "optionsZhHans": [],
+      "answer": "65°",
+      "acceptedAnswers": [
+        "65°",
+        "65度"
+      ],
+      "explanationZhHans": "三角形内角和为180°，所以∠A+∠B+∠C=180°。已知∠A=50°，∠B=∠C，设∠B=x，则50°+x+x=180°，即50°+2x=180°，2x=130°，x=65°。因此∠B=65°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-fi-011",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-congruence-proof"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions"
+      ],
+      "promptZhHans": "已知AB=AC，D是BC的中点，连接AD。求证：△ABD≌△ACD。",
+      "optionsZhHans": [],
+      "answer": "证明：∵AB=AC，D是BC中点，∴BD=CD，又AD=AD，∴△ABD≌△ACD(SSS)",
+      "acceptedAnswers": [
+        "证明：∵AB=AC，D是BC中点，∴BD=CD，又AD=AD，∴△ABD≌△ACD(SSS)",
+        "∵AB=AC，D是BC中点，∴BD=CD，又AD=AD，∴△ABD≌△ACD(SSS)"
+      ],
+      "explanationZhHans": "由AB=AC可知△ABC是等腰三角形，D是BC中点，所以BD=CD。在△ABD和△ACD中，AB=AC，BD=CD，AD是公共边，根据SSS判定，△ABD≌△ACD。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-fi-012",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-axis-symmetry-isosceles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "点P(3, -2)关于x轴对称的点Q的坐标是______。",
+      "optionsZhHans": [],
+      "answer": "(3, 2)",
+      "acceptedAnswers": [
+        "(3, 2)",
+        "（3，2）"
+      ],
+      "explanationZhHans": "关于x轴对称的点，横坐标相同，纵坐标互为相反数。点P(3, -2)的横坐标为3，纵坐标-2的相反数是2，所以对称点Q的坐标为(3, 2)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-fi-013",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-polynomial-multiplication-factorization"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "计算：(2a - 3b)(2a + 3b)。",
+      "optionsZhHans": [],
+      "answer": "4a^2 - 9b^2",
+      "acceptedAnswers": [
+        "4a^2 - 9b^2",
+        "4a²-9b²"
+      ],
+      "explanationZhHans": "利用平方差公式：(x-y)(x+y)=x²-y²，这里x=2a，y=3b，所以(2a-3b)(2a+3b)=(2a)²-(3b)²=4a²-9b²。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-fi-014",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-algebraic-fractions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "promptZhHans": "先化简，再求值：\\(\\frac{x^2 - 4x + 4}{x^2 - 4} \\div \\frac{x-2}{x+2}\\)，其中x=0。",
+      "optionsZhHans": [],
+      "answer": "1",
+      "acceptedAnswers": [
+        "1"
+      ],
+      "explanationZhHans": "原式=\\(\\frac{(x-2)^2}{(x+2)(x-2)} \\cdot \\frac{x+2}{x-2} = \\frac{x-2}{x+2} \\cdot \\frac{x+2}{x-2} = 1\\)。当x=0时，分母不为零，原式有意义，值为1。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-fi-015",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "promptZhHans": "因式分解：\\(m^2 - 4n^2 + m - 2n\\)。",
+      "optionsZhHans": [],
+      "answer": "(m-2n)(m+2n+1)",
+      "acceptedAnswers": [
+        "(m-2n)(m+2n+1)"
+      ],
+      "explanationZhHans": "分组分解：原式=(m²-4n²)+(m-2n)=(m+2n)(m-2n)+(m-2n)=(m-2n)(m+2n+1)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-fi-016",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-triangle-angle-relations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean"
+      ],
+      "promptZhHans": "一个多边形的内角和是外角和的3倍，求这个多边形的边数。",
+      "optionsZhHans": [],
+      "answer": "8",
+      "acceptedAnswers": [
+        "8",
+        "八"
+      ],
+      "explanationZhHans": "设多边形边数为n，内角和为(n-2)×180°，外角和恒为360°。由题意得(n-2)×180°=3×360°，即(n-2)×180°=1080°，两边除以180°得n-2=6，所以n=8。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

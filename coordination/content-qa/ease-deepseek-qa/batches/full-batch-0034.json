@@ -1,0 +1,168 @@
+{
+  "scope": "full",
+  "batchIndex": 34,
+  "startedAt": "2026-05-28T03:31:28.296Z",
+  "completedAt": "2026-05-28T03:32:23.148Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "itemIds": [
+    "10360",
+    "10619",
+    "10620",
+    "10621",
+    "10622",
+    "10623",
+    "10624",
+    "10625",
+    "10626",
+    "10627"
+  ],
+  "usage": {
+    "prompt_tokens": 3112,
+    "completion_tokens": 3462,
+    "total_tokens": 6574,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 2315
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2728
+  },
+  "finishReason": "stop",
+  "jsonModeFallback": false,
+  "result": {
+    "items": [
+      {
+        "questionId": "10360",
+        "questionType": "FRQ",
+        "hasImage": true,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": null,
+        "solvabilityStatus": "image-context-required",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "需根据平面图作答，但无文字描述图像内容；答案未提供。",
+        "recommendedAction": "提供地图的文字描述或答案。"
+      },
+      {
+        "questionId": "10619",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "(B)",
+        "independentAnswer": "(B)",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "东与北之间为东北，选项(B)正确。",
+        "recommendedAction": "none"
+      },
+      {
+        "questionId": "10620",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "東北 (Northeast)",
+        "independentAnswer": "東北 (Northeast)",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "相反方向，西南转后为东北，答案正确。",
+        "recommendedAction": "none"
+      },
+      {
+        "questionId": "10621",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "西北 (Northwest)",
+        "independentAnswer": "西北 (Northwest)",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "从公园到图书馆的方向为西北，答案匹配。",
+        "recommendedAction": "none"
+      },
+      {
+        "questionId": "10622",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "西南 (Southwest)",
+        "independentAnswer": "西南 (Southwest)",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "东北的相反方向为西南，答案匹配。",
+        "recommendedAction": "none"
+      },
+      {
+        "questionId": "10623",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "A",
+        "independentAnswer": "A",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "车站在医院西北，则医院在车站东南，选项A正确。",
+        "recommendedAction": "none"
+      },
+      {
+        "questionId": "10624",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "東 (East)",
+        "independentAnswer": "東 (East)",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "指南针北的右侧为东，答案匹配。",
+        "recommendedAction": "none"
+      },
+      {
+        "questionId": "10625",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "西北 (Northwest)",
+        "independentAnswer": "西北 (Northwest)",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "东南原路返回须走西北，答案匹配。",
+        "recommendedAction": "none"
+      },
+      {
+        "questionId": "10626",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "西北 (Northwest)",
+        "independentAnswer": "西北 (Northwest)",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "向北左转45°为西北，答案匹配。",
+        "recommendedAction": "none"
+      },
+      {
+        "questionId": "10627",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "東北 (Northeast)",
+        "independentAnswer": "東北 (Northeast)",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "宝藏在旗子的东北方，答案匹配。",
+        "recommendedAction": "none"
+      }
+    ],
+    "batchSummary": {
+      "pass": 9,
+      "unsolvable": 0,
+      "ambiguous": 0,
+      "imageContextRequired": 1,
+      "answerMismatch": 0,
+      "missingAnswerKey": 1,
+      "notes": "9道题目可独立解答且答案一致；1道题目需图像且缺答案，无法审核。"
+    }
+  }
+}

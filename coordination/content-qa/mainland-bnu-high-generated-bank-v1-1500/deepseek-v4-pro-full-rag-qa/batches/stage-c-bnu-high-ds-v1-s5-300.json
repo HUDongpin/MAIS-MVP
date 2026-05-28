@@ -1,0 +1,47 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-300",
+  "startedAt": "2026-05-28T01:25:59.970Z",
+  "completedAt": "2026-05-28T01:26:04.630Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-300"
+  ],
+  "usage": {
+    "prompt_tokens": 2044,
+    "completion_tokens": 241,
+    "total_tokens": 2285,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1660
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-300",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "36",
+        "correctedAnswer": null,
+        "issueTags": [
+          "explanation_contradiction"
+        ],
+        "severity": "major",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，答案36正确，但解析中分组除以A(2,2)得3种再乘6得18，与最终36矛盾，且分组逻辑错误（两组单球无需除序），解释存在严重矛盾，需修正。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 1,
+      "fail": 0,
+      "notes": "1题答案正确但解释存在矛盾，标记为warn。"
+    }
+  }
+}

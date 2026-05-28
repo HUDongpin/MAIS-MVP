@@ -1,0 +1,142 @@
+{
+  "batchNumber": 75,
+  "startedAt": "2026-05-27T13:56:23.314Z",
+  "completedAt": "2026-05-27T13:56:47.464Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-093",
+    "bnu-high-ds-v1-s5-094",
+    "bnu-high-ds-v1-s5-095",
+    "bnu-high-ds-v1-s5-096",
+    "bnu-high-ds-v1-s5-097",
+    "bnu-high-ds-v1-s5-098",
+    "bnu-high-ds-v1-s5-099",
+    "bnu-high-ds-v1-s5-100"
+  ],
+  "usage": {
+    "prompt_tokens": 12108,
+    "completion_tokens": 1572,
+    "total_tokens": 13680,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 11596
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-093",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "4",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由抛物线定义，点M到焦点距离等于到准线距离。到y轴距离为3，即|x_M|=3。若x_M=3，则3+p/2=5，得p=4；若x_M=-3，则-3+p/2=5，得p=16，但p>0时抛物线在y轴右侧，舍去。故p=4，答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-094",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "b^2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由PF1⊥PF2，点P在以F1F2为直径的圆上。e=√2/2，得c^2=a^2/2，b^2=a^2/2，故b=c。焦点三角形面积公式S=b^2·tan(θ/2)，θ=90°，tan45°=1，S=b^2。选项A正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-095",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "x^2/9 + y^2/5 = 1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "双曲线焦点(±3,0)，顶点(±2,0)。椭圆以(±3,0)为顶点，a=3；以(±2,0)为焦点，c=2。b^2=a^2-c^2=5，方程x^2/9+y^2/5=1。答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-096",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "[1, 5) ∪ (5, +∞)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "直线过定点(0,1)，恒有公共点需定点在椭圆内或上，即1/m ≤ 1，得m ≥ 1。椭圆要求m>0且m≠5，故m∈[1,5)∪(5,+∞)。答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-097",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "√5",
+        "correctedAnswer": "√5",
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "双曲线渐近线斜率±b/a，与直线x+2y-1=0垂直，垂直斜率为2，故b/a=2，离心率e=√(1+(b/a)^2)=√5。选项无√5，但解析错误假设焦点在y轴得到√5/2，与标准方程矛盾。正确答案应为√5，选项缺失，答案和解析均错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-098",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "±√2",
+        "correctedAnswer": "±√2",
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "由抛物线定义，|AF|+|BF|=x1+x2+2=8，得x1+x2=6。设直线x=my+2，联立得x1+x2=4m^2+4=6，m^2=1/2，斜率k=1/m=±√2。解析中计算得±√2，但答案误写为±1，矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-099",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "4√3/3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "椭圆a=3，b=2，焦点三角形面积S=b^2·tan(θ/2)=4×tan30°=4√3/3。答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-100",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "(1, 2]",
+        "correctedAnswer": "(1, 2]",
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "过焦点倾斜角60°的直线斜率√3，与右支仅有一个交点，需斜率≥渐近线斜率b/a，即√3 ≥ b/a，得e≤2，又e>1，故e∈(1,2]。选项B正确，但答案误选A，解析也指出正确选项为B，自相矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 4,
+      "warn": 0,
+      "fail": 4,
+      "notes": "8题中4题通过，4题失败。失败原因：097题答案与解析均错误，正确离心率为√5；098题答案应为±√2，与解析矛盾；100题答案应为(1,2]，与解析矛盾。"
+    }
+  }
+}

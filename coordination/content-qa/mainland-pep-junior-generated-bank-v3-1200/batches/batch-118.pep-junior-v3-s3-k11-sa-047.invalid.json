@@ -1,0 +1,22 @@
+{
+  "batchId": "batch-118",
+  "targetIds": [
+    "pep-junior-v3-s3-k11-sa-047"
+  ],
+  "validationError": "pep-junior-v3-s3-k11-sa-047: forbidden source or diagram-dependent wording detected",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s3-k11-sa-047",
+      "promptZhHans": "一个长方体木块的长、宽、高分别为6 cm、4 cm、3 cm。一只蚂蚁从顶点A出发，沿木块表面爬到对角顶点B，求最短路径的长度。",
+      "optionsZhHans": [],
+      "answer": "√85 cm",
+      "acceptedAnswers": [
+        "√85 cm",
+        "√85",
+        "根号85厘米",
+        "根号85"
+      ],
+      "explanationZhHans": "将长方体表面展开，蚂蚁从A到B的最短路径是展开图中连接A和B的线段。考虑三种展开方式：\n1. 将前侧面和右侧面展开在同一平面：A到B的水平距离为长+宽=6+4=10 cm，垂直距离为高=3 cm，路径长√(10²+3²)=√109 cm。\n2. 将前侧面和上底面展开：水平距离为长+高=6+3=9 cm，垂直距离为宽=4 cm，路径长√(9²+4²)=√97 cm。\n3. 将右侧面和上底面展开：水平距离为宽+高=4+3=7 cm，垂直距离为长=6 cm，路径长√(7²+6²)=√85 cm。\n比较得√85 cm最小，所以最短路径的长度为√85 cm。"
+    }
+  ]
+}

@@ -1,0 +1,132 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-108",
+  "startedAt": "2026-05-28T03:00:41.959Z",
+  "completedAt": "2026-05-28T03:00:58.283Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-357",
+    "bnu-high-ds-v1-s5-358",
+    "bnu-high-ds-v1-s5-359",
+    "bnu-high-ds-v1-s5-360",
+    "bnu-high-ds-v1-s5-361",
+    "bnu-high-ds-v1-s5-362",
+    "bnu-high-ds-v1-s5-363",
+    "bnu-high-ds-v1-s5-364"
+  ],
+  "usage": {
+    "prompt_tokens": 12179,
+    "completion_tokens": 1039,
+    "total_tokens": 13218,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 11795
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-357",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案14与独立解一致，解析正确使用组合数对称性，无问题。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-358",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": "600",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案540错误，独立解为600。解析中容斥计算有误且与答案矛盾，正确方案数应为600。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-359",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案1/2与独立解一致，解析正确使用对立事件和独立性，无问题。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-360",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案3/7与独立解一致，解析正确使用缩减样本空间，无问题。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-361",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案0.6与独立解一致，解析正确应用条件概率公式，选项唯一，无问题。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-362",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案0.6826与独立解一致，解析正确标准化并计算概率，无问题。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-363",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，分布列和期望计算正确，解析清晰，无问题。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-364",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": "0.0456",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案0.0228错误，独立解为0.0456。解析中条件概率计算错误，且最终答案与计算过程矛盾，正确值应为0.0456。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 0,
+      "fail": 2,
+      "notes": "8题中6题通过，2题失败：358题存储答案540错误，应为600；364题存储答案0.0228错误，应为0.0456。"
+    }
+  }
+}

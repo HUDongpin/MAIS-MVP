@@ -1,0 +1,191 @@
+{
+  "batchNumber": 56,
+  "startedAt": "2026-05-25T02:17:13.297Z",
+  "completedAt": "2026-05-25T02:17:35.821Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p4-241",
+    "hjb-primary-ds-v1-p4-242",
+    "hjb-primary-ds-v1-p4-243",
+    "hjb-primary-ds-v1-p4-244",
+    "hjb-primary-ds-v1-p4-245",
+    "hjb-primary-ds-v1-p4-246",
+    "hjb-primary-ds-v1-p4-247",
+    "hjb-primary-ds-v1-p4-248",
+    "hjb-primary-ds-v1-p4-249",
+    "hjb-primary-ds-v1-p4-250",
+    "hjb-primary-ds-v1-p5-001",
+    "hjb-primary-ds-v1-p5-002",
+    "hjb-primary-ds-v1-p5-003",
+    "hjb-primary-ds-v1-p5-004",
+    "hjb-primary-ds-v1-p5-005",
+    "hjb-primary-ds-v1-p5-006",
+    "hjb-primary-ds-v1-p5-007",
+    "hjb-primary-ds-v1-p5-008"
+  ],
+  "usage": {
+    "prompt_tokens": 3890,
+    "completion_tokens": 1342,
+    "total_tokens": 5232,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 3634
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p4-241",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目考查四舍五入，答案正确，解释合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-242",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "垂直判断正确，选项A和D符合，答案无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-243",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "条形统计图适合比较离散类别，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-244",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "横线与竖线垂直，不是平行，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-245",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "正后方列不变行加1，数对(3,6)正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-246",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "五舍六入规则应用正确，3.55舍去百分位5得3.5。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-247",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平行线定义准确，选项B符合。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-248",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数据整体上升且周三到周四上升最快，D符合。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-249",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "右侧同桌同行相邻列，数对(5,3)正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-250",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "五舍六入后得2.0，1.96符合，计算正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-001",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "小数乘法与减法应用，答案0.5元正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-002",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "小数除法计算正确，答案9。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-003",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "商不变性质，错误与正确商均为8，解释合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-004",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估算合理，4×3=12，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-005",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "小数乘法积的小数位数正确，3.22无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-006",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算与保留两位小数正确，答案3.23米。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-007",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "除数小于1时商大于被除数，0.96÷0.8正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-008",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "积的变化规律应用正确，三个答案均无误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合沪教版小学数学要求，数学正确，答案匹配，无歧义或缺失条件，适合公共题库推广。"
+    }
+  }
+}

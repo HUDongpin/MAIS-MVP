@@ -1,0 +1,606 @@
+{
+  "batchId": "batch-042",
+  "questions": [
+    {
+      "id": "bnu-junior-ds-v1-s1-411",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-variable-relationships",
+      "unitTitle": "变量之间的关系",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "variables-relationships",
+        "tables-graphs-formulas",
+        "functional-thinking",
+        "变量关系",
+        "函数初步"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "数据意识",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "识别变量",
+        "表格表示关系",
+        "图象读数",
+        "公式表达",
+        "变化趋势解释"
+      ],
+      "misconceptionTags": [
+        "dependent and independent quantities reversed",
+        "graph point read without units",
+        "constant rate assumed without evidence"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-variable-relationships"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-variable-relationships-unit",
+        "bnu-junior-s1-lower-assessment-final-1-to-6-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一辆汽车在高速公路上匀速行驶。行驶时间 t（小时）与行驶路程 s（千米）的部分数据记录如下表：\n\n| 时间 t (小时) | 1 | 2 | 3 | 4 |\n|---------------|----|----|----|----|\n| 路程 s (千米) | 90 | 180 | 270 | 360 |\n\n（1）上表中反映了哪两个变量之间的关系？哪个是自变量？哪个是因变量？\n（2）如果用 t 表示时间，s 表示路程，那么 s 与 t 之间的关系式可以表示为 s = ____。\n（3）根据关系式，当 t = 5 时，s = ____；当 s = 540 时，t = ____。",
+      "optionsZhHans": [],
+      "answer": "（1）反映了时间 t 与路程 s 之间的关系；自变量是时间 t，因变量是路程 s。\n（2）s = 90t\n（3）450；6",
+      "acceptedAnswers": [
+        "（1）反映了时间 t 与路程 s 之间的关系；自变量是时间 t，因变量是路程 s。\n（2）s = 90t\n（3）450；6"
+      ],
+      "explanationZhHans": "（1）表中时间变化引起路程变化，故时间为自变量，路程为因变量。（2）由数据得路程是时间的90倍，即 s=90t。（3）t=5时，s=90×5=450；s=540时，t=540÷90=6。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-412",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-variable-relationships",
+      "unitTitle": "变量之间的关系",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "variables-relationships",
+        "tables-graphs-formulas",
+        "functional-thinking",
+        "变量关系",
+        "函数初步"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "数据意识",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "识别变量",
+        "表格表示关系",
+        "图象读数",
+        "公式表达",
+        "变化趋势解释"
+      ],
+      "misconceptionTags": [
+        "dependent and independent quantities reversed",
+        "graph point read without units",
+        "constant rate assumed without evidence"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-variable-relationships"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-variable-relationships-unit",
+        "bnu-junior-s1-lower-assessment-final-1-to-6-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一辆汽车在高速公路上匀速行驶，行驶时间 t（小时）与行驶路程 s（千米）之间的关系如下表所示：\n\n| 时间 t（小时） | 1 | 2 | 3 | 4 |\n|----------------|----|----|----|----|\n| 路程 s（千米） | 90 | 180 | 270 | 360 |\n\n根据表格，下列说法正确的是：",
+      "optionsZhHans": [
+        "行驶时间 t 是自变量，行驶路程 s 是因变量",
+        "行驶路程 s 是自变量，行驶时间 t 是因变量",
+        "行驶时间 t 和行驶路程 s 都是自变量",
+        "行驶时间 t 和行驶路程 s 都是因变量"
+      ],
+      "answer": "行驶时间 t 是自变量，行驶路程 s 是因变量",
+      "acceptedAnswers": [
+        "行驶时间 t 是自变量，行驶路程 s 是因变量"
+      ],
+      "explanationZhHans": "在匀速行驶中，路程 s 随着时间 t 的变化而变化，因此时间 t 是自变量，路程 s 是因变量。选项 A 正确，其余选项均混淆了自变量与因变量的关系。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-413",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-variable-relationships",
+      "unitTitle": "变量之间的关系",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "variables-relationships",
+        "tables-graphs-formulas",
+        "functional-thinking",
+        "变量关系",
+        "函数初步"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "数据意识",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "识别变量",
+        "表格表示关系",
+        "图象读数",
+        "公式表达",
+        "变化趋势解释"
+      ],
+      "misconceptionTags": [
+        "dependent and independent quantities reversed",
+        "graph point read without units",
+        "constant rate assumed without evidence"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-variable-relationships"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-variable-relationships-unit",
+        "bnu-junior-s1-lower-assessment-final-1-to-6-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一辆汽车从甲地匀速驶向乙地，全程120 km。行驶过程中，汽车离乙地的距离s（单位：km）与行驶时间t（单位：h）的部分对应值如下表：\n\n| t/h | 0 | 0.5 | 1 | 1.5 | 2 |\n|-----|-----|-----|-----|-----|-----|\n| s/km | 120 | 105 | 90 | 75 | 60 |\n\n（1）上表反映了哪两个变量之间的关系？哪个是自变量？哪个是因变量？\n（2）当t=2.5时，s的值是多少？\n（3）用公式表示s与t之间的关系，并判断汽车行驶3.5 h时是否已经到达乙地。",
+      "optionsZhHans": [],
+      "answer": "（1）反映了行驶时间t与离乙地距离s之间的关系；自变量是t，因变量是s。\n（2）当t=2.5时，s=45 km。\n（3）s=120-30t；当t=3.5时，s=120-30×3.5=15（km）>0，所以汽车还未到达乙地。",
+      "acceptedAnswers": [
+        "（1）反映了行驶时间t与离乙地距离s之间的关系；自变量是t，因变量是s。\n（2）当t=2.5时，s=45 km。\n（3）s=120-30t；当t=3.5时，s=120-30×3.5=15（km）>0，所以汽车还未到达乙地。"
+      ],
+      "explanationZhHans": "（1）由表知时间t变化引起距离s变化，故t为自变量，s为因变量。（2）由表得每小时s减少30 km，t=2.5时s=60-30×0.5=45 km。（3）初始s=120，速度30 km/h，故s=120-30t；t=3.5时s=15>0，未到达。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-414",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-variable-relationships",
+      "unitTitle": "变量之间的关系",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "variables-relationships",
+        "tables-graphs-formulas",
+        "functional-thinking",
+        "变量关系",
+        "函数初步"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "数据意识",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "识别变量",
+        "表格表示关系",
+        "图象读数",
+        "公式表达",
+        "变化趋势解释"
+      ],
+      "misconceptionTags": [
+        "dependent and independent quantities reversed",
+        "graph point read without units",
+        "constant rate assumed without evidence"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-variable-relationships"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-variable-relationships-unit",
+        "bnu-junior-s1-lower-assessment-final-1-to-6-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一辆汽车从甲地匀速驶往乙地，全程120 km。行驶过程中，油箱内剩余油量 y（单位：L）与行驶时间 t（单位：h）的部分数据记录如下表：\n\n| 时间 t/h | 0 | 1 | 2 | 3 |\n| 剩余油量 y/L | 40 | 34 | 28 | 22 |\n\n（1）在这个变化过程中，自变量是______，因变量是______。\n（2）根据表格数据，写出 y 与 t 之间的关系式。\n（3）若汽车到达乙地时油箱内剩余油量为 4 L，求汽车从甲地到乙地行驶的时间。",
+      "optionsZhHans": [],
+      "answer": "（1）时间 t，剩余油量 y\n（2）y = 40 - 6t\n（3）6 h",
+      "acceptedAnswers": [
+        "（1）时间 t，剩余油量 y\n（2）y = 40 - 6t\n（3）6 h",
+        "（1）t，y\n（2）y = 40 - 6t\n（3）6",
+        "（1）时间 t，剩余油量 y\n（2）y = 40 - 6t\n（3）6小时",
+        "（1）t，y\n（2）y = 40 - 6t\n（3）6小时"
+      ],
+      "explanationZhHans": "（1）行驶时间 t 主动变化，剩余油量 y 随之变化，故自变量为 t，因变量为 y。（2）由表知每小时耗油6 L，初始油量40 L，得 y=40-6t。（3）令 y=4，解 40-6t=4 得 t=6，即行驶6小时。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-415",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-variable-relationships",
+      "unitTitle": "变量之间的关系",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "variables-relationships",
+        "tables-graphs-formulas",
+        "functional-thinking",
+        "变量关系",
+        "函数初步"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "数据意识",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "识别变量",
+        "表格表示关系",
+        "图象读数",
+        "公式表达",
+        "变化趋势解释"
+      ],
+      "misconceptionTags": [
+        "dependent and independent quantities reversed",
+        "graph point read without units",
+        "constant rate assumed without evidence"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-variable-relationships"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-variable-relationships-unit",
+        "bnu-junior-s1-lower-assessment-final-1-to-6-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一辆汽车在高速公路上匀速行驶，行驶时间 t（小时）与行驶路程 s（千米）的部分数据如下表所示：\n\n| 时间 t（小时） | 1 | 2 | 3 | 4 |\n|---------------|----|----|----|----|\n| 路程 s（千米） | 90 | 180 | 270 | 360 |\n\n根据表格，下列说法正确的是：",
+      "optionsZhHans": [
+        "行驶时间 t 是自变量，行驶路程 s 是因变量，且 s 与 t 之间的关系式为 s = 90t",
+        "行驶路程 s 是自变量，行驶时间 t 是因变量，且 s 与 t 之间的关系式为 t = 90s",
+        "行驶时间 t 是自变量，行驶路程 s 是因变量，且 s 与 t 之间的关系式为 s = 60t",
+        "行驶路程 s 是自变量，行驶时间 t 是因变量，且 s 与 t 之间的关系式为 s = 90t"
+      ],
+      "answer": "行驶时间 t 是自变量，行驶路程 s 是因变量，且 s 与 t 之间的关系式为 s = 90t",
+      "acceptedAnswers": [
+        "行驶时间 t 是自变量，行驶路程 s 是因变量，且 s 与 t 之间的关系式为 s = 90t"
+      ],
+      "explanationZhHans": "由表可知，t 每增加 1 小时，s 增加 90 千米，比值恒定，故 s 随 t 变化，t 为自变量，s 为因变量，关系式为 s = 90t。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-416",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-variable-relationships",
+      "unitTitle": "变量之间的关系",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "variables-relationships",
+        "tables-graphs-formulas",
+        "functional-thinking",
+        "变量关系",
+        "函数初步"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "数据意识",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "识别变量",
+        "表格表示关系",
+        "图象读数",
+        "公式表达",
+        "变化趋势解释"
+      ],
+      "misconceptionTags": [
+        "dependent and independent quantities reversed",
+        "graph point read without units",
+        "constant rate assumed without evidence"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-variable-relationships"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-variable-relationships-unit",
+        "bnu-junior-s1-lower-assessment-final-1-to-6-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一辆汽车从甲地出发匀速驶向乙地。行驶过程中，油箱内剩余油量 y（升）与行驶时间 t（小时）之间的关系如下表所示：\n\n| t（小时） | 0 | 1 | 2 | 3 | 4 |\n|-----------|----|----|----|----|----|\n| y（升）   | 40 | 34 | 28 | 22 | 16 |\n\n（1）在这个变化过程中，自变量是______，因变量是______。\n（2）写出 y 与 t 之间的关系式。\n（3）汽车行驶 5 小时后，油箱内还剩多少升油？",
+      "optionsZhHans": [],
+      "answer": "（1）自变量是时间 t，因变量是剩余油量 y。\n（2）y = 40 - 6t。\n（3）10 升。",
+      "acceptedAnswers": [
+        "（1）自变量是时间 t，因变量是剩余油量 y。\n（2）y = 40 - 6t。\n（3）10 升。",
+        "（1）自变量是 t，因变量是 y。\n（2）y = 40 - 6t。\n（3）10 升。",
+        "（1）自变量是行驶时间 t，因变量是剩余油量 y。\n（2）y = 40 - 6t。\n（3）10 升。"
+      ],
+      "explanationZhHans": "由表知，t 每增加 1 小时，y 减少 6 升，且 t=0 时 y=40，故关系式为 y=40-6t。当 t=5 时，y=40-6×5=10，即剩 10 升油。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-417",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-variable-relationships",
+      "unitTitle": "变量之间的关系",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "variables-relationships",
+        "tables-graphs-formulas",
+        "functional-thinking",
+        "变量关系",
+        "函数初步"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "数据意识",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "识别变量",
+        "表格表示关系",
+        "图象读数",
+        "公式表达",
+        "变化趋势解释"
+      ],
+      "misconceptionTags": [
+        "dependent and independent quantities reversed",
+        "graph point read without units",
+        "constant rate assumed without evidence"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-variable-relationships"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-variable-relationships-unit",
+        "bnu-junior-s1-lower-assessment-final-1-to-6-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小华记录了一辆汽车在平直公路上匀速行驶时，油箱内剩余油量 y（升）与行驶路程 x（千米）的部分数据如下表：\n\n| 行驶路程 x（千米） | 0 | 50 | 100 | 150 | 200 |\n|-------------------|----|----|-----|-----|-----|\n| 剩余油量 y（升） | 45 | 40 | 35 | 30 | 25 |\n\n（1）上表反映了哪两个变量之间的关系？哪个是自变量？哪个是因变量？\n（2）当行驶路程为 120 千米时，估计油箱内剩余油量是多少升？\n（3）如果用 t 表示汽车还能继续行驶的路程（千米），请写出 t 与剩余油量 y 之间的关系式，并说明汽车最多还能行驶多少千米。",
+      "optionsZhHans": [],
+      "answer": "（1）行驶路程 x 与剩余油量 y；自变量是行驶路程 x，因变量是剩余油量 y。\n（2）33 升。\n（3）t = 10y；最多还能行驶 250 千米。",
+      "acceptedAnswers": [
+        "（1）行驶路程 x 与剩余油量 y；自变量是行驶路程 x，因变量是剩余油量 y。\n（2）33 升。\n（3）t = 10y；最多还能行驶 250 千米。"
+      ],
+      "explanationZhHans": "（1）由表知，y 随 x 变化，故 x 是自变量，y 是因变量。（2）由数据得每 50 千米耗油 5 升，即每千米耗油 0.1 升。x=120 时，耗油 12 升，剩余 45-12=33 升。（3）剩余油量 y 升可行驶 t=10y 千米；当 y=25 时，t=250，即最多再行驶 250 千米。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-418",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-variable-relationships",
+      "unitTitle": "变量之间的关系",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "variables-relationships",
+        "tables-graphs-formulas",
+        "functional-thinking",
+        "变量关系",
+        "函数初步"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "数据意识",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "识别变量",
+        "表格表示关系",
+        "图象读数",
+        "公式表达",
+        "变化趋势解释"
+      ],
+      "misconceptionTags": [
+        "dependent and independent quantities reversed",
+        "graph point read without units",
+        "constant rate assumed without evidence"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-variable-relationships"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-variable-relationships-unit",
+        "bnu-junior-s1-lower-assessment-final-1-to-6-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明记录了一根弹簧在悬挂不同质量物体时的长度，数据如下表所示。\n\n| 质量 (千克) | 0   | 1   | 2   | 3   | 4   |\n|------------|-----|-----|-----|-----|-----|\n| 长度 (厘米) | 12  | 14  | 16  | 18  | 20  |\n\n根据表中数据，弹簧长度 y (厘米) 与所挂物体质量 x (千克) 之间的关系式是？",
+      "optionsZhHans": [
+        "y = 12 + 2x",
+        "y = 12x + 2",
+        "y = 2x",
+        "y = 14x"
+      ],
+      "answer": "y = 12 + 2x",
+      "acceptedAnswers": [
+        "y = 12 + 2x"
+      ],
+      "explanationZhHans": "由表知，质量每增加1千克，长度增加2厘米，故斜率为2。当x=0时，y=12，即截距为12。因此关系式为y=12+2x。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-419",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-axis-symmetry",
+      "unitTitle": "生活中的轴对称",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "axis-symmetry",
+        "symmetric-figures",
+        "perpendicular-bisector",
+        "reflection",
+        "轴对称"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "识别轴对称图形",
+        "作对称轴",
+        "画对称点",
+        "垂直平分线",
+        "对称性质应用"
+      ],
+      "misconceptionTags": [
+        "symmetry axis guessed from near balance",
+        "corresponding points mismatched",
+        "perpendicular bisector condition incomplete"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-axis-symmetry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-axis-symmetry-unit",
+        "bnu-junior-s1-lower-assessment-final-1-to-6-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations",
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系中，点A的坐标为(3, -2)。点B与点A关于x轴对称，点C与点B关于y轴对称。请写出点C的坐标。",
+      "optionsZhHans": [],
+      "answer": "(-3, 2)",
+      "acceptedAnswers": [
+        "(-3, 2)",
+        "（-3，2）"
+      ],
+      "explanationZhHans": "点A(3,-2)关于x轴对称得B(3,2)；B关于y轴对称得C(-3,2)。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-420",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-axis-symmetry",
+      "unitTitle": "生活中的轴对称",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "axis-symmetry",
+        "symmetric-figures",
+        "perpendicular-bisector",
+        "reflection",
+        "轴对称"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "识别轴对称图形",
+        "作对称轴",
+        "画对称点",
+        "垂直平分线",
+        "对称性质应用"
+      ],
+      "misconceptionTags": [
+        "symmetry axis guessed from near balance",
+        "corresponding points mismatched",
+        "perpendicular bisector condition incomplete"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-axis-symmetry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-axis-symmetry-unit",
+        "bnu-junior-s1-lower-assessment-final-1-to-6-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations",
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系中，点A的坐标是(2,5)，点B的坐标是(6,5)，点C是线段AB的垂直平分线与直线y=3的交点。求点C的坐标。",
+      "optionsZhHans": [],
+      "answer": "(4,3)",
+      "acceptedAnswers": [
+        "(4,3)"
+      ],
+      "explanationZhHans": "线段AB两端点纵坐标相同，故AB水平，其中点为(4,5)。垂直平分线为过中点且垂直于AB的直线，即x=4。与直线y=3的交点为(4,3)。"
+    }
+  ]
+}

@@ -1,0 +1,109 @@
+{
+  "batchId": "model-qa-0034",
+  "ids": [
+    "hjb-junior-ds-v2-s1-265",
+    "hjb-junior-ds-v2-s1-266",
+    "hjb-junior-ds-v2-s1-267",
+    "hjb-junior-ds-v2-s1-268",
+    "hjb-junior-ds-v2-s1-269",
+    "hjb-junior-ds-v2-s1-270",
+    "hjb-junior-ds-v2-s1-271",
+    "hjb-junior-ds-v2-s1-272"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-265",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x > -3，数轴上从-3向右画线，-3处空心圆圈",
+      "answerCheckZhHans": "标准答案正确，解析一致",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-266",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析中化简不等式得 x²-80x+1400≤0，解得 50≤x≤70，但实际解应为 40≤x≤40？经计算，不等式 (x-40)(200-5x)≥600 化简为 -5x²+400x-8000≥600 → -5x²+400x-8600≥0 → x²-80x+1720≤0，判别式 6400-6880=-480<0，无实数解，与答案矛盾。",
+      "independentAnswerZhHans": "不等式：(x-40)(200-5x)≥600；化简得 -5x²+400x-8000≥600 → -5x²+400x-8600≥0 → x²-80x+1720≤0，判别式 Δ=6400-6880=-480<0，不等式无解。",
+      "answerCheckZhHans": "标准答案 50≤x≤70 错误，解析中化简为 x²-80x+1400≤0 与正确化简不符，且解集错误。",
+      "recommendedActionZhHans": "修正不等式或答案，确保题目可解且答案正确。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-267",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x ≤ 1/2",
+      "answerCheckZhHans": "标准答案正确，解析一致，acceptedAnswers 覆盖合理",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-268",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "6 ≤ a < 9",
+      "answerCheckZhHans": "标准答案正确，解析一致，选项互异且唯一正确",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-269",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "m < -2",
+      "answerCheckZhHans": "标准答案正确，解析一致，acceptedAnswers 覆盖合理",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-270",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析中化简得 x²-13x+42≤0，解得 6≤x≤7，但答案给出 5≤x≤8，且解析提到“需保证销量非负，即x≤10，故5≤x≤8”，逻辑矛盾。实际解应为 6≤x≤7，且销量非负要求 x≤10，故最终为 6≤x≤7。",
+      "independentAnswerZhHans": "不等式：(x-3)(100-10x)≥120；化简得 -10x²+130x-300≥120 → -10x²+130x-420≥0 → x²-13x+42≤0 → (x-6)(x-7)≤0，解得 6≤x≤7。销量非负：100-10x≥0 → x≤10，故最终 6≤x≤7。",
+      "answerCheckZhHans": "标准答案 5≤x≤8 错误，解析自相矛盾。",
+      "recommendedActionZhHans": "修正答案为 6≤x≤7，并调整解析。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-271",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x < -2",
+      "answerCheckZhHans": "标准答案正确，解析一致，选项互异且唯一正确",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-272",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "a = 5",
+      "answerCheckZhHans": "标准答案正确，解析一致，acceptedAnswers 覆盖合理",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

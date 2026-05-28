@@ -1,0 +1,140 @@
+{
+  "batchNumber": 6,
+  "startedAt": "2026-05-25T02:46:40.381Z",
+  "completedAt": "2026-05-25T02:46:56.711Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s1-k01-sa-015",
+    "pep-junior-v3-s1-k01-sa-016",
+    "pep-junior-v3-s1-k01-sa-017",
+    "pep-junior-v3-s1-k01-sa-018",
+    "pep-junior-v3-s1-k01-sa-019",
+    "pep-junior-v3-s1-k01-sa-020",
+    "pep-junior-v3-s1-k01-sa-021",
+    "pep-junior-v3-s1-k01-sa-022",
+    "pep-junior-v3-s1-k02-mc-001",
+    "pep-junior-v3-s1-k02-mc-002",
+    "pep-junior-v3-s1-k02-mc-003",
+    "pep-junior-v3-s1-k02-mc-004"
+  ],
+  "usage": {
+    "prompt_tokens": 3324,
+    "completion_tokens": 1012,
+    "total_tokens": 4336,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 3068
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s1-k01-sa-015",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解释一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k01-sa-016",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解释一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k01-sa-017",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解释一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k01-sa-018",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解释一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k01-sa-019",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解释一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k01-sa-020",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解释一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k01-sa-021",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解释一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k01-sa-022",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解释一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k02-mc-001",
+        "status": "fail",
+        "severity": "blocker",
+        "issueTags": [
+          "ambiguous_mc",
+          "bad_options"
+        ],
+        "correctedAnswer": null,
+        "rationale": "题目要求选择化简后等于3x-5的式子，但选项B、C、D化简后均为3x-5，答案不唯一，存在严重歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k02-mc-002",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解释一致，选项无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k02-mc-003",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解释一致，选项无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k02-mc-004",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解释一致，选项无歧义。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 11,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第9题（pep-junior-v3-s1-k02-mc-001）因选项B、C、D化简后均为3x-5，导致答案不唯一，判定为失败。其余题目均通过。"
+    }
+  }
+}

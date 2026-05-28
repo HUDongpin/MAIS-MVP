@@ -1,0 +1,136 @@
+{
+  "batchNumber": 22,
+  "startedAt": "2026-05-27T13:47:46.156Z",
+  "completedAt": "2026-05-27T13:48:05.146Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-169",
+    "bnu-high-ds-v1-s4-170",
+    "bnu-high-ds-v1-s4-171",
+    "bnu-high-ds-v1-s4-172",
+    "bnu-high-ds-v1-s4-173",
+    "bnu-high-ds-v1-s4-174",
+    "bnu-high-ds-v1-s4-175",
+    "bnu-high-ds-v1-s4-176"
+  ],
+  "usage": {
+    "prompt_tokens": 10791,
+    "completion_tokens": 1310,
+    "total_tokens": 12101,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10279
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-169",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "6667",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "方程800x=2000000+500x解得x≈6666.67，取整为6667件，选项C正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-170",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "y=(x-30)(2000-20x)，x∈[30,100]",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "销量=1000+20(50-x)=2000-20x，利润y=(x-30)(2000-20x)，由销量≥0得x≤100，且x≥30，故定义域[30,100]，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-171",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "14.3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "分段函数：x>10时y=3x-6，令y=37得x≈14.3，符合条件，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-172",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "当t=0时，感染人数为100",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "t=0时N=2000/(1+19)=100，A正确；模型为逻辑斯蒂增长，B、C错误；t=10时N≈1774，D错误。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-173",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "L(p)=1000(50-2p)(p-10)-20000，p∈(10,25)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "销量q=50-2p千件，利润L=1000(50-2p)(p-10)-20000，由q>0得p<25，且p>10，定义域(10,25)，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-174",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "4",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "区间长度1，要求精度0.1，二分次数n满足(1/2)^n≤0.1，n≥log2(10)≈3.32，至少4次，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-175",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "线性模型中的c值约为0.2",
+        "correctedAnswer": "线性模型中的c值约为0.2",
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "指数模型k=ln3/10≈0.10986，A错误；线性模型c=0.2，B正确；指数模型2030年为9倍，C错误；线性模型2030年为5倍，D错误。正确答案应为B，但存储答案为A，解析也错误地认为A正确，矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-176",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "t=1或5",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "解sin(πt/6)=0.5，在[0,12]内得t=1或5，答案与解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第175题答案与解析错误：指数模型k≈0.10986而非0.0693，正确选项应为B（线性模型c=0.2），存储答案A与解析矛盾，需修正。"
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-493",
+  "startedAt": "2026-05-28T01:35:38.096Z",
+  "completedAt": "2026-05-28T01:35:42.343Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-493"
+  ],
+  "usage": {
+    "prompt_tokens": 2177,
+    "completion_tokens": 241,
+    "total_tokens": 2418,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1793
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-493",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "A",
+        "correctedAnswer": null,
+        "issueTags": [
+          "explanation_contradiction"
+        ],
+        "severity": "major",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，χ²≈12.5>6.635，在0.01水平下拒绝独立性，有99%把握认为有关，选项A正确。解析称“选项A错误”与答案矛盾，且提及无关的回归计算错误，解释严重不一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 1,
+      "fail": 0,
+      "notes": "1题解释矛盾，需修正解析，答案正确。"
+    }
+  }
+}

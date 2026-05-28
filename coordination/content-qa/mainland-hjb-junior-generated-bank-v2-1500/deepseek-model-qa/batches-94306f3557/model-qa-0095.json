@@ -1,0 +1,105 @@
+{
+  "batchId": "model-qa-0095",
+  "ids": [
+    "hjb-junior-ds-v2-s2-253",
+    "hjb-junior-ds-v2-s2-254",
+    "hjb-junior-ds-v2-s2-255",
+    "hjb-junior-ds-v2-s2-256",
+    "hjb-junior-ds-v2-s2-257",
+    "hjb-junior-ds-v2-s2-258",
+    "hjb-junior-ds-v2-s2-259",
+    "hjb-junior-ds-v2-s2-260"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-253",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "multiple-correct-options"
+      ],
+      "issueDetailsZhHans": "选项C AB=CD, AD∥BC 也能判定平行四边形（一组对边平行且相等，但需注意是同一组对边；这里AB=CD且AD∥BC，若AB与CD是对边，AD与BC是对边，则满足一组对边平行且相等，可判定平行四边形）。因此存在多个正确选项。",
+      "independentAnswerZhHans": "D 和 C 均可判定平行四边形。",
+      "answerCheckZhHans": "标准答案只给出D，但C也正确，因此答案不唯一。",
+      "recommendedActionZhHans": "修改选项C，使其不满足判定定理，或调整题干要求。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-254",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "8",
+      "answerCheckZhHans": "标准答案8正确，解析无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-255",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "26",
+      "answerCheckZhHans": "标准答案26正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-256",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "4个",
+      "answerCheckZhHans": "标准答案4个正确，四个条件均能判定平行四边形。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-257",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "9",
+      "answerCheckZhHans": "标准答案9正确，解析无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-258",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "6cm",
+      "answerCheckZhHans": "标准答案6cm正确，解析符合三角形中位线定理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-259",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "110°",
+      "answerCheckZhHans": "标准答案110°正确，解析无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-260",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "8",
+      "answerCheckZhHans": "标准答案8正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

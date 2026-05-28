@@ -1,0 +1,297 @@
+{
+  "batchId": "batch-082",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p2-156",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "hjb-primary-p2-lower-division-facts",
+      "unitTitle": "表内除法",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "division-meaning",
+        "equal-sharing",
+        "grouping-division",
+        "division-facts",
+        "表内除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均分",
+        "包含分",
+        "除法算式",
+        "乘除关系",
+        "口诀求商"
+      ],
+      "misconceptionTags": [
+        "sharing model and grouping model conflated",
+        "quotient unit not stated",
+        "multiplication fact used without checking what is unknown"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p2-lower-division-facts"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-division-facts",
+        "hjb-primary-p2-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈买了18个苹果，平均放在3个盘子里，每个盘子放几个？列出除法算式，并写出得数。",
+      "optionsZhHans": [],
+      "answer": "18÷3=6（个）",
+      "acceptedAnswers": [
+        "18÷3=6（个）",
+        "18÷3=6",
+        "18÷3＝6（个）",
+        "18÷3＝6"
+      ],
+      "explanationZhHans": "把18个苹果平均分成3份，求每份是多少，用除法计算。18÷3，想乘法口诀“三六十八”，商是6，单位是“个”。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-157",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "hjb-primary-p2-lower-division-facts",
+      "unitTitle": "表内除法",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "division-meaning",
+        "equal-sharing",
+        "grouping-division",
+        "division-facts",
+        "表内除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均分",
+        "包含分",
+        "除法算式",
+        "乘除关系",
+        "口诀求商"
+      ],
+      "misconceptionTags": [
+        "sharing model and grouping model conflated",
+        "quotient unit not stated",
+        "multiplication fact used without checking what is unknown"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p2-lower-division-facts"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-division-facts",
+        "hjb-primary-p2-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "有24支铅笔，每6支装一盒，可以装几盒？下面哪个算式是正确的？",
+      "optionsZhHans": [
+        "24÷6=4（盒）",
+        "24÷4=6（盒）",
+        "6×4=24（支）",
+        "24-6=18（支）"
+      ],
+      "answer": "24÷6=4（盒）",
+      "acceptedAnswers": [
+        "24÷6=4（盒）"
+      ],
+      "explanationZhHans": "已知总数24支和每盒6支，求盒数，是包含分问题，用除法。24÷6，想口诀“四六二十四”，商是4，单位是“盒”。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-158",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "hjb-primary-p2-lower-division-facts",
+      "unitTitle": "表内除法",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "division-meaning",
+        "equal-sharing",
+        "grouping-division",
+        "division-facts",
+        "表内除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均分",
+        "包含分",
+        "除法算式",
+        "乘除关系",
+        "口诀求商"
+      ],
+      "misconceptionTags": [
+        "sharing model and grouping model conflated",
+        "quotient unit not stated",
+        "multiplication fact used without checking what is unknown"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p2-lower-division-facts"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-division-facts",
+        "hjb-primary-p2-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把12块饼干平均分给4个小朋友，每个小朋友分到___块。",
+      "optionsZhHans": [],
+      "answer": "3",
+      "acceptedAnswers": [
+        "3",
+        "3块"
+      ],
+      "explanationZhHans": "12块饼干平均分成4份，求每份数，用除法12÷4=3（块）。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-159",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "hjb-primary-p2-lower-division-facts",
+      "unitTitle": "表内除法",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "division-meaning",
+        "equal-sharing",
+        "grouping-division",
+        "division-facts",
+        "表内除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均分",
+        "包含分",
+        "除法算式",
+        "乘除关系",
+        "口诀求商"
+      ],
+      "misconceptionTags": [
+        "sharing model and grouping model conflated",
+        "quotient unit not stated",
+        "multiplication fact used without checking what is unknown"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p2-lower-division-facts"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-division-facts",
+        "hjb-primary-p2-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "王老师有20本练习本，每个同学发5本，可以发给几个同学？请写出除法算式并解答。",
+      "optionsZhHans": [],
+      "answer": "20÷5=4（个）",
+      "acceptedAnswers": [
+        "20÷5=4（个）",
+        "20÷5=4",
+        "20÷5＝4（个）",
+        "20÷5＝4"
+      ],
+      "explanationZhHans": "总数20本，每份5本，求份数，用除法。20÷5，想乘法口诀“四五二十”，商是4，单位是“个”。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-160",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "hjb-primary-p2-lower-division-facts",
+      "unitTitle": "表内除法",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "division-meaning",
+        "equal-sharing",
+        "grouping-division",
+        "division-facts",
+        "表内除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均分",
+        "包含分",
+        "除法算式",
+        "乘除关系",
+        "口诀求商"
+      ],
+      "misconceptionTags": [
+        "sharing model and grouping model conflated",
+        "quotient unit not stated",
+        "multiplication fact used without checking what is unknown"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p2-lower-division-facts"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-division-facts",
+        "hjb-primary-p2-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "S18 remediated after DeepSeek-v4-pro QA on 2026-05-25; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个问题表示“把15平均分成3份，求每份是多少”，可以用“15÷3”来解决？",
+      "optionsZhHans": [
+        "把15个气球平均分给3个小朋友，每人分几个？",
+        "有15个气球，送给小朋友3个，还剩几个？",
+        "有15个气球，每5个扎成一束，可以扎成几束？",
+        "小明有15个气球，小红有3个气球，小明比小红多几个？"
+      ],
+      "answer": "把15个气球平均分给3个小朋友，每人分几个？",
+      "acceptedAnswers": [
+        "把15个气球平均分给3个小朋友，每人分几个？"
+      ],
+      "explanationZhHans": "把15个气球平均分给3个小朋友，求每人几个，就是15÷3。其他选项分别用减法或15÷5解决。"
+    }
+  ]
+}

@@ -1,0 +1,168 @@
+{
+  "scope": "full",
+  "batchIndex": 35,
+  "startedAt": "2026-05-28T03:38:16.446Z",
+  "completedAt": "2026-05-28T03:39:11.780Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "itemIds": [
+    "10628",
+    "10365",
+    "10327",
+    "10331",
+    "10663",
+    "10664",
+    "10665",
+    "10666",
+    "10667",
+    "10668"
+  ],
+  "usage": {
+    "prompt_tokens": 3637,
+    "completion_tokens": 3455,
+    "total_tokens": 7092,
+    "prompt_tokens_details": {
+      "cached_tokens": 3584
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 2102
+    },
+    "prompt_cache_hit_tokens": 3584,
+    "prompt_cache_miss_tokens": 53
+  },
+  "finishReason": "stop",
+  "jsonModeFallback": false,
+  "result": {
+    "items": [
+      {
+        "questionId": "10628",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "東南 (Southeast)",
+        "independentAnswer": "東南 (Southeast)",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Text provides all needed information; answer matches.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10365",
+        "questionType": "FRQ",
+        "hasImage": true,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": null,
+        "solvabilityStatus": "image-context-required",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "Bar chart needed to answer; image not inspectable.",
+        "recommendedAction": "Provide the bar chart image or describe its data in text."
+      },
+      {
+        "questionId": "10327",
+        "questionType": "FRQ",
+        "hasImage": true,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": "(a) 子軒 (b) 5",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "Fractions given in text; solvable. Answer key missing.",
+        "recommendedAction": "Supply the answer key."
+      },
+      {
+        "questionId": "10331",
+        "questionType": "FRQ",
+        "hasImage": true,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": null,
+        "solvabilityStatus": "image-context-required",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "Image needed to determine total number of origami animals.",
+        "recommendedAction": "Provide the image or state the total number in text."
+      },
+      {
+        "questionId": "10663",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "$15 \\times \\frac{3}{10} = \\frac{45}{10} = \\mathbf{4\\frac{1}{2}}$",
+        "independentAnswer": "$4\\frac{1}{2}$",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Straightforward fraction multiplication; answer correct.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10664",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "$\\frac{4 \\times 3}{9 \\times 8} = \\frac{12}{72} = \\mathbf{\\frac{1}{6}}$",
+        "independentAnswer": "$\\frac{1}{6}$",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Fraction multiplication; answer matches.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10665",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "$\\frac{5}{6} \\times 12 \\times \\frac{1}{2} = 10 \\times \\frac{1}{2} = \\mathbf{5}$",
+        "independentAnswer": "5",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Multiplication of fractions and integer; answer correct.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10666",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "$\\frac{9}{4} \\times \\frac{2}{3} \\times \\frac{1}{6} = \\frac{3}{2} \\times \\frac{1}{6} = \\mathbf{\\frac{1}{4}}$",
+        "independentAnswer": "$\\frac{1}{4}$",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Mixed number conversion and multiplication; answer matches.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10667",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "$20 \\times \\frac{1}{4} \\times \\frac{3}{5} = 5 \\times \\frac{3}{5} = \\mathbf{3}$",
+        "independentAnswer": "3",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Integer and fraction multiplication; answer correct.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10668",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "$80 \\times \\frac{7}{20} = \\mathbf{28}$ (元/dollars)",
+        "independentAnswer": "28",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Discount calculation; answer matches.",
+        "recommendedAction": "No blocking action."
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "unsolvable": 0,
+      "ambiguous": 0,
+      "imageContextRequired": 2,
+      "answerMismatch": 0,
+      "missingAnswerKey": 3,
+      "notes": "Two items require images (10365, 10331) and cannot be reviewed text-only. Three items (10327, 10365, 10331) lack answer keys. All other items are solvable and have correct answers."
+    }
+  }
+}

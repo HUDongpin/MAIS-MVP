@@ -1,0 +1,173 @@
+{
+  "batchNumber": 34,
+  "startedAt": "2026-05-27T17:31:28.126Z",
+  "completedAt": "2026-05-27T17:31:48.123Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s1-397",
+    "bnu-junior-ds-v1-s1-398",
+    "bnu-junior-ds-v1-s1-399",
+    "bnu-junior-ds-v1-s1-400",
+    "bnu-junior-ds-v1-s1-401",
+    "bnu-junior-ds-v1-s1-402",
+    "bnu-junior-ds-v1-s1-403",
+    "bnu-junior-ds-v1-s1-404",
+    "bnu-junior-ds-v1-s1-405",
+    "bnu-junior-ds-v1-s1-406",
+    "bnu-junior-ds-v1-s1-407",
+    "bnu-junior-ds-v1-s1-408"
+  ],
+  "usage": {
+    "prompt_tokens": 6657,
+    "completion_tokens": 1446,
+    "total_tokens": 8103,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 6145
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s1-397",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，周长C=4a，面积S=a²，C与a成正比例，S与a不成正比例，选项B正确，答案与选项一致，解释正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-398",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目明确售价8元/千克，关系式y=8x，代入x=2.5得y=20，答案正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-399",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由表格数据可得每秒上升0.6厘米，关系式h=0.6t，t=20时h=12，答案正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-400",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "剩余油量y=40-0.08x，是一次函数，图象为从(0,40)开始下降的直线，选项B正确，答案匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-401",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由表格知每小时减少30千米，关系式s=120-30t，令s=0得t=4，自变量t，因变量s，答案正确，解释清晰。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-402",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "直接代入x=8到y=5x得40，答案正确，解释无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-403",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由表格数据得每分钟减少0.6厘米，关系式y=20-0.6x，选项A正确，答案与选项一致，解释验证正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-404",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "初始50立方米，每分钟放水2立方米，Q=50-2t，t=12时Q=26，答案正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-405",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "8时至14时匀速上升，升温10℃，每小时5/3℃，关系式T=15+(5/3)(t-8)或T=(5/3)t+5/3，答案正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-406",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "函数定义为对于x的每一个值，y都有唯一确定的值与之对应，选项A正确，答案匹配，解释符合定义。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-407",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "起步价8元，超过3千米部分每千米1.5元，关系式y=8+1.5(x-3)，x=10时y=18.5，答案正确，解释无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-408",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "面积24平方厘米，a=24/b，b=4时a=6，答案正确，解释直接。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部12道题目均条件充分、可解，答案与解释匹配，无数学错误或表述问题，适合北师大版七年级下册变量之间的关系单元使用。"
+    }
+  }
+}

@@ -1,0 +1,355 @@
+{
+  "batchId": "batch-043",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s2-k06-mc-021",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-triangle-angle-relations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "promptZhHans": "在△ABC中，∠A＝50°，∠B＝∠C，则∠B的度数为（ ）",
+      "optionsZhHans": [
+        "50°",
+        "65°",
+        "80°",
+        "130°"
+      ],
+      "answer": "65°",
+      "acceptedAnswers": [
+        "65°",
+        "65度",
+        "65"
+      ],
+      "explanationZhHans": "因为∠A＝50°，且∠B＝∠C，由三角形内角和为180°得∠A＋∠B＋∠C＝180°，即50°＋2∠B＝180°，解得∠B＝65°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-mc-022",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-congruence-proof"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "在△ABC和△DEF中，AB＝DE，∠A＝∠D，添加下列哪个条件后，仍无法判定△ABC≌△DEF的是（ ）",
+      "optionsZhHans": [
+        "AC＝DF",
+        "BC＝EF",
+        "∠B＝∠E",
+        "∠C＝∠F"
+      ],
+      "answer": "BC＝EF",
+      "acceptedAnswers": [
+        "BC＝EF",
+        "BC=EF"
+      ],
+      "explanationZhHans": "已知AB＝DE，∠A＝∠D。添加AC＝DF，满足SAS，可判定全等；添加∠B＝∠E，满足ASA，可判定全等；添加∠C＝∠F，满足AAS，可判定全等。添加BC＝EF，条件是SSA，不能判定全等，故选BC＝EF。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-mc-023",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-polynomial-multiplication-factorization"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean"
+      ],
+      "promptZhHans": "计算 (2x－3)(x＋4) 的结果是（ ）",
+      "optionsZhHans": [
+        "2x²＋5x－12",
+        "2x²－5x－12",
+        "2x²＋11x－12",
+        "2x²－11x－12"
+      ],
+      "answer": "2x²＋5x－12",
+      "acceptedAnswers": [
+        "2x²＋5x－12",
+        "2x^2+5x-12",
+        "2x²+5x-12"
+      ],
+      "explanationZhHans": "根据多项式乘法法则，(2x－3)(x＋4)＝2x·x＋2x·4－3·x－3·4＝2x²＋8x－3x－12＝2x²＋5x－12。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-mc-024",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-algebraic-fractions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "若分式 (x²－4)/(x＋2) 的值为0，则x的值为（ ）",
+      "optionsZhHans": [
+        "2",
+        "－2",
+        "±2",
+        "0"
+      ],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2"
+      ],
+      "explanationZhHans": "分式值为0的条件是分子为0且分母不为0。由x²－4＝0得x＝±2，但x＝－2时分母x＋2＝0，分式无意义，故x只能取2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-mc-025",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-axis-symmetry-isosceles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "等腰三角形的一个底角为40°，则它的顶角为（ ）",
+      "optionsZhHans": [
+        "40°",
+        "80°",
+        "100°",
+        "140°"
+      ],
+      "answer": "100°",
+      "acceptedAnswers": [
+        "100°",
+        "100度",
+        "100"
+      ],
+      "explanationZhHans": "等腰三角形两底角相等，已知底角为40°，则另一个底角也是40°。由三角形内角和为180°，得顶角＝180°－40°－40°＝100°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-mc-026",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions"
+      ],
+      "promptZhHans": "关于三角形全等判定，下列说法正确的是（ ）",
+      "optionsZhHans": [
+        "面积相等的两个三角形全等",
+        "周长相等的两个三角形全等",
+        "三边对应相等的两个三角形全等",
+        "两个锐角对应相等的两个直角三角形全等"
+      ],
+      "answer": "三边对应相等的两个三角形全等",
+      "acceptedAnswers": [
+        "三边对应相等的两个三角形全等"
+      ],
+      "explanationZhHans": "根据全等三角形的判定方法，三边对应相等的两个三角形全等（SSS）。面积相等或周长相等不能保证全等；两个锐角对应相等的直角三角形，缺少边的条件，不能判定全等。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-mc-027",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-triangle-angle-relations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "promptZhHans": "已知一次函数y＝(m－2)x＋3，若y随x的增大而减小，则m的取值范围是（ ）",
+      "optionsZhHans": [
+        "m＞2",
+        "m＜2",
+        "m≥2",
+        "m≤2"
+      ],
+      "answer": "m＜2",
+      "acceptedAnswers": [
+        "m＜2",
+        "m<2"
+      ],
+      "explanationZhHans": "对于一次函数y＝kx＋b，当k＜0时，y随x的增大而减小。这里k＝m－2，所以m－2＜0，解得m＜2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-mc-028",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-congruence-proof"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "某班5名同学在一次数学测验中的成绩（单位：分）分别为：80，85，90，95，100，则这组数据的方差是（ ）",
+      "optionsZhHans": [
+        "40",
+        "50",
+        "60",
+        "70"
+      ],
+      "answer": "50",
+      "acceptedAnswers": [
+        "50"
+      ],
+      "explanationZhHans": "先求平均数：(80+85+90+95+100)/5＝90。再求方差：[(80-90)²+(85-90)²+(90-90)²+(95-90)²+(100-90)²]/5＝(100+25+0+25+100)/5＝250/5＝50。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-mc-029",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-polynomial-multiplication-factorization"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "某商品原价为a元，因需求增加，连续两次提价10%，则现价为（ ）",
+      "optionsZhHans": [
+        "1.1a元",
+        "1.2a元",
+        "1.21a元",
+        "1.44a元"
+      ],
+      "answer": "1.21a元",
+      "acceptedAnswers": [
+        "1.21a元",
+        "1.21a"
+      ],
+      "explanationZhHans": "第一次提价10%后价格为a(1+10%)＝1.1a元；第二次提价10%是在1.1a的基础上，现价为1.1a×(1+10%)＝1.1a×1.1＝1.21a元。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-mc-030",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-algebraic-fractions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-proof-calculation-integrated"
+      ],
+      "promptZhHans": "计算 (a²b)/(c) ÷ (ab²)/(c²) 的结果是（ ）",
+      "optionsZhHans": [
+        "a/c",
+        "ac/b",
+        "a/b",
+        "ac"
+      ],
+      "answer": "ac/b",
+      "acceptedAnswers": [
+        "ac/b",
+        "ac÷b"
+      ],
+      "explanationZhHans": "原式＝(a²b)/c × (c²)/(ab²)＝(a²b·c²)/(c·ab²)＝(a·c)/b＝ac/b。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

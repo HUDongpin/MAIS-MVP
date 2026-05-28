@@ -1,0 +1,41 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-049-item-bnu-high-ds-v1-s4-392",
+  "startedAt": "2026-05-28T02:37:49.772Z",
+  "completedAt": "2026-05-28T02:37:56.664Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-392"
+  ],
+  "usage": {
+    "prompt_tokens": 1665,
+    "completion_tokens": 332,
+    "total_tokens": 1997,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1281
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-392",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "8小时",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可直接求解。解不等式3sin(πt/6)+5>7得sin(πt/6)>2/3，在0≤t≤24内，πt/6∈[0,4π]，满足条件的区间为(arcsin(2/3), π-arcsin(2/3))和(2π+arcsin(2/3), 3π-arcsin(2/3))，每个区间长度均为π-2arcsin(2/3)，总长度为2π-4arcsin(2/3)，对应时间t= (6/π)*(2π-4arcsin(2/3)) = 12 - (24/π)arcsin(2/3)。利用arcsin(2/3)≈0.7297，计算得累计时间约为8小时。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 1,
+      "warn": 0,
+      "fail": 0,
+      "notes": "题目为三角函数建模应用题，条件明确，可独立求解，符合北师大版S4下学期数学建模活动（二）的内容范围。"
+    }
+  }
+}

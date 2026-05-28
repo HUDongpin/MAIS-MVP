@@ -1,0 +1,305 @@
+{
+  "batchId": "batch-115",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s3-k11-sa-008",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "short-answer",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-similarity"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "promptZhHans": "在△ABC中，AB=8，AC=6，点D在边AB上，AD=3，点E在边AC上，且∠ADE=∠C。求AE的长。",
+      "optionsZhHans": [],
+      "answer": "4",
+      "acceptedAnswers": [
+        "4",
+        "4cm"
+      ],
+      "explanationZhHans": "由∠ADE=∠C，∠A为公共角，得△ADE∽△ACB（AA）。对应边成比例：AD/AC = AE/AB，即3/6 = AE/8，解得AE=4。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-009",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "short-answer",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-graduation-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean"
+      ],
+      "promptZhHans": "在矩形ABCD中，AB=6，BC=8，点E在边CD上，连接BE。若BE平分∠AEC，求CE的长。",
+      "optionsZhHans": [],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2",
+        "2cm"
+      ],
+      "explanationZhHans": "由矩形得AB=CD=6，AD=BC=8，∠C=90°。设CE=x，则DE=6-x。由BE平分∠AEC，得∠AEB=∠CEB。又AB∥CD，得∠ABE=∠CEB，故∠AEB=∠ABE，AE=AB=6。在Rt△ADE中，AD=8，DE=6-x，AE=6，由勾股定理：8²+(6-x)²=6²，解得x=2（舍去x=10）。故CE=2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-010",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "short-answer",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-inverse-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-circle-geometry"
+      ],
+      "promptZhHans": "已知反比例函数y=k/x的图象经过点A(2,-3)，点B(m,6)也在该图象上。求m的值。",
+      "optionsZhHans": [],
+      "answer": "-1",
+      "acceptedAnswers": [
+        "-1"
+      ],
+      "explanationZhHans": "将A(2,-3)代入y=k/x，得-3=k/2，解得k=-6。故函数为y=-6/x。将B(m,6)代入，得6=-6/m，解得m=-1。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-011",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "short-answer",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-right-triangle-trigonometry"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "从地面点A观测楼顶C的仰角为30°，向楼方向前进20米到点B，再观测楼顶C的仰角为45°。若观测点A、B与楼底D在同一直线上，求楼高CD（精确到0.1米，参考数据：√3≈1.732）。",
+      "optionsZhHans": [],
+      "answer": "27.3",
+      "acceptedAnswers": [
+        "27.3",
+        "27.3米"
+      ],
+      "explanationZhHans": "设CD=h，在Rt△BCD中，∠CBD=45°，得BD=CD=h。在Rt△ACD中，∠CAD=30°，AD=AB+BD=20+h，由tan30°=CD/AD，得√3/3 = h/(20+h)，解得h=10(√3+1)≈10×(1.732+1)=27.32≈27.3。故楼高CD=27.3米。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-012",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "short-answer",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-projection-views"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "一个几何体由若干个相同的小立方块搭成，从三个方向观察得到的形状描述如下：从正面看，有两层，底层有3个正方形，上层中间有1个正方形；从左面看，有两层，底层有2个正方形，上层左边有1个正方形；从上面看，有2排，前排有3个正方形，后排左边有1个正方形。求搭成这个几何体最少需要多少个小立方块。",
+      "optionsZhHans": [],
+      "answer": "6",
+      "acceptedAnswers": [
+        "6",
+        "6个"
+      ],
+      "explanationZhHans": "根据三视图还原几何体：从上面看，前排3个，后排左边1个，共4个位置。从正面看，底层3个，上层中间1个，说明前排中间位置有2层。从左面看，底层2个，上层左边1个，说明后排左边位置有2层。因此，前排中间和后排左边各需2个立方块，前排左右各需1个，后排右边无立方块。最少总数为2+2+1+1=6。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-013",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "short-answer",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-function-geometry-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-dynamic-geometry-functions"
+      ],
+      "promptZhHans": "在平面直角坐标系中，点A(1,3)在反比例函数 y=k/x 的图象上。过点A作AB⊥x轴，垂足为B；过点A作AC⊥y轴，垂足为C。求k的值，并求矩形OBAC的面积。",
+      "optionsZhHans": [],
+      "answer": "k=3，矩形OBAC的面积为3",
+      "acceptedAnswers": [
+        "k=3，矩形OBAC的面积为3",
+        "k=3，面积为3",
+        "3，3"
+      ],
+      "explanationZhHans": "点A(1,3)在反比例函数 y=k/x 上，所以k=1×3=3。点B为(1,0)，点C为(0,3)，矩形OBAC的两条邻边长分别为1和3，面积为1×3=3。因此k=3，矩形OBAC的面积为3。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-014",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "short-answer",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-similarity"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "某商场销售一种商品，进价为每件40元，售价为每件60元时，每天可售出100件。经调查发现，售价每降低1元，每天多售出10件。设每件降价x元（x为正整数），每天利润为y元。求y与x的函数关系式，并写出x的取值范围。",
+      "optionsZhHans": [],
+      "answer": "y=-10x²+100x+2000，x为整数且1≤x≤20",
+      "acceptedAnswers": [
+        "y=-10x²+100x+2000，x为整数且1≤x≤20",
+        "y=-10x^2+100x+2000，x为整数且1≤x≤20"
+      ],
+      "explanationZhHans": "降价x元后，售价为(60-x)元，每件利润为(60-x-40)=(20-x)元，每天销量为(100+10x)件。利润y=(20-x)(100+10x)=-10x²+100x+2000。由利润非负，20-x≥0得x≤20，且x为正整数，故x的取值范围为1≤x≤20的整数。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-015",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "short-answer",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-graduation-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-proof-calculation-integrated"
+      ],
+      "promptZhHans": "在△ABC中，AB=AC=5，BC=6，点D在边BC上，且BD=2。连接AD，求AD的长度。",
+      "optionsZhHans": [],
+      "answer": "√17",
+      "acceptedAnswers": [
+        "√17",
+        "根号17"
+      ],
+      "explanationZhHans": "过A作AE⊥BC于E。∵AB=AC，∴E为BC中点，BE=CE=3。在Rt△ABE中，AE=√(AB²-BE²)=√(25-9)=4。∵BD=2，∴DE=BE-BD=1。在Rt△ADE中，AD=√(AE²+DE²)=√(16+1)=√17。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-016",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "short-answer",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-inverse-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig"
+      ],
+      "promptZhHans": "在平面直角坐标系中，点P是反比例函数y=6/x（x>0）图象上一点，PA⊥x轴于A，PB⊥y轴于B，四边形OAPB的周长为14。求点P的坐标。",
+      "optionsZhHans": [],
+      "answer": "(1,6)或(6,1)",
+      "acceptedAnswers": [
+        "(1,6)或(6,1)",
+        "P(1,6)或P(6,1)"
+      ],
+      "explanationZhHans": "设P(a,6/a)，a>0，则A(a,0)，B(0,6/a)。四边形OAPB为矩形，周长=2(OA+OB)=2(a+6/a)=14，得a+6/a=7，即a²-7a+6=0，解得a=1或a=6。当a=1时，P(1,6)；当a=6时，P(6,1)。故点P坐标为(1,6)或(6,1)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-017",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "short-answer",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-right-triangle-trigonometry"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models"
+      ],
+      "promptZhHans": "一艘轮船以每小时20海里的速度向正东方向航行，上午8时在A处测得灯塔P在北偏东60°方向，上午9时到达B处，测得灯塔P在北偏东30°方向。求轮船在B处时与灯塔P的距离（结果保留根号）。",
+      "optionsZhHans": [],
+      "answer": "20",
+      "acceptedAnswers": [
+        "20",
+        "20海里"
+      ],
+      "explanationZhHans": "由题意，AB=20海里。根据方位角，∠PAB=30°，∠PBA=120°（因为B处北偏东30°，则PB与正东夹角60°，故∠PBA=180°-60°=120°）。在△ABP中，∠APB=180°-30°-120°=30°，∴∠PAB=∠APB=30°，∴BP=AB=20海里。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

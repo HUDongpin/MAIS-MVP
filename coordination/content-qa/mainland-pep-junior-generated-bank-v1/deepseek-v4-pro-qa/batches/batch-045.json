@@ -1,0 +1,191 @@
+{
+  "batchNumber": 45,
+  "startedAt": "2026-05-24T17:36:06.834Z",
+  "completedAt": "2026-05-24T17:36:25.088Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-candidate-k10-sa-002",
+    "pep-junior-candidate-k10-sa-003",
+    "pep-junior-candidate-k10-sa-004",
+    "pep-junior-candidate-k10-sa-005",
+    "pep-junior-candidate-k10-sa-006",
+    "pep-junior-candidate-k10-sa-007",
+    "pep-junior-candidate-k10-sa-008",
+    "pep-junior-candidate-k10-sa-009",
+    "pep-junior-candidate-k10-sa-010",
+    "pep-junior-candidate-k10-sa-011",
+    "pep-junior-candidate-k10-sa-012",
+    "pep-junior-candidate-k10-sa-013",
+    "pep-junior-candidate-k10-sa-014",
+    "pep-junior-candidate-k10-sa-015",
+    "pep-junior-candidate-k10-sa-016",
+    "pep-junior-candidate-k10-sa-017",
+    "pep-junior-candidate-k10-sa-018",
+    "pep-junior-candidate-k10-sa-019"
+  ],
+  "usage": {
+    "prompt_tokens": 3089,
+    "completion_tokens": 1316,
+    "total_tokens": 4405,
+    "prompt_tokens_details": {
+      "cached_tokens": 3072
+    },
+    "prompt_cache_hit_tokens": 3072,
+    "prompt_cache_miss_tokens": 17
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-candidate-k10-sa-002",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案匹配，无歧义，适合初中概率初步。"
+      },
+      {
+        "id": "pep-junior-candidate-k10-sa-003",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案匹配，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k10-sa-004",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案匹配，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k10-sa-005",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案匹配，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k10-sa-006",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案匹配，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k10-sa-007",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案匹配，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k10-sa-008",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案匹配，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k10-sa-009",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案匹配，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k10-sa-010",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案匹配，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k10-sa-011",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案匹配，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k10-sa-012",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案匹配，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k10-sa-013",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案匹配，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k10-sa-014",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案匹配，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k10-sa-015",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案匹配，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k10-sa-016",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案匹配，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k10-sa-017",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案匹配，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k10-sa-018",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案匹配，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k10-sa-019",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案匹配，无歧义。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均为简单的古典概型计算，数学正确，答案匹配，无歧义，适合初中概率初步。"
+    }
+  }
+}

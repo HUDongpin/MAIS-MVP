@@ -1,0 +1,296 @@
+{
+  "batchId": "batch-252",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p6-006",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "hjb-primary-p6-upper-divisibility",
+      "unitTitle": "数的整除",
+      "volume": "6年级上册",
+      "conceptIds": [
+        "divisibility",
+        "factors-multiples",
+        "prime-composite",
+        "common-factor-multiple",
+        "数的整除",
+        "因数倍数"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "推理意识"
+      ],
+      "skillTags": [
+        "整除判断",
+        "因数与倍数",
+        "质数合数",
+        "公因数公倍数",
+        "数的分类"
+      ],
+      "misconceptionTags": [
+        "factor and multiple reversed",
+        "prime number treated as any odd number",
+        "common multiple found before checking common factor need"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p6-upper-divisibility"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-ratio-proportion",
+        "hjb-primary-p6-lower-assessment-circle-sector"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "判断下面说法是否正确，并说明理由：因为 36 ÷ 9 = 4，所以 36 是倍数，9 是因数。",
+      "optionsZhHans": [],
+      "answer": "不正确。因为因数和倍数是相互依存的，不能单独说一个数是倍数或因数。正确的说法是：36 是 9 的倍数，9 是 36 的因数。",
+      "acceptedAnswers": [
+        "不正确。因为因数和倍数是相互依存的，不能单独说一个数是倍数或因数。正确的说法是：36 是 9 的倍数，9 是 36 的因数。"
+      ],
+      "explanationZhHans": "因数和倍数是相互依存的概念，必须说明谁是谁的倍数或因数。题目中的说法缺少了参照对象，因此不正确。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-007",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "hjb-primary-p6-upper-divisibility",
+      "unitTitle": "数的整除",
+      "volume": "6年级上册",
+      "conceptIds": [
+        "divisibility",
+        "factors-multiples",
+        "prime-composite",
+        "common-factor-multiple",
+        "数的整除",
+        "因数倍数"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "推理意识"
+      ],
+      "skillTags": [
+        "整除判断",
+        "因数与倍数",
+        "质数合数",
+        "公因数公倍数",
+        "数的分类"
+      ],
+      "misconceptionTags": [
+        "factor and multiple reversed",
+        "prime number treated as any odd number",
+        "common multiple found before checking common factor need"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p6-upper-divisibility"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-ratio-proportion",
+        "hjb-primary-p6-lower-assessment-circle-sector"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小杰和小丽在讨论一个两位数。小杰说：“这个数的因数只有 1 和它本身。”小丽说：“这个数一定是奇数。”他们谁说得对？",
+      "optionsZhHans": [
+        "小杰对，小丽错",
+        "小丽对，小杰错",
+        "两人都对",
+        "两人都错"
+      ],
+      "answer": "小杰对，小丽错",
+      "acceptedAnswers": [
+        "小杰对，小丽错"
+      ],
+      "explanationZhHans": "因数只有 1 和它本身的数是质数，例如 2 是质数但不是奇数，所以小杰的说法正确，小丽错误地将质数与奇数混淆。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-008",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "hjb-primary-p6-upper-divisibility",
+      "unitTitle": "数的整除",
+      "volume": "6年级上册",
+      "conceptIds": [
+        "divisibility",
+        "factors-multiples",
+        "prime-composite",
+        "common-factor-multiple",
+        "数的整除",
+        "因数倍数"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "推理意识"
+      ],
+      "skillTags": [
+        "整除判断",
+        "因数与倍数",
+        "质数合数",
+        "公因数公倍数",
+        "数的分类"
+      ],
+      "misconceptionTags": [
+        "factor and multiple reversed",
+        "prime number treated as any odd number",
+        "common multiple found before checking common factor need"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p6-upper-divisibility"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-ratio-proportion",
+        "hjb-primary-p6-lower-assessment-circle-sector"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "S18 remediated after DeepSeek-v4-pro QA on 2026-05-25; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在 1、2、9、13、21、27、31 中，既是奇数又是合数的数有______个。",
+      "optionsZhHans": [],
+      "answer": "3",
+      "acceptedAnswers": [
+        "3",
+        "三个"
+      ],
+      "explanationZhHans": "奇数有1、9、13、21、27、31；合数有9、21、27。既是奇数又是合数的是9、21、27，共3个。注意1既不是质数也不是合数。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-009",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "hjb-primary-p6-upper-divisibility",
+      "unitTitle": "数的整除",
+      "volume": "6年级上册",
+      "conceptIds": [
+        "divisibility",
+        "factors-multiples",
+        "prime-composite",
+        "common-factor-multiple",
+        "数的整除",
+        "因数倍数"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "推理意识"
+      ],
+      "skillTags": [
+        "整除判断",
+        "因数与倍数",
+        "质数合数",
+        "公因数公倍数",
+        "数的分类"
+      ],
+      "misconceptionTags": [
+        "factor and multiple reversed",
+        "prime number treated as any odd number",
+        "common multiple found before checking common factor need"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p6-upper-divisibility"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-ratio-proportion",
+        "hjb-primary-p6-lower-assessment-circle-sector"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把 24 和 36 分解质因数，并求出它们的最大公因数。",
+      "optionsZhHans": [],
+      "answer": "24 = 2 × 2 × 2 × 3，36 = 2 × 2 × 3 × 3，最大公因数是 12。",
+      "acceptedAnswers": [
+        "24 = 2 × 2 × 2 × 3，36 = 2 × 2 × 3 × 3，最大公因数是 12。"
+      ],
+      "explanationZhHans": "24 分解质因数：24 = 2×2×2×3；36 分解质因数：36 = 2×2×3×3。公有的质因数是 2、2、3，乘积为 12，即最大公因数。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-010",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "hjb-primary-p6-upper-divisibility",
+      "unitTitle": "数的整除",
+      "volume": "6年级上册",
+      "conceptIds": [
+        "divisibility",
+        "factors-multiples",
+        "prime-composite",
+        "common-factor-multiple",
+        "数的整除",
+        "因数倍数"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "推理意识"
+      ],
+      "skillTags": [
+        "整除判断",
+        "因数与倍数",
+        "质数合数",
+        "公因数公倍数",
+        "数的分类"
+      ],
+      "misconceptionTags": [
+        "factor and multiple reversed",
+        "prime number treated as any odd number",
+        "common multiple found before checking common factor need"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p6-upper-divisibility"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-ratio-proportion",
+        "hjb-primary-p6-lower-assessment-circle-sector"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个数既是 18 的因数，又是 24 的因数？",
+      "optionsZhHans": [
+        "4",
+        "6",
+        "8",
+        "12"
+      ],
+      "answer": "6",
+      "acceptedAnswers": [
+        "6"
+      ],
+      "explanationZhHans": "18 的因数有 1、2、3、6、9、18；24 的因数有 1、2、3、4、6、8、12、24。公因数有 1、2、3、6，选项中只有 6 符合。"
+    }
+  ]
+}

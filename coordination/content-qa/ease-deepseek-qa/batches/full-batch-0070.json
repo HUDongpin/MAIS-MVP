@@ -1,0 +1,168 @@
+{
+  "scope": "full",
+  "batchIndex": 70,
+  "startedAt": "2026-05-28T03:58:11.247Z",
+  "completedAt": "2026-05-28T03:58:54.840Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "itemIds": [
+    "1265",
+    "1266",
+    "1267",
+    "1268",
+    "1269",
+    "1270",
+    "1271",
+    "1272",
+    "1273",
+    "1274"
+  ],
+  "usage": {
+    "prompt_tokens": 2799,
+    "completion_tokens": 2812,
+    "total_tokens": 5611,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1906
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2415
+  },
+  "finishReason": "stop",
+  "jsonModeFallback": false,
+  "result": {
+    "items": [
+      {
+        "questionId": "1265",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "37.4",
+        "independentAnswer": "37.4",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "在中文环境下可计算，独立计算答案与标准答案一致",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "1266",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "2.3",
+        "independentAnswer": "2.3",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "在中文环境下可计算，独立计算答案与标准答案一致",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "1267",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "$10.85 + 7.38 \\\\div 3.6 = 12.9$",
+        "independentAnswer": "12.9",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "标准答案中包含正确的计算结果12.9",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "1268",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "2.96",
+        "independentAnswer": "2.96",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "在中文环境下可计算，独立计算答案与标准答案一致",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "1269",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "7.92",
+        "independentAnswer": "7.92",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "在中文环境下可计算，独立计算答案与标准答案一致",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "1270",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "777/10",
+        "independentAnswer": "777/10",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "在中文环境下可计算，独立计算答案与标准答案一致",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "1271",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "2",
+        "independentAnswer": "2",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "在中文环境下可计算，独立计算答案与标准答案一致",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "1272",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "84 的質因數分解為：\n\n\\[ 84 = 2^2 \\times 3^1 \\times 7^1 \\]\n\n以指數記數法表示為：\n\n\\[ 84 = 2^2 \\times 3^1 \\times 7^1 \\]",
+        "independentAnswer": "2^2 × 3 × 7",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "质因数分解正确，指数形式正确",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "1273",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "H.C.F. = 12\nL.C.M. = 720",
+        "independentAnswer": "H.C.F. = 12, L.C.M. = 720",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "利用质因数分解计算H.C.F.和L.C.M.结果正确",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "1274",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "30、45及75的H.C.F. 是15。\n30、45及75的L.C.M. 是 450。",
+        "independentAnswer": "H.C.F. = 15, L.C.M. = 450",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "短除法计算结果正确",
+        "recommendedAction": "No blocking action."
+      }
+    ],
+    "batchSummary": {
+      "pass": 10,
+      "unsolvable": 0,
+      "ambiguous": 0,
+      "imageContextRequired": 0,
+      "answerMismatch": 0,
+      "missingAnswerKey": 0,
+      "notes": "所有题目均可独立于图像求解，标准答案均正确匹配。"
+    }
+  }
+}

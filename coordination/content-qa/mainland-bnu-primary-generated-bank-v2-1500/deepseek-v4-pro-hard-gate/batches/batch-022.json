@@ -1,0 +1,330 @@
+{
+  "batchNumber": 22,
+  "startedAt": "2026-05-26T16:58:57.797Z",
+  "completedAt": "2026-05-26T16:59:25.850Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p3-131",
+    "bnu-primary-ds-v2-p3-132",
+    "bnu-primary-ds-v2-p3-133",
+    "bnu-primary-ds-v2-p3-134",
+    "bnu-primary-ds-v2-p3-135",
+    "bnu-primary-ds-v2-p3-136",
+    "bnu-primary-ds-v2-p3-137",
+    "bnu-primary-ds-v2-p3-138",
+    "bnu-primary-ds-v2-p3-139",
+    "bnu-primary-ds-v2-p3-140",
+    "bnu-primary-ds-v2-p3-141",
+    "bnu-primary-ds-v2-p3-142",
+    "bnu-primary-ds-v2-p3-143",
+    "bnu-primary-ds-v2-p3-144",
+    "bnu-primary-ds-v2-p3-145",
+    "bnu-primary-ds-v2-p3-146",
+    "bnu-primary-ds-v2-p3-147",
+    "bnu-primary-ds-v2-p3-148",
+    "bnu-primary-ds-v2-p3-149",
+    "bnu-primary-ds-v2-p3-150",
+    "bnu-primary-ds-v2-p3-151",
+    "bnu-primary-ds-v2-p3-152",
+    "bnu-primary-ds-v2-p3-153",
+    "bnu-primary-ds-v2-p3-154",
+    "bnu-primary-ds-v2-p3-155",
+    "bnu-primary-ds-v2-p3-156",
+    "bnu-primary-ds-v2-p3-157",
+    "bnu-primary-ds-v2-p3-158",
+    "bnu-primary-ds-v2-p3-159",
+    "bnu-primary-ds-v2-p3-160"
+  ],
+  "usage": {
+    "prompt_tokens": 6148,
+    "completion_tokens": 2212,
+    "total_tokens": 8360,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 5764
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p3-131",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目完整，运算顺序明确，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-132",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目信息充分，答案计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-133",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项完整，唯一正确答案。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-134",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目清晰，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-135",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目明确，答案计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-136",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项完整，唯一正确答案。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-137",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目完整，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-138",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目信息充分，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-139",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项完整，唯一正确答案。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-140",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目清晰，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-141",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目完整，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-142",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项完整，唯一正确答案。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-143",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目完整，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-144",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目信息充分，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-145",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项完整，唯一正确答案。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-146",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目清晰，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-147",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目完整，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-148",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项完整，唯一正确答案。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-149",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目完整，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-150",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目信息充分，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-151",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项完整，唯一正确答案。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-152",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目清晰，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-153",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目完整，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-154",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项完整，唯一正确答案。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-155",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目完整，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-156",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目信息充分，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-157",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项完整，唯一正确答案。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-158",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目清晰，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-159",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目完整，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-160",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项完整，唯一正确答案。"
+      }
+    ],
+    "batchSummary": {
+      "solvableYes": 30,
+      "solvableNo": 0,
+      "answerMatchYes": 30,
+      "answerMatchNo": 0,
+      "notes": "全部30道题目均完整可解，答案正确。"
+    }
+  }
+}

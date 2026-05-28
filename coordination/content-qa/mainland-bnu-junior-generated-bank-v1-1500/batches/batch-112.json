@@ -1,0 +1,634 @@
+{
+  "batchId": "batch-112",
+  "questions": [
+    {
+      "id": "bnu-junior-ds-v1-s3-111",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-probability-advanced",
+      "unitTitle": "概率的进一步认识",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "probability",
+        "tree-diagrams",
+        "tables-for-outcomes",
+        "compound-events",
+        "experimental-probability",
+        "概率",
+        "树状图",
+        "列表法"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "样本空间整理",
+        "树状图",
+        "列表法",
+        "等可能事件",
+        "频率估计概率"
+      ],
+      "misconceptionTags": [
+        "outcomes omitted when listing",
+        "non-equally-likely cases treated as equal",
+        "frequency and probability conflated"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-probability-advanced"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-probability-advanced-unit",
+        "bnu-junior-s3-upper-assessment-monthly-1-to-3-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个不透明的袋子里装有3个红球和2个白球，这些球除颜色外完全相同。从袋子中随机摸出1个球，记录颜色后放回，摇匀后再随机摸出1个球。求两次摸出的球颜色相同的概率。",
+      "optionsZhHans": [],
+      "answer": "13/25",
+      "acceptedAnswers": [
+        "13/25",
+        "0.52"
+      ],
+      "explanationZhHans": "有放回摸球，每次摸球结果等可能。列表或画树状图，所有等可能结果共5×5=25种。颜色相同包括两次都红或两次都白：都红有3×3=9种，都白有2×2=4种，共13种。概率为13/25。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-112",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-probability-advanced",
+      "unitTitle": "概率的进一步认识",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "probability",
+        "tree-diagrams",
+        "tables-for-outcomes",
+        "compound-events",
+        "experimental-probability",
+        "概率",
+        "树状图",
+        "列表法"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "样本空间整理",
+        "树状图",
+        "列表法",
+        "等可能事件",
+        "频率估计概率"
+      ],
+      "misconceptionTags": [
+        "outcomes omitted when listing",
+        "non-equally-likely cases treated as equal",
+        "frequency and probability conflated"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-probability-advanced"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-probability-advanced-unit",
+        "bnu-junior-s3-upper-assessment-monthly-1-to-3-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个不透明的袋子里装有2个红球和1个白球，这些球除颜色外完全相同。从袋子中随机摸出1个球，记录颜色后放回，摇匀后再随机摸出1个球。两次摸出的球颜色相同的概率是多少？",
+      "optionsZhHans": [
+        "1/3",
+        "4/9",
+        "5/9",
+        "2/3"
+      ],
+      "answer": "5/9",
+      "acceptedAnswers": [
+        "5/9"
+      ],
+      "explanationZhHans": "有放回摸球，每次等可能。所有等可能结果共3×3=9种。颜色相同包括两次都红或两次都白：都红有2×2=4种，都白有1×1=1种，共5种。概率为5/9。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-113",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-probability-advanced",
+      "unitTitle": "概率的进一步认识",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "probability",
+        "tree-diagrams",
+        "tables-for-outcomes",
+        "compound-events",
+        "experimental-probability",
+        "概率",
+        "树状图",
+        "列表法"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "样本空间整理",
+        "树状图",
+        "列表法",
+        "等可能事件",
+        "频率估计概率"
+      ],
+      "misconceptionTags": [
+        "outcomes omitted when listing",
+        "non-equally-likely cases treated as equal",
+        "frequency and probability conflated"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-probability-advanced"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-probability-advanced-unit",
+        "bnu-junior-s3-upper-assessment-monthly-1-to-3-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个不透明的袋子里装有2个红球和2个白球，这些球除颜色外完全相同。从袋子中随机摸出1个球，记录颜色后不放回，再从剩下的球中随机摸出1个球。求两次摸出的球颜色相同的概率。",
+      "optionsZhHans": [],
+      "answer": "1/3",
+      "acceptedAnswers": [
+        "1/3"
+      ],
+      "explanationZhHans": "不放回摸球，所有等可能结果共4×3=12种。颜色相同包括两次都红或两次都白：都红有2×1=2种，都白有2×1=2种，共4种。概率为4/12=1/3。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-114",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-probability-advanced",
+      "unitTitle": "概率的进一步认识",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "probability",
+        "tree-diagrams",
+        "tables-for-outcomes",
+        "compound-events",
+        "experimental-probability",
+        "概率",
+        "树状图",
+        "列表法"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "样本空间整理",
+        "树状图",
+        "列表法",
+        "等可能事件",
+        "频率估计概率"
+      ],
+      "misconceptionTags": [
+        "outcomes omitted when listing",
+        "non-equally-likely cases treated as equal",
+        "frequency and probability conflated"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-probability-advanced"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-probability-advanced-unit",
+        "bnu-junior-s3-upper-assessment-monthly-1-to-3-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个不透明的袋子里装有3个红球和1个白球，这些球除颜色外完全相同。从袋子中随机摸出1个球，记录颜色后放回，摇匀后再随机摸出1个球。求两次摸出的球颜色不同的概率。",
+      "optionsZhHans": [],
+      "answer": "3/8",
+      "acceptedAnswers": [
+        "3/8",
+        "0.375"
+      ],
+      "explanationZhHans": "有放回摸球，所有等可能结果共4×4=16种。颜色不同包括先红后白或先白后红：先红后白有3×1=3种，先白后红有1×3=3种，共6种。概率为6/16=3/8。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-115",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-probability-advanced",
+      "unitTitle": "概率的进一步认识",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "probability",
+        "tree-diagrams",
+        "tables-for-outcomes",
+        "compound-events",
+        "experimental-probability",
+        "概率",
+        "树状图",
+        "列表法"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "样本空间整理",
+        "树状图",
+        "列表法",
+        "等可能事件",
+        "频率估计概率"
+      ],
+      "misconceptionTags": [
+        "outcomes omitted when listing",
+        "non-equally-likely cases treated as equal",
+        "frequency and probability conflated"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-probability-advanced"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-probability-advanced-unit",
+        "bnu-junior-s3-upper-assessment-monthly-1-to-3-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个不透明的袋子里装有2个红球和3个白球，这些球除颜色外完全相同。从袋子中随机摸出1个球，记录颜色后不放回，再从剩下的球中随机摸出1个球。两次摸出的球颜色不同的概率是多少？",
+      "optionsZhHans": [
+        "2/5",
+        "3/5",
+        "7/10",
+        "4/5"
+      ],
+      "answer": "3/5",
+      "acceptedAnswers": [
+        "3/5"
+      ],
+      "explanationZhHans": "不放回摸球，所有等可能结果共5×4=20种。颜色不同包括先红后白或先白后红：先红后白有2×3=6种，先白后红有3×2=6种，共12种。概率为12/20=3/5。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-116",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-probability-advanced",
+      "unitTitle": "概率的进一步认识",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "probability",
+        "tree-diagrams",
+        "tables-for-outcomes",
+        "compound-events",
+        "experimental-probability",
+        "概率",
+        "树状图",
+        "列表法"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "样本空间整理",
+        "树状图",
+        "列表法",
+        "等可能事件",
+        "频率估计概率"
+      ],
+      "misconceptionTags": [
+        "outcomes omitted when listing",
+        "non-equally-likely cases treated as equal",
+        "frequency and probability conflated"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-probability-advanced"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-probability-advanced-unit",
+        "bnu-junior-s3-upper-assessment-monthly-1-to-3-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个不透明的袋子里装有4个红球和2个白球，这些球除颜色外完全相同。从袋子中随机摸出1个球，记录颜色后放回，摇匀后再随机摸出1个球。求两次摸出的球颜色相同的概率。",
+      "optionsZhHans": [],
+      "answer": "5/9",
+      "acceptedAnswers": [
+        "5/9"
+      ],
+      "explanationZhHans": "有放回摸球，所有等可能结果共6×6=36种。颜色相同包括两次都红或两次都白：都红有4×4=16种，都白有2×2=4种，共20种。概率为20/36=5/9。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-117",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-probability-advanced",
+      "unitTitle": "概率的进一步认识",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "probability",
+        "tree-diagrams",
+        "tables-for-outcomes",
+        "compound-events",
+        "experimental-probability",
+        "概率",
+        "树状图",
+        "列表法"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "样本空间整理",
+        "树状图",
+        "列表法",
+        "等可能事件",
+        "频率估计概率"
+      ],
+      "misconceptionTags": [
+        "outcomes omitted when listing",
+        "non-equally-likely cases treated as equal",
+        "frequency and probability conflated"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-probability-advanced"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-probability-advanced-unit",
+        "bnu-junior-s3-upper-assessment-monthly-1-to-3-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个不透明的袋子里装有3个红球和2个白球，这些球除颜色外完全相同。从袋子中随机摸出1个球，记录颜色后不放回，再从剩下的球中随机摸出1个球。求两次摸出的球颜色不同的概率。",
+      "optionsZhHans": [],
+      "answer": "3/5",
+      "acceptedAnswers": [
+        "3/5",
+        "0.6"
+      ],
+      "explanationZhHans": "不放回摸球，所有等可能结果共5×4=20种。颜色不同包括先红后白或先白后红：先红后白有3×2=6种，先白后红有2×3=6种，共12种。概率为12/20=3/5。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-118",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-probability-advanced",
+      "unitTitle": "概率的进一步认识",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "probability",
+        "tree-diagrams",
+        "tables-for-outcomes",
+        "compound-events",
+        "experimental-probability",
+        "概率",
+        "树状图",
+        "列表法"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "样本空间整理",
+        "树状图",
+        "列表法",
+        "等可能事件",
+        "频率估计概率"
+      ],
+      "misconceptionTags": [
+        "outcomes omitted when listing",
+        "non-equally-likely cases treated as equal",
+        "frequency and probability conflated"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-probability-advanced"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-probability-advanced-unit",
+        "bnu-junior-s3-upper-assessment-monthly-1-to-3-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个不透明的袋子里装有2个红球和2个白球，这些球除颜色外完全相同。从袋子中随机摸出1个球，记录颜色后放回，摇匀后再随机摸出1个球。两次摸出的球颜色不同的概率是多少？",
+      "optionsZhHans": [
+        "1/4",
+        "1/2",
+        "3/4",
+        "1"
+      ],
+      "answer": "1/2",
+      "acceptedAnswers": [
+        "1/2"
+      ],
+      "explanationZhHans": "有放回摸球，所有等可能结果共4×4=16种。颜色不同包括先红后白或先白后红：先红后白有2×2=4种，先白后红有2×2=4种，共8种。概率为8/16=1/2。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-119",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-probability-advanced",
+      "unitTitle": "概率的进一步认识",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "probability",
+        "tree-diagrams",
+        "tables-for-outcomes",
+        "compound-events",
+        "experimental-probability",
+        "概率",
+        "树状图",
+        "列表法"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "样本空间整理",
+        "树状图",
+        "列表法",
+        "等可能事件",
+        "频率估计概率"
+      ],
+      "misconceptionTags": [
+        "outcomes omitted when listing",
+        "non-equally-likely cases treated as equal",
+        "frequency and probability conflated"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-probability-advanced"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-probability-advanced-unit",
+        "bnu-junior-s3-upper-assessment-monthly-1-to-3-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个不透明的袋子里装有4个红球和2个白球，这些球除颜色外完全相同。从袋子中随机摸出1个球，记录颜色后不放回，再从剩下的球中随机摸出1个球。求两次摸出的球颜色相同的概率。",
+      "optionsZhHans": [],
+      "answer": "7/15",
+      "acceptedAnswers": [
+        "7/15"
+      ],
+      "explanationZhHans": "不放回摸球，所有等可能结果共6×5=30种。颜色相同包括两次都红或两次都白：都红有4×3=12种，都白有2×1=2种，共14种。概率为14/30=7/15。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-120",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-probability-advanced",
+      "unitTitle": "概率的进一步认识",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "probability",
+        "tree-diagrams",
+        "tables-for-outcomes",
+        "compound-events",
+        "experimental-probability",
+        "概率",
+        "树状图",
+        "列表法"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "样本空间整理",
+        "树状图",
+        "列表法",
+        "等可能事件",
+        "频率估计概率"
+      ],
+      "misconceptionTags": [
+        "outcomes omitted when listing",
+        "non-equally-likely cases treated as equal",
+        "frequency and probability conflated"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-probability-advanced"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-probability-advanced-unit",
+        "bnu-junior-s3-upper-assessment-monthly-1-to-3-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个不透明的袋子里装有3个红球和1个白球，这些球除颜色外完全相同。从袋子中随机摸出1个球，记录颜色后放回，摇匀后再随机摸出1个球。求两次摸出的球颜色相同的概率。",
+      "optionsZhHans": [],
+      "answer": "5/8",
+      "acceptedAnswers": [
+        "5/8",
+        "0.625"
+      ],
+      "explanationZhHans": "有放回摸球，所有等可能结果共4×4=16种。颜色相同包括两次都红或两次都白：都红有3×3=9种，都白有1×1=1种，共10种。概率为10/16=5/8。"
+    }
+  ]
+}

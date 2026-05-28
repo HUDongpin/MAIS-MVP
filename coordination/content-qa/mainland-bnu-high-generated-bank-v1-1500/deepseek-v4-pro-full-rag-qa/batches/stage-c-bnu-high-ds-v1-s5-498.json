@@ -1,0 +1,47 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-498",
+  "startedAt": "2026-05-28T01:35:47.535Z",
+  "completedAt": "2026-05-28T01:35:52.003Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-498"
+  ],
+  "usage": {
+    "prompt_tokens": 2122,
+    "completion_tokens": 237,
+    "total_tokens": 2359,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1738
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-498",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "（1）有关系；（2）能",
+        "correctedAnswer": null,
+        "issueTags": [
+          "accepted_answer_gap"
+        ],
+        "severity": "minor",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合BNU统计案例章节。答案正确，但解析中χ²≈11.538与独立解11.76存在计算精度差异，不影响结论，属轻微瑕疵。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 1,
+      "warn": 0,
+      "fail": 0,
+      "notes": "题目无严重问题，仅解析计算值略有出入，建议统一精度。"
+    }
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0177",
+  "ids": [
+    "hjb-junior-ds-v2-s3-409",
+    "hjb-junior-ds-v2-s3-410",
+    "hjb-junior-ds-v2-s3-411",
+    "hjb-junior-ds-v2-s3-412",
+    "hjb-junior-ds-v2-s3-413",
+    "hjb-junior-ds-v2-s3-414",
+    "hjb-junior-ds-v2-s3-415",
+    "hjb-junior-ds-v2-s3-416"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-409",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "4～6",
+      "answerCheckZhHans": "标准答案为“4～6”，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-410",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "可以估计该小区居民知晓垃圾分类的比例约为75%",
+      "answerCheckZhHans": "标准答案为“可以估计该小区居民知晓垃圾分类的比例约为75%”，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-411",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "5",
+      "answerCheckZhHans": "标准答案为“5”，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-412",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "平均数",
+      "answerCheckZhHans": "标准答案为“平均数”，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-413",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "50",
+      "answerCheckZhHans": "标准答案为“50”，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-414",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "方差",
+      "answerCheckZhHans": "标准答案为“方差”，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-415",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "134.3",
+      "answerCheckZhHans": "标准答案为“134.3”，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-416",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题干计算得平均数为85.5，中位数为86.5，众数为88，方差约32.25。选项A“平均数是85.5分”正确，选项C“众数是88分”也正确，存在两个正确选项。解析称“只有C正确”与事实矛盾。",
+      "independentAnswerZhHans": "A和C均正确",
+      "answerCheckZhHans": "标准答案为“众数是88分”，但选项A也正确，导致题目无唯一答案。",
+      "recommendedActionZhHans": "修改选项A或调整题干数据，确保只有一个正确选项。",
+      "confidence": "high"
+    }
+  ]
+}

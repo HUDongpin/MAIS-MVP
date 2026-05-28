@@ -1,0 +1,103 @@
+{
+  "batchId": "model-qa-0123",
+  "ids": [
+    "hjb-junior-ds-v2-s2-477",
+    "hjb-junior-ds-v2-s2-478",
+    "hjb-junior-ds-v2-s2-479",
+    "hjb-junior-ds-v2-s2-480",
+    "hjb-junior-ds-v2-s2-481",
+    "hjb-junior-ds-v2-s2-482",
+    "hjb-junior-ds-v2-s2-483",
+    "hjb-junior-ds-v2-s2-484"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-477",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "m < 1",
+      "answerCheckZhHans": "标准答案 m < 1 正确。图像在二、四象限要求系数 m-1 < 0，解得 m < 1。选项 B 为 m < 1，唯一正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-478",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-5",
+      "answerCheckZhHans": "标准答案 -5 正确。代入 A 得 a = -3，代入 B 得 b = -2，a+b = -5。选项 A 为 -5，唯一正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-479",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "10 天",
+      "answerCheckZhHans": "标准答案 10 天 正确。由反比例关系得 k = 50*12 = 600，x=60 时 y=10。选项 B 为 10 天，唯一正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-480",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "增大",
+      "answerCheckZhHans": "标准答案 增大 正确。k=-4<0，x>0 时在第四象限，y 随 x 增大而增大。选项 A 为增大，唯一正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-481",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "k = -8，图像位于第二、四象限",
+      "answerCheckZhHans": "标准答案正确。代入得 k=-8，k<0 图像在二、四象限。选项 B 正确，其他选项错误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-482",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "m < -1",
+      "answerCheckZhHans": "标准答案 m < -1 正确。由 y1 > y2 且 A 横坐标为负、B 为正，可判断图像在二、四象限，即 m+1<0，得 m<-1。选项 B 正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-483",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-1",
+      "answerCheckZhHans": "标准答案 -1 正确。代入 A 得 a=-3，代入 B 得 b=2，a+b=-1。选项 A 为 -1，唯一正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-484",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-3/2",
+      "answerCheckZhHans": "标准答案 -3/2 正确。代入 M 得 k=-3，x=2 时 y=-3/2。选项 A 为 -3/2，唯一正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

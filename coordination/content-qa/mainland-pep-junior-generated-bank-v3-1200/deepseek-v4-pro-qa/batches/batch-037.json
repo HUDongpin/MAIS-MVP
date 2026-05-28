@@ -1,0 +1,137 @@
+{
+  "batchNumber": 37,
+  "startedAt": "2026-05-25T02:58:15.405Z",
+  "completedAt": "2026-05-25T02:58:32.120Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s2-k06-mc-033",
+    "pep-junior-v3-s2-k06-mc-034",
+    "pep-junior-v3-s2-k06-fi-001",
+    "pep-junior-v3-s2-k06-fi-002",
+    "pep-junior-v3-s2-k06-fi-003",
+    "pep-junior-v3-s2-k06-fi-004",
+    "pep-junior-v3-s2-k06-fi-005",
+    "pep-junior-v3-s2-k06-fi-006",
+    "pep-junior-v3-s2-k06-fi-007",
+    "pep-junior-v3-s2-k06-fi-008",
+    "pep-junior-v3-s2-k06-fi-009",
+    "pep-junior-v3-s2-k06-fi-010"
+  ],
+  "usage": {
+    "prompt_tokens": 2923,
+    "completion_tokens": 999,
+    "total_tokens": 3922,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 2667
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s2-k06-mc-033",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，外角等于不相邻两内角和，答案110°无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-mc-034",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "无理数判断正确，√5是无理数，其他为有理数。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-fi-001",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "等腰三角形底角40°，顶角100°，计算正确。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-fi-002",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "关于x轴对称，横坐标不变，纵坐标相反，答案(-3,-5)正确。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-fi-003",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算∠C=80°，三个角均小于90°，锐角三角形正确。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-fi-004",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比较√10和3.2，平方后10<10.24，所以√10<3.2，答案正确。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-fi-005",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "因式分解正确，先提公因式2，再用平方差。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-fi-006",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分式值为0，分子为0且分母不为0，x=1正确。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-fi-007",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "等腰三角形，∠B=50°，顶角80°，平分得40°，答案正确。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-fi-008",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "全等三角形对应角相等，∠F=60°，计算正确。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-fi-009",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "三角形三边关系及等腰条件，第三边为8，推理正确。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-fi-010",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "SAS判定需夹边相等，AC是公共边，答案正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均无数学错误，答案与解析一致，选项无歧义，适合人教版初中数学。"
+    }
+  }
+}

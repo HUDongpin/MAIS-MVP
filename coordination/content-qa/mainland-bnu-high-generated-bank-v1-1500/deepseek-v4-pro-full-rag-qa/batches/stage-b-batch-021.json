@@ -1,0 +1,130 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-021",
+  "startedAt": "2026-05-28T01:02:18.217Z",
+  "completedAt": "2026-05-28T01:02:55.174Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-161",
+    "bnu-high-ds-v1-s4-162",
+    "bnu-high-ds-v1-s4-163",
+    "bnu-high-ds-v1-s4-164",
+    "bnu-high-ds-v1-s4-165",
+    "bnu-high-ds-v1-s4-166",
+    "bnu-high-ds-v1-s4-167",
+    "bnu-high-ds-v1-s4-168"
+  ],
+  "usage": {
+    "prompt_tokens": 11815,
+    "completion_tokens": 953,
+    "total_tokens": 12768,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 11431
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-161",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案13公里与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-162",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案0.3与独立解一致，解析过程正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-163",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案C正确，解析与独立解一致，唯一正确选项。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-164",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-165",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案1.6与独立解一致，解析过程正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-166",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "correctedAnswer": "0",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立解为k=0，存储答案为1，解析错误地将零点1归入区间(1,2)，实际零点为1，应在(0,1]内，k=0。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-167",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案10公里与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-168",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案3.0与独立解一致，解析正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第166题存储答案错误，零点为1，k应为0而非1，其余题目均通过。"
+    }
+  }
+}

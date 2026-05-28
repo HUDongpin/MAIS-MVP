@@ -1,0 +1,144 @@
+{
+  "batchNumber": 43,
+  "startedAt": "2026-05-27T13:50:49.775Z",
+  "completedAt": "2026-05-27T13:51:10.204Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-337",
+    "bnu-high-ds-v1-s4-338",
+    "bnu-high-ds-v1-s4-339",
+    "bnu-high-ds-v1-s4-340",
+    "bnu-high-ds-v1-s4-341",
+    "bnu-high-ds-v1-s4-342",
+    "bnu-high-ds-v1-s4-343",
+    "bnu-high-ds-v1-s4-344"
+  ],
+  "usage": {
+    "prompt_tokens": 11415,
+    "completion_tokens": 1417,
+    "total_tokens": 12832,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10903
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-337",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "1/4 a + 3/4 b",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由BD=3DC得BD:DC=3:1，AD=AB+BD=AB+3/4 BC=AB+3/4(AC-AB)=1/4 AB+3/4 AC=1/4 a+3/4 b，答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-338",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(3/10, -1/10)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "a·b=1，|b|²=10，投影向量=(a·b/|b|²)b=(1/10)(3,-1)=(3/10,-1/10)，答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-339",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "(√10/2, -√10/2) 或 (-√10/2, √10/2)",
+        "correctedAnswer": "(√10/2, -√10/2) 或 (-√10/2, √10/2)",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "由c⊥a得x+y=0，|c|=√5得x²+y²=5，解得x=±√10/2，y=∓√10/2，答案(1,-1)或(-1,1)模为√2≠√5，解析自相矛盾，题目不可解。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-340",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "无解（零向量不符合方向要求）",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction",
+          "unsolvable",
+          "bad_options"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "a+b=(1,5)，a-b=(3,1)，由c∥(a+b)且c⊥(a-b)得5x-y=0且3x+y=0，解得x=y=0，零向量方向任意，不满足平行条件，无有效解，选项均不正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-341",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "λ=1, μ=2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由(4,5)=λ(2,-1)+μ(1,3)得2λ+μ=4，-λ+3μ=5，解得λ=1，μ=2，答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-342",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(3/5, -4/5)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "|a|=5，单位向量e=a/|a|=(3/5,-4/5)，答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-343",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "x > -2 且 x ≠ 1/2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "锐角需a·b>0且不共线，a·b=x+2>0得x>-2，不共线得1×1-2×x≠0即x≠1/2，选项B正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-344",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(-1/10, 3/10)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "a·b=1，|b|²=10，投影向量=(1/10)(-1,3)=(-1/10,3/10)，答案正确，解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 0,
+      "fail": 2,
+      "notes": "8题中6题通过，2题失败：339题答案与条件矛盾，340题无解且选项错误，均需修正。"
+    }
+  }
+}

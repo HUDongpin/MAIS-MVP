@@ -1,0 +1,105 @@
+{
+  "batchId": "model-qa-0079",
+  "ids": [
+    "hjb-junior-ds-v2-s2-125",
+    "hjb-junior-ds-v2-s2-126",
+    "hjb-junior-ds-v2-s2-127",
+    "hjb-junior-ds-v2-s2-128",
+    "hjb-junior-ds-v2-s2-129",
+    "hjb-junior-ds-v2-s2-130",
+    "hjb-junior-ds-v2-s2-131",
+    "hjb-junior-ds-v2-s2-132"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-125",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(√7+2)/3",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-126",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(1) Δ=1>0，总有两个不等实根。(2) k=3或k=-4",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-127",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "B",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-128",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3/2",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-129",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(1) y=-10x²+100x+4000，0≤x≤20且x为整数；(2) x=5时，y最大=4250元；(3) 2≤x≤8且x为整数",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-130",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "A",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-131",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-15/4",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-132",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "第(2)问答案错误。对称轴x=7.5在定义域9≤x<15内，最大值应在x=7.5处取得，但x需为整数？题目未要求整数，若x为实数，则x=7.5时面积最大为112.5平方米。标准答案给出x=9时最大108平方米，与解析中“对称轴x=7.5不在范围内”矛盾，实际对称轴在范围内。",
+      "independentAnswerZhHans": "(1) S=-2x²+30x，9≤x<15；(2) x=7.5时，S最大=112.5平方米",
+      "answerCheckZhHans": "标准答案错误，解析中“对称轴x=7.5不在范围内”与事实不符，导致答案错误。",
+      "recommendedActionZhHans": "修正答案：x=7.5时，S最大=112.5平方米；若要求整数，则需在题干中明确。",
+      "confidence": "high"
+    }
+  ]
+}

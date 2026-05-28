@@ -1,0 +1,133 @@
+{
+  "batchNumber": 63,
+  "startedAt": "2026-05-27T13:54:25.211Z",
+  "completedAt": "2026-05-27T13:54:42.969Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-497",
+    "bnu-high-ds-v1-s4-498",
+    "bnu-high-ds-v1-s4-499",
+    "bnu-high-ds-v1-s4-500",
+    "bnu-high-ds-v1-s5-001",
+    "bnu-high-ds-v1-s5-002",
+    "bnu-high-ds-v1-s5-003",
+    "bnu-high-ds-v1-s5-004"
+  ],
+  "usage": {
+    "prompt_tokens": 11163,
+    "completion_tokens": 1115,
+    "total_tokens": 12278,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10651
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-497",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "平面AEF∥平面BCD",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件明确，可独立判断。选项B不正确，与答案一致。解析正确指出平面AEF与平面BCD相交，不平行。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-498",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "36π",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由表面积公式可解出半径，进而求体积，答案36π正确。解析步骤无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-499",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "若l⊥α，l∥m，则m⊥α",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "线面位置关系命题判断，条件充分，可独立求解。正确选项为B，与答案一致。解析对错误选项的说明准确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-500",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "16π",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "圆台侧面积公式直接代入，计算得16π，答案正确。解析过程清晰。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-001",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "4x + 3y - 5 = 0",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由垂直关系得斜率，点斜式求方程，结果为4x+3y-5=0，与答案一致。解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-002",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "k = -1 或 k = 7",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由弦长和半径求弦心距，利用点到直线距离公式建立方程，解得k=-1或7，答案正确。解析过程完整。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-003",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "3x + 4y - 23 = 0",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求中点、斜率，得垂直平分线方程3x+4y-23=0，与答案一致。解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-004",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(-∞, -3/4) ∪ (3/4, +∞)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由圆心到直线距离小于半径解不等式，得m<-3/4或m>3/4，答案正确。解析中距离公式代入无误，结果一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，答案与解析均正确匹配，无任何问题。"
+    }
+  }
+}

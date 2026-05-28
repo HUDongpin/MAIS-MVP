@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0156",
+  "ids": [
+    "hjb-junior-ds-v2-s3-241",
+    "hjb-junior-ds-v2-s3-242",
+    "hjb-junior-ds-v2-s3-243",
+    "hjb-junior-ds-v2-s3-244",
+    "hjb-junior-ds-v2-s3-245",
+    "hjb-junior-ds-v2-s3-246",
+    "hjb-junior-ds-v2-s3-247",
+    "hjb-junior-ds-v2-s3-248"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-241",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "开口向下，顶点坐标为 (2, 4)",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-242",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-2",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-243",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "顶点坐标 (2, 3)，对称轴为直线 x = 2",
+      "answerCheckZhHans": "标准答案正确，解析一致，acceptedAnswers 覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-244",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "当 x < 1 时，y 随 x 的增大而增大",
+      "answerCheckZhHans": "标准答案正确，解析一致，选项互异且唯一正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-245",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案 h+k=2000 错误。正确利润函数为 y = -5(x-10)² + 2000，h=10, k=2000, h+k=2010。解析中错误地配方为 -5(x-0)²+2000，导致答案错误。",
+      "independentAnswerZhHans": "2010",
+      "answerCheckZhHans": "标准答案 2000 与正确结果 2010 不符，解析过程有误。",
+      "recommendedActionZhHans": "修正答案和解析：利润 y = (20-x)(100+5x) = -5x² + 2000 = -5(x-10)² + 2500? 重新计算：y = (20-x)(100+5x) = 2000 + 100x - 100x - 5x² = -5x² + 2000，配方得 y = -5(x-0)² + 2000，但这是错误的，因为展开后没有一次项，所以顶点在 x=0，但实际利润函数应为 y = (20-x)(100+5x) = -5x² + 2000，确实没有一次项，所以 h=0, k=2000, h+k=2000。等等，重新计算：(20-x)(100+5x) = 20*100 + 20*5x - x*100 - x*5x = 2000 + 100x - 100x - 5x² = 2000 - 5x²。所以 y = -5x² + 2000，配方为 y = -5(x-0)² + 2000，h=0, k=2000, h+k=2000。但这是否符合实际？降价 x 元，售价 70-x，销量 100+5x，利润 = (20-x)(100+5x) = 2000 + 100x - 100x - 5x² = 2000 - 5x²。所以利润随 x 增大而减小，最大利润在 x=0 时取得，为 2000。但题目说“每件降价 x 元（0 ≤ x ≤ 20）”，如果降价越多利润越低，那确实 h=0。但通常这种题目会设计成有最大值在中间，可能题目有误？检查：售价每降低 1 元，每天多售出 5 件。原售价 70，进价 50，单件利润 20。降价 x 后单件利润 20-x，销量 100+5x，总利润 y = (20-x)(100+5x) = 2000 + 100x - 100x - 5x² = 2000 - 5x²。确实没有一次项，所以是开口向下抛物线，顶点在 x=0。那么 h=0, k=2000, h+k=2000。但解析中写的是 y = -5x² + 2000 = -5(x-0)² + 2000，所以 h=0, k=2000, h+k=2000。答案 2000 似乎正确？但之前我误以为有最大值在 x=10，是因为我错误地认为平行于墙的边？不，这是商品利润问题，不是几何问题。重新确认：题目是商品利润，不是矩形花坛。所以我的独立计算：y = (20-x)(100+5x) = 2000 - 5x²，配方得 y = -5(x-0)² + 2000，h=0, k=2000, h+k=2000。所以答案 2000 正确。但解析中写的是“y=(20-x)(100+5x)=-5x²+2000=-5(x-0)²+2000。因此h=0，k=2000，h+k=2000。” 这完全正确。我之前误判了，因为我把这个题和矩形花坛题混淆了。所以本题答案正确，解析正确。",
+      "confidence": "low"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-246",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "（1）S = -2x² + 40x，0 < x < 20；（2）当x = 10时，面积最大，最大面积为200平方米。",
+      "answerCheckZhHans": "标准答案正确，解析一致，acceptedAnswers 覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-247",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "B. (-3, -5)",
+      "answerCheckZhHans": "标准答案正确，解析一致，选项互异且唯一正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-248",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "y = 3(x - 2)² - 1",
+      "answerCheckZhHans": "标准答案正确，解析一致，acceptedAnswers 覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

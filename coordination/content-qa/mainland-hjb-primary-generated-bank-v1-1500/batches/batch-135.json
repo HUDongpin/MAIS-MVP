@@ -1,0 +1,288 @@
+{
+  "batchId": "batch-135",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p3-171",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-two-digit-multiplication-division",
+      "unitTitle": "两位数乘除与问题解决",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "two-digit-multiplication",
+        "division-extension",
+        "multi-step-problem-solving",
+        "两位数乘除"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "两位数乘法",
+        "除法估算",
+        "分步列式",
+        "数量关系",
+        "结果检查"
+      ],
+      "misconceptionTags": [
+        "partial products misaligned",
+        "operation order chosen from keywords",
+        "answer unit does not match the question"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-two-digit-multiplication-division"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-two-digit-multiplication-division",
+        "hjb-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆新买来一批图书，共12包，每包24本。图书管理员把这些书平均放到6个书架上，每个书架放多少本？",
+      "optionsZhHans": [],
+      "answer": "48本",
+      "acceptedAnswers": [
+        "48本",
+        "48"
+      ],
+      "explanationZhHans": "先求总本数：12×24=288（本），再求每个书架本数：288÷6=48（本）。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-172",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-two-digit-multiplication-division",
+      "unitTitle": "两位数乘除与问题解决",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "two-digit-multiplication",
+        "division-extension",
+        "multi-step-problem-solving",
+        "两位数乘除"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "两位数乘法",
+        "除法估算",
+        "分步列式",
+        "数量关系",
+        "结果检查"
+      ],
+      "misconceptionTags": [
+        "partial products misaligned",
+        "operation order chosen from keywords",
+        "answer unit does not match the question"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-two-digit-multiplication-division"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-two-digit-multiplication-division",
+        "hjb-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一箱矿泉水有24瓶，三年级有5个班，每班需要38瓶。至少需要买多少箱？",
+      "optionsZhHans": [
+        "7箱",
+        "8箱",
+        "9箱",
+        "10箱"
+      ],
+      "answer": "8箱",
+      "acceptedAnswers": [
+        "8箱"
+      ],
+      "explanationZhHans": "总瓶数：5×38=190（瓶）。每箱24瓶，190÷24=7（箱）……22（瓶），余下22瓶还需1箱，共8箱。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-173",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-two-digit-multiplication-division",
+      "unitTitle": "两位数乘除与问题解决",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "two-digit-multiplication",
+        "division-extension",
+        "multi-step-problem-solving",
+        "两位数乘除"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "两位数乘法",
+        "除法估算",
+        "分步列式",
+        "数量关系",
+        "结果检查"
+      ],
+      "misconceptionTags": [
+        "partial products misaligned",
+        "operation order chosen from keywords",
+        "answer unit does not match the question"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-two-digit-multiplication-division"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-two-digit-multiplication-division",
+        "hjb-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在计算34×26时，先算34×6=204，再算34×20=680，最后把两次的积相加，结果是______。",
+      "optionsZhHans": [],
+      "answer": "884",
+      "acceptedAnswers": [
+        "884"
+      ],
+      "explanationZhHans": "204+680=884。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-174",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-two-digit-multiplication-division",
+      "unitTitle": "两位数乘除与问题解决",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "two-digit-multiplication",
+        "division-extension",
+        "multi-step-problem-solving",
+        "两位数乘除"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "两位数乘法",
+        "除法估算",
+        "分步列式",
+        "数量关系",
+        "结果检查"
+      ],
+      "misconceptionTags": [
+        "partial products misaligned",
+        "operation order chosen from keywords",
+        "answer unit does not match the question"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-two-digit-multiplication-division"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-two-digit-multiplication-division",
+        "hjb-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "果园里摘了15筐苹果，每筐18千克。如果把这些苹果平均分给6个水果店，每个水果店分到多少千克？",
+      "optionsZhHans": [],
+      "answer": "45千克",
+      "acceptedAnswers": [
+        "45千克",
+        "45"
+      ],
+      "explanationZhHans": "总重量：15×18=270（千克），每个店：270÷6=45（千克）。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-175",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-decimal-introduction",
+      "unitTitle": "小数的初步认识",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "decimal-introduction",
+        "tenths-hundredths",
+        "decimal-reading-writing",
+        "decimal-comparison",
+        "小数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "量感"
+      ],
+      "skillTags": [
+        "小数读写",
+        "十分位",
+        "百分位",
+        "小数大小比较",
+        "数量表达"
+      ],
+      "misconceptionTags": [
+        "decimal point read as decoration",
+        "more decimal digits assumed larger",
+        "tenths and hundredths place values swapped"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-decimal-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-decimal-introduction",
+        "hjb-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面四个小数中，哪一个最大？",
+      "optionsZhHans": [
+        "0.9",
+        "0.87",
+        "0.93",
+        "0.8"
+      ],
+      "answer": "0.93",
+      "acceptedAnswers": [
+        "0.93"
+      ],
+      "explanationZhHans": "比较十分位：0.9的十分位是9，0.93的十分位也是9，再比较百分位，0.93的百分位是3，大于0.9的百分位0，所以0.93最大。"
+    }
+  ]
+}

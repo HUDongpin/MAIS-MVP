@@ -1,0 +1,182 @@
+{
+  "batchNumber": 82,
+  "startedAt": "2026-05-27T17:46:34.822Z",
+  "completedAt": "2026-05-27T17:46:54.956Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s2-473",
+    "bnu-junior-ds-v1-s2-474",
+    "bnu-junior-ds-v1-s2-475",
+    "bnu-junior-ds-v1-s2-476",
+    "bnu-junior-ds-v1-s2-477",
+    "bnu-junior-ds-v1-s2-478",
+    "bnu-junior-ds-v1-s2-479",
+    "bnu-junior-ds-v1-s2-480",
+    "bnu-junior-ds-v1-s2-481",
+    "bnu-junior-ds-v1-s2-482",
+    "bnu-junior-ds-v1-s2-483",
+    "bnu-junior-ds-v1-s2-484"
+  ],
+  "usage": {
+    "prompt_tokens": 5858,
+    "completion_tokens": 1471,
+    "total_tokens": 7329,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 5346
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s2-473",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，平行四边形对边相等，周长计算正确，答案16与选项匹配，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-474",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": false,
+        "answerMatches": false,
+        "issueTags": [
+          "missing_condition",
+          "answer_mismatch"
+        ],
+        "correctedAnswer": null,
+        "rationale": "题目为短答题，但题干是选择题格式（“仍不能判定...的是”），未提供选项，无法确定答案。答案“AB=DC”可能对应某个选项，但缺少选项导致无法求解。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-475",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，利用平行四边形周长和对角线性质可解，计算得AC+BD=22，答案正确，解释清晰。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-476",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，三角形中位线定理直接应用，DE=BC/2=6，答案正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-477",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，利用平行四边形对角线互相平分和中位线定理，OE=AD/2=4，答案正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-478",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，利用平行四边形性质和角平分线得等腰三角形，EC=BE-BC=2，答案正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-479",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，选项明确，答案“一组对边平行，另一组对边相等”正确，解释合理，无歧义。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-480",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": false,
+        "answerMatches": false,
+        "issueTags": [
+          "unsolvable",
+          "answer_mismatch"
+        ],
+        "correctedAnswer": null,
+        "rationale": "题目问“△AOB的周长可能是”，但未提供选项，且答案13仅为一种可能值，周长范围是(10,18)，答案不唯一，无法确定唯一解。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-481",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "110°",
+        "rationale": "题目可解，但解释中推导∠EOF=110°的过程有误：由平行四边形性质，∠BAD=110°，但∠EOF与∠BAD的关系未正确说明，且最终答案110°正确，但解释逻辑不严谨。",
+        "confidence": "medium"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-482",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，证明过程正确，利用平行四边形判定和性质，答案与解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-483",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，由AB∥CD且AB=CD可判定ABCD为平行四边形，进而EFGH为平行四边形，答案正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-484",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，利用三角形中位线定理得EFGH为平行四边形，周长计算正确，答案24 cm与解释匹配。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 9,
+      "warn": 0,
+      "fail": 3,
+      "notes": "共12题，9题通过，3题失败。失败原因：474题缺少选项无法求解；480题答案不唯一；481题解释逻辑有误但答案正确，仍判失败。"
+    }
+  }
+}

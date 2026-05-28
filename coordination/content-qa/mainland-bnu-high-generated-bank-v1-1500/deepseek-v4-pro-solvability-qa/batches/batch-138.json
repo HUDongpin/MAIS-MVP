@@ -1,0 +1,143 @@
+{
+  "batchNumber": 138,
+  "startedAt": "2026-05-27T14:06:48.897Z",
+  "completedAt": "2026-05-27T14:07:09.408Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-097",
+    "bnu-high-ds-v1-s6-098",
+    "bnu-high-ds-v1-s6-099",
+    "bnu-high-ds-v1-s6-100",
+    "bnu-high-ds-v1-s6-101",
+    "bnu-high-ds-v1-s6-102",
+    "bnu-high-ds-v1-s6-103",
+    "bnu-high-ds-v1-s6-104"
+  ],
+  "usage": {
+    "prompt_tokens": 11281,
+    "completion_tokens": 1260,
+    "total_tokens": 12541,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10769
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-097",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(k+1)(k+2)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目明确，从n=k到n=k+1左边增加第k+1项，即(k+1)(k+2)，选项唯一，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-098",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "10",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "利用等比数列性质和对数运算，可独立求得结果为10，与答案和解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-099",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "b_n = 1",
+        "correctedAnswer": "b_n = 1",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "由a1=2得b1=1，递推得bn恒为1，与所给答案2^{2^{n-1}}矛盾；解析也指出题目设计有误，实际应为1，故不可解且答案错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-100",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "independentAnswer": "13",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由S9=S17可推出a13+a14=0，结合a1>0得d<0，故S13最大，答案13正确；解析中“8a13.5”表述不严谨但结论正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-101",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(1) 证明略；(2) a_n = 3^n - 2^{n-1}；(3) S_n = (3^{n+1} - 3)/2 - (2^n - 1)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "递推关系明确，可独立求解，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-102",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "无解",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "由a3+a7=20得a5=10，与已知a5=12矛盾，题目条件冲突，无解；解析也指出错误，故不可解。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-103",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "A. {b_n} 是公差为 2 的等差数列",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "通过构造bn=an+n^2，可证bn+1=bn+2，b1=2，故为公差2的等差数列，选项A正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-104",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "q = 2，a_1 = 1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "利用等比数列求和公式，排除q=1，联立方程解得q=2，a1=1，答案与解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 0,
+      "fail": 2,
+      "notes": "8题中6题通过，2题失败：099题因a1=2导致bn恒为1与答案矛盾，102题条件冲突无解。"
+    }
+  }
+}

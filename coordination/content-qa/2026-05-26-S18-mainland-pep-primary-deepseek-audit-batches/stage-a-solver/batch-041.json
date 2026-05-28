@@ -1,0 +1,181 @@
+{
+  "startedAt": "2026-05-26T06:08:24.900Z",
+  "completedAt": "2026-05-26T06:08:45.372Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "usage": {
+    "prompt_tokens": 2863,
+    "completion_tokens": 1527,
+    "total_tokens": 4390,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 2863
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "questionId": "pep-primary-p5-u-mc-001",
+        "solvableStatus": "pass",
+        "independentAnswer": "5",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "设每本练习本x元，4x+4=24，解得x=5。"
+      },
+      {
+        "questionId": "pep-primary-p5-u-mc-002",
+        "solvableStatus": "pass",
+        "independentAnswer": "9",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "设这个数为x，3x+11=38，解得x=9。"
+      },
+      {
+        "questionId": "pep-primary-p5-u-mc-003",
+        "solvableStatus": "pass",
+        "independentAnswer": "4",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "5x+6=26，5x=20，x=4。"
+      },
+      {
+        "questionId": "pep-primary-p5-u-mc-004",
+        "solvableStatus": "pass",
+        "independentAnswer": "7",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "设每本练习本x元，2x+10=24，解得x=7。"
+      },
+      {
+        "questionId": "pep-primary-p5-u-mc-005",
+        "solvableStatus": "pass",
+        "independentAnswer": "10",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "设这个数为x，4x+5=45，解得x=10。"
+      },
+      {
+        "questionId": "pep-primary-p5-u-mc-006",
+        "solvableStatus": "pass",
+        "independentAnswer": "5",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "6x+9=39，6x=30，x=5。"
+      },
+      {
+        "questionId": "pep-primary-p5-u-mc-007",
+        "solvableStatus": "pass",
+        "independentAnswer": "8",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "设每本练习本x元，3x+4=28，解得x=8。"
+      },
+      {
+        "questionId": "pep-primary-p5-u-mc-008",
+        "solvableStatus": "pass",
+        "independentAnswer": "3",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "5x+10=25，5x=15，x=3。"
+      },
+      {
+        "questionId": "pep-primary-p5-u-mc-009",
+        "solvableStatus": "pass",
+        "independentAnswer": "5",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "6x+4=34，6x=30，x=5。"
+      },
+      {
+        "questionId": "pep-primary-p5-u-mc-010",
+        "solvableStatus": "pass",
+        "independentAnswer": "7",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "2x+7=21，2x=14，x=7。"
+      },
+      {
+        "questionId": "pep-primary-p5-u-mc-011",
+        "solvableStatus": "pass",
+        "independentAnswer": "9",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "3x+10=37，3x=27，x=9。"
+      },
+      {
+        "questionId": "pep-primary-p5-u-mc-012",
+        "solvableStatus": "pass",
+        "independentAnswer": "3",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "4x+4=16，4x=12，x=3。"
+      },
+      {
+        "questionId": "pep-primary-p5-u-mc-013",
+        "solvableStatus": "pass",
+        "independentAnswer": "5",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "5x+7=32，5x=25，x=5。"
+      },
+      {
+        "questionId": "pep-primary-p5-u-mc-014",
+        "solvableStatus": "pass",
+        "independentAnswer": "7",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "6x+10=52，6x=42，x=7。"
+      },
+      {
+        "questionId": "pep-primary-p5-u-mc-015",
+        "solvableStatus": "pass",
+        "independentAnswer": "9",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "2x+4=22，2x=18，x=9。"
+      },
+      {
+        "questionId": "pep-primary-p5-u-mc-016",
+        "solvableStatus": "pass",
+        "independentAnswer": "8",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "设每本练习本x元，6x+10=58，解得x=8。"
+      },
+      {
+        "questionId": "pep-primary-p5-u-mc-017",
+        "solvableStatus": "pass",
+        "independentAnswer": "5",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "4x+10=30，4x=20，x=5。"
+      },
+      {
+        "questionId": "pep-primary-p5-u-mc-018",
+        "solvableStatus": "pass",
+        "independentAnswer": "7",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "5x+4=39，5x=35，x=7。"
+      },
+      {
+        "questionId": "pep-primary-p5-u-mc-019",
+        "solvableStatus": "pass",
+        "independentAnswer": "9",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "6x+7=61，6x=54，x=9。"
+      },
+      {
+        "questionId": "pep-primary-p5-u-mc-020",
+        "solvableStatus": "pass",
+        "independentAnswer": "3",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "2x+10=16，2x=6，x=3。"
+      }
+    ]
+  }
+}

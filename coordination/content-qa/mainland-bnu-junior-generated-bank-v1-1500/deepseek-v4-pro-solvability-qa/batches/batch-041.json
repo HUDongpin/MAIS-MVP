@@ -1,0 +1,176 @@
+{
+  "batchNumber": 41,
+  "startedAt": "2026-05-27T17:33:48.443Z",
+  "completedAt": "2026-05-27T17:34:09.090Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s1-481",
+    "bnu-junior-ds-v1-s1-482",
+    "bnu-junior-ds-v1-s1-483",
+    "bnu-junior-ds-v1-s1-484",
+    "bnu-junior-ds-v1-s1-485",
+    "bnu-junior-ds-v1-s1-486",
+    "bnu-junior-ds-v1-s1-487",
+    "bnu-junior-ds-v1-s1-488",
+    "bnu-junior-ds-v1-s1-489",
+    "bnu-junior-ds-v1-s1-490",
+    "bnu-junior-ds-v1-s1-491",
+    "bnu-junior-ds-v1-s1-492"
+  ],
+  "usage": {
+    "prompt_tokens": 5671,
+    "completion_tokens": 1408,
+    "total_tokens": 7079,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 5159
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s1-481",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，选项明确，答案正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-482",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，答案1/2正确，解释与答案一致，接受答案覆盖分数、小数、百分数。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-483",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目明确，选项唯一，答案3/4正确，解释无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-484",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "有放回抽取，等可能结果25种，相同字母5种，概率1/5正确，解释清晰。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-485",
+        "status": "fail",
+        "severity": "major",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "从一个装有3个红球、7个白球的袋子中随机摸出一个红球",
+        "rationale": "选项B的概率为3/10=0.3，而非0.35，解释中称B概率0.3，但答案却选B，与频率0.35不匹配。最接近0.35的选项应为B（0.3），但题目要求“最有可能符合”，0.3与0.35仍有差距，且解释自相矛盾。实际上选项B概率0.3，选项A和D为0.5，C约0.167，B最接近但仍不精确，题目设计有瑕疵，但答案与解释不一致是主要问题。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-486",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "有放回，颜色不同概率计算正确，答案12/25，接受分数、小数、百分数。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-487",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "必然事件定义清晰，选项唯一，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-488",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "转盘等分，红色或黄色共3个扇形，概率1/2正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-489",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "不放回，等可能结果12种，第一次大于第二次6种，概率1/2正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-490",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "蓝球占比1/6，概率计算正确，接受分数、小数、百分数。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-491",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "有放回，两次红球概率(3/5)^2=9/25，选项唯一，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-492",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "骰子偶数概率1/2，答案正确，接受分数、百分数、小数。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 11,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第485题答案与解释不一致，选项B概率为0.3而非0.35，导致答案不匹配，其余题目均通过。"
+    }
+  }
+}

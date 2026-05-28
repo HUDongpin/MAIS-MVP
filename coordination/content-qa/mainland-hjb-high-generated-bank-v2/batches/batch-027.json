@@ -1,0 +1,384 @@
+{
+  "batchId": "batch-027",
+  "questions": [
+    {
+      "id": "hjb-high-ds-v2-s4-261",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-三角",
+      "topicTitleZhHans": "三角",
+      "volume": "必修 第二册",
+      "chapter": "三角",
+      "conceptIds": [
+        "unit-circle",
+        "trigonometric-ratios",
+        "trigonometric-identities",
+        "sine-theorem",
+        "cosine-theorem"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-2-trigonometry-foundations"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-2-trigonometry-unit-core",
+        "hjb-high-compulsory-2-trigonometry-unit-challenge",
+        "pep-high-exam-trigonometric-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "某公园计划在圆形人工湖岸边修建一条环形步道。已知人工湖的半径为50米，步道起点位于湖的正东方向岸边。若沿逆时针方向行走，当步道长度恰好为30米时，求此时所在位置对应的圆心角的弧度数（结果保留两位小数）。",
+      "optionsZhHans": [],
+      "answer": "0.60",
+      "acceptedAnswers": [
+        "0.60"
+      ],
+      "explanationZhHans": "弧长公式 l = rθ，其中 l = 30，r = 50，所以 θ = 30/50 = 0.6 弧度。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-262",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-三角",
+      "topicTitleZhHans": "三角",
+      "volume": "必修 第二册",
+      "chapter": "三角",
+      "conceptIds": [
+        "unit-circle",
+        "trigonometric-ratios",
+        "trigonometric-identities",
+        "sine-theorem",
+        "cosine-theorem"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-2-trigonometry-foundations"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-2-trigonometry-unit-core",
+        "hjb-high-compulsory-2-trigonometry-unit-challenge",
+        "pep-high-exam-trigonometric-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "在三角形ABC中，角A、B、C的对边分别为a、b、c。已知a=7，b=8，且三角形有两解，则角A的取值范围是（ ）。",
+      "optionsZhHans": [
+        "0° < A < 30°",
+        "30° < A < 45°",
+        "45° < A < 60°",
+        "60° < A < 90°"
+      ],
+      "answer": "0° < A < 30°",
+      "acceptedAnswers": [
+        "0° < A < 30°"
+      ],
+      "explanationZhHans": "已知两边a<b，三角形有两解当且仅当a > b sin A且A为锐角。由7 > 8 sin A得sin A < 7/8，又A < 90°，故A < arcsin(7/8)≈61°。但需满足a < b，即7<8，且A为锐角。结合选项，只有0°<A<30°保证有两解。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-263",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-三角",
+      "topicTitleZhHans": "三角",
+      "volume": "必修 第二册",
+      "chapter": "三角",
+      "conceptIds": [
+        "unit-circle",
+        "trigonometric-ratios",
+        "trigonometric-identities",
+        "sine-theorem",
+        "cosine-theorem"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-2-trigonometry-foundations"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-2-trigonometry-unit-core",
+        "hjb-high-compulsory-2-trigonometry-unit-challenge",
+        "pep-high-exam-trigonometric-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "已知角α的终边经过点P(-3, 4)，则sinα + cosα的值为______。",
+      "optionsZhHans": [],
+      "answer": "1/5",
+      "acceptedAnswers": [
+        "1/5",
+        "0.2"
+      ],
+      "explanationZhHans": "r = √((-3)²+4²)=5，sinα=4/5，cosα=-3/5，和为1/5。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-264",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-三角",
+      "topicTitleZhHans": "三角",
+      "volume": "必修 第二册",
+      "chapter": "三角",
+      "conceptIds": [
+        "unit-circle",
+        "trigonometric-ratios",
+        "trigonometric-identities",
+        "sine-theorem",
+        "cosine-theorem"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-2-trigonometry-foundations"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-2-trigonometry-unit-core",
+        "hjb-high-compulsory-2-trigonometry-unit-challenge",
+        "pep-high-exam-trigonometric-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "在△ABC中，已知AB=5，AC=8，∠A=60°。求BC边的长度。",
+      "optionsZhHans": [],
+      "answer": "7",
+      "acceptedAnswers": [
+        "7"
+      ],
+      "explanationZhHans": "由余弦定理：BC²=AB²+AC²-2·AB·AC·cosA=25+64-2×5×8×0.5=89-40=49，故BC=7。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-265",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-三角",
+      "topicTitleZhHans": "三角",
+      "volume": "必修 第二册",
+      "chapter": "三角",
+      "conceptIds": [
+        "unit-circle",
+        "trigonometric-ratios",
+        "trigonometric-identities",
+        "sine-theorem",
+        "cosine-theorem"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-2-trigonometry-foundations"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-2-trigonometry-unit-core",
+        "hjb-high-compulsory-2-trigonometry-unit-challenge",
+        "pep-high-exam-trigonometric-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "已知函数f(x)=2sin(ωx+φ) (ω>0, 0<φ<π)的部分值如下：f(0)=1，f(π/3)=0，且f(x)在x=π/3处取得最小值。则ω和φ的值可能是（ ）。",
+      "optionsZhHans": [
+        "ω=2, φ=π/6",
+        "ω=2, φ=5π/6",
+        "ω=1, φ=π/6",
+        "ω=1, φ=5π/6"
+      ],
+      "answer": "ω=2, φ=5π/6",
+      "acceptedAnswers": [
+        "ω=2, φ=5π/6"
+      ],
+      "explanationZhHans": "由f(0)=2sinφ=1得sinφ=1/2，φ=π/6或5π/6。f(π/3)=2sin(ωπ/3+φ)=0，且为最小值，故ωπ/3+φ=3π/2+2kπ。若φ=π/6，则ωπ/3=4π/3，ω=4，不在选项中。若φ=5π/6，则ωπ/3=2π/3，ω=2，符合。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-266",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-三角",
+      "topicTitleZhHans": "三角",
+      "volume": "必修 第二册",
+      "chapter": "三角",
+      "conceptIds": [
+        "unit-circle",
+        "trigonometric-ratios",
+        "trigonometric-identities",
+        "sine-theorem",
+        "cosine-theorem"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-2-trigonometry-foundations"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-2-trigonometry-unit-core",
+        "hjb-high-compulsory-2-trigonometry-unit-challenge",
+        "pep-high-exam-trigonometric-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "若tanθ=2，则(sinθ+cosθ)/(sinθ-cosθ)的值为______。",
+      "optionsZhHans": [],
+      "answer": "3",
+      "acceptedAnswers": [
+        "3"
+      ],
+      "explanationZhHans": "分子分母同除以cosθ，得(tanθ+1)/(tanθ-1)=(2+1)/(2-1)=3。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-267",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-三角",
+      "topicTitleZhHans": "三角",
+      "volume": "必修 第二册",
+      "chapter": "三角",
+      "conceptIds": [
+        "unit-circle",
+        "trigonometric-ratios",
+        "trigonometric-identities",
+        "sine-theorem",
+        "cosine-theorem"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-2-trigonometry-foundations"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-2-trigonometry-unit-core",
+        "hjb-high-compulsory-2-trigonometry-unit-challenge",
+        "pep-high-exam-trigonometric-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "已知sinα=3/5，且α是第二象限角。求cos(α+π/3)的值。",
+      "optionsZhHans": [],
+      "answer": "-(3√3+4)/10",
+      "acceptedAnswers": [
+        "-(3√3+4)/10",
+        "(-3√3-4)/10"
+      ],
+      "explanationZhHans": "由sinα=3/5，α在第二象限，得cosα=-4/5。cos(α+π/3)=cosαcosπ/3 - sinαsinπ/3=(-4/5)(1/2)-(3/5)(√3/2)=-(4+3√3)/10。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-268",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-三角",
+      "topicTitleZhHans": "三角",
+      "volume": "必修 第二册",
+      "chapter": "三角",
+      "conceptIds": [
+        "unit-circle",
+        "trigonometric-ratios",
+        "trigonometric-identities",
+        "sine-theorem",
+        "cosine-theorem"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-2-trigonometry-foundations"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-2-trigonometry-unit-core",
+        "hjb-high-compulsory-2-trigonometry-unit-challenge",
+        "pep-high-exam-trigonometric-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "在△ABC中，角A、B、C的对边分别为a、b、c，且满足a cos B = b cos A。则△ABC的形状是（ ）。",
+      "optionsZhHans": [
+        "等腰三角形",
+        "直角三角形",
+        "等腰直角三角形",
+        "等腰三角形或直角三角形"
+      ],
+      "answer": "等腰三角形或直角三角形",
+      "acceptedAnswers": [
+        "等腰三角形或直角三角形"
+      ],
+      "explanationZhHans": "由正弦定理，a=2RsinA，b=2RsinB，代入得sinAcosB=sinBcosA，即sin(A-B)=0，故A=B或A+B=π（舍去），或A-B=π（舍去）。但若cosA=0或cosB=0，即A=90°或B=90°，也成立。故为等腰或直角三角形。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-269",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-三角",
+      "topicTitleZhHans": "三角",
+      "volume": "必修 第二册",
+      "chapter": "三角",
+      "conceptIds": [
+        "unit-circle",
+        "trigonometric-ratios",
+        "trigonometric-identities",
+        "sine-theorem",
+        "cosine-theorem"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-2-trigonometry-foundations"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-2-trigonometry-unit-core",
+        "hjb-high-compulsory-2-trigonometry-unit-challenge",
+        "pep-high-exam-trigonometric-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "已知扇形的周长为10 cm，面积为4 cm²，则该扇形的圆心角的弧度数为______。",
+      "optionsZhHans": [],
+      "answer": "1/2 或 8",
+      "acceptedAnswers": [
+        "1/2 或 8",
+        "0.5 或 8"
+      ],
+      "explanationZhHans": "设半径为r，弧长为l，则2r+l=10，面积S=1/2 lr=4。解得l=10-2r，代入得r(10-2r)=8，即r²-5r+4=0，r=1或4。l=8或2，圆心角θ=l/r=8或1/2。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-270",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-三角",
+      "topicTitleZhHans": "三角",
+      "volume": "必修 第二册",
+      "chapter": "三角",
+      "conceptIds": [
+        "unit-circle",
+        "trigonometric-ratios",
+        "trigonometric-identities",
+        "sine-theorem",
+        "cosine-theorem"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-2-trigonometry-foundations"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-2-trigonometry-unit-core",
+        "hjb-high-compulsory-2-trigonometry-unit-challenge",
+        "pep-high-exam-trigonometric-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "在△ABC中，已知a=2√3，b=2，∠B=30°。求∠A的大小。",
+      "optionsZhHans": [],
+      "answer": "60°或120°",
+      "acceptedAnswers": [
+        "60°或120°",
+        "60° 或 120°"
+      ],
+      "explanationZhHans": "由正弦定理：a/sinA = b/sinB，即2√3/sinA = 2/sin30°=4，得sinA=√3/2。A为三角形内角，故A=60°或120°。"
+    }
+  ]
+}

@@ -1,0 +1,295 @@
+{
+  "batchId": "batch-259",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p6-041",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "hjb-primary-p6-upper-ratio-proportion",
+      "unitTitle": "比和比例",
+      "volume": "6年级上册",
+      "conceptIds": [
+        "ratio",
+        "proportion",
+        "proportional-reasoning",
+        "scale",
+        "比",
+        "比例"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "比的意义",
+        "比的化简",
+        "比例关系",
+        "比例式",
+        "比例应用"
+      ],
+      "misconceptionTags": [
+        "ratio order reversed",
+        "any two changing quantities assumed proportional",
+        "units omitted when forming a comparison"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p6-upper-ratio-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-ratio-proportion",
+        "hjb-primary-p6-lower-assessment-stage-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小杰调制一杯饮料，用了40毫升浓缩果汁和160毫升水。写出浓缩果汁与饮料总体积的比，并化成最简整数比。",
+      "optionsZhHans": [],
+      "answer": "1:5",
+      "acceptedAnswers": [
+        "1:5",
+        "1比5"
+      ],
+      "explanationZhHans": "饮料总体积=40+160=200毫升。浓缩果汁:总体积=40:200，前后项同时除以40得1:5。注意比的顺序，是浓缩果汁比总体积，不是比水。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-042",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "hjb-primary-p6-upper-ratio-proportion",
+      "unitTitle": "比和比例",
+      "volume": "6年级上册",
+      "conceptIds": [
+        "ratio",
+        "proportion",
+        "proportional-reasoning",
+        "scale",
+        "比",
+        "比例"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "比的意义",
+        "比的化简",
+        "比例关系",
+        "比例式",
+        "比例应用"
+      ],
+      "misconceptionTags": [
+        "ratio order reversed",
+        "any two changing quantities assumed proportional",
+        "units omitted when forming a comparison"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p6-upper-ratio-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-ratio-proportion",
+        "hjb-primary-p6-lower-assessment-stage-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "判断下面两个量是否成正比例，并说明理由：一辆汽车行驶的速度一定，行驶的路程与时间。",
+      "optionsZhHans": [],
+      "answer": "成正比例，因为路程÷时间=速度（一定），比值一定。",
+      "acceptedAnswers": [
+        "成正比例，因为路程÷时间=速度（一定），比值一定。",
+        "成正比例，因为路程与时间的比值（速度）一定。",
+        "成正比例，因为路程/时间=速度（一定）。"
+      ],
+      "explanationZhHans": "速度一定时，路程与时间的比值不变，符合正比例关系。注意不能只看一个量增加另一个也增加，必须比值一定。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-043",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "hjb-primary-p6-upper-ratio-proportion",
+      "unitTitle": "比和比例",
+      "volume": "6年级上册",
+      "conceptIds": [
+        "ratio",
+        "proportion",
+        "proportional-reasoning",
+        "scale",
+        "比",
+        "比例"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "比的意义",
+        "比的化简",
+        "比例关系",
+        "比例式",
+        "比例应用"
+      ],
+      "misconceptionTags": [
+        "ratio order reversed",
+        "any two changing quantities assumed proportional",
+        "units omitted when forming a comparison"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p6-upper-ratio-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-ratio-proportion",
+        "hjb-primary-p6-lower-assessment-stage-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个比与0.4:1.2的比值相等？",
+      "optionsZhHans": [
+        "1:3",
+        "3:1",
+        "1:4",
+        "4:1"
+      ],
+      "answer": "1:3",
+      "acceptedAnswers": [
+        "1:3"
+      ],
+      "explanationZhHans": "0.4:1.2前后项同时乘10得4:12，化简为1:3。也可直接计算比值：0.4÷1.2=1/3，1:3的比值也是1/3。注意比的顺序不能颠倒。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-044",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "hjb-primary-p6-upper-ratio-proportion",
+      "unitTitle": "比和比例",
+      "volume": "6年级上册",
+      "conceptIds": [
+        "ratio",
+        "proportion",
+        "proportional-reasoning",
+        "scale",
+        "比",
+        "比例"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "比的意义",
+        "比的化简",
+        "比例关系",
+        "比例式",
+        "比例应用"
+      ],
+      "misconceptionTags": [
+        "ratio order reversed",
+        "any two changing quantities assumed proportional",
+        "units omitted when forming a comparison"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p6-upper-ratio-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-ratio-proportion",
+        "hjb-primary-p6-lower-assessment-stage-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在一幅地图上，用3厘米表示实际距离120千米。这幅地图的比例尺是______。",
+      "optionsZhHans": [],
+      "answer": "1:4000000",
+      "acceptedAnswers": [
+        "1:4000000",
+        "1比4000000"
+      ],
+      "explanationZhHans": "120千米=12000000厘米，比例尺=图上距离:实际距离=3:12000000=1:4000000。注意统一单位，且比例尺不带单位。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-045",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "hjb-primary-p6-upper-ratio-proportion",
+      "unitTitle": "比和比例",
+      "volume": "6年级上册",
+      "conceptIds": [
+        "ratio",
+        "proportion",
+        "proportional-reasoning",
+        "scale",
+        "比",
+        "比例"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "比的意义",
+        "比的化简",
+        "比例关系",
+        "比例式",
+        "比例应用"
+      ],
+      "misconceptionTags": [
+        "ratio order reversed",
+        "any two changing quantities assumed proportional",
+        "units omitted when forming a comparison"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p6-upper-ratio-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-ratio-proportion",
+        "hjb-primary-p6-lower-assessment-stage-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校合唱队男生与女生的人数比是2:3。如果合唱队总人数是40人，那么男生有多少人？",
+      "optionsZhHans": [],
+      "answer": "16",
+      "acceptedAnswers": [
+        "16",
+        "16人"
+      ],
+      "explanationZhHans": "总份数2+3=5，每份人数40÷5=8人，男生占2份，8×2=16人。也可列比例：男生/40=2/(2+3)，解得男生=16。"
+    }
+  ]
+}

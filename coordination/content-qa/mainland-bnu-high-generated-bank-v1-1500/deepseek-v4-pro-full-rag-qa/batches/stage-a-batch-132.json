@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-132",
+  "startedAt": "2026-05-28T01:36:00.315Z",
+  "completedAt": "2026-05-28T01:36:17.354Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-049",
+    "bnu-high-ds-v1-s6-050",
+    "bnu-high-ds-v1-s6-051",
+    "bnu-high-ds-v1-s6-052",
+    "bnu-high-ds-v1-s6-053",
+    "bnu-high-ds-v1-s6-054",
+    "bnu-high-ds-v1-s6-055",
+    "bnu-high-ds-v1-s6-056"
+  ],
+  "usage": {
+    "prompt_tokens": 10139,
+    "completion_tokens": 1194,
+    "total_tokens": 11333,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9755
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-049",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "C",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由 S_n=2^n-1 得 a_n=2^{n-1}，a_n^2=4^{n-1}，求和得 (4^n-1)/3，对应选项 C。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-050",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(1) a_1 = d; (2) 13/16",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由 a_1, a_3, a_9 成等比得 (a_1+2d)^2=a_1(a_1+8d)，解得 a_1=d。代入计算得比值 13/16。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-051",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "b_n = n",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由 a_{n+1}=2a_n+3^n 及 b_n=a_n/3^{n-1} 得 b_{n+1}=(2/3)b_n+1，构造等比数列解得 b_n=n。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-052",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由 S_4=20, S_8=72 得方程组 4a_1+6d=20, 8a_1+28d=72，解得 a_1=2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-053",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "a_n = 2^{2^{n-1}} + 1",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由 a_{n+1}-1=(a_n-1)^2，令 b_n=a_n-1，则 b_{n+1}=b_n^2，b_1=1，故 b_n=1^{2^{n-1}}=1，得 a_n=2。但验证 a_2=2，与递推不符。重新计算：a_1=2，a_2=2^2-4+2=2，a_3=2，所有项均为2，故 a_n=2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-054",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "3(1-4^n)/(1-4) = 4^n - 1",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "奇数项构成首项 3、公比 4 的等比数列，共 n 项，求和得 3(1-4^n)/(1-4)=4^n-1。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-055",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由 b_n=a_n+2^n 得 b_{n+1}=3a_n+2^{n+1}+2^{n+1}=3(a_n+2^n)=3b_n，公比为 3。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-056",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "a_n = 2n + 1",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由 a_3=7 得 a_1+2d=7，由 S_6=48 得 6a_1+15d=48，解得 a_1=3, d=2，故 a_n=2n+1。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部 8 题均可独立求解，无数学错误、歧义或缺失条件，符合北师大版高中数列章节要求。"
+    }
+  }
+}

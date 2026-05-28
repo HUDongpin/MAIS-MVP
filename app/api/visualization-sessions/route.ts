@@ -1,0 +1,50 @@
+import { NextResponse } from "next/server";
+import { isValidLearningAnalyticsEvent } from "@/lib/learningAnalytics";
+import { requireAuthenticatedUser } from "@/lib/server/auth";
+import { markVisualizationSession } from "@/lib/server/userStore";
+import type { LearningAnalyticsEvent } from "@/types";
+
+export const runtime = "nodejs";
+
+function isVisualizationSource(value: unknown): value is LearningAnalyticsEvent["source"] {
+  return isValidLearningAnalyticsEvent({
+    id: "validation",
+    type: "visualization-complete",
+    source: value,
+    timestamp: new Date().toISOString(),
+    grade: "S3",
+    topicId: "validation"
+  });
+}
+
+export async function POST(request: Request) {
+  const authenticated = await requireAuthenticatedUser(request);
+  if (!authenticated) {
+    return NextResponse.json({ error: "Not authenticated." }, { status: 401 });
+  }
+
+  let body: unknown;
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ error: "Invalid JSON body." }, { status: 400 });
+  }
+
+  const record = body as { moduleId?: unknown; topicId?: unknown; source?: unknown } | null;
+  if (
+    typeof record?.moduleId !== "string" ||
+    typeof record.topicId !== "string" ||
+    !isVisualizationSource(record.source)
+  ) {
+    return NextResponse.json({ error: "moduleId, topicId, and source are required." }, { status: 400 });
+  }
+
+  const session = await markVisualizationSession({
+    userId: authenticated.user.id,
+    moduleId: record.moduleId,
+    topicId: record.topicId,
+    source: record.source
+  });
+
+  return NextResponse.json({ session });
+}

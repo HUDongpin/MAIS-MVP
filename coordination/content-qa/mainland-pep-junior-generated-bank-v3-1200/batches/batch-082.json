@@ -1,0 +1,357 @@
+{
+  "batchId": "batch-082",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s3-k10-mc-011",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-probability-introduction"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean"
+      ],
+      "promptZhHans": "在一个不透明的布袋中装有 3 个红球和 2 个白球，每个球除颜色外完全相同。搅匀后从中随机摸出 1 个球，摸到红球的概率是多少？",
+      "optionsZhHans": [
+        "1/5",
+        "2/5",
+        "3/5",
+        "4/5"
+      ],
+      "answer": "3/5",
+      "acceptedAnswers": [
+        "3/5",
+        "0.6",
+        "60%"
+      ],
+      "explanationZhHans": "布袋中共有 3 + 2 = 5 个球，其中红球有 3 个。因此，摸到红球的概率为 3/5。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-012",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-rotation-transformations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig"
+      ],
+      "promptZhHans": "已知点 A 的坐标为 (3, 4)，将点 A 绕原点 O 顺时针旋转 90° 后得到点 A'，则点 A' 的坐标是？",
+      "optionsZhHans": [
+        "(4, -3)",
+        "(-4, 3)",
+        "(-3, -4)",
+        "(4, 3)"
+      ],
+      "answer": "(4, -3)",
+      "acceptedAnswers": [
+        "(4, -3)",
+        "（4，-3）"
+      ],
+      "explanationZhHans": "点 (x, y) 绕原点顺时针旋转 90° 后的坐标为 (y, -x)。因此，点 A(3, 4) 旋转后得到 A'(4, -3)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-013",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-dynamic-geometry-functions"
+      ],
+      "promptZhHans": "一元二次方程 x^2 - 5x + 6 = 0 的根的情况是？",
+      "optionsZhHans": [
+        "有两个不相等的实数根",
+        "有两个相等的实数根",
+        "没有实数根",
+        "只有一个实数根"
+      ],
+      "answer": "有两个不相等的实数根",
+      "acceptedAnswers": [
+        "有两个不相等的实数根"
+      ],
+      "explanationZhHans": "对于方程 x^2 - 5x + 6 = 0，判别式 Δ = (-5)^2 - 4×1×6 = 25 - 24 = 1 > 0，因此方程有两个不相等的实数根。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-014",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-quadratic-equations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "某商店将进货单价为 40 元的商品按 50 元售出时，每天可售出 100 件。经调查发现，售价每提高 1 元，日销售量减少 2 件。设售价提高 x 元，则每天的利润 y 元与 x 的函数关系式为？",
+      "optionsZhHans": [
+        "y = (10 + x)(100 - 2x)",
+        "y = (10 - x)(100 + 2x)",
+        "y = (40 + x)(100 - 2x)",
+        "y = (50 + x)(100 - 2x)"
+      ],
+      "answer": "y = (10 + x)(100 - 2x)",
+      "acceptedAnswers": [
+        "y = (10 + x)(100 - 2x)",
+        "y=(10+x)(100-2x)"
+      ],
+      "explanationZhHans": "售价提高 x 元后，售价为 (50 + x) 元，每件利润为 (50 + x - 40) = (10 + x) 元；日销售量为 (100 - 2x) 件。因此利润 y = (10 + x)(100 - 2x)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-015",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-quadratic-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-proof-calculation-integrated"
+      ],
+      "promptZhHans": "二次函数 y = -2(x - 1)^2 + 3 的顶点坐标是？",
+      "optionsZhHans": [
+        "(1, 3)",
+        "(-1, 3)",
+        "(1, -3)",
+        "(-1, -3)"
+      ],
+      "answer": "(1, 3)",
+      "acceptedAnswers": [
+        "(1, 3)",
+        "（1，3）"
+      ],
+      "explanationZhHans": "二次函数 y = a(x - h)^2 + k 的顶点坐标为 (h, k)。这里 a = -2，h = 1，k = 3，所以顶点坐标是 (1, 3)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-016",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-circle-geometry"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions"
+      ],
+      "promptZhHans": "在半径为 5 cm 的圆中，有一条弦 AB 的长为 8 cm，则圆心 O 到弦 AB 的距离为？",
+      "optionsZhHans": [
+        "3 cm",
+        "4 cm",
+        "5 cm",
+        "6 cm"
+      ],
+      "answer": "3 cm",
+      "acceptedAnswers": [
+        "3 cm",
+        "3厘米",
+        "3"
+      ],
+      "explanationZhHans": "过圆心 O 作弦 AB 的垂线，垂足为 M，则 M 为 AB 中点，AM = 4 cm。连接 OA，OA = 5 cm。在直角三角形 OAM 中，OM = √(OA^2 - AM^2) = √(5^2 - 4^2) = √9 = 3 cm。所以距离为 3 cm。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-017",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-probability-introduction"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-circle-geometry"
+      ],
+      "promptZhHans": "抛掷一枚质地均匀的硬币两次，两次都是正面朝上的概率是？",
+      "optionsZhHans": [
+        "1/4",
+        "1/3",
+        "1/2",
+        "2/3"
+      ],
+      "answer": "1/4",
+      "acceptedAnswers": [
+        "1/4",
+        "0.25",
+        "25%"
+      ],
+      "explanationZhHans": "抛掷一枚硬币两次，所有可能的结果有（正，正）、（正，反）、（反，正）、（反，反）共 4 种，其中两次都是正面的只有 1 种，所以概率为 1/4。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-018",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-rotation-transformations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "将点 P(-2, 3) 先向右平移 4 个单位，再向下平移 1 个单位，得到的点的坐标是？",
+      "optionsZhHans": [
+        "(2, 2)",
+        "(-6, 2)",
+        "(2, 4)",
+        "(-6, 4)"
+      ],
+      "answer": "(2, 2)",
+      "acceptedAnswers": [
+        "(2, 2)",
+        "（2，2）"
+      ],
+      "explanationZhHans": "点 P(-2, 3) 向右平移 4 个单位，横坐标变为 -2 + 4 = 2；再向下平移 1 个单位，纵坐标变为 3 - 1 = 2。因此得到的点的坐标是 (2, 2)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-019",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "promptZhHans": "若关于 x 的一元二次方程 kx^2 - 2x - 1 = 0 有两个不相等的实数根，则 k 的取值范围是？",
+      "optionsZhHans": [
+        "k > -1 且 k ≠ 0",
+        "k > -1",
+        "k < -1",
+        "k > 0"
+      ],
+      "answer": "k > -1 且 k ≠ 0",
+      "acceptedAnswers": [
+        "k > -1 且 k ≠ 0",
+        "k>-1且k≠0"
+      ],
+      "explanationZhHans": "方程有两个不相等的实数根，需满足判别式 Δ > 0 且二次项系数 k ≠ 0。Δ = (-2)^2 - 4·k·(-1) = 4 + 4k > 0，得 k > -1。又 k ≠ 0，所以 k 的取值范围是 k > -1 且 k ≠ 0。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-020",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-quadratic-equations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "用配方法解方程 x^2 + 6x - 7 = 0，配方后得到的方程是？",
+      "optionsZhHans": [
+        "(x + 3)^2 = 16",
+        "(x - 3)^2 = 16",
+        "(x + 3)^2 = 2",
+        "(x - 3)^2 = 2"
+      ],
+      "answer": "(x + 3)^2 = 16",
+      "acceptedAnswers": [
+        "(x + 3)^2 = 16",
+        "（x+3）^2=16"
+      ],
+      "explanationZhHans": "方程 x^2 + 6x - 7 = 0，移项得 x^2 + 6x = 7。配方，两边加上一次项系数一半的平方 9，得 x^2 + 6x + 9 = 7 + 9，即 (x + 3)^2 = 16。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

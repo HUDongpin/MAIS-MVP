@@ -1,0 +1,139 @@
+{
+  "batchNumber": 74,
+  "startedAt": "2026-05-25T03:14:27.445Z",
+  "completedAt": "2026-05-25T03:14:42.915Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s3-k10-fi-010",
+    "pep-junior-v3-s3-k10-fi-011",
+    "pep-junior-v3-s3-k10-fi-012",
+    "pep-junior-v3-s3-k10-fi-013",
+    "pep-junior-v3-s3-k10-fi-014",
+    "pep-junior-v3-s3-k10-fi-015",
+    "pep-junior-v3-s3-k10-fi-016",
+    "pep-junior-v3-s3-k10-fi-017",
+    "pep-junior-v3-s3-k10-fi-018",
+    "pep-junior-v3-s3-k10-fi-019",
+    "pep-junior-v3-s3-k10-fi-020",
+    "pep-junior-v3-s3-k10-fi-021"
+  ],
+  "usage": {
+    "prompt_tokens": 3127,
+    "completion_tokens": 983,
+    "total_tokens": 4110,
+    "prompt_tokens_details": {
+      "cached_tokens": 3072
+    },
+    "prompt_cache_hit_tokens": 3072,
+    "prompt_cache_miss_tokens": 55
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s3-k10-fi-010",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目与pep-junior-v3-s3-k10-fi-016重复，但数学正确，无错误。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-fi-011",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "概率计算正确，答案1/10，解释清晰。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-fi-012",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "关于原点对称坐标正确，答案(-4,-5)。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-fi-013",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "一元二次方程根的计算正确，k=1，另一根为2。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-fi-014",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "增长率方程正确，50(1+x)^2=72。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-fi-015",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "二次函数顶点坐标正确，配方得(2,3)。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-fi-016",
+        "status": "warn",
+        "severity": "minor",
+        "issueTags": [
+          "copy_risk"
+        ],
+        "correctedAnswer": null,
+        "rationale": "与pep-junior-v3-s3-k10-fi-010几乎相同，仅单位表述略有差异，存在重复风险。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-fi-017",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "摸球概率正确，3/5。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-fi-018",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "旋转坐标变换正确，(3,-2)逆时针90°得(2,3)。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-fi-019",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "判别式为零求k正确，k=9。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-fi-020",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "解方程正确，x=5或x=-1。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-fi-021",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "抛物线与x轴交点正确，(-1,0)和(3,0)。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 11,
+      "warn": 1,
+      "fail": 0,
+      "notes": "12道题中11道通过，1道因与另一题高度重复标记为warn，无数学错误。"
+    }
+  }
+}

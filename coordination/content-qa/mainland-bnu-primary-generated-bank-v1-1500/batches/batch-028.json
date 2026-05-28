@@ -1,0 +1,565 @@
+{
+  "batchId": "batch-028",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p2-021",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-shopping-money",
+      "unitTitle": "购物",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "money",
+        "renminbi",
+        "shopping-contexts",
+        "人民币",
+        "购物"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数感"
+      ],
+      "skillTags": [
+        "元角分",
+        "付款找零",
+        "价格比较",
+        "简单购物问题"
+      ],
+      "misconceptionTags": [
+        "yuan-jiao-fen relation confused",
+        "unit omitted from answer",
+        "change calculated in wrong direction"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-shopping-money"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-within-100-add-sub-unit",
+        "bnu-primary-p2-upper-assessment-measurement-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一支铅笔8角，一块橡皮5角。小丽买一支铅笔和一块橡皮，付了2元，应该找回多少钱？",
+      "optionsZhHans": [],
+      "answer": "7角",
+      "acceptedAnswers": [
+        "7角",
+        "0.7元"
+      ],
+      "explanationZhHans": "铅笔和橡皮一共8角+5角=13角，即1元3角。付2元，应找回2元-1元3角=7角。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-022",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-shopping-money",
+      "unitTitle": "购物",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "money",
+        "renminbi",
+        "shopping-contexts",
+        "人民币",
+        "购物"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数感"
+      ],
+      "skillTags": [
+        "元角分",
+        "付款找零",
+        "价格比较",
+        "简单购物问题"
+      ],
+      "misconceptionTags": [
+        "yuan-jiao-fen relation confused",
+        "unit omitted from answer",
+        "change calculated in wrong direction"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-shopping-money"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-within-100-add-sub-unit",
+        "bnu-primary-p2-upper-assessment-measurement-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个笔记本的价格是3元5角，小明有5元，他买这个笔记本后，还剩多少钱？",
+      "optionsZhHans": [
+        "1元5角",
+        "2元5角",
+        "1元",
+        "2元"
+      ],
+      "answer": "1元5角",
+      "acceptedAnswers": [
+        "1元5角"
+      ],
+      "explanationZhHans": "5元减去3元5角，5元=4元10角，4元10角-3元5角=1元5角。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-023",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-shopping-money",
+      "unitTitle": "购物",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "money",
+        "renminbi",
+        "shopping-contexts",
+        "人民币",
+        "购物"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数感"
+      ],
+      "skillTags": [
+        "元角分",
+        "付款找零",
+        "价格比较",
+        "简单购物问题"
+      ],
+      "misconceptionTags": [
+        "yuan-jiao-fen relation confused",
+        "unit omitted from answer",
+        "change calculated in wrong direction"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-shopping-money"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-within-100-add-sub-unit",
+        "bnu-primary-p2-upper-assessment-measurement-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小华有3张1元、4张5角和2张1角。他想买一个4元2角的玩具车，他的钱够吗？如果够，付钱后还剩多少钱？如果不够，还差多少钱？",
+      "optionsZhHans": [],
+      "answer": "够，还剩1元",
+      "acceptedAnswers": [
+        "够，还剩1元",
+        "够，剩1元"
+      ],
+      "explanationZhHans": "总钱数：3元+4×5角=3元+2元=5元，再加2角=5元2角。5元2角-4元2角=1元。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-024",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-shopping-money",
+      "unitTitle": "购物",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "money",
+        "renminbi",
+        "shopping-contexts",
+        "人民币",
+        "购物"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数感"
+      ],
+      "skillTags": [
+        "元角分",
+        "付款找零",
+        "价格比较",
+        "简单购物问题"
+      ],
+      "misconceptionTags": [
+        "yuan-jiao-fen relation confused",
+        "unit omitted from answer",
+        "change calculated in wrong direction"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-shopping-money"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-within-100-add-sub-unit",
+        "bnu-primary-p2-upper-assessment-measurement-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈去超市买了以下物品：一袋盐2元5角，一瓶酱油6元8角，一包糖3元2角。妈妈付了20元，应找回多少钱？",
+      "optionsZhHans": [],
+      "answer": "7元5角",
+      "acceptedAnswers": [
+        "7元5角",
+        "7.5元"
+      ],
+      "explanationZhHans": "总价：2元5角+6元8角+3元2角=12元5角。20元-12元5角=7元5角。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-025",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-shopping-money",
+      "unitTitle": "购物",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "money",
+        "renminbi",
+        "shopping-contexts",
+        "人民币",
+        "购物"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数感"
+      ],
+      "skillTags": [
+        "元角分",
+        "付款找零",
+        "价格比较",
+        "简单购物问题"
+      ],
+      "misconceptionTags": [
+        "yuan-jiao-fen relation confused",
+        "unit omitted from answer",
+        "change calculated in wrong direction"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-shopping-money"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-within-100-add-sub-unit",
+        "bnu-primary-p2-upper-assessment-measurement-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪种付钱方式正好能买一个6元7角的文具盒？",
+      "optionsZhHans": [
+        "一张5元，一张1元，一个5角，两个1角",
+        "一张5元，一张2元，一个5角，一个2角",
+        "一张5元，一张1元，一个5角，一个1角",
+        "一张5元，一张2元，一个5角，两个1角"
+      ],
+      "answer": "一张5元，一张1元，一个5角，两个1角",
+      "acceptedAnswers": [
+        "一张5元，一张1元，一个5角，两个1角"
+      ],
+      "explanationZhHans": "选项A：5元+1元+5角+2角=6元7角，正好。其他选项总钱数不是6元7角。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-026",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-shopping-money",
+      "unitTitle": "购物",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "money",
+        "renminbi",
+        "shopping-contexts",
+        "人民币",
+        "购物"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数感"
+      ],
+      "skillTags": [
+        "元角分",
+        "付款找零",
+        "价格比较",
+        "简单购物问题"
+      ],
+      "misconceptionTags": [
+        "yuan-jiao-fen relation confused",
+        "unit omitted from answer",
+        "change calculated in wrong direction"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-shopping-money"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-within-100-add-sub-unit",
+        "bnu-primary-p2-upper-assessment-measurement-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在括号里填上合适的单位：一本故事书的价格是12（  ）；一支铅笔的价格是8（  ）。",
+      "optionsZhHans": [],
+      "answer": "元，角",
+      "acceptedAnswers": [
+        "元，角"
+      ],
+      "explanationZhHans": "故事书价格通常用元，铅笔价格通常用角，12元、8角符合生活实际。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-027",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-shopping-money",
+      "unitTitle": "购物",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "money",
+        "renminbi",
+        "shopping-contexts",
+        "人民币",
+        "购物"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数感"
+      ],
+      "skillTags": [
+        "元角分",
+        "付款找零",
+        "价格比较",
+        "简单购物问题"
+      ],
+      "misconceptionTags": [
+        "yuan-jiao-fen relation confused",
+        "unit omitted from answer",
+        "change calculated in wrong direction"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-shopping-money"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-within-100-add-sub-unit",
+        "bnu-primary-p2-upper-assessment-measurement-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小东有10元钱，他想买一个7元8角的足球和一个2元5角的哨子。他的钱够吗？如果不够，还差多少钱？",
+      "optionsZhHans": [],
+      "answer": "不够，还差3角",
+      "acceptedAnswers": [
+        "不够，还差3角",
+        "不够，差3角"
+      ],
+      "explanationZhHans": "足球和哨子共7元8角+2元5角=10元3角。10元<10元3角，差3角。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-028",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-shopping-money",
+      "unitTitle": "购物",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "money",
+        "renminbi",
+        "shopping-contexts",
+        "人民币",
+        "购物"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数感"
+      ],
+      "skillTags": [
+        "元角分",
+        "付款找零",
+        "价格比较",
+        "简单购物问题"
+      ],
+      "misconceptionTags": [
+        "yuan-jiao-fen relation confused",
+        "unit omitted from answer",
+        "change calculated in wrong direction"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-shopping-money"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-within-100-add-sub-unit",
+        "bnu-primary-p2-upper-assessment-measurement-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小红买一个面包花了2元5角，她付了5元，售货员找给她3元5角。请问找的钱对吗？",
+      "optionsZhHans": [
+        "对，因为5元-2元5角=3元5角",
+        "不对，应该找2元5角",
+        "不对，应该找3元",
+        "不对，应该找2元"
+      ],
+      "answer": "不对，应该找2元5角",
+      "acceptedAnswers": [
+        "不对，应该找2元5角"
+      ],
+      "explanationZhHans": "5元-2元5角=2元5角，不是3元5角，所以找错了。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-029",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-shopping-money",
+      "unitTitle": "购物",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "money",
+        "renminbi",
+        "shopping-contexts",
+        "人民币",
+        "购物"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数感"
+      ],
+      "skillTags": [
+        "元角分",
+        "付款找零",
+        "价格比较",
+        "简单购物问题"
+      ],
+      "misconceptionTags": [
+        "yuan-jiao-fen relation confused",
+        "unit omitted from answer",
+        "change calculated in wrong direction"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-shopping-money"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-within-100-add-sub-unit",
+        "bnu-primary-p2-upper-assessment-measurement-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "1张5元可以换（  ）张1元；1张10元可以换（  ）张5元。",
+      "optionsZhHans": [],
+      "answer": "5，2",
+      "acceptedAnswers": [
+        "5，2"
+      ],
+      "explanationZhHans": "5元里面有5个1元，所以换5张；10元里面有2个5元，所以换2张。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-030",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-shopping-money",
+      "unitTitle": "购物",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "money",
+        "renminbi",
+        "shopping-contexts",
+        "人民币",
+        "购物"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数感"
+      ],
+      "skillTags": [
+        "元角分",
+        "付款找零",
+        "价格比较",
+        "简单购物问题"
+      ],
+      "misconceptionTags": [
+        "yuan-jiao-fen relation confused",
+        "unit omitted from answer",
+        "change calculated in wrong direction"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-shopping-money"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-within-100-add-sub-unit",
+        "bnu-primary-p2-upper-assessment-measurement-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明有4枚5角硬币和3枚1角硬币，他一共有多少钱？",
+      "optionsZhHans": [],
+      "answer": "2元3角",
+      "acceptedAnswers": [
+        "2元3角",
+        "2.3元"
+      ],
+      "explanationZhHans": "4枚5角是20角=2元，3枚1角是3角，合起来是2元3角。"
+    }
+  ]
+}

@@ -1,0 +1,581 @@
+{
+  "batchId": "batch-057",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p3-061",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-perimeter",
+      "unitTitle": "周长",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "perimeter",
+        "length-around-shape",
+        "rectangle-square-perimeter",
+        "周长",
+        "封闭图形"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "几何直观"
+      ],
+      "skillTags": [
+        "认识周长",
+        "测量边长",
+        "长方形周长",
+        "正方形周长",
+        "单位表达"
+      ],
+      "misconceptionTags": [
+        "inside region counted instead of boundary",
+        "open paths treated as closed figures",
+        "length units omitted or mixed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-perimeter"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方形花坛，长8米，宽5米。工人沿着花坛边缘围一圈篱笆，需要多少米篱笆？",
+      "optionsZhHans": [
+        "13米",
+        "26米",
+        "40米",
+        "16米"
+      ],
+      "answer": "26米",
+      "acceptedAnswers": [
+        "26米"
+      ],
+      "explanationZhHans": "长方形周长等于长加宽的和乘2。长8米，宽5米，周长=(8+5)×2=26米。篱笆长度就是周长，所以需要26米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-062",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-perimeter",
+      "unitTitle": "周长",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "perimeter",
+        "length-around-shape",
+        "rectangle-square-perimeter",
+        "周长",
+        "封闭图形"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "几何直观"
+      ],
+      "skillTags": [
+        "认识周长",
+        "测量边长",
+        "长方形周长",
+        "正方形周长",
+        "单位表达"
+      ],
+      "misconceptionTags": [
+        "inside region counted instead of boundary",
+        "open paths treated as closed figures",
+        "length units omitted or mixed"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-perimeter"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方形花坛，长是8米，宽是5米。工人沿着花坛边缘围了一圈篱笆，篱笆的长度是多少米？",
+      "optionsZhHans": [],
+      "answer": "26米",
+      "acceptedAnswers": [
+        "26米",
+        "26"
+      ],
+      "explanationZhHans": "长方形周长 = (长 + 宽) × 2 = (8 + 5) × 2 = 13 × 2 = 26（米）。篱笆的长度就是花坛的周长。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-063",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-perimeter",
+      "unitTitle": "周长",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "perimeter",
+        "length-around-shape",
+        "rectangle-square-perimeter",
+        "周长",
+        "封闭图形"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "几何直观"
+      ],
+      "skillTags": [
+        "认识周长",
+        "测量边长",
+        "长方形周长",
+        "正方形周长",
+        "单位表达"
+      ],
+      "misconceptionTags": [
+        "inside region counted instead of boundary",
+        "open paths treated as closed figures",
+        "length units omitted or mixed"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-perimeter"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小宇用一根彩带围成一个长12厘米、宽8厘米的长方形相框，彩带正好用完。如果他用同样长的彩带改围成一个正方形，这个正方形的边长是多少厘米？请写出计算过程。",
+      "optionsZhHans": [],
+      "answer": "10厘米",
+      "acceptedAnswers": [
+        "10厘米",
+        "10"
+      ],
+      "explanationZhHans": "先求彩带总长即长方形周长：(12+8)×2=40厘米。正方形周长也是40厘米，边长=40÷4=10厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-064",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-perimeter",
+      "unitTitle": "周长",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "perimeter",
+        "length-around-shape",
+        "rectangle-square-perimeter",
+        "周长",
+        "封闭图形"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "几何直观"
+      ],
+      "skillTags": [
+        "认识周长",
+        "测量边长",
+        "长方形周长",
+        "正方形周长",
+        "单位表达"
+      ],
+      "misconceptionTags": [
+        "inside region counted instead of boundary",
+        "open paths treated as closed figures",
+        "length units omitted or mixed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-perimeter"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小军用一根彩带围成一个长12厘米、宽8厘米的长方形相框。这根彩带至少长多少厘米？",
+      "optionsZhHans": [
+        "20厘米",
+        "40厘米",
+        "96厘米",
+        "80厘米"
+      ],
+      "answer": "40厘米",
+      "acceptedAnswers": [
+        "40厘米"
+      ],
+      "explanationZhHans": "彩带长度等于长方形相框的周长。周长 = (长 + 宽) × 2 = (12 + 8) × 2 = 20 × 2 = 40（厘米）。所以彩带至少长40厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-065",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-perimeter",
+      "unitTitle": "周长",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "perimeter",
+        "length-around-shape",
+        "rectangle-square-perimeter",
+        "周长",
+        "封闭图形"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "几何直观"
+      ],
+      "skillTags": [
+        "认识周长",
+        "测量边长",
+        "长方形周长",
+        "正方形周长",
+        "单位表达"
+      ],
+      "misconceptionTags": [
+        "inside region counted instead of boundary",
+        "open paths treated as closed figures",
+        "length units omitted or mixed"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-perimeter"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小军用一根绳子围成一个长12厘米、宽8厘米的长方形框架，接头处忽略不计。这根绳子的长度是多少厘米？",
+      "optionsZhHans": [],
+      "answer": "40厘米",
+      "acceptedAnswers": [
+        "40厘米",
+        "40"
+      ],
+      "explanationZhHans": "长方形周长 = (长 + 宽) × 2 = (12 + 8) × 2 = 20 × 2 = 40（厘米）。绳子长度就是长方形的周长。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-066",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-perimeter",
+      "unitTitle": "周长",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "perimeter",
+        "length-around-shape",
+        "rectangle-square-perimeter",
+        "周长",
+        "封闭图形"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "几何直观"
+      ],
+      "skillTags": [
+        "认识周长",
+        "测量边长",
+        "长方形周长",
+        "正方形周长",
+        "单位表达"
+      ],
+      "misconceptionTags": [
+        "inside region counted instead of boundary",
+        "open paths treated as closed figures",
+        "length units omitted or mixed"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-perimeter"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小宇用一根长40厘米的细绳围成一个长方形，这个长方形的长是12厘米。如果他用同样长的细绳改围成一个正方形，这个正方形的边长是多少厘米？",
+      "optionsZhHans": [],
+      "answer": "10厘米",
+      "acceptedAnswers": [
+        "10厘米",
+        "10"
+      ],
+      "explanationZhHans": "长方形周长=40厘米，长12厘米，宽=(40÷2)-12=8厘米。正方形周长也是40厘米，边长=40÷4=10厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-067",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-perimeter",
+      "unitTitle": "周长",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "perimeter",
+        "length-around-shape",
+        "rectangle-square-perimeter",
+        "周长",
+        "封闭图形"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "几何直观"
+      ],
+      "skillTags": [
+        "认识周长",
+        "测量边长",
+        "长方形周长",
+        "正方形周长",
+        "单位表达"
+      ],
+      "misconceptionTags": [
+        "inside region counted instead of boundary",
+        "open paths treated as closed figures",
+        "length units omitted or mixed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-perimeter"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方形花坛，长8米，宽5米。工人沿着花坛边缘围一圈篱笆，篱笆的长度是多少米？",
+      "optionsZhHans": [
+        "13米",
+        "26米",
+        "40米",
+        "16米"
+      ],
+      "answer": "26米",
+      "acceptedAnswers": [
+        "26米"
+      ],
+      "explanationZhHans": "长方形周长等于长加宽的和乘2。长8米，宽5米，周长=(8+5)×2=13×2=26米。篱笆沿着边缘围一圈，长度就是周长26米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-068",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-perimeter",
+      "unitTitle": "周长",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "perimeter",
+        "length-around-shape",
+        "rectangle-square-perimeter",
+        "周长",
+        "封闭图形"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "几何直观"
+      ],
+      "skillTags": [
+        "认识周长",
+        "测量边长",
+        "长方形周长",
+        "正方形周长",
+        "单位表达"
+      ],
+      "misconceptionTags": [
+        "inside region counted instead of boundary",
+        "open paths treated as closed figures",
+        "length units omitted or mixed"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-perimeter"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方形花坛，长8米，宽5米。工人叔叔沿着花坛边缘围了一圈篱笆。篱笆一共长多少米？",
+      "optionsZhHans": [],
+      "answer": "26米",
+      "acceptedAnswers": [
+        "26米",
+        "26"
+      ],
+      "explanationZhHans": "长方形周长=（长+宽）×2，所以篱笆长（8+5）×2=26（米）。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-069",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-perimeter",
+      "unitTitle": "周长",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "perimeter",
+        "length-around-shape",
+        "rectangle-square-perimeter",
+        "周长",
+        "封闭图形"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "几何直观"
+      ],
+      "skillTags": [
+        "认识周长",
+        "测量边长",
+        "长方形周长",
+        "正方形周长",
+        "单位表达"
+      ],
+      "misconceptionTags": [
+        "inside region counted instead of boundary",
+        "open paths treated as closed figures",
+        "length units omitted or mixed"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-perimeter"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小宇用一根彩带围成了一个长12厘米、宽8厘米的长方形相框。现在他想把这根彩带改围成一个正方形，正方形的边长是多少厘米？",
+      "optionsZhHans": [],
+      "answer": "10厘米",
+      "acceptedAnswers": [
+        "10厘米",
+        "10"
+      ],
+      "explanationZhHans": "先求彩带总长度，即长方形周长：(12+8)×2=40厘米。正方形周长也是40厘米，边长=40÷4=10厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-070",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-perimeter",
+      "unitTitle": "周长",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "perimeter",
+        "length-around-shape",
+        "rectangle-square-perimeter",
+        "周长",
+        "封闭图形"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "几何直观"
+      ],
+      "skillTags": [
+        "认识周长",
+        "测量边长",
+        "长方形周长",
+        "正方形周长",
+        "单位表达"
+      ],
+      "misconceptionTags": [
+        "inside region counted instead of boundary",
+        "open paths treated as closed figures",
+        "length units omitted or mixed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-perimeter"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方形花坛，长是8米，宽是5米。工人沿着花坛边缘围了一圈篱笆，篱笆的总长度是多少米？",
+      "optionsZhHans": [
+        "26米",
+        "40米",
+        "13米",
+        "30米"
+      ],
+      "answer": "26米",
+      "acceptedAnswers": [
+        "26米"
+      ],
+      "explanationZhHans": "长方形周长等于（长+宽）×2。花坛长8米，宽5米，周长=（8+5）×2=26米，所以篱笆总长26米。"
+    }
+  ]
+}

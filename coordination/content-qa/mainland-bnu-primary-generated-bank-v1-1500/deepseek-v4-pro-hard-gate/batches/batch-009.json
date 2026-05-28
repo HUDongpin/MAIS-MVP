@@ -1,0 +1,330 @@
+{
+  "batchNumber": 9,
+  "startedAt": "2026-05-27T03:37:23.860Z",
+  "completedAt": "2026-05-27T03:37:51.160Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p1-241",
+    "bnu-primary-ds-v1-p1-242",
+    "bnu-primary-ds-v1-p1-243",
+    "bnu-primary-ds-v1-p1-244",
+    "bnu-primary-ds-v1-p1-245",
+    "bnu-primary-ds-v1-p1-246",
+    "bnu-primary-ds-v1-p1-247",
+    "bnu-primary-ds-v1-p1-248",
+    "bnu-primary-ds-v1-p1-249",
+    "bnu-primary-ds-v1-p1-250",
+    "bnu-primary-ds-v1-p2-001",
+    "bnu-primary-ds-v1-p2-002",
+    "bnu-primary-ds-v1-p2-003",
+    "bnu-primary-ds-v1-p2-004",
+    "bnu-primary-ds-v1-p2-005",
+    "bnu-primary-ds-v1-p2-006",
+    "bnu-primary-ds-v1-p2-007",
+    "bnu-primary-ds-v1-p2-008",
+    "bnu-primary-ds-v1-p2-009",
+    "bnu-primary-ds-v1-p2-010",
+    "bnu-primary-ds-v1-p2-011",
+    "bnu-primary-ds-v1-p2-012",
+    "bnu-primary-ds-v1-p2-013",
+    "bnu-primary-ds-v1-p2-014",
+    "bnu-primary-ds-v1-p2-015",
+    "bnu-primary-ds-v1-p2-016",
+    "bnu-primary-ds-v1-p2-017",
+    "bnu-primary-ds-v1-p2-018",
+    "bnu-primary-ds-v1-p2-019",
+    "bnu-primary-ds-v1-p2-020"
+  ],
+  "usage": {
+    "prompt_tokens": 5438,
+    "completion_tokens": 2304,
+    "total_tokens": 7742,
+    "prompt_tokens_details": {
+      "cached_tokens": 5376
+    },
+    "prompt_cache_hit_tokens": 5376,
+    "prompt_cache_miss_tokens": 62
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p1-241",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "规律明确，选项完整，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-242",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "等差数列规律清晰，答案10正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-243",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "方法描述准确，选项唯一正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-244",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "计算正确，15是唯一答案。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-245",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "正方体不能滚动，分类合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-246",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "从前面看小汽车，形状描述合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-247",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "正方形对折不可能得到圆形，正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-248",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "移动板不改变板的数量，说法正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-249",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "计数器操作正确，得15。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-250",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "颜色规律清晰，下一个是黄。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-001",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "计算正确，50张是唯一答案。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-002",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "填空答案27正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-003",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "第三天从48页开始，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-004",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "47+16=63>60，唯一正确选项。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-005",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "竖式计算73-46=27正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-006",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "两步计算得45箱，正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-007",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "短了67米，即两次用去之和，正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-008",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "等式成立，填36正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-009",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "剩余17元，计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-010",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "37+28=65，40+25=65，唯一匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-011",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "看错数字，正确和64，推理正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-012",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "计算得37本，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-013",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "32+19=51>50，唯一正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-014",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "竖式填空，个位填6正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-015",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "小轩跳41下，计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-016",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "元角计算正确，21元3角唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-017",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "换钱正确，4张5元，2张10元。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-018",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "找回11元，计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-019",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "只有5元、5元、5元总和15元，正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-020",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "3元4角，计算正确。"
+      }
+    ],
+    "batchSummary": {
+      "solvableYes": 30,
+      "solvableNo": 0,
+      "answerMatchYes": 30,
+      "answerMatchNo": 0,
+      "notes": "全部30题均可解，答案匹配，无问题。"
+    }
+  }
+}

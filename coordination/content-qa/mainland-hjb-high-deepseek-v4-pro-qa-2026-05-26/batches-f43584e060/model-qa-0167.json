@@ -1,0 +1,301 @@
+{
+  "batchId": "model-qa-0167",
+  "ids": [
+    "hjb-high-ds-v3-s4-321",
+    "hjb-high-ds-v3-s4-322",
+    "hjb-high-ds-v3-s4-323",
+    "hjb-high-ds-v3-s4-324",
+    "hjb-high-ds-v3-s4-325",
+    "hjb-high-ds-v3-s4-326",
+    "hjb-high-ds-v3-s4-327",
+    "hjb-high-ds-v3-s4-328",
+    "hjb-high-ds-v3-s4-329",
+    "hjb-high-ds-v3-s4-330",
+    "hjb-high-ds-v3-s4-331",
+    "hjb-high-ds-v3-s4-332",
+    "hjb-high-ds-v3-s4-333",
+    "hjb-high-ds-v3-s4-334",
+    "hjb-high-ds-v3-s4-335",
+    "hjb-high-ds-v3-s4-336",
+    "hjb-high-ds-v3-s4-337",
+    "hjb-high-ds-v3-s4-338",
+    "hjb-high-ds-v3-s4-339",
+    "hjb-high-ds-v3-s4-340"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-high-ds-v3-s4-321",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "π",
+      "answerCheckZhHans": "标准答案为π，解析正确，可接受答案包含π，匹配。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-322",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "函数y=10sin(2x+6π/6)=10sin(2x+π)，最大值在2x+π=π/2+2kπ即x=-π/4+kπ时取得。在[0,2π]内，k=1,2,3,4对应x=3π/4,7π/4,11π/4(超出),15π/4(超出)，实际只有2个解，但解析中x=π(3-6)/12+kπ=-π/4+kπ，k=1,2给出x=3π/4,7π/4，共2次，答案2正确。但选项中有2，且唯一，故答案匹配。重新检查：原解析说“符合条件的整数k有2个”，答案2，正确。但之前误判，实际答案匹配。",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案为2，解析正确，选项中有2且唯一，匹配。",
+      "recommendedActionZhHans": "无需修改，答案正确。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-323",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "π",
+      "answerCheckZhHans": "标准答案为π，解析正确，可接受答案包含π，匹配。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-324",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "π",
+      "answerCheckZhHans": "标准答案为π，解析正确，可接受答案包含π，匹配。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-325",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "函数y=9sin(2x+3π/6)=9sin(2x+π/2)，最大值在2x+π/2=π/2+2kπ即x=kπ时取得。在[0,2π]内，k=0,1,2对应x=0,π,2π，共3次。解析中x=π(3-3)/12+kπ=0+kπ，k=0,1,2，共3次，答案3正确。选项中有3且唯一，匹配。",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "标准答案为3，解析正确，选项中有3且唯一，匹配。",
+      "recommendedActionZhHans": "无需修改，答案正确。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-326",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "π",
+      "answerCheckZhHans": "标准答案为π，解析正确，可接受答案包含π，匹配。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-327",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "π",
+      "answerCheckZhHans": "标准答案为π，解析正确，可接受答案包含π，匹配。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-328",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "函数y=4sin(2x+10π/6)=4sin(2x+5π/3)，最大值在2x+5π/3=π/2+2kπ即2x=π/2-5π/3+2kπ=-7π/6+2kπ，x=-7π/12+kπ。在[0,2π]内，k=1,2,3对应x=5π/12,17π/12,29π/12(超出)，实际只有2个解。解析中x=π(3-10)/12+kπ=-7π/12+kπ，k=1,2给出x=5π/12,17π/12，共2次，答案2正确。选项中有2且唯一，匹配。",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案为2，解析正确，选项中有2且唯一，匹配。",
+      "recommendedActionZhHans": "无需修改，答案正确。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-329",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "π",
+      "answerCheckZhHans": "标准答案为π，解析正确，可接受答案包含π，匹配。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-330",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "π",
+      "answerCheckZhHans": "标准答案为π，解析正确，可接受答案包含π，匹配。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-331",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "函数y=7sin(2x+2π/6)=7sin(2x+π/3)，最大值在2x+π/3=π/2+2kπ即2x=π/6+2kπ，x=π/12+kπ。在[0,2π]内，k=0,1,2对应x=π/12,13π/12,25π/12(超出)，实际只有2个解。解析中x=π(3-2)/12+kπ=π/12+kπ，k=0,1给出x=π/12,13π/12，共2次，答案2正确。选项中有2且唯一，匹配。",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案为2，解析正确，选项中有2且唯一，匹配。",
+      "recommendedActionZhHans": "无需修改，答案正确。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-332",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "π",
+      "answerCheckZhHans": "标准答案为π，解析正确，可接受答案包含π，匹配。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-333",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "π",
+      "answerCheckZhHans": "标准答案为π，解析正确，可接受答案包含π，匹配。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-334",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "函数y=10sin(2x+3π/6)=10sin(2x+π/2)，最大值在2x+π/2=π/2+2kπ即x=kπ时取得。在[0,2π]内，k=0,1,2对应x=0,π,2π，共3次。解析中x=π(3-3)/12+kπ=0+kπ，k=0,1,2，共3次，答案3正确。选项中有3且唯一，匹配。",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "标准答案为3，解析正确，选项中有3且唯一，匹配。",
+      "recommendedActionZhHans": "无需修改，答案正确。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-335",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "π",
+      "answerCheckZhHans": "标准答案为π，解析正确，可接受答案包含π，匹配。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-336",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "π",
+      "answerCheckZhHans": "标准答案为π，解析正确，可接受答案包含π，匹配。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-337",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "函数y=2sin(2x+1π/6)=2sin(2x+π/6)，最大值在2x+π/6=π/2+2kπ即2x=π/3+2kπ，x=π/6+kπ。在[0,2π]内，k=0,1,2对应x=π/6,7π/6,13π/6(超出)，实际只有2个解。解析中x=π(3-1)/12+kπ=π/6+kπ，k=0,1给出x=π/6,7π/6，共2次，答案2正确。选项中有2且唯一，匹配。",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案为2，解析正确，选项中有2且唯一，匹配。",
+      "recommendedActionZhHans": "无需修改，答案正确。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-338",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "π",
+      "answerCheckZhHans": "标准答案为π，解析正确，可接受答案包含π，匹配。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-339",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "π",
+      "answerCheckZhHans": "标准答案为π，解析正确，可接受答案包含π，匹配。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-340",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "函数y=11sin(2x+4π/6)=11sin(2x+2π/3)，最大值在2x+2π/3=π/2+2kπ即2x=-π/6+2kπ，x=-π/12+kπ。在[0,2π]内，k=1,2,3对应x=11π/12,23π/12,35π/12(超出)，实际只有2个解。解析中x=π(3-4)/12+kπ=-π/12+kπ，k=1,2给出x=11π/12,23π/12，共2次，答案2正确。选项中有2且唯一，匹配。",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案为2，解析正确，选项中有2且唯一，匹配。",
+      "recommendedActionZhHans": "无需修改，答案正确。",
+      "confidence": "high"
+    }
+  ]
+}

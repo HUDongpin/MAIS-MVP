@@ -1,0 +1,132 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-044",
+  "startedAt": "2026-05-28T02:39:59.297Z",
+  "completedAt": "2026-05-28T02:40:14.435Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-345",
+    "bnu-high-ds-v1-s4-346",
+    "bnu-high-ds-v1-s4-347",
+    "bnu-high-ds-v1-s4-348",
+    "bnu-high-ds-v1-s4-349",
+    "bnu-high-ds-v1-s4-350",
+    "bnu-high-ds-v1-s4-351",
+    "bnu-high-ds-v1-s4-352"
+  ],
+  "usage": {
+    "prompt_tokens": 11909,
+    "completion_tokens": 988,
+    "total_tokens": 12897,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 11525
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-345",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "5/4",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案为9/4，解析却算出17/9且自相矛盾；Stage A独立解得k=5/4，正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-346",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案A. 2√13与Stage A一致，解析正确，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-347",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案5/2与Stage A一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-348",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案4/5与Stage A一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-349",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "weak",
+        "mcUniquenessStatus": "fail",
+        "correctedAnswer": "B",
+        "issueTags": [
+          "ambiguous_mc",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "选项B和C均正确，但存储答案仅选B，且解析未说明C也正确，导致单选题答案不唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-350",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案约14°与Stage A一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-351",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案-3/2与Stage A一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-352",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案3/2与Stage A一致，解析正确，选项唯一。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 0,
+      "fail": 2,
+      "notes": "8题中6题通过，2题失败：345题存储答案错误且解析矛盾；349题单选题存在两个正确选项，答案不唯一。"
+    }
+  }
+}

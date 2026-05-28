@@ -1,0 +1,47 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-289",
+  "startedAt": "2026-05-28T01:25:54.933Z",
+  "completedAt": "2026-05-28T01:25:59.731Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-289"
+  ],
+  "usage": {
+    "prompt_tokens": 2465,
+    "completion_tokens": 237,
+    "total_tokens": 2702,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2081
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-289",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "65",
+        "correctedAnswer": null,
+        "issueTags": [
+          "explanation_contradiction"
+        ],
+        "severity": "minor",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，答案65正确且唯一，与教材计数原理内容匹配。解析中先出现错误计算64后修正为65，过程存在矛盾，可能误导学生，但最终答案正确，故标记为weak。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 1,
+      "warn": 0,
+      "fail": 0,
+      "notes": "题目本身无严重问题，仅解析存在轻微矛盾，建议修正解析以保持一致性。"
+    }
+  }
+}

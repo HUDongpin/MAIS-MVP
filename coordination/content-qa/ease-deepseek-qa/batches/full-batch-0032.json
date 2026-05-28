@@ -1,0 +1,168 @@
+{
+  "scope": "full",
+  "batchIndex": 32,
+  "startedAt": "2026-05-28T03:31:06.608Z",
+  "completedAt": "2026-05-28T03:31:55.437Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "itemIds": [
+    "10348",
+    "10362",
+    "10363",
+    "10602",
+    "10603",
+    "10604",
+    "10605",
+    "10606",
+    "10607",
+    "10608"
+  ],
+  "usage": {
+    "prompt_tokens": 3150,
+    "completion_tokens": 3014,
+    "total_tokens": 6164,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1894
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2766
+  },
+  "finishReason": "stop",
+  "jsonModeFallback": false,
+  "result": {
+    "items": [
+      {
+        "questionId": "10348",
+        "questionType": "MCQ",
+        "hasImage": false,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": "B",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "缺少标准答案，题目本身可解",
+        "recommendedAction": "提供答案"
+      },
+      {
+        "questionId": "10362",
+        "questionType": "FRQ",
+        "hasImage": true,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": null,
+        "solvabilityStatus": "image-context-required",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "需要图片来判断拼砌结果",
+        "recommendedAction": "提供图片或图片描述"
+      },
+      {
+        "questionId": "10363",
+        "questionType": "FRQ",
+        "hasImage": true,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": null,
+        "solvabilityStatus": "image-context-required",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "需要图片来分割图形",
+        "recommendedAction": "提供图片或图片描述"
+      },
+      {
+        "questionId": "10602",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "(A)  (C)",
+        "independentAnswer": "(A) 和 (C)",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "菱形的性质：四边等长、对边平行，答案一致",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10603",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "$28 \\div 4 = \\mathbf{7}$ 厘米",
+        "independentAnswer": "7厘米",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "菱形周长除以4得边长，答案正确",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10604",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "相等",
+        "independentAnswer": "相等",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "菱形对角相等，答案正确",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10605",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "錯",
+        "independentAnswer": "错",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "所有长方形不一定是正方形，答案正确",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10606",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "因為它們都有四條相等的邊",
+        "independentAnswer": "因为正方形有四条相等的边，符合菱形的定义",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "解释合理，答案一致",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10607",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "正方形、長方形、菱形",
+        "independentAnswer": "正方形、長方形、菱形",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "这些都有两对平行边，属于平行四边形，答案正确",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10608",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "菱形 (Rhombus)",
+        "independentAnswer": "菱形",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "描述符合菱形特征，答案正确",
+        "recommendedAction": "No blocking action."
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "unsolvable": 0,
+      "ambiguous": 0,
+      "imageContextRequired": 2,
+      "answerMismatch": 0,
+      "missingAnswerKey": 3,
+      "notes": "2题需要图片，3题缺少答案键，其余7题无问题。"
+    }
+  }
+}

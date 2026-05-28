@@ -1,0 +1,103 @@
+{
+  "batchId": "model-qa-0009",
+  "ids": [
+    "hjb-junior-ds-v2-s1-065",
+    "hjb-junior-ds-v2-s1-066",
+    "hjb-junior-ds-v2-s1-067",
+    "hjb-junior-ds-v2-s1-068",
+    "hjb-junior-ds-v2-s1-069",
+    "hjb-junior-ds-v2-s1-070",
+    "hjb-junior-ds-v2-s1-071",
+    "hjb-junior-ds-v2-s1-072"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-065",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "9x²",
+      "answerCheckZhHans": "标准答案 9x² 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-066",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "9x^2 - 16x + 11",
+      "answerCheckZhHans": "标准答案 9x^2 - 16x + 11 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-067",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "D",
+      "answerCheckZhHans": "标准答案 D 正确，其他选项均错误，且只有一个正确选项。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-068",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-8x^6 y^3",
+      "answerCheckZhHans": "标准答案 -8x^6 y^3 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-069",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "13",
+      "answerCheckZhHans": "标准答案 13 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-070",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "A",
+      "answerCheckZhHans": "标准答案 A 正确，其他选项均错误，且只有一个正确选项。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-071",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-2a^3b",
+      "answerCheckZhHans": "标准答案 -2a^3b 与独立计算结果一致，acceptedAnswers 覆盖了标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-072",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "化简得 6x-13，代入 x=-1 得 -19",
+      "answerCheckZhHans": "标准答案 '6x-13，当x=-1时值为-19' 与独立计算结果一致，acceptedAnswers 覆盖了标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

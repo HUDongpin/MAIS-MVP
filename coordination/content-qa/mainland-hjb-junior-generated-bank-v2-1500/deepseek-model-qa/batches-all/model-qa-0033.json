@@ -1,0 +1,109 @@
+{
+  "batchId": "model-qa-0033",
+  "ids": [
+    "hjb-junior-ds-v2-s1-257",
+    "hjb-junior-ds-v2-s1-258",
+    "hjb-junior-ds-v2-s1-259",
+    "hjb-junior-ds-v2-s1-260",
+    "hjb-junior-ds-v2-s1-261",
+    "hjb-junior-ds-v2-s1-262",
+    "hjb-junior-ds-v2-s1-263",
+    "hjb-junior-ds-v2-s1-264"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-257",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x ≤ -2",
+      "answerCheckZhHans": "标准答案正确，解析正确，acceptedAnswers 覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-258",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题目要求“至少购进多少本”，但标准答案和解析均使用不等式“≥100”求解，得到 x ≥ 160，即至少160本。然而，题干中“当卖到还剩20本时，除去所有成本已获利100元”应理解为此时利润恰好为100元，应列方程而非不等式。若列方程 3(x-20)-2x=100，解得 x=160，此时“至少”无意义。若按不等式理解，则利润≥100，但题干“已获利100元”通常表示恰好获利100元。因此，题目存在歧义，标准答案和解析可能错误。",
+      "independentAnswerZhHans": "设购进 x 本，则 3(x-20)-2x=100，解得 x=160。答：购进160本。",
+      "answerCheckZhHans": "标准答案使用不等式，但题干表述更倾向于方程，导致答案可能不准确。",
+      "recommendedActionZhHans": "建议修改题干，明确是“获利不少于100元”还是“恰好获利100元”，并相应调整答案和解析。",
+      "confidence": "medium"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-259",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "C",
+      "answerCheckZhHans": "标准答案正确，解析正确，选项互异，只有一个正确选项。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-260",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案正确，解析正确，acceptedAnswers 覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-261",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x > 4",
+      "answerCheckZhHans": "标准答案正确，解析正确，acceptedAnswers 覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-262",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x ≥ -2",
+      "answerCheckZhHans": "标准答案正确，解析正确，选项互异，只有一个正确选项。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-263",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x ≥ 4",
+      "answerCheckZhHans": "标准答案正确，解析正确，acceptedAnswers 覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-264",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案给出“学生240人，共2种方案”，但解析中方案(0,4)表示租0辆45座和4辆60座，总费用0*220+4*300=1200元，满足费用不超过2500元，且座位数4*60=240，恰好满足。方案(4,1)表示租4辆45座和1辆60座，总费用4*220+1*300=1180元，座位数4*45+1*60=240，也满足。但解析未考虑其他可能组合，如(2,3)：2*45+3*60=270≥240，费用2*220+3*300=1340≤2500，也满足条件。因此，方案不止两种，标准答案错误。",
+      "independentAnswerZhHans": "学生240人。设租45座a辆，60座b辆，则45a+60b≥240，220a+300b≤2500，a,b为非负整数。解得(a,b)可能为(0,4),(1,3),(2,3),(3,2),(4,1),(5,1),(6,0)等，需验证费用。经验证，(0,4)费用1200，(1,3)费用220+900=1120，(2,3)费用440+900=1340，(3,2)费用660+600=1260，(4,1)费用880+300=1180，(5,1)费用1100+300=1400，(6,0)费用1320。均不超过2500。但需检查座位数：45a+60b≥240。对于(1,3)：45+180=225<240，不满足。故(1,3)排除。类似地，(2,3)：90+180=270≥240，满足；(3,2)：135+120=255≥240，满足；(5,1)：225+60=285≥240，满足；(6,0)：270≥240，满足。因此方案有(0,4),(2,3),(3,2),(4,1),(5,1),(6,0)共6种。标准答案错误。",
+      "answerCheckZhHans": "标准答案给出2种方案，但实际存在多种方案，答案错误。",
+      "recommendedActionZhHans": "建议重新审查题目条件和解析，修正标准答案。",
+      "confidence": "high"
+    }
+  ]
+}

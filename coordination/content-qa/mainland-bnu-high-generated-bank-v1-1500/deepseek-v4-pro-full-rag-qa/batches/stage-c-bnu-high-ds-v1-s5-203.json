@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-203",
+  "startedAt": "2026-05-28T02:56:06.907Z",
+  "completedAt": "2026-05-28T02:56:11.886Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-203"
+  ],
+  "usage": {
+    "prompt_tokens": 2263,
+    "completion_tokens": 259,
+    "total_tokens": 2522,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1879
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-203",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "1/3",
+        "correctedAnswer": "1/3",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "点P(1,2,3)到平面2x - y + 2z - 5 = 0的距离正确计算为1/3，但存储答案为2，且解析中计算过程与答案矛盾，属于严重错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目答案错误，解析自相矛盾，应修正答案为1/3。"
+    }
+  }
+}

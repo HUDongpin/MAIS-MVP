@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-379",
+  "startedAt": "2026-05-28T01:53:53.510Z",
+  "completedAt": "2026-05-28T01:53:58.139Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-379"
+  ],
+  "usage": {
+    "prompt_tokens": 2078,
+    "completion_tokens": 262,
+    "total_tokens": 2340,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1694
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-379",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "independentAnswer": null,
+        "correctedAnswer": null,
+        "issueTags": [
+          "ambiguous_mc",
+          "bad_options",
+          "answer_mismatch"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "函数单调递增区间应为开区间 (-∞, -1) 和 (3, +∞)，但选项 C 表述矛盾（开区间却称包含端点），选项 D 为闭区间，均非严格正确。题目无唯一正确选项，且存储答案 D 与独立解不符，无法判定。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目选项设计存在歧义，无唯一正确选项，判定为不合格。"
+    }
+  }
+}

@@ -1,0 +1,628 @@
+{
+  "batchId": "batch-016",
+  "questions": [
+    {
+      "id": "bnu-junior-ds-v1-s1-151",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-plane-figures",
+      "unitTitle": "基本平面图形",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "basic-plane-figures",
+        "line-ray-segment",
+        "angles",
+        "angle-measure",
+        "平面图形",
+        "线段",
+        "角"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "空间观念",
+        "推理意识"
+      ],
+      "skillTags": [
+        "线段射线直线",
+        "角的表示",
+        "角度计算",
+        "线段比较",
+        "图形语言表达"
+      ],
+      "misconceptionTags": [
+        "line segment and ray notation mixed",
+        "angle vertex not identified",
+        "diagram appearance used without stated condition"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-plane-figures"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-plane-figures-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知点A、B、C在同一条直线上，且AB=5 cm，BC=3 cm。若点B在点A与点C之间，则线段AC的长度是多少？",
+      "optionsZhHans": [
+        "2 cm",
+        "8 cm",
+        "5 cm",
+        "3 cm"
+      ],
+      "answer": "8 cm",
+      "acceptedAnswers": [
+        "8 cm"
+      ],
+      "explanationZhHans": "因为点B在A与C之间，所以AC=AB+BC=5+3=8 cm。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-152",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-plane-figures",
+      "unitTitle": "基本平面图形",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "basic-plane-figures",
+        "line-ray-segment",
+        "angles",
+        "angle-measure",
+        "平面图形",
+        "线段",
+        "角"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "空间观念",
+        "推理意识"
+      ],
+      "skillTags": [
+        "线段射线直线",
+        "角的表示",
+        "角度计算",
+        "线段比较",
+        "图形语言表达"
+      ],
+      "misconceptionTags": [
+        "line segment and ray notation mixed",
+        "angle vertex not identified",
+        "diagram appearance used without stated condition"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-plane-figures"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-plane-figures-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知直线AB与直线CD相交于点O，射线OE在∠AOD内部，且∠AOE=35°，∠EOD=55°。求∠AOD的度数，并判断OE是否为∠AOD的平分线，说明理由。",
+      "optionsZhHans": [],
+      "answer": "∠AOD=90°，OE不是∠AOD的平分线，因为∠AOE≠∠EOD。",
+      "acceptedAnswers": [
+        "∠AOD=90°，OE不是∠AOD的平分线，因为∠AOE≠∠EOD。"
+      ],
+      "explanationZhHans": "∠AOD=∠AOE+∠EOD=35°+55°=90°。平分线要求两角相等，35°≠55°，故OE不是平分线。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-153",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-plane-figures",
+      "unitTitle": "基本平面图形",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "basic-plane-figures",
+        "line-ray-segment",
+        "angles",
+        "angle-measure",
+        "平面图形",
+        "线段",
+        "角"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "空间观念",
+        "推理意识"
+      ],
+      "skillTags": [
+        "线段射线直线",
+        "角的表示",
+        "角度计算",
+        "线段比较",
+        "图形语言表达"
+      ],
+      "misconceptionTags": [
+        "line segment and ray notation mixed",
+        "angle vertex not identified",
+        "diagram appearance used without stated condition"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-plane-figures"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-plane-figures-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知线段MN=8 cm，点P在直线MN上，且MP=3 cm。若点P在线段MN上，则PN=______ cm。",
+      "optionsZhHans": [],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5",
+        "5 cm"
+      ],
+      "explanationZhHans": "点P在MN上，MP+PN=MN，即3+PN=8，解得PN=5 cm。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-154",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-plane-figures",
+      "unitTitle": "基本平面图形",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "basic-plane-figures",
+        "line-ray-segment",
+        "angles",
+        "angle-measure",
+        "平面图形",
+        "线段",
+        "角"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "空间观念",
+        "推理意识"
+      ],
+      "skillTags": [
+        "线段射线直线",
+        "角的表示",
+        "角度计算",
+        "线段比较",
+        "图形语言表达"
+      ],
+      "misconceptionTags": [
+        "line segment and ray notation mixed",
+        "angle vertex not identified",
+        "diagram appearance used without stated condition"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-plane-figures"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-plane-figures-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下列四个角中，可以用∠O表示的是哪一个？",
+      "optionsZhHans": [
+        "以O为顶点，两边为射线OA和OB的角",
+        "以O为顶点，两边为射线OC和OD的角，且射线OE也在该角内部",
+        "以O为顶点的三个角，分别由射线OA和OB、OB和OC、OC和OD构成",
+        "以O为顶点，两边为射线OM和ON的角，且射线OP在角外部"
+      ],
+      "answer": "以O为顶点，两边为射线OA和OB的角",
+      "acceptedAnswers": [
+        "以O为顶点，两边为射线OA和OB的角"
+      ],
+      "explanationZhHans": "当以O为顶点的角只有一个时，可用∠O表示。选项A中只有一个角，其他选项均有多个角，不能单独用∠O表示。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-155",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-plane-figures",
+      "unitTitle": "基本平面图形",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "basic-plane-figures",
+        "line-ray-segment",
+        "angles",
+        "angle-measure",
+        "平面图形",
+        "线段",
+        "角"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "空间观念",
+        "推理意识"
+      ],
+      "skillTags": [
+        "线段射线直线",
+        "角的表示",
+        "角度计算",
+        "线段比较",
+        "图形语言表达"
+      ],
+      "misconceptionTags": [
+        "line segment and ray notation mixed",
+        "angle vertex not identified",
+        "diagram appearance used without stated condition"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-plane-figures"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-plane-figures-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知点C在线段AB上，且AC:CB=2:3。若AB=20 cm，求AC和CB的长度。",
+      "optionsZhHans": [],
+      "answer": "AC=8 cm，CB=12 cm",
+      "acceptedAnswers": [
+        "AC=8 cm，CB=12 cm"
+      ],
+      "explanationZhHans": "设AC=2k，CB=3k，则AB=5k=20，得k=4。所以AC=8 cm，CB=12 cm。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-156",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-plane-figures",
+      "unitTitle": "基本平面图形",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "basic-plane-figures",
+        "line-ray-segment",
+        "angles",
+        "angle-measure",
+        "平面图形",
+        "线段",
+        "角"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "空间观念",
+        "推理意识"
+      ],
+      "skillTags": [
+        "线段射线直线",
+        "角的表示",
+        "角度计算",
+        "线段比较",
+        "图形语言表达"
+      ],
+      "misconceptionTags": [
+        "line segment and ray notation mixed",
+        "angle vertex not identified",
+        "diagram appearance used without stated condition"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-plane-figures"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-plane-figures-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知∠AOB=120°，射线OC在∠AOB内部，且∠AOC=50°。则∠BOC=______°。",
+      "optionsZhHans": [],
+      "answer": "70",
+      "acceptedAnswers": [
+        "70",
+        "70°"
+      ],
+      "explanationZhHans": "∠BOC=∠AOB−∠AOC=120°−50°=70°。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-157",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-plane-figures",
+      "unitTitle": "基本平面图形",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "basic-plane-figures",
+        "line-ray-segment",
+        "angles",
+        "angle-measure",
+        "平面图形",
+        "线段",
+        "角"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "空间观念",
+        "推理意识"
+      ],
+      "skillTags": [
+        "线段射线直线",
+        "角的表示",
+        "角度计算",
+        "线段比较",
+        "图形语言表达"
+      ],
+      "misconceptionTags": [
+        "line segment and ray notation mixed",
+        "angle vertex not identified",
+        "diagram appearance used without stated condition"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-plane-figures"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-plane-figures-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知线段PQ=10 cm，点R在直线PQ上，且PR=4 cm。若点R不在线段PQ上，则线段RQ的长度是多少？",
+      "optionsZhHans": [
+        "6 cm",
+        "14 cm",
+        "10 cm",
+        "4 cm"
+      ],
+      "answer": "14 cm",
+      "acceptedAnswers": [
+        "14 cm"
+      ],
+      "explanationZhHans": "点R不在PQ上，则P、Q、R共线且R在PQ延长线上。若R在P外侧，则RQ=RP+PQ=4+10=14 cm。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-158",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-plane-figures",
+      "unitTitle": "基本平面图形",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "basic-plane-figures",
+        "line-ray-segment",
+        "angles",
+        "angle-measure",
+        "平面图形",
+        "线段",
+        "角"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "空间观念",
+        "推理意识"
+      ],
+      "skillTags": [
+        "线段射线直线",
+        "角的表示",
+        "角度计算",
+        "线段比较",
+        "图形语言表达"
+      ],
+      "misconceptionTags": [
+        "line segment and ray notation mixed",
+        "angle vertex not identified",
+        "diagram appearance used without stated condition"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-plane-figures"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-plane-figures-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知∠AOB与∠BOC互为邻补角，且∠AOB=2∠BOC。求∠AOB的度数。",
+      "optionsZhHans": [],
+      "answer": "120°",
+      "acceptedAnswers": [
+        "120°"
+      ],
+      "explanationZhHans": "邻补角和为180°，设∠BOC=x，则∠AOB=2x，得x+2x=180°，x=60°，∠AOB=120°。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-159",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-plane-figures",
+      "unitTitle": "基本平面图形",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "basic-plane-figures",
+        "line-ray-segment",
+        "angles",
+        "angle-measure",
+        "平面图形",
+        "线段",
+        "角"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "空间观念",
+        "推理意识"
+      ],
+      "skillTags": [
+        "线段射线直线",
+        "角的表示",
+        "角度计算",
+        "线段比较",
+        "图形语言表达"
+      ],
+      "misconceptionTags": [
+        "line segment and ray notation mixed",
+        "angle vertex not identified",
+        "diagram appearance used without stated condition"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-plane-figures"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-plane-figures-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知直线l上有三个点A、B、C，且AB=6 cm，BC=4 cm。若点B在点A与点C之间，则AC=______ cm。",
+      "optionsZhHans": [],
+      "answer": "10",
+      "acceptedAnswers": [
+        "10",
+        "10 cm"
+      ],
+      "explanationZhHans": "点B在A、C之间，则AC=AB+BC=6+4=10 cm。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-160",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-plane-figures",
+      "unitTitle": "基本平面图形",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "basic-plane-figures",
+        "line-ray-segment",
+        "angles",
+        "angle-measure",
+        "平面图形",
+        "线段",
+        "角"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "空间观念",
+        "推理意识"
+      ],
+      "skillTags": [
+        "线段射线直线",
+        "角的表示",
+        "角度计算",
+        "线段比较",
+        "图形语言表达"
+      ],
+      "misconceptionTags": [
+        "line segment and ray notation mixed",
+        "angle vertex not identified",
+        "diagram appearance used without stated condition"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-plane-figures"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-plane-figures-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知∠AOB=80°，射线OC是∠AOB的平分线，射线OD在∠AOC内部，且∠COD=15°。则∠BOD的度数是多少？",
+      "optionsZhHans": [
+        "55°",
+        "65°",
+        "25°",
+        "40°"
+      ],
+      "answer": "55°",
+      "acceptedAnswers": [
+        "55°"
+      ],
+      "explanationZhHans": "OC平分∠AOB，则∠AOC=∠BOC=40°。∠AOD=∠AOC−∠COD=40°−15°=25°。∠BOD=∠AOB−∠AOD=80°−25°=55°。"
+    }
+  ]
+}

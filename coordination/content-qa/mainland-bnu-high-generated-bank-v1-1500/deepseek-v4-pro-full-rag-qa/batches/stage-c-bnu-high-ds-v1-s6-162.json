@@ -1,0 +1,50 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-162",
+  "startedAt": "2026-05-28T01:43:19.422Z",
+  "completedAt": "2026-05-28T01:43:23.581Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-162"
+  ],
+  "usage": {
+    "prompt_tokens": 2507,
+    "completion_tokens": 271,
+    "total_tokens": 2778,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2123
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-162",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": null,
+        "correctedAnswer": "题目条件矛盾，无解",
+        "issueTags": [
+          "unsolvable",
+          "missing_condition",
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "由等差数列性质 a_3+a_7=2a_5=20 得 a_5=10，与已知 a_5=12 矛盾，题目条件自相矛盾，无法求解公差 d。存储答案 2 错误，解析试图调整题目但未指出矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目条件矛盾，无法求解，应标记为不可解。"
+    }
+  }
+}

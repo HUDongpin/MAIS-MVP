@@ -1,0 +1,583 @@
+{
+  "batchId": "batch-085",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p4-091",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-division",
+      "unitTitle": "除法",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "multi-digit-division",
+        "two-digit-divisor",
+        "quotient-estimation",
+        "除法",
+        "除数是两位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "除数是两位数",
+        "试商调商",
+        "有余数除法",
+        "验算",
+        "除法应用"
+      ],
+      "misconceptionTags": [
+        "trial quotient too large or too small without adjustment",
+        "remainder larger than divisor accepted",
+        "context ignored when interpreting the remainder"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-division-unit",
+        "bnu-primary-p4-upper-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆新到一批图书，共 576 本。管理员打算把这些书平均分给 24 个班级，每个班级能分到多少本？",
+      "optionsZhHans": [
+        "24 本",
+        "23 本",
+        "25 本",
+        "26 本"
+      ],
+      "answer": "24 本",
+      "acceptedAnswers": [
+        "24 本"
+      ],
+      "explanationZhHans": "576 ÷ 24 = 24，因为 24 × 24 = 576，所以每个班级分到 24 本。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-092",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-division",
+      "unitTitle": "除法",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "multi-digit-division",
+        "two-digit-divisor",
+        "quotient-estimation",
+        "除法",
+        "除数是两位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "除数是两位数",
+        "试商调商",
+        "有余数除法",
+        "验算",
+        "除法应用"
+      ],
+      "misconceptionTags": [
+        "trial quotient too large or too small without adjustment",
+        "remainder larger than divisor accepted",
+        "context ignored when interpreting the remainder"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-division-unit",
+        "bnu-primary-p4-upper-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算 438 ÷ 18，商是 ______，余数是 ______。",
+      "optionsZhHans": [],
+      "answer": "24 余 6",
+      "acceptedAnswers": [
+        "24 余 6",
+        "24余6",
+        "24 余6",
+        "24余 6"
+      ],
+      "explanationZhHans": "18 × 24 = 432，438 - 432 = 6，余数 6 小于除数 18，所以商 24 余 6。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-093",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-division",
+      "unitTitle": "除法",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "multi-digit-division",
+        "two-digit-divisor",
+        "quotient-estimation",
+        "除法",
+        "除数是两位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "除数是两位数",
+        "试商调商",
+        "有余数除法",
+        "验算",
+        "除法应用"
+      ],
+      "misconceptionTags": [
+        "trial quotient too large or too small without adjustment",
+        "remainder larger than divisor accepted",
+        "context ignored when interpreting the remainder"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-division-unit",
+        "bnu-primary-p4-upper-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明的妈妈买了 15 千克苹果，一共花了 180 元。后来她又看到同样的苹果在另一家店每千克便宜 2 元。如果她在第二家店买同样的苹果，买 15 千克需要花多少钱？",
+      "optionsZhHans": [],
+      "answer": "150 元",
+      "acceptedAnswers": [
+        "150 元",
+        "150"
+      ],
+      "explanationZhHans": "第一家店单价：180 ÷ 15 = 12 元/千克。第二家店单价：12 - 2 = 10 元/千克。15 × 10 = 150 元。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-094",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-division",
+      "unitTitle": "除法",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "multi-digit-division",
+        "two-digit-divisor",
+        "quotient-estimation",
+        "除法",
+        "除数是两位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "除数是两位数",
+        "试商调商",
+        "有余数除法",
+        "验算",
+        "除法应用"
+      ],
+      "misconceptionTags": [
+        "trial quotient too large or too small without adjustment",
+        "remainder larger than divisor accepted",
+        "context ignored when interpreting the remainder"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-division-unit",
+        "bnu-primary-p4-upper-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "王叔叔开车从甲地到乙地，全程 364 千米，他计划用 7 小时到达。实际行驶时，他每小时比计划多行驶 6 千米。王叔叔实际每小时行驶多少千米？",
+      "optionsZhHans": [
+        "58 千米",
+        "52 千米",
+        "46 千米",
+        "64 千米"
+      ],
+      "answer": "58 千米",
+      "acceptedAnswers": [
+        "58 千米"
+      ],
+      "explanationZhHans": "计划速度：364 ÷ 7 = 52 千米/时。实际速度：52 + 6 = 58 千米/时。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-095",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-division",
+      "unitTitle": "除法",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "multi-digit-division",
+        "two-digit-divisor",
+        "quotient-estimation",
+        "除法",
+        "除数是两位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "除数是两位数",
+        "试商调商",
+        "有余数除法",
+        "验算",
+        "除法应用"
+      ],
+      "misconceptionTags": [
+        "trial quotient too large or too small without adjustment",
+        "remainder larger than divisor accepted",
+        "context ignored when interpreting the remainder"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-division-unit",
+        "bnu-primary-p4-upper-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在算式 □ ÷ 25 = 13……△ 中，△ 最大是 ______，这时 □ 是 ______。",
+      "optionsZhHans": [],
+      "answer": "24, 349",
+      "acceptedAnswers": [
+        "24, 349",
+        "24 349",
+        "24和349"
+      ],
+      "explanationZhHans": "余数必须小于除数 25，最大余数是 24。被除数 = 25 × 13 + 24 = 325 + 24 = 349。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-096",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-division",
+      "unitTitle": "除法",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "multi-digit-division",
+        "two-digit-divisor",
+        "quotient-estimation",
+        "除法",
+        "除数是两位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "除数是两位数",
+        "试商调商",
+        "有余数除法",
+        "验算",
+        "除法应用"
+      ],
+      "misconceptionTags": [
+        "trial quotient too large or too small without adjustment",
+        "remainder larger than divisor accepted",
+        "context ignored when interpreting the remainder"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-division-unit",
+        "bnu-primary-p4-upper-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "工厂生产了 850 个零件，每 32 个装一箱。全部装完后，最后一箱还差几个就装满？",
+      "optionsZhHans": [],
+      "answer": "14 个",
+      "acceptedAnswers": [
+        "14 个",
+        "14"
+      ],
+      "explanationZhHans": "850 ÷ 32 = 26 箱余 18 个。装满一箱需 32 个，32 - 18 = 14 个，所以最后一箱还差 14 个装满。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-097",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-negative-numbers",
+      "unitTitle": "生活中的负数",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "negative-numbers",
+        "signed-quantities",
+        "number-line",
+        "生活中的负数",
+        "正负数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "认识正负数",
+        "读写负数",
+        "数轴表示",
+        "比较正负数",
+        "情境解释"
+      ],
+      "misconceptionTags": [
+        "negative sign treated as subtraction only",
+        "larger absolute value assumed larger number",
+        "zero reference not identified"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-negative-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-negative-numbers-unit",
+        "bnu-primary-p4-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某城市某天早晨的气温是 -3℃，中午比早晨上升了 8℃，傍晚又比中午下降了 5℃。傍晚的气温是多少摄氏度？",
+      "optionsZhHans": [
+        "0℃",
+        "1℃",
+        "-1℃",
+        "2℃"
+      ],
+      "answer": "0℃",
+      "acceptedAnswers": [
+        "0℃"
+      ],
+      "explanationZhHans": "中午气温：-3 + 8 = 5℃。傍晚气温：5 - 5 = 0℃。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-098",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-negative-numbers",
+      "unitTitle": "生活中的负数",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "negative-numbers",
+        "signed-quantities",
+        "number-line",
+        "生活中的负数",
+        "正负数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "认识正负数",
+        "读写负数",
+        "数轴表示",
+        "比较正负数",
+        "情境解释"
+      ],
+      "misconceptionTags": [
+        "negative sign treated as subtraction only",
+        "larger absolute value assumed larger number",
+        "zero reference not identified"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-negative-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-negative-numbers-unit",
+        "bnu-primary-p4-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在数轴上，点 A 表示 -4，点 B 在点 A 的右边 7 个单位长度处，点 B 表示的数是 ______。",
+      "optionsZhHans": [],
+      "answer": "3",
+      "acceptedAnswers": [
+        "3"
+      ],
+      "explanationZhHans": "从 -4 向右移动 7 个单位：-4 + 7 = 3，所以点 B 表示的数是 3。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-099",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-negative-numbers",
+      "unitTitle": "生活中的负数",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "negative-numbers",
+        "signed-quantities",
+        "number-line",
+        "生活中的负数",
+        "正负数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "认识正负数",
+        "读写负数",
+        "数轴表示",
+        "比较正负数",
+        "情境解释"
+      ],
+      "misconceptionTags": [
+        "negative sign treated as subtraction only",
+        "larger absolute value assumed larger number",
+        "zero reference not identified"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-negative-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-negative-numbers-unit",
+        "bnu-primary-p4-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明参加数学竞赛，答对一题得 10 分，答错一题扣 5 分。他答了 20 题，最后得 155 分。小明答对了几题？",
+      "optionsZhHans": [],
+      "answer": "17 题",
+      "acceptedAnswers": [
+        "17 题",
+        "17"
+      ],
+      "explanationZhHans": "假设全对：20 × 10 = 200 分。错一题少得 10 + 5 = 15 分。共少得 200 - 155 = 45 分。错题数：45 ÷ 15 = 3 题。对题数：20 - 3 = 17 题。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-100",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-negative-numbers",
+      "unitTitle": "生活中的负数",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "negative-numbers",
+        "signed-quantities",
+        "number-line",
+        "生活中的负数",
+        "正负数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "认识正负数",
+        "读写负数",
+        "数轴表示",
+        "比较正负数",
+        "情境解释"
+      ],
+      "misconceptionTags": [
+        "negative sign treated as subtraction only",
+        "larger absolute value assumed larger number",
+        "zero reference not identified"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-negative-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-negative-numbers-unit",
+        "bnu-primary-p4-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个温度最低？",
+      "optionsZhHans": [
+        "-5℃",
+        "-2℃",
+        "0℃",
+        "3℃"
+      ],
+      "answer": "-5℃",
+      "acceptedAnswers": [
+        "-5℃"
+      ],
+      "explanationZhHans": "负数比较大小，绝对值大的数反而小。-5 的绝对值最大，所以 -5℃ 温度最低。"
+    }
+  ]
+}

@@ -1,0 +1,300 @@
+{
+  "batchId": "batch-018",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s1-k03-fi-015",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-geometric-figures",
+      "unitTitle": "几何图形初步",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-geometric-figures"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-linear-equation-modeling"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "把一段长为 20 cm 的细铁丝弯成一个长方形框架，使长比宽多 2 cm。设宽为 x cm，则长为 (x+2) cm，根据周长列方程得 2[x+(x+2)]=20。解得 x=______。",
+      "optionsZhHans": [],
+      "answer": "4",
+      "acceptedAnswers": [
+        "4"
+      ],
+      "explanationZhHans": "解方程 2[x+(x+2)]=20，得 2(2x+2)=20，4x+4=20，4x=16，x=4。所以宽为 4 cm。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k03-fi-016",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-geometric-figures",
+      "unitTitle": "几何图形初步",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-geometric-figures"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-geometric-figures"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "已知点 A, B, C 在同一条直线上，AB=5 cm，BC=3 cm，那么 AC 的长度为______cm。",
+      "optionsZhHans": [],
+      "answer": "8 或 2",
+      "acceptedAnswers": [
+        "8 或 2",
+        "2 或 8"
+      ],
+      "explanationZhHans": "当点 C 在点 B 的右侧时，AC=AB+BC=5+3=8 cm；当点 C 在点 B 的左侧时，AC=AB-BC=5-3=2 cm。所以 AC 的长度为 8 或 2 cm。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k03-fi-017",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-geometric-figures",
+      "unitTitle": "几何图形初步",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-geometric-figures"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "一个角的补角比它的余角的 3 倍少 20°，求这个角的度数。设这个角为 x°，则它的补角为 (180-x)°，余角为 (90-x)°，根据题意列方程得 180-x=3(90-x)-20。解得 x=______。",
+      "optionsZhHans": [],
+      "answer": "35",
+      "acceptedAnswers": [
+        "35"
+      ],
+      "explanationZhHans": "解方程 180-x=3(90-x)-20，180-x=270-3x-20，180-x=250-3x，移项得 -x+3x=250-180，2x=70，x=35。所以这个角为 35°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k03-fi-018",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-geometric-figures",
+      "unitTitle": "几何图形初步",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-geometric-figures"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-rational-number-operations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "从正面、左面、上面观察一个由若干个小正方体搭成的几何体，看到的形状都是 2×2 的正方形网格。搭成这个几何体最少需要______个小正方体。",
+      "optionsZhHans": [],
+      "answer": "4",
+      "acceptedAnswers": [
+        "4"
+      ],
+      "explanationZhHans": "要使得从三个方向看都是 2×2 的正方形，只需在底层四个角各放一个小正方体即可，此时从正面、左面、上面都能看到 2×2 的轮廓。所以最少需要 4 个小正方体。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k03-fi-019",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-geometric-figures",
+      "unitTitle": "几何图形初步",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-geometric-figures"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-expression-simplification"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "点 C 在线段 AB 上，M 是 AC 的中点，N 是 BC 的中点。若 AB=10 cm，则 MN=______cm。",
+      "optionsZhHans": [],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5"
+      ],
+      "explanationZhHans": "因为 M 是 AC 的中点，所以 MC=AC/2；N 是 BC 的中点，所以 CN=BC/2。MN=MC+CN=(AC+BC)/2=AB/2=10/2=5 cm。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k03-fi-020",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-geometric-figures",
+      "unitTitle": "几何图形初步",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-geometric-figures"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-linear-equation-modeling"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "某商店将进价为 80 元的一件商品按标价的八折出售，仍可获利 20 元，则该商品的标价为______元。",
+      "optionsZhHans": [],
+      "answer": "125",
+      "acceptedAnswers": [
+        "125"
+      ],
+      "explanationZhHans": "设标价为 x 元，则售价为 0.8x 元。利润=售价-进价，即 0.8x-80=20，解得 0.8x=100，x=125。所以标价为 125 元。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k03-fi-021",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-geometric-figures",
+      "unitTitle": "几何图形初步",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-geometric-figures"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-geometric-figures"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "已知 ∠AOB=40°，∠BOC=30°，则 ∠AOC 的度数为______。",
+      "optionsZhHans": [],
+      "answer": "70° 或 10°",
+      "acceptedAnswers": [
+        "70° 或 10°",
+        "10° 或 70°"
+      ],
+      "explanationZhHans": "当射线 OC 在 ∠AOB 外部时，∠AOC=∠AOB+∠BOC=40°+30°=70°；当射线 OC 在 ∠AOB 内部时，∠AOC=∠AOB-∠BOC=40°-30°=10°。所以 ∠AOC 的度数为 70° 或 10°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k03-fi-022",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-geometric-figures",
+      "unitTitle": "几何图形初步",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-geometric-figures"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "已知关于 x 的方程 2x-a=3 的解是 x=2，则 a 的值为______。",
+      "optionsZhHans": [],
+      "answer": "1",
+      "acceptedAnswers": [
+        "1"
+      ],
+      "explanationZhHans": "把 x=2 代入方程得 2×2-a=3，即 4-a=3，解得 a=1。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k03-sa-001",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-geometric-figures",
+      "unitTitle": "几何图形初步",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-geometric-figures"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-geometric-figures"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "已知线段 AB=8 cm，点 C 在直线 AB 上，且 BC=3 cm，求 AC 的长。",
+      "optionsZhHans": [],
+      "answer": "AC=5 cm 或 11 cm",
+      "acceptedAnswers": [
+        "AC=5 cm 或 11 cm",
+        "5 cm 或 11 cm",
+        "11 cm 或 5 cm"
+      ],
+      "explanationZhHans": "当点 C 在线段 AB 上时，AC=AB-BC=8-3=5 cm；当点 C 在线段 AB 的延长线上时，AC=AB+BC=8+3=11 cm。所以 AC=5 cm 或 11 cm。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k03-sa-002",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-geometric-figures",
+      "unitTitle": "几何图形初步",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-geometric-figures"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "一个角的补角加上 10° 后，等于这个角的余角的 3 倍，求这个角的度数。",
+      "optionsZhHans": [],
+      "answer": "40°",
+      "acceptedAnswers": [
+        "40°",
+        "40"
+      ],
+      "explanationZhHans": "设这个角为 x°，则它的补角为 (180-x)°，余角为 (90-x)°。根据题意得 (180-x)+10=3(90-x)，即 190-x=270-3x，移项得 -x+3x=270-190，2x=80，x=40。所以这个角为 40°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

@@ -1,0 +1,324 @@
+{
+  "batchId": "batch-168",
+  "questions": [
+    {
+      "id": "hjb-junior-ds-v2-s2-336",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "hjb-junior-s2-lower-coordinate-plane",
+      "unitTitle": "平面直角坐标系",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "coordinate-plane",
+        "distance-formula",
+        "translations",
+        "axis-symmetry",
+        "ordered-pairs",
+        "平面直角坐标系"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学表达",
+        "空间观念"
+      ],
+      "skillTags": [
+        "坐标表示",
+        "象限判断",
+        "两点距离",
+        "平移",
+        "轴对称",
+        "坐标变换"
+      ],
+      "misconceptionTags": [
+        "x and y coordinates swapped",
+        "axis point assigned to a quadrant",
+        "reflection sign changed on wrong coordinate"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s2-lower-coordinate-plane"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-lower-paper-coordinate-plane-unit",
+        "hjb-junior-s2-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系中，点A的坐标是(3, -4)。点B是点A关于x轴对称的点。请写出点B的坐标，并计算线段AB的长度。",
+      "optionsZhHans": [],
+      "answer": "点B的坐标是(3, 4)，线段AB的长度是8。",
+      "acceptedAnswers": [
+        "点B的坐标是(3, 4)，线段AB的长度是8。",
+        "B(3,4)，AB=8",
+        "(3,4)，8"
+      ],
+      "explanationZhHans": "关于x轴对称，横坐标不变，纵坐标互为相反数，故B(3,4)。AB平行于y轴，长度=|4-(-4)|=8。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-337",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "hjb-junior-s2-lower-coordinate-plane",
+      "unitTitle": "平面直角坐标系",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "coordinate-plane",
+        "distance-formula",
+        "translations",
+        "axis-symmetry",
+        "ordered-pairs",
+        "平面直角坐标系"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学表达",
+        "空间观念"
+      ],
+      "skillTags": [
+        "坐标表示",
+        "象限判断",
+        "两点距离",
+        "平移",
+        "轴对称",
+        "坐标变换"
+      ],
+      "misconceptionTags": [
+        "x and y coordinates swapped",
+        "axis point assigned to a quadrant",
+        "reflection sign changed on wrong coordinate"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s2-lower-coordinate-plane"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-lower-paper-coordinate-plane-unit",
+        "hjb-junior-s2-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系中，点P的坐标是(-5, 0)。关于点P的位置，下列说法正确的是：",
+      "optionsZhHans": [
+        "A. 点P在第二象限",
+        "B. 点P在第三象限",
+        "C. 点P在x轴上",
+        "D. 点P在y轴上"
+      ],
+      "answer": "C. 点P在x轴上",
+      "acceptedAnswers": [
+        "C. 点P在x轴上"
+      ],
+      "explanationZhHans": "点P的纵坐标为0，横坐标不为0，因此点P在x轴上，不属于任何象限。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-338",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "hjb-junior-s2-lower-coordinate-plane",
+      "unitTitle": "平面直角坐标系",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "coordinate-plane",
+        "distance-formula",
+        "translations",
+        "axis-symmetry",
+        "ordered-pairs",
+        "平面直角坐标系"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学表达",
+        "空间观念"
+      ],
+      "skillTags": [
+        "坐标表示",
+        "象限判断",
+        "两点距离",
+        "平移",
+        "轴对称",
+        "坐标变换"
+      ],
+      "misconceptionTags": [
+        "x and y coordinates swapped",
+        "axis point assigned to a quadrant",
+        "reflection sign changed on wrong coordinate"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-junior-s2-lower-coordinate-plane"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-lower-paper-coordinate-plane-unit",
+        "hjb-junior-s2-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系中，将点M(-2, 3)先向右平移4个单位长度，再向下平移1个单位长度，得到点N。点N的坐标是______。",
+      "optionsZhHans": [],
+      "answer": "(2, 2)",
+      "acceptedAnswers": [
+        "(2, 2)",
+        "（2，2）"
+      ],
+      "explanationZhHans": "向右平移横坐标加4：-2+4=2；向下平移纵坐标减1：3-1=2。故N(2,2)。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-339",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "hjb-junior-s2-lower-coordinate-plane",
+      "unitTitle": "平面直角坐标系",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "coordinate-plane",
+        "distance-formula",
+        "translations",
+        "axis-symmetry",
+        "ordered-pairs",
+        "平面直角坐标系"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学表达",
+        "空间观念"
+      ],
+      "skillTags": [
+        "坐标表示",
+        "象限判断",
+        "两点距离",
+        "平移",
+        "轴对称",
+        "坐标变换"
+      ],
+      "misconceptionTags": [
+        "x and y coordinates swapped",
+        "axis point assigned to a quadrant",
+        "reflection sign changed on wrong coordinate"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s2-lower-coordinate-plane"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-lower-paper-coordinate-plane-unit",
+        "hjb-junior-s2-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系中，已知点A(1, 2)和点B(1, -3)。求A、B两点之间的距离。",
+      "optionsZhHans": [],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5",
+        "5个单位长度"
+      ],
+      "explanationZhHans": "A、B横坐标相同，纵坐标差为|2-(-3)|=5，故距离为5。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-340",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "hjb-junior-s2-lower-coordinate-plane",
+      "unitTitle": "平面直角坐标系",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "coordinate-plane",
+        "distance-formula",
+        "translations",
+        "axis-symmetry",
+        "ordered-pairs",
+        "平面直角坐标系"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学表达",
+        "空间观念"
+      ],
+      "skillTags": [
+        "坐标表示",
+        "象限判断",
+        "两点距离",
+        "平移",
+        "轴对称",
+        "坐标变换"
+      ],
+      "misconceptionTags": [
+        "x and y coordinates swapped",
+        "axis point assigned to a quadrant",
+        "reflection sign changed on wrong coordinate"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s2-lower-coordinate-plane"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-lower-paper-coordinate-plane-unit",
+        "hjb-junior-s2-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系中，点A的坐标是(2, -3)。点B是点A关于y轴对称的点，则点B的坐标是：",
+      "optionsZhHans": [
+        "A. (2, 3)",
+        "B. (-2, -3)",
+        "C. (-2, 3)",
+        "D. (2, -3)"
+      ],
+      "answer": "B. (-2, -3)",
+      "acceptedAnswers": [
+        "B. (-2, -3)"
+      ],
+      "explanationZhHans": "关于y轴对称，纵坐标不变，横坐标互为相反数，故B(-2,-3)。"
+    }
+  ]
+}

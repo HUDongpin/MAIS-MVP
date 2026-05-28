@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-213",
+  "startedAt": "2026-05-28T01:04:30.885Z",
+  "completedAt": "2026-05-28T01:04:35.713Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-213"
+  ],
+  "usage": {
+    "prompt_tokens": 1885,
+    "completion_tokens": 251,
+    "total_tokens": 2136,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1501
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-213",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": null,
+        "correctedAnswer": null,
+        "issueTags": [
+          "missing_condition",
+          "unsolvable",
+          "answer_mismatch"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "分层抽样估计总体均值需各层在总体中的比例，题目未给出男女生人数，无法计算。存储答案167.2基于错误假设样本比例等于总体比例，不可接受。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目缺失关键条件（男女生人数），导致无法求解，判定为不可解，答案不匹配，严重程度为阻断。"
+    }
+  }
+}

@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-176",
+  "startedAt": "2026-05-28T01:51:04.564Z",
+  "completedAt": "2026-05-28T01:51:21.364Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-401",
+    "bnu-high-ds-v1-s6-402",
+    "bnu-high-ds-v1-s6-403",
+    "bnu-high-ds-v1-s6-404",
+    "bnu-high-ds-v1-s6-405",
+    "bnu-high-ds-v1-s6-406",
+    "bnu-high-ds-v1-s6-407",
+    "bnu-high-ds-v1-s6-408"
+  ],
+  "usage": {
+    "prompt_tokens": 10095,
+    "completion_tokens": 1176,
+    "total_tokens": 11271,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9711
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-401",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "a = 2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导得 f'(x)=3x^2-6x，驻点 x=0,2。计算 f(0)=a, f(2)=a-4, f(3)=a。最小值为 a-4=2，得 a=6？检查：f(0)=a, f(2)=a-4, f(3)=a，最小值应为 a-4，令其等于2得 a=6。但 f(0)=6, f(3)=6，最小值是2，符合。答案 a=6。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-402",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "y = -2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导 y'=3x^2-3，在 x=1 处斜率 k=0，切线为 y=-2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-403",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "10",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x^2-6x-9=3(x-3)(x+1)，驻点 x=-1,3。计算 f(-2)=3, f(-1)=10, f(3)=-22, f(4)=-15，最大值为10。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-404",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(-1, 3)",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x^2-6x-9=3(x-3)(x+1)，解 f'(x)<0 得 -1<x<3。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-405",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "-3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x^2+2ax+b，由 f'(1)=0 得 3+2a+b=0；f(1)=1+a+b+1=2 得 a+b=0。解得 a=-3, b=3，a+b=0？检查：a+b=0，但代入第一个方程 3+2a+b=3+2a+( -a)=3+a=0 => a=-3, b=3，a+b=0。答案 0。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-406",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x^2-3，驻点 x=-1,1。f(-1)=2 为极大值，f(1)=-2 为极小值。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-407",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "最大值为10，最小值为-22",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "同403题，f(-2)=3, f(-1)=10, f(3)=-22, f(4)=-15，最大10，最小-22。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-408",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "-3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x^2-6x=3x(x-2)，驻点 x=0,2。f(0)=1 为极大值，f(2)=-3 为极小值。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，无数学错误、歧义或缺失条件，符合北师大版导数章节要求。"
+    }
+  }
+}

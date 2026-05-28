@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0097",
+  "ids": [
+    "hjb-junior-ds-v2-s2-269",
+    "hjb-junior-ds-v2-s2-270",
+    "hjb-junior-ds-v2-s2-271",
+    "hjb-junior-ds-v2-s2-272",
+    "hjb-junior-ds-v2-s2-273",
+    "hjb-junior-ds-v2-s2-274",
+    "hjb-junior-ds-v2-s2-275",
+    "hjb-junior-ds-v2-s2-276"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-269",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "50",
+      "answerCheckZhHans": "标准答案为50，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-270",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "标准答案为3，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-271",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "矩形",
+      "answerCheckZhHans": "标准答案为矩形，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-272",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "6",
+      "answerCheckZhHans": "标准答案为6，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-273",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "8",
+      "answerCheckZhHans": "标准答案为8，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-274",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "6",
+      "answerCheckZhHans": "标准答案为6，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-275",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "24",
+      "answerCheckZhHans": "标准答案为24，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-276",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析中称OF为△ABC中位线，但O为对角线交点，并非AB中点，故OF不是△ABC中位线。正确解法：由平行四边形性质，O为AC中点，E为AD中点，则OE为△ACD中位线，OE∥CD且OE=½CD=4。延长OE交BC于F，由平行线分线段成比例，F为BC中点，故OF为△ABC中位线，OF=½AB=4。但标准答案为√13，与正确结果4不符。",
+      "independentAnswerZhHans": "4",
+      "answerCheckZhHans": "标准答案为√13，但独立解题得4，两者不一致。",
+      "recommendedActionZhHans": "修正解析和答案，正确答案应为4。",
+      "confidence": "high"
+    }
+  ]
+}

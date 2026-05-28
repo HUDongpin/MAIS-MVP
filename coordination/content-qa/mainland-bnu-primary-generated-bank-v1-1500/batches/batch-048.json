@@ -1,0 +1,562 @@
+{
+  "batchId": "batch-048",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p2-221",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-plane-shapes",
+      "unitTitle": "认识图形",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "plane-shape-properties",
+        "angle-side-intuition",
+        "quadrilaterals",
+        "认识图形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "角",
+        "边",
+        "长方形",
+        "正方形",
+        "图形分类"
+      ],
+      "misconceptionTags": [
+        "orientation mistaken for shape type",
+        "side length and angle features mixed",
+        "decorative appearance used instead of properties"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-plane-shapes"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-plane-shapes",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面四个图形中，哪一个图形有4条边、4个角，而且4条边都相等？",
+      "optionsZhHans": [
+        "A. 长方形",
+        "B. 正方形",
+        "C. 三角形",
+        "D. 平行四边形"
+      ],
+      "answer": "B. 正方形",
+      "acceptedAnswers": [
+        "B. 正方形"
+      ],
+      "explanationZhHans": "正方形有4条边、4个角，并且4条边都相等。长方形也有4条边和4个角，但通常只有对边相等。三角形有3条边和3个角。平行四边形通常对边相等，不一定4条边都相等。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-222",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-plane-shapes",
+      "unitTitle": "认识图形",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "plane-shape-properties",
+        "angle-side-intuition",
+        "quadrilaterals",
+        "认识图形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "角",
+        "边",
+        "长方形",
+        "正方形",
+        "图形分类"
+      ],
+      "misconceptionTags": [
+        "orientation mistaken for shape type",
+        "side length and angle features mixed",
+        "decorative appearance used instead of properties"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-plane-shapes"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-plane-shapes",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "长方形有______条边，______个角，对边______。",
+      "optionsZhHans": [],
+      "answer": "4,4,相等",
+      "acceptedAnswers": [
+        "4,4,相等"
+      ],
+      "explanationZhHans": "长方形是四边形，有4条边和4个角。长方形的对边长度相等，这是它的重要特征。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-223",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-time",
+      "unitTitle": "时、分、秒",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "time-units",
+        "clock-reading",
+        "elapsed-time-intuition",
+        "时分秒"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "时分秒关系",
+        "读钟面",
+        "时间长短",
+        "简单经过时间"
+      ],
+      "misconceptionTags": [
+        "base-ten relation assumed for time",
+        "duration confused with clock reading",
+        "minute and second units interchanged"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-time"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-time",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "钟面上，分针从数字12走到数字6，经过的时间是（ ）。",
+      "optionsZhHans": [
+        "A. 6分钟",
+        "B. 30分钟",
+        "C. 6小时",
+        "D. 30小时"
+      ],
+      "answer": "B. 30分钟",
+      "acceptedAnswers": [
+        "B. 30分钟"
+      ],
+      "explanationZhHans": "分针走一大格是5分钟。从12到6走了6大格，5×6=30分钟。选项A的6分钟是时针走一大格的时间，选项C和D单位不对。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-224",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-time",
+      "unitTitle": "时、分、秒",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "time-units",
+        "clock-reading",
+        "elapsed-time-intuition",
+        "时分秒"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "时分秒关系",
+        "读钟面",
+        "时间长短",
+        "简单经过时间"
+      ],
+      "misconceptionTags": [
+        "base-ten relation assumed for time",
+        "duration confused with clock reading",
+        "minute and second units interchanged"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-time"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-time",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "1时 = ______分，1分 = ______秒。",
+      "optionsZhHans": [],
+      "answer": "60,60",
+      "acceptedAnswers": [
+        "60,60"
+      ],
+      "explanationZhHans": "时间单位中，1小时等于60分钟，1分钟等于60秒，不是10进制。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-225",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-time",
+      "unitTitle": "时、分、秒",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "time-units",
+        "clock-reading",
+        "elapsed-time-intuition",
+        "时分秒"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "时分秒关系",
+        "读钟面",
+        "时间长短",
+        "简单经过时间"
+      ],
+      "misconceptionTags": [
+        "base-ten relation assumed for time",
+        "duration confused with clock reading",
+        "minute and second units interchanged"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-time"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-time",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明晚上8:30睡觉，第二天早上6:30起床。他睡了多长时间？",
+      "optionsZhHans": [
+        "A. 2小时",
+        "B. 10小时",
+        "C. 14小时",
+        "D. 8小时30分"
+      ],
+      "answer": "B. 10小时",
+      "acceptedAnswers": [
+        "B. 10小时"
+      ],
+      "explanationZhHans": "从晚上8:30到晚上12:00是3小时30分，再从0:00到早上6:30是6小时30分，合起来是10小时。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-226",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-time",
+      "unitTitle": "时、分、秒",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "time-units",
+        "clock-reading",
+        "elapsed-time-intuition",
+        "时分秒"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "时分秒关系",
+        "读钟面",
+        "时间长短",
+        "简单经过时间"
+      ],
+      "misconceptionTags": [
+        "base-ten relation assumed for time",
+        "duration confused with clock reading",
+        "minute and second units interchanged"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-time"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-time",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在（ ）里填上合适的时间单位。\n（1）一节课大约40______。\n（2）妈妈每天工作8______。",
+      "optionsZhHans": [],
+      "answer": "分,时",
+      "acceptedAnswers": [
+        "分,时"
+      ],
+      "explanationZhHans": "一节课通常40分钟，用“分”；妈妈每天工作8小时，用“时”。要根据生活经验选择合适的单位。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-227",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-time",
+      "unitTitle": "时、分、秒",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "time-units",
+        "clock-reading",
+        "elapsed-time-intuition",
+        "时分秒"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "时分秒关系",
+        "读钟面",
+        "时间长短",
+        "简单经过时间"
+      ],
+      "misconceptionTags": [
+        "base-ten relation assumed for time",
+        "duration confused with clock reading",
+        "minute and second units interchanged"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-time"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-time",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪件事情用的时间大约是1分钟？",
+      "optionsZhHans": [
+        "A. 吃一顿午饭",
+        "B. 做一次眼保健操",
+        "C. 从1楼走到3楼",
+        "D. 上一节数学课"
+      ],
+      "answer": "B. 做一次眼保健操",
+      "acceptedAnswers": [
+        "B. 做一次眼保健操"
+      ],
+      "explanationZhHans": "做一次眼保健操大约需要1分钟。吃午饭、上数学课时间更长，从1楼走到3楼一般不止1分钟。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-228",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-time",
+      "unitTitle": "时、分、秒",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "time-units",
+        "clock-reading",
+        "elapsed-time-intuition",
+        "时分秒"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "时分秒关系",
+        "读钟面",
+        "时间长短",
+        "简单经过时间"
+      ],
+      "misconceptionTags": [
+        "base-ten relation assumed for time",
+        "duration confused with clock reading",
+        "minute and second units interchanged"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-time"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-time",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "写出下面钟面上的时间。\n时针指向8和9之间，分针指向6。\n______时______分",
+      "optionsZhHans": [],
+      "answer": "8,30",
+      "acceptedAnswers": [
+        "8,30"
+      ],
+      "explanationZhHans": "时针在8和9之间，表示8时多；分针指向6，表示30分，所以是8时30分。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-229",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-time",
+      "unitTitle": "时、分、秒",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "time-units",
+        "clock-reading",
+        "elapsed-time-intuition",
+        "时分秒"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "时分秒关系",
+        "读钟面",
+        "时间长短",
+        "简单经过时间"
+      ],
+      "misconceptionTags": [
+        "base-ten relation assumed for time",
+        "duration confused with clock reading",
+        "minute and second units interchanged"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-time"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-time",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丽从家到学校要走15分钟，她每天7:40从家出发，到学校的时间是（ ）。",
+      "optionsZhHans": [
+        "A. 7:55",
+        "B. 7:25",
+        "C. 8:00",
+        "D. 7:45"
+      ],
+      "answer": "A. 7:55",
+      "acceptedAnswers": [
+        "A. 7:55"
+      ],
+      "explanationZhHans": "7时40分 + 15分 = 7时55分。注意分钟相加满60才进1小时，这里40+15=55，未满60。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-230",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-time",
+      "unitTitle": "时、分、秒",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "time-units",
+        "clock-reading",
+        "elapsed-time-intuition",
+        "时分秒"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "时分秒关系",
+        "读钟面",
+        "时间长短",
+        "简单经过时间"
+      ],
+      "misconceptionTags": [
+        "base-ten relation assumed for time",
+        "duration confused with clock reading",
+        "minute and second units interchanged"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-time"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-time",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在○里填上“>”“<”或“=”。\n（1）1时 ○ 100分\n（2）60秒 ○ 1分",
+      "optionsZhHans": [],
+      "answer": "<,=",
+      "acceptedAnswers": [
+        "<,="
+      ],
+      "explanationZhHans": "1时=60分，60分<100分，所以填<；60秒=1分，所以填=。"
+    }
+  ]
+}

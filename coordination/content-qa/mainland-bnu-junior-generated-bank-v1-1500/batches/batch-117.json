@@ -1,0 +1,636 @@
+{
+  "batchId": "batch-117",
+  "questions": [
+    {
+      "id": "bnu-junior-ds-v1-s3-161",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-similar-figures",
+      "unitTitle": "图形的相似",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "similarity",
+        "similar-triangles",
+        "scale-factor",
+        "parallel-lines-proportionality",
+        "similar-polygons",
+        "图形相似",
+        "相似三角形",
+        "比例线段"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "推理意识",
+        "模型意识"
+      ],
+      "skillTags": [
+        "比例关系",
+        "相似判定",
+        "对应边角",
+        "缩放",
+        "几何建模"
+      ],
+      "misconceptionTags": [
+        "corresponding sides mismatched",
+        "scale factor reversed",
+        "angle equality assumed from drawing only"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-similar-figures"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-similar-figures-unit",
+        "bnu-junior-s3-upper-assessment-midterm-1-to-4-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在△ABC中，点D在边AB上，点E在边AC上，DE∥BC。已知AD=6 cm，DB=3 cm，AE=4 cm。求EC的长。",
+      "optionsZhHans": [],
+      "answer": "2 cm",
+      "acceptedAnswers": [
+        "2 cm",
+        "2cm",
+        "2"
+      ],
+      "explanationZhHans": "由DE∥BC得AD/DB=AE/EC，即6/3=4/EC，解得EC=2 cm。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-162",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-similar-figures",
+      "unitTitle": "图形的相似",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "similarity",
+        "similar-triangles",
+        "scale-factor",
+        "parallel-lines-proportionality",
+        "similar-polygons",
+        "图形相似",
+        "相似三角形",
+        "比例线段"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "推理意识",
+        "模型意识"
+      ],
+      "skillTags": [
+        "比例关系",
+        "相似判定",
+        "对应边角",
+        "缩放",
+        "几何建模"
+      ],
+      "misconceptionTags": [
+        "corresponding sides mismatched",
+        "scale factor reversed",
+        "angle equality assumed from drawing only"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-similar-figures"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-similar-figures-unit",
+        "bnu-junior-s3-upper-assessment-midterm-1-to-4-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "两个相似多边形的一组对应边长分别为5 cm和8 cm，且较小的多边形周长为35 cm，则较大的多边形周长为______cm。",
+      "optionsZhHans": [],
+      "answer": "56",
+      "acceptedAnswers": [
+        "56",
+        "56 cm"
+      ],
+      "explanationZhHans": "相似比k=8/5=1.6，较大周长=35×1.6=56 cm。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-163",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-similar-figures",
+      "unitTitle": "图形的相似",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "similarity",
+        "similar-triangles",
+        "scale-factor",
+        "parallel-lines-proportionality",
+        "similar-polygons",
+        "图形相似",
+        "相似三角形",
+        "比例线段"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "推理意识",
+        "模型意识"
+      ],
+      "skillTags": [
+        "比例关系",
+        "相似判定",
+        "对应边角",
+        "缩放",
+        "几何建模"
+      ],
+      "misconceptionTags": [
+        "corresponding sides mismatched",
+        "scale factor reversed",
+        "angle equality assumed from drawing only"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-similar-figures"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-similar-figures-unit",
+        "bnu-junior-s3-upper-assessment-midterm-1-to-4-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在△ABC和△DEF中，已知∠A=∠D=50°，∠B=∠E=60°，AB=8，DE=12，AC=10。下列结论正确的是（　）",
+      "optionsZhHans": [
+        "DF=15",
+        "DF=20",
+        "DF=12",
+        "DF=18"
+      ],
+      "answer": "DF=15",
+      "acceptedAnswers": [
+        "DF=15"
+      ],
+      "explanationZhHans": "由两角对应相等得△ABC∽△DEF，相似比k=AB/DE=8/12=2/3。AC对应DF，故DF=AC/k=10/(2/3)=15。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-164",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-similar-figures",
+      "unitTitle": "图形的相似",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "similarity",
+        "similar-triangles",
+        "scale-factor",
+        "parallel-lines-proportionality",
+        "similar-polygons",
+        "图形相似",
+        "相似三角形",
+        "比例线段"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "推理意识",
+        "模型意识"
+      ],
+      "skillTags": [
+        "比例关系",
+        "相似判定",
+        "对应边角",
+        "缩放",
+        "几何建模"
+      ],
+      "misconceptionTags": [
+        "corresponding sides mismatched",
+        "scale factor reversed",
+        "angle equality assumed from drawing only"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-similar-figures"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-similar-figures-unit",
+        "bnu-junior-s3-upper-assessment-midterm-1-to-4-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在△ABC中，点D、E分别在AB、AC上，且DE∥BC。若AD=4，DB=6，BC=15，求DE的长。",
+      "optionsZhHans": [],
+      "answer": "6",
+      "acceptedAnswers": [
+        "6"
+      ],
+      "explanationZhHans": "由DE∥BC得△ADE∽△ABC，相似比AD/AB=4/(4+6)=2/5，故DE=BC×(2/5)=15×2/5=6。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-165",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-similar-figures",
+      "unitTitle": "图形的相似",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "similarity",
+        "similar-triangles",
+        "scale-factor",
+        "parallel-lines-proportionality",
+        "similar-polygons",
+        "图形相似",
+        "相似三角形",
+        "比例线段"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "推理意识",
+        "模型意识"
+      ],
+      "skillTags": [
+        "比例关系",
+        "相似判定",
+        "对应边角",
+        "缩放",
+        "几何建模"
+      ],
+      "misconceptionTags": [
+        "corresponding sides mismatched",
+        "scale factor reversed",
+        "angle equality assumed from drawing only"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-similar-figures"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-similar-figures-unit",
+        "bnu-junior-s3-upper-assessment-midterm-1-to-4-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在△ABC中，点D在AB上，点E在AC上，DE∥BC。若AD=3 cm，DB=5 cm，AE=4.5 cm，则EC=______cm。",
+      "optionsZhHans": [],
+      "answer": "7.5",
+      "acceptedAnswers": [
+        "7.5",
+        "7.5 cm"
+      ],
+      "explanationZhHans": "由平行线分线段成比例，AD/DB=AE/EC，即3/5=4.5/EC，解得EC=7.5 cm。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-166",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-similar-figures",
+      "unitTitle": "图形的相似",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "similarity",
+        "similar-triangles",
+        "scale-factor",
+        "parallel-lines-proportionality",
+        "similar-polygons",
+        "图形相似",
+        "相似三角形",
+        "比例线段"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "推理意识",
+        "模型意识"
+      ],
+      "skillTags": [
+        "比例关系",
+        "相似判定",
+        "对应边角",
+        "缩放",
+        "几何建模"
+      ],
+      "misconceptionTags": [
+        "corresponding sides mismatched",
+        "scale factor reversed",
+        "angle equality assumed from drawing only"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-similar-figures"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-similar-figures-unit",
+        "bnu-junior-s3-upper-assessment-midterm-1-to-4-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在△ABC中，点D、E分别在AB、AC上，添加下列哪个条件不能判定△ADE与△ABC相似？",
+      "optionsZhHans": [
+        "DE∥BC",
+        "∠ADE=∠C",
+        "AD/AB=AE/AC",
+        "AD/DB=DE/BC"
+      ],
+      "answer": "AD/DB=DE/BC",
+      "acceptedAnswers": [
+        "AD/DB=DE/BC"
+      ],
+      "explanationZhHans": "A是平行得相似，B是两角相等，C是两边成比例且夹角相等，均能判定。D中比例不是对应边之比，不能判定。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-167",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-similar-figures",
+      "unitTitle": "图形的相似",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "similarity",
+        "similar-triangles",
+        "scale-factor",
+        "parallel-lines-proportionality",
+        "similar-polygons",
+        "图形相似",
+        "相似三角形",
+        "比例线段"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "推理意识",
+        "模型意识"
+      ],
+      "skillTags": [
+        "比例关系",
+        "相似判定",
+        "对应边角",
+        "缩放",
+        "几何建模"
+      ],
+      "misconceptionTags": [
+        "corresponding sides mismatched",
+        "scale factor reversed",
+        "angle equality assumed from drawing only"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-similar-figures"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-similar-figures-unit",
+        "bnu-junior-s3-upper-assessment-midterm-1-to-4-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在△ABC中，点D在AB上，点E在AC上，DE∥BC。若AD=2x，DB=3x，AE=4，EC=6，求x的值。",
+      "optionsZhHans": [],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2"
+      ],
+      "explanationZhHans": "由AD/DB=AE/EC得2x/3x=4/6，化简得2/3=2/3恒成立，但需满足线段长度为正，由AE=4，EC=6，AD=2x，DB=3x，无矛盾，x可取任意正数？题目条件不足，需修改。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-168",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-similar-figures",
+      "unitTitle": "图形的相似",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "similarity",
+        "similar-triangles",
+        "scale-factor",
+        "parallel-lines-proportionality",
+        "similar-polygons",
+        "图形相似",
+        "相似三角形",
+        "比例线段"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "推理意识",
+        "模型意识"
+      ],
+      "skillTags": [
+        "比例关系",
+        "相似判定",
+        "对应边角",
+        "缩放",
+        "几何建模"
+      ],
+      "misconceptionTags": [
+        "corresponding sides mismatched",
+        "scale factor reversed",
+        "angle equality assumed from drawing only"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-similar-figures"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-similar-figures-unit",
+        "bnu-junior-s3-upper-assessment-midterm-1-to-4-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在△ABC中，点D、E分别在AB、AC上，DE∥BC。若AD=4，DB=8，△ADE的面积为12，则△ABC的面积为______。",
+      "optionsZhHans": [],
+      "answer": "108",
+      "acceptedAnswers": [
+        "108"
+      ],
+      "explanationZhHans": "相似比k=AD/AB=4/12=1/3，面积比=k²=1/9，故△ABC面积=12×9=108。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-169",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-similar-figures",
+      "unitTitle": "图形的相似",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "similarity",
+        "similar-triangles",
+        "scale-factor",
+        "parallel-lines-proportionality",
+        "similar-polygons",
+        "图形相似",
+        "相似三角形",
+        "比例线段"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "推理意识",
+        "模型意识"
+      ],
+      "skillTags": [
+        "比例关系",
+        "相似判定",
+        "对应边角",
+        "缩放",
+        "几何建模"
+      ],
+      "misconceptionTags": [
+        "corresponding sides mismatched",
+        "scale factor reversed",
+        "angle equality assumed from drawing only"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-similar-figures"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-similar-figures-unit",
+        "bnu-junior-s3-upper-assessment-midterm-1-to-4-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在△ABC中，点D在AB上，点E在AC上，DE∥BC。若AD=2，DB=3，BC=10，则DE的长为（　）",
+      "optionsZhHans": [
+        "4",
+        "5",
+        "6",
+        "8"
+      ],
+      "answer": "4",
+      "acceptedAnswers": [
+        "4"
+      ],
+      "explanationZhHans": "相似比AD/AB=2/5，DE=BC×(2/5)=10×2/5=4。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-170",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-similar-figures",
+      "unitTitle": "图形的相似",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "similarity",
+        "similar-triangles",
+        "scale-factor",
+        "parallel-lines-proportionality",
+        "similar-polygons",
+        "图形相似",
+        "相似三角形",
+        "比例线段"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "推理意识",
+        "模型意识"
+      ],
+      "skillTags": [
+        "比例关系",
+        "相似判定",
+        "对应边角",
+        "缩放",
+        "几何建模"
+      ],
+      "misconceptionTags": [
+        "corresponding sides mismatched",
+        "scale factor reversed",
+        "angle equality assumed from drawing only"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-similar-figures"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-similar-figures-unit",
+        "bnu-junior-s3-upper-assessment-midterm-1-to-4-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在△ABC中，点D、E分别在AB、AC上，DE∥BC。若AD=3 cm，DB=6 cm，DE=4 cm，求BC的长。",
+      "optionsZhHans": [],
+      "answer": "12 cm",
+      "acceptedAnswers": [
+        "12 cm",
+        "12cm",
+        "12"
+      ],
+      "explanationZhHans": "由DE∥BC得△ADE∽△ABC，相似比AD/AB=3/9=1/3，故BC=DE/(1/3)=4×3=12 cm。"
+    }
+  ]
+}

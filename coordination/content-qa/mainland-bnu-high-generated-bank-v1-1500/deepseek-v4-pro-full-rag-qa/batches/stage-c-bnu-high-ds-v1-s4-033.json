@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-033",
+  "startedAt": "2026-05-28T00:56:27.988Z",
+  "completedAt": "2026-05-28T00:56:34.245Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-033"
+  ],
+  "usage": {
+    "prompt_tokens": 1984,
+    "completion_tokens": 274,
+    "total_tokens": 2258,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1600
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-033",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "[-1, 2]",
+        "correctedAnswer": "[-1, 2]",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合预备知识范围。独立求解得交集为[-1,2]，但存储答案[-1,5)错误，且解析中A=[-1,2]、B=(-1,5)却得出交集(-1,2]，自相矛盾，属于严重数学错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1题答案错误且解析矛盾，判定为blocker。"
+    }
+  }
+}

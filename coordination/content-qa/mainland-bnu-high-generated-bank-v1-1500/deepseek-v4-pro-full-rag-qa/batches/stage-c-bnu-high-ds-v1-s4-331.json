@@ -1,0 +1,48 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-331",
+  "startedAt": "2026-05-28T02:41:56.001Z",
+  "completedAt": "2026-05-28T02:42:00.955Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-331"
+  ],
+  "usage": {
+    "prompt_tokens": 2238,
+    "completion_tokens": 279,
+    "total_tokens": 2517,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1854
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-331",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "−1/4 a + 2/3 b",
+        "correctedAnswer": "−1/4 a + 2/3 b",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，独立解为−1/4 a+2/3 b，与选项A一致。但解析中计算错误，得出EF=1/12 a+b，与答案矛盾，且最终声称选项−1/4 a+2/3 b最接近，实际应为该选项。解析不可用，需修正。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "解析存在数学错误和矛盾，需修正。"
+    }
+  }
+}

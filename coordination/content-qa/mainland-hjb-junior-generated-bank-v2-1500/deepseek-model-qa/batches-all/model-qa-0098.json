@@ -1,0 +1,121 @@
+{
+  "batchId": "model-qa-0098",
+  "ids": [
+    "hjb-junior-ds-v2-s2-277",
+    "hjb-junior-ds-v2-s2-278",
+    "hjb-junior-ds-v2-s2-279",
+    "hjb-junior-ds-v2-s2-280",
+    "hjb-junior-ds-v2-s2-281",
+    "hjb-junior-ds-v2-s2-282",
+    "hjb-junior-ds-v2-s2-283",
+    "hjb-junior-ds-v2-s2-284"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-277",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "multiple-correct-options",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题干要求四边形ABCD是平行四边形必须满足的条件。选项①和②（两组对边平行）是判定定理，但选项③和④（对角线互相平分）也是判定定理，单独③和④即可判定平行四边形。因此存在两个正确选项：①和②、③和④。解析称③和④不能单独判定，与教材定理矛盾。",
+      "independentAnswerZhHans": "根据平行四边形判定定理，两组对边分别平行或对角线互相平分均可判定。因此①和②、③和④都是正确选项。",
+      "answerCheckZhHans": "给定答案①和②正确，但③和④也正确，导致多解。",
+      "recommendedActionZhHans": "修改题干或选项，确保唯一正确选项。例如，将题干改为“能直接判定四边形ABCD是平行四边形的条件是”，并调整选项为单一条件，或明确“必须同时满足”的含义。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-278",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析错误地认为F为BC中点，但BF=½BC，F不一定是中点，除非F在BC上且BF=½BC，但未说明F的位置（可能靠近B或C）。若F为BC中点，则△DEF面积应为6，但若F不是中点，面积不同。解析中相似比1:2错误，因为DE=½BC，但F位置不确定，△DEF与△ABC不一定相似。需重新计算。",
+      "independentAnswerZhHans": "D、E为中点，DE∥BC且DE=½BC。设BC=a，则DE=a/2。F在BC上，BF=a/2，但F位置不确定：若F靠近B，则CF=a/2；若F靠近C，则CF=3a/2？实际上BF=½BC，所以F是BC上一点，但未指定方向，通常理解为BF=½BC，则F可能是BC上靠近B的三等分点？不，BF=½BC，若BC长度为a，则BF=a/2，那么F可能是中点，因为BC=a，BF=a/2，则F为BC中点。但若F在BC延长线上？题干说F是BC上一点，所以F在线段BC上，且BF=½BC，则F只能是BC中点。因此解析正确。但需确认：若BC=8，BF=4，则F为中点。所以面积计算正确。但解析说△DEF与△ABC相似，相似比1:2，这不对：DE=½BC，但△DEF的边DF和EF不一定与△ABC的边平行或成比例。实际上，连接DF、EF，△DEF的面积可通过割补法：△DEF面积=△ABC面积-△ADF面积-△BEF面积-△CDE面积。计算得6。所以答案6正确，但解析中相似说法错误。",
+      "answerCheckZhHans": "答案6正确，但解析中“△DEF与△ABC相似”错误，因为F为中点时，△DEF并不与△ABC相似。解析需修正。",
+      "recommendedActionZhHans": "修正解析，使用面积割补法或坐标法正确推导。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-279",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析中直线CE方程错误：点C(6,8)，E(0,2)，斜率=(2-8)/(0-6)=(-6)/(-6)=1，所以CE: y-8=1*(x-6) => y=x+2，正确。直线BD: B(6,0), D(0,8)，斜率=(8-0)/(0-6)=8/(-6)=-4/3，方程: y-0=(-4/3)(x-6) => y=(-4/3)(x-6)，正确。联立得x+2=(-4/3)(x-6) => 3x+6=-4x+24 => 7x=18 => x=18/7，不是30/7。解析计算错误。重新计算：x+2 = -4/3(x-6) => 两边乘3: 3x+6 = -4x+24 => 7x=18 => x=18/7。y=18/7+2=32/7。F(18/7, 32/7)。BF=√[(18/7-6)²+(32/7-0)²]=√[(-24/7)²+(32/7)²]=√(576+1024)/7=√1600/7=40/7。所以答案40/7正确，但解析中x坐标算错，导致后续坐标错误，但最终BF长度巧合正确？解析中F(30/7,44/7)计算BF=√[(30/7-6)²+(44/7)²]=√[(-12/7)²+(44/7)²]=√(144+1936)/7=√2080/7≈6.51，不是40/7。所以解析错误，答案正确但解析过程有误。",
+      "independentAnswerZhHans": "正确计算得F(18/7,32/7)，BF=40/7。",
+      "answerCheckZhHans": "答案40/7正确，但解析中联立方程解错，导致F坐标错误，但最终BF结果却写为40/7，前后矛盾。",
+      "recommendedActionZhHans": "修正解析中的计算错误，确保推导一致。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-280",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "顺次连接四边形各边中点所得四边形是平行四边形。当原四边形对角线相等时，中点四边形是菱形。选项A正确。",
+      "answerCheckZhHans": "答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-281",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "由AB=CD, AD=BC得平行四边形，又AC=BD得矩形。",
+      "answerCheckZhHans": "答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-282",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析认为EG和FH是对边中点连线，均过中心O且互相平分，故交点P与O重合，OP=0。但E、F、G、H是各边中点，EG连接AB中点和CD中点，FH连接BC中点和DA中点，在矩形中，这两条线段确实都经过中心O，且互相平分，所以交点P就是O，OP=0。但答案给出5，矛盾。可能题目意图是求OP长度，但O是对角线交点，P是EG与FH交点，在矩形中，EG和FH是两条中位线，它们交于中心，所以OP=0。答案5错误。",
+      "independentAnswerZhHans": "矩形ABCD，AB=8，BC=6，对角线交点O。E、F、G、H为中点，则EG和FH均过O且互相平分，故P与O重合，OP=0。",
+      "answerCheckZhHans": "给定答案5错误，应为0。",
+      "recommendedActionZhHans": "修正答案为0，并修改解析。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-283",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "multiple-correct-options"
+      ],
+      "issueDetailsZhHans": "由AB∥CD且AD∥BC得平行四边形，又AC⊥BD，对角线互相垂直的平行四边形是菱形，故B正确。但D选项“四边形ABCD是平行四边形”也正确，因为菱形是特殊的平行四边形。题干要求“一定正确的是”，B和D都一定正确，但B更具体。通常选择题中若出现包含关系，需确保只有一个正确选项。这里D也是正确的，导致多解。",
+      "independentAnswerZhHans": "四边形ABCD是平行四边形且对角线垂直，因此是菱形，也是平行四边形。B和D都正确。",
+      "answerCheckZhHans": "给定答案B，但D也正确，存在两个正确选项。",
+      "recommendedActionZhHans": "修改选项，避免包含关系，例如将D改为“四边形ABCD是梯形”或明确“一定正确的是”指最精确的结论，但通常需唯一答案。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-284",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "missing-condition",
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题干只给出AB∥CD，AD∥BC，AC=12，BD=16，未给出AC⊥BD。解析却假设AC⊥BD，得出菱形，进而计算AB=10。但无垂直条件，无法确定AB长度。平行四边形对角线长度已知，但边长不唯一。因此题目缺少条件。",
+      "independentAnswerZhHans": "仅由平行四边形和对角线长度无法求边长，缺少条件。",
+      "answerCheckZhHans": "答案10基于错误假设，题目不可解。",
+      "recommendedActionZhHans": "补充条件，如AC⊥BD，或明确为菱形。",
+      "confidence": "high"
+    }
+  ]
+}

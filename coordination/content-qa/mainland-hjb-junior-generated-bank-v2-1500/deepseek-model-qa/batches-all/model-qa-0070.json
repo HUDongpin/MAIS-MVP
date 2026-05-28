@@ -1,0 +1,105 @@
+{
+  "batchId": "model-qa-0070",
+  "ids": [
+    "hjb-junior-ds-v2-s2-053",
+    "hjb-junior-ds-v2-s2-054",
+    "hjb-junior-ds-v2-s2-055",
+    "hjb-junior-ds-v2-s2-056",
+    "hjb-junior-ds-v2-s2-057",
+    "hjb-junior-ds-v2-s2-058",
+    "hjb-junior-ds-v2-s2-059",
+    "hjb-junior-ds-v2-s2-060"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-053",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "右",
+      "answerCheckZhHans": "标准答案为“右”，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-054",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3∛3 cm",
+      "answerCheckZhHans": "标准答案为“3∛3 cm”，与独立解题结果一致。acceptedAnswers 覆盖了带单位和不带单位的写法。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-055",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "multiple-correct-options"
+      ],
+      "issueDetailsZhHans": "选项C（3.1）也满足条件：√3≈1.732，√10≈3.162，3.1在两者之间。因此B和C都是正确选项，但标准答案只选了B。",
+      "independentAnswerZhHans": "B和C",
+      "answerCheckZhHans": "标准答案为B，但C也正确，存在多个正确选项。",
+      "recommendedActionZhHans": "修改选项或题干，确保只有一个正确选项。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-056",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "有理数集合：b, d, e, f；无理数集合：a, c",
+      "answerCheckZhHans": "标准答案与独立解题结果一致。acceptedAnswers 覆盖了多种分隔符和标点。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-057",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "√5 < √8 < √12",
+      "answerCheckZhHans": "标准答案与独立解题结果一致。acceptedAnswers 覆盖了用逗号或顿号分隔的写法。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-058",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "点C在点D的左侧",
+      "answerCheckZhHans": "标准答案与独立解题结果一致。选项B正确，其他选项均错误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-059",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "√5 < √6 < √7",
+      "answerCheckZhHans": "标准答案与独立解题结果一致。acceptedAnswers 覆盖了有无空格的写法。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-060",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "b < a < c",
+      "answerCheckZhHans": "标准答案与独立解题结果一致。acceptedAnswers 覆盖了有无空格的写法。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

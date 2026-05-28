@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0134",
+  "ids": [
+    "hjb-junior-ds-v2-s3-065",
+    "hjb-junior-ds-v2-s3-066",
+    "hjb-junior-ds-v2-s3-067",
+    "hjb-junior-ds-v2-s3-068",
+    "hjb-junior-ds-v2-s3-069",
+    "hjb-junior-ds-v2-s3-070",
+    "hjb-junior-ds-v2-s3-071",
+    "hjb-junior-ds-v2-s3-072"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-065",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "25",
+      "answerCheckZhHans": "标准答案为25，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-066",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "6",
+      "answerCheckZhHans": "标准答案为6，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-067",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "15",
+      "answerCheckZhHans": "标准答案为15，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-068",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "10",
+      "answerCheckZhHans": "标准答案为10，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-069",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "由OA/OC=3/9=1/3，OB/OD=4/12=1/3，得OA/OC=OB/OD，又∠AOB=∠COD，故△AOB∽△COD，所以∠OAB=∠OCD，从而AB∥CD。",
+      "answerCheckZhHans": "标准答案与独立推理一致，逻辑正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-070",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "BD=6，CE=8",
+      "answerCheckZhHans": "标准答案为BD=6，CE=8，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-071",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "7.5",
+      "answerCheckZhHans": "标准答案为7.5，acceptedAnswers包含7.5和15/2，覆盖正确结果。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-072",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案判定不相似，但根据已知条件，△ABC三边为6,8,10，是直角三角形，∠A为直角。AD=3，AE=2，且∠A公共，AD/AC=3/6=1/2，AE/AB=2/8=1/4，两边不成比例，确实不相似。但解析中称“两边成比例但夹角不一定相等”有误，因为夹角∠A是公共角，必然相等。解析应指出两边对应成比例但比值不等，故不相似。答案本身正确，但解析表述不严谨，可能误导。",
+      "independentAnswerZhHans": "不相似。因为AD/AC=3/6=1/2，AE/AB=2/8=1/4，两边对应成比例但比值不等，且夹角∠A相等，不满足两边对应成比例且夹角相等的判定条件。",
+      "answerCheckZhHans": "标准答案结论正确，但解析中“两边成比例但夹角不一定相等”的说法错误，因为∠A是公共角，必然相等。解析应修正。",
+      "recommendedActionZhHans": "修正解析，明确说明两边对应成比例但比值不等，故不相似。",
+      "confidence": "high"
+    }
+  ]
+}

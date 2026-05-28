@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0126",
+  "ids": [
+    "hjb-junior-ds-v2-s3-001",
+    "hjb-junior-ds-v2-s3-002",
+    "hjb-junior-ds-v2-s3-003",
+    "hjb-junior-ds-v2-s3-004",
+    "hjb-junior-ds-v2-s3-005",
+    "hjb-junior-ds-v2-s3-006",
+    "hjb-junior-ds-v2-s3-007",
+    "hjb-junior-ds-v2-s3-008"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-001",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "8",
+      "answerCheckZhHans": "标准答案8正确，解析由AD/DB=AE/EC得3/6=4/EC，EC=8，一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-002",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "18",
+      "answerCheckZhHans": "标准答案18正确，解析由周长比等于相似比得12/x=2/3，x=18，一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-003",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题干要求证明AB与CD不平行，但标准答案和解析使用了平行线分线段成比例定理，该定理在四边形对角线交点处不直接适用。正确判定应基于三角形相似或比例关系，但当前推理有误。",
+      "independentAnswerZhHans": "无法直接判定，需重新审视条件。",
+      "answerCheckZhHans": "标准答案的推理不严谨，可能错误。",
+      "recommendedActionZhHans": "需重新设计题目或修正解析，确保推理正确。",
+      "confidence": "medium"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-004",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "不相似，因为对应角不都相等",
+      "answerCheckZhHans": "标准答案正确，△ABC中∠C=70°，△DEF中∠F=60°，对应角不都相等，故不相似。选项C正确，其他选项错误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-005",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "6",
+      "answerCheckZhHans": "标准答案6正确，解析由△ADE∽△ABC，相似比AD/AB=4/10=2/5，DE=15×2/5=6，一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-006",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "7.5",
+      "answerCheckZhHans": "标准答案7.5正确，解析由AD/DB=AE/EC得4/6=5/EC，EC=7.5，一致。acceptedAnswers包含7.5和15/2，覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-007",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "△ABC∽△DEF，EF=15",
+      "answerCheckZhHans": "标准答案正确，由两角对应相等得相似，对应边AB/DE=BC/EF，8/12=10/EF，EF=15。选项A正确，其他选项错误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-008",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "6",
+      "answerCheckZhHans": "标准答案6正确，解析由x²=ab=36，x>0得x=6，一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

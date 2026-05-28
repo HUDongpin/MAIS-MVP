@@ -1,0 +1,293 @@
+{
+  "batchId": "batch-042",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p1-206",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "hjb-primary-p1-lower-length-measurement",
+      "unitTitle": "长度的比较与测量",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "length-comparison",
+        "measurement-units",
+        "direct-indirect-comparison",
+        "长度测量"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "应用意识"
+      ],
+      "skillTags": [
+        "长短比较",
+        "直接比较",
+        "间接比较",
+        "选择测量单位",
+        "估测"
+      ],
+      "misconceptionTags": [
+        "starting point not aligned",
+        "larger unit count misread as longer object",
+        "curved or separated objects compared unfairly"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p1-lower-length-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-lower-assessment-length-measurement",
+        "hjb-primary-p1-lower-assessment-within-20-regrouping"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明用回形针测量铅笔的长度。他把回形针一个接一个排好，从铅笔的一端开始，到另一端结束，一共用了8个回形针。小红用同样的回形针测量同一支铅笔，但她没有把回形针对齐铅笔的一端，而是从铅笔的中间开始排，排了5个回形针就到铅笔的另一端了。小红说铅笔的长度是5个回形针。她的测量方法正确吗？铅笔的长度应该是几个回形针？",
+      "optionsZhHans": [],
+      "answer": "不正确，8个回形针",
+      "acceptedAnswers": [
+        "不正确，8个回形针",
+        "不正确，8",
+        "不正确 8个回形针",
+        "不正确 8"
+      ],
+      "explanationZhHans": "测量时要把回形针对齐铅笔的一端，小红没有对齐起点，所以测出的5个回形针不对。正确的长度是小明测的8个回形针。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-207",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "hjb-primary-p1-lower-length-measurement",
+      "unitTitle": "长度的比较与测量",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "length-comparison",
+        "measurement-units",
+        "direct-indirect-comparison",
+        "长度测量"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "应用意识"
+      ],
+      "skillTags": [
+        "长短比较",
+        "直接比较",
+        "间接比较",
+        "选择测量单位",
+        "估测"
+      ],
+      "misconceptionTags": [
+        "starting point not aligned",
+        "larger unit count misread as longer object",
+        "curved or separated objects compared unfairly"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p1-lower-length-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-lower-assessment-length-measurement",
+        "hjb-primary-p1-lower-assessment-within-20-regrouping"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪种比较铅笔长短的方法是正确的？",
+      "optionsZhHans": [
+        "把两支铅笔的一端对齐，看另一端",
+        "把两支铅笔随意放在桌上，看哪支长",
+        "把一支铅笔弯折后与另一支比较",
+        "用眼睛直接看，不用对齐"
+      ],
+      "answer": "把两支铅笔的一端对齐，看另一端",
+      "acceptedAnswers": [
+        "把两支铅笔的一端对齐，看另一端"
+      ],
+      "explanationZhHans": "比较物体长短时，要把一端对齐，再看另一端，这样才公平。其他方法没有对齐起点，结果不准确。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-208",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "hjb-primary-p1-lower-length-measurement",
+      "unitTitle": "长度的比较与测量",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "length-comparison",
+        "measurement-units",
+        "direct-indirect-comparison",
+        "长度测量"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "应用意识"
+      ],
+      "skillTags": [
+        "长短比较",
+        "直接比较",
+        "间接比较",
+        "选择测量单位",
+        "估测"
+      ],
+      "misconceptionTags": [
+        "starting point not aligned",
+        "larger unit count misread as longer object",
+        "curved or separated objects compared unfairly"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p1-lower-length-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-lower-assessment-length-measurement",
+        "hjb-primary-p1-lower-assessment-within-20-regrouping"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丽用同样长的小棒测量课桌的长度，她一根接一根地摆，正好摆了6根小棒。小刚用同样的小棒测量同一张课桌，但他摆的时候小棒之间有空隙，摆了7根小棒。谁测出的课桌长度更准确？课桌的长度应该是几根小棒？",
+      "optionsZhHans": [],
+      "answer": "小丽，6根小棒",
+      "acceptedAnswers": [
+        "小丽，6根小棒",
+        "小丽 6根小棒",
+        "小丽，6",
+        "小丽 6"
+      ],
+      "explanationZhHans": "测量时小棒要一根接一根，不能有空隙。小刚摆的有空隙，所以测出的7根小棒比实际长。小丽的方法正确，课桌长度是6根小棒。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-209",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "hjb-primary-p1-lower-length-measurement",
+      "unitTitle": "长度的比较与测量",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "length-comparison",
+        "measurement-units",
+        "direct-indirect-comparison",
+        "长度测量"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "应用意识"
+      ],
+      "skillTags": [
+        "长短比较",
+        "直接比较",
+        "间接比较",
+        "选择测量单位",
+        "估测"
+      ],
+      "misconceptionTags": [
+        "starting point not aligned",
+        "larger unit count misread as longer object",
+        "curved or separated objects compared unfairly"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p1-lower-length-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-lower-assessment-length-measurement",
+        "hjb-primary-p1-lower-assessment-within-20-regrouping"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用拃（张开大拇指和中指两端的距离）测量课桌的长度，下面哪种做法能得到正确的结果？",
+      "optionsZhHans": [
+        "一拃一拃地量，每一拃都首尾相连",
+        "一拃一拃地量，中间留一点空隙",
+        "先量一半，再估计另一半",
+        "用眼睛看，不用手量"
+      ],
+      "answer": "一拃一拃地量，每一拃都首尾相连",
+      "acceptedAnswers": [
+        "一拃一拃地量，每一拃都首尾相连"
+      ],
+      "explanationZhHans": "用拃测量时，要一拃接一拃，首尾相连，不能有空隙或重叠，这样量出的结果才准确。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-210",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "hjb-primary-p1-lower-length-measurement",
+      "unitTitle": "长度的比较与测量",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "length-comparison",
+        "measurement-units",
+        "direct-indirect-comparison",
+        "长度测量"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "应用意识"
+      ],
+      "skillTags": [
+        "长短比较",
+        "直接比较",
+        "间接比较",
+        "选择测量单位",
+        "估测"
+      ],
+      "misconceptionTags": [
+        "starting point not aligned",
+        "larger unit count misread as longer object",
+        "curved or separated objects compared unfairly"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p1-lower-length-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-lower-assessment-length-measurement",
+        "hjb-primary-p1-lower-assessment-within-20-regrouping"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "比较两根绳子的长短。一根绳子是直的，另一根绳子是弯曲的。下面哪种比较方法最公平？",
+      "optionsZhHans": [],
+      "answer": "把两根绳子都拉直，一端对齐，看另一端",
+      "acceptedAnswers": [
+        "把两根绳子都拉直，一端对齐，看另一端",
+        "都拉直，一端对齐，看另一端",
+        "拉直对齐一端比较"
+      ],
+      "explanationZhHans": "比较弯曲的绳子时，要把它们都拉直，一端对齐，再看另一端，这样才能公平比较。直接看弯曲的绳子会判断错误。"
+    }
+  ]
+}

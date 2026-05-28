@@ -1,0 +1,137 @@
+{
+  "batchNumber": 15,
+  "startedAt": "2026-05-25T02:49:34.099Z",
+  "completedAt": "2026-05-25T02:49:49.176Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s1-k03-fi-013",
+    "pep-junior-v3-s1-k03-fi-014",
+    "pep-junior-v3-s1-k03-fi-015",
+    "pep-junior-v3-s1-k03-fi-016",
+    "pep-junior-v3-s1-k03-fi-017",
+    "pep-junior-v3-s1-k03-fi-018",
+    "pep-junior-v3-s1-k03-fi-019",
+    "pep-junior-v3-s1-k03-fi-020",
+    "pep-junior-v3-s1-k03-fi-021",
+    "pep-junior-v3-s1-k03-fi-022",
+    "pep-junior-v3-s1-k03-sa-001",
+    "pep-junior-v3-s1-k03-sa-002"
+  ],
+  "usage": {
+    "prompt_tokens": 3177,
+    "completion_tokens": 926,
+    "total_tokens": 4103,
+    "prompt_tokens_details": {
+      "cached_tokens": 3072
+    },
+    "prompt_cache_hit_tokens": 3072,
+    "prompt_cache_miss_tokens": 105
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s1-k03-fi-013",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解释一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k03-fi-014",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数轴移动计算正确，答案-6无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k03-fi-015",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程列解正确，x=4符合题意。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k03-fi-016",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分类讨论正确，答案8或2无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k03-fi-017",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "补角余角方程正确，解得35°无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k03-fi-018",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "三视图最少正方体个数正确，4个无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k03-fi-019",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "中点性质应用正确，MN=5cm无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k03-fi-020",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "利润方程正确，标价125元无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k03-fi-021",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "角度分类讨论正确，答案70°或10°无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k03-fi-022",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "代入求解正确，a=1无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k03-sa-001",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "线段分类讨论正确，答案5cm或11cm无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k03-sa-002",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "补角余角方程正确，解得40°无误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部12道题数学正确，答案与解释一致，无歧义或错误，适合人教版初中数学。"
+    }
+  }
+}

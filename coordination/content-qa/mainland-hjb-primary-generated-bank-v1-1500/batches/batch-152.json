@@ -1,0 +1,290 @@
+{
+  "batchId": "batch-152",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p4-006",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-review-operations-fractions",
+      "unitTitle": "复习与提高",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "p4-upper-review",
+        "operation-relationships",
+        "fraction-review",
+        "两位数乘除",
+        "分数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "反思整理"
+      ],
+      "skillTags": [
+        "加减关系",
+        "乘除关系",
+        "两位数乘除",
+        "分数意义",
+        "错因检查"
+      ],
+      "misconceptionTags": [
+        "inverse relationship used only after an error",
+        "fraction denominator read as a count to add",
+        "review facts applied without context check"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-review-operations-fractions"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-review-operations-fractions",
+        "hjb-primary-p4-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小胖在计算一道加法题时，把加数23看成了32，结果得到和是78。正确的和应该是多少？请写出你的思考过程。",
+      "optionsZhHans": [],
+      "answer": "69",
+      "acceptedAnswers": [
+        "69"
+      ],
+      "explanationZhHans": "把23看成32，多加了32-23=9，所以正确的和是78-9=69。利用加减关系，通过逆运算检查并修正错误。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-007",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-review-operations-fractions",
+      "unitTitle": "复习与提高",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "p4-upper-review",
+        "operation-relationships",
+        "fraction-review",
+        "两位数乘除",
+        "分数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "反思整理"
+      ],
+      "skillTags": [
+        "加减关系",
+        "乘除关系",
+        "两位数乘除",
+        "分数意义",
+        "错因检查"
+      ],
+      "misconceptionTags": [
+        "inverse relationship used only after an error",
+        "fraction denominator read as a count to add",
+        "review facts applied without context check"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-review-operations-fractions"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-review-operations-fractions",
+        "hjb-primary-p4-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丁丁在计算一道除法题时，把除数45看成了54，结果得到商是12，余数是8。正确的商和余数应该是多少？",
+      "optionsZhHans": [
+        "商14，余数38",
+        "商15，余数8",
+        "商14，余数8",
+        "商15，余数38"
+      ],
+      "answer": "商14，余数38",
+      "acceptedAnswers": [
+        "商14，余数38"
+      ],
+      "explanationZhHans": "先根据错误算式求出被除数：54×12+8=656。再计算正确算式：656÷45=14……38。利用乘除关系，通过逆运算还原被除数，再求正确结果。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-008",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-review-operations-fractions",
+      "unitTitle": "复习与提高",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "p4-upper-review",
+        "operation-relationships",
+        "fraction-review",
+        "两位数乘除",
+        "分数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "反思整理"
+      ],
+      "skillTags": [
+        "加减关系",
+        "乘除关系",
+        "两位数乘除",
+        "分数意义",
+        "错因检查"
+      ],
+      "misconceptionTags": [
+        "inverse relationship used only after an error",
+        "fraction denominator read as a count to add",
+        "review facts applied without context check"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-review-operations-fractions"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-review-operations-fractions",
+        "hjb-primary-p4-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小亚在计算一道减法题时，把减数36看成了63，结果得到差是27。正确的差应该是______。",
+      "optionsZhHans": [],
+      "answer": "54",
+      "acceptedAnswers": [
+        "54"
+      ],
+      "explanationZhHans": "把减数36看成63，多减了63-36=27，所以正确的差是27+27=54。利用加减关系，通过逆运算检查并修正错误。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-009",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-review-operations-fractions",
+      "unitTitle": "复习与提高",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "p4-upper-review",
+        "operation-relationships",
+        "fraction-review",
+        "两位数乘除",
+        "分数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "反思整理"
+      ],
+      "skillTags": [
+        "加减关系",
+        "乘除关系",
+        "两位数乘除",
+        "分数意义",
+        "错因检查"
+      ],
+      "misconceptionTags": [
+        "inverse relationship used only after an error",
+        "fraction denominator read as a count to add",
+        "review facts applied without context check"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-review-operations-fractions"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-review-operations-fractions",
+        "hjb-primary-p4-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小胖在计算一道乘法题时，把乘数12看成了21，结果得到积是189。正确的积是多少？请写出你的思考过程。",
+      "optionsZhHans": [],
+      "answer": "108",
+      "acceptedAnswers": [
+        "108"
+      ],
+      "explanationZhHans": "先根据错误算式求出另一个乘数：189÷21=9。再计算正确算式：12×9=108。利用乘除关系，通过逆运算还原另一个乘数，再求正确结果。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-010",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-review-operations-fractions",
+      "unitTitle": "复习与提高",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "p4-upper-review",
+        "operation-relationships",
+        "fraction-review",
+        "两位数乘除",
+        "分数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "反思整理"
+      ],
+      "skillTags": [
+        "加减关系",
+        "乘除关系",
+        "两位数乘除",
+        "分数意义",
+        "错因检查"
+      ],
+      "misconceptionTags": [
+        "inverse relationship used only after an error",
+        "fraction denominator read as a count to add",
+        "review facts applied without context check"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-review-operations-fractions"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-review-operations-fractions",
+        "hjb-primary-p4-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丁丁把一个蛋糕平均分成8块，吃了其中的3块。小亚把同样大小的蛋糕平均分成4块，吃了其中的1块。谁吃的蛋糕多？",
+      "optionsZhHans": [
+        "小丁丁吃的多",
+        "小亚吃的多",
+        "两人吃的一样多",
+        "无法比较"
+      ],
+      "answer": "小丁丁吃的多",
+      "acceptedAnswers": [
+        "小丁丁吃的多"
+      ],
+      "explanationZhHans": "小丁丁吃了3/8个蛋糕，小亚吃了1/4=2/8个蛋糕。3/8 > 2/8，所以小丁丁吃的多。比较分数大小时，要统一成相同的分母，即保证整体相同。"
+    }
+  ]
+}

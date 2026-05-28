@@ -1,0 +1,350 @@
+{
+  "batchId": "batch-083",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s3-k10-mc-021",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-quadratic-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models"
+      ],
+      "promptZhHans": "一元二次方程 x² - 6x + 8 = 0 的两个根分别是 x₁ 和 x₂，则 x₁ + x₂ 的值是多少？",
+      "optionsZhHans": [
+        "2",
+        "4",
+        "6",
+        "8"
+      ],
+      "answer": "6",
+      "acceptedAnswers": [
+        "6"
+      ],
+      "explanationZhHans": "对于一元二次方程 ax² + bx + c = 0，根的和 x₁ + x₂ = -b/a。这里 a = 1，b = -6，所以 x₁ + x₂ = -(-6)/1 = 6。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-022",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-circle-geometry"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "在圆 O 中，弦 AB 的长为 8 cm，圆心 O 到弦 AB 的距离为 3 cm，则圆 O 的半径是多少？",
+      "optionsZhHans": [
+        "4 cm",
+        "5 cm",
+        "6 cm",
+        "7 cm"
+      ],
+      "answer": "5 cm",
+      "acceptedAnswers": [
+        "5 cm",
+        "5"
+      ],
+      "explanationZhHans": "设圆心为 O，作 OC 垂直于 AB 于 C，则 C 为 AB 中点，AC = 4 cm。在直角三角形 OAC 中，OA 为半径，OC = 3 cm，由勾股定理得 OA = √(3² + 4²) = 5 cm。所以半径为 5 cm。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-023",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-probability-introduction"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "一个不透明的袋子里装有 3 个红球和 2 个白球，除颜色外其他都相同。随机摸出一个球，摸到红球的概率是多少？",
+      "optionsZhHans": [
+        "1/5",
+        "2/5",
+        "3/5",
+        "4/5"
+      ],
+      "answer": "3/5",
+      "acceptedAnswers": [
+        "3/5",
+        "0.6"
+      ],
+      "explanationZhHans": "袋子里共有 3 + 2 = 5 个球，其中红球有 3 个。因此摸到红球的概率为 3/5。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-024",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-rotation-transformations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions"
+      ],
+      "promptZhHans": "将点 A(2, 3) 绕原点逆时针旋转 90°，得到点 A' 的坐标是什么？",
+      "optionsZhHans": [
+        "(-3, 2)",
+        "(-2, -3)",
+        "(3, -2)",
+        "(-3, -2)"
+      ],
+      "answer": "(-3, 2)",
+      "acceptedAnswers": [
+        "(-3, 2)"
+      ],
+      "explanationZhHans": "点 (x, y) 绕原点逆时针旋转 90° 后坐标为 (-y, x)。所以 A(2, 3) 旋转后为 (-3, 2)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-025",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "promptZhHans": "已知二次函数 y = x² - 2x - 3 的图象与 x 轴交于 A、B 两点，则线段 AB 的长度是多少？",
+      "optionsZhHans": [
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "answer": "4",
+      "acceptedAnswers": [
+        "4"
+      ],
+      "explanationZhHans": "令 y = 0，得 x² - 2x - 3 = 0，解得 x₁ = -1，x₂ = 3。所以 A、B 的横坐标分别为 -1 和 3，AB = |3 - (-1)| = 4。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-026",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-quadratic-equations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean"
+      ],
+      "promptZhHans": "一元二次方程 2x² - 3x + k = 0 有两个相等的实数根，则 k 的值是多少？",
+      "optionsZhHans": [
+        "9/8",
+        "8/9",
+        "-9/8",
+        "-8/9"
+      ],
+      "answer": "9/8",
+      "acceptedAnswers": [
+        "9/8"
+      ],
+      "explanationZhHans": "方程有两个相等的实数根，则判别式 Δ = b² - 4ac = 0。这里 a = 2，b = -3，c = k，所以 (-3)² - 4×2×k = 0，即 9 - 8k = 0，解得 k = 9/8。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-027",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-quadratic-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig"
+      ],
+      "promptZhHans": "二次函数 y = -2(x + 1)² + 5 的顶点坐标是什么？",
+      "optionsZhHans": [
+        "(1, 5)",
+        "(-1, 5)",
+        "(1, -5)",
+        "(-1, -5)"
+      ],
+      "answer": "(-1, 5)",
+      "acceptedAnswers": [
+        "(-1, 5)"
+      ],
+      "explanationZhHans": "二次函数顶点式为 y = a(x - h)² + k，顶点为 (h, k)。这里 y = -2(x + 1)² + 5 可写成 y = -2[x - (-1)]² + 5，所以顶点坐标为 (-1, 5)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-028",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-circle-geometry"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-dynamic-geometry-functions"
+      ],
+      "promptZhHans": "在圆 O 中，弦 AB 和 CD 相交于点 P，若弧 AC 的度数为 80°，弧 BD 的度数为 60°，则 ∠APC 的度数是多少？",
+      "optionsZhHans": [
+        "70°",
+        "80°",
+        "100°",
+        "140°"
+      ],
+      "answer": "70°",
+      "acceptedAnswers": [
+        "70°",
+        "70"
+      ],
+      "explanationZhHans": "圆内角 ∠APC 的度数等于它所对的弧 AC 与弧 BD 的度数之和的一半。所以 ∠APC = (80° + 60°) / 2 = 70°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-029",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-probability-introduction"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "掷一枚质地均匀的硬币两次，两次都是正面向上的概率是多少？",
+      "optionsZhHans": [
+        "1/4",
+        "1/3",
+        "1/2",
+        "2/3"
+      ],
+      "answer": "1/4",
+      "acceptedAnswers": [
+        "1/4",
+        "0.25"
+      ],
+      "explanationZhHans": "掷一枚硬币两次，所有可能的结果有（正，正）、（正，反）、（反，正）、（反，反）共 4 种，其中两次都是正面向上的只有 1 种，所以概率为 1/4。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-030",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-rotation-transformations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-proof-calculation-integrated"
+      ],
+      "promptZhHans": "将线段 AB 绕点 A 顺时针旋转 60° 得到线段 AC，若 AB = 4 cm，则 BC 的长度是多少？",
+      "optionsZhHans": [
+        "2 cm",
+        "4 cm",
+        "6 cm",
+        "8 cm"
+      ],
+      "answer": "4 cm",
+      "acceptedAnswers": [
+        "4 cm",
+        "4"
+      ],
+      "explanationZhHans": "由旋转性质可知，AB = AC，且 ∠BAC = 60°，所以三角形 ABC 是等边三角形，因此 BC = AB = 4 cm。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

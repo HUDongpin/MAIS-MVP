@@ -1,0 +1,146 @@
+{
+  "batchNumber": 65,
+  "startedAt": "2026-05-27T13:54:42.972Z",
+  "completedAt": "2026-05-27T13:55:00.981Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-013",
+    "bnu-high-ds-v1-s5-014",
+    "bnu-high-ds-v1-s5-015",
+    "bnu-high-ds-v1-s5-016",
+    "bnu-high-ds-v1-s5-017",
+    "bnu-high-ds-v1-s5-018",
+    "bnu-high-ds-v1-s5-019",
+    "bnu-high-ds-v1-s5-020"
+  ],
+  "usage": {
+    "prompt_tokens": 11816,
+    "completion_tokens": 1177,
+    "total_tokens": 12993,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 11304
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-013",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2x + y = 0",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，独立求解得两切线 x-2y-5=0 和 2x+y=0，选项B匹配，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-014",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "证明：直线恒过定点(2,1)，该点在圆内，故总有两个交点。",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，答案与解析一致，证明正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-015",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "6x - 8y - 15 = 0",
+        "correctedAnswer": "6x - 8y - 15 = 0",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立求解得垂直平分线方程为6x-8y-15=0，而答案3x-4y-7=0错误，中点代入不满足，解析也指出答案有误，答案与解析矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-016",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "k ∈ R",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，距离不等式恒成立，k为任意实数，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-017",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "无解",
+        "correctedAnswer": null,
+        "issueTags": [
+          "unsolvable",
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "由条件列方程得2=34矛盾，题目数据错误，无法求解，答案和解析均无效。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-018",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "a = -3",
+        "correctedAnswer": "a = -3",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "平行需排除重合，a=2时两直线重合，应舍去，正确答案只有a=-3，答案和解析均错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-019",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，圆心(1,-2)到直线距离为2，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-020",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "√3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，切线长√(PO²-r²)=√3，答案与解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 5,
+      "warn": 0,
+      "fail": 3,
+      "notes": "8题中5题通过，3题失败：015答案错误，017题目数据矛盾无解，018答案未排除重合情况。"
+    }
+  }
+}

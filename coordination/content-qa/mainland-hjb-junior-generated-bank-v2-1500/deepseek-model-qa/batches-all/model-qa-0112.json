@@ -1,0 +1,103 @@
+{
+  "batchId": "model-qa-0112",
+  "ids": [
+    "hjb-junior-ds-v2-s2-389",
+    "hjb-junior-ds-v2-s2-390",
+    "hjb-junior-ds-v2-s2-391",
+    "hjb-junior-ds-v2-s2-392",
+    "hjb-junior-ds-v2-s2-393",
+    "hjb-junior-ds-v2-s2-394",
+    "hjb-junior-ds-v2-s2-395",
+    "hjb-junior-ds-v2-s2-396"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-389",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "y = 0.5x + 12",
+      "answerCheckZhHans": "标准答案为 y = 0.5x + 12，与独立解题结果一致。acceptedAnswers 覆盖了标准答案的常见写法。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-390",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "标准答案为 3，与独立解题结果一致。选项互异，且只有选项 3 正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-391",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "y = 2x + 4，20元",
+      "answerCheckZhHans": "标准答案为 y=2x+4，20元，与独立解题结果一致。acceptedAnswers 覆盖了常见分隔符和单位写法。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-392",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "y = 3x - 1",
+      "answerCheckZhHans": "标准答案为 y=3x-1，与独立解题结果一致。选项互异，且只有选项 y=3x-1 正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-393",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "y = 0.5x + 12，6千克",
+      "answerCheckZhHans": "标准答案为 y=0.5x+12，6千克，与独立解题结果一致。acceptedAnswers 覆盖了常见分隔符和单位写法。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-394",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "点A的坐标为(2,0)，点B的坐标为(0,4)",
+      "answerCheckZhHans": "标准答案为 点A的坐标为(2,0)，点B的坐标为(0,4)，与独立解题结果一致。选项互异，且只有该选项正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-395",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "k = -2，在",
+      "answerCheckZhHans": "标准答案为 k=-2，在，与独立解题结果一致。acceptedAnswers 覆盖了常见分隔符和肯定回答的变体。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-396",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "y = 2x + 4",
+      "answerCheckZhHans": "标准答案为 y = 2x + 4，与独立解题结果一致。选项互异，且只有选项 y = 2x + 4 正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

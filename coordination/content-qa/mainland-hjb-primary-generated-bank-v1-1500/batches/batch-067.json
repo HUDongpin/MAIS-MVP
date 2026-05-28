@@ -1,0 +1,298 @@
+{
+  "batchId": "batch-067",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p2-081",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-multiplication-facts",
+      "unitTitle": "表内乘法",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "multiplication-meaning",
+        "equal-groups",
+        "arrays",
+        "multiplication-facts",
+        "表内乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "几个几",
+        "乘法含义",
+        "乘法算式",
+        "乘法口诀",
+        "阵列模型",
+        "乘加联系"
+      ],
+      "misconceptionTags": [
+        "unequal groups treated as multiplication",
+        "factor order memorized without meaning",
+        "fact recall separated from quantity model"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-multiplication-facts"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-upper-assessment-multiplication-facts-unit",
+        "hjb-primary-p2-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小芳有4个笔筒，每个笔筒里都插着6支铅笔。小芳一共有多少支铅笔？请写出乘法算式并计算。",
+      "optionsZhHans": [],
+      "answer": "4×6=24（支）",
+      "acceptedAnswers": [
+        "4×6=24（支）",
+        "6×4=24（支）"
+      ],
+      "explanationZhHans": "每个笔筒6支铅笔，有4个笔筒，就是4个6，用乘法计算：4×6=24（支）。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-082",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-multiplication-facts",
+      "unitTitle": "表内乘法",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "multiplication-meaning",
+        "equal-groups",
+        "arrays",
+        "multiplication-facts",
+        "表内乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "几个几",
+        "乘法含义",
+        "乘法算式",
+        "乘法口诀",
+        "阵列模型",
+        "乘加联系"
+      ],
+      "misconceptionTags": [
+        "unequal groups treated as multiplication",
+        "factor order memorized without meaning",
+        "fact recall separated from quantity model"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-multiplication-facts"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-upper-assessment-multiplication-facts-unit",
+        "hjb-primary-p2-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪种情况不能用乘法计算？",
+      "optionsZhHans": [
+        "每排站5人，站了4排",
+        "有3个盘子，每个盘子放6个苹果",
+        "小明有5本书，小红有3本书",
+        "一盒有8块糖，买了3盒"
+      ],
+      "answer": "小明有5本书，小红有3本书",
+      "acceptedAnswers": [
+        "小明有5本书，小红有3本书"
+      ],
+      "explanationZhHans": "乘法要求每份数量相同。小明和小红的书本数不同，不是相同加数，所以不能用乘法。其他选项都是几个几的等组情况。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-083",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-multiplication-facts",
+      "unitTitle": "表内乘法",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "multiplication-meaning",
+        "equal-groups",
+        "arrays",
+        "multiplication-facts",
+        "表内乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "几个几",
+        "乘法含义",
+        "乘法算式",
+        "乘法口诀",
+        "阵列模型",
+        "乘加联系"
+      ],
+      "misconceptionTags": [
+        "unequal groups treated as multiplication",
+        "factor order memorized without meaning",
+        "fact recall separated from quantity model"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-multiplication-facts"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-upper-assessment-multiplication-facts-unit",
+        "hjb-primary-p2-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "每只小猫钓了4条鱼，5只小猫一共钓了多少条鱼？加法算式是______，乘法算式是______。",
+      "optionsZhHans": [],
+      "answer": "4+4+4+4+4=20（条），4×5=20（条）",
+      "acceptedAnswers": [
+        "4+4+4+4+4=20（条），4×5=20（条）",
+        "4+4+4+4+4=20（条），5×4=20（条）"
+      ],
+      "explanationZhHans": "5只小猫，每只钓4条，就是5个4相加。加法：4+4+4+4+4=20。乘法：4×5=20或5×4=20。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-084",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-multiplication-facts",
+      "unitTitle": "表内乘法",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "multiplication-meaning",
+        "equal-groups",
+        "arrays",
+        "multiplication-facts",
+        "表内乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "几个几",
+        "乘法含义",
+        "乘法算式",
+        "乘法口诀",
+        "阵列模型",
+        "乘加联系"
+      ],
+      "misconceptionTags": [
+        "unequal groups treated as multiplication",
+        "factor order memorized without meaning",
+        "fact recall separated from quantity model"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-multiplication-facts"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-upper-assessment-multiplication-facts-unit",
+        "hjb-primary-p2-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "教室里有3排桌子，每排5张。一共有多少张桌子？请用两种方法列式并计算。",
+      "optionsZhHans": [],
+      "answer": "加法：5+5+5=15（张）；乘法：3×5=15（张）",
+      "acceptedAnswers": [
+        "加法：5+5+5=15（张）；乘法：3×5=15（张）",
+        "加法：5+5+5=15（张）；乘法：5×3=15（张）"
+      ],
+      "explanationZhHans": "每排5张，有3排，就是3个5。加法：5+5+5=15。乘法：3×5=15或5×3=15。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-085",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-multiplication-facts",
+      "unitTitle": "表内乘法",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "multiplication-meaning",
+        "equal-groups",
+        "arrays",
+        "multiplication-facts",
+        "表内乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "几个几",
+        "乘法含义",
+        "乘法算式",
+        "乘法口诀",
+        "阵列模型",
+        "乘加联系"
+      ],
+      "misconceptionTags": [
+        "unequal groups treated as multiplication",
+        "factor order memorized without meaning",
+        "fact recall separated from quantity model"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-multiplication-facts"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-upper-assessment-multiplication-facts-unit",
+        "hjb-primary-p2-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个算式的得数与“3×7”不同？",
+      "optionsZhHans": [
+        "7×3",
+        "3+3+3+3+3+3+3",
+        "7+7+7",
+        "3+7"
+      ],
+      "answer": "3+7",
+      "acceptedAnswers": [
+        "3+7"
+      ],
+      "explanationZhHans": "3×7表示3个7或7个3，得数是21。7×3、7个3相加、3个7相加都得21。3+7是3和7相加，得10，与21不同。"
+    }
+  ]
+}

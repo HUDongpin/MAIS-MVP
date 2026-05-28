@@ -1,0 +1,49 @@
+qaBatch,id,codexStatus,severity,issueTags,rationale,repairedPromptZhHans,repairedAnswer
+61,pep-junior-v3-s2-k09-mc-024,repair,major,grade_mismatch,题目是七年级绝对值比较，和 S2 一次函数与数据分析单元不匹配。,对于一次函数 y=2x-3，当 x 分别取 -1，0，2，4 时，函数值最大的是哪一个 x 对应的函数值？,x=4
+61,pep-junior-v3-s2-k09-mc-026,repair,major,grade_mismatch,原题为分式化简，和一次函数与数据分析单元不匹配。,某网约车起步价10元，超过3 km后每增加1 km收费2元。若行驶里程为 x km（x>3），车费 y 元与 x 的关系式是？,y=2x+4
+61,pep-junior-v3-s2-k09-mc-027,repair,major,grade_mismatch,原题为等腰三角形性质，和一次函数与数据分析单元不匹配。,"一次函数 y=kx+b 的图象经过点(0,2)和(3,8)，则 k 的值是？",2
+61,pep-junior-v3-s2-k09-mc-028,repair,major,grade_mismatch,原题为勾股定理，和一次函数与数据分析单元不匹配。,一组数据为 6，8，10，10，12，则这组数据的众数是？,10
+61,pep-junior-v3-s2-k09-mc-029,repair,major,grade_mismatch,原题为坐标平移，和一次函数与数据分析单元不匹配。,对于一次函数 y=-x+5，下列说法正确的是？,y随x的增大而减小
+61,pep-junior-v3-s2-k09-mc-031,repair,blocker,copy_risk|template_repetition,原题与同批次前题高度重复，需要换成新的线性应用场景。,某蓄水池当前有水120 m³，每小时排水8 m³。若 t 小时后剩余水量为 y m³，则 y=120-8t。当剩余水量为72 m³时，t 的值是？,6
+62,pep-junior-v3-s2-k09-mc-032,repair,blocker,ambiguous_mc,原选项中 28 和 32 都会导致众数不唯一，单选题不唯一。,某校八年级5个班参加植树活动，各班植树棵数分别为：30，32，28，30，x。已知这组数据的众数只有30，则 x 的值不可能是以下哪个数？,28
+62,pep-junior-v3-s2-k09-mc-033,pass,none,,Codex复核认为不等式解法和答案均正确，DeepSeek自我修正后应判为误报。,,
+64,pep-junior-v3-s2-k09-fi-028,repair,major,grade_mismatch,原题为二次根式化简，和一次函数与数据分析单元不匹配。,一次函数 y=-2x+7 中，当 x=3 时，y 的值为____。,1
+65,pep-junior-v3-s2-k09-sa-002,repair,blocker,answer_mismatch|math_error,答案写甲班更稳定，但方差计算说明乙班更稳定。,"某校八年级两个班各10名学生的数学测验成绩（满分100分）如下：\n甲班：78, 85, 92, 67, 88, 75, 90, 83, 79, 81\n乙班：82, 86, 91, 73, 89, 80, 94, 77, 84, 88\n分别计算两个班的平均分，并说明哪个班的成绩更稳定。",甲班平均分81.8，乙班平均分84.4，乙班更稳定
+66,pep-junior-v3-s2-k09-sa-016,repair,blocker,grade_mismatch,原题为二次根式化简，和一次函数与数据分析单元不匹配。,"某打印店有两种收费方案：方案甲收取20元服务费，每张4元；方案乙不收服务费，每张6元。设打印 x 张时两种方案费用分别为 y甲、y乙。\n（1）写出 y甲、y乙 关于 x 的关系式；\n（2）当打印多少张时两种方案费用相同；\n（3）打印15张时选择哪种方案更省钱？",（1）y甲=4x+20，y乙=6x；（2）10张；（3）方案甲更省钱
+66,pep-junior-v3-s2-k09-sa-017,repair,blocker,grade_mismatch,原题为勾股定理逆定理，和一次函数与数据分析单元不匹配。,"已知一次函数的图象经过点(2,7)和(5,16)。\n（1）求这个一次函数的解析式；\n（2）判断点(10,31)是否在该函数图象上，并说明理由。","解析式为 y=3x+1，点(10,31)在图象上"
+66,pep-junior-v3-s2-k09-sa-018,repair,blocker,grade_mismatch,原题涉及三角函数和平行四边形面积，和一次函数与数据分析单元不匹配。,某小组8名学生一次数学小测的成绩为：76，80，82，84，84，86，90，94。求这组数据的中位数和众数，并说明计算过程。,中位数为84，众数为84
+67,pep-junior-v3-s2-k09-sa-027,repair,major,grade_mismatch,原题为平行四边形证明，和一次函数与数据分析单元不匹配。,"某水箱开始排水后，剩余水量 y（升）与排水时间 t（分钟）成一次函数关系。已知 t=2 时 y=84，t=5 时 y=60。\n（1）求 y 与 t 的函数关系式；\n（2）水箱排空需要多少分钟？",（1）y=-8t+100；（2）12.5分钟
+68,pep-junior-v3-s3-k10-mc-010,repair,major,ambiguous_mc|grade_mismatch,原题有多个“不一定正确”的选项，且与 S3 K10 单元不匹配。,一元二次方程 x²-5x+6=0 的两个根是？,x=2或x=3
+74,pep-junior-v3-s3-k10-fi-016,repair,minor,copy_risk,原题与同单元弦心距题重复风险较高，换成二次函数顶点题。,二次函数 y=x²-4x+1 的图象顶点的横坐标是____。,2
+81,pep-junior-v3-s3-k10-sa-030,repair,blocker,math_error|answer_mismatch,Codex复核发现旋转证明结论不成立，需要替换为本单元可验证题。,"已知二次函数 y=x²-4x+3。\n（1）求图象的顶点坐标；\n（2）求图象与 x 轴的交点坐标。","顶点坐标为(2,-1)，与x轴的交点为(1,0)和(3,0)"
+81,pep-junior-v3-s3-k10-sa-032,pass,none,,当前题目答案与解析均为120°，旧 DeepSeek fail 为修复前缓存。,,
+81,pep-junior-v3-s3-k10-sa-036,pass,none,,当前题目答案与解析均为3√2，旧 DeepSeek fail 为修复前缓存。,,
+84,pep-junior-v3-s3-k10-sa-066,pass,none,,当前题目已为1760且方程检验正确，旧 DeepSeek fail 为修复前缓存。,,
+85,pep-junior-v3-s3-k11-mc-012,repair,major,ambiguous_mc|missing_condition|grade_mismatch,原三视图描述不够唯一，且与 K11 反比例函数、相似、锐角三角函数单元不匹配。,在Rt△ABC中，∠C=90°，AC=3，BC=4，则 sinA 的值是（ ）,4/5
+85,pep-junior-v3-s3-k11-mc-013,repair,major,ambiguous_mc,原题未限定 k 的正负，面积只确定 |k|，选项 8 和 -8 均可能。,在平面直角坐标系中，点A是反比例函数y=k/x（k>0，x>0）图象上一点，AB⊥x轴于点B，点C是y轴上一点，且△ABC的面积为4，则k的值为（ ）,8
+86,pep-junior-v3-s3-k11-mc-024,repair,major,math_error|answer_mismatch|missing_condition,原三视图题选项无正确答案且与 K11 单元不匹配。,阳光下，一根竖直旗杆在水平地面上的影长为10 m，此时太阳光线与地面的夹角为45°。旗杆的高度是（ ）,10 m
+86,pep-junior-v3-s3-k11-mc-030,pass,none,,在当前表述下，俯视图为2×2满格且主视图每列最高2，最多8个小正方体成立；旧 DeepSeek fail 为误判。,,
+91,pep-junior-v3-s3-k11-fi-024,pass,none,,当前题目已修复为15且解释正确，旧 DeepSeek fail 为修复前缓存。,,
+92,pep-junior-v3-s3-k11-fi-030,pass,none,,当前答案5和解释一致，底层2×2满格、左列最高2右列最高1时最少5个成立。,,
+92,pep-junior-v3-s3-k11-fi-036,repair,blocker,missing_condition|ambiguous_mc,仅凭正面和左面视图不能唯一确定几何体表面积。,在Rt△ABC中，∠C=90°，∠A的正切值为3/4。若∠A的邻边AC=8，则∠A的对边BC=____。,6
+93,pep-junior-v3-s3-k11-fi-044,repair,blocker,math_error|answer_mismatch,AD/AB=3/7 与 AE/AC=4/9 不相等，不能证明相似。,在△ABC中，点D、E分别在边AB、AC上，且AD=3，DB=6，AE=4，EC=8，则 AD/AB 与 AE/AC 的共同值为____。,1/3
+93,pep-junior-v3-s3-k11-fi-049,pass,none,,"当前旋转和平移计算为(-2,-3)，答案与解释一致。",,
+94,pep-junior-v3-s3-k11-fi-054,pass,none,,当前圆台侧面积为63π/5，公式和计算一致。,,
+95,pep-junior-v3-s3-k11-fi-064,pass,none,,"当前题目经过点(0,17)，a=5，a+b+c=2，答案正确。",,
+95,pep-junior-v3-s3-k11-fi-066,pass,none,,当前长方体正前方可见面积为5×3=15，答案正确。,,
+95,pep-junior-v3-s3-k11-sa-007,pass,none,,"当前一次函数过B(-1,-2)和(3,4)，解得m=1.5、n=-0.5、m+n=1，答案正确。",,
+96,pep-junior-v3-s3-k11-sa-013,repair,blocker,math_error|missing_condition,原题中OA与x轴负半轴上的OB不可能垂直，条件矛盾。,"在平面直角坐标系中，点A(1,3)在反比例函数 y=k/x 的图象上。过点A作AB⊥x轴，垂足为B；过点A作AC⊥y轴，垂足为C。求k的值，并求矩形OBAC的面积。",k=3，矩形OBAC的面积为3
+96,pep-junior-v3-s3-k11-sa-015,pass,none,,当前题目为等腰三角形中线高线计算，答案√17正确；虽非强K11题，但不构成数学错误。,,
+96,pep-junior-v3-s3-k11-sa-016,pass,none,,"当前矩形周长方程解得P(1,6)或P(6,1)，答案正确。",,
+96,pep-junior-v3-s3-k11-sa-017,pass,none,,当前方位角计算得PB=20海里，答案与解释一致。,,
+97,pep-junior-v3-s3-k11-sa-025,repair,blocker,math_error|missing_condition,题面写C在y轴，但解答按C在x轴处理；若C在y轴，面积条件不成立。,在平面直角坐标系中，反比例函数 y=4/x（x>0）的图象上有一点A，过A作AB⊥x轴于B。点C是x轴上一点，且△ABC的面积为6。若点A的横坐标为2，求点C的坐标。,"C(8,0)或C(-4,0)"
+98,pep-junior-v3-s3-k11-sa-039,repair,blocker,missing_condition,过P作x轴垂线不可能交竖直线段AB，应为交线段AC。,"在平面直角坐标系中，反比例函数 y=k/x（k≠0）的图象经过点 A(3,4)。过点 A 作 x 轴的垂线，垂足为 B，过点 A 作 y 轴的垂线，垂足为 C。连接 BC。点 P 是线段 BC 上一点（不与端点重合），过点 P 作 x 轴的垂线，交反比例函数图象于点 Q，交线段 AC 于点 R。设点 P 的横坐标为 m（0<m<3）。\n（1）求 k 的值；\n（2）用含 m 的代数式表示线段 QR 的长；\n（3）当 QR=1 时，求点 P 的坐标。","（1）k=12；（2）QR=12/m-4；（3）P的坐标为(12/5,4/5)"
+98,pep-junior-v3-s3-k11-sa-042,pass,none,,当前直线BC解析式为 y=-3/2x+3，答案与解释一致。,,
+99,pep-junior-v3-s3-k11-sa-044,pass,none,,当前题面已删除10米条件，12米解法成立；旧 DeepSeek fail 为修复前缓存。,,
+99,pep-junior-v3-s3-k11-sa-045,pass,none,,当前题面已改为垂足坐标与反比例函数求参，答案正确；旧 DeepSeek fail 为修复前缓存。,,
+99,pep-junior-v3-s3-k11-sa-047,pass,none,,Codex复核仰角测高计算正确，答案10√3+11.5成立。,,
+99,pep-junior-v3-s3-k11-sa-049,pass,none,,当前题面已改为求k与矩形面积，不再要求反比例函数经过y轴点，答案正确。,,
+100,pep-junior-v3-s3-k11-sa-057,pass,none,,"Codex按向量旋转复核，当前答案(-4,2)正确。",,
+100,pep-junior-v3-s3-k11-sa-059,pass,none,,当前利息公式已明确百分数换算，48000元答案正确。,,
+100,pep-junior-v3-s3-k11-sa-062,pass,none,,当前答案为旗杆12米、k=3，正切与反比例函数计算正确。,,
+100,pep-junior-v3-s3-k11-sa-067,pass,none,,当前题面已删除矛盾的相似比条件，k=-6、m=-6正确。,,

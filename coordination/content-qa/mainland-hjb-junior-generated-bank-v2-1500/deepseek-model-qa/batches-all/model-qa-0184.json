@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0184",
+  "ids": [
+    "hjb-junior-ds-v2-s3-465",
+    "hjb-junior-ds-v2-s3-466",
+    "hjb-junior-ds-v2-s3-467",
+    "hjb-junior-ds-v2-s3-468",
+    "hjb-junior-ds-v2-s3-469",
+    "hjb-junior-ds-v2-s3-470",
+    "hjb-junior-ds-v2-s3-471",
+    "hjb-junior-ds-v2-s3-472"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-465",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "4.1",
+      "answerCheckZhHans": "标准答案 4.1 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-466",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "multiple-correct-options",
+        "ambiguous-prompt"
+      ],
+      "issueDetailsZhHans": "题目问“为了反映这组数据的集中趋势，以下哪个统计量最合适？”，但数据无明显偏态或极端值，平均数、中位数、众数均可反映集中趋势，且众数并非唯一合理选择。选项设计导致多个正确选项，题干未明确说明选择依据。",
+      "independentAnswerZhHans": "平均数、中位数、众数均可，无唯一最合适统计量。",
+      "answerCheckZhHans": "标准答案“众数”并非唯一正确答案，平均数和中位数也合理。",
+      "recommendedActionZhHans": "修改题干，明确选择依据（如“最能反映多数人成绩”），或调整选项使唯一合理。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-467",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "163.5",
+      "answerCheckZhHans": "标准答案 163.5 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-468",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "方差",
+      "answerCheckZhHans": "标准答案“方差”正确，方差用于比较稳定性。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-469",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "54",
+      "answerCheckZhHans": "标准答案 54 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-470",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "该地区八年级学生视力不良率大约是40%",
+      "answerCheckZhHans": "标准答案正确，样本估计总体，用“大约”表述合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-471",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "160",
+      "answerCheckZhHans": "标准答案 160 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-472",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "中位数",
+      "answerCheckZhHans": "标准答案“中位数”正确，反映中间水平。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,301 @@
+{
+  "batchId": "batch-169",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p4-091",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-four-operations-problem-solving",
+      "unitTitle": "整数的四则运算",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "integer-four-operations",
+        "multi-step-word-problems",
+        "operation-laws",
+        "estimation",
+        "整数四则运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "工作效率",
+        "三步计算",
+        "正推",
+        "逆推",
+        "文字计算题",
+        "运算定律",
+        "解决问题"
+      ],
+      "misconceptionTags": [
+        "operation order chosen from keywords only",
+        "estimate omitted before complex calculation",
+        "inverse reasoning reverses the wrong step"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-four-operations-problem-solving"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-four-operations-problem-solving",
+        "hjb-primary-p4-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆整理一批新书，甲组每小时整理48本，乙组每小时整理36本。两组同时工作，3小时后共整理了多少本？正确的综合算式是哪一个？",
+      "optionsZhHans": [
+        "48 + 36 × 3",
+        "(48 + 36) × 3",
+        "48 × 3 + 36",
+        "48 × 36 × 3"
+      ],
+      "answer": "(48 + 36) × 3",
+      "acceptedAnswers": [
+        "(48 + 36) × 3"
+      ],
+      "explanationZhHans": "先求两组每小时共整理的本数，再乘时间。综合算式为(48+36)×3。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-092",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-four-operations-problem-solving",
+      "unitTitle": "整数的四则运算",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "integer-four-operations",
+        "multi-step-word-problems",
+        "operation-laws",
+        "estimation",
+        "整数四则运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "工作效率",
+        "三步计算",
+        "正推",
+        "逆推",
+        "文字计算题",
+        "运算定律",
+        "解决问题"
+      ],
+      "misconceptionTags": [
+        "operation order chosen from keywords only",
+        "estimate omitted before complex calculation",
+        "inverse reasoning reverses the wrong step"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-four-operations-problem-solving"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-four-operations-problem-solving",
+        "hjb-primary-p4-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算 125 × 32 时，为了简便，可以把32看作______和______的乘积，再运用乘法结合律。",
+      "optionsZhHans": [],
+      "answer": "8,4",
+      "acceptedAnswers": [
+        "8,4",
+        "4,8"
+      ],
+      "explanationZhHans": "125×8=1000，所以把32拆成8×4，原式变为125×8×4=1000×4=4000。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-093",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-geometry-circle-lines-angles",
+      "unitTitle": "几何小实践",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "circle-introduction",
+        "line-ray-segment",
+        "angle-measurement",
+        "angle-calculation",
+        "圆",
+        "角"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "圆的初步认识",
+        "线段",
+        "射线",
+        "直线",
+        "角的度量",
+        "角的计算"
+      ],
+      "misconceptionTags": [
+        "ray and segment endpoints confused",
+        "angle size judged by side length",
+        "circle features described with imprecise everyday language"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-geometry-circle-lines-angles"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-geometry-circle-lines-angles",
+        "hjb-primary-p4-upper-assessment-review-operations-fractions"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个圆形花坛的直径是8米，在花坛周围修一条1米宽的小路。小路的面积是多少平方米？（π取3.14）",
+      "optionsZhHans": [],
+      "answer": "28.26",
+      "acceptedAnswers": [
+        "28.26"
+      ],
+      "explanationZhHans": "花坛半径4米，外圆半径5米。小路面积=3.14×(5²-4²)=3.14×9=28.26平方米。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-094",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-geometry-circle-lines-angles",
+      "unitTitle": "几何小实践",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "circle-introduction",
+        "line-ray-segment",
+        "angle-measurement",
+        "angle-calculation",
+        "圆",
+        "角"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "圆的初步认识",
+        "线段",
+        "射线",
+        "直线",
+        "角的度量",
+        "角的计算"
+      ],
+      "misconceptionTags": [
+        "ray and segment endpoints confused",
+        "angle size judged by side length",
+        "circle features described with imprecise everyday language"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-geometry-circle-lines-angles"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-geometry-circle-lines-angles",
+        "hjb-primary-p4-upper-assessment-review-operations-fractions"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下列说法正确的是哪一个？",
+      "optionsZhHans": [
+        "线段有两个端点，射线有一个端点，直线没有端点。",
+        "角的大小与边的长短有关。",
+        "圆的直径是半径的2倍，所以半径是直径的一半。",
+        "用10倍的放大镜看一个30°的角，看到的角是300°。"
+      ],
+      "answer": "线段有两个端点，射线有一个端点，直线没有端点。",
+      "acceptedAnswers": [
+        "线段有两个端点，射线有一个端点，直线没有端点。"
+      ],
+      "explanationZhHans": "线段、射线、直线的定义正确。角的大小与两边张开程度有关，与边长无关；圆的直径是半径的2倍，但半径是直径的一半；放大镜不改变角度。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-095",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-geometry-circle-lines-angles",
+      "unitTitle": "几何小实践",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "circle-introduction",
+        "line-ray-segment",
+        "angle-measurement",
+        "angle-calculation",
+        "圆",
+        "角"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "圆的初步认识",
+        "线段",
+        "射线",
+        "直线",
+        "角的度量",
+        "角的计算"
+      ],
+      "misconceptionTags": [
+        "ray and segment endpoints confused",
+        "angle size judged by side length",
+        "circle features described with imprecise everyday language"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-geometry-circle-lines-angles"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-geometry-circle-lines-angles",
+        "hjb-primary-p4-upper-assessment-review-operations-fractions"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个周角等于______个平角，等于______个直角。",
+      "optionsZhHans": [],
+      "answer": "2,4",
+      "acceptedAnswers": [
+        "2,4"
+      ],
+      "explanationZhHans": "周角360°，平角180°，直角90°。360÷180=2，360÷90=4。"
+    }
+  ]
+}

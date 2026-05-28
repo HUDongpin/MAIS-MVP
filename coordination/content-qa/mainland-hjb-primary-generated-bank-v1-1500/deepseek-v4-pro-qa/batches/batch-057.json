@@ -1,0 +1,191 @@
+{
+  "batchNumber": 57,
+  "startedAt": "2026-05-25T02:32:19.000Z",
+  "completedAt": "2026-05-25T02:32:39.958Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p5-009",
+    "hjb-primary-ds-v1-p5-010",
+    "hjb-primary-ds-v1-p5-011",
+    "hjb-primary-ds-v1-p5-012",
+    "hjb-primary-ds-v1-p5-013",
+    "hjb-primary-ds-v1-p5-014",
+    "hjb-primary-ds-v1-p5-015",
+    "hjb-primary-ds-v1-p5-016",
+    "hjb-primary-ds-v1-p5-017",
+    "hjb-primary-ds-v1-p5-018",
+    "hjb-primary-ds-v1-p5-019",
+    "hjb-primary-ds-v1-p5-020",
+    "hjb-primary-ds-v1-p5-021",
+    "hjb-primary-ds-v1-p5-022",
+    "hjb-primary-ds-v1-p5-023",
+    "hjb-primary-ds-v1-p5-024",
+    "hjb-primary-ds-v1-p5-025",
+    "hjb-primary-ds-v1-p5-026"
+  ],
+  "usage": {
+    "prompt_tokens": 4452,
+    "completion_tokens": 1419,
+    "total_tokens": 5871,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 4196
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p5-009",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目完整，计算正确，估算合理，答案与解释一致。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-010",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项计算正确，积最大为0.56，答案无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-011",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "除数计算正确，正确商0.38，估算合理，答案与解释一致。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-012",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，估算合理，找回21.7元，答案与解释一致。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-013",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项计算正确，0.042×0.73=0.03066最小，答案无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-014",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "根据小数乘法法则，积为3.45，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-015",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "宽2米，新面积9.6平方米，计算正确，答案与解释一致。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-016",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估算总价约28元，找回约22元，实际21.86元最接近22元，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-017",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "根据小数乘除法法则，答案6.45、0.0645、15正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-018",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "正确商1.2，除数10.5，计算正确，答案与解释一致。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-019",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "除以小于1的数商最大，3.6÷0.99最大，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-020",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估算170，精确153，保留整数153，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-021",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "最多6个，剩下0.3米，计算正确，答案与解释一致。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-022",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "乘大于1的数积大于原数，3.6×1.1正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-023",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "积为0.84，小数位数正确，答案无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-024",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "油重11.4千克，桶重1.1千克，计算正确，答案与解释一致。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-025",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "5.4÷6商小于1，其他商大于或等于1，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-026",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "2.4÷0.15=16，计算正确，答案无误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合沪教版小学数学五年级上册小数乘除法与估算的要求，计算正确，答案与解释一致，无歧义或错误。"
+    }
+  }
+}

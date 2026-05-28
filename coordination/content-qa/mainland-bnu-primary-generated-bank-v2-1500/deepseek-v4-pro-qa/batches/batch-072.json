@@ -1,0 +1,191 @@
+{
+  "batchNumber": 72,
+  "startedAt": "2026-05-27T14:01:43.219Z",
+  "completedAt": "2026-05-27T14:02:00.091Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p6-029",
+    "bnu-primary-ds-v2-p6-030",
+    "bnu-primary-ds-v2-p6-031",
+    "bnu-primary-ds-v2-p6-032",
+    "bnu-primary-ds-v2-p6-033",
+    "bnu-primary-ds-v2-p6-034",
+    "bnu-primary-ds-v2-p6-035",
+    "bnu-primary-ds-v2-p6-036",
+    "bnu-primary-ds-v2-p6-037",
+    "bnu-primary-ds-v2-p6-038",
+    "bnu-primary-ds-v2-p6-039",
+    "bnu-primary-ds-v2-p6-040",
+    "bnu-primary-ds-v2-p6-041",
+    "bnu-primary-ds-v2-p6-042",
+    "bnu-primary-ds-v2-p6-043",
+    "bnu-primary-ds-v2-p6-044",
+    "bnu-primary-ds-v2-p6-045",
+    "bnu-primary-ds-v2-p6-046"
+  ],
+  "usage": {
+    "prompt_tokens": 4552,
+    "completion_tokens": 1232,
+    "total_tokens": 5784,
+    "prompt_tokens_details": {
+      "cached_tokens": 4480
+    },
+    "prompt_cache_hit_tokens": 4480,
+    "prompt_cache_miss_tokens": 72
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p6-029",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案匹配，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-030",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案匹配，过程清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-031",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，选项唯一，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-032",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-033",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案匹配，接受答案覆盖合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-034",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "运算顺序判断正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-035",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-036",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-037",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "视图推理正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-038",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "推理正确，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-039",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "最少4个正确，符合三视图。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-040",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "视图推理正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-041",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计数正确，3种搭法。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-042",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "最少4个正确，推理清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-043",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "最少3个正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-044",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计数正确，2种搭法。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-045",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "最少4个正确，推理清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-046",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "左视图判断正确，选项唯一。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部18题均通过审核，数学正确，答案匹配，无歧义或风险。"
+    }
+  }
+}

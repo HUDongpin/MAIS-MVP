@@ -1,0 +1,191 @@
+{
+  "batchNumber": 39,
+  "startedAt": "2026-05-27T13:51:27.495Z",
+  "completedAt": "2026-05-27T13:51:43.358Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p3-185",
+    "bnu-primary-ds-v2-p3-186",
+    "bnu-primary-ds-v2-p3-187",
+    "bnu-primary-ds-v2-p3-188",
+    "bnu-primary-ds-v2-p3-189",
+    "bnu-primary-ds-v2-p3-190",
+    "bnu-primary-ds-v2-p3-191",
+    "bnu-primary-ds-v2-p3-192",
+    "bnu-primary-ds-v2-p3-193",
+    "bnu-primary-ds-v2-p3-194",
+    "bnu-primary-ds-v2-p3-195",
+    "bnu-primary-ds-v2-p3-196",
+    "bnu-primary-ds-v2-p3-197",
+    "bnu-primary-ds-v2-p3-198",
+    "bnu-primary-ds-v2-p3-199",
+    "bnu-primary-ds-v2-p3-200",
+    "bnu-primary-ds-v2-p3-201",
+    "bnu-primary-ds-v2-p3-202"
+  ],
+  "usage": {
+    "prompt_tokens": 3039,
+    "completion_tokens": 1207,
+    "total_tokens": 4246,
+    "prompt_tokens_details": {
+      "cached_tokens": 2944
+    },
+    "prompt_cache_hit_tokens": 2944,
+    "prompt_cache_miss_tokens": 95
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p3-185",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案匹配，选项合理，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-186",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "单位选择恰当，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-187",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比较大小正确，选项清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-188",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，单位换算无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-189",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "单位统一后计算正确，选项合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-190",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "单位换算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-191",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比较大小正确，答案明确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-192",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算与单位换算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-193",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "单位选择恰当，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-194",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，单位换算无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-195",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "面积计算正确，选项合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-196",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "面积计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-197",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "正方形面积计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-198",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "面积计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-199",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "面积与周长数值相等判断正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-200",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "面积计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-201",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "面积计算正确，选项合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-202",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "面积计算正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案匹配，无歧义，适合北师大版P3年级。"
+    }
+  }
+}

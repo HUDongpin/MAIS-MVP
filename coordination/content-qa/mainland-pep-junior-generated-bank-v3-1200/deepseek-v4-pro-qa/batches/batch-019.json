@@ -1,0 +1,140 @@
+{
+  "batchNumber": 19,
+  "startedAt": "2026-05-25T02:50:50.547Z",
+  "completedAt": "2026-05-25T02:51:08.611Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s1-k04-mc-017",
+    "pep-junior-v3-s1-k04-mc-018",
+    "pep-junior-v3-s1-k04-mc-019",
+    "pep-junior-v3-s1-k04-mc-020",
+    "pep-junior-v3-s1-k04-mc-021",
+    "pep-junior-v3-s1-k04-mc-022",
+    "pep-junior-v3-s1-k04-mc-023",
+    "pep-junior-v3-s1-k04-mc-024",
+    "pep-junior-v3-s1-k04-mc-025",
+    "pep-junior-v3-s1-k04-mc-026",
+    "pep-junior-v3-s1-k04-mc-027",
+    "pep-junior-v3-s1-k04-mc-028"
+  ],
+  "usage": {
+    "prompt_tokens": 3168,
+    "completion_tokens": 1025,
+    "total_tokens": 4193,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 2912
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s1-k04-mc-017",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案-√2比-1小，选项合理，解释清晰。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-mc-018",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，45x+15符合题意，选项无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-mc-019",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "概率计算正确，3/5，选项无重复。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-mc-020",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "标价计算正确，120元，选项合理。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-mc-021",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移后坐标(2,2)在第一象限，正确。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-mc-022",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "点P在x轴左侧，距离3，坐标为(-3,0)，正确。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-mc-023",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "同旁内角互补，180-55=125°，正确。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-mc-024",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "样本容量是200，其他选项混淆总体、个体、样本概念，答案正确。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-mc-025",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "不等式50-3x≥5正确，选项无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-mc-026",
+        "status": "fail",
+        "severity": "major",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch"
+        ],
+        "correctedAnswer": "(-1,-2)",
+        "rationale": "点M(2,-1)绕原点顺时针旋转90°，坐标变换应为(x,y)→(y,-x)，即(-1,-2)，而非(-1,2)。解释中规律错误，答案与正确结果不符。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-mc-027",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "-√5≈-2.236比-2小，正确，选项无重复。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-mc-028",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "样本是100名学生的问卷调查结果，正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 11,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第26题旋转坐标错误，顺时针旋转90°应为(-1,-2)，其余题目均正确。"
+    }
+  }
+}

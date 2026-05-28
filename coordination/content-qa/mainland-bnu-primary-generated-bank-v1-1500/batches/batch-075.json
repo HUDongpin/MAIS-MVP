@@ -1,0 +1,605 @@
+{
+  "batchId": "batch-075",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p3-241",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "p3-lower-review",
+        "mathematical-activity",
+        "integrated-application",
+        "数学好玩",
+        "下册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "整理知识",
+        "错因表达",
+        "项目式探究"
+      ],
+      "misconceptionTags": [
+        "unit choice skipped in integrated tasks",
+        "representation selected without purpose",
+        "review solved as isolated arithmetic only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-division-unit",
+        "bnu-primary-p3-lower-assessment-shape-motion-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校组织三年级同学去春游，一共去了144人。如果每辆大巴车可以坐36人，需要几辆大巴车？在解决这个问题时，下面哪种策略最合适？",
+      "optionsZhHans": [
+        "用乘法计算，因为人数和每辆车的人数都知道，直接乘起来。",
+        "用除法计算，把总人数按每辆车的人数平均分，看能分成几份。",
+        "用加法计算，把每辆车的人数一辆一辆加起来，直到等于总人数。",
+        "用减法计算，从总人数里一辆一辆地减去每辆车的人数，看能减几次。"
+      ],
+      "answer": "用除法计算，把总人数按每辆车的人数平均分，看能分成几份。",
+      "acceptedAnswers": [
+        "用除法计算，把总人数按每辆车的人数平均分，看能分成几份。"
+      ],
+      "explanationZhHans": "题目是求144里面有几个36，属于包含除，用除法计算最直接。乘法是求几个相同加数的和，加法或减法虽然也能得出结果，但步骤多，不是最合适的策略。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-242",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "p3-lower-review",
+        "mathematical-activity",
+        "integrated-application",
+        "数学好玩",
+        "下册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "整理知识",
+        "错因表达",
+        "项目式探究"
+      ],
+      "misconceptionTags": [
+        "unit choice skipped in integrated tasks",
+        "representation selected without purpose",
+        "review solved as isolated arithmetic only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-division-unit",
+        "bnu-primary-p3-lower-assessment-shape-motion-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在整理本学期学过的面积单位时，下面哪种整理方式最能体现单位之间的关系？",
+      "optionsZhHans": [
+        "把平方厘米、平方分米、平方米的定义抄写一遍。",
+        "画一个表格，列出1平方米=100平方分米，1平方分米=100平方厘米。",
+        "把面积单位按从大到小的顺序排列出来。",
+        "用图表示1平方米的正方形可以分成100个1平方分米的小正方形。"
+      ],
+      "answer": "画一个表格，列出1平方米=100平方分米，1平方分米=100平方厘米。",
+      "acceptedAnswers": [
+        "画一个表格，列出1平方米=100平方分米，1平方分米=100平方厘米。"
+      ],
+      "explanationZhHans": "整理单位之间的关系，用表格列出进率最清晰，能直接看出相邻单位间的换算关系。抄定义或排序不能体现关系，画图虽然直观但不如表格简洁全面。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-243",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "p3-lower-review",
+        "mathematical-activity",
+        "integrated-application",
+        "数学好玩",
+        "下册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "整理知识",
+        "错因表达",
+        "项目式探究"
+      ],
+      "misconceptionTags": [
+        "unit choice skipped in integrated tasks",
+        "representation selected without purpose",
+        "review solved as isolated arithmetic only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-division-unit",
+        "bnu-primary-p3-lower-assessment-shape-motion-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在“数学好玩”活动中，老师让同学们测量教室地面的面积。教室地面是一个长方形，长8米，宽6米。下面哪种做法是错误的？",
+      "optionsZhHans": [
+        "先测量长和宽，再用长乘宽算出面积。",
+        "用1平方米的正方形纸板铺满地面，数一数用了多少块。",
+        "用卷尺量出地面的周长，再除以4得到边长，然后边长乘边长。",
+        "把长和宽都换算成分米，用80乘60得到平方分米数。"
+      ],
+      "answer": "用卷尺量出地面的周长，再除以4得到边长，然后边长乘边长。",
+      "acceptedAnswers": [
+        "用卷尺量出地面的周长，再除以4得到边长，然后边长乘边长。"
+      ],
+      "explanationZhHans": "长方形面积=长×宽，不能用周长求面积。选项C把长方形当成正方形处理，是错误的。其他选项都是正确的测量或计算方法。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-244",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "p3-lower-review",
+        "mathematical-activity",
+        "integrated-application",
+        "数学好玩",
+        "下册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "整理知识",
+        "错因表达",
+        "项目式探究"
+      ],
+      "misconceptionTags": [
+        "unit choice skipped in integrated tasks",
+        "representation selected without purpose",
+        "review solved as isolated arithmetic only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-division-unit",
+        "bnu-primary-p3-lower-assessment-shape-motion-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在复习“图形的运动”时，下面哪种现象属于旋转？",
+      "optionsZhHans": [
+        "电梯从1楼升到5楼。",
+        "推拉窗左右移动。",
+        "钟面上的指针从12走到3。",
+        "国旗沿着旗杆缓缓上升。"
+      ],
+      "answer": "钟面上的指针从12走到3。",
+      "acceptedAnswers": [
+        "钟面上的指针从12走到3。"
+      ],
+      "explanationZhHans": "旋转是物体绕一个点或轴转动。指针绕中心点转动，属于旋转。电梯、推拉窗、国旗上升都是平移，是沿直线移动。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-245",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "p3-lower-review",
+        "mathematical-activity",
+        "integrated-application",
+        "数学好玩",
+        "下册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "整理知识",
+        "错因表达",
+        "项目式探究"
+      ],
+      "misconceptionTags": [
+        "unit choice skipped in integrated tasks",
+        "representation selected without purpose",
+        "review solved as isolated arithmetic only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-division-unit",
+        "bnu-primary-p3-lower-assessment-shape-motion-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在整理“乘法”这一单元时，小明发现一道错题：24×13=312，他用除法验算：312÷13=24，说明计算正确。但老师说他验算的方法不够好，为什么？",
+      "optionsZhHans": [
+        "因为验算时应该用加法。",
+        "因为验算时应该用减法。",
+        "因为验算时只用了除法，没有用估算或其他方法再检查。",
+        "因为312÷13的商不是24。"
+      ],
+      "answer": "因为验算时只用了除法，没有用估算或其他方法再检查。",
+      "acceptedAnswers": [
+        "因为验算时只用了除法，没有用估算或其他方法再检查。"
+      ],
+      "explanationZhHans": "验算方法可以多样，只用一种方法可能掩盖错误。估算一下：24×13≈20×13=260，312接近260，但最好再交换乘数位置计算或拆分计算，确保万无一失。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-246",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "p3-lower-review",
+        "mathematical-activity",
+        "integrated-application",
+        "数学好玩",
+        "下册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "整理知识",
+        "错因表达",
+        "项目式探究"
+      ],
+      "misconceptionTags": [
+        "unit choice skipped in integrated tasks",
+        "representation selected without purpose",
+        "review solved as isolated arithmetic only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-division-unit",
+        "bnu-primary-p3-lower-assessment-shape-motion-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在“数学好玩”的“小小设计师”活动中，要用彩带围一个长方形花坛。花坛长15分米，宽10分米。下面哪种说法是正确的？",
+      "optionsZhHans": [
+        "需要彩带50分米，这是花坛的面积。",
+        "需要彩带50分米，这是花坛的周长。",
+        "需要彩带150分米，这是花坛的周长。",
+        "需要彩带150分米，这是花坛的面积。"
+      ],
+      "answer": "需要彩带50分米，这是花坛的周长。",
+      "acceptedAnswers": [
+        "需要彩带50分米，这是花坛的周长。"
+      ],
+      "explanationZhHans": "围花坛用彩带的长度是周长。（15+10）×2=50分米，所以周长是50分米。面积是15×10=150平方分米，单位不同，不能混淆。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-247",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "p3-lower-review",
+        "mathematical-activity",
+        "integrated-application",
+        "数学好玩",
+        "下册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "整理知识",
+        "错因表达",
+        "项目式探究"
+      ],
+      "misconceptionTags": [
+        "unit choice skipped in integrated tasks",
+        "representation selected without purpose",
+        "review solved as isolated arithmetic only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-division-unit",
+        "bnu-primary-p3-lower-assessment-shape-motion-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在整理“认识分数”时，老师让同学们用一张正方形纸折出四分之一。下面哪种折法不能得到四分之一？",
+      "optionsZhHans": [
+        "对折一次，再对折一次，展开后每份是四分之一。",
+        "沿对角线对折，再对折，展开后每份是四分之一。",
+        "对折一次，然后沿折痕剪开，取其中一份。",
+        "任意折一次，分成大小不同的两份，取较小的一份。"
+      ],
+      "answer": "任意折一次，分成大小不同的两份，取较小的一份。",
+      "acceptedAnswers": [
+        "任意折一次，分成大小不同的两份，取较小的一份。"
+      ],
+      "explanationZhHans": "四分之一表示平均分成4份，取1份。选项D没有平均分，大小不同，不是四分之一。其他选项都是通过两次对折平均分成4份。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-248",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "p3-lower-review",
+        "mathematical-activity",
+        "integrated-application",
+        "数学好玩",
+        "下册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "整理知识",
+        "错因表达",
+        "项目式探究"
+      ],
+      "misconceptionTags": [
+        "unit choice skipped in integrated tasks",
+        "representation selected without purpose",
+        "review solved as isolated arithmetic only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-division-unit",
+        "bnu-primary-p3-lower-assessment-shape-motion-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在复习“除法”时，老师写出一个竖式：被除数是257，除数是6。商是42，余数是5。下面哪种验算方法可以判断这个结果是否正确？",
+      "optionsZhHans": [
+        "用42乘6，再加5，看是否等于257。",
+        "用257除以42，看商是不是6余5。",
+        "用257减5，再除以6，看是否等于42。",
+        "以上三种方法都可以。"
+      ],
+      "answer": "以上三种方法都可以。",
+      "acceptedAnswers": [
+        "以上三种方法都可以。"
+      ],
+      "explanationZhHans": "验算有余数除法：商×除数+余数=被除数，所以A正确。B和C也是基于除法各部分关系的验算，都正确。因此三种方法都可以。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-249",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "p3-lower-review",
+        "mathematical-activity",
+        "integrated-application",
+        "数学好玩",
+        "下册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "整理知识",
+        "错因表达",
+        "项目式探究"
+      ],
+      "misconceptionTags": [
+        "unit choice skipped in integrated tasks",
+        "representation selected without purpose",
+        "review solved as isolated arithmetic only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-division-unit",
+        "bnu-primary-p3-lower-assessment-shape-motion-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在“数学好玩”的“我们一起去游园”活动中，老师统计了同学们最喜欢的游园项目。统计结果用哪种方式表示，能最清楚地看出喜欢每种项目的人数？",
+      "optionsZhHans": [
+        "用文字把每个项目喜欢的人数写出来。",
+        "用画“正”字的方法记录。",
+        "用条形统计图表示，一个格子代表1人。",
+        "用圆形图表示。"
+      ],
+      "answer": "用条形统计图表示，一个格子代表1人。",
+      "acceptedAnswers": [
+        "用条形统计图表示，一个格子代表1人。"
+      ],
+      "explanationZhHans": "条形统计图能直观比较数量的多少，一个格子代表1人，能清楚看出每种项目的人数。文字不直观，画“正”字是记录方法，圆形图在本学期未学。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-250",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "p3-lower-review",
+        "mathematical-activity",
+        "integrated-application",
+        "数学好玩",
+        "下册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "整理知识",
+        "错因表达",
+        "项目式探究"
+      ],
+      "misconceptionTags": [
+        "unit choice skipped in integrated tasks",
+        "representation selected without purpose",
+        "review solved as isolated arithmetic only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-division-unit",
+        "bnu-primary-p3-lower-assessment-shape-motion-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在整理“千克、克、吨”时，下面哪种说法是正确的？",
+      "optionsZhHans": [
+        "1千克铁比1千克棉花重。",
+        "一辆卡车的载重量用克作单位比较合适。",
+        "1吨等于1000千克，也等于1000000克。",
+        "一个苹果大约重200千克。"
+      ],
+      "answer": "1吨等于1000千克，也等于1000000克。",
+      "acceptedAnswers": [
+        "1吨等于1000千克，也等于1000000克。"
+      ],
+      "explanationZhHans": "1吨=1000千克，1千克=1000克，所以1吨=1000000克，C正确。A中1千克铁和棉花一样重；B中卡车载重量应用吨；D中苹果约200克，不是200千克。"
+    }
+  ]
+}

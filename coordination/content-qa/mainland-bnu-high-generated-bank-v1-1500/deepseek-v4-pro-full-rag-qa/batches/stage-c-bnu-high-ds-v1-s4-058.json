@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-058",
+  "startedAt": "2026-05-28T00:57:13.679Z",
+  "completedAt": "2026-05-28T00:57:19.248Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-058"
+  ],
+  "usage": {
+    "prompt_tokens": 2036,
+    "completion_tokens": 272,
+    "total_tokens": 2308,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1652
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-058",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "independentAnswer": null,
+        "correctedAnswer": null,
+        "issueTags": [
+          "bad_options",
+          "unsolvable",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "四个选项均不满足既是偶函数又在(0,+∞)单调递增：A偶但递减；B偶但递减；C定义域不含0，非偶函数；D非奇非偶。题目无正确选项，不可解。存储答案选C，但C非偶函数，解析也承认无正确选项，自相矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目无正确选项，不可解，选项设计错误，解析自相矛盾。"
+    }
+  }
+}

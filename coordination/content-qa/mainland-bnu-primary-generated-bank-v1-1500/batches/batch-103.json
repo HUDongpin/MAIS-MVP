@@ -1,0 +1,594 @@
+{
+  "batchId": "batch-103",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p5-021",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-symmetry-translation",
+      "unitTitle": "轴对称和平移",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "axis-symmetry",
+        "translation",
+        "geometric-transformation",
+        "spatial-visualization",
+        "轴对称",
+        "平移"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "识别对称轴",
+        "补全轴对称图形",
+        "描述平移方向",
+        "描述平移距离",
+        "变换前后比较"
+      ],
+      "misconceptionTags": [
+        "translation distance counted from the wrong point",
+        "mirror image confused with rotation",
+        "shape orientation treated as changing under translation"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-symmetry-translation"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-symmetry-translation-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在方格纸上，有一个三角形ABC，顶点A在(3,5)，B在(1,1)，C在(5,1)。画出这个三角形关于直线x=4的轴对称图形，并写出对称后顶点A'的坐标。",
+      "optionsZhHans": [],
+      "answer": "A'(5,5)",
+      "acceptedAnswers": [
+        "A'(5,5)",
+        "(5,5)"
+      ],
+      "explanationZhHans": "对称轴是竖直线x=4。点A(3,5)到轴的距离是1，对称点A'在轴右侧同样距离，坐标为(5,5)。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-022",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-symmetry-translation",
+      "unitTitle": "轴对称和平移",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "axis-symmetry",
+        "translation",
+        "geometric-transformation",
+        "spatial-visualization",
+        "轴对称",
+        "平移"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "识别对称轴",
+        "补全轴对称图形",
+        "描述平移方向",
+        "描述平移距离",
+        "变换前后比较"
+      ],
+      "misconceptionTags": [
+        "translation distance counted from the wrong point",
+        "mirror image confused with rotation",
+        "shape orientation treated as changing under translation"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-symmetry-translation"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-symmetry-translation-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个图形先向右平移5格，再向下平移3格。下面哪种说法是正确的？",
+      "optionsZhHans": [
+        "平移后图形的大小不变，方向可能改变。",
+        "平移后图形的大小和方向都不变。",
+        "平移后图形的大小不变，但形状可能改变。",
+        "平移后图形的位置不变，大小和方向改变。"
+      ],
+      "answer": "平移后图形的大小和方向都不变。",
+      "acceptedAnswers": [
+        "平移后图形的大小和方向都不变。"
+      ],
+      "explanationZhHans": "平移只改变图形的位置，不改变大小、形状和方向。所以平移后图形的大小和方向都不变。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-023",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-symmetry-translation",
+      "unitTitle": "轴对称和平移",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "axis-symmetry",
+        "translation",
+        "geometric-transformation",
+        "spatial-visualization",
+        "轴对称",
+        "平移"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "识别对称轴",
+        "补全轴对称图形",
+        "描述平移方向",
+        "描述平移距离",
+        "变换前后比较"
+      ],
+      "misconceptionTags": [
+        "translation distance counted from the wrong point",
+        "mirror image confused with rotation",
+        "shape orientation treated as changing under translation"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-symmetry-translation"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-symmetry-translation-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "点P先向左平移4格，再向上平移2格后到达点Q(1,3)。点P原来的位置用数对表示是（___，___）。",
+      "optionsZhHans": [],
+      "answer": "(5,1)",
+      "acceptedAnswers": [
+        "(5,1)",
+        "5,1"
+      ],
+      "explanationZhHans": "逆向思考：从Q(1,3)向右平移4格得(5,3)，再向下平移2格得(5,1)。所以P原来在(5,1)。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-024",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-symmetry-translation",
+      "unitTitle": "轴对称和平移",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "axis-symmetry",
+        "translation",
+        "geometric-transformation",
+        "spatial-visualization",
+        "轴对称",
+        "平移"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "识别对称轴",
+        "补全轴对称图形",
+        "描述平移方向",
+        "描述平移距离",
+        "变换前后比较"
+      ],
+      "misconceptionTags": [
+        "translation distance counted from the wrong point",
+        "mirror image confused with rotation",
+        "shape orientation treated as changing under translation"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-symmetry-translation"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-symmetry-translation-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面图上，梯形ABCD的四个顶点坐标分别为A(2,4), B(1,1), C(5,1), D(4,4)。画出梯形向下平移3格后的图形，并写出平移后点B'的坐标。",
+      "optionsZhHans": [],
+      "answer": "B'(1,-2)",
+      "acceptedAnswers": [
+        "B'(1,-2)",
+        "(1,-2)"
+      ],
+      "explanationZhHans": "向下平移3格，横坐标不变，纵坐标减3。B(1,1)平移后为B'(1,1-3)，即(1,-2)。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-025",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-symmetry-translation",
+      "unitTitle": "轴对称和平移",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "axis-symmetry",
+        "translation",
+        "geometric-transformation",
+        "spatial-visualization",
+        "轴对称",
+        "平移"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "识别对称轴",
+        "补全轴对称图形",
+        "描述平移方向",
+        "描述平移距离",
+        "变换前后比较"
+      ],
+      "misconceptionTags": [
+        "translation distance counted from the wrong point",
+        "mirror image confused with rotation",
+        "shape orientation treated as changing under translation"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-symmetry-translation"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-symmetry-translation-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "判断一个图形是否有对称轴，下面哪种方法最合适？",
+      "optionsZhHans": [
+        "沿一条直线对折，看两侧能否完全重合",
+        "只数图形有几条边",
+        "只看图形颜色是否一样",
+        "只看图形能否平移"
+      ],
+      "answer": "沿一条直线对折，看两侧能否完全重合",
+      "acceptedAnswers": [
+        "沿一条直线对折，看两侧能否完全重合"
+      ],
+      "explanationZhHans": "轴对称图形沿对称轴对折后，两侧应完全重合。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-026",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-symmetry-translation",
+      "unitTitle": "轴对称和平移",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "axis-symmetry",
+        "translation",
+        "geometric-transformation",
+        "spatial-visualization",
+        "轴对称",
+        "平移"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "识别对称轴",
+        "补全轴对称图形",
+        "描述平移方向",
+        "描述平移距离",
+        "变换前后比较"
+      ],
+      "misconceptionTags": [
+        "translation distance counted from the wrong point",
+        "mirror image confused with rotation",
+        "shape orientation treated as changing under translation"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-symmetry-translation"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-symmetry-translation-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个图形先向右平移6格，再向左平移2格，相当于向___平移了___格。",
+      "optionsZhHans": [],
+      "answer": "右，4",
+      "acceptedAnswers": [
+        "右，4",
+        "右 4",
+        "右4"
+      ],
+      "explanationZhHans": "向右6格再向左2格，抵消后相当于向右平移了4格。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-027",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-symmetry-translation",
+      "unitTitle": "轴对称和平移",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "axis-symmetry",
+        "translation",
+        "geometric-transformation",
+        "spatial-visualization",
+        "轴对称",
+        "平移"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "识别对称轴",
+        "补全轴对称图形",
+        "描述平移方向",
+        "描述平移距离",
+        "变换前后比较"
+      ],
+      "misconceptionTags": [
+        "translation distance counted from the wrong point",
+        "mirror image confused with rotation",
+        "shape orientation treated as changing under translation"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-symmetry-translation"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-symmetry-translation-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "方格纸上有一个点M(7,9)，它经过两次平移后到达点N(2,5)。请描述一种可能的平移过程，写出每次平移的方向和格数。",
+      "optionsZhHans": [],
+      "answer": "先向左平移5格，再向下平移4格（或先向下平移4格，再向左平移5格）",
+      "acceptedAnswers": [
+        "先向左平移5格，再向下平移4格（或先向下平移4格，再向左平移5格）",
+        "先向左平移5格，再向下平移4格",
+        "先向下平移4格，再向左平移5格",
+        "向左平移5格，向下平移4格",
+        "向下平移4格，向左平移5格"
+      ],
+      "explanationZhHans": "横坐标从7到2减少5，所以向左5格；纵坐标从9到5减少4，所以向下4格。顺序可交换。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-028",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-symmetry-translation",
+      "unitTitle": "轴对称和平移",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "axis-symmetry",
+        "translation",
+        "geometric-transformation",
+        "spatial-visualization",
+        "轴对称",
+        "平移"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "识别对称轴",
+        "补全轴对称图形",
+        "描述平移方向",
+        "描述平移距离",
+        "变换前后比较"
+      ],
+      "misconceptionTags": [
+        "translation distance counted from the wrong point",
+        "mirror image confused with rotation",
+        "shape orientation treated as changing under translation"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-symmetry-translation"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-symmetry-translation-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "关于轴对称图形，下面哪种说法是正确的？",
+      "optionsZhHans": [
+        "轴对称图形对称轴两侧的部分完全相同。",
+        "轴对称图形只能有一条对称轴。",
+        "平行四边形一定是轴对称图形。",
+        "轴对称图形沿对称轴对折后，两侧的部分方向相同。"
+      ],
+      "answer": "轴对称图形对称轴两侧的部分完全相同。",
+      "acceptedAnswers": [
+        "轴对称图形对称轴两侧的部分完全相同。"
+      ],
+      "explanationZhHans": "轴对称图形沿对称轴对折后两侧完全重合，即完全相同。对称轴可能有多条，平行四边形一般不是轴对称图形，对折后方向相反。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-029",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-symmetry-translation",
+      "unitTitle": "轴对称和平移",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "axis-symmetry",
+        "translation",
+        "geometric-transformation",
+        "spatial-visualization",
+        "轴对称",
+        "平移"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "识别对称轴",
+        "补全轴对称图形",
+        "描述平移方向",
+        "描述平移距离",
+        "变换前后比较"
+      ],
+      "misconceptionTags": [
+        "translation distance counted from the wrong point",
+        "mirror image confused with rotation",
+        "shape orientation treated as changing under translation"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-symmetry-translation"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-symmetry-translation-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "方格纸上有一条线段，端点分别是(2,3)和(5,3)。这条线段向___平移___格后，端点变为(2,6)和(5,6)。",
+      "optionsZhHans": [],
+      "answer": "上，3",
+      "acceptedAnswers": [
+        "上，3",
+        "上 3",
+        "上3"
+      ],
+      "explanationZhHans": "纵坐标从3变成6，增加了3，所以向上平移3格。横坐标不变。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-030",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-symmetry-translation",
+      "unitTitle": "轴对称和平移",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "axis-symmetry",
+        "translation",
+        "geometric-transformation",
+        "spatial-visualization",
+        "轴对称",
+        "平移"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "识别对称轴",
+        "补全轴对称图形",
+        "描述平移方向",
+        "描述平移距离",
+        "变换前后比较"
+      ],
+      "misconceptionTags": [
+        "translation distance counted from the wrong point",
+        "mirror image confused with rotation",
+        "shape orientation treated as changing under translation"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-symmetry-translation"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-symmetry-translation-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个图形先向上平移4格，再向右平移3格，最后到达的位置在原来位置的什么方向？平移前后图形的什么没有变化？",
+      "optionsZhHans": [],
+      "answer": "右上方；大小和形状",
+      "acceptedAnswers": [
+        "右上方；大小和形状",
+        "右上方；大小、形状",
+        "右上方，大小和形状",
+        "右上方，大小、形状"
+      ],
+      "explanationZhHans": "向上再向右，最终在右上方。平移不改变图形的大小和形状，只改变位置。"
+    }
+  ]
+}

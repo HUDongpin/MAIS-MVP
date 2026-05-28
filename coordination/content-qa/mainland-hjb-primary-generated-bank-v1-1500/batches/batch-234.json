@@ -1,0 +1,291 @@
+{
+  "batchId": "batch-234",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p5-166",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-fractions-equivalence-operations",
+      "unitTitle": "分数意义、性质与加减",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-equivalence",
+        "simplifying-fractions",
+        "common-denominators",
+        "fraction-addition-subtraction",
+        "分数"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "数学表达"
+      ],
+      "skillTags": [
+        "分数意义",
+        "分数基本性质",
+        "约分",
+        "通分",
+        "异分母加减"
+      ],
+      "misconceptionTags": [
+        "whole not identified before naming fraction",
+        "numerators and denominators added directly",
+        "common denominator selected without preserving value"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-fractions-equivalence-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit",
+        "hjb-primary-p5-upper-assessment-equations-relationships-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把一根绳子对折一次后，再对折一次，然后从中间剪开。剪开后较短的一段是原来绳子长度的几分之几？",
+      "optionsZhHans": [
+        "1/2",
+        "1/4",
+        "1/8",
+        "1/16"
+      ],
+      "answer": "1/8",
+      "acceptedAnswers": [
+        "1/8"
+      ],
+      "explanationZhHans": "对折一次变成2层，再对折变成4层。从中间剪开，每层都被剪断，共得到8段，其中两端是较短的两段，每段是原长的1/8。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-167",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-fractions-equivalence-operations",
+      "unitTitle": "分数意义、性质与加减",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-equivalence",
+        "simplifying-fractions",
+        "common-denominators",
+        "fraction-addition-subtraction",
+        "分数"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "数学表达"
+      ],
+      "skillTags": [
+        "分数意义",
+        "分数基本性质",
+        "约分",
+        "通分",
+        "异分母加减"
+      ],
+      "misconceptionTags": [
+        "whole not identified before naming fraction",
+        "numerators and denominators added directly",
+        "common denominator selected without preserving value"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-fractions-equivalence-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit",
+        "hjb-primary-p5-upper-assessment-equations-relationships-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在括号里填上适当的分数：3/4 = ( )/12。",
+      "optionsZhHans": [],
+      "answer": "9",
+      "acceptedAnswers": [
+        "9",
+        "9/12"
+      ],
+      "explanationZhHans": "分母4乘3得12，分子3也要乘3得9，所以3/4=9/12。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-168",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-fractions-equivalence-operations",
+      "unitTitle": "分数意义、性质与加减",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-equivalence",
+        "simplifying-fractions",
+        "common-denominators",
+        "fraction-addition-subtraction",
+        "分数"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "数学表达"
+      ],
+      "skillTags": [
+        "分数意义",
+        "分数基本性质",
+        "约分",
+        "通分",
+        "异分母加减"
+      ],
+      "misconceptionTags": [
+        "whole not identified before naming fraction",
+        "numerators and denominators added directly",
+        "common denominator selected without preserving value"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-fractions-equivalence-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit",
+        "hjb-primary-p5-upper-assessment-equations-relationships-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算：5/6 - 1/4 = ?（结果用最简分数表示）",
+      "optionsZhHans": [],
+      "answer": "7/12",
+      "acceptedAnswers": [
+        "7/12"
+      ],
+      "explanationZhHans": "通分：5/6=10/12，1/4=3/12，相减得7/12。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-169",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-fractions-equivalence-operations",
+      "unitTitle": "分数意义、性质与加减",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-equivalence",
+        "simplifying-fractions",
+        "common-denominators",
+        "fraction-addition-subtraction",
+        "分数"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "数学表达"
+      ],
+      "skillTags": [
+        "分数意义",
+        "分数基本性质",
+        "约分",
+        "通分",
+        "异分母加减"
+      ],
+      "misconceptionTags": [
+        "whole not identified before naming fraction",
+        "numerators and denominators added directly",
+        "common denominator selected without preserving value"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-fractions-equivalence-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit",
+        "hjb-primary-p5-upper-assessment-equations-relationships-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "S18 remediated deterministic production answer-key gate on 2026-05-25; approved for owner-authorized HJB primary production integration.",
+      "promptZhHans": "下面哪个分数与2/5相等？",
+      "optionsZhHans": [
+        "4/10",
+        "3/8",
+        "5/12",
+        "6/14"
+      ],
+      "answer": "4/10",
+      "acceptedAnswers": [
+        "4/10"
+      ],
+      "explanationZhHans": "2/5分子分母同时乘2得4/10，分数大小不变。其他选项化简后均不等于2/5。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-170",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-fractions-equivalence-operations",
+      "unitTitle": "分数意义、性质与加减",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-equivalence",
+        "simplifying-fractions",
+        "common-denominators",
+        "fraction-addition-subtraction",
+        "分数"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "数学表达"
+      ],
+      "skillTags": [
+        "分数意义",
+        "分数基本性质",
+        "约分",
+        "通分",
+        "异分母加减"
+      ],
+      "misconceptionTags": [
+        "whole not identified before naming fraction",
+        "numerators and denominators added directly",
+        "common denominator selected without preserving value"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-fractions-equivalence-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit",
+        "hjb-primary-p5-upper-assessment-equations-relationships-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把12/18化成最简分数。",
+      "optionsZhHans": [],
+      "answer": "2/3",
+      "acceptedAnswers": [
+        "2/3"
+      ],
+      "explanationZhHans": "分子分母同时除以它们的最大公因数6，12÷6=2，18÷6=3，得到2/3。"
+    }
+  ]
+}

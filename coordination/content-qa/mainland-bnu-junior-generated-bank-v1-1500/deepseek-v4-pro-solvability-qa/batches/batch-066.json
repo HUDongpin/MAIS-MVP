@@ -1,0 +1,185 @@
+{
+  "batchNumber": 66,
+  "startedAt": "2026-05-27T17:41:40.773Z",
+  "completedAt": "2026-05-27T17:42:00.185Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s2-281",
+    "bnu-junior-ds-v1-s2-282",
+    "bnu-junior-ds-v1-s2-283",
+    "bnu-junior-ds-v1-s2-284",
+    "bnu-junior-ds-v1-s2-285",
+    "bnu-junior-ds-v1-s2-286",
+    "bnu-junior-ds-v1-s2-287",
+    "bnu-junior-ds-v1-s2-288",
+    "bnu-junior-ds-v1-s2-289",
+    "bnu-junior-ds-v1-s2-290",
+    "bnu-junior-ds-v1-s2-291",
+    "bnu-junior-ds-v1-s2-292"
+  ],
+  "usage": {
+    "prompt_tokens": 5927,
+    "completion_tokens": 1373,
+    "total_tokens": 7300,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 5415
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s2-281",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "125°",
+        "rationale": "题目可解，但答案与解析矛盾。解析正确得出∠ADC=125°，而答案误写为105°。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-282",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，答案9.6正确，解析面积法无误，acceptedAnswers覆盖分数形式。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-283",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，答案90°正确，解析无误，选项唯一且无歧义。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-284",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "证明题条件充分，答案DE=DF正确，解析通过全等证明，逻辑严谨。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-285",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "125°",
+        "rationale": "题目与281题相同，但答案140°错误，解析中错误假设AD=BD，实际应为BD=AB，正确∠ADC=125°。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-286",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，答案20°正确，解析通过角度计算得出，选项唯一。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-287",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "90°",
+        "rationale": "题目可解，但答案110°错误，解析正确得出∠ADC=90°，答案与解析矛盾。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-288",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，答案30°正确，解析角度计算无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-289",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，答案90°正确，解析无误，选项唯一。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-290",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目与282题相同，答案9.6正确，解析面积法无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-291",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "60°",
+        "rationale": "题目条件∠A=40°，但解析错误使用∠A=100°，导致答案30°错误。正确计算得∠DAC=60°。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-292",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，答案90°正确，解析无误，选项唯一。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 4,
+      "notes": "12道题中8道通过，4道因答案与解析矛盾或解析错误而失败。主要问题为答案误写或解析条件与题目不符。"
+    }
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-039",
+  "startedAt": "2026-05-28T02:02:50.140Z",
+  "completedAt": "2026-05-28T02:02:55.195Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-039"
+  ],
+  "usage": {
+    "prompt_tokens": 3749,
+    "completion_tokens": 273,
+    "total_tokens": 4022,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 3365
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-039",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": null,
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "unsolvable",
+          "explanation_contradiction",
+          "answer_mismatch"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "点 P(2,-1) 到圆心 (1,-2) 的距离为 √2，小于半径 √5，点在圆内，无法作切线，题目条件矛盾，无解。提供的答案和解析均错误，且未发现点在圆内这一根本问题。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目条件矛盾，点在圆内，无法作切线，判定为不可解，答案和解析均无效。"
+    }
+  }
+}

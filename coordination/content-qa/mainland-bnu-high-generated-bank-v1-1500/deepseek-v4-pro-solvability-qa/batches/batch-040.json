@@ -1,0 +1,137 @@
+{
+  "batchNumber": 40,
+  "startedAt": "2026-05-27T13:50:31.526Z",
+  "completedAt": "2026-05-27T13:50:48.697Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-313",
+    "bnu-high-ds-v1-s4-314",
+    "bnu-high-ds-v1-s4-315",
+    "bnu-high-ds-v1-s4-316",
+    "bnu-high-ds-v1-s4-317",
+    "bnu-high-ds-v1-s4-318",
+    "bnu-high-ds-v1-s4-319",
+    "bnu-high-ds-v1-s4-320"
+  ],
+  "usage": {
+    "prompt_tokens": 10501,
+    "completion_tokens": 1201,
+    "total_tokens": 11702,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 9989
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-313",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "向右平移 π/4 个单位",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可独立求解，平移方向和距离正确，选项唯一，解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-314",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "1/5",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由终边点坐标可求 r=5，sinα=4/5，cosα=-3/5，和为1/5，答案与解析均正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-315",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "4",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "周期公式 T=2π/|ω|，ω=π/2，得 T=4，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-316",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "5π/3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "-π/3+2π=5π/3，终边相同，选项唯一正确，解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-317",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "x = π/3, π, 4π/3, 2π",
+        "correctedAnswer": "x = π/3, π, 4π/3, 2π",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立求解得解为 π/3, π, 4π/3, 2π，与给定答案 π/4, 7π/12, 13π/12, 19π/12 不符；解析中方程 cos(2x-π/3)=1/2 的解应为 2x-π/3=π/3+2kπ 或 5π/3+2kπ，而非 -π/3+2kπ，导致错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-318",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "振幅为 |A|=2，答案与解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-319",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "x = π/12",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "对称轴方程由 2x+π/3=π/2+kπ 解得 x=π/12+kπ/2，k=0 时 x=π/12，选项唯一，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-320",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "-4/5",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由 sin²θ+cos²θ=1 及第二象限余弦为负得 cosθ=-4/5，答案与解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第317题答案和解析均有数学错误，独立求解结果与给定答案不符，其余题目均通过审核。"
+    }
+  }
+}

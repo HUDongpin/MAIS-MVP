@@ -1,0 +1,653 @@
+{
+  "batchId": "batch-104",
+  "questions": [
+    {
+      "id": "bnu-junior-ds-v1-s3-031",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-special-parallelograms",
+      "unitTitle": "特殊平行四边形",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "special-parallelograms",
+        "rhombus",
+        "rectangle",
+        "square",
+        "geometric-proof",
+        "特殊平行四边形",
+        "菱形",
+        "矩形",
+        "正方形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "性质判定",
+        "条件分析",
+        "辅助线推理",
+        "多边形证明",
+        "图形分类"
+      ],
+      "misconceptionTags": [
+        "property treated as converse without proof",
+        "square and rectangle conditions confused",
+        "visual appearance used instead of stated conditions"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-special-parallelograms"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-special-parallelograms-unit",
+        "bnu-junior-s3-upper-assessment-monthly-1-to-3-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知四边形ABCD中，对角线AC与BD相交于点O。给出以下四个条件：①AB=CD，AD=BC；②∠ABC=90°，AB=BC；③AC⊥BD，OA=OC，OB=OD；④AB∥CD，AD∥BC，AC=BD。若要使四边形ABCD为正方形，则必须同时满足的条件是（ ）",
+      "optionsZhHans": [
+        "①和②",
+        "②和③",
+        "③和④",
+        "①和④"
+      ],
+      "answer": "②和③",
+      "acceptedAnswers": [
+        "②和③"
+      ],
+      "explanationZhHans": "①得平行四边形，②得等腰直角三角形，③得菱形，④得矩形。正方形需同时满足矩形和菱形条件，即②（邻边相等且垂直）和③（对角线垂直平分）组合可得正方形。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-032",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-special-parallelograms",
+      "unitTitle": "特殊平行四边形",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "special-parallelograms",
+        "rhombus",
+        "rectangle",
+        "square",
+        "geometric-proof",
+        "特殊平行四边形",
+        "菱形",
+        "矩形",
+        "正方形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "性质判定",
+        "条件分析",
+        "辅助线推理",
+        "多边形证明",
+        "图形分类"
+      ],
+      "misconceptionTags": [
+        "property treated as converse without proof",
+        "square and rectangle conditions confused",
+        "visual appearance used instead of stated conditions"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-special-parallelograms"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-special-parallelograms-unit",
+        "bnu-junior-s3-upper-assessment-monthly-1-to-3-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在四边形ABCD中，已知AB∥CD，AD∥BC，且对角线AC与BD互相平分。请判断四边形ABCD一定是哪种特殊平行四边形，并说明理由。",
+      "optionsZhHans": [],
+      "answer": "平行四边形",
+      "acceptedAnswers": [
+        "平行四边形"
+      ],
+      "explanationZhHans": "由AB∥CD，AD∥BC可得四边形ABCD是平行四边形。对角线互相平分是平行四边形的性质，但条件已足够判定为平行四边形，无需进一步特殊化。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-033",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-special-parallelograms",
+      "unitTitle": "特殊平行四边形",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "special-parallelograms",
+        "rhombus",
+        "rectangle",
+        "square",
+        "geometric-proof",
+        "特殊平行四边形",
+        "菱形",
+        "矩形",
+        "正方形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "性质判定",
+        "条件分析",
+        "辅助线推理",
+        "多边形证明",
+        "图形分类"
+      ],
+      "misconceptionTags": [
+        "property treated as converse without proof",
+        "square and rectangle conditions confused",
+        "visual appearance used instead of stated conditions"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-special-parallelograms"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-special-parallelograms-unit",
+        "bnu-junior-s3-upper-assessment-monthly-1-to-3-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在四边形ABCD中，对角线AC与BD相交于点O。给出以下四个条件：①AB∥CD，AD∥BC；②AB=CD，AD=BC；③OA=OC，OB=OD；④∠ABC=90°。若要使四边形ABCD为矩形，则必须同时满足的条件是（填写序号组合，如①②③④）。",
+      "optionsZhHans": [],
+      "answer": "①③④",
+      "acceptedAnswers": [
+        "①③④"
+      ],
+      "explanationZhHans": "①和③可得平行四边形，加④得矩形。②和③也得平行四边形，但②③④不能保证矩形，因②仅对边相等，无直角。故必须①③④。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-034",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-special-parallelograms",
+      "unitTitle": "特殊平行四边形",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "special-parallelograms",
+        "rhombus",
+        "rectangle",
+        "square",
+        "geometric-proof",
+        "特殊平行四边形",
+        "菱形",
+        "矩形",
+        "正方形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "性质判定",
+        "条件分析",
+        "辅助线推理",
+        "多边形证明",
+        "图形分类"
+      ],
+      "misconceptionTags": [
+        "property treated as converse without proof",
+        "square and rectangle conditions confused",
+        "visual appearance used instead of stated conditions"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-special-parallelograms"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-special-parallelograms-unit",
+        "bnu-junior-s3-upper-assessment-monthly-1-to-3-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在四边形ABCD中，对角线AC与BD相交于点O。给出下列四个条件：①AB∥CD，AD∥BC；②AB=CD，AD=BC；③OA=OC，OB=OD；④∠BAD=∠BCD，∠ABC=∠ADC。其中，能判定四边形ABCD是平行四边形的条件共有几个？",
+      "optionsZhHans": [
+        "1个",
+        "2个",
+        "3个",
+        "4个"
+      ],
+      "answer": "4个",
+      "acceptedAnswers": [
+        "4个"
+      ],
+      "explanationZhHans": "①两组对边分别平行，②两组对边分别相等，③对角线互相平分，④两组对角分别相等，都是平行四边形的判定定理，因此四个条件都能判定四边形ABCD是平行四边形。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-035",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-special-parallelograms",
+      "unitTitle": "特殊平行四边形",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "special-parallelograms",
+        "rhombus",
+        "rectangle",
+        "square",
+        "geometric-proof",
+        "特殊平行四边形",
+        "菱形",
+        "矩形",
+        "正方形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "性质判定",
+        "条件分析",
+        "辅助线推理",
+        "多边形证明",
+        "图形分类"
+      ],
+      "misconceptionTags": [
+        "property treated as converse without proof",
+        "square and rectangle conditions confused",
+        "visual appearance used instead of stated conditions"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-special-parallelograms"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-special-parallelograms-unit",
+        "bnu-junior-s3-upper-assessment-monthly-1-to-3-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在四边形ABCD中，对角线AC与BD相交于点O。给出以下四个条件：①AB=CD，AD=BC；②∠ABC=90°，AB=BC；③AC⊥BD，且OA=OC，OB=OD；④∠BAD=∠BCD=90°，且AC=BD。请回答：条件______能判定四边形ABCD是正方形。（填写序号，若多个条件符合，用逗号分隔）",
+      "optionsZhHans": [],
+      "answer": "②,③",
+      "acceptedAnswers": [
+        "②,③",
+        "②，③",
+        "② ③",
+        "③,②",
+        "③，②",
+        "③ ②"
+      ],
+      "explanationZhHans": "①只能判定平行四边形；②由直角和邻边等可得等腰直角三角形，结合AB=BC且∠ABC=90°可推出正方形；③对角线垂直且互相平分是菱形，又对角线相等（由垂直平分且OA=OC,OB=OD可推出AC=BD）得正方形；④只能判定矩形。故②③符合。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-036",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-special-parallelograms",
+      "unitTitle": "特殊平行四边形",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "special-parallelograms",
+        "rhombus",
+        "rectangle",
+        "square",
+        "geometric-proof",
+        "特殊平行四边形",
+        "菱形",
+        "矩形",
+        "正方形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "性质判定",
+        "条件分析",
+        "辅助线推理",
+        "多边形证明",
+        "图形分类"
+      ],
+      "misconceptionTags": [
+        "property treated as converse without proof",
+        "square and rectangle conditions confused",
+        "visual appearance used instead of stated conditions"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-special-parallelograms"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-special-parallelograms-unit",
+        "bnu-junior-s3-upper-assessment-monthly-1-to-3-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知四边形 ABCD 中，AB = BC，∠ABC = 90°，且对角线 AC 与 BD 互相垂直平分。请判断四边形 ABCD 一定是哪种特殊平行四边形，并说明理由。",
+      "optionsZhHans": [],
+      "answer": "正方形",
+      "acceptedAnswers": [
+        "正方形"
+      ],
+      "explanationZhHans": "由 AB=BC 且 ∠ABC=90° 得 △ABC 是等腰直角三角形，故 AB⊥BC 且 AB=BC。又对角线互相垂直平分，则四边形是菱形且对角线相等，因此是正方形。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-037",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-special-parallelograms",
+      "unitTitle": "特殊平行四边形",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "special-parallelograms",
+        "rhombus",
+        "rectangle",
+        "square",
+        "geometric-proof",
+        "特殊平行四边形",
+        "菱形",
+        "矩形",
+        "正方形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "性质判定",
+        "条件分析",
+        "辅助线推理",
+        "多边形证明",
+        "图形分类"
+      ],
+      "misconceptionTags": [
+        "property treated as converse without proof",
+        "square and rectangle conditions confused",
+        "visual appearance used instead of stated conditions"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-special-parallelograms"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-special-parallelograms-unit",
+        "bnu-junior-s3-upper-assessment-monthly-1-to-3-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知四边形ABCD中，对角线AC与BD相交于点O。给出以下四个条件：①AB=CD，AD=BC；②AC⊥BD；③OA=OC，OB=OD；④∠ABC=90°。若要使四边形ABCD为正方形，需要同时满足的条件是（ ）",
+      "optionsZhHans": [
+        "①②③",
+        "①③④",
+        "②③④",
+        "①②④"
+      ],
+      "answer": "②③④",
+      "acceptedAnswers": [
+        "②③④"
+      ],
+      "explanationZhHans": "①是平行四边形判定，②是对角线垂直，③是对角线互相平分，④是一个直角。正方形需平行四边形且邻边垂直且相等，或对角线垂直平分且相等。①③得平行四边形，加②得菱形，加④得矩形，同时满足②③④且对角线相等可得正方形。仅②③④可推出正方形，故选②③④。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-038",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-special-parallelograms",
+      "unitTitle": "特殊平行四边形",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "special-parallelograms",
+        "rhombus",
+        "rectangle",
+        "square",
+        "geometric-proof",
+        "特殊平行四边形",
+        "菱形",
+        "矩形",
+        "正方形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "性质判定",
+        "条件分析",
+        "辅助线推理",
+        "多边形证明",
+        "图形分类"
+      ],
+      "misconceptionTags": [
+        "property treated as converse without proof",
+        "square and rectangle conditions confused",
+        "visual appearance used instead of stated conditions"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-special-parallelograms"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-special-parallelograms-unit",
+        "bnu-junior-s3-upper-assessment-monthly-1-to-3-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知四边形ABCD中，对角线AC与BD相交于点O。给出以下四个条件：①AB=CD，AD=BC；②OA=OC，OB=OD；③AB∥CD，AD∥BC；④∠ABC=90°，AC=BD。请回答：\n(1) 能直接判定四边形ABCD是平行四边形的条件是哪些？（写出序号即可）\n(2) 在(1)的基础上，若再添加条件∠BAD=90°，能否判定四边形ABCD是矩形？请说明理由。",
+      "optionsZhHans": [],
+      "answer": "(1) ①②③\n(2) 能。理由：由(1)已证四边形ABCD是平行四边形，又∠BAD=90°，根据“有一个角是直角的平行四边形是矩形”，可得四边形ABCD是矩形。",
+      "acceptedAnswers": [
+        "(1) ①②③\n(2) 能。理由：由(1)已证四边形ABCD是平行四边形，又∠BAD=90°，根据“有一个角是直角的平行四边形是矩形”，可得四边形ABCD是矩形。"
+      ],
+      "explanationZhHans": "(1) ①两组对边分别相等，②对角线互相平分，③两组对边分别平行，均可直接判定平行四边形。④一组邻角为直角且对角线相等，不能直接判定平行四边形。\n(2) 在平行四边形基础上，一个角是直角即可判定为矩形。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-039",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-special-parallelograms",
+      "unitTitle": "特殊平行四边形",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "special-parallelograms",
+        "rhombus",
+        "rectangle",
+        "square",
+        "geometric-proof",
+        "特殊平行四边形",
+        "菱形",
+        "矩形",
+        "正方形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "性质判定",
+        "条件分析",
+        "辅助线推理",
+        "多边形证明",
+        "图形分类"
+      ],
+      "misconceptionTags": [
+        "property treated as converse without proof",
+        "square and rectangle conditions confused",
+        "visual appearance used instead of stated conditions"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-special-parallelograms"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-special-parallelograms-unit",
+        "bnu-junior-s3-upper-assessment-monthly-1-to-3-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知四边形ABCD中，对角线AC与BD相交于点O。给出以下四个条件：①AB=CD，AD=BC；②∠ABC=90°，AB=BC；③AC⊥BD，OA=OC；④AC=BD，∠BAD=90°。若要使四边形ABCD为正方形，需要同时满足哪两个条件？",
+      "optionsZhHans": [],
+      "answer": "②和③",
+      "acceptedAnswers": [
+        "②和③",
+        "②③",
+        "③和②",
+        "③②"
+      ],
+      "explanationZhHans": "条件②得矩形且邻边等，为正方形；条件③得菱形且对角线垂直且平分，结合②的直角得正方形。①仅得平行四边形，④仅得矩形，故需②③。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-040",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-special-parallelograms",
+      "unitTitle": "特殊平行四边形",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "special-parallelograms",
+        "rhombus",
+        "rectangle",
+        "square",
+        "geometric-proof",
+        "特殊平行四边形",
+        "菱形",
+        "矩形",
+        "正方形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "性质判定",
+        "条件分析",
+        "辅助线推理",
+        "多边形证明",
+        "图形分类"
+      ],
+      "misconceptionTags": [
+        "property treated as converse without proof",
+        "square and rectangle conditions confused",
+        "visual appearance used instead of stated conditions"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-special-parallelograms"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-special-parallelograms-unit",
+        "bnu-junior-s3-upper-assessment-monthly-1-to-3-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在四边形ABCD中，对角线AC与BD相交于点O。给出下列四个条件：①AB∥CD，AD∥BC；②AB=CD，AD=BC；③OA=OC，OB=OD；④∠ABC=90°。下列说法正确的是（ ）",
+      "optionsZhHans": [
+        "条件①可以判定四边形ABCD是平行四边形",
+        "条件②可以判定四边形ABCD是矩形",
+        "条件③可以判定四边形ABCD是菱形",
+        "条件④可以判定四边形ABCD是正方形"
+      ],
+      "answer": "条件①可以判定四边形ABCD是平行四边形",
+      "acceptedAnswers": [
+        "条件①可以判定四边形ABCD是平行四边形"
+      ],
+      "explanationZhHans": "两组对边分别平行是平行四边形的判定定理，故①正确。②只能判定平行四边形，不能判定矩形；③只能判定平行四边形，不能判定菱形；④仅一个直角不能判定正方形，需更多条件。"
+    }
+  ]
+}

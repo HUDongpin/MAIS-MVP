@@ -1,0 +1,143 @@
+{
+  "batchNumber": 78,
+  "startedAt": "2026-05-27T13:56:52.978Z",
+  "completedAt": "2026-05-27T13:57:12.449Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-117",
+    "bnu-high-ds-v1-s5-118",
+    "bnu-high-ds-v1-s5-119",
+    "bnu-high-ds-v1-s5-120",
+    "bnu-high-ds-v1-s5-121",
+    "bnu-high-ds-v1-s5-122",
+    "bnu-high-ds-v1-s5-123",
+    "bnu-high-ds-v1-s5-124"
+  ],
+  "usage": {
+    "prompt_tokens": 11610,
+    "completion_tokens": 1181,
+    "total_tokens": 12791,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 11098
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-117",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "3√3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "椭圆定义与余弦定理联立可解，答案正确，解析步骤无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-118",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "√3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由等边三角形条件可求a、c，离心率计算正确，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-119",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "25/2",
+        "correctedAnswer": "25/2",
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立求解得点P到左准线距离为25/2，但答案误写为25/4，解析中计算过程也得出25/2，答案与解析矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-120",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "4",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "联立直线与抛物线，利用弦长和中点条件可解出p=4，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-121",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "k = -16/25",
+        "correctedAnswer": "k = -16/25",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "由中点条件解得k=-16/25，但答案和解析强行取k=-1，且解析中计算过程自相矛盾，正确答案应为-16/25。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-122",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "independentAnswer": "存在，k=±√2/2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "椭圆方程和垂直条件推导正确，k=±√2/2满足题意，解析虽简略但结论一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-123",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "k = ±1/2",
+        "correctedAnswer": "k = ±1/2",
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "由中点横坐标解得k²=1/4，k=±1/2均满足判别式>0，答案只取1/2错误，解析也承认±1/2但最终答案矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-124",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "independentAnswer": "x²/16 + y²/4 = 1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "medium",
+        "rationaleZhHans": "利用离心率和距离比条件可推导出a²=16，选项C正确，解析过程合理但未详细验证。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 4,
+      "warn": 0,
+      "fail": 4,
+      "notes": "8题中4题通过，4题存在答案错误或解析矛盾，其中3题答案与独立求解结果不符，1题答案与解析自相矛盾。"
+    }
+  }
+}

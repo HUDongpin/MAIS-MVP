@@ -1,0 +1,137 @@
+{
+  "batchNumber": 10,
+  "startedAt": "2026-05-25T02:48:01.423Z",
+  "completedAt": "2026-05-25T02:48:17.507Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s1-k02-fi-019",
+    "pep-junior-v3-s1-k02-fi-020",
+    "pep-junior-v3-s1-k02-fi-021",
+    "pep-junior-v3-s1-k02-fi-022",
+    "pep-junior-v3-s1-k02-sa-001",
+    "pep-junior-v3-s1-k02-sa-002",
+    "pep-junior-v3-s1-k02-sa-003",
+    "pep-junior-v3-s1-k02-sa-004",
+    "pep-junior-v3-s1-k02-sa-005",
+    "pep-junior-v3-s1-k02-sa-006",
+    "pep-junior-v3-s1-k02-sa-007",
+    "pep-junior-v3-s1-k02-sa-008"
+  ],
+  "usage": {
+    "prompt_tokens": 3755,
+    "completion_tokens": 907,
+    "total_tokens": 4662,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 3499
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s1-k02-fi-019",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程正确，符合题意，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k02-fi-020",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，计算无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k02-fi-021",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "化简和代入计算正确，答案无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k02-fi-022",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程和求解正确，答案5无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k02-sa-001",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "整式运算正确，结果无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k02-sa-002",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程列式和解法正确，答案47无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k02-sa-003",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算过程正确，答案2无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k02-sa-004",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案20无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k02-sa-005",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "不等式组正确，答案范围无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k02-sa-006",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "代入求解正确，代数式值0无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k02-sa-007",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程列式和解法正确，答案125无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k02-sa-008",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "利用相反数、倒数、绝对值性质计算正确，答案3无误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案与解析一致，无歧义或缺失条件，适合人教版初中数学。"
+    }
+  }
+}

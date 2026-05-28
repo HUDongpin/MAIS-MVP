@@ -1,0 +1,296 @@
+{
+  "batchId": "batch-012",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s1-k02-fi-021",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-expression-simplification"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "先化简，再求值：\\(3(a^2 - 2ab) - (6a^2 - 5ab + 1)\\)，其中 \\(a = -1\\)，\\(b = 2\\)。",
+      "optionsZhHans": [],
+      "answer": "-2",
+      "acceptedAnswers": [
+        "-2"
+      ],
+      "explanationZhHans": "原式 \\(= 3a^2 - 6ab - 6a^2 + 5ab - 1 = (3a^2 - 6a^2) + (-6ab + 5ab) - 1 = -3a^2 - ab - 1\\)。代入 \\(a = -1\\)，\\(b = 2\\)：\\(-3 \\times (-1)^2 - (-1) \\times 2 - 1 = -3 \\times 1 + 2 - 1 = -3 + 2 - 1 = -2\\)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-fi-022",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-linear-equation-modeling"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "某校七年级学生外出参观，如果每辆汽车坐45人，那么有15个学生没有座位；如果每辆汽车坐60人，那么空出一辆汽车。问共有多少辆汽车？设汽车数量为 \\(x\\)，列出方程并求解。",
+      "optionsZhHans": [],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5"
+      ],
+      "explanationZhHans": "设汽车数量为 \\(x\\)，根据学生人数不变，得 \\(45x + 15 = 60(x - 1)\\)。解方程：\\(45x + 15 = 60x - 60\\)，移项得 \\(15 + 60 = 60x - 45x\\)，\\(75 = 15x\\)，\\(x = 5\\)。共有5辆汽车。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-sa-001",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "short-answer",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-expression-simplification"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "已知 \\(A = 2x^2 - 3xy + y^2\\)，\\(B = x^2 + xy - 2y^2\\)，求 \\(2A - 3B\\)。",
+      "optionsZhHans": [],
+      "answer": "x^2 - 9xy + 8y^2",
+      "acceptedAnswers": [
+        "x^2 - 9xy + 8y^2"
+      ],
+      "explanationZhHans": "\\(2A = 2(2x^2 - 3xy + y^2) = 4x^2 - 6xy + 2y^2\\)，\\(3B = 3(x^2 + xy - 2y^2) = 3x^2 + 3xy - 6y^2\\)。所以 \\(2A - 3B = (4x^2 - 6xy + 2y^2) - (3x^2 + 3xy - 6y^2) = 4x^2 - 6xy + 2y^2 - 3x^2 - 3xy + 6y^2 = x^2 - 9xy + 8y^2\\)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-sa-002",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "short-answer",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-linear-equation-modeling"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "一个两位数，个位数字比十位数字大3，且这个两位数比它的两个数字之和的4倍多3。求这个两位数。",
+      "optionsZhHans": [],
+      "answer": "47",
+      "acceptedAnswers": [
+        "47"
+      ],
+      "explanationZhHans": "设十位数字为 \\(x\\)，则个位数字为 \\(x+3\\)，这个两位数为 \\(10x + (x+3) = 11x + 3\\)。数字之和为 \\(x + (x+3) = 2x + 3\\)。根据题意，\\(11x + 3 = 4(2x + 3) + 3\\)，即 \\(11x + 3 = 8x + 12 + 3\\)，\\(11x + 3 = 8x + 15\\)，\\(3x = 12\\)，\\(x = 4\\)。十位数字为4，个位数字为7，两位数为47。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-sa-003",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "short-answer",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "计算：\\((-2)^3 \\times \\left(-\\frac{1}{2}\\right) - |-3| \\div \\frac{1}{2} + \\sqrt{16}\\)。",
+      "optionsZhHans": [],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2"
+      ],
+      "explanationZhHans": "原式 \\(= (-8) \\times \\left(-\\frac{1}{2}\\right) - 3 \\div \\frac{1}{2} + 4 = 4 - 6 + 4 = 2\\)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-sa-004",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "short-answer",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-rational-number-operations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "某班有50名学生，在数学测验中，成绩为A的学生占全班人数的20%，成绩为B的学生人数是成绩为A的学生人数的2倍，其余学生成绩为C。求成绩为C的学生人数。",
+      "optionsZhHans": [],
+      "answer": "20",
+      "acceptedAnswers": [
+        "20"
+      ],
+      "explanationZhHans": "成绩为A的学生人数：\\(50 \\times 20\\% = 10\\)人。成绩为B的学生人数：\\(10 \\times 2 = 20\\)人。成绩为C的学生人数：\\(50 - 10 - 20 = 20\\)人。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-sa-005",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "short-answer",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-geometric-figures"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "已知点 \\(P(a-1, 2a+3)\\) 在第二象限，求 \\(a\\) 的取值范围。",
+      "optionsZhHans": [],
+      "answer": "-\\frac{3}{2} < a < 1",
+      "acceptedAnswers": [
+        "-\\frac{3}{2} < a < 1",
+        "-1.5 < a < 1"
+      ],
+      "explanationZhHans": "第二象限的点横坐标为负，纵坐标为正，所以 \\(a-1 < 0\\) 且 \\(2a+3 > 0\\)。由 \\(a-1 < 0\\) 得 \\(a < 1\\)；由 \\(2a+3 > 0\\) 得 \\(a > -\\frac{3}{2}\\)。因此 \\(-\\frac{3}{2} < a < 1\\)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-sa-006",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "short-answer",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-expression-simplification"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "已知 \\(x = 2\\) 是关于 \\(x\\) 的方程 \\(3x - m = 2x + 1\\) 的解，求代数式 \\(m^2 - 2m + 1\\) 的值。",
+      "optionsZhHans": [],
+      "answer": "0",
+      "acceptedAnswers": [
+        "0"
+      ],
+      "explanationZhHans": "把 \\(x = 2\\) 代入方程：\\(3 \\times 2 - m = 2 \\times 2 + 1\\)，即 \\(6 - m = 5\\)，解得 \\(m = 1\\)。所以 \\(m^2 - 2m + 1 = 1^2 - 2 \\times 1 + 1 = 0\\)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-sa-007",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "short-answer",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-linear-equation-modeling"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "一家商店将某种服装按成本价提高40%后标价，又以8折优惠卖出，结果每件仍获利15元。这种服装每件的成本是多少元？",
+      "optionsZhHans": [],
+      "answer": "125",
+      "acceptedAnswers": [
+        "125"
+      ],
+      "explanationZhHans": "设成本价为 \\(x\\) 元，则标价为 \\(x(1+40\\%) = 1.4x\\) 元，售价为 \\(1.4x \\times 0.8 = 1.12x\\) 元。利润为 \\(1.12x - x = 0.12x\\) 元。根据题意，\\(0.12x = 15\\)，解得 \\(x = 125\\)。成本是125元。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-sa-008",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "short-answer",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "已知 \\(a\\)、\\(b\\) 互为相反数，\\(c\\)、\\(d\\) 互为倒数，\\(m\\) 的绝对值是2。求 \\(\\frac{a+b}{m} + m^2 - cd\\) 的值。",
+      "optionsZhHans": [],
+      "answer": "3",
+      "acceptedAnswers": [
+        "3"
+      ],
+      "explanationZhHans": "由题意，\\(a+b=0\\)，\\(cd=1\\)，\\(|m|=2\\)，所以 \\(m^2=4\\)。原式 \\(= \\frac{0}{m} + 4 - 1 = 0 + 4 - 1 = 3\\)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

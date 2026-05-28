@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-358",
+  "startedAt": "2026-05-28T02:42:40.238Z",
+  "completedAt": "2026-05-28T02:42:45.258Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-358"
+  ],
+  "usage": {
+    "prompt_tokens": 1998,
+    "completion_tokens": 276,
+    "total_tokens": 2274,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1614
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-358",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "1/2",
+        "correctedAnswer": "1/2",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合教材范围。独立求解得λ=1/2，但存储答案为1，解析计算错误（交叉相乘后应为6+18λ=10+20λ，解得λ=1/2），导致答案与解析矛盾。选项中有1/2，唯一正确。需修正答案为1/2。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1题答案错误，解析计算过程有误，需修正答案为1/2。"
+    }
+  }
+}

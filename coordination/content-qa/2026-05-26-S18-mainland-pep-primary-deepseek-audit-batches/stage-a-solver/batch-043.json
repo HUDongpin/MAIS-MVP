@@ -1,0 +1,181 @@
+{
+  "startedAt": "2026-05-26T06:09:26.659Z",
+  "completedAt": "2026-05-26T06:09:46.834Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "usage": {
+    "prompt_tokens": 2968,
+    "completion_tokens": 1555,
+    "total_tokens": 4523,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 2968
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "questionId": "pep-primary-p5-u-mc-041",
+        "solvableStatus": "pass",
+        "independentAnswer": "7",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "方程6x+9=51，解得x=7，选项A正确。"
+      },
+      {
+        "questionId": "pep-primary-p5-u-mc-042",
+        "solvableStatus": "pass",
+        "independentAnswer": "7",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "方程4x+4=32，解得x=7，选项D正确。"
+      },
+      {
+        "questionId": "pep-primary-p5-u-mc-043",
+        "solvableStatus": "pass",
+        "independentAnswer": "9",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "方程5x+7=52，解得x=9，选项C正确。"
+      },
+      {
+        "questionId": "pep-primary-p5-u-mc-044",
+        "solvableStatus": "pass",
+        "independentAnswer": "3",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "方程6x+10=28，解得x=3，选项B正确。"
+      },
+      {
+        "questionId": "pep-primary-p5-u-mc-045",
+        "solvableStatus": "pass",
+        "independentAnswer": "5",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "方程2x+4=14，解得x=5，选项A正确。"
+      },
+      {
+        "questionId": "pep-primary-p5-u-mc-046",
+        "solvableStatus": "pass",
+        "independentAnswer": "7",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "方程3x+7=28，解得x=7，选项D正确。"
+      },
+      {
+        "questionId": "pep-primary-p5-u-mc-047",
+        "solvableStatus": "pass",
+        "independentAnswer": "9",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "方程4x+10=46，解得x=9，选项C正确。"
+      },
+      {
+        "questionId": "pep-primary-p5-u-mc-048",
+        "solvableStatus": "pass",
+        "independentAnswer": "3",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "方程5x+4=19，解得x=3，选项B正确。"
+      },
+      {
+        "questionId": "pep-primary-p5-u-mc-049",
+        "solvableStatus": "pass",
+        "independentAnswer": "5",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "方程6x+7=37，解得x=5，选项A正确。"
+      },
+      {
+        "questionId": "pep-primary-p5-u-mc-050",
+        "solvableStatus": "pass",
+        "independentAnswer": "7",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "方程2x+10=24，解得x=7，选项D正确。"
+      },
+      {
+        "questionId": "pep-primary-p5-u-mc-051",
+        "solvableStatus": "pass",
+        "independentAnswer": "35平方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "三角形面积=底×高÷2=7×10÷2=35平方厘米，选项C正确。"
+      },
+      {
+        "questionId": "pep-primary-p5-u-mc-052",
+        "solvableStatus": "pass",
+        "independentAnswer": "16平方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "三角形面积=8×4÷2=16平方厘米，选项B正确。"
+      },
+      {
+        "questionId": "pep-primary-p5-u-mc-053",
+        "solvableStatus": "pass",
+        "independentAnswer": "27平方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "三角形面积=9×6÷2=27平方厘米，选项A正确。"
+      },
+      {
+        "questionId": "pep-primary-p5-u-mc-054",
+        "solvableStatus": "pass",
+        "independentAnswer": "40平方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "三角形面积=10×8÷2=40平方厘米，选项D正确。"
+      },
+      {
+        "questionId": "pep-primary-p5-u-mc-055",
+        "solvableStatus": "pass",
+        "independentAnswer": "55平方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "三角形面积=11×10÷2=55平方厘米，选项C正确。"
+      },
+      {
+        "questionId": "pep-primary-p5-u-mc-056",
+        "solvableStatus": "pass",
+        "independentAnswer": "24平方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "三角形面积=12×4÷2=24平方厘米，选项B正确。"
+      },
+      {
+        "questionId": "pep-primary-p5-u-mc-057",
+        "solvableStatus": "pass",
+        "independentAnswer": "39平方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "三角形面积=13×6÷2=39平方厘米，选项A正确。"
+      },
+      {
+        "questionId": "pep-primary-p5-u-mc-058",
+        "solvableStatus": "pass",
+        "independentAnswer": "56平方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "三角形面积=14×8÷2=56平方厘米，选项D正确。"
+      },
+      {
+        "questionId": "pep-primary-p5-u-mc-059",
+        "solvableStatus": "pass",
+        "independentAnswer": "75平方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "三角形面积=15×10÷2=75平方厘米，选项C正确。"
+      },
+      {
+        "questionId": "pep-primary-p5-u-mc-060",
+        "solvableStatus": "pass",
+        "independentAnswer": "12平方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "三角形面积=6×4÷2=12平方厘米，选项B正确。"
+      }
+    ]
+  }
+}

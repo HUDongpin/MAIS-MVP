@@ -1,0 +1,185 @@
+{
+  "batchNumber": 86,
+  "startedAt": "2026-05-27T17:52:30.784Z",
+  "completedAt": "2026-05-27T17:52:54.076Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s3-021",
+    "bnu-junior-ds-v1-s3-022",
+    "bnu-junior-ds-v1-s3-023",
+    "bnu-junior-ds-v1-s3-024",
+    "bnu-junior-ds-v1-s3-025",
+    "bnu-junior-ds-v1-s3-026",
+    "bnu-junior-ds-v1-s3-027",
+    "bnu-junior-ds-v1-s3-028",
+    "bnu-junior-ds-v1-s3-029",
+    "bnu-junior-ds-v1-s3-030",
+    "bnu-junior-ds-v1-s3-031",
+    "bnu-junior-ds-v1-s3-032"
+  ],
+  "usage": {
+    "prompt_tokens": 6127,
+    "completion_tokens": 1653,
+    "total_tokens": 7780,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 5615
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s3-021",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "四边相等得菱形，对角线相等得矩形，既是菱形又是矩形必为正方形，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-022",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由平行得平行四边形，AC⊥BD得菱形，添加∠BAD=90°得正方形，选项B正确且唯一。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-023",
+        "status": "fail",
+        "severity": "major",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "(1) 能。理由：两组对边分别相等的四边形是平行四边形。\n(2) 不能。补充条件：AB∥CD（或AD∥BC等）。\n(3) 能。理由：对角线互相垂直且平分的四边形是菱形。\n(4) 能。理由：两组对边分别平行的四边形是平行四边形，又对角线相等，所以是矩形。",
+        "rationale": "第(2)小题答案中补充条件“∠ABC=90°”是原条件之一，不能作为补充；应补充平行四边形条件如AB∥CD。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-024",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "两组对边平行得平行四边形，对角线相等得矩形，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-025",
+        "status": "fail",
+        "severity": "major",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "②③",
+        "rationale": "正方形需平行四边形+邻边相等+一个直角。条件①得平行四边形，②得矩形，③得菱形，④得菱形。②③组合：矩形+菱形=正方形，但缺少平行四边形条件，无法保证是平行四边形。正确组合应为①③④或①③等，但选项无此组合。选项②③不能保证是平行四边形，故答案错误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-026",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平行四边形加直角得矩形，加对角线垂直得菱形，同时满足为正方形，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-027",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "24",
+        "rationale": "由AB=CD, AD=BC得平行四边形，AC⊥BD得菱形。菱形面积=对角线乘积的一半。由勾股定理AO=3，AC=6，面积=6×8÷2=24，答案20错误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-028",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "AB=CD, AD=BC得平行四边形，对角线相等得矩形，选项B正确且唯一。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-029",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "两组对边平行得平行四边形，一个直角得矩形，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-030",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平行四边形对边平行且相等，对角相等，但∠BAD和∠BCD是邻角，不一定相等，答案④正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-031",
+        "status": "fail",
+        "severity": "major",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "③和④",
+        "rationale": "正方形需平行四边形+邻边相等+一个直角。条件①得平行四边形，②得邻边相等且直角但无平行四边形，③得菱形，④得矩形。③④组合：菱形+矩形=正方形，且④已含平行四边形，故③④正确。②③组合缺少平行四边形条件，不能保证是正方形。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-032",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "两组对边平行得平行四边形，对角线互相平分是性质，答案正确。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 4,
+      "notes": "12道题中8道通过，4道未通过。未通过原因：bnu-junior-ds-v1-s3-023第(2)小题补充条件错误；bnu-junior-ds-v1-s3-025答案选项②③不能保证平行四边形；bnu-junior-ds-v1-s3-027面积计算错误；bnu-junior-ds-v1-s3-031答案选项②③缺少平行四边形条件。"
+    }
+  }
+}

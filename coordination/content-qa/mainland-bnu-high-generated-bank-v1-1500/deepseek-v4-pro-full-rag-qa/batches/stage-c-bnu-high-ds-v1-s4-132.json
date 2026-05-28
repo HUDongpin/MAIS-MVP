@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-132",
+  "startedAt": "2026-05-28T03:03:45.646Z",
+  "completedAt": "2026-05-28T03:03:51.127Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-132"
+  ],
+  "usage": {
+    "prompt_tokens": 2418,
+    "completion_tokens": 285,
+    "total_tokens": 2703,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2034
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-132",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": null,
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "unsolvable",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "对数函数 f(x)=log_a(2x-1) 恒过定点 P(1,0)，代入幂函数 g(x)=x^α 得 1^α=0，无解。题目条件矛盾，无法求解。存储答案 α=0 错误，解析中由 0=1^α 推出 α=0 不成立。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目条件矛盾，定点 (1,0) 不满足幂函数方程，无法求解，答案错误。"
+    }
+  }
+}

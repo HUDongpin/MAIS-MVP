@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-261",
+  "startedAt": "2026-05-28T01:46:42.983Z",
+  "completedAt": "2026-05-28T01:46:47.643Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-261"
+  ],
+  "usage": {
+    "prompt_tokens": 2066,
+    "completion_tokens": 262,
+    "total_tokens": 2328,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1682
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-261",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "a = 10",
+        "correctedAnswer": "a = 10",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合教材范围。独立求解得 a=10，但存储答案为 2，解析虽推导出 a=10 却与答案矛盾，属于严重答案错误和解释矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1 题答案错误，存储答案为 2，正确应为 a=10，解析与答案矛盾，判定为 blocker。"
+    }
+  }
+}

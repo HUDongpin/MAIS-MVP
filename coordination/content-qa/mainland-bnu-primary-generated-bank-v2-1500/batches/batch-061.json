@@ -1,0 +1,570 @@
+{
+  "batchId": "batch-061",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p3-101",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-calendar-time",
+      "unitTitle": "年、月、日",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "calendar",
+        "year-month-day",
+        "elapsed-date-reasoning",
+        "年 月 日",
+        "日期"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "认识年月日",
+        "大小月",
+        "日期顺序",
+        "简单经过时间",
+        "日历阅读"
+      ],
+      "misconceptionTags": [
+        "every month assumed to have the same number of days",
+        "start and end dates double-counted",
+        "date order confused with duration"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-calendar-time"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "2025年2月1日是星期六，那么2025年2月28日是星期几？",
+      "optionsZhHans": [],
+      "answer": "星期五",
+      "acceptedAnswers": [
+        "星期五"
+      ],
+      "explanationZhHans": "2月1日是星期六，经过27天到2月28日。27÷7=3周余6天，星期六往后数6天是星期五。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-102",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-calendar-time",
+      "unitTitle": "年、月、日",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "calendar",
+        "year-month-day",
+        "elapsed-date-reasoning",
+        "年 月 日",
+        "日期"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "认识年月日",
+        "大小月",
+        "日期顺序",
+        "简单经过时间",
+        "日历阅读"
+      ],
+      "misconceptionTags": [
+        "every month assumed to have the same number of days",
+        "start and end dates double-counted",
+        "date order confused with duration"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-calendar-time"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明参加夏令营，从7月15日开始，到8月5日结束，一共经过了多少天？（包括开始和结束日）",
+      "optionsZhHans": [],
+      "answer": "22",
+      "acceptedAnswers": [
+        "22"
+      ],
+      "explanationZhHans": "7月有31天，7月15日到31日共17天，8月1日到5日共5天，17+5=22天。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-103",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-calendar-time",
+      "unitTitle": "年、月、日",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "calendar",
+        "year-month-day",
+        "elapsed-date-reasoning",
+        "年 月 日",
+        "日期"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "认识年月日",
+        "大小月",
+        "日期顺序",
+        "简单经过时间",
+        "日历阅读"
+      ],
+      "misconceptionTags": [
+        "every month assumed to have the same number of days",
+        "start and end dates double-counted",
+        "date order confused with duration"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-calendar-time"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "2024年2月有29天，2025年2月有多少天？",
+      "optionsZhHans": [
+        "28天",
+        "29天",
+        "30天",
+        "31天"
+      ],
+      "answer": "28天",
+      "acceptedAnswers": [
+        "28天"
+      ],
+      "explanationZhHans": "2024年是闰年，2月有29天；2025年是平年，2月有28天。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-104",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-calendar-time",
+      "unitTitle": "年、月、日",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "calendar",
+        "year-month-day",
+        "elapsed-date-reasoning",
+        "年 月 日",
+        "日期"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "认识年月日",
+        "大小月",
+        "日期顺序",
+        "简单经过时间",
+        "日历阅读"
+      ],
+      "misconceptionTags": [
+        "every month assumed to have the same number of days",
+        "start and end dates double-counted",
+        "date order confused with duration"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-calendar-time"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一年中连续两个月都是31天的是哪两个月？",
+      "optionsZhHans": [],
+      "answer": "七月和八月",
+      "acceptedAnswers": [
+        "七月和八月"
+      ],
+      "explanationZhHans": "一年中只有七月和八月是连续的两个大月，各有31天。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-105",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-calendar-time",
+      "unitTitle": "年、月、日",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "calendar",
+        "year-month-day",
+        "elapsed-date-reasoning",
+        "年 月 日",
+        "日期"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "认识年月日",
+        "大小月",
+        "日期顺序",
+        "简单经过时间",
+        "日历阅读"
+      ],
+      "misconceptionTags": [
+        "every month assumed to have the same number of days",
+        "start and end dates double-counted",
+        "date order confused with duration"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-calendar-time"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丽每周三和周五去图书馆。2025年6月1日是星期日，她在6月份一共去了几次图书馆？",
+      "optionsZhHans": [],
+      "answer": "8",
+      "acceptedAnswers": [
+        "8"
+      ],
+      "explanationZhHans": "6月有30天，1日星期日，周三日期为4,11,18,25，周五日期为6,13,20,27，共8次。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-106",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-decimal-introduction",
+      "unitTitle": "认识小数",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "decimal-introduction",
+        "tenths-hundredths-contexts",
+        "decimal-comparison",
+        "认识小数",
+        "小数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "读写小数",
+        "小数意义",
+        "比较小数",
+        "元角分或测量情境",
+        "数轴表示"
+      ],
+      "misconceptionTags": [
+        "more decimal digits assumed to mean larger value",
+        "decimal point ignored during comparison",
+        "tenths and hundredths roles reversed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-decimal-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-decimal-introduction-unit",
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个小数最大？",
+      "optionsZhHans": [
+        "0.9",
+        "0.87",
+        "0.91",
+        "0.8"
+      ],
+      "answer": "0.91",
+      "acceptedAnswers": [
+        "0.91"
+      ],
+      "explanationZhHans": "比较小数时先看整数部分，都是0；再比较十分位，0.91的十分位是9最大。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-107",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-decimal-introduction",
+      "unitTitle": "认识小数",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "decimal-introduction",
+        "tenths-hundredths-contexts",
+        "decimal-comparison",
+        "认识小数",
+        "小数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "读写小数",
+        "小数意义",
+        "比较小数",
+        "元角分或测量情境",
+        "数轴表示"
+      ],
+      "misconceptionTags": [
+        "more decimal digits assumed to mean larger value",
+        "decimal point ignored during comparison",
+        "tenths and hundredths roles reversed"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-decimal-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-decimal-introduction-unit",
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "3元5角用小数表示是______元。",
+      "optionsZhHans": [],
+      "answer": "3.5",
+      "acceptedAnswers": [
+        "3.5"
+      ],
+      "explanationZhHans": "5角是0.5元，所以3元5角=3.5元。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-108",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-decimal-introduction",
+      "unitTitle": "认识小数",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "decimal-introduction",
+        "tenths-hundredths-contexts",
+        "decimal-comparison",
+        "认识小数",
+        "小数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "读写小数",
+        "小数意义",
+        "比较小数",
+        "元角分或测量情境",
+        "数轴表示"
+      ],
+      "misconceptionTags": [
+        "more decimal digits assumed to mean larger value",
+        "decimal point ignored during comparison",
+        "tenths and hundredths roles reversed"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-decimal-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-decimal-introduction-unit",
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在数轴上，0和1之间平均分成10份，从0开始向右数到第7份的位置用小数表示是多少？",
+      "optionsZhHans": [],
+      "answer": "0.7",
+      "acceptedAnswers": [
+        "0.7"
+      ],
+      "explanationZhHans": "0到1平均分成10份，每份是0.1，第7份是0.7。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-109",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-decimal-introduction",
+      "unitTitle": "认识小数",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "decimal-introduction",
+        "tenths-hundredths-contexts",
+        "decimal-comparison",
+        "认识小数",
+        "小数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "读写小数",
+        "小数意义",
+        "比较小数",
+        "元角分或测量情境",
+        "数轴表示"
+      ],
+      "misconceptionTags": [
+        "more decimal digits assumed to mean larger value",
+        "decimal point ignored during comparison",
+        "tenths and hundredths roles reversed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-decimal-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-decimal-introduction-unit",
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一支铅笔的长度是0.15米，也就是多少厘米？",
+      "optionsZhHans": [
+        "1.5厘米",
+        "15厘米",
+        "0.15厘米",
+        "150厘米"
+      ],
+      "answer": "15厘米",
+      "acceptedAnswers": [
+        "15厘米"
+      ],
+      "explanationZhHans": "1米=100厘米，0.15米=0.15×100=15厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-110",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-decimal-introduction",
+      "unitTitle": "认识小数",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "decimal-introduction",
+        "tenths-hundredths-contexts",
+        "decimal-comparison",
+        "认识小数",
+        "小数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "读写小数",
+        "小数意义",
+        "比较小数",
+        "元角分或测量情境",
+        "数轴表示"
+      ],
+      "misconceptionTags": [
+        "more decimal digits assumed to mean larger value",
+        "decimal point ignored during comparison",
+        "tenths and hundredths roles reversed"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-decimal-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-decimal-introduction-unit",
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在0.6、0.59、0.61中，最小的数是______。",
+      "optionsZhHans": [],
+      "answer": "0.59",
+      "acceptedAnswers": [
+        "0.59"
+      ],
+      "explanationZhHans": "比较十分位：0.6和0.61的十分位是6，0.59的十分位是5，所以0.59最小。"
+    }
+  ]
+}

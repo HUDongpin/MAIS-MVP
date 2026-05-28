@@ -1,0 +1,191 @@
+{
+  "batchNumber": 36,
+  "startedAt": "2026-05-25T02:04:54.613Z",
+  "completedAt": "2026-05-25T02:05:15.042Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p3-131",
+    "hjb-primary-ds-v1-p3-132",
+    "hjb-primary-ds-v1-p3-133",
+    "hjb-primary-ds-v1-p3-134",
+    "hjb-primary-ds-v1-p3-135",
+    "hjb-primary-ds-v1-p3-136",
+    "hjb-primary-ds-v1-p3-137",
+    "hjb-primary-ds-v1-p3-138",
+    "hjb-primary-ds-v1-p3-139",
+    "hjb-primary-ds-v1-p3-140",
+    "hjb-primary-ds-v1-p3-141",
+    "hjb-primary-ds-v1-p3-142",
+    "hjb-primary-ds-v1-p3-143",
+    "hjb-primary-ds-v1-p3-144",
+    "hjb-primary-ds-v1-p3-145",
+    "hjb-primary-ds-v1-p3-146",
+    "hjb-primary-ds-v1-p3-147",
+    "hjb-primary-ds-v1-p3-148"
+  ],
+  "usage": {
+    "prompt_tokens": 4039,
+    "completion_tokens": 1318,
+    "total_tokens": 5357,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 3783
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p3-131",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "规律正确，第10个数计算无误，答案55准确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-132",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "运算顺序正确，计算过程和结果无误，答案覆盖全面。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-133",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "列式正确，选项唯一，无歧义。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-134",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "正方形周长公式应用正确，计算无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-135",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "解题步骤清晰，答案正确，acceptedAnswers覆盖多种表达。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-136",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方法描述准确，选项B唯一正确，无歧义。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-137",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "填空内容正确，acceptedAnswers考虑了不同分隔符。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-138",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "解释合理，方法正确，答案表述清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-139",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估算依据正确，选项A最接近80，无歧义。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-140",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算和验算正确，答案格式合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-141",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估算与精确计算差异解释正确，acceptedAnswers覆盖多种表述。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-142",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目要求估算，选项A明确问“大约”，其他为精确计算，选择正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-143",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算和验算均正确，acceptedAnswers考虑了不同写法。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-144",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方法正确，解释合理，答案覆盖多种表述。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-145",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "验算方法正确，选项A唯一正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-146",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "填空内容正确，acceptedAnswers考虑了不同分隔符。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-147",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "验算方法正确，解释合理，答案覆盖多种表述。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-148",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估算方法合理，选项A最接近，无歧义。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案匹配，无歧义，适合沪教版三年级，可直接用于题库。"
+    }
+  }
+}

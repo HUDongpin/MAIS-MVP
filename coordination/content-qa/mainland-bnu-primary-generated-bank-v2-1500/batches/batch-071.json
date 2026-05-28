@@ -1,0 +1,580 @@
+{
+  "batchId": "batch-071",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p3-201",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-area",
+      "unitTitle": "面积",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "area",
+        "square-units",
+        "rectangle-area",
+        "面积",
+        "面积单位"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "几何直观"
+      ],
+      "skillTags": [
+        "认识面积",
+        "面积单位",
+        "长方形面积",
+        "正方形面积",
+        "周长面积辨析"
+      ],
+      "misconceptionTags": [
+        "perimeter formula used for area",
+        "non-square units counted as area units",
+        "side lengths multiplied without unit meaning"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-area"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-area-unit",
+        "bnu-primary-p3-lower-assessment-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一张长方形餐桌的桌面长16分米，宽9分米。要给桌面铺一块同样大小的软玻璃，软玻璃的面积是多少平方分米？",
+      "optionsZhHans": [
+        "50平方分米",
+        "144平方分米",
+        "128平方分米",
+        "25平方分米"
+      ],
+      "answer": "144平方分米",
+      "acceptedAnswers": [
+        "144平方分米"
+      ],
+      "explanationZhHans": "长方形面积=长×宽，16×9=144（平方分米）。注意面积单位是平方分米，不能与周长混淆。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-202",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-area",
+      "unitTitle": "面积",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "area",
+        "square-units",
+        "rectangle-area",
+        "面积",
+        "面积单位"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "几何直观"
+      ],
+      "skillTags": [
+        "认识面积",
+        "面积单位",
+        "长方形面积",
+        "正方形面积",
+        "周长面积辨析"
+      ],
+      "misconceptionTags": [
+        "perimeter formula used for area",
+        "non-square units counted as area units",
+        "side lengths multiplied without unit meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-area"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-area-unit",
+        "bnu-primary-p3-lower-assessment-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用边长1厘米的小正方形铺满一个长方形，每行铺8个，正好铺了5行。这个长方形的面积是______平方厘米。",
+      "optionsZhHans": [],
+      "answer": "40",
+      "acceptedAnswers": [
+        "40"
+      ],
+      "explanationZhHans": "每行8个小正方形，共5行，总个数为8×5=40（个）。每个小正方形面积是1平方厘米，所以长方形面积是40平方厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-203",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-area",
+      "unitTitle": "面积",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "area",
+        "square-units",
+        "rectangle-area",
+        "面积",
+        "面积单位"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "几何直观"
+      ],
+      "skillTags": [
+        "认识面积",
+        "面积单位",
+        "长方形面积",
+        "正方形面积",
+        "周长面积辨析"
+      ],
+      "misconceptionTags": [
+        "perimeter formula used for area",
+        "non-square units counted as area units",
+        "side lengths multiplied without unit meaning"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-area"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-area-unit",
+        "bnu-primary-p3-lower-assessment-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个图形的面积最大？\nA. 长7厘米、宽4厘米的长方形\nB. 边长5厘米的正方形\nC. 长6厘米、宽5厘米的长方形\nD. 长8厘米、宽3厘米的长方形",
+      "optionsZhHans": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "C",
+      "acceptedAnswers": [
+        "C"
+      ],
+      "explanationZhHans": "A面积7×4=28平方厘米；B面积5×5=25平方厘米；C面积6×5=30平方厘米；D面积8×3=24平方厘米。30最大，所以选C。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-204",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-area",
+      "unitTitle": "面积",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "area",
+        "square-units",
+        "rectangle-area",
+        "面积",
+        "面积单位"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "几何直观"
+      ],
+      "skillTags": [
+        "认识面积",
+        "面积单位",
+        "长方形面积",
+        "正方形面积",
+        "周长面积辨析"
+      ],
+      "misconceptionTags": [
+        "perimeter formula used for area",
+        "non-square units counted as area units",
+        "side lengths multiplied without unit meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-area"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-area-unit",
+        "bnu-primary-p3-lower-assessment-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个正方形花坛的周长是36米，它的面积是______平方米。",
+      "optionsZhHans": [],
+      "answer": "81",
+      "acceptedAnswers": [
+        "81"
+      ],
+      "explanationZhHans": "正方形周长=边长×4，边长=36÷4=9（米）。面积=边长×边长=9×9=81（平方米）。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-205",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-area",
+      "unitTitle": "面积",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "area",
+        "square-units",
+        "rectangle-area",
+        "面积",
+        "面积单位"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "几何直观"
+      ],
+      "skillTags": [
+        "认识面积",
+        "面积单位",
+        "长方形面积",
+        "正方形面积",
+        "周长面积辨析"
+      ],
+      "misconceptionTags": [
+        "perimeter formula used for area",
+        "non-square units counted as area units",
+        "side lengths multiplied without unit meaning"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-area"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-area-unit",
+        "bnu-primary-p3-lower-assessment-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用12个面积是1平方厘米的小正方形拼成不同的长方形，下面哪种拼法的周长最长？",
+      "optionsZhHans": [
+        "长12厘米、宽1厘米",
+        "长6厘米、宽2厘米",
+        "长4厘米、宽3厘米",
+        "三种拼法周长一样长"
+      ],
+      "answer": "长12厘米、宽1厘米",
+      "acceptedAnswers": [
+        "长12厘米、宽1厘米"
+      ],
+      "explanationZhHans": "面积都是12平方厘米。长12宽1周长(12+1)×2=26厘米；长6宽2周长(6+2)×2=16厘米；长4宽3周长(4+3)×2=14厘米。26最长。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-206",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-area",
+      "unitTitle": "面积",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "area",
+        "square-units",
+        "rectangle-area",
+        "面积",
+        "面积单位"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "几何直观"
+      ],
+      "skillTags": [
+        "认识面积",
+        "面积单位",
+        "长方形面积",
+        "正方形面积",
+        "周长面积辨析"
+      ],
+      "misconceptionTags": [
+        "perimeter formula used for area",
+        "non-square units counted as area units",
+        "side lengths multiplied without unit meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-area"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-area-unit",
+        "bnu-primary-p3-lower-assessment-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在括号里填上合适的面积单位。\n（1）一张邮票的面积约是6______。\n（2）教室地面的面积约是50______。",
+      "optionsZhHans": [],
+      "answer": "平方厘米；平方米",
+      "acceptedAnswers": [
+        "平方厘米；平方米"
+      ],
+      "explanationZhHans": "邮票面积较小，用平方厘米；教室地面面积较大，用平方米。填写时注意单位名称完整。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-207",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-area",
+      "unitTitle": "面积",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "area",
+        "square-units",
+        "rectangle-area",
+        "面积",
+        "面积单位"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "几何直观"
+      ],
+      "skillTags": [
+        "认识面积",
+        "面积单位",
+        "长方形面积",
+        "正方形面积",
+        "周长面积辨析"
+      ],
+      "misconceptionTags": [
+        "perimeter formula used for area",
+        "non-square units counted as area units",
+        "side lengths multiplied without unit meaning"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-area"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-area-unit",
+        "bnu-primary-p3-lower-assessment-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方形长8分米，宽5分米。如果长增加2分米，宽不变，面积增加多少平方分米？",
+      "optionsZhHans": [
+        "10平方分米",
+        "16平方分米",
+        "26平方分米",
+        "40平方分米"
+      ],
+      "answer": "10平方分米",
+      "acceptedAnswers": [
+        "10平方分米"
+      ],
+      "explanationZhHans": "原面积8×5=40平方分米；新长10分米，面积10×5=50平方分米；增加50-40=10平方分米。也可以直接用增加的长2×宽5=10平方分米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-208",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-area",
+      "unitTitle": "面积",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "area",
+        "square-units",
+        "rectangle-area",
+        "面积",
+        "面积单位"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "几何直观"
+      ],
+      "skillTags": [
+        "认识面积",
+        "面积单位",
+        "长方形面积",
+        "正方形面积",
+        "周长面积辨析"
+      ],
+      "misconceptionTags": [
+        "perimeter formula used for area",
+        "non-square units counted as area units",
+        "side lengths multiplied without unit meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-area"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-area-unit",
+        "bnu-primary-p3-lower-assessment-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方形的面积是48平方厘米，长是8厘米，宽是______厘米。",
+      "optionsZhHans": [],
+      "answer": "6",
+      "acceptedAnswers": [
+        "6"
+      ],
+      "explanationZhHans": "长方形面积=长×宽，所以宽=面积÷长=48÷8=6（厘米）。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-209",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-fraction-introduction",
+      "unitTitle": "认识分数",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "fraction-introduction",
+        "unit-fraction",
+        "equal-parts",
+        "认识分数",
+        "几分之一"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "几何直观"
+      ],
+      "skillTags": [
+        "平均分",
+        "几分之一",
+        "几分之几",
+        "分数表示",
+        "简单分数比较"
+      ],
+      "misconceptionTags": [
+        "parts not equal but named as fractions",
+        "denominator treated as total shaded amount",
+        "whole not specified before comparison"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-fraction-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-fraction-introduction-unit",
+        "bnu-primary-p3-lower-assessment-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把一张圆形纸片对折三次，每份是这张纸的几分之几？",
+      "optionsZhHans": [
+        "三分之一",
+        "六分之一",
+        "八分之一",
+        "四分之一"
+      ],
+      "answer": "八分之一",
+      "acceptedAnswers": [
+        "八分之一"
+      ],
+      "explanationZhHans": "对折一次平均分成2份，对折两次平均分成4份，对折三次平均分成8份，每份是八分之一。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-210",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-fraction-introduction",
+      "unitTitle": "认识分数",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "fraction-introduction",
+        "unit-fraction",
+        "equal-parts",
+        "认识分数",
+        "几分之一"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "几何直观"
+      ],
+      "skillTags": [
+        "平均分",
+        "几分之一",
+        "几分之几",
+        "分数表示",
+        "简单分数比较"
+      ],
+      "misconceptionTags": [
+        "parts not equal but named as fractions",
+        "denominator treated as total shaded amount",
+        "whole not specified before comparison"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-fraction-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-fraction-introduction-unit",
+        "bnu-primary-p3-lower-assessment-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用分数表示涂色部分。\n一条线段平均分成7份，涂色部分占其中的3份。涂色部分用分数表示是______。",
+      "optionsZhHans": [],
+      "answer": "七分之三",
+      "acceptedAnswers": [
+        "七分之三"
+      ],
+      "explanationZhHans": "把线段平均分成7份，分母是7；涂色占3份，分子是3，所以是七分之三。"
+    }
+  ]
+}

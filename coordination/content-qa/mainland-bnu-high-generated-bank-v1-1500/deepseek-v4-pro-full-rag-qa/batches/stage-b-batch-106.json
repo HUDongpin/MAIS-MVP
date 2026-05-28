@@ -1,0 +1,126 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-106",
+  "startedAt": "2026-05-28T03:00:08.647Z",
+  "completedAt": "2026-05-28T03:00:24.700Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-341",
+    "bnu-high-ds-v1-s5-342",
+    "bnu-high-ds-v1-s5-343",
+    "bnu-high-ds-v1-s5-344",
+    "bnu-high-ds-v1-s5-345",
+    "bnu-high-ds-v1-s5-346",
+    "bnu-high-ds-v1-s5-347",
+    "bnu-high-ds-v1-s5-348"
+  ],
+  "usage": {
+    "prompt_tokens": 13503,
+    "completion_tokens": 945,
+    "total_tokens": 14448,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 13119
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-341",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案52与独立解一致，解析分类正确，计算无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-342",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案-160与独立解一致，解析通项公式和系数计算正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-343",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案C(14,4)-C(8,4)与独立解A一致，解析正确，唯一正确选项。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-344",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案150与独立解一致，解析分组分配方法正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-345",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案72与独立解一致，解析捆绑法计算正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-346",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案45与独立解一致，解析多项式系数计算正确，唯一正确选项。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-347",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案C(12,5)与独立解792一致，解析组合数计算正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-348",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案1与独立解一致，解析由二项式系数最大得n=8，系数和计算正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题存储答案、解析与Stage A独立解一致，无错误或矛盾。"
+    }
+  }
+}

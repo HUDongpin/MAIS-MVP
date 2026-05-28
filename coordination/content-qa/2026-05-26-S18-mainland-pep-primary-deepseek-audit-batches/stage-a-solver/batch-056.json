@@ -1,0 +1,181 @@
+{
+  "startedAt": "2026-05-26T06:16:14.843Z",
+  "completedAt": "2026-05-26T06:16:35.778Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "usage": {
+    "prompt_tokens": 2715,
+    "completion_tokens": 1670,
+    "total_tokens": 4385,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 2715
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "questionId": "pep-primary-p6-l-fi-101",
+        "solvableStatus": "pass",
+        "independentAnswer": "18",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "总份数2+3=5，较大份占3/5，30×3/5=18升。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-fi-102",
+        "solvableStatus": "pass",
+        "independentAnswer": "9",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "总份数2+3=5，较长段占3/5，15×3/5=9米。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-fi-103",
+        "solvableStatus": "pass",
+        "independentAnswer": "15",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "总份数2+3=5，人数多的一组占3/5，25×3/5=15个。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-fi-104",
+        "solvableStatus": "pass",
+        "independentAnswer": "18",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "总份数2+3=5，较大份占3/5，30×3/5=18升。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-fi-105",
+        "solvableStatus": "pass",
+        "independentAnswer": "6",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "总份数2+3=5，较大份占3/5，10×3/5=6升。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-fi-106",
+        "solvableStatus": "pass",
+        "independentAnswer": "9",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "总份数2+3=5，较大份占3/5，15×3/5=9升。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-fi-107",
+        "solvableStatus": "pass",
+        "independentAnswer": "12",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "总份数2+3=5，较大份占3/5，20×3/5=12升。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-fi-108",
+        "solvableStatus": "pass",
+        "independentAnswer": "15",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "总份数2+3=5，较大份占3/5，25×3/5=15升。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-fi-109",
+        "solvableStatus": "pass",
+        "independentAnswer": "18",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "总份数2+3=5，较大份占3/5，30×3/5=18升。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-fi-110",
+        "solvableStatus": "pass",
+        "independentAnswer": "6",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "总份数2+3=5，较大份占3/5，10×3/5=6升。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-fi-111",
+        "solvableStatus": "pass",
+        "independentAnswer": "12",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "总份数2+3=5，较大份占3/5，20×3/5=12升。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-fi-112",
+        "solvableStatus": "pass",
+        "independentAnswer": "12",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "总份数2+3=5，较大份占3/5，20×3/5=12升。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-fi-113",
+        "solvableStatus": "pass",
+        "independentAnswer": "15",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "总份数2+3=5，较大份占3/5，25×3/5=15升。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-fi-114",
+        "solvableStatus": "pass",
+        "independentAnswer": "18",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "总份数2+3=5，较大份占3/5，30×3/5=18升。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-fi-115",
+        "solvableStatus": "pass",
+        "independentAnswer": "6",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "总份数2+3=5，较大份占3/5，10×3/5=6升。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-fi-116",
+        "solvableStatus": "pass",
+        "independentAnswer": "9",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "总份数2+3=5，较大份占3/5，15×3/5=9升。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-fi-117",
+        "solvableStatus": "pass",
+        "independentAnswer": "12",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "总份数2+3=5，较大份占3/5，20×3/5=12升。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-fi-118",
+        "solvableStatus": "pass",
+        "independentAnswer": "15",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "总份数2+3=5，较大份占3/5，25×3/5=15升。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-fi-119",
+        "solvableStatus": "pass",
+        "independentAnswer": "18",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "总份数2+3=5，较大份占3/5，30×3/5=18升。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-fi-120",
+        "solvableStatus": "pass",
+        "independentAnswer": "6",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "总份数2+3=5，较大份占3/5，10×3/5=6升。"
+      }
+    ]
+  }
+}

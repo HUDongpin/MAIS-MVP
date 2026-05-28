@@ -1,0 +1,137 @@
+{
+  "batchNumber": 73,
+  "startedAt": "2026-05-25T03:14:05.968Z",
+  "completedAt": "2026-05-25T03:14:21.835Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s3-k10-mc-065",
+    "pep-junior-v3-s3-k10-mc-066",
+    "pep-junior-v3-s3-k10-mc-067",
+    "pep-junior-v3-s3-k10-fi-001",
+    "pep-junior-v3-s3-k10-fi-002",
+    "pep-junior-v3-s3-k10-fi-003",
+    "pep-junior-v3-s3-k10-fi-004",
+    "pep-junior-v3-s3-k10-fi-005",
+    "pep-junior-v3-s3-k10-fi-006",
+    "pep-junior-v3-s3-k10-fi-007",
+    "pep-junior-v3-s3-k10-fi-008",
+    "pep-junior-v3-s3-k10-fi-009"
+  ],
+  "usage": {
+    "prompt_tokens": 3274,
+    "completion_tokens": 924,
+    "total_tokens": 4198,
+    "prompt_tokens_details": {
+      "cached_tokens": 3200
+    },
+    "prompt_cache_hit_tokens": 3200,
+    "prompt_cache_miss_tokens": 74
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s3-k10-mc-065",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "顶点坐标正确，选项无歧义，解释清晰。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-mc-066",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "反比例函数性质应用正确，答案k<1无误。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-mc-067",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "无理数判断正确，π/2是无理数，其他均为有理数。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-fi-001",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "判别式计算正确，结果为17。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-fi-002",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "弦长计算正确，结果为6。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-fi-003",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "配方正确，h+k=-1无误。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-fi-004",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "判别式大于0解得m<9，正确。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-fi-005",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "概率计算正确，2/5是最简形式。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-fi-006",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "旋转坐标变换正确，结果为(-2,-3)。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-fi-007",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "最大值5正确，顶点式已给出。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-fi-008",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "利润函数配方正确，降价5元时利润最大。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-fi-009",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "代入点坐标解方程得m=2或4，正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案与解释一致，无歧义或缺失条件，适合人教版初中数学。"
+    }
+  }
+}

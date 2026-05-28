@@ -1,0 +1,130 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-057",
+  "startedAt": "2026-05-28T01:09:54.948Z",
+  "completedAt": "2026-05-28T01:10:10.421Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-449",
+    "bnu-high-ds-v1-s4-450",
+    "bnu-high-ds-v1-s4-451",
+    "bnu-high-ds-v1-s4-452",
+    "bnu-high-ds-v1-s4-453",
+    "bnu-high-ds-v1-s4-454",
+    "bnu-high-ds-v1-s4-455",
+    "bnu-high-ds-v1-s4-456"
+  ],
+  "usage": {
+    "prompt_tokens": 12173,
+    "completion_tokens": 985,
+    "total_tokens": 13158,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 11789
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-449",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，均为 1/2 - 3/2 i，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-450",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 a=2, b=3 与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-451",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "correctedAnswer": "第一象限",
+        "issueTags": [
+          "math_error",
+          "ambiguous_mc",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立解计算得共轭为 1+2i，对应点 (1,2) 在第一象限，但选项无第一象限，存储答案错误且解析矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-452",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 1 - i 与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-453",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 -2 与独立解一致，解析正确，唯一选项。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-454",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 √13 与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-455",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 3 与独立解一致，解析正确，唯一选项。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-456",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 4 与独立解一致，解析正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第451题存储答案错误，共轭复数对应点在第一象限，但选项无此答案，导致题目无正确选项，标记为失败。其余题目均通过。"
+    }
+  }
+}

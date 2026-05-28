@@ -1,0 +1,351 @@
+{
+  "batchId": "batch-031",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s1-k04-sa-034",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-inequalities"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "在平面直角坐标系中，点A的坐标是（-3，4）。将点A向右平移5个单位长度，再向下平移2个单位长度，得到点B。请写出点B的坐标，并说明点B所在的象限。",
+      "optionsZhHans": [],
+      "answer": "（2，2），第一象限",
+      "acceptedAnswers": [
+        "（2，2），第一象限",
+        "(2,2)，第一象限",
+        "（2,2），第一象限"
+      ],
+      "explanationZhHans": "点A（-3，4）向右平移5个单位，横坐标加5：-3+5=2；向下平移2个单位，纵坐标减2：4-2=2。因此点B的坐标为（2，2）。由于横坐标2>0，纵坐标2>0，所以点B在第一象限。答案为（2，2），第一象限。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-mc-001",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-linear-systems"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "某校七年级组织研学活动，共有学生280人，计划租用A、B两种型号的大巴车共6辆。每辆A型车可坐50人，每辆B型车可坐40人，刚好坐满。设租用A型车x辆，B型车y辆，下列方程组正确的是（ ）",
+      "optionsZhHans": [
+        "x+y=280, 50x+40y=6",
+        "x+y=6, 50x+40y=280",
+        "x+y=6, 40x+50y=280",
+        "x+y=280, 40x+50y=6"
+      ],
+      "answer": "x+y=6, 50x+40y=280",
+      "acceptedAnswers": [
+        "x+y=6, 50x+40y=280",
+        "B"
+      ],
+      "explanationZhHans": "设A型车x辆，B型车y辆。根据车辆总数：x+y=6；根据总人数：50x+40y=280。对比选项，B选项正确。答案为B。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-mc-002",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-inequalities"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "不等式2x-5<3的解集在数轴上表示正确的是（ ）",
+      "optionsZhHans": [
+        "数轴上从-∞到4，4处为空心圆圈",
+        "数轴上从-∞到4，4处为实心圆点",
+        "数轴上从4到+∞，4处为空心圆圈",
+        "数轴上从4到+∞，4处为实心圆点"
+      ],
+      "answer": "数轴上从-∞到4，4处为空心圆圈",
+      "acceptedAnswers": [
+        "数轴上从-∞到4，4处为空心圆圈",
+        "A"
+      ],
+      "explanationZhHans": "解不等式2x-5<3：移项得2x<8，系数化为1得x<4。解集为x<4，在数轴上表示时，4处用空心圆圈，方向向左。选项A符合，答案为A。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-mc-003",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "下列实数中，是无理数的是（ ）",
+      "optionsZhHans": [
+        "3.14",
+        "22/7",
+        "√8",
+        "³√-27"
+      ],
+      "answer": "√8",
+      "acceptedAnswers": [
+        "√8",
+        "C"
+      ],
+      "explanationZhHans": "A. 3.14是有限小数，是有理数；B. 22/7是分数，是有理数；C. √8=2√2，√2是无理数，所以√8是无理数；D. ³√-27=-3，是整数，是有理数。因此无理数是C，答案为C。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-mc-004",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-data-collection"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "为了解七年级学生每天的睡眠时间，下列调查方式中最合适的是（ ）",
+      "optionsZhHans": [
+        "对全校学生进行普查",
+        "选取七年级一个班进行抽样调查",
+        "在网上发布问卷，邀请网友填写",
+        "随机抽取七年级100名学生进行问卷调查"
+      ],
+      "answer": "随机抽取七年级100名学生进行问卷调查",
+      "acceptedAnswers": [
+        "随机抽取七年级100名学生进行问卷调查",
+        "D"
+      ],
+      "explanationZhHans": "调查对象是七年级学生，总体是七年级全体学生。A选项普查全校，范围过大；B选项只选一个班，样本代表性不足；C选项网上问卷，样本来源不明确；D选项随机抽取100名七年级学生，样本具有代表性且操作可行。因此最合适的是D，答案为D。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-mc-005",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "直线a∥b，∠1与∠2是直线a、b被第三条直线所截形成的同旁内角，∠1=55°，则∠2的度数为（ ）。",
+      "optionsZhHans": [
+        "55°",
+        "125°",
+        "135°",
+        "145°"
+      ],
+      "answer": "125°",
+      "acceptedAnswers": [
+        "125°",
+        "B"
+      ],
+      "explanationZhHans": "由于直线a∥b，∠1与∠2是同旁内角，根据平行线性质，同旁内角互补，即∠1+∠2=180°。已知∠1=55°，所以∠2=180°-55°=125°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-mc-006",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-real-numbers"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "某商店将进价为80元的篮球按标价打八折出售，仍可获利20元，则该篮球的标价是（ ）",
+      "optionsZhHans": [
+        "100元",
+        "120元",
+        "125元",
+        "130元"
+      ],
+      "answer": "125元",
+      "acceptedAnswers": [
+        "125元",
+        "C"
+      ],
+      "explanationZhHans": "设标价为x元，打八折后售价为0.8x元。获利=售价-进价，即0.8x-80=20，解得0.8x=100，x=125。所以标价为125元，答案为C。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-mc-007",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-coordinate-plane"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "在平面直角坐标系中，将点P（-2，3）先向右平移4个单位，再向下平移1个单位，得到点Q，则点Q的坐标是（ ）",
+      "optionsZhHans": [
+        "（2，2）",
+        "（-6，4）",
+        "（2，4）",
+        "（-6，2）"
+      ],
+      "answer": "（2，2）",
+      "acceptedAnswers": [
+        "（2，2）",
+        "A"
+      ],
+      "explanationZhHans": "点P（-2，3）向右平移4个单位，横坐标加4：-2+4=2；向下平移1个单位，纵坐标减1：3-1=2。所以点Q的坐标为（2，2），答案为A。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-mc-008",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-linear-systems"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "已知关于x、y的方程组 { 2x+y=7, x-2y=-4 } 的解为（ ）",
+      "optionsZhHans": [
+        "x=2, y=3",
+        "x=3, y=1",
+        "x=1, y=5",
+        "x=-1, y=9"
+      ],
+      "answer": "x=2, y=3",
+      "acceptedAnswers": [
+        "x=2, y=3",
+        "A"
+      ],
+      "explanationZhHans": "解方程组：①2x+y=7，②x-2y=-4。由②得x=2y-4，代入①：2(2y-4)+y=7，4y-8+y=7，5y=15，y=3。将y=3代入x=2y-4得x=2。所以解为x=2，y=3，答案为A。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-mc-009",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-inequalities"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "某次知识竞赛共有20道题，答对一题得5分，答错或不答扣2分。小明想要得分不低于80分，他至少要答对多少道题？设答对x道题，可列不等式（ ）",
+      "optionsZhHans": [
+        "5x-2(20-x)≥80",
+        "5x-2(20-x)≤80",
+        "5x+2(20-x)≥80",
+        "5x+2(20-x)≤80"
+      ],
+      "answer": "5x-2(20-x)≥80",
+      "acceptedAnswers": [
+        "5x-2(20-x)≥80",
+        "A"
+      ],
+      "explanationZhHans": "答对x道题，得5x分；答错或不答(20-x)道题，扣2(20-x)分。总得分=5x-2(20-x)。要求不低于80分，即5x-2(20-x)≥80。选项A正确，答案为A。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

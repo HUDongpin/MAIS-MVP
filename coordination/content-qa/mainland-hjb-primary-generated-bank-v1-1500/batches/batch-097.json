@@ -1,0 +1,302 @@
+{
+  "batchId": "batch-097",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p2-231",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "hjb-primary-p2-lower-math-square-review",
+      "unitTitle": "二年级下册数学广场与整理复习",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "p2-lower-review",
+        "math-square-exploration",
+        "division-time-place-value-review",
+        "operation-review",
+        "数学广场",
+        "复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "推理意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "规律探索",
+        "模型选择",
+        "错因说明",
+        "复习整理"
+      ],
+      "misconceptionTags": [
+        "model chosen by keyword only",
+        "time and number units mixed",
+        "larger-number calculation attempted without place-value alignment"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p2-lower-math-square-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-math-square-review",
+        "hjb-primary-p2-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小乐在复习时看到下面这道题：\n“把24块饼干平均分给6个小朋友，每人分到几块？”\n他列出了算式24÷6=4（块）。\n老师让他用另一种方法检验答案是否正确。下面哪种检验方法最合适？",
+      "optionsZhHans": [
+        "用乘法检验：4×6=24",
+        "用加法检验：4+6=10",
+        "用减法检验：24-6=18",
+        "用时间单位检验：24分钟是6分钟的4倍"
+      ],
+      "answer": "用乘法检验：4×6=24",
+      "acceptedAnswers": [
+        "用乘法检验：4×6=24"
+      ],
+      "explanationZhHans": "除法是乘法的逆运算。检验24÷6=4是否正确，可以用商乘除数：4×6=24，结果等于被除数，说明计算正确。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-232",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "hjb-primary-p2-lower-math-square-review",
+      "unitTitle": "二年级下册数学广场与整理复习",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "p2-lower-review",
+        "math-square-exploration",
+        "division-time-place-value-review",
+        "operation-review",
+        "数学广场",
+        "复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "推理意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "规律探索",
+        "模型选择",
+        "错因说明",
+        "复习整理"
+      ],
+      "misconceptionTags": [
+        "model chosen by keyword only",
+        "time and number units mixed",
+        "larger-number calculation attempted without place-value alignment"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p2-lower-math-square-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-math-square-review",
+        "hjb-primary-p2-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在数学广场活动中，小丁发现了一组数：2，4，8，14，22，32。他发现从第三个数开始，每个数都是前两个数的和再加2。按照这个规律，32后面的一个数是多少？",
+      "optionsZhHans": [],
+      "answer": "56",
+      "acceptedAnswers": [
+        "56"
+      ],
+      "explanationZhHans": "规律：从第三个数起，每个数=前两个数的和+2。验证：8=2+4+2，14=4+8+2，22=8+14+2，32=14+22+2。所以下一个数是22+32+2=56。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-233",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "hjb-primary-p2-lower-math-square-review",
+      "unitTitle": "二年级下册数学广场与整理复习",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "p2-lower-review",
+        "math-square-exploration",
+        "division-time-place-value-review",
+        "operation-review",
+        "数学广场",
+        "复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "推理意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "规律探索",
+        "模型选择",
+        "错因说明",
+        "复习整理"
+      ],
+      "misconceptionTags": [
+        "model chosen by keyword only",
+        "time and number units mixed",
+        "larger-number calculation attempted without place-value alignment"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p2-lower-math-square-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-math-square-review",
+        "hjb-primary-p2-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小胖在整理错题时，看到自己的一道错题：\n“一节课40分钟，课间休息10分钟，再加上多少分钟是1小时？”\n他原来写的答案是30分钟，被老师打了叉。\n他应该怎样改正？",
+      "optionsZhHans": [
+        "40+10=50，1小时=60分钟，60-50=10，答案是10分钟",
+        "40-10=30，答案是30分钟",
+        "1小时=100分钟，100-40-10=50，答案是50分钟",
+        "40+10=50，1小时=100分钟，100-50=50，答案是50分钟"
+      ],
+      "answer": "40+10=50，1小时=60分钟，60-50=10，答案是10分钟",
+      "acceptedAnswers": [
+        "40+10=50，1小时=60分钟，60-50=10，答案是10分钟"
+      ],
+      "explanationZhHans": "先算已用时间：40+10=50分钟。1小时=60分钟，还需60-50=10分钟。小胖错在直接用40-10，没有理解时间单位换算和总时长。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-234",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "hjb-primary-p2-lower-math-square-review",
+      "unitTitle": "二年级下册数学广场与整理复习",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "p2-lower-review",
+        "math-square-exploration",
+        "division-time-place-value-review",
+        "operation-review",
+        "数学广场",
+        "复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "推理意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "规律探索",
+        "模型选择",
+        "错因说明",
+        "复习整理"
+      ],
+      "misconceptionTags": [
+        "model chosen by keyword only",
+        "time and number units mixed",
+        "larger-number calculation attempted without place-value alignment"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p2-lower-math-square-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-math-square-review",
+        "hjb-primary-p2-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小亚在复习时，把下面这些算式分成了两类。\n第一类：35+27， 62-19， 48+36\n第二类：8×7， 45÷5， 63÷9\n她分类的标准是什么？请用一句话写出来。",
+      "optionsZhHans": [],
+      "answer": "第一类是加减法，第二类是乘除法。",
+      "acceptedAnswers": [
+        "第一类是加减法，第二类是乘除法。",
+        "按运算类型分类：加减法和乘除法。",
+        "一类是加减运算，另一类是乘除运算。"
+      ],
+      "explanationZhHans": "观察算式，第一类都是加法和减法，第二类都是乘法和除法。分类标准是运算类型。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-235",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "hjb-primary-p2-lower-math-square-review",
+      "unitTitle": "二年级下册数学广场与整理复习",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "p2-lower-review",
+        "math-square-exploration",
+        "division-time-place-value-review",
+        "operation-review",
+        "数学广场",
+        "复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "推理意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "规律探索",
+        "模型选择",
+        "错因说明",
+        "复习整理"
+      ],
+      "misconceptionTags": [
+        "model chosen by keyword only",
+        "time and number units mixed",
+        "larger-number calculation attempted without place-value alignment"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p2-lower-math-square-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-math-square-review",
+        "hjb-primary-p2-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小玲在解决一个问题：“妈妈买了3盒牛奶，每盒4元，又买了一袋面包8元。妈妈一共花了多少钱？”\n她列出了两个算式：\n① 3×4=12（元）\n② 12+8=20（元）\n她选择用乘加两步计算来解决。下面哪个问题也需要用乘加两步计算？",
+      "optionsZhHans": [
+        "小明有12块糖，吃掉4块，还剩几块？",
+        "一盒铅笔有6支，3盒铅笔和2支单独的铅笔，一共有多少支？",
+        "18个同学平均分成3组，每组几人？",
+        "一本书56页，每天看8页，几天看完？"
+      ],
+      "answer": "一盒铅笔有6支，3盒铅笔和2支单独的铅笔，一共有多少支？",
+      "acceptedAnswers": [
+        "一盒铅笔有6支，3盒铅笔和2支单独的铅笔，一共有多少支？"
+      ],
+      "explanationZhHans": "乘加两步计算：先乘后加。选项B需要先算3盒铅笔：6×3=18支，再加2支：18+2=20支。其他选项只需一步计算。"
+    }
+  ]
+}

@@ -1,0 +1,191 @@
+{
+  "batchNumber": 18,
+  "startedAt": "2026-05-27T13:26:10.684Z",
+  "completedAt": "2026-05-27T13:26:31.571Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p2-057",
+    "bnu-primary-ds-v1-p2-058",
+    "bnu-primary-ds-v1-p2-059",
+    "bnu-primary-ds-v1-p2-060",
+    "bnu-primary-ds-v1-p2-061",
+    "bnu-primary-ds-v1-p2-062",
+    "bnu-primary-ds-v1-p2-063",
+    "bnu-primary-ds-v1-p2-064",
+    "bnu-primary-ds-v1-p2-065",
+    "bnu-primary-ds-v1-p2-066",
+    "bnu-primary-ds-v1-p2-067",
+    "bnu-primary-ds-v1-p2-068",
+    "bnu-primary-ds-v1-p2-069",
+    "bnu-primary-ds-v1-p2-070",
+    "bnu-primary-ds-v1-p2-071",
+    "bnu-primary-ds-v1-p2-072",
+    "bnu-primary-ds-v1-p2-073",
+    "bnu-primary-ds-v1-p2-074"
+  ],
+  "usage": {
+    "prompt_tokens": 3318,
+    "completion_tokens": 1416,
+    "total_tokens": 4734,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 3062
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p2-057",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，对折两次剪一次得4个孔，符合二年级图形变化内容。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-058",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移方向与格数明确，选项唯一正确，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-059",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "汉字“大”的对称轴为1条，答案正确，符合对称轴初步认识。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-060",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "旋转半圈方向变，形状大小不变，答案准确，符合旋转性质。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-061",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "先乘后除，步骤清晰，答案3个正确，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-062",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "口诀补充正确，三四十二十二，答案“四”无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-063",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "2×5=10，答案10个正确，符合乘法初步应用。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-064",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "4×3=12，3+3+3+3=12，选项正确，其他选项错误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-065",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案4×5=20或5×4=20均正确，符合口诀。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-066",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "5×4=20，答案20块正确，符合乘法应用。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-067",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "利用四五二十推导四六二十四，20+4正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-068",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "3×5=5×3，答案“=”正确，符合乘法交换律初步。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-069",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "4×5=20，答案20张正确，符合乘法应用。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-070",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项B表示4个3，用3×4，其他为加法，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-071",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "3×4=12或4×3=12，答案正确，符合题意。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-072",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "利用5×3=15加5得20，推理正确，答案表述合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-073",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "2×4=8，4×2=8，选项A正确，其他错误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-074",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "4×3=12或3×4=12，答案正确，符合乘法应用。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版二年级上册内容，数学正确，答案匹配，无歧义或缺失条件，适合公共题库使用。"
+    }
+  }
+}

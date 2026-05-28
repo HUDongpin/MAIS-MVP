@@ -1,0 +1,583 @@
+{
+  "batchId": "batch-003",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p1-021",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-comparison",
+      "unitTitle": "比较",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "comparison",
+        "more-less-equal",
+        "length-height-weight",
+        "比较",
+        "多少长短"
+      ],
+      "competencyTags": [
+        "数感",
+        "量感",
+        "观察比较"
+      ],
+      "skillTags": [
+        "多少比较",
+        "长短比较",
+        "高矮比较",
+        "轻重比较",
+        "符号表达"
+      ],
+      "misconceptionTags": [
+        "bigger object assumed to mean more items",
+        "comparison attribute not named",
+        "equal groups missed when arrangements differ"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-comparison"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "篮子里有5个苹果，盘子里有3个苹果。篮子和盘子里的苹果，哪边的苹果多？多几个？",
+      "optionsZhHans": [],
+      "answer": "篮子里的苹果多，多2个。",
+      "acceptedAnswers": [
+        "篮子里的苹果多，多2个。",
+        "篮子多，多2个。",
+        "篮子里的苹果多，多2个",
+        "篮子多，多2个"
+      ],
+      "explanationZhHans": "篮子有5个苹果，盘子有3个苹果，5比3多，所以篮子里的苹果多。用减法计算：5-3=2，所以多2个。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-022",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-comparison",
+      "unitTitle": "比较",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "comparison",
+        "more-less-equal",
+        "length-height-weight",
+        "比较",
+        "多少长短"
+      ],
+      "competencyTags": [
+        "数感",
+        "量感",
+        "观察比较"
+      ],
+      "skillTags": [
+        "多少比较",
+        "长短比较",
+        "高矮比较",
+        "轻重比较",
+        "符号表达"
+      ],
+      "misconceptionTags": [
+        "bigger object assumed to mean more items",
+        "comparison attribute not named",
+        "equal groups missed when arrangements differ"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-comparison"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明的铅笔盒里有6支铅笔，小红的铅笔盒里有4支铅笔。下面哪句话是正确的？",
+      "optionsZhHans": [
+        "小明的铅笔比小红的多。",
+        "小红的铅笔比小明的多。",
+        "小明和小红的铅笔一样多。",
+        "小明的铅笔比小红的少。"
+      ],
+      "answer": "小明的铅笔比小红的多。",
+      "acceptedAnswers": [
+        "小明的铅笔比小红的多。"
+      ],
+      "explanationZhHans": "小明有6支，小红有4支，6比4多，所以小明的铅笔比小红的多。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-023",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-comparison",
+      "unitTitle": "比较",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "comparison",
+        "more-less-equal",
+        "length-height-weight",
+        "比较",
+        "多少长短"
+      ],
+      "competencyTags": [
+        "数感",
+        "量感",
+        "观察比较"
+      ],
+      "skillTags": [
+        "多少比较",
+        "长短比较",
+        "高矮比较",
+        "轻重比较",
+        "符号表达"
+      ],
+      "misconceptionTags": [
+        "bigger object assumed to mean more items",
+        "comparison attribute not named",
+        "equal groups missed when arrangements differ"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-comparison"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "比较下面两根绳子的长短：一根红色绳子拉直后和5个一样长的小木棍连起来一样长，另一根蓝色绳子拉直后和7个同样的小木棍连起来一样长。哪根绳子更长？长几根小木棍的长度？",
+      "optionsZhHans": [],
+      "answer": "蓝色绳子更长，长2根小木棍的长度。",
+      "acceptedAnswers": [
+        "蓝色绳子更长，长2根小木棍的长度。",
+        "蓝色绳子长，长2根。",
+        "蓝色绳子更长，长2根小木棍的长度",
+        "蓝色绳子长，长2根"
+      ],
+      "explanationZhHans": "红色绳子相当于5根小木棍，蓝色绳子相当于7根小木棍。7比5多，所以蓝色绳子更长。7-5=2，长2根小木棍的长度。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-024",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-comparison",
+      "unitTitle": "比较",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "comparison",
+        "more-less-equal",
+        "length-height-weight",
+        "比较",
+        "多少长短"
+      ],
+      "competencyTags": [
+        "数感",
+        "量感",
+        "观察比较"
+      ],
+      "skillTags": [
+        "多少比较",
+        "长短比较",
+        "高矮比较",
+        "轻重比较",
+        "符号表达"
+      ],
+      "misconceptionTags": [
+        "bigger object assumed to mean more items",
+        "comparison attribute not named",
+        "equal groups missed when arrangements differ"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-comparison"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小芳有4块糖，小东有4块糖。小芳和小东的糖，谁的多？还是一样多？",
+      "optionsZhHans": [],
+      "answer": "一样多。",
+      "acceptedAnswers": [
+        "一样多。",
+        "一样多"
+      ],
+      "explanationZhHans": "小芳有4块，小东也有4块，4和4相等，所以他们的糖一样多。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-025",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-comparison",
+      "unitTitle": "比较",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "comparison",
+        "more-less-equal",
+        "length-height-weight",
+        "比较",
+        "多少长短"
+      ],
+      "competencyTags": [
+        "数感",
+        "量感",
+        "观察比较"
+      ],
+      "skillTags": [
+        "多少比较",
+        "长短比较",
+        "高矮比较",
+        "轻重比较",
+        "符号表达"
+      ],
+      "misconceptionTags": [
+        "bigger object assumed to mean more items",
+        "comparison attribute not named",
+        "equal groups missed when arrangements differ"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-comparison"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一棵大树高约10米，一棵小树高约6米。下面哪句话是正确的？",
+      "optionsZhHans": [
+        "大树比小树高。",
+        "小树比大树高。",
+        "大树和小树一样高。",
+        "大树比小树矮。"
+      ],
+      "answer": "大树比小树高。",
+      "acceptedAnswers": [
+        "大树比小树高。"
+      ],
+      "explanationZhHans": "大树高10米，小树高6米，10比6大，所以大树比小树高。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-026",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-comparison",
+      "unitTitle": "比较",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "comparison",
+        "more-less-equal",
+        "length-height-weight",
+        "比较",
+        "多少长短"
+      ],
+      "competencyTags": [
+        "数感",
+        "量感",
+        "观察比较"
+      ],
+      "skillTags": [
+        "多少比较",
+        "长短比较",
+        "高矮比较",
+        "轻重比较",
+        "符号表达"
+      ],
+      "misconceptionTags": [
+        "bigger object assumed to mean more items",
+        "comparison attribute not named",
+        "equal groups missed when arrangements differ"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-comparison"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "天平左边放了一个菠萝，右边放了3个苹果后天平平衡。如果左边放一个菠萝，右边放5个同样的苹果，天平会怎样？哪边重？",
+      "optionsZhHans": [],
+      "answer": "右边重。",
+      "acceptedAnswers": [
+        "右边重。",
+        "右边重"
+      ],
+      "explanationZhHans": "一个菠萝和3个苹果一样重。右边放5个苹果比3个多，所以右边更重。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-027",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-comparison",
+      "unitTitle": "比较",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "comparison",
+        "more-less-equal",
+        "length-height-weight",
+        "比较",
+        "多少长短"
+      ],
+      "competencyTags": [
+        "数感",
+        "量感",
+        "观察比较"
+      ],
+      "skillTags": [
+        "多少比较",
+        "长短比较",
+        "高矮比较",
+        "轻重比较",
+        "符号表达"
+      ],
+      "misconceptionTags": [
+        "bigger object assumed to mean more items",
+        "comparison attribute not named",
+        "equal groups missed when arrangements differ"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-comparison"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "桌上有8个杯子，椅子有4把。杯子和椅子，哪个数量多？多几个？",
+      "optionsZhHans": [],
+      "answer": "杯子多，多4个。",
+      "acceptedAnswers": [
+        "杯子多，多4个。",
+        "杯子多，多4个"
+      ],
+      "explanationZhHans": "杯子有8个，椅子有4把，8比4多，所以杯子多。8-4=4，多4个。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-028",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-comparison",
+      "unitTitle": "比较",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "comparison",
+        "more-less-equal",
+        "length-height-weight",
+        "比较",
+        "多少长短"
+      ],
+      "competencyTags": [
+        "数感",
+        "量感",
+        "观察比较"
+      ],
+      "skillTags": [
+        "多少比较",
+        "长短比较",
+        "高矮比较",
+        "轻重比较",
+        "符号表达"
+      ],
+      "misconceptionTags": [
+        "bigger object assumed to mean more items",
+        "comparison attribute not named",
+        "equal groups missed when arrangements differ"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-comparison"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丽跳了9下绳，小刚跳了7下绳。下面哪句话是正确的？",
+      "optionsZhHans": [
+        "小丽跳得比小刚多。",
+        "小刚跳得比小丽多。",
+        "小丽和小刚跳得一样多。",
+        "小丽跳得比小刚少。"
+      ],
+      "answer": "小丽跳得比小刚多。",
+      "acceptedAnswers": [
+        "小丽跳得比小刚多。"
+      ],
+      "explanationZhHans": "小丽跳9下，小刚跳7下，9比7多，所以小丽跳得比小刚多。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-029",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-comparison",
+      "unitTitle": "比较",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "comparison",
+        "more-less-equal",
+        "length-height-weight",
+        "比较",
+        "多少长短"
+      ],
+      "competencyTags": [
+        "数感",
+        "量感",
+        "观察比较"
+      ],
+      "skillTags": [
+        "多少比较",
+        "长短比较",
+        "高矮比较",
+        "轻重比较",
+        "符号表达"
+      ],
+      "misconceptionTags": [
+        "bigger object assumed to mean more items",
+        "comparison attribute not named",
+        "equal groups missed when arrangements differ"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-comparison"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "有两盒积木，第一盒有12块，第二盒有15块。哪盒积木多？多几块？",
+      "optionsZhHans": [],
+      "answer": "第二盒多，多3块。",
+      "acceptedAnswers": [
+        "第二盒多，多3块。",
+        "第二盒多，多3块"
+      ],
+      "explanationZhHans": "第一盒12块，第二盒15块，15比12多，所以第二盒多。15-12=3，多3块。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-030",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-comparison",
+      "unitTitle": "比较",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "comparison",
+        "more-less-equal",
+        "length-height-weight",
+        "比较",
+        "多少长短"
+      ],
+      "competencyTags": [
+        "数感",
+        "量感",
+        "观察比较"
+      ],
+      "skillTags": [
+        "多少比较",
+        "长短比较",
+        "高矮比较",
+        "轻重比较",
+        "符号表达"
+      ],
+      "misconceptionTags": [
+        "bigger object assumed to mean more items",
+        "comparison attribute not named",
+        "equal groups missed when arrangements differ"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-comparison"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "河里有7只鸭子，岸上有2只鸭子。河里的鸭子和岸上的鸭子，哪边的鸭子少？少几只？",
+      "optionsZhHans": [],
+      "answer": "岸上的鸭子少，少5只。",
+      "acceptedAnswers": [
+        "岸上的鸭子少，少5只。",
+        "岸上少，少5只。",
+        "岸上的鸭子少，少5只",
+        "岸上少，少5只"
+      ],
+      "explanationZhHans": "河里有7只，岸上有2只，2比7少，所以岸上的鸭子少。7-2=5，少5只。"
+    }
+  ]
+}

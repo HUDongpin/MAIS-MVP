@@ -1,0 +1,297 @@
+{
+  "batchId": "batch-143",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p3-211",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-area-measurement",
+      "unitTitle": "面积与周长",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "area-measurement",
+        "unit-square",
+        "rectangle-square-area",
+        "perimeter-area-contrast",
+        "面积"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "几何直观"
+      ],
+      "skillTags": [
+        "面积单位",
+        "单位正方形",
+        "长方形面积",
+        "正方形面积",
+        "周长面积辨析"
+      ],
+      "misconceptionTags": [
+        "area and perimeter formulas swapped",
+        "square units omitted",
+        "multiplication used without explaining rows and columns"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-area-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-area-measurement",
+        "hjb-primary-p3-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方形花坛长8米、宽5米。小明用篱笆沿着花坛边缘围一圈，又在花坛表面铺满草皮。下面说法正确的是（ ）。",
+      "optionsZhHans": [
+        "篱笆长度和草皮面积都是40",
+        "篱笆长度是26米，草皮面积是40平方米",
+        "篱笆长度是40米，草皮面积是26平方米",
+        "篱笆长度是26平方米，草皮面积是40米"
+      ],
+      "answer": "篱笆长度是26米，草皮面积是40平方米",
+      "acceptedAnswers": [
+        "篱笆长度是26米，草皮面积是40平方米"
+      ],
+      "explanationZhHans": "篱笆长度是周长：(8+5)×2=26（米）；草皮面积是面积：8×5=40（平方米）。注意单位不同，周长用米，面积用平方米。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-212",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-area-measurement",
+      "unitTitle": "面积与周长",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "area-measurement",
+        "unit-square",
+        "rectangle-square-area",
+        "perimeter-area-contrast",
+        "面积"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "几何直观"
+      ],
+      "skillTags": [
+        "面积单位",
+        "单位正方形",
+        "长方形面积",
+        "正方形面积",
+        "周长面积辨析"
+      ],
+      "misconceptionTags": [
+        "area and perimeter formulas swapped",
+        "square units omitted",
+        "multiplication used without explaining rows and columns"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-area-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-area-measurement",
+        "hjb-primary-p3-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用边长1厘米的小正方形铺一个长6厘米、宽4厘米的长方形，一共需要（ ）个小正方形，这个长方形的面积是（ ）平方厘米。",
+      "optionsZhHans": [],
+      "answer": "24，24",
+      "acceptedAnswers": [
+        "24，24",
+        "24 24"
+      ],
+      "explanationZhHans": "每行摆6个，摆4行，共6×4=24个小正方形。每个小正方形面积1平方厘米，所以长方形面积是24平方厘米。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-213",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-data-statistics",
+      "unitTitle": "数据整理与统计表达",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "data-organization",
+        "table-reading",
+        "bar-chart-reading",
+        "comparison-statements",
+        "统计"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "分类整理",
+        "统计表",
+        "条形图",
+        "比较数量",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "largest bar read from visual height without scale",
+        "category labels ignored",
+        "unsupported conclusion beyond the data"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-data-statistics"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-data-statistics",
+        "hjb-primary-p3-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "三（1）班同学最喜欢的运动项目统计如下：跳绳15人，踢毽子10人，打篮球20人，跑步5人。下面说法正确的是（ ）。",
+      "optionsZhHans": [
+        "喜欢打篮球的人数是跑步的4倍",
+        "喜欢跳绳的人数比踢毽子多10人",
+        "喜欢打篮球的人数最多，所以全班都喜欢打篮球",
+        "喜欢跑步的人数最少，所以跑步不好玩"
+      ],
+      "answer": "喜欢打篮球的人数是跑步的4倍",
+      "acceptedAnswers": [
+        "喜欢打篮球的人数是跑步的4倍"
+      ],
+      "explanationZhHans": "20÷5=4，所以打篮球人数是跑步的4倍。其他选项错误：跳绳比踢毽子多5人；不能由数据推出全班都喜欢打篮球或跑步不好玩。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-214",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-data-statistics",
+      "unitTitle": "数据整理与统计表达",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "data-organization",
+        "table-reading",
+        "bar-chart-reading",
+        "comparison-statements",
+        "统计"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "分类整理",
+        "统计表",
+        "条形图",
+        "比较数量",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "largest bar read from visual height without scale",
+        "category labels ignored",
+        "unsupported conclusion beyond the data"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-data-statistics"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-data-statistics",
+        "hjb-primary-p3-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是某书店一周售出图书数量的统计表：\n星期一：12本，星期二：8本，星期三：15本，星期四：10本，星期五：20本，星期六：25本，星期日：18本。\n售出最多的一天是（ ），售出了（ ）本。",
+      "optionsZhHans": [],
+      "answer": "星期六，25",
+      "acceptedAnswers": [
+        "星期六，25",
+        "星期六 25"
+      ],
+      "explanationZhHans": "比较每天售出数量，星期六的25本最大，所以售出最多的一天是星期六，售出25本。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-215",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-data-statistics",
+      "unitTitle": "数据整理与统计表达",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "data-organization",
+        "table-reading",
+        "bar-chart-reading",
+        "comparison-statements",
+        "统计"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "分类整理",
+        "统计表",
+        "条形图",
+        "比较数量",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "largest bar read from visual height without scale",
+        "category labels ignored",
+        "unsupported conclusion beyond the data"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-data-statistics"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-data-statistics",
+        "hjb-primary-p3-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下表是四个小朋友1分钟跳绳的成绩：\n小军：120下，小红：98下，小刚：135下，小丽：110下。\n下面说法正确的是（ ）。",
+      "optionsZhHans": [
+        "小刚跳得最快，他跳了135下",
+        "小红跳得最慢，她跳了98下，所以小红不喜欢跳绳",
+        "小军比小丽多跳10下",
+        "小刚比小红多跳47下"
+      ],
+      "answer": "小刚跳得最快，他跳了135下",
+      "acceptedAnswers": [
+        "小刚跳得最快，他跳了135下"
+      ],
+      "explanationZhHans": "135下最大，所以小刚最快。其他选项错误：不能由成绩推断喜好；小军比小丽多10下正确但非最佳；小刚比小红多37下，不是47下。"
+    }
+  ]
+}

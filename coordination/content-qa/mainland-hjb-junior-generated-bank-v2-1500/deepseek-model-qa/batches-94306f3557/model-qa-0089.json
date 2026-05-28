@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0089",
+  "ids": [
+    "hjb-junior-ds-v2-s2-205",
+    "hjb-junior-ds-v2-s2-206",
+    "hjb-junior-ds-v2-s2-207",
+    "hjb-junior-ds-v2-s2-208",
+    "hjb-junior-ds-v2-s2-209",
+    "hjb-junior-ds-v2-s2-210",
+    "hjb-junior-ds-v2-s2-211",
+    "hjb-junior-ds-v2-s2-212"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-205",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "AD=8",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-206",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "14",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-207",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "36√2/7",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-208",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "60/13",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-209",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为120/23，但独立计算得24/5。解析中“点D到AB的距离等于点C到AB的距离乘以DC/BC”错误，因为D不在从C到AB的垂线上。正确解法：由角平分线性质得DC=24/5，D到AB的距离等于D到AC的距离（角平分线性质），即DC×sinC？实际上D到AB的距离等于D到AC的距离，而D到AC的距离等于DC×sinC？∠C=90°，sinC=1，所以D到AC的距离就是DC？不对，D在BC上，到AC的距离就是DC本身，因为AC⊥BC。所以D到AC的距离=DC=24/5。角平分线上的点到角两边距离相等，所以D到AB的距离也等于24/5。因此正确答案应为24/5，而非120/23。",
+      "independentAnswerZhHans": "24/5",
+      "answerCheckZhHans": "标准答案错误，解析推导有误。",
+      "recommendedActionZhHans": "修正答案为24/5，并更正解析。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-210",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "48/7",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-211",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "A. △ABC是直角三角形，点P到边BC的距离为3",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-212",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "24/7",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

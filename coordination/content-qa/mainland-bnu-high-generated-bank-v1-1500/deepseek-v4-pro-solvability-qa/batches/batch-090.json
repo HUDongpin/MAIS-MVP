@@ -1,0 +1,133 @@
+{
+  "batchNumber": 90,
+  "startedAt": "2026-05-27T13:58:56.301Z",
+  "completedAt": "2026-05-27T13:59:10.642Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-213",
+    "bnu-high-ds-v1-s5-214",
+    "bnu-high-ds-v1-s5-215",
+    "bnu-high-ds-v1-s5-216",
+    "bnu-high-ds-v1-s5-217",
+    "bnu-high-ds-v1-s5-218",
+    "bnu-high-ds-v1-s5-219",
+    "bnu-high-ds-v1-s5-220"
+  ],
+  "usage": {
+    "prompt_tokens": 10763,
+    "completion_tokens": 1039,
+    "total_tokens": 11802,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10251
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-213",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(3,4,5)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可直接用定比分点公式求解，答案正确，解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-214",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "√6/3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可独立求解线面角正弦值，选项唯一正确，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-215",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "向量AB=(3,3,3)，AC=(6,6,6)，AC=2AB，故A、B、C共线。",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可独立证明三点共线，答案正确，解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-216",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "√3/2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可独立计算三角形面积，答案正确，解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-217",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "±√3/3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可独立求解直线斜率，选项唯一正确，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-218",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "x+y-5=0",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可独立求解垂直平分线方程，答案正确，解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-219",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(2,-1)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可独立配方求圆心，答案正确，解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-220",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "3m²=4k²+3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可独立推导参数关系，选项唯一正确，答案与解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8道题均可独立求解，答案正确，解析与答案一致，无任何问题。"
+    }
+  }
+}

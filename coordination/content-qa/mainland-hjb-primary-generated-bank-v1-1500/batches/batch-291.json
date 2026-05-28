@@ -1,0 +1,305 @@
+{
+  "batchId": "batch-291",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p6-201",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-linear-equations-inequalities",
+      "unitTitle": "一元一次方程",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "linear-equations",
+        "equation-modeling",
+        "equation-solving",
+        "solution-checking",
+        "一元一次方程",
+        "一次方程"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "符号意识",
+        "运算能力",
+        "应用意识"
+      ],
+      "skillTags": [
+        "等式性质",
+        "解一元一次方程",
+        "列方程解决问题",
+        "解的检验",
+        "简单不等关系"
+      ],
+      "misconceptionTags": [
+        "equal sign treated as a calculation signal",
+        "unknown not defined before modeling",
+        "operation applied to only one side of an equation"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-linear-equations-inequalities"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-six-up-assessment-linear-equations-unit",
+        "hjb-primary-p6-lower-assessment-linear-systems"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小杰买了3支同样的钢笔，付了20元，找回2元。设每支钢笔x元，下面哪个方程是正确的？",
+      "optionsZhHans": [
+        "3x + 2 = 20",
+        "3x - 2 = 20",
+        "20 - 3x = 2",
+        "3x = 20 + 2"
+      ],
+      "answer": "20 - 3x = 2",
+      "acceptedAnswers": [
+        "20 - 3x = 2"
+      ],
+      "explanationZhHans": "找回的钱等于付出的钱减去用去的钱，即20 - 3x = 2。选项A和D错误地加了2，选项B表示用去的钱比付出的钱多2元，不符合题意。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-202",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-linear-equations-inequalities",
+      "unitTitle": "一元一次方程",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "linear-equations",
+        "equation-modeling",
+        "equation-solving",
+        "solution-checking",
+        "一元一次方程",
+        "一次方程"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "符号意识",
+        "运算能力",
+        "应用意识"
+      ],
+      "skillTags": [
+        "等式性质",
+        "解一元一次方程",
+        "列方程解决问题",
+        "解的检验",
+        "简单不等关系"
+      ],
+      "misconceptionTags": [
+        "equal sign treated as a calculation signal",
+        "unknown not defined before modeling",
+        "operation applied to only one side of an equation"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-linear-equations-inequalities"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-six-up-assessment-linear-equations-unit",
+        "hjb-primary-p6-lower-assessment-linear-systems"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "解方程：4x - 7 = 2x + 5。x = ______。",
+      "optionsZhHans": [],
+      "answer": "6",
+      "acceptedAnswers": [
+        "6"
+      ],
+      "explanationZhHans": "移项得4x - 2x = 5 + 7，即2x = 12，两边除以2得x = 6。检验：左边4×6-7=17，右边2×6+5=17，相等。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-203",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-linear-equations-inequalities",
+      "unitTitle": "一元一次方程",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "linear-equations",
+        "equation-modeling",
+        "equation-solving",
+        "solution-checking",
+        "一元一次方程",
+        "一次方程"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "符号意识",
+        "运算能力",
+        "应用意识"
+      ],
+      "skillTags": [
+        "等式性质",
+        "解一元一次方程",
+        "列方程解决问题",
+        "解的检验",
+        "简单不等关系"
+      ],
+      "misconceptionTags": [
+        "equal sign treated as a calculation signal",
+        "unknown not defined before modeling",
+        "operation applied to only one side of an equation"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-linear-equations-inequalities"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-six-up-assessment-linear-equations-unit",
+        "hjb-primary-p6-lower-assessment-linear-systems"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个数的3倍减去5等于这个数的2倍加上7，求这个数。设这个数为x，下面哪个方程是正确的？",
+      "optionsZhHans": [
+        "3x - 5 = 2x + 7",
+        "3x + 5 = 2x - 7",
+        "3(x - 5) = 2(x + 7)",
+        "3x - 5 = 2x - 7"
+      ],
+      "answer": "3x - 5 = 2x + 7",
+      "acceptedAnswers": [
+        "3x - 5 = 2x + 7"
+      ],
+      "explanationZhHans": "根据题意，“3倍减去5”即3x - 5，“2倍加上7”即2x + 7，两者相等得3x - 5 = 2x + 7。其他选项符号或结构错误。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-204",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-linear-equations-inequalities",
+      "unitTitle": "一元一次方程",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "linear-equations",
+        "equation-modeling",
+        "equation-solving",
+        "solution-checking",
+        "一元一次方程",
+        "一次方程"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "符号意识",
+        "运算能力",
+        "应用意识"
+      ],
+      "skillTags": [
+        "等式性质",
+        "解一元一次方程",
+        "列方程解决问题",
+        "解的检验",
+        "简单不等关系"
+      ],
+      "misconceptionTags": [
+        "equal sign treated as a calculation signal",
+        "unknown not defined before modeling",
+        "operation applied to only one side of an equation"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-linear-equations-inequalities"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-six-up-assessment-linear-equations-unit",
+        "hjb-primary-p6-lower-assessment-linear-systems"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "列方程解应用题：学校图书馆有科技书和故事书共120本，科技书的本数是故事书的3倍。科技书有多少本？设故事书有x本，则科技书有3x本，列出方程并求解。科技书有______本。",
+      "optionsZhHans": [],
+      "answer": "90",
+      "acceptedAnswers": [
+        "90"
+      ],
+      "explanationZhHans": "设故事书x本，科技书3x本，得x + 3x = 120，4x = 120，x = 30。科技书3×30 = 90本。检验：30+90=120，符合。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-205",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-linear-equations-inequalities",
+      "unitTitle": "一元一次方程",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "linear-equations",
+        "equation-modeling",
+        "equation-solving",
+        "solution-checking",
+        "一元一次方程",
+        "一次方程"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "符号意识",
+        "运算能力",
+        "应用意识"
+      ],
+      "skillTags": [
+        "等式性质",
+        "解一元一次方程",
+        "列方程解决问题",
+        "解的检验",
+        "简单不等关系"
+      ],
+      "misconceptionTags": [
+        "equal sign treated as a calculation signal",
+        "unknown not defined before modeling",
+        "operation applied to only one side of an equation"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-linear-equations-inequalities"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-six-up-assessment-linear-equations-unit",
+        "hjb-primary-p6-lower-assessment-linear-systems"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "方程2(x - 3) = 8的解与下面哪个方程的解相同？",
+      "optionsZhHans": [
+        "x - 3 = 4",
+        "2x - 3 = 8",
+        "x - 3 = 8",
+        "2x - 6 = 8"
+      ],
+      "answer": "2x - 6 = 8",
+      "acceptedAnswers": [
+        "2x - 6 = 8"
+      ],
+      "explanationZhHans": "原方程去括号得2x - 6 = 8，与选项D相同。选项A是x - 3 = 4，解为x=7；原方程解为x=7，但方程形式不同，题目要求方程相同，故选D。"
+    }
+  ]
+}

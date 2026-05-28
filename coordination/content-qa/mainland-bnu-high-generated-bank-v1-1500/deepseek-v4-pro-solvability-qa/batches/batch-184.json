@@ -1,0 +1,141 @@
+{
+  "batchNumber": 184,
+  "startedAt": "2026-05-27T14:14:46.681Z",
+  "completedAt": "2026-05-27T14:15:07.242Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-465",
+    "bnu-high-ds-v1-s6-466",
+    "bnu-high-ds-v1-s6-467",
+    "bnu-high-ds-v1-s6-468",
+    "bnu-high-ds-v1-s6-469",
+    "bnu-high-ds-v1-s6-470",
+    "bnu-high-ds-v1-s6-471",
+    "bnu-high-ds-v1-s6-472"
+  ],
+  "usage": {
+    "prompt_tokens": 13354,
+    "completion_tokens": 1273,
+    "total_tokens": 14627,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 12842
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-465",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "7",
+        "correctedAnswer": "7",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "等比数列公比q=3或-4。q=3时S_n=3^n-1>1000得n≥7；q=-4时n=7时S_7=6554>1000，故最小n=7。选项A为7，但存储答案为9，解析也错误地给出9，答案与解析均与正确解矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-466",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "a ≤ 1/e",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=1/x - a≥0在(0,e]恒成立，得a≤1/x，最小值为1/e，故a≤1/e。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-467",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "3^n - 1",
+        "correctedAnswer": "3^n - 1",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "由递推得b_n=2·3^{n-1}，T_n=3^n-1，对应选项C。存储答案为A，解析也错误地指向A，与正确解矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-468",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "-1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "y'=3x^2+a，x=1时斜率为3+a，与y=2x-1平行得3+a=2，a=-1。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-469",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "a > e",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f(x)=e^x-ax有两个零点等价于a=e^x/x有两个解，g(x)=e^x/x极小值e，故a>e。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-470",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "a_n = 2^{2^{n-1}} - 1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由a_{n+1}+1=(a_n+1)^2得b_n=2^{2^{n-1}}，a_n=2^{2^{n-1}}-1。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-471",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "b_{n+1}=2b_n，b_1=7≠0，公比为2。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-472",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "a_n = 2n - 1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由a_3=5和S_6=36解得a_1=1,d=2，通项a_n=2n-1。答案与解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 0,
+      "fail": 2,
+      "notes": "8题中6题通过，2题（465、467）因答案错误且解析矛盾被标记为失败，需修正答案。"
+    }
+  }
+}

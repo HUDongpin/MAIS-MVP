@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-262",
+  "startedAt": "2026-05-28T01:25:13.897Z",
+  "completedAt": "2026-05-28T01:25:18.709Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-262"
+  ],
+  "usage": {
+    "prompt_tokens": 2407,
+    "completion_tokens": 294,
+    "total_tokens": 2701,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2023
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-262",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "(x - 2)² + y² = 1 (除去点(2,0))",
+        "correctedAnswer": "(x - 2)² + y² = 1 (除去点(2,0))",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "正确轨迹为(x-2)²+y²=1（除去(2,0)），对应选项B。存储答案选A且解析得出(x-2)²+y²=4，存在数学错误，答案不匹配，解析矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目答案错误，正确选项为B，存储答案和解析均错误，需修正。"
+    }
+  }
+}

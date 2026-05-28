@@ -1,0 +1,191 @@
+{
+  "batchNumber": 38,
+  "startedAt": "2026-05-27T14:11:13.321Z",
+  "completedAt": "2026-05-27T14:11:32.777Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p3-167",
+    "bnu-primary-ds-v2-p3-168",
+    "bnu-primary-ds-v2-p3-169",
+    "bnu-primary-ds-v2-p3-170",
+    "bnu-primary-ds-v2-p3-171",
+    "bnu-primary-ds-v2-p3-172",
+    "bnu-primary-ds-v2-p3-173",
+    "bnu-primary-ds-v2-p3-174",
+    "bnu-primary-ds-v2-p3-175",
+    "bnu-primary-ds-v2-p3-176",
+    "bnu-primary-ds-v2-p3-177",
+    "bnu-primary-ds-v2-p3-178",
+    "bnu-primary-ds-v2-p3-179",
+    "bnu-primary-ds-v2-p3-180",
+    "bnu-primary-ds-v2-p3-181",
+    "bnu-primary-ds-v2-p3-182",
+    "bnu-primary-ds-v2-p3-183",
+    "bnu-primary-ds-v2-p3-184"
+  ],
+  "usage": {
+    "prompt_tokens": 3202,
+    "completion_tokens": 1327,
+    "total_tokens": 4529,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2818
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p3-167",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，拆分合理，答案与解释一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-168",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分步计算正确，答案1200本无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-169",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项A计算正确，其他选项均有错误，答案唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-170",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估算合理，68≈70，29≈30，70×30=2100。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-171",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算过程正确，24×15=360千克。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-172",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项A分步正确，其他选项计算错误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-173",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "竖式理解正确，十位上的1乘34得34个十。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-174",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估算过程合理，18≈20，32≈30，20×30=600。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-175",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "正确算式为24×16，其他选项不符合题意。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-176",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "拆分计算正确，41×20=820，41×2=82。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-177",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "竖式计算正确，35×14=490。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-178",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估算19×29≈600，最接近实际值551。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-179",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "面积模型正确，12×10=120，12×4=48。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-180",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，11×26=286本。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-181",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "货车载质量用吨合适，其他单位过小或非标准。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-182",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "25×4=100千克，计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-183",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "一本数学书约1千克，其他物品质量差距大。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-184",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "单位换算正确，5吨=5000千克。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版小学数学要求，无数学错误、答案不匹配或表述不清等问题。"
+    }
+  }
+}

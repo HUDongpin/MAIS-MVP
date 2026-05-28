@@ -1,0 +1,289 @@
+{
+  "batchId": "batch-039",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p1-191",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "hjb-primary-p1-lower-time-introduction",
+      "unitTitle": "时间的初步认识",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "time-introduction",
+        "clock-reading",
+        "daily-routines",
+        "时间初步认识"
+      ],
+      "competencyTags": [
+        "量感",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "整时半时",
+        "钟面观察",
+        "时间顺序",
+        "日常安排"
+      ],
+      "misconceptionTags": [
+        "hour and minute hands confused",
+        "event order inferred from preference rather than time",
+        "half-hour language read as a whole hour"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p1-lower-time-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-lower-assessment-time-introduction",
+        "hjb-primary-p1-lower-assessment-midterm-1-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明的钟面显示：时针指向8和9的中间，分针指向6。小明说：“现在是8时半。”他说得对吗？",
+      "optionsZhHans": [
+        "对",
+        "不对，应该是8时",
+        "不对，应该是9时半",
+        "不对，应该是9时"
+      ],
+      "answer": "对",
+      "acceptedAnswers": [
+        "对"
+      ],
+      "explanationZhHans": "时针在8和9中间，分针指向6表示半时，所以是8时半。小明说得对。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-192",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "hjb-primary-p1-lower-time-introduction",
+      "unitTitle": "时间的初步认识",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "time-introduction",
+        "clock-reading",
+        "daily-routines",
+        "时间初步认识"
+      ],
+      "competencyTags": [
+        "量感",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "整时半时",
+        "钟面观察",
+        "时间顺序",
+        "日常安排"
+      ],
+      "misconceptionTags": [
+        "hour and minute hands confused",
+        "event order inferred from preference rather than time",
+        "half-hour language read as a whole hour"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p1-lower-time-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-lower-assessment-time-introduction",
+        "hjb-primary-p1-lower-assessment-midterm-1-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "看钟面：时针指向7，分针指向12。这个时间是____时。",
+      "optionsZhHans": [],
+      "answer": "7",
+      "acceptedAnswers": [
+        "7",
+        "七"
+      ],
+      "explanationZhHans": "分针指向12，时针指向7，就是7时整。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-193",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "hjb-primary-p1-lower-time-introduction",
+      "unitTitle": "时间的初步认识",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "time-introduction",
+        "clock-reading",
+        "daily-routines",
+        "时间初步认识"
+      ],
+      "competencyTags": [
+        "量感",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "整时半时",
+        "钟面观察",
+        "时间顺序",
+        "日常安排"
+      ],
+      "misconceptionTags": [
+        "hour and minute hands confused",
+        "event order inferred from preference rather than time",
+        "half-hour language read as a whole hour"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p1-lower-time-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-lower-assessment-time-introduction",
+        "hjb-primary-p1-lower-assessment-midterm-1-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪件事最可能在上午9时半发生？",
+      "optionsZhHans": [
+        "吃午饭",
+        "在学校上课",
+        "晚上睡觉",
+        "看日落"
+      ],
+      "answer": "在学校上课",
+      "acceptedAnswers": [
+        "在学校上课"
+      ],
+      "explanationZhHans": "上午9时半是上课时间。吃午饭通常在中午，睡觉和看日落在晚上。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-194",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "hjb-primary-p1-lower-length-measurement",
+      "unitTitle": "长度的比较与测量",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "length-comparison",
+        "measurement-units",
+        "direct-indirect-comparison",
+        "长度测量"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "应用意识"
+      ],
+      "skillTags": [
+        "长短比较",
+        "直接比较",
+        "间接比较",
+        "选择测量单位",
+        "估测"
+      ],
+      "misconceptionTags": [
+        "starting point not aligned",
+        "larger unit count misread as longer object",
+        "curved or separated objects compared unfairly"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p1-lower-length-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-lower-assessment-length-measurement",
+        "hjb-primary-p1-lower-assessment-within-20-regrouping"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用铅笔测量课桌的长度，铅笔的一端对齐课桌的左端，另一端指向第8支铅笔的末尾。课桌的长度相当于____支铅笔的长度。",
+      "optionsZhHans": [],
+      "answer": "8",
+      "acceptedAnswers": [
+        "8",
+        "八"
+      ],
+      "explanationZhHans": "从起点对齐开始，到第8支铅笔末尾，正好是8支铅笔的长度。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-195",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "hjb-primary-p1-lower-length-measurement",
+      "unitTitle": "长度的比较与测量",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "length-comparison",
+        "measurement-units",
+        "direct-indirect-comparison",
+        "长度测量"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "应用意识"
+      ],
+      "skillTags": [
+        "长短比较",
+        "直接比较",
+        "间接比较",
+        "选择测量单位",
+        "估测"
+      ],
+      "misconceptionTags": [
+        "starting point not aligned",
+        "larger unit count misread as longer object",
+        "curved or separated objects compared unfairly"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p1-lower-length-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-lower-assessment-length-measurement",
+        "hjb-primary-p1-lower-assessment-within-20-regrouping"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "比较两根绳子的长度，哪种方法最公平？",
+      "optionsZhHans": [
+        "把两根绳子都拉直，一端对齐，看另一端谁更长",
+        "把一根绳子对折再对折，数折了几次",
+        "用手掂一掂哪根更重",
+        "用眼睛看哪根更粗"
+      ],
+      "answer": "把两根绳子都拉直，一端对齐，看另一端谁更长",
+      "acceptedAnswers": [
+        "把两根绳子都拉直，一端对齐，看另一端谁更长"
+      ],
+      "explanationZhHans": "比较长度要一端对齐、拉直后看另一端。对折、掂重量、看粗细都不公平。"
+    }
+  ]
+}

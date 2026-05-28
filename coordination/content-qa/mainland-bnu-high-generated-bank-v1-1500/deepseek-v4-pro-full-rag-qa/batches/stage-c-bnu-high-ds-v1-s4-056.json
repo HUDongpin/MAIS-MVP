@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-056",
+  "startedAt": "2026-05-28T00:57:02.386Z",
+  "completedAt": "2026-05-28T00:57:08.017Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-056"
+  ],
+  "usage": {
+    "prompt_tokens": 2652,
+    "completion_tokens": 261,
+    "total_tokens": 2913,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2268
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-056",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "9",
+        "correctedAnswer": "9",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，正确解为f(x)=x²，f(-3)=9。存储答案15错误，解析过程混乱且最终结果与正确解矛盾，属于严重数学错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目bnu-high-ds-v1-s4-056答案错误，正确解为9，存储答案15与解析均矛盾，判定为blocker。"
+    }
+  }
+}

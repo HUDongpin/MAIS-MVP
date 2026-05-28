@@ -1,0 +1,290 @@
+{
+  "batchId": "batch-236",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p5-176",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-fractions-equivalence-operations",
+      "unitTitle": "分数意义、性质与加减",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-equivalence",
+        "simplifying-fractions",
+        "common-denominators",
+        "fraction-addition-subtraction",
+        "分数"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "数学表达"
+      ],
+      "skillTags": [
+        "分数意义",
+        "分数基本性质",
+        "约分",
+        "通分",
+        "异分母加减"
+      ],
+      "misconceptionTags": [
+        "whole not identified before naming fraction",
+        "numerators and denominators added directly",
+        "common denominator selected without preserving value"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-fractions-equivalence-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit",
+        "hjb-primary-p5-upper-assessment-equations-relationships-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把一根长 3 米的绳子平均分成 8 段，每段长多少米？用分数表示，并化成最简分数。",
+      "optionsZhHans": [],
+      "answer": "3/8 米",
+      "acceptedAnswers": [
+        "3/8 米",
+        "3/8米",
+        "3/8"
+      ],
+      "explanationZhHans": "把 3 米平均分成 8 段，每段长 3÷8 = 3/8 米。3 和 8 互质，已是最简分数。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-177",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-fractions-equivalence-operations",
+      "unitTitle": "分数意义、性质与加减",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-equivalence",
+        "simplifying-fractions",
+        "common-denominators",
+        "fraction-addition-subtraction",
+        "分数"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "数学表达"
+      ],
+      "skillTags": [
+        "分数意义",
+        "分数基本性质",
+        "约分",
+        "通分",
+        "异分母加减"
+      ],
+      "misconceptionTags": [
+        "whole not identified before naming fraction",
+        "numerators and denominators added directly",
+        "common denominator selected without preserving value"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-fractions-equivalence-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit",
+        "hjb-primary-p5-upper-assessment-equations-relationships-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小华有一根彩带，第一次用去全长的 1/4，第二次用去全长的 2/5。两次一共用去全长的几分之几？请写出计算过程。",
+      "optionsZhHans": [],
+      "answer": "13/20",
+      "acceptedAnswers": [
+        "13/20",
+        "13/20（过程：1/4+2/5=5/20+8/20=13/20）"
+      ],
+      "explanationZhHans": "1/4 和 2/5 分母不同，通分：4 和 5 的最小公倍数是 20，1/4=5/20，2/5=8/20，相加得 13/20。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-178",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-fractions-equivalence-operations",
+      "unitTitle": "分数意义、性质与加减",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-equivalence",
+        "simplifying-fractions",
+        "common-denominators",
+        "fraction-addition-subtraction",
+        "分数"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "数学表达"
+      ],
+      "skillTags": [
+        "分数意义",
+        "分数基本性质",
+        "约分",
+        "通分",
+        "异分母加减"
+      ],
+      "misconceptionTags": [
+        "whole not identified before naming fraction",
+        "numerators and denominators added directly",
+        "common denominator selected without preserving value"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-fractions-equivalence-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit",
+        "hjb-primary-p5-upper-assessment-equations-relationships-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个分数与 3/5 相等？",
+      "optionsZhHans": [
+        "6/10",
+        "9/20",
+        "12/15",
+        "15/30"
+      ],
+      "answer": "6/10",
+      "acceptedAnswers": [
+        "6/10"
+      ],
+      "explanationZhHans": "3/5 的分子分母同时乘 2 得到 6/10，分数值不变。其他选项：9/20 是 3/5 分子乘 3 分母乘 4，值改变；12/15 约分后是 4/5；15/30 约分后是 1/2。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-179",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-fractions-equivalence-operations",
+      "unitTitle": "分数意义、性质与加减",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-equivalence",
+        "simplifying-fractions",
+        "common-denominators",
+        "fraction-addition-subtraction",
+        "分数"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "数学表达"
+      ],
+      "skillTags": [
+        "分数意义",
+        "分数基本性质",
+        "约分",
+        "通分",
+        "异分母加减"
+      ],
+      "misconceptionTags": [
+        "whole not identified before naming fraction",
+        "numerators and denominators added directly",
+        "common denominator selected without preserving value"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-fractions-equivalence-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit",
+        "hjb-primary-p5-upper-assessment-equations-relationships-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在括号里填上适当的数，使等式成立：5/8 = ( )/24。",
+      "optionsZhHans": [],
+      "answer": "15",
+      "acceptedAnswers": [
+        "15"
+      ],
+      "explanationZhHans": "分母 8 乘 3 得 24，根据分数的基本性质，分子也要乘 3，5×3=15，所以填 15。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-180",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-fractions-equivalence-operations",
+      "unitTitle": "分数意义、性质与加减",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-equivalence",
+        "simplifying-fractions",
+        "common-denominators",
+        "fraction-addition-subtraction",
+        "分数"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "数学表达"
+      ],
+      "skillTags": [
+        "分数意义",
+        "分数基本性质",
+        "约分",
+        "通分",
+        "异分母加减"
+      ],
+      "misconceptionTags": [
+        "whole not identified before naming fraction",
+        "numerators and denominators added directly",
+        "common denominator selected without preserving value"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-fractions-equivalence-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit",
+        "hjb-primary-p5-upper-assessment-equations-relationships-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "比较 3/7 和 5/14 的大小，写出比较过程。",
+      "optionsZhHans": [],
+      "answer": "3/7 > 5/14",
+      "acceptedAnswers": [
+        "3/7 > 5/14",
+        "3/7 大于 5/14",
+        "3/7大"
+      ],
+      "explanationZhHans": "通分：7 和 14 的最小公倍数是 14，3/7=6/14，因为 6/14 > 5/14，所以 3/7 > 5/14。"
+    }
+  ]
+}

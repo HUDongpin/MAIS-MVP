@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-068",
+  "startedAt": "2026-05-28T01:38:57.736Z",
+  "completedAt": "2026-05-28T01:39:02.256Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-068"
+  ],
+  "usage": {
+    "prompt_tokens": 2226,
+    "completion_tokens": 245,
+    "total_tokens": 2471,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1842
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-068",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "146",
+        "correctedAnswer": "146",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，独立计算得 a_10=146。存储答案为155，与正确结果146不符，且解析中明确算出146，存在答案错误和解析矛盾，属于严重问题。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1题答案错误，存储答案与解析矛盾，正确结果应为146。"
+    }
+  }
+}

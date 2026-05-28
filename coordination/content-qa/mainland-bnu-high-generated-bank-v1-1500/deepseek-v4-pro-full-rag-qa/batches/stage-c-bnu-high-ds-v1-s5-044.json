@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-044",
+  "startedAt": "2026-05-28T02:02:55.395Z",
+  "completedAt": "2026-05-28T02:03:00.872Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-044"
+  ],
+  "usage": {
+    "prompt_tokens": 2343,
+    "completion_tokens": 351,
+    "total_tokens": 2694,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1959
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-044",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "轨迹方程为 (x - 2.5)² + (y - 4)² = 1.25，轨迹是以(2.5,4)为圆心，√1.25为半径的圆。",
+        "correctedAnswer": "轨迹方程为 (x - 2.5)² + (y - 4)² = 1.25，轨迹是以(2.5,4)为圆心，√1.25为半径的圆。",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合教材范围。独立求解得半径平方为1.25，但存储答案和解析中错误地给出1.5，常数项整理有误，导致答案和解释均不匹配，属于严重数学错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "该题答案和解析存在计算错误，半径平方应为1.25而非1.5，需修正。"
+    }
+  }
+}

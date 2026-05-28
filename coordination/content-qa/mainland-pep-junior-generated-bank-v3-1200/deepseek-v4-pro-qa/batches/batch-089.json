@@ -1,0 +1,137 @@
+{
+  "batchNumber": 89,
+  "startedAt": "2026-05-24T23:03:33.634Z",
+  "completedAt": "2026-05-24T23:03:48.434Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s3-k11-mc-057",
+    "pep-junior-v3-s3-k11-mc-058",
+    "pep-junior-v3-s3-k11-mc-059",
+    "pep-junior-v3-s3-k11-mc-060",
+    "pep-junior-v3-s3-k11-mc-061",
+    "pep-junior-v3-s3-k11-mc-062",
+    "pep-junior-v3-s3-k11-mc-063",
+    "pep-junior-v3-s3-k11-mc-064",
+    "pep-junior-v3-s3-k11-mc-065",
+    "pep-junior-v3-s3-k11-mc-066",
+    "pep-junior-v3-s3-k11-fi-001",
+    "pep-junior-v3-s3-k11-fi-002"
+  ],
+  "usage": {
+    "prompt_tokens": 3706,
+    "completion_tokens": 966,
+    "total_tokens": 4672,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 3450
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s3-k11-mc-057",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移计算正确，选项唯一，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-mc-058",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "反比例函数面积公式推导正确，k=8，选项无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-mc-059",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程列式正确，利润=售价-进价，选项A符合。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-mc-060",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "全等三角形证明合理，CF=AD=8，答案正确。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-mc-061",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "三角函数计算正确，sin∠BCD=4/5，解释清晰。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-mc-062",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "反比例函数求值正确，m=6，选项无重复。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-mc-063",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "解方程组正确，交点(2,3)，选项唯一。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-mc-064",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "判别式Δ>0得m<4，选项正确。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-mc-065",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "无理数判断正确，√8是无理数，其他为有理数。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-mc-066",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "二次方程求解正确，取低价12元，符合题意。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-fi-001",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "正弦定义直接求BC=6，答案正确。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-fi-002",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "反比例函数象限条件k<0，答案正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部12道题均通过审核，数学正确，答案与解释一致，无歧义或缺失条件。"
+    }
+  }
+}

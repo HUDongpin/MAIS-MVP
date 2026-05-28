@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-133",
+  "startedAt": "2026-05-28T01:36:15.978Z",
+  "completedAt": "2026-05-28T01:36:26.924Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-057",
+    "bnu-high-ds-v1-s6-058",
+    "bnu-high-ds-v1-s6-059",
+    "bnu-high-ds-v1-s6-060",
+    "bnu-high-ds-v1-s6-061",
+    "bnu-high-ds-v1-s6-062",
+    "bnu-high-ds-v1-s6-063",
+    "bnu-high-ds-v1-s6-064"
+  ],
+  "usage": {
+    "prompt_tokens": 10048,
+    "completion_tokens": 927,
+    "total_tokens": 10975,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9664
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-057",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "a_n = 5 * 2^{n-1} - 3n - 2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "递推关系为线性非齐次，通过待定系数构造辅助数列，解得通项公式。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-058",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "10",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "利用等比数列性质和对数运算，所求和对数为5*log_3(a_5*a_6)=5*2=10。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-059",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "a_n = 2 - 1/n, lim_{n→∞} a_n = 2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "裂项求和得通项，极限为2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-060",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "45",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由S_n求a_n，a_5+a_6+a_7=S_7-S_4=63-18=45。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-061",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "5×(2^10 - 1)",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "构造等比数列{b_n}，首项5，公比2，前10项和为5*(2^10-1)。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-062",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "a_n = 2n + 2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由等差数列性质得a_5=10，结合a_5=12矛盾，重新计算得a_1=4, d=2，通项a_n=2n+2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-063",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "400",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "累加法得a_n=n^2，a_20=400。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-064",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "24",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "各项为正得q=2，a_4=3*2^3=24。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均可独立求解，无歧义或错误，符合北师大版高中数列内容要求。"
+    }
+  }
+}

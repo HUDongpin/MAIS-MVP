@@ -1,0 +1,50 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-340",
+  "startedAt": "2026-05-28T02:42:20.414Z",
+  "completedAt": "2026-05-28T02:42:26.484Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-340"
+  ],
+  "usage": {
+    "prompt_tokens": 2681,
+    "completion_tokens": 339,
+    "total_tokens": 3020,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2297
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-340",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "independentAnswer": null,
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "unsolvable",
+          "bad_options",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "由条件c∥(a+b)且c⊥(a−b)，a+b=(1,5)，a−b=(3,1)，设c=λ(1,5)，则c·(a−b)=8λ=0，得λ=0，c为零向量。零向量方向任意，通常不认为与给定向量平行或垂直，且选项无零向量，故题目条件矛盾无解。存储答案(5,5)错误，解析混乱。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目条件矛盾，无解，选项均不正确，判定为阻断性错误。"
+    }
+  }
+}

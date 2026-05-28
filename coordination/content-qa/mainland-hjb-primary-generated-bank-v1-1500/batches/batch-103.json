@@ -1,0 +1,289 @@
+{
+  "batchId": "batch-103",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p3-011",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-review-place-value-operations",
+      "unitTitle": "三年级上册复习与数的运算",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "p3-upper-review",
+        "place-value-review",
+        "multi-digit-add-sub-review",
+        "operation-relationships",
+        "复习与提高"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "反思整理"
+      ],
+      "skillTags": [
+        "位值复习",
+        "加减验算",
+        "乘除关系",
+        "估算检查",
+        "错因说明"
+      ],
+      "misconceptionTags": [
+        "place value read as digit name only",
+        "inverse relationship used after error only",
+        "estimate disconnected from exact calculation"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-review-place-value-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-review-operations",
+        "hjb-primary-p3-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小马虎计算 528 + 196 时，把 528 看成了 582，算出的结果是 778。他检查时想用减法验算，但不知道正确的和应该是多少。请你帮他分析：他看错的数在百位、十位、个位上分别发生了什么变化？正确的和是多少？",
+      "optionsZhHans": [],
+      "answer": "百位不变，十位多了5个十，个位少了4个一；正确的和是724",
+      "acceptedAnswers": [
+        "百位不变，十位多了5个十，个位少了4个一；正确的和是724",
+        "百位不变，十位多了5，个位少了4；正确的和是724",
+        "百位不变，十位多5，个位少4；正确的和是724"
+      ],
+      "explanationZhHans": "582比528十位多5，个位少4。错误和778多加了50又少加了4，实际多加了46。正确和是778 - 46 = 724。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-012",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-review-place-value-operations",
+      "unitTitle": "三年级上册复习与数的运算",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "p3-upper-review",
+        "place-value-review",
+        "multi-digit-add-sub-review",
+        "operation-relationships",
+        "复习与提高"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "反思整理"
+      ],
+      "skillTags": [
+        "位值复习",
+        "加减验算",
+        "乘除关系",
+        "估算检查",
+        "错因说明"
+      ],
+      "misconceptionTags": [
+        "place value read as digit name only",
+        "inverse relationship used after error only",
+        "estimate disconnected from exact calculation"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-review-place-value-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-review-operations",
+        "hjb-primary-p3-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小胖在计算 7 × □ = 56 时，想：因为 56 ÷ 7 = 8，所以 □ 里填 8。后来他又遇到 9 × □ = 63，他直接用 63 ÷ 9 = 7 得到答案。请你用乘除法关系解释：为什么可以用除法来求乘法算式中的未知数？再举一个你生活中的例子说明。",
+      "optionsZhHans": [],
+      "answer": "因为乘法和除法互为逆运算，已知积和一个乘数，可以用积除以已知乘数得到另一个乘数。例子合理即可。",
+      "acceptedAnswers": [
+        "因为乘法和除法互为逆运算，已知积和一个乘数，可以用积除以已知乘数得到另一个乘数。例子合理即可。",
+        "因为乘除互逆，积除以一个乘数等于另一个乘数。例子合理即可。"
+      ],
+      "explanationZhHans": "乘除法互为逆运算：如果 a × b = c，那么 c ÷ a = b。小胖用除法求未知乘数正是利用这个关系。生活例子如：每袋糖8颗，几袋共56颗？用56÷8=7袋。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-013",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-review-place-value-operations",
+      "unitTitle": "三年级上册复习与数的运算",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "p3-upper-review",
+        "place-value-review",
+        "multi-digit-add-sub-review",
+        "operation-relationships",
+        "复习与提高"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "反思整理"
+      ],
+      "skillTags": [
+        "位值复习",
+        "加减验算",
+        "乘除关系",
+        "估算检查",
+        "错因说明"
+      ],
+      "misconceptionTags": [
+        "place value read as digit name only",
+        "inverse relationship used after error only",
+        "estimate disconnected from exact calculation"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-review-place-value-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-review-operations",
+        "hjb-primary-p3-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪种验算方法可以检验 435 + 278 = 713 是否正确？",
+      "optionsZhHans": [
+        "A. 用 713 - 435，看是否等于 278",
+        "B. 用 713 + 278，看是否等于 435",
+        "C. 用 435 - 278，看是否等于 713",
+        "D. 用 278 - 435，看是否等于 713"
+      ],
+      "answer": "A. 用 713 - 435，看是否等于 278",
+      "acceptedAnswers": [
+        "A. 用 713 - 435，看是否等于 278"
+      ],
+      "explanationZhHans": "加法可以用减法验算：和减去一个加数等于另一个加数。713 - 435 = 278，符合逆运算关系，所以A正确。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-014",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-review-place-value-operations",
+      "unitTitle": "三年级上册复习与数的运算",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "p3-upper-review",
+        "place-value-review",
+        "multi-digit-add-sub-review",
+        "operation-relationships",
+        "复习与提高"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "反思整理"
+      ],
+      "skillTags": [
+        "位值复习",
+        "加减验算",
+        "乘除关系",
+        "估算检查",
+        "错因说明"
+      ],
+      "misconceptionTags": [
+        "place value read as digit name only",
+        "inverse relationship used after error only",
+        "estimate disconnected from exact calculation"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-review-place-value-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-review-operations",
+        "hjb-primary-p3-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用递等式计算：128 + 45 × 6",
+      "optionsZhHans": [],
+      "answer": "398",
+      "acceptedAnswers": [
+        "398"
+      ],
+      "explanationZhHans": "先算乘法：45 × 6 = 270，再算加法：128 + 270 = 398。注意运算顺序：先乘除后加减。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-015",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-review-place-value-operations",
+      "unitTitle": "三年级上册复习与数的运算",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "p3-upper-review",
+        "place-value-review",
+        "multi-digit-add-sub-review",
+        "operation-relationships",
+        "复习与提高"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "反思整理"
+      ],
+      "skillTags": [
+        "位值复习",
+        "加减验算",
+        "乘除关系",
+        "估算检查",
+        "错因说明"
+      ],
+      "misconceptionTags": [
+        "place value read as digit name only",
+        "inverse relationship used after error only",
+        "estimate disconnected from exact calculation"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-review-place-value-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-review-operations",
+        "hjb-primary-p3-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆原来有 340 本书，又买来 5 包新书，每包 25 本。现在图书馆一共有多少本书？请先估算结果大约是多少，再列式计算，最后用逆运算检验你的答案。",
+      "optionsZhHans": [],
+      "answer": "估算：5包约125本，共约465本；计算：340 + 25 × 5 = 340 + 125 = 465（本）；检验：465 - 340 = 125，125 ÷ 5 = 25，正确。",
+      "acceptedAnswers": [
+        "估算：5包约125本，共约465本；计算：340 + 25 × 5 = 340 + 125 = 465（本）；检验：465 - 340 = 125，125 ÷ 5 = 25，正确。",
+        "估算：大约465本；计算：340+25×5=465本；检验：465-340=125，125÷5=25，正确。"
+      ],
+      "explanationZhHans": "先算买来的书：25×5=125本，再算总数：340+125=465本。估算时把25看作25，125+340≈465。逆运算检验：总数减去原有书得新书总数，再除以包数得每包本数。"
+    }
+  ]
+}

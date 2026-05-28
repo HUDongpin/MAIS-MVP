@@ -1,0 +1,138 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-049",
+  "startedAt": "2026-05-28T02:37:56.665Z",
+  "completedAt": "2026-05-28T02:38:17.513Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-385",
+    "bnu-high-ds-v1-s4-386",
+    "bnu-high-ds-v1-s4-387",
+    "bnu-high-ds-v1-s4-388",
+    "bnu-high-ds-v1-s4-389",
+    "bnu-high-ds-v1-s4-390",
+    "bnu-high-ds-v1-s4-391",
+    "bnu-high-ds-v1-s4-392"
+  ],
+  "usage": {
+    "prompt_tokens": 13332,
+    "completion_tokens": 1255,
+    "total_tokens": 14587,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 12948
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-385",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案B正确，但解析错误地声称A、C正确且题目为单选，与数学事实矛盾。解析称A正确但非选项，C正确但非单选，实际上A错误（最高25℃在t=12，但选项A说出现在t=12时，正确，但解析说A正确却非选项，自相矛盾；C错误，温度在[6,18]非单调递增）。解析存在严重错误，必须标记为fail。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-386",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "25(3+√3)米",
+        "issueTags": [
+          "math_error"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案25(√3+1)米错误，正确河宽为25(3+√3)米。解析过程正确但最终结果错误，应为25(3+√3)而非25(√3+1)。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-387",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案DE=(c-b)/2，DE∥BC且DE=BC/2与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-388",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案B正确，解析虽对选项C、D分析不够严谨，但最终结论正确，无严重错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-389",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "10秒",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案20秒错误，正确累计时间为10秒。解析错误地认为一个周期内解集为(5,25)时长20秒，忽略了sin>1/2在一个周期内有两个区间，总时长应为10秒。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-390",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案h = 50 / (cotβ - cotα)与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-391",
+        "answerMatchStatus": "not_checkable",
+        "explanationMatchStatus": "not_checkable",
+        "mcUniquenessStatus": "not_checkable",
+        "correctedAnswer": null,
+        "issueTags": [
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "low",
+        "rationaleZhHans": "Stage A独立解因超时未得出，无法比对。题目可能数据有误（仰角30°时塔高约56.6m，无匹配选项），存储答案B. 35 m可能基于错误假设，但无法确认。标记为不可检查。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-392",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "约6.4小时",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案8小时错误，正确累计时间约为6.4小时。解析过程混乱，最终给出错误答案。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 3,
+      "warn": 0,
+      "fail": 4,
+      "notes": "共8题，3题通过，4题失败（含答案错误、解析矛盾），1题因Stage A超时不可检查。主要问题：385解析矛盾，386答案错误，389答案错误，392答案错误。"
+    }
+  }
+}

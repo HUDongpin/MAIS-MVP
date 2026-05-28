@@ -1,0 +1,191 @@
+{
+  "batchNumber": 8,
+  "startedAt": "2026-05-25T01:48:39.382Z",
+  "completedAt": "2026-05-25T01:48:59.878Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p1-127",
+    "hjb-primary-ds-v1-p1-128",
+    "hjb-primary-ds-v1-p1-129",
+    "hjb-primary-ds-v1-p1-130",
+    "hjb-primary-ds-v1-p1-131",
+    "hjb-primary-ds-v1-p1-132",
+    "hjb-primary-ds-v1-p1-133",
+    "hjb-primary-ds-v1-p1-134",
+    "hjb-primary-ds-v1-p1-135",
+    "hjb-primary-ds-v1-p1-136",
+    "hjb-primary-ds-v1-p1-137",
+    "hjb-primary-ds-v1-p1-138",
+    "hjb-primary-ds-v1-p1-139",
+    "hjb-primary-ds-v1-p1-140",
+    "hjb-primary-ds-v1-p1-141",
+    "hjb-primary-ds-v1-p1-142",
+    "hjb-primary-ds-v1-p1-143",
+    "hjb-primary-ds-v1-p1-144"
+  ],
+  "usage": {
+    "prompt_tokens": 3510,
+    "completion_tokens": 1365,
+    "total_tokens": 4875,
+    "prompt_tokens_details": {
+      "cached_tokens": 3456
+    },
+    "prompt_cache_hit_tokens": 3456,
+    "prompt_cache_miss_tokens": 54
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p1-127",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "三种方法均正确，答案“以上都对”合理，解释清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-128",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "填空答案“连减”准确，接受答案覆盖常见说法，解释正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-129",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "要求两种方法，答案给出破十法和想加算减，过程正确，接受答案合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-130",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "所有选项结果均为5，答案“以上都是”正确，解释清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-131",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案6正确，接受答案包含“6颗”，解释中破十法和想加算减均合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-132",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案15正确，接受答案包含凑十法过程，解释合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-133",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项B正确描述了破十法，答案唯一，解释清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-134",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案7正确，利用想加算减，解释合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-135",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案14-9=5正确，接受答案覆盖多种格式，解释合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-136",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "三种方法均正确，答案“以上方法都对”合理，解释清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-137",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案75正确，符合数位关系，解释合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-138",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "规律正确，答案60,40准确，接受答案覆盖常见分隔符。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-139",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "59在56和63之间，选项唯一正确，解释清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-140",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案63正确，数位组合无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-141",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案63正确，小棒表示数位清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-142",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案52正确，十位5个位2，解释提醒避免写反。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-143",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案40正确，整十数序列规律明显。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-144",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案80正确，比79大1。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合沪教版小学数学一年级要求，数学正确，答案匹配，无歧义或缺失条件，适合公共题库使用。"
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-041",
+  "startedAt": "2026-05-28T00:56:28.797Z",
+  "completedAt": "2026-05-28T00:56:35.540Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-041"
+  ],
+  "usage": {
+    "prompt_tokens": 2067,
+    "completion_tokens": 312,
+    "total_tokens": 2379,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1683
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-041",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "[-1, 0] 和 [1, +∞)",
+        "correctedAnswer": "[-1, 0] 和 [1, +∞)",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "函数为偶函数，x≥0时f(x)=x^2-2x，递增区间为[1,+∞)；由对称性，x<0时f(x)=x^2+2x，递增区间为[-1,0]。存储答案(-∞,-1]错误，解析中x≤-1递增的推理错误。正确答案为[-1,0]和[1,+∞)。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "存储答案与解析均存在数学错误，偶函数对称性应用不当，导致递增区间错误。"
+    }
+  }
+}

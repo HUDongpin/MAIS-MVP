@@ -1,0 +1,185 @@
+{
+  "batchNumber": 68,
+  "startedAt": "2026-05-27T17:42:26.098Z",
+  "completedAt": "2026-05-27T17:42:45.748Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s2-305",
+    "bnu-junior-ds-v1-s2-306",
+    "bnu-junior-ds-v1-s2-307",
+    "bnu-junior-ds-v1-s2-308",
+    "bnu-junior-ds-v1-s2-309",
+    "bnu-junior-ds-v1-s2-310",
+    "bnu-junior-ds-v1-s2-311",
+    "bnu-junior-ds-v1-s2-312",
+    "bnu-junior-ds-v1-s2-313",
+    "bnu-junior-ds-v1-s2-314",
+    "bnu-junior-ds-v1-s2-315",
+    "bnu-junior-ds-v1-s2-316"
+  ],
+  "usage": {
+    "prompt_tokens": 7480,
+    "completion_tokens": 1402,
+    "total_tokens": 8882,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 6968
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s2-305",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": null,
+        "rationale": "题目要求证明AD=BD，但提供的解释中∠ADB=80°，∠ABD=70°，无法推出AD=BD，且解释最后一句“所以AD=BD”与前面推导矛盾，答案错误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-306",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": null,
+        "rationale": "解释中得出∠ADC=90°，但答案为115°，解释与答案不一致，且解释中∠ADB=90°正确，∠ADC应为90°，答案错误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-307",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": null,
+        "rationale": "解释中得出∠EDF=100°，但答案为80°，解释与答案矛盾，且根据正确计算∠EDF应为100°，答案错误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-308",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，解答正确，∠CDE=20°与答案一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-309",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，解答正确，∠DBC=30°与答案一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-310",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，解答正确，∠EDF=100°与答案一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-311",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，解答正确，所有可能的租车方案与答案一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-312",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，解答正确，m≤1与答案一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-313",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，解答正确，x>3与答案一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-314",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，解答正确，解集2<x≤3与答案一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-315",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，解答正确，a<2与答案一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-316",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": null,
+        "rationale": "解释中得出无公共部分，但答案为m<0，解释与答案矛盾，且正确解应为无解，答案错误。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 4,
+      "notes": "共12题，8题通过，4题不通过。不通过题目均为答案或解释错误：305题证明结论与推导矛盾；306题答案与解释不一致；307题答案与解释不一致；316题解释与答案矛盾且正确解应为无解。"
+    }
+  }
+}

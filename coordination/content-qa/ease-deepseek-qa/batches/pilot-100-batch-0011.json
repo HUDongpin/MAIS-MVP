@@ -1,0 +1,103 @@
+{
+  "scope": "pilot-100",
+  "batchIndex": 11,
+  "startedAt": "2026-05-28T03:17:23.913Z",
+  "completedAt": "2026-05-28T03:17:57.763Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "itemIds": [
+    "48",
+    "10343",
+    "10632",
+    "10379",
+    "100000138"
+  ],
+  "usage": {
+    "prompt_tokens": 1692,
+    "completion_tokens": 2013,
+    "total_tokens": 3705,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1396
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1308
+  },
+  "finishReason": "stop",
+  "jsonModeFallback": false,
+  "result": {
+    "items": [
+      {
+        "questionId": "48",
+        "questionType": "MCQ",
+        "hasImage": false,
+        "standardAnswer": "D",
+        "independentAnswer": "D",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "題目明確，答案正確。456可被6整除。",
+        "recommendedAction": "none"
+      },
+      {
+        "questionId": "10343",
+        "questionType": "FRQ",
+        "hasImage": true,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": null,
+        "solvabilityStatus": "image-context-required",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "需要查看量杯圖片才能得知水瓶A的容量。且標準答案未提供。",
+        "recommendedAction": "提供圖片或描述量杯刻度; 添加標準答案。"
+      },
+      {
+        "questionId": "10632",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "2911",
+        "independentAnswer": "2911",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "可直接計算，答案正確。",
+        "recommendedAction": "none"
+      },
+      {
+        "questionId": "10379",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": "20458",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "題目可解，但標準答案未提供。",
+        "recommendedAction": "添加標準答案 20458。"
+      },
+      {
+        "questionId": "100000138",
+        "questionType": "BFQ",
+        "hasImage": false,
+        "standardAnswer": "1",
+        "independentAnswer": "1",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "題目可解，答案正確。",
+        "recommendedAction": "none"
+      }
+    ],
+    "batchSummary": {
+      "pass": 3,
+      "unsolvable": 0,
+      "ambiguous": 0,
+      "imageContextRequired": 1,
+      "answerMismatch": 0,
+      "missingAnswerKey": 2,
+      "notes": "有2題缺少標準答案，其中1題同時需要圖片。其餘3題完全正確。"
+    }
+  }
+}

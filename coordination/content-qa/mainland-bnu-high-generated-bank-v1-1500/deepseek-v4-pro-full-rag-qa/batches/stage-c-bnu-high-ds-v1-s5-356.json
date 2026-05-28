@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-356",
+  "startedAt": "2026-05-28T03:02:39.180Z",
+  "completedAt": "2026-05-28T03:02:45.334Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-356"
+  ],
+  "usage": {
+    "prompt_tokens": 2459,
+    "completion_tokens": 254,
+    "total_tokens": 2713,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2075
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-356",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "720",
+        "correctedAnswer": "720",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合教材范围。独立求解得720，与存储答案7200不符，且解析过程错误（未正确选人、排列计算有误），属于严重数学错误和答案矛盾，必须修正。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "存储答案7200错误，正确为720，解析与答案矛盾，判定为blocker。"
+    }
+  }
+}

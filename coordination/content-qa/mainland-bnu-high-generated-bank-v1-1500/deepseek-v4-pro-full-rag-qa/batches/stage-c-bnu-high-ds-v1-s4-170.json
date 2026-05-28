@@ -1,0 +1,48 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-170",
+  "startedAt": "2026-05-28T01:03:57.926Z",
+  "completedAt": "2026-05-28T01:04:02.899Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-170"
+  ],
+  "usage": {
+    "prompt_tokens": 2076,
+    "completion_tokens": 277,
+    "total_tokens": 2353,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1692
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-170",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "y=(x-30)(1000+20(50-x))，x∈(30,50]",
+        "correctedAnswer": "y=(x-30)(1000+20(50-x))，x∈(30,50]",
+        "issueTags": [
+          "math_error",
+          "missing_condition"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案x∈[30,100]错误：未考虑定价通常不高于原价50元，且x=30时利润为0，实际取值范围应为(30,50]。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1题答案错误，取值范围应为(30,50]，而非[30,100]。"
+    }
+  }
+}

@@ -1,0 +1,355 @@
+{
+  "batchId": "batch-033",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s1-k05-mc-020",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-real-numbers"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "某社区为鼓励居民节约用水，规定每户每月用水量不超过8吨时，每吨收费2元；超过8吨的部分，每吨收费3元。小丽家上月用水x吨（x>8），她家水费y元可以用哪个关系式表示？",
+      "optionsZhHans": [
+        "y = 2x",
+        "y = 3x - 8",
+        "y = 2×8 + 3(x - 8)",
+        "y = 2(x - 8) + 3×8"
+      ],
+      "answer": "y = 2×8 + 3(x - 8)",
+      "acceptedAnswers": [
+        "y = 2×8 + 3(x - 8)",
+        "y=2×8+3(x-8)",
+        "y = 16 + 3(x - 8)",
+        "y=16+3(x-8)",
+        "y = 3x - 8",
+        "y=3x-8"
+      ],
+      "explanationZhHans": "不超过8吨的部分水费为2×8元，超过8吨的部分为(x-8)吨，每吨3元，水费为3(x-8)元，总水费y = 2×8 + 3(x - 8)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-mc-021",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-coordinate-plane"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "已知点P的坐标为(a, b)，且ab<0，则点P在哪个象限？",
+      "optionsZhHans": [
+        "第一象限或第三象限",
+        "第二象限或第四象限",
+        "第一象限或第二象限",
+        "第三象限或第四象限"
+      ],
+      "answer": "第二象限或第四象限",
+      "acceptedAnswers": [
+        "第二象限或第四象限"
+      ],
+      "explanationZhHans": "因为ab<0，所以a和b异号。当a>0，b<0时，点P在第四象限；当a<0，b>0时，点P在第二象限。因此点P在第二象限或第四象限。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-mc-022",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-linear-systems"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "为了解某校七年级学生每天完成家庭作业的时间，以下调查方式中，最合理的是：",
+      "optionsZhHans": [
+        "调查该校七年级每个班的班长",
+        "调查该校七年级成绩最好的20名学生",
+        "从该校七年级每个班随机抽取5名学生进行调查",
+        "调查该校七年级所有参加数学兴趣小组的学生"
+      ],
+      "answer": "从该校七年级每个班随机抽取5名学生进行调查",
+      "acceptedAnswers": [
+        "从该校七年级每个班随机抽取5名学生进行调查"
+      ],
+      "explanationZhHans": "抽样调查时，样本要具有代表性。选项A只调查班长，选项B只调查成绩好的学生，选项D只调查数学兴趣小组的学生，样本都不具有代表性。选项C采用随机抽样，样本具有代表性，因此最合理。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-mc-023",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-inequalities"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "下列各数中，比√3大且比√10小的整数是：",
+      "optionsZhHans": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2"
+      ],
+      "explanationZhHans": "因为1<√3<2，3<√10<4，所以比√3大且比√10小的整数只有2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-mc-024",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "直线AB与CD相交于点O，OE平分∠AOC。若∠AOD=130°，求∠COE的度数。",
+      "optionsZhHans": [
+        "25°",
+        "50°",
+        "65°",
+        "75°"
+      ],
+      "answer": "25°",
+      "acceptedAnswers": [
+        "25°",
+        "25度",
+        "25"
+      ],
+      "explanationZhHans": "因为∠AOD与∠AOC是邻补角，所以∠AOC=180°-130°=50°。又因为OE平分∠AOC，所以∠COE=1/2×50°=25°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-mc-025",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-data-collection"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "某班40名学生参加植树活动，统计结果如下表：\n\n| 植树数量（棵） | 3 | 4 | 5 | 6 |\n|--------------|---|---|---|---|\n| 人数          | 8 | 12| 14| 6 |\n\n该班学生植树数量的众数是：",
+      "optionsZhHans": [
+        "3",
+        "4",
+        "5",
+        "6"
+      ],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5"
+      ],
+      "explanationZhHans": "众数是一组数据中出现次数最多的数据。植树5棵的人数最多，为14人，所以众数是5。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-mc-026",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "某商店销售A、B两种商品，A商品每件利润20元，B商品每件利润15元。若一天销售A、B共50件，总利润为850元，则销售A商品多少件？",
+      "optionsZhHans": [
+        "10",
+        "20",
+        "25",
+        "30"
+      ],
+      "answer": "20",
+      "acceptedAnswers": [
+        "20",
+        "20件"
+      ],
+      "explanationZhHans": "设销售A商品x件，则销售B商品(50-x)件。根据总利润列方程：20x+15(50-x)=850，解得x=20。所以销售A商品20件。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-mc-027",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-real-numbers"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "下列调查中，适合用全面调查（普查）的是：",
+      "optionsZhHans": [
+        "了解一批灯泡的使用寿命",
+        "了解某市中学生每天的睡眠时间",
+        "了解某班学生校服的尺码情况",
+        "了解某品牌新能源汽车的续航里程"
+      ],
+      "answer": "了解某班学生校服的尺码情况",
+      "acceptedAnswers": [
+        "了解某班学生校服的尺码情况"
+      ],
+      "explanationZhHans": "全面调查适合调查对象数量少、容易实施且需要精确结果的情况。某班学生人数较少，校服尺码需要精确数据，适合全面调查。其他选项调查对象数量多或具有破坏性，适合抽样调查。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-mc-028",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-coordinate-plane"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "在平面直角坐标系中，将点A(-2, 3)先向右平移4个单位，再向下平移1个单位，得到点B，则点B的坐标是：",
+      "optionsZhHans": [
+        "(2, 2)",
+        "(-6, 4)",
+        "(2, 4)",
+        "(-6, 2)"
+      ],
+      "answer": "(2, 2)",
+      "acceptedAnswers": [
+        "(2, 2)",
+        "(2,2)",
+        "2,2"
+      ],
+      "explanationZhHans": "点A(-2,3)向右平移4个单位，横坐标加4，得(2,3)；再向下平移1个单位，纵坐标减1，得(2,2)。所以点B的坐标是(2,2)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-mc-029",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-linear-systems"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "已知二元一次方程组：\n3x - y = 5\nx + 2y = 4\n则x+y的值为：",
+      "optionsZhHans": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "answer": "3",
+      "acceptedAnswers": [
+        "3"
+      ],
+      "explanationZhHans": "解方程组：由①得y=3x-5，代入②得x+2(3x-5)=4，7x-10=4，x=2，y=1，所以x+y=3。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

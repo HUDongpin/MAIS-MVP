@@ -1,0 +1,173 @@
+{
+  "batchNumber": 109,
+  "startedAt": "2026-05-27T18:00:21.339Z",
+  "completedAt": "2026-05-27T18:00:40.660Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s3-297",
+    "bnu-junior-ds-v1-s3-298",
+    "bnu-junior-ds-v1-s3-299",
+    "bnu-junior-ds-v1-s3-300",
+    "bnu-junior-ds-v1-s3-301",
+    "bnu-junior-ds-v1-s3-302",
+    "bnu-junior-ds-v1-s3-303",
+    "bnu-junior-ds-v1-s3-304",
+    "bnu-junior-ds-v1-s3-305",
+    "bnu-junior-ds-v1-s3-306",
+    "bnu-junior-ds-v1-s3-307",
+    "bnu-junior-ds-v1-s3-308"
+  ],
+  "usage": {
+    "prompt_tokens": 8367,
+    "completion_tokens": 1404,
+    "total_tokens": 9771,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 7855
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s3-297",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，反比例函数增减性与比例系数符号关系正确，答案a>-2推导无误，与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-298",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项唯一正确，乘积为-8的点只有(4,-2)，答案与解释匹配，无歧义。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-299",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "反比例函数建模正确，k=96，表达式p=96/V，代入V=1.2得80 kPa，答案与解释一致，acceptedAnswers覆盖合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-300",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "代入点坐标求k，计算正确，k=-12，答案与解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-301",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "仰角测量问题，建模正确，计算过程合理，结果83.5米与选项匹配，解释清晰。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-302",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "非共线测量问题，正弦定理和正切应用正确，最终结果15√3米，推导无误，acceptedAnswers覆盖多种表达。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-303",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "共线仰角问题，方程建立正确，解得h=20(√3+1)米，答案与解释一致，acceptedAnswers包含等价形式。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-304",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "向正西方向走，建模正确，h√3 - h = 60，解得h=30(√3+1)，选项唯一正确，答案匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-305",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "正北方向移动，利用勾股定理建立方程，解得h=20√2米，推导正确，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-306",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "考虑眼睛高度，建模正确，方程√3(h-1.6)-(h-1.6)=20，解得h=10√3+11.6，答案与解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-307",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "60°和30°仰角，向正西走，方程h√3 = h/√3 + 80，解得h=40√3，选项唯一正确，答案匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-308",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "直接使用正切计算，对边=12×0.70=8.4，总高10.0米，答案与解释一致，acceptedAnswers覆盖多种表达。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目条件充分，答案正确，解释匹配，无歧义或错误，适合北师大版初中数学使用。"
+    }
+  }
+}

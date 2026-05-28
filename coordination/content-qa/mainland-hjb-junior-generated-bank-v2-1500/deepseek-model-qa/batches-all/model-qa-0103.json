@@ -1,0 +1,105 @@
+{
+  "batchId": "model-qa-0103",
+  "ids": [
+    "hjb-junior-ds-v2-s2-317",
+    "hjb-junior-ds-v2-s2-318",
+    "hjb-junior-ds-v2-s2-319",
+    "hjb-junior-ds-v2-s2-320",
+    "hjb-junior-ds-v2-s2-321",
+    "hjb-junior-ds-v2-s2-322",
+    "hjb-junior-ds-v2-s2-323",
+    "hjb-junior-ds-v2-s2-324"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-317",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3√5",
+      "answerCheckZhHans": "标准答案 3√5 正确，acceptedAnswers 覆盖了 3√5、3倍根号5、√45，解析推导正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-318",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "M'(1, 1)，N'(-3, 7)",
+      "answerCheckZhHans": "标准答案正确，acceptedAnswers 覆盖了常见写法，解析推导正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-319",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "multiple-correct-options"
+      ],
+      "issueDetailsZhHans": "选项 '点A在y轴上，点B在x轴上' 和 '点A和点B都在坐标轴上' 均正确，因为点A在y轴上，点B在x轴上，它们都在坐标轴上。题目要求选择正确的说法，但存在两个正确选项，导致不唯一。",
+      "independentAnswerZhHans": "点A在y轴上，点B在x轴上；同时点A和点B都在坐标轴上。",
+      "answerCheckZhHans": "标准答案 '点A在y轴上，点B在x轴上' 正确，但选项 '点A和点B都在坐标轴上' 也正确，因此题目有多个正确选项。",
+      "recommendedActionZhHans": "修改选项，使只有一个正确选项，例如将 '点A和点B都在坐标轴上' 改为 '点A在x轴上，点B在y轴上' 或其他干扰项。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-320",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(-a, b)",
+      "answerCheckZhHans": "标准答案 (-a, b) 正确，acceptedAnswers 覆盖了带空格和不带空格的写法，解析推导正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-321",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(8, -2)，第四象限",
+      "answerCheckZhHans": "标准答案正确，acceptedAnswers 覆盖了多种表述，解析推导正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-322",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "A. (-2, -3)",
+      "answerCheckZhHans": "标准答案正确，选项互异，解析推导正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-323",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(-3, 4)",
+      "answerCheckZhHans": "标准答案正确，acceptedAnswers 覆盖了带空格和不带空格的写法，解析推导正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-324",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "5",
+      "answerCheckZhHans": "标准答案 5 正确，acceptedAnswers 覆盖了 5、5个单位、5单位，解析推导正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

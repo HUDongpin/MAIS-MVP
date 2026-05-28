@@ -1,0 +1,48 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-012",
+  "startedAt": "2026-05-28T02:02:03.059Z",
+  "completedAt": "2026-05-28T02:02:07.820Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-012"
+  ],
+  "usage": {
+    "prompt_tokens": 2388,
+    "completion_tokens": 303,
+    "total_tokens": 2691,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2004
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-012",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "1/2",
+        "correctedAnswer": "1/2",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "圆C:(x-3)²+(y+2)²=25，圆心(3,-2)。弦被(1,2)平分，则圆心与中点连线垂直于弦。连线斜率=(-2-2)/(3-1)=-2，故弦斜率=1/2。存储答案1错误，解析中计算连线斜率-2后，垂直弦斜率应为1/2，而非1，存在数学错误和解释矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1题答案错误，正确斜率为1/2，存储答案1与解析矛盾，判定为blocker。"
+    }
+  }
+}

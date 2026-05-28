@@ -1,0 +1,139 @@
+{
+  "batchNumber": 73,
+  "startedAt": "2026-05-27T13:56:05.908Z",
+  "completedAt": "2026-05-27T13:56:23.314Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-077",
+    "bnu-high-ds-v1-s5-078",
+    "bnu-high-ds-v1-s5-079",
+    "bnu-high-ds-v1-s5-080",
+    "bnu-high-ds-v1-s5-081",
+    "bnu-high-ds-v1-s5-082",
+    "bnu-high-ds-v1-s5-083",
+    "bnu-high-ds-v1-s5-084"
+  ],
+  "usage": {
+    "prompt_tokens": 11315,
+    "completion_tokens": 1167,
+    "total_tokens": 12482,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10803
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-077",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "x^2/4 - y^2/8 = 1",
+        "correctedAnswer": "x^2/4 - y^2/8 = 1",
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立求解得 a^2=4, b^2=8，方程为 x^2/4 - y^2/8 = 1，与存储答案一致。但解析中计算 S=2ac=2a·√3a=2√3a^2=8√2 得 a^2=4√6/3，与答案矛盾，解析错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-078",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "6",
+        "correctedAnswer": "6",
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立求解得 p=6，但存储答案为 4，解析中计算过程也得出 p=6，与答案矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-079",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "3√3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，答案正确，解析与答案一致，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-080",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "independentAnswer": "x^2/8 + y^2/4 = 1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "独立求解得 a^2=8, b^2=4，方程正确。解析步骤简略但结论一致，可接受。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-081",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "x^2/25 + y^2/16 = 1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，答案正确，解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-082",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "x^2 - y^2/4 = 1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "渐近线 y=2x 且过 (1,0) 确定唯一方程，选项 A 正确，解析合理。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-083",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由抛物线定义得 x=3，答案正确，解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-084",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "30/7",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "联立直线与椭圆，弦长公式计算得 30/7，答案正确，解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 0,
+      "fail": 2,
+      "notes": "8 题中 6 题通过，2 题（077、078）因答案与解析矛盾或答案错误而失败。"
+    }
+  }
+}

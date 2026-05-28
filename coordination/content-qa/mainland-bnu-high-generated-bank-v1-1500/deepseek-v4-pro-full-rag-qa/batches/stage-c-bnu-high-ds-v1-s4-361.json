@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-361",
+  "startedAt": "2026-05-28T02:42:49.958Z",
+  "completedAt": "2026-05-28T02:42:55.381Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-361"
+  ],
+  "usage": {
+    "prompt_tokens": 2138,
+    "completion_tokens": 274,
+    "total_tokens": 2412,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1754
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-361",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "40√2 m",
+        "correctedAnswer": "40√2 m",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合建模与三角测量章节。独立求解得CD=40√2 m，对应选项B。存储答案40 m错误，解析中∠ACB误算为90°（实际应为45°），导致后续计算全错。答案不匹配，解析矛盾，需修正为40√2 m。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1题答案错误，解析存在数学错误，判定为blocker。"
+    }
+  }
+}

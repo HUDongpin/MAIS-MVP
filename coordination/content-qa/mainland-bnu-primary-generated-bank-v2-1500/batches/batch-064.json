@@ -1,0 +1,579 @@
+{
+  "batchId": "batch-064",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p3-131",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "p3-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "数学好玩",
+        "上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略表达",
+        "整理知识",
+        "错因分析",
+        "合作探究"
+      ],
+      "misconceptionTags": [
+        "activity goal confused with calculation target",
+        "topic not identified before solving",
+        "reflection reduced to final answer only"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小乐在整理三年级上册的错题时，发现一道题：计算 36 + 24 ÷ 6。他先算了加法，得到 60 ÷ 6 = 10。正确的计算顺序应该是先算（ ）法，再算（ ）法，正确结果是（ ）。",
+      "optionsZhHans": [],
+      "answer": "除，加，40",
+      "acceptedAnswers": [
+        "除，加，40",
+        "除法，加法，40"
+      ],
+      "explanationZhHans": "混合运算中，除法的优先级高于加法，应先算 24 ÷ 6 = 4，再算 36 + 4 = 40。小乐的错误是混淆了运算顺序。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-132",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "p3-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "数学好玩",
+        "上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略表达",
+        "整理知识",
+        "错因分析",
+        "合作探究"
+      ],
+      "misconceptionTags": [
+        "activity goal confused with calculation target",
+        "topic not identified before solving",
+        "reflection reduced to final answer only"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "数学活动课上，老师让同学们用 4 个边长 1 厘米的小正方形拼图形。小宇拼了一个长方形，小文拼了一个正方形。请写出他们拼的图形的周长各是多少厘米，并比较哪个图形的周长更短。",
+      "optionsZhHans": [],
+      "answer": "长方形周长 10 厘米，正方形周长 8 厘米，正方形周长更短。",
+      "acceptedAnswers": [
+        "长方形周长 10 厘米，正方形周长 8 厘米，正方形周长更短。",
+        "长方形周长10厘米，正方形周长8厘米，正方形周长更短。"
+      ],
+      "explanationZhHans": "用 4 个小正方形拼长方形只能排成一行，长 4 厘米、宽 1 厘米，周长 (4+1)×2=10 厘米；拼正方形则排成 2 行 2 列，边长 2 厘米，周长 2×4=8 厘米。8<10，所以正方形周长更短。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-133",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "p3-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "数学好玩",
+        "上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略表达",
+        "整理知识",
+        "错因分析",
+        "合作探究"
+      ],
+      "misconceptionTags": [
+        "activity goal confused with calculation target",
+        "topic not identified before solving",
+        "reflection reduced to final answer only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在整理“认识小数”单元时，下面哪种改写是正确的？",
+      "optionsZhHans": [
+        "3 分米 = 0.03 米",
+        "5 角 = 0.5 元",
+        "8 厘米 = 0.8 米",
+        "1 元 2 角 = 1.02 元"
+      ],
+      "answer": "5 角 = 0.5 元",
+      "acceptedAnswers": [
+        "5 角 = 0.5 元"
+      ],
+      "explanationZhHans": "1 元 = 10 角，5 角是 5/10 元，即 0.5 元。A 中 3 分米 = 0.3 米；C 中 8 厘米 = 0.08 米；D 中 1 元 2 角 = 1.2 元。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-134",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "p3-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "数学好玩",
+        "上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略表达",
+        "整理知识",
+        "错因分析",
+        "合作探究"
+      ],
+      "misconceptionTags": [
+        "activity goal confused with calculation target",
+        "topic not identified before solving",
+        "reflection reduced to final answer only"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "三年级同学去科技馆参观，老师将 45 名同学平均分成 5 组，每组再平均分成 3 个小队。每个小队有（ ）人。",
+      "optionsZhHans": [],
+      "answer": "3",
+      "acceptedAnswers": [
+        "3",
+        "3人"
+      ],
+      "explanationZhHans": "先算每组人数：45 ÷ 5 = 9（人），再算每小队人数：9 ÷ 3 = 3（人）。综合算式为 45 ÷ 5 ÷ 3 = 3。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-135",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "p3-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "数学好玩",
+        "上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略表达",
+        "整理知识",
+        "错因分析",
+        "合作探究"
+      ],
+      "misconceptionTags": [
+        "activity goal confused with calculation target",
+        "topic not identified before solving",
+        "reflection reduced to final answer only"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在“数学好玩”活动中，小组成员记录了 2024 年 1 月的天气情况：晴天 15 天，多云 8 天，其余是阴雨天。请计算阴雨天有多少天，并说明你是怎样想的。",
+      "optionsZhHans": [],
+      "answer": "阴雨天有 8 天。因为 2024 年 1 月有 31 天，减去晴天和多云的天数：31 - 15 - 8 = 8（天）。",
+      "acceptedAnswers": [
+        "阴雨天有 8 天。因为 2024 年 1 月有 31 天，减去晴天和多云的天数：31 - 15 - 8 = 8（天）。",
+        "8天，31-15-8=8",
+        "8天"
+      ],
+      "explanationZhHans": "先明确 1 月是大月，有 31 天。用总天数依次减去晴天和多云的天数，得到阴雨天。31 - 15 = 16，16 - 8 = 8。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-136",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-division",
+      "unitTitle": "除法",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "multi-digit-division",
+        "division-with-remainder",
+        "division-estimation",
+        "除法",
+        "有余数除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "一位数除多位数",
+        "余数意义",
+        "估商",
+        "验算",
+        "除法应用"
+      ],
+      "misconceptionTags": [
+        "remainder larger than divisor accepted",
+        "quotient estimate disconnected from place value",
+        "remainder ignored in the story answer"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-division-unit",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把 67 本书平均分给 3 个班，每个班最多能分到多少本？还剩多少本？",
+      "optionsZhHans": [
+        "21 本，剩 4 本",
+        "22 本，剩 1 本",
+        "22 本，剩 2 本",
+        "21 本，剩 3 本"
+      ],
+      "answer": "22 本，剩 1 本",
+      "acceptedAnswers": [
+        "22 本，剩 1 本"
+      ],
+      "explanationZhHans": "67 ÷ 3 = 22（本）……1（本）。选项 A 余数 4 大于除数 3，错误；C 余数 2 不对；D 商 21 时 21×3+3=66，不等于 67。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-137",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-division",
+      "unitTitle": "除法",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "multi-digit-division",
+        "division-with-remainder",
+        "division-estimation",
+        "除法",
+        "有余数除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "一位数除多位数",
+        "余数意义",
+        "估商",
+        "验算",
+        "除法应用"
+      ],
+      "misconceptionTags": [
+        "remainder larger than divisor accepted",
+        "quotient estimate disconnected from place value",
+        "remainder ignored in the story answer"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-division-unit",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在算式 □ ÷ 6 = 14……△ 中，△ 最大是（ ），这时 □ 是（ ）。",
+      "optionsZhHans": [],
+      "answer": "5，89",
+      "acceptedAnswers": [
+        "5，89",
+        "5,89"
+      ],
+      "explanationZhHans": "余数必须比除数小，除数是 6，所以余数最大是 5。被除数 = 商 × 除数 + 余数 = 14 × 6 + 5 = 84 + 5 = 89。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-138",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-division",
+      "unitTitle": "除法",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "multi-digit-division",
+        "division-with-remainder",
+        "division-estimation",
+        "除法",
+        "有余数除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "一位数除多位数",
+        "余数意义",
+        "估商",
+        "验算",
+        "除法应用"
+      ],
+      "misconceptionTags": [
+        "remainder larger than divisor accepted",
+        "quotient estimate disconnected from place value",
+        "remainder ignored in the story answer"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-division-unit",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "李老师买了 4 包同样的练习本，付了 100 元，找回 8 元。每包练习本多少元？请写出你的计算过程。",
+      "optionsZhHans": [],
+      "answer": "每包 23 元。100 - 8 = 92（元），92 ÷ 4 = 23（元）。",
+      "acceptedAnswers": [
+        "每包 23 元。100 - 8 = 92（元），92 ÷ 4 = 23（元）。",
+        "23元",
+        "23"
+      ],
+      "explanationZhHans": "先求 4 包的总价：100 - 8 = 92 元，再平均分：92 ÷ 4 = 23 元。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-139",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-division",
+      "unitTitle": "除法",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "multi-digit-division",
+        "division-with-remainder",
+        "division-estimation",
+        "除法",
+        "有余数除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "一位数除多位数",
+        "余数意义",
+        "估商",
+        "验算",
+        "除法应用"
+      ],
+      "misconceptionTags": [
+        "remainder larger than divisor accepted",
+        "quotient estimate disconnected from place value",
+        "remainder ignored in the story answer"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-division-unit",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个算式的商最接近 60？",
+      "optionsZhHans": [
+        "241 ÷ 4",
+        "302 ÷ 5",
+        "365 ÷ 6",
+        "423 ÷ 7"
+      ],
+      "answer": "302 ÷ 5",
+      "acceptedAnswers": [
+        "302 ÷ 5"
+      ],
+      "explanationZhHans": "估算：241÷4≈60.25，302÷5=60.4，365÷6≈60.83，423÷7≈60.43。302÷5=60……2，商 60 余 2，最接近 60。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-140",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-division",
+      "unitTitle": "除法",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "multi-digit-division",
+        "division-with-remainder",
+        "division-estimation",
+        "除法",
+        "有余数除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "一位数除多位数",
+        "余数意义",
+        "估商",
+        "验算",
+        "除法应用"
+      ],
+      "misconceptionTags": [
+        "remainder larger than divisor accepted",
+        "quotient estimate disconnected from place value",
+        "remainder ignored in the story answer"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-division-unit",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用竖式计算 98 ÷ 4 时，十位上的 9 除以 4，商（ ）余（ ），余下的（ ）个十和个位上的 8 合起来继续除。",
+      "optionsZhHans": [],
+      "answer": "2，1，1",
+      "acceptedAnswers": [
+        "2，1，1",
+        "2,1,1"
+      ],
+      "explanationZhHans": "竖式中，9÷4 商 2 余 1，表示分掉 8 个十，剩 1 个十。这个 1 个十与个位的 8 合成 18，再除以 4 商 4 余 2。"
+    }
+  ]
+}

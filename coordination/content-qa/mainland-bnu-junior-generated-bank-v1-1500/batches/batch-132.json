@@ -1,0 +1,627 @@
+{
+  "batchId": "batch-132",
+  "questions": [
+    {
+      "id": "bnu-junior-ds-v1-s3-311",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "bnu-junior-s3-lower-right-triangle-trigonometry",
+      "unitTitle": "直角三角形的边角关系",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "right-triangle-trigonometry",
+        "sine-cosine-tangent",
+        "angle-side-relationships",
+        "applied-measurement",
+        "锐角三角函数",
+        "直角三角形"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "正弦",
+        "余弦",
+        "正切",
+        "解直角三角形",
+        "测量建模"
+      ],
+      "misconceptionTags": [
+        "opposite and adjacent sides swapped",
+        "wrong trigonometric ratio selected",
+        "measurement context modeled with the wrong triangle"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s3-lower-right-triangle-trigonometry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-lower-assessment-right-triangle-trig-unit",
+        "bnu-junior-s3-lower-assessment-monthly-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig",
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某数学活动小组要测量校园内一棵大树的高度。他们在离树底部水平距离20米处，用测角仪测得树顶的仰角为30°，已知测角仪高度为1.5米。求大树的高度（精确到0.1米，参考数据：√3≈1.732）。",
+      "optionsZhHans": [],
+      "answer": "约13.0米",
+      "acceptedAnswers": [
+        "约13.0米",
+        "13.0米",
+        "13.0",
+        "13.04",
+        "13.0 m"
+      ],
+      "explanationZhHans": "将测角仪高度1.5米与树高分开计算。水平距离20米，仰角30°，树顶到测角仪水平面的高度为20×tan30°=20×√3/3≈20×0.5774≈11.55米。大树总高度=11.55+1.5≈13.05米，精确到0.1米为13.0米。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-312",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "bnu-junior-s3-lower-right-triangle-trigonometry",
+      "unitTitle": "直角三角形的边角关系",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "right-triangle-trigonometry",
+        "sine-cosine-tangent",
+        "angle-side-relationships",
+        "applied-measurement",
+        "锐角三角函数",
+        "直角三角形"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "正弦",
+        "余弦",
+        "正切",
+        "解直角三角形",
+        "测量建模"
+      ],
+      "misconceptionTags": [
+        "opposite and adjacent sides swapped",
+        "wrong trigonometric ratio selected",
+        "measurement context modeled with the wrong triangle"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s3-lower-right-triangle-trigonometry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-lower-assessment-right-triangle-trig-unit",
+        "bnu-junior-s3-lower-assessment-monthly-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig",
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某数学兴趣小组测量一座古塔的高度。他们在塔正东方向的地面上选择一点A，测得塔顶的仰角为30°；然后向塔的方向前进60米到达点B，此时测得塔顶的仰角为45°。已知点A、点B和塔底中心C在同一条东西方向的直线上，且测量点A、B与塔底C在同一水平面。求这座古塔的高度（结果保留根号）。",
+      "optionsZhHans": [],
+      "answer": "30(√3+1)米",
+      "acceptedAnswers": [
+        "30(√3+1)米",
+        "30(√3+1)",
+        "30(根号3+1)米",
+        "30(根号3+1)"
+      ],
+      "explanationZhHans": "设塔高CD=h米。在Rt△BCD中，∠CBD=45°，得BC=h。在Rt△ACD中，∠CAD=30°，AC=AB+BC=60+h。由tan30°=CD/AC，即√3/3=h/(60+h)，解得h=30(√3+1)。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-313",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "bnu-junior-s3-lower-right-triangle-trigonometry",
+      "unitTitle": "直角三角形的边角关系",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "right-triangle-trigonometry",
+        "sine-cosine-tangent",
+        "angle-side-relationships",
+        "applied-measurement",
+        "锐角三角函数",
+        "直角三角形"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "正弦",
+        "余弦",
+        "正切",
+        "解直角三角形",
+        "测量建模"
+      ],
+      "misconceptionTags": [
+        "opposite and adjacent sides swapped",
+        "wrong trigonometric ratio selected",
+        "measurement context modeled with the wrong triangle"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s3-lower-right-triangle-trigonometry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-lower-assessment-right-triangle-trig-unit",
+        "bnu-junior-s3-lower-assessment-monthly-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig",
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某数学兴趣小组测量一座古塔的高度。他们在塔正东方向的地面上选择一点A，测得塔顶的仰角为60°；然后从点A沿南偏西30°方向走20米到达点B，此时点B在塔的正南方向，且测得塔顶的仰角为45°。求古塔的高度。（结果保留根号）",
+      "optionsZhHans": [
+        "10√3 米",
+        "20√3 米",
+        "30 米",
+        "10 米"
+      ],
+      "answer": "10√3 米",
+      "acceptedAnswers": [
+        "10√3 米"
+      ],
+      "explanationZhHans": "设塔底为O，塔顶为P，塔高OP=h。由A处仰角60°得OA=h/√3。由B处仰角45°得OB=h。在△OAB中，OA⊥正东，OB⊥正南，∠AOB=90°。AB=20米，由勾股定理：(h/√3)²+h²=20²，解得h=10√3。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-314",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "bnu-junior-s3-lower-right-triangle-trigonometry",
+      "unitTitle": "直角三角形的边角关系",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "right-triangle-trigonometry",
+        "sine-cosine-tangent",
+        "angle-side-relationships",
+        "applied-measurement",
+        "锐角三角函数",
+        "直角三角形"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "正弦",
+        "余弦",
+        "正切",
+        "解直角三角形",
+        "测量建模"
+      ],
+      "misconceptionTags": [
+        "opposite and adjacent sides swapped",
+        "wrong trigonometric ratio selected",
+        "measurement context modeled with the wrong triangle"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s3-lower-right-triangle-trigonometry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-lower-assessment-right-triangle-trig-unit",
+        "bnu-junior-s3-lower-assessment-monthly-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig",
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某测量小组要测量一座塔的高度。他们在塔的正东方向地面上选取一点A，在点A测得塔顶的仰角为30°；然后向正西方向走80米到达点B，在点B测得塔顶的仰角为45°。已知点A、点B与塔底中心C在同一水平面内，且点C在点B的正东方向。求塔的高度（结果保留根号）。",
+      "optionsZhHans": [],
+      "answer": "40(√3+1)米",
+      "acceptedAnswers": [
+        "40(√3+1)米",
+        "40(√3+1)",
+        "40（√3+1）米"
+      ],
+      "explanationZhHans": "设塔高CD=h米。在Rt△BCD中，∠CBD=45°，得BC=h。在Rt△ACD中，∠CAD=30°，AC=AB+BC=80+h，由tan30°=h/(80+h)=1/√3，解得h=40(√3+1)米。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-315",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "bnu-junior-s3-lower-right-triangle-trigonometry",
+      "unitTitle": "直角三角形的边角关系",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "right-triangle-trigonometry",
+        "sine-cosine-tangent",
+        "angle-side-relationships",
+        "applied-measurement",
+        "锐角三角函数",
+        "直角三角形"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "正弦",
+        "余弦",
+        "正切",
+        "解直角三角形",
+        "测量建模"
+      ],
+      "misconceptionTags": [
+        "opposite and adjacent sides swapped",
+        "wrong trigonometric ratio selected",
+        "measurement context modeled with the wrong triangle"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s3-lower-right-triangle-trigonometry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-lower-assessment-right-triangle-trig-unit",
+        "bnu-junior-s3-lower-assessment-monthly-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig",
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某数学兴趣小组测量一座古塔的高度。在塔的底部正东方向24米处有一棵大树，树顶与塔顶的连线与水平面成30°角。已知树高为8米，求塔的高度（精确到0.1米）。",
+      "optionsZhHans": [],
+      "answer": "21.9",
+      "acceptedAnswers": [
+        "21.9",
+        "21.9米"
+      ],
+      "explanationZhHans": "设塔高为h米。塔顶与树顶的竖直距离为(h-8)米，水平距离为24米。由tan30°=(h-8)/24，得h-8=24×tan30°≈13.856，h≈21.856，精确到0.1米为21.9米。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-316",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "bnu-junior-s3-lower-right-triangle-trigonometry",
+      "unitTitle": "直角三角形的边角关系",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "right-triangle-trigonometry",
+        "sine-cosine-tangent",
+        "angle-side-relationships",
+        "applied-measurement",
+        "锐角三角函数",
+        "直角三角形"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "正弦",
+        "余弦",
+        "正切",
+        "解直角三角形",
+        "测量建模"
+      ],
+      "misconceptionTags": [
+        "opposite and adjacent sides swapped",
+        "wrong trigonometric ratio selected",
+        "measurement context modeled with the wrong triangle"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s3-lower-right-triangle-trigonometry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-lower-assessment-right-triangle-trig-unit",
+        "bnu-junior-s3-lower-assessment-monthly-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig",
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某测量小组为了测量河对岸一座塔的高度，在河岸边选定一点A，测得塔顶的仰角为30°。然后向塔的方向沿直线前进50米到达点B，在点B测得塔顶的仰角为45°。已知测量点A、B与塔底中心C在同一竖直平面内，且A、B、C三点在同一直线上，测量仪器高度忽略不计。求塔的高度。（参考数据：√3≈1.732）",
+      "optionsZhHans": [
+        "25(√3+1)米",
+        "25(√3-1)米",
+        "50√3米",
+        "25√3米"
+      ],
+      "answer": "25(√3+1)米",
+      "acceptedAnswers": [
+        "25(√3+1)米"
+      ],
+      "explanationZhHans": "设塔高CD=h，在Rt△ACD中，tan30°=h/AC，得AC=h/tan30°=√3h。在Rt△BCD中，tan45°=h/BC，得BC=h。由AC-BC=AB=50，得√3h - h=50，h(√3-1)=50，h=50/(√3-1)=25(√3+1)米。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-317",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "bnu-junior-s3-lower-right-triangle-trigonometry",
+      "unitTitle": "直角三角形的边角关系",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "right-triangle-trigonometry",
+        "sine-cosine-tangent",
+        "angle-side-relationships",
+        "applied-measurement",
+        "锐角三角函数",
+        "直角三角形"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "正弦",
+        "余弦",
+        "正切",
+        "解直角三角形",
+        "测量建模"
+      ],
+      "misconceptionTags": [
+        "opposite and adjacent sides swapped",
+        "wrong trigonometric ratio selected",
+        "measurement context modeled with the wrong triangle"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s3-lower-right-triangle-trigonometry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-lower-assessment-right-triangle-trig-unit",
+        "bnu-junior-s3-lower-assessment-monthly-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig",
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某数学兴趣小组要测量一座古塔的高度。他们在塔正东方向的地面上选取一点A，测得塔顶的仰角为60°；然后从点A沿南偏西30°方向走30米到达点B，测得塔顶的仰角为45°。已知点A、B与塔底O在同一水平面上，且点A、B、O不共线。求该古塔的高度。（结果保留根号）",
+      "optionsZhHans": [],
+      "answer": "15√6 米",
+      "acceptedAnswers": [
+        "15√6 米",
+        "15√6",
+        "15√6米"
+      ],
+      "explanationZhHans": "设塔高为h，塔底O，塔顶P。由A处仰角60°得OA=h/√3；由B处仰角45°得OB=h。在△AOB中，∠AOB=60°，OA=h/√3，OB=h，AB=30。由余弦定理：30²=(h/√3)²+h²-2·(h/√3)·h·cos60°，解得h²=1350，h=15√6米。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-318",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "bnu-junior-s3-lower-right-triangle-trigonometry",
+      "unitTitle": "直角三角形的边角关系",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "right-triangle-trigonometry",
+        "sine-cosine-tangent",
+        "angle-side-relationships",
+        "applied-measurement",
+        "锐角三角函数",
+        "直角三角形"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "正弦",
+        "余弦",
+        "正切",
+        "解直角三角形",
+        "测量建模"
+      ],
+      "misconceptionTags": [
+        "opposite and adjacent sides swapped",
+        "wrong trigonometric ratio selected",
+        "measurement context modeled with the wrong triangle"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s3-lower-right-triangle-trigonometry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-lower-assessment-right-triangle-trig-unit",
+        "bnu-junior-s3-lower-assessment-monthly-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig",
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明在测量学校旗杆的高度时，采用了如下方法：在地面上选择一点A，测得A点与旗杆底部C点的距离AC为12米，在A点处测得旗杆顶端B点的仰角为30°。已知测角仪的高度忽略不计，点A、C在同一水平线上，旗杆BC垂直于地面。求旗杆的高度BC。（结果保留根号）",
+      "optionsZhHans": [],
+      "answer": "4√3 米",
+      "acceptedAnswers": [
+        "4√3 米",
+        "4√3米",
+        "4√3",
+        "4倍根号3米"
+      ],
+      "explanationZhHans": "在Rt△ABC中，∠C=90°，AC=12米，∠A=30°。由tanA=BC/AC，得BC=AC·tan30°=12×(√3/3)=4√3米。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-319",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "bnu-junior-s3-lower-right-triangle-trigonometry",
+      "unitTitle": "直角三角形的边角关系",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "right-triangle-trigonometry",
+        "sine-cosine-tangent",
+        "angle-side-relationships",
+        "applied-measurement",
+        "锐角三角函数",
+        "直角三角形"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "正弦",
+        "余弦",
+        "正切",
+        "解直角三角形",
+        "测量建模"
+      ],
+      "misconceptionTags": [
+        "opposite and adjacent sides swapped",
+        "wrong trigonometric ratio selected",
+        "measurement context modeled with the wrong triangle"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s3-lower-right-triangle-trigonometry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-lower-assessment-right-triangle-trig-unit",
+        "bnu-junior-s3-lower-assessment-monthly-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig",
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某测量小组为了测量河对岸一座塔的高度，先在河岸上选定一点A，使A与塔底B在同一水平线上，且A、B与塔顶C构成的三角形ABC为直角三角形，其中∠B=90°。测得点A到塔底B的水平距离AB=30米，在点A处测得塔顶C的仰角为35°。已知sin35°≈0.57，cos35°≈0.82，tan35°≈0.70。求塔的高度BC。（结果精确到1米）",
+      "optionsZhHans": [
+        "17米",
+        "21米",
+        "25米",
+        "37米"
+      ],
+      "answer": "21米",
+      "acceptedAnswers": [
+        "21米"
+      ],
+      "explanationZhHans": "在直角三角形ABC中，已知AB=30米，∠A=35°，求BC。BC是∠A的对边，AB是邻边，应选用正切：tan35°=BC/AB，所以BC=AB·tan35°≈30×0.70=21米。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-320",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "bnu-junior-s3-lower-right-triangle-trigonometry",
+      "unitTitle": "直角三角形的边角关系",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "right-triangle-trigonometry",
+        "sine-cosine-tangent",
+        "angle-side-relationships",
+        "applied-measurement",
+        "锐角三角函数",
+        "直角三角形"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "正弦",
+        "余弦",
+        "正切",
+        "解直角三角形",
+        "测量建模"
+      ],
+      "misconceptionTags": [
+        "opposite and adjacent sides swapped",
+        "wrong trigonometric ratio selected",
+        "measurement context modeled with the wrong triangle"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s3-lower-right-triangle-trigonometry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-lower-assessment-right-triangle-trig-unit",
+        "bnu-junior-s3-lower-assessment-monthly-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig",
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明在测量学校旗杆的高度。他站在离旗杆底部水平距离12米的地面上，测得旗杆顶端的仰角为35°。已知小明的眼睛离地面的高度为1.6米，求旗杆的高度。（结果精确到0.1米，参考数据：sin35°≈0.57，cos35°≈0.82，tan35°≈0.70）",
+      "optionsZhHans": [],
+      "answer": "10.0米",
+      "acceptedAnswers": [
+        "10.0米",
+        "10.0",
+        "10"
+      ],
+      "explanationZhHans": "过眼睛作水平线，构造直角三角形。水平距离12米为邻边，旗杆顶部到眼睛的竖直高度为对边。由tan35°=对边/12，得对边=12×0.70=8.4米。旗杆总高=8.4+1.6=10.0米。"
+    }
+  ]
+}

@@ -1,0 +1,132 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-133",
+  "startedAt": "2026-05-28T01:37:42.747Z",
+  "completedAt": "2026-05-28T01:37:56.874Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-057",
+    "bnu-high-ds-v1-s6-058",
+    "bnu-high-ds-v1-s6-059",
+    "bnu-high-ds-v1-s6-060",
+    "bnu-high-ds-v1-s6-061",
+    "bnu-high-ds-v1-s6-062",
+    "bnu-high-ds-v1-s6-063",
+    "bnu-high-ds-v1-s6-064"
+  ],
+  "usage": {
+    "prompt_tokens": 11973,
+    "completion_tokens": 1088,
+    "total_tokens": 13061,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 11589
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-057",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "a_n = 6·2^{n-1} - 3n - 2",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 5·2^{n-1} - 3n - 2 错误，正确通项为 6·2^{n-1} - 3n - 2；解析中推导出 6·2^{n-1} 却给出错误答案，自相矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-058",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "答案 10 正确，解析利用等比性质和对数运算无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-059",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "通项 a_n = 2 - 1/n 及极限 2 均正确，解析裂项累加无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-060",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "39",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 45 错误，正确值为 39；解析中计算 S_7 - S_4 得 39，却给出错误答案 45，自相矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-061",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "答案 5×(2^10 - 1) 正确，解析构造等比数列并求和无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-062",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "通项 a_n = 2n + 2 正确，解析解方程组无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-063",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "a_20 = 400 正确，解析累加得 a_n = n^2 无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-064",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "答案 24 正确，解析由各项为正得 q=2 并计算 a_4 无误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 0,
+      "fail": 2,
+      "notes": "8 题中 6 题通过，2 题（057、060）因存储答案错误且解析自相矛盾而失败。"
+    }
+  }
+}

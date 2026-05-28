@@ -1,0 +1,51 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-475",
+  "startedAt": "2026-05-28T01:59:48.236Z",
+  "completedAt": "2026-05-28T01:59:52.792Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-475"
+  ],
+  "usage": {
+    "prompt_tokens": 2505,
+    "completion_tokens": 268,
+    "total_tokens": 2773,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2121
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-475",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "independentAnswer": "√6/6",
+        "correctedAnswer": "√6/6",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "bad_options",
+          "explanation_contradiction",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，但存储答案√3/6错误，独立解为√6/6；选项均不包含正确值√6/6，导致无正确选项；解析计算混乱且与答案矛盾。题目不可用。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目答案错误，选项无正确值，解析矛盾，判定为不可用。"
+    }
+  }
+}

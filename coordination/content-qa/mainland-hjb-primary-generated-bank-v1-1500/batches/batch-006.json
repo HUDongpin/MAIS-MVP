@@ -1,0 +1,289 @@
+{
+  "batchId": "batch-006",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p1-026",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "hjb-primary-p1-upper-solids-introduction",
+      "unitTitle": "认识立体图形",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-solid-shapes",
+        "cuboid-cube-cylinder-sphere",
+        "shape-classification",
+        "立体图形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "观察比较",
+        "数学表达"
+      ],
+      "skillTags": [
+        "长方体",
+        "正方体",
+        "圆柱",
+        "球",
+        "分类描述"
+      ],
+      "misconceptionTags": [
+        "shape named by object use only",
+        "orientation treated as a different shape",
+        "flat and solid shapes mixed"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p1-upper-solids-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-upper-assessment-solid-shapes",
+        "hjb-primary-p1-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面有一些物品：魔方、皮球、牙膏盒、易拉罐、骰子、乒乓球。请你按形状分一分，把物品名称填在横线上。\n长方体：______\n正方体：______\n圆柱：______\n球：______",
+      "optionsZhHans": [],
+      "answer": "长方体：牙膏盒\n正方体：魔方、骰子\n圆柱：易拉罐\n球：皮球、乒乓球",
+      "acceptedAnswers": [
+        "长方体：牙膏盒\n正方体：魔方、骰子\n圆柱：易拉罐\n球：皮球、乒乓球",
+        "长方体：牙膏盒\n正方体：骰子、魔方\n圆柱：易拉罐\n球：皮球、乒乓球",
+        "长方体：牙膏盒\n正方体：魔方、骰子\n圆柱：易拉罐\n球：乒乓球、皮球",
+        "长方体：牙膏盒\n正方体：骰子、魔方\n圆柱：易拉罐\n球：乒乓球、皮球"
+      ],
+      "explanationZhHans": "牙膏盒是长长方方的，有6个平平的面，是长方体。魔方和骰子都是正正方方的，每个面都一样大，是正方体。易拉罐上下两个面是圆圆的、平平的，身体弯弯的，是圆柱。皮球和乒乓球都是圆圆的，可以到处滚，是球。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-027",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "hjb-primary-p1-upper-solids-introduction",
+      "unitTitle": "认识立体图形",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-solid-shapes",
+        "cuboid-cube-cylinder-sphere",
+        "shape-classification",
+        "立体图形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "观察比较",
+        "数学表达"
+      ],
+      "skillTags": [
+        "长方体",
+        "正方体",
+        "圆柱",
+        "球",
+        "分类描述"
+      ],
+      "misconceptionTags": [
+        "shape named by object use only",
+        "orientation treated as a different shape",
+        "flat and solid shapes mixed"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p1-upper-solids-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-upper-assessment-solid-shapes",
+        "hjb-primary-p1-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "说一说，下面哪个物体最容易滚动？为什么？\n铅笔盒、足球、字典、积木块",
+      "optionsZhHans": [],
+      "answer": "足球最容易滚动，因为它是球，表面是弯弯的，没有平平的面，可以朝任意方向滚动。",
+      "acceptedAnswers": [
+        "足球最容易滚动，因为它是球，表面是弯弯的，没有平平的面，可以朝任意方向滚动。",
+        "足球，因为它是球，可以滚。",
+        "足球最容易滚动，因为它是球，全身都是圆的。"
+      ],
+      "explanationZhHans": "足球是球，球的面全是弯弯的，没有平平的面，所以最容易滚动。铅笔盒是长方体，字典是长方体，积木块可能是长方体或正方体，它们都有平平的面，不容易滚动。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-028",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "hjb-primary-p1-upper-solids-introduction",
+      "unitTitle": "认识立体图形",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-solid-shapes",
+        "cuboid-cube-cylinder-sphere",
+        "shape-classification",
+        "立体图形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "观察比较",
+        "数学表达"
+      ],
+      "skillTags": [
+        "长方体",
+        "正方体",
+        "圆柱",
+        "球",
+        "分类描述"
+      ],
+      "misconceptionTags": [
+        "shape named by object use only",
+        "orientation treated as a different shape",
+        "flat and solid shapes mixed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p1-upper-solids-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-upper-assessment-solid-shapes",
+        "hjb-primary-p1-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个物体和圆柱的形状最像？\nA. 粉笔盒\nB. 水杯\nC. 篮球\nD. 魔方",
+      "optionsZhHans": [
+        "A. 粉笔盒",
+        "B. 水杯",
+        "C. 篮球",
+        "D. 魔方"
+      ],
+      "answer": "B. 水杯",
+      "acceptedAnswers": [
+        "B. 水杯"
+      ],
+      "explanationZhHans": "水杯上下一样粗，上下两个面是圆圆的、平平的，身体是弯弯的，可以滚动，是圆柱。粉笔盒是长方体，篮球是球，魔方是正方体。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-029",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "hjb-primary-p1-upper-solids-introduction",
+      "unitTitle": "认识立体图形",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-solid-shapes",
+        "cuboid-cube-cylinder-sphere",
+        "shape-classification",
+        "立体图形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "观察比较",
+        "数学表达"
+      ],
+      "skillTags": [
+        "长方体",
+        "正方体",
+        "圆柱",
+        "球",
+        "分类描述"
+      ],
+      "misconceptionTags": [
+        "shape named by object use only",
+        "orientation treated as a different shape",
+        "flat and solid shapes mixed"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p1-upper-solids-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-upper-assessment-solid-shapes",
+        "hjb-primary-p1-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "数一数，下面的积木堆中，长方体有______个，正方体有______个，圆柱有______个，球有______个。\n积木堆描述：最下面一层从左到右放着：一个长方体（鞋盒形状），一个正方体（骰子形状），一个圆柱（易拉罐形状）。上面一层：在长方体上面放着一个正方体，在正方体上面放着一个球（乒乓球大小），在圆柱上面放着一个长方体（小牙膏盒形状）。",
+      "optionsZhHans": [],
+      "answer": "长方体有2个，正方体有2个，圆柱有1个，球有1个。",
+      "acceptedAnswers": [
+        "长方体有2个，正方体有2个，圆柱有1个，球有1个。",
+        "长方体：2个，正方体：2个，圆柱：1个，球：1个",
+        "2个长方体，2个正方体，1个圆柱，1个球"
+      ],
+      "explanationZhHans": "按描述数：底层有1个长方体、1个正方体、1个圆柱；上层有1个正方体（在长方体上）、1个球（在正方体上）、1个长方体（在圆柱上）。所以长方体共2个，正方体共2个，圆柱1个，球1个。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-030",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "hjb-primary-p1-upper-solids-introduction",
+      "unitTitle": "认识立体图形",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-solid-shapes",
+        "cuboid-cube-cylinder-sphere",
+        "shape-classification",
+        "立体图形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "观察比较",
+        "数学表达"
+      ],
+      "skillTags": [
+        "长方体",
+        "正方体",
+        "圆柱",
+        "球",
+        "分类描述"
+      ],
+      "misconceptionTags": [
+        "shape named by object use only",
+        "orientation treated as a different shape",
+        "flat and solid shapes mixed"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p1-upper-solids-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-upper-assessment-solid-shapes",
+        "hjb-primary-p1-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "从下面的物品中找出所有正方体，并把它们的名字写下来。\n物品：魔方、皮球、骰子、牙膏盒、粉笔盒、易拉罐",
+      "optionsZhHans": [],
+      "answer": "魔方、骰子",
+      "acceptedAnswers": [
+        "魔方、骰子",
+        "魔方和骰子",
+        "魔方，骰子"
+      ],
+      "explanationZhHans": "魔方和骰子都是正正方方的，每个面都是同样大小的正方形，是正方体。皮球是球，牙膏盒和粉笔盒是长方体，易拉罐是圆柱。"
+    }
+  ]
+}

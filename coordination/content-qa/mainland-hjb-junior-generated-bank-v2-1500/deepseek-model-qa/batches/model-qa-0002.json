@@ -1,0 +1,70 @@
+{
+  "batchId": "model-qa-0002",
+  "ids": [
+    "hjb-junior-ds-v2-s1-054",
+    "hjb-junior-ds-v2-s1-058",
+    "hjb-junior-ds-v2-s1-067",
+    "hjb-junior-ds-v2-s1-084",
+    "hjb-junior-ds-v2-s1-096"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-054",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "6x^2 + 11xy - 10y^2",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-058",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为12a^4 b^5，但解析计算得12a^4 b^4，且独立计算也得到12a^4 b^4。选项中有12a^4 b^4，无12a^4 b^5。答案与解析矛盾，且无正确选项。",
+      "independentAnswerZhHans": "12a^4 b^4",
+      "answerCheckZhHans": "标准答案错误，应为12a^4 b^4。",
+      "recommendedActionZhHans": "修正答案为12a^4 b^4，并更新解析。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-067",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "D",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-084",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "108",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-096",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "商式为 2x^2 - x + 2，余式为 -3",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0109",
+  "ids": [
+    "hjb-junior-ds-v2-s2-365",
+    "hjb-junior-ds-v2-s2-366",
+    "hjb-junior-ds-v2-s2-367",
+    "hjb-junior-ds-v2-s2-368",
+    "hjb-junior-ds-v2-s2-369",
+    "hjb-junior-ds-v2-s2-370",
+    "hjb-junior-ds-v2-s2-371",
+    "hjb-junior-ds-v2-s2-372"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-365",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(8, 1)",
+      "answerCheckZhHans": "标准答案 (8, 1) 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-366",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(-1, 2)，第二象限",
+      "answerCheckZhHans": "标准答案 (-1, 2)，第二象限 与独立计算结果一致。acceptedAnswers 覆盖了常见格式。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-367",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "C. 点P在x轴上",
+      "answerCheckZhHans": "标准答案 C 与独立计算结果一致。选项互异，无歧义。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-368",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(4, 3)",
+      "answerCheckZhHans": "标准答案 (4, 3) 与独立计算结果一致。acceptedAnswers 覆盖了常见格式。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-369",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "5",
+      "answerCheckZhHans": "标准答案 5 与独立计算结果一致。acceptedAnswers 覆盖了带单位的表述。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-370",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "A. (-5, -6)",
+      "answerCheckZhHans": "标准答案 A 与独立计算结果一致。选项互异，无歧义。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-371",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析中计算B点坐标错误：A(-3,4)向右平移5个单位得(2,4)，再向下平移2个单位得B(2,2)，但正确应为B(2,2)？实际上向下平移2个单位纵坐标减2，4-2=2，所以B(2,2)正确。但关于x轴对称后，C应为(2,-2)。然而标准答案给出(2,-2)，解析却写“得B(2,2)”，与答案一致。但仔细检查：A(-3,4)向右5得(2,4)，向下2得(2,2)，关于x轴对称得(2,-2)。答案正确，解析也正确。但为何标记？重新审题：题干要求“点B关于x轴对称的点为C”，解析说“得B(2,2)”，然后关于x轴对称得C(2,-2)。答案(2,-2)正确。但解析中“得B(2,2)”与答案一致，没有问题。可能我误判。再读：解析“点A(-3,4)向右平移5个单位得(2,4)，再向下平移2个单位得B(2,2)。” 正确。所以答案和解析一致。但为何我最初觉得有误？因为答案(2,-2)是C，解析最后得C(2,-2)，没问题。所以此题应pass。但为了安全，我重新计算：A(-3,4)右5→(2,4)，下2→(2,2)=B，关于x轴对称→(2,-2)=C。答案正确。解析正确。所以pass。",
+      "independentAnswerZhHans": "(2, -2)",
+      "answerCheckZhHans": "标准答案 (2, -2) 与独立计算结果一致。解析过程正确。",
+      "recommendedActionZhHans": "无需修改。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-372",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "6，点P和点Q在同一水平线上（纵坐标相同）",
+      "answerCheckZhHans": "标准答案与独立计算结果一致。acceptedAnswers 覆盖了多种等价表述。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

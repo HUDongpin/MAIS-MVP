@@ -1,0 +1,191 @@
+{
+  "batchNumber": 74,
+  "startedAt": "2026-05-27T14:02:19.514Z",
+  "completedAt": "2026-05-27T14:02:41.005Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p6-065",
+    "bnu-primary-ds-v2-p6-066",
+    "bnu-primary-ds-v2-p6-067",
+    "bnu-primary-ds-v2-p6-068",
+    "bnu-primary-ds-v2-p6-069",
+    "bnu-primary-ds-v2-p6-070",
+    "bnu-primary-ds-v2-p6-071",
+    "bnu-primary-ds-v2-p6-072",
+    "bnu-primary-ds-v2-p6-073",
+    "bnu-primary-ds-v2-p6-074",
+    "bnu-primary-ds-v2-p6-075",
+    "bnu-primary-ds-v2-p6-076",
+    "bnu-primary-ds-v2-p6-077",
+    "bnu-primary-ds-v2-p6-078",
+    "bnu-primary-ds-v2-p6-079",
+    "bnu-primary-ds-v2-p6-080",
+    "bnu-primary-ds-v2-p6-081",
+    "bnu-primary-ds-v2-p6-082"
+  ],
+  "usage": {
+    "prompt_tokens": 3463,
+    "completion_tokens": 1521,
+    "total_tokens": 4984,
+    "prompt_tokens_details": {
+      "cached_tokens": 3456
+    },
+    "prompt_cache_hit_tokens": 3456,
+    "prompt_cache_miss_tokens": 7
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p6-065",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，出勤率计算无误，答案与解释一致，适合P6百分数核心题。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-066",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，缺勤人数计算无误，答案与解释一致，适合P6百分数基础题。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-067",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，选项分析无误，唯一正确选项A，解释清晰，适合P6百分数挑战题。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-068",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，百分数计算无误，保留一位小数符合要求，答案格式多样但核心正确，适合P6百分数考试题。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-069",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，出勤率计算无误，答案93.3%合理，解释清晰，适合P6百分数核心题。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-070",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，女生占比55%计算无误，选项唯一正确，适合P6百分数基础题。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-071",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，60%计算无误，答案与解释一致，适合P6百分数挑战题。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-072",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，小数化百分数方法正确，答案45%无误，适合P6百分数核心题。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-073",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "统计图选择正确，扇形统计图适合表示百分比，解释合理，适合P6数据处理基础题。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-074",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "统计图选择正确，折线统计图适合表示气温变化，解释合理，适合P6数据处理挑战题。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-075",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，人数差计算无误，答案5人合理，解释清晰，适合P6数据处理核心题。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-076",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "统计图选择正确，条形统计图适合比较数量，解释合理，适合P6数据处理基础题。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-077",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "趋势判断正确，绿化面积逐年上升，答案与解释一致，适合P6数据处理挑战题。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-078",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，百分比计算无误，答案37.5%合理，解释清晰，适合P6数据处理核心题。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-079",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "统计图选择正确，扇形统计图适合表示部分与整体关系，解释合理，适合P6数据处理基础题。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-080",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "统计图选择正确，折线统计图适合表示变化情况，解释合理，适合P6数据处理挑战题。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-081",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，人数差计算无误，答案3人合理，解释清晰，适合P6数据处理核心题。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-082",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "统计图选择正确，折线统计图适合表示气温变化，解释合理，适合P6数据处理基础题。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部18道题均通过审核，数学正确，答案与解释一致，无歧义，适合北师大版小学数学相应年级和主题。"
+    }
+  }
+}

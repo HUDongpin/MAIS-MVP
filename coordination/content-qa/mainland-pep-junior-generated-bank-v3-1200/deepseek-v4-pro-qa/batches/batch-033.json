@@ -1,0 +1,137 @@
+{
+  "batchNumber": 33,
+  "startedAt": "2026-05-25T02:56:53.098Z",
+  "completedAt": "2026-05-25T02:57:12.360Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s1-k05-sa-018",
+    "pep-junior-v3-s1-k05-sa-019",
+    "pep-junior-v3-s1-k05-sa-020",
+    "pep-junior-v3-s1-k05-sa-021",
+    "pep-junior-v3-s1-k05-sa-022",
+    "pep-junior-v3-s1-k05-sa-023",
+    "pep-junior-v3-s1-k05-sa-024",
+    "pep-junior-v3-s1-k05-sa-025",
+    "pep-junior-v3-s1-k05-sa-026",
+    "pep-junior-v3-s1-k05-sa-027",
+    "pep-junior-v3-s1-k05-sa-028",
+    "pep-junior-v3-s1-k05-sa-029"
+  ],
+  "usage": {
+    "prompt_tokens": 4072,
+    "completion_tokens": 1030,
+    "total_tokens": 5102,
+    "prompt_tokens_details": {
+      "cached_tokens": 3968
+    },
+    "prompt_cache_hit_tokens": 3968,
+    "prompt_cache_miss_tokens": 104
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s1-k05-sa-018",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，比较√19与4.4，平方后19<19.36，结论正确，解释清晰。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-sa-019",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "几何角度计算正确，对顶角、角平分线、互补关系应用无误，答案155°。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-sa-020",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "水费单价计算正确，均为3元/吨，成正比例关系，符合题意。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-sa-021",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移坐标计算正确，距离用勾股定理得√5，答案准确。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-sa-022",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "二元一次方程组应用题，设未知数列方程正确，解得48，符合题意。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-sa-023",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "不等式组解法正确，解集2<x≤4，数轴描述准确。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-sa-024",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "租车方案问题，方程列解正确，学生240人，费用比较后选4辆60座客车，逻辑完整。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-sa-025",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "统计题，m=15，总人数75，比例64%未达大多数，理由合理，符合初中统计观念。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-sa-026",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "角度计算正确，∠EOF=90°，推理过程清晰。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-sa-027",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平方根性质应用正确，解得a=-2，正数为49。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-sa-028",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移与对称坐标变换正确，C(6,-2)。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-sa-029",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "二元一次方程组解法正确，代入消元得x=-1,y=3。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部12道题数学正确，答案与解释一致，无歧义，适合人教版初中数学，可公开发布。"
+    }
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "batchId": "model-qa-0002",
+  "ids": [
+    "hjb-high-ds-v1-s4-022",
+    "hjb-high-ds-v1-s4-024",
+    "hjb-high-ds-v1-s4-030",
+    "hjb-high-ds-v1-s4-040",
+    "hjb-high-ds-v1-s4-042"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-high-ds-v1-s4-022",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "14",
+      "answerCheckZhHans": "标准答案为14，解析正确，floor(58/4)=14。选项中有且仅有14一个正确选项。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v1-s4-024",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "14",
+      "answerCheckZhHans": "标准答案为14，解析正确，floor(72/5)=14。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v1-s4-030",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "15",
+      "answerCheckZhHans": "标准答案为15，解析正确，floor(120/8)=15。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v1-s4-040",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "10",
+      "answerCheckZhHans": "标准答案为10，解析正确，floor(76/7)=10。选项中有且仅有10一个正确选项。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v1-s4-042",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "7",
+      "answerCheckZhHans": "标准答案为7，解析正确，floor(78/11)=7。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    }
+  ]
+}

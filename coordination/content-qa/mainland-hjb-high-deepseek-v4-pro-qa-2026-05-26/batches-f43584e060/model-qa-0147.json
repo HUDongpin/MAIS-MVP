@@ -1,0 +1,327 @@
+{
+  "batchId": "model-qa-0147",
+  "ids": [
+    "hjb-high-ds-v2-s6-421",
+    "hjb-high-ds-v2-s6-422",
+    "hjb-high-ds-v2-s6-423",
+    "hjb-high-ds-v2-s6-424",
+    "hjb-high-ds-v2-s6-425",
+    "hjb-high-ds-v2-s6-426",
+    "hjb-high-ds-v2-s6-427",
+    "hjb-high-ds-v2-s6-428",
+    "hjb-high-ds-v2-s6-429",
+    "hjb-high-ds-v2-s6-430",
+    "hjb-high-ds-v2-s6-431",
+    "hjb-high-ds-v2-s6-432",
+    "hjb-high-ds-v2-s6-433",
+    "hjb-high-ds-v2-s6-434",
+    "hjb-high-ds-v2-s6-435",
+    "hjb-high-ds-v2-s6-436",
+    "hjb-high-ds-v2-s6-437",
+    "hjb-high-ds-v2-s6-438",
+    "hjb-high-ds-v2-s6-439",
+    "hjb-high-ds-v2-s6-440"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-high-ds-v2-s6-421",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "题目中表达式 AB·AC 在三角形中通常表示向量的数量积，但解析和答案将其解释为线段长度的乘积。若按向量数量积计算，应为 |AB|*|AC|*cos60° = 10*14*0.5 = 70，而非 140。题目未明确说明是线段长度乘积，存在歧义。",
+      "independentAnswerZhHans": "若按向量数量积：70；若按线段长度乘积：140。",
+      "answerCheckZhHans": "标准答案为 140，但若按向量数量积应为 70，答案不匹配。",
+      "recommendedActionZhHans": "需明确表达式含义，或修改答案和解析以匹配向量数量积。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-422",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "题目中表达式 AB·AC 在三角形中通常表示向量的数量积，但解析和答案将其解释为线段长度的乘积。若按向量数量积计算，应为 11*17*cos60° = 93.5，而非 187。题目未明确说明是线段长度乘积，存在歧义。",
+      "independentAnswerZhHans": "若按向量数量积：93.5；若按线段长度乘积：187。",
+      "answerCheckZhHans": "标准答案为 187，但若按向量数量积应为 93.5，答案不匹配。",
+      "recommendedActionZhHans": "需明确表达式含义，或修改答案和解析以匹配向量数量积。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-423",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "题目中表达式 AB·AC 在三角形中通常表示向量的数量积，但解析和答案将其解释为线段长度的乘积。若按向量数量积计算，应为 12*15*cos60° = 90，而非 180。题目未明确说明是线段长度乘积，存在歧义。",
+      "independentAnswerZhHans": "若按向量数量积：90；若按线段长度乘积：180。",
+      "answerCheckZhHans": "标准答案为 180，但若按向量数量积应为 90，答案不匹配。",
+      "recommendedActionZhHans": "需明确表达式含义，或修改答案和解析以匹配向量数量积。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-424",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "题目中表达式 AB·AC 在三角形中通常表示向量的数量积，但解析和答案将其解释为线段长度的乘积。若按向量数量积计算，应为 8*20*cos60° = 80，而非 160。题目未明确说明是线段长度乘积，存在歧义。",
+      "independentAnswerZhHans": "若按向量数量积：80；若按线段长度乘积：160。",
+      "answerCheckZhHans": "标准答案为 160，但若按向量数量积应为 80，答案不匹配。",
+      "recommendedActionZhHans": "需明确表达式含义，或修改答案和解析以匹配向量数量积。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-425",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "题目中表达式 AB·AC 在三角形中通常表示向量的数量积，但解析和答案将其解释为线段长度的乘积。若按向量数量积计算，应为 12*19*cos60° = 114，而非 228。题目未明确说明是线段长度乘积，存在歧义。",
+      "independentAnswerZhHans": "若按向量数量积：114；若按线段长度乘积：228。",
+      "answerCheckZhHans": "标准答案为 228，但若按向量数量积应为 114，答案不匹配。",
+      "recommendedActionZhHans": "需明确表达式含义，或修改答案和解析以匹配向量数量积。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-426",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "题目中表达式 AB·AC 在三角形中通常表示向量的数量积，但解析和答案将其解释为线段长度的乘积。若按向量数量积计算，应为 5*20*cos60° = 50，而非 100。题目未明确说明是线段长度乘积，存在歧义。",
+      "independentAnswerZhHans": "若按向量数量积：50；若按线段长度乘积：100。",
+      "answerCheckZhHans": "标准答案为 100，但若按向量数量积应为 50，答案不匹配。",
+      "recommendedActionZhHans": "需明确表达式含义，或修改答案和解析以匹配向量数量积。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-427",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "题目中表达式 AB·AC 在三角形中通常表示向量的数量积，但解析和答案将其解释为线段长度的乘积。若按向量数量积计算，应为 5*17*cos60° = 42.5，而非 85。题目未明确说明是线段长度乘积，存在歧义。",
+      "independentAnswerZhHans": "若按向量数量积：42.5；若按线段长度乘积：85。",
+      "answerCheckZhHans": "标准答案为 85，但若按向量数量积应为 42.5，答案不匹配。",
+      "recommendedActionZhHans": "需明确表达式含义，或修改答案和解析以匹配向量数量积。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-428",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "题目中表达式 AB·AC 在三角形中通常表示向量的数量积，但解析和答案将其解释为线段长度的乘积。若按向量数量积计算，应为 12*20*cos60° = 120，而非 240。题目未明确说明是线段长度乘积，存在歧义。",
+      "independentAnswerZhHans": "若按向量数量积：120；若按线段长度乘积：240。",
+      "answerCheckZhHans": "标准答案为 240，但若按向量数量积应为 120，答案不匹配。",
+      "recommendedActionZhHans": "需明确表达式含义，或修改答案和解析以匹配向量数量积。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-429",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "题目中表达式 AB·AC 在三角形中通常表示向量的数量积，但解析和答案将其解释为线段长度的乘积。若按向量数量积计算，应为 6*15*cos60° = 45，而非 90。题目未明确说明是线段长度乘积，存在歧义。",
+      "independentAnswerZhHans": "若按向量数量积：45；若按线段长度乘积：90。",
+      "answerCheckZhHans": "标准答案为 90，但若按向量数量积应为 45，答案不匹配。",
+      "recommendedActionZhHans": "需明确表达式含义，或修改答案和解析以匹配向量数量积。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-430",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "题目中表达式 AB·AC 在三角形中通常表示向量的数量积，但解析和答案将其解释为线段长度的乘积。若按向量数量积计算，应为 5*16*cos60° = 40，而非 80。题目未明确说明是线段长度乘积，存在歧义。",
+      "independentAnswerZhHans": "若按向量数量积：40；若按线段长度乘积：80。",
+      "answerCheckZhHans": "标准答案为 80，但若按向量数量积应为 40，答案不匹配。",
+      "recommendedActionZhHans": "需明确表达式含义，或修改答案和解析以匹配向量数量积。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-431",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "题目中表达式 AB·AC 在三角形中通常表示向量的数量积，但解析和答案将其解释为线段长度的乘积。若按向量数量积计算，应为 7*15*cos60° = 52.5，而非 105。题目未明确说明是线段长度乘积，存在歧义。",
+      "independentAnswerZhHans": "若按向量数量积：52.5；若按线段长度乘积：105。",
+      "answerCheckZhHans": "标准答案为 105，但若按向量数量积应为 52.5，答案不匹配。",
+      "recommendedActionZhHans": "需明确表达式含义，或修改答案和解析以匹配向量数量积。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-432",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "题目中表达式 AB·AC 在三角形中通常表示向量的数量积，但解析和答案将其解释为线段长度的乘积。若按向量数量积计算，应为 2*10*cos60° = 10，而非 20。题目未明确说明是线段长度乘积，存在歧义。",
+      "independentAnswerZhHans": "若按向量数量积：10；若按线段长度乘积：20。",
+      "answerCheckZhHans": "标准答案为 20，但若按向量数量积应为 10，答案不匹配。",
+      "recommendedActionZhHans": "需明确表达式含义，或修改答案和解析以匹配向量数量积。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-433",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "题目中表达式 AB·AC 在三角形中通常表示向量的数量积，但解析和答案将其解释为线段长度的乘积。若按向量数量积计算，应为 6*20*cos60° = 60，而非 120。题目未明确说明是线段长度乘积，存在歧义。",
+      "independentAnswerZhHans": "若按向量数量积：60；若按线段长度乘积：120。",
+      "answerCheckZhHans": "标准答案为 120，但若按向量数量积应为 60，答案不匹配。",
+      "recommendedActionZhHans": "需明确表达式含义，或修改答案和解析以匹配向量数量积。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-434",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "题目中表达式 AB·AC 在三角形中通常表示向量的数量积，但解析和答案将其解释为线段长度的乘积。若按向量数量积计算，应为 3*14*cos60° = 21，而非 42。题目未明确说明是线段长度乘积，存在歧义。",
+      "independentAnswerZhHans": "若按向量数量积：21；若按线段长度乘积：42。",
+      "answerCheckZhHans": "标准答案为 42，但若按向量数量积应为 21，答案不匹配。",
+      "recommendedActionZhHans": "需明确表达式含义，或修改答案和解析以匹配向量数量积。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-435",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "题目中表达式 AB·AC 在三角形中通常表示向量的数量积，但解析和答案将其解释为线段长度的乘积。若按向量数量积计算，应为 8*16*cos60° = 64，而非 128。题目未明确说明是线段长度乘积，存在歧义。",
+      "independentAnswerZhHans": "若按向量数量积：64；若按线段长度乘积：128。",
+      "answerCheckZhHans": "标准答案为 128，但若按向量数量积应为 64，答案不匹配。",
+      "recommendedActionZhHans": "需明确表达式含义，或修改答案和解析以匹配向量数量积。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-436",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "题目中表达式 AB·AC 在三角形中通常表示向量的数量积，但解析和答案将其解释为线段长度的乘积。若按向量数量积计算，应为 2*11*cos60° = 11，而非 22。题目未明确说明是线段长度乘积，存在歧义。",
+      "independentAnswerZhHans": "若按向量数量积：11；若按线段长度乘积：22。",
+      "answerCheckZhHans": "标准答案为 22，但若按向量数量积应为 11，答案不匹配。",
+      "recommendedActionZhHans": "需明确表达式含义，或修改答案和解析以匹配向量数量积。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-437",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "题目中表达式 AB·AC 在三角形中通常表示向量的数量积，但解析和答案将其解释为线段长度的乘积。若按向量数量积计算，应为 10*13*cos60° = 65，而非 130。题目未明确说明是线段长度乘积，存在歧义。",
+      "independentAnswerZhHans": "若按向量数量积：65；若按线段长度乘积：130。",
+      "answerCheckZhHans": "标准答案为 130，但若按向量数量积应为 65，答案不匹配。",
+      "recommendedActionZhHans": "需明确表达式含义，或修改答案和解析以匹配向量数量积。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-438",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "题目中表达式 AB·AC 在三角形中通常表示向量的数量积，但解析和答案将其解释为线段长度的乘积。若按向量数量积计算，应为 5*16*cos60° = 40，而非 80。题目未明确说明是线段长度乘积，存在歧义。",
+      "independentAnswerZhHans": "若按向量数量积：40；若按线段长度乘积：80。",
+      "answerCheckZhHans": "标准答案为 80，但若按向量数量积应为 40，答案不匹配。",
+      "recommendedActionZhHans": "需明确表达式含义，或修改答案和解析以匹配向量数量积。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-439",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "题目中表达式 AB·AC 在三角形中通常表示向量的数量积，但解析和答案将其解释为线段长度的乘积。若按向量数量积计算，应为 6*16*cos60° = 48，而非 96。题目未明确说明是线段长度乘积，存在歧义。",
+      "independentAnswerZhHans": "若按向量数量积：48；若按线段长度乘积：96。",
+      "answerCheckZhHans": "标准答案为 96，但若按向量数量积应为 48，答案不匹配。",
+      "recommendedActionZhHans": "需明确表达式含义，或修改答案和解析以匹配向量数量积。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-440",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "题目中表达式 AB·AC 在三角形中通常表示向量的数量积，但解析和答案将其解释为线段长度的乘积。若按向量数量积计算，应为 10*14*cos60° = 70，而非 140。题目未明确说明是线段长度乘积，存在歧义。",
+      "independentAnswerZhHans": "若按向量数量积：70；若按线段长度乘积：140。",
+      "answerCheckZhHans": "标准答案为 140，但若按向量数量积应为 70，答案不匹配。",
+      "recommendedActionZhHans": "需明确表达式含义，或修改答案和解析以匹配向量数量积。",
+      "confidence": "high"
+    }
+  ]
+}

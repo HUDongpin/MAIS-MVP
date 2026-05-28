@@ -1,0 +1,191 @@
+{
+  "batchNumber": 34,
+  "startedAt": "2026-05-27T13:27:38.221Z",
+  "completedAt": "2026-05-27T13:27:57.123Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p3-095",
+    "bnu-primary-ds-v1-p3-096",
+    "bnu-primary-ds-v1-p3-097",
+    "bnu-primary-ds-v1-p3-098",
+    "bnu-primary-ds-v1-p3-099",
+    "bnu-primary-ds-v1-p3-100",
+    "bnu-primary-ds-v1-p3-101",
+    "bnu-primary-ds-v1-p3-102",
+    "bnu-primary-ds-v1-p3-103",
+    "bnu-primary-ds-v1-p3-104",
+    "bnu-primary-ds-v1-p3-105",
+    "bnu-primary-ds-v1-p3-106",
+    "bnu-primary-ds-v1-p3-107",
+    "bnu-primary-ds-v1-p3-108",
+    "bnu-primary-ds-v1-p3-109",
+    "bnu-primary-ds-v1-p3-110",
+    "bnu-primary-ds-v1-p3-111",
+    "bnu-primary-ds-v1-p3-112"
+  ],
+  "usage": {
+    "prompt_tokens": 3304,
+    "completion_tokens": 1412,
+    "total_tokens": 4716,
+    "prompt_tokens_details": {
+      "cached_tokens": 3200
+    },
+    "prompt_cache_hit_tokens": 3200,
+    "prompt_cache_miss_tokens": 104
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p3-095",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案与解释一致，适合P3年、月、日基础题。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-096",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，1月28日至31日4天，2月1日至12日12天，共16天，符合挑战题要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-097",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "2025年平年，第一季度90天，选项唯一，解释正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-098",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "一年12个月，大月7个，小月4个，答案准确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-099",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "推算正确，29天÷7余1，星期日推一天为星期一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-100",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平年2月28天，28÷7=4周，3月1日仍为星期六，正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-101",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "2025年不是闰年，2月28天，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-102",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "6月30日推15天为7月15日，计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-103",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "12月有31天，其他选项为小月，答案唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-104",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "相邻大月为7月和8月，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-105",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "7月5日至31日27天，8月31天，共58天，计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-106",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "小数比较正确，1.2最大，选项无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-107",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "5元6角=5.6元，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-108",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数射线每份0.1，点A 0.3，点B 0.8，解释合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-109",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "0.15米=15厘米，选项唯一，正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-110",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "1米2分米=1.2米，一样远，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-111",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "改写正确，排序合理，答案覆盖多种表述。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-112",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "0.75米在0.7~0.8米之间，选项合理，解释清晰。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版小学数学要求，数学正确，答案匹配，无歧义或缺失条件，适合公共题库推广。"
+    }
+  }
+}

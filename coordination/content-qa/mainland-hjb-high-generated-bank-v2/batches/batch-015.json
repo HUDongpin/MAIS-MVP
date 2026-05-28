@@ -1,0 +1,362 @@
+{
+  "batchId": "batch-015",
+  "questions": [
+    {
+      "id": "hjb-high-ds-v2-s4-141",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-幂-指数与对数",
+      "topicTitleZhHans": "幂、指数与对数",
+      "volume": "必修 第一册",
+      "chapter": "幂、指数与对数",
+      "conceptIds": [
+        "exponents",
+        "radicals",
+        "logarithmic-operations",
+        "base-conversion"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-powers-exponents-logarithms"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-powers-exponents-logarithms-unit-core",
+        "hjb-high-compulsory-1-powers-exponents-logarithms-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "已知正实数 a 满足 a^(1/2) + a^(-1/2) = 3，求 a^(3/2) + a^(-3/2) 的值。",
+      "optionsZhHans": [],
+      "answer": "18",
+      "acceptedAnswers": [
+        "18"
+      ],
+      "explanationZhHans": "设 x = a^(1/2) + a^(-1/2) = 3，则 x^2 = a + a^(-1) + 2 = 9，得 a + a^(-1) = 7。所求式 = (a^(1/2))^3 + (a^(-1/2))^3 = (a^(1/2) + a^(-1/2))^3 - 3(a^(1/2) + a^(-1/2)) = 27 - 9 = 18。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-142",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-幂-指数与对数",
+      "topicTitleZhHans": "幂、指数与对数",
+      "volume": "必修 第一册",
+      "chapter": "幂、指数与对数",
+      "conceptIds": [
+        "exponents",
+        "radicals",
+        "logarithmic-operations",
+        "base-conversion"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-powers-exponents-logarithms"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-powers-exponents-logarithms-unit-core",
+        "hjb-high-compulsory-1-powers-exponents-logarithms-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "设 a = log_2 3，b = log_3 5，则 log_6 15 用 a, b 表示为（ ）",
+      "optionsZhHans": [
+        "\\frac{a + ab}{1 + a}",
+        "\\frac{a + b}{1 + a}",
+        "\\frac{a + ab}{1 + b}",
+        "\\frac{b + ab}{1 + a}"
+      ],
+      "answer": "\\frac{a + ab}{1 + a}",
+      "acceptedAnswers": [
+        "\\frac{a + ab}{1 + a}"
+      ],
+      "explanationZhHans": "log_6 15 = (log_2 15)/(log_2 6) = (log_2 3 + log_2 5)/(1 + log_2 3)。由 b = log_3 5 得 log_2 5 = a·b。代入得 (a + ab)/(1 + a)。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-143",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-幂-指数与对数",
+      "topicTitleZhHans": "幂、指数与对数",
+      "volume": "必修 第一册",
+      "chapter": "幂、指数与对数",
+      "conceptIds": [
+        "exponents",
+        "radicals",
+        "logarithmic-operations",
+        "base-conversion"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-powers-exponents-logarithms"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-powers-exponents-logarithms-unit-core",
+        "hjb-high-compulsory-1-powers-exponents-logarithms-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "计算：log_2 3 · log_3 4 · log_4 5 · log_5 8 = ______。",
+      "optionsZhHans": [],
+      "answer": "3",
+      "acceptedAnswers": [
+        "3"
+      ],
+      "explanationZhHans": "利用换底公式，原式 = (lg3/lg2)·(lg4/lg3)·(lg5/lg4)·(lg8/lg5) = lg8/lg2 = log_2 8 = 3。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-144",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-幂-指数与对数",
+      "topicTitleZhHans": "幂、指数与对数",
+      "volume": "必修 第一册",
+      "chapter": "幂、指数与对数",
+      "conceptIds": [
+        "exponents",
+        "radicals",
+        "logarithmic-operations",
+        "base-conversion"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-powers-exponents-logarithms"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-powers-exponents-logarithms-unit-core",
+        "hjb-high-compulsory-1-powers-exponents-logarithms-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "已知 2^a = 5^b = 10，求 1/a + 1/b 的值。",
+      "optionsZhHans": [],
+      "answer": "1",
+      "acceptedAnswers": [
+        "1"
+      ],
+      "explanationZhHans": "由 2^a = 10 得 a = log_2 10，同理 b = log_5 10。所以 1/a + 1/b = log_10 2 + log_10 5 = log_10 10 = 1。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-145",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-幂-指数与对数",
+      "topicTitleZhHans": "幂、指数与对数",
+      "volume": "必修 第一册",
+      "chapter": "幂、指数与对数",
+      "conceptIds": [
+        "exponents",
+        "radicals",
+        "logarithmic-operations",
+        "base-conversion"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-powers-exponents-logarithms"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-powers-exponents-logarithms-unit-core",
+        "hjb-high-compulsory-1-powers-exponents-logarithms-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "下列等式中恒成立的是（ ）",
+      "optionsZhHans": [
+        "log_a (M + N) = log_a M + log_a N",
+        "log_a (M - N) = \\frac{\\log_a M}{\\log_a N}",
+        "log_a M^n = n \\log_a M",
+        "\\log_a \\sqrt[n]{M} = \\frac{1}{n} \\log_a M"
+      ],
+      "answer": "\\log_a \\sqrt[n]{M} = \\frac{1}{n} \\log_a M",
+      "acceptedAnswers": [
+        "\\log_a \\sqrt[n]{M} = \\frac{1}{n} \\log_a M"
+      ],
+      "explanationZhHans": "A、B 明显错误；C 中当 n 为偶数时，M 必须为正，而 D 中根式已隐含 M>0，且由对数恒等式知 D 恒成立。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-146",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-幂-指数与对数",
+      "topicTitleZhHans": "幂、指数与对数",
+      "volume": "必修 第一册",
+      "chapter": "幂、指数与对数",
+      "conceptIds": [
+        "exponents",
+        "radicals",
+        "logarithmic-operations",
+        "base-conversion"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-powers-exponents-logarithms"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-powers-exponents-logarithms-unit-core",
+        "hjb-high-compulsory-1-powers-exponents-logarithms-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "若 log_a 2 < 1，则实数 a 的取值范围是______。",
+      "optionsZhHans": [],
+      "answer": "(0, 1) ∪ (2, +∞)",
+      "acceptedAnswers": [
+        "(0, 1) ∪ (2, +∞)",
+        "0<a<1 或 a>2"
+      ],
+      "explanationZhHans": "当 a>1 时，log_a 2 < 1 ⇒ 2 < a，得 a>2；当 0<a<1 时，log_a 2 < 1 ⇒ 2 > a，恒成立。综上 a∈(0,1)∪(2,+∞)。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-147",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-幂-指数与对数",
+      "topicTitleZhHans": "幂、指数与对数",
+      "volume": "必修 第一册",
+      "chapter": "幂、指数与对数",
+      "conceptIds": [
+        "exponents",
+        "radicals",
+        "logarithmic-operations",
+        "base-conversion"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-powers-exponents-logarithms"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-powers-exponents-logarithms-unit-core",
+        "hjb-high-compulsory-1-powers-exponents-logarithms-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "化简：\\sqrt{(\\lg 5)^2 - \\lg 25 + 1}。",
+      "optionsZhHans": [],
+      "answer": "1 - \\lg 5",
+      "acceptedAnswers": [
+        "1 - \\lg 5",
+        "1-lg5"
+      ],
+      "explanationZhHans": "原式 = √[(lg5)^2 - 2lg5 + 1] = √[(lg5 - 1)^2] = |lg5 - 1|。因为 lg5 < 1，所以结果为 1 - lg5。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-148",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-幂-指数与对数",
+      "topicTitleZhHans": "幂、指数与对数",
+      "volume": "必修 第一册",
+      "chapter": "幂、指数与对数",
+      "conceptIds": [
+        "exponents",
+        "radicals",
+        "logarithmic-operations",
+        "base-conversion"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-powers-exponents-logarithms"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-powers-exponents-logarithms-unit-core",
+        "hjb-high-compulsory-1-powers-exponents-logarithms-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "已知函数 f(x) = a^x (a>0 且 a≠1) 在区间 [1,2] 上的最大值比最小值大 a/2，则 a 的值为（ ）",
+      "optionsZhHans": [
+        "\\frac{1}{2}",
+        "\\frac{3}{2}",
+        "\\frac{1}{2} 或 \\frac{3}{2}",
+        "2 或 \\frac{1}{2}"
+      ],
+      "answer": "\\frac{1}{2} 或 \\frac{3}{2}",
+      "acceptedAnswers": [
+        "\\frac{1}{2} 或 \\frac{3}{2}"
+      ],
+      "explanationZhHans": "当 a>1 时，最大 a^2，最小 a，差 a^2 - a = a/2 ⇒ a=3/2；当 0<a<1 时，最大 a，最小 a^2，差 a - a^2 = a/2 ⇒ a=1/2。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-149",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-幂-指数与对数",
+      "topicTitleZhHans": "幂、指数与对数",
+      "volume": "必修 第一册",
+      "chapter": "幂、指数与对数",
+      "conceptIds": [
+        "exponents",
+        "radicals",
+        "logarithmic-operations",
+        "base-conversion"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-powers-exponents-logarithms"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-powers-exponents-logarithms-unit-core",
+        "hjb-high-compulsory-1-powers-exponents-logarithms-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "计算：\\log_2 \\frac{1}{25} \\cdot \\log_3 \\frac{1}{8} \\cdot \\log_5 \\frac{1}{9} = ______。",
+      "optionsZhHans": [],
+      "answer": "-12",
+      "acceptedAnswers": [
+        "-12"
+      ],
+      "explanationZhHans": "原式 = (-2log_2 5)·(-3log_3 2)·(-2log_5 3) = -12·(log_2 5·log_3 2·log_5 3) = -12。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-150",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-幂-指数与对数",
+      "topicTitleZhHans": "幂、指数与对数",
+      "volume": "必修 第一册",
+      "chapter": "幂、指数与对数",
+      "conceptIds": [
+        "exponents",
+        "radicals",
+        "logarithmic-operations",
+        "base-conversion"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-powers-exponents-logarithms"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-powers-exponents-logarithms-unit-core",
+        "hjb-high-compulsory-1-powers-exponents-logarithms-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "已知 3^a = 4^b = 6^c，且 a, b, c 均不为零，求证：2/a + 1/b = 2/c。",
+      "optionsZhHans": [],
+      "answer": "证明见解析",
+      "acceptedAnswers": [
+        "证明见解析"
+      ],
+      "explanationZhHans": "设 3^a = 4^b = 6^c = k (k>0 且 k≠1)，则 a = log_3 k，b = log_4 k，c = log_6 k。于是 2/a + 1/b = 2log_k 3 + log_k 4 = log_k (9×4) = log_k 36，而 2/c = 2log_k 6 = log_k 36，故等式成立。"
+    }
+  ]
+}

@@ -1,0 +1,191 @@
+{
+  "batchNumber": 78,
+  "startedAt": "2026-05-27T14:03:35.189Z",
+  "completedAt": "2026-05-27T14:03:55.366Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p6-137",
+    "bnu-primary-ds-v2-p6-138",
+    "bnu-primary-ds-v2-p6-139",
+    "bnu-primary-ds-v2-p6-140",
+    "bnu-primary-ds-v2-p6-141",
+    "bnu-primary-ds-v2-p6-142",
+    "bnu-primary-ds-v2-p6-143",
+    "bnu-primary-ds-v2-p6-144",
+    "bnu-primary-ds-v2-p6-145",
+    "bnu-primary-ds-v2-p6-146",
+    "bnu-primary-ds-v2-p6-147",
+    "bnu-primary-ds-v2-p6-148",
+    "bnu-primary-ds-v2-p6-149",
+    "bnu-primary-ds-v2-p6-150",
+    "bnu-primary-ds-v2-p6-151",
+    "bnu-primary-ds-v2-p6-152",
+    "bnu-primary-ds-v2-p6-153",
+    "bnu-primary-ds-v2-p6-154"
+  ],
+  "usage": {
+    "prompt_tokens": 4097,
+    "completion_tokens": 1335,
+    "total_tokens": 5432,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 3841
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p6-137",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案匹配，表述清晰，适合六年级复习。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-138",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解释一致，接受答案覆盖合理，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-139",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项分析正确，唯一正确答案明确，解释充分。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-140",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "逻辑清晰，小丽说法正确，答案唯一，适合六年级。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-141",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案与解释一致，接受答案合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-142",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项A符合“求一个数的几分之几”，其他选项不匹配，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-143",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "逆推正确，答案16无误，适合六年级。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-144",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案56人，接受答案覆盖合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-145",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项A正确，其他选项错误，解释清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-146",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，保留整吨得11，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-147",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "侧面积计算正确，答案251.2，接受答案合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-148",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "圣诞帽是圆锥，其他选项不是，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-149",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "最大圆锥体积计算正确，答案56.52。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-150",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "抹水泥面积计算正确，答案37.68，接受答案合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-151",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "无盖圆柱表面积计算正确，选项A正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-152",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "与146题重复，计算正确，答案11吨。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-153",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "先求高再求体积，计算正确，答案282.6立方厘米。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-154",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "等底等高圆锥体积是圆柱的1/3，答案12立方分米正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案匹配，表述清晰，无歧义，适合北师大版小学数学相应年级。"
+    }
+  }
+}

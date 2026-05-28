@@ -1,0 +1,50 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-222",
+  "startedAt": "2026-05-28T01:24:00.821Z",
+  "completedAt": "2026-05-28T01:24:06.591Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-222"
+  ],
+  "usage": {
+    "prompt_tokens": 2172,
+    "completion_tokens": 364,
+    "total_tokens": 2536,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1788
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-222",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "x=5 或 3x+4y-19=0",
+        "correctedAnswer": "x=5 或 3x+4y-19=0",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction",
+          "accepted_answer_gap"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "圆C：(x-2)²+(y+3)²=25，圆心(2,-3)，半径5。弦长8，弦心距3。直线过P(5,1)，设点斜式时遗漏斜率不存在情况，实际存在两条直线：x=5和3x+4y-19=0。存储答案仅给出y=1，与正确解不符；解析中虽提及两解但最终答案仅写y=1，且acceptedAnswers未包含x=5，存在漏解。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目存在漏解，存储答案错误，需修正为x=5或3x+4y-19=0。"
+    }
+  }
+}

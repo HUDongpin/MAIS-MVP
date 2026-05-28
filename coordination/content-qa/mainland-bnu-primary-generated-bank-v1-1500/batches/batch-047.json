@@ -1,0 +1,576 @@
+{
+  "batchId": "batch-047",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p2-211",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-plane-shapes",
+      "unitTitle": "认识图形",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "plane-shape-properties",
+        "angle-side-intuition",
+        "quadrilaterals",
+        "认识图形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "角",
+        "边",
+        "长方形",
+        "正方形",
+        "图形分类"
+      ],
+      "misconceptionTags": [
+        "orientation mistaken for shape type",
+        "side length and angle features mixed",
+        "decorative appearance used instead of properties"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-plane-shapes"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-plane-shapes",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个平面图形有4条边，其中有2条长边一样长，2条短边一样长，4个角都是方方正正的。这个图形是什么？",
+      "optionsZhHans": [
+        "长方形",
+        "正方形",
+        "平行四边形",
+        "三角形"
+      ],
+      "answer": "长方形",
+      "acceptedAnswers": [
+        "长方形"
+      ],
+      "explanationZhHans": "长方形有4条边，对边相等，4个角都是直角。正方形虽然也有4个直角，但四条边都相等，而题目中只有对边相等，所以是长方形。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-212",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-plane-shapes",
+      "unitTitle": "认识图形",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "plane-shape-properties",
+        "angle-side-intuition",
+        "quadrilaterals",
+        "认识图形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "角",
+        "边",
+        "长方形",
+        "正方形",
+        "图形分类"
+      ],
+      "misconceptionTags": [
+        "orientation mistaken for shape type",
+        "side length and angle features mixed",
+        "decorative appearance used instead of properties"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-plane-shapes"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-plane-shapes",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "写出一个平面图形的名称：它有4条边，4条边都一样长，4个角都是方方正正的。这个图形是______。",
+      "optionsZhHans": [],
+      "answer": "正方形",
+      "acceptedAnswers": [
+        "正方形"
+      ],
+      "explanationZhHans": "四条边都相等且四个角都是直角的四边形是正方形。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-213",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-plane-shapes",
+      "unitTitle": "认识图形",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "plane-shape-properties",
+        "angle-side-intuition",
+        "quadrilaterals",
+        "认识图形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "角",
+        "边",
+        "长方形",
+        "正方形",
+        "图形分类"
+      ],
+      "misconceptionTags": [
+        "orientation mistaken for shape type",
+        "side length and angle features mixed",
+        "decorative appearance used instead of properties"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-plane-shapes"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-plane-shapes",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个图形有3条边和3个角？",
+      "optionsZhHans": [
+        "三角形",
+        "长方形",
+        "正方形",
+        "平行四边形"
+      ],
+      "answer": "三角形",
+      "acceptedAnswers": [
+        "三角形"
+      ],
+      "explanationZhHans": "三角形是由三条边和三个角组成的平面图形。其他选项都有四条边和四个角。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-214",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-plane-shapes",
+      "unitTitle": "认识图形",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "plane-shape-properties",
+        "angle-side-intuition",
+        "quadrilaterals",
+        "认识图形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "角",
+        "边",
+        "长方形",
+        "正方形",
+        "图形分类"
+      ],
+      "misconceptionTags": [
+        "orientation mistaken for shape type",
+        "side length and angle features mixed",
+        "decorative appearance used instead of properties"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-plane-shapes"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-plane-shapes",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个平面图形有4条边，其中2条边是斜的，2条边是平的，对边一样长，4个角不是方方正正的。这个图形是______。",
+      "optionsZhHans": [],
+      "answer": "平行四边形",
+      "acceptedAnswers": [
+        "平行四边形"
+      ],
+      "explanationZhHans": "平行四边形有四条边，对边平行且相等，但角不一定是直角。题目中描述的对边相等且角不是直角，符合平行四边形特征。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-215",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-plane-shapes",
+      "unitTitle": "认识图形",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "plane-shape-properties",
+        "angle-side-intuition",
+        "quadrilaterals",
+        "认识图形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "角",
+        "边",
+        "长方形",
+        "正方形",
+        "图形分类"
+      ],
+      "misconceptionTags": [
+        "orientation mistaken for shape type",
+        "side length and angle features mixed",
+        "decorative appearance used instead of properties"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-plane-shapes"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-plane-shapes",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个图形有4条边，4个角都是直角，但4条边都相等。这个图形是？",
+      "optionsZhHans": [
+        "正方形",
+        "长方形",
+        "平行四边形",
+        "梯形"
+      ],
+      "answer": "正方形",
+      "acceptedAnswers": [
+        "正方形"
+      ],
+      "explanationZhHans": "正方形是特殊的长方形，四条边都相等，四个角都是直角。长方形只要求对边相等，所以正方形符合所有条件。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-216",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-plane-shapes",
+      "unitTitle": "认识图形",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "plane-shape-properties",
+        "angle-side-intuition",
+        "quadrilaterals",
+        "认识图形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "角",
+        "边",
+        "长方形",
+        "正方形",
+        "图形分类"
+      ],
+      "misconceptionTags": [
+        "orientation mistaken for shape type",
+        "side length and angle features mixed",
+        "decorative appearance used instead of properties"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-plane-shapes"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-plane-shapes",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "数一数，长方形有______条边，______个角。",
+      "optionsZhHans": [],
+      "answer": "4,4",
+      "acceptedAnswers": [
+        "4,4",
+        "4，4",
+        "4 4"
+      ],
+      "explanationZhHans": "长方形是四边形，有4条边和4个角。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-217",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-plane-shapes",
+      "unitTitle": "认识图形",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "plane-shape-properties",
+        "angle-side-intuition",
+        "quadrilaterals",
+        "认识图形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "角",
+        "边",
+        "长方形",
+        "正方形",
+        "图形分类"
+      ],
+      "misconceptionTags": [
+        "orientation mistaken for shape type",
+        "side length and angle features mixed",
+        "decorative appearance used instead of properties"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-plane-shapes"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-plane-shapes",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把一个正方形沿一条对角线剪开，可以得到两个完全一样的什么图形？",
+      "optionsZhHans": [
+        "三角形",
+        "长方形",
+        "圆形",
+        "五边形"
+      ],
+      "answer": "三角形",
+      "acceptedAnswers": [
+        "三角形"
+      ],
+      "explanationZhHans": "正方形的一条对角线把它分成两个完全一样的三角形。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-218",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-plane-shapes",
+      "unitTitle": "认识图形",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "plane-shape-properties",
+        "angle-side-intuition",
+        "quadrilaterals",
+        "认识图形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "角",
+        "边",
+        "长方形",
+        "正方形",
+        "图形分类"
+      ],
+      "misconceptionTags": [
+        "orientation mistaken for shape type",
+        "side length and angle features mixed",
+        "decorative appearance used instead of properties"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-plane-shapes"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-plane-shapes",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个正方形有4条边，每条边都______，4个角都是______角。",
+      "optionsZhHans": [],
+      "answer": "相等,直",
+      "acceptedAnswers": [
+        "相等,直",
+        "相等，直",
+        "相等 直"
+      ],
+      "explanationZhHans": "正方形的特征是四条边都相等，四个角都是直角。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-219",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-plane-shapes",
+      "unitTitle": "认识图形",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "plane-shape-properties",
+        "angle-side-intuition",
+        "quadrilaterals",
+        "认识图形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "角",
+        "边",
+        "长方形",
+        "正方形",
+        "图形分类"
+      ],
+      "misconceptionTags": [
+        "orientation mistaken for shape type",
+        "side length and angle features mixed",
+        "decorative appearance used instead of properties"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-plane-shapes"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-plane-shapes",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个图形不是四边形？",
+      "optionsZhHans": [
+        "三角形",
+        "长方形",
+        "正方形",
+        "平行四边形"
+      ],
+      "answer": "三角形",
+      "acceptedAnswers": [
+        "三角形"
+      ],
+      "explanationZhHans": "四边形是由四条边围成的图形，长方形、正方形、平行四边形都是四边形。三角形只有三条边，不是四边形。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-220",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-plane-shapes",
+      "unitTitle": "认识图形",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "plane-shape-properties",
+        "angle-side-intuition",
+        "quadrilaterals",
+        "认识图形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "角",
+        "边",
+        "长方形",
+        "正方形",
+        "图形分类"
+      ],
+      "misconceptionTags": [
+        "orientation mistaken for shape type",
+        "side length and angle features mixed",
+        "decorative appearance used instead of properties"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-plane-shapes"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-plane-shapes",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "长方形和正方形都有______条边，但正方形的______条边都相等，长方形只有______边相等。",
+      "optionsZhHans": [],
+      "answer": "4,4,对",
+      "acceptedAnswers": [
+        "4,4,对",
+        "4，4，对",
+        "4 4 对"
+      ],
+      "explanationZhHans": "长方形和正方形都是四边形，都有4条边。正方形四条边都相等，长方形是对边相等。"
+    }
+  ]
+}

@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-101",
+  "startedAt": "2026-05-28T01:26:04.727Z",
+  "completedAt": "2026-05-28T01:26:23.183Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-301",
+    "bnu-high-ds-v1-s5-302",
+    "bnu-high-ds-v1-s5-303",
+    "bnu-high-ds-v1-s5-304",
+    "bnu-high-ds-v1-s5-305",
+    "bnu-high-ds-v1-s5-306",
+    "bnu-high-ds-v1-s5-307",
+    "bnu-high-ds-v1-s5-308"
+  ],
+  "usage": {
+    "prompt_tokens": 9986,
+    "completion_tokens": 1222,
+    "total_tokens": 11208,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9602
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-301",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "A",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "总选法C(10,4)=210，无女生选法C(6,4)=15，至少1名女生选法210-15=195，对应选项A。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-302",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "45",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "数学书不少于2本，分三类：2数2物C(5,2)C(3,2)=30，3数1物C(5,3)C(3,1)=30，4数0物C(5,4)=5，合计65。但总书8本选4本，数学书不少于2本即数学书2、3、4本，计算得30+30+5=65。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-303",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "-160",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "通项T_{r+1}=C(6,r)(2x)^{6-r}(-1)^r，x^3项指数6-r=3得r=3，系数C(6,3)*2^3*(-1)^3=20*8*(-1)=-160。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-304",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "A",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "三位偶数，个位为0或2或4。个位0：百位十位从1,2,3,4选2个排列A(4,2)=12；个位2：百位不能0，百位从1,3,4选1个，十位从剩余3个选1个，3*3=9；个位4同理9。共12+9+9=30，对应A。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-305",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "36",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "4本不同书分3人每人至少1本，先分组再分配。分组为2,1,1，选2本成一组C(4,2)=6，其余2本各成一组，但两组无序，故分组数C(4,2)=6。再分给3人排列3!=6，共6*6=36。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-306",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "9",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "C(n,2)=n(n-1)/2=36，n(n-1)=72，n=9（负值舍去）。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-307",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "A",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "两类至少各1门，选3门。分两类：A选1门B选2门C(3,1)C(4,2)=3*6=18；A选2门B选1门C(3,2)C(4,1)=3*4=12；共30种，对应A。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-308",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "24",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "通项T_{r+1}=C(4,r)x^{4-r}(-2/x)^r=C(4,r)(-2)^r x^{4-2r}，常数项指数4-2r=0得r=2，常数项C(4,2)*(-2)^2=6*4=24。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，无数学错误、歧义或缺失条件，符合北师大版高中计数原理章节要求。"
+    }
+  }
+}

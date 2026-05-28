@@ -1,0 +1,592 @@
+{
+  "batchId": "batch-148",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p6-221",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-math-play",
+      "unitTitle": "数学好玩",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "p6-lower-mathematical-activity",
+        "planning-design",
+        "spatial-reasoning",
+        "pattern-investigation",
+        "数学好玩"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "创新意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "设计方案",
+        "收集信息",
+        "建立模型",
+        "解释规律",
+        "交流反思"
+      ],
+      "misconceptionTags": [
+        "project constraints ignored",
+        "model choice not justified",
+        "result presented without reflection"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-math-play"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-final-topic-drill",
+        "bnu-primary-p6-lower-assessment-cylinders-cones-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校“数学好玩”活动小组要设计一个无盖的圆柱形环保垃圾桶，要求容积至少为30升。他们找到三种废旧材料：材料A是长62.8厘米、宽40厘米的长方形铁皮；材料B是边长50厘米的正方形铁皮；材料C是长80厘米、宽40厘米的长方形铁皮。小组成员提出以下四种设计方案，请你判断哪种方案能恰好满足容积要求且材料利用率最高？（不考虑接缝和厚度，π取3.14）",
+      "optionsZhHans": [
+        "用材料A，以长边为底面周长，宽为高，制作垃圾桶",
+        "用材料B，剪出底面直径20厘米的圆和侧面，制作垃圾桶",
+        "用材料C，以长边为底面周长，宽为高，制作垃圾桶",
+        "用材料A，以宽边为底面周长，长为高，制作垃圾桶"
+      ],
+      "answer": "用材料A，以长边为底面周长，宽为高，制作垃圾桶",
+      "acceptedAnswers": [
+        "用材料A，以长边为底面周长，宽为高，制作垃圾桶"
+      ],
+      "explanationZhHans": "方案A：底面周长62.8 cm，半径=62.8÷3.14÷2=10 cm，底面积=3.14×10²=314 cm²，容积=314×40=12560 cm³=12.56 L。方案B：底面直径20 cm，半径10 cm，底面积314 cm²，侧面长62.8 cm、宽50 cm，容积=314×50=15700 cm³=15.7 L。方案C：底面周长80 cm，半径≈12.74 cm，底面积≈509.6 cm²，容积≈509.6×40=20384 cm³≈20.38 L。方案D：底面周长40 cm，半径≈6.37 cm，底面积≈127.4 cm²，容积≈127.4×62.8≈8000 cm³=8 L。比较容积，方案C最大，但未达30 L。若考虑材料利用率，方案A用材料A恰好围成侧面且底面圆直径20 cm可从宽40 cm中剪出，利用率最高。综合判断，选A。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-222",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-math-play",
+      "unitTitle": "数学好玩",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "p6-lower-mathematical-activity",
+        "planning-design",
+        "spatial-reasoning",
+        "pattern-investigation",
+        "数学好玩"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "创新意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "设计方案",
+        "收集信息",
+        "建立模型",
+        "解释规律",
+        "交流反思"
+      ],
+      "misconceptionTags": [
+        "project constraints ignored",
+        "model choice not justified",
+        "result presented without reflection"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-math-play"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-final-topic-drill",
+        "bnu-primary-p6-lower-assessment-cylinders-cones-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校计划在操场一角建造一个底面为长方形的沙坑，供跳远活动使用。沙坑的底面长8米、宽3米，深度为0.4米。总务处需要采购细沙填满沙坑。请你设计一个采购方案，要求：\n（1）计算需要细沙的体积；\n（2）如果一辆小货车每次可以运送2.5立方米的细沙，需要安排多少次运输？\n（3）如果每立方米细沙的价格是85元，总费用是多少元？\n请写出完整的计算过程和结果。",
+      "optionsZhHans": [],
+      "answer": "（1）沙坑体积为9.6立方米；（2）需要运输4次；（3）总费用为816元。",
+      "acceptedAnswers": [
+        "（1）沙坑体积为9.6立方米；（2）需要运输4次；（3）总费用为816元。",
+        "（1）9.6立方米；（2）4次；（3）816元",
+        "（1）9.6立方米 （2）4次 （3）816元",
+        "（1）9.6立方米（2）4次（3）816元"
+      ],
+      "explanationZhHans": "沙坑体积=长×宽×深=8×3×0.4=9.6立方米。运输次数=9.6÷2.5=3.84，向上取整为4次。总费用=9.6×85=816元。方案需完整写出计算过程。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-223",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-math-play",
+      "unitTitle": "数学好玩",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "p6-lower-mathematical-activity",
+        "planning-design",
+        "spatial-reasoning",
+        "pattern-investigation",
+        "数学好玩"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "创新意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "设计方案",
+        "收集信息",
+        "建立模型",
+        "解释规律",
+        "交流反思"
+      ],
+      "misconceptionTags": [
+        "project constraints ignored",
+        "model choice not justified",
+        "result presented without reflection"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-math-play"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-final-topic-drill",
+        "bnu-primary-p6-lower-assessment-cylinders-cones-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校计划在操场一角建造一个底面为长方形的沙坑，供低年级同学进行跳远活动。沙坑的长为5米，宽为3米，深为0.4米。如果用一辆每次最多运0.6立方米沙子的手推车来运沙，填满这个沙坑至少需要运多少次？",
+      "optionsZhHans": [
+        "8次",
+        "9次",
+        "10次",
+        "11次"
+      ],
+      "answer": "10次",
+      "acceptedAnswers": [
+        "10次"
+      ],
+      "explanationZhHans": "沙坑体积=5×3×0.4=6立方米。每次运0.6立方米，6÷0.6=10次，正好运完。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-224",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-math-play",
+      "unitTitle": "数学好玩",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "p6-lower-mathematical-activity",
+        "planning-design",
+        "spatial-reasoning",
+        "pattern-investigation",
+        "数学好玩"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "创新意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "设计方案",
+        "收集信息",
+        "建立模型",
+        "解释规律",
+        "交流反思"
+      ],
+      "misconceptionTags": [
+        "project constraints ignored",
+        "model choice not justified",
+        "result presented without reflection"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-math-play"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-final-topic-drill",
+        "bnu-primary-p6-lower-assessment-cylinders-cones-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校计划在操场角落建造一个底面直径为4米、高为3米的圆柱形沙坑，用于学生跳远练习。建造时需要计算沙坑的侧面积和体积。请你设计一个方案，说明如何测量和计算这些量，并解释为什么选择这些公式。",
+      "optionsZhHans": [],
+      "answer": "方案：1. 用卷尺测量沙坑的底面直径，得到4米，则半径为2米；测量高度，得到3米。2. 计算侧面积：侧面积=底面周长×高=π×直径×高=3.14×4×3=37.68（平方米）。3. 计算体积：体积=底面积×高=π×半径²×高=3.14×2²×3=37.68（立方米）。选择这些公式的原因：圆柱的侧面展开是一个长方形，长等于底面周长，宽等于高，所以侧面积=底面周长×高；圆柱的体积可以通过底面积乘以高得到，因为可以将圆柱看作由无数个圆形薄片叠成。",
+      "acceptedAnswers": [
+        "方案：1. 用卷尺测量沙坑的底面直径，得到4米，则半径为2米；测量高度，得到3米。2. 计算侧面积：侧面积=底面周长×高=π×直径×高=3.14×4×3=37.68（平方米）。3. 计算体积：体积=底面积×高=π×半径²×高=3.14×2²×3=37.68（立方米）。选择这些公式的原因：圆柱的侧面展开是一个长方形，长等于底面周长，宽等于高，所以侧面积=底面周长×高；圆柱的体积可以通过底面积乘以高得到，因为可以将圆柱看作由无数个圆形薄片叠成。"
+      ],
+      "explanationZhHans": "方案需包含测量步骤和公式选择理由。侧面积公式为底面周长乘高，体积公式为底面积乘高。代入直径4米、高3米，π取3.14，得侧面积37.68平方米，体积37.68立方米。解释时说明侧面展开为长方形，体积由底面积累加得到。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-225",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-math-play",
+      "unitTitle": "数学好玩",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "p6-lower-mathematical-activity",
+        "planning-design",
+        "spatial-reasoning",
+        "pattern-investigation",
+        "数学好玩"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "创新意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "设计方案",
+        "收集信息",
+        "建立模型",
+        "解释规律",
+        "交流反思"
+      ],
+      "misconceptionTags": [
+        "project constraints ignored",
+        "model choice not justified",
+        "result presented without reflection"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-math-play"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-final-topic-drill",
+        "bnu-primary-p6-lower-assessment-cylinders-cones-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校要举办“数学好玩”展览，六（1）班负责设计一个圆柱形展台。展台底面直径是80厘米，高是120厘米。同学们计划用彩纸装饰展台的侧面和上底面，下底面不装饰。如果彩纸每平方分米0.5元，那么购买彩纸至少需要多少元？（π取3.14）",
+      "optionsZhHans": [
+        "A. 150.72元",
+        "B. 175.84元",
+        "C. 200.96元",
+        "D. 226.08元"
+      ],
+      "answer": "B. 175.84元",
+      "acceptedAnswers": [
+        "B. 175.84元"
+      ],
+      "explanationZhHans": "需要装饰侧面积和一个底面积。侧面积=π×直径×高=3.14×80×120=30144平方厘米，底面积=π×半径²=3.14×40²=5024平方厘米，总面积=35168平方厘米=351.68平方分米。总价=351.68×0.5=175.84元。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-226",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-math-play",
+      "unitTitle": "数学好玩",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "p6-lower-mathematical-activity",
+        "planning-design",
+        "spatial-reasoning",
+        "pattern-investigation",
+        "数学好玩"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "创新意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "设计方案",
+        "收集信息",
+        "建立模型",
+        "解释规律",
+        "交流反思"
+      ],
+      "misconceptionTags": [
+        "project constraints ignored",
+        "model choice not justified",
+        "result presented without reflection"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-math-play"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-final-topic-drill",
+        "bnu-primary-p6-lower-assessment-cylinders-cones-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校计划在操场一角建造一个底面为圆形的沙坑，用于跳远训练。沙坑的底面直径是4米，深度是0.5米。体育老师要求沙坑的容积至少为6.5立方米，才能保证安全。请你通过计算判断：如果按照这个尺寸建造，沙坑的容积是否满足要求？（π取3.14）如果不够，请提出一个简单的修改方案，并说明理由。",
+      "optionsZhHans": [],
+      "answer": "不满足。修改方案：将深度增加至0.6米（或直径增加至4.2米等），理由：计算出的容积小于6.5立方米，需要增大尺寸。",
+      "acceptedAnswers": [
+        "不满足。修改方案：将深度增加至0.6米（或直径增加至4.2米等），理由：计算出的容积小于6.5立方米，需要增大尺寸。",
+        "不满足。修改方案：将深度增加至0.6米，理由：计算出的容积小于6.5立方米，需要增大尺寸。",
+        "不满足。修改方案：将直径增加至4.2米，理由：计算出的容积小于6.5立方米，需要增大尺寸。",
+        "不满足。修改方案：将深度增加至0.6米（或直径增加至4.2米），理由：计算出的容积小于6.5立方米，需要增大尺寸。"
+      ],
+      "explanationZhHans": "沙坑容积为圆柱体积：3.14×(4÷2)²×0.5=6.28立方米，小于6.5立方米，不满足要求。可将深度增至0.6米，容积变为3.14×4×0.6=7.536立方米，满足要求。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-227",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-math-play",
+      "unitTitle": "数学好玩",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "p6-lower-mathematical-activity",
+        "planning-design",
+        "spatial-reasoning",
+        "pattern-investigation",
+        "数学好玩"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "创新意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "设计方案",
+        "收集信息",
+        "建立模型",
+        "解释规律",
+        "交流反思"
+      ],
+      "misconceptionTags": [
+        "project constraints ignored",
+        "model choice not justified",
+        "result presented without reflection"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-math-play"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-final-topic-drill",
+        "bnu-primary-p6-lower-assessment-cylinders-cones-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校要举办“数学好玩”作品展，六年级同学负责设计一个圆柱形展台。展台底面直径是80厘米，高是120厘米。同学们计划用彩纸把展台的侧面和上面（顶面）全部包起来。下面哪个方案最合理？",
+      "optionsZhHans": [
+        "先计算侧面积：3.14×80×120=30144平方厘米，顶面积：3.14×(80÷2)²=5024平方厘米，总面积：30144+5024=35168平方厘米，约4平方米彩纸。",
+        "先计算侧面积：3.14×80×120=30144平方厘米，顶面积：3.14×80²=20096平方厘米，总面积：30144+20096=50240平方厘米，约5平方米彩纸。",
+        "先计算底面积：3.14×(80÷2)²=5024平方厘米，再乘高：5024×120=602880立方厘米，约0.6立方米彩纸。",
+        "计算表面积：3.14×80×120+3.14×(80÷2)²×2=30144+10048=40192平方厘米，约4平方米彩纸。"
+      ],
+      "answer": "先计算侧面积：3.14×80×120=30144平方厘米，顶面积：3.14×(80÷2)²=5024平方厘米，总面积：30144+5024=35168平方厘米，约4平方米彩纸。",
+      "acceptedAnswers": [
+        "先计算侧面积：3.14×80×120=30144平方厘米，顶面积：3.14×(80÷2)²=5024平方厘米，总面积：30144+5024=35168平方厘米，约4平方米彩纸。"
+      ],
+      "explanationZhHans": "展台只有上面和侧面需要包装，下面接触地面不包。侧面积=底面周长×高=3.14×80×120=30144 cm²；顶面积=π×(半径)²=3.14×40²=5024 cm²；总面积=35168 cm²≈3.5 m²，约4 m²彩纸合理。其他选项错在：B误用直径算顶面积，C用体积公式，D多算了底面积。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-228",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-math-play",
+      "unitTitle": "数学好玩",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "p6-lower-mathematical-activity",
+        "planning-design",
+        "spatial-reasoning",
+        "pattern-investigation",
+        "数学好玩"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "创新意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "设计方案",
+        "收集信息",
+        "建立模型",
+        "解释规律",
+        "交流反思"
+      ],
+      "misconceptionTags": [
+        "project constraints ignored",
+        "model choice not justified",
+        "result presented without reflection"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-math-play"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-final-topic-drill",
+        "bnu-primary-p6-lower-assessment-cylinders-cones-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校计划在操场边新建一个长方形花坛，花坛的长是8米，宽是5米。要在花坛周围铺一圈宽1米的石子小路。请设计一个方案，计算石子小路的面积，并写出你的思考过程。",
+      "optionsZhHans": [],
+      "answer": "石子小路的面积是30平方米。思考过程：可以先算包括小路的大长方形面积，大长方形的长是8+1+1=10米，宽是5+1+1=7米，面积是10×7=70平方米。花坛面积是8×5=40平方米。石子小路的面积就是大长方形面积减去花坛面积，70−40=30平方米。",
+      "acceptedAnswers": [
+        "石子小路的面积是30平方米。思考过程：可以先算包括小路的大长方形面积，大长方形的长是8+1+1=10米，宽是5+1+1=7米，面积是10×7=70平方米。花坛面积是8×5=40平方米。石子小路的面积就是大长方形面积减去花坛面积，70−40=30平方米。"
+      ],
+      "explanationZhHans": "小路是环绕花坛的边框，面积等于大长方形面积减去花坛面积。大长方形长=8+2=10米，宽=5+2=7米，面积70平方米；花坛面积40平方米；差为30平方米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-229",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-math-play",
+      "unitTitle": "数学好玩",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "p6-lower-mathematical-activity",
+        "planning-design",
+        "spatial-reasoning",
+        "pattern-investigation",
+        "数学好玩"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "创新意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "设计方案",
+        "收集信息",
+        "建立模型",
+        "解释规律",
+        "交流反思"
+      ],
+      "misconceptionTags": [
+        "project constraints ignored",
+        "model choice not justified",
+        "result presented without reflection"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-math-play"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-final-topic-drill",
+        "bnu-primary-p6-lower-assessment-cylinders-cones-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校要设计一个“数学好玩”展览区，计划用彩带围成一个长方形区域，长6米，宽4米。展览区内部要划分成两个完全相同的正方形区域，分别展示“立体图形测量”和“数学规律探索”主题。以下哪种划分方案符合要求？",
+      "optionsZhHans": [
+        "沿长边中点连线划分，得到两个长3米、宽4米的长方形",
+        "沿宽边中点连线划分，得到两个长6米、宽2米的长方形",
+        "沿对角线划分，得到两个直角三角形",
+        "无法划分成两个完全相同的正方形"
+      ],
+      "answer": "无法划分成两个完全相同的正方形",
+      "acceptedAnswers": [
+        "无法划分成两个完全相同的正方形"
+      ],
+      "explanationZhHans": "长方形长6米、宽4米，要分成两个完全相同的正方形，每个正方形边长需相等。若边长取宽4米，则需长8米；若边长取长的一半3米，则宽需3米。实际尺寸均不满足，故无法划分。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-230",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-math-play",
+      "unitTitle": "数学好玩",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "p6-lower-mathematical-activity",
+        "planning-design",
+        "spatial-reasoning",
+        "pattern-investigation",
+        "数学好玩"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "创新意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "设计方案",
+        "收集信息",
+        "建立模型",
+        "解释规律",
+        "交流反思"
+      ],
+      "misconceptionTags": [
+        "project constraints ignored",
+        "model choice not justified",
+        "result presented without reflection"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-math-play"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-final-topic-drill",
+        "bnu-primary-p6-lower-assessment-cylinders-cones-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校计划在操场一角建造一个底面为圆形的喷泉，要求喷泉的占地面积不超过50平方米，且为了美观，喷泉的直径必须是整米数。请你设计一个符合要求的喷泉方案，并说明你的设计理由。",
+      "optionsZhHans": [],
+      "answer": "喷泉底面直径为7米，占地面积为38.465平方米，符合要求。",
+      "acceptedAnswers": [
+        "喷泉底面直径为7米，占地面积为38.465平方米，符合要求。",
+        "喷泉底面直径为6米，占地面积为28.26平方米，符合要求。",
+        "喷泉底面直径为5米，占地面积为19.625平方米，符合要求。",
+        "喷泉底面直径为4米，占地面积为12.56平方米，符合要求。",
+        "喷泉底面直径为3米，占地面积为7.065平方米，符合要求。",
+        "喷泉底面直径为2米，占地面积为3.14平方米，符合要求。",
+        "喷泉底面直径为1米，占地面积为0.785平方米，符合要求。"
+      ],
+      "explanationZhHans": "圆形面积公式为πr²，直径d为整米数，半径r=d/2。计算d=7时面积≈38.465平方米，未超过50平方米，且直径整数，满足所有约束。"
+    }
+  ]
+}

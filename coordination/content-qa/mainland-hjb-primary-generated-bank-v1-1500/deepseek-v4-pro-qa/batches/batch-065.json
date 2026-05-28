@@ -1,0 +1,191 @@
+{
+  "batchNumber": 65,
+  "startedAt": "2026-05-25T02:21:10.444Z",
+  "completedAt": "2026-05-25T02:21:31.628Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p5-153",
+    "hjb-primary-ds-v1-p5-154",
+    "hjb-primary-ds-v1-p5-155",
+    "hjb-primary-ds-v1-p5-156",
+    "hjb-primary-ds-v1-p5-157",
+    "hjb-primary-ds-v1-p5-158",
+    "hjb-primary-ds-v1-p5-159",
+    "hjb-primary-ds-v1-p5-160",
+    "hjb-primary-ds-v1-p5-161",
+    "hjb-primary-ds-v1-p5-162",
+    "hjb-primary-ds-v1-p5-163",
+    "hjb-primary-ds-v1-p5-164",
+    "hjb-primary-ds-v1-p5-165",
+    "hjb-primary-ds-v1-p5-166",
+    "hjb-primary-ds-v1-p5-167",
+    "hjb-primary-ds-v1-p5-168",
+    "hjb-primary-ds-v1-p5-169",
+    "hjb-primary-ds-v1-p5-170"
+  ],
+  "usage": {
+    "prompt_tokens": 3370,
+    "completion_tokens": 1367,
+    "total_tokens": 4737,
+    "prompt_tokens_details": {
+      "cached_tokens": 3328
+    },
+    "prompt_cache_hit_tokens": 3328,
+    "prompt_cache_miss_tokens": 42
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p5-153",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，求最大公因数，答案正确，解释合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-154",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目明确，求24的因数（排除1和24），答案6种正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-155",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "求最大公因数，答案12正确，解释清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-156",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "求24的所有因数，答案完整，解释正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-157",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "质数判断正确，选项2和7均为质数，解释合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-158",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "通分正确，最小公分母24，答案9/24和20/24无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-159",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分数应用题，计算正确，小丽吃了3颗。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-160",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分数基本性质，6/9与2/3相等，选项无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-161",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "除法与分数关系，3÷5=3/5米，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-162",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "开放题，答案示例4/6和6/9符合要求。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-163",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分数相等判断，6/8=3/4，其他选项错误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-164",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "约分正确，18/24=3/4。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-165",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "异分母加法，通分后得5/6，正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-166",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "对折剪绳问题，分析正确，较短段为原长1/8。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-167",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分数基本性质，3/4=9/12，答案9正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-168",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "异分母减法，通分后得7/12，正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-169",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分数相等判断，4/10=2/5，其他选项错误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-170",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "约分正确，12/18=2/3。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合沪教版小学数学五年级要求，数学正确，答案匹配，无歧义或缺失条件，适合公共题库使用。"
+    }
+  }
+}

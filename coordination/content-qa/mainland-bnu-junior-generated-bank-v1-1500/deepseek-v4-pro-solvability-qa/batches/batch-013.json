@@ -1,0 +1,173 @@
+{
+  "batchNumber": 13,
+  "startedAt": "2026-05-27T17:24:38.064Z",
+  "completedAt": "2026-05-27T17:24:57.972Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s1-145",
+    "bnu-junior-ds-v1-s1-146",
+    "bnu-junior-ds-v1-s1-147",
+    "bnu-junior-ds-v1-s1-148",
+    "bnu-junior-ds-v1-s1-149",
+    "bnu-junior-ds-v1-s1-150",
+    "bnu-junior-ds-v1-s1-151",
+    "bnu-junior-ds-v1-s1-152",
+    "bnu-junior-ds-v1-s1-153",
+    "bnu-junior-ds-v1-s1-154",
+    "bnu-junior-ds-v1-s1-155",
+    "bnu-junior-ds-v1-s1-156"
+  ],
+  "usage": {
+    "prompt_tokens": 5432,
+    "completion_tokens": 1420,
+    "total_tokens": 6852,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 4920
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s1-145",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，点B在A与C之间，AC=10 cm，AB=7 cm，BC=AC-AB=3 cm，答案正确，选项唯一，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-146",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由OE平分∠AOC得∠AOC=70°，对顶角相等得∠BOD=70°，答案正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-147",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "中点定义，AM=AB/2=7 cm，答案7正确，acceptedAnswers覆盖多种写法，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-148",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比较45°<60°<75°，选项A正确，其他选项错误，答案唯一，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-149",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比例设k，3k+2k=20，k=4，AC=12 cm，CB=8 cm，答案正确，acceptedAnswers覆盖多种格式，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-150",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "∠BOC=∠AOB-∠AOC=90°-55°=35°，答案35°正确，acceptedAnswers包含35和35°，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-151",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "点B在A与C之间，AC=AB+BC=5+3=8 cm，答案正确，选项唯一，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-152",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "∠AOD=∠AOE+∠EOD=90°，OE不是平分线因为35°≠55°，答案完整，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-153",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "点P在MN上，MP+PN=MN，PN=8-3=5 cm，答案5正确，acceptedAnswers包含5和5 cm，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-154",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "只有选项A中顶点O处只有一个角，可用∠O表示，其他选项有多个角，答案正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-155",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "AC:CB=2:3，设k，5k=20，k=4，AC=8 cm，CB=12 cm，答案正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-156",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "∠BOC=∠AOB-∠AOC=120°-50°=70°，答案70正确，acceptedAnswers包含70和70°，解释匹配。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目条件充分、可解，答案与解释匹配，选项无歧义，符合北师大版七年级上册基本平面图形单元要求。"
+    }
+  }
+}

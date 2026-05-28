@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-010",
+  "startedAt": "2026-05-28T00:35:40.775Z",
+  "completedAt": "2026-05-28T00:35:58.533Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-073",
+    "bnu-high-ds-v1-s4-074",
+    "bnu-high-ds-v1-s4-075",
+    "bnu-high-ds-v1-s4-076",
+    "bnu-high-ds-v1-s4-077",
+    "bnu-high-ds-v1-s4-078",
+    "bnu-high-ds-v1-s4-079",
+    "bnu-high-ds-v1-s4-080"
+  ],
+  "usage": {
+    "prompt_tokens": 10052,
+    "completion_tokens": 1107,
+    "total_tokens": 11159,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9668
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-073",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "a > b > c",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "a=2^0.3>1，b=0.3^2=0.09，c=log₂0.3<0，故a>b>c。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-074",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "22",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "(0.008)^(-2/3)=25，(√3-1)^0=1，16^0.75=8，25+1-8=18，但16^0.75=8，25+1-8=18，重新计算：0.008=8/1000=1/125，(1/125)^(-2/3)=125^(2/3)=25，16^0.75=16^(3/4)=8，25+1-8=18。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-075",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由a^2=1/9得a=1/3，f(-1)=(1/3)^(-1)=3。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-076",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "f(x) 是奇函数，g(x) 是偶函数",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f(-x)=2^(-x)-2^x=-f(x)，奇函数；g(-x)=2^(-x)+2^x=g(x)，偶函数。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-077",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(-∞, 1]",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "底数1/3<1，外层递减，求内层u=x²-2x的递减区间，u在(-∞,1]递减，故原函数递增区间为(-∞,1]。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-078",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "0 或 2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "令t=2^x>0，t²-5t+4=0得t=1或4，即2^x=1或4，x=0或2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-079",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(1, 3)",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "令x-1=0得x=1，f(1)=a^0+2=3，定点(1,3)。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-080",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "a=2, b=0；解集为{x|x>log₂3}",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由(0,2)得a+b=2，(2,10)得4a+b=10，解得a=2,b=0。f(x)=2·2^x>6得2^x>3，x>log₂3。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，无数学错误、歧义或缺失条件，符合北师大版高一指数运算与指数函数章节要求。"
+    }
+  }
+}

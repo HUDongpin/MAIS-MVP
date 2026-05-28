@@ -1,0 +1,191 @@
+{
+  "batchNumber": 3,
+  "startedAt": "2026-05-27T13:40:53.272Z",
+  "completedAt": "2026-05-27T13:41:10.910Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p1-037",
+    "bnu-primary-ds-v2-p1-038",
+    "bnu-primary-ds-v2-p1-039",
+    "bnu-primary-ds-v2-p1-040",
+    "bnu-primary-ds-v2-p1-041",
+    "bnu-primary-ds-v2-p1-042",
+    "bnu-primary-ds-v2-p1-043",
+    "bnu-primary-ds-v2-p1-044",
+    "bnu-primary-ds-v2-p1-045",
+    "bnu-primary-ds-v2-p1-046",
+    "bnu-primary-ds-v2-p1-047",
+    "bnu-primary-ds-v2-p1-048",
+    "bnu-primary-ds-v2-p1-049",
+    "bnu-primary-ds-v2-p1-050",
+    "bnu-primary-ds-v2-p1-051",
+    "bnu-primary-ds-v2-p1-052",
+    "bnu-primary-ds-v2-p1-053",
+    "bnu-primary-ds-v2-p1-054"
+  ],
+  "usage": {
+    "prompt_tokens": 3869,
+    "completion_tokens": 1243,
+    "total_tokens": 5112,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 3613
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p1-037",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，算式正确，选项无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-038",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "逆向加法正确，答案7无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-039",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "加法情境合理，答案覆盖交换律。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-040",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "减法算式正确，选项无干扰。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-041",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "算式与填空匹配，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-042",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "加法列式正确，答案合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-043",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "求部分用减法，选项正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-044",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "逆向减法正确，答案无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-045",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "减法情境清晰，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-046",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "加法算式正确，选项无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-047",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "求增加部分用减法，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-048",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "逆向加法正确，答案合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-049",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分类正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-050",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分类标准合理，答案覆盖多种表述。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-051",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "两种分类均正确，答案开放合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-052",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "颜色分类正确，选项C唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-053",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分类计数正确，答案无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-054",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分类标准明确，答案开放合理。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部18题均符合北师大版小学数学要求，无数学错误、答案不匹配、歧义或年级不匹配等问题。"
+    }
+  }
+}

@@ -1,0 +1,162 @@
+{
+  "scope": "full",
+  "batchIndex": 33,
+  "startedAt": "2026-05-28T04:08:17.427Z",
+  "completedAt": "2026-05-28T04:14:40.789Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "itemIds": [
+    "10609",
+    "10610",
+    "10611",
+    "10612",
+    "10613",
+    "10614",
+    "10615",
+    "10616",
+    "10617",
+    "10618"
+  ],
+  "usage": {
+    "prompt_tokens": 5116,
+    "completion_tokens": 10065,
+    "total_tokens": 15181
+  },
+  "finishReason": "single-question-fallback",
+  "jsonModeFallback": false,
+  "batchProviderError": "DeepSeek request timed out",
+  "singleQuestionFallback": true,
+  "result": {
+    "items": [
+      {
+        "questionId": "10609",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "C",
+        "independentAnswer": null,
+        "solvabilityStatus": "image-context-required",
+        "answerMatchStatus": "not-checkable",
+        "severity": "P1",
+        "reason": "The question mentions a trapezium but no diagram is provided. Without seeing the specific trapezium, it is unclear whether it can be split into a rectangle and a triangle (which requires right angles). The answer choice C depends on the trapezium's shape, so image context is required.",
+        "recommendedAction": "Include the trapezium diagram or describe its properties (e.g., if it is a right trapezium)."
+      },
+      {
+        "questionId": "10610",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "***",
+        "independentAnswer": null,
+        "solvabilityStatus": "api-error",
+        "answerMatchStatus": "not-checkable",
+        "severity": "P1",
+        "reason": "API or schema failure after retries: DeepSeek request timed out",
+        "recommendedAction": "Rerun this batch with a rotated valid key and stable provider response."
+      },
+      {
+        "questionId": "10611",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "AB",
+        "independentAnswer": "A",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "mismatch",
+        "severity": "P0",
+        "reason": "一個L形多邊形（通常為六邊形）用一條直線只能分割出兩個四邊形（如長方形），不可能分割出兩個五邊形，因為兩個五邊形的總邊數為10，超過原圖形邊數加2（即8）。正確答案應僅為A，但standardAnswer為AB。\nAn L-shaped polygon (typically a hexagon) can only be split into two quadrilaterals (e.g. rectangles) with one straight line; two pentagons require total 10 sides, exceeding original sides+2=8. Correct answer is A only, but standardAnswer is AB.",
+        "recommendedAction": "將答案修正為A。Correct the answer key to A only."
+      },
+      {
+        "questionId": "10612",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "ABC",
+        "independentAnswer": null,
+        "solvabilityStatus": "api-error",
+        "answerMatchStatus": "not-checkable",
+        "severity": "P1",
+        "reason": "API or schema failure after retries: DeepSeek request timed out",
+        "recommendedAction": "Rerun this batch with a rotated valid key and stable provider response."
+      },
+      {
+        "questionId": "10613",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "平行四邊形 (Parallelogram)",
+        "independentAnswer": "平行四邊形",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "問題清晰，兩個相同梯形可拼成平行四邊形，標準答案正確。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10614",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "A",
+        "independentAnswer": "A",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Question type is listed as FRQ but includes multiple-choice options and a single-letter answer. The math is correct.",
+        "recommendedAction": "Change questionType to MCQ or BFQ."
+      },
+      {
+        "questionId": "10615",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "相等 (The same)",
+        "independentAnswer": "相等 (The same)",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "The question is clear and solvable; answer correctly identifies area equality.",
+        "recommendedAction": "无"
+      },
+      {
+        "questionId": "10616",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "6",
+        "independentAnswer": "6",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "问题清晰，无需图片，答案6正确",
+        "recommendedAction": "none"
+      },
+      {
+        "questionId": "10617",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "4",
+        "independentAnswer": null,
+        "solvabilityStatus": "api-error",
+        "answerMatchStatus": "not-checkable",
+        "severity": "P1",
+        "reason": "API or schema failure after retries: DeepSeek request timed out",
+        "recommendedAction": "Rerun this batch with a rotated valid key and stable provider response."
+      },
+      {
+        "questionId": "10618",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "A",
+        "independentAnswer": "A",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Three identical equilateral triangles can be arranged to form an isosceles trapezium (trapezoid), but cannot form a rhombus because a rhombus tiled by such triangles requires an even number of triangles. Hence, option A is correct.",
+        "recommendedAction": "No blocking action."
+      }
+    ],
+    "batchSummary": {
+      "pass": 5,
+      "unsolvable": 0,
+      "ambiguous": 0,
+      "imageContextRequired": 1,
+      "answerMismatch": 1,
+      "missingAnswerKey": 0,
+      "notes": "Batch-level request failed (DeepSeek request timed out); item-level fallback was used."
+    }
+  }
+}

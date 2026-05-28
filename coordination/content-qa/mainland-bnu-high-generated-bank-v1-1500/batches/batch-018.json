@@ -1,0 +1,685 @@
+{
+  "batchId": "batch-018",
+  "questions": [
+    {
+      "id": "bnu-high-ds-v1-s4-171",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-函数应用",
+      "topicTitleZhHans": "函数应用",
+      "volume": "必修 第一册",
+      "chapter": "函数应用",
+      "conceptIds": [
+        "function-applications",
+        "function-zero",
+        "mathematical-modeling",
+        "growth-models",
+        "approximation",
+        "model-interpretation"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学运算",
+        "应用意识"
+      ],
+      "skillTags": [
+        "函数零点",
+        "模型选择",
+        "参数解释",
+        "近似求解",
+        "结果检验",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "zero meaning not interpreted",
+        "model domain overstated",
+        "growth comparison outside interval",
+        "parameter conclusion unsupported",
+        "zero not interpreted",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-function-applications"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-function-applications-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s4-upper-midterm-function-properties-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某城市出租车收费标准如下：起步价10元（含3公里），超过3公里但不超过10公里的部分每公里2元，超过10公里的部分每公里3元。设行驶里程为x公里（x>0），车费为y元。若某乘客支付了37元，则他行驶的里程约为______公里。（结果保留一位小数）",
+      "optionsZhHans": [],
+      "answer": "14.3",
+      "acceptedAnswers": [
+        "14.3"
+      ],
+      "explanationZhHans": "分段函数模型：当0<x≤3时，y=10；当3<x≤10时，y=10+2(x-3)=2x+4；当x>10时，y=10+14+3(x-10)=3x-6。令y=37，若3<x≤10，则2x+4=37，x=16.5>10，不符；若x>10，则3x-6=37，x≈14.3，符合。故里程约为14.3公里。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-172",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-函数应用",
+      "topicTitleZhHans": "函数应用",
+      "volume": "必修 第一册",
+      "chapter": "函数应用",
+      "conceptIds": [
+        "function-applications",
+        "function-zero",
+        "mathematical-modeling",
+        "growth-models",
+        "approximation",
+        "model-interpretation"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学运算",
+        "应用意识"
+      ],
+      "skillTags": [
+        "函数零点",
+        "模型选择",
+        "参数解释",
+        "近似求解",
+        "结果检验",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "zero meaning not interpreted",
+        "model domain overstated",
+        "growth comparison outside interval",
+        "parameter conclusion unsupported",
+        "zero not interpreted",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-function-applications"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-function-applications-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s4-upper-functions-unit-pattern"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某地一种传染病的感染人数随时间变化的函数模型为N(t)=2000/(1+19e^{-0.5t})，其中t≥0为天数。关于该模型，下列说法正确的是：",
+      "optionsZhHans": [
+        "当t=0时，感染人数为100",
+        "感染人数的增长速度始终在加快",
+        "长期来看，感染人数将无限增长",
+        "第10天的感染人数约为1900"
+      ],
+      "answer": "当t=0时，感染人数为100",
+      "acceptedAnswers": [
+        "当t=0时，感染人数为100"
+      ],
+      "explanationZhHans": "t=0时，N(0)=2000/(1+19)=100，A正确。该模型为逻辑斯蒂增长，初期增长加快，后期减缓并趋于饱和值2000，故B、C错误。t=10时，N(10)=2000/(1+19e^{-5})≈2000/(1+19×0.0067)≈2000/1.1273≈1774，D错误。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-173",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-函数应用",
+      "topicTitleZhHans": "函数应用",
+      "volume": "必修 第一册",
+      "chapter": "函数应用",
+      "conceptIds": [
+        "function-applications",
+        "function-zero",
+        "mathematical-modeling",
+        "growth-models",
+        "approximation",
+        "model-interpretation"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学运算",
+        "应用意识"
+      ],
+      "skillTags": [
+        "函数零点",
+        "模型选择",
+        "参数解释",
+        "近似求解",
+        "结果检验",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "zero meaning not interpreted",
+        "model domain overstated",
+        "growth comparison outside interval",
+        "parameter conclusion unsupported",
+        "zero not interpreted",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-function-applications"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-function-applications-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s4-upper-functions-unit-pattern"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某公司推出一种新产品，市场调查显示：产品定价为p元时，月销售量q（千件）满足q=50-2p。生产成本为每件10元，固定成本为20000元。请建立月利润L（元）关于定价p的函数模型，并指出p的取值范围。",
+      "optionsZhHans": [],
+      "answer": "L(p)=1000(50-2p)(p-10)-20000，p∈(10,25)",
+      "acceptedAnswers": [
+        "L(p)=1000(50-2p)(p-10)-20000，p∈(10,25)",
+        "L(p)=1000(50-2p)(p-10)-20000, p∈(10,25)"
+      ],
+      "explanationZhHans": "销售量q=50-2p千件，即1000(50-2p)件。收入为1000(50-2p)p元，成本为1000(50-2p)×10+20000元。利润L=1000(50-2p)(p-10)-20000。由q>0得p<25，且p>10才有利润，故p∈(10,25)。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-174",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-函数应用",
+      "topicTitleZhHans": "函数应用",
+      "volume": "必修 第一册",
+      "chapter": "函数应用",
+      "conceptIds": [
+        "function-applications",
+        "function-zero",
+        "mathematical-modeling",
+        "growth-models",
+        "approximation",
+        "model-interpretation"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学运算",
+        "应用意识"
+      ],
+      "skillTags": [
+        "函数零点",
+        "模型选择",
+        "参数解释",
+        "近似求解",
+        "结果检验",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "zero meaning not interpreted",
+        "model domain overstated",
+        "growth comparison outside interval",
+        "parameter conclusion unsupported",
+        "zero not interpreted",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-function-applications"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-function-applications-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s4-upper-midterm-function-properties-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知函数f(x)=x^3-3x-1在区间[-2,2]上有三个零点，利用二分法求f(x)在[1,2]内的零点近似值时，若精确度为0.1，则至少需要进行______次二分。",
+      "optionsZhHans": [],
+      "answer": "4",
+      "acceptedAnswers": [
+        "4"
+      ],
+      "explanationZhHans": "初始区间长度1，每次二分后长度减半。设n次后长度≤0.1，即(1/2)^n≤0.1，解得n≥log2(10)≈3.32，故至少需要4次。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-175",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-函数应用",
+      "topicTitleZhHans": "函数应用",
+      "volume": "必修 第一册",
+      "chapter": "函数应用",
+      "conceptIds": [
+        "function-applications",
+        "function-zero",
+        "mathematical-modeling",
+        "growth-models",
+        "approximation",
+        "model-interpretation"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学运算",
+        "应用意识"
+      ],
+      "skillTags": [
+        "函数零点",
+        "模型选择",
+        "参数解释",
+        "近似求解",
+        "结果检验",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "zero meaning not interpreted",
+        "model domain overstated",
+        "growth comparison outside interval",
+        "parameter conclusion unsupported",
+        "zero not interpreted",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-function-applications"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-function-applications-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s4-upper-functions-unit-pattern"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某地GDP从2010年到2020年增长了2倍，若分别用指数增长模型y=a·e^{kt}和线性增长模型y=b+ct拟合，其中t为年数（2010年t=0）。关于这两个模型，下列说法正确的是：",
+      "optionsZhHans": [
+        "指数模型中的k值约为0.0693",
+        "线性模型中的c值约为0.2",
+        "指数模型预测2030年GDP将是2010年的8倍",
+        "线性模型预测2030年GDP将是2010年的3倍"
+      ],
+      "answer": "指数模型中的k值约为0.0693",
+      "acceptedAnswers": [
+        "指数模型中的k值约为0.0693"
+      ],
+      "explanationZhHans": "设2010年GDP为1，则2020年为3。指数模型：e^{10k}=3，k=ln3/10≈1.0986/10=0.10986，A错误。线性模型：b=1，1+10c=3，c=0.2，B正确。指数模型2030年：e^{20k}=e^{2ln3}=9，为9倍，C错误。线性模型2030年：1+20×0.2=5，为5倍，D错误。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-176",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-函数应用",
+      "topicTitleZhHans": "函数应用",
+      "volume": "必修 第一册",
+      "chapter": "函数应用",
+      "conceptIds": [
+        "function-applications",
+        "function-zero",
+        "mathematical-modeling",
+        "growth-models",
+        "approximation",
+        "model-interpretation"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学运算",
+        "应用意识"
+      ],
+      "skillTags": [
+        "函数零点",
+        "模型选择",
+        "参数解释",
+        "近似求解",
+        "结果检验",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "zero meaning not interpreted",
+        "model domain overstated",
+        "growth comparison outside interval",
+        "parameter conclusion unsupported",
+        "zero not interpreted",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-function-applications"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-function-applications-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s4-upper-functions-unit-pattern"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某水库的水位高度h（米）与时间t（天）的关系近似满足h(t)=12+2sin(πt/6)。求在t∈[0,12]内，水位高度达到13米的时刻t。",
+      "optionsZhHans": [],
+      "answer": "t=1或t=5或t=13（舍去）或t=17（舍去），故t=1或5",
+      "acceptedAnswers": [
+        "t=1或t=5或t=13（舍去）或t=17（舍去），故t=1或5",
+        "t=1或5",
+        "t=1或t=5",
+        "1或5"
+      ],
+      "explanationZhHans": "令12+2sin(πt/6)=13，得sin(πt/6)=0.5。在[0,12]内，πt/6∈[0,2π]，所以πt/6=π/6或5π/6，解得t=1或5。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-177",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-函数应用",
+      "topicTitleZhHans": "函数应用",
+      "volume": "必修 第一册",
+      "chapter": "函数应用",
+      "conceptIds": [
+        "function-applications",
+        "function-zero",
+        "mathematical-modeling",
+        "growth-models",
+        "approximation",
+        "model-interpretation"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学运算",
+        "应用意识"
+      ],
+      "skillTags": [
+        "函数零点",
+        "模型选择",
+        "参数解释",
+        "近似求解",
+        "结果检验",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "zero meaning not interpreted",
+        "model domain overstated",
+        "growth comparison outside interval",
+        "parameter conclusion unsupported",
+        "zero not interpreted",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-function-applications"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-function-applications-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s4-upper-midterm-function-properties-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某工厂生产一种产品，每日的固定成本为500元，每生产一件产品的可变成本为20元。该产品的销售单价为40元，且每日最多生产100件。设日产量为x件，日利润为L(x)元。若要使日利润不少于1500元，则日产量x的取值范围是______。",
+      "optionsZhHans": [],
+      "answer": "[100,100]",
+      "acceptedAnswers": [
+        "[100,100]",
+        "x=100"
+      ],
+      "explanationZhHans": "利润函数L(x)=40x-(500+20x)=20x-500，0≤x≤100。令20x-500≥1500，得x≥100。结合x≤100，故x=100。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-178",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-函数应用",
+      "topicTitleZhHans": "函数应用",
+      "volume": "必修 第一册",
+      "chapter": "函数应用",
+      "conceptIds": [
+        "function-applications",
+        "function-zero",
+        "mathematical-modeling",
+        "growth-models",
+        "approximation",
+        "model-interpretation"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学运算",
+        "应用意识"
+      ],
+      "skillTags": [
+        "函数零点",
+        "模型选择",
+        "参数解释",
+        "近似求解",
+        "结果检验",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "zero meaning not interpreted",
+        "model domain overstated",
+        "growth comparison outside interval",
+        "parameter conclusion unsupported",
+        "zero not interpreted",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-function-applications"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-function-applications-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s4-upper-functions-unit-pattern"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知函数f(x)=ln x+x-2的零点在区间(k,k+1)内，k∈Z，则k的值为：",
+      "optionsZhHans": [
+        "0",
+        "1",
+        "2",
+        "3"
+      ],
+      "answer": "1",
+      "acceptedAnswers": [
+        "1"
+      ],
+      "explanationZhHans": "f(1)=ln1+1-2=-1<0，f(2)=ln2+2-2=ln2>0，故零点在(1,2)内，k=1。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-179",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-函数应用",
+      "topicTitleZhHans": "函数应用",
+      "volume": "必修 第一册",
+      "chapter": "函数应用",
+      "conceptIds": [
+        "function-applications",
+        "function-zero",
+        "mathematical-modeling",
+        "growth-models",
+        "approximation",
+        "model-interpretation"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学运算",
+        "应用意识"
+      ],
+      "skillTags": [
+        "函数零点",
+        "模型选择",
+        "参数解释",
+        "近似求解",
+        "结果检验",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "zero meaning not interpreted",
+        "model domain overstated",
+        "growth comparison outside interval",
+        "parameter conclusion unsupported",
+        "zero not interpreted",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-function-applications"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-function-applications-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s4-upper-functions-unit-pattern"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某城市人口数量N（万人）与时间t（年）满足N(t)=100e^{0.02t}。求人口翻一番所需的时间（精确到年）。",
+      "optionsZhHans": [],
+      "answer": "35",
+      "acceptedAnswers": [
+        "35"
+      ],
+      "explanationZhHans": "令100e^{0.02t}=200，得e^{0.02t}=2，0.02t=ln2，t=50ln2≈50×0.693=34.65，四舍五入为35年。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-180",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-函数应用",
+      "topicTitleZhHans": "函数应用",
+      "volume": "必修 第一册",
+      "chapter": "函数应用",
+      "conceptIds": [
+        "function-applications",
+        "function-zero",
+        "mathematical-modeling",
+        "growth-models",
+        "approximation",
+        "model-interpretation"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学运算",
+        "应用意识"
+      ],
+      "skillTags": [
+        "函数零点",
+        "模型选择",
+        "参数解释",
+        "近似求解",
+        "结果检验",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "zero meaning not interpreted",
+        "model domain overstated",
+        "growth comparison outside interval",
+        "parameter conclusion unsupported",
+        "zero not interpreted",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-function-applications"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-function-applications-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s4-upper-midterm-function-properties-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某商品的需求量Q（件）与价格p（元）的关系为Q=1000-5p，供给量S（件）与价格p的关系为S=200+3p。市场均衡价格p*满足Q=S。利用二分法求p*的近似值，初始区间为[80,120]，精确到1元，则至少需要进行______次二分。",
+      "optionsZhHans": [],
+      "answer": "6",
+      "acceptedAnswers": [
+        "6"
+      ],
+      "explanationZhHans": "初始区间长度40，每次二分后长度减半。设n次后长度≤1，即40×(1/2)^n≤1，得2^n≥40，n≥log2(40)≈5.32，故至少需要6次。"
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-254",
+  "startedAt": "2026-05-28T01:24:54.206Z",
+  "completedAt": "2026-05-28T01:24:58.528Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-254"
+  ],
+  "usage": {
+    "prompt_tokens": 2566,
+    "completion_tokens": 268,
+    "total_tokens": 2834,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2182
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-254",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "6.40 m",
+        "correctedAnswer": "最小半径约为6.40 m",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目要求覆盖四个顶点，最小半径应为喷头到最远顶点C的距离√41≈6.40 m，存储答案5.00 m错误，且解析中已指出正确值为6.40 m，与答案矛盾，构成严重错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "存储答案与正确计算结果不符，且解析自相矛盾，判定为阻断性问题。"
+    }
+  }
+}

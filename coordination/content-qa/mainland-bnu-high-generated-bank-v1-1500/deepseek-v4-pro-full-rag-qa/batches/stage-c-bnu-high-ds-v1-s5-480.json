@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-480",
+  "startedAt": "2026-05-28T01:35:23.126Z",
+  "completedAt": "2026-05-28T01:35:28.344Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-480"
+  ],
+  "usage": {
+    "prompt_tokens": 2185,
+    "completion_tokens": 305,
+    "total_tokens": 2490,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1801
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-480",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "ŷ=2.00x+15.00",
+        "correctedAnswer": "ŷ=2.00x+15.00",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合BNU统计案例回归计算要求。独立计算得b=2.00, a=15.00，回归方程为ŷ=2.00x+15.00。存储答案ŷ=0.75x+52.50错误，解析中计算过程混乱且结果矛盾，属于严重数学错误，必须修正。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1题答案错误，解析矛盾，需修正为ŷ=2.00x+15.00。"
+    }
+  }
+}

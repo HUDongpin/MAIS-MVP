@@ -1,0 +1,70 @@
+{
+  "batchId": "model-qa-0026",
+  "ids": [
+    "hjb-junior-ds-v2-s3-255",
+    "hjb-junior-ds-v2-s3-261",
+    "hjb-junior-ds-v2-s3-273",
+    "hjb-junior-ds-v2-s3-274",
+    "hjb-junior-ds-v2-s3-282"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-255",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案106°是近似值，但题目未要求近似，且解析中使用sin∠AOC=0.8得∠AOC≈53°，但sin53°≈0.7986，sin53.13°≈0.8，更精确的圆心角约为106.26°。若要求精确值，答案应为2arcsin(0.8)或约106.26°。当前答案106°不精确，且解析与答案不一致。",
+      "independentAnswerZhHans": "弦AB所对的圆心角为2arcsin(8/10)=2arcsin(0.8)≈106.26°。",
+      "answerCheckZhHans": "标准答案106°为近似值，但题目未明确要求近似，且解析中∠AOC≈53°不精确，导致答案不准确。",
+      "recommendedActionZhHans": "修改答案为精确值或明确要求近似值，如“约106°”或“106.3°”，并调整解析。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-261",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "圆心O到弦AB的距离为3 cm。",
+      "answerCheckZhHans": "标准答案正确，解析无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-273",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "点B到圆心O的距离为13 cm。",
+      "answerCheckZhHans": "标准答案正确，解析无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-274",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "正六边形的边长为6 cm。",
+      "answerCheckZhHans": "标准答案正确，解析无误，选项唯一。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-282",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "弦AB的长为5√3 cm。",
+      "answerCheckZhHans": "标准答案正确，解析无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-040",
+  "startedAt": "2026-05-28T02:02:51.227Z",
+  "completedAt": "2026-05-28T02:02:55.395Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-040"
+  ],
+  "usage": {
+    "prompt_tokens": 2259,
+    "completion_tokens": 237,
+    "total_tokens": 2496,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1875
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-040",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "y = -x + 1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，答案唯一，选项B正确。解析中垂径定理得出两个中点并舍去退化情况，过程正确但略显繁琐，与标准解法有差异，故解释匹配评为weak。无数学错误或答案不匹配，无严重问题。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 1,
+      "warn": 0,
+      "fail": 0,
+      "notes": "题目质量合格，答案正确，解析虽弱但无错误，通过。"
+    }
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "batchId": "model-qa-0128",
+  "ids": [
+    "hjb-junior-ds-v2-s3-017",
+    "hjb-junior-ds-v2-s3-018",
+    "hjb-junior-ds-v2-s3-019",
+    "hjb-junior-ds-v2-s3-020",
+    "hjb-junior-ds-v2-s3-021",
+    "hjb-junior-ds-v2-s3-022",
+    "hjb-junior-ds-v2-s3-023",
+    "hjb-junior-ds-v2-s3-024"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-017",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "8 cm",
+      "answerCheckZhHans": "标准答案为8，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-018",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案证明△OAB∽△OCD，但对应边比例应为OA/OD=2/9，OB/OC=3/6=1/2，不成比例，无法证相似。正确思路应为OA/OB=2/3，OC/OD=6/9=2/3，且∠AOB=∠COD，得△OAB∽△OCD，但对应角为∠OAB=∠ODC，不能直接得AB∥CD。需重新审视。",
+      "independentAnswerZhHans": "无法按给定答案证明。",
+      "answerCheckZhHans": "标准答案的证明过程有误，比例关系不成立。",
+      "recommendedActionZhHans": "修正证明过程或调整题目条件。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-019",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "AQ=3.2 cm，PR=4.8 cm",
+      "answerCheckZhHans": "标准答案与独立计算结果一致，选项A正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-020",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "10 cm",
+      "answerCheckZhHans": "标准答案为10，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-021",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "8 cm",
+      "answerCheckZhHans": "标准答案为8 cm，与独立计算结果一致，acceptedAnswers覆盖了多种写法。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-022",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "multiple-correct-options"
+      ],
+      "issueDetailsZhHans": "选项A：三边比例均为2/3，可判定相似；选项D：三边比例均为1/2，且一对角相等，也可判定相似。因此存在多个正确选项。",
+      "independentAnswerZhHans": "A和D均能判定相似。",
+      "answerCheckZhHans": "标准答案仅选D，但A也正确。",
+      "recommendedActionZhHans": "修改选项，确保只有一个正确选项。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-023",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "4",
+      "answerCheckZhHans": "标准答案为4，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-024",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "13.5 cm",
+      "answerCheckZhHans": "标准答案为13.5 cm，与独立计算结果一致，acceptedAnswers覆盖了多种写法。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

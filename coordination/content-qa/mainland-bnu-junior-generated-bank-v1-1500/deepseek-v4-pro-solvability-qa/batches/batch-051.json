@@ -1,0 +1,173 @@
+{
+  "batchNumber": 51,
+  "startedAt": "2026-05-27T17:36:57.347Z",
+  "completedAt": "2026-05-27T17:37:15.021Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s2-101",
+    "bnu-junior-ds-v1-s2-102",
+    "bnu-junior-ds-v1-s2-103",
+    "bnu-junior-ds-v1-s2-104",
+    "bnu-junior-ds-v1-s2-105",
+    "bnu-junior-ds-v1-s2-106",
+    "bnu-junior-ds-v1-s2-107",
+    "bnu-junior-ds-v1-s2-108",
+    "bnu-junior-ds-v1-s2-109",
+    "bnu-junior-ds-v1-s2-110",
+    "bnu-junior-ds-v1-s2-111",
+    "bnu-junior-ds-v1-s2-112"
+  ],
+  "usage": {
+    "prompt_tokens": 5499,
+    "completion_tokens": 1299,
+    "total_tokens": 6798,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 4987
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s2-101",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，关于x轴对称规则明确，答案(3,2)第一象限正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-102",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "关于y轴对称规则清晰，P(-5,0)对称点Q(5,0)正确，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-103",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "关于原点对称规则明确，选项唯一正确(3,-4)，答案匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-104",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移规则清晰，计算得(5,1)，答案正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-105",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由a<0,b>0知P在第二象限，关于x轴对称后横坐标不变纵坐标变号，得第三象限，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-106",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "A(-2,3)与B(2,3)纵坐标相同横坐标相反，关于y轴对称，选项唯一正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-107",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "横坐标为0的点在y轴上，答案“y轴”正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-108",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由坐标得AB=4，BC=6，∠B=90°，面积12正确，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-109",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "mn<0说明m,n异号，第一象限同号，故不可能，选项唯一正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-110",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "中点公式计算得(-1,-1)，答案正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-111",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "关于x轴对称，横坐标不变纵坐标变号，得(3,4)，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-112",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移后坐标(a+3,b-2)，第四象限要求横>0纵<0，解得a>-3,b<2，选项唯一正确。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部12道题均可解，答案与解释匹配，无错误或歧义。"
+    }
+  }
+}

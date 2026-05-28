@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-164",
+  "startedAt": "2026-05-28T01:47:13.988Z",
+  "completedAt": "2026-05-28T01:47:28.828Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-305",
+    "bnu-high-ds-v1-s6-306",
+    "bnu-high-ds-v1-s6-307",
+    "bnu-high-ds-v1-s6-308",
+    "bnu-high-ds-v1-s6-309",
+    "bnu-high-ds-v1-s6-310",
+    "bnu-high-ds-v1-s6-311",
+    "bnu-high-ds-v1-s6-312"
+  ],
+  "usage": {
+    "prompt_tokens": 10139,
+    "completion_tokens": 1078,
+    "total_tokens": 11217,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9755
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-305",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "a = -3, b = -9, c = 5",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由极值条件得f'(-1)=0, f'(3)=0，结合f(-1)=10, f(3)=-22，解方程组得a=-3, b=-9, c=5。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-306",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f(x)=x^2-4x+3在[0,3]上，f(0)=3, f(2)=-1, f(3)=0，最大值为3。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-307",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "a ≥ 3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x^2-2ax≤0在(0,2)恒成立，得a≥(3/2)x，x∈(0,2)时(3/2)x<3，故a≥3。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-308",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "极大值10，极小值-22",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x^2-6x-9=3(x-3)(x+1)，驻点x=-1,3，f(-1)=10极大，f(3)=-22极小。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-309",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "9",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "y'=3x^2-3，在x=2处斜率为3*4-3=9。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-310",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x^2-6x=3x(x-2)，在[-1,1]上驻点x=0，f(-1)=-2, f(0)=2, f(1)=0，最大值为2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-311",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "最大值10，最小值-22",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x^2-6x-9=3(x-3)(x+1)，在[-2,4]上f(-2)=3, f(-1)=10, f(3)=-22, f(4)=-15，最大10，最小-22。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-312",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "y = x - 1",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "y'=3x^2-2，在x=1处斜率1，切线方程y-0=1*(x-1)，即y=x-1。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，无数学错误、歧义或缺失条件，符合北师大版高中导数章节要求。"
+    }
+  }
+}

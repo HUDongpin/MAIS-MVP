@@ -1,0 +1,731 @@
+{
+  "version": "mainland-pep-junior-illustrations-v1",
+  "scope": "MAINLAND_PEP_JUNIOR",
+  "model": "gpt-image-2 via Codex built-in image_gen workflow",
+  "size": {
+    "width": 1600,
+    "height": 900
+  },
+  "generatedAt": "2026-05-27T06:47:25.046Z",
+  "reviewStatus": "approved",
+  "productionStatus": "approved-for-production",
+  "generationPolicy": [
+    "Use MAIS safe-RAG abstractions and approved junior lesson summaries only.",
+    "Do not copy, reconstruct, or imitate textbook screenshots, page layouts, figures, source examples, or publisher visual style.",
+    "Generate fresh MAIS-authored educational visuals with no logos, no watermarks, and no embedded textbook text.",
+    "Avoid in-image formulas and labels where possible; learner-facing wording belongs in captions and alt text.",
+    "Only rows later marked approved in manual-review.csv may be copied to public lesson illustration assets."
+  ],
+  "sourceEvidence": [
+    "data/rag/mainlandPepJunior.ts",
+    "coordination/content-qa/mainland-pep-junior-lessons-v1/lessons.json",
+    "coordination/content-qa/2026-05-23-S18-mainland-pep-junior-rag-verification.md",
+    "coordination/content-qa/mainland-pep-junior-lessons-v1/qa-report.md"
+  ],
+  "illustrations": [
+    {
+      "id": "pep-junior-s1-upper-rational-numbers-concept",
+      "topicId": "pep-junior-s1-upper-rational-numbers",
+      "slot": "concept",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "candidatePath": "coordination/content-qa/mainland-pep-junior-illustrations-v1/candidates/pep-junior-s1-upper-rational-numbers/concept.png",
+      "srcAfterApproval": "/lesson-illustrations/mainland-pep-junior/pep-junior-s1-upper-rational-numbers/concept.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "alt": {
+        "en": "A number line expands from zero with positive and negative direction, opposite-number mirror points, and distance-from-zero cues highlighted by color.",
+        "zh": "数轴以零为中心展开，正负方向、相反数镜像点和到零的距离被不同颜色突出。",
+        "zhHans": "数轴以零为中心展开，正负方向、相反数镜像点和到零的距离被不同颜色突出。"
+      },
+      "caption": {
+        "en": "Rational-number reasoning starts by placing direction, position, and distance on one number line.",
+        "zh": "有理数学习先把方向、位置和距离放在同一条数轴上理解。",
+        "zhHans": "有理数学习先把方向、位置和距离放在同一条数轴上理解。"
+      },
+      "lessonTitle": {
+        "en": "Rational Numbers and the Number Line",
+        "zh": "有理数与数轴",
+        "zhHans": "有理数与数轴"
+      },
+      "generationPrompt": "Use case: scientific-educational. Asset type: 16:9 lesson illustration for MAIS 人教版初中 math Lesson, review-only candidate. Primary request: Create a clean original educational illustration for S1 rational numbers and the number line, concept slot. Scene/backdrop: modern math-learning canvas with soft light background, subtle grid, cyan/violet/emerald accents, generous whitespace. Subject: a horizontal number line with zero at the center, positive and negative direction indicated by abstract arrows, distance-from-zero arcs, mirrored points for opposites, and absolute-value distance cues. Learning objective: connect signed quantity, direction, distance, comparison, and operation readiness for junior secondary students. Style: crisp vector-like raster, polished app illustration, similar quality to modern MAIS lesson visuals, 16:9 landscape. Constraints: no textbook screenshot, no publisher layout, no page frame, no copied diagram, no logos, no watermark, no embedded readable text, no formulas, no numbers except simple abstract tick marks if necessary, mathematically clear and age-appropriate.",
+      "generator": "Codex built-in image_gen (GPT Image2-style workflow)",
+      "reviewerNotes": "Review 有理数与数轴 concept illustration for math correctness, source distance, and age fit."
+    },
+    {
+      "id": "pep-junior-s1-upper-rational-numbers-worked-example",
+      "topicId": "pep-junior-s1-upper-rational-numbers",
+      "slot": "worked-example",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "candidatePath": "coordination/content-qa/mainland-pep-junior-illustrations-v1/candidates/pep-junior-s1-upper-rational-numbers/worked-example.png",
+      "srcAfterApproval": "/lesson-illustrations/mainland-pep-junior/pep-junior-s1-upper-rational-numbers/worked-example.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "alt": {
+        "en": "A number-line operation workspace uses curved movement arrows to show the start, direction changes, final point, and distance checks.",
+        "zh": "数轴运算工作区用弧形移动箭头表示起点、方向变化、终点和距离检查。",
+        "zhHans": "数轴运算工作区用弧形移动箭头表示起点、方向变化、终点和距离检查。"
+      },
+      "caption": {
+        "en": "Track movement direction first, then check the operation with distance from zero and the final position.",
+        "zh": "先看移动方向，再用离零距离和终点位置检查有理数运算。",
+        "zhHans": "先看移动方向，再用离零距离和终点位置检查有理数运算。"
+      },
+      "lessonTitle": {
+        "en": "Rational Numbers and the Number Line",
+        "zh": "有理数与数轴",
+        "zhHans": "有理数与数轴"
+      },
+      "generationPrompt": "Use case: scientific-educational. Asset type: 16:9 lesson illustration for MAIS 人教版初中 math Lesson, review-only candidate. Primary request: Create a clean original worked-example illustration for S1 rational numbers and number-line operations. Scene/backdrop: modern light math canvas, subtle grid, cyan/violet/emerald accents, generous whitespace. Subject: a number line operation workspace: a starting point, two curved movement arrows in opposite directions, a final highlighted point, mirrored checkpoints for opposite numbers, and distance bands from zero. Learning objective: show how direction and distance control signed-number addition/subtraction and how the number line checks the result. Style: crisp vector-like raster, polished app illustration, 16:9 landscape. Constraints: no textbook screenshot, no publisher layout, no page frame, no copied diagram, no logos, no watermark, no embedded readable text, no formulas, no numbers except abstract ticks if necessary, mathematically clear and age-appropriate.",
+      "generator": "Codex built-in image_gen (GPT Image2-style workflow)",
+      "reviewerNotes": "Review 有理数与数轴 worked example illustration for math correctness, source distance, and age fit."
+    },
+    {
+      "id": "pep-junior-s1-upper-expressions-linear-equations-concept",
+      "topicId": "pep-junior-s1-upper-expressions-linear-equations",
+      "slot": "concept",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "candidatePath": "coordination/content-qa/mainland-pep-junior-illustrations-v1/candidates/pep-junior-s1-upper-expressions-linear-equations/concept.png",
+      "srcAfterApproval": "/lesson-illustrations/mainland-pep-junior/pep-junior-s1-upper-expressions-linear-equations/concept.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "alt": {
+        "en": "Blank algebra tiles sit on both sides of a balance, with same-color groups showing quantity expressions and equation balance.",
+        "zh": "天平两侧放置空白代数块，同色块成组，显示数量表达和方程平衡关系。",
+        "zhHans": "天平两侧放置空白代数块，同色块成组，显示数量表达和方程平衡关系。"
+      },
+      "caption": {
+        "en": "When letters represent quantities, identify like structures first and preserve balance on both sides.",
+        "zh": "用字母表示数量时，先看同类结构，再保持等式两边平衡。",
+        "zhHans": "用字母表示数量时，先看同类结构，再保持等式两边平衡。"
+      },
+      "lessonTitle": {
+        "en": "Expressions and One-Variable Linear Equations",
+        "zh": "整式初步与一元一次方程",
+        "zhHans": "整式初步与一元一次方程"
+      },
+      "generationPrompt": "Use case: scientific-educational. Asset type: 16:9 lesson illustration for MAIS 人教版初中 math Lesson, review-only candidate. Primary request: Create an original concept illustration for S1 algebraic expressions and one-variable linear equations. Scene/backdrop: modern light math-learning canvas with soft grid, cyan/violet/emerald accents. Subject: a balanced scale with abstract blank algebra tiles on both pans; same-color tiles are grouped with translucent rounded outlines; several blank quantity blocks show how repeated units can be grouped; one simple arrow shows preserving balance by changing both sides equally. Learning objective: show letters-as-quantities, like-term grouping, and equation balance without using any literal text. Style: crisp vector-like raster, polished app illustration, 16:9 landscape, spacious and uncluttered. Hard constraint: ABSOLUTELY NO readable text, no letters, no words, no numbers, no formulas, no equals signs, no plus signs, no symbols printed on tiles, no labels, no captions inside the image. Other constraints: no textbook screenshot, no publisher layout, no copied diagram, no logos, no watermark, no page frame, mathematically clear and age-appropriate.",
+      "generator": "Codex built-in image_gen (GPT Image2-style workflow)",
+      "reviewerNotes": "Review 整式初步与一元一次方程 concept illustration for math correctness, source distance, and age fit."
+    },
+    {
+      "id": "pep-junior-s1-upper-expressions-linear-equations-worked-example",
+      "topicId": "pep-junior-s1-upper-expressions-linear-equations",
+      "slot": "worked-example",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "candidatePath": "coordination/content-qa/mainland-pep-junior-illustrations-v1/candidates/pep-junior-s1-upper-expressions-linear-equations/worked-example.png",
+      "srcAfterApproval": "/lesson-illustrations/mainland-pep-junior/pep-junior-s1-upper-expressions-linear-equations/worked-example.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "alt": {
+        "en": "A visual equation-solving flow removes matching blank blocks from both sides and leaves the unknown block matched to unit blocks.",
+        "zh": "解方程视觉流程展示两边同时移去相同空白块，最后留下未知块与单位块的对应。",
+        "zhHans": "解方程视觉流程展示两边同时移去相同空白块，最后留下未知块与单位块的对应。"
+      },
+      "caption": {
+        "en": "The key to solving a one-variable linear equation is making the same change to both sides at each step.",
+        "zh": "解一元一次方程的关键是每一步都对等式两边做相同改变。",
+        "zhHans": "解一元一次方程的关键是每一步都对等式两边做相同改变。"
+      },
+      "lessonTitle": {
+        "en": "Expressions and One-Variable Linear Equations",
+        "zh": "整式初步与一元一次方程",
+        "zhHans": "整式初步与一元一次方程"
+      },
+      "generationPrompt": "Use case: scientific-educational. Asset type: 16:9 lesson illustration for MAIS 人教版初中 math Lesson, review-only candidate. Primary request: Create an original worked-example illustration for S1 algebraic expressions and one-variable linear equations. Scene/backdrop: modern light math canvas with soft grid, cyan/violet/emerald accents. Subject: a step-by-step balance workspace shown visually only: two scale pans, matching groups of blank tiles being removed from both sides, remaining unknown block paired with unit blocks, and a final check mark shape made of abstract dots. Learning objective: show equation solving as preserving equality through identical operations on both sides. Style: crisp vector-like raster, polished app illustration, 16:9 landscape, clear visual sequence. Hard constraint: ABSOLUTELY NO readable text, no letters, no words, no numbers, no formulas, no equal signs, no plus/minus signs, no symbols printed on tiles, no labels, no captions inside the image. Other constraints: no textbook screenshot, no publisher layout, no copied diagram, no logos, no watermark, no page frame, mathematically clear and age-appropriate.",
+      "generator": "Codex built-in image_gen (GPT Image2-style workflow)",
+      "reviewerNotes": "Review 整式初步与一元一次方程 worked example illustration for math correctness, source distance, and age fit."
+    },
+    {
+      "id": "pep-junior-s1-upper-geometric-figures-concept",
+      "topicId": "pep-junior-s1-upper-geometric-figures",
+      "slot": "concept",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "candidatePath": "coordination/content-qa/mainland-pep-junior-illustrations-v1/candidates/pep-junior-s1-upper-geometric-figures/concept.png",
+      "srcAfterApproval": "/lesson-illustrations/mainland-pep-junior/pep-junior-s1-upper-geometric-figures/concept.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "pep-junior-s1-upper-geometric-figures"
+      ],
+      "alt": {
+        "en": "Points, lines, rays, segments, angles, and translucent solids are arranged as a map of basic geometric objects.",
+        "zh": "点、线、射线、线段、角和透明立体图形被排列成几何对象学习图。",
+        "zhHans": "点、线、射线、线段、角和透明立体图形被排列成几何对象学习图。"
+      },
+      "caption": {
+        "en": "Geometric reasoning begins with precise objects and definitions, not appearance alone.",
+        "zh": "几何推理从准确识别对象和定义开始，而不是只凭图形外观判断。",
+        "zhHans": "几何推理从准确识别对象和定义开始，而不是只凭图形外观判断。"
+      },
+      "lessonTitle": {
+        "en": "Foundations of Geometric Figures",
+        "zh": "几何图形初步",
+        "zhHans": "几何图形初步"
+      },
+      "generationPrompt": "Use case: scientific-educational. Asset type: 16:9 lesson illustration for MAIS 人教版初中 math Lesson, review-only candidate. Primary request: Create an original concept illustration for S1 foundations of geometric figures. Scene/backdrop: modern light geometry canvas with soft grid, cyan/violet/emerald accents. Subject: abstract geometric primitives arranged as a learning map: points as small glowing dots, lines as clean strokes, rays as one-ended arrows, segments with endpoints, angles as translucent arcs, and a few transparent 3D solids in the background. Learning objective: show that geometry begins with precise objects and definitions, not visual guessing. Style: crisp vector-like raster, polished app illustration, 16:9 landscape, generous whitespace. Hard constraint: no readable text, no letters, no words, no numbers, no formulas, no labels, no captions inside the image. Other constraints: no textbook screenshot, no publisher layout, no copied diagram, no logos, no watermark, no page frame, mathematically clear and age-appropriate.",
+      "generator": "Codex built-in image_gen (GPT Image2-style workflow)",
+      "reviewerNotes": "Review 几何图形初步 concept illustration for math correctness, source distance, and age fit."
+    },
+    {
+      "id": "pep-junior-s1-upper-geometric-figures-worked-example",
+      "topicId": "pep-junior-s1-upper-geometric-figures",
+      "slot": "worked-example",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "candidatePath": "coordination/content-qa/mainland-pep-junior-illustrations-v1/candidates/pep-junior-s1-upper-geometric-figures/worked-example.png",
+      "srcAfterApproval": "/lesson-illustrations/mainland-pep-junior/pep-junior-s1-upper-geometric-figures/worked-example.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "pep-junior-s1-upper-geometric-figures"
+      ],
+      "alt": {
+        "en": "A construction-checking workspace shows segment endpoints, compass arcs, angle arcs, and length-comparison cues.",
+        "zh": "几何作图检查区展示线段端点、圆规弧迹、角度弧和长度比较线索。",
+        "zhHans": "几何作图检查区展示线段端点、圆规弧迹、角度弧和长度比较线索。"
+      },
+      "caption": {
+        "en": "When comparing segments or angles, let measurement and construction evidence support the conclusion.",
+        "zh": "比较线段或角时，要让测量和作图证据支持结论。",
+        "zhHans": "比较线段或角时，要让测量和作图证据支持结论。"
+      },
+      "lessonTitle": {
+        "en": "Foundations of Geometric Figures",
+        "zh": "几何图形初步",
+        "zhHans": "几何图形初步"
+      },
+      "generationPrompt": "Use case: scientific-educational. Asset type: 16:9 lesson illustration for MAIS 人教版初中 math Lesson, review-only candidate. Primary request: Create an original worked-example illustration for S1 geometric figures, angle and segment reasoning. Scene/backdrop: modern light geometry workspace with soft grid, cyan/violet/emerald accents. Subject: a visual construction/checking workspace: two segments with endpoint markers, a compass-like arc trace, an angle with a translucent measuring arc, and a highlighted comparison path that shows equal lengths or angle size by construction cues. Learning objective: show students how to reason from definitions and measurement/construction evidence rather than appearance. Style: crisp vector-like raster, polished app illustration, 16:9 landscape. Hard constraint: no readable text, no letters, no words, no numbers, no formulas, no protractor degree labels, no captions inside the image. Other constraints: no textbook screenshot, no publisher layout, no copied diagram, no logos, no watermark, no page frame, mathematically clear and age-appropriate.",
+      "generator": "Codex built-in image_gen (GPT Image2-style workflow)",
+      "reviewerNotes": "Review 几何图形初步 worked example illustration for math correctness, source distance, and age fit."
+    },
+    {
+      "id": "pep-junior-s1-lower-lines-coordinates-concept",
+      "topicId": "pep-junior-s1-lower-lines-coordinates",
+      "slot": "concept",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "candidatePath": "coordination/content-qa/mainland-pep-junior-illustrations-v1/candidates/pep-junior-s1-lower-lines-coordinates/concept.png",
+      "srcAfterApproval": "/lesson-illustrations/mainland-pep-junior/pep-junior-s1-lower-lines-coordinates/concept.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "alt": {
+        "en": "Parallel lines cut by a transversal highlight angle relationships beside a coordinate grid showing horizontal and vertical point movement.",
+        "zh": "平行线被截线穿过并高亮角关系，旁边坐标网格展示点的水平和竖直移动。",
+        "zhHans": "平行线被截线穿过并高亮角关系，旁边坐标网格展示点的水平和竖直移动。"
+      },
+      "caption": {
+        "en": "Angle relationships require line conditions, while coordinate movement separates horizontal and vertical change.",
+        "zh": "角关系需要线的位置条件，坐标移动需要分清横向和纵向变化。",
+        "zhHans": "角关系需要线的位置条件，坐标移动需要分清横向和纵向变化。"
+      },
+      "lessonTitle": {
+        "en": "Intersecting Lines, Parallel Lines, and Coordinates",
+        "zh": "相交线、平行线与平面直角坐标系",
+        "zhHans": "相交线、平行线与平面直角坐标系"
+      },
+      "generationPrompt": "Use case: scientific-educational. Asset type: 16:9 lesson illustration for MAIS 人教版初中 math Lesson, review-only candidate. Primary request: Create an original concept illustration for S1 intersecting lines, parallel lines, and coordinate plane. Scene/backdrop: modern light math canvas with soft grid, cyan/violet/emerald accents. Subject: two clean parallel lines cut by a transversal on one side, angle arcs highlighted in matching colors; on the other side, a coordinate plane with a point moving horizontally and vertically by arrow paths; the two ideas are visually connected by a soft bridge line. Learning objective: connect geometric angle conditions with precise position representation in coordinates. Style: crisp vector-like raster, polished app illustration, 16:9 landscape. Hard constraint: no readable text, no letters, no words, no numbers, no formulas, no axis labels, no captions inside the image. Other constraints: no textbook screenshot, no publisher layout, no copied diagram, no logos, no watermark, no page frame, mathematically clear and age-appropriate.",
+      "generator": "Codex built-in image_gen (GPT Image2-style workflow)",
+      "reviewerNotes": "Review 相交线、平行线与平面直角坐标系 concept illustration for math correctness, source distance, and age fit."
+    },
+    {
+      "id": "pep-junior-s1-lower-lines-coordinates-worked-example",
+      "topicId": "pep-junior-s1-lower-lines-coordinates",
+      "slot": "worked-example",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "candidatePath": "coordination/content-qa/mainland-pep-junior-illustrations-v1/candidates/pep-junior-s1-lower-lines-coordinates/worked-example.png",
+      "srcAfterApproval": "/lesson-illustrations/mainland-pep-junior/pep-junior-s1-lower-lines-coordinates/worked-example.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "alt": {
+        "en": "A worked visual places corresponding angle arcs beside coordinate point movement, using color to separate angle conditions from position change.",
+        "zh": "例题图把同位角弧与坐标点移动并列，用颜色区分角条件和位置变化。",
+        "zhHans": "例题图把同位角弧与坐标点移动并列，用颜色区分角条件和位置变化。"
+      },
+      "caption": {
+        "en": "Confirm the parallel condition before reading angles, then separate horizontal and vertical movement.",
+        "zh": "先确认平行条件，再读角；先看横向移动，再看竖向移动。",
+        "zhHans": "先确认平行条件，再读角；先看横向移动，再看竖向移动。"
+      },
+      "lessonTitle": {
+        "en": "Intersecting Lines, Parallel Lines, and Coordinates",
+        "zh": "相交线、平行线与平面直角坐标系",
+        "zhHans": "相交线、平行线与平面直角坐标系"
+      },
+      "generationPrompt": "Use case: scientific-educational. Asset type: 16:9 lesson illustration for MAIS 人教版初中 math Lesson, review-only candidate. Primary request: Create an original worked-example illustration for S1 parallel-line angle reasoning and coordinate movement. Scene/backdrop: modern light geometry-coordinate workspace with soft grid, cyan/violet/emerald accents. Subject: one clean split scene only: left side shows two parallel lines crossed by a transversal with matching colored angle arcs; right side shows a coordinate grid with one point moving by a horizontal arrow then a vertical arrow to a final point; axis points are marked by hollow circles. Learning objective: require the line condition before using angle relationships, and separate horizontal from vertical coordinate movement. Style: crisp vector-like raster, polished app illustration, 16:9 landscape, uncluttered, no mini-panels. Hard constraint: absolutely no readable text, no letters, no words, no numbers, no formulas, no equality signs, no check marks, no plus or minus signs, no axis labels, no captions inside the image. Other constraints: no textbook screenshot, no publisher layout, no copied diagram, no logos, no watermark, no page frame, mathematically clear and age-appropriate.",
+      "generator": "Codex built-in image_gen (GPT Image2-style workflow)",
+      "reviewerNotes": "Review 相交线、平行线与平面直角坐标系 worked example illustration for math correctness, source distance, and age fit."
+    },
+    {
+      "id": "pep-junior-s1-lower-equations-inequalities-data-concept",
+      "topicId": "pep-junior-s1-lower-equations-inequalities-data",
+      "slot": "concept",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "candidatePath": "coordination/content-qa/mainland-pep-junior-illustrations-v1/candidates/pep-junior-s1-lower-equations-inequalities-data/concept.png",
+      "srcAfterApproval": "/lesson-illustrations/mainland-pep-junior/pep-junior-s1-lower-equations-inequalities-data/concept.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "alt": {
+        "en": "Two constraint paths meet at a shared point, with an inequality interval and data-dot cloud showing models, solution sets, and data judgment.",
+        "zh": "两个约束路径汇合到公共点，不等式区间和数据点云并列显示模型、解集与数据判断。",
+        "zhHans": "两个约束路径汇合到公共点，不等式区间和数据点云并列显示模型、解集与数据判断。"
+      },
+      "caption": {
+        "en": "Systems, inequalities, and data analysis all ask what the conditions can justify.",
+        "zh": "方程组、不等式和数据分析都在回答条件能支持什么结论。",
+        "zhHans": "方程组、不等式和数据分析都在回答条件能支持什么结论。"
+      },
+      "lessonTitle": {
+        "en": "Systems, Inequalities, and Introductory Data",
+        "zh": "方程组、不等式与数据初步",
+        "zhHans": "方程组、不等式与数据初步"
+      },
+      "generationPrompt": "Use case: scientific-educational. Asset type: 16:9 lesson illustration for MAIS 人教版初中 math Lesson, review-only candidate. Primary request: Create an original concept illustration for S1 systems of equations, inequalities, and introductory data. Scene/backdrop: modern light math-learning canvas with soft grid, cyan/violet/emerald accents. Subject: three connected abstract zones: two colored streams meet at a shared solution node for systems, a shaded number-line interval with open and closed boundary dots for inequalities, and a small dot-plot style data cloud with a gentle summary band. Learning objective: show modeling constraints, solution sets, and cautious data interpretation as connected ideas. Style: crisp vector-like raster, polished app illustration, 16:9 landscape, spacious and uncluttered. Hard constraint: no readable text, no letters, no words, no numbers, no formulas, no axis labels, no captions inside the image. Other constraints: no textbook screenshot, no publisher layout, no copied diagram, no logos, no watermark, no page frame, mathematically clear and age-appropriate.",
+      "generator": "Codex built-in image_gen (GPT Image2-style workflow)",
+      "reviewerNotes": "Review 方程组、不等式与数据初步 concept illustration for math correctness, source distance, and age fit."
+    },
+    {
+      "id": "pep-junior-s1-lower-equations-inequalities-data-worked-example",
+      "topicId": "pep-junior-s1-lower-equations-inequalities-data",
+      "slot": "worked-example",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "candidatePath": "coordination/content-qa/mainland-pep-junior-illustrations-v1/candidates/pep-junior-s1-lower-equations-inequalities-data/worked-example.png",
+      "srcAfterApproval": "/lesson-illustrations/mainland-pep-junior/pep-junior-s1-lower-equations-inequalities-data/worked-example.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "alt": {
+        "en": "A problem workspace shows constraints narrowing, boundary points checked, and data dots grouped into a reasonable conclusion.",
+        "zh": "解题工作区展示约束收窄、边界点检查和数据点分组形成合理结论。",
+        "zhHans": "解题工作区展示约束收窄、边界点检查和数据点分组形成合理结论。"
+      },
+      "caption": {
+        "en": "Define constraints first, check boundaries, then keep data conclusions within the evidence.",
+        "zh": "先定义限制条件，再检查边界，最后让数据结论不过度延伸。",
+        "zhHans": "先定义限制条件，再检查边界，最后让数据结论不过度延伸。"
+      },
+      "lessonTitle": {
+        "en": "Systems, Inequalities, and Introductory Data",
+        "zh": "方程组、不等式与数据初步",
+        "zhHans": "方程组、不等式与数据初步"
+      },
+      "generationPrompt": "Use case: scientific-educational. Asset type: 16:9 lesson illustration for MAIS 人教版初中 math Lesson, review-only candidate. Primary request: Create an original worked-example illustration for S1 systems, inequalities, and data interpretation. Scene/backdrop: modern light math workspace with soft grid, cyan/violet/emerald accents. Subject: a visual problem-solving board without text: two colored paths narrow to one shared point, an inequality interval highlights a boundary check with one filled dot and one hollow dot, and a small dataset of dots is grouped into a reasonable conclusion band. Learning objective: define constraints, check boundary values visually, and avoid overclaiming from a small dataset. Style: crisp vector-like raster, polished app illustration, 16:9 landscape, clear three-step flow. Hard constraint: no readable text, no letters, no words, no numbers, no formulas, no equality signs, no plus/minus signs, no labels, no captions inside the image. Other constraints: no textbook screenshot, no publisher layout, no copied diagram, no logos, no watermark, no page frame, mathematically clear and age-appropriate.",
+      "generator": "Codex built-in image_gen (GPT Image2-style workflow)",
+      "reviewerNotes": "Review 方程组、不等式与数据初步 worked example illustration for math correctness, source distance, and age fit."
+    },
+    {
+      "id": "pep-junior-s2-upper-triangles-congruence-concept",
+      "topicId": "pep-junior-s2-upper-triangles-congruence",
+      "slot": "concept",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "candidatePath": "coordination/content-qa/mainland-pep-junior-illustrations-v1/candidates/pep-junior-s2-upper-triangles-congruence/concept.png",
+      "srcAfterApproval": "/lesson-illustrations/mainland-pep-junior/pep-junior-s2-upper-triangles-congruence/concept.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "alt": {
+        "en": "Two triangles are connected by matching side and angle colors, with an axis-symmetric figure showing reflection and corresponding points.",
+        "zh": "两个三角形用对应边角颜色连接，旁边轴对称图形展示镜像和对应点。",
+        "zhHans": "两个三角形用对应边角颜色连接，旁边轴对称图形展示镜像和对应点。"
+      },
+      "caption": {
+        "en": "Congruence and symmetry both require identifying correspondences before using properties or criteria.",
+        "zh": "全等和对称都要先找清楚对应关系，再使用性质或判定。",
+        "zhHans": "全等和对称都要先找清楚对应关系，再使用性质或判定。"
+      },
+      "lessonTitle": {
+        "en": "Triangles, Congruence, and Axis Symmetry",
+        "zh": "三角形、全等与轴对称",
+        "zhHans": "三角形、全等与轴对称"
+      },
+      "generationPrompt": "Use case: scientific-educational. Asset type: 16:9 lesson illustration for MAIS 人教版初中 math Lesson, review-only candidate. Primary request: Create an original concept illustration for S2 triangles, congruence, and axis symmetry. Scene/backdrop: modern light geometry canvas with soft grid, cyan/violet/emerald accents. Subject: two translucent triangles in different positions connected by color-matched side and angle highlights, a vertical mirror line showing an axis-symmetric pair, and subtle corresponding-point trails. Learning objective: help students distinguish observation from proof by matching corresponding parts before using congruence or symmetry properties. Style: crisp vector-like raster, polished app illustration, 16:9 landscape, elegant and uncluttered. Hard constraint: no readable text, no letters, no words, no numbers, no formulas, no labels, no captions inside the image. Other constraints: no textbook screenshot, no publisher layout, no copied diagram, no logos, no watermark, no page frame, mathematically clear and age-appropriate.",
+      "generator": "Codex built-in image_gen (GPT Image2-style workflow)",
+      "reviewerNotes": "Review 三角形、全等与轴对称 concept illustration for math correctness, source distance, and age fit."
+    },
+    {
+      "id": "pep-junior-s2-upper-triangles-congruence-worked-example",
+      "topicId": "pep-junior-s2-upper-triangles-congruence",
+      "slot": "worked-example",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "candidatePath": "coordination/content-qa/mainland-pep-junior-illustrations-v1/candidates/pep-junior-s2-upper-triangles-congruence/worked-example.png",
+      "srcAfterApproval": "/lesson-illustrations/mainland-pep-junior/pep-junior-s2-upper-triangles-congruence/worked-example.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "alt": {
+        "en": "A proof visual marks corresponding sides and angles in triangles sharing a side, with a fold line suggesting symmetry.",
+        "zh": "证明示意图在共享边三角形中标出对应边和角，并用折叠线提示对称关系。",
+        "zhHans": "证明示意图在共享边三角形中标出对应边和角，并用折叠线提示对称关系。"
+      },
+      "caption": {
+        "en": "Before writing proof, confirm corresponding vertices, parts, and sufficient criteria.",
+        "zh": "写证明前，先确认对应顶点、对应边角和足够的判定条件。",
+        "zhHans": "写证明前，先确认对应顶点、对应边角和足够的判定条件。"
+      },
+      "lessonTitle": {
+        "en": "Triangles, Congruence, and Axis Symmetry",
+        "zh": "三角形、全等与轴对称",
+        "zhHans": "三角形、全等与轴对称"
+      },
+      "generationPrompt": "Use case: scientific-educational. Asset type: 16:9 lesson illustration for MAIS 人教版初中 math Lesson, review-only candidate. Primary request: Create an original worked-example illustration for S2 triangle congruence proof and symmetry reasoning. Scene/backdrop: modern light proof workspace with soft grid, cyan/violet/emerald accents. Subject: a single geometric configuration with two triangles sharing a side, matched side marks shown by color and stroke style, angle arcs paired by color, and a clean mirror-fold trace to one side; arrows indicate corresponding vertices before applying a conclusion. Learning objective: visually prompt students to identify corresponding parts and sufficient conditions before claiming congruence. Style: crisp vector-like raster, polished app illustration, 16:9 landscape. Hard constraint: no readable text, no letters, no words, no numbers, no formulas, no labels, no captions inside the image. Other constraints: no textbook screenshot, no publisher layout, no copied diagram, no logos, no watermark, no page frame, mathematically clear and age-appropriate.",
+      "generator": "Codex built-in image_gen (GPT Image2-style workflow)",
+      "reviewerNotes": "Review 三角形、全等与轴对称 worked example illustration for math correctness, source distance, and age fit."
+    },
+    {
+      "id": "pep-junior-s2-upper-polynomials-fractions-concept",
+      "topicId": "pep-junior-s2-upper-polynomials-fractions",
+      "slot": "concept",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "candidatePath": "coordination/content-qa/mainland-pep-junior-illustrations-v1/candidates/pep-junior-s2-upper-polynomials-fractions/concept.png",
+      "srcAfterApproval": "/lesson-illustrations/mainland-pep-junior/pep-junior-s2-upper-polynomials-fractions/concept.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "alt": {
+        "en": "Blank colored rectangles move from an area model into grouped structures, with matching upper and lower blocks suggesting simplification.",
+        "zh": "空白彩色矩形块从面积模型重组为分组结构，并显示上下匹配块的约分线索。",
+        "zhHans": "空白彩色矩形块从面积模型重组为分组结构，并显示上下匹配块的约分线索。"
+      },
+      "caption": {
+        "en": "Polynomial operations and fraction simplification both begin with structure before symbols.",
+        "zh": "整式运算和分式化简都要先看结构，再进行符号运算。",
+        "zhHans": "整式运算和分式化简都要先看结构，再进行符号运算。"
+      },
+      "lessonTitle": {
+        "en": "Polynomial Products, Factorization, and Algebraic Fractions",
+        "zh": "整式乘法、因式分解与分式",
+        "zhHans": "整式乘法、因式分解与分式"
+      },
+      "generationPrompt": "Use case: scientific-educational. Asset type: 16:9 lesson illustration for MAIS 人教版初中 math Lesson, review-only candidate. Primary request: Create an original concept illustration for S2 polynomial multiplication, factorization, and algebraic fractions using only blank colored shapes. Scene/backdrop: modern light algebra canvas with soft grid, cyan/violet/emerald accents. Subject: large blank colored rectangular tiles form an area model; the same tiles are rearranged into grouped blocks; matching blank blocks in an upper and lower row fade out to suggest simplification. Use only shapes, arrows, dots, and color grouping. Learning objective: make algebraic structure visible before symbolic manipulation. Style: crisp vector-like raster, polished app illustration, 16:9 landscape, spacious. Hard constraint: absolutely no readable text, no letters of any alphabet, no words, no numbers, no formulas, no equality signs, no plus/minus signs, no variables, no symbols printed on shapes, no labels, no captions inside the image. Other constraints: no textbook screenshot, no publisher layout, no copied diagram, no logos, no watermark, no page frame, mathematically clear and age-appropriate.",
+      "generator": "Codex built-in image_gen (GPT Image2-style workflow)",
+      "reviewerNotes": "Review 整式乘法、因式分解与分式 concept illustration for math correctness, source distance, and age fit."
+    },
+    {
+      "id": "pep-junior-s2-upper-polynomials-fractions-worked-example",
+      "topicId": "pep-junior-s2-upper-polynomials-fractions",
+      "slot": "worked-example",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "candidatePath": "coordination/content-qa/mainland-pep-junior-illustrations-v1/candidates/pep-junior-s2-upper-polynomials-fractions/worked-example.png",
+      "srcAfterApproval": "/lesson-illustrations/mainland-pep-junior/pep-junior-s2-upper-polynomials-fractions/worked-example.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "alt": {
+        "en": "A worked visual shows expanded blocks, common groups, matching blocks canceled, and a visual reminder about denominator restrictions.",
+        "zh": "例题图展示展开块、共同分组、匹配块消去和分母限制的视觉提醒。",
+        "zhHans": "例题图展示展开块、共同分组、匹配块消去和分母限制的视觉提醒。"
+      },
+      "caption": {
+        "en": "Factorization should be checked by expansion, and fraction equations require restriction checks.",
+        "zh": "因式分解要能反向展开检查，分式方程还要检查限制条件。",
+        "zhHans": "因式分解要能反向展开检查，分式方程还要检查限制条件。"
+      },
+      "lessonTitle": {
+        "en": "Polynomial Products, Factorization, and Algebraic Fractions",
+        "zh": "整式乘法、因式分解与分式",
+        "zhHans": "整式乘法、因式分解与分式"
+      },
+      "generationPrompt": "Use case: scientific-educational. Asset type: 16:9 lesson illustration for MAIS 人教版初中 math Lesson, review-only candidate. Primary request: Create an original worked-example illustration for S2 factorization and algebraic fraction checking. Scene/backdrop: modern light algebra workspace with soft grid, cyan/violet/emerald accents. Subject: a visual sequence of blank tiles: first an expanded rectangular tile array, then highlighted common groups, then a simplified paired row where matching pieces cancel visually; a small warning halo around a forbidden empty denominator-like slot, shown only as a blank shape cue. Learning objective: choose structure first, verify by rearrangement, and check restrictions when simplifying fraction expressions. Style: crisp vector-like raster, polished app illustration, 16:9 landscape. Hard constraint: absolutely no readable text, no letters, no words, no numbers, no formulas, no equality signs, no plus/minus signs, no variables, no symbols printed on shapes, no labels, no captions inside the image. Other constraints: no textbook screenshot, no publisher layout, no copied diagram, no logos, no watermark, no page frame, mathematically clear and age-appropriate.",
+      "generator": "Codex built-in image_gen (GPT Image2-style workflow)",
+      "reviewerNotes": "Review 整式乘法、因式分解与分式 worked example illustration for math correctness, source distance, and age fit."
+    },
+    {
+      "id": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals-concept",
+      "topicId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "slot": "concept",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "candidatePath": "coordination/content-qa/mainland-pep-junior-illustrations-v1/candidates/pep-junior-s2-lower-roots-pythagorean-quadrilaterals/concept.png",
+      "srcAfterApproval": "/lesson-illustrations/mainland-pep-junior/pep-junior-s2-lower-roots-pythagorean-quadrilaterals/concept.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "alt": {
+        "en": "A right triangle has translucent side-area squares, with overlapping parallelogram and special quadrilateral shapes nearby.",
+        "zh": "直角三角形三边附着半透明面积方块，旁边叠放平行四边形和特殊四边形。",
+        "zhHans": "直角三角形三边附着半透明面积方块，旁边叠放平行四边形和特殊四边形。"
+      },
+      "caption": {
+        "en": "Exact lengths, right-triangle conditions, and quadrilateral classification should support each other rather than rely on appearance.",
+        "zh": "精确长度、直角条件和四边形分类要互相支持，而不能只凭图像猜测。",
+        "zhHans": "精确长度、直角条件和四边形分类要互相支持，而不能只凭图像猜测。"
+      },
+      "lessonTitle": {
+        "en": "Radicals, Pythagorean Reasoning, and Quadrilaterals",
+        "zh": "二次根式、勾股定理与平行四边形",
+        "zhHans": "二次根式、勾股定理与平行四边形"
+      },
+      "generationPrompt": "Use case: scientific-educational. Asset type: 16:9 lesson illustration for MAIS 人教版初中 math Lesson, review-only candidate. Primary request: Create an original concept illustration for S2 radicals, Pythagorean reasoning, and quadrilaterals using only geometry shapes. Scene/backdrop: modern light geometry canvas with soft grid, cyan/violet/emerald accents. Subject: a large right triangle with three translucent side-area squares, an exact-length segment glowing as a measured object, and a clean family of overlapping quadrilaterals/parallelograms on the right. Use no equation panels and no symbol strips. Learning objective: connect exact length reasoning with right-triangle conditions and quadrilateral classification. Style: crisp vector-like raster, polished app illustration, 16:9 landscape, uncluttered. Hard constraint: absolutely no readable text, no letters, no words, no numbers, no formulas, no equality signs, no plus/minus signs, no labels, no captions inside the image. Other constraints: no textbook screenshot, no publisher layout, no copied diagram, no logos, no watermark, no page frame, mathematically clear and age-appropriate.",
+      "generator": "Codex built-in image_gen (GPT Image2-style workflow)",
+      "reviewerNotes": "Review 二次根式、勾股定理与平行四边形 concept illustration for math correctness, source distance, and age fit."
+    },
+    {
+      "id": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals-worked-example",
+      "topicId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "slot": "worked-example",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "candidatePath": "coordination/content-qa/mainland-pep-junior-illustrations-v1/candidates/pep-junior-s2-lower-roots-pythagorean-quadrilaterals/worked-example.png",
+      "srcAfterApproval": "/lesson-illustrations/mainland-pep-junior/pep-junior-s2-lower-roots-pythagorean-quadrilaterals/worked-example.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "alt": {
+        "en": "A worked visual highlights a hypotenuse on a grid and uses parallel-side and diagonal cues to check quadrilateral properties.",
+        "zh": "例题图在网格中高亮直角三角形斜边，并用平行边和对角线检查四边形性质。",
+        "zhHans": "例题图在网格中高亮直角三角形斜边，并用平行边和对角线检查四边形性质。"
+      },
+      "caption": {
+        "en": "Confirm the right angle before using Pythagorean reasoning, and confirm the quadrilateral class before using its properties.",
+        "zh": "用勾股关系前先确认直角，用四边形性质前先确认所属类别。",
+        "zhHans": "用勾股关系前先确认直角，用四边形性质前先确认所属类别。"
+      },
+      "lessonTitle": {
+        "en": "Radicals, Pythagorean Reasoning, and Quadrilaterals",
+        "zh": "二次根式、勾股定理与平行四边形",
+        "zhHans": "二次根式、勾股定理与平行四边形"
+      },
+      "generationPrompt": "Use case: scientific-educational. Asset type: 16:9 lesson illustration for MAIS 人教版初中 math Lesson, review-only candidate. Primary request: Create an original worked-example illustration for S2 Pythagorean theorem, radical lengths, and quadrilateral classification. Scene/backdrop: modern light geometry workspace with soft grid, cyan/violet/emerald accents. Subject: a problem-solving visual: a coordinate-like grid without labels, a right triangle with a highlighted hypotenuse, a small exact-length ruler band with abstract root-shaped glow but no symbol, and a quadrilateral being checked by parallel side highlights and diagonal guides. Learning objective: verify the right-triangle condition before using length relationships, then use properties to classify quadrilaterals. Style: crisp vector-like raster, polished app illustration, 16:9 landscape. Hard constraint: absolutely no readable text, no letters, no words, no numbers, no formulas, no equality signs, no plus/minus signs, no axis labels, no captions inside the image. Other constraints: no textbook screenshot, no publisher layout, no copied diagram, no logos, no watermark, no page frame, mathematically clear and age-appropriate.",
+      "generator": "Codex built-in image_gen (GPT Image2-style workflow)",
+      "reviewerNotes": "Review 二次根式、勾股定理与平行四边形 worked example illustration for math correctness, source distance, and age fit."
+    },
+    {
+      "id": "pep-junior-s2-lower-linear-functions-data-concept",
+      "topicId": "pep-junior-s2-lower-linear-functions-data",
+      "slot": "concept",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "candidatePath": "coordination/content-qa/mainland-pep-junior-illustrations-v1/candidates/pep-junior-s2-lower-linear-functions-data/concept.png",
+      "srcAfterApproval": "/lesson-illustrations/mainland-pep-junior/pep-junior-s2-lower-linear-functions-data/concept.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "alt": {
+        "en": "Blank dot arrays, a rising line, a motion path, and a data cloud connect tables, graphs, contexts, and statistical summaries.",
+        "zh": "空白点阵、上升直线、运动路径和数据点云相连，展示表、图、情境和统计概括的转换。",
+        "zhHans": "空白点阵、上升直线、运动路径和数据点云相连，展示表、图、情境和统计概括的转换。"
+      },
+      "caption": {
+        "en": "Linear functions require translation among representations, while data analysis reads center and spread.",
+        "zh": "一次函数要在表、式、图和情境之间互相解释，数据分析要看中心和离散。",
+        "zhHans": "一次函数要在表、式、图和情境之间互相解释，数据分析要看中心和离散。"
+      },
+      "lessonTitle": {
+        "en": "Linear Functions and Data Analysis",
+        "zh": "一次函数与数据分析",
+        "zhHans": "一次函数与数据分析"
+      },
+      "generationPrompt": "Use case: scientific-educational. Asset type: 16:9 lesson illustration for MAIS 人教版初中 math Lesson, review-only candidate. Primary request: Create an original concept illustration for S2 linear functions and data analysis. Scene/backdrop: modern light data-function canvas with soft grid, cyan/violet/emerald accents. Subject: a four-representation flow without text: a small table-like array of blank dots, a rising straight line on a graph, a simple real-world rate path represented by moving dots, and a dot-plot data cluster with center and spread highlighted by translucent bands. Learning objective: move between table, graph, relationship, and data summary while interpreting rate and context. Style: crisp vector-like raster, polished app illustration, 16:9 landscape, spacious. Hard constraint: no readable text, no letters, no words, no numbers, no formulas, no axis labels, no captions inside the image. Other constraints: no textbook screenshot, no publisher layout, no copied diagram, no logos, no watermark, no page frame, mathematically clear and age-appropriate.",
+      "generator": "Codex built-in image_gen (GPT Image2-style workflow)",
+      "reviewerNotes": "Review 一次函数与数据分析 concept illustration for math correctness, source distance, and age fit."
+    },
+    {
+      "id": "pep-junior-s2-lower-linear-functions-data-worked-example",
+      "topicId": "pep-junior-s2-lower-linear-functions-data",
+      "slot": "worked-example",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "candidatePath": "coordination/content-qa/mainland-pep-junior-illustrations-v1/candidates/pep-junior-s2-lower-linear-functions-data/worked-example.png",
+      "srcAfterApproval": "/lesson-illustrations/mainland-pep-junior/pep-junior-s2-lower-linear-functions-data/worked-example.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "alt": {
+        "en": "A worked visual highlights two points on a line, a slope staircase, a point check, and data-summary markers.",
+        "zh": "例题图突出直线上的两个点、斜率阶梯、点的检验和数据摘要标记。",
+        "zhHans": "例题图突出直线上的两个点、斜率阶梯、点的检验和数据摘要标记。"
+      },
+      "caption": {
+        "en": "Read rate of change first, check point membership, then choose a fitting data summary.",
+        "zh": "读一次函数时先看变化率，再检查点是否符合关系；读数据时选择合适的代表值。",
+        "zhHans": "读一次函数时先看变化率，再检查点是否符合关系；读数据时选择合适的代表值。"
+      },
+      "lessonTitle": {
+        "en": "Linear Functions and Data Analysis",
+        "zh": "一次函数与数据分析",
+        "zhHans": "一次函数与数据分析"
+      },
+      "generationPrompt": "Use case: scientific-educational. Asset type: 16:9 lesson illustration for MAIS 人教版初中 math Lesson, review-only candidate. Primary request: Create an original worked-example illustration for S2 linear functions and data analysis. Scene/backdrop: modern light function-data workspace with soft grid, cyan/violet/emerald accents. Subject: a plotted straight line through two highlighted points, slope shown as a small rise-and-run staircase shape without labels, a point-check marker on the line, and a nearby dot-plot where three different summary markers are visually compared. Learning objective: read slope and intercept visually, check whether a point belongs to the relationship, and choose a data summary based on context. Style: crisp vector-like raster, polished app illustration, 16:9 landscape. Hard constraint: absolutely no readable text, no letters, no words, no numbers, no formulas, no axis labels, no captions inside the image. Other constraints: no textbook screenshot, no publisher layout, no copied diagram, no logos, no watermark, no page frame, mathematically clear and age-appropriate.",
+      "generator": "Codex built-in image_gen (GPT Image2-style workflow)",
+      "reviewerNotes": "Review 一次函数与数据分析 worked example illustration for math correctness, source distance, and age fit."
+    },
+    {
+      "id": "pep-junior-s3-upper-quadratics-circle-probability-concept",
+      "topicId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "slot": "concept",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "candidatePath": "coordination/content-qa/mainland-pep-junior-illustrations-v1/candidates/pep-junior-s3-upper-quadratics-circle-probability/concept.png",
+      "srcAfterApproval": "/lesson-illustrations/mainland-pep-junior/pep-junior-s3-upper-quadratics-circle-probability/concept.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "alt": {
+        "en": "A parabola with vertex and symmetry cues, circle chord-arc relationships, and a probability sample-space array form a synthesis visual.",
+        "zh": "抛物线顶点和对称线索、圆的弦弧关系以及概率样本空间点阵组合成综合图。",
+        "zhHans": "抛物线顶点和对称线索、圆的弦弧关系以及概率样本空间点阵组合成综合图。"
+      },
+      "caption": {
+        "en": "Quadratic models, circle relations, and probability models all turn visual features into reasoning evidence.",
+        "zh": "二次模型、圆的关系和概率模型都需要把图形特征转化为推理依据。",
+        "zhHans": "二次模型、圆的关系和概率模型都需要把图形特征转化为推理依据。"
+      },
+      "lessonTitle": {
+        "en": "Quadratics, Circles, and Introductory Probability",
+        "zh": "一元二次方程、二次函数、圆与概率初步",
+        "zhHans": "一元二次方程、二次函数、圆与概率初步"
+      },
+      "generationPrompt": "Use case: scientific-educational. Asset type: 16:9 lesson illustration for MAIS 人教版初中 math Lesson, review-only candidate. Primary request: Create an original concept illustration for S3 quadratic equations/functions, circle geometry, and introductory probability. Scene/backdrop: modern light synthesis canvas with soft grid, cyan/violet/emerald accents. Subject: a central parabola with highlighted vertex and symmetry cue, a circle with radius/chord/arc relationships shown by clean colored segments, and a simple probability sample-space field of small abstract dots or tiles. Use visual links between algebra, geometry, and randomness. Learning objective: connect graph shape, circle relations, and probability modeling as S3 exam-ready reasoning tools. Style: crisp vector-like raster, polished app illustration, 16:9 landscape. Hard constraint: no readable text, no letters, no words, no numbers, no formulas, no axis labels, no captions inside the image. Other constraints: no textbook screenshot, no publisher layout, no copied diagram, no logos, no watermark, no page frame, mathematically clear and age-appropriate.",
+      "generator": "Codex built-in image_gen (GPT Image2-style workflow)",
+      "reviewerNotes": "Review 一元二次方程、二次函数、圆与概率初步 concept illustration for math correctness, source distance, and age fit."
+    },
+    {
+      "id": "pep-junior-s3-upper-quadratics-circle-probability-worked-example",
+      "topicId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "slot": "worked-example",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "candidatePath": "coordination/content-qa/mainland-pep-junior-illustrations-v1/candidates/pep-junior-s3-upper-quadratics-circle-probability/worked-example.png",
+      "srcAfterApproval": "/lesson-illustrations/mainland-pep-junior/pep-junior-s3-upper-quadratics-circle-probability/worked-example.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "alt": {
+        "en": "A worked visual places key parabola points, related circle arcs, and grouped equally likely regions side by side.",
+        "zh": "例题图把抛物线关键点、圆中相关角弧和等可能区域分组并列呈现。",
+        "zhHans": "例题图把抛物线关键点、圆中相关角弧和等可能区域分组并列呈现。"
+      },
+      "caption": {
+        "en": "For synthesis problems, extract graph features first, then state the circle relation and complete sample space.",
+        "zh": "综合题要先提取图像特征，再说明圆的关系和完整样本空间。",
+        "zhHans": "综合题要先提取图像特征，再说明圆的关系和完整样本空间。"
+      },
+      "lessonTitle": {
+        "en": "Quadratics, Circles, and Introductory Probability",
+        "zh": "一元二次方程、二次函数、圆与概率初步",
+        "zhHans": "一元二次方程、二次函数、圆与概率初步"
+      },
+      "generationPrompt": "Use case: scientific-educational. Asset type: 16:9 lesson illustration for MAIS 人教版初中 math Lesson, review-only candidate. Primary request: Create an original worked-example illustration for S3 quadratics, circle reasoning, and probability. Scene/backdrop: modern light problem-solving workspace with soft grid, cyan/violet/emerald accents. Subject: a clean visual workflow: a parabola with intercept-like dots and vertex highlight, a circle configuration with two related angles/arcs highlighted, and a probability model with equally likely tiles grouped into favorable and total regions. Use arrows and color grouping only. Learning objective: check quadratic graph features, cite a circle relation, and define a complete probability sample space before calculating. Style: crisp vector-like raster, polished app illustration, 16:9 landscape, organized and uncluttered. Hard constraint: absolutely no readable text, no letters, no words, no numbers, no formulas, no equality signs, no plus/minus signs, no axis labels, no captions inside the image. Other constraints: no textbook screenshot, no publisher layout, no copied diagram, no logos, no watermark, no page frame, mathematically clear and age-appropriate.",
+      "generator": "Codex built-in image_gen (GPT Image2-style workflow)",
+      "reviewerNotes": "Review 一元二次方程、二次函数、圆与概率初步 worked example illustration for math correctness, source distance, and age fit."
+    },
+    {
+      "id": "pep-junior-s3-lower-inverse-similarity-trigonometry-concept",
+      "topicId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "slot": "concept",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "candidatePath": "coordination/content-qa/mainland-pep-junior-illustrations-v1/candidates/pep-junior-s3-lower-inverse-similarity-trigonometry/concept.png",
+      "srcAfterApproval": "/lesson-illustrations/mainland-pep-junior/pep-junior-s3-lower-inverse-similarity-trigonometry/concept.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "alt": {
+        "en": "An inverse-proportion curve, scaled similar triangles, and color-coded right-triangle side-angle cues show proportional measurement.",
+        "zh": "反比例曲线、相似三角形缩放箭头和直角三角形边角颜色线索共同展示比例测量。",
+        "zhHans": "反比例曲线、相似三角形缩放箭头和直角三角形边角颜色线索共同展示比例测量。"
+      },
+      "caption": {
+        "en": "Proportional relationships transfer across function graphs, similar figures, and right-triangle measurement.",
+        "zh": "比例关系可以在函数图像、相似图形和直角三角形测量中互相迁移。",
+        "zhHans": "比例关系可以在函数图像、相似图形和直角三角形测量中互相迁移。"
+      },
+      "lessonTitle": {
+        "en": "Inverse Proportion, Similarity, and Right-Triangle Trigonometry",
+        "zh": "反比例函数、相似与锐角三角函数",
+        "zhHans": "反比例函数、相似与锐角三角函数"
+      },
+      "generationPrompt": "Use case: scientific-educational. Asset type: 16:9 lesson illustration for MAIS 人教版初中 math Lesson, review-only candidate. Primary request: Create an original concept illustration for S3 inverse proportion, similarity, and right-triangle trigonometry. Scene/backdrop: modern light synthesis canvas with soft grid, cyan/violet/emerald accents. Subject: a smooth inverse-proportion curve on a coordinate-like grid without labels, a pair of similar triangles linked by scale arrows, and a right triangle with angle arc, opposite/adjacent side glow cues shown only by color. Learning objective: connect proportional relationships, shape scaling, and right-triangle measurement strategies. Style: crisp vector-like raster, polished app illustration, 16:9 landscape, spacious. Hard constraint: no readable text, no letters, no words, no numbers, no formulas, no axis labels, no captions inside the image. Other constraints: no textbook screenshot, no publisher layout, no copied diagram, no logos, no watermark, no page frame, mathematically clear and age-appropriate.",
+      "generator": "Codex built-in image_gen (GPT Image2-style workflow)",
+      "reviewerNotes": "Review 反比例函数、相似与锐角三角函数 concept illustration for math correctness, source distance, and age fit."
+    },
+    {
+      "id": "pep-junior-s3-lower-inverse-similarity-trigonometry-worked-example",
+      "topicId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "slot": "worked-example",
+      "reviewStatus": "approved",
+      "decision": "approved",
+      "candidatePath": "coordination/content-qa/mainland-pep-junior-illustrations-v1/candidates/pep-junior-s3-lower-inverse-similarity-trigonometry/worked-example.png",
+      "srcAfterApproval": "/lesson-illustrations/mainland-pep-junior/pep-junior-s3-lower-inverse-similarity-trigonometry/worked-example.png",
+      "width": 1600,
+      "height": 900,
+      "ragCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "alt": {
+        "en": "A worked visual shows two similar measurement triangles, a scale bridge, a selected point on an inverse curve, and right-triangle side-angle relations.",
+        "zh": "例题图展示两个相似测量三角形、比例桥、反比例曲线上选点和直角三角形边角关系。",
+        "zhHans": "例题图展示两个相似测量三角形、比例桥、反比例曲线上选点和直角三角形边角关系。"
+      },
+      "caption": {
+        "en": "For measurement problems, find similarity or proportion first, then choose the correct side-angle relationship.",
+        "zh": "解决测量问题时，先找相似或比例，再选择正确的边角关系。",
+        "zhHans": "解决测量问题时，先找相似或比例，再选择正确的边角关系。"
+      },
+      "lessonTitle": {
+        "en": "Inverse Proportion, Similarity, and Right-Triangle Trigonometry",
+        "zh": "反比例函数、相似与锐角三角函数",
+        "zhHans": "反比例函数、相似与锐角三角函数"
+      },
+      "generationPrompt": "Use case: scientific-educational. Asset type: 16:9 lesson illustration for MAIS 人教版初中 math Lesson, review-only candidate. Primary request: Create an original worked-example illustration for S3 inverse proportion, similarity, and right-triangle trigonometry measurement. Scene/backdrop: modern light problem-solving workspace with soft grid, cyan/violet/emerald accents. Subject: a real-world measurement-style visual without people: two similar right triangles cast by abstract vertical objects and shadows, a proportional scale bridge between them, a coordinate-like inverse curve nearby with a selected point, and a right triangle angle arc with side-color cues. Learning objective: use proportional thinking to solve measurement problems, connect inverse variation with graph behavior, and choose the correct right-triangle side relationship. Style: crisp vector-like raster, polished app illustration, 16:9 landscape, organized and uncluttered. Hard constraint: absolutely no readable text, no letters, no words, no numbers, no formulas, no equality signs, no plus/minus signs, no axis labels, no captions inside the image. Other constraints: no textbook screenshot, no publisher layout, no copied diagram, no logos, no watermark, no page frame, mathematically clear and age-appropriate.",
+      "generator": "Codex built-in image_gen (GPT Image2-style workflow)",
+      "reviewerNotes": "Review 反比例函数、相似与锐角三角函数 worked example illustration for math correctness, source distance, and age fit."
+    }
+  ]
+}

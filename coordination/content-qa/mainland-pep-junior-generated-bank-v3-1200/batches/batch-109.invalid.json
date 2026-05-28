@@ -1,0 +1,111 @@
+{
+  "batchId": "batch-109",
+  "attempt": 2,
+  "validationError": "pep-junior-v3-s3-k11-fi-018: forbidden source or diagram-dependent wording detected; pep-junior-v3-s3-k11-fi-019: math red-flag wording detected",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s3-k11-fi-015",
+      "promptZhHans": "已知反比例函数 y = k/x 的图象经过点 A(3, -4)，点 B(m, 6) 也在该函数图象上。求 m 的值。",
+      "optionsZhHans": [],
+      "answer": "-2",
+      "acceptedAnswers": [
+        "-2"
+      ],
+      "explanationZhHans": "将点 A(3, -4) 代入 y = k/x，得 -4 = k/3，解得 k = -12。所以反比例函数为 y = -12/x。再将点 B(m, 6) 代入，得 6 = -12/m，解得 m = -2。"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-fi-016",
+      "promptZhHans": "反比例函数 y = (2m - 1)/x 的图象在第二、四象限，求 m 的取值范围。",
+      "optionsZhHans": [],
+      "answer": "m < 1/2",
+      "acceptedAnswers": [
+        "m < 1/2",
+        "m<1/2"
+      ],
+      "explanationZhHans": "反比例函数 y = k/x 的图象在第二、四象限时，k < 0。因此 2m - 1 < 0，解得 m < 1/2。"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-fi-017",
+      "promptZhHans": "如图，在△ABC中，∠C=90°，AB=13，BC=5，则sinA的值为______。",
+      "optionsZhHans": [],
+      "answer": "5/13",
+      "acceptedAnswers": [
+        "5/13",
+        "5/13"
+      ],
+      "explanationZhHans": "在Rt△ABC中，∠C=90°，AB是斜边，BC是∠A的对边。sinA = 对边/斜边 = BC/AB = 5/13。"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-fi-018",
+      "promptZhHans": "一个几何体由若干个相同的小正方体搭成，其主视图和俯视图如图所示，则搭成这个几何体的小正方体的个数最少是______。",
+      "optionsZhHans": [],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5"
+      ],
+      "explanationZhHans": "由主视图和俯视图分析，俯视图显示底层有4个小正方体，主视图显示有两层，其中第二层至少有一个小正方体，因此最少需要5个小正方体。"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-fi-019",
+      "promptZhHans": "已知二次函数 y = x² - 2x - 3 的图象与x轴交于A、B两点（点A在点B的左侧），与y轴交于点C，顶点为D。求四边形ABCD的面积。",
+      "optionsZhHans": [],
+      "answer": "9",
+      "acceptedAnswers": [
+        "9"
+      ],
+      "explanationZhHans": "令y=0得x²-2x-3=0，解得x=-1或x=3，故A(-1,0)，B(3,0)。令x=0得y=-3，故C(0,-3)。顶点D坐标为(1,-4)。四边形ABCD可分割为△ABC和△ACD。△ABC面积=1/2×AB×|y_C|=1/2×4×3=6。△ACD面积=1/2×AC×h，AC=√(1²+3²)=√10，直线AC方程为y=-3x-3，点D到AC距离h=|3×1+1×(-4)+3|/√(3²+1²)=|3-4+3|/√10=2/√10，△ACD面积=1/2×√10×2/√10=1。四边形ABCD面积=6+1=7？不对。重新计算：四边形ABCD为凹四边形，应分割为△ABC和△BCD。△ABC面积=6。B(3,0)，C(0,-3)，D(1,-4)，△BCD面积=1/2|3×(-3)+0×(-4)+1×0 - (0×0+(-3)×1+(-4)×3)|=1/2|-9+0+0 - (0-3-12)|=1/2|-9+15|=3。总面积=6+3=9。"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-fi-020",
+      "promptZhHans": "在△ABC中，点D、E分别在边AB、AC上，DE∥BC。若AD=2，DB=3，则△ADE与四边形DBCE的面积比为______。",
+      "optionsZhHans": [],
+      "answer": "4:21",
+      "acceptedAnswers": [
+        "4:21",
+        "4/21"
+      ],
+      "explanationZhHans": "由DE∥BC得△ADE∽△ABC，相似比为AD:AB=2:5。面积比为相似比的平方，即4:25。设△ADE面积为4k，则△ABC面积为25k，四边形DBCE面积为25k-4k=21k。所以△ADE与四边形DBCE的面积比为4k:21k=4:21。"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-fi-021",
+      "promptZhHans": "某商店销售一种商品，进价为每件20元，售价为每件30元，每天可售出100件。经调查发现，售价每降低1元，每天可多售出10件。设每件商品降价x元（x为正整数），每天的利润为y元。求y与x的函数关系式，并写出自变量x的取值范围。",
+      "optionsZhHans": [],
+      "answer": "y = -10x² + 100x + 1000，0 ≤ x ≤ 10且x为整数",
+      "acceptedAnswers": [
+        "y = -10x² + 100x + 1000，0 ≤ x ≤ 10且x为整数",
+        "y=-10x²+100x+1000，0≤x≤10且x为整数"
+      ],
+      "explanationZhHans": "降价后售价为(30-x)元，每件利润为(30-x-20)=(10-x)元，每天销售量为(100+10x)件。利润y=(10-x)(100+10x)=1000+100x-100x-10x²=-10x²+100x+1000。售价不低于进价，即30-x≥20，得x≤10；x为正整数，且x≥0，故0≤x≤10且x为整数。"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-fi-022",
+      "promptZhHans": "化简分式：(x² - 9)/(x² - 6x + 9) ÷ (x + 3)/(x - 3)，并求当x=2时的值。",
+      "optionsZhHans": [],
+      "answer": "1",
+      "acceptedAnswers": [
+        "1"
+      ],
+      "explanationZhHans": "原式 = [(x+3)(x-3)]/(x-3)² × (x-3)/(x+3) = 1。当x=2时，分母不为零，值为1。"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-fi-023",
+      "promptZhHans": "如图，在△ABC中，AB=AC，点D是BC的中点，DE⊥AB于点E，DF⊥AC于点F。求证：DE=DF。",
+      "optionsZhHans": [],
+      "answer": "证明：连接AD，由AB=AC，D为BC中点，得AD⊥BC且AD平分∠BAC。又DE⊥AB，DF⊥AC，根据角平分线上的点到角两边的距离相等，得DE=DF。",
+      "acceptedAnswers": [
+        "证明：连接AD，由AB=AC，D为BC中点，得AD⊥BC且AD平分∠BAC。又DE⊥AB，DF⊥AC，根据角平分线上的点到角两边的距离相等，得DE=DF。"
+      ],
+      "explanationZhHans": "连接AD，由AB=AC，D为BC中点，得AD⊥BC且AD平分∠BAC。又DE⊥AB，DF⊥AC，根据角平分线上的点到角两边的距离相等，得DE=DF。"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-fi-024",
+      "promptZhHans": "如图，在四边形ABCD中，∠A=90°，AB=3，AD=4，BC=12，CD=13。求四边形ABCD的面积。",
+      "optionsZhHans": [],
+      "answer": "36",
+      "acceptedAnswers": [
+        "36"
+      ],
+      "explanationZhHans": "连接BD。在Rt△ABD中，BD=√(3²+4²)=5。在△BCD中，BC=12，CD=13，BD=5，因为5²+12²=13²，所以△BCD是直角三角形，∠CBD=90°。四边形ABCD的面积=S△ABD+S△BCD=1/2×3×4+1/2×5×12=6+30=36。"
+    }
+  ]
+}

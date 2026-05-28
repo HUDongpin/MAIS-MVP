@@ -1,0 +1,138 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-075",
+  "startedAt": "2026-05-28T02:06:21.267Z",
+  "completedAt": "2026-05-28T02:06:40.503Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-093",
+    "bnu-high-ds-v1-s5-094",
+    "bnu-high-ds-v1-s5-095",
+    "bnu-high-ds-v1-s5-096",
+    "bnu-high-ds-v1-s5-097",
+    "bnu-high-ds-v1-s5-098",
+    "bnu-high-ds-v1-s5-099",
+    "bnu-high-ds-v1-s5-100"
+  ],
+  "usage": {
+    "prompt_tokens": 16966,
+    "completion_tokens": 1113,
+    "total_tokens": 18079,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 16582
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-093",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案4与独立解一致，解析正确且无矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-094",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案b^2与独立解一致，解析正确，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-095",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案x^2/9 + y^2/5 = 1与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-096",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案[1,5)∪(5,+∞)与独立解m≥1且m≠5一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-097",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "correctedAnswer": "√5",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案√5/2错误，独立解为√5。解析中计算得e=√5但结论选√5/2，自相矛盾。选项无√5，题目可能缺条件或选项错误，但按现有条件正确答案应为√5。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-098",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "±√2",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案±1错误，独立解为±√2。解析中计算得k=±√2但结论写±1，自相矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-099",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案4√3/3与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-100",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "correctedAnswer": "[2, +∞)",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案[2,+∞)正确，但解析错误推导出(1,2]并选B，自相矛盾。独立解为[2,+∞)，解析应修正。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 5,
+      "warn": 0,
+      "fail": 3,
+      "notes": "8题中5题通过，3题失败：097答案错误且解析矛盾，098答案错误且解析矛盾，100解析错误但答案正确（解析需修正）。"
+    }
+  }
+}

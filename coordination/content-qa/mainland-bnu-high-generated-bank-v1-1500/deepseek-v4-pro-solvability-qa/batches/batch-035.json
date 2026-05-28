@@ -1,0 +1,137 @@
+{
+  "batchNumber": 35,
+  "startedAt": "2026-05-27T13:49:37.570Z",
+  "completedAt": "2026-05-27T13:49:56.192Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-273",
+    "bnu-high-ds-v1-s4-274",
+    "bnu-high-ds-v1-s4-275",
+    "bnu-high-ds-v1-s4-276",
+    "bnu-high-ds-v1-s4-277",
+    "bnu-high-ds-v1-s4-278",
+    "bnu-high-ds-v1-s4-279",
+    "bnu-high-ds-v1-s4-280"
+  ],
+  "usage": {
+    "prompt_tokens": 11022,
+    "completion_tokens": 1214,
+    "total_tokens": 12236,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10510
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-273",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "k=3, 不可能，因为当t=30时V=40>0",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件充分，可独立求解。由V(10)=80解得k=3，V(t)=100-2t，t=30时V=40>0，不可能为0。答案与解析均正确一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-274",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "y = 10, 0<x≤3; y = 10+2(x-3), 3<x≤10; y = 10+2*7+3(x-10), x>10",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "分段函数模型清晰，选项A正确。解析指出其他选项错误，与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-275",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "a=1, b=50, 2030年人口70万",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "线性模型由两点确定，解得a=1,b=50，预测2030年人口70万。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-276",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "k≈0.07, 20年",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "指数衰减模型，由半衰期得k≈0.0693≈0.07，再衰变至25克需20年。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-277",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "当产量为70件时，利润为100元；当产量为80件时，利润为400元；当产量为100件时，利润为1000元",
+        "correctedAnswer": "当产量为80件时，利润为400元",
+        "issueTags": [
+          "ambiguous_mc",
+          "bad_options",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "原题选项B、C、D均正确，不满足单选题唯一正确的要求。解析中虽指出矛盾并试图修改选项，但题目本身未修改，导致无唯一正确答案。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-278",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "12小时",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "工程问题，净效率1/12，注满需12小时。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-279",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "10公里",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "分段函数模型，由21元反推里程得10公里。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-280",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "22.5件",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "二次函数求最值，对称轴x=22.5。答案与解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第277题单选题存在多个正确选项，题目设计缺陷，需修改选项以确保唯一答案。其余题目均正确可解。"
+    }
+  }
+}

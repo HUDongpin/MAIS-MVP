@@ -1,0 +1,302 @@
+{
+  "batchId": "batch-093",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p2-211",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "hjb-primary-p2-lower-two-three-digit-add-sub",
+      "unitTitle": "两位数与三位数的加减法",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "two-three-digit-addition-subtraction",
+        "regrouping-add-sub",
+        "written-calculation",
+        "estimation-check",
+        "两三位数加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "两位数加减",
+        "三位数加减",
+        "进位",
+        "退位",
+        "估算",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "hundreds tens ones not aligned",
+        "regrouping direction confused",
+        "estimate ignored when exact answer is unreasonable"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p2-lower-two-three-digit-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-two-three-digit-add-sub",
+        "hjb-primary-p2-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小华想计算 345 + 278。他先估算：345 接近 350，278 接近 280，350 + 280 = 630。下面哪个算式的结果最接近他的估算？",
+      "optionsZhHans": [
+        "345 + 278 = 523",
+        "345 + 278 = 613",
+        "345 + 278 = 623",
+        "345 + 278 = 723"
+      ],
+      "answer": "345 + 278 = 623",
+      "acceptedAnswers": [
+        "345 + 278 = 623"
+      ],
+      "explanationZhHans": "估算得630，精确计算：个位5+8=13，向十位进1；十位4+7+1=12，向百位进1；百位3+2+1=6，结果是623，最接近630。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-212",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "hjb-primary-p2-lower-two-three-digit-add-sub",
+      "unitTitle": "两位数与三位数的加减法",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "two-three-digit-addition-subtraction",
+        "regrouping-add-sub",
+        "written-calculation",
+        "estimation-check",
+        "两三位数加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "两位数加减",
+        "三位数加减",
+        "进位",
+        "退位",
+        "估算",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "hundreds tens ones not aligned",
+        "regrouping direction confused",
+        "estimate ignored when exact answer is unreasonable"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p2-lower-two-three-digit-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-two-three-digit-add-sub",
+        "hjb-primary-p2-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用竖式计算 506 - 238，差的百位是（    ），十位是（    ），个位是（    ）。",
+      "optionsZhHans": [],
+      "answer": "2,6,8",
+      "acceptedAnswers": [
+        "2,6,8",
+        "268"
+      ],
+      "explanationZhHans": "个位6减8不够，向十位借1，十位是0，向百位借1，百位5变4，十位10变9，个位16-8=8；十位9-3=6；百位4-2=2，差是268。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-213",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "hjb-primary-p2-lower-two-three-digit-add-sub",
+      "unitTitle": "两位数与三位数的加减法",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "two-three-digit-addition-subtraction",
+        "regrouping-add-sub",
+        "written-calculation",
+        "estimation-check",
+        "两三位数加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "两位数加减",
+        "三位数加减",
+        "进位",
+        "退位",
+        "估算",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "hundreds tens ones not aligned",
+        "regrouping direction confused",
+        "estimate ignored when exact answer is unreasonable"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p2-lower-two-three-digit-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-two-three-digit-add-sub",
+        "hjb-primary-p2-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪道题在计算时个位和十位都需要退位？",
+      "optionsZhHans": [
+        "432 - 156",
+        "523 - 271",
+        "645 - 382",
+        "714 - 503"
+      ],
+      "answer": "432 - 156",
+      "acceptedAnswers": [
+        "432 - 156"
+      ],
+      "explanationZhHans": "432-156：个位2减6不够退位，十位3减5不够退位，需连续退位。其他选项只需一次退位或不需退位。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-214",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "hjb-primary-p2-lower-two-three-digit-add-sub",
+      "unitTitle": "两位数与三位数的加减法",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "two-three-digit-addition-subtraction",
+        "regrouping-add-sub",
+        "written-calculation",
+        "estimation-check",
+        "两三位数加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "两位数加减",
+        "三位数加减",
+        "进位",
+        "退位",
+        "估算",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "hundreds tens ones not aligned",
+        "regrouping direction confused",
+        "estimate ignored when exact answer is unreasonable"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p2-lower-two-three-digit-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-two-three-digit-add-sub",
+        "hjb-primary-p2-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "估算 198 + 305，和大约是（    ）。",
+      "optionsZhHans": [],
+      "answer": "500",
+      "acceptedAnswers": [
+        "500",
+        "五百"
+      ],
+      "explanationZhHans": "198接近200，305接近300，200+300=500，所以和大约是500。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-215",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "hjb-primary-p2-lower-two-three-digit-add-sub",
+      "unitTitle": "两位数与三位数的加减法",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "two-three-digit-addition-subtraction",
+        "regrouping-add-sub",
+        "written-calculation",
+        "estimation-check",
+        "两三位数加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "两位数加减",
+        "三位数加减",
+        "进位",
+        "退位",
+        "估算",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "hundreds tens ones not aligned",
+        "regrouping direction confused",
+        "estimate ignored when exact answer is unreasonable"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p2-lower-two-three-digit-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-two-three-digit-add-sub",
+        "hjb-primary-p2-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一根绳子长 500 厘米，先用去 186 厘米，又用去 214 厘米。下面哪个算式能正确求出剩下的长度？",
+      "optionsZhHans": [
+        "500 - 186 + 214",
+        "500 - 186 - 214",
+        "500 + 186 - 214",
+        "500 + 186 + 214"
+      ],
+      "answer": "500 - 186 - 214",
+      "acceptedAnswers": [
+        "500 - 186 - 214"
+      ],
+      "explanationZhHans": "用总长减去两次用去的长度，即500-186-214。先算186+214=400，500-400=100，剩下100厘米。"
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-229",
+  "startedAt": "2026-05-28T01:24:11.747Z",
+  "completedAt": "2026-05-28T01:24:16.826Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-229"
+  ],
+  "usage": {
+    "prompt_tokens": 2805,
+    "completion_tokens": 300,
+    "total_tokens": 3105,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2421
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-229",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "independentAnswer": null,
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "ambiguous_mc",
+          "bad_options",
+          "missing_condition",
+          "explanation_contradiction",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目数据矛盾：由焦点 F(1,0) 和点 P(√3,1/2) 求得的椭圆方程为 x²/4+y²/3=1，但点 P 不满足该方程，导致椭圆无法唯一确定。解析中计算混乱，最终直线与选项均不匹配，且选项无正确对应，题目不可解。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目数据矛盾，不可解，选项无正确对应，判定为 blocker。"
+    }
+  }
+}

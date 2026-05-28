@@ -1,0 +1,310 @@
+{
+  "batchId": "batch-273",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p6-111",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-probability-statistics",
+      "unitTitle": "可能性与统计图表",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "probability",
+        "data-display",
+        "statistical-tables-graphs",
+        "可能性",
+        "统计图表",
+        "统计"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "可能性判断",
+        "数据整理",
+        "统计表读取",
+        "统计图比较",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "likelihood judged by preference rather than sample space",
+        "graph scale read as one-to-one count",
+        "conclusion made from a single entry only",
+        "table totals ignored"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-probability-statistics"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-probability-statistics",
+        "hjb-primary-p6-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "盒子里有5个红球、3个蓝球和2个黄球，除颜色外完全相同。小华从盒子里任意摸出一个球，记录颜色后放回并摇匀，共摸球40次。下表是他记录的摸球结果。\n\n颜色 | 红 | 蓝 | 黄\n次数 | 22 | 10 | 8\n\n根据表中的数据，你认为哪种颜色的球被摸出的可能性最大？请说明理由。",
+      "optionsZhHans": [],
+      "answer": "红球被摸出的可能性最大。因为摸球40次中，红球出现了22次，次数最多，所以摸出红球的可能性最大。",
+      "acceptedAnswers": [
+        "红球被摸出的可能性最大。因为摸球40次中，红球出现了22次，次数最多，所以摸出红球的可能性最大。",
+        "红球可能性最大，因为22次最多。",
+        "红球，因为次数最多。"
+      ],
+      "explanationZhHans": "可能性大小可以通过实验次数来推断。红球出现22次，多于蓝球的10次和黄球的8次，因此红球被摸出的可能性最大。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-112",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-probability-statistics",
+      "unitTitle": "可能性与统计图表",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "probability",
+        "data-display",
+        "statistical-tables-graphs",
+        "可能性",
+        "统计图表",
+        "统计"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "可能性判断",
+        "数据整理",
+        "统计表读取",
+        "统计图比较",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "likelihood judged by preference rather than sample space",
+        "graph scale read as one-to-one count",
+        "conclusion made from a single entry only",
+        "table totals ignored"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-probability-statistics"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-probability-statistics",
+        "hjb-primary-p6-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个不透明的袋子里装有大小相同的红球和绿球共10个。小明从袋子里任意摸出一个球，记录颜色后放回，共摸球50次，摸到红球32次，摸到绿球18次。根据这些数据，下面哪种说法最合理？",
+      "optionsZhHans": [
+        "袋子里红球一定比绿球多",
+        "袋子里红球可能比绿球多",
+        "袋子里红球和绿球一样多",
+        "袋子里绿球一定比红球多"
+      ],
+      "answer": "袋子里红球可能比绿球多",
+      "acceptedAnswers": [
+        "袋子里红球可能比绿球多"
+      ],
+      "explanationZhHans": "摸球50次中红球32次，绿球18次，红球次数多，推测红球数量可能更多，但不能确定一定多，因为实验有偶然性。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-113",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-probability-statistics",
+      "unitTitle": "可能性与统计图表",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "probability",
+        "data-display",
+        "statistical-tables-graphs",
+        "可能性",
+        "统计图表",
+        "统计"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "可能性判断",
+        "数据整理",
+        "统计表读取",
+        "统计图比较",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "likelihood judged by preference rather than sample space",
+        "graph scale read as one-to-one count",
+        "conclusion made from a single entry only",
+        "table totals ignored"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-probability-statistics"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-probability-statistics",
+        "hjb-primary-p6-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是六年级一班同学最喜欢的运动项目统计表。\n\n项目 | 篮球 | 足球 | 乒乓球 | 羽毛球 | 其他\n人数 | 12 | 8 | 10 | 6 | 4\n\n全班共有______人。",
+      "optionsZhHans": [],
+      "answer": "40",
+      "acceptedAnswers": [
+        "40",
+        "40人"
+      ],
+      "explanationZhHans": "总人数等于各项目人数之和：12+8+10+6+4=40人。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-114",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-probability-statistics",
+      "unitTitle": "可能性与统计图表",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "probability",
+        "data-display",
+        "statistical-tables-graphs",
+        "可能性",
+        "统计图表",
+        "统计"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "可能性判断",
+        "数据整理",
+        "统计表读取",
+        "统计图比较",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "likelihood judged by preference rather than sample space",
+        "graph scale read as one-to-one count",
+        "conclusion made from a single entry only",
+        "table totals ignored"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-probability-statistics"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-probability-statistics",
+        "hjb-primary-p6-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某商场一周内每天的营业额如下：\n星期一：5.2万元，星期二：4.8万元，星期三：6.1万元，星期四：5.5万元，星期五：7.3万元，星期六：9.6万元，星期日：8.4万元。\n\n这一周的总营业额是多少万元？哪一天的营业额最高？",
+      "optionsZhHans": [],
+      "answer": "总营业额是46.9万元，星期六的营业额最高。",
+      "acceptedAnswers": [
+        "总营业额是46.9万元，星期六的营业额最高。",
+        "46.9万元，星期六最高。",
+        "46.9，星期六"
+      ],
+      "explanationZhHans": "总营业额=5.2+4.8+6.1+5.5+7.3+9.6+8.4=46.9万元。比较各天数据，星期六9.6万元最大，所以星期六营业额最高。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-115",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-probability-statistics",
+      "unitTitle": "可能性与统计图表",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "probability",
+        "data-display",
+        "statistical-tables-graphs",
+        "可能性",
+        "统计图表",
+        "统计"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "可能性判断",
+        "数据整理",
+        "统计表读取",
+        "统计图比较",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "likelihood judged by preference rather than sample space",
+        "graph scale read as one-to-one count",
+        "conclusion made from a single entry only",
+        "table totals ignored"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-probability-statistics"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-probability-statistics",
+        "hjb-primary-p6-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "转动一个均匀的转盘，转盘被分成红、黄、蓝三个区域，红色区域占转盘面积的一半，黄色和蓝色区域各占四分之一。下面哪种说法是正确的？",
+      "optionsZhHans": [
+        "指针停在红色区域的可能性最大",
+        "指针停在黄色区域的可能性最大",
+        "指针停在蓝色区域的可能性最大",
+        "指针停在三种颜色区域的可能性一样大"
+      ],
+      "answer": "指针停在红色区域的可能性最大",
+      "acceptedAnswers": [
+        "指针停在红色区域的可能性最大"
+      ],
+      "explanationZhHans": "红色区域面积占1/2，黄色和蓝色各占1/4，面积越大可能性越大，所以红色区域可能性最大。"
+    }
+  ]
+}

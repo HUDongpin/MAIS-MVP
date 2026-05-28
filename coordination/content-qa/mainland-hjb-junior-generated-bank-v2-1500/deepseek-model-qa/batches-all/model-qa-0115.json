@@ -1,0 +1,105 @@
+{
+  "batchId": "model-qa-0115",
+  "ids": [
+    "hjb-junior-ds-v2-s2-413",
+    "hjb-junior-ds-v2-s2-414",
+    "hjb-junior-ds-v2-s2-415",
+    "hjb-junior-ds-v2-s2-416",
+    "hjb-junior-ds-v2-s2-417",
+    "hjb-junior-ds-v2-s2-418",
+    "hjb-junior-ds-v2-s2-419",
+    "hjb-junior-ds-v2-s2-420"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-413",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "m<2",
+      "answerCheckZhHans": "标准答案 m<2 与独立求解结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-414",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(2,0)",
+      "answerCheckZhHans": "标准答案 (2,0) 与独立求解结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-415",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "5",
+      "answerCheckZhHans": "标准答案 5 与独立求解结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-416",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "y=10+4(⌈x⌉-1)",
+      "answerCheckZhHans": "标准答案 y=10+4(⌈x⌉-1) 与独立求解结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-417",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "y=-2x",
+      "answerCheckZhHans": "标准答案 y=-2x 与独立求解结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-418",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "k=2，b=1",
+      "answerCheckZhHans": "标准答案 k=2，b=1 与独立求解结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-419",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "根据条件 m-2<0 且 3-m>0 得 m<2 且 m<3，即 m<2。m 为整数，则 m 可以是 1, 0, -1, ... 等，并非唯一确定的值 1。标准答案 1 不唯一，题目要求整数 m 的值，但未限定范围，导致多解。",
+      "independentAnswerZhHans": "m 为小于 2 的整数，如 1, 0, -1, ...",
+      "answerCheckZhHans": "标准答案 1 只是其中一个解，不满足唯一性。",
+      "recommendedActionZhHans": "修改题目，增加限制条件使 m 唯一，或修改答案为所有满足条件的整数。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-420",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "100+0.9(x-100) < 50+0.95(x-50)",
+      "answerCheckZhHans": "标准答案 100+0.9(x-100) < 50+0.95(x-50) 与独立求解结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

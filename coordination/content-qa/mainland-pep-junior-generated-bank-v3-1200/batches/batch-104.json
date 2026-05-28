@@ -1,0 +1,360 @@
+{
+  "batchId": "batch-104",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s3-k11-mc-031",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-function-geometry-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig"
+      ],
+      "promptZhHans": "某校数学活动小组测量校园内一棵大树的高度。他们在平地上选取相距12 m的A、B两点，在A点测得树顶C的仰角为30°，在B点测得树顶C的仰角为45°，且A、B与树底D在同一直线上。则大树CD的高度约为（参考数据：√2≈1.414，√3≈1.732）（ ）",
+      "optionsZhHans": [
+        "16.4 m",
+        "17.0 m",
+        "17.6 m",
+        "18.2 m"
+      ],
+      "answer": "16.4 m",
+      "acceptedAnswers": [
+        "16.4 m",
+        "16.4",
+        "约16.4 m",
+        "约为16.4 m"
+      ],
+      "explanationZhHans": "设树高CD = h m。由题意，∠CAD=30°，∠CBD=45°，AD = BD + 12。在Rt△ACD中，tan30° = CD/AD = h/AD，所以AD = h / tan30° = h√3。在Rt△BCD中，tan45° = CD/BD = h/BD，所以BD = h。由AD - BD = 12，得h√3 - h = 12，h(√3 - 1) = 12，h = 12/(√3 - 1) = 12(√3 + 1)/2 = 6(√3 + 1) ≈ 6×(1.732+1) = 6×2.732 = 16.392 ≈ 16.4 m。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-mc-032",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-similarity"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models"
+      ],
+      "promptZhHans": "已知反比例函数y = k/x的图象经过点(-2, 3)，则下列说法正确的是（ ）",
+      "optionsZhHans": [
+        "该函数图象经过点(2, 3)",
+        "该函数图象位于第一、三象限",
+        "当x < 0时，y随x的增大而减小",
+        "当x > 0时，y随x的增大而增大"
+      ],
+      "answer": "当x > 0时，y随x的增大而增大",
+      "acceptedAnswers": [
+        "当x > 0时，y随x的增大而增大",
+        "D"
+      ],
+      "explanationZhHans": "将点(-2, 3)代入y = k/x得k = -2×3 = -6，所以函数为y = -6/x。因为k < 0，图象位于第二、四象限，在每个象限内y随x的增大而增大。选项A：点(2, 3)代入得3 ≠ -6/2，错误；选项B：图象在第二、四象限，错误；选项C：当x < 0时，y随x的增大而增大，不是减小，错误；选项D：当x > 0时，y随x的增大而增大，正确。故答案为当x > 0时，y随x的增大而增大。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-mc-033",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-graduation-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "promptZhHans": "某快递公司规定：寄送物品的费用y（元）与物品质量x（kg）满足一次函数关系。已知寄送2 kg物品需10元，寄送5 kg物品需19元。若小明寄送8 kg物品，他需要支付（ ）元。",
+      "optionsZhHans": [
+        "25",
+        "28",
+        "31",
+        "34"
+      ],
+      "answer": "28",
+      "acceptedAnswers": [
+        "28",
+        "28元",
+        "28 元"
+      ],
+      "explanationZhHans": "设y = kx + b，将(2, 10)和(5, 19)代入得：2k + b = 10，5k + b = 19，两式相减得3k = 9，k = 3，代入得b = 10 - 2×3 = 4，所以y = 3x + 4。当x = 8时，y = 3×8 + 4 = 28。故答案为28。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-mc-034",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-inverse-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions"
+      ],
+      "promptZhHans": "关于x的一元二次方程x² - 4x + m = 0有两个不相等的实数根，则m的值可以是（ ）",
+      "optionsZhHans": [
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2",
+        "A"
+      ],
+      "explanationZhHans": "方程x² - 4x + m = 0有两个不相等的实数根，则判别式Δ = (-4)² - 4×1×m = 16 - 4m > 0，解得m < 4。选项中只有2小于4，故答案为2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-mc-035",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-right-triangle-trigonometry"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "在实数范围内，下列判断正确的是（ ）",
+      "optionsZhHans": [
+        "若|a| = |b|，则a = b",
+        "若a > b，则a² > b²",
+        "若√a = √b，则a = b",
+        "若a² = b²，则a = b"
+      ],
+      "answer": "若√a = √b，则a = b",
+      "acceptedAnswers": [
+        "若√a = √b，则a = b",
+        "C"
+      ],
+      "explanationZhHans": "选项A：若|a| = |b|，可能a = -b，错误；选项B：若a > b，如a = -1, b = -2，则a² = 1, b² = 4，a² < b²，错误；选项C：若√a = √b，两边平方得a = b，正确；选项D：若a² = b²，可能a = -b，错误。故答案为若√a = √b，则a = b。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-mc-036",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-projection-views"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "某车间有28名工人生产螺栓和螺母，每人每天平均能生产螺栓12个或螺母18个。一个螺栓配两个螺母，应分配多少人生产螺栓，多少人生产螺母，才能使每天的产品刚好配套？设分配x人生产螺栓，y人生产螺母，则下列方程组正确的是（ ）",
+      "optionsZhHans": [
+        "x + y = 28, 12x = 18y",
+        "x + y = 28, 2×12x = 18y",
+        "x + y = 28, 12x = 2×18y",
+        "x + y = 28, 18x = 12y"
+      ],
+      "answer": "x + y = 28, 2×12x = 18y",
+      "acceptedAnswers": [
+        "x + y = 28, 2×12x = 18y",
+        "B"
+      ],
+      "explanationZhHans": "总人数28人，所以x + y = 28。螺栓总数12x，螺母总数18y，一个螺栓配两个螺母，即螺栓数的两倍等于螺母数，所以2×12x = 18y。故答案为x + y = 28, 2×12x = 18y。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-mc-037",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-function-geometry-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions"
+      ],
+      "promptZhHans": "化简分式 (x² - 4)/(x² - 4x + 4) 的结果是（ ）",
+      "optionsZhHans": [
+        "(x + 2)/(x - 2)",
+        "(x - 2)/(x + 2)",
+        "1/(x - 2)",
+        "1/(x + 2)"
+      ],
+      "answer": "(x + 2)/(x - 2)",
+      "acceptedAnswers": [
+        "(x + 2)/(x - 2)",
+        "A",
+        "x+2/x-2"
+      ],
+      "explanationZhHans": "原式 = (x² - 4)/(x² - 4x + 4) = (x + 2)(x - 2)/(x - 2)² = (x + 2)/(x - 2)。故答案为(x + 2)/(x - 2)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-mc-038",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-similarity"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "promptZhHans": "在△ABC中，AB = AC，D是BC的中点，DE⊥AB于E，DF⊥AC于F。添加下列一个条件后，仍无法判定△BDE ≌ △CDF的是（ ）",
+      "optionsZhHans": [
+        "BD = CD",
+        "DE = DF",
+        "∠B = ∠C",
+        "BE = CF"
+      ],
+      "answer": "BD = CD",
+      "acceptedAnswers": [
+        "BD = CD",
+        "A"
+      ],
+      "explanationZhHans": "由AB = AC，D是BC中点，可得BD = CD，AD⊥BC，∠B = ∠C。已知DE⊥AB，DF⊥AC，所以∠BED = ∠CFD = 90°。选项A：BD = CD是已知条件，不能作为新增判定条件，且仅凭BD = CD和直角无法判定全等；选项B：DE = DF，结合直角和∠B = ∠C可用AAS判定；选项C：∠B = ∠C是已知，但结合直角和BD = CD可用AAS判定；选项D：BE = CF，结合直角和∠B = ∠C可用AAS判定。故答案为BD = CD。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-mc-039",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-graduation-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean"
+      ],
+      "promptZhHans": "在四边形ABCD中，对角线AC与BD相交于点O，给出下列四组条件：①AB∥CD，AD∥BC；②AB = CD，AD = BC；③AO = OC，BO = OD；④AB∥CD，AD = BC。其中一定能判定四边形ABCD是平行四边形的条件共有（ ）",
+      "optionsZhHans": [
+        "1组",
+        "2组",
+        "3组",
+        "4组"
+      ],
+      "answer": "3组",
+      "acceptedAnswers": [
+        "3组",
+        "C"
+      ],
+      "explanationZhHans": "①两组对边分别平行，可判定平行四边形；②两组对边分别相等，可判定平行四边形；③对角线互相平分，可判定平行四边形；④一组对边平行且另一组对边相等，不能判定平行四边形，可能是等腰梯形。故一定能判定的有①②③共3组，答案为3组。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-mc-040",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-inverse-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-circle-geometry"
+      ],
+      "promptZhHans": "AB是⊙O的直径，C是⊙O上一点，过点C的切线与AB的延长线交于点D。若∠A = 25°，则∠D的度数为（ ）",
+      "optionsZhHans": [
+        "25°",
+        "40°",
+        "50°",
+        "65°"
+      ],
+      "answer": "40°",
+      "acceptedAnswers": [
+        "40°",
+        "B",
+        "40度"
+      ],
+      "explanationZhHans": "连接OC，则OC⊥CD。因为OA = OC，所以∠OCA = ∠A = 25°，∠COD = ∠OCA + ∠A = 50°。在Rt△OCD中，∠D = 90° - ∠COD = 90° - 50° = 40°。故答案为40°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-260",
+  "startedAt": "2026-05-28T01:06:36.203Z",
+  "completedAt": "2026-05-28T01:06:43.219Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-260"
+  ],
+  "usage": {
+    "prompt_tokens": 2283,
+    "completion_tokens": 364,
+    "total_tokens": 2647,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1899
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-260",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "a=100, b≈0.96; t=30时T≈29°C; 不适合预测t=60，因为指数衰减模型在长时间后趋近于室温，但实际冷却速度会变慢，且模型未考虑环境温度，预测值可能偏低。",
+        "correctedAnswer": "a=100，b≈0.96，预测t=30时温度约为29摄氏度；不适合预测t=60，因为模型未考虑室温下限，长时间后温度应接近室温而非趋于0。",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案预测t=30时温度为44°C，但独立解计算得29°C，解析中计算过程也得到29.4°C，却给出44°C，存在矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目可解且符合教材范围，但存储答案与解析存在数学错误和矛盾，预测温度44°C应为29°C，判定为blocker。"
+    }
+  }
+}

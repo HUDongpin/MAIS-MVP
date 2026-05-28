@@ -1,0 +1,181 @@
+{
+  "startedAt": "2026-05-26T06:12:39.099Z",
+  "completedAt": "2026-05-26T06:12:59.426Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "usage": {
+    "prompt_tokens": 2734,
+    "completion_tokens": 1589,
+    "total_tokens": 4323,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 2734
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "questionId": "pep-primary-p5-l-sa-161",
+        "solvableStatus": "pass",
+        "independentAnswer": "160立方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "体积=8×4×5=160立方厘米，条件充分，计算明确。"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-162",
+        "solvableStatus": "pass",
+        "independentAnswer": "72立方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "体积=3×6×4=72立方厘米，条件充分，计算明确。"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-163",
+        "solvableStatus": "pass",
+        "independentAnswer": "36立方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "体积=4×3×3=36立方厘米，条件充分，计算明确。"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-164",
+        "solvableStatus": "pass",
+        "independentAnswer": "50立方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "体积=5×5×2=50立方厘米，条件充分，计算明确。"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-165",
+        "solvableStatus": "pass",
+        "independentAnswer": "60立方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "体积=6×2×5=60立方厘米，条件充分，计算明确。"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-166",
+        "solvableStatus": "pass",
+        "independentAnswer": "112立方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "体积=7×4×4=112立方厘米，条件充分，计算明确。"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-167",
+        "solvableStatus": "pass",
+        "independentAnswer": "144立方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "体积=8×6×3=144立方厘米，条件充分，计算明确。"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-168",
+        "solvableStatus": "pass",
+        "independentAnswer": "18立方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "体积=3×3×2=18立方厘米，条件充分，计算明确。"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-169",
+        "solvableStatus": "pass",
+        "independentAnswer": "100立方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "体积=4×5×5=100立方厘米，条件充分，计算明确。"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-170",
+        "solvableStatus": "pass",
+        "independentAnswer": "40立方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "体积=5×2×4=40立方厘米，条件充分，计算明确。"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-171",
+        "solvableStatus": "pass",
+        "independentAnswer": "72立方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "体积=6×4×3=72立方厘米，条件充分，计算明确。"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-172",
+        "solvableStatus": "pass",
+        "independentAnswer": "84立方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "体积=7×6×2=84立方厘米，条件充分，计算明确。"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-173",
+        "solvableStatus": "pass",
+        "independentAnswer": "120立方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "体积=8×3×5=120立方厘米，条件充分，计算明确。"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-174",
+        "solvableStatus": "pass",
+        "independentAnswer": "60立方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "体积=3×5×4=60立方厘米，条件充分，计算明确。"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-175",
+        "solvableStatus": "pass",
+        "independentAnswer": "24立方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "体积=4×2×3=24立方厘米，条件充分，计算明确。"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-176",
+        "solvableStatus": "pass",
+        "independentAnswer": "40立方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "体积=5×4×2=40立方厘米，条件充分，计算明确。"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-177",
+        "solvableStatus": "pass",
+        "independentAnswer": "168立方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "体积=7×6×4=168立方厘米，条件充分，计算明确。"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-178",
+        "solvableStatus": "pass",
+        "independentAnswer": "84立方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "体积=7×3×4=84立方厘米，条件充分，计算明确。"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-179",
+        "solvableStatus": "pass",
+        "independentAnswer": "120立方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "体积=8×5×3=120立方厘米，条件充分，计算明确。"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-180",
+        "solvableStatus": "pass",
+        "independentAnswer": "12立方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "体积=3×2×2=12立方厘米，条件充分，计算明确。"
+      }
+    ]
+  }
+}

@@ -1,0 +1,181 @@
+{
+  "startedAt": "2026-05-26T05:48:52.451Z",
+  "completedAt": "2026-05-26T05:49:10.930Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "usage": {
+    "prompt_tokens": 2927,
+    "completion_tokens": 1489,
+    "total_tokens": 4416,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 2927
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "questionId": "pep-primary-p1-u-mc-001",
+        "solvableStatus": "pass",
+        "independentAnswer": "3",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "14-11=3，选项中有3，题目清晰可解。"
+      },
+      {
+        "questionId": "pep-primary-p1-u-mc-002",
+        "solvableStatus": "pass",
+        "independentAnswer": "3",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "10-7=3，选项中有3，题目清晰可解。"
+      },
+      {
+        "questionId": "pep-primary-p1-u-mc-003",
+        "solvableStatus": "pass",
+        "independentAnswer": "1",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "11-10=1，选项中有1，题目清晰可解。"
+      },
+      {
+        "questionId": "pep-primary-p1-u-mc-004",
+        "solvableStatus": "pass",
+        "independentAnswer": "10",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "12-2=10，选项中有10，题目清晰可解。"
+      },
+      {
+        "questionId": "pep-primary-p1-u-mc-005",
+        "solvableStatus": "pass",
+        "independentAnswer": "9",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "13-4=9，选项中有9，题目清晰可解。"
+      },
+      {
+        "questionId": "pep-primary-p1-u-mc-006",
+        "solvableStatus": "pass",
+        "independentAnswer": "8",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "14-6=8，选项中有8，题目清晰可解。"
+      },
+      {
+        "questionId": "pep-primary-p1-u-mc-007",
+        "solvableStatus": "pass",
+        "independentAnswer": "7",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "15-8=7，选项中有7，题目清晰可解。"
+      },
+      {
+        "questionId": "pep-primary-p1-u-mc-008",
+        "solvableStatus": "pass",
+        "independentAnswer": "6",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "16-10=6，选项中有6，题目清晰可解。"
+      },
+      {
+        "questionId": "pep-primary-p1-u-mc-009",
+        "solvableStatus": "pass",
+        "independentAnswer": "5",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "17-12=5，选项中有5，题目清晰可解。"
+      },
+      {
+        "questionId": "pep-primary-p1-u-mc-010",
+        "solvableStatus": "pass",
+        "independentAnswer": "4",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "18-14=4，选项中有4，题目清晰可解。"
+      },
+      {
+        "questionId": "pep-primary-p1-u-mc-011",
+        "solvableStatus": "pass",
+        "independentAnswer": "3",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "19-16=3，选项中有3，题目清晰可解。"
+      },
+      {
+        "questionId": "pep-primary-p1-u-mc-012",
+        "solvableStatus": "pass",
+        "independentAnswer": "6",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "8-2=6，选项中有6，题目清晰可解。"
+      },
+      {
+        "questionId": "pep-primary-p1-u-mc-013",
+        "solvableStatus": "pass",
+        "independentAnswer": "1",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "9-8=1，选项中有1，题目清晰可解。"
+      },
+      {
+        "questionId": "pep-primary-p1-u-mc-014",
+        "solvableStatus": "pass",
+        "independentAnswer": "3",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "10-7=3，选项中有3，题目清晰可解。"
+      },
+      {
+        "questionId": "pep-primary-p1-u-mc-015",
+        "solvableStatus": "pass",
+        "independentAnswer": "5",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "11-6=5，选项中有5，题目清晰可解。"
+      },
+      {
+        "questionId": "pep-primary-p1-u-mc-016",
+        "solvableStatus": "pass",
+        "independentAnswer": "7",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "12-5=7，选项中有7，题目清晰可解。"
+      },
+      {
+        "questionId": "pep-primary-p1-u-mc-017",
+        "solvableStatus": "pass",
+        "independentAnswer": "9",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "13-4=9，选项中有9，题目清晰可解。"
+      },
+      {
+        "questionId": "pep-primary-p1-u-mc-018",
+        "solvableStatus": "pass",
+        "independentAnswer": "11",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "14-3=11，选项中有11，题目清晰可解。"
+      },
+      {
+        "questionId": "pep-primary-p1-u-mc-019",
+        "solvableStatus": "pass",
+        "independentAnswer": "13",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "15-2=13，选项中有13，题目清晰可解。"
+      },
+      {
+        "questionId": "pep-primary-p1-u-mc-020",
+        "solvableStatus": "pass",
+        "independentAnswer": "15",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "16-1=15，选项中有15，题目清晰可解。"
+      }
+    ]
+  }
+}

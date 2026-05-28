@@ -1,0 +1,181 @@
+{
+  "startedAt": "2026-05-26T06:06:25.631Z",
+  "completedAt": "2026-05-26T06:06:45.959Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "usage": {
+    "prompt_tokens": 2317,
+    "completion_tokens": 1649,
+    "total_tokens": 3966,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 2317
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "questionId": "pep-primary-p4-l-fi-121",
+        "solvableStatus": "pass",
+        "independentAnswer": "4.2",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "简单小数加法，1.4+2.8=4.2，条件充分，答案明确。"
+      },
+      {
+        "questionId": "pep-primary-p4-l-fi-122",
+        "solvableStatus": "pass",
+        "independentAnswer": "3.6",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "简单小数加法，1.5+2.1=3.6，条件充分，答案明确。"
+      },
+      {
+        "questionId": "pep-primary-p4-l-fi-123",
+        "solvableStatus": "pass",
+        "independentAnswer": "3.9",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "简单小数加法，1.6+2.3=3.9，条件充分，答案明确。"
+      },
+      {
+        "questionId": "pep-primary-p4-l-fi-124",
+        "solvableStatus": "pass",
+        "independentAnswer": "4.2",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "简单小数加法，1.7+2.5=4.2，条件充分，答案明确。"
+      },
+      {
+        "questionId": "pep-primary-p4-l-fi-125",
+        "solvableStatus": "pass",
+        "independentAnswer": "4.5",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "简单小数加法，1.8+2.7=4.5，条件充分，答案明确。"
+      },
+      {
+        "questionId": "pep-primary-p4-l-fi-126",
+        "solvableStatus": "pass",
+        "independentAnswer": "3.4",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "简单小数加法，1.2+2.2=3.4，条件充分，答案明确。"
+      },
+      {
+        "questionId": "pep-primary-p4-l-fi-127",
+        "solvableStatus": "pass",
+        "independentAnswer": "3.3",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "简单小数加法，1.1+2.2=3.3，条件充分，答案明确。"
+      },
+      {
+        "questionId": "pep-primary-p4-l-fi-128",
+        "solvableStatus": "pass",
+        "independentAnswer": "3.6",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "简单小数加法，1.2+2.4=3.6，条件充分，答案明确。"
+      },
+      {
+        "questionId": "pep-primary-p4-l-fi-129",
+        "solvableStatus": "pass",
+        "independentAnswer": "3.9",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "简单小数加法，1.3+2.6=3.9，条件充分，答案明确。"
+      },
+      {
+        "questionId": "pep-primary-p4-l-fi-130",
+        "solvableStatus": "pass",
+        "independentAnswer": "4.2",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "简单小数加法，1.4+2.8=4.2，条件充分，答案明确。"
+      },
+      {
+        "questionId": "pep-primary-p4-l-fi-131",
+        "solvableStatus": "pass",
+        "independentAnswer": "3.6",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "简单小数加法，1.5+2.1=3.6，条件充分，答案明确。"
+      },
+      {
+        "questionId": "pep-primary-p4-l-fi-132",
+        "solvableStatus": "pass",
+        "independentAnswer": "3.9",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "简单小数加法，1.6+2.3=3.9，条件充分，答案明确。"
+      },
+      {
+        "questionId": "pep-primary-p4-l-fi-133",
+        "solvableStatus": "pass",
+        "independentAnswer": "4.2",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "简单小数加法，1.7+2.5=4.2，条件充分，答案明确。"
+      },
+      {
+        "questionId": "pep-primary-p4-l-fi-134",
+        "solvableStatus": "pass",
+        "independentAnswer": "3.5",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "简单小数加法，1.3+2.2=3.5，条件充分，答案明确。"
+      },
+      {
+        "questionId": "pep-primary-p4-l-fi-135",
+        "solvableStatus": "pass",
+        "independentAnswer": "3.8",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "简单小数加法，1.4+2.4=3.8，条件充分，答案明确。"
+      },
+      {
+        "questionId": "pep-primary-p4-l-fi-136",
+        "solvableStatus": "pass",
+        "independentAnswer": "3.3",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "简单小数加法，1.1+2.2=3.3，条件充分，答案明确。"
+      },
+      {
+        "questionId": "pep-primary-p4-l-fi-137",
+        "solvableStatus": "pass",
+        "independentAnswer": "3.6",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "简单小数加法，1.2+2.4=3.6，条件充分，答案明确。"
+      },
+      {
+        "questionId": "pep-primary-p4-l-fi-138",
+        "solvableStatus": "pass",
+        "independentAnswer": "3.9",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "简单小数加法，1.3+2.6=3.9，条件充分，答案明确。"
+      },
+      {
+        "questionId": "pep-primary-p4-l-fi-139",
+        "solvableStatus": "pass",
+        "independentAnswer": "4.2",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "简单小数加法，1.4+2.8=4.2，条件充分，答案明确。"
+      },
+      {
+        "questionId": "pep-primary-p4-l-fi-140",
+        "solvableStatus": "pass",
+        "independentAnswer": "3.6",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "简单小数加法，1.5+2.1=3.6，条件充分，答案明确。"
+      }
+    ]
+  }
+}

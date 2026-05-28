@@ -1,0 +1,47 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-255",
+  "startedAt": "2026-05-28T01:46:38.678Z",
+  "completedAt": "2026-05-28T01:46:42.982Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-255"
+  ],
+  "usage": {
+    "prompt_tokens": 2433,
+    "completion_tokens": 244,
+    "total_tokens": 2677,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2049
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-255",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "-7",
+        "correctedAnswer": null,
+        "issueTags": [
+          "explanation_contradiction"
+        ],
+        "severity": "minor",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，答案-7正确，符合教材范围。解析中错误声称a=4,b=-11时x=1不是极值点，与最终结论矛盾，但未影响答案正确性，故标记为解释瑕疵。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 1,
+      "warn": 0,
+      "fail": 0,
+      "notes": "题目可解，答案正确，解析存在自相矛盾但不影响最终结论，整体通过。"
+    }
+  }
+}

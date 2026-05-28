@@ -1,0 +1,302 @@
+{
+  "batchId": "batch-171",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p4-101",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-geometry-circle-lines-angles",
+      "unitTitle": "几何小实践",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "circle-introduction",
+        "line-ray-segment",
+        "angle-measurement",
+        "angle-calculation",
+        "圆",
+        "角"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "圆的初步认识",
+        "线段",
+        "射线",
+        "直线",
+        "角的度量",
+        "角的计算"
+      ],
+      "misconceptionTags": [
+        "ray and segment endpoints confused",
+        "angle size judged by side length",
+        "circle features described with imprecise everyday language"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-geometry-circle-lines-angles"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-geometry-circle-lines-angles",
+        "hjb-primary-p4-upper-assessment-review-operations-fractions"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "从一点引出两条（ ）所组成的图形叫做角。",
+      "optionsZhHans": [],
+      "answer": "射线",
+      "acceptedAnswers": [
+        "射线"
+      ],
+      "explanationZhHans": "角是由一个顶点和两条射线组成的图形，射线有一个端点，可以向一个方向无限延伸。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-102",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-geometry-circle-lines-angles",
+      "unitTitle": "几何小实践",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "circle-introduction",
+        "line-ray-segment",
+        "angle-measurement",
+        "angle-calculation",
+        "圆",
+        "角"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "圆的初步认识",
+        "线段",
+        "射线",
+        "直线",
+        "角的度量",
+        "角的计算"
+      ],
+      "misconceptionTags": [
+        "ray and segment endpoints confused",
+        "angle size judged by side length",
+        "circle features described with imprecise everyday language"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-geometry-circle-lines-angles"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-geometry-circle-lines-angles",
+        "hjb-primary-p4-upper-assessment-review-operations-fractions"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用一副三角尺可以拼出多少个不同的钝角？请写出所有可能拼出的钝角的度数。（三角尺上各个角的度数分别为30°、60°、90°和45°、45°、90°）",
+      "optionsZhHans": [],
+      "answer": "105°, 120°, 135°, 150°",
+      "acceptedAnswers": [
+        "105°, 120°, 135°, 150°",
+        "120°, 135°, 150°, 105°",
+        "105°、120°、135°、150°",
+        "120°、135°、150°、105°"
+      ],
+      "explanationZhHans": "用三角尺拼角时，将两个角相加。30°+45°=75°（锐角），30°+90°=120°，60°+45°=105°，60°+90°=150°，90°+45°=135°，90°+90°=180°（平角）。钝角大于90°小于180°，所以有105°、120°、135°、150°。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-103",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-geometry-circle-lines-angles",
+      "unitTitle": "几何小实践",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "circle-introduction",
+        "line-ray-segment",
+        "angle-measurement",
+        "angle-calculation",
+        "圆",
+        "角"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "圆的初步认识",
+        "线段",
+        "射线",
+        "直线",
+        "角的度量",
+        "角的计算"
+      ],
+      "misconceptionTags": [
+        "ray and segment endpoints confused",
+        "angle size judged by side length",
+        "circle features described with imprecise everyday language"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-geometry-circle-lines-angles"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-geometry-circle-lines-angles",
+        "hjb-primary-p4-upper-assessment-review-operations-fractions"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面关于圆的说法，正确的是（ ）。",
+      "optionsZhHans": [
+        "A. 圆的直径是半径的2倍，所以直径是半径的两倍长。",
+        "B. 圆有无数条对称轴，每条对称轴都是圆的直径。",
+        "C. 圆心决定圆的位置，半径决定圆的大小。",
+        "D. 圆是由曲线围成的封闭图形，圆上任意一点到圆心的距离不一定相等。"
+      ],
+      "answer": "C. 圆心决定圆的位置，半径决定圆的大小。",
+      "acceptedAnswers": [
+        "C. 圆心决定圆的位置，半径决定圆的大小。"
+      ],
+      "explanationZhHans": "A错在没有说明在同圆或等圆中；B错在对称轴是直径所在的直线，不是直径本身；D错在圆上任意一点到圆心的距离都相等，即半径。C正确描述了圆心和半径的作用。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-104",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-geometry-circle-lines-angles",
+      "unitTitle": "几何小实践",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "circle-introduction",
+        "line-ray-segment",
+        "angle-measurement",
+        "angle-calculation",
+        "圆",
+        "角"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "圆的初步认识",
+        "线段",
+        "射线",
+        "直线",
+        "角的度量",
+        "角的计算"
+      ],
+      "misconceptionTags": [
+        "ray and segment endpoints confused",
+        "angle size judged by side length",
+        "circle features described with imprecise everyday language"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-geometry-circle-lines-angles"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-geometry-circle-lines-angles",
+        "hjb-primary-p4-upper-assessment-review-operations-fractions"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "线段有（ ）个端点，射线有（ ）个端点。",
+      "optionsZhHans": [],
+      "answer": "2, 1",
+      "acceptedAnswers": [
+        "2, 1",
+        "两，一",
+        "2，1"
+      ],
+      "explanationZhHans": "线段有两个端点，不能向两端无限延伸；射线只有一个端点，可以向一个方向无限延伸。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-105",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-geometry-circle-lines-angles",
+      "unitTitle": "几何小实践",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "circle-introduction",
+        "line-ray-segment",
+        "angle-measurement",
+        "angle-calculation",
+        "圆",
+        "角"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "圆的初步认识",
+        "线段",
+        "射线",
+        "直线",
+        "角的度量",
+        "角的计算"
+      ],
+      "misconceptionTags": [
+        "ray and segment endpoints confused",
+        "angle size judged by side length",
+        "circle features described with imprecise everyday language"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-geometry-circle-lines-angles"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-geometry-circle-lines-angles",
+        "hjb-primary-p4-upper-assessment-review-operations-fractions"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知∠1和∠2组成一个平角，∠1的度数是∠2的3倍，求∠1和∠2的度数。",
+      "optionsZhHans": [],
+      "answer": "∠1=135°, ∠2=45°",
+      "acceptedAnswers": [
+        "∠1=135°, ∠2=45°",
+        "∠1=135度, ∠2=45度",
+        "∠1=135°，∠2=45°"
+      ],
+      "explanationZhHans": "平角是180°。设∠2为x度，则∠1为3x度。x+3x=180，4x=180，x=45，所以∠2=45°，∠1=135°。"
+    }
+  ]
+}

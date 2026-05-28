@@ -1,0 +1,135 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-059",
+  "startedAt": "2026-05-28T01:10:26.001Z",
+  "completedAt": "2026-05-28T01:10:43.897Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-465",
+    "bnu-high-ds-v1-s4-466",
+    "bnu-high-ds-v1-s4-467",
+    "bnu-high-ds-v1-s4-468",
+    "bnu-high-ds-v1-s4-469",
+    "bnu-high-ds-v1-s4-470",
+    "bnu-high-ds-v1-s4-471",
+    "bnu-high-ds-v1-s4-472"
+  ],
+  "usage": {
+    "prompt_tokens": 13111,
+    "completion_tokens": 1011,
+    "total_tokens": 14122,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 12727
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-465",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案3与独立解一致，解析正确，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-466",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "4/3",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案2/3错误，独立解为4/3；解析中面积和距离计算有误，导致体积错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-467",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案0条与独立解一致，解析正确，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-468",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案16+8√5与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-469",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析正确，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-470",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案6π/5与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-471",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "correctedAnswer": "异面",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction",
+          "ambiguous_mc"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案平行错误，独立解为异面；解析中比例错误且结论矛盾；题目条件导致EH∥BD而FG不平行BD，故EH与FG异面，选项应选异面。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-472",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案84 cm²与独立解一致，解析正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 0,
+      "fail": 2,
+      "notes": "8题中6题通过，2题失败：466题体积答案错误，471题位置关系判断错误且选项不唯一。"
+    }
+  }
+}

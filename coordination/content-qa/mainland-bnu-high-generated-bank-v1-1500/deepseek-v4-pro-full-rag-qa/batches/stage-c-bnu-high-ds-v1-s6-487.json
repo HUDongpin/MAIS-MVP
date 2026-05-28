@@ -1,0 +1,47 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-487",
+  "startedAt": "2026-05-28T01:57:17.310Z",
+  "completedAt": "2026-05-28T01:57:24.407Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-487"
+  ],
+  "usage": {
+    "prompt_tokens": 2307,
+    "completion_tokens": 359,
+    "total_tokens": 2666,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1923
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-487",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "A",
+        "correctedAnswer": null,
+        "issueTags": [
+          "explanation_contradiction"
+        ],
+        "severity": "minor",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，导数单调性条件正确，答案A唯一且与独立解答一致。解析中令g(x)=1/x-2ax+a-2，但后续讨论a≥0时g(x)→+∞，与g(x)≤0矛盾，故a<0，然后求最大值点x=1/√(-2a)并代入得2√(-2a)+a-2≤0，解得a≤-1。解析思路正确，但表述存在小瑕疵：g(x)表达式与f'(x)不完全一致（f'(x)=1/x-2ax+a-2，解析中写为1/x+a(1-2x)-2，等价但不够直接），且未严格说明最大值点处二阶条件，但整体不影响正确性，故标记为weak。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 1,
+      "warn": 0,
+      "fail": 0,
+      "notes": "题目数学正确，答案匹配，解析有小瑕疵但不影响正确性，整体通过。"
+    }
+  }
+}

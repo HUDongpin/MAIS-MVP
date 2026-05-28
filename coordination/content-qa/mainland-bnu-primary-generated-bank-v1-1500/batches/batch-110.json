@@ -1,0 +1,576 @@
+{
+  "batchId": "batch-110",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p5-091",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-probability",
+      "unitTitle": "可能性",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "probability-intuition",
+        "likelihood",
+        "fairness",
+        "random-events",
+        "可能性"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "判断可能性大小",
+        "描述随机事件",
+        "比较机会",
+        "公平性判断",
+        "实验与预测"
+      ],
+      "misconceptionTags": [
+        "all listed outcomes assumed equally likely",
+        "recent result treated as changing the next chance",
+        "fairness judged by preference rather than outcome structure"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-probability"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-probability-unit",
+        "bnu-primary-p4-upper-assessment-probability-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个不透明的袋子里装有3个红球、2个蓝球和5个黄球，这些球除颜色外完全相同。从袋子里任意摸出一个球，下面哪种说法是正确的？",
+      "optionsZhHans": [
+        "摸到红球的可能性最大",
+        "摸到蓝球的可能性最小",
+        "摸到黄球的可能性比摸到红球的可能性大",
+        "摸到红球和摸到蓝球的可能性相等"
+      ],
+      "answer": "摸到黄球的可能性比摸到红球的可能性大",
+      "acceptedAnswers": [
+        "摸到黄球的可能性比摸到红球的可能性大"
+      ],
+      "explanationZhHans": "袋子里共有10个球，黄球5个，红球3个，蓝球2个。数量越多，摸到的可能性越大。黄球最多，所以摸到黄球的可能性最大；蓝球最少，所以摸到蓝球的可能性最小。比较黄球和红球，5>3，因此摸到黄球的可能性比红球大。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-092",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-probability",
+      "unitTitle": "可能性",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "probability-intuition",
+        "likelihood",
+        "fairness",
+        "random-events",
+        "可能性"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "判断可能性大小",
+        "描述随机事件",
+        "比较机会",
+        "公平性判断",
+        "实验与预测"
+      ],
+      "misconceptionTags": [
+        "all listed outcomes assumed equally likely",
+        "recent result treated as changing the next chance",
+        "fairness judged by preference rather than outcome structure"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-probability"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-probability-unit",
+        "bnu-primary-p4-upper-assessment-probability-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个正方体骰子的六个面上分别写着数字1、2、3、4、5、6。抛掷这个骰子，朝上一面的数字是偶数的可能性比是奇数的可能性______。（填“大”“小”或“相等”）",
+      "optionsZhHans": [],
+      "answer": "相等",
+      "acceptedAnswers": [
+        "相等"
+      ],
+      "explanationZhHans": "骰子六个面中，偶数有2、4、6共3个，奇数有1、3、5共3个。偶数面与奇数面数量相同，因此朝上一面是偶数的可能性和是奇数的可能性相等。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-093",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-probability",
+      "unitTitle": "可能性",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "probability-intuition",
+        "likelihood",
+        "fairness",
+        "random-events",
+        "可能性"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "判断可能性大小",
+        "描述随机事件",
+        "比较机会",
+        "公平性判断",
+        "实验与预测"
+      ],
+      "misconceptionTags": [
+        "all listed outcomes assumed equally likely",
+        "recent result treated as changing the next chance",
+        "fairness judged by preference rather than outcome structure"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-probability"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-probability-unit",
+        "bnu-primary-p4-upper-assessment-probability-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个转盘被平均分成8份，分别涂上红色、黄色和蓝色。其中红色区域有3份，黄色区域有2份，蓝色区域有3份。转动转盘，指针停在哪种颜色区域的可能性最大？请说明理由。",
+      "optionsZhHans": [],
+      "answer": "红色和蓝色",
+      "acceptedAnswers": [
+        "红色和蓝色",
+        "红色或蓝色"
+      ],
+      "explanationZhHans": "转盘共8份，红色3份，黄色2份，蓝色3份。红色和蓝色份数相同且最多，所以指针停在红色和蓝色区域的可能性最大，且两者可能性相等。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-094",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-probability",
+      "unitTitle": "可能性",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "probability-intuition",
+        "likelihood",
+        "fairness",
+        "random-events",
+        "可能性"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "判断可能性大小",
+        "描述随机事件",
+        "比较机会",
+        "公平性判断",
+        "实验与预测"
+      ],
+      "misconceptionTags": [
+        "all listed outcomes assumed equally likely",
+        "recent result treated as changing the next chance",
+        "fairness judged by preference rather than outcome structure"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-probability"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-probability-unit",
+        "bnu-primary-p4-upper-assessment-probability-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个盒子里有10张卡片，分别写着数字1~10。从中任意抽出一张卡片，下面哪种情况的可能性最小？",
+      "optionsZhHans": [
+        "抽到一位数",
+        "抽到两位数",
+        "抽到偶数",
+        "抽到质数"
+      ],
+      "answer": "抽到两位数",
+      "acceptedAnswers": [
+        "抽到两位数"
+      ],
+      "explanationZhHans": "1~10中，一位数有1~9共9个，两位数只有10这1个。偶数有2,4,6,8,10共5个，质数有2,3,5,7共4个。两位数数量最少，所以抽到两位数的可能性最小。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-095",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-probability",
+      "unitTitle": "可能性",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "probability-intuition",
+        "likelihood",
+        "fairness",
+        "random-events",
+        "可能性"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "判断可能性大小",
+        "描述随机事件",
+        "比较机会",
+        "公平性判断",
+        "实验与预测"
+      ],
+      "misconceptionTags": [
+        "all listed outcomes assumed equally likely",
+        "recent result treated as changing the next chance",
+        "fairness judged by preference rather than outcome structure"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-probability"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-probability-unit",
+        "bnu-primary-p4-upper-assessment-probability-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个不透明的袋子里有5个红球和3个白球，每次摸出一个球后放回并摇匀。已经连续摸了4次都是红球，第5次摸球时，摸到红球的可能性______摸到白球的可能性。（填“大于”“小于”或“等于”）",
+      "optionsZhHans": [],
+      "answer": "大于",
+      "acceptedAnswers": [
+        "大于"
+      ],
+      "explanationZhHans": "每次摸球后放回，袋中球的数量不变，仍是5红3白。红球比白球多，所以摸到红球的可能性始终大于白球，与之前的结果无关。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-096",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-probability",
+      "unitTitle": "可能性",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "probability-intuition",
+        "likelihood",
+        "fairness",
+        "random-events",
+        "可能性"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "判断可能性大小",
+        "描述随机事件",
+        "比较机会",
+        "公平性判断",
+        "实验与预测"
+      ],
+      "misconceptionTags": [
+        "all listed outcomes assumed equally likely",
+        "recent result treated as changing the next chance",
+        "fairness judged by preference rather than outcome structure"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-probability"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-probability-unit",
+        "bnu-primary-p4-upper-assessment-probability-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明和小红玩抽卡片游戏，卡片上分别写着“唱歌”“跳舞”“朗诵”“画画”四种节目。小明想抽到“唱歌”，小红想抽到“朗诵”。现在有8张卡片，每种节目各有2张。这个游戏公平吗？为什么？",
+      "optionsZhHans": [],
+      "answer": "公平",
+      "acceptedAnswers": [
+        "公平"
+      ],
+      "explanationZhHans": "四种节目卡片各2张，共8张。小明抽到“唱歌”的可能性是2/8，小红抽到“朗诵”的可能性也是2/8，两人获胜的可能性相等，所以游戏公平。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-097",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-probability",
+      "unitTitle": "可能性",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "probability-intuition",
+        "likelihood",
+        "fairness",
+        "random-events",
+        "可能性"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "判断可能性大小",
+        "描述随机事件",
+        "比较机会",
+        "公平性判断",
+        "实验与预测"
+      ],
+      "misconceptionTags": [
+        "all listed outcomes assumed equally likely",
+        "recent result treated as changing the next chance",
+        "fairness judged by preference rather than outcome structure"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-probability"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-probability-unit",
+        "bnu-primary-p4-upper-assessment-probability-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个转盘被分成4个扇形区域，分别涂上红、黄、蓝、绿四种颜色，每种颜色区域的大小相同。转动转盘，指针停在红色区域的可能性是（ ）。",
+      "optionsZhHans": [
+        "一定",
+        "不可能",
+        "可能",
+        "经常"
+      ],
+      "answer": "可能",
+      "acceptedAnswers": [
+        "可能"
+      ],
+      "explanationZhHans": "转盘有4种颜色，红色是其中一种。指针可能停在红色区域，但不是一定，也不是不可能。因此用“可能”描述最合适。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-098",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-probability",
+      "unitTitle": "可能性",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "probability-intuition",
+        "likelihood",
+        "fairness",
+        "random-events",
+        "可能性"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "判断可能性大小",
+        "描述随机事件",
+        "比较机会",
+        "公平性判断",
+        "实验与预测"
+      ],
+      "misconceptionTags": [
+        "all listed outcomes assumed equally likely",
+        "recent result treated as changing the next chance",
+        "fairness judged by preference rather than outcome structure"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-probability"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-probability-unit",
+        "bnu-primary-p4-upper-assessment-probability-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个盒子里有10个球，分别标着1~10号。任意摸出一个球，摸到编号是3的倍数的可能性比摸到编号是5的倍数的可能性______。（填“大”“小”或“相等”）",
+      "optionsZhHans": [],
+      "answer": "大",
+      "acceptedAnswers": [
+        "大"
+      ],
+      "explanationZhHans": "1~10中，3的倍数有3,6,9共3个；5的倍数有5,10共2个。3的倍数个数更多，所以摸到3的倍数的可能性更大。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-099",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-probability",
+      "unitTitle": "可能性",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "probability-intuition",
+        "likelihood",
+        "fairness",
+        "random-events",
+        "可能性"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "判断可能性大小",
+        "描述随机事件",
+        "比较机会",
+        "公平性判断",
+        "实验与预测"
+      ],
+      "misconceptionTags": [
+        "all listed outcomes assumed equally likely",
+        "recent result treated as changing the next chance",
+        "fairness judged by preference rather than outcome structure"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-probability"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-probability-unit",
+        "bnu-primary-p4-upper-assessment-probability-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个正方体木块的六个面上分别写着“数”“学”“真”“有”“趣”“！”六个字。抛掷这个木块，朝上一面是“学”字的可能性和是“！”的可能性一样大吗？请说明理由。",
+      "optionsZhHans": [],
+      "answer": "一样大",
+      "acceptedAnswers": [
+        "一样大"
+      ],
+      "explanationZhHans": "六个面各有一个不同的字，每个字都只有一个面。因此抛掷时，每个字朝上的可能性都相等，所以“学”和“！”的可能性一样大。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-100",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-probability",
+      "unitTitle": "可能性",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "probability-intuition",
+        "likelihood",
+        "fairness",
+        "random-events",
+        "可能性"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "判断可能性大小",
+        "描述随机事件",
+        "比较机会",
+        "公平性判断",
+        "实验与预测"
+      ],
+      "misconceptionTags": [
+        "all listed outcomes assumed equally likely",
+        "recent result treated as changing the next chance",
+        "fairness judged by preference rather than outcome structure"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-probability"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-probability-unit",
+        "bnu-primary-p4-upper-assessment-probability-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个不透明的袋子里有3个红球、4个黄球和2个蓝球。从袋子里任意摸出一个球，下面哪种说法是错误的？",
+      "optionsZhHans": [
+        "摸到黄球的可能性最大",
+        "摸到蓝球的可能性最小",
+        "摸到红球的可能性比摸到蓝球的可能性大",
+        "摸到红球的可能性比摸到黄球的可能性大"
+      ],
+      "answer": "摸到红球的可能性比摸到黄球的可能性大",
+      "acceptedAnswers": [
+        "摸到红球的可能性比摸到黄球的可能性大"
+      ],
+      "explanationZhHans": "袋中共9个球，黄球4个最多，蓝球2个最少，红球3个居中。因此摸到黄球可能性最大，蓝球最小，红球比蓝球大，但红球比黄球小。D项说法错误。"
+    }
+  ]
+}

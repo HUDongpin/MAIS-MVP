@@ -1,0 +1,586 @@
+{
+  "batchId": "batch-114",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p5-131",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-fraction-add-sub",
+      "unitTitle": "分数加减法",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-addition-subtraction",
+        "common-denominator",
+        "equivalent-fractions",
+        "mixed-number-calculation",
+        "分数加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "符号意识"
+      ],
+      "skillTags": [
+        "同分母加减",
+        "异分母通分",
+        "带分数加减",
+        "分数估算",
+        "结果化简"
+      ],
+      "misconceptionTags": [
+        "denominators added directly",
+        "fractions with different wholes combined",
+        "equivalent conversion changes only one part of a fraction"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-fraction-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-fraction-add-sub-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明做一道分数加法题：\\(\\frac{3}{8} + \\frac{1}{4}\\)。他这样想：\\(\\frac{3}{8} + \\frac{1}{4} = \\frac{3+1}{8+4} = \\frac{4}{12} = \\frac{1}{3}\\)。请你指出他错在哪一步，并写出正确的计算过程和结果。",
+      "optionsZhHans": [],
+      "answer": "错误：把分母直接相加。正确：通分，\\(\\frac{3}{8} + \\frac{1}{4} = \\frac{3}{8} + \\frac{2}{8} = \\frac{5}{8}\\)。",
+      "acceptedAnswers": [
+        "错误：把分母直接相加。正确：通分，\\(\\frac{3}{8} + \\frac{1}{4} = \\frac{3}{8} + \\frac{2}{8} = \\frac{5}{8}\\)。",
+        "错误：分母直接相加。正确：\\(\\frac{3}{8} + \\frac{1}{4} = \\frac{3}{8} + \\frac{2}{8} = \\frac{5}{8}\\)。",
+        "错误：把分母直接相加。正确：先通分，\\(\\frac{3}{8} + \\frac{1}{4} = \\frac{3}{8} + \\frac{2}{8} = \\frac{5}{8}\\)。"
+      ],
+      "explanationZhHans": "异分母分数相加，应先通分，将\\(\\frac{1}{4}\\)化为\\(\\frac{2}{8}\\)，再分母不变、分子相加得\\(\\frac{5}{8}\\)。小明错误地将分子、分母分别直接相加。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-132",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-fraction-add-sub",
+      "unitTitle": "分数加减法",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-addition-subtraction",
+        "common-denominator",
+        "equivalent-fractions",
+        "mixed-number-calculation",
+        "分数加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "符号意识"
+      ],
+      "skillTags": [
+        "同分母加减",
+        "异分母通分",
+        "带分数加减",
+        "分数估算",
+        "结果化简"
+      ],
+      "misconceptionTags": [
+        "denominators added directly",
+        "fractions with different wholes combined",
+        "equivalent conversion changes only one part of a fraction"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-fraction-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-fraction-add-sub-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一袋大米，第一周吃了它的 2/5，第二周吃了它的 1/4。还剩下这袋大米的几分之几？",
+      "optionsZhHans": [],
+      "answer": "7/20",
+      "acceptedAnswers": [
+        "7/20"
+      ],
+      "explanationZhHans": "把这袋大米看作单位“1”。先求一共吃了多少：2/5 + 1/4 = 8/20 + 5/20 = 13/20。再求剩下的：1 - 13/20 = 7/20。计算时注意通分，分母不同不能直接相加减。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-133",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-fraction-add-sub",
+      "unitTitle": "分数加减法",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-addition-subtraction",
+        "common-denominator",
+        "equivalent-fractions",
+        "mixed-number-calculation",
+        "分数加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "符号意识"
+      ],
+      "skillTags": [
+        "同分母加减",
+        "异分母通分",
+        "带分数加减",
+        "分数估算",
+        "结果化简"
+      ],
+      "misconceptionTags": [
+        "denominators added directly",
+        "fractions with different wholes combined",
+        "equivalent conversion changes only one part of a fraction"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-fraction-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-fraction-add-sub-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一根彩带长3/4米，做中国结用去1/3米，还剩下多少米？",
+      "optionsZhHans": [
+        "5/12米",
+        "2/7米",
+        "1/4米",
+        "1/2米"
+      ],
+      "answer": "5/12米",
+      "acceptedAnswers": [
+        "5/12米"
+      ],
+      "explanationZhHans": "3/4和1/3分母不同，通分：3/4=9/12，1/3=4/12。相减：9/12-4/12=5/12，所以还剩5/12米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-134",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-fraction-add-sub",
+      "unitTitle": "分数加减法",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-addition-subtraction",
+        "common-denominator",
+        "equivalent-fractions",
+        "mixed-number-calculation",
+        "分数加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "符号意识"
+      ],
+      "skillTags": [
+        "同分母加减",
+        "异分母通分",
+        "带分数加减",
+        "分数估算",
+        "结果化简"
+      ],
+      "misconceptionTags": [
+        "denominators added directly",
+        "fractions with different wholes combined",
+        "equivalent conversion changes only one part of a fraction"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-fraction-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-fraction-add-sub-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明计算 2/5 + 1/4 时，先通分得到 8/20 + 5/20，然后相加得到 13/20。他检查时想：2/5 比一半少一点，1/4 正好是 0.25，加起来应该比 0.5 大但不到 0.75。13/20 化成小数是 0.65，符合估算。请问他通分时用的公分母是多少？",
+      "optionsZhHans": [],
+      "answer": "20",
+      "acceptedAnswers": [
+        "20"
+      ],
+      "explanationZhHans": "通分时找到 5 和 4 的最小公倍数 20，将 2/5 化为 8/20，1/4 化为 5/20，所以公分母是 20。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-135",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-fraction-add-sub",
+      "unitTitle": "分数加减法",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-addition-subtraction",
+        "common-denominator",
+        "equivalent-fractions",
+        "mixed-number-calculation",
+        "分数加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "符号意识"
+      ],
+      "skillTags": [
+        "同分母加减",
+        "异分母通分",
+        "带分数加减",
+        "分数估算",
+        "结果化简"
+      ],
+      "misconceptionTags": [
+        "denominators added directly",
+        "fractions with different wholes combined",
+        "equivalent conversion changes only one part of a fraction"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-fraction-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-fraction-add-sub-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈烤了一个圆形蛋糕，把它平均分成8份。晚饭时，爸爸吃了3份，妈妈吃了1份，小明吃了2份。他们三人一共吃了这个蛋糕的几分之几？剩下的蛋糕占这个蛋糕的几分之几？",
+      "optionsZhHans": [],
+      "answer": "一共吃了3/4，剩下1/4",
+      "acceptedAnswers": [
+        "一共吃了3/4，剩下1/4",
+        "一共吃了3/4，还剩1/4",
+        "吃了3/4，剩下1/4",
+        "吃了3/4，还剩1/4"
+      ],
+      "explanationZhHans": "蛋糕平均分成8份，每份是1/8。爸爸吃3份是3/8，妈妈吃1份是1/8，小明吃2份是2/8。一共吃了3/8+1/8+2/8=6/8，约分成3/4。剩下的蛋糕是1-3/4=1/4。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-136",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-cuboid-introduction",
+      "unitTitle": "长方体（一）",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "cuboid-cube-features",
+        "nets",
+        "surface-area",
+        "spatial-visualization",
+        "长方体",
+        "正方体"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "认识长方体正方体",
+        "棱面顶点",
+        "展开图",
+        "表面积",
+        "单位面积"
+      ],
+      "misconceptionTags": [
+        "hidden or opposite faces omitted",
+        "edge length confused with area unit",
+        "net assembled without checking matching faces"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-cuboid-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-cuboid-introduction-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方体的长是8厘米，宽是5厘米，高是4厘米。下面哪个展开图可以折叠成这个长方体？（单位：厘米）\nA. 展开图由6个长方形组成：上面是8×5，下面也是8×5，前面是8×4，后面也是8×4，左面是5×4，右面也是5×4，且相对的面不相邻。\nB. 展开图由6个长方形组成：上面是8×5，下面是5×4，前面是8×4，后面是8×5，左面是5×4，右面是8×4。\nC. 展开图由6个长方形组成：上面是8×4，下面是8×4，前面是8×5，后面是8×5，左面是5×4，右面是5×4。\nD. 展开图由6个长方形组成：上面是5×4，下面是5×4，前面是8×5，后面是8×5，左面是8×4，右面是8×4。",
+      "optionsZhHans": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "A",
+      "acceptedAnswers": [
+        "A"
+      ],
+      "explanationZhHans": "长方体有三组相对的面：上下（8×5）、前后（8×4）、左右（5×4）。选项A中每组的两个面尺寸相同且不相邻，符合要求。B中上下尺寸不同，C中上下尺寸错误，D中上下尺寸错误且左右尺寸不对。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-137",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-cuboid-introduction",
+      "unitTitle": "长方体（一）",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "cuboid-cube-features",
+        "nets",
+        "surface-area",
+        "spatial-visualization",
+        "长方体",
+        "正方体"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "认识长方体正方体",
+        "棱面顶点",
+        "展开图",
+        "表面积",
+        "单位面积"
+      ],
+      "misconceptionTags": [
+        "hidden or opposite faces omitted",
+        "edge length confused with area unit",
+        "net assembled without checking matching faces"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-cuboid-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-cuboid-introduction-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方体纸盒长12厘米、宽8厘米、高5厘米。与长12厘米、宽8厘米的面相对的面面积是（ ）平方厘米；这两个相对面的面积一共是（ ）平方厘米。",
+      "optionsZhHans": [],
+      "answer": "96；192",
+      "acceptedAnswers": [
+        "96；192",
+        "96,192",
+        "96 192",
+        "96平方厘米；192平方厘米"
+      ],
+      "explanationZhHans": "长12厘米、宽8厘米的面面积是12×8=96平方厘米；相对的面完全相同，所以两个相对面面积和是96×2=192平方厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-138",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-cuboid-introduction",
+      "unitTitle": "长方体（一）",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "cuboid-cube-features",
+        "nets",
+        "surface-area",
+        "spatial-visualization",
+        "长方体",
+        "正方体"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "认识长方体正方体",
+        "棱面顶点",
+        "展开图",
+        "表面积",
+        "单位面积"
+      ],
+      "misconceptionTags": [
+        "hidden or opposite faces omitted",
+        "edge length confused with area unit",
+        "net assembled without checking matching faces"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-cuboid-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-cuboid-introduction-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方体纸盒，长12厘米、宽8厘米、高5厘米。制作这个纸盒至少需要多少平方厘米的硬纸板？（接口处忽略不计）",
+      "optionsZhHans": [],
+      "answer": "392平方厘米",
+      "acceptedAnswers": [
+        "392平方厘米",
+        "392 cm²",
+        "392"
+      ],
+      "explanationZhHans": "长方体表面积=（长×宽+长×高+宽×高）×2。计算：(12×8+12×5+8×5)×2=(96+60+40)×2=196×2=392（平方厘米）。注意使用面积单位。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-139",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-cuboid-introduction",
+      "unitTitle": "长方体（一）",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "cuboid-cube-features",
+        "nets",
+        "surface-area",
+        "spatial-visualization",
+        "长方体",
+        "正方体"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "认识长方体正方体",
+        "棱面顶点",
+        "展开图",
+        "表面积",
+        "单位面积"
+      ],
+      "misconceptionTags": [
+        "hidden or opposite faces omitted",
+        "edge length confused with area unit",
+        "net assembled without checking matching faces"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-cuboid-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-cuboid-introduction-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方体纸盒，长8厘米、宽5厘米、高4厘米。下面哪个展开图折叠后正好是这个纸盒？（单位：厘米）",
+      "optionsZhHans": [
+        "展开图A：中间一排四个面依次是长8宽5、长8宽4、长8宽5、长8宽4，上下各有一个长5宽4的面",
+        "展开图B：中间一排四个面依次是长8宽5、长8宽4、长8宽5、长8宽4，上下各有一个长8宽5的面",
+        "展开图C：中间一排四个面依次是长8宽5、长8宽5、长8宽4、长8宽4，上下各有一个长5宽4的面",
+        "展开图D：中间一排四个面依次是长8宽4、长8宽5、长8宽4、长8宽5，上下各有一个长5宽4的面"
+      ],
+      "answer": "展开图A：中间一排四个面依次是长8宽5、长8宽4、长8宽5、长8宽4，上下各有一个长5宽4的面",
+      "acceptedAnswers": [
+        "展开图A：中间一排四个面依次是长8宽5、长8宽4、长8宽5、长8宽4，上下各有一个长5宽4的面"
+      ],
+      "explanationZhHans": "长方体有三组对面：8×5、8×4、5×4。展开图A中间四个面是8×5、8×4、8×5、8×4，上下两个5×4面，正好包含两组8×5、两组8×4和两组5×4，折叠后相对的面大小相等且位置正确。其他选项要么缺少某种面，要么面的大小不匹配。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-140",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-cuboid-introduction",
+      "unitTitle": "长方体（一）",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "cuboid-cube-features",
+        "nets",
+        "surface-area",
+        "spatial-visualization",
+        "长方体",
+        "正方体"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "认识长方体正方体",
+        "棱面顶点",
+        "展开图",
+        "表面积",
+        "单位面积"
+      ],
+      "misconceptionTags": [
+        "hidden or opposite faces omitted",
+        "edge length confused with area unit",
+        "net assembled without checking matching faces"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-cuboid-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-cuboid-introduction-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方体长8厘米、宽5厘米、高4厘米。把它切成两个完全相同的长方体，表面积最少增加多少平方厘米？",
+      "optionsZhHans": [],
+      "answer": "40",
+      "acceptedAnswers": [
+        "40",
+        "40平方厘米"
+      ],
+      "explanationZhHans": "要使增加的表面积最少，应平行于最小的面切开。长方体最小的面是宽×高=5×4=20平方厘米，切开后增加两个这样的面，所以最少增加20×2=40平方厘米。"
+    }
+  ]
+}

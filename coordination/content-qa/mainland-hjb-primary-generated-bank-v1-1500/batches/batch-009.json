@@ -1,0 +1,294 @@
+{
+  "batchId": "batch-009",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p1-041",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "hjb-primary-p1-upper-within-10-number-sense",
+      "unitTitle": "10以内数的认识",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "within-10-numbers",
+        "number-order",
+        "cardinality-ordinality",
+        "composition-decomposition",
+        "10以内数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "认读0到10",
+        "数序",
+        "几和第几",
+        "比较大小",
+        "分与合"
+      ],
+      "misconceptionTags": [
+        "counting sequence without one-to-one matching",
+        "ordinal and quantity language confused",
+        "zero treated as empty label only"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p1-upper-within-10-number-sense"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-upper-assessment-within-10-number-sense",
+        "hjb-primary-p1-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小动物排队。从左往右数，小兔排在第3个；从右往左数，小兔排在第4个。这一队一共有多少只小动物？",
+      "optionsZhHans": [],
+      "answer": "6",
+      "acceptedAnswers": [
+        "6",
+        "6只"
+      ],
+      "explanationZhHans": "从左数第3，说明小兔左边有2只；从右数第4，说明小兔右边有3只。总只数=左边2只+小兔自己1只+右边3只=6只。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-042",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "hjb-primary-p1-upper-within-10-number-sense",
+      "unitTitle": "10以内数的认识",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "within-10-numbers",
+        "number-order",
+        "cardinality-ordinality",
+        "composition-decomposition",
+        "10以内数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "认读0到10",
+        "数序",
+        "几和第几",
+        "比较大小",
+        "分与合"
+      ],
+      "misconceptionTags": [
+        "counting sequence without one-to-one matching",
+        "ordinal and quantity language confused",
+        "zero treated as empty label only"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p1-upper-within-10-number-sense"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-upper-assessment-within-10-number-sense",
+        "hjb-primary-p1-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "篮子里原来有一些鸡蛋，妈妈又放进去3个，现在篮子里一共有8个鸡蛋。篮子里原来有几个鸡蛋？",
+      "optionsZhHans": [],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5",
+        "5个"
+      ],
+      "explanationZhHans": "现在有8个，是原来个数加上3得到的。原来个数=8-3=5。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-043",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "hjb-primary-p1-upper-within-10-number-sense",
+      "unitTitle": "10以内数的认识",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "within-10-numbers",
+        "number-order",
+        "cardinality-ordinality",
+        "composition-decomposition",
+        "10以内数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "认读0到10",
+        "数序",
+        "几和第几",
+        "比较大小",
+        "分与合"
+      ],
+      "misconceptionTags": [
+        "counting sequence without one-to-one matching",
+        "ordinal and quantity language confused",
+        "zero treated as empty label only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p1-upper-within-10-number-sense"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-upper-assessment-within-10-number-sense",
+        "hjb-primary-p1-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个数比5大，比9小？",
+      "optionsZhHans": [
+        "4",
+        "6",
+        "9",
+        "10"
+      ],
+      "answer": "6",
+      "acceptedAnswers": [
+        "6"
+      ],
+      "explanationZhHans": "比5大比9小的数有6、7、8。选项中只有6符合。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-044",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "hjb-primary-p1-upper-within-10-number-sense",
+      "unitTitle": "10以内数的认识",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "within-10-numbers",
+        "number-order",
+        "cardinality-ordinality",
+        "composition-decomposition",
+        "10以内数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "认读0到10",
+        "数序",
+        "几和第几",
+        "比较大小",
+        "分与合"
+      ],
+      "misconceptionTags": [
+        "counting sequence without one-to-one matching",
+        "ordinal and quantity language confused",
+        "zero treated as empty label only"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p1-upper-within-10-number-sense"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-upper-assessment-within-10-number-sense",
+        "hjb-primary-p1-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把7个苹果分给两个小朋友，每个小朋友都要分到，而且两人分到的苹果个数不一样。可以怎么分？请写出两种不同的分法。",
+      "optionsZhHans": [],
+      "answer": "1和6，2和5",
+      "acceptedAnswers": [
+        "1和6，2和5",
+        "1和6,2和5",
+        "1和6 2和5",
+        "1,6和2,5",
+        "1、6和2、5",
+        "1和6、2和5",
+        "1,6,2,5"
+      ],
+      "explanationZhHans": "7可以分成1和6、2和5、3和4。要求两人个数不同，所以3和4不行。写出其中两种即可，如1和6、2和5。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-045",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "hjb-primary-p1-upper-within-10-number-sense",
+      "unitTitle": "10以内数的认识",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "within-10-numbers",
+        "number-order",
+        "cardinality-ordinality",
+        "composition-decomposition",
+        "10以内数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "认读0到10",
+        "数序",
+        "几和第几",
+        "比较大小",
+        "分与合"
+      ],
+      "misconceptionTags": [
+        "counting sequence without one-to-one matching",
+        "ordinal and quantity language confused",
+        "zero treated as empty label only"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p1-upper-within-10-number-sense"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-upper-assessment-within-10-number-sense",
+        "hjb-primary-p1-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "看图写数。树上有5只小鸟，又飞来2只，现在树上一共有几只小鸟？",
+      "optionsZhHans": [],
+      "answer": "7",
+      "acceptedAnswers": [
+        "7",
+        "7只"
+      ],
+      "explanationZhHans": "原来有5只，飞来2只，合起来是7只。"
+    }
+  ]
+}

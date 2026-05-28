@@ -1,0 +1,47 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-370",
+  "startedAt": "2026-05-28T03:02:56.341Z",
+  "completedAt": "2026-05-28T03:03:02.128Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-370"
+  ],
+  "usage": {
+    "prompt_tokens": 2188,
+    "completion_tokens": 268,
+    "total_tokens": 2456,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1804
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-370",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "0.0230",
+        "correctedAnswer": null,
+        "issueTags": [
+          "explanation_contradiction"
+        ],
+        "severity": "minor",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合正态分布条件概率。独立计算得0.0233，最接近选项0.0230，答案匹配。解析中计算过程正确，但最终结果表述为约0.0233，与选项0.0230存在微小偏差，属于近似误差，不影响答案选择，但解释一致性较弱。无其他实质错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 1,
+      "warn": 0,
+      "fail": 0,
+      "notes": "题目可解，答案匹配，解析存在微小近似偏差但不影响正确性，整体通过。"
+    }
+  }
+}

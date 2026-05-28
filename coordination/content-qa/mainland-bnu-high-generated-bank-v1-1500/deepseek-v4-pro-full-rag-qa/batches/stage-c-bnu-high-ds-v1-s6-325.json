@@ -1,0 +1,50 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-325",
+  "startedAt": "2026-05-28T01:50:02.947Z",
+  "completedAt": "2026-05-28T01:50:07.125Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-325"
+  ],
+  "usage": {
+    "prompt_tokens": 2178,
+    "completion_tokens": 262,
+    "total_tokens": 2440,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1794
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-325",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "independentAnswer": "0",
+        "correctedAnswer": "0",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "ambiguous_mc",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "由条件解得a+b=0，但选项无0，且存储答案-3错误。解析中计算得a+b=0，却给出答案-3，自相矛盾。题目存在无正确选项的缺陷。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目条件导出a+b=0，但选项无0，且答案与解析矛盾，判定为不可解。"
+    }
+  }
+}

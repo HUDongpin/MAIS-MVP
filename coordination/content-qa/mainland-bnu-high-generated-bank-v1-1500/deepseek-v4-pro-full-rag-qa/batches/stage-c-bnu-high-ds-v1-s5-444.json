@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-444",
+  "startedAt": "2026-05-28T01:31:33.055Z",
+  "completedAt": "2026-05-28T01:31:37.760Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-444"
+  ],
+  "usage": {
+    "prompt_tokens": 2166,
+    "completion_tokens": 263,
+    "total_tokens": 2429,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1782
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-444",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "4.40",
+        "correctedAnswer": "4.80",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合教材范围。独立计算得χ²≈4.40，但解析中正确计算得4.80，而存储答案为6.06，解析与答案矛盾且均错误，正确值应为4.80。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1题答案错误，解析自相矛盾，正确χ²≈4.80，需修正。"
+    }
+  }
+}

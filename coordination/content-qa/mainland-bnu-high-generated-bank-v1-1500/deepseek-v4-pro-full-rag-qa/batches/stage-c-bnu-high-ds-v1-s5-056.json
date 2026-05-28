@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-056",
+  "startedAt": "2026-05-28T02:03:10.083Z",
+  "completedAt": "2026-05-28T02:03:14.291Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-056"
+  ],
+  "usage": {
+    "prompt_tokens": 2039,
+    "completion_tokens": 285,
+    "total_tokens": 2324,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1655
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-056",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "±√2/2",
+        "correctedAnswer": "±√2/2",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合BNU教材范围。独立求解得斜率k=±√2/2，而存储答案±√3/3错误，解析中距离方程9k²/(k²+1)=1解得k²=1/3有误，正确应为k²=1/2。答案不匹配，解释矛盾，严重错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1题答案错误，需修正为±√2/2。"
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-412",
+  "startedAt": "2026-05-28T01:59:21.205Z",
+  "completedAt": "2026-05-28T01:59:26.452Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-412"
+  ],
+  "usage": {
+    "prompt_tokens": 2334,
+    "completion_tokens": 269,
+    "total_tokens": 2603,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1950
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-412",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "sin x",
+        "correctedAnswer": "sin x",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，独立计算得 sin x，选项 C 为 sin x，唯一正确。但存储答案为 √3 sin x，解析过程得出 sin x 却错误结论为 √3 sin x，存在数学错误、答案不匹配和解释矛盾，严重性为 blocker。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目本身可解且选项唯一，但存储答案和解析存在严重错误，需修正答案为 sin x。"
+    }
+  }
+}

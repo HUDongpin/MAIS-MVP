@@ -1,0 +1,138 @@
+{
+  "batchNumber": 126,
+  "startedAt": "2026-05-27T14:05:03.063Z",
+  "completedAt": "2026-05-27T14:05:19.234Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-001",
+    "bnu-high-ds-v1-s6-002",
+    "bnu-high-ds-v1-s6-003",
+    "bnu-high-ds-v1-s6-004",
+    "bnu-high-ds-v1-s6-005",
+    "bnu-high-ds-v1-s6-006",
+    "bnu-high-ds-v1-s6-007",
+    "bnu-high-ds-v1-s6-008"
+  ],
+  "usage": {
+    "prompt_tokens": 11593,
+    "completion_tokens": 1102,
+    "total_tokens": 12695,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 11081
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-001",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "5×2^10 - 5",
+        "correctedAnswer": "5×2^10 - 5",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "bad_options",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立求解得 S_10 = 5×2^10 - 5，但选项无此结果，且所给答案 5×2^10 - 30 错误，解析自相矛盾，题目不可解。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-002",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "a_n = 2n + 1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由条件可解出 a_1=3, d=2，通项 a_n=2n+1，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-003",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "n^2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "累加得 a_n = n^2，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-004",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "-54",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "a_4 = 2×(-3)^3 = -54，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-005",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "11",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "a_5 = S_5 - S_4 = 35 - 24 = 11，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-006",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "10",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由等差数列性质 a_2 + a_8 = 2a_5，得 a_5 = 10，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-007",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "8",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "构造等比得 a_n = 2·3^{n-1} - 1，解不等式得 n ≥ 8，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-008",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "n^2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "等差数列求和得 S_n = n^2，答案与解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第1题选项无正确结果，答案错误，解析矛盾，需修正选项或答案；其余题目均正确。"
+    }
+  }
+}

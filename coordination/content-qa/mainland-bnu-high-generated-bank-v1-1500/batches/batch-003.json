@@ -1,0 +1,680 @@
+{
+  "batchId": "batch-003",
+  "questions": [
+    {
+      "id": "bnu-high-ds-v1-s4-021",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-预备知识",
+      "topicTitleZhHans": "预备知识",
+      "volume": "必修 第一册",
+      "chapter": "预备知识",
+      "conceptIds": [
+        "sets",
+        "number-sets",
+        "inequality-properties",
+        "quadratic-equations",
+        "basic-inequality",
+        "logic-conditions"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "逻辑推理",
+        "数学运算",
+        "数学语言"
+      ],
+      "skillTags": [
+        "集合语言",
+        "不等式性质",
+        "方程转化",
+        "条件判断",
+        "函数性质综合",
+        "定义域检查",
+        "指数对数转化",
+        "图像判断"
+      ],
+      "misconceptionTags": [
+        "set notation misread",
+        "interval endpoint error",
+        "inequality direction error",
+        "condition direction reversed",
+        "set relation confused",
+        "inequality direction reversed",
+        "condition direction unsupported",
+        "domain omitted in property check"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-preparatory-knowledge"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-preparatory-knowledge-unit-pattern",
+        "bnu-high-s4-upper-midterm-function-properties-review",
+        "bnu-high-s4-upper-final-full-volume-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知集合A={x | x² - 5x + 6 ≤ 0}，B={x | 2x - 1 > 3}，求A∩B。（用区间表示）",
+      "optionsZhHans": [],
+      "answer": "(2,3]",
+      "acceptedAnswers": [
+        "(2,3]"
+      ],
+      "explanationZhHans": "解A：x²-5x+6≤0得(x-2)(x-3)≤0，故A=[2,3]。解B：2x-1>3得x>2，故B=(2,+∞)。A∩B=(2,3]。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-022",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-预备知识",
+      "topicTitleZhHans": "预备知识",
+      "volume": "必修 第一册",
+      "chapter": "预备知识",
+      "conceptIds": [
+        "sets",
+        "number-sets",
+        "inequality-properties",
+        "quadratic-equations",
+        "basic-inequality",
+        "logic-conditions"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "逻辑推理",
+        "数学运算",
+        "数学语言"
+      ],
+      "skillTags": [
+        "集合语言",
+        "不等式性质",
+        "方程转化",
+        "条件判断",
+        "函数性质综合",
+        "定义域检查",
+        "指数对数转化",
+        "图像判断"
+      ],
+      "misconceptionTags": [
+        "set notation misread",
+        "interval endpoint error",
+        "inequality direction error",
+        "condition direction reversed",
+        "set relation confused",
+        "inequality direction reversed",
+        "condition direction unsupported",
+        "domain omitted in property check"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-preparatory-knowledge"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-preparatory-knowledge-unit-pattern",
+        "bnu-high-s4-upper-midterm-function-properties-review",
+        "bnu-high-s4-upper-final-full-volume-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "设全集U=R，集合M={x | |x-2| < 1}，则∁UM等于（ ）",
+      "optionsZhHans": [
+        "(-∞,1]∪[3,+∞)",
+        "(-∞,1)∪(3,+∞)",
+        "[1,3]",
+        "(1,3)"
+      ],
+      "answer": "(-∞,1]∪[3,+∞)",
+      "acceptedAnswers": [
+        "(-∞,1]∪[3,+∞)"
+      ],
+      "explanationZhHans": "M：|x-2|<1得1<x<3，即M=(1,3)。补集为(-∞,1]∪[3,+∞)。注意端点包含。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-023",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-预备知识",
+      "topicTitleZhHans": "预备知识",
+      "volume": "必修 第一册",
+      "chapter": "预备知识",
+      "conceptIds": [
+        "sets",
+        "number-sets",
+        "inequality-properties",
+        "quadratic-equations",
+        "basic-inequality",
+        "logic-conditions"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "逻辑推理",
+        "数学运算",
+        "数学语言"
+      ],
+      "skillTags": [
+        "集合语言",
+        "不等式性质",
+        "方程转化",
+        "条件判断",
+        "函数性质综合",
+        "定义域检查",
+        "指数对数转化",
+        "图像判断"
+      ],
+      "misconceptionTags": [
+        "set notation misread",
+        "interval endpoint error",
+        "inequality direction error",
+        "condition direction reversed",
+        "set relation confused",
+        "inequality direction reversed",
+        "condition direction unsupported",
+        "domain omitted in property check"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-preparatory-knowledge"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-preparatory-knowledge-unit-pattern",
+        "bnu-high-s4-upper-midterm-function-properties-review",
+        "bnu-high-s4-upper-final-full-volume-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知p：x² - 3x + 2 ≤ 0，q：x > 1。判断p是q的什么条件（充分不必要、必要不充分、充要、既不充分也不必要），并说明理由。",
+      "optionsZhHans": [],
+      "answer": "充分不必要条件",
+      "acceptedAnswers": [
+        "充分不必要条件"
+      ],
+      "explanationZhHans": "p：1≤x≤2；q：x>1。p⇒q成立，但q⇏p（如x=3），故p是q的充分不必要条件。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-024",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-预备知识",
+      "topicTitleZhHans": "预备知识",
+      "volume": "必修 第一册",
+      "chapter": "预备知识",
+      "conceptIds": [
+        "sets",
+        "number-sets",
+        "inequality-properties",
+        "quadratic-equations",
+        "basic-inequality",
+        "logic-conditions"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "逻辑推理",
+        "数学运算",
+        "数学语言"
+      ],
+      "skillTags": [
+        "集合语言",
+        "不等式性质",
+        "方程转化",
+        "条件判断",
+        "函数性质综合",
+        "定义域检查",
+        "指数对数转化",
+        "图像判断"
+      ],
+      "misconceptionTags": [
+        "set notation misread",
+        "interval endpoint error",
+        "inequality direction error",
+        "condition direction reversed",
+        "set relation confused",
+        "inequality direction reversed",
+        "condition direction unsupported",
+        "domain omitted in property check"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-preparatory-knowledge"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-preparatory-knowledge-unit-pattern",
+        "bnu-high-s4-upper-midterm-function-properties-review",
+        "bnu-high-s4-upper-final-full-volume-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "若关于x的不等式ax² + bx + 2 > 0的解集为(-1, 2)，则a + b的值为______。",
+      "optionsZhHans": [],
+      "answer": "-1",
+      "acceptedAnswers": [
+        "-1"
+      ],
+      "explanationZhHans": "由解集知a<0且-1和2是方程ax²+bx+2=0的根。由韦达定理：-1+2=-b/a，-1×2=2/a。得a=-1，b=1，故a+b=0。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-025",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-预备知识",
+      "topicTitleZhHans": "预备知识",
+      "volume": "必修 第一册",
+      "chapter": "预备知识",
+      "conceptIds": [
+        "sets",
+        "number-sets",
+        "inequality-properties",
+        "quadratic-equations",
+        "basic-inequality",
+        "logic-conditions"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "逻辑推理",
+        "数学运算",
+        "数学语言"
+      ],
+      "skillTags": [
+        "集合语言",
+        "不等式性质",
+        "方程转化",
+        "条件判断",
+        "函数性质综合",
+        "定义域检查",
+        "指数对数转化",
+        "图像判断"
+      ],
+      "misconceptionTags": [
+        "set notation misread",
+        "interval endpoint error",
+        "inequality direction error",
+        "condition direction reversed",
+        "set relation confused",
+        "inequality direction reversed",
+        "condition direction unsupported",
+        "domain omitted in property check"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-preparatory-knowledge"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-preparatory-knowledge-unit-pattern",
+        "bnu-high-s4-upper-midterm-function-properties-review",
+        "bnu-high-s4-upper-final-full-volume-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知a, b为正实数，且a + b = 4，则ab的最大值为（ ）",
+      "optionsZhHans": [
+        "2",
+        "4",
+        "8",
+        "16"
+      ],
+      "answer": "4",
+      "acceptedAnswers": [
+        "4"
+      ],
+      "explanationZhHans": "由基本不等式，ab ≤ ((a+b)/2)² = 4，当a=b=2时取等。故最大值为4。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-026",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-预备知识",
+      "topicTitleZhHans": "预备知识",
+      "volume": "必修 第一册",
+      "chapter": "预备知识",
+      "conceptIds": [
+        "sets",
+        "number-sets",
+        "inequality-properties",
+        "quadratic-equations",
+        "basic-inequality",
+        "logic-conditions"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "逻辑推理",
+        "数学运算",
+        "数学语言"
+      ],
+      "skillTags": [
+        "集合语言",
+        "不等式性质",
+        "方程转化",
+        "条件判断",
+        "函数性质综合",
+        "定义域检查",
+        "指数对数转化",
+        "图像判断"
+      ],
+      "misconceptionTags": [
+        "set notation misread",
+        "interval endpoint error",
+        "inequality direction error",
+        "condition direction reversed",
+        "set relation confused",
+        "inequality direction reversed",
+        "condition direction unsupported",
+        "domain omitted in property check"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-preparatory-knowledge"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-preparatory-knowledge-unit-pattern",
+        "bnu-high-s4-upper-midterm-function-properties-review",
+        "bnu-high-s4-upper-final-full-volume-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "写出命题“若x > 2，则x² > 4”的逆否命题。",
+      "optionsZhHans": [],
+      "answer": "若x² ≤ 4，则x ≤ 2",
+      "acceptedAnswers": [
+        "若x² ≤ 4，则x ≤ 2"
+      ],
+      "explanationZhHans": "逆否命题：条件与结论交换并否定。原命题条件：x>2，结论：x²>4。逆否：若x²≤4，则x≤2。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-027",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-预备知识",
+      "topicTitleZhHans": "预备知识",
+      "volume": "必修 第一册",
+      "chapter": "预备知识",
+      "conceptIds": [
+        "sets",
+        "number-sets",
+        "inequality-properties",
+        "quadratic-equations",
+        "basic-inequality",
+        "logic-conditions"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "逻辑推理",
+        "数学运算",
+        "数学语言"
+      ],
+      "skillTags": [
+        "集合语言",
+        "不等式性质",
+        "方程转化",
+        "条件判断",
+        "函数性质综合",
+        "定义域检查",
+        "指数对数转化",
+        "图像判断"
+      ],
+      "misconceptionTags": [
+        "set notation misread",
+        "interval endpoint error",
+        "inequality direction error",
+        "condition direction reversed",
+        "set relation confused",
+        "inequality direction reversed",
+        "condition direction unsupported",
+        "domain omitted in property check"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-preparatory-knowledge"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-preparatory-knowledge-unit-pattern",
+        "bnu-high-s4-upper-midterm-function-properties-review",
+        "bnu-high-s4-upper-final-full-volume-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知集合A={1, 2, 3, 4}，B={x | x ⊆ A}，则集合B中元素的个数为______。",
+      "optionsZhHans": [],
+      "answer": "16",
+      "acceptedAnswers": [
+        "16"
+      ],
+      "explanationZhHans": "B是A的所有子集构成的集合，A有4个元素，子集个数为2⁴=16。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-028",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-预备知识",
+      "topicTitleZhHans": "预备知识",
+      "volume": "必修 第一册",
+      "chapter": "预备知识",
+      "conceptIds": [
+        "sets",
+        "number-sets",
+        "inequality-properties",
+        "quadratic-equations",
+        "basic-inequality",
+        "logic-conditions"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "逻辑推理",
+        "数学运算",
+        "数学语言"
+      ],
+      "skillTags": [
+        "集合语言",
+        "不等式性质",
+        "方程转化",
+        "条件判断",
+        "函数性质综合",
+        "定义域检查",
+        "指数对数转化",
+        "图像判断"
+      ],
+      "misconceptionTags": [
+        "set notation misread",
+        "interval endpoint error",
+        "inequality direction error",
+        "condition direction reversed",
+        "set relation confused",
+        "inequality direction reversed",
+        "condition direction unsupported",
+        "domain omitted in property check"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-preparatory-knowledge"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-preparatory-knowledge-unit-pattern",
+        "bnu-high-s4-upper-midterm-function-properties-review",
+        "bnu-high-s4-upper-final-full-volume-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知条件p：|x - 1| ≤ 2，条件q：x ≤ a。若p是q的充分不必要条件，则实数a的取值范围是（ ）",
+      "optionsZhHans": [
+        "a ≥ 3",
+        "a > 3",
+        "a ≤ -1",
+        "a < -1"
+      ],
+      "answer": "a ≥ 3",
+      "acceptedAnswers": [
+        "a ≥ 3"
+      ],
+      "explanationZhHans": "p：-1≤x≤3。p⇒q，即[-1,3]⊆(-∞,a]，故a≥3。当a=3时，q为x≤3，p是q的充分不必要条件。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-029",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-预备知识",
+      "topicTitleZhHans": "预备知识",
+      "volume": "必修 第一册",
+      "chapter": "预备知识",
+      "conceptIds": [
+        "sets",
+        "number-sets",
+        "inequality-properties",
+        "quadratic-equations",
+        "basic-inequality",
+        "logic-conditions"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "逻辑推理",
+        "数学运算",
+        "数学语言"
+      ],
+      "skillTags": [
+        "集合语言",
+        "不等式性质",
+        "方程转化",
+        "条件判断",
+        "函数性质综合",
+        "定义域检查",
+        "指数对数转化",
+        "图像判断"
+      ],
+      "misconceptionTags": [
+        "set notation misread",
+        "interval endpoint error",
+        "inequality direction error",
+        "condition direction reversed",
+        "set relation confused",
+        "inequality direction reversed",
+        "condition direction unsupported",
+        "domain omitted in property check"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-preparatory-knowledge"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-preparatory-knowledge-unit-pattern",
+        "bnu-high-s4-upper-midterm-function-properties-review",
+        "bnu-high-s4-upper-final-full-volume-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "解不等式：2x² - 5x - 3 < 0。",
+      "optionsZhHans": [],
+      "answer": "(-1/2, 3)",
+      "acceptedAnswers": [
+        "(-1/2, 3)"
+      ],
+      "explanationZhHans": "因式分解：(2x+1)(x-3)<0。根为-1/2和3，开口向上，解集为(-1/2, 3)。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-030",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-预备知识",
+      "topicTitleZhHans": "预备知识",
+      "volume": "必修 第一册",
+      "chapter": "预备知识",
+      "conceptIds": [
+        "sets",
+        "number-sets",
+        "inequality-properties",
+        "quadratic-equations",
+        "basic-inequality",
+        "logic-conditions"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "逻辑推理",
+        "数学运算",
+        "数学语言"
+      ],
+      "skillTags": [
+        "集合语言",
+        "不等式性质",
+        "方程转化",
+        "条件判断",
+        "函数性质综合",
+        "定义域检查",
+        "指数对数转化",
+        "图像判断"
+      ],
+      "misconceptionTags": [
+        "set notation misread",
+        "interval endpoint error",
+        "inequality direction error",
+        "condition direction reversed",
+        "set relation confused",
+        "inequality direction reversed",
+        "condition direction unsupported",
+        "domain omitted in property check"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-preparatory-knowledge"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-preparatory-knowledge-unit-pattern",
+        "bnu-high-s4-upper-midterm-function-properties-review",
+        "bnu-high-s4-upper-final-full-volume-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知集合A={x | x² - 4x + 3 = 0}，B={x | mx - 1 = 0}，若B ⊆ A，则实数m的取值集合为______。",
+      "optionsZhHans": [],
+      "answer": "{0, 1, 1/3}",
+      "acceptedAnswers": [
+        "{0, 1, 1/3}"
+      ],
+      "explanationZhHans": "A={1,3}。B⊆A分情况：B=∅时m=0；B={1}时m=1；B={3}时m=1/3。故m∈{0,1,1/3}。"
+    }
+  ]
+}

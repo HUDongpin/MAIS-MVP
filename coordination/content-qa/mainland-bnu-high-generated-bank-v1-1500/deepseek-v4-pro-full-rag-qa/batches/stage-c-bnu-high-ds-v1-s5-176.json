@@ -1,0 +1,50 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-176",
+  "startedAt": "2026-05-28T02:54:34.394Z",
+  "completedAt": "2026-05-28T02:54:39.212Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-176"
+  ],
+  "usage": {
+    "prompt_tokens": 2031,
+    "completion_tokens": 260,
+    "total_tokens": 2291,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1647
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-176",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": null,
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "unsolvable",
+          "explanation_contradiction",
+          "answer_mismatch"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "A、B、C、D四点共线，无法构成四边形，更不可能是平行四边形，题目条件错误导致不可解。存储答案错误判定为平行四边形，解析中向量计算与坐标不符，存在矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目条件错误，四点共线无法构成四边形，判定为不可解，存储答案和解析均错误。"
+    }
+  }
+}

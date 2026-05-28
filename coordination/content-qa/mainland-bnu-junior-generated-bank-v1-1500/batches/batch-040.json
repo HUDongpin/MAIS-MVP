@@ -1,0 +1,614 @@
+{
+  "batchId": "batch-040",
+  "questions": [
+    {
+      "id": "bnu-junior-ds-v1-s1-391",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-variable-relationships",
+      "unitTitle": "变量之间的关系",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "variables-relationships",
+        "tables-graphs-formulas",
+        "functional-thinking",
+        "变量关系",
+        "函数初步"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "数据意识",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "识别变量",
+        "表格表示关系",
+        "图象读数",
+        "公式表达",
+        "变化趋势解释"
+      ],
+      "misconceptionTags": [
+        "dependent and independent quantities reversed",
+        "graph point read without units",
+        "constant rate assumed without evidence"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-variable-relationships"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-variable-relationships-unit",
+        "bnu-junior-s1-lower-assessment-final-1-to-6-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一辆汽车从甲地匀速驶向乙地，行驶时间 t（小时）与剩余距离 s（千米）之间的关系如下表所示。\n\n| t（小时） | 0 | 1 | 2 | 3 | 4 |\n|-----------|----|----|----|----|----|\n| s（千米） | 200 | 150 | 100 | 50 | 0 |\n\n根据表格，下列哪个选项正确描述了变量之间的关系？",
+      "optionsZhHans": [
+        "s 是自变量，t 是因变量，汽车的速度是 50 千米/小时",
+        "t 是自变量，s 是因变量，汽车的速度是 50 千米/小时",
+        "t 是自变量，s 是因变量，汽车的速度是 200 千米/小时",
+        "s 是自变量，t 是因变量，汽车的速度是 200 千米/小时"
+      ],
+      "answer": "t 是自变量，s 是因变量，汽车的速度是 50 千米/小时",
+      "acceptedAnswers": [
+        "t 是自变量，s 是因变量，汽车的速度是 50 千米/小时"
+      ],
+      "explanationZhHans": "时间 t 是主动变化的量，为自变量；剩余距离 s 随 t 变化，为因变量。由表格知，每过 1 小时，s 减少 50 千米，故速度为 50 千米/小时。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-392",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-variable-relationships",
+      "unitTitle": "变量之间的关系",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "variables-relationships",
+        "tables-graphs-formulas",
+        "functional-thinking",
+        "变量关系",
+        "函数初步"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "数据意识",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "识别变量",
+        "表格表示关系",
+        "图象读数",
+        "公式表达",
+        "变化趋势解释"
+      ],
+      "misconceptionTags": [
+        "dependent and independent quantities reversed",
+        "graph point read without units",
+        "constant rate assumed without evidence"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-variable-relationships"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-variable-relationships-unit",
+        "bnu-junior-s1-lower-assessment-final-1-to-6-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某弹簧的自然长度为 12 厘米，在弹性限度内，每挂 1 千克的物体，弹簧伸长 0.5 厘米。设所挂物体的质量为 x 千克，弹簧的总长度为 y 厘米。\n（1）写出 y 与 x 之间的关系式；\n（2）当 x = 4 时，求 y 的值。",
+      "optionsZhHans": [],
+      "answer": "（1）y = 12 + 0.5x；（2）14",
+      "acceptedAnswers": [
+        "（1）y = 12 + 0.5x；（2）14",
+        "（1）y=12+0.5x；（2）14",
+        "y=12+0.5x；14"
+      ],
+      "explanationZhHans": "弹簧总长度 = 自然长度 + 伸长量，伸长量与质量成正比，故 y = 12 + 0.5x。当 x=4 时，y = 12 + 0.5×4 = 14 厘米。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-393",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-variable-relationships",
+      "unitTitle": "变量之间的关系",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "variables-relationships",
+        "tables-graphs-formulas",
+        "functional-thinking",
+        "变量关系",
+        "函数初步"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "数据意识",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "识别变量",
+        "表格表示关系",
+        "图象读数",
+        "公式表达",
+        "变化趋势解释"
+      ],
+      "misconceptionTags": [
+        "dependent and independent quantities reversed",
+        "graph point read without units",
+        "constant rate assumed without evidence"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-variable-relationships"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-variable-relationships-unit",
+        "bnu-junior-s1-lower-assessment-final-1-to-6-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明骑自行车从家出发去图书馆，先以 200 米/分的速度骑行了 5 分钟，然后停车休息了 3 分钟，最后以 150 米/分的速度骑行了 4 分钟到达图书馆。在这个过程中，小明离家的距离 s（米）与时间 t（分）的关系可以用图象表示。请根据描述填空：\n（1）在 0 到 5 分钟内，s 随 t 的增大而 ______（填“增大”或“减小”）；\n（2）在 5 到 8 分钟内，s 的值 ______（填“变化”或“不变”）；\n（3）小明家到图书馆的总距离是 ______ 米。",
+      "optionsZhHans": [],
+      "answer": "（1）增大；（2）不变；（3）1600",
+      "acceptedAnswers": [
+        "（1）增大；（2）不变；（3）1600",
+        "增大；不变；1600"
+      ],
+      "explanationZhHans": "（1）骑行时距离增加，故增大。（2）休息时距离不变。（3）前 5 分钟：200×5=1000 米；后 4 分钟：150×4=600 米；总距离 1000+600=1600 米。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-394",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-variable-relationships",
+      "unitTitle": "变量之间的关系",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "variables-relationships",
+        "tables-graphs-formulas",
+        "functional-thinking",
+        "变量关系",
+        "函数初步"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "数据意识",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "识别变量",
+        "表格表示关系",
+        "图象读数",
+        "公式表达",
+        "变化趋势解释"
+      ],
+      "misconceptionTags": [
+        "dependent and independent quantities reversed",
+        "graph point read without units",
+        "constant rate assumed without evidence"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-variable-relationships"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-variable-relationships-unit",
+        "bnu-junior-s1-lower-assessment-final-1-to-6-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方形的面积固定为 36 平方厘米，其长 a（厘米）与宽 b（厘米）之间的关系可以用表格表示。当 a = 4 时，b = 9；当 a = 6 时，b = 6；当 a = 9 时，b = 4。下列说法正确的是：",
+      "optionsZhHans": [
+        "a 是自变量，b 是因变量，a 与 b 成正比例关系",
+        "b 是自变量，a 是因变量，a 与 b 成正比例关系",
+        "a 是自变量，b 是因变量，a 与 b 成反比例关系",
+        "b 是自变量，a 是因变量，a 与 b 成反比例关系"
+      ],
+      "answer": "a 是自变量，b 是因变量，a 与 b 成反比例关系",
+      "acceptedAnswers": [
+        "a 是自变量，b 是因变量，a 与 b 成反比例关系"
+      ],
+      "explanationZhHans": "长 a 通常作为自变量，宽 b 随 a 变化。由面积固定得 a×b=36，即 b=36/a，乘积为常数，故 a 与 b 成反比例关系。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-395",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-variable-relationships",
+      "unitTitle": "变量之间的关系",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "variables-relationships",
+        "tables-graphs-formulas",
+        "functional-thinking",
+        "变量关系",
+        "函数初步"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "数据意识",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "识别变量",
+        "表格表示关系",
+        "图象读数",
+        "公式表达",
+        "变化趋势解释"
+      ],
+      "misconceptionTags": [
+        "dependent and independent quantities reversed",
+        "graph point read without units",
+        "constant rate assumed without evidence"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-variable-relationships"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-variable-relationships-unit",
+        "bnu-junior-s1-lower-assessment-final-1-to-6-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某市出租车的收费标准如下：起步价 8 元（含 3 千米），超过 3 千米后，每增加 1 千米加收 1.5 元（不足 1 千米按 1 千米计算）。设行驶路程为 x 千米（x 为整数，且 x ≥ 3），应付车费为 y 元。\n（1）写出 y 与 x 之间的关系式；\n（2）当 x = 10 时，求 y 的值。",
+      "optionsZhHans": [],
+      "answer": "（1）y = 8 + 1.5(x - 3)；（2）18.5",
+      "acceptedAnswers": [
+        "（1）y = 8 + 1.5(x - 3)；（2）18.5",
+        "（1）y=8+1.5(x-3)；（2）18.5",
+        "y=8+1.5(x-3)；18.5"
+      ],
+      "explanationZhHans": "起步价 8 元含 3 千米，超出部分每千米 1.5 元，故 y = 8 + 1.5(x - 3)。当 x=10 时，y = 8 + 1.5×7 = 8 + 10.5 = 18.5 元。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-396",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-variable-relationships",
+      "unitTitle": "变量之间的关系",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "variables-relationships",
+        "tables-graphs-formulas",
+        "functional-thinking",
+        "变量关系",
+        "函数初步"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "数据意识",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "识别变量",
+        "表格表示关系",
+        "图象读数",
+        "公式表达",
+        "变化趋势解释"
+      ],
+      "misconceptionTags": [
+        "dependent and independent quantities reversed",
+        "graph point read without units",
+        "constant rate assumed without evidence"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-variable-relationships"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-variable-relationships-unit",
+        "bnu-junior-s1-lower-assessment-final-1-to-6-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下表记录了某日从 6 时到 12 时的气温变化情况。\n\n| 时间 t（时） | 6 | 7 | 8 | 9 | 10 | 11 | 12 |\n|-------------|----|----|----|----|----|----|----|\n| 气温 T（℃） | 15 | 16 | 18 | 20 | 22 | 23 | 24 |\n\n根据表格填空：\n（1）自变量是 ______，因变量是 ______；\n（2）从 6 时到 12 时，气温的变化趋势是 ______（填“上升”或“下降”）；\n（3）10 时的气温是 ______ ℃。",
+      "optionsZhHans": [],
+      "answer": "（1）时间 t，气温 T；（2）上升；（3）22",
+      "acceptedAnswers": [
+        "（1）时间 t，气温 T；（2）上升；（3）22",
+        "时间 t，气温 T；上升；22"
+      ],
+      "explanationZhHans": "时间 t 是自变量，气温 T 是因变量。表格中 T 随 t 增大而增大，故为上升趋势。查表得 10 时气温为 22 ℃。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-397",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-variable-relationships",
+      "unitTitle": "变量之间的关系",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "variables-relationships",
+        "tables-graphs-formulas",
+        "functional-thinking",
+        "变量关系",
+        "函数初步"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "数据意识",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "识别变量",
+        "表格表示关系",
+        "图象读数",
+        "公式表达",
+        "变化趋势解释"
+      ],
+      "misconceptionTags": [
+        "dependent and independent quantities reversed",
+        "graph point read without units",
+        "constant rate assumed without evidence"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-variable-relationships"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-variable-relationships-unit",
+        "bnu-junior-s1-lower-assessment-final-1-to-6-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个正方形的边长为 a 厘米，其周长 C 厘米与面积 S 平方厘米分别与 a 有关系。下列说法正确的是：",
+      "optionsZhHans": [
+        "C 与 a 成正比例，S 与 a 也成正比例",
+        "C 与 a 成正比例，S 与 a 不成正比例",
+        "C 与 a 不成正比例，S 与 a 成正比例",
+        "C 与 a 不成正比例，S 与 a 也不成正比例"
+      ],
+      "answer": "C 与 a 成正比例，S 与 a 不成正比例",
+      "acceptedAnswers": [
+        "C 与 a 成正比例，S 与 a 不成正比例"
+      ],
+      "explanationZhHans": "周长 C = 4a，C 与 a 的比值为常数 4，成正比例。面积 S = a²，S 与 a 的比值不是常数，不成正比例。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-398",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-variable-relationships",
+      "unitTitle": "变量之间的关系",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "variables-relationships",
+        "tables-graphs-formulas",
+        "functional-thinking",
+        "变量关系",
+        "函数初步"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "数据意识",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "识别变量",
+        "表格表示关系",
+        "图象读数",
+        "公式表达",
+        "变化趋势解释"
+      ],
+      "misconceptionTags": [
+        "dependent and independent quantities reversed",
+        "graph point read without units",
+        "constant rate assumed without evidence"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-variable-relationships"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-variable-relationships-unit",
+        "bnu-junior-s1-lower-assessment-final-1-to-6-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某水果店销售苹果，售价为每千克 8 元。购买苹果的质量 x（千克）与总价 y（元）之间的关系可以用图象表示。\n（1）写出 y 与 x 之间的关系式；\n（2）若小丽买了 2.5 千克苹果，她需要付多少元？",
+      "optionsZhHans": [],
+      "answer": "（1）y = 8x；（2）20",
+      "acceptedAnswers": [
+        "（1）y = 8x；（2）20",
+        "（1）y=8x；（2）20",
+        "y=8x；20"
+      ],
+      "explanationZhHans": "总价 = 单价 × 质量，故 y = 8x。当 x = 2.5 时，y = 8 × 2.5 = 20 元。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-399",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-variable-relationships",
+      "unitTitle": "变量之间的关系",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "variables-relationships",
+        "tables-graphs-formulas",
+        "functional-thinking",
+        "变量关系",
+        "函数初步"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "数据意识",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "识别变量",
+        "表格表示关系",
+        "图象读数",
+        "公式表达",
+        "变化趋势解释"
+      ],
+      "misconceptionTags": [
+        "dependent and independent quantities reversed",
+        "graph point read without units",
+        "constant rate assumed without evidence"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-variable-relationships"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-variable-relationships-unit",
+        "bnu-junior-s1-lower-assessment-final-1-to-6-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个圆柱形水桶的底面积为 50 平方厘米，现以均匀的速度向桶内注水，注水时间 t（秒）与水面高度 h（厘米）的部分数据如下表。\n\n| t（秒） | 0 | 2 | 4 | 6 | 8 |\n|---------|----|----|----|----|----|\n| h（厘米）| 0 | 1.2 | 2.4 | 3.6 | 4.8 |\n\n根据表格填空：\n（1）每秒钟水面上升 ______ 厘米；\n（2）h 与 t 之间的关系式为 h = ______；\n（3）当 t = 20 时，h = ______ 厘米。",
+      "optionsZhHans": [],
+      "answer": "（1）0.6；（2）0.6t；（3）12",
+      "acceptedAnswers": [
+        "（1）0.6；（2）0.6t；（3）12",
+        "0.6；0.6t；12"
+      ],
+      "explanationZhHans": "由表格知，每 2 秒上升 1.2 厘米，故每秒上升 0.6 厘米。h = 0.6t。当 t=20 时，h = 0.6×20 = 12 厘米。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-400",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-variable-relationships",
+      "unitTitle": "变量之间的关系",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "variables-relationships",
+        "tables-graphs-formulas",
+        "functional-thinking",
+        "变量关系",
+        "函数初步"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "数据意识",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "识别变量",
+        "表格表示关系",
+        "图象读数",
+        "公式表达",
+        "变化趋势解释"
+      ],
+      "misconceptionTags": [
+        "dependent and independent quantities reversed",
+        "graph point read without units",
+        "constant rate assumed without evidence"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-variable-relationships"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-variable-relationships-unit",
+        "bnu-junior-s1-lower-assessment-final-1-to-6-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一辆汽车在高速公路上行驶，油箱中原有油 40 升，汽车每行驶 100 千米耗油 8 升。设汽车行驶的路程为 x 千米，油箱中剩余的油量为 y 升。下列哪个图象能大致反映 y 与 x 的关系？",
+      "optionsZhHans": [
+        "图象是一条从点 (0,40) 开始逐渐上升的直线",
+        "图象是一条从点 (0,40) 开始逐渐下降的直线",
+        "图象是一条从点 (0,40) 开始先下降后上升的折线",
+        "图象是一条从点 (0,40) 开始先上升后下降的折线"
+      ],
+      "answer": "图象是一条从点 (0,40) 开始逐渐下降的直线",
+      "acceptedAnswers": [
+        "图象是一条从点 (0,40) 开始逐渐下降的直线"
+      ],
+      "explanationZhHans": "剩余油量 y = 40 - 0.08x，是一次函数，图象为直线。耗油使 y 随 x 增大而减小，故为下降直线。"
+    }
+  ]
+}

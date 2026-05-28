@@ -1,0 +1,191 @@
+{
+  "batchNumber": 7,
+  "startedAt": "2026-05-27T13:25:16.929Z",
+  "completedAt": "2026-05-27T13:25:33.901Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p1-109",
+    "bnu-primary-ds-v1-p1-110",
+    "bnu-primary-ds-v1-p1-111",
+    "bnu-primary-ds-v1-p1-112",
+    "bnu-primary-ds-v1-p1-113",
+    "bnu-primary-ds-v1-p1-114",
+    "bnu-primary-ds-v1-p1-115",
+    "bnu-primary-ds-v1-p1-116",
+    "bnu-primary-ds-v1-p1-117",
+    "bnu-primary-ds-v1-p1-118",
+    "bnu-primary-ds-v1-p1-119",
+    "bnu-primary-ds-v1-p1-120",
+    "bnu-primary-ds-v1-p1-121",
+    "bnu-primary-ds-v1-p1-122",
+    "bnu-primary-ds-v1-p1-123",
+    "bnu-primary-ds-v1-p1-124",
+    "bnu-primary-ds-v1-p1-125",
+    "bnu-primary-ds-v1-p1-126"
+  ],
+  "usage": {
+    "prompt_tokens": 2878,
+    "completion_tokens": 1242,
+    "total_tokens": 4120,
+    "prompt_tokens_details": {
+      "cached_tokens": 2816
+    },
+    "prompt_cache_hit_tokens": 2816,
+    "prompt_cache_miss_tokens": 62
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p1-109",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项唯一，适合一年级上册20以内加减法。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-110",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，符合一年级数位概念。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-111",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，题意清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-112",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项唯一正确，计算无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-113",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，符合整时认识。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-114",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案覆盖文字和电子表形式，合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-115",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项唯一正确，整时特征明确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-116",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，填空顺序合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-117",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，电子表表示法符合要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-118",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项唯一正确，干扰项合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-119",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "简单时间推算，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-120",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，文字表示符合要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-121",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项唯一正确，信息对应无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-122",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，整时判断无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-123",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，描述清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-124",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项唯一正确，整时特征明确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-125",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，填空顺序合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-126",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案合理，结合生活常识，无数学错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版一年级上册要求，答案正确，无歧义或错误。"
+    }
+  }
+}

@@ -1,0 +1,132 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-026",
+  "startedAt": "2026-05-28T01:03:12.964Z",
+  "completedAt": "2026-05-28T01:03:27.198Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-201",
+    "bnu-high-ds-v1-s4-202",
+    "bnu-high-ds-v1-s4-203",
+    "bnu-high-ds-v1-s4-204",
+    "bnu-high-ds-v1-s4-205",
+    "bnu-high-ds-v1-s4-206",
+    "bnu-high-ds-v1-s4-207",
+    "bnu-high-ds-v1-s4-208"
+  ],
+  "usage": {
+    "prompt_tokens": 11529,
+    "completion_tokens": 986,
+    "total_tokens": 12515,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 11145
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-201",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案80.4与独立解一致，解析计算正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-202",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解均为选项A，解析合理，唯一正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-203",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "85",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案85正确，但解析错误计算众数为83，与答案矛盾。独立解为85，解析应修正为最高矩形组中值。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-204",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案0005与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-205",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案16与独立解C一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-206",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "甲中位数81.5，乙中位数83，乙更稳定",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案中位数错误，甲应为81.5，乙应为83；解析计算混乱且与答案矛盾。独立解正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-207",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案2与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-208",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解均为选项B，解析正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 0,
+      "fail": 2,
+      "notes": "8题中6题通过，2题失败：203题解析错误且与答案矛盾，206题答案和解析均错误。"
+    }
+  }
+}

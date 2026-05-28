@@ -1,0 +1,168 @@
+{
+  "scope": "full",
+  "batchIndex": 17,
+  "startedAt": "2026-05-28T03:26:58.991Z",
+  "completedAt": "2026-05-28T03:27:29.294Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "itemIds": [
+    "10337",
+    "10369",
+    "10372",
+    "10373",
+    "10385",
+    "10386",
+    "10469",
+    "10470",
+    "10472",
+    "10473"
+  ],
+  "usage": {
+    "prompt_tokens": 2665,
+    "completion_tokens": 2134,
+    "total_tokens": 4799,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1040
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2281
+  },
+  "finishReason": "stop",
+  "jsonModeFallback": false,
+  "result": {
+    "items": [
+      {
+        "questionId": "10337",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": "26",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "缺少答案鍵，無法驗證一致性",
+        "recommendedAction": "補充標準答案"
+      },
+      {
+        "questionId": "10369",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": "35",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "缺少答案鍵，無法驗證一致性",
+        "recommendedAction": "補充標準答案"
+      },
+      {
+        "questionId": "10372",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": "228",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "缺少答案鍵，無法驗證一致性",
+        "recommendedAction": "補充標準答案"
+      },
+      {
+        "questionId": "10373",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": "6",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "缺少答案鍵，無法驗證一致性",
+        "recommendedAction": "補充標準答案"
+      },
+      {
+        "questionId": "10385",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": "175",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "缺少答案鍵，無法驗證一致性",
+        "recommendedAction": "補充標準答案"
+      },
+      {
+        "questionId": "10386",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": "56",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "缺少答案鍵，無法驗證一致性",
+        "recommendedAction": "補充標準答案"
+      },
+      {
+        "questionId": "10469",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "10,500",
+        "independentAnswer": "10500",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "题目可解，答案相符",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10470",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "2,380",
+        "independentAnswer": "2380",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "题目可解，答案相符",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10472",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "200",
+        "independentAnswer": "200",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "题目可解，答案相符",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10473",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "225",
+        "independentAnswer": "225",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "题目可解，答案相符",
+        "recommendedAction": "No blocking action."
+      }
+    ],
+    "batchSummary": {
+      "pass": 10,
+      "unsolvable": 0,
+      "ambiguous": 0,
+      "imageContextRequired": 0,
+      "answerMismatch": 0,
+      "missingAnswerKey": 6,
+      "notes": "前6題缺少標準答案，後4題答案相符，全部題目可解。"
+    }
+  }
+}

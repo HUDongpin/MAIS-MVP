@@ -1,0 +1,330 @@
+{
+  "batchNumber": 20,
+  "startedAt": "2026-05-26T16:58:32.150Z",
+  "completedAt": "2026-05-26T16:59:02.147Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p3-071",
+    "bnu-primary-ds-v2-p3-072",
+    "bnu-primary-ds-v2-p3-073",
+    "bnu-primary-ds-v2-p3-074",
+    "bnu-primary-ds-v2-p3-075",
+    "bnu-primary-ds-v2-p3-076",
+    "bnu-primary-ds-v2-p3-077",
+    "bnu-primary-ds-v2-p3-078",
+    "bnu-primary-ds-v2-p3-079",
+    "bnu-primary-ds-v2-p3-080",
+    "bnu-primary-ds-v2-p3-081",
+    "bnu-primary-ds-v2-p3-082",
+    "bnu-primary-ds-v2-p3-083",
+    "bnu-primary-ds-v2-p3-084",
+    "bnu-primary-ds-v2-p3-085",
+    "bnu-primary-ds-v2-p3-086",
+    "bnu-primary-ds-v2-p3-087",
+    "bnu-primary-ds-v2-p3-088",
+    "bnu-primary-ds-v2-p3-089",
+    "bnu-primary-ds-v2-p3-090",
+    "bnu-primary-ds-v2-p3-091",
+    "bnu-primary-ds-v2-p3-092",
+    "bnu-primary-ds-v2-p3-093",
+    "bnu-primary-ds-v2-p3-094",
+    "bnu-primary-ds-v2-p3-095",
+    "bnu-primary-ds-v2-p3-096",
+    "bnu-primary-ds-v2-p3-097",
+    "bnu-primary-ds-v2-p3-098",
+    "bnu-primary-ds-v2-p3-099",
+    "bnu-primary-ds-v2-p3-100"
+  ],
+  "usage": {
+    "prompt_tokens": 5654,
+    "completion_tokens": 2267,
+    "total_tokens": 7921,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 5270
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p3-071",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目完整，计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-072",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目完整，计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-073",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "封闭图形植树问题，棵数=间隔数，计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-074",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "三角形周长计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-075",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "两种拼法周长计算正确，答案完整。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-076",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "列式正确，唯一正确选项。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-077",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "进位计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-078",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "估算判断正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-079",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "计算比较正确，402×3=1206最接近1200。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-080",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "精确计算和估算均正确，答案接受1624或约1600。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-081",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "计算正确，2304元。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-082",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "399×5=1995最接近2000，正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-083",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "竖式计算过程正确，十位写4。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-084",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "先求另一个乘数再计算，正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-085",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "箭头指向被乘数十位上的6，表示6个十，正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-086",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "最小填3，计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-087",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "最大积算式正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-088",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "计算正确，答案37本余3本。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-089",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "填空80正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-090",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-091",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "闰年2月29天，推算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-092",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "连续大月组合正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-093",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "日期推算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-094",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "2020年是闰年，正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-095",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "平年2月28天，正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-096",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "包含起止日期的天数计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-097",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "出差天数计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-098",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "闰年第一季度91天，正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-099",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "可能情况正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-100",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "6月30天，推算正确。"
+      }
+    ],
+    "batchSummary": {
+      "solvableYes": 30,
+      "solvableNo": 0,
+      "answerMatchYes": 30,
+      "answerMatchNo": 0,
+      "notes": "全部30道题目均可解，答案匹配正确，无问题。"
+    }
+  }
+}

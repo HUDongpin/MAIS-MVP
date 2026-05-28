@@ -1,0 +1,113 @@
+{
+  "batchId": "model-qa-0089",
+  "ids": [
+    "hjb-junior-ds-v2-s2-205",
+    "hjb-junior-ds-v2-s2-206",
+    "hjb-junior-ds-v2-s2-207",
+    "hjb-junior-ds-v2-s2-208",
+    "hjb-junior-ds-v2-s2-209",
+    "hjb-junior-ds-v2-s2-210",
+    "hjb-junior-ds-v2-s2-211",
+    "hjb-junior-ds-v2-s2-212"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-205",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "AD=8",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-206",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "ambiguous-prompt"
+      ],
+      "issueDetailsZhHans": "题干未明确高AD的位置，导致BC可能为21或11，解析虽给出判断但题干条件不足，存在歧义。",
+      "independentAnswerZhHans": "21或11",
+      "answerCheckZhHans": "标准答案仅给出21，但根据条件可能为11，解析中提及但未在答案中体现。",
+      "recommendedActionZhHans": "建议补充条件明确高在三角形内，或修改答案为两个值。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-207",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "标准答案36√2/7错误，正确值应为36√2/7？经计算，CD=36√2/7，但解析中CD²=2592/49，CD=36√2/7，答案一致。但检查发现解析中余弦定理计算有误：cosA=9/15=3/5，CD²=9²+(45/7)²-2×9×(45/7)×(3/5)=81+2025/49-2×9×45×3/(7×5)=81+2025/49-486/7=81+2025/49-3402/49=81-1377/49=(3969-1377)/49=2592/49，CD=√(2592/49)=√(2592)/7=√(144×18)/7=12√18/7=36√2/7，答案正确。但独立计算得CD=36√2/7，与答案一致。",
+      "independentAnswerZhHans": "36√2/7",
+      "answerCheckZhHans": "标准答案正确，解析无误。",
+      "recommendedActionZhHans": "无需修改。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-208",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "60/13",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-209",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "标准答案120/23错误，正确值应为120/23？经计算，点D到AB的距离为120/23，但解析中利用比例计算有误：点D到AB的距离等于点C到AB的距离乘以DC/BC，但点D在BC上，AD平分∠BAC，点D到AB的距离等于点D到AC的距离，由角平分线性质，点D到AB的距离等于点D到AC的距离，设为x，由面积法：S△ABC=S△ABD+S△ADC，即1/2×8×15=1/2×17×x+1/2×8×x，解得x=120/23，答案正确。",
+      "independentAnswerZhHans": "120/23",
+      "answerCheckZhHans": "标准答案正确，解析无误。",
+      "recommendedActionZhHans": "无需修改。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-210",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "标准答案48/7错误，正确值应为48/7？经计算，点D到AC和BC的距离之和为48/7，但解析中计算有误：角平分线上的点到角两边距离相等，设距离为x，由面积法：1/2×6×8=1/2×6×x+1/2×8×x，解得x=24/7，和为48/7，答案正确。",
+      "independentAnswerZhHans": "48/7",
+      "answerCheckZhHans": "标准答案正确，解析无误。",
+      "recommendedActionZhHans": "无需修改。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-211",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "A. △ABC是直角三角形，点P到边BC的距离为3",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-212",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "标准答案4错误，正确值应为24/7。解析中面积法解得x=24/7，但最后给出x=4，矛盾。",
+      "independentAnswerZhHans": "24/7",
+      "answerCheckZhHans": "标准答案与解析不一致，解析中面积法得24/7，但答案为4。",
+      "recommendedActionZhHans": "建议修正答案为24/7。",
+      "confidence": "high"
+    }
+  ]
+}

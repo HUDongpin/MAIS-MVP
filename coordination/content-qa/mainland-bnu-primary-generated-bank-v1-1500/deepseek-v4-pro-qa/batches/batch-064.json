@@ -1,0 +1,191 @@
+{
+  "batchNumber": 64,
+  "startedAt": "2026-05-27T13:29:47.559Z",
+  "completedAt": "2026-05-27T13:30:05.418Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p5-135",
+    "bnu-primary-ds-v1-p5-136",
+    "bnu-primary-ds-v1-p5-137",
+    "bnu-primary-ds-v1-p5-138",
+    "bnu-primary-ds-v1-p5-139",
+    "bnu-primary-ds-v1-p5-140",
+    "bnu-primary-ds-v1-p5-141",
+    "bnu-primary-ds-v1-p5-142",
+    "bnu-primary-ds-v1-p5-143",
+    "bnu-primary-ds-v1-p5-144",
+    "bnu-primary-ds-v1-p5-145",
+    "bnu-primary-ds-v1-p5-146",
+    "bnu-primary-ds-v1-p5-147",
+    "bnu-primary-ds-v1-p5-148",
+    "bnu-primary-ds-v1-p5-149",
+    "bnu-primary-ds-v1-p5-150",
+    "bnu-primary-ds-v1-p5-151",
+    "bnu-primary-ds-v1-p5-152"
+  ],
+  "usage": {
+    "prompt_tokens": 3337,
+    "completion_tokens": 1264,
+    "total_tokens": 4601,
+    "prompt_tokens_details": {
+      "cached_tokens": 3328
+    },
+    "prompt_cache_hit_tokens": 3328,
+    "prompt_cache_miss_tokens": 9
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p5-135",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解释一致，符合五年级分数加减法要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-136",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项正确，解释清晰，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-137",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案与解释一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-138",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "表面积计算正确，解释合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-139",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "基础题，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-140",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "增加表面积最少的情况分析正确，计算无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-141",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "表面积计算正确，符合实际应用。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-142",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "正方体表面积计算正确，选项无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-143",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "棱长总和转换正确，高计算无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-144",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "贴瓷砖面积计算正确，符合生活实际。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-145",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "棱长总和公式应用正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-146",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "增加表面积最大情况分析正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-147",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由表面积反推棱长，计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-148",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "棱长总和计算正确，选项无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-149",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "底面周长求边长，再算表面积，过程正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-150",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "粉刷面积计算正确，扣除门窗合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-151",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分数乘法应用正确，答案无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-152",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分数连乘求面积，计算正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部18道题均通过审核，数学正确，答案与解释一致，无歧义或错误，适合北师大版五年级使用。"
+    }
+  }
+}

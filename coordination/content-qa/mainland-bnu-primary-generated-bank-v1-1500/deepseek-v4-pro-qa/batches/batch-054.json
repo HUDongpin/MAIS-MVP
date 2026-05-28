@@ -1,0 +1,191 @@
+{
+  "batchNumber": 54,
+  "startedAt": "2026-05-27T13:29:04.731Z",
+  "completedAt": "2026-05-27T13:29:23.191Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p4-205",
+    "bnu-primary-ds-v1-p4-206",
+    "bnu-primary-ds-v1-p4-207",
+    "bnu-primary-ds-v1-p4-208",
+    "bnu-primary-ds-v1-p4-209",
+    "bnu-primary-ds-v1-p4-210",
+    "bnu-primary-ds-v1-p4-211",
+    "bnu-primary-ds-v1-p4-212",
+    "bnu-primary-ds-v1-p4-213",
+    "bnu-primary-ds-v1-p4-214",
+    "bnu-primary-ds-v1-p4-215",
+    "bnu-primary-ds-v1-p4-216",
+    "bnu-primary-ds-v1-p4-217",
+    "bnu-primary-ds-v1-p4-218",
+    "bnu-primary-ds-v1-p4-219",
+    "bnu-primary-ds-v1-p4-220",
+    "bnu-primary-ds-v1-p4-221",
+    "bnu-primary-ds-v1-p4-222"
+  ],
+  "usage": {
+    "prompt_tokens": 3698,
+    "completion_tokens": 1257,
+    "total_tokens": 4955,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 3442
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p4-205",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目逻辑清晰，视图描述与选项匹配，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-206",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程列式正确，答案15无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-207",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项设置合理，方程定义判断准确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-208",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程求解正确，答案4无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-209",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数量关系正确，方程选择无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-210",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "解方程步骤正确，答案7无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-211",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "等量关系清晰，选项唯一正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-212",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程列式正确，接受两种等价形式。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-213",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数量关系正确，方程选择无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-214",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程列式正确，接受乘法交换形式。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-215",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "周长公式应用正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-216",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程列式正确，接受乘法交换形式。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-217",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数量关系正确，方程选择无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-218",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程列式正确，接受两种等价形式。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-219",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数量关系正确，方程选择无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-220",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程列式正确，包含字母c合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-221",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均数计算正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-222",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均数和正负数记录正确，答案格式合理。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版小学数学要求，无数学错误、答案不匹配或表述不清等问题。"
+    }
+  }
+}

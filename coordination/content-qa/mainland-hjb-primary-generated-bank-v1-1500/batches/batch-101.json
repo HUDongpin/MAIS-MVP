@@ -1,0 +1,291 @@
+{
+  "batchId": "batch-101",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p3-001",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-review-place-value-operations",
+      "unitTitle": "三年级上册复习与数的运算",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "p3-upper-review",
+        "place-value-review",
+        "multi-digit-add-sub-review",
+        "operation-relationships",
+        "复习与提高"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "反思整理"
+      ],
+      "skillTags": [
+        "位值复习",
+        "加减验算",
+        "乘除关系",
+        "估算检查",
+        "错因说明"
+      ],
+      "misconceptionTags": [
+        "place value read as digit name only",
+        "inverse relationship used after error only",
+        "estimate disconnected from exact calculation"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-review-place-value-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-review-operations",
+        "hjb-primary-p3-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在计算 345 + 278 时，小马虎把 345 看成了 354，他算出的和比正确的和大多少？",
+      "optionsZhHans": [
+        "9",
+        "11",
+        "19",
+        "29"
+      ],
+      "answer": "9",
+      "acceptedAnswers": [
+        "9"
+      ],
+      "explanationZhHans": "把345看成354，一个加数增加了354－345＝9，另一个加数不变，所以和也增加了9。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-002",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-review-place-value-operations",
+      "unitTitle": "三年级上册复习与数的运算",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "p3-upper-review",
+        "place-value-review",
+        "multi-digit-add-sub-review",
+        "operation-relationships",
+        "复习与提高"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "反思整理"
+      ],
+      "skillTags": [
+        "位值复习",
+        "加减验算",
+        "乘除关系",
+        "估算检查",
+        "错因说明"
+      ],
+      "misconceptionTags": [
+        "place value read as digit name only",
+        "inverse relationship used after error only",
+        "estimate disconnected from exact calculation"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-review-place-value-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-review-operations",
+        "hjb-primary-p3-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在算式 6×□＝42 中，□里的数是____。",
+      "optionsZhHans": [],
+      "answer": "7",
+      "acceptedAnswers": [
+        "7"
+      ],
+      "explanationZhHans": "根据乘法与除法的关系，一个因数＝积÷另一个因数，所以□＝42÷6＝7。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-003",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-review-place-value-operations",
+      "unitTitle": "三年级上册复习与数的运算",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "p3-upper-review",
+        "place-value-review",
+        "multi-digit-add-sub-review",
+        "operation-relationships",
+        "复习与提高"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "反思整理"
+      ],
+      "skillTags": [
+        "位值复习",
+        "加减验算",
+        "乘除关系",
+        "估算检查",
+        "错因说明"
+      ],
+      "misconceptionTags": [
+        "place value read as digit name only",
+        "inverse relationship used after error only",
+        "estimate disconnected from exact calculation"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-review-place-value-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-review-operations",
+        "hjb-primary-p3-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小胖在计算一道加法题时，把一个加数个位上的6看成了9，十位上的3看成了5，结果得到的和是800。正确的和应该是多少？请写出你的思考过程。",
+      "optionsZhHans": [],
+      "answer": "777",
+      "acceptedAnswers": [
+        "777"
+      ],
+      "explanationZhHans": "个位6看成9，多加了3；十位3看成5，多加了20；一共多加了23。正确和＝800－23＝777。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-004",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-review-place-value-operations",
+      "unitTitle": "三年级上册复习与数的运算",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "p3-upper-review",
+        "place-value-review",
+        "multi-digit-add-sub-review",
+        "operation-relationships",
+        "复习与提高"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "反思整理"
+      ],
+      "skillTags": [
+        "位值复习",
+        "加减验算",
+        "乘除关系",
+        "估算检查",
+        "错因说明"
+      ],
+      "misconceptionTags": [
+        "place value read as digit name only",
+        "inverse relationship used after error only",
+        "estimate disconnected from exact calculation"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-review-place-value-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-review-operations",
+        "hjb-primary-p3-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个算式的结果与 456－199 的结果相等？",
+      "optionsZhHans": [
+        "456－200＋1",
+        "456－200－1",
+        "456＋200－1",
+        "456＋200＋1"
+      ],
+      "answer": "456－200＋1",
+      "acceptedAnswers": [
+        "456－200＋1"
+      ],
+      "explanationZhHans": "456－199＝456－(200－1)＝456－200＋1，所以选456－200＋1。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-005",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-review-place-value-operations",
+      "unitTitle": "三年级上册复习与数的运算",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "p3-upper-review",
+        "place-value-review",
+        "multi-digit-add-sub-review",
+        "operation-relationships",
+        "复习与提高"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "反思整理"
+      ],
+      "skillTags": [
+        "位值复习",
+        "加减验算",
+        "乘除关系",
+        "估算检查",
+        "错因说明"
+      ],
+      "misconceptionTags": [
+        "place value read as digit name only",
+        "inverse relationship used after error only",
+        "estimate disconnected from exact calculation"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-review-place-value-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-review-operations",
+        "hjb-primary-p3-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用2、5、7、0组成一个最大的四位数是____，最小的四位数是____。",
+      "optionsZhHans": [],
+      "answer": "7520,2057",
+      "acceptedAnswers": [
+        "7520,2057",
+        "7520，2057"
+      ],
+      "explanationZhHans": "最大四位数：数字从大到小排列，7、5、2、0，得7520。最小四位数：最高位不能是0，选最小的2作千位，其余从小到大排列0、5、7，得2057。"
+    }
+  ]
+}

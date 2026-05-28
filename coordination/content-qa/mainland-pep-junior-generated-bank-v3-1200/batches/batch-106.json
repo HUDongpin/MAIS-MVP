@@ -1,0 +1,349 @@
+{
+  "batchId": "batch-106",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s3-k11-mc-051",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-graduation-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "已知反比例函数 y = (m+3)/x 的图象位于第一、三象限，则 m 的取值范围是（ ）",
+      "optionsZhHans": [
+        "m > -3",
+        "m < -3",
+        "m ≥ -3",
+        "m ≤ -3"
+      ],
+      "answer": "m > -3",
+      "acceptedAnswers": [
+        "m > -3",
+        "m>-3"
+      ],
+      "explanationZhHans": "反比例函数 y = (m+3)/x 的图象位于第一、三象限，说明比例系数 m+3 > 0，解得 m > -3。因此答案为 m > -3。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-mc-052",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-inverse-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions"
+      ],
+      "promptZhHans": "若点 P(-4, a) 和 Q(1, b) 都在反比例函数 y = 8/x 的图象上，则 a 与 b 的大小关系是（ ）",
+      "optionsZhHans": [
+        "a < b",
+        "a > b",
+        "a = b",
+        "无法确定"
+      ],
+      "answer": "a < b",
+      "acceptedAnswers": [
+        "a < b",
+        "a<b"
+      ],
+      "explanationZhHans": "对于反比例函数 y = 8/x，k = 8 > 0，图象在第一、三象限，在每个象限内 y 随 x 的增大而减小。点 P(-4, a) 在第三象限，x = -4，y = 8/(-4) = -2，所以 a = -2；点 Q(1, b) 在第一象限，x = 1，y = 8/1 = 8，所以 b = 8。因为 -2 < 8，所以 a < b。因此答案为 a < b。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-mc-053",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-right-triangle-trigonometry"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "promptZhHans": "在 Rt△ABC 中，∠C = 90°，AC = 9，BC = 12，则 tan A 的值为（ ）",
+      "optionsZhHans": [
+        "4/3",
+        "3/4",
+        "3/5",
+        "4/5"
+      ],
+      "answer": "4/3",
+      "acceptedAnswers": [
+        "4/3"
+      ],
+      "explanationZhHans": "在 Rt△ABC 中，∠C = 90°，∠A 的对边为 BC，邻边为 AC。根据正切定义，tan A = 对边/邻边 = BC/AC = 12/9 = 4/3。因此答案为 4/3。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-mc-054",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-projection-views"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean"
+      ],
+      "promptZhHans": "一个几何体由若干个相同的小立方块搭成，从正面看和从上面看得到的形状图都是 2×2 的正方形网格。则搭成这个几何体最少需要小立方块的个数是（ ）",
+      "optionsZhHans": [
+        "4",
+        "5",
+        "6",
+        "7"
+      ],
+      "answer": "4",
+      "acceptedAnswers": [
+        "4"
+      ],
+      "explanationZhHans": "从正面看是 2×2 的网格，说明几何体有 2 列、2 层；从上面看也是 2×2 的网格，说明几何体有 2 行、2 列。要同时满足这两个视图，最少需要 4 个小立方块，即摆成底面 2×2 的一层即可。因此答案为 4。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-mc-055",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-function-geometry-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-circle-geometry"
+      ],
+      "promptZhHans": "在 △ABC 中，点 D 在 AB 上，点 E 在 AC 上，且 DE∥BC。若 AD = 4，DB = 8，AE = 3，则 EC 的长为（ ）",
+      "optionsZhHans": [
+        "6",
+        "3",
+        "9",
+        "12"
+      ],
+      "answer": "6",
+      "acceptedAnswers": [
+        "6"
+      ],
+      "explanationZhHans": "由 DE∥BC，根据平行线分线段成比例定理，得 AD/DB = AE/EC。代入已知数值：4/8 = 3/EC，解得 EC = 6。因此答案为 6。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-mc-056",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-similarity"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "某班 50 名学生参加数学测验，成绩在 80～89 分这一组的频率为 0.24，则该组的频数为（ ）",
+      "optionsZhHans": [
+        "12",
+        "24",
+        "0.24",
+        "50"
+      ],
+      "answer": "12",
+      "acceptedAnswers": [
+        "12"
+      ],
+      "explanationZhHans": "频数 = 总数 × 频率 = 50 × 0.24 = 12。因此答案为 12。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-mc-057",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-graduation-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "在平面直角坐标系中，将点 M(3, -1) 先向左平移 2 个单位，再向上平移 4 个单位，得到的点的坐标是（ ）",
+      "optionsZhHans": [
+        "(1, 3)",
+        "(5, -5)",
+        "(1, -5)",
+        "(5, 3)"
+      ],
+      "answer": "(1, 3)",
+      "acceptedAnswers": [
+        "(1, 3)",
+        "(1,3)"
+      ],
+      "explanationZhHans": "点 M(3, -1) 向左平移 2 个单位，横坐标减 2，得 3-2=1；向上平移 4 个单位，纵坐标加 4，得 -1+4=3。所以得到的点的坐标是 (1, 3)。因此答案为 (1, 3)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-mc-058",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-inverse-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-dynamic-geometry-functions"
+      ],
+      "promptZhHans": "点 B 是反比例函数 y = k/x (x > 0) 图象上一点，BC⊥x 轴于点 C，若 △BOC 的面积为 4，则 k 的值为（ ）",
+      "optionsZhHans": [
+        "8",
+        "-8",
+        "4",
+        "-4"
+      ],
+      "answer": "8",
+      "acceptedAnswers": [
+        "8"
+      ],
+      "explanationZhHans": "设 B 点坐标为 (m, k/m)，则 OC = m，BC = k/m。△BOC 的面积 = 1/2 × OC × BC = 1/2 × m × k/m = k/2 = 4，解得 k = 8。因为图象在第一象限，k > 0。因此答案为 8。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-mc-059",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-right-triangle-trigonometry"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "某书店将一本图书按进价提高 40% 后标价，再打七五折销售，每本仍可获利 15 元。设这本图书的进价为 x 元，根据题意可列方程为（ ）",
+      "optionsZhHans": [
+        "0.75 × (1 + 40%)x - x = 15",
+        "0.75 × 40%x = 15",
+        "(1 + 40%)x - 0.75x = 15",
+        "0.75 × (1 + 40%)x = 15"
+      ],
+      "answer": "0.75 × (1 + 40%)x - x = 15",
+      "acceptedAnswers": [
+        "0.75 × (1 + 40%)x - x = 15",
+        "0.75×(1+40%)x-x=15"
+      ],
+      "explanationZhHans": "进价为 x 元，标价为 (1+40%)x 元，打七五折后的售价为 0.75×(1+40%)x 元，利润为售价减去进价，即 0.75×(1+40%)x - x = 15。因此答案为 0.75 × (1 + 40%)x - x = 15。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-mc-060",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-projection-views"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-proof-calculation-integrated"
+      ],
+      "promptZhHans": "在平行四边形 ABCD 中，E 为 CD 的中点，连接 AE 并延长交 BC 的延长线于点 F。若 AD = 8，则 CF 的长为（ ）",
+      "optionsZhHans": [
+        "4",
+        "8",
+        "12",
+        "16"
+      ],
+      "answer": "8",
+      "acceptedAnswers": [
+        "8"
+      ],
+      "explanationZhHans": "由平行四边形性质，AD∥BC，所以 ∠DAE = ∠F，∠D = ∠ECF。又 E 为 CD 中点，DE = EC，可证 △ADE ≌ △FCE (AAS)，所以 CF = AD = 8。因此答案为 8。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-038",
+  "startedAt": "2026-05-28T02:02:46.136Z",
+  "completedAt": "2026-05-28T02:02:51.226Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-038"
+  ],
+  "usage": {
+    "prompt_tokens": 2497,
+    "completion_tokens": 335,
+    "total_tokens": 2832,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2113
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-038",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "3x + 4y - 2 = 0",
+        "correctedAnswer": "3x + 4y - 2 = 0",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "圆C圆心(4,-3)，半径5，弦长8得弦心距3。直线x=2到圆心距离为2，弦长2√21≠8，不满足条件；斜率k=0时直线y=-1距离为2，也不满足。唯一解为3x+4y-2=0。存储答案和解析错误地包含了x=2，与正确解矛盾，必须修正。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目可解，但存储答案和解析包含错误解x=2，实际唯一解为3x+4y-2=0，判定为blocker。"
+    }
+  }
+}

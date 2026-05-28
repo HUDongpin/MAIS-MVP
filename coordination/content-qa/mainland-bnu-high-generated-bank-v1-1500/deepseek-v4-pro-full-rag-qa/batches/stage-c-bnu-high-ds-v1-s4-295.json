@@ -1,0 +1,48 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-295",
+  "startedAt": "2026-05-28T01:07:11.592Z",
+  "completedAt": "2026-05-28T01:07:16.922Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-295"
+  ],
+  "usage": {
+    "prompt_tokens": 2151,
+    "completion_tokens": 242,
+    "total_tokens": 2393,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1767
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-295",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "mcUniquenessStatus": "fail",
+        "independentAnswer": "B",
+        "correctedAnswer": null,
+        "issueTags": [
+          "ambiguous_mc",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "y=|sin x| 的最小正周期为 π 且为偶函数，与 y=cos 2x 同时满足条件，单选题存在两个正确选项，不唯一。解析未澄清此歧义，且自身表述矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "单选题存在两个正确选项，违反唯一性原则，判定为不合格。"
+    }
+  }
+}

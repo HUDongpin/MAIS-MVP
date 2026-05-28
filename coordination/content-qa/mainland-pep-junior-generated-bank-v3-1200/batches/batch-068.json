@@ -1,0 +1,312 @@
+{
+  "batchId": "batch-068",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s2-k08-sa-004",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions"
+      ],
+      "promptZhHans": "已知直角三角形的两条直角边长分别为 5 cm 和 12 cm，求斜边长。",
+      "optionsZhHans": [],
+      "answer": "13 cm",
+      "acceptedAnswers": [
+        "13 cm",
+        "13cm",
+        "13"
+      ],
+      "explanationZhHans": "由勾股定理，斜边长的平方等于两直角边长的平方和，即 5² + 12² = 25 + 144 = 169，所以斜边长为 √169 = 13 cm。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-sa-005",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-linear-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "promptZhHans": "化简二次根式 √(48)。",
+      "optionsZhHans": [],
+      "answer": "4√3",
+      "acceptedAnswers": [
+        "4√3",
+        "4根号3"
+      ],
+      "explanationZhHans": "√(48) = √(16×3) = √16 × √3 = 4√3。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-sa-006",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-data-analysis"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "promptZhHans": "在平行四边形 ABCD 中，已知 ∠A = 70°，求 ∠C 的度数。",
+      "optionsZhHans": [],
+      "answer": "70°",
+      "acceptedAnswers": [
+        "70°",
+        "70度",
+        "70"
+      ],
+      "explanationZhHans": "平行四边形的对角相等，所以 ∠C = ∠A = 70°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-sa-007",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-pythagorean-theorem"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "判断以 6、8、10 为边长的三角形是否为直角三角形。",
+      "optionsZhHans": [],
+      "answer": "是",
+      "acceptedAnswers": [
+        "是",
+        "是直角三角形",
+        "直角三角形"
+      ],
+      "explanationZhHans": "因为 6² + 8² = 36 + 64 = 100 = 10²，满足勾股定理的逆定理，所以是直角三角形。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-sa-008",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-quadrilaterals"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "在矩形 ABCD 中，AB = 6 cm，BC = 8 cm，求对角线 AC 的长。",
+      "optionsZhHans": [],
+      "answer": "10 cm",
+      "acceptedAnswers": [
+        "10 cm",
+        "10cm",
+        "10"
+      ],
+      "explanationZhHans": "矩形四个角都是直角，在直角三角形 ABC 中，AB = 6 cm，BC = 8 cm，由勾股定理得 AC = √(6² + 8²) = √(36 + 64) = √100 = 10 cm。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-sa-009",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-quadratic-radicals"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "计算 √(27) - √(12) 的结果。",
+      "optionsZhHans": [],
+      "answer": "√3",
+      "acceptedAnswers": [
+        "√3",
+        "根号3"
+      ],
+      "explanationZhHans": "√(27) = 3√3，√(12) = 2√3，所以 √(27) - √(12) = 3√3 - 2√3 = √3。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-sa-010",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-proof-calculation-integrated"
+      ],
+      "promptZhHans": "已知菱形的两条对角线长分别为 6 cm 和 8 cm，求菱形的边长。",
+      "optionsZhHans": [],
+      "answer": "5 cm",
+      "acceptedAnswers": [
+        "5 cm",
+        "5cm",
+        "5"
+      ],
+      "explanationZhHans": "菱形的对角线互相垂直平分，所以边长等于以对角线一半为直角边的直角三角形斜边长。对角线一半分别为 3 cm 和 4 cm，由勾股定理得边长 = √(3² + 4²) = √(9 + 16) = √25 = 5 cm。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-sa-011",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-linear-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean"
+      ],
+      "promptZhHans": "在 △ABC 中，AB = 13，AC = 12，BC = 5，求 △ABC 的面积。",
+      "optionsZhHans": [],
+      "answer": "30",
+      "acceptedAnswers": [
+        "30",
+        "30平方单位"
+      ],
+      "explanationZhHans": "因为 5² + 12² = 25 + 144 = 169 = 13²，所以 △ABC 是直角三角形，且直角边为 AC = 12 和 BC = 5，面积 = (1/2) × 12 × 5 = 30。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-sa-012",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-data-analysis"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "比较 2√3 与 3√2 的大小。",
+      "optionsZhHans": [],
+      "answer": "2√3 < 3√2",
+      "acceptedAnswers": [
+        "2√3 < 3√2",
+        "2√3 小于 3√2",
+        "3√2 > 2√3"
+      ],
+      "explanationZhHans": "将两数平方：(2√3)² = 4×3 = 12，(3√2)² = 9×2 = 18，因为 12 < 18，所以 2√3 < 3√2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-sa-013",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-pythagorean-theorem"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "一架梯子长 5 m，斜靠在墙上，梯子底端离墙 3 m，求梯子顶端离地面的高度。",
+      "optionsZhHans": [],
+      "answer": "4 m",
+      "acceptedAnswers": [
+        "4 m",
+        "4m",
+        "4"
+      ],
+      "explanationZhHans": "梯子、墙和地面构成直角三角形，梯子为斜边，底端离墙距离为一条直角边，高度为另一条直角边。由勾股定理得高度 = √(5² - 3²) = √(25 - 9) = √16 = 4 m。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

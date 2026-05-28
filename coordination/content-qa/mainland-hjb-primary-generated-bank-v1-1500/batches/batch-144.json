@@ -1,0 +1,292 @@
+{
+  "batchId": "batch-144",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p3-216",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-data-statistics",
+      "unitTitle": "数据整理与统计表达",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "data-organization",
+        "table-reading",
+        "bar-chart-reading",
+        "comparison-statements",
+        "统计"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "分类整理",
+        "统计表",
+        "条形图",
+        "比较数量",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "largest bar read from visual height without scale",
+        "category labels ignored",
+        "unsupported conclusion beyond the data"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-data-statistics"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-data-statistics",
+        "hjb-primary-p3-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "三（1）班同学最喜欢的水果情况如下：苹果8人，香蕉12人，橘子5人，葡萄10人。请完成统计表。\n\n| 水果 | 苹果 | 香蕉 | 橘子 | 葡萄 |\n|------|------|------|------|------|\n| 人数 |      |      |      |      |\n\n根据统计表，喜欢（    ）的人数最多，喜欢（    ）的人数最少。",
+      "optionsZhHans": [],
+      "answer": "香蕉；橘子",
+      "acceptedAnswers": [
+        "香蕉；橘子",
+        "香蕉,橘子",
+        "香蕉、橘子"
+      ],
+      "explanationZhHans": "从数据可知，香蕉12人最多，橘子5人最少。填表时依次填入8、12、5、10。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-217",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-data-statistics",
+      "unitTitle": "数据整理与统计表达",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "data-organization",
+        "table-reading",
+        "bar-chart-reading",
+        "comparison-statements",
+        "统计"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "分类整理",
+        "统计表",
+        "条形图",
+        "比较数量",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "largest bar read from visual height without scale",
+        "category labels ignored",
+        "unsupported conclusion beyond the data"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-data-statistics"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-data-statistics",
+        "hjb-primary-p3-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "三（2）班同学参加兴趣小组的情况用条形图表示：每个小组的人数用直条长度表示，直条旁边标有数字。美术组直条最高，标有15；音乐组直条第二高，标有12；体育组直条第三高，标有9；科技组直条最矮，标有6。下面哪种说法是正确的？",
+      "optionsZhHans": [
+        "美术组人数最多，是15人",
+        "音乐组比体育组多3人",
+        "科技组人数最少，是6人",
+        "以上都对"
+      ],
+      "answer": "以上都对",
+      "acceptedAnswers": [
+        "以上都对"
+      ],
+      "explanationZhHans": "美术组15人最多，科技组6人最少，音乐组12人比体育组9人多3人，三个说法都正确，所以选“以上都对”。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-218",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-data-statistics",
+      "unitTitle": "数据整理与统计表达",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "data-organization",
+        "table-reading",
+        "bar-chart-reading",
+        "comparison-statements",
+        "统计"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "分类整理",
+        "统计表",
+        "条形图",
+        "比较数量",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "largest bar read from visual height without scale",
+        "category labels ignored",
+        "unsupported conclusion beyond the data"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-data-statistics"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-data-statistics",
+        "hjb-primary-p3-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "三（3）班图书角各类图书数量统计如下：故事书20本，科普书15本，漫画书10本，其他5本。请完成统计表。\n\n| 种类 | 故事书 | 科普书 | 漫画书 | 其他 |\n|------|--------|--------|--------|------|\n| 数量 |        |        |        |      |\n\n根据统计表，故事书比漫画书多（    ）本。",
+      "optionsZhHans": [],
+      "answer": "10",
+      "acceptedAnswers": [
+        "10"
+      ],
+      "explanationZhHans": "故事书20本，漫画书10本，相差20-10=10本。填表时依次填入20、15、10、5。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-219",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-data-statistics",
+      "unitTitle": "数据整理与统计表达",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "data-organization",
+        "table-reading",
+        "bar-chart-reading",
+        "comparison-statements",
+        "统计"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "分类整理",
+        "统计表",
+        "条形图",
+        "比较数量",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "largest bar read from visual height without scale",
+        "category labels ignored",
+        "unsupported conclusion beyond the data"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-data-statistics"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-data-statistics",
+        "hjb-primary-p3-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "三（4）班四个小组收集废电池的数量用条形图表示：第一组直条标有18，第二组直条标有14，第三组直条标有20，第四组直条标有16。下面哪种说法是错误的？",
+      "optionsZhHans": [
+        "第三组收集的废电池最多",
+        "第一组比第二组多收集4节",
+        "第四组收集的废电池最少",
+        "第三组和第四组一共收集36节"
+      ],
+      "answer": "第四组收集的废电池最少",
+      "acceptedAnswers": [
+        "第四组收集的废电池最少"
+      ],
+      "explanationZhHans": "第三组20节最多，第二组14节最少，不是第四组。第一组18节比第二组14节多4节，第三组和第四组共20+16=36节，所以错误说法是“第四组收集的废电池最少”。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-220",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-data-statistics",
+      "unitTitle": "数据整理与统计表达",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "data-organization",
+        "table-reading",
+        "bar-chart-reading",
+        "comparison-statements",
+        "统计"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "分类整理",
+        "统计表",
+        "条形图",
+        "比较数量",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "largest bar read from visual height without scale",
+        "category labels ignored",
+        "unsupported conclusion beyond the data"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-data-statistics"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-data-statistics",
+        "hjb-primary-p3-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "三（5）班同学出生季节统计如下：春季8人，夏季12人，秋季10人，冬季6人。请完成统计表。\n\n| 季节 | 春季 | 夏季 | 秋季 | 冬季 |\n|------|------|------|------|------|\n| 人数 |      |      |      |      |\n\n根据统计表，夏季比冬季多（    ）人。",
+      "optionsZhHans": [],
+      "answer": "6",
+      "acceptedAnswers": [
+        "6"
+      ],
+      "explanationZhHans": "夏季12人，冬季6人，相差12-6=6人。填表时依次填入8、12、10、6。"
+    }
+  ]
+}

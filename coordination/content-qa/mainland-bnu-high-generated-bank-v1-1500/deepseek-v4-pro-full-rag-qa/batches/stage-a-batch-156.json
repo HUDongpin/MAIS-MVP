@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-156",
+  "startedAt": "2026-05-28T01:44:12.548Z",
+  "completedAt": "2026-05-28T01:44:26.907Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-241",
+    "bnu-high-ds-v1-s6-242",
+    "bnu-high-ds-v1-s6-243",
+    "bnu-high-ds-v1-s6-244",
+    "bnu-high-ds-v1-s6-245",
+    "bnu-high-ds-v1-s6-246",
+    "bnu-high-ds-v1-s6-247",
+    "bnu-high-ds-v1-s6-248"
+  ],
+  "usage": {
+    "prompt_tokens": 10207,
+    "completion_tokens": 1050,
+    "total_tokens": 11257,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9823
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-241",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "D",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导得 f'(x)=3x²-6x，f'(1)=-3≠0，故 x=1 不是极值点，选项 D 正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-242",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "a=0, b=-3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x²+2ax+b，由 f'(0)=-3 得 b=-3；由 x=1 为极小值点得 f'(1)=0 即 3+2a-3=0，解得 a=0。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-243",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x²-3，驻点 x=±1，比较 f(-2)=-2, f(-1)=2, f(1)=-2, f(2)=2，最大值为 2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-244",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "A",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "y'=3x²-3，在 x=1 处斜率为 0，切线为 y=-2，选项 A 正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-245",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "长 6 m，宽 3 m，最大面积 18 m²",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "设宽为 x，则长为 12-2x，面积 S=x(12-2x)，求导得 S'=12-4x，驻点 x=3，此时长 6，面积 18。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-246",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(1, +∞)",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "定义域 x>0，f'(x)=2x-2/x，解 f'(x)>0 得 x>1，故递增区间为 (1,+∞)。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-247",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "B",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x²-6x-9=3(x-3)(x+1)，驻点 x=-1,3，x=3 处导数左负右正，为极小值点。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-248",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "[-3, 3]",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x²-2ax+3≥0 恒成立，判别式 Δ=4a²-36≤0，解得 -3≤a≤3。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部题目条件充分，可独立求解，答案明确，符合北师大版高中导数章节要求。"
+    }
+  }
+}

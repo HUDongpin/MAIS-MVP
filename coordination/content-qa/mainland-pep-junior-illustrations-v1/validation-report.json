@@ -1,0 +1,306 @@
+{
+  "generatedAt": "2026-05-27T06:47:25.046Z",
+  "version": "mainland-pep-junior-illustrations-v1",
+  "scope": "MAINLAND_PEP_JUNIOR",
+  "productionStatus": "approved-for-production",
+  "expectedTopics": 11,
+  "expectedCandidates": 22,
+  "observedCandidates": 22,
+  "expectedDimensions": {
+    "width": 1600,
+    "height": 900
+  },
+  "topicCoverage": [
+    {
+      "topicId": "pep-junior-s1-upper-rational-numbers",
+      "title": "有理数与数轴",
+      "slots": {
+        "concept": true,
+        "worked-example": true
+      }
+    },
+    {
+      "topicId": "pep-junior-s1-upper-expressions-linear-equations",
+      "title": "整式初步与一元一次方程",
+      "slots": {
+        "concept": true,
+        "worked-example": true
+      }
+    },
+    {
+      "topicId": "pep-junior-s1-upper-geometric-figures",
+      "title": "几何图形初步",
+      "slots": {
+        "concept": true,
+        "worked-example": true
+      }
+    },
+    {
+      "topicId": "pep-junior-s1-lower-lines-coordinates",
+      "title": "相交线、平行线与平面直角坐标系",
+      "slots": {
+        "concept": true,
+        "worked-example": true
+      }
+    },
+    {
+      "topicId": "pep-junior-s1-lower-equations-inequalities-data",
+      "title": "方程组、不等式与数据初步",
+      "slots": {
+        "concept": true,
+        "worked-example": true
+      }
+    },
+    {
+      "topicId": "pep-junior-s2-upper-triangles-congruence",
+      "title": "三角形、全等与轴对称",
+      "slots": {
+        "concept": true,
+        "worked-example": true
+      }
+    },
+    {
+      "topicId": "pep-junior-s2-upper-polynomials-fractions",
+      "title": "整式乘法、因式分解与分式",
+      "slots": {
+        "concept": true,
+        "worked-example": true
+      }
+    },
+    {
+      "topicId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "title": "二次根式、勾股定理与平行四边形",
+      "slots": {
+        "concept": true,
+        "worked-example": true
+      }
+    },
+    {
+      "topicId": "pep-junior-s2-lower-linear-functions-data",
+      "title": "一次函数与数据分析",
+      "slots": {
+        "concept": true,
+        "worked-example": true
+      }
+    },
+    {
+      "topicId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "title": "一元二次方程、二次函数、圆与概率初步",
+      "slots": {
+        "concept": true,
+        "worked-example": true
+      }
+    },
+    {
+      "topicId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "title": "反比例函数、相似与锐角三角函数",
+      "slots": {
+        "concept": true,
+        "worked-example": true
+      }
+    }
+  ],
+  "items": [
+    {
+      "id": "pep-junior-s1-upper-rational-numbers-concept",
+      "topicId": "pep-junior-s1-upper-rational-numbers",
+      "slot": "concept",
+      "exists": true,
+      "pixelWidth": 1600,
+      "pixelHeight": 900,
+      "issues": []
+    },
+    {
+      "id": "pep-junior-s1-upper-rational-numbers-worked-example",
+      "topicId": "pep-junior-s1-upper-rational-numbers",
+      "slot": "worked-example",
+      "exists": true,
+      "pixelWidth": 1600,
+      "pixelHeight": 900,
+      "issues": []
+    },
+    {
+      "id": "pep-junior-s1-upper-expressions-linear-equations-concept",
+      "topicId": "pep-junior-s1-upper-expressions-linear-equations",
+      "slot": "concept",
+      "exists": true,
+      "pixelWidth": 1600,
+      "pixelHeight": 900,
+      "issues": []
+    },
+    {
+      "id": "pep-junior-s1-upper-expressions-linear-equations-worked-example",
+      "topicId": "pep-junior-s1-upper-expressions-linear-equations",
+      "slot": "worked-example",
+      "exists": true,
+      "pixelWidth": 1600,
+      "pixelHeight": 900,
+      "issues": []
+    },
+    {
+      "id": "pep-junior-s1-upper-geometric-figures-concept",
+      "topicId": "pep-junior-s1-upper-geometric-figures",
+      "slot": "concept",
+      "exists": true,
+      "pixelWidth": 1600,
+      "pixelHeight": 900,
+      "issues": []
+    },
+    {
+      "id": "pep-junior-s1-upper-geometric-figures-worked-example",
+      "topicId": "pep-junior-s1-upper-geometric-figures",
+      "slot": "worked-example",
+      "exists": true,
+      "pixelWidth": 1600,
+      "pixelHeight": 900,
+      "issues": []
+    },
+    {
+      "id": "pep-junior-s1-lower-lines-coordinates-concept",
+      "topicId": "pep-junior-s1-lower-lines-coordinates",
+      "slot": "concept",
+      "exists": true,
+      "pixelWidth": 1600,
+      "pixelHeight": 900,
+      "issues": []
+    },
+    {
+      "id": "pep-junior-s1-lower-lines-coordinates-worked-example",
+      "topicId": "pep-junior-s1-lower-lines-coordinates",
+      "slot": "worked-example",
+      "exists": true,
+      "pixelWidth": 1600,
+      "pixelHeight": 900,
+      "issues": []
+    },
+    {
+      "id": "pep-junior-s1-lower-equations-inequalities-data-concept",
+      "topicId": "pep-junior-s1-lower-equations-inequalities-data",
+      "slot": "concept",
+      "exists": true,
+      "pixelWidth": 1600,
+      "pixelHeight": 900,
+      "issues": []
+    },
+    {
+      "id": "pep-junior-s1-lower-equations-inequalities-data-worked-example",
+      "topicId": "pep-junior-s1-lower-equations-inequalities-data",
+      "slot": "worked-example",
+      "exists": true,
+      "pixelWidth": 1600,
+      "pixelHeight": 900,
+      "issues": []
+    },
+    {
+      "id": "pep-junior-s2-upper-triangles-congruence-concept",
+      "topicId": "pep-junior-s2-upper-triangles-congruence",
+      "slot": "concept",
+      "exists": true,
+      "pixelWidth": 1600,
+      "pixelHeight": 900,
+      "issues": []
+    },
+    {
+      "id": "pep-junior-s2-upper-triangles-congruence-worked-example",
+      "topicId": "pep-junior-s2-upper-triangles-congruence",
+      "slot": "worked-example",
+      "exists": true,
+      "pixelWidth": 1600,
+      "pixelHeight": 900,
+      "issues": []
+    },
+    {
+      "id": "pep-junior-s2-upper-polynomials-fractions-concept",
+      "topicId": "pep-junior-s2-upper-polynomials-fractions",
+      "slot": "concept",
+      "exists": true,
+      "pixelWidth": 1600,
+      "pixelHeight": 900,
+      "issues": []
+    },
+    {
+      "id": "pep-junior-s2-upper-polynomials-fractions-worked-example",
+      "topicId": "pep-junior-s2-upper-polynomials-fractions",
+      "slot": "worked-example",
+      "exists": true,
+      "pixelWidth": 1600,
+      "pixelHeight": 900,
+      "issues": []
+    },
+    {
+      "id": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals-concept",
+      "topicId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "slot": "concept",
+      "exists": true,
+      "pixelWidth": 1600,
+      "pixelHeight": 900,
+      "issues": []
+    },
+    {
+      "id": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals-worked-example",
+      "topicId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "slot": "worked-example",
+      "exists": true,
+      "pixelWidth": 1600,
+      "pixelHeight": 900,
+      "issues": []
+    },
+    {
+      "id": "pep-junior-s2-lower-linear-functions-data-concept",
+      "topicId": "pep-junior-s2-lower-linear-functions-data",
+      "slot": "concept",
+      "exists": true,
+      "pixelWidth": 1600,
+      "pixelHeight": 900,
+      "issues": []
+    },
+    {
+      "id": "pep-junior-s2-lower-linear-functions-data-worked-example",
+      "topicId": "pep-junior-s2-lower-linear-functions-data",
+      "slot": "worked-example",
+      "exists": true,
+      "pixelWidth": 1600,
+      "pixelHeight": 900,
+      "issues": []
+    },
+    {
+      "id": "pep-junior-s3-upper-quadratics-circle-probability-concept",
+      "topicId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "slot": "concept",
+      "exists": true,
+      "pixelWidth": 1600,
+      "pixelHeight": 900,
+      "issues": []
+    },
+    {
+      "id": "pep-junior-s3-upper-quadratics-circle-probability-worked-example",
+      "topicId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "slot": "worked-example",
+      "exists": true,
+      "pixelWidth": 1600,
+      "pixelHeight": 900,
+      "issues": []
+    },
+    {
+      "id": "pep-junior-s3-lower-inverse-similarity-trigonometry-concept",
+      "topicId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "slot": "concept",
+      "exists": true,
+      "pixelWidth": 1600,
+      "pixelHeight": 900,
+      "issues": []
+    },
+    {
+      "id": "pep-junior-s3-lower-inverse-similarity-trigonometry-worked-example",
+      "topicId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "slot": "worked-example",
+      "exists": true,
+      "pixelWidth": 1600,
+      "pixelHeight": 900,
+      "issues": []
+    }
+  ],
+  "passed": true,
+  "reviewGate": "Update manual-review.csv decision to approved, rejected, or regenerate before any production copy/rendering work.",
+  "reviewStatus": "approved"
+}

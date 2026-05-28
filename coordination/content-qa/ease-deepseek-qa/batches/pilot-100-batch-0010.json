@@ -1,0 +1,103 @@
+{
+  "scope": "pilot-100",
+  "batchIndex": 10,
+  "startedAt": "2026-05-28T03:16:52.531Z",
+  "completedAt": "2026-05-28T03:17:23.913Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "itemIds": [
+    "100000347",
+    "100000150",
+    "739",
+    "115",
+    "132"
+  ],
+  "usage": {
+    "prompt_tokens": 1949,
+    "completion_tokens": 1914,
+    "total_tokens": 3863,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1210
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1565
+  },
+  "finishReason": "stop",
+  "jsonModeFallback": false,
+  "result": {
+    "items": [
+      {
+        "questionId": "100000347",
+        "questionType": "BFQ",
+        "hasImage": true,
+        "standardAnswer": "157\\operatorname{cm}",
+        "independentAnswer": null,
+        "solvabilityStatus": "image-context-required",
+        "answerMatchStatus": "not-checkable",
+        "severity": "P1",
+        "reason": "题目需要图像来提供圆的半径或直径，无法仅从文字求解。",
+        "recommendedAction": "提供图像或文字描述圆的尺寸。"
+      },
+      {
+        "questionId": "100000150",
+        "questionType": "BFQ",
+        "hasImage": false,
+        "standardAnswer": "2^4 × 3^2 × 5",
+        "independentAnswer": "2^4 × 3^2 × 5",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "题目已给出质因数分解形式，可直接填入，答案匹配。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "739",
+        "questionType": "FRQ",
+        "hasImage": true,
+        "standardAnswer": "[@]739a.png[@]",
+        "independentAnswer": null,
+        "solvabilityStatus": "image-context-required",
+        "answerMatchStatus": "not-checkable",
+        "severity": "P1",
+        "reason": "题目需要数线图像才能标记有向数，答案也为图像，无法检查。",
+        "recommendedAction": "提供数线图像或文字描述。"
+      },
+      {
+        "questionId": "115",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "H.C.F.\t= 5                         L.C.M.\t= 2400",
+        "independentAnswer": "H.C.F. = 5, L.C.M. = 2400",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "计算75、120、160的H.C.F.和L.C.M.，结果正确。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "132",
+        "questionType": "MCQ",
+        "hasImage": true,
+        "standardAnswer": "C",
+        "independentAnswer": null,
+        "solvabilityStatus": "image-context-required",
+        "answerMatchStatus": "not-checkable",
+        "severity": "P1",
+        "reason": "题目需要图像才能判断阴影部分比例，无法仅从文字求解。",
+        "recommendedAction": "提供图形或描述阴影区域。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 2,
+      "unsolvable": 0,
+      "ambiguous": 0,
+      "imageContextRequired": 3,
+      "answerMismatch": 0,
+      "missingAnswerKey": 0,
+      "notes": "三个题目需要不可检查的图像，两个题目可解且答案匹配。"
+    }
+  }
+}

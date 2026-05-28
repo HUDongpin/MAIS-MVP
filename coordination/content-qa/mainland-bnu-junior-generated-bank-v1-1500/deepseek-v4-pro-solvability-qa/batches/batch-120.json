@@ -1,0 +1,176 @@
+{
+  "batchNumber": 120,
+  "startedAt": "2026-05-27T18:03:50.662Z",
+  "completedAt": "2026-05-27T18:04:07.877Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s3-429",
+    "bnu-junior-ds-v1-s3-430",
+    "bnu-junior-ds-v1-s3-431",
+    "bnu-junior-ds-v1-s3-432",
+    "bnu-junior-ds-v1-s3-433",
+    "bnu-junior-ds-v1-s3-434",
+    "bnu-junior-ds-v1-s3-435",
+    "bnu-junior-ds-v1-s3-436",
+    "bnu-junior-ds-v1-s3-437",
+    "bnu-junior-ds-v1-s3-438",
+    "bnu-junior-ds-v1-s3-439",
+    "bnu-junior-ds-v1-s3-440"
+  ],
+  "usage": {
+    "prompt_tokens": 5343,
+    "completion_tokens": 1296,
+    "total_tokens": 6639,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 4831
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s3-429",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "正六边形边长等于外接圆半径，半径为4，边长为4，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-430",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "切线性质与勾股定理应用正确，OB=5，选项唯一且正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-431",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "垂径定理应用正确，OC=3 cm，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-432",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "圆内角定理应用正确，(80°+60°)/2=70°，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-433",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "切线长定理应用正确，PA=8，选项唯一且正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-434",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "圆内接四边形对角互补，∠C=110°，∠D=80°，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-435",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "弦所对圆周角分优弧劣弧两种情况，50°或130°正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-436",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "扇形面积公式应用正确，4π cm²，选项唯一且正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-437",
+        "status": "fail",
+        "severity": "major",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "60°",
+        "rationale": "解释中∠OCA=30°，∠OCD=90°，∠ACD=∠OCD-∠OCA=60°，但答案误写为30°，与解释矛盾。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-438",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "正六边形边长等于外接圆半径，半径为2，边长为2，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-439",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "垂径定理与勾股定理应用正确，解得r=10，选项唯一且正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-440",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "过圆内一点最短弦垂直于该点与圆心连线，计算得AB=8，答案正确。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 11,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第437题答案与解释不符，解释得出60°但答案写为30°，需修正。其余题目均正确。"
+    }
+  }
+}

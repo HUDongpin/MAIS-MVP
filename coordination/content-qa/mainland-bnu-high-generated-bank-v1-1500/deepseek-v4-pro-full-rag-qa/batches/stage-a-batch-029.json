@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-029",
+  "startedAt": "2026-05-28T00:39:54.154Z",
+  "completedAt": "2026-05-28T00:40:18.208Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-225",
+    "bnu-high-ds-v1-s4-226",
+    "bnu-high-ds-v1-s4-227",
+    "bnu-high-ds-v1-s4-228",
+    "bnu-high-ds-v1-s4-229",
+    "bnu-high-ds-v1-s4-230",
+    "bnu-high-ds-v1-s4-231",
+    "bnu-high-ds-v1-s4-232"
+  ],
+  "usage": {
+    "prompt_tokens": 9814,
+    "completion_tokens": 1362,
+    "total_tokens": 11176,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9430
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-225",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "3/5",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "从5个数字中取2个不同数字，共有C(5,2)=10种等可能结果。和为奇数需一奇一偶，奇数有3个（1,3,5），偶数有2个（2,4），故有3×2=6种，概率为6/10=3/5。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-226",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "A",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "总球数6，取2球共有C(6,2)=15种等可能结果。颜色不同的对立事件是颜色相同：同为红C(3,2)=3，同为蓝C(2,2)=1，同为绿C(1,2)=0，共4种。故颜色不同有15-4=11种，概率11/15，选A。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-227",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "样本空间：{(白,白),(白,黑),(黑,白),(黑,黑)}；概率：17/32",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "有放回摸球，每次摸球结果独立。样本空间为有序对，共4个样本点。两次同色概率：P(白,白)+P(黑,黑)=(5/8)*(5/8)+(3/8)*(3/8)=25/64+9/64=34/64=17/32。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-228",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "1/2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "密码被译出是至少一人译出，其对立事件是两人都未译出。P(都未译出)=(1-1/3)*(1-1/4)=(2/3)*(3/4)=1/2，故P(译出)=1-1/2=1/2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-229",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "C",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "古典概型要求有限等可能。A发芽与否不等可能；B直径是连续变量，无限结果；C硬币均匀，正面反面等可能，有限；D命中与否不等可能。故C正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-230",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "样本点总数：216；概率：1/72",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "每次抛掷有6种结果，3次共6^3=216个样本点。三次点数之和为4的组合只有(1,1,2)及其排列，共3种排列，故概率=3/216=1/72。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-231",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "A∪B = { {1,3}, {1,5}, {2,4}, {3,5} }",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "从5个球中取2个，样本空间为所有无序对。A：和为偶数，即两数同奇偶。奇数{1,3,5}中取2个有{1,3},{1,5},{3,5}；偶数{2,4}中取2个有{2,4}。B：积为奇数，即两数均为奇数，故B={ {1,3},{1,5},{3,5} }。A∪B包含A和B的所有元素，即{ {1,3},{1,5},{3,5},{2,4} }。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-232",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "事件A与事件B不互斥但也不对立",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "A：至少1名女生；B：恰有2名男生。当抽到2名男生和1名女生时，A和B同时发生，故不互斥。A的对立事件是“没有女生”，即3人全是男生，但B包含2男1女，不是A的对立事件，故不对立。因此选“不互斥但也不对立”。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均能独立求解，符合北师大版高中概率章节要求，无数学错误或歧义。"
+    }
+  }
+}

@@ -1,0 +1,149 @@
+{
+  "batchNumber": 137,
+  "startedAt": "2026-05-27T14:06:47.529Z",
+  "completedAt": "2026-05-27T14:07:09.655Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-089",
+    "bnu-high-ds-v1-s6-090",
+    "bnu-high-ds-v1-s6-091",
+    "bnu-high-ds-v1-s6-092",
+    "bnu-high-ds-v1-s6-093",
+    "bnu-high-ds-v1-s6-094",
+    "bnu-high-ds-v1-s6-095",
+    "bnu-high-ds-v1-s6-096"
+  ],
+  "usage": {
+    "prompt_tokens": 11907,
+    "completion_tokens": 1329,
+    "total_tokens": 13236,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 11395
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-089",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(1) 证明见解析；(2) S_n = 3^n - 1 - n",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "递推式可构造等比数列，通项正确，求和公式无误，解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-090",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由等比数列通项公式直接求解，公比唯一，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-091",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "无正确选项",
+        "correctedAnswer": "题目条件与选项不匹配，需修改递推式或选项",
+        "issueTags": [
+          "math_error",
+          "bad_options",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "按给定递推式 a_{n+1}=2a_n+3n-1 构造等比数列，解得 p=3/2, q=1/4, p+q=7/4，不在选项中。解析中自行修改递推式得到 p+q=2，与题目矛盾，题目不可解。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-092",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "a_1 = 2, d = 2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "利用等差数列性质转化为中项求解，步骤正确，答案唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-093",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "q=2 或 q=-3",
+        "correctedAnswer": "题目应限定“公比 q 为正整数”或“q>0”，否则答案不唯一",
+        "issueTags": [
+          "ambiguous_mc",
+          "missing_condition",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "由 S_3=21 解得 q=2 或 q=-3，均为整数，题目未限定正负，答案不唯一。解析中自行添加“正”的条件，与题目不符。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-094",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "100",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "累加法求通项得 a_n=n^2，a_10=100，选项唯一，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-095",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "a_n = 2^n - 3^{n-1}",
+        "correctedAnswer": "a_n = 2^n - 3^{n-1}",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "给出的答案 a_n=3^{n-1}+2^{n-1} 不满足 a_1=1，正确通项应为 a_n=2^n-3^{n-1}。解析中已指出错误但答案未修正。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-096",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "24",
+        "correctedAnswer": "24",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "由 S_n 求得 a_5+a_6=S_6-S_4=24，答案误写为15，解析中已指出错误但答案未修正。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 4,
+      "warn": 0,
+      "fail": 4,
+      "notes": "8题中4题通过，4题不通过。不通过原因：1题递推式与选项不匹配导致无解；1题等比数列公比答案不唯一；2题答案与解析自相矛盾，正确答案与给定答案不符。"
+    }
+  }
+}

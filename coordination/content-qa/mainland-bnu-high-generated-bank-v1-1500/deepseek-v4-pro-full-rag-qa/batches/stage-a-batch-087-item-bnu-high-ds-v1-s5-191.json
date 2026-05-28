@@ -1,0 +1,41 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-087-item-bnu-high-ds-v1-s5-191",
+  "startedAt": "2026-05-28T02:47:40.800Z",
+  "completedAt": "2026-05-28T02:47:44.834Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-191"
+  ],
+  "usage": {
+    "prompt_tokens": 1643,
+    "completion_tokens": 192,
+    "total_tokens": 1835,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1259
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-191",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "1",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由点A(1,2,3)、B(4,5,6)、C(7,8,9)得向量AB=(3,3,3)，AC=(6,6,6)。两向量共线，夹角为0，余弦值为1。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 1,
+      "warn": 0,
+      "fail": 0,
+      "notes": "题目可解，向量共线，夹角余弦为1。"
+    }
+  }
+}

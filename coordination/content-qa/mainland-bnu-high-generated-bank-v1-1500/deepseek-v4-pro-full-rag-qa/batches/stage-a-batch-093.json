@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-093",
+  "startedAt": "2026-05-28T01:20:09.326Z",
+  "completedAt": "2026-05-28T01:20:37.143Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-237",
+    "bnu-high-ds-v1-s5-238",
+    "bnu-high-ds-v1-s5-239",
+    "bnu-high-ds-v1-s5-240",
+    "bnu-high-ds-v1-s5-241",
+    "bnu-high-ds-v1-s5-242",
+    "bnu-high-ds-v1-s5-243",
+    "bnu-high-ds-v1-s5-244"
+  ],
+  "usage": {
+    "prompt_tokens": 10512,
+    "completion_tokens": 1741,
+    "total_tokens": 12253,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 10128
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-237",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(2,0) 或 (4,0)",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "设P(x,0)，由∠APB=90°得向量PA·PB=0，即(1-x,2)·(5-x,6)=0，解得x=2或4，故P(2,0)或(4,0)。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-238",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "k = -2 或 k = 1/2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "圆心C(2,-1)，半径r=2。直线l: kx-y+3=0。弦心距d=|2k+1+3|/√(k²+1)=|2k+4|/√(k²+1)。弦长|AB|=2√(r²-d²)。△ABC面积=1/2·|AB|·d=2√3，代入得d√(4-d²)=2√3，解得d²=2或d²=2（舍去负根），即d=√2。由|2k+4|/√(k²+1)=√2，平方得(2k+4)²=2(k²+1)，解得k=-2或k=1/2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-239",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "标准方程为 (x-4)²+(y-3)²=5，建模假设：花坛边界为理想圆，三点不共线，坐标系为平面直角坐标系。",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "设圆心(a,b)，由|CA|=|CB|=|CC|得方程组，解得a=4,b=3，半径r=√5，故方程为(x-4)²+(y-3)²=5。建模假设：花坛边界为理想圆，三点不共线，坐标系为平面直角坐标系。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-240",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(2,0) 或 (4,0)",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "与237题相同，设P(x,0)，由∠APB=90°得向量PA·PB=0，解得x=2或4，故P(2,0)或(4,0)。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-241",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "1 或 -1/7",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "圆心C(3,-1)，半径r=5。设直线l: y-2=k(x-5)，即kx-y+2-5k=0。弦中点M满足CM⊥l，故M在过C且垂直于l的直线上。设M坐标，利用M在l上及CM⊥l，得M( (3k²+5k+1)/(k²+1), (4k²+2k-1)/(k²+1) )。M到直线x-2y+3=0距离为1，代入距离公式得|7k²+1|/√5(k²+1)=1，解得k=1或k=-1/7。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-242",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "小路方程为 x=8 或 3x+4y-28=0。建模假设：小路为直线，花坛边界为理想圆，坐标系为平面直角坐标系。",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "圆方程化为(x-3)²+(y+2)²=25，圆心(3,-2)，半径5。设切线过(8,1)，斜率k，方程为y-1=k(x-8)。由圆心到切线距离等于半径得|3k+2+1-8k|/√(k²+1)=5，即|-5k+3|=5√(k²+1)，平方解得k=0或k=-3/4。k=0时切线y=1，但点(8,1)在圆外，切线y=1与圆相切？检验：圆心到y=1距离为3<5，不相切，舍去。实际上k=0时距离为|3|=3≠5，故舍去。k=-3/4时切线3x+4y-28=0。另考虑斜率不存在，x=8，圆心到x=8距离为5，相切。故小路方程为x=8或3x+4y-28=0。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-243",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(x-2.5)²+(y-4)²=9",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "设P(x,y)，由|PA|²+|PB|²=50得(x-1)²+(y-2)²+(x-4)²+(y-6)²=50，化简得x²+y²-5x-8y+3=0，配方得(x-2.5)²+(y-4)²=9。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-244",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "-2 或 1/2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "圆C: (x-2)²+(y+1)²=25，圆心(2,-1)，半径5。直线l: mx-y+1-3m=0。弦心距d=|2m+1+1-3m|/√(m²+1)=|2-m|/√(m²+1)。弦长=2√(25-d²)=8，解得d=3。由|2-m|/√(m²+1)=3，平方得(2-m)²=9(m²+1)，解得m=-2或m=1/2。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，无数学错误、歧义或缺失条件，符合北师大版S5解析几何与数学建模要求。"
+    }
+  }
+}

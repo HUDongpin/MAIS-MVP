@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-497",
+  "startedAt": "2026-05-28T01:35:44.353Z",
+  "completedAt": "2026-05-28T01:35:48.682Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-497"
+  ],
+  "usage": {
+    "prompt_tokens": 2250,
+    "completion_tokens": 242,
+    "total_tokens": 2492,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1866
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-497",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "independentAnswer": "B",
+        "correctedAnswer": null,
+        "issueTags": [
+          "ambiguous_mc",
+          "bad_options",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "选项B和C均正确，但题目为单选题，存在多个正确选项，违反唯一解原则；解析未指出此问题，且存储答案仅选B，与数学事实矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目存在多个正确选项（B和C），无法作为有效单选题，判定为不合格。"
+    }
+  }
+}

@@ -1,0 +1,191 @@
+{
+  "batchNumber": 2,
+  "startedAt": "2026-05-24T17:22:29.677Z",
+  "completedAt": "2026-05-24T17:22:45.037Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-candidate-k01-mc-019",
+    "pep-junior-candidate-k01-mc-020",
+    "pep-junior-candidate-k01-mc-021",
+    "pep-junior-candidate-k01-mc-022",
+    "pep-junior-candidate-k01-mc-023",
+    "pep-junior-candidate-k01-mc-024",
+    "pep-junior-candidate-k01-mc-025",
+    "pep-junior-candidate-k01-mc-026",
+    "pep-junior-candidate-k01-mc-027",
+    "pep-junior-candidate-k01-mc-028",
+    "pep-junior-candidate-k01-fi-001",
+    "pep-junior-candidate-k01-fi-002",
+    "pep-junior-candidate-k01-fi-003",
+    "pep-junior-candidate-k01-fi-004",
+    "pep-junior-candidate-k01-fi-005",
+    "pep-junior-candidate-k01-fi-006",
+    "pep-junior-candidate-k01-fi-007",
+    "pep-junior-candidate-k01-fi-008"
+  ],
+  "usage": {
+    "prompt_tokens": 2792,
+    "completion_tokens": 1300,
+    "total_tokens": 4092,
+    "prompt_tokens_details": {
+      "cached_tokens": 2688
+    },
+    "prompt_cache_hit_tokens": 2688,
+    "prompt_cache_miss_tokens": 104
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-candidate-k01-mc-019",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项合理，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k01-mc-020",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项合理，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k01-mc-021",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项合理，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k01-mc-022",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项合理，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k01-mc-023",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项合理，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k01-mc-024",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项合理，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k01-mc-025",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项合理，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k01-mc-026",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项合理，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k01-mc-027",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项合理，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k01-mc-028",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项合理，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k01-fi-001",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案唯一，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k01-fi-002",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案唯一，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k01-fi-003",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案唯一，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k01-fi-004",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案唯一，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k01-fi-005",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案唯一，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k01-fi-006",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案唯一，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k01-fi-007",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案唯一，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k01-fi-008",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案唯一，无歧义。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目计算正确，选项或答案无歧义，符合人教版初中数学要求，适合入库。"
+    }
+  }
+}

@@ -1,0 +1,586 @@
+{
+  "batchId": "batch-089",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p4-131",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "p4-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "整理与复习",
+        "数学好玩",
+        "总复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "topic not identified before solving",
+        "review treated as isolated drill only",
+        "answer accepted without reasonableness check"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-large-numbers-unit",
+        "bnu-primary-p4-upper-assessment-lines-angles-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在整理本学期学过的“线与角”知识时，小乐写下了下面一段话，但其中有一处错误。请你仔细阅读，找出错误的那句话，并把改正后的句子写在横线上。\n\n① 线段有两个端点，可以量出长度。\n② 射线只有一个端点，可以向一端无限延伸。\n③ 直线没有端点，可以向两端无限延伸。\n④ 大于90°的角都是钝角。\n\n错误的一句话是第______句。\n改正：________________________________________________________________________",
+      "optionsZhHans": [],
+      "answer": "④；大于90°且小于180°的角才是钝角（或：钝角是大于90°且小于180°的角）",
+      "acceptedAnswers": [
+        "④；大于90°且小于180°的角才是钝角（或：钝角是大于90°且小于180°的角）",
+        "④；大于90°且小于180°的角才是钝角",
+        "④；钝角是大于90°且小于180°的角",
+        "④；大于90°而小于180°的角是钝角"
+      ],
+      "explanationZhHans": "第④句错误，因为大于90°的角还包括平角（180°）和优角等。钝角必须大于90°且小于180°。改正时需强调这个范围。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-132",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "p4-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "整理与复习",
+        "数学好玩",
+        "总复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "topic not identified before solving",
+        "review treated as isolated drill only",
+        "answer accepted without reasonableness check"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-large-numbers-unit",
+        "bnu-primary-p4-upper-assessment-lines-angles-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "本学期我们学习了“认识更大的数”。请你用本学期学到的知识，写一写下面这个大数：\n\n一个数由5个十亿、3个亿、8个千万、2个十万和6个千组成。\n\n（1）这个数写作：________________\n（2）这个数读作：________________\n（3）省略亿位后面的尾数，它的近似数是________亿。",
+      "optionsZhHans": [],
+      "answer": "（1）5380206000；（2）五十三亿八千零二十万六千；（3）54",
+      "acceptedAnswers": [
+        "（1）5380206000；（2）五十三亿八千零二十万六千；（3）54",
+        "（1）5380206000；（2）五十三亿八千零二十万六千；（3）54亿"
+      ],
+      "explanationZhHans": "根据数位顺序表，5个十亿是5000000000，3个亿是300000000，8个千万是80000000，2个十万是200000，6个千是6000，合起来是5380206000。读作五十三亿八千零二十万六千。省略亿位尾数看千万位是8，五入，约54亿。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-133",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "p4-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "整理与复习",
+        "数学好玩",
+        "总复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "topic not identified before solving",
+        "review treated as isolated drill only",
+        "answer accepted without reasonableness check"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-large-numbers-unit",
+        "bnu-primary-p4-upper-assessment-lines-angles-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在“数学好玩”活动中，同学们用一副三角尺拼出了不同的角。下面哪个度数的角不可能用一副三角尺拼出来？",
+      "optionsZhHans": [
+        "A. 75°",
+        "B. 105°",
+        "C. 130°",
+        "D. 150°"
+      ],
+      "answer": "C. 130°",
+      "acceptedAnswers": [
+        "C. 130°"
+      ],
+      "explanationZhHans": "一副三角尺的角有30°、60°、90°和45°、45°、90°。通过相加或相减可以得到75°（30°+45°）、105°（60°+45°）、150°（90°+60°）等，但130°无法用这些角拼出。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-134",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "p4-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "整理与复习",
+        "数学好玩",
+        "总复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "topic not identified before solving",
+        "review treated as isolated drill only",
+        "answer accepted without reasonableness check"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-large-numbers-unit",
+        "bnu-primary-p4-upper-assessment-lines-angles-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在总复习时，老师让同学们用计算器计算“123×456”，但小马虎把“456”输成了“455”。他得到的积比正确的积少了多少？\n\n答：少了________。",
+      "optionsZhHans": [],
+      "answer": "123",
+      "acceptedAnswers": [
+        "123"
+      ],
+      "explanationZhHans": "正确的积是123×456，错误的积是123×455。相差123×456－123×455＝123×(456－455)＝123×1＝123。所以少了123。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-135",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "p4-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "整理与复习",
+        "数学好玩",
+        "总复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "topic not identified before solving",
+        "review treated as isolated drill only",
+        "answer accepted without reasonableness check"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-large-numbers-unit",
+        "bnu-primary-p4-upper-assessment-lines-angles-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是小明在整理“运算律”时列出的一些算式，请你帮他判断哪些算式运用了乘法分配律，并写出你的理由。\n\n① 25×(4+8)=25×4+25×8\n② 125×32×25=(125×8)×(4×25)\n③ 99×36+36=36×(99+1)\n④ 78×101=78×100+78\n\n运用了乘法分配律的算式有：________________（填序号）\n理由：________________________________________________________________________",
+      "optionsZhHans": [],
+      "answer": "①③④；理由：①是把25分别与4和8相乘再相加；③是逆用分配律把36提取出来；④是把101拆成100+1，再用分配律。②运用的是乘法结合律。",
+      "acceptedAnswers": [
+        "①③④；理由：①是把25分别与4和8相乘再相加；③是逆用分配律把36提取出来；④是把101拆成100+1，再用分配律。②运用的是乘法结合律。",
+        "①③④；①③④都符合乘法分配律的形式，②是乘法结合律。"
+      ],
+      "explanationZhHans": "乘法分配律是(a+b)×c=a×c+b×c。①是正用，③是逆用，④是拆分后正用。②是三个数连乘，运用了乘法结合律，不是分配律。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-136",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "p4-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "整理与复习",
+        "数学好玩",
+        "总复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "topic not identified before solving",
+        "review treated as isolated drill only",
+        "answer accepted without reasonableness check"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-large-numbers-unit",
+        "bnu-primary-p4-upper-assessment-lines-angles-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在“方向与位置”的复习中，老师给出了一个点的位置描述：“点A在点B的北偏东30°方向，距离200米处。”下面哪种说法与这句话表示的位置相同？",
+      "optionsZhHans": [
+        "A. 点B在点A的南偏西30°方向，距离200米处",
+        "B. 点B在点A的北偏西30°方向，距离200米处",
+        "C. 点B在点A的东偏北30°方向，距离200米处",
+        "D. 点B在点A的南偏东30°方向，距离200米处"
+      ],
+      "answer": "A. 点B在点A的南偏西30°方向，距离200米处",
+      "acceptedAnswers": [
+        "A. 点B在点A的南偏西30°方向，距离200米处"
+      ],
+      "explanationZhHans": "两个点的相对位置，方向相反，角度相同，距离相等。点A在点B的北偏东30°，则点B在点A的南偏西30°，距离不变。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-137",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "p4-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "整理与复习",
+        "数学好玩",
+        "总复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "topic not identified before solving",
+        "review treated as isolated drill only",
+        "answer accepted without reasonableness check"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-large-numbers-unit",
+        "bnu-primary-p4-upper-assessment-lines-angles-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在整理“可能性”的知识时，小丽在一个盒子里放了5个红球和3个蓝球，球除颜色外完全相同。她每次摸出一个球，记录颜色后放回，摇匀再摸。她摸了20次，结果摸到红球14次，蓝球6次。根据这个结果，下面说法合理吗？在括号里打“√”或“×”。\n\n（1）下次摸到的一定是红球。（______）\n（2）再摸一次，摸到红球的可能性比蓝球大。（______）\n（3）摸到蓝球的次数少，说明蓝球的数量可能比红球少。（______）",
+      "optionsZhHans": [],
+      "answer": "（1）×；（2）√；（3）√",
+      "acceptedAnswers": [
+        "（1）×；（2）√；（3）√"
+      ],
+      "explanationZhHans": "（1）虽然红球多，但下次摸球结果不确定，不能说一定。（2）红球数量多，摸到红球的可能性大，合理。（3）摸球结果可以推测数量多少，合理。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-138",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "p4-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "整理与复习",
+        "数学好玩",
+        "总复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "topic not identified before solving",
+        "review treated as isolated drill only",
+        "answer accepted without reasonableness check"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-large-numbers-unit",
+        "bnu-primary-p4-upper-assessment-lines-angles-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "本学期我们学习了“生活中的负数”。请你用正负数表示下面生活中的数量。\n\n（1）如果向东走50米记作+50米，那么向西走30米记作________米。\n（2）如果妈妈这个月的工资收入为8000元，记作+8000元，那么买衣服支出500元，记作________元。\n（3）如果水位上升0.3米记作+0.3米，那么水位下降0.2米记作________米。",
+      "optionsZhHans": [],
+      "answer": "（1）-30；（2）-500；（3）-0.2",
+      "acceptedAnswers": [
+        "（1）-30；（2）-500；（3）-0.2"
+      ],
+      "explanationZhHans": "正负数表示相反意义的量。向东为正，则向西为负；收入为正，则支出为负；上升为正，则下降为负。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-139",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "p4-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "整理与复习",
+        "数学好玩",
+        "总复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "topic not identified before solving",
+        "review treated as isolated drill only",
+        "answer accepted without reasonableness check"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-large-numbers-unit",
+        "bnu-primary-p4-upper-assessment-lines-angles-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在“数学好玩”的“数图形的学问”中，我们学会了有序地数线段。下面图形中一共有多少条线段？\n\n一条直线上有A、B、C、D、E五个点，从左到右依次排列。",
+      "optionsZhHans": [
+        "A. 5条",
+        "B. 8条",
+        "C. 10条",
+        "D. 15条"
+      ],
+      "answer": "C. 10条",
+      "acceptedAnswers": [
+        "C. 10条"
+      ],
+      "explanationZhHans": "5个点，每两点确定一条线段。从第一个点出发有4条，第二个点出发有3条，第三个点出发有2条，第四个点出发有1条，共4+3+2+1=10条。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-140",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "p4-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "整理与复习",
+        "数学好玩",
+        "总复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "topic not identified before solving",
+        "review treated as isolated drill only",
+        "answer accepted without reasonableness check"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-large-numbers-unit",
+        "bnu-primary-p4-upper-assessment-lines-angles-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在总复习中，老师让同学们用计算器探索规律。先用计算器计算前三题，再根据规律直接写出后两题的得数。\n\n1×8+1=9\n12×8+2=98\n123×8+3=987\n1234×8+4=________\n12345×8+5=________",
+      "optionsZhHans": [],
+      "answer": "9876；98765",
+      "acceptedAnswers": [
+        "9876；98765",
+        "9876, 98765"
+      ],
+      "explanationZhHans": "观察规律：第一个因数依次增加一位，从1到12到123……，乘8加个位数字，结果是从9开始依次增加一位降序排列。所以1234×8+4=9876，12345×8+5=98765。"
+    }
+  ]
+}

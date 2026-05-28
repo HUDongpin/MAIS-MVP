@@ -1,0 +1,137 @@
+{
+  "batchNumber": 53,
+  "startedAt": "2026-05-27T13:52:56.695Z",
+  "completedAt": "2026-05-27T13:53:14.722Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-417",
+    "bnu-high-ds-v1-s4-418",
+    "bnu-high-ds-v1-s4-419",
+    "bnu-high-ds-v1-s4-420",
+    "bnu-high-ds-v1-s4-421",
+    "bnu-high-ds-v1-s4-422",
+    "bnu-high-ds-v1-s4-423",
+    "bnu-high-ds-v1-s4-424"
+  ],
+  "usage": {
+    "prompt_tokens": 10975,
+    "completion_tokens": 1178,
+    "total_tokens": 12153,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10463
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-417",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "33/65",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可独立求解。独立计算得 sin α = 33/65，与答案一致。解析步骤正确，与答案相符。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-418",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目明确，可解。辅助角公式得最大值为2，选项唯一正确。解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-419",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "-1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "条件充分，可解。独立计算 tan 2α = -1，与答案一致。解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-420",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "√3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，利用正切和角公式得 √3。答案与解析均正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-421",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "(-24-7√3)/50",
+        "correctedAnswer": "(-24-7√3)/50",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立计算得 sin(2α+π/3) = (-24-7√3)/50，但题目答案和解析均错误地写为 (-24+7√3)/50，解析中最后一步符号错误。选项A为 (-24+7√3)/50，选项D为 (-24-7√3)/50，正确选项应为D，但答案选A，导致答案不匹配且解析矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-422",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "证明：左边=(sinθ+2sinθcosθ)/(1+cosθ+2cos²θ-1)=sinθ(1+2cosθ)/[cosθ(1+2cosθ)]=tanθ=右边。",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "恒等式可证，答案与解析一致，推导正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-423",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "3/22",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，独立计算得 3/22，与答案一致。解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-424",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，辅助角公式后求区间最大值得2，选项唯一正确。解析正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第421题存在数学错误，答案和解析均不正确，正确结果应为 (-24-7√3)/50，对应选项D，但题目答案误为A。其余题目均通过审核。"
+    }
+  }
+}

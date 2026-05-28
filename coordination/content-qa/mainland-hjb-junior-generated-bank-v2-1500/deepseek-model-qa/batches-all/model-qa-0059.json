@@ -1,0 +1,114 @@
+{
+  "batchId": "model-qa-0059",
+  "ids": [
+    "hjb-junior-ds-v2-s1-465",
+    "hjb-junior-ds-v2-s1-466",
+    "hjb-junior-ds-v2-s1-467",
+    "hjb-junior-ds-v2-s1-468",
+    "hjb-junior-ds-v2-s1-469",
+    "hjb-junior-ds-v2-s1-470",
+    "hjb-junior-ds-v2-s1-471",
+    "hjb-junior-ds-v2-s1-472"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-465",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "等腰三角形一腰上的高与另一腰的夹角为20°，顶角可能为40°或140°（高在三角形内或外）。标准答案只给出40°，不完整。解析中提及α/2=20°或70°，但未正确得出140°，且最终只取40°，与正确解答矛盾。",
+      "independentAnswerZhHans": "顶角为40°或140°。",
+      "answerCheckZhHans": "标准答案为40°，但正确应为40°或140°，因此答案错误。",
+      "recommendedActionZhHans": "修正答案为40°或140°，并更新解析以包含两种情况。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-466",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析中计算∠DAC = ∠A - ∠BAD = 80° - 50° = 30°，但标准答案给出20°，与解析矛盾。正确计算应为30°，选项中有30°。",
+      "independentAnswerZhHans": "30°",
+      "answerCheckZhHans": "标准答案为20°，但根据解析和独立计算，正确答案为30°。",
+      "recommendedActionZhHans": "将答案改为30°，并修正解析中的笔误（解析本身得出30°，但答案写为20°）。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-467",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "90°",
+      "answerCheckZhHans": "标准答案90°正确，解析推导无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-468",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析中计算∠DAC = ∠A - ∠BAD = 70° - 55° = 15°，但∠A=50°，不是70°。正确计算：∠B=∠C=65°，∠BAD=∠B=65°，∠DAC=50°-65°=-15°，不可能。题目条件矛盾：AD=BD且AB=AC，∠A=50°时，点D在BC上无法满足AD=BD。",
+      "independentAnswerZhHans": "无解，条件矛盾。",
+      "answerCheckZhHans": "标准答案15°错误，题目条件导致矛盾。",
+      "recommendedActionZhHans": "检查题目条件，可能∠A应为其他值（如40°）或点D位置不同。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-469",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "30°",
+      "answerCheckZhHans": "标准答案30°正确，解析推导无误。acceptedAnswers覆盖了多种格式。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-470",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "multiple-correct-options"
+      ],
+      "issueDetailsZhHans": "由等腰三角形三线合一，D为BC中点，AD是中线，因此AD也是高和角平分线。选项A“AD是BC的垂直平分线”也正确（AD⊥BC且BD=CD），选项B“AD平分∠BAC且AD⊥BC”正确，选项C“BD=CD”正确。但题目要求“能直接由‘等腰三角形三线合一’推出的是”，可能期望B，但A和C也直接由三线合一推出。存在多个正确选项。",
+      "independentAnswerZhHans": "A、B、C均正确。",
+      "answerCheckZhHans": "标准答案只选B，但A和C也正确，导致多解。",
+      "recommendedActionZhHans": "修改选项或题干，确保只有一个正确选项。例如，将A改为“AD是BC的垂直平分线”可能被视为与B重复，但严格来说A也是正确的。可考虑将题干改为“下列结论中，不正确的是”或调整选项。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-471",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "65°",
+      "answerCheckZhHans": "标准答案65°正确，解析无误。acceptedAnswers覆盖了带°和不带°的情况。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-472",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "∠B = ∠C",
+      "answerCheckZhHans": "标准答案正确，解析无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

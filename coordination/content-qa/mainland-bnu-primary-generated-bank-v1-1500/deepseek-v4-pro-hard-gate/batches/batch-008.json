@@ -1,0 +1,330 @@
+{
+  "batchNumber": 8,
+  "startedAt": "2026-05-27T03:37:04.297Z",
+  "completedAt": "2026-05-27T03:37:30.315Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p1-211",
+    "bnu-primary-ds-v1-p1-212",
+    "bnu-primary-ds-v1-p1-213",
+    "bnu-primary-ds-v1-p1-214",
+    "bnu-primary-ds-v1-p1-215",
+    "bnu-primary-ds-v1-p1-216",
+    "bnu-primary-ds-v1-p1-217",
+    "bnu-primary-ds-v1-p1-218",
+    "bnu-primary-ds-v1-p1-219",
+    "bnu-primary-ds-v1-p1-220",
+    "bnu-primary-ds-v1-p1-221",
+    "bnu-primary-ds-v1-p1-222",
+    "bnu-primary-ds-v1-p1-223",
+    "bnu-primary-ds-v1-p1-224",
+    "bnu-primary-ds-v1-p1-225",
+    "bnu-primary-ds-v1-p1-226",
+    "bnu-primary-ds-v1-p1-227",
+    "bnu-primary-ds-v1-p1-228",
+    "bnu-primary-ds-v1-p1-229",
+    "bnu-primary-ds-v1-p1-230",
+    "bnu-primary-ds-v1-p1-231",
+    "bnu-primary-ds-v1-p1-232",
+    "bnu-primary-ds-v1-p1-233",
+    "bnu-primary-ds-v1-p1-234",
+    "bnu-primary-ds-v1-p1-235",
+    "bnu-primary-ds-v1-p1-236",
+    "bnu-primary-ds-v1-p1-237",
+    "bnu-primary-ds-v1-p1-238",
+    "bnu-primary-ds-v1-p1-239",
+    "bnu-primary-ds-v1-p1-240"
+  ],
+  "usage": {
+    "prompt_tokens": 5645,
+    "completion_tokens": 2346,
+    "total_tokens": 7991,
+    "prompt_tokens_details": {
+      "cached_tokens": 5632
+    },
+    "prompt_cache_hit_tokens": 5632,
+    "prompt_cache_miss_tokens": 13
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p1-211",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目清晰，选项唯一正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-212",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "计算正确，答案唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-213",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "45-20+3=28，选项唯一正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-214",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "23+6=29，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-215",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "45+6=51是五十多，其他选项得50，唯一正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-216",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "63十位减2得43，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-217",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "58-30+5=33，选项唯一正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-218",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "25+20=45，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-219",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "24+30=54，选项唯一正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-220",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "76-5=71，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-221",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "25-8+12=29，选项唯一正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-222",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "估算合理，计算34-9+15=40正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-223",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "46-18+13=41，约40，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-224",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "两种方法均得45，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-225",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "42-12+8=38，选项唯一正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-226",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "判断正确，计算38-14+9=33。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-227",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "50-7+15=58，选项唯一正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-228",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "计算63-28+16=51，逆运算检查正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-229",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "估算方法合理，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-230",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "策略合理，计算75-36+24=63正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-231",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "36-18=18，选项唯一正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-232",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "42-15+20=47，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-233",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "29-8+12=33，选项唯一正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-234",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "50-8-12=30，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-235",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "70-25-18=27，选项唯一正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-236",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "规律+3，填14正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-237",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "前三组+2，最后一组+5，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-238",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "规律正确，下一个是△。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-239",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "8+5-1=12，选项唯一正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-240",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "排序后第二个是28，答案正确。"
+      }
+    ],
+    "batchSummary": {
+      "solvableYes": 30,
+      "solvableNo": 0,
+      "answerMatchYes": 30,
+      "answerMatchNo": 0,
+      "notes": "全部30题均可解且答案匹配，无问题。"
+    }
+  }
+}

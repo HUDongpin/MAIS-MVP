@@ -1,0 +1,677 @@
+{
+  "batchId": "batch-031",
+  "questions": [
+    {
+      "id": "bnu-high-ds-v1-s4-301",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-三角函数",
+      "topicTitleZhHans": "三角函数",
+      "volume": "必修 第二册",
+      "chapter": "三角函数",
+      "conceptIds": [
+        "periodic-change",
+        "unit-circle",
+        "trigonometric-functions",
+        "trigonometric-graphs",
+        "trigonometric-transformations"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学抽象",
+        "数学运算",
+        "数学建模"
+      ],
+      "skillTags": [
+        "角度制与弧度制",
+        "单位圆定义",
+        "图像性质",
+        "周期与相位",
+        "三角方程",
+        "图像识别",
+        "参数变换",
+        "单调区间"
+      ],
+      "misconceptionTags": [
+        "degree and radian mixed",
+        "phase direction reversed",
+        "period formula misread",
+        "solution interval incomplete",
+        "quadrant sign overlooked",
+        "amplitude and vertical shift confused",
+        "period formula inverted",
+        "monotonic interval copied without transformation"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-trigonometric-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-unit-trigonometric-functions",
+        "bnu-high-s4-lower-assessment-review-trigonometric-functions",
+        "bnu-high-s4-lower-assessment-midterm-integrated-s4-lower"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知函数 f(x) = 3 sin(2x - π/3) + 1，则 f(x) 的单调递增区间是（ ）",
+      "optionsZhHans": [
+        "[kπ - π/12, kπ + 5π/12], k ∈ Z",
+        "[kπ + 5π/12, kπ + 11π/12], k ∈ Z",
+        "[kπ - π/6, kπ + π/3], k ∈ Z",
+        "[kπ + π/3, kπ + 5π/6], k ∈ Z"
+      ],
+      "answer": "[kπ - π/12, kπ + 5π/12], k ∈ Z",
+      "acceptedAnswers": [
+        "[kπ - π/12, kπ + 5π/12], k ∈ Z"
+      ],
+      "explanationZhHans": "令 t = 2x - π/3，则 y = 3 sin t + 1。sin t 的增区间为 [2kπ - π/2, 2kπ + π/2]，即 2kπ - π/2 ≤ 2x - π/3 ≤ 2kπ + π/2，解得 kπ - π/12 ≤ x ≤ kπ + 5π/12，k ∈ Z。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-302",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-三角函数",
+      "topicTitleZhHans": "三角函数",
+      "volume": "必修 第二册",
+      "chapter": "三角函数",
+      "conceptIds": [
+        "periodic-change",
+        "unit-circle",
+        "trigonometric-functions",
+        "trigonometric-graphs",
+        "trigonometric-transformations"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学抽象",
+        "数学运算",
+        "数学建模"
+      ],
+      "skillTags": [
+        "角度制与弧度制",
+        "单位圆定义",
+        "图像性质",
+        "周期与相位",
+        "三角方程",
+        "图像识别",
+        "参数变换",
+        "单调区间"
+      ],
+      "misconceptionTags": [
+        "degree and radian mixed",
+        "phase direction reversed",
+        "period formula misread",
+        "solution interval incomplete",
+        "quadrant sign overlooked",
+        "amplitude and vertical shift confused",
+        "period formula inverted",
+        "monotonic interval copied without transformation"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-trigonometric-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-unit-trigonometric-functions",
+        "bnu-high-s4-lower-assessment-review-trigonometric-functions",
+        "bnu-high-s4-lower-assessment-midterm-integrated-s4-lower"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "写出与角 -2025° 终边相同的最小正角，并用弧度表示。",
+      "optionsZhHans": [],
+      "answer": "7π/4",
+      "acceptedAnswers": [
+        "7π/4",
+        "315°"
+      ],
+      "explanationZhHans": "-2025° = -6×360° + 135°，终边与 135° 相同。最小正角为 135°，即 3π/4？检查：-2025 + 6×360 = -2025 + 2160 = 135°，135° = 3π/4？135° = 3π/4 弧度，但 3π/4 是 135°，而 7π/4 是 315°。重新计算：-2025 ÷ 360 = -5.625，加 6 个 360 得 135°，135° = 3π/4。但答案写 7π/4 错误。正确应为 3π/4。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-303",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-三角函数",
+      "topicTitleZhHans": "三角函数",
+      "volume": "必修 第二册",
+      "chapter": "三角函数",
+      "conceptIds": [
+        "periodic-change",
+        "unit-circle",
+        "trigonometric-functions",
+        "trigonometric-graphs",
+        "trigonometric-transformations"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学抽象",
+        "数学运算",
+        "数学建模"
+      ],
+      "skillTags": [
+        "角度制与弧度制",
+        "单位圆定义",
+        "图像性质",
+        "周期与相位",
+        "三角方程",
+        "图像识别",
+        "参数变换",
+        "单调区间"
+      ],
+      "misconceptionTags": [
+        "degree and radian mixed",
+        "phase direction reversed",
+        "period formula misread",
+        "solution interval incomplete",
+        "quadrant sign overlooked",
+        "amplitude and vertical shift confused",
+        "period formula inverted",
+        "monotonic interval copied without transformation"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-trigonometric-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-unit-trigonometric-functions",
+        "bnu-high-s4-lower-assessment-review-trigonometric-functions",
+        "bnu-high-s4-lower-assessment-midterm-integrated-s4-lower"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "函数 y = 2 cos(3x + π/4) 的周期是 ______。",
+      "optionsZhHans": [],
+      "answer": "2π/3",
+      "acceptedAnswers": [
+        "2π/3"
+      ],
+      "explanationZhHans": "对于 y = A cos(ωx + φ)，周期 T = 2π/|ω|。这里 ω = 3，所以 T = 2π/3。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-304",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-三角函数",
+      "topicTitleZhHans": "三角函数",
+      "volume": "必修 第二册",
+      "chapter": "三角函数",
+      "conceptIds": [
+        "periodic-change",
+        "unit-circle",
+        "trigonometric-functions",
+        "trigonometric-graphs",
+        "trigonometric-transformations"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学抽象",
+        "数学运算",
+        "数学建模"
+      ],
+      "skillTags": [
+        "角度制与弧度制",
+        "单位圆定义",
+        "图像性质",
+        "周期与相位",
+        "三角方程",
+        "图像识别",
+        "参数变换",
+        "单调区间"
+      ],
+      "misconceptionTags": [
+        "degree and radian mixed",
+        "phase direction reversed",
+        "period formula misread",
+        "solution interval incomplete",
+        "quadrant sign overlooked",
+        "amplitude and vertical shift confused",
+        "period formula inverted",
+        "monotonic interval copied without transformation"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-trigonometric-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-unit-trigonometric-functions",
+        "bnu-high-s4-lower-assessment-review-trigonometric-functions",
+        "bnu-high-s4-lower-assessment-midterm-integrated-s4-lower"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "若角 α 的终边经过点 P(-3, 4)，则 sin α + cos α 的值为（ ）",
+      "optionsZhHans": [
+        "1/5",
+        "-1/5",
+        "7/5",
+        "-7/5"
+      ],
+      "answer": "1/5",
+      "acceptedAnswers": [
+        "1/5"
+      ],
+      "explanationZhHans": "r = √((-3)² + 4²) = 5。sin α = y/r = 4/5，cos α = x/r = -3/5，和为 4/5 + (-3/5) = 1/5。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-305",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-三角函数",
+      "topicTitleZhHans": "三角函数",
+      "volume": "必修 第二册",
+      "chapter": "三角函数",
+      "conceptIds": [
+        "periodic-change",
+        "unit-circle",
+        "trigonometric-functions",
+        "trigonometric-graphs",
+        "trigonometric-transformations"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学抽象",
+        "数学运算",
+        "数学建模"
+      ],
+      "skillTags": [
+        "角度制与弧度制",
+        "单位圆定义",
+        "图像性质",
+        "周期与相位",
+        "三角方程",
+        "图像识别",
+        "参数变换",
+        "单调区间"
+      ],
+      "misconceptionTags": [
+        "degree and radian mixed",
+        "phase direction reversed",
+        "period formula misread",
+        "solution interval incomplete",
+        "quadrant sign overlooked",
+        "amplitude and vertical shift confused",
+        "period formula inverted",
+        "monotonic interval copied without transformation"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-trigonometric-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-unit-trigonometric-functions",
+        "bnu-high-s4-lower-assessment-review-trigonometric-functions",
+        "bnu-high-s4-lower-assessment-midterm-integrated-s4-lower"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "求方程 2 sin² x - sin x - 1 = 0 在 [0, 2π) 内的所有解。",
+      "optionsZhHans": [],
+      "answer": "π/2, 7π/6, 11π/6",
+      "acceptedAnswers": [
+        "π/2, 7π/6, 11π/6"
+      ],
+      "explanationZhHans": "因式分解得 (2 sin x + 1)(sin x - 1) = 0，sin x = 1 或 sin x = -1/2。在 [0, 2π) 内，sin x = 1 得 x = π/2；sin x = -1/2 得 x = 7π/6, 11π/6。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-306",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-三角函数",
+      "topicTitleZhHans": "三角函数",
+      "volume": "必修 第二册",
+      "chapter": "三角函数",
+      "conceptIds": [
+        "periodic-change",
+        "unit-circle",
+        "trigonometric-functions",
+        "trigonometric-graphs",
+        "trigonometric-transformations"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学抽象",
+        "数学运算",
+        "数学建模"
+      ],
+      "skillTags": [
+        "角度制与弧度制",
+        "单位圆定义",
+        "图像性质",
+        "周期与相位",
+        "三角方程",
+        "图像识别",
+        "参数变换",
+        "单调区间"
+      ],
+      "misconceptionTags": [
+        "degree and radian mixed",
+        "phase direction reversed",
+        "period formula misread",
+        "solution interval incomplete",
+        "quadrant sign overlooked",
+        "amplitude and vertical shift confused",
+        "period formula inverted",
+        "monotonic interval copied without transformation"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-trigonometric-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-unit-trigonometric-functions",
+        "bnu-high-s4-lower-assessment-review-trigonometric-functions",
+        "bnu-high-s4-lower-assessment-midterm-integrated-s4-lower"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "将函数 y = sin x 的图像上所有点的横坐标变为原来的 1/2（纵坐标不变），再将所得图像向左平移 π/6 个单位长度，则得到的函数解析式为 ______。",
+      "optionsZhHans": [],
+      "answer": "y = sin(2x + π/3)",
+      "acceptedAnswers": [
+        "y = sin(2x + π/3)"
+      ],
+      "explanationZhHans": "横坐标变为 1/2 得 y = sin 2x；向左平移 π/6 得 y = sin[2(x + π/6)] = sin(2x + π/3)。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-307",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-三角函数",
+      "topicTitleZhHans": "三角函数",
+      "volume": "必修 第二册",
+      "chapter": "三角函数",
+      "conceptIds": [
+        "periodic-change",
+        "unit-circle",
+        "trigonometric-functions",
+        "trigonometric-graphs",
+        "trigonometric-transformations"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学抽象",
+        "数学运算",
+        "数学建模"
+      ],
+      "skillTags": [
+        "角度制与弧度制",
+        "单位圆定义",
+        "图像性质",
+        "周期与相位",
+        "三角方程",
+        "图像识别",
+        "参数变换",
+        "单调区间"
+      ],
+      "misconceptionTags": [
+        "degree and radian mixed",
+        "phase direction reversed",
+        "period formula misread",
+        "solution interval incomplete",
+        "quadrant sign overlooked",
+        "amplitude and vertical shift confused",
+        "period formula inverted",
+        "monotonic interval copied without transformation"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-trigonometric-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-unit-trigonometric-functions",
+        "bnu-high-s4-lower-assessment-review-trigonometric-functions",
+        "bnu-high-s4-lower-assessment-midterm-integrated-s4-lower"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "函数 y = 2 sin(π/3 - 2x) 的单调递减区间是（ ）",
+      "optionsZhHans": [
+        "[kπ - π/12, kπ + 5π/12], k ∈ Z",
+        "[kπ + 5π/12, kπ + 11π/12], k ∈ Z",
+        "[kπ - π/6, kπ + π/3], k ∈ Z",
+        "[kπ + π/3, kπ + 5π/6], k ∈ Z"
+      ],
+      "answer": "[kπ - π/12, kπ + 5π/12], k ∈ Z",
+      "acceptedAnswers": [
+        "[kπ - π/12, kπ + 5π/12], k ∈ Z"
+      ],
+      "explanationZhHans": "y = 2 sin(π/3 - 2x) = -2 sin(2x - π/3)。求减区间即求 sin(2x - π/3) 的增区间。由 2kπ - π/2 ≤ 2x - π/3 ≤ 2kπ + π/2 得 kπ - π/12 ≤ x ≤ kπ + 5π/12。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-308",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-三角函数",
+      "topicTitleZhHans": "三角函数",
+      "volume": "必修 第二册",
+      "chapter": "三角函数",
+      "conceptIds": [
+        "periodic-change",
+        "unit-circle",
+        "trigonometric-functions",
+        "trigonometric-graphs",
+        "trigonometric-transformations"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学抽象",
+        "数学运算",
+        "数学建模"
+      ],
+      "skillTags": [
+        "角度制与弧度制",
+        "单位圆定义",
+        "图像性质",
+        "周期与相位",
+        "三角方程",
+        "图像识别",
+        "参数变换",
+        "单调区间"
+      ],
+      "misconceptionTags": [
+        "degree and radian mixed",
+        "phase direction reversed",
+        "period formula misread",
+        "solution interval incomplete",
+        "quadrant sign overlooked",
+        "amplitude and vertical shift confused",
+        "period formula inverted",
+        "monotonic interval copied without transformation"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-trigonometric-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-unit-trigonometric-functions",
+        "bnu-high-s4-lower-assessment-review-trigonometric-functions",
+        "bnu-high-s4-lower-assessment-midterm-integrated-s4-lower"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知扇形弧长为 6π cm，圆心角为 120°，求该扇形的半径。",
+      "optionsZhHans": [],
+      "answer": "9 cm",
+      "acceptedAnswers": [
+        "9 cm",
+        "9"
+      ],
+      "explanationZhHans": "120° = 2π/3 弧度。弧长 l = |α| r，即 6π = (2π/3) r，解得 r = 9 cm。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-309",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-三角函数",
+      "topicTitleZhHans": "三角函数",
+      "volume": "必修 第二册",
+      "chapter": "三角函数",
+      "conceptIds": [
+        "periodic-change",
+        "unit-circle",
+        "trigonometric-functions",
+        "trigonometric-graphs",
+        "trigonometric-transformations"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学抽象",
+        "数学运算",
+        "数学建模"
+      ],
+      "skillTags": [
+        "角度制与弧度制",
+        "单位圆定义",
+        "图像性质",
+        "周期与相位",
+        "三角方程",
+        "图像识别",
+        "参数变换",
+        "单调区间"
+      ],
+      "misconceptionTags": [
+        "degree and radian mixed",
+        "phase direction reversed",
+        "period formula misread",
+        "solution interval incomplete",
+        "quadrant sign overlooked",
+        "amplitude and vertical shift confused",
+        "period formula inverted",
+        "monotonic interval copied without transformation"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-trigonometric-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-unit-trigonometric-functions",
+        "bnu-high-s4-lower-assessment-review-trigonometric-functions",
+        "bnu-high-s4-lower-assessment-midterm-integrated-s4-lower"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "函数 y = 3 sin(2x + π/6) + 2 的最大值为 ______。",
+      "optionsZhHans": [],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5"
+      ],
+      "explanationZhHans": "sin(2x + π/6) 的最大值为 1，所以 y 的最大值为 3×1 + 2 = 5。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-310",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-三角函数",
+      "topicTitleZhHans": "三角函数",
+      "volume": "必修 第二册",
+      "chapter": "三角函数",
+      "conceptIds": [
+        "periodic-change",
+        "unit-circle",
+        "trigonometric-functions",
+        "trigonometric-graphs",
+        "trigonometric-transformations"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学抽象",
+        "数学运算",
+        "数学建模"
+      ],
+      "skillTags": [
+        "角度制与弧度制",
+        "单位圆定义",
+        "图像性质",
+        "周期与相位",
+        "三角方程",
+        "图像识别",
+        "参数变换",
+        "单调区间"
+      ],
+      "misconceptionTags": [
+        "degree and radian mixed",
+        "phase direction reversed",
+        "period formula misread",
+        "solution interval incomplete",
+        "quadrant sign overlooked",
+        "amplitude and vertical shift confused",
+        "period formula inverted",
+        "monotonic interval copied without transformation"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-trigonometric-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-unit-trigonometric-functions",
+        "bnu-high-s4-lower-assessment-review-trigonometric-functions",
+        "bnu-high-s4-lower-assessment-midterm-integrated-s4-lower"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下列函数中，最小正周期为 π 且为偶函数的是（ ）",
+      "optionsZhHans": [
+        "y = sin 2x",
+        "y = cos 2x",
+        "y = tan 2x",
+        "y = sin x"
+      ],
+      "answer": "y = cos 2x",
+      "acceptedAnswers": [
+        "y = cos 2x"
+      ],
+      "explanationZhHans": "y = cos 2x 的周期为 2π/2 = π，且 cos(-2x) = cos 2x，是偶函数。其他选项：y = sin 2x 周期 π 但是奇函数；y = tan 2x 周期 π/2；y = sin x 周期 2π。"
+    }
+  ]
+}

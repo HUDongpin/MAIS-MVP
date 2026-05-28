@@ -1,0 +1,173 @@
+{
+  "batchNumber": 21,
+  "startedAt": "2026-05-27T17:27:16.599Z",
+  "completedAt": "2026-05-27T17:27:35.764Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s1-241",
+    "bnu-junior-ds-v1-s1-242",
+    "bnu-junior-ds-v1-s1-243",
+    "bnu-junior-ds-v1-s1-244",
+    "bnu-junior-ds-v1-s1-245",
+    "bnu-junior-ds-v1-s1-246",
+    "bnu-junior-ds-v1-s1-247",
+    "bnu-junior-ds-v1-s1-248",
+    "bnu-junior-ds-v1-s1-249",
+    "bnu-junior-ds-v1-s1-250",
+    "bnu-junior-ds-v1-s1-251",
+    "bnu-junior-ds-v1-s1-252"
+  ],
+  "usage": {
+    "prompt_tokens": 7268,
+    "completion_tokens": 1287,
+    "total_tokens": 8555,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 6756
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s1-241",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目明确，四种方案对比，方案四采用分层随机抽样，代表性最好，答案正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-242",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目完整，数据可计算，频数分布表正确，百分比计算无误，答案与解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-243",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目要求指出不足，答案指出样本容量小，符合抽样调查常见问题，acceptedAnswers覆盖合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-244",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "调查目的为七年级学生，方案二直接调查全校七年级，最具代表性，选项唯一，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-245",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "总人数计算正确，结论合理，因为篮球人数最多，符合调查目的，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-246",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目开放，答案提供了合理的调查问题和收集方法，acceptedAnswers覆盖典型回答，解释恰当。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-247",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项B直接询问最喜欢，与调查目的匹配，其他选项不相关，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-248",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方案三为全面调查，代表性最强，百分比计算正确，答案与解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-249",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比较比例适合扇形统计图，答案正确，acceptedAnswers包含饼图，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-250",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项C直接询问阅读时间，与调查目的匹配，其他选项偏离，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-251",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "总体、个体、样本定义正确，百分比计算无误，结论评价合理，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-252",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "频数最高为B选项，答案正确，acceptedAnswers包含选项字母和区间，解释清晰。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版七年级上册数据收集与整理单元要求，题目可解，答案与解释匹配，无错误或歧义。"
+    }
+  }
+}

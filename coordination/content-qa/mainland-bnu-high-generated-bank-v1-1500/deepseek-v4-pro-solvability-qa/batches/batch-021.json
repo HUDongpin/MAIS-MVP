@@ -1,0 +1,133 @@
+{
+  "batchNumber": 21,
+  "startedAt": "2026-05-27T13:47:37.821Z",
+  "completedAt": "2026-05-27T13:47:54.828Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-161",
+    "bnu-high-ds-v1-s4-162",
+    "bnu-high-ds-v1-s4-163",
+    "bnu-high-ds-v1-s4-164",
+    "bnu-high-ds-v1-s4-165",
+    "bnu-high-ds-v1-s4-166",
+    "bnu-high-ds-v1-s4-167",
+    "bnu-high-ds-v1-s4-168"
+  ],
+  "usage": {
+    "prompt_tokens": 10550,
+    "completion_tokens": 1165,
+    "total_tokens": 11715,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10038
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-161",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "13公里",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可独立求解。方程10+2.5(x-3)=35解得x=13，与答案一致。解析步骤正确，无矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-162",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0.3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目明确函数和区间，二分法步骤清晰。独立计算得零点近似值0.3，与答案一致。解析过程正确，无矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-163",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "y=100×1.05^(x-1)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目描述清晰，选项无歧义。根据增长率模型，第x个月产值为100×1.05^(x-1)，对应选项C。答案和解析均正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-164",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "y=(x-40)(500-5x)，x∈[60,100]",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "条件充分，可建立函数关系。销量=200-5(x-60)=500-5x，利润y=(x-40)(500-5x)，由销量≥0得x≤100，且x≥60，定义域正确。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-165",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "1.6",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "方程和区间明确，二分法可解。独立计算得近似解1.6，与答案一致。解析步骤正确，无矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-166",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "函数f(x)=2^x+x-3，f(1)=0，零点为1，在区间(1,2)内，故k=1。选项唯一，答案正确。解析说明零点恰好为整数，符合题意。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-167",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "10公里",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "条件完整，方程8+1.8(x-3)=20.6解得x=10，与答案一致。解析步骤正确，无矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-168",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "3.0",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "函数和区间明确，二分法可求近似值。独立计算得零点近似值3.0，与答案一致。解析过程正确，无矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，答案与解析匹配，无错误或歧义。"
+    }
+  }
+}

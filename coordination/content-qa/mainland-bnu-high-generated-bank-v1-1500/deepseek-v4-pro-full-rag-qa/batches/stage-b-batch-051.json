@@ -1,0 +1,129 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-051",
+  "startedAt": "2026-05-28T01:09:05.450Z",
+  "completedAt": "2026-05-28T01:09:24.152Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-401",
+    "bnu-high-ds-v1-s4-402",
+    "bnu-high-ds-v1-s4-403",
+    "bnu-high-ds-v1-s4-404",
+    "bnu-high-ds-v1-s4-405",
+    "bnu-high-ds-v1-s4-406",
+    "bnu-high-ds-v1-s4-407",
+    "bnu-high-ds-v1-s4-408"
+  ],
+  "usage": {
+    "prompt_tokens": 13598,
+    "completion_tokens": 1052,
+    "total_tokens": 14650,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 13214
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-401",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "33/65",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案-63/65错误，独立解为33/65。解析中计算过程得出33/65，但最终声称答案为-63/65，自相矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-402",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "答案0正确，解析使用和角公式cos(75°+15°)=cos90°=0，与独立解一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-403",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "答案3π/4正确，解析计算tan(α+β)=-1，结合锐角范围得α+β=3π/4，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-404",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "证明题，解析正确展开sin3θ=3sinθ-4sin³θ，与独立解一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-405",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "答案-4/3正确，解析通过平方和韦达定理求解，与独立解一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-406",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "答案cos10°-sin10°正确，解析利用1-sin20°=(sin10°-cos10°)²，开方取正，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-407",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "答案最大值2，x=π/6+2kπ正确，解析使用辅助角公式，与独立解一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-408",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "答案3/22正确，解析利用角变换和正切差公式，与独立解一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第1题存储答案错误，应为33/65而非-63/65，解析自相矛盾；其余7题答案和解析均正确。"
+    }
+  }
+}

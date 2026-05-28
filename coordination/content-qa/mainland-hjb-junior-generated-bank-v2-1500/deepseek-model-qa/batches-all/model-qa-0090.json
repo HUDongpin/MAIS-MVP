@@ -1,0 +1,110 @@
+{
+  "batchId": "model-qa-0090",
+  "ids": [
+    "hjb-junior-ds-v2-s2-213",
+    "hjb-junior-ds-v2-s2-214",
+    "hjb-junior-ds-v2-s2-215",
+    "hjb-junior-ds-v2-s2-216",
+    "hjb-junior-ds-v2-s2-217",
+    "hjb-junior-ds-v2-s2-218",
+    "hjb-junior-ds-v2-s2-219",
+    "hjb-junior-ds-v2-s2-220"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-213",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "4",
+      "answerCheckZhHans": "标准答案为4，与独立解答一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-214",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "A. △ABC是直角三角形，点P到边BC的距离为5",
+      "answerCheckZhHans": "标准答案为A，与独立解答一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-215",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "60/17",
+      "answerCheckZhHans": "标准答案为60/17，与独立解答一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-216",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch",
+        "missing-condition"
+      ],
+      "issueDetailsZhHans": "题干条件矛盾：AD是角平分线且AD⊥BC，但由AB=10, AC=17, BC=21，角平分线性质得BD:DC=10:17，BD=70/9，CD=119/9，此时AD不垂直BC。若AD⊥BC，则BD和CD需满足勾股定理，但10²-(70/9)²≠17²-(119/9)²，故无解。解析中先假设全等得出BD=CD=10.5，与角平分线性质矛盾，后改用海伦公式求高，但此时AD仅为高而非角平分线，与题干不符。标准答案8是基于AD为高的情形，但题干要求AD为角平分线且垂直，无法同时满足。",
+      "independentAnswerZhHans": "无解（条件矛盾）",
+      "answerCheckZhHans": "标准答案为8，但独立解答认为条件矛盾无解，答案不一致。",
+      "recommendedActionZhHans": "修改题干，去除角平分线或垂直条件之一，或调整边长使条件自洽。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-217",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "60/13",
+      "answerCheckZhHans": "标准答案为60/13，与独立解答一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-218",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3 cm",
+      "answerCheckZhHans": "标准答案为3 cm，与独立解答一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-219",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "标准答案为3，与独立解答一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-220",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案AD=60/17错误。由AB=5, BC=12, AC=13，∠B=90°，AD平分∠BAC，角平分线性质得BD:DC=5:13，BD=10/3，DC=26/3。在Rt△ABD中，AD=√(AB²+BD²)=√(25+100/9)=√(325/9)=5√13/3≈6.0，而60/17≈3.53，两者不等。解析中计算AD²=325/9，却错误地得出60/17，应为5√13/3。选项B中AD=60/17不正确，且无正确选项。",
+      "independentAnswerZhHans": "△ABC是直角三角形，且AD=5√13/3",
+      "answerCheckZhHans": "标准答案为“△ABC是直角三角形，且AD=60/17”，但独立解答为5√13/3，不一致。",
+      "recommendedActionZhHans": "修正标准答案或调整选项，使正确选项为AD=5√13/3。",
+      "confidence": "high"
+    }
+  ]
+}

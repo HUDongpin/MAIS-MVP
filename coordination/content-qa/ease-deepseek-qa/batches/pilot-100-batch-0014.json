@@ -1,0 +1,103 @@
+{
+  "scope": "pilot-100",
+  "batchIndex": 14,
+  "startedAt": "2026-05-28T03:18:32.891Z",
+  "completedAt": "2026-05-28T03:19:17.600Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "itemIds": [
+    "10344",
+    "10633",
+    "10330",
+    "9978",
+    "4058"
+  ],
+  "usage": {
+    "prompt_tokens": 2383,
+    "completion_tokens": 2421,
+    "total_tokens": 4804,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1763
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1999
+  },
+  "finishReason": "stop",
+  "jsonModeFallback": false,
+  "result": {
+    "items": [
+      {
+        "questionId": "10344",
+        "questionType": "FRQ",
+        "hasImage": true,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": null,
+        "solvabilityStatus": "image-context-required",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "需要圖片比較水位判斷容量大小，且無標準答案。",
+        "recommendedAction": "提供圖片描述或標準答案。"
+      },
+      {
+        "questionId": "10633",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "137",
+        "independentAnswer": "137",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "可解，計算125-48+60=137，與標準答案一致。",
+        "recommendedAction": "無"
+      },
+      {
+        "questionId": "10330",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": "4",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "可解，8x為兩位數80+x，得x=4，但缺少標準答案。",
+        "recommendedAction": "提供標準答案為4。"
+      },
+      {
+        "questionId": "9978",
+        "questionType": "FRQ",
+        "hasImage": true,
+        "standardAnswer": "B",
+        "independentAnswer": null,
+        "solvabilityStatus": "image-context-required",
+        "answerMatchStatus": "not-checkable",
+        "severity": "P1",
+        "reason": "需要幹葉圖和框線圖的圖片才能判斷，無法驗證選項B是否正確。",
+        "recommendedAction": "提供圖片或詳細描述。"
+      },
+      {
+        "questionId": "4058",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "3",
+        "independentAnswer": "3",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "可解，化簡得q(x)=x-1，代入4得3，與標準答案一致。",
+        "recommendedAction": "無"
+      }
+    ],
+    "batchSummary": {
+      "pass": 3,
+      "unsolvable": 0,
+      "ambiguous": 0,
+      "imageContextRequired": 2,
+      "answerMismatch": 0,
+      "missingAnswerKey": 2,
+      "notes": "10344和9978需要圖片；10344和10330缺少標準答案；其餘正常。"
+    }
+  }
+}

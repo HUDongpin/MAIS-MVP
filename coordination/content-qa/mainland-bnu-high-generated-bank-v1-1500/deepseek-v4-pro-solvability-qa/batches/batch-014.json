@@ -1,0 +1,141 @@
+{
+  "batchNumber": 14,
+  "startedAt": "2026-05-27T13:46:37.616Z",
+  "completedAt": "2026-05-27T13:46:58.042Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-105",
+    "bnu-high-ds-v1-s4-106",
+    "bnu-high-ds-v1-s4-107",
+    "bnu-high-ds-v1-s4-108",
+    "bnu-high-ds-v1-s4-109",
+    "bnu-high-ds-v1-s4-110",
+    "bnu-high-ds-v1-s4-111",
+    "bnu-high-ds-v1-s4-112"
+  ],
+  "usage": {
+    "prompt_tokens": 10600,
+    "completion_tokens": 1352,
+    "total_tokens": 11952,
+    "prompt_tokens_details": {
+      "cached_tokens": 10496
+    },
+    "prompt_cache_hit_tokens": 10496,
+    "prompt_cache_miss_tokens": 104
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-105",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "<",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "底数0.3∈(0,1)，指数函数递减，0.5>0.4，故0.3^0.5<0.3^0.4，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-106",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "y = 3^x",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "y=3^x底数3>1，在(0,+∞)递增；其余选项底数∈(0,1)或可化为底数<1，均为减函数。选项唯一正确，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-107",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "x = 3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "方程化为3·2^x=24，得2^x=8=2^3，故x=3。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-108",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "[-1-√7, -1+√7]",
+        "correctedAnswer": "[-1-√7, -1+√7]",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "不等式化为2^{x^2}≤2^{-2(x-3)}，由单调性得x^2≤-2x+6，即x^2+2x-6≤0，解集为[-1-√7, -1+√7]。解析中错误得出[-2,3]，且无定义域限制，答案错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-109",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(-∞, 1) ∪ (2, +∞)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "真数x^2-3x+2>0，解得x<1或x>2，定义域为(-∞,1)∪(2,+∞)。选项唯一正确，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-110",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "6",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "log_3 27=3，log_2 8=3，log_5 1=0，和为6。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-111",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "∅",
+        "correctedAnswer": "∅",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "真数u=(x-1)^2+1≥1，无法取遍所有正实数，故无论a为何正值且a≠1，值域均非R。满足条件的a不存在，答案应为∅。题目答案和解析矛盾，解析正确但答案错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-112",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(-√3, 1]",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "定义域R要求Δ<0得-√3<a<√3；复合函数递增要求对称轴a≤1且u(1)>0恒成立。综合得a∈(-√3,1]。选项唯一正确，答案与解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 0,
+      "fail": 2,
+      "notes": "8题中6题通过，2题失败：bnu-high-ds-v1-s4-108答案错误，正确解集为[-1-√7, -1+√7]；bnu-high-ds-v1-s4-111答案错误，正确解集为空集。"
+    }
+  }
+}

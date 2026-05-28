@@ -1,0 +1,70 @@
+{
+  "projectRoot": "/Users/peter/Desktop/MAIS-MVP",
+  "baseUrl": "http://localhost:3000",
+  "privacyRules": [
+    "Use demo accounts and seeded data only.",
+    "Do not show .env, .env.local, API keys, real student identities, or private messages.",
+    "Crop or blur URL/query parameters if they contain session-like values."
+  ],
+  "routes": [
+    {
+      "route": "/",
+      "chapter": "student",
+      "targetMoment": "MAIS brand, grade selector, bilingual/product entry point",
+      "holdSeconds": 4
+    },
+    {
+      "route": "/dashboard",
+      "chapter": "student",
+      "targetMoment": "mastery, streak, profile, grade selection",
+      "holdSeconds": 6
+    },
+    {
+      "route": "/adaptive-learning",
+      "chapter": "student",
+      "targetMoment": "learning analytics, assigned work, recommended next lesson",
+      "holdSeconds": 8
+    },
+    {
+      "route": "/learning-path",
+      "chapter": "student",
+      "targetMoment": "roadmap/pathway view",
+      "holdSeconds": 5
+    },
+    {
+      "route": "/visualization-lab",
+      "chapter": "student",
+      "targetMoment": "interactive visualization movement and mark explored capability",
+      "holdSeconds": 7
+    },
+    {
+      "route": "/practice",
+      "chapter": "student",
+      "targetMoment": "answer selection, feedback, mistake signal",
+      "holdSeconds": 8
+    },
+    {
+      "route": "/teacher",
+      "chapter": "teacher",
+      "targetMoment": "KPI cards, teaching queue, class status",
+      "holdSeconds": 6
+    },
+    {
+      "route": "/teacher/analytics",
+      "chapter": "teacher",
+      "targetMoment": "topic mastery heatmap, student risk list, intervention groups",
+      "holdSeconds": 8
+    },
+    {
+      "route": "/teacher/live",
+      "chapter": "teacher",
+      "targetMoment": "live classroom check, submitted count, correct rate, reteach/continue signal",
+      "holdSeconds": 6
+    }
+  ],
+  "expectedOutputs": [
+    "screen clips named according to recording-checklist.md",
+    "screenshots for thumbnail and QA reference",
+    "route notes for any page requiring login or setup"
+  ]
+}

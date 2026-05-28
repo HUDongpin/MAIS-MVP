@@ -1,0 +1,110 @@
+{
+  "batchId": "model-qa-0047",
+  "ids": [
+    "hjb-junior-ds-v2-s1-369",
+    "hjb-junior-ds-v2-s1-370",
+    "hjb-junior-ds-v2-s1-371",
+    "hjb-junior-ds-v2-s1-372",
+    "hjb-junior-ds-v2-s1-373",
+    "hjb-junior-ds-v2-s1-374",
+    "hjb-junior-ds-v2-s1-375",
+    "hjb-junior-ds-v2-s1-376"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-369",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "标准答案108.5°错误。根据题干，∠AOC=62°，∠AOD=180°-62°=118°。设∠AOE=x，则∠DOE=3x，x+3x=118°，x=29.5°。∠COE=∠AOC+∠AOE=62°+29.5°=91.5°，而非108.5°。解析中计算过程正确，但最终答案写错。",
+      "independentAnswerZhHans": "91.5°",
+      "answerCheckZhHans": "标准答案108.5°与独立计算91.5°不符。",
+      "recommendedActionZhHans": "将答案修正为91.5°，并更新acceptedAnswers。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-370",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "ambiguous-prompt",
+        "multiple-correct-options"
+      ],
+      "issueDetailsZhHans": "题干未明确∠1和∠2的位置关系，仅说“被直线c所截，得到∠1和∠2”，未指明是同位角、内错角还是同旁内角。若∠1和∠2是同位角，则选项A正确；若它们是内错角，则选项B也正确。由于位置关系不明确，无法唯一确定正确选项，且可能同时存在多个正确选项。",
+      "independentAnswerZhHans": "无法确定唯一答案，取决于∠1和∠2的位置。",
+      "answerCheckZhHans": "标准答案假设∠1和∠2是同位角，但题干未明确，导致题目有歧义。",
+      "recommendedActionZhHans": "在题干中明确∠1和∠2的位置关系，例如“∠1和∠2是同位角”或“∠1和∠2是内错角”，或提供图形。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-371",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "50°",
+      "answerCheckZhHans": "标准答案50°正确，对顶角相等。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-372",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "65°",
+      "answerCheckZhHans": "标准答案65°正确，两直线平行内错角相等。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-373",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "110°",
+      "answerCheckZhHans": "标准答案110°正确，计算过程无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-374",
+      "verdict": "needs-review",
+      "severity": "P2",
+      "issueCodes": [
+        "accepted-answer-gap"
+      ],
+      "issueDetailsZhHans": "标准答案为2，但acceptedAnswers包含多个值（如2.5, 1, 1.5, 2.8, 3, 小于3的任意正数）。题目要求“写出一个满足条件的值即可”，因此任何小于或等于3的正数均正确。但acceptedAnswers列表可能不完整，例如未包含0.5等，且“小于3的任意正数”表述模糊，可能无法精确匹配学生答案。建议明确acceptedAnswers为区间(0,3]内的数值，或使用通配符。",
+      "independentAnswerZhHans": "2（或其他≤3的正数）",
+      "answerCheckZhHans": "标准答案2正确，但acceptedAnswers覆盖范围需确认。",
+      "recommendedActionZhHans": "将acceptedAnswers定义为数值范围或使用正则表达式，确保所有合理答案被接受。",
+      "confidence": "medium"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-375",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "能",
+      "answerCheckZhHans": "标准答案“能”正确，依据同位角相等两直线平行。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-376",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "这三条线段一定不能组成三角形",
+      "answerCheckZhHans": "标准答案正确，5+8=13，不满足三角形两边之和大于第三边。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

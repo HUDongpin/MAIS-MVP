@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-197",
+  "startedAt": "2026-05-28T01:04:13.331Z",
+  "completedAt": "2026-05-28T01:04:19.484Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-197"
+  ],
+  "usage": {
+    "prompt_tokens": 2040,
+    "completion_tokens": 322,
+    "total_tokens": 2362,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1656
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-197",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "极差0.4，标准差0.14",
+        "correctedAnswer": "极差0.4，标准差0.14",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合BNU统计章节。独立计算得极差0.4，均值2.4，方差0.02，标准差≈0.141，四舍五入为0.14。存储答案标准差0.16错误；解析中方差0.024计算错误，导致标准差0.155，与正确值0.14矛盾。答案和解析均存在数学错误，需修正为极差0.4，标准差0.14。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1题答案和解析均存在数学错误，标准差计算错误，判定为blocker。"
+    }
+  }
+}

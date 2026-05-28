@@ -1,0 +1,302 @@
+{
+  "batchId": "batch-241",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p5-201",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-cuboid-cube",
+      "unitTitle": "长方体、正方体与体积",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "cuboid",
+        "cube",
+        "surface-area",
+        "volume",
+        "unit-cubes",
+        "长方体正方体"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "面棱顶点",
+        "展开图",
+        "表面积",
+        "体积单位",
+        "长方体正方体体积"
+      ],
+      "misconceptionTags": [
+        "surface area and volume mixed",
+        "hidden faces counted incorrectly",
+        "cubic units omitted"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-cuboid-cube"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-cylinder-cone",
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方体水箱，从里面量长8分米、宽5分米、高6分米。水箱内壁四周和底面贴上防水膜，贴防水膜的面积是多少平方分米？",
+      "optionsZhHans": [
+        "236平方分米",
+        "240平方分米",
+        "196平方分米",
+        "280平方分米"
+      ],
+      "answer": "196平方分米",
+      "acceptedAnswers": [
+        "196平方分米"
+      ],
+      "explanationZhHans": "贴膜的面是底面和四周，即缺少顶面。底面积8×5=40平方分米，四周面积(8×6+5×6)×2=156平方分米，总面积40+156=196平方分米。注意不是求完整的表面积。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-202",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-cuboid-cube",
+      "unitTitle": "长方体、正方体与体积",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "cuboid",
+        "cube",
+        "surface-area",
+        "volume",
+        "unit-cubes",
+        "长方体正方体"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "面棱顶点",
+        "展开图",
+        "表面积",
+        "体积单位",
+        "长方体正方体体积"
+      ],
+      "misconceptionTags": [
+        "surface area and volume mixed",
+        "hidden faces counted incorrectly",
+        "cubic units omitted"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-cuboid-cube"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-cylinder-cone",
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用棱长1厘米的小正方体搭成一个长4厘米、宽3厘米、高2厘米的长方体。一共用了______块小正方体。",
+      "optionsZhHans": [],
+      "answer": "24",
+      "acceptedAnswers": [
+        "24",
+        "24块"
+      ],
+      "explanationZhHans": "长方体体积=长×宽×高=4×3×2=24立方厘米，每个小正方体体积1立方厘米，所以需要24块。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-203",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-cuboid-cube",
+      "unitTitle": "长方体、正方体与体积",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "cuboid",
+        "cube",
+        "surface-area",
+        "volume",
+        "unit-cubes",
+        "长方体正方体"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "面棱顶点",
+        "展开图",
+        "表面积",
+        "体积单位",
+        "长方体正方体体积"
+      ],
+      "misconceptionTags": [
+        "surface area and volume mixed",
+        "hidden faces counted incorrectly",
+        "cubic units omitted"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-cuboid-cube"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-cylinder-cone",
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个正方体的棱长总和是48厘米，它的表面积是多少平方厘米？",
+      "optionsZhHans": [
+        "96平方厘米",
+        "64平方厘米",
+        "384平方厘米",
+        "144平方厘米"
+      ],
+      "answer": "96平方厘米",
+      "acceptedAnswers": [
+        "96平方厘米"
+      ],
+      "explanationZhHans": "正方体有12条棱，棱长=48÷12=4厘米。表面积=棱长×棱长×6=4×4×6=96平方厘米。注意区分棱长总和与单条棱长。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-204",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-cuboid-cube",
+      "unitTitle": "长方体、正方体与体积",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "cuboid",
+        "cube",
+        "surface-area",
+        "volume",
+        "unit-cubes",
+        "长方体正方体"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "面棱顶点",
+        "展开图",
+        "表面积",
+        "体积单位",
+        "长方体正方体体积"
+      ],
+      "misconceptionTags": [
+        "surface area and volume mixed",
+        "hidden faces counted incorrectly",
+        "cubic units omitted"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-cuboid-cube"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-cylinder-cone",
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个正方体的表面积是150平方厘米，它的体积是______立方厘米。",
+      "optionsZhHans": [],
+      "answer": "125",
+      "acceptedAnswers": [
+        "125",
+        "125立方厘米"
+      ],
+      "explanationZhHans": "正方体一个面的面积=150÷6=25平方厘米，棱长=5厘米，体积=5×5×5=125立方厘米。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-205",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-cuboid-cube",
+      "unitTitle": "长方体、正方体与体积",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "cuboid",
+        "cube",
+        "surface-area",
+        "volume",
+        "unit-cubes",
+        "长方体正方体"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "面棱顶点",
+        "展开图",
+        "表面积",
+        "体积单位",
+        "长方体正方体体积"
+      ],
+      "misconceptionTags": [
+        "surface area and volume mixed",
+        "hidden faces counted incorrectly",
+        "cubic units omitted"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-cuboid-cube"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-cylinder-cone",
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方体木块，长10厘米、宽8厘米、高6厘米。把它切成棱长2厘米的小正方体，最多可以切成多少个？",
+      "optionsZhHans": [
+        "60个",
+        "120个",
+        "48个",
+        "96个"
+      ],
+      "answer": "60个",
+      "acceptedAnswers": [
+        "60个"
+      ],
+      "explanationZhHans": "沿长可切10÷2=5个，沿宽可切8÷2=4个，沿高可切6÷2=3个，总数5×4×3=60个。注意不能直接用体积相除，因为必须整块切割。"
+    }
+  ]
+}

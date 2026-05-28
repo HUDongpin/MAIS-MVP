@@ -1,0 +1,48 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-291",
+  "startedAt": "2026-05-28T01:07:10.371Z",
+  "completedAt": "2026-05-28T01:07:17.422Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-291"
+  ],
+  "usage": {
+    "prompt_tokens": 2195,
+    "completion_tokens": 279,
+    "total_tokens": 2474,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1811
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-291",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "[0, π/12] ∪ [7π/12, π]",
+        "correctedAnswer": "[0, π/12] ∪ [7π/12, π]",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "Stage A 独立求解得递增区间为 [0, π/12] ∪ [7π/12, π]，存储答案为 [0, 5π/12] 和 [11π/12, π]，两者不一致。存储答案错误，需修正。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "存储答案与独立求解结果不符，存在数学错误，判定为 blocker。"
+    }
+  }
+}

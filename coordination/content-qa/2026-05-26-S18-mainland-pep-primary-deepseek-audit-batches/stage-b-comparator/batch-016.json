@@ -1,0 +1,141 @@
+{
+  "startedAt": "2026-05-26T05:56:14.881Z",
+  "completedAt": "2026-05-26T05:56:30.459Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "usage": {
+    "prompt_tokens": 1361,
+    "completion_tokens": 1286,
+    "total_tokens": 2647,
+    "prompt_tokens_details": {
+      "cached_tokens": 128
+    },
+    "prompt_cache_hit_tokens": 128,
+    "prompt_cache_miss_tokens": 1233
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "questionId": "pep-primary-p2-l-fi-101",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案'商3余5'与题库答案'3余5'实质相同，仅多了'商'字，符合填空要求。"
+      },
+      {
+        "questionId": "pep-primary-p2-l-fi-102",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案'商9余3'与题库答案'9余3'实质相同。"
+      },
+      {
+        "questionId": "pep-primary-p2-l-fi-103",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案'商6余5'与题库答案'6余5'实质相同。"
+      },
+      {
+        "questionId": "pep-primary-p2-l-fi-104",
+        "answerMatchStatus": "review",
+        "issueType": "ambiguous",
+        "note": "独立答案'7袋，剩5个'与题库答案'7余5'含义一致，但表述形式不同，需人工确认是否接受。"
+      },
+      {
+        "questionId": "pep-primary-p2-l-fi-105",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案'商3余1'与题库答案'3余1'实质相同。"
+      },
+      {
+        "questionId": "pep-primary-p2-l-fi-106",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案'商5余1'与题库答案'5余1'实质相同。"
+      },
+      {
+        "questionId": "pep-primary-p2-l-fi-107",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案'商7余3'与题库答案'7余3'实质相同。"
+      },
+      {
+        "questionId": "pep-primary-p2-l-fi-108",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案'商9余3'与题库答案'9余3'实质相同。"
+      },
+      {
+        "questionId": "pep-primary-p2-l-fi-109",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案'商4余1'与题库答案'4余1'实质相同。"
+      },
+      {
+        "questionId": "pep-primary-p2-l-fi-110",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案'商6余5'与题库答案'6余5'实质相同。"
+      },
+      {
+        "questionId": "pep-primary-p2-l-fi-111",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案'商8余7'与题库答案'8余7'实质相同。"
+      },
+      {
+        "questionId": "pep-primary-p2-l-fi-112",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案'商3余1'与题库答案'3余1'实质相同。"
+      },
+      {
+        "questionId": "pep-primary-p2-l-fi-113",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案'商5余2'与题库答案'5余2'实质相同。"
+      },
+      {
+        "questionId": "pep-primary-p2-l-fi-114",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案'商7余2'与题库答案'7余2'实质相同。"
+      },
+      {
+        "questionId": "pep-primary-p2-l-fi-115",
+        "answerMatchStatus": "review",
+        "issueType": "ambiguous",
+        "note": "独立答案'5袋，剩3个'与题库答案'5余3'含义一致，但表述形式不同，需人工确认是否接受。"
+      },
+      {
+        "questionId": "pep-primary-p2-l-fi-116",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案'商4余2'与题库答案'4余2'实质相同。"
+      },
+      {
+        "questionId": "pep-primary-p2-l-fi-117",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案'商6余5'与题库答案'6余5'实质相同。"
+      },
+      {
+        "questionId": "pep-primary-p2-l-fi-118",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案'商8余6'与题库答案'8余6'实质相同。"
+      },
+      {
+        "questionId": "pep-primary-p2-l-fi-119",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案'商3余1'与题库答案'3余1'实质相同。"
+      },
+      {
+        "questionId": "pep-primary-p2-l-fi-120",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案'商9余5'与题库答案'9余5'实质相同。"
+      }
+    ]
+  }
+}

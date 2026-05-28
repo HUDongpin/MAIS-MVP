@@ -1,0 +1,121 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-048",
+  "startedAt": "2026-05-28T00:44:18.652Z",
+  "completedAt": "2026-05-28T00:44:51.116Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-377",
+    "bnu-high-ds-v1-s4-378",
+    "bnu-high-ds-v1-s4-379",
+    "bnu-high-ds-v1-s4-380",
+    "bnu-high-ds-v1-s4-381",
+    "bnu-high-ds-v1-s4-382",
+    "bnu-high-ds-v1-s4-383",
+    "bnu-high-ds-v1-s4-384"
+  ],
+  "usage": {
+    "prompt_tokens": 10917,
+    "completion_tokens": 1543,
+    "total_tokens": 12460,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 10533
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-377",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(1) A(0,0), B(120,0), C(30√3, 30√3) 或等价坐标；(2) 距离为30√3≈51.96米，满足不小于20米的要求。",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "建立坐标系，A为原点，AB沿x轴正方向，则B(120,0)。由方向角得AC与x轴夹角60°，BC与x轴夹角135°，联立直线方程解得C(30√3, 30√3)。C到AB的距离为纵坐标30√3≈51.96米>20米，满足要求。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-378",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "塔高CD≈21.2米",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "设塔高h，则AD=h·cot45°=h，BD=h·cot30°=√3 h。在△ABD中，AB=30，∠ABD=120°，由余弦定理得30²=h²+(√3 h)²-2·h·√3 h·cos120°，解得h=30/√2≈21.2米。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-379",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "independentAnswer": null,
+        "issueTags": [
+          "ambiguous_mc",
+          "bad_options"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "四个选项均存在几何关系错误或与坐标系设定矛盾。选项A中A、B、D不共线；选项B中C、D、A不共线且AC与AD不垂直；选项C中B、D、C不共线；选项D中A、B、C不共线。无正确选项。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-380",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "塔高为20√3米",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "设塔高h，塔底C，则AC=h·cot30°=√3 h，BC=h·cot45°=h。在△ABC中，AB=40，∠ACB=60°，由余弦定理得40²=(√3 h)²+h²-2·√3 h·h·cos60°，解得h=20√3。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-381",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "h=100(√3+1)米",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "设山脚底部中心为O，A、O、B共线，AO=h·cot30°=√3 h，BO=h·cot45°=h。AB=200，若B在A与O之间，则AO-BO=√3 h - h=200，得h=100(√3+1)。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-382",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "A",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "已知AB及四个角，可在△ABC和△ABD中用正弦定理求AC和AD，再在△ACD中用余弦定理求CD。其他选项或假设无依据或条件不足。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-383",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "8小时",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "需水深≥9米，即10+4sin(πt/6)≥9，得sin(πt/6)≥-1/4。在一个周期内解出区间长度约8小时。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-384",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "EF = (a + b)/2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "取A为原点，则E为AD中点，F为BC中点，由向量加法得EF=(AB+DC)/2，但DC未知。若四边形为任意四边形，需引入DC，但题目仅给AB=a，AD=b，无法唯一表示。然而常见题型中默认四边形为平行四边形或梯形，但未说明。若假设为平行四边形，则DC=AB=a，EF=(a+b)/2。但题目未明确，存在歧义。根据北师大版教材常见练习，此类题通常默认四边形为任意四边形，需用a,b及另一向量表示，但条件不足。重新审题：已知AB=a，AD=b，E、F为AD、BC中点，则EF=EA+AB+BF，而EA=-b/2，BF=(BC)/2，BC未知。无法仅用a,b表示。故题目可能隐含四边形为平行四边形或梯形，但未说明，属于条件缺失。然而，在向量线性运算中，常见结论为EF=(AB+DC)/2，若DC未知则无法表示。因此，本题可能缺少条件，但根据北师大版教材，此类题常出现在“向量线性运算”中，默认四边形为任意四边形，但需用a,b及另一向量表示，但题目要求用a,b表示，故可能默认DC=AB，即平行四边形。但未明确，故标记为不确定。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 1,
+      "fail": 1,
+      "notes": "第379题四个选项均存在几何关系错误，无正确选项；第384题条件不足，无法仅用a,b唯一表示EF，需补充四边形类型。"
+    }
+  }
+}

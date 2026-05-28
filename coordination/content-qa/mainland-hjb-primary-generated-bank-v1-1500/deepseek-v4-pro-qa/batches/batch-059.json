@@ -1,0 +1,191 @@
+{
+  "batchNumber": 59,
+  "startedAt": "2026-05-25T02:18:36.253Z",
+  "completedAt": "2026-05-25T02:18:57.595Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p5-045",
+    "hjb-primary-ds-v1-p5-046",
+    "hjb-primary-ds-v1-p5-047",
+    "hjb-primary-ds-v1-p5-048",
+    "hjb-primary-ds-v1-p5-049",
+    "hjb-primary-ds-v1-p5-050",
+    "hjb-primary-ds-v1-p5-051",
+    "hjb-primary-ds-v1-p5-052",
+    "hjb-primary-ds-v1-p5-053",
+    "hjb-primary-ds-v1-p5-054",
+    "hjb-primary-ds-v1-p5-055",
+    "hjb-primary-ds-v1-p5-056",
+    "hjb-primary-ds-v1-p5-057",
+    "hjb-primary-ds-v1-p5-058",
+    "hjb-primary-ds-v1-p5-059",
+    "hjb-primary-ds-v1-p5-060",
+    "hjb-primary-ds-v1-p5-061",
+    "hjb-primary-ds-v1-p5-062"
+  ],
+  "usage": {
+    "prompt_tokens": 3781,
+    "completion_tokens": 1299,
+    "total_tokens": 5080,
+    "prompt_tokens_details": {
+      "cached_tokens": 3712
+    },
+    "prompt_cache_hit_tokens": 3712,
+    "prompt_cache_miss_tokens": 69
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p5-045",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程正确，解答和检验步骤无误，符合P5简易方程要求。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-046",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "用字母表示数量关系，选项清晰，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-047",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "列方程和解均正确，填空格式符合要求。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-048",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "应用题设未知数、列方程、解答完整，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-049",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程求解正确，选项无歧义。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-050",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "用字母表示数量关系，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-051",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "用字母表示数量关系，化简正确，答案覆盖多种等价形式。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-052",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "根据描述选择正确方程，选项唯一正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-053",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "解方程正确，填空答案无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-054",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "解方程正确，答案覆盖多种写法。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-055",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "根据周长公式列方程，选项A正确，其他错误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-056",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "盈亏问题列方程正确，解出班级数无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-057",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "列方程和解均正确，答案4.4元合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-058",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程定义判断正确，选项B是唯一方程。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-059",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "错中求解思路正确，答案无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-060",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "列方程解应用题，过程和答案均正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-061",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "用字母表示数量关系，选项正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-062",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "用字母表示数量关系，答案正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合沪教版P5简易方程要求，数学正确，答案匹配，无歧义或缺失条件，适合公共题库。"
+    }
+  }
+}

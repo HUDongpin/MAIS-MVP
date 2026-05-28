@@ -1,0 +1,48 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-376",
+  "startedAt": "2026-05-28T02:43:47.653Z",
+  "completedAt": "2026-05-28T02:43:53.512Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-376"
+  ],
+  "usage": {
+    "prompt_tokens": 2272,
+    "completion_tokens": 300,
+    "total_tokens": 2572,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1888
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-376",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "35 m",
+        "correctedAnswer": "35 m",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，独立解用正弦定理得h=25√2≈35.35，最接近35 m。存储答案35 m正确，但解析用余弦定理且计算错误（h²=2500/(4-√6)≈1612，h≈40.15，与答案矛盾），且解析中余弦定理展开有误。解析错误导致explanationMatchStatus为fail，但答案匹配，故修正为35 m。选项唯一，无歧义。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目可解，答案正确，但解析存在数学错误和矛盾，需修正解析。"
+    }
+  }
+}

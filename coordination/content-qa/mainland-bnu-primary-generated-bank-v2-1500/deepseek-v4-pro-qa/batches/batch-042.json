@@ -1,0 +1,191 @@
+{
+  "batchNumber": 42,
+  "startedAt": "2026-05-27T13:52:20.886Z",
+  "completedAt": "2026-05-27T13:52:38.556Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p3-239",
+    "bnu-primary-ds-v2-p3-240",
+    "bnu-primary-ds-v2-p3-241",
+    "bnu-primary-ds-v2-p3-242",
+    "bnu-primary-ds-v2-p3-243",
+    "bnu-primary-ds-v2-p3-244",
+    "bnu-primary-ds-v2-p3-245",
+    "bnu-primary-ds-v2-p3-246",
+    "bnu-primary-ds-v2-p3-247",
+    "bnu-primary-ds-v2-p3-248",
+    "bnu-primary-ds-v2-p3-249",
+    "bnu-primary-ds-v2-p3-250",
+    "bnu-primary-ds-v2-p4-001",
+    "bnu-primary-ds-v2-p4-002",
+    "bnu-primary-ds-v2-p4-003",
+    "bnu-primary-ds-v2-p4-004",
+    "bnu-primary-ds-v2-p4-005",
+    "bnu-primary-ds-v2-p4-006"
+  ],
+  "usage": {
+    "prompt_tokens": 3525,
+    "completion_tokens": 1260,
+    "total_tokens": 4785,
+    "prompt_tokens_details": {
+      "cached_tokens": 3456
+    },
+    "prompt_cache_hit_tokens": 3456,
+    "prompt_cache_miss_tokens": 69
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p3-239",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项唯一，符合三年级综合应用。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-240",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "除法应用正确，答案格式符合填空要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-241",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "步骤正确，选项唯一，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-242",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "单位概念清晰，正确选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-243",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "条形统计图适合比较，符合三年级要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-244",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "面积计算正确，选项区分了长度和面积。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-245",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "除法验算正确，其他选项错误明显。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-246",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "轴对称推理合理，答案2条对称轴正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-247",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "面积公式应用正确，计算无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-248",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "乘法计算正确，选项合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-249",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移概念清晰，选项区分明确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-250",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "两步计算正确，符合购物情境。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-001",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数的组成正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-002",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "改写和近似数正确，保留一位小数合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-003",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "推理正确，最大数710500符合条件。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-004",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "差值计算正确，800100最接近。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-005",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "四舍五入范围正确，答案格式合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-006",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比较顺序正确，答案格式可接受。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案匹配，无歧义，适合对应年级和北师大版教材。"
+    }
+  }
+}

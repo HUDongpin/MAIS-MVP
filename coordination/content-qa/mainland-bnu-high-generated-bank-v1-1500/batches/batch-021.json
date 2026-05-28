@@ -1,0 +1,682 @@
+{
+  "batchId": "batch-021",
+  "questions": [
+    {
+      "id": "bnu-high-ds-v1-s4-201",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-统计",
+      "topicTitleZhHans": "统计",
+      "volume": "必修 第一册",
+      "chapter": "统计",
+      "conceptIds": [
+        "statistics",
+        "sampling",
+        "data-analysis",
+        "frequency-distribution",
+        "statistical-measures",
+        "data-visualization"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "数学建模",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "抽样判断",
+        "频率分布",
+        "统计量计算",
+        "图表解释",
+        "结论评价",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "sample and population confused",
+        "axis or unit ignored",
+        "average used without context",
+        "correlation overclaimed",
+        "axis ignored",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-statistics"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-statistics-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s5-assessment-statistics-case-unit"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某市有甲、乙两个大型社区，甲社区有居民8000户，乙社区有居民12000户。为了解居民对社区服务的满意度，采用分层随机抽样方法，从两个社区共抽取200户进行调查。已知甲社区样本的满意度平均分为78分，标准差为10分；乙社区样本的满意度平均分为82分，标准差为12分。请计算全市居民满意度平均分的估计值（保留一位小数）。",
+      "optionsZhHans": [],
+      "answer": "80.4",
+      "acceptedAnswers": [
+        "80.4"
+      ],
+      "explanationZhHans": "甲社区抽样比例：8000/(8000+12000)=0.4，乙社区0.6。甲样本量200×0.4=80，乙120。全市估计均值=78×(80/200)+82×(120/200)=31.2+49.2=80.4。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-202",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-统计",
+      "topicTitleZhHans": "统计",
+      "volume": "必修 第一册",
+      "chapter": "统计",
+      "conceptIds": [
+        "statistics",
+        "sampling",
+        "data-analysis",
+        "frequency-distribution",
+        "statistical-measures",
+        "data-visualization"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "数学建模",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "抽样判断",
+        "频率分布",
+        "统计量计算",
+        "图表解释",
+        "结论评价",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "sample and population confused",
+        "axis or unit ignored",
+        "average used without context",
+        "correlation overclaimed",
+        "axis ignored",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-statistics"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-statistics-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s5-assessment-statistics-case-unit"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校高一年级有18个班，每班约45人。为了解学生每天的课外阅读时间，下列抽样方法中最合理的是（　）",
+      "optionsZhHans": [
+        "从每个班随机抽取学号尾数为3的5名学生",
+        "调查每天最早到校的20名学生",
+        "让各班班长推荐5名阅读量大的学生",
+        "在图书馆门口随机拦截50名同学"
+      ],
+      "answer": "从每个班随机抽取学号尾数为3的5名学生",
+      "acceptedAnswers": [
+        "从每个班随机抽取学号尾数为3的5名学生"
+      ],
+      "explanationZhHans": "A是分层随机抽样，覆盖所有班级且随机，代表性好。B、C、D均存在选择偏差，样本不能代表总体。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-203",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-统计",
+      "topicTitleZhHans": "统计",
+      "volume": "必修 第一册",
+      "chapter": "统计",
+      "conceptIds": [
+        "statistics",
+        "sampling",
+        "data-analysis",
+        "frequency-distribution",
+        "statistical-measures",
+        "data-visualization"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "数学建模",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "抽样判断",
+        "频率分布",
+        "统计量计算",
+        "图表解释",
+        "结论评价",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "sample and population confused",
+        "axis or unit ignored",
+        "average used without context",
+        "correlation overclaimed",
+        "axis ignored",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-statistics"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-statistics-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s5-assessment-statistics-case-unit"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某班40名学生一次数学测验成绩的频率分布直方图描述如下：组距为10分，第一组[50,60)的频数为2，第二组[60,70)的频数为5，第三组[70,80)的频数为12，第四组[80,90)的频数为15，第五组[90,100]的频数为6。请计算该班成绩的众数（保留整数）。",
+      "optionsZhHans": [],
+      "answer": "85",
+      "acceptedAnswers": [
+        "85"
+      ],
+      "explanationZhHans": "众数在频数最高的组[80,90)内，该组频数15。众数≈80+(15-12)/[(15-12)+(15-6)]×10=80+3/12×10=82.5，四舍五入为83。但按教材公式：80+(15-12)/((15-12)+(15-6))*10=80+3/12*10=82.5，取整为83。然而，更精确计算得82.5≈83。但答案要求保留整数，故为83。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-204",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-统计",
+      "topicTitleZhHans": "统计",
+      "volume": "必修 第一册",
+      "chapter": "统计",
+      "conceptIds": [
+        "statistics",
+        "sampling",
+        "data-analysis",
+        "frequency-distribution",
+        "statistical-measures",
+        "data-visualization"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "数学建模",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "抽样判断",
+        "频率分布",
+        "统计量计算",
+        "图表解释",
+        "结论评价",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "sample and population confused",
+        "axis or unit ignored",
+        "average used without context",
+        "correlation overclaimed",
+        "axis ignored",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-statistics"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-statistics-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s5-assessment-statistics-case-unit"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "从某中学高一年级1000名学生中，采用系统抽样方法抽取50名进行视力调查。先将学生随机编号为0001至1000，若从第3段抽到的号码是0045，则起始号码是______。",
+      "optionsZhHans": [],
+      "answer": "0005",
+      "acceptedAnswers": [
+        "0005",
+        "5"
+      ],
+      "explanationZhHans": "抽样间隔k=1000/50=20。第3段号码范围0041~0060，抽到0045，则第1段起始号码=0045-2×20=0005。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-205",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-统计",
+      "topicTitleZhHans": "统计",
+      "volume": "必修 第一册",
+      "chapter": "统计",
+      "conceptIds": [
+        "statistics",
+        "sampling",
+        "data-analysis",
+        "frequency-distribution",
+        "statistical-measures",
+        "data-visualization"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "数学建模",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "抽样判断",
+        "频率分布",
+        "统计量计算",
+        "图表解释",
+        "结论评价",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "sample and population confused",
+        "axis or unit ignored",
+        "average used without context",
+        "correlation overclaimed",
+        "axis ignored",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-statistics"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-statistics-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s5-assessment-statistics-case-unit"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知一组数据x₁, x₂, …, x₁₀的平均数为5，方差为4。若将这组数据每个都乘以2再加1得到新数据yᵢ=2xᵢ+1，则新数据的方差为（　）",
+      "optionsZhHans": [
+        "4",
+        "8",
+        "16",
+        "17"
+      ],
+      "answer": "16",
+      "acceptedAnswers": [
+        "16"
+      ],
+      "explanationZhHans": "方差性质：Var(aX+b)=a²Var(X)。a=2，b=1，故新方差=2²×4=16。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-206",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-统计",
+      "topicTitleZhHans": "统计",
+      "volume": "必修 第一册",
+      "chapter": "统计",
+      "conceptIds": [
+        "statistics",
+        "sampling",
+        "data-analysis",
+        "frequency-distribution",
+        "statistical-measures",
+        "data-visualization"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "数学建模",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "抽样判断",
+        "频率分布",
+        "统计量计算",
+        "图表解释",
+        "结论评价",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "sample and population confused",
+        "axis or unit ignored",
+        "average used without context",
+        "correlation overclaimed",
+        "axis ignored",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-statistics"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-statistics-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s5-assessment-statistics-case-unit"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "甲、乙两名射击运动员在一次训练中射击成绩的茎叶图如下：甲：7|2 5 8，8|0 3 5，9|1 4；乙：7|1 3 6，8|2 4 7，9|0 2。其中茎表示十位数，叶表示个位数。请分别计算甲、乙成绩的中位数，并判断哪位运动员的成绩更稳定（不需要计算方差，只需给出判断结果）。",
+      "optionsZhHans": [],
+      "answer": "甲中位数83，乙中位数82，乙更稳定",
+      "acceptedAnswers": [
+        "甲中位数83，乙中位数82，乙更稳定"
+      ],
+      "explanationZhHans": "甲数据：72,75,78,80,83,85,91,94，中位数(80+83)/2=81.5≈82？重新排序：72,75,78,80,83,85,91,94，共8个，中位数是第4、5平均=(80+83)/2=81.5。乙：71,73,76,82,84,87,90,92，中位数(82+84)/2=83。甲中位数81.5，乙83。但茎叶图显示甲有8个数据，乙8个。甲：72,75,78,80,83,85,91,94，中位数81.5；乙：71,73,76,82,84,87,90,92，中位数83。从分布看，乙数据更集中，故乙更稳定。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-207",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-统计",
+      "topicTitleZhHans": "统计",
+      "volume": "必修 第一册",
+      "chapter": "统计",
+      "conceptIds": [
+        "statistics",
+        "sampling",
+        "data-analysis",
+        "frequency-distribution",
+        "statistical-measures",
+        "data-visualization"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "数学建模",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "抽样判断",
+        "频率分布",
+        "统计量计算",
+        "图表解释",
+        "结论评价",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "sample and population confused",
+        "axis or unit ignored",
+        "average used without context",
+        "correlation overclaimed",
+        "axis ignored",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-statistics"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-statistics-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s5-assessment-statistics-case-unit"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某地区有高中学校8所，初中学校12所，小学学校20所。现采用分层随机抽样方法抽取10所学校进行教学评估。若高中、初中、小学的抽样比相同，则抽取的高中学校数为______。",
+      "optionsZhHans": [],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2"
+      ],
+      "explanationZhHans": "总学校数=8+12+20=40，抽样比=10/40=0.25。高中应抽8×0.25=2所。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-208",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-统计",
+      "topicTitleZhHans": "统计",
+      "volume": "必修 第一册",
+      "chapter": "统计",
+      "conceptIds": [
+        "statistics",
+        "sampling",
+        "data-analysis",
+        "frequency-distribution",
+        "statistical-measures",
+        "data-visualization"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "数学建模",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "抽样判断",
+        "频率分布",
+        "统计量计算",
+        "图表解释",
+        "结论评价",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "sample and population confused",
+        "axis or unit ignored",
+        "average used without context",
+        "correlation overclaimed",
+        "axis ignored",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-statistics"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-statistics-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s5-assessment-statistics-case-unit"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "对于两个变量x和y，通过观测得到一组数据(xᵢ, yᵢ)(i=1,2,…,n)，计算得相关系数r=0.85。下列说法正确的是（　）",
+      "optionsZhHans": [
+        "x和y之间一定存在因果关系",
+        "x和y之间存在较强的正相关关系",
+        "所有点都在一条上升的直线上",
+        "x和y之间没有关系"
+      ],
+      "answer": "x和y之间存在较强的正相关关系",
+      "acceptedAnswers": [
+        "x和y之间存在较强的正相关关系"
+      ],
+      "explanationZhHans": "r=0.85表明有较强的正线性相关，但不一定是因果关系，也不代表所有点在直线上。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-209",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-统计",
+      "topicTitleZhHans": "统计",
+      "volume": "必修 第一册",
+      "chapter": "统计",
+      "conceptIds": [
+        "statistics",
+        "sampling",
+        "data-analysis",
+        "frequency-distribution",
+        "statistical-measures",
+        "data-visualization"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "数学建模",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "抽样判断",
+        "频率分布",
+        "统计量计算",
+        "图表解释",
+        "结论评价",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "sample and population confused",
+        "axis or unit ignored",
+        "average used without context",
+        "correlation overclaimed",
+        "axis ignored",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-statistics"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-statistics-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s5-assessment-statistics-case-unit"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校为了解高二年级学生每天使用手机时长情况，从全年级1200名学生中随机抽取100名进行调查，得到平均时长为1.8小时，标准差为0.5小时。请据此估计全年级学生每天使用手机时长的平均值的95%置信区间（z₀.₀₂₅=1.96，结果保留两位小数）。",
+      "optionsZhHans": [],
+      "answer": "(1.70, 1.90)",
+      "acceptedAnswers": [
+        "(1.70, 1.90)",
+        "1.70,1.90"
+      ],
+      "explanationZhHans": "标准误=0.5/√100=0.05，边际误差=1.96×0.05=0.098。置信区间=1.8±0.098=(1.702,1.898)≈(1.70,1.90)。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-210",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-统计",
+      "topicTitleZhHans": "统计",
+      "volume": "必修 第一册",
+      "chapter": "统计",
+      "conceptIds": [
+        "statistics",
+        "sampling",
+        "data-analysis",
+        "frequency-distribution",
+        "statistical-measures",
+        "data-visualization"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "数学建模",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "抽样判断",
+        "频率分布",
+        "统计量计算",
+        "图表解释",
+        "结论评价",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "sample and population confused",
+        "axis or unit ignored",
+        "average used without context",
+        "correlation overclaimed",
+        "axis ignored",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-statistics"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-statistics-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s5-assessment-statistics-case-unit"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知样本数据x₁, x₂, …, xₙ的平均数为x̄，标准差为s。若定义标准化得分zᵢ=(xᵢ - x̄)/s，则z₁, z₂, …, zₙ的标准差为______。",
+      "optionsZhHans": [],
+      "answer": "1",
+      "acceptedAnswers": [
+        "1"
+      ],
+      "explanationZhHans": "标准化后数据均值为0，标准差为1，这是标准化得分的性质。"
+    }
+  ]
+}

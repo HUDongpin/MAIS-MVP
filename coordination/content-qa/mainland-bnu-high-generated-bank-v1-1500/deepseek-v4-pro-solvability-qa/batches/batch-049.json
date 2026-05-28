@@ -1,0 +1,147 @@
+{
+  "batchNumber": 49,
+  "startedAt": "2026-05-27T13:52:05.967Z",
+  "completedAt": "2026-05-27T13:52:26.038Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-385",
+    "bnu-high-ds-v1-s4-386",
+    "bnu-high-ds-v1-s4-387",
+    "bnu-high-ds-v1-s4-388",
+    "bnu-high-ds-v1-s4-389",
+    "bnu-high-ds-v1-s4-390",
+    "bnu-high-ds-v1-s4-391",
+    "bnu-high-ds-v1-s4-392"
+  ],
+  "usage": {
+    "prompt_tokens": 11931,
+    "completion_tokens": 1286,
+    "total_tokens": 13217,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 11419
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-385",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "这一天最低温度为5℃，出现在t=0和t=24时",
+        "correctedAnswer": null,
+        "issueTags": [
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，独立求解得最低5℃在t=0,24，B正确。但解析称A、C也正确，与单选要求矛盾，且解析未指出题目本身存在多正确选项的缺陷，解释与题目不匹配。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-386",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "25(√3+1)米",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件充分，正弦定理求解正确，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-387",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "independentAnswer": "DE=(b-c)/2，DE∥BC且DE=BC/2",
+        "correctedAnswer": null,
+        "issueTags": [
+          "explanation_contradiction"
+        ],
+        "severity": "minor",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，答案正确。但解析中向量表示有误：设AB=c, AC=b，则DE应为(b-c)/2，解析写为(b-c)/2但前面说D=c/2, E=b/2，DE=E-D=(b-c)/2，与答案一致，但答案写为(c-b)/2，符号相反，实际应为(b-c)/2。解析与答案符号不一致，但关系正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-388",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "向量AB和向量AD",
+        "correctedAnswer": null,
+        "issueTags": [
+          "ambiguous_mc",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目要求选一组基底，B正确，但C、D也可作为基底，题目未限定唯一答案，存在多正确选项，解析也承认C、D可行，但未指出题目缺陷。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-389",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "20秒",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，解三角不等式得20秒，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-390",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "h = 50 / (cotβ - cotα)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件充分，表达式推导正确，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-391",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "约56.6 m",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "bad_options",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "按题目数据计算得h≈56.6 m，无正确选项，题目不可解。解析承认计算值与选项不符，但强行选B，答案错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-392",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "约6.4小时",
+        "correctedAnswer": "约6.4小时",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "按题目数据解不等式得累计约6.4小时，答案8小时错误。解析承认计算不符但给出错误答案，与题目矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 3,
+      "warn": 1,
+      "fail": 4,
+      "notes": "8题中3题通过，1题有轻微解析不一致，4题存在严重错误：385多正确选项，388多正确选项，391数据错误无正确选项，392答案计算错误。"
+    }
+  }
+}

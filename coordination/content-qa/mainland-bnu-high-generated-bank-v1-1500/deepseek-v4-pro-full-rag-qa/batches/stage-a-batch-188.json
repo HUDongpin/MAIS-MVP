@@ -1,0 +1,74 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-188",
+  "startedAt": "2026-05-28T01:55:43.085Z",
+  "completedAt": "2026-05-28T01:55:50.741Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-497",
+    "bnu-high-ds-v1-s6-498",
+    "bnu-high-ds-v1-s6-499",
+    "bnu-high-ds-v1-s6-500"
+  ],
+  "usage": {
+    "prompt_tokens": 6327,
+    "completion_tokens": 535,
+    "total_tokens": 6862,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 5943
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-497",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由等比数列通项公式，a5 = a2 * q^3，代入得48 = 6 * q^3，解得q=2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-498",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "最大值为2，最小值为-2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导得f'(x)=3x^2-3，令其为0得x=±1。计算f(-2)=-2，f(-1)=2，f(1)=-2，f(2)=2，比较得最大值2，最小值-2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-499",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "31",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "递推构造等比数列：an+1+1=2(an+1)，得an+1=2^n，故an=2^n-1，a5=31。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-500",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "1",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=e^x-a，由f'(0)=0得1-a=0，故a=1。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 4,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部4题均可独立求解，符合北师大版高三数列与导数综合复习范围，无问题。"
+    }
+  }
+}

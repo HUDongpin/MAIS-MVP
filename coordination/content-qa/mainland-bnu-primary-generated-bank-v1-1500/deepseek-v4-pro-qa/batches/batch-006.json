@@ -1,0 +1,191 @@
+{
+  "batchNumber": 6,
+  "startedAt": "2026-05-27T13:25:16.804Z",
+  "completedAt": "2026-05-27T13:25:36.620Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p1-091",
+    "bnu-primary-ds-v1-p1-092",
+    "bnu-primary-ds-v1-p1-093",
+    "bnu-primary-ds-v1-p1-094",
+    "bnu-primary-ds-v1-p1-095",
+    "bnu-primary-ds-v1-p1-096",
+    "bnu-primary-ds-v1-p1-097",
+    "bnu-primary-ds-v1-p1-098",
+    "bnu-primary-ds-v1-p1-099",
+    "bnu-primary-ds-v1-p1-100",
+    "bnu-primary-ds-v1-p1-101",
+    "bnu-primary-ds-v1-p1-102",
+    "bnu-primary-ds-v1-p1-103",
+    "bnu-primary-ds-v1-p1-104",
+    "bnu-primary-ds-v1-p1-105",
+    "bnu-primary-ds-v1-p1-106",
+    "bnu-primary-ds-v1-p1-107",
+    "bnu-primary-ds-v1-p1-108"
+  ],
+  "usage": {
+    "prompt_tokens": 3287,
+    "completion_tokens": 1381,
+    "total_tokens": 4668,
+    "prompt_tokens_details": {
+      "cached_tokens": 3200
+    },
+    "prompt_cache_hit_tokens": 3200,
+    "prompt_cache_miss_tokens": 87
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p1-091",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，选项合理，答案正确，符合一年级认识图形要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-092",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目要求圈出球，答案正确，acceptedAnswers覆盖多种分隔方式，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-093",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目明确，答案正确，易拉罐能滚动且有平平的面，符合圆柱特征。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-094",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项清晰，魔方是正方体，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-095",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目描述清楚，答案2,1,1,1正确，acceptedAnswers合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-096",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目要求说明圆柱特征，答案准确，acceptedAnswers覆盖多种表述。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-097",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "减法应用题，13-3=10，答案正确，选项无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-098",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数的组成，1个十和6个一合起来是16，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-099",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "减法应用题，算式15-5=10正确，acceptedAnswers覆盖带单位情况。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-100",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项计算正确，11+1=12，答案唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-101",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数的组成，1个十和5个一合起来是15，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-102",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "减法应用题，13-3=10，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-103",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项计算正确，12+2=14，答案唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-104",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数的组成，19里面有1个十和9个一，答案正确，acceptedAnswers合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-105",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "减法应用题，11-1=10，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-106",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数的组成，1个十和6个一是16，选项正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-107",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "10+7=17，计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-108",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "减法应用题，12-2=10，答案正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版小学数学一年级上册要求，数学正确，答案匹配，无歧义或缺失条件，适合公共题库推广。"
+    }
+  }
+}

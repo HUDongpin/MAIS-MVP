@@ -1,0 +1,168 @@
+{
+  "scope": "full",
+  "batchIndex": 26,
+  "startedAt": "2026-05-28T03:29:23.583Z",
+  "completedAt": "2026-05-28T03:30:00.546Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "itemIds": [
+    "10548",
+    "10549",
+    "10550",
+    "10551",
+    "10552",
+    "10553",
+    "10554",
+    "10555",
+    "10556",
+    "10557"
+  ],
+  "usage": {
+    "prompt_tokens": 2996,
+    "completion_tokens": 2731,
+    "total_tokens": 5727,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1520
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2612
+  },
+  "finishReason": "stop",
+  "jsonModeFallback": false,
+  "result": {
+    "items": [
+      {
+        "questionId": "10548",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "$50 - (18.5 + 6.4) = 50 - 24.9 = \\mathbf{25.1}$ (元/dollars)",
+        "independentAnswer": "25.1",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Solvable arithmetic word problem; answer matches computed change.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10549",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "$12 - 3.45 + 5.2 = 8.55 + 5.2 = \\mathbf{13.75}$ (米/metres)",
+        "independentAnswer": "13.75",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Solvable arithmetic word problem; answer matches computed length.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10550",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "$2.45 + (2.45 + 0.8) = 2.45 + 3.25 = \\mathbf{5.7}$ (公斤/kg)",
+        "independentAnswer": "5.7",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Solvable arithmetic word problem; answer matches computed total weight.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10551",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "$1.25 - 0.3 - 0.45 = \\mathbf{0.5}$ (升/L)",
+        "independentAnswer": "0.5",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Solvable arithmetic word problem; answer matches computed remaining juice.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10552",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "$100 - 42.5 + 20.8 = 57.5 + 20.8 = \\mathbf{78.3}$ (元/dollars)",
+        "independentAnswer": "78.3",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Solvable arithmetic word problem; answer matches computed savings.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10553",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "33.7",
+        "independentAnswer": "33.7",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Solvable decimal addition; answer matches.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10554",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "8.68",
+        "independentAnswer": "8.68",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Solvable decimal subtraction; answer matches.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10555",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "23.94",
+        "independentAnswer": "23.94",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Solvable addition of three decimals; answer matches.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10556",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "27.15",
+        "independentAnswer": "27.15",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Solvable subtraction of three numbers; answer matches.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10557",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "11.32",
+        "independentAnswer": "11.32",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Solvable mixed addition and subtraction; answer matches.",
+        "recommendedAction": "No blocking action."
+      }
+    ],
+    "batchSummary": {
+      "pass": 10,
+      "unsolvable": 0,
+      "ambiguous": 0,
+      "imageContextRequired": 0,
+      "answerMismatch": 0,
+      "missingAnswerKey": 0,
+      "notes": "All items are solvable and answer keys match."
+    }
+  }
+}

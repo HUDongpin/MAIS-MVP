@@ -1,0 +1,173 @@
+{
+  "batchNumber": 117,
+  "startedAt": "2026-05-27T18:02:50.078Z",
+  "completedAt": "2026-05-27T18:03:09.038Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s3-393",
+    "bnu-junior-ds-v1-s3-394",
+    "bnu-junior-ds-v1-s3-395",
+    "bnu-junior-ds-v1-s3-396",
+    "bnu-junior-ds-v1-s3-397",
+    "bnu-junior-ds-v1-s3-398",
+    "bnu-junior-ds-v1-s3-399",
+    "bnu-junior-ds-v1-s3-400",
+    "bnu-junior-ds-v1-s3-401",
+    "bnu-junior-ds-v1-s3-402",
+    "bnu-junior-ds-v1-s3-403",
+    "bnu-junior-ds-v1-s3-404"
+  ],
+  "usage": {
+    "prompt_tokens": 7352,
+    "completion_tokens": 1323,
+    "total_tokens": 8675,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 6840
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s3-393",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目明确给出顶点式，a=-3<0，开口向下，最大值即为k=12，答案正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-394",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "对称轴公式x=-b/(2a)=3，选项唯一正确，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-395",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "利润函数推导正确，顶点x=60在定义域内，最大利润4000元，答案与解释匹配，acceptedAnswers覆盖合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-396",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "令x=0得y=1，交点(0,1)正确，解释清晰。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-397",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由交点设交点式，求得a=1，b=-4，c=3，选项A唯一正确，解释无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-398",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "解方程得根-1和3，开口向下，y>0在两根之间，答案-1<x<3正确，acceptedAnswers包含区间表示，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-399",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "配方正确，结果为y=(x-2)²+3，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-400",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "对称轴x=1，开口向下，右侧递减，即x>1，选项B正确，解释无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-401",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "垂径定理构造直角三角形，勾股定理得距离3 cm，答案正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-402",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "圆周角等于圆心角一半，40°正确，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-403",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "切线性质得直角三角形，勾股定理得PT=8，选项B正确，解释无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-404",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "相交弦定理应用正确，ED=4.5，答案与解释匹配，acceptedAnswers覆盖分数形式。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部12道题均可解，答案与解释匹配，无数学错误或条件缺失，符合北师大版初三下学期二次函数和圆的知识点要求。"
+    }
+  }
+}

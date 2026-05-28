@@ -1,0 +1,330 @@
+{
+  "batchNumber": 19,
+  "startedAt": "2026-05-27T03:38:23.675Z",
+  "completedAt": "2026-05-27T03:38:51.197Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p3-041",
+    "bnu-primary-ds-v1-p3-042",
+    "bnu-primary-ds-v1-p3-043",
+    "bnu-primary-ds-v1-p3-044",
+    "bnu-primary-ds-v1-p3-045",
+    "bnu-primary-ds-v1-p3-046",
+    "bnu-primary-ds-v1-p3-047",
+    "bnu-primary-ds-v1-p3-048",
+    "bnu-primary-ds-v1-p3-049",
+    "bnu-primary-ds-v1-p3-050",
+    "bnu-primary-ds-v1-p3-051",
+    "bnu-primary-ds-v1-p3-052",
+    "bnu-primary-ds-v1-p3-053",
+    "bnu-primary-ds-v1-p3-054",
+    "bnu-primary-ds-v1-p3-055",
+    "bnu-primary-ds-v1-p3-056",
+    "bnu-primary-ds-v1-p3-057",
+    "bnu-primary-ds-v1-p3-058",
+    "bnu-primary-ds-v1-p3-059",
+    "bnu-primary-ds-v1-p3-060",
+    "bnu-primary-ds-v1-p3-061",
+    "bnu-primary-ds-v1-p3-062",
+    "bnu-primary-ds-v1-p3-063",
+    "bnu-primary-ds-v1-p3-064",
+    "bnu-primary-ds-v1-p3-065",
+    "bnu-primary-ds-v1-p3-066",
+    "bnu-primary-ds-v1-p3-067",
+    "bnu-primary-ds-v1-p3-068",
+    "bnu-primary-ds-v1-p3-069",
+    "bnu-primary-ds-v1-p3-070"
+  ],
+  "usage": {
+    "prompt_tokens": 5795,
+    "completion_tokens": 2217,
+    "total_tokens": 8012,
+    "prompt_tokens_details": {
+      "cached_tokens": 5760
+    },
+    "prompt_cache_hit_tokens": 5760,
+    "prompt_cache_miss_tokens": 35
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p3-041",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目信息完整，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-042",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目要求明确，答案包含估算、精确计算和验算，正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-043",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项清晰，唯一正确算式为326-148+95。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-044",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "计算正确，答案451。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-045",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "答案642本正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-046",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "验算用9×4正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-047",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "答案8正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-048",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "分步和综合算式均正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-049",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "唯一正确选项24×3+24=96。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-050",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "答案36正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-051",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "正确商为9，推理正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-052",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项8个班正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-053",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "答案12根正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-054",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "答案51根正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-055",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "唯一正确选项48÷6。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-056",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "答案12本正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-057",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "答案9盒正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-058",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "唯一正确选项6×8-12。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-059",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "答案12正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-060",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "正确商为6，推理正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-061",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项26米正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-062",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "答案26米正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-063",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "答案10厘米正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-064",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项40厘米正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-065",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "答案40厘米正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-066",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "答案10厘米正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-067",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项26米正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-068",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "答案26米正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-069",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "答案10厘米正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-070",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项26米正确。"
+      }
+    ],
+    "batchSummary": {
+      "solvableYes": 30,
+      "solvableNo": 0,
+      "answerMatchYes": 30,
+      "answerMatchNo": 0,
+      "notes": "全部30道题目均可解，答案匹配正确，无问题。"
+    }
+  }
+}

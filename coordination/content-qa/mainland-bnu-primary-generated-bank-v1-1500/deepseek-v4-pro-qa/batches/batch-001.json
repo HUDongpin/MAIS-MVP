@@ -1,0 +1,191 @@
+{
+  "batchNumber": 1,
+  "startedAt": "2026-05-27T13:24:58.450Z",
+  "completedAt": "2026-05-27T13:25:16.667Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p1-001",
+    "bnu-primary-ds-v1-p1-002",
+    "bnu-primary-ds-v1-p1-003",
+    "bnu-primary-ds-v1-p1-004",
+    "bnu-primary-ds-v1-p1-005",
+    "bnu-primary-ds-v1-p1-006",
+    "bnu-primary-ds-v1-p1-007",
+    "bnu-primary-ds-v1-p1-008",
+    "bnu-primary-ds-v1-p1-009",
+    "bnu-primary-ds-v1-p1-010",
+    "bnu-primary-ds-v1-p1-011",
+    "bnu-primary-ds-v1-p1-012",
+    "bnu-primary-ds-v1-p1-013",
+    "bnu-primary-ds-v1-p1-014",
+    "bnu-primary-ds-v1-p1-015",
+    "bnu-primary-ds-v1-p1-016",
+    "bnu-primary-ds-v1-p1-017",
+    "bnu-primary-ds-v1-p1-018"
+  ],
+  "usage": {
+    "prompt_tokens": 3180,
+    "completion_tokens": 1262,
+    "total_tokens": 4442,
+    "prompt_tokens_details": {
+      "cached_tokens": 3072
+    },
+    "prompt_cache_hit_tokens": 3072,
+    "prompt_cache_miss_tokens": 108
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p1-001",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，符合一年级上学期要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-002",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目简单明了，答案正确，适合基础练习。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-003",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目合理，答案和解释正确，符合挑战难度。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-004",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "排队问题典型，答案正确，选项无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-005",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "逆向加法问题，答案正确，适合基础训练。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-006",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "减法应用，答案和解释正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-007",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比大小和可能性，答案正确，选项合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-008",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "加法应用，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-009",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "加法应用，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-010",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "减法应用，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-011",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "一一对应数数，答案正确，可接受中文数字。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-012",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "0-10数数，答案正确，解释合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-013",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "0的意义，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-014",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "一一对应减法，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-015",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "0的减法应用，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-016",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "排队之间问题，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-017",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比较多少，答案正确，可接受“多2支”。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-018",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比较长短和差值，答案正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版一年级上学期要求，数学正确，答案匹配，无歧义或缺失条件。"
+    }
+  }
+}

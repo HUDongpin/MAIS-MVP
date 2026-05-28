@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-254",
+  "startedAt": "2026-05-28T01:46:35.580Z",
+  "completedAt": "2026-05-28T01:46:40.627Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-254"
+  ],
+  "usage": {
+    "prompt_tokens": 2845,
+    "completion_tokens": 283,
+    "total_tokens": 3128,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2461
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-254",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "最大值为 13/6，最小值为 -7/3",
+        "correctedAnswer": "最大值为 \\frac{13}{6}，最小值为 -\\frac{7}{3}",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "函数在区间[-2,3]上的最大值为13/6，最小值为-7/3。存储答案最大值13/3错误，且解析中计算f(-1)=13/6却得出13/3，自相矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1题答案错误，解析矛盾，判定为blocker。"
+    }
+  }
+}

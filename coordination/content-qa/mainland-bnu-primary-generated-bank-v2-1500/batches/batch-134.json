@@ -1,0 +1,587 @@
+{
+  "batchId": "batch-134",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p6-081",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-data-processing",
+      "unitTitle": "数据处理",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "data-processing",
+        "statistical-graphs",
+        "data-comparison",
+        "trend-analysis",
+        "数据处理",
+        "统计图"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "读统计图",
+        "选择统计图",
+        "描述变化趋势",
+        "比较数据",
+        "解释统计结论"
+      ],
+      "misconceptionTags": [
+        "graph scale ignored",
+        "trend inferred from one data point",
+        "conclusion not supported by displayed data"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-data-processing"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-data-processing-unit",
+        "bnu-primary-p6-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是某小学六年级（1）班学生最喜欢的运动项目统计表。\n项目：足球、篮球、乒乓球、羽毛球、其他\n人数：12、8、15、10、5\n请根据统计表回答：喜欢乒乓球的人数比喜欢足球的人数多几人？",
+      "optionsZhHans": [],
+      "answer": "3人",
+      "acceptedAnswers": [
+        "3人",
+        "3"
+      ],
+      "explanationZhHans": "喜欢乒乓球的有15人，喜欢足球的有12人，15－12＝3（人），所以多3人。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-082",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-data-processing",
+      "unitTitle": "数据处理",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "data-processing",
+        "statistical-graphs",
+        "data-comparison",
+        "trend-analysis",
+        "数据处理",
+        "统计图"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "读统计图",
+        "选择统计图",
+        "描述变化趋势",
+        "比较数据",
+        "解释统计结论"
+      ],
+      "misconceptionTags": [
+        "graph scale ignored",
+        "trend inferred from one data point",
+        "conclusion not supported by displayed data"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-data-processing"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-data-processing-unit",
+        "bnu-primary-p6-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "要清楚地表示某地去年一年中每月平均气温的变化情况，选用哪种统计图最合适？",
+      "optionsZhHans": [
+        "条形统计图",
+        "折线统计图",
+        "扇形统计图",
+        "复式条形统计图"
+      ],
+      "answer": "折线统计图",
+      "acceptedAnswers": [
+        "折线统计图"
+      ],
+      "explanationZhHans": "折线统计图能清晰地反映数据随时间的变化趋势，适合表示气温变化。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-083",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-data-processing",
+      "unitTitle": "数据处理",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "data-processing",
+        "statistical-graphs",
+        "data-comparison",
+        "trend-analysis",
+        "数据处理",
+        "统计图"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "读统计图",
+        "选择统计图",
+        "描述变化趋势",
+        "比较数据",
+        "解释统计结论"
+      ],
+      "misconceptionTags": [
+        "graph scale ignored",
+        "trend inferred from one data point",
+        "conclusion not supported by displayed data"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-data-processing"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-data-processing-unit",
+        "bnu-primary-p6-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "根据下面描述的数据，在横线上填写合适的统计图名称。\n描述：某商场2024年四个季度的销售额分别是：第一季度120万元，第二季度150万元，第三季度180万元，第四季度200万元。要表示各季度销售额的多少，应选用______。",
+      "optionsZhHans": [],
+      "answer": "条形统计图",
+      "acceptedAnswers": [
+        "条形统计图"
+      ],
+      "explanationZhHans": "条形统计图能直观比较各季度销售额的大小，所以选用条形统计图。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-084",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-data-processing",
+      "unitTitle": "数据处理",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "data-processing",
+        "statistical-graphs",
+        "data-comparison",
+        "trend-analysis",
+        "数据处理",
+        "统计图"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "读统计图",
+        "选择统计图",
+        "描述变化趋势",
+        "比较数据",
+        "解释统计结论"
+      ],
+      "misconceptionTags": [
+        "graph scale ignored",
+        "trend inferred from one data point",
+        "conclusion not supported by displayed data"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-data-processing"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-data-processing-unit",
+        "bnu-primary-p6-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是某地区2024年1月至6月的降水量数据：\n月份：1月、2月、3月、4月、5月、6月\n降水量（毫米）：20、25、35、50、70、90\n请描述该地区2024年上半年降水量的变化趋势。",
+      "optionsZhHans": [],
+      "answer": "逐渐上升",
+      "acceptedAnswers": [
+        "逐渐上升",
+        "不断上升",
+        "持续上升",
+        "上升趋势"
+      ],
+      "explanationZhHans": "从1月到6月，降水量从20毫米增加到90毫米，整体呈现逐渐上升的趋势。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-085",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-data-processing",
+      "unitTitle": "数据处理",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "data-processing",
+        "statistical-graphs",
+        "data-comparison",
+        "trend-analysis",
+        "数据处理",
+        "统计图"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "读统计图",
+        "选择统计图",
+        "描述变化趋势",
+        "比较数据",
+        "解释统计结论"
+      ],
+      "misconceptionTags": [
+        "graph scale ignored",
+        "trend inferred from one data point",
+        "conclusion not supported by displayed data"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-data-processing"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-data-processing-unit",
+        "bnu-primary-p6-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某班同学参加兴趣小组的情况如下：参加数学组的有15人，参加英语组的有10人，参加美术组的有8人，参加音乐组的有7人。要比较各小组人数，选用哪种统计图最合适？",
+      "optionsZhHans": [
+        "折线统计图",
+        "扇形统计图",
+        "条形统计图",
+        "复式折线统计图"
+      ],
+      "answer": "条形统计图",
+      "acceptedAnswers": [
+        "条形统计图"
+      ],
+      "explanationZhHans": "条形统计图能清楚地表示各小组人数的多少，便于比较。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-086",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-data-processing",
+      "unitTitle": "数据处理",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "data-processing",
+        "statistical-graphs",
+        "data-comparison",
+        "trend-analysis",
+        "数据处理",
+        "统计图"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "读统计图",
+        "选择统计图",
+        "描述变化趋势",
+        "比较数据",
+        "解释统计结论"
+      ],
+      "misconceptionTags": [
+        "graph scale ignored",
+        "trend inferred from one data point",
+        "conclusion not supported by displayed data"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-data-processing"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-data-processing-unit",
+        "bnu-primary-p6-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "根据下面描述的数据，在横线上填写合适的统计图名称。\n描述：某校六年级学生最喜欢的课外读物类型统计如下：故事类占40%，科普类占25%，漫画类占20%，其他占15%。要表示各部分与总数之间的关系，应选用______。",
+      "optionsZhHans": [],
+      "answer": "扇形统计图",
+      "acceptedAnswers": [
+        "扇形统计图"
+      ],
+      "explanationZhHans": "扇形统计图能表示各部分占整体的百分比，适合反映部分与总数的关系。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-087",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-data-processing",
+      "unitTitle": "数据处理",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "data-processing",
+        "statistical-graphs",
+        "data-comparison",
+        "trend-analysis",
+        "数据处理",
+        "统计图"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "读统计图",
+        "选择统计图",
+        "描述变化趋势",
+        "比较数据",
+        "解释统计结论"
+      ],
+      "misconceptionTags": [
+        "graph scale ignored",
+        "trend inferred from one data point",
+        "conclusion not supported by displayed data"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-data-processing"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-data-processing-unit",
+        "bnu-primary-p6-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是某小学图书馆2024年1月至4月的借书人数统计表。\n月份：1月、2月、3月、4月\n借书人数：200、180、220、240\n根据统计表回答：哪个月借书人数最多？是多少人？",
+      "optionsZhHans": [],
+      "answer": "4月，240人",
+      "acceptedAnswers": [
+        "4月，240人",
+        "4月240人",
+        "四月，240人"
+      ],
+      "explanationZhHans": "比较各月人数，4月的240人最多。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-088",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-data-processing",
+      "unitTitle": "数据处理",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "data-processing",
+        "statistical-graphs",
+        "data-comparison",
+        "trend-analysis",
+        "数据处理",
+        "统计图"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "读统计图",
+        "选择统计图",
+        "描述变化趋势",
+        "比较数据",
+        "解释统计结论"
+      ],
+      "misconceptionTags": [
+        "graph scale ignored",
+        "trend inferred from one data point",
+        "conclusion not supported by displayed data"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-data-processing"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-data-processing-unit",
+        "bnu-primary-p6-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面关于统计图的说法，正确的是哪一项？",
+      "optionsZhHans": [
+        "条形统计图能清楚地表示数量的增减变化情况",
+        "折线统计图能清楚地表示各部分与总数的关系",
+        "扇形统计图能清楚地表示数量的多少",
+        "折线统计图能清楚地表示数量的增减变化情况"
+      ],
+      "answer": "折线统计图能清楚地表示数量的增减变化情况",
+      "acceptedAnswers": [
+        "折线统计图能清楚地表示数量的增减变化情况"
+      ],
+      "explanationZhHans": "折线统计图的特点就是能清楚地反映数量的增减变化趋势。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-089",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-data-processing",
+      "unitTitle": "数据处理",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "data-processing",
+        "statistical-graphs",
+        "data-comparison",
+        "trend-analysis",
+        "数据处理",
+        "统计图"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "读统计图",
+        "选择统计图",
+        "描述变化趋势",
+        "比较数据",
+        "解释统计结论"
+      ],
+      "misconceptionTags": [
+        "graph scale ignored",
+        "trend inferred from one data point",
+        "conclusion not supported by displayed data"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-data-processing"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-data-processing-unit",
+        "bnu-primary-p6-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "根据下面描述的数据，在横线上填写合适的统计图名称。\n描述：某市2024年每月空气质量为“优”的天数如下：1月10天，2月12天，3月15天，4月18天，5月20天，6月22天。要表示这些数据的变化趋势，应选用______。",
+      "optionsZhHans": [],
+      "answer": "折线统计图",
+      "acceptedAnswers": [
+        "折线统计图"
+      ],
+      "explanationZhHans": "折线统计图适合表示数据随时间的变化趋势，这里要反映空气质量天数的变化。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-090",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-data-processing",
+      "unitTitle": "数据处理",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "data-processing",
+        "statistical-graphs",
+        "data-comparison",
+        "trend-analysis",
+        "数据处理",
+        "统计图"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "读统计图",
+        "选择统计图",
+        "描述变化趋势",
+        "比较数据",
+        "解释统计结论"
+      ],
+      "misconceptionTags": [
+        "graph scale ignored",
+        "trend inferred from one data point",
+        "conclusion not supported by displayed data"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-data-processing"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-data-processing-unit",
+        "bnu-primary-p6-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是某农场2024年四种农作物的种植面积统计表。\n农作物：水稻、小麦、玉米、大豆\n面积（公顷）：50、30、40、20\n请根据统计表回答：种植面积最大的农作物是什么？它的种植面积是多少公顷？",
+      "optionsZhHans": [],
+      "answer": "水稻，50公顷",
+      "acceptedAnswers": [
+        "水稻，50公顷",
+        "水稻50公顷"
+      ],
+      "explanationZhHans": "比较四种农作物的面积，水稻的50公顷最大。"
+    }
+  ]
+}

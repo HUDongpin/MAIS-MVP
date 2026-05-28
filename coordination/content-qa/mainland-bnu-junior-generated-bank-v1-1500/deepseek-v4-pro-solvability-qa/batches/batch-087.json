@@ -1,0 +1,188 @@
+{
+  "batchNumber": 87,
+  "startedAt": "2026-05-27T17:52:54.077Z",
+  "completedAt": "2026-05-27T17:53:17.135Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s3-033",
+    "bnu-junior-ds-v1-s3-034",
+    "bnu-junior-ds-v1-s3-035",
+    "bnu-junior-ds-v1-s3-036",
+    "bnu-junior-ds-v1-s3-037",
+    "bnu-junior-ds-v1-s3-038",
+    "bnu-junior-ds-v1-s3-039",
+    "bnu-junior-ds-v1-s3-040",
+    "bnu-junior-ds-v1-s3-041",
+    "bnu-junior-ds-v1-s3-042",
+    "bnu-junior-ds-v1-s3-043",
+    "bnu-junior-ds-v1-s3-044"
+  ],
+  "usage": {
+    "prompt_tokens": 5910,
+    "completion_tokens": 1570,
+    "total_tokens": 7480,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 5398
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s3-033",
+        "status": "fail",
+        "severity": "major",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "①③④",
+        "rationale": "题目要求“必须同时满足的条件”，答案①③④正确，但解释中称“②③④不能保证矩形”有误，实际上②③④可推出平行四边形且对角线相等，但无直角，不能保证矩形，解释逻辑混乱，但答案本身正确。然而，解释与答案不匹配，且解释存在错误，故判定为fail。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-034",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "四个条件均为平行四边形判定定理，答案4个正确，解释清晰，无问题。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-035",
+        "status": "fail",
+        "severity": "major",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "②,③",
+        "rationale": "条件③仅给出AC⊥BD且OA=OC, OB=OD，可推出菱形，但无法推出对角线相等，因此不能判定正方形。解释中称“对角线相等（由垂直平分且OA=OC,OB=OD可推出AC=BD）”错误，垂直平分不能推出对角线相等。故条件③不能判定正方形，答案应为②。但答案包含③，且解释错误，导致答案不匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-036",
+        "status": "fail",
+        "severity": "major",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "正方形",
+        "rationale": "由AB=BC且∠ABC=90°得等腰直角三角形，但无法推出AB⊥BC（AB与BC已垂直），且对角线互相垂直平分可推出菱形，但无法推出对角线相等，因此不能判定为正方形。解释中“对角线相等”无依据，故答案错误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-037",
+        "status": "fail",
+        "severity": "major",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "②③④",
+        "rationale": "条件②③④：③得平行四边形，②得菱形，④得矩形，但无法推出对角线相等，故不能保证正方形。解释中称“同时满足②③④且对角线相等可得正方形”但条件中无对角线相等，因此答案错误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-038",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "第(1)问①②③均可判定平行四边形，第(2)问在平行四边形基础上加直角得矩形，答案和解释正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-039",
+        "status": "fail",
+        "severity": "major",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "②和③",
+        "rationale": "条件③仅AC⊥BD, OA=OC，未给出OB=OD，无法推出平行四边形，故不能判定菱形或正方形。解释错误，答案②和③不正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-040",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项A正确，其他选项均错误，答案和解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-041",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "两组对边相等得平行四边形，加直角得矩形，证明正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-042",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "菱形面积公式正确，计算无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-043",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "对角线互相平分得平行四边形，加垂直且相等得正方形，选项D正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-044",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "矩形对角线用勾股定理计算正确。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 5,
+      "notes": "共12题，7题通过，5题不通过。不通过题目主要涉及正方形判定条件不足或解释错误，如条件③仅垂直平分不能推出对角线相等，导致答案错误。"
+    }
+  }
+}

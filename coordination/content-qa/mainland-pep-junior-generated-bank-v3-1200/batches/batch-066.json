@@ -1,0 +1,310 @@
+{
+  "batchId": "batch-066",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s2-k08-fi-018",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-data-analysis"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "在平面直角坐标系中，点A的坐标为(2, -3)，点B的坐标为(-1, 1)。将线段AB先向右平移4个单位，再向下平移2个单位，得到线段A'B'。则点A'的坐标为______。",
+      "optionsZhHans": [],
+      "answer": "(6, -5)",
+      "acceptedAnswers": [
+        "(6, -5)",
+        "6, -5",
+        "（6，-5）"
+      ],
+      "explanationZhHans": "点A(2, -3)向右平移4个单位，横坐标加4得6；向下平移2个单位，纵坐标减2得-5。因此点A'的坐标为(6, -5)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-fi-019",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-pythagorean-theorem"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "某校八年级学生进行远足活动，从学校出发向东走了3 km，再向北走了4 km到达目的地。则学校与目的地之间的直线距离为______km。",
+      "optionsZhHans": [],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5",
+        "5 km",
+        "5km"
+      ],
+      "explanationZhHans": "根据题意，向东和向北行走的路线构成直角三角形的两条直角边，长度分别为3 km和4 km。由勾股定理，斜边长为√(3²+4²)=√25=5 km。所以直线距离为5 km。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-fi-020",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-quadrilaterals"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-proof-calculation-integrated"
+      ],
+      "promptZhHans": "在平行四边形ABCD中，已知∠A = 70°，则∠C的度数为______°。",
+      "optionsZhHans": [],
+      "answer": "70",
+      "acceptedAnswers": [
+        "70",
+        "70°"
+      ],
+      "explanationZhHans": "平行四边形的对角相等，所以∠C = ∠A = 70°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-fi-021",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-quadratic-radicals"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean"
+      ],
+      "promptZhHans": "化简二次根式√(48)的结果为______。",
+      "optionsZhHans": [],
+      "answer": "4√3",
+      "acceptedAnswers": [
+        "4√3",
+        "4根号3",
+        "4倍根号3"
+      ],
+      "explanationZhHans": "√48 = √(16×3) = √16 × √3 = 4√3。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-fi-022",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "已知直角三角形的两条直角边长分别为5 cm和12 cm，则该直角三角形斜边上的高为______cm（结果用分数表示）。",
+      "optionsZhHans": [],
+      "answer": "60/13",
+      "acceptedAnswers": [
+        "60/13",
+        "4又8/13",
+        "4 8/13"
+      ],
+      "explanationZhHans": "由勾股定理，斜边长为√(5²+12²)=13 cm。直角三角形斜边上的高等于两直角边的乘积除以斜边长，即(5×12)/13=60/13 cm。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-fi-023",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-linear-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "某弹簧的长度y（cm）与所挂物体的质量x（kg）满足一次函数关系。当不挂物体时，弹簧长度为12 cm；挂上2 kg物体时，弹簧长度为16 cm。则y关于x的函数解析式为y = ______。",
+      "optionsZhHans": [],
+      "answer": "2x + 12",
+      "acceptedAnswers": [
+        "2x + 12",
+        "2x+12",
+        "12+2x"
+      ],
+      "explanationZhHans": "设y = kx + b。由题意，当x=0时，y=12，得b=12。当x=2时，y=16，代入得16 = 2k + 12，解得k=2。所以解析式为y = 2x + 12。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-fi-024",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-data-analysis"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions"
+      ],
+      "promptZhHans": "某班6名同学的数学成绩（单位：分）分别为85, 90, 88, 92, 85, 80。这组数据的众数是______分。",
+      "optionsZhHans": [],
+      "answer": "85",
+      "acceptedAnswers": [
+        "85",
+        "85分"
+      ],
+      "explanationZhHans": "数据中85出现了2次，其他分数均只出现1次，所以众数为85。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-fi-025",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-pythagorean-theorem"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "promptZhHans": "已知三角形的三边长分别为6, 8, 10，则该三角形的面积为______。",
+      "optionsZhHans": [],
+      "answer": "24",
+      "acceptedAnswers": [
+        "24",
+        "24平方单位"
+      ],
+      "explanationZhHans": "因为6²+8²=36+64=100=10²，所以该三角形是直角三角形，直角边为6和8。面积为(1/2)×6×8=24。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-fi-026",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-quadrilaterals"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "promptZhHans": "在矩形ABCD中，对角线AC与BD相交于点O。若AB=6，BC=8，则AO的长度为______。",
+      "optionsZhHans": [],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5",
+        "5个单位"
+      ],
+      "explanationZhHans": "矩形对角线相等且互相平分。由勾股定理，AC=√(6²+8²)=10，所以AO=AC/2=5。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-fi-027",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-quadratic-radicals"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "比较大小：2√3 ______ 3√2。（填“>”“<”或“=”）",
+      "optionsZhHans": [],
+      "answer": "<",
+      "acceptedAnswers": [
+        "<",
+        "小于"
+      ],
+      "explanationZhHans": "2√3 = √(4×3)=√12，3√2 = √(9×2)=√18。因为√12 < √18，所以2√3 < 3√2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

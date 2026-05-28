@@ -1,0 +1,57 @@
+{
+  "batchId": "model-qa-0002",
+  "ids": [
+    "hjb-junior-ds-v2-s3-181",
+    "hjb-junior-ds-v2-s3-182",
+    "hjb-junior-ds-v2-s3-183",
+    "hjb-junior-ds-v2-s3-184"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-181",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "B. 抛物线开口向下，顶点坐标为 (-3, 5)",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-182",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-183",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "标准答案中 x 的取值范围为 40 < x < 100，但根据题意，售价 x 应大于成本 40 元，且销量 200-2x 应为非负，即 x ≤ 100。通常售价可取 100 元，此时销量为 0，利润为 0，但题目未明确排除此情况。若允许 x=100，则取值范围应为 40 < x ≤ 100。标准答案使用开区间可能不完整。",
+      "independentAnswerZhHans": "（1）y = -2x^2 + 280x - 8000，40 < x ≤ 100；（2）售价 70 元，最大利润 1800 元",
+      "answerCheckZhHans": "标准答案中 x 的取值范围为 40 < x < 100，但 x=100 时销量为 0，利润为 0，仍符合实际意义，故应为 40 < x ≤ 100。",
+      "recommendedActionZhHans": "建议将 x 的取值范围修改为 40 < x ≤ 100，或明确说明售价不能等于 100 元。",
+      "confidence": "medium"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-184",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "B. a = -1，b = 2，c = 3",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

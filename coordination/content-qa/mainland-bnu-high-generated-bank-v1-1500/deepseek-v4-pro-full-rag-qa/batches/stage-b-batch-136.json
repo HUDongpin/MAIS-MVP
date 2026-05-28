@@ -1,0 +1,129 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-136",
+  "startedAt": "2026-05-28T01:38:01.101Z",
+  "completedAt": "2026-05-28T01:38:13.707Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-081",
+    "bnu-high-ds-v1-s6-082",
+    "bnu-high-ds-v1-s6-083",
+    "bnu-high-ds-v1-s6-084",
+    "bnu-high-ds-v1-s6-085",
+    "bnu-high-ds-v1-s6-086",
+    "bnu-high-ds-v1-s6-087",
+    "bnu-high-ds-v1-s6-088"
+  ],
+  "usage": {
+    "prompt_tokens": 11575,
+    "completion_tokens": 992,
+    "total_tokens": 12567,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 11191
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-081",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "146",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案为137，但Stage A独立解为146，且解析中计算过程得出146，与存储答案矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-082",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案、解析与Stage A独立解一致，均为2或-3，选项C正确，唯一性满足。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-083",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案、解析与Stage A独立解一致，均为a_n = 3^n - 2^n，证明过程正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-084",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案、解析与Stage A独立解一致，公差d=2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-085",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案、解析与Stage A独立解一致，a_5=11，选项A正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-086",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案、解析与Stage A独立解一致，通项公式a_n=2n+1。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-087",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案、解析与Stage A独立解一致，a_10=1/19。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-088",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案、解析与Stage A独立解一致，该数列是等差数列，选项B正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第1题存储答案为137，但正确结果为146，解析与答案矛盾，判定为失败；其余7题均通过。"
+    }
+  }
+}

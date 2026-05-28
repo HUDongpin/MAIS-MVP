@@ -1,0 +1,168 @@
+{
+  "scope": "full",
+  "batchIndex": 78,
+  "startedAt": "2026-05-28T04:12:55.556Z",
+  "completedAt": "2026-05-28T04:13:52.561Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "itemIds": [
+    "2046",
+    "2047",
+    "2048",
+    "2049",
+    "2050",
+    "2051",
+    "2052",
+    "2672",
+    "2673",
+    "2674"
+  ],
+  "usage": {
+    "prompt_tokens": 2854,
+    "completion_tokens": 3559,
+    "total_tokens": 6413,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 2346
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2470
+  },
+  "finishReason": "stop",
+  "jsonModeFallback": false,
+  "result": {
+    "items": [
+      {
+        "questionId": "2046",
+        "questionType": "MCQ",
+        "hasImage": false,
+        "standardAnswer": "A",
+        "independentAnswer": "A",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "H.C.F. of 16 and 64 is 16, option A correct.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "2047",
+        "questionType": "MCQ",
+        "hasImage": false,
+        "standardAnswer": "D",
+        "independentAnswer": "D",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "L.C.M. of 24, 36, 60 is 360, option D correct.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "2048",
+        "questionType": "MCQ",
+        "hasImage": false,
+        "standardAnswer": "A",
+        "independentAnswer": "A",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "H.C.F. of 42 and 56 is 14, option A correct.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "2049",
+        "questionType": "MCQ",
+        "hasImage": false,
+        "standardAnswer": "A",
+        "independentAnswer": "525",
+        "solvabilityStatus": "unsolvable",
+        "answerMatchStatus": "mismatch",
+        "severity": "P0",
+        "reason": "正確的L.C.M.是525，但選項中沒有此答案；答案鍵A (105) 錯誤。",
+        "recommendedAction": "修正題目或選項，使至少有一個正確選項。"
+      },
+      {
+        "questionId": "2050",
+        "questionType": "MCQ",
+        "hasImage": false,
+        "standardAnswer": "B",
+        "independentAnswer": "B",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "H.C.F. of 18 and 30 is 6, option B correct.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "2051",
+        "questionType": "MCQ",
+        "hasImage": false,
+        "standardAnswer": "A",
+        "independentAnswer": "A",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "L.C.M. of 48 and 72 is 144, option A correct.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "2052",
+        "questionType": "MCQ",
+        "hasImage": false,
+        "standardAnswer": "B",
+        "independentAnswer": "B",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "H.C.F. of 36 and 60 is 12, option B correct.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "2672",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "2^3 \\times 3^2 \\times 5",
+        "independentAnswer": "2^3 × 3^2 × 5",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "360 prime factorisation using index notation is 2^3 × 3^2 × 5.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "2673",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "2 \\times 3 \\times 5 \\times 7",
+        "independentAnswer": "2 × 3 × 5 × 7",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "210 as product of prime factors is 2 × 3 × 5 × 7.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "2674",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "18",
+        "independentAnswer": "18",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "H.C.F. of 36, 54, 90 is 18.",
+        "recommendedAction": "No blocking action."
+      }
+    ],
+    "batchSummary": {
+      "pass": 9,
+      "unsolvable": 1,
+      "ambiguous": 0,
+      "imageContextRequired": 0,
+      "answerMismatch": 1,
+      "missingAnswerKey": 0,
+      "notes": "9 items are correct. 1 item (2049) has no correct option: LCM of 15,25,35 is 525, but answer key says A (105) which is wrong."
+    }
+  }
+}

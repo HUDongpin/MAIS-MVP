@@ -1,0 +1,182 @@
+{
+  "batchNumber": 15,
+  "startedAt": "2026-05-27T17:25:17.174Z",
+  "completedAt": "2026-05-27T17:25:43.554Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s1-169",
+    "bnu-junior-ds-v1-s1-170",
+    "bnu-junior-ds-v1-s1-171",
+    "bnu-junior-ds-v1-s1-172",
+    "bnu-junior-ds-v1-s1-173",
+    "bnu-junior-ds-v1-s1-174",
+    "bnu-junior-ds-v1-s1-175",
+    "bnu-junior-ds-v1-s1-176",
+    "bnu-junior-ds-v1-s1-177",
+    "bnu-junior-ds-v1-s1-178",
+    "bnu-junior-ds-v1-s1-179",
+    "bnu-junior-ds-v1-s1-180"
+  ],
+  "usage": {
+    "prompt_tokens": 6730,
+    "completion_tokens": 1610,
+    "total_tokens": 8340,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 6218
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s1-169",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，选项唯一正确，答案与解释匹配，符合北师大版七年级一元一次方程建模要求。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-170",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "经典相遇问题，狗跑的时间等于两人相遇时间，计算正确，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-171",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "盈亏问题，方程列式正确，解得学生人数11，答案与解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-172",
+        "status": "fail",
+        "severity": "major",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "ambiguous_mc"
+        ],
+        "correctedAnswer": null,
+        "rationale": "题目中“有一人植的树不足3棵”意味着最后一人可能植1棵或2棵，选项B（4x+16=6(x-1)+2）仅对应植2棵的情况，但若植1棵则方程应为4x+16=6(x-1)+1，题目未明确具体棵数，导致方程不唯一，选项B并非必然正确，且选项C（+3）不符合“不足3棵”。因此答案不唯一，选项设置不合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-173",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "客车租用问题，设学生总数为x，利用客车数量相等列方程，解得x=240，答案与解释一致，acceptedAnswers覆盖多种等价形式。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-174",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "标准盈亏问题，方程4x+16=6x-8正确，解得x=12，答案与解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-175",
+        "status": "fail",
+        "severity": "major",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "ambiguous_mc"
+        ],
+        "correctedAnswer": null,
+        "rationale": "与172题类似，“不足3棵”意味着最后一人可能植1棵或2棵，选项B（4x+20=5(x-1)+3）中+3表示最后一人植3棵，不符合“不足3棵”，因此选项B错误。其他选项也不正确，导致无正确选项。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-176",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "设45座客车数量为x，总人数相等列方程45x+15=60(x-1)，解得x=5，总人数240，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-177",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "与176题类似，直接求学生人数，设车辆数列方程解得240，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-178",
+        "status": "fail",
+        "severity": "major",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": null,
+        "rationale": "解释中计算x=15时方案二费用为20+4.8×15=92元，方案一120元，方案二更省钱，但答案选项A却说“购买15本时方案一更省钱”，与解释矛盾。正确结论应为方案二更省钱，且费用相等时x=25，但选项A结论错误。选项B和D中费用相等时x=20错误，选项C结论正确但费用相等时x=20错误。因此所有选项均不正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-179",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "客车问题，方程45x+15=50x-10正确，解得x=5，总人数240，答案与解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-180",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "直接解方程4x+20=5x-15得x=35，答案正确，解释清晰。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 9,
+      "warn": 0,
+      "fail": 3,
+      "notes": "共12题，9题通过，3题不通过。不通过原因：172题和175题因“不足3棵”条件导致方程不唯一或选项错误；178题解释与答案选项矛盾，所有选项均不正确。"
+    }
+  }
+}

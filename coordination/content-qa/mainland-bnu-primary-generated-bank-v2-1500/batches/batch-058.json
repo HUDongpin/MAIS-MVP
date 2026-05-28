@@ -1,0 +1,576 @@
+{
+  "batchId": "batch-058",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p3-071",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-perimeter",
+      "unitTitle": "周长",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "perimeter",
+        "length-around-shape",
+        "rectangle-square-perimeter",
+        "周长",
+        "封闭图形"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "几何直观"
+      ],
+      "skillTags": [
+        "认识周长",
+        "测量边长",
+        "长方形周长",
+        "正方形周长",
+        "单位表达"
+      ],
+      "misconceptionTags": [
+        "inside region counted instead of boundary",
+        "open paths treated as closed figures",
+        "length units omitted or mixed"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-perimeter"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方形花坛，长8米，宽5米。工人师傅沿着花坛边缘围一圈篱笆，篱笆一共长多少米？",
+      "optionsZhHans": [],
+      "answer": "26",
+      "acceptedAnswers": [
+        "26",
+        "26米"
+      ],
+      "explanationZhHans": "长方形周长 = (长 + 宽) × 2 = (8 + 5) × 2 = 26（米）。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-072",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-perimeter",
+      "unitTitle": "周长",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "perimeter",
+        "length-around-shape",
+        "rectangle-square-perimeter",
+        "周长",
+        "封闭图形"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "几何直观"
+      ],
+      "skillTags": [
+        "认识周长",
+        "测量边长",
+        "长方形周长",
+        "正方形周长",
+        "单位表达"
+      ],
+      "misconceptionTags": [
+        "inside region counted instead of boundary",
+        "open paths treated as closed figures",
+        "length units omitted or mixed"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-perimeter"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用一根铁丝正好围成一个边长是12厘米的正方形。如果把这根铁丝重新围成一个长方形，长是14厘米，那么宽是多少厘米？",
+      "optionsZhHans": [],
+      "answer": "10",
+      "acceptedAnswers": [
+        "10",
+        "10厘米"
+      ],
+      "explanationZhHans": "铁丝总长 = 正方形周长 = 12 × 4 = 48厘米。长方形周长 = (长 + 宽) × 2 = 48，所以长 + 宽 = 24，宽 = 24 - 14 = 10厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-073",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-perimeter",
+      "unitTitle": "周长",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "perimeter",
+        "length-around-shape",
+        "rectangle-square-perimeter",
+        "周长",
+        "封闭图形"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "几何直观"
+      ],
+      "skillTags": [
+        "认识周长",
+        "测量边长",
+        "长方形周长",
+        "正方形周长",
+        "单位表达"
+      ],
+      "misconceptionTags": [
+        "inside region counted instead of boundary",
+        "open paths treated as closed figures",
+        "length units omitted or mixed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-perimeter"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个正方形池塘，沿着池塘边每隔5米种一棵柳树，四个角都种，一共种了20棵。这个池塘的周长是多少米？",
+      "optionsZhHans": [
+        "80米",
+        "100米",
+        "120米",
+        "140米"
+      ],
+      "answer": "100米",
+      "acceptedAnswers": [
+        "100米"
+      ],
+      "explanationZhHans": "正方形四个角都种树，属于封闭图形植树问题，棵数 = 间隔数。20棵对应20个间隔，每个间隔5米，周长 = 20 × 5 = 100米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-074",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-perimeter",
+      "unitTitle": "周长",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "perimeter",
+        "length-around-shape",
+        "rectangle-square-perimeter",
+        "周长",
+        "封闭图形"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "几何直观"
+      ],
+      "skillTags": [
+        "认识周长",
+        "测量边长",
+        "长方形周长",
+        "正方形周长",
+        "单位表达"
+      ],
+      "misconceptionTags": [
+        "inside region counted instead of boundary",
+        "open paths treated as closed figures",
+        "length units omitted or mixed"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-perimeter"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丽用一根彩带围成一个三角形，三条边的长度分别是15厘米、18厘米、22厘米。这根彩带至少长多少厘米？",
+      "optionsZhHans": [],
+      "answer": "55",
+      "acceptedAnswers": [
+        "55",
+        "55厘米"
+      ],
+      "explanationZhHans": "彩带长度等于三角形周长 = 15 + 18 + 22 = 55厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-075",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-perimeter",
+      "unitTitle": "周长",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "perimeter",
+        "length-around-shape",
+        "rectangle-square-perimeter",
+        "周长",
+        "封闭图形"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "几何直观"
+      ],
+      "skillTags": [
+        "认识周长",
+        "测量边长",
+        "长方形周长",
+        "正方形周长",
+        "单位表达"
+      ],
+      "misconceptionTags": [
+        "inside region counted instead of boundary",
+        "open paths treated as closed figures",
+        "length units omitted or mixed"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-perimeter"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把两个长10厘米、宽6厘米的长方形拼成一个大长方形。拼成的大长方形的周长可能是多少厘米？请写出两种不同的拼法并计算周长。",
+      "optionsZhHans": [],
+      "answer": "一种拼法：长边相接，周长 = (10 + 12) × 2 = 44厘米；另一种拼法：宽边相接，周长 = (20 + 6) × 2 = 52厘米。",
+      "acceptedAnswers": [
+        "一种拼法：长边相接，周长 = (10 + 12) × 2 = 44厘米；另一种拼法：宽边相接，周长 = (20 + 6) × 2 = 52厘米。",
+        "44厘米和52厘米"
+      ],
+      "explanationZhHans": "拼法1：宽边重合，长变为10+10=20厘米，宽6厘米，周长(20+6)×2=52厘米。拼法2：长边重合，长10厘米，宽6+6=12厘米，周长(10+12)×2=44厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-076",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-multi-digit-multiplication",
+      "unitTitle": "乘法",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "multi-digit-by-one-digit-multiplication",
+        "place-value-multiplication",
+        "regrouping-multiplication",
+        "乘法",
+        "多位数乘一位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "一位数乘多位数",
+        "竖式乘法",
+        "进位",
+        "估算积",
+        "乘法应用"
+      ],
+      "misconceptionTags": [
+        "place-value parts multiplied as isolated digits",
+        "carried value added to the wrong place",
+        "product estimate not used to catch unreasonable results"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-multi-digit-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-two-digit-multiplication-unit",
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一箱矿泉水有24瓶，学校买来6箱。每瓶水2元，一共需要付多少元？下面列式正确的是（ ）。",
+      "optionsZhHans": [
+        "24 × 6 × 2",
+        "24 + 6 × 2",
+        "24 × 6 + 2",
+        "24 + 6 + 2"
+      ],
+      "answer": "24 × 6 × 2",
+      "acceptedAnswers": [
+        "24 × 6 × 2"
+      ],
+      "explanationZhHans": "先求总瓶数：24×6，再乘每瓶价格2元，所以总价 = 24×6×2。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-077",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-multi-digit-multiplication",
+      "unitTitle": "乘法",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "multi-digit-by-one-digit-multiplication",
+        "place-value-multiplication",
+        "regrouping-multiplication",
+        "乘法",
+        "多位数乘一位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "一位数乘多位数",
+        "竖式乘法",
+        "进位",
+        "估算积",
+        "乘法应用"
+      ],
+      "misconceptionTags": [
+        "place-value parts multiplied as isolated digits",
+        "carried value added to the wrong place",
+        "product estimate not used to catch unreasonable results"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-multi-digit-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-two-digit-multiplication-unit",
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算 213 × 4 时，先用4乘213个位上的3得12，向十位进（ ），再用4乘十位上的1得4，加上进上来的1得5，在十位写5。",
+      "optionsZhHans": [],
+      "answer": "1",
+      "acceptedAnswers": [
+        "1"
+      ],
+      "explanationZhHans": "个位3×4=12，满十向十位进1，十位1×4=4，加上进位1得5。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-078",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-multi-digit-multiplication",
+      "unitTitle": "乘法",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "multi-digit-by-one-digit-multiplication",
+        "place-value-multiplication",
+        "regrouping-multiplication",
+        "乘法",
+        "多位数乘一位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "一位数乘多位数",
+        "竖式乘法",
+        "进位",
+        "估算积",
+        "乘法应用"
+      ],
+      "misconceptionTags": [
+        "place-value parts multiplied as isolated digits",
+        "carried value added to the wrong place",
+        "product estimate not used to catch unreasonable results"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-multi-digit-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-two-digit-multiplication-unit",
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在算式 □25 × 3 中，要使积是三位数，□里最大填几？要使积是四位数，□里最小填几？",
+      "optionsZhHans": [],
+      "answer": "最大填3，最小填4",
+      "acceptedAnswers": [
+        "最大填3，最小填4",
+        "3和4"
+      ],
+      "explanationZhHans": "估算：300×3=900，400×3=1200。所以□填3时积是三位数，填4时积是四位数。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-079",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-multi-digit-multiplication",
+      "unitTitle": "乘法",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "multi-digit-by-one-digit-multiplication",
+        "place-value-multiplication",
+        "regrouping-multiplication",
+        "乘法",
+        "多位数乘一位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "一位数乘多位数",
+        "竖式乘法",
+        "进位",
+        "估算积",
+        "乘法应用"
+      ],
+      "misconceptionTags": [
+        "place-value parts multiplied as isolated digits",
+        "carried value added to the wrong place",
+        "product estimate not used to catch unreasonable results"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-multi-digit-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-two-digit-multiplication-unit",
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个算式的积最接近1200？",
+      "optionsZhHans": [
+        "298 × 4",
+        "402 × 3",
+        "199 × 6",
+        "501 × 2"
+      ],
+      "answer": "402 × 3",
+      "acceptedAnswers": [
+        "402 × 3"
+      ],
+      "explanationZhHans": "298×4≈1200，402×3=1206，199×6≈1200，501×2=1002。402×3=1206最接近1200。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-080",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-multi-digit-multiplication",
+      "unitTitle": "乘法",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "multi-digit-by-one-digit-multiplication",
+        "place-value-multiplication",
+        "regrouping-multiplication",
+        "乘法",
+        "多位数乘一位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "一位数乘多位数",
+        "竖式乘法",
+        "进位",
+        "估算积",
+        "乘法应用"
+      ],
+      "misconceptionTags": [
+        "place-value parts multiplied as isolated digits",
+        "carried value added to the wrong place",
+        "product estimate not used to catch unreasonable results"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-multi-digit-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-two-digit-multiplication-unit",
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一篇文章有8页，每页大约有203个字。这篇文章大约一共有多少个字？",
+      "optionsZhHans": [],
+      "answer": "1624",
+      "acceptedAnswers": [
+        "1624",
+        "约1600"
+      ],
+      "explanationZhHans": "203 × 8 = 1624（个）。估算：200×8=1600，所以大约1600个字。"
+    }
+  ]
+}

@@ -1,0 +1,583 @@
+{
+  "batchId": "batch-021",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p1-201",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-plane-shapes",
+      "unitTitle": "有趣的图形",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "plane-shapes",
+        "shape-composition",
+        "geometry-play",
+        "平面图形",
+        "有趣的图形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "观察比较"
+      ],
+      "skillTags": [
+        "长方形",
+        "正方形",
+        "三角形",
+        "圆",
+        "拼摆图形"
+      ],
+      "misconceptionTags": [
+        "shape named by orientation",
+        "solid and flat shapes mixed",
+        "composition seen as picture-matching only"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-plane-shapes"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-plane-shapes",
+        "bnu-primary-p1-lower-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用下面的图形拼一只小船，需要1个三角形做船帆，1个长方形做船身。下面哪组图形可以拼出这只小船？\nA. 1个三角形和1个长方形\nB. 1个正方形和1个长方形\nC. 1个三角形和1个正方形\nD. 1个圆和1个长方形",
+      "optionsZhHans": [
+        "A. 1个三角形和1个长方形",
+        "B. 1个正方形和1个长方形",
+        "C. 1个三角形和1个正方形",
+        "D. 1个圆和1个长方形"
+      ],
+      "answer": "A. 1个三角形和1个长方形",
+      "acceptedAnswers": [
+        "A. 1个三角形和1个长方形"
+      ],
+      "explanationZhHans": "题目要求用1个三角形和1个长方形拼小船。选项A正好是1个三角形和1个长方形，符合要求。其他选项缺少三角形或长方形，不能拼成。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-202",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-plane-shapes",
+      "unitTitle": "有趣的图形",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "plane-shapes",
+        "shape-composition",
+        "geometry-play",
+        "平面图形",
+        "有趣的图形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "观察比较"
+      ],
+      "skillTags": [
+        "长方形",
+        "正方形",
+        "三角形",
+        "圆",
+        "拼摆图形"
+      ],
+      "misconceptionTags": [
+        "shape named by orientation",
+        "solid and flat shapes mixed",
+        "composition seen as picture-matching only"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-plane-shapes"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-plane-shapes",
+        "bnu-primary-p1-lower-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用下面的图形拼一条小鱼，你用了哪些图形？各用了几个？\n图形：长方形1个，正方形1个，三角形3个，圆2个。\n（填写格式：长方形__个，正方形__个，三角形__个，圆__个）",
+      "optionsZhHans": [],
+      "answer": "长方形1个，正方形1个，三角形3个，圆2个",
+      "acceptedAnswers": [
+        "长方形1个，正方形1个，三角形3个，圆2个"
+      ],
+      "explanationZhHans": "题目给出了拼小鱼所用的图形及数量，直接填写即可。长方形1个，正方形1个，三角形3个，圆2个。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-203",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-plane-shapes",
+      "unitTitle": "有趣的图形",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "plane-shapes",
+        "shape-composition",
+        "geometry-play",
+        "平面图形",
+        "有趣的图形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "观察比较"
+      ],
+      "skillTags": [
+        "长方形",
+        "正方形",
+        "三角形",
+        "圆",
+        "拼摆图形"
+      ],
+      "misconceptionTags": [
+        "shape named by orientation",
+        "solid and flat shapes mixed",
+        "composition seen as picture-matching only"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-plane-shapes"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-plane-shapes",
+        "bnu-primary-p1-lower-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪一组图形全部都是平面图形？",
+      "optionsZhHans": [
+        "长方形、圆柱、三角形",
+        "正方形、圆、球",
+        "长方形、正方形、三角形、圆",
+        "正方体、长方体、球"
+      ],
+      "answer": "长方形、正方形、三角形、圆",
+      "acceptedAnswers": [
+        "长方形、正方形、三角形、圆"
+      ],
+      "explanationZhHans": "平面图形是平平的，只有长和宽，如长方形、正方形、三角形和圆。圆柱、球、正方体、长方体都是立体图形，所以只有第三组全是平面图形。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-204",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-plane-shapes",
+      "unitTitle": "有趣的图形",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "plane-shapes",
+        "shape-composition",
+        "geometry-play",
+        "平面图形",
+        "有趣的图形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "观察比较"
+      ],
+      "skillTags": [
+        "长方形",
+        "正方形",
+        "三角形",
+        "圆",
+        "拼摆图形"
+      ],
+      "misconceptionTags": [
+        "shape named by orientation",
+        "solid and flat shapes mixed",
+        "composition seen as picture-matching only"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-plane-shapes"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-plane-shapes",
+        "bnu-primary-p1-lower-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "拼一拼，填一填。\n用两个完全一样的三角形可以拼成一个什么图形？请写出两种不同的拼法。",
+      "optionsZhHans": [],
+      "answer": "正方形，平行四边形",
+      "acceptedAnswers": [
+        "正方形，平行四边形",
+        "平行四边形，正方形",
+        "长方形，平行四边形",
+        "平行四边形，长方形",
+        "正方形，长方形",
+        "长方形，正方形"
+      ],
+      "explanationZhHans": "两个完全一样的直角三角形可以拼成长方形、正方形或平行四边形等。题目要求写出两种不同的拼法，如正方形和平行四边形。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-205",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-plane-shapes",
+      "unitTitle": "有趣的图形",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "plane-shapes",
+        "shape-composition",
+        "geometry-play",
+        "平面图形",
+        "有趣的图形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "观察比较"
+      ],
+      "skillTags": [
+        "长方形",
+        "正方形",
+        "三角形",
+        "圆",
+        "拼摆图形"
+      ],
+      "misconceptionTags": [
+        "shape named by orientation",
+        "solid and flat shapes mixed",
+        "composition seen as picture-matching only"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-plane-shapes"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-plane-shapes",
+        "bnu-primary-p1-lower-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小乐用下面的平面图形拼了一艘小船：他用1个三角形做船帆，1个长方形做船身。他还想用1个正方形做船上的小窗户。下面哪一组图形正好是他用到的全部图形？",
+      "optionsZhHans": [
+        "三角形、长方形、正方形",
+        "三角形、长方形、圆",
+        "正方形、长方形、圆",
+        "三角形、正方形、圆"
+      ],
+      "answer": "三角形、长方形、正方形",
+      "acceptedAnswers": [
+        "三角形、长方形、正方形"
+      ],
+      "explanationZhHans": "小乐用了三角形、长方形和正方形，没有用到圆，所以第一组图形正好是他用到的全部图形。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-206",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-within-100-add-sub-nonregrouping",
+      "unitTitle": "加与减（二）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-100-addition-subtraction",
+        "two-digit-non-regrouping",
+        "place-value-calculation",
+        "100以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "整十数加减",
+        "两位数加一位数",
+        "两位数加整十数",
+        "两位数减一位数",
+        "两位数减整十数"
+      ],
+      "misconceptionTags": [
+        "adding tens as ones",
+        "place-value alignment ignored",
+        "context answer lacks unit meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-within-100-add-sub-nonregrouping"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-100-add-sub",
+        "bnu-primary-p1-lower-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小乐有36块积木，他先拿出10块搭了一个房子，又拿出5块搭了一辆车。小乐一共拿出了多少块积木？",
+      "optionsZhHans": [],
+      "answer": "15",
+      "acceptedAnswers": [
+        "15",
+        "15块"
+      ],
+      "explanationZhHans": "先拿10块，再拿5块，一共拿出10+5=15块。注意是问拿出的总数，不是剩下的。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-207",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-within-100-add-sub-nonregrouping",
+      "unitTitle": "加与减（二）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-100-addition-subtraction",
+        "two-digit-non-regrouping",
+        "place-value-calculation",
+        "100以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "整十数加减",
+        "两位数加一位数",
+        "两位数加整十数",
+        "两位数减一位数",
+        "两位数减整十数"
+      ],
+      "misconceptionTags": [
+        "adding tens as ones",
+        "place-value alignment ignored",
+        "context answer lacks unit meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-within-100-add-sub-nonregrouping"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-100-add-sub",
+        "bnu-primary-p1-lower-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小方有42张贴纸，送给同学20张，又得到15张。现在小方有多少张贴纸？",
+      "optionsZhHans": [
+        "37张",
+        "47张",
+        "57张",
+        "67张"
+      ],
+      "answer": "37张",
+      "acceptedAnswers": [
+        "37张"
+      ],
+      "explanationZhHans": "先算送出后：42－20＝22（张），再算得到后：22＋15＝37（张）。注意20是整十数，减时只动十位，个位不变。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-208",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-within-100-add-sub-nonregrouping",
+      "unitTitle": "加与减（二）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-100-addition-subtraction",
+        "two-digit-non-regrouping",
+        "place-value-calculation",
+        "100以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "整十数加减",
+        "两位数加一位数",
+        "两位数加整十数",
+        "两位数减一位数",
+        "两位数减整十数"
+      ],
+      "misconceptionTags": [
+        "adding tens as ones",
+        "place-value alignment ignored",
+        "context answer lacks unit meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-within-100-add-sub-nonregrouping"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-100-add-sub",
+        "bnu-primary-p1-lower-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小乐有23块积木，他又拿来5块。现在他一共有多少块积木？",
+      "optionsZhHans": [],
+      "answer": "28块",
+      "acceptedAnswers": [
+        "28块",
+        "28"
+      ],
+      "explanationZhHans": "23加5，个位3加5得8，十位2不变，合起来是28块。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-209",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-within-100-add-sub-nonregrouping",
+      "unitTitle": "加与减（二）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-100-addition-subtraction",
+        "two-digit-non-regrouping",
+        "place-value-calculation",
+        "100以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "整十数加减",
+        "两位数加一位数",
+        "两位数加整十数",
+        "两位数减一位数",
+        "两位数减整十数"
+      ],
+      "misconceptionTags": [
+        "adding tens as ones",
+        "place-value alignment ignored",
+        "context answer lacks unit meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-within-100-add-sub-nonregrouping"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-100-add-sub",
+        "bnu-primary-p1-lower-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小乐有45本故事书，小美有30本故事书。小乐比小美多多少本故事书？",
+      "optionsZhHans": [
+        "15本",
+        "75本",
+        "25本",
+        "10本"
+      ],
+      "answer": "15本",
+      "acceptedAnswers": [
+        "15本"
+      ],
+      "explanationZhHans": "求小乐比小美多多少本，用减法：45 - 30 = 15（本）。计算时，十位4减3得1，个位5减0得5，所以结果是15本。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-210",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-within-100-add-sub-nonregrouping",
+      "unitTitle": "加与减（二）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-100-addition-subtraction",
+        "two-digit-non-regrouping",
+        "place-value-calculation",
+        "100以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "整十数加减",
+        "两位数加一位数",
+        "两位数加整十数",
+        "两位数减一位数",
+        "两位数减整十数"
+      ],
+      "misconceptionTags": [
+        "adding tens as ones",
+        "place-value alignment ignored",
+        "context answer lacks unit meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-within-100-add-sub-nonregrouping"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-100-add-sub",
+        "bnu-primary-p1-lower-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小华有36张贴纸，送给同学20张，妈妈又给了他8张。小华现在有多少张贴纸？",
+      "optionsZhHans": [],
+      "answer": "24",
+      "acceptedAnswers": [
+        "24",
+        "24张"
+      ],
+      "explanationZhHans": "先算36－20＝16，再算16＋8＝24，所以现在有24张贴纸。"
+    }
+  ]
+}

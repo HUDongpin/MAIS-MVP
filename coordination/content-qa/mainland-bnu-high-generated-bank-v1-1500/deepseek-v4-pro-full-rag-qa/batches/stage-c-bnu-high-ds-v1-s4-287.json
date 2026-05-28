@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-287",
+  "startedAt": "2026-05-28T01:07:03.668Z",
+  "completedAt": "2026-05-28T01:07:11.591Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-287"
+  ],
+  "usage": {
+    "prompt_tokens": 2486,
+    "completion_tokens": 340,
+    "total_tokens": 2826,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2102
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-287",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "(1) 甲：7.1万元，乙：约6.6万元；(2) 甲模型更准确；(3) 9.2万元",
+        "correctedAnswer": "(1) 甲：7.1万元，乙：约6.6万元；(2) 甲模型更准确；(3) 9.2万元",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "乙模型计算错误：4.5×1.1⁴≈6.588，四舍五入为6.6万元，而非7.2万元。因此甲模型更准确，预测2025年应为9.2万元。答案与解析均错误，且解析中试图修改模型参数，与题目矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "乙模型预测值计算错误，导致答案和解析均不正确，判定为严重错误。"
+    }
+  }
+}

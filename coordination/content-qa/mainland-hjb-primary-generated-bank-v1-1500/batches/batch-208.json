@@ -1,0 +1,299 @@
+{
+  "batchId": "batch-208",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p5-036",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "hjb-primary-p5-upper-equations-relationships",
+      "unitTitle": "用字母表示数与简易方程",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "simple-equations",
+        "letters-as-variables",
+        "quantitative-relationships",
+        "equation-modeling",
+        "简易方程"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "模型意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "用字母表示数",
+        "等量关系",
+        "解简易方程",
+        "代入检验",
+        "问题建模"
+      ],
+      "misconceptionTags": [
+        "letter treated as a label only",
+        "equation balance not maintained",
+        "unknown not defined before modeling"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p5-upper-equations-relationships"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-equations-relationships-unit",
+        "hjb-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆有一批新书，故事书的本数是科技书的3倍。如果故事书借出15本后，剩下的故事书比科技书多20本。设科技书有x本，请列出方程并求出科技书和故事书各有多少本。",
+      "optionsZhHans": [],
+      "answer": "科技书有35本，故事书有105本",
+      "acceptedAnswers": [
+        "科技书有35本，故事书有105本",
+        "科技书35本，故事书105本",
+        "x=35，故事书105本",
+        "科技书35本，故事书105本。"
+      ],
+      "explanationZhHans": "设科技书有x本，则故事书有3x本。借出15本后，故事书剩3x-15本。根据条件得方程3x-15=x+20，解得x=35。故事书为3×35=105本。检验：105-15=90，比35多20，符合题意。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-037",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "hjb-primary-p5-upper-equations-relationships",
+      "unitTitle": "用字母表示数与简易方程",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "simple-equations",
+        "letters-as-variables",
+        "quantitative-relationships",
+        "equation-modeling",
+        "简易方程"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "模型意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "用字母表示数",
+        "等量关系",
+        "解简易方程",
+        "代入检验",
+        "问题建模"
+      ],
+      "misconceptionTags": [
+        "letter treated as a label only",
+        "equation balance not maintained",
+        "unknown not defined before modeling"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p5-upper-equations-relationships"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-equations-relationships-unit",
+        "hjb-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小华买了5支铅笔和3本笔记本，共花了16元。已知每本笔记本比每支铅笔贵2元。设每支铅笔的价格为x元，下面哪个方程是正确的？",
+      "optionsZhHans": [
+        "5x + 3(x+2) = 16",
+        "5x + 3(x-2) = 16",
+        "5(x+2) + 3x = 16",
+        "5x + 3×2 = 16"
+      ],
+      "answer": "5x + 3(x+2) = 16",
+      "acceptedAnswers": [
+        "5x + 3(x+2) = 16"
+      ],
+      "explanationZhHans": "设铅笔单价为x元，则笔记本单价为(x+2)元。总价：5支铅笔5x元，3本笔记本3(x+2)元，合计16元，方程为5x+3(x+2)=16。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-038",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "hjb-primary-p5-upper-equations-relationships",
+      "unitTitle": "用字母表示数与简易方程",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "simple-equations",
+        "letters-as-variables",
+        "quantitative-relationships",
+        "equation-modeling",
+        "简易方程"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "模型意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "用字母表示数",
+        "等量关系",
+        "解简易方程",
+        "代入检验",
+        "问题建模"
+      ],
+      "misconceptionTags": [
+        "letter treated as a label only",
+        "equation balance not maintained",
+        "unknown not defined before modeling"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p5-upper-equations-relationships"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-equations-relationships-unit",
+        "hjb-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方形的长是宽的2倍，周长是36厘米。设宽为x厘米，则长为______厘米，列出方程______。",
+      "optionsZhHans": [],
+      "answer": "2x, 2(x+2x)=36",
+      "acceptedAnswers": [
+        "2x, 2(x+2x)=36",
+        "2x，2(x+2x)=36",
+        "2x,2(x+2x)=36",
+        "2x 2(x+2x)=36"
+      ],
+      "explanationZhHans": "宽为x厘米，长是宽的2倍，即2x厘米。周长=2×(长+宽)=2×(2x+x)=2×3x=6x，已知周长36厘米，得方程6x=36，即2(x+2x)=36。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-039",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "hjb-primary-p5-upper-equations-relationships",
+      "unitTitle": "用字母表示数与简易方程",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "simple-equations",
+        "letters-as-variables",
+        "quantitative-relationships",
+        "equation-modeling",
+        "简易方程"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "模型意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "用字母表示数",
+        "等量关系",
+        "解简易方程",
+        "代入检验",
+        "问题建模"
+      ],
+      "misconceptionTags": [
+        "letter treated as a label only",
+        "equation balance not maintained",
+        "unknown not defined before modeling"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p5-upper-equations-relationships"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-equations-relationships-unit",
+        "hjb-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "甲、乙两车从相距240千米的两地同时出发，相向而行，3小时后相遇。甲车的速度是乙车的1.5倍。设乙车速度为x千米/时，请列出方程并求出两车的速度。",
+      "optionsZhHans": [],
+      "answer": "乙车速度32千米/时，甲车速度48千米/时",
+      "acceptedAnswers": [
+        "乙车速度32千米/时，甲车速度48千米/时",
+        "乙车32千米/时，甲车48千米/时",
+        "乙车速度32，甲车速度48",
+        "乙车32，甲车48"
+      ],
+      "explanationZhHans": "设乙车速度为x千米/时，则甲车速度为1.5x千米/时。相遇时路程和为240千米，即3x+3×1.5x=240，合并得7.5x=240，x=32。甲车速度1.5×32=48千米/时。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-040",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "hjb-primary-p5-upper-equations-relationships",
+      "unitTitle": "用字母表示数与简易方程",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "simple-equations",
+        "letters-as-variables",
+        "quantitative-relationships",
+        "equation-modeling",
+        "简易方程"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "模型意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "用字母表示数",
+        "等量关系",
+        "解简易方程",
+        "代入检验",
+        "问题建模"
+      ],
+      "misconceptionTags": [
+        "letter treated as a label only",
+        "equation balance not maintained",
+        "unknown not defined before modeling"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p5-upper-equations-relationships"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-equations-relationships-unit",
+        "hjb-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "水果店运来苹果和梨共120千克，苹果的质量比梨的2倍少30千克。设梨的质量为x千克，下面哪个方程是正确的？",
+      "optionsZhHans": [
+        "x + (2x - 30) = 120",
+        "x + (2x + 30) = 120",
+        "2x - 30 = 120",
+        "x + 2x = 120 - 30"
+      ],
+      "answer": "x + (2x - 30) = 120",
+      "acceptedAnswers": [
+        "x + (2x - 30) = 120"
+      ],
+      "explanationZhHans": "梨为x千克，苹果比梨的2倍少30千克，即(2x-30)千克。总质量120千克，方程为x+(2x-30)=120。"
+    }
+  ]
+}

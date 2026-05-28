@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-144",
+  "startedAt": "2026-05-28T01:40:35.458Z",
+  "completedAt": "2026-05-28T01:40:52.876Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-145",
+    "bnu-high-ds-v1-s6-146",
+    "bnu-high-ds-v1-s6-147",
+    "bnu-high-ds-v1-s6-148",
+    "bnu-high-ds-v1-s6-149",
+    "bnu-high-ds-v1-s6-150",
+    "bnu-high-ds-v1-s6-151",
+    "bnu-high-ds-v1-s6-152"
+  ],
+  "usage": {
+    "prompt_tokens": 10067,
+    "completion_tokens": 1359,
+    "total_tokens": 11426,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9683
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-145",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "27",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由 S_n = n^2 + 2n 得 a_n = S_n - S_{n-1} = 2n + 1 (n≥2)，a_1 = S_1 = 3 符合。a_3 + a_4 + a_5 = 7 + 9 + 11 = 27。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-146",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "假设 n=k 时成立，即 1+3+5+...+(2k-1)=k^2。则 n=k+1 时，左边 = [1+3+5+...+(2k-1)] + (2(k+1)-1) = k^2 + (2k+1) = (k+1)^2，右边 = (k+1)^2，等式成立。",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "数学归纳法第二步：从 k 到 k+1 的推导，利用归纳假设加上第 k+1 项，化简得证。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-147",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "n^2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由 a_{n+1} - a_n = 2n+1，累加得 a_n - a_1 = n^2 - 1，a_1=1，故 a_n = n^2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-148",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "1, 1, 1, 1, ...",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "常数列 1,1,1,... 公差为 0，公比为 1，既是等差又是等比。0,0,0,... 是等差但公比无定义，不是等比。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-149",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "13/16",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "设 a_n = a_1 + (n-1)d，由 a_1, a_3, a_9 成等比得 (a_1+2d)^2 = a_1(a_1+8d)，解得 d = a_1 (d≠0)。代入所求式子得 (a_1 + (a_1+2d) + (a_1+8d)) / ((a_1+d) + (a_1+3d) + (a_1+9d)) = (3a_1+10d)/(3a_1+13d) = 13/16。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-150",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由 S_3 = a_1(1-q^3)/(1-q) = 7，S_6 = a_1(1-q^6)/(1-q) = 63，两式相除得 (1-q^6)/(1-q^3) = 9，即 1+q^3 = 9，q^3 = 8，q = 2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-151",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "{b_n} 是公比为 2 的等比数列",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由 b_n = a_n - 3^n，得 b_{n+1} = a_{n+1} - 3^{n+1} = 2a_n + 3^n - 3^{n+1} = 2(b_n + 3^n) - 2·3^n = 2b_n，且 b_1 = -1 ≠ 0，故 {b_n} 是公比为 2 的等比数列。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-152",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "20",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "等差数列中，a_3 + a_8 = a_5 + a_6 = 2a_1 + 9d，故 a_5 + a_6 = 20。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部 8 题均可独立求解，无数学错误、歧义或缺失条件，符合北师大版高中数列章节要求。"
+    }
+  }
+}

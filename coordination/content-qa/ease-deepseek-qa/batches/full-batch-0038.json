@@ -1,0 +1,168 @@
+{
+  "scope": "full",
+  "batchIndex": 38,
+  "startedAt": "2026-05-28T03:32:33.717Z",
+  "completedAt": "2026-05-28T03:33:29.500Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "itemIds": [
+    "133",
+    "176",
+    "177",
+    "178",
+    "179",
+    "180",
+    "181",
+    "182",
+    "183",
+    "184"
+  ],
+  "usage": {
+    "prompt_tokens": 3215,
+    "completion_tokens": 3799,
+    "total_tokens": 7014,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 2763
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2831
+  },
+  "finishReason": "stop",
+  "jsonModeFallback": false,
+  "result": {
+    "items": [
+      {
+        "questionId": "133",
+        "questionType": "MCQ",
+        "hasImage": false,
+        "standardAnswer": "C",
+        "independentAnswer": "C",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "90=2×3×3×5=2×3²×5，選項C正確。",
+        "recommendedAction": "none"
+      },
+      {
+        "questionId": "176",
+        "questionType": "MCQ",
+        "hasImage": false,
+        "standardAnswer": "A",
+        "independentAnswer": "A",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "60528末兩位28可被4整除，數字和21可被3整除，兼為偶數故可被6整除，數字和21不可被9整除，故只有I和II。",
+        "recommendedAction": "none"
+      },
+      {
+        "questionId": "177",
+        "questionType": "MCQ",
+        "hasImage": false,
+        "standardAnswer": "B",
+        "independentAnswer": "B",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "9774為偶數且數字和27可被3整除，故可被6整除；末三位774不可被8整除；數字和27可被9整除，故I和III正確。",
+        "recommendedAction": "none"
+      },
+      {
+        "questionId": "178",
+        "questionType": "MCQ",
+        "hasImage": false,
+        "standardAnswer": "D",
+        "independentAnswer": "D",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "4368末兩位68可被4整除、數字和21可被3整除，其餘選項皆不符合同時被3和4整除。",
+        "recommendedAction": "none"
+      },
+      {
+        "questionId": "179",
+        "questionType": "MCQ",
+        "hasImage": false,
+        "standardAnswer": "C",
+        "independentAnswer": "C",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "13x6須滿足偶數及數字和1+3+x+6=10+x可被3整除；x為奇數，僅x=5時10+5=15可被3整除。",
+        "recommendedAction": "none"
+      },
+      {
+        "questionId": "180",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "3^3 \\times 7^5 \\times 13^2",
+        "independentAnswer": "3^3 × 7^5 × 13^2",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "3出現3次，7出現5次，13出現2次，指數記數法正確。",
+        "recommendedAction": "none"
+      },
+      {
+        "questionId": "181",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "(2^2×3×5×7^2 )",
+        "independentAnswer": "2^2 × 3 × 5 × 7^2",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "2和7各出現兩次，3和5各一次，1不影響，答案正確。",
+        "recommendedAction": "none"
+      },
+      {
+        "questionId": "182",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "91的因數：1, 7, 13, 91∵ 91有多於兩個因數。\n\t∴ 91是一個合成數。",
+        "independentAnswer": "91的因數：1, 7, 13, 91；91是一個合成數。",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "91=7×13，因數為1,7,13,91，多於兩個因數，為合成數。",
+        "recommendedAction": "none"
+      },
+      {
+        "questionId": "183",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "103的因數：1，103∵ 103只有1和它本身作為因數。\n\t∴ 103是一個質數。",
+        "independentAnswer": "103的因數：1, 103；103是一個質數。",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "103為質數，僅有1和本身兩個因數。",
+        "recommendedAction": "none"
+      },
+      {
+        "questionId": "184",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "2^3 \\times 3^2",
+        "independentAnswer": "2^3 × 3^2",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "72=2³×3²，指數形式正確。",
+        "recommendedAction": "none"
+      }
+    ],
+    "batchSummary": {
+      "pass": 10,
+      "unsolvable": 0,
+      "ambiguous": 0,
+      "imageContextRequired": 0,
+      "answerMismatch": 0,
+      "missingAnswerKey": 0,
+      "notes": "All items are solvable from text and answer keys are correct."
+    }
+  }
+}

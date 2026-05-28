@@ -1,0 +1,131 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-103",
+  "startedAt": "2026-05-28T02:59:19.908Z",
+  "completedAt": "2026-05-28T02:59:35.861Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-317",
+    "bnu-high-ds-v1-s5-318",
+    "bnu-high-ds-v1-s5-319",
+    "bnu-high-ds-v1-s5-320",
+    "bnu-high-ds-v1-s5-321",
+    "bnu-high-ds-v1-s5-322",
+    "bnu-high-ds-v1-s5-323",
+    "bnu-high-ds-v1-s5-324"
+  ],
+  "usage": {
+    "prompt_tokens": 11553,
+    "completion_tokens": 1020,
+    "total_tokens": 12573,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 11169
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-317",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "1316",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案686错误，Stage A独立解为1316。解析中计算过程正确（840+420+56=1316），但最终答案写为686，自相矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-318",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案36与Stage A独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-319",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案±2与Stage A独立解一致，解析正确，选项C为唯一正确答案。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-320",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "20",
+        "issueTags": [
+          "math_error"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案21错误，Stage A独立解为20。解析中底数不能为1，共5×5=25个对数，但重复值排除后应为20，而非21。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-321",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案50与Stage A独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-322",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案-160与Stage A独立解一致，解析正确，选项A为唯一正确答案。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-323",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案48与Stage A独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-324",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案120与Stage A独立解一致，解析正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 0,
+      "fail": 2,
+      "notes": "8题中6题通过，2题失败：bnu-high-ds-v1-s5-317存储答案错误且解析自相矛盾；bnu-high-ds-v1-s5-320存储答案错误。"
+    }
+  }
+}

@@ -1,0 +1,593 @@
+{
+  "batchId": "batch-142",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p6-161",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-cylinders-cones",
+      "unitTitle": "圆柱与圆锥",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "cylinder",
+        "cone",
+        "surface-area",
+        "volume",
+        "solid-geometry",
+        "圆柱",
+        "圆锥"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "量感",
+        "几何直观"
+      ],
+      "skillTags": [
+        "认识圆柱圆锥",
+        "圆柱表面积",
+        "圆柱体积",
+        "圆锥体积",
+        "单位与估算"
+      ],
+      "misconceptionTags": [
+        "surface area and volume confused",
+        "radius and diameter swapped",
+        "cone-volume relationship omitted"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-cylinders-cones"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-cylinders-cones-unit",
+        "bnu-primary-p6-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个圆柱形水桶，从里面量底面直径是30厘米，高是40厘米。制作这个水桶的侧面需要多少平方厘米的铁皮？（接口处忽略不计）",
+      "optionsZhHans": [],
+      "answer": "3768",
+      "acceptedAnswers": [
+        "3768",
+        "3768平方厘米",
+        "3768 cm²"
+      ],
+      "explanationZhHans": "求侧面积。底面周长=π×直径=3.14×30=94.2厘米，侧面积=底面周长×高=94.2×40=3768平方厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-162",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-cylinders-cones",
+      "unitTitle": "圆柱与圆锥",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "cylinder",
+        "cone",
+        "surface-area",
+        "volume",
+        "solid-geometry",
+        "圆柱",
+        "圆锥"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "量感",
+        "几何直观"
+      ],
+      "skillTags": [
+        "认识圆柱圆锥",
+        "圆柱表面积",
+        "圆柱体积",
+        "圆锥体积",
+        "单位与估算"
+      ],
+      "misconceptionTags": [
+        "surface area and volume confused",
+        "radius and diameter swapped",
+        "cone-volume relationship omitted"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-cylinders-cones"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-cylinders-cones-unit",
+        "bnu-primary-p6-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个圆锥形沙堆，底面半径是2米，高是1.5米。如果每立方米沙子重1.7吨，这堆沙子大约重多少吨？（得数保留整数）",
+      "optionsZhHans": [],
+      "answer": "11",
+      "acceptedAnswers": [
+        "11",
+        "11吨"
+      ],
+      "explanationZhHans": "圆锥体积=1/3×π×半径²×高=1/3×3.14×2²×1.5=6.28立方米。沙子重=6.28×1.7≈10.676吨，保留整数约11吨。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-163",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-proportion",
+      "unitTitle": "比例",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "proportion",
+        "scale",
+        "equivalent-ratios",
+        "solve-proportions",
+        "比例",
+        "比例尺"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "比例的意义",
+        "判断比例",
+        "解比例",
+        "比例尺",
+        "图形放大缩小"
+      ],
+      "misconceptionTags": [
+        "additive pattern mistaken for proportion",
+        "cross-product used without ratio meaning",
+        "scale direction reversed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-proportion-unit",
+        "bnu-primary-p6-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪组中的两个比可以组成比例？",
+      "optionsZhHans": [
+        "6:10和9:15",
+        "20:5和1:4",
+        "0.6:0.2和3:1",
+        "1.2:0.4和1.5:0.5"
+      ],
+      "answer": "6:10和9:15",
+      "acceptedAnswers": [
+        "6:10和9:15"
+      ],
+      "explanationZhHans": "6:10=0.6，9:15=0.6，比值相等，能组成比例。其他选项比值不相等。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-164",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-proportion",
+      "unitTitle": "比例",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "proportion",
+        "scale",
+        "equivalent-ratios",
+        "solve-proportions",
+        "比例",
+        "比例尺"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "比例的意义",
+        "判断比例",
+        "解比例",
+        "比例尺",
+        "图形放大缩小"
+      ],
+      "misconceptionTags": [
+        "additive pattern mistaken for proportion",
+        "cross-product used without ratio meaning",
+        "scale direction reversed"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-proportion-unit",
+        "bnu-primary-p6-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在比例3:8=15:40中，两个内项是______和______。",
+      "optionsZhHans": [],
+      "answer": "8和15",
+      "acceptedAnswers": [
+        "8和15",
+        "8,15"
+      ],
+      "explanationZhHans": "比例a:b=c:d中，b和c是内项。这里b=8，c=15。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-165",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-proportion",
+      "unitTitle": "比例",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "proportion",
+        "scale",
+        "equivalent-ratios",
+        "solve-proportions",
+        "比例",
+        "比例尺"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "比例的意义",
+        "判断比例",
+        "解比例",
+        "比例尺",
+        "图形放大缩小"
+      ],
+      "misconceptionTags": [
+        "additive pattern mistaken for proportion",
+        "cross-product used without ratio meaning",
+        "scale direction reversed"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-proportion-unit",
+        "bnu-primary-p6-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "解比例：x/4=6/8。",
+      "optionsZhHans": [],
+      "answer": "3",
+      "acceptedAnswers": [
+        "3",
+        "x=3"
+      ],
+      "explanationZhHans": "根据比例的基本性质，8x=4×6，8x=24，x=3。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-166",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-proportion",
+      "unitTitle": "比例",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "proportion",
+        "scale",
+        "equivalent-ratios",
+        "solve-proportions",
+        "比例",
+        "比例尺"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "比例的意义",
+        "判断比例",
+        "解比例",
+        "比例尺",
+        "图形放大缩小"
+      ],
+      "misconceptionTags": [
+        "additive pattern mistaken for proportion",
+        "cross-product used without ratio meaning",
+        "scale direction reversed"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-proportion-unit",
+        "bnu-primary-p6-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在比例尺为1:5000000的地图上，量得甲、乙两城的距离是4.8厘米。甲、乙两城的实际距离是多少千米？",
+      "optionsZhHans": [
+        "240千米",
+        "24千米",
+        "2.4千米",
+        "2400千米"
+      ],
+      "answer": "240千米",
+      "acceptedAnswers": [
+        "240千米"
+      ],
+      "explanationZhHans": "实际距离=图上距离÷比例尺=4.8÷(1/5000000)=24000000厘米=240千米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-167",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-proportion",
+      "unitTitle": "比例",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "proportion",
+        "scale",
+        "equivalent-ratios",
+        "solve-proportions",
+        "比例",
+        "比例尺"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "比例的意义",
+        "判断比例",
+        "解比例",
+        "比例尺",
+        "图形放大缩小"
+      ],
+      "misconceptionTags": [
+        "additive pattern mistaken for proportion",
+        "cross-product used without ratio meaning",
+        "scale direction reversed"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-proportion-unit",
+        "bnu-primary-p6-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方形花坛，长80米，宽60米。把它画在比例尺是1:2000的图纸上，长应画______厘米，宽应画______厘米。",
+      "optionsZhHans": [],
+      "answer": "4和3",
+      "acceptedAnswers": [
+        "4和3",
+        "4,3",
+        "4厘米和3厘米"
+      ],
+      "explanationZhHans": "图上距离=实际距离×比例尺。长=8000厘米×1/2000=4厘米，宽=6000厘米×1/2000=3厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-168",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-proportion",
+      "unitTitle": "比例",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "proportion",
+        "scale",
+        "equivalent-ratios",
+        "solve-proportions",
+        "比例",
+        "比例尺"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "比例的意义",
+        "判断比例",
+        "解比例",
+        "比例尺",
+        "图形放大缩小"
+      ],
+      "misconceptionTags": [
+        "additive pattern mistaken for proportion",
+        "cross-product used without ratio meaning",
+        "scale direction reversed"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-proportion-unit",
+        "bnu-primary-p6-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用3、4、6、8这四个数组成一个比例，并写出来。",
+      "optionsZhHans": [],
+      "answer": "3:4=6:8",
+      "acceptedAnswers": [
+        "3:4=6:8",
+        "3:6=4:8",
+        "4:3=8:6",
+        "6:3=8:4"
+      ],
+      "explanationZhHans": "3×8=4×6，所以3:4=6:8或3:6=4:8等。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-169",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-proportion",
+      "unitTitle": "比例",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "proportion",
+        "scale",
+        "equivalent-ratios",
+        "solve-proportions",
+        "比例",
+        "比例尺"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "比例的意义",
+        "判断比例",
+        "解比例",
+        "比例尺",
+        "图形放大缩小"
+      ],
+      "misconceptionTags": [
+        "additive pattern mistaken for proportion",
+        "cross-product used without ratio meaning",
+        "scale direction reversed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-proportion-unit",
+        "bnu-primary-p6-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个精密零件实际长2毫米，画在图纸上长6厘米。这幅图纸的比例尺是（ ）。",
+      "optionsZhHans": [
+        "1:30",
+        "30:1",
+        "1:3",
+        "3:1"
+      ],
+      "answer": "30:1",
+      "acceptedAnswers": [
+        "30:1"
+      ],
+      "explanationZhHans": "图上距离:实际距离=6厘米:2毫米=60毫米:2毫米=30:1，是放大比例尺。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-170",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-proportion",
+      "unitTitle": "比例",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "proportion",
+        "scale",
+        "equivalent-ratios",
+        "solve-proportions",
+        "比例",
+        "比例尺"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "比例的意义",
+        "判断比例",
+        "解比例",
+        "比例尺",
+        "图形放大缩小"
+      ],
+      "misconceptionTags": [
+        "additive pattern mistaken for proportion",
+        "cross-product used without ratio meaning",
+        "scale direction reversed"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-proportion-unit",
+        "bnu-primary-p6-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "如果5a=7b（a、b均不为0），那么a:b=（ ）:（ ）。",
+      "optionsZhHans": [],
+      "answer": "7:5",
+      "acceptedAnswers": [
+        "7:5",
+        "7比5"
+      ],
+      "explanationZhHans": "由5a=7b，根据比例的基本性质，a:b=7:5。"
+    }
+  ]
+}

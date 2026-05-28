@@ -1,0 +1,130 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-090",
+  "startedAt": "2026-05-28T02:52:46.505Z",
+  "completedAt": "2026-05-28T02:53:02.386Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-213",
+    "bnu-high-ds-v1-s5-214",
+    "bnu-high-ds-v1-s5-215",
+    "bnu-high-ds-v1-s5-216",
+    "bnu-high-ds-v1-s5-217",
+    "bnu-high-ds-v1-s5-218",
+    "bnu-high-ds-v1-s5-219",
+    "bnu-high-ds-v1-s5-220"
+  ],
+  "usage": {
+    "prompt_tokens": 13572,
+    "completion_tokens": 1007,
+    "total_tokens": 14579,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 13188
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-213",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案(3,4,5)与独立解一致，解析正确使用定比分点公式。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-214",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案√6/3与独立解一致，解析正确计算法向量和方向向量，线面角正弦值正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-215",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析正确证明三点共线。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-216",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案√3/2与独立解一致，解析正确使用向量叉积求面积。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-217",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "correctedAnswer": "±√2/4",
+        "issueTags": [
+          "math_error",
+          "bad_options",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立解计算得斜率为±√2/4，但存储答案为±√3/3，且选项无正确值，解析错误推导出±√3/3。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-218",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案x+y-5=0与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-219",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案(2,-1)与独立解一致，解析正确配方求圆心。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-220",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案3m²=4k²+3与独立解一致，解析正确利用垂直条件推导。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第217题存储答案错误，正确斜率应为±√2/4，选项无正确值，解析推导有误。其余题目均通过。"
+    }
+  }
+}

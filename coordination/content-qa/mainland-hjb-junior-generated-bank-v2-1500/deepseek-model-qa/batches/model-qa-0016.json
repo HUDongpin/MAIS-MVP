@@ -1,0 +1,70 @@
+{
+  "batchId": "model-qa-0016",
+  "ids": [
+    "hjb-junior-ds-v2-s2-208",
+    "hjb-junior-ds-v2-s2-228",
+    "hjb-junior-ds-v2-s2-234",
+    "hjb-junior-ds-v2-s2-236",
+    "hjb-junior-ds-v2-s2-246"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-208",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "60/13",
+      "answerCheckZhHans": "标准答案 60/13 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-228",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析计算得 BD=4.5，但标准答案给出 6，两者矛盾。独立计算：由勾股定理逆定理知 ∠B=90°，角平分线性质 BD:DC=AB:AC=9:15=3:5，BD+DC=12，解得 BD=4.5。标准答案 6 错误。",
+      "independentAnswerZhHans": "4.5",
+      "answerCheckZhHans": "标准答案 6 与独立计算结果 4.5 不一致，解析也得出 4.5，故答案错误。",
+      "recommendedActionZhHans": "将答案修正为 4.5，并更新 acceptedAnswers。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-234",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "24/7",
+      "answerCheckZhHans": "标准答案 24/7 与独立计算结果一致，acceptedAnswers 覆盖了分数和小数形式。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-236",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "标准答案 3 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-246",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "6.5",
+      "answerCheckZhHans": "标准答案 6.5 与独立计算结果一致，acceptedAnswers 包含 6.5 和 13/2。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

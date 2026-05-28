@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-496",
+  "startedAt": "2026-05-28T01:35:42.343Z",
+  "completedAt": "2026-05-28T01:35:47.535Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-496"
+  ],
+  "usage": {
+    "prompt_tokens": 2241,
+    "completion_tokens": 317,
+    "total_tokens": 2558,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1857
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-496",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "（2）y = 0.67x + 54.9；（3）约101.8分钟",
+        "correctedAnswer": "（2）y = 0.67x + 54.9；（3）约101.8分钟",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合BNU教材范围。但提供的答案和解析存在计算错误：解析中b=0.7、a=54，预测值103，与正确结果b=0.67、a=54.9、预测值101.8不一致，属于数学错误和答案不匹配，严重性为阻断。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1题因答案和解析存在计算错误，判定为不通过。"
+    }
+  }
+}

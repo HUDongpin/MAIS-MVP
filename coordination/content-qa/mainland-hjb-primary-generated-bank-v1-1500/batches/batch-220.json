@@ -1,0 +1,295 @@
+{
+  "batchId": "batch-220",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p5-096",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "hjb-primary-p5-upper-data-average",
+      "unitTitle": "数据整理与平均数",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "data-organization",
+        "average",
+        "statistical-displays",
+        "data-interpretation",
+        "平均数"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "量感",
+        "数学表达"
+      ],
+      "skillTags": [
+        "收集整理数据",
+        "统计表",
+        "统计图",
+        "平均数意义",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "average treated as the most common value",
+        "chart scale read incorrectly",
+        "conclusion not supported by data"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p5-upper-data-average"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-data-average-unit",
+        "hjb-primary-p5-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "S18 remediated after DeepSeek-v4-pro QA on 2026-05-25; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是五年级（1）班第一小组6名同学1分钟跳绳的成绩（单位：下）：\n148，152，139，145，150，140。\n（1）这组数据的平均数是多少？结果保留一位小数。\n（2）根据平均数，你能得出什么结论？请用数据说明。",
+      "optionsZhHans": [],
+      "answer": "（1）平均数约是145.7下；（2）结论合理即可，例如：这组同学的平均跳绳成绩约为145.7下，大部分同学的成绩在140下以上，整体水平较好。",
+      "acceptedAnswers": [
+        "（1）平均数约是145.7下；（2）结论合理即可，例如：这组同学的平均跳绳成绩约为145.7下，大部分同学的成绩在140下以上，整体水平较好。",
+        "平均数约145.7下，结论合理即可。",
+        "145.7下，结论合理即可。"
+      ],
+      "explanationZhHans": "平均数=(148+152+139+145+150+140)÷6=874÷6≈145.7（下）。结论应围绕平均数说明整体水平，例如多数同学接近或超过140下。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-097",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "hjb-primary-p5-upper-data-average",
+      "unitTitle": "数据整理与平均数",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "data-organization",
+        "average",
+        "statistical-displays",
+        "data-interpretation",
+        "平均数"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "量感",
+        "数学表达"
+      ],
+      "skillTags": [
+        "收集整理数据",
+        "统计表",
+        "统计图",
+        "平均数意义",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "average treated as the most common value",
+        "chart scale read incorrectly",
+        "conclusion not supported by data"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p5-upper-data-average"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-data-average-unit",
+        "hjb-primary-p5-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是四名同学1分钟跳绳的成绩记录：小杰跳了142下，小雅跳了135下，小浩跳了148下，小悦跳了139下。这四名同学1分钟跳绳的平均成绩是多少下？",
+      "optionsZhHans": [
+        "141下",
+        "142下",
+        "140下",
+        "139下"
+      ],
+      "answer": "141下",
+      "acceptedAnswers": [
+        "141下"
+      ],
+      "explanationZhHans": "先求总下数：142+135+148+139=564下，再除以人数4，564÷4=141下。平均数表示整体水平，不是出现次数最多的值。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-098",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "hjb-primary-p5-upper-data-average",
+      "unitTitle": "数据整理与平均数",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "data-organization",
+        "average",
+        "statistical-displays",
+        "data-interpretation",
+        "平均数"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "量感",
+        "数学表达"
+      ],
+      "skillTags": [
+        "收集整理数据",
+        "统计表",
+        "统计图",
+        "平均数意义",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "average treated as the most common value",
+        "chart scale read incorrectly",
+        "conclusion not supported by data"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p5-upper-data-average"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-data-average-unit",
+        "hjb-primary-p5-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "S18 remediated after DeepSeek-v4-pro QA on 2026-05-25; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是五年级（1）班第一小组6名同学1分钟跳绳的成绩记录（单位：下）：\n小杰：142  小雅：138  小浩：145  小雯：140  小凯：136  小婷：149\n请计算这组数据的平均数，结果四舍五入取整，并回答：这个平均数表示什么？",
+      "optionsZhHans": [],
+      "answer": "平均数约是142下。它表示这6名同学1分钟跳绳的整体水平，相当于把总次数平均分给每个人。",
+      "acceptedAnswers": [
+        "平均数约是142下。它表示这6名同学1分钟跳绳的整体水平，相当于把总次数平均分给每个人。",
+        "平均数约142下，表示这组同学跳绳的平均成绩。",
+        "142下，代表这组数据的平均水平。"
+      ],
+      "explanationZhHans": "总次数为142+138+145+140+136+149=850下，850÷6≈141.67，四舍五入取整约为142下。平均数反映这组数据的整体水平。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-099",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "hjb-primary-p5-upper-data-average",
+      "unitTitle": "数据整理与平均数",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "data-organization",
+        "average",
+        "statistical-displays",
+        "data-interpretation",
+        "平均数"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "量感",
+        "数学表达"
+      ],
+      "skillTags": [
+        "收集整理数据",
+        "统计表",
+        "统计图",
+        "平均数意义",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "average treated as the most common value",
+        "chart scale read incorrectly",
+        "conclusion not supported by data"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p5-upper-data-average"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-data-average-unit",
+        "hjb-primary-p5-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是四（1）班第一小组5名同学1分钟跳绳的成绩记录（单位：下）：\n小杰：132  小雅：145  小宇：128  小婷：150  小浩：135\n\n（1）这5名同学1分钟跳绳的平均成绩是多少下？\n（2）根据平均成绩，你认为这个小组的跳绳水平怎么样？请用数据说明你的结论。",
+      "optionsZhHans": [],
+      "answer": "（1）138下。（2）这个小组的跳绳水平整体较好，因为平均成绩138下，超过了130下，且大部分同学的成绩都在130下以上。",
+      "acceptedAnswers": [
+        "（1）138下。（2）这个小组的跳绳水平整体较好，因为平均成绩138下，超过了130下，且大部分同学的成绩都在130下以上。",
+        "（1）138下。（2）这个小组的跳绳水平整体较好，因为平均成绩138下，超过了130下，且大部分同学的成绩都在130下以上"
+      ],
+      "explanationZhHans": "（1）平均成绩 = (132+145+128+150+135)÷5 = 690÷5 = 138（下）。（2）平均138下，超过130下，且5人中有4人成绩在130下以上，说明整体水平较好。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-100",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "hjb-primary-p5-upper-data-average",
+      "unitTitle": "数据整理与平均数",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "data-organization",
+        "average",
+        "statistical-displays",
+        "data-interpretation",
+        "平均数"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "量感",
+        "数学表达"
+      ],
+      "skillTags": [
+        "收集整理数据",
+        "统计表",
+        "统计图",
+        "平均数意义",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "average treated as the most common value",
+        "chart scale read incorrectly",
+        "conclusion not supported by data"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p5-upper-data-average"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-data-average-unit",
+        "hjb-primary-p5-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是四名同学1分钟跳绳的成绩记录表：\n小杰：142个\n小雅：135个\n小浩：148个\n小美：139个\n\n根据表中数据，下面哪句话是正确的？",
+      "optionsZhHans": [
+        "这四名同学的平均成绩是141个，说明每个人都跳了141个。",
+        "小浩跳得最多，所以平均成绩就是148个。",
+        "平均成绩是141个，表示如果四人跳得一样多，每人会是141个。",
+        "小雅跳得最少，所以平均成绩比135个少。"
+      ],
+      "answer": "平均成绩是141个，表示如果四人跳得一样多，每人会是141个。",
+      "acceptedAnswers": [
+        "平均成绩是141个，表示如果四人跳得一样多，每人会是141个。"
+      ],
+      "explanationZhHans": "先求总个数：142+135+148+139=564，再除以4得平均141个。平均数不代表每个人都跳了141个，而是把总数平均分给4人后每人的数量，所以选项C正确。"
+    }
+  ]
+}

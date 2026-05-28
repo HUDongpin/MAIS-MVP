@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-110",
+  "startedAt": "2026-05-28T01:28:01.942Z",
+  "completedAt": "2026-05-28T01:28:16.289Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-373",
+    "bnu-high-ds-v1-s5-374",
+    "bnu-high-ds-v1-s5-375",
+    "bnu-high-ds-v1-s5-376",
+    "bnu-high-ds-v1-s5-377",
+    "bnu-high-ds-v1-s5-378",
+    "bnu-high-ds-v1-s5-379",
+    "bnu-high-ds-v1-s5-380"
+  ],
+  "usage": {
+    "prompt_tokens": 10111,
+    "completion_tokens": 1132,
+    "total_tokens": 11243,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9727
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-373",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "0.3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由分布列概率和为1得0.2+0.5+a=1，解得a=0.3。验证E(X)=1×0.2+2×0.5+3×0.3=2.3，符合条件。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-374",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "0.324",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "有放回抽取，每次抽到一等品概率p=0.6，3次独立重复试验，恰好2次一等品的概率为C(3,2)×0.6²×0.4=3×0.36×0.4=0.432。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-375",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "0.3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "正态分布N(2,σ²)，由P(X<4)=0.8得P(X≥4)=0.2，对称性得P(X≤0)=0.2，故P(0<X<4)=0.6，再由对称性P(0<X<2)=0.3。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-376",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "1/2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "密码被译出为至少一人译出，对立事件为两人都未译出，概率为(2/3)×(3/4)=1/2，故被译出概率为1-1/2=1/2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-377",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "2/5",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "第一次取白球后，盒中剩3白2黑，第二次取黑球概率为2/5。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-378",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "4/3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由分布列概率和为1：c/(1×2)+c/(2×3)+c/(3×4)=c(1/2+1/6+1/12)=c(3/4)=1，得c=4/3。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-379",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "n=6, p=0.4",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "二项分布E(X)=np=2.4，D(X)=np(1-p)=1.44，解得1-p=0.6，p=0.4，n=6。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-380",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "0.1359",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "μ=70，σ=10，80到90分对应μ+σ到μ+2σ，概率为[P(μ-2σ<X<μ+2σ)-P(μ-σ<X<μ+σ)]/2=(0.9544-0.6826)/2=0.1359。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，无数学错误、歧义或缺失条件，符合北师大版高中概率章节要求。"
+    }
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "generatedAt": "2026-05-28T00:21:29.024Z",
+  "dryRun": false,
+  "options": {
+    "mode": "smoke",
+    "limit": null,
+    "force": false,
+    "resume": false,
+    "skipExisting": true,
+    "sequential": false,
+    "model": "gpt-image-2",
+    "size": "1024x1024",
+    "quality": "medium",
+    "outputFormat": "png",
+    "moderation": "auto",
+    "concurrency": 1,
+    "maxRetries": 4,
+    "delayMs": 0
+  },
+  "summary": {
+    "status": "passed",
+    "selected": 1145,
+    "attempted": 1145,
+    "resultCounts": {
+      "generated": 43
+    },
+    "assetStatusCounts": {
+      "generated-pending-review": 43,
+      "not-generated": 1102
+    },
+    "reviewStatusCounts": {
+      "pending-review": 43,
+      "not-generated": 1102
+    },
+    "missingGeneratedImages": 0,
+    "pngFailures": 0
+  },
+  "checks": [
+    {
+      "name": "manifest_total_1145",
+      "pass": true,
+      "details": {
+        "actual": 1145,
+        "expected": 1145
+      }
+    },
+    {
+      "name": "A_queue_607",
+      "pass": true,
+      "details": {
+        "actual": 607,
+        "expected": 607
+      }
+    },
+    {
+      "name": "B_queue_538",
+      "pass": true,
+      "details": {
+        "actual": 538,
+        "expected": 538
+      }
+    },
+    {
+      "name": "selected_rows_have_prompts",
+      "pass": true,
+      "details": {
+        "selected": 1145
+      }
+    },
+    {
+      "name": "generated_images_exist",
+      "pass": true,
+      "details": {
+        "missingGeneratedImages": []
+      }
+    },
+    {
+      "name": "generated_pngs_valid_square",
+      "pass": true,
+      "details": {
+        "pngFailures": []
+      }
+    }
+  ]
+}

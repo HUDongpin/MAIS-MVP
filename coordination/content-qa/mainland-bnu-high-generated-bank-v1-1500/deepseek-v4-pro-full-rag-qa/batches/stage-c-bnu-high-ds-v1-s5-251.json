@@ -1,0 +1,47 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-251",
+  "startedAt": "2026-05-28T01:24:48.801Z",
+  "completedAt": "2026-05-28T01:24:53.531Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-251"
+  ],
+  "usage": {
+    "prompt_tokens": 2380,
+    "completion_tokens": 298,
+    "total_tokens": 2678,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1996
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-251",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "(1) A(0,0), B(8,0), C(8,6), D(0,6); (2) r=5; (3) 以A为原点，AB为x轴，AD为y轴，使顶点坐标简单，便于计算。",
+        "correctedAnswer": null,
+        "issueTags": [
+          "explanation_contradiction"
+        ],
+        "severity": "minor",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，答案匹配，但解析中计算最小半径时错误地使用了顶点距离（√41），而正确方法应为圆心到矩形各边的最大距离（5），解析存在矛盾，但不影响最终答案正确性。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 1,
+      "warn": 0,
+      "fail": 0,
+      "notes": "题目可解，答案正确，但解析存在轻微矛盾，不影响整体判定。"
+    }
+  }
+}

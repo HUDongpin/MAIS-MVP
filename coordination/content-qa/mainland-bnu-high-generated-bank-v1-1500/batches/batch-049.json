@@ -1,0 +1,670 @@
+{
+  "batchId": "batch-049",
+  "questions": [
+    {
+      "id": "bnu-high-ds-v1-s4-481",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-立体几何初步",
+      "topicTitleZhHans": "立体几何初步",
+      "volume": "必修 第二册",
+      "chapter": "立体几何初步",
+      "conceptIds": [
+        "solid-geometry",
+        "spatial-lines-planes",
+        "parallel-perpendicular",
+        "surface-volume",
+        "spatial-reasoning"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "逻辑推理",
+        "数学运算"
+      ],
+      "skillTags": [
+        "空间位置关系",
+        "线面平行垂直",
+        "截面与展开",
+        "表面积体积",
+        "空间证明",
+        "全卷结构",
+        "三角综合",
+        "向量应用"
+      ],
+      "misconceptionTags": [
+        "spatial relation inferred from drawing only",
+        "parallel criterion incomplete",
+        "perpendicular condition overgeneralized",
+        "surface and volume formulas mixed",
+        "drawing treated",
+        "parallel and perpendicular relation overclaimed",
+        "hidden line relation missed",
+        "area and volume units mixed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-solid-geometry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-unit-solid-geometry-introduction",
+        "bnu-high-s4-lower-assessment-final-integrated-s4-lower",
+        "bnu-high-s4-lower-assessment-unit-trigonometric-functions"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知平面α与平面β相交于直线l，直线a在平面α内，直线b在平面β内。若a∥l且b∥l，则下列结论正确的是（　）",
+      "optionsZhHans": [
+        "a与b一定平行",
+        "a与b一定相交",
+        "a与b一定异面",
+        "a与b可能平行也可能异面"
+      ],
+      "answer": "a与b可能平行也可能异面",
+      "acceptedAnswers": [
+        "a与b可能平行也可能异面"
+      ],
+      "explanationZhHans": "由a∥l，b∥l，根据平行公理，a与b可能平行；但a在α内，b在β内，α与β相交，a与b可能异面。例如当a与b不在同一平面时。故可能平行也可能异面。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-482",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-立体几何初步",
+      "topicTitleZhHans": "立体几何初步",
+      "volume": "必修 第二册",
+      "chapter": "立体几何初步",
+      "conceptIds": [
+        "solid-geometry",
+        "spatial-lines-planes",
+        "parallel-perpendicular",
+        "surface-volume",
+        "spatial-reasoning"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "逻辑推理",
+        "数学运算"
+      ],
+      "skillTags": [
+        "空间位置关系",
+        "线面平行垂直",
+        "截面与展开",
+        "表面积体积",
+        "空间证明",
+        "全卷结构",
+        "三角综合",
+        "向量应用"
+      ],
+      "misconceptionTags": [
+        "spatial relation inferred from drawing only",
+        "parallel criterion incomplete",
+        "perpendicular condition overgeneralized",
+        "surface and volume formulas mixed",
+        "drawing treated",
+        "parallel and perpendicular relation overclaimed",
+        "hidden line relation missed",
+        "area and volume units mixed"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-solid-geometry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-unit-solid-geometry-introduction",
+        "bnu-high-s4-lower-assessment-final-integrated-s4-lower",
+        "bnu-high-s4-lower-assessment-unit-trigonometric-functions"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在正方体ABCD-A₁B₁C₁D₁中，E为棱CC₁的中点。求证：直线AE与平面B₁D₁D平行。",
+      "optionsZhHans": [],
+      "answer": "证明：取DD₁的中点F，连接EF，AF。因为E为CC₁中点，F为DD₁中点，所以EF∥CD∥AB，且EF=AB，故四边形ABFE为平行四边形，得AE∥BF。又BF⊂平面B₁D₁D，AE⊄平面B₁D₁D，所以AE∥平面B₁D₁D。",
+      "acceptedAnswers": [
+        "证明：取DD₁的中点F，连接EF，AF。因为E为CC₁中点，F为DD₁中点，所以EF∥CD∥AB，且EF=AB，故四边形ABFE为平行四边形，得AE∥BF。又BF⊂平面B₁D₁D，AE⊄平面B₁D₁D，所以AE∥平面B₁D₁D。"
+      ],
+      "explanationZhHans": "通过构造平行四边形ABFE，得到AE∥BF，而BF在平面B₁D₁D内，AE不在该平面内，由线面平行判定定理得证。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-483",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-立体几何初步",
+      "topicTitleZhHans": "立体几何初步",
+      "volume": "必修 第二册",
+      "chapter": "立体几何初步",
+      "conceptIds": [
+        "solid-geometry",
+        "spatial-lines-planes",
+        "parallel-perpendicular",
+        "surface-volume",
+        "spatial-reasoning"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "逻辑推理",
+        "数学运算"
+      ],
+      "skillTags": [
+        "空间位置关系",
+        "线面平行垂直",
+        "截面与展开",
+        "表面积体积",
+        "空间证明",
+        "全卷结构",
+        "三角综合",
+        "向量应用"
+      ],
+      "misconceptionTags": [
+        "spatial relation inferred from drawing only",
+        "parallel criterion incomplete",
+        "perpendicular condition overgeneralized",
+        "surface and volume formulas mixed",
+        "drawing treated",
+        "parallel and perpendicular relation overclaimed",
+        "hidden line relation missed",
+        "area and volume units mixed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-solid-geometry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-unit-solid-geometry-introduction",
+        "bnu-high-s4-lower-assessment-final-integrated-s4-lower",
+        "bnu-high-s4-lower-assessment-unit-trigonometric-functions"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知正四棱锥的底面边长为4，侧棱长为2√3，则其体积为（　）",
+      "optionsZhHans": [
+        "16",
+        "32/3",
+        "16√2/3",
+        "32√2/3"
+      ],
+      "answer": "32/3",
+      "acceptedAnswers": [
+        "32/3"
+      ],
+      "explanationZhHans": "底面正方形对角线长4√2，一半为2√2。高h=√[(2√3)²-(2√2)²]=√(12-8)=2。体积V=1/3×底面积×高=1/3×16×2=32/3。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-484",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-立体几何初步",
+      "topicTitleZhHans": "立体几何初步",
+      "volume": "必修 第二册",
+      "chapter": "立体几何初步",
+      "conceptIds": [
+        "solid-geometry",
+        "spatial-lines-planes",
+        "parallel-perpendicular",
+        "surface-volume",
+        "spatial-reasoning"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "逻辑推理",
+        "数学运算"
+      ],
+      "skillTags": [
+        "空间位置关系",
+        "线面平行垂直",
+        "截面与展开",
+        "表面积体积",
+        "空间证明",
+        "全卷结构",
+        "三角综合",
+        "向量应用"
+      ],
+      "misconceptionTags": [
+        "spatial relation inferred from drawing only",
+        "parallel criterion incomplete",
+        "perpendicular condition overgeneralized",
+        "surface and volume formulas mixed",
+        "drawing treated",
+        "parallel and perpendicular relation overclaimed",
+        "hidden line relation missed",
+        "area and volume units mixed"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-solid-geometry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-unit-solid-geometry-introduction",
+        "bnu-high-s4-lower-assessment-final-integrated-s4-lower",
+        "bnu-high-s4-lower-assessment-unit-trigonometric-functions"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知圆锥的母线长为5，高为4，求其侧面积。",
+      "optionsZhHans": [],
+      "answer": "15π",
+      "acceptedAnswers": [
+        "15π"
+      ],
+      "explanationZhHans": "底面半径r=√(5²-4²)=3，侧面积S=πrl=π×3×5=15π。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-485",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-立体几何初步",
+      "topicTitleZhHans": "立体几何初步",
+      "volume": "必修 第二册",
+      "chapter": "立体几何初步",
+      "conceptIds": [
+        "solid-geometry",
+        "spatial-lines-planes",
+        "parallel-perpendicular",
+        "surface-volume",
+        "spatial-reasoning"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "逻辑推理",
+        "数学运算"
+      ],
+      "skillTags": [
+        "空间位置关系",
+        "线面平行垂直",
+        "截面与展开",
+        "表面积体积",
+        "空间证明",
+        "全卷结构",
+        "三角综合",
+        "向量应用"
+      ],
+      "misconceptionTags": [
+        "spatial relation inferred from drawing only",
+        "parallel criterion incomplete",
+        "perpendicular condition overgeneralized",
+        "surface and volume formulas mixed",
+        "drawing treated",
+        "parallel and perpendicular relation overclaimed",
+        "hidden line relation missed",
+        "area and volume units mixed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-solid-geometry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-unit-solid-geometry-introduction",
+        "bnu-high-s4-lower-assessment-final-integrated-s4-lower",
+        "bnu-high-s4-lower-assessment-unit-trigonometric-functions"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "设m，n是两条不同的直线，α，β是两个不同的平面。下列命题中正确的是（　）",
+      "optionsZhHans": [
+        "若m∥α，n∥α，则m∥n",
+        "若m⊥α，n⊥α，则m∥n",
+        "若m∥α，m∥β，则α∥β",
+        "若m⊥α，m⊥β，则α⊥β"
+      ],
+      "answer": "若m⊥α，n⊥α，则m∥n",
+      "acceptedAnswers": [
+        "若m⊥α，n⊥α，则m∥n"
+      ],
+      "explanationZhHans": "垂直于同一平面的两条直线平行，故B正确。A中m与n可能相交或异面；C中α与β可能相交；D中α与β可能平行。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-486",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-立体几何初步",
+      "topicTitleZhHans": "立体几何初步",
+      "volume": "必修 第二册",
+      "chapter": "立体几何初步",
+      "conceptIds": [
+        "solid-geometry",
+        "spatial-lines-planes",
+        "parallel-perpendicular",
+        "surface-volume",
+        "spatial-reasoning"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "逻辑推理",
+        "数学运算"
+      ],
+      "skillTags": [
+        "空间位置关系",
+        "线面平行垂直",
+        "截面与展开",
+        "表面积体积",
+        "空间证明",
+        "全卷结构",
+        "三角综合",
+        "向量应用"
+      ],
+      "misconceptionTags": [
+        "spatial relation inferred from drawing only",
+        "parallel criterion incomplete",
+        "perpendicular condition overgeneralized",
+        "surface and volume formulas mixed",
+        "drawing treated",
+        "parallel and perpendicular relation overclaimed",
+        "hidden line relation missed",
+        "area and volume units mixed"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-solid-geometry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-unit-solid-geometry-introduction",
+        "bnu-high-s4-lower-assessment-final-integrated-s4-lower",
+        "bnu-high-s4-lower-assessment-unit-trigonometric-functions"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知三棱锥P-ABC中，PA⊥底面ABC，AB⊥BC，PA=AB=2，BC=3，求三棱锥的体积。",
+      "optionsZhHans": [],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2"
+      ],
+      "explanationZhHans": "底面ABC为直角三角形，面积S=1/2×AB×BC=1/2×2×3=3。高PA=2，体积V=1/3×S×PA=1/3×3×2=2。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-487",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-立体几何初步",
+      "topicTitleZhHans": "立体几何初步",
+      "volume": "必修 第二册",
+      "chapter": "立体几何初步",
+      "conceptIds": [
+        "solid-geometry",
+        "spatial-lines-planes",
+        "parallel-perpendicular",
+        "surface-volume",
+        "spatial-reasoning"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "逻辑推理",
+        "数学运算"
+      ],
+      "skillTags": [
+        "空间位置关系",
+        "线面平行垂直",
+        "截面与展开",
+        "表面积体积",
+        "空间证明",
+        "全卷结构",
+        "三角综合",
+        "向量应用"
+      ],
+      "misconceptionTags": [
+        "spatial relation inferred from drawing only",
+        "parallel criterion incomplete",
+        "perpendicular condition overgeneralized",
+        "surface and volume formulas mixed",
+        "drawing treated",
+        "parallel and perpendicular relation overclaimed",
+        "hidden line relation missed",
+        "area and volume units mixed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-solid-geometry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-unit-solid-geometry-introduction",
+        "bnu-high-s4-lower-assessment-final-integrated-s4-lower",
+        "bnu-high-s4-lower-assessment-unit-trigonometric-functions"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个正方体的全面积为24，则其外接球的体积为（　）",
+      "optionsZhHans": [
+        "4√3π",
+        "8√3π",
+        "4π",
+        "8π"
+      ],
+      "answer": "4√3π",
+      "acceptedAnswers": [
+        "4√3π"
+      ],
+      "explanationZhHans": "正方体棱长a，6a²=24，a=2。外接球直径=体对角线=2√3，半径R=√3，体积V=4/3πR³=4/3π×(√3)³=4√3π。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-488",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-立体几何初步",
+      "topicTitleZhHans": "立体几何初步",
+      "volume": "必修 第二册",
+      "chapter": "立体几何初步",
+      "conceptIds": [
+        "solid-geometry",
+        "spatial-lines-planes",
+        "parallel-perpendicular",
+        "surface-volume",
+        "spatial-reasoning"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "逻辑推理",
+        "数学运算"
+      ],
+      "skillTags": [
+        "空间位置关系",
+        "线面平行垂直",
+        "截面与展开",
+        "表面积体积",
+        "空间证明",
+        "全卷结构",
+        "三角综合",
+        "向量应用"
+      ],
+      "misconceptionTags": [
+        "spatial relation inferred from drawing only",
+        "parallel criterion incomplete",
+        "perpendicular condition overgeneralized",
+        "surface and volume formulas mixed",
+        "drawing treated",
+        "parallel and perpendicular relation overclaimed",
+        "hidden line relation missed",
+        "area and volume units mixed"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-solid-geometry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-unit-solid-geometry-introduction",
+        "bnu-high-s4-lower-assessment-final-integrated-s4-lower",
+        "bnu-high-s4-lower-assessment-unit-trigonometric-functions"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知平面α∥平面β，直线a⊂α，直线b⊂β，且a与b不平行。求证：a与b是异面直线。",
+      "optionsZhHans": [],
+      "answer": "证明：假设a与b共面，设该平面为γ。则γ过a和b。因为a⊂α，b⊂β，且α∥β，所以γ与α、β的交线分别为a和b。由于α∥β，γ与α、β的交线应平行，即a∥b，与已知a与b不平行矛盾。故假设不成立，a与b异面。",
+      "acceptedAnswers": [
+        "证明：假设a与b共面，设该平面为γ。则γ过a和b。因为a⊂α，b⊂β，且α∥β，所以γ与α、β的交线分别为a和b。由于α∥β，γ与α、β的交线应平行，即a∥b，与已知a与b不平行矛盾。故假设不成立，a与b异面。"
+      ],
+      "explanationZhHans": "用反证法，假设共面推出与已知矛盾，从而得证异面。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-489",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-立体几何初步",
+      "topicTitleZhHans": "立体几何初步",
+      "volume": "必修 第二册",
+      "chapter": "立体几何初步",
+      "conceptIds": [
+        "solid-geometry",
+        "spatial-lines-planes",
+        "parallel-perpendicular",
+        "surface-volume",
+        "spatial-reasoning"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "逻辑推理",
+        "数学运算"
+      ],
+      "skillTags": [
+        "空间位置关系",
+        "线面平行垂直",
+        "截面与展开",
+        "表面积体积",
+        "空间证明",
+        "全卷结构",
+        "三角综合",
+        "向量应用"
+      ],
+      "misconceptionTags": [
+        "spatial relation inferred from drawing only",
+        "parallel criterion incomplete",
+        "perpendicular condition overgeneralized",
+        "surface and volume formulas mixed",
+        "drawing treated",
+        "parallel and perpendicular relation overclaimed",
+        "hidden line relation missed",
+        "area and volume units mixed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-solid-geometry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-unit-solid-geometry-introduction",
+        "bnu-high-s4-lower-assessment-final-integrated-s4-lower",
+        "bnu-high-s4-lower-assessment-unit-trigonometric-functions"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知三棱柱ABC-A₁B₁C₁中，底面是边长为2的正三角形，侧棱AA₁⊥底面，且AA₁=3，则点A到平面A₁BC的距离为（　）",
+      "optionsZhHans": [
+        "√3",
+        "3/2",
+        "√6/2",
+        "√6"
+      ],
+      "answer": "√6/2",
+      "acceptedAnswers": [
+        "√6/2"
+      ],
+      "explanationZhHans": "用等体积法。V_{A-A₁BC}=V_{A₁-ABC}=1/3×S_{△ABC}×AA₁=1/3×√3×3=√3。△A₁BC中，A₁B=A₁C=√13，BC=2，面积=2√3。设距离d，则1/3×2√3×d=√3，得d=3/2。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-490",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-立体几何初步",
+      "topicTitleZhHans": "立体几何初步",
+      "volume": "必修 第二册",
+      "chapter": "立体几何初步",
+      "conceptIds": [
+        "solid-geometry",
+        "spatial-lines-planes",
+        "parallel-perpendicular",
+        "surface-volume",
+        "spatial-reasoning"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "逻辑推理",
+        "数学运算"
+      ],
+      "skillTags": [
+        "空间位置关系",
+        "线面平行垂直",
+        "截面与展开",
+        "表面积体积",
+        "空间证明",
+        "全卷结构",
+        "三角综合",
+        "向量应用"
+      ],
+      "misconceptionTags": [
+        "spatial relation inferred from drawing only",
+        "parallel criterion incomplete",
+        "perpendicular condition overgeneralized",
+        "surface and volume formulas mixed",
+        "drawing treated",
+        "parallel and perpendicular relation overclaimed",
+        "hidden line relation missed",
+        "area and volume units mixed"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-solid-geometry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-unit-solid-geometry-introduction",
+        "bnu-high-s4-lower-assessment-final-integrated-s4-lower",
+        "bnu-high-s4-lower-assessment-unit-trigonometric-functions"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知正三棱锥的底面边长为6，侧棱长为5，求其表面积。",
+      "optionsZhHans": [],
+      "answer": "9√3+36",
+      "acceptedAnswers": [
+        "9√3+36"
+      ],
+      "explanationZhHans": "底面积=√3/4×6²=9√3。侧面等腰三角形底6，腰5，高=√(5²-3²)=4，侧面积=3×1/2×6×4=36。表面积=9√3+36。"
+    }
+  ]
+}

@@ -1,0 +1,173 @@
+{
+  "batchNumber": 101,
+  "startedAt": "2026-05-27T17:57:28.265Z",
+  "completedAt": "2026-05-27T17:57:45.541Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s3-201",
+    "bnu-junior-ds-v1-s3-202",
+    "bnu-junior-ds-v1-s3-203",
+    "bnu-junior-ds-v1-s3-204",
+    "bnu-junior-ds-v1-s3-205",
+    "bnu-junior-ds-v1-s3-206",
+    "bnu-junior-ds-v1-s3-207",
+    "bnu-junior-ds-v1-s3-208",
+    "bnu-junior-ds-v1-s3-209",
+    "bnu-junior-ds-v1-s3-210",
+    "bnu-junior-ds-v1-s3-211",
+    "bnu-junior-ds-v1-s3-212"
+  ],
+  "usage": {
+    "prompt_tokens": 7069,
+    "completion_tokens": 1363,
+    "total_tokens": 8432,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 6557
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s3-201",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目明确给出从正前方观察，看到长6 cm、宽3 cm的矩形，符合主视图（正视图）定义，答案正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-202",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "根据三视图描述可唯一确定最少需要5个小立方块，选项设计合理，答案正确，解释清晰。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-203",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由三视图可推导出最少6个、最多8个小立方块，答案与解释一致，acceptedAnswers覆盖合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-204",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "根据主视图和左视图可唯一确定俯视图中间位置有1个小立方块，答案正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-205",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "根据主视图、左视图及“前后方向没有悬空”条件，可推导出最少需要7个小立方块，答案正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-206",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由主视图和左视图及“至少有一个位置有2个小立方块”条件，可推导出最少5个小立方块，答案正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-207",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "光线垂直于正面，投影为矩形，面积计算正确，答案与解释一致，acceptedAnswers覆盖合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-208",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "根据主视图和左视图及俯视图网格，可唯一确定最少总数时的分布，选项设计合理，答案正确，解释清晰。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-209",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由三视图可唯一确定俯视图网格数值，且最少最多均为7个，答案与解释一致，acceptedAnswers覆盖合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-210",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "根据主视图、左视图及俯视图第一行第一列有方块的条件，可唯一确定总个数为4，答案正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-211",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "利用中心投影相似三角形可正确求解路灯高度和移动后的影长，答案正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-212",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "从正面和左面看都是“田”字形，最少需要4个小立方块，答案正确，解释合理。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版初中数学要求，条件充分，答案正确，解释合理，无任何问题。"
+    }
+  }
+}

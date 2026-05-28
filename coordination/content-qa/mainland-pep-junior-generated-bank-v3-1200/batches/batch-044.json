@@ -1,0 +1,318 @@
+{
+  "batchId": "batch-044",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s2-k06-mc-031",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-axis-symmetry-isosceles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "promptZhHans": "在△ABC和△DEF中，已知AB = DE，∠A = ∠D。若要使△ABC ≌ △DEF，还需添加一个条件。下列条件中不能保证全等的是（ ）。",
+      "optionsZhHans": [
+        "AC = DF",
+        "BC = EF",
+        "∠B = ∠E",
+        "∠C = ∠F"
+      ],
+      "answer": "BC = EF",
+      "acceptedAnswers": [
+        "BC = EF"
+      ],
+      "explanationZhHans": "已知AB = DE，∠A = ∠D。添加AC = DF，可用SAS判定全等；添加∠B = ∠E，可用ASA判定全等；添加∠C = ∠F，可用AAS判定全等。添加BC = EF，则已知两边和其中一边的对角对应相等，不能保证全等。因此，不能保证全等的条件是BC = EF。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-mc-032",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "在平面直角坐标系中，点A的坐标为(2, 3)。将点A先向右平移4个单位，再向下平移1个单位得到点A'，则点A'的坐标是（ ）。",
+      "optionsZhHans": [
+        "(6, 2)",
+        "(6, 4)",
+        "(-2, 2)",
+        "(-2, 4)"
+      ],
+      "answer": "(6, 2)",
+      "acceptedAnswers": [
+        "(6, 2)"
+      ],
+      "explanationZhHans": "点A(2, 3)向右平移4个单位，横坐标加4得6；向下平移1个单位，纵坐标减1得2。所以点A'的坐标是(6, 2)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-mc-033",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-triangle-angle-relations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean"
+      ],
+      "promptZhHans": "在△ABC中，∠A = 50°，∠B = 60°，则∠C的外角的度数是（ ）。",
+      "optionsZhHans": [
+        "70°",
+        "110°",
+        "120°",
+        "130°"
+      ],
+      "answer": "110°",
+      "acceptedAnswers": [
+        "110°",
+        "110度"
+      ],
+      "explanationZhHans": "三角形的外角等于与它不相邻的两个内角的和。∠C的外角 = ∠A + ∠B = 50° + 60° = 110°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-mc-034",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-congruence-proof"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "下列四个数中，属于无理数的是（ ）。",
+      "optionsZhHans": [
+        "0",
+        "-3",
+        "√4",
+        "√5"
+      ],
+      "answer": "√5",
+      "acceptedAnswers": [
+        "√5"
+      ],
+      "explanationZhHans": "0、-3是整数，属于有理数；√4 = 2，是有理数；√5是开方开不尽的数，是无理数。因此，属于无理数的是√5。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-fi-001",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-axis-symmetry-isosceles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "promptZhHans": "等腰三角形的一个底角为40°，则它的顶角的度数是______。",
+      "optionsZhHans": [],
+      "answer": "100°",
+      "acceptedAnswers": [
+        "100°",
+        "100度"
+      ],
+      "explanationZhHans": "等腰三角形的两个底角相等，所以另一个底角也是40°。三角形内角和为180°，顶角 = 180° - 40° - 40° = 100°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-fi-002",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "在平面直角坐标系中，点P(-3, 5)关于x轴对称的点的坐标是______。",
+      "optionsZhHans": [],
+      "answer": "(-3, -5)",
+      "acceptedAnswers": [
+        "(-3, -5)"
+      ],
+      "explanationZhHans": "关于x轴对称的点，横坐标不变，纵坐标互为相反数。点P(-3, 5)关于x轴对称的点的坐标是(-3, -5)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-fi-003",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-triangle-angle-relations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean"
+      ],
+      "promptZhHans": "在△ABC中，∠A = 30°，∠B = 70°，则△ABC的形状是______三角形。（填“锐角”“直角”或“钝角”）",
+      "optionsZhHans": [],
+      "answer": "锐角",
+      "acceptedAnswers": [
+        "锐角"
+      ],
+      "explanationZhHans": "三角形内角和为180°，∠C = 180° - 30° - 70° = 80°。三个角都小于90°，所以△ABC是锐角三角形。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-fi-004",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-congruence-proof"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "比较大小：√10 ______ 3.2。（填“>”“<”或“=”）",
+      "optionsZhHans": [],
+      "answer": "<",
+      "acceptedAnswers": [
+        "<"
+      ],
+      "explanationZhHans": "3.2² = 10.24，而√10² = 10。因为10 < 10.24，所以√10 < 3.2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-fi-005",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-polynomial-multiplication-factorization"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "分解因式：2x² - 8 = ______。",
+      "optionsZhHans": [],
+      "answer": "2(x + 2)(x - 2)",
+      "acceptedAnswers": [
+        "2(x + 2)(x - 2)",
+        "2(x-2)(x+2)"
+      ],
+      "explanationZhHans": "先提取公因式2，得2(x² - 4)，再用平方差公式分解为2(x + 2)(x - 2)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-fi-006",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-algebraic-fractions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions"
+      ],
+      "promptZhHans": "若分式 (x - 1) / (x + 2) 的值为0，则x = ______。",
+      "optionsZhHans": [],
+      "answer": "1",
+      "acceptedAnswers": [
+        "1"
+      ],
+      "explanationZhHans": "分式的值为0的条件是分子为0且分母不为0。由x - 1 = 0得x = 1，此时分母x + 2 = 3 ≠ 0，所以x = 1。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

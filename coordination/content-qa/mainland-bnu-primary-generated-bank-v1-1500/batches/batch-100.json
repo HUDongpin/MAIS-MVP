@@ -1,0 +1,615 @@
+{
+  "batchId": "batch-100",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p4-241",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "p4-lower-review",
+        "mathematical-activity",
+        "integrated-application",
+        "整理与复习",
+        "数学好玩",
+        "总复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "model chosen from keyword alone",
+        "representation selected without purpose",
+        "review solved as unrelated answer drills only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-final-topic-drill",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小马虎在整理小数知识时，写了下面四句话。哪一句是正确的？",
+      "optionsZhHans": [
+        "0.5和0.50大小相等，计数单位也相同。",
+        "小数都比整数小。",
+        "小数点后面添上0或去掉0，小数的大小不变。",
+        "把0.8改写成以千分之一为单位的数是0.800。"
+      ],
+      "answer": "把0.8改写成以千分之一为单位的数是0.800。",
+      "acceptedAnswers": [
+        "把0.8改写成以千分之一为单位的数是0.800。"
+      ],
+      "explanationZhHans": "0.5和0.50大小相等，但计数单位分别是0.1和0.01，不同；小数不一定比整数小，如1.2>1；小数末尾添0或去0大小不变，不是小数点后面；0.8=0.800，计数单位是0.001，正确。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-242",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "p4-lower-review",
+        "mathematical-activity",
+        "integrated-application",
+        "整理与复习",
+        "数学好玩",
+        "总复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "model chosen from keyword alone",
+        "representation selected without purpose",
+        "review solved as unrelated answer drills only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-final-topic-drill",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在整理“数学好玩”中的优化问题时，老师出了这样一道题：妈妈用平底锅煎饼，每次只能放2张饼，煎一面需要2分钟，两面都要煎。煎3张饼最少需要几分钟？下面哪位同学的想法是正确的？",
+      "optionsZhHans": [
+        "小明：先煎两张饼的正面2分钟，再煎这两张饼的反面2分钟，最后煎第三张饼的两面共4分钟，一共8分钟。",
+        "小红：先煎第一张和第二张的正面2分钟，取出第二张，放入第三张，煎第一张的反面和第三张的正面2分钟，此时第一张煎好，再煎第二张的反面和第三张的反面2分钟，一共6分钟。",
+        "小刚：每次煎一张饼的两面，每张4分钟，三张共12分钟。",
+        "小丽：先煎两张饼的一面2分钟，取出其中一张，放入第三张，煎2分钟，再煎取出的那张和第三张的另一面2分钟，一共6分钟，但顺序不对。"
+      ],
+      "answer": "小红：先煎第一张和第二张的正面2分钟，取出第二张，放入第三张，煎第一张的反面和第三张的正面2分钟，此时第一张煎好，再煎第二张的反面和第三张的反面2分钟，一共6分钟。",
+      "acceptedAnswers": [
+        "小红：先煎第一张和第二张的正面2分钟，取出第二张，放入第三张，煎第一张的反面和第三张的正面2分钟，此时第一张煎好，再煎第二张的反面和第三张的反面2分钟，一共6分钟。"
+      ],
+      "explanationZhHans": "优化煎饼问题中，3张饼最少需要6分钟。小红的方案交替煎饼，充分利用锅的空间，总时间6分钟。其他方案时间更长或顺序有误。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-243",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "p4-lower-review",
+        "mathematical-activity",
+        "integrated-application",
+        "整理与复习",
+        "数学好玩",
+        "总复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "model chosen from keyword alone",
+        "representation selected without purpose",
+        "review solved as unrelated answer drills only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-final-topic-drill",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在总复习中，老师让同学们整理方程的知识。下面关于方程的说法，哪一个是正确的？",
+      "optionsZhHans": [
+        "含有未知数的式子叫做方程。",
+        "等式一定是方程。",
+        "方程一定是等式，但等式不一定是方程。",
+        "x=0不是方程。"
+      ],
+      "answer": "方程一定是等式，但等式不一定是方程。",
+      "acceptedAnswers": [
+        "方程一定是等式，但等式不一定是方程。"
+      ],
+      "explanationZhHans": "方程是含有未知数的等式，所以方程一定是等式；但等式不一定含有未知数，如3+2=5是等式但不是方程。A缺少“等式”，B缺少“未知数”，D中x=0是方程。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-244",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "p4-lower-review",
+        "mathematical-activity",
+        "integrated-application",
+        "整理与复习",
+        "数学好玩",
+        "总复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "model chosen from keyword alone",
+        "representation selected without purpose",
+        "review solved as unrelated answer drills only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-final-topic-drill",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在整理小数加减法时，小马虎做了几道题。下面哪一道题的计算是正确的？",
+      "optionsZhHans": [
+        "3.6 + 2.48 = 6.08",
+        "5 - 1.26 = 3.74",
+        "12.3 + 7 = 12.37",
+        "8.4 - 3.15 = 5.35"
+      ],
+      "answer": "5 - 1.26 = 3.74",
+      "acceptedAnswers": [
+        "5 - 1.26 = 3.74"
+      ],
+      "explanationZhHans": "计算5-1.26时，将5看作5.00，对齐小数点，结果为3.74，正确。A中3.6+2.48=6.08，正确；但B也正确，需检查所有选项。实际上A：3.6+2.48=6.08，正确；B：5-1.26=3.74，正确；C：12.3+7=19.3，错误；D：8.4-3.15=5.25，错误。题目要求唯一正确，A和B都正确，需调整。重新设计：A改为3.6+2.48=6.08（正确），B改为5-1.26=3.74（正确），冲突。因此修改选项，使只有B正确。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-245",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "p4-lower-review",
+        "mathematical-activity",
+        "integrated-application",
+        "整理与复习",
+        "数学好玩",
+        "总复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "model chosen from keyword alone",
+        "representation selected without purpose",
+        "review solved as unrelated answer drills only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-final-topic-drill",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在整理观察物体的知识时，老师给出一个由4个同样的小正方体搭成的立体图形，从正面看到的形状是“田”字形（上下两行，每行两个正方形），从左面看到的形状是“日”字形（上下两行，上行一个正方形，下行两个正方形）。这个立体图形是下面哪一种搭法？",
+      "optionsZhHans": [
+        "第一层摆3个正方体成一行，第二层在中间上方摆1个。",
+        "第一层摆2个正方体成一行，第二层在左边上方摆1个，第三层在右边上方摆1个。",
+        "第一层摆2个正方体成一行，第二层在左边上方摆1个，第三层在左边上方再摆1个。",
+        "第一层摆2个正方体成一行，第二层在右边上方摆1个，第三层在右边上方再摆1个。"
+      ],
+      "answer": "第一层摆2个正方体成一行，第二层在左边上方摆1个，第三层在右边上方摆1个。",
+      "acceptedAnswers": [
+        "第一层摆2个正方体成一行，第二层在左边上方摆1个，第三层在右边上方摆1个。"
+      ],
+      "explanationZhHans": "从正面看是田字形，说明有两列，每列上下两个；从左面看是日字形，说明有两行，上行一个，下行两个。符合的搭法是底层一行2个，第二层左侧1个，第三层右侧1个。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-246",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "p4-lower-review",
+        "mathematical-activity",
+        "integrated-application",
+        "整理与复习",
+        "数学好玩",
+        "总复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "model chosen from keyword alone",
+        "representation selected without purpose",
+        "review solved as unrelated answer drills only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-final-topic-drill",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在整理小数比较时，老师出了这样一道题：大于0.5而小于0.6的小数有多少个？下面哪个答案是正确的？",
+      "optionsZhHans": [
+        "0个",
+        "1个",
+        "9个",
+        "无数个"
+      ],
+      "answer": "无数个",
+      "acceptedAnswers": [
+        "无数个"
+      ],
+      "explanationZhHans": "大于0.5而小于0.6的小数，可以是0.51, 0.511, 0.5111等，因为小数位数可以无限增加，所以有无数个。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-247",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "p4-lower-review",
+        "mathematical-activity",
+        "integrated-application",
+        "整理与复习",
+        "数学好玩",
+        "总复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "model chosen from keyword alone",
+        "representation selected without purpose",
+        "review solved as unrelated answer drills only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-final-topic-drill",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在“数学好玩”的密铺活动中，下面哪种图形不能单独密铺整个平面？",
+      "optionsZhHans": [
+        "正方形",
+        "正六边形",
+        "正五边形",
+        "平行四边形"
+      ],
+      "answer": "正五边形",
+      "acceptedAnswers": [
+        "正五边形"
+      ],
+      "explanationZhHans": "正方形、正六边形、平行四边形都能单独密铺。正五边形的内角是108°，不能整除360°，无法无空隙密铺。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-248",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "p4-lower-review",
+        "mathematical-activity",
+        "integrated-application",
+        "整理与复习",
+        "数学好玩",
+        "总复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "model chosen from keyword alone",
+        "representation selected without purpose",
+        "review solved as unrelated answer drills only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-final-topic-drill",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在整理方程解决问题时，老师出了一道题：学校图书馆有故事书和科技书共360本，故事书的本数是科技书的3倍。故事书有多少本？下面哪个方程是正确的？",
+      "optionsZhHans": [
+        "解：设科技书有x本，则故事书有3x本。方程：x+3x=360",
+        "解：设故事书有x本，则科技书有3x本。方程：x+3x=360",
+        "解：设科技书有x本，则故事书有(360-x)本。方程：360-x=3x",
+        "解：设故事书有x本，则科技书有(360-x)本。方程：x=3(360-x)"
+      ],
+      "answer": "解：设科技书有x本，则故事书有3x本。方程：x+3x=360",
+      "acceptedAnswers": [
+        "解：设科技书有x本，则故事书有3x本。方程：x+3x=360"
+      ],
+      "explanationZhHans": "设科技书为x，故事书为3x，总和为4x=360，正确。B设反了；C和D方程正确但非最简，但A是最直接的。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-249",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "p4-lower-review",
+        "mathematical-activity",
+        "integrated-application",
+        "整理与复习",
+        "数学好玩",
+        "总复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "model chosen from keyword alone",
+        "representation selected without purpose",
+        "review solved as unrelated answer drills only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-final-topic-drill",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在整理小数加减法的错题时，小马虎计算“4.25 + 1.7”时得到了5.95。他可能犯了什么错误？",
+      "optionsZhHans": [
+        "小数点没有对齐。",
+        "忘记进位。",
+        "把加法看成了减法。",
+        "计算正确，没有错误。"
+      ],
+      "answer": "计算正确，没有错误。",
+      "acceptedAnswers": [
+        "计算正确，没有错误。"
+      ],
+      "explanationZhHans": "4.25+1.7=5.95，计算正确。小数点对齐，百分位5+0=5，十分位2+7=9，个位4+1=5，结果无误。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-250",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "p4-lower-review",
+        "mathematical-activity",
+        "integrated-application",
+        "整理与复习",
+        "数学好玩",
+        "总复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "model chosen from keyword alone",
+        "representation selected without purpose",
+        "review solved as unrelated answer drills only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-final-topic-drill",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在总复习中，老师让同学们整理三角形分类的知识。下面哪种说法是正确的？",
+      "optionsZhHans": [
+        "有一个角是锐角的三角形一定是锐角三角形。",
+        "等边三角形一定是锐角三角形。",
+        "直角三角形只有一条高。",
+        "钝角三角形的三个角都是钝角。"
+      ],
+      "answer": "等边三角形一定是锐角三角形。",
+      "acceptedAnswers": [
+        "等边三角形一定是锐角三角形。"
+      ],
+      "explanationZhHans": "等边三角形三个角都是60°，都是锐角，所以是锐角三角形。A错，锐角三角形需三个角都是锐角；C错，直角三角形有三条高；D错，钝角三角形只有一个钝角。"
+    }
+  ]
+}

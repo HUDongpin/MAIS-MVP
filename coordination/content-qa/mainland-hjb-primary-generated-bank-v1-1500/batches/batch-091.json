@@ -1,0 +1,300 @@
+{
+  "batchId": "batch-091",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p2-201",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "hjb-primary-p2-lower-within-10000-number-sense",
+      "unitTitle": "万以内的数",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "within-10000-numbers",
+        "place-value-thousands",
+        "number-reading-writing",
+        "number-comparison",
+        "万以内数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "千以内数",
+        "万以内数",
+        "数位顺序",
+        "读数写数",
+        "数的组成",
+        "大小比较"
+      ],
+      "misconceptionTags": [
+        "internal zero omitted when reading",
+        "digits compared from the ones place first",
+        "place-value names recited without quantity meaning"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p2-lower-within-10000-number-sense"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-within-10000-number-sense",
+        "hjb-primary-p2-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用数字卡片 3、0、5、8 摆出一个四位数，要求这个数只读一个零，并且千位上的数字比百位上的数字小。这个数是多少？",
+      "optionsZhHans": [
+        "3058",
+        "3085",
+        "5083",
+        "8053"
+      ],
+      "answer": "3085",
+      "acceptedAnswers": [
+        "3085"
+      ],
+      "explanationZhHans": "千位比百位小，千位只能是3，百位是5或8。只读一个零，中间连续0只读一个，所以3085读作三千零八十五，符合。3058读作三千零五十八，也读一个零，但百位是0，千位3比0大，不符合千位比百位小。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-202",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "hjb-primary-p2-lower-within-10000-number-sense",
+      "unitTitle": "万以内的数",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "within-10000-numbers",
+        "place-value-thousands",
+        "number-reading-writing",
+        "number-comparison",
+        "万以内数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "千以内数",
+        "万以内数",
+        "数位顺序",
+        "读数写数",
+        "数的组成",
+        "大小比较"
+      ],
+      "misconceptionTags": [
+        "internal zero omitted when reading",
+        "digits compared from the ones place first",
+        "place-value names recited without quantity meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p2-lower-within-10000-number-sense"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-within-10000-number-sense",
+        "hjb-primary-p2-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个数由6个千、0个百、4个十和9个一组成，这个数写作______。",
+      "optionsZhHans": [],
+      "answer": "6049",
+      "acceptedAnswers": [
+        "6049"
+      ],
+      "explanationZhHans": "6个千是6000，0个百是0，4个十是40，9个一是9，合起来是6000+0+40+9=6049。注意百位是0要写0占位。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-203",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "hjb-primary-p2-lower-within-10000-number-sense",
+      "unitTitle": "万以内的数",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "within-10000-numbers",
+        "place-value-thousands",
+        "number-reading-writing",
+        "number-comparison",
+        "万以内数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "千以内数",
+        "万以内数",
+        "数位顺序",
+        "读数写数",
+        "数的组成",
+        "大小比较"
+      ],
+      "misconceptionTags": [
+        "internal zero omitted when reading",
+        "digits compared from the ones place first",
+        "place-value names recited without quantity meaning"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p2-lower-within-10000-number-sense"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-within-10000-number-sense",
+        "hjb-primary-p2-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面四个数中，最接近7000的数是哪一个？",
+      "optionsZhHans": [
+        "6987",
+        "7012",
+        "6899",
+        "7100"
+      ],
+      "answer": "7012",
+      "acceptedAnswers": [
+        "7012"
+      ],
+      "explanationZhHans": "分别计算与7000的差：7000-6987=13，7012-7000=12，7000-6899=101，7100-7000=100。差最小的是7012，所以最接近7000。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-204",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "hjb-primary-p2-lower-within-10000-number-sense",
+      "unitTitle": "万以内的数",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "within-10000-numbers",
+        "place-value-thousands",
+        "number-reading-writing",
+        "number-comparison",
+        "万以内数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "千以内数",
+        "万以内数",
+        "数位顺序",
+        "读数写数",
+        "数的组成",
+        "大小比较"
+      ],
+      "misconceptionTags": [
+        "internal zero omitted when reading",
+        "digits compared from the ones place first",
+        "place-value names recited without quantity meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p2-lower-within-10000-number-sense"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-within-10000-number-sense",
+        "hjb-primary-p2-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在数位顺序表中，从右边起第四位是______位。",
+      "optionsZhHans": [],
+      "answer": "千",
+      "acceptedAnswers": [
+        "千"
+      ],
+      "explanationZhHans": "从右边起，第一位是个位，第二位是十位，第三位是百位，第四位是千位。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-205",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "hjb-primary-p2-lower-within-10000-number-sense",
+      "unitTitle": "万以内的数",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "within-10000-numbers",
+        "place-value-thousands",
+        "number-reading-writing",
+        "number-comparison",
+        "万以内数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "千以内数",
+        "万以内数",
+        "数位顺序",
+        "读数写数",
+        "数的组成",
+        "大小比较"
+      ],
+      "misconceptionTags": [
+        "internal zero omitted when reading",
+        "digits compared from the ones place first",
+        "place-value names recited without quantity meaning"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p2-lower-within-10000-number-sense"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-within-10000-number-sense",
+        "hjb-primary-p2-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "比较大小：5□28 < 5436，□里最大能填几？",
+      "optionsZhHans": [
+        "3",
+        "4",
+        "5",
+        "6"
+      ],
+      "answer": "3",
+      "acceptedAnswers": [
+        "3"
+      ],
+      "explanationZhHans": "千位都是5，看百位。要使5□28 < 5436，百位□必须小于4，所以□可以填0、1、2、3，最大填3。"
+    }
+  ]
+}

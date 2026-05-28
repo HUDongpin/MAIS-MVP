@@ -1,0 +1,286 @@
+{
+  "batchId": "batch-035",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p1-171",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "hjb-primary-p1-lower-within-100-add-sub",
+      "unitTitle": "100以内数的加减法（一）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-100-addition-subtraction",
+        "two-digit-non-regrouping",
+        "place-value-calculation",
+        "100以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "整十数加减",
+        "两位数加一位数",
+        "两位数加整十数",
+        "两位数减一位数",
+        "两位数减整十数"
+      ],
+      "misconceptionTags": [
+        "adding tens as ones",
+        "place-value alignment ignored",
+        "context answer lacks unit meaning"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p1-lower-within-100-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-lower-assessment-within-100-add-sub",
+        "hjb-primary-p1-lower-assessment-midterm-1-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小华有34本故事书，小丽有20本故事书。两人一共有多少本故事书？",
+      "optionsZhHans": [],
+      "answer": "54本",
+      "acceptedAnswers": [
+        "54本",
+        "54"
+      ],
+      "explanationZhHans": "34 + 20，先算30 + 20 = 50，再算50 + 4 = 54，所以一共54本。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-172",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "hjb-primary-p1-lower-within-100-add-sub",
+      "unitTitle": "100以内数的加减法（一）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-100-addition-subtraction",
+        "two-digit-non-regrouping",
+        "place-value-calculation",
+        "100以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "整十数加减",
+        "两位数加一位数",
+        "两位数加整十数",
+        "两位数减一位数",
+        "两位数减整十数"
+      ],
+      "misconceptionTags": [
+        "adding tens as ones",
+        "place-value alignment ignored",
+        "context answer lacks unit meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p1-lower-within-100-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-lower-assessment-within-100-add-sub",
+        "hjb-primary-p1-lower-assessment-midterm-1-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算 45 + 3 时，下面哪种想法是正确的？",
+      "optionsZhHans": [
+        "先算 40 + 3 = 43，再算 43 + 5 = 48",
+        "先算 5 + 3 = 8，再算 40 + 8 = 48",
+        "先算 4 + 3 = 7，再算 70 + 5 = 75",
+        "先算 45 + 30 = 75，再算 75 - 27 = 48"
+      ],
+      "answer": "先算 5 + 3 = 8，再算 40 + 8 = 48",
+      "acceptedAnswers": [
+        "先算 5 + 3 = 8，再算 40 + 8 = 48"
+      ],
+      "explanationZhHans": "45 + 3，个位5加3得8，十位40不变，合起来是48。其他选项混淆了十位和个位。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-173",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "hjb-primary-p1-lower-within-100-add-sub",
+      "unitTitle": "100以内数的加减法（一）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-100-addition-subtraction",
+        "two-digit-non-regrouping",
+        "place-value-calculation",
+        "100以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "整十数加减",
+        "两位数加一位数",
+        "两位数加整十数",
+        "两位数减一位数",
+        "两位数减整十数"
+      ],
+      "misconceptionTags": [
+        "adding tens as ones",
+        "place-value alignment ignored",
+        "context answer lacks unit meaning"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p1-lower-within-100-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-lower-assessment-within-100-add-sub",
+        "hjb-primary-p1-lower-assessment-midterm-1-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在计算 68 - 5 时，先算 8 - 5 = 3，再算 60 + 3 = ______。",
+      "optionsZhHans": [],
+      "answer": "63",
+      "acceptedAnswers": [
+        "63"
+      ],
+      "explanationZhHans": "68 - 5，个位8减5得3，十位60不变，合起来是63。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-174",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "hjb-primary-p1-lower-within-100-add-sub",
+      "unitTitle": "100以内数的加减法（一）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-100-addition-subtraction",
+        "two-digit-non-regrouping",
+        "place-value-calculation",
+        "100以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "整十数加减",
+        "两位数加一位数",
+        "两位数加整十数",
+        "两位数减一位数",
+        "两位数减整十数"
+      ],
+      "misconceptionTags": [
+        "adding tens as ones",
+        "place-value alignment ignored",
+        "context answer lacks unit meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p1-lower-within-100-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-lower-assessment-within-100-add-sub",
+        "hjb-primary-p1-lower-assessment-midterm-1-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "停车场原来有45辆车，开走了20辆，还剩多少辆？",
+      "optionsZhHans": [],
+      "answer": "25辆",
+      "acceptedAnswers": [
+        "25辆",
+        "25"
+      ],
+      "explanationZhHans": "45 - 20，先算40 - 20 = 20，再算20 + 5 = 25，所以还剩25辆。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-175",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "hjb-primary-p1-lower-time-introduction",
+      "unitTitle": "时间的初步认识",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "time-introduction",
+        "clock-reading",
+        "daily-routines",
+        "时间初步认识"
+      ],
+      "competencyTags": [
+        "量感",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "整时半时",
+        "钟面观察",
+        "时间顺序",
+        "日常安排"
+      ],
+      "misconceptionTags": [
+        "hour and minute hands confused",
+        "event order inferred from preference rather than time",
+        "half-hour language read as a whole hour"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p1-lower-time-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-lower-assessment-time-introduction",
+        "hjb-primary-p1-lower-assessment-midterm-1-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个钟面表示的时间是半时？",
+      "optionsZhHans": [
+        "分针指向12，时针指向6",
+        "分针指向6，时针指向12和1之间",
+        "分针指向12，时针指向12",
+        "分针指向6，时针指向6和7之间"
+      ],
+      "answer": "分针指向6，时针指向6和7之间",
+      "acceptedAnswers": [
+        "分针指向6，时针指向6和7之间"
+      ],
+      "explanationZhHans": "半时的时候，分针指向6，时针走过几就是几时半。分针指向6，时针在6和7之间，表示6时半。"
+    }
+  ]
+}

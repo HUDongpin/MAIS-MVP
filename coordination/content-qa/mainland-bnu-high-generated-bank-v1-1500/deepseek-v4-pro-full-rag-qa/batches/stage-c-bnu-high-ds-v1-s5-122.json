@@ -1,0 +1,47 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-122",
+  "startedAt": "2026-05-28T02:08:30.700Z",
+  "completedAt": "2026-05-28T02:08:34.235Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-122"
+  ],
+  "usage": {
+    "prompt_tokens": 2386,
+    "completion_tokens": 256,
+    "total_tokens": 2642,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2002
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-122",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "存在，k=±√2/2",
+        "correctedAnswer": null,
+        "issueTags": [
+          "explanation_contradiction"
+        ],
+        "severity": "minor",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，答案正确。但解析中椭圆方程推导错误（应为x²/8+y²/2=1，误写为x²/16+y²/4=1），后续计算过程混乱，虽最终结果巧合一致，但解释存在矛盾，需修正。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 1,
+      "warn": 0,
+      "fail": 0,
+      "notes": "答案正确，但解析存在推导错误，标记为弱匹配。"
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-270",
+  "startedAt": "2026-05-28T01:06:39.705Z",
+  "completedAt": "2026-05-28T01:06:45.253Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-270"
+  ],
+  "usage": {
+    "prompt_tokens": 2038,
+    "completion_tokens": 239,
+    "total_tokens": 2277,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1654
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-270",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "k≈0.04, m=100e^{-0.04t}",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合BNU建模活动要求。独立解k≈0.04，m=100e^{-0.04t}与存储答案及acceptedAnswers一致，解析正确。基线DeepSeek误判为fail，实际无错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 1,
+      "warn": 0,
+      "fail": 0,
+      "notes": "题目无问题，通过复核。"
+    }
+  }
+}

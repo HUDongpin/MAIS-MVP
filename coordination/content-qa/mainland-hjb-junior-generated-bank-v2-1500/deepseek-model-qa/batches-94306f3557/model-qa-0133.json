@@ -1,0 +1,103 @@
+{
+  "batchId": "model-qa-0133",
+  "ids": [
+    "hjb-junior-ds-v2-s3-057",
+    "hjb-junior-ds-v2-s3-058",
+    "hjb-junior-ds-v2-s3-059",
+    "hjb-junior-ds-v2-s3-060",
+    "hjb-junior-ds-v2-s3-061",
+    "hjb-junior-ds-v2-s3-062",
+    "hjb-junior-ds-v2-s3-063",
+    "hjb-junior-ds-v2-s3-064"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-057",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "7.5",
+      "answerCheckZhHans": "标准答案为7.5，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-058",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "4",
+      "answerCheckZhHans": "标准答案为4，与独立计算结果一致。选项互异，且只有选项C为4。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-059",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "4 cm",
+      "answerCheckZhHans": "标准答案为4，acceptedAnswers包含4、4 cm、4cm，覆盖了独立答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-060",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "10",
+      "answerCheckZhHans": "标准答案为10，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-061",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "8",
+      "answerCheckZhHans": "标准答案为8，与独立计算结果一致。选项互异，且只有选项C为8。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-062",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "①②③",
+      "answerCheckZhHans": "标准答案为①②③，acceptedAnswers包含多种形式，覆盖了独立答案。三个条件均能判定相似，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-063",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "证明：在△ADE和△ABC中，AD/AB=4/12=1/3，AE/AC=3/9=1/3，且∠A为公共角，所以△ADE∽△ABC（两边对应成比例且夹角相等）。由相似得DE/BC=AD/AB=1/3，故DE=BC/3=15/3=5。",
+      "answerCheckZhHans": "标准答案包含完整证明和DE=5，acceptedAnswers覆盖了完整证明和简化答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-064",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "两个等边三角形",
+      "answerCheckZhHans": "标准答案为“两个等边三角形”，与独立判断一致。选项互异，且只有该选项正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,132 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-104",
+  "startedAt": "2026-05-28T02:59:35.862Z",
+  "completedAt": "2026-05-28T02:59:51.293Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-325",
+    "bnu-high-ds-v1-s5-326",
+    "bnu-high-ds-v1-s5-327",
+    "bnu-high-ds-v1-s5-328",
+    "bnu-high-ds-v1-s5-329",
+    "bnu-high-ds-v1-s5-330",
+    "bnu-high-ds-v1-s5-331",
+    "bnu-high-ds-v1-s5-332"
+  ],
+  "usage": {
+    "prompt_tokens": 11605,
+    "completion_tokens": 991,
+    "total_tokens": 12596,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 11221
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-325",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案310与独立解一致，解析正确，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-326",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案60与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-327",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "第4项和第5项",
+        "issueTags": [
+          "answer_mismatch"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立解为第5项，但二项式系数最大项应为第4项和第5项，存储答案正确为第4项和第5项，独立解错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-328",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案0.475与独立解一致，解析正确，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-329",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [
+          "explanation_contradiction"
+        ],
+        "severity": "minor",
+        "confidence": "medium",
+        "rationaleZhHans": "存储答案3与独立解一致，但解析中列举的涂法存在相邻同色问题，推理不严谨。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-330",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "1120",
+        "issueTags": [
+          "answer_mismatch"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立解为1792，但正确常数项应为1120，存储答案正确，独立解错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-331",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案52与独立解一致，解析正确，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-332",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案-160与独立解一致，解析正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 5,
+      "warn": 1,
+      "fail": 2,
+      "notes": "第327题独立解错误，存储答案正确；第330题独立解错误，存储答案正确；第329题解析有瑕疵。"
+    }
+  }
+}

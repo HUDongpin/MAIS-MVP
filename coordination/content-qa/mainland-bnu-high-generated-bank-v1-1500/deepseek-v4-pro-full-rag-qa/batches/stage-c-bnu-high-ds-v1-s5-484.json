@@ -1,0 +1,48 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-484",
+  "startedAt": "2026-05-28T01:35:28.344Z",
+  "completedAt": "2026-05-28T01:35:33.189Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-484"
+  ],
+  "usage": {
+    "prompt_tokens": 2176,
+    "completion_tokens": 300,
+    "total_tokens": 2476,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1792
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-484",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "ŷ=10.0x+200.0",
+        "correctedAnswer": "ŷ=10.0x+200.0",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合统计案例章节要求。独立计算得b=10.0, a=200.0，回归方程为ŷ=10.0x+200.0。存储答案y=5.0x+350.0错误，解析中分母计算错误（应为450而非900），导致b=5，与正确结果矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "存储答案和解析均存在数学计算错误，需修正为ŷ=10.0x+200.0。"
+    }
+  }
+}

@@ -1,0 +1,137 @@
+{
+  "batchNumber": 48,
+  "startedAt": "2026-05-25T03:02:03.196Z",
+  "completedAt": "2026-05-25T03:02:20.106Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s2-k07-fi-031",
+    "pep-junior-v3-s2-k07-fi-032",
+    "pep-junior-v3-s2-k07-fi-033",
+    "pep-junior-v3-s2-k07-sa-001",
+    "pep-junior-v3-s2-k07-sa-002",
+    "pep-junior-v3-s2-k07-sa-003",
+    "pep-junior-v3-s2-k07-sa-004",
+    "pep-junior-v3-s2-k07-sa-005",
+    "pep-junior-v3-s2-k07-sa-006",
+    "pep-junior-v3-s2-k07-sa-007",
+    "pep-junior-v3-s2-k07-sa-008",
+    "pep-junior-v3-s2-k07-sa-009"
+  ],
+  "usage": {
+    "prompt_tokens": 4927,
+    "completion_tokens": 999,
+    "total_tokens": 5926,
+    "prompt_tokens_details": {
+      "cached_tokens": 4864
+    },
+    "prompt_cache_hit_tokens": 4864,
+    "prompt_cache_miss_tokens": 63
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s2-k07-fi-031",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "完全平方式条件正确，答案±6无误，acceptedAnswers覆盖常见写法。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-fi-032",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分式有意义条件正确，答案x≠1无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-fi-033",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "利用完全平方公式求值正确，答案13无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-sa-001",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "化简和求值正确，答案4x-1，值为-9无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-sa-002",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分式方程解法正确，检验合理，答案x=-5无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-sa-003",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "工程问题列方程和解法正确，答案100米无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-sa-004",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "多项式减法正确，合并同类项注意事项合理，答案7x-13无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-sa-005",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "因式分解正确，方法说明清晰，答案3ab(a-2b+3)无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-sa-006",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分式化简正确，限制条件x≠3明确，答案无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-sa-007",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "整式乘法与完全平方展开正确，化简结果x^2-x-7无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-sa-008",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分式方程去分母正确，解得x=2±√2，检验合理，答案无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-sa-009",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分式除法化简正确，代入a=2023得1，限制条件满足，答案无误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部12道题数学正确，答案与解析一致，无歧义或缺失条件，适合人教版初中数学。"
+    }
+  }
+}

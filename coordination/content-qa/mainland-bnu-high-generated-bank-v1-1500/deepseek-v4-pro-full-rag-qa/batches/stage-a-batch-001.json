@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-001",
+  "startedAt": "2026-05-28T00:33:24.808Z",
+  "completedAt": "2026-05-28T00:33:42.046Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-001",
+    "bnu-high-ds-v1-s4-002",
+    "bnu-high-ds-v1-s4-003",
+    "bnu-high-ds-v1-s4-004",
+    "bnu-high-ds-v1-s4-005",
+    "bnu-high-ds-v1-s4-006",
+    "bnu-high-ds-v1-s4-007",
+    "bnu-high-ds-v1-s4-008"
+  ],
+  "usage": {
+    "prompt_tokens": 9879,
+    "completion_tokens": 981,
+    "total_tokens": 10860,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 9879
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-001",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(2, 3)",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "解不等式得A=(2,3)，B=(2,+∞)，交集为(2,3)，选项A正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-002",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(2, 3]",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "解2x-1≤5得x≤3，解3x+2>8得x>2，取交集得2<x≤3，区间表示为(2,3]。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-003",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "R",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "判别式Δ=4>0恒成立，故m为任意实数，取值范围为R。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-004",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "充分不必要条件",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "p:1≤x≤3，q:2≤x≤3，p推不出q，q能推出p，故p是q的必要不充分条件。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-005",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "9",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由柯西不等式得(1/a+4/b)(a+b)≥(1+2)²=9，当a=1/3,b=2/3时取等，最小值为9。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-006",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "{1, 2}",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "解方程x²-3x+2=0得x=1或x=2，列举法表示为{1,2}。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-007",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "[1, 3]",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "A=(-∞,1)∪(3,+∞)，补集为[1,3]，选项A正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-008",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "[-1/2, 2]",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由f定义域得-2≤2x-1≤3，解得-1/2≤x≤2；由根式得x+1≥0即x≥-1。取交集得定义域为[-1/2,2]。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，无数学错误、歧义或缺失条件，符合北师大版预备知识章节要求。"
+    }
+  }
+}

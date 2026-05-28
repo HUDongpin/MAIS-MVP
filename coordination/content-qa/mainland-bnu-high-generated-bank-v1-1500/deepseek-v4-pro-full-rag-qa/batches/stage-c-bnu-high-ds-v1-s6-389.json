@@ -1,0 +1,51 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-389",
+  "startedAt": "2026-05-28T01:53:58.139Z",
+  "completedAt": "2026-05-28T01:54:02.991Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-389"
+  ],
+  "usage": {
+    "prompt_tokens": 2168,
+    "completion_tokens": 270,
+    "total_tokens": 2438,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1784
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-389",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": null,
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "missing_condition",
+          "unsolvable",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "利润函数 L(x)=10x-200 为线性函数，无产量上限时利润无界，无法求最大化产量，题目不可解。存储答案 20 错误，解析自行修改题目条件，与原题矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目缺少产量约束，线性利润函数无最大值，不可解；答案与解析均错误，判定为 blocker。"
+    }
+  }
+}

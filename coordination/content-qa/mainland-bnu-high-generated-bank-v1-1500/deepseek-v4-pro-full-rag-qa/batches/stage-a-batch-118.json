@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-118",
+  "startedAt": "2026-05-28T01:29:09.100Z",
+  "completedAt": "2026-05-28T01:29:24.681Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-437",
+    "bnu-high-ds-v1-s5-438",
+    "bnu-high-ds-v1-s5-439",
+    "bnu-high-ds-v1-s5-440",
+    "bnu-high-ds-v1-s5-441",
+    "bnu-high-ds-v1-s5-442",
+    "bnu-high-ds-v1-s5-443",
+    "bnu-high-ds-v1-s5-444"
+  ],
+  "usage": {
+    "prompt_tokens": 10617,
+    "completion_tokens": 1014,
+    "total_tokens": 11631,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 10233
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-437",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(1) r ≈ 0.99，高度正相关；(2) 可以预测，因为数学成绩98分在样本范围内或附近，线性回归模型适用，但需注意预测的误差和适用范围。",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目提供完整数据，可计算相关系数并判断相关程度；第二问考查回归预测的适用条件，可基于统计知识回答。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-438",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "10",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "根据独立性检验期望频数公式，吸烟且患肺癌的期望频数为 (100*20)/200 = 10。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-439",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "B",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "相关系数0.8表示较强的正线性相关，但不能推断因果关系或完全直线关系，也不能保证x增加时y一定增加。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-440",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(1) y = 20 + 5x；(2) b=5表示广告投入每增加1万元，销售额平均增加5万元；(3) 预测销售额为65万元，可靠性取决于模型拟合优度和外推风险，9万元在样本范围内，预测较可靠。",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "数据呈完美线性关系，可精确计算回归方程；解释系数含义；预测时需讨论适用范围。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-441",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "2.00",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "利用公式 b = (∑xy - n*x̄*ȳ) / (∑x² - n*x̄²) 计算得 b = 2.00。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-442",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "B",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "相关系数0.65为正且绝对值大于0.5，可认为有较强的正线性相关关系。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-443",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "回归方程：y = 3 + 1.1x；预测销量：11.8万件。",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "根据给定总和计算回归系数，得到方程并代入x=8预测。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-444",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "4.40",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "构建2×2列联表，代入卡方公式计算得 χ² ≈ 4.40。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均能独立求解，无数学错误、歧义或缺失条件，符合北师大版高中统计案例章节要求。"
+    }
+  }
+}

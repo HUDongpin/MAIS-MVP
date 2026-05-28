@@ -1,0 +1,133 @@
+{
+  "batchNumber": 140,
+  "startedAt": "2026-05-27T14:07:09.655Z",
+  "completedAt": "2026-05-27T14:07:24.695Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-113",
+    "bnu-high-ds-v1-s6-114",
+    "bnu-high-ds-v1-s6-115",
+    "bnu-high-ds-v1-s6-116",
+    "bnu-high-ds-v1-s6-117",
+    "bnu-high-ds-v1-s6-118",
+    "bnu-high-ds-v1-s6-119",
+    "bnu-high-ds-v1-s6-120"
+  ],
+  "usage": {
+    "prompt_tokens": 10513,
+    "completion_tokens": 1044,
+    "total_tokens": 11557,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10001
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-113",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "a_n = 2n + 1，是等差数列",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由S_n可求通项，验证得a_n=2n+1，公差为2，是等差数列。答案与解析均正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-114",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "-24",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "直接代入等比通项公式得a_4=3×(-2)^3=-24，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-115",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "100",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "累加法得a_n=n^2，a_10=100，选项唯一正确，解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-116",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "a_n = 2·3^{n-1} - 1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "构造等比数列得通项，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-117",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "联立求和公式得d=2，答案与解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-118",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2^{n+1} + n(n+1)/2 - 2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "分组求和得S_n=2^{n+1}+n(n+1)/2-2，选项唯一正确，解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-119",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "a_n = 1/(2n - 1)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "取倒数构造等差数列得通项，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-120",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2 或 -3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由求和公式得q^2+q-6=0，解得q=2或-3，答案与解析正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可解，答案与解析匹配，无错误。"
+    }
+  }
+}

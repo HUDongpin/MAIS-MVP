@@ -1,0 +1,191 @@
+{
+  "batchNumber": 6,
+  "startedAt": "2026-05-25T01:47:52.194Z",
+  "completedAt": "2026-05-25T01:48:11.947Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p1-091",
+    "hjb-primary-ds-v1-p1-092",
+    "hjb-primary-ds-v1-p1-093",
+    "hjb-primary-ds-v1-p1-094",
+    "hjb-primary-ds-v1-p1-095",
+    "hjb-primary-ds-v1-p1-096",
+    "hjb-primary-ds-v1-p1-097",
+    "hjb-primary-ds-v1-p1-098",
+    "hjb-primary-ds-v1-p1-099",
+    "hjb-primary-ds-v1-p1-100",
+    "hjb-primary-ds-v1-p1-101",
+    "hjb-primary-ds-v1-p1-102",
+    "hjb-primary-ds-v1-p1-103",
+    "hjb-primary-ds-v1-p1-104",
+    "hjb-primary-ds-v1-p1-105",
+    "hjb-primary-ds-v1-p1-106",
+    "hjb-primary-ds-v1-p1-107",
+    "hjb-primary-ds-v1-p1-108"
+  ],
+  "usage": {
+    "prompt_tokens": 3288,
+    "completion_tokens": 1357,
+    "total_tokens": 4645,
+    "prompt_tokens_details": {
+      "cached_tokens": 3200
+    },
+    "prompt_cache_hit_tokens": 3200,
+    "prompt_cache_miss_tokens": 88
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p1-091",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，13+5=18，选项唯一，解释合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-092",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "1个十和6个一合起来是16，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-093",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计数器十位1个位4表示14，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-094",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "1个十和7个一是17，选项唯一，解释清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-095",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "18里面有1个十和8个一，答案正确，接受多种分隔符。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-096",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "1个十和3个一合起来是13，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-097",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "1个十和6个一是16，选项唯一，解释合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-098",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计数器十位1个位4表示14，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-099",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分类理由合理，答案覆盖主要表述，无歧义。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-100",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "检查计算的有效方法是再算一遍，选项唯一正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-101",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "按面的特征分类，填空“面，面”正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-102",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "凑十法过程正确，答案覆盖主要表述。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-103",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "长方体有6个平平的面正确，其他选项错误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-104",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "想加算减，5+7=12，所以12-5=7，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-105",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案覆盖主要表述。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-106",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项B符合“数一数再比多少”的任务，其他选项不符。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-107",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "指出长方体可能有正方形的面，答案正确，覆盖主要表述。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-108",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "用凑十法检查9+6=15，过程正确，答案覆盖主要表述。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合沪教版一年级上册要求，数学正确，答案匹配，无歧义或缺失条件，适合公共题库使用。"
+    }
+  }
+}

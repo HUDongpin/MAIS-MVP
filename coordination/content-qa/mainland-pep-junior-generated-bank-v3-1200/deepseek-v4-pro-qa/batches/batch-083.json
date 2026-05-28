@@ -1,0 +1,137 @@
+{
+  "batchNumber": 83,
+  "startedAt": "2026-05-24T23:01:56.492Z",
+  "completedAt": "2026-05-24T23:02:11.238Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s3-k10-sa-052",
+    "pep-junior-v3-s3-k10-sa-053",
+    "pep-junior-v3-s3-k10-sa-054",
+    "pep-junior-v3-s3-k10-sa-055",
+    "pep-junior-v3-s3-k10-sa-056",
+    "pep-junior-v3-s3-k10-sa-057",
+    "pep-junior-v3-s3-k10-sa-058",
+    "pep-junior-v3-s3-k10-sa-059",
+    "pep-junior-v3-s3-k10-sa-060",
+    "pep-junior-v3-s3-k10-sa-061",
+    "pep-junior-v3-s3-k10-sa-062",
+    "pep-junior-v3-s3-k10-sa-063"
+  ],
+  "usage": {
+    "prompt_tokens": 3454,
+    "completion_tokens": 991,
+    "total_tokens": 4445,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 3198
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s3-k10-sa-052",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，圆周角定理和外角性质应用无误，答案80°与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-sa-053",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "放回摸球概率计算正确，答案9/25与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-sa-054",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "旋转性质应用正确，∠BAE=95°无误。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-sa-055",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "代入求k和另一根正确，答案k=3，另一根为2与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-sa-056",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "配方法解方程正确，答案x₁=1, x₂=-5无误。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-sa-057",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "二次函数与坐标轴交点及面积计算正确，答案6无误。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-sa-058",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "相交弦定理应用正确，ED=8无误。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-sa-059",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "简单概率计算正确，答案2/5无误。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-sa-060",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "旋转性质应用正确，∠D=35°无误。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-sa-061",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "配方法求顶点坐标正确，答案(2,-1)无误。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-sa-062",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "因式分解解方程正确，答案x₁=2, x₂=3无误。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-sa-063",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "放回摸球概率计算正确，答案9/25与解释一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部12道题均通过审核，数学正确，答案与解释一致，无歧义或缺失条件，适合人教版初中数学。"
+    }
+  }
+}

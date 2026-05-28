@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-197",
+  "startedAt": "2026-05-28T01:43:33.007Z",
+  "completedAt": "2026-05-28T01:43:38.038Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-197"
+  ],
+  "usage": {
+    "prompt_tokens": 2555,
+    "completion_tokens": 339,
+    "total_tokens": 2894,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2171
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-197",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "(1) a_2=2, a_3=3; (2) a_n=n",
+        "correctedAnswer": "(1) a_2=2, a_3=3; (2) a_n=n",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "递推累加得 a_n^2 = n^2，正项数列故 a_n=n，a_2=2, a_3=3。存储答案 a_2=√3, a_3=√6 及通项 √(n(n+1)/2) 错误，解析中虽算出 a_2=2, a_3=3 却给出矛盾通项，存在数学错误和答案不匹配。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目可解，但存储答案错误，解析自相矛盾，判定为 blocker。"
+    }
+  }
+}

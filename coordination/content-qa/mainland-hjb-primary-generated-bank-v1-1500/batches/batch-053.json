@@ -1,0 +1,294 @@
+{
+  "batchId": "batch-053",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p2-011",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-within-100-add-sub",
+      "unitTitle": "100以内数的加减法（二）",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "within-100-addition-subtraction",
+        "two-digit-subtraction",
+        "vertical-calculation",
+        "inverse-operation-check",
+        "100以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "不退位减法",
+        "退位减法",
+        "两位数加减",
+        "竖式计算",
+        "加减关系",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "place-value columns misaligned",
+        "borrowing treated as changing both digits randomly",
+        "inverse check skipped after vertical calculation"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-within-100-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-upper-assessment-within-100-add-sub-unit",
+        "hjb-primary-p2-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在计算 72 - 38 时，个位 2 减 8 不够减，从十位退 1 作 10，个位变成 12 减 8 得 4，十位 7 退 1 后剩 6，6 减 3 得 3，所以结果是 34。请用加法验算，并写出验算的竖式。",
+      "optionsZhHans": [],
+      "answer": "34 + 38 = 72",
+      "acceptedAnswers": [
+        "34 + 38 = 72",
+        "38 + 34 = 72"
+      ],
+      "explanationZhHans": "用差 34 加上减数 38，个位 4+8=12，向十位进 1，十位 3+3+1=7，结果是 72，等于被减数，说明减法正确。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-012",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-within-100-add-sub",
+      "unitTitle": "100以内数的加减法（二）",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "within-100-addition-subtraction",
+        "two-digit-subtraction",
+        "vertical-calculation",
+        "inverse-operation-check",
+        "100以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "不退位减法",
+        "退位减法",
+        "两位数加减",
+        "竖式计算",
+        "加减关系",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "place-value columns misaligned",
+        "borrowing treated as changing both digits randomly",
+        "inverse check skipped after vertical calculation"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-within-100-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-upper-assessment-within-100-add-sub-unit",
+        "hjb-primary-p2-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小华有 56 张贴纸，送给小丽 29 张后，还剩多少张？请用竖式计算，并说说你是怎样验算的。",
+      "optionsZhHans": [],
+      "answer": "27 张",
+      "acceptedAnswers": [
+        "27 张",
+        "27"
+      ],
+      "explanationZhHans": "56 - 29，个位 6 减 9 不够，从十位退 1，16-9=7，十位 5 退 1 剩 4，4-2=2，得 27。验算：27+29=56，说明正确。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-013",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-within-100-add-sub",
+      "unitTitle": "100以内数的加减法（二）",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "within-100-addition-subtraction",
+        "two-digit-subtraction",
+        "vertical-calculation",
+        "inverse-operation-check",
+        "100以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "不退位减法",
+        "退位减法",
+        "两位数加减",
+        "竖式计算",
+        "加减关系",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "place-value columns misaligned",
+        "borrowing treated as changing both digits randomly",
+        "inverse check skipped after vertical calculation"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-within-100-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-upper-assessment-within-100-add-sub-unit",
+        "hjb-primary-p2-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "S18 remediated after DeepSeek-v4-pro QA on 2026-05-25; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个竖式在计算 63 - 27 时，退位处理是正确的？",
+      "optionsZhHans": [
+        "十位 6 退 1 变成 5，个位 3 加 10 变成 13，13 减 7 得 6，十位 5 减 2 得 3，结果是 36",
+        "十位 6 不变，个位 3 减 7 不够，直接写 6，结果是 46",
+        "十位 6 退 1 变成 5，个位 3 变成 13，13 减 7 得 6，十位 6 减 2 得 4，结果是 46",
+        "十位 6 退 1 变成 5，个位 3 加 10 变成 13，13 减 7 得 6，十位 5 减 3 得 2，结果是 26"
+      ],
+      "answer": "十位 6 退 1 变成 5，个位 3 加 10 变成 13，13 减 7 得 6，十位 5 减 2 得 3，结果是 36",
+      "acceptedAnswers": [
+        "十位 6 退 1 变成 5，个位 3 加 10 变成 13，13 减 7 得 6，十位 5 减 2 得 3，结果是 36"
+      ],
+      "explanationZhHans": "63-27中，个位3减7不够，要从十位退1，个位变成13，十位6变成5。13-7=6，5-2=3，所以结果是36，只有A完整且正确。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-014",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-within-100-add-sub",
+      "unitTitle": "100以内数的加减法（二）",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "within-100-addition-subtraction",
+        "two-digit-subtraction",
+        "vertical-calculation",
+        "inverse-operation-check",
+        "100以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "不退位减法",
+        "退位减法",
+        "两位数加减",
+        "竖式计算",
+        "加减关系",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "place-value columns misaligned",
+        "borrowing treated as changing both digits randomly",
+        "inverse check skipped after vertical calculation"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-within-100-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-upper-assessment-within-100-add-sub-unit",
+        "hjb-primary-p2-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在竖式计算 81 - 46 时，个位 1 减 6 不够减，从十位退 1，个位变成 11 减 6 得 5，十位 8 退 1 后剩 7，7 减 4 得 3，所以结果是 35。请用加法验算，写出验算的算式：______",
+      "optionsZhHans": [],
+      "answer": "35 + 46 = 81",
+      "acceptedAnswers": [
+        "35 + 46 = 81",
+        "46 + 35 = 81"
+      ],
+      "explanationZhHans": "用差 35 加上减数 46，个位 5+6=11，向十位进 1，十位 3+4+1=8，结果是 81，等于被减数，说明减法正确。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-015",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-within-100-add-sub",
+      "unitTitle": "100以内数的加减法（二）",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "within-100-addition-subtraction",
+        "two-digit-subtraction",
+        "vertical-calculation",
+        "inverse-operation-check",
+        "100以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "不退位减法",
+        "退位减法",
+        "两位数加减",
+        "竖式计算",
+        "加减关系",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "place-value columns misaligned",
+        "borrowing treated as changing both digits randomly",
+        "inverse check skipped after vertical calculation"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-within-100-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-upper-assessment-within-100-add-sub-unit",
+        "hjb-primary-p2-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明在计算 90 - 54 时，个位 0 减 4 不够减，从十位退 1，个位变成 10 减 4 得 6，十位 9 退 1 后剩 8，8 减 5 得 3，结果是 36。他验算时用 36 + 54 = 90，发现正确。请你说一说，为什么从十位退 1 后，十位要减去 1？",
+      "optionsZhHans": [],
+      "answer": "因为十位上的 1 表示 1 个十，退到个位就是 10 个一，所以十位要减少 1 个十。",
+      "acceptedAnswers": [
+        "因为十位上的 1 表示 1 个十，退到个位就是 10 个一，所以十位要减少 1 个十。",
+        "因为退位是把 1 个十变成 10 个一，十位就少了 1 个十。"
+      ],
+      "explanationZhHans": "退位时，从十位借 1 个十到个位变成 10 个一，所以十位上的数要减去 1，表示少了 1 个十。"
+    }
+  ]
+}

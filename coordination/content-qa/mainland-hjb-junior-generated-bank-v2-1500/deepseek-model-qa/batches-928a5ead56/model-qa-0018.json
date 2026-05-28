@@ -1,0 +1,258 @@
+{
+  "batchId": "model-qa-0018",
+  "ids": [
+    "hjb-junior-ds-v2-s1-341",
+    "hjb-junior-ds-v2-s1-342",
+    "hjb-junior-ds-v2-s1-343",
+    "hjb-junior-ds-v2-s1-344",
+    "hjb-junior-ds-v2-s1-345",
+    "hjb-junior-ds-v2-s1-346",
+    "hjb-junior-ds-v2-s1-347",
+    "hjb-junior-ds-v2-s1-348",
+    "hjb-junior-ds-v2-s1-349",
+    "hjb-junior-ds-v2-s1-350",
+    "hjb-junior-ds-v2-s1-351",
+    "hjb-junior-ds-v2-s1-352",
+    "hjb-junior-ds-v2-s1-353",
+    "hjb-junior-ds-v2-s1-354",
+    "hjb-junior-ds-v2-s1-355",
+    "hjb-junior-ds-v2-s1-356",
+    "hjb-junior-ds-v2-s1-357",
+    "hjb-junior-ds-v2-s1-358",
+    "hjb-junior-ds-v2-s1-359",
+    "hjb-junior-ds-v2-s1-360"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-341",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "121°",
+      "answerCheckZhHans": "标准答案121°正确，解析推导一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-342",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "100°或20°",
+      "answerCheckZhHans": "标准答案100°或20°正确，解析分类讨论合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-343",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "multiple-correct-options"
+      ],
+      "issueDetailsZhHans": "选项A（同位角相等）和选项D（内错角相等）均能判定a∥b，但标准答案仅选A，且解析承认D也正确，存在多个正确选项。",
+      "independentAnswerZhHans": "A和D均正确",
+      "answerCheckZhHans": "标准答案仅选A，但D也符合平行判定，题目要求单选，存在歧义。",
+      "recommendedActionZhHans": "修改选项，确保只有一个正确选项，或改为多选题。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-344",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "115°",
+      "answerCheckZhHans": "标准答案115°正确，解析推导一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-345",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "110°",
+      "answerCheckZhHans": "标准答案110°正确，解析推导一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-346",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "84°",
+      "answerCheckZhHans": "标准答案84°正确，解析推导一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-347",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "70°",
+      "answerCheckZhHans": "标准答案70正确，解析推导一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-348",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题干“在射线OB上取一点E”意味着E在OB上，但OE不一定与OB重合，除非E与B重合。解析错误地认为OE与OB重合，得出130°。实际上，E在OB上，OE是射线OB的一部分，∠AOE应为180°-∠AOC=130°？但需考虑E的位置，若E在OB上，∠AOE是平角减去∠AOC？标准答案130°可能正确，但解析说“OE与OB重合”不严谨。独立计算：∠AOC=50°，∠COE=80°，E在OB上，则∠AOE=∠AOC+∠COE=130°？但需验证：若E在OB上，则∠COE是∠COB？∠COB=180°-∠AOC=130°，但∠COE=80°≠130°，矛盾。因此，E在OB上且∠COE=80°不可能，因为∠COB=130°，E在OB上时∠COE应等于∠COB=130°。题目条件矛盾。",
+      "independentAnswerZhHans": "条件矛盾，无解",
+      "answerCheckZhHans": "标准答案130°基于错误假设，实际条件矛盾。",
+      "recommendedActionZhHans": "修改题干，确保条件一致，例如改为“在射线OC上取一点E”或调整角度。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-349",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "70°",
+      "answerCheckZhHans": "标准答案70°正确，解析推导一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-350",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "115°",
+      "answerCheckZhHans": "标准答案115°正确，解析推导一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-351",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "50°",
+      "answerCheckZhHans": "标准答案50°正确，解析推导一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-352",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "a∥b，因为同旁内角互补",
+      "answerCheckZhHans": "标准答案正确，解析推导一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-353",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "110°",
+      "answerCheckZhHans": "标准答案110正确，解析推导一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-354",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题干求∠ABC，解析错误地得出∠ABC=90°（因为AB⊥l2），但∠ABC是三角形内角，AB⊥l2，B在l2上，所以∠ABC=90°正确。但解析最后说∠ACB=60°，与所求无关。标准答案60°是∠ACB，不是∠ABC。题目问∠ABC，答案应为90°。",
+      "independentAnswerZhHans": "90°",
+      "answerCheckZhHans": "标准答案60°错误，应为90°。",
+      "recommendedActionZhHans": "修改答案或题干，明确所求角。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-355",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "∠AOC = 50°",
+      "answerCheckZhHans": "标准答案正确，解析推导一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-356",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "115°",
+      "answerCheckZhHans": "标准答案115°正确，解析推导一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-357",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "70°",
+      "answerCheckZhHans": "标准答案70°正确，解析推导一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-358",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "l1∥l2，因为同旁内角互补",
+      "answerCheckZhHans": "标准答案正确，解析推导一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-359",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "135°",
+      "answerCheckZhHans": "标准答案135°正确，解析推导一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-360",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析计算∠ADC=∠B+∠BAD=50°+30°=80°，但标准答案为100°。解析与答案矛盾。独立计算：∠BAC=60°，∠BAD=30°，∠ADC是△ABD的外角，等于∠B+∠BAD=80°，或内角和：∠ADB=180°-∠B-∠BAD=100°，∠ADC=180°-∠ADB=80°。标准答案100°错误。",
+      "independentAnswerZhHans": "80°",
+      "answerCheckZhHans": "标准答案100°错误，解析得出80°，不一致。",
+      "recommendedActionZhHans": "修正答案为80°。",
+      "confidence": "high"
+    }
+  ]
+}

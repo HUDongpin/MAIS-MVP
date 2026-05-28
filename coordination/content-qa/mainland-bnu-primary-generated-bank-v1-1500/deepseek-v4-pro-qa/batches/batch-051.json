@@ -1,0 +1,191 @@
+{
+  "batchNumber": 51,
+  "startedAt": "2026-05-27T13:28:52.409Z",
+  "completedAt": "2026-05-27T13:29:10.766Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p4-151",
+    "bnu-primary-ds-v1-p4-152",
+    "bnu-primary-ds-v1-p4-153",
+    "bnu-primary-ds-v1-p4-154",
+    "bnu-primary-ds-v1-p4-155",
+    "bnu-primary-ds-v1-p4-156",
+    "bnu-primary-ds-v1-p4-157",
+    "bnu-primary-ds-v1-p4-158",
+    "bnu-primary-ds-v1-p4-159",
+    "bnu-primary-ds-v1-p4-160",
+    "bnu-primary-ds-v1-p4-161",
+    "bnu-primary-ds-v1-p4-162",
+    "bnu-primary-ds-v1-p4-163",
+    "bnu-primary-ds-v1-p4-164",
+    "bnu-primary-ds-v1-p4-165",
+    "bnu-primary-ds-v1-p4-166",
+    "bnu-primary-ds-v1-p4-167",
+    "bnu-primary-ds-v1-p4-168"
+  ],
+  "usage": {
+    "prompt_tokens": 3583,
+    "completion_tokens": 1339,
+    "total_tokens": 4922,
+    "prompt_tokens_details": {
+      "cached_tokens": 3456
+    },
+    "prompt_cache_hit_tokens": 3456,
+    "prompt_cache_miss_tokens": 127
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p4-151",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "竖式计算正确，选项A为9.15，符合小数加法规则。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-152",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "减法计算正确，答案3.68千克，单位合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-153",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "总价8.05元，找回1.95元，计算正确，步骤清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-154",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项C竖式对齐正确，结果6.08无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-155",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "18.6-9.85=8.75，计算正确，答案合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-156",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "总花费2.25元，剩余3.55元，计算正确，答案完整。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-157",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "1.7+2.3=4.0，选项B正确，计算无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-158",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "2元5角6分=2.56元，转换正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-159",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "总价12.75元，找回7.25元，计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-160",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "0.35+0.4=0.75，选项A正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-161",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "两边相等，等腰三角形，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-162",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "梯形定义准确，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-163",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "三个角均小于90°，锐角三角形，选项正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-164",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "长方形和正方形都有4个直角，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-165",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "对边相等且四个直角，长方形，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-166",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "等腰三角形是轴对称图形，选项正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-167",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "180-30-60=90，计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-168",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "四边相等且四角直角，正方形，答案正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案匹配，无歧义，适合北师大版P4年级。"
+    }
+  }
+}

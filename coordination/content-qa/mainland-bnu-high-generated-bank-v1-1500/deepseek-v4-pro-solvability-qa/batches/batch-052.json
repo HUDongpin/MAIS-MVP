@@ -1,0 +1,137 @@
+{
+  "batchNumber": 52,
+  "startedAt": "2026-05-27T13:52:44.622Z",
+  "completedAt": "2026-05-27T13:53:06.390Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-409",
+    "bnu-high-ds-v1-s4-410",
+    "bnu-high-ds-v1-s4-411",
+    "bnu-high-ds-v1-s4-412",
+    "bnu-high-ds-v1-s4-413",
+    "bnu-high-ds-v1-s4-414",
+    "bnu-high-ds-v1-s4-415",
+    "bnu-high-ds-v1-s4-416"
+  ],
+  "usage": {
+    "prompt_tokens": 11099,
+    "completion_tokens": 1318,
+    "total_tokens": 12417,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10587
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-409",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "16/65",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件充分，可独立求解。由 sin A=3/5 和 cos B=5/13 可确定 cos A 和 sin B，利用三角形内角和及和角公式求得 cos C=16/65，选项唯一正确。解析正确排除了 A 为钝角的情况，与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-410",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "33/65",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目给出 cos(α-β)、sin β 及角度范围，可唯一确定 sin α。利用 sin α = sin[(α-β)+β] 计算得 33/65，与答案一致。解析步骤正确，无矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-411",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(3 - 4√3)/10",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由 sin α 和 α 范围得 cos α = -4/5，代入和角公式得 sin(α+π/6) = (3√3 - 4)/10，即 (3 - 4√3)/10。答案和 acceptedAnswers 均包含此形式，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-412",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "sin x",
+        "correctedAnswer": "sin x",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "化简 sin(π/3+x)-sin(π/3-x) 得 2 cos(π/3) sin x = sin x，而非 √3 sin x。解析中计算过程正确但最终结论错误，答案与正确结果不符。选项应选 sin x，但答案给出 √3 sin x，属于数学错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-413",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "证明：左边 = (cos²α + sin²α)(cos²α - sin²α) = 1·cos 2α = 右边。",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "恒等式证明题，左边因式分解后利用平方关系和二倍角公式即得右边，答案和解析均正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-414",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "-4/3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "直接应用二倍角正切公式，代入 tan θ=2 得 tan 2θ = -4/3，答案和解析均正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-415",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "-3/4",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "将条件等式两边平方，利用 sin²α+cos²α=1 和 sin 2α=2 sin α cos α，解得 sin 2α = -3/4。选项唯一，答案和解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-416",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "1/4",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "利用二倍角正弦公式逆用，sin 15° cos 15° = (1/2) sin 30° = 1/4，答案和解析正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第412题答案错误，正确结果为 sin x，但题目答案和解析均给出 √3 sin x，属于数学错误，需修正。其余题目均通过审核。"
+    }
+  }
+}

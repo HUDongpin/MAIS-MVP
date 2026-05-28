@@ -1,0 +1,137 @@
+{
+  "batchNumber": 51,
+  "startedAt": "2026-05-25T03:03:01.811Z",
+  "completedAt": "2026-05-25T03:03:16.562Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s2-k08-mc-001",
+    "pep-junior-v3-s2-k08-mc-002",
+    "pep-junior-v3-s2-k08-mc-003",
+    "pep-junior-v3-s2-k08-mc-004",
+    "pep-junior-v3-s2-k08-mc-005",
+    "pep-junior-v3-s2-k08-mc-006",
+    "pep-junior-v3-s2-k08-mc-007",
+    "pep-junior-v3-s2-k08-mc-008",
+    "pep-junior-v3-s2-k08-mc-009",
+    "pep-junior-v3-s2-k08-mc-010",
+    "pep-junior-v3-s2-k08-mc-011",
+    "pep-junior-v3-s2-k08-mc-012"
+  ],
+  "usage": {
+    "prompt_tokens": 3229,
+    "completion_tokens": 963,
+    "total_tokens": 4192,
+    "prompt_tokens_details": {
+      "cached_tokens": 3200
+    },
+    "prompt_cache_hit_tokens": 3200,
+    "prompt_cache_miss_tokens": 29
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s2-k08-mc-001",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，解答无误，选项无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-mc-002",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，平行四边形对角相等，解答无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-mc-003",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "同类二次根式判断正确，√27化简为3√3，与√3同类。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-mc-004",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "二次根式有意义条件正确，x≥3。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-mc-005",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "旗杆折断问题，勾股定理应用正确，原高16米。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-mc-006",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "众数和中位数计算正确，均为50。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-mc-007",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "勾股定理逆定理应用正确，3,4,5能构成直角三角形。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-mc-008",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "矩形性质判断正确，对角线相等是矩形特有。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-mc-009",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "二次根式加法正确，结果为5√2。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-mc-010",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "菱形边长计算正确，对角线垂直平分，边长5cm。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-mc-011",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "勾股定理直接应用，斜边10cm，正确。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-mc-012",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "最简二次根式判断正确，√15不含开得尽方的因数。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部12道题目均正确，无数学错误、答案不匹配、选项歧义等问题，适合人教版初中数学使用。"
+    }
+  }
+}

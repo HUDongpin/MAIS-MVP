@@ -1,0 +1,294 @@
+{
+  "batchId": "batch-204",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p5-016",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "hjb-primary-p5-upper-decimal-operations",
+      "unitTitle": "小数乘除法与估算",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "decimal-multiplication",
+        "decimal-division",
+        "decimal-estimation",
+        "place-value-decimals",
+        "小数乘除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "小数乘法",
+        "小数除法",
+        "积商估算",
+        "小数点位置",
+        "结果合理性检查"
+      ],
+      "misconceptionTags": [
+        "decimal point placed by counting digits only",
+        "quotient size judged without estimating",
+        "unit meaning lost after calculation"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p5-upper-decimal-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit",
+        "hjb-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈买了2.5千克苹果，每千克7.8元；又买了1.6千克香蕉，每千克5.4元。她付了50元，应找回多少元？下面哪个估算结果最接近实际应找回的金额？",
+      "optionsZhHans": [
+        "大约21元",
+        "大约22元",
+        "大约23元",
+        "大约24元"
+      ],
+      "answer": "大约22元",
+      "acceptedAnswers": [
+        "大约22元"
+      ],
+      "explanationZhHans": "苹果约2.5×8=20元，香蕉约1.6×5=8元，总价约28元，50-28=22元。实际计算苹果19.5元，香蕉8.64元，总价28.14元，找回21.86元，最接近22元。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-017",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "hjb-primary-p5-upper-decimal-operations",
+      "unitTitle": "小数乘除法与估算",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "decimal-multiplication",
+        "decimal-division",
+        "decimal-estimation",
+        "place-value-decimals",
+        "小数乘除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "小数乘法",
+        "小数除法",
+        "积商估算",
+        "小数点位置",
+        "结果合理性检查"
+      ],
+      "misconceptionTags": [
+        "decimal point placed by counting digits only",
+        "quotient size judged without estimating",
+        "unit meaning lost after calculation"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p5-upper-decimal-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit",
+        "hjb-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "根据43×15=645，直接写出下面各题的得数：\n4.3×1.5=______\n0.43×0.15=______\n6.45÷0.43=______",
+      "optionsZhHans": [],
+      "answer": "6.45; 0.0645; 15",
+      "acceptedAnswers": [
+        "6.45; 0.0645; 15",
+        "6.45, 0.0645, 15",
+        "6.45 0.0645 15"
+      ],
+      "explanationZhHans": "4.3×1.5：因数共两位小数，积为6.45。0.43×0.15：因数共四位小数，积为0.0645。6.45÷0.43：被除数与除数同时扩大100倍，645÷43=15。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-018",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "hjb-primary-p5-upper-decimal-operations",
+      "unitTitle": "小数乘除法与估算",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "decimal-multiplication",
+        "decimal-division",
+        "decimal-estimation",
+        "place-value-decimals",
+        "小数乘除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "小数乘法",
+        "小数除法",
+        "积商估算",
+        "小数点位置",
+        "结果合理性检查"
+      ],
+      "misconceptionTags": [
+        "decimal point placed by counting digits only",
+        "quotient size judged without estimating",
+        "unit meaning lost after calculation"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p5-upper-decimal-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit",
+        "hjb-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明在计算一道小数除法时，把被除数12.6错看成了126，得到的商比正确的商大了10.8。这道题原来的除数是多少？",
+      "optionsZhHans": [],
+      "answer": "10.5",
+      "acceptedAnswers": [
+        "10.5"
+      ],
+      "explanationZhHans": "被除数扩大10倍，除数不变，商也扩大10倍。设正确商为x，则10x-x=10.8，x=1.2。除数为12.6÷1.2=10.5。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-019",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "hjb-primary-p5-upper-decimal-operations",
+      "unitTitle": "小数乘除法与估算",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "decimal-multiplication",
+        "decimal-division",
+        "decimal-estimation",
+        "place-value-decimals",
+        "小数乘除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "小数乘法",
+        "小数除法",
+        "积商估算",
+        "小数点位置",
+        "结果合理性检查"
+      ],
+      "misconceptionTags": [
+        "decimal point placed by counting digits only",
+        "quotient size judged without estimating",
+        "unit meaning lost after calculation"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p5-upper-decimal-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit",
+        "hjb-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面算式中，计算结果最大的是哪一个？",
+      "optionsZhHans": [
+        "3.6×0.99",
+        "3.6÷0.99",
+        "3.6×1.01",
+        "3.6÷1.01"
+      ],
+      "answer": "3.6÷0.99",
+      "acceptedAnswers": [
+        "3.6÷0.99"
+      ],
+      "explanationZhHans": "一个数（0除外）乘小于1的数，积小于原数；除以小于1的数，商大于原数。乘大于1的数，积大于原数；除以大于1的数，商小于原数。因此3.6÷0.99最大。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-020",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "hjb-primary-p5-upper-decimal-operations",
+      "unitTitle": "小数乘除法与估算",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "decimal-multiplication",
+        "decimal-division",
+        "decimal-estimation",
+        "place-value-decimals",
+        "小数乘除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "小数乘法",
+        "小数除法",
+        "积商估算",
+        "小数点位置",
+        "结果合理性检查"
+      ],
+      "misconceptionTags": [
+        "decimal point placed by counting digits only",
+        "quotient size judged without estimating",
+        "unit meaning lost after calculation"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p5-upper-decimal-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit",
+        "hjb-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一种大豆每千克可榨油0.18千克。现有大豆850千克，大约可榨油多少千克？请先估算，再计算，并把结果保留整数。\n估算：850×0.18≈______千克\n计算：850×0.18=______千克≈______千克（保留整数）",
+      "optionsZhHans": [],
+      "answer": "170; 153; 153",
+      "acceptedAnswers": [
+        "170; 153; 153",
+        "170, 153, 153",
+        "170 153 153"
+      ],
+      "explanationZhHans": "估算：850×0.2=170千克。精确计算：850×0.18=153千克。保留整数仍为153千克。"
+    }
+  ]
+}

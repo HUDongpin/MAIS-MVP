@@ -1,0 +1,132 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-165",
+  "startedAt": "2026-05-28T01:48:54.473Z",
+  "completedAt": "2026-05-28T01:49:09.044Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-313",
+    "bnu-high-ds-v1-s6-314",
+    "bnu-high-ds-v1-s6-315",
+    "bnu-high-ds-v1-s6-316",
+    "bnu-high-ds-v1-s6-317",
+    "bnu-high-ds-v1-s6-318",
+    "bnu-high-ds-v1-s6-319",
+    "bnu-high-ds-v1-s6-320"
+  ],
+  "usage": {
+    "prompt_tokens": 11836,
+    "completion_tokens": 1101,
+    "total_tokens": 12937,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 11452
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-313",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": "B",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "Stage A 独立解得单调递减区间为 (-1,1)，对应选项 B。存储答案为 [-1,1]（选项 D），与独立解不符。解析中令 f'(x)≤0 得闭区间，但单调区间通常写开区间，且选项 D 为闭区间，与独立解选项 B 矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-314",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，均为最大值 10/3，最小值 2。解析正确，无矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-315",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "0",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立解计算得 a+b=0，存储答案为 -3，错误。解析中虽得出 a+b=0，但最终答案写为 -3，自相矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-316",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 1 与独立解选项 B 一致，极小值为 1。解析正确，无矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-317",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 a ≤ 0 与独立解一致。解析正确，无矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-318",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 1/e 与独立解一致。解析正确，无矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-319",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 1 与独立解选项 A 一致，极大值为 1。解析正确，无矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-320",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，极大值 4，极小值 0。解析正确，无矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 0,
+      "fail": 2,
+      "notes": "8 题中 6 题通过，2 题失败：bnu-high-ds-v1-s6-313 单调区间答案错误，bnu-high-ds-v1-s6-315 a+b 计算错误且解析自相矛盾。"
+    }
+  }
+}

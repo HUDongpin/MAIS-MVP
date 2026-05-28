@@ -1,0 +1,133 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-043",
+  "startedAt": "2026-05-28T02:39:44.849Z",
+  "completedAt": "2026-05-28T02:39:59.296Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-337",
+    "bnu-high-ds-v1-s4-338",
+    "bnu-high-ds-v1-s4-339",
+    "bnu-high-ds-v1-s4-340",
+    "bnu-high-ds-v1-s4-341",
+    "bnu-high-ds-v1-s4-342",
+    "bnu-high-ds-v1-s4-343",
+    "bnu-high-ds-v1-s4-344"
+  ],
+  "usage": {
+    "prompt_tokens": 12864,
+    "completion_tokens": 1082,
+    "total_tokens": 13946,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 12480
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-337",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，均为1/4 a + 3/4 b，解析正确，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-338",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，均为(3/10, -1/10)，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-339",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "(√10/2, -√10/2) 或 (-√10/2, √10/2)",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案(1,-1)模为√2≠√5，不满足|c|=√5；解析中虽指出矛盾但最终仍给出错误答案。正确解为(√10/2, -√10/2)或(-√10/2, √10/2)。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-340",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "unsolvable",
+          "ambiguous_mc"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "由条件得c为零向量，但零向量不满足选项且通常不认为与给定向量平行或垂直，题目条件矛盾无解。存储答案(5,5)错误，解析混乱。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-341",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案λ=1, μ=2与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-342",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案(3/5, -4/5)与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-343",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案B与独立解一致，解析正确，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-344",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案(-1/10, 3/10)与独立解一致，解析正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 0,
+      "fail": 2,
+      "notes": "8题中6题通过，2题失败：339题答案模长不满足条件，340题条件矛盾无解且选项错误。"
+    }
+  }
+}

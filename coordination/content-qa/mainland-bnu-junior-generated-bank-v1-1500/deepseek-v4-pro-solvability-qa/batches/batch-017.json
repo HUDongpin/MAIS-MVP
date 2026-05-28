@@ -1,0 +1,177 @@
+{
+  "batchNumber": 17,
+  "startedAt": "2026-05-27T17:26:00.874Z",
+  "completedAt": "2026-05-27T17:26:19.559Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s1-193",
+    "bnu-junior-ds-v1-s1-194",
+    "bnu-junior-ds-v1-s1-195",
+    "bnu-junior-ds-v1-s1-196",
+    "bnu-junior-ds-v1-s1-197",
+    "bnu-junior-ds-v1-s1-198",
+    "bnu-junior-ds-v1-s1-199",
+    "bnu-junior-ds-v1-s1-200",
+    "bnu-junior-ds-v1-s1-201",
+    "bnu-junior-ds-v1-s1-202",
+    "bnu-junior-ds-v1-s1-203",
+    "bnu-junior-ds-v1-s1-204"
+  ],
+  "usage": {
+    "prompt_tokens": 5613,
+    "completion_tokens": 1294,
+    "total_tokens": 6907,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 5101
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s1-193",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "ambiguous_mc",
+          "bad_options",
+          "answer_mismatch"
+        ],
+        "correctedAnswer": null,
+        "rationale": "选项C和D代入x=2均成立，导致题目有两个正确选项，不符合单选题唯一解的要求。题目本身可解，但选项设计有误，答案不唯一。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-194",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，可解。两人相遇时间4小时，狗跑48千米，答案正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-195",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由相反数关系列出方程，解得x=-2/5，答案正确，解释无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-196",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "解方程得x=0，选项A正确，解释无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-197",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "设未知数列方程，解得原数为45，答案正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-198",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由相等关系得方程，解得x=-3，答案正确，解释无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-199",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项A移项正确，其他选项均有错误，答案唯一，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-200",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "设成本列方程，解得125元，答案正确，解释无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-201",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "根据周长关系列出方程，答案正确，acceptedAnswers覆盖多种等价形式，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-202",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "解方程得x=12，选项A正确，解释无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-203",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "设标价列方程，解得120元，答案正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-204",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由相反数关系得方程，解得a=-2，答案正确，解释无误。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 11,
+      "warn": 0,
+      "fail": 1,
+      "notes": "共12题，11题通过，1题失败。失败题bnu-junior-ds-v1-s1-193因选项设计导致两个正确选项，不符合单选题要求。"
+    }
+  }
+}

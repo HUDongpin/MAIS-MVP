@@ -1,0 +1,565 @@
+{
+  "batchId": "batch-049",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p2-231",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-time",
+      "unitTitle": "时、分、秒",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "time-units",
+        "clock-reading",
+        "elapsed-time-intuition",
+        "时分秒"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "时分秒关系",
+        "读钟面",
+        "时间长短",
+        "简单经过时间"
+      ],
+      "misconceptionTags": [
+        "base-ten relation assumed for time",
+        "duration confused with clock reading",
+        "minute and second units interchanged"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-time"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-time",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明下午4时开始写作业，4时25分完成。他写作业用了多长时间？",
+      "optionsZhHans": [
+        "20分",
+        "25分",
+        "30分",
+        "35分"
+      ],
+      "answer": "25分",
+      "acceptedAnswers": [
+        "25分"
+      ],
+      "explanationZhHans": "从4时到4时25分，分针从12走到5，走了25小格，每小格1分，所以经过25分。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-232",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-time",
+      "unitTitle": "时、分、秒",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "time-units",
+        "clock-reading",
+        "elapsed-time-intuition",
+        "时分秒"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "时分秒关系",
+        "读钟面",
+        "时间长短",
+        "简单经过时间"
+      ],
+      "misconceptionTags": [
+        "base-ten relation assumed for time",
+        "duration confused with clock reading",
+        "minute and second units interchanged"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-time"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-time",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "分针从12走到6，走了______分。",
+      "optionsZhHans": [],
+      "answer": "30",
+      "acceptedAnswers": [
+        "30",
+        "30分"
+      ],
+      "explanationZhHans": "分针走一大格是5分，从12到6共6大格，5×6=30分。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-233",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-time",
+      "unitTitle": "时、分、秒",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "time-units",
+        "clock-reading",
+        "elapsed-time-intuition",
+        "时分秒"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "时分秒关系",
+        "读钟面",
+        "时间长短",
+        "简单经过时间"
+      ],
+      "misconceptionTags": [
+        "base-ten relation assumed for time",
+        "duration confused with clock reading",
+        "minute and second units interchanged"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-time"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-time",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪件事大约需要1秒？",
+      "optionsZhHans": [
+        "眨一下眼睛",
+        "上一节课",
+        "吃一顿午饭",
+        "跑100米"
+      ],
+      "answer": "眨一下眼睛",
+      "acceptedAnswers": [
+        "眨一下眼睛"
+      ],
+      "explanationZhHans": "1秒很短，眨一下眼睛大约用1秒；一节课40分，午饭约20分，跑100米约十几秒。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-234",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-time",
+      "unitTitle": "时、分、秒",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "time-units",
+        "clock-reading",
+        "elapsed-time-intuition",
+        "时分秒"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "时分秒关系",
+        "读钟面",
+        "时间长短",
+        "简单经过时间"
+      ],
+      "misconceptionTags": [
+        "base-ten relation assumed for time",
+        "duration confused with clock reading",
+        "minute and second units interchanged"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-time"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-time",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "钟面上，时针在7和8之间，分针指向9，这时是______时______分。",
+      "optionsZhHans": [],
+      "answer": "7,45",
+      "acceptedAnswers": [
+        "7,45",
+        "7时45分"
+      ],
+      "explanationZhHans": "时针在7和8之间是7时多，分针指向9表示45分，所以是7时45分。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-235",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-time",
+      "unitTitle": "时、分、秒",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "time-units",
+        "clock-reading",
+        "elapsed-time-intuition",
+        "时分秒"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "时分秒关系",
+        "读钟面",
+        "时间长短",
+        "简单经过时间"
+      ],
+      "misconceptionTags": [
+        "base-ten relation assumed for time",
+        "duration confused with clock reading",
+        "minute and second units interchanged"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-time"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-time",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小红晚上8:30睡觉，第二天早上6:30起床。她一共睡了多长时间？",
+      "optionsZhHans": [
+        "9小时",
+        "10小时",
+        "11小时",
+        "12小时"
+      ],
+      "answer": "10小时",
+      "acceptedAnswers": [
+        "10小时"
+      ],
+      "explanationZhHans": "从晚上8:30到第二天早上6:30，先算到12时是3小时30分，再加6小时30分，共10小时。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-236",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-time",
+      "unitTitle": "时、分、秒",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "time-units",
+        "clock-reading",
+        "elapsed-time-intuition",
+        "时分秒"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "时分秒关系",
+        "读钟面",
+        "时间长短",
+        "简单经过时间"
+      ],
+      "misconceptionTags": [
+        "base-ten relation assumed for time",
+        "duration confused with clock reading",
+        "minute and second units interchanged"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-time"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-time",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "秒针走一圈，分针走______小格。",
+      "optionsZhHans": [],
+      "answer": "1",
+      "acceptedAnswers": [
+        "1",
+        "一小格"
+      ],
+      "explanationZhHans": "秒针走一圈是60秒，即1分，分针正好走1小格。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-237",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-data-recording-review",
+      "unitTitle": "调查与记录及整理复习",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "data-collection",
+        "recording-data",
+        "p2-lower-review",
+        "调查与记录"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "反思整理",
+        "应用意识"
+      ],
+      "skillTags": [
+        "收集数据",
+        "记录整理",
+        "读表比较",
+        "综合复习"
+      ],
+      "misconceptionTags": [
+        "tally or table count read from wrong category",
+        "comparison statement unsupported by data",
+        "review tasks solved without identifying units"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-data-recording-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-data-recording",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "二（1）班同学调查了大家最喜欢的水果，记录如下：苹果：正正正，香蕉：正正，橘子：正正正正，草莓：正正正。喜欢哪种水果的人数最多？",
+      "optionsZhHans": [
+        "苹果",
+        "香蕉",
+        "橘子",
+        "草莓"
+      ],
+      "answer": "橘子",
+      "acceptedAnswers": [
+        "橘子"
+      ],
+      "explanationZhHans": "苹果3个正=15人，香蕉2个正=10人，橘子4个正=20人，草莓3个正=15人，橘子最多。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-238",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-data-recording-review",
+      "unitTitle": "调查与记录及整理复习",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "data-collection",
+        "recording-data",
+        "p2-lower-review",
+        "调查与记录"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "反思整理",
+        "应用意识"
+      ],
+      "skillTags": [
+        "收集数据",
+        "记录整理",
+        "读表比较",
+        "综合复习"
+      ],
+      "misconceptionTags": [
+        "tally or table count read from wrong category",
+        "comparison statement unsupported by data",
+        "review tasks solved without identifying units"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-data-recording-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-data-recording",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是二（2）班部分同学的跳绳成绩记录：小红：正正，小明：正正正，小刚：正正，小丽：正。小明比小丽多跳了______下。",
+      "optionsZhHans": [],
+      "answer": "10",
+      "acceptedAnswers": [
+        "10",
+        "10下"
+      ],
+      "explanationZhHans": "小明3个正=15下，小丽1个正=5下，15-5=10下。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-239",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-data-recording-review",
+      "unitTitle": "调查与记录及整理复习",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "data-collection",
+        "recording-data",
+        "p2-lower-review",
+        "调查与记录"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "反思整理",
+        "应用意识"
+      ],
+      "skillTags": [
+        "收集数据",
+        "记录整理",
+        "读表比较",
+        "综合复习"
+      ],
+      "misconceptionTags": [
+        "tally or table count read from wrong category",
+        "comparison statement unsupported by data",
+        "review tasks solved without identifying units"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-data-recording-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-data-recording",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "老师调查了同学们最喜欢的运动，结果如下：跑步：正正正正，跳绳：正正正，踢毽子：正正，打篮球：正正正正正。喜欢跑步的比喜欢踢毽子的多几人？",
+      "optionsZhHans": [
+        "5人",
+        "10人",
+        "15人",
+        "20人"
+      ],
+      "answer": "10人",
+      "acceptedAnswers": [
+        "10人"
+      ],
+      "explanationZhHans": "跑步4个正=20人，踢毽子2个正=10人，20-10=10人。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-240",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-data-recording-review",
+      "unitTitle": "调查与记录及整理复习",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "data-collection",
+        "recording-data",
+        "p2-lower-review",
+        "调查与记录"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "反思整理",
+        "应用意识"
+      ],
+      "skillTags": [
+        "收集数据",
+        "记录整理",
+        "读表比较",
+        "综合复习"
+      ],
+      "misconceptionTags": [
+        "tally or table count read from wrong category",
+        "comparison statement unsupported by data",
+        "review tasks solved without identifying units"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-data-recording-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-data-recording",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "二（3）班同学统计了本班同学的生日季节，结果如下：春季：正正，夏季：正正正，秋季：正正正正，冬季：正。全班共有______人。",
+      "optionsZhHans": [],
+      "answer": "50",
+      "acceptedAnswers": [
+        "50",
+        "50人"
+      ],
+      "explanationZhHans": "春季10人，夏季15人，秋季20人，冬季5人，10+15+20+5=50人。"
+    }
+  ]
+}

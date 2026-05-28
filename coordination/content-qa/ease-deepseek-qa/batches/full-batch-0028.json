@@ -1,0 +1,168 @@
+{
+  "scope": "full",
+  "batchIndex": 28,
+  "startedAt": "2026-05-28T03:30:00.547Z",
+  "completedAt": "2026-05-28T03:30:46.569Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "itemIds": [
+    "10377",
+    "10378",
+    "10564",
+    "10565",
+    "10566",
+    "10567",
+    "10568",
+    "10569",
+    "10570",
+    "10571"
+  ],
+  "usage": {
+    "prompt_tokens": 3240,
+    "completion_tokens": 2975,
+    "total_tokens": 6215,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 2091
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2856
+  },
+  "finishReason": "stop",
+  "jsonModeFallback": false,
+  "result": {
+    "items": [
+      {
+        "questionId": "10377",
+        "questionType": "FRQ",
+        "hasImage": true,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": "30米",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "Question states square with perimeter 120m, independent answer 30m, but answer key missing.",
+        "recommendedAction": "Provide answer key (30米)."
+      },
+      {
+        "questionId": "10378",
+        "questionType": "FRQ",
+        "hasImage": true,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": null,
+        "solvabilityStatus": "image-context-required",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "Image needed to obtain rectangle dimensions; answer key missing.",
+        "recommendedAction": "Provide image description or text fallback, and provide answer key."
+      },
+      {
+        "questionId": "10564",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "$7 + 8 + 10 = \\mathbf{25}$ 厘米",
+        "independentAnswer": "25厘米",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Solvable from text; answer matches.",
+        "recommendedAction": "None."
+      },
+      {
+        "questionId": "10565",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "$9 \\times 4 = \\mathbf{36}$ 厘米",
+        "independentAnswer": "36厘米",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Solvable from text; answer matches.",
+        "recommendedAction": "None."
+      },
+      {
+        "questionId": "10566",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "$36 \\div 4 = \\mathbf{9}$ 厘米",
+        "independentAnswer": "9厘米",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Solvable from text; answer matches.",
+        "recommendedAction": "None."
+      },
+      {
+        "questionId": "10567",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "$60 \\div 4 = \\mathbf{15}$ 厘米",
+        "independentAnswer": "15厘米",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Solvable from text; answer matches.",
+        "recommendedAction": "None."
+      },
+      {
+        "questionId": "10568",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "$(12 + 8) \\times 2 = \\mathbf{40}$ 米",
+        "independentAnswer": "40米",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Solvable from text; answer matches.",
+        "recommendedAction": "None."
+      },
+      {
+        "questionId": "10569",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "兩者相等 (Both are equal)",
+        "independentAnswer": "两者相等",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Solvable from text; answer matches.",
+        "recommendedAction": "None."
+      },
+      {
+        "questionId": "10570",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "$30 \\div 2 - 10 = \\mathbf{5}$ 厘米",
+        "independentAnswer": "5厘米",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Solvable from text; answer matches.",
+        "recommendedAction": "None."
+      },
+      {
+        "questionId": "10571",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "$(15 + 10) \\times 2 \\times 50 = 50 \\times 50 = \\mathbf{2,500}$ 元",
+        "independentAnswer": "2500元",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Solvable from text; answer matches.",
+        "recommendedAction": "None."
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "unsolvable": 0,
+      "ambiguous": 0,
+      "imageContextRequired": 1,
+      "answerMismatch": 0,
+      "missingAnswerKey": 2,
+      "notes": "Eight items are fully pass. Two items have missing answer keys, and one of those requires image context."
+    }
+  }
+}

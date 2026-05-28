@@ -1,0 +1,191 @@
+{
+  "batchNumber": 13,
+  "startedAt": "2026-05-24T17:26:06.207Z",
+  "completedAt": "2026-05-24T17:26:24.804Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-candidate-k03-fi-026",
+    "pep-junior-candidate-k03-fi-027",
+    "pep-junior-candidate-k03-sa-001",
+    "pep-junior-candidate-k03-sa-002",
+    "pep-junior-candidate-k03-sa-003",
+    "pep-junior-candidate-k03-sa-004",
+    "pep-junior-candidate-k03-sa-005",
+    "pep-junior-candidate-k03-sa-006",
+    "pep-junior-candidate-k03-sa-007",
+    "pep-junior-candidate-k03-sa-008",
+    "pep-junior-candidate-k03-sa-009",
+    "pep-junior-candidate-k03-sa-010",
+    "pep-junior-candidate-k03-sa-011",
+    "pep-junior-candidate-k03-sa-012",
+    "pep-junior-candidate-k03-sa-013",
+    "pep-junior-candidate-k03-sa-014",
+    "pep-junior-candidate-k03-sa-015",
+    "pep-junior-candidate-k03-sa-016"
+  ],
+  "usage": {
+    "prompt_tokens": 2753,
+    "completion_tokens": 1372,
+    "total_tokens": 4125,
+    "prompt_tokens_details": {
+      "cached_tokens": 2688
+    },
+    "prompt_cache_hit_tokens": 2688,
+    "prompt_cache_miss_tokens": 65
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-candidate-k03-fi-026",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解释一致，无歧义，适合人教版初中。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-fi-027",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解释一致，无歧义，适合人教版初中。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-sa-001",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "互余计算正确，答案与解释一致，要求写出理由，符合简答题规范。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-sa-002",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "互余计算正确，答案与解释一致，无问题。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-sa-003",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "互余计算正确，答案与解释一致，无问题。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-sa-004",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "互余计算正确，答案与解释一致，无问题。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-sa-005",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "互余计算正确，答案与解释一致，无问题。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-sa-006",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "互余计算正确，答案与解释一致，无问题。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-sa-007",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "互余计算正确，答案与解释一致，无问题。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-sa-008",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "互余计算正确，答案与解释一致，无问题。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-sa-009",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "互余计算正确，答案与解释一致，无问题。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-sa-010",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "互余计算正确，答案与解释一致，无问题。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-sa-011",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "互余计算正确，答案与解释一致，无问题。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-sa-012",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "互余计算正确，答案与解释一致，无问题。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-sa-013",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "互余计算正确，答案与解释一致，无问题。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-sa-014",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "互余计算正确，答案与解释一致，无问题。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-sa-015",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "互余计算正确，答案与解释一致，无问题。"
+      },
+      {
+        "id": "pep-junior-candidate-k03-sa-016",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "互余计算正确，答案与解释一致，无问题。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案与解释一致，无歧义，适合人教版初中，可直接入库。"
+    }
+  }
+}

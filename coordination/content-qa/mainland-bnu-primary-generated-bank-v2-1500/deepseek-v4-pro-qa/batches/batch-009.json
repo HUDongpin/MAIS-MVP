@@ -1,0 +1,191 @@
+{
+  "batchNumber": 9,
+  "startedAt": "2026-05-27T13:42:38.836Z",
+  "completedAt": "2026-05-27T13:42:58.479Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p1-145",
+    "bnu-primary-ds-v2-p1-146",
+    "bnu-primary-ds-v2-p1-147",
+    "bnu-primary-ds-v2-p1-148",
+    "bnu-primary-ds-v2-p1-149",
+    "bnu-primary-ds-v2-p1-150",
+    "bnu-primary-ds-v2-p1-151",
+    "bnu-primary-ds-v2-p1-152",
+    "bnu-primary-ds-v2-p1-153",
+    "bnu-primary-ds-v2-p1-154",
+    "bnu-primary-ds-v2-p1-155",
+    "bnu-primary-ds-v2-p1-156",
+    "bnu-primary-ds-v2-p1-157",
+    "bnu-primary-ds-v2-p1-158",
+    "bnu-primary-ds-v2-p1-159",
+    "bnu-primary-ds-v2-p1-160",
+    "bnu-primary-ds-v2-p1-161",
+    "bnu-primary-ds-v2-p1-162"
+  ],
+  "usage": {
+    "prompt_tokens": 3830,
+    "completion_tokens": 1389,
+    "total_tokens": 5219,
+    "prompt_tokens_details": {
+      "cached_tokens": 3712
+    },
+    "prompt_cache_hit_tokens": 3712,
+    "prompt_cache_miss_tokens": 118
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p1-145",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，选项区分明确，答案正确，符合凑十法定义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-146",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "想加算减方法正确，填空答案5,5无误，接受多种分隔符合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-147",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "破十法过程完整，答案正确，接受多种表述合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-148",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项清晰，13-9个位不够减需退位，其他够减，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-149",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "凑十法拆分正确，填空3,3,13无误，接受多种分隔符。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-150",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "减法应用题，算式和答案正确，接受带单位或不带单位。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-151",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "凑十法选项明确，答案正确，其他选项为其他方法。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-152",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "想加算减填空，两个空都是7，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-153",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "破十法过程完整，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-154",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算结果比较，10+5=15与9+6相等，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-155",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "凑十法填空，拆分5为3和2，后续计算正确，答案3,2,3,2无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-156",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "简单减法应用题，算式和答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-157",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "想加算减选项，只有9+5=14正确，答案无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-158",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "凑十法填空，9分成2和7，答案7,7正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-159",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "想加算减过程正确，答案7+9=16，所以16-7=9。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-160",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算结果比较，7+6=13最小，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-161",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "观察物体，前面能看到红色的门，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-162",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "从背面观察，看到光光的背面，答案合理，接受多种表述。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版小学数学要求，数学正确，答案匹配，无歧义或缺失条件，适合对应年级和主题。"
+    }
+  }
+}

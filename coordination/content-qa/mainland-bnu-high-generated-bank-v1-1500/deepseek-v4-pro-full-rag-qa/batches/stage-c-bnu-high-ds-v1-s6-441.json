@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-441",
+  "startedAt": "2026-05-28T01:56:54.602Z",
+  "completedAt": "2026-05-28T01:56:58.860Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-441"
+  ],
+  "usage": {
+    "prompt_tokens": 2003,
+    "completion_tokens": 245,
+    "total_tokens": 2248,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1619
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-441",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "5",
+        "correctedAnswer": "5",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "函数最大值为5，正确解得a=5，但存储答案为1，解析最后一步错误得出a=1，与自身推导矛盾，属于严重数学错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目可解且符合教材范围，但答案错误且解析自相矛盾，判定为不通过。"
+    }
+  }
+}

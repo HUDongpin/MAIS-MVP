@@ -1,0 +1,584 @@
+{
+  "batchId": "batch-133",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p6-071",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-percentage-meaning",
+      "unitTitle": "百分数",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "percentage-meaning",
+        "fraction-decimal-percent",
+        "percent-rate",
+        "百分数",
+        "百分率"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "认识百分数",
+        "分数小数百分数互化",
+        "解释百分率",
+        "比较百分数",
+        "用百分数表达关系"
+      ],
+      "misconceptionTags": [
+        "percent whole not identified",
+        "percent treated as a count rather than a rate",
+        "conversion done by moving digits without meaning"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-percentage-meaning"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-percentage-meaning-unit",
+        "bnu-primary-p6-upper-assessment-percentage-applications-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "六（1）班有40名学生，其中24人喜欢打篮球。喜欢打篮球的人数占全班人数的百分之几？",
+      "optionsZhHans": [],
+      "answer": "60%",
+      "acceptedAnswers": [
+        "60%",
+        "0.6",
+        "3/5"
+      ],
+      "explanationZhHans": "求一个数是另一个数的百分之几，用除法：24÷40=0.6=60%。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-072",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-percentage-meaning",
+      "unitTitle": "百分数",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "percentage-meaning",
+        "fraction-decimal-percent",
+        "percent-rate",
+        "百分数",
+        "百分率"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "认识百分数",
+        "分数小数百分数互化",
+        "解释百分率",
+        "比较百分数",
+        "用百分数表达关系"
+      ],
+      "misconceptionTags": [
+        "percent whole not identified",
+        "percent treated as a count rather than a rate",
+        "conversion done by moving digits without meaning"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-percentage-meaning"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-percentage-meaning-unit",
+        "bnu-primary-p6-upper-assessment-percentage-applications-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把0.45化成百分数，并说明你的方法。",
+      "optionsZhHans": [],
+      "answer": "45%",
+      "acceptedAnswers": [
+        "45%"
+      ],
+      "explanationZhHans": "把小数化成百分数，将小数点向右移动两位，再添上百分号。0.45的小数点右移两位变成45，添上%得45%。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-073",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-data-processing",
+      "unitTitle": "数据处理",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "data-processing",
+        "statistical-graphs",
+        "data-comparison",
+        "trend-analysis",
+        "数据处理",
+        "统计图"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "读统计图",
+        "选择统计图",
+        "描述变化趋势",
+        "比较数据",
+        "解释统计结论"
+      ],
+      "misconceptionTags": [
+        "graph scale ignored",
+        "trend inferred from one data point",
+        "conclusion not supported by displayed data"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-data-processing"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-data-processing-unit",
+        "bnu-primary-p6-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是某小学五年级学生最喜欢的运动项目统计表：足球有60人，篮球有45人，乒乓球有30人，羽毛球有15人。要清楚地表示出喜欢每种运动项目的人数占总人数的百分比，选用哪种统计图最合适？",
+      "optionsZhHans": [
+        "条形统计图",
+        "折线统计图",
+        "扇形统计图",
+        "复式条形统计图"
+      ],
+      "answer": "扇形统计图",
+      "acceptedAnswers": [
+        "扇形统计图"
+      ],
+      "explanationZhHans": "扇形统计图能直观表示各部分数量与总数之间的关系，即各部分占总数的百分比。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-074",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-data-processing",
+      "unitTitle": "数据处理",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "data-processing",
+        "statistical-graphs",
+        "data-comparison",
+        "trend-analysis",
+        "数据处理",
+        "统计图"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "读统计图",
+        "选择统计图",
+        "描述变化趋势",
+        "比较数据",
+        "解释统计结论"
+      ],
+      "misconceptionTags": [
+        "graph scale ignored",
+        "trend inferred from one data point",
+        "conclusion not supported by displayed data"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-data-processing"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-data-processing-unit",
+        "bnu-primary-p6-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某地2023年各月平均气温数据如下：1月2℃，2月5℃，3月10℃，4月16℃，5月22℃，6月27℃，7月30℃，8月29℃，9月25℃，10月18℃，11月10℃，12月4℃。如果要用统计图表示这一年气温的变化情况，选择哪种统计图比较合适？",
+      "optionsZhHans": [],
+      "answer": "折线统计图",
+      "acceptedAnswers": [
+        "折线统计图"
+      ],
+      "explanationZhHans": "折线统计图不仅能表示数量的多少，还能反映数量的增减变化趋势，适合表示气温的变化情况。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-075",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-data-processing",
+      "unitTitle": "数据处理",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "data-processing",
+        "statistical-graphs",
+        "data-comparison",
+        "trend-analysis",
+        "数据处理",
+        "统计图"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "读统计图",
+        "选择统计图",
+        "描述变化趋势",
+        "比较数据",
+        "解释统计结论"
+      ],
+      "misconceptionTags": [
+        "graph scale ignored",
+        "trend inferred from one data point",
+        "conclusion not supported by displayed data"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-data-processing"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-data-processing-unit",
+        "bnu-primary-p6-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "六（2）班同学最喜欢的课外书类型统计如下：故事类占40%，科普类占30%，漫画类占20%，其他占10%。如果全班有50人，喜欢科普类的人数比喜欢漫画类的多几人？",
+      "optionsZhHans": [],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5",
+        "5人"
+      ],
+      "explanationZhHans": "科普类：50×30%=15人，漫画类：50×20%=10人，相差15-10=5人。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-076",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-data-processing",
+      "unitTitle": "数据处理",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "data-processing",
+        "statistical-graphs",
+        "data-comparison",
+        "trend-analysis",
+        "数据处理",
+        "统计图"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "读统计图",
+        "选择统计图",
+        "描述变化趋势",
+        "比较数据",
+        "解释统计结论"
+      ],
+      "misconceptionTags": [
+        "graph scale ignored",
+        "trend inferred from one data point",
+        "conclusion not supported by displayed data"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-data-processing"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-data-processing-unit",
+        "bnu-primary-p6-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是某书店一周内售出图书数量的统计表：周一120本，周二150本，周三180本，周四160本，周五200本，周六280本，周日300本。要比较每天售出的图书数量，选用哪种统计图最合适？",
+      "optionsZhHans": [
+        "条形统计图",
+        "折线统计图",
+        "扇形统计图",
+        "统计表"
+      ],
+      "answer": "条形统计图",
+      "acceptedAnswers": [
+        "条形统计图"
+      ],
+      "explanationZhHans": "条形统计图能直观地表示出数量的多少，便于比较每天售出的图书数量。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-077",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-data-processing",
+      "unitTitle": "数据处理",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "data-processing",
+        "statistical-graphs",
+        "data-comparison",
+        "trend-analysis",
+        "数据处理",
+        "统计图"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "读统计图",
+        "选择统计图",
+        "描述变化趋势",
+        "比较数据",
+        "解释统计结论"
+      ],
+      "misconceptionTags": [
+        "graph scale ignored",
+        "trend inferred from one data point",
+        "conclusion not supported by displayed data"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-data-processing"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-data-processing-unit",
+        "bnu-primary-p6-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某市2020年至2024年绿化面积如下：2020年200公顷，2021年220公顷，2022年250公顷，2023年280公顷，2024年310公顷。根据这些数据，绿化面积的变化趋势是怎样的？",
+      "optionsZhHans": [],
+      "answer": "逐年上升",
+      "acceptedAnswers": [
+        "逐年上升",
+        "逐年增加",
+        "不断增长"
+      ],
+      "explanationZhHans": "从数据看，绿化面积每年都在增加，所以变化趋势是逐年上升。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-078",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-data-processing",
+      "unitTitle": "数据处理",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "data-processing",
+        "statistical-graphs",
+        "data-comparison",
+        "trend-analysis",
+        "数据处理",
+        "统计图"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "读统计图",
+        "选择统计图",
+        "描述变化趋势",
+        "比较数据",
+        "解释统计结论"
+      ],
+      "misconceptionTags": [
+        "graph scale ignored",
+        "trend inferred from one data point",
+        "conclusion not supported by displayed data"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-data-processing"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-data-processing-unit",
+        "bnu-primary-p6-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "六（3）班同学参加兴趣小组的情况如下：绘画组15人，书法组10人，舞蹈组8人，乐器组7人。计算参加绘画组的人数占全班总人数的百分比。（全班总人数为40人）",
+      "optionsZhHans": [],
+      "answer": "37.5%",
+      "acceptedAnswers": [
+        "37.5%",
+        "0.375"
+      ],
+      "explanationZhHans": "绘画组15人，全班40人，15÷40=0.375=37.5%。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-079",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-data-processing",
+      "unitTitle": "数据处理",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "data-processing",
+        "statistical-graphs",
+        "data-comparison",
+        "trend-analysis",
+        "数据处理",
+        "统计图"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "读统计图",
+        "选择统计图",
+        "描述变化趋势",
+        "比较数据",
+        "解释统计结论"
+      ],
+      "misconceptionTags": [
+        "graph scale ignored",
+        "trend inferred from one data point",
+        "conclusion not supported by displayed data"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-data-processing"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-data-processing-unit",
+        "bnu-primary-p6-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是某校六年级学生视力情况统计表：视力正常的有120人，近视的有80人。要表示近视人数与总人数的关系，选用哪种统计图最合适？",
+      "optionsZhHans": [
+        "条形统计图",
+        "折线统计图",
+        "扇形统计图",
+        "复式折线统计图"
+      ],
+      "answer": "扇形统计图",
+      "acceptedAnswers": [
+        "扇形统计图"
+      ],
+      "explanationZhHans": "扇形统计图能清楚地表示各部分数量与总数之间的关系，适合表示近视人数占总人数的百分比。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-080",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-data-processing",
+      "unitTitle": "数据处理",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "data-processing",
+        "statistical-graphs",
+        "data-comparison",
+        "trend-analysis",
+        "数据处理",
+        "统计图"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "读统计图",
+        "选择统计图",
+        "描述变化趋势",
+        "比较数据",
+        "解释统计结论"
+      ],
+      "misconceptionTags": [
+        "graph scale ignored",
+        "trend inferred from one data point",
+        "conclusion not supported by displayed data"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-data-processing"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-data-processing-unit",
+        "bnu-primary-p6-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某商场2024年上半年各月销售额如下：1月50万元，2月45万元，3月60万元，4月70万元，5月80万元，6月90万元。如果要用统计图表示销售额的变化情况，选择哪种统计图比较合适？",
+      "optionsZhHans": [],
+      "answer": "折线统计图",
+      "acceptedAnswers": [
+        "折线统计图"
+      ],
+      "explanationZhHans": "折线统计图不仅能表示数量的多少，还能反映数量的增减变化趋势，适合表示销售额的变化情况。"
+    }
+  ]
+}

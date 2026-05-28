@@ -1,0 +1,262 @@
+{
+  "batchId": "model-qa-0014",
+  "ids": [
+    "hjb-junior-ds-v2-s1-261",
+    "hjb-junior-ds-v2-s1-262",
+    "hjb-junior-ds-v2-s1-263",
+    "hjb-junior-ds-v2-s1-264",
+    "hjb-junior-ds-v2-s1-265",
+    "hjb-junior-ds-v2-s1-266",
+    "hjb-junior-ds-v2-s1-267",
+    "hjb-junior-ds-v2-s1-268",
+    "hjb-junior-ds-v2-s1-269",
+    "hjb-junior-ds-v2-s1-270",
+    "hjb-junior-ds-v2-s1-271",
+    "hjb-junior-ds-v2-s1-272",
+    "hjb-junior-ds-v2-s1-273",
+    "hjb-junior-ds-v2-s1-274",
+    "hjb-junior-ds-v2-s1-275",
+    "hjb-junior-ds-v2-s1-276",
+    "hjb-junior-ds-v2-s1-277",
+    "hjb-junior-ds-v2-s1-278",
+    "hjb-junior-ds-v2-s1-279",
+    "hjb-junior-ds-v2-s1-280"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-261",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x > 4",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-262",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x ≥ -2",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-263",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x ≥ 4",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-264",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案中方案一费用为1200元，但计算应为0*220+4*300=1200元，正确；方案二费用为1180元，计算应为4*220+1*300=880+300=1180元，正确。但解析中称解得(x,y)=(0,4)和(4,1)，而方程3x+4y=16的非负整数解还有(8,-2)等，但y必须非负，且需满足费用约束。实际上，方程3x+4y=16的非负整数解有(0,4)和(4,1)以及(8,-2)舍去，但还有(2,2.5)非整数。所以解正确。然而，解析中“y为0到4的整数”不准确，应为非负整数。但答案本身正确。不过，题目要求“列出所有可能的租车方案”，答案只列出了两种，但检查是否还有其他解：45x+60y=240 => 3x+4y=16，x,y为非负整数，解为(0,4),(4,1)，无其他。费用约束220x+300y≤2500，两个解都满足。所以答案正确。但解析中“y为0到4的整数”是多余的，且未说明如何得到。但这不是错误。然而，我注意到答案中方案一费用1200元，方案二费用1180元，但方案二费用更低，题目未要求最省钱，所以没问题。但解析中“解得(x,y)=(0,4)费用1200元，(4,1)费用1180元，均满足条件。”正确。所以可能没有错误。但之前QA标记为missing recommendedActionZhHans，现在补充。实际上，本题可能没有问题。但为了安全，我重新检查：独立解题：设45座x辆，60座y辆，则45x+60y=240 => 3x+4y=16，x,y为非负整数。解：x=0,y=4；x=4,y=1；x=8,y=-2舍去。费用：方案一：0*220+4*300=1200；方案二：4*220+1*300=1180。均≤2500。所以答案正确。解析正确。因此，本题应pass。但之前QA可能误判。我决定给pass。",
+      "independentAnswerZhHans": "方案一：租0辆45座客车，4辆60座客车，总费用1200元；方案二：租4辆45座客车，1辆60座客车，总费用1180元。",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-265",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "数轴上从-3向右画线，-3处空心圆圈",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-266",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "独立解题：每件盈利(x-40)元，销量(200-5x)件，总盈利(x-40)(200-5x)≥600。化简得-5x^2+400x-8000≥600 => -5x^2+400x-8600≥0 => x^2-80x+1720≤0。判别式Δ=6400-6880=-480<0，不等式无解？检查：x^2-80x+1720=(x-40)^2+120>0恒成立，所以不等式无解。但解析给出x²-80x+1400≤0，解得50≤x≤70。解析错误。正确化简：(x-40)(200-5x)=200x-5x^2-8000+200x=-5x^2+400x-8000。≥600 => -5x^2+400x-8600≥0 => 5x^2-400x+8600≤0 => x^2-80x+1720≤0。Δ=6400-6880=-480，无实数解。所以题目条件可能无法满足，或者题目数据有误。但解析中出现了x²-80x+1400≤0，这是错误的。因此答案错误。",
+      "independentAnswerZhHans": "不等式无解，因为判别式小于0。",
+      "answerCheckZhHans": "标准答案错误，解析错误。",
+      "recommendedActionZhHans": "修改题目数据或答案，使不等式有解。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-267",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x ≤ 1/2",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-268",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "6 ≤ a < 9",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-269",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "m < -2",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-270",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "独立解题：每本利润(x-3)元，销量(100-10x)本，总利润(x-3)(100-10x)≥120。化简得-10x^2+130x-300≥120 => -10x^2+130x-420≥0 => x^2-13x+42≤0 => (x-6)(x-7)≤0 => 6≤x≤7。但需保证销量非负：100-10x≥0 => x≤10。所以x的取值范围应为6≤x≤7。解析中给出5≤x≤8，错误。解析说“化简得x²-13x+42≤0，解得6≤x≤7，但需保证销量非负，即x≤10，故5≤x≤8。”逻辑矛盾，既然解得6≤x≤7，为何又变成5≤x≤8？明显错误。",
+      "independentAnswerZhHans": "不等式：(x-3)(100-10x)≥120；x的取值范围：6≤x≤7。",
+      "answerCheckZhHans": "标准答案错误，解析错误。",
+      "recommendedActionZhHans": "修改答案为6≤x≤7，并修正解析。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-271",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x < -2",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-272",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "5",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-273",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "270人",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-274",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "m = -3",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-275",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "独立解题：3(x-1)≥5x+7 => 3x-3≥5x+7 => -2x≥10 => x≤-5。最大整数解为-5，不是-6。解析中得出x≤-5，却说最大整数解为-6，矛盾。",
+      "independentAnswerZhHans": "-5",
+      "answerCheckZhHans": "标准答案错误，解析自相矛盾。",
+      "recommendedActionZhHans": "修改答案为-5，并修正解析。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-276",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题目要求列出不等式表示“租用45座客车时人数超过座位数”，并求x的最小整数值。解析中不等式为45x<45x+10，恒成立，但这不是一个有意义的不等式。实际上，人数为45x+10，座位数为45x，人数超过座位数即45x+10>45x，即10>0，恒成立。所以不等式应为45x+10>45x，但这样无法求x的最小整数值。题目可能意图是求x的值，但条件不足。解析中由50x-20=45x+10得x=6，但这是从“租用同样数量的50座客车，则空出20个座位”得出的方程，不是不等式。题目要求列出不等式并求x的最小整数值，但不等式恒成立，x可以是任意正整数，最小为1。但这样题目无意义。可能题目有误。",
+      "independentAnswerZhHans": "不等式：45x+10>45x；x的最小整数值：1（但无实际意义）",
+      "answerCheckZhHans": "标准答案可能错误，题目设计不合理。",
+      "recommendedActionZhHans": "修改题目，明确要求列出方程或不等式，并给出合理条件。",
+      "confidence": "medium"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-277",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "A. 数轴上从-2向左画线，-2处为空心圆圈",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-278",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "1，2",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-279",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3a-2≥0",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-280",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "A. (x-15)(200-10x)≥400",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

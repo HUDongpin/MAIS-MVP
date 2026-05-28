@@ -1,0 +1,191 @@
+{
+  "batchNumber": 74,
+  "startedAt": "2026-05-25T02:24:52.588Z",
+  "completedAt": "2026-05-25T02:25:14.729Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p6-065",
+    "hjb-primary-ds-v1-p6-066",
+    "hjb-primary-ds-v1-p6-067",
+    "hjb-primary-ds-v1-p6-068",
+    "hjb-primary-ds-v1-p6-069",
+    "hjb-primary-ds-v1-p6-070",
+    "hjb-primary-ds-v1-p6-071",
+    "hjb-primary-ds-v1-p6-072",
+    "hjb-primary-ds-v1-p6-073",
+    "hjb-primary-ds-v1-p6-074",
+    "hjb-primary-ds-v1-p6-075",
+    "hjb-primary-ds-v1-p6-076",
+    "hjb-primary-ds-v1-p6-077",
+    "hjb-primary-ds-v1-p6-078",
+    "hjb-primary-ds-v1-p6-079",
+    "hjb-primary-ds-v1-p6-080",
+    "hjb-primary-ds-v1-p6-081",
+    "hjb-primary-ds-v1-p6-082"
+  ],
+  "usage": {
+    "prompt_tokens": 3220,
+    "completion_tokens": 1460,
+    "total_tokens": 4680,
+    "prompt_tokens_details": {
+      "cached_tokens": 3200
+    },
+    "prompt_cache_hit_tokens": 3200,
+    "prompt_cache_miss_tokens": 20
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p6-065",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，周长=π×直径=3.14×8=25.12厘米，答案匹配。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-066",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，周长=2×3.14×7=43.96厘米，答案匹配。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-067",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "扇形面积占比=60°/360°=1/6，选项正确，无歧义。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-068",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "面积=3.14×5²=78.5平方厘米，计算正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-069",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "半径=31.4÷(2×3.14)=5米，计算正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-070",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "扇形定义准确，选项A符合，其他选项错误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-071",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "扇形面积=3.14×8²×135/360=75.36平方厘米，计算正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-072",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "周长31.4米，棵数≈63棵；小路面积=3.14×(6²-5²)≈35平方米，计算正确，答案格式合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-073",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "糖:水=1:9，水=20×9=180克，选项正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-074",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "实际距离=7.2×5000000=36000000厘米=360千米，时间=360÷90=4小时，计算正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-075",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "总人数140，二班占44/140，栽树70×44/140=22棵，计算正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-076",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比值均为1:5，甜度相同，选项正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-077",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "实际距离=8.5×4000000=34000000厘米=340千米，时间=340÷85=4小时，计算正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-078",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "每份120÷5=24本，科技书24×3=72本，计算正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-079",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "最大角80°，锐角三角形，选项正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-080",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "水泥占2/10，20×2/10=4吨，计算正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-081",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比例3:20=45:x，x=300克，计算正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-082",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "4:5=12:15，选项正确，其他错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案匹配，无歧义，适合沪教版小学数学。"
+    }
+  }
+}

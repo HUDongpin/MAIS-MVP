@@ -1,0 +1,191 @@
+{
+  "batchNumber": 25,
+  "startedAt": "2026-05-27T13:26:50.788Z",
+  "completedAt": "2026-05-27T13:27:08.407Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p2-183",
+    "bnu-primary-ds-v1-p2-184",
+    "bnu-primary-ds-v1-p2-185",
+    "bnu-primary-ds-v1-p2-186",
+    "bnu-primary-ds-v1-p2-187",
+    "bnu-primary-ds-v1-p2-188",
+    "bnu-primary-ds-v1-p2-189",
+    "bnu-primary-ds-v1-p2-190",
+    "bnu-primary-ds-v1-p2-191",
+    "bnu-primary-ds-v1-p2-192",
+    "bnu-primary-ds-v1-p2-193",
+    "bnu-primary-ds-v1-p2-194",
+    "bnu-primary-ds-v1-p2-195",
+    "bnu-primary-ds-v1-p2-196",
+    "bnu-primary-ds-v1-p2-197",
+    "bnu-primary-ds-v1-p2-198",
+    "bnu-primary-ds-v1-p2-199",
+    "bnu-primary-ds-v1-p2-200"
+  ],
+  "usage": {
+    "prompt_tokens": 2913,
+    "completion_tokens": 1250,
+    "total_tokens": 4163,
+    "prompt_tokens_details": {
+      "cached_tokens": 2816
+    },
+    "prompt_cache_hit_tokens": 2816,
+    "prompt_cache_miss_tokens": 97
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p2-183",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，选项合理，答案与解释一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-184",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "单位换算正确，答案无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-185",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选择合适的单位，答案毫米正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-186",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "千米到米换算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-187",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "距离单位选择合理，答案千米正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-188",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "毫米到厘米换算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-189",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "2分米对应铅笔长度合理，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-190",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "米到分米换算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-191",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "长度比较正确，小宇13分米最远。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-192",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "千米到米换算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-193",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "1毫米接近硬币厚度，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-194",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "黄瓜长度单位选择合理，答案分米正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-195",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "算式选择正确，借出减还回加。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-196",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "退位减法计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-197",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算结果比较正确，仅900-399大于500。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-198",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估算和计算均正确，答案格式合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-199",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "错中求解正确，被减数421，正确差185。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-200",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "竖式计算和验算正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均通过审核，无数学错误、答案不匹配、歧义或年级不匹配等问题。"
+    }
+  }
+}

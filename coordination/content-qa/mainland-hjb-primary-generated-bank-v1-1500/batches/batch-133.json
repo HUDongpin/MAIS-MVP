@@ -1,0 +1,286 @@
+{
+  "batchId": "batch-133",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p3-161",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-two-digit-multiplication-division",
+      "unitTitle": "两位数乘除与问题解决",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "two-digit-multiplication",
+        "division-extension",
+        "multi-step-problem-solving",
+        "两位数乘除"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "两位数乘法",
+        "除法估算",
+        "分步列式",
+        "数量关系",
+        "结果检查"
+      ],
+      "misconceptionTags": [
+        "partial products misaligned",
+        "operation order chosen from keywords",
+        "answer unit does not match the question"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-two-digit-multiplication-division"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-two-digit-multiplication-division",
+        "hjb-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆新买来一批书，每包有24本，一共运来18包。图书馆老师把其中的300本放在阅览室，剩下的书平均分给6个班级。每个班级分到多少本？",
+      "optionsZhHans": [],
+      "answer": "22",
+      "acceptedAnswers": [
+        "22",
+        "22本"
+      ],
+      "explanationZhHans": "先算总本数：24×18=432（本）。再算剩下的书：432−300=132（本）。最后平均分给6个班：132÷6=22（本）。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-162",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-two-digit-multiplication-division",
+      "unitTitle": "两位数乘除与问题解决",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "two-digit-multiplication",
+        "division-extension",
+        "multi-step-problem-solving",
+        "两位数乘除"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "两位数乘法",
+        "除法估算",
+        "分步列式",
+        "数量关系",
+        "结果检查"
+      ],
+      "misconceptionTags": [
+        "partial products misaligned",
+        "operation order chosen from keywords",
+        "answer unit does not match the question"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-two-digit-multiplication-division"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-two-digit-multiplication-division",
+        "hjb-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "果园里摘了15筐苹果，每筐重28千克。用一辆载重500千克的卡车来运，一次能全部运走吗？先估算，再计算说明。",
+      "optionsZhHans": [],
+      "answer": "能",
+      "acceptedAnswers": [
+        "能",
+        "能运走",
+        "可以",
+        "可以运走"
+      ],
+      "explanationZhHans": "估算：15×30=450（千克），450<500，可能能运走。精确计算：15×28=420（千克），420<500，所以一次能全部运走。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-163",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-two-digit-multiplication-division",
+      "unitTitle": "两位数乘除与问题解决",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "two-digit-multiplication",
+        "division-extension",
+        "multi-step-problem-solving",
+        "两位数乘除"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "两位数乘法",
+        "除法估算",
+        "分步列式",
+        "数量关系",
+        "结果检查"
+      ],
+      "misconceptionTags": [
+        "partial products misaligned",
+        "operation order chosen from keywords",
+        "answer unit does not match the question"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-two-digit-multiplication-division"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-two-digit-multiplication-division",
+        "hjb-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "张叔叔买了3袋大米，每袋25千克，又买了2袋面粉，每袋18千克。他一共买了多少千克粮食？正确的算式是（ ）。",
+      "optionsZhHans": [
+        "3×25+2×18",
+        "3×25+18",
+        "25+18×2",
+        "3+2×25×18"
+      ],
+      "answer": "3×25+2×18",
+      "acceptedAnswers": [
+        "3×25+2×18"
+      ],
+      "explanationZhHans": "大米总重：3×25千克，面粉总重：2×18千克，合起来就是3×25+2×18。其他选项漏乘或运算顺序不对。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-164",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-two-digit-multiplication-division",
+      "unitTitle": "两位数乘除与问题解决",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "two-digit-multiplication",
+        "division-extension",
+        "multi-step-problem-solving",
+        "两位数乘除"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "两位数乘法",
+        "除法估算",
+        "分步列式",
+        "数量关系",
+        "结果检查"
+      ],
+      "misconceptionTags": [
+        "partial products misaligned",
+        "operation order chosen from keywords",
+        "answer unit does not match the question"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-two-digit-multiplication-division"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-two-digit-multiplication-division",
+        "hjb-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一列火车有12节车厢，每节车厢可以乘坐68人。这列火车一共可以乘坐多少人？",
+      "optionsZhHans": [],
+      "answer": "816",
+      "acceptedAnswers": [
+        "816",
+        "816人"
+      ],
+      "explanationZhHans": "用每节车厢人数乘车厢节数：68×12。先算68×10=680，再算68×2=136，合起来680+136=816（人）。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-165",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-two-digit-multiplication-division",
+      "unitTitle": "两位数乘除与问题解决",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "two-digit-multiplication",
+        "division-extension",
+        "multi-step-problem-solving",
+        "两位数乘除"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "两位数乘法",
+        "除法估算",
+        "分步列式",
+        "数量关系",
+        "结果检查"
+      ],
+      "misconceptionTags": [
+        "partial products misaligned",
+        "operation order chosen from keywords",
+        "answer unit does not match the question"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-two-digit-multiplication-division"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-two-digit-multiplication-division",
+        "hjb-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "李阿姨带200元去超市买食用油，每桶油36元，她买了4桶。剩下的钱想买每袋8元的白糖，最多能买几袋？",
+      "optionsZhHans": [],
+      "answer": "7",
+      "acceptedAnswers": [
+        "7",
+        "7袋"
+      ],
+      "explanationZhHans": "买油用去：36×4=144（元），剩下：200−144=56（元）。56÷8=7（袋），正好买7袋。"
+    }
+  ]
+}

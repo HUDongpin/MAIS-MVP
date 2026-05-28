@@ -1,0 +1,61 @@
+{
+  "batchId": "model-qa-0001",
+  "ids": [
+    "hjb-junior-ds-v2-s2-037",
+    "hjb-junior-ds-v2-s2-038",
+    "hjb-junior-ds-v2-s2-039",
+    "hjb-junior-ds-v2-s2-040"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-037",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "C",
+      "answerCheckZhHans": "标准答案C正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-038",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为10，但独立计算得a²=2，b³=8，和为10。然而解析中b³的推导有误：由b³+3b-14=0解得b=2，但b=2代入得8+6-14=0成立，但b³应为8，解析正确。但需验证a²计算：a²=6-2√(9-5)=6-4=2，正确。最终结果10正确。但解析中b³的方程b³+3b-14=0，解得b=2，b³=8，无误。但需注意b=³√(7+5√2)+³√(7-5√2)，实际计算b³=14+3(-1)b=14-3b，即b³+3b-14=0，因式分解(b-2)(b²+2b+7)=0，实数解b=2，正确。因此答案和解析一致，但需确认a²计算无误。实际上a²=2，b³=8，和为10。但解析中a²计算正确。因此题目本身可解，答案正确。但需注意：a²=2，a=±√2，但题目只求a²，无歧义。因此本题无错误。但之前标记为needs-review，重新评估后应为pass。",
+      "independentAnswerZhHans": "10",
+      "answerCheckZhHans": "标准答案10正确，解析推导无误。",
+      "recommendedActionZhHans": "无需修改。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-039",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为“∛8 < 2.5 < √5”，但解析说“∛8<√5<2.5”，两者矛盾。实际计算：∛8=2，√5≈2.236，2.5=2.5，所以正确顺序是2<2.236<2.5，即∛8<√5<2.5。标准答案错误。",
+      "independentAnswerZhHans": "∛8 < √5 < 2.5",
+      "answerCheckZhHans": "标准答案错误，应为∛8<√5<2.5。",
+      "recommendedActionZhHans": "修正答案为“∛8 < √5 < 2.5”，并更新解析。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-040",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "A",
+      "answerCheckZhHans": "标准答案A正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

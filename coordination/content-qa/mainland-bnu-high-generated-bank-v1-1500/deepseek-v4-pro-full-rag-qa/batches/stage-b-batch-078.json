@@ -1,0 +1,153 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-078",
+  "startedAt": "2026-05-28T02:06:40.504Z",
+  "completedAt": "2026-05-28T02:07:03.084Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-117",
+    "bnu-high-ds-v1-s5-118",
+    "bnu-high-ds-v1-s5-119",
+    "bnu-high-ds-v1-s5-120",
+    "bnu-high-ds-v1-s5-121",
+    "bnu-high-ds-v1-s5-122",
+    "bnu-high-ds-v1-s5-123",
+    "bnu-high-ds-v1-s5-124"
+  ],
+  "usage": {
+    "prompt_tokens": 14938,
+    "completion_tokens": 1259,
+    "total_tokens": 16197,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 14554
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-117",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案3√3与独立解一致，解析过程正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-118",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": "√5",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案√3错误，独立解为√5。解析中c=2√3，a=2，e=√3，但正确计算得a=1，c=√5，e=√5。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-119",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "25/2",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案25/4错误，独立解为25/2。解析中计算得25/2，但最终答案写为25/4，自相矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-120",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案4与独立解一致，解析过程正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-121",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "correctedAnswer": "k = -16/25",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "ambiguous_mc",
+          "bad_options",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立解得k=-16/25，不在选项中。存储答案k=-1错误，解析中计算得k=-16/25却强行取k=-1，且选项无正确值，题目有误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-122",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [
+          "explanation_contradiction"
+        ],
+        "severity": "minor",
+        "confidence": "medium",
+        "rationaleZhHans": "存储答案k=±√2/2与独立解一致，但解析中椭圆方程错误（应为x²/8+y²/2=1，解析写为x²/16+y²/4=1），推导过程有误但结果巧合正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-123",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "k=±√3/2",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案k=1/2错误，独立解为k=±√3/2。解析中解出k²=1/4，但正确应为k²=3/4。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-124",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "correctedAnswer": "无法确定",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "ambiguous_mc",
+          "bad_options",
+          "missing_condition",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立解无法满足条件，所有选项均不成立。存储答案x²/16+y²/4=1错误，解析推导有误，题目条件可能矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 2,
+      "warn": 1,
+      "fail": 5,
+      "notes": "8题中2题完全通过，1题答案正确但解析有误，5题答案错误或题目本身有问题。"
+    }
+  }
+}

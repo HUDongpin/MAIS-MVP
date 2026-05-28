@@ -1,0 +1,105 @@
+{
+  "batchId": "model-qa-0084",
+  "ids": [
+    "hjb-junior-ds-v2-s2-165",
+    "hjb-junior-ds-v2-s2-166",
+    "hjb-junior-ds-v2-s2-167",
+    "hjb-junior-ds-v2-s2-168",
+    "hjb-junior-ds-v2-s2-169",
+    "hjb-junior-ds-v2-s2-170",
+    "hjb-junior-ds-v2-s2-171",
+    "hjb-junior-ds-v2-s2-172"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-165",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(1) Δ=(2k+1)²-4(k²+k)=4k²+4k+1-4k²-4k=1>0，故总有两个不等实根；(2) k=1 或 k=-2",
+      "answerCheckZhHans": "标准答案与独立解题结果一致。解析推导正确，acceptedAnswers 覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-166",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3x² + 2x - 1 = 0",
+      "answerCheckZhHans": "标准答案正确，唯一符合一元二次方程定义。选项互异，无歧义。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-167",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "17",
+      "answerCheckZhHans": "标准答案正确，计算无误。acceptedAnswers 覆盖答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-168",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x₁ = 3 + √5，x₂ = 3 - √5",
+      "answerCheckZhHans": "标准答案正确，配方法步骤完整。acceptedAnswers 包含多种合理格式。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-169",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "6 或 -2",
+      "answerCheckZhHans": "标准答案正确，判别式为零解得 m=6 或 m=-2。选项互异，唯一正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-170",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "k = 10，另一个根是 5",
+      "answerCheckZhHans": "标准答案正确，代入求 k，再用根与系数关系求另一根。acceptedAnswers 覆盖。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-171",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "标准答案中整数k的范围描述为“所有大于等于0且不等于1的整数”，但k>-1/8且k≠1时，整数k包括0,2,3,4,...，但遗漏了负整数？实际上k>-1/8，所以负整数只有0？-1/8≈-0.125，大于-0.125的整数有0,1,2,...，但k≠1，所以整数k为0,2,3,4,...。标准答案说“所有大于等于0且不等于1的整数”是正确的，但描述中“所有大于等于0且不等于1的整数”与“0,2,3,4,...”一致。然而，独立解题发现：k>-1/8且k≠1，整数k确实为0,2,3,4,...，没有遗漏。但标准答案中写“整数k为0,2,3,4,…（所有大于等于0且不等于1的整数）”，这个描述本身正确。但仔细检查：k>-1/8，即k > -0.125，所以整数k可以是0,1,2,3,...，但k≠1，所以是0,2,3,4,...。标准答案正确。但为什么标记为needs-review？因为题目要求“写出所有满足条件的整数k”，标准答案用“0,2,3,4,…（所有大于等于0且不等于1的整数）”表示，但“所有大于等于0且不等于1的整数”这个集合包括0,2,3,4,...，但严格来说，大于等于0且不等于1的整数有无穷多个，用列举加省略号是合理的。但可能存在的风险是：是否包括负整数？因为k>-1/8，所以负整数只有0？实际上负整数都小于0，而0不是负整数，所以没有负整数满足。所以标准答案正确。但独立审查时，我最初误以为遗漏了负整数，但计算后确认无误。因此，本题实际上没有错误。但作为QA，我需要确保答案无误。我重新计算：Δ=(2k+1)²-4(k-1)k = 4k²+4k+1-4k²+4k = 8k+1 > 0 => k > -1/8。二次项系数k-1≠0 => k≠1。所以k的取值范围是k>-1/8且k≠1。整数k：大于-1/8的整数有0,1,2,3,...，去掉1，剩下0,2,3,4,...。所以标准答案正确。因此，本题应pass。但我在issueDetails中写了wrong-answer，这是错误的。我需要修正。",
+      "independentAnswerZhHans": "k > -1/8 且 k ≠ 1，整数k为0,2,3,4,…",
+      "answerCheckZhHans": "标准答案正确，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改，题目无误。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-172",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(x - 5/4)² = 17/16",
+      "answerCheckZhHans": "标准答案正确，配方步骤无误。选项互异，唯一正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

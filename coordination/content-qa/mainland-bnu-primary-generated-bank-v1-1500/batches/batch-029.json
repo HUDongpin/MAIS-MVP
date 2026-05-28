@@ -1,0 +1,575 @@
+{
+  "batchId": "batch-029",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p2-031",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-multiplication-introduction",
+      "unitTitle": "数一数与乘法",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "multiplication-meaning",
+        "equal-groups",
+        "arrays",
+        "乘法意义",
+        "数一数与乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "几个几",
+        "重复加法",
+        "乘法算式",
+        "阵列模型"
+      ],
+      "misconceptionTags": [
+        "unequal groups treated as multiplication",
+        "factor meaning not linked to group count and group size",
+        "product found by counting without structure"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-multiplication-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-multiplication-introduction-unit",
+        "bnu-primary-p2-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小乐有3个盒子，每个盒子里放5块积木。小美有2个盒子，第一个盒子里放6块积木，第二个盒子里放4块积木。下面哪种说法是正确的？",
+      "optionsZhHans": [
+        "小乐的积木可以用3×5表示，小美的积木也可以用乘法表示",
+        "小乐的积木可以用3×5表示，小美的积木不可以用乘法表示",
+        "小乐的积木不可以用乘法表示，小美的积木可以用乘法表示",
+        "小乐的积木和小美的积木都不可以用乘法表示"
+      ],
+      "answer": "小乐的积木可以用3×5表示，小美的积木不可以用乘法表示",
+      "acceptedAnswers": [
+        "小乐的积木可以用3×5表示，小美的积木不可以用乘法表示"
+      ],
+      "explanationZhHans": "小乐的3个盒子每盒5块，是3个5，可以用乘法3×5表示。小美的两个盒子积木数量不同，不是相同加数，不能用乘法表示。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-032",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-multiplication-introduction",
+      "unitTitle": "数一数与乘法",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "multiplication-meaning",
+        "equal-groups",
+        "arrays",
+        "乘法意义",
+        "数一数与乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "几个几",
+        "重复加法",
+        "乘法算式",
+        "阵列模型"
+      ],
+      "misconceptionTags": [
+        "unequal groups treated as multiplication",
+        "factor meaning not linked to group count and group size",
+        "product found by counting without structure"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-multiplication-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-multiplication-introduction-unit",
+        "bnu-primary-p2-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "看图填空：每行有____个草莓，有____行，一共有____个草莓。加法算式：____，乘法算式：____。",
+      "optionsZhHans": [],
+      "answer": "每行有4个草莓，有3行，一共有12个草莓。加法算式：4+4+4=12，乘法算式：3×4=12或4×3=12。",
+      "acceptedAnswers": [
+        "每行有4个草莓，有3行，一共有12个草莓。加法算式：4+4+4=12，乘法算式：3×4=12或4×3=12。",
+        "每行有4个草莓，有3行，一共有12个草莓。加法算式：4+4+4=12，乘法算式：3×4=12。",
+        "每行有4个草莓，有3行，一共有12个草莓。加法算式：4+4+4=12，乘法算式：4×3=12。"
+      ],
+      "explanationZhHans": "草莓排列成3行，每行4个，是3个4。加法是4+4+4=12，乘法可以写成3×4=12或4×3=12。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-033",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-multiplication-introduction",
+      "unitTitle": "数一数与乘法",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "multiplication-meaning",
+        "equal-groups",
+        "arrays",
+        "乘法意义",
+        "数一数与乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "几个几",
+        "重复加法",
+        "乘法算式",
+        "阵列模型"
+      ],
+      "misconceptionTags": [
+        "unequal groups treated as multiplication",
+        "factor meaning not linked to group count and group size",
+        "product found by counting without structure"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-multiplication-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-multiplication-introduction-unit",
+        "bnu-primary-p2-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小东有4袋糖果，每袋有6颗。他一共有多少颗糖果？请用两种方法表示：先写出加法算式，再写出乘法算式。",
+      "optionsZhHans": [],
+      "answer": "加法算式：6+6+6+6=24，乘法算式：4×6=24或6×4=24。",
+      "acceptedAnswers": [
+        "加法算式：6+6+6+6=24，乘法算式：4×6=24或6×4=24。",
+        "加法算式：6+6+6+6=24，乘法算式：4×6=24。",
+        "加法算式：6+6+6+6=24，乘法算式：6×4=24。"
+      ],
+      "explanationZhHans": "4袋糖果，每袋6颗，就是4个6。加法：6+6+6+6=24，乘法：4×6=24或6×4=24。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-034",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-multiplication-introduction",
+      "unitTitle": "数一数与乘法",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "multiplication-meaning",
+        "equal-groups",
+        "arrays",
+        "乘法意义",
+        "数一数与乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "几个几",
+        "重复加法",
+        "乘法算式",
+        "阵列模型"
+      ],
+      "misconceptionTags": [
+        "unequal groups treated as multiplication",
+        "factor meaning not linked to group count and group size",
+        "product found by counting without structure"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-multiplication-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-multiplication-introduction-unit",
+        "bnu-primary-p2-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个算式不能表示“5个3相加”？",
+      "optionsZhHans": [
+        "5×3",
+        "3×5",
+        "3+3+3+3+3",
+        "5+5+5"
+      ],
+      "answer": "5+5+5",
+      "acceptedAnswers": [
+        "5+5+5"
+      ],
+      "explanationZhHans": "5个3相加是3+3+3+3+3，乘法可以写成5×3或3×5。5+5+5表示3个5相加，不是5个3。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-035",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-multiplication-introduction",
+      "unitTitle": "数一数与乘法",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "multiplication-meaning",
+        "equal-groups",
+        "arrays",
+        "乘法意义",
+        "数一数与乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "几个几",
+        "重复加法",
+        "乘法算式",
+        "阵列模型"
+      ],
+      "misconceptionTags": [
+        "unequal groups treated as multiplication",
+        "factor meaning not linked to group count and group size",
+        "product found by counting without structure"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-multiplication-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-multiplication-introduction-unit",
+        "bnu-primary-p2-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用两种方法写出下面图形的总个数：☆☆☆☆ ☆☆☆☆ ☆☆☆☆。加法算式：____，乘法算式：____。",
+      "optionsZhHans": [],
+      "answer": "加法算式：4+4+4=12，乘法算式：3×4=12或4×3=12。",
+      "acceptedAnswers": [
+        "加法算式：4+4+4=12，乘法算式：3×4=12或4×3=12。",
+        "加法算式：4+4+4=12，乘法算式：3×4=12。",
+        "加法算式：4+4+4=12，乘法算式：4×3=12。"
+      ],
+      "explanationZhHans": "有3组，每组4个☆，是3个4。加法：4+4+4=12，乘法：3×4=12或4×3=12。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-036",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-multiplication-introduction",
+      "unitTitle": "数一数与乘法",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "multiplication-meaning",
+        "equal-groups",
+        "arrays",
+        "乘法意义",
+        "数一数与乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "几个几",
+        "重复加法",
+        "乘法算式",
+        "阵列模型"
+      ],
+      "misconceptionTags": [
+        "unequal groups treated as multiplication",
+        "factor meaning not linked to group count and group size",
+        "product found by counting without structure"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-multiplication-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-multiplication-introduction-unit",
+        "bnu-primary-p2-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明有5个笔筒，每个笔筒里放2支铅笔。小红有2个笔筒，每个笔筒里放5支铅笔。他们谁的铅笔可以用乘法“5×2”表示？请说明理由。",
+      "optionsZhHans": [],
+      "answer": "小明的铅笔可以用5×2表示，因为5个笔筒，每个2支，就是5个2。小红的是2个5，可以用2×5表示。",
+      "acceptedAnswers": [
+        "小明的铅笔可以用5×2表示，因为5个笔筒，每个2支，就是5个2。小红的是2个5，可以用2×5表示。",
+        "小明的铅笔可以用5×2表示。"
+      ],
+      "explanationZhHans": "5×2表示5个2。小明有5个笔筒，每个2支，是5个2。小红有2个笔筒，每个5支，是2个5，用2×5。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-037",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-multiplication-introduction",
+      "unitTitle": "数一数与乘法",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "multiplication-meaning",
+        "equal-groups",
+        "arrays",
+        "乘法意义",
+        "数一数与乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "几个几",
+        "重复加法",
+        "乘法算式",
+        "阵列模型"
+      ],
+      "misconceptionTags": [
+        "unequal groups treated as multiplication",
+        "factor meaning not linked to group count and group size",
+        "product found by counting without structure"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-multiplication-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-multiplication-introduction-unit",
+        "bnu-primary-p2-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪幅图不能用乘法算式3×4表示？",
+      "optionsZhHans": [
+        "每行3个圆，有4行",
+        "每行4个圆，有3行",
+        "3个盘子，每个盘子里有4个苹果",
+        "4个盘子，第一个盘子3个苹果，第二个盘子4个苹果，第三个盘子3个苹果，第四个盘子2个苹果"
+      ],
+      "answer": "4个盘子，第一个盘子3个苹果，第二个盘子4个苹果，第三个盘子3个苹果，第四个盘子2个苹果",
+      "acceptedAnswers": [
+        "4个盘子，第一个盘子3个苹果，第二个盘子4个苹果，第三个盘子3个苹果，第四个盘子2个苹果"
+      ],
+      "explanationZhHans": "3×4可以表示3个4或4个3，前三个选项都是每份同样多。最后一个选项每盘苹果数不同，不是相同加数，不能用乘法表示。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-038",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-multiplication-introduction",
+      "unitTitle": "数一数与乘法",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "multiplication-meaning",
+        "equal-groups",
+        "arrays",
+        "乘法意义",
+        "数一数与乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "几个几",
+        "重复加法",
+        "乘法算式",
+        "阵列模型"
+      ],
+      "misconceptionTags": [
+        "unequal groups treated as multiplication",
+        "factor meaning not linked to group count and group size",
+        "product found by counting without structure"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-multiplication-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-multiplication-introduction-unit",
+        "bnu-primary-p2-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "填空：6+6+6+6+6 是（ ）个（ ）相加，乘法算式是（ ）。",
+      "optionsZhHans": [],
+      "answer": "6+6+6+6+6 是（5）个（6）相加，乘法算式是（5×6=30或6×5=30）。",
+      "acceptedAnswers": [
+        "6+6+6+6+6 是（5）个（6）相加，乘法算式是（5×6=30或6×5=30）。",
+        "6+6+6+6+6 是（5）个（6）相加，乘法算式是（5×6=30）。",
+        "6+6+6+6+6 是（5）个（6）相加，乘法算式是（6×5=30）。"
+      ],
+      "explanationZhHans": "5个6连加，写成乘法是5×6=30或6×5=30。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-039",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-multiplication-introduction",
+      "unitTitle": "数一数与乘法",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "multiplication-meaning",
+        "equal-groups",
+        "arrays",
+        "乘法意义",
+        "数一数与乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "几个几",
+        "重复加法",
+        "乘法算式",
+        "阵列模型"
+      ],
+      "misconceptionTags": [
+        "unequal groups treated as multiplication",
+        "factor meaning not linked to group count and group size",
+        "product found by counting without structure"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-multiplication-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-multiplication-introduction-unit",
+        "bnu-primary-p2-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丽有一些花片，她摆了4堆，每堆5个。小刚摆了5堆，每堆4个。他们谁的花片多？为什么？",
+      "optionsZhHans": [],
+      "answer": "一样多。小丽有4个5，是20个；小刚有5个4，也是20个。",
+      "acceptedAnswers": [
+        "一样多。小丽有4个5，是20个；小刚有5个4，也是20个。",
+        "一样多。"
+      ],
+      "explanationZhHans": "小丽：4×5=20，小刚：5×4=20，结果相同。乘法中两个因数交换，积不变。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-040",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-multiplication-introduction",
+      "unitTitle": "数一数与乘法",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "multiplication-meaning",
+        "equal-groups",
+        "arrays",
+        "乘法意义",
+        "数一数与乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "几个几",
+        "重复加法",
+        "乘法算式",
+        "阵列模型"
+      ],
+      "misconceptionTags": [
+        "unequal groups treated as multiplication",
+        "factor meaning not linked to group count and group size",
+        "product found by counting without structure"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-multiplication-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-multiplication-introduction-unit",
+        "bnu-primary-p2-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个问题可以用乘法解决？",
+      "optionsZhHans": [
+        "小明有3本书，小红有5本书，他们一共有多少本书？",
+        "每盒有6支彩笔，买了4盒，一共有多少支彩笔？",
+        "树上有8只鸟，飞走了3只，还剩几只？",
+        "妈妈买了10个苹果，吃了4个，还剩几个？"
+      ],
+      "answer": "每盒有6支彩笔，买了4盒，一共有多少支彩笔？",
+      "acceptedAnswers": [
+        "每盒有6支彩笔，买了4盒，一共有多少支彩笔？"
+      ],
+      "explanationZhHans": "每盒6支，4盒就是4个6，是相同加数求和，可以用乘法4×6计算。其他问题都是不同数量的合并或减少，用加减法。"
+    }
+  ]
+}

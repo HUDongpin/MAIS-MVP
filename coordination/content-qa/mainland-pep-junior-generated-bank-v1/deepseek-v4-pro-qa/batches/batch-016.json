@@ -1,0 +1,191 @@
+{
+  "batchNumber": 16,
+  "startedAt": "2026-05-24T17:27:02.547Z",
+  "completedAt": "2026-05-24T17:27:20.513Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-candidate-k04-mc-025",
+    "pep-junior-candidate-k04-mc-026",
+    "pep-junior-candidate-k04-mc-027",
+    "pep-junior-candidate-k04-fi-001",
+    "pep-junior-candidate-k04-fi-002",
+    "pep-junior-candidate-k04-fi-003",
+    "pep-junior-candidate-k04-fi-004",
+    "pep-junior-candidate-k04-fi-005",
+    "pep-junior-candidate-k04-fi-006",
+    "pep-junior-candidate-k04-fi-007",
+    "pep-junior-candidate-k04-fi-008",
+    "pep-junior-candidate-k04-fi-009",
+    "pep-junior-candidate-k04-fi-010",
+    "pep-junior-candidate-k04-fi-011",
+    "pep-junior-candidate-k04-fi-012",
+    "pep-junior-candidate-k04-fi-013",
+    "pep-junior-candidate-k04-fi-014",
+    "pep-junior-candidate-k04-fi-015"
+  ],
+  "usage": {
+    "prompt_tokens": 2930,
+    "completion_tokens": 1329,
+    "total_tokens": 4259,
+    "prompt_tokens_details": {
+      "cached_tokens": 2816
+    },
+    "prompt_cache_hit_tokens": 2816,
+    "prompt_cache_miss_tokens": 114
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-candidate-k04-mc-025",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移计算正确，选项唯一，答案匹配，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k04-mc-026",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移计算正确，选项唯一，答案匹配，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k04-mc-027",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移计算正确，选项唯一，答案匹配，无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k04-fi-001",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "同位角相等，答案正确，填空无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k04-fi-002",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "同位角相等，答案正确，填空无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k04-fi-003",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "同位角相等，答案正确，填空无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k04-fi-004",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "同位角相等，答案正确，填空无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k04-fi-005",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "同位角相等，答案正确，填空无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k04-fi-006",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "同位角相等，答案正确，填空无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k04-fi-007",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "同位角相等，答案正确，填空无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k04-fi-008",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "同位角相等，答案正确，填空无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k04-fi-009",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "同位角相等，答案正确，填空无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k04-fi-010",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "同位角相等，答案正确，填空无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k04-fi-011",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "同位角相等，答案正确，填空无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k04-fi-012",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "同位角相等，答案正确，填空无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k04-fi-013",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "同位角相等，答案正确，填空无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k04-fi-014",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "同位角相等，答案正确，填空无歧义。"
+      },
+      {
+        "id": "pep-junior-candidate-k04-fi-015",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "同位角相等，答案正确，填空无歧义。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案匹配，无歧义，适合入库。"
+    }
+  }
+}

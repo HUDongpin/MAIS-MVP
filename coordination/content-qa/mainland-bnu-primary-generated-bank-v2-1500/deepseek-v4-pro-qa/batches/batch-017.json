@@ -1,0 +1,191 @@
+{
+  "batchNumber": 17,
+  "startedAt": "2026-05-27T13:44:59.413Z",
+  "completedAt": "2026-05-27T13:45:17.932Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p2-039",
+    "bnu-primary-ds-v2-p2-040",
+    "bnu-primary-ds-v2-p2-041",
+    "bnu-primary-ds-v2-p2-042",
+    "bnu-primary-ds-v2-p2-043",
+    "bnu-primary-ds-v2-p2-044",
+    "bnu-primary-ds-v2-p2-045",
+    "bnu-primary-ds-v2-p2-046",
+    "bnu-primary-ds-v2-p2-047",
+    "bnu-primary-ds-v2-p2-048",
+    "bnu-primary-ds-v2-p2-049",
+    "bnu-primary-ds-v2-p2-050",
+    "bnu-primary-ds-v2-p2-051",
+    "bnu-primary-ds-v2-p2-052",
+    "bnu-primary-ds-v2-p2-053",
+    "bnu-primary-ds-v2-p2-054",
+    "bnu-primary-ds-v2-p2-055",
+    "bnu-primary-ds-v2-p2-056"
+  ],
+  "usage": {
+    "prompt_tokens": 4858,
+    "completion_tokens": 1315,
+    "total_tokens": 6173,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 4602
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p2-039",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，符合P2乘法引入要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-040",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项B正确，其他选项均非等组模型，题目合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-041",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，acceptedAnswers覆盖了乘法顺序的两种写法。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-042",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，acceptedAnswers考虑了不同表述。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-043",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项C正确，其他选项均为等组模型，题目合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-044",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，acceptedAnswers覆盖了乘法顺序的两种写法。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-045",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，acceptedAnswers考虑了乘法顺序和答句有无句号。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-046",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项C正确，其他选项均为平移，题目合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-047",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，acceptedAnswers考虑了不同格式。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-048",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，acceptedAnswers覆盖了不同表述。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-049",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项C正确，其他选项均为轴对称图形，题目合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-050",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，acceptedAnswers考虑了不同格式。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-051",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，acceptedAnswers覆盖了不同表述。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-052",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项C正确，其他选项均为轴对称图形，题目合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-053",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，acceptedAnswers考虑了顺序和连接词。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-054",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，acceptedAnswers考虑了不同分隔符。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-055",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项B正确，其他选项形状或大小不同，题目合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-056",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，acceptedAnswers考虑了顺序和分隔符。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版P2要求，答案正确，无歧义或错误。"
+    }
+  }
+}

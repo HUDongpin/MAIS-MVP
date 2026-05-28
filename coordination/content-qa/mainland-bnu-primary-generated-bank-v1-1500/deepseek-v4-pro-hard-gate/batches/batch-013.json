@@ -1,0 +1,330 @@
+{
+  "batchNumber": 13,
+  "startedAt": "2026-05-27T03:37:51.160Z",
+  "completedAt": "2026-05-27T03:38:19.200Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p2-111",
+    "bnu-primary-ds-v1-p2-112",
+    "bnu-primary-ds-v1-p2-113",
+    "bnu-primary-ds-v1-p2-114",
+    "bnu-primary-ds-v1-p2-115",
+    "bnu-primary-ds-v1-p2-116",
+    "bnu-primary-ds-v1-p2-117",
+    "bnu-primary-ds-v1-p2-118",
+    "bnu-primary-ds-v1-p2-119",
+    "bnu-primary-ds-v1-p2-120",
+    "bnu-primary-ds-v1-p2-121",
+    "bnu-primary-ds-v1-p2-122",
+    "bnu-primary-ds-v1-p2-123",
+    "bnu-primary-ds-v1-p2-124",
+    "bnu-primary-ds-v1-p2-125",
+    "bnu-primary-ds-v1-p2-126",
+    "bnu-primary-ds-v1-p2-127",
+    "bnu-primary-ds-v1-p2-128",
+    "bnu-primary-ds-v1-p2-129",
+    "bnu-primary-ds-v1-p2-130",
+    "bnu-primary-ds-v1-p2-131",
+    "bnu-primary-ds-v1-p2-132",
+    "bnu-primary-ds-v1-p2-133",
+    "bnu-primary-ds-v1-p2-134",
+    "bnu-primary-ds-v1-p2-135",
+    "bnu-primary-ds-v1-p2-136",
+    "bnu-primary-ds-v1-p2-137",
+    "bnu-primary-ds-v1-p2-138",
+    "bnu-primary-ds-v1-p2-139",
+    "bnu-primary-ds-v1-p2-140"
+  ],
+  "usage": {
+    "prompt_tokens": 5436,
+    "completion_tokens": 2277,
+    "total_tokens": 7713,
+    "prompt_tokens_details": {
+      "cached_tokens": 5376
+    },
+    "prompt_cache_hit_tokens": 5376,
+    "prompt_cache_miss_tokens": 60
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p2-111",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目完整，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-112",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项明确，唯一正确答案9×7。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-113",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "答案正确，接受多种格式。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-114",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目完整，答案42正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-115",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "计算正确，7×8积最大。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-116",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "答案7正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-117",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "答案56正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-118",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项D是8个6，不能表示6个8，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-119",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "答案“九”正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-120",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "答案63正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-121",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "唯一正确选项24÷4=6。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-122",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "答案“六六三十六，6”正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-123",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "答案18÷3=6（袋）正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-124",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "唯一正确选项12÷3=4。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-125",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "答案正确，接受多种格式。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-126",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "答案20÷5=4（个）正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-127",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "唯一正确选项30÷5=6。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-128",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "答案“五九四十五，5”正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-129",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "答案24÷6=4（张）正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-130",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "唯一正确选项16÷2=8。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-131",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "答案正确，包含算式和口诀。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-132",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "答案36÷6=6（块）正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-133",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "唯一正确选项30÷5。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-134",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "答案“35，五七三十五”正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-135",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "答案完整正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-136",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "唯一正确选项4束。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-137",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "答案“5，2”正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-138",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "答案32÷5=6（个）……2（块）正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-139",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "唯一正确选项19÷4。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-140",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "答案“5，29”正确。"
+      }
+    ],
+    "batchSummary": {
+      "solvableYes": 30,
+      "solvableNo": 0,
+      "answerMatchYes": 30,
+      "answerMatchNo": 0,
+      "notes": "全部30道题目均可解，答案匹配正确，无问题。"
+    }
+  }
+}

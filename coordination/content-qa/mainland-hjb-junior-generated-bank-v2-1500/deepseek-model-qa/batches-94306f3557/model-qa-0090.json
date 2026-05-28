@@ -1,0 +1,108 @@
+{
+  "batchId": "model-qa-0090",
+  "ids": [
+    "hjb-junior-ds-v2-s2-213",
+    "hjb-junior-ds-v2-s2-214",
+    "hjb-junior-ds-v2-s2-215",
+    "hjb-junior-ds-v2-s2-216",
+    "hjb-junior-ds-v2-s2-217",
+    "hjb-junior-ds-v2-s2-218",
+    "hjb-junior-ds-v2-s2-219",
+    "hjb-junior-ds-v2-s2-220"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-213",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "4",
+      "answerCheckZhHans": "标准答案为4，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-214",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "A. △ABC是直角三角形，点P到边BC的距离为5",
+      "answerCheckZhHans": "标准答案为A，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-215",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "60/17",
+      "answerCheckZhHans": "标准答案为60/17，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-216",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "标准答案中DE=84/11，但独立计算得DE=84/11，然而解析中面积和计算有误：1/2*13*DE+1/2*20*DE=33/2*DE，但13+20=33，33/2=16.5，126/16.5=84/11，计算正确。但题干要求证明DE=DF并求DE长度，答案中已包含证明和计算，但答案格式为完整句子，与acceptedAnswers中的长字符串匹配，但acceptedAnswers中仅有一个长字符串，可能不便于自动批改。建议将答案拆分为证明部分和数值部分，或接受多种表述。",
+      "independentAnswerZhHans": "证明：由角平分线性质得DE=DF。由海伦公式得S△ABC=126，又S△ABC=S△ABD+S△ACD=1/2*13*DE+1/2*20*DF=33/2*DE，故DE=84/11。",
+      "answerCheckZhHans": "标准答案与独立解题结果一致，但acceptedAnswers仅包含一个长字符串，可能无法匹配学生不同的表述方式。",
+      "recommendedActionZhHans": "建议将acceptedAnswers扩展为包含数值84/11及常见变体，或明确答案格式要求。",
+      "confidence": "medium"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-217",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "60/13",
+      "answerCheckZhHans": "标准答案为60/13，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-218",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3 cm",
+      "answerCheckZhHans": "标准答案为3 cm，与独立解题结果一致。acceptedAnswers包含3 cm和3cm，覆盖合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-219",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "标准答案为3，与独立解题结果一致。acceptedAnswers包含3、3个单位、3单位，覆盖合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-220",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为BD=4，CD=8，但根据角平分线性质，BD:DC=AB:AC=9:15=3:5，设BD=3k，DC=5k，则3k+5k=12，k=1.5，BD=4.5，DC=7.5。选项中没有4.5和7.5，最接近的选项是BD=4，CD=8，但并非精确值。解析中称“选项中最接近且正确为BD=4，CD=8”，但数学上不精确，且选项D为BD=3，CD=9，也不正确。因此无正确选项。",
+      "independentAnswerZhHans": "BD=4.5，CD=7.5",
+      "answerCheckZhHans": "标准答案与独立解题结果不一致，且无精确匹配选项。",
+      "recommendedActionZhHans": "建议修改选项或题干，使答案精确匹配，或明确要求近似值。",
+      "confidence": "high"
+    }
+  ]
+}

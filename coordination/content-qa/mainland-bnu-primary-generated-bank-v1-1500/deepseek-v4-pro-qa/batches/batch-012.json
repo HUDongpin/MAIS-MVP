@@ -1,0 +1,191 @@
+{
+  "batchNumber": 12,
+  "startedAt": "2026-05-27T13:25:36.620Z",
+  "completedAt": "2026-05-27T13:25:53.337Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p1-199",
+    "bnu-primary-ds-v1-p1-200",
+    "bnu-primary-ds-v1-p1-201",
+    "bnu-primary-ds-v1-p1-202",
+    "bnu-primary-ds-v1-p1-203",
+    "bnu-primary-ds-v1-p1-204",
+    "bnu-primary-ds-v1-p1-205",
+    "bnu-primary-ds-v1-p1-206",
+    "bnu-primary-ds-v1-p1-207",
+    "bnu-primary-ds-v1-p1-208",
+    "bnu-primary-ds-v1-p1-209",
+    "bnu-primary-ds-v1-p1-210",
+    "bnu-primary-ds-v1-p1-211",
+    "bnu-primary-ds-v1-p1-212",
+    "bnu-primary-ds-v1-p1-213",
+    "bnu-primary-ds-v1-p1-214",
+    "bnu-primary-ds-v1-p1-215",
+    "bnu-primary-ds-v1-p1-216"
+  ],
+  "usage": {
+    "prompt_tokens": 3062,
+    "completion_tokens": 1231,
+    "total_tokens": 4293,
+    "prompt_tokens_details": {
+      "cached_tokens": 2944
+    },
+    "prompt_cache_hit_tokens": 2944,
+    "prompt_cache_miss_tokens": 118
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p1-199",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，适合P1图形认知。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-200",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "填空答案正确，接受多种分隔符。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-201",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项区分明确，答案唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-202",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "简单加法，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-203",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项合理，答案唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-204",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，与203题不重复。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-205",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "与201题类似，但表述略有不同，无问题。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-206",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "减法应用题，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-207",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "不进位加法，选项无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-208",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "求差问题，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-209",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "与207题类似，无问题。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-210",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "与209题内容重复，但无错误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-211",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "整十数加法，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-212",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "整十数减法，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-213",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "两步计算，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-214",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "加法应用题，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-215",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估算与计算，答案唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-216",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计数器操作，答案正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版P1要求，无数学错误或歧义。"
+    }
+  }
+}

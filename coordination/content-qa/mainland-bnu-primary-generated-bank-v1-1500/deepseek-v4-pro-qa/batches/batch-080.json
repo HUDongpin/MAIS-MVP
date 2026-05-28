@@ -1,0 +1,191 @@
+{
+  "batchNumber": 80,
+  "startedAt": "2026-05-27T13:30:59.625Z",
+  "completedAt": "2026-05-27T13:31:16.897Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p6-173",
+    "bnu-primary-ds-v1-p6-174",
+    "bnu-primary-ds-v1-p6-175",
+    "bnu-primary-ds-v1-p6-176",
+    "bnu-primary-ds-v1-p6-177",
+    "bnu-primary-ds-v1-p6-178",
+    "bnu-primary-ds-v1-p6-179",
+    "bnu-primary-ds-v1-p6-180",
+    "bnu-primary-ds-v1-p6-181",
+    "bnu-primary-ds-v1-p6-182",
+    "bnu-primary-ds-v1-p6-183",
+    "bnu-primary-ds-v1-p6-184",
+    "bnu-primary-ds-v1-p6-185",
+    "bnu-primary-ds-v1-p6-186",
+    "bnu-primary-ds-v1-p6-187",
+    "bnu-primary-ds-v1-p6-188",
+    "bnu-primary-ds-v1-p6-189",
+    "bnu-primary-ds-v1-p6-190"
+  ],
+  "usage": {
+    "prompt_tokens": 3098,
+    "completion_tokens": 1279,
+    "total_tokens": 4377,
+    "prompt_tokens_details": {
+      "cached_tokens": 3072
+    },
+    "prompt_cache_hit_tokens": 3072,
+    "prompt_cache_miss_tokens": 26
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p6-173",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解析一致，适合P6比例单元。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-174",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，提供了多种等价比例，符合要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-175",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项唯一正确，解析清晰，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-176",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，单位换算无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-177",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比例应用正确，答案1800千克无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-178",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比值计算正确，6:5是唯一匹配选项。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-179",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比例尺计算正确，20:1为放大比例尺。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-180",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "正比例判断正确，理由充分。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-181",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "旋转坐标变换正确，选项(3,-2)唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-182",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "填空答案与题目描述一致，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-183",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "旋转中心位置不变，选项正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-184",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "旋转4次回到原位，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-185",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移坐标计算正确，选项(7,3)唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-186",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "旋转180°坐标变换正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-187",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "全等变换概念正确，选项完整。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-188",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "旋转抵消，位置不变，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-189",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "绕点旋转坐标计算正确，选项(2,5)唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-190",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移距离概念正确，答案6厘米无误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均通过审核，数学正确，答案匹配，无歧义或风险。"
+    }
+  }
+}

@@ -1,0 +1,309 @@
+{
+  "batchId": "batch-280",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p6-146",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-linear-systems",
+      "unitTitle": "二元一次方程组",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "linear-systems",
+        "two-variable-linear-equations",
+        "equation-modeling",
+        "二元一次方程组",
+        "方程组"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "设未知数",
+        "等量关系",
+        "列方程组",
+        "消元思想",
+        "代入检验"
+      ],
+      "misconceptionTags": [
+        "unknowns not defined clearly",
+        "two equations represent the same relationship",
+        "elimination step breaks equivalence",
+        "solution not checked against the context"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-linear-systems"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-linear-systems",
+        "hjb-primary-p6-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小华和小明一起买文具。小华买了3支钢笔和2本笔记本，共付了28元；小明买了2支钢笔和5本笔记本，共付了34元。设每支钢笔的价格为x元，每本笔记本的价格为y元。请列出方程组，并求出x和y的值。",
+      "optionsZhHans": [],
+      "answer": "x=6, y=5",
+      "acceptedAnswers": [
+        "x=6, y=5",
+        "x=6,y=5",
+        "x=6 y=5",
+        "钢笔6元，笔记本5元",
+        "钢笔6元,笔记本5元"
+      ],
+      "explanationZhHans": "根据题意列方程组：3x+2y=28，2x+5y=34。用加减消元法，第一个方程乘5得15x+10y=140，第二个方程乘2得4x+10y=68，两式相减得11x=72，x=6；代入3×6+2y=28得y=5。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-147",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-linear-systems",
+      "unitTitle": "二元一次方程组",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "linear-systems",
+        "two-variable-linear-equations",
+        "equation-modeling",
+        "二元一次方程组",
+        "方程组"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "设未知数",
+        "等量关系",
+        "列方程组",
+        "消元思想",
+        "代入检验"
+      ],
+      "misconceptionTags": [
+        "unknowns not defined clearly",
+        "two equations represent the same relationship",
+        "elimination step breaks equivalence",
+        "solution not checked against the context"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-linear-systems"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-linear-systems",
+        "hjb-primary-p6-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校组织植树活动，七年级和八年级共植树150棵。已知八年级植树棵数是七年级的2倍少30棵。设七年级植树x棵，八年级植树y棵。请列出方程组并求解。",
+      "optionsZhHans": [],
+      "answer": "x=60, y=90",
+      "acceptedAnswers": [
+        "x=60, y=90",
+        "x=60,y=90",
+        "x=60 y=90",
+        "七年级60棵，八年级90棵",
+        "七年级60棵,八年级90棵"
+      ],
+      "explanationZhHans": "由题意得：x+y=150，y=2x-30。将第二个方程代入第一个得x+2x-30=150，3x=180，x=60；y=2×60-30=90。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-148",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-linear-systems",
+      "unitTitle": "二元一次方程组",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "linear-systems",
+        "two-variable-linear-equations",
+        "equation-modeling",
+        "二元一次方程组",
+        "方程组"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "设未知数",
+        "等量关系",
+        "列方程组",
+        "消元思想",
+        "代入检验"
+      ],
+      "misconceptionTags": [
+        "unknowns not defined clearly",
+        "two equations represent the same relationship",
+        "elimination step breaks equivalence",
+        "solution not checked against the context"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-linear-systems"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-linear-systems",
+        "hjb-primary-p6-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下列哪一组数是方程组 { x + y = 10, 2x - y = 5 } 的解？",
+      "optionsZhHans": [
+        "x=3, y=7",
+        "x=5, y=5",
+        "x=4, y=6",
+        "x=6, y=4"
+      ],
+      "answer": "x=5, y=5",
+      "acceptedAnswers": [
+        "x=5, y=5"
+      ],
+      "explanationZhHans": "将x=5, y=5代入第一个方程：5+5=10成立；代入第二个方程：2×5-5=5成立，所以是方程组的解。其他选项不满足两个方程。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-149",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-linear-systems",
+      "unitTitle": "二元一次方程组",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "linear-systems",
+        "two-variable-linear-equations",
+        "equation-modeling",
+        "二元一次方程组",
+        "方程组"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "设未知数",
+        "等量关系",
+        "列方程组",
+        "消元思想",
+        "代入检验"
+      ],
+      "misconceptionTags": [
+        "unknowns not defined clearly",
+        "two equations represent the same relationship",
+        "elimination step breaks equivalence",
+        "solution not checked against the context"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-linear-systems"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-linear-systems",
+        "hjb-primary-p6-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个两位数，个位数字与十位数字之和为12。如果交换个位与十位数字的位置，得到的新数比原数大36。设原数十位数字为x，个位数字为y。请列出方程组，并求出原数。",
+      "optionsZhHans": [],
+      "answer": "48",
+      "acceptedAnswers": [
+        "48",
+        "原数是48",
+        "原数48"
+      ],
+      "explanationZhHans": "由题意得：x+y=12，(10y+x)-(10x+y)=36，化简得9y-9x=36，即y-x=4。解方程组得x=4，y=8，原数为48。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-150",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-linear-systems",
+      "unitTitle": "二元一次方程组",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "linear-systems",
+        "two-variable-linear-equations",
+        "equation-modeling",
+        "二元一次方程组",
+        "方程组"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "设未知数",
+        "等量关系",
+        "列方程组",
+        "消元思想",
+        "代入检验"
+      ],
+      "misconceptionTags": [
+        "unknowns not defined clearly",
+        "two equations represent the same relationship",
+        "elimination step breaks equivalence",
+        "solution not checked against the context"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-linear-systems"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-linear-systems",
+        "hjb-primary-p6-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "甲、乙两人从相距36千米的A、B两地同时出发，相向而行，4小时后相遇。如果甲比乙每小时多走1千米，设甲的速度为x千米/时，乙的速度为y千米/时。请列出方程组并求出两人的速度。",
+      "optionsZhHans": [],
+      "answer": "x=5, y=4",
+      "acceptedAnswers": [
+        "x=5, y=4",
+        "x=5,y=4",
+        "x=5 y=4",
+        "甲5千米/时，乙4千米/时",
+        "甲5千米/时,乙4千米/时"
+      ],
+      "explanationZhHans": "相遇问题：4(x+y)=36，得x+y=9；又x-y=1。两式相加得2x=10，x=5；代入得y=4。"
+    }
+  ]
+}

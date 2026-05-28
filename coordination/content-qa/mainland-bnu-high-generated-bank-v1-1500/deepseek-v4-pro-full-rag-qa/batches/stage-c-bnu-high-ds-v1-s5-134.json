@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-134",
+  "startedAt": "2026-05-28T02:08:50.125Z",
+  "completedAt": "2026-05-28T02:08:55.130Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-134"
+  ],
+  "usage": {
+    "prompt_tokens": 2035,
+    "completion_tokens": 254,
+    "total_tokens": 2289,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1651
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-134",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "k = -8/9",
+        "correctedAnswer": "-8/9",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立求解得k=-8/9，存储答案为-4/9，解析中点弦公式误用，正确结果应为-8/9，答案与解析均错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目可解，但答案和解析均错误，正确k值为-8/9，需修正。"
+    }
+  }
+}

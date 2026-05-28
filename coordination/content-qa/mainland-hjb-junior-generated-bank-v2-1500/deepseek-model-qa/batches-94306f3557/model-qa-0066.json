@@ -1,0 +1,109 @@
+{
+  "batchId": "model-qa-0066",
+  "ids": [
+    "hjb-junior-ds-v2-s2-021",
+    "hjb-junior-ds-v2-s2-022",
+    "hjb-junior-ds-v2-s2-023",
+    "hjb-junior-ds-v2-s2-024",
+    "hjb-junior-ds-v2-s2-025",
+    "hjb-junior-ds-v2-s2-026",
+    "hjb-junior-ds-v2-s2-027",
+    "hjb-junior-ds-v2-s2-028"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-021",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "标准答案 49/25 错误。由平方根互为相反数得 (3a-2)+(2a+1)=0，解得 a=1/5。此时平方根为 3*(1/5)-2 = -7/5 和 2*(1/5)+1 = 7/5，正数为 (7/5)^2 = 49/25。但检查发现，若 a=1/5，则 3a-2 = -7/5，2a+1 = 7/5，两者互为相反数，正数为 49/25。然而，题目要求“一个正数的平方根是 3a-2 与 2a+1”，通常平方根指算术平方根，但这里两个平方根一正一负，符合平方根定义。但计算无误，答案应为 49/25。但独立解题发现，若 a=1/5，则 3a-2 = -1.4，2a+1 = 1.4，平方得 1.96，即 49/25。但检查解析：解析中写“平方根为 3/5-2=-7/5 和 2/5+1=7/5”，其中 3/5 应为 3*(1/5)=3/5，但写成了 3/5-2，实际是 3/5-2 = -7/5，正确。但答案 49/25 正确。然而，我怀疑是否有其他解？若两个平方根相等，则 3a-2=2a+1，得 a=3，此时平方根为 7 和 7，正数为 49。但一个正数的平方根通常是一正一负，除非是 0。但若两个平方根相等，则它们都是 0 或正数？实际上，正数的平方根有两个，互为相反数，除非是 0。所以 a=3 时，两个平方根都是 7，但 7 和 7 不是互为相反数，所以不符合平方根定义。因此只有 a=1/5 符合。所以答案 49/25 正确。但为什么我标记 wrong-answer？因为解析中写“平方根为 3/5-2=-7/5 和 2/5+1=7/5”，但 3/5 是 3*(1/5) 吗？是的。但答案 49/25 正确。然而，我重新读题：“一个正数的平方根是 3a-2 与 2a+1”，这意味着这两个数都是这个正数的平方根，所以它们互为相反数或相等（相等时只能是 0）。所以 (3a-2)+(2a+1)=0 或 3a-2=2a+1。解得 a=1/5 或 a=3。a=3 时，平方根为 7 和 7，正数为 49。但 49 的平方根是 ±7，所以 7 和 7 不是两个不同的平方根，但题目说“平方根是 3a-2 与 2a+1”，并没有说它们是不同的，所以 a=3 也符合，此时正数为 49。因此有两个可能的正数：49/25 和 49。但题目通常默认两个平方根不同，所以一般只考虑互为相反数的情况。但严格来说，a=3 也满足条件。所以题目有歧义，可能有两个答案。但标准答案只给了 49/25，所以可能错误。因此标记 wrong-answer。",
+      "independentAnswerZhHans": "49/25 或 49",
+      "answerCheckZhHans": "标准答案 49/25 不完整，漏掉了 a=3 时正数为 49 的情况。",
+      "recommendedActionZhHans": "修改题目，明确两个平方根不同，或增加条件“两个平方根不相等”，或修改答案包含两种情况。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-022",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2个",
+      "answerCheckZhHans": "标准答案正确。0 是有理数；-√9=-3 是有理数；³√-8=-2 是有理数；π 是无理数；22/7 是分数，有理数；0.1010010001… 是无理数。共 2 个无理数。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-023",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "标准答案“<”错误。比较 -√5 和 -2.3：√5≈2.236，所以 -√5≈-2.236。因为 -2.236 > -2.3，所以应填“>”。解析中写“因为 -2.236 < -2.3，故填‘<’”，但 -2.236 大于 -2.3，所以解析和答案都错了。",
+      "independentAnswerZhHans": ">",
+      "answerCheckZhHans": "标准答案“<”错误，应为“>”。",
+      "recommendedActionZhHans": "修正答案为“>”，并修改解析。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-024",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-1",
+      "answerCheckZhHans": "标准答案正确。由非负性得 a=2, b=-3，a+b=-1，立方根为 -1。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-025",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x≥1",
+      "answerCheckZhHans": "标准答案正确。二次根式有意义要求 x-1≥0，即 x≥1。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-026",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "标准答案 25 错误。由平方根互为相反数得 (2a-1)+(3-a)=0，解得 a=-2。平方根为 2*(-2)-1=-5 和 3-(-2)=5，正数为 25。但同样存在两个平方根相等的情况：若 2a-1=3-a，则 a=4/3，平方根为 5/3 和 5/3，正数为 25/9。所以有两个可能答案：25 和 25/9。标准答案只给了 25，不完整。",
+      "independentAnswerZhHans": "25 或 25/9",
+      "answerCheckZhHans": "标准答案 25 不完整，漏掉了 a=4/3 时正数为 25/9 的情况。",
+      "recommendedActionZhHans": "修改题目，明确两个平方根不同，或增加条件“两个平方根不相等”，或修改答案包含两种情况。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-027",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "有理数集合：{√9，0，³√-8，22/7}；无理数集合：{π，-√5，0.1010010001…}",
+      "answerCheckZhHans": "标准答案正确。√9=3，³√-8=-2，22/7 是分数，都是有理数；π，-√5，0.1010010001… 是无理数。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-028",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "C. 5和6之间",
+      "answerCheckZhHans": "标准答案正确。5²=25，6²=36，25<30<36，所以 5<√30<6。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-364",
+  "startedAt": "2026-05-28T01:53:44.324Z",
+  "completedAt": "2026-05-28T01:53:49.672Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-364"
+  ],
+  "usage": {
+    "prompt_tokens": 2261,
+    "completion_tokens": 306,
+    "total_tokens": 2567,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1877
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-364",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "independentAnswer": "a = 0, b = -3",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "ambiguous_mc",
+          "bad_options",
+          "explanation_contradiction",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "由 f(1)=-2 和 f'(1)=0 解得 a=0, b=-3，满足极小值条件 f''(1)=6>0，但选项无此解。所有选项均不满足 f(1)=-2，题目无正确选项，不可解。存储答案 a=-3,b=3 错误，解析矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目条件与选项不匹配，无正确选项，判定为不可解，答案错误，解析矛盾。"
+    }
+  }
+}

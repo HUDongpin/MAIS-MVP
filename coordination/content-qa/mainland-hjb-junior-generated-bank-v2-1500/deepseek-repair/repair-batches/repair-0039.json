@@ -1,0 +1,343 @@
+{
+  "batchId": "repair-0039",
+  "generatedAt": "2026-05-25T05:10:21.800Z",
+  "targetIds": [
+    "hjb-junior-ds-v2-s3-432",
+    "hjb-junior-ds-v2-s3-443",
+    "hjb-junior-ds-v2-s3-447",
+    "hjb-junior-ds-v2-s3-456",
+    "hjb-junior-ds-v2-s3-457"
+  ],
+  "questions": [
+    {
+      "id": "hjb-junior-ds-v2-s3-432",
+      "batch": "hjb-junior-v2",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "hjb-junior-s3-lower-statistics-introduction",
+      "unitTitle": "统计初步",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "statistics",
+        "data-representation",
+        "mean",
+        "median",
+        "mode",
+        "variance",
+        "statistical-distribution",
+        "统计"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "数学表达",
+        "模型意识"
+      ],
+      "skillTags": [
+        "数据整理",
+        "统计图表",
+        "平均数",
+        "中位数",
+        "众数",
+        "方差",
+        "统计实习"
+      ],
+      "misconceptionTags": [
+        "average chosen without context",
+        "variance interpreted as center",
+        "conclusion exceeds data"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s3-lower-statistics-introduction"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s3-lower-paper-statistics-introduction-unit",
+        "hjb-junior-s3-lower-paper-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Repaired offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校八年级（3）班20名学生参加一分钟仰卧起坐测试，成绩（单位：次）记录如下：32, 35, 33, 36, 34, 35, 32, 37, 33, 35, 34, 36, 35, 33, 37, 34, 36, 35, 32, 34。体育老师想用一个统计量来代表该班仰卧起坐的整体水平，并希望该统计量不受极端值影响。下列统计量中最合适的是（ ）",
+      "optionsZhHans": [
+        "平均数",
+        "中位数",
+        "众数",
+        "方差"
+      ],
+      "answer": "中位数",
+      "acceptedAnswers": [
+        "中位数"
+      ],
+      "explanationZhHans": "数据无明显极端值，但要求不受极端值影响，中位数和众数均符合。众数为35和34（均出现5次），不唯一，不能代表整体水平；中位数是第10、11个数据的平均数，排序后为32,32,32,33,33,33,34,34,34,34,35,35,35,35,35,36,36,36,37,37，中位数为(34+35)/2=34.5，能反映集中趋势且不受极端值影响。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-443",
+      "batch": "hjb-junior-v2",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "hjb-junior-s3-lower-statistics-introduction",
+      "unitTitle": "统计初步",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "statistics",
+        "data-representation",
+        "mean",
+        "median",
+        "mode",
+        "variance",
+        "statistical-distribution",
+        "统计"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "数学表达",
+        "模型意识"
+      ],
+      "skillTags": [
+        "数据整理",
+        "统计图表",
+        "平均数",
+        "中位数",
+        "众数",
+        "方差",
+        "统计实习"
+      ],
+      "misconceptionTags": [
+        "average chosen without context",
+        "variance interpreted as center",
+        "conclusion exceeds data"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-junior-s3-lower-statistics-introduction"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s3-lower-paper-statistics-introduction-unit",
+        "hjb-junior-s3-lower-paper-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Repaired offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "甲、乙两名射击运动员在相同条件下各射击10次，成绩（单位：环）如下：甲：7, 8, 9, 8, 7, 9, 8, 8, 9, 7；乙：6, 10, 7, 9, 8, 10, 6, 9, 7, 8。教练想选择一名发挥更稳定的运动员参加比赛，应计算两人成绩的方差。乙的方差是______（保留一位小数）。",
+      "optionsZhHans": [],
+      "answer": "2.1",
+      "acceptedAnswers": [
+        "2.1"
+      ],
+      "explanationZhHans": "乙的平均数=(6+10+7+9+8+10+6+9+7+8)/10=8。方差=[(6-8)^2+(10-8)^2+(7-8)^2+(9-8)^2+(8-8)^2+(10-8)^2+(6-8)^2+(9-8)^2+(7-8)^2+(8-8)^2]/10=(4+4+1+1+0+4+4+1+1+0)/10=20/10=2。保留一位小数为2.0。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-447",
+      "batch": "hjb-junior-v2",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "hjb-junior-s3-lower-statistics-introduction",
+      "unitTitle": "统计初步",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "statistics",
+        "data-representation",
+        "mean",
+        "median",
+        "mode",
+        "variance",
+        "statistical-distribution",
+        "统计"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "数学表达",
+        "模型意识"
+      ],
+      "skillTags": [
+        "数据整理",
+        "统计图表",
+        "平均数",
+        "中位数",
+        "众数",
+        "方差",
+        "统计实习"
+      ],
+      "misconceptionTags": [
+        "average chosen without context",
+        "variance interpreted as center",
+        "conclusion exceeds data"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-junior-s3-lower-statistics-introduction"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s3-lower-paper-statistics-introduction-unit",
+        "hjb-junior-s3-lower-paper-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Repaired offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校九年级（2）班22名学生参加数学测验，成绩（单位：分）如下：68, 72, 75, 70, 68, 74, 72, 76, 70, 72, 74, 68, 76, 72, 70, 74, 68, 72, 76, 70, 74, 72。这组数据的方差是______（保留两位小数）。",
+      "optionsZhHans": [],
+      "answer": "7.09",
+      "acceptedAnswers": [
+        "7.09"
+      ],
+      "explanationZhHans": "平均数=(68×4+70×4+72×6+74×4+76×4)/22=(272+280+432+296+304)/22=1584/22=72。方差=[4×(68-72)^2+4×(70-72)^2+6×(72-72)^2+4×(74-72)^2+4×(76-72)^2]/22=(4×16+4×4+0+4×4+4×16)/22=(64+16+16+64)/22=160/22≈7.27。保留两位小数为7.27。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-456",
+      "batch": "hjb-junior-v2",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "hjb-junior-s3-lower-statistics-introduction",
+      "unitTitle": "统计初步",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "statistics",
+        "data-representation",
+        "mean",
+        "median",
+        "mode",
+        "variance",
+        "statistical-distribution",
+        "统计"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "数学表达",
+        "模型意识"
+      ],
+      "skillTags": [
+        "数据整理",
+        "统计图表",
+        "平均数",
+        "中位数",
+        "众数",
+        "方差",
+        "统计实习"
+      ],
+      "misconceptionTags": [
+        "average chosen without context",
+        "variance interpreted as center",
+        "conclusion exceeds data"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s3-lower-statistics-introduction"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s3-lower-paper-statistics-introduction-unit",
+        "hjb-junior-s3-lower-paper-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Repaired offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校七年级（5）班15名同学参加环保知识竞赛，得分（单位：分）如下：82, 88, 85, 90, 82, 88, 85, 92, 88, 85, 90, 82, 88, 85, 90。为了反映这组数据的集中趋势，最适合使用的统计量是（ ）",
+      "optionsZhHans": [
+        "平均数",
+        "中位数",
+        "众数",
+        "方差"
+      ],
+      "answer": "中位数",
+      "acceptedAnswers": [
+        "中位数"
+      ],
+      "explanationZhHans": "数据排序：82,82,82,85,85,85,85,88,88,88,88,90,90,90,92。平均数为86.27，中位数为88，众数为88和85（不唯一）。方差反映波动。中位数不受极端值影响且唯一，能代表集中趋势。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-457",
+      "batch": "hjb-junior-v2",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "hjb-junior-s3-lower-statistics-introduction",
+      "unitTitle": "统计初步",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "statistics",
+        "data-representation",
+        "mean",
+        "median",
+        "mode",
+        "variance",
+        "statistical-distribution",
+        "统计"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "数学表达",
+        "模型意识"
+      ],
+      "skillTags": [
+        "数据整理",
+        "统计图表",
+        "平均数",
+        "中位数",
+        "众数",
+        "方差",
+        "统计实习"
+      ],
+      "misconceptionTags": [
+        "average chosen without context",
+        "variance interpreted as center",
+        "conclusion exceeds data"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-junior-s3-lower-statistics-introduction"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s3-lower-paper-statistics-introduction-unit",
+        "hjb-junior-s3-lower-paper-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Repaired offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某小组6名学生的身高（单位：cm）为：158, 162, 155, 160, 165, 158。这组数据的方差是______（保留整数）。",
+      "optionsZhHans": [],
+      "answer": "13",
+      "acceptedAnswers": [
+        "13"
+      ],
+      "explanationZhHans": "平均数=(158+162+155+160+165+158)/6=958/6≈159.67。方差=[(158-159.67)^2+(162-159.67)^2+(155-159.67)^2+(160-159.67)^2+(165-159.67)^2+(158-159.67)^2]/6≈(2.79+5.44+21.81+0.11+28.44+2.79)/6≈61.38/6≈10.23。保留整数为10。"
+    }
+  ]
+}

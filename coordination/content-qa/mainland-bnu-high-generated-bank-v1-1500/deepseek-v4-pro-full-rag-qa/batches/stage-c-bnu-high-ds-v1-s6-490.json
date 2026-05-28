@@ -1,0 +1,48 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-490",
+  "startedAt": "2026-05-28T01:57:24.407Z",
+  "completedAt": "2026-05-28T01:57:28.485Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-490"
+  ],
+  "usage": {
+    "prompt_tokens": 2310,
+    "completion_tokens": 251,
+    "total_tokens": 2561,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1926
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-490",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "a = e - 1",
+        "correctedAnswer": "e-1",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，正确答案为a=e-1。解析中错误得出a=e，且a=e-1与a≥e矛盾，与正确答案不一致，存在数学错误和解释矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目可解，正确答案为a=e-1，但解析存在数学错误和矛盾，判定为失败。"
+    }
+  }
+}

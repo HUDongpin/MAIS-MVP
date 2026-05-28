@@ -1,0 +1,150 @@
+{
+  "batchNumber": 94,
+  "startedAt": "2026-05-27T13:59:38.438Z",
+  "completedAt": "2026-05-27T14:00:02.621Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-245",
+    "bnu-high-ds-v1-s5-246",
+    "bnu-high-ds-v1-s5-247",
+    "bnu-high-ds-v1-s5-248",
+    "bnu-high-ds-v1-s5-249",
+    "bnu-high-ds-v1-s5-250",
+    "bnu-high-ds-v1-s5-251",
+    "bnu-high-ds-v1-s5-252"
+  ],
+  "usage": {
+    "prompt_tokens": 13266,
+    "completion_tokens": 1457,
+    "total_tokens": 14723,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 12754
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-245",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "圆心(-3,-2)，半径5√2，圆方程(x+3)²+(y+2)²=50",
+        "correctedAnswer": "(x+3)²+(y+2)²=50",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件可解，但独立求解得圆心(-3,-2)、半径5√2，与所给答案(1,2)、半径√10矛盾。解析中计算过程混乱且最终未给出正确结果，答案与题目不匹配。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-246",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "m=0或m=-20",
+        "correctedAnswer": "0或-20",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "由点到直线距离公式得|10+m|/5=2，解得m=0或-20，与答案-8或12不符。解析中虽指出矛盾但未修正，答案错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-247",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "±√7/4",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "联立椭圆与直线方程，消去y得(9+16k²)x²+64kx+28=0，由Δ=0解得k²=7/16，k=±√7/4。答案与解析一致，选项唯一正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-248",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "圆心(0,-2)，半径√26，圆方程x²+(y+2)²=26",
+        "correctedAnswer": "x²+(y+2)²=26",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "由条件解得圆心(0,-2)、半径√26，与答案(2,2)、半径√10不符。解析中计算混乱且未给出正确结果，答案错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-249",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "10或-30",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "化l2为3x+4y+m/2=0，由平行线距离公式得|m/2+5|/5=2，解得m=10或-30。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-250",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0或1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "联立抛物线y²=8x与直线y=kx+2，消去x得ky²-8y+16=0。k=0时直线y=2与抛物线交于一点；k≠0时由Δ=0得k=1。选项A正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-251",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "independentAnswer": "（1）A(0,0), B(8,0), C(8,6), D(0,6)；（2）r=5 m；（3）坐标系选择使矩形边与坐标轴平行，简化坐标和距离计算。",
+        "correctedAnswer": null,
+        "issueTags": [
+          "explanation_contradiction"
+        ],
+        "severity": "minor",
+        "confidence": "medium",
+        "rationaleZhHans": "答案正确，但解析中计算最小半径时错误地提到圆心到顶点距离，实际应为圆心到矩形各边距离的最大值，解析表述有误导但最终结果正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-252",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "k=-3/4或k=4/3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由垂径定理得圆心到直线距离d=3，利用点线距公式建立方程，解得k=-3/4或4/3。答案与解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 5,
+      "warn": 1,
+      "fail": 3,
+      "notes": "8题中5题通过，1题解析有小瑕疵，3题因答案与题目条件矛盾而失败，需修正题目或答案。"
+    }
+  }
+}

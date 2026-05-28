@@ -1,0 +1,283 @@
+{
+  "batchId": "batch-002",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p1-006",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "hjb-primary-p1-upper-school-math-habits",
+      "unitTitle": "我是小学生与数学学习习惯",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-school-readiness",
+        "math-talk-listening",
+        "classroom-routines",
+        "数学学习习惯"
+      ],
+      "competencyTags": [
+        "学习习惯",
+        "数学表达",
+        "合作交流"
+      ],
+      "skillTags": [
+        "听说规则",
+        "观察描述",
+        "游戏规则表达",
+        "课堂数学语言"
+      ],
+      "misconceptionTags": [
+        "answering without listening",
+        "counting words without quantity meaning",
+        "rule-following separated from math communication"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p1-upper-school-math-habits"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-upper-assessment-school-readiness",
+        "hjb-primary-p1-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "老师让小朋友说一说自己书包里有什么数学有关的东西。小明说：“我的书包里有3本数学书。”小红说：“我的书包里有一个圆形的笔筒。”小华说：“我的书包里有很多铅笔。”谁说的话里既有数字又有形状？请写出这个小朋友的名字。",
+      "optionsZhHans": [],
+      "answer": "小红",
+      "acceptedAnswers": [
+        "小红"
+      ],
+      "explanationZhHans": "小明只说了数字3，小华只说了很多铅笔（没有具体数字和形状），小红说了圆形（形状）和一个（数字1），所以小红的话里既有数字又有形状。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-007",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "hjb-primary-p1-upper-school-math-habits",
+      "unitTitle": "我是小学生与数学学习习惯",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-school-readiness",
+        "math-talk-listening",
+        "classroom-routines",
+        "数学学习习惯"
+      ],
+      "competencyTags": [
+        "学习习惯",
+        "数学表达",
+        "合作交流"
+      ],
+      "skillTags": [
+        "听说规则",
+        "观察描述",
+        "游戏规则表达",
+        "课堂数学语言"
+      ],
+      "misconceptionTags": [
+        "answering without listening",
+        "counting words without quantity meaning",
+        "rule-following separated from math communication"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p1-upper-school-math-habits"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-upper-assessment-school-readiness",
+        "hjb-primary-p1-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "数学课上，老师拍手，小朋友要仔细听，然后说出老师拍了几下。下面哪个做法最好？",
+      "optionsZhHans": [
+        "老师一拍完，马上大声说出自己猜的数字。",
+        "一边听老师拍手，一边和同桌说话。",
+        "认真听老师拍手，拍完后想一想，再举手说出拍手的次数。",
+        "不看老师，自己玩铅笔，等别人说出答案。"
+      ],
+      "answer": "认真听老师拍手，拍完后想一想，再举手说出拍手的次数。",
+      "acceptedAnswers": [
+        "认真听老师拍手，拍完后想一想，再举手说出拍手的次数。"
+      ],
+      "explanationZhHans": "最好的做法是先认真听，再想一想，然后举手回答，这样能保证听清并正确说出次数。其他选项要么没听清就乱猜，要么不专心。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-008",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "hjb-primary-p1-upper-school-math-habits",
+      "unitTitle": "我是小学生与数学学习习惯",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-school-readiness",
+        "math-talk-listening",
+        "classroom-routines",
+        "数学学习习惯"
+      ],
+      "competencyTags": [
+        "学习习惯",
+        "数学表达",
+        "合作交流"
+      ],
+      "skillTags": [
+        "听说规则",
+        "观察描述",
+        "游戏规则表达",
+        "课堂数学语言"
+      ],
+      "misconceptionTags": [
+        "answering without listening",
+        "counting words without quantity meaning",
+        "rule-following separated from math communication"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p1-upper-school-math-habits"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-upper-assessment-school-readiness",
+        "hjb-primary-p1-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在数学游戏中，老师说：“请拿出3个红色积木和2个蓝色积木。”小明先拿了2个红色积木，又拿了1个红色积木，再拿了2个蓝色积木。他一共拿了______个积木。",
+      "optionsZhHans": [],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5",
+        "五"
+      ],
+      "explanationZhHans": "小明先拿2个红，再拿1个红，红积木共3个；蓝积木2个。3+2=5，所以一共拿了5个积木。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-009",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "hjb-primary-p1-upper-school-math-habits",
+      "unitTitle": "我是小学生与数学学习习惯",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-school-readiness",
+        "math-talk-listening",
+        "classroom-routines",
+        "数学学习习惯"
+      ],
+      "competencyTags": [
+        "学习习惯",
+        "数学表达",
+        "合作交流"
+      ],
+      "skillTags": [
+        "听说规则",
+        "观察描述",
+        "游戏规则表达",
+        "课堂数学语言"
+      ],
+      "misconceptionTags": [
+        "answering without listening",
+        "counting words without quantity meaning",
+        "rule-following separated from math communication"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p1-upper-school-math-habits"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-upper-assessment-school-readiness",
+        "hjb-primary-p1-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "请你说一说，在数学课上，当其他小朋友在发言时，你应该怎么做？",
+      "optionsZhHans": [],
+      "answer": "认真听，不插话，等小朋友说完再举手说自己的想法。",
+      "acceptedAnswers": [
+        "认真听，不插话，等小朋友说完再举手说自己的想法。",
+        "认真听，不打断，等别人说完再举手。",
+        "安静听，等别人说完再发言。"
+      ],
+      "explanationZhHans": "数学课上要学会倾听，别人发言时要认真听，不打断，等别人说完再表达自己的想法，这样才能互相学习。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-010",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "hjb-primary-p1-upper-school-math-habits",
+      "unitTitle": "我是小学生与数学学习习惯",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-school-readiness",
+        "math-talk-listening",
+        "classroom-routines",
+        "数学学习习惯"
+      ],
+      "competencyTags": [
+        "学习习惯",
+        "数学表达",
+        "合作交流"
+      ],
+      "skillTags": [
+        "听说规则",
+        "观察描述",
+        "游戏规则表达",
+        "课堂数学语言"
+      ],
+      "misconceptionTags": [
+        "answering without listening",
+        "counting words without quantity meaning",
+        "rule-following separated from math communication"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p1-upper-school-math-habits"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-upper-assessment-school-readiness",
+        "hjb-primary-p1-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "老师让小朋友观察教室里的物品，并说出一个数学发现。下面哪个小朋友的发现是数学发现？",
+      "optionsZhHans": [
+        "小丽说：“教室里的花很漂亮。”",
+        "小刚说：“黑板是长方形的。”",
+        "小美说：“今天天气真好。”",
+        "小强说：“我喜欢上数学课。”"
+      ],
+      "answer": "小刚说：“黑板是长方形的。”",
+      "acceptedAnswers": [
+        "小刚说：“黑板是长方形的。”"
+      ],
+      "explanationZhHans": "数学发现要和数学有关，比如形状、数字等。小刚说出了黑板的形状是长方形，这是数学发现。其他小朋友说的和数学无关。"
+    }
+  ]
+}

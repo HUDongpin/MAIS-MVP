@@ -1,0 +1,132 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-064",
+  "startedAt": "2026-05-28T02:00:42.250Z",
+  "completedAt": "2026-05-28T02:00:55.110Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-005",
+    "bnu-high-ds-v1-s5-006",
+    "bnu-high-ds-v1-s5-007",
+    "bnu-high-ds-v1-s5-008",
+    "bnu-high-ds-v1-s5-009",
+    "bnu-high-ds-v1-s5-010",
+    "bnu-high-ds-v1-s5-011",
+    "bnu-high-ds-v1-s5-012"
+  ],
+  "usage": {
+    "prompt_tokens": 13651,
+    "completion_tokens": 1089,
+    "total_tokens": 14740,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 13267
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-005",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，均为3x-4y+5=0，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-006",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案±√2与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-007",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案2条与独立解一致，解析正确，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-008",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "证明略；m = -1，最短弦长为4√2",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案m=-3/4、弦长2√7错误。独立解正确为m=-1、弦长4√2，解析中定点与圆心连线水平，最短弦应垂直，对应m=-1。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-009",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案x=1或3x-4y+5=0与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-010",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案√2-1与独立解一致，解析正确，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-011",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案4x+3y-5=0与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-012",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "1/2",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案斜率1错误。独立解正确斜率为1/2，解析中圆心与中点连线斜率-2，垂直弦斜率应为1/2，而非1。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 0,
+      "fail": 2,
+      "notes": "8题中6题通过，2题失败：bnu-high-ds-v1-s5-008存储答案m=-3/4、弦长2√7错误，正确为m=-1、弦长4√2；bnu-high-ds-v1-s5-012存储答案斜率1错误，正确为1/2。"
+    }
+  }
+}

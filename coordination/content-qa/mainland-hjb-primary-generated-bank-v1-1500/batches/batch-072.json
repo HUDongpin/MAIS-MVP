@@ -1,0 +1,294 @@
+{
+  "batchId": "batch-072",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p2-106",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-classification",
+      "unitTitle": "分类与整理",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "classification",
+        "attribute-sorting",
+        "data-organization",
+        "simple-tables",
+        "分类"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "按标准分类",
+        "分类计数",
+        "整理信息",
+        "简单统计表",
+        "分类标准说明"
+      ],
+      "misconceptionTags": [
+        "classification rule changes midway",
+        "one item placed in multiple groups under a single rule",
+        "counts compared without category labels"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-classification"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-upper-assessment-final-integrated",
+        "hjb-primary-p2-upper-assessment-within-100-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "二（1）班同学收集了一些树叶标本，按颜色分类：红色树叶有8片，黄色树叶有12片，绿色树叶有5片。下面哪种说法是正确的？",
+      "optionsZhHans": [
+        "红色树叶最多",
+        "黄色树叶比绿色树叶多7片",
+        "绿色树叶比红色树叶少2片",
+        "黄色树叶最少"
+      ],
+      "answer": "黄色树叶比绿色树叶多7片",
+      "acceptedAnswers": [
+        "黄色树叶比绿色树叶多7片"
+      ],
+      "explanationZhHans": "黄色12片，绿色5片，12-5=7，所以黄色比绿色多7片。红色8片不是最多，绿色比红色少3片，黄色不是最少。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-107",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-classification",
+      "unitTitle": "分类与整理",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "classification",
+        "attribute-sorting",
+        "data-organization",
+        "simple-tables",
+        "分类"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "按标准分类",
+        "分类计数",
+        "整理信息",
+        "简单统计表",
+        "分类标准说明"
+      ],
+      "misconceptionTags": [
+        "classification rule changes midway",
+        "one item placed in multiple groups under a single rule",
+        "counts compared without category labels"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-classification"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-upper-assessment-final-integrated",
+        "hjb-primary-p2-upper-assessment-within-100-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "S18 remediated after DeepSeek-v4-pro QA on 2026-05-25; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "按“是否主要生活在水中”把下面的动物分成两类，并写出分类标准。动物：金鱼、燕子、蝴蝶、鲨鱼、老鹰、蜻蜓。第一类：______，第二类：______。分类标准：______。",
+      "optionsZhHans": [],
+      "answer": "第一类：金鱼、鲨鱼；第二类：燕子、蝴蝶、老鹰、蜻蜓；分类标准：是否主要生活在水中",
+      "acceptedAnswers": [
+        "第一类：金鱼、鲨鱼；第二类：燕子、蝴蝶、老鹰、蜻蜓；分类标准：是否主要生活在水中",
+        "金鱼、鲨鱼；燕子、蝴蝶、老鹰、蜻蜓；是否主要生活在水中",
+        "水中生活：金鱼、鲨鱼；不在水中生活：燕子、蝴蝶、老鹰、蜻蜓"
+      ],
+      "explanationZhHans": "金鱼、鲨鱼主要生活在水中；燕子、蝴蝶、老鹰、蜻蜓不主要生活在水中，所以可以按是否主要生活在水中分类。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-108",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-classification",
+      "unitTitle": "分类与整理",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "classification",
+        "attribute-sorting",
+        "data-organization",
+        "simple-tables",
+        "分类"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "按标准分类",
+        "分类计数",
+        "整理信息",
+        "简单统计表",
+        "分类标准说明"
+      ],
+      "misconceptionTags": [
+        "classification rule changes midway",
+        "one item placed in multiple groups under a single rule",
+        "counts compared without category labels"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-classification"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-upper-assessment-final-integrated",
+        "hjb-primary-p2-upper-assessment-within-100-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "老师调查了同学们最喜欢的水果，结果如下：苹果：9人，香蕉：6人，草莓：12人，橘子：3人。请回答：最喜欢草莓的比最喜欢橘子的多几人？",
+      "optionsZhHans": [],
+      "answer": "9人",
+      "acceptedAnswers": [
+        "9人",
+        "9"
+      ],
+      "explanationZhHans": "草莓12人，橘子3人，12-3=9，所以多9人。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-109",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-classification",
+      "unitTitle": "分类与整理",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "classification",
+        "attribute-sorting",
+        "data-organization",
+        "simple-tables",
+        "分类"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "按标准分类",
+        "分类计数",
+        "整理信息",
+        "简单统计表",
+        "分类标准说明"
+      ],
+      "misconceptionTags": [
+        "classification rule changes midway",
+        "one item placed in multiple groups under a single rule",
+        "counts compared without category labels"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-classification"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-upper-assessment-final-integrated",
+        "hjb-primary-p2-upper-assessment-within-100-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是一些图形：圆形、正方形、三角形、长方形、圆形、正方形、圆形、三角形。按形状分类后，哪种图形最多？",
+      "optionsZhHans": [
+        "圆形",
+        "正方形",
+        "三角形",
+        "长方形"
+      ],
+      "answer": "圆形",
+      "acceptedAnswers": [
+        "圆形"
+      ],
+      "explanationZhHans": "圆形有3个，正方形2个，三角形2个，长方形1个。3>2>1，所以圆形最多。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-110",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-classification",
+      "unitTitle": "分类与整理",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "classification",
+        "attribute-sorting",
+        "data-organization",
+        "simple-tables",
+        "分类"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "按标准分类",
+        "分类计数",
+        "整理信息",
+        "简单统计表",
+        "分类标准说明"
+      ],
+      "misconceptionTags": [
+        "classification rule changes midway",
+        "one item placed in multiple groups under a single rule",
+        "counts compared without category labels"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-classification"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-upper-assessment-final-integrated",
+        "hjb-primary-p2-upper-assessment-within-100-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把下面的数字卡片按单数和双数分成两类。卡片：7、12、9、20、15、8。单数：______，双数：______。",
+      "optionsZhHans": [],
+      "answer": "单数：7、9、15；双数：12、20、8",
+      "acceptedAnswers": [
+        "单数：7、9、15；双数：12、20、8",
+        "单数：7,9,15；双数：12,20,8"
+      ],
+      "explanationZhHans": "个位是1、3、5、7、9的数是单数，个位是0、2、4、6、8的数是双数。7、9、15是单数，12、20、8是双数。"
+    }
+  ]
+}

@@ -1,0 +1,574 @@
+{
+  "batchId": "batch-108",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p5-071",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-fraction-meaning",
+      "unitTitle": "分数的意义",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "fraction-meaning",
+        "fraction-division-relationship",
+        "equivalent-fractions",
+        "improper-mixed-fractions",
+        "分数意义"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "单位一",
+        "分数与除法",
+        "真分数假分数",
+        "带分数",
+        "分数基本性质"
+      ],
+      "misconceptionTags": [
+        "unit whole not identified",
+        "numerator and denominator interpreted as separate whole numbers",
+        "equivalent fractions changed by adding the same number"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-fraction-meaning"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-fraction-meaning-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把一根5米长的彩带平均剪成8段，每段占全长的（ ），每段长（ ）米。",
+      "optionsZhHans": [],
+      "answer": "1/8, 5/8",
+      "acceptedAnswers": [
+        "1/8, 5/8",
+        "八分之一, 八分之五"
+      ],
+      "explanationZhHans": "把全长看作单位“1”，平均分成8段，每段占全长的1/8。求每段长度用总长度除以段数：5÷8=5/8米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-072",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-fraction-meaning",
+      "unitTitle": "分数的意义",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "fraction-meaning",
+        "fraction-division-relationship",
+        "equivalent-fractions",
+        "improper-mixed-fractions",
+        "分数意义"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "单位一",
+        "分数与除法",
+        "真分数假分数",
+        "带分数",
+        "分数基本性质"
+      ],
+      "misconceptionTags": [
+        "unit whole not identified",
+        "numerator and denominator interpreted as separate whole numbers",
+        "equivalent fractions changed by adding the same number"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-fraction-meaning"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-fraction-meaning-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把3个月饼平均分给4个小朋友，每人分得多少个月饼？用分数表示结果，并说明这个分数表示什么。",
+      "optionsZhHans": [],
+      "answer": "3/4个，表示把3个月饼看作一个整体，平均分成4份，每份是3/4个。",
+      "acceptedAnswers": [
+        "3/4个，表示把3个月饼看作一个整体，平均分成4份，每份是3/4个。",
+        "3/4个，表示3个月饼的1/4。",
+        "3/4个，表示把3个月饼平均分成4份，取其中的一份。"
+      ],
+      "explanationZhHans": "根据分数与除法的关系，3÷4=3/4（个）。这里的单位“1”是3个月饼，平均分成4份，每份就是3/4个月饼。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-073",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-fraction-meaning",
+      "unitTitle": "分数的意义",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "fraction-meaning",
+        "fraction-division-relationship",
+        "equivalent-fractions",
+        "improper-mixed-fractions",
+        "分数意义"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "单位一",
+        "分数与除法",
+        "真分数假分数",
+        "带分数",
+        "分数基本性质"
+      ],
+      "misconceptionTags": [
+        "unit whole not identified",
+        "numerator and denominator interpreted as separate whole numbers",
+        "equivalent fractions changed by adding the same number"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-fraction-meaning"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-fraction-meaning-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个分数与2/3相等？",
+      "optionsZhHans": [
+        "4/6",
+        "3/4",
+        "5/7",
+        "6/9"
+      ],
+      "answer": "4/6",
+      "acceptedAnswers": [
+        "4/6"
+      ],
+      "explanationZhHans": "分数的基本性质：分子和分母同时乘或除以相同的数（0除外），分数大小不变。2/3的分子分母同时乘2得到4/6，所以4/6=2/3。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-074",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-fraction-meaning",
+      "unitTitle": "分数的意义",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "fraction-meaning",
+        "fraction-division-relationship",
+        "equivalent-fractions",
+        "improper-mixed-fractions",
+        "分数意义"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "单位一",
+        "分数与除法",
+        "真分数假分数",
+        "带分数",
+        "分数基本性质"
+      ],
+      "misconceptionTags": [
+        "unit whole not identified",
+        "numerator and denominator interpreted as separate whole numbers",
+        "equivalent fractions changed by adding the same number"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-fraction-meaning"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-fraction-meaning-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个分数，分子与分母的和是28，化成最简分数后是3/4。原来的分数是（ ）。",
+      "optionsZhHans": [],
+      "answer": "12/16",
+      "acceptedAnswers": [
+        "12/16"
+      ],
+      "explanationZhHans": "最简分数3/4的分子分母同时乘一个相同的数。设乘的数为k，则原分数为3k/4k。3k+4k=28，7k=28，k=4。所以原分数为12/16。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-075",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-fraction-meaning",
+      "unitTitle": "分数的意义",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "fraction-meaning",
+        "fraction-division-relationship",
+        "equivalent-fractions",
+        "improper-mixed-fractions",
+        "分数意义"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "单位一",
+        "分数与除法",
+        "真分数假分数",
+        "带分数",
+        "分数基本性质"
+      ],
+      "misconceptionTags": [
+        "unit whole not identified",
+        "numerator and denominator interpreted as separate whole numbers",
+        "equivalent fractions changed by adding the same number"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-fraction-meaning"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-fraction-meaning-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在括号里填上适当的数：5/8 = 15/( ) = ( )/32。",
+      "optionsZhHans": [],
+      "answer": "24, 20",
+      "acceptedAnswers": [
+        "24, 20"
+      ],
+      "explanationZhHans": "5/8的分子乘3得15，分母也要乘3得24；分母乘4得32，分子也要乘4得20。所以填24和20。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-076",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-composite-area",
+      "unitTitle": "组合图形的面积",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "composite-area",
+        "decompose-recompose",
+        "irregular-area",
+        "area-strategy-selection",
+        "组合图形面积"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "分割组合图形",
+        "补形求面积",
+        "选择面积策略",
+        "标注必要长度",
+        "综合计算"
+      ],
+      "misconceptionTags": [
+        "overlap area counted twice",
+        "missing dimension inferred without justification",
+        "perimeter segments added instead of area components"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-composite-area"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-composite-area-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个组合图形由一个正方形和一个等腰直角三角形拼成。正方形边长8厘米，三角形的一条直角边与正方形的一条边完全重合，另一条直角边长6厘米。这个组合图形的面积是多少平方厘米？",
+      "optionsZhHans": [
+        "88平方厘米",
+        "76平方厘米",
+        "64平方厘米",
+        "112平方厘米"
+      ],
+      "answer": "88平方厘米",
+      "acceptedAnswers": [
+        "88平方厘米"
+      ],
+      "explanationZhHans": "正方形面积：8×8=64平方厘米。三角形面积：6×8÷2=24平方厘米。组合图形面积：64+24=88平方厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-077",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-composite-area",
+      "unitTitle": "组合图形的面积",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "composite-area",
+        "decompose-recompose",
+        "irregular-area",
+        "area-strategy-selection",
+        "组合图形面积"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "分割组合图形",
+        "补形求面积",
+        "选择面积策略",
+        "标注必要长度",
+        "综合计算"
+      ],
+      "misconceptionTags": [
+        "overlap area counted twice",
+        "missing dimension inferred without justification",
+        "perimeter segments added instead of area components"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-composite-area"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-composite-area-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一块不规则菜地可以分割成一个长方形和一个梯形。长方形长12米，宽5米；梯形上底5米，下底9米，高4米，且梯形下底与长方形的一条长边重合。这块菜地的面积是（ ）平方米。",
+      "optionsZhHans": [],
+      "answer": "88",
+      "acceptedAnswers": [
+        "88"
+      ],
+      "explanationZhHans": "长方形面积：12×5=60平方米。梯形面积：(5+9)×4÷2=28平方米。总面积：60+28=88平方米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-078",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-composite-area",
+      "unitTitle": "组合图形的面积",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "composite-area",
+        "decompose-recompose",
+        "irregular-area",
+        "area-strategy-selection",
+        "组合图形面积"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "分割组合图形",
+        "补形求面积",
+        "选择面积策略",
+        "标注必要长度",
+        "综合计算"
+      ],
+      "misconceptionTags": [
+        "overlap area counted twice",
+        "missing dimension inferred without justification",
+        "perimeter segments added instead of area components"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-composite-area"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-composite-area-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个组合图形可以看作从一个长10厘米、宽6厘米的长方形中挖去一个边长4厘米的正方形（正方形的一个顶点在长方形内部）。请计算这个组合图形的面积，并说明你的计算思路。",
+      "optionsZhHans": [],
+      "answer": "44平方厘米。思路：用长方形面积减去正方形面积。10×6=60平方厘米，4×4=16平方厘米，60-16=44平方厘米。",
+      "acceptedAnswers": [
+        "44平方厘米。思路：用长方形面积减去正方形面积。10×6=60平方厘米，4×4=16平方厘米，60-16=44平方厘米。",
+        "44平方厘米。长方形面积60平方厘米，正方形面积16平方厘米，相减得44平方厘米。"
+      ],
+      "explanationZhHans": "采用补形策略，将组合图形看作长方形减去正方形。长方形面积60平方厘米，正方形面积16平方厘米，差为44平方厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-079",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-composite-area",
+      "unitTitle": "组合图形的面积",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "composite-area",
+        "decompose-recompose",
+        "irregular-area",
+        "area-strategy-selection",
+        "组合图形面积"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "分割组合图形",
+        "补形求面积",
+        "选择面积策略",
+        "标注必要长度",
+        "综合计算"
+      ],
+      "misconceptionTags": [
+        "overlap area counted twice",
+        "missing dimension inferred without justification",
+        "perimeter segments added instead of area components"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-composite-area"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-composite-area-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个图形面积的计算方法是用梯形面积加上三角形面积？",
+      "optionsZhHans": [
+        "一个梯形上底4厘米、下底10厘米、高5厘米，下面拼接一个底10厘米、高3厘米的三角形，拼成一个五边形。",
+        "一个长方形长8厘米、宽5厘米，里面挖去一个边长2厘米的正方形。",
+        "一个平行四边形底6厘米、高4厘米，旁边拼接一个底6厘米、高3厘米的三角形。",
+        "一个正方形边长7厘米，分割成两个三角形。"
+      ],
+      "answer": "一个梯形上底4厘米、下底10厘米、高5厘米，下面拼接一个底10厘米、高3厘米的三角形，拼成一个五边形。",
+      "acceptedAnswers": [
+        "一个梯形上底4厘米、下底10厘米、高5厘米，下面拼接一个底10厘米、高3厘米的三角形，拼成一个五边形。"
+      ],
+      "explanationZhHans": "该图形由梯形和三角形组合而成，面积是梯形面积加三角形面积。其他选项分别是挖去、拼接平行四边形或分割，不符合要求。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-080",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-composite-area",
+      "unitTitle": "组合图形的面积",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "composite-area",
+        "decompose-recompose",
+        "irregular-area",
+        "area-strategy-selection",
+        "组合图形面积"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "分割组合图形",
+        "补形求面积",
+        "选择面积策略",
+        "标注必要长度",
+        "综合计算"
+      ],
+      "misconceptionTags": [
+        "overlap area counted twice",
+        "missing dimension inferred without justification",
+        "perimeter segments added instead of area components"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-composite-area"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-composite-area-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个组合图形由两个完全一样的直角梯形拼成，每个梯形上底3厘米、下底7厘米、高4厘米。拼成的图形面积是（ ）平方厘米。",
+      "optionsZhHans": [],
+      "answer": "40",
+      "acceptedAnswers": [
+        "40"
+      ],
+      "explanationZhHans": "一个梯形面积：(3+7)×4÷2=20平方厘米。两个梯形面积：20×2=40平方厘米。"
+    }
+  ]
+}

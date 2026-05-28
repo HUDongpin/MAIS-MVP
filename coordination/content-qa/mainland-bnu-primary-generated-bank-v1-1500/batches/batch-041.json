@@ -1,0 +1,555 @@
+{
+  "batchId": "batch-041",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p2-151",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-direction-position",
+      "unitTitle": "方向与位置",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "direction-position",
+        "map-language",
+        "spatial-orientation",
+        "方向与位置"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "东南西北",
+        "路线描述",
+        "方位判断",
+        "位置关系"
+      ],
+      "misconceptionTags": [
+        "direction words swapped",
+        "reference point omitted",
+        "route order reversed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-direction-position"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-direction-position",
+        "bnu-primary-p2-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "早晨，小红面向太阳站立。她的左边是什么方向？",
+      "optionsZhHans": [
+        "东",
+        "南",
+        "西",
+        "北"
+      ],
+      "answer": "北",
+      "acceptedAnswers": [
+        "北"
+      ],
+      "explanationZhHans": "早晨太阳从东方升起，小红面向东，左边是北。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-152",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-direction-position",
+      "unitTitle": "方向与位置",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "direction-position",
+        "map-language",
+        "spatial-orientation",
+        "方向与位置"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "东南西北",
+        "路线描述",
+        "方位判断",
+        "位置关系"
+      ],
+      "misconceptionTags": [
+        "direction words swapped",
+        "reference point omitted",
+        "route order reversed"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-direction-position"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-direction-position",
+        "bnu-primary-p2-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明从家出发，先向东走100米到超市，再向北走50米到学校。那么学校在小明家的什么方向？",
+      "optionsZhHans": [],
+      "answer": "东北",
+      "acceptedAnswers": [
+        "东北"
+      ],
+      "explanationZhHans": "从家向东再向北，学校位于家的东和北之间，即东北方向。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-153",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-direction-position",
+      "unitTitle": "方向与位置",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "direction-position",
+        "map-language",
+        "spatial-orientation",
+        "方向与位置"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "东南西北",
+        "路线描述",
+        "方位判断",
+        "位置关系"
+      ],
+      "misconceptionTags": [
+        "direction words swapped",
+        "reference point omitted",
+        "route order reversed"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-direction-position"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-direction-position",
+        "bnu-primary-p2-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小芳站在操场中心，她的南边是教学楼，北边是图书馆。请问教学楼在图书馆的什么方向？",
+      "optionsZhHans": [],
+      "answer": "南",
+      "acceptedAnswers": [
+        "南"
+      ],
+      "explanationZhHans": "以图书馆为参考点，教学楼在它的南边。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-154",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-direction-position",
+      "unitTitle": "方向与位置",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "direction-position",
+        "map-language",
+        "spatial-orientation",
+        "方向与位置"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "东南西北",
+        "路线描述",
+        "方位判断",
+        "位置关系"
+      ],
+      "misconceptionTags": [
+        "direction words swapped",
+        "reference point omitted",
+        "route order reversed"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-direction-position"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-direction-position",
+        "bnu-primary-p2-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小动物们排队：小狗在小猫的东边，小兔在小狗的南边。小兔在小猫的什么方向？",
+      "optionsZhHans": [
+        "东",
+        "南",
+        "西",
+        "东南"
+      ],
+      "answer": "东南",
+      "acceptedAnswers": [
+        "东南"
+      ],
+      "explanationZhHans": "小狗在小猫东边，小兔在小狗南边，所以小兔在小猫的东南方向。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-155",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-direction-position",
+      "unitTitle": "方向与位置",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "direction-position",
+        "map-language",
+        "spatial-orientation",
+        "方向与位置"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "东南西北",
+        "路线描述",
+        "方位判断",
+        "位置关系"
+      ],
+      "misconceptionTags": [
+        "direction words swapped",
+        "reference point omitted",
+        "route order reversed"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-direction-position"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-direction-position",
+        "bnu-primary-p2-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "公园里，凉亭在假山的西边，花坛在假山的北边。花坛在凉亭的什么方向？",
+      "optionsZhHans": [],
+      "answer": "东北",
+      "acceptedAnswers": [
+        "东北"
+      ],
+      "explanationZhHans": "以凉亭为参考点，假山在它的东边，花坛在假山北边，所以花坛在凉亭的东北方向。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-156",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-direction-position",
+      "unitTitle": "方向与位置",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "direction-position",
+        "map-language",
+        "spatial-orientation",
+        "方向与位置"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "东南西北",
+        "路线描述",
+        "方位判断",
+        "位置关系"
+      ],
+      "misconceptionTags": [
+        "direction words swapped",
+        "reference point omitted",
+        "route order reversed"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-direction-position"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-direction-position",
+        "bnu-primary-p2-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小华从学校回家：先向南走200米，再向东走100米。请用方向词描述学校在小华家的什么位置。",
+      "optionsZhHans": [],
+      "answer": "西北",
+      "acceptedAnswers": [
+        "西北"
+      ],
+      "explanationZhHans": "从家到学校是向北再向西，所以学校在家的西北方向。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-157",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-direction-position",
+      "unitTitle": "方向与位置",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "direction-position",
+        "map-language",
+        "spatial-orientation",
+        "方向与位置"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "东南西北",
+        "路线描述",
+        "方位判断",
+        "位置关系"
+      ],
+      "misconceptionTags": [
+        "direction words swapped",
+        "reference point omitted",
+        "route order reversed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-direction-position"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-direction-position",
+        "bnu-primary-p2-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "教室里，黑板在教室的东墙，窗户在北墙。小明面向黑板，他的右边是什么方向？",
+      "optionsZhHans": [
+        "东",
+        "南",
+        "西",
+        "北"
+      ],
+      "answer": "南",
+      "acceptedAnswers": [
+        "南"
+      ],
+      "explanationZhHans": "面向东，右边是南。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-158",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-direction-position",
+      "unitTitle": "方向与位置",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "direction-position",
+        "map-language",
+        "spatial-orientation",
+        "方向与位置"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "东南西北",
+        "路线描述",
+        "方位判断",
+        "位置关系"
+      ],
+      "misconceptionTags": [
+        "direction words swapped",
+        "reference point omitted",
+        "route order reversed"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-direction-position"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-direction-position",
+        "bnu-primary-p2-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丽从家去图书馆：先向北走300米，再向西走150米。图书馆在小丽家的什么方向？",
+      "optionsZhHans": [],
+      "answer": "西北",
+      "acceptedAnswers": [
+        "西北"
+      ],
+      "explanationZhHans": "从家向北再向西，图书馆位于家的西北方向。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-159",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-direction-position",
+      "unitTitle": "方向与位置",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "direction-position",
+        "map-language",
+        "spatial-orientation",
+        "方向与位置"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "东南西北",
+        "路线描述",
+        "方位判断",
+        "位置关系"
+      ],
+      "misconceptionTags": [
+        "direction words swapped",
+        "reference point omitted",
+        "route order reversed"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-direction-position"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-direction-position",
+        "bnu-primary-p2-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小东站在路口，他的东边是邮局，南边是银行。请问银行在邮局的什么方向？",
+      "optionsZhHans": [],
+      "answer": "西南",
+      "acceptedAnswers": [
+        "西南"
+      ],
+      "explanationZhHans": "以邮局为参考点，银行在它的西边和南边之间，即西南方向。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-160",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-direction-position",
+      "unitTitle": "方向与位置",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "direction-position",
+        "map-language",
+        "spatial-orientation",
+        "方向与位置"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "东南西北",
+        "路线描述",
+        "方位判断",
+        "位置关系"
+      ],
+      "misconceptionTags": [
+        "direction words swapped",
+        "reference point omitted",
+        "route order reversed"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-direction-position"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-direction-position",
+        "bnu-primary-p2-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小美从家出发，先向东走，再向南走，到达公园。公园在小美家的什么方向？",
+      "optionsZhHans": [
+        "东",
+        "南",
+        "西",
+        "东南"
+      ],
+      "answer": "东南",
+      "acceptedAnswers": [
+        "东南"
+      ],
+      "explanationZhHans": "从家向东再向南，公园位于家的东南方向。"
+    }
+  ]
+}

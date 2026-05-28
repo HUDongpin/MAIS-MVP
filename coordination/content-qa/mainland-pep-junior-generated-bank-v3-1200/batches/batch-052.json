@@ -1,0 +1,355 @@
+{
+  "batchId": "batch-052",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s2-k07-mc-010",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-triangle-angle-relations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-proof-calculation-integrated"
+      ],
+      "promptZhHans": "判断x²-4x+4的因式分解，下列正确的是（ ）",
+      "optionsZhHans": [
+        "x² - 4x + 4 = (x - 2)²",
+        "a² - b² = (a - b)(a - b)",
+        "2x² - 8 = 2(x - 4)(x + 4)",
+        "m² + 6m + 9 = (m + 3)(m - 3)"
+      ],
+      "answer": "x² - 4x + 4 = (x - 2)²",
+      "acceptedAnswers": [
+        "x² - 4x + 4 = (x - 2)²",
+        "A"
+      ],
+      "explanationZhHans": "选项A：x² - 4x + 4 = (x - 2)²，完全平方公式，正确。选项B：a² - b² = (a - b)(a + b)，不是(a - b)(a - b)，错误。选项C：2x² - 8 = 2(x² - 4) = 2(x - 2)(x + 2)，不是2(x - 4)(x + 4)，错误。选项D：m² + 6m + 9 = (m + 3)²，不是(m + 3)(m - 3)，错误。因此正确答案是A。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-mc-011",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-congruence-proof"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions"
+      ],
+      "promptZhHans": "计算 (2a - 3b)(2a + 3b) 的结果是（　）",
+      "optionsZhHans": [
+        "4a² - 9b²",
+        "4a² + 9b²",
+        "2a² - 3b²",
+        "4a² - 6b²"
+      ],
+      "answer": "4a² - 9b²",
+      "acceptedAnswers": [
+        "4a² - 9b²",
+        "A"
+      ],
+      "explanationZhHans": "根据平方差公式：(2a - 3b)(2a + 3b) = (2a)² - (3b)² = 4a² - 9b²。因此正确答案是A。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-mc-012",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-axis-symmetry-isosceles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "若分式 (x² - 9) / (x - 3) 的值为0，则x的值为（　）",
+      "optionsZhHans": [
+        "3",
+        "-3",
+        "±3",
+        "0"
+      ],
+      "answer": "-3",
+      "acceptedAnswers": [
+        "-3",
+        "B"
+      ],
+      "explanationZhHans": "分式值为0的条件是分子为0且分母不为0。分子x² - 9 = 0，解得x = 3或x = -3。当x = 3时分母x - 3 = 0，分式无意义，舍去。因此x = -3。正确答案是B。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-mc-013",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-polynomial-multiplication-factorization"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "下列各式中，能用完全平方公式分解因式的是（　）",
+      "optionsZhHans": [
+        "x² - 4x - 4",
+        "a² + 2ab - b²",
+        "4m² - 12m + 9",
+        "y² + 5y + 10"
+      ],
+      "answer": "4m² - 12m + 9",
+      "acceptedAnswers": [
+        "4m² - 12m + 9",
+        "C"
+      ],
+      "explanationZhHans": "完全平方公式的形式为a² ± 2ab + b²。选项C：4m² - 12m + 9 = (2m)² - 2·2m·3 + 3² = (2m - 3)²，符合。选项A：常数项为负，不符合。选项B：中间项符号与平方项不符。选项D：5y不是2倍乘积。因此正确答案是C。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-mc-014",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-algebraic-fractions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "promptZhHans": "化简分式 (x² - 2x) / (x² - 4) 的结果是（　）",
+      "optionsZhHans": [
+        "x / (x + 2)",
+        "x / (x - 2)",
+        "(x - 2) / (x + 2)",
+        "x(x - 2) / (x + 2)"
+      ],
+      "answer": "x / (x + 2)",
+      "acceptedAnswers": [
+        "x / (x + 2)",
+        "A"
+      ],
+      "explanationZhHans": "分子分母分别因式分解：分子x² - 2x = x(x - 2)，分母x² - 4 = (x + 2)(x - 2)。约去公因式(x - 2)，得x / (x + 2)。注意x ≠ ±2。因此正确答案是A。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-mc-015",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "promptZhHans": "解分式方程 1/(x - 1) + 2/(x + 1) = 4/(x² - 1) 时，去分母后得到的整式方程是（　）",
+      "optionsZhHans": [
+        "(x + 1) + 2(x - 1) = 4",
+        "(x + 1) + 2(x - 1) = 4x",
+        "1 + 2 = 4",
+        "x + 1 + 2x - 2 = 4"
+      ],
+      "answer": "(x + 1) + 2(x - 1) = 4",
+      "acceptedAnswers": [
+        "(x + 1) + 2(x - 1) = 4",
+        "A"
+      ],
+      "explanationZhHans": "方程两边同乘最简公分母(x - 1)(x + 1) = x² - 1。左边第一项乘得(x + 1)，第二项乘得2(x - 1)，右边乘得4。得(x + 1) + 2(x - 1) = 4。注意x ≠ ±1。因此正确答案是A。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-mc-016",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-triangle-angle-relations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean"
+      ],
+      "promptZhHans": "若多项式 x² + kx + 25 是一个完全平方式，则k的值为（　）",
+      "optionsZhHans": [
+        "5",
+        "10",
+        "±5",
+        "±10"
+      ],
+      "answer": "±10",
+      "acceptedAnswers": [
+        "±10",
+        "D"
+      ],
+      "explanationZhHans": "完全平方式x² + kx + 25 = (x ± 5)² = x² ± 10x + 25，所以k = ±10。因此正确答案是D。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-mc-017",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-congruence-proof"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "计算 ( -3a²b )³ 的结果是（　）",
+      "optionsZhHans": [
+        "-9a⁶b³",
+        "-27a⁵b³",
+        "-27a⁶b³",
+        "27a⁶b³"
+      ],
+      "answer": "-27a⁶b³",
+      "acceptedAnswers": [
+        "-27a⁶b³",
+        "C"
+      ],
+      "explanationZhHans": "积的乘方等于每个因式分别乘方：(-3)³ = -27，(a²)³ = a⁶，b³不变。所以结果为-27a⁶b³。因此正确答案是C。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-mc-018",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-axis-symmetry-isosceles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "若 a + b = 5，ab = 6，则 a² + b² 的值为（　）",
+      "optionsZhHans": [
+        "13",
+        "19",
+        "25",
+        "37"
+      ],
+      "answer": "13",
+      "acceptedAnswers": [
+        "13",
+        "A"
+      ],
+      "explanationZhHans": "由完全平方公式：(a + b)² = a² + 2ab + b²，所以a² + b² = (a + b)² - 2ab = 5² - 2×6 = 25 - 12 = 13。因此正确答案是A。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-mc-019",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-polynomial-multiplication-factorization"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "把多项式 3x² - 12 分解因式，结果正确的是（　）",
+      "optionsZhHans": [
+        "3(x² - 4)",
+        "3(x - 2)²",
+        "3(x + 2)(x - 2)",
+        "(3x + 6)(x - 2)"
+      ],
+      "answer": "3(x + 2)(x - 2)",
+      "acceptedAnswers": [
+        "3(x + 2)(x - 2)",
+        "C"
+      ],
+      "explanationZhHans": "先提公因式3：3x² - 12 = 3(x² - 4)，再对x² - 4用平方差公式分解为(x + 2)(x - 2)，所以最终结果为3(x + 2)(x - 2)。因此正确答案是C。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

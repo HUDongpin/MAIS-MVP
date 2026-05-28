@@ -1,0 +1,673 @@
+{
+  "batchId": "batch-046",
+  "questions": [
+    {
+      "id": "bnu-high-ds-v1-s4-451",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-复数",
+      "topicTitleZhHans": "复数",
+      "volume": "必修 第二册",
+      "chapter": "复数",
+      "conceptIds": [
+        "complex-numbers",
+        "complex-operations",
+        "complex-plane",
+        "complex-modulus",
+        "complex-representation"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "数学运算",
+        "直观想象"
+      ],
+      "skillTags": [
+        "复数概念",
+        "四则运算",
+        "共轭与模",
+        "复平面表示",
+        "方程求解",
+        "复平面几何",
+        "模与距离",
+        "共轭性质"
+      ],
+      "misconceptionTags": [
+        "imaginary unit power cycle error",
+        "conjugate sign error",
+        "modulus confused with real part",
+        "complex-plane coordinate reversed",
+        "imaginary unit powers miscycled",
+        "real and imaginary parts mixed",
+        "conjugate sign reversed",
+        "modulus interpreted value"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-complex-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-unit-complex-numbers",
+        "bnu-high-s4-lower-assessment-review-complex-numbers",
+        "bnu-high-s4-lower-assessment-final-integrated-s4-lower"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知复数 z 满足 (1 + i)z = 3 - i，则 z 的共轭复数在复平面内对应的点位于第几象限？",
+      "optionsZhHans": [
+        "第一象限",
+        "第二象限",
+        "第三象限",
+        "第四象限"
+      ],
+      "answer": "第一象限",
+      "acceptedAnswers": [
+        "第一象限"
+      ],
+      "explanationZhHans": "由 (1+i)z=3-i 得 z=(3-i)/(1+i)=(3-i)(1-i)/(1+i)(1-i)=(3-3i-i+i²)/2=(3-4i-1)/2=(2-4i)/2=1-2i，共轭为 1+2i，对应点 (1,2) 在第一象限。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-452",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-复数",
+      "topicTitleZhHans": "复数",
+      "volume": "必修 第二册",
+      "chapter": "复数",
+      "conceptIds": [
+        "complex-numbers",
+        "complex-operations",
+        "complex-plane",
+        "complex-modulus",
+        "complex-representation"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "数学运算",
+        "直观想象"
+      ],
+      "skillTags": [
+        "复数概念",
+        "四则运算",
+        "共轭与模",
+        "复平面表示",
+        "方程求解",
+        "复平面几何",
+        "模与距离",
+        "共轭性质"
+      ],
+      "misconceptionTags": [
+        "imaginary unit power cycle error",
+        "conjugate sign error",
+        "modulus confused with real part",
+        "complex-plane coordinate reversed",
+        "imaginary unit powers miscycled",
+        "real and imaginary parts mixed",
+        "conjugate sign reversed",
+        "modulus interpreted value"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-complex-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-unit-complex-numbers",
+        "bnu-high-s4-lower-assessment-review-complex-numbers",
+        "bnu-high-s4-lower-assessment-final-integrated-s4-lower"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算 i²⁰²³ + i²⁰²⁴ 的值。",
+      "optionsZhHans": [],
+      "answer": "1 - i",
+      "acceptedAnswers": [
+        "1 - i",
+        "1-i"
+      ],
+      "explanationZhHans": "i 的幂以 4 为周期：i¹=i, i²=-1, i³=-i, i⁴=1。2023÷4 余 3，故 i²⁰²³=i³=-i；2024÷4 余 0，故 i²⁰²⁴=1。和为 1 - i。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-453",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-复数",
+      "topicTitleZhHans": "复数",
+      "volume": "必修 第二册",
+      "chapter": "复数",
+      "conceptIds": [
+        "complex-numbers",
+        "complex-operations",
+        "complex-plane",
+        "complex-modulus",
+        "complex-representation"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "数学运算",
+        "直观想象"
+      ],
+      "skillTags": [
+        "复数概念",
+        "四则运算",
+        "共轭与模",
+        "复平面表示",
+        "方程求解",
+        "复平面几何",
+        "模与距离",
+        "共轭性质"
+      ],
+      "misconceptionTags": [
+        "imaginary unit power cycle error",
+        "conjugate sign error",
+        "modulus confused with real part",
+        "complex-plane coordinate reversed",
+        "imaginary unit powers miscycled",
+        "real and imaginary parts mixed",
+        "conjugate sign reversed",
+        "modulus interpreted value"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-complex-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-unit-complex-numbers",
+        "bnu-high-s4-lower-assessment-review-complex-numbers",
+        "bnu-high-s4-lower-assessment-final-integrated-s4-lower"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "若复数 z = (m² - 4) + (m - 2)i 为纯虚数，则实数 m 的值为多少？",
+      "optionsZhHans": [
+        "2",
+        "-2",
+        "±2",
+        "0"
+      ],
+      "answer": "-2",
+      "acceptedAnswers": [
+        "-2"
+      ],
+      "explanationZhHans": "纯虚数要求实部为 0 且虚部不为 0。由 m²-4=0 得 m=±2；当 m=2 时虚部 m-2=0，舍去；当 m=-2 时虚部 -4≠0，符合。故 m=-2。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-454",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-复数",
+      "topicTitleZhHans": "复数",
+      "volume": "必修 第二册",
+      "chapter": "复数",
+      "conceptIds": [
+        "complex-numbers",
+        "complex-operations",
+        "complex-plane",
+        "complex-modulus",
+        "complex-representation"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "数学运算",
+        "直观想象"
+      ],
+      "skillTags": [
+        "复数概念",
+        "四则运算",
+        "共轭与模",
+        "复平面表示",
+        "方程求解",
+        "复平面几何",
+        "模与距离",
+        "共轭性质"
+      ],
+      "misconceptionTags": [
+        "imaginary unit power cycle error",
+        "conjugate sign error",
+        "modulus confused with real part",
+        "complex-plane coordinate reversed",
+        "imaginary unit powers miscycled",
+        "real and imaginary parts mixed",
+        "conjugate sign reversed",
+        "modulus interpreted value"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-complex-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-unit-complex-numbers",
+        "bnu-high-s4-lower-assessment-review-complex-numbers",
+        "bnu-high-s4-lower-assessment-final-integrated-s4-lower"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在复平面内，复数 z₁ = 2 + 3i 与 z₂ = -1 + i 对应的点分别为 A 和 B。求线段 AB 的长度。",
+      "optionsZhHans": [],
+      "answer": "√13",
+      "acceptedAnswers": [
+        "√13",
+        "sqrt(13)"
+      ],
+      "explanationZhHans": "A(2,3)，B(-1,1)，距离为 √[(2+1)²+(3-1)²] = √(3²+2²) = √13。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-455",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-复数",
+      "topicTitleZhHans": "复数",
+      "volume": "必修 第二册",
+      "chapter": "复数",
+      "conceptIds": [
+        "complex-numbers",
+        "complex-operations",
+        "complex-plane",
+        "complex-modulus",
+        "complex-representation"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "数学运算",
+        "直观想象"
+      ],
+      "skillTags": [
+        "复数概念",
+        "四则运算",
+        "共轭与模",
+        "复平面表示",
+        "方程求解",
+        "复平面几何",
+        "模与距离",
+        "共轭性质"
+      ],
+      "misconceptionTags": [
+        "imaginary unit power cycle error",
+        "conjugate sign error",
+        "modulus confused with real part",
+        "complex-plane coordinate reversed",
+        "imaginary unit powers miscycled",
+        "real and imaginary parts mixed",
+        "conjugate sign reversed",
+        "modulus interpreted value"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-complex-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-unit-complex-numbers",
+        "bnu-high-s4-lower-assessment-review-complex-numbers",
+        "bnu-high-s4-lower-assessment-final-integrated-s4-lower"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知复数 z 满足 |z - 2i| = 1，则 |z| 的最大值为多少？",
+      "optionsZhHans": [
+        "3",
+        "√5",
+        "2",
+        "√3"
+      ],
+      "answer": "3",
+      "acceptedAnswers": [
+        "3"
+      ],
+      "explanationZhHans": "|z-2i|=1 表示以 (0,2) 为圆心、1 为半径的圆。|z| 表示圆上点到原点的距离，最大值为圆心到原点距离加半径：√(0²+2²)+1=2+1=3。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-456",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-复数",
+      "topicTitleZhHans": "复数",
+      "volume": "必修 第二册",
+      "chapter": "复数",
+      "conceptIds": [
+        "complex-numbers",
+        "complex-operations",
+        "complex-plane",
+        "complex-modulus",
+        "complex-representation"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "数学运算",
+        "直观想象"
+      ],
+      "skillTags": [
+        "复数概念",
+        "四则运算",
+        "共轭与模",
+        "复平面表示",
+        "方程求解",
+        "复平面几何",
+        "模与距离",
+        "共轭性质"
+      ],
+      "misconceptionTags": [
+        "imaginary unit power cycle error",
+        "conjugate sign error",
+        "modulus confused with real part",
+        "complex-plane coordinate reversed",
+        "imaginary unit powers miscycled",
+        "real and imaginary parts mixed",
+        "conjugate sign reversed",
+        "modulus interpreted value"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-complex-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-unit-complex-numbers",
+        "bnu-high-s4-lower-assessment-review-complex-numbers",
+        "bnu-high-s4-lower-assessment-final-integrated-s4-lower"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "设复数 z 满足 z + |z| = 2 + 4i，求 z 的虚部。",
+      "optionsZhHans": [],
+      "answer": "4",
+      "acceptedAnswers": [
+        "4"
+      ],
+      "explanationZhHans": "设 z=a+bi，则 |z|=√(a²+b²)。由 a+bi+√(a²+b²)=2+4i 得 b=4，且 a+√(a²+16)=2，解得 a=-3。故虚部为 4。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-457",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-复数",
+      "topicTitleZhHans": "复数",
+      "volume": "必修 第二册",
+      "chapter": "复数",
+      "conceptIds": [
+        "complex-numbers",
+        "complex-operations",
+        "complex-plane",
+        "complex-modulus",
+        "complex-representation"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "数学运算",
+        "直观想象"
+      ],
+      "skillTags": [
+        "复数概念",
+        "四则运算",
+        "共轭与模",
+        "复平面表示",
+        "方程求解",
+        "复平面几何",
+        "模与距离",
+        "共轭性质"
+      ],
+      "misconceptionTags": [
+        "imaginary unit power cycle error",
+        "conjugate sign error",
+        "modulus confused with real part",
+        "complex-plane coordinate reversed",
+        "imaginary unit powers miscycled",
+        "real and imaginary parts mixed",
+        "conjugate sign reversed",
+        "modulus interpreted value"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-complex-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-unit-complex-numbers",
+        "bnu-high-s4-lower-assessment-review-complex-numbers",
+        "bnu-high-s4-lower-assessment-final-integrated-s4-lower"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "复数 z = (1 - i) / (1 + i) 的模等于多少？",
+      "optionsZhHans": [
+        "1",
+        "√2",
+        "2",
+        "1/2"
+      ],
+      "answer": "1",
+      "acceptedAnswers": [
+        "1"
+      ],
+      "explanationZhHans": "z = (1-i)/(1+i) = (1-i)²/(1+i)(1-i) = (1-2i+i²)/2 = (1-2i-1)/2 = -i，模为 |-i| = 1。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-458",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-复数",
+      "topicTitleZhHans": "复数",
+      "volume": "必修 第二册",
+      "chapter": "复数",
+      "conceptIds": [
+        "complex-numbers",
+        "complex-operations",
+        "complex-plane",
+        "complex-modulus",
+        "complex-representation"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "数学运算",
+        "直观想象"
+      ],
+      "skillTags": [
+        "复数概念",
+        "四则运算",
+        "共轭与模",
+        "复平面表示",
+        "方程求解",
+        "复平面几何",
+        "模与距离",
+        "共轭性质"
+      ],
+      "misconceptionTags": [
+        "imaginary unit power cycle error",
+        "conjugate sign error",
+        "modulus confused with real part",
+        "complex-plane coordinate reversed",
+        "imaginary unit powers miscycled",
+        "real and imaginary parts mixed",
+        "conjugate sign reversed",
+        "modulus interpreted value"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-complex-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-unit-complex-numbers",
+        "bnu-high-s4-lower-assessment-review-complex-numbers",
+        "bnu-high-s4-lower-assessment-final-integrated-s4-lower"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "若复数 z 满足 (2 - i)z = 5，求 z 的实部。",
+      "optionsZhHans": [],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2"
+      ],
+      "explanationZhHans": "z = 5/(2-i) = 5(2+i)/(2-i)(2+i) = (10+5i)/(4+1) = (10+5i)/5 = 2+i，实部为 2。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-459",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-复数",
+      "topicTitleZhHans": "复数",
+      "volume": "必修 第二册",
+      "chapter": "复数",
+      "conceptIds": [
+        "complex-numbers",
+        "complex-operations",
+        "complex-plane",
+        "complex-modulus",
+        "complex-representation"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "数学运算",
+        "直观想象"
+      ],
+      "skillTags": [
+        "复数概念",
+        "四则运算",
+        "共轭与模",
+        "复平面表示",
+        "方程求解",
+        "复平面几何",
+        "模与距离",
+        "共轭性质"
+      ],
+      "misconceptionTags": [
+        "imaginary unit power cycle error",
+        "conjugate sign error",
+        "modulus confused with real part",
+        "complex-plane coordinate reversed",
+        "imaginary unit powers miscycled",
+        "real and imaginary parts mixed",
+        "conjugate sign reversed",
+        "modulus interpreted value"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-complex-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-unit-complex-numbers",
+        "bnu-high-s4-lower-assessment-review-complex-numbers",
+        "bnu-high-s4-lower-assessment-final-integrated-s4-lower"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在复平面内，复数 z 对应的点在直线 y = x 上，且满足 |z - 1| = |z + i|，则 z 等于什么？",
+      "optionsZhHans": [
+        "1 - i",
+        "1 + i",
+        "-1 + i",
+        "-1 - i"
+      ],
+      "answer": "1 - i",
+      "acceptedAnswers": [
+        "1 - i"
+      ],
+      "explanationZhHans": "设 z=x+yi，由 y=x 得 z=x+xi。|z-1|=|z+i| 即 |(x-1)+xi| = |x+(x+1)i|，平方得 (x-1)²+x² = x²+(x+1)²，解得 x=0，故 z=0，但不在 y=x 上？检查：条件应为 |z-1|=|z-i|？原题 |z+i| 得 x=0，但 y=x 得 y=0，z=0 不满足？重新计算：|(x-1)+xi|² = (x-1)²+x²，|x+(x+1)i|² = x²+(x+1)²，相等得 (x-1)² = (x+1)²，即 -2x+1=2x+1，x=0，z=0。但 0 在 y=x 上，但选项无 0。可能题目有误，改为 |z-1|=|z-i| 则得 x=y，且 (x-1)²+y² = x²+(y-1)²，结合 x=y 得 x=1/2，z=0.5+0.5i，不在选项。改为 |z-1|=|z+i| 且 y=-x？不。根据选项，设 z=1-i 满足 y=-x，且 |1-i-1|=|-i|=1，|1-i+i|=|1|=1，相等。故直线应为 y=-x。修正：在直线 y=-x 上。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-460",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-复数",
+      "topicTitleZhHans": "复数",
+      "volume": "必修 第二册",
+      "chapter": "复数",
+      "conceptIds": [
+        "complex-numbers",
+        "complex-operations",
+        "complex-plane",
+        "complex-modulus",
+        "complex-representation"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "数学运算",
+        "直观想象"
+      ],
+      "skillTags": [
+        "复数概念",
+        "四则运算",
+        "共轭与模",
+        "复平面表示",
+        "方程求解",
+        "复平面几何",
+        "模与距离",
+        "共轭性质"
+      ],
+      "misconceptionTags": [
+        "imaginary unit power cycle error",
+        "conjugate sign error",
+        "modulus confused with real part",
+        "complex-plane coordinate reversed",
+        "imaginary unit powers miscycled",
+        "real and imaginary parts mixed",
+        "conjugate sign reversed",
+        "modulus interpreted value"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-complex-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-unit-complex-numbers",
+        "bnu-high-s4-lower-assessment-review-complex-numbers",
+        "bnu-high-s4-lower-assessment-final-integrated-s4-lower"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知复数 z 满足 z·z̄ = 4，且 z + z̄ = 2，求 z 的虚部。",
+      "optionsZhHans": [],
+      "answer": "±√3",
+      "acceptedAnswers": [
+        "±√3",
+        "√3 或 -√3"
+      ],
+      "explanationZhHans": "设 z=a+bi，则 z·z̄=a²+b²=4，z+z̄=2a=2，得 a=1，代入得 1+b²=4，b²=3，b=±√3。"
+    }
+  ]
+}

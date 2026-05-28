@@ -1,0 +1,136 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-162",
+  "startedAt": "2026-05-28T01:48:28.118Z",
+  "completedAt": "2026-05-28T01:48:42.570Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-289",
+    "bnu-high-ds-v1-s6-290",
+    "bnu-high-ds-v1-s6-291",
+    "bnu-high-ds-v1-s6-292",
+    "bnu-high-ds-v1-s6-293",
+    "bnu-high-ds-v1-s6-294",
+    "bnu-high-ds-v1-s6-295",
+    "bnu-high-ds-v1-s6-296"
+  ],
+  "usage": {
+    "prompt_tokens": 11925,
+    "completion_tokens": 1049,
+    "total_tokens": 12974,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 11541
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-289",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案2与独立解一致，解析正确，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-290",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "a ≥ 3",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案a≥0错误，独立解得a≥3；解析虽指出原答案有误并修正为a≥3，但与存储答案矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-291",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "10",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案6错误，独立解得a=10；解析中计算得a=10，但存储答案为6，矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-292",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "correctedAnswer": "(-1, 1)",
+        "issueTags": [
+          "math_error",
+          "ambiguous_mc",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案[-1,1]错误，独立解为(-1,1)；解析称闭区间，但单调区间通常写开区间，且选项中有(-1,1)，导致答案不唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-293",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-294",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案0与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-295",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案-3与独立解一致，解析正确，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-296",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 5,
+      "warn": 0,
+      "fail": 3,
+      "notes": "共8题，5题通过，3题失败：290题答案错误（a≥0应为a≥3），291题答案错误（6应为10），292题答案错误且选项歧义（闭区间应为开区间）。"
+    }
+  }
+}

@@ -1,0 +1,191 @@
+{
+  "batchNumber": 58,
+  "startedAt": "2026-05-27T13:29:23.191Z",
+  "completedAt": "2026-05-27T13:29:40.181Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p5-027",
+    "bnu-primary-ds-v1-p5-028",
+    "bnu-primary-ds-v1-p5-029",
+    "bnu-primary-ds-v1-p5-030",
+    "bnu-primary-ds-v1-p5-031",
+    "bnu-primary-ds-v1-p5-032",
+    "bnu-primary-ds-v1-p5-033",
+    "bnu-primary-ds-v1-p5-034",
+    "bnu-primary-ds-v1-p5-035",
+    "bnu-primary-ds-v1-p5-036",
+    "bnu-primary-ds-v1-p5-037",
+    "bnu-primary-ds-v1-p5-038",
+    "bnu-primary-ds-v1-p5-039",
+    "bnu-primary-ds-v1-p5-040",
+    "bnu-primary-ds-v1-p5-041",
+    "bnu-primary-ds-v1-p5-042",
+    "bnu-primary-ds-v1-p5-043",
+    "bnu-primary-ds-v1-p5-044"
+  ],
+  "usage": {
+    "prompt_tokens": 3329,
+    "completion_tokens": 1265,
+    "total_tokens": 4594,
+    "prompt_tokens_details": {
+      "cached_tokens": 3328
+    },
+    "prompt_cache_hit_tokens": 3328,
+    "prompt_cache_miss_tokens": 1
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p5-027",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，平移描述符合要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-028",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项明确，正确选项唯一，解释合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-029",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "填空答案正确，方向与格数无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-030",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "两问答案均正确，表述清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-031",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "公倍数概念，答案48正确，选项无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-032",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "奇数与合数判断正确，答案9和15无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-033",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "因数列举完整，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-034",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "3和5的公倍数，30正确，选项合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-035",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "最大公因数6，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-036",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "因数应用，答案列举完整。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-037",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "概念辨析，正确选项唯一，解释充分。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-038",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "50以内7的倍数列举正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-039",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "质数和与积，答案7和13正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-040",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "最小公倍数应用，24颗正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-041",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "最小公倍数24，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-042",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "因数列举完整，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-043",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "质数判断，29正确，选项无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-044",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "最大公因数12，答案正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版小学数学要求，答案正确，无歧义或错误。"
+    }
+  }
+}

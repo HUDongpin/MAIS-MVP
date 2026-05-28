@@ -1,0 +1,181 @@
+{
+  "startedAt": "2026-05-26T06:17:26.348Z",
+  "completedAt": "2026-05-26T06:17:44.983Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "usage": {
+    "prompt_tokens": 2678,
+    "completion_tokens": 1448,
+    "total_tokens": 4126,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 2678
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "questionId": "pep-primary-p6-l-sa-141",
+        "solvableStatus": "pass",
+        "independentAnswer": "9",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "总份数2+3=5，较大份占3/5，15×3/5=9升。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-142",
+        "solvableStatus": "pass",
+        "independentAnswer": "12",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "总份数5，较大份占3/5，20×3/5=12升。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-143",
+        "solvableStatus": "pass",
+        "independentAnswer": "15",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "总份数5，较大份占3/5，25×3/5=15升。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-144",
+        "solvableStatus": "pass",
+        "independentAnswer": "18",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "总份数5，较大份占3/5，30×3/5=18升。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-145",
+        "solvableStatus": "pass",
+        "independentAnswer": "6",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "总份数5，较大份占3/5，10×3/5=6升。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-146",
+        "solvableStatus": "pass",
+        "independentAnswer": "9",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "与141题相同，15×3/5=9升。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-147",
+        "solvableStatus": "pass",
+        "independentAnswer": "12",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "与142题相同，20×3/5=12升。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-148",
+        "solvableStatus": "pass",
+        "independentAnswer": "15",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "与143题相同，25×3/5=15升。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-149",
+        "solvableStatus": "pass",
+        "independentAnswer": "18",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "与144题相同，30×3/5=18升。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-150",
+        "solvableStatus": "pass",
+        "independentAnswer": "6",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "与145题相同，10×3/5=6升。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-151",
+        "solvableStatus": "pass",
+        "independentAnswer": "6",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "-3+9=6°C。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-152",
+        "solvableStatus": "pass",
+        "independentAnswer": "1",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "-2+3=1°C。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-153",
+        "solvableStatus": "pass",
+        "independentAnswer": "4",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "-1+5=4°C。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-154",
+        "solvableStatus": "pass",
+        "independentAnswer": "7",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "0+7=7°C。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-155",
+        "solvableStatus": "pass",
+        "independentAnswer": "10",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "1+9=10°C。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-156",
+        "solvableStatus": "pass",
+        "independentAnswer": "-7",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "-10+3=-7°C。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-157",
+        "solvableStatus": "pass",
+        "independentAnswer": "-4",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "-9+5=-4°C。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-158",
+        "solvableStatus": "pass",
+        "independentAnswer": "-1",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "-8+7=-1°C。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-159",
+        "solvableStatus": "pass",
+        "independentAnswer": "2",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "-7+9=2°C。"
+      },
+      {
+        "questionId": "pep-primary-p6-l-sa-160",
+        "solvableStatus": "pass",
+        "independentAnswer": "-3",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "-6+3=-3°C。"
+      }
+    ]
+  }
+}

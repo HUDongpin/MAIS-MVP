@@ -1,0 +1,181 @@
+{
+  "startedAt": "2026-05-26T05:51:17.771Z",
+  "completedAt": "2026-05-26T05:51:34.891Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "usage": {
+    "prompt_tokens": 2350,
+    "completion_tokens": 1409,
+    "total_tokens": 3759,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 2350
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "questionId": "pep-primary-p1-l-fi-101",
+        "solvableStatus": "pass",
+        "independentAnswer": "56",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "66-10=56，条件清晰，可直接求解。"
+      },
+      {
+        "questionId": "pep-primary-p1-l-fi-102",
+        "solvableStatus": "pass",
+        "independentAnswer": "57",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "72-15=57，条件清晰，可直接求解。"
+      },
+      {
+        "questionId": "pep-primary-p1-l-fi-103",
+        "solvableStatus": "pass",
+        "independentAnswer": "58",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "78-20=58，条件清晰，可直接求解。"
+      },
+      {
+        "questionId": "pep-primary-p1-l-fi-104",
+        "solvableStatus": "pass",
+        "independentAnswer": "51",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "58-7=51，条件清晰，可直接求解。"
+      },
+      {
+        "questionId": "pep-primary-p1-l-fi-105",
+        "solvableStatus": "pass",
+        "independentAnswer": "52",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "64-12=52，条件清晰，可直接求解。"
+      },
+      {
+        "questionId": "pep-primary-p1-l-fi-106",
+        "solvableStatus": "pass",
+        "independentAnswer": "53",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "70-17=53，条件清晰，可直接求解。"
+      },
+      {
+        "questionId": "pep-primary-p1-l-fi-107",
+        "solvableStatus": "pass",
+        "independentAnswer": "71",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "76-5=71，条件清晰，可直接求解。"
+      },
+      {
+        "questionId": "pep-primary-p1-l-fi-108",
+        "solvableStatus": "pass",
+        "independentAnswer": "24",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "34-10=24，条件清晰，可直接求解。"
+      },
+      {
+        "questionId": "pep-primary-p1-l-fi-109",
+        "solvableStatus": "pass",
+        "independentAnswer": "25",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "40-15=25，条件清晰，可直接求解。"
+      },
+      {
+        "questionId": "pep-primary-p1-l-fi-110",
+        "solvableStatus": "pass",
+        "independentAnswer": "36",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "50-14=36，条件清晰，可直接求解。"
+      },
+      {
+        "questionId": "pep-primary-p1-l-fi-111",
+        "solvableStatus": "pass",
+        "independentAnswer": "76",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "57+19=76，条件清晰，可直接求解。"
+      },
+      {
+        "questionId": "pep-primary-p1-l-fi-112",
+        "solvableStatus": "pass",
+        "independentAnswer": "58",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "64-6=58，条件清晰，可直接求解。"
+      },
+      {
+        "questionId": "pep-primary-p1-l-fi-113",
+        "solvableStatus": "pass",
+        "independentAnswer": "82",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "71+11=82，条件清晰，可直接求解。"
+      },
+      {
+        "questionId": "pep-primary-p1-l-fi-114",
+        "solvableStatus": "pass",
+        "independentAnswer": "62",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "78-16=62，条件清晰，可直接求解。"
+      },
+      {
+        "questionId": "pep-primary-p1-l-fi-115",
+        "solvableStatus": "pass",
+        "independentAnswer": "56",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "35+21=56，条件清晰，可直接求解。"
+      },
+      {
+        "questionId": "pep-primary-p1-l-fi-116",
+        "solvableStatus": "pass",
+        "independentAnswer": "34",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "42-8=34，条件清晰，可直接求解。"
+      },
+      {
+        "questionId": "pep-primary-p1-l-fi-117",
+        "solvableStatus": "pass",
+        "independentAnswer": "62",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "49+13=62，条件清晰，可直接求解。"
+      },
+      {
+        "questionId": "pep-primary-p1-l-fi-118",
+        "solvableStatus": "pass",
+        "independentAnswer": "38",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "56-18=38，条件清晰，可直接求解。"
+      },
+      {
+        "questionId": "pep-primary-p1-l-fi-119",
+        "solvableStatus": "pass",
+        "independentAnswer": "68",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "63+5=68，条件清晰，可直接求解。"
+      },
+      {
+        "questionId": "pep-primary-p1-l-fi-120",
+        "solvableStatus": "pass",
+        "independentAnswer": "60",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "70-10=60，条件清晰，可直接求解。"
+      }
+    ]
+  }
+}

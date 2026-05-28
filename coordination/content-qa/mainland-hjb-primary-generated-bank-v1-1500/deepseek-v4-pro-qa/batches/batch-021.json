@@ -1,0 +1,191 @@
+{
+  "batchNumber": 21,
+  "startedAt": "2026-05-25T01:58:57.107Z",
+  "completedAt": "2026-05-25T01:59:16.562Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p2-111",
+    "hjb-primary-ds-v1-p2-112",
+    "hjb-primary-ds-v1-p2-113",
+    "hjb-primary-ds-v1-p2-114",
+    "hjb-primary-ds-v1-p2-115",
+    "hjb-primary-ds-v1-p2-116",
+    "hjb-primary-ds-v1-p2-117",
+    "hjb-primary-ds-v1-p2-118",
+    "hjb-primary-ds-v1-p2-119",
+    "hjb-primary-ds-v1-p2-120",
+    "hjb-primary-ds-v1-p2-121",
+    "hjb-primary-ds-v1-p2-122",
+    "hjb-primary-ds-v1-p2-123",
+    "hjb-primary-ds-v1-p2-124",
+    "hjb-primary-ds-v1-p2-125",
+    "hjb-primary-ds-v1-p2-126",
+    "hjb-primary-ds-v1-p2-127",
+    "hjb-primary-ds-v1-p2-128"
+  ],
+  "usage": {
+    "prompt_tokens": 4611,
+    "completion_tokens": 1322,
+    "total_tokens": 5933,
+    "prompt_tokens_details": {
+      "cached_tokens": 4608
+    },
+    "prompt_cache_hit_tokens": 4608,
+    "prompt_cache_miss_tokens": 3
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p2-111",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，符合二年级分类与整理要求。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-112",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分类标准明确，选项无歧义，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-113",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "填空设计合理，答案准确，符合数据整理要求。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-114",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "统计表填写正确，计算无误，符合二年级水平。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-115",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分类标准清晰，选项合理，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-116",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "改错题设计合理，答案覆盖多种表述，正确指出错误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-117",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "应用题步骤清晰，答案正确，符合二年级计算要求。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-118",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "复习方法选择题，答案合理，无歧义。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-119",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "找规律题正确，答案14，规律加3，符合二年级。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-120",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方向判断题，答案正确指出左右写反，改正合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-121",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "错题分析题，答案正确指出混淆乘法与加法。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-122",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方向填空正确，南、西、东顺序无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-123",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "检查方法题，答案提供两种合理方法，符合要求。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-124",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "算式分类题，答案正确区分乘法和加法。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-125",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "周期规律题，答案△正确，计算无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-126",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "应用题计算正确，检查方法合理，答案覆盖多种格式。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-127",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "乘法意义题，选项A正确，其他选项明显错误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-128",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "元角分换算题，答案正确，符合二年级基础。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合沪教版二年级要求，数学正确，答案匹配，无歧义或缺失条件，适合公共题库推广。"
+    }
+  }
+}

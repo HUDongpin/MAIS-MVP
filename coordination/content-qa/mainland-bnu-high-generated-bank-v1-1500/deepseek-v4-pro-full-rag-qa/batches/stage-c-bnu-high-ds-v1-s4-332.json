@@ -1,0 +1,47 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-332",
+  "startedAt": "2026-05-28T02:42:00.956Z",
+  "completedAt": "2026-05-28T02:42:05.730Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-332"
+  ],
+  "usage": {
+    "prompt_tokens": 2086,
+    "completion_tokens": 304,
+    "total_tokens": 2390,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1702
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-332",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "x > 3/2",
+        "correctedAnswer": "x > 3/2",
+        "issueTags": [
+          "answer_mismatch"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "夹角为锐角需a·b>0且a与b不共线。a·b=2x-3>0得x>3/2；共线时2×3=-1×x得x=-6，但x=-6不在x>3/2内，无需排除。正确答案为x>3/2，存储答案多出x≠-6，属于多余条件，导致答案不匹配。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目可解，符合教材范围，但存储答案错误地包含了多余条件x≠-6，正确答案应为x>3/2。"
+    }
+  }
+}

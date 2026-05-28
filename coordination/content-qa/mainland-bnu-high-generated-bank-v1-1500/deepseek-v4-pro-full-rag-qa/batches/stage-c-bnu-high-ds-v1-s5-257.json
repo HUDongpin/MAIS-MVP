@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-257",
+  "startedAt": "2026-05-28T01:25:02.548Z",
+  "completedAt": "2026-05-28T01:25:08.436Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-257"
+  ],
+  "usage": {
+    "prompt_tokens": 2397,
+    "completion_tokens": 383,
+    "total_tokens": 2780,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2013
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-257",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "(1) 3x-4y+14=0; (2) Q(0,3.5); (3) 2.80",
+        "correctedAnswer": "(1) 3x-4y+14=0\n(2) Q(0,3.5)\n(3) 2.80",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合北师大版数学建模活动要求。独立计算得点P到AC距离为2.80，但存储答案为2.40，且解析中自相矛盾（指出正确值为2.80却给出2.40），存在数学错误和答案不匹配，必须修正。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第(3)问距离计算错误，存储答案2.40与正确值2.80不符，解析自相矛盾，判定为blocker。"
+    }
+  }
+}

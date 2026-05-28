@@ -1,0 +1,179 @@
+{
+  "batchNumber": 104,
+  "startedAt": "2026-05-27T17:58:22.205Z",
+  "completedAt": "2026-05-27T17:58:54.857Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s3-237",
+    "bnu-junior-ds-v1-s3-238",
+    "bnu-junior-ds-v1-s3-239",
+    "bnu-junior-ds-v1-s3-240",
+    "bnu-junior-ds-v1-s3-241",
+    "bnu-junior-ds-v1-s3-242",
+    "bnu-junior-ds-v1-s3-243",
+    "bnu-junior-ds-v1-s3-244",
+    "bnu-junior-ds-v1-s3-245",
+    "bnu-junior-ds-v1-s3-246",
+    "bnu-junior-ds-v1-s3-247",
+    "bnu-junior-ds-v1-s3-248"
+  ],
+  "usage": {
+    "prompt_tokens": 6823,
+    "completion_tokens": 2066,
+    "total_tokens": 8889,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 6311
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s3-237",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "18 cm²",
+        "rationale": "题目可解，但答案错误。由视图还原几何体为底层3个并排立方块，第二层中间1个，共4个立方块。表面积计算：前后面各3个面，左右面各2个面，上下面各4个面，总面数=2×(3+2+4)=18，每个面1 cm²，表面积18 cm²。答案30 cm²及解释中“实际表面积应为30 cm²”无依据，与正确计算矛盾。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-238",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，答案正确。由主视图3列（2,1,2）和左视图2列（2,2）确定俯视图为3行2列。最少6个，最多8个，m-n=2，选项A正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-239",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，答案正确。由俯视图知底层6个位置均有方块，结合主视图和左视图高度限制，可唯一确定各位置层数：第一行第一列2层，第一行第二列1层，第二行第一列2层，第二行第二列1层，第三行第一列1层，第三行第二列1层，总个数7。答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-240",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，答案正确。主视图面积=长×高=6×3=18，俯视图面积=长×宽=6×4=24，左视图面积=宽×高=4×3=12，顺序为18,24,12，与答案一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-241",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，答案正确。由主视图（3行：3,2左,1中）和左视图（3行：2,2,1右）可推断俯视图为3×2网格，各位置块数满足视图约束，可能总数为6、7、8，不可能为9，选项D正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-242",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，答案正确。主视图和左视图均为3×3满格，最少需9个（底层放满，上层只在交叉位置放），最多27个（每层放满9个，共3层）。答案a=9，b=27正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-243",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，答案正确。从正前方观察对应主视图，看到长60 cm和高30 cm，面积1800 cm²。答案“主视图，1800”匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-244",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "36",
+        "rationale": "题目可解，但答案错误。平行光线斜照，影子为长方体在水平面上的投影。光线方向与桌面成45°，水平投影与长边平行，影子面积应为长×宽+长×高×tan45°=6×4+6×3=24+18=42？但需注意影子是光线将物体投影到桌面，实际影子面积等于长方体在垂直于光线方向的截面面积除以cos45°？正确计算：影子为矩形，长边为6+3=9？错误。标准解法：影子面积=长×宽+长×高×tan45°=6×4+6×3=42，但选项中有42，为何答案选42？解释中给出42，但答案也是42，为何我判断错误？重新审题：选项有24,30,36,42，答案选42，解释也得出42，但解释中又说截面面积4√45≈26.83，矛盾。实际上，平行光线斜照，影子是长方体在桌面上的投影，形状为矩形，边长分别为6+3=9和4，面积36。正确影子面积应为36 cm²。解释混乱，答案42错误。",
+        "confidence": "medium"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-245",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，答案正确。由俯视图知底层4个位置，结合主视图和左视图高度限制，最少4个（左前2层，其余1层），最多5个（左前、左后2层，右前、右后1层）。答案“最少4个，最多5个”匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-246",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，答案正确。从正上方垂直向下观察为俯视图，面积=长×宽=60×40=2400 cm²。答案2400匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-247",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，答案正确。由俯视图知底层4个位置必有方块，结合主视图和左视图高度限制，最少需5个（第一行左列2个，其余1个）。选项B正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-248",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，答案正确。正六棱柱底面边长为2 cm，高5 cm。假设一条对角线平行于正面，主视图为矩形，长5 cm，宽4 cm（外接圆直径）；俯视图为正六边形，边长2 cm；左视图为矩形，长5 cm，宽2√3≈3.46 cm（对边距离）。答案描述准确。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 10,
+      "warn": 0,
+      "fail": 2,
+      "notes": "12道题中10道通过，2道失败。失败题：237题表面积答案错误，应为18 cm²而非30 cm²；244题影子面积答案错误，应为36 cm²而非42 cm²，且解释混乱。其余题目可解且答案匹配。"
+    }
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "batchId": "model-qa-0075",
+  "ids": [
+    "hjb-junior-ds-v2-s2-093",
+    "hjb-junior-ds-v2-s2-094",
+    "hjb-junior-ds-v2-s2-095",
+    "hjb-junior-ds-v2-s2-096",
+    "hjb-junior-ds-v2-s2-097",
+    "hjb-junior-ds-v2-s2-098",
+    "hjb-junior-ds-v2-s2-099",
+    "hjb-junior-ds-v2-s2-100"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-093",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3√3",
+      "answerCheckZhHans": "标准答案 3√3 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-094",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "√5",
+      "answerCheckZhHans": "标准答案 √5 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-095",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3a√(2b)",
+      "answerCheckZhHans": "标准答案 3a√(2b) 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-096",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "5",
+      "answerCheckZhHans": "标准答案 5 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-097",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "√3",
+      "answerCheckZhHans": "标准答案 √3 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-098",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "题干要求最简二次根式 √(2x+1) 与 √(5x-7) 是同类二次根式，但 √(2x+1) 和 √(5x-7) 本身不一定是最简二次根式，例如当 x=8/3 时，被开方数为 19/3，不是整数，不是最简二次根式。同类二次根式的定义要求化简后被开方数相同，但这里直接令被开方数相等可能不正确。需要检查是否还有其他条件或解。",
+      "independentAnswerZhHans": "无法确定唯一解，因为同类二次根式要求化简后根指数相同且被开方数相同，但 √(2x+1) 和 √(5x-7) 可能不是最简形式，直接令被开方数相等可能漏解或错解。",
+      "answerCheckZhHans": "标准答案 8/3 可能不正确，因为当 x=8/3 时，被开方数为 19/3，不是最简二次根式，且同类二次根式通常要求被开方数为整数。",
+      "recommendedActionZhHans": "重新审查题目条件和答案，可能需要修改题干或答案。",
+      "confidence": "medium"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-099",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "4ab√(3b)",
+      "answerCheckZhHans": "标准答案 4ab√(3b) 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-100",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "√18",
+      "answerCheckZhHans": "标准答案 √18 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,109 @@
+{
+  "batchId": "model-qa-0071",
+  "ids": [
+    "hjb-junior-ds-v2-s2-061",
+    "hjb-junior-ds-v2-s2-062",
+    "hjb-junior-ds-v2-s2-063",
+    "hjb-junior-ds-v2-s2-064",
+    "hjb-junior-ds-v2-s2-065",
+    "hjb-junior-ds-v2-s2-066",
+    "hjb-junior-ds-v2-s2-067",
+    "hjb-junior-ds-v2-s2-068"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-061",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2个",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-062",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "12 和 13",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-063",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x≥3",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-064",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-2ab√(3a)",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-065",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x≥2",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-066",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为“a=2，值为2”，但解析中计算值为1，且独立计算也为1。答案与解析矛盾。",
+      "independentAnswerZhHans": "a=2，值为1",
+      "answerCheckZhHans": "标准答案错误，应为1。",
+      "recommendedActionZhHans": "修正答案为“a=2，值为1”，并更新解析。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-067",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "√(x²+y²)（其中x>0，y>0）",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-068",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为x=5，但解析中方程2(x-2)=x+1解得x=5，然而代入原式√(2x-4)=√6，√(x+1)=√6，可合并。但需检查是否满足最简二次根式条件：√6已最简，合并后为2√6，符合。但解析中“√(x+1) 已最简”不准确，因为x=5时√(x+1)=√6，确实最简。但题目要求“可以合并为最简二次根式”，可能指合并后结果是最简二次根式，而非各自最简。解析逻辑有瑕疵，但答案正确。然而，需考虑x=5是否唯一？若x=2，则√(2x-4)=0，√(x+1)=√3，不能合并。若x=5，成立。但解析中未考虑x=2时√(2x-4)=0，0不是二次根式？通常0可视为√0，但二次根式通常要求被开方数≥0，0是允许的，但0与√3不能合并。所以x=5是唯一解。但解析中“√(x+1) 已最简”在x=5时成立，但未说明一般情况。整体答案正确，但解析表述不够严谨，建议优化。",
+      "independentAnswerZhHans": "x=5",
+      "answerCheckZhHans": "标准答案正确，但解析有瑕疵。",
+      "recommendedActionZhHans": "优化解析，明确合并条件，并验证x=5的唯一性。",
+      "confidence": "medium"
+    }
+  ]
+}

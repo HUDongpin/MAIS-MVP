@@ -1,0 +1,343 @@
+{
+  "batchId": "batch-020",
+  "questions": [
+    {
+      "id": "hjb-junior-ds-v2-s1-096",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "hjb-junior-s1-upper-polynomial-multiply-divide",
+      "unitTitle": "整式的乘除",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "exponent-laws",
+        "monomial-multiplication",
+        "polynomial-multiplication",
+        "multiplication-formulas",
+        "polynomial-division",
+        "幂的运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "符号意识",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "同底数幂",
+        "幂的乘方",
+        "积的乘方",
+        "整式乘法",
+        "乘法公式",
+        "整式除法"
+      ],
+      "misconceptionTags": [
+        "exponents added in power of a power",
+        "formula pattern overmatched",
+        "division factor omitted"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s1-upper-polynomial-multiply-divide"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit",
+        "hjb-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-linear-inequalities",
+        "hjb-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知多项式 A = 2x^3 - 5x^2 + 4x - 7，B = x^2 - 3x + 2。计算 (A + 2B) ÷ (x - 1) 的商式和余式。",
+      "optionsZhHans": [],
+      "answer": "商式为 2x^2 - x + 2，余式为 -3",
+      "acceptedAnswers": [
+        "商式为 2x^2 - x + 2，余式为 -3",
+        "商式 2x^2 - x + 2，余式 -3",
+        "2x^2 - x + 2 余 -3",
+        "商：2x^2 - x + 2，余：-3"
+      ],
+      "explanationZhHans": "先算 A+2B = 2x^3-5x^2+4x-7+2x^2-6x+4 = 2x^3-3x^2-2x-3。用长除法除以 x-1：2x^3÷x=2x^2，乘减得 -x^2-2x；-x^2÷x=-x，乘减得 2x-3；2x÷x=2，乘减得 -3。商 2x^2-x+2，余 -3。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-097",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "hjb-junior-s1-upper-polynomial-multiply-divide",
+      "unitTitle": "整式的乘除",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "exponent-laws",
+        "monomial-multiplication",
+        "polynomial-multiplication",
+        "multiplication-formulas",
+        "polynomial-division",
+        "幂的运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "符号意识",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "同底数幂",
+        "幂的乘方",
+        "积的乘方",
+        "整式乘法",
+        "乘法公式",
+        "整式除法"
+      ],
+      "misconceptionTags": [
+        "exponents added in power of a power",
+        "formula pattern overmatched",
+        "division factor omitted"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s1-upper-polynomial-multiply-divide"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit",
+        "hjb-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-linear-inequalities",
+        "hjb-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下列计算正确的是（ ）\nA. (a^2)^3 = a^5\nB. a^2 · a^3 = a^6\nC. (2a^2)^3 = 6a^6\nD. a^6 ÷ a^2 = a^4",
+      "optionsZhHans": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "D",
+      "acceptedAnswers": [
+        "D"
+      ],
+      "explanationZhHans": "A应为a^6，幂的乘方指数相乘；B应为a^5，同底数幂相乘指数相加；C应为8a^6，积的乘方系数也要乘方；D正确，同底数幂相除指数相减。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-098",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "hjb-junior-s1-upper-polynomial-multiply-divide",
+      "unitTitle": "整式的乘除",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "exponent-laws",
+        "monomial-multiplication",
+        "polynomial-multiplication",
+        "multiplication-formulas",
+        "polynomial-division",
+        "幂的运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "符号意识",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "同底数幂",
+        "幂的乘方",
+        "积的乘方",
+        "整式乘法",
+        "乘法公式",
+        "整式除法"
+      ],
+      "misconceptionTags": [
+        "exponents added in power of a power",
+        "formula pattern overmatched",
+        "division factor omitted"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-junior-s1-upper-polynomial-multiply-divide"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit",
+        "hjb-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-linear-inequalities",
+        "hjb-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算：( -2x^2 y )^3 ÷ ( 4x^3 y^2 ) = ______。",
+      "optionsZhHans": [],
+      "answer": "-2x^3 y",
+      "acceptedAnswers": [
+        "-2x^3 y",
+        "-2x^3y",
+        "-2 x^3 y"
+      ],
+      "explanationZhHans": "先算分子：(-2)^3 (x^2)^3 y^3 = -8x^6 y^3。再除以分母：-8x^6 y^3 ÷ (4x^3 y^2) = (-8÷4) x^(6-3) y^(3-2) = -2x^3 y。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-099",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "hjb-junior-s1-upper-polynomial-multiply-divide",
+      "unitTitle": "整式的乘除",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "exponent-laws",
+        "monomial-multiplication",
+        "polynomial-multiplication",
+        "multiplication-formulas",
+        "polynomial-division",
+        "幂的运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "符号意识",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "同底数幂",
+        "幂的乘方",
+        "积的乘方",
+        "整式乘法",
+        "乘法公式",
+        "整式除法"
+      ],
+      "misconceptionTags": [
+        "exponents added in power of a power",
+        "formula pattern overmatched",
+        "division factor omitted"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s1-upper-polynomial-multiply-divide"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit",
+        "hjb-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-linear-inequalities",
+        "hjb-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知 x + y = 5，xy = 3，求 x^2 + y^2 和 (x - y)^2 的值。",
+      "optionsZhHans": [],
+      "answer": "x^2 + y^2 = 19，(x - y)^2 = 13",
+      "acceptedAnswers": [
+        "x^2 + y^2 = 19，(x - y)^2 = 13",
+        "x^2+y^2=19，(x-y)^2=13",
+        "19 和 13",
+        "x^2+y^2=19, (x-y)^2=13"
+      ],
+      "explanationZhHans": "由完全平方公式：x^2+y^2 = (x+y)^2 - 2xy = 25 - 6 = 19；(x-y)^2 = (x+y)^2 - 4xy = 25 - 12 = 13。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-100",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "hjb-junior-s1-upper-polynomial-multiply-divide",
+      "unitTitle": "整式的乘除",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "exponent-laws",
+        "monomial-multiplication",
+        "polynomial-multiplication",
+        "multiplication-formulas",
+        "polynomial-division",
+        "幂的运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "符号意识",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "同底数幂",
+        "幂的乘方",
+        "积的乘方",
+        "整式乘法",
+        "乘法公式",
+        "整式除法"
+      ],
+      "misconceptionTags": [
+        "exponents added in power of a power",
+        "formula pattern overmatched",
+        "division factor omitted"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s1-upper-polynomial-multiply-divide"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit",
+        "hjb-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-linear-inequalities",
+        "hjb-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "若 (x + 3)(x - 2) = x^2 + mx + n，则 m + n 的值为（ ）\nA. -5\nB. -1\nC. 1\nD. 5",
+      "optionsZhHans": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "A",
+      "acceptedAnswers": [
+        "A"
+      ],
+      "explanationZhHans": "展开左边：x^2 + x - 6，所以 m=1，n=-6，m+n=-5。注意常数项符号。"
+    }
+  ]
+}

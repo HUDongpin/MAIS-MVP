@@ -1,0 +1,288 @@
+{
+  "batchId": "batch-134",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p3-166",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-two-digit-multiplication-division",
+      "unitTitle": "两位数乘除与问题解决",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "two-digit-multiplication",
+        "division-extension",
+        "multi-step-problem-solving",
+        "两位数乘除"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "两位数乘法",
+        "除法估算",
+        "分步列式",
+        "数量关系",
+        "结果检查"
+      ],
+      "misconceptionTags": [
+        "partial products misaligned",
+        "operation order chosen from keywords",
+        "answer unit does not match the question"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-two-digit-multiplication-division"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-two-digit-multiplication-division",
+        "hjb-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆新买来一批图书，每班分到 24 本，正好分给 18 个班。如果把这些图书平均分给 12 个班，每个班可以分到多少本？",
+      "optionsZhHans": [
+        "36 本",
+        "32 本",
+        "48 本",
+        "24 本"
+      ],
+      "answer": "36 本",
+      "acceptedAnswers": [
+        "36 本"
+      ],
+      "explanationZhHans": "先求图书总数：24×18=432（本）。再求分给12个班时每班本数：432÷12=36（本）。注意单位“本”与问题一致。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-167",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-two-digit-multiplication-division",
+      "unitTitle": "两位数乘除与问题解决",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "two-digit-multiplication",
+        "division-extension",
+        "multi-step-problem-solving",
+        "两位数乘除"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "两位数乘法",
+        "除法估算",
+        "分步列式",
+        "数量关系",
+        "结果检查"
+      ],
+      "misconceptionTags": [
+        "partial products misaligned",
+        "operation order chosen from keywords",
+        "answer unit does not match the question"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-two-digit-multiplication-division"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-two-digit-multiplication-division",
+        "hjb-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一箱苹果有 15 千克，水果店运来 28 箱。如果每 5 千克装一袋，这些苹果一共可以装多少袋？",
+      "optionsZhHans": [],
+      "answer": "84 袋",
+      "acceptedAnswers": [
+        "84 袋",
+        "84"
+      ],
+      "explanationZhHans": "先求苹果总质量：15×28=420（千克）。再求袋数：420÷5=84（袋）。注意先乘后除，单位“袋”不能遗漏。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-168",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-two-digit-multiplication-division",
+      "unitTitle": "两位数乘除与问题解决",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "two-digit-multiplication",
+        "division-extension",
+        "multi-step-problem-solving",
+        "两位数乘除"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "两位数乘法",
+        "除法估算",
+        "分步列式",
+        "数量关系",
+        "结果检查"
+      ],
+      "misconceptionTags": [
+        "partial products misaligned",
+        "operation order chosen from keywords",
+        "answer unit does not match the question"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-two-digit-multiplication-division"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-two-digit-multiplication-division",
+        "hjb-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "三年级同学去春游，租了 6 辆大巴车，每辆车坐 45 人。如果改租每辆坐 30 人的中巴车，需要租多少辆？",
+      "optionsZhHans": [],
+      "answer": "9 辆",
+      "acceptedAnswers": [
+        "9 辆",
+        "9"
+      ],
+      "explanationZhHans": "先求总人数：45×6=270（人）。再求中巴车数量：270÷30=9（辆）。注意先乘后除，单位“辆”与问题匹配。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-169",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-two-digit-multiplication-division",
+      "unitTitle": "两位数乘除与问题解决",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "two-digit-multiplication",
+        "division-extension",
+        "multi-step-problem-solving",
+        "两位数乘除"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "两位数乘法",
+        "除法估算",
+        "分步列式",
+        "数量关系",
+        "结果检查"
+      ],
+      "misconceptionTags": [
+        "partial products misaligned",
+        "operation order chosen from keywords",
+        "answer unit does not match the question"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-two-digit-multiplication-division"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-two-digit-multiplication-division",
+        "hjb-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "李老师买了 12 盒水彩笔，每盒 18 元。他付了 250 元，应找回多少元？",
+      "optionsZhHans": [
+        "34 元",
+        "44 元",
+        "24 元",
+        "54 元"
+      ],
+      "answer": "34 元",
+      "acceptedAnswers": [
+        "34 元"
+      ],
+      "explanationZhHans": "先求总价：12×18=216（元）。再求找回：250−216=34（元）。注意先乘后减，单位“元”不能错。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-170",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-two-digit-multiplication-division",
+      "unitTitle": "两位数乘除与问题解决",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "two-digit-multiplication",
+        "division-extension",
+        "multi-step-problem-solving",
+        "两位数乘除"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "两位数乘法",
+        "除法估算",
+        "分步列式",
+        "数量关系",
+        "结果检查"
+      ],
+      "misconceptionTags": [
+        "partial products misaligned",
+        "operation order chosen from keywords",
+        "answer unit does not match the question"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-two-digit-multiplication-division"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-two-digit-multiplication-division",
+        "hjb-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一本故事书有 96 页，小华每天看 16 页。他看了 4 天后，还剩多少页没看？",
+      "optionsZhHans": [],
+      "answer": "32 页",
+      "acceptedAnswers": [
+        "32 页",
+        "32"
+      ],
+      "explanationZhHans": "先求已看页数：16×4=64（页）。再求剩余页数：96−64=32（页）。注意先乘后减，单位“页”与问题一致。"
+    }
+  ]
+}

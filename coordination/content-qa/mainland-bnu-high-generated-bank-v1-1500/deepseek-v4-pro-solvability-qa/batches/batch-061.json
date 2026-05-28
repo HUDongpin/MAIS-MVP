@@ -1,0 +1,133 @@
+{
+  "batchNumber": 61,
+  "startedAt": "2026-05-27T13:54:06.562Z",
+  "completedAt": "2026-05-27T13:54:25.210Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-481",
+    "bnu-high-ds-v1-s4-482",
+    "bnu-high-ds-v1-s4-483",
+    "bnu-high-ds-v1-s4-484",
+    "bnu-high-ds-v1-s4-485",
+    "bnu-high-ds-v1-s4-486",
+    "bnu-high-ds-v1-s4-487",
+    "bnu-high-ds-v1-s4-488"
+  ],
+  "usage": {
+    "prompt_tokens": 11129,
+    "completion_tokens": 1351,
+    "total_tokens": 12480,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10617
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-481",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "a与b可能平行也可能异面",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件充分，可独立判断。由平行公理，a∥l且b∥l，a与b可能平行；又因a在α内，b在β内，α与β相交，a与b可能异面。选项D正确，答案匹配，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-482",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "证明：取DD₁的中点F，连接EF，AF。因为E为CC₁中点，F为DD₁中点，所以EF∥CD∥AB，且EF=AB，故四边形ABFE为平行四边形，得AE∥BF。又BF⊂平面B₁D₁D，AE⊄平面B₁D₁D，所以AE∥平面B₁D₁D。",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件明确，可独立证明。构造平行四边形ABFE得AE∥BF，由线面平行判定定理得证。答案与解析一致，无问题。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-483",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "32/3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由底面边长4得底面积16，侧棱长2√3，底面半对角线2√2，高h=√(12-8)=2，体积V=1/3×16×2=32/3。选项B正确，答案匹配，解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-484",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "15π",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "母线5，高4，底面半径r=3，侧面积S=π×3×5=15π。答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-485",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "若m⊥α，n⊥α，则m∥n",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "垂直于同一平面的两条直线平行，B正确。A、C、D均有反例。答案与解析匹配，无问题。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-486",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "底面直角三角形面积S=1/2×2×3=3，高PA=2，体积V=1/3×3×2=2。答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-487",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "4√3π",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "全面积24得棱长a=2，外接球半径R=√3，体积V=4/3π(√3)³=4√3π。选项A正确，答案匹配，解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-488",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "证明：假设a与b共面，设该平面为γ。则γ过a和b。因为a⊂α，b⊂β，且α∥β，所以γ与α、β的交线分别为a和b。由于α∥β，γ与α、β的交线应平行，即a∥b，与已知a与b不平行矛盾。故假设不成立，a与b异面。",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "反证法正确，利用面面平行性质推出交线平行，与已知矛盾，得证异面。答案与解析一致，无问题。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，答案正确，解析与题目、答案一致，无任何问题。"
+    }
+  }
+}

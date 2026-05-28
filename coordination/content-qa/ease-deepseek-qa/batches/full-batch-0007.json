@@ -1,0 +1,168 @@
+{
+  "scope": "full",
+  "batchIndex": 7,
+  "startedAt": "2026-05-28T03:23:28.919Z",
+  "completedAt": "2026-05-28T03:24:07.887Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "itemIds": [
+    "10341",
+    "10342",
+    "10322",
+    "10332",
+    "10333",
+    "10334",
+    "10382",
+    "10389",
+    "10390",
+    "10391"
+  ],
+  "usage": {
+    "prompt_tokens": 2717,
+    "completion_tokens": 2568,
+    "total_tokens": 5285,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1458
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2333
+  },
+  "finishReason": "stop",
+  "jsonModeFallback": false,
+  "result": {
+    "items": [
+      {
+        "questionId": "10341",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": "4058",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "Standard answer not provided.",
+        "recommendedAction": "Provide correct answer 4058."
+      },
+      {
+        "questionId": "10342",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": "11540",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "Standard answer not provided.",
+        "recommendedAction": "Provide correct answer 11540."
+      },
+      {
+        "questionId": "10322",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": "1794",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "Standard answer not provided.",
+        "recommendedAction": "Provide correct answer 1794."
+      },
+      {
+        "questionId": "10332",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": "2160",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "Standard answer not provided.",
+        "recommendedAction": "Provide correct answer 2160."
+      },
+      {
+        "questionId": "10333",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": "6720",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "Standard answer not provided.",
+        "recommendedAction": "Provide correct answer 6720."
+      },
+      {
+        "questionId": "10334",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": "1620",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "Standard answer not provided.",
+        "recommendedAction": "Provide correct answer 1620."
+      },
+      {
+        "questionId": "10382",
+        "questionType": "FRQ",
+        "hasImage": true,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": null,
+        "solvabilityStatus": "image-context-required",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "Image required to solve fill-in-the-blank problem; cannot determine answer from text alone.",
+        "recommendedAction": "Provide image content or text description."
+      },
+      {
+        "questionId": "10389",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "1554",
+        "independentAnswer": "1554",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Answer matches.",
+        "recommendedAction": "None."
+      },
+      {
+        "questionId": "10390",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "3000",
+        "independentAnswer": "3000",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Answer matches.",
+        "recommendedAction": "None."
+      },
+      {
+        "questionId": "10391",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "1700",
+        "independentAnswer": "1700",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Answer matches.",
+        "recommendedAction": "None."
+      }
+    ],
+    "batchSummary": {
+      "pass": 3,
+      "unsolvable": 0,
+      "ambiguous": 0,
+      "imageContextRequired": 1,
+      "answerMismatch": 0,
+      "missingAnswerKey": 7,
+      "notes": "7 items missing standard answer key; 1 item requires image."
+    }
+  }
+}

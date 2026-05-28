@@ -1,0 +1,48 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-240",
+  "startedAt": "2026-05-28T01:24:30.441Z",
+  "completedAt": "2026-05-28T01:24:34.790Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-240"
+  ],
+  "usage": {
+    "prompt_tokens": 2120,
+    "completion_tokens": 242,
+    "total_tokens": 2362,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1736
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-240",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "(2,0) 或 (4,0)",
+        "correctedAnswer": null,
+        "issueTags": [
+          "explanation_contradiction",
+          "math_error"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，答案正确，但解析过程错误：先按原数据计算得无实根，后擅自调整数据，与题目矛盾，解析不可用。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目本身可解且答案正确，但解析存在严重错误，需修正解析。"
+    }
+  }
+}

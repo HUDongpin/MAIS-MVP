@@ -1,0 +1,179 @@
+{
+  "batchNumber": 106,
+  "startedAt": "2026-05-27T17:59:24.559Z",
+  "completedAt": "2026-05-27T17:59:44.029Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s3-261",
+    "bnu-junior-ds-v1-s3-262",
+    "bnu-junior-ds-v1-s3-263",
+    "bnu-junior-ds-v1-s3-264",
+    "bnu-junior-ds-v1-s3-265",
+    "bnu-junior-ds-v1-s3-266",
+    "bnu-junior-ds-v1-s3-267",
+    "bnu-junior-ds-v1-s3-268",
+    "bnu-junior-ds-v1-s3-269",
+    "bnu-junior-ds-v1-s3-270",
+    "bnu-junior-ds-v1-s3-271",
+    "bnu-junior-ds-v1-s3-272"
+  ],
+  "usage": {
+    "prompt_tokens": 6060,
+    "completion_tokens": 1389,
+    "total_tokens": 7449,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 5548
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s3-261",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，可解。答案和解释均正确，且与题目匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-262",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "ambiguous_mc",
+          "answer_mismatch"
+        ],
+        "correctedAnswer": "当 x > 0 时，y 随 x 的增大而增大",
+        "rationale": "题目要求选择正确的说法。选项B和C均正确，但答案只选了C，且解释中承认B正确但非直接结论，导致答案不唯一。根据单选题要求，存在多个正确选项，应判定为失败。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-263",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，可解。答案和解释均正确，且与题目匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-264",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，可解。答案和解释均正确，且与题目匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-265",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，可解。答案和解释均正确，且与题目匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-266",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，可解。答案和解释均正确，且与题目匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-267",
+        "status": "fail",
+        "severity": "major",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "48 ≤ x ≤ 60",
+        "rationale": "题目要求x的取值范围，答案给出48 ≤ x ≤ 60，但解释中“因原计划每天60个，实际不超过原计划”缺乏依据，题目未要求实际生产量不超过原计划。正确范围应为x ≥ 48，且x ≤ 60无依据。答案错误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-268",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，可解。答案和解释均正确，且与题目匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-269",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，可解。答案和解释均正确，且与题目匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-270",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，可解。答案和解释均正确，且与题目匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-271",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，可解。答案和解释均正确，且与题目匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-272",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，可解。答案和解释均正确，且与题目匹配。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 10,
+      "warn": 0,
+      "fail": 2,
+      "notes": "共12题，10题通过，2题失败。失败原因：262题单选题存在多个正确选项，答案不唯一；267题答案范围错误，解释无依据。"
+    }
+  }
+}

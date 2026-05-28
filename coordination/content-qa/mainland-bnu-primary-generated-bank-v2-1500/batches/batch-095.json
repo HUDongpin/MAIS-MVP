@@ -1,0 +1,580 @@
+{
+  "batchId": "batch-095",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p4-191",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "observe-objects",
+        "spatial-visualization",
+        "views-of-solids",
+        "观察物体",
+        "视图"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "从不同方向观察",
+        "视图匹配",
+        "立体想象",
+        "还原物体",
+        "相对位置"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "front and side views interchanged",
+        "hidden cubes counted as visible"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-observe-objects-unit",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用4个同样的小正方体搭成一个立体图形。从前面看，看到的是横着排成一行的3个小正方形；从右面看，看到的是竖着排成一列的2个小正方形。这个立体图形可能是下面哪一个？",
+      "optionsZhHans": [
+        "第一层放3个排成一行，第二层在中间那个上面放1个",
+        "第一层放3个排成一行，第二层在最左边那个上面放1个",
+        "第一层放2个排成一行，第二层在左边那个上面放1个，第三层再放1个",
+        "第一层放3个排成一行，第二层在最右边那个上面放1个"
+      ],
+      "answer": "第一层放3个排成一行，第二层在中间那个上面放1个",
+      "acceptedAnswers": [
+        "第一层放3个排成一行，第二层在中间那个上面放1个"
+      ],
+      "explanationZhHans": "从前面看横着3个，说明第一层至少有3个排成一行。从右面看竖着2个，说明从右看有上下两层。若第二层的方块放在中间，右面看到的是左边一列（第一层）和中间一列（两层），但右面视图只显示一列两层，符合条件。其他选项右面会看到两列或更多，不符合。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-192",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "observe-objects",
+        "spatial-visualization",
+        "views-of-solids",
+        "观察物体",
+        "视图"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "从不同方向观察",
+        "视图匹配",
+        "立体想象",
+        "还原物体",
+        "相对位置"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "front and side views interchanged",
+        "hidden cubes counted as visible"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-observe-objects-unit",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "S18 BNU primary V2 automated source-distance/structure/v1-distance gate passed with 300-row grade sample queue generated; candidate QA package only, not approved for public integration. S18 broad QA remediation applied on 2026-05-27: Remove the answer from the stem and ask students to sum the visible layer counts.",
+      "promptZhHans": "一个立体图形由同样的小正方体搭成。第一层横着排3个小正方体，第二层在最左边的小正方体上面叠1个，第一层中间那个小正方体的后面还放1个。这个立体图形一共有______个小正方体。",
+      "optionsZhHans": [],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5"
+      ],
+      "explanationZhHans": "第一层横着排3个，第二层叠1个，后面还放1个，一共3+1+1=5个小正方体。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-193",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "observe-objects",
+        "spatial-visualization",
+        "views-of-solids",
+        "观察物体",
+        "视图"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "从不同方向观察",
+        "视图匹配",
+        "立体想象",
+        "还原物体",
+        "相对位置"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "front and side views interchanged",
+        "hidden cubes counted as visible"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-observe-objects-unit",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个立体图形由一些同样的小正方体搭成。从前面看是横着排成一行的2个小正方形，从左面看是竖着排成一列的2个小正方形。这个立体图形最少用了几个小正方体？",
+      "optionsZhHans": [
+        "2个",
+        "3个",
+        "4个",
+        "5个"
+      ],
+      "answer": "3个",
+      "acceptedAnswers": [
+        "3个"
+      ],
+      "explanationZhHans": "从前面看一行2个，说明至少有2个排成一行。从左面看一列2个，说明有上下两层。最少需要3个：第一层2个，第二层在其中一个上面放1个。这样前面看是2个，左面看是2层。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-194",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "observe-objects",
+        "spatial-visualization",
+        "views-of-solids",
+        "观察物体",
+        "视图"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "从不同方向观察",
+        "视图匹配",
+        "立体想象",
+        "还原物体",
+        "相对位置"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "front and side views interchanged",
+        "hidden cubes counted as visible"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-observe-objects-unit",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用同样的小正方体搭一个立体图形。从上面看是横着排成一行的3个小正方形，从前面看是左边一列2个小正方形、中间一列1个小正方形、右边一列1个小正方形。这个立体图形中，第二层的小正方体放在第一层从左数第______个小正方体的上面。（填数字）",
+      "optionsZhHans": [],
+      "answer": "1",
+      "acceptedAnswers": [
+        "1"
+      ],
+      "explanationZhHans": "从上面看一行3个，第一层有3个。从前面看左边一列2个，说明左边位置有上下两层，所以第二层的小正方体放在第一层最左边那个上面，即第1个。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-195",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "observe-objects",
+        "spatial-visualization",
+        "views-of-solids",
+        "观察物体",
+        "视图"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "从不同方向观察",
+        "视图匹配",
+        "立体想象",
+        "还原物体",
+        "相对位置"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "front and side views interchanged",
+        "hidden cubes counted as visible"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-observe-objects-unit",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个立体图形由4个同样的小正方体搭成。从前面看是横着排成一行的3个小正方形，从上面看也是横着排成一行的3个小正方形，但从上面看时，中间那个小正方形的后面还藏着1个小正方形。这个立体图形从右面看是什么形状？",
+      "optionsZhHans": [
+        "竖着排成一列的2个小正方形",
+        "横着排成一行的2个小正方形",
+        "左边一列2个，右边一列1个",
+        "左边一列1个，右边一列2个"
+      ],
+      "answer": "左边一列1个，右边一列2个",
+      "acceptedAnswers": [
+        "左边一列1个，右边一列2个"
+      ],
+      "explanationZhHans": "由条件可知，第一层有3个排成一行，第二层在中间那个的后面放1个（从上面看藏在中间后面）。从右面看，右边一列是后面的方块（2层），左边一列是前面的中间方块（1层），所以是左边1个右边2个。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-196",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "observe-objects",
+        "spatial-visualization",
+        "views-of-solids",
+        "观察物体",
+        "视图"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "从不同方向观察",
+        "视图匹配",
+        "立体想象",
+        "还原物体",
+        "相对位置"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "front and side views interchanged",
+        "hidden cubes counted as visible"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-observe-objects-unit",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个立体图形由一些同样的小正方体搭成。从前面看是横着排成一行的2个小正方形，从上面看是横着排成一行的2个小正方形，从左面看是竖着排成一列的2个小正方形。这个立体图形用了______个小正方体。",
+      "optionsZhHans": [],
+      "answer": "3",
+      "acceptedAnswers": [
+        "3"
+      ],
+      "explanationZhHans": "从前面和上面看都是2个一行，说明第一层有2个。从左面看是2层，说明有上下两层。最少需要3个：第一层2个，第二层在其中一个上面放1个。若放2个则左面看到两列，不符合。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-197",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "observe-objects",
+        "spatial-visualization",
+        "views-of-solids",
+        "观察物体",
+        "视图"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "从不同方向观察",
+        "视图匹配",
+        "立体想象",
+        "还原物体",
+        "相对位置"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "front and side views interchanged",
+        "hidden cubes counted as visible"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-observe-objects-unit",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用5个同样的小正方体搭成一个立体图形。从前面看是横着排成一行的3个小正方形，从左面看是左边一列2个小正方形、右边一列1个小正方形。这个立体图形中，第二层的小正方体有几个？",
+      "optionsZhHans": [
+        "1个",
+        "2个",
+        "3个",
+        "4个"
+      ],
+      "answer": "2个",
+      "acceptedAnswers": [
+        "2个"
+      ],
+      "explanationZhHans": "从前面看一行3个，第一层至少3个。从左面看左边一列2个，说明左边位置有2层；右边一列1个，说明右边位置只有1层。总共有5个，第一层3个，第二层在左边放2个，符合左面视图。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-198",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "observe-objects",
+        "spatial-visualization",
+        "views-of-solids",
+        "观察物体",
+        "视图"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "从不同方向观察",
+        "视图匹配",
+        "立体想象",
+        "还原物体",
+        "相对位置"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "front and side views interchanged",
+        "hidden cubes counted as visible"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-observe-objects-unit",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个立体图形由同样的小正方体搭成。从上面看是横着排成一行的3个小正方形，从前面看是左边一列2个小正方形、中间一列1个小正方形、右边一列1个小正方形。这个立体图形中，第一层有______个小正方体。",
+      "optionsZhHans": [],
+      "answer": "3",
+      "acceptedAnswers": [
+        "3"
+      ],
+      "explanationZhHans": "从上面看一行3个，说明第一层有3个小正方体排成一行。前面视图中的左边一列2个是因为第二层在左边上面加了一个。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-199",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "observe-objects",
+        "spatial-visualization",
+        "views-of-solids",
+        "观察物体",
+        "视图"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "从不同方向观察",
+        "视图匹配",
+        "立体想象",
+        "还原物体",
+        "相对位置"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "front and side views interchanged",
+        "hidden cubes counted as visible"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-observe-objects-unit",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个立体图形由一些同样的小正方体搭成。从前面看是横着排成一行的2个小正方形，从右面看是竖着排成一列的2个小正方形。下面哪个说法一定正确？",
+      "optionsZhHans": [
+        "这个立体图形只有2个小正方体",
+        "这个立体图形最少有3个小正方体",
+        "这个立体图形有4个小正方体",
+        "从上面看一定是横着排成一行的2个小正方形"
+      ],
+      "answer": "这个立体图形最少有3个小正方体",
+      "acceptedAnswers": [
+        "这个立体图形最少有3个小正方体"
+      ],
+      "explanationZhHans": "前面看2个，右面看2层，最少需要3个：第一层2个，第二层在其中一个上面放1个。所以最少3个，可能更多。其他选项不一定正确。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-200",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "observe-objects",
+        "spatial-visualization",
+        "views-of-solids",
+        "观察物体",
+        "视图"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "从不同方向观察",
+        "视图匹配",
+        "立体想象",
+        "还原物体",
+        "相对位置"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "front and side views interchanged",
+        "hidden cubes counted as visible"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-observe-objects-unit",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用同样的小正方体搭一个立体图形。从前面看是横着排成一行的2个小正方形，从上面看是左边一列2个小正方形、右边一列1个小正方形。这个立体图形中，第二层的小正方体放在第一层从左边数第______个小正方体的上面。（填数字）",
+      "optionsZhHans": [],
+      "answer": "1",
+      "acceptedAnswers": [
+        "1"
+      ],
+      "explanationZhHans": "从上面看左边一列2个，说明左边位置有上下两个；右边一列1个，说明右边只有一层。所以第二层在左边上面，即第一层左边那个（第1个）上面。"
+    }
+  ]
+}

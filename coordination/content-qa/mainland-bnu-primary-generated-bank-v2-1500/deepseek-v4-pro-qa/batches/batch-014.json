@@ -1,0 +1,191 @@
+{
+  "batchNumber": 14,
+  "startedAt": "2026-05-27T13:44:08.471Z",
+  "completedAt": "2026-05-27T13:44:25.043Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p1-235",
+    "bnu-primary-ds-v2-p1-236",
+    "bnu-primary-ds-v2-p1-237",
+    "bnu-primary-ds-v2-p1-238",
+    "bnu-primary-ds-v2-p1-239",
+    "bnu-primary-ds-v2-p1-240",
+    "bnu-primary-ds-v2-p1-241",
+    "bnu-primary-ds-v2-p1-242",
+    "bnu-primary-ds-v2-p1-243",
+    "bnu-primary-ds-v2-p1-244",
+    "bnu-primary-ds-v2-p1-245",
+    "bnu-primary-ds-v2-p1-246",
+    "bnu-primary-ds-v2-p1-247",
+    "bnu-primary-ds-v2-p1-248",
+    "bnu-primary-ds-v2-p1-249",
+    "bnu-primary-ds-v2-p1-250",
+    "bnu-primary-ds-v2-p2-001",
+    "bnu-primary-ds-v2-p2-002"
+  ],
+  "usage": {
+    "prompt_tokens": 4030,
+    "completion_tokens": 1298,
+    "total_tokens": 5328,
+    "prompt_tokens_details": {
+      "cached_tokens": 3968
+    },
+    "prompt_cache_hit_tokens": 3968,
+    "prompt_cache_miss_tokens": 62
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p1-235",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，选项C正确体现先加后减，符合一年级要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-236",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "规律明显，答案14正确，适合一年级。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-237",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项C正确，其他选项错误，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-238",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案覆盖圆和长方形，符合观察圆柱的常见结果。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-239",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "凑十法分解正确，选项A唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-240",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "十位最多4颗，答案合理，符合计数器规则。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-241",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项A正确，其他选项错误明显，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-242",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "规律清晰，第五层为3块，选项C正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-243",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "简单重复规律，下一个是△，选项A正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-244",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "递增规律，第四层5块，选项B正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-245",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项描述符合三视图，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-246",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "重复规律，横线处为△，选项A正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-247",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "递减规律，第四层0块，选项A正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-248",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "卡片D为减法，非凑十法，选项D正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-249",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项A为正确凑十法，其他选项错误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-250",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "从正前方能看到3块，选项B正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-001",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "加法计算正确，选项B为63张。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-002",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "退位减法正确，答案为43。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版小学数学要求，无错误或风险。"
+    }
+  }
+}

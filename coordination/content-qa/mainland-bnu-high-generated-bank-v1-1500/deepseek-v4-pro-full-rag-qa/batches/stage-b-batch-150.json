@@ -1,0 +1,129 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-150",
+  "startedAt": "2026-05-28T01:42:47.907Z",
+  "completedAt": "2026-05-28T01:43:00.469Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-193",
+    "bnu-high-ds-v1-s6-194",
+    "bnu-high-ds-v1-s6-195",
+    "bnu-high-ds-v1-s6-196",
+    "bnu-high-ds-v1-s6-197",
+    "bnu-high-ds-v1-s6-198",
+    "bnu-high-ds-v1-s6-199",
+    "bnu-high-ds-v1-s6-200"
+  ],
+  "usage": {
+    "prompt_tokens": 12101,
+    "completion_tokens": 1018,
+    "total_tokens": 13119,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 11717
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-193",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案2与独立解一致，解析正确推导出q=2，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-194",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析正确累加得通项n^2+1。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-195",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案53与独立解一致，解析递推计算正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-196",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案3与独立解一致，解析正确解得d=3，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-197",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "(1) a_2=2, a_3=3; (2) a_n=n",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案(1) a_2=√3, a_3=√6错误，独立解正确为a_2=2, a_3=3；解析中计算a_2=2, a_3=3，但最终给出错误通项√(n(n+1)/2)，与解析自身矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-198",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案162与独立解一致，解析正确应用通项公式。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-199",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案1.99与独立解一致，解析裂项累加正确，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-200",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析正确求解通项和n。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第197题存储答案错误，解析自相矛盾，其余题目均通过。"
+    }
+  }
+}

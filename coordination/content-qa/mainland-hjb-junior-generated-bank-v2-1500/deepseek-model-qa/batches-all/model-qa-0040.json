@@ -1,0 +1,105 @@
+{
+  "batchId": "model-qa-0040",
+  "ids": [
+    "hjb-junior-ds-v2-s1-313",
+    "hjb-junior-ds-v2-s1-314",
+    "hjb-junior-ds-v2-s1-315",
+    "hjb-junior-ds-v2-s1-316",
+    "hjb-junior-ds-v2-s1-317",
+    "hjb-junior-ds-v2-s1-318",
+    "hjb-junior-ds-v2-s1-319",
+    "hjb-junior-ds-v2-s1-320"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-313",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "B",
+      "answerCheckZhHans": "标准答案B正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-314",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "65°",
+      "answerCheckZhHans": "标准答案65°正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-315",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "平行，内错角相等，两直线平行",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-316",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "70°",
+      "answerCheckZhHans": "标准答案70°正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-317",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "70°",
+      "answerCheckZhHans": "标准答案70°正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-318",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题目要求“求∠BOD的度数，并说明理由”，但标准答案仅给出“70°”，未包含理由说明。解析虽说明了理由，但答案字段不完整，与题目要求不匹配。",
+      "independentAnswerZhHans": "70°，理由：由OE平分∠AOC得∠AOC=2∠AOE=70°，∠BOD与∠AOC是对顶角，对顶角相等，故∠BOD=70°。",
+      "answerCheckZhHans": "标准答案仅给出度数，未包含理由，不符合题目要求。",
+      "recommendedActionZhHans": "建议将答案修改为包含理由的完整表述，如“70°；理由：由OE平分∠AOC得∠AOC=2∠AOE=70°，∠BOD与∠AOC是对顶角，对顶角相等，故∠BOD=70°。”",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-319",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "115°",
+      "answerCheckZhHans": "标准答案115°正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-320",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "70°",
+      "answerCheckZhHans": "标准答案70°正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0045",
+  "ids": [
+    "hjb-junior-ds-v2-s1-353",
+    "hjb-junior-ds-v2-s1-354",
+    "hjb-junior-ds-v2-s1-355",
+    "hjb-junior-ds-v2-s1-356",
+    "hjb-junior-ds-v2-s1-357",
+    "hjb-junior-ds-v2-s1-358",
+    "hjb-junior-ds-v2-s1-359",
+    "hjb-junior-ds-v2-s1-360"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-353",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "110°",
+      "answerCheckZhHans": "标准答案110，解析得出110，一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-354",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题目求∠ABC，解析中直接说∠ABC=90°，但AB⊥l2，B在l2上，所以∠ABC是AB与BC的夹角，BC在l2上，故∠ABC=90°。但答案给出60°，解析最后却求了∠ACB=60°，与答案矛盾。正确答案应为90°。",
+      "independentAnswerZhHans": "90°",
+      "answerCheckZhHans": "标准答案60°，解析得出∠ABC=90°，矛盾。",
+      "recommendedActionZhHans": "修正答案或解析，使之一致。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-355",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "∠AOC = 50°",
+      "answerCheckZhHans": "标准答案正确，解析支持，选项唯一正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-356",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "115°",
+      "answerCheckZhHans": "标准答案115°，解析得出115°，一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-357",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "70°",
+      "answerCheckZhHans": "标准答案70°，解析得出70°，一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-358",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "l1∥l2，因为同旁内角互补",
+      "answerCheckZhHans": "标准答案正确，解析支持，选项唯一正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-359",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "135°",
+      "answerCheckZhHans": "标准答案135°，解析得出135°，一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-360",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "80°",
+      "answerCheckZhHans": "标准答案80°，解析得出80°，一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

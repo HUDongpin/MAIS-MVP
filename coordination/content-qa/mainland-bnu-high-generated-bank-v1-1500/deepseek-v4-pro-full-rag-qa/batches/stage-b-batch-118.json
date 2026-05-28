@@ -1,0 +1,140 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-118",
+  "startedAt": "2026-05-28T01:30:36.826Z",
+  "completedAt": "2026-05-28T01:30:53.880Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-437",
+    "bnu-high-ds-v1-s5-438",
+    "bnu-high-ds-v1-s5-439",
+    "bnu-high-ds-v1-s5-440",
+    "bnu-high-ds-v1-s5-441",
+    "bnu-high-ds-v1-s5-442",
+    "bnu-high-ds-v1-s5-443",
+    "bnu-high-ds-v1-s5-444"
+  ],
+  "usage": {
+    "prompt_tokens": 12462,
+    "completion_tokens": 1219,
+    "total_tokens": 13681,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 12078
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-437",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "(1) r ≈ 0.99，高度正相关；(2) 可以预测，因为数学成绩98分在样本范围内或附近，线性回归模型适用，但需注意预测的误差和适用范围。",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案第(2)问错误地认为98分超出样本范围不能预测，但样本最大值为95，98分虽略超出但仍在附近，且线性回归可外推，Stage A独立解认为可以预测但需注意误差，存储答案与独立解矛盾，属于数学错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-438",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案10与Stage A独立解一致，解析计算过程正确，无问题。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-439",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案正确指出线性相关程度较强，与Stage A独立解一致，解析合理，选项唯一正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-440",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [
+          "explanation_contradiction"
+        ],
+        "severity": "minor",
+        "confidence": "medium",
+        "rationaleZhHans": "存储答案与Stage A独立解一致，但解析中计算b时出现“b=2.5？”的自我怀疑，虽最终纠正为5，但过程不严谨，可能引起混淆，标记为weak。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-441",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案2.00与Stage A独立解一致，解析计算正确，无问题。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-442",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案正确选择正线性相关，与Stage A独立解一致，解析合理，选项唯一正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-443",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "回归方程：y = 3 + 1.1x；预测销量：11.8万件。",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案计算错误，b应为1.1而非0.8，导致回归方程和预测值均错误，与Stage A独立解不符。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-444",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "4.80",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案6.06错误，解析中计算过程最终得到4.80，但答案仍为6.06，自相矛盾，正确值应为4.80。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 4,
+      "warn": 1,
+      "fail": 3,
+      "notes": "8题中4题通过，1题解析有瑕疵（warn），3题答案错误（fail），主要问题为计算错误和概念判断错误。"
+    }
+  }
+}

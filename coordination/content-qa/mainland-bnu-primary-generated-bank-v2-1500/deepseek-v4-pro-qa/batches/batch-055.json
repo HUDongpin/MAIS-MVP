@@ -1,0 +1,191 @@
+{
+  "batchNumber": 55,
+  "startedAt": "2026-05-27T13:56:36.655Z",
+  "completedAt": "2026-05-27T13:56:53.037Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p4-223",
+    "bnu-primary-ds-v2-p4-224",
+    "bnu-primary-ds-v2-p4-225",
+    "bnu-primary-ds-v2-p4-226",
+    "bnu-primary-ds-v2-p4-227",
+    "bnu-primary-ds-v2-p4-228",
+    "bnu-primary-ds-v2-p4-229",
+    "bnu-primary-ds-v2-p4-230",
+    "bnu-primary-ds-v2-p4-231",
+    "bnu-primary-ds-v2-p4-232",
+    "bnu-primary-ds-v2-p4-233",
+    "bnu-primary-ds-v2-p4-234",
+    "bnu-primary-ds-v2-p4-235",
+    "bnu-primary-ds-v2-p4-236",
+    "bnu-primary-ds-v2-p4-237",
+    "bnu-primary-ds-v2-p4-238",
+    "bnu-primary-ds-v2-p4-239",
+    "bnu-primary-ds-v2-p4-240"
+  ],
+  "usage": {
+    "prompt_tokens": 3966,
+    "completion_tokens": 1235,
+    "total_tokens": 5201,
+    "prompt_tokens_details": {
+      "cached_tokens": 3840
+    },
+    "prompt_cache_hit_tokens": 3840,
+    "prompt_cache_miss_tokens": 126
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p4-223",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项合理，解释清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-224",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，负数表示符合要求，答案格式灵活。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-225",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均数计算正确，选项无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-226",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "逆向求平均数正确，答案合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-227",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项设置合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-228",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，约数处理合理，答案覆盖多种格式。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-229",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比较正确，选项唯一，解释清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-230",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均数计算正确，答案合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-231",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "简单减法，选项正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-232",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均数计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-233",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均数计算正确，选项合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-234",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均数计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-235",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比较正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-236",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "小数加法纠错，计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-237",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "三角形内角和计算正确，分类无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-238",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "等腰三角形底角计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-239",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "按边分类正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-240",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "三角形内角和计算正确，分类无误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均通过审核，无数学错误、答案不匹配、歧义或年级不匹配等问题。"
+    }
+  }
+}

@@ -1,0 +1,289 @@
+{
+  "batchId": "batch-086",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p2-176",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "hjb-primary-p2-lower-time",
+      "unitTitle": "时间在哪里",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "time-reading",
+        "clock-minutes",
+        "daily-time-sense",
+        "elapsed-time-introduction",
+        "时间"
+      ],
+      "competencyTags": [
+        "量感",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "钟面读数",
+        "时分关系",
+        "时间顺序",
+        "简单经过时间",
+        "日常安排"
+      ],
+      "misconceptionTags": [
+        "hour and minute hands reversed",
+        "minute scale counted by numerals instead of five-minute steps",
+        "elapsed time treated as subtraction of visible digits only"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p2-lower-time"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-time",
+        "hjb-primary-p2-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明的闹钟显示时针指向8和9之间，分针指向4。这时是几时几分？",
+      "optionsZhHans": [],
+      "answer": "8时20分",
+      "acceptedAnswers": [
+        "8时20分",
+        "8:20"
+      ],
+      "explanationZhHans": "时针在8和9之间表示8时多；分针指向4，从12起每个大格5分钟，4大格是20分，所以是8时20分。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-177",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "hjb-primary-p2-lower-time",
+      "unitTitle": "时间在哪里",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "time-reading",
+        "clock-minutes",
+        "daily-time-sense",
+        "elapsed-time-introduction",
+        "时间"
+      ],
+      "competencyTags": [
+        "量感",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "钟面读数",
+        "时分关系",
+        "时间顺序",
+        "简单经过时间",
+        "日常安排"
+      ],
+      "misconceptionTags": [
+        "hour and minute hands reversed",
+        "minute scale counted by numerals instead of five-minute steps",
+        "elapsed time treated as subtraction of visible digits only"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p2-lower-time"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-time",
+        "hjb-primary-p2-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丽上午9:15开始画画，画了30分钟。她画完时是什么时间？请用几时几分表示。",
+      "optionsZhHans": [],
+      "answer": "9时45分",
+      "acceptedAnswers": [
+        "9时45分",
+        "9:45"
+      ],
+      "explanationZhHans": "9时15分加30分，15+30=45，未满60分，所以是9时45分。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-178",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "hjb-primary-p2-lower-time",
+      "unitTitle": "时间在哪里",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "time-reading",
+        "clock-minutes",
+        "daily-time-sense",
+        "elapsed-time-introduction",
+        "时间"
+      ],
+      "competencyTags": [
+        "量感",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "钟面读数",
+        "时分关系",
+        "时间顺序",
+        "简单经过时间",
+        "日常安排"
+      ],
+      "misconceptionTags": [
+        "hour and minute hands reversed",
+        "minute scale counted by numerals instead of five-minute steps",
+        "elapsed time treated as subtraction of visible digits only"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p2-lower-time"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-time",
+        "hjb-primary-p2-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个钟面表示的时间是10时10分？",
+      "optionsZhHans": [
+        "时针指向10和11之间，分针指向2",
+        "时针指向10，分针指向2",
+        "时针指向10和11之间，分针指向10",
+        "时针指向10，分针指向10"
+      ],
+      "answer": "时针指向10和11之间，分针指向2",
+      "acceptedAnswers": [
+        "时针指向10和11之间，分针指向2"
+      ],
+      "explanationZhHans": "10时10分：时针应在10和11之间，分针从12起走10分即2大格，指向2。选项A正确。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-179",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "hjb-primary-p2-lower-time",
+      "unitTitle": "时间在哪里",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "time-reading",
+        "clock-minutes",
+        "daily-time-sense",
+        "elapsed-time-introduction",
+        "时间"
+      ],
+      "competencyTags": [
+        "量感",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "钟面读数",
+        "时分关系",
+        "时间顺序",
+        "简单经过时间",
+        "日常安排"
+      ],
+      "misconceptionTags": [
+        "hour and minute hands reversed",
+        "minute scale counted by numerals instead of five-minute steps",
+        "elapsed time treated as subtraction of visible digits only"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p2-lower-time"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-time",
+        "hjb-primary-p2-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "根据描述写出时间：时针刚走过7，分针指向11。这时是___时___分。",
+      "optionsZhHans": [],
+      "answer": "7时55分",
+      "acceptedAnswers": [
+        "7时55分",
+        "7:55"
+      ],
+      "explanationZhHans": "时针刚过7表示7时多；分针指向11，11大格是55分，所以是7时55分。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-180",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "hjb-primary-p2-lower-time",
+      "unitTitle": "时间在哪里",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "time-reading",
+        "clock-minutes",
+        "daily-time-sense",
+        "elapsed-time-introduction",
+        "时间"
+      ],
+      "competencyTags": [
+        "量感",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "钟面读数",
+        "时分关系",
+        "时间顺序",
+        "简单经过时间",
+        "日常安排"
+      ],
+      "misconceptionTags": [
+        "hour and minute hands reversed",
+        "minute scale counted by numerals instead of five-minute steps",
+        "elapsed time treated as subtraction of visible digits only"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p2-lower-time"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-time",
+        "hjb-primary-p2-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小东晚上8:30上床，听故事用了15分钟，然后立刻睡觉。他几点几分开始睡觉？",
+      "optionsZhHans": [],
+      "answer": "8时45分",
+      "acceptedAnswers": [
+        "8时45分",
+        "8:45"
+      ],
+      "explanationZhHans": "8时30分加15分，30+15=45，未满60分，所以是8时45分。"
+    }
+  ]
+}

@@ -1,0 +1,556 @@
+{
+  "batchId": "batch-017",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p1-161",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "viewpoints",
+        "spatial-visualization",
+        "observe-objects",
+        "观察物体"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "前面侧面上面",
+        "视角判断",
+        "物体描述",
+        "对应观察"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "object identity confused with view",
+        "left-right relation reversed after turning"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-shape-transformation",
+        "bnu-primary-p4-lower-assessment-observe-objects-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "桌子上放着一个玩具小房子，房顶是尖尖的三角形，前面有一扇红色的门，后面有一扇方形的窗户。小丽站在房子的前面，她能看到什么？请把句子补充完整：小丽站在房子的前面，她能看到______。",
+      "optionsZhHans": [],
+      "answer": "红色的门",
+      "acceptedAnswers": [
+        "红色的门"
+      ],
+      "explanationZhHans": "站在前面时，正对的是房子的前面部分，所以能看到红色的门。后面的方形窗户在背面，从前面看不见。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-162",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "viewpoints",
+        "spatial-visualization",
+        "observe-objects",
+        "观察物体"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "前面侧面上面",
+        "视角判断",
+        "物体描述",
+        "对应观察"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "object identity confused with view",
+        "left-right relation reversed after turning"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-shape-transformation",
+        "bnu-primary-p4-lower-assessment-observe-objects-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个布娃娃坐在椅子上，它的正面有两只眼睛和一个嘴巴，背面是光光的，什么也没有。小明从布娃娃的背面看过去，他会看到什么？请用一句话回答。",
+      "optionsZhHans": [],
+      "answer": "什么也看不到（或光光的背面）",
+      "acceptedAnswers": [
+        "什么也看不到（或光光的背面）",
+        "什么也看不到",
+        "光光的背面"
+      ],
+      "explanationZhHans": "从背面观察时，只能看到物体的背面。布娃娃的背面没有五官，所以小明看到的是光光的背面。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-163",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "viewpoints",
+        "spatial-visualization",
+        "observe-objects",
+        "观察物体"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "前面侧面上面",
+        "视角判断",
+        "物体描述",
+        "对应观察"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "object identity confused with view",
+        "left-right relation reversed after turning"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-shape-transformation",
+        "bnu-primary-p4-lower-assessment-observe-objects-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方体纸盒，它的前面画着一只小猫，后面画着一只小狗，上面画着一颗星星。小文站在纸盒的前面，她能看到什么？",
+      "optionsZhHans": [
+        "小猫",
+        "小狗",
+        "星星",
+        "什么也看不到"
+      ],
+      "answer": "小猫",
+      "acceptedAnswers": [
+        "小猫"
+      ],
+      "explanationZhHans": "从前面看纸盒，正对着前面，所以看到的是画在前面的小猫。小狗在后面，星星在上面，从前面都看不到。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-164",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "viewpoints",
+        "spatial-visualization",
+        "observe-objects",
+        "观察物体"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "前面侧面上面",
+        "视角判断",
+        "物体描述",
+        "对应观察"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "object identity confused with view",
+        "left-right relation reversed after turning"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-shape-transformation",
+        "bnu-primary-p4-lower-assessment-observe-objects-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个圆柱形的杯子，杯子的正面贴着一张笑脸贴纸，背面贴着一张哭脸贴纸。小芳站在杯子的侧面（左边），她能看到什么？请把句子补充完整：小芳站在杯子的侧面，她能看到______。",
+      "optionsZhHans": [],
+      "answer": "杯子的侧面（或看不到贴纸）",
+      "acceptedAnswers": [
+        "杯子的侧面（或看不到贴纸）",
+        "杯子的侧面",
+        "看不到贴纸"
+      ],
+      "explanationZhHans": "从侧面看杯子，只能看到杯子的侧面，正面的笑脸和背面的哭脸都看不到，所以看到的是没有贴纸的杯身。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-165",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "viewpoints",
+        "spatial-visualization",
+        "observe-objects",
+        "观察物体"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "前面侧面上面",
+        "视角判断",
+        "物体描述",
+        "对应观察"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "object identity confused with view",
+        "left-right relation reversed after turning"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-shape-transformation",
+        "bnu-primary-p4-lower-assessment-observe-objects-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个玩具熊，它的正面有黑色的鼻子和两只圆耳朵，背面有一条小尾巴。小东从玩具熊的背面看过去，他能不能看到鼻子？为什么？请用一句话回答。",
+      "optionsZhHans": [],
+      "answer": "不能，因为鼻子在正面，从背面看不到。",
+      "acceptedAnswers": [
+        "不能，因为鼻子在正面，从背面看不到。"
+      ],
+      "explanationZhHans": "鼻子长在玩具熊的正面，背面只有尾巴。从背面观察时，正面的部分被挡住了，所以看不到鼻子。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-166",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "viewpoints",
+        "spatial-visualization",
+        "observe-objects",
+        "观察物体"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "前面侧面上面",
+        "视角判断",
+        "物体描述",
+        "对应观察"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "object identity confused with view",
+        "left-right relation reversed after turning"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-shape-transformation",
+        "bnu-primary-p4-lower-assessment-observe-objects-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个正方体积木，它的前面涂成红色，后面涂成蓝色，上面涂成黄色。小华站在积木的后面，他看到的是什么颜色？",
+      "optionsZhHans": [
+        "红色",
+        "蓝色",
+        "黄色",
+        "白色"
+      ],
+      "answer": "蓝色",
+      "acceptedAnswers": [
+        "蓝色"
+      ],
+      "explanationZhHans": "从后面看积木，正对的是后面，所以看到的是涂在后面的蓝色。红色在前面，黄色在上面，从后面都看不到。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-167",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "viewpoints",
+        "spatial-visualization",
+        "observe-objects",
+        "观察物体"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "前面侧面上面",
+        "视角判断",
+        "物体描述",
+        "对应观察"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "object identity confused with view",
+        "left-right relation reversed after turning"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-shape-transformation",
+        "bnu-primary-p4-lower-assessment-observe-objects-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个书包，它的正面有一个大口袋，上面印着“ABC”三个字母，背面是两条背带。小丽站在书包的正面，她能看到什么？请把句子补充完整：小丽站在书包的正面，她能看到______。",
+      "optionsZhHans": [],
+      "answer": "大口袋和“ABC”字母",
+      "acceptedAnswers": [
+        "大口袋和“ABC”字母"
+      ],
+      "explanationZhHans": "从正面观察书包，正对着正面，所以能看到正面的大口袋和印着的字母。背带在背面，从正面看不见。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-168",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "viewpoints",
+        "spatial-visualization",
+        "observe-objects",
+        "观察物体"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "前面侧面上面",
+        "视角判断",
+        "物体描述",
+        "对应观察"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "object identity confused with view",
+        "left-right relation reversed after turning"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-shape-transformation",
+        "bnu-primary-p4-lower-assessment-observe-objects-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个闹钟，它的正面有数字和指针，背面是平的，有一个支架。小军从闹钟的上面往下看，他会看到什么？请用一句话回答。",
+      "optionsZhHans": [],
+      "answer": "闹钟的顶部（或看到闹钟的上面）",
+      "acceptedAnswers": [
+        "闹钟的顶部（或看到闹钟的上面）",
+        "闹钟的顶部",
+        "看到闹钟的上面"
+      ],
+      "explanationZhHans": "从上面观察闹钟，只能看到闹钟的顶部。数字和指针在正面，支架在背面，从上面都看不到。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-169",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "viewpoints",
+        "spatial-visualization",
+        "observe-objects",
+        "观察物体"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "前面侧面上面",
+        "视角判断",
+        "物体描述",
+        "对应观察"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "object identity confused with view",
+        "left-right relation reversed after turning"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-shape-transformation",
+        "bnu-primary-p4-lower-assessment-observe-objects-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个笔筒，它的前面画着一朵花，后面画着一棵草，左边画着一颗心，右边画着一颗星。小美站在笔筒的右边，她能看到什么？",
+      "optionsZhHans": [
+        "花",
+        "草",
+        "心",
+        "星"
+      ],
+      "answer": "星",
+      "acceptedAnswers": [
+        "星"
+      ],
+      "explanationZhHans": "从右边看笔筒，正对着右边，所以看到的是画在右边的星。花在前面，草在后面，心在左边，从右边都看不到。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-170",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "viewpoints",
+        "spatial-visualization",
+        "observe-objects",
+        "观察物体"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "前面侧面上面",
+        "视角判断",
+        "物体描述",
+        "对应观察"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "object identity confused with view",
+        "left-right relation reversed after turning"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-shape-transformation",
+        "bnu-primary-p4-lower-assessment-observe-objects-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个水壶，壶身的前面有一个小鹿图案，后面有一个小兔图案，壶盖的上面有一个小太阳图案。小云站在水壶的后面，她能看到什么？请把句子补充完整：小云站在水壶的后面，她能看到______。",
+      "optionsZhHans": [],
+      "answer": "小兔图案",
+      "acceptedAnswers": [
+        "小兔图案"
+      ],
+      "explanationZhHans": "从后面看水壶，正对着后面，所以看到的是后面的小兔图案。小鹿在前面，小太阳在上面，从后面都看不到。"
+    }
+  ]
+}

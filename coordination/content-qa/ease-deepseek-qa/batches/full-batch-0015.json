@@ -1,0 +1,168 @@
+{
+  "scope": "full",
+  "batchIndex": 15,
+  "startedAt": "2026-05-28T03:27:14.396Z",
+  "completedAt": "2026-05-28T03:27:46.718Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "itemIds": [
+    "10454",
+    "10455",
+    "10456",
+    "10457",
+    "10458",
+    "10459",
+    "10460",
+    "10461",
+    "10462",
+    "10463"
+  ],
+  "usage": {
+    "prompt_tokens": 3182,
+    "completion_tokens": 2434,
+    "total_tokens": 5616,
+    "prompt_tokens_details": {
+      "cached_tokens": 3072
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1495
+    },
+    "prompt_cache_hit_tokens": 3072,
+    "prompt_cache_miss_tokens": 110
+  },
+  "finishReason": "stop",
+  "jsonModeFallback": false,
+  "result": {
+    "items": [
+      {
+        "questionId": "10454",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "數 A ",
+        "independentAnswer": "數 A ",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "答案正確，問題可解。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10455",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "4 組",
+        "independentAnswer": "4",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "答案正確，問題可解。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10456",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "下午 2:00",
+        "independentAnswer": "下午 2:00",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "答案正確，問題可解。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10457",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "(a) 8, 16, 24, 32, 40, 48, 56, 64, 72, 80\n(b) 12, 24, 36, 48, 60, 72, 84, 96, 108, 120\n(c) 24, 48",
+        "independentAnswer": "(a) 8, 16, 24, 32, 40, 48, 56, 64, 72, 80 (b) 12, 24, 36, 48, 60, 72, 84, 96, 108, 120 (c) 24, 48",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "答案正確，問題可解。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10458",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "不會。 最大公因數是所有公因數中數值最大的一個。",
+        "independentAnswer": "不會，因為最大公因數是公因數中最大的。",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "答案概念正確。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10459",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "(a) 1, 2, 3, 6, 9, 18; (b) 1, 3, 9, 27; (c) 1, 3, 9",
+        "independentAnswer": "(a) 1, 2, 3, 6, 9, 18 (b) 1, 3, 9, 27 (c) 1, 3, 9",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "答案正確，問題可解。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10460",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "8",
+        "independentAnswer": "8",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "答案正確，問題可解。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10461",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "1",
+        "independentAnswer": "1",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "答案正確，問題可解。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10462",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "12,24",
+        "independentAnswer": "12, 24",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "答案正確，問題可解。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10463",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "24",
+        "independentAnswer": "24",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "答案正確，問題可解。",
+        "recommendedAction": "No blocking action."
+      }
+    ],
+    "batchSummary": {
+      "pass": 10,
+      "unsolvable": 0,
+      "ambiguous": 0,
+      "imageContextRequired": 0,
+      "answerMismatch": 0,
+      "missingAnswerKey": 0,
+      "notes": "所有問題均可解，且答案正確。"
+    }
+  }
+}

@@ -1,0 +1,140 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-085",
+  "startedAt": "2026-05-28T02:51:09.372Z",
+  "completedAt": "2026-05-28T02:51:26.772Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-173",
+    "bnu-high-ds-v1-s5-174",
+    "bnu-high-ds-v1-s5-175",
+    "bnu-high-ds-v1-s5-176",
+    "bnu-high-ds-v1-s5-177",
+    "bnu-high-ds-v1-s5-178",
+    "bnu-high-ds-v1-s5-179",
+    "bnu-high-ds-v1-s5-180"
+  ],
+  "usage": {
+    "prompt_tokens": 11741,
+    "completion_tokens": 1103,
+    "total_tokens": 12844,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 11357
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-173",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案√3/3与独立解一致，解析正确推导平面方程和距离公式，无矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-174",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "A、B、C三点共线，无法构成三角形，题目条件错误，存储答案0虽反映共线但题目要求三角形面积，属于数学错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-175",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案(1/√3, 1/√3, 1/√3)与独立解一致，解析正确，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-176",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "unsolvable",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "四点共线，无法构成四边形，存储答案错误判定为平行四边形，解析中向量计算与坐标不符，存在矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-177",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案√3/2与独立解一致，解析用叉积正确计算面积。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-178",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "unsolvable",
+          "bad_options"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "四点共线，AB与CD共线，异面直线距离无定义，选项无0，题目条件错误，存储答案0不在选项中。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-179",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案√3/3与独立解一致，解析正确使用点面距离公式。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-180",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "四点共线，无法构成四面体，体积为0，题目条件错误，存储答案0虽反映共线但题目要求四面体体积，属于数学错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 4,
+      "warn": 0,
+      "fail": 4,
+      "notes": "4题通过（173,175,177,179），4题失败（174,176,178,180）均因四点共线导致题目条件错误，无法构成所需几何体。"
+    }
+  }
+}

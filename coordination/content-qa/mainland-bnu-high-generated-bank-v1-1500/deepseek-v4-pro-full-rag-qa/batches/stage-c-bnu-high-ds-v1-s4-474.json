@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-474",
+  "startedAt": "2026-05-28T01:59:44.091Z",
+  "completedAt": "2026-05-28T01:59:48.675Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-474"
+  ],
+  "usage": {
+    "prompt_tokens": 2097,
+    "completion_tokens": 275,
+    "total_tokens": 2372,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1713
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-474",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "3π√55 cm³",
+        "correctedAnswer": "3π√55 cm³",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合课标。独立计算得圆锥体积为3π√55 cm³，但存储答案为16π√7 cm³，计算错误。解析指出原答案有误，但未修正存储答案，存在矛盾。需修正答案为3π√55 cm³。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "存储答案错误，解析矛盾，需修正为3π√55 cm³。"
+    }
+  }
+}

@@ -1,0 +1,662 @@
+{
+  "batchId": "batch-073",
+  "questions": [
+    {
+      "id": "bnu-junior-ds-v1-s2-221",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-data-analysis",
+      "unitTitle": "数据的分析",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "data-analysis",
+        "mean",
+        "median",
+        "variance",
+        "box-plot",
+        "data-decision",
+        "平均数",
+        "方差",
+        "中位数",
+        "箱线图"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均数",
+        "方差",
+        "中位数",
+        "箱线图",
+        "数据比较",
+        "决策解释"
+      ],
+      "misconceptionTags": [
+        "mean used without checking spread",
+        "median position counted incorrectly",
+        "box-plot features treated as raw data values"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-data-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-data-analysis-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校八年级两个班各5名同学参加“垃圾分类”知识竞赛，成绩（单位：分）如下：\n一班：85，90，95，100，80\n二班：88，89，92，91，90\n请回答以下问题：\n(1) 分别计算两个班的平均成绩，并比较哪个班的平均成绩更高。\n(2) 分别计算两个班的方差，并比较哪个班的成绩更稳定。\n(3) 如果学校要从这两个班中选出一个班代表学校参加区级比赛，你认为选哪个班更合适？请结合平均数和方差说明理由。",
+      "optionsZhHans": [],
+      "answer": "(1) 一班平均成绩为90分，二班平均成绩为90分，两个班的平均成绩相同。\n(2) 一班方差为50，二班方差为2，二班的成绩更稳定。\n(3) 选二班更合适，因为两个班的平均成绩相同，但二班的方差更小，成绩更稳定，更有可能在区级比赛中稳定发挥。",
+      "acceptedAnswers": [
+        "(1) 一班平均成绩为90分，二班平均成绩为90分，两个班的平均成绩相同。\n(2) 一班方差为50，二班方差为2，二班的成绩更稳定。\n(3) 选二班更合适，因为两个班的平均成绩相同，但二班的方差更小，成绩更稳定，更有可能在区级比赛中稳定发挥。"
+      ],
+      "explanationZhHans": "一班平均数=(85+90+95+100+80)/5=90，二班平均数=(88+89+92+91+90)/5=90；一班方差=[(85-90)²+(90-90)²+(95-90)²+(100-90)²+(80-90)²]/5=50，二班方差=[(88-90)²+(89-90)²+(92-90)²+(91-90)²+(90-90)²]/5=2；平均数相同时，方差越小越稳定，故二班更合适。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-222",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-data-analysis",
+      "unitTitle": "数据的分析",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "data-analysis",
+        "mean",
+        "median",
+        "variance",
+        "box-plot",
+        "data-decision",
+        "平均数",
+        "方差",
+        "中位数",
+        "箱线图"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均数",
+        "方差",
+        "中位数",
+        "箱线图",
+        "数据比较",
+        "决策解释"
+      ],
+      "misconceptionTags": [
+        "mean used without checking spread",
+        "median position counted incorrectly",
+        "box-plot features treated as raw data values"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-data-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-data-analysis-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校八年级两个班各5名同学参加“汉字听写”比赛，得分如下（单位：分）：\n一班：85，90，92，88，95\n二班：80，85，90，95，100\n（1）分别计算两个班的平均分和方差；\n（2）若要从两个班中选出一个班代表年级参加校级比赛，要求成绩更稳定，应选哪个班？请结合数据说明理由。",
+      "optionsZhHans": [],
+      "answer": "（1）一班平均分=90，方差=11.6；二班平均分=90，方差=50。（2）应选一班，因为两个班平均分相同，但一班的方差远小于二班，成绩更稳定。",
+      "acceptedAnswers": [
+        "（1）一班平均分=90，方差=11.6；二班平均分=90，方差=50。（2）应选一班，因为两个班平均分相同，但一班的方差远小于二班，成绩更稳定。"
+      ],
+      "explanationZhHans": "一班平均分=(85+90+92+88+95)/5=90，方差=[(85-90)²+(90-90)²+(92-90)²+(88-90)²+(95-90)²]/5=11.6；二班平均分=90，方差=[(80-90)²+(85-90)²+(90-90)²+(95-90)²+(100-90)²]/5=50。平均分相同，方差越小成绩越稳定，故选一班。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-223",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-data-analysis",
+      "unitTitle": "数据的分析",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "data-analysis",
+        "mean",
+        "median",
+        "variance",
+        "box-plot",
+        "data-decision",
+        "平均数",
+        "方差",
+        "中位数",
+        "箱线图"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均数",
+        "方差",
+        "中位数",
+        "箱线图",
+        "数据比较",
+        "决策解释"
+      ],
+      "misconceptionTags": [
+        "mean used without checking spread",
+        "median position counted incorrectly",
+        "box-plot features treated as raw data values"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-data-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-data-analysis-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "甲、乙两名射击运动员在相同条件下各射击10次，每次命中的环数如下：\n甲：7, 8, 8, 9, 7, 8, 9, 8, 8, 8\n乙：6, 10, 7, 9, 8, 10, 6, 9, 7, 8\n教练想挑选一名成绩更稳定的运动员参加比赛，应选择哪位运动员？请根据数据说明理由。",
+      "optionsZhHans": [
+        "甲，因为甲的平均数更高",
+        "甲，因为甲的方差更小",
+        "乙，因为乙的中位数更大",
+        "乙，因为乙的方差更小"
+      ],
+      "answer": "甲，因为甲的方差更小",
+      "acceptedAnswers": [
+        "甲，因为甲的方差更小"
+      ],
+      "explanationZhHans": "计算得甲的平均数为8，方差为0.4；乙的平均数为8，方差为2。两人平均数相同，但甲的方差远小于乙，说明甲的成绩更稳定，故应选甲。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-224",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-data-analysis",
+      "unitTitle": "数据的分析",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "data-analysis",
+        "mean",
+        "median",
+        "variance",
+        "box-plot",
+        "data-decision",
+        "平均数",
+        "方差",
+        "中位数",
+        "箱线图"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均数",
+        "方差",
+        "中位数",
+        "箱线图",
+        "数据比较",
+        "决策解释"
+      ],
+      "misconceptionTags": [
+        "mean used without checking spread",
+        "median position counted incorrectly",
+        "box-plot features treated as raw data values"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-data-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-data-analysis-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校八年级两个班各5名同学参加“一分钟跳绳”比赛，成绩（单位：次）如下：\n一班：180，185，190，195，200\n二班：175，180，185，190，250\n\n（1）分别计算两个班成绩的平均数和中位数；\n（2）哪个班的成绩更稳定？请通过计算方差说明理由；\n（3）如果要从两个班中选择一个班代表学校参加区级比赛，你认为选择哪个班更合适？请结合数据说明理由。",
+      "optionsZhHans": [],
+      "answer": "（1）一班平均数190，中位数190；二班平均数196，中位数185。\n（2）一班方差为50，二班方差为730，一班方差小，成绩更稳定。\n（3）选择一班更合适。理由：一班成绩稳定，中位数较高，整体水平较好；二班虽然平均数略高，但方差很大，成绩波动大，存在极端值，不利于稳定发挥。",
+      "acceptedAnswers": [
+        "（1）一班平均数190，中位数190；二班平均数196，中位数185。\n（2）一班方差为50，二班方差为730，一班方差小，成绩更稳定。\n（3）选择一班更合适。理由：一班成绩稳定，中位数较高，整体水平较好；二班虽然平均数略高，但方差很大，成绩波动大，存在极端值，不利于稳定发挥。"
+      ],
+      "explanationZhHans": "（1）一班平均数=(180+185+190+195+200)/5=190，中位数为190；二班平均数=(175+180+185+190+250)/5=196，中位数为185。\n（2）一班方差=[(180-190)²+(185-190)²+(190-190)²+(195-190)²+(200-190)²]/5=50；二班方差=[(175-196)²+(180-196)²+(185-196)²+(190-196)²+(250-196)²]/5=730。一班方差小，更稳定。\n（3）决策需综合考虑平均水平和稳定性。一班中位数高且稳定，适合代表学校。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-225",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-data-analysis",
+      "unitTitle": "数据的分析",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "data-analysis",
+        "mean",
+        "median",
+        "variance",
+        "box-plot",
+        "data-decision",
+        "平均数",
+        "方差",
+        "中位数",
+        "箱线图"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均数",
+        "方差",
+        "中位数",
+        "箱线图",
+        "数据比较",
+        "决策解释"
+      ],
+      "misconceptionTags": [
+        "mean used without checking spread",
+        "median position counted incorrectly",
+        "box-plot features treated as raw data values"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-data-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-data-analysis-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "甲、乙两名射击运动员在相同条件下各射击10次，每次射击成绩（环）如下：\n甲：7, 8, 8, 9, 7, 8, 8, 9, 7, 8\n乙：9, 6, 7, 8, 9, 6, 7, 8, 9, 6\n教练准备从两人中选一人参加比赛，要求发挥更稳定。请分别计算甲、乙成绩的方差，并回答：应该选谁参赛？为什么？",
+      "optionsZhHans": [],
+      "answer": "甲的方差为0.4，乙的方差为1.4，应选甲参赛，因为甲的方差较小，成绩更稳定。",
+      "acceptedAnswers": [
+        "甲的方差为0.4，乙的方差为1.4，应选甲参赛，因为甲的方差较小，成绩更稳定。"
+      ],
+      "explanationZhHans": "甲的平均数为(7+8+8+9+7+8+8+9+7+8)÷10=7.9，方差为[(7-7.9)²×3+(8-7.9)²×5+(9-7.9)²×2]÷10=0.4。乙的平均数为(9+6+7+8+9+6+7+8+9+6)÷10=7.5，方差为[(9-7.5)²×3+(6-7.5)²×3+(7-7.5)²×2+(8-7.5)²×2]÷10=1.4。方差越小越稳定，故选甲。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-226",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-data-analysis",
+      "unitTitle": "数据的分析",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "data-analysis",
+        "mean",
+        "median",
+        "variance",
+        "box-plot",
+        "data-decision",
+        "平均数",
+        "方差",
+        "中位数",
+        "箱线图"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均数",
+        "方差",
+        "中位数",
+        "箱线图",
+        "数据比较",
+        "决策解释"
+      ],
+      "misconceptionTags": [
+        "mean used without checking spread",
+        "median position counted incorrectly",
+        "box-plot features treated as raw data values"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-data-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-data-analysis-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "甲、乙两名射击运动员在相同条件下各射击5次，成绩（环）如下：\n甲：8，9，8，10，8\n乙：7，10，10，7，9\n教练准备从两人中选一人参加比赛。若希望成绩更稳定，应选择哪位运动员？请根据方差做出判断。",
+      "optionsZhHans": [
+        "甲，因为甲的方差较小",
+        "乙，因为乙的方差较小",
+        "甲，因为甲的平均数较高",
+        "乙，因为乙的平均数较高"
+      ],
+      "answer": "甲，因为甲的方差较小",
+      "acceptedAnswers": [
+        "甲，因为甲的方差较小"
+      ],
+      "explanationZhHans": "甲的平均数为(8+9+8+10+8)/5=8.6，方差为[(8-8.6)²+(9-8.6)²+(8-8.6)²+(10-8.6)²+(8-8.6)²]/5=0.64；乙的平均数为(7+10+10+7+9)/5=8.6，方差为[(7-8.6)²+(10-8.6)²+(10-8.6)²+(7-8.6)²+(9-8.6)²]/5=1.84。甲的方差更小，成绩更稳定，故选甲。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-227",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-data-analysis",
+      "unitTitle": "数据的分析",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "data-analysis",
+        "mean",
+        "median",
+        "variance",
+        "box-plot",
+        "data-decision",
+        "平均数",
+        "方差",
+        "中位数",
+        "箱线图"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均数",
+        "方差",
+        "中位数",
+        "箱线图",
+        "数据比较",
+        "决策解释"
+      ],
+      "misconceptionTags": [
+        "mean used without checking spread",
+        "median position counted incorrectly",
+        "box-plot features treated as raw data values"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-data-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-data-analysis-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校八年级两个班各5名学生参加“数学应用”比赛，成绩（单位：分）如下：\n一班：85, 90, 90, 95, 100\n二班：80, 85, 90, 95, 100\n(1) 分别计算两个班成绩的平均数、中位数和方差。\n(2) 如果学校要选派一个班参加区级比赛，你认为选派哪个班更合适？请结合数据说明理由。",
+      "optionsZhHans": [],
+      "answer": "(1) 一班：平均数92，中位数90，方差26；二班：平均数90，中位数90，方差50。\n(2) 选派一班更合适。理由：一班平均数更高，方差更小，说明成绩整体更好且更稳定。",
+      "acceptedAnswers": [
+        "(1) 一班：平均数92，中位数90，方差26；二班：平均数90，中位数90，方差50。\n(2) 选派一班更合适。理由：一班平均数更高，方差更小，说明成绩整体更好且更稳定。"
+      ],
+      "explanationZhHans": "(1) 一班：平均数(85+90+90+95+100)/5=92，中位数90，方差[(85-92)²+(90-92)²×2+(95-92)²+(100-92)²]/5=26。二班：平均数(80+85+90+95+100)/5=90，中位数90，方差[(80-90)²+(85-90)²+(90-90)²+(95-90)²+(100-90)²]/5=50。(2) 一班平均分高且方差小，成绩更优更稳定，故选派一班。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-228",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-data-analysis",
+      "unitTitle": "数据的分析",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "data-analysis",
+        "mean",
+        "median",
+        "variance",
+        "box-plot",
+        "data-decision",
+        "平均数",
+        "方差",
+        "中位数",
+        "箱线图"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均数",
+        "方差",
+        "中位数",
+        "箱线图",
+        "数据比较",
+        "决策解释"
+      ],
+      "misconceptionTags": [
+        "mean used without checking spread",
+        "median position counted incorrectly",
+        "box-plot features treated as raw data values"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-data-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-data-analysis-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "甲、乙两名射击运动员在相同条件下各射击10次，每次命中的环数如下：\n甲：7，8，8，9，6，8，9，10，8，7\n乙：9，5，7，8，10，6，8，9，7，9\n教练想选择一名发挥更稳定的运动员参加比赛。请计算两名运动员成绩的方差，并说明应选择哪位运动员。",
+      "optionsZhHans": [],
+      "answer": "甲运动员的方差为1.2，乙运动员的方差为2.6，应选择甲运动员",
+      "acceptedAnswers": [
+        "甲运动员的方差为1.2，乙运动员的方差为2.6，应选择甲运动员"
+      ],
+      "explanationZhHans": "先计算平均数：甲平均数为8，乙平均数为7.8。甲方差=[(7-8)²+(8-8)²×4+(9-8)²×2+(6-8)²+(10-8)²]/10=1.2；乙方差=[(9-7.8)²+(5-7.8)²+(7-7.8)²×2+(8-7.8)²×2+(10-7.8)²+(6-7.8)²+(9-7.8)²×2]/10=2.6。方差越小越稳定，故选择甲。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-229",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-data-analysis",
+      "unitTitle": "数据的分析",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "data-analysis",
+        "mean",
+        "median",
+        "variance",
+        "box-plot",
+        "data-decision",
+        "平均数",
+        "方差",
+        "中位数",
+        "箱线图"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均数",
+        "方差",
+        "中位数",
+        "箱线图",
+        "数据比较",
+        "决策解释"
+      ],
+      "misconceptionTags": [
+        "mean used without checking spread",
+        "median position counted incorrectly",
+        "box-plot features treated as raw data values"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-data-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-data-analysis-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校八年级两个班各5名同学参加“一分钟跳绳”比赛，成绩（单位：次）如下：\n一班：180，185，190，195，200\n二班：160，170，190，210，220\n两个班的平均数都是190次。现要选出一个班级代表学校参加区级比赛，要求发挥更稳定。应该选择哪个班？请根据数据说明理由。\nA. 选一班，因为一班成绩的中位数是190次\nB. 选一班，因为一班成绩的方差较小\nC. 选二班，因为二班成绩的最高分更高\nD. 选二班，因为二班成绩的方差较小",
+      "optionsZhHans": [
+        "选一班，因为一班成绩的中位数是190次",
+        "选一班，因为一班成绩的方差较小",
+        "选二班，因为二班成绩的最高分更高",
+        "选二班，因为二班成绩的方差较小"
+      ],
+      "answer": "选一班，因为一班成绩的方差较小",
+      "acceptedAnswers": [
+        "选一班，因为一班成绩的方差较小"
+      ],
+      "explanationZhHans": "一班数据波动小：180~200，极差20；二班数据波动大：160~220，极差60。计算方差：一班方差=[(180-190)²+(185-190)²+(190-190)²+(195-190)²+(200-190)²]/5=50；二班方差=[(160-190)²+(170-190)²+(190-190)²+(210-190)²+(220-190)²]/5=520。一班方差远小于二班，成绩更稳定，故选一班。中位数不能反映稳定性，最高分高不代表稳定。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-230",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-data-analysis",
+      "unitTitle": "数据的分析",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "data-analysis",
+        "mean",
+        "median",
+        "variance",
+        "box-plot",
+        "data-decision",
+        "平均数",
+        "方差",
+        "中位数",
+        "箱线图"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均数",
+        "方差",
+        "中位数",
+        "箱线图",
+        "数据比较",
+        "决策解释"
+      ],
+      "misconceptionTags": [
+        "mean used without checking spread",
+        "median position counted incorrectly",
+        "box-plot features treated as raw data values"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-data-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-data-analysis-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "甲、乙两名射击运动员在相同条件下各射击10次，每次命中的环数如下：\n甲：7, 8, 8, 9, 7, 8, 8, 9, 7, 9\n乙：5, 10, 6, 9, 10, 5, 10, 6, 9, 10\n教练准备从两人中选一人参加比赛。如果比赛更看重发挥的稳定性，你认为应该选谁？请通过计算说明理由。",
+      "optionsZhHans": [],
+      "answer": "选甲。因为甲成绩的方差较小，发挥更稳定。",
+      "acceptedAnswers": [
+        "选甲。因为甲成绩的方差较小，发挥更稳定。",
+        "选甲，因为甲的方差小，成绩稳定。",
+        "甲，方差小，稳定。"
+      ],
+      "explanationZhHans": "计算得甲平均数为8，方差为0.6；乙平均数为8，方差为4.4。乙方差远大于甲，说明乙成绩波动大。稳定性看方差，方差越小越稳定，故应选甲。"
+    }
+  ]
+}

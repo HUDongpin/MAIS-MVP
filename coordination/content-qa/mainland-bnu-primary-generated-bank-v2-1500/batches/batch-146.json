@@ -1,0 +1,598 @@
+{
+  "batchId": "batch-146",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p6-201",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-direct-inverse-proportion",
+      "unitTitle": "正比例与反比例",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "direct-proportion",
+        "inverse-proportion",
+        "constant-rate",
+        "constant-product",
+        "正比例",
+        "反比例"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "函数意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "变化的量",
+        "判断正比例",
+        "判断反比例",
+        "表格图像表达",
+        "建立数量关系"
+      ],
+      "misconceptionTags": [
+        "all increasing pairs treated as direct proportion",
+        "inverse proportion confused with simple decrease",
+        "constant quantity not identified"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-direct-inverse-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-direct-inverse-proportion-unit",
+        "bnu-primary-p6-lower-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一辆汽车行驶的时间和路程如下表：\n\n| 时间（时） | 1 | 2 | 3 | 4 | 5 |\n|------------|----|----|----|----|----|\n| 路程（千米） | 80 | 160 | 240 | 320 | 400 |\n\n下面关于路程和时间关系的说法，正确的是（ ）。",
+      "optionsZhHans": [
+        "路程和时间成正比例，因为路程随时间增加而增加",
+        "路程和时间成正比例，因为路程与时间的比值一定",
+        "路程和时间成反比例，因为速度一定",
+        "路程和时间不成比例，因为路程增加时间也增加"
+      ],
+      "answer": "路程和时间成正比例，因为路程与时间的比值一定",
+      "acceptedAnswers": [
+        "路程和时间成正比例，因为路程与时间的比值一定"
+      ],
+      "explanationZhHans": "计算路程与时间的比值：80÷1=80，160÷2=80，240÷3=80，320÷4=80，400÷5=80，比值始终是80，即速度一定。所以路程和时间成正比例，判断依据是比值一定，而不是单纯的同时增加。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-202",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-direct-inverse-proportion",
+      "unitTitle": "正比例与反比例",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "direct-proportion",
+        "inverse-proportion",
+        "constant-rate",
+        "constant-product",
+        "正比例",
+        "反比例"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "函数意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "变化的量",
+        "判断正比例",
+        "判断反比例",
+        "表格图像表达",
+        "建立数量关系"
+      ],
+      "misconceptionTags": [
+        "all increasing pairs treated as direct proportion",
+        "inverse proportion confused with simple decrease",
+        "constant quantity not identified"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-direct-inverse-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-direct-inverse-proportion-unit",
+        "bnu-primary-p6-lower-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "李叔叔开车从甲城到乙城，计划以每小时60千米的速度行驶，需要4小时到达。实际行驶时，由于部分路段限速，他每小时只能行驶48千米。按照这个速度，他需要多少小时才能到达乙城？请先判断行驶速度与所需时间成什么比例关系，再列式解答。",
+      "optionsZhHans": [],
+      "answer": "反比例；5小时",
+      "acceptedAnswers": [
+        "反比例；5小时",
+        "反比例；5",
+        "反比例 5小时",
+        "反比例 5"
+      ],
+      "explanationZhHans": "路程一定，速度与时间成反比例。总路程：60×4=240千米。实际时间：240÷48=5小时。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-203",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-direct-inverse-proportion",
+      "unitTitle": "正比例与反比例",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "direct-proportion",
+        "inverse-proportion",
+        "constant-rate",
+        "constant-product",
+        "正比例",
+        "反比例"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "函数意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "变化的量",
+        "判断正比例",
+        "判断反比例",
+        "表格图像表达",
+        "建立数量关系"
+      ],
+      "misconceptionTags": [
+        "all increasing pairs treated as direct proportion",
+        "inverse proportion confused with simple decrease",
+        "constant quantity not identified"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-direct-inverse-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-direct-inverse-proportion-unit",
+        "bnu-primary-p6-lower-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一辆汽车从甲地开往乙地，行驶的时间和路程如下表。\n时间（时）：1，2，3，4，5\n路程（千米）：80，160，240，320，400\n下面说法正确的是（ ）。",
+      "optionsZhHans": [
+        "路程和时间成反比例",
+        "路程和时间成正比例",
+        "路程和时间不成比例",
+        "路程和时间有时成正比例，有时成反比例"
+      ],
+      "answer": "路程和时间成正比例",
+      "acceptedAnswers": [
+        "路程和时间成正比例"
+      ],
+      "explanationZhHans": "计算路程与时间的比值：80÷1=80，160÷2=80，240÷3=80，320÷4=80，400÷5=80，比值一定，所以路程和时间成正比例。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-204",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-direct-inverse-proportion",
+      "unitTitle": "正比例与反比例",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "direct-proportion",
+        "inverse-proportion",
+        "constant-rate",
+        "constant-product",
+        "正比例",
+        "反比例"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "函数意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "变化的量",
+        "判断正比例",
+        "判断反比例",
+        "表格图像表达",
+        "建立数量关系"
+      ],
+      "misconceptionTags": [
+        "all increasing pairs treated as direct proportion",
+        "inverse proportion confused with simple decrease",
+        "constant quantity not identified"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-direct-inverse-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-direct-inverse-proportion-unit",
+        "bnu-primary-p6-lower-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用一批纸装订练习本，每本的页数和装订的本数如下表。\n\n每本的页数：20，30，40，50，60\n装订的本数：600，400，300，240，200\n\n每本的页数和装订的本数成什么比例？请写出你的判断理由。",
+      "optionsZhHans": [],
+      "answer": "反比例",
+      "acceptedAnswers": [
+        "反比例"
+      ],
+      "explanationZhHans": "因为每本的页数×装订的本数=总页数（一定），即20×600=30×400=40×300=50×240=60×200=12000，乘积不变，所以成反比例。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-205",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-direct-inverse-proportion",
+      "unitTitle": "正比例与反比例",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "direct-proportion",
+        "inverse-proportion",
+        "constant-rate",
+        "constant-product",
+        "正比例",
+        "反比例"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "函数意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "变化的量",
+        "判断正比例",
+        "判断反比例",
+        "表格图像表达",
+        "建立数量关系"
+      ],
+      "misconceptionTags": [
+        "all increasing pairs treated as direct proportion",
+        "inverse proportion confused with simple decrease",
+        "constant quantity not identified"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-direct-inverse-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-direct-inverse-proportion-unit",
+        "bnu-primary-p6-lower-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面表格记录了某种铅笔的总价与数量的对应数据。\n\n| 数量/支 | 2 | 4 | 6 | 8 |\n|----------|----|----|----|----|\n| 总价/元 | 1.6 | 3.2 | 4.8 | 6.4 |\n\n根据表格，下面说法正确的是（ ）。",
+      "optionsZhHans": [
+        "总价与数量成正比例，因为总价随着数量增加而增加",
+        "总价与数量成正比例，因为总价与数量的比值一定",
+        "总价与数量成反比例，因为数量增加总价也增加",
+        "总价与数量不成比例，因为总价的变化没有规律"
+      ],
+      "answer": "总价与数量成正比例，因为总价与数量的比值一定",
+      "acceptedAnswers": [
+        "总价与数量成正比例，因为总价与数量的比值一定"
+      ],
+      "explanationZhHans": "计算总价与数量的比值：1.6÷2=0.8，3.2÷4=0.8，4.8÷6=0.8，6.4÷8=0.8，比值始终是0.8，保持不变。因此总价与数量成正比例，选项B正确。选项A只描述了同增，未说明比值一定；选项C混淆了正反比例；选项D错误。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-206",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-direct-inverse-proportion",
+      "unitTitle": "正比例与反比例",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "direct-proportion",
+        "inverse-proportion",
+        "constant-rate",
+        "constant-product",
+        "正比例",
+        "反比例"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "函数意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "变化的量",
+        "判断正比例",
+        "判断反比例",
+        "表格图像表达",
+        "建立数量关系"
+      ],
+      "misconceptionTags": [
+        "all increasing pairs treated as direct proportion",
+        "inverse proportion confused with simple decrease",
+        "constant quantity not identified"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-direct-inverse-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-direct-inverse-proportion-unit",
+        "bnu-primary-p6-lower-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一辆汽车在高速公路上匀速行驶，行驶时间和路程记录如下表。\n\n| 时间（时） | 1 | 2 | 3 | 4 | 5 |\n|------------|----|----|----|----|----|\n| 路程（千米） | 90 | 180 | 270 | 360 | 450 |\n\n请回答：表格中路程与时间的比值（速度）是否一定？如果一定，这个比值是多少？路程和时间成什么比例关系？",
+      "optionsZhHans": [],
+      "answer": "一定，90，正比例",
+      "acceptedAnswers": [
+        "一定，90，正比例",
+        "一定,90,正比例"
+      ],
+      "explanationZhHans": "计算每组路程除以时间：90÷1=90，180÷2=90，270÷3=90，360÷4=90，450÷5=90，比值（速度）一定，都是90千米/时。因为路程÷时间=速度（一定），所以路程和时间成正比例关系。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-207",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-direct-inverse-proportion",
+      "unitTitle": "正比例与反比例",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "direct-proportion",
+        "inverse-proportion",
+        "constant-rate",
+        "constant-product",
+        "正比例",
+        "反比例"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "函数意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "变化的量",
+        "判断正比例",
+        "判断反比例",
+        "表格图像表达",
+        "建立数量关系"
+      ],
+      "misconceptionTags": [
+        "all increasing pairs treated as direct proportion",
+        "inverse proportion confused with simple decrease",
+        "constant quantity not identified"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-direct-inverse-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-direct-inverse-proportion-unit",
+        "bnu-primary-p6-lower-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一辆汽车匀速行驶，行驶的时间和路程如下表。\n时间（小时） 1   2   3   4   5\n路程（千米） 80  160 240 320 400\n下面说法正确的是（ ）。",
+      "optionsZhHans": [
+        "路程和时间成正比例，因为路程与时间的比值一定",
+        "路程和时间成反比例，因为时间越长路程越大",
+        "路程和时间不成比例，因为路程随时间增加而增加",
+        "路程和时间成正比例，因为路程与时间的乘积一定"
+      ],
+      "answer": "路程和时间成正比例，因为路程与时间的比值一定",
+      "acceptedAnswers": [
+        "路程和时间成正比例，因为路程与时间的比值一定"
+      ],
+      "explanationZhHans": "计算路程与时间的比值：80÷1=80，160÷2=80，240÷3=80，320÷4=80，400÷5=80，比值始终是80，保持不变，所以路程和时间成正比例。选项A正确。选项B错误，反比例要求乘积一定。选项C错误，增加不一定成比例，需看比值是否一定。选项D错误，乘积不是定值。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-208",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-direct-inverse-proportion",
+      "unitTitle": "正比例与反比例",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "direct-proportion",
+        "inverse-proportion",
+        "constant-rate",
+        "constant-product",
+        "正比例",
+        "反比例"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "函数意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "变化的量",
+        "判断正比例",
+        "判断反比例",
+        "表格图像表达",
+        "建立数量关系"
+      ],
+      "misconceptionTags": [
+        "all increasing pairs treated as direct proportion",
+        "inverse proportion confused with simple decrease",
+        "constant quantity not identified"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-direct-inverse-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-direct-inverse-proportion-unit",
+        "bnu-primary-p6-lower-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "李叔叔开车从甲地到乙地，行驶的时间和路程如下表。\n时间（小时）：1，2，3，4，5\n路程（千米）：80，160，240，320，400\n（1）表中路程与时间的比值（  ），这个比值表示（  ）。\n（2）因为路程与时间的（  ）一定，所以路程和时间成（  ）比例。",
+      "optionsZhHans": [],
+      "answer": "一定，速度，比值，正",
+      "acceptedAnswers": [
+        "一定，速度，比值，正",
+        "一定，速度，比值，正比例",
+        "一定，速度，商，正",
+        "一定，速度，商，正比例"
+      ],
+      "explanationZhHans": "路程÷时间=80（一定），即速度不变。比值一定时，两个量成正比例。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-209",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-direct-inverse-proportion",
+      "unitTitle": "正比例与反比例",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "direct-proportion",
+        "inverse-proportion",
+        "constant-rate",
+        "constant-product",
+        "正比例",
+        "反比例"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "函数意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "变化的量",
+        "判断正比例",
+        "判断反比例",
+        "表格图像表达",
+        "建立数量关系"
+      ],
+      "misconceptionTags": [
+        "all increasing pairs treated as direct proportion",
+        "inverse proportion confused with simple decrease",
+        "constant quantity not identified"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-direct-inverse-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-direct-inverse-proportion-unit",
+        "bnu-primary-p6-lower-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面表格记录了张叔叔开车从甲城到乙城的过程中，已行驶路程与剩余路程的变化情况。\n\n| 已行驶路程（千米） | 20 | 40 | 60 | 80 | 100 |\n|-------------------|----|----|----|----|-----|\n| 剩余路程（千米）   | 180 | 160 | 140 | 120 | 100 |\n\n根据表格中的数据，已行驶路程与剩余路程成什么比例？",
+      "optionsZhHans": [
+        "成正比例",
+        "成反比例",
+        "不成比例",
+        "既成正比例又成反比例"
+      ],
+      "answer": "不成比例",
+      "acceptedAnswers": [
+        "不成比例"
+      ],
+      "explanationZhHans": "已行驶路程与剩余路程的和始终是200千米，是定和关系。正比例要求比值一定，反比例要求积一定，这里都不满足，所以不成比例。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-210",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-direct-inverse-proportion",
+      "unitTitle": "正比例与反比例",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "direct-proportion",
+        "inverse-proportion",
+        "constant-rate",
+        "constant-product",
+        "正比例",
+        "反比例"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "函数意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "变化的量",
+        "判断正比例",
+        "判断反比例",
+        "表格图像表达",
+        "建立数量关系"
+      ],
+      "misconceptionTags": [
+        "all increasing pairs treated as direct proportion",
+        "inverse proportion confused with simple decrease",
+        "constant quantity not identified"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-direct-inverse-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-direct-inverse-proportion-unit",
+        "bnu-primary-p6-lower-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "李师傅加工一批零件，每小时加工的数量和所需时间如下表：\n\n| 每小时加工数量（个） | 10 | 15 | 20 | 30 |\n|---------------------|----|----|----|----|\n| 所需时间（小时）     | 12 | 8  | 6  | 4  |\n\n表中两种量成什么比例？请写出你的判断理由。",
+      "optionsZhHans": [],
+      "answer": "反比例",
+      "acceptedAnswers": [
+        "反比例",
+        "成反比例"
+      ],
+      "explanationZhHans": "计算每组乘积：10×12=120，15×8=120，20×6=120，30×4=120，乘积一定。所以每小时加工数量和所需时间成反比例。"
+    }
+  ]
+}

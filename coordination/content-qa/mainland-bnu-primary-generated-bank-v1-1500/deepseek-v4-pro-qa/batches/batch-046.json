@@ -1,0 +1,191 @@
+{
+  "batchNumber": 46,
+  "startedAt": "2026-05-27T13:28:30.426Z",
+  "completedAt": "2026-05-27T13:28:46.655Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p4-061",
+    "bnu-primary-ds-v1-p4-062",
+    "bnu-primary-ds-v1-p4-063",
+    "bnu-primary-ds-v1-p4-064",
+    "bnu-primary-ds-v1-p4-065",
+    "bnu-primary-ds-v1-p4-066",
+    "bnu-primary-ds-v1-p4-067",
+    "bnu-primary-ds-v1-p4-068",
+    "bnu-primary-ds-v1-p4-069",
+    "bnu-primary-ds-v1-p4-070",
+    "bnu-primary-ds-v1-p4-071",
+    "bnu-primary-ds-v1-p4-072",
+    "bnu-primary-ds-v1-p4-073",
+    "bnu-primary-ds-v1-p4-074",
+    "bnu-primary-ds-v1-p4-075",
+    "bnu-primary-ds-v1-p4-076",
+    "bnu-primary-ds-v1-p4-077",
+    "bnu-primary-ds-v1-p4-078"
+  ],
+  "usage": {
+    "prompt_tokens": 4417,
+    "completion_tokens": 1269,
+    "total_tokens": 5686,
+    "prompt_tokens_details": {
+      "cached_tokens": 4352
+    },
+    "prompt_cache_hit_tokens": 4352,
+    "prompt_cache_miss_tokens": 65
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p4-061",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，选项清晰，答案准确，解释合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-062",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案准确，符合加法结合律。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-063",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案完整，运算律运用合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-064",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，选项设置合理，答案准确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-065",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案准确，方向相对关系清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-066",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案准确，路线描述合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-067",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，选项分析合理，答案准确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-068",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案准确，方向判断合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-069",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案准确，计算合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-070",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，选项分析合理，答案准确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-071",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案准确，方向相对关系清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-072",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案准确，路线描述合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-073",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，选项分析合理，答案准确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-074",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案准确，计算合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-075",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案准确，计算合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-076",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，选项分析合理，答案准确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-077",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案准确，方向相对关系清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-078",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案准确，路线描述合理。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版小学数学要求，无错误或风险。"
+    }
+  }
+}

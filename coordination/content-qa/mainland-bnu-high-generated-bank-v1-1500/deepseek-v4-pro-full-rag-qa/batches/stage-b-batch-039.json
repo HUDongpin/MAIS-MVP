@@ -1,0 +1,130 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-039",
+  "startedAt": "2026-05-28T01:05:45.451Z",
+  "completedAt": "2026-05-28T01:06:01.608Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-305",
+    "bnu-high-ds-v1-s4-306",
+    "bnu-high-ds-v1-s4-307",
+    "bnu-high-ds-v1-s4-308",
+    "bnu-high-ds-v1-s4-309",
+    "bnu-high-ds-v1-s4-310",
+    "bnu-high-ds-v1-s4-311",
+    "bnu-high-ds-v1-s4-312"
+  ],
+  "usage": {
+    "prompt_tokens": 11980,
+    "completion_tokens": 1074,
+    "total_tokens": 13054,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 11596
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-305",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，均为π/2, 7π/6, 11π/6；解析正确且完整。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-306",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案y = sin(2x + π/3)与独立解一致；解析步骤正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-307",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案选项A与独立解一致；解析正确，且为唯一正确选项。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-308",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案9 cm与独立解一致；解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-309",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案5与独立解一致；解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-310",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案y = cos 2x与独立解一致；解析正确，且为唯一正确选项。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-311",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "[π/8 + 2kπ/3, 5π/8 + 2kπ/3], k∈Z",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案[2kπ/3 - π/12, 2kπ/3 + π/4]与独立解[π/8 + 2kπ/3, 5π/8 + 2kπ/3]不等价；解析中区间端点计算错误，导致答案错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-312",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案7π/6与独立解一致；解析正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第311题存储答案与独立解不一致，解析中区间端点计算错误，导致答案错误，需修正为[π/8 + 2kπ/3, 5π/8 + 2kπ/3]。其余题目均通过。"
+    }
+  }
+}

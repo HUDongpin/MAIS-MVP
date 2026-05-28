@@ -1,0 +1,305 @@
+{
+  "batchId": "batch-149",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p3-241",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-math-square-review",
+      "unitTitle": "三年级下册数学广场与整理复习",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "p3-lower-review",
+        "math-square-exploration",
+        "decimal-area-data-review",
+        "数学广场",
+        "整理复习"
+      ],
+      "competencyTags": [
+        "推理意识",
+        "反思整理",
+        "综合应用"
+      ],
+      "skillTags": [
+        "规律探索",
+        "综合复习",
+        "策略比较",
+        "错因修正",
+        "表达检查"
+      ],
+      "misconceptionTags": [
+        "decimal and whole-number comparison rules mixed",
+        "area chosen when boundary length is asked",
+        "data claim made without evidence"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-math-square-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-math-square-review",
+        "hjb-primary-p2-lower-assessment-math-square-review"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在整理复习时，小丁把下面四道题混在了一起。请你先判断每道题属于哪个知识领域，再选出哪一道题需要用到“先求边长再求周长”的策略。\n① 一个长方形花坛的长是8米，宽是5米，它的周长是多少米？\n② 用一根36厘米长的铁丝围成一个正方形，这个正方形的面积是多少平方厘米？\n③ 比较0.7和0.5的大小。\n④ 统计小组记录了本周每天借出的图书数量，要找出借出最多的一天。",
+      "optionsZhHans": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ],
+      "answer": "②",
+      "acceptedAnswers": [
+        "②"
+      ],
+      "explanationZhHans": "②题已知铁丝总长即正方形周长，要求面积需先求边长。36÷4=9（厘米），边长9厘米，面积9×9=81（平方厘米）。①题直接求周长，③题比较小数，④题找最多，都不需要先求边长。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-242",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-math-square-review",
+      "unitTitle": "三年级下册数学广场与整理复习",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "p3-lower-review",
+        "math-square-exploration",
+        "decimal-area-data-review",
+        "数学广场",
+        "整理复习"
+      ],
+      "competencyTags": [
+        "推理意识",
+        "反思整理",
+        "综合应用"
+      ],
+      "skillTags": [
+        "规律探索",
+        "综合复习",
+        "策略比较",
+        "错因修正",
+        "表达检查"
+      ],
+      "misconceptionTags": [
+        "decimal and whole-number comparison rules mixed",
+        "area chosen when boundary length is asked",
+        "data claim made without evidence"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-math-square-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-math-square-review",
+        "hjb-primary-p2-lower-assessment-math-square-review"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小胖在复习时写了这样一句话：“因为3.2比3大，所以3.2米比3米长。”他的说法正确吗？请选出正确的判断和理由。",
+      "optionsZhHans": [
+        "正确，因为3.2的整数部分是3，小数部分是2，所以更长。",
+        "正确，因为3.2 > 3，所以3.2米 > 3米。",
+        "错误，因为3.2米和3米无法比较。",
+        "错误，因为3.2是小数，3是整数，不能直接比。"
+      ],
+      "answer": "正确，因为3.2 > 3，所以3.2米 > 3米。",
+      "acceptedAnswers": [
+        "正确，因为3.2 > 3，所以3.2米 > 3米。"
+      ],
+      "explanationZhHans": "比较小数和整数时，先看整数部分，3.2的整数部分是3，与3相等，再比小数部分0.2>0，所以3.2>3，因此3.2米比3米长。说法正确。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-243",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-math-square-review",
+      "unitTitle": "三年级下册数学广场与整理复习",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "p3-lower-review",
+        "math-square-exploration",
+        "decimal-area-data-review",
+        "数学广场",
+        "整理复习"
+      ],
+      "competencyTags": [
+        "推理意识",
+        "反思整理",
+        "综合应用"
+      ],
+      "skillTags": [
+        "规律探索",
+        "综合复习",
+        "策略比较",
+        "错因修正",
+        "表达检查"
+      ],
+      "misconceptionTags": [
+        "decimal and whole-number comparison rules mixed",
+        "area chosen when boundary length is asked",
+        "data claim made without evidence"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-math-square-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-math-square-review",
+        "hjb-primary-p2-lower-assessment-math-square-review"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校要给一块正方形草坪围上篱笆，草坪的面积是49平方米。小亚说：“篱笆的长度就是49米。”小丁说：“不对，要先求出边长再算周长。”谁说得对？为什么？",
+      "optionsZhHans": [
+        "小亚对，因为面积是49，篱笆长度就是49米。",
+        "小丁对，因为正方形边长是7米，周长是28米。",
+        "小亚对，因为正方形面积等于周长。",
+        "小丁对，因为正方形边长是24.5米，周长是98米。"
+      ],
+      "answer": "小丁对，因为正方形边长是7米，周长是28米。",
+      "acceptedAnswers": [
+        "小丁对，因为正方形边长是7米，周长是28米。"
+      ],
+      "explanationZhHans": "正方形面积=边长×边长，49=7×7，边长7米。周长=边长×4=7×4=28米。篱笆长度是周长，不是面积。小丁正确。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-244",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-math-square-review",
+      "unitTitle": "三年级下册数学广场与整理复习",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "p3-lower-review",
+        "math-square-exploration",
+        "decimal-area-data-review",
+        "数学广场",
+        "整理复习"
+      ],
+      "competencyTags": [
+        "推理意识",
+        "反思整理",
+        "综合应用"
+      ],
+      "skillTags": [
+        "规律探索",
+        "综合复习",
+        "策略比较",
+        "错因修正",
+        "表达检查"
+      ],
+      "misconceptionTags": [
+        "decimal and whole-number comparison rules mixed",
+        "area chosen when boundary length is asked",
+        "data claim made without evidence"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-math-square-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-math-square-review",
+        "hjb-primary-p2-lower-assessment-math-square-review"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "老师让同学们整理本学期学过的内容。小丁把“比较小数大小”归到了“数与运算”，把“计算长方形面积”归到了“图形与几何”。小胖把“统计天气情况”归到了“图形与几何”。谁归错了？",
+      "optionsZhHans": [
+        "小丁归错了“比较小数大小”。",
+        "小丁归错了“计算长方形面积”。",
+        "小胖归错了“统计天气情况”。",
+        "两人都归对了。"
+      ],
+      "answer": "小胖归错了“统计天气情况”。",
+      "acceptedAnswers": [
+        "小胖归错了“统计天气情况”。"
+      ],
+      "explanationZhHans": "“统计天气情况”属于“数据整理与概率统计”，不是“图形与几何”。小丁的归类正确。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-245",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-math-square-review",
+      "unitTitle": "三年级下册数学广场与整理复习",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "p3-lower-review",
+        "math-square-exploration",
+        "decimal-area-data-review",
+        "数学广场",
+        "整理复习"
+      ],
+      "competencyTags": [
+        "推理意识",
+        "反思整理",
+        "综合应用"
+      ],
+      "skillTags": [
+        "规律探索",
+        "综合复习",
+        "策略比较",
+        "错因修正",
+        "表达检查"
+      ],
+      "misconceptionTags": [
+        "decimal and whole-number comparison rules mixed",
+        "area chosen when boundary length is asked",
+        "data claim made without evidence"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-math-square-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-math-square-review",
+        "hjb-primary-p2-lower-assessment-math-square-review"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在数学广场活动中，老师给出了一组图形：第一个图形由1个小正方形组成，第二个由4个小正方形组成，第三个由9个小正方形组成。按照这个规律，第5个图形由多少个小正方形组成？",
+      "optionsZhHans": [
+        "16个",
+        "20个",
+        "25个",
+        "30个"
+      ],
+      "answer": "25个",
+      "acceptedAnswers": [
+        "25个"
+      ],
+      "explanationZhHans": "规律是第几个图形就有几乘几个小正方形：1=1×1，4=2×2，9=3×3。第5个是5×5=25个。"
+    }
+  ]
+}

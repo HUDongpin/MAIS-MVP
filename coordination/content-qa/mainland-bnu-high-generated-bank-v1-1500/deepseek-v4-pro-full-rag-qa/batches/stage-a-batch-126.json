@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-126",
+  "startedAt": "2026-05-28T01:32:26.020Z",
+  "completedAt": "2026-05-28T01:32:40.082Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-001",
+    "bnu-high-ds-v1-s6-002",
+    "bnu-high-ds-v1-s6-003",
+    "bnu-high-ds-v1-s6-004",
+    "bnu-high-ds-v1-s6-005",
+    "bnu-high-ds-v1-s6-006",
+    "bnu-high-ds-v1-s6-007",
+    "bnu-high-ds-v1-s6-008"
+  ],
+  "usage": {
+    "prompt_tokens": 9993,
+    "completion_tokens": 1022,
+    "total_tokens": 11015,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9609
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-001",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "5 × 2^11 - 30",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "通过构造等比数列求得b_n=5·2^{n-1}，前10项和S_10=5·(2^10-1)，化简得5×2^11-30，对应选项B。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-002",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "a_n = 2n + 1",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由a_3=7得a1+2d=7，由S_4=24得4a1+6d=24，解得a1=3，d=2，通项a_n=2n+1。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-003",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "n^2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "累加法：a_n = a_1 + Σ_{k=1}^{n-1} (2k+1) = 1 + (n-1)n + (n-1) = n^2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-004",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "-54",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "a_4 = a_1·q^3 = 2·(-3)^3 = -54，对应选项A。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-005",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "11",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "a_5 = S_5 - S_4 = (25+10) - (16+8) = 35 - 24 = 11。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-006",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "10",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "等差数列中a_2+a_8=2a_5=20，故a_5=10。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-007",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "8",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "构造等比数列得a_n=2·3^{n-1}-1，解2·3^{n-1}-1>2023得3^{n-1}>1012，n-1≥7，n≥8，最小n=8。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-008",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "S_n = n^2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "等差数列求和：S_n = n(a_1+a_n)/2 = n(1+2n-1)/2 = n^2。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，无数学错误、歧义或缺失条件，符合北师大版高中数列章节要求。"
+    }
+  }
+}

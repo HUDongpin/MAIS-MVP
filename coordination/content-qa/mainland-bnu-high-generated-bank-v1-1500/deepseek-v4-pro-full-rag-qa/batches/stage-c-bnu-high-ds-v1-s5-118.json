@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-118",
+  "startedAt": "2026-05-28T02:08:23.178Z",
+  "completedAt": "2026-05-28T02:08:28.670Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-118"
+  ],
+  "usage": {
+    "prompt_tokens": 2109,
+    "completion_tokens": 288,
+    "total_tokens": 2397,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1725
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-118",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "√5",
+        "correctedAnswer": "√5",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合BNU圆锥曲线章节。独立求解得离心率e=√5，选项√5存在且唯一。存储答案√3错误，解析中c=2√3、a=2导致e=√3，但正确计算应为a=1、c=√5、e=√5。答案不匹配，解析矛盾，严重错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "存储答案√3错误，正确离心率为√5，解析过程有误，判定为blocker。"
+    }
+  }
+}

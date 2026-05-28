@@ -1,0 +1,153 @@
+{
+  "batchNumber": 89,
+  "startedAt": "2026-05-27T13:58:38.135Z",
+  "completedAt": "2026-05-27T13:58:56.301Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-205",
+    "bnu-high-ds-v1-s5-206",
+    "bnu-high-ds-v1-s5-207",
+    "bnu-high-ds-v1-s5-208",
+    "bnu-high-ds-v1-s5-209",
+    "bnu-high-ds-v1-s5-210",
+    "bnu-high-ds-v1-s5-211",
+    "bnu-high-ds-v1-s5-212"
+  ],
+  "usage": {
+    "prompt_tokens": 11292,
+    "completion_tokens": 1299,
+    "total_tokens": 12591,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10780
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-205",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "1/3",
+        "correctedAnswer": "1/3",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立计算得体积为1/3，但题目答案为1/6，解析过程也得出1/3却强行改为1/6，答案错误且解析矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-206",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "√3/3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "平面方程x+y+z=1，距离公式得√3/3，答案与解析一致，无问题。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-207",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "(1/√3, 1/√3, -1/√3)",
+        "correctedAnswer": "(1/√3, 1/√3, -1/√3)",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "叉积得(5,5,-5)，单位化应为(1/√3,1/√3,-1/√3)，但答案给出5/√35等，解析也承认无法得到该答案，答案错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-208",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "0",
+        "correctedAnswer": "0",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "AB=(-1,1,0)，CD=(1,1,0)，点积为0，余弦值为0，但答案为1/3，解析也承认无法得到1/3，答案错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-209",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "3√3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "AB=(3,3,3)，长度√27=3√3，答案与解析一致，无问题。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-210",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "5√3/3",
+        "correctedAnswer": "5√3/3",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "点P(1,2,3)到平面x+y+z=1的距离为5/√3=5√3/3，但答案为2√3/3，解析也承认需调整点P，答案错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-211",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "3√3",
+        "correctedAnswer": "3√3",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "平面方程x-y+z-2=0，点D距离为9/√3=3√3，但答案为2√3，解析也指出应为3√3，答案错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-212",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(1,1,1)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "法向量为(1,1,1)，答案与解析一致，无问题。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 3,
+      "warn": 0,
+      "fail": 5,
+      "notes": "8题中3题通过，5题因答案错误或解析矛盾未通过，主要问题为计算错误导致答案与独立求解结果不符。"
+    }
+  }
+}

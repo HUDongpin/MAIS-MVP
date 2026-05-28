@@ -1,0 +1,129 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-055",
+  "startedAt": "2026-05-28T01:09:39.461Z",
+  "completedAt": "2026-05-28T01:09:54.947Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-433",
+    "bnu-high-ds-v1-s4-434",
+    "bnu-high-ds-v1-s4-435",
+    "bnu-high-ds-v1-s4-436",
+    "bnu-high-ds-v1-s4-437",
+    "bnu-high-ds-v1-s4-438",
+    "bnu-high-ds-v1-s4-439",
+    "bnu-high-ds-v1-s4-440"
+  ],
+  "usage": {
+    "prompt_tokens": 11582,
+    "completion_tokens": 939,
+    "total_tokens": 12521,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 11198
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-433",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，均为第三象限；解析正确且无矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-434",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案3与独立解一致；解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-435",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案-1与独立解一致；解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-436",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案1/2 + 3/2 i与独立解一致；解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-437",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案2√5与独立解一致；解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-438",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案±3与独立解一致；解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-439",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案直线与独立解一致；解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-440",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "±2",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案±1错误，独立解为±2；解析中得出a=±2却给出答案±1，自相矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第440题存储答案错误，应为±2而非±1，解析与答案矛盾。其余题目均通过。"
+    }
+  }
+}

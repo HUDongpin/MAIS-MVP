@@ -1,0 +1,191 @@
+{
+  "batchNumber": 39,
+  "startedAt": "2026-05-25T02:06:08.099Z",
+  "completedAt": "2026-05-25T02:06:26.992Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p3-185",
+    "hjb-primary-ds-v1-p3-186",
+    "hjb-primary-ds-v1-p3-187",
+    "hjb-primary-ds-v1-p3-188",
+    "hjb-primary-ds-v1-p3-189",
+    "hjb-primary-ds-v1-p3-190",
+    "hjb-primary-ds-v1-p3-191",
+    "hjb-primary-ds-v1-p3-192",
+    "hjb-primary-ds-v1-p3-193",
+    "hjb-primary-ds-v1-p3-194",
+    "hjb-primary-ds-v1-p3-195",
+    "hjb-primary-ds-v1-p3-196",
+    "hjb-primary-ds-v1-p3-197",
+    "hjb-primary-ds-v1-p3-198",
+    "hjb-primary-ds-v1-p3-199",
+    "hjb-primary-ds-v1-p3-200",
+    "hjb-primary-ds-v1-p3-201",
+    "hjb-primary-ds-v1-p3-202"
+  ],
+  "usage": {
+    "prompt_tokens": 3365,
+    "completion_tokens": 1322,
+    "total_tokens": 4687,
+    "prompt_tokens_details": {
+      "cached_tokens": 3328
+    },
+    "prompt_cache_hit_tokens": 3328,
+    "prompt_cache_miss_tokens": 37
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p3-185",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，1米3分米=1.3米，选项合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-186",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "8角5分=0.85元，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-187",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "0.36读作零点三六，选项无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-188",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "1米2分米=1.2米，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-189",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "0.93最大，比较正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-190",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "1升250毫升=1.25升，正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-191",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项A正确指出读法和位值，其他选项有误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-192",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "3元4角5分=3.45元，答案正确，接受3.45元或3.45。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-193",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "0.6>0.59，比较方法正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-194",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "面积8×5=40平方米，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-195",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "一行排列周长最长，计算正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-196",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "6×4=24平方厘米，正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-197",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "面积24平方米，周长22米，选项B正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-198",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "15×15=225平方厘米，正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-199",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "面积均为12平方分米，选项D正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-200",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "90×60=5400平方厘米，正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-201",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "篱笆周长26米，草皮面积40平方米，选项A正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-202",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "12个1平方厘米拼成面积12平方厘米，正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合沪教版P3要求，数学正确，答案匹配，无歧义或缺失条件。"
+    }
+  }
+}

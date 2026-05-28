@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-171",
+  "startedAt": "2026-05-28T02:54:13.417Z",
+  "completedAt": "2026-05-28T02:54:19.284Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-171"
+  ],
+  "usage": {
+    "prompt_tokens": 2030,
+    "completion_tokens": 293,
+    "total_tokens": 2323,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1646
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-171",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": null,
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "unsolvable",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "A(1,2,3)、B(4,5,6)、C(7,8,9)三点共线，向量AB与AC共线，夹角为0，余弦值为1。题目要求精确到0.01，但三点共线导致夹角唯一且无实际计算意义，属于数学错误，题目不可解。存储答案1.00和解析基于错误前提，与独立解矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目因三点共线导致无意义，判定为不可解，答案和解析均错误。"
+    }
+  }
+}

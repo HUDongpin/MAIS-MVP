@@ -1,0 +1,295 @@
+{
+  "batchId": "batch-183",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p4-161",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "hjb-primary-p4-lower-review-operation-properties",
+      "unitTitle": "复习与提高",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "p4-lower-review",
+        "integer-four-operations",
+        "operation-properties",
+        "problem-solving",
+        "四则运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "推理意识",
+        "反思整理"
+      ],
+      "skillTags": [
+        "四则运算",
+        "整数运算性质",
+        "看谁算得巧",
+        "解决问题",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "operation property applied to a nonmatching structure",
+        "efficient method used without preserving value",
+        "word-problem answer lacks unit meaning"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p4-lower-review-operation-properties"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-lower-assessment-review-operation-properties",
+        "hjb-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算 125×32 时，小胖想用运算性质使计算简便。下面哪种方法正确且简便？请写出你选择的方法和结果。\n方法一：125×32 = 125×8×4 = 1000×4 = 4000\n方法二：125×32 = (125×30) + (125×2) = 3750 + 250 = 4000\n方法三：125×32 = 125×16×2 = 2000×2 = 4000\n方法四：125×32 = 125×40 - 125×8 = 5000 - 1000 = 4000",
+      "optionsZhHans": [],
+      "answer": "方法一，4000",
+      "acceptedAnswers": [
+        "方法一，4000",
+        "方法一 4000",
+        "方法一:4000",
+        "方法一：4000"
+      ],
+      "explanationZhHans": "方法一将32拆成8×4，利用125×8=1000，再乘4得4000，步骤最少且正确。方法二虽正确但不够简便；方法三拆成16×2，125×16需额外计算；方法四用了减法，不如乘法结合律直接。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-162",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "hjb-primary-p4-lower-decimals-meaning-add-sub",
+      "unitTitle": "小数的认识与加减法",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "decimal-meaning",
+        "decimal-place-value",
+        "decimal-comparison",
+        "decimal-addition-subtraction",
+        "小数"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "生活中的小数",
+        "小数意义",
+        "小数大小比较",
+        "小数性质",
+        "小数点移动",
+        "小数加减法"
+      ],
+      "misconceptionTags": [
+        "decimal compared as whole-number digit strings",
+        "place values not aligned in addition",
+        "trailing zero treated as changing value"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p4-lower-decimals-meaning-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-lower-assessment-decimals-meaning-add-sub",
+        "hjb-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把下面各数按从大到小的顺序排列。\n0.6  0.605  0.65  0.56  0.065",
+      "optionsZhHans": [],
+      "answer": "0.65 > 0.605 > 0.6 > 0.56 > 0.065",
+      "acceptedAnswers": [
+        "0.65 > 0.605 > 0.6 > 0.56 > 0.065",
+        "0.65, 0.605, 0.6, 0.56, 0.065",
+        "0.65 0.605 0.6 0.56 0.065"
+      ],
+      "explanationZhHans": "比较小数时，先比较整数部分（都是0），再依次比较十分位、百分位、千分位。0.65的十分位是6最大；0.605和0.6十分位都是6，比较百分位，0.605的百分位是0，0.6的百分位是0，再比较千分位，0.605有5，0.6可看作0.600，所以0.605>0.6；0.56的十分位是5；0.065的十分位是0最小。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-163",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "hjb-primary-p4-lower-decimals-meaning-add-sub",
+      "unitTitle": "小数的认识与加减法",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "decimal-meaning",
+        "decimal-place-value",
+        "decimal-comparison",
+        "decimal-addition-subtraction",
+        "小数"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "生活中的小数",
+        "小数意义",
+        "小数大小比较",
+        "小数性质",
+        "小数点移动",
+        "小数加减法"
+      ],
+      "misconceptionTags": [
+        "decimal compared as whole-number digit strings",
+        "place values not aligned in addition",
+        "trailing zero treated as changing value"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p4-lower-decimals-meaning-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-lower-assessment-decimals-meaning-add-sub",
+        "hjb-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面各数中，去掉“0”而大小不变的是（ ）。",
+      "optionsZhHans": [
+        "8.030",
+        "8.003",
+        "8.300",
+        "80.30"
+      ],
+      "answer": "8.300",
+      "acceptedAnswers": [
+        "8.300"
+      ],
+      "explanationZhHans": "小数的性质：小数的末尾添上“0”或去掉“0”，小数的大小不变。8.300末尾的两个0可以去掉，变成8.3，大小不变。8.030去掉十分位上的0会变成8.30，大小改变；8.003去掉0会变成8.3或8.03，大小改变；80.30去掉0可能变成8.3或83，大小改变。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-164",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "hjb-primary-p4-lower-decimals-meaning-add-sub",
+      "unitTitle": "小数的认识与加减法",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "decimal-meaning",
+        "decimal-place-value",
+        "decimal-comparison",
+        "decimal-addition-subtraction",
+        "小数"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "生活中的小数",
+        "小数意义",
+        "小数大小比较",
+        "小数性质",
+        "小数点移动",
+        "小数加减法"
+      ],
+      "misconceptionTags": [
+        "decimal compared as whole-number digit strings",
+        "place values not aligned in addition",
+        "trailing zero treated as changing value"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p4-lower-decimals-meaning-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-lower-assessment-decimals-meaning-add-sub",
+        "hjb-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把3.6的小数点向左移动两位，得到的数是（ ）。",
+      "optionsZhHans": [],
+      "answer": "0.036",
+      "acceptedAnswers": [
+        "0.036"
+      ],
+      "explanationZhHans": "小数点向左移动两位，相当于除以100。3.6÷100=0.036。注意移动后数位不够时用0补足。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-165",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "hjb-primary-p4-lower-decimals-meaning-add-sub",
+      "unitTitle": "小数的认识与加减法",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "decimal-meaning",
+        "decimal-place-value",
+        "decimal-comparison",
+        "decimal-addition-subtraction",
+        "小数"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "生活中的小数",
+        "小数意义",
+        "小数大小比较",
+        "小数性质",
+        "小数点移动",
+        "小数加减法"
+      ],
+      "misconceptionTags": [
+        "decimal compared as whole-number digit strings",
+        "place values not aligned in addition",
+        "trailing zero treated as changing value"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p4-lower-decimals-meaning-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-lower-assessment-decimals-meaning-add-sub",
+        "hjb-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小亚买了一本笔记本，花了4元8角5分，又买了一支笔，花了2元6角。她一共花了多少元？请用小数计算。",
+      "optionsZhHans": [],
+      "answer": "7.45元",
+      "acceptedAnswers": [
+        "7.45元",
+        "7.45"
+      ],
+      "explanationZhHans": "4元8角5分=4.85元，2元6角=2.60元。列竖式时小数点对齐：4.85+2.60=7.45（元）。注意角分转换正确，结果带单位。"
+    }
+  ]
+}

@@ -1,0 +1,173 @@
+{
+  "batchNumber": 75,
+  "startedAt": "2026-05-27T17:44:33.307Z",
+  "completedAt": "2026-05-27T17:44:50.592Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s2-389",
+    "bnu-junior-ds-v1-s2-390",
+    "bnu-junior-ds-v1-s2-391",
+    "bnu-junior-ds-v1-s2-392",
+    "bnu-junior-ds-v1-s2-393",
+    "bnu-junior-ds-v1-s2-394",
+    "bnu-junior-ds-v1-s2-395",
+    "bnu-junior-ds-v1-s2-396",
+    "bnu-junior-ds-v1-s2-397",
+    "bnu-junior-ds-v1-s2-398",
+    "bnu-junior-ds-v1-s2-399",
+    "bnu-junior-ds-v1-s2-400"
+  ],
+  "usage": {
+    "prompt_tokens": 5753,
+    "completion_tokens": 1246,
+    "total_tokens": 6999,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 5241
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s2-389",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，因式分解正确，答案与解释匹配，符合北师大版初二下因式分解要求。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-390",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目明确，公因式提取正确，答案与解释一致，无歧义。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-391",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项设计合理，唯一正确选项为A，答案与解释匹配，无其他正确选项。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-392",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平方差公式应用正确，答案与解释一致，要求写出公式名称符合北师大版要求。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-393",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "完全平方公式识别正确，答案与解释匹配，无问题。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-394",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项区分度好，只有C有公因式，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-395",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "符号处理正确，提取公因式后结果正确，答案与解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-396",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "完全平方式条件清晰，k=±8正确，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-397",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "先提负号再完全平方，选项A唯一正确，答案与解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-398",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "利用因式分解求值，计算正确，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-399",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平方差公式整体应用正确，答案与解释匹配，无歧义。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-400",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "展开验证正确，m=6，选项A唯一正确，答案与解释一致。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均条件充分、答案正确、解释匹配，符合北师大版初二下因式分解核心要求，无任何问题。"
+    }
+  }
+}

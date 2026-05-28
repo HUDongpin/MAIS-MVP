@@ -1,0 +1,48 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-241",
+  "startedAt": "2026-05-28T01:24:34.713Z",
+  "completedAt": "2026-05-28T01:24:39.086Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-241"
+  ],
+  "usage": {
+    "prompt_tokens": 2281,
+    "completion_tokens": 239,
+    "total_tokens": 2520,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1897
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-241",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "1 或 -1/7",
+        "correctedAnswer": null,
+        "issueTags": [
+          "explanation_contradiction",
+          "math_error"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，独立解与存储答案一致，选项唯一。但解析中M坐标表达式错误，距离化简错误，且最终结果与过程不符，解析不可接受，需修正。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "解析存在严重数学错误，与正确解法矛盾，判定为blocker。"
+    }
+  }
+}

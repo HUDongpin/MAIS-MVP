@@ -1,0 +1,135 @@
+{
+  "batchNumber": 127,
+  "startedAt": "2026-05-27T14:05:15.959Z",
+  "completedAt": "2026-05-27T14:05:32.883Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-009",
+    "bnu-high-ds-v1-s6-010",
+    "bnu-high-ds-v1-s6-011",
+    "bnu-high-ds-v1-s6-012",
+    "bnu-high-ds-v1-s6-013",
+    "bnu-high-ds-v1-s6-014",
+    "bnu-high-ds-v1-s6-015",
+    "bnu-high-ds-v1-s6-016"
+  ],
+  "usage": {
+    "prompt_tokens": 10428,
+    "completion_tokens": 1079,
+    "total_tokens": 11507,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 9916
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-009",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件充分，可独立求解得q=2，答案匹配，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-010",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "29",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "递推关系明确，可解出a10=29，答案与选项匹配，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-011",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "independentAnswer": "a_n = 3^n - 2^n",
+        "correctedAnswer": null,
+        "issueTags": [
+          "explanation_contradiction"
+        ],
+        "severity": "minor",
+        "confidence": "medium",
+        "rationaleZhHans": "题目可解，答案正确。但解析中累加推导有误：a_n/2^n = 1/2 + Σ_{k=1}^{n-1} (3/2)^k / 2 应得 (3/2)^n - 1，实际计算得 (3/2)^n - 1/2，最终结果虽巧合正确，但过程不严谨，标记为弱匹配。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-012",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "10",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "利用等差数列性质可解，a5=10，答案匹配，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-013",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件充分，可解出q=2，选项唯一正确，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-014",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "a_n = 2n + 1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由Sn求an，可解，答案正确，解析完整。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-015",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "101",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "累加法可解，a10=101，答案匹配，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-016",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "等差数列，公差为 3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "通项公式为一次函数，可判定为等差数列，公差3，选项唯一正确，解析正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 1,
+      "fail": 0,
+      "notes": "第11题解析推导过程有瑕疵，但最终答案正确，标记为弱匹配；其余题目均通过审核。"
+    }
+  }
+}

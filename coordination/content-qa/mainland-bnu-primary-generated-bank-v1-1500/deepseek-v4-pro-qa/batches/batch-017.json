@@ -1,0 +1,191 @@
+{
+  "batchNumber": 17,
+  "startedAt": "2026-05-27T13:26:08.598Z",
+  "completedAt": "2026-05-27T13:26:26.829Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p2-039",
+    "bnu-primary-ds-v1-p2-040",
+    "bnu-primary-ds-v1-p2-041",
+    "bnu-primary-ds-v1-p2-042",
+    "bnu-primary-ds-v1-p2-043",
+    "bnu-primary-ds-v1-p2-044",
+    "bnu-primary-ds-v1-p2-045",
+    "bnu-primary-ds-v1-p2-046",
+    "bnu-primary-ds-v1-p2-047",
+    "bnu-primary-ds-v1-p2-048",
+    "bnu-primary-ds-v1-p2-049",
+    "bnu-primary-ds-v1-p2-050",
+    "bnu-primary-ds-v1-p2-051",
+    "bnu-primary-ds-v1-p2-052",
+    "bnu-primary-ds-v1-p2-053",
+    "bnu-primary-ds-v1-p2-054",
+    "bnu-primary-ds-v1-p2-055",
+    "bnu-primary-ds-v1-p2-056"
+  ],
+  "usage": {
+    "prompt_tokens": 3565,
+    "completion_tokens": 1280,
+    "total_tokens": 4845,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 3309
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p2-039",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案和解释一致，适合P2乘法初步。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-040",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项清晰，唯一正确答案，符合乘法意义。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-041",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "填空答案正确，接受两种乘法顺序，合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-042",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目考察乘法条件，答案全面，解释清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-043",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项C不是相同加数，不能用乘法，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-044",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "填空答案正确，接受两种乘法顺序，符合要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-045",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "开放题，答案示例合理，解释正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-046",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项区分平移和旋转，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-047",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "0和8是常见对称数字，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-048",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "对折一次剪出两个对称爱心，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-049",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "一般平行四边形不是轴对称图形，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-050",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "填空答案正确，区分平移和旋转。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-051",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "现象名称为轴对称，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-052",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移只改变位置，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-053",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移不改变形状大小，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-054",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移后位置变，形状大小不变，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-055",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平行四边形对折不重合，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-056",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "电风扇叶片转动是旋转，答案正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版P2要求，数学正确，答案匹配，无歧义或缺失条件。"
+    }
+  }
+}

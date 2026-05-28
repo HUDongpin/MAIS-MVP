@@ -1,0 +1,574 @@
+{
+  "batchId": "batch-090",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p4-141",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "p4-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "整理与复习",
+        "数学好玩",
+        "总复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "topic not identified before solving",
+        "review treated as isolated drill only",
+        "answer accepted without reasonableness check"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-large-numbers-unit",
+        "bnu-primary-p4-upper-assessment-lines-angles-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小乐在整理本学期学过的内容时，写出了下面三个算式。请你先判断每个算式属于本学期学过的哪个知识板块（例如：大数的读写、线与角、运算律、方向与位置、可能性等），然后检查每个算式是否正确，把错误的改正过来，并写出错误的原因。\n（1）50060070 读作：五千零六万零七十\n（2）用一副三角尺可以拼出 105° 的角。\n（3）25×44＝25×40×4＝1000×4＝4000",
+      "optionsZhHans": [],
+      "answer": "（1）属于大数的读写。错误。改正：50060070 读作五千零六万零七十。错误原因：每级末尾的零不读，但万级和个级中间的零要读，原读法漏掉了万级末尾的零。\n（2）属于线与角。正确。\n（3）属于运算律。错误。改正：25×44＝25×（40＋4）＝25×40＋25×4＝1000＋100＝1100。错误原因：把乘法分配律错用成了乘法结合律。",
+      "acceptedAnswers": [
+        "（1）属于大数的读写。错误。改正：50060070 读作五千零六万零七十。错误原因：每级末尾的零不读，但万级和个级中间的零要读，原读法漏掉了万级末尾的零。\n（2）属于线与角。正确。\n（3）属于运算律。错误。改正：25×44＝25×（40＋4）＝25×40＋25×4＝1000＋100＝1100。错误原因：把乘法分配律错用成了乘法结合律。"
+      ],
+      "explanationZhHans": "（1）大数读法：从高位读起，亿级万级个级，每级末尾的零不读，中间连续几个零只读一个零。50060070 万级是5006，读五千零六万，个级是0070，读零七十，合起来是五千零六万零七十，原读法漏了万级末尾的零。（2）一副三角尺有90°、60°、30°和45°、45°、90°，60°+45°=105°，可以拼出。（3）44应拆成40+4，用乘法分配律，25×44=25×(40+4)=25×40+25×4=1000+100=1100。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-142",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "p4-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "整理与复习",
+        "数学好玩",
+        "总复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "topic not identified before solving",
+        "review treated as isolated drill only",
+        "answer accepted without reasonableness check"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-large-numbers-unit",
+        "bnu-primary-p4-upper-assessment-lines-angles-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪种整理复习的方法最有助于发现知识之间的联系？",
+      "optionsZhHans": [
+        "把所有的错题抄一遍",
+        "把学过的公式背熟",
+        "用思维导图把相关知识点连起来",
+        "把课本上的练习题重做一遍"
+      ],
+      "answer": "用思维导图把相关知识点连起来",
+      "acceptedAnswers": [
+        "用思维导图把相关知识点连起来"
+      ],
+      "explanationZhHans": "思维导图能直观展示知识点之间的关联，帮助建立知识网络，而抄错题、背公式、重做练习主要是重复记忆或训练，不易发现联系。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-143",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "p4-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "整理与复习",
+        "数学好玩",
+        "总复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "topic not identified before solving",
+        "review treated as isolated drill only",
+        "answer accepted without reasonableness check"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-large-numbers-unit",
+        "bnu-primary-p4-upper-assessment-lines-angles-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小芳在整理“线与角”的知识时，写下了下面的话，但有些地方空着。请你填一填。\n线段有（ ）个端点，射线有（ ）个端点，直线（ ）端点。从一点引出两条射线所组成的图形叫做（ ）。角的大小与边的长短（ ），与两边叉开的大小（ ）。",
+      "optionsZhHans": [],
+      "answer": "两，一，没有，角，无关，有关",
+      "acceptedAnswers": [
+        "两，一，没有，角，无关，有关"
+      ],
+      "explanationZhHans": "线段有两个端点，射线有一个端点，直线没有端点。角的定义是从一点引出两条射线所组成的图形。角的大小只与两边叉开的程度有关，与边的长短无关。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-144",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "p4-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "整理与复习",
+        "数学好玩",
+        "总复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "知识整理",
+        "错因表达",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "topic not identified before solving",
+        "review treated as isolated drill only",
+        "answer accepted without reasonableness check"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-large-numbers-unit",
+        "bnu-primary-p4-upper-assessment-lines-angles-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明在总复习时，对自己做错的题目进行了整理。他发现有一道题是：把 3 升 50 毫升换算成以升为单位的数。他写的答案是 3.50 升。请你帮他分析错误原因，并写出正确的答案。",
+      "optionsZhHans": [],
+      "answer": "错误原因：把 50 毫升当成 0.50 升，但 1 升＝1000 毫升，50 毫升＝0.05 升，所以 3 升 50 毫升＝3.05 升。他多写了 0。正确答案：3.05 升。",
+      "acceptedAnswers": [
+        "错误原因：把 50 毫升当成 0.50 升，但 1 升＝1000 毫升，50 毫升＝0.05 升，所以 3 升 50 毫升＝3.05 升。他多写了 0。正确答案：3.05 升。"
+      ],
+      "explanationZhHans": "升和毫升的进率是 1000，50 毫升是 50/1000 升，即 0.05 升，而不是 0.50 升。3 升 50 毫升＝3 升＋0.05 升＝3.05 升。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-145",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-decimal-meaning-add-sub",
+      "unitTitle": "小数的意义和加减法",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "decimal-meaning",
+        "decimal-addition-subtraction",
+        "place-value-decimals",
+        "小数的意义",
+        "小数加减法"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "小数意义",
+        "小数读写",
+        "小数比较",
+        "小数加法",
+        "小数减法"
+      ],
+      "misconceptionTags": [
+        "more decimal digits assumed larger",
+        "decimal points not aligned in calculation",
+        "tenths and hundredths roles reversed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-decimal-meaning-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit",
+        "bnu-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面四个小数中，哪个小数中的“2”表示 2 个百分之一？",
+      "optionsZhHans": [
+        "0.342",
+        "0.423",
+        "0.234",
+        "0.432"
+      ],
+      "answer": "0.423",
+      "acceptedAnswers": [
+        "0.423"
+      ],
+      "explanationZhHans": "2 在百分位上表示 2 个 0.01，即 2 个百分之一。0.423 中，4 在十分位，2 在百分位，3 在千分位，所以 2 表示 2 个百分之一。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-146",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-decimal-meaning-add-sub",
+      "unitTitle": "小数的意义和加减法",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "decimal-meaning",
+        "decimal-addition-subtraction",
+        "place-value-decimals",
+        "小数的意义",
+        "小数加减法"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "小数意义",
+        "小数读写",
+        "小数比较",
+        "小数加法",
+        "小数减法"
+      ],
+      "misconceptionTags": [
+        "more decimal digits assumed larger",
+        "decimal points not aligned in calculation",
+        "tenths and hundredths roles reversed"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-decimal-meaning-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit",
+        "bnu-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在 0.8、0.80、0.800 这三个数中，大小相等的数是（ ），但它们的（ ）不同。",
+      "optionsZhHans": [],
+      "answer": "0.8、0.80、0.800，计数单位",
+      "acceptedAnswers": [
+        "0.8、0.80、0.800，计数单位"
+      ],
+      "explanationZhHans": "小数的末尾添上 0 或去掉 0，小数的大小不变，所以 0.8＝0.80＝0.800。但 0.8 的计数单位是 0.1，0.80 的计数单位是 0.01，0.800 的计数单位是 0.001，计数单位不同。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-147",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-decimal-meaning-add-sub",
+      "unitTitle": "小数的意义和加减法",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "decimal-meaning",
+        "decimal-addition-subtraction",
+        "place-value-decimals",
+        "小数的意义",
+        "小数加减法"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "小数意义",
+        "小数读写",
+        "小数比较",
+        "小数加法",
+        "小数减法"
+      ],
+      "misconceptionTags": [
+        "more decimal digits assumed larger",
+        "decimal points not aligned in calculation",
+        "tenths and hundredths roles reversed"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-decimal-meaning-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit",
+        "bnu-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈在超市买了下面三样东西：一瓶酱油 6.85 元，一袋盐 1.5 元，一包糖 4.6 元。妈妈付了 20 元，应找回多少元？请列竖式计算，并验算。",
+      "optionsZhHans": [],
+      "answer": "20－（6.85＋1.5＋4.6）＝20－12.95＝7.05（元）",
+      "acceptedAnswers": [
+        "20－（6.85＋1.5＋4.6）＝20－12.95＝7.05（元）"
+      ],
+      "explanationZhHans": "先算总价：6.85＋1.5＝8.35，8.35＋4.6＝12.95（元）。再用 20 减总价：20－12.95＝7.05（元）。验算：7.05＋12.95＝20，正确。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-148",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-decimal-meaning-add-sub",
+      "unitTitle": "小数的意义和加减法",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "decimal-meaning",
+        "decimal-addition-subtraction",
+        "place-value-decimals",
+        "小数的意义",
+        "小数加减法"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "小数意义",
+        "小数读写",
+        "小数比较",
+        "小数加法",
+        "小数减法"
+      ],
+      "misconceptionTags": [
+        "more decimal digits assumed larger",
+        "decimal points not aligned in calculation",
+        "tenths and hundredths roles reversed"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-decimal-meaning-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit",
+        "bnu-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个算式的计算结果与 3.56＋1.4 相等？",
+      "optionsZhHans": [
+        "3.56＋1.04",
+        "3.56＋1.40",
+        "3.56＋14",
+        "3.56＋0.14"
+      ],
+      "answer": "3.56＋1.40",
+      "acceptedAnswers": [
+        "3.56＋1.40"
+      ],
+      "explanationZhHans": "1.4 等于 1.40，小数的末尾添上 0 大小不变，所以 3.56＋1.4＝3.56＋1.40。其他选项改变了加数的大小。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-149",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-decimal-meaning-add-sub",
+      "unitTitle": "小数的意义和加减法",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "decimal-meaning",
+        "decimal-addition-subtraction",
+        "place-value-decimals",
+        "小数的意义",
+        "小数加减法"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "小数意义",
+        "小数读写",
+        "小数比较",
+        "小数加法",
+        "小数减法"
+      ],
+      "misconceptionTags": [
+        "more decimal digits assumed larger",
+        "decimal points not aligned in calculation",
+        "tenths and hundredths roles reversed"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-decimal-meaning-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit",
+        "bnu-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在计算 5.3－2.76 时，可以把 5.3 看成（ ）个 0.01，把 2.76 看成（ ）个 0.01，这样它们的计数单位相同，可以直接相减。",
+      "optionsZhHans": [],
+      "answer": "530，276",
+      "acceptedAnswers": [
+        "530，276"
+      ],
+      "explanationZhHans": "5.3 是 530 个 0.01，2.76 是 276 个 0.01，统一计数单位后，530－276＝254，254 个 0.01 是 2.54。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-150",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-decimal-meaning-add-sub",
+      "unitTitle": "小数的意义和加减法",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "decimal-meaning",
+        "decimal-addition-subtraction",
+        "place-value-decimals",
+        "小数的意义",
+        "小数加减法"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "小数意义",
+        "小数读写",
+        "小数比较",
+        "小数加法",
+        "小数减法"
+      ],
+      "misconceptionTags": [
+        "more decimal digits assumed larger",
+        "decimal points not aligned in calculation",
+        "tenths and hundredths roles reversed"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-decimal-meaning-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit",
+        "bnu-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小马虎在计算小数加法时，把其中一个加数 3.6 看成了 36，结果得到 40.5。正确的和应该是多少？请写出你的思考过程。",
+      "optionsZhHans": [],
+      "answer": "另一个加数：40.5－36＝4.5，正确的和：3.6＋4.5＝8.1",
+      "acceptedAnswers": [
+        "另一个加数：40.5－36＝4.5，正确的和：3.6＋4.5＝8.1"
+      ],
+      "explanationZhHans": "错误的和 40.5 是由 36 加另一个加数得到的，所以另一个加数＝40.5－36＝4.5。正确的和是 3.6＋4.5＝8.1。"
+    }
+  ]
+}

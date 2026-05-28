@@ -1,0 +1,191 @@
+{
+  "batchNumber": 58,
+  "startedAt": "2026-05-25T02:18:10.703Z",
+  "completedAt": "2026-05-25T02:18:32.000Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p5-027",
+    "hjb-primary-ds-v1-p5-028",
+    "hjb-primary-ds-v1-p5-029",
+    "hjb-primary-ds-v1-p5-030",
+    "hjb-primary-ds-v1-p5-031",
+    "hjb-primary-ds-v1-p5-032",
+    "hjb-primary-ds-v1-p5-033",
+    "hjb-primary-ds-v1-p5-034",
+    "hjb-primary-ds-v1-p5-035",
+    "hjb-primary-ds-v1-p5-036",
+    "hjb-primary-ds-v1-p5-037",
+    "hjb-primary-ds-v1-p5-038",
+    "hjb-primary-ds-v1-p5-039",
+    "hjb-primary-ds-v1-p5-040",
+    "hjb-primary-ds-v1-p5-041",
+    "hjb-primary-ds-v1-p5-042",
+    "hjb-primary-ds-v1-p5-043",
+    "hjb-primary-ds-v1-p5-044"
+  ],
+  "usage": {
+    "prompt_tokens": 4271,
+    "completion_tokens": 1332,
+    "total_tokens": 5603,
+    "prompt_tokens_details": {
+      "cached_tokens": 4224
+    },
+    "prompt_cache_hit_tokens": 4224,
+    "prompt_cache_miss_tokens": 47
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p5-027",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，估算与计算过程合理，答案准确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-028",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项清晰，商大于1的判断正确，答案无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-029",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "小数位数判断正确，答案“三”或“3”均合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-030",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，找回20.6元，估算合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-031",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项设置合理，正确指出错误并给出正确结果1.2。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-032",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，6杯剩0.06升，符合实际取整和余数计算。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-033",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "代数式与代入计算均正确，答案85元无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-034",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程定义清晰，选项B正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-035",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程求解正确，x=5。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-036",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程列式与求解正确，故事书105本，科技书35本。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-037",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程列式正确，选项A无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-038",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "长2x，方程2(x+2x)=36正确，也可写6x=36，但给定答案符合要求。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-039",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程与求解正确，乙车32千米/时，甲车48千米/时。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-040",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程列式正确，选项A无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-041",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程x+3x=360正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-042",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "代数式(a-b)÷5正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-043",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程解x=6正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-044",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程4x-8=2x+6正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合沪教版小学数学要求，数学正确，答案匹配，无歧义或缺失条件，适合公共题库使用。"
+    }
+  }
+}

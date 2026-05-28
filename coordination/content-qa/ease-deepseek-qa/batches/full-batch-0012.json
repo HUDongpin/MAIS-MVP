@@ -1,0 +1,168 @@
+{
+  "scope": "full",
+  "batchIndex": 12,
+  "startedAt": "2026-05-28T03:25:40.680Z",
+  "completedAt": "2026-05-28T03:26:09.277Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "itemIds": [
+    "10426",
+    "10427",
+    "10428",
+    "10429",
+    "10380",
+    "10430",
+    "10431",
+    "10432",
+    "10433",
+    "10434"
+  ],
+  "usage": {
+    "prompt_tokens": 2967,
+    "completion_tokens": 2247,
+    "total_tokens": 5214,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1053
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2583
+  },
+  "finishReason": "stop",
+  "jsonModeFallback": false,
+  "result": {
+    "items": [
+      {
+        "questionId": "10426",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "$450 \\div 18 = \\mathbf{25}$ (顆/candies)",
+        "independentAnswer": "25",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "問題可解，答案匹配。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10427",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "(a) 26 箱 (boxes); (b) 1 個 (apple)",
+        "independentAnswer": "(a) 26, (b) 1",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "問題可解，答案匹配。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10428",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "22 張 (tickets)",
+        "independentAnswer": "22",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "問題可解，答案匹配。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10429",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "0, 3, 6, 9",
+        "independentAnswer": "0, 3, 6, 9",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "問題可解，答案匹配。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10380",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": "1, 2, 4, 8",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "缺少標準答案。",
+        "recommendedAction": "請提供標準答案。"
+      },
+      {
+        "questionId": "10430",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "14, 28, 42, 56, 70",
+        "independentAnswer": "14, 28, 42, 56, 70",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "問題可解，答案匹配。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10431",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "1, 2, 3, 4, 6, 9, 12, 18, 36",
+        "independentAnswer": "1, 2, 3, 4, 6, 9, 12, 18, 36",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "問題可解，答案匹配。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10432",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "(A) (B)",
+        "independentAnswer": "(A), (B)",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "問題可解，答案匹配。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10433",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "正確",
+        "independentAnswer": "正確",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "問題可解，答案匹配。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10434",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "2, 17, 37, 97",
+        "independentAnswer": "2, 17, 37, 97",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "問題可解，答案匹配。",
+        "recommendedAction": "No blocking action."
+      }
+    ],
+    "batchSummary": {
+      "pass": 9,
+      "unsolvable": 0,
+      "ambiguous": 0,
+      "imageContextRequired": 0,
+      "answerMismatch": 0,
+      "missingAnswerKey": 1,
+      "notes": "除問題10380缺少標準答案外，其餘題目均可解且答案匹配。"
+    }
+  }
+}

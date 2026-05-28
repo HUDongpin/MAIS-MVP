@@ -1,0 +1,51 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-208",
+  "startedAt": "2026-05-28T02:56:22.624Z",
+  "completedAt": "2026-05-28T02:56:28.265Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-208"
+  ],
+  "usage": {
+    "prompt_tokens": 2777,
+    "completion_tokens": 295,
+    "total_tokens": 3072,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2393
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-208",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "independentAnswer": "0",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "ambiguous_mc",
+          "explanation_contradiction",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "AB方向向量=(-1,1,0)，CD方向向量=(1,1,0)，点积为0，异面直线夹角余弦为0，但选项无0，题目无正确选项，不可解。存储答案1/3与解析矛盾，解析中计算得0却强行改为1/3，答案错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目计算得异面直线夹角余弦为0，但选项无0，无正确选项，判定为不可解，答案错误。"
+    }
+  }
+}

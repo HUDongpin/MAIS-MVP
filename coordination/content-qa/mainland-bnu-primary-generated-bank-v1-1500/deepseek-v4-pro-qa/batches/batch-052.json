@@ -1,0 +1,191 @@
+{
+  "batchNumber": 52,
+  "startedAt": "2026-05-27T13:28:52.691Z",
+  "completedAt": "2026-05-27T13:29:12.175Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p4-169",
+    "bnu-primary-ds-v1-p4-170",
+    "bnu-primary-ds-v1-p4-171",
+    "bnu-primary-ds-v1-p4-172",
+    "bnu-primary-ds-v1-p4-173",
+    "bnu-primary-ds-v1-p4-174",
+    "bnu-primary-ds-v1-p4-175",
+    "bnu-primary-ds-v1-p4-176",
+    "bnu-primary-ds-v1-p4-177",
+    "bnu-primary-ds-v1-p4-178",
+    "bnu-primary-ds-v1-p4-179",
+    "bnu-primary-ds-v1-p4-180",
+    "bnu-primary-ds-v1-p4-181",
+    "bnu-primary-ds-v1-p4-182",
+    "bnu-primary-ds-v1-p4-183",
+    "bnu-primary-ds-v1-p4-184",
+    "bnu-primary-ds-v1-p4-185",
+    "bnu-primary-ds-v1-p4-186"
+  ],
+  "usage": {
+    "prompt_tokens": 3390,
+    "completion_tokens": 1380,
+    "total_tokens": 4770,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 3134
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p4-169",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案与解释一致，符合四年级三角形分类要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-170",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案与解释一致，符合平行四边形定义。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-171",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案与解释一致，符合等腰三角形定义。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-172",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，选项B符合平行四边形定义，其他选项错误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-173",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案长方形符合条件，正方形是特殊情况但长方形更准确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-174",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案等腰直角三角形符合要求，描述合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-175",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，按角分类为直角三角形，选项B正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-176",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，小数乘法计算无误，答案5.6。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-177",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，计算2.5×6.4=16，答案与解释一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-178",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，乘大于1的数积大于原数，选项B正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-179",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，根据小数乘法规则，2.3×1.5=3.45。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-180",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，4.8÷0.6=8，答案与解释一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-181",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，计算0.8×5+1.5×3=8.5，选项C正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-182",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，2.5×7.6=19，答案与解释一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-183",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，7.6×12=91.2，选项正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-184",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，0.25×12=3，估算与计算合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-185",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，7.5×12=90，选项正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-186",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，0.6×9.5=5.7，答案与解释一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均通过审核，无数学错误、答案不匹配、歧义或年级不匹配等问题。"
+    }
+  }
+}

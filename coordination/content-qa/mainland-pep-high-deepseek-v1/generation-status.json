@@ -1,0 +1,24 @@
+{
+  "generatedAt": "2026-05-23T02:49:56.288Z",
+  "status": "blocked-provider-transport",
+  "cachedBatchFiles": 49,
+  "cachedQuestions": 490,
+  "expectedBatchFiles": 210,
+  "expectedQuestions": 2100,
+  "gradeCounts": {
+    "S4": 490
+  },
+  "typeCounts": {
+    "S4-fill-in": 147,
+    "S4-multiple-choice": 147,
+    "S4-short-answer": 196
+  },
+  "difficultyCounts": {
+    "S4-Challenge": 140,
+    "S4-Core": 140,
+    "S4-Exam": 70,
+    "S4-Foundation": 140
+  },
+  "lastBatchFile": "S4-s4-trigonometry-07.json",
+  "note": "DeepSeek api.deepseek.com transport was unreachable from local environment during generation; no secrets were written."
+}

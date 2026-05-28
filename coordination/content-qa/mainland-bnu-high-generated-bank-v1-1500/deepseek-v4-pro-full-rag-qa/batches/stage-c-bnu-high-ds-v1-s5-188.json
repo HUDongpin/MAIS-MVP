@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-188",
+  "startedAt": "2026-05-28T02:55:23.116Z",
+  "completedAt": "2026-05-28T02:55:29.557Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-188"
+  ],
+  "usage": {
+    "prompt_tokens": 2598,
+    "completion_tokens": 322,
+    "total_tokens": 2920,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2214
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-188",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "(1) n=(1,1,2) 或共线向量; (2) λ=1 或 λ=1/2",
+        "correctedAnswer": "(1) n=(1,1,2) 或共线向量; (2) λ=1 或 λ=1/2",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案(1)法向量(1,1,1)错误，正确为(1,1,2)；(2)λ=1不完整，漏解λ=1/2；解析中法向量计算错误，且仅得一个解。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目可解且符合教材范围，但存储答案和解析存在数学错误和漏解，需修正。"
+    }
+  }
+}

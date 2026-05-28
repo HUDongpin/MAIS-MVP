@@ -1,0 +1,181 @@
+{
+  "startedAt": "2026-05-26T05:53:32.567Z",
+  "completedAt": "2026-05-26T05:53:51.263Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "usage": {
+    "prompt_tokens": 2867,
+    "completion_tokens": 1512,
+    "total_tokens": 4379,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 2867
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "questionId": "pep-primary-p2-u-mc-001",
+        "solvableStatus": "pass",
+        "independentAnswer": "16",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "8行每行2个，8×2=16，选项A正确。"
+      },
+      {
+        "questionId": "pep-primary-p2-u-mc-002",
+        "solvableStatus": "pass",
+        "independentAnswer": "12",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "2个托盘各放6个，2×6=12，选项D正确。"
+      },
+      {
+        "questionId": "pep-primary-p2-u-mc-003",
+        "solvableStatus": "pass",
+        "independentAnswer": "8",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "4组每组2个，4×2=8，选项C正确。"
+      },
+      {
+        "questionId": "pep-primary-p2-u-mc-004",
+        "solvableStatus": "pass",
+        "independentAnswer": "36",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "6组每组6个，6×6=36，选项B正确。"
+      },
+      {
+        "questionId": "pep-primary-p2-u-mc-005",
+        "solvableStatus": "pass",
+        "independentAnswer": "63",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "7组每组9个，7×9=63，选项A正确。"
+      },
+      {
+        "questionId": "pep-primary-p2-u-mc-006",
+        "solvableStatus": "pass",
+        "independentAnswer": "32",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "8组每组4个，8×4=32，选项D正确。"
+      },
+      {
+        "questionId": "pep-primary-p2-u-mc-007",
+        "solvableStatus": "pass",
+        "independentAnswer": "63",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "9组每组7个，9×7=63，选项C正确。"
+      },
+      {
+        "questionId": "pep-primary-p2-u-mc-008",
+        "solvableStatus": "pass",
+        "independentAnswer": "4",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "2组每组2个，2×2=4，选项B正确。"
+      },
+      {
+        "questionId": "pep-primary-p2-u-mc-009",
+        "solvableStatus": "pass",
+        "independentAnswer": "15",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "3组每组5个，3×5=15，选项A正确。"
+      },
+      {
+        "questionId": "pep-primary-p2-u-mc-010",
+        "solvableStatus": "pass",
+        "independentAnswer": "32",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "4组每组8个，4×8=32，选项D正确。"
+      },
+      {
+        "questionId": "pep-primary-p2-u-mc-011",
+        "solvableStatus": "pass",
+        "independentAnswer": "15",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "5组每组3个，5×3=15，选项C正确。"
+      },
+      {
+        "questionId": "pep-primary-p2-u-mc-012",
+        "solvableStatus": "pass",
+        "independentAnswer": "36",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "6组每组6个，6×6=36，选项B正确。"
+      },
+      {
+        "questionId": "pep-primary-p2-u-mc-013",
+        "solvableStatus": "pass",
+        "independentAnswer": "63",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "7组每组9个，7×9=63，选项A正确。"
+      },
+      {
+        "questionId": "pep-primary-p2-u-mc-014",
+        "solvableStatus": "pass",
+        "independentAnswer": "32",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "8组每组4个，8×4=32，选项D正确。"
+      },
+      {
+        "questionId": "pep-primary-p2-u-mc-015",
+        "solvableStatus": "pass",
+        "independentAnswer": "63",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "9组每组7个，9×7=63，选项C正确。"
+      },
+      {
+        "questionId": "pep-primary-p2-u-mc-016",
+        "solvableStatus": "pass",
+        "independentAnswer": "4",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "2组每组2个，2×2=4，选项B正确。"
+      },
+      {
+        "questionId": "pep-primary-p2-u-mc-017",
+        "solvableStatus": "pass",
+        "independentAnswer": "15",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "3组每组5个，3×5=15，选项A正确。"
+      },
+      {
+        "questionId": "pep-primary-p2-u-mc-018",
+        "solvableStatus": "pass",
+        "independentAnswer": "32",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "4组每组8个，4×8=32，选项D正确。"
+      },
+      {
+        "questionId": "pep-primary-p2-u-mc-019",
+        "solvableStatus": "pass",
+        "independentAnswer": "15",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "5组每组3个，5×3=15，选项C正确。"
+      },
+      {
+        "questionId": "pep-primary-p2-u-mc-020",
+        "solvableStatus": "pass",
+        "independentAnswer": "36",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "6组每组6个，6×6=36，选项B正确。"
+      }
+    ]
+  }
+}

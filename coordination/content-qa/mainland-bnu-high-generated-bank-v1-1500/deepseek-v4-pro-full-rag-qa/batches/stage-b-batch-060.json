@@ -1,0 +1,141 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-060",
+  "startedAt": "2026-05-28T01:10:43.897Z",
+  "completedAt": "2026-05-28T01:11:04.512Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-473",
+    "bnu-high-ds-v1-s4-474",
+    "bnu-high-ds-v1-s4-475",
+    "bnu-high-ds-v1-s4-476",
+    "bnu-high-ds-v1-s4-477",
+    "bnu-high-ds-v1-s4-478",
+    "bnu-high-ds-v1-s4-479",
+    "bnu-high-ds-v1-s4-480"
+  ],
+  "usage": {
+    "prompt_tokens": 13165,
+    "completion_tokens": 1114,
+    "total_tokens": 14279,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 12781
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-473",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案①④与独立解一致，解析正确判定各命题，无矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-474",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "3π√55 cm³",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案16π√7 cm³错误，独立解为3π√55 cm³；解析指出原答案有误但未修正存储答案，矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-475",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "correctedAnswer": "√6/6",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction",
+          "ambiguous_mc"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案√3/6错误，独立解为√6/6；解析计算混乱且与答案矛盾，选项无正确值，题目不可用。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-476",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "2√2",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction",
+          "missing_condition"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案2错误，独立解为2√2；解析指出BC=2√2时距离为2√2，但答案给2，且解析建议调整数据，题目条件与答案不匹配。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-477",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案①③与独立解一致，解析正确，无问题。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-478",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "172π/3 cm²",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction",
+          "missing_condition"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案52π cm²错误，独立解为172π/3 cm²；解析指出需调整数据，题目条件与答案不匹配。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-479",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案2与独立解一致，解析虽简略但结论正确，无矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-480",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案15π cm²与独立解一致，解析正确，无问题。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 4,
+      "warn": 0,
+      "fail": 4,
+      "notes": "8题中4题通过，4题失败：474、475、476、478存在数学错误或条件不匹配，需修正。"
+    }
+  }
+}

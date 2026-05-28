@@ -1,0 +1,348 @@
+{
+  "batchId": "batch-053",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s2-k07-mc-020",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-algebraic-fractions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-proof-calculation-integrated"
+      ],
+      "promptZhHans": "化简分式 \\\\(\\frac{6x^2-12x}{3x-6}\\\\) 的结果是（ ）。",
+      "optionsZhHans": [
+        "2x",
+        "2x+1",
+        "2x-1",
+        "x-2"
+      ],
+      "answer": "2x",
+      "acceptedAnswers": [
+        "2x"
+      ],
+      "explanationZhHans": "分子提取公因式 6x 得 6x(x-2)，分母提取公因式 3 得 3(x-2)。约去公因式 (x-2)（需 x≠2），得到 2x。故答案为 2x。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-mc-021",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions"
+      ],
+      "promptZhHans": "判断x²+4x+4的因式分解，下列正确的是（ ）",
+      "optionsZhHans": [
+        "x^2+4x+4=(x+2)^2",
+        "x^2-4x+4=(x-4)^2",
+        "x^2-9=(x-9)(x+9)",
+        "x^2+6x+9=(x+3)(x-3)"
+      ],
+      "answer": "x^2+4x+4=(x+2)^2",
+      "acceptedAnswers": [
+        "x^2+4x+4=(x+2)^2"
+      ],
+      "explanationZhHans": "A 选项：x^2+4x+4 符合完全平方公式 a^2+2ab+b^2=(a+b)^2，其中 a=x, b=2，所以 (x+2)^2 正确。B 选项应为 (x-2)^2；C 选项应为 (x-3)(x+3)；D 选项应为 (x+3)^2。故答案为 x^2+4x+4=(x+2)^2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-mc-022",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-triangle-angle-relations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "计算 \\\\(\\frac{2}{x-1}+\\frac{3}{1-x}\\\\) 的结果是（ ）。",
+      "optionsZhHans": [
+        "\\\\(\\frac{5}{x-1}\\\\)",
+        "\\\\(\\frac{-1}{x-1}\\\\)",
+        "\\\\(\\frac{1}{x-1}\\\\)",
+        "\\\\(\\frac{5}{1-x}\\\\)"
+      ],
+      "answer": "\\\\(\\frac{-1}{x-1}\\\\)",
+      "acceptedAnswers": [
+        "\\\\(\\frac{-1}{x-1}\\\\)",
+        "-\\\\(\\frac{1}{x-1}\\\\)"
+      ],
+      "explanationZhHans": "注意到 1-x=-(x-1)，所以 \\\\(\\frac{3}{1-x}=\\frac{3}{-(x-1)}=-\\frac{3}{x-1}\\\\)。原式 = \\\\(\\frac{2}{x-1}-\\frac{3}{x-1}=\\frac{2-3}{x-1}=\\frac{-1}{x-1}\\\\)。故答案为 \\\\(\\frac{-1}{x-1}\\\\)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-mc-023",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-congruence-proof"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "若分式 \\\\(\\frac{x^2-4}{x+2}\\\\) 的值为 0，则 x 的值为（ ）。",
+      "optionsZhHans": [
+        "2",
+        "-2",
+        "±2",
+        "0"
+      ],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2"
+      ],
+      "explanationZhHans": "分式值为 0 的条件是分子为 0 且分母不为 0。由 x^2-4=0 得 x=2 或 x=-2。当 x=-2 时，分母 x+2=0，分式无意义，故舍去。所以 x=2。答案为 2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-mc-024",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-axis-symmetry-isosceles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "promptZhHans": "计算 \\\\((2a+3b)(2a-3b)\\\\) 的结果是（ ）。",
+      "optionsZhHans": [
+        "4a^2-9b^2",
+        "4a^2+9b^2",
+        "4a^2-6ab+9b^2",
+        "4a^2+6ab+9b^2"
+      ],
+      "answer": "4a^2-9b^2",
+      "acceptedAnswers": [
+        "4a^2-9b^2"
+      ],
+      "explanationZhHans": "利用平方差公式 (a+b)(a-b)=a^2-b^2，这里 a=2a, b=3b，所以 (2a+3b)(2a-3b)=(2a)^2-(3b)^2=4a^2-9b^2。故答案为 4a^2-9b^2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-mc-025",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-polynomial-multiplication-factorization"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "promptZhHans": "把多项式 3x^2y-6xy^2 分解因式，结果正确的是（ ）。",
+      "optionsZhHans": [
+        "3xy(x-2y)",
+        "3xy(x+2y)",
+        "3x(xy-2y^2)",
+        "3y(x^2-2xy)"
+      ],
+      "answer": "3xy(x-2y)",
+      "acceptedAnswers": [
+        "3xy(x-2y)"
+      ],
+      "explanationZhHans": "提取公因式 3xy：3x^2y-6xy^2=3xy·x - 3xy·2y = 3xy(x-2y)。故答案为 3xy(x-2y)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-mc-026",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-algebraic-fractions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean"
+      ],
+      "promptZhHans": "若分式 \\\\(\\frac{x+1}{x^2-1}\\\\) 有意义，则 x 的取值范围是（ ）。",
+      "optionsZhHans": [
+        "x≠1",
+        "x≠-1",
+        "x≠±1",
+        "x≠0"
+      ],
+      "answer": "x≠±1",
+      "acceptedAnswers": [
+        "x≠±1",
+        "x≠1且x≠-1",
+        "x≠1 且 x≠-1"
+      ],
+      "explanationZhHans": "分式有意义的条件是分母不为 0。分母 x^2-1=(x+1)(x-1)，所以 x≠1 且 x≠-1，即 x≠±1。答案为 x≠±1。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-mc-027",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "计算 \\\\(\\frac{x}{x-2}-\\frac{2}{x-2}\\\\) 的结果是（ ）。",
+      "optionsZhHans": [
+        "1",
+        "-1",
+        "x-2",
+        "\\\\(\\frac{x-2}{x-2}\\\\)"
+      ],
+      "answer": "1",
+      "acceptedAnswers": [
+        "1"
+      ],
+      "explanationZhHans": "同分母分式相减，分母不变，分子相减：\\\\(\\frac{x}{x-2}-\\frac{2}{x-2}=\\frac{x-2}{x-2}\\\\)。当 x≠2 时，约分得 1。故答案为 1。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-mc-028",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-triangle-angle-relations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "已知 a+b=5，ab=6，则 a^2b+ab^2 的值为（ ）。",
+      "optionsZhHans": [
+        "30",
+        "11",
+        "25",
+        "36"
+      ],
+      "answer": "30",
+      "acceptedAnswers": [
+        "30"
+      ],
+      "explanationZhHans": "a^2b+ab^2 提取公因式 ab 得 ab(a+b)。代入 ab=6，a+b=5，得 6×5=30。答案为 30。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-mc-029",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-congruence-proof"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "若关于 x 的分式方程 \\\\(\\frac{2}{x-1}=\\frac{3}{x+1}\\\\) 有解，则解为（ ）。",
+      "optionsZhHans": [
+        "x=5",
+        "x=-5",
+        "x=1",
+        "x=-1"
+      ],
+      "answer": "x=5",
+      "acceptedAnswers": [
+        "x=5"
+      ],
+      "explanationZhHans": "方程两边同乘 (x-1)(x+1) 得 2(x+1)=3(x-1)。去括号：2x+2=3x-3，移项得 2+3=3x-2x，即 x=5。检验：当 x=5 时，分母 x-1=4≠0，x+1=6≠0，所以 x=5 是原方程的解。答案为 x=5。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

@@ -1,0 +1,107 @@
+{
+  "batchId": "model-qa-0060",
+  "ids": [
+    "hjb-junior-ds-v2-s1-473",
+    "hjb-junior-ds-v2-s1-474",
+    "hjb-junior-ds-v2-s1-475",
+    "hjb-junior-ds-v2-s1-476",
+    "hjb-junior-ds-v2-s1-477",
+    "hjb-junior-ds-v2-s1-478",
+    "hjb-junior-ds-v2-s1-479",
+    "hjb-junior-ds-v2-s1-480"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-473",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "100°",
+      "answerCheckZhHans": "标准答案为100，acceptedAnswers包含100和100°，均与独立答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-474",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "8",
+      "answerCheckZhHans": "标准答案为8，acceptedAnswers包含8，与独立答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-475",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "5",
+      "answerCheckZhHans": "标准答案为5，acceptedAnswers包含5，与独立答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-476",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch",
+        "missing-condition"
+      ],
+      "issueDetailsZhHans": "题干条件∠B=70°与AB=AC、AD=BD矛盾，导致无法在边BC上找到点D。解析中自行将∠B改为50°并得出答案30°，但题干未修改，标准答案30°与给定条件不符。",
+      "independentAnswerZhHans": "无解（条件矛盾）",
+      "answerCheckZhHans": "标准答案30°基于修改后的条件，与题干矛盾。",
+      "recommendedActionZhHans": "修正题干：将∠B=70°改为∠B=50°，或调整其他条件使题目可解。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-477",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "100°",
+      "answerCheckZhHans": "标准答案为100°，acceptedAnswers包含100°，与独立答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-478",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "30°",
+      "answerCheckZhHans": "标准答案为30°，acceptedAnswers包含30°，与独立答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-479",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "60°或120°",
+      "answerCheckZhHans": "标准答案为60°或120°，acceptedAnswers包含60°或120°，与独立答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-480",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "36°",
+      "answerCheckZhHans": "标准答案为36°，acceptedAnswers包含36°，与独立答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

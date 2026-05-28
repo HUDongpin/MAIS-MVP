@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-446",
+  "startedAt": "2026-05-28T01:31:39.527Z",
+  "completedAt": "2026-05-28T01:31:44.235Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-446"
+  ],
+  "usage": {
+    "prompt_tokens": 2184,
+    "completion_tokens": 289,
+    "total_tokens": 2473,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1800
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-446",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "χ²≈16.67>3.841，拒绝原假设，认为运动习惯与健康状况有关。",
+        "correctedAnswer": "χ²≈16.67>3.841，认为运动习惯与健康状况有关",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案χ²≈33.33计算错误，正确值为16.67；解析中计算过程有误，导致结论虽正确但数值错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目可解且符合教材范围，但答案和解析存在严重计算错误，χ²值应为16.67而非33.33，需修正。"
+    }
+  }
+}

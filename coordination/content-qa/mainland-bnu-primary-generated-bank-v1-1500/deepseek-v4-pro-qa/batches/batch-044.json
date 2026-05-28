@@ -1,0 +1,191 @@
+{
+  "batchNumber": 44,
+  "startedAt": "2026-05-27T13:28:19.559Z",
+  "completedAt": "2026-05-27T13:28:35.351Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p4-025",
+    "bnu-primary-ds-v1-p4-026",
+    "bnu-primary-ds-v1-p4-027",
+    "bnu-primary-ds-v1-p4-028",
+    "bnu-primary-ds-v1-p4-029",
+    "bnu-primary-ds-v1-p4-030",
+    "bnu-primary-ds-v1-p4-031",
+    "bnu-primary-ds-v1-p4-032",
+    "bnu-primary-ds-v1-p4-033",
+    "bnu-primary-ds-v1-p4-034",
+    "bnu-primary-ds-v1-p4-035",
+    "bnu-primary-ds-v1-p4-036",
+    "bnu-primary-ds-v1-p4-037",
+    "bnu-primary-ds-v1-p4-038",
+    "bnu-primary-ds-v1-p4-039",
+    "bnu-primary-ds-v1-p4-040",
+    "bnu-primary-ds-v1-p4-041",
+    "bnu-primary-ds-v1-p4-042"
+  ],
+  "usage": {
+    "prompt_tokens": 4396,
+    "completion_tokens": 1258,
+    "total_tokens": 5654,
+    "prompt_tokens_details": {
+      "cached_tokens": 4352
+    },
+    "prompt_cache_hit_tokens": 4352,
+    "prompt_cache_miss_tokens": 44
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p4-025",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项正确，解释清晰，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-026",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，符合射线定义。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-027",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案135°正确，理由充分。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-028",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "射线AC与AB端点相同、方向相同，正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-029",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案“无数；一”正确，acceptedAnswers覆盖多种格式。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-030",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "65°锐角正确，解释清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-031",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "B正确，其他选项错误理由充分。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-032",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "105°正确，内外圈互补。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-033",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估算过程合理，结论正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-034",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "A运用乘法结合律，正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-035",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "指出错误并给出正确计算，答案完整。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-036",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，步骤清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-037",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "A最接近，估算合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-038",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "积的变化规律应用正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-039",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "542×63=34146为最大乘积，正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-040",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "箭头所指为128×40，表示40套价钱，正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-041",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估算和精确计算均正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-042",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估算和精确计算均正确，结果一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均通过审核，无数学错误、答案不匹配、歧义或年级不匹配等问题。"
+    }
+  }
+}

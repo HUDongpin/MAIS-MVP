@@ -1,0 +1,576 @@
+{
+  "batchId": "batch-091",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p4-151",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-decimal-meaning-add-sub",
+      "unitTitle": "小数的意义和加减法",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "decimal-meaning",
+        "decimal-addition-subtraction",
+        "place-value-decimals",
+        "小数的意义",
+        "小数加减法"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "小数意义",
+        "小数读写",
+        "小数比较",
+        "小数加法",
+        "小数减法"
+      ],
+      "misconceptionTags": [
+        "more decimal digits assumed larger",
+        "decimal points not aligned in calculation",
+        "tenths and hundredths roles reversed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-decimal-meaning-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit",
+        "bnu-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一支钢笔的价格是8.7元，一个笔记本的价格是5.28元。买这两样物品一共需要多少元？",
+      "optionsZhHans": [
+        "13.98元",
+        "13.35元",
+        "14.08元",
+        "13.08元"
+      ],
+      "answer": "13.98元",
+      "acceptedAnswers": [
+        "13.98元"
+      ],
+      "explanationZhHans": "8.7元是8元7角，5.28元是5元2角8分。列竖式时小数点对齐，百分位0+8=8，十分位7+2=9，个位8+5=13，结果为13.98元。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-152",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-decimal-meaning-add-sub",
+      "unitTitle": "小数的意义和加减法",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "decimal-meaning",
+        "decimal-addition-subtraction",
+        "place-value-decimals",
+        "小数的意义",
+        "小数加减法"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "小数意义",
+        "小数读写",
+        "小数比较",
+        "小数加法",
+        "小数减法"
+      ],
+      "misconceptionTags": [
+        "more decimal digits assumed larger",
+        "decimal points not aligned in calculation",
+        "tenths and hundredths roles reversed"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-decimal-meaning-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit",
+        "bnu-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在0.6、0.57、0.609、0.61这四个小数中，最大的数是______。",
+      "optionsZhHans": [],
+      "answer": "0.61",
+      "acceptedAnswers": [
+        "0.61"
+      ],
+      "explanationZhHans": "比较小数时，先比较整数部分，都是0；再比较十分位：0.6和0.61的十分位是6，0.57是5，0.609是6。十分位为6的数中，比较百分位：0.6的百分位可看作0，0.61是1，0.609是0，所以0.61最大。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-153",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-decimal-meaning-add-sub",
+      "unitTitle": "小数的意义和加减法",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "decimal-meaning",
+        "decimal-addition-subtraction",
+        "place-value-decimals",
+        "小数的意义",
+        "小数加减法"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "小数意义",
+        "小数读写",
+        "小数比较",
+        "小数加法",
+        "小数减法"
+      ],
+      "misconceptionTags": [
+        "more decimal digits assumed larger",
+        "decimal points not aligned in calculation",
+        "tenths and hundredths roles reversed"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-decimal-meaning-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit",
+        "bnu-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丽在计算小数加法时，把其中一个加数3.6看成了36，得到的结果是40.5。正确的结果应该是多少？",
+      "optionsZhHans": [],
+      "answer": "8.1",
+      "acceptedAnswers": [
+        "8.1"
+      ],
+      "explanationZhHans": "另一个加数 = 40.5 - 36 = 4.5。正确算式为3.6 + 4.5 = 8.1。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-154",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-decimal-meaning-add-sub",
+      "unitTitle": "小数的意义和加减法",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "decimal-meaning",
+        "decimal-addition-subtraction",
+        "place-value-decimals",
+        "小数的意义",
+        "小数加减法"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "小数意义",
+        "小数读写",
+        "小数比较",
+        "小数加法",
+        "小数减法"
+      ],
+      "misconceptionTags": [
+        "more decimal digits assumed larger",
+        "decimal points not aligned in calculation",
+        "tenths and hundredths roles reversed"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-decimal-meaning-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit",
+        "bnu-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个数中的“2”表示2个百分之一？",
+      "optionsZhHans": [
+        "5.2",
+        "0.07",
+        "3.02",
+        "0.27"
+      ],
+      "answer": "3.02",
+      "acceptedAnswers": [
+        "3.02"
+      ],
+      "explanationZhHans": "百分位是小数点右边第二位。3.02中的2在百分位，表示2个百分之一；其他选项中的2不在百分位或没有2。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-155",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-decimal-meaning-add-sub",
+      "unitTitle": "小数的意义和加减法",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "decimal-meaning",
+        "decimal-addition-subtraction",
+        "place-value-decimals",
+        "小数的意义",
+        "小数加减法"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "小数意义",
+        "小数读写",
+        "小数比较",
+        "小数加法",
+        "小数减法"
+      ],
+      "misconceptionTags": [
+        "more decimal digits assumed larger",
+        "decimal points not aligned in calculation",
+        "tenths and hundredths roles reversed"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-decimal-meaning-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit",
+        "bnu-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把一根绳子剪成两段，第一段长2.45米，第二段比第一段短0.7米。第二段长______米。",
+      "optionsZhHans": [],
+      "answer": "1.75",
+      "acceptedAnswers": [
+        "1.75"
+      ],
+      "explanationZhHans": "第二段比第一段短0.7米，用减法：2.45 - 0.7 = 1.75米。计算时小数点对齐，2.45的十分位是4，减去7不够减，从个位借1，14-7=7，个位1-0=1，结果为1.75。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-156",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-decimal-meaning-add-sub",
+      "unitTitle": "小数的意义和加减法",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "decimal-meaning",
+        "decimal-addition-subtraction",
+        "place-value-decimals",
+        "小数的意义",
+        "小数加减法"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "小数意义",
+        "小数读写",
+        "小数比较",
+        "小数加法",
+        "小数减法"
+      ],
+      "misconceptionTags": [
+        "more decimal digits assumed larger",
+        "decimal points not aligned in calculation",
+        "tenths and hundredths roles reversed"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-decimal-meaning-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit",
+        "bnu-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明家四月份的电费是58.6元，五月份的电费比四月份多12.35元。五月份的电费是多少元？",
+      "optionsZhHans": [],
+      "answer": "70.95",
+      "acceptedAnswers": [
+        "70.95"
+      ],
+      "explanationZhHans": "求五月份电费用加法：58.6 + 12.35 = 70.95元。计算时58.6可以看作58.60，百分位0+5=5，十分位6+3=9，个位8+2=10进1，十位5+1+1=7，结果是70.95。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-157",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-decimal-meaning-add-sub",
+      "unitTitle": "小数的意义和加减法",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "decimal-meaning",
+        "decimal-addition-subtraction",
+        "place-value-decimals",
+        "小数的意义",
+        "小数加减法"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "小数意义",
+        "小数读写",
+        "小数比较",
+        "小数加法",
+        "小数减法"
+      ],
+      "misconceptionTags": [
+        "more decimal digits assumed larger",
+        "decimal points not aligned in calculation",
+        "tenths and hundredths roles reversed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-decimal-meaning-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit",
+        "bnu-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个算式的结果与10 - 3.45相等？",
+      "optionsZhHans": [
+        "10.00 - 3.45",
+        "10.0 - 3.54",
+        "100 - 34.5",
+        "10 - 4.35"
+      ],
+      "answer": "10.00 - 3.45",
+      "acceptedAnswers": [
+        "10.00 - 3.45"
+      ],
+      "explanationZhHans": "10-3.45=6.55。10.00与10大小相同，所以10.00-3.45=6.55；其余结果分别是6.46、65.5、5.65。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-158",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-decimal-meaning-add-sub",
+      "unitTitle": "小数的意义和加减法",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "decimal-meaning",
+        "decimal-addition-subtraction",
+        "place-value-decimals",
+        "小数的意义",
+        "小数加减法"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "小数意义",
+        "小数读写",
+        "小数比较",
+        "小数加法",
+        "小数减法"
+      ],
+      "misconceptionTags": [
+        "more decimal digits assumed larger",
+        "decimal points not aligned in calculation",
+        "tenths and hundredths roles reversed"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-decimal-meaning-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit",
+        "bnu-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用小数表示下面的钱数：3元5角6分 = ______元。",
+      "optionsZhHans": [],
+      "answer": "3.56",
+      "acceptedAnswers": [
+        "3.56"
+      ],
+      "explanationZhHans": "1元=10角，1角=10分。3元5角6分中，3元是整数部分，5角是0.5元，6分是0.06元，合起来是3.56元。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-159",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-decimal-meaning-add-sub",
+      "unitTitle": "小数的意义和加减法",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "decimal-meaning",
+        "decimal-addition-subtraction",
+        "place-value-decimals",
+        "小数的意义",
+        "小数加减法"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "小数意义",
+        "小数读写",
+        "小数比较",
+        "小数加法",
+        "小数减法"
+      ],
+      "misconceptionTags": [
+        "more decimal digits assumed larger",
+        "decimal points not aligned in calculation",
+        "tenths and hundredths roles reversed"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-decimal-meaning-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit",
+        "bnu-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在跳远比赛中，小强的成绩是1.85米，小刚的成绩是1.9米，小明的成绩是1.78米。请把他们的成绩按从高到低的顺序排列。",
+      "optionsZhHans": [],
+      "answer": "1.9米 > 1.85米 > 1.78米",
+      "acceptedAnswers": [
+        "1.9米 > 1.85米 > 1.78米",
+        "1.9 > 1.85 > 1.78"
+      ],
+      "explanationZhHans": "比较小数：1.9的十分位是9，最大；1.85和1.78十分位都是8，比较百分位，1.85的百分位是5，1.78是8，所以1.85>1.78。从高到低为1.9米、1.85米、1.78米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-160",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-decimal-meaning-add-sub",
+      "unitTitle": "小数的意义和加减法",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "decimal-meaning",
+        "decimal-addition-subtraction",
+        "place-value-decimals",
+        "小数的意义",
+        "小数加减法"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "小数意义",
+        "小数读写",
+        "小数比较",
+        "小数加法",
+        "小数减法"
+      ],
+      "misconceptionTags": [
+        "more decimal digits assumed larger",
+        "decimal points not aligned in calculation",
+        "tenths and hundredths roles reversed"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-decimal-meaning-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit",
+        "bnu-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个小数读作“五点零六”？",
+      "optionsZhHans": [
+        "5.6",
+        "5.06",
+        "5.006",
+        "50.6"
+      ],
+      "answer": "5.06",
+      "acceptedAnswers": [
+        "5.06"
+      ],
+      "explanationZhHans": "五点零六的整数部分是5，小数部分零六表示06，即5.06。5.6读作五点六，5.006读作五点零零六，50.6读作五十点六。"
+    }
+  ]
+}

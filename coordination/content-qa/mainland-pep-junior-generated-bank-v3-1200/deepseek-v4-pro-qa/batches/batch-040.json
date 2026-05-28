@@ -1,0 +1,137 @@
+{
+  "batchNumber": 40,
+  "startedAt": "2026-05-25T02:59:13.868Z",
+  "completedAt": "2026-05-25T02:59:29.733Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s2-k06-sa-001",
+    "pep-junior-v3-s2-k06-sa-002",
+    "pep-junior-v3-s2-k06-sa-003",
+    "pep-junior-v3-s2-k06-sa-004",
+    "pep-junior-v3-s2-k06-sa-005",
+    "pep-junior-v3-s2-k06-sa-006",
+    "pep-junior-v3-s2-k06-sa-007",
+    "pep-junior-v3-s2-k06-sa-008",
+    "pep-junior-v3-s2-k06-sa-009",
+    "pep-junior-v3-s2-k06-sa-010",
+    "pep-junior-v3-s2-k06-sa-011",
+    "pep-junior-v3-s2-k06-sa-012"
+  ],
+  "usage": {
+    "prompt_tokens": 3455,
+    "completion_tokens": 971,
+    "total_tokens": 4426,
+    "prompt_tokens_details": {
+      "cached_tokens": 3328
+    },
+    "prompt_cache_hit_tokens": 3328,
+    "prompt_cache_miss_tokens": 127
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s2-k06-sa-001",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，等腰三角形三线合一证明无误，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-sa-002",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移坐标和距离计算正确，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-sa-003",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "三角形内角和计算正确，答案70°无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-sa-004",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "SAS全等判定正确，条件充分，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-sa-005",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "多项式乘法正确，结果为x²+x-6。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-sa-006",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分式化简正确，x≠-2条件明确，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-sa-007",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "关于y轴对称坐标变换正确，答案(-2,3)无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-sa-008",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "加权平均数计算正确，结果91.25无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-sa-009",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "利润函数关系式正确，y=(10-x)(100+10x)符合题意。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-sa-010",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "与001题类似，等腰三角形三线合一证明正确，无重复风险。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-sa-011",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "SSS全等判定正确，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-sa-012",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分式方程解法正确，检验步骤完整，答案x=5无误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案与解释一致，无歧义或缺失条件，适合人教版初中数学。"
+    }
+  }
+}

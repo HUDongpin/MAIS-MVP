@@ -1,0 +1,137 @@
+{
+  "batchNumber": 20,
+  "startedAt": "2026-05-27T13:47:27.834Z",
+  "completedAt": "2026-05-27T13:47:46.156Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-153",
+    "bnu-high-ds-v1-s4-154",
+    "bnu-high-ds-v1-s4-155",
+    "bnu-high-ds-v1-s4-156",
+    "bnu-high-ds-v1-s4-157",
+    "bnu-high-ds-v1-s4-158",
+    "bnu-high-ds-v1-s4-159",
+    "bnu-high-ds-v1-s4-160"
+  ],
+  "usage": {
+    "prompt_tokens": 10374,
+    "completion_tokens": 1287,
+    "total_tokens": 11661,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 9862
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-153",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "[0,1]",
+        "correctedAnswer": "[0,1]",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "f(0)=ln2-1<0，f(2)=ln4-1>0，中点1处f(1)=ln3-1>0，由零点存在定理零点在[0,1]；答案[1,2]错误，解析也指出答案有误，故答案与解析均不匹配。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-154",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "约4.6周",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "解50e^{0.3t}=200得e^{0.3t}=4，0.3t=ln4=2ln2≈1.386，t≈4.62，选项B约4.6周正确；解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-155",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "p逐渐减小趋近0.02，模型合理，因为批量增大时次品率下降并趋于稳定。",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "p=0.02+0.1/x，x增大时0.1/x减小，p趋近0.02，符合实际；答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-156",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "[2,2.5]",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f(2)=-1<0，f(3)=16>0，中点2.5处f(2.5)=5.625>0，零点在[2,2.5]；答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-157",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "指数函数y=0.8·1.5^x",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "代入数据，指数模型y=0.8·1.5^x在x=1,2,3,4时分别得1.2,1.8,2.7,4.05，与给定数据最吻合；其他模型偏差较大。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-158",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "约34.65年",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "解100e^{0.02t}=200得e^{0.02t}=2，0.02t=ln2≈0.693，t≈34.65；答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-159",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0.25",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "初始区间长1，一次二分后长0.5，两次二分后长0.25；答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-160",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "25元",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "S=p(100-2p)=-2p^2+100p，二次函数最大值在p=25处；答案与解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第153题答案错误，应为[0,1]而非[1,2]，解析也指出错误，需修正；其余7题均正确。"
+    }
+  }
+}

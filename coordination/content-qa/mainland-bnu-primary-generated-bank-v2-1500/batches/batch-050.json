@@ -1,0 +1,585 @@
+{
+  "batchId": "batch-050",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p2-241",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-data-recording-review",
+      "unitTitle": "调查与记录及整理复习",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "data-collection",
+        "recording-data",
+        "p2-lower-review",
+        "调查与记录"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "反思整理",
+        "应用意识"
+      ],
+      "skillTags": [
+        "收集数据",
+        "记录整理",
+        "读表比较",
+        "综合复习"
+      ],
+      "misconceptionTags": [
+        "tally or table count read from wrong category",
+        "comparison statement unsupported by data",
+        "review tasks solved without identifying units"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-data-recording-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-data-recording",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "二（1）班同学调查了全班最喜欢的课间活动，记录如下：跳绳：正正正，踢毽子：正正，拍皮球：正正正正，丢沙包：正。根据记录，下面哪种说法是正确的？",
+      "optionsZhHans": [
+        "喜欢拍皮球的人数最多，是20人",
+        "喜欢丢沙包的人数最少，是4人",
+        "喜欢跳绳的比喜欢踢毽子的多4人",
+        "喜欢拍皮球的比喜欢丢沙包的多12人"
+      ],
+      "answer": "喜欢拍皮球的人数最多，是20人",
+      "acceptedAnswers": [
+        "喜欢拍皮球的人数最多，是20人"
+      ],
+      "explanationZhHans": "跳绳：3个正，3×5=15人；踢毽子：2个正，2×5=10人；拍皮球：4个正，4×5=20人；丢沙包：1个正，1×5=5人。拍皮球20人最多，丢沙包5人最少。跳绳比踢毽子多15-10=5人，不是4人。拍皮球比丢沙包多20-5=15人，不是12人。只有A正确。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-242",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-data-recording-review",
+      "unitTitle": "调查与记录及整理复习",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "data-collection",
+        "recording-data",
+        "p2-lower-review",
+        "调查与记录"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "反思整理",
+        "应用意识"
+      ],
+      "skillTags": [
+        "收集数据",
+        "记录整理",
+        "读表比较",
+        "综合复习"
+      ],
+      "misconceptionTags": [
+        "tally or table count read from wrong category",
+        "comparison statement unsupported by data",
+        "review tasks solved without identifying units"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-data-recording-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-data-recording",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "二（2）班四个小组收集废电池的数量用“正”字记录如下：第一组：正正，第二组：正，第三组：正正正，第四组：正正。下面哪种说法是正确的？",
+      "optionsZhHans": [
+        "第三组收集的废电池最多，是15节",
+        "第二组收集的废电池最少，是4节",
+        "第一组比第四组多收集2节",
+        "第三组比第二组多收集8节"
+      ],
+      "answer": "第三组收集的废电池最多，是15节",
+      "acceptedAnswers": [
+        "第三组收集的废电池最多，是15节"
+      ],
+      "explanationZhHans": "第一组：2个正，2×5=10节；第二组：1个正，1×5=5节；第三组：3个正，3×5=15节；第四组：2个正，2×5=10节。第三组15节最多，第二组5节最少。第一组和第四组都是10节，一样多，不是多2节。第三组比第二组多15-5=10节，不是8节。只有A正确。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-243",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-data-recording-review",
+      "unitTitle": "调查与记录及整理复习",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "data-collection",
+        "recording-data",
+        "p2-lower-review",
+        "调查与记录"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "反思整理",
+        "应用意识"
+      ],
+      "skillTags": [
+        "收集数据",
+        "记录整理",
+        "读表比较",
+        "综合复习"
+      ],
+      "misconceptionTags": [
+        "tally or table count read from wrong category",
+        "comparison statement unsupported by data",
+        "review tasks solved without identifying units"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-data-recording-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-data-recording",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "二（3）班同学最喜欢的水果记录如下：苹果：正正正正，香蕉：正正，橘子：正正正，梨：正。根据记录，下面哪种说法是正确的？",
+      "optionsZhHans": [
+        "喜欢苹果的人数最多，是20人",
+        "喜欢梨的人数最少，是4人",
+        "喜欢橘子的比喜欢香蕉的多3人",
+        "喜欢苹果的比喜欢梨的多14人"
+      ],
+      "answer": "喜欢苹果的人数最多，是20人",
+      "acceptedAnswers": [
+        "喜欢苹果的人数最多，是20人"
+      ],
+      "explanationZhHans": "苹果：4个正，4×5=20人；香蕉：2个正，2×5=10人；橘子：3个正，3×5=15人；梨：1个正，1×5=5人。苹果20人最多，梨5人最少。橘子比香蕉多15-10=5人，不是3人。苹果比梨多20-5=15人，不是14人。只有A正确。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-244",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-data-recording-review",
+      "unitTitle": "调查与记录及整理复习",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "data-collection",
+        "recording-data",
+        "p2-lower-review",
+        "调查与记录"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "反思整理",
+        "应用意识"
+      ],
+      "skillTags": [
+        "收集数据",
+        "记录整理",
+        "读表比较",
+        "综合复习"
+      ],
+      "misconceptionTags": [
+        "tally or table count read from wrong category",
+        "comparison statement unsupported by data",
+        "review tasks solved without identifying units"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-data-recording-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-data-recording",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "二（4）班同学最喜欢的运动项目记录如下：跑步：正正正，游泳：正正，跳绳：正正正正，踢球：正。根据记录，下面哪种说法是正确的？",
+      "optionsZhHans": [
+        "喜欢跳绳的人数最多，是20人",
+        "喜欢踢球的人数最少，是4人",
+        "喜欢跑步的比喜欢游泳的多3人",
+        "喜欢跳绳的比喜欢踢球的多14人"
+      ],
+      "answer": "喜欢跳绳的人数最多，是20人",
+      "acceptedAnswers": [
+        "喜欢跳绳的人数最多，是20人"
+      ],
+      "explanationZhHans": "跑步：3个正，3×5=15人；游泳：2个正，2×5=10人；跳绳：4个正，4×5=20人；踢球：1个正，1×5=5人。跳绳20人最多，踢球5人最少。跑步比游泳多15-10=5人，不是3人。跳绳比踢球多20-5=15人，不是14人。只有A正确。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-245",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-data-recording-review",
+      "unitTitle": "调查与记录及整理复习",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "data-collection",
+        "recording-data",
+        "p2-lower-review",
+        "调查与记录"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "反思整理",
+        "应用意识"
+      ],
+      "skillTags": [
+        "收集数据",
+        "记录整理",
+        "读表比较",
+        "综合复习"
+      ],
+      "misconceptionTags": [
+        "tally or table count read from wrong category",
+        "comparison statement unsupported by data",
+        "review tasks solved without identifying units"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-data-recording-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-data-recording",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "二（5）班同学最喜欢的动物记录如下：小猫：正正正正正，小狗：正正正，小兔：正正，小鸟：正。根据记录，下面哪种说法是正确的？",
+      "optionsZhHans": [
+        "喜欢小猫的人数最多，是25人",
+        "喜欢小鸟的人数最少，是4人",
+        "喜欢小狗的比喜欢小兔的多3人",
+        "喜欢小猫的比喜欢小鸟的多18人"
+      ],
+      "answer": "喜欢小猫的人数最多，是25人",
+      "acceptedAnswers": [
+        "喜欢小猫的人数最多，是25人"
+      ],
+      "explanationZhHans": "小猫：5个正，5×5=25人；小狗：3个正，3×5=15人；小兔：2个正，2×5=10人；小鸟：1个正，1×5=5人。小猫25人最多，小鸟5人最少。小狗比小兔多15-10=5人，不是3人。小猫比小鸟多25-5=20人，不是18人。只有A正确。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-246",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-data-recording-review",
+      "unitTitle": "调查与记录及整理复习",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "data-collection",
+        "recording-data",
+        "p2-lower-review",
+        "调查与记录"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "反思整理",
+        "应用意识"
+      ],
+      "skillTags": [
+        "收集数据",
+        "记录整理",
+        "读表比较",
+        "综合复习"
+      ],
+      "misconceptionTags": [
+        "tally or table count read from wrong category",
+        "comparison statement unsupported by data",
+        "review tasks solved without identifying units"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-data-recording-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-data-recording",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "二（6）班同学最喜欢的颜色记录如下：红色：正正正，蓝色：正正，黄色：正正正正，绿色：正。根据记录，下面哪种说法是正确的？",
+      "optionsZhHans": [
+        "喜欢黄色的人数最多，是20人",
+        "喜欢绿色的人数最少，是4人",
+        "喜欢红色的比喜欢蓝色的多3人",
+        "喜欢黄色的比喜欢绿色的多14人"
+      ],
+      "answer": "喜欢黄色的人数最多，是20人",
+      "acceptedAnswers": [
+        "喜欢黄色的人数最多，是20人"
+      ],
+      "explanationZhHans": "红色：3个正，3×5=15人；蓝色：2个正，2×5=10人；黄色：4个正，4×5=20人；绿色：1个正，1×5=5人。黄色20人最多，绿色5人最少。红色比蓝色多15-10=5人，不是3人。黄色比绿色多20-5=15人，不是14人。只有A正确。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-247",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-data-recording-review",
+      "unitTitle": "调查与记录及整理复习",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "data-collection",
+        "recording-data",
+        "p2-lower-review",
+        "调查与记录"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "反思整理",
+        "应用意识"
+      ],
+      "skillTags": [
+        "收集数据",
+        "记录整理",
+        "读表比较",
+        "综合复习"
+      ],
+      "misconceptionTags": [
+        "tally or table count read from wrong category",
+        "comparison statement unsupported by data",
+        "review tasks solved without identifying units"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-data-recording-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-data-recording",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "二（7）班同学最喜欢的季节记录如下：春天：正正正正，夏天：正正正，秋天：正正，冬天：正。根据记录，下面哪种说法是正确的？",
+      "optionsZhHans": [
+        "喜欢春天的人数最多，是20人",
+        "喜欢冬天的人数最少，是4人",
+        "喜欢夏天的比喜欢秋天的多3人",
+        "喜欢春天的比喜欢冬天的多14人"
+      ],
+      "answer": "喜欢春天的人数最多，是20人",
+      "acceptedAnswers": [
+        "喜欢春天的人数最多，是20人"
+      ],
+      "explanationZhHans": "春天：4个正，4×5=20人；夏天：3个正，3×5=15人；秋天：2个正，2×5=10人；冬天：1个正，1×5=5人。春天20人最多，冬天5人最少。夏天比秋天多15-10=5人，不是3人。春天比冬天多20-5=15人，不是14人。只有A正确。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-248",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-data-recording-review",
+      "unitTitle": "调查与记录及整理复习",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "data-collection",
+        "recording-data",
+        "p2-lower-review",
+        "调查与记录"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "反思整理",
+        "应用意识"
+      ],
+      "skillTags": [
+        "收集数据",
+        "记录整理",
+        "读表比较",
+        "综合复习"
+      ],
+      "misconceptionTags": [
+        "tally or table count read from wrong category",
+        "comparison statement unsupported by data",
+        "review tasks solved without identifying units"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-data-recording-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-data-recording",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "二（8）班同学最喜欢的图书种类记录如下：童话书：正正正，漫画书：正正，科普书：正正正正，故事书：正。根据记录，下面哪种说法是正确的？",
+      "optionsZhHans": [
+        "喜欢科普书的人数最多，是20人",
+        "喜欢故事书的人数最少，是4人",
+        "喜欢童话书的比喜欢漫画书的多3人",
+        "喜欢科普书的比喜欢故事书的多14人"
+      ],
+      "answer": "喜欢科普书的人数最多，是20人",
+      "acceptedAnswers": [
+        "喜欢科普书的人数最多，是20人"
+      ],
+      "explanationZhHans": "童话书：3个正，3×5=15人；漫画书：2个正，2×5=10人；科普书：4个正，4×5=20人；故事书：1个正，1×5=5人。科普书20人最多，故事书5人最少。童话书比漫画书多15-10=5人，不是3人。科普书比故事书多20-5=15人，不是14人。只有A正确。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-249",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-data-recording-review",
+      "unitTitle": "调查与记录及整理复习",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "data-collection",
+        "recording-data",
+        "p2-lower-review",
+        "调查与记录"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "反思整理",
+        "应用意识"
+      ],
+      "skillTags": [
+        "收集数据",
+        "记录整理",
+        "读表比较",
+        "综合复习"
+      ],
+      "misconceptionTags": [
+        "tally or table count read from wrong category",
+        "comparison statement unsupported by data",
+        "review tasks solved without identifying units"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-data-recording-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-data-recording",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "二（9）班同学最喜欢的零食记录如下：饼干：正正正，糖果：正正，水果：正正正正，蛋糕：正。根据记录，下面哪种说法是正确的？",
+      "optionsZhHans": [
+        "喜欢水果的人数最多，是20人",
+        "喜欢蛋糕的人数最少，是4人",
+        "喜欢饼干的比喜欢糖果的多3人",
+        "喜欢水果的比喜欢蛋糕的多14人"
+      ],
+      "answer": "喜欢水果的人数最多，是20人",
+      "acceptedAnswers": [
+        "喜欢水果的人数最多，是20人"
+      ],
+      "explanationZhHans": "饼干：3个正，3×5=15人；糖果：2个正，2×5=10人；水果：4个正，4×5=20人；蛋糕：1个正，1×5=5人。水果20人最多，蛋糕5人最少。饼干比糖果多15-10=5人，不是3人。水果比蛋糕多20-5=15人，不是14人。只有A正确。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-250",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-data-recording-review",
+      "unitTitle": "调查与记录及整理复习",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "data-collection",
+        "recording-data",
+        "p2-lower-review",
+        "调查与记录"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "反思整理",
+        "应用意识"
+      ],
+      "skillTags": [
+        "收集数据",
+        "记录整理",
+        "读表比较",
+        "综合复习"
+      ],
+      "misconceptionTags": [
+        "tally or table count read from wrong category",
+        "comparison statement unsupported by data",
+        "review tasks solved without identifying units"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-data-recording-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-data-recording",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "二（10）班同学最喜欢的电视节目记录如下：动画片：正正正正，纪录片：正正，综艺节目：正正正，体育节目：正。根据记录，下面哪种说法是正确的？",
+      "optionsZhHans": [
+        "喜欢动画片的人数最多，是20人",
+        "喜欢体育节目的人数最少，是4人",
+        "喜欢综艺节目的比喜欢纪录片的多3人",
+        "喜欢动画片的比喜欢体育节目的多14人"
+      ],
+      "answer": "喜欢动画片的人数最多，是20人",
+      "acceptedAnswers": [
+        "喜欢动画片的人数最多，是20人"
+      ],
+      "explanationZhHans": "动画片：4个正，4×5=20人；纪录片：2个正，2×5=10人；综艺节目：3个正，3×5=15人；体育节目：1个正，1×5=5人。动画片20人最多，体育节目5人最少。综艺节目比纪录片多15-10=5人，不是3人。动画片比体育节目多20-5=15人，不是14人。只有A正确。"
+    }
+  ]
+}

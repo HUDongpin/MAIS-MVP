@@ -1,0 +1,191 @@
+{
+  "batchNumber": 6,
+  "startedAt": "2026-05-27T13:41:43.239Z",
+  "completedAt": "2026-05-27T13:42:02.687Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p1-091",
+    "bnu-primary-ds-v2-p1-092",
+    "bnu-primary-ds-v2-p1-093",
+    "bnu-primary-ds-v2-p1-094",
+    "bnu-primary-ds-v2-p1-095",
+    "bnu-primary-ds-v2-p1-096",
+    "bnu-primary-ds-v2-p1-097",
+    "bnu-primary-ds-v2-p1-098",
+    "bnu-primary-ds-v2-p1-099",
+    "bnu-primary-ds-v2-p1-100",
+    "bnu-primary-ds-v2-p1-101",
+    "bnu-primary-ds-v2-p1-102",
+    "bnu-primary-ds-v2-p1-103",
+    "bnu-primary-ds-v2-p1-104",
+    "bnu-primary-ds-v2-p1-105",
+    "bnu-primary-ds-v2-p1-106",
+    "bnu-primary-ds-v2-p1-107",
+    "bnu-primary-ds-v2-p1-108"
+  ],
+  "usage": {
+    "prompt_tokens": 3434,
+    "completion_tokens": 1322,
+    "total_tokens": 4756,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 3178
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p1-091",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，选项合理，答案正确，符合P1认识图形要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-092",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "填空设计合理，答案准确，与生活物品结合，适合P1。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-093",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分类题明确，答案完整，符合P1认知水平。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-094",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项区分度好，答案唯一，适合基础题。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-095",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计数题清晰，答案正确，物品描述明确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-096",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "开放题合理，答案分类准确，符合P1要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-097",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数位概念题，选项无歧义，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-098",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "基础填空，答案准确，适合P1。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-099",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "应用题合理，算式正确，符合20以内减法。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-100",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项计算正确，唯一答案，适合基础题。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-101",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "填空设计合理，答案正确，符合P1数位理解。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-102",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "简答题清晰，答案正确，接受中文数字合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-103",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项设计巧妙，答案唯一，考察几个一的概念。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-104",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "填空答案正确，接受带单位答案，合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-105",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "简答题答案正确，接受多种分隔符，合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-106",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项清晰，答案唯一，符合P1减法应用。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-107",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "综合填空答案正确，顺序合理，适合P1。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-108",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "应用题答案正确，接受带单位答案，合理。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版P1上册要求，数学正确，答案匹配，无歧义或缺失条件，适合公共题库推广。"
+    }
+  }
+}

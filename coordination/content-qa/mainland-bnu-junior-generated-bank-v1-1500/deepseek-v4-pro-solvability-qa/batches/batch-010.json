@@ -1,0 +1,173 @@
+{
+  "batchNumber": 10,
+  "startedAt": "2026-05-27T17:23:38.770Z",
+  "completedAt": "2026-05-27T17:23:57.374Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s1-109",
+    "bnu-junior-ds-v1-s1-110",
+    "bnu-junior-ds-v1-s1-111",
+    "bnu-junior-ds-v1-s1-112",
+    "bnu-junior-ds-v1-s1-113",
+    "bnu-junior-ds-v1-s1-114",
+    "bnu-junior-ds-v1-s1-115",
+    "bnu-junior-ds-v1-s1-116",
+    "bnu-junior-ds-v1-s1-117",
+    "bnu-junior-ds-v1-s1-118",
+    "bnu-junior-ds-v1-s1-119",
+    "bnu-junior-ds-v1-s1-120"
+  ],
+  "usage": {
+    "prompt_tokens": 5964,
+    "completion_tokens": 1283,
+    "total_tokens": 7247,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 5452
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s1-109",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目考查去括号法则，选项C正确，答案与解析一致，无歧义。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-110",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，通过减法可求得多项式为-5x-1，答案与解析一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-111",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算A-2B并降幂排列得5x²-10xy+19，答案正确，解析无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-112",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "同类项定义清晰，选项B符合，答案与解析一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-113",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "化简得ab-2，代入得-4，答案与解析一致，acceptedAnswers覆盖多种写法。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-114",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "通过加法求得多项式为6x²-2x-4，答案正确，解析无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-115",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "化简得4x+3y，选项A正确，答案与解析一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-116",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "化简得x²+8xy-9y²，代入得-21，答案与解析一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-117",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由同类项定义得m=2,n=3，和为5，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-118",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "减法得2x²+6x-3，选项A正确，答案与解析一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-119",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由周长公式求得宽为2a+b，答案正确，解析无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-120",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "合并xy项系数得1-3k=0，k=1/3，答案正确，acceptedAnswers覆盖分数写法。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部12道题均条件充分、可解，答案与解析匹配，无歧义或错误，适合北师大版七年级上册整式加减单元使用。"
+    }
+  }
+}

@@ -1,0 +1,134 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-173",
+  "startedAt": "2026-05-28T01:52:47.039Z",
+  "completedAt": "2026-05-28T01:53:02.719Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-377",
+    "bnu-high-ds-v1-s6-378",
+    "bnu-high-ds-v1-s6-379",
+    "bnu-high-ds-v1-s6-380",
+    "bnu-high-ds-v1-s6-381",
+    "bnu-high-ds-v1-s6-382",
+    "bnu-high-ds-v1-s6-383",
+    "bnu-high-ds-v1-s6-384"
+  ],
+  "usage": {
+    "prompt_tokens": 11761,
+    "completion_tokens": 1157,
+    "total_tokens": 12918,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 11377
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-377",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "a = 3, b = 3",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 a=0, b=-3 错误。由 f(-1)=2 得 -1+a-b+1=2 → a-b=2；由 f'(-1)=0 得 3-2a+b=0。联立解得 a=3, b=3。解析中方程 a-b=2 与 3-2a+b=0 联立应得 a=3, b=3，但解析却给出 a=0, b=-3，自相矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-378",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 -2 与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-379",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "correctedAnswer": null,
+        "issueTags": [
+          "ambiguous_mc",
+          "bad_options",
+          "answer_mismatch"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "单调递增区间应为 (-∞, -1) 和 (3, +∞)，但选项 C 表述矛盾（开区间却称包含端点），D 为闭区间，均非严格正确。题目无唯一正确选项，且存储答案 D 与独立解不符。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-380",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案“极大值为 1，极小值为 -3”与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-381",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 5 与独立解 a=5 一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-382",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 (-1, 1) 与独立解 B 一致，解析正确，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-383",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案“极大值 10，极小值 -22”与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-384",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 -1 与独立解一致，解析正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 0,
+      "fail": 2,
+      "notes": "8 题中 6 题通过，2 题失败：bnu-high-ds-v1-s6-377 答案错误且解析矛盾；bnu-high-ds-v1-s6-379 选项设计导致无唯一正确选项。"
+    }
+  }
+}

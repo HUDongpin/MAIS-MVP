@@ -1,0 +1,328 @@
+{
+  "batchId": "batch-098",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s3-k10-sa-038",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-quadratic-equations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "用适当的方法解方程：2x² - 5x + 1 = 0。",
+      "optionsZhHans": [],
+      "answer": "x = (5 + √17) / 4 或 x = (5 - √17) / 4",
+      "acceptedAnswers": [
+        "x = (5 + √17) / 4 或 x = (5 - √17) / 4",
+        "x = (5 + √17)/4 或 x = (5 - √17)/4",
+        "x = (5+√17)/4 或 x = (5-√17)/4",
+        "x = (5 ± √17) / 4",
+        "x = (5 ± √17)/4",
+        "x = (5+√17)/4, x = (5-√17)/4",
+        "x = (5 + √17) / 4, x = (5 - √17) / 4"
+      ],
+      "explanationZhHans": "方程 2x² - 5x + 1 = 0 中，a = 2，b = -5，c = 1。计算判别式 Δ = b² - 4ac = (-5)² - 4×2×1 = 25 - 8 = 17 > 0，故有两个不相等的实数根。代入求根公式 x = [-b ± √Δ] / (2a) = [5 ± √17] / 4。因此，解为 x = (5 + √17) / 4 或 x = (5 - √17) / 4。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-sa-039",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-quadratic-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions"
+      ],
+      "promptZhHans": "已知二次函数 y = -x² + 4x + m 的图象经过点 (1, 5)。求 m 的值，并写出该抛物线的顶点坐标。",
+      "optionsZhHans": [],
+      "answer": "m = 2，顶点坐标为 (2, 6)",
+      "acceptedAnswers": [
+        "m = 2，顶点坐标为 (2, 6)",
+        "m = 2, 顶点 (2, 6)",
+        "m=2，顶点(2,6)",
+        "m=2,顶点(2,6)",
+        "m = 2，顶点坐标 (2, 6)",
+        "m=2，顶点坐标(2,6)"
+      ],
+      "explanationZhHans": "将点 (1, 5) 代入 y = -x² + 4x + m，得 5 = -1² + 4×1 + m，即 5 = -1 + 4 + m，解得 m = 2。所以函数为 y = -x² + 4x + 2。配方得 y = -(x² - 4x) + 2 = -(x² - 4x + 4 - 4) + 2 = -(x - 2)² + 4 + 2 = -(x - 2)² + 6。因此，顶点坐标为 (2, 6)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-sa-040",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-circle-geometry"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "promptZhHans": "在⊙O中，弦AB与弦CD相交于点E，且AE = 4，BE = 6，CE = 3。求DE的长。",
+      "optionsZhHans": [],
+      "answer": "DE = 8",
+      "acceptedAnswers": [
+        "DE = 8",
+        "DE=8",
+        "8"
+      ],
+      "explanationZhHans": "根据相交弦定理，在圆内，两条弦相交，交点分每条弦所得的两条线段的乘积相等。即 AE · BE = CE · DE。代入已知数据：4 × 6 = 3 × DE，即 24 = 3DE，解得 DE = 8。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-sa-041",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-probability-introduction"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean"
+      ],
+      "promptZhHans": "一个不透明的袋子里装有3个红球和2个白球，这些球除颜色外完全相同。从中随机摸出一个球，记下颜色后放回，搅匀后再随机摸出一个球。求两次摸出的球颜色不同的概率。",
+      "optionsZhHans": [],
+      "answer": "12/25",
+      "acceptedAnswers": [
+        "12/25",
+        "0.48",
+        "48%"
+      ],
+      "explanationZhHans": "总共有5个球，3红2白。第一次摸球后放回，第二次摸球时情况不变。两次摸球颜色不同的情况包括：先红后白，或先白后红。先红后白的概率为 (3/5) × (2/5) = 6/25；先白后红的概率为 (2/5) × (3/5) = 6/25。所以总概率为 6/25 + 6/25 = 12/25。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-sa-042",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-rotation-transformations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig"
+      ],
+      "promptZhHans": "将点A(3, -2)绕原点逆时针旋转90°，得到点A'。求点A'的坐标。",
+      "optionsZhHans": [],
+      "answer": "(2, 3)",
+      "acceptedAnswers": [
+        "(2, 3)",
+        "（2，3）",
+        "(2,3)",
+        "（2,3）"
+      ],
+      "explanationZhHans": "点P(x, y)绕原点逆时针旋转90°后得到点P'(-y, x)。将A(3, -2)代入，得A'(-(-2), 3) = (2, 3)。所以点A'的坐标为(2, 3)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-sa-043",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-dynamic-geometry-functions"
+      ],
+      "promptZhHans": "已知关于x的一元二次方程 x² + (2k - 1)x + k² = 0 有两个不相等的实数根。求k的取值范围。",
+      "optionsZhHans": [],
+      "answer": "k < 1/4",
+      "acceptedAnswers": [
+        "k < 1/4",
+        "k<1/4",
+        "k < 0.25",
+        "k<0.25"
+      ],
+      "explanationZhHans": "方程有两个不相等的实数根，则判别式 Δ > 0。这里 a = 1，b = 2k - 1，c = k²。Δ = (2k - 1)² - 4×1×k² = 4k² - 4k + 1 - 4k² = -4k + 1。由 Δ > 0 得 -4k + 1 > 0，即 -4k > -1，两边除以 -4 不等号方向改变，得 k < 1/4。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-sa-044",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-quadratic-equations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "某商场销售一种成本为每件40元的商品，经调查发现，若按每件50元销售，每月可售出500件；销售单价每上涨1元，月销量就减少10件。设销售单价为x元，每月销售利润为y元。求y与x之间的函数关系式，并写出x的取值范围。",
+      "optionsZhHans": [],
+      "answer": "y = -10x² + 1400x - 40000，50 ≤ x ≤ 100",
+      "acceptedAnswers": [
+        "y = -10x² + 1400x - 40000，50 ≤ x ≤ 100",
+        "y=-10x²+1400x-40000，50≤x≤100",
+        "y = -10x^2 + 1400x - 40000，50 ≤ x ≤ 100",
+        "y=-10x^2+1400x-40000，50≤x≤100",
+        "y = -10x² + 1400x - 40000, 50 ≤ x ≤ 100",
+        "y = -10x^2 + 1400x - 40000, 50 ≤ x ≤ 100"
+      ],
+      "explanationZhHans": "销售单价为x元，则每件利润为 (x - 40) 元。涨价后月销量为 500 - 10(x - 50) = 500 - 10x + 500 = 1000 - 10x。所以利润 y = (x - 40)(1000 - 10x) = 1000x - 10x² - 40000 + 400x = -10x² + 1400x - 40000。由销量非负得 1000 - 10x ≥ 0，即 x ≤ 100；又售价不低于成本，且通常不低于原售价，故 x ≥ 50。所以 x 的取值范围是 50 ≤ x ≤ 100。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-sa-045",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-quadratic-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-proof-calculation-integrated"
+      ],
+      "promptZhHans": "已知二次函数 y = 2x² - 8x + 1，当 0 ≤ x ≤ 3 时，求y的最大值和最小值。",
+      "optionsZhHans": [],
+      "answer": "最大值为 1，最小值为 -7",
+      "acceptedAnswers": [
+        "最大值为 1，最小值为 -7",
+        "最大值1，最小值-7",
+        "最大值为1，最小值为-7",
+        "最大值 1，最小值 -7"
+      ],
+      "explanationZhHans": "将函数配方：y = 2(x² - 4x) + 1 = 2(x² - 4x + 4 - 4) + 1 = 2[(x - 2)² - 4] + 1 = 2(x - 2)² - 8 + 1 = 2(x - 2)² - 7。对称轴为 x = 2，在区间 0 ≤ x ≤ 3 内。因为 a = 2 > 0，抛物线开口向上，所以在顶点处取得最小值，即 x = 2 时，y最小 = -7。最大值在区间端点处取得：当 x = 0 时，y = 2×0² - 8×0 + 1 = 1；当 x = 3 时，y = 2×9 - 8×3 + 1 = 18 - 24 + 1 = -5。比较得最大值为 1。因此，最大值为 1，最小值为 -7。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-sa-046",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-circle-geometry"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions"
+      ],
+      "promptZhHans": "AB是⊙O的直径，点C在⊙O上，过点C的切线与AB的延长线交于点D。若∠A = 30°，求∠D的度数。",
+      "optionsZhHans": [],
+      "answer": "30°",
+      "acceptedAnswers": [
+        "30°",
+        "30度",
+        "30"
+      ],
+      "explanationZhHans": "连接OC。因为OA = OC，所以∠A = ∠ACO = 30°。∠COD是△AOC的外角，等于∠A + ∠ACO = 60°。因为CD是⊙O的切线，所以OC⊥CD，即∠OCD = 90°。在Rt△OCD中，∠D = 90° - ∠COD = 90° - 60° = 30°。所以∠D的度数是30°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-sa-047",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-probability-introduction"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-circle-geometry"
+      ],
+      "promptZhHans": "在一个不透明的盒子中装有4张卡片，分别标有数字1、2、3、4，这些卡片除数字外完全相同。从盒子中随机抽取一张卡片，记下数字后放回，搅匀后再随机抽取一张卡片。求两次抽取的数字之和为奇数的概率。",
+      "optionsZhHans": [],
+      "answer": "1/2",
+      "acceptedAnswers": [
+        "1/2",
+        "0.5",
+        "50%"
+      ],
+      "explanationZhHans": "所有等可能的结果共有4×4=16种。和为奇数的情况：第一次奇数（1或3）第二次偶数（2或4），有2×2=4种；第一次偶数第二次奇数，也有2×2=4种。共8种。所以概率为8/16 = 1/2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

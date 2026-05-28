@@ -1,0 +1,48 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-052",
+  "startedAt": "2026-05-28T01:38:44.417Z",
+  "completedAt": "2026-05-28T01:38:48.687Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-052"
+  ],
+  "usage": {
+    "prompt_tokens": 1972,
+    "completion_tokens": 240,
+    "total_tokens": 2212,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1588
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-052",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "2",
+        "correctedAnswer": "2",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，独立求解得 a₁=2。存储答案 3 错误，解析中方程组求解错误导致 a₁=3，与正确解矛盾。选项唯一，但答案不匹配，需修正为 2。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1 题答案错误，解析矛盾，判定为 blocker。"
+    }
+  }
+}

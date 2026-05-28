@@ -1,0 +1,105 @@
+{
+  "batchId": "model-qa-0135",
+  "ids": [
+    "hjb-junior-ds-v2-s3-073",
+    "hjb-junior-ds-v2-s3-074",
+    "hjb-junior-ds-v2-s3-075",
+    "hjb-junior-ds-v2-s3-076",
+    "hjb-junior-ds-v2-s3-077",
+    "hjb-junior-ds-v2-s3-078",
+    "hjb-junior-ds-v2-s3-079",
+    "hjb-junior-ds-v2-s3-080"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-073",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "no-correct-option"
+      ],
+      "issueDetailsZhHans": "选项A：AB/DE=BC/EF，且∠A=∠D。但∠A是AB和BC的夹角吗？在△ABC中，AB和BC的夹角是∠B，不是∠A。所以选项A不满足两边对应成比例且夹角相等。选项B：AB/DF=AC/DE，且∠A=∠D，但对应边关系混乱。选项C：AB/DE=BC/DF，且∠B=∠E，但∠B是AB和BC的夹角，对应△DEF中DE和DF的夹角是∠D，不是∠E。选项D：AB/EF=AC/DF，且∠A=∠D，但∠A是AB和AC的夹角，对应△DEF中EF和DF的夹角是∠F，不是∠D。所有选项均不能判定相似，无正确选项。",
+      "independentAnswerZhHans": "无正确选项",
+      "answerCheckZhHans": "标准答案认为A正确，但A不满足夹角相等条件，故答案错误。",
+      "recommendedActionZhHans": "修改选项或答案，确保有一个正确选项。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-074",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "6",
+      "answerCheckZhHans": "标准答案6正确，解析使用射影定理正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-075",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "48/5",
+      "answerCheckZhHans": "标准答案48/5正确，解析中相似判定和比例正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-076",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "8",
+      "answerCheckZhHans": "标准答案8正确，解析中比例正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-077",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "8 cm",
+      "answerCheckZhHans": "标准答案8 cm正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-078",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "5 cm",
+      "answerCheckZhHans": "标准答案5 cm正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-079",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "7.5",
+      "answerCheckZhHans": "标准答案7.5正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-080",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "4",
+      "answerCheckZhHans": "标准答案4正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

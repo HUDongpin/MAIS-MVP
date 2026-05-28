@@ -1,0 +1,191 @@
+{
+  "batchNumber": 72,
+  "startedAt": "2026-05-25T02:24:06.104Z",
+  "completedAt": "2026-05-25T02:24:23.780Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p6-029",
+    "hjb-primary-ds-v1-p6-030",
+    "hjb-primary-ds-v1-p6-031",
+    "hjb-primary-ds-v1-p6-032",
+    "hjb-primary-ds-v1-p6-033",
+    "hjb-primary-ds-v1-p6-034",
+    "hjb-primary-ds-v1-p6-035",
+    "hjb-primary-ds-v1-p6-036",
+    "hjb-primary-ds-v1-p6-037",
+    "hjb-primary-ds-v1-p6-038",
+    "hjb-primary-ds-v1-p6-039",
+    "hjb-primary-ds-v1-p6-040",
+    "hjb-primary-ds-v1-p6-041",
+    "hjb-primary-ds-v1-p6-042",
+    "hjb-primary-ds-v1-p6-043",
+    "hjb-primary-ds-v1-p6-044",
+    "hjb-primary-ds-v1-p6-045",
+    "hjb-primary-ds-v1-p6-046"
+  ],
+  "usage": {
+    "prompt_tokens": 3578,
+    "completion_tokens": 1272,
+    "total_tokens": 4850,
+    "prompt_tokens_details": {
+      "cached_tokens": 3456
+    },
+    "prompt_cache_hit_tokens": 3456,
+    "prompt_cache_miss_tokens": 122
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p6-029",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，带分数表示符合要求，解释清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-030",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，解题步骤完整，注意了整体变化。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-031",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，比较过程清晰，选项无歧义。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-032",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，带分数格式符合要求。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-033",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，过程完整，符合分数应用要求。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-034",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，比较方法合理，选项唯一。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-035",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，设未知数方法合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-036",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，逆向推理清晰，单位合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-037",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，按比例分配计算无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-038",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "化简正确，最简整数比无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-039",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比例尺计算正确，单位换算无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-040",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，比值判断准确，选项唯一。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-041",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，比的定义和化简无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-042",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "判断正确，理由充分，符合正比例定义。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-043",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，化简和比值计算一致。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-044",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比例尺计算正确，单位统一，格式规范。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-045",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，按比例分配计算无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-046",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，按比例计算无误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合沪教版小学数学六年级要求，答案正确，解释清晰，无歧义或错误。"
+    }
+  }
+}

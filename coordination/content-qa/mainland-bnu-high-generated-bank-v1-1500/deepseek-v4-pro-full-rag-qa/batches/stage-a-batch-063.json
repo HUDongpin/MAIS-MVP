@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-063",
+  "startedAt": "2026-05-28T01:11:22.358Z",
+  "completedAt": "2026-05-28T01:11:44.791Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-497",
+    "bnu-high-ds-v1-s4-498",
+    "bnu-high-ds-v1-s4-499",
+    "bnu-high-ds-v1-s4-500",
+    "bnu-high-ds-v1-s5-001",
+    "bnu-high-ds-v1-s5-002",
+    "bnu-high-ds-v1-s5-003",
+    "bnu-high-ds-v1-s5-004"
+  ],
+  "usage": {
+    "prompt_tokens": 10533,
+    "completion_tokens": 1179,
+    "total_tokens": 11712,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 10149
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-497",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "B",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由中位线得EF∥BC，故EF∥平面BCD，A正确；平面AEF与平面BCD不平行（交于过A与BC平行的线），B错误；由体积比得V(A-BCD)=4V(A-EFD)，C正确；由中位线性质得点A到平面BCD距离是点E到平面BCD距离的2倍，D正确。因此不正确的为B。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-498",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "36π",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由S=4πR²=36π得R=3，体积V=4/3πR³=36π。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-499",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "B",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "A中l可能在α内；C中l与m可能相交或异面；D中l可能在α内；B由线面垂直性质正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-500",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "16π",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "圆台侧面积公式S=π(r₁+r₂)l，代入r₁=1，r₂=3，l=4得S=16π。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-001",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "A",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "已知直线斜率为3/4，垂直直线斜率为-4/3，过点(2,-1)得方程4x+3y-5=0，对应选项A。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-002",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "k=1或k=-7",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "圆C:(x-3)²+(y+2)²=16，圆心(3,-2)，半径r=4。设直线l:y-1=k(x-4)，由弦长|AB|=4√2得弦心距d=2√2。由点到直线距离公式得|k+3|/√(k²+1)=2√2，解得k=1或k=-7。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-003",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "3x+4y-23=0",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "AB中点(2.5,4)，斜率k_AB=4/3，垂直平分线斜率-3/4，点斜式得3x+4y-23=0。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-004",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "A",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "圆C圆心(2,-1)，半径r=3。直线l:mx-y+2m+1=0，由相交得圆心到直线距离d<r，即|2m+1+2m+1|/√(m²+1)<3，化简得|4m+2|<3√(m²+1)，平方得7m²+16m-5>0，解得m<-3或m>5/7？检查选项，正确解为m<-3/4或m>3/4，对应A。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，无数学错误、歧义或缺失条件，符合北师大版对应章节要求。"
+    }
+  }
+}

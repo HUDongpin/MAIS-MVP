@@ -1,0 +1,147 @@
+{
+  "batchNumber": 62,
+  "startedAt": "2026-05-27T13:54:13.227Z",
+  "completedAt": "2026-05-27T13:54:32.557Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-489",
+    "bnu-high-ds-v1-s4-490",
+    "bnu-high-ds-v1-s4-491",
+    "bnu-high-ds-v1-s4-492",
+    "bnu-high-ds-v1-s4-493",
+    "bnu-high-ds-v1-s4-494",
+    "bnu-high-ds-v1-s4-495",
+    "bnu-high-ds-v1-s4-496"
+  ],
+  "usage": {
+    "prompt_tokens": 12183,
+    "completion_tokens": 1217,
+    "total_tokens": 13400,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 11671
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-489",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "3/2",
+        "correctedAnswer": "3/2",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "等体积法计算得距离为3/2，但题目答案和解析均错误地给出√6/2，解析中计算过程也得出3/2却与答案矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-490",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "9√3+36",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "正三棱锥表面积计算正确，底面积9√3，侧面积36，总和9√3+36，解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-491",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "independentAnswer": "直线A₁C₁",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "正方体中A₁C₁∥平面BDE，其他选项均相交，答案正确。解析中“AC∥平面BDE（因AC∥BD）”推理不严谨，AC与BD异面，但结论正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-492",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "32/3",
+        "correctedAnswer": "32/3",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "正四棱锥高为2，体积为32/3，但答案错误给出16√2/3，解析中计算过程也得出32/3却与答案矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-493",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "若m⊥α，n∥β，α∥β，则m⊥n",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "线面位置关系命题判断正确，D选项为真，解析合理。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-494",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "15π",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "圆锥侧面积公式应用正确，结果为15π，解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-495",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "9/13",
+        "correctedAnswer": "9/13",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "bad_options",
+          "unsolvable",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "给定条件下异面直线所成角余弦为9/13，不在选项中，题目无正确选项，解析也承认计算得9/13但强行匹配错误答案。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-496",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "18",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "正三棱柱侧面积计算正确，3个矩形面积之和为18，解析与答案一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 4,
+      "warn": 0,
+      "fail": 4,
+      "notes": "8题中4题通过，4题失败。失败原因：489题答案与计算矛盾；492题答案与计算矛盾；495题给定条件无正确选项；491题解析有小瑕疵但答案正确。"
+    }
+  }
+}

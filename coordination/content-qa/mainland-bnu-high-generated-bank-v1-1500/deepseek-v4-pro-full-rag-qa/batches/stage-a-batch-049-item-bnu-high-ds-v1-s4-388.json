@@ -1,0 +1,41 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-049-item-bnu-high-ds-v1-s4-388",
+  "startedAt": "2026-05-28T02:30:18.106Z",
+  "completedAt": "2026-05-28T02:30:25.045Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-388"
+  ],
+  "usage": {
+    "prompt_tokens": 1657,
+    "completion_tokens": 200,
+    "total_tokens": 1857,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1273
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-388",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "向量AB和向量AD",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "在平行四边形ABCD中，向量AB和向量AD不共线，可以作为平面内所有向量的一组基底。其他选项均不满足基底条件：向量AB和向量CD共线；向量AC和向量BD可能共线（如矩形时）；向量AB和向量AC共线。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 1,
+      "warn": 0,
+      "fail": 0,
+      "notes": "题目清晰，选项明确，唯一正确答案为向量AB和向量AD。"
+    }
+  }
+}

@@ -1,0 +1,290 @@
+{
+  "batchId": "batch-071",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p2-101",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-classification",
+      "unitTitle": "分类与整理",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "classification",
+        "attribute-sorting",
+        "data-organization",
+        "simple-tables",
+        "分类"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "按标准分类",
+        "分类计数",
+        "整理信息",
+        "简单统计表",
+        "分类标准说明"
+      ],
+      "misconceptionTags": [
+        "classification rule changes midway",
+        "one item placed in multiple groups under a single rule",
+        "counts compared without category labels"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-classification"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-upper-assessment-final-integrated",
+        "hjb-primary-p2-upper-assessment-within-100-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "S18 remediated after DeepSeek-v4-pro QA on 2026-05-25; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丽把班级图书角的书按种类整理：故事书有9本，科普书有6本，漫画书有4本。图书角这三类书一共有多少本？",
+      "optionsZhHans": [],
+      "answer": "19本",
+      "acceptedAnswers": [
+        "19本",
+        "19"
+      ],
+      "explanationZhHans": "把三类书的数量相加：9+6+4=19（本），所以图书角这三类书一共有19本。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-102",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-classification",
+      "unitTitle": "分类与整理",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "classification",
+        "attribute-sorting",
+        "data-organization",
+        "simple-tables",
+        "分类"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "按标准分类",
+        "分类计数",
+        "整理信息",
+        "简单统计表",
+        "分类标准说明"
+      ],
+      "misconceptionTags": [
+        "classification rule changes midway",
+        "one item placed in multiple groups under a single rule",
+        "counts compared without category labels"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-classification"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-upper-assessment-final-integrated",
+        "hjb-primary-p2-upper-assessment-within-100-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "二（1）班同学最喜欢的水果情况如下：苹果：12人，香蕉：8人，橘子：10人，草莓：6人。请你说一说，最喜欢哪种水果的人数最多？",
+      "optionsZhHans": [],
+      "answer": "苹果",
+      "acceptedAnswers": [
+        "苹果",
+        "最喜欢苹果的人数最多"
+      ],
+      "explanationZhHans": "比较人数：12>10>8>6，所以最喜欢苹果的人数最多。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-103",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-classification",
+      "unitTitle": "分类与整理",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "classification",
+        "attribute-sorting",
+        "data-organization",
+        "simple-tables",
+        "分类"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "按标准分类",
+        "分类计数",
+        "整理信息",
+        "简单统计表",
+        "分类标准说明"
+      ],
+      "misconceptionTags": [
+        "classification rule changes midway",
+        "one item placed in multiple groups under a single rule",
+        "counts compared without category labels"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-classification"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-upper-assessment-final-integrated",
+        "hjb-primary-p2-upper-assessment-within-100-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪种分法是把同一堆玩具按形状分类？玩具包括：3个红色圆形积木，2个蓝色方形积木，4个红色方形积木，1个蓝色圆形积木。",
+      "optionsZhHans": [
+        "按颜色分成红色和蓝色两组",
+        "按形状分成圆形和方形两组",
+        "按颜色分成红色一组，蓝色一组，再按形状分成圆形和方形",
+        "按大小分成大和小两组"
+      ],
+      "answer": "按形状分成圆形和方形两组",
+      "acceptedAnswers": [
+        "按形状分成圆形和方形两组"
+      ],
+      "explanationZhHans": "按形状分类只关注圆形或方形，不考虑颜色。选项B正是按形状分成圆形和方形两组。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-104",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-classification",
+      "unitTitle": "分类与整理",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "classification",
+        "attribute-sorting",
+        "data-organization",
+        "simple-tables",
+        "分类"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "按标准分类",
+        "分类计数",
+        "整理信息",
+        "简单统计表",
+        "分类标准说明"
+      ],
+      "misconceptionTags": [
+        "classification rule changes midway",
+        "one item placed in multiple groups under a single rule",
+        "counts compared without category labels"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-classification"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-upper-assessment-final-integrated",
+        "hjb-primary-p2-upper-assessment-within-100-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "老师让同学们把12支铅笔按颜色分类。红色铅笔有5支，蓝色铅笔有4支，其余是绿色铅笔。绿色铅笔有多少支？",
+      "optionsZhHans": [],
+      "answer": "3支",
+      "acceptedAnswers": [
+        "3支",
+        "3"
+      ],
+      "explanationZhHans": "总数12支减去红色5支和蓝色4支：12-5-4=3（支），所以绿色铅笔有3支。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-105",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-classification",
+      "unitTitle": "分类与整理",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "classification",
+        "attribute-sorting",
+        "data-organization",
+        "simple-tables",
+        "分类"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "按标准分类",
+        "分类计数",
+        "整理信息",
+        "简单统计表",
+        "分类标准说明"
+      ],
+      "misconceptionTags": [
+        "classification rule changes midway",
+        "one item placed in multiple groups under a single rule",
+        "counts compared without category labels"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-classification"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-upper-assessment-final-integrated",
+        "hjb-primary-p2-upper-assessment-within-100-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明把一些动物卡片分成了两组：一组是会飞的动物，有6张；另一组是不会飞的动物，有9张。请你提出一个数学问题并解答。",
+      "optionsZhHans": [],
+      "answer": "会飞的动物比不会飞的动物少几张？9-6=3（张）",
+      "acceptedAnswers": [
+        "会飞的动物比不会飞的动物少几张？9-6=3（张）",
+        "不会飞的动物比会飞的动物多几张？9-6=3（张）",
+        "一共有多少张动物卡片？6+9=15（张）"
+      ],
+      "explanationZhHans": "可以比较两类卡片的数量差：9-6=3（张），也可以求总数：6+9=15（张）。"
+    }
+  ]
+}

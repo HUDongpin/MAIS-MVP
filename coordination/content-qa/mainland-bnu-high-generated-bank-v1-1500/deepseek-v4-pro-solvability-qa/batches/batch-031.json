@@ -1,0 +1,137 @@
+{
+  "batchNumber": 31,
+  "startedAt": "2026-05-27T13:49:04.346Z",
+  "completedAt": "2026-05-27T13:49:18.833Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-241",
+    "bnu-high-ds-v1-s4-242",
+    "bnu-high-ds-v1-s4-243",
+    "bnu-high-ds-v1-s4-244",
+    "bnu-high-ds-v1-s4-245",
+    "bnu-high-ds-v1-s4-246",
+    "bnu-high-ds-v1-s4-247",
+    "bnu-high-ds-v1-s4-248"
+  ],
+  "usage": {
+    "prompt_tokens": 10028,
+    "completion_tokens": 1021,
+    "total_tokens": 11049,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 9516
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-241",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "13/28",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，样本空间明确，计算正确，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-242",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "{（正，正），（正，反），（反，正），（反，反）}",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目要求明确，样本空间列举正确，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-243",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "无法确定",
+        "correctedAnswer": null,
+        "issueTags": [
+          "missing_condition",
+          "unsolvable",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目未给出每场罚球次数，无法计算频率。解析中假设每场10次，但题目未提供此条件，导致不可解。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-244",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "1/2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，样本空间与事件计数正确，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-245",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0.7",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "互斥事件概率加法公式应用正确，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-246",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "1/2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "古典概型计算正确，样本空间与事件计数无误，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-247",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "1/2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "独立事件对立事件概率计算正确，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-248",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "17/32",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "有放回抽取独立事件概率计算正确，答案与解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第243题因缺少每场罚球次数条件而不可解，其余题目均通过审核。"
+    }
+  }
+}

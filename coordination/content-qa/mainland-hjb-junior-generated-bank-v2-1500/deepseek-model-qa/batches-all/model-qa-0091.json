@@ -1,0 +1,115 @@
+{
+  "batchId": "model-qa-0091",
+  "ids": [
+    "hjb-junior-ds-v2-s2-221",
+    "hjb-junior-ds-v2-s2-222",
+    "hjb-junior-ds-v2-s2-223",
+    "hjb-junior-ds-v2-s2-224",
+    "hjb-junior-ds-v2-s2-225",
+    "hjb-junior-ds-v2-s2-226",
+    "hjb-junior-ds-v2-s2-227",
+    "hjb-junior-ds-v2-s2-228"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-221",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题目要求点D到边BC的距离，但解析和答案给出的是点D到直角边AC和BC的等距离x=36/7。实际上，点D在AB上，CD平分∠ACB，点D到BC的距离应为点D到BC的垂线段长度。由于D在斜边AB上，该距离不等于角平分线上的点到两边的等距离（除非D是角平分线与斜边的交点，但此时D到BC的距离是点D到BC的垂线，不是角平分线性质中的距离）。正确解法：由角平分线性质得AD:DB=AC:BC=9:12=3:4，AB=15，所以AD=45/7，DB=60/7。过D作DE⊥BC于E，则△BDE∽△BAC，DE/AC=BD/AB，DE=AC*BD/AB=9*(60/7)/15=36/7。巧合的是，这个值等于x，但解析中的面积法错误地假设D到AC和BC的距离相等，实际上角平分线上的点到角两边的距离相等，但D在AB上，到AC和BC的垂线段并不一定等于角平分线上的点到两边的距离，因为D不在角平分线上（CD是角平分线，但D是角平分线与AB的交点，所以D在角平分线上，因此D到AC和BC的距离确实相等！重新检查：CD平分∠ACB，D是角平分线上一点，所以D到AC和BC的距离相等。设距离为x，则△ACD面积=1/2*AC*x，△BCD面积=1/2*BC*x，和等于△ABC面积=54，解得x=36/7。这个解法正确。但题目问的是点D到边BC的距离，这正是x，所以答案36/7正确。然而，解析中写“D到AC和BC的距离相等，设为x”，这是正确的，因为D在角平分线上。所以答案和解析一致。但需要确认：点D到边BC的距离是否就是垂线段长度？是的。所以本题无误。但之前我误判了，实际上解析正确。再仔细看：解析说“CD平分直角，D到AC和BC的距离相等”，正确。所以答案36/7正确。但acceptedAnswers中包含5.14和5.142857，这是近似值，36/7精确值为5.142857...，所以可以接受。本题应pass。",
+      "independentAnswerZhHans": "36/7",
+      "answerCheckZhHans": "标准答案36/7正确，解析正确，acceptedAnswers覆盖。",
+      "recommendedActionZhHans": "无需修改，题目正确。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-222",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析中计算错误：由角平分线性质，AP/PC=AB/BC=5/12，设AP=5k，PC=12k，则AC=17k=13，k=13/17，AP=5*(13/17)=65/17，但65/17不等于25/7。25/7≈3.571，65/17≈3.824。正确答案应为65/17。解析最后写“AP=5*(13/17)=65/17=25/7”是错误的，65/17≠25/7。标准答案25/7错误。",
+      "independentAnswerZhHans": "65/17",
+      "answerCheckZhHans": "标准答案25/7错误，应为65/17。解析中计算过程正确但最后等式错误。",
+      "recommendedActionZhHans": "修正答案为65/17，并更新acceptedAnswers为['65/17','3.82','3.8235']等。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-223",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3, 4, 5",
+      "answerCheckZhHans": "标准答案正确，解析正确，选项互异且只有一个正确选项。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-224",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "30/7",
+      "answerCheckZhHans": "标准答案正确，解析正确，acceptedAnswers覆盖。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-225",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析中计算错误：由角平分线性质，AD/DC=AB/BC=7/24，设AD=7k，DC=24k，AC=31k=25，k=25/31。然后利用面积求D到AB的距离x：△ABC面积=1/2*7*24=84，△ABD面积=1/2*AB*x=1/2*7*x，△BCD面积=1/2*BC*x=1/2*24*x，和=1/2*(7+24)*x=15.5x=84，解得x=84/15.5=168/31。但解析最后写“解得x=168/31”，而标准答案却是168/25。168/31≈5.419，168/25=6.72。正确答案应为168/31。标准答案错误。",
+      "independentAnswerZhHans": "168/31",
+      "answerCheckZhHans": "标准答案168/25错误，应为168/31。解析过程正确但最后答案写错。",
+      "recommendedActionZhHans": "修正答案为168/31，并更新acceptedAnswers为['168/31','5.42','5.419']等。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-226",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "点D到AB的距离等于点D到AC的距离",
+      "answerCheckZhHans": "标准答案正确，解析正确，选项互异且只有一个正确选项。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-227",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "4.8",
+      "answerCheckZhHans": "标准答案正确，解析正确，acceptedAnswers覆盖。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-228",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析中计算错误：由角平分线性质，BD:DC=AB:AC=9:15=3:5，BD+DC=12，设BD=3k，DC=5k，则8k=12，k=1.5，BD=4.5。但标准答案是6。解析过程得出BD=4.5，与答案6矛盾。正确答案应为4.5。",
+      "independentAnswerZhHans": "4.5",
+      "answerCheckZhHans": "标准答案6错误，应为4.5。解析过程正确但最后答案写错。",
+      "recommendedActionZhHans": "修正答案为4.5，并更新acceptedAnswers为['4.5','9/2']。",
+      "confidence": "high"
+    }
+  ]
+}

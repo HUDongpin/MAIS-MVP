@@ -1,0 +1,586 @@
+{
+  "batchId": "batch-107",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p5-061",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-fraction-meaning",
+      "unitTitle": "分数的意义",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "fraction-meaning",
+        "fraction-division-relationship",
+        "equivalent-fractions",
+        "improper-mixed-fractions",
+        "分数意义"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "单位一",
+        "分数与除法",
+        "真分数假分数",
+        "带分数",
+        "分数基本性质"
+      ],
+      "misconceptionTags": [
+        "unit whole not identified",
+        "numerator and denominator interpreted as separate whole numbers",
+        "equivalent fractions changed by adding the same number"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-fraction-meaning"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-fraction-meaning-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把3块同样大小的蛋糕平均分给4个小朋友，每个小朋友分到的蛋糕占全部蛋糕的几分之几？",
+      "optionsZhHans": [
+        "1/4",
+        "3/4",
+        "1/3",
+        "4/3"
+      ],
+      "answer": "1/4",
+      "acceptedAnswers": [
+        "1/4"
+      ],
+      "explanationZhHans": "把3块蛋糕看作单位“1”，平均分成4份，每份是全部的1/4。虽然每人得到3/4块蛋糕，但问题问的是占全部的几分之几，所以是1/4。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-062",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-fraction-meaning",
+      "unitTitle": "分数的意义",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "fraction-meaning",
+        "fraction-division-relationship",
+        "equivalent-fractions",
+        "improper-mixed-fractions",
+        "分数意义"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "单位一",
+        "分数与除法",
+        "真分数假分数",
+        "带分数",
+        "分数基本性质"
+      ],
+      "misconceptionTags": [
+        "unit whole not identified",
+        "numerator and denominator interpreted as separate whole numbers",
+        "equivalent fractions changed by adding the same number"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-fraction-meaning"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-fraction-meaning-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把3块同样大小的蛋糕平均分给5个小朋友，每人分得多少块？用分数表示。",
+      "optionsZhHans": [],
+      "answer": "\\frac{3}{5}",
+      "acceptedAnswers": [
+        "\\frac{3}{5}",
+        "3/5"
+      ],
+      "explanationZhHans": "把3块蛋糕看作单位“1”的总量，平均分成5份，每份是3÷5=3/5块。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-063",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-fraction-meaning",
+      "unitTitle": "分数的意义",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "fraction-meaning",
+        "fraction-division-relationship",
+        "equivalent-fractions",
+        "improper-mixed-fractions",
+        "分数意义"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "单位一",
+        "分数与除法",
+        "真分数假分数",
+        "带分数",
+        "分数基本性质"
+      ],
+      "misconceptionTags": [
+        "unit whole not identified",
+        "numerator and denominator interpreted as separate whole numbers",
+        "equivalent fractions changed by adding the same number"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-fraction-meaning"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-fraction-meaning-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把3米长的彩带平均分成5段，每段占全长的几分之几？每段长多少米？（用分数表示）",
+      "optionsZhHans": [],
+      "answer": "每段占全长的1/5，每段长3/5米。",
+      "acceptedAnswers": [
+        "每段占全长的1/5，每段长3/5米。",
+        "每段占全长的五分之一，每段长五分之三米。",
+        "占全长的1/5，长3/5米。",
+        "占全长的五分之一，长五分之三米。"
+      ],
+      "explanationZhHans": "把全长看作单位“1”，平均分成5段，每段占全长的1/5。总长度3米除以5段，每段长3÷5=3/5米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-064",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-fraction-meaning",
+      "unitTitle": "分数的意义",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "fraction-meaning",
+        "fraction-division-relationship",
+        "equivalent-fractions",
+        "improper-mixed-fractions",
+        "分数意义"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "单位一",
+        "分数与除法",
+        "真分数假分数",
+        "带分数",
+        "分数基本性质"
+      ],
+      "misconceptionTags": [
+        "unit whole not identified",
+        "numerator and denominator interpreted as separate whole numbers",
+        "equivalent fractions changed by adding the same number"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-fraction-meaning"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-fraction-meaning-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把3米长的彩带平均分成5段，每段占全长的几分之几？每段长多少米？下面哪个选项正确？",
+      "optionsZhHans": [
+        "每段占全长的1/5，每段长3/5米",
+        "每段占全长的1/3，每段长3/5米",
+        "每段占全长的1/5，每段长5/3米",
+        "每段占全长的3/5，每段长1/5米"
+      ],
+      "answer": "每段占全长的1/5，每段长3/5米",
+      "acceptedAnswers": [
+        "每段占全长的1/5，每段长3/5米"
+      ],
+      "explanationZhHans": "把彩带看作单位“1”，平均分成5段，每段占全长的1/5。总长3米，每段长3÷5=3/5米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-065",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-fraction-meaning",
+      "unitTitle": "分数的意义",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "fraction-meaning",
+        "fraction-division-relationship",
+        "equivalent-fractions",
+        "improper-mixed-fractions",
+        "分数意义"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "单位一",
+        "分数与除法",
+        "真分数假分数",
+        "带分数",
+        "分数基本性质"
+      ],
+      "misconceptionTags": [
+        "unit whole not identified",
+        "numerator and denominator interpreted as separate whole numbers",
+        "equivalent fractions changed by adding the same number"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-fraction-meaning"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-fraction-meaning-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把3块同样大小的蛋糕平均分给5个小朋友，每个小朋友分到的蛋糕占全部蛋糕的几分之几？如果用一个分数表示每个小朋友分到的蛋糕块数，这个分数是（    ），它是一个（    ）分数。（填“真”或“假”）",
+      "optionsZhHans": [],
+      "answer": "3/5，真",
+      "acceptedAnswers": [
+        "3/5，真",
+        "五分之三，真"
+      ],
+      "explanationZhHans": "把3块蛋糕看作单位“1”，平均分成5份，每份是1/5，3块蛋糕的1/5就是3/5。3/5的分子小于分母，是真分数。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-066",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-fraction-meaning",
+      "unitTitle": "分数的意义",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "fraction-meaning",
+        "fraction-division-relationship",
+        "equivalent-fractions",
+        "improper-mixed-fractions",
+        "分数意义"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "单位一",
+        "分数与除法",
+        "真分数假分数",
+        "带分数",
+        "分数基本性质"
+      ],
+      "misconceptionTags": [
+        "unit whole not identified",
+        "numerator and denominator interpreted as separate whole numbers",
+        "equivalent fractions changed by adding the same number"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-fraction-meaning"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-fraction-meaning-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把5米长的彩带平均分成8段，每段长多少米？用分数表示。",
+      "optionsZhHans": [],
+      "answer": "5/8米",
+      "acceptedAnswers": [
+        "5/8米",
+        "5/8 米",
+        "5/8 m"
+      ],
+      "explanationZhHans": "5米长的彩带平均分成8段，求每段长度用除法：5÷8。根据分数与除法的关系，5÷8=5/8，所以每段长5/8米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-067",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-fraction-meaning",
+      "unitTitle": "分数的意义",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "fraction-meaning",
+        "fraction-division-relationship",
+        "equivalent-fractions",
+        "improper-mixed-fractions",
+        "分数意义"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "单位一",
+        "分数与除法",
+        "真分数假分数",
+        "带分数",
+        "分数基本性质"
+      ],
+      "misconceptionTags": [
+        "unit whole not identified",
+        "numerator and denominator interpreted as separate whole numbers",
+        "equivalent fractions changed by adding the same number"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-fraction-meaning"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-fraction-meaning-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把一根3米长的绳子平均分成5段，每段占全长的几分之几？每段长多少米？下面哪个选项正确？",
+      "optionsZhHans": [
+        "每段占全长的1/5，每段长3/5米",
+        "每段占全长的1/3，每段长5/3米",
+        "每段占全长的1/5，每段长5/3米",
+        "每段占全长的1/3，每段长3/5米"
+      ],
+      "answer": "每段占全长的1/5，每段长3/5米",
+      "acceptedAnswers": [
+        "每段占全长的1/5，每段长3/5米"
+      ],
+      "explanationZhHans": "把全长看作单位“1”，平均分成5段，每段占全长的1/5。每段长度用除法：3÷5=3/5米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-068",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-fraction-meaning",
+      "unitTitle": "分数的意义",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "fraction-meaning",
+        "fraction-division-relationship",
+        "equivalent-fractions",
+        "improper-mixed-fractions",
+        "分数意义"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "单位一",
+        "分数与除法",
+        "真分数假分数",
+        "带分数",
+        "分数基本性质"
+      ],
+      "misconceptionTags": [
+        "unit whole not identified",
+        "numerator and denominator interpreted as separate whole numbers",
+        "equivalent fractions changed by adding the same number"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-fraction-meaning"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-fraction-meaning-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把一根3米长的彩带平均剪成8段，每段占全长的几分之几？每段长多少米？（用分数表示）",
+      "optionsZhHans": [],
+      "answer": "每段占全长的1/8，每段长3/8米。",
+      "acceptedAnswers": [
+        "每段占全长的1/8，每段长3/8米。",
+        "每段占全长的八分之一，每段长八分之三米。",
+        "每段占全长的1/8，每段长3/8米",
+        "每段占全长的八分之一，每段长八分之三米"
+      ],
+      "explanationZhHans": "把3米长的彩带看作单位“1”，平均分成8段，每段占全长的1/8。每段长度用除法：3÷8=3/8米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-069",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-fraction-meaning",
+      "unitTitle": "分数的意义",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "fraction-meaning",
+        "fraction-division-relationship",
+        "equivalent-fractions",
+        "improper-mixed-fractions",
+        "分数意义"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "单位一",
+        "分数与除法",
+        "真分数假分数",
+        "带分数",
+        "分数基本性质"
+      ],
+      "misconceptionTags": [
+        "unit whole not identified",
+        "numerator and denominator interpreted as separate whole numbers",
+        "equivalent fractions changed by adding the same number"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-fraction-meaning"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-fraction-meaning-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "S18 BNU primary V2 automated source-distance/structure/v1-distance gate passed with 300-row grade sample queue generated; candidate QA package only, not approved for public integration. S18 broad QA remediation applied on 2026-05-27: Remove the decimal accepted answer because the prompt explicitly asks for a fraction.",
+      "promptZhHans": "把3块同样大小的蛋糕平均分给4个小朋友，每个小朋友分到多少块蛋糕？用分数表示。",
+      "optionsZhHans": [],
+      "answer": "3/4块",
+      "acceptedAnswers": [
+        "3/4块",
+        "四分之三块"
+      ],
+      "explanationZhHans": "把3块蛋糕看作单位“1”整体，平均分成4份，每份是3÷4，根据分数与除法的关系，3÷4=3/4，所以每个小朋友分到3/4块蛋糕。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-070",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-fraction-meaning",
+      "unitTitle": "分数的意义",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "fraction-meaning",
+        "fraction-division-relationship",
+        "equivalent-fractions",
+        "improper-mixed-fractions",
+        "分数意义"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "单位一",
+        "分数与除法",
+        "真分数假分数",
+        "带分数",
+        "分数基本性质"
+      ],
+      "misconceptionTags": [
+        "unit whole not identified",
+        "numerator and denominator interpreted as separate whole numbers",
+        "equivalent fractions changed by adding the same number"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-fraction-meaning"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-fraction-meaning-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把3米长的彩带平均分成8段，每段占全长的几分之几？每段长多少米？",
+      "optionsZhHans": [
+        "每段占全长的1/8，每段长3/8米",
+        "每段占全长的1/3，每段长8/3米",
+        "每段占全长的3/8，每段长1/8米",
+        "每段占全长的1/8，每段长8/3米"
+      ],
+      "answer": "每段占全长的1/8，每段长3/8米",
+      "acceptedAnswers": [
+        "每段占全长的1/8，每段长3/8米"
+      ],
+      "explanationZhHans": "把全长看作单位“1”，平均分成8段，每段占全长的1/8。求每段长度用总长度除以段数：3÷8=3/8米。"
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-452",
+  "startedAt": "2026-05-28T01:31:44.236Z",
+  "completedAt": "2026-05-28T01:31:49.407Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-452"
+  ],
+  "usage": {
+    "prompt_tokens": 2201,
+    "completion_tokens": 327,
+    "total_tokens": 2528,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1817
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-452",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "(1) 散点图呈正相关趋势；(2) r≈0.994；(3) 身高与立定跳远成绩高度正相关。",
+        "correctedAnswer": "(1) 散点图呈正相关趋势；(2) r≈0.994；(3) 身高与立定跳远成绩高度正相关。",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立计算得相关系数r≈0.994，而存储答案r≈0.996，存在计算错误；解析未给出具体计算过程，无法验证，且与独立解矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "存储答案r≈0.996与独立解r≈0.994不符，判定为数学错误，答案不匹配，解析矛盾，严重程度为blocker。"
+    }
+  }
+}

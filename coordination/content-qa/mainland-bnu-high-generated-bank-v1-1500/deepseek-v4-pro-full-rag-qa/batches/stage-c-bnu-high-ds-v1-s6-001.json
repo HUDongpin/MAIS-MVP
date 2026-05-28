@@ -1,0 +1,50 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-001",
+  "startedAt": "2026-05-28T01:35:48.682Z",
+  "completedAt": "2026-05-28T01:35:54.131Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-001"
+  ],
+  "usage": {
+    "prompt_tokens": 3299,
+    "completion_tokens": 331,
+    "total_tokens": 3630,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2915
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-001",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "independentAnswer": "5 × 2^11 - 30",
+        "correctedAnswer": "5 × 2^11 - 30",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction",
+          "ambiguous_mc"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，构造等比数列得b_n=5·2^{n-1}，前10项和S_10=5(2^10-1)=5×2^10-5，化简为5×2^11-30，对应选项B。存储答案5×2^10-30错误，解析计算得5×2^10-5却选A，自相矛盾，且选项无正确结果，导致单选题无唯一正确选项。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目存储答案错误，解析与正确解法矛盾，选项设置导致无唯一正确选项，判定为阻断性问题。"
+    }
+  }
+}

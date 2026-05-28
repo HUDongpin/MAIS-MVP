@@ -1,0 +1,298 @@
+{
+  "batchId": "batch-087",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p2-181",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "hjb-primary-p2-lower-time",
+      "unitTitle": "时间在哪里",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "time-reading",
+        "clock-minutes",
+        "daily-time-sense",
+        "elapsed-time-introduction",
+        "时间"
+      ],
+      "competencyTags": [
+        "量感",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "钟面读数",
+        "时分关系",
+        "时间顺序",
+        "简单经过时间",
+        "日常安排"
+      ],
+      "misconceptionTags": [
+        "hour and minute hands reversed",
+        "minute scale counted by numerals instead of five-minute steps",
+        "elapsed time treated as subtraction of visible digits only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p2-lower-time"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-time",
+        "hjb-primary-p2-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小华下午放学后看课外书，开始看书时，钟面上时针指向4和5之间，分针指向6。他看了25分钟。他看完书的时间是下面哪一个？",
+      "optionsZhHans": [
+        "4:30",
+        "4:55",
+        "5:25",
+        "5:30"
+      ],
+      "answer": "4:55",
+      "acceptedAnswers": [
+        "4:55"
+      ],
+      "explanationZhHans": "分针指向6表示30分，时针在4和5之间表示4时多，所以开始时间是4:30。经过25分钟，30+25=55分，还是4时多，所以是4:55。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-182",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "hjb-primary-p2-lower-time",
+      "unitTitle": "时间在哪里",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "time-reading",
+        "clock-minutes",
+        "daily-time-sense",
+        "elapsed-time-introduction",
+        "时间"
+      ],
+      "competencyTags": [
+        "量感",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "钟面读数",
+        "时分关系",
+        "时间顺序",
+        "简单经过时间",
+        "日常安排"
+      ],
+      "misconceptionTags": [
+        "hour and minute hands reversed",
+        "minute scale counted by numerals instead of five-minute steps",
+        "elapsed time treated as subtraction of visible digits only"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p2-lower-time"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-time",
+        "hjb-primary-p2-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丽晚上练习钢琴，开始练习时，钟面上时针指向7和8之间，分针指向4。她练习了20分钟。练习结束时，钟面上分针指向数字几？",
+      "optionsZhHans": [],
+      "answer": "8",
+      "acceptedAnswers": [
+        "8"
+      ],
+      "explanationZhHans": "分针指向4表示20分，开始时间是7:20。练习20分钟，20+20=40分，所以结束时间是7:40。分针指向数字8表示40分。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-183",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "hjb-primary-p2-lower-time",
+      "unitTitle": "时间在哪里",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "time-reading",
+        "clock-minutes",
+        "daily-time-sense",
+        "elapsed-time-introduction",
+        "时间"
+      ],
+      "competencyTags": [
+        "量感",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "钟面读数",
+        "时分关系",
+        "时间顺序",
+        "简单经过时间",
+        "日常安排"
+      ],
+      "misconceptionTags": [
+        "hour and minute hands reversed",
+        "minute scale counted by numerals instead of five-minute steps",
+        "elapsed time treated as subtraction of visible digits only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p2-lower-time"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-time",
+        "hjb-primary-p2-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪一件事情用的时间大约是1分钟？",
+      "optionsZhHans": [
+        "上一节数学课",
+        "做一次眼保健操",
+        "系好一双鞋带",
+        "看一部动画电影"
+      ],
+      "answer": "系好一双鞋带",
+      "acceptedAnswers": [
+        "系好一双鞋带"
+      ],
+      "explanationZhHans": "1分钟很短，上一节课约40分钟，眼保健操约5分钟，电影约90分钟，系鞋带通常只需1分钟左右，所以选系好一双鞋带。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-184",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "hjb-primary-p2-lower-time",
+      "unitTitle": "时间在哪里",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "time-reading",
+        "clock-minutes",
+        "daily-time-sense",
+        "elapsed-time-introduction",
+        "时间"
+      ],
+      "competencyTags": [
+        "量感",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "钟面读数",
+        "时分关系",
+        "时间顺序",
+        "简单经过时间",
+        "日常安排"
+      ],
+      "misconceptionTags": [
+        "hour and minute hands reversed",
+        "minute scale counted by numerals instead of five-minute steps",
+        "elapsed time treated as subtraction of visible digits only"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p2-lower-time"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-time",
+        "hjb-primary-p2-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小东上午8:15到学校，上午11:45放学。他在学校的时间是几小时几分钟？",
+      "optionsZhHans": [],
+      "answer": "3小时30分钟",
+      "acceptedAnswers": [
+        "3小时30分钟",
+        "3小时30分",
+        "3时30分"
+      ],
+      "explanationZhHans": "从8:15到11:15是3小时，再到11:45又过了30分钟，所以一共是3小时30分钟。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-185",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "hjb-primary-p2-lower-within-10000-number-sense",
+      "unitTitle": "万以内的数",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "within-10000-numbers",
+        "place-value-thousands",
+        "number-reading-writing",
+        "number-comparison",
+        "万以内数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "千以内数",
+        "万以内数",
+        "数位顺序",
+        "读数写数",
+        "数的组成",
+        "大小比较"
+      ],
+      "misconceptionTags": [
+        "internal zero omitted when reading",
+        "digits compared from the ones place first",
+        "place-value names recited without quantity meaning"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p2-lower-within-10000-number-sense"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-within-10000-number-sense",
+        "hjb-primary-p2-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用数字卡片3、0、5、8摆出四位数，下面哪个数读作“三千零五十八”？",
+      "optionsZhHans": [
+        "3508",
+        "3058",
+        "3580",
+        "3805"
+      ],
+      "answer": "3058",
+      "acceptedAnswers": [
+        "3058"
+      ],
+      "explanationZhHans": "三千零五十八写作3058，千位是3，百位是0，十位是5，个位是8。读数时中间有一个0读作零，末尾的0不读。"
+    }
+  ]
+}

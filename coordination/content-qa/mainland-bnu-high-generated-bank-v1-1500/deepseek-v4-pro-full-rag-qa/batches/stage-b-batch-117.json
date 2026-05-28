@@ -1,0 +1,131 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-117",
+  "startedAt": "2026-05-28T01:30:26.808Z",
+  "completedAt": "2026-05-28T01:30:40.314Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-429",
+    "bnu-high-ds-v1-s5-430",
+    "bnu-high-ds-v1-s5-431",
+    "bnu-high-ds-v1-s5-432",
+    "bnu-high-ds-v1-s5-433",
+    "bnu-high-ds-v1-s5-434",
+    "bnu-high-ds-v1-s5-435",
+    "bnu-high-ds-v1-s5-436"
+  ],
+  "usage": {
+    "prompt_tokens": 15077,
+    "completion_tokens": 983,
+    "total_tokens": 16060,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 14693
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-429",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案0.5与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-430",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案(4,20)与独立解一致，解析正确，唯一选项。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-431",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-432",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案0.9与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-433",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "correctedAnswer": "χ²≈3.0，没有充分理由认为两者有关",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction",
+          "bad_options"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立解计算χ²=3.0<3.841，应选无关联；存储答案选χ²≈4.08且有关，与正确计算矛盾，且选项无3.0，题目有缺陷。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-434",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-435",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案(3,7)与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-436",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析正确，唯一选项。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第433题存储答案错误，χ²实际为3.0，应选无关联，且选项无正确值，题目有缺陷。"
+    }
+  }
+}

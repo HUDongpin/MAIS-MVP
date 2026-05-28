@@ -1,0 +1,176 @@
+{
+  "batchNumber": 29,
+  "startedAt": "2026-05-27T17:29:56.398Z",
+  "completedAt": "2026-05-27T17:30:15.982Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s1-337",
+    "bnu-junior-ds-v1-s1-338",
+    "bnu-junior-ds-v1-s1-339",
+    "bnu-junior-ds-v1-s1-340",
+    "bnu-junior-ds-v1-s1-341",
+    "bnu-junior-ds-v1-s1-342",
+    "bnu-junior-ds-v1-s1-343",
+    "bnu-junior-ds-v1-s1-344",
+    "bnu-junior-ds-v1-s1-345",
+    "bnu-junior-ds-v1-s1-346",
+    "bnu-junior-ds-v1-s1-347",
+    "bnu-junior-ds-v1-s1-348"
+  ],
+  "usage": {
+    "prompt_tokens": 5447,
+    "completion_tokens": 1317,
+    "total_tokens": 6764,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 4935
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s1-337",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，三角形三边关系应用正确，x<13且x>3，x为整数，最大值为12，与答案一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-338",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由三边关系得3<x<13，x为整数，所有可能值为4到12，答案列出完整，解释正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-339",
+        "status": "fail",
+        "severity": "major",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "8",
+        "rationale": "题目求最大值与最小值的差，由3<x<13得最小4最大12，差为8，但答案给出10，解释中计算12-4=8却写差为8，答案与解释矛盾且错误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-340",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由三边关系得3<x<13，整数x可取4~12共9个值，选项C为9，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-341",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "三角形内角和180°，∠C=180°-50°-60°=70°，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-342",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "等腰三角形可能第三边为5或8，均满足三边关系，答案“5或8”正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-343",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项C满足任意两边之和大于第三边，其他选项不满足，答案C正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-344",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "∠C=70°，其外角为110°，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-345",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "∠B=60°，∠C=90°，答案90正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-346",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "外角=180°-80°=100°，选项C正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-347",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由三边关系得3<x<17，整数最小4最大16，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-348",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "∠C=80°，外角=100°，答案100正确。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 11,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第339题答案错误，最大值与最小值的差应为8而非10，其余题目均正确。"
+    }
+  }
+}

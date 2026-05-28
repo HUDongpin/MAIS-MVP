@@ -1,0 +1,581 @@
+{
+  "batchId": "batch-066",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p3-151",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-shape-motion",
+      "unitTitle": "图形的运动",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "shape-motion",
+        "translation-rotation-symmetry",
+        "spatial-transformation",
+        "图形运动",
+        "轴对称"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "平移",
+        "旋转",
+        "轴对称",
+        "方向距离描述",
+        "图形变换"
+      ],
+      "misconceptionTags": [
+        "translation and rotation language mixed",
+        "shape size treated as changing after motion",
+        "symmetry axis drawn from visual guess only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-shape-motion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-shape-motion-unit",
+        "bnu-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个运动是旋转？",
+      "optionsZhHans": [
+        "推拉窗户",
+        "钟面上指针的走动",
+        "电梯上下移动",
+        "沿着直直的马路向前走"
+      ],
+      "answer": "钟面上指针的走动",
+      "acceptedAnswers": [
+        "钟面上指针的走动"
+      ],
+      "explanationZhHans": "旋转是物体绕着一个点或轴转动。钟面指针绕中心转动，属于旋转。推拉窗户、电梯移动、沿直路走都是沿直线移动，属于平移。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-152",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-shape-motion",
+      "unitTitle": "图形的运动",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "shape-motion",
+        "translation-rotation-symmetry",
+        "spatial-transformation",
+        "图形运动",
+        "轴对称"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "平移",
+        "旋转",
+        "轴对称",
+        "方向距离描述",
+        "图形变换"
+      ],
+      "misconceptionTags": [
+        "translation and rotation language mixed",
+        "shape size treated as changing after motion",
+        "symmetry axis drawn from visual guess only"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-shape-motion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-shape-motion-unit",
+        "bnu-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个正方形纸片对折后，两边完全重合，这条折痕所在的直线就是正方形的______。",
+      "optionsZhHans": [],
+      "answer": "对称轴",
+      "acceptedAnswers": [
+        "对称轴"
+      ],
+      "explanationZhHans": "对折后两边完全重合，说明折痕将图形分成完全相同的两部分，这条直线就是对称轴。正方形有4条对称轴。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-153",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-shape-motion",
+      "unitTitle": "图形的运动",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "shape-motion",
+        "translation-rotation-symmetry",
+        "spatial-transformation",
+        "图形运动",
+        "轴对称"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "平移",
+        "旋转",
+        "轴对称",
+        "方向距离描述",
+        "图形变换"
+      ],
+      "misconceptionTags": [
+        "translation and rotation language mixed",
+        "shape size treated as changing after motion",
+        "symmetry axis drawn from visual guess only"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-shape-motion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-shape-motion-unit",
+        "bnu-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在方格纸上，点A从位置(2,3)向右平移5格，再向上平移2格后到达点B。请写出点B的位置。",
+      "optionsZhHans": [],
+      "answer": "(7,5)",
+      "acceptedAnswers": [
+        "(7,5)",
+        "（7,5）"
+      ],
+      "explanationZhHans": "向右平移5格，列数加5：2+5=7；向上平移2格，行数加2：3+2=5。所以点B的位置是(7,5)。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-154",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-shape-motion",
+      "unitTitle": "图形的运动",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "shape-motion",
+        "translation-rotation-symmetry",
+        "spatial-transformation",
+        "图形运动",
+        "轴对称"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "平移",
+        "旋转",
+        "轴对称",
+        "方向距离描述",
+        "图形变换"
+      ],
+      "misconceptionTags": [
+        "translation and rotation language mixed",
+        "shape size treated as changing after motion",
+        "symmetry axis drawn from visual guess only"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-shape-motion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-shape-motion-unit",
+        "bnu-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个图形是轴对称图形？",
+      "optionsZhHans": [
+        "平行四边形",
+        "一般三角形",
+        "等腰梯形",
+        "不规则四边形"
+      ],
+      "answer": "等腰梯形",
+      "acceptedAnswers": [
+        "等腰梯形"
+      ],
+      "explanationZhHans": "轴对称图形沿一条直线对折后两边完全重合。等腰梯形沿上下底中点的连线对折后两边重合，是轴对称图形。平行四边形、一般三角形、不规则四边形通常不是。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-155",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-shape-motion",
+      "unitTitle": "图形的运动",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "shape-motion",
+        "translation-rotation-symmetry",
+        "spatial-transformation",
+        "图形运动",
+        "轴对称"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "平移",
+        "旋转",
+        "轴对称",
+        "方向距离描述",
+        "图形变换"
+      ],
+      "misconceptionTags": [
+        "translation and rotation language mixed",
+        "shape size treated as changing after motion",
+        "symmetry axis drawn from visual guess only"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-shape-motion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-shape-motion-unit",
+        "bnu-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "从镜子中看到的时间是3:00，实际时间是______。",
+      "optionsZhHans": [],
+      "answer": "9:00",
+      "acceptedAnswers": [
+        "9:00",
+        "9时"
+      ],
+      "explanationZhHans": "镜面对称，左右相反。镜中3:00，时针指向3，实际时针指向9，分针不变，所以实际时间是9:00。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-156",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-shape-motion",
+      "unitTitle": "图形的运动",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "shape-motion",
+        "translation-rotation-symmetry",
+        "spatial-transformation",
+        "图形运动",
+        "轴对称"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "平移",
+        "旋转",
+        "轴对称",
+        "方向距离描述",
+        "图形变换"
+      ],
+      "misconceptionTags": [
+        "translation and rotation language mixed",
+        "shape size treated as changing after motion",
+        "symmetry axis drawn from visual guess only"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-shape-motion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-shape-motion-unit",
+        "bnu-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "请你用“平移”或“旋转”填空：汽车在笔直的公路上行驶时，车轮的运动是______，车身的运动是______。",
+      "optionsZhHans": [],
+      "answer": "旋转,平移",
+      "acceptedAnswers": [
+        "旋转,平移",
+        "旋转，平移"
+      ],
+      "explanationZhHans": "车轮绕轴转动，属于旋转；车身沿直线移动，属于平移。要区分物体整体运动和局部运动的不同方式。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-157",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-shape-motion",
+      "unitTitle": "图形的运动",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "shape-motion",
+        "translation-rotation-symmetry",
+        "spatial-transformation",
+        "图形运动",
+        "轴对称"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "平移",
+        "旋转",
+        "轴对称",
+        "方向距离描述",
+        "图形变换"
+      ],
+      "misconceptionTags": [
+        "translation and rotation language mixed",
+        "shape size treated as changing after motion",
+        "symmetry axis drawn from visual guess only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-shape-motion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-shape-motion-unit",
+        "bnu-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个图形在方格纸上先向右平移4格，再向下平移3格，这个图形的大小会怎样？",
+      "optionsZhHans": [
+        "变大",
+        "变小",
+        "不变",
+        "可能变大也可能变小"
+      ],
+      "answer": "不变",
+      "acceptedAnswers": [
+        "不变"
+      ],
+      "explanationZhHans": "平移只改变图形的位置，不改变图形的形状和大小。所以图形平移后大小不变。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-158",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-shape-motion",
+      "unitTitle": "图形的运动",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "shape-motion",
+        "translation-rotation-symmetry",
+        "spatial-transformation",
+        "图形运动",
+        "轴对称"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "平移",
+        "旋转",
+        "轴对称",
+        "方向距离描述",
+        "图形变换"
+      ],
+      "misconceptionTags": [
+        "translation and rotation language mixed",
+        "shape size treated as changing after motion",
+        "symmetry axis drawn from visual guess only"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-shape-motion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-shape-motion-unit",
+        "bnu-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "长方形有______条对称轴。",
+      "optionsZhHans": [],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2",
+        "二",
+        "两"
+      ],
+      "explanationZhHans": "长方形有2条对称轴：一条是连接对边中点的水平线，另一条是连接对边中点的竖直线。注意长方形不是正方形，对角线不是对称轴。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-159",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-shape-motion",
+      "unitTitle": "图形的运动",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "shape-motion",
+        "translation-rotation-symmetry",
+        "spatial-transformation",
+        "图形运动",
+        "轴对称"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "平移",
+        "旋转",
+        "轴对称",
+        "方向距离描述",
+        "图形变换"
+      ],
+      "misconceptionTags": [
+        "translation and rotation language mixed",
+        "shape size treated as changing after motion",
+        "symmetry axis drawn from visual guess only"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-shape-motion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-shape-motion-unit",
+        "bnu-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在方格纸上有一个三角形，三个顶点分别是A(1,2)、B(3,5)、C(5,2)。画出这个三角形关于直线x=3的轴对称图形，并写出对称后点B的对应点B'的坐标。",
+      "optionsZhHans": [],
+      "answer": "(3,5)",
+      "acceptedAnswers": [
+        "(3,5)",
+        "（3,5）"
+      ],
+      "explanationZhHans": "对称轴x=3是竖直线。点B(3,5)在对称轴上，对称点就是它本身，所以B'的坐标是(3,5)。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-160",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-shape-motion",
+      "unitTitle": "图形的运动",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "shape-motion",
+        "translation-rotation-symmetry",
+        "spatial-transformation",
+        "图形运动",
+        "轴对称"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "平移",
+        "旋转",
+        "轴对称",
+        "方向距离描述",
+        "图形变换"
+      ],
+      "misconceptionTags": [
+        "translation and rotation language mixed",
+        "shape size treated as changing after motion",
+        "symmetry axis drawn from visual guess only"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-shape-motion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-shape-motion-unit",
+        "bnu-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪种现象是平移？",
+      "optionsZhHans": [
+        "风扇叶片的转动",
+        "拧开水龙头",
+        "火车在笔直的铁轨上行驶",
+        "钟摆的摆动"
+      ],
+      "answer": "火车在笔直的铁轨上行驶",
+      "acceptedAnswers": [
+        "火车在笔直的铁轨上行驶"
+      ],
+      "explanationZhHans": "平移是物体沿直线移动。火车沿笔直铁轨行驶是平移。风扇叶片、拧水龙头、钟摆都是绕点或轴转动，属于旋转。"
+    }
+  ]
+}

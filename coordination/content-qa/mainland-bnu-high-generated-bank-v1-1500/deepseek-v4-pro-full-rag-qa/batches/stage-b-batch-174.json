@@ -1,0 +1,141 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-174",
+  "startedAt": "2026-05-28T01:52:50.296Z",
+  "completedAt": "2026-05-28T01:53:06.291Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-385",
+    "bnu-high-ds-v1-s6-386",
+    "bnu-high-ds-v1-s6-387",
+    "bnu-high-ds-v1-s6-388",
+    "bnu-high-ds-v1-s6-389",
+    "bnu-high-ds-v1-s6-390",
+    "bnu-high-ds-v1-s6-391",
+    "bnu-high-ds-v1-s6-392"
+  ],
+  "usage": {
+    "prompt_tokens": 12382,
+    "completion_tokens": 1124,
+    "total_tokens": 13506,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 11998
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-385",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "ambiguous_mc",
+          "bad_options",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "Stage A 独立解得 a+b=21/2，无选项匹配；存储答案 -1 错误，解析中计算过程矛盾且最终答案与正确解不符，题目本身无正确选项。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-386",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与 Stage A 独立解一致，均为最大值 10，最小值 1，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-387",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 y=-2 与 Stage A 独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-388",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 2 与 Stage A 独立解一致，解析正确，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-389",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "missing_condition",
+          "unsolvable",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "Stage A 判定题目缺少产量上限，利润函数线性无最大值，不可解；存储答案 20 错误，解析中自行修改题目条件，与原题不符。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-390",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 -2 与 Stage A 独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-391",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "correctedAnswer": null,
+        "issueTags": [
+          "ambiguous_mc",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "Stage A 判定四个选项均正确，题目为单选但存在多个正确选项，存储答案仅选 A，解析承认其他选项正确但未指出题目缺陷。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-392",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与 Stage A 独立解一致，均为最大值 5，最小值 1，解析正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 4,
+      "warn": 0,
+      "fail": 4,
+      "notes": "8 题中 4 题通过，4 题失败。失败题目包括：385 题答案错误且无正确选项；389 题缺少条件不可解；391 题单选存在多个正确选项；其余题目答案与解析均正确。"
+    }
+  }
+}

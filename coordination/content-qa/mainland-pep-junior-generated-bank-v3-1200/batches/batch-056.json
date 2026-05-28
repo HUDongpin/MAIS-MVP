@@ -1,0 +1,299 @@
+{
+  "batchId": "batch-056",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s2-k07-fi-017",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-congruence-proof"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "计算：(2x + 3)(x - 4) = ______。",
+      "optionsZhHans": [],
+      "answer": "2x² - 5x - 12",
+      "acceptedAnswers": [
+        "2x² - 5x - 12",
+        "2x^2 - 5x - 12"
+      ],
+      "explanationZhHans": "根据多项式乘法法则，先用第一个多项式的每一项乘以第二个多项式的每一项：2x·x = 2x²，2x·(-4) = -8x，3·x = 3x，3·(-4) = -12。合并同类项：-8x + 3x = -5x。因此结果为 2x² - 5x - 12。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-fi-018",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-axis-symmetry-isosceles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "因式分解：3a²b - 6ab² + 12ab = ______。",
+      "optionsZhHans": [],
+      "answer": "3ab(a - 2b + 4)",
+      "acceptedAnswers": [
+        "3ab(a - 2b + 4)",
+        "3ab (a - 2b + 4)"
+      ],
+      "explanationZhHans": "观察各项系数：3、-6、12，它们的最大公约数是3；字母部分都含有a和b，最低次数分别为1次。因此公因式为3ab。提取公因式：3a²b ÷ 3ab = a，-6ab² ÷ 3ab = -2b，12ab ÷ 3ab = 4。所以 3a²b - 6ab² + 12ab = 3ab(a - 2b + 4)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-fi-019",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-polynomial-multiplication-factorization"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "若分式 (x² - 9)/(x - 3) 的值为零，则 x = ______。",
+      "optionsZhHans": [],
+      "answer": "-3",
+      "acceptedAnswers": [
+        "-3"
+      ],
+      "explanationZhHans": "分式的值为零，需要分子为零且分母不为零。分子 x² - 9 = 0，解得 x = 3 或 x = -3。但当 x = 3 时，分母 x - 3 = 0，分式无意义，舍去。当 x = -3 时，分母 -3 - 3 = -6 ≠ 0，符合条件。所以 x = -3。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-fi-020",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-algebraic-fractions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-proof-calculation-integrated"
+      ],
+      "promptZhHans": "化简分式：(a² - 4a + 4)/(a² - 4) = ______。",
+      "optionsZhHans": [],
+      "answer": "(a - 2)/(a + 2)",
+      "acceptedAnswers": [
+        "(a - 2)/(a + 2)",
+        "a-2/a+2"
+      ],
+      "explanationZhHans": "分子 a² - 4a + 4 = (a - 2)²，分母 a² - 4 = (a + 2)(a - 2)。原式 = (a - 2)²/[(a + 2)(a - 2)]。约去公因式 (a - 2)，注意 a ≠ 2 且 a ≠ -2，得到 (a - 2)/(a + 2)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-fi-021",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions"
+      ],
+      "promptZhHans": "计算：(x + 2y)² - (x - 2y)² = ______。",
+      "optionsZhHans": [],
+      "answer": "8xy",
+      "acceptedAnswers": [
+        "8xy"
+      ],
+      "explanationZhHans": "利用平方差公式：a² - b² = (a + b)(a - b)。这里 a = x + 2y，b = x - 2y。所以原式 = [(x + 2y) + (x - 2y)]·[(x + 2y) - (x - 2y)] = (2x)·(4y) = 8xy。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-fi-022",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-triangle-angle-relations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "若多项式 x² + mx - 15 可分解为 (x + 5)(x + n)，则 m + n = ______。",
+      "optionsZhHans": [],
+      "answer": "-5",
+      "acceptedAnswers": [
+        "-5"
+      ],
+      "explanationZhHans": "将 (x + 5)(x + n) 展开得 x² + (5 + n)x + 5n。对比 x² + mx - 15，可得 5n = -15，解得 n = -3；m = 5 + n = 5 + (-3) = 2。所以 m + n = 2 + (-3) = -5。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-fi-023",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-congruence-proof"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "解分式方程：1/(x - 1) + 2/(x + 1) = 4/(x² - 1)，则 x = ______。",
+      "optionsZhHans": [],
+      "answer": "5/3",
+      "acceptedAnswers": [
+        "5/3"
+      ],
+      "explanationZhHans": "方程两边同乘最简公分母 (x-1)(x+1)，得 (x+1) + 2(x-1) = 4。去括号：x+1+2x-2=4，合并：3x-1=4，解得 x=5/3。经检验，x=5/3 时分母均不为零，且左边=右边，所以 x=5/3。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-fi-024",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-axis-symmetry-isosceles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "promptZhHans": "已知 a + b = 5，ab = 6，则 a²b + ab² = ______。",
+      "optionsZhHans": [],
+      "answer": "30",
+      "acceptedAnswers": [
+        "30"
+      ],
+      "explanationZhHans": "a²b + ab² = ab(a + b)。将 ab = 6，a + b = 5 代入，得 6 × 5 = 30。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-fi-025",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-polynomial-multiplication-factorization"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "promptZhHans": "因式分解：x⁴ - 16 = ______。",
+      "optionsZhHans": [],
+      "answer": "(x² + 4)(x + 2)(x - 2)",
+      "acceptedAnswers": [
+        "(x² + 4)(x + 2)(x - 2)",
+        "(x^2+4)(x+2)(x-2)"
+      ],
+      "explanationZhHans": "x⁴ - 16 = (x²)² - 4²，先用平方差公式：= (x² + 4)(x² - 4)。x² - 4 可继续分解为 (x + 2)(x - 2)。x² + 4 在实数范围内不能再分解。所以结果为 (x² + 4)(x + 2)(x - 2)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-fi-026",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-algebraic-fractions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean"
+      ],
+      "promptZhHans": "当 x = ______ 时，分式 (|x| - 3)/(x² - 2x - 3) 的值为零。",
+      "optionsZhHans": [],
+      "answer": "-3",
+      "acceptedAnswers": [
+        "-3"
+      ],
+      "explanationZhHans": "分式值为零需分子为零且分母不为零。分子 |x| - 3 = 0，得 |x| = 3，x = 3 或 x = -3。分母 x² - 2x - 3 = (x - 3)(x + 1)。当 x = 3 时，分母为零，舍去；当 x = -3 时，分母 (-3)² - 2(-3) - 3 = 9 + 6 - 3 = 12 ≠ 0，符合条件。所以 x = -3。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

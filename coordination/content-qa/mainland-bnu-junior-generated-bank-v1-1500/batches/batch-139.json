@@ -1,0 +1,633 @@
+{
+  "batchId": "batch-139",
+  "questions": [
+    {
+      "id": "bnu-junior-ds-v1-s3-381",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "bnu-junior-s3-lower-quadratic-functions",
+      "unitTitle": "二次函数",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "quadratic-functions",
+        "parabola",
+        "vertex",
+        "axis-of-symmetry",
+        "function-modeling",
+        "二次函数",
+        "抛物线"
+      ],
+      "competencyTags": [
+        "函数观念",
+        "模型意识",
+        "几何直观"
+      ],
+      "skillTags": [
+        "图象性质",
+        "顶点",
+        "对称轴",
+        "表达式确定",
+        "最值问题",
+        "方程函数联系"
+      ],
+      "misconceptionTags": [
+        "axis of symmetry read from wrong parameter",
+        "vertex form and standard form mixed",
+        "domain restriction ignored in maximum or minimum context"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s3-lower-quadratic-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-lower-assessment-quadratic-functions-unit",
+        "bnu-junior-s3-lower-assessment-monthly-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions",
+        "pep-junior-exam-dynamic-geometry-functions"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某农场用60米长的篱笆围成一个矩形养鸡场，一边靠墙（墙足够长），另外三边用篱笆。设与墙垂直的一边长为x米，养鸡场的面积为y平方米。求y的最大值。",
+      "optionsZhHans": [],
+      "answer": "450",
+      "acceptedAnswers": [
+        "450"
+      ],
+      "explanationZhHans": "由题意得y=x(60-2x)=-2x²+60x=-2(x-15)²+450，0<x<30。当x=15时，y取最大值450。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-382",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "bnu-junior-s3-lower-quadratic-functions",
+      "unitTitle": "二次函数",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "quadratic-functions",
+        "parabola",
+        "vertex",
+        "axis-of-symmetry",
+        "function-modeling",
+        "二次函数",
+        "抛物线"
+      ],
+      "competencyTags": [
+        "函数观念",
+        "模型意识",
+        "几何直观"
+      ],
+      "skillTags": [
+        "图象性质",
+        "顶点",
+        "对称轴",
+        "表达式确定",
+        "最值问题",
+        "方程函数联系"
+      ],
+      "misconceptionTags": [
+        "axis of symmetry read from wrong parameter",
+        "vertex form and standard form mixed",
+        "domain restriction ignored in maximum or minimum context"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s3-lower-quadratic-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-lower-assessment-quadratic-functions-unit",
+        "bnu-junior-s3-lower-assessment-monthly-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions",
+        "pep-junior-exam-dynamic-geometry-functions"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "抛物线y=-2(x+3)²-4的顶点坐标是",
+      "optionsZhHans": [
+        "(3, -4)",
+        "(-3, -4)",
+        "(3, 4)",
+        "(-3, 4)"
+      ],
+      "answer": "(-3, -4)",
+      "acceptedAnswers": [
+        "(-3, -4)"
+      ],
+      "explanationZhHans": "顶点式y=a(x-h)²+k的顶点为(h,k)。这里h=-3，k=-4，所以顶点为(-3,-4)。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-383",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "bnu-junior-s3-lower-quadratic-functions",
+      "unitTitle": "二次函数",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "quadratic-functions",
+        "parabola",
+        "vertex",
+        "axis-of-symmetry",
+        "function-modeling",
+        "二次函数",
+        "抛物线"
+      ],
+      "competencyTags": [
+        "函数观念",
+        "模型意识",
+        "几何直观"
+      ],
+      "skillTags": [
+        "图象性质",
+        "顶点",
+        "对称轴",
+        "表达式确定",
+        "最值问题",
+        "方程函数联系"
+      ],
+      "misconceptionTags": [
+        "axis of symmetry read from wrong parameter",
+        "vertex form and standard form mixed",
+        "domain restriction ignored in maximum or minimum context"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s3-lower-quadratic-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-lower-assessment-quadratic-functions-unit",
+        "bnu-junior-s3-lower-assessment-monthly-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions",
+        "pep-junior-exam-dynamic-geometry-functions"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知二次函数y=x²-2x-3。求该函数图象的顶点坐标和与x轴的交点坐标。",
+      "optionsZhHans": [],
+      "answer": "顶点(1,-4)，与x轴交点(-1,0)和(3,0)",
+      "acceptedAnswers": [
+        "顶点(1,-4)，与x轴交点(-1,0)和(3,0)",
+        "顶点(1,-4)，交点(-1,0)和(3,0)"
+      ],
+      "explanationZhHans": "y=(x-1)²-4，顶点(1,-4)。令y=0得x²-2x-3=0，解得x=-1或3，交点(-1,0)和(3,0)。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-384",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "bnu-junior-s3-lower-quadratic-functions",
+      "unitTitle": "二次函数",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "quadratic-functions",
+        "parabola",
+        "vertex",
+        "axis-of-symmetry",
+        "function-modeling",
+        "二次函数",
+        "抛物线"
+      ],
+      "competencyTags": [
+        "函数观念",
+        "模型意识",
+        "几何直观"
+      ],
+      "skillTags": [
+        "图象性质",
+        "顶点",
+        "对称轴",
+        "表达式确定",
+        "最值问题",
+        "方程函数联系"
+      ],
+      "misconceptionTags": [
+        "axis of symmetry read from wrong parameter",
+        "vertex form and standard form mixed",
+        "domain restriction ignored in maximum or minimum context"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s3-lower-quadratic-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-lower-assessment-quadratic-functions-unit",
+        "bnu-junior-s3-lower-assessment-monthly-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions",
+        "pep-junior-exam-dynamic-geometry-functions"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "二次函数y=x²-4x+5的对称轴是直线______。",
+      "optionsZhHans": [],
+      "answer": "x=2",
+      "acceptedAnswers": [
+        "x=2"
+      ],
+      "explanationZhHans": "对称轴为x=-b/(2a)=4/2=2。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-385",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "bnu-junior-s3-lower-quadratic-functions",
+      "unitTitle": "二次函数",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "quadratic-functions",
+        "parabola",
+        "vertex",
+        "axis-of-symmetry",
+        "function-modeling",
+        "二次函数",
+        "抛物线"
+      ],
+      "competencyTags": [
+        "函数观念",
+        "模型意识",
+        "几何直观"
+      ],
+      "skillTags": [
+        "图象性质",
+        "顶点",
+        "对称轴",
+        "表达式确定",
+        "最值问题",
+        "方程函数联系"
+      ],
+      "misconceptionTags": [
+        "axis of symmetry read from wrong parameter",
+        "vertex form and standard form mixed",
+        "domain restriction ignored in maximum or minimum context"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s3-lower-quadratic-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-lower-assessment-quadratic-functions-unit",
+        "bnu-junior-s3-lower-assessment-monthly-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions",
+        "pep-junior-exam-dynamic-geometry-functions"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知抛物线y=ax²+bx+c经过点(0,1)，(1,2)，(-1,4)，则a的值为",
+      "optionsZhHans": [
+        "2",
+        "1",
+        "-1",
+        "3"
+      ],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2"
+      ],
+      "explanationZhHans": "代入(0,1)得c=1；代入(1,2)得a+b+1=2；代入(-1,4)得a-b+1=4。解得a=2，b=-1。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-386",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "bnu-junior-s3-lower-quadratic-functions",
+      "unitTitle": "二次函数",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "quadratic-functions",
+        "parabola",
+        "vertex",
+        "axis-of-symmetry",
+        "function-modeling",
+        "二次函数",
+        "抛物线"
+      ],
+      "competencyTags": [
+        "函数观念",
+        "模型意识",
+        "几何直观"
+      ],
+      "skillTags": [
+        "图象性质",
+        "顶点",
+        "对称轴",
+        "表达式确定",
+        "最值问题",
+        "方程函数联系"
+      ],
+      "misconceptionTags": [
+        "axis of symmetry read from wrong parameter",
+        "vertex form and standard form mixed",
+        "domain restriction ignored in maximum or minimum context"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s3-lower-quadratic-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-lower-assessment-quadratic-functions-unit",
+        "bnu-junior-s3-lower-assessment-monthly-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions",
+        "pep-junior-exam-dynamic-geometry-functions"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知二次函数y=-x²+2x+3。当0≤x≤3时，求y的最大值和最小值。",
+      "optionsZhHans": [],
+      "answer": "最大值4，最小值0",
+      "acceptedAnswers": [
+        "最大值4，最小值0",
+        "最大值为4，最小值为0"
+      ],
+      "explanationZhHans": "y=-(x-1)²+4，顶点(1,4)在区间内，最大值4。计算端点x=0时y=3，x=3时y=0，最小值0。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-387",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "bnu-junior-s3-lower-quadratic-functions",
+      "unitTitle": "二次函数",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "quadratic-functions",
+        "parabola",
+        "vertex",
+        "axis-of-symmetry",
+        "function-modeling",
+        "二次函数",
+        "抛物线"
+      ],
+      "competencyTags": [
+        "函数观念",
+        "模型意识",
+        "几何直观"
+      ],
+      "skillTags": [
+        "图象性质",
+        "顶点",
+        "对称轴",
+        "表达式确定",
+        "最值问题",
+        "方程函数联系"
+      ],
+      "misconceptionTags": [
+        "axis of symmetry read from wrong parameter",
+        "vertex form and standard form mixed",
+        "domain restriction ignored in maximum or minimum context"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s3-lower-quadratic-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-lower-assessment-quadratic-functions-unit",
+        "bnu-junior-s3-lower-assessment-monthly-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions",
+        "pep-junior-exam-dynamic-geometry-functions"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "将抛物线y=2x²先向左平移3个单位，再向下平移5个单位，所得抛物线的解析式为______。",
+      "optionsZhHans": [],
+      "answer": "y=2(x+3)²-5",
+      "acceptedAnswers": [
+        "y=2(x+3)²-5"
+      ],
+      "explanationZhHans": "平移规律：左加右减，上加下减。向左3得y=2(x+3)²，向下5得y=2(x+3)²-5。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-388",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "bnu-junior-s3-lower-quadratic-functions",
+      "unitTitle": "二次函数",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "quadratic-functions",
+        "parabola",
+        "vertex",
+        "axis-of-symmetry",
+        "function-modeling",
+        "二次函数",
+        "抛物线"
+      ],
+      "competencyTags": [
+        "函数观念",
+        "模型意识",
+        "几何直观"
+      ],
+      "skillTags": [
+        "图象性质",
+        "顶点",
+        "对称轴",
+        "表达式确定",
+        "最值问题",
+        "方程函数联系"
+      ],
+      "misconceptionTags": [
+        "axis of symmetry read from wrong parameter",
+        "vertex form and standard form mixed",
+        "domain restriction ignored in maximum or minimum context"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s3-lower-quadratic-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-lower-assessment-quadratic-functions-unit",
+        "bnu-junior-s3-lower-assessment-monthly-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions",
+        "pep-junior-exam-dynamic-geometry-functions"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "对于二次函数y=3(x-1)²+2，下列说法正确的是",
+      "optionsZhHans": [
+        "图象开口向下",
+        "当x>1时，y随x增大而减小",
+        "图象的顶点坐标是(-1,2)",
+        "函数的最小值是2"
+      ],
+      "answer": "函数的最小值是2",
+      "acceptedAnswers": [
+        "函数的最小值是2"
+      ],
+      "explanationZhHans": "a=3>0开口向上；对称轴x=1，当x>1时y随x增大而增大；顶点(1,2)，最小值为2。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-389",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "bnu-junior-s3-lower-quadratic-functions",
+      "unitTitle": "二次函数",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "quadratic-functions",
+        "parabola",
+        "vertex",
+        "axis-of-symmetry",
+        "function-modeling",
+        "二次函数",
+        "抛物线"
+      ],
+      "competencyTags": [
+        "函数观念",
+        "模型意识",
+        "几何直观"
+      ],
+      "skillTags": [
+        "图象性质",
+        "顶点",
+        "对称轴",
+        "表达式确定",
+        "最值问题",
+        "方程函数联系"
+      ],
+      "misconceptionTags": [
+        "axis of symmetry read from wrong parameter",
+        "vertex form and standard form mixed",
+        "domain restriction ignored in maximum or minimum context"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s3-lower-quadratic-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-lower-assessment-quadratic-functions-unit",
+        "bnu-junior-s3-lower-assessment-monthly-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions",
+        "pep-junior-exam-dynamic-geometry-functions"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某商品现在的售价为每件60元，每星期可卖出300件。市场调查反映：每涨价1元，每星期少卖出10件。已知商品的进价为每件40元，设每件涨价x元，每星期售出商品的利润为y元。求y与x的函数关系式，并写出x的取值范围。",
+      "optionsZhHans": [],
+      "answer": "y=-10x²+100x+6000，0≤x≤30",
+      "acceptedAnswers": [
+        "y=-10x²+100x+6000，0≤x≤30",
+        "y=-10x²+100x+6000,0≤x≤30"
+      ],
+      "explanationZhHans": "售价60+x，销量300-10x，利润y=(20+x)(300-10x)=-10x²+100x+6000。销量非负得x≤30，且x≥0。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-390",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "bnu-junior-s3-lower-quadratic-functions",
+      "unitTitle": "二次函数",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "quadratic-functions",
+        "parabola",
+        "vertex",
+        "axis-of-symmetry",
+        "function-modeling",
+        "二次函数",
+        "抛物线"
+      ],
+      "competencyTags": [
+        "函数观念",
+        "模型意识",
+        "几何直观"
+      ],
+      "skillTags": [
+        "图象性质",
+        "顶点",
+        "对称轴",
+        "表达式确定",
+        "最值问题",
+        "方程函数联系"
+      ],
+      "misconceptionTags": [
+        "axis of symmetry read from wrong parameter",
+        "vertex form and standard form mixed",
+        "domain restriction ignored in maximum or minimum context"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s3-lower-quadratic-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-lower-assessment-quadratic-functions-unit",
+        "bnu-junior-s3-lower-assessment-monthly-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions",
+        "pep-junior-exam-dynamic-geometry-functions"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "若二次函数y=x²-6x+m的图象与x轴只有一个交点，则m的值为______。",
+      "optionsZhHans": [],
+      "answer": "9",
+      "acceptedAnswers": [
+        "9"
+      ],
+      "explanationZhHans": "Δ=(-6)²-4m=36-4m=0，解得m=9。"
+    }
+  ]
+}

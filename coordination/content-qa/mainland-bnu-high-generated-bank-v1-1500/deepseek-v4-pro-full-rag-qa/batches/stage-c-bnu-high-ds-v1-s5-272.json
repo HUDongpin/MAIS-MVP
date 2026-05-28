@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-272",
+  "startedAt": "2026-05-28T01:25:36.473Z",
+  "completedAt": "2026-05-28T01:25:40.341Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-272"
+  ],
+  "usage": {
+    "prompt_tokens": 3014,
+    "completion_tokens": 257,
+    "total_tokens": 3271,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2630
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-272",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "x=2, y=1",
+        "correctedAnswer": "x=2, y=1",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "矩形边与坐标轴平行，PQ与边平行只能水平或垂直，故仅有x=2和y=1；存储答案多出两条对角线平行线，解析错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "存储答案包含错误的对角线平行直线，与题意不符，判定为blocker。"
+    }
+  }
+}

@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-180",
+  "startedAt": "2026-05-28T01:52:14.547Z",
+  "completedAt": "2026-05-28T01:52:29.882Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-433",
+    "bnu-high-ds-v1-s6-434",
+    "bnu-high-ds-v1-s6-435",
+    "bnu-high-ds-v1-s6-436",
+    "bnu-high-ds-v1-s6-437",
+    "bnu-high-ds-v1-s6-438",
+    "bnu-high-ds-v1-s6-439",
+    "bnu-high-ds-v1-s6-440"
+  ],
+  "usage": {
+    "prompt_tokens": 10088,
+    "completion_tokens": 1183,
+    "total_tokens": 11271,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9704
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-433",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导得 f'(x)=3x²-3，令导数为零得 x=±1。计算 f(-2)=-2, f(-1)=2, f(1)=-2, f(2)=2，最大值为 2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-434",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(-1, 3)",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导得 f'(x)=3x²-6x-9=3(x-3)(x+1)，令导数小于零得 -1<x<3，故单调递减区间为 (-1, 3)。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-435",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "-2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导得 f'(x)=3x²-6x=3x(x-2)，驻点 x=0,2。x<0 时 f'>0，0<x<2 时 f'<0，x>2 时 f'>0，故极小值为 f(2)=8-12+2=-2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-436",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(-∞, -1) 和 (1, +∞)",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导得 f'(x)=3x²-3=3(x-1)(x+1)，导数大于零得 x<-1 或 x>1，故单调递增区间为 (-∞, -1) 和 (1, +∞)。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-437",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "最大值为 2，最小值为 -2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导得 f'(x)=3x²-6x=3x(x-2)，驻点 x=0,2。计算 f(-1)=-2, f(0)=2, f(2)=-2, f(3)=2，故最大值为 2，最小值为 -2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-438",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "y = -2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导得 y'=3x²-3，在 x=1 处斜率 k=0，切线方程为 y-(-2)=0·(x-1)，即 y=-2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-439",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导得 f'(x)=3x²-6x=3x(x-2)，驻点 x=0,2。x<0 时 f'>0，0<x<2 时 f'<0，x>2 时 f'>0，故极大值为 f(0)=2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-440",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "18 m²",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "设垂直于墙的边长为 x，则平行于墙的边长为 12-2x，面积 S=x(12-2x)=12x-2x²，0<x<6。求导 S'=12-4x，令 S'=0 得 x=3，此时 S=18。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部 8 题均可独立求解，无数学错误、歧义或缺失条件，符合北师大版高中导数章节要求。"
+    }
+  }
+}

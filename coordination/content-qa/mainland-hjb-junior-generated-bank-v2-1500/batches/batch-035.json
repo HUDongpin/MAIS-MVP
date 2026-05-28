@@ -1,0 +1,327 @@
+{
+  "batchId": "batch-035",
+  "questions": [
+    {
+      "id": "hjb-junior-ds-v2-s1-171",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "hjb-junior-s1-upper-algebraic-fractions",
+      "unitTitle": "分式",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "algebraic-fractions",
+        "fraction-domain",
+        "equivalent-fractions",
+        "fraction-operations",
+        "分式"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "分式意义",
+        "取值限制",
+        "分式基本性质",
+        "约分通分",
+        "分式运算"
+      ],
+      "misconceptionTags": [
+        "denominator restriction ignored",
+        "cancelling terms instead of factors",
+        "common denominator chosen incompletely"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s1-upper-algebraic-fractions"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-algebraic-fractions-unit",
+        "hjb-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-linear-inequalities",
+        "hjb-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知分式 \\(\\frac{2x^2 - 8}{x^2 - x - 6}\\)。\n(1) 求该分式有意义的 x 的取值范围；\n(2) 将该分式化为最简分式；\n(3) 当 x = 4 时，求该分式的值。",
+      "optionsZhHans": [],
+      "answer": "(1) x ≠ 3 且 x ≠ -2；(2) \\(\\frac{2(x-2)}{x-3}\\)；(3) 4",
+      "acceptedAnswers": [
+        "(1) x ≠ 3 且 x ≠ -2；(2) \\(\\frac{2(x-2)}{x-3}\\)；(3) 4",
+        "(1) x≠3且x≠-2；(2) 2(x-2)/(x-3)；(3) 4"
+      ],
+      "explanationZhHans": "(1) 分母 x²-x-6=(x-3)(x+2)≠0，得 x≠3 且 x≠-2。(2) 分子 2(x²-4)=2(x+2)(x-2)，约去公因式 (x+2) 得 2(x-2)/(x-3)。(3) 代入 x=4，得 2(4-2)/(4-3)=4，符合限制。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-172",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "hjb-junior-s1-upper-algebraic-fractions",
+      "unitTitle": "分式",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "algebraic-fractions",
+        "fraction-domain",
+        "equivalent-fractions",
+        "fraction-operations",
+        "分式"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "分式意义",
+        "取值限制",
+        "分式基本性质",
+        "约分通分",
+        "分式运算"
+      ],
+      "misconceptionTags": [
+        "denominator restriction ignored",
+        "cancelling terms instead of factors",
+        "common denominator chosen incompletely"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s1-upper-algebraic-fractions"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-algebraic-fractions-unit",
+        "hjb-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-linear-inequalities",
+        "hjb-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "若分式 \\(\\frac{x^2 - 9}{x^2 - 2x - 3}\\) 的值为 0，则 x 的值为（ ）",
+      "optionsZhHans": [
+        "3",
+        "-3",
+        "3 或 -3",
+        "1"
+      ],
+      "answer": "-3",
+      "acceptedAnswers": [
+        "-3"
+      ],
+      "explanationZhHans": "分子 x²-9=(x+3)(x-3)=0 得 x=3 或 x=-3。分母 x²-2x-3=(x-3)(x+1)≠0，故 x≠3 且 x≠-1。因此只能取 x=-3。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-173",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "hjb-junior-s1-upper-algebraic-fractions",
+      "unitTitle": "分式",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "algebraic-fractions",
+        "fraction-domain",
+        "equivalent-fractions",
+        "fraction-operations",
+        "分式"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "分式意义",
+        "取值限制",
+        "分式基本性质",
+        "约分通分",
+        "分式运算"
+      ],
+      "misconceptionTags": [
+        "denominator restriction ignored",
+        "cancelling terms instead of factors",
+        "common denominator chosen incompletely"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-junior-s1-upper-algebraic-fractions"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-algebraic-fractions-unit",
+        "hjb-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-linear-inequalities",
+        "hjb-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "分式 \\(\\frac{3}{x-2}\\) 与 \\(\\frac{5}{x+2}\\) 的最简公分母是______。",
+      "optionsZhHans": [],
+      "answer": "(x-2)(x+2)",
+      "acceptedAnswers": [
+        "(x-2)(x+2)",
+        "x²-4"
+      ],
+      "explanationZhHans": "两个分母分别为 x-2 和 x+2，它们互素，最简公分母为它们的乘积 (x-2)(x+2)，也可写成 x²-4。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-174",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "hjb-junior-s1-upper-algebraic-fractions",
+      "unitTitle": "分式",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "algebraic-fractions",
+        "fraction-domain",
+        "equivalent-fractions",
+        "fraction-operations",
+        "分式"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "分式意义",
+        "取值限制",
+        "分式基本性质",
+        "约分通分",
+        "分式运算"
+      ],
+      "misconceptionTags": [
+        "denominator restriction ignored",
+        "cancelling terms instead of factors",
+        "common denominator chosen incompletely"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s1-upper-algebraic-fractions"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-algebraic-fractions-unit",
+        "hjb-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-linear-inequalities",
+        "hjb-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "先化简，再求值：\\(\\frac{x^2 - 4x + 4}{x^2 - 4} \\div \\frac{x-2}{x^2 + 2x}\\)，其中 x = 3。",
+      "optionsZhHans": [],
+      "answer": "3",
+      "acceptedAnswers": [
+        "3"
+      ],
+      "explanationZhHans": "原式= (x-2)²/[(x+2)(x-2)] × x(x+2)/(x-2) = x。限制：x≠±2 且 x≠2，即 x≠2 且 x≠-2。当 x=3 时，原式=3，符合限制。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-175",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "hjb-junior-s1-upper-algebraic-fractions",
+      "unitTitle": "分式",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "algebraic-fractions",
+        "fraction-domain",
+        "equivalent-fractions",
+        "fraction-operations",
+        "分式"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "分式意义",
+        "取值限制",
+        "分式基本性质",
+        "约分通分",
+        "分式运算"
+      ],
+      "misconceptionTags": [
+        "denominator restriction ignored",
+        "cancelling terms instead of factors",
+        "common denominator chosen incompletely"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s1-upper-algebraic-fractions"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-algebraic-fractions-unit",
+        "hjb-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-linear-inequalities",
+        "hjb-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下列分式中，与 \\(\\frac{x}{y}\\) 相等的是（ ）",
+      "optionsZhHans": [
+        "\\(\\frac{x^2}{y^2}\\)",
+        "\\(\\frac{x+1}{y+1}\\)",
+        "\\(\\frac{x^2}{xy}\\) (x≠0)",
+        "\\(\\frac{x-1}{y-1}\\)"
+      ],
+      "answer": "\\(\\frac{x^2}{xy}\\) (x≠0)",
+      "acceptedAnswers": [
+        "\\(\\frac{x^2}{xy}\\) (x≠0)"
+      ],
+      "explanationZhHans": "分式基本性质：分子分母同乘（除）非零整式，分式值不变。选项C分子分母同除以 x（x≠0）得 x/y，其余选项均不是恒等变形。"
+    }
+  ]
+}

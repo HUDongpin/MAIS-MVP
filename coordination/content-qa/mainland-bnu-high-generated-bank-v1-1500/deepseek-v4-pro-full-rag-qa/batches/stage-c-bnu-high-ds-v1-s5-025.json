@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-025",
+  "startedAt": "2026-05-28T02:02:19.735Z",
+  "completedAt": "2026-05-28T02:02:24.358Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-025"
+  ],
+  "usage": {
+    "prompt_tokens": 2021,
+    "completion_tokens": 282,
+    "total_tokens": 2303,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1637
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-025",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "independentAnswer": "-2",
+        "correctedAnswer": "-2",
+        "issueTags": [
+          "math_error",
+          "ambiguous_mc",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "两直线平行需满足 a(a-1)=6 且 a≠2（避免重合）。解得 a=-2 或 3，但 a=3 时两直线重合，应舍去，唯一解为 a=-2。选项 C 包含错误值 3，导致多解；解析未检验重合，解释矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目答案错误，正确解为 a=-2，选项 C 包含错误值，解析未排除重合情况，需修正。"
+    }
+  }
+}

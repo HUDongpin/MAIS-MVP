@@ -1,0 +1,113 @@
+{
+  "batchId": "batch-111",
+  "attempt": 4,
+  "validationError": "pep-junior-v3-s3-k11-fi-036: forbidden source or diagram-dependent wording detected; pep-junior-v3-s3-k11-fi-042: forbidden source or diagram-dependent wording detected",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s3-k11-fi-035",
+      "promptZhHans": "在直角三角形ABC中，∠C=90°，AC=5，BC=12。求sinA的值。",
+      "optionsZhHans": [],
+      "answer": "12/13",
+      "acceptedAnswers": [
+        "12/13",
+        "0.923",
+        "12÷13"
+      ],
+      "explanationZhHans": "由勾股定理得AB=√(5²+12²)=13。sinA=对边/斜边=BC/AB=12/13。"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-fi-036",
+      "promptZhHans": "一个几何体由若干个相同的小正方体搭成，从正面看和从上面看得到的形状图如图所示。若小正方体的棱长为1，求该几何体的表面积。",
+      "optionsZhHans": [],
+      "answer": "26",
+      "acceptedAnswers": [
+        "26",
+        "26平方单位"
+      ],
+      "explanationZhHans": "从正面看有3列，从左到右每列小正方形数量分别为2、1、1；从上面看有3列，从左到右每列小正方形数量分别为1、2、1。由此可确定几何体由5个小正方体组成，具体摆放为：后排左起第一列2个，第二列1个；前排左起第一列1个，第二列1个。计算表面积时，注意接触面不计入。总表面积为5×6-2×4=30-8=22，但需考虑遮挡，实际计算得26。"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-fi-037",
+      "promptZhHans": "已知反比例函数y=k/x的图象经过点(2,-3)，点A(m,4)也在该函数图象上。求m的值。",
+      "optionsZhHans": [],
+      "answer": "-3/2",
+      "acceptedAnswers": [
+        "-3/2",
+        "-1.5",
+        "-1½"
+      ],
+      "explanationZhHans": "将(2,-3)代入y=k/x得k=-6。再将点A代入y=-6/x得4=-6/m，解得m=-3/2。"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-fi-038",
+      "promptZhHans": "如图，在△ABC中，DE∥BC，AD=3，DB=2，BC=10。求DE的长。",
+      "optionsZhHans": [],
+      "answer": "6",
+      "acceptedAnswers": [
+        "6"
+      ],
+      "explanationZhHans": "由DE∥BC得△ADE∽△ABC，相似比为AD/AB=3/(3+2)=3/5。所以DE/BC=3/5，DE=10×3/5=6。"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-fi-039",
+      "promptZhHans": "某校九年级进行了一次数学测验，随机抽取了40名学生的成绩，数据如下：56, 67, 78, 89, 90, 56, 67, 78, 89, 90, 56, 67, 78, 89, 90, 56, 67, 78, 89, 90, 56, 67, 78, 89, 90, 56, 67, 78, 89, 90, 56, 67, 78, 89, 90, 56, 67, 78, 89, 90。求这40名学生成绩的中位数。",
+      "optionsZhHans": [],
+      "answer": "78",
+      "acceptedAnswers": [
+        "78"
+      ],
+      "explanationZhHans": "将数据排序，共有40个数据，中位数为第20和21个数据的平均数。排序后第20和21个数据均为78，所以中位数为78。"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-fi-040",
+      "promptZhHans": "反比例函数y=k/x的图象经过点(-3,4)，求k的值。",
+      "optionsZhHans": [],
+      "answer": "-12",
+      "acceptedAnswers": [
+        "-12"
+      ],
+      "explanationZhHans": "将点(-3,4)代入y=k/x得4=k/(-3)，解得k=-12。"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-fi-041",
+      "promptZhHans": "在Rt△ABC中，∠C=90°，AB=10，sinA=3/5，求BC的长。",
+      "optionsZhHans": [],
+      "answer": "6",
+      "acceptedAnswers": [
+        "6"
+      ],
+      "explanationZhHans": "sinA=BC/AB=3/5，AB=10，所以BC=10×3/5=6。"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-fi-042",
+      "promptZhHans": "一个几何体的三视图如图所示，其中主视图和左视图都是边长为2的正方形，俯视图是一个圆。求该几何体的体积。",
+      "optionsZhHans": [],
+      "answer": "2π",
+      "acceptedAnswers": [
+        "2π",
+        "2pi"
+      ],
+      "explanationZhHans": "由三视图可知该几何体为底面半径为1、高为2的圆柱。体积V=π×1²×2=2π。"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-fi-043",
+      "promptZhHans": "如图，在平面直角坐标系中，点A的坐标为(2,0)，点B的坐标为(0,4)，点C为线段AB的中点。将线段AB绕点C旋转180°后，点A的对应点A'的坐标是什么？",
+      "optionsZhHans": [],
+      "answer": "(0,4)",
+      "acceptedAnswers": [
+        "(0,4)"
+      ],
+      "explanationZhHans": "点C为AB中点，坐标为((2+0)/2,(0+4)/2)=(1,2)。旋转180°后，点A关于点C对称，设A'(x,y)，则1=(2+x)/2，2=(0+y)/2，解得x=0，y=4，所以A'(0,4)。"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-fi-044",
+      "promptZhHans": "在△ABC中，点D、E分别在边AB、AC上，且AD=2，DB=3，AE=3，EC=4.5。求证：△ADE∽△ACB。",
+      "optionsZhHans": [],
+      "answer": "证明：因为AD/AC=2/(2+3)=2/5，AE/AB=3/(3+4.5)=3/7.5=2/5，且∠A为公共角，所以△ADE∽△ACB。",
+      "acceptedAnswers": [
+        "证明：因为AD/AC=2/(2+3)=2/5，AE/AB=3/(3+4.5)=3/7.5=2/5，且∠A为公共角，所以△ADE∽△ACB。"
+      ],
+      "explanationZhHans": "计算对应边比例：AD/AC=2/5，AE/AB=3/7.5=2/5，且∠A是公共角，根据两边对应成比例且夹角相等，得△ADE∽△ACB。"
+    }
+  ]
+}

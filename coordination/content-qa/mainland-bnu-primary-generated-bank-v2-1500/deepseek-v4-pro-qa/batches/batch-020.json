@@ -1,0 +1,191 @@
+{
+  "batchNumber": 20,
+  "startedAt": "2026-05-27T13:45:53.341Z",
+  "completedAt": "2026-05-27T13:46:10.714Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p2-093",
+    "bnu-primary-ds-v2-p2-094",
+    "bnu-primary-ds-v2-p2-095",
+    "bnu-primary-ds-v2-p2-096",
+    "bnu-primary-ds-v2-p2-097",
+    "bnu-primary-ds-v2-p2-098",
+    "bnu-primary-ds-v2-p2-099",
+    "bnu-primary-ds-v2-p2-100",
+    "bnu-primary-ds-v2-p2-101",
+    "bnu-primary-ds-v2-p2-102",
+    "bnu-primary-ds-v2-p2-103",
+    "bnu-primary-ds-v2-p2-104",
+    "bnu-primary-ds-v2-p2-105",
+    "bnu-primary-ds-v2-p2-106",
+    "bnu-primary-ds-v2-p2-107",
+    "bnu-primary-ds-v2-p2-108",
+    "bnu-primary-ds-v2-p2-109",
+    "bnu-primary-ds-v2-p2-110"
+  ],
+  "usage": {
+    "prompt_tokens": 3667,
+    "completion_tokens": 1273,
+    "total_tokens": 4940,
+    "prompt_tokens_details": {
+      "cached_tokens": 3584
+    },
+    "prompt_cache_hit_tokens": 3584,
+    "prompt_cache_miss_tokens": 83
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p2-093",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，符合P2除法引入要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-094",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项唯一正确，干扰项合理，难度适合挑战。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-095",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "基础平均分问题，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-096",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "包含分问题，列式与答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-097",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "逆向思维题，选项C乘积不符，其他均正确，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-098",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "简单平均分，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-099",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "包含分问题，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-100",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项唯一正确，干扰项合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-101",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均分问题，答案正确，acceptedAnswers覆盖多种写法。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-102",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "与101类似，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-103",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项唯一正确，干扰项合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-104",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "基础平均分，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-105",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均分问题，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-106",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "乘法应用，选项C正确，其他干扰项合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-107",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "乘法应用，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-108",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "乘法应用，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-109",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "两步计算，答案正确，选项合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-110",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "拆分方法开放，acceptedAnswers覆盖多种正确拆分，无歧义。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版P2要求，数学正确，答案匹配，无歧义或缺失条件，适合公共题库使用。"
+    }
+  }
+}

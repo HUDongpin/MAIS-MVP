@@ -1,0 +1,191 @@
+{
+  "batchNumber": 19,
+  "startedAt": "2026-05-24T17:27:59.539Z",
+  "completedAt": "2026-05-24T17:28:19.584Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-candidate-k04-sa-025",
+    "pep-junior-candidate-k04-sa-026",
+    "pep-junior-candidate-k04-sa-027",
+    "pep-junior-candidate-k05-mc-001",
+    "pep-junior-candidate-k05-mc-002",
+    "pep-junior-candidate-k05-mc-003",
+    "pep-junior-candidate-k05-mc-004",
+    "pep-junior-candidate-k05-mc-005",
+    "pep-junior-candidate-k05-mc-006",
+    "pep-junior-candidate-k05-mc-007",
+    "pep-junior-candidate-k05-mc-008",
+    "pep-junior-candidate-k05-mc-009",
+    "pep-junior-candidate-k05-mc-010",
+    "pep-junior-candidate-k05-mc-011",
+    "pep-junior-candidate-k05-mc-012",
+    "pep-junior-candidate-k05-mc-013",
+    "pep-junior-candidate-k05-mc-014",
+    "pep-junior-candidate-k05-mc-015"
+  ],
+  "usage": {
+    "prompt_tokens": 2987,
+    "completion_tokens": 1525,
+    "total_tokens": 4512,
+    "prompt_tokens_details": {
+      "cached_tokens": 2944
+    },
+    "prompt_cache_hit_tokens": 2944,
+    "prompt_cache_miss_tokens": 43
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-candidate-k04-sa-025",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解释一致，无歧义，适合七年级下平面直角坐标系象限判断。"
+      },
+      {
+        "id": "pep-junior-candidate-k04-sa-026",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解释一致，无歧义，适合七年级下平面直角坐标系象限判断。"
+      },
+      {
+        "id": "pep-junior-candidate-k04-sa-027",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解释一致，无歧义，适合七年级下平面直角坐标系象限判断。"
+      },
+      {
+        "id": "pep-junior-candidate-k05-mc-001",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "不等式解法正确，选项包含正确答案x>8，无歧义，适合七年级下一元一次不等式。"
+      },
+      {
+        "id": "pep-junior-candidate-k05-mc-002",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "不等式解法正确，选项包含正确答案x>9，无歧义，适合七年级下一元一次不等式。"
+      },
+      {
+        "id": "pep-junior-candidate-k05-mc-003",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "不等式解法正确，选项包含正确答案x>10，无歧义，适合七年级下一元一次不等式。"
+      },
+      {
+        "id": "pep-junior-candidate-k05-mc-004",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "不等式解法正确，选项包含正确答案x>11，无歧义，适合七年级下一元一次不等式。"
+      },
+      {
+        "id": "pep-junior-candidate-k05-mc-005",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "不等式解法正确，选项包含正确答案x>12，无歧义，适合七年级下一元一次不等式。"
+      },
+      {
+        "id": "pep-junior-candidate-k05-mc-006",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "不等式解法正确，选项包含正确答案x>13，无歧义，适合七年级下一元一次不等式。"
+      },
+      {
+        "id": "pep-junior-candidate-k05-mc-007",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "不等式解法正确，选项包含正确答案x>14，无歧义，适合七年级下一元一次不等式。"
+      },
+      {
+        "id": "pep-junior-candidate-k05-mc-008",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "不等式解法正确，选项包含正确答案x>15，无歧义，适合七年级下一元一次不等式。"
+      },
+      {
+        "id": "pep-junior-candidate-k05-mc-009",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "不等式解法正确，选项包含正确答案x>16，无歧义，适合七年级下一元一次不等式。"
+      },
+      {
+        "id": "pep-junior-candidate-k05-mc-010",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "不等式解法正确，选项包含正确答案x>17，无歧义，适合七年级下一元一次不等式。"
+      },
+      {
+        "id": "pep-junior-candidate-k05-mc-011",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "不等式解法正确，选项包含正确答案x>18，无歧义，适合七年级下一元一次不等式。"
+      },
+      {
+        "id": "pep-junior-candidate-k05-mc-012",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "不等式解法正确，选项包含正确答案x>19，无歧义，适合七年级下一元一次不等式。"
+      },
+      {
+        "id": "pep-junior-candidate-k05-mc-013",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "不等式解法正确，选项包含正确答案x>20，无歧义，适合七年级下一元一次不等式。"
+      },
+      {
+        "id": "pep-junior-candidate-k05-mc-014",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "不等式解法正确，选项包含正确答案x>21，无歧义，适合七年级下一元一次不等式。"
+      },
+      {
+        "id": "pep-junior-candidate-k05-mc-015",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "不等式解法正确，选项包含正确答案x>22，无歧义，适合七年级下一元一次不等式。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案与解释一致，选项无歧义，符合人教版七年级下知识点要求，可直接入库。"
+    }
+  }
+}

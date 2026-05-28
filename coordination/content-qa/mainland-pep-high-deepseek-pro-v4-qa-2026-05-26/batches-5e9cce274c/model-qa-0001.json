@@ -1,0 +1,80 @@
+{
+  "batchId": "model-qa-0001",
+  "ids": [
+    "pep-high-s4-fi-001",
+    "pep-high-s4-fi-002",
+    "pep-high-s4-fi-003",
+    "pep-high-s4-fi-004",
+    "pep-high-s4-fi-005"
+  ],
+  "reviews": [
+    {
+      "id": "pep-high-s4-fi-001",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "9",
+      "answerCheckZhHans": "A={3,6,9,12,15,18}, B={4,8,12,16}, A∪B={3,4,6,8,9,12,15,16,18}, 元素个数为9。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "pep-high-s4-fi-002",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题目要求f(3)，正确答案应为(3+2)^2-1=24，但给定答案为24，解析却讨论顶点，与题目不匹配。",
+      "independentAnswerZhHans": "24",
+      "answerCheckZhHans": "f(3)=(3+2)^2-1=25-1=24，给定答案24正确，但解析错误。",
+      "recommendedActionZhHans": "修正解析以匹配题目要求，或确认题目意图。",
+      "confidence": "high"
+    },
+    {
+      "id": "pep-high-s4-fi-003",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "4",
+      "answerCheckZhHans": "f(1)=5*1-1=4，答案匹配。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "pep-high-s4-fi-004",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "6",
+      "answerCheckZhHans": "log2(64)=6，因为2^6=64，答案匹配。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "pep-high-s4-fi-005",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "y=1 sin 3x中，正弦函数内部x的系数为3，答案匹配。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    }
+  ]
+}

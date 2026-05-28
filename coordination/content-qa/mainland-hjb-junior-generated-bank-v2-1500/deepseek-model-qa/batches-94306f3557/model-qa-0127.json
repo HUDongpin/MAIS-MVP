@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0127",
+  "ids": [
+    "hjb-junior-ds-v2-s3-009",
+    "hjb-junior-ds-v2-s3-010",
+    "hjb-junior-ds-v2-s3-011",
+    "hjb-junior-ds-v2-s3-012",
+    "hjb-junior-ds-v2-s3-013",
+    "hjb-junior-ds-v2-s3-014",
+    "hjb-junior-ds-v2-s3-015",
+    "hjb-junior-ds-v2-s3-016"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-009",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "10 cm",
+      "answerCheckZhHans": "标准答案为10 cm，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-010",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "AD:AB=2:5，AE:AC=2:5",
+      "answerCheckZhHans": "标准答案与独立判断一致，且其他选项均不满足平行判定条件。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-011",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "由DE∥BC应得AD/AB=AE/AC，而非AD/DB=AE/EC。正确解法：AB=AD+DB=9，3/9=4/AC，得AC=12，EC=AC-AE=8。虽然答案8巧合一致，但解析中使用的比例关系错误，可能导致学生误解。",
+      "independentAnswerZhHans": "8",
+      "answerCheckZhHans": "标准答案为8，但解析中错误使用了AD/DB=AE/EC，正确比例应为AD/AB=AE/AC。",
+      "recommendedActionZhHans": "修正解析，使用正确的比例关系AD/AB=AE/AC。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-012",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案为2，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-013",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "AB/A'B'=AC/A'C'，且∠A=∠A'",
+      "answerCheckZhHans": "标准答案与独立判断一致，且其他选项均不满足相似判定条件。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-014",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "5",
+      "answerCheckZhHans": "标准答案为5，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-015",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "证明：在△AOB和△COD中，OA/OC=2/6=1/3，OB/OD=3/9=1/3，且∠AOB=∠COD（对顶角相等），所以△AOB∽△COD。因此∠OAB=∠OCD，故AB∥CD。",
+      "answerCheckZhHans": "标准答案与独立证明一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-016",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "△ABC∽△DEF，相似比为2:3",
+      "answerCheckZhHans": "标准答案与独立判断一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

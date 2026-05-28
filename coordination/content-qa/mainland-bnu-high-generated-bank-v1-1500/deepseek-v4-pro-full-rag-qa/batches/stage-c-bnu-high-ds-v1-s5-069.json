@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-069",
+  "startedAt": "2026-05-28T02:07:32.996Z",
+  "completedAt": "2026-05-28T02:07:38.309Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-069"
+  ],
+  "usage": {
+    "prompt_tokens": 2118,
+    "completion_tokens": 264,
+    "total_tokens": 2382,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1734
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-069",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "m = 0 或 m = -2",
+        "correctedAnswer": "m = 0 或 m = -2",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立求解得 m=0 或 m=-2，存储答案为 0 或 -4，答案错误；解析使用圆心到直线距离方法错误，与正确解法矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目答案错误，解析方法错误，需修正为 m=0 或 m=-2。"
+    }
+  }
+}

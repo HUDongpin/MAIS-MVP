@@ -1,0 +1,48 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-386",
+  "startedAt": "2026-05-28T02:38:22.633Z",
+  "completedAt": "2026-05-28T02:38:27.608Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-386"
+  ],
+  "usage": {
+    "prompt_tokens": 2131,
+    "completion_tokens": 259,
+    "total_tokens": 2390,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1747
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-386",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "25(3+√3)米",
+        "correctedAnswer": "25(3+√3)米",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合建模活动章节。解析过程正确，但最终答案错误：正确河宽为25(3+√3)米，存储答案为25(√3+1)米，属于计算错误，需修正。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1题答案错误，需修正为25(3+√3)米。"
+    }
+  }
+}

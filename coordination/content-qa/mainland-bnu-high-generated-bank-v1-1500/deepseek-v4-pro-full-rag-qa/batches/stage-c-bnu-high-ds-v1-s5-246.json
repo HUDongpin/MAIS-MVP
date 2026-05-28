@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-246",
+  "startedAt": "2026-05-28T01:24:43.889Z",
+  "completedAt": "2026-05-28T01:24:48.801Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-246"
+  ],
+  "usage": {
+    "prompt_tokens": 2402,
+    "completion_tokens": 289,
+    "total_tokens": 2691,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2018
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-246",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "m=0 或 m=-20",
+        "correctedAnswer": "m=0 或 m=-20",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，点到直线距离公式得|10+m|/5=2，解得m=0或m=-20。但存储答案-8或12错误，解析虽提及正确计算却强行使用错误答案，与独立解矛盾，属于严重答案错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目答案错误，正确解为m=0或m=-20，存储答案-8或12与解析矛盾，判定为blocker。"
+    }
+  }
+}

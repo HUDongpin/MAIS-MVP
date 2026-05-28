@@ -1,0 +1,335 @@
+{
+  "batchId": "batch-063",
+  "questions": [
+    {
+      "id": "hjb-junior-ds-v2-s1-311",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "hjb-junior-s1-lower-linear-inequalities",
+      "unitTitle": "一元一次不等式",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "linear-inequalities-one-variable",
+        "inequality-properties",
+        "solution-set",
+        "number-line",
+        "一元一次不等式"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "模型意识"
+      ],
+      "skillTags": [
+        "不等式性质",
+        "解一元一次不等式",
+        "解集表示",
+        "数轴表达",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "inequality direction not reversed",
+        "boundary point marked incorrectly",
+        "solution set treated as a single value"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-junior-s1-lower-linear-inequalities"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-linear-inequalities",
+        "hjb-junior-s1-lower-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "解不等式：\\(-3x + 7 \\le 1\\)，并将解集在数轴上表示出来。",
+      "optionsZhHans": [],
+      "answer": "\\(x \\ge 2\\)，数轴上从2向右的射线，2处为实心点",
+      "acceptedAnswers": [
+        "\\(x \\ge 2\\)，数轴上从2向右的射线，2处为实心点",
+        "x ≥ 2",
+        "x>=2",
+        "x \\ge 2",
+        "x≥2，数轴上从2向右的射线，2处为实心点"
+      ],
+      "explanationZhHans": "移项得\\(-3x \\le -6\\)，两边除以\\(-3\\)，不等号方向改变，得\\(x \\ge 2\\)。数轴上在2处画实心点，向右画射线表示所有大于等于2的数。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-312",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "hjb-junior-s1-lower-linear-inequalities",
+      "unitTitle": "一元一次不等式",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "linear-inequalities-one-variable",
+        "inequality-properties",
+        "solution-set",
+        "number-line",
+        "一元一次不等式"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "模型意识"
+      ],
+      "skillTags": [
+        "不等式性质",
+        "解一元一次不等式",
+        "解集表示",
+        "数轴表达",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "inequality direction not reversed",
+        "boundary point marked incorrectly",
+        "solution set treated as a single value"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s1-lower-linear-inequalities"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-linear-inequalities",
+        "hjb-junior-s1-lower-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校组织七年级学生外出参观，共有学生280人，计划租用45座客车若干辆。若每辆车都坐满，至少需要租用多少辆客车？请列出不等式并求解。",
+      "optionsZhHans": [],
+      "answer": "设需要租用\\(x\\)辆客车，则\\(45x \\ge 280\\)，解得\\(x \\ge \\frac{280}{45} \\approx 6.22\\)，所以至少需要7辆。",
+      "acceptedAnswers": [
+        "设需要租用\\(x\\)辆客车，则\\(45x \\ge 280\\)，解得\\(x \\ge \\frac{280}{45} \\approx 6.22\\)，所以至少需要7辆。",
+        "7辆",
+        "7",
+        "至少7辆",
+        "需要7辆"
+      ],
+      "explanationZhHans": "设租用\\(x\\)辆客车，总座位数为\\(45x\\)，需满足\\(45x \\ge 280\\)。解得\\(x \\ge 6\\frac{2}{9}\\)，车辆数为整数，故至少7辆。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-313",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "hjb-junior-s1-lower-linear-inequalities",
+      "unitTitle": "一元一次不等式",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "linear-inequalities-one-variable",
+        "inequality-properties",
+        "solution-set",
+        "number-line",
+        "一元一次不等式"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "模型意识"
+      ],
+      "skillTags": [
+        "不等式性质",
+        "解一元一次不等式",
+        "解集表示",
+        "数轴表达",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "inequality direction not reversed",
+        "boundary point marked incorrectly",
+        "solution set treated as a single value"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s1-lower-linear-inequalities"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-linear-inequalities",
+        "hjb-junior-s1-lower-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "不等式\\(2x - 5 > 3\\)的解集在数轴上表示正确的是（   ）",
+      "optionsZhHans": [
+        "A. 从4向左的射线，4处为空心点",
+        "B. 从4向右的射线，4处为空心点",
+        "C. 从4向左的射线，4处为实心点",
+        "D. 从4向右的射线，4处为实心点"
+      ],
+      "answer": "B. 从4向右的射线，4处为空心点",
+      "acceptedAnswers": [
+        "B. 从4向右的射线，4处为空心点",
+        "B"
+      ],
+      "explanationZhHans": "解不等式得\\(2x > 8\\)，\\(x > 4\\)。解集为大于4的所有数，数轴上从4向右画射线，4处画空心点表示不包含4。选项B正确。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-314",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "hjb-junior-s1-lower-intersecting-parallel-lines",
+      "unitTitle": "相交线与平行线",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "intersecting-lines",
+        "parallel-lines",
+        "transversal-angles",
+        "angle-relations",
+        "平行线"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "邻补角",
+        "对顶角",
+        "垂线",
+        "平行线性质",
+        "平行线判定"
+      ],
+      "misconceptionTags": [
+        "angle relation inferred without line condition",
+        "corresponding and alternate angles confused",
+        "supplementary relationship overgeneralized"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-junior-s1-lower-intersecting-parallel-lines"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-lines-parallel-angles",
+        "hjb-junior-s1-lower-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知直线\\(AB \\parallel CD\\)，直线\\(EF\\)分别交\\(AB\\)、\\(CD\\)于点\\(G\\)、\\(H\\)。若\\(\\angle EGB = 65^\\circ\\)，则\\(\\angle GHD\\)的度数为______。",
+      "optionsZhHans": [],
+      "answer": "\\(65^\\circ\\)",
+      "acceptedAnswers": [
+        "\\(65^\\circ\\)",
+        "65°",
+        "65",
+        "65度",
+        "65^\\circ"
+      ],
+      "explanationZhHans": "因为\\(AB \\parallel CD\\)，\\(\\angle EGB\\)与\\(\\angle GHD\\)是同位角，两直线平行，同位角相等，所以\\(\\angle GHD = 65^\\circ\\)。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-315",
+      "batch": "hjb-junior-v2",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "hjb-junior-s1-lower-intersecting-parallel-lines",
+      "unitTitle": "相交线与平行线",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "intersecting-lines",
+        "parallel-lines",
+        "transversal-angles",
+        "angle-relations",
+        "平行线"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "邻补角",
+        "对顶角",
+        "垂线",
+        "平行线性质",
+        "平行线判定"
+      ],
+      "misconceptionTags": [
+        "angle relation inferred without line condition",
+        "corresponding and alternate angles confused",
+        "supplementary relationship overgeneralized"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-junior-s1-lower-intersecting-parallel-lines"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-junior-s1-upper-assessment-polynomial-add-subtract-unit",
+        "hjb-junior-s1-upper-assessment-polynomial-multiply-divide-unit"
+      ],
+      "paperPatternCardIds": [
+        "hjb-junior-s1-lower-paper-lines-parallel-angles",
+        "hjb-junior-s1-lower-paper-midterm-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在同一平面内，已知直线\\(l_1\\)与\\(l_2\\)被直线\\(l_3\\)所截，\\(\\angle 1\\)和\\(\\angle 2\\)是内错角。若\\(\\angle 1 = 50^\\circ\\)，\\(\\angle 2 = 50^\\circ\\)，则\\(l_1\\)与\\(l_2\\)的位置关系是______，依据是______。",
+      "optionsZhHans": [],
+      "answer": "平行，内错角相等，两直线平行",
+      "acceptedAnswers": [
+        "平行，内错角相等，两直线平行",
+        "l1∥l2，内错角相等，两直线平行",
+        "平行，内错角相等"
+      ],
+      "explanationZhHans": "内错角\\(\\angle 1\\)和\\(\\angle 2\\)相等，根据平行线的判定定理：内错角相等，两直线平行，所以\\(l_1 \\parallel l_2\\)。"
+    }
+  ]
+}

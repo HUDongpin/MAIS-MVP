@@ -1,0 +1,306 @@
+{
+  "batchId": "batch-078",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s2-k09-sa-004",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "short-answer",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-quadratic-radicals"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "某共享单车平台采用分段计费：骑行前30分钟收费2元，此后每增加15分钟加收1元（不足15分钟按15分钟计算）。小明一次骑行共支付5元，他骑行的最长时间是多少分钟？",
+      "optionsZhHans": [],
+      "answer": "75分钟",
+      "acceptedAnswers": [
+        "75分钟",
+        "75"
+      ],
+      "explanationZhHans": "前30分钟收费2元，剩余5-2=3元对应加收部分。每1元对应15分钟，3元对应3×15=45分钟。总时间为30+45=75分钟。因此答案为75分钟。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-sa-005",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "short-answer",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-pythagorean-theorem"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "一辆货车从甲地出发前往乙地，行驶速度保持60 km/h。行驶2小时后，因道路施工减速为40 km/h，又行驶了1.5小时到达乙地。求甲、乙两地之间的距离。",
+      "optionsZhHans": [],
+      "answer": "180 km",
+      "acceptedAnswers": [
+        "180 km",
+        "180",
+        "180千米"
+      ],
+      "explanationZhHans": "前2小时行驶距离为60×2=120 km，后1.5小时行驶距离为40×1.5=60 km。总距离为120+60=180 km。因此答案为180 km。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-sa-006",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "short-answer",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-quadrilaterals"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions"
+      ],
+      "promptZhHans": "某校八年级学生进行跳绳测试，随机抽取10名学生的成绩（单位：次/分钟）如下：156, 172, 165, 180, 168, 174, 159, 171, 163, 177。求这组数据的中位数。",
+      "optionsZhHans": [],
+      "answer": "169.5",
+      "acceptedAnswers": [
+        "169.5",
+        "169.5次"
+      ],
+      "explanationZhHans": "将数据从小到大排序：156, 159, 163, 165, 168, 171, 172, 174, 177, 180。数据个数为10，中位数是第5和第6个数的平均数，即(168+171)/2=169.5。因此答案为169.5。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-sa-007",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "short-answer",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-linear-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "promptZhHans": "已知一次函数的图象经过点(2, 5)和(4, 9)，求该函数的解析式。",
+      "optionsZhHans": [],
+      "answer": "y = 2x + 1",
+      "acceptedAnswers": [
+        "y = 2x + 1",
+        "y=2x+1"
+      ],
+      "explanationZhHans": "设一次函数解析式为y=kx+b。将点(2,5)和(4,9)代入，得方程组：2k+b=5，4k+b=9。两式相减得2k=4，k=2；代入得b=1。所以解析式为y = 2x + 1。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-sa-008",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "short-answer",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-data-analysis"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean"
+      ],
+      "promptZhHans": "某班一次数学测验的成绩分布为：60分以下2人，60～70分5人，70～80分8人，80～90分12人，90～100分3人。求该班成绩的众数所在的分数段。",
+      "optionsZhHans": [],
+      "answer": "80～90分",
+      "acceptedAnswers": [
+        "80～90分",
+        "80-90分"
+      ],
+      "explanationZhHans": "众数是出现次数最多的数据。在给出的分数段中，80～90分的人数最多，为12人，因此众数所在的分数段是80～90分。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-sa-009",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "short-answer",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "在平面直角坐标系中，将点A(-3, 2)先向右平移5个单位，再向下平移3个单位得到点B。求点B的坐标。",
+      "optionsZhHans": [],
+      "answer": "(2, -1)",
+      "acceptedAnswers": [
+        "(2, -1)",
+        "（2，-1）"
+      ],
+      "explanationZhHans": "点A(-3,2)向右平移5个单位，横坐标加5得2；向下平移3个单位，纵坐标减3得-1。因此点B的坐标为(2, -1)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-sa-010",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "short-answer",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-quadratic-radicals"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-proof-calculation-integrated"
+      ],
+      "promptZhHans": "化简二次根式：√(48) - √(27) + √(12)。",
+      "optionsZhHans": [],
+      "answer": "3√3",
+      "acceptedAnswers": [
+        "3√3",
+        "3倍根号3"
+      ],
+      "explanationZhHans": "√48 = 4√3，√27 = 3√3，√12 = 2√3。原式 = 4√3 - 3√3 + 2√3 = (4-3+2)√3 = 3√3。因此答案为3√3。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-sa-011",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "short-answer",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-pythagorean-theorem"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "promptZhHans": "某品牌手机电池的剩余电量y（%）与使用时间x（小时）满足一次函数关系。使用2小时后，剩余电量为80%；使用5小时后，剩余电量为50%。求y与x的函数关系式。",
+      "optionsZhHans": [],
+      "answer": "y = -10x + 100",
+      "acceptedAnswers": [
+        "y = -10x + 100",
+        "y=-10x+100"
+      ],
+      "explanationZhHans": "设y=kx+b。由题意得：2k+b=80，5k+b=50。两式相减得3k=-30，k=-10；代入得b=100。所以关系式为y = -10x + 100。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-sa-012",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "short-answer",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-quadrilaterals"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "一个不透明的袋子里装有3个红球和5个白球，每个球除颜色外都相同。从中任意摸出一个球，摸到红球的概率是多少？",
+      "optionsZhHans": [],
+      "answer": "3/8",
+      "acceptedAnswers": [
+        "3/8",
+        "八分之三"
+      ],
+      "explanationZhHans": "袋中共有3+5=8个球，其中红球有3个。摸到红球的概率为红球数除以总数，即3/8。因此答案为3/8。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-sa-013",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "short-answer",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-linear-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "某电信公司推出两种话费套餐：A套餐月租20元，通话费0.15元/分钟；B套餐无月租，通话费0.25元/分钟。当每月通话时间为多少分钟时，两种套餐的费用相同？",
+      "optionsZhHans": [],
+      "answer": "200分钟",
+      "acceptedAnswers": [
+        "200分钟",
+        "200"
+      ],
+      "explanationZhHans": "设通话时间为x分钟。A套餐费用为20+0.15x，B套餐费用为0.25x。令两者相等：20+0.15x=0.25x，解得0.1x=20，x=200。因此当通话时间为200分钟时，两种套餐费用相同。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

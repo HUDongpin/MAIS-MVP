@@ -1,0 +1,168 @@
+{
+  "scope": "full",
+  "batchIndex": 75,
+  "startedAt": "2026-05-28T04:11:04.711Z",
+  "completedAt": "2026-05-28T04:11:35.503Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "itemIds": [
+    "1795",
+    "1796",
+    "1797",
+    "1798",
+    "1799",
+    "1800",
+    "1801",
+    "1802",
+    "1803",
+    "1804"
+  ],
+  "usage": {
+    "prompt_tokens": 2743,
+    "completion_tokens": 2172,
+    "total_tokens": 4915,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1059
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2359
+  },
+  "finishReason": "stop",
+  "jsonModeFallback": false,
+  "result": {
+    "items": [
+      {
+        "questionId": "1795",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "19",
+        "independentAnswer": "19",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Expression evaluates to 19; answer key matches.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "1796",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "\\( \\frac{25}{6} \\)",
+        "independentAnswer": "25/6",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Expression evaluates to 25/6; answer key matches.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "1797",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "48",
+        "independentAnswer": "48",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Expression evaluates to 48; answer key matches.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "1798",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "50",
+        "independentAnswer": "50",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Expression evaluates to 50; answer key matches.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "1799",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "\\( (0.75 - 0.25) \\div 0.5 = 1 \\)",
+        "independentAnswer": "1",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Expression evaluates to 1; answer key conveys 1.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "1800",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "6",
+        "independentAnswer": "6",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Expression evaluates to 6; answer key matches.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "1801",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "0.925",
+        "independentAnswer": "0.925",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Expression evaluates to 0.925; answer key matches.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "1802",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "1.32",
+        "independentAnswer": "1.32",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Expression evaluates to 1.32; answer key matches.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "1803",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "\\( \\frac{32}{15} \\)",
+        "independentAnswer": "32/15",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Expression evaluates to 32/15; answer key matches.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "1804",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "\\( (0.4 + 0.6) \\times 2 = 2 \\)",
+        "independentAnswer": "2",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Expression evaluates to 2; answer key conveys 2.",
+        "recommendedAction": "No blocking action."
+      }
+    ],
+    "batchSummary": {
+      "pass": 10,
+      "unsolvable": 0,
+      "ambiguous": 0,
+      "imageContextRequired": 0,
+      "answerMismatch": 0,
+      "missingAnswerKey": 0,
+      "notes": "All 10 FRQ items are solvable from text and have correct answer keys."
+    }
+  }
+}

@@ -1,0 +1,382 @@
+{
+  "batchId": "batch-103",
+  "generationMode": "batch-fallback",
+  "fallbackReason": "fill-missing-local",
+  "questions": [
+    {
+      "id": "hjb-high-ds-v2-s6-021",
+      "grade": "S6",
+      "topicId": "hjb-high-s6-导数及其运用",
+      "topicTitleZhHans": "导数及其运用",
+      "volume": "选择性必修 第二册",
+      "chapter": "导数及其运用",
+      "conceptIds": [
+        "derivatives",
+        "tangent-line",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-selective-2-derivatives"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-2-derivatives-unit-challenge",
+        "hjb-high-selective-2-derivatives-midterm-bridge",
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式1021：解答：函数 f(x)=3x²+9，求 f'(4)。",
+      "optionsZhHans": [],
+      "answer": "24",
+      "acceptedAnswers": [
+        "24"
+      ],
+      "explanationZhHans": "f'(x)=6x，代入 x=4 得 6×4=24。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-022",
+      "grade": "S6",
+      "topicId": "hjb-high-s6-导数及其运用",
+      "topicTitleZhHans": "导数及其运用",
+      "volume": "选择性必修 第二册",
+      "chapter": "导数及其运用",
+      "conceptIds": [
+        "derivatives",
+        "tangent-line",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-selective-2-derivatives"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-2-derivatives-unit-challenge",
+        "hjb-high-selective-2-derivatives-midterm-bridge",
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式1022：选择：函数 f(x)=8x²+9，求 f'(9)。",
+      "optionsZhHans": [
+        "152",
+        "136",
+        "144",
+        "160"
+      ],
+      "answer": "144",
+      "acceptedAnswers": [
+        "144"
+      ],
+      "explanationZhHans": "f'(x)=16x，代入 x=9 得 16×9=144。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-023",
+      "grade": "S6",
+      "topicId": "hjb-high-s6-导数及其运用",
+      "topicTitleZhHans": "导数及其运用",
+      "volume": "选择性必修 第二册",
+      "chapter": "导数及其运用",
+      "conceptIds": [
+        "derivatives",
+        "tangent-line",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-selective-2-derivatives"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-2-derivatives-unit-challenge",
+        "hjb-high-selective-2-derivatives-midterm-bridge",
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式1023：填空：函数 f(x)=11x²+6，求 f'(6)。",
+      "optionsZhHans": [],
+      "answer": "132",
+      "acceptedAnswers": [
+        "132"
+      ],
+      "explanationZhHans": "f'(x)=22x，代入 x=6 得 22×6=132。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-024",
+      "grade": "S6",
+      "topicId": "hjb-high-s6-导数及其运用",
+      "topicTitleZhHans": "导数及其运用",
+      "volume": "选择性必修 第二册",
+      "chapter": "导数及其运用",
+      "conceptIds": [
+        "derivatives",
+        "tangent-line",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-selective-2-derivatives"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-2-derivatives-unit-challenge",
+        "hjb-high-selective-2-derivatives-midterm-bridge",
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式1024：解答：函数 f(x)=10x²+13，求 f'(15)。",
+      "optionsZhHans": [],
+      "answer": "300",
+      "acceptedAnswers": [
+        "300"
+      ],
+      "explanationZhHans": "f'(x)=20x，代入 x=15 得 20×15=300。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-025",
+      "grade": "S6",
+      "topicId": "hjb-high-s6-导数及其运用",
+      "topicTitleZhHans": "导数及其运用",
+      "volume": "选择性必修 第二册",
+      "chapter": "导数及其运用",
+      "conceptIds": [
+        "derivatives",
+        "tangent-line",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-selective-2-derivatives"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-2-derivatives-unit-challenge",
+        "hjb-high-selective-2-derivatives-midterm-bridge",
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式1025：选择：函数 f(x)=3x²+13，求 f'(18)。",
+      "optionsZhHans": [
+        "111",
+        "105",
+        "114",
+        "108"
+      ],
+      "answer": "108",
+      "acceptedAnswers": [
+        "108"
+      ],
+      "explanationZhHans": "f'(x)=6x，代入 x=18 得 6×18=108。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-026",
+      "grade": "S6",
+      "topicId": "hjb-high-s6-导数及其运用",
+      "topicTitleZhHans": "导数及其运用",
+      "volume": "选择性必修 第二册",
+      "chapter": "导数及其运用",
+      "conceptIds": [
+        "derivatives",
+        "tangent-line",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-selective-2-derivatives"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-2-derivatives-unit-challenge",
+        "hjb-high-selective-2-derivatives-midterm-bridge",
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式1026：填空：函数 f(x)=7x²+10，求 f'(13)。",
+      "optionsZhHans": [],
+      "answer": "182",
+      "acceptedAnswers": [
+        "182"
+      ],
+      "explanationZhHans": "f'(x)=14x，代入 x=13 得 14×13=182。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-027",
+      "grade": "S6",
+      "topicId": "hjb-high-s6-导数及其运用",
+      "topicTitleZhHans": "导数及其运用",
+      "volume": "选择性必修 第二册",
+      "chapter": "导数及其运用",
+      "conceptIds": [
+        "derivatives",
+        "tangent-line",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-selective-2-derivatives"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-2-derivatives-unit-challenge",
+        "hjb-high-selective-2-derivatives-midterm-bridge",
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式1027：解答：函数 f(x)=11x²+13，求 f'(14)。",
+      "optionsZhHans": [],
+      "answer": "308",
+      "acceptedAnswers": [
+        "308"
+      ],
+      "explanationZhHans": "f'(x)=22x，代入 x=14 得 22×14=308。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-028",
+      "grade": "S6",
+      "topicId": "hjb-high-s6-导数及其运用",
+      "topicTitleZhHans": "导数及其运用",
+      "volume": "选择性必修 第二册",
+      "chapter": "导数及其运用",
+      "conceptIds": [
+        "derivatives",
+        "tangent-line",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-selective-2-derivatives"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-2-derivatives-unit-challenge",
+        "hjb-high-selective-2-derivatives-midterm-bridge",
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式1028：选择：函数 f(x)=9x²+2，求 f'(7)。",
+      "optionsZhHans": [
+        "126",
+        "135",
+        "117",
+        "144"
+      ],
+      "answer": "126",
+      "acceptedAnswers": [
+        "126"
+      ],
+      "explanationZhHans": "f'(x)=18x，代入 x=7 得 18×7=126。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-029",
+      "grade": "S6",
+      "topicId": "hjb-high-s6-导数及其运用",
+      "topicTitleZhHans": "导数及其运用",
+      "volume": "选择性必修 第二册",
+      "chapter": "导数及其运用",
+      "conceptIds": [
+        "derivatives",
+        "tangent-line",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-selective-2-derivatives"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-2-derivatives-unit-challenge",
+        "hjb-high-selective-2-derivatives-midterm-bridge",
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式1029：填空：函数 f(x)=7x²+9，求 f'(15)。",
+      "optionsZhHans": [],
+      "answer": "210",
+      "acceptedAnswers": [
+        "210"
+      ],
+      "explanationZhHans": "f'(x)=14x，代入 x=15 得 14×15=210。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-030",
+      "grade": "S6",
+      "topicId": "hjb-high-s6-导数及其运用",
+      "topicTitleZhHans": "导数及其运用",
+      "volume": "选择性必修 第二册",
+      "chapter": "导数及其运用",
+      "conceptIds": [
+        "derivatives",
+        "tangent-line",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-selective-2-derivatives"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-2-derivatives-unit-challenge",
+        "hjb-high-selective-2-derivatives-midterm-bridge",
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式1030：解答：函数 f(x)=4x²+11，求 f'(15)。",
+      "optionsZhHans": [],
+      "answer": "120",
+      "acceptedAnswers": [
+        "120"
+      ],
+      "explanationZhHans": "f'(x)=8x，代入 x=15 得 8×15=120。"
+    }
+  ]
+}

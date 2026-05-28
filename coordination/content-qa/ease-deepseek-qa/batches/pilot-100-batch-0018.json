@@ -1,0 +1,103 @@
+{
+  "scope": "pilot-100",
+  "batchIndex": 18,
+  "startedAt": "2026-05-28T03:20:33.217Z",
+  "completedAt": "2026-05-28T03:21:20.554Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "itemIds": [
+    "100000120",
+    "100000173",
+    "2501",
+    "182",
+    "563"
+  ],
+  "usage": {
+    "prompt_tokens": 2136,
+    "completion_tokens": 2899,
+    "total_tokens": 5035,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 2208
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1752
+  },
+  "finishReason": "stop",
+  "jsonModeFallback": false,
+  "result": {
+    "items": [
+      {
+        "questionId": "100000120",
+        "questionType": "BFQ",
+        "hasImage": true,
+        "standardAnswer": "中線",
+        "independentAnswer": null,
+        "solvabilityStatus": "image-context-required",
+        "answerMatchStatus": "not-checkable",
+        "severity": "P1",
+        "reason": "題目要求判斷三角形的特殊線，但未提供圖像或文字描述，無法求解。",
+        "recommendedAction": "提供圖像描述或替代文本。"
+      },
+      {
+        "questionId": "100000173",
+        "questionType": "BFQ",
+        "hasImage": false,
+        "standardAnswer": "144",
+        "independentAnswer": "144",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "可從文字直接求解，答案正確。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "2501",
+        "questionType": "FRQ",
+        "hasImage": true,
+        "standardAnswer": "P = -50, Q = +60, R = -90",
+        "independentAnswer": null,
+        "solvabilityStatus": "image-context-required",
+        "answerMatchStatus": "not-checkable",
+        "severity": "P1",
+        "reason": "題目要求從數線讀取P, Q, R的值，但未提供數線圖像或數學描述。",
+        "recommendedAction": "提供數線數值或圖像描述。"
+      },
+      {
+        "questionId": "182",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "91的因數：1, 7, 13, 91∵ 91有多於兩個因數。\n\t∴ 91是一個合成數。",
+        "independentAnswer": "因數：1, 7, 13, 91；91是合成數",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "可從文字直接求解，答案正確。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "563",
+        "questionType": "MCQ",
+        "hasImage": true,
+        "standardAnswer": "C",
+        "independentAnswer": "C",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "文字敘述已提供足夠資訊推出等差數列，答案正確。",
+        "recommendedAction": "No blocking action."
+      }
+    ],
+    "batchSummary": {
+      "pass": 3,
+      "unsolvable": 0,
+      "ambiguous": 0,
+      "imageContextRequired": 2,
+      "answerMismatch": 0,
+      "missingAnswerKey": 0,
+      "notes": "3 items fully pass; 2 items require image context and could not be verified."
+    }
+  }
+}

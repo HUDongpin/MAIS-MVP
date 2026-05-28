@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0166",
+  "ids": [
+    "hjb-junior-ds-v2-s3-321",
+    "hjb-junior-ds-v2-s3-322",
+    "hjb-junior-ds-v2-s3-323",
+    "hjb-junior-ds-v2-s3-324",
+    "hjb-junior-ds-v2-s3-325",
+    "hjb-junior-ds-v2-s3-326",
+    "hjb-junior-ds-v2-s3-327",
+    "hjb-junior-ds-v2-s3-328"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-321",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "圆心坐标为(3,2)。理由：由A(1,2)、B(5,2)得AB中垂线为x=3；由A(1,2)、C(3,6)得AC中垂线为y-4=(1/2)(x-2)，与x=3联立得y=2，故圆心(3,2)。",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-322",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "圆心O到直线l的距离小于5 cm。因为直线与圆有两个公共点等价于圆心到直线的距离小于半径。OP=5 cm只说明点P在圆上，但直线l不一定经过P，其他选项不一定成立。",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-323",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2 cm。连接OA，OA=5 cm，C为AB中点，OC⊥AB，AC=4 cm，由勾股定理得OC=3 cm，CD=OD-OC=5-3=2 cm。",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-324",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案中关于直线AC与圆O的位置关系的理由不严谨。点C在圆上，直线AC经过圆上一点A和圆内一点（例如弦AB上的点），但弦AB上的点不一定在直线AC上，除非点C与A、B共线，但C是优弧上一点，不与A、B重合，直线AC不一定经过弦AB上的点。实际上，直线AC经过圆上两点A和C，因此与圆相交，有两个公共点。标准答案的理由有误，解析中也未给出正确理由。",
+      "independentAnswerZhHans": "OD=3 cm；直线AC与圆O相交，因为点A和点C都在圆上，所以直线AC与圆有两个公共点，即相交。",
+      "answerCheckZhHans": "标准答案中OD=3 cm正确，但直线AC与圆的位置关系的理由错误。",
+      "recommendedActionZhHans": "修正标准答案中关于直线AC与圆相交的理由，改为：因为点A和点C都在圆上，所以直线AC与圆有两个公共点，即相交。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-325",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "8 cm。连接OP，则OP⊥AB，OA=5 cm，OP=3 cm，由勾股定理得AP=4 cm，AB=2AP=8 cm。",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-326",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3 cm。作OC⊥AB于C，则AC=4 cm，OA=5 cm，由勾股定理得OC=3 cm。",
+      "answerCheckZhHans": "标准答案正确，解析一致。acceptedAnswers覆盖了“3 cm”和“3cm”。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-327",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "8 cm。连接OT，则OT⊥PT，OT=6 cm，OP=10 cm，由勾股定理得PT=8 cm。",
+      "answerCheckZhHans": "标准答案正确，解析一致。acceptedAnswers覆盖了“8 cm”和“8cm”。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-328",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "d>11。两圆外离时，圆心距大于半径之和，即d>4+7=11。",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

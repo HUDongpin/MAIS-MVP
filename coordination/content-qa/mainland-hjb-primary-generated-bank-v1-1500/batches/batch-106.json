@@ -1,0 +1,290 @@
+{
+  "batchId": "batch-106",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p3-026",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-multiplication-division-extension",
+      "unitTitle": "乘与除",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "multiplication-division-extension",
+        "multiplicative-comparison",
+        "division-with-remainder",
+        "乘与除"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "乘法含义",
+        "除法含义",
+        "有余数除法",
+        "倍的理解",
+        "算式表达"
+      ],
+      "misconceptionTags": [
+        "remainder treated as another full group",
+        "times language read as addition keyword only",
+        "divisor and quotient roles reversed"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-multiplication-division-extension"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-one-digit-division",
+        "hjb-primary-p3-upper-assessment-review-operations"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把35支铅笔平均分给4个小朋友，每个小朋友分到______支，还剩______支。",
+      "optionsZhHans": [],
+      "answer": "8,3",
+      "acceptedAnswers": [
+        "8,3",
+        "8支,3支",
+        "8 3"
+      ],
+      "explanationZhHans": "35÷4=8（支）……3（支），商8是每人分到的支数，余数3是剩下的支数。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-027",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-multiplication-division-extension",
+      "unitTitle": "乘与除",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "multiplication-division-extension",
+        "multiplicative-comparison",
+        "division-with-remainder",
+        "乘与除"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "乘法含义",
+        "除法含义",
+        "有余数除法",
+        "倍的理解",
+        "算式表达"
+      ],
+      "misconceptionTags": [
+        "remainder treated as another full group",
+        "times language read as addition keyword only",
+        "divisor and quotient roles reversed"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-multiplication-division-extension"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-one-digit-division",
+        "hjb-primary-p3-upper-assessment-review-operations"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一盒巧克力有6颗。妈妈买了若干盒，分给小朋友们后还剩2颗。已知分掉的巧克力颗数是28颗，妈妈一共买了多少颗巧克力？请写出算式和答案。",
+      "optionsZhHans": [],
+      "answer": "30颗",
+      "acceptedAnswers": [
+        "30颗",
+        "30",
+        "6×5=30（颗）",
+        "28+2=30（颗）"
+      ],
+      "explanationZhHans": "分掉28颗，还剩2颗，总颗数=28+2=30（颗）。盒数不是必须求的，但可验证：30÷6=5（盒），正好。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-028",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-multiplication-division-extension",
+      "unitTitle": "乘与除",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "multiplication-division-extension",
+        "multiplicative-comparison",
+        "division-with-remainder",
+        "乘与除"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "乘法含义",
+        "除法含义",
+        "有余数除法",
+        "倍的理解",
+        "算式表达"
+      ],
+      "misconceptionTags": [
+        "remainder treated as another full group",
+        "times language read as addition keyword only",
+        "divisor and quotient roles reversed"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-multiplication-division-extension"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-one-digit-division",
+        "hjb-primary-p3-upper-assessment-review-operations"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校买来一些跳绳，每班分4根，可以分给几个班？下面哪个信息是解决问题必需的？",
+      "optionsZhHans": [
+        "A. 每根跳绳长2米",
+        "B. 跳绳的总根数是32根",
+        "C. 每个班有40人",
+        "D. 跳绳有红、蓝两种颜色"
+      ],
+      "answer": "B. 跳绳的总根数是32根",
+      "acceptedAnswers": [
+        "B. 跳绳的总根数是32根"
+      ],
+      "explanationZhHans": "求班数需要总根数和每班根数，已知每班4根，所以必须知道总根数。其他信息与分班无关。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-029",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-multiplication-division-extension",
+      "unitTitle": "乘与除",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "multiplication-division-extension",
+        "multiplicative-comparison",
+        "division-with-remainder",
+        "乘与除"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "乘法含义",
+        "除法含义",
+        "有余数除法",
+        "倍的理解",
+        "算式表达"
+      ],
+      "misconceptionTags": [
+        "remainder treated as another full group",
+        "times language read as addition keyword only",
+        "divisor and quotient roles reversed"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-multiplication-division-extension"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-one-digit-division",
+        "hjb-primary-p3-upper-assessment-review-operations"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "看图填空：每行有6个点子，有这样的4行。要求一共有多少个点子，就是求______个______是多少，用______法计算，算式是______。",
+      "optionsZhHans": [],
+      "answer": "4,6,乘,6×4=24",
+      "acceptedAnswers": [
+        "4,6,乘,6×4=24",
+        "4,6,乘法,6×4=24",
+        "4,6,乘,4×6=24",
+        "4,6,乘法,4×6=24"
+      ],
+      "explanationZhHans": "每行6个，有4行，求总数就是求4个6的和，用乘法，6×4=24或4×6=24。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-030",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-multiplication-division-extension",
+      "unitTitle": "乘与除",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "multiplication-division-extension",
+        "multiplicative-comparison",
+        "division-with-remainder",
+        "乘与除"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "乘法含义",
+        "除法含义",
+        "有余数除法",
+        "倍的理解",
+        "算式表达"
+      ],
+      "misconceptionTags": [
+        "remainder treated as another full group",
+        "times language read as addition keyword only",
+        "divisor and quotient roles reversed"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-multiplication-division-extension"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-one-digit-division",
+        "hjb-primary-p3-upper-assessment-review-operations"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明有12张动物贴纸，小红的贴纸张数是小明的3倍。小红有多少张贴纸？请写出算式和答案。",
+      "optionsZhHans": [],
+      "answer": "36张",
+      "acceptedAnswers": [
+        "36张",
+        "36",
+        "12×3=36（张）"
+      ],
+      "explanationZhHans": "求一个数的几倍用乘法，12×3=36（张）。"
+    }
+  ]
+}

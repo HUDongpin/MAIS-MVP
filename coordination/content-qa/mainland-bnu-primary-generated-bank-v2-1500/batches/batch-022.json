@@ -1,0 +1,587 @@
+{
+  "batchId": "batch-022",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p1-211",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-within-100-add-sub-nonregrouping",
+      "unitTitle": "加与减（二）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-100-addition-subtraction",
+        "two-digit-non-regrouping",
+        "place-value-calculation",
+        "100以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "整十数加减",
+        "两位数加一位数",
+        "两位数加整十数",
+        "两位数减一位数",
+        "两位数减整十数"
+      ],
+      "misconceptionTags": [
+        "adding tens as ones",
+        "place-value alignment ignored",
+        "context answer lacks unit meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-within-100-add-sub-nonregrouping"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-100-add-sub",
+        "bnu-primary-p1-lower-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈买了23个苹果，爸爸又买回来40个苹果。下面哪个算式可以算出苹果的总数？",
+      "optionsZhHans": [
+        "23 + 4 = 27",
+        "23 + 40 = 63",
+        "23 - 40 = 17",
+        "23 + 40 = 27"
+      ],
+      "answer": "23 + 40 = 63",
+      "acceptedAnswers": [
+        "23 + 40 = 63"
+      ],
+      "explanationZhHans": "求总数用加法。23加40，先算20+40=60，再算60+3=63，所以23+40=63。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-212",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-within-100-add-sub-nonregrouping",
+      "unitTitle": "加与减（二）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-100-addition-subtraction",
+        "two-digit-non-regrouping",
+        "place-value-calculation",
+        "100以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "整十数加减",
+        "两位数加一位数",
+        "两位数加整十数",
+        "两位数减一位数",
+        "两位数减整十数"
+      ],
+      "misconceptionTags": [
+        "adding tens as ones",
+        "place-value alignment ignored",
+        "context answer lacks unit meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-within-100-add-sub-nonregrouping"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-100-add-sub",
+        "bnu-primary-p1-lower-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在计算“35 + 40”时，可以先算30 + 40 = 70，再算70 + 5 = 75。请你按照这样的方法，先想一想十位上的数怎么算，再写出“28 + 50”的计算过程和结果。",
+      "optionsZhHans": [],
+      "answer": "先算20 + 50 = 70，再算70 + 8 = 78，结果是78。",
+      "acceptedAnswers": [
+        "先算20 + 50 = 70，再算70 + 8 = 78，结果是78。",
+        "先算20+50=70，再算70+8=78，结果是78。",
+        "先算20+50=70，再算70+8=78，结果78",
+        "先算20+50=70，再算70+8=78，得78",
+        "先算20+50=70，再算70+8=78，等于78",
+        "20+50=70，70+8=78，结果是78",
+        "20+50=70，70+8=78，结果78",
+        "20+50=70，70+8=78，得78",
+        "20+50=70，70+8=78，等于78",
+        "先算十位：20+50=70，再算个位：70+8=78，结果是78",
+        "先算十位20+50=70，再算个位70+8=78，结果是78",
+        "先算20+50=70，再加8得78"
+      ],
+      "explanationZhHans": "28可以分成20和8，50是5个十。先算十位上的数：20 + 50 = 70，再算70 + 8 = 78，所以28 + 50 = 78。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-213",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-within-100-add-sub-nonregrouping",
+      "unitTitle": "加与减（二）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-100-addition-subtraction",
+        "two-digit-non-regrouping",
+        "place-value-calculation",
+        "100以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "整十数加减",
+        "两位数加一位数",
+        "两位数加整十数",
+        "两位数减一位数",
+        "两位数减整十数"
+      ],
+      "misconceptionTags": [
+        "adding tens as ones",
+        "place-value alignment ignored",
+        "context answer lacks unit meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-within-100-add-sub-nonregrouping"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-100-add-sub",
+        "bnu-primary-p1-lower-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丽有23本故事书，她又买了5本。现在她一共有多少本故事书？",
+      "optionsZhHans": [
+        "28本",
+        "73本",
+        "27本",
+        "18本"
+      ],
+      "answer": "28本",
+      "acceptedAnswers": [
+        "28本"
+      ],
+      "explanationZhHans": "23加5，先算个位3+5=8，十位2不变，得28本。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-214",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-within-100-add-sub-nonregrouping",
+      "unitTitle": "加与减（二）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-100-addition-subtraction",
+        "two-digit-non-regrouping",
+        "place-value-calculation",
+        "100以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "整十数加减",
+        "两位数加一位数",
+        "两位数加整十数",
+        "两位数减一位数",
+        "两位数减整十数"
+      ],
+      "misconceptionTags": [
+        "adding tens as ones",
+        "place-value alignment ignored",
+        "context answer lacks unit meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-within-100-add-sub-nonregrouping"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-100-add-sub",
+        "bnu-primary-p1-lower-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算 34 + 5 时，先算 4 + 5 = 9，再算 30 + 9 = 39。那么计算 34 + 50 时，应该先算什么？再算什么？结果是多少？",
+      "optionsZhHans": [],
+      "answer": "先算 30 + 50 = 80，再算 80 + 4 = 84，结果是 84",
+      "acceptedAnswers": [
+        "先算 30 + 50 = 80，再算 80 + 4 = 84，结果是 84",
+        "先算30+50=80，再算80+4=84，结果是84",
+        "先算30+50=80，再算80+4=84，结果84",
+        "先算30加50等于80，再算80加4等于84，结果是84"
+      ],
+      "explanationZhHans": "34+50中，50是5个十，所以先算十位：30+50=80，再算个位：80+4=84。注意区分加一位数和加整十数的不同。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-215",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-within-100-add-sub-nonregrouping",
+      "unitTitle": "加与减（二）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-100-addition-subtraction",
+        "two-digit-non-regrouping",
+        "place-value-calculation",
+        "100以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "整十数加减",
+        "两位数加一位数",
+        "两位数加整十数",
+        "两位数减一位数",
+        "两位数减整十数"
+      ],
+      "misconceptionTags": [
+        "adding tens as ones",
+        "place-value alignment ignored",
+        "context answer lacks unit meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-within-100-add-sub-nonregrouping"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-100-add-sub",
+        "bnu-primary-p1-lower-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小乐有36本故事书，小美又送给他20本。小乐现在一共有多少本故事书？",
+      "optionsZhHans": [
+        "56本",
+        "46本",
+        "38本",
+        "16本"
+      ],
+      "answer": "56本",
+      "acceptedAnswers": [
+        "56本"
+      ],
+      "explanationZhHans": "36加20，十位3加2得5，个位6加0得6，合起来是56本。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-216",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-within-100-add-sub-nonregrouping",
+      "unitTitle": "加与减（二）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-100-addition-subtraction",
+        "two-digit-non-regrouping",
+        "place-value-calculation",
+        "100以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "整十数加减",
+        "两位数加一位数",
+        "两位数加整十数",
+        "两位数减一位数",
+        "两位数减整十数"
+      ],
+      "misconceptionTags": [
+        "adding tens as ones",
+        "place-value alignment ignored",
+        "context answer lacks unit meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-within-100-add-sub-nonregrouping"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-100-add-sub",
+        "bnu-primary-p1-lower-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小乐有23本故事书，小美有40本故事书。他们一共有多少本故事书？",
+      "optionsZhHans": [],
+      "answer": "63本",
+      "acceptedAnswers": [
+        "63本",
+        "63"
+      ],
+      "explanationZhHans": "23是2个十和3个一，40是4个十。先算十位：20+40=60，再加个位3，得63本。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-217",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-within-100-add-sub-nonregrouping",
+      "unitTitle": "加与减（二）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-100-addition-subtraction",
+        "two-digit-non-regrouping",
+        "place-value-calculation",
+        "100以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "整十数加减",
+        "两位数加一位数",
+        "两位数加整十数",
+        "两位数减一位数",
+        "两位数减整十数"
+      ],
+      "misconceptionTags": [
+        "adding tens as ones",
+        "place-value alignment ignored",
+        "context answer lacks unit meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-within-100-add-sub-nonregrouping"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-100-add-sub",
+        "bnu-primary-p1-lower-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈买了35个苹果，爸爸又买回来20个苹果。现在一共有多少个苹果？",
+      "optionsZhHans": [
+        "37个",
+        "55个",
+        "15个",
+        "57个"
+      ],
+      "answer": "55个",
+      "acceptedAnswers": [
+        "55个"
+      ],
+      "explanationZhHans": "35是3个十和5个一，20是2个十。十位相加：3个十加2个十得5个十，个位5不变，所以是55个。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-218",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-within-100-add-sub-nonregrouping",
+      "unitTitle": "加与减（二）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-100-addition-subtraction",
+        "two-digit-non-regrouping",
+        "place-value-calculation",
+        "100以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "整十数加减",
+        "两位数加一位数",
+        "两位数加整十数",
+        "两位数减一位数",
+        "两位数减整十数"
+      ],
+      "misconceptionTags": [
+        "adding tens as ones",
+        "place-value alignment ignored",
+        "context answer lacks unit meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-within-100-add-sub-nonregrouping"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-100-add-sub",
+        "bnu-primary-p1-lower-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小乐有36本故事书，小新有20本故事书。小乐比小新多多少本故事书？",
+      "optionsZhHans": [],
+      "answer": "16本",
+      "acceptedAnswers": [
+        "16本",
+        "16"
+      ],
+      "explanationZhHans": "求小乐比小新多多少本，用减法：36－20。先算十位：30－20＝10，再算个位：6－0＝6，合起来是16，所以多16本。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-219",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-within-100-add-sub-nonregrouping",
+      "unitTitle": "加与减（二）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-100-addition-subtraction",
+        "two-digit-non-regrouping",
+        "place-value-calculation",
+        "100以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "整十数加减",
+        "两位数加一位数",
+        "两位数加整十数",
+        "两位数减一位数",
+        "两位数减整十数"
+      ],
+      "misconceptionTags": [
+        "adding tens as ones",
+        "place-value alignment ignored",
+        "context answer lacks unit meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-within-100-add-sub-nonregrouping"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-100-add-sub",
+        "bnu-primary-p1-lower-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明有36张贴纸，他送给小华10张后，又送给小丽6张。小明现在有多少张贴纸？",
+      "optionsZhHans": [
+        "20张",
+        "26张",
+        "30张",
+        "32张"
+      ],
+      "answer": "20张",
+      "acceptedAnswers": [
+        "20张"
+      ],
+      "explanationZhHans": "先算送给小华后：36-10=26张；再算送给小丽后：26-6=20张。注意10是整十数，减10只改变十位；6是一位数，减6改变个位。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-220",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-within-100-add-sub-nonregrouping",
+      "unitTitle": "加与减（二）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-100-addition-subtraction",
+        "two-digit-non-regrouping",
+        "place-value-calculation",
+        "100以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "整十数加减",
+        "两位数加一位数",
+        "两位数加整十数",
+        "两位数减一位数",
+        "两位数减整十数"
+      ],
+      "misconceptionTags": [
+        "adding tens as ones",
+        "place-value alignment ignored",
+        "context answer lacks unit meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-within-100-add-sub-nonregrouping"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-100-add-sub",
+        "bnu-primary-p1-lower-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小乐有23本故事书，又买了5本。现在他一共有多少本故事书？",
+      "optionsZhHans": [],
+      "answer": "28本",
+      "acceptedAnswers": [
+        "28本",
+        "28"
+      ],
+      "explanationZhHans": "23加5，个位3加5得8，十位2不变，所以是28本。"
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-486",
+  "startedAt": "2026-05-28T01:57:16.992Z",
+  "completedAt": "2026-05-28T01:57:21.467Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-486"
+  ],
+  "usage": {
+    "prompt_tokens": 2583,
+    "completion_tokens": 255,
+    "total_tokens": 2838,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2199
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-486",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "160",
+        "correctedAnswer": "160",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，正确通项为a_n=n·2^n，a_5=160。存储答案160正确，但解析中递推计算错误得出192，与答案矛盾，且解析过程存在数学错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目本身可解且答案正确，但解析存在数学错误和矛盾，需修正解析。"
+    }
+  }
+}

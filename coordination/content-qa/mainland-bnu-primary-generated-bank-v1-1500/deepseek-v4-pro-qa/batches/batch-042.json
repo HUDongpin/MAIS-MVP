@@ -1,0 +1,195 @@
+{
+  "batchNumber": 42,
+  "startedAt": "2026-05-27T13:28:11.788Z",
+  "completedAt": "2026-05-27T13:28:30.425Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p3-239",
+    "bnu-primary-ds-v1-p3-240",
+    "bnu-primary-ds-v1-p3-241",
+    "bnu-primary-ds-v1-p3-242",
+    "bnu-primary-ds-v1-p3-243",
+    "bnu-primary-ds-v1-p3-244",
+    "bnu-primary-ds-v1-p3-245",
+    "bnu-primary-ds-v1-p3-246",
+    "bnu-primary-ds-v1-p3-247",
+    "bnu-primary-ds-v1-p3-248",
+    "bnu-primary-ds-v1-p3-249",
+    "bnu-primary-ds-v1-p3-250",
+    "bnu-primary-ds-v1-p4-001",
+    "bnu-primary-ds-v1-p4-002",
+    "bnu-primary-ds-v1-p4-003",
+    "bnu-primary-ds-v1-p4-004",
+    "bnu-primary-ds-v1-p4-005",
+    "bnu-primary-ds-v1-p4-006"
+  ],
+  "usage": {
+    "prompt_tokens": 4470,
+    "completion_tokens": 1377,
+    "total_tokens": 5847,
+    "prompt_tokens_details": {
+      "cached_tokens": 4352
+    },
+    "prompt_cache_hit_tokens": 4352,
+    "prompt_cache_miss_tokens": 118
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p3-239",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，选项合理，答案正确，符合三年级整理复习要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-240",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "除法应用题，答案和解释正确，acceptedAnswers覆盖多种格式。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-241",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "策略选择题，答案正确，解释合理，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-242",
+        "status": "warn",
+        "severity": "minor",
+        "issueTags": [
+          "accepted_answer_gap"
+        ],
+        "correctedAnswer": null,
+        "rationale": "选项D用图表示也能体现关系，且更直观，但答案选B，解释称画图不如表格简洁全面，可能引起争议。建议增加acceptedAnswers或调整选项。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-243",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "错误做法明确，答案正确，解释清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-244",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "旋转现象判断正确，选项区分度好。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-245",
+        "status": "warn",
+        "severity": "minor",
+        "issueTags": [
+          "language_issue"
+        ],
+        "correctedAnswer": null,
+        "rationale": "解释中“312接近260”估算不够严谨，且验算方法本身正确，老师评价“不够好”的理由表述不够清晰，可能引起学生困惑。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-246",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "周长与面积区分题，答案正确，解释清楚。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-247",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分数概念题，错误选项明显，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-248",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "验算方法题，三种方法均正确，答案合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-249",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "统计图选择题，答案符合三年级要求，解释合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-250",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "质量单位判断题，答案正确，解释清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-001",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数的组成题，答案正确，选项设置合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-002",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数位理解题，答案正确，acceptedAnswers覆盖多种表达。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-003",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "组数题，答案正确，解释合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-004",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "读零题，答案正确，解释清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-005",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "近似数题，答案正确，acceptedAnswers覆盖多种分隔符。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-006",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "大小比较题，答案正确，acceptedAnswers合理。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 16,
+      "warn": 2,
+      "fail": 0,
+      "notes": "整体质量良好，个别题目存在解释不够严谨或选项争议，建议微调。"
+    }
+  }
+}

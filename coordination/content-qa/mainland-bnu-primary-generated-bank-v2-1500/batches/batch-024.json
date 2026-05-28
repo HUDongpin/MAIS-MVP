@@ -1,0 +1,566 @@
+{
+  "batchId": "batch-024",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p1-231",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-within-100-add-sub-integrated",
+      "unitTitle": "加与减（三）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-100-add-sub-application",
+        "strategy-choice",
+        "two-step-stories",
+        "100以内综合加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "应用意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "策略选择",
+        "综合应用",
+        "解决问题",
+        "估算检查"
+      ],
+      "misconceptionTags": [
+        "numbers combined without story meaning",
+        "operation direction not checked",
+        "estimate not connected to final answer"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-within-100-add-sub-integrated"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-20-addition",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小乐有36张贴纸，送给小宇一些后，还剩19张。小乐送出了多少张贴纸？下面哪个算式是正确的？",
+      "optionsZhHans": [
+        "36 + 19 = 55",
+        "36 - 19 = 17",
+        "19 + 17 = 36",
+        "36 - 17 = 19"
+      ],
+      "answer": "36 - 19 = 17",
+      "acceptedAnswers": [
+        "36 - 19 = 17"
+      ],
+      "explanationZhHans": "原来有36张，剩下19张，送出的部分要用减法：36 - 19 = 17。选项B的算式正确。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-232",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-within-100-add-sub-integrated",
+      "unitTitle": "加与减（三）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-100-add-sub-application",
+        "strategy-choice",
+        "two-step-stories",
+        "100以内综合加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "应用意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "策略选择",
+        "综合应用",
+        "解决问题",
+        "估算检查"
+      ],
+      "misconceptionTags": [
+        "numbers combined without story meaning",
+        "operation direction not checked",
+        "estimate not connected to final answer"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-within-100-add-sub-integrated"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-20-addition",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "公交车上原来有28人，到站后下去一些人，又上来9人，现在车上有25人。下去了多少人？",
+      "optionsZhHans": [],
+      "answer": "12",
+      "acceptedAnswers": [
+        "12",
+        "12人"
+      ],
+      "explanationZhHans": "先算下去前的人数：25 - 9 = 16，说明下去后剩16人。原来28人，下去28 - 16 = 12人。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-233",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-within-100-add-sub-integrated",
+      "unitTitle": "加与减（三）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-100-add-sub-application",
+        "strategy-choice",
+        "two-step-stories",
+        "100以内综合加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "应用意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "策略选择",
+        "综合应用",
+        "解决问题",
+        "估算检查"
+      ],
+      "misconceptionTags": [
+        "numbers combined without story meaning",
+        "operation direction not checked",
+        "estimate not connected to final answer"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-within-100-add-sub-integrated"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-20-addition",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一（2）班有42人，一（1）班比一（2）班多5人。两个班一共有多少人？正确的计算方法是？",
+      "optionsZhHans": [
+        "42 + 5 = 47",
+        "42 + 5 = 47，47 + 42 = 89",
+        "42 - 5 = 37，37 + 42 = 79",
+        "42 + 42 = 84"
+      ],
+      "answer": "42 + 5 = 47，47 + 42 = 89",
+      "acceptedAnswers": [
+        "42 + 5 = 47，47 + 42 = 89"
+      ],
+      "explanationZhHans": "一（1）班有42 + 5 = 47人，总人数为47 + 42 = 89人。选项B完整写出了两步计算。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-234",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-within-100-add-sub-integrated",
+      "unitTitle": "加与减（三）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-100-add-sub-application",
+        "strategy-choice",
+        "two-step-stories",
+        "100以内综合加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "应用意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "策略选择",
+        "综合应用",
+        "解决问题",
+        "估算检查"
+      ],
+      "misconceptionTags": [
+        "numbers combined without story meaning",
+        "operation direction not checked",
+        "estimate not connected to final answer"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-within-100-add-sub-integrated"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-20-addition",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈买了53个饺子，吃掉一些后还剩28个。吃掉了多少个？",
+      "optionsZhHans": [],
+      "answer": "25",
+      "acceptedAnswers": [
+        "25",
+        "25个"
+      ],
+      "explanationZhHans": "用总数减去剩下的就是吃掉的：53 - 28 = 25（个）。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-235",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-within-100-add-sub-integrated",
+      "unitTitle": "加与减（三）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-100-add-sub-application",
+        "strategy-choice",
+        "two-step-stories",
+        "100以内综合加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "应用意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "策略选择",
+        "综合应用",
+        "解决问题",
+        "估算检查"
+      ],
+      "misconceptionTags": [
+        "numbers combined without story meaning",
+        "operation direction not checked",
+        "estimate not connected to final answer"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-within-100-add-sub-integrated"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-20-addition",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小涛看一本70页的故事书，第一天看了18页，第二天看了25页。还剩多少页没看？下面哪个算式先算两天一共看的页数？",
+      "optionsZhHans": [
+        "70 - 18 - 25",
+        "70 - 18 = 52，52 - 25 = 27",
+        "18 + 25 = 43，70 - 43 = 27",
+        "70 - 25 = 45，45 - 18 = 27"
+      ],
+      "answer": "18 + 25 = 43，70 - 43 = 27",
+      "acceptedAnswers": [
+        "18 + 25 = 43，70 - 43 = 27"
+      ],
+      "explanationZhHans": "先算两天共看的页数：18 + 25 = 43，再用总数减去已看的：70 - 43 = 27。选项C符合要求。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-236",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-math-play-review",
+      "unitTitle": "数学好玩与整理复习",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "p1-lower-review",
+        "math-play",
+        "pattern-reasoning",
+        "下册复习"
+      ],
+      "competencyTags": [
+        "推理意识",
+        "反思整理",
+        "应用意识"
+      ],
+      "skillTags": [
+        "规律发现",
+        "整理知识",
+        "说理检查",
+        "综合应用"
+      ],
+      "misconceptionTags": [
+        "pattern continued from appearance only",
+        "review treated as isolated drills",
+        "explanation skipped after correct answer"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-20-addition",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "按规律填数：2，5，8，11，（ ），17。",
+      "optionsZhHans": [],
+      "answer": "14",
+      "acceptedAnswers": [
+        "14"
+      ],
+      "explanationZhHans": "规律是每次加3：2 + 3 = 5，5 + 3 = 8，8 + 3 = 11，所以11 + 3 = 14，14 + 3 = 17。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-237",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-math-play-review",
+      "unitTitle": "数学好玩与整理复习",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "p1-lower-review",
+        "math-play",
+        "pattern-reasoning",
+        "下册复习"
+      ],
+      "competencyTags": [
+        "推理意识",
+        "反思整理",
+        "应用意识"
+      ],
+      "skillTags": [
+        "规律发现",
+        "整理知识",
+        "说理检查",
+        "综合应用"
+      ],
+      "misconceptionTags": [
+        "pattern continued from appearance only",
+        "review treated as isolated drills",
+        "explanation skipped after correct answer"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-20-addition",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用两个完全一样的三角形拼一拼，下面哪种说法是正确的？",
+      "optionsZhHans": [
+        "一定能拼成正方形",
+        "一定能拼成长方形",
+        "可以拼成平行四边形",
+        "只能拼成三角形"
+      ],
+      "answer": "可以拼成平行四边形",
+      "acceptedAnswers": [
+        "可以拼成平行四边形"
+      ],
+      "explanationZhHans": "两个完全一样的三角形可以拼成平行四边形，但不一定能拼成长方形或正方形，也可以拼成其他图形。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-238",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-math-play-review",
+      "unitTitle": "数学好玩与整理复习",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "p1-lower-review",
+        "math-play",
+        "pattern-reasoning",
+        "下册复习"
+      ],
+      "competencyTags": [
+        "推理意识",
+        "反思整理",
+        "应用意识"
+      ],
+      "skillTags": [
+        "规律发现",
+        "整理知识",
+        "说理检查",
+        "综合应用"
+      ],
+      "misconceptionTags": [
+        "pattern continued from appearance only",
+        "review treated as isolated drills",
+        "explanation skipped after correct answer"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-20-addition",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "从不同方向观察一个圆柱，看到的形状可能是（ ）或（ ）。",
+      "optionsZhHans": [],
+      "answer": "圆，长方形",
+      "acceptedAnswers": [
+        "圆，长方形",
+        "长方形，圆",
+        "圆形，长方形",
+        "长方形，圆形"
+      ],
+      "explanationZhHans": "从上面看圆柱看到圆，从侧面看看到长方形（或正方形）。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-239",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-math-play-review",
+      "unitTitle": "数学好玩与整理复习",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "p1-lower-review",
+        "math-play",
+        "pattern-reasoning",
+        "下册复习"
+      ],
+      "competencyTags": [
+        "推理意识",
+        "反思整理",
+        "应用意识"
+      ],
+      "skillTags": [
+        "规律发现",
+        "整理知识",
+        "说理检查",
+        "综合应用"
+      ],
+      "misconceptionTags": [
+        "pattern continued from appearance only",
+        "review treated as isolated drills",
+        "explanation skipped after correct answer"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-20-addition",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丽在整理数学知识，她发现计算“35 - 8”时，可以先算35 - 5 = 30，再算30 - 3 = 27。这种方法是把8分成了几和几？",
+      "optionsZhHans": [
+        "5和3",
+        "4和4",
+        "6和2",
+        "7和1"
+      ],
+      "answer": "5和3",
+      "acceptedAnswers": [
+        "5和3"
+      ],
+      "explanationZhHans": "把8分成5和3，先减5得整十数30，再减3得27。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-240",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-math-play-review",
+      "unitTitle": "数学好玩与整理复习",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "p1-lower-review",
+        "math-play",
+        "pattern-reasoning",
+        "下册复习"
+      ],
+      "competencyTags": [
+        "推理意识",
+        "反思整理",
+        "应用意识"
+      ],
+      "skillTags": [
+        "规律发现",
+        "整理知识",
+        "说理检查",
+        "综合应用"
+      ],
+      "misconceptionTags": [
+        "pattern continued from appearance only",
+        "review treated as isolated drills",
+        "explanation skipped after correct answer"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-20-addition",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在计数器上拨5颗珠子表示两位数，十位上最多能拨几颗？",
+      "optionsZhHans": [],
+      "answer": "4",
+      "acceptedAnswers": [
+        "4",
+        "4颗"
+      ],
+      "explanationZhHans": "两位数十位不能为0，所以十位至少1颗，剩下4颗可拨在十位，最多4颗。"
+    }
+  ]
+}

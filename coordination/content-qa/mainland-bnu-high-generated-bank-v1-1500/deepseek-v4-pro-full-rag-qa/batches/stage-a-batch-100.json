@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-100",
+  "startedAt": "2026-05-28T01:22:03.615Z",
+  "completedAt": "2026-05-28T01:22:23.684Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-293",
+    "bnu-high-ds-v1-s5-294",
+    "bnu-high-ds-v1-s5-295",
+    "bnu-high-ds-v1-s5-296",
+    "bnu-high-ds-v1-s5-297",
+    "bnu-high-ds-v1-s5-298",
+    "bnu-high-ds-v1-s5-299",
+    "bnu-high-ds-v1-s5-300"
+  ],
+  "usage": {
+    "prompt_tokens": 9923,
+    "completion_tokens": 1256,
+    "total_tokens": 11179,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9539
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-293",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "80",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由二项式定理，通项为C(5,k)*(2x)^(5-k)*(-1)^k，令5-k=3得k=2，系数为C(5,2)*2^3*(-1)^2=10*8=80。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-294",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "150",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "先分组再分配。5本不同书分3人每人至少1本，分组方式有(3,1,1)和(2,2,1)两类。第一类：选3本成一组，其余各1本，分组数C(5,3)=10，分配时3组全排列，共10*6=60；第二类：选1本单独，其余4本均分两组，分组数C(5,1)*C(4,2)/2!=15，分配时3组全排列，共15*6=90。合计150。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-295",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "第4项",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "(1+x)^6展开共7项，二项式系数C(6,k)在k=3时最大，对应第4项。选项D“第3项和第4项”错误，因为只有一项最大。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-296",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "36",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "五位奇数，末位只能1或3。先排末位2种，首位不能为0，剩余4个数字选首位有3种（除去0和末位数字），中间三位全排列3!。共2*3*6=36。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-297",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "1316",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "男生不少于女生，选5人，可能情况：5男0女、4男1女、3男2女。分别计算组合数：C(8,5)=56，C(8,4)*C(6,1)=70*6=420，C(8,3)*C(6,2)=56*15=840。合计56+420+840=1316。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-298",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "-160",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "通项C(6,k)*(2x)^(6-k)*(-1/x)^k = C(6,k)*2^(6-k)*(-1)^k*x^(6-2k)。令6-2k=0得k=3，常数项为C(6,3)*2^3*(-1)^3=20*8*(-1)=-160。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-299",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "第6项，系数为C(7,5)*2^5=21*32=672",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "通项系数绝对值C(7,k)*2^k，比较相邻项比值，当k=5时系数最大，对应第6项，系数为C(7,5)*2^5=672。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-300",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "36",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "4个不同球放入3个不同盒，每盒至少1个，必有1盒2球，其余各1球。先选2球成一组C(4,2)=6，然后3组全排列3!=6，共6*6=36。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，无数学错误、歧义或缺失条件，符合北师大版高中计数原理章节要求。"
+    }
+  }
+}

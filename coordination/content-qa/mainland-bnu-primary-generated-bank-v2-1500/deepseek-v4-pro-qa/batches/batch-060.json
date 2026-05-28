@@ -1,0 +1,191 @@
+{
+  "batchNumber": 60,
+  "startedAt": "2026-05-27T14:12:46.021Z",
+  "completedAt": "2026-05-27T14:13:05.916Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p5-063",
+    "bnu-primary-ds-v2-p5-064",
+    "bnu-primary-ds-v2-p5-065",
+    "bnu-primary-ds-v2-p5-066",
+    "bnu-primary-ds-v2-p5-067",
+    "bnu-primary-ds-v2-p5-068",
+    "bnu-primary-ds-v2-p5-069",
+    "bnu-primary-ds-v2-p5-070",
+    "bnu-primary-ds-v2-p5-071",
+    "bnu-primary-ds-v2-p5-072",
+    "bnu-primary-ds-v2-p5-073",
+    "bnu-primary-ds-v2-p5-074",
+    "bnu-primary-ds-v2-p5-075",
+    "bnu-primary-ds-v2-p5-076",
+    "bnu-primary-ds-v2-p5-077",
+    "bnu-primary-ds-v2-p5-078",
+    "bnu-primary-ds-v2-p5-079",
+    "bnu-primary-ds-v2-p5-080"
+  ],
+  "usage": {
+    "prompt_tokens": 3947,
+    "completion_tokens": 1285,
+    "total_tokens": 5232,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 3691
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p5-063",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，符合分数意义教学要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-064",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项设置合理，唯一正确答案明确，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-065",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "填空设计合理，答案正确，真分数判断准确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-066",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "基础题，答案正确，分数表示规范。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-067",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项唯一正确，干扰项设计合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-068",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，acceptedAnswers覆盖多种表达。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-069",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目简洁，答案正确，符合分数与除法关系。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-070",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项清晰，正确答案唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-071",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "对折问题设计合理，答案正确，分数与整数结合。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-072",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，分数单位概念清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-073",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项设计合理，3/7与其他分数不等，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-074",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "约分逆运算，答案正确，符合挑战难度。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-075",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分数基本性质应用，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-076",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "组合图形面积计算正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-077",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "挖去法求面积，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-078",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "梯形与三角形组合，计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-079",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "两个相同梯形拼合，面积计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-080",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "重叠图形面积计算正确，注意减去重叠部分。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版小学数学要求，数学正确，答案匹配，无歧义或缺失条件，适合相应年级和主题。"
+    }
+  }
+}

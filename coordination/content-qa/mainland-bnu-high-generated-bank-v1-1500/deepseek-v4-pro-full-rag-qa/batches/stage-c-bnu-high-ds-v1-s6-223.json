@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-223",
+  "startedAt": "2026-05-28T01:46:21.553Z",
+  "completedAt": "2026-05-28T01:46:26.239Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-223"
+  ],
+  "usage": {
+    "prompt_tokens": 2162,
+    "completion_tokens": 279,
+    "total_tokens": 2441,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1778
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-223",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "independentAnswer": "C",
+        "correctedAnswer": "A和C均正确，但单选题需唯一答案，题目有缺陷",
+        "issueTags": [
+          "ambiguous_mc",
+          "bad_options",
+          "answer_mismatch"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "由S_n=n^2+2n得a_n=2n+1 (n≥2)，a1=3符合，故C正确。数列是等差数列，公差为2，A也正确。单选题存在两个正确选项，违反唯一性，题目有缺陷。存储答案仅选C不完整。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目存在多个正确选项，单选题唯一性不满足，判定为blocker。"
+    }
+  }
+}

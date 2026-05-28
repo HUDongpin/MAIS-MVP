@@ -1,0 +1,633 @@
+{
+  "batchId": "batch-097",
+  "questions": [
+    {
+      "id": "bnu-junior-ds-v1-s2-461",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-algebraic-fractions-equations",
+      "unitTitle": "分式与分式方程",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "algebraic-fractions",
+        "fraction-domain",
+        "fraction-operations",
+        "fraction-equations",
+        "extraneous-solutions",
+        "分式",
+        "分式方程"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "分式意义",
+        "分式基本性质",
+        "分式运算",
+        "分式方程",
+        "增根检验",
+        "取值限制"
+      ],
+      "misconceptionTags": [
+        "denominator restriction ignored",
+        "terms cancelled instead of factors",
+        "extraneous solution not checked"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-algebraic-fractions-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-algebraic-fractions-unit",
+        "bnu-junior-s2-lower-assessment-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "若分式 (x² - 4) / (x² - x - 6) 的值为0，则x的值为（ ）",
+      "optionsZhHans": [
+        "2",
+        "-2",
+        "2或-2",
+        "3"
+      ],
+      "answer": "-2",
+      "acceptedAnswers": [
+        "-2"
+      ],
+      "explanationZhHans": "分子为零得x=±2；分母(x-3)(x+2)≠0，故x≠3且x≠-2。所以x=2舍去，只有x=-2。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-462",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-algebraic-fractions-equations",
+      "unitTitle": "分式与分式方程",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "algebraic-fractions",
+        "fraction-domain",
+        "fraction-operations",
+        "fraction-equations",
+        "extraneous-solutions",
+        "分式",
+        "分式方程"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "分式意义",
+        "分式基本性质",
+        "分式运算",
+        "分式方程",
+        "增根检验",
+        "取值限制"
+      ],
+      "misconceptionTags": [
+        "denominator restriction ignored",
+        "terms cancelled instead of factors",
+        "extraneous solution not checked"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-algebraic-fractions-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-algebraic-fractions-unit",
+        "bnu-junior-s2-lower-assessment-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "解分式方程：1/(x-2) + 3 = (x-1)/(x-2)。",
+      "optionsZhHans": [],
+      "answer": "无解",
+      "acceptedAnswers": [
+        "无解",
+        "x=2（增根）"
+      ],
+      "explanationZhHans": "两边乘(x-2)得1+3(x-2)=x-1，解得x=2。检验：x=2时分母为零，是增根，故原方程无解。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-463",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-parallelograms",
+      "unitTitle": "平行四边形",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "parallelogram",
+        "quadrilaterals",
+        "parallelogram-properties",
+        "parallelogram-criteria",
+        "triangle-midline",
+        "平行四边形",
+        "三角形中位线"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "几何直观",
+        "空间观念"
+      ],
+      "skillTags": [
+        "平行四边形性质",
+        "平行四边形判定",
+        "三角形中位线",
+        "四边形推理",
+        "证明与计算"
+      ],
+      "misconceptionTags": [
+        "property applied to a quadrilateral before proving its class",
+        "parallel and equal side conditions mixed",
+        "midline relationship direction reversed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-parallelograms"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-parallelograms-unit",
+        "bnu-junior-s2-lower-assessment-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在四边形ABCD中，对角线AC与BD相交于点O。给出下列四组条件：①AB∥CD，AD=BC；②AB=CD，AD=BC；③AO=OC，BO=OD；④AB∥CD，∠A=∠C。其中能判定四边形ABCD是平行四边形的条件共有（ ）",
+      "optionsZhHans": [
+        "1组",
+        "2组",
+        "3组",
+        "4组"
+      ],
+      "answer": "2组",
+      "acceptedAnswers": [
+        "2组"
+      ],
+      "explanationZhHans": "①反例：等腰梯形；②两组对边相等，是平行四边形；③对角线互相平分，是平行四边形；④可证AD∥BC，是平行四边形。故②③④正确，共3组。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-464",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-parallelograms",
+      "unitTitle": "平行四边形",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "parallelogram",
+        "quadrilaterals",
+        "parallelogram-properties",
+        "parallelogram-criteria",
+        "triangle-midline",
+        "平行四边形",
+        "三角形中位线"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "几何直观",
+        "空间观念"
+      ],
+      "skillTags": [
+        "平行四边形性质",
+        "平行四边形判定",
+        "三角形中位线",
+        "四边形推理",
+        "证明与计算"
+      ],
+      "misconceptionTags": [
+        "property applied to a quadrilateral before proving its class",
+        "parallel and equal side conditions mixed",
+        "midline relationship direction reversed"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-parallelograms"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-parallelograms-unit",
+        "bnu-junior-s2-lower-assessment-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平行四边形ABCD中，∠A的平分线交BC于点E，交DC的延长线于点F。若AB=8，AD=5，求CE的长。",
+      "optionsZhHans": [],
+      "answer": "3",
+      "acceptedAnswers": [
+        "3"
+      ],
+      "explanationZhHans": "由平行四边形性质，AD=BC=5，AB=CD=8。AE平分∠A，得∠BAE=∠DAE。AD∥BC，∠DAE=∠AEB，故∠BAE=∠AEB，BE=AB=8。CE=BE-BC=8-5=3。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-465",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-parallelograms",
+      "unitTitle": "平行四边形",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "parallelogram",
+        "quadrilaterals",
+        "parallelogram-properties",
+        "parallelogram-criteria",
+        "triangle-midline",
+        "平行四边形",
+        "三角形中位线"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "几何直观",
+        "空间观念"
+      ],
+      "skillTags": [
+        "平行四边形性质",
+        "平行四边形判定",
+        "三角形中位线",
+        "四边形推理",
+        "证明与计算"
+      ],
+      "misconceptionTags": [
+        "property applied to a quadrilateral before proving its class",
+        "parallel and equal side conditions mixed",
+        "midline relationship direction reversed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-parallelograms"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-parallelograms-unit",
+        "bnu-junior-s2-lower-assessment-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知四边形ABCD，对角线AC与BD交于点O。从下列条件中任选两个，能推出四边形ABCD是平行四边形的是（ ）①AB∥CD；②AD∥BC；③AB=CD；④∠BAD=∠BCD。",
+      "optionsZhHans": [
+        "①与③",
+        "①与④",
+        "②与③",
+        "③与④"
+      ],
+      "answer": "①与③",
+      "acceptedAnswers": [
+        "①与③"
+      ],
+      "explanationZhHans": "①与③：一组对边平行且相等，可判定平行四边形。①与④：不能判定；②与③：不能判定；③与④：不能判定。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-466",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-parallelograms",
+      "unitTitle": "平行四边形",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "parallelogram",
+        "quadrilaterals",
+        "parallelogram-properties",
+        "parallelogram-criteria",
+        "triangle-midline",
+        "平行四边形",
+        "三角形中位线"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "几何直观",
+        "空间观念"
+      ],
+      "skillTags": [
+        "平行四边形性质",
+        "平行四边形判定",
+        "三角形中位线",
+        "四边形推理",
+        "证明与计算"
+      ],
+      "misconceptionTags": [
+        "property applied to a quadrilateral before proving its class",
+        "parallel and equal side conditions mixed",
+        "midline relationship direction reversed"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-parallelograms"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-parallelograms-unit",
+        "bnu-junior-s2-lower-assessment-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在△ABC中，D、E分别是AB、AC的中点，F是BC延长线上一点，且CF=1/2 BC，连接DF、EF。若AB=10，BC=12，AC=8，求四边形DCFE的周长。",
+      "optionsZhHans": [],
+      "answer": "24",
+      "acceptedAnswers": [
+        "24"
+      ],
+      "explanationZhHans": "DE是△ABC中位线，DE=1/2 BC=6。D、E为中点，BD=5，CE=4。CF=1/2 BC=6，DF=BD=5，EF=CE=4。周长=DE+CF+DF+EF=6+6+5+4=21。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-467",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-parallelograms",
+      "unitTitle": "平行四边形",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "parallelogram",
+        "quadrilaterals",
+        "parallelogram-properties",
+        "parallelogram-criteria",
+        "triangle-midline",
+        "平行四边形",
+        "三角形中位线"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "几何直观",
+        "空间观念"
+      ],
+      "skillTags": [
+        "平行四边形性质",
+        "平行四边形判定",
+        "三角形中位线",
+        "四边形推理",
+        "证明与计算"
+      ],
+      "misconceptionTags": [
+        "property applied to a quadrilateral before proving its class",
+        "parallel and equal side conditions mixed",
+        "midline relationship direction reversed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-parallelograms"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-parallelograms-unit",
+        "bnu-junior-s2-lower-assessment-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平行四边形ABCD中，对角线AC与BD相交于点O，过点O的直线分别交AD、BC于点E、F。则图中全等三角形的对数是（ ）",
+      "optionsZhHans": [
+        "3对",
+        "4对",
+        "5对",
+        "6对"
+      ],
+      "answer": "6对",
+      "acceptedAnswers": [
+        "6对"
+      ],
+      "explanationZhHans": "由平行四边形对角线互相平分，OA=OC，OB=OD。可证△AOE≌△COF，△DOE≌△BOF，△AOB≌△COD，△AOD≌△COB，△ABD≌△CDB，△ABC≌△CDA，共6对。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-468",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-parallelograms",
+      "unitTitle": "平行四边形",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "parallelogram",
+        "quadrilaterals",
+        "parallelogram-properties",
+        "parallelogram-criteria",
+        "triangle-midline",
+        "平行四边形",
+        "三角形中位线"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "几何直观",
+        "空间观念"
+      ],
+      "skillTags": [
+        "平行四边形性质",
+        "平行四边形判定",
+        "三角形中位线",
+        "四边形推理",
+        "证明与计算"
+      ],
+      "misconceptionTags": [
+        "property applied to a quadrilateral before proving its class",
+        "parallel and equal side conditions mixed",
+        "midline relationship direction reversed"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-parallelograms"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-parallelograms-unit",
+        "bnu-junior-s2-lower-assessment-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在四边形ABCD中，AD∥BC，∠B=90°，AD=24 cm，BC=26 cm，动点P从A出发沿AD向D以1 cm/s的速度运动，动点Q从C出发沿CB向B以3 cm/s的速度运动。P、Q同时出发，当其中一点到达端点时另一点停止。设运动时间为t秒，t为何值时，四边形PQCD为平行四边形？",
+      "optionsZhHans": [],
+      "answer": "6",
+      "acceptedAnswers": [
+        "6"
+      ],
+      "explanationZhHans": "AD∥BC，当PD=CQ时PQCD为平行四边形。PD=24-t，CQ=3t。由24-t=3t得t=6。此时P在AD上，Q在CB上，符合条件。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-469",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-parallelograms",
+      "unitTitle": "平行四边形",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "parallelogram",
+        "quadrilaterals",
+        "parallelogram-properties",
+        "parallelogram-criteria",
+        "triangle-midline",
+        "平行四边形",
+        "三角形中位线"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "几何直观",
+        "空间观念"
+      ],
+      "skillTags": [
+        "平行四边形性质",
+        "平行四边形判定",
+        "三角形中位线",
+        "四边形推理",
+        "证明与计算"
+      ],
+      "misconceptionTags": [
+        "property applied to a quadrilateral before proving its class",
+        "parallel and equal side conditions mixed",
+        "midline relationship direction reversed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-parallelograms"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-parallelograms-unit",
+        "bnu-junior-s2-lower-assessment-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "顺次连接四边形各边中点所得的四边形是菱形，则原四边形一定是（ ）",
+      "optionsZhHans": [
+        "矩形",
+        "对角线相等的四边形",
+        "菱形",
+        "对角线互相垂直的四边形"
+      ],
+      "answer": "对角线相等的四边形",
+      "acceptedAnswers": [
+        "对角线相等的四边形"
+      ],
+      "explanationZhHans": "中点四边形是平行四边形；其为菱形时，邻边相等，即原四边形对角线相等。矩形对角线相等，但原四边形不一定为矩形，只需对角线相等。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-470",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-parallelograms",
+      "unitTitle": "平行四边形",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "parallelogram",
+        "quadrilaterals",
+        "parallelogram-properties",
+        "parallelogram-criteria",
+        "triangle-midline",
+        "平行四边形",
+        "三角形中位线"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "几何直观",
+        "空间观念"
+      ],
+      "skillTags": [
+        "平行四边形性质",
+        "平行四边形判定",
+        "三角形中位线",
+        "四边形推理",
+        "证明与计算"
+      ],
+      "misconceptionTags": [
+        "property applied to a quadrilateral before proving its class",
+        "parallel and equal side conditions mixed",
+        "midline relationship direction reversed"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-parallelograms"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-parallelograms-unit",
+        "bnu-junior-s2-lower-assessment-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在△ABC中，AB=AC，D、E分别是AB、AC的中点，F、G在BC上，且BF=CG。求证：DF=EG。",
+      "optionsZhHans": [],
+      "answer": "证明：连接DE，则DE∥BC且DE=1/2 BC。由AB=AC得∠B=∠C。又BF=CG，BD=CE，故△BDF≌△CEG（SAS），所以DF=EG。",
+      "acceptedAnswers": [
+        "证明：连接DE，则DE∥BC且DE=1/2 BC。由AB=AC得∠B=∠C。又BF=CG，BD=CE，故△BDF≌△CEG（SAS），所以DF=EG。"
+      ],
+      "explanationZhHans": "利用等腰三角形性质和中位线定理，通过全等三角形证明线段相等。"
+    }
+  ]
+}

@@ -1,0 +1,151 @@
+{
+  "batchNumber": 82,
+  "startedAt": "2026-05-27T13:57:35.037Z",
+  "completedAt": "2026-05-27T13:57:56.587Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-149",
+    "bnu-high-ds-v1-s5-150",
+    "bnu-high-ds-v1-s5-151",
+    "bnu-high-ds-v1-s5-152",
+    "bnu-high-ds-v1-s5-153",
+    "bnu-high-ds-v1-s5-154",
+    "bnu-high-ds-v1-s5-155",
+    "bnu-high-ds-v1-s5-156"
+  ],
+  "usage": {
+    "prompt_tokens": 11809,
+    "completion_tokens": 1279,
+    "total_tokens": 13088,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 11297
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-149",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "√3/3",
+        "correctedAnswer": "√3/3",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立求解得线面角正弦为√3/3，但题目答案和解析最终均误写为√6/3，解析自身指出错误却未修正答案，答案与题目不匹配。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-150",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "1/2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件充分，可独立求解得异面直线所成角余弦值为1/2，与答案一致，解析过程正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-151",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "√3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件充分，可独立计算点B到平面α的距离为√3，与答案和选项一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-152",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "√30/10",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件充分，可独立求解得异面直线所成角余弦值为√30/10，与答案一致，解析过程正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-153",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "arccos(-√21/14)",
+        "correctedAnswer": "arccos(-√21/14)",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立计算得cosθ=-√21/14，夹角为arccos(-√21/14)，但题目答案和解析均错误给出arccos(-1/14)，解析中化简过程混乱且结果矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-154",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "5√3/9",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "按题目给定数据计算得线面角正弦为5√3/9，不在选项中，题目不可解；解析承认无匹配选项并试图修改题目数据，但未修正题目本身，答案与题目矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-155",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "2√3/3",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "按题目给定点D(1,1,1)计算得距离为2√3/3，与答案√3/3不符；解析承认错误并建议修改题目，但未修正，题目不可解。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-156",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "1/3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件充分，可独立计算四面体体积为1/3，与答案一致，解析过程正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 4,
+      "warn": 0,
+      "fail": 4,
+      "notes": "8题中4题通过，4题失败。失败题目均存在答案错误或题目不可解问题，其中3题解析自身指出矛盾但未修正，1题答案计算错误。"
+    }
+  }
+}

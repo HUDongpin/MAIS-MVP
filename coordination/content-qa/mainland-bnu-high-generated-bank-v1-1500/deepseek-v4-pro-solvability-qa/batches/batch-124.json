@@ -1,0 +1,137 @@
+{
+  "batchNumber": 124,
+  "startedAt": "2026-05-27T14:04:44.601Z",
+  "completedAt": "2026-05-27T14:05:03.058Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-485",
+    "bnu-high-ds-v1-s5-486",
+    "bnu-high-ds-v1-s5-487",
+    "bnu-high-ds-v1-s5-488",
+    "bnu-high-ds-v1-s5-489",
+    "bnu-high-ds-v1-s5-490",
+    "bnu-high-ds-v1-s5-491",
+    "bnu-high-ds-v1-s5-492"
+  ],
+  "usage": {
+    "prompt_tokens": 11374,
+    "completion_tokens": 1193,
+    "total_tokens": 12567,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10862
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-485",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "b 的符号决定了 x 与 y 相关的方向",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，选项D正确描述了回归系数符号的意义；答案与解析一致，无问题。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-486",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "（1）r ≈ -1.000，高度负相关；（2）y = -2.5x + 75.0；（3）25件",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "数据完全线性，计算正确，答案与解析一致，可解。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-487",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "两个分类变量有关的可能性越大",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "独立性检验基本概念，χ²越大越可能有关，选项B正确，解析合理。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-488",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "（1）r ≈ 0.99；（2）y = 0.80x - 19.60；（3）40.40万件",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "数据计算无误，答案与解析一致，可解。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-489",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "吸烟与患肺癌有关",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "χ²大于临界值，拒绝原假设，结论为有关，选项B正确，解析合理。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-490",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "（1）r = 1.000；（2）y = 5.0x + 20.0；（3）65.0万元",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "数据完全线性，计算正确，答案与解析一致，可解。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-491",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "课外阅读时间与语文成绩之间存在较强的正相关关系",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "相关系数0.82表示较强正相关，选项B正确，解析强调相关非因果，合理。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-492",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "y = 0.60x - 1.00",
+        "correctedAnswer": "y = 0.60x - 1.00",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立计算得b=0.6, a=-1，回归方程为y=0.6x-1；但题目答案和解析中给出的方程是y=0.45x+1.25，与计算不符，且解析中计算过程也得出b=0.6, a=-1，自相矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第492题答案和解析与独立计算结果矛盾，存在数学错误，需修正。其余题目均通过审核。"
+    }
+  }
+}

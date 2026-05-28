@@ -1,0 +1,137 @@
+{
+  "batchNumber": 57,
+  "startedAt": "2026-05-25T03:04:52.300Z",
+  "completedAt": "2026-05-25T03:05:08.312Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s2-k08-sa-006",
+    "pep-junior-v3-s2-k08-sa-007",
+    "pep-junior-v3-s2-k08-sa-008",
+    "pep-junior-v3-s2-k08-sa-009",
+    "pep-junior-v3-s2-k08-sa-010",
+    "pep-junior-v3-s2-k08-sa-011",
+    "pep-junior-v3-s2-k08-sa-012",
+    "pep-junior-v3-s2-k08-sa-013",
+    "pep-junior-v3-s2-k08-sa-014",
+    "pep-junior-v3-s2-k08-sa-015",
+    "pep-junior-v3-s2-k08-sa-016",
+    "pep-junior-v3-s2-k08-sa-017"
+  ],
+  "usage": {
+    "prompt_tokens": 3105,
+    "completion_tokens": 988,
+    "total_tokens": 4093,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 2849
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s2-k08-sa-006",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，平行四边形对角相等，答案70°无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-sa-007",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "勾股定理逆定理应用正确，6-8-10是直角三角形，答案“是”合理。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-sa-008",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "矩形对角线计算正确，勾股定理得10 cm，答案无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-sa-009",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "二次根式化简正确，√27-√12=√3，答案无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-sa-010",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "菱形对角线垂直平分，边长计算正确，5 cm无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-sa-011",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "三角形三边满足勾股定理，面积计算正确，30无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-sa-012",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平方比较法正确，2√3<3√2，答案无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-sa-013",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "梯子问题勾股定理应用正确，高度4 m无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-sa-014",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平行四边形中利用三角函数和勾股定理求对角线，计算正确，2√13无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-sa-015",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "二次根式化简合并正确，3√3无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-sa-016",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "直角三角形斜边上的高计算正确，60/13无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-sa-017",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "勾股定理计算正确，斜边长为3，答案无误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部12道题均通过审核，数学正确，答案与解析一致，无歧义或缺失条件，适合人教版初中数学。"
+    }
+  }
+}

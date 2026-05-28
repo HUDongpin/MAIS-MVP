@@ -1,0 +1,167 @@
+{
+  "batchId": "batch-009",
+  "attempt": 3,
+  "validationError": "pep-junior-v3-s1-k02-mc-016: forbidden source or diagram-dependent wording detected",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s1-k02-mc-013",
+      "promptZhHans": "某校七年级学生进行“最喜欢的课外活动”调查，从全年级600名学生中随机抽取了120名，结果如下表：\n\n| 活动类型 | 人数 |\n|----------|------|\n| 阅读    | 36   |\n| 运动    | 48   |\n| 艺术    | 24   |\n| 其他    | 12   |\n\n根据样本，估计全年级喜欢运动的学生人数约为多少？",
+      "optionsZhHans": [
+        "A. 200人",
+        "B. 240人",
+        "C. 280人",
+        "D. 300人"
+      ],
+      "answer": "B. 240人",
+      "acceptedAnswers": [
+        "B. 240人",
+        "240人"
+      ],
+      "explanationZhHans": "样本中喜欢运动的比例为48÷120 = 0.4，因此全年级估计人数为600×0.4 = 240人。故答案为B. 240人。"
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-mc-014",
+      "promptZhHans": "已知关于x的方程2(x - a) + 3 = 5x - 1的解是x = 2，求a的值。",
+      "optionsZhHans": [
+        "A. -2",
+        "B. -1",
+        "C. 0",
+        "D. 1"
+      ],
+      "answer": "A. -2",
+      "acceptedAnswers": [
+        "A. -2",
+        "-2"
+      ],
+      "explanationZhHans": "将x=2代入方程：2(2 - a) + 3 = 5×2 - 1，即2(2 - a) + 3 = 9，去括号得4 - 2a + 3 = 9，合并得7 - 2a = 9，移项得-2a = 2，解得a = -1。经检验，a = -1时原方程成立。故答案为A. -2。"
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-mc-015",
+      "promptZhHans": "在三角形ABC中，∠A = 50°，∠B = 60°，则与∠C相邻的外角等于多少度？",
+      "optionsZhHans": [
+        "A. 70°",
+        "B. 110°",
+        "C. 120°",
+        "D. 130°"
+      ],
+      "answer": "B. 110°",
+      "acceptedAnswers": [
+        "B. 110°",
+        "110°"
+      ],
+      "explanationZhHans": "三角形内角和为180°，所以∠C = 180° - 50° - 60° = 70°。与∠C相邻的外角等于180° - ∠C = 110°。故答案为B. 110°。"
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-mc-016",
+      "promptZhHans": "如图，点B、E、C、F在同一直线上，AB = DE，AC = DF，BE = CF。求证：∠A = ∠D。\n\n证明：∵ BE = CF，∴ BE + EC = CF + EC，即BC = EF。\n在△ABC和△DEF中，AB = DE，AC = DF，BC = EF，\n∴ △ABC ≌ △DEF (SSS)，\n∴ ∠A = ∠D。\n\n上述证明过程中，判定三角形全等的依据是（　　）",
+      "optionsZhHans": [
+        "A. SAS",
+        "B. ASA",
+        "C. AAS",
+        "D. SSS"
+      ],
+      "answer": "D. SSS",
+      "acceptedAnswers": [
+        "D. SSS",
+        "SSS"
+      ],
+      "explanationZhHans": "证明中列出了三组边对应相等：AB = DE，AC = DF，BC = EF，因此依据是边边边（SSS）。故答案为D. SSS。"
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-mc-017",
+      "promptZhHans": "等腰三角形的一个底角是50°，则它的顶角是多少度？",
+      "optionsZhHans": [
+        "A. 50°",
+        "B. 65°",
+        "C. 80°",
+        "D. 100°"
+      ],
+      "answer": "C. 80°",
+      "acceptedAnswers": [
+        "C. 80°",
+        "80°"
+      ],
+      "explanationZhHans": "等腰三角形两底角相等，所以另一个底角也是50°。三角形内角和为180°，顶角 = 180° - 50° - 50° = 80°。故答案为C. 80°。"
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-mc-018",
+      "promptZhHans": "化简分式 (x^2 - 4)/(x^2 - 2x)，并求当x = 3时的值。",
+      "optionsZhHans": [
+        "A. 5/3",
+        "B. 3/5",
+        "C. 1",
+        "D. 2"
+      ],
+      "answer": "A. 5/3",
+      "acceptedAnswers": [
+        "A. 5/3",
+        "5/3"
+      ],
+      "explanationZhHans": "分子因式分解：(x+2)(x-2)；分母因式分解：x(x-2)。约去公因式(x-2)得(x+2)/x，其中x≠0且x≠2。当x=3时，原式 = (3+2)/3 = 5/3。故答案为A. 5/3。"
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-mc-019",
+      "promptZhHans": "一元二次方程x^2 - 5x + 6 = 0的两个根分别是x1和x2，则x1 + x2等于多少？",
+      "optionsZhHans": [
+        "A. 5",
+        "B. -5",
+        "C. 6",
+        "D. -6"
+      ],
+      "answer": "A. 5",
+      "acceptedAnswers": [
+        "A. 5",
+        "5"
+      ],
+      "explanationZhHans": "根据根与系数的关系，对于方程x^2 - 5x + 6 = 0，x1 + x2 = -(-5)/1 = 5。故答案为A. 5。"
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-mc-020",
+      "promptZhHans": "二次函数y = x^2 - 4x + 3的顶点坐标是（　　）",
+      "optionsZhHans": [
+        "A. (2, -1)",
+        "B. (-2, -1)",
+        "C. (2, 1)",
+        "D. (-2, 1)"
+      ],
+      "answer": "A. (2, -1)",
+      "acceptedAnswers": [
+        "A. (2, -1)",
+        "(2, -1)"
+      ],
+      "explanationZhHans": "配方：y = x^2 - 4x + 3 = (x - 2)^2 - 1，所以顶点坐标为(2, -1)。故答案为A. (2, -1)。"
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-mc-021",
+      "promptZhHans": "在平面直角坐标系中，将点P(3, -2)绕原点逆时针旋转90°，得到的点Q的坐标是（　　）",
+      "optionsZhHans": [
+        "A. (2, 3)",
+        "B. (-2, 3)",
+        "C. (2, -3)",
+        "D. (-2, -3)"
+      ],
+      "answer": "A. (2, 3)",
+      "acceptedAnswers": [
+        "A. (2, 3)",
+        "(2, 3)"
+      ],
+      "explanationZhHans": "点(x, y)绕原点逆时针旋转90°后坐标为(-y, x)。所以P(3, -2)旋转后为(2, 3)。故答案为A. (2, 3)。"
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-mc-022",
+      "promptZhHans": "反比例函数y = k/x的图象经过点(2, -3)，则k的值为（　　）",
+      "optionsZhHans": [
+        "A. -6",
+        "B. -3/2",
+        "C. 3/2",
+        "D. 6"
+      ],
+      "answer": "A. -6",
+      "acceptedAnswers": [
+        "A. -6",
+        "-6"
+      ],
+      "explanationZhHans": "将点(2, -3)代入y = k/x，得-3 = k/2，解得k = -6。故答案为A. -6。"
+    }
+  ]
+}

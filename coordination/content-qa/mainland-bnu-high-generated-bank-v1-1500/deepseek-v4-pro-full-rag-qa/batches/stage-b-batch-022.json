@@ -1,0 +1,137 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-022",
+  "startedAt": "2026-05-28T01:02:18.225Z",
+  "completedAt": "2026-05-28T01:02:57.254Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-169",
+    "bnu-high-ds-v1-s4-170",
+    "bnu-high-ds-v1-s4-171",
+    "bnu-high-ds-v1-s4-172",
+    "bnu-high-ds-v1-s4-173",
+    "bnu-high-ds-v1-s4-174",
+    "bnu-high-ds-v1-s4-175",
+    "bnu-high-ds-v1-s4-176"
+  ],
+  "usage": {
+    "prompt_tokens": 12569,
+    "completion_tokens": 1071,
+    "total_tokens": 13640,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 12185
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-169",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案6667与独立解一致，解析正确，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-170",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "y=(x-30)(1000+20(50-x))，x∈(30,50]",
+        "issueTags": [
+          "math_error",
+          "missing_condition"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案x∈[30,100]错误，未考虑定价通常不高于原价50元，且x=30时利润为0，实际取值范围应为(30,50]。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-171",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案14.3与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-172",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "correctedAnswer": "第10天的感染人数约为1900",
+        "issueTags": [
+          "math_error",
+          "ambiguous_mc",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案选A错误，独立解为D；解析中A正确但实际A错误，且D被错误否定，导致无正确选项。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-173",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-174",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案4与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-175",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "correctedAnswer": "线性模型中的c值约为0.2",
+        "issueTags": [
+          "math_error",
+          "ambiguous_mc",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案选A错误，独立解为B；解析中A被正确否定但答案仍为A，且B正确但未被选，导致无正确选项。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-176",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 5,
+      "warn": 0,
+      "fail": 3,
+      "notes": "8题中5题通过，3题失败：170题取值范围错误，172题答案与解析矛盾且选项错误，175题答案与解析矛盾且选项错误。"
+    }
+  }
+}

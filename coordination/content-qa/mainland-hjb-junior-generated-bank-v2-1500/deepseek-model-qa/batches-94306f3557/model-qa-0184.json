@@ -1,0 +1,109 @@
+{
+  "batchId": "model-qa-0184",
+  "ids": [
+    "hjb-junior-ds-v2-s3-465",
+    "hjb-junior-ds-v2-s3-466",
+    "hjb-junior-ds-v2-s3-467",
+    "hjb-junior-ds-v2-s3-468",
+    "hjb-junior-ds-v2-s3-469",
+    "hjb-junior-ds-v2-s3-470",
+    "hjb-junior-ds-v2-s3-471",
+    "hjb-junior-ds-v2-s3-472"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-465",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "4.1",
+      "answerCheckZhHans": "标准答案 4.1 与独立计算一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-466",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题干要求反映集中趋势且不受极端值影响，但数据无明显极端值，平均数也可反映集中趋势。中位数虽不受极端值影响，但题干未强调存在极端值，选择中位数的理由不充分。解析称“存在一定范围但无明显极端值”，与选择中位数的理由矛盾。更合适的统计量可能是平均数。",
+      "independentAnswerZhHans": "平均数",
+      "answerCheckZhHans": "标准答案为中位数，但独立判断认为平均数更合适，因为数据无明显极端值，平均数能反映集中趋势。解析自相矛盾。",
+      "recommendedActionZhHans": "修改题干或答案，明确数据存在极端值，或改为选择平均数。",
+      "confidence": "medium"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-467",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "163.5",
+      "answerCheckZhHans": "标准答案 163.5 与独立计算一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-468",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "方差",
+      "answerCheckZhHans": "标准答案 方差 与独立判断一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-469",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "54",
+      "answerCheckZhHans": "标准答案 54 与独立计算一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-470",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "该地区八年级学生视力不良率大约是40%",
+      "answerCheckZhHans": "标准答案与独立判断一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-471",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "160",
+      "answerCheckZhHans": "标准答案 160 与独立计算一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-472",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题干要求反映中间水平，中位数是常用指标。但数据为：70,75,80,80,85,85,85,90,90,95，中位数为85，平均数为83.5，众数为85。中位数和众数均为85，解析称中位数不受极端值影响，但数据中70和95并非极端值，平均数也合理。解析未说明为何中位数比众数更合适，且众数也能反映中间水平。答案可能不唯一。",
+      "independentAnswerZhHans": "中位数或众数",
+      "answerCheckZhHans": "标准答案为中位数，但众数也是85，且解析未排除众数，存在歧义。",
+      "recommendedActionZhHans": "修改题干或选项，使答案唯一，或明确区分中位数与众数的适用场景。",
+      "confidence": "medium"
+    }
+  ]
+}

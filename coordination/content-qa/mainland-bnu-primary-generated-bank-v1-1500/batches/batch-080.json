@@ -1,0 +1,582 @@
+{
+  "batchId": "batch-080",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p4-041",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-multiplication",
+      "unitTitle": "乘法",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "multi-digit-multiplication",
+        "three-digit-by-two-digit",
+        "multiplication-estimation",
+        "乘法",
+        "三位数乘两位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "两位数乘三位数",
+        "竖式乘法",
+        "估算积",
+        "积的变化规律",
+        "乘法应用"
+      ],
+      "misconceptionTags": [
+        "partial products not aligned by place value",
+        "zero placeholder omitted",
+        "estimate not used to check product size"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-multiplication-unit",
+        "bnu-primary-p4-upper-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校要为四年级6个班各购买一套图书，每套图书有128本。先估算大约需要多少本，再列竖式精确计算一共需要多少本。",
+      "optionsZhHans": [],
+      "answer": "估算：128×6≈130×6=780（本）；精确计算：128×6=768（本）",
+      "acceptedAnswers": [
+        "估算：128×6≈130×6=780（本）；精确计算：128×6=768（本）",
+        "估算：128×6≈780（本）；精确计算：128×6=768（本）",
+        "估算：128×6≈780本；精确计算：128×6=768本",
+        "估算：128×6≈130×6=780本；精确计算：128×6=768本"
+      ],
+      "explanationZhHans": "估算时把128看作130，130×6=780；竖式计算128×6，先算6×8=48写8进4，再算6×2=12加进位4得16写6进1，最后算6×1=6加进位1得7，结果是768。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-042",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-multiplication",
+      "unitTitle": "乘法",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "multi-digit-multiplication",
+        "three-digit-by-two-digit",
+        "multiplication-estimation",
+        "乘法",
+        "三位数乘两位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "两位数乘三位数",
+        "竖式乘法",
+        "估算积",
+        "积的变化规律",
+        "乘法应用"
+      ],
+      "misconceptionTags": [
+        "partial products not aligned by place value",
+        "zero placeholder omitted",
+        "estimate not used to check product size"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-multiplication-unit",
+        "bnu-primary-p4-upper-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆新购进一批图书，每包有125本，一共运来24包。先估计大约有多少本，再精确计算一共运来多少本。",
+      "optionsZhHans": [],
+      "answer": "估计：大约3000本；精确计算：3000本",
+      "acceptedAnswers": [
+        "估计：大约3000本；精确计算：3000本",
+        "大约3000本；3000本",
+        "估计3000本，精确3000本"
+      ],
+      "explanationZhHans": "把125看作100，24看作30，100×30=3000，所以大约3000本。精确计算：125×24，先算125×4=500，再算125×20=2500，合起来是3000本。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-043",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-multiplication",
+      "unitTitle": "乘法",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "multi-digit-multiplication",
+        "three-digit-by-two-digit",
+        "multiplication-estimation",
+        "乘法",
+        "三位数乘两位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "两位数乘三位数",
+        "竖式乘法",
+        "估算积",
+        "积的变化规律",
+        "乘法应用"
+      ],
+      "misconceptionTags": [
+        "partial products not aligned by place value",
+        "zero placeholder omitted",
+        "estimate not used to check product size"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-multiplication-unit",
+        "bnu-primary-p4-upper-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校要为24个班各配备一套科学实验器材，每套器材包含128个零件。仓库现有3000个零件，够不够？下面哪位同学的估算方法最合理？",
+      "optionsZhHans": [
+        "小丽：把24看作20，128×20=2560，2560＜3000，所以够。",
+        "小刚：把128看作130，130×24=3120，3120＞3000，所以不够。",
+        "小芳：把24看作30，128×30=3840，3840＞3000，所以不够。",
+        "小强：把128看作100，100×24=2400，2400＜3000，所以够。"
+      ],
+      "answer": "小刚：把128看作130，130×24=3120，3120＞3000，所以不够。",
+      "acceptedAnswers": [
+        "小刚：把128看作130，130×24=3120，3120＞3000，所以不够。"
+      ],
+      "explanationZhHans": "估算时要根据实际情况选择方法。这里要判断3000个零件是否够用，实际需要128×24=3072个。小刚把128往大估为130，130×24=3120，仍大于3000，说明实际需要的更多，肯定不够，这种方法最合理。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-044",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-multiplication",
+      "unitTitle": "乘法",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "multi-digit-multiplication",
+        "three-digit-by-two-digit",
+        "multiplication-estimation",
+        "乘法",
+        "三位数乘两位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "两位数乘三位数",
+        "竖式乘法",
+        "估算积",
+        "积的变化规律",
+        "乘法应用"
+      ],
+      "misconceptionTags": [
+        "partial products not aligned by place value",
+        "zero placeholder omitted",
+        "estimate not used to check product size"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-multiplication-unit",
+        "bnu-primary-p4-upper-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校要为四年级的12个班各配备一套科学实验器材，每套器材包含一个主实验箱和两个配件包。主实验箱每个128元，配件包每个36元。学校一共需要支付多少元？",
+      "optionsZhHans": [],
+      "answer": "2400",
+      "acceptedAnswers": [
+        "2400",
+        "2400元"
+      ],
+      "explanationZhHans": "先求每套器材的总价：128 + 36 × 2 = 128 + 72 = 200（元）。再求12套的总价：200 × 12 = 2400（元）。所以学校一共需要支付2400元。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-045",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-multiplication",
+      "unitTitle": "乘法",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "multi-digit-multiplication",
+        "three-digit-by-two-digit",
+        "multiplication-estimation",
+        "乘法",
+        "三位数乘两位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "两位数乘三位数",
+        "竖式乘法",
+        "估算积",
+        "积的变化规律",
+        "乘法应用"
+      ],
+      "misconceptionTags": [
+        "partial products not aligned by place value",
+        "zero placeholder omitted",
+        "estimate not used to check product size"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-multiplication-unit",
+        "bnu-primary-p4-upper-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆计划购买一批新书，每套书有12本，共购买了245套。图书馆一共购买了多少本书？请先估算积的大致范围，再列竖式计算出精确结果。",
+      "optionsZhHans": [],
+      "answer": "估算：245×12≈245×10=2450，或250×12=3000，积在2450到3000之间。竖式计算：245×12=2940。",
+      "acceptedAnswers": [
+        "估算：245×12≈245×10=2450，或250×12=3000，积在2450到3000之间。竖式计算：245×12=2940。",
+        "估算：245×12≈250×10=2500，或245×10=2450，积在2450到3000之间。竖式计算：245×12=2940。",
+        "估算：245×12≈2450，精确计算：245×12=2940。",
+        "245×12=2940，估算约2450。",
+        "2940，估算2450。"
+      ],
+      "explanationZhHans": "估算时把245看作250或把12看作10，得到近似值2450或3000。竖式计算：245×2=490，245×10=2450，相加得2940。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-046",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-multiplication",
+      "unitTitle": "乘法",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "multi-digit-multiplication",
+        "three-digit-by-two-digit",
+        "multiplication-estimation",
+        "乘法",
+        "三位数乘两位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "两位数乘三位数",
+        "竖式乘法",
+        "估算积",
+        "积的变化规律",
+        "乘法应用"
+      ],
+      "misconceptionTags": [
+        "partial products not aligned by place value",
+        "zero placeholder omitted",
+        "estimate not used to check product size"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-multiplication-unit",
+        "bnu-primary-p4-upper-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆要新购一批图书，每套《科学探索》有12本，每本定价是138元。图书馆计划购买25套，大约需要准备多少元？下面哪种估算方法最合理？",
+      "optionsZhHans": [
+        "138×12≈140×10=1400，1400×25=35000",
+        "138×25≈140×25=3500，3500×12=42000",
+        "138×12×25≈140×10×30=42000",
+        "138×12×25≈100×10×30=30000"
+      ],
+      "answer": "138×12×25≈140×10×30=42000",
+      "acceptedAnswers": [
+        "138×12×25≈140×10×30=42000"
+      ],
+      "explanationZhHans": "总价=单价×每套本数×套数=138×12×25。估算时把138看作140，12看作10，25看作30，得140×10×30=42000。其他选项估算过程有误或结果偏差较大。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-047",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-multiplication",
+      "unitTitle": "乘法",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "multi-digit-multiplication",
+        "three-digit-by-two-digit",
+        "multiplication-estimation",
+        "乘法",
+        "三位数乘两位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "两位数乘三位数",
+        "竖式乘法",
+        "估算积",
+        "积的变化规律",
+        "乘法应用"
+      ],
+      "misconceptionTags": [
+        "partial products not aligned by place value",
+        "zero placeholder omitted",
+        "estimate not used to check product size"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-multiplication-unit",
+        "bnu-primary-p4-upper-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一箱书有128本，学校图书馆订购了35箱。先估算大约有多少本，再精确计算。估算时，把128看作（ ），把35看作（ ），积大约是（ ）；精确计算时，128×35的积是（ ）。",
+      "optionsZhHans": [],
+      "answer": "130,40,5200,4480",
+      "acceptedAnswers": [
+        "130,40,5200,4480"
+      ],
+      "explanationZhHans": "估算时，把128看作130，35看作40，130×40=5200，所以积大约是5200。精确计算：128×35=128×(30+5)=3840+640=4480。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-048",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-multiplication",
+      "unitTitle": "乘法",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "multi-digit-multiplication",
+        "three-digit-by-two-digit",
+        "multiplication-estimation",
+        "乘法",
+        "三位数乘两位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "两位数乘三位数",
+        "竖式乘法",
+        "估算积",
+        "积的变化规律",
+        "乘法应用"
+      ],
+      "misconceptionTags": [
+        "partial products not aligned by place value",
+        "zero placeholder omitted",
+        "estimate not used to check product size"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-multiplication-unit",
+        "bnu-primary-p4-upper-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校要为四年级同学购买一批新书。一套《科学探索》丛书有12本，每本定价是248元。学校计划购买15套。请你先估算一下大约需要多少钱，再计算出实际应付的总金额。",
+      "optionsZhHans": [],
+      "answer": "估算：248×12≈250×10=2500（元），2500×15=37500（元），大约需要37500元。实际计算：248×12=2976（元），2976×15=44640（元）。实际应付44640元。",
+      "acceptedAnswers": [
+        "估算：248×12≈250×10=2500（元），2500×15=37500（元），大约需要37500元。实际计算：248×12=2976（元），2976×15=44640（元）。实际应付44640元。",
+        "估算：248×12≈250×10=2500，2500×15=37500，大约37500元。实际：248×12=2976，2976×15=44640，应付44640元。",
+        "估算：248×12≈250×10=2500元，2500×15=37500元。实际：248×12=2976元，2976×15=44640元。"
+      ],
+      "explanationZhHans": "先估算：把248看作250，12看作10，一套约250×10=2500元，15套约2500×15=37500元。再精确计算：248×12=2976元，2976×15=44640元。注意三位数乘两位数时数位对齐，中间有0要占位。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-049",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-operation-laws",
+      "unitTitle": "运算律",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "operation-laws",
+        "commutative-associative-distributive",
+        "mental-calculation",
+        "运算律",
+        "简便计算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "推理意识",
+        "符号意识"
+      ],
+      "skillTags": [
+        "加法运算律",
+        "乘法运算律",
+        "分配律",
+        "简便计算",
+        "等式变形解释"
+      ],
+      "misconceptionTags": [
+        "law name memorized without equality meaning",
+        "distributive structure applied to nonmatching terms",
+        "shortcut chosen even when it increases complexity"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-operation-laws"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-operation-laws-unit",
+        "bnu-primary-p4-upper-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个算式在计算过程中运用了乘法分配律，并且变形后结果不变？",
+      "optionsZhHans": [
+        "25 × (4 + 8) = 25 × 4 + 8",
+        "36 × 7 + 36 × 3 = 36 × (7 + 3)",
+        "125 × 8 × 4 = 125 × 4 × 8",
+        "99 × 5 = 100 × 5 - 5"
+      ],
+      "answer": "36 × 7 + 36 × 3 = 36 × (7 + 3)",
+      "acceptedAnswers": [
+        "36 × 7 + 36 × 3 = 36 × (7 + 3)"
+      ],
+      "explanationZhHans": "乘法分配律：两个数的和与一个数相乘，可以先把它们分别与这个数相乘，再相加。选项B把36×7+36×3转化为36×(7+3)，符合分配律，且结果不变。A漏乘了8，C是乘法交换律和结合律，D是拆分99为100-1，属于简便计算但不是分配律的标准形式。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-050",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-operation-laws",
+      "unitTitle": "运算律",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "operation-laws",
+        "commutative-associative-distributive",
+        "mental-calculation",
+        "运算律",
+        "简便计算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "推理意识",
+        "符号意识"
+      ],
+      "skillTags": [
+        "加法运算律",
+        "乘法运算律",
+        "分配律",
+        "简便计算",
+        "等式变形解释"
+      ],
+      "misconceptionTags": [
+        "law name memorized without equality meaning",
+        "distributive structure applied to nonmatching terms",
+        "shortcut chosen even when it increases complexity"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-operation-laws"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-operation-laws-unit",
+        "bnu-primary-p4-upper-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在下面的等式中，运用了哪种运算律？\n\n25 × 13 × 4 = 25 × 4 × 13\n\n请填写运算律的名称。",
+      "optionsZhHans": [],
+      "answer": "乘法交换律",
+      "acceptedAnswers": [
+        "乘法交换律"
+      ],
+      "explanationZhHans": "等式左边是25×13×4，右边是25×4×13，只是交换了13和4的位置，积不变，这符合乘法交换律。"
+    }
+  ]
+}

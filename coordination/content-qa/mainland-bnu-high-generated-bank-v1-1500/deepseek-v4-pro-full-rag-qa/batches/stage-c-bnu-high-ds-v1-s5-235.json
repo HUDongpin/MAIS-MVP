@@ -1,0 +1,50 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-235",
+  "startedAt": "2026-05-28T01:24:24.590Z",
+  "completedAt": "2026-05-28T01:24:30.365Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-235"
+  ],
+  "usage": {
+    "prompt_tokens": 3557,
+    "completion_tokens": 335,
+    "total_tokens": 3892,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 3173
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-235",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "无实数解",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件矛盾：圆心C(2,-1)，半径2，直线y=kx+3，面积2√3。弦心距d=|2k+4|/√(k²+1)，面积S=d√(4-d²)=2√3，平方得d⁴-4d²+12=0，判别式负，无实数解。选项A的k=-2或1/2代入均不满足面积条件。解析推导混乱，得出错误k值，与答案矛盾。题目不可解，答案错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目条件导致无实数解，答案与解析均错误，判定为不可解，严重程度为blocker。"
+    }
+  }
+}

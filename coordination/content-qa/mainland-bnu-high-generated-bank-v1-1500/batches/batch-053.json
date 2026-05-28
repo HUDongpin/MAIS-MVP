@@ -1,0 +1,670 @@
+{
+  "batchId": "batch-053",
+  "questions": [
+    {
+      "id": "bnu-high-ds-v1-s5-021",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-直线与圆",
+      "topicTitleZhHans": "直线与圆",
+      "volume": "选择性必修 第一册",
+      "chapter": "直线与圆",
+      "conceptIds": [
+        "analytic-geometry",
+        "line-equations",
+        "circle-equations",
+        "line-circle-position",
+        "coordinate-distance"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学运算",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "直线方程选择",
+        "斜率与位置关系",
+        "圆的方程识别",
+        "点线距离计算",
+        "坐标条件转化",
+        "参数直线",
+        "圆与直线综合",
+        "轨迹条件"
+      ],
+      "misconceptionTags": [
+        "slope undefined case missed",
+        "distance formula condition omitted",
+        "tangent and secant cases confused",
+        "coordinate parameter range ignored",
+        "vertical line omitted",
+        "parallel and perpendicular conditions mixed",
+        "circle center and radius misread",
+        "distance formula target mismatch"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-lines-circles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-lines-circles-unit-core",
+        "bnu-high-s5-assessment-lines-circles-unit-synthesis",
+        "bnu-high-s5-assessment-midterm-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知直线l经过点P(2, -1)，且与直线2x - y + 3 = 0垂直，则直线l的方程为______。",
+      "optionsZhHans": [],
+      "answer": "x + 2y = 0",
+      "acceptedAnswers": [
+        "x + 2y = 0",
+        "x+2y=0",
+        "x+2y-0=0"
+      ],
+      "explanationZhHans": "直线2x - y + 3 = 0的斜率为2，垂直直线的斜率乘积为-1，故l的斜率为-1/2。由点斜式得y + 1 = -1/2(x - 2)，整理得x + 2y = 0。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-022",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-直线与圆",
+      "topicTitleZhHans": "直线与圆",
+      "volume": "选择性必修 第一册",
+      "chapter": "直线与圆",
+      "conceptIds": [
+        "analytic-geometry",
+        "line-equations",
+        "circle-equations",
+        "line-circle-position",
+        "coordinate-distance"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学运算",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "直线方程选择",
+        "斜率与位置关系",
+        "圆的方程识别",
+        "点线距离计算",
+        "坐标条件转化",
+        "参数直线",
+        "圆与直线综合",
+        "轨迹条件"
+      ],
+      "misconceptionTags": [
+        "slope undefined case missed",
+        "distance formula condition omitted",
+        "tangent and secant cases confused",
+        "coordinate parameter range ignored",
+        "vertical line omitted",
+        "parallel and perpendicular conditions mixed",
+        "circle center and radius misread",
+        "distance formula target mismatch"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-lines-circles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-lines-circles-unit-core",
+        "bnu-high-s5-assessment-lines-circles-unit-synthesis",
+        "bnu-high-s5-assessment-midterm-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "若直线l：y = kx + 1与圆C：(x - 2)² + (y - 3)² = 4相交于A，B两点，且|AB| = 2√3，则k的值为（　）。",
+      "optionsZhHans": [
+        "0或4/3",
+        "0或-4/3",
+        "4/3或-4/3",
+        "0或3/4"
+      ],
+      "answer": "0或4/3",
+      "acceptedAnswers": [
+        "0或4/3"
+      ],
+      "explanationZhHans": "圆心(2,3)到直线kx - y + 1 = 0的距离d = |2k - 3 + 1|/√(k²+1) = |2k - 2|/√(k²+1)。弦长2√3，半径2，由弦长公式得d = 1。解|2k - 2| = √(k²+1)得k = 0或4/3。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-023",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-直线与圆",
+      "topicTitleZhHans": "直线与圆",
+      "volume": "选择性必修 第一册",
+      "chapter": "直线与圆",
+      "conceptIds": [
+        "analytic-geometry",
+        "line-equations",
+        "circle-equations",
+        "line-circle-position",
+        "coordinate-distance"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学运算",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "直线方程选择",
+        "斜率与位置关系",
+        "圆的方程识别",
+        "点线距离计算",
+        "坐标条件转化",
+        "参数直线",
+        "圆与直线综合",
+        "轨迹条件"
+      ],
+      "misconceptionTags": [
+        "slope undefined case missed",
+        "distance formula condition omitted",
+        "tangent and secant cases confused",
+        "coordinate parameter range ignored",
+        "vertical line omitted",
+        "parallel and perpendicular conditions mixed",
+        "circle center and radius misread",
+        "distance formula target mismatch"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-lines-circles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-lines-circles-unit-core",
+        "bnu-high-s5-assessment-lines-circles-unit-synthesis",
+        "bnu-high-s5-assessment-midterm-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "求经过点A(1, 2)和B(3, -4)的直线方程，并化为一般式。",
+      "optionsZhHans": [],
+      "answer": "3x + y - 5 = 0",
+      "acceptedAnswers": [
+        "3x + y - 5 = 0",
+        "3x+y-5=0"
+      ],
+      "explanationZhHans": "斜率k = (-4 - 2)/(3 - 1) = -3。由点斜式y - 2 = -3(x - 1)，整理得3x + y - 5 = 0。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-024",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-直线与圆",
+      "topicTitleZhHans": "直线与圆",
+      "volume": "选择性必修 第一册",
+      "chapter": "直线与圆",
+      "conceptIds": [
+        "analytic-geometry",
+        "line-equations",
+        "circle-equations",
+        "line-circle-position",
+        "coordinate-distance"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学运算",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "直线方程选择",
+        "斜率与位置关系",
+        "圆的方程识别",
+        "点线距离计算",
+        "坐标条件转化",
+        "参数直线",
+        "圆与直线综合",
+        "轨迹条件"
+      ],
+      "misconceptionTags": [
+        "slope undefined case missed",
+        "distance formula condition omitted",
+        "tangent and secant cases confused",
+        "coordinate parameter range ignored",
+        "vertical line omitted",
+        "parallel and perpendicular conditions mixed",
+        "circle center and radius misread",
+        "distance formula target mismatch"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-lines-circles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-lines-circles-unit-core",
+        "bnu-high-s5-assessment-lines-circles-unit-synthesis",
+        "bnu-high-s5-assessment-midterm-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知圆C：x² + y² - 4x + 6y - 12 = 0，过点P(5, 1)的直线l与圆C相交于M，N两点，且△CMN的面积为4，则直线l的方程为______。",
+      "optionsZhHans": [],
+      "answer": "x - 2y - 3 = 0或2x + y - 11 = 0",
+      "acceptedAnswers": [
+        "x - 2y - 3 = 0或2x + y - 11 = 0",
+        "x-2y-3=0或2x+y-11=0",
+        "x - 2y - 3 = 0 或 2x + y - 11 = 0"
+      ],
+      "explanationZhHans": "圆C：(x-2)²+(y+3)²=25，半径5。设l: y-1=k(x-5)，圆心到l距离d=|2k+3+1-5k|/√(k²+1)=|4-3k|/√(k²+1)。△CMN面积=1/2·2√(25-d²)·d=4，解得d=√5或2√5。由d=√5得k=1/2或-2，对应方程x-2y-3=0和2x+y-11=0。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-025",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-直线与圆",
+      "topicTitleZhHans": "直线与圆",
+      "volume": "选择性必修 第一册",
+      "chapter": "直线与圆",
+      "conceptIds": [
+        "analytic-geometry",
+        "line-equations",
+        "circle-equations",
+        "line-circle-position",
+        "coordinate-distance"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学运算",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "直线方程选择",
+        "斜率与位置关系",
+        "圆的方程识别",
+        "点线距离计算",
+        "坐标条件转化",
+        "参数直线",
+        "圆与直线综合",
+        "轨迹条件"
+      ],
+      "misconceptionTags": [
+        "slope undefined case missed",
+        "distance formula condition omitted",
+        "tangent and secant cases confused",
+        "coordinate parameter range ignored",
+        "vertical line omitted",
+        "parallel and perpendicular conditions mixed",
+        "circle center and radius misread",
+        "distance formula target mismatch"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-lines-circles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-lines-circles-unit-core",
+        "bnu-high-s5-assessment-lines-circles-unit-synthesis",
+        "bnu-high-s5-assessment-midterm-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "直线l₁：ax + 3y + 1 = 0与直线l₂：2x + (a - 1)y + 1 = 0平行，则a的值为（　）。",
+      "optionsZhHans": [
+        "-2",
+        "3",
+        "-2或3",
+        "2或-3"
+      ],
+      "answer": "-2或3",
+      "acceptedAnswers": [
+        "-2或3"
+      ],
+      "explanationZhHans": "两直线平行则a/2 = 3/(a-1) ≠ 1/1。由a(a-1)=6得a² - a - 6=0，解得a=-2或3。检验知均满足不等关系。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-026",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-直线与圆",
+      "topicTitleZhHans": "直线与圆",
+      "volume": "选择性必修 第一册",
+      "chapter": "直线与圆",
+      "conceptIds": [
+        "analytic-geometry",
+        "line-equations",
+        "circle-equations",
+        "line-circle-position",
+        "coordinate-distance"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学运算",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "直线方程选择",
+        "斜率与位置关系",
+        "圆的方程识别",
+        "点线距离计算",
+        "坐标条件转化",
+        "参数直线",
+        "圆与直线综合",
+        "轨迹条件"
+      ],
+      "misconceptionTags": [
+        "slope undefined case missed",
+        "distance formula condition omitted",
+        "tangent and secant cases confused",
+        "coordinate parameter range ignored",
+        "vertical line omitted",
+        "parallel and perpendicular conditions mixed",
+        "circle center and radius misread",
+        "distance formula target mismatch"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-lines-circles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-lines-circles-unit-core",
+        "bnu-high-s5-assessment-lines-circles-unit-synthesis",
+        "bnu-high-s5-assessment-midterm-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知圆C经过点A(2, 0)和B(0, 4)，且圆心在直线y = x上，求圆C的标准方程。",
+      "optionsZhHans": [],
+      "answer": "(x - 3)² + (y - 3)² = 10",
+      "acceptedAnswers": [
+        "(x - 3)² + (y - 3)² = 10",
+        "(x-3)²+(y-3)²=10"
+      ],
+      "explanationZhHans": "设圆心(a, a)，由|CA|=|CB|得(a-2)²+a² = a²+(a-4)²，解得a=3。半径r²=(3-2)²+3²=10，故方程为(x-3)²+(y-3)²=10。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-027",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-直线与圆",
+      "topicTitleZhHans": "直线与圆",
+      "volume": "选择性必修 第一册",
+      "chapter": "直线与圆",
+      "conceptIds": [
+        "analytic-geometry",
+        "line-equations",
+        "circle-equations",
+        "line-circle-position",
+        "coordinate-distance"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学运算",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "直线方程选择",
+        "斜率与位置关系",
+        "圆的方程识别",
+        "点线距离计算",
+        "坐标条件转化",
+        "参数直线",
+        "圆与直线综合",
+        "轨迹条件"
+      ],
+      "misconceptionTags": [
+        "slope undefined case missed",
+        "distance formula condition omitted",
+        "tangent and secant cases confused",
+        "coordinate parameter range ignored",
+        "vertical line omitted",
+        "parallel and perpendicular conditions mixed",
+        "circle center and radius misread",
+        "distance formula target mismatch"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-lines-circles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-lines-circles-unit-core",
+        "bnu-high-s5-assessment-lines-circles-unit-synthesis",
+        "bnu-high-s5-assessment-midterm-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "点P(2, 3)到直线3x - 4y + 5 = 0的距离为______。",
+      "optionsZhHans": [],
+      "answer": "1/5",
+      "acceptedAnswers": [
+        "1/5",
+        "0.2"
+      ],
+      "explanationZhHans": "由点到直线距离公式d = |3×2 - 4×3 + 5|/√(3²+(-4)²) = |6 - 12 + 5|/5 = 1/5。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-028",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-直线与圆",
+      "topicTitleZhHans": "直线与圆",
+      "volume": "选择性必修 第一册",
+      "chapter": "直线与圆",
+      "conceptIds": [
+        "analytic-geometry",
+        "line-equations",
+        "circle-equations",
+        "line-circle-position",
+        "coordinate-distance"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学运算",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "直线方程选择",
+        "斜率与位置关系",
+        "圆的方程识别",
+        "点线距离计算",
+        "坐标条件转化",
+        "参数直线",
+        "圆与直线综合",
+        "轨迹条件"
+      ],
+      "misconceptionTags": [
+        "slope undefined case missed",
+        "distance formula condition omitted",
+        "tangent and secant cases confused",
+        "coordinate parameter range ignored",
+        "vertical line omitted",
+        "parallel and perpendicular conditions mixed",
+        "circle center and radius misread",
+        "distance formula target mismatch"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-lines-circles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-lines-circles-unit-core",
+        "bnu-high-s5-assessment-lines-circles-unit-synthesis",
+        "bnu-high-s5-assessment-midterm-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "若直线y = x + b与曲线y = √(4 - x²)有两个不同的交点，则b的取值范围是（　）。",
+      "optionsZhHans": [
+        "[2, 2√2)",
+        "[2, 2√2]",
+        "(2, 2√2)",
+        "(2, 2√2]"
+      ],
+      "answer": "[2, 2√2)",
+      "acceptedAnswers": [
+        "[2, 2√2)"
+      ],
+      "explanationZhHans": "曲线为上半圆x²+y²=4(y≥0)。直线与上半圆有两个交点等价于圆心到直线距离小于半径且直线在圆上方有交点。由d=|b|/√2<2得|b|<2√2，又需b≥2（保证交点在上半圆），故2≤b<2√2。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-029",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-直线与圆",
+      "topicTitleZhHans": "直线与圆",
+      "volume": "选择性必修 第一册",
+      "chapter": "直线与圆",
+      "conceptIds": [
+        "analytic-geometry",
+        "line-equations",
+        "circle-equations",
+        "line-circle-position",
+        "coordinate-distance"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学运算",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "直线方程选择",
+        "斜率与位置关系",
+        "圆的方程识别",
+        "点线距离计算",
+        "坐标条件转化",
+        "参数直线",
+        "圆与直线综合",
+        "轨迹条件"
+      ],
+      "misconceptionTags": [
+        "slope undefined case missed",
+        "distance formula condition omitted",
+        "tangent and secant cases confused",
+        "coordinate parameter range ignored",
+        "vertical line omitted",
+        "parallel and perpendicular conditions mixed",
+        "circle center and radius misread",
+        "distance formula target mismatch"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-lines-circles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-lines-circles-unit-core",
+        "bnu-high-s5-assessment-lines-circles-unit-synthesis",
+        "bnu-high-s5-assessment-midterm-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "求与直线3x - 4y + 5 = 0平行且与圆x² + y² = 4相切的直线方程。",
+      "optionsZhHans": [],
+      "answer": "3x - 4y + 10 = 0或3x - 4y - 10 = 0",
+      "acceptedAnswers": [
+        "3x - 4y + 10 = 0或3x - 4y - 10 = 0",
+        "3x-4y+10=0或3x-4y-10=0",
+        "3x - 4y + 10 = 0 或 3x - 4y - 10 = 0"
+      ],
+      "explanationZhHans": "设直线为3x - 4y + c = 0。与圆相切则圆心(0,0)到直线距离等于半径2，即|c|/5 = 2，得c = ±10。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-030",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-直线与圆",
+      "topicTitleZhHans": "直线与圆",
+      "volume": "选择性必修 第一册",
+      "chapter": "直线与圆",
+      "conceptIds": [
+        "analytic-geometry",
+        "line-equations",
+        "circle-equations",
+        "line-circle-position",
+        "coordinate-distance"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学运算",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "直线方程选择",
+        "斜率与位置关系",
+        "圆的方程识别",
+        "点线距离计算",
+        "坐标条件转化",
+        "参数直线",
+        "圆与直线综合",
+        "轨迹条件"
+      ],
+      "misconceptionTags": [
+        "slope undefined case missed",
+        "distance formula condition omitted",
+        "tangent and secant cases confused",
+        "coordinate parameter range ignored",
+        "vertical line omitted",
+        "parallel and perpendicular conditions mixed",
+        "circle center and radius misread",
+        "distance formula target mismatch"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-lines-circles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-lines-circles-unit-core",
+        "bnu-high-s5-assessment-lines-circles-unit-synthesis",
+        "bnu-high-s5-assessment-midterm-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知圆C：x² + y² - 2x - 4y - 4 = 0，直线l过点A(3, 0)且与圆C相交于P，Q两点，若△CPQ的面积为2√5，则直线l的斜率为______。",
+      "optionsZhHans": [],
+      "answer": "1或-1/7",
+      "acceptedAnswers": [
+        "1或-1/7",
+        "1 或 -1/7"
+      ],
+      "explanationZhHans": "圆C：(x-1)²+(y-2)²=9，半径3。设l: y=k(x-3)，圆心到l距离d=|k-2-3k|/√(k²+1)=|2k+2|/√(k²+1)。面积=1/2·2√(9-d²)·d=2√5，解得d=√5或2。由d=√5得k=1或-1/7；d=2无解。"
+    }
+  ]
+}

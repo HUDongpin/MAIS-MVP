@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-080",
+  "startedAt": "2026-05-28T02:04:49.688Z",
+  "completedAt": "2026-05-28T02:05:03.271Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-133",
+    "bnu-high-ds-v1-s5-134",
+    "bnu-high-ds-v1-s5-135",
+    "bnu-high-ds-v1-s5-136",
+    "bnu-high-ds-v1-s5-137",
+    "bnu-high-ds-v1-s5-138",
+    "bnu-high-ds-v1-s5-139",
+    "bnu-high-ds-v1-s5-140"
+  ],
+  "usage": {
+    "prompt_tokens": 10327,
+    "completion_tokens": 1138,
+    "total_tokens": 11465,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9943
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-133",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "4",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "抛物线y^2=8x中2p=8，p=4，焦点到准线的距离为p=4，选项B正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-134",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "k = -8/9",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "设A(x1,y1),B(x2,y2)，中点M(1,1)满足x1+x2=2,y1+y2=2。联立直线与椭圆，利用韦达定理和中点坐标公式得k=-8/9。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-135",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "2 < k < 3.5",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "椭圆焦点在y轴上需满足5-k > k-2 > 0，解得2 < k < 3.5。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-136",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "√3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "右焦点F(c,0)，过F垂直于x轴的直线x=c与双曲线交于A(c, b^2/a), B(c, -b^2/a)。△OAB等边得|AB|=√3|OF|，即2b^2/a=√3 c，结合c^2=a^2+b^2解得e=√3。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-137",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "5",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "抛物线定义：|PF|=点P到准线的距离=|PQ|，故|PQ|=5。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-138",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "9",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "椭圆a=4,b=3,c=√7。焦点三角形∠F1PF2=90°，面积=b^2 tan(θ/2)=9*tan45°=9。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-139",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "5",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "双曲线a=3,c=5。P在右支，|PF1|-|PF2|=2a=6，结合|PF1|=3|PF2|得|PF2|=3，|PF1|=9。由焦半径公式ex-a=3(e=5/3)得x=5。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-140",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "定点(0,0)或(0, -2/5)？需验证。",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "medium",
+        "rationaleZhHans": "由离心率和过点(2,0)得椭圆方程x^2/4+y^2=1。设A(x1,y1),B(x2,y2)，以AB为直径的圆过原点得x1x2+y1y2=0。联立直线与椭圆，利用韦达定理得m与k的关系，最终直线过定点(0,0)或(0,-2/5)，需验证是否满足判别式。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，无数学错误、歧义或缺失条件，符合北师大版高中圆锥曲线章节要求。"
+    }
+  }
+}

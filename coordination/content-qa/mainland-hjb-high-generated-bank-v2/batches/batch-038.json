@@ -1,0 +1,381 @@
+{
+  "batchId": "batch-038",
+  "generationMode": "batch-fallback",
+  "fallbackReason": "fill-missing-local",
+  "questions": [
+    {
+      "id": "hjb-high-ds-v2-s4-371",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-三角函数",
+      "topicTitleZhHans": "三角函数",
+      "volume": "必修 第二册",
+      "chapter": "三角函数",
+      "conceptIds": [
+        "trigonometric-functions",
+        "trigonometric-graphs",
+        "periodicity",
+        "trigonometric-transformations"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-2-trigonometric-functions"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-2-trig-functions-unit-core",
+        "hjb-high-compulsory-2-trig-functions-unit-challenge",
+        "pep-high-exam-trigonometric-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0371：填空：函数 y=3sin(2x+2π/6) 的最小正周期是多少？",
+      "optionsZhHans": [],
+      "answer": "π",
+      "acceptedAnswers": [
+        "π"
+      ],
+      "explanationZhHans": "sin(ωx+φ) 的周期为 2π/|ω|，这里 ω=2，所以周期为 π。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-372",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-三角函数",
+      "topicTitleZhHans": "三角函数",
+      "volume": "必修 第二册",
+      "chapter": "三角函数",
+      "conceptIds": [
+        "trigonometric-functions",
+        "trigonometric-graphs",
+        "periodicity",
+        "trigonometric-transformations"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-2-trigonometric-functions"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-2-trig-functions-unit-core",
+        "hjb-high-compulsory-2-trig-functions-unit-challenge",
+        "pep-high-exam-trigonometric-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0372：解答：函数 y=11sin(2x+2π/6) 的最小正周期是多少？",
+      "optionsZhHans": [],
+      "answer": "π",
+      "acceptedAnswers": [
+        "π"
+      ],
+      "explanationZhHans": "sin(ωx+φ) 的周期为 2π/|ω|，这里 ω=2，所以周期为 π。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-373",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-三角函数",
+      "topicTitleZhHans": "三角函数",
+      "volume": "必修 第二册",
+      "chapter": "三角函数",
+      "conceptIds": [
+        "trigonometric-functions",
+        "trigonometric-graphs",
+        "periodicity",
+        "trigonometric-transformations"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-2-trigonometric-functions"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-2-trig-functions-unit-core",
+        "hjb-high-compulsory-2-trig-functions-unit-challenge",
+        "pep-high-exam-trigonometric-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0373：选择：函数 y=4sin(2x+8π/6) 的最小正周期是多少？",
+      "optionsZhHans": [
+        "2π",
+        "π/2",
+        "4π",
+        "π"
+      ],
+      "answer": "π",
+      "acceptedAnswers": [
+        "π"
+      ],
+      "explanationZhHans": "sin(ωx+φ) 的周期为 2π/|ω|，这里 ω=2，所以周期为 π。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-374",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-三角函数",
+      "topicTitleZhHans": "三角函数",
+      "volume": "必修 第二册",
+      "chapter": "三角函数",
+      "conceptIds": [
+        "trigonometric-functions",
+        "trigonometric-graphs",
+        "periodicity",
+        "trigonometric-transformations"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-2-trigonometric-functions"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-2-trig-functions-unit-core",
+        "hjb-high-compulsory-2-trig-functions-unit-challenge",
+        "pep-high-exam-trigonometric-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0374：填空：函数 y=5sin(2x+7π/6) 的最小正周期是多少？",
+      "optionsZhHans": [],
+      "answer": "π",
+      "acceptedAnswers": [
+        "π"
+      ],
+      "explanationZhHans": "sin(ωx+φ) 的周期为 2π/|ω|，这里 ω=2，所以周期为 π。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-375",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-三角函数",
+      "topicTitleZhHans": "三角函数",
+      "volume": "必修 第二册",
+      "chapter": "三角函数",
+      "conceptIds": [
+        "trigonometric-functions",
+        "trigonometric-graphs",
+        "periodicity",
+        "trigonometric-transformations"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-2-trigonometric-functions"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-2-trig-functions-unit-core",
+        "hjb-high-compulsory-2-trig-functions-unit-challenge",
+        "pep-high-exam-trigonometric-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0375：解答：函数 y=7sin(2x+9π/6) 的最小正周期是多少？",
+      "optionsZhHans": [],
+      "answer": "π",
+      "acceptedAnswers": [
+        "π"
+      ],
+      "explanationZhHans": "sin(ωx+φ) 的周期为 2π/|ω|，这里 ω=2，所以周期为 π。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-376",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-三角函数",
+      "topicTitleZhHans": "三角函数",
+      "volume": "必修 第二册",
+      "chapter": "三角函数",
+      "conceptIds": [
+        "trigonometric-functions",
+        "trigonometric-graphs",
+        "periodicity",
+        "trigonometric-transformations"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-2-trigonometric-functions"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-2-trig-functions-unit-core",
+        "hjb-high-compulsory-2-trig-functions-unit-challenge",
+        "pep-high-exam-trigonometric-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0376：选择：函数 y=4sin(2x+10π/6) 的最小正周期是多少？",
+      "optionsZhHans": [
+        "π",
+        "2π",
+        "π/2",
+        "4π"
+      ],
+      "answer": "π",
+      "acceptedAnswers": [
+        "π"
+      ],
+      "explanationZhHans": "sin(ωx+φ) 的周期为 2π/|ω|，这里 ω=2，所以周期为 π。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-377",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-平面向量",
+      "topicTitleZhHans": "平面向量",
+      "volume": "必修 第二册",
+      "chapter": "平面向量",
+      "conceptIds": [
+        "plane-vectors",
+        "vector-operations",
+        "dot-product",
+        "vector-coordinates",
+        "vector-applications"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-2-plane-vectors"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-2-plane-vectors-unit-core",
+        "hjb-high-compulsory-2-plane-vectors-unit-challenge",
+        "pep-high-exam-sine-cosine-vector-applications"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0377：填空：已知向量 u=(2,11)，v=(5,12)，求 u·v。",
+      "optionsZhHans": [],
+      "answer": "142",
+      "acceptedAnswers": [
+        "142"
+      ],
+      "explanationZhHans": "u·v=2×5+11×12=142。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-378",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-平面向量",
+      "topicTitleZhHans": "平面向量",
+      "volume": "必修 第二册",
+      "chapter": "平面向量",
+      "conceptIds": [
+        "plane-vectors",
+        "vector-operations",
+        "dot-product",
+        "vector-coordinates",
+        "vector-applications"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-2-plane-vectors"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-2-plane-vectors-unit-core",
+        "hjb-high-compulsory-2-plane-vectors-unit-challenge",
+        "pep-high-exam-sine-cosine-vector-applications"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0378：选择：已知向量 u=(3,6)，v=(18,7)，求 u·v。",
+      "optionsZhHans": [
+        "105",
+        "87",
+        "96",
+        "114"
+      ],
+      "answer": "96",
+      "acceptedAnswers": [
+        "96"
+      ],
+      "explanationZhHans": "u·v=3×18+6×7=96。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-379",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-平面向量",
+      "topicTitleZhHans": "平面向量",
+      "volume": "必修 第二册",
+      "chapter": "平面向量",
+      "conceptIds": [
+        "plane-vectors",
+        "vector-operations",
+        "dot-product",
+        "vector-coordinates",
+        "vector-applications"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-2-plane-vectors"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-2-plane-vectors-unit-core",
+        "hjb-high-compulsory-2-plane-vectors-unit-challenge",
+        "pep-high-exam-sine-cosine-vector-applications"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0379：填空：已知向量 u=(6,5)，v=(7,6)，求 u·v。",
+      "optionsZhHans": [],
+      "answer": "72",
+      "acceptedAnswers": [
+        "72"
+      ],
+      "explanationZhHans": "u·v=6×7+5×6=72。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-380",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-平面向量",
+      "topicTitleZhHans": "平面向量",
+      "volume": "必修 第二册",
+      "chapter": "平面向量",
+      "conceptIds": [
+        "plane-vectors",
+        "vector-operations",
+        "dot-product",
+        "vector-coordinates",
+        "vector-applications"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-2-plane-vectors"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-2-plane-vectors-unit-core",
+        "hjb-high-compulsory-2-plane-vectors-unit-challenge",
+        "pep-high-exam-sine-cosine-vector-applications"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0380：选择：已知向量 u=(7,10)，v=(16,11)，求 u·v。",
+      "optionsZhHans": [
+        "239",
+        "222",
+        "205",
+        "256"
+      ],
+      "answer": "222",
+      "acceptedAnswers": [
+        "222"
+      ],
+      "explanationZhHans": "u·v=7×16+10×11=222。"
+    }
+  ]
+}

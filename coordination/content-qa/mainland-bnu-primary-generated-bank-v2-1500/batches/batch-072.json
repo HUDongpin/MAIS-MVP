@@ -1,0 +1,585 @@
+{
+  "batchId": "batch-072",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p3-211",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-fraction-introduction",
+      "unitTitle": "认识分数",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "fraction-introduction",
+        "unit-fraction",
+        "equal-parts",
+        "认识分数",
+        "几分之一"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "几何直观"
+      ],
+      "skillTags": [
+        "平均分",
+        "几分之一",
+        "几分之几",
+        "分数表示",
+        "简单分数比较"
+      ],
+      "misconceptionTags": [
+        "parts not equal but named as fractions",
+        "denominator treated as total shaded amount",
+        "whole not specified before comparison"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-fraction-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-fraction-introduction-unit",
+        "bnu-primary-p3-lower-assessment-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈把一张圆饼平均分成了8块，妹妹吃了其中的3块。妹妹吃了这张饼的几分之几？",
+      "optionsZhHans": [
+        "1/8",
+        "3/8",
+        "1/3",
+        "3/5"
+      ],
+      "answer": "3/8",
+      "acceptedAnswers": [
+        "3/8"
+      ],
+      "explanationZhHans": "圆饼被平均分成8块，每块是1/8。妹妹吃了3块，就是3个1/8，也就是3/8。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-212",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-fraction-introduction",
+      "unitTitle": "认识分数",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "fraction-introduction",
+        "unit-fraction",
+        "equal-parts",
+        "认识分数",
+        "几分之一"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "几何直观"
+      ],
+      "skillTags": [
+        "平均分",
+        "几分之一",
+        "几分之几",
+        "分数表示",
+        "简单分数比较"
+      ],
+      "misconceptionTags": [
+        "parts not equal but named as fractions",
+        "denominator treated as total shaded amount",
+        "whole not specified before comparison"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-fraction-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-fraction-introduction-unit",
+        "bnu-primary-p3-lower-assessment-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把一根彩带平均剪成5段，每段是这根彩带的（ ）分之（ ）。",
+      "optionsZhHans": [],
+      "answer": "五分之一",
+      "acceptedAnswers": [
+        "五分之一",
+        "1/5"
+      ],
+      "explanationZhHans": "平均分成5段，每段就是这根彩带的1/5，写作五分之一。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-213",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-fraction-introduction",
+      "unitTitle": "认识分数",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "fraction-introduction",
+        "unit-fraction",
+        "equal-parts",
+        "认识分数",
+        "几分之一"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "几何直观"
+      ],
+      "skillTags": [
+        "平均分",
+        "几分之一",
+        "几分之几",
+        "分数表示",
+        "简单分数比较"
+      ],
+      "misconceptionTags": [
+        "parts not equal but named as fractions",
+        "denominator treated as total shaded amount",
+        "whole not specified before comparison"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-fraction-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-fraction-introduction-unit",
+        "bnu-primary-p3-lower-assessment-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个图形中的涂色部分可以用1/4表示？",
+      "optionsZhHans": [
+        "一个正方形被分成4个大小不同的小块，其中一块涂色",
+        "一个圆形被分成4个相等的扇形，其中1个扇形涂色",
+        "一个长方形被分成3个相等的部分，其中1部分涂色",
+        "一个三角形被分成4个相等的三角形，其中2个涂色"
+      ],
+      "answer": "一个圆形被分成4个相等的扇形，其中1个扇形涂色",
+      "acceptedAnswers": [
+        "一个圆形被分成4个相等的扇形，其中1个扇形涂色"
+      ],
+      "explanationZhHans": "1/4表示把一个整体平均分成4份，取其中的1份。只有圆形被平均分成4份且涂了1份，符合要求。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-214",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-fraction-introduction",
+      "unitTitle": "认识分数",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "fraction-introduction",
+        "unit-fraction",
+        "equal-parts",
+        "认识分数",
+        "几分之一"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "几何直观"
+      ],
+      "skillTags": [
+        "平均分",
+        "几分之一",
+        "几分之几",
+        "分数表示",
+        "简单分数比较"
+      ],
+      "misconceptionTags": [
+        "parts not equal but named as fractions",
+        "denominator treated as total shaded amount",
+        "whole not specified before comparison"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-fraction-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-fraction-introduction-unit",
+        "bnu-primary-p3-lower-assessment-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "12个苹果，平均放在3个盘子里，每个盘子里的苹果占苹果总数的（ ）分之（ ）。",
+      "optionsZhHans": [],
+      "answer": "三分之一",
+      "acceptedAnswers": [
+        "三分之一",
+        "1/3"
+      ],
+      "explanationZhHans": "把12个苹果看作一个整体，平均分成3份，每份是1/3，写作三分之一。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-215",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-fraction-introduction",
+      "unitTitle": "认识分数",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "fraction-introduction",
+        "unit-fraction",
+        "equal-parts",
+        "认识分数",
+        "几分之一"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "几何直观"
+      ],
+      "skillTags": [
+        "平均分",
+        "几分之一",
+        "几分之几",
+        "分数表示",
+        "简单分数比较"
+      ],
+      "misconceptionTags": [
+        "parts not equal but named as fractions",
+        "denominator treated as total shaded amount",
+        "whole not specified before comparison"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-fraction-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-fraction-introduction-unit",
+        "bnu-primary-p3-lower-assessment-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小华有一根绳子，他把它平均分成了6段，取走了其中的2段。小华取走的绳子占全长的几分之几？",
+      "optionsZhHans": [
+        "1/6",
+        "2/6",
+        "1/3",
+        "2/4"
+      ],
+      "answer": "2/6",
+      "acceptedAnswers": [
+        "2/6"
+      ],
+      "explanationZhHans": "绳子被平均分成6段，每段是1/6。取走2段就是2个1/6，即2/6。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-216",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-fraction-introduction",
+      "unitTitle": "认识分数",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "fraction-introduction",
+        "unit-fraction",
+        "equal-parts",
+        "认识分数",
+        "几分之一"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "几何直观"
+      ],
+      "skillTags": [
+        "平均分",
+        "几分之一",
+        "几分之几",
+        "分数表示",
+        "简单分数比较"
+      ],
+      "misconceptionTags": [
+        "parts not equal but named as fractions",
+        "denominator treated as total shaded amount",
+        "whole not specified before comparison"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-fraction-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-fraction-introduction-unit",
+        "bnu-primary-p3-lower-assessment-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把一个西瓜平均切成10块，每块是这个西瓜的（ ）分之（ ）。",
+      "optionsZhHans": [],
+      "answer": "十分之一",
+      "acceptedAnswers": [
+        "十分之一",
+        "1/10"
+      ],
+      "explanationZhHans": "平均切成10块，每块就是1/10，写作十分之一。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-217",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-fraction-introduction",
+      "unitTitle": "认识分数",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "fraction-introduction",
+        "unit-fraction",
+        "equal-parts",
+        "认识分数",
+        "几分之一"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "几何直观"
+      ],
+      "skillTags": [
+        "平均分",
+        "几分之一",
+        "几分之几",
+        "分数表示",
+        "简单分数比较"
+      ],
+      "misconceptionTags": [
+        "parts not equal but named as fractions",
+        "denominator treated as total shaded amount",
+        "whole not specified before comparison"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-fraction-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-fraction-introduction-unit",
+        "bnu-primary-p3-lower-assessment-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪种情况表示的是1/2？",
+      "optionsZhHans": [
+        "把一块蛋糕分成2份，小明吃了1份",
+        "把一块蛋糕平均分成2份，小明吃了1份",
+        "把一块蛋糕分成3份，小明吃了1份",
+        "把一块蛋糕平均分成4份，小明吃了2份"
+      ],
+      "answer": "把一块蛋糕平均分成2份，小明吃了1份",
+      "acceptedAnswers": [
+        "把一块蛋糕平均分成2份，小明吃了1份"
+      ],
+      "explanationZhHans": "1/2必须建立在平均分的基础上。只有平均分成2份，取1份才是1/2。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-218",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-fraction-introduction",
+      "unitTitle": "认识分数",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "fraction-introduction",
+        "unit-fraction",
+        "equal-parts",
+        "认识分数",
+        "几分之一"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "几何直观"
+      ],
+      "skillTags": [
+        "平均分",
+        "几分之一",
+        "几分之几",
+        "分数表示",
+        "简单分数比较"
+      ],
+      "misconceptionTags": [
+        "parts not equal but named as fractions",
+        "denominator treated as total shaded amount",
+        "whole not specified before comparison"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-fraction-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-fraction-introduction-unit",
+        "bnu-primary-p3-lower-assessment-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一盒巧克力有18颗，平均分给6个小朋友，每个小朋友分到的巧克力占这盒巧克力的（ ）分之（ ）。",
+      "optionsZhHans": [],
+      "answer": "六分之一",
+      "acceptedAnswers": [
+        "六分之一",
+        "1/6"
+      ],
+      "explanationZhHans": "18颗巧克力平均分给6人，每人分得1份，即1/6，写作六分之一。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-219",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-fraction-introduction",
+      "unitTitle": "认识分数",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "fraction-introduction",
+        "unit-fraction",
+        "equal-parts",
+        "认识分数",
+        "几分之一"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "几何直观"
+      ],
+      "skillTags": [
+        "平均分",
+        "几分之一",
+        "几分之几",
+        "分数表示",
+        "简单分数比较"
+      ],
+      "misconceptionTags": [
+        "parts not equal but named as fractions",
+        "denominator treated as total shaded amount",
+        "whole not specified before comparison"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-fraction-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-fraction-introduction-unit",
+        "bnu-primary-p3-lower-assessment-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用分数表示涂色部分，正确的是哪个？一个长方形被平均分成了8个小长方形，其中3个小长方形涂了颜色。",
+      "optionsZhHans": [
+        "1/8",
+        "3/8",
+        "3/5",
+        "8/3"
+      ],
+      "answer": "3/8",
+      "acceptedAnswers": [
+        "3/8"
+      ],
+      "explanationZhHans": "长方形被平均分成8份，涂色部分占3份，所以是3/8。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-220",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-fraction-introduction",
+      "unitTitle": "认识分数",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "fraction-introduction",
+        "unit-fraction",
+        "equal-parts",
+        "认识分数",
+        "几分之一"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "几何直观"
+      ],
+      "skillTags": [
+        "平均分",
+        "几分之一",
+        "几分之几",
+        "分数表示",
+        "简单分数比较"
+      ],
+      "misconceptionTags": [
+        "parts not equal but named as fractions",
+        "denominator treated as total shaded amount",
+        "whole not specified before comparison"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-fraction-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-fraction-introduction-unit",
+        "bnu-primary-p3-lower-assessment-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把1米长的绳子平均分成4段，每段是1米的（ ）分之（ ）。",
+      "optionsZhHans": [],
+      "answer": "四分之一",
+      "acceptedAnswers": [
+        "四分之一",
+        "1/4"
+      ],
+      "explanationZhHans": "平均分成4段，每段就是1/4，写作四分之一。"
+    }
+  ]
+}

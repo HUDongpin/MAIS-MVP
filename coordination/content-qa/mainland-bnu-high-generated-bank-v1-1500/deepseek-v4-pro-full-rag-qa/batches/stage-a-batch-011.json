@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-011",
+  "startedAt": "2026-05-28T00:35:58.533Z",
+  "completedAt": "2026-05-28T00:36:13.937Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-081",
+    "bnu-high-ds-v1-s4-082",
+    "bnu-high-ds-v1-s4-083",
+    "bnu-high-ds-v1-s4-084",
+    "bnu-high-ds-v1-s4-085",
+    "bnu-high-ds-v1-s4-086",
+    "bnu-high-ds-v1-s4-087",
+    "bnu-high-ds-v1-s4-088"
+  ],
+  "usage": {
+    "prompt_tokens": 10109,
+    "completion_tokens": 1047,
+    "total_tokens": 11156,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9725
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-081",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "4",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "根式与指数运算：³√27=3，(1/4)^(-1/2)=2，2^(3/2)·2^(1/2)=2^2=4，3+2-4=1，结果为1。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-082",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(1, 3)",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "指数函数恒过定点：令x-1=0得x=1，此时y=a^0+2=3，定点(1,3)。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-083",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "奇函数",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "定义域R，f(-x)=3^{-x}-3^x=-f(x)，故为奇函数。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-084",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "18",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "设t=2^x+2^{-x}=3，则8^x+8^{-x}=t^3-3t=27-9=18。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-085",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "c < a < b",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "a=0.5^0.6∈(0,1)，b=0.6^0.5∈(0,1)且b>a，c=log_{0.5}0.6<0，故c<a<b。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-086",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(-∞, 1]",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "复合函数单调性：外层y=(1/3)^u递减，内层u=x^2-2x在(-∞,1]递减，故原函数递增区间为(-∞,1]。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-087",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "x = log_2 3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "令t=2^x>0，方程化为t^2-2t-3=0，解得t=3（舍负），故x=log_2 3。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-088",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "1/2 或 3/2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "分a>1和0<a<1讨论：a>1时a^2-a^{-1}=a/2得a=3/2；0<a<1时a^{-1}-a^2=a/2得a=1/2。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，无数学错误、歧义或缺失条件，符合北师大版高一指数运算与指数函数章节要求。"
+    }
+  }
+}

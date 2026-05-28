@@ -1,0 +1,754 @@
+{
+  "batchId": "batch-146",
+  "questions": [
+    {
+      "id": "bnu-high-ds-v1-s6-451",
+      "batch": "bnu-high-v1",
+      "grade": "S6",
+      "semester": "full-year",
+      "topicId": "bnu-high-s6-高三数列与导数综合复习",
+      "topicTitleZhHans": "高三数列与导数综合复习",
+      "volume": "选择性必修 第二册综合复习",
+      "chapter": "高三数列与导数综合复习",
+      "conceptIds": [
+        "sequences",
+        "arithmetic-sequences",
+        "geometric-sequences",
+        "recurrence",
+        "series-sums",
+        "mathematical-induction",
+        "derivatives",
+        "derivative-rules",
+        "tangent-lines",
+        "monotonicity"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "逻辑推理",
+        "数学运算",
+        "数学建模",
+        "直观想象"
+      ],
+      "skillTags": [
+        "等差等比识别",
+        "递推关系转化",
+        "通项公式求解",
+        "前n项和求解",
+        "单元综合检查",
+        "通项公式",
+        "递推关系",
+        "求和"
+      ],
+      "misconceptionTags": [
+        "term index off by one",
+        "arithmetic and geometric structures confused",
+        "recurrence condition incomplete",
+        "induction step assumes the conclusion",
+        "derivative value confused with function value",
+        "critical point treated automatically",
+        "endpoint check omitted",
+        "optimization condition not tied to context"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s6-selective-2-sequences",
+        "bnu-high-s6-selective-2-derivatives"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s6-assessment-sequences-unit-core",
+        "bnu-high-s6-assessment-sequences-foundation-review",
+        "bnu-high-s6-assessment-selective-2-full-volume-comprehensive"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知数列{an}满足a1=2，an+1=3an+4n，设bn=an+2n。若数列{bn}是等比数列，则其公比等于（　　）",
+      "optionsZhHans": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "answer": "3",
+      "acceptedAnswers": [
+        "3"
+      ],
+      "explanationZhHans": "由bn=an+2n+1，得bn+1=an+1+2(n+1)+1=3an+4n+2n+3=3an+6n+3=3(an+2n+1)=3bn，故{bn}是公比为3的等比数列。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s6-452",
+      "batch": "bnu-high-v1",
+      "grade": "S6",
+      "semester": "full-year",
+      "topicId": "bnu-high-s6-高三数列与导数综合复习",
+      "topicTitleZhHans": "高三数列与导数综合复习",
+      "volume": "选择性必修 第二册综合复习",
+      "chapter": "高三数列与导数综合复习",
+      "conceptIds": [
+        "sequences",
+        "arithmetic-sequences",
+        "geometric-sequences",
+        "recurrence",
+        "series-sums",
+        "mathematical-induction",
+        "derivatives",
+        "derivative-rules",
+        "tangent-lines",
+        "monotonicity"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "逻辑推理",
+        "数学运算",
+        "数学建模",
+        "直观想象"
+      ],
+      "skillTags": [
+        "等差等比识别",
+        "递推关系转化",
+        "通项公式求解",
+        "前n项和求解",
+        "单元综合检查",
+        "通项公式",
+        "递推关系",
+        "求和"
+      ],
+      "misconceptionTags": [
+        "term index off by one",
+        "arithmetic and geometric structures confused",
+        "recurrence condition incomplete",
+        "induction step assumes the conclusion",
+        "derivative value confused with function value",
+        "critical point treated automatically",
+        "endpoint check omitted",
+        "optimization condition not tied to context"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s6-selective-2-sequences",
+        "bnu-high-s6-selective-2-derivatives"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s6-assessment-sequences-unit-core",
+        "bnu-high-s6-assessment-sequences-foundation-review",
+        "bnu-high-s6-assessment-selective-2-full-volume-comprehensive"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知等差数列{an}的前n项和为Sn，且a3=7，S5=30。求数列{an}的通项公式。",
+      "optionsZhHans": [],
+      "answer": "an = 2n + 1",
+      "acceptedAnswers": [
+        "an = 2n + 1",
+        "2n+1"
+      ],
+      "explanationZhHans": "设公差为d，由a3=a1+2d=7，S5=5a1+10d=30，解得a1=3，d=2，故an=3+2(n-1)=2n+1。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s6-453",
+      "batch": "bnu-high-v1",
+      "grade": "S6",
+      "semester": "full-year",
+      "topicId": "bnu-high-s6-高三数列与导数综合复习",
+      "topicTitleZhHans": "高三数列与导数综合复习",
+      "volume": "选择性必修 第二册综合复习",
+      "chapter": "高三数列与导数综合复习",
+      "conceptIds": [
+        "sequences",
+        "arithmetic-sequences",
+        "geometric-sequences",
+        "recurrence",
+        "series-sums",
+        "mathematical-induction",
+        "derivatives",
+        "derivative-rules",
+        "tangent-lines",
+        "monotonicity"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "逻辑推理",
+        "数学运算",
+        "数学建模",
+        "直观想象"
+      ],
+      "skillTags": [
+        "等差等比识别",
+        "递推关系转化",
+        "通项公式求解",
+        "前n项和求解",
+        "单元综合检查",
+        "通项公式",
+        "递推关系",
+        "求和"
+      ],
+      "misconceptionTags": [
+        "term index off by one",
+        "arithmetic and geometric structures confused",
+        "recurrence condition incomplete",
+        "induction step assumes the conclusion",
+        "derivative value confused with function value",
+        "critical point treated automatically",
+        "endpoint check omitted",
+        "optimization condition not tied to context"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s6-selective-2-sequences",
+        "bnu-high-s6-selective-2-derivatives"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s6-assessment-sequences-unit-core",
+        "bnu-high-s6-assessment-sequences-foundation-review",
+        "bnu-high-s6-assessment-selective-2-full-volume-comprehensive"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知函数f(x)=x^3-3x^2-9x+5，则f(x)的单调递减区间为（　　）",
+      "optionsZhHans": [
+        "(-1, 3)",
+        "(-∞, -1) ∪ (3, +∞)",
+        "(-3, 1)",
+        "(-∞, -3) ∪ (1, +∞)"
+      ],
+      "answer": "(-1, 3)",
+      "acceptedAnswers": [
+        "(-1, 3)"
+      ],
+      "explanationZhHans": "f'(x)=3x^2-6x-9=3(x^2-2x-3)=3(x-3)(x+1)。令f'(x)<0得-1<x<3，故单调递减区间为(-1,3)。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s6-454",
+      "batch": "bnu-high-v1",
+      "grade": "S6",
+      "semester": "full-year",
+      "topicId": "bnu-high-s6-高三数列与导数综合复习",
+      "topicTitleZhHans": "高三数列与导数综合复习",
+      "volume": "选择性必修 第二册综合复习",
+      "chapter": "高三数列与导数综合复习",
+      "conceptIds": [
+        "sequences",
+        "arithmetic-sequences",
+        "geometric-sequences",
+        "recurrence",
+        "series-sums",
+        "mathematical-induction",
+        "derivatives",
+        "derivative-rules",
+        "tangent-lines",
+        "monotonicity"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "逻辑推理",
+        "数学运算",
+        "数学建模",
+        "直观想象"
+      ],
+      "skillTags": [
+        "等差等比识别",
+        "递推关系转化",
+        "通项公式求解",
+        "前n项和求解",
+        "单元综合检查",
+        "通项公式",
+        "递推关系",
+        "求和"
+      ],
+      "misconceptionTags": [
+        "term index off by one",
+        "arithmetic and geometric structures confused",
+        "recurrence condition incomplete",
+        "induction step assumes the conclusion",
+        "derivative value confused with function value",
+        "critical point treated automatically",
+        "endpoint check omitted",
+        "optimization condition not tied to context"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s6-selective-2-sequences",
+        "bnu-high-s6-selective-2-derivatives"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s6-assessment-sequences-unit-core",
+        "bnu-high-s6-assessment-sequences-foundation-review",
+        "bnu-high-s6-assessment-selective-2-full-volume-comprehensive"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知等比数列{an}中，a1=2，a4=16，求其前5项和S5。",
+      "optionsZhHans": [],
+      "answer": "62",
+      "acceptedAnswers": [
+        "62"
+      ],
+      "explanationZhHans": "由a4=a1q^3得16=2q^3，q=2。S5=2(1-2^5)/(1-2)=2(1-32)/(-1)=62。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s6-455",
+      "batch": "bnu-high-v1",
+      "grade": "S6",
+      "semester": "full-year",
+      "topicId": "bnu-high-s6-高三数列与导数综合复习",
+      "topicTitleZhHans": "高三数列与导数综合复习",
+      "volume": "选择性必修 第二册综合复习",
+      "chapter": "高三数列与导数综合复习",
+      "conceptIds": [
+        "sequences",
+        "arithmetic-sequences",
+        "geometric-sequences",
+        "recurrence",
+        "series-sums",
+        "mathematical-induction",
+        "derivatives",
+        "derivative-rules",
+        "tangent-lines",
+        "monotonicity"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "逻辑推理",
+        "数学运算",
+        "数学建模",
+        "直观想象"
+      ],
+      "skillTags": [
+        "等差等比识别",
+        "递推关系转化",
+        "通项公式求解",
+        "前n项和求解",
+        "单元综合检查",
+        "通项公式",
+        "递推关系",
+        "求和"
+      ],
+      "misconceptionTags": [
+        "term index off by one",
+        "arithmetic and geometric structures confused",
+        "recurrence condition incomplete",
+        "induction step assumes the conclusion",
+        "derivative value confused with function value",
+        "critical point treated automatically",
+        "endpoint check omitted",
+        "optimization condition not tied to context"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s6-selective-2-sequences",
+        "bnu-high-s6-selective-2-derivatives"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s6-assessment-sequences-unit-core",
+        "bnu-high-s6-assessment-sequences-foundation-review",
+        "bnu-high-s6-assessment-selective-2-full-volume-comprehensive"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知数列{an}满足a1=1，an+1=2an+1，则a5的值为（　　）",
+      "optionsZhHans": [
+        "15",
+        "31",
+        "63",
+        "127"
+      ],
+      "answer": "31",
+      "acceptedAnswers": [
+        "31"
+      ],
+      "explanationZhHans": "由递推得an+1+1=2(an+1)，故{an+1}是首项2、公比2的等比数列，an+1=2^n，an=2^n-1，a5=2^5-1=31。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s6-456",
+      "batch": "bnu-high-v1",
+      "grade": "S6",
+      "semester": "full-year",
+      "topicId": "bnu-high-s6-高三数列与导数综合复习",
+      "topicTitleZhHans": "高三数列与导数综合复习",
+      "volume": "选择性必修 第二册综合复习",
+      "chapter": "高三数列与导数综合复习",
+      "conceptIds": [
+        "sequences",
+        "arithmetic-sequences",
+        "geometric-sequences",
+        "recurrence",
+        "series-sums",
+        "mathematical-induction",
+        "derivatives",
+        "derivative-rules",
+        "tangent-lines",
+        "monotonicity"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "逻辑推理",
+        "数学运算",
+        "数学建模",
+        "直观想象"
+      ],
+      "skillTags": [
+        "等差等比识别",
+        "递推关系转化",
+        "通项公式求解",
+        "前n项和求解",
+        "单元综合检查",
+        "通项公式",
+        "递推关系",
+        "求和"
+      ],
+      "misconceptionTags": [
+        "term index off by one",
+        "arithmetic and geometric structures confused",
+        "recurrence condition incomplete",
+        "induction step assumes the conclusion",
+        "derivative value confused with function value",
+        "critical point treated automatically",
+        "endpoint check omitted",
+        "optimization condition not tied to context"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s6-selective-2-sequences",
+        "bnu-high-s6-selective-2-derivatives"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s6-assessment-sequences-unit-core",
+        "bnu-high-s6-assessment-sequences-foundation-review",
+        "bnu-high-s6-assessment-selective-2-full-volume-comprehensive"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "求曲线y=x^2+ln x在点(1,1)处的切线方程。",
+      "optionsZhHans": [],
+      "answer": "y = 3x - 2",
+      "acceptedAnswers": [
+        "y = 3x - 2",
+        "3x - y - 2 = 0"
+      ],
+      "explanationZhHans": "y'=2x+1/x，在x=1处斜率k=3，切线方程为y-1=3(x-1)，即y=3x-2。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s6-457",
+      "batch": "bnu-high-v1",
+      "grade": "S6",
+      "semester": "full-year",
+      "topicId": "bnu-high-s6-高三数列与导数综合复习",
+      "topicTitleZhHans": "高三数列与导数综合复习",
+      "volume": "选择性必修 第二册综合复习",
+      "chapter": "高三数列与导数综合复习",
+      "conceptIds": [
+        "sequences",
+        "arithmetic-sequences",
+        "geometric-sequences",
+        "recurrence",
+        "series-sums",
+        "mathematical-induction",
+        "derivatives",
+        "derivative-rules",
+        "tangent-lines",
+        "monotonicity"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "逻辑推理",
+        "数学运算",
+        "数学建模",
+        "直观想象"
+      ],
+      "skillTags": [
+        "等差等比识别",
+        "递推关系转化",
+        "通项公式求解",
+        "前n项和求解",
+        "单元综合检查",
+        "通项公式",
+        "递推关系",
+        "求和"
+      ],
+      "misconceptionTags": [
+        "term index off by one",
+        "arithmetic and geometric structures confused",
+        "recurrence condition incomplete",
+        "induction step assumes the conclusion",
+        "derivative value confused with function value",
+        "critical point treated automatically",
+        "endpoint check omitted",
+        "optimization condition not tied to context"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s6-selective-2-sequences",
+        "bnu-high-s6-selective-2-derivatives"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s6-assessment-sequences-unit-core",
+        "bnu-high-s6-assessment-sequences-foundation-review",
+        "bnu-high-s6-assessment-selective-2-full-volume-comprehensive"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知函数f(x)=e^x - ax在区间[0, +∞)上单调递增，则实数a的取值范围是（　　）",
+      "optionsZhHans": [
+        "a ≤ 1",
+        "a ≥ 1",
+        "a ≤ 0",
+        "a ≥ 0"
+      ],
+      "answer": "a ≤ 1",
+      "acceptedAnswers": [
+        "a ≤ 1"
+      ],
+      "explanationZhHans": "f'(x)=e^x - a，由题意在[0,+∞)上f'(x)≥0，即e^x≥a恒成立。e^x最小值为1，故a≤1。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s6-458",
+      "batch": "bnu-high-v1",
+      "grade": "S6",
+      "semester": "full-year",
+      "topicId": "bnu-high-s6-高三数列与导数综合复习",
+      "topicTitleZhHans": "高三数列与导数综合复习",
+      "volume": "选择性必修 第二册综合复习",
+      "chapter": "高三数列与导数综合复习",
+      "conceptIds": [
+        "sequences",
+        "arithmetic-sequences",
+        "geometric-sequences",
+        "recurrence",
+        "series-sums",
+        "mathematical-induction",
+        "derivatives",
+        "derivative-rules",
+        "tangent-lines",
+        "monotonicity"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "逻辑推理",
+        "数学运算",
+        "数学建模",
+        "直观想象"
+      ],
+      "skillTags": [
+        "等差等比识别",
+        "递推关系转化",
+        "通项公式求解",
+        "前n项和求解",
+        "单元综合检查",
+        "通项公式",
+        "递推关系",
+        "求和"
+      ],
+      "misconceptionTags": [
+        "term index off by one",
+        "arithmetic and geometric structures confused",
+        "recurrence condition incomplete",
+        "induction step assumes the conclusion",
+        "derivative value confused with function value",
+        "critical point treated automatically",
+        "endpoint check omitted",
+        "optimization condition not tied to context"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s6-selective-2-sequences",
+        "bnu-high-s6-selective-2-derivatives"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s6-assessment-sequences-unit-core",
+        "bnu-high-s6-assessment-sequences-foundation-review",
+        "bnu-high-s6-assessment-selective-2-full-volume-comprehensive"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用数学归纳法证明：1+3+5+...+(2n-1)=n^2。请写出第二步的归纳假设。",
+      "optionsZhHans": [],
+      "answer": "假设当n=k时，等式成立，即1+3+5+...+(2k-1)=k^2。",
+      "acceptedAnswers": [
+        "假设当n=k时，等式成立，即1+3+5+...+(2k-1)=k^2。",
+        "假设n=k时，1+3+5+...+(2k-1)=k^2"
+      ],
+      "explanationZhHans": "数学归纳法第二步：假设n=k时命题成立，即1+3+...+(2k-1)=k^2，然后证明n=k+1时也成立。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s6-459",
+      "batch": "bnu-high-v1",
+      "grade": "S6",
+      "semester": "full-year",
+      "topicId": "bnu-high-s6-高三数列与导数综合复习",
+      "topicTitleZhHans": "高三数列与导数综合复习",
+      "volume": "选择性必修 第二册综合复习",
+      "chapter": "高三数列与导数综合复习",
+      "conceptIds": [
+        "sequences",
+        "arithmetic-sequences",
+        "geometric-sequences",
+        "recurrence",
+        "series-sums",
+        "mathematical-induction",
+        "derivatives",
+        "derivative-rules",
+        "tangent-lines",
+        "monotonicity"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "逻辑推理",
+        "数学运算",
+        "数学建模",
+        "直观想象"
+      ],
+      "skillTags": [
+        "等差等比识别",
+        "递推关系转化",
+        "通项公式求解",
+        "前n项和求解",
+        "单元综合检查",
+        "通项公式",
+        "递推关系",
+        "求和"
+      ],
+      "misconceptionTags": [
+        "term index off by one",
+        "arithmetic and geometric structures confused",
+        "recurrence condition incomplete",
+        "induction step assumes the conclusion",
+        "derivative value confused with function value",
+        "critical point treated automatically",
+        "endpoint check omitted",
+        "optimization condition not tied to context"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s6-selective-2-sequences",
+        "bnu-high-s6-selective-2-derivatives"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s6-assessment-sequences-unit-core",
+        "bnu-high-s6-assessment-sequences-foundation-review",
+        "bnu-high-s6-assessment-selective-2-full-volume-comprehensive"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知数列{an}的前n项和Sn=n^2+2n，则a4的值为（　　）",
+      "optionsZhHans": [
+        "9",
+        "11",
+        "13",
+        "15"
+      ],
+      "answer": "9",
+      "acceptedAnswers": [
+        "9"
+      ],
+      "explanationZhHans": "a4=S4-S3=(16+8)-(9+6)=24-15=9。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s6-460",
+      "batch": "bnu-high-v1",
+      "grade": "S6",
+      "semester": "full-year",
+      "topicId": "bnu-high-s6-高三数列与导数综合复习",
+      "topicTitleZhHans": "高三数列与导数综合复习",
+      "volume": "选择性必修 第二册综合复习",
+      "chapter": "高三数列与导数综合复习",
+      "conceptIds": [
+        "sequences",
+        "arithmetic-sequences",
+        "geometric-sequences",
+        "recurrence",
+        "series-sums",
+        "mathematical-induction",
+        "derivatives",
+        "derivative-rules",
+        "tangent-lines",
+        "monotonicity"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "逻辑推理",
+        "数学运算",
+        "数学建模",
+        "直观想象"
+      ],
+      "skillTags": [
+        "等差等比识别",
+        "递推关系转化",
+        "通项公式求解",
+        "前n项和求解",
+        "单元综合检查",
+        "通项公式",
+        "递推关系",
+        "求和"
+      ],
+      "misconceptionTags": [
+        "term index off by one",
+        "arithmetic and geometric structures confused",
+        "recurrence condition incomplete",
+        "induction step assumes the conclusion",
+        "derivative value confused with function value",
+        "critical point treated automatically",
+        "endpoint check omitted",
+        "optimization condition not tied to context"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s6-selective-2-sequences",
+        "bnu-high-s6-selective-2-derivatives"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s6-assessment-sequences-unit-core",
+        "bnu-high-s6-assessment-sequences-foundation-review",
+        "bnu-high-s6-assessment-selective-2-full-volume-comprehensive"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "求函数f(x)=x^3-3x在区间[-2,2]上的最大值与最小值。",
+      "optionsZhHans": [],
+      "answer": "最大值为2，最小值为-2。",
+      "acceptedAnswers": [
+        "最大值为2，最小值为-2。",
+        "最大值2，最小值-2"
+      ],
+      "explanationZhHans": "f'(x)=3x^2-3=3(x-1)(x+1)，驻点x=±1。f(-2)=-2，f(-1)=2，f(1)=-2，f(2)=2，故最大2，最小-2。"
+    }
+  ]
+}

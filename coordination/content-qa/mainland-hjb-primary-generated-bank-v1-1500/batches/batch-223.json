@@ -1,0 +1,290 @@
+{
+  "batchId": "batch-223",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p5-111",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "hjb-primary-p5-upper-data-average",
+      "unitTitle": "数据整理与平均数",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "data-organization",
+        "average",
+        "statistical-displays",
+        "data-interpretation",
+        "平均数"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "量感",
+        "数学表达"
+      ],
+      "skillTags": [
+        "收集整理数据",
+        "统计表",
+        "统计图",
+        "平均数意义",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "average treated as the most common value",
+        "chart scale read incorrectly",
+        "conclusion not supported by data"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p5-upper-data-average"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-data-average-unit",
+        "hjb-primary-p5-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是五年级一班第一小组同学1分钟跳绳的成绩记录（单位：个）：\n145，138，152，140，147，139，151，143。\n（1）这组数据的平均数是多少？（保留整数）\n（2）这个平均数能代表这个小组的整体水平吗？请简要说明理由。",
+      "optionsZhHans": [],
+      "answer": "（1）144个；（2）能，因为平均数反映了这组数据的集中趋势，且数据中没有极端值，所以能较好地代表整体水平。",
+      "acceptedAnswers": [
+        "（1）144个；（2）能，因为平均数反映了这组数据的集中趋势，且数据中没有极端值，所以能较好地代表整体水平。"
+      ],
+      "explanationZhHans": "（1）总和=145+138+152+140+147+139+151+143=1155，个数=8，平均数=1155÷8≈144.375，保留整数得144个。（2）平均数作为代表值，在没有极端值影响时能反映一般水平。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-112",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "hjb-primary-p5-upper-data-average",
+      "unitTitle": "数据整理与平均数",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "data-organization",
+        "average",
+        "statistical-displays",
+        "data-interpretation",
+        "平均数"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "量感",
+        "数学表达"
+      ],
+      "skillTags": [
+        "收集整理数据",
+        "统计表",
+        "统计图",
+        "平均数意义",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "average treated as the most common value",
+        "chart scale read incorrectly",
+        "conclusion not supported by data"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p5-upper-data-average"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-data-average-unit",
+        "hjb-primary-p5-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书室上周借出图书情况如下：周一45本，周二52本，周三48本，周四50本，周五55本。这五天平均每天借出图书多少本？",
+      "optionsZhHans": [
+        "48本",
+        "50本",
+        "52本",
+        "55本"
+      ],
+      "answer": "50本",
+      "acceptedAnswers": [
+        "50本"
+      ],
+      "explanationZhHans": "总借出本数=45+52+48+50+55=250本，天数=5，平均每天借出250÷5=50本。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-113",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "hjb-primary-p5-upper-data-average",
+      "unitTitle": "数据整理与平均数",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "data-organization",
+        "average",
+        "statistical-displays",
+        "data-interpretation",
+        "平均数"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "量感",
+        "数学表达"
+      ],
+      "skillTags": [
+        "收集整理数据",
+        "统计表",
+        "统计图",
+        "平均数意义",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "average treated as the most common value",
+        "chart scale read incorrectly",
+        "conclusion not supported by data"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p5-upper-data-average"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-data-average-unit",
+        "hjb-primary-p5-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丁丁记录了自家小区一周内每天产生的可回收垃圾质量（单位：千克）：\n周一：12.5，周二：10.8，周三：13.2，周四：11.6，周五：14.0，周六：15.3，周日：9.8。\n这一周平均每天产生可回收垃圾______千克。（结果保留一位小数）",
+      "optionsZhHans": [],
+      "answer": "12.5",
+      "acceptedAnswers": [
+        "12.5"
+      ],
+      "explanationZhHans": "总和=12.5+10.8+13.2+11.6+14.0+15.3+9.8=87.2千克，天数=7，平均数=87.2÷7≈12.457，保留一位小数得12.5千克。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-114",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "hjb-primary-p5-upper-data-average",
+      "unitTitle": "数据整理与平均数",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "data-organization",
+        "average",
+        "statistical-displays",
+        "data-interpretation",
+        "平均数"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "量感",
+        "数学表达"
+      ],
+      "skillTags": [
+        "收集整理数据",
+        "统计表",
+        "统计图",
+        "平均数意义",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "average treated as the most common value",
+        "chart scale read incorrectly",
+        "conclusion not supported by data"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p5-upper-data-average"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-data-average-unit",
+        "hjb-primary-p5-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是某水果店连续5天卖出苹果数量的统计表：\n第一天：30千克，第二天：35千克，第三天：28千克，第四天：32千克，第五天：40千克。\n（1）这5天卖出苹果的平均数是多少千克？\n（2）哪几天卖出的苹果数量高于平均数？",
+      "optionsZhHans": [],
+      "answer": "（1）33千克；（2）第二天和第五天。",
+      "acceptedAnswers": [
+        "（1）33千克；（2）第二天和第五天。"
+      ],
+      "explanationZhHans": "（1）总和=30+35+28+32+40=165千克，平均数=165÷5=33千克。（2）比较每天数量：35>33，40>33，所以第二天和第五天高于平均数。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-115",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "hjb-primary-p5-upper-data-average",
+      "unitTitle": "数据整理与平均数",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "data-organization",
+        "average",
+        "statistical-displays",
+        "data-interpretation",
+        "平均数"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "量感",
+        "数学表达"
+      ],
+      "skillTags": [
+        "收集整理数据",
+        "统计表",
+        "统计图",
+        "平均数意义",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "average treated as the most common value",
+        "chart scale read incorrectly",
+        "conclusion not supported by data"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p5-upper-data-average"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-data-average-unit",
+        "hjb-primary-p5-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小胖记录了4月份前4天的最高气温：22℃，24℃，23℃，25℃。这4天的平均最高气温是多少？",
+      "optionsZhHans": [
+        "22.5℃",
+        "23℃",
+        "23.5℃",
+        "24℃"
+      ],
+      "answer": "23.5℃",
+      "acceptedAnswers": [
+        "23.5℃"
+      ],
+      "explanationZhHans": "总和=22+24+23+25=94℃，天数=4，平均数=94÷4=23.5℃。"
+    }
+  ]
+}

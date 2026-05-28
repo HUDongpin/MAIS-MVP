@@ -1,0 +1,141 @@
+{
+  "batchNumber": 52,
+  "startedAt": "2026-05-25T03:03:18.651Z",
+  "completedAt": "2026-05-25T03:03:36.223Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s2-k08-mc-013",
+    "pep-junior-v3-s2-k08-mc-014",
+    "pep-junior-v3-s2-k08-mc-015",
+    "pep-junior-v3-s2-k08-mc-016",
+    "pep-junior-v3-s2-k08-mc-017",
+    "pep-junior-v3-s2-k08-mc-018",
+    "pep-junior-v3-s2-k08-mc-019",
+    "pep-junior-v3-s2-k08-mc-020",
+    "pep-junior-v3-s2-k08-mc-021",
+    "pep-junior-v3-s2-k08-mc-022",
+    "pep-junior-v3-s2-k08-mc-023",
+    "pep-junior-v3-s2-k08-mc-024"
+  ],
+  "usage": {
+    "prompt_tokens": 3144,
+    "completion_tokens": 1020,
+    "total_tokens": 4164,
+    "prompt_tokens_details": {
+      "cached_tokens": 3072
+    },
+    "prompt_cache_hit_tokens": 3072,
+    "prompt_cache_miss_tokens": 72
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s2-k08-mc-013",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，平行四边形对角相等，∠C=50°。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-mc-014",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "二次根式有意义条件正确，x≥3。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-mc-015",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "勾股数3,4,5正确。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-mc-016",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "矩形对角线相等是特有性质，正确。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-mc-017",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "二次根式加法化简正确，结果为5√3。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-mc-018",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "菱形面积公式应用正确，24 cm²。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-mc-019",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "勾股定理应用正确，高度12m。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-mc-020",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "中点四边形性质正确，一定是平行四边形。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-mc-021",
+        "status": "warn",
+        "severity": "minor",
+        "issueTags": [
+          "template_repetition"
+        ],
+        "correctedAnswer": null,
+        "rationale": "与第2题(pep-junior-v3-s2-k08-mc-014)高度相似，仅被开方数从x-3变为2x-6，答案相同，建议合并或删除重复。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-mc-022",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "同类二次根式判断正确，√12=2√3。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-mc-023",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "勾股定理计算正确，AB=10。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-mc-024",
+        "status": "warn",
+        "severity": "minor",
+        "issueTags": [
+          "template_repetition"
+        ],
+        "correctedAnswer": null,
+        "rationale": "与第3题(pep-junior-v3-s2-k08-mc-015)高度相似，都是判断直角三角形三边，选项略有不同但正确答案相同，建议合并或删除重复。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 10,
+      "warn": 2,
+      "fail": 0,
+      "notes": "12道题中10道通过，2道因与前面题目高度重复标记为warn，建议去重。无数学错误或答案不匹配。"
+    }
+  }
+}

@@ -1,0 +1,137 @@
+{
+  "batchNumber": 8,
+  "startedAt": "2026-05-25T02:47:20.128Z",
+  "completedAt": "2026-05-25T02:47:36.730Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s1-k02-mc-017",
+    "pep-junior-v3-s1-k02-mc-018",
+    "pep-junior-v3-s1-k02-mc-019",
+    "pep-junior-v3-s1-k02-mc-020",
+    "pep-junior-v3-s1-k02-mc-021",
+    "pep-junior-v3-s1-k02-mc-022",
+    "pep-junior-v3-s1-k02-fi-001",
+    "pep-junior-v3-s1-k02-fi-002",
+    "pep-junior-v3-s1-k02-fi-003",
+    "pep-junior-v3-s1-k02-fi-004",
+    "pep-junior-v3-s1-k02-fi-005",
+    "pep-junior-v3-s1-k02-fi-006"
+  ],
+  "usage": {
+    "prompt_tokens": 3597,
+    "completion_tokens": 1027,
+    "total_tokens": 4624,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 3341
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s1-k02-mc-017",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程正确，甲工作(x+2)天，乙工作x天，总工作量为1，选项D正确。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k02-mc-018",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "整体代入正确，6x²-4x-3=2(3x²-2x)-3=2×4-3=5，答案5正确。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k02-mc-019",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "第二次不及格人数为x-5，方程3x+4+5=6(x-5)正确。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k02-mc-020",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "宽为18-x，变化后长x-2，宽18-x+2，相等得x-2=18-x+2，正确。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k02-mc-021",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "解方程得x=(3m+6)/2>0，得m>-2，正确。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k02-mc-022",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "利润=(售价-成本)×销售量，销售量=500-10(x-50)，表达式正确。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k02-fi-001",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "去括号合并得9b，答案正确。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k02-fi-002",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程50-3x=2正确，等价形式也接受。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k02-fi-003",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "距离5-(-3)=8，正确。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k02-fi-004",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "男生2x-5，总人数x+2x-5=40，正确。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k02-fi-005",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "补角余角关系列方程解得35°，正确。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k02-fi-006",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "合并同类项得5x²-x-3，正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部12道题数学正确，答案与解析一致，无歧义，适合人教版初中数学。"
+    }
+  }
+}

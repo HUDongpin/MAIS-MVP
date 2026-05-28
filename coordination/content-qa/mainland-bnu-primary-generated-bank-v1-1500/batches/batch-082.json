@@ -1,0 +1,583 @@
+{
+  "batchId": "batch-082",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p4-061",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-operation-laws",
+      "unitTitle": "运算律",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "operation-laws",
+        "commutative-associative-distributive",
+        "mental-calculation",
+        "运算律",
+        "简便计算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "推理意识",
+        "符号意识"
+      ],
+      "skillTags": [
+        "加法运算律",
+        "乘法运算律",
+        "分配律",
+        "简便计算",
+        "等式变形解释"
+      ],
+      "misconceptionTags": [
+        "law name memorized without equality meaning",
+        "distributive structure applied to nonmatching terms",
+        "shortcut chosen even when it increases complexity"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-operation-laws"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-operation-laws-unit",
+        "bnu-primary-p4-upper-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个算式运用了乘法分配律？",
+      "optionsZhHans": [
+        "25 × (4 × 7) = (25 × 4) × 7",
+        "38 × 12 = 38 × 10 + 38 × 2",
+        "56 + 17 + 44 = 56 + 44 + 17",
+        "125 × 8 × 5 = 125 × 40"
+      ],
+      "answer": "38 × 12 = 38 × 10 + 38 × 2",
+      "acceptedAnswers": [
+        "38 × 12 = 38 × 10 + 38 × 2"
+      ],
+      "explanationZhHans": "乘法分配律是把一个数与两个数的和相乘转化为分别相乘再相加。38×12=38×(10+2)=38×10+38×2，符合分配律。A是乘法结合律，C是加法交换律，D是乘法结合律的误用。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-062",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-operation-laws",
+      "unitTitle": "运算律",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "operation-laws",
+        "commutative-associative-distributive",
+        "mental-calculation",
+        "运算律",
+        "简便计算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "推理意识",
+        "符号意识"
+      ],
+      "skillTags": [
+        "加法运算律",
+        "乘法运算律",
+        "分配律",
+        "简便计算",
+        "等式变形解释"
+      ],
+      "misconceptionTags": [
+        "law name memorized without equality meaning",
+        "distributive structure applied to nonmatching terms",
+        "shortcut chosen even when it increases complexity"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-operation-laws"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-operation-laws-unit",
+        "bnu-primary-p4-upper-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "根据加法结合律，在横线上填上合适的数：47 + 36 + 64 = 47 + (____ + 64)。",
+      "optionsZhHans": [],
+      "answer": "36",
+      "acceptedAnswers": [
+        "36"
+      ],
+      "explanationZhHans": "加法结合律改变运算顺序，和不变。原式先算47+36再加64，运用结合律可以先算36+64凑成100，再与47相加，所以横线上填36。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-063",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-operation-laws",
+      "unitTitle": "运算律",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "operation-laws",
+        "commutative-associative-distributive",
+        "mental-calculation",
+        "运算律",
+        "简便计算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "推理意识",
+        "符号意识"
+      ],
+      "skillTags": [
+        "加法运算律",
+        "乘法运算律",
+        "分配律",
+        "简便计算",
+        "等式变形解释"
+      ],
+      "misconceptionTags": [
+        "law name memorized without equality meaning",
+        "distributive structure applied to nonmatching terms",
+        "shortcut chosen even when it increases complexity"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-operation-laws"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-operation-laws-unit",
+        "bnu-primary-p4-upper-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用简便方法计算 125 × 32 × 25，并写出每一步运用的运算律。",
+      "optionsZhHans": [],
+      "answer": "125 × 32 × 25 = 125 × (8 × 4) × 25 = (125 × 8) × (4 × 25) = 1000 × 100 = 100000，运用了乘法结合律。",
+      "acceptedAnswers": [
+        "125 × 32 × 25 = 125 × (8 × 4) × 25 = (125 × 8) × (4 × 25) = 1000 × 100 = 100000，运用了乘法结合律。",
+        "125×32×25=125×(8×4)×25=(125×8)×(4×25)=1000×100=100000，运用了乘法结合律。"
+      ],
+      "explanationZhHans": "把32拆成8×4，再用乘法结合律将125与8结合得1000，4与25结合得100，最后相乘得100000。每一步都保持了等值变形。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-064",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-operation-laws",
+      "unitTitle": "运算律",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "operation-laws",
+        "commutative-associative-distributive",
+        "mental-calculation",
+        "运算律",
+        "简便计算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "推理意识",
+        "符号意识"
+      ],
+      "skillTags": [
+        "加法运算律",
+        "乘法运算律",
+        "分配律",
+        "简便计算",
+        "等式变形解释"
+      ],
+      "misconceptionTags": [
+        "law name memorized without equality meaning",
+        "distributive structure applied to nonmatching terms",
+        "shortcut chosen even when it increases complexity"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-operation-laws"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-operation-laws-unit",
+        "bnu-primary-p4-upper-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算 99 × 57 时，下面哪种简便算法是正确的？",
+      "optionsZhHans": [
+        "99 × 57 = 100 × 57 - 1",
+        "99 × 57 = 100 × 57 - 57",
+        "99 × 57 = 100 × 57 + 57",
+        "99 × 57 = 90 × 57 + 9 × 57"
+      ],
+      "answer": "99 × 57 = 100 × 57 - 57",
+      "acceptedAnswers": [
+        "99 × 57 = 100 × 57 - 57"
+      ],
+      "explanationZhHans": "99×57可以看作(100-1)×57，利用乘法分配律得100×57-1×57=100×57-57。A选项少减了56，C选项多加了，D选项虽然正确但不是最简便的。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-065",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-direction-position",
+      "unitTitle": "方向与位置",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "direction-position",
+        "map-reading",
+        "direction-distance",
+        "relative-location",
+        "方向与位置"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "模型意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "用方向描述位置",
+        "用距离描述位置",
+        "读简单地图",
+        "路线表达",
+        "参照点"
+      ],
+      "misconceptionTags": [
+        "reference point omitted",
+        "direction and distance swapped",
+        "route direction changes when viewpoint is unstated"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-direction-position"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-direction-position-unit",
+        "bnu-primary-p4-upper-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校在图书馆的东偏北30°方向，距离400米。那么图书馆在学校的____偏____ ____°方向，距离____米。",
+      "optionsZhHans": [],
+      "answer": "西偏南30，400",
+      "acceptedAnswers": [
+        "西偏南30，400",
+        "西偏南 30，400",
+        "西偏南30°,400",
+        "西偏南30度，400"
+      ],
+      "explanationZhHans": "两个地点的方向是相对的。学校在图书馆的东偏北30°，则图书馆在学校的西偏南30°，距离不变，仍为400米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-066",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-direction-position",
+      "unitTitle": "方向与位置",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "direction-position",
+        "map-reading",
+        "direction-distance",
+        "relative-location",
+        "方向与位置"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "模型意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "用方向描述位置",
+        "用距离描述位置",
+        "读简单地图",
+        "路线表达",
+        "参照点"
+      ],
+      "misconceptionTags": [
+        "reference point omitted",
+        "direction and distance swapped",
+        "route direction changes when viewpoint is unstated"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-direction-position"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-direction-position-unit",
+        "bnu-primary-p4-upper-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明从家出发，先向东走200米到达超市，再向北走150米到达书店，最后向西走200米到达学校。请你描述小明从学校回家的路线。",
+      "optionsZhHans": [],
+      "answer": "从学校出发，先向东走200米到达书店，再向南走150米到达超市，最后向西走200米回到家。",
+      "acceptedAnswers": [
+        "从学校出发，先向东走200米到达书店，再向南走150米到达超市，最后向西走200米回到家。",
+        "从学校向东走200米到书店，再向南走150米到超市，再向西走200米到家。"
+      ],
+      "explanationZhHans": "回家路线与上学路线方向相反，顺序也相反。上学时家→东→超市→北→书店→西→学校，回家时学校→东→书店→南→超市→西→家。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-067",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-direction-position",
+      "unitTitle": "方向与位置",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "direction-position",
+        "map-reading",
+        "direction-distance",
+        "relative-location",
+        "方向与位置"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "模型意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "用方向描述位置",
+        "用距离描述位置",
+        "读简单地图",
+        "路线表达",
+        "参照点"
+      ],
+      "misconceptionTags": [
+        "reference point omitted",
+        "direction and distance swapped",
+        "route direction changes when viewpoint is unstated"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-direction-position"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-direction-position-unit",
+        "bnu-primary-p4-upper-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "以学校为观测点，公园在学校北偏西50°方向，距离600米；电影院在学校南偏东30°方向，距离400米。下面说法正确的是？",
+      "optionsZhHans": [
+        "公园在电影院的北偏西方向",
+        "电影院在公园的南偏东方向",
+        "公园和电影院在学校的两侧，方向相反",
+        "公园和电影院之间的距离是1000米"
+      ],
+      "answer": "公园和电影院在学校的两侧，方向相反",
+      "acceptedAnswers": [
+        "公园和电影院在学校的两侧，方向相反"
+      ],
+      "explanationZhHans": "公园在北偏西，电影院在南偏东，两者方向大致相反，确实在学校两侧。A、B选项没有给出具体参照点无法判断，D选项距离不能直接相加，因为方向不同。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-068",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-direction-position",
+      "unitTitle": "方向与位置",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "direction-position",
+        "map-reading",
+        "direction-distance",
+        "relative-location",
+        "方向与位置"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "模型意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "用方向描述位置",
+        "用距离描述位置",
+        "读简单地图",
+        "路线表达",
+        "参照点"
+      ],
+      "misconceptionTags": [
+        "reference point omitted",
+        "direction and distance swapped",
+        "route direction changes when viewpoint is unstated"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-direction-position"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-direction-position-unit",
+        "bnu-primary-p4-upper-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小华站在操场上，他的正北方向是旗杆，正东方向是教学楼。那么旗杆在教学楼的____方向。",
+      "optionsZhHans": [],
+      "answer": "西北",
+      "acceptedAnswers": [
+        "西北",
+        "西北方向"
+      ],
+      "explanationZhHans": "以小华为参照，旗杆在北，教学楼在东。以教学楼为参照，旗杆在北偏西方向，即西北方向。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-069",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-direction-position",
+      "unitTitle": "方向与位置",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "direction-position",
+        "map-reading",
+        "direction-distance",
+        "relative-location",
+        "方向与位置"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "模型意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "用方向描述位置",
+        "用距离描述位置",
+        "读简单地图",
+        "路线表达",
+        "参照点"
+      ],
+      "misconceptionTags": [
+        "reference point omitted",
+        "direction and distance swapped",
+        "route direction changes when viewpoint is unstated"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-direction-position"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-direction-position-unit",
+        "bnu-primary-p4-upper-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一辆汽车从A城出发，向东行驶50千米到达B镇，然后向南行驶30千米到达C村，再向西行驶20千米到达D镇。请描述D镇在A城的什么方向，大约多少千米？（结果保留整数）",
+      "optionsZhHans": [],
+      "answer": "D镇在A城的东偏南方向，大约58千米。",
+      "acceptedAnswers": [
+        "D镇在A城的东偏南方向，大约58千米。",
+        "东偏南，约58千米",
+        "东偏南方向，约58千米"
+      ],
+      "explanationZhHans": "向东50千米，向南30千米，再向西20千米，最终位置在A城东边30千米、南边30千米处。方向为东偏南45°，距离约为√(30²+30²)≈42千米，但需注意实际路线并非直线，题目要求描述相对位置，应为东偏南方向，距离约42千米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-070",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-direction-position",
+      "unitTitle": "方向与位置",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "direction-position",
+        "map-reading",
+        "direction-distance",
+        "relative-location",
+        "方向与位置"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "模型意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "用方向描述位置",
+        "用距离描述位置",
+        "读简单地图",
+        "路线表达",
+        "参照点"
+      ],
+      "misconceptionTags": [
+        "reference point omitted",
+        "direction and distance swapped",
+        "route direction changes when viewpoint is unstated"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-direction-position"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-direction-position-unit",
+        "bnu-primary-p4-upper-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "以灯塔为观测点，轮船A在灯塔北偏东40°方向30千米处，轮船B在灯塔南偏西50°方向40千米处。下面哪种说法是正确的？",
+      "optionsZhHans": [
+        "轮船A在轮船B的北偏东方向",
+        "轮船B在轮船A的南偏西方向",
+        "轮船A和轮船B在灯塔的相反方向",
+        "轮船A和轮船B之间的距离是70千米"
+      ],
+      "answer": "轮船A和轮船B在灯塔的相反方向",
+      "acceptedAnswers": [
+        "轮船A和轮船B在灯塔的相反方向"
+      ],
+      "explanationZhHans": "轮船A在北偏东40°，轮船B在南偏西50°，两者方向大致相反。A、B选项缺少参照点，D选项距离不能简单相加。"
+    }
+  ]
+}

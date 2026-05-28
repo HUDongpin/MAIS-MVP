@@ -1,0 +1,181 @@
+{
+  "startedAt": "2026-05-26T06:13:39.195Z",
+  "completedAt": "2026-05-26T06:13:57.080Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "usage": {
+    "prompt_tokens": 2651,
+    "completion_tokens": 1409,
+    "total_tokens": 4060,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 2651
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "questionId": "pep-primary-p6-u-mc-001",
+        "solvableStatus": "pass",
+        "independentAnswer": "18",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "90的20%是18，选项A正确。"
+      },
+      {
+        "questionId": "pep-primary-p6-u-mc-002",
+        "solvableStatus": "pass",
+        "independentAnswer": "95",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "190的50%是95，选项D正确。"
+      },
+      {
+        "questionId": "pep-primary-p6-u-mc-003",
+        "solvableStatus": "pass",
+        "independentAnswer": "18",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "90的20%是18，选项C正确。"
+      },
+      {
+        "questionId": "pep-primary-p6-u-mc-004",
+        "solvableStatus": "pass",
+        "independentAnswer": "55",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "110的50%是55，选项B正确。"
+      },
+      {
+        "questionId": "pep-primary-p6-u-mc-005",
+        "solvableStatus": "pass",
+        "independentAnswer": "34",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "170的20%是34，选项A正确。"
+      },
+      {
+        "questionId": "pep-primary-p6-u-mc-006",
+        "solvableStatus": "pass",
+        "independentAnswer": "95",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "190的50%是95，选项D正确。"
+      },
+      {
+        "questionId": "pep-primary-p6-u-mc-007",
+        "solvableStatus": "pass",
+        "independentAnswer": "18",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "90的20%是18，选项C正确。"
+      },
+      {
+        "questionId": "pep-primary-p6-u-mc-008",
+        "solvableStatus": "pass",
+        "independentAnswer": "55",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "110的50%是55，选项B正确。"
+      },
+      {
+        "questionId": "pep-primary-p6-u-mc-009",
+        "solvableStatus": "pass",
+        "independentAnswer": "26",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "130的20%是26，选项A正确。"
+      },
+      {
+        "questionId": "pep-primary-p6-u-mc-010",
+        "solvableStatus": "pass",
+        "independentAnswer": "75",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "150的50%是75，选项D正确。"
+      },
+      {
+        "questionId": "pep-primary-p6-u-mc-011",
+        "solvableStatus": "pass",
+        "independentAnswer": "95",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "190的50%是95，选项C正确。"
+      },
+      {
+        "questionId": "pep-primary-p6-u-mc-012",
+        "solvableStatus": "pass",
+        "independentAnswer": "8",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "80的10%是8，选项B正确。"
+      },
+      {
+        "questionId": "pep-primary-p6-u-mc-013",
+        "solvableStatus": "pass",
+        "independentAnswer": "18",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "90的20%是18，选项A正确。"
+      },
+      {
+        "questionId": "pep-primary-p6-u-mc-014",
+        "solvableStatus": "pass",
+        "independentAnswer": "25",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "100的25%是25，选项D正确。"
+      },
+      {
+        "questionId": "pep-primary-p6-u-mc-015",
+        "solvableStatus": "pass",
+        "independentAnswer": "55",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "110的50%是55，选项C正确。"
+      },
+      {
+        "questionId": "pep-primary-p6-u-mc-016",
+        "solvableStatus": "pass",
+        "independentAnswer": "12",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "120的10%是12，选项B正确。"
+      },
+      {
+        "questionId": "pep-primary-p6-u-mc-017",
+        "solvableStatus": "pass",
+        "independentAnswer": "26",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "130的20%是26，选项A正确。"
+      },
+      {
+        "questionId": "pep-primary-p6-u-mc-018",
+        "solvableStatus": "pass",
+        "independentAnswer": "35",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "140的25%是35，选项D正确。"
+      },
+      {
+        "questionId": "pep-primary-p6-u-mc-019",
+        "solvableStatus": "pass",
+        "independentAnswer": "75",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "150的50%是75，选项C正确。"
+      },
+      {
+        "questionId": "pep-primary-p6-u-mc-020",
+        "solvableStatus": "pass",
+        "independentAnswer": "16",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "160的10%是16，选项B正确。"
+      }
+    ]
+  }
+}

@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-124",
+  "startedAt": "2026-05-28T01:32:07.658Z",
+  "completedAt": "2026-05-28T01:32:26.019Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-485",
+    "bnu-high-ds-v1-s5-486",
+    "bnu-high-ds-v1-s5-487",
+    "bnu-high-ds-v1-s5-488",
+    "bnu-high-ds-v1-s5-489",
+    "bnu-high-ds-v1-s5-490",
+    "bnu-high-ds-v1-s5-491",
+    "bnu-high-ds-v1-s5-492"
+  ],
+  "usage": {
+    "prompt_tokens": 10659,
+    "completion_tokens": 1302,
+    "total_tokens": 11961,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 10275
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-485",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "D",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "选项A错误，b的绝对值大小与线性关系强弱无直接关系，需看相关系数；B错误，a是x=0时y的估计值，非精确值；C错误，ε的方差是模型假设的一部分，其大小不直接反映拟合效果；D正确，b的符号决定相关方向。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-486",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(1) r = -1.000，完全负相关；(2) y = 75.0 - 2.5x；(3) 25件",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "数据完全线性，计算得x̄=14，ȳ=40，∑(xi-x̄)(yi-ȳ)=-100，∑(xi-x̄)²=40，∑(yi-ȳ)²=250，r=-100/√(40*250)=-1.000；b=-100/40=-2.5，a=40-(-2.5)*14=75.0；x=20时y=75-2.5*20=25。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-487",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "B",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "独立性检验中χ²值越大，拒绝原假设（无关）的证据越强，即两个分类变量有关的可能性越大，但不能得出一定有关的结论。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-488",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(1) r ≈ 0.99；(2) y = -20.91 + 0.82x；(3) 40.59万件",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "计算得x̄=61.3，ȳ=29，∑(xi-x̄)(yi-ȳ)=594，∑(xi-x̄)²=726.1，∑(yi-ȳ)²=490，r=594/√(726.1*490)≈0.99；b=594/726.1≈0.818，a=29-0.818*61.3≈-20.91；x=75时y≈40.59。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-489",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "B",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "χ²≈27.27 > 10.828，拒绝原假设，认为吸烟与患肺癌有关，但不能说一定导致肺癌。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-490",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(1) r = 1.000；(2) y = 20.0 + 5.0x；(3) 65万元",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "数据完全线性，x̄=5，ȳ=45，∑(xi-x̄)(yi-ȳ)=70，∑(xi-x̄)²=14，∑(yi-ȳ)²=350，r=70/√(14*350)=1.000；b=70/14=5，a=45-5*5=20；x=9时y=20+5*9=65。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-491",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "B",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "r=0.82表明较强的正相关，但不能说存在函数关系或因果关系。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-492",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "y = -1.00 + 0.60x",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "n=8，x̄=15，ȳ=8，b=(1080-8*15*8)/(2000-8*15²)=120/200=0.6，a=8-0.6*15=-1，回归方程为y=-1.00+0.60x。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均能独立求解，无数学错误、歧义或缺失条件，符合北师大版高中统计案例章节要求。"
+    }
+  }
+}

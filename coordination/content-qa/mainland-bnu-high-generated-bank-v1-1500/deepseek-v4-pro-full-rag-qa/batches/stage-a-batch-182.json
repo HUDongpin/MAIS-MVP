@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-182",
+  "startedAt": "2026-05-28T01:54:28.786Z",
+  "completedAt": "2026-05-28T01:54:43.923Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-449",
+    "bnu-high-ds-v1-s6-450",
+    "bnu-high-ds-v1-s6-451",
+    "bnu-high-ds-v1-s6-452",
+    "bnu-high-ds-v1-s6-453",
+    "bnu-high-ds-v1-s6-454",
+    "bnu-high-ds-v1-s6-455",
+    "bnu-high-ds-v1-s6-456"
+  ],
+  "usage": {
+    "prompt_tokens": 11775,
+    "completion_tokens": 1060,
+    "total_tokens": 12835,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 11391
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-449",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "18 m²",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "设宽为x，长为12-2x，面积S=x(12-2x)，求导得S'=12-4x，令S'=0得x=3，此时长6，面积18，端点x=0或6时面积为0，故最大面积18 m²。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-450",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "a ≤ 3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x²-a，在[1,+∞)上f'(x)≥0恒成立，即3x²≥a，x≥1时3x²最小值为3，故a≤3。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-451",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由bn=an+2n，代入递推得bn+1=3bn，故公比为3。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-452",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "an = 2n + 1",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "设an=a1+(n-1)d，由a3=7得a1+2d=7，S5=5a1+10d=30，解得a1=3，d=2，故an=2n+1。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-453",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(-1, 3)",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x²-6x-9=3(x-3)(x+1)，令f'(x)<0得-1<x<3，故单调递减区间为(-1,3)。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-454",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "62",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由a4=a1q³得16=2q³，q=2，S5=2(1-2⁵)/(1-2)=62。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-455",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "31",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "递推构造等比：an+1+1=2(an+1)，a1+1=2，故an+1=2ⁿ，a5=2⁵-1=31。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-456",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "y = 3x - 2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "y'=2x+1/x，在x=1处斜率k=3，切线方程y-1=3(x-1)，即y=3x-2。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，无数学错误、歧义或缺失条件，符合北师大版高中内容范围。"
+    }
+  }
+}

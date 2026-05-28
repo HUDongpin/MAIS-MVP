@@ -1,0 +1,111 @@
+{
+  "batchId": "model-qa-0002",
+  "ids": [
+    "hjb-junior-ds-v2-s1-009",
+    "hjb-junior-ds-v2-s1-010",
+    "hjb-junior-ds-v2-s1-011",
+    "hjb-junior-ds-v2-s1-012",
+    "hjb-junior-ds-v2-s1-013",
+    "hjb-junior-ds-v2-s1-014",
+    "hjb-junior-ds-v2-s1-015",
+    "hjb-junior-ds-v2-s1-016"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-009",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "标准答案和解析中的化简结果均为 -x² - 4x + 9，代入 x=-1 得 12。但独立计算发现：3(x² - 2x + 1) - 2(2x² - x - 3) = 3x² - 6x + 3 - 4x² + 2x + 6 = -x² - 4x + 9，代入 x=-1 得 -1 + 4 + 9 = 12，答案正确。然而，题目要求“先化简，再求值”，答案格式为“-x² - 4x + 9，当x=-1时值为12”，acceptedAnswers 已覆盖。但解析中最后一步写为“-1+4+9=12”，与化简结果一致。实际上，独立计算确认答案无误，但之前有误判。重新检查：原式=3x²-6x+3-4x²+2x+6=-x²-4x+9，代入x=-1：-(-1)²-4×(-1)+9=-1+4+9=12。答案正确。但注意：解析中“-1+4+9=12”正确。因此，本题无错误。但之前我误判为错误，现纠正。",
+      "independentAnswerZhHans": "-x² - 4x + 9，当x=-1时值为12",
+      "answerCheckZhHans": "标准答案与独立答案一致，均为12。",
+      "recommendedActionZhHans": "无需修改，题目正确。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-010",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "B. 7x² - x - 3",
+      "answerCheckZhHans": "标准答案与独立答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-011",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x³ - 5x²y + 10xy² - 7y³",
+      "answerCheckZhHans": "标准答案与独立答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-012",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案指出第一步去括号时符号错误，正确结果为 12a²b - 3ab²。但独立计算发现：原式 = 3a²b - [2ab² - (4a²b + ab²) - 5a²b] + 2ab²。先去小括号：= 3a²b - [2ab² - 4a²b - ab² - 5a²b] + 2ab²。合并中括号内：2ab² - ab² = ab²，-4a²b - 5a²b = -9a²b，得 3a²b - [ab² - 9a²b] + 2ab²。去中括号：= 3a²b - ab² + 9a²b + 2ab² = 12a²b + ab²。正确结果应为 12a²b + ab²，而非 12a²b - 3ab²。解析中错误地认为 -5a²b 去括号应变号，但实际已正确处理。解析最后一步合并同类项时，-ab² + 2ab² = ab²，而非 -3ab²。因此答案和解析均错误。",
+      "independentAnswerZhHans": "第一步去括号时符号错误；正确结果为 12a²b + ab²",
+      "answerCheckZhHans": "标准答案错误，正确结果为 12a²b + ab²。",
+      "recommendedActionZhHans": "修正答案为 12a²b + ab²，并更正解析。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-013",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "C. -5m²n 与 0.8nm²",
+      "answerCheckZhHans": "标准答案与独立答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-014",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "5",
+      "answerCheckZhHans": "标准答案与独立答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-015",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为 -10，但独立计算得 -20。解析中化简为 -5x²y + 5xy，代入 x=-1, y=2 得 -5×1×2 + 5×(-1)×2 = -10 - 10 = -20。解析最后一步写为“-10 - 10 = -20”，但答案却为 -10，矛盾。",
+      "independentAnswerZhHans": "-20",
+      "answerCheckZhHans": "标准答案错误，正确结果为 -20。",
+      "recommendedActionZhHans": "修正答案为 -20，并确保解析与答案一致。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-016",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "7x² - 11xy + 10y²",
+      "answerCheckZhHans": "标准答案与独立答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

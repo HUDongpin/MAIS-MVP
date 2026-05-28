@@ -1,0 +1,48 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-271",
+  "startedAt": "2026-05-28T01:06:43.219Z",
+  "completedAt": "2026-05-28T01:06:48.982Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-271"
+  ],
+  "usage": {
+    "prompt_tokens": 2372,
+    "completion_tokens": 262,
+    "total_tokens": 2634,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1988
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-271",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "乙同学的二次模型更合适，因为它的预测误差更小",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，答案匹配，但解析中乙模型预测值计算错误（y(4)=51应为55，y(5)=66应为71，y(6)=82应为88），导致误差计算错误，解析与正确计算过程矛盾，需修正解析。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "解析存在数学计算错误，需修正乙模型预测值及误差计算。"
+    }
+  }
+}

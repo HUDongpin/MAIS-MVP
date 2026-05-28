@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-263",
+  "startedAt": "2026-05-28T01:46:47.643Z",
+  "completedAt": "2026-05-28T01:46:52.531Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-263"
+  ],
+  "usage": {
+    "prompt_tokens": 2087,
+    "completion_tokens": 291,
+    "total_tokens": 2378,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1703
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-263",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "a = -3, b = -9, c = 0",
+        "correctedAnswer": "a = -3, b = -9, c = 0",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合教材范围。独立求解得 a=-3, b=-9, c=0，但存储答案 c=2，解析中代入 f(-1) 计算错误，导致答案不匹配，属于严重数学错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1 题答案错误，c 值应为 0 而非 2，解析存在计算错误，判定为 blocker。"
+    }
+  }
+}

@@ -1,0 +1,597 @@
+{
+  "batchId": "batch-147",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p6-211",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-direct-inverse-proportion",
+      "unitTitle": "正比例与反比例",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "direct-proportion",
+        "inverse-proportion",
+        "constant-rate",
+        "constant-product",
+        "正比例",
+        "反比例"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "函数意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "变化的量",
+        "判断正比例",
+        "判断反比例",
+        "表格图像表达",
+        "建立数量关系"
+      ],
+      "misconceptionTags": [
+        "all increasing pairs treated as direct proportion",
+        "inverse proportion confused with simple decrease",
+        "constant quantity not identified"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-direct-inverse-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-direct-inverse-proportion-unit",
+        "bnu-primary-p6-lower-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一辆汽车行驶的时间和路程如下表。\n时间（小时） 2 4 6 8\n路程（千米） 100 200 300 400\n下面说法正确的是（ ）。",
+      "optionsZhHans": [
+        "路程和时间成正比例，因为比值一定",
+        "路程和时间成反比例，因为乘积一定",
+        "路程和时间不成比例，因为比值不一定",
+        "路程和时间不成比例，因为乘积不一定"
+      ],
+      "answer": "路程和时间成正比例，因为比值一定",
+      "acceptedAnswers": [
+        "路程和时间成正比例，因为比值一定"
+      ],
+      "explanationZhHans": "路程÷时间=速度，100÷2=50，200÷4=50，300÷6=50，400÷8=50，比值都是50千米/时，一定，所以路程和时间成正比例。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-212",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-direct-inverse-proportion",
+      "unitTitle": "正比例与反比例",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "direct-proportion",
+        "inverse-proportion",
+        "constant-rate",
+        "constant-product",
+        "正比例",
+        "反比例"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "函数意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "变化的量",
+        "判断正比例",
+        "判断反比例",
+        "表格图像表达",
+        "建立数量关系"
+      ],
+      "misconceptionTags": [
+        "all increasing pairs treated as direct proportion",
+        "inverse proportion confused with simple decrease",
+        "constant quantity not identified"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-direct-inverse-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-direct-inverse-proportion-unit",
+        "bnu-primary-p6-lower-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用一批纸装订练习本，每本的页数和装订的本数如下表。\n每本的页数 20 30 40 50\n装订的本数 600 400 300 240\n每本的页数和装订的本数成（ ）比例，因为它们的（ ）一定。",
+      "optionsZhHans": [],
+      "answer": "反，乘积",
+      "acceptedAnswers": [
+        "反，乘积",
+        "反比例，乘积",
+        "反，积",
+        "反比例，积"
+      ],
+      "explanationZhHans": "20×600=12000，30×400=12000，40×300=12000，50×240=12000，乘积都是12000，一定，所以每本的页数和装订的本数成反比例。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-213",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-direct-inverse-proportion",
+      "unitTitle": "正比例与反比例",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "direct-proportion",
+        "inverse-proportion",
+        "constant-rate",
+        "constant-product",
+        "正比例",
+        "反比例"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "函数意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "变化的量",
+        "判断正比例",
+        "判断反比例",
+        "表格图像表达",
+        "建立数量关系"
+      ],
+      "misconceptionTags": [
+        "all increasing pairs treated as direct proportion",
+        "inverse proportion confused with simple decrease",
+        "constant quantity not identified"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-direct-inverse-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-direct-inverse-proportion-unit",
+        "bnu-primary-p6-lower-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下列各式中，x和y成反比例的是（ ）。",
+      "optionsZhHans": [
+        "x+y=10",
+        "x-y=5",
+        "xy=24",
+        "x÷y=8"
+      ],
+      "answer": "xy=24",
+      "acceptedAnswers": [
+        "xy=24"
+      ],
+      "explanationZhHans": "xy=24表示x和y的乘积一定（24），符合反比例关系。其他选项：x+y=10是和一定，x-y=5是差一定，x÷y=8是比值一定，都不符合反比例。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-214",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-direct-inverse-proportion",
+      "unitTitle": "正比例与反比例",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "direct-proportion",
+        "inverse-proportion",
+        "constant-rate",
+        "constant-product",
+        "正比例",
+        "反比例"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "函数意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "变化的量",
+        "判断正比例",
+        "判断反比例",
+        "表格图像表达",
+        "建立数量关系"
+      ],
+      "misconceptionTags": [
+        "all increasing pairs treated as direct proportion",
+        "inverse proportion confused with simple decrease",
+        "constant quantity not identified"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-direct-inverse-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-direct-inverse-proportion-unit",
+        "bnu-primary-p6-lower-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "如果a和b成正比例，b和c成反比例，那么a和c成（ ）比例。",
+      "optionsZhHans": [],
+      "answer": "反",
+      "acceptedAnswers": [
+        "反",
+        "反比例"
+      ],
+      "explanationZhHans": "由a和b成正比例，得a÷b=k₁（一定）；由b和c成反比例，得b×c=k₂（一定）。将b=k₂/c代入a=k₁b得a=k₁k₂/c，即a×c=k₁k₂（一定），所以a和c成反比例。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-215",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-direct-inverse-proportion",
+      "unitTitle": "正比例与反比例",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "direct-proportion",
+        "inverse-proportion",
+        "constant-rate",
+        "constant-product",
+        "正比例",
+        "反比例"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "函数意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "变化的量",
+        "判断正比例",
+        "判断反比例",
+        "表格图像表达",
+        "建立数量关系"
+      ],
+      "misconceptionTags": [
+        "all increasing pairs treated as direct proportion",
+        "inverse proportion confused with simple decrease",
+        "constant quantity not identified"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-direct-inverse-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-direct-inverse-proportion-unit",
+        "bnu-primary-p6-lower-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面两种量中，成反比例关系的是（ ）。",
+      "optionsZhHans": [
+        "一本书，已看的页数和未看的页数",
+        "圆的周长和它的直径",
+        "长方形的面积一定，它的长和宽",
+        "小明的身高和体重"
+      ],
+      "answer": "长方形的面积一定，它的长和宽",
+      "acceptedAnswers": [
+        "长方形的面积一定，它的长和宽"
+      ],
+      "explanationZhHans": "长方形的面积=长×宽，面积一定时，长和宽的乘积一定，所以成反比例。A是和一定，B是比值一定（成正比例），D不成比例。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-216",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-direct-inverse-proportion",
+      "unitTitle": "正比例与反比例",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "direct-proportion",
+        "inverse-proportion",
+        "constant-rate",
+        "constant-product",
+        "正比例",
+        "反比例"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "函数意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "变化的量",
+        "判断正比例",
+        "判断反比例",
+        "表格图像表达",
+        "建立数量关系"
+      ],
+      "misconceptionTags": [
+        "all increasing pairs treated as direct proportion",
+        "inverse proportion confused with simple decrease",
+        "constant quantity not identified"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-direct-inverse-proportion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-lower-assessment-direct-inverse-proportion-unit",
+        "bnu-primary-p6-lower-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下表中，如果x和y成正比例，那么a=（ ），b=（ ）。\nx 4 6 b\ny 12 a 36",
+      "optionsZhHans": [],
+      "answer": "18，12",
+      "acceptedAnswers": [
+        "18，12",
+        "a=18，b=12",
+        "a=18,b=12"
+      ],
+      "explanationZhHans": "正比例时比值一定，12÷4=3，所以y÷x=3。由a÷6=3得a=18；由36÷b=3得b=12。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-217",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-math-play",
+      "unitTitle": "数学好玩",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "p6-lower-mathematical-activity",
+        "planning-design",
+        "spatial-reasoning",
+        "pattern-investigation",
+        "数学好玩"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "创新意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "设计方案",
+        "收集信息",
+        "建立模型",
+        "解释规律",
+        "交流反思"
+      ],
+      "misconceptionTags": [
+        "project constraints ignored",
+        "model choice not justified",
+        "result presented without reflection"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-math-play"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-final-topic-drill",
+        "bnu-primary-p6-lower-assessment-cylinders-cones-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "六（1）班同学要设计一个“节约用水”宣传方案。他们调查了学校水龙头的漏水情况：一个水龙头每小时漏水约0.5升。如果全校有20个这样的水龙头在漏水，一天（24小时）会浪费多少升水？正确的列式是（ ）。",
+      "optionsZhHans": [
+        "0.5×20×24",
+        "0.5×20÷24",
+        "0.5÷20×24",
+        "0.5×24÷20"
+      ],
+      "answer": "0.5×20×24",
+      "acceptedAnswers": [
+        "0.5×20×24"
+      ],
+      "explanationZhHans": "一个水龙头每小时漏水0.5升，20个水龙头每小时漏水0.5×20=10升，一天24小时浪费10×24=240升，列式为0.5×20×24。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-218",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-math-play",
+      "unitTitle": "数学好玩",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "p6-lower-mathematical-activity",
+        "planning-design",
+        "spatial-reasoning",
+        "pattern-investigation",
+        "数学好玩"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "创新意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "设计方案",
+        "收集信息",
+        "建立模型",
+        "解释规律",
+        "交流反思"
+      ],
+      "misconceptionTags": [
+        "project constraints ignored",
+        "model choice not justified",
+        "result presented without reflection"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-math-play"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-final-topic-drill",
+        "bnu-primary-p6-lower-assessment-cylinders-cones-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在“绘制校园平面图”活动中，同学们测量得到教学楼长80米，宽15米。如果按1:500的比例尺画在图纸上，教学楼在图上的长应画（ ）厘米，宽应画（ ）厘米。",
+      "optionsZhHans": [],
+      "answer": "16，3",
+      "acceptedAnswers": [
+        "16，3",
+        "16厘米，3厘米",
+        "16cm，3cm"
+      ],
+      "explanationZhHans": "80米=8000厘米，8000÷500=16厘米；15米=1500厘米，1500÷500=3厘米。所以图上长16厘米，宽3厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-219",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-math-play",
+      "unitTitle": "数学好玩",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "p6-lower-mathematical-activity",
+        "planning-design",
+        "spatial-reasoning",
+        "pattern-investigation",
+        "数学好玩"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "创新意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "设计方案",
+        "收集信息",
+        "建立模型",
+        "解释规律",
+        "交流反思"
+      ],
+      "misconceptionTags": [
+        "project constraints ignored",
+        "model choice not justified",
+        "result presented without reflection"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-math-play"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-final-topic-drill",
+        "bnu-primary-p6-lower-assessment-cylinders-cones-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在“有趣的平衡”实验中，同学们在支架左侧刻度4处挂了3个同样的棋子。要使支架平衡，在右侧刻度6处应挂（ ）个同样的棋子。",
+      "optionsZhHans": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2"
+      ],
+      "explanationZhHans": "根据杠杆原理，左侧刻度数×棋子数=右侧刻度数×棋子数。4×3=6×右侧棋子数，右侧棋子数=12÷6=2。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-220",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "bnu-primary-p6-lower-math-play",
+      "unitTitle": "数学好玩",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "p6-lower-mathematical-activity",
+        "planning-design",
+        "spatial-reasoning",
+        "pattern-investigation",
+        "数学好玩"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "创新意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "设计方案",
+        "收集信息",
+        "建立模型",
+        "解释规律",
+        "交流反思"
+      ],
+      "misconceptionTags": [
+        "project constraints ignored",
+        "model choice not justified",
+        "result presented without reflection"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-lower-math-play"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-final-topic-drill",
+        "bnu-primary-p6-lower-assessment-cylinders-cones-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在“设计营养午餐”活动中，小明调查了本班同学最喜欢的肉类：牛肉15人，鸡肉12人，鱼肉8人，猪肉5人。他想用统计图表示这些数据，最适合的统计图是（ ）统计图，因为（ ）。",
+      "optionsZhHans": [],
+      "answer": "条形，能清楚地表示各种肉类喜欢的人数",
+      "acceptedAnswers": [
+        "条形，能清楚地表示各种肉类喜欢的人数",
+        "条形统计图，能清楚地表示各种肉类喜欢的人数",
+        "条形，能清楚地表示数量",
+        "条形统计图，能清楚地表示数量"
+      ],
+      "explanationZhHans": "要表示各种肉类喜欢的人数，属于比较不同类别的数量，用条形统计图最合适，它能直观地显示数量的多少。"
+    }
+  ]
+}

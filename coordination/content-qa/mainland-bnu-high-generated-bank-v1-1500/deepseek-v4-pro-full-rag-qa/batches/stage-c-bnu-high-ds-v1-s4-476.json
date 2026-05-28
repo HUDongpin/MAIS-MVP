@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-476",
+  "startedAt": "2026-05-28T01:59:48.676Z",
+  "completedAt": "2026-05-28T01:59:53.718Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-476"
+  ],
+  "usage": {
+    "prompt_tokens": 2126,
+    "completion_tokens": 298,
+    "total_tokens": 2424,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1742
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-476",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "2√2",
+        "correctedAnswer": "2√2",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件PA=AB=2，BC=2√2，由PA⊥底面ABC，AB⊥BC可证BC⊥平面PAB，故点C到平面PAB的距离即为BC=2√2。存储答案2错误，与独立解2√2矛盾；解析虽指出BC=2√2时距离为2√2，但最终给出答案2并建议调整数据，存在数学错误和解释矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目答案错误，正确距离为2√2，需修正答案。"
+    }
+  }
+}

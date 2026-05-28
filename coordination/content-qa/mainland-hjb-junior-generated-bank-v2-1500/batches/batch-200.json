@@ -1,0 +1,325 @@
+{
+  "batchId": "batch-200",
+  "questions": [
+    {
+      "id": "hjb-junior-ds-v2-s2-496",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "hjb-junior-s2-lower-inverse-functions",
+      "unitTitle": "反比例函数",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "inverse-variation",
+        "inverse-functions",
+        "rational-function-graphs",
+        "function-applications",
+        "反比例函数"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "反比例函数概念",
+        "图像与性质",
+        "象限关系",
+        "待定系数法",
+        "实际应用"
+      ],
+      "misconceptionTags": [
+        "parameter sign ignored",
+        "branch behavior treated as linear",
+        "domain restriction omitted"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s2-lower-inverse-functions"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-lower-paper-inverse-functions-unit",
+        "hjb-junior-s2-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知反比例函数 y = k/x 的图像经过点 A(3, -4)。下列说法正确的是（ ）",
+      "optionsZhHans": [
+        "A. k = 12，图像的两支分别位于第一、三象限",
+        "B. k = -12，图像的两支分别位于第二、四象限",
+        "C. k = 12，在每个象限内 y 随 x 的增大而减小",
+        "D. k = -12，在每个象限内 y 随 x 的增大而增大"
+      ],
+      "answer": "B. k = -12，图像的两支分别位于第二、四象限",
+      "acceptedAnswers": [
+        "B. k = -12，图像的两支分别位于第二、四象限"
+      ],
+      "explanationZhHans": "将点 A(3,-4) 代入 y=k/x 得 -4=k/3，解得 k=-12。因为 k<0，所以图像的两支分别位于第二、四象限，且在每一象限内 y 随 x 的增大而增大。选项 B 正确描述了 k 值和象限位置。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-497",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "hjb-junior-s2-lower-inverse-functions",
+      "unitTitle": "反比例函数",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "inverse-variation",
+        "inverse-functions",
+        "rational-function-graphs",
+        "function-applications",
+        "反比例函数"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "反比例函数概念",
+        "图像与性质",
+        "象限关系",
+        "待定系数法",
+        "实际应用"
+      ],
+      "misconceptionTags": [
+        "parameter sign ignored",
+        "branch behavior treated as linear",
+        "domain restriction omitted"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s2-lower-inverse-functions"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-lower-paper-inverse-functions-unit",
+        "hjb-junior-s2-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "对于反比例函数 y = (m+1)/x，当 x>0 时，y 随 x 的增大而减小，则 m 的取值范围是（ ）",
+      "optionsZhHans": [
+        "A. m > -1",
+        "B. m < -1",
+        "C. m > 0",
+        "D. m < 0"
+      ],
+      "answer": "A. m > -1",
+      "acceptedAnswers": [
+        "A. m > -1"
+      ],
+      "explanationZhHans": "当 x>0 时 y 随 x 增大而减小，说明该分支在第一象限，函数为减函数，因此比例系数 m+1>0，解得 m>-1。注意反比例函数的增减性是在每个象限内讨论的。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-498",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "hjb-junior-s2-lower-inverse-functions",
+      "unitTitle": "反比例函数",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "inverse-variation",
+        "inverse-functions",
+        "rational-function-graphs",
+        "function-applications",
+        "反比例函数"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "反比例函数概念",
+        "图像与性质",
+        "象限关系",
+        "待定系数法",
+        "实际应用"
+      ],
+      "misconceptionTags": [
+        "parameter sign ignored",
+        "branch behavior treated as linear",
+        "domain restriction omitted"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s2-lower-inverse-functions"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-lower-paper-inverse-functions-unit",
+        "hjb-junior-s2-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知点 P(-2, 3) 在反比例函数 y = k/x 的图像上，则下列各点中也在该图像上的是（ ）",
+      "optionsZhHans": [
+        "A. (2, 3)",
+        "B. (-3, -2)",
+        "C. (1, -6)",
+        "D. (-1, -6)"
+      ],
+      "answer": "C. (1, -6)",
+      "acceptedAnswers": [
+        "C. (1, -6)"
+      ],
+      "explanationZhHans": "由点 P(-2,3) 得 k = (-2)×3 = -6。反比例函数图像上的点满足横纵坐标乘积为 -6。选项 C 中 1×(-6) = -6，符合要求。其他选项乘积分别为 6, 6, 6，均不等于 -6。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-499",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "hjb-junior-s2-lower-inverse-functions",
+      "unitTitle": "反比例函数",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "inverse-variation",
+        "inverse-functions",
+        "rational-function-graphs",
+        "function-applications",
+        "反比例函数"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "反比例函数概念",
+        "图像与性质",
+        "象限关系",
+        "待定系数法",
+        "实际应用"
+      ],
+      "misconceptionTags": [
+        "parameter sign ignored",
+        "branch behavior treated as linear",
+        "domain restriction omitted"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s2-lower-inverse-functions"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-lower-paper-inverse-functions-unit",
+        "hjb-junior-s2-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知反比例函数 y = 6/x，当 -3 ≤ x ≤ -1 时，y 的最大值是（ ）",
+      "optionsZhHans": [
+        "A. -2",
+        "B. -6",
+        "C. -1",
+        "D. -3"
+      ],
+      "answer": "A. -2",
+      "acceptedAnswers": [
+        "A. -2"
+      ],
+      "explanationZhHans": "在 x<0 的区间内，y=6/x 随 x 增大而增大（因为 k=6>0，第三象限分支递增）。当 x=-3 时 y=-2；当 x=-1 时 y=-6。所以在给定区间内最大值为 -2，对应 x=-3。"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-500",
+      "batch": "hjb-junior-v2",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "hjb-junior-s2-lower-inverse-functions",
+      "unitTitle": "反比例函数",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "inverse-variation",
+        "inverse-functions",
+        "rational-function-graphs",
+        "function-applications",
+        "反比例函数"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "反比例函数概念",
+        "图像与性质",
+        "象限关系",
+        "待定系数法",
+        "实际应用"
+      ],
+      "misconceptionTags": [
+        "parameter sign ignored",
+        "branch behavior treated as linear",
+        "domain restriction omitted"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-junior-s2-lower-inverse-functions"
+      ],
+      "assessmentPatternCardIds": [],
+      "paperPatternCardIds": [
+        "hjb-junior-s2-lower-paper-inverse-functions-unit",
+        "hjb-junior-s2-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某气球内充满了一定质量的气体，当温度不变时，气球内气体的气压 p (kPa) 是气体体积 V (m³) 的反比例函数，其图像经过点 (0.8, 120)。当气球内的气压大于 150 kPa 时，气球将爆炸。为了安全起见，气体的体积应（ ）",
+      "optionsZhHans": [
+        "A. 不小于 0.64 m³",
+        "B. 小于 0.64 m³",
+        "C. 不小于 0.8 m³",
+        "D. 大于 0.8 m³"
+      ],
+      "answer": "A. 不小于 0.64 m³",
+      "acceptedAnswers": [
+        "A. 不小于 0.64 m³"
+      ],
+      "explanationZhHans": "设 p=k/V，由点(0.8,120)得 k=0.8×120=96。安全要求 p≤150，即 96/V ≤150，解得 V ≥ 96/150 = 0.64。所以体积应不小于 0.64 m³。注意体积不能为负，且反比例关系在 V>0 时成立。"
+    }
+  ]
+}

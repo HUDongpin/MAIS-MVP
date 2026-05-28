@@ -1,0 +1,109 @@
+{
+  "batchId": "model-qa-0045",
+  "ids": [
+    "hjb-junior-ds-v2-s1-353",
+    "hjb-junior-ds-v2-s1-354",
+    "hjb-junior-ds-v2-s1-355",
+    "hjb-junior-ds-v2-s1-356",
+    "hjb-junior-ds-v2-s1-357",
+    "hjb-junior-ds-v2-s1-358",
+    "hjb-junior-ds-v2-s1-359",
+    "hjb-junior-ds-v2-s1-360"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-353",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "110°",
+      "answerCheckZhHans": "标准答案110°与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-354",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题干条件不足，无法唯一确定∠ABC。解析中引入点D但未定义，且推理有误。独立计算得∠ABC=60°或30°等多种可能，标准答案60°不唯一。",
+      "independentAnswerZhHans": "无法唯一确定，可能为60°或30°等。",
+      "answerCheckZhHans": "标准答案60°与解析不一致，且题目条件不足。",
+      "recommendedActionZhHans": "需补充条件或修改题目，使答案唯一。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-355",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "∠AOC = 50°",
+      "answerCheckZhHans": "标准答案与独立计算结果一致，且为唯一正确选项。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-356",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "115°",
+      "answerCheckZhHans": "标准答案115°与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-357",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "70°",
+      "answerCheckZhHans": "标准答案70°与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-358",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "l1∥l2，因为同旁内角互补",
+      "answerCheckZhHans": "标准答案与独立计算结果一致，且为唯一正确选项。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-359",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "135°",
+      "answerCheckZhHans": "标准答案135°与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-360",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析中∠ADC = ∠B + ∠BAD = 50° + 30° = 80°，但标准答案为100°，两者矛盾。独立计算得∠ADC = 100°，解析错误。",
+      "independentAnswerZhHans": "100°",
+      "answerCheckZhHans": "标准答案100°正确，但解析错误，需修正解析。",
+      "recommendedActionZhHans": "修正解析，使与标准答案一致。",
+      "confidence": "high"
+    }
+  ]
+}

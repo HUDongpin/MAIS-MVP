@@ -1,0 +1,584 @@
+{
+  "batchId": "batch-102",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p5-011",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-decimal-division",
+      "unitTitle": "小数除法",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "decimal-division",
+        "decimal-place-value",
+        "quotient-estimation",
+        "recurring-decimals",
+        "小数除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "小数除以整数",
+        "除数是小数的除法",
+        "商的近似值",
+        "循环小数",
+        "估算检验"
+      ],
+      "misconceptionTags": [
+        "decimal point placed by digit counting only",
+        "divisor transformation applied to one number only",
+        "rounded quotient treated as exact"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-decimal-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-decimal-division-unit",
+        "bnu-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明用一根长12.6米的彩带包装礼物，每个礼物盒需要0.28米彩带。他最多可以包装多少个完整的礼物盒？包装完成后，还剩下多少米彩带？",
+      "optionsZhHans": [],
+      "answer": "45个，0米",
+      "acceptedAnswers": [
+        "45个，0米"
+      ],
+      "explanationZhHans": "12.6 ÷ 0.28 = 1260 ÷ 28 = 45，正好整除，所以最多包装45个，剩余0米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-012",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-decimal-division",
+      "unitTitle": "小数除法",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "decimal-division",
+        "decimal-place-value",
+        "quotient-estimation",
+        "recurring-decimals",
+        "小数除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "小数除以整数",
+        "除数是小数的除法",
+        "商的近似值",
+        "循环小数",
+        "估算检验"
+      ],
+      "misconceptionTags": [
+        "decimal point placed by digit counting only",
+        "divisor transformation applied to one number only",
+        "rounded quotient treated as exact"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-decimal-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-decimal-division-unit",
+        "bnu-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈买了2.5千克苹果，共花了13.75元。如果她想用这些钱买每千克4.8元的梨，最多能买多少千克梨？结果用四舍五入法保留一位小数。",
+      "optionsZhHans": [],
+      "answer": "2.9",
+      "acceptedAnswers": [
+        "2.9"
+      ],
+      "explanationZhHans": "先求苹果总价13.75元。梨单价4.8元，数量=13.75÷4.8。计算时被除数和除数同时乘10变为137.5÷48，商约为2.86458…，四舍五入保留一位小数得2.9千克。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-013",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-decimal-division",
+      "unitTitle": "小数除法",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "decimal-division",
+        "decimal-place-value",
+        "quotient-estimation",
+        "recurring-decimals",
+        "小数除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "小数除以整数",
+        "除数是小数的除法",
+        "商的近似值",
+        "循环小数",
+        "估算检验"
+      ],
+      "misconceptionTags": [
+        "decimal point placed by digit counting only",
+        "divisor transformation applied to one number only",
+        "rounded quotient treated as exact"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-decimal-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-decimal-division-unit",
+        "bnu-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈买了2.5千克苹果，共花了16.5元，每千克苹果多少元？下面哪个算式和计算结果正确？",
+      "optionsZhHans": [
+        "16.5 ÷ 2.5 = 0.66（元）",
+        "16.5 ÷ 2.5 = 6.6（元）",
+        "16.5 ÷ 2.5 = 66（元）",
+        "16.5 ÷ 2.5 = 0.066（元）"
+      ],
+      "answer": "16.5 ÷ 2.5 = 6.6（元）",
+      "acceptedAnswers": [
+        "16.5 ÷ 2.5 = 6.6（元）"
+      ],
+      "explanationZhHans": "除数是小数的除法，先把除数2.5变成整数25，被除数16.5也乘10变成165，165÷25=6.6，所以每千克6.6元。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-014",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-decimal-division",
+      "unitTitle": "小数除法",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "decimal-division",
+        "decimal-place-value",
+        "quotient-estimation",
+        "recurring-decimals",
+        "小数除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "小数除以整数",
+        "除数是小数的除法",
+        "商的近似值",
+        "循环小数",
+        "估算检验"
+      ],
+      "misconceptionTags": [
+        "decimal point placed by digit counting only",
+        "divisor transformation applied to one number only",
+        "rounded quotient treated as exact"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-decimal-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-decimal-division-unit",
+        "bnu-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算 3.78 ÷ 0.6 时，把除数 0.6 变成整数 6，被除数 3.78 应变成（ ）。",
+      "optionsZhHans": [],
+      "answer": "37.8",
+      "acceptedAnswers": [
+        "37.8"
+      ],
+      "explanationZhHans": "除数0.6乘10变为6，根据商不变性质，被除数也要乘10，3.78×10=37.8。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-015",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-decimal-division",
+      "unitTitle": "小数除法",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "decimal-division",
+        "decimal-place-value",
+        "quotient-estimation",
+        "recurring-decimals",
+        "小数除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "小数除以整数",
+        "除数是小数的除法",
+        "商的近似值",
+        "循环小数",
+        "估算检验"
+      ],
+      "misconceptionTags": [
+        "decimal point placed by digit counting only",
+        "divisor transformation applied to one number only",
+        "rounded quotient treated as exact"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-decimal-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-decimal-division-unit",
+        "bnu-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈买了2.5千克苹果，共花了16.25元。她还想买一些梨，梨的单价是苹果单价的1.6倍。买1.8千克梨需要多少钱？",
+      "optionsZhHans": [],
+      "answer": "18.72",
+      "acceptedAnswers": [
+        "18.72",
+        "18.72元"
+      ],
+      "explanationZhHans": "先求苹果单价：16.25÷2.5=6.5元/千克。再求梨的单价：6.5×1.6=10.4元/千克。最后求梨的总价：10.4×1.8=18.72元。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-016",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-symmetry-translation",
+      "unitTitle": "轴对称和平移",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "axis-symmetry",
+        "translation",
+        "geometric-transformation",
+        "spatial-visualization",
+        "轴对称",
+        "平移"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "识别对称轴",
+        "补全轴对称图形",
+        "描述平移方向",
+        "描述平移距离",
+        "变换前后比较"
+      ],
+      "misconceptionTags": [
+        "translation distance counted from the wrong point",
+        "mirror image confused with rotation",
+        "shape orientation treated as changing under translation"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-symmetry-translation"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-symmetry-translation-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在方格纸上有一个三角形，三个顶点的位置分别是A(2,1)、B(5,1)、C(3,4)。将这个三角形先向右平移4格，再向上平移2格，得到三角形A'B'C'。平移后，点C'的位置是（  ）。",
+      "optionsZhHans": [
+        "(7,6)",
+        "(7,4)",
+        "(9,6)",
+        "(9,4)"
+      ],
+      "answer": "(7,6)",
+      "acceptedAnswers": [
+        "(7,6)"
+      ],
+      "explanationZhHans": "点C原始位置(3,4)。向右平移4格，横坐标加4，得(7,4)；再向上平移2格，纵坐标加2，得(7,6)。所以C'的位置是(7,6)。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-017",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-symmetry-translation",
+      "unitTitle": "轴对称和平移",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "axis-symmetry",
+        "translation",
+        "geometric-transformation",
+        "spatial-visualization",
+        "轴对称",
+        "平移"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "识别对称轴",
+        "补全轴对称图形",
+        "描述平移方向",
+        "描述平移距离",
+        "变换前后比较"
+      ],
+      "misconceptionTags": [
+        "translation distance counted from the wrong point",
+        "mirror image confused with rotation",
+        "shape orientation treated as changing under translation"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-symmetry-translation"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-symmetry-translation-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在方格纸上，点A的位置用数对（3，5）表示。将点A先向右平移4格，再向下平移2格，得到点A'。点A'的位置用数对表示是（ ， ）。",
+      "optionsZhHans": [],
+      "answer": "（7，3）",
+      "acceptedAnswers": [
+        "（7，3）",
+        "7,3",
+        "(7,3)"
+      ],
+      "explanationZhHans": "向右平移4格，列数加4：3+4=7；向下平移2格，行数减2：5-2=3。所以点A'的位置是（7，3）。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-018",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-symmetry-translation",
+      "unitTitle": "轴对称和平移",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "axis-symmetry",
+        "translation",
+        "geometric-transformation",
+        "spatial-visualization",
+        "轴对称",
+        "平移"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "识别对称轴",
+        "补全轴对称图形",
+        "描述平移方向",
+        "描述平移距离",
+        "变换前后比较"
+      ],
+      "misconceptionTags": [
+        "translation distance counted from the wrong point",
+        "mirror image confused with rotation",
+        "shape orientation treated as changing under translation"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-symmetry-translation"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-symmetry-translation-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在方格纸上，有一个三角形，它的三个顶点分别是A(2,1)，B(5,1)，C(2,4)。将这个三角形向右平移4格，再向上平移2格，得到三角形A'B'C'。请写出平移后三角形A'B'C'的三个顶点的数对。",
+      "optionsZhHans": [],
+      "answer": "A'(6,3), B'(9,3), C'(6,6)",
+      "acceptedAnswers": [
+        "A'(6,3), B'(9,3), C'(6,6)",
+        "A' (6,3), B' (9,3), C' (6,6)",
+        "A'(6,3) B'(9,3) C'(6,6)",
+        "A'=(6,3), B'=(9,3), C'=(6,6)",
+        "(6,3), (9,3), (6,6)"
+      ],
+      "explanationZhHans": "向右平移4格，每个点的列数加4；向上平移2格，行数加2。A(2,1)→(2+4,1+2)=(6,3)；B(5,1)→(5+4,1+2)=(9,3)；C(2,4)→(2+4,4+2)=(6,6)。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-019",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-symmetry-translation",
+      "unitTitle": "轴对称和平移",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "axis-symmetry",
+        "translation",
+        "geometric-transformation",
+        "spatial-visualization",
+        "轴对称",
+        "平移"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "识别对称轴",
+        "补全轴对称图形",
+        "描述平移方向",
+        "描述平移距离",
+        "变换前后比较"
+      ],
+      "misconceptionTags": [
+        "translation distance counted from the wrong point",
+        "mirror image confused with rotation",
+        "shape orientation treated as changing under translation"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-symmetry-translation"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-symmetry-translation-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在方格纸上，三角形ABC的三个顶点坐标分别为A(2,3)、B(4,5)、C(3,1)。将三角形ABC向右平移5格，再向下平移2格，得到三角形A'B'C'。下列说法正确的是（    ）。",
+      "optionsZhHans": [
+        "平移后，点A'的坐标是(7,1)。",
+        "平移前后，三角形的大小和形状不变。",
+        "平移后，三角形A'B'C'与三角形ABC关于某条直线对称。",
+        "平移的距离是7格。"
+      ],
+      "answer": "平移前后，三角形的大小和形状不变。",
+      "acceptedAnswers": [
+        "平移前后，三角形的大小和形状不变。"
+      ],
+      "explanationZhHans": "平移只改变图形的位置，不改变其大小和形状，所以选项B正确。A中A'坐标应为(7,1)，但需计算验证；C错误，平移不产生对称；D中平移距离是水平和垂直距离的合成，不能简单相加。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-020",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-symmetry-translation",
+      "unitTitle": "轴对称和平移",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "axis-symmetry",
+        "translation",
+        "geometric-transformation",
+        "spatial-visualization",
+        "轴对称",
+        "平移"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "识别对称轴",
+        "补全轴对称图形",
+        "描述平移方向",
+        "描述平移距离",
+        "变换前后比较"
+      ],
+      "misconceptionTags": [
+        "translation distance counted from the wrong point",
+        "mirror image confused with rotation",
+        "shape orientation treated as changing under translation"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-symmetry-translation"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-symmetry-translation-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在方格纸上，三角形ABC的三个顶点坐标分别为A(2,3)、B(5,3)、C(4,6)。将三角形ABC向右平移4格，再向下平移2格，得到三角形A'B'C'。请写出平移后点A'的坐标。",
+      "optionsZhHans": [],
+      "answer": "(6,1)",
+      "acceptedAnswers": [
+        "(6,1)",
+        "6,1",
+        "（6,1）"
+      ],
+      "explanationZhHans": "点A(2,3)向右平移4格，横坐标加4得6；向下平移2格，纵坐标减2得1，所以A'的坐标是(6,1)。"
+    }
+  ]
+}

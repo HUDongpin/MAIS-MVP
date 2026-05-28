@@ -1,0 +1,132 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-179",
+  "startedAt": "2026-05-28T01:53:27.541Z",
+  "completedAt": "2026-05-28T01:53:40.259Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-425",
+    "bnu-high-ds-v1-s6-426",
+    "bnu-high-ds-v1-s6-427",
+    "bnu-high-ds-v1-s6-428",
+    "bnu-high-ds-v1-s6-429",
+    "bnu-high-ds-v1-s6-430",
+    "bnu-high-ds-v1-s6-431",
+    "bnu-high-ds-v1-s6-432"
+  ],
+  "usage": {
+    "prompt_tokens": 11998,
+    "completion_tokens": 999,
+    "total_tokens": 12997,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 11614
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-425",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "a = -3, b = -9, c = 0",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 c=2 错误，Stage A 独立解得 c=0。解析中计算过程得出 c=0，但最终答案写 c=2，存在矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-426",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "-2",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 0 错误，Stage A 独立解得最小值为 -2。解析中列出 f(-1)=-2, f(0)=2, f(1)=0，却错误地得出最小值为 0。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-427",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "答案 a=3 正确，解析无误，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-428",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "答案极大值10极小值-22正确，解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-429",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "答案0正确，解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-430",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "答案(-∞,0)和(2,+∞)正确，解析无误，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-431",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "答案a=5正确，解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-432",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "答案9正确，解析无误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 0,
+      "fail": 2,
+      "notes": "8题中6题通过，2题失败：425题c值错误，426题最小值错误。"
+    }
+  }
+}

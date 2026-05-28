@@ -1,0 +1,566 @@
+{
+  "batchId": "batch-007",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p1-061",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-classification",
+      "unitTitle": "分类",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "classification",
+        "sorting-rules",
+        "data-awareness",
+        "分类"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "按属性分类",
+        "说明分类标准",
+        "整理记录",
+        "比较类别"
+      ],
+      "misconceptionTags": [
+        "sorting by multiple rules at once",
+        "category rule left implicit",
+        "object purpose confused with mathematical attribute"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-classification"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-classification",
+        "bnu-primary-p1-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面有一些物品：铅笔、橡皮、尺子、苹果、香蕉、橘子。按什么标准可以把它们分成两类？",
+      "optionsZhHans": [
+        "按颜色分",
+        "按大小分",
+        "按是不是水果分",
+        "按长短分"
+      ],
+      "answer": "按是不是水果分",
+      "acceptedAnswers": [
+        "按是不是水果分"
+      ],
+      "explanationZhHans": "铅笔、橡皮、尺子是文具，苹果、香蕉、橘子是水果，所以按是不是水果分可以分成两类。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-062",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-classification",
+      "unitTitle": "分类",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "classification",
+        "sorting-rules",
+        "data-awareness",
+        "分类"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "按属性分类",
+        "说明分类标准",
+        "整理记录",
+        "比较类别"
+      ],
+      "misconceptionTags": [
+        "sorting by multiple rules at once",
+        "category rule left implicit",
+        "object purpose confused with mathematical attribute"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-classification"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-classification",
+        "bnu-primary-p1-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把下面的动物分一分，并写出你的分类标准。动物：小猫、小狗、金鱼、小鸟、小兔。",
+      "optionsZhHans": [],
+      "answer": "会飞的：小鸟；不会飞的：小猫、小狗、金鱼、小兔",
+      "acceptedAnswers": [
+        "会飞的：小鸟；不会飞的：小猫、小狗、金鱼、小兔",
+        "会飞：小鸟；不会飞：小猫、小狗、金鱼、小兔"
+      ],
+      "explanationZhHans": "可以按会不会飞分类。小鸟会飞，其他动物不会飞。也可以按其他标准，如生活在水里和陆地上等。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-063",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-classification",
+      "unitTitle": "分类",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "classification",
+        "sorting-rules",
+        "data-awareness",
+        "分类"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "按属性分类",
+        "说明分类标准",
+        "整理记录",
+        "比较类别"
+      ],
+      "misconceptionTags": [
+        "sorting by multiple rules at once",
+        "category rule left implicit",
+        "object purpose confused with mathematical attribute"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-classification"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-classification",
+        "bnu-primary-p1-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "桌上有一些图形：红色三角形、蓝色三角形、红色圆形、蓝色圆形。你能按颜色分吗？分完后红色图形有几个？",
+      "optionsZhHans": [],
+      "answer": "2个",
+      "acceptedAnswers": [
+        "2个",
+        "2"
+      ],
+      "explanationZhHans": "按颜色分，红色图形有红色三角形和红色圆形，共2个。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-064",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-classification",
+      "unitTitle": "分类",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "classification",
+        "sorting-rules",
+        "data-awareness",
+        "分类"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "按属性分类",
+        "说明分类标准",
+        "整理记录",
+        "比较类别"
+      ],
+      "misconceptionTags": [
+        "sorting by multiple rules at once",
+        "category rule left implicit",
+        "object purpose confused with mathematical attribute"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-classification"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-classification",
+        "bnu-primary-p1-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪一组是按形状分类的？",
+      "optionsZhHans": [
+        "铅笔、橡皮、尺子",
+        "红色积木、蓝色积木、黄色积木",
+        "正方形、三角形、圆形",
+        "大球、小球、中球"
+      ],
+      "answer": "正方形、三角形、圆形",
+      "acceptedAnswers": [
+        "正方形、三角形、圆形"
+      ],
+      "explanationZhHans": "正方形、三角形、圆形是按形状分类的，其他选项分别是按用途、颜色、大小分类的。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-065",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-position-order",
+      "unitTitle": "位置与顺序",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "position-language",
+        "ordinality",
+        "left-right",
+        "位置",
+        "顺序"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "数学表达",
+        "观察比较"
+      ],
+      "skillTags": [
+        "前后左右上下",
+        "第几",
+        "位置描述",
+        "路线表达"
+      ],
+      "misconceptionTags": [
+        "left and right reversed by viewpoint",
+        "quantity confused with order",
+        "position described without reference object"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-position-order"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小动物们排队：小猴排第1，小兔排第2，小猫排第3，小狗排第4，小鸭排第5。从前往后数，小鸭排第几？从后往前数，小鸭排第几？",
+      "optionsZhHans": [],
+      "answer": "从前往后数排第5，从后往前数排第1",
+      "acceptedAnswers": [
+        "从前往后数排第5，从后往前数排第1",
+        "5,1",
+        "5，1"
+      ],
+      "explanationZhHans": "从前往后数，小鸭是第5个；从后往前数，小鸭是第1个。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-066",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-position-order",
+      "unitTitle": "位置与顺序",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "position-language",
+        "ordinality",
+        "left-right",
+        "位置",
+        "顺序"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "数学表达",
+        "观察比较"
+      ],
+      "skillTags": [
+        "前后左右上下",
+        "第几",
+        "位置描述",
+        "路线表达"
+      ],
+      "misconceptionTags": [
+        "left and right reversed by viewpoint",
+        "quantity confused with order",
+        "position described without reference object"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-position-order"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "请你用“前”“后”说一说：小明站在小华的前面，小华站在小明的后面。那么小明在小华的哪一面？",
+      "optionsZhHans": [],
+      "answer": "前面",
+      "acceptedAnswers": [
+        "前面"
+      ],
+      "explanationZhHans": "小明站在小华的前面，所以小明在小华的前面。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-067",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-position-order",
+      "unitTitle": "位置与顺序",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "position-language",
+        "ordinality",
+        "left-right",
+        "位置",
+        "顺序"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "数学表达",
+        "观察比较"
+      ],
+      "skillTags": [
+        "前后左右上下",
+        "第几",
+        "位置描述",
+        "路线表达"
+      ],
+      "misconceptionTags": [
+        "left and right reversed by viewpoint",
+        "quantity confused with order",
+        "position described without reference object"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-position-order"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丽面向北站着，她的左边是什么方向？",
+      "optionsZhHans": [
+        "东",
+        "南",
+        "西",
+        "北"
+      ],
+      "answer": "西",
+      "acceptedAnswers": [
+        "西"
+      ],
+      "explanationZhHans": "面向北时，左边是西，右边是东。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-068",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-position-order",
+      "unitTitle": "位置与顺序",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "position-language",
+        "ordinality",
+        "left-right",
+        "位置",
+        "顺序"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "数学表达",
+        "观察比较"
+      ],
+      "skillTags": [
+        "前后左右上下",
+        "第几",
+        "位置描述",
+        "路线表达"
+      ],
+      "misconceptionTags": [
+        "left and right reversed by viewpoint",
+        "quantity confused with order",
+        "position described without reference object"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-position-order"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "书架上有三层。第一层有3本书，第二层有5本书，第三层有2本书。从下往上数，第几层的书最多？",
+      "optionsZhHans": [],
+      "answer": "第二层",
+      "acceptedAnswers": [
+        "第二层",
+        "2"
+      ],
+      "explanationZhHans": "从下往上数，第一层3本，第二层5本，第三层2本，第二层最多。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-069",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-position-order",
+      "unitTitle": "位置与顺序",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "position-language",
+        "ordinality",
+        "left-right",
+        "位置",
+        "顺序"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "数学表达",
+        "观察比较"
+      ],
+      "skillTags": [
+        "前后左右上下",
+        "第几",
+        "位置描述",
+        "路线表达"
+      ],
+      "misconceptionTags": [
+        "left and right reversed by viewpoint",
+        "quantity confused with order",
+        "position described without reference object"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-position-order"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小动物们赛跑：小兔跑在最前面，小乌龟跑在最后面，小猫跑在小兔的后面、小乌龟的前面。请你按从快到慢的顺序写出小动物的名字。",
+      "optionsZhHans": [],
+      "answer": "小兔、小猫、小乌龟",
+      "acceptedAnswers": [
+        "小兔、小猫、小乌龟"
+      ],
+      "explanationZhHans": "小兔最前，小猫中间，小乌龟最后，所以顺序是小兔、小猫、小乌龟。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-070",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-position-order",
+      "unitTitle": "位置与顺序",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "position-language",
+        "ordinality",
+        "left-right",
+        "位置",
+        "顺序"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "数学表达",
+        "观察比较"
+      ],
+      "skillTags": [
+        "前后左右上下",
+        "第几",
+        "位置描述",
+        "路线表达"
+      ],
+      "misconceptionTags": [
+        "left and right reversed by viewpoint",
+        "quantity confused with order",
+        "position described without reference object"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-position-order"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小芳的右手拿着铅笔，左手拿着橡皮。她举起右手，举的是哪只手？",
+      "optionsZhHans": [
+        "左手",
+        "右手",
+        "两只手",
+        "没有举手"
+      ],
+      "answer": "右手",
+      "acceptedAnswers": [
+        "右手"
+      ],
+      "explanationZhHans": "小芳举起右手，所以举的是右手。"
+    }
+  ]
+}

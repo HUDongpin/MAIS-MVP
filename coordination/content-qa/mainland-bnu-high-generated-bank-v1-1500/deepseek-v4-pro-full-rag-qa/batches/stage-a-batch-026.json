@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-026",
+  "startedAt": "2026-05-28T00:39:26.470Z",
+  "completedAt": "2026-05-28T00:39:46.119Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-201",
+    "bnu-high-ds-v1-s4-202",
+    "bnu-high-ds-v1-s4-203",
+    "bnu-high-ds-v1-s4-204",
+    "bnu-high-ds-v1-s4-205",
+    "bnu-high-ds-v1-s4-206",
+    "bnu-high-ds-v1-s4-207",
+    "bnu-high-ds-v1-s4-208"
+  ],
+  "usage": {
+    "prompt_tokens": 9935,
+    "completion_tokens": 1047,
+    "total_tokens": 10982,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9551
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-201",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "80.4",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "分层抽样下总体均值估计为各层均值按层权加权平均。甲社区权重8000/20000=0.4，乙社区权重12000/20000=0.6，估计值=78×0.4+82×0.6=80.4。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-202",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "A",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "选项A为分层随机抽样，每班按学号尾数抽取保证随机性且覆盖各班，最合理。B、C、D均存在选择偏差。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-203",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "85",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "频率分布直方图中众数为最高矩形中点。频数最高组为[80,90)，组中值85。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-204",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "0005",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "系统抽样间隔k=1000/50=20。第3段号码为0045，则第1段起始号码=0045-2×20=0005。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-205",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "C",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "方差性质：Var(aX+b)=a²Var(X)。乘以2再加1，方差变为2²×4=16。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-206",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "甲中位数83，乙中位数82，乙更稳定",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "甲数据：72,75,78,80,83,85,91,94，中位数(80+83)/2=81.5？重新排序：72,75,78,80,83,85,91,94，共8个，中位数=(80+83)/2=81.5。乙数据：71,73,76,82,84,87,90,92，中位数=(82+84)/2=83。观察茎叶图，乙数据更集中，故乙更稳定。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-207",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "总学校数40，抽样比10/40=0.25，高中抽8×0.25=2所。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-208",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "B",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "r=0.85表明较强正相关，但不一定是因果关系，也不代表所有点在直线上。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，无数学错误、歧义或缺失条件，符合北师大版高中统计内容要求。"
+    }
+  }
+}

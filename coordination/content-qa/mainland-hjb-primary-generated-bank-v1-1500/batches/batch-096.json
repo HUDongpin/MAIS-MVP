@@ -1,0 +1,295 @@
+{
+  "batchId": "batch-096",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p2-226",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "hjb-primary-p2-lower-two-three-digit-add-sub",
+      "unitTitle": "两位数与三位数的加减法",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "two-three-digit-addition-subtraction",
+        "regrouping-add-sub",
+        "written-calculation",
+        "estimation-check",
+        "两三位数加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "两位数加减",
+        "三位数加减",
+        "进位",
+        "退位",
+        "估算",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "hundreds tens ones not aligned",
+        "regrouping direction confused",
+        "estimate ignored when exact answer is unreasonable"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p2-lower-two-three-digit-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-two-three-digit-add-sub",
+        "hjb-primary-p2-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算 346 + 279，先估算，再列竖式笔算。\n估算：346 接近 350，279 接近 280，350 + 280 = ______，所以结果大约是 ______。\n笔算：\n  3 4 6\n+ 2 7 9\n______\n笔算结果是 ______。",
+      "optionsZhHans": [],
+      "answer": "630,630,625",
+      "acceptedAnswers": [
+        "630,630,625"
+      ],
+      "explanationZhHans": "估算时把346看作350，279看作280，350+280=630。笔算时个位6+9=15，向十位进1，十位4+7+1=12，向百位进1，百位3+2+1=6，结果是625。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-227",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "hjb-primary-p2-lower-two-three-digit-add-sub",
+      "unitTitle": "两位数与三位数的加减法",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "two-three-digit-addition-subtraction",
+        "regrouping-add-sub",
+        "written-calculation",
+        "estimation-check",
+        "两三位数加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "两位数加减",
+        "三位数加减",
+        "进位",
+        "退位",
+        "估算",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "hundreds tens ones not aligned",
+        "regrouping direction confused",
+        "estimate ignored when exact answer is unreasonable"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p2-lower-two-three-digit-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-two-three-digit-add-sub",
+        "hjb-primary-p2-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丁有 268 张卡片，小亚有 195 张卡片，小丁比小亚多多少张卡片？下面哪个算式和结果都正确？",
+      "optionsZhHans": [
+        "268 + 195 = 463（张）",
+        "268 - 195 = 73（张）",
+        "268 - 195 = 173（张）",
+        "195 + 73 = 268（张）"
+      ],
+      "answer": "268 - 195 = 73（张）",
+      "acceptedAnswers": [
+        "268 - 195 = 73（张）"
+      ],
+      "explanationZhHans": "求小丁比小亚多多少，用减法：268 - 195。个位8-5=3，十位6减9不够，从百位退1，16-9=7，百位剩1-1=0，结果是73张。选项B正确。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-228",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "hjb-primary-p2-lower-two-three-digit-add-sub",
+      "unitTitle": "两位数与三位数的加减法",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "two-three-digit-addition-subtraction",
+        "regrouping-add-sub",
+        "written-calculation",
+        "estimation-check",
+        "两三位数加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "两位数加减",
+        "三位数加减",
+        "进位",
+        "退位",
+        "估算",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "hundreds tens ones not aligned",
+        "regrouping direction confused",
+        "estimate ignored when exact answer is unreasonable"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p2-lower-two-three-digit-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-two-three-digit-add-sub",
+        "hjb-primary-p2-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用竖式计算 523 - 187，并验算。\n竖式：\n  5 2 3\n- 1 8 7\n______\n验算：用差加上减数，看是否等于被减数。\n差是 ______，187 + ______ = ______，与被减数 523 相同，所以计算正确。",
+      "optionsZhHans": [],
+      "answer": "336,336,523",
+      "acceptedAnswers": [
+        "336,336,523"
+      ],
+      "explanationZhHans": "竖式：个位3减7不够，从十位退1，13-7=6；十位1减8不够，从百位退1，11-8=3；百位4-1=3，差是336。验算：336+187=523，等于被减数，正确。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-229",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "hjb-primary-p2-lower-math-square-review",
+      "unitTitle": "二年级下册数学广场与整理复习",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "p2-lower-review",
+        "math-square-exploration",
+        "division-time-place-value-review",
+        "operation-review",
+        "数学广场",
+        "复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "推理意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "规律探索",
+        "模型选择",
+        "错因说明",
+        "复习整理"
+      ],
+      "misconceptionTags": [
+        "model chosen by keyword only",
+        "time and number units mixed",
+        "larger-number calculation attempted without place-value alignment"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p2-lower-math-square-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-math-square-review",
+        "hjb-primary-p2-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "老师让同学们把下面的题目分类整理。下面哪种分法最合理？\n① 24÷4=6  ② 3时=180分  ③ 456+278=734  ④ 800-365=435  ⑤ 18÷3=6  ⑥ 1分=60秒",
+      "optionsZhHans": [
+        "按运算分：①②③④⑤⑥",
+        "按是否与时间有关分：①③④⑤和②⑥",
+        "按题目类型分：除法①⑤，时间单位换算②⑥，两三位数加减法③④",
+        "按结果大小分：①⑤⑥和②③④"
+      ],
+      "answer": "按题目类型分：除法①⑤，时间单位换算②⑥，两三位数加减法③④",
+      "acceptedAnswers": [
+        "按题目类型分：除法①⑤，时间单位换算②⑥，两三位数加减法③④"
+      ],
+      "explanationZhHans": "①和⑤是表内除法，②和⑥是时间单位换算，③和④是两三位数加减法。按题目类型分类最清晰，其他分法不合理。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-230",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "hjb-primary-p2-lower-math-square-review",
+      "unitTitle": "二年级下册数学广场与整理复习",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "p2-lower-review",
+        "math-square-exploration",
+        "division-time-place-value-review",
+        "operation-review",
+        "数学广场",
+        "复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "推理意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "规律探索",
+        "模型选择",
+        "错因说明",
+        "复习整理"
+      ],
+      "misconceptionTags": [
+        "model chosen by keyword only",
+        "time and number units mixed",
+        "larger-number calculation attempted without place-value alignment"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p2-lower-math-square-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-math-square-review",
+        "hjb-primary-p2-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "按规律填数：1, 4, 9, 16, ______, 36。",
+      "optionsZhHans": [],
+      "answer": "25",
+      "acceptedAnswers": [
+        "25"
+      ],
+      "explanationZhHans": "规律是平方数：1=1×1，4=2×2，9=3×3，16=4×4，所以下一个是5×5=25，接着36=6×6。"
+    }
+  ]
+}

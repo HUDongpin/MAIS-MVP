@@ -1,0 +1,103 @@
+{
+  "batchId": "model-qa-0012",
+  "ids": [
+    "hjb-junior-ds-v2-s1-089",
+    "hjb-junior-ds-v2-s1-090",
+    "hjb-junior-ds-v2-s1-091",
+    "hjb-junior-ds-v2-s1-092",
+    "hjb-junior-ds-v2-s1-093",
+    "hjb-junior-ds-v2-s1-094",
+    "hjb-junior-ds-v2-s1-095",
+    "hjb-junior-ds-v2-s1-096"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-089",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "175",
+      "answerCheckZhHans": "标准答案 175 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-090",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-10",
+      "answerCheckZhHans": "标准答案 -10 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-091",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-2x^3y^2",
+      "answerCheckZhHans": "标准答案 -2x^3y^2 与独立计算结果一致，且选项唯一正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-092",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "4x^5",
+      "answerCheckZhHans": "标准答案 4x^5 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-093",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-1/2 a^5 b^5",
+      "answerCheckZhHans": "标准答案 -1/2 a^5 b^5 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-094",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "72a^{12}",
+      "answerCheckZhHans": "标准答案 72a^{12} 与独立计算结果一致，且选项唯一正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-095",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-8a^4b",
+      "answerCheckZhHans": "标准答案 -8a^4b 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-096",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "商式为 2x^2 - x + 2，余式为 -3",
+      "answerCheckZhHans": "标准答案与独立计算结果一致，acceptedAnswers 覆盖了常见表述。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

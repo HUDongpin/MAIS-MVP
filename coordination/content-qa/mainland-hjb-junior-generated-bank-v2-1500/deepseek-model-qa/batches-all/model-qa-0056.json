@@ -1,0 +1,114 @@
+{
+  "batchId": "model-qa-0056",
+  "ids": [
+    "hjb-junior-ds-v2-s1-441",
+    "hjb-junior-ds-v2-s1-442",
+    "hjb-junior-ds-v2-s1-443",
+    "hjb-junior-ds-v2-s1-444",
+    "hjb-junior-ds-v2-s1-445",
+    "hjb-junior-ds-v2-s1-446",
+    "hjb-junior-ds-v2-s1-447",
+    "hjb-junior-ds-v2-s1-448"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-441",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题干给出∠A=50°，但解析中计算底角时使用了80°（180°-80°），且最终答案15°与解析得出的30°矛盾。独立计算：∠B=∠C=(180°-50°)/2=65°，AD=BD得∠BAD=∠B=65°，∠DAC=50°-65°=-15°，不可能。题目条件矛盾，无法求解。",
+      "independentAnswerZhHans": "无法求解，条件矛盾。",
+      "answerCheckZhHans": "给定答案15°错误，解析过程自相矛盾且与题干不符。",
+      "recommendedActionZhHans": "修正题干或解析，确保条件一致且可解。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-442",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "BD=CD",
+      "answerCheckZhHans": "答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-443",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "30°",
+      "answerCheckZhHans": "答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-444",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "选项C：∠A=∠B=60°，则∠C=60°，三角形等边，是等腰三角形，能判定。解析中写∠A=∠B=70°与选项不符，且结论错误。正确不能判定的选项应为A：∠A=50°，∠B=65°，得∠C=65°，是等腰三角形；B、D明显能判定。所有选项都能判定等腰，题目无正确选项。",
+      "independentAnswerZhHans": "所有选项都能判定等腰三角形，无正确选项。",
+      "answerCheckZhHans": "给定答案错误，解析与选项矛盾。",
+      "recommendedActionZhHans": "修改选项或题干，确保只有一个选项不能判定等腰三角形。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-445",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题干给出∠BAD=30°，但解析中写已知∠BAD=50°，矛盾。独立计算：设∠B=x，AD=BD得∠BAD=x=30°，则∠B=30°，AB=AC得∠C=30°，但∠A=180°-30°-30°=120°，∠BAD=30°合理，∠C=30°。给定答案50°错误。",
+      "independentAnswerZhHans": "30°",
+      "answerCheckZhHans": "给定答案50°错误，解析与题干条件不符。",
+      "recommendedActionZhHans": "修正答案或解析，确保与题干一致。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-446",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "56°",
+      "answerCheckZhHans": "答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-447",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "70",
+      "answerCheckZhHans": "答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-448",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "multiple-correct-options"
+      ],
+      "issueDetailsZhHans": "选项B：AB=5，BC=6，CA=5，有AB=CA，是等腰三角形；选项C：∠B=∠C=70°，是等腰三角形。两个选项都能判定等腰三角形，但题目为单选题，应只有一个正确选项。",
+      "independentAnswerZhHans": "选项B和C都能判定等腰三角形。",
+      "answerCheckZhHans": "给定答案C正确，但B也正确，存在多个正确选项。",
+      "recommendedActionZhHans": "修改选项，确保只有一个选项能判定等腰三角形。",
+      "confidence": "high"
+    }
+  ]
+}

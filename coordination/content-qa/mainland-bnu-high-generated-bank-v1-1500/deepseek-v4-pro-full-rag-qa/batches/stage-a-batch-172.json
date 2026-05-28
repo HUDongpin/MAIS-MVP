@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-172",
+  "startedAt": "2026-05-28T01:50:19.630Z",
+  "completedAt": "2026-05-28T01:50:33.994Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-369",
+    "bnu-high-ds-v1-s6-370",
+    "bnu-high-ds-v1-s6-371",
+    "bnu-high-ds-v1-s6-372",
+    "bnu-high-ds-v1-s6-373",
+    "bnu-high-ds-v1-s6-374",
+    "bnu-high-ds-v1-s6-375",
+    "bnu-high-ds-v1-s6-376"
+  ],
+  "usage": {
+    "prompt_tokens": 10109,
+    "completion_tokens": 1078,
+    "total_tokens": 11187,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9725
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-369",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导得 y'=3x²-6x+2，代入 x=2 得斜率 2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-370",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(-∞, -1) 和 (1, +∞)",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x²-3，解 f'(x)>0 得 x<-1 或 x>1，单调递增区间为 (-∞,-1) 和 (1,+∞)。选项 A 正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-371",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "最大值为 10，最小值为 -22",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x²-6x-9=3(x-3)(x+1)，临界点 x=-1,3。计算 f(-2)=3, f(-1)=10, f(3)=-22, f(4)=-15，故最大值 10，最小值 -22。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-372",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "y = x - 1",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "y'=3x²-2，在 x=1 处斜率 k=1，切线方程为 y-0=1·(x-1)，即 y=x-1。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-373",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x²-3，临界点 x=±1。计算 f(-2)=-1, f(-1)=3, f(1)=-1, f(2)=3，最大值为 3。选项 A 正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-374",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(1, 3)",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x²-12x+9=3(x-1)(x-3)，解 f'(x)<0 得 1<x<3，单调递减区间为 (1,3)。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-375",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x²-6x=3x(x-2)，临界点 x=0,2。x<0 时 f'>0，0<x<2 时 f'<0，x>2 时 f'>0，故在 x=2 处取得极小值。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-376",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "y'=2x+1/x，代入 x=1 得斜率 3。选项 C 正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部 8 题均可独立求解，无数学错误、歧义或缺失条件，符合北师大版高中导数章节要求。"
+    }
+  }
+}

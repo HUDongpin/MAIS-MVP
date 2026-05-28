@@ -1,0 +1,133 @@
+{
+  "batchNumber": 167,
+  "startedAt": "2026-05-27T14:12:13.888Z",
+  "completedAt": "2026-05-27T14:12:34.646Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-329",
+    "bnu-high-ds-v1-s6-330",
+    "bnu-high-ds-v1-s6-331",
+    "bnu-high-ds-v1-s6-332",
+    "bnu-high-ds-v1-s6-333",
+    "bnu-high-ds-v1-s6-334",
+    "bnu-high-ds-v1-s6-335",
+    "bnu-high-ds-v1-s6-336"
+  ],
+  "usage": {
+    "prompt_tokens": 10542,
+    "completion_tokens": 1356,
+    "total_tokens": 11898,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10030
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-329",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "18 m²",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可独立求解。设垂直墙边长为x，则平行墙边长为12-2x，面积S=x(12-2x)，定义域0<x<6。求导得S'=12-4x，驻点x=3，S(3)=18，端点趋于0，故最大面积18 m²。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-330",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "函数定义域为R，可解。f'(x)=3x²-6x-9=3(x-3)(x+1)，临界点x=-1,3。f''(x)=6x-6，f''(3)=12>0，故极小值点为x=3。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-331",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可解。f'(x)=3x²-6x=3x(x-2)，驻点x=0,2。计算f(0)=a，f(2)=a-4，f(3)=a，最大值为a。由a=3得a=3。选项唯一，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-332",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "最大值为10，最小值为-22",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可解。f'(x)=3x²-6x-9=3(x-3)(x+1)，驻点x=-1,3。计算f(-2)=3，f(-1)=10，f(3)=-22，f(4)=-15，最大值10，最小值-22。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-333",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "y = -2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可解。y'=3x²-3，在x=1处斜率为0，切线为水平线y=-2。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-334",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "[-1, 1]",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可解。f'(x)=3x²-3=3(x-1)(x+1)，由f'(x)≤0得-1≤x≤1，单调递减区间为[-1,1]。选项D正确，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-335",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "a = -3, b = -9, c = 2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可解。f'(x)=3x²+2ax+b，由f'(-1)=0和f'(3)=0得a=-3,b=-9。由f(3)=-25得c=2。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-336",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "-1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可解。y'=2x-4，驻点x=2。计算y(0)=3，y(2)=-1，y(3)=0，最小值为-1。答案与解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，答案与解析均正确且一致，无任何问题。"
+    }
+  }
+}

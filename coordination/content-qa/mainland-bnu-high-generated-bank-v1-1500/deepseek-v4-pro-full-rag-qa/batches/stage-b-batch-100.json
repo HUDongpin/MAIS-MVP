@@ -1,0 +1,133 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-100",
+  "startedAt": "2026-05-28T01:23:46.014Z",
+  "completedAt": "2026-05-28T01:24:00.819Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-293",
+    "bnu-high-ds-v1-s5-294",
+    "bnu-high-ds-v1-s5-295",
+    "bnu-high-ds-v1-s5-296",
+    "bnu-high-ds-v1-s5-297",
+    "bnu-high-ds-v1-s5-298",
+    "bnu-high-ds-v1-s5-299",
+    "bnu-high-ds-v1-s5-300"
+  ],
+  "usage": {
+    "prompt_tokens": 12196,
+    "completion_tokens": 1032,
+    "total_tokens": 13228,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 11812
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-293",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案80与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-294",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [
+          "explanation_contradiction"
+        ],
+        "severity": "minor",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案150正确，但解析中分组计算有误（3,1,1分组误除以A(2,2)得5，实际应为10），虽最终结果一致，但过程存在矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-295",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案“第4项”正确，解析合理，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-296",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案36与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-297",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案1316与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-298",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案-160正确，解析无误，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-299",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "672x^5",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案672x^4错误，独立解为672x^5；解析中r=4得出系数560，但实际最大系数对应r=5，项为672x^5。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-300",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [
+          "explanation_contradiction"
+        ],
+        "severity": "minor",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案36正确，但解析中分组除以A(2,2)得3种再乘6得18，与最终36矛盾，过程有误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 2,
+      "fail": 1,
+      "notes": "8题中6题完全一致，2题解析存在矛盾但答案正确，1题答案错误（bnu-high-ds-v1-s5-299）。"
+    }
+  }
+}

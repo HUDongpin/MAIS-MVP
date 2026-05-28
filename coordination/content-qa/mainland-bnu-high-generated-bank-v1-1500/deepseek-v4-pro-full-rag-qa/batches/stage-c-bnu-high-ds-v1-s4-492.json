@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-492",
+  "startedAt": "2026-05-28T02:01:52.376Z",
+  "completedAt": "2026-05-28T02:01:57.348Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-492"
+  ],
+  "usage": {
+    "prompt_tokens": 2097,
+    "completion_tokens": 291,
+    "total_tokens": 2388,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1713
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-492",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "16/3",
+        "correctedAnswer": "16/3",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "正四棱锥底面边长为4，侧棱长2√3，正确高为2，体积应为16/3。存储答案16√2/3错误，解析中高为2却得出32/3或16√2/3，计算矛盾，判定为严重错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目可解，但答案和解析均存在数学错误，体积应为16/3，存储答案16√2/3错误，解析自相矛盾，判定为不通过。"
+    }
+  }
+}

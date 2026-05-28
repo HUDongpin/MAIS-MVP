@@ -1,0 +1,121 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-025",
+  "startedAt": "2026-05-28T00:39:09.439Z",
+  "completedAt": "2026-05-28T00:39:26.470Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-193",
+    "bnu-high-ds-v1-s4-194",
+    "bnu-high-ds-v1-s4-195",
+    "bnu-high-ds-v1-s4-196",
+    "bnu-high-ds-v1-s4-197",
+    "bnu-high-ds-v1-s4-198",
+    "bnu-high-ds-v1-s4-199",
+    "bnu-high-ds-v1-s4-200"
+  ],
+  "usage": {
+    "prompt_tokens": 9879,
+    "completion_tokens": 953,
+    "total_tokens": 10832,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9495
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-193",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "12",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "组距为10，频率=0.030×10=0.3，人数=40×0.3=12，选项C正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-194",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "甲的成绩更稳定，因为标准差较小。",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "平均数相同，标准差越小成绩越稳定，甲的标准差0.4小于乙的0.8，故甲更稳定。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-195",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "17, 18",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "新平均数=3×5+2=17，新方差=3²×2=18。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-196",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "A",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "分层抽样覆盖全校各班级，代表性最好；其他选项仅限特定群体，存在偏差。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-197",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "极差0.4，标准差0.14",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "极差=2.6-2.2=0.4；均值=2.4，方差=0.02，标准差≈0.14。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-198",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "[60,90)",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "总频数60，中位数在第30、31位，累计频数前两组20，第三组30，故中位数在[60,90)。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-199",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "A",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "y随x增大而增大，且近似线性，为正相关。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-200",
+        "solvableStatus": "fail",
+        "ragFitStatus": "fail",
+        "independentAnswer": null,
+        "issueTags": [
+          "missing_condition",
+          "rag_fit_issue"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "计算95%置信区间需正态近似条件或t分布，但题目未提供总体分布假设或标准差，且北师大版高一统计仅涉及描述统计，不包含推断统计的置信区间，超出课程范围，无法求解。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第200题因超出高一统计课程范围且缺少必要条件，标记为失败；其余题目均符合要求，可独立求解。"
+    }
+  }
+}

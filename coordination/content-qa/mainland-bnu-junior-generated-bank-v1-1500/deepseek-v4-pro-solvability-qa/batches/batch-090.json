@@ -1,0 +1,173 @@
+{
+  "batchNumber": 90,
+  "startedAt": "2026-05-27T17:54:04.113Z",
+  "completedAt": "2026-05-27T17:54:20.850Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s3-069",
+    "bnu-junior-ds-v1-s3-070",
+    "bnu-junior-ds-v1-s3-071",
+    "bnu-junior-ds-v1-s3-072",
+    "bnu-junior-ds-v1-s3-073",
+    "bnu-junior-ds-v1-s3-074",
+    "bnu-junior-ds-v1-s3-075",
+    "bnu-junior-ds-v1-s3-076",
+    "bnu-junior-ds-v1-s3-077",
+    "bnu-junior-ds-v1-s3-078",
+    "bnu-junior-ds-v1-s3-079",
+    "bnu-junior-ds-v1-s3-080"
+  ],
+  "usage": {
+    "prompt_tokens": 5930,
+    "completion_tokens": 1206,
+    "total_tokens": 7136,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 5418
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s3-069",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件完整，可解；答案与解析一致，且符合一元二次方程判别式要求。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-070",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目明确要求一元二次方程，二次项系数不为零，选项唯一正确，答案匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-071",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "条件充分，判别式与二次项系数限制均正确，答案与解析一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-072",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "直接计算判别式，答案49正确，解析无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-073",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "配方法步骤正确，选项唯一且答案匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-074",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "利用根与系数关系求解，答案正确，解析合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-075",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "判别式为零求解，答案1/4正确，解析无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-076",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项A可因式分解，其他选项不易分解，答案合理且唯一。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-077",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "降价问题建模正确，答案20%符合实际，解析无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-078",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "直接由因式分解得根，答案正确，解析简洁。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-079",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "一元一次方程条件正确，代入求解无误，选项唯一且答案匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-080",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "公式法步骤正确，答案准确，解析无误。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均条件充分、可解，答案与解析匹配，无错误或歧义。"
+    }
+  }
+}

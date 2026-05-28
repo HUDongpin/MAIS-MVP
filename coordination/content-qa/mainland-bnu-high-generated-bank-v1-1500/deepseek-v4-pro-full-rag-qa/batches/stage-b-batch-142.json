@@ -1,0 +1,130 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-142",
+  "startedAt": "2026-05-28T01:41:46.674Z",
+  "completedAt": "2026-05-28T01:41:59.035Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-129",
+    "bnu-high-ds-v1-s6-130",
+    "bnu-high-ds-v1-s6-131",
+    "bnu-high-ds-v1-s6-132",
+    "bnu-high-ds-v1-s6-133",
+    "bnu-high-ds-v1-s6-134",
+    "bnu-high-ds-v1-s6-135",
+    "bnu-high-ds-v1-s6-136"
+  ],
+  "usage": {
+    "prompt_tokens": 12029,
+    "completion_tokens": 1007,
+    "total_tokens": 13036,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 11645
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-129",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，均为 a_n = 3^n - 2^n，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-130",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 a_n = 2^{n-1} 与独立解 C 一致，解析正确，唯一正确选项。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-131",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，均为 a_n = 3^n - 2^n，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-132",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "无解或题目条件矛盾",
+        "issueTags": [
+          "math_error",
+          "missing_condition",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "由 a_3+a_7=20 得 a_5=10，与 a_5=9 矛盾，题目无解。存储答案 d=2 错误，解析承认矛盾但强行修正数据，不可接受。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-133",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 2 与独立解 A 一致，解析正确，唯一正确选项。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-134",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，均为 a_n = n^2 + 1，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-135",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 3 与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-136",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 2 与独立解 B 一致，解析正确，唯一正确选项。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第132题条件矛盾无解，存储答案错误，其余题目均通过。"
+    }
+  }
+}

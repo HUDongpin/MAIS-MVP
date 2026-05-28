@@ -1,0 +1,137 @@
+{
+  "batchNumber": 3,
+  "startedAt": "2026-05-25T02:45:46.839Z",
+  "completedAt": "2026-05-25T02:46:01.199Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s1-k01-fi-002",
+    "pep-junior-v3-s1-k01-fi-003",
+    "pep-junior-v3-s1-k01-fi-004",
+    "pep-junior-v3-s1-k01-fi-005",
+    "pep-junior-v3-s1-k01-fi-006",
+    "pep-junior-v3-s1-k01-fi-007",
+    "pep-junior-v3-s1-k01-fi-008",
+    "pep-junior-v3-s1-k01-fi-009",
+    "pep-junior-v3-s1-k01-fi-010",
+    "pep-junior-v3-s1-k01-fi-011",
+    "pep-junior-v3-s1-k01-fi-012",
+    "pep-junior-v3-s1-k01-fi-013"
+  ],
+  "usage": {
+    "prompt_tokens": 3141,
+    "completion_tokens": 933,
+    "total_tokens": 4074,
+    "prompt_tokens_details": {
+      "cached_tokens": 3072
+    },
+    "prompt_cache_hit_tokens": 3072,
+    "prompt_cache_miss_tokens": 69
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s1-k01-fi-002",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案与解释一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k01-fi-003",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比较大小正确，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k01-fi-004",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数轴移动计算正确，答案0无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k01-fi-005",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "绝对值方程求解正确，答案8或-2无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k01-fi-006",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "温差计算正确，答案10无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k01-fi-007",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数轴距离问题求解正确，答案2或-4无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k01-fi-008",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "温度变化计算正确，答案-30℃无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k01-fi-009",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数轴与对称点计算正确，答案-3无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k01-fi-010",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "相反数、倒数、绝对值综合计算正确，答案4或-2无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k01-fi-011",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "连续降价计算正确，答案0.81a无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k01-fi-012",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数轴表示位置计算正确，答案2无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k01-fi-013",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "相反数与绝对值方程求解正确，答案2无误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部12道题均通过审核，数学正确，答案与解释一致，无歧义或缺失条件，适合人教版初中数学。"
+    }
+  }
+}

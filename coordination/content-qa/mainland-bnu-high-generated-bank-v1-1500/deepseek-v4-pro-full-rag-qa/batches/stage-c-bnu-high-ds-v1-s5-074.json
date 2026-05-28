@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-074",
+  "startedAt": "2026-05-28T02:07:42.706Z",
+  "completedAt": "2026-05-28T02:07:46.428Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-074"
+  ],
+  "usage": {
+    "prompt_tokens": 2247,
+    "completion_tokens": 334,
+    "total_tokens": 2581,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1863
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-074",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "x^2 - y^2/4 = 1",
+        "correctedAnswer": "x^2 - y^2/4 = 1",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "渐近线 y=2x 得 b=2a，焦点 (c,0) 到渐近线距离 |2c|/√5=2，解得 c=√5。由 c²=a²+b²=5a² 得 a²=1，b²=4，正确方程为 x² - y²/4 = 1。存储答案 x²/5 - y²/20 = 1 错误，解析中 c 值计算矛盾，导致答案不匹配。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "存储答案与独立解不一致，解析存在数学错误，判定为 blocker。"
+    }
+  }
+}

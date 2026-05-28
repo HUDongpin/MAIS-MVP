@@ -1,0 +1,560 @@
+{
+  "batchId": "batch-042",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p2-161",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-direction-position",
+      "unitTitle": "方向与位置",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "direction-position",
+        "map-language",
+        "spatial-orientation",
+        "方向与位置"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "东南西北",
+        "路线描述",
+        "方位判断",
+        "位置关系"
+      ],
+      "misconceptionTags": [
+        "direction words swapped",
+        "reference point omitted",
+        "route order reversed"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-direction-position"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-direction-position",
+        "bnu-primary-p2-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小乐从学校出发，先向东走200米到图书馆，再向南走150米到公园，最后向西走100米到超市。超市在学校的什么方向？",
+      "optionsZhHans": [],
+      "answer": "东南",
+      "acceptedAnswers": [
+        "东南"
+      ],
+      "explanationZhHans": "学校为起点，向东200米，再向南150米，最后向西100米。东西方向抵消后向东100米，南北方向向南150米，所以超市在学校的东偏南方向，即东南方向。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-162",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-direction-position",
+      "unitTitle": "方向与位置",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "direction-position",
+        "map-language",
+        "spatial-orientation",
+        "方向与位置"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "东南西北",
+        "路线描述",
+        "方位判断",
+        "位置关系"
+      ],
+      "misconceptionTags": [
+        "direction words swapped",
+        "reference point omitted",
+        "route order reversed"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-direction-position"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-direction-position",
+        "bnu-primary-p2-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小乐从学校出发，先向东走200米，再向北走150米，最后向西走200米。他现在在学校的哪个方向？",
+      "optionsZhHans": [],
+      "answer": "北面",
+      "acceptedAnswers": [
+        "北面",
+        "北边",
+        "正北"
+      ],
+      "explanationZhHans": "向东200米再向西200米，东西方向回到原点；向北150米后，最终在学校北面150米处。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-163",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-direction-position",
+      "unitTitle": "方向与位置",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "direction-position",
+        "map-language",
+        "spatial-orientation",
+        "方向与位置"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "东南西北",
+        "路线描述",
+        "方位判断",
+        "位置关系"
+      ],
+      "misconceptionTags": [
+        "direction words swapped",
+        "reference point omitted",
+        "route order reversed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-direction-position"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-direction-position",
+        "bnu-primary-p2-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小动物们在森林广场玩。小狗站在广场中间，小猫在小狗的东边，小兔在小狗的南边，小鸭在小狗的北边，小鸡在小狗的西边。小兔想去找小鸡，下面哪条路线是正确的？",
+      "optionsZhHans": [
+        "先向北走，再向东走",
+        "先向北走，再向西走",
+        "先向南走，再向西走",
+        "先向南走，再向东走"
+      ],
+      "answer": "先向北走，再向西走",
+      "acceptedAnswers": [
+        "先向北走，再向西走"
+      ],
+      "explanationZhHans": "小兔在小狗的南边，小鸡在小狗的西边。以小兔为起点，先向北走到小狗的位置，再向西走到小鸡的位置。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-164",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-direction-position",
+      "unitTitle": "方向与位置",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "direction-position",
+        "map-language",
+        "spatial-orientation",
+        "方向与位置"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "东南西北",
+        "路线描述",
+        "方位判断",
+        "位置关系"
+      ],
+      "misconceptionTags": [
+        "direction words swapped",
+        "reference point omitted",
+        "route order reversed"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-direction-position"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-direction-position",
+        "bnu-primary-p2-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小乐站在操场中央，面向东。他先向前走10步，然后向右转，再走5步，最后向左转，走15步。现在小乐面向哪个方向？",
+      "optionsZhHans": [],
+      "answer": "东",
+      "acceptedAnswers": [
+        "东"
+      ],
+      "explanationZhHans": "初始面向东。向前走10步，方向不变，仍向东。向右转，变成面向南，走5步。向左转，变成面向东，走15步。最后面向东。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-165",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-direction-position",
+      "unitTitle": "方向与位置",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "direction-position",
+        "map-language",
+        "spatial-orientation",
+        "方向与位置"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "东南西北",
+        "路线描述",
+        "方位判断",
+        "位置关系"
+      ],
+      "misconceptionTags": [
+        "direction words swapped",
+        "reference point omitted",
+        "route order reversed"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-direction-position"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-direction-position",
+        "bnu-primary-p2-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小动物们在森林广场集合，准备去野餐。广场的北边是松树林，南边是小河，东边是蘑菇地，西边是花丛。小兔说：“我从广场出发，先向北走到松树林，再向东走到蘑菇地，然后向南走到小河，最后向西走，就能回到广场。”小鹿说：“不对，你最后一步走错了，应该向东走才能回到广场。”请你说一说，谁说得对，为什么？",
+      "optionsZhHans": [],
+      "answer": "小兔说得对。因为从广场出发，先向北到松树林，再向东到蘑菇地，再向南到小河，此时小河在蘑菇地的南边，广场在小河的西边，所以最后向西走就能回到广场。小鹿说向东走是错误的。",
+      "acceptedAnswers": [
+        "小兔说得对。因为从广场出发，先向北到松树林，再向东到蘑菇地，再向南到小河，此时小河在蘑菇地的南边，广场在小河的西边，所以最后向西走就能回到广场。小鹿说向东走是错误的。",
+        "小兔说得对。因为从广场向北到松树林，向东到蘑菇地，向南到小河，这时广场在小河的西面，所以向西走就能回到广场。小鹿说的向东走是错的。",
+        "小兔说得对。因为按照路线，最后小河在广场的东边，所以向西走才能回到广场。小鹿说向东走不对。"
+      ],
+      "explanationZhHans": "以广场为起点，向北到松树林，向东到蘑菇地，向南到小河。此时小河在蘑菇地的南边，广场在小河的西边，所以最后向西走才能回到广场。小兔的路线正确，小鹿说向东走是错误的。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-166",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-large-numbers",
+      "unitTitle": "生活中的大数",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "large-number-introduction",
+        "within-10000-numbers",
+        "place-value-thousands",
+        "万以内数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "千以内数",
+        "万以内数",
+        "数位顺序",
+        "读写数",
+        "比较大小"
+      ],
+      "misconceptionTags": [
+        "zero omitted in reading or writing",
+        "digits compared from the ones place",
+        "place-value names memorized without quantity meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-large-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-large-numbers",
+        "bnu-primary-p2-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆新买了三千零八十本故事书。下面哪个写法是正确的？",
+      "optionsZhHans": [
+        "3080",
+        "3008",
+        "3800",
+        "30080"
+      ],
+      "answer": "3080",
+      "acceptedAnswers": [
+        "3080"
+      ],
+      "explanationZhHans": "三千零八十：千位是3，百位是0，十位是8，个位是0，写作3080。中间有一个零，读作“零”，末尾的零不读。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-167",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-large-numbers",
+      "unitTitle": "生活中的大数",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "large-number-introduction",
+        "within-10000-numbers",
+        "place-value-thousands",
+        "万以内数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "千以内数",
+        "万以内数",
+        "数位顺序",
+        "读写数",
+        "比较大小"
+      ],
+      "misconceptionTags": [
+        "zero omitted in reading or writing",
+        "digits compared from the ones place",
+        "place-value names memorized without quantity meaning"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-large-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-large-numbers",
+        "bnu-primary-p2-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用4、0、5、8这四个数字组成一个四位数，每个数字只能用一次。\n（1）组成的最大的四位数是（    ）。\n（2）组成的最小的四位数是（    ）。\n（3）组成的数中，最接近5000的数是（    ）。",
+      "optionsZhHans": [],
+      "answer": "（1）8540 （2）4058 （3）5048",
+      "acceptedAnswers": [
+        "（1）8540 （2）4058 （3）5048"
+      ],
+      "explanationZhHans": "（1）要最大，把数字从大到小排在高位：8→5→4→0，得8540。（2）要最小，最高位不能是0，选最小的非零数字4，其余从小到大排：0→5→8，得4058。（3）接近5000，千位选5，剩余数字0、4、8组成最接近0的数，即048，所以是5048。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-168",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-large-numbers",
+      "unitTitle": "生活中的大数",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "large-number-introduction",
+        "within-10000-numbers",
+        "place-value-thousands",
+        "万以内数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "千以内数",
+        "万以内数",
+        "数位顺序",
+        "读写数",
+        "比较大小"
+      ],
+      "misconceptionTags": [
+        "zero omitted in reading or writing",
+        "digits compared from the ones place",
+        "place-value names memorized without quantity meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-large-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-large-numbers",
+        "bnu-primary-p2-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个数由3个千、0个百、5个十和8个一组成，这个数写作多少？读作什么？",
+      "optionsZhHans": [],
+      "answer": "写作3058，读作三千零五十八",
+      "acceptedAnswers": [
+        "写作3058，读作三千零五十八",
+        "3058，三千零五十八"
+      ],
+      "explanationZhHans": "3个千是3000，0个百是0，5个十是50，8个一是8，合起来是3000+0+50+8=3058。读数时从高位读起，千位是3读三千，百位是0读零，十位是5读五十，个位是8读八，所以读作三千零五十八。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-169",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-large-numbers",
+      "unitTitle": "生活中的大数",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "large-number-introduction",
+        "within-10000-numbers",
+        "place-value-thousands",
+        "万以内数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "千以内数",
+        "万以内数",
+        "数位顺序",
+        "读写数",
+        "比较大小"
+      ],
+      "misconceptionTags": [
+        "zero omitted in reading or writing",
+        "digits compared from the ones place",
+        "place-value names memorized without quantity meaning"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-large-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-large-numbers",
+        "bnu-primary-p2-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在数字卡片 3、0、5、8 中，选出三张组成一个最大的三位数和一个最小的三位数，它们的和是多少？",
+      "optionsZhHans": [
+        "853 + 305 = 1158",
+        "853 + 305 = 1168",
+        "853 + 308 = 1161",
+        "850 + 305 = 1155"
+      ],
+      "answer": "853 + 305 = 1158",
+      "acceptedAnswers": [
+        "853 + 305 = 1158"
+      ],
+      "explanationZhHans": "用3、0、5、8组成最大的三位数，百位选最大数字8，十位5，个位3，得853。最小的三位数百位不能为0，选最小非0数字3，十位0，个位5，得305。853+305=1158。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-170",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-large-numbers",
+      "unitTitle": "生活中的大数",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "large-number-introduction",
+        "within-10000-numbers",
+        "place-value-thousands",
+        "万以内数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "千以内数",
+        "万以内数",
+        "数位顺序",
+        "读写数",
+        "比较大小"
+      ],
+      "misconceptionTags": [
+        "zero omitted in reading or writing",
+        "digits compared from the ones place",
+        "place-value names memorized without quantity meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-large-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-large-numbers",
+        "bnu-primary-p2-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个数由3个千、0个百、5个十和8个一组成，这个数写作多少？",
+      "optionsZhHans": [],
+      "answer": "3058",
+      "acceptedAnswers": [
+        "3058"
+      ],
+      "explanationZhHans": "3个千是3000，0个百是0，5个十是50，8个一是8，合起来是3000+0+50+8=3058。注意百位是0，写作时要用0占位。"
+    }
+  ]
+}

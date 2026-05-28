@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0115",
+  "ids": [
+    "hjb-junior-ds-v2-s2-413",
+    "hjb-junior-ds-v2-s2-414",
+    "hjb-junior-ds-v2-s2-415",
+    "hjb-junior-ds-v2-s2-416",
+    "hjb-junior-ds-v2-s2-417",
+    "hjb-junior-ds-v2-s2-418",
+    "hjb-junior-ds-v2-s2-419",
+    "hjb-junior-ds-v2-s2-420"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-413",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "m<2",
+      "answerCheckZhHans": "标准答案 m<2 与独立求解结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-414",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(2,0)",
+      "answerCheckZhHans": "标准答案 (2,0) 与独立求解结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-415",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "5",
+      "answerCheckZhHans": "标准答案 5 与独立求解结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-416",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "y=10+4(⌈x⌉-1)",
+      "answerCheckZhHans": "标准答案 y=10+4(⌈x⌉-1) 与独立求解结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-417",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "y=-2x",
+      "answerCheckZhHans": "标准答案 y=-2x 与独立求解结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-418",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "k=2，b=1",
+      "answerCheckZhHans": "标准答案 k=2，b=1 与独立求解结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-419",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "ambiguous-prompt",
+        "missing-condition"
+      ],
+      "issueDetailsZhHans": "题干仅给出图像经过第一、二、四象限且m为整数，解得m<2，即m≤1的所有整数（如1,0,-1,...）均满足，答案不唯一。解析中补充了“图像与y轴交点在x轴上方2个单位处”的条件才得到m=1，但题干未包含此条件。",
+      "independentAnswerZhHans": "m≤1的整数（如1,0,-1,...）",
+      "answerCheckZhHans": "标准答案1仅为其中一个解，与题干条件得出的解集不符。",
+      "recommendedActionZhHans": "需在题干中补充额外条件（如截距为2）或修改问题为求m的最大值等，使答案唯一。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-420",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "100+0.9(x-100) < 50+0.95(x-50)",
+      "answerCheckZhHans": "标准答案 100+0.9(x-100) < 50+0.95(x-50) 与独立求解结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

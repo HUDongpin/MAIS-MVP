@@ -1,0 +1,48 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-389",
+  "startedAt": "2026-05-28T02:38:38.579Z",
+  "completedAt": "2026-05-28T02:38:45.281Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-389"
+  ],
+  "usage": {
+    "prompt_tokens": 2070,
+    "completion_tokens": 311,
+    "total_tokens": 2381,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1686
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-389",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "10秒",
+        "correctedAnswer": "10秒",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，但存储答案20秒错误。正确解答：周期60秒，解sin(πt/30)>1/2得两个区间(5,25)和(35,55)，每个区间长20秒，但纵坐标大于5厘米的时间长度应为每个区间内满足条件的部分，实际每个区间内满足sin>1/2的区间长度为10秒，总时长10秒。解析错误地将一个区间长度当作总时长，且未考虑第二个区间，导致答案错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "存储答案20秒错误，正确累计时间为10秒，解析存在数学错误，判定为blocker。"
+    }
+  }
+}

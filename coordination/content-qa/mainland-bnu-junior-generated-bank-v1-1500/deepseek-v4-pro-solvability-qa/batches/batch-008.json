@@ -1,0 +1,173 @@
+{
+  "batchNumber": 8,
+  "startedAt": "2026-05-27T17:23:04.170Z",
+  "completedAt": "2026-05-27T17:23:22.020Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s1-085",
+    "bnu-junior-ds-v1-s1-086",
+    "bnu-junior-ds-v1-s1-087",
+    "bnu-junior-ds-v1-s1-088",
+    "bnu-junior-ds-v1-s1-089",
+    "bnu-junior-ds-v1-s1-090",
+    "bnu-junior-ds-v1-s1-091",
+    "bnu-junior-ds-v1-s1-092",
+    "bnu-junior-ds-v1-s1-093",
+    "bnu-junior-ds-v1-s1-094",
+    "bnu-junior-ds-v1-s1-095",
+    "bnu-junior-ds-v1-s1-096"
+  ],
+  "usage": {
+    "prompt_tokens": 6280,
+    "completion_tokens": 1225,
+    "total_tokens": 7505,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 5768
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s1-085",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "同类项定义清晰，选项C为常数项，是同类项，其他选项字母或指数不同，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-086",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "化简步骤正确，代入计算无误，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-087",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "多项式次数和项数判断正确，答案“三，三”符合要求，acceptedAnswers覆盖多种表达。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-088",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "周长计算正确，选项唯一，答案匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-089",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "整式加减运算正确，结果与答案一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-090",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "合并同类项后令系数为零，解得k=1/3，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-091",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算A-2B正确，次数和常数项判断无误，选项A唯一匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-092",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "代数式表示和求值均正确，acceptedAnswers覆盖不同形式。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-093",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算A-2B正确，降幂排列结果与答案一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-094",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "根据减法关系求多项式，计算正确，选项A匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-095",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算A-2B正确，降幂排列结果与答案一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-096",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "根据和的关系求多项式，计算正确，答案匹配。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版七年级上册整式及其加减的要求，题目可解，答案与解释匹配，无错误或歧义。"
+    }
+  }
+}

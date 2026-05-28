@@ -1,0 +1,191 @@
+{
+  "batchNumber": 4,
+  "startedAt": "2026-05-25T01:47:05.953Z",
+  "completedAt": "2026-05-25T01:47:25.995Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p1-055",
+    "hjb-primary-ds-v1-p1-056",
+    "hjb-primary-ds-v1-p1-057",
+    "hjb-primary-ds-v1-p1-058",
+    "hjb-primary-ds-v1-p1-059",
+    "hjb-primary-ds-v1-p1-060",
+    "hjb-primary-ds-v1-p1-061",
+    "hjb-primary-ds-v1-p1-062",
+    "hjb-primary-ds-v1-p1-063",
+    "hjb-primary-ds-v1-p1-064",
+    "hjb-primary-ds-v1-p1-065",
+    "hjb-primary-ds-v1-p1-066",
+    "hjb-primary-ds-v1-p1-067",
+    "hjb-primary-ds-v1-p1-068",
+    "hjb-primary-ds-v1-p1-069",
+    "hjb-primary-ds-v1-p1-070",
+    "hjb-primary-ds-v1-p1-071",
+    "hjb-primary-ds-v1-p1-072"
+  ],
+  "usage": {
+    "prompt_tokens": 3187,
+    "completion_tokens": 1360,
+    "total_tokens": 4547,
+    "prompt_tokens_details": {
+      "cached_tokens": 3072
+    },
+    "prompt_cache_hit_tokens": 3072,
+    "prompt_cache_miss_tokens": 115
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p1-055",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，适合P1上10以内数的认识。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-056",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "排队问题答案正确，中间有3只，符合P1挑战难度。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-057",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "加法逆运算，答案4正确，适合基础题。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-058",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比大小题目，7符合条件，选项无歧义。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-059",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分草莓问题，3种分法正确，排除4和4。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-060",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "从0开始数，第5个数是4，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-061",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "加法应用题，算式3+4=7正确，选项清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-062",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "减法填空，8-□=5，□=3正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-063",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "减法应用题，6-2=4正确，答案格式合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-064",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "加法应用题，5+3=8正确，选项无歧义。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-065",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "加法逆运算填空，□+2=9，□=7正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-066",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "减法逆运算，8-3=5正确，答案表述清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-067",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "减法应用题，7-4=3正确，选项合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-068",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "加法填空，2+6=8正确，答案接受8或8个。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-069",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "减法应用题，9-5=4正确，答案格式合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-070",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "加法应用题，5+4=9正确，选项无歧义。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-071",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "加法计算题，3+4=7正确，答案接受算式或得数。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-072",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "减法计算题，8-3=5正确，答案接受算式或得数。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合沪教版P1上数学要求，答案正确，无歧义或错误。"
+    }
+  }
+}

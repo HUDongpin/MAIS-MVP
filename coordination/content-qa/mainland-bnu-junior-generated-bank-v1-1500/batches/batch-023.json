@@ -1,0 +1,612 @@
+{
+  "batchId": "batch-023",
+  "questions": [
+    {
+      "id": "bnu-junior-ds-v1-s1-221",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-data-collection",
+      "unitTitle": "数据的收集与整理",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "data-collection",
+        "data-organization",
+        "statistical-charts",
+        "survey-design",
+        "数据收集",
+        "统计图表"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "确定调查问题",
+        "收集数据",
+        "整理分类",
+        "读统计图",
+        "解释数据"
+      ],
+      "misconceptionTags": [
+        "survey question not aligned with conclusion",
+        "frequency and category confused",
+        "single data point overgeneralized"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-data-collection"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-data-collection-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校七年级（1）班为了解全班50名同学每周课外阅读时间，设计了如下调查方案：让每位同学填写自己上周课外阅读的总时间（单位：小时），然后汇总数据。请指出该调查方案的一个不足之处，并说明理由。",
+      "optionsZhHans": [],
+      "answer": "不足之处：只调查了一周的数据，样本时间范围太短，不能反映同学长期的阅读习惯。理由：一周的阅读时间可能受偶然因素影响，不具有代表性。",
+      "acceptedAnswers": [
+        "不足之处：只调查了一周的数据，样本时间范围太短，不能反映同学长期的阅读习惯。理由：一周的阅读时间可能受偶然因素影响，不具有代表性。"
+      ],
+      "explanationZhHans": "调查方案只收集一周数据，时间范围过窄，易受偶然事件影响，无法准确反映长期阅读习惯。应延长调查周期或多次收集数据。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-222",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-data-collection",
+      "unitTitle": "数据的收集与整理",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "data-collection",
+        "data-organization",
+        "statistical-charts",
+        "survey-design",
+        "数据收集",
+        "统计图表"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "确定调查问题",
+        "收集数据",
+        "整理分类",
+        "读统计图",
+        "解释数据"
+      ],
+      "misconceptionTags": [
+        "survey question not aligned with conclusion",
+        "frequency and category confused",
+        "single data point overgeneralized"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-data-collection"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-data-collection-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某班对40名学生的上学方式进行调查，结果如下：乘公交车12人，骑自行车10人，步行8人，家长接送6人，其他4人。请计算骑自行车的人数所占的百分比，并填入括号：骑自行车的人数占全班人数的（ ）%。",
+      "optionsZhHans": [],
+      "answer": "25",
+      "acceptedAnswers": [
+        "25",
+        "25%"
+      ],
+      "explanationZhHans": "骑自行车人数为10，总人数为40，百分比=10÷40×100%=25%。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-223",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-data-collection",
+      "unitTitle": "数据的收集与整理",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "data-collection",
+        "data-organization",
+        "statistical-charts",
+        "survey-design",
+        "数据收集",
+        "统计图表"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "确定调查问题",
+        "收集数据",
+        "整理分类",
+        "读统计图",
+        "解释数据"
+      ],
+      "misconceptionTags": [
+        "survey question not aligned with conclusion",
+        "frequency and category confused",
+        "single data point overgeneralized"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-data-collection"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-data-collection-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "为了解全校学生最喜欢的运动项目，下列调查方式中最合理的是（ ）",
+      "optionsZhHans": [
+        "A. 调查七年级一个班的学生",
+        "B. 调查学校篮球队的队员",
+        "C. 从每个年级随机抽取20名学生进行调查",
+        "D. 调查学校体育老师"
+      ],
+      "answer": "C. 从每个年级随机抽取20名学生进行调查",
+      "acceptedAnswers": [
+        "C. 从每个年级随机抽取20名学生进行调查"
+      ],
+      "explanationZhHans": "选项C采用分层随机抽样，覆盖各年级，样本具有代表性。A、B、D样本范围窄，不能代表全校学生。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-224",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-data-collection",
+      "unitTitle": "数据的收集与整理",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "data-collection",
+        "data-organization",
+        "statistical-charts",
+        "survey-design",
+        "数据收集",
+        "统计图表"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "确定调查问题",
+        "收集数据",
+        "整理分类",
+        "读统计图",
+        "解释数据"
+      ],
+      "misconceptionTags": [
+        "survey question not aligned with conclusion",
+        "frequency and category confused",
+        "single data point overgeneralized"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-data-collection"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-data-collection-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校七年级共有300名学生，学校想了解学生每天完成家庭作业的时间情况。请设计一个合理的调查方案，包括调查问题、调查对象、收集数据的方法和整理数据的步骤。",
+      "optionsZhHans": [],
+      "answer": "调查问题：你每天完成家庭作业大约需要多少小时？调查对象：七年级全体300名学生。收集数据的方法：设计问卷，让每位学生匿名填写前一天完成作业的时间。整理数据的步骤：将收集到的时间数据按0~0.5小时、0.5~1小时、1~1.5小时、1.5~2小时、2小时以上分组，统计各组人数，计算百分比。",
+      "acceptedAnswers": [
+        "调查问题：你每天完成家庭作业大约需要多少小时？调查对象：七年级全体300名学生。收集数据的方法：设计问卷，让每位学生匿名填写前一天完成作业的时间。整理数据的步骤：将收集到的时间数据按0~0.5小时、0.5~1小时、1~1.5小时、1.5~2小时、2小时以上分组，统计各组人数，计算百分比。"
+      ],
+      "explanationZhHans": "调查方案需明确问题、对象、方法和整理步骤。问题应具体，对象为全体学生，方法用问卷收集，整理时分组统计。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-225",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-data-collection",
+      "unitTitle": "数据的收集与整理",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "data-collection",
+        "data-organization",
+        "statistical-charts",
+        "survey-design",
+        "数据收集",
+        "统计图表"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "确定调查问题",
+        "收集数据",
+        "整理分类",
+        "读统计图",
+        "解释数据"
+      ],
+      "misconceptionTags": [
+        "survey question not aligned with conclusion",
+        "frequency and category confused",
+        "single data point overgeneralized"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-data-collection"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-data-collection-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某班学生参加课外活动小组的情况如下：参加数学小组的有15人，参加英语小组的有12人，参加科技小组的有8人，参加其他小组的有5人。请计算参加数学小组的人数比参加科技小组的人数多（ ）人。",
+      "optionsZhHans": [],
+      "answer": "7",
+      "acceptedAnswers": [
+        "7"
+      ],
+      "explanationZhHans": "数学小组15人，科技小组8人，相差15-8=7人。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-226",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-data-collection",
+      "unitTitle": "数据的收集与整理",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "data-collection",
+        "data-organization",
+        "statistical-charts",
+        "survey-design",
+        "数据收集",
+        "统计图表"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "确定调查问题",
+        "收集数据",
+        "整理分类",
+        "读统计图",
+        "解释数据"
+      ],
+      "misconceptionTags": [
+        "survey question not aligned with conclusion",
+        "frequency and category confused",
+        "single data point overgeneralized"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-data-collection"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-data-collection-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某班50名学生，其中男生28人，女生22人。要了解全班学生每周零花钱的使用情况，下列抽样方法中，样本最具有代表性的是（ ）",
+      "optionsZhHans": [
+        "A. 只调查男生",
+        "B. 只调查班干部",
+        "C. 按学号随机抽取10名学生",
+        "D. 调查零花钱最多的5名学生"
+      ],
+      "answer": "C. 按学号随机抽取10名学生",
+      "acceptedAnswers": [
+        "C. 按学号随机抽取10名学生"
+      ],
+      "explanationZhHans": "随机抽样能避免主观选择，使样本更具代表性。A、B、D均存在偏差，不能代表全班。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-227",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-data-collection",
+      "unitTitle": "数据的收集与整理",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "data-collection",
+        "data-organization",
+        "statistical-charts",
+        "survey-design",
+        "数据收集",
+        "统计图表"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "确定调查问题",
+        "收集数据",
+        "整理分类",
+        "读统计图",
+        "解释数据"
+      ],
+      "misconceptionTags": [
+        "survey question not aligned with conclusion",
+        "frequency and category confused",
+        "single data point overgeneralized"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-data-collection"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-data-collection-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校为了解七年级学生每天的睡眠时间，随机调查了50名学生，结果如下：睡眠时间在7小时以下的有8人，7~8小时的有20人，8~9小时的有15人，9小时以上的有7人。请根据以上数据，估计该校七年级400名学生中，睡眠时间不足8小时的学生大约有多少人？并说明估计的理由。",
+      "optionsZhHans": [],
+      "answer": "大约有224人。理由：样本中睡眠不足8小时的比例为(8+20)÷50=28/50=0.56，用样本比例估计总体，400×0.56=224人。",
+      "acceptedAnswers": [
+        "大约有224人。理由：样本中睡眠不足8小时的比例为(8+20)÷50=28/50=0.56，用样本比例估计总体，400×0.56=224人。"
+      ],
+      "explanationZhHans": "样本中不足8小时的人数为8+20=28，比例28/50=0.56，估计总体400×0.56=224人。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-228",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-data-collection",
+      "unitTitle": "数据的收集与整理",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "data-collection",
+        "data-organization",
+        "statistical-charts",
+        "survey-design",
+        "数据收集",
+        "统计图表"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "确定调查问题",
+        "收集数据",
+        "整理分类",
+        "读统计图",
+        "解释数据"
+      ],
+      "misconceptionTags": [
+        "survey question not aligned with conclusion",
+        "frequency and category confused",
+        "single data point overgeneralized"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-data-collection"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-data-collection-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校七年级（2）班共有45名学生，在一次数学测验中，成绩分布如下：90~100分的有10人，80~89分的有15人，70~79分的有12人，60~69分的有5人，60分以下的有3人。请计算80分及以上的人数占全班人数的百分比，结果精确到1%：约为（ ）%。",
+      "optionsZhHans": [],
+      "answer": "56",
+      "acceptedAnswers": [
+        "56",
+        "56%"
+      ],
+      "explanationZhHans": "80分及以上人数为10+15=25，总人数45，百分比=25÷45≈0.5556，精确到1%为56%。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-229",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-data-collection",
+      "unitTitle": "数据的收集与整理",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "data-collection",
+        "data-organization",
+        "statistical-charts",
+        "survey-design",
+        "数据收集",
+        "统计图表"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "确定调查问题",
+        "收集数据",
+        "整理分类",
+        "读统计图",
+        "解释数据"
+      ],
+      "misconceptionTags": [
+        "survey question not aligned with conclusion",
+        "frequency and category confused",
+        "single data point overgeneralized"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-data-collection"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-data-collection-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "为了解某市七年级学生的视力情况，从该市所有七年级学生中随机抽取了500名学生进行视力检测。下列说法正确的是（ ）",
+      "optionsZhHans": [
+        "A. 这500名学生是总体的一个样本",
+        "B. 每个七年级学生是个体",
+        "C. 500名学生是样本容量",
+        "D. 该市所有七年级学生的视力情况是总体"
+      ],
+      "answer": "D. 该市所有七年级学生的视力情况是总体",
+      "acceptedAnswers": [
+        "D. 该市所有七年级学生的视力情况是总体"
+      ],
+      "explanationZhHans": "总体是所要考察对象的全体，即该市所有七年级学生的视力情况。A中500名学生的视力是样本，B中学生视力是个体，C中500是样本容量。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-230",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-data-collection",
+      "unitTitle": "数据的收集与整理",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "data-collection",
+        "data-organization",
+        "statistical-charts",
+        "survey-design",
+        "数据收集",
+        "统计图表"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "确定调查问题",
+        "收集数据",
+        "整理分类",
+        "读统计图",
+        "解释数据"
+      ],
+      "misconceptionTags": [
+        "survey question not aligned with conclusion",
+        "frequency and category confused",
+        "single data point overgeneralized"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-data-collection"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-data-collection-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某班同学参加环保知识竞赛，成绩记录如下：85, 90, 78, 92, 88, 76, 95, 89, 84, 91, 87, 83, 80, 86, 94。请将这些数据按分数段整理，并回答：哪个分数段的人数最多？",
+      "optionsZhHans": [],
+      "answer": "80~89分的人数最多，有7人。",
+      "acceptedAnswers": [
+        "80~89分的人数最多，有7人。"
+      ],
+      "explanationZhHans": "数据整理：70~79分：76,78（2人）；80~89分：85,88,89,84,87,83,80,86（8人）；90~99分：90,92,95,91,94（5人）。80~89分人数最多，为8人。"
+    }
+  ]
+}

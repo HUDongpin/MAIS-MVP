@@ -1,0 +1,137 @@
+{
+  "batchNumber": 76,
+  "startedAt": "2026-05-25T03:15:06.903Z",
+  "completedAt": "2026-05-25T03:15:21.741Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s3-k10-fi-034",
+    "pep-junior-v3-s3-k10-fi-035",
+    "pep-junior-v3-s3-k10-fi-036",
+    "pep-junior-v3-s3-k10-fi-037",
+    "pep-junior-v3-s3-k10-fi-038",
+    "pep-junior-v3-s3-k10-fi-039",
+    "pep-junior-v3-s3-k10-fi-040",
+    "pep-junior-v3-s3-k10-fi-041",
+    "pep-junior-v3-s3-k10-fi-042",
+    "pep-junior-v3-s3-k10-fi-043",
+    "pep-junior-v3-s3-k10-fi-044",
+    "pep-junior-v3-s3-k10-fi-045"
+  ],
+  "usage": {
+    "prompt_tokens": 3597,
+    "completion_tokens": 928,
+    "total_tokens": 4525,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 3341
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s3-k10-fi-034",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "相交弦定理应用正确，计算无误，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-fi-035",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "概率计算正确，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-fi-036",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "旋转坐标变换正确，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-fi-037",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "判别式应用正确，不等式求解无误，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-fi-038",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "因式分解正确，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-fi-039",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "顶点式识别正确，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-fi-040",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "垂径定理与勾股定理应用正确，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-fi-041",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "概率计算正确，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-fi-042",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "旋转角定义正确，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-fi-043",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "判别式计算正确，不等式求解无误，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-fi-044",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "二次函数建模正确，最值计算无误，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-fi-045",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "待定系数法求解正确，答案与解释一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案与解释一致，无歧义或缺失条件，适合人教版初中数学。"
+    }
+  }
+}

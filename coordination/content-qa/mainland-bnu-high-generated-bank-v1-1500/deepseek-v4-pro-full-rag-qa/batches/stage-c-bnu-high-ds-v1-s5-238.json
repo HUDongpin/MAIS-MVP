@@ -1,0 +1,48 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-238",
+  "startedAt": "2026-05-28T01:24:30.365Z",
+  "completedAt": "2026-05-28T01:24:34.713Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-238"
+  ],
+  "usage": {
+    "prompt_tokens": 2596,
+    "completion_tokens": 256,
+    "total_tokens": 2852,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2212
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-238",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "k = -2 或 k = 1/2",
+        "correctedAnswer": null,
+        "issueTags": [
+          "explanation_contradiction",
+          "math_error"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，正确答案为k=-2或1/2，与选项A一致。但解析中计算错误，声称无解或需调整数据，与正确解法矛盾，解析不可用。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目本身可解且答案匹配，但解析存在严重数学错误和矛盾，导致解析不可用，判定为失败。"
+    }
+  }
+}

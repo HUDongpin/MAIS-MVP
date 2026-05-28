@@ -1,0 +1,112 @@
+{
+  "batchId": "model-qa-0069",
+  "ids": [
+    "hjb-junior-ds-v2-s2-045",
+    "hjb-junior-ds-v2-s2-046",
+    "hjb-junior-ds-v2-s2-047",
+    "hjb-junior-ds-v2-s2-048",
+    "hjb-junior-ds-v2-s2-049",
+    "hjb-junior-ds-v2-s2-050",
+    "hjb-junior-ds-v2-s2-051",
+    "hjb-junior-ds-v2-s2-052"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-045",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "答案和解析都写的是 √2 < (√2+√3)/2 < √3，但题目要求用“<”连接 A、B、C 三点表示的数，即点 A 表示 √2，点 B 表示 √3，点 C 表示 (√2+√3)/2。正确的不等式应为 √2 < (√2+√3)/2 < √3，但答案中写的是 √2 < (√2+√3)/2 < √3，与解析一致。然而，答案中缺少根号符号，应为 √2 < (√2+√3)/2 < √3。实际上，答案字段是 \"√2 < (√2+√3)/2 < √3\"，但 acceptedAnswers 中包含了 \"√2 < (√2+√3)/2 < √3\" 和 \"根号2 < (根号2+根号3)/2 < 根号3\"，这看起来正确。但仔细检查：题目要求用“<”连接三点表示的数，即比较 √2, √3, (√2+√3)/2。由于 √2 < √3，且 (√2+√3)/2 是它们的平均数，确实介于两者之间。所以答案正确。但解析中说“因为 √2<√3，所以 (√2+√3)/2 介于两者之间”，这个推理不严谨，需要说明平均数介于两者之间。但这不是错误。然而，答案和解析一致，没有发现问题。等等，我重新读题：点 A 表示 √2，点 B 表示 √3，点 C 表示 (√2+√3)/2。请用“<”连接 A、B、C 三点表示的数。这意味着写出一个不等式，比如 A < C < B 或者用数表示。答案给出的是 √2 < (√2+√3)/2 < √3，这正确。但 acceptedAnswers 中包含了 \"根号2 < (根号2+根号3)/2 < 根号3\"，这也可以。所以似乎没问题。但为什么我标记了 needs-review？因为我在检查时发现，答案字段是 \"√2 < (√2+√3)/2 < √3\"，但题目中用的是 √2 和 √3，答案中也是 √2 和 √3，没问题。解析也正确。所以这个题应该是 pass。但我之前误判了。让我重新评估：题目清晰，答案正确，解析正确，acceptedAnswers 覆盖。所以 verdict 应为 pass。",
+      "independentAnswerZhHans": "√2 < (√2+√3)/2 < √3",
+      "answerCheckZhHans": "答案正确，解析正确，acceptedAnswers 覆盖。",
+      "recommendedActionZhHans": "无需修改，题目通过。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-046",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "点B和点C表示的数都是有理数",
+      "answerCheckZhHans": "答案正确，解析正确，选项互异，只有一个正确选项。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-047",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "√10（或其他符合要求的无理数）",
+      "answerCheckZhHans": "答案 √10 正确，acceptedAnswers 包含多种可能，覆盖合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-048",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "答案给出 15，但解析中计算 a²+b² 得到 33-6√15，不等于 15。正确计算：a=3，b=√15-3，a²+b²=9+(√15-3)²=9+15-6√15+9=33-6√15，不是 15。如果题目意图是求 a²+b² 的值，那么答案错误。可能题目本意是求 a²-b² 或其他，但题干明确是 a²+b²。因此答案错误。",
+      "independentAnswerZhHans": "33-6√15",
+      "answerCheckZhHans": "标准答案 15 错误，正确值为 33-6√15。解析也得到 33-6√15，与答案矛盾。",
+      "recommendedActionZhHans": "修正答案为 33-6√15，或修改题干为求 a²-b² 等。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-049",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "答案正确，解析正确，选项互异，只有一个正确选项。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-050",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "答案给出“>”，但解析中说明 -√7 < -2.6，应填“<”。解析正确：√7≈2.6458，-√7≈-2.6458，-2.6=-2.6，因为 -2.6458 < -2.6，所以 -√7 < -2.6。因此答案应为“<”，而不是“>”。答案与解析矛盾。",
+      "independentAnswerZhHans": "<",
+      "answerCheckZhHans": "标准答案“>”错误，正确为“<”。解析也支持“<”。",
+      "recommendedActionZhHans": "修正答案为“<”。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-051",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "49",
+      "answerCheckZhHans": "答案正确，解析正确，acceptedAnswers 覆盖。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-052",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "A. 无理数都是无限小数",
+      "answerCheckZhHans": "答案正确，解析正确，选项互异，只有一个正确选项。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

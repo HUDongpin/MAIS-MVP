@@ -1,0 +1,48 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-315",
+  "startedAt": "2026-05-28T03:01:29.266Z",
+  "completedAt": "2026-05-28T03:01:36.270Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-315"
+  ],
+  "usage": {
+    "prompt_tokens": 1948,
+    "completion_tokens": 300,
+    "total_tokens": 2248,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1564
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-315",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "weak",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "5",
+        "correctedAnswer": "5",
+        "issueTags": [
+          "answer_mismatch",
+          "accepted_answer_gap"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目明确问“二项式系数最大的项”，n=7为奇数，中间两项系数最大，即第4项和第5项。通常约定填第一个最大项（第4项），但独立解和教材惯例均以第5项为最大系数项（C(7,4)=35最大）。存储答案为4，与独立解5矛盾，且acceptedAnswers包含4和5，但题目要求唯一答案，存在歧义。应修正答案为5。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目答案存在歧义，存储答案与独立解不一致，需修正为5。"
+    }
+  }
+}

@@ -1,0 +1,290 @@
+{
+  "batchId": "batch-061",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p2-051",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-school-position-direction",
+      "unitTitle": "校园方位与位置表达",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "position-direction",
+        "east-south-west-north",
+        "map-orientation",
+        "school-spatial-language",
+        "方向"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "东南西北",
+        "位置描述",
+        "路线表达",
+        "地图方向",
+        "相对方位"
+      ],
+      "misconceptionTags": [
+        "reference point omitted",
+        "left and right substituted for fixed compass directions",
+        "route order reversed when reading a map"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-school-position-direction"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-upper-assessment-within-100-add-sub-unit",
+        "hjb-primary-p2-upper-assessment-money-shopping-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明的学校操场平面图上，校门在操场的南面，教学楼在校门的北面，操场在教学楼的东面。请问操场在校门的哪个方向？",
+      "optionsZhHans": [],
+      "answer": "北面",
+      "acceptedAnswers": [
+        "北面"
+      ],
+      "explanationZhHans": "校门在操场南面，即操场在校门北面。教学楼在校门北面，操场在教学楼东面，不影响操场与校门的相对方向。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-052",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-school-position-direction",
+      "unitTitle": "校园方位与位置表达",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "position-direction",
+        "east-south-west-north",
+        "map-orientation",
+        "school-spatial-language",
+        "方向"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "东南西北",
+        "位置描述",
+        "路线表达",
+        "地图方向",
+        "相对方位"
+      ],
+      "misconceptionTags": [
+        "reference point omitted",
+        "left and right substituted for fixed compass directions",
+        "route order reversed when reading a map"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-school-position-direction"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-upper-assessment-within-100-add-sub-unit",
+        "hjb-primary-p2-upper-assessment-money-shopping-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小华站在学校操场中央，面向北。他的左边是图书馆，右边是体育馆。请问图书馆在操场的哪个方向？",
+      "optionsZhHans": [
+        "东",
+        "南",
+        "西",
+        "北"
+      ],
+      "answer": "西",
+      "acceptedAnswers": [
+        "西"
+      ],
+      "explanationZhHans": "面向北时，左边是西，右边是东。所以图书馆在操场的西面。注意区分身体左右与固定方向。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-053",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-school-position-direction",
+      "unitTitle": "校园方位与位置表达",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "position-direction",
+        "east-south-west-north",
+        "map-orientation",
+        "school-spatial-language",
+        "方向"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "东南西北",
+        "位置描述",
+        "路线表达",
+        "地图方向",
+        "相对方位"
+      ],
+      "misconceptionTags": [
+        "reference point omitted",
+        "left and right substituted for fixed compass directions",
+        "route order reversed when reading a map"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-school-position-direction"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-upper-assessment-within-100-add-sub-unit",
+        "hjb-primary-p2-upper-assessment-money-shopping-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校大门朝南。走进大门，正前方是花坛，花坛的东面是教学楼，西面是办公楼。办公楼在花坛的______面。",
+      "optionsZhHans": [],
+      "answer": "西",
+      "acceptedAnswers": [
+        "西"
+      ],
+      "explanationZhHans": "花坛的东面是教学楼，西面是办公楼，所以办公楼在花坛的西面。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-054",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-school-position-direction",
+      "unitTitle": "校园方位与位置表达",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "position-direction",
+        "east-south-west-north",
+        "map-orientation",
+        "school-spatial-language",
+        "方向"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "东南西北",
+        "位置描述",
+        "路线表达",
+        "地图方向",
+        "相对方位"
+      ],
+      "misconceptionTags": [
+        "reference point omitted",
+        "left and right substituted for fixed compass directions",
+        "route order reversed when reading a map"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-school-position-direction"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-upper-assessment-within-100-add-sub-unit",
+        "hjb-primary-p2-upper-assessment-money-shopping-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "从学校出发，先向北走到公园，再向东走到图书馆，最后向南走到电影院。请问电影院在学校的哪个方向？",
+      "optionsZhHans": [],
+      "answer": "东北",
+      "acceptedAnswers": [
+        "东北"
+      ],
+      "explanationZhHans": "学校向北到公园，再向东到图书馆，最后向南到电影院。电影院在学校北偏东的位置，即东北方向。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-055",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-school-position-direction",
+      "unitTitle": "校园方位与位置表达",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "position-direction",
+        "east-south-west-north",
+        "map-orientation",
+        "school-spatial-language",
+        "方向"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "东南西北",
+        "位置描述",
+        "路线表达",
+        "地图方向",
+        "相对方位"
+      ],
+      "misconceptionTags": [
+        "reference point omitted",
+        "left and right substituted for fixed compass directions",
+        "route order reversed when reading a map"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-school-position-direction"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-upper-assessment-within-100-add-sub-unit",
+        "hjb-primary-p2-upper-assessment-money-shopping-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丽从家出发，先向西走到超市，再向北走到书店，最后向东走到学校。小丽从学校回家，应该怎么走？",
+      "optionsZhHans": [
+        "先向西走到书店，再向南走到超市，最后向东走到家",
+        "先向东走到书店，再向南走到超市，最后向西走到家",
+        "先向西走到书店，再向北走到超市，最后向东走到家",
+        "先向东走到书店，再向北走到超市，最后向西走到家"
+      ],
+      "answer": "先向西走到书店，再向南走到超市，最后向东走到家",
+      "acceptedAnswers": [
+        "先向西走到书店，再向南走到超市，最后向东走到家"
+      ],
+      "explanationZhHans": "去程：家→西→超市→北→书店→东→学校。回程反向：学校→西→书店→南→超市→东→家。注意路线顺序与方向反转。"
+    }
+  ]
+}

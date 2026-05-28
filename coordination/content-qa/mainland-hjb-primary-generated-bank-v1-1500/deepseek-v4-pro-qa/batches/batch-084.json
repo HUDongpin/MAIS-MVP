@@ -1,0 +1,83 @@
+{
+  "batchNumber": 84,
+  "startedAt": "2026-05-25T02:29:14.477Z",
+  "completedAt": "2026-05-25T02:29:23.985Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p6-245",
+    "hjb-primary-ds-v1-p6-246",
+    "hjb-primary-ds-v1-p6-247",
+    "hjb-primary-ds-v1-p6-248",
+    "hjb-primary-ds-v1-p6-249",
+    "hjb-primary-ds-v1-p6-250"
+  ],
+  "usage": {
+    "prompt_tokens": 1518,
+    "completion_tokens": 529,
+    "total_tokens": 2047,
+    "prompt_tokens_details": {
+      "cached_tokens": 1408
+    },
+    "prompt_cache_hit_tokens": 1408,
+    "prompt_cache_miss_tokens": 110
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p6-245",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案匹配，选项无歧义，条件完整，适合P6长方体内容。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-246",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案匹配，选项无歧义，条件完整，适合P6长方体内容。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-247",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案匹配，选项无歧义，条件完整，适合P6长方体内容。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-248",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案匹配，选项无歧义，条件完整，适合P6长方体内容。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-249",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案匹配，选项无歧义，条件完整，适合P6长方体内容。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-250",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案匹配，选项无歧义，条件完整，适合P6长方体内容。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案匹配，选项无歧义，条件完整，适合P6长方体内容。"
+    }
+  }
+}

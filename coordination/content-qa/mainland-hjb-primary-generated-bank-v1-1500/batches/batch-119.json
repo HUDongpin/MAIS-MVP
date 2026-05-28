@@ -1,0 +1,293 @@
+{
+  "batchId": "batch-119",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p3-091",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-rectangle-square-geometry",
+      "unitTitle": "长方形与正方形",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "rectangle-square-properties",
+        "perimeter-introduction",
+        "shape-features",
+        "长方形正方形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "边与角",
+        "图形分类",
+        "周长理解",
+        "画图说明",
+        "长度单位"
+      ],
+      "misconceptionTags": [
+        "orientation treated as a different shape",
+        "perimeter confused with inside space",
+        "opposite sides not linked in rectangle reasoning"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-rectangle-square-geometry"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-rectangle-square-perimeter",
+        "hjb-primary-p3-upper-assessment-review-operations"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪句话一定正确？",
+      "optionsZhHans": [
+        "长方形有4条边，对边相等，4个角都是直角。",
+        "长方形有4条边，4条边都相等，4个角都是直角。",
+        "正方形有4条边，只有对边相等，4个角都是直角。",
+        "长方形和正方形都有4条边，但长方形的角不是直角。"
+      ],
+      "answer": "长方形有4条边，对边相等，4个角都是直角。",
+      "acceptedAnswers": [
+        "长方形有4条边，对边相等，4个角都是直角。"
+      ],
+      "explanationZhHans": "长方形对边相等，四个角都是直角；正方形四条边都相等，四个角都是直角。选项2错在长方形四边相等，选项3错在正方形只有对边相等，选项4错在长方形角不是直角。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-092",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-rectangle-square-geometry",
+      "unitTitle": "长方形与正方形",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "rectangle-square-properties",
+        "perimeter-introduction",
+        "shape-features",
+        "长方形正方形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "边与角",
+        "图形分类",
+        "周长理解",
+        "画图说明",
+        "长度单位"
+      ],
+      "misconceptionTags": [
+        "orientation treated as a different shape",
+        "perimeter confused with inside space",
+        "opposite sides not linked in rectangle reasoning"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-rectangle-square-geometry"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-rectangle-square-perimeter",
+        "hjb-primary-p3-upper-assessment-review-operations"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方形，长是8厘米，宽是5厘米。它的周长是____厘米。",
+      "optionsZhHans": [],
+      "answer": "26",
+      "acceptedAnswers": [
+        "26",
+        "26厘米"
+      ],
+      "explanationZhHans": "长方形周长 = (长+宽)×2 = (8+5)×2 = 26（厘米）。注意单位是厘米。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-093",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-rectangle-square-geometry",
+      "unitTitle": "长方形与正方形",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "rectangle-square-properties",
+        "perimeter-introduction",
+        "shape-features",
+        "长方形正方形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "边与角",
+        "图形分类",
+        "周长理解",
+        "画图说明",
+        "长度单位"
+      ],
+      "misconceptionTags": [
+        "orientation treated as a different shape",
+        "perimeter confused with inside space",
+        "opposite sides not linked in rectangle reasoning"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-rectangle-square-geometry"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-rectangle-square-perimeter",
+        "hjb-primary-p3-upper-assessment-review-operations"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用一根长24厘米的铁丝围成一个长方形，这个长方形的长和宽都是整厘米数。请写出两种不同的围法，并说明每种围法的长和宽各是多少厘米。",
+      "optionsZhHans": [],
+      "answer": "长11厘米宽1厘米，长10厘米宽2厘米，长9厘米宽3厘米，长8厘米宽4厘米，长7厘米宽5厘米（任选两种）",
+      "acceptedAnswers": [
+        "长11厘米宽1厘米，长10厘米宽2厘米，长9厘米宽3厘米，长8厘米宽4厘米，长7厘米宽5厘米（任选两种）",
+        "长11厘米宽1厘米，长10厘米宽2厘米",
+        "长9厘米宽3厘米，长8厘米宽4厘米",
+        "长7厘米宽5厘米，长6厘米宽6厘米",
+        "长11厘米宽1厘米，长9厘米宽3厘米",
+        "长10厘米宽2厘米，长8厘米宽4厘米",
+        "长7厘米宽5厘米，长8厘米宽4厘米"
+      ],
+      "explanationZhHans": "铁丝长24厘米即周长，长+宽=12厘米。长和宽都是整厘米数，且长≥宽。可能组合：11和1、10和2、9和3、8和4、7和5、6和6（正方形是特殊长方形）。任选两种即可。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-094",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-rectangle-square-geometry",
+      "unitTitle": "长方形与正方形",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "rectangle-square-properties",
+        "perimeter-introduction",
+        "shape-features",
+        "长方形正方形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "边与角",
+        "图形分类",
+        "周长理解",
+        "画图说明",
+        "长度单位"
+      ],
+      "misconceptionTags": [
+        "orientation treated as a different shape",
+        "perimeter confused with inside space",
+        "opposite sides not linked in rectangle reasoning"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-rectangle-square-geometry"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-rectangle-square-perimeter",
+        "hjb-primary-p3-upper-assessment-review-operations"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个正方形花坛，边长是6米。小明沿着花坛边缘走了2圈，他一共走了多少米？",
+      "optionsZhHans": [
+        "12米",
+        "24米",
+        "36米",
+        "48米"
+      ],
+      "answer": "48米",
+      "acceptedAnswers": [
+        "48米"
+      ],
+      "explanationZhHans": "正方形周长=边长×4=6×4=24米。走2圈：24×2=48米。选项12米是半圈，24米是1圈，36米是边长×6，均错。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-095",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-rectangle-square-geometry",
+      "unitTitle": "长方形与正方形",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "rectangle-square-properties",
+        "perimeter-introduction",
+        "shape-features",
+        "长方形正方形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "边与角",
+        "图形分类",
+        "周长理解",
+        "画图说明",
+        "长度单位"
+      ],
+      "misconceptionTags": [
+        "orientation treated as a different shape",
+        "perimeter confused with inside space",
+        "opposite sides not linked in rectangle reasoning"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-rectangle-square-geometry"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-rectangle-square-perimeter",
+        "hjb-primary-p3-upper-assessment-review-operations"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个正方形有____条边，____个角，所有的边都____，所有的角都是____角。",
+      "optionsZhHans": [],
+      "answer": "4,4,相等,直",
+      "acceptedAnswers": [
+        "4,4,相等,直",
+        "4，4，相等，直"
+      ],
+      "explanationZhHans": "正方形有4条边，4个角，所有边长度相等，所有角都是直角。这是正方形的基本特征。"
+    }
+  ]
+}

@@ -1,0 +1,310 @@
+{
+  "batchId": "batch-285",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p6-171",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-rational-numbers",
+      "unitTitle": "有理数",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "rational-numbers",
+        "negative-numbers",
+        "number-line",
+        "absolute-value",
+        "有理数",
+        "数轴"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "正负数意义",
+        "数轴表示",
+        "相反数",
+        "绝对值",
+        "有理数比较",
+        "有理数运算"
+      ],
+      "misconceptionTags": [
+        "negative numbers ordered by absolute value only",
+        "opposite number confused with absolute value",
+        "operation sign checked after procedure only"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-rational-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-six-up-assessment-rational-numbers-unit",
+        "hjb-primary-p6-six-up-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某冷库的温度是零下12℃，记为－12℃。现在需要将温度降低7℃，降低后的温度是多少摄氏度？",
+      "optionsZhHans": [],
+      "answer": "－19℃",
+      "acceptedAnswers": [
+        "－19℃",
+        "-19℃",
+        "零下19℃"
+      ],
+      "explanationZhHans": "零下12℃记作－12℃，降低7℃就是在－12的基础上再减7，即－12－7＝－19，所以降低后的温度是－19℃。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-172",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-rational-numbers",
+      "unitTitle": "有理数",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "rational-numbers",
+        "negative-numbers",
+        "number-line",
+        "absolute-value",
+        "有理数",
+        "数轴"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "正负数意义",
+        "数轴表示",
+        "相反数",
+        "绝对值",
+        "有理数比较",
+        "有理数运算"
+      ],
+      "misconceptionTags": [
+        "negative numbers ordered by absolute value only",
+        "opposite number confused with absolute value",
+        "operation sign checked after procedure only"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-rational-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-six-up-assessment-rational-numbers-unit",
+        "hjb-primary-p6-six-up-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在数轴上，点A表示－3，点B在点A的右边5个单位长度处，点C与点B关于原点对称。点C表示的数是多少？",
+      "optionsZhHans": [
+        "－2",
+        "2",
+        "－8",
+        "8"
+      ],
+      "answer": "－2",
+      "acceptedAnswers": [
+        "－2"
+      ],
+      "explanationZhHans": "点A为－3，右边5个单位长度得到点B：－3＋5＝2。点C与点B关于原点对称，所以点C是2的相反数，即－2。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-173",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-rational-numbers",
+      "unitTitle": "有理数",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "rational-numbers",
+        "negative-numbers",
+        "number-line",
+        "absolute-value",
+        "有理数",
+        "数轴"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "正负数意义",
+        "数轴表示",
+        "相反数",
+        "绝对值",
+        "有理数比较",
+        "有理数运算"
+      ],
+      "misconceptionTags": [
+        "negative numbers ordered by absolute value only",
+        "opposite number confused with absolute value",
+        "operation sign checked after procedure only"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-rational-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-six-up-assessment-rational-numbers-unit",
+        "hjb-primary-p6-six-up-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "比较大小：－2.7____－2.5（填“＞”“＜”或“＝”）。",
+      "optionsZhHans": [],
+      "answer": "＜",
+      "acceptedAnswers": [
+        "＜",
+        "<"
+      ],
+      "explanationZhHans": "两个负数比较，绝对值大的反而小。|－2.7|＝2.7，|－2.5|＝2.5，因为2.7＞2.5，所以－2.7＜－2.5。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-174",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-rational-numbers",
+      "unitTitle": "有理数",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "rational-numbers",
+        "negative-numbers",
+        "number-line",
+        "absolute-value",
+        "有理数",
+        "数轴"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "正负数意义",
+        "数轴表示",
+        "相反数",
+        "绝对值",
+        "有理数比较",
+        "有理数运算"
+      ],
+      "misconceptionTags": [
+        "negative numbers ordered by absolute value only",
+        "opposite number confused with absolute value",
+        "operation sign checked after procedure only"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-rational-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-six-up-assessment-rational-numbers-unit",
+        "hjb-primary-p6-six-up-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某潜水艇在海平面以下50米处，记为－50米。它先上浮18米，再下潜25米，最后的位置是多少米？",
+      "optionsZhHans": [],
+      "answer": "－57米",
+      "acceptedAnswers": [
+        "－57米",
+        "-57米",
+        "海平面以下57米"
+      ],
+      "explanationZhHans": "初始位置－50米，上浮18米：－50＋18＝－32米；再下潜25米：－32－25＝－57米。所以最后在海平面以下57米处。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-175",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-rational-numbers",
+      "unitTitle": "有理数",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "rational-numbers",
+        "negative-numbers",
+        "number-line",
+        "absolute-value",
+        "有理数",
+        "数轴"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "正负数意义",
+        "数轴表示",
+        "相反数",
+        "绝对值",
+        "有理数比较",
+        "有理数运算"
+      ],
+      "misconceptionTags": [
+        "negative numbers ordered by absolute value only",
+        "opposite number confused with absolute value",
+        "operation sign checked after procedure only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-rational-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-six-up-assessment-rational-numbers-unit",
+        "hjb-primary-p6-six-up-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "数轴上点P表示的数是－5，点Q表示的数是3。点M是线段PQ的中点。点M表示的数是多少？",
+      "optionsZhHans": [
+        "－4",
+        "－1",
+        "1",
+        "－2"
+      ],
+      "answer": "－1",
+      "acceptedAnswers": [
+        "－1"
+      ],
+      "explanationZhHans": "中点对应的数等于两端点对应数的平均数。P为－5，Q为3，中点M＝(－5＋3)÷2＝(－2)÷2＝－1。"
+    }
+  ]
+}

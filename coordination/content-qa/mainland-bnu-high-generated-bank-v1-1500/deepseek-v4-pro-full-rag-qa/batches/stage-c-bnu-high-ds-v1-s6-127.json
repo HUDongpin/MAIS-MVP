@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-127",
+  "startedAt": "2026-05-28T01:43:00.470Z",
+  "completedAt": "2026-05-28T01:43:04.419Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-127"
+  ],
+  "usage": {
+    "prompt_tokens": 2114,
+    "completion_tokens": 261,
+    "total_tokens": 2375,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1730
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-127",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "S_100 < 20",
+        "correctedAnswer": "S_100 < 20",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合BNU数列章节。独立求解得S_100<20，选项A正确。存储答案S_100>30错误，解析中积分估计有误，导致结论矛盾。选项唯一，无歧义。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "存储答案错误，解析矛盾，需修正为S_100<20。"
+    }
+  }
+}

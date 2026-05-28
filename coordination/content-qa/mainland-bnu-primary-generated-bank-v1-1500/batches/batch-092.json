@@ -1,0 +1,574 @@
+{
+  "batchId": "batch-092",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p4-161",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-triangles-quadrilaterals",
+      "unitTitle": "认识三角形和四边形",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "triangles-quadrilaterals",
+        "shape-classification",
+        "angle-side-properties",
+        "认识三角形",
+        "四边形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "三角形分类",
+        "四边形分类",
+        "边角特征",
+        "图形性质",
+        "画图验证"
+      ],
+      "misconceptionTags": [
+        "orientation treated as changing the shape class",
+        "all four-sided figures called rectangles",
+        "shape name chosen without property evidence"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-triangles-quadrilaterals"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-triangles-quadrilaterals-unit",
+        "bnu-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个三角形三条边的长度分别是5厘米、5厘米、8厘米。按边分类，这个三角形是______三角形。",
+      "optionsZhHans": [],
+      "answer": "等腰",
+      "acceptedAnswers": [
+        "等腰",
+        "等腰三角形"
+      ],
+      "explanationZhHans": "有两条边相等（5厘米=5厘米），所以是等腰三角形。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-162",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-triangles-quadrilaterals",
+      "unitTitle": "认识三角形和四边形",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "triangles-quadrilaterals",
+        "shape-classification",
+        "angle-side-properties",
+        "认识三角形",
+        "四边形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "三角形分类",
+        "四边形分类",
+        "边角特征",
+        "图形性质",
+        "画图验证"
+      ],
+      "misconceptionTags": [
+        "orientation treated as changing the shape class",
+        "all four-sided figures called rectangles",
+        "shape name chosen without property evidence"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-triangles-quadrilaterals"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-triangles-quadrilaterals-unit",
+        "bnu-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "写出一个四边形，它只有一组对边平行。",
+      "optionsZhHans": [],
+      "answer": "梯形",
+      "acceptedAnswers": [
+        "梯形"
+      ],
+      "explanationZhHans": "梯形是只有一组对边平行的四边形。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-163",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-triangles-quadrilaterals",
+      "unitTitle": "认识三角形和四边形",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "triangles-quadrilaterals",
+        "shape-classification",
+        "angle-side-properties",
+        "认识三角形",
+        "四边形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "三角形分类",
+        "四边形分类",
+        "边角特征",
+        "图形性质",
+        "画图验证"
+      ],
+      "misconceptionTags": [
+        "orientation treated as changing the shape class",
+        "all four-sided figures called rectangles",
+        "shape name chosen without property evidence"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-triangles-quadrilaterals"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-triangles-quadrilaterals-unit",
+        "bnu-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个三角形中，最大的角是80°，另外两个角分别是50°和50°。这个三角形按角分类是什么三角形？",
+      "optionsZhHans": [
+        "锐角三角形",
+        "直角三角形",
+        "钝角三角形",
+        "等腰三角形"
+      ],
+      "answer": "锐角三角形",
+      "acceptedAnswers": [
+        "锐角三角形"
+      ],
+      "explanationZhHans": "三个角都是锐角（80°、50°、50°都小于90°），所以是锐角三角形。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-164",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-triangles-quadrilaterals",
+      "unitTitle": "认识三角形和四边形",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "triangles-quadrilaterals",
+        "shape-classification",
+        "angle-side-properties",
+        "认识三角形",
+        "四边形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "三角形分类",
+        "四边形分类",
+        "边角特征",
+        "图形性质",
+        "画图验证"
+      ],
+      "misconceptionTags": [
+        "orientation treated as changing the shape class",
+        "all four-sided figures called rectangles",
+        "shape name chosen without property evidence"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-triangles-quadrilaterals"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-triangles-quadrilaterals-unit",
+        "bnu-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "长方形和正方形都有4个______角。",
+      "optionsZhHans": [],
+      "answer": "直",
+      "acceptedAnswers": [
+        "直",
+        "直角"
+      ],
+      "explanationZhHans": "长方形和正方形的四个角都是直角。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-165",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-triangles-quadrilaterals",
+      "unitTitle": "认识三角形和四边形",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "triangles-quadrilaterals",
+        "shape-classification",
+        "angle-side-properties",
+        "认识三角形",
+        "四边形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "三角形分类",
+        "四边形分类",
+        "边角特征",
+        "图形性质",
+        "画图验证"
+      ],
+      "misconceptionTags": [
+        "orientation treated as changing the shape class",
+        "all four-sided figures called rectangles",
+        "shape name chosen without property evidence"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-triangles-quadrilaterals"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-triangles-quadrilaterals-unit",
+        "bnu-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个四边形的四条边长度分别是4厘米、4厘米、6厘米、6厘米，四个角都是直角。这个四边形是什么形状？请写出名称。",
+      "optionsZhHans": [],
+      "answer": "长方形",
+      "acceptedAnswers": [
+        "长方形"
+      ],
+      "explanationZhHans": "对边相等且四个角都是直角的四边形是长方形。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-166",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-triangles-quadrilaterals",
+      "unitTitle": "认识三角形和四边形",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "triangles-quadrilaterals",
+        "shape-classification",
+        "angle-side-properties",
+        "认识三角形",
+        "四边形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "三角形分类",
+        "四边形分类",
+        "边角特征",
+        "图形性质",
+        "画图验证"
+      ],
+      "misconceptionTags": [
+        "orientation treated as changing the shape class",
+        "all four-sided figures called rectangles",
+        "shape name chosen without property evidence"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-triangles-quadrilaterals"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-triangles-quadrilaterals-unit",
+        "bnu-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪种图形一定是轴对称图形？",
+      "optionsZhHans": [
+        "平行四边形",
+        "梯形",
+        "等腰三角形",
+        "一般四边形"
+      ],
+      "answer": "等腰三角形",
+      "acceptedAnswers": [
+        "等腰三角形"
+      ],
+      "explanationZhHans": "等腰三角形沿底边上的高对折后两边完全重合，一定是轴对称图形。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-167",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-triangles-quadrilaterals",
+      "unitTitle": "认识三角形和四边形",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "triangles-quadrilaterals",
+        "shape-classification",
+        "angle-side-properties",
+        "认识三角形",
+        "四边形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "三角形分类",
+        "四边形分类",
+        "边角特征",
+        "图形性质",
+        "画图验证"
+      ],
+      "misconceptionTags": [
+        "orientation treated as changing the shape class",
+        "all four-sided figures called rectangles",
+        "shape name chosen without property evidence"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-triangles-quadrilaterals"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-triangles-quadrilaterals-unit",
+        "bnu-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个三角形有两个内角分别是30°和60°，第三个内角是______°。",
+      "optionsZhHans": [],
+      "answer": "90",
+      "acceptedAnswers": [
+        "90",
+        "90°"
+      ],
+      "explanationZhHans": "三角形内角和180°，180°-30°-60°=90°。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-168",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-triangles-quadrilaterals",
+      "unitTitle": "认识三角形和四边形",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "triangles-quadrilaterals",
+        "shape-classification",
+        "angle-side-properties",
+        "认识三角形",
+        "四边形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "三角形分类",
+        "四边形分类",
+        "边角特征",
+        "图形性质",
+        "画图验证"
+      ],
+      "misconceptionTags": [
+        "orientation treated as changing the shape class",
+        "all four-sided figures called rectangles",
+        "shape name chosen without property evidence"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-triangles-quadrilaterals"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-triangles-quadrilaterals-unit",
+        "bnu-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个四边形，它的两组对边分别平行，四个角都是直角，且四条边都相等。这个四边形是什么？",
+      "optionsZhHans": [],
+      "answer": "正方形",
+      "acceptedAnswers": [
+        "正方形"
+      ],
+      "explanationZhHans": "满足对边平行、四角直角、四边相等，符合正方形定义。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-169",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-triangles-quadrilaterals",
+      "unitTitle": "认识三角形和四边形",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "triangles-quadrilaterals",
+        "shape-classification",
+        "angle-side-properties",
+        "认识三角形",
+        "四边形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "三角形分类",
+        "四边形分类",
+        "边角特征",
+        "图形性质",
+        "画图验证"
+      ],
+      "misconceptionTags": [
+        "orientation treated as changing the shape class",
+        "all four-sided figures called rectangles",
+        "shape name chosen without property evidence"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-triangles-quadrilaterals"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-triangles-quadrilaterals-unit",
+        "bnu-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个三角形中，两条边的长度分别是3厘米和4厘米，这两条边的夹角是90°。按边分类，这个三角形是什么三角形？",
+      "optionsZhHans": [
+        "等边三角形",
+        "等腰三角形",
+        "不等边三角形",
+        "直角三角形"
+      ],
+      "answer": "不等边三角形",
+      "acceptedAnswers": [
+        "不等边三角形"
+      ],
+      "explanationZhHans": "两边长度不同（3厘米≠4厘米），第三边为5厘米，三边都不相等，所以是不等边三角形。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-170",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-triangles-quadrilaterals",
+      "unitTitle": "认识三角形和四边形",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "triangles-quadrilaterals",
+        "shape-classification",
+        "angle-side-properties",
+        "认识三角形",
+        "四边形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "三角形分类",
+        "四边形分类",
+        "边角特征",
+        "图形性质",
+        "画图验证"
+      ],
+      "misconceptionTags": [
+        "orientation treated as changing the shape class",
+        "all four-sided figures called rectangles",
+        "shape name chosen without property evidence"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-triangles-quadrilaterals"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-triangles-quadrilaterals-unit",
+        "bnu-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "平行四边形有______组对边平行。",
+      "optionsZhHans": [],
+      "answer": "两",
+      "acceptedAnswers": [
+        "两",
+        "2"
+      ],
+      "explanationZhHans": "平行四边形的两组对边分别平行。"
+    }
+  ]
+}

@@ -1,0 +1,173 @@
+{
+  "batchNumber": 1,
+  "startedAt": "2026-05-27T17:20:29.123Z",
+  "completedAt": "2026-05-27T17:20:48.759Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s1-001",
+    "bnu-junior-ds-v1-s1-002",
+    "bnu-junior-ds-v1-s1-003",
+    "bnu-junior-ds-v1-s1-004",
+    "bnu-junior-ds-v1-s1-005",
+    "bnu-junior-ds-v1-s1-006",
+    "bnu-junior-ds-v1-s1-007",
+    "bnu-junior-ds-v1-s1-008",
+    "bnu-junior-ds-v1-s1-009",
+    "bnu-junior-ds-v1-s1-010",
+    "bnu-junior-ds-v1-s1-011",
+    "bnu-junior-ds-v1-s1-012"
+  ],
+  "usage": {
+    "prompt_tokens": 6408,
+    "completion_tokens": 1324,
+    "total_tokens": 7732,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 6408
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s1-001",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，三棱柱有5个面（2个三角形底面和3个四边形侧面），符合描述。选项唯一正确，答案匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-002",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "从正前方看长方体，看到的是前面，长8 cm、宽3 cm（高），答案正确，解释合理，acceptedAnswers覆盖多种表述。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-003",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由三视图推断最少小立方块数，分析正确，最少6个，答案匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-004",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "展开图特征明确为圆柱，选项唯一正确，答案匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-005",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由主视图和左视图推断最少小立方块数，分析正确，最少5个，答案匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-006",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "主视图和左视图均为田字形，只能是一层4个小正方体，最少和最多都是4个，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-007",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由主视图和左视图推断最少小立方块数，分析正确，最少4个，选项唯一正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-008",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由三视图得长方体尺寸，计算水体积192 cm³，翻转后水高4.8 cm，未完全淹没原朝下面，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-009",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "与第5题相同，由主视图和左视图推断最少5个小立方块，答案匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-010",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由三视图推断，底层4个，左前位置加1个，最少5个，选项唯一正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-011",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "沿三个方向过中心锯开，得到8个小长方体，每个体积8 cm³，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-012",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "根据展开图折叠，与“礼”相对的面是“心”，答案正确。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均条件充分、可解，答案与解释匹配，无错误或歧义，适合北师大版七年级上册使用。"
+    }
+  }
+}

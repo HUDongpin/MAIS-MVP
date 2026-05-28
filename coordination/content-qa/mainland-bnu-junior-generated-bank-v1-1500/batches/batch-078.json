@@ -1,0 +1,637 @@
+{
+  "batchId": "batch-078",
+  "questions": [
+    {
+      "id": "bnu-junior-ds-v1-s2-271",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-parallel-lines-proof",
+      "unitTitle": "平行线的证明",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "parallel-lines-proof",
+        "parallel-lines",
+        "transversal-angles",
+        "geometric-proof",
+        "平行线",
+        "证明"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平行线判定",
+        "平行线性质",
+        "角关系推理",
+        "证明书写",
+        "条件结论识别"
+      ],
+      "misconceptionTags": [
+        "parallel relation assumed from appearance",
+        "criterion and property reversed",
+        "angle-pair names confused",
+        "proof step lacks stated reason"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-parallel-lines-proof"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-parallel-lines-proof-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知直线 a 与 b 被直线 c 所截。若 ∠1 与 ∠2 是一对内错角，且 ∠1 = 70°，∠2 = 70°，则下列结论正确的是：",
+      "optionsZhHans": [
+        "a ∥ b，依据是内错角相等，两直线平行",
+        "a ∥ b，依据是两直线平行，内错角相等",
+        "a 与 b 不平行，因为同位角不相等",
+        "a 与 b 不平行，因为同旁内角不互补"
+      ],
+      "answer": "a ∥ b，依据是内错角相等，两直线平行",
+      "acceptedAnswers": [
+        "a ∥ b，依据是内错角相等，两直线平行"
+      ],
+      "explanationZhHans": "内错角相等是判定两直线平行的条件，不是性质。已知 ∠1 = ∠2 = 70°，且它们是一对内错角，因此 a ∥ b，依据是内错角相等，两直线平行。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-272",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-parallel-lines-proof",
+      "unitTitle": "平行线的证明",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "parallel-lines-proof",
+        "parallel-lines",
+        "transversal-angles",
+        "geometric-proof",
+        "平行线",
+        "证明"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平行线判定",
+        "平行线性质",
+        "角关系推理",
+        "证明书写",
+        "条件结论识别"
+      ],
+      "misconceptionTags": [
+        "parallel relation assumed from appearance",
+        "criterion and property reversed",
+        "angle-pair names confused",
+        "proof step lacks stated reason"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-parallel-lines-proof"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-parallel-lines-proof-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知直线 AB 与 CD 被直线 EF 所截，交点分别为 G 和 H。若 ∠AGE = 110°，∠CHG = 70°，求证：AB ∥ CD。请写出证明过程。",
+      "optionsZhHans": [],
+      "answer": "证明：∵ ∠AGE = 110°，∠CHG = 70°（已知），∴ ∠AGE + ∠CHG = 180°。又 ∵ ∠AGE 与 ∠CHG 是一对同旁内角，∴ 同旁内角互补，两直线平行。∴ AB ∥ CD。",
+      "acceptedAnswers": [
+        "证明：∵ ∠AGE = 110°，∠CHG = 70°（已知），∴ ∠AGE + ∠CHG = 180°。又 ∵ ∠AGE 与 ∠CHG 是一对同旁内角，∴ 同旁内角互补，两直线平行。∴ AB ∥ CD。",
+        "∵ ∠AGE=110°，∠CHG=70°，∴ ∠AGE+∠CHG=180°。∵ ∠AGE与∠CHG是同旁内角，∴ 同旁内角互补，两直线平行。∴ AB∥CD。"
+      ],
+      "explanationZhHans": "由已知角度和为180°，且两角为同旁内角，根据判定定理“同旁内角互补，两直线平行”即可得证。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-273",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-triangle-proof-applications",
+      "unitTitle": "三角形的证明及其应用",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "triangle-proof",
+        "angle-sum",
+        "isosceles-triangles",
+        "right-triangles",
+        "perpendicular-bisector",
+        "angle-bisector",
+        "三角形证明"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "几何直观",
+        "空间观念"
+      ],
+      "skillTags": [
+        "内角和",
+        "等腰三角形",
+        "直角三角形",
+        "线段垂直平分线",
+        "角平分线",
+        "几何证明"
+      ],
+      "misconceptionTags": [
+        "property and criterion reversed",
+        "corresponding sides or angles mismatched",
+        "drawing appearance used instead of stated condition"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-triangle-proof-applications"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-triangle-proof-unit",
+        "bnu-junior-s2-lower-assessment-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在 △ABC 中，AB = AC，∠A = 40°，点 D 在 BC 上，且 AD 平分 ∠BAC。则 ∠ADC 的度数为______。",
+      "optionsZhHans": [],
+      "answer": "110°",
+      "acceptedAnswers": [
+        "110°",
+        "110"
+      ],
+      "explanationZhHans": "由 AB=AC 得 ∠B=∠C=(180°-40°)/2=70°。AD 平分 ∠BAC，故 ∠BAD=20°。在 △ABD 中，∠ADB=180°-70°-20°=90°。∠ADC=180°-∠ADB=90°。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-274",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-triangle-proof-applications",
+      "unitTitle": "三角形的证明及其应用",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "triangle-proof",
+        "angle-sum",
+        "isosceles-triangles",
+        "right-triangles",
+        "perpendicular-bisector",
+        "angle-bisector",
+        "三角形证明"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "几何直观",
+        "空间观念"
+      ],
+      "skillTags": [
+        "内角和",
+        "等腰三角形",
+        "直角三角形",
+        "线段垂直平分线",
+        "角平分线",
+        "几何证明"
+      ],
+      "misconceptionTags": [
+        "property and criterion reversed",
+        "corresponding sides or angles mismatched",
+        "drawing appearance used instead of stated condition"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-triangle-proof-applications"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-triangle-proof-unit",
+        "bnu-junior-s2-lower-assessment-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在 △ABC 中，AB = AC，∠B = 50°，则 ∠A 的度数是：",
+      "optionsZhHans": [
+        "50°",
+        "80°",
+        "100°",
+        "130°"
+      ],
+      "answer": "80°",
+      "acceptedAnswers": [
+        "80°"
+      ],
+      "explanationZhHans": "等腰三角形底角相等，故 ∠C = ∠B = 50°。由三角形内角和得 ∠A = 180° - 50° - 50° = 80°。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-275",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-triangle-proof-applications",
+      "unitTitle": "三角形的证明及其应用",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "triangle-proof",
+        "angle-sum",
+        "isosceles-triangles",
+        "right-triangles",
+        "perpendicular-bisector",
+        "angle-bisector",
+        "三角形证明"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "几何直观",
+        "空间观念"
+      ],
+      "skillTags": [
+        "内角和",
+        "等腰三角形",
+        "直角三角形",
+        "线段垂直平分线",
+        "角平分线",
+        "几何证明"
+      ],
+      "misconceptionTags": [
+        "property and criterion reversed",
+        "corresponding sides or angles mismatched",
+        "drawing appearance used instead of stated condition"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-triangle-proof-applications"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-triangle-proof-unit",
+        "bnu-junior-s2-lower-assessment-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知在 △ABC 中，∠C = 90°，AC = 6，BC = 8，AB 的垂直平分线交 AC 于点 D，交 AB 于点 E。求 CD 的长度。",
+      "optionsZhHans": [],
+      "answer": "4",
+      "acceptedAnswers": [
+        "4"
+      ],
+      "explanationZhHans": "由勾股定理得 AB=10。连接 BD，则 AD=BD。设 CD=x，则 AD=6-x。在 Rt△BCD 中，BD²=BC²+CD²=64+x²。故 (6-x)²=64+x²，解得 x=4。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-276",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-triangle-proof-applications",
+      "unitTitle": "三角形的证明及其应用",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "triangle-proof",
+        "angle-sum",
+        "isosceles-triangles",
+        "right-triangles",
+        "perpendicular-bisector",
+        "angle-bisector",
+        "三角形证明"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "几何直观",
+        "空间观念"
+      ],
+      "skillTags": [
+        "内角和",
+        "等腰三角形",
+        "直角三角形",
+        "线段垂直平分线",
+        "角平分线",
+        "几何证明"
+      ],
+      "misconceptionTags": [
+        "property and criterion reversed",
+        "corresponding sides or angles mismatched",
+        "drawing appearance used instead of stated condition"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-triangle-proof-applications"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-triangle-proof-unit",
+        "bnu-junior-s2-lower-assessment-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在 △ABC 中，AB = AC，∠A = 36°，BD 平分 ∠ABC 交 AC 于点 D。则 ∠BDC 的度数为______。",
+      "optionsZhHans": [],
+      "answer": "72°",
+      "acceptedAnswers": [
+        "72°",
+        "72"
+      ],
+      "explanationZhHans": "由 AB=AC 得 ∠ABC=∠C=(180°-36°)/2=72°。BD 平分 ∠ABC，故 ∠ABD=∠DBC=36°。在 △BCD 中，∠BDC=180°-∠DBC-∠C=180°-36°-72°=72°。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-277",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-triangle-proof-applications",
+      "unitTitle": "三角形的证明及其应用",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "triangle-proof",
+        "angle-sum",
+        "isosceles-triangles",
+        "right-triangles",
+        "perpendicular-bisector",
+        "angle-bisector",
+        "三角形证明"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "几何直观",
+        "空间观念"
+      ],
+      "skillTags": [
+        "内角和",
+        "等腰三角形",
+        "直角三角形",
+        "线段垂直平分线",
+        "角平分线",
+        "几何证明"
+      ],
+      "misconceptionTags": [
+        "property and criterion reversed",
+        "corresponding sides or angles mismatched",
+        "drawing appearance used instead of stated condition"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-triangle-proof-applications"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-triangle-proof-unit",
+        "bnu-junior-s2-lower-assessment-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在 △ABC 中，∠C = 90°，∠B = 30°，AB = 10，则 AC 的长度为：",
+      "optionsZhHans": [
+        "5",
+        "10",
+        "5√3",
+        "10√3"
+      ],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5"
+      ],
+      "explanationZhHans": "在直角三角形中，30°角所对的直角边等于斜边的一半。∠B=30°，其对边为 AC，斜边为 AB=10，故 AC=5。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-278",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-triangle-proof-applications",
+      "unitTitle": "三角形的证明及其应用",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "triangle-proof",
+        "angle-sum",
+        "isosceles-triangles",
+        "right-triangles",
+        "perpendicular-bisector",
+        "angle-bisector",
+        "三角形证明"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "几何直观",
+        "空间观念"
+      ],
+      "skillTags": [
+        "内角和",
+        "等腰三角形",
+        "直角三角形",
+        "线段垂直平分线",
+        "角平分线",
+        "几何证明"
+      ],
+      "misconceptionTags": [
+        "property and criterion reversed",
+        "corresponding sides or angles mismatched",
+        "drawing appearance used instead of stated condition"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-triangle-proof-applications"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-triangle-proof-unit",
+        "bnu-junior-s2-lower-assessment-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知在 △ABC 中，AB = AC，点 D 在 BC 上，且 AD ⊥ BC。求证：BD = CD。",
+      "optionsZhHans": [],
+      "answer": "证明：∵ AB = AC，AD ⊥ BC，∴ 在 Rt△ABD 和 Rt△ACD 中，AB = AC，AD = AD，∴ Rt△ABD ≌ Rt△ACD (HL)。∴ BD = CD。",
+      "acceptedAnswers": [
+        "证明：∵ AB = AC，AD ⊥ BC，∴ 在 Rt△ABD 和 Rt△ACD 中，AB = AC，AD = AD，∴ Rt△ABD ≌ Rt△ACD (HL)。∴ BD = CD。",
+        "∵ AB=AC，AD⊥BC，∴ Rt△ABD≌Rt△ACD (HL)，∴ BD=CD。"
+      ],
+      "explanationZhHans": "利用等腰三角形底边上的高也是底边上的中线这一性质，或通过 HL 证明全等即可。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-279",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-triangle-proof-applications",
+      "unitTitle": "三角形的证明及其应用",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "triangle-proof",
+        "angle-sum",
+        "isosceles-triangles",
+        "right-triangles",
+        "perpendicular-bisector",
+        "angle-bisector",
+        "三角形证明"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "几何直观",
+        "空间观念"
+      ],
+      "skillTags": [
+        "内角和",
+        "等腰三角形",
+        "直角三角形",
+        "线段垂直平分线",
+        "角平分线",
+        "几何证明"
+      ],
+      "misconceptionTags": [
+        "property and criterion reversed",
+        "corresponding sides or angles mismatched",
+        "drawing appearance used instead of stated condition"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-triangle-proof-applications"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-triangle-proof-unit",
+        "bnu-junior-s2-lower-assessment-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在 △ABC 中，∠C = 90°，∠A = 30°，AB 的垂直平分线交 AC 于点 D，交 AB 于点 E。若 BC = 2，则 CD = ______。",
+      "optionsZhHans": [],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2"
+      ],
+      "explanationZhHans": "由 30° 角性质得 AB=2BC=4，AC=2√3。连接 BD，则 AD=BD。设 CD=x，则 AD=2√3-x。在 Rt△BCD 中，BD²=BC²+CD²=4+x²。故 (2√3-x)²=4+x²，解得 x=2。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-280",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-triangle-proof-applications",
+      "unitTitle": "三角形的证明及其应用",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "triangle-proof",
+        "angle-sum",
+        "isosceles-triangles",
+        "right-triangles",
+        "perpendicular-bisector",
+        "angle-bisector",
+        "三角形证明"
+      ],
+      "competencyTags": [
+        "逻辑推理",
+        "几何直观",
+        "空间观念"
+      ],
+      "skillTags": [
+        "内角和",
+        "等腰三角形",
+        "直角三角形",
+        "线段垂直平分线",
+        "角平分线",
+        "几何证明"
+      ],
+      "misconceptionTags": [
+        "property and criterion reversed",
+        "corresponding sides or angles mismatched",
+        "drawing appearance used instead of stated condition"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-triangle-proof-applications"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-triangle-proof-unit",
+        "bnu-junior-s2-lower-assessment-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在 △ABC 中，∠A = 50°，∠B = 60°，则 ∠C 的外角的度数为：",
+      "optionsZhHans": [
+        "70°",
+        "110°",
+        "120°",
+        "130°"
+      ],
+      "answer": "110°",
+      "acceptedAnswers": [
+        "110°"
+      ],
+      "explanationZhHans": "∠C = 180° - 50° - 60° = 70°。∠C 的外角等于与它不相邻的两个内角之和，即 50° + 60° = 110°。"
+    }
+  ]
+}

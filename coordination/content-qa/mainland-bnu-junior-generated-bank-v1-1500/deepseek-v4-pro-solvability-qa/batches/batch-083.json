@@ -1,0 +1,195 @@
+{
+  "batchNumber": 83,
+  "startedAt": "2026-05-27T17:49:50.959Z",
+  "completedAt": "2026-05-27T17:50:32.489Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s2-485",
+    "bnu-junior-ds-v1-s2-486",
+    "bnu-junior-ds-v1-s2-487",
+    "bnu-junior-ds-v1-s2-488",
+    "bnu-junior-ds-v1-s2-489",
+    "bnu-junior-ds-v1-s2-490",
+    "bnu-junior-ds-v1-s2-491",
+    "bnu-junior-ds-v1-s2-492",
+    "bnu-junior-ds-v1-s2-493",
+    "bnu-junior-ds-v1-s2-494",
+    "bnu-junior-ds-v1-s2-495",
+    "bnu-junior-ds-v1-s2-496"
+  ],
+  "usage": {
+    "prompt_tokens": 6032,
+    "completion_tokens": 2422,
+    "total_tokens": 8454,
+    "prompt_tokens_details": {
+      "cached_tokens": 6016
+    },
+    "prompt_cache_hit_tokens": 6016,
+    "prompt_cache_miss_tokens": 16
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s2-485",
+        "status": "fail",
+        "severity": "major",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "3",
+        "rationale": "题目要求从四个条件中任选两个判定平行四边形。正确组合为①②、①③、①④、②③、②④、③④共6组，但①③和①④需结合全等推导，②③和②④同理。根据北师大版教材，直接能判定的组合为①②、③④，加上可推导的①③、①④、②③、②④，实际有效组合为6组。但题目选项最大为5，且常见教学认为能判定的组合为①②、①③、①④、③④共4组（②③与①④等价，②④与①③等价，不重复计数）。然而，严格数学上，所有6组均能判定，但题目选项无6，且答案给出4，解释中列举了①②、①③、①④、③④，但遗漏了②③和②④，且解释自相矛盾。实际上，根据平行四边形判定定理，①③组合：AB∥CD，OA=OC，可证△AOB≌△COD，得OB=OD，从而对角线互相平分，能判定；①④同理；②③：AB=CD，OA=OC，可证△AOB≌△COD，得AB∥CD，转化为①②，能判定；②④同理。因此所有6组均能判定。但考虑到题目选项和常见教学处理，通常认为能判定的组合为4组（①②、①③、①④、③④），但解释中未提及②③和②④，且答案4与解释不完全一致。更严重的是，题目问“能判定四边形ABCD是平行四边形的组合共有几种”，若严格按判定定理，应为6种，但选项无6，故题目本身有缺陷。答案4可能基于“不重复等价组合”的考虑，但解释中未明确说明，且存在逻辑漏洞。因此，答案与题目不匹配，应修正为3或6？实际上，常见考题答案为4，但需明确说明排除等价组合。本题解释混乱，答案4不合理，建议修正为3（仅直接判定）或6（所有组合）。但根据选项，最接近的正确答案应为3（①②、①③、①④？不对）。重新分析：能直接由定理判定的组合：①②（一组对边平行且相等）、③④（对角线互相平分）。①③、①④、②③、②④需通过全等推导，但推导后仍能判定。若题目要求“能判定”即存在判定方法，则6组均可。但选项无6，故题目错误。若按“不添加辅助线直接判定”，则只有①②和③④，共2组，但选项有2，答案却是4，矛盾。因此，本题存在严重缺陷，答案4错误，应判定为fail。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-486",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": false,
+        "answerMatches": false,
+        "issueTags": [
+          "missing_condition",
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": null,
+        "rationale": "题目仅给出AB∥CD且AB=CD，可判定ABCD为平行四边形，但未给出AC⊥BD的条件，解释中却使用了AC⊥BD得出直角三角形，这是无中生有。没有垂直条件，无法计算EF长度。因此题目缺少必要条件，不可解。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-487",
+        "status": "fail",
+        "severity": "major",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "6组",
+        "rationale": "与485题类似，从四个条件中选两个判定平行四边形。所有6种组合均能判定，但选项无6，且答案给出4组，解释混乱。解释中称“共6组，但...实际可直接判定的为①②和③④，加上可推导的共4组”，自相矛盾。正确应为6组，但选项最大为5，故题目有缺陷。答案4组错误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-488",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "√41",
+        "rationale": "由AB∥CD且AB=CD得平行四边形，对角线互相平分，OA=5，OB=4。在△AOB中，无垂直条件，不能使用勾股定理。解释中错误使用勾股定理得出AB=√41，但实际AB长度无法确定。EF为连接对边中点的线段，在平行四边形中等于对边长度，但AB未知。因此答案√41错误，题目不可解。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-489",
+        "status": "fail",
+        "severity": "major",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "6组",
+        "rationale": "同485、487题，所有6种组合均能判定平行四边形，但选项无6，答案4组错误。解释中称“共6种组合...实际有效组为4组”，逻辑混乱。正确应为6组，题目选项设置不合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-490",
+        "status": "fail",
+        "severity": "major",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "2√37+2√13",
+        "rationale": "由条件得平行四边形，对角线长可用余弦定理计算：BD²=6²+8²-2*6*8*cos60°=100-96*0.5=52，BD=2√13；AC²=6²+8²-2*6*8*cos120°=100-96*(-0.5)=148，AC=2√37。中点四边形EFGH为平行四边形，周长等于AC+BD=2√37+2√13，不是14。答案14错误，解释中近似为14不合理，数学题应保留准确值。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-491",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "四组条件均为平行四边形判定定理，能判定，答案4组正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-492",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平行四边形对角相等，∠C=∠A=50°，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-493",
+        "status": "fail",
+        "severity": "major",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "AD=BC",
+        "rationale": "已知AB∥CD，添加AD=BC不能判定平行四边形（等腰梯形反例）。添加∠A=∠C，由AB∥CD得∠A+∠D=180°，又∠A=∠C，则∠C+∠D=180°，得AD∥BC，可判定。因此不能判定的是AD=BC，答案应为AD=BC，而非∠A=∠C。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-494",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "三角形中位线定理，DE=BC/2=5 cm，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-495",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "设AB=3k，BC=2k，周长2(3k+2k)=40，k=4，AB=12 cm，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-496",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平行四边形对角线互相平分，AO=5，BO=7，和12 cm，答案正确。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 5,
+      "warn": 0,
+      "fail": 7,
+      "notes": "12道题中5道通过，7道不通过。主要问题：485、487、489题关于判定平行四边形组合计数，答案与选项不匹配，正确应为6组但选项无6；486题缺少垂直条件无法计算；488题误用勾股定理；490题答案近似错误；493题答案选项错误，不能判定的应为AD=BC。"
+    }
+  }
+}

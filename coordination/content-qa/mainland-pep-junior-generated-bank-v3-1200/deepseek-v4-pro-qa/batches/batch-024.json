@@ -1,0 +1,149 @@
+{
+  "batchNumber": 24,
+  "startedAt": "2026-05-25T02:52:53.333Z",
+  "completedAt": "2026-05-25T02:53:11.653Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s1-k04-sa-010",
+    "pep-junior-v3-s1-k04-sa-011",
+    "pep-junior-v3-s1-k04-sa-012",
+    "pep-junior-v3-s1-k04-sa-013",
+    "pep-junior-v3-s1-k04-sa-014",
+    "pep-junior-v3-s1-k04-sa-015",
+    "pep-junior-v3-s1-k04-sa-016",
+    "pep-junior-v3-s1-k04-sa-017",
+    "pep-junior-v3-s1-k04-sa-018",
+    "pep-junior-v3-s1-k04-sa-019",
+    "pep-junior-v3-s1-k04-sa-020",
+    "pep-junior-v3-s1-k04-sa-021"
+  ],
+  "usage": {
+    "prompt_tokens": 3388,
+    "completion_tokens": 1061,
+    "total_tokens": 4449,
+    "prompt_tokens_details": {
+      "cached_tokens": 3328
+    },
+    "prompt_cache_hit_tokens": 3328,
+    "prompt_cache_miss_tokens": 60
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s1-k04-sa-010",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "中点公式正确，答案与解释一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-sa-011",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "距离公式应用正确，解得两个点，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-sa-012",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "象限条件正确，不等式求解无误，答案准确。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-sa-013",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "对称变换正确，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-sa-014",
+        "status": "fail",
+        "severity": "major",
+        "issueTags": [
+          "grade_mismatch",
+          "missing_condition"
+        ],
+        "correctedAnswer": null,
+        "rationale": "题目为统计百分比，与单元“相交线、平行线与平面直角坐标系”无关，且未说明样本是否代表总体，直接计算样本百分比作为全校百分比不严谨。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-sa-015",
+        "status": "fail",
+        "severity": "major",
+        "issueTags": [
+          "grade_mismatch",
+          "answer_mismatch"
+        ],
+        "correctedAnswer": "20",
+        "rationale": "题目为百分数应用，与坐标系单元无关；答案要求a的值，但acceptedAnswers包含“20%”，而a是数值，应为20，解释中a=20正确，但接受“20%”可能引起混淆。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-sa-016",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移规则正确，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-sa-017",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平方根性质应用正确，计算无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-sa-018",
+        "status": "fail",
+        "severity": "major",
+        "issueTags": [
+          "grade_mismatch"
+        ],
+        "correctedAnswer": null,
+        "rationale": "题目为方程应用题，与坐标系单元无关，且属于七年级内容，但单元标题为坐标系，不匹配。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-sa-019",
+        "status": "fail",
+        "severity": "major",
+        "issueTags": [
+          "grade_mismatch"
+        ],
+        "correctedAnswer": null,
+        "rationale": "统计百分比计算，与坐标系单元无关。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-sa-020",
+        "status": "fail",
+        "severity": "major",
+        "issueTags": [
+          "grade_mismatch"
+        ],
+        "correctedAnswer": null,
+        "rationale": "销售利润问题，与坐标系单元无关。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-sa-021",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "象限与距离条件正确，答案准确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 0,
+      "fail": 6,
+      "notes": "6道题通过，6道题因知识点与单元标题不匹配或答案歧义而失败。"
+    }
+  }
+}

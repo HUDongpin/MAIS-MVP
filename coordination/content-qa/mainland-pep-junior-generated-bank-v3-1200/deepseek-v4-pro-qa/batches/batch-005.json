@@ -1,0 +1,137 @@
+{
+  "batchNumber": 5,
+  "startedAt": "2026-05-25T02:46:20.969Z",
+  "completedAt": "2026-05-25T02:46:36.578Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s1-k01-sa-003",
+    "pep-junior-v3-s1-k01-sa-004",
+    "pep-junior-v3-s1-k01-sa-005",
+    "pep-junior-v3-s1-k01-sa-006",
+    "pep-junior-v3-s1-k01-sa-007",
+    "pep-junior-v3-s1-k01-sa-008",
+    "pep-junior-v3-s1-k01-sa-009",
+    "pep-junior-v3-s1-k01-sa-010",
+    "pep-junior-v3-s1-k01-sa-011",
+    "pep-junior-v3-s1-k01-sa-012",
+    "pep-junior-v3-s1-k01-sa-013",
+    "pep-junior-v3-s1-k01-sa-014"
+  ],
+  "usage": {
+    "prompt_tokens": 4064,
+    "completion_tokens": 940,
+    "total_tokens": 5004,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 3808
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s1-k01-sa-003",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解析一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k01-sa-004",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解析一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k01-sa-005",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解析一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k01-sa-006",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解析一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k01-sa-007",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解析一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k01-sa-008",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解析一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k01-sa-009",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解析一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k01-sa-010",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解析一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k01-sa-011",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解析一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k01-sa-012",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解析一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k01-sa-013",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解析一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k01-sa-014",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解析一致，无歧义。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案与解析一致，无歧义，适合人教版初中数学。"
+    }
+  }
+}

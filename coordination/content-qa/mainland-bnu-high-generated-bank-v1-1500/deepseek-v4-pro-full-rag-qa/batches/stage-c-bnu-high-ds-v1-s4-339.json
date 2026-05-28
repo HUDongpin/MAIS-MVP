@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-339",
+  "startedAt": "2026-05-28T02:42:15.341Z",
+  "completedAt": "2026-05-28T02:42:20.413Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-339"
+  ],
+  "usage": {
+    "prompt_tokens": 2199,
+    "completion_tokens": 306,
+    "total_tokens": 2505,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1815
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-339",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "(√10/2, -√10/2) 或 (-√10/2, √10/2)",
+        "correctedAnswer": "(√10/2, -√10/2) 或 (-√10/2, √10/2)",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，但存储答案(1,-1)的模为√2，不满足|c|=√5；解析中虽指出矛盾却仍给出错误答案。正确解为(√10/2, -√10/2)或(-√10/2, √10/2)。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "答案与条件矛盾，需修正为正确坐标。"
+    }
+  }
+}

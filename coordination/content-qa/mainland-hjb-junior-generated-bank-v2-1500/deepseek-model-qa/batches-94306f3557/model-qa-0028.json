@@ -1,0 +1,103 @@
+{
+  "batchId": "model-qa-0028",
+  "ids": [
+    "hjb-junior-ds-v2-s1-217",
+    "hjb-junior-ds-v2-s1-218",
+    "hjb-junior-ds-v2-s1-219",
+    "hjb-junior-ds-v2-s1-220",
+    "hjb-junior-ds-v2-s1-221",
+    "hjb-junior-ds-v2-s1-222",
+    "hjb-junior-ds-v2-s1-223",
+    "hjb-junior-ds-v2-s1-224"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-217",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "A. 平移",
+      "answerCheckZhHans": "标准答案正确。平移只改变位置，不改变形状和大小；放大、缩小、拉伸均改变大小或形状。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-218",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(-3,2)",
+      "answerCheckZhHans": "标准答案正确。绕原点逆时针旋转90°的坐标变换公式为(-y,x)，代入A(2,3)得(-3,2)。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-219",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "P'(-4,-3)，对称轴是y轴。",
+      "answerCheckZhHans": "标准答案正确。关于y轴对称，横坐标互为相反数，纵坐标不变，得(-4,-3)，对称轴为y轴。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-220",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "B. (4,-3)",
+      "answerCheckZhHans": "标准答案正确。绕原点顺时针旋转90°的坐标变换公式为(y,-x)，代入A(3,4)得(4,-3)。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-221",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(6, -2)",
+      "answerCheckZhHans": "标准答案正确。向右平移4个单位，横坐标加4得6；向上平移1个单位，纵坐标加1得-2。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-222",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "5 cm，因为旋转不改变线段的长度。",
+      "answerCheckZhHans": "标准答案正确。旋转是全等变换，不改变线段长度，故AC=AB=5 cm。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-223",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(4, 0)",
+      "answerCheckZhHans": "标准答案正确。A(1,2)向右平移3个单位得(4,2)，再向下平移2个单位得(4,0)。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-224",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "18",
+      "answerCheckZhHans": "标准答案正确。翻折是全等变换，周长不变，故另一个四边形周长也为18 cm。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

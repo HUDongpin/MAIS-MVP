@@ -1,0 +1,312 @@
+{
+  "batchId": "batch-027",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s1-k04-fi-027",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-inequalities"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "在平面直角坐标系中，点 A 的坐标是 (3, -2)。将点 A 先向右平移 5 个单位长度，再向下平移 4 个单位长度，得到点 A'。点 A' 所在的象限是第______象限。",
+      "optionsZhHans": [],
+      "answer": "四",
+      "acceptedAnswers": [
+        "四",
+        "第四象限"
+      ],
+      "explanationZhHans": "点 A 的坐标是 (3, -2)。向右平移 5 个单位长度，横坐标变为 3+5=8；向下平移 4 个单位长度，纵坐标变为 -2-4=-6。平移后点 A' 的坐标是 (8, -6)。横坐标为正，纵坐标为负，所以点 A' 在第四象限。答案：四。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-fi-028",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-data-collection"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "某校七年级（1）班共有 40 名学生，其中男生 22 人，女生 18 人。为了解全班学生每天的睡眠时间，从中随机抽取 10 名学生进行调查。在这个问题中，总体是______。",
+      "optionsZhHans": [],
+      "answer": "七年级（1）班 40 名学生每天的睡眠时间",
+      "acceptedAnswers": [
+        "七年级（1）班 40 名学生每天的睡眠时间",
+        "该班40名学生每天的睡眠时间"
+      ],
+      "explanationZhHans": "总体是指所要考察对象的全体。这里考察的是全班学生每天的睡眠时间，而不是学生本身。因此总体是七年级（1）班 40 名学生每天的睡眠时间。答案：七年级（1）班 40 名学生每天的睡眠时间。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-fi-029",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-coordinate-plane"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "已知点 P (a, b) 在第二象限，且 a 和 b 都是整数。若点 P 到 x 轴的距离是 3，到 y 轴的距离是 2，则点 P 的坐标是______。",
+      "optionsZhHans": [],
+      "answer": "(-2, 3)",
+      "acceptedAnswers": [
+        "(-2, 3)",
+        "(-2,3)",
+        "（-2，3）"
+      ],
+      "explanationZhHans": "点 P 在第二象限，横坐标为负，纵坐标为正。到 x 轴的距离是纵坐标的绝对值，即 |b|=3，所以 b=3 或 b=-3（舍去负值），故 b=3。到 y 轴的距离是横坐标的绝对值，即 |a|=2，所以 a=-2 或 a=2（舍去正值），故 a=-2。因此点 P 的坐标是 (-2, 3)。答案：(-2, 3)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-fi-030",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "直线 AB 与 CD 相交于点 O，OE 平分 ∠BOD。若 ∠AOC = 50°，则 ∠BOE = ______°。",
+      "optionsZhHans": [],
+      "answer": "25",
+      "acceptedAnswers": [
+        "25",
+        "25°"
+      ],
+      "explanationZhHans": "因为直线 AB 与 CD 相交，所以 ∠AOC 与 ∠BOD 是对顶角，对顶角相等，所以 ∠BOD = ∠AOC = 50°。OE 平分 ∠BOD，所以 ∠BOE = 1/2 ∠BOD = 1/2 × 50° = 25°。答案：25。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-fi-031",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "已知点 M (2m - 1, m + 3) 在 x 轴上，则点 M 的坐标是______。",
+      "optionsZhHans": [],
+      "answer": "(-7, 0)",
+      "acceptedAnswers": [
+        "(-7, 0)",
+        "(-7,0)",
+        "（-7，0）"
+      ],
+      "explanationZhHans": "因为点 M 在 x 轴上，所以它的纵坐标为 0，即 m + 3 = 0，解得 m = -3。将 m = -3 代入横坐标得 2m - 1 = 2×(-3) - 1 = -6 - 1 = -7。所以点 M 的坐标是 (-7, 0)。答案：(-7, 0)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-fi-032",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-real-numbers"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "在平面直角坐标系中，点 A 的坐标是 (2, -3)，点 B 的坐标是 (-1, 4)。线段 AB 的中点坐标是______。",
+      "optionsZhHans": [],
+      "answer": "(0.5, 0.5)",
+      "acceptedAnswers": [
+        "(0.5, 0.5)",
+        "(0.5,0.5)",
+        "（0.5，0.5）",
+        "(1/2, 1/2)",
+        "（1/2，1/2）"
+      ],
+      "explanationZhHans": "根据中点坐标公式，中点横坐标为 (2 + (-1)) / 2 = 1/2 = 0.5，纵坐标为 (-3 + 4) / 2 = 1/2 = 0.5。所以线段 AB 的中点坐标是 (0.5, 0.5)。答案：(0.5, 0.5)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-fi-033",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-linear-systems"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "已知方程组 { 2x + y = 5, x - 2y = -5 } 的解为 (a, b)，则 a + b = ______。",
+      "optionsZhHans": [],
+      "answer": "4",
+      "acceptedAnswers": [
+        "4"
+      ],
+      "explanationZhHans": "解方程组：{ 2x + y = 5 ①, x - 2y = -5 ② }。由②得 x = 2y - 5，代入①得 2(2y - 5) + y = 5，即 4y - 10 + y = 5，5y = 15，y = 3。将 y = 3 代入 x = 2y - 5 得 x = 2×3 - 5 = 1。所以解为 (1, 3)，即 a = 1, b = 3，a + b = 4。答案：4。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-sa-001",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-coordinate-plane"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "在平面直角坐标系中，三角形 ABC 的顶点坐标分别是 A (2, 1)，B (5, 1)，C (3, 4)。将三角形 ABC 先向左平移 3 个单位长度，再向上平移 2 个单位长度，得到三角形 A'B'C'。请写出平移后三角形 A'B'C' 各顶点的坐标，并说明平移前后对应点的坐标变化规律。",
+      "optionsZhHans": [],
+      "answer": "A'(-1, 3), B'(2, 3), C'(0, 6)",
+      "acceptedAnswers": [
+        "A'(-1, 3), B'(2, 3), C'(0, 6)",
+        "A'(-1,3), B'(2,3), C'(0,6)",
+        "A'(-1,3) B'(2,3) C'(0,6)",
+        "（-1，3）（2，3）（0，6）"
+      ],
+      "explanationZhHans": "平移规律：向左平移 3 个单位，横坐标减 3；向上平移 2 个单位，纵坐标加 2。A (2, 1) → A' (2-3, 1+2) = (-1, 3)；B (5, 1) → B' (5-3, 1+2) = (2, 3)；C (3, 4) → C' (3-3, 4+2) = (0, 6)。所以平移后各顶点坐标为 A'(-1, 3), B'(2, 3), C'(0, 6)。答案：A'(-1, 3), B'(2, 3), C'(0, 6)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-sa-002",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "已知直线 a∥b，直线 c 与 a、b 分别相交于点 A、B，∠1 = 55°。求 ∠2 的度数，并说明理由。",
+      "optionsZhHans": [],
+      "answer": "125°",
+      "acceptedAnswers": [
+        "125°",
+        "125"
+      ],
+      "explanationZhHans": "因为直线 a∥b，所以 ∠1 与 ∠2 是同旁内角，两直线平行，同旁内角互补，即 ∠1 + ∠2 = 180°。已知 ∠1 = 55°，所以 ∠2 = 180° - 55° = 125°。答案：125°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-sa-003",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "某校组织学生去科技馆参观，门票价格为每人 20 元。如果购买 50 人以上的团体票，可以享受八折优惠。七年级（2）班有 48 名学生，请问他们最少需要花多少钱购买门票？请说明你的计算过程。",
+      "optionsZhHans": [],
+      "answer": "800 元",
+      "acceptedAnswers": [
+        "800 元",
+        "800",
+        "800元"
+      ],
+      "explanationZhHans": "方案一：按实际人数 48 人购买，总费用为 48 × 20 = 960 元。方案二：多买 2 张票凑成 50 人团体票，享受八折优惠，总费用为 50 × 20 × 0.8 = 1000 × 0.8 = 800 元。比较两种方案，800 元 < 960 元，所以最少需要花 800 元。答案：800 元。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-425",
+  "startedAt": "2026-05-28T01:54:19.233Z",
+  "completedAt": "2026-05-28T01:54:23.962Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-425"
+  ],
+  "usage": {
+    "prompt_tokens": 2459,
+    "completion_tokens": 301,
+    "total_tokens": 2760,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2075
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-425",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "a = -3, b = -9, c = 0",
+        "correctedAnswer": "a = -3, b = -9, c = 0",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件为极大值5，由f'(-1)=0, f'(3)=0, f(-1)=5解得a=-3, b=-9, c=0。存储答案c=2错误，解析中计算过程也得出c=0，但最终答案写c=2，存在矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目可解，但答案错误且解析自相矛盾，需修正为c=0。"
+    }
+  }
+}

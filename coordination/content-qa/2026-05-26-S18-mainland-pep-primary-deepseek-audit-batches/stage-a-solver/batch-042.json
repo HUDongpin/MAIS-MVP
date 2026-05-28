@@ -1,0 +1,181 @@
+{
+  "startedAt": "2026-05-26T06:08:54.753Z",
+  "completedAt": "2026-05-26T06:09:13.038Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "usage": {
+    "prompt_tokens": 2778,
+    "completion_tokens": 1517,
+    "total_tokens": 4295,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 2778
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "questionId": "pep-primary-p5-u-mc-021",
+        "solvableStatus": "pass",
+        "independentAnswer": "6",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "设数为x，5x+11=41，5x=30，x=6。"
+      },
+      {
+        "questionId": "pep-primary-p5-u-mc-022",
+        "solvableStatus": "pass",
+        "independentAnswer": "7",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "4x+7=35，4x=28，x=7。"
+      },
+      {
+        "questionId": "pep-primary-p5-u-mc-023",
+        "solvableStatus": "pass",
+        "independentAnswer": "9",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "5x+10=55，5x=45，x=9。"
+      },
+      {
+        "questionId": "pep-primary-p5-u-mc-024",
+        "solvableStatus": "pass",
+        "independentAnswer": "3",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "6x+4=22，6x=18，x=3。"
+      },
+      {
+        "questionId": "pep-primary-p5-u-mc-025",
+        "solvableStatus": "pass",
+        "independentAnswer": "5",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "2x+7=17，2x=10，x=5。"
+      },
+      {
+        "questionId": "pep-primary-p5-u-mc-026",
+        "solvableStatus": "pass",
+        "independentAnswer": "7",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "3x+10=31，3x=21，x=7。"
+      },
+      {
+        "questionId": "pep-primary-p5-u-mc-027",
+        "solvableStatus": "pass",
+        "independentAnswer": "9",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "4x+4=40，4x=36，x=9。"
+      },
+      {
+        "questionId": "pep-primary-p5-u-mc-028",
+        "solvableStatus": "pass",
+        "independentAnswer": "3",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "5x+7=22，5x=15，x=3。"
+      },
+      {
+        "questionId": "pep-primary-p5-u-mc-029",
+        "solvableStatus": "pass",
+        "independentAnswer": "5",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "6x+10=40，6x=30，x=5。"
+      },
+      {
+        "questionId": "pep-primary-p5-u-mc-030",
+        "solvableStatus": "pass",
+        "independentAnswer": "7",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "2x+4=18，2x=14，x=7。"
+      },
+      {
+        "questionId": "pep-primary-p5-u-mc-031",
+        "solvableStatus": "pass",
+        "independentAnswer": "9",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "3x+7=34，3x=27，x=9。"
+      },
+      {
+        "questionId": "pep-primary-p5-u-mc-032",
+        "solvableStatus": "pass",
+        "independentAnswer": "3",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "4x+10=22，4x=12，x=3。"
+      },
+      {
+        "questionId": "pep-primary-p5-u-mc-033",
+        "solvableStatus": "pass",
+        "independentAnswer": "5",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "5x+4=29，5x=25，x=5。"
+      },
+      {
+        "questionId": "pep-primary-p5-u-mc-034",
+        "solvableStatus": "pass",
+        "independentAnswer": "7",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "6x+7=49，6x=42，x=7。"
+      },
+      {
+        "questionId": "pep-primary-p5-u-mc-035",
+        "solvableStatus": "pass",
+        "independentAnswer": "9",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "2x+10=28，2x=18，x=9。"
+      },
+      {
+        "questionId": "pep-primary-p5-u-mc-036",
+        "solvableStatus": "pass",
+        "independentAnswer": "9",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "设数为x，2x+8=26，2x=18，x=9。"
+      },
+      {
+        "questionId": "pep-primary-p5-u-mc-037",
+        "solvableStatus": "pass",
+        "independentAnswer": "5",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "4x+7=27，4x=20，x=5。"
+      },
+      {
+        "questionId": "pep-primary-p5-u-mc-038",
+        "solvableStatus": "pass",
+        "independentAnswer": "7",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "5x+10=45，5x=35，x=7。"
+      },
+      {
+        "questionId": "pep-primary-p5-u-mc-039",
+        "solvableStatus": "pass",
+        "independentAnswer": "9",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "6x+4=58，6x=54，x=9。"
+      },
+      {
+        "questionId": "pep-primary-p5-u-mc-040",
+        "solvableStatus": "pass",
+        "independentAnswer": "10",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "2x+12=32，2x=20，x=10。"
+      }
+    ]
+  }
+}

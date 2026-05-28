@@ -1,0 +1,176 @@
+{
+  "batchNumber": 20,
+  "startedAt": "2026-05-27T17:26:57.568Z",
+  "completedAt": "2026-05-27T17:27:16.599Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s1-229",
+    "bnu-junior-ds-v1-s1-230",
+    "bnu-junior-ds-v1-s1-231",
+    "bnu-junior-ds-v1-s1-232",
+    "bnu-junior-ds-v1-s1-233",
+    "bnu-junior-ds-v1-s1-234",
+    "bnu-junior-ds-v1-s1-235",
+    "bnu-junior-ds-v1-s1-236",
+    "bnu-junior-ds-v1-s1-237",
+    "bnu-junior-ds-v1-s1-238",
+    "bnu-junior-ds-v1-s1-239",
+    "bnu-junior-ds-v1-s1-240"
+  ],
+  "usage": {
+    "prompt_tokens": 7176,
+    "completion_tokens": 1278,
+    "total_tokens": 8454,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 6664
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s1-229",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目明确，总体、个体、样本、样本容量定义清晰，选项D正确，答案匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-230",
+        "status": "fail",
+        "severity": "major",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "80~89分的人数最多，有8人。",
+        "rationale": "答案声称80~89分有7人，但解释中统计为8人，实际数据整理后80~89分有8人，答案与解释矛盾且错误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-231",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，答案正确指出以偏概全的错误，acceptedAnswers覆盖合理变体，解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-232",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "调查问题设计合理，选项B直接对应调查目的，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-233",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目完整，方案评价合理，数据统计正确，频数分布表与结论一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-234",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，12/40=30%，答案与acceptedAnswers匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-235",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方案B随机抽样且覆盖全年级，代表性好，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-236",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "结论不合理，答案解释清晰，与数据一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-237",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "总体、个体、样本、样本容量定义准确，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-238",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方案二允许自由填写，避免遗漏，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-239",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "问题乙直接询问阅读时间，与调查目的匹配，答案合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-240",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "结论不能得出，答案解释充分，符合数据。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 11,
+      "warn": 0,
+      "fail": 1,
+      "notes": "除bnu-junior-ds-v1-s1-230因答案与解释中人数不一致导致答案错误外，其余题目均正确且匹配。"
+    }
+  }
+}

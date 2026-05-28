@@ -1,0 +1,168 @@
+{
+  "scope": "full",
+  "batchIndex": 1,
+  "startedAt": "2026-05-28T03:24:42.322Z",
+  "completedAt": "2026-05-28T03:25:40.674Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "itemIds": [
+    "10357",
+    "10339",
+    "10329",
+    "10317",
+    "10318",
+    "10379",
+    "10330",
+    "10319",
+    "10629",
+    "10630"
+  ],
+  "usage": {
+    "prompt_tokens": 3005,
+    "completion_tokens": 3809,
+    "total_tokens": 6814,
+    "prompt_tokens_details": {
+      "cached_tokens": 2944
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 2988
+    },
+    "prompt_cache_hit_tokens": 2944,
+    "prompt_cache_miss_tokens": 61
+  },
+  "finishReason": "stop",
+  "jsonModeFallback": false,
+  "result": {
+    "items": [
+      {
+        "questionId": "10357",
+        "questionType": "FRQ",
+        "hasImage": true,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": null,
+        "solvabilityStatus": "image-context-required",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "需提供月曆圖片才能確定補課天數，且答案鍵缺失",
+        "recommendedAction": "提供答案鍵並確保圖片可存取"
+      },
+      {
+        "questionId": "10339",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": "米",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "可判斷為長度單位，答案應為米(公尺)",
+        "recommendedAction": "提供答案鍵"
+      },
+      {
+        "questionId": "10329",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": "372",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "三月有31天，12×31=372",
+        "recommendedAction": "提供答案鍵"
+      },
+      {
+        "questionId": "10317",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": "66005",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "用0,0,5,6,6組最大五位奇數，個位為5，其餘排最大得66005",
+        "recommendedAction": "提供答案鍵"
+      },
+      {
+        "questionId": "10318",
+        "questionType": "FRQ",
+        "hasImage": true,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": null,
+        "solvabilityStatus": "image-context-required",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "需算柱圖片才能確定表示的數值",
+        "recommendedAction": "提供答案鍵並確保圖片可存取"
+      },
+      {
+        "questionId": "10379",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": "20458",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "用2,8,5,4,0組最小五位數，萬位為2，其餘升序：20458",
+        "recommendedAction": "提供答案鍵"
+      },
+      {
+        "questionId": "10330",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": "4",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "8x÷28=3，8x=84，x=4",
+        "recommendedAction": "提供答案鍵"
+      },
+      {
+        "questionId": "10319",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": "299",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "計算正確，得299",
+        "recommendedAction": "提供答案鍵"
+      },
+      {
+        "questionId": "10629",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "245",
+        "independentAnswer": "245",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "可解且答案與答案鍵一致",
+        "recommendedAction": "無"
+      },
+      {
+        "questionId": "10630",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "800",
+        "independentAnswer": "800",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "可解且答案與答案鍵一致",
+        "recommendedAction": "無"
+      }
+    ],
+    "batchSummary": {
+      "pass": 2,
+      "unsolvable": 0,
+      "ambiguous": 0,
+      "imageContextRequired": 2,
+      "answerMismatch": 0,
+      "missingAnswerKey": 8,
+      "notes": "8題缺少答案鍵，其中2題需要圖片才能判斷；2題完全通過"
+    }
+  }
+}

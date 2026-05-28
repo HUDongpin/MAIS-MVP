@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-359",
+  "startedAt": "2026-05-28T01:50:13.404Z",
+  "completedAt": "2026-05-28T01:50:19.541Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-359"
+  ],
+  "usage": {
+    "prompt_tokens": 2625,
+    "completion_tokens": 332,
+    "total_tokens": 2957,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2241
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-359",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "1.8 m³",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，但提供的解析存在严重数学错误：由总长14.8 m和底面边长差0.5 m推导出高h=3.2-2x，体积V=x(x+0.5)(3.2-2x)，求导后解得x=0.8时V=1.664 m³，并非1.8 m³。解析中计算过程与最终答案矛盾，且答案1.8 m³与正确值不符。独立解虽给出1.8，但实际计算应为1.664，表明答案错误。因此判定为blocker。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目解析存在计算错误，导致答案不匹配，需修正。"
+    }
+  }
+}

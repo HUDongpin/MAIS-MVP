@@ -1,0 +1,134 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-122",
+  "startedAt": "2026-05-28T01:34:02.064Z",
+  "completedAt": "2026-05-28T01:34:18.964Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-469",
+    "bnu-high-ds-v1-s5-470",
+    "bnu-high-ds-v1-s5-471",
+    "bnu-high-ds-v1-s5-472",
+    "bnu-high-ds-v1-s5-473",
+    "bnu-high-ds-v1-s5-474",
+    "bnu-high-ds-v1-s5-475",
+    "bnu-high-ds-v1-s5-476"
+  ],
+  "usage": {
+    "prompt_tokens": 12169,
+    "completion_tokens": 1152,
+    "total_tokens": 13321,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 11785
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-469",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，均为B，解析正确解释了K²观测值越大则拒绝无关假设的可能性越大。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-470",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "3.9",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案为3.9，但独立解计算得3.9万元，存储答案缺少单位，且解析中计算过程有误（b≈0.6946，a≈0.2218，代入x=5.2得3.9，但解析中a计算错误，最终结果应为3.9，但存储答案与独立解数值一致，但单位缺失，且解析与答案矛盾，解析中a=0.2218，但实际应为0.46，导致最终结果不一致，存储答案错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-471",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，均为B，解析正确指出数据呈正线性相关，回归系数约为5。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-472",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，K²≈8.33>3.841，能认为有关，解析计算正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-473",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，均为C，解析正确说明去除偏离点后相关性增强。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-474",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "0.630",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案为0.670，但独立解计算得0.630，解析中计算过程正确得0.63，但最终答案错误，应为0.630。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-475",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，均为B，解析正确解释了相关系数的含义及常见误解。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-476",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，均为26.7，解析正确代入回归方程计算。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 0,
+      "fail": 2,
+      "notes": "8题中6题通过，2题失败：bnu-high-ds-v1-s5-470存储答案缺少单位且解析计算有误；bnu-high-ds-v1-s5-474存储答案数值错误。"
+    }
+  }
+}

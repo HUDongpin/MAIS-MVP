@@ -1,0 +1,685 @@
+{
+  "batchId": "batch-022",
+  "questions": [
+    {
+      "id": "bnu-high-ds-v1-s4-211",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-统计",
+      "topicTitleZhHans": "统计",
+      "volume": "必修 第一册",
+      "chapter": "统计",
+      "conceptIds": [
+        "statistics",
+        "sampling",
+        "data-analysis",
+        "frequency-distribution",
+        "statistical-measures",
+        "data-visualization"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "数学建模",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "抽样判断",
+        "频率分布",
+        "统计量计算",
+        "图表解释",
+        "结论评价",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "sample and population confused",
+        "axis or unit ignored",
+        "average used without context",
+        "correlation overclaimed",
+        "axis ignored",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-statistics"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-statistics-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s5-assessment-statistics-case-unit"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "为了解某市高一学生的平均每天课外阅读时间，从该市所有高一学生中随机抽取了200名学生进行调查，得到样本平均时间为0.8小时。下列说法正确的是（　）",
+      "optionsZhHans": [
+        "该市高一学生的平均每天课外阅读时间一定是0.8小时",
+        "该市高一学生的平均每天课外阅读时间约为0.8小时",
+        "样本平均时间0.8小时与总体平均时间没有关系",
+        "如果再随机抽取200名学生，样本平均时间一定还是0.8小时"
+      ],
+      "answer": "该市高一学生的平均每天课外阅读时间约为0.8小时",
+      "acceptedAnswers": [
+        "该市高一学生的平均每天课外阅读时间约为0.8小时"
+      ],
+      "explanationZhHans": "样本平均数是总体平均数的估计值，因此总体平均数约为0.8小时，而非精确相等。不同样本的平均数可能不同，故A、D错误；样本平均数反映总体信息，C错误。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-212",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-统计",
+      "topicTitleZhHans": "统计",
+      "volume": "必修 第一册",
+      "chapter": "统计",
+      "conceptIds": [
+        "statistics",
+        "sampling",
+        "data-analysis",
+        "frequency-distribution",
+        "statistical-measures",
+        "data-visualization"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "数学建模",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "抽样判断",
+        "频率分布",
+        "统计量计算",
+        "图表解释",
+        "结论评价",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "sample and population confused",
+        "axis or unit ignored",
+        "average used without context",
+        "correlation overclaimed",
+        "axis ignored",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-statistics"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-statistics-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s5-assessment-statistics-case-unit"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某班40名学生一次数学测验的成绩如下（单位：分）：\n62, 75, 80, 85, 90, 78, 82, 88, 95, 70, 68, 92, 86, 77, 83, 91, 73, 84, 79, 81, 76, 89, 94, 72, 87, 66, 93, 74, 96, 71, 69, 97, 98, 65, 99, 100, 63, 64, 67, 61\n请计算这组数据的平均数（精确到0.01）。",
+      "optionsZhHans": [],
+      "answer": "80.25",
+      "acceptedAnswers": [
+        "80.25"
+      ],
+      "explanationZhHans": "将所有成绩相加得3210，除以40得80.25。计算时注意总和及除法精度。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-213",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-统计",
+      "topicTitleZhHans": "统计",
+      "volume": "必修 第一册",
+      "chapter": "统计",
+      "conceptIds": [
+        "statistics",
+        "sampling",
+        "data-analysis",
+        "frequency-distribution",
+        "statistical-measures",
+        "data-visualization"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "数学建模",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "抽样判断",
+        "频率分布",
+        "统计量计算",
+        "图表解释",
+        "结论评价",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "sample and population confused",
+        "axis or unit ignored",
+        "average used without context",
+        "correlation overclaimed",
+        "axis ignored",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-statistics"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-statistics-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s5-assessment-statistics-case-unit"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校高一年级有800名学生，为了解他们的身高情况，按性别分层抽样，抽取了男生30人，女生20人，测得男生平均身高172 cm，女生平均身高160 cm。则估计该校高一年级学生的平均身高为______cm。",
+      "optionsZhHans": [],
+      "answer": "167.2",
+      "acceptedAnswers": [
+        "167.2"
+      ],
+      "explanationZhHans": "男生权重30/50=0.6，女生权重20/50=0.4，估计平均身高=172×0.6+160×0.4=167.2 cm。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-214",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-统计",
+      "topicTitleZhHans": "统计",
+      "volume": "必修 第一册",
+      "chapter": "统计",
+      "conceptIds": [
+        "statistics",
+        "sampling",
+        "data-analysis",
+        "frequency-distribution",
+        "statistical-measures",
+        "data-visualization"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "数学建模",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "抽样判断",
+        "频率分布",
+        "统计量计算",
+        "图表解释",
+        "结论评价",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "sample and population confused",
+        "axis or unit ignored",
+        "average used without context",
+        "correlation overclaimed",
+        "axis ignored",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-statistics"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-statistics-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s5-assessment-statistics-case-unit"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "将容量为100的样本数据按从小到大的顺序分成8组，如下表：\n组号 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8\n频数 | 10 | 13 | 14 | 15 | 13 | 12 | 9 | 14\n则第3组的频率是（　）",
+      "optionsZhHans": [
+        "0.10",
+        "0.13",
+        "0.14",
+        "0.15"
+      ],
+      "answer": "0.14",
+      "acceptedAnswers": [
+        "0.14"
+      ],
+      "explanationZhHans": "频率=频数/样本容量。第3组频数为14，样本容量为100，故频率=14/100=0.14。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-215",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-统计",
+      "topicTitleZhHans": "统计",
+      "volume": "必修 第一册",
+      "chapter": "统计",
+      "conceptIds": [
+        "statistics",
+        "sampling",
+        "data-analysis",
+        "frequency-distribution",
+        "statistical-measures",
+        "data-visualization"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "数学建模",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "抽样判断",
+        "频率分布",
+        "统计量计算",
+        "图表解释",
+        "结论评价",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "sample and population confused",
+        "axis or unit ignored",
+        "average used without context",
+        "correlation overclaimed",
+        "axis ignored",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-statistics"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-statistics-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s5-assessment-statistics-case-unit"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某射击运动员在10次射击中，命中的环数分别为：7, 8, 9, 7, 10, 8, 9, 8, 8, 7。求这组数据的众数。",
+      "optionsZhHans": [],
+      "answer": "8",
+      "acceptedAnswers": [
+        "8"
+      ],
+      "explanationZhHans": "众数是出现次数最多的数据。8出现4次，7出现3次，9出现2次，10出现1次，故众数为8。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-216",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-统计",
+      "topicTitleZhHans": "统计",
+      "volume": "必修 第一册",
+      "chapter": "统计",
+      "conceptIds": [
+        "statistics",
+        "sampling",
+        "data-analysis",
+        "frequency-distribution",
+        "statistical-measures",
+        "data-visualization"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "数学建模",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "抽样判断",
+        "频率分布",
+        "统计量计算",
+        "图表解释",
+        "结论评价",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "sample and population confused",
+        "axis or unit ignored",
+        "average used without context",
+        "correlation overclaimed",
+        "axis ignored",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-statistics"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-statistics-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s5-assessment-statistics-case-unit"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知一组数据x₁, x₂, …, xₙ的平均数为5，方差为2。则数据3x₁+1, 3x₂+1, …, 3xₙ+1的方差为______。",
+      "optionsZhHans": [],
+      "answer": "18",
+      "acceptedAnswers": [
+        "18"
+      ],
+      "explanationZhHans": "若原数据方差为s²，则新数据a x_i + b的方差为a²s²。这里a=3，b=1，故新方差=3²×2=18。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-217",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-概率",
+      "topicTitleZhHans": "概率",
+      "volume": "必修 第一册",
+      "chapter": "概率",
+      "conceptIds": [
+        "probability-foundations",
+        "random-events",
+        "classical-probability",
+        "frequency-probability",
+        "probability-modeling",
+        "sample-space"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "逻辑推理",
+        "数学建模",
+        "数学运算"
+      ],
+      "skillTags": [
+        "样本空间",
+        "随机事件",
+        "古典概型",
+        "频率与概率",
+        "模型辨析",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "event and outcome confused",
+        "equally likely assumption unsupported",
+        "frequency treated probability",
+        "sample space incomplete",
+        "equal likelihood unsupported",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-probability"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-probability-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s5-assessment-probability-unit-core"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "从分别写有数字1, 2, 3, 4, 5的五张卡片中随机抽取一张，观察其数字。设事件A为“抽到的数字是奇数”，事件B为“抽到的数字小于4”。则事件A与事件B的关系是（　）",
+      "optionsZhHans": [
+        "互斥但不对立",
+        "对立",
+        "相互独立",
+        "不互斥也不对立"
+      ],
+      "answer": "不互斥也不对立",
+      "acceptedAnswers": [
+        "不互斥也不对立"
+      ],
+      "explanationZhHans": "A={1,3,5}，B={1,2,3}，A∩B={1,3}非空，故不互斥；A∪B={1,2,3,5}≠全集，故不对立。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-218",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-概率",
+      "topicTitleZhHans": "概率",
+      "volume": "必修 第一册",
+      "chapter": "概率",
+      "conceptIds": [
+        "probability-foundations",
+        "random-events",
+        "classical-probability",
+        "frequency-probability",
+        "probability-modeling",
+        "sample-space"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "逻辑推理",
+        "数学建模",
+        "数学运算"
+      ],
+      "skillTags": [
+        "样本空间",
+        "随机事件",
+        "古典概型",
+        "频率与概率",
+        "模型辨析",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "event and outcome confused",
+        "equally likely assumption unsupported",
+        "frequency treated probability",
+        "sample space incomplete",
+        "equal likelihood unsupported",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-probability"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-probability-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s5-assessment-probability-unit-core"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "同时抛掷两枚质地均匀的硬币，写出样本空间，并求至少有一枚正面朝上的概率。",
+      "optionsZhHans": [],
+      "answer": "样本空间：{(正,正), (正,反), (反,正), (反,反)}；概率：3/4",
+      "acceptedAnswers": [
+        "样本空间：{(正,正), (正,反), (反,正), (反,反)}；概率：3/4"
+      ],
+      "explanationZhHans": "样本空间有4个等可能结果。至少一枚正面包含(正,正)、(正,反)、(反,正)，共3个，故概率为3/4。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-219",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-概率",
+      "topicTitleZhHans": "概率",
+      "volume": "必修 第一册",
+      "chapter": "概率",
+      "conceptIds": [
+        "probability-foundations",
+        "random-events",
+        "classical-probability",
+        "frequency-probability",
+        "probability-modeling",
+        "sample-space"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "逻辑推理",
+        "数学建模",
+        "数学运算"
+      ],
+      "skillTags": [
+        "样本空间",
+        "随机事件",
+        "古典概型",
+        "频率与概率",
+        "模型辨析",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "event and outcome confused",
+        "equally likely assumption unsupported",
+        "frequency treated probability",
+        "sample space incomplete",
+        "equal likelihood unsupported",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-probability"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-probability-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s5-assessment-probability-unit-synthesis"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个袋子中有5个红球和3个白球，除颜色外无差别。从中随机摸出2个球，则摸出的2个球颜色不同的概率为______。",
+      "optionsZhHans": [],
+      "answer": "15/28",
+      "acceptedAnswers": [
+        "15/28"
+      ],
+      "explanationZhHans": "总取法C(8,2)=28。一红一白取法C(5,1)×C(3,1)=15。故概率=15/28。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-220",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-概率",
+      "topicTitleZhHans": "概率",
+      "volume": "必修 第一册",
+      "chapter": "概率",
+      "conceptIds": [
+        "probability-foundations",
+        "random-events",
+        "classical-probability",
+        "frequency-probability",
+        "probability-modeling",
+        "sample-space"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "逻辑推理",
+        "数学建模",
+        "数学运算"
+      ],
+      "skillTags": [
+        "样本空间",
+        "随机事件",
+        "古典概型",
+        "频率与概率",
+        "模型辨析",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "event and outcome confused",
+        "equally likely assumption unsupported",
+        "frequency treated probability",
+        "sample space incomplete",
+        "equal likelihood unsupported",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-probability"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-probability-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s5-assessment-probability-unit-core"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某射手射击一次，命中10环的概率为0.2，命中9环的概率为0.3，命中8环的概率为0.25，命中7环的概率为0.15，命中6环及以下的概率为0.1。则该射手射击一次命中不低于9环的概率是（　）",
+      "optionsZhHans": [
+        "0.2",
+        "0.3",
+        "0.5",
+        "0.75"
+      ],
+      "answer": "0.5",
+      "acceptedAnswers": [
+        "0.5"
+      ],
+      "explanationZhHans": "不低于9环即命中9环或10环，概率为0.3+0.2=0.5。"
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-417",
+  "startedAt": "2026-05-28T01:31:19.852Z",
+  "completedAt": "2026-05-28T01:31:24.500Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-417"
+  ],
+  "usage": {
+    "prompt_tokens": 2026,
+    "completion_tokens": 260,
+    "total_tokens": 2286,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1642
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-417",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "0.4",
+        "correctedAnswer": null,
+        "issueTags": [
+          "explanation_contradiction"
+        ],
+        "severity": "major",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解：由分布列概率和为1得a=0.4，且E(X)=2.5自动满足，无矛盾。答案0.4正确。但解析中验证E(X)时计算错误（2.3），并声称与条件不符，自相矛盾，需修正解析。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 1,
+      "fail": 0,
+      "notes": "题目本身正确，答案匹配，但解析存在计算错误和矛盾，需修正解析。"
+    }
+  }
+}

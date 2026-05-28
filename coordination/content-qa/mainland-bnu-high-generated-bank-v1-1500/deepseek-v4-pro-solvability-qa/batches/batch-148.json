@@ -1,0 +1,133 @@
+{
+  "batchNumber": 148,
+  "startedAt": "2026-05-27T14:08:24.964Z",
+  "completedAt": "2026-05-27T14:08:40.174Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-177",
+    "bnu-high-ds-v1-s6-178",
+    "bnu-high-ds-v1-s6-179",
+    "bnu-high-ds-v1-s6-180",
+    "bnu-high-ds-v1-s6-181",
+    "bnu-high-ds-v1-s6-182",
+    "bnu-high-ds-v1-s6-183",
+    "bnu-high-ds-v1-s6-184"
+  ],
+  "usage": {
+    "prompt_tokens": 10385,
+    "completion_tokens": 1014,
+    "total_tokens": 11399,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 9873
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-177",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "3^n - 1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "递推式可解，构造等比数列得通项3^n-1，与答案一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-178",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "n^2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "等差数列求和公式直接计算得n^2，选项唯一正确，解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-179",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "a_n = 1/(2n - 1)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "取倒数构造等差数列，通项为1/(2n-1)，与答案一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-180",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由等差数列性质a5=a2+3d解得d=3，答案正确，解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-181",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "构造b_n=a_n+2得等比数列，公比为3，选项唯一正确，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-182",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "a_n = n + 2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由a3和S5列方程组解得a1=3,d=1，通项n+2，答案正确，解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-183",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "n^2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "累加法求和得n^2，与答案一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-184",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "-24",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "等比数列通项公式计算得-24，选项唯一正确，解析正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，答案与解析均正确匹配，无任何问题。"
+    }
+  }
+}

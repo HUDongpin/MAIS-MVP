@@ -1,0 +1,191 @@
+{
+  "batchNumber": 33,
+  "startedAt": "2026-05-27T13:27:30.377Z",
+  "completedAt": "2026-05-27T13:27:48.545Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p3-077",
+    "bnu-primary-ds-v1-p3-078",
+    "bnu-primary-ds-v1-p3-079",
+    "bnu-primary-ds-v1-p3-080",
+    "bnu-primary-ds-v1-p3-081",
+    "bnu-primary-ds-v1-p3-082",
+    "bnu-primary-ds-v1-p3-083",
+    "bnu-primary-ds-v1-p3-084",
+    "bnu-primary-ds-v1-p3-085",
+    "bnu-primary-ds-v1-p3-086",
+    "bnu-primary-ds-v1-p3-087",
+    "bnu-primary-ds-v1-p3-088",
+    "bnu-primary-ds-v1-p3-089",
+    "bnu-primary-ds-v1-p3-090",
+    "bnu-primary-ds-v1-p3-091",
+    "bnu-primary-ds-v1-p3-092",
+    "bnu-primary-ds-v1-p3-093",
+    "bnu-primary-ds-v1-p3-094"
+  ],
+  "usage": {
+    "prompt_tokens": 4172,
+    "completion_tokens": 1271,
+    "total_tokens": 5443,
+    "prompt_tokens_details": {
+      "cached_tokens": 4096
+    },
+    "prompt_cache_hit_tokens": 4096,
+    "prompt_cache_miss_tokens": 76
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p3-077",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案匹配，符合三年级乘法分配律初步认识。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-078",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "竖式谜题合理，答案正确，难度适合挑战。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-079",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估算与精确计算结合，选项唯一正确，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-080",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "简单乘法应用题，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-081",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估算判断与竖式计算结合，答案合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-082",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项唯一正确，干扰项错误明显。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-083",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "基础乘法题，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-084",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "两步计算应用题，答案正确，符合三年级水平。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-085",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "连乘算式选择正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-086",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估算与竖式结合，答案覆盖多种表述。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-087",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估算与纠错题，答案详细，符合要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-088",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "竖式选择正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-089",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "两步连乘应用题，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-090",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "实际应用问题，答案正确，过程清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-091",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "日期推算正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-092",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "大月知识，答案正确，接受多种格式。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-093",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "日期计算包含首尾，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-094",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "月份天数判断，选项唯一正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均通过审核，数学正确，答案匹配，无歧义，适合北师大版三年级上册。"
+    }
+  }
+}

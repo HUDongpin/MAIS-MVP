@@ -1,0 +1,360 @@
+{
+  "batchId": "batch-002",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s1-k01-mc-011",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-rational-number-operations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "某城市冬季某天的最高气温为 -2℃，最低气温为 -9℃，则这天的温差（最高气温与最低气温的差）是多少？",
+      "optionsZhHans": [
+        "-11℃",
+        "-7℃",
+        "7℃",
+        "11℃"
+      ],
+      "answer": "7℃",
+      "acceptedAnswers": [
+        "7℃",
+        "7",
+        "7度"
+      ],
+      "explanationZhHans": "温差是指最高气温减去最低气温，即 (-2) - (-9) = -2 + 9 = 7℃，所以温差为 7℃。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k01-mc-012",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "在数轴上，点 A 表示 -3，点 B 表示 4，点 C 是线段 AB 的中点，则点 C 表示的数是多少？",
+      "optionsZhHans": [
+        "-0.5",
+        "0.5",
+        "1",
+        "3.5"
+      ],
+      "answer": "0.5",
+      "acceptedAnswers": [
+        "0.5",
+        "1/2",
+        "二分之一"
+      ],
+      "explanationZhHans": "数轴上两点的中点所表示的数是这两点表示的数之和的一半，即 [(-3) + 4] ÷ 2 = 1 ÷ 2 = 0.5，所以点 C 表示的数是 0.5。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k01-mc-013",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-expression-simplification"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "若 a 与 b 互为相反数，且 a = -2.5，则 b 的值是多少？",
+      "optionsZhHans": [
+        "-2.5",
+        "-0.4",
+        "0.4",
+        "2.5"
+      ],
+      "answer": "2.5",
+      "acceptedAnswers": [
+        "2.5",
+        "+2.5"
+      ],
+      "explanationZhHans": "互为相反数的两个数之和为 0，即 a + b = 0，所以 b = -a = -(-2.5) = 2.5。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k01-mc-014",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-linear-equation-modeling"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "下列四个数中，绝对值最大的是哪一个？",
+      "optionsZhHans": [
+        "-3.2",
+        "0",
+        "2.8",
+        "-4.1"
+      ],
+      "answer": "-4.1",
+      "acceptedAnswers": [
+        "-4.1",
+        "负4.1"
+      ],
+      "explanationZhHans": "绝对值表示一个数到原点的距离，|-3.2|=3.2，|0|=0，|2.8|=2.8，|-4.1|=4.1，其中 4.1 最大，所以绝对值最大的是 -4.1。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k01-mc-015",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-geometric-figures"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "计算：(-8) + (+3) - (-5) 的结果是多少？",
+      "optionsZhHans": [
+        "-10",
+        "0",
+        "6",
+        "10"
+      ],
+      "answer": "0",
+      "acceptedAnswers": [
+        "0",
+        "零"
+      ],
+      "explanationZhHans": "原式 = -8 + 3 + 5 = 0，所以结果为 0。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k01-mc-016",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-rational-number-operations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "某水库的水位在警戒线以下 2 米，记为 -2 米。如果水位上升 5 米，则新的水位记作多少米？",
+      "optionsZhHans": [
+        "-7",
+        "-3",
+        "3",
+        "7"
+      ],
+      "answer": "3",
+      "acceptedAnswers": [
+        "3",
+        "+3",
+        "3米"
+      ],
+      "explanationZhHans": "初始水位为 -2 米，上升 5 米后，水位变为 -2 + 5 = 3 米，所以新的水位记作 3。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k01-mc-017",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "在数轴上，位于 -2 和 3 之间的整数共有多少个？",
+      "optionsZhHans": [
+        "3",
+        "4",
+        "5",
+        "6"
+      ],
+      "answer": "4",
+      "acceptedAnswers": [
+        "4",
+        "四个"
+      ],
+      "explanationZhHans": "在 -2 和 3 之间的整数有 -1, 0, 1, 2，共 4 个。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k01-mc-018",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-expression-simplification"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "若 |x| = 5，则 x 的值可能是多少？",
+      "optionsZhHans": [
+        "5",
+        "-5",
+        "0",
+        "5 或 -5"
+      ],
+      "answer": "5 或 -5",
+      "acceptedAnswers": [
+        "5 或 -5",
+        "5或-5",
+        "±5"
+      ],
+      "explanationZhHans": "绝对值等于 5 的数有两个，分别是 5 和 -5，所以 x 的值可能是 5 或 -5。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k01-mc-019",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-linear-equation-modeling"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "比较大小：-1/2 与 -1/3，哪个更大？",
+      "optionsZhHans": [
+        "-1/2",
+        "-1/3",
+        "一样大",
+        "无法比较"
+      ],
+      "answer": "-1/3",
+      "acceptedAnswers": [
+        "-1/3",
+        "负三分之一"
+      ],
+      "explanationZhHans": "两个负数比较大小，绝对值大的反而小。|-1/2|=1/2，|-1/3|=1/3，因为 1/2 > 1/3，所以 -1/2 < -1/3，因此 -1/3 更大。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k01-mc-020",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-geometric-figures"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "某商店一周内每天的盈亏情况如下（盈利为正，亏损为负，单位：元）：+120, -80, +50, -30, +100, -60, +40。这一周的总盈亏是多少元？",
+      "optionsZhHans": [
+        "140",
+        "200",
+        "240",
+        "300"
+      ],
+      "answer": "140",
+      "acceptedAnswers": [
+        "140",
+        "+140",
+        "140元"
+      ],
+      "explanationZhHans": "总盈亏 = 120 + (-80) + 50 + (-30) + 100 + (-60) + 40 = (120+50+100+40) + (-80-30-60) = 310 - 170 = 140，所以总盈利 140 元。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

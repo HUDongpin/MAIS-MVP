@@ -1,0 +1,137 @@
+{
+  "batchNumber": 77,
+  "startedAt": "2026-05-25T03:15:26.063Z",
+  "completedAt": "2026-05-25T03:15:42.595Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s3-k10-fi-046",
+    "pep-junior-v3-s3-k10-fi-047",
+    "pep-junior-v3-s3-k10-fi-048",
+    "pep-junior-v3-s3-k10-fi-049",
+    "pep-junior-v3-s3-k10-fi-050",
+    "pep-junior-v3-s3-k10-fi-051",
+    "pep-junior-v3-s3-k10-fi-052",
+    "pep-junior-v3-s3-k10-fi-053",
+    "pep-junior-v3-s3-k10-fi-054",
+    "pep-junior-v3-s3-k10-fi-055",
+    "pep-junior-v3-s3-k10-fi-056",
+    "pep-junior-v3-s3-k10-fi-057"
+  ],
+  "usage": {
+    "prompt_tokens": 3602,
+    "completion_tokens": 982,
+    "total_tokens": 4584,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 3346
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s3-k10-fi-046",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解析一致，填空无歧义，符合人教版初中数学要求。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-fi-047",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "概率计算正确，答案与解析一致，填空无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-fi-048",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "坐标变换正确，答案与解析一致，填空无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-fi-049",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "判别式计算正确，答案与解析一致，填空无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-fi-050",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "解方程正确，答案与解析一致，填空无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-fi-051",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "反比例函数计算正确，答案与解析一致，填空无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-fi-052",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "切线性质与角度计算正确，答案与解析一致，填空无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-fi-053",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "概率游戏公平性判断正确，答案与解析一致，填空无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-fi-054",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "判别式与整数最值计算正确，答案与解析一致，填空无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-fi-055",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "顶点坐标正确，答案与解析一致，填空无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-fi-056",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "判别式与m值计算正确，答案与解析一致，填空无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-fi-057",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "二次函数最小值正确，答案与解析一致，填空无歧义。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部12道题均通过审核，数学正确，答案与解析一致，无歧义，符合人教版初中数学要求。"
+    }
+  }
+}

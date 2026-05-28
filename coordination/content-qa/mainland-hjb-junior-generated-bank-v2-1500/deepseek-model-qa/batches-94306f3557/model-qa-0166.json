@@ -1,0 +1,105 @@
+{
+  "batchId": "model-qa-0166",
+  "ids": [
+    "hjb-junior-ds-v2-s3-321",
+    "hjb-junior-ds-v2-s3-322",
+    "hjb-junior-ds-v2-s3-323",
+    "hjb-junior-ds-v2-s3-324",
+    "hjb-junior-ds-v2-s3-325",
+    "hjb-junior-ds-v2-s3-326",
+    "hjb-junior-ds-v2-s3-327",
+    "hjb-junior-ds-v2-s3-328"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-321",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "圆心坐标为(3,2)。理由：AB为水平线段，其中垂线为x=3；AC中垂线：中点(2,4)，斜率-2，中垂线斜率1/2，方程y-4=(1/2)(x-2)，与x=3联立得y=2，故圆心(3,2)。",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-322",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "multiple-correct-options"
+      ],
+      "issueDetailsZhHans": "选项B“点P在⊙O上”也一定成立，因为OP=5 cm等于半径，所以P在圆上。题目要求“一定成立的是”，B和C都一定成立，但标准答案只选了C。",
+      "independentAnswerZhHans": "直线l与⊙O有两个公共点，则圆心O到直线l的距离d<5 cm，故C正确。又OP=5 cm，所以点P在⊙O上，故B也正确。因此B和C都一定成立。",
+      "answerCheckZhHans": "标准答案只选了C，但B也正确，存在多个正确选项。",
+      "recommendedActionZhHans": "修改题干或选项，确保只有一个正确选项。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-323",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "连接OA，OA=5 cm，C为AB中点，OC⊥AB，AC=4 cm，OC=√(5²-4²)=3 cm，OD=5 cm，CD=OD-OC=2 cm。",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-324",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "直线AC与⊙O相交。理由：点A和点C都在⊙O上，所以直线AC经过圆上两点，因此与圆相交，有两个公共点。",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-325",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "连接OP，则OP⊥AB，OA=5 cm，OP=3 cm，AP=√(5²-3²)=4 cm，AB=2AP=8 cm。",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-326",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "作OC⊥AB于C，则AC=4 cm，OA=5 cm，OC=√(5²-4²)=3 cm。",
+      "answerCheckZhHans": "标准答案正确，解析一致，acceptedAnswers覆盖了“3 cm”和“3cm”。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-327",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "连接OT，OT⊥PT，OT=6 cm，OP=10 cm，PT=√(10²-6²)=8 cm。",
+      "answerCheckZhHans": "标准答案正确，解析一致，acceptedAnswers覆盖了“8 cm”和“8cm”。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-328",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "两圆外离时，圆心距大于半径之和，即d>4+7=11。",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,113 @@
+{
+  "batchId": "model-qa-0093",
+  "ids": [
+    "hjb-junior-ds-v2-s2-237",
+    "hjb-junior-ds-v2-s2-238",
+    "hjb-junior-ds-v2-s2-239",
+    "hjb-junior-ds-v2-s2-240",
+    "hjb-junior-ds-v2-s2-241",
+    "hjb-junior-ds-v2-s2-242",
+    "hjb-junior-ds-v2-s2-243",
+    "hjb-junior-ds-v2-s2-244"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-237",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "12",
+      "answerCheckZhHans": "标准答案12与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-238",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析错误地将点D到AB的距离等同于BD，但BD是点D到点B的距离，并非垂直距离。正确距离应为BD×sin∠B，由于∠B=90°，距离等于BD=10/3，但解析未说明垂直关系，且选项10/3正确，但解析表述不严谨。",
+      "independentAnswerZhHans": "10/3",
+      "answerCheckZhHans": "标准答案10/3与独立计算结果一致，但解析存在逻辑漏洞。",
+      "recommendedActionZhHans": "修正解析，明确说明由于∠B=90°，点D到AB的距离即为BD的长度。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-239",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "标准答案3与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-240",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析前半部分错误地得出DC=3，后半部分又用面积法得出DE=24/7，前后矛盾。正确解析应直接使用面积法或角平分线性质。",
+      "independentAnswerZhHans": "24/7",
+      "answerCheckZhHans": "标准答案24/7正确，但解析存在错误推导。",
+      "recommendedActionZhHans": "删除解析中错误的DC=3部分，统一使用面积法或角平分线性质求解。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-241",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "4",
+      "answerCheckZhHans": "标准答案4与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-242",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "36/7",
+      "answerCheckZhHans": "标准答案36/7与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-243",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "missing-condition"
+      ],
+      "issueDetailsZhHans": "题干给出AD是角平分线且BD=CD，但判断直角三角形时未使用该条件，且该条件与已知三边长度矛盾：若BD=CD，则D为BC中点，但角平分线性质要求BD/DC=AB/AC=13/15，矛盾。因此题目条件自相矛盾，无法成立。",
+      "independentAnswerZhHans": "无法判断，因为条件矛盾。",
+      "answerCheckZhHans": "标准答案认为不是直角三角形，但未考虑条件矛盾，导致题目无效。",
+      "recommendedActionZhHans": "删除BD=CD的条件，或修改三边长度使其满足角平分线性质。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-244",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "no-correct-option",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "正确计算得BD=4.8，CD=10.2，但所有选项均不精确。解析称BD=5，CD=10为近似值，但选择题应提供精确选项，且解析未说明为何选此项。",
+      "independentAnswerZhHans": "BD=4.8，CD=10.2",
+      "answerCheckZhHans": "标准答案BD=5，CD=10不正确，无正确选项。",
+      "recommendedActionZhHans": "修改选项为精确值BD=24/5，CD=51/5，或调整题目数据使结果为整数。",
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,330 @@
+{
+  "batchNumber": 3,
+  "startedAt": "2026-05-26T16:56:29.683Z",
+  "completedAt": "2026-05-26T16:56:59.857Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p1-061",
+    "bnu-primary-ds-v2-p1-062",
+    "bnu-primary-ds-v2-p1-063",
+    "bnu-primary-ds-v2-p1-064",
+    "bnu-primary-ds-v2-p1-065",
+    "bnu-primary-ds-v2-p1-066",
+    "bnu-primary-ds-v2-p1-067",
+    "bnu-primary-ds-v2-p1-068",
+    "bnu-primary-ds-v2-p1-069",
+    "bnu-primary-ds-v2-p1-070",
+    "bnu-primary-ds-v2-p1-071",
+    "bnu-primary-ds-v2-p1-072",
+    "bnu-primary-ds-v2-p1-073",
+    "bnu-primary-ds-v2-p1-074",
+    "bnu-primary-ds-v2-p1-075",
+    "bnu-primary-ds-v2-p1-076",
+    "bnu-primary-ds-v2-p1-077",
+    "bnu-primary-ds-v2-p1-078",
+    "bnu-primary-ds-v2-p1-079",
+    "bnu-primary-ds-v2-p1-080",
+    "bnu-primary-ds-v2-p1-081",
+    "bnu-primary-ds-v2-p1-082",
+    "bnu-primary-ds-v2-p1-083",
+    "bnu-primary-ds-v2-p1-084",
+    "bnu-primary-ds-v2-p1-085",
+    "bnu-primary-ds-v2-p1-086",
+    "bnu-primary-ds-v2-p1-087",
+    "bnu-primary-ds-v2-p1-088",
+    "bnu-primary-ds-v2-p1-089",
+    "bnu-primary-ds-v2-p1-090"
+  ],
+  "usage": {
+    "prompt_tokens": 5376,
+    "completion_tokens": 2252,
+    "total_tokens": 7628,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 4992
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p1-061",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目明确，选项合理，答案唯一正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-062",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目可解，答案符合分类标准，解释合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-063",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目信息充分，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-064",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项明确，答案唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-065",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目清晰，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-066",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目简单，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-067",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "方向判断正确，答案唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-068",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目信息完整，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-069",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "顺序描述清晰，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-070",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目明确，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-071",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "排队问题计算正确，答案唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-072",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "方位描述清晰，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-073",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目信息一致，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-074",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "位置推理正确，答案唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-075",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "排队问题计算正确，答案包含算式。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-076",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "距离计算正确，答案唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-077",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "排队问题计算正确，答案唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-078",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "位置推理正确，答案唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-079",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "排队问题计算正确，答案唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-080",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "排队问题计算正确，答案唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-081",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "物品形状判断正确，答案唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-082",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "滚动特性判断正确，答案唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-083",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "积木计数正确，答案唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-084",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "正方体识别正确，答案唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-085",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "图形特性判断正确，答案唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-086",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "分类计数正确，答案唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-087",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "拼法描述合理，答案符合要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-088",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "物体特征判断正确，答案唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-089",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "画图形判断正确，答案唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-090",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "滚动物品识别正确，答案唯一。"
+      }
+    ],
+    "batchSummary": {
+      "solvableYes": 30,
+      "solvableNo": 0,
+      "answerMatchYes": 30,
+      "answerMatchNo": 0,
+      "notes": "所有题目均可解，答案匹配正确，无问题。"
+    }
+  }
+}

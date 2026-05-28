@@ -1,0 +1,330 @@
+{
+  "batchNumber": 10,
+  "startedAt": "2026-05-27T03:37:24.035Z",
+  "completedAt": "2026-05-27T03:37:55.168Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p2-021",
+    "bnu-primary-ds-v1-p2-022",
+    "bnu-primary-ds-v1-p2-023",
+    "bnu-primary-ds-v1-p2-024",
+    "bnu-primary-ds-v1-p2-025",
+    "bnu-primary-ds-v1-p2-026",
+    "bnu-primary-ds-v1-p2-027",
+    "bnu-primary-ds-v1-p2-028",
+    "bnu-primary-ds-v1-p2-029",
+    "bnu-primary-ds-v1-p2-030",
+    "bnu-primary-ds-v1-p2-031",
+    "bnu-primary-ds-v1-p2-032",
+    "bnu-primary-ds-v1-p2-033",
+    "bnu-primary-ds-v1-p2-034",
+    "bnu-primary-ds-v1-p2-035",
+    "bnu-primary-ds-v1-p2-036",
+    "bnu-primary-ds-v1-p2-037",
+    "bnu-primary-ds-v1-p2-038",
+    "bnu-primary-ds-v1-p2-039",
+    "bnu-primary-ds-v1-p2-040",
+    "bnu-primary-ds-v1-p2-041",
+    "bnu-primary-ds-v1-p2-042",
+    "bnu-primary-ds-v1-p2-043",
+    "bnu-primary-ds-v1-p2-044",
+    "bnu-primary-ds-v1-p2-045",
+    "bnu-primary-ds-v1-p2-046",
+    "bnu-primary-ds-v1-p2-047",
+    "bnu-primary-ds-v1-p2-048",
+    "bnu-primary-ds-v1-p2-049",
+    "bnu-primary-ds-v1-p2-050"
+  ],
+  "usage": {
+    "prompt_tokens": 6519,
+    "completion_tokens": 2390,
+    "total_tokens": 8909,
+    "prompt_tokens_details": {
+      "cached_tokens": 6400
+    },
+    "prompt_cache_hit_tokens": 6400,
+    "prompt_cache_miss_tokens": 119
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p2-021",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目信息完整，计算正确，找回7角。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-022",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项唯一正确，5元-3元5角=1元5角。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-023",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "计算总钱数5元2角，够买，剩1元。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-024",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "总价12元5角，找回7元5角，正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-025",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项A正好6元7角，其他选项金额不符。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-026",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "单位填写合理，符合生活实际。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-027",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "总价10元3角，10元不够，差3角。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-028",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "应找2元5角，选项B正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-029",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "兑换关系正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-030",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "4×5角+3×1角=2元3角。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-031",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "小乐每盒5块，可用乘法；小美每盒数量不同，不可用乘法。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-032",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目描述清晰，答案正确，但需注意原题可能缺图，但文字已说明排列。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-033",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "4袋每袋6颗，加法乘法均正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-034",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "5+5+5表示3个5，不是5个3。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-035",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "图形描述为3组每组4个，算式正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-036",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "小明5个2，可用5×2；小红2个5，可用2×5。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-037",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "最后一个选项每盘数量不同，不能用乘法。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-038",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "5个6相加，乘法算式正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-039",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "4×5=20，5×4=20，一样多。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-040",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "每盒6支，4盒是相同加数，可用乘法。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-041",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "4盒每盒6支，加法乘法均正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-042",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "两人每份数量都相同，都可用乘法。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-043",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "每天页数不同，不能用乘法。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-044",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "3排每排4盆，算式正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-045",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "画图表示3×5，答案合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-046",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "风车转动是旋转，其他是平移。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-047",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "0和8是轴对称数字。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-048",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "对折一次剪出两个对称爱心。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-049",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "一般平行四边形不是轴对称图形。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-050",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "指针旋转，国旗平移，符号正确。"
+      }
+    ],
+    "batchSummary": {
+      "solvableYes": 30,
+      "solvableNo": 0,
+      "answerMatchYes": 30,
+      "answerMatchNo": 0,
+      "notes": "全部30道题均可解，答案匹配，无问题。"
+    }
+  }
+}

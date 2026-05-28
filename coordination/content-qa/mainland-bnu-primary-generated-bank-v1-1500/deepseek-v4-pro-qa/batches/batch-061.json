@@ -1,0 +1,193 @@
+{
+  "batchNumber": 61,
+  "startedAt": "2026-05-27T13:29:39.237Z",
+  "completedAt": "2026-05-27T13:29:57.383Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p5-081",
+    "bnu-primary-ds-v1-p5-082",
+    "bnu-primary-ds-v1-p5-083",
+    "bnu-primary-ds-v1-p5-084",
+    "bnu-primary-ds-v1-p5-085",
+    "bnu-primary-ds-v1-p5-086",
+    "bnu-primary-ds-v1-p5-087",
+    "bnu-primary-ds-v1-p5-088",
+    "bnu-primary-ds-v1-p5-089",
+    "bnu-primary-ds-v1-p5-090",
+    "bnu-primary-ds-v1-p5-091",
+    "bnu-primary-ds-v1-p5-092",
+    "bnu-primary-ds-v1-p5-093",
+    "bnu-primary-ds-v1-p5-094",
+    "bnu-primary-ds-v1-p5-095",
+    "bnu-primary-ds-v1-p5-096",
+    "bnu-primary-ds-v1-p5-097",
+    "bnu-primary-ds-v1-p5-098"
+  ],
+  "usage": {
+    "prompt_tokens": 3559,
+    "completion_tokens": 1294,
+    "total_tokens": 4853,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 3303
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p5-081",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，计算正确，答案与解析一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-082",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，计算正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-083",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，计算正确，答案与解析一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-084",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，计算正确，π取值明确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-085",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，计算正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-086",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，计算正确，答案与解析一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-087",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，计算正确，答案与解析一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-088",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，计算正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-089",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，计算正确，答案与解析一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-090",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，计算正确，答案与解析一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-091",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，选项分析正确，答案唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-092",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，解析合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-093",
+        "status": "warn",
+        "severity": "minor",
+        "issueTags": [
+          "accepted_answer_gap"
+        ],
+        "correctedAnswer": null,
+        "rationale": "答案“红色或蓝色”正确，但acceptedAnswers未包含“红色和蓝色”等常见表述，可能造成误判。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-094",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，选项分析正确，答案唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-095",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，解析合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-096",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，解析合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-097",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，选项分析正确，答案唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-098",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，解析合理。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 17,
+      "warn": 1,
+      "fail": 0,
+      "notes": "整体质量良好，仅一题因答案表述覆盖不全建议优化。"
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-474",
+  "startedAt": "2026-05-28T01:35:18.702Z",
+  "completedAt": "2026-05-28T01:35:23.126Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-474"
+  ],
+  "usage": {
+    "prompt_tokens": 2053,
+    "completion_tokens": 251,
+    "total_tokens": 2304,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1669
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-474",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "0.630",
+        "correctedAnswer": "0.630",
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合BNU统计案例范围。独立计算得b=0.630，但存储答案为0.670，解析过程正确却给出错误最终答案，存在答案不匹配和解释矛盾，严重错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1题答案错误，解析自相矛盾，需修正答案为0.630。"
+    }
+  }
+}

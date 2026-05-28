@@ -1,0 +1,150 @@
+{
+  "batchNumber": 61,
+  "startedAt": "2026-05-25T03:06:13.447Z",
+  "completedAt": "2026-05-25T03:06:32.228Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s2-k09-mc-020",
+    "pep-junior-v3-s2-k09-mc-021",
+    "pep-junior-v3-s2-k09-mc-022",
+    "pep-junior-v3-s2-k09-mc-023",
+    "pep-junior-v3-s2-k09-mc-024",
+    "pep-junior-v3-s2-k09-mc-025",
+    "pep-junior-v3-s2-k09-mc-026",
+    "pep-junior-v3-s2-k09-mc-027",
+    "pep-junior-v3-s2-k09-mc-028",
+    "pep-junior-v3-s2-k09-mc-029",
+    "pep-junior-v3-s2-k09-mc-030",
+    "pep-junior-v3-s2-k09-mc-031"
+  ],
+  "usage": {
+    "prompt_tokens": 3548,
+    "completion_tokens": 1108,
+    "total_tokens": 4656,
+    "prompt_tokens_details": {
+      "cached_tokens": 3456
+    },
+    "prompt_cache_hit_tokens": 3456,
+    "prompt_cache_miss_tokens": 92
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s2-k09-mc-020",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目数据清晰，众数计算正确，解释合理，选项无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-mc-021",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "一次函数求k值，计算正确，选项无重复，答案匹配。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-mc-022",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "概率计算正确，选项合理，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-mc-023",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "利润函数关系式正确，选项区分度好，答案唯一。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-mc-024",
+        "status": "fail",
+        "severity": "major",
+        "issueTags": [
+          "grade_mismatch"
+        ],
+        "correctedAnswer": null,
+        "rationale": "绝对值比较属于七年级上册内容，与当前S2（八年级下）一次函数与数据分析单元不匹配，超范围。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-mc-025",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "一次函数应用，不等式求解正确，选项清晰。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-mc-026",
+        "status": "fail",
+        "severity": "major",
+        "issueTags": [
+          "grade_mismatch"
+        ],
+        "correctedAnswer": null,
+        "rationale": "分式化简属于八年级上册内容，与当前S2（八年级下）一次函数与数据分析单元不匹配。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-mc-027",
+        "status": "fail",
+        "severity": "major",
+        "issueTags": [
+          "grade_mismatch"
+        ],
+        "correctedAnswer": null,
+        "rationale": "等腰三角形性质属于八年级上册内容，与当前S2（八年级下）一次函数与数据分析单元不匹配。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-mc-028",
+        "status": "fail",
+        "severity": "major",
+        "issueTags": [
+          "grade_mismatch"
+        ],
+        "correctedAnswer": null,
+        "rationale": "勾股定理属于八年级下册内容，但单元为一次函数与数据分析，勾股定理不在本单元，超范围。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-mc-029",
+        "status": "fail",
+        "severity": "major",
+        "issueTags": [
+          "grade_mismatch"
+        ],
+        "correctedAnswer": null,
+        "rationale": "坐标平移属于七年级下册内容，与当前S2（八年级下）一次函数与数据分析单元不匹配。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-mc-030",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "一次函数应用，方程求解正确，选项合理。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-mc-031",
+        "status": "fail",
+        "severity": "blocker",
+        "issueTags": [
+          "copy_risk",
+          "template_repetition"
+        ],
+        "correctedAnswer": null,
+        "rationale": "与第021题几乎完全相同，仅选项数值不同，属于重复题目，存在抄袭风险。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 0,
+      "fail": 6,
+      "notes": "6道题目通过，6道未通过：其中5道因知识点与当前单元不匹配（绝对值、分式、等腰三角形、勾股定理、坐标平移），1道因与第021题高度重复。"
+    }
+  }
+}

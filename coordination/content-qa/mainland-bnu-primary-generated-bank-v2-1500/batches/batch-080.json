@@ -1,0 +1,577 @@
+{
+  "batchId": "batch-080",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p4-041",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-multiplication",
+      "unitTitle": "乘法",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "multi-digit-multiplication",
+        "three-digit-by-two-digit",
+        "multiplication-estimation",
+        "乘法",
+        "三位数乘两位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "两位数乘三位数",
+        "竖式乘法",
+        "估算积",
+        "积的变化规律",
+        "乘法应用"
+      ],
+      "misconceptionTags": [
+        "partial products not aligned by place value",
+        "zero placeholder omitted",
+        "estimate not used to check product size"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-multiplication-unit",
+        "bnu-primary-p4-upper-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算 236 × 47 时，先用个位上的 7 乘 236，再用十位上的 4 乘 236。第二步的积是______。",
+      "optionsZhHans": [],
+      "answer": "9440",
+      "acceptedAnswers": [
+        "9440"
+      ],
+      "explanationZhHans": "十位上的4表示40，236×40=9440。注意第二步积的末位要对齐十位，即9440。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-042",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-multiplication",
+      "unitTitle": "乘法",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "multi-digit-multiplication",
+        "three-digit-by-two-digit",
+        "multiplication-estimation",
+        "乘法",
+        "三位数乘两位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "两位数乘三位数",
+        "竖式乘法",
+        "估算积",
+        "积的变化规律",
+        "乘法应用"
+      ],
+      "misconceptionTags": [
+        "partial products not aligned by place value",
+        "zero placeholder omitted",
+        "estimate not used to check product size"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-multiplication-unit",
+        "bnu-primary-p4-upper-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校要为图书馆购买一批新书，每本书的价格是 18 元，一共要买 125 本。学校需要支付多少元？请列竖式计算。",
+      "optionsZhHans": [],
+      "answer": "2250",
+      "acceptedAnswers": [
+        "2250",
+        "2250元"
+      ],
+      "explanationZhHans": "125×18=125×（20-2）=2500-250=2250，或竖式计算：125×8=1000，125×10=1250，合计2250元。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-043",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-multiplication",
+      "unitTitle": "乘法",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "multi-digit-multiplication",
+        "three-digit-by-two-digit",
+        "multiplication-estimation",
+        "乘法",
+        "三位数乘两位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "两位数乘三位数",
+        "竖式乘法",
+        "估算积",
+        "积的变化规律",
+        "乘法应用"
+      ],
+      "misconceptionTags": [
+        "partial products not aligned by place value",
+        "zero placeholder omitted",
+        "estimate not used to check product size"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-multiplication-unit",
+        "bnu-primary-p4-upper-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个算式的积最接近 10000？",
+      "optionsZhHans": [
+        "A. 198 × 52",
+        "B. 205 × 48",
+        "C. 312 × 32",
+        "D. 401 × 25"
+      ],
+      "answer": "C. 312 × 32",
+      "acceptedAnswers": [
+        "C. 312 × 32",
+        "C"
+      ],
+      "explanationZhHans": "估算：198×52≈200×50=10000；205×48≈200×50=10000；312×32≈300×30=9000；401×25≈400×25=10000。精确计算：312×32=9984，最接近10000。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-044",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-multiplication",
+      "unitTitle": "乘法",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "multi-digit-multiplication",
+        "three-digit-by-two-digit",
+        "multiplication-estimation",
+        "乘法",
+        "三位数乘两位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "两位数乘三位数",
+        "竖式乘法",
+        "估算积",
+        "积的变化规律",
+        "乘法应用"
+      ],
+      "misconceptionTags": [
+        "partial products not aligned by place value",
+        "zero placeholder omitted",
+        "estimate not used to check product size"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-multiplication-unit",
+        "bnu-primary-p4-upper-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在计算 345 × 26 时，小马虎把 26 看成了 29，这样得到的积比正确的积多了______。",
+      "optionsZhHans": [],
+      "answer": "1035",
+      "acceptedAnswers": [
+        "1035"
+      ],
+      "explanationZhHans": "正确的积：345×26=8970；错误的积：345×29=10005；相差10005-8970=1035。或者345×(29-26)=345×3=1035。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-045",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-multiplication",
+      "unitTitle": "乘法",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "multi-digit-multiplication",
+        "three-digit-by-two-digit",
+        "multiplication-estimation",
+        "乘法",
+        "三位数乘两位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "两位数乘三位数",
+        "竖式乘法",
+        "估算积",
+        "积的变化规律",
+        "乘法应用"
+      ],
+      "misconceptionTags": [
+        "partial products not aligned by place value",
+        "zero placeholder omitted",
+        "estimate not used to check product size"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-multiplication-unit",
+        "bnu-primary-p4-upper-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一列火车平均每小时行驶 118 千米，从甲城到乙城需要行驶 12 小时。甲城到乙城的铁路长多少千米？先估算，再精确计算。",
+      "optionsZhHans": [],
+      "answer": "1416",
+      "acceptedAnswers": [
+        "1416",
+        "1416千米"
+      ],
+      "explanationZhHans": "估算：118×12≈120×10=1200（千米）。精确计算：118×12=118×10+118×2=1180+236=1416（千米）。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-046",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-multiplication",
+      "unitTitle": "乘法",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "multi-digit-multiplication",
+        "three-digit-by-two-digit",
+        "multiplication-estimation",
+        "乘法",
+        "三位数乘两位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "两位数乘三位数",
+        "竖式乘法",
+        "估算积",
+        "积的变化规律",
+        "乘法应用"
+      ],
+      "misconceptionTags": [
+        "partial products not aligned by place value",
+        "zero placeholder omitted",
+        "estimate not used to check product size"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-multiplication-unit",
+        "bnu-primary-p4-upper-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面竖式中，箭头所指的“472”表示什么意思？\n\n   236\n×   24\n-------\n   944\n  472\n-------\n  5664\n\n箭头指向第二行的“472”。",
+      "optionsZhHans": [
+        "A. 236 × 2",
+        "B. 236 × 4",
+        "C. 236 × 20",
+        "D. 236 × 24"
+      ],
+      "answer": "C. 236 × 20",
+      "acceptedAnswers": [
+        "C. 236 × 20",
+        "C"
+      ],
+      "explanationZhHans": "竖式中第二行的472是236×2的积，但2在十位上，表示20，所以472表示236×20=4720，末位对齐十位，简写为472。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-047",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-multiplication",
+      "unitTitle": "乘法",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "multi-digit-multiplication",
+        "three-digit-by-two-digit",
+        "multiplication-estimation",
+        "乘法",
+        "三位数乘两位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "两位数乘三位数",
+        "竖式乘法",
+        "估算积",
+        "积的变化规律",
+        "乘法应用"
+      ],
+      "misconceptionTags": [
+        "partial products not aligned by place value",
+        "zero placeholder omitted",
+        "estimate not used to check product size"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-multiplication-unit",
+        "bnu-primary-p4-upper-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "根据 15 × 24 = 360，直接写出下面算式的积：150 × 240 = ______。",
+      "optionsZhHans": [],
+      "answer": "36000",
+      "acceptedAnswers": [
+        "36000"
+      ],
+      "explanationZhHans": "一个因数乘10，另一个因数也乘10，积就乘100。360×100=36000。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-048",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-multiplication",
+      "unitTitle": "乘法",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "multi-digit-multiplication",
+        "three-digit-by-two-digit",
+        "multiplication-estimation",
+        "乘法",
+        "三位数乘两位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "两位数乘三位数",
+        "竖式乘法",
+        "估算积",
+        "积的变化规律",
+        "乘法应用"
+      ],
+      "misconceptionTags": [
+        "partial products not aligned by place value",
+        "zero placeholder omitted",
+        "estimate not used to check product size"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-multiplication-unit",
+        "bnu-primary-p4-upper-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "果园里有苹果树 32 行，每行 108 棵；有梨树 28 行，每行 105 棵。苹果树比梨树多多少棵？",
+      "optionsZhHans": [],
+      "answer": "516",
+      "acceptedAnswers": [
+        "516",
+        "516棵"
+      ],
+      "explanationZhHans": "苹果树：32×108=3456（棵）；梨树：28×105=2940（棵）；相差：3456-2940=516（棵）。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-049",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-operation-laws",
+      "unitTitle": "运算律",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "operation-laws",
+        "commutative-associative-distributive",
+        "mental-calculation",
+        "运算律",
+        "简便计算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "推理意识",
+        "符号意识"
+      ],
+      "skillTags": [
+        "加法运算律",
+        "乘法运算律",
+        "分配律",
+        "简便计算",
+        "等式变形解释"
+      ],
+      "misconceptionTags": [
+        "law name memorized without equality meaning",
+        "distributive structure applied to nonmatching terms",
+        "shortcut chosen even when it increases complexity"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-operation-laws"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-operation-laws-unit",
+        "bnu-primary-p4-upper-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个算式与 25 × 44 的计算结果相同？",
+      "optionsZhHans": [
+        "A. 25 × 40 + 4",
+        "B. 25 × 4 × 11",
+        "C. 25 × 40 × 4",
+        "D. 25 × 4 + 11"
+      ],
+      "answer": "B. 25 × 4 × 11",
+      "acceptedAnswers": [
+        "B. 25 × 4 × 11",
+        "B"
+      ],
+      "explanationZhHans": "25×44=25×(4×11)=25×4×11，运用乘法结合律。A、C、D均改变了运算顺序或数值，结果不同。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-050",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-operation-laws",
+      "unitTitle": "运算律",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "operation-laws",
+        "commutative-associative-distributive",
+        "mental-calculation",
+        "运算律",
+        "简便计算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "推理意识",
+        "符号意识"
+      ],
+      "skillTags": [
+        "加法运算律",
+        "乘法运算律",
+        "分配律",
+        "简便计算",
+        "等式变形解释"
+      ],
+      "misconceptionTags": [
+        "law name memorized without equality meaning",
+        "distributive structure applied to nonmatching terms",
+        "shortcut chosen even when it increases complexity"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-operation-laws"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-operation-laws-unit",
+        "bnu-primary-p4-upper-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在横线上填上合适的数：36 × 25 = 9 × (4 × 25) = 9 × ______ = ______。",
+      "optionsZhHans": [],
+      "answer": "100, 900",
+      "acceptedAnswers": [
+        "100, 900",
+        "100 900"
+      ],
+      "explanationZhHans": "36×25=(9×4)×25=9×(4×25)=9×100=900，运用乘法结合律进行简便计算。"
+    }
+  ]
+}

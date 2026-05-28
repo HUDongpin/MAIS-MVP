@@ -1,0 +1,168 @@
+{
+  "scope": "full",
+  "batchIndex": 48,
+  "startedAt": "2026-05-28T03:42:07.293Z",
+  "completedAt": "2026-05-28T03:42:34.636Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "itemIds": [
+    "924",
+    "926",
+    "927",
+    "1041",
+    "1042",
+    "1043",
+    "1044",
+    "1045",
+    "1046",
+    "1047"
+  ],
+  "usage": {
+    "prompt_tokens": 3059,
+    "completion_tokens": 2030,
+    "total_tokens": 5089,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1109
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2675
+  },
+  "finishReason": "stop",
+  "jsonModeFallback": false,
+  "result": {
+    "items": [
+      {
+        "questionId": "924",
+        "questionType": "MCQ",
+        "hasImage": false,
+        "standardAnswer": "B",
+        "independentAnswer": "B",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "The number formed by last three digits 53? must be divisible by 8. Only 536 works, so answer B.",
+        "recommendedAction": "none"
+      },
+      {
+        "questionId": "926",
+        "questionType": "MCQ",
+        "hasImage": false,
+        "standardAnswer": "B",
+        "independentAnswer": "B",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Product equals LCM only when numbers are coprime. Only 6 and 17 are coprime.",
+        "recommendedAction": "none"
+      },
+      {
+        "questionId": "927",
+        "questionType": "MCQ",
+        "hasImage": false,
+        "standardAnswer": "D",
+        "independentAnswer": "D",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Compute step by step: 0.5×(10.4−(3−0.81))=0.5×(10.4−2.19)=0.5×8.21=4.105.",
+        "recommendedAction": "none"
+      },
+      {
+        "questionId": "1041",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "(a)\t✗, ✓, ✗\n\t(b)\t✓, ✓, ✓\n\t(c)\t✓, ✗, ✗\n\t(d)\t✓, ✓, ✓\n\t(e)\t✗, ✓, ✗\n\t(f)\t✓, ✓, ✓",
+        "independentAnswer": "(a) ✗, ✓, ✗; (b) ✓, ✓, ✓; (c) ✓, ✗, ✗; (d) ✓, ✓, ✓; (e) ✗, ✓, ✗; (f) ✓, ✓, ✓",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Divisibility rules applied correctly; all entries match standard answer.",
+        "recommendedAction": "none"
+      },
+      {
+        "questionId": "1042",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "否",
+        "independentAnswer": "否",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Last two digits 23 not divisible by 4, so answer No.",
+        "recommendedAction": "none"
+      },
+      {
+        "questionId": "1043",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "可",
+        "independentAnswer": "可",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Last two digits 28 divisible by 4, so answer Yes.",
+        "recommendedAction": "none"
+      },
+      {
+        "questionId": "1044",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "否",
+        "independentAnswer": "否",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Last two digits 42 not divisible by 4, so answer No.",
+        "recommendedAction": "none"
+      },
+      {
+        "questionId": "1045",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "可",
+        "independentAnswer": "可",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Last three digits 032 (32) divisible by 8, so answer Yes.",
+        "recommendedAction": "none"
+      },
+      {
+        "questionId": "1046",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "否",
+        "independentAnswer": "否",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Last three digits 823 not divisible by 8, so answer No.",
+        "recommendedAction": "none"
+      },
+      {
+        "questionId": "1047",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "可",
+        "independentAnswer": "可",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Last three digits 784 divisible by 8, so answer Yes.",
+        "recommendedAction": "none"
+      }
+    ],
+    "batchSummary": {
+      "pass": 10,
+      "unsolvable": 0,
+      "ambiguous": 0,
+      "imageContextRequired": 0,
+      "answerMismatch": 0,
+      "missingAnswerKey": 0,
+      "notes": "All items are solvable from text and answer keys match."
+    }
+  }
+}

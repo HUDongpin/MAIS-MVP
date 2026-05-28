@@ -1,0 +1,140 @@
+{
+  "batchNumber": 31,
+  "startedAt": "2026-05-25T02:56:15.574Z",
+  "completedAt": "2026-05-25T02:56:32.213Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s1-k05-fi-027",
+    "pep-junior-v3-s1-k05-fi-028",
+    "pep-junior-v3-s1-k05-fi-029",
+    "pep-junior-v3-s1-k05-fi-030",
+    "pep-junior-v3-s1-k05-fi-031",
+    "pep-junior-v3-s1-k05-fi-032",
+    "pep-junior-v3-s1-k05-fi-033",
+    "pep-junior-v3-s1-k05-sa-001",
+    "pep-junior-v3-s1-k05-sa-002",
+    "pep-junior-v3-s1-k05-sa-003",
+    "pep-junior-v3-s1-k05-sa-004",
+    "pep-junior-v3-s1-k05-sa-005"
+  ],
+  "usage": {
+    "prompt_tokens": 3323,
+    "completion_tokens": 1000,
+    "total_tokens": 4323,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 3067
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s1-k05-fi-027",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "众数定义正确，数据清晰，答案5无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-fi-028",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移坐标计算正确，答案(2,-1)无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-fi-029",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程组求解正确，x+y=4无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-fi-030",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "促销计算正确，最少支付96元无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-fi-031",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平行线性质应用正确，同旁内角互补得125°无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-fi-032",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "样本估计总体计算正确，1020户无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-fi-033",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "实数比较正确，√15<4无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-sa-001",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "二元一次方程组应用正确，答案A型5辆B型2辆无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-sa-002",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "正负数应用正确，计算无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-sa-003",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分式方程应用正确，进价6元无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-sa-004",
+        "status": "fail",
+        "severity": "major",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch"
+        ],
+        "correctedAnswer": "5辆",
+        "rationale": "不等式组解集为x≥5且x≤5.33，整数解为5，无6。解释中错误得出x=5或6，答案应为5辆。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k05-sa-005",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "角度计算正确，∠BOE=115°无误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 11,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第4题（sa-004）不等式组解集错误，x≤5.33且x≥5，整数解只有5，答案应为5辆，解释和答案均错。其余题目均正确。"
+    }
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "scope": "pilot-100",
+  "batchIndex": 19,
+  "startedAt": "2026-05-28T03:20:58.182Z",
+  "completedAt": "2026-05-28T03:21:36.158Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "itemIds": [
+    "105",
+    "10358",
+    "10635",
+    "10388",
+    "4060"
+  ],
+  "usage": {
+    "prompt_tokens": 1928,
+    "completion_tokens": 2335,
+    "total_tokens": 4263,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1722
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1544
+  },
+  "finishReason": "stop",
+  "jsonModeFallback": false,
+  "result": {
+    "items": [
+      {
+        "questionId": "105",
+        "questionType": "MCQ",
+        "hasImage": false,
+        "standardAnswer": "D",
+        "independentAnswer": "D",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "可直接計算各組的LCM，標準答案匹配",
+        "recommendedAction": "無需操作"
+      },
+      {
+        "questionId": "10358",
+        "questionType": "FRQ",
+        "hasImage": true,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": null,
+        "solvabilityStatus": "image-context-required",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "問題依賴圖片內容，無法僅從文本判斷答案，且標準答案缺失",
+        "recommendedAction": "提供圖片內容或補充標準答案"
+      },
+      {
+        "questionId": "10635",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "240",
+        "independentAnswer": "240",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "可直接計算，答案匹配",
+        "recommendedAction": "無需操作"
+      },
+      {
+        "questionId": "10388",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": "5/7",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "標準答案缺失，但問題可解",
+        "recommendedAction": "補充標準答案"
+      },
+      {
+        "questionId": "4060",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "1",
+        "independentAnswer": "1",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "可直接計算，答案匹配",
+        "recommendedAction": "無需操作"
+      }
+    ],
+    "batchSummary": {
+      "pass": 3,
+      "unsolvable": 0,
+      "ambiguous": 0,
+      "imageContextRequired": 1,
+      "answerMismatch": 0,
+      "missingAnswerKey": 2,
+      "notes": "第10358題同時需要圖片和缺失答案鍵, 第10388題缺失答案鍵但其餘可解"
+    }
+  }
+}

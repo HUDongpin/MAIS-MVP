@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-136",
+  "startedAt": "2026-05-28T01:36:35.615Z",
+  "completedAt": "2026-05-28T01:36:49.708Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-081",
+    "bnu-high-ds-v1-s6-082",
+    "bnu-high-ds-v1-s6-083",
+    "bnu-high-ds-v1-s6-084",
+    "bnu-high-ds-v1-s6-085",
+    "bnu-high-ds-v1-s6-086",
+    "bnu-high-ds-v1-s6-087",
+    "bnu-high-ds-v1-s6-088"
+  ],
+  "usage": {
+    "prompt_tokens": 9995,
+    "completion_tokens": 1054,
+    "total_tokens": 11049,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9611
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-081",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "146",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "递推关系为a_{n+1} - a_n = 3n+1，累加得a_n = 2 + 3*(n-1)n/2 + (n-1)，代入n=10得a_10 = 146。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-082",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "2 或 -3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由S_3 = a_1(1+q+q^2)=14，a_1=2得1+q+q^2=7，解得q=2或q=-3，选项C正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-083",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(1) 证明见解析；(2) a_n = 3^n - 2^n",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "构造b_n = a_n - 3^n，得b_{n+1}=2b_n，b_1=-2，故b_n=-2^n，a_n=3^n-2^n。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-084",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由a_7 - a_3 = 4d = 8，得d=2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-085",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "11",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "a_5 = S_5 - S_4 = (25+10) - (16+8) = 35 - 24 = 11。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-086",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "a_n = 2n + 1",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由S_5 = 5a_1 + 10d = 35，a_1=3得d=2，通项a_n = 3 + 2(n-1) = 2n+1。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-087",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "1/19",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "取倒数得1/a_{n+1} = 1/a_n + 2，故{1/a_n}为等差数列，1/a_n = 1 + 2(n-1) = 2n-1，a_10 = 1/19。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-088",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "该数列是等差数列",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "a_n = 2n-1，a_{n+1} - a_n = 2，是等差数列，不是等比数列。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，无数学错误、歧义或缺失条件，符合北师大版高中数列章节要求。"
+    }
+  }
+}

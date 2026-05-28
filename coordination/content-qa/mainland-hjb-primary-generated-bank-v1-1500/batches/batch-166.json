@@ -1,0 +1,304 @@
+{
+  "batchId": "batch-166",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p4-076",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-four-operations-problem-solving",
+      "unitTitle": "整数的四则运算",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "integer-four-operations",
+        "multi-step-word-problems",
+        "operation-laws",
+        "estimation",
+        "整数四则运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "工作效率",
+        "三步计算",
+        "正推",
+        "逆推",
+        "文字计算题",
+        "运算定律",
+        "解决问题"
+      ],
+      "misconceptionTags": [
+        "operation order chosen from keywords only",
+        "estimate omitted before complex calculation",
+        "inverse reasoning reverses the wrong step"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-four-operations-problem-solving"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-four-operations-problem-solving",
+        "hjb-primary-p4-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆新买来一批书，如果每班分40本，正好可以分给12个班。如果每班分48本，可以分给多少个班？正确的算式是（ ）。",
+      "optionsZhHans": [
+        "40 × 12 ÷ 48",
+        "40 ÷ 12 × 48",
+        "48 × 12 ÷ 40",
+        "48 ÷ 12 × 40"
+      ],
+      "answer": "40 × 12 ÷ 48",
+      "acceptedAnswers": [
+        "40 × 12 ÷ 48"
+      ],
+      "explanationZhHans": "先求书的总数：40×12=480本，再求每班48本时的班数：480÷48=10个，综合算式为40×12÷48。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-077",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-four-operations-problem-solving",
+      "unitTitle": "整数的四则运算",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "integer-four-operations",
+        "multi-step-word-problems",
+        "operation-laws",
+        "estimation",
+        "整数四则运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "工作效率",
+        "三步计算",
+        "正推",
+        "逆推",
+        "文字计算题",
+        "运算定律",
+        "解决问题"
+      ],
+      "misconceptionTags": [
+        "operation order chosen from keywords only",
+        "estimate omitted before complex calculation",
+        "inverse reasoning reverses the wrong step"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-four-operations-problem-solving"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-four-operations-problem-solving",
+        "hjb-primary-p4-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算 125×（80＋8）时，运用乘法分配律可以得到 125×80＋125×8，结果是______。",
+      "optionsZhHans": [],
+      "answer": "11000",
+      "acceptedAnswers": [
+        "11000"
+      ],
+      "explanationZhHans": "125×80=10000，125×8=1000，10000+1000=11000。运用乘法分配律使计算简便。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-078",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-four-operations-problem-solving",
+      "unitTitle": "整数的四则运算",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "integer-four-operations",
+        "multi-step-word-problems",
+        "operation-laws",
+        "estimation",
+        "整数四则运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "工作效率",
+        "三步计算",
+        "正推",
+        "逆推",
+        "文字计算题",
+        "运算定律",
+        "解决问题"
+      ],
+      "misconceptionTags": [
+        "operation order chosen from keywords only",
+        "estimate omitted before complex calculation",
+        "inverse reasoning reverses the wrong step"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-four-operations-problem-solving"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-four-operations-problem-solving",
+        "hjb-primary-p4-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小马虎在计算一道题时，把某数乘3加20，误算成某数除以3减20，得数是10。某数是多少？正确的计算结果应该是多少？",
+      "optionsZhHans": [],
+      "answer": "某数是90，正确结果是290",
+      "acceptedAnswers": [
+        "某数是90，正确结果是290",
+        "90，290",
+        "90 290"
+      ],
+      "explanationZhHans": "逆推：从10开始，加20得30，乘3得90。正确计算：90×3+20=290。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-079",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-four-operations-problem-solving",
+      "unitTitle": "整数的四则运算",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "integer-four-operations",
+        "multi-step-word-problems",
+        "operation-laws",
+        "estimation",
+        "整数四则运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "工作效率",
+        "三步计算",
+        "正推",
+        "逆推",
+        "文字计算题",
+        "运算定律",
+        "解决问题"
+      ],
+      "misconceptionTags": [
+        "operation order chosen from keywords only",
+        "estimate omitted before complex calculation",
+        "inverse reasoning reverses the wrong step"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-four-operations-problem-solving"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-four-operations-problem-solving",
+        "hjb-primary-p4-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一辆卡车4次运煤80吨。照这样计算，要运煤200吨，需要运多少次？下面列式正确的是（ ）。",
+      "optionsZhHans": [
+        "200÷（80÷4）",
+        "200÷80÷4",
+        "200÷80×4",
+        "200×（80÷4）"
+      ],
+      "answer": "200÷（80÷4）",
+      "acceptedAnswers": [
+        "200÷（80÷4）"
+      ],
+      "explanationZhHans": "先求每次运煤量：80÷4=20吨，再求200吨需要的次数：200÷20=10次，综合算式为200÷（80÷4）。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-080",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-four-operations-problem-solving",
+      "unitTitle": "整数的四则运算",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "integer-four-operations",
+        "multi-step-word-problems",
+        "operation-laws",
+        "estimation",
+        "整数四则运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "工作效率",
+        "三步计算",
+        "正推",
+        "逆推",
+        "文字计算题",
+        "运算定律",
+        "解决问题"
+      ],
+      "misconceptionTags": [
+        "operation order chosen from keywords only",
+        "estimate omitted before complex calculation",
+        "inverse reasoning reverses the wrong step"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-four-operations-problem-solving"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-four-operations-problem-solving",
+        "hjb-primary-p4-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在计算 360÷（70－4×16）时，应先算______法，再算______法，最后算______法。",
+      "optionsZhHans": [],
+      "answer": "乘，减，除",
+      "acceptedAnswers": [
+        "乘，减，除",
+        "乘 减 除",
+        "乘法，减法，除法"
+      ],
+      "explanationZhHans": "有小括号，先算小括号里的乘法4×16=64，再算减法70-64=6，最后算括号外的除法360÷6=60。"
+    }
+  ]
+}

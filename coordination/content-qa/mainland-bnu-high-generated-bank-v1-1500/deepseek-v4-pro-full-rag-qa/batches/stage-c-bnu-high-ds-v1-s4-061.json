@@ -1,0 +1,47 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-061",
+  "startedAt": "2026-05-28T00:57:24.628Z",
+  "completedAt": "2026-05-28T00:57:30.672Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-061"
+  ],
+  "usage": {
+    "prompt_tokens": 2046,
+    "completion_tokens": 239,
+    "total_tokens": 2285,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1662
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-061",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "C",
+        "correctedAnswer": null,
+        "issueTags": [
+          "explanation_contradiction"
+        ],
+        "severity": "minor",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合教材范围。f(x)=x^3-3x是奇函数，选项C正确。解析中提及值域为R正确，但未明确说明该选项为何不选，可能引起混淆，但未影响答案唯一性。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 1,
+      "warn": 0,
+      "fail": 0,
+      "notes": "题目正确，答案唯一，解析有小瑕疵但不影响判定。"
+    }
+  }
+}

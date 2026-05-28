@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0177",
+  "ids": [
+    "hjb-junior-ds-v2-s3-409",
+    "hjb-junior-ds-v2-s3-410",
+    "hjb-junior-ds-v2-s3-411",
+    "hjb-junior-ds-v2-s3-412",
+    "hjb-junior-ds-v2-s3-413",
+    "hjb-junior-ds-v2-s3-414",
+    "hjb-junior-ds-v2-s3-415",
+    "hjb-junior-ds-v2-s3-416"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-409",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "4～6",
+      "answerCheckZhHans": "标准答案为“4～6”，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-410",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "可以估计该小区居民知晓垃圾分类的比例约为75%",
+      "answerCheckZhHans": "标准答案为“可以估计该小区居民知晓垃圾分类的比例约为75%”，与独立判断一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-411",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "5",
+      "answerCheckZhHans": "标准答案为“5”，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-412",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "平均数",
+      "answerCheckZhHans": "标准答案为“平均数”，与独立判断一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-413",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "50",
+      "answerCheckZhHans": "标准答案为“50”，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-414",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "方差",
+      "answerCheckZhHans": "标准答案为“方差”，与独立判断一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-415",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "134.3",
+      "answerCheckZhHans": "标准答案为“134.3”，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-416",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案A（平均数是86.6分）错误，实际平均数为87.6分；解析中计算得87.6分，却称A错误，自相矛盾。正确选项应为B（中位数是88分）。",
+      "independentAnswerZhHans": "B. 中位数是88分",
+      "answerCheckZhHans": "标准答案为A，但独立计算平均数为87.6，中位数为88，众数为85，方差不为0。因此A错误，B正确。",
+      "recommendedActionZhHans": "修正答案为B，并更新解析。",
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-076",
+  "startedAt": "2026-05-28T01:39:02.257Z",
+  "completedAt": "2026-05-28T01:39:06.823Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-076"
+  ],
+  "usage": {
+    "prompt_tokens": 2548,
+    "completion_tokens": 262,
+    "total_tokens": 2810,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2164
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-076",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "21/16",
+        "correctedAnswer": "21/16",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "等比数列求和计算得 S6 = 21/16，选项 A 为 21/16，但存储答案和解析均错误给出 21/32，解析自身计算过程也得出 21/16，存在严重矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目可解且符合教材范围，但答案和解析均错误，需修正为 21/16。"
+    }
+  }
+}

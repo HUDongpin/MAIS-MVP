@@ -1,0 +1,136 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-149",
+  "startedAt": "2026-05-28T01:42:42.080Z",
+  "completedAt": "2026-05-28T01:42:57.382Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-185",
+    "bnu-high-ds-v1-s6-186",
+    "bnu-high-ds-v1-s6-187",
+    "bnu-high-ds-v1-s6-188",
+    "bnu-high-ds-v1-s6-189",
+    "bnu-high-ds-v1-s6-190",
+    "bnu-high-ds-v1-s6-191",
+    "bnu-high-ds-v1-s6-192"
+  ],
+  "usage": {
+    "prompt_tokens": 12792,
+    "completion_tokens": 1105,
+    "total_tokens": 13897,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 12408
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-185",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案11与独立解一致，解析正确推导出a_n=2n+1并验证a_1，无矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-186",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案3与独立解一致，解析通过方程组正确解得d=3。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-187",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "correctedAnswer": "b_n = 2n - 1",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction",
+          "ambiguous_mc",
+          "bad_options"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案b_n=n错误，独立解为b_n=2n-1。解析推导混乱，最终得出b_n=3-2·(2/3)^{n-1}，与选项均不符，且自相矛盾。题目递推关系与选项不匹配，存在数学错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-188",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "146",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案155错误，独立解为146。解析中公式正确但最终计算错误，得出146后又误写为155，存在矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-189",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案2与独立解一致，解析正确利用等比数列求和公式推导出q=2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-190",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案31与独立解一致，解析通过构造等比数列正确得出a_n=2^n-1，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-191",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析正确计算a_2、a_3并猜想证明a_n=3^n-2^n。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-192",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案20与独立解一致，解析正确利用等差数列下标和性质。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 0,
+      "fail": 2,
+      "notes": "8题中6题通过，2题失败。失败题：187题存储答案错误且解析矛盾，188题存储答案计算错误。"
+    }
+  }
+}

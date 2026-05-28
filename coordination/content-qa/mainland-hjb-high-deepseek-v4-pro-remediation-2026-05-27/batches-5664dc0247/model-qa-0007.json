@@ -1,0 +1,315 @@
+{
+  "batchId": "model-qa-0007",
+  "ids": [
+    "hjb-high-ds-v3-s4-089",
+    "hjb-high-ds-v3-s4-091",
+    "hjb-high-ds-v3-s4-093",
+    "hjb-high-ds-v3-s4-095",
+    "hjb-high-ds-v3-s4-097",
+    "hjb-high-ds-v3-s4-099",
+    "hjb-high-ds-v3-s4-316",
+    "hjb-high-ds-v3-s4-319",
+    "hjb-high-ds-v3-s4-322",
+    "hjb-high-ds-v3-s4-325",
+    "hjb-high-ds-v3-s4-328",
+    "hjb-high-ds-v3-s4-331",
+    "hjb-high-ds-v3-s4-334",
+    "hjb-high-ds-v3-s4-337",
+    "hjb-high-ds-v3-s4-340",
+    "hjb-high-ds-v3-s4-343",
+    "hjb-high-ds-v3-s4-346",
+    "hjb-high-ds-v3-s4-349",
+    "hjb-high-ds-v3-s4-352",
+    "hjb-high-ds-v3-s4-355"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-high-ds-v3-s4-089",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "11",
+      "answerCheckZhHans": "标准答案 11 与独立答案一致，acceptedAnswers 包含 11。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-091",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "10",
+      "answerCheckZhHans": "标准答案 10 与独立答案一致，acceptedAnswers 包含 10，且仅有一个正确选项。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-093",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案 2 与独立答案一致，acceptedAnswers 包含 2。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-095",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "9",
+      "answerCheckZhHans": "标准答案 9 与独立答案一致，acceptedAnswers 包含 9。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-097",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "9",
+      "answerCheckZhHans": "标准答案 9 与独立答案一致，acceptedAnswers 包含 9，且仅有一个正确选项。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-099",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "11",
+      "answerCheckZhHans": "标准答案 11 与独立答案一致，acceptedAnswers 包含 11。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-316",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "独立计算得最大值次数为 2，但解析中 k 的取值推导有误：由 2x+10π/6=π/2+2kπ 得 x = -7π/12 + kπ，在 [0,2π] 内 k=1,2 对应 x=5π/12, 17π/12，共 2 次，答案 2 正确，但解析中 x=π(3-10)/12+kπ 的表达式错误，应为 x = -7π/12 + kπ。",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案 2 与独立答案一致，但解析推导有误。",
+      "recommendedActionZhHans": "修正解析中的表达式，改为 x = -7π/12 + kπ，并重新验证 k 的取值。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-319",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "独立计算得最大值次数为 2，但解析中 k 的取值推导有误：由 2x+8π/6=π/2+2kπ 得 x = -5π/12 + kπ，在 [0,2π] 内 k=1,2 对应 x=7π/12, 19π/12，共 2 次，答案 2 正确，但解析中 x=π(3-8)/12+kπ 的表达式错误，应为 x = -5π/12 + kπ。",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案 2 与独立答案一致，但解析推导有误。",
+      "recommendedActionZhHans": "修正解析中的表达式，改为 x = -5π/12 + kπ，并重新验证 k 的取值。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-322",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "独立计算得最大值次数为 2，但解析中 k 的取值推导有误：由 2x+6π/6=π/2+2kπ 得 x = -π/4 + kπ，在 [0,2π] 内 k=1,2 对应 x=3π/4, 7π/4，共 2 次，答案 2 正确，但解析中 x=π(3-6)/12+kπ 的表达式错误，应为 x = -π/4 + kπ。",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案 2 与独立答案一致，但解析推导有误。",
+      "recommendedActionZhHans": "修正解析中的表达式，改为 x = -π/4 + kπ，并重新验证 k 的取值。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-325",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "独立计算得最大值次数为 3，但解析中 k 的取值推导有误：由 2x+3π/6=π/2+2kπ 得 x = kπ，在 [0,2π] 内 k=0,1,2 对应 x=0,π,2π，共 3 次，答案 3 正确，但解析中 x=π(3-3)/12+kπ 的表达式错误，应为 x = kπ。",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "标准答案 3 与独立答案一致，但解析推导有误。",
+      "recommendedActionZhHans": "修正解析中的表达式，改为 x = kπ，并重新验证 k 的取值。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-328",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "独立计算得最大值次数为 2，但解析中 k 的取值推导有误：由 2x+10π/6=π/2+2kπ 得 x = -7π/12 + kπ，在 [0,2π] 内 k=1,2 对应 x=5π/12, 17π/12，共 2 次，答案 2 正确，但解析中 x=π(3-10)/12+kπ 的表达式错误，应为 x = -7π/12 + kπ。",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案 2 与独立答案一致，但解析推导有误。",
+      "recommendedActionZhHans": "修正解析中的表达式，改为 x = -7π/12 + kπ，并重新验证 k 的取值。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-331",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "独立计算得最大值次数为 2，但解析中 k 的取值推导有误：由 2x+2π/6=π/2+2kπ 得 x = π/12 + kπ，在 [0,2π] 内 k=0,1 对应 x=π/12, 13π/12，共 2 次，答案 2 正确，但解析中 x=π(3-2)/12+kπ 的表达式错误，应为 x = π/12 + kπ。",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案 2 与独立答案一致，但解析推导有误。",
+      "recommendedActionZhHans": "修正解析中的表达式，改为 x = π/12 + kπ，并重新验证 k 的取值。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-334",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "独立计算得最大值次数为 3，但解析中 k 的取值推导有误：由 2x+3π/6=π/2+2kπ 得 x = kπ，在 [0,2π] 内 k=0,1,2 对应 x=0,π,2π，共 3 次，答案 3 正确，但解析中 x=π(3-3)/12+kπ 的表达式错误，应为 x = kπ。",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "标准答案 3 与独立答案一致，但解析推导有误。",
+      "recommendedActionZhHans": "修正解析中的表达式，改为 x = kπ，并重新验证 k 的取值。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-337",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "独立计算得最大值次数为 2，但解析中 k 的取值推导有误：由 2x+1π/6=π/2+2kπ 得 x = π/6 + kπ，在 [0,2π] 内 k=0,1 对应 x=π/6, 7π/6，共 2 次，答案 2 正确，但解析中 x=π(3-1)/12+kπ 的表达式错误，应为 x = π/6 + kπ。",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案 2 与独立答案一致，但解析推导有误。",
+      "recommendedActionZhHans": "修正解析中的表达式，改为 x = π/6 + kπ，并重新验证 k 的取值。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-340",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "独立计算得最大值次数为 2，但解析中 k 的取值推导有误：由 2x+4π/6=π/2+2kπ 得 x = -π/12 + kπ，在 [0,2π] 内 k=1,2 对应 x=11π/12, 23π/12，共 2 次，答案 2 正确，但解析中 x=π(3-4)/12+kπ 的表达式错误，应为 x = -π/12 + kπ。",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案 2 与独立答案一致，但解析推导有误。",
+      "recommendedActionZhHans": "修正解析中的表达式，改为 x = -π/12 + kπ，并重新验证 k 的取值。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-343",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "独立计算得最大值次数为 3，但解析中 k 的取值推导有误：由 2x+3π/6=π/2+2kπ 得 x = kπ，在 [0,2π] 内 k=0,1,2 对应 x=0,π,2π，共 3 次，答案 3 正确，但解析中 x=π(3-3)/12+kπ 的表达式错误，应为 x = kπ。",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "标准答案 3 与独立答案一致，但解析推导有误。",
+      "recommendedActionZhHans": "修正解析中的表达式，改为 x = kπ，并重新验证 k 的取值。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-346",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "独立计算得最大值次数为 2，但解析中 k 的取值推导有误：由 2x+9π/6=π/2+2kπ 得 x = -π/2 + kπ，在 [0,2π] 内 k=1,2 对应 x=π/2, 3π/2，共 2 次，答案 2 正确，但解析中 x=π(3-9)/12+kπ 的表达式错误，应为 x = -π/2 + kπ。",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案 2 与独立答案一致，但解析推导有误。",
+      "recommendedActionZhHans": "修正解析中的表达式，改为 x = -π/2 + kπ，并重新验证 k 的取值。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-349",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "独立计算得最大值次数为 2，但解析中 k 的取值推导有误：由 2x+13π/6=π/2+2kπ 得 x = -5π/6 + kπ，在 [0,2π] 内 k=1,2 对应 x=π/6, 7π/6，共 2 次，答案 2 正确，但解析中 x=π(3-13)/12+kπ 的表达式错误，应为 x = -5π/6 + kπ。",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案 2 与独立答案一致，但解析推导有误。",
+      "recommendedActionZhHans": "修正解析中的表达式，改为 x = -5π/6 + kπ，并重新验证 k 的取值。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-352",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "独立计算得最大值次数为 2，但解析中 k 的取值推导有误：由 2x+7π/6=π/2+2kπ 得 x = -π/3 + kπ，在 [0,2π] 内 k=1,2 对应 x=2π/3, 5π/3，共 2 次，答案 2 正确，但解析中 x=π(3-7)/12+kπ 的表达式错误，应为 x = -π/3 + kπ。",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案 2 与独立答案一致，但解析推导有误。",
+      "recommendedActionZhHans": "修正解析中的表达式，改为 x = -π/3 + kπ，并重新验证 k 的取值。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-355",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "独立计算得最大值次数为 2，但解析中 k 的取值推导有误：由 2x+2π/6=π/2+2kπ 得 x = π/12 + kπ，在 [0,2π] 内 k=0,1 对应 x=π/12, 13π/12，共 2 次，答案 2 正确，但解析中 x=π(3-2)/12+kπ 的表达式错误，应为 x = π/12 + kπ。",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案 2 与独立答案一致，但解析推导有误。",
+      "recommendedActionZhHans": "修正解析中的表达式，改为 x = π/12 + kπ，并重新验证 k 的取值。",
+      "confidence": "high"
+    }
+  ]
+}

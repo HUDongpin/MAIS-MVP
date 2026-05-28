@@ -1,0 +1,162 @@
+{
+  "scope": "full",
+  "batchIndex": 74,
+  "startedAt": "2026-05-28T04:08:17.454Z",
+  "completedAt": "2026-05-28T04:11:04.710Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "itemIds": [
+    "1785",
+    "1786",
+    "1787",
+    "1788",
+    "1789",
+    "1790",
+    "1791",
+    "1792",
+    "1793",
+    "1794"
+  ],
+  "usage": {
+    "prompt_tokens": 7394,
+    "completion_tokens": 8463,
+    "total_tokens": 15857
+  },
+  "finishReason": "single-question-fallback",
+  "jsonModeFallback": false,
+  "batchProviderError": "DeepSeek request timed out",
+  "singleQuestionFallback": true,
+  "result": {
+    "items": [
+      {
+        "questionId": "1785",
+        "questionType": "MCQ",
+        "hasImage": false,
+        "standardAnswer": "B",
+        "independentAnswer": "B",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "問題清晰可解，答案選項 B 正確表示 y 的 2m 次冪。",
+        "recommendedAction": "None"
+      },
+      {
+        "questionId": "1786",
+        "questionType": "MCQ",
+        "hasImage": false,
+        "standardAnswer": "C",
+        "independentAnswer": "C",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "問題清晰，正確答案為 C，標準答案一致",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "1787",
+        "questionType": "MCQ",
+        "hasImage": false,
+        "standardAnswer": "B",
+        "independentAnswer": "B",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "問題清晰，選項B正確表示x的5次冪。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "1788",
+        "questionType": "MCQ",
+        "hasImage": false,
+        "standardAnswer": "B",
+        "independentAnswer": "B",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "题目清晰，答案正确。",
+        "recommendedAction": "none"
+      },
+      {
+        "questionId": "1789",
+        "questionType": "MCQ",
+        "hasImage": false,
+        "standardAnswer": "B",
+        "independentAnswer": "B",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "The expression evaluates to 6.75, which matches option B in the primary question text. However, the English version (questionTextEn) incorrectly lists option B as 6 instead of 6.75, creating a mismatch between language versions.",
+        "recommendedAction": "Correct the English option B to 6.75 to match the primary question text and the correct answer."
+      },
+      {
+        "questionId": "1790",
+        "questionType": "MCQ",
+        "hasImage": false,
+        "standardAnswer": "D",
+        "independentAnswer": "40",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Expression evaluates to 40, matching option D.",
+        "recommendedAction": "No action needed."
+      },
+      {
+        "questionId": "1791",
+        "questionType": "MCQ",
+        "hasImage": false,
+        "standardAnswer": "D",
+        "independentAnswer": "13",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "mismatch",
+        "severity": "P0",
+        "reason": "Chinese options correct (D=13), but English option D is 12, which does not match the computed answer 13. Answer key D is only correct for Chinese text.",
+        "recommendedAction": "Correct English option D to 13."
+      },
+      {
+        "questionId": "1792",
+        "questionType": "MCQ",
+        "hasImage": false,
+        "standardAnswer": "A",
+        "independentAnswer": "A",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Solvable and standardAnswer matches computed value 3.",
+        "recommendedAction": "none"
+      },
+      {
+        "questionId": "1793",
+        "questionType": "MCQ",
+        "hasImage": false,
+        "standardAnswer": "A",
+        "independentAnswer": "11",
+        "solvabilityStatus": "ambiguous",
+        "answerMatchStatus": "mismatch",
+        "severity": "P0",
+        "reason": "Options differ between Chinese and English texts: Chinese A=11 correct, English A=10 incorrect. Answer key 'A' is inconsistent for English version, making the item unsolvable for English users.",
+        "recommendedAction": "Fix the English options to match the correct answer 11 (e.g., change English A to 11) and ensure consistency."
+      },
+      {
+        "questionId": "1794",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "18",
+        "independentAnswer": "18",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Standard arithmetic expression, solvable and answer key matches computed value.",
+        "recommendedAction": "No blocking action."
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "unsolvable": 0,
+      "ambiguous": 1,
+      "imageContextRequired": 0,
+      "answerMismatch": 2,
+      "missingAnswerKey": 0,
+      "notes": "Batch-level request failed (DeepSeek request timed out); item-level fallback was used."
+    }
+  }
+}

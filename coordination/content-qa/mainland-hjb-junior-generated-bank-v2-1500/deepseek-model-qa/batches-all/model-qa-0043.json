@@ -1,0 +1,118 @@
+{
+  "batchId": "model-qa-0043",
+  "ids": [
+    "hjb-junior-ds-v2-s1-337",
+    "hjb-junior-ds-v2-s1-338",
+    "hjb-junior-ds-v2-s1-339",
+    "hjb-junior-ds-v2-s1-340",
+    "hjb-junior-ds-v2-s1-341",
+    "hjb-junior-ds-v2-s1-342",
+    "hjb-junior-ds-v2-s1-343",
+    "hjb-junior-ds-v2-s1-344"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-337",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "115°",
+      "answerCheckZhHans": "标准答案115°与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-338",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为119°，但独立计算得151°。解析中∠DOE = ∠DOC + ∠COE = 180° - 58° + 61° = 119°有误，∠DOC应为180°（平角），正确计算为180° - 58° + 61° = 183°，但∠DOE应为∠DOB + ∠BOE = 58° + 61° = 119°？重新计算：∠BOC=122°，OE平分∠BOC，∠BOE=61°，∠DOE=∠DOB+∠BOE=58°+61°=119°。但解析中写的是∠DOC+∠COE，∠DOC是平角180°，所以解析错误。答案119°正确，但解析错误。",
+      "independentAnswerZhHans": "119°",
+      "answerCheckZhHans": "标准答案119°与独立计算结果一致，但解析过程有误。",
+      "recommendedActionZhHans": "修正解析：∠DOE = ∠DOB + ∠BOE = 58° + 61° = 119°。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-339",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "119°",
+      "answerCheckZhHans": "标准答案119°与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-340",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "148°",
+      "answerCheckZhHans": "标准答案148°与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-341",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为121°，但独立计算得121°？重新计算：∠AOC=62°，∠AOD=118°，OE平分∠AOD，∠DOE=59°，∠COE=∠COD+∠DOE，∠COD是平角180°，所以∠COE=180°+59°=239°？不对，∠COE是∠AOC+∠AOE？∠AOE=59°，∠COE=62°+59°=121°。解析中写∠COE = ∠COD + ∠DOE = 180° - 62° + 59° = 121°，但∠COD是平角180°，减去62°是∠AOD？解析有误。答案121°正确，但解析错误。",
+      "independentAnswerZhHans": "121°",
+      "answerCheckZhHans": "标准答案121°与独立计算结果一致，但解析过程有误。",
+      "recommendedActionZhHans": "修正解析：∠COE = ∠AOC + ∠AOE = 62° + 59° = 121°。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-342",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为50°，但解析得出20°，矛盾。独立计算：无图，假设∠1和∠2是同位角或内错角？题干未明确∠1、∠2、∠3的位置，无法唯一确定。解析中过点B作平行线，得∠3=20°，但答案为50°，不一致。",
+      "independentAnswerZhHans": "无法确定，缺少图形或角度位置描述。",
+      "answerCheckZhHans": "标准答案50°与解析20°矛盾，且题干不完整。",
+      "recommendedActionZhHans": "补充图形或明确角度位置，并统一答案与解析。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-343",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "ambiguous-prompt",
+        "missing-condition"
+      ],
+      "issueDetailsZhHans": "题干未提供图形，无法确定∠1、∠2、∠3、∠4的位置关系，无法判定哪个条件能推出a∥b。解析中称∠1=∠2是同位角相等，但无图无法确认。",
+      "independentAnswerZhHans": "无法确定，缺少图形。",
+      "answerCheckZhHans": "无法验证标准答案。",
+      "recommendedActionZhHans": "补充图形或明确角度位置。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-344",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为125°，但解析得出165°，矛盾。独立计算：∠AOC=70°，∠AOD=110°，OE平分∠AOD，∠DOE=55°，∠COE=∠AOC+∠AOE=70°+55°=125°。解析中∠COE = ∠COD + ∠DOE = 180° - 70° + 55° = 165°错误。答案125°正确，但解析错误。",
+      "independentAnswerZhHans": "125°",
+      "answerCheckZhHans": "标准答案125°与独立计算结果一致，但解析错误。",
+      "recommendedActionZhHans": "修正解析：∠COE = ∠AOC + ∠AOE = 70° + 55° = 125°。",
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,105 @@
+{
+  "batchId": "model-qa-0022",
+  "ids": [
+    "hjb-junior-ds-v2-s1-169",
+    "hjb-junior-ds-v2-s1-170",
+    "hjb-junior-ds-v2-s1-171",
+    "hjb-junior-ds-v2-s1-172",
+    "hjb-junior-ds-v2-s1-173",
+    "hjb-junior-ds-v2-s1-174",
+    "hjb-junior-ds-v2-s1-175",
+    "hjb-junior-ds-v2-s1-176"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-169",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "multiple-correct-options"
+      ],
+      "issueDetailsZhHans": "选项C与原式完全相同，但选项D化简后为1，仅在a≠b时与原式不相等，但题目未限定a≠b。若a=b，则原式=0，选项D无意义（分母为0），但通常分式默认分母不为0，即a+b≠0，但未排除a=b。若a=b且a+b≠0，则a=b≠0，原式=0，选项D=1，不相等。但若a=b=0，则原式无意义。因此选项D不是恒等。但选项C是原式本身，显然是正确选项。然而，题目要求选择“与...相等的是”，选项C就是原式，这通常被视为正确，但可能过于平凡。但主要问题是：选项C和原式完全相同，这算不算一个有效选项？通常选择题中，选项C就是原式，这可能是出题失误，但严格来说，它确实相等。但选项D在a≠b时等于1，与原式不恒等。所以只有一个正确选项C。但检查选项：A: (b-a)/(a+b) = -(a-b)/(a+b)，与原式互为相反数，除非a=b=0（无意义）或a=b≠0时原式=0，相反数也是0，但此时分母a+b≠0，若a=b≠0，则原式=0，A也为0，此时A也相等？需要仔细分析。原式 (a-b)/(a+b)。A: (b-a)/(a+b) = -(a-b)/(a+b)。若a=b≠0，则原式=0，A=0，相等。但题目没有排除a=b的情况。同样，B: (a-b)/(b-a) = -1（若a≠b），若a=b则无意义。D: (b-a)/(b-a) = 1（若a≠b），若a=b则无意义。所以当a=b≠0时，原式=0，A=0，C=0，所以A和C都等于原式。此时有两个正确选项。当a≠b且a≠-b时，只有C正确。因此，由于没有限定a和b的关系，存在a=b≠0的情况使得A也正确，所以题目有多个正确选项。这违反了单选题唯一正确选项的要求。因此标记为needs-review。",
+      "independentAnswerZhHans": "当a=b≠0时，原式=0，选项A=0，选项C=0，因此A和C都正确。所以题目不唯一。",
+      "answerCheckZhHans": "标准答案认为只有C正确，但未考虑a=b的情况。",
+      "recommendedActionZhHans": "修改题目，增加条件如a≠b，或修改选项避免多解。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-170",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(3x - 3) / ((x - 2)(x + 1))",
+      "answerCheckZhHans": "标准答案正确，解析正确，acceptedAnswers覆盖答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-171",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(1) x ≠ 3 且 x ≠ -2; (2) 2(x-2)/(x-3); (3) 4",
+      "answerCheckZhHans": "标准答案正确，解析正确，acceptedAnswers覆盖答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-172",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-3",
+      "answerCheckZhHans": "标准答案正确，解析正确，选项唯一。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-173",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(x-2)(x+2)",
+      "answerCheckZhHans": "标准答案正确，acceptedAnswers包含等价形式。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-174",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "标准答案正确，解析正确，化简得x，代入得3。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-175",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "C",
+      "answerCheckZhHans": "标准答案正确，选项C在x≠0时等于x/y，其他选项不恒等。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-176",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "5/2",
+      "answerCheckZhHans": "标准答案正确，acceptedAnswers包含小数形式。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

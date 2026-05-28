@@ -1,0 +1,562 @@
+{
+  "batchId": "batch-018",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p1-171",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "viewpoints",
+        "spatial-visualization",
+        "observe-objects",
+        "观察物体"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "前面侧面上面",
+        "视角判断",
+        "物体描述",
+        "对应观察"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "object identity confused with view",
+        "left-right relation reversed after turning"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-shape-transformation",
+        "bnu-primary-p4-lower-assessment-observe-objects-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明从前面、右面和上面观察一个放在桌上的文具盒。他从前面看到的是一个长方形，上面有卡通图案；从右面看到的是一个窄长方形，没有图案；从上面看到的是一个长方形，上面有花纹。请用一句话描述这个文具盒的形状。",
+      "optionsZhHans": [],
+      "answer": "文具盒是一个长方体。",
+      "acceptedAnswers": [
+        "文具盒是一个长方体。",
+        "文具盒是长方体。",
+        "它是一个长方体。"
+      ],
+      "explanationZhHans": "从三个方向看到的都是长方形，说明文具盒是一个长方体。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-172",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "viewpoints",
+        "spatial-visualization",
+        "observe-objects",
+        "观察物体"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "前面侧面上面",
+        "视角判断",
+        "物体描述",
+        "对应观察"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "object identity confused with view",
+        "left-right relation reversed after turning"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-shape-transformation",
+        "bnu-primary-p4-lower-assessment-observe-objects-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丽观察一个水杯。她从前面看，看到的是一个圆柱形，杯身有花纹。她从右面看，会看到什么？",
+      "optionsZhHans": [
+        "一个圆柱形，杯身有花纹",
+        "一个长方形，没有花纹",
+        "一个圆形，中间有花纹",
+        "一个圆柱形，没有花纹"
+      ],
+      "answer": "一个圆柱形，杯身有花纹",
+      "acceptedAnswers": [
+        "一个圆柱形，杯身有花纹"
+      ],
+      "explanationZhHans": "水杯是圆柱体，从前面和右面看到的形状相同，都是圆柱形，花纹也会看到。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-173",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "viewpoints",
+        "spatial-visualization",
+        "observe-objects",
+        "观察物体"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "前面侧面上面",
+        "视角判断",
+        "物体描述",
+        "对应观察"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "object identity confused with view",
+        "left-right relation reversed after turning"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-shape-transformation",
+        "bnu-primary-p4-lower-assessment-observe-objects-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小华观察一个玩具熊。他从前面看到玩具熊的正面，有眼睛、鼻子和嘴巴。他从后面看，会看到玩具熊的______。",
+      "optionsZhHans": [],
+      "answer": "后背",
+      "acceptedAnswers": [
+        "后背",
+        "背部",
+        "后面"
+      ],
+      "explanationZhHans": "从后面观察物体，看到的是物体的背面，即后背。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-174",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "viewpoints",
+        "spatial-visualization",
+        "observe-objects",
+        "观察物体"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "前面侧面上面",
+        "视角判断",
+        "物体描述",
+        "对应观察"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "object identity confused with view",
+        "left-right relation reversed after turning"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-shape-transformation",
+        "bnu-primary-p4-lower-assessment-observe-objects-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小强从不同方向观察一个篮球。他从前面看，看到的是一个圆形，上面有线条。他从上面看，看到的也是圆形，也有线条。请你说一说，篮球从任何方向看形状都一样吗？为什么？",
+      "optionsZhHans": [],
+      "answer": "一样，因为篮球是球体，从任何方向看都是圆形。",
+      "acceptedAnswers": [
+        "一样，因为篮球是球体，从任何方向看都是圆形。",
+        "一样，篮球是球体，每个方向看都是圆。"
+      ],
+      "explanationZhHans": "球体从各个方向观察，看到的形状都是相同的圆形。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-175",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "viewpoints",
+        "spatial-visualization",
+        "observe-objects",
+        "观察物体"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "前面侧面上面",
+        "视角判断",
+        "物体描述",
+        "对应观察"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "object identity confused with view",
+        "left-right relation reversed after turning"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-shape-transformation",
+        "bnu-primary-p4-lower-assessment-observe-objects-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小芳观察一个正方体积木。她从前面看，看到一个正方形，上面有红色。她从上面看，会看到什么？",
+      "optionsZhHans": [
+        "一个正方形，上面有红色",
+        "一个正方形，没有颜色",
+        "一个长方形，上面有红色",
+        "一个圆形，上面有红色"
+      ],
+      "answer": "一个正方形，上面有红色",
+      "acceptedAnswers": [
+        "一个正方形，上面有红色"
+      ],
+      "explanationZhHans": "正方体从前面和上面看都是正方形，且颜色相同。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-176",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-within-100-number-sense",
+      "unitTitle": "生活中的数",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-100-numbers",
+        "place-value-tens-ones",
+        "number-order-within-100",
+        "100以内数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "数到100",
+        "十位个位",
+        "整十数",
+        "比较大小",
+        "数位表示"
+      ],
+      "misconceptionTags": [
+        "digits reversed when reading two-digit numbers",
+        "ones compared before tens",
+        "ten treated as one loose object"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-within-100-number-sense"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-100-number-sense",
+        "bnu-primary-p1-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个两位数，十位上的数字是6，个位上的数字是3，这个数写作______。",
+      "optionsZhHans": [],
+      "answer": "63",
+      "acceptedAnswers": [
+        "63"
+      ],
+      "explanationZhHans": "十位是6表示6个十，个位是3表示3个一，合起来是63。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-177",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-within-100-number-sense",
+      "unitTitle": "生活中的数",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-100-numbers",
+        "place-value-tens-ones",
+        "number-order-within-100",
+        "100以内数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "数到100",
+        "十位个位",
+        "整十数",
+        "比较大小",
+        "数位表示"
+      ],
+      "misconceptionTags": [
+        "digits reversed when reading two-digit numbers",
+        "ones compared before tens",
+        "ten treated as one loose object"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-within-100-number-sense"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-100-number-sense",
+        "bnu-primary-p1-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在计数器上拨出数字47，需要拨几个十和几个一？",
+      "optionsZhHans": [],
+      "answer": "4个十和7个一",
+      "acceptedAnswers": [
+        "4个十和7个一",
+        "4个十，7个一"
+      ],
+      "explanationZhHans": "47的十位是4，表示4个十；个位是7，表示7个一。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-178",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-within-100-number-sense",
+      "unitTitle": "生活中的数",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-100-numbers",
+        "place-value-tens-ones",
+        "number-order-within-100",
+        "100以内数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "数到100",
+        "十位个位",
+        "整十数",
+        "比较大小",
+        "数位表示"
+      ],
+      "misconceptionTags": [
+        "digits reversed when reading two-digit numbers",
+        "ones compared before tens",
+        "ten treated as one loose object"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-within-100-number-sense"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-100-number-sense",
+        "bnu-primary-p1-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个数比58大，比62小？",
+      "optionsZhHans": [
+        "57",
+        "60",
+        "63",
+        "55"
+      ],
+      "answer": "60",
+      "acceptedAnswers": [
+        "60"
+      ],
+      "explanationZhHans": "60在58和62之间，满足条件。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-179",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-within-100-number-sense",
+      "unitTitle": "生活中的数",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-100-numbers",
+        "place-value-tens-ones",
+        "number-order-within-100",
+        "100以内数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "数到100",
+        "十位个位",
+        "整十数",
+        "比较大小",
+        "数位表示"
+      ],
+      "misconceptionTags": [
+        "digits reversed when reading two-digit numbers",
+        "ones compared before tens",
+        "ten treated as one loose object"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-within-100-number-sense"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-100-number-sense",
+        "bnu-primary-p1-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "按顺序填数：80，81，82，______，84，85。",
+      "optionsZhHans": [],
+      "answer": "83",
+      "acceptedAnswers": [
+        "83"
+      ],
+      "explanationZhHans": "数列每次增加1，82后面是83。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-180",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-within-100-number-sense",
+      "unitTitle": "生活中的数",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-100-numbers",
+        "place-value-tens-ones",
+        "number-order-within-100",
+        "100以内数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "数到100",
+        "十位个位",
+        "整十数",
+        "比较大小",
+        "数位表示"
+      ],
+      "misconceptionTags": [
+        "digits reversed when reading two-digit numbers",
+        "ones compared before tens",
+        "ten treated as one loose object"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-within-100-number-sense"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-100-number-sense",
+        "bnu-primary-p1-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明的爷爷今年65岁，奶奶的年龄比爷爷小一些。奶奶可能多少岁？",
+      "optionsZhHans": [],
+      "answer": "62岁",
+      "acceptedAnswers": [
+        "62岁",
+        "62"
+      ],
+      "explanationZhHans": "比65小一些的数中，62比较合适。"
+    }
+  ]
+}

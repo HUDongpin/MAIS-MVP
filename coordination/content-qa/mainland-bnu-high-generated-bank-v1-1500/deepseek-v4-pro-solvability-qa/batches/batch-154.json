@@ -1,0 +1,133 @@
+{
+  "batchNumber": 154,
+  "startedAt": "2026-05-27T14:09:17.633Z",
+  "completedAt": "2026-05-27T14:09:34.871Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-225",
+    "bnu-high-ds-v1-s6-226",
+    "bnu-high-ds-v1-s6-227",
+    "bnu-high-ds-v1-s6-228",
+    "bnu-high-ds-v1-s6-229",
+    "bnu-high-ds-v1-s6-230",
+    "bnu-high-ds-v1-s6-231",
+    "bnu-high-ds-v1-s6-232"
+  ],
+  "usage": {
+    "prompt_tokens": 10810,
+    "completion_tokens": 1220,
+    "total_tokens": 12030,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10298
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-225",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件充分，可独立求解。设公比q>0，由等差中项得a1q^2=3a1+2a1q，约去a1得q^2-2q-3=0，解得q=3（q=-1舍去）。答案3正确，解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-226",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "B. (0, 2)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导得f'(x)=3x(x-2)，令f'(x)<0得0<x<2，单调递减区间为(0,2)。选项B正确，解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-227",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "a ≤ 1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=e^x-a，在[0,+∞)上f'(x)≥0恒成立，即a≤e^x，最小值为e^0=1，故a≤1。答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-228",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "y = -2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导得y'=3x^2-3，在x=1处斜率为0，切线方程为y=-2。答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-229",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "B. 1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "定义域(0,+∞)，f'(x)=2x-2/x，驻点x=1，左侧负右侧正，极小值f(1)=1。选项B正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-230",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "a = -3, b = -9, c = 2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由f'(-1)=0和f'(3)=0解得a=-3,b=-9，代入f(-1)=7得c=2，二阶导检验符合极值条件。答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-231",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "32",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导得驻点-1和3，计算端点及驻点函数值得M=10,m=-22，M-m=32。答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-232",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "[-1, 1]",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3(x-1)(x+1)，令f'(x)≤0得-1≤x≤1，单调递减区间为[-1,1]。选项正确，解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，答案与解析匹配，无错误或歧义。"
+    }
+  }
+}

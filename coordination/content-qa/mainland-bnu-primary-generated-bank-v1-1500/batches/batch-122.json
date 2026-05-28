@@ -1,0 +1,591 @@
+{
+  "batchId": "batch-122",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p5-211",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-equations",
+      "unitTitle": "用方程解决问题",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "equation-problem-solving",
+        "unknown-quantity",
+        "linear-equations-primary",
+        "quantitative-relationships",
+        "方程解决问题"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "设未知数",
+        "等量关系",
+        "列方程",
+        "解方程",
+        "检验答案"
+      ],
+      "misconceptionTags": [
+        "unknown chosen after equation writing",
+        "comparison language reversed",
+        "solution not checked against the context"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-equations-unit",
+        "bnu-primary-p5-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "哥哥和弟弟共有48张邮票，哥哥的邮票张数是弟弟的3倍。如果设弟弟有x张邮票，下面哪个方程是正确的？",
+      "optionsZhHans": [
+        "x + 3x = 48",
+        "3x - x = 48",
+        "x + 3 = 48",
+        "48 - x = 3x"
+      ],
+      "answer": "x + 3x = 48",
+      "acceptedAnswers": [
+        "x + 3x = 48"
+      ],
+      "explanationZhHans": "设弟弟有x张，哥哥就是3x张，两人一共x+3x=48张。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-212",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-equations",
+      "unitTitle": "用方程解决问题",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "equation-problem-solving",
+        "unknown-quantity",
+        "linear-equations-primary",
+        "quantitative-relationships",
+        "方程解决问题"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "设未知数",
+        "等量关系",
+        "列方程",
+        "解方程",
+        "检验答案"
+      ],
+      "misconceptionTags": [
+        "unknown chosen after equation writing",
+        "comparison language reversed",
+        "solution not checked against the context"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-equations-unit",
+        "bnu-primary-p5-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校买来5个篮球和8个排球，一共花了540元。每个篮球60元，每个排球y元。根据总价相等的关系，列出方程：__________________。",
+      "optionsZhHans": [],
+      "answer": "5×60 + 8y = 540",
+      "acceptedAnswers": [
+        "5×60 + 8y = 540",
+        "300 + 8y = 540",
+        "5×60+8y=540",
+        "300+8y=540"
+      ],
+      "explanationZhHans": "篮球总价5×60元，排球总价8y元，相加等于540元。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-213",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-equations",
+      "unitTitle": "用方程解决问题",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "equation-problem-solving",
+        "unknown-quantity",
+        "linear-equations-primary",
+        "quantitative-relationships",
+        "方程解决问题"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "设未知数",
+        "等量关系",
+        "列方程",
+        "解方程",
+        "检验答案"
+      ],
+      "misconceptionTags": [
+        "unknown chosen after equation writing",
+        "comparison language reversed",
+        "solution not checked against the context"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-equations-unit",
+        "bnu-primary-p5-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "果园里桃树和梨树共180棵，桃树比梨树的2倍少30棵。设梨树有x棵，下面哪个方程是正确的？",
+      "optionsZhHans": [
+        "x + (2x - 30) = 180",
+        "2x - 30 = 180",
+        "x + 2x = 180 - 30",
+        "x + 30 = 2x + 180"
+      ],
+      "answer": "x + (2x - 30) = 180",
+      "acceptedAnswers": [
+        "x + (2x - 30) = 180"
+      ],
+      "explanationZhHans": "梨树x棵，桃树(2x-30)棵，总棵数x+(2x-30)=180。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-214",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-equations",
+      "unitTitle": "用方程解决问题",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "equation-problem-solving",
+        "unknown-quantity",
+        "linear-equations-primary",
+        "quantitative-relationships",
+        "方程解决问题"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "设未知数",
+        "等量关系",
+        "列方程",
+        "解方程",
+        "检验答案"
+      ],
+      "misconceptionTags": [
+        "unknown chosen after equation writing",
+        "comparison language reversed",
+        "solution not checked against the context"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-equations-unit",
+        "bnu-primary-p5-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈今年的年龄是小明的4倍，妈妈比小明大27岁。设小明今年x岁，根据“妈妈年龄－小明年龄＝27”列出方程：__________________。",
+      "optionsZhHans": [],
+      "answer": "4x - x = 27",
+      "acceptedAnswers": [
+        "4x - x = 27",
+        "4x-x=27"
+      ],
+      "explanationZhHans": "妈妈4x岁，小明x岁，年龄差4x-x=27。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-215",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-equations",
+      "unitTitle": "用方程解决问题",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "equation-problem-solving",
+        "unknown-quantity",
+        "linear-equations-primary",
+        "quantitative-relationships",
+        "方程解决问题"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "设未知数",
+        "等量关系",
+        "列方程",
+        "解方程",
+        "检验答案"
+      ],
+      "misconceptionTags": [
+        "unknown chosen after equation writing",
+        "comparison language reversed",
+        "solution not checked against the context"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-equations-unit",
+        "bnu-primary-p5-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "两个工程队合修一条长1200米的公路，甲队每天修55米，乙队每天修45米。设两队合修x天完成，下面哪个方程是正确的？",
+      "optionsZhHans": [
+        "(55 + 45)x = 1200",
+        "55x + 45 = 1200",
+        "55 + 45x = 1200",
+        "1200 ÷ x = 55 + 45"
+      ],
+      "answer": "(55 + 45)x = 1200",
+      "acceptedAnswers": [
+        "(55 + 45)x = 1200"
+      ],
+      "explanationZhHans": "每天共修(55+45)米，x天修的总长度等于1200米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-216",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-equations",
+      "unitTitle": "用方程解决问题",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "equation-problem-solving",
+        "unknown-quantity",
+        "linear-equations-primary",
+        "quantitative-relationships",
+        "方程解决问题"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "设未知数",
+        "等量关系",
+        "列方程",
+        "解方程",
+        "检验答案"
+      ],
+      "misconceptionTags": [
+        "unknown chosen after equation writing",
+        "comparison language reversed",
+        "solution not checked against the context"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-equations-unit",
+        "bnu-primary-p5-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方形的周长是36厘米，长是宽的2倍。设宽为x厘米，根据“（长＋宽）×2＝周长”列出方程：__________________。",
+      "optionsZhHans": [],
+      "answer": "(2x + x) × 2 = 36",
+      "acceptedAnswers": [
+        "(2x + x) × 2 = 36",
+        "(2x+x)×2=36",
+        "2(2x+x)=36",
+        "2×(2x+x)=36"
+      ],
+      "explanationZhHans": "宽x厘米，长2x厘米，周长=(2x+x)×2=36。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-217",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-equations",
+      "unitTitle": "用方程解决问题",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "equation-problem-solving",
+        "unknown-quantity",
+        "linear-equations-primary",
+        "quantitative-relationships",
+        "方程解决问题"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "设未知数",
+        "等量关系",
+        "列方程",
+        "解方程",
+        "检验答案"
+      ],
+      "misconceptionTags": [
+        "unknown chosen after equation writing",
+        "comparison language reversed",
+        "solution not checked against the context"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-equations-unit",
+        "bnu-primary-p5-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "图书室有科技书和故事书共450本，科技书的本数比故事书的3倍还多30本。设故事书有x本，下面哪个方程是正确的？",
+      "optionsZhHans": [
+        "x + (3x + 30) = 450",
+        "3x + 30 = 450",
+        "x + 3x = 450 + 30",
+        "x + 30 = 3x + 450"
+      ],
+      "answer": "x + (3x + 30) = 450",
+      "acceptedAnswers": [
+        "x + (3x + 30) = 450"
+      ],
+      "explanationZhHans": "故事书x本，科技书(3x+30)本，总本数x+(3x+30)=450。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-218",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-equations",
+      "unitTitle": "用方程解决问题",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "equation-problem-solving",
+        "unknown-quantity",
+        "linear-equations-primary",
+        "quantitative-relationships",
+        "方程解决问题"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "设未知数",
+        "等量关系",
+        "列方程",
+        "解方程",
+        "检验答案"
+      ],
+      "misconceptionTags": [
+        "unknown chosen after equation writing",
+        "comparison language reversed",
+        "solution not checked against the context"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-equations-unit",
+        "bnu-primary-p5-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "食堂运来大米和面粉共80袋，大米袋数是面粉的1.5倍。设面粉有x袋，根据总袋数关系列出方程：__________________。",
+      "optionsZhHans": [],
+      "answer": "x + 1.5x = 80",
+      "acceptedAnswers": [
+        "x + 1.5x = 80",
+        "x+1.5x=80"
+      ],
+      "explanationZhHans": "面粉x袋，大米1.5x袋，总袋数x+1.5x=80。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-219",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-equations",
+      "unitTitle": "用方程解决问题",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "equation-problem-solving",
+        "unknown-quantity",
+        "linear-equations-primary",
+        "quantitative-relationships",
+        "方程解决问题"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "设未知数",
+        "等量关系",
+        "列方程",
+        "解方程",
+        "检验答案"
+      ],
+      "misconceptionTags": [
+        "unknown chosen after equation writing",
+        "comparison language reversed",
+        "solution not checked against the context"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-equations-unit",
+        "bnu-primary-p5-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "甲、乙两地相距300千米，一辆客车和一辆货车同时从两地相对开出，客车每小时行80千米，货车每小时行70千米。设两车x小时后相遇，下面哪个方程是正确的？",
+      "optionsZhHans": [
+        "(80 + 70)x = 300",
+        "80x + 70 = 300",
+        "80 + 70x = 300",
+        "300 ÷ x = 80 + 70"
+      ],
+      "answer": "(80 + 70)x = 300",
+      "acceptedAnswers": [
+        "(80 + 70)x = 300"
+      ],
+      "explanationZhHans": "两车速度和为(80+70)千米/时，x小时共行(80+70)x千米，等于总路程300千米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-220",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-equations",
+      "unitTitle": "用方程解决问题",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "equation-problem-solving",
+        "unknown-quantity",
+        "linear-equations-primary",
+        "quantitative-relationships",
+        "方程解决问题"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "设未知数",
+        "等量关系",
+        "列方程",
+        "解方程",
+        "检验答案"
+      ],
+      "misconceptionTags": [
+        "unknown chosen after equation writing",
+        "comparison language reversed",
+        "solution not checked against the context"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-equations-unit",
+        "bnu-primary-p5-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小华买了4支钢笔和6本笔记本，一共花了36元。每支钢笔4.5元，每本笔记本n元。根据总价相等的关系，列出方程：__________________。",
+      "optionsZhHans": [],
+      "answer": "4 × 4.5 + 6n = 36",
+      "acceptedAnswers": [
+        "4 × 4.5 + 6n = 36",
+        "4×4.5+6n=36",
+        "18 + 6n = 36",
+        "18+6n=36"
+      ],
+      "explanationZhHans": "钢笔总价4×4.5=18元，笔记本总价6n元，相加等于36元。"
+    }
+  ]
+}

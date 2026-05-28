@@ -1,0 +1,137 @@
+{
+  "batchNumber": 90,
+  "startedAt": "2026-05-24T23:03:48.434Z",
+  "completedAt": "2026-05-24T23:04:03.669Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s3-k11-fi-003",
+    "pep-junior-v3-s3-k11-fi-004",
+    "pep-junior-v3-s3-k11-fi-005",
+    "pep-junior-v3-s3-k11-fi-006",
+    "pep-junior-v3-s3-k11-fi-007",
+    "pep-junior-v3-s3-k11-fi-008",
+    "pep-junior-v3-s3-k11-fi-009",
+    "pep-junior-v3-s3-k11-fi-010",
+    "pep-junior-v3-s3-k11-fi-011",
+    "pep-junior-v3-s3-k11-fi-012",
+    "pep-junior-v3-s3-k11-fi-013",
+    "pep-junior-v3-s3-k11-fi-014"
+  ],
+  "usage": {
+    "prompt_tokens": 2992,
+    "completion_tokens": 963,
+    "total_tokens": 3955,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 2736
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s3-k11-fi-003",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "一次函数代入求解正确，答案2无误。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-fi-004",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "配方求顶点坐标正确，答案(1,-4)无误。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-fi-005",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "30°所对直角边等于斜边一半，计算正确。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-fi-006",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "圆锥侧面展开图圆心角计算正确，答案216°无误。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-fi-007",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "反比例函数求值正确，答案3无误。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-fi-008",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "相似三角形面积比等于相似比的平方，答案4:9正确。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-fi-009",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "勾股定理求斜边，正弦定义正确，答案4/5无误。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-fi-010",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "待定系数法求k正确，答案7无误。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-fi-011",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "列举法求概率正确，答案2/3无误。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-fi-012",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "关于x轴对称点坐标特征正确，答案(3,4)无误。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-fi-013",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "动点面积问题列方程求解正确，舍去t=3，答案1无误。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-fi-014",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "利润函数关系式推导正确，答案y=-2x²+200x-4000无误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部12道题均无数学错误，答案与解析一致，符合人教版初中数学要求，可直接入库。"
+    }
+  }
+}

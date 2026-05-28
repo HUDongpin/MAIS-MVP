@@ -1,0 +1,252 @@
+{
+  "batchId": "model-qa-0009",
+  "ids": [
+    "hjb-junior-ds-v2-s1-161",
+    "hjb-junior-ds-v2-s1-162",
+    "hjb-junior-ds-v2-s1-163",
+    "hjb-junior-ds-v2-s1-164",
+    "hjb-junior-ds-v2-s1-165",
+    "hjb-junior-ds-v2-s1-166",
+    "hjb-junior-ds-v2-s1-167",
+    "hjb-junior-ds-v2-s1-168",
+    "hjb-junior-ds-v2-s1-169",
+    "hjb-junior-ds-v2-s1-170",
+    "hjb-junior-ds-v2-s1-171",
+    "hjb-junior-ds-v2-s1-172",
+    "hjb-junior-ds-v2-s1-173",
+    "hjb-junior-ds-v2-s1-174",
+    "hjb-junior-ds-v2-s1-175",
+    "hjb-junior-ds-v2-s1-176",
+    "hjb-junior-ds-v2-s1-177",
+    "hjb-junior-ds-v2-s1-178",
+    "hjb-junior-ds-v2-s1-179",
+    "hjb-junior-ds-v2-s1-180"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-161",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-3",
+      "answerCheckZhHans": "答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-162",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "1",
+      "answerCheckZhHans": "答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-163",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-1",
+      "answerCheckZhHans": "答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-164",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x ≠ ±2",
+      "answerCheckZhHans": "答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-165",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2/(x-1)",
+      "answerCheckZhHans": "答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-166",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x ≠ 2 且 x ≠ -2",
+      "answerCheckZhHans": "答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-167",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-168",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "7",
+      "answerCheckZhHans": "答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-169",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "multiple-correct-options"
+      ],
+      "issueDetailsZhHans": "选项C与原式完全相同，但选项D (b-a)/(b-a) 在 b≠a 时恒等于1，而原式 (a-b)/(a+b) 不一定等于1，因此D不恒等。但选项C是原式本身，严格来说题目要求“与...相等的是”，C是自身，通常选择题不会将自身作为选项，可能造成困惑。但更严重的是，选项D在b≠a时值为1，而原式不一定为1，所以D不正确。但检查发现选项C是原式，这导致题目实际上有两个正确选项？不，只有C正确。但选项C就是原式，这通常被视为无效选项。建议修改选项。",
+      "independentAnswerZhHans": "C",
+      "answerCheckZhHans": "答案选C，但选项C是原式本身，这不符合选择题设计常规。",
+      "recommendedActionZhHans": "修改选项，避免将原式作为选项。",
+      "confidence": "medium"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-170",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(3x - 3) / ((x - 2)(x + 1))",
+      "answerCheckZhHans": "答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-171",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(1) x ≠ 3 且 x ≠ -2；(2) 2(x-2)/(x-3)；(3) 4",
+      "answerCheckZhHans": "答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-172",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-3",
+      "answerCheckZhHans": "答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-173",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(x-2)(x+2)",
+      "answerCheckZhHans": "答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-174",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-175",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x^2/(xy) (x≠0)",
+      "answerCheckZhHans": "答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-176",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "5/2",
+      "answerCheckZhHans": "答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-177",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "5",
+      "answerCheckZhHans": "答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-178",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "保持不变",
+      "answerCheckZhHans": "答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-179",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(a-1)/(a+1)",
+      "answerCheckZhHans": "答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-180",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析中分母分解错误：x³+2x²-4x-8 分组应为 (x³+2x²)-(4x+8)=x²(x+2)-4(x+2)=(x+2)(x²-4)=(x+2)(x+2)(x-2)=(x+2)²(x-2)，但解析写为 (x+2)(x²-4)=(x+2)²(x-2)，然后说约去公因式(x+3)和(x+2)得2(x+3)/[(x+2)(x-2)]，但分子是2(x+3)²，分母是(x+2)²(x-2)，约去一个(x+2)后应为2(x+3)²/[(x+2)(x-2)]，而不是2(x+3)/[(x+2)(x-2)]。答案错误。",
+      "independentAnswerZhHans": "化简结果应为 2(x+3)²/[(x+2)(x-2)]，但分子分母没有公因式可约，所以最简分式为 2(x+3)²/[(x+2)(x-2)]，分母不为零条件为 x≠-2 且 x≠2。",
+      "answerCheckZhHans": "给定答案错误，解析过程有误。",
+      "recommendedActionZhHans": "修正答案和解析。",
+      "confidence": "high"
+    }
+  ]
+}

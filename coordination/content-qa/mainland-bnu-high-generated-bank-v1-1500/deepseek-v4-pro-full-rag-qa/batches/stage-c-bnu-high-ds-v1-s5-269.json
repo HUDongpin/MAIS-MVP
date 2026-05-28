@@ -1,0 +1,45 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-269",
+  "startedAt": "2026-05-28T01:25:27.813Z",
+  "completedAt": "2026-05-28T01:25:32.306Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-269"
+  ],
+  "usage": {
+    "prompt_tokens": 2166,
+    "completion_tokens": 253,
+    "total_tokens": 2419,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1782
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-269",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "(2, 3)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可唯一确定矩形花坛中心。由 l1 与 l2 垂直且交于 A(1,3)，结合矩形性质及 C 在 l3 上，可解得 C(3,3)，中心为 (2,3)。存储答案与独立解一致，解析过程合理，无数学错误或矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 1,
+      "warn": 0,
+      "fail": 0,
+      "notes": "题目可解，答案匹配，解析一致，无问题。"
+    }
+  }
+}

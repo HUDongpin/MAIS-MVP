@@ -1,0 +1,168 @@
+{
+  "scope": "full",
+  "batchIndex": 56,
+  "startedAt": "2026-05-28T03:44:02.681Z",
+  "completedAt": "2026-05-28T03:44:37.108Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "itemIds": [
+    "1118",
+    "1119",
+    "1120",
+    "1121",
+    "1122",
+    "1123",
+    "1124",
+    "1125",
+    "1126",
+    "1127"
+  ],
+  "usage": {
+    "prompt_tokens": 2670,
+    "completion_tokens": 2424,
+    "total_tokens": 5094,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1237
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2286
+  },
+  "finishReason": "stop",
+  "jsonModeFallback": false,
+  "result": {
+    "items": [
+      {
+        "questionId": "1118",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "1215",
+        "independentAnswer": "1215",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Solvable; L.C.M. of 135 and 243 computed as 1215 matches standardAnswer.",
+        "recommendedAction": "No action needed."
+      },
+      {
+        "questionId": "1119",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "14",
+        "independentAnswer": "14",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Solvable; H.C.F. of 28, 42, 56 is 14 matches standardAnswer.",
+        "recommendedAction": "No action needed."
+      },
+      {
+        "questionId": "1120",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "24",
+        "independentAnswer": "24",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Solvable; H.C.F. of 24, 72, 96 is 24 matches standardAnswer.",
+        "recommendedAction": "No action needed."
+      },
+      {
+        "questionId": "1121",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "18",
+        "independentAnswer": "18",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Solvable; H.C.F. of 36, 108, 162 is 18 matches standardAnswer.",
+        "recommendedAction": "No action needed."
+      },
+      {
+        "questionId": "1122",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "18",
+        "independentAnswer": "18",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Solvable; H.C.F. of the given exponential forms is 18 matches standardAnswer.",
+        "recommendedAction": "No action needed."
+      },
+      {
+        "questionId": "1123",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "63",
+        "independentAnswer": "63",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Solvable; H.C.F. of the exponential forms equals 63, matching standardAnswer.",
+        "recommendedAction": "No action needed."
+      },
+      {
+        "questionId": "1124",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "8",
+        "independentAnswer": "8",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Solvable; H.C.F. of 40, 72, 80 is 8 matches standardAnswer.",
+        "recommendedAction": "No action needed."
+      },
+      {
+        "questionId": "1125",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "15",
+        "independentAnswer": "15",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Solvable; H.C.F. of 45, 75, 315 is 15 matches standardAnswer.",
+        "recommendedAction": "No action needed."
+      },
+      {
+        "questionId": "1126",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "14",
+        "independentAnswer": "14",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Solvable; H.C.F. of 196, 294, 504 is 14 matches standardAnswer.",
+        "recommendedAction": "No action needed."
+      },
+      {
+        "questionId": "1127",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "60",
+        "independentAnswer": "60",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Solvable; L.C.M. of 12, 20, 30 is 60 matches standardAnswer.",
+        "recommendedAction": "No action needed."
+      }
+    ],
+    "batchSummary": {
+      "pass": 10,
+      "unsolvable": 0,
+      "ambiguous": 0,
+      "imageContextRequired": 0,
+      "answerMismatch": 0,
+      "missingAnswerKey": 0,
+      "notes": "All FRQ questions on LCM/HCF are solvable and match standard answers."
+    }
+  }
+}

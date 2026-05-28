@@ -1,0 +1,585 @@
+{
+  "batchId": "batch-009",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p1-081",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-solid-shapes",
+      "unitTitle": "认识图形",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "solid-shapes",
+        "shape-classification",
+        "cuboid-cube-cylinder-sphere",
+        "立体图形",
+        "认识图形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "观察比较",
+        "数学表达"
+      ],
+      "skillTags": [
+        "长方体",
+        "正方体",
+        "圆柱",
+        "球",
+        "按形状分类"
+      ],
+      "misconceptionTags": [
+        "orientation treated as a new shape",
+        "object name used instead of shape name",
+        "flat and solid shapes mixed"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-solid-shapes"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-solid-shapes",
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面这些物品中，哪些的形状是圆柱？请写出所有圆柱形状物品的编号。\n① 水杯 ② 魔方 ③ 卷纸 ④ 骰子 ⑤ 蜡烛 ⑥ 足球",
+      "optionsZhHans": [],
+      "answer": "①③⑤",
+      "acceptedAnswers": [
+        "①③⑤",
+        "①,③,⑤",
+        "1,3,5",
+        "135"
+      ],
+      "explanationZhHans": "水杯、卷纸和蜡烛上下一样粗，两头是圆圆的，可以滚动，形状是圆柱。魔方和骰子是正方体，足球是球。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-082",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-solid-shapes",
+      "unitTitle": "认识图形",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "solid-shapes",
+        "shape-classification",
+        "cuboid-cube-cylinder-sphere",
+        "立体图形",
+        "认识图形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "观察比较",
+        "数学表达"
+      ],
+      "skillTags": [
+        "长方体",
+        "正方体",
+        "圆柱",
+        "球",
+        "按形状分类"
+      ],
+      "misconceptionTags": [
+        "orientation treated as a new shape",
+        "object name used instead of shape name",
+        "flat and solid shapes mixed"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-solid-shapes"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-solid-shapes",
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个物体最容易滚动？",
+      "optionsZhHans": [
+        "A. 字典",
+        "B. 粉笔盒",
+        "C. 乒乓球",
+        "D. 魔方"
+      ],
+      "answer": "C. 乒乓球",
+      "acceptedAnswers": [
+        "C. 乒乓球"
+      ],
+      "explanationZhHans": "乒乓球是球，表面全是弯弯的，没有平平的面，最容易滚动。字典、粉笔盒和魔方都有平平的面，不容易滚动。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-083",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-solid-shapes",
+      "unitTitle": "认识图形",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "solid-shapes",
+        "shape-classification",
+        "cuboid-cube-cylinder-sphere",
+        "立体图形",
+        "认识图形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "观察比较",
+        "数学表达"
+      ],
+      "skillTags": [
+        "长方体",
+        "正方体",
+        "圆柱",
+        "球",
+        "按形状分类"
+      ],
+      "misconceptionTags": [
+        "orientation treated as a new shape",
+        "object name used instead of shape name",
+        "flat and solid shapes mixed"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-solid-shapes"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-solid-shapes",
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "数一数，下面的积木中，长方体有（ ）个，正方体有（ ）个，圆柱有（ ）个，球有（ ）个。\n积木描述：\n第一层：左边放一个长方体，右边放一个正方体。\n第二层：在长方体上面放一个圆柱，在正方体上面放一个球。\n第三层：在圆柱上面放一个长方体。",
+      "optionsZhHans": [],
+      "answer": "2,1,1,1",
+      "acceptedAnswers": [
+        "2,1,1,1",
+        "2个,1个,1个,1个"
+      ],
+      "explanationZhHans": "第一层有1个长方体和1个正方体；第二层有1个圆柱和1个球；第三层有1个长方体。合起来长方体有2个，正方体1个，圆柱1个，球1个。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-084",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-solid-shapes",
+      "unitTitle": "认识图形",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "solid-shapes",
+        "shape-classification",
+        "cuboid-cube-cylinder-sphere",
+        "立体图形",
+        "认识图形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "观察比较",
+        "数学表达"
+      ],
+      "skillTags": [
+        "长方体",
+        "正方体",
+        "圆柱",
+        "球",
+        "按形状分类"
+      ],
+      "misconceptionTags": [
+        "orientation treated as a new shape",
+        "object name used instead of shape name",
+        "flat and solid shapes mixed"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-solid-shapes"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-solid-shapes",
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "从下面的物品中，找出形状是正方体的物品，写出它们的编号。\n① 牙膏盒 ② 骰子 ③ 篮球 ④ 魔方 ⑤ 茶叶罐 ⑥ 粉笔盒",
+      "optionsZhHans": [],
+      "answer": "②④",
+      "acceptedAnswers": [
+        "②④",
+        "②,④",
+        "2,4",
+        "24"
+      ],
+      "explanationZhHans": "骰子和魔方每个面都是同样大小的正方形，形状是正方体。牙膏盒和粉笔盒是长方体，篮球是球，茶叶罐是圆柱。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-085",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-solid-shapes",
+      "unitTitle": "认识图形",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "solid-shapes",
+        "shape-classification",
+        "cuboid-cube-cylinder-sphere",
+        "立体图形",
+        "认识图形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "观察比较",
+        "数学表达"
+      ],
+      "skillTags": [
+        "长方体",
+        "正方体",
+        "圆柱",
+        "球",
+        "按形状分类"
+      ],
+      "misconceptionTags": [
+        "orientation treated as a new shape",
+        "object name used instead of shape name",
+        "flat and solid shapes mixed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-solid-shapes"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-solid-shapes",
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪种图形既能稳稳地放在桌面上，又能向一个方向滚动？",
+      "optionsZhHans": [
+        "A. 正方体",
+        "B. 球",
+        "C. 圆柱",
+        "D. 长方体"
+      ],
+      "answer": "C. 圆柱",
+      "acceptedAnswers": [
+        "C. 圆柱"
+      ],
+      "explanationZhHans": "圆柱上下有两个平平的面，可以稳稳地放在桌面上；它的侧面是弯弯的，可以向一个方向滚动。正方体和长方体只有平平的面，不能滚动；球没有平平的面，不能稳稳地放。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-086",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-solid-shapes",
+      "unitTitle": "认识图形",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "solid-shapes",
+        "shape-classification",
+        "cuboid-cube-cylinder-sphere",
+        "立体图形",
+        "认识图形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "观察比较",
+        "数学表达"
+      ],
+      "skillTags": [
+        "长方体",
+        "正方体",
+        "圆柱",
+        "球",
+        "按形状分类"
+      ],
+      "misconceptionTags": [
+        "orientation treated as a new shape",
+        "object name used instead of shape name",
+        "flat and solid shapes mixed"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-solid-shapes"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-solid-shapes",
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把形状相同的物品放在一起，可以分成几类？\n物品：魔方、篮球、牙膏盒、骰子、足球、粉笔盒、水杯、卷纸。",
+      "optionsZhHans": [],
+      "answer": "4",
+      "acceptedAnswers": [
+        "4",
+        "四",
+        "4类"
+      ],
+      "explanationZhHans": "魔方和骰子是正方体，篮球和足球是球，牙膏盒和粉笔盒是长方体，水杯和卷纸是圆柱。一共可以分成4类。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-087",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-solid-shapes",
+      "unitTitle": "认识图形",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "solid-shapes",
+        "shape-classification",
+        "cuboid-cube-cylinder-sphere",
+        "立体图形",
+        "认识图形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "观察比较",
+        "数学表达"
+      ],
+      "skillTags": [
+        "长方体",
+        "正方体",
+        "圆柱",
+        "球",
+        "按形状分类"
+      ],
+      "misconceptionTags": [
+        "orientation treated as a new shape",
+        "object name used instead of shape name",
+        "flat and solid shapes mixed"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-solid-shapes"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-solid-shapes",
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用4个相同的小正方体，可以拼成哪些不同的形状？请写出两种不同的拼法。\n拼法一：把4个小正方体摆成一排。\n拼法二：把4个小正方体摆成一个大正方体。",
+      "optionsZhHans": [],
+      "answer": "拼法一：一横排；拼法二：上下两层，每层两个。",
+      "acceptedAnswers": [
+        "拼法一：一横排；拼法二：上下两层，每层两个。",
+        "一排；两层，每层两个"
+      ],
+      "explanationZhHans": "4个小正方体可以拼成一长条（一横排），也可以拼成一个大正方体（上下两层，每层两个）。两种拼法形状不同。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-088",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-solid-shapes",
+      "unitTitle": "认识图形",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "solid-shapes",
+        "shape-classification",
+        "cuboid-cube-cylinder-sphere",
+        "立体图形",
+        "认识图形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "观察比较",
+        "数学表达"
+      ],
+      "skillTags": [
+        "长方体",
+        "正方体",
+        "圆柱",
+        "球",
+        "按形状分类"
+      ],
+      "misconceptionTags": [
+        "orientation treated as a new shape",
+        "object name used instead of shape name",
+        "flat and solid shapes mixed"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-solid-shapes"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-solid-shapes",
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个物体既有平平的面，又有弯弯的面？",
+      "optionsZhHans": [
+        "A. 魔方",
+        "B. 乒乓球",
+        "C. 茶叶罐",
+        "D. 骰子"
+      ],
+      "answer": "C. 茶叶罐",
+      "acceptedAnswers": [
+        "C. 茶叶罐"
+      ],
+      "explanationZhHans": "茶叶罐是圆柱，上下两个面是平平的圆，侧面是弯弯的，所以既有平平的面又有弯弯的面。魔方和骰子只有平平的面，乒乓球只有弯弯的面。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-089",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-solid-shapes",
+      "unitTitle": "认识图形",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "solid-shapes",
+        "shape-classification",
+        "cuboid-cube-cylinder-sphere",
+        "立体图形",
+        "认识图形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "观察比较",
+        "数学表达"
+      ],
+      "skillTags": [
+        "长方体",
+        "正方体",
+        "圆柱",
+        "球",
+        "按形状分类"
+      ],
+      "misconceptionTags": [
+        "orientation treated as a new shape",
+        "object name used instead of shape name",
+        "flat and solid shapes mixed"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-solid-shapes"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-solid-shapes",
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "猜一猜，用下面的图形可以画出什么形状？\n① 正方体的一个面可以画出（ ）形。\n② 圆柱的上下两个面可以画出（ ）形。",
+      "optionsZhHans": [],
+      "answer": "①正方；②圆",
+      "acceptedAnswers": [
+        "①正方；②圆",
+        "正方；圆",
+        "正方形；圆形"
+      ],
+      "explanationZhHans": "正方体的每个面都是正方形，所以可以画出正方形。圆柱的上下两个面是圆形，所以可以画出圆形。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-090",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-solid-shapes",
+      "unitTitle": "认识图形",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "solid-shapes",
+        "shape-classification",
+        "cuboid-cube-cylinder-sphere",
+        "立体图形",
+        "认识图形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "观察比较",
+        "数学表达"
+      ],
+      "skillTags": [
+        "长方体",
+        "正方体",
+        "圆柱",
+        "球",
+        "按形状分类"
+      ],
+      "misconceptionTags": [
+        "orientation treated as a new shape",
+        "object name used instead of shape name",
+        "flat and solid shapes mixed"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-solid-shapes"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-solid-shapes",
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "从下面选出所有可以滚动的物品，写出它们的编号。\n① 铅笔 ② 乒乓球 ③ 书本 ④ 足球 ⑤ 魔方 ⑥ 水杯",
+      "optionsZhHans": [],
+      "answer": "②④⑥",
+      "acceptedAnswers": [
+        "②④⑥",
+        "②,④,⑥",
+        "2,4,6",
+        "246"
+      ],
+      "explanationZhHans": "乒乓球和足球是球，可以任意滚动；水杯是圆柱，可以朝一个方向滚动。铅笔、书本和魔方有平平的面，不容易滚动。"
+    }
+  ]
+}

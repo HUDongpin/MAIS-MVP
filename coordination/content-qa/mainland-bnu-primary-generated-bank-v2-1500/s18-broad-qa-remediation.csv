@@ -1,0 +1,8 @@
+id,issueTags,action,promptZhHans,answer
+bnu-primary-ds-v2-p1-129,public_readiness,Rewrite prompt to state the two class events directly instead of referencing an implicit timetable.,小红上午10时上数学课，下午2时上美术课。小红说：“上午10时和下午2时我都在学校上课。”她说的对吗？请说明理由。,对，因为上午10时和下午2时都是上课时间，小红分别在上数学课和美术课，所以她在学校。
+bnu-primary-ds-v2-p3-169,ambiguous_mc|bad_options,Replace unclear vertical-form choices with one unique correct distributive calculation process.,下面哪个计算过程正确地算出了 47×35？,47×35=47×30+47×5=1410+235=1645
+bnu-primary-ds-v2-p3-233,ambiguous_mc,Make all distractors false so the data-reading multiple-choice item has exactly one correct option.,三（1）班同学调查了全班最喜欢的课间活动，结果记录如下：跳绳有12人，踢毽子有8人，拍皮球有10人，丢沙包有6人。下面哪句话是正确的？,喜欢跳绳的人数最多，比踢毽子多4人。
+bnu-primary-ds-v2-p4-192,language_issue,Remove the answer from the stem and ask students to sum the visible layer counts.,一个立体图形由同样的小正方体搭成。第一层横着排3个小正方体，第二层在最左边的小正方体上面叠1个，第一层中间那个小正方体的后面还放1个。这个立体图形一共有______个小正方体。,5
+bnu-primary-ds-v2-p4-243,ambiguous_mc|accepted_answer_gap,Change the shape set and classification standard so only one option is mathematically robust.,在整理复习时，小丽列出了本学期学过的几种四边形：长方形、正方形、平行四边形、梯形。她想把这些图形分成两类，下面哪种分类标准是正确的？,按两组对边是否分别平行分类
+bnu-primary-ds-v2-p5-069,accepted_answer_gap,Remove the decimal accepted answer because the prompt explicitly asks for a fraction.,把3块同样大小的蛋糕平均分给4个小朋友，每个小朋友分到多少块蛋糕？用分数表示。,3/4块
+bnu-primary-ds-v2-p5-241,ambiguous_mc,Replace the algebraically equivalent distractor with an actually incorrect expression.,学校图书馆新购入一批图书，其中科普书占这批书的2/5，文学书占这批书的1/4，其余是历史书。历史书占这批书的几分之几？下面列式正确的是（ ）。,1 - (2/5 + 1/4)

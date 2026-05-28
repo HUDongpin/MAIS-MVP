@@ -1,0 +1,105 @@
+{
+  "batchId": "model-qa-0022",
+  "ids": [
+    "hjb-junior-ds-v2-s1-169",
+    "hjb-junior-ds-v2-s1-170",
+    "hjb-junior-ds-v2-s1-171",
+    "hjb-junior-ds-v2-s1-172",
+    "hjb-junior-ds-v2-s1-173",
+    "hjb-junior-ds-v2-s1-174",
+    "hjb-junior-ds-v2-s1-175",
+    "hjb-junior-ds-v2-s1-176"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-169",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "multiple-correct-options"
+      ],
+      "issueDetailsZhHans": "选项C (a - b) / (b + a) 与给定分式 (a - b) / (a + b) 相等，因为加法交换律。但选项B -(b - a) / (a + b) 也等于 (a - b) / (a + b)，因为 -(b - a) = a - b。因此存在两个正确选项。",
+      "independentAnswerZhHans": "选项B和C都与给定分式相等。",
+      "answerCheckZhHans": "标准答案只选了C，但B也正确。",
+      "recommendedActionZhHans": "修改选项B或C，确保只有一个正确选项。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-170",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(3x - 3) / ((x - 2)(x + 1))",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-171",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(1) x ≠ 3 且 x ≠ -2；(2) 2(x-2)/(x-3)；(3) 4",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-172",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-3",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-173",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(x-2)(x+2)",
+      "answerCheckZhHans": "标准答案正确，解析一致。acceptedAnswers 包含 x²-4，合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-174",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-175",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "选项C：x²/(xy) (x≠0) 化简为 x/y。",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-176",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "5/2",
+      "answerCheckZhHans": "标准答案正确，解析一致。acceptedAnswers 包含 2.5，合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,621 @@
+{
+  "batchId": "batch-068",
+  "questions": [
+    {
+      "id": "bnu-junior-ds-v1-s2-171",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-linear-systems",
+      "unitTitle": "二元一次方程组",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "linear-systems-two-variables",
+        "substitution-elimination",
+        "linear-system-modeling",
+        "linear-functions",
+        "二元一次方程组"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "认识方程组",
+        "代入消元",
+        "加减消元",
+        "应用建模",
+        "方程组与函数联系"
+      ],
+      "misconceptionTags": [
+        "solution checked in only one equation",
+        "elimination signs mishandled",
+        "variables not tied back to context"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-linear-systems"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-linear-systems-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某学校组织七年级和八年级学生共 420 人参加社会实践活动。若七年级学生每人需缴纳活动费用 30 元，八年级学生每人需缴纳活动费用 40 元，总共收取费用 14500 元。设七年级有 x 人，八年级有 y 人，则可列出方程组：\n{ x + y = 420, 30x + 40y = 14500 }\n解这个方程组，得 x = ______，y = ______。",
+      "optionsZhHans": [],
+      "answer": "x=230, y=190",
+      "acceptedAnswers": [
+        "x=230, y=190",
+        "x=230,y=190",
+        "230,190",
+        "230 190"
+      ],
+      "explanationZhHans": "由 x+y=420 得 y=420-x，代入 30x+40(420-x)=14500，解得 x=230，则 y=190。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-172",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-linear-systems",
+      "unitTitle": "二元一次方程组",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "linear-systems-two-variables",
+        "substitution-elimination",
+        "linear-system-modeling",
+        "linear-functions",
+        "二元一次方程组"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "认识方程组",
+        "代入消元",
+        "加减消元",
+        "应用建模",
+        "方程组与函数联系"
+      ],
+      "misconceptionTags": [
+        "solution checked in only one equation",
+        "elimination signs mishandled",
+        "variables not tied back to context"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-linear-systems"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-linear-systems-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "方程组 { 2x - y = 5, x + 3y = -1 } 的解是（ ）",
+      "optionsZhHans": [
+        "x=2, y=-1",
+        "x=1, y=-3",
+        "x=-2, y=-9",
+        "x=3, y=1"
+      ],
+      "answer": "x=2, y=-1",
+      "acceptedAnswers": [
+        "x=2, y=-1"
+      ],
+      "explanationZhHans": "由第一个方程得 y=2x-5，代入第二个方程：x+3(2x-5)=-1，7x-15=-1，7x=14，x=2，y=-1。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-173",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-linear-systems",
+      "unitTitle": "二元一次方程组",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "linear-systems-two-variables",
+        "substitution-elimination",
+        "linear-system-modeling",
+        "linear-functions",
+        "二元一次方程组"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "认识方程组",
+        "代入消元",
+        "加减消元",
+        "应用建模",
+        "方程组与函数联系"
+      ],
+      "misconceptionTags": [
+        "solution checked in only one equation",
+        "elimination signs mishandled",
+        "variables not tied back to context"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-linear-systems"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-linear-systems-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知关于 x, y 的方程组 { 3x + 2y = 7, 5x - 2y = 1 }，求 x 和 y 的值。",
+      "optionsZhHans": [],
+      "answer": "x=1, y=2",
+      "acceptedAnswers": [
+        "x=1, y=2",
+        "x=1,y=2",
+        "1,2",
+        "1 2"
+      ],
+      "explanationZhHans": "两式相加消去 y：8x=8，x=1；代入 3×1+2y=7，2y=4，y=2。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-174",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-linear-systems",
+      "unitTitle": "二元一次方程组",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "linear-systems-two-variables",
+        "substitution-elimination",
+        "linear-system-modeling",
+        "linear-functions",
+        "二元一次方程组"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "认识方程组",
+        "代入消元",
+        "加减消元",
+        "应用建模",
+        "方程组与函数联系"
+      ],
+      "misconceptionTags": [
+        "solution checked in only one equation",
+        "elimination signs mishandled",
+        "variables not tied back to context"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-linear-systems"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-linear-systems-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "甲、乙两人从相距 36 千米的两地同时出发，相向而行，2 小时后相遇。如果甲比乙每小时多走 2 千米，设甲的速度为 x 千米/时，乙的速度为 y 千米/时，则可列出方程组：\n{ 2x + 2y = 36, x - y = 2 }\n解这个方程组，得 x = ______，y = ______。",
+      "optionsZhHans": [],
+      "answer": "x=10, y=8",
+      "acceptedAnswers": [
+        "x=10, y=8",
+        "x=10,y=8",
+        "10,8",
+        "10 8"
+      ],
+      "explanationZhHans": "由 x-y=2 得 x=y+2，代入 2(y+2)+2y=36，4y+4=36，y=8，x=10。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-175",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-linear-systems",
+      "unitTitle": "二元一次方程组",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "linear-systems-two-variables",
+        "substitution-elimination",
+        "linear-system-modeling",
+        "linear-functions",
+        "二元一次方程组"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "认识方程组",
+        "代入消元",
+        "加减消元",
+        "应用建模",
+        "方程组与函数联系"
+      ],
+      "misconceptionTags": [
+        "solution checked in only one equation",
+        "elimination signs mishandled",
+        "variables not tied back to context"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-linear-systems"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-linear-systems-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下列方程组中，解为 x=3, y=-2 的是（ ）",
+      "optionsZhHans": [
+        "{ x + y = 1, 2x - y = 8 }",
+        "{ x - y = 5, 3x + y = 7 }",
+        "{ 2x + y = 4, x - 2y = 7 }",
+        "{ x + 2y = -1, 3x - y = 11 }"
+      ],
+      "answer": "{ x + y = 1, 2x - y = 8 }",
+      "acceptedAnswers": [
+        "{ x + y = 1, 2x - y = 8 }"
+      ],
+      "explanationZhHans": "将 x=3, y=-2 代入各选项：A 中 3+(-2)=1，2×3-(-2)=8，成立；其他选项不成立。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-176",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-linear-systems",
+      "unitTitle": "二元一次方程组",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "linear-systems-two-variables",
+        "substitution-elimination",
+        "linear-system-modeling",
+        "linear-functions",
+        "二元一次方程组"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "认识方程组",
+        "代入消元",
+        "加减消元",
+        "应用建模",
+        "方程组与函数联系"
+      ],
+      "misconceptionTags": [
+        "solution checked in only one equation",
+        "elimination signs mishandled",
+        "variables not tied back to context"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-linear-systems"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-linear-systems-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用代入法解方程组 { y = 2x - 3, 3x + 2y = 8 }，并写出解。",
+      "optionsZhHans": [],
+      "answer": "x=2, y=1",
+      "acceptedAnswers": [
+        "x=2, y=1",
+        "x=2,y=1",
+        "2,1",
+        "2 1"
+      ],
+      "explanationZhHans": "将 y=2x-3 代入 3x+2(2x-3)=8，7x-6=8，7x=14，x=2，y=1。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-177",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-linear-systems",
+      "unitTitle": "二元一次方程组",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "linear-systems-two-variables",
+        "substitution-elimination",
+        "linear-system-modeling",
+        "linear-functions",
+        "二元一次方程组"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "认识方程组",
+        "代入消元",
+        "加减消元",
+        "应用建模",
+        "方程组与函数联系"
+      ],
+      "misconceptionTags": [
+        "solution checked in only one equation",
+        "elimination signs mishandled",
+        "variables not tied back to context"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-linear-systems"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-linear-systems-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某商店购进甲、乙两种商品共 100 件，甲商品每件进价 15 元，乙商品每件进价 25 元，总进价为 1800 元。设甲商品购进 x 件，乙商品购进 y 件，则可列出方程组：\n{ x + y = 100, 15x + 25y = 1800 }\n解这个方程组，得 x = ______，y = ______。",
+      "optionsZhHans": [],
+      "answer": "x=70, y=30",
+      "acceptedAnswers": [
+        "x=70, y=30",
+        "x=70,y=30",
+        "70,30",
+        "70 30"
+      ],
+      "explanationZhHans": "由 x+y=100 得 y=100-x，代入 15x+25(100-x)=1800，-10x+2500=1800，x=70，y=30。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-178",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-linear-systems",
+      "unitTitle": "二元一次方程组",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "linear-systems-two-variables",
+        "substitution-elimination",
+        "linear-system-modeling",
+        "linear-functions",
+        "二元一次方程组"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "认识方程组",
+        "代入消元",
+        "加减消元",
+        "应用建模",
+        "方程组与函数联系"
+      ],
+      "misconceptionTags": [
+        "solution checked in only one equation",
+        "elimination signs mishandled",
+        "variables not tied back to context"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-linear-systems"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-linear-systems-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用加减法解方程组 { 4x + 3y = 11, 2x - 3y = 1 }，得到的解是（ ）",
+      "optionsZhHans": [
+        "x=2, y=1",
+        "x=1, y=2",
+        "x=3, y=-1",
+        "x=-1, y=5"
+      ],
+      "answer": "x=2, y=1",
+      "acceptedAnswers": [
+        "x=2, y=1"
+      ],
+      "explanationZhHans": "两式相加消去 y：6x=12，x=2；代入 4×2+3y=11，3y=3，y=1。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-179",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-linear-systems",
+      "unitTitle": "二元一次方程组",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "linear-systems-two-variables",
+        "substitution-elimination",
+        "linear-system-modeling",
+        "linear-functions",
+        "二元一次方程组"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "认识方程组",
+        "代入消元",
+        "加减消元",
+        "应用建模",
+        "方程组与函数联系"
+      ],
+      "misconceptionTags": [
+        "solution checked in only one equation",
+        "elimination signs mishandled",
+        "variables not tied back to context"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-linear-systems"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-linear-systems-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知一次函数 y = kx + b 的图象经过点 (1, 3) 和 (2, 5)，求 k 和 b 的值。",
+      "optionsZhHans": [],
+      "answer": "k=2, b=1",
+      "acceptedAnswers": [
+        "k=2, b=1",
+        "k=2,b=1",
+        "2,1",
+        "2 1"
+      ],
+      "explanationZhHans": "代入两点得方程组：k+b=3，2k+b=5。两式相减得 k=2，代入得 b=1。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-180",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-linear-systems",
+      "unitTitle": "二元一次方程组",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "linear-systems-two-variables",
+        "substitution-elimination",
+        "linear-system-modeling",
+        "linear-functions",
+        "二元一次方程组"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "认识方程组",
+        "代入消元",
+        "加减消元",
+        "应用建模",
+        "方程组与函数联系"
+      ],
+      "misconceptionTags": [
+        "solution checked in only one equation",
+        "elimination signs mishandled",
+        "variables not tied back to context"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-linear-systems"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-linear-systems-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个两位数，十位数字与个位数字的和为 12，且十位数字比个位数字大 2。设十位数字为 x，个位数字为 y，则可列出方程组：\n{ x + y = 12, x - y = 2 }\n解这个方程组，得 x = ______，y = ______。",
+      "optionsZhHans": [],
+      "answer": "x=7, y=5",
+      "acceptedAnswers": [
+        "x=7, y=5",
+        "x=7,y=5",
+        "7,5",
+        "7 5"
+      ],
+      "explanationZhHans": "两式相加得 2x=14，x=7；代入 x+y=12 得 y=5。"
+    }
+  ]
+}

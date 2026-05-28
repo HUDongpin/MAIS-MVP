@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0023",
+  "ids": [
+    "hjb-junior-ds-v2-s1-177",
+    "hjb-junior-ds-v2-s1-178",
+    "hjb-junior-ds-v2-s1-179",
+    "hjb-junior-ds-v2-s1-180",
+    "hjb-junior-ds-v2-s1-181",
+    "hjb-junior-ds-v2-s1-182",
+    "hjb-junior-ds-v2-s1-183",
+    "hjb-junior-ds-v2-s1-184"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-177",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "5",
+      "answerCheckZhHans": "标准答案为5，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-178",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "保持不变",
+      "answerCheckZhHans": "标准答案为“保持不变”，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-179",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(a-1)/(a+1)",
+      "answerCheckZhHans": "标准答案为“(a-1)/(a+1)”，与独立计算结果一致。acceptedAnswers 包含“(a-1)/(a+1)”和“a-1/a+1”，后者可能被误解为 a - (1/a) + 1，但作为字符串匹配可接受。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-180",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案和解析中的化简结果错误。分子为 2x^2+12x+18 = 2(x^2+6x+9) = 2(x+3)^2，分母为 x^3+2x^2-4x-8 = (x+2)(x^2-4) = (x+2)(x+2)(x-2) = (x+2)^2 (x-2)。约分后应为 2(x+3)^2 / [(x+2)^2 (x-2)]，而非 2(x+3)/[(x+2)(x-2)]。解析中错误地约去了 (x+3) 和 (x+2)，但分子只有 (x+3)^2，分母有 (x+2)^2，无法完全约去。",
+      "independentAnswerZhHans": "化简结果为 2(x+3)^2 / [(x+2)^2 (x-2)]，分母不为零的条件为 x ≠ -2 且 x ≠ 2。",
+      "answerCheckZhHans": "标准答案与独立计算结果不一致，解析过程有误。",
+      "recommendedActionZhHans": "修正答案和解析，或检查题目是否有误。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-181",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "C. x ≠ 2 且 x ≠ -2",
+      "answerCheckZhHans": "标准答案为“C. x ≠ 2 且 x ≠ -2”，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-182",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "标准答案为“3”，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-183",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "1",
+      "answerCheckZhHans": "标准答案为“1”，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-184",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "C. \\(\\frac{2x-6}{x^2-6x+9}\\)",
+      "answerCheckZhHans": "标准答案为“C. \\(\\frac{2x-6}{x^2-6x+9}\\)”，与独立计算结果一致。选项A和B在特定条件下也等于2/(x-3)，但C在x≠3时恒等，且题目未指定x的范围，通常认为C是最简形式且定义域一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

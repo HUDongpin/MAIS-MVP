@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-077",
+  "startedAt": "2026-05-28T01:16:06.065Z",
+  "completedAt": "2026-05-28T01:16:34.909Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-109",
+    "bnu-high-ds-v1-s5-110",
+    "bnu-high-ds-v1-s5-111",
+    "bnu-high-ds-v1-s5-112",
+    "bnu-high-ds-v1-s5-113",
+    "bnu-high-ds-v1-s5-114",
+    "bnu-high-ds-v1-s5-115",
+    "bnu-high-ds-v1-s5-116"
+  ],
+  "usage": {
+    "prompt_tokens": 10520,
+    "completion_tokens": 1558,
+    "total_tokens": 12078,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 10136
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-109",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由双曲线定义和|PF1|=3|PF2|得|PF2|=a，|PF1|=3a。由三角形两边之和大于第三边，|PF1|+|PF2|≥|F1F2|，即4a≥2c，故e=c/a≤2，最大值为2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-110",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "定直线为x=4",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由离心率√3/2和过点(√3,1/2)求得椭圆方程为x²/4+y²=1。设A(x1,y1),B(x1,-y1)，则P(x1,0)。设过P的直线x=ty+x1，与椭圆联立得M,N坐标。计算AM与BN方程，消参得交点横坐标为4，故交点在定直线x=4上。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-111",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "x²/8+y²/6=1",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由e=1/2得c/a=1/2，设a=2c，b²=a²-c²=3c²。代入点(2,√3)得4/(4c²)+3/(3c²)=1，解得c²=2，故a²=8，b²=6，方程为x²/8+y²/6=1。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-112",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(-√3/3, √3/3)",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由渐近线y=(√3/3)x得b/a=√3/3，代入点(4,√6)得a²=12,b²=4，双曲线为x²/12-y²/4=1。联立y=kx+2得(1-3k²)x²-12kx-24=0。右支交点需Δ>0且两根之和>0且两根之积>0，解得k∈(-√3/3,√3/3)。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-113",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "p=4",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "焦点F(p/2,0)，直线y=√3(x-p/2)，联立y²=2px得3x²-5px+3p²/4=0。弦长|AB|=√(1+3)·√[(5p/3)²-4·(p²/4)]=2·√(16p²/9)=8p/3=16，得p=6。但检验判别式，p=6时Δ>0，故p=6。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-114",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "±√2/2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由c=1和过(0,√3)得b=√3，a²=b²+c²=4，椭圆为x²/4+y²/3=1。设直线y=k(x-4)，联立得(3+4k²)x²-32k²x+64k²-12=0。以MN为直径的圆过原点得x1x2+y1y2=0，代入韦达定理得(64k²-12)(1+k²)/(3+4k²)-32k²·4k²/(3+4k²)+16k²=0，解得k²=1/2，故k=±√2/2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-115",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "x^2/9 - y^2/16 = 1",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "焦距2c=10得c=5，e=c/a=5/3得a=3，b²=c²-a²=16，实轴在x轴，方程为x²/9-y²/16=1。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-116",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "x-y+1=0或x+y+1=0",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "抛物线y²=4x，焦点F(1,0)。设直线l: x=my-1，联立得y²-4my+4=0。|AB|=√(1+m²)·√(16m²-16)=4√(1+m²)·√(m²-1)。F到l距离d=|m·0-1-1|/√(1+m²)=2/√(1+m²)。面积S=1/2|AB|d=4√(m²-1)=8，得m²=5，m=±√5，直线为x=±√5y-1，即x±√5y+1=0。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，无缺失条件或歧义，符合北师大版高中圆锥曲线章节要求。"
+    }
+  }
+}

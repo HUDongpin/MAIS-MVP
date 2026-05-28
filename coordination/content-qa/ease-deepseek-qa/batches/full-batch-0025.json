@@ -1,0 +1,168 @@
+{
+  "scope": "full",
+  "batchIndex": 25,
+  "startedAt": "2026-05-28T03:29:39.378Z",
+  "completedAt": "2026-05-28T03:30:07.847Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "itemIds": [
+    "10538",
+    "10539",
+    "10540",
+    "10541",
+    "10542",
+    "10543",
+    "10544",
+    "10545",
+    "10546",
+    "10547"
+  ],
+  "usage": {
+    "prompt_tokens": 2623,
+    "completion_tokens": 2214,
+    "total_tokens": 4837,
+    "prompt_tokens_details": {
+      "cached_tokens": 2560
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1057
+    },
+    "prompt_cache_hit_tokens": 2560,
+    "prompt_cache_miss_tokens": 63
+  },
+  "finishReason": "stop",
+  "jsonModeFallback": false,
+  "result": {
+    "items": [
+      {
+        "questionId": "10538",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "1050",
+        "independentAnswer": "1050",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "1.05 L = 1050 mL, clear conversion.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10539",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "2.67",
+        "independentAnswer": "2.67",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "2670 mL = 2.67 L, correct.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10540",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "1.27 米/m ($1.42 - 0.15 = 1.27$)",
+        "independentAnswer": "1.27",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "1.42 m - 0.15 m = 1.27 m, answer matches.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10541",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "果汁",
+        "independentAnswer": "果汁",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Mineral water 6.5, juice 6.4, juice cheaper.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10542",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "22.8",
+        "independentAnswer": "22.8",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "7.8 + 15 = 22.8, correct.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10543",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "5.37",
+        "independentAnswer": "5.37",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "20 - 14.63 = 5.37, correct.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10544",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "26.31",
+        "independentAnswer": "26.31",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "5.42 + 12.7 + 8.19 = 26.31, correct.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10545",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "25.12",
+        "independentAnswer": "25.12",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "45 - 12.3 - 7.58 = 25.12, correct.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10546",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "20.15",
+        "independentAnswer": "20.15",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "18.6 - 9.45 + 11 = 20.15, correct.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10547",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "$30 - 17.32 = \\mathbf{12.68}$",
+        "independentAnswer": "12.68",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "30 - (12.5 + 4.82) = 12.68, answer matches.",
+        "recommendedAction": "No blocking action."
+      }
+    ],
+    "batchSummary": {
+      "pass": 10,
+      "unsolvable": 0,
+      "ambiguous": 0,
+      "imageContextRequired": 0,
+      "answerMismatch": 0,
+      "missingAnswerKey": 0,
+      "notes": "All items are solvable and answer keys match."
+    }
+  }
+}

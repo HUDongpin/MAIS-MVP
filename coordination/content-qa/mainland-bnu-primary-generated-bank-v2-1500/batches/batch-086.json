@@ -1,0 +1,576 @@
+{
+  "batchId": "batch-086",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p4-101",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-negative-numbers",
+      "unitTitle": "生活中的负数",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "negative-numbers",
+        "signed-quantities",
+        "number-line",
+        "生活中的负数",
+        "正负数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "认识正负数",
+        "读写负数",
+        "数轴表示",
+        "比较正负数",
+        "情境解释"
+      ],
+      "misconceptionTags": [
+        "negative sign treated as subtraction only",
+        "larger absolute value assumed larger number",
+        "zero reference not identified"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-negative-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-negative-numbers-unit",
+        "bnu-primary-p4-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某城市冬季某天的气温从零上8℃下降到零下5℃，气温下降了______℃。",
+      "optionsZhHans": [],
+      "answer": "13",
+      "acceptedAnswers": [
+        "13"
+      ],
+      "explanationZhHans": "零上8℃记作+8℃，零下5℃记作-5℃。从+8℃到-5℃的温差是8+5=13℃，所以下降了13℃。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-102",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-negative-numbers",
+      "unitTitle": "生活中的负数",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "negative-numbers",
+        "signed-quantities",
+        "number-line",
+        "生活中的负数",
+        "正负数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "认识正负数",
+        "读写负数",
+        "数轴表示",
+        "比较正负数",
+        "情境解释"
+      ],
+      "misconceptionTags": [
+        "negative sign treated as subtraction only",
+        "larger absolute value assumed larger number",
+        "zero reference not identified"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-negative-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-negative-numbers-unit",
+        "bnu-primary-p4-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明在一条东西向的直路上行走，规定向东为正。他从起点出发，先向东走150米，再向西走200米。请问小明最后的位置在起点的哪一侧？距离起点多少米？请用正负数表示他的最终位置。",
+      "optionsZhHans": [],
+      "answer": "西侧，50米，-50米",
+      "acceptedAnswers": [
+        "西侧，50米，-50米",
+        "西侧50米，-50米",
+        "西侧50米-50米"
+      ],
+      "explanationZhHans": "向东150米记作+150米，向西200米记作-200米。最终位置为+150+(-200)=-50米，负号表示在起点西侧，距离50米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-103",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-negative-numbers",
+      "unitTitle": "生活中的负数",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "negative-numbers",
+        "signed-quantities",
+        "number-line",
+        "生活中的负数",
+        "正负数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "认识正负数",
+        "读写负数",
+        "数轴表示",
+        "比较正负数",
+        "情境解释"
+      ],
+      "misconceptionTags": [
+        "negative sign treated as subtraction only",
+        "larger absolute value assumed larger number",
+        "zero reference not identified"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-negative-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-negative-numbers-unit",
+        "bnu-primary-p4-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某天四个城市的最低气温如下：甲市-8℃，乙市-3℃，丙市0℃，丁市2℃。哪个城市的最低气温最高？",
+      "optionsZhHans": [
+        "甲市",
+        "乙市",
+        "丙市",
+        "丁市"
+      ],
+      "answer": "丁市",
+      "acceptedAnswers": [
+        "丁市"
+      ],
+      "explanationZhHans": "在数轴上，正数大于0，0大于负数。2℃是正数，最高。比较负数时，-3℃大于-8℃，但2℃最大。所以丁市气温最高。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-104",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-negative-numbers",
+      "unitTitle": "生活中的负数",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "negative-numbers",
+        "signed-quantities",
+        "number-line",
+        "生活中的负数",
+        "正负数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "认识正负数",
+        "读写负数",
+        "数轴表示",
+        "比较正负数",
+        "情境解释"
+      ],
+      "misconceptionTags": [
+        "negative sign treated as subtraction only",
+        "larger absolute value assumed larger number",
+        "zero reference not identified"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-negative-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-negative-numbers-unit",
+        "bnu-primary-p4-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某水库的水位以正常水位为基准，高于正常水位记为正，低于正常水位记为负。某日水位为+15厘米，次日水位为-10厘米。这两天水位相差______厘米。",
+      "optionsZhHans": [],
+      "answer": "25",
+      "acceptedAnswers": [
+        "25"
+      ],
+      "explanationZhHans": "+15厘米表示高于正常水位15厘米，-10厘米表示低于正常水位10厘米。两者相差15+10=25厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-105",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-negative-numbers",
+      "unitTitle": "生活中的负数",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "negative-numbers",
+        "signed-quantities",
+        "number-line",
+        "生活中的负数",
+        "正负数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "认识正负数",
+        "读写负数",
+        "数轴表示",
+        "比较正负数",
+        "情境解释"
+      ],
+      "misconceptionTags": [
+        "negative sign treated as subtraction only",
+        "larger absolute value assumed larger number",
+        "zero reference not identified"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-negative-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-negative-numbers-unit",
+        "bnu-primary-p4-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小华玩积分游戏，答对一题得10分，答错一题扣5分。他答对了8题，答错了4题。他的最终得分是多少分？",
+      "optionsZhHans": [],
+      "answer": "60",
+      "acceptedAnswers": [
+        "60",
+        "60分"
+      ],
+      "explanationZhHans": "答对得分：8×10=80分；答错扣分：4×5=20分。最终得分：80-20=60分。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-106",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-negative-numbers",
+      "unitTitle": "生活中的负数",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "negative-numbers",
+        "signed-quantities",
+        "number-line",
+        "生活中的负数",
+        "正负数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "认识正负数",
+        "读写负数",
+        "数轴表示",
+        "比较正负数",
+        "情境解释"
+      ],
+      "misconceptionTags": [
+        "negative sign treated as subtraction only",
+        "larger absolute value assumed larger number",
+        "zero reference not identified"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-negative-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-negative-numbers-unit",
+        "bnu-primary-p4-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某地一天中四个时刻的气温记录如下：凌晨2时-4℃，上午8时0℃，下午2时6℃，晚上8时-1℃。这四个时刻中，气温最低的是哪个时刻？",
+      "optionsZhHans": [
+        "凌晨2时",
+        "上午8时",
+        "下午2时",
+        "晚上8时"
+      ],
+      "answer": "凌晨2时",
+      "acceptedAnswers": [
+        "凌晨2时"
+      ],
+      "explanationZhHans": "比较各气温：-4℃、0℃、6℃、-1℃。负数中-4℃最小，所以凌晨2时气温最低。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-107",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-negative-numbers",
+      "unitTitle": "生活中的负数",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "negative-numbers",
+        "signed-quantities",
+        "number-line",
+        "生活中的负数",
+        "正负数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "认识正负数",
+        "读写负数",
+        "数轴表示",
+        "比较正负数",
+        "情境解释"
+      ],
+      "misconceptionTags": [
+        "negative sign treated as subtraction only",
+        "larger absolute value assumed larger number",
+        "zero reference not identified"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-negative-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-negative-numbers-unit",
+        "bnu-primary-p4-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在数轴上，点A表示-3，点B表示2。点A和点B之间的距离是______。",
+      "optionsZhHans": [],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5"
+      ],
+      "explanationZhHans": "数轴上两点距离为右边点表示的数减去左边点表示的数：2-(-3)=2+3=5。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-108",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-negative-numbers",
+      "unitTitle": "生活中的负数",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "negative-numbers",
+        "signed-quantities",
+        "number-line",
+        "生活中的负数",
+        "正负数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "认识正负数",
+        "读写负数",
+        "数轴表示",
+        "比较正负数",
+        "情境解释"
+      ],
+      "misconceptionTags": [
+        "negative sign treated as subtraction only",
+        "larger absolute value assumed larger number",
+        "zero reference not identified"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-negative-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-negative-numbers-unit",
+        "bnu-primary-p4-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某山峰海拔高度为+1240米（以海平面为基准），某盆地海拔高度为-155米。山峰比盆地高多少米？",
+      "optionsZhHans": [],
+      "answer": "1395",
+      "acceptedAnswers": [
+        "1395",
+        "1395米"
+      ],
+      "explanationZhHans": "山峰海拔+1240米，盆地海拔-155米。高差为1240-(-155)=1240+155=1395米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-109",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-negative-numbers",
+      "unitTitle": "生活中的负数",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "negative-numbers",
+        "signed-quantities",
+        "number-line",
+        "生活中的负数",
+        "正负数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "认识正负数",
+        "读写负数",
+        "数轴表示",
+        "比较正负数",
+        "情境解释"
+      ],
+      "misconceptionTags": [
+        "negative sign treated as subtraction only",
+        "larger absolute value assumed larger number",
+        "zero reference not identified"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-negative-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-negative-numbers-unit",
+        "bnu-primary-p4-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个数最接近0？",
+      "optionsZhHans": [
+        "-5",
+        "-2",
+        "3",
+        "4"
+      ],
+      "answer": "-2",
+      "acceptedAnswers": [
+        "-2"
+      ],
+      "explanationZhHans": "各数到0的距离：|-5|=5，|-2|=2，|3|=3，|4|=4。其中2最小，所以-2最接近0。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-110",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-negative-numbers",
+      "unitTitle": "生活中的负数",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "negative-numbers",
+        "signed-quantities",
+        "number-line",
+        "生活中的负数",
+        "正负数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "认识正负数",
+        "读写负数",
+        "数轴表示",
+        "比较正负数",
+        "情境解释"
+      ],
+      "misconceptionTags": [
+        "negative sign treated as subtraction only",
+        "larger absolute value assumed larger number",
+        "zero reference not identified"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-negative-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-negative-numbers-unit",
+        "bnu-primary-p4-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某超市盈利记为正，亏损记为负。上月盈利5000元，本月亏损2000元。这两个月总的盈亏情况是______元。",
+      "optionsZhHans": [],
+      "answer": "3000",
+      "acceptedAnswers": [
+        "3000",
+        "+3000",
+        "盈利3000"
+      ],
+      "explanationZhHans": "盈利5000元记作+5000元，亏损2000元记作-2000元。总和为5000+(-2000)=3000元，即盈利3000元。"
+    }
+  ]
+}

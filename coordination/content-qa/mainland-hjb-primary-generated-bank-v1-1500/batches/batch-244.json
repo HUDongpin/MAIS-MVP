@@ -1,0 +1,297 @@
+{
+  "batchId": "batch-244",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p5-216",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-cuboid-cube",
+      "unitTitle": "长方体、正方体与体积",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "cuboid",
+        "cube",
+        "surface-area",
+        "volume",
+        "unit-cubes",
+        "长方体正方体"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "面棱顶点",
+        "展开图",
+        "表面积",
+        "体积单位",
+        "长方体正方体体积"
+      ],
+      "misconceptionTags": [
+        "surface area and volume mixed",
+        "hidden faces counted incorrectly",
+        "cubic units omitted"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-cuboid-cube"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-cylinder-cone",
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方体玻璃鱼缸，从里面量长6分米、宽4分米、高5分米。鱼缸里装有水，水深3分米。把一块假山石完全浸入水中后，水面上升到4.2分米。这块假山石的体积是多少立方分米？",
+      "optionsZhHans": [],
+      "answer": "28.8",
+      "acceptedAnswers": [
+        "28.8",
+        "28.8立方分米"
+      ],
+      "explanationZhHans": "假山石体积等于上升部分水的体积。上升高度：4.2 - 3 = 1.2（分米）。底面积：6 × 4 = 24（平方分米）。体积：24 × 1.2 = 28.8（立方分米）。注意区分表面积和体积，这里求的是体积。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-217",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-cuboid-cube",
+      "unitTitle": "长方体、正方体与体积",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "cuboid",
+        "cube",
+        "surface-area",
+        "volume",
+        "unit-cubes",
+        "长方体正方体"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "面棱顶点",
+        "展开图",
+        "表面积",
+        "体积单位",
+        "长方体正方体体积"
+      ],
+      "misconceptionTags": [
+        "surface area and volume mixed",
+        "hidden faces counted incorrectly",
+        "cubic units omitted"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-cuboid-cube"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-cylinder-cone",
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个正方体的棱长总和是72厘米，它的表面积是多少平方厘米？",
+      "optionsZhHans": [
+        "216",
+        "432",
+        "864",
+        "144"
+      ],
+      "answer": "216",
+      "acceptedAnswers": [
+        "216"
+      ],
+      "explanationZhHans": "正方体有12条棱，棱长：72 ÷ 12 = 6（厘米）。一个面的面积：6 × 6 = 36（平方厘米）。表面积：36 × 6 = 216（平方厘米）。选项A正确。注意不要将棱长总和误当作棱长直接计算。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-218",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-cuboid-cube",
+      "unitTitle": "长方体、正方体与体积",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "cuboid",
+        "cube",
+        "surface-area",
+        "volume",
+        "unit-cubes",
+        "长方体正方体"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "面棱顶点",
+        "展开图",
+        "表面积",
+        "体积单位",
+        "长方体正方体体积"
+      ],
+      "misconceptionTags": [
+        "surface area and volume mixed",
+        "hidden faces counted incorrectly",
+        "cubic units omitted"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-cuboid-cube"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-cylinder-cone",
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方体纸箱，长8分米、宽5分米、高4分米。制作这个纸箱至少需要多少平方分米的硬纸板？（接口处忽略不计）",
+      "optionsZhHans": [],
+      "answer": "184",
+      "acceptedAnswers": [
+        "184",
+        "184平方分米"
+      ],
+      "explanationZhHans": "求表面积。长方体表面积 =（长×宽 + 长×高 + 宽×高）× 2。计算：（8×5 + 8×4 + 5×4）× 2 =（40 + 32 + 20）× 2 = 92 × 2 = 184（平方分米）。注意单位是平方分米。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-219",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-cuboid-cube",
+      "unitTitle": "长方体、正方体与体积",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "cuboid",
+        "cube",
+        "surface-area",
+        "volume",
+        "unit-cubes",
+        "长方体正方体"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "面棱顶点",
+        "展开图",
+        "表面积",
+        "体积单位",
+        "长方体正方体体积"
+      ],
+      "misconceptionTags": [
+        "surface area and volume mixed",
+        "hidden faces counted incorrectly",
+        "cubic units omitted"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-cuboid-cube"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-cylinder-cone",
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把两个棱长都是3厘米的正方体拼成一个长方体，拼成的长方体的体积是多少立方厘米？",
+      "optionsZhHans": [
+        "27",
+        "54",
+        "81",
+        "108"
+      ],
+      "answer": "54",
+      "acceptedAnswers": [
+        "54"
+      ],
+      "explanationZhHans": "每个正方体体积：3×3×3 = 27（立方厘米）。两个正方体体积之和：27×2 = 54（立方厘米）。拼成长方体后体积不变。选项B正确。注意不要误算表面积。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-220",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-statistics-review",
+      "unitTitle": "统计表达与综合应用",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "statistical-displays",
+        "line-graphs",
+        "data-comparison",
+        "mixed-review",
+        "统计"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "反思整理"
+      ],
+      "skillTags": [
+        "统计图读取",
+        "数据比较",
+        "趋势描述",
+        "综合应用",
+        "错因检查"
+      ],
+      "misconceptionTags": [
+        "trend inferred from one point only",
+        "vertical scale read incorrectly",
+        "model chosen from keywords rather than quantities"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-statistics-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-data-average-unit",
+        "hjb-primary-p4-lower-assessment-line-statistics"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "S18 remediated after DeepSeek-v4-pro QA on 2026-05-25; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是某地2023年各月平均气温的折线统计图数据：1月2℃，2月5℃，3月10℃，4月16℃，5月22℃，6月28℃，7月30℃，8月29℃，9月25℃，10月18℃，11月10℃，12月4℃。从几月到几月气温上升最快？若有多组上升幅度相同，请写最早出现的一组。",
+      "optionsZhHans": [],
+      "answer": "3月到4月",
+      "acceptedAnswers": [
+        "3月到4月",
+        "三月到四月"
+      ],
+      "explanationZhHans": "相邻月份中，3月到4月、4月到5月、5月到6月都上升6℃。题目要求若有多组相同写最早出现的一组，所以填3月到4月。"
+    }
+  ]
+}

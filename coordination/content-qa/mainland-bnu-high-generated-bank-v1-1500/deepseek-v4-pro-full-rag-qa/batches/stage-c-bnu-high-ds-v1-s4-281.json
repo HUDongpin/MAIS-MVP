@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-281",
+  "startedAt": "2026-05-28T01:06:48.983Z",
+  "completedAt": "2026-05-28T01:06:55.942Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-281"
+  ],
+  "usage": {
+    "prompt_tokens": 2296,
+    "completion_tokens": 364,
+    "total_tokens": 2660,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1912
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-281",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "(1) 甲：y=0.85x-0.9；乙：y=0.0625x²+0.55；(2) 乙模型更准确；(3) 9.6 m",
+        "correctedAnswer": "(1) 甲：y=0.85x-0.9；乙：y=0.0625x²+0.55；(2) 乙模型更准确；(3) 9.6 m",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案参数计算错误：甲模型应为y=0.85x-0.9，乙模型应为y=0.0625x²+0.55；检验结果应为乙模型更准确；预测值应为9.6 m。解析中计算错误且结论矛盾，与独立求解结果不一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "存储答案和解析存在严重数学错误，与独立求解结果不符，判定为blocker。"
+    }
+  }
+}

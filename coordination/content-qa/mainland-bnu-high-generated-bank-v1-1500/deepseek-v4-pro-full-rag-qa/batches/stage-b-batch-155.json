@@ -1,0 +1,130 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-155",
+  "startedAt": "2026-05-28T01:45:34.396Z",
+  "completedAt": "2026-05-28T01:45:46.966Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-233",
+    "bnu-high-ds-v1-s6-234",
+    "bnu-high-ds-v1-s6-235",
+    "bnu-high-ds-v1-s6-236",
+    "bnu-high-ds-v1-s6-237",
+    "bnu-high-ds-v1-s6-238",
+    "bnu-high-ds-v1-s6-239",
+    "bnu-high-ds-v1-s6-240"
+  ],
+  "usage": {
+    "prompt_tokens": 11837,
+    "completion_tokens": 992,
+    "total_tokens": 12829,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 11453
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-233",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析正确推导出a=0, b=-12, c=4。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-234",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析正确求得切线方程y=9x-16。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-235",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析正确计算最大值为2，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-236",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析正确求得最大面积162平方米。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-237",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析正确推导出a≤5/4。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-238",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析正确计算极值差为32，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-239",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "a = e - 1",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案a=1错误，独立解为a=e-1。解析中a>1时解得a=1矛盾，但未考虑a=e-1的情况，导致错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-240",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析正确得出0<k<4。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第239题存储答案错误，应为a=e-1而非a=1，其余题目均通过。"
+    }
+  }
+}

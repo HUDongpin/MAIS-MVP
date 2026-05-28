@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-153",
+  "startedAt": "2026-05-28T03:03:56.612Z",
+  "completedAt": "2026-05-28T03:04:01.748Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-153"
+  ],
+  "usage": {
+    "prompt_tokens": 2073,
+    "completion_tokens": 279,
+    "total_tokens": 2352,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1689
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-153",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "[0,1]",
+        "correctedAnswer": "[0,1]",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "f(0)=ln2-1<0，f(2)=ln4-1>0，中点1处f(1)=ln3-1>0，故零点在[0,1]。存储答案[1,2]错误，解析也指出应为[0,1]，与答案矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "存储答案错误，与正确解和解析矛盾，需修正为[0,1]。"
+    }
+  }
+}

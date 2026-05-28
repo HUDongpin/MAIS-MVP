@@ -1,0 +1,191 @@
+{
+  "batchNumber": 35,
+  "startedAt": "2026-05-27T13:27:41.772Z",
+  "completedAt": "2026-05-27T13:27:59.221Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p3-113",
+    "bnu-primary-ds-v1-p3-114",
+    "bnu-primary-ds-v1-p3-115",
+    "bnu-primary-ds-v1-p3-116",
+    "bnu-primary-ds-v1-p3-117",
+    "bnu-primary-ds-v1-p3-118",
+    "bnu-primary-ds-v1-p3-119",
+    "bnu-primary-ds-v1-p3-120",
+    "bnu-primary-ds-v1-p3-121",
+    "bnu-primary-ds-v1-p3-122",
+    "bnu-primary-ds-v1-p3-123",
+    "bnu-primary-ds-v1-p3-124",
+    "bnu-primary-ds-v1-p3-125",
+    "bnu-primary-ds-v1-p3-126",
+    "bnu-primary-ds-v1-p3-127",
+    "bnu-primary-ds-v1-p3-128",
+    "bnu-primary-ds-v1-p3-129",
+    "bnu-primary-ds-v1-p3-130"
+  ],
+  "usage": {
+    "prompt_tokens": 3914,
+    "completion_tokens": 1285,
+    "total_tokens": 5199,
+    "prompt_tokens_details": {
+      "cached_tokens": 3840
+    },
+    "prompt_cache_hit_tokens": 3840,
+    "prompt_cache_miss_tokens": 74
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p3-113",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，符合P3小数初步认识要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-114",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比较过程完整，答案正确，难度适合挑战题。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-115",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项明确，答案正确，解析清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-116",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "元角分转小数，答案正确，符合基础要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-117",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "辨析分米与厘米，答案正确，解释合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-118",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比较小数，答案正确，选项无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-119",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "长度单位转小数，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-120",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "排序题，答案正确，接受答案覆盖合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-121",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "复习方法题，选项合理，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-122",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "正方形周长计算，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-123",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "运算顺序纠错，答案正确，解释清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-124",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "长度估测，选项合理，答案符合实际。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-125",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "闰年天数，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-126",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "最大正方形周长，答案正确，过程合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-127",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "运算顺序判断，答案正确，选项无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-128",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "步测计算，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-129",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "长度单位排序及进率，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-130",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "学习习惯建议，选项合理，答案正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部18道题目均符合北师大版P3要求，数学正确，答案匹配，无歧义或缺失条件，适合公共题库使用。"
+    }
+  }
+}

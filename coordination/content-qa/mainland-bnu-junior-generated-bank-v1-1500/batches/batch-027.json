@@ -1,0 +1,624 @@
+{
+  "batchId": "batch-027",
+  "questions": [
+    {
+      "id": "bnu-junior-ds-v1-s1-261",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-polynomial-multiply-divide",
+      "unitTitle": "整式的乘除",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "exponent-laws",
+        "monomial-polynomial-multiplication",
+        "multiplication-formulas",
+        "polynomial-division",
+        "整式乘除",
+        "幂的运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "符号意识",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "同底数幂",
+        "幂的乘方",
+        "积的乘方",
+        "单项式乘除",
+        "整式乘法",
+        "乘法公式"
+      ],
+      "misconceptionTags": [
+        "exponents multiplied or added in the wrong rule",
+        "formula pattern overmatched",
+        "division factor omitted"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-polynomial-multiply-divide"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-polynomial-multiply-divide-unit",
+        "bnu-junior-s1-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算：(-2a^2)^3 · a^3 ÷ a^4。",
+      "optionsZhHans": [],
+      "answer": "-8a^5",
+      "acceptedAnswers": [
+        "-8a^5"
+      ],
+      "explanationZhHans": "先算积的乘方：(-2a^2)^3 = (-2)^3 · (a^2)^3 = -8a^6。再乘 a^3 得 -8a^9，最后除以 a^4 得 -8a^5。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-262",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-polynomial-multiply-divide",
+      "unitTitle": "整式的乘除",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "exponent-laws",
+        "monomial-polynomial-multiplication",
+        "multiplication-formulas",
+        "polynomial-division",
+        "整式乘除",
+        "幂的运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "符号意识",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "同底数幂",
+        "幂的乘方",
+        "积的乘方",
+        "单项式乘除",
+        "整式乘法",
+        "乘法公式"
+      ],
+      "misconceptionTags": [
+        "exponents multiplied or added in the wrong rule",
+        "formula pattern overmatched",
+        "division factor omitted"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-polynomial-multiply-divide"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-polynomial-multiply-divide-unit",
+        "bnu-junior-s1-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算：(-2x^2y)^3 ÷ (4x^3y^2) · (3xy) 的结果是（ ）。",
+      "optionsZhHans": [
+        "-6x^4y^2",
+        "-6x^2y",
+        "-6x^2y^2",
+        "6x^4y^2"
+      ],
+      "answer": "-6x^4y^2",
+      "acceptedAnswers": [
+        "-6x^4y^2"
+      ],
+      "explanationZhHans": "先算乘方：(-2x^2y)^3 = -8x^6y^3。再算除法：(-8x^6y^3) ÷ (4x^3y^2) = -2x^3y。最后乘3xy：(-2x^3y)·3xy = -6x^4y^2。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-263",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-polynomial-multiply-divide",
+      "unitTitle": "整式的乘除",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "exponent-laws",
+        "monomial-polynomial-multiplication",
+        "multiplication-formulas",
+        "polynomial-division",
+        "整式乘除",
+        "幂的运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "符号意识",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "同底数幂",
+        "幂的乘方",
+        "积的乘方",
+        "单项式乘除",
+        "整式乘法",
+        "乘法公式"
+      ],
+      "misconceptionTags": [
+        "exponents multiplied or added in the wrong rule",
+        "formula pattern overmatched",
+        "division factor omitted"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-polynomial-multiply-divide"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-polynomial-multiply-divide-unit",
+        "bnu-junior-s1-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算：(-2a^2b)^3 ÷ (4ab^2) · (-3a^3b)。",
+      "optionsZhHans": [],
+      "answer": "6a^8b^2",
+      "acceptedAnswers": [
+        "6a^8b^2"
+      ],
+      "explanationZhHans": "先算积的乘方得-8a^6b^3，除以4ab^2得-2a^5b，再乘-3a^3b得6a^8b^2。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-264",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-polynomial-multiply-divide",
+      "unitTitle": "整式的乘除",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "exponent-laws",
+        "monomial-polynomial-multiplication",
+        "multiplication-formulas",
+        "polynomial-division",
+        "整式乘除",
+        "幂的运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "符号意识",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "同底数幂",
+        "幂的乘方",
+        "积的乘方",
+        "单项式乘除",
+        "整式乘法",
+        "乘法公式"
+      ],
+      "misconceptionTags": [
+        "exponents multiplied or added in the wrong rule",
+        "formula pattern overmatched",
+        "division factor omitted"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-polynomial-multiply-divide"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-polynomial-multiply-divide-unit",
+        "bnu-junior-s1-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算：(-2a^2 b)^3 ÷ (a b^2)^2 · 3a b。",
+      "optionsZhHans": [],
+      "answer": "-24 a^5 b^2",
+      "acceptedAnswers": [
+        "-24 a^5 b^2",
+        "-24a^5b^2"
+      ],
+      "explanationZhHans": "先算乘方：(-2a^2 b)^3 = -8 a^6 b^3，(a b^2)^2 = a^2 b^4。再算除法：-8 a^6 b^3 ÷ a^2 b^4 = -8 a^4 b^{-1}。最后乘3a b：-8 a^4 b^{-1} · 3a b = -24 a^5 b^2。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-265",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-polynomial-multiply-divide",
+      "unitTitle": "整式的乘除",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "exponent-laws",
+        "monomial-polynomial-multiplication",
+        "multiplication-formulas",
+        "polynomial-division",
+        "整式乘除",
+        "幂的运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "符号意识",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "同底数幂",
+        "幂的乘方",
+        "积的乘方",
+        "单项式乘除",
+        "整式乘法",
+        "乘法公式"
+      ],
+      "misconceptionTags": [
+        "exponents multiplied or added in the wrong rule",
+        "formula pattern overmatched",
+        "division factor omitted"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-polynomial-multiply-divide"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-polynomial-multiply-divide-unit",
+        "bnu-junior-s1-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算：(-2a^2b)^3 ÷ (4ab^2) 的结果是（ ）",
+      "optionsZhHans": [
+        "-2a^5b",
+        "-2a^5/b",
+        "-2a^5b^5",
+        "-2a^6b^5"
+      ],
+      "answer": "-2a^5b",
+      "acceptedAnswers": [
+        "-2a^5b"
+      ],
+      "explanationZhHans": "先算积的乘方：(-2a^2b)^3 = -8a^6b^3。再除以4ab^2：系数-8÷4=-2；同底数幂相除，a^6÷a=a^5，b^3÷b^2=b。结果为-2a^5b。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-266",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-polynomial-multiply-divide",
+      "unitTitle": "整式的乘除",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "exponent-laws",
+        "monomial-polynomial-multiplication",
+        "multiplication-formulas",
+        "polynomial-division",
+        "整式乘除",
+        "幂的运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "符号意识",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "同底数幂",
+        "幂的乘方",
+        "积的乘方",
+        "单项式乘除",
+        "整式乘法",
+        "乘法公式"
+      ],
+      "misconceptionTags": [
+        "exponents multiplied or added in the wrong rule",
+        "formula pattern overmatched",
+        "division factor omitted"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-polynomial-multiply-divide"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-polynomial-multiply-divide-unit",
+        "bnu-junior-s1-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算：(-2a^2 b)^3 ÷ (4a^3 b^2) · (-3ab)。",
+      "optionsZhHans": [],
+      "answer": "6a^4 b^2",
+      "acceptedAnswers": [
+        "6a^4 b^2",
+        "6a^4b^2",
+        "6 a^4 b^2"
+      ],
+      "explanationZhHans": "先算乘方：(-2a^2 b)^3 = -8a^6 b^3。再算除法：-8a^6 b^3 ÷ (4a^3 b^2) = -2a^3 b。最后乘(-3ab)：(-2a^3 b)·(-3ab) = 6a^4 b^2。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-267",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-polynomial-multiply-divide",
+      "unitTitle": "整式的乘除",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "exponent-laws",
+        "monomial-polynomial-multiplication",
+        "multiplication-formulas",
+        "polynomial-division",
+        "整式乘除",
+        "幂的运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "符号意识",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "同底数幂",
+        "幂的乘方",
+        "积的乘方",
+        "单项式乘除",
+        "整式乘法",
+        "乘法公式"
+      ],
+      "misconceptionTags": [
+        "exponents multiplied or added in the wrong rule",
+        "formula pattern overmatched",
+        "division factor omitted"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-polynomial-multiply-divide"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-polynomial-multiply-divide-unit",
+        "bnu-junior-s1-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算：(-2a^2)^3 ÷ (a^3)^2 · a^4，其中 a ≠ 0。",
+      "optionsZhHans": [],
+      "answer": "-8a^4",
+      "acceptedAnswers": [
+        "-8a^4"
+      ],
+      "explanationZhHans": "先算幂的乘方：(-2a^2)^3 = -8a^6，(a^3)^2 = a^6。再算同底数幂除法：-8a^6 ÷ a^6 = -8。最后乘 a^4 得 -8a^4。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-268",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-polynomial-multiply-divide",
+      "unitTitle": "整式的乘除",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "exponent-laws",
+        "monomial-polynomial-multiplication",
+        "multiplication-formulas",
+        "polynomial-division",
+        "整式乘除",
+        "幂的运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "符号意识",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "同底数幂",
+        "幂的乘方",
+        "积的乘方",
+        "单项式乘除",
+        "整式乘法",
+        "乘法公式"
+      ],
+      "misconceptionTags": [
+        "exponents multiplied or added in the wrong rule",
+        "formula pattern overmatched",
+        "division factor omitted"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-polynomial-multiply-divide"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-polynomial-multiply-divide-unit",
+        "bnu-junior-s1-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算 (2a²b)³ ÷ (－a³b²) 的结果是（ ）。",
+      "optionsZhHans": [
+        "－8a³b",
+        "－8a³",
+        "8a³b",
+        "－8a⁶b"
+      ],
+      "answer": "－8a³b",
+      "acceptedAnswers": [
+        "－8a³b"
+      ],
+      "explanationZhHans": "先算幂的乘方：(2a²b)³=8a⁶b³。再单项式除法：8a⁶b³÷(－a³b²)=－8a³b。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-269",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-polynomial-multiply-divide",
+      "unitTitle": "整式的乘除",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "exponent-laws",
+        "monomial-polynomial-multiplication",
+        "multiplication-formulas",
+        "polynomial-division",
+        "整式乘除",
+        "幂的运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "符号意识",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "同底数幂",
+        "幂的乘方",
+        "积的乘方",
+        "单项式乘除",
+        "整式乘法",
+        "乘法公式"
+      ],
+      "misconceptionTags": [
+        "exponents multiplied or added in the wrong rule",
+        "formula pattern overmatched",
+        "division factor omitted"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-polynomial-multiply-divide"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-polynomial-multiply-divide-unit",
+        "bnu-junior-s1-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算：(-2x^2y)^3 ÷ (4x^4y^2) · (3xy)。",
+      "optionsZhHans": [],
+      "answer": "-6x^3y^2",
+      "acceptedAnswers": [
+        "-6x^3y^2"
+      ],
+      "explanationZhHans": "先算积的乘方：(-2x^2y)^3 = -8x^6y^3。再算除法：-8x^6y^3 ÷ (4x^4y^2) = -2x^2y。最后乘3xy：-2x^2y · 3xy = -6x^3y^2。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-270",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-polynomial-multiply-divide",
+      "unitTitle": "整式的乘除",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "exponent-laws",
+        "monomial-polynomial-multiplication",
+        "multiplication-formulas",
+        "polynomial-division",
+        "整式乘除",
+        "幂的运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "符号意识",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "同底数幂",
+        "幂的乘方",
+        "积的乘方",
+        "单项式乘除",
+        "整式乘法",
+        "乘法公式"
+      ],
+      "misconceptionTags": [
+        "exponents multiplied or added in the wrong rule",
+        "formula pattern overmatched",
+        "division factor omitted"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-polynomial-multiply-divide"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-polynomial-multiply-divide-unit",
+        "bnu-junior-s1-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算：\\((-2a^2b)^3 \\div (4ab^2) \\cdot \\left(\\frac{1}{2}a^3b\\right)\\)。",
+      "optionsZhHans": [],
+      "answer": "-a^8b^2",
+      "acceptedAnswers": [
+        "-a^8b^2",
+        "-a^8 b^2"
+      ],
+      "explanationZhHans": "先算积的乘方：\\((-2)^3 a^6 b^3 = -8a^6b^3\\)。再除以\\(4ab^2\\)得\\(-2a^5b\\)。最后乘\\(\\frac{1}{2}a^3b\\)得\\(-a^8b^2\\)。注意符号和指数法则。"
+    }
+  ]
+}

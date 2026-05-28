@@ -1,0 +1,388 @@
+{
+  "batchId": "S4-s4-sets-logic-01",
+  "questions": [
+    {
+      "id": "pep-high-ds-v1-s4-sets-logic-001",
+      "grade": "S4",
+      "topicId": "pep-high-s4-sets-logic",
+      "topicTitleZhHans": "集合与常用逻辑用语",
+      "chapter": "集合与常用逻辑用语",
+      "conceptIds": [
+        "sets",
+        "set-operations",
+        "logic-conditions",
+        "quantifiers",
+        "derivatives",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "pep-high-sets-logic"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "promptZhHans": "已知集合 A = {x | x² - 5x + 6 ≤ 0}，B = {x | 2x - 1 > 3}，则 A ∩ B = (   )",
+      "optionsZhHans": [
+        "{x | 2 < x ≤ 3}",
+        "{x | 2 ≤ x ≤ 3}",
+        "{x | x > 2}",
+        "{x | x ≤ 3}"
+      ],
+      "answer": "{x | 2 < x ≤ 3}",
+      "acceptedAnswers": [
+        "{x | 2 < x ≤ 3}"
+      ],
+      "explanationZhHans": "解 A：x²-5x+6≤0 得 (x-2)(x-3)≤0，即 2≤x≤3。解 B：2x-1>3 得 x>2。交集为 2<x≤3。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-sets-logic-002",
+      "grade": "S4",
+      "topicId": "pep-high-s4-sets-logic",
+      "topicTitleZhHans": "集合与常用逻辑用语",
+      "chapter": "集合与常用逻辑用语",
+      "conceptIds": [
+        "sets",
+        "set-operations",
+        "logic-conditions",
+        "quantifiers",
+        "derivatives",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "pep-high-sets-logic"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "promptZhHans": "已知命题 p：∃x∈R，x² + 2x + a = 0。若 p 为真命题，则实数 a 的取值范围是 ______。",
+      "optionsZhHans": [],
+      "answer": "a ≤ 1",
+      "acceptedAnswers": [
+        "a ≤ 1",
+        "(-∞, 1]",
+        "a<=1"
+      ],
+      "explanationZhHans": "存在 x 使方程有实根，判别式 Δ=4-4a≥0，解得 a≤1。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-sets-logic-003",
+      "grade": "S4",
+      "topicId": "pep-high-s4-sets-logic",
+      "topicTitleZhHans": "集合与常用逻辑用语",
+      "chapter": "集合与常用逻辑用语",
+      "conceptIds": [
+        "sets",
+        "set-operations",
+        "logic-conditions",
+        "quantifiers",
+        "derivatives",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "pep-high-sets-logic"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "promptZhHans": "设集合 U={1,2,3,4,5,6}，A={1,2,3}，B={2,4,6}。求 ∁U(A∪B)。",
+      "optionsZhHans": [],
+      "answer": "{5}",
+      "acceptedAnswers": [
+        "{5}",
+        "5"
+      ],
+      "explanationZhHans": "A∪B={1,2,3,4,6}，全集 U 中去掉这些元素得 {5}。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-sets-logic-004",
+      "grade": "S4",
+      "topicId": "pep-high-s4-sets-logic",
+      "topicTitleZhHans": "集合与常用逻辑用语",
+      "chapter": "集合与常用逻辑用语",
+      "conceptIds": [
+        "sets",
+        "set-operations",
+        "logic-conditions",
+        "quantifiers",
+        "derivatives",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "pep-high-sets-logic"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "promptZhHans": "已知 p：x > 2，q：x > 3。则 p 是 q 的什么条件？请回答“充分不必要”、“必要不充分”、“充要”或“既不充分也不必要”。",
+      "optionsZhHans": [],
+      "answer": "必要不充分",
+      "acceptedAnswers": [
+        "必要不充分"
+      ],
+      "explanationZhHans": "x>3 可推出 x>2，反之不成立，故 p 是 q 的必要不充分条件。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-sets-logic-005",
+      "grade": "S4",
+      "topicId": "pep-high-s4-sets-logic",
+      "topicTitleZhHans": "集合与常用逻辑用语",
+      "chapter": "集合与常用逻辑用语",
+      "conceptIds": [
+        "sets",
+        "set-operations",
+        "logic-conditions",
+        "quantifiers",
+        "derivatives",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "pep-high-sets-logic"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "promptZhHans": "设全集 U=R，集合 A={x | |x-1| < 2}，B={x | x² - 3x + 2 ≥ 0}，则 A ∩ (∁UB) = (   )",
+      "optionsZhHans": [
+        "{x | -1 < x < 1}",
+        "{x | 1 < x < 2}",
+        "{x | -1 < x < 2}",
+        "{x | 1 ≤ x < 2}"
+      ],
+      "answer": "{x | -1 < x < 1}",
+      "acceptedAnswers": [
+        "{x | -1 < x < 1}"
+      ],
+      "explanationZhHans": "A：|x-1|<2 得 -1<x<3。B：x²-3x+2≥0 得 x≤1 或 x≥2。∁UB：1<x<2。交集为 -1<x<1。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-sets-logic-006",
+      "grade": "S4",
+      "topicId": "pep-high-s4-sets-logic",
+      "topicTitleZhHans": "集合与常用逻辑用语",
+      "chapter": "集合与常用逻辑用语",
+      "conceptIds": [
+        "sets",
+        "set-operations",
+        "logic-conditions",
+        "quantifiers",
+        "derivatives",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "pep-high-sets-logic"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "promptZhHans": "命题“∀x∈[0, +∞)，x³ + x ≥ 0”的否定是 ______。",
+      "optionsZhHans": [],
+      "answer": "∃x∈[0, +∞)，x³ + x < 0",
+      "acceptedAnswers": [
+        "∃x∈[0, +∞)，x³ + x < 0",
+        "存在x∈[0, +∞)，x³ + x < 0"
+      ],
+      "explanationZhHans": "全称量词否定为存在量词，结论否定，即存在 x≥0 使 x³+x<0。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-sets-logic-007",
+      "grade": "S4",
+      "topicId": "pep-high-s4-sets-logic",
+      "topicTitleZhHans": "集合与常用逻辑用语",
+      "chapter": "集合与常用逻辑用语",
+      "conceptIds": [
+        "sets",
+        "set-operations",
+        "logic-conditions",
+        "quantifiers",
+        "derivatives",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "pep-high-sets-logic"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "promptZhHans": "已知集合 A={x | x=2k+1, k∈Z}，B={x | x=4k±1, k∈Z}。判断 A 与 B 的关系，并说明理由。",
+      "optionsZhHans": [],
+      "answer": "A = B",
+      "acceptedAnswers": [
+        "A = B",
+        "A=B",
+        "相等"
+      ],
+      "explanationZhHans": "A 为奇数集。B 中 4k±1 表示所有奇数，因为奇数模 4 余 1 或 3。故两集合相等。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-sets-logic-008",
+      "grade": "S4",
+      "topicId": "pep-high-s4-sets-logic",
+      "topicTitleZhHans": "集合与常用逻辑用语",
+      "chapter": "集合与常用逻辑用语",
+      "conceptIds": [
+        "sets",
+        "set-operations",
+        "logic-conditions",
+        "quantifiers",
+        "derivatives",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "pep-high-sets-logic"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "promptZhHans": "已知函数 f(x)=x³-3x²-9x+5，则“f'(x)≤0”是“函数 f(x) 在区间 [a, b] 上单调递减”的 (   )",
+      "optionsZhHans": [
+        "充分不必要条件",
+        "必要不充分条件",
+        "充要条件",
+        "既不充分也不必要条件"
+      ],
+      "answer": "必要不充分条件",
+      "acceptedAnswers": [
+        "必要不充分条件"
+      ],
+      "explanationZhHans": "f'(x)=3x²-6x-9，f'(x)≤0 得 x∈[-1,3]。若在 [a,b] 上递减，则 [a,b]⊆[-1,3]，故 f'(x)≤0 必要；但 f'(x)≤0 时函数在 [-1,3] 递减，不一定在任意子区间递减，故不充分。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-sets-logic-009",
+      "grade": "S4",
+      "topicId": "pep-high-s4-sets-logic",
+      "topicTitleZhHans": "集合与常用逻辑用语",
+      "chapter": "集合与常用逻辑用语",
+      "conceptIds": [
+        "sets",
+        "set-operations",
+        "logic-conditions",
+        "quantifiers",
+        "derivatives",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "pep-high-sets-logic"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "promptZhHans": "设集合 A={x | x² - mx + 2 = 0}，若 A 中至多有一个元素，则实数 m 的取值范围是 ______。",
+      "optionsZhHans": [],
+      "answer": "-2√2 ≤ m ≤ 2√2",
+      "acceptedAnswers": [
+        "-2√2 ≤ m ≤ 2√2",
+        "[-2√2, 2√2]",
+        "-2√2<=m<=2√2"
+      ],
+      "explanationZhHans": "至多一个元素即方程无实根或两相等实根，判别式 Δ=m²-8≤0，解得 -2√2≤m≤2√2。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-sets-logic-010",
+      "grade": "S4",
+      "topicId": "pep-high-s4-sets-logic",
+      "topicTitleZhHans": "集合与常用逻辑用语",
+      "chapter": "集合与常用逻辑用语",
+      "conceptIds": [
+        "sets",
+        "set-operations",
+        "logic-conditions",
+        "quantifiers",
+        "derivatives",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "pep-high-sets-logic"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "promptZhHans": "已知函数 f(x)=x³-3x²-9x+5。若对于任意 x∈[1,3]，都有 f(x) ≥ a 成立，求实数 a 的最大值。",
+      "optionsZhHans": [],
+      "answer": "-22",
+      "acceptedAnswers": [
+        "-22"
+      ],
+      "explanationZhHans": "f'(x)=3x²-6x-9=3(x-3)(x+1)。在 [1,3] 上，x<3 时 f'<0，f 递减。最小值 f(3)=27-27-27+5=-22，故 a≤-22，a 最大为 -22。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    }
+  ]
+}

@@ -1,0 +1,313 @@
+{
+  "batchId": "model-qa-0089",
+  "ids": [
+    "hjb-high-ds-v2-s4-261",
+    "hjb-high-ds-v2-s4-262",
+    "hjb-high-ds-v2-s4-263",
+    "hjb-high-ds-v2-s4-264",
+    "hjb-high-ds-v2-s4-265",
+    "hjb-high-ds-v2-s4-266",
+    "hjb-high-ds-v2-s4-267",
+    "hjb-high-ds-v2-s4-268",
+    "hjb-high-ds-v2-s4-269",
+    "hjb-high-ds-v2-s4-270",
+    "hjb-high-ds-v2-s4-271",
+    "hjb-high-ds-v2-s4-272",
+    "hjb-high-ds-v2-s4-273",
+    "hjb-high-ds-v2-s4-274",
+    "hjb-high-ds-v2-s4-275",
+    "hjb-high-ds-v2-s4-276",
+    "hjb-high-ds-v2-s4-277",
+    "hjb-high-ds-v2-s4-278",
+    "hjb-high-ds-v2-s4-279",
+    "hjb-high-ds-v2-s4-280"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-high-ds-v2-s4-261",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "0.60",
+      "answerCheckZhHans": "弧长公式 l = rθ，θ = 30/50 = 0.6 弧度，保留两位小数为 0.60。标准答案 0.60 正确，acceptedAnswers 包含 0.60，解析正确。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-262",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "0° < A < arcsin(7/8)",
+      "answerCheckZhHans": "SSA 情形有两解的条件是 A 为锐角且 b sin A < a < b。这里 a=7, b=8，所以 sin A < 7/8，即 0° < A < arcsin(7/8)。选项 A 正确，其他选项均不符合。标准答案与 acceptedAnswers 匹配，解析正确。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-263",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "1/5",
+      "answerCheckZhHans": "r = 5，sinα = 4/5，cosα = -3/5，和为 1/5。标准答案 1/5 正确，acceptedAnswers 包含 1/5 和 0.2，覆盖了标准答案。解析正确。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-264",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "7",
+      "answerCheckZhHans": "由余弦定理 BC² = 5² + 8² - 2*5*8*cos60° = 25+64-40=49，BC=7。标准答案 7 正确，acceptedAnswers 包含 7，解析正确。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-265",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "由 f(0)=1 得 sinφ=1/2，φ 可能为 π/6 或 5π/6。若 φ=π/6，在 x=π/6 处 ω*π/6+π/6 = π/2 + 2kπ，得 ω=2+12k，ω=2 可能。若 φ=5π/6，在 x=π/6 处 ω*π/6+5π/6 = π/2 + 2kπ，得 ω=-2+12k，ω>0 时最小为 10，选项无。但选项 C 为 ω=2, φ=5π/6，代入 f(0)=2sin(5π/6)=1 满足，但在 x=π/6 处 2*π/6+5π/6=7π/6，不是最大值点，故 C 错误。选项 A 正确。但解析只验证了 A，未排除其他选项，且未提及 φ=5π/6 的可能性，解析不完整。标准答案 A 正确，但解析有缺陷。",
+      "independentAnswerZhHans": "ω=2，φ=π/6",
+      "answerCheckZhHans": "标准答案 A 正确，但解析未充分说明为何其他选项错误，可能引起混淆。",
+      "recommendedActionZhHans": "完善解析，说明 φ=5π/6 时在 x=π/6 处不是最大值，排除 C；其他选项不满足条件。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-266",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "分子分母同除以 cosθ，得 (tanθ+1)/(tanθ-1) = (2+1)/(2-1)=3。标准答案 3 正确，acceptedAnswers 包含 3，解析正确。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-267",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-(3√3+4)/10",
+      "answerCheckZhHans": "sinα=3/5，α 第二象限，cosα=-4/5。cos(α+π/3)=(-4/5)*(1/2) - (3/5)*(√3/2) = -4/10 - 3√3/10 = -(4+3√3)/10。标准答案 -(3√3+4)/10 等价，acceptedAnswers 包含两种形式，覆盖了标准答案。解析正确。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-268",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "由 a cos B = b cos A 及正弦定理得 sin A cos B = sin B cos A，即 sin(A-B)=0，所以 A=B 或 A-B=π（舍去），故三角形为等腰三角形。但选项 D 为“等腰三角形或直角三角形”，若考虑 cos A=0 或 cos B=0 的情况，原式 a cos B = b cos A 若 cos A=0 且 cos B=0 不可能，若 cos A=0 则左边 a cos B = 0，右边 b*0=0，此时 A=90°，B 任意？需检查：若 A=90°，则 cos A=0，原式变为 a cos B = 0，因 a>0，故 cos B=0，B=90°，矛盾。所以直角三角形不成立。因此只有等腰三角形。标准答案“等腰三角形”正确，但解析未排除直角三角形，且选项 D 存在，解析应说明为何不是直角三角形。",
+      "independentAnswerZhHans": "等腰三角形",
+      "answerCheckZhHans": "标准答案正确，但解析不完整，未排除直角三角形，可能误导学生选 D。",
+      "recommendedActionZhHans": "完善解析，明确说明由 sin(A-B)=0 得 A=B，且 cos A=0 或 cos B=0 的情况不成立，故仅为等腰三角形。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-269",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "1/2 或 8",
+      "answerCheckZhHans": "设半径 r，弧长 l，2r+l=10，面积 1/2 lr=4，解得 r=1, l=8 或 r=4, l=2，圆心角 θ=l/r=8 或 1/2。标准答案“1/2 或 8”正确，acceptedAnswers 包含两种形式，覆盖了标准答案。解析正确。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-270",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "60°或120°",
+      "answerCheckZhHans": "由正弦定理 sin A = (a sin B)/b = (2√3 * 1/2)/2 = √3/2，A=60°或120°。标准答案正确，acceptedAnswers 包含两种写法，覆盖了标准答案。解析正确。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-271",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "P2",
+      "issueCodes": [
+        "ambiguous-prompt"
+      ],
+      "issueDetailsZhHans": "题目中“表达式 AB·AC”可能被误解为向量的数量积，但根据上下文和解析，实际是两边长度的乘积。虽然答案正确，但表述有歧义，建议明确为“边 AB 与边 AC 的长度的乘积”或使用符号 |AB|·|AC|。",
+      "independentAnswerZhHans": "170",
+      "answerCheckZhHans": "标准答案 170 正确，acceptedAnswers 匹配。但题目表述可能引起混淆。",
+      "recommendedActionZhHans": "修改题目表述，避免与向量点积混淆，例如改为“边 AB 与边 AC 的长度的乘积”。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-272",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "P2",
+      "issueCodes": [
+        "ambiguous-prompt"
+      ],
+      "issueDetailsZhHans": "同 271，题目中“表达式 AB·AC”有歧义，可能被误解为向量点积。建议明确为长度乘积。",
+      "independentAnswerZhHans": "18",
+      "answerCheckZhHans": "标准答案 18 正确，acceptedAnswers 匹配。但题目表述有歧义。",
+      "recommendedActionZhHans": "修改题目表述，避免与向量点积混淆。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-273",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "P2",
+      "issueCodes": [
+        "ambiguous-prompt"
+      ],
+      "issueDetailsZhHans": "同 271，题目中“表达式 AB·AC”有歧义。建议明确为长度乘积。",
+      "independentAnswerZhHans": "72",
+      "answerCheckZhHans": "标准答案 72 正确，acceptedAnswers 匹配。但题目表述有歧义。",
+      "recommendedActionZhHans": "修改题目表述，避免与向量点积混淆。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-274",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "P2",
+      "issueCodes": [
+        "ambiguous-prompt"
+      ],
+      "issueDetailsZhHans": "同 271，题目中“表达式 AB·AC”有歧义。建议明确为长度乘积。",
+      "independentAnswerZhHans": "30",
+      "answerCheckZhHans": "标准答案 30 正确，acceptedAnswers 匹配。但题目表述有歧义。",
+      "recommendedActionZhHans": "修改题目表述，避免与向量点积混淆。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-275",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "P2",
+      "issueCodes": [
+        "ambiguous-prompt"
+      ],
+      "issueDetailsZhHans": "同 271，题目中“表达式 AB·AC”有歧义。建议明确为长度乘积。",
+      "independentAnswerZhHans": "133",
+      "answerCheckZhHans": "标准答案 133 正确，acceptedAnswers 匹配。但题目表述有歧义。",
+      "recommendedActionZhHans": "修改题目表述，避免与向量点积混淆。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-276",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "P2",
+      "issueCodes": [
+        "ambiguous-prompt"
+      ],
+      "issueDetailsZhHans": "同 271，题目中“表达式 AB·AC”有歧义。建议明确为长度乘积。",
+      "independentAnswerZhHans": "150",
+      "answerCheckZhHans": "标准答案 150 正确，acceptedAnswers 匹配。但题目表述有歧义。",
+      "recommendedActionZhHans": "修改题目表述，避免与向量点积混淆。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-277",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "P2",
+      "issueCodes": [
+        "ambiguous-prompt"
+      ],
+      "issueDetailsZhHans": "同 271，题目中“表达式 AB·AC”有歧义。建议明确为长度乘积。",
+      "independentAnswerZhHans": "84",
+      "answerCheckZhHans": "标准答案 84 正确，acceptedAnswers 匹配。但题目表述有歧义。",
+      "recommendedActionZhHans": "修改题目表述，避免与向量点积混淆。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-278",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "P2",
+      "issueCodes": [
+        "ambiguous-prompt"
+      ],
+      "issueDetailsZhHans": "同 271，题目中“表达式 AB·AC”有歧义。建议明确为长度乘积。",
+      "independentAnswerZhHans": "133",
+      "answerCheckZhHans": "标准答案 133 正确，acceptedAnswers 匹配。但题目表述有歧义。",
+      "recommendedActionZhHans": "修改题目表述，避免与向量点积混淆。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-279",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "P2",
+      "issueCodes": [
+        "ambiguous-prompt"
+      ],
+      "issueDetailsZhHans": "同 271，题目中“表达式 AB·AC”有歧义。建议明确为长度乘积。",
+      "independentAnswerZhHans": "16",
+      "answerCheckZhHans": "标准答案 16 正确，acceptedAnswers 匹配。但题目表述有歧义。",
+      "recommendedActionZhHans": "修改题目表述，避免与向量点积混淆。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-280",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "P2",
+      "issueCodes": [
+        "ambiguous-prompt"
+      ],
+      "issueDetailsZhHans": "同 271，题目中“表达式 AB·AC”有歧义。建议明确为长度乘积。",
+      "independentAnswerZhHans": "50",
+      "answerCheckZhHans": "标准答案 50 正确，acceptedAnswers 匹配。但题目表述有歧义。",
+      "recommendedActionZhHans": "修改题目表述，避免与向量点积混淆。",
+      "confidence": "high"
+    }
+  ]
+}

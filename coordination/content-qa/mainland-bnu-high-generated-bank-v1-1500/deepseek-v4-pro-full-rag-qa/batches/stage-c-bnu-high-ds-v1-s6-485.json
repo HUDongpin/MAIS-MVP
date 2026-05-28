@@ -1,0 +1,48 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-485",
+  "startedAt": "2026-05-28T01:57:13.263Z",
+  "completedAt": "2026-05-28T01:57:17.309Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-485"
+  ],
+  "usage": {
+    "prompt_tokens": 2699,
+    "completion_tokens": 248,
+    "total_tokens": 2947,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2315
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-485",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "C",
+        "correctedAnswer": "C. 3",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，由条件解得a=-3/2, b=1, c=7/2，a+b+c=3，对应选项C。存储答案B错误，解析混乱且与条件矛盾，故判定为blocker。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "存储答案B错误，正确选项为C，解析矛盾，需修正。"
+    }
+  }
+}

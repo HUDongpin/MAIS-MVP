@@ -1,0 +1,649 @@
+{
+  "batchId": "batch-007",
+  "questions": [
+    {
+      "id": "bnu-junior-ds-v1-s1-061",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数及其运算",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "rational-numbers",
+        "number-line",
+        "opposite-absolute-value",
+        "signed-number-operations",
+        "有理数",
+        "数轴",
+        "绝对值"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "正负数意义",
+        "数轴表示",
+        "相反数",
+        "绝对值",
+        "有理数四则运算",
+        "运算律应用"
+      ],
+      "misconceptionTags": [
+        "negative sign treated as subtraction only",
+        "absolute value keeps the original sign",
+        "operation order ignored when signed numbers are mixed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-rational-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-rational-numbers-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某市冬季某日早晨气温为零下 5 ℃，中午上升了 8 ℃，傍晚又下降了 3 ℃。傍晚的气温是多少摄氏度？",
+      "optionsZhHans": [
+        "0 ℃",
+        "−6 ℃",
+        "6 ℃",
+        "−10 ℃"
+      ],
+      "answer": "0 ℃",
+      "acceptedAnswers": [
+        "0 ℃"
+      ],
+      "explanationZhHans": "早晨气温为 −5 ℃，中午上升 8 ℃ 后为 −5+8=3 ℃，傍晚下降 3 ℃ 后为 3−3=0 ℃。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-062",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数及其运算",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "rational-numbers",
+        "number-line",
+        "opposite-absolute-value",
+        "signed-number-operations",
+        "有理数",
+        "数轴",
+        "绝对值"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "正负数意义",
+        "数轴表示",
+        "相反数",
+        "绝对值",
+        "有理数四则运算",
+        "运算律应用"
+      ],
+      "misconceptionTags": [
+        "negative sign treated as subtraction only",
+        "absolute value keeps the original sign",
+        "operation order ignored when signed numbers are mixed"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-rational-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-rational-numbers-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某天早晨，气温为零下5℃，中午上升了8℃，下午又下降了3℃。问下午的气温是多少摄氏度？",
+      "optionsZhHans": [],
+      "answer": "0℃",
+      "acceptedAnswers": [
+        "0℃",
+        "0摄氏度",
+        "0度",
+        "0"
+      ],
+      "explanationZhHans": "零下5℃记为-5℃，上升8℃即加8，得3℃；再下降3℃即减3，得0℃。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-063",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数及其运算",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "rational-numbers",
+        "number-line",
+        "opposite-absolute-value",
+        "signed-number-operations",
+        "有理数",
+        "数轴",
+        "绝对值"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "正负数意义",
+        "数轴表示",
+        "相反数",
+        "绝对值",
+        "有理数四则运算",
+        "运算律应用"
+      ],
+      "misconceptionTags": [
+        "negative sign treated as subtraction only",
+        "absolute value keeps the original sign",
+        "operation order ignored when signed numbers are mixed"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-rational-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-rational-numbers-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某冷库的温度上午8时为-5℃，此后每小时下降3℃。到中午12时，冷库的温度是多少摄氏度？",
+      "optionsZhHans": [],
+      "answer": "-17℃",
+      "acceptedAnswers": [
+        "-17℃",
+        "-17",
+        "零下17℃",
+        "零下17"
+      ],
+      "explanationZhHans": "从8时到12时经过4小时，每小时下降3℃，共下降12℃。初始温度-5℃，下降12℃后为-5-12=-17℃，即零下17℃。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-064",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数及其运算",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "rational-numbers",
+        "number-line",
+        "opposite-absolute-value",
+        "signed-number-operations",
+        "有理数",
+        "数轴",
+        "绝对值"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "正负数意义",
+        "数轴表示",
+        "相反数",
+        "绝对值",
+        "有理数四则运算",
+        "运算律应用"
+      ],
+      "misconceptionTags": [
+        "negative sign treated as subtraction only",
+        "absolute value keeps the original sign",
+        "operation order ignored when signed numbers are mixed"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-rational-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-rational-numbers-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某冷库的温度记录显示：上午8:00的温度为-5℃，之后每小时温度下降2℃。到中午12:00时，温度变为多少？",
+      "optionsZhHans": [
+        "-13℃",
+        "-3℃",
+        "3℃",
+        "13℃"
+      ],
+      "answer": "-13℃",
+      "acceptedAnswers": [
+        "-13℃"
+      ],
+      "explanationZhHans": "从8:00到12:00经过4小时，每小时下降2℃，共下降8℃。初始温度-5℃下降8℃得-13℃。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-065",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数及其运算",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "rational-numbers",
+        "number-line",
+        "opposite-absolute-value",
+        "signed-number-operations",
+        "有理数",
+        "数轴",
+        "绝对值"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "正负数意义",
+        "数轴表示",
+        "相反数",
+        "绝对值",
+        "有理数四则运算",
+        "运算律应用"
+      ],
+      "misconceptionTags": [
+        "negative sign treated as subtraction only",
+        "absolute value keeps the original sign",
+        "operation order ignored when signed numbers are mixed"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-rational-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-rational-numbers-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某天早晨气温为 -3℃，中午上升了 8℃，傍晚又下降了 5℃。求傍晚的气温，并说明该气温在数轴上的位置相对于 0 的意义。",
+      "optionsZhHans": [],
+      "answer": "傍晚的气温为 0℃，在数轴上位于原点，表示温度为零摄氏度，既不是正数也不是负数。",
+      "acceptedAnswers": [
+        "傍晚的气温为 0℃，在数轴上位于原点，表示温度为零摄氏度，既不是正数也不是负数。",
+        "0℃，在数轴上位于原点，表示温度为零摄氏度，既不是正数也不是负数。",
+        "0℃，位于原点，表示零摄氏度，既不是正数也不是负数。"
+      ],
+      "explanationZhHans": "早晨 -3℃，上升 8℃ 得 5℃，再下降 5℃ 得 0℃。0 在数轴上对应原点，表示温度为零，既不是正数也不是负数。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-066",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数及其运算",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "rational-numbers",
+        "number-line",
+        "opposite-absolute-value",
+        "signed-number-operations",
+        "有理数",
+        "数轴",
+        "绝对值"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "正负数意义",
+        "数轴表示",
+        "相反数",
+        "绝对值",
+        "有理数四则运算",
+        "运算律应用"
+      ],
+      "misconceptionTags": [
+        "negative sign treated as subtraction only",
+        "absolute value keeps the original sign",
+        "operation order ignored when signed numbers are mixed"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-rational-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-rational-numbers-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某冷库的温度上午8时为-5℃，之后每小时下降3℃。到中午12时，冷库的温度是多少摄氏度？",
+      "optionsZhHans": [],
+      "answer": "-17℃",
+      "acceptedAnswers": [
+        "-17℃",
+        "-17",
+        "负17℃",
+        "零下17℃"
+      ],
+      "explanationZhHans": "从8时到12时经过4小时，温度下降3×4=12℃，初始-5℃，下降后为-5-12=-17℃，即零下17℃。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-067",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数及其运算",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "rational-numbers",
+        "number-line",
+        "opposite-absolute-value",
+        "signed-number-operations",
+        "有理数",
+        "数轴",
+        "绝对值"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "正负数意义",
+        "数轴表示",
+        "相反数",
+        "绝对值",
+        "有理数四则运算",
+        "运算律应用"
+      ],
+      "misconceptionTags": [
+        "negative sign treated as subtraction only",
+        "absolute value keeps the original sign",
+        "operation order ignored when signed numbers are mixed"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-rational-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-rational-numbers-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某冷库的温度变化记录如下：上午8:00的温度为-5℃，此后每小时上升2℃，直到中午12:00；然后每小时下降3℃，直到下午4:00。问下午4:00冷库的温度是多少？",
+      "optionsZhHans": [
+        "-9℃",
+        "-5℃",
+        "3℃",
+        "9℃"
+      ],
+      "answer": "-9℃",
+      "acceptedAnswers": [
+        "-9℃"
+      ],
+      "explanationZhHans": "从8:00到12:00经过4小时，每小时上升2℃，温度变为-5+4×2=3℃。从12:00到16:00经过4小时，每小时下降3℃，温度变为3-4×3=-9℃。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-068",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数及其运算",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "rational-numbers",
+        "number-line",
+        "opposite-absolute-value",
+        "signed-number-operations",
+        "有理数",
+        "数轴",
+        "绝对值"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "正负数意义",
+        "数轴表示",
+        "相反数",
+        "绝对值",
+        "有理数四则运算",
+        "运算律应用"
+      ],
+      "misconceptionTags": [
+        "negative sign treated as subtraction only",
+        "absolute value keeps the original sign",
+        "operation order ignored when signed numbers are mixed"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-rational-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-rational-numbers-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某冷库的室温为 -5°C，现有一批食品需要在 -23°C 下冷藏。如果冷库每小时降温 3°C，问：经过多少小时，室温才能达到 -23°C？请写出计算过程，并说明在数轴上如何表示温度的变化。",
+      "optionsZhHans": [],
+      "answer": "6小时",
+      "acceptedAnswers": [
+        "6小时",
+        "6",
+        "6h"
+      ],
+      "explanationZhHans": "温度从 -5°C 降到 -23°C，变化量为 (-23) - (-5) = -18°C，即需降低 18°C。每小时降 3°C，所以时间为 18 ÷ 3 = 6 小时。在数轴上，从表示 -5 的点向左移动 18 个单位长度到达 -23 的点，体现了负方向上的距离变化。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-069",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数及其运算",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "rational-numbers",
+        "number-line",
+        "opposite-absolute-value",
+        "signed-number-operations",
+        "有理数",
+        "数轴",
+        "绝对值"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "正负数意义",
+        "数轴表示",
+        "相反数",
+        "绝对值",
+        "有理数四则运算",
+        "运算律应用"
+      ],
+      "misconceptionTags": [
+        "negative sign treated as subtraction only",
+        "absolute value keeps the original sign",
+        "operation order ignored when signed numbers are mixed"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-rational-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-rational-numbers-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某日早晨气温为零下5℃，中午上升了8℃，傍晚又下降了3℃。傍晚的气温是多少℃？",
+      "optionsZhHans": [],
+      "answer": "0",
+      "acceptedAnswers": [
+        "0",
+        "0℃"
+      ],
+      "explanationZhHans": "零下5℃记为-5℃，上升8℃为+8，下降3℃为-3。傍晚气温：-5+8-3=0(℃)。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-070",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数及其运算",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "rational-numbers",
+        "number-line",
+        "opposite-absolute-value",
+        "signed-number-operations",
+        "有理数",
+        "数轴",
+        "绝对值"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "正负数意义",
+        "数轴表示",
+        "相反数",
+        "绝对值",
+        "有理数四则运算",
+        "运算律应用"
+      ],
+      "misconceptionTags": [
+        "negative sign treated as subtraction only",
+        "absolute value keeps the original sign",
+        "operation order ignored when signed numbers are mixed"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-rational-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-rational-numbers-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某天早晨气温为 -3 ℃，中午上升了 8 ℃，傍晚又下降了 5 ℃。傍晚的气温是多少摄氏度？",
+      "optionsZhHans": [
+        "-10 ℃",
+        "0 ℃",
+        "6 ℃",
+        "10 ℃"
+      ],
+      "answer": "0 ℃",
+      "acceptedAnswers": [
+        "0 ℃"
+      ],
+      "explanationZhHans": "早晨 -3 ℃，上升 8 ℃ 后为 -3+8=5 ℃；傍晚下降 5 ℃ 后为 5-5=0 ℃。"
+    }
+  ]
+}

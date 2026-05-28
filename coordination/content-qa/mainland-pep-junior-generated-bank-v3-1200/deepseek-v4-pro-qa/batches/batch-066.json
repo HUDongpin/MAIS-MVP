@@ -1,0 +1,143 @@
+{
+  "batchNumber": 66,
+  "startedAt": "2026-05-25T03:11:22.811Z",
+  "completedAt": "2026-05-25T03:11:42.694Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s2-k09-sa-014",
+    "pep-junior-v3-s2-k09-sa-015",
+    "pep-junior-v3-s2-k09-sa-016",
+    "pep-junior-v3-s2-k09-sa-017",
+    "pep-junior-v3-s2-k09-sa-018",
+    "pep-junior-v3-s2-k09-sa-019",
+    "pep-junior-v3-s2-k09-sa-020",
+    "pep-junior-v3-s2-k09-sa-021",
+    "pep-junior-v3-s2-k09-sa-022",
+    "pep-junior-v3-s2-k09-sa-023",
+    "pep-junior-v3-s2-k09-sa-024",
+    "pep-junior-v3-s2-k09-sa-025"
+  ],
+  "usage": {
+    "prompt_tokens": 4860,
+    "completion_tokens": 1061,
+    "total_tokens": 5921,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 4604
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s2-k09-sa-014",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案与解释一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-sa-015",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "函数关系式推导正确，代入计算无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-sa-016",
+        "status": "fail",
+        "severity": "blocker",
+        "issueTags": [
+          "grade_mismatch"
+        ],
+        "correctedAnswer": null,
+        "rationale": "二次根式化简属于八年级下册内容，但题目标注知识单元为“一次函数与数据分析”，与知识点不匹配，且难度为Challenge，但实际为常规基础题，不适合作为该单元题目。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-sa-017",
+        "status": "fail",
+        "severity": "blocker",
+        "issueTags": [
+          "grade_mismatch"
+        ],
+        "correctedAnswer": null,
+        "rationale": "勾股定理逆定理属于八年级下册内容，但题目标注知识单元为“一次函数与数据分析”，与知识点不匹配。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-sa-018",
+        "status": "fail",
+        "severity": "blocker",
+        "issueTags": [
+          "grade_mismatch"
+        ],
+        "correctedAnswer": null,
+        "rationale": "平行四边形面积计算涉及三角函数sin60°，属于九年级内容，且知识单元标注为“一次函数与数据分析”，严重不匹配。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-sa-019",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "一次函数表达式求解及象限判断正确，符合知识点。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-sa-020",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方差计算正确，步骤清晰，答案无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-sa-021",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "利润函数及不亏本销售量计算正确，取整合理。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-sa-022",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "放回摸球概率计算正确，符合概率乘法原理。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-sa-023",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "简单概率计算正确，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-sa-024",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分段函数及向上取整应用正确，计算无误，acceptedAnswers覆盖合理。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-sa-025",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分段函数及向上取整应用正确，计算无误，acceptedAnswers覆盖合理。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 9,
+      "warn": 0,
+      "fail": 3,
+      "notes": "3道题因知识点严重不匹配（二次根式、勾股定理、平行四边形面积涉及三角函数）被判定为fail，其余题目数学正确、答案一致，通过审核。"
+    }
+  }
+}

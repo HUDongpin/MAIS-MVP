@@ -1,0 +1,132 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-033",
+  "startedAt": "2026-05-28T01:04:54.367Z",
+  "completedAt": "2026-05-28T01:05:11.804Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-257",
+    "bnu-high-ds-v1-s4-258",
+    "bnu-high-ds-v1-s4-259",
+    "bnu-high-ds-v1-s4-260",
+    "bnu-high-ds-v1-s4-261",
+    "bnu-high-ds-v1-s4-262",
+    "bnu-high-ds-v1-s4-263",
+    "bnu-high-ds-v1-s4-264"
+  ],
+  "usage": {
+    "prompt_tokens": 12159,
+    "completion_tokens": 1077,
+    "total_tokens": 13236,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 11775
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-257",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析正确说明模型局限性。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-258",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "r≈0.019，2030年人口预测约为108万；局限性：未考虑资源限制，长期预测可能偏差较大。",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案预测2030年人口为106万，但独立解计算得108万，解析中计算过程也得到106.4≈106，但实际80e^(0.019*15)≈108万，存在计算错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-259",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析正确描述分段线性函数斜率变化。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-260",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "a=100，b≈0.96，预测t=30时温度约为29摄氏度；不适合预测t=60，因为模型未考虑室温下限，长时间后温度应接近室温而非趋于0。",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案预测t=30时温度为44°C，但独立解计算得29°C，解析中计算过程也得到29.4°C，却给出44°C，存在矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-261",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析正确建立分段函数模型。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-262",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析正确求解不等式。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-263",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析正确应用工作效率模型。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-264",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析正确建立利润函数并求解零点。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 0,
+      "fail": 2,
+      "notes": "8题中6题通过，2题因计算错误导致答案与解析矛盾，需修正。"
+    }
+  }
+}

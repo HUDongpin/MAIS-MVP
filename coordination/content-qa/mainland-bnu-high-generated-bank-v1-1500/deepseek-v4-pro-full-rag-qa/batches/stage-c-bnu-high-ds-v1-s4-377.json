@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-377",
+  "startedAt": "2026-05-28T02:43:53.512Z",
+  "completedAt": "2026-05-28T02:43:59.018Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-377"
+  ],
+  "usage": {
+    "prompt_tokens": 2544,
+    "completion_tokens": 358,
+    "total_tokens": 2902,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2160
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-377",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "(1) A(0,0), B(120,0), C(30√3, 30√3) 或等价坐标；(2) 距离为30√3≈51.96米，满足要求。",
+        "correctedAnswer": "(1) A(0,0), B(120,0), C(30√3, 30√3) 或等价坐标；(2) 距离为30√3≈51.96米，满足要求。",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案错误使用tan30°=x/y等，导致C点坐标和距离计算错误。Stage A独立解正确：C(30√3, 30√3)，距离30√3≈51.96米。存储答案与独立解不一致，且解析中的方程建立错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "存储答案存在数学错误，与独立解不一致，判定为blocker。"
+    }
+  }
+}

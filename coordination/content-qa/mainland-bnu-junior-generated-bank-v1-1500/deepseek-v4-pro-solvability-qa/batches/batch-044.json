@@ -1,0 +1,180 @@
+{
+  "batchNumber": 44,
+  "startedAt": "2026-05-27T17:34:49.359Z",
+  "completedAt": "2026-05-27T17:35:10.981Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s2-017",
+    "bnu-junior-ds-v1-s2-018",
+    "bnu-junior-ds-v1-s2-019",
+    "bnu-junior-ds-v1-s2-020",
+    "bnu-junior-ds-v1-s2-021",
+    "bnu-junior-ds-v1-s2-022",
+    "bnu-junior-ds-v1-s2-023",
+    "bnu-junior-ds-v1-s2-024",
+    "bnu-junior-ds-v1-s2-025",
+    "bnu-junior-ds-v1-s2-026",
+    "bnu-junior-ds-v1-s2-027",
+    "bnu-junior-ds-v1-s2-028"
+  ],
+  "usage": {
+    "prompt_tokens": 5844,
+    "completion_tokens": 1554,
+    "total_tokens": 7398,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 5332
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s2-017",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，可解；答案正确，解释与答案一致，符合北师大版S2勾股定理要求。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-018",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，可解；答案√97正确，解释合理，acceptedAnswers覆盖多种表达。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-019",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "ambiguous_mc",
+          "bad_options"
+        ],
+        "correctedAnswer": null,
+        "rationale": "题目要求判断三角形ABD的形状，但选项A“直角三角形，因为AB²+BD²=AD²”需要先计算AD，而AD未知，无法直接判断；且选项B、C、D均不正确，但A的推理不完整，且题目未给出AD长度，学生无法直接验证。实际上，由已知可算得AD=√45，AB²+BD²=45=AD²，故A正确，但选项表述为“因为AB²+BD²=AD²”未提供AD值，导致选项不严谨，且其他选项错误，但A是唯一可能正确的，但严格来说，选项A的因果关系不成立，因为AD未知。因此，该题选项设计有缺陷，答案匹配但选项不严谨。",
+        "confidence": "medium"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-020",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": false,
+        "answerMatches": false,
+        "issueTags": [
+          "missing_condition",
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": null,
+        "rationale": "题目中D在AC上，AD=4，但解释中却用BD²=AB²+AD²，这要求∠BAD=90°，但∠BAD并非直角，因为△ABC中∠B=90°，A点处不是直角。实际上，在Rt△ABC中，∠B=90°，AB=5，BC=12，AC=13，D在AC上，AD=4，则CD=9。要求BD，需用余弦定理或相似，不能直接用勾股定理。解释错误，答案错误，题目不可解（缺少条件或方法不当）。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-021",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，可解；答案54正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-022",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，可解；答案60/13 cm正确，选项唯一，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-023",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，可解；答案正确，解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-024",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，可解；答案8正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-025",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，可解；答案3,4,5正确，选项唯一，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-026",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，可解；答案表达式正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-027",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，可解；答案10正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-028",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，可解；答案12正确，选项唯一，解释合理。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 10,
+      "warn": 0,
+      "fail": 2,
+      "notes": "共12题，10题通过，2题失败。失败题：bnu-junior-ds-v1-s2-019选项设计不严谨，bnu-junior-ds-v1-s2-020条件不足且答案错误。"
+    }
+  }
+}

@@ -1,0 +1,594 @@
+{
+  "batchId": "batch-055",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p3-041",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-three-digit-add-sub",
+      "unitTitle": "加与减",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "three-digit-addition-subtraction",
+        "regrouping",
+        "estimation-check",
+        "加与减",
+        "三位数加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "三位数加法",
+        "三位数减法",
+        "连续进退位",
+        "估算",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "digits not aligned by place value",
+        "regrouping recorded in the wrong column",
+        "estimate ignored after exact calculation"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-three-digit-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-large-number-add-sub-unit",
+        "bnu-primary-p2-lower-assessment-three-digit-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "图书馆新买了一批书，其中故事书有268本，科普书比故事书多157本。图书馆一共买了多少本故事书和科普书？",
+      "optionsZhHans": [],
+      "answer": "693本",
+      "acceptedAnswers": [
+        "693本",
+        "693"
+      ],
+      "explanationZhHans": "先求科普书数量：268+157=425（本）。再求总数：268+425=693（本）。验算：693-268=425，与科普书数量一致，结果正确。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-042",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-three-digit-add-sub",
+      "unitTitle": "加与减",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "three-digit-addition-subtraction",
+        "regrouping",
+        "estimation-check",
+        "加与减",
+        "三位数加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "三位数加法",
+        "三位数减法",
+        "连续进退位",
+        "估算",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "digits not aligned by place value",
+        "regrouping recorded in the wrong column",
+        "estimate ignored after exact calculation"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-three-digit-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-large-number-add-sub-unit",
+        "bnu-primary-p2-lower-assessment-three-digit-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆有故事书 268 本，科技书比故事书多 157 本。科技书有多少本？故事书和科技书一共有多少本？",
+      "optionsZhHans": [],
+      "answer": "科技书有 425 本，一共有 693 本。",
+      "acceptedAnswers": [
+        "科技书有 425 本，一共有 693 本。",
+        "科技书有425本，一共有693本。",
+        "科技书有425本，一共有693本",
+        "425本，693本",
+        "425 693"
+      ],
+      "explanationZhHans": "科技书：268 + 157 = 425（本）。总数：268 + 425 = 693（本）。计算时注意个位、十位、百位对齐，个位满十向十位进一，十位满十向百位进一。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-043",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-three-digit-add-sub",
+      "unitTitle": "加与减",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "three-digit-addition-subtraction",
+        "regrouping",
+        "estimation-check",
+        "加与减",
+        "三位数加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "三位数加法",
+        "三位数减法",
+        "连续进退位",
+        "估算",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "digits not aligned by place value",
+        "regrouping recorded in the wrong column",
+        "estimate ignored after exact calculation"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-three-digit-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-large-number-add-sub-unit",
+        "bnu-primary-p2-lower-assessment-three-digit-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆原有故事书526本，上午借出189本，下午归还74本，现在故事书比原来少了多少本？下面哪种方法是正确的？",
+      "optionsZhHans": [
+        "先算526－189＝337，再算337＋74＝411，少了411本",
+        "先算189＋74＝263，再算526－263＝263，少了263本",
+        "先算526＋74＝600，再算600－189＝411，少了411本",
+        "先算189－74＝115，少了115本"
+      ],
+      "answer": "先算189－74＝115，少了115本",
+      "acceptedAnswers": [
+        "先算189－74＝115，少了115本"
+      ],
+      "explanationZhHans": "借出189本使书减少，归还74本使书增加，实际减少的本数是借出比归还多的部分，即189－74＝115本。选项D直接计算净减少量，正确。其他选项混淆了中间步骤，得出错误结果。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-044",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-three-digit-add-sub",
+      "unitTitle": "加与减",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "three-digit-addition-subtraction",
+        "regrouping",
+        "estimation-check",
+        "加与减",
+        "三位数加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "三位数加法",
+        "三位数减法",
+        "连续进退位",
+        "估算",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "digits not aligned by place value",
+        "regrouping recorded in the wrong column",
+        "estimate ignored after exact calculation"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-three-digit-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-large-number-add-sub-unit",
+        "bnu-primary-p2-lower-assessment-three-digit-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "三年级学生进行图书捐赠活动。一班捐了268本，二班捐了195本，三班捐了307本。先估算三个班大约一共捐了多少本，再列竖式精确计算，最后用减法验算。",
+      "optionsZhHans": [],
+      "answer": "估算：270+200+310=780（本）；精确计算：268+195+307=770（本）；验算：770-268-195=307",
+      "acceptedAnswers": [
+        "估算：270+200+310=780（本）；精确计算：268+195+307=770（本）；验算：770-268-195=307",
+        "估算：270+200+310=780本；精确计算：268+195+307=770本；验算：770-268-195=307",
+        "估算：270+200+310=780 精确计算：268+195+307=770 验算：770-268-195=307",
+        "估算：270+200+310=780，精确计算：268+195+307=770，验算：770-268-195=307"
+      ],
+      "explanationZhHans": "把268看作270，195看作200，307看作310，估算总和约780本。竖式对齐个位：8+5+7=20进2，6+9+0+2=17进1，2+1+3+1=7，得770本。验算用和减去前两个加数：770-268=502，502-195=307，等于第三个加数，说明计算正确。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-045",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-three-digit-add-sub",
+      "unitTitle": "加与减",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "three-digit-addition-subtraction",
+        "regrouping",
+        "estimation-check",
+        "加与减",
+        "三位数加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "三位数加法",
+        "三位数减法",
+        "连续进退位",
+        "估算",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "digits not aligned by place value",
+        "regrouping recorded in the wrong column",
+        "estimate ignored after exact calculation"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-three-digit-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-large-number-add-sub-unit",
+        "bnu-primary-p2-lower-assessment-three-digit-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆原来有528本故事书，今天借出了176本，还回来了89本。现在图书馆里有多少本故事书？先估算，再列竖式计算，并验算。",
+      "optionsZhHans": [],
+      "answer": "估算：530-180+90=440，实际计算：528-176+89=441。竖式：528-176=352，352+89=441。验算：441-89=352，352+176=528。现在有441本故事书。",
+      "acceptedAnswers": [
+        "估算：530-180+90=440，实际计算：528-176+89=441。竖式：528-176=352，352+89=441。验算：441-89=352，352+176=528。现在有441本故事书。",
+        "估算：530-180+90=440，实际计算：528-176+89=441。竖式：528-176=352，352+89=441。验算：441-89=352，352+176=528。现在有441本。",
+        "估算：530-180+90=440，实际计算：528-176+89=441。竖式：528-176=352，352+89=441。验算：441-89=352，352+176=528。441本。",
+        "估算：530-180+90=440，实际计算：528-176+89=441。竖式：528-176=352，352+89=441。验算：441-89=352，352+176=528。441本故事书。",
+        "估算：530-180+90=440，实际计算：528-176+89=441。竖式：528-176=352，352+89=441。验算：441-89=352，352+176=528。现在有441本故事书",
+        "估算：530-180+90=440，实际计算：528-176+89=441。竖式：528-176=352，352+89=441。验算：441-89=352，352+176=528。现在有441本",
+        "估算：530-180+90=440，实际计算：528-176+89=441。竖式：528-176=352，352+89=441。验算：441-89=352，352+176=528。441本",
+        "估算：530-180+90=440，实际计算：528-176+89=441。竖式：528-176=352，352+89=441。验算：441-89=352，352+176=528。441本故事书"
+      ],
+      "explanationZhHans": "先估算：528≈530，176≈180，89≈90，530-180+90=440。再精确计算：528-176=352，352+89=441。验算：用逆运算，441-89=352，352+176=528，结果正确。现在有441本故事书。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-046",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-multiplication-division-fluency",
+      "unitTitle": "乘与除",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "multiplication-division-relationships",
+        "fact-fluency",
+        "mental-calculation",
+        "乘与除",
+        "乘除关系"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "推理意识"
+      ],
+      "skillTags": [
+        "口算乘除",
+        "乘除互逆",
+        "倍数关系",
+        "估算",
+        "应用题建模"
+      ],
+      "misconceptionTags": [
+        "division treated only as sharing",
+        "factor and product roles confused",
+        "inverse check not connected to the story"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-multiplication-division-fluency"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "李老师买了5盒彩色铅笔，每盒有12支。他把这些铅笔平均分给6个美术小组。下面哪种说法是正确的？",
+      "optionsZhHans": [
+        "铅笔总数是60支，每个小组分到10支",
+        "铅笔总数是60支，每个小组分到12支",
+        "铅笔总数是50支，每个小组分到8支",
+        "铅笔总数是72支，每个小组分到12支"
+      ],
+      "answer": "铅笔总数是60支，每个小组分到10支",
+      "acceptedAnswers": [
+        "铅笔总数是60支，每个小组分到10支"
+      ],
+      "explanationZhHans": "先算铅笔总数：5盒×12支=60支。再平均分给6个小组：60支÷6=10支。所以总数为60支，每组10支。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-047",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-multiplication-division-fluency",
+      "unitTitle": "乘与除",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "multiplication-division-relationships",
+        "fact-fluency",
+        "mental-calculation",
+        "乘与除",
+        "乘除关系"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "推理意识"
+      ],
+      "skillTags": [
+        "口算乘除",
+        "乘除互逆",
+        "倍数关系",
+        "估算",
+        "应用题建模"
+      ],
+      "misconceptionTags": [
+        "division treated only as sharing",
+        "factor and product roles confused",
+        "inverse check not connected to the story"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-multiplication-division-fluency"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆买来一批新书，如果每个书架放24本，正好放满6个书架。如果每个书架放18本，需要多少个书架才能放完这批新书？请写出你的思考过程和答案。",
+      "optionsZhHans": [],
+      "answer": "8个",
+      "acceptedAnswers": [
+        "8个",
+        "8",
+        "需要8个书架"
+      ],
+      "explanationZhHans": "先算书的总数：24×6=144本。再算需要书架数：144÷18=8个。所以需要8个书架。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-048",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-multiplication-division-fluency",
+      "unitTitle": "乘与除",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "multiplication-division-relationships",
+        "fact-fluency",
+        "mental-calculation",
+        "乘与除",
+        "乘除关系"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "推理意识"
+      ],
+      "skillTags": [
+        "口算乘除",
+        "乘除互逆",
+        "倍数关系",
+        "估算",
+        "应用题建模"
+      ],
+      "misconceptionTags": [
+        "division treated only as sharing",
+        "factor and product roles confused",
+        "inverse check not connected to the story"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-multiplication-division-fluency"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "李老师买了4盒水彩笔，每盒有12支。她把全部水彩笔平均分给6个美术小组，每个小组分到多少支？请写出分步计算的过程，并列出综合算式。",
+      "optionsZhHans": [],
+      "answer": "分步计算：先算一共有多少支水彩笔：4×12=48（支）。再算每个小组分到多少支：48÷6=8（支）。综合算式：4×12÷6=8（支）。",
+      "acceptedAnswers": [
+        "分步计算：先算一共有多少支水彩笔：4×12=48（支）。再算每个小组分到多少支：48÷6=8（支）。综合算式：4×12÷6=8（支）。",
+        "4×12=48（支），48÷6=8（支），综合算式：4×12÷6=8（支）",
+        "4×12=48支，48÷6=8支，综合算式：4×12÷6=8支",
+        "4×12=48 48÷6=8 综合算式：4×12÷6=8"
+      ],
+      "explanationZhHans": "先求水彩笔总数：4盒×每盒12支=48支。再平均分给6个小组：48÷6=8支。综合算式按从左到右的顺序计算，先乘后除，结果相同。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-049",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-multiplication-division-fluency",
+      "unitTitle": "乘与除",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "multiplication-division-relationships",
+        "fact-fluency",
+        "mental-calculation",
+        "乘与除",
+        "乘除关系"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "推理意识"
+      ],
+      "skillTags": [
+        "口算乘除",
+        "乘除互逆",
+        "倍数关系",
+        "估算",
+        "应用题建模"
+      ],
+      "misconceptionTags": [
+        "division treated only as sharing",
+        "factor and product roles confused",
+        "inverse check not connected to the story"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-multiplication-division-fluency"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆买来一批新书，每班分到8本，正好分给6个班。如果每班分6本，可以分给几个班？",
+      "optionsZhHans": [
+        "6个班",
+        "7个班",
+        "8个班",
+        "9个班"
+      ],
+      "answer": "8个班",
+      "acceptedAnswers": [
+        "8个班"
+      ],
+      "explanationZhHans": "先算书的总数：8×6=48（本）。再算每班6本可分几个班：48÷6=8（个）。所以可以分给8个班。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-050",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-multiplication-division-fluency",
+      "unitTitle": "乘与除",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "multiplication-division-relationships",
+        "fact-fluency",
+        "mental-calculation",
+        "乘与除",
+        "乘除关系"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "推理意识"
+      ],
+      "skillTags": [
+        "口算乘除",
+        "乘除互逆",
+        "倍数关系",
+        "估算",
+        "应用题建模"
+      ],
+      "misconceptionTags": [
+        "division treated only as sharing",
+        "factor and product roles confused",
+        "inverse check not connected to the story"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-multiplication-division-fluency"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "果园里摘了苹果和梨。苹果每箱装8千克，装了6箱；梨的总质量是苹果总质量的3倍。梨一共有多少千克？请列式并计算。",
+      "optionsZhHans": [],
+      "answer": "8×6=48（千克），48×3=144（千克）",
+      "acceptedAnswers": [
+        "8×6=48（千克），48×3=144（千克）",
+        "8×6=48千克，48×3=144千克",
+        "8×6=48，48×3=144",
+        "144千克",
+        "144"
+      ],
+      "explanationZhHans": "先求苹果总质量：每箱8千克，6箱就是8×6=48千克。梨是苹果的3倍，所以梨的质量是48×3=144千克。"
+    }
+  ]
+}

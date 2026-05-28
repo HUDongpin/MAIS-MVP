@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-353",
+  "startedAt": "2026-05-28T03:02:33.877Z",
+  "completedAt": "2026-05-28T03:02:39.179Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-353"
+  ],
+  "usage": {
+    "prompt_tokens": 2111,
+    "completion_tokens": 276,
+    "total_tokens": 2387,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1727
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-353",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "250",
+        "correctedAnswer": "250",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合教材范围。独立计算得250种选法：男3女1为C(6,3)C(5,1)=100，男2女2为C(6,2)C(5,2)=150，合计250。存储答案215错误，且解析中计算过程得出250，与存储答案矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1题答案错误，解析自相矛盾，需修正答案为250。"
+    }
+  }
+}

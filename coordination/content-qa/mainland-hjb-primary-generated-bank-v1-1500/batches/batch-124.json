@@ -1,0 +1,291 @@
+{
+  "batchId": "batch-124",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p3-116",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-fraction-introduction",
+      "unitTitle": "分数的初步认识",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "fraction-introduction",
+        "equal-parts",
+        "unit-fraction",
+        "proper-fractions",
+        "几分之一",
+        "几分之几"
+      ],
+      "competencyTags": [
+        "数感",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均分",
+        "几分之一",
+        "几分之几",
+        "分数读写",
+        "整体意识"
+      ],
+      "misconceptionTags": [
+        "whole not identified",
+        "unequal parts named as fractions",
+        "denominator treated as numerator size"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-fraction-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-fraction-introduction",
+        "hjb-primary-p3-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈把一块圆形蛋糕平均切成了8块，小丽吃了其中的3块。小丽吃了这块蛋糕的几分之几？",
+      "optionsZhHans": [],
+      "answer": "3/8",
+      "acceptedAnswers": [
+        "3/8",
+        "八分之三"
+      ],
+      "explanationZhHans": "蛋糕被平均分成8块，每块是1/8。小丽吃了3块，就是3个1/8，即3/8。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-117",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-fraction-introduction",
+      "unitTitle": "分数的初步认识",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "fraction-introduction",
+        "equal-parts",
+        "unit-fraction",
+        "proper-fractions",
+        "几分之一",
+        "几分之几"
+      ],
+      "competencyTags": [
+        "数感",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均分",
+        "几分之一",
+        "几分之几",
+        "分数读写",
+        "整体意识"
+      ],
+      "misconceptionTags": [
+        "whole not identified",
+        "unequal parts named as fractions",
+        "denominator treated as numerator size"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-fraction-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-fraction-introduction",
+        "hjb-primary-p3-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明有一根彩带，他把它平均剪成了5段，每段长度都相等。他用了其中的2段来包装礼物。请用分数表示他用了这根彩带的几分之几，并说明分母和分子分别表示什么。",
+      "optionsZhHans": [],
+      "answer": "2/5",
+      "acceptedAnswers": [
+        "2/5",
+        "五分之二"
+      ],
+      "explanationZhHans": "彩带被平均分成5段，每段是1/5。用了2段，就是2/5。分母5表示平均分成的总份数，分子2表示用了的份数。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-118",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-math-square-review",
+      "unitTitle": "三年级上册数学广场与整理复习",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "p3-upper-review",
+        "math-square-exploration",
+        "operation-geometry-fraction-review",
+        "数学广场",
+        "整理复习"
+      ],
+      "competencyTags": [
+        "推理意识",
+        "反思整理",
+        "应用意识"
+      ],
+      "skillTags": [
+        "规律探索",
+        "综合应用",
+        "策略表达",
+        "错因归纳",
+        "模型选择"
+      ],
+      "misconceptionTags": [
+        "review solved by memorized procedure only",
+        "diagram and equation not connected",
+        "strategy chosen from surface keywords"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-math-square-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-review-operations",
+        "hjb-primary-p3-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在数学广场活动中，老师让同学们用同样长的小棒摆图形。小华摆了1个正方形，小丽摆了2个正方形，小明摆了3个正方形，这些正方形都是单独分开的。摆1个正方形需要4根小棒，摆2个正方形需要8根小棒，摆3个正方形需要12根小棒。按照这样的规律，摆5个正方形需要多少根小棒？",
+      "optionsZhHans": [
+        "16根",
+        "20根",
+        "24根",
+        "28根"
+      ],
+      "answer": "20根",
+      "acceptedAnswers": [
+        "20根"
+      ],
+      "explanationZhHans": "每个正方形需要4根小棒，正方形个数与小棒根数的关系是：小棒根数=正方形个数×4。摆5个正方形需要5×4=20根小棒。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-119",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-math-square-review",
+      "unitTitle": "三年级上册数学广场与整理复习",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "p3-upper-review",
+        "math-square-exploration",
+        "operation-geometry-fraction-review",
+        "数学广场",
+        "整理复习"
+      ],
+      "competencyTags": [
+        "推理意识",
+        "反思整理",
+        "应用意识"
+      ],
+      "skillTags": [
+        "规律探索",
+        "综合应用",
+        "策略表达",
+        "错因归纳",
+        "模型选择"
+      ],
+      "misconceptionTags": [
+        "review solved by memorized procedure only",
+        "diagram and equation not connected",
+        "strategy chosen from surface keywords"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-math-square-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-review-operations",
+        "hjb-primary-p3-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在整理复习时，小马虎做了一道题：36÷4=8。他的错误原因是什么？正确的商应该是多少？",
+      "optionsZhHans": [],
+      "answer": "错误原因：乘法口诀记错，四九三十六，所以36÷4=9，不是8。正确的商是9。",
+      "acceptedAnswers": [
+        "错误原因：乘法口诀记错，四九三十六，所以36÷4=9，不是8。正确的商是9。",
+        "错误原因：乘法口诀记错，正确的商是9。"
+      ],
+      "explanationZhHans": "36÷4应该用乘法口诀“四九三十六”来求商，商是9。小马虎可能误用了“四八三十二”，所以得到8。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-120",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-math-square-review",
+      "unitTitle": "三年级上册数学广场与整理复习",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "p3-upper-review",
+        "math-square-exploration",
+        "operation-geometry-fraction-review",
+        "数学广场",
+        "整理复习"
+      ],
+      "competencyTags": [
+        "推理意识",
+        "反思整理",
+        "应用意识"
+      ],
+      "skillTags": [
+        "规律探索",
+        "综合应用",
+        "策略表达",
+        "错因归纳",
+        "模型选择"
+      ],
+      "misconceptionTags": [
+        "review solved by memorized procedure only",
+        "diagram and equation not connected",
+        "strategy chosen from surface keywords"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-math-square-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-review-operations",
+        "hjb-primary-p3-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆新买来一批书，其中故事书有48本，科技书的本数是故事书的3倍。科技书比故事书多多少本？请写出你的思考过程。",
+      "optionsZhHans": [],
+      "answer": "96本",
+      "acceptedAnswers": [
+        "96本",
+        "96"
+      ],
+      "explanationZhHans": "科技书本数：48×3=144本。科技书比故事书多：144-48=96本。也可以想：科技书是故事书的3倍，即多2倍，48×2=96本。"
+    }
+  ]
+}

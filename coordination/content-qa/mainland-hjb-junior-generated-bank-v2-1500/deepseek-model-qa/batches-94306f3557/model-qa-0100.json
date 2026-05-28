@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0100",
+  "ids": [
+    "hjb-junior-ds-v2-s2-293",
+    "hjb-junior-ds-v2-s2-294",
+    "hjb-junior-ds-v2-s2-295",
+    "hjb-junior-ds-v2-s2-296",
+    "hjb-junior-ds-v2-s2-297",
+    "hjb-junior-ds-v2-s2-298",
+    "hjb-junior-ds-v2-s2-299",
+    "hjb-junior-ds-v2-s2-300"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-293",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "8",
+      "answerCheckZhHans": "标准答案为8，与独立求解结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-294",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "30",
+      "answerCheckZhHans": "标准答案为30，与独立求解结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-295",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "24",
+      "answerCheckZhHans": "标准答案为24，与独立求解结果一致。选项互异，且只有24正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-296",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "九",
+      "answerCheckZhHans": "标准答案为九，与独立求解结果一致。acceptedAnswers包含九和9，覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-297",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "菱形",
+      "answerCheckZhHans": "标准答案为菱形，与独立判断一致。解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-298",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "√19",
+      "answerCheckZhHans": "标准答案为√19，与独立求解结果一致。选项互异，且只有√19正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-299",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "6",
+      "answerCheckZhHans": "标准答案为6，与独立求解结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-300",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为24√13/13，但解析中计算AE=6√2，进而得BF=4√2，与标准答案矛盾。独立求解得BF=24/√13=24√13/13，与标准答案一致，但解析错误。",
+      "independentAnswerZhHans": "24√13/13",
+      "answerCheckZhHans": "标准答案为24√13/13，与独立求解结果一致，但解析过程错误（AE计算错误，导致BF=4√2）。",
+      "recommendedActionZhHans": "修正解析：AE=√(6²+8²)=10，S△ABE=24，BF=2×24/10=24/5=4.8，但标准答案24√13/13≈6.66，需重新核对题目条件或解析。",
+      "confidence": "high"
+    }
+  ]
+}

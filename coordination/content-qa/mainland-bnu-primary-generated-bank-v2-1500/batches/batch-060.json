@@ -1,0 +1,582 @@
+{
+  "batchId": "batch-060",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p3-091",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-calendar-time",
+      "unitTitle": "年、月、日",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "calendar",
+        "year-month-day",
+        "elapsed-date-reasoning",
+        "年 月 日",
+        "日期"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "认识年月日",
+        "大小月",
+        "日期顺序",
+        "简单经过时间",
+        "日历阅读"
+      ],
+      "misconceptionTags": [
+        "every month assumed to have the same number of days",
+        "start and end dates double-counted",
+        "date order confused with duration"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-calendar-time"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "2024年2月1日是星期四，那么2024年3月1日是星期几？",
+      "optionsZhHans": [
+        "星期四",
+        "星期五",
+        "星期六",
+        "星期日"
+      ],
+      "answer": "星期五",
+      "acceptedAnswers": [
+        "星期五"
+      ],
+      "explanationZhHans": "2024年是闰年，2月有29天。从2月1日到3月1日经过29天。29÷7=4周余1天，星期四往后推1天是星期五。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-092",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-calendar-time",
+      "unitTitle": "年、月、日",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "calendar",
+        "year-month-day",
+        "elapsed-date-reasoning",
+        "年 月 日",
+        "日期"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "认识年月日",
+        "大小月",
+        "日期顺序",
+        "简单经过时间",
+        "日历阅读"
+      ],
+      "misconceptionTags": [
+        "every month assumed to have the same number of days",
+        "start and end dates double-counted",
+        "date order confused with duration"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-calendar-time"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一年中连续两个月都是31天的组合有哪些？请写出所有组合，用“和”连接，例如“7月和8月”。",
+      "optionsZhHans": [],
+      "answer": "7月和8月、12月和1月",
+      "acceptedAnswers": [
+        "7月和8月、12月和1月",
+        "7月和8月 12月和1月",
+        "7月和8月，12月和1月"
+      ],
+      "explanationZhHans": "大月有1、3、5、7、8、10、12月，连续两个月都是31天的只有7月和8月，以及跨年的12月和1月。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-093",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-calendar-time",
+      "unitTitle": "年、月、日",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "calendar",
+        "year-month-day",
+        "elapsed-date-reasoning",
+        "年 月 日",
+        "日期"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "认识年月日",
+        "大小月",
+        "日期顺序",
+        "简单经过时间",
+        "日历阅读"
+      ],
+      "misconceptionTags": [
+        "every month assumed to have the same number of days",
+        "start and end dates double-counted",
+        "date order confused with duration"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-calendar-time"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明的生日是6月28日，小红的生日比小明晚15天。小红的生日是几月几日？",
+      "optionsZhHans": [],
+      "answer": "7月13日",
+      "acceptedAnswers": [
+        "7月13日"
+      ],
+      "explanationZhHans": "6月有30天，从6月28日往后推15天：6月28日+2天到6月30日，剩余13天进入7月，所以是7月13日。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-094",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-calendar-time",
+      "unitTitle": "年、月、日",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "calendar",
+        "year-month-day",
+        "elapsed-date-reasoning",
+        "年 月 日",
+        "日期"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "认识年月日",
+        "大小月",
+        "日期顺序",
+        "简单经过时间",
+        "日历阅读"
+      ],
+      "misconceptionTags": [
+        "every month assumed to have the same number of days",
+        "start and end dates double-counted",
+        "date order confused with duration"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-calendar-time"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个年份是闰年？",
+      "optionsZhHans": [
+        "2018年",
+        "2019年",
+        "2020年",
+        "2021年"
+      ],
+      "answer": "2020年",
+      "acceptedAnswers": [
+        "2020年"
+      ],
+      "explanationZhHans": "公历年份是4的倍数的一般是闰年，2020÷4=505，没有余数，所以2020年是闰年。2018、2019、2021除以4都有余数。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-095",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-calendar-time",
+      "unitTitle": "年、月、日",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "calendar",
+        "year-month-day",
+        "elapsed-date-reasoning",
+        "年 月 日",
+        "日期"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "认识年月日",
+        "大小月",
+        "日期顺序",
+        "简单经过时间",
+        "日历阅读"
+      ],
+      "misconceptionTags": [
+        "every month assumed to have the same number of days",
+        "start and end dates double-counted",
+        "date order confused with duration"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-calendar-time"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "2023年2月有多少天？",
+      "optionsZhHans": [],
+      "answer": "28",
+      "acceptedAnswers": [
+        "28",
+        "28天"
+      ],
+      "explanationZhHans": "2023年是平年，2月有28天。判断平年闰年：2023÷4=505余3，不是4的倍数，所以是平年。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-096",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-calendar-time",
+      "unitTitle": "年、月、日",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "calendar",
+        "year-month-day",
+        "elapsed-date-reasoning",
+        "年 月 日",
+        "日期"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "认识年月日",
+        "大小月",
+        "日期顺序",
+        "简单经过时间",
+        "日历阅读"
+      ],
+      "misconceptionTags": [
+        "every month assumed to have the same number of days",
+        "start and end dates double-counted",
+        "date order confused with duration"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-calendar-time"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校从7月5日开始放暑假，到8月31日结束。暑假一共有多少天？（包含开始和结束当天）",
+      "optionsZhHans": [],
+      "answer": "58",
+      "acceptedAnswers": [
+        "58",
+        "58天"
+      ],
+      "explanationZhHans": "7月有31天，从5日到31日共31-5+1=27天。8月有31天，全月31天。总共27+31=58天。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-097",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-calendar-time",
+      "unitTitle": "年、月、日",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "calendar",
+        "year-month-day",
+        "elapsed-date-reasoning",
+        "年 月 日",
+        "日期"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "认识年月日",
+        "大小月",
+        "日期顺序",
+        "简单经过时间",
+        "日历阅读"
+      ],
+      "misconceptionTags": [
+        "every month assumed to have the same number of days",
+        "start and end dates double-counted",
+        "date order confused with duration"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-calendar-time"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈2024年1月30日出差，2月5日回家。妈妈出差了多少天？（包含出发和回家当天）",
+      "optionsZhHans": [
+        "5天",
+        "6天",
+        "7天",
+        "8天"
+      ],
+      "answer": "7天",
+      "acceptedAnswers": [
+        "7天"
+      ],
+      "explanationZhHans": "1月30、31日共2天，2月1日到5日共5天，合计2+5=7天。注意2024年是闰年，2月有29天，但不影响计算。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-098",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-calendar-time",
+      "unitTitle": "年、月、日",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "calendar",
+        "year-month-day",
+        "elapsed-date-reasoning",
+        "年 月 日",
+        "日期"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "认识年月日",
+        "大小月",
+        "日期顺序",
+        "简单经过时间",
+        "日历阅读"
+      ],
+      "misconceptionTags": [
+        "every month assumed to have the same number of days",
+        "start and end dates double-counted",
+        "date order confused with duration"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-calendar-time"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "2024年第一季度（1月、2月、3月）一共有多少天？",
+      "optionsZhHans": [],
+      "answer": "91",
+      "acceptedAnswers": [
+        "91",
+        "91天"
+      ],
+      "explanationZhHans": "2024年是闰年，1月31天，2月29天，3月31天，合计31+29+31=91天。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-099",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-calendar-time",
+      "unitTitle": "年、月、日",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "calendar",
+        "year-month-day",
+        "elapsed-date-reasoning",
+        "年 月 日",
+        "日期"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "认识年月日",
+        "大小月",
+        "日期顺序",
+        "简单经过时间",
+        "日历阅读"
+      ],
+      "misconceptionTags": [
+        "every month assumed to have the same number of days",
+        "start and end dates double-counted",
+        "date order confused with duration"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-calendar-time"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某个月有5个星期日，这个月的1日可能是星期几？写出所有可能。",
+      "optionsZhHans": [],
+      "answer": "星期五、星期六、星期日",
+      "acceptedAnswers": [
+        "星期五、星期六、星期日",
+        "星期五 星期六 星期日",
+        "星期五，星期六，星期日"
+      ],
+      "explanationZhHans": "一个月有4周多2或3天。若1日是星期五，则这个月有5个星期五、六、日；若1日是星期六，有5个星期六、日；若1日是星期日，有5个星期日。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-100",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-calendar-time",
+      "unitTitle": "年、月、日",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "calendar",
+        "year-month-day",
+        "elapsed-date-reasoning",
+        "年 月 日",
+        "日期"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "认识年月日",
+        "大小月",
+        "日期顺序",
+        "简单经过时间",
+        "日历阅读"
+      ],
+      "misconceptionTags": [
+        "every month assumed to have the same number of days",
+        "start and end dates double-counted",
+        "date order confused with duration"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-calendar-time"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "2024年6月1日是星期六，那么2024年7月1日是星期几？",
+      "optionsZhHans": [
+        "星期六",
+        "星期日",
+        "星期一",
+        "星期二"
+      ],
+      "answer": "星期一",
+      "acceptedAnswers": [
+        "星期一"
+      ],
+      "explanationZhHans": "6月有30天，从6月1日到7月1日经过30天。30÷7=4周余2天，星期六往后推2天是星期一。"
+    }
+  ]
+}

@@ -1,0 +1,330 @@
+{
+  "batchNumber": 33,
+  "startedAt": "2026-05-27T03:40:10.978Z",
+  "completedAt": "2026-05-27T03:40:38.836Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p4-211",
+    "bnu-primary-ds-v1-p4-212",
+    "bnu-primary-ds-v1-p4-213",
+    "bnu-primary-ds-v1-p4-214",
+    "bnu-primary-ds-v1-p4-215",
+    "bnu-primary-ds-v1-p4-216",
+    "bnu-primary-ds-v1-p4-217",
+    "bnu-primary-ds-v1-p4-218",
+    "bnu-primary-ds-v1-p4-219",
+    "bnu-primary-ds-v1-p4-220",
+    "bnu-primary-ds-v1-p4-221",
+    "bnu-primary-ds-v1-p4-222",
+    "bnu-primary-ds-v1-p4-223",
+    "bnu-primary-ds-v1-p4-224",
+    "bnu-primary-ds-v1-p4-225",
+    "bnu-primary-ds-v1-p4-226",
+    "bnu-primary-ds-v1-p4-227",
+    "bnu-primary-ds-v1-p4-228",
+    "bnu-primary-ds-v1-p4-229",
+    "bnu-primary-ds-v1-p4-230",
+    "bnu-primary-ds-v1-p4-231",
+    "bnu-primary-ds-v1-p4-232",
+    "bnu-primary-ds-v1-p4-233",
+    "bnu-primary-ds-v1-p4-234",
+    "bnu-primary-ds-v1-p4-235",
+    "bnu-primary-ds-v1-p4-236",
+    "bnu-primary-ds-v1-p4-237",
+    "bnu-primary-ds-v1-p4-238",
+    "bnu-primary-ds-v1-p4-239",
+    "bnu-primary-ds-v1-p4-240"
+  ],
+  "usage": {
+    "prompt_tokens": 6875,
+    "completion_tokens": 2204,
+    "total_tokens": 9079,
+    "prompt_tokens_details": {
+      "cached_tokens": 6784
+    },
+    "prompt_cache_hit_tokens": 6784,
+    "prompt_cache_miss_tokens": 91
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p4-211",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目信息完整，方程正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-212",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "等量关系明确，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-213",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "方程符合题意，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-214",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "单价×数量=总价，方程正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-215",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "周长公式应用正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-216",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "等量关系正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-217",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "方程符合题意。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-218",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "等量关系正确，答案合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-219",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "方程正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-220",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "方程符合题意，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-221",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "计算正确，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-222",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "平均数和正负数记录正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-223",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "统计表数据清晰，选项分析正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-224",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "计算正确，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-225",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "总数和平均数计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-226",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "平均数计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-227",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "平均数性质正确，选项D合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-228",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "平均数计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-229",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "数据比较正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-230",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "平均数和变化分析正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-231",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "差值计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-232",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "简单减法，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-233",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "平均数计算正确，但解释中误写148应为146，不影响答案。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-234",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "平均数计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-235",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "人数比较正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-236",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "错误原因分析正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-237",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "平均数应用场景正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-238",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "等腰三角形底角计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-239",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "对称轴定义正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-240",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "小数点移动正确。"
+      }
+    ],
+    "batchSummary": {
+      "solvableYes": 30,
+      "solvableNo": 0,
+      "answerMatchYes": 30,
+      "answerMatchNo": 0,
+      "notes": "所有题目信息完整，答案正确，无问题。"
+    }
+  }
+}

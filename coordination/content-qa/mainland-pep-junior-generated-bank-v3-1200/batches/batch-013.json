@@ -1,0 +1,315 @@
+{
+  "batchId": "batch-013",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s1-k02-sa-009",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "short-answer",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-rational-number-operations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "某冷库的室温为 -5℃，现需要将温度降至 -17℃。如果冷库每小时降温 3℃，问几小时后能达到所需温度？",
+      "optionsZhHans": [],
+      "answer": "4 小时",
+      "acceptedAnswers": [
+        "4 小时",
+        "4",
+        "4h"
+      ],
+      "explanationZhHans": "设 x 小时后达到所需温度。初始温度 -5℃，每小时降温 3℃，则降温后温度为 -5 - 3x。所需温度为 -17℃，列出方程：-5 - 3x = -17。解方程：-3x = -17 + 5，-3x = -12，x = 4。所以 4 小时后温度恰好为 -17℃。因此答案为 4 小时。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-sa-010",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "short-answer",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-geometric-figures"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "一个长方形的长比宽的 2 倍少 3 米，宽为 x 米。用含 x 的式子表示长方形的周长，并化简。",
+      "optionsZhHans": [],
+      "answer": "6x - 6",
+      "acceptedAnswers": [
+        "6x - 6",
+        "6x-6",
+        "2(3x-3)",
+        "2(3x-3)米"
+      ],
+      "explanationZhHans": "宽为 x 米，长比宽的 2 倍少 3 米，即长为 2x - 3 米。周长 = 2 × (长 + 宽) = 2 × ((2x - 3) + x) = 2 × (3x - 3) = 6x - 6。所以周长为 6x - 6 米。答案为 6x - 6。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-sa-011",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "short-answer",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-expression-simplification"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "解方程：2(x - 3) + 4 = 3x - 5。",
+      "optionsZhHans": [],
+      "answer": "x = 3",
+      "acceptedAnswers": [
+        "x = 3",
+        "3",
+        "x=3"
+      ],
+      "explanationZhHans": "去括号：2x - 6 + 4 = 3x - 5，即 2x - 2 = 3x - 5。移项：2x - 3x = -5 + 2，-x = -3，x = 3。所以方程的解为 x = 3。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-sa-012",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "short-answer",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-linear-equation-modeling"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "某商店将进价为 80 元的商品按标价的八折出售，仍可获利 20%。求该商品的标价。",
+      "optionsZhHans": [],
+      "answer": "120 元",
+      "acceptedAnswers": [
+        "120 元",
+        "120",
+        "120元"
+      ],
+      "explanationZhHans": "设标价为 x 元。八折出售，售价为 0.8x 元。获利 20% 是指售价相对于进价的利润率，即 (售价 - 进价) / 进价 = 20%，所以 (0.8x - 80) / 80 = 0.2。解方程：0.8x - 80 = 80 × 0.2 = 16，0.8x = 96，x = 120。所以标价为 120 元。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-sa-013",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "short-answer",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "已知 a 与 b 互为相反数，c 与 d 互为倒数，|m| = 2。求代数式 a + b + m - cd 的值。",
+      "optionsZhHans": [],
+      "answer": "1 或 -3",
+      "acceptedAnswers": [
+        "1 或 -3",
+        "1或-3",
+        "1, -3",
+        "1和-3"
+      ],
+      "explanationZhHans": "由题意，a + b = 0，cd = 1，|m| = 2，所以 m = 2 或 m = -2。当 m = 2 时，原式 = 0 + 2 - 1 = 1；当 m = -2 时，原式 = 0 + (-2) - 1 = -3。所以代数式的值为 1 或 -3。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-sa-014",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "short-answer",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-rational-number-operations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "某地一天的最高气温为 5℃，最低气温为 -3℃，则这天的温差是多少？",
+      "optionsZhHans": [],
+      "answer": "8℃",
+      "acceptedAnswers": [
+        "8℃",
+        "8",
+        "8摄氏度"
+      ],
+      "explanationZhHans": "温差 = 最高气温 - 最低气温 = 5 - (-3) = 5 + 3 = 8（℃）。所以温差为 8℃。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-sa-015",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "short-answer",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-geometric-figures"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "已知线段 AB = 10 cm，点 C 是线段 AB 上一点，且 AC = 3 cm，点 D 是线段 BC 的中点。求线段 AD 的长度。",
+      "optionsZhHans": [],
+      "answer": "6.5 cm",
+      "acceptedAnswers": [
+        "6.5 cm",
+        "6.5cm",
+        "6.5厘米",
+        "6.5"
+      ],
+      "explanationZhHans": "由题意，AB = 10 cm，AC = 3 cm，所以 BC = AB - AC = 10 - 3 = 7 cm。点 D 是 BC 的中点，所以 CD = BC / 2 = 7 / 2 = 3.5 cm。因此 AD = AC + CD = 3 + 3.5 = 6.5 cm。答案为 6.5 cm。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-sa-016",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "short-answer",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-expression-simplification"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "先化简，再求值：3a - (2a - 1) + 2(3 - a)，其中 a = -2。",
+      "optionsZhHans": [],
+      "answer": "9",
+      "acceptedAnswers": [
+        "9"
+      ],
+      "explanationZhHans": "化简：原式 = 3a - 2a + 1 + 6 - 2a = (3a - 2a - 2a) + (1 + 6) = -a + 7。当 a = -2 时，代入得 -(-2) + 7 = 2 + 7 = 9。所以值为 9。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-sa-017",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "short-answer",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-linear-equation-modeling"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "甲、乙两人从相距 20 千米的两地同时出发，相向而行。甲的速度是 4 千米/时，乙的速度是 6 千米/时。问几小时后两人相遇？",
+      "optionsZhHans": [],
+      "answer": "2 小时",
+      "acceptedAnswers": [
+        "2 小时",
+        "2",
+        "2h"
+      ],
+      "explanationZhHans": "设 x 小时后两人相遇。甲走的路程为 4x 千米，乙走的路程为 6x 千米，两人路程之和等于总距离 20 千米，所以 4x + 6x = 20，即 10x = 20，x = 2。所以 2 小时后两人相遇。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-sa-018",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "short-answer",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "若 |x - 2| + (y + 3)² = 0，求 x + y 的值。",
+      "optionsZhHans": [],
+      "answer": "-1",
+      "acceptedAnswers": [
+        "-1",
+        "负1"
+      ],
+      "explanationZhHans": "因为绝对值和平方都是非负数，它们的和为 0，则每一项都为 0。所以 x - 2 = 0，得 x = 2；y + 3 = 0，得 y = -3。因此 x + y = 2 + (-3) = -1。答案为 -1。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

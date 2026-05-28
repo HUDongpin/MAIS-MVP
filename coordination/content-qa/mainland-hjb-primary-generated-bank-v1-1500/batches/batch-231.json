@@ -1,0 +1,294 @@
+{
+  "batchId": "batch-231",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p5-151",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-factors-multiples",
+      "unitTitle": "因数、倍数与数的结构",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "factors-multiples",
+        "prime-composite",
+        "greatest-common-factor",
+        "least-common-multiple",
+        "因数倍数"
+      ],
+      "competencyTags": [
+        "数感",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "因数倍数",
+        "质数合数",
+        "公因数",
+        "公倍数",
+        "数的分类"
+      ],
+      "misconceptionTags": [
+        "factor and multiple reversed",
+        "prime number confused with odd number",
+        "least common multiple chosen without common check"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-factors-multiples"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit",
+        "hjb-primary-p5-upper-assessment-equations-relationships-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把24块同样的巧克力全部分给小朋友，每个小朋友分得的块数相同且多于1块。下面哪种分法不可能？",
+      "optionsZhHans": [
+        "分给2个小朋友",
+        "分给3个小朋友",
+        "分给5个小朋友",
+        "分给8个小朋友"
+      ],
+      "answer": "分给5个小朋友",
+      "acceptedAnswers": [
+        "分给5个小朋友"
+      ],
+      "explanationZhHans": "每个小朋友分得的块数相同且多于1块，说明小朋友人数是24的因数且小于24。24的因数有1,2,3,4,6,8,12,24。排除1和24，可能人数为2,3,4,6,8,12。5不是24的因数，所以分给5个小朋友不可能。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-152",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-factors-multiples",
+      "unitTitle": "因数、倍数与数的结构",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "factors-multiples",
+        "prime-composite",
+        "greatest-common-factor",
+        "least-common-multiple",
+        "因数倍数"
+      ],
+      "competencyTags": [
+        "数感",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "因数倍数",
+        "质数合数",
+        "公因数",
+        "公倍数",
+        "数的分类"
+      ],
+      "misconceptionTags": [
+        "factor and multiple reversed",
+        "prime number confused with odd number",
+        "least common multiple chosen without common check"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-factors-multiples"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit",
+        "hjb-primary-p5-upper-assessment-equations-relationships-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方形的长和宽都是整厘米数，面积是48平方厘米。这个长方形的长和宽的最大公因数可能是多少？请写出所有可能的值，用逗号分隔。",
+      "optionsZhHans": [],
+      "answer": "1,2,4",
+      "acceptedAnswers": [
+        "1,2,4",
+        "1, 2, 4",
+        "1、2、4"
+      ],
+      "explanationZhHans": "面积48，长宽为整厘米数，可能组合有(1,48)、(2,24)、(3,16)、(4,12)、(6,8)。分别求最大公因数：1和48是1；2和24是2；3和16是1；4和12是4；6和8是2。所有可能值为1、2、4。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-153",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-factors-multiples",
+      "unitTitle": "因数、倍数与数的结构",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "factors-multiples",
+        "prime-composite",
+        "greatest-common-factor",
+        "least-common-multiple",
+        "因数倍数"
+      ],
+      "competencyTags": [
+        "数感",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "因数倍数",
+        "质数合数",
+        "公因数",
+        "公倍数",
+        "数的分类"
+      ],
+      "misconceptionTags": [
+        "factor and multiple reversed",
+        "prime number confused with odd number",
+        "least common multiple chosen without common check"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-factors-multiples"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit",
+        "hjb-primary-p5-upper-assessment-equations-relationships-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把48个苹果和36个梨分装到相同的果篮里，每个果篮里的苹果个数相同，梨的个数也相同，且没有剩余。最多可以装多少个果篮？",
+      "optionsZhHans": [],
+      "answer": "12",
+      "acceptedAnswers": [
+        "12",
+        "12个"
+      ],
+      "explanationZhHans": "要求最多果篮数，即求48和36的最大公因数。48的因数有1,2,3,4,6,8,12,16,24,48；36的因数有1,2,3,4,6,9,12,18,36。公因数有1,2,3,4,6,12，最大是12，所以最多装12个果篮。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-154",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-factors-multiples",
+      "unitTitle": "因数、倍数与数的结构",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "factors-multiples",
+        "prime-composite",
+        "greatest-common-factor",
+        "least-common-multiple",
+        "因数倍数"
+      ],
+      "competencyTags": [
+        "数感",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "因数倍数",
+        "质数合数",
+        "公因数",
+        "公倍数",
+        "数的分类"
+      ],
+      "misconceptionTags": [
+        "factor and multiple reversed",
+        "prime number confused with odd number",
+        "least common multiple chosen without common check"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-factors-multiples"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit",
+        "hjb-primary-p5-upper-assessment-equations-relationships-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把24块巧克力全部装进礼盒里，每个礼盒装的块数相同且多于1块，少于24块。一共有多少种不同的装法？",
+      "optionsZhHans": [
+        "4种",
+        "5种",
+        "6种",
+        "7种"
+      ],
+      "answer": "6种",
+      "acceptedAnswers": [
+        "6种"
+      ],
+      "explanationZhHans": "求24的大于1且小于24的因数个数。24的因数有1,2,3,4,6,8,12,24。去掉1和24，剩下2,3,4,6,8,12共6个，所以有6种装法。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-155",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-factors-multiples",
+      "unitTitle": "因数、倍数与数的结构",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "factors-multiples",
+        "prime-composite",
+        "greatest-common-factor",
+        "least-common-multiple",
+        "因数倍数"
+      ],
+      "competencyTags": [
+        "数感",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "因数倍数",
+        "质数合数",
+        "公因数",
+        "公倍数",
+        "数的分类"
+      ],
+      "misconceptionTags": [
+        "factor and multiple reversed",
+        "prime number confused with odd number",
+        "least common multiple chosen without common check"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-factors-multiples"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit",
+        "hjb-primary-p5-upper-assessment-equations-relationships-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把24个苹果和36个橘子全部平均分给一些小朋友，每个小朋友分到的苹果个数相同，橘子个数也相同，且全部分完。最多可以分给几个小朋友？",
+      "optionsZhHans": [],
+      "answer": "12",
+      "acceptedAnswers": [
+        "12",
+        "12个"
+      ],
+      "explanationZhHans": "要求最多小朋友人数，就是求24和36的最大公因数。24的因数有1,2,3,4,6,8,12,24；36的因数有1,2,3,4,6,9,12,18,36。公因数有1,2,3,4,6,12，最大是12。所以最多分给12个小朋友。"
+    }
+  ]
+}

@@ -1,0 +1,308 @@
+{
+  "batchId": "batch-278",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p6-136",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-cylinder-cone",
+      "unitTitle": "圆柱与圆锥",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "cylinder-cone",
+        "surface-area",
+        "volume",
+        "solid-geometry",
+        "圆柱",
+        "圆锥"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "圆柱特征",
+        "圆锥特征",
+        "侧面展开",
+        "表面积",
+        "体积",
+        "单位换算"
+      ],
+      "misconceptionTags": [
+        "surface area and volume mixed",
+        "base circumference used as base area",
+        "cone volume relationship forgotten",
+        "square and cubic units omitted"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-cylinder-cone"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-cylinder-cone",
+        "hjb-primary-p6-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个圆柱形铁皮水桶（无盖），底面半径是2分米，高是5分米。制作这个水桶至少需要多少平方分米的铁皮？（铁皮厚度忽略不计）",
+      "optionsZhHans": [
+        "62.8",
+        "75.36",
+        "87.92",
+        "100.48"
+      ],
+      "answer": "75.36",
+      "acceptedAnswers": [
+        "75.36"
+      ],
+      "explanationZhHans": "无盖水桶表面积=侧面积+一个底面积。侧面积=2×3.14×2×5=62.8平方分米，底面积=3.14×2²=12.56平方分米，总和=62.8+12.56=75.36平方分米。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-137",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-cylinder-cone",
+      "unitTitle": "圆柱与圆锥",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "cylinder-cone",
+        "surface-area",
+        "volume",
+        "solid-geometry",
+        "圆柱",
+        "圆锥"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "圆柱特征",
+        "圆锥特征",
+        "侧面展开",
+        "表面积",
+        "体积",
+        "单位换算"
+      ],
+      "misconceptionTags": [
+        "surface area and volume mixed",
+        "base circumference used as base area",
+        "cone volume relationship forgotten",
+        "square and cubic units omitted"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-cylinder-cone"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-cylinder-cone",
+        "hjb-primary-p6-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个圆锥形沙堆，底面周长是12.56米，高是1.5米。如果每立方米沙重1.7吨，这堆沙大约重多少吨？（得数保留一位小数）",
+      "optionsZhHans": [],
+      "answer": "10.7",
+      "acceptedAnswers": [
+        "10.7",
+        "10.7吨"
+      ],
+      "explanationZhHans": "底面半径=12.56÷3.14÷2=2米，底面积=3.14×2²=12.56平方米，圆锥体积=1/3×12.56×1.5=6.28立方米，沙重=6.28×1.7≈10.676≈10.7吨。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-138",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-cylinder-cone",
+      "unitTitle": "圆柱与圆锥",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "cylinder-cone",
+        "surface-area",
+        "volume",
+        "solid-geometry",
+        "圆柱",
+        "圆锥"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "圆柱特征",
+        "圆锥特征",
+        "侧面展开",
+        "表面积",
+        "体积",
+        "单位换算"
+      ],
+      "misconceptionTags": [
+        "surface area and volume mixed",
+        "base circumference used as base area",
+        "cone volume relationship forgotten",
+        "square and cubic units omitted"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-cylinder-cone"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-cylinder-cone",
+        "hjb-primary-p6-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个圆柱的侧面展开图是一个正方形。已知这个圆柱的底面半径是3厘米，它的高是多少厘米？",
+      "optionsZhHans": [],
+      "answer": "18.84",
+      "acceptedAnswers": [
+        "18.84",
+        "18.84厘米"
+      ],
+      "explanationZhHans": "侧面展开是正方形，说明圆柱的高等于底面周长。底面周长=2×3.14×3=18.84厘米，所以高也是18.84厘米。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-139",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-cylinder-cone",
+      "unitTitle": "圆柱与圆锥",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "cylinder-cone",
+        "surface-area",
+        "volume",
+        "solid-geometry",
+        "圆柱",
+        "圆锥"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "圆柱特征",
+        "圆锥特征",
+        "侧面展开",
+        "表面积",
+        "体积",
+        "单位换算"
+      ],
+      "misconceptionTags": [
+        "surface area and volume mixed",
+        "base circumference used as base area",
+        "cone volume relationship forgotten",
+        "square and cubic units omitted"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-cylinder-cone"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-cylinder-cone",
+        "hjb-primary-p6-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "等底等高的圆柱和圆锥，它们的体积之和是48立方分米。圆柱的体积是多少立方分米？",
+      "optionsZhHans": [
+        "12",
+        "24",
+        "36",
+        "48"
+      ],
+      "answer": "36",
+      "acceptedAnswers": [
+        "36"
+      ],
+      "explanationZhHans": "等底等高时，圆柱体积是圆锥的3倍。设圆锥体积为1份，圆柱为3份，总和4份对应48立方分米，1份是12，圆柱3份是36立方分米。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-140",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-cylinder-cone",
+      "unitTitle": "圆柱与圆锥",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "cylinder-cone",
+        "surface-area",
+        "volume",
+        "solid-geometry",
+        "圆柱",
+        "圆锥"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "圆柱特征",
+        "圆锥特征",
+        "侧面展开",
+        "表面积",
+        "体积",
+        "单位换算"
+      ],
+      "misconceptionTags": [
+        "surface area and volume mixed",
+        "base circumference used as base area",
+        "cone volume relationship forgotten",
+        "square and cubic units omitted"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-cylinder-cone"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-cylinder-cone",
+        "hjb-primary-p6-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把一根长2米的圆柱形木料截成3段，表面积增加了25.12平方分米。原来这根木料的体积是多少立方分米？",
+      "optionsZhHans": [],
+      "answer": "125.6",
+      "acceptedAnswers": [
+        "125.6",
+        "125.6立方分米"
+      ],
+      "explanationZhHans": "截成3段增加4个底面积，每个底面积=25.12÷4=6.28平方分米。2米=20分米，体积=6.28×20=125.6立方分米。"
+    }
+  ]
+}

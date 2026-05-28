@@ -1,0 +1,181 @@
+{
+  "startedAt": "2026-05-26T06:11:32.053Z",
+  "completedAt": "2026-05-26T06:11:53.434Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "usage": {
+    "prompt_tokens": 2418,
+    "completion_tokens": 1711,
+    "total_tokens": 4129,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 2418
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "questionId": "pep-primary-p5-l-fi-121",
+        "solvableStatus": "pass",
+        "independentAnswer": "4/8",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "同分母分数相加，3/8+1/8=4/8，可化简为1/2，但题目未要求化简，填4/8即可。"
+      },
+      {
+        "questionId": "pep-primary-p5-l-fi-122",
+        "solvableStatus": "pass",
+        "independentAnswer": "5/8",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "同分母分数相加，3/8+2/8=5/8。"
+      },
+      {
+        "questionId": "pep-primary-p5-l-fi-123",
+        "solvableStatus": "pass",
+        "independentAnswer": "2/9",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "同分母分数相加，1/9+1/9=2/9。"
+      },
+      {
+        "questionId": "pep-primary-p5-l-fi-124",
+        "solvableStatus": "pass",
+        "independentAnswer": "5/10",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "同分母分数相加，2/10+3/10=5/10，可化简为1/2，但题目未要求化简，填5/10即可。"
+      },
+      {
+        "questionId": "pep-primary-p5-l-fi-125",
+        "solvableStatus": "pass",
+        "independentAnswer": "5/11",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "同分母分数相加，3/11+2/11=5/11。"
+      },
+      {
+        "questionId": "pep-primary-p5-l-fi-126",
+        "solvableStatus": "pass",
+        "independentAnswer": "2/6",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "同分母分数相加，1/6+1/6=2/6，可化简为1/3，但题目未要求化简，填2/6即可。"
+      },
+      {
+        "questionId": "pep-primary-p5-l-fi-127",
+        "solvableStatus": "pass",
+        "independentAnswer": "5/7",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "同分母分数相加，2/7+3/7=5/7。"
+      },
+      {
+        "questionId": "pep-primary-p5-l-fi-128",
+        "solvableStatus": "pass",
+        "independentAnswer": "5/8",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "同分母分数相加，3/8+2/8=5/8。"
+      },
+      {
+        "questionId": "pep-primary-p5-l-fi-129",
+        "solvableStatus": "pass",
+        "independentAnswer": "2/9",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "同分母分数相加，1/9+1/9=2/9。"
+      },
+      {
+        "questionId": "pep-primary-p5-l-fi-130",
+        "solvableStatus": "pass",
+        "independentAnswer": "3/6",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "同分母分数相加，1/6+2/6=3/6，可化简为1/2，但题目未要求化简，填3/6即可。"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-131",
+        "solvableStatus": "pass",
+        "independentAnswer": "5/8",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "同分母分数相加，3/8+2/8=5/8。"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-132",
+        "solvableStatus": "pass",
+        "independentAnswer": "4/10",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "同分母分数相加，2/10+2/10=4/10，可化简为2/5，但题目未要求化简，填4/10即可。"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-133",
+        "solvableStatus": "pass",
+        "independentAnswer": "3/6",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "同分母分数相加，1/6+2/6=3/6，可化简为1/2，但题目未要求化简，填3/6即可。"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-134",
+        "solvableStatus": "pass",
+        "independentAnswer": "5/8",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "同分母分数相加，3/8+2/8=5/8。"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-135",
+        "solvableStatus": "pass",
+        "independentAnswer": "2/9",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "同分母分数相加，1/9+1/9=2/9。"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-136",
+        "solvableStatus": "pass",
+        "independentAnswer": "5/10",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "同分母分数相加，2/10+3/10=5/10，可化简为1/2，但题目未要求化简，填5/10即可。"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-137",
+        "solvableStatus": "pass",
+        "independentAnswer": "5/11",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "同分母分数相加，3/11+2/11=5/11。"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-138",
+        "solvableStatus": "pass",
+        "independentAnswer": "2/6",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "同分母分数相加，1/6+1/6=2/6，可化简为1/3，但题目未要求化简，填2/6即可。"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-139",
+        "solvableStatus": "pass",
+        "independentAnswer": "5/7",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "同分母分数相加，2/7+3/7=5/7。"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-140",
+        "solvableStatus": "pass",
+        "independentAnswer": "5/8",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "同分母分数相加，3/8+2/8=5/8。"
+      }
+    ]
+  }
+}

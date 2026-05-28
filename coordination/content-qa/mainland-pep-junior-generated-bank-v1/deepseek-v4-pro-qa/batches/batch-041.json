@@ -1,0 +1,191 @@
+{
+  "batchNumber": 41,
+  "startedAt": "2026-05-24T17:34:49.844Z",
+  "completedAt": "2026-05-24T17:35:09.880Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-candidate-k09-sa-012",
+    "pep-junior-candidate-k09-sa-013",
+    "pep-junior-candidate-k09-sa-014",
+    "pep-junior-candidate-k09-sa-015",
+    "pep-junior-candidate-k09-sa-016",
+    "pep-junior-candidate-k09-sa-017",
+    "pep-junior-candidate-k09-sa-018",
+    "pep-junior-candidate-k09-sa-019",
+    "pep-junior-candidate-k09-sa-020",
+    "pep-junior-candidate-k09-sa-021",
+    "pep-junior-candidate-k09-sa-022",
+    "pep-junior-candidate-k09-sa-023",
+    "pep-junior-candidate-k09-sa-024",
+    "pep-junior-candidate-k09-sa-025",
+    "pep-junior-candidate-k09-sa-026",
+    "pep-junior-candidate-k09-sa-027",
+    "pep-junior-candidate-k10-mc-001",
+    "pep-junior-candidate-k10-mc-002"
+  ],
+  "usage": {
+    "prompt_tokens": 2759,
+    "completion_tokens": 1392,
+    "total_tokens": 4151,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 2503
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-candidate-k09-sa-012",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，极差计算无误，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-candidate-k09-sa-013",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "众数正确，52出现次数最多，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-candidate-k09-sa-014",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均数逆推正确，第四个数据为19，计算无误。"
+      },
+      {
+        "id": "pep-junior-candidate-k09-sa-015",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "中位数计算正确，偶数个数据取中间两数平均，结果为16。"
+      },
+      {
+        "id": "pep-junior-candidate-k09-sa-016",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均数计算正确，总和除以4得18.5。"
+      },
+      {
+        "id": "pep-junior-candidate-k09-sa-017",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "极差计算正确，28-15=13。"
+      },
+      {
+        "id": "pep-junior-candidate-k09-sa-018",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "众数正确，20出现2次，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-candidate-k09-sa-019",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均数逆推正确，第四个数据为24，计算无误。"
+      },
+      {
+        "id": "pep-junior-candidate-k09-sa-020",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "中位数计算正确，偶数个数据取中间两数平均，结果为21。"
+      },
+      {
+        "id": "pep-junior-candidate-k09-sa-021",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均数计算正确，总和除以4得23.5。"
+      },
+      {
+        "id": "pep-junior-candidate-k09-sa-022",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "极差计算正确，33-20=13。"
+      },
+      {
+        "id": "pep-junior-candidate-k09-sa-023",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "众数正确，25出现2次，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-candidate-k09-sa-024",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均数逆推正确，第四个数据为29，计算无误。"
+      },
+      {
+        "id": "pep-junior-candidate-k09-sa-025",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "中位数计算正确，偶数个数据取中间两数平均，结果为26。"
+      },
+      {
+        "id": "pep-junior-candidate-k09-sa-026",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均数计算正确，总和除以4得28.5。"
+      },
+      {
+        "id": "pep-junior-candidate-k09-sa-027",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "极差计算正确，38-25=13。"
+      },
+      {
+        "id": "pep-junior-candidate-k10-mc-001",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "一元二次方程因式分解法正确，选项D为x=9或x=14，答案匹配。"
+      },
+      {
+        "id": "pep-junior-candidate-k10-mc-002",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "一元二次方程因式分解法正确，选项C为x=10或x=16，答案匹配。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案与解释一致，无歧义或缺失条件，适合人教版初中数学，可直接入库。"
+    }
+  }
+}

@@ -1,0 +1,176 @@
+{
+  "batchNumber": 80,
+  "startedAt": "2026-05-27T17:45:57.427Z",
+  "completedAt": "2026-05-27T17:46:14.524Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s2-449",
+    "bnu-junior-ds-v1-s2-450",
+    "bnu-junior-ds-v1-s2-451",
+    "bnu-junior-ds-v1-s2-452",
+    "bnu-junior-ds-v1-s2-453",
+    "bnu-junior-ds-v1-s2-454",
+    "bnu-junior-ds-v1-s2-455",
+    "bnu-junior-ds-v1-s2-456",
+    "bnu-junior-ds-v1-s2-457",
+    "bnu-junior-ds-v1-s2-458",
+    "bnu-junior-ds-v1-s2-459",
+    "bnu-junior-ds-v1-s2-460"
+  ],
+  "usage": {
+    "prompt_tokens": 6236,
+    "completion_tokens": 1403,
+    "total_tokens": 7639,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 5724
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s2-449",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，去分母得x=-m-1，由解为正数得m<-1，且分母x-1≠0得m≠-3，答案正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-450",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分母因式分解为(x+1)(x-3)，有意义需分母不为0，得x≠-1且x≠3，答案正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-451",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分式值为0需分子为0且分母不为0，解得x=±3，但x=3使分母为0，舍去，故x=-3，选项B正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-452",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "化简后为1，a=0满足分母不为0的条件，代入得1，答案正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-453",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "通分计算得(x+2)/(x^2-1)，选项B正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-454",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "无解",
+        "rationale": "题目要求解分式方程，去分母得x=1，但x=1使分母为0，是增根，原方程无解。答案给出x=3，与解释矛盾且错误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-455",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "增根为x=2，去分母后代入得m=-3，选项A正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-456",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由条件得(a+b)^2=ab，化简得a^2+ab+b^2=0，所求值为-1，答案正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-457",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项D分子分母无公因式，是最简分式，答案正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-458",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分式值为负需分子分母异号，解得-3<x<2.5，答案正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-459",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "化简得2/(a+b)，选项A正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-460",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由条件得y-x=3xy，代入分式化简得3/5，答案正确，解释匹配。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 11,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第454题答案错误，方程无解但给出x=3，解释也矛盾，需修正为无解。其余题目均正确。"
+    }
+  }
+}

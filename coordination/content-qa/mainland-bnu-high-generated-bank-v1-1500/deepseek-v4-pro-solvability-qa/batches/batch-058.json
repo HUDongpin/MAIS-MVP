@@ -1,0 +1,138 @@
+{
+  "batchNumber": 58,
+  "startedAt": "2026-05-27T13:53:41.301Z",
+  "completedAt": "2026-05-27T13:53:56.548Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-457",
+    "bnu-high-ds-v1-s4-458",
+    "bnu-high-ds-v1-s4-459",
+    "bnu-high-ds-v1-s4-460",
+    "bnu-high-ds-v1-s4-461",
+    "bnu-high-ds-v1-s4-462",
+    "bnu-high-ds-v1-s4-463",
+    "bnu-high-ds-v1-s4-464"
+  ],
+  "usage": {
+    "prompt_tokens": 10666,
+    "completion_tokens": 1045,
+    "total_tokens": 11711,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10154
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-457",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可独立求解，计算得模为1，与答案一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-458",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，解得实部为2，与答案一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-459",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "无解",
+        "correctedAnswer": "1 - i",
+        "issueTags": [
+          "math_error",
+          "missing_condition",
+          "explanation_contradiction",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件“在直线y=x上”与“|z-1|=|z+i|”联立得z=0，但0不在选项中；解析自行将直线改为y=-x才得到选项中的1-i，题目条件错误，无法按原题求解。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-460",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "±√3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，虚部为±√3，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-461",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "第一象限",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，共轭复数对应点在第一象限，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-462",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "-i",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，i²⁰²³=-i，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-463",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "必要不充分条件",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，逻辑关系正确，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-464",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "√10",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，线段长度为√10，答案与解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第459题因条件矛盾无法按原题求解，解析自行修改条件，判定为不可解；其余题目均通过审核。"
+    }
+  }
+}

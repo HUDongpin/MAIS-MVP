@@ -1,0 +1,293 @@
+{
+  "batchId": "batch-217",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p5-081",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "hjb-primary-p5-upper-plane-figure-area",
+      "unitTitle": "平面图形面积",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "polygon-area",
+        "parallelogram-area",
+        "triangle-area",
+        "trapezoid-area",
+        "面积"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "平行四边形面积",
+        "三角形面积",
+        "梯形面积",
+        "割补转化",
+        "面积单位"
+      ],
+      "misconceptionTags": [
+        "height confused with side length",
+        "perimeter and area formulas mixed",
+        "unit square meaning omitted"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p5-upper-plane-figure-area"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-plane-figure-area-unit",
+        "hjb-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个平行四边形，底边长12厘米，对应的高是8厘米。将这个平行四边形沿一条高剪开，拼成一个长方形。拼成的长方形的面积是多少平方厘米？",
+      "optionsZhHans": [],
+      "answer": "96",
+      "acceptedAnswers": [
+        "96",
+        "96平方厘米"
+      ],
+      "explanationZhHans": "平行四边形面积=底×高=12×8=96平方厘米。割补成长方形后面积不变，所以长方形面积也是96平方厘米。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-082",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "hjb-primary-p5-upper-plane-figure-area",
+      "unitTitle": "平面图形面积",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "polygon-area",
+        "parallelogram-area",
+        "triangle-area",
+        "trapezoid-area",
+        "面积"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "平行四边形面积",
+        "三角形面积",
+        "梯形面积",
+        "割补转化",
+        "面积单位"
+      ],
+      "misconceptionTags": [
+        "height confused with side length",
+        "perimeter and area formulas mixed",
+        "unit square meaning omitted"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p5-upper-plane-figure-area"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-plane-figure-area-unit",
+        "hjb-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个三角形的底是10厘米，高是6厘米，它的面积是多少平方厘米？",
+      "optionsZhHans": [
+        "30",
+        "60",
+        "16",
+        "32"
+      ],
+      "answer": "30",
+      "acceptedAnswers": [
+        "30"
+      ],
+      "explanationZhHans": "三角形面积=底×高÷2=10×6÷2=30平方厘米。注意不要忘记除以2。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-083",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "hjb-primary-p5-upper-plane-figure-area",
+      "unitTitle": "平面图形面积",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "polygon-area",
+        "parallelogram-area",
+        "triangle-area",
+        "trapezoid-area",
+        "面积"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "平行四边形面积",
+        "三角形面积",
+        "梯形面积",
+        "割补转化",
+        "面积单位"
+      ],
+      "misconceptionTags": [
+        "height confused with side length",
+        "perimeter and area formulas mixed",
+        "unit square meaning omitted"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p5-upper-plane-figure-area"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-plane-figure-area-unit",
+        "hjb-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个梯形，上底长5厘米，下底长9厘米，高是4厘米。从这个梯形中剪下一个最大的平行四边形，剩下的三角形面积是______平方厘米。",
+      "optionsZhHans": [],
+      "answer": "8",
+      "acceptedAnswers": [
+        "8",
+        "8平方厘米"
+      ],
+      "explanationZhHans": "梯形面积=(5+9)×4÷2=28平方厘米。最大平行四边形以梯形上底为底，高相同，面积=5×4=20平方厘米。剩下三角形面积=28-20=8平方厘米。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-084",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "hjb-primary-p5-upper-plane-figure-area",
+      "unitTitle": "平面图形面积",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "polygon-area",
+        "parallelogram-area",
+        "triangle-area",
+        "trapezoid-area",
+        "面积"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "平行四边形面积",
+        "三角形面积",
+        "梯形面积",
+        "割补转化",
+        "面积单位"
+      ],
+      "misconceptionTags": [
+        "height confused with side length",
+        "perimeter and area formulas mixed",
+        "unit square meaning omitted"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p5-upper-plane-figure-area"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-plane-figure-area-unit",
+        "hjb-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一块平行四边形菜地，底边长25米，高16米。如果每平方米收白菜8千克，这块地一共可以收白菜多少千克？",
+      "optionsZhHans": [],
+      "answer": "3200",
+      "acceptedAnswers": [
+        "3200",
+        "3200千克"
+      ],
+      "explanationZhHans": "平行四边形面积=25×16=400平方米。总产量=400×8=3200千克。注意面积与单位要对应。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-085",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "hjb-primary-p5-upper-plane-figure-area",
+      "unitTitle": "平面图形面积",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "polygon-area",
+        "parallelogram-area",
+        "triangle-area",
+        "trapezoid-area",
+        "面积"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "平行四边形面积",
+        "三角形面积",
+        "梯形面积",
+        "割补转化",
+        "面积单位"
+      ],
+      "misconceptionTags": [
+        "height confused with side length",
+        "perimeter and area formulas mixed",
+        "unit square meaning omitted"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p5-upper-plane-figure-area"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-plane-figure-area-unit",
+        "hjb-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个梯形的上底是4分米，下底是8分米，面积是36平方分米。它的高是多少分米？",
+      "optionsZhHans": [
+        "3",
+        "6",
+        "9",
+        "12"
+      ],
+      "answer": "6",
+      "acceptedAnswers": [
+        "6"
+      ],
+      "explanationZhHans": "梯形面积=(上底+下底)×高÷2，所以高=面积×2÷(上底+下底)=36×2÷(4+8)=72÷12=6分米。"
+    }
+  ]
+}

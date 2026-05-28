@@ -1,0 +1,108 @@
+{
+  "batchId": "model-qa-0018",
+  "ids": [
+    "hjb-junior-ds-v2-s1-137",
+    "hjb-junior-ds-v2-s1-138",
+    "hjb-junior-ds-v2-s1-139",
+    "hjb-junior-ds-v2-s1-140",
+    "hjb-junior-ds-v2-s1-141",
+    "hjb-junior-ds-v2-s1-142",
+    "hjb-junior-ds-v2-s1-143",
+    "hjb-junior-ds-v2-s1-144"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-137",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "标准答案 -5x²y(x - 3y + 2) 错误。提取公因式 -5x²y 后，原式各项除以 -5x²y 得：x - 3y + 2，但原式第三项为 -10x²y，除以 -5x²y 得 +2，正确。然而，原式第一项 -5x³y 除以 -5x²y 得 x，第二项 +15x²y² 除以 -5x²y 得 -3y，第三项 -10x²y 除以 -5x²y 得 +2，因此括号内应为 (x - 3y + 2)，但展开验证：-5x²y(x - 3y + 2) = -5x³y + 15x²y² - 10x²y，与原式一致。实际上答案正确，但解析中“注意符号：原式各项除以-5x²y后分别为x、-3y、2”中第三项写为2，而括号内为+2，一致。但答案本身正确，无错误。重新检查：原式 -5x³y + 15x²y² - 10x²y，提取 -5x²y，得 -5x²y(x - 3y + 2)，展开：-5x²y*x = -5x³y，-5x²y*(-3y)=+15x²y²，-5x²y*2=-10x²y，正确。因此答案正确。但解析中“注意符号：原式各项除以-5x²y后分别为x、-3y、2”中第三项为2，而括号内为+2，一致。无错误。但需检查 acceptedAnswers 是否覆盖标准答案：已包含。因此本题应 pass。但之前标记为 needs-review，现更正。",
+      "independentAnswerZhHans": "-5x²y(x - 3y + 2)",
+      "answerCheckZhHans": "标准答案正确，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改，题目正确。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-138",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案 4(2x-3)(x+1) 与解析结果 4(2x+1)(x-3) 不一致。解析利用平方差公式得 (4x+2)(2x-6)=2(2x+1)·2(x-3)=4(2x+1)(x-3)，但标准答案为 4(2x-3)(x+1)。两者不等价：展开 4(2x+1)(x-3)=4(2x²-6x+x-3)=4(2x²-5x-3)=8x²-20x-12；展开 4(2x-3)(x+1)=4(2x²+2x-3x-3)=4(2x²-x-3)=8x²-4x-12。原式 (3x-2)²-(x+4)²=9x²-12x+4 - (x²+8x+16)=8x²-20x-12，因此解析结果正确，标准答案错误。",
+      "independentAnswerZhHans": "4(2x+1)(x-3) 或 8x²-20x-12",
+      "answerCheckZhHans": "标准答案错误，应为 4(2x+1)(x-3)。",
+      "recommendedActionZhHans": "将标准答案修改为 4(2x+1)(x-3)，并更新 acceptedAnswers 为 ['4(2x+1)(x-3)', '4(x-3)(2x+1)', '8x²-20x-12', '4(2x²-5x-3)']，同时修正解析。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-139",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "D",
+      "answerCheckZhHans": "选项D正确，其他选项均有错误，符合唯一正确选项。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-140",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(3a-1)²",
+      "answerCheckZhHans": "标准答案正确，acceptedAnswers 覆盖合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-141",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3x²y(2x - 3y + 4)",
+      "answerCheckZhHans": "标准答案正确，acceptedAnswers 覆盖。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-142",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(2a+3b)(2a-3b)",
+      "answerCheckZhHans": "标准答案正确，选项唯一。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-143",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(x-3)²",
+      "answerCheckZhHans": "标准答案正确，acceptedAnswers 覆盖。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-144",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2x(x+2)(x-2)",
+      "answerCheckZhHans": "标准答案正确，acceptedAnswers 覆盖。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

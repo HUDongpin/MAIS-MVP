@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-167",
+  "startedAt": "2026-05-28T01:47:43.457Z",
+  "completedAt": "2026-05-28T01:47:59.435Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-329",
+    "bnu-high-ds-v1-s6-330",
+    "bnu-high-ds-v1-s6-331",
+    "bnu-high-ds-v1-s6-332",
+    "bnu-high-ds-v1-s6-333",
+    "bnu-high-ds-v1-s6-334",
+    "bnu-high-ds-v1-s6-335",
+    "bnu-high-ds-v1-s6-336"
+  ],
+  "usage": {
+    "prompt_tokens": 10131,
+    "completion_tokens": 1164,
+    "total_tokens": 11295,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9747
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-329",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "18 m²",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "设靠墙边长为x，另一边为(12-2x)/2=6-x，面积S=x(6-x)，定义域0<x<6。S'=6-2x，令S'=0得x=3，S(3)=18，端点趋于0，故最大面积18 m²。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-330",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x²-6x-9=3(x-3)(x+1)，驻点x=-1,3。x<-1时f'>0，-1<x<3时f'<0，x>3时f'>0，故极小值点为x=3。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-331",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x²-6x=3x(x-2)，在[0,3]上驻点x=0,2。f(0)=a，f(2)=a-4，f(3)=a。最大值为a，令a=3得a=3。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-332",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "最大值为10，最小值为-22",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x²-6x-9=3(x-3)(x+1)，驻点x=-1,3。f(-2)=3，f(-1)=10，f(3)=-22，f(4)=-15。最大10，最小-22。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-333",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "y = -2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "y'=3x²-3，在x=1处斜率k=0，切线方程为y-(-2)=0·(x-1)，即y=-2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-334",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "[-1, 1]",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x²-3=3(x-1)(x+1)，f'(x)≤0得-1≤x≤1，单调递减区间为[-1,1]。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-335",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "a=-3, b=-9, c=2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x²+2ax+b，由极值条件f'(-1)=0,f'(3)=0得3-2a+b=0,27+6a+b=0，解得a=-3,b=-9。极小值f(3)=27+9a+3b+c=-25，代入得c=2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-336",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "-1",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "y'=2x-4，驻点x=2。y(0)=3，y(2)=-1，y(3)=0，最小值为-1。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，无数学错误、歧义或缺失条件，符合北师大版导数章节要求。"
+    }
+  }
+}

@@ -1,0 +1,314 @@
+{
+  "batchId": "batch-079",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s2-k09-sa-014",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-data-analysis"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "某校八年级两个班级进行跳绳比赛，每班各派5名学生参赛。一班成绩（次/分钟）：178，185，172，190，168；二班成绩（次/分钟）：175，182，180，176，179。请分别计算两个班级的平均成绩，并判断哪个班级的平均成绩更高。",
+      "optionsZhHans": [],
+      "answer": "一班平均成绩178.6次/分钟，二班平均成绩178.4次/分钟，一班平均成绩更高。",
+      "acceptedAnswers": [
+        "一班平均成绩178.6次/分钟，二班平均成绩178.4次/分钟，一班平均成绩更高。",
+        "一班平均178.6，二班平均178.4，一班更高。",
+        "178.6和178.4，一班高。"
+      ],
+      "explanationZhHans": "一班平均成绩 = (178+185+172+190+168) ÷ 5 = 893 ÷ 5 = 178.6次/分钟。二班平均成绩 = (175+182+180+176+179) ÷ 5 = 892 ÷ 5 = 178.4次/分钟。因为178.6 > 178.4，所以一班平均成绩更高。答案：一班平均成绩178.6次/分钟，二班平均成绩178.4次/分钟，一班平均成绩更高。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-sa-015",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "某市出租车收费标准如下：起步价8元（含3千米），超过3千米后每千米收费1.5元。小明乘坐出租车行驶了x千米（x > 3），应付车费y元。请写出y关于x的函数关系式，并计算当行驶10千米时应付多少元。",
+      "optionsZhHans": [],
+      "answer": "y = 1.5x + 3.5，当x=10时，y=18.5元。",
+      "acceptedAnswers": [
+        "y = 1.5x + 3.5，当x=10时，y=18.5元。",
+        "y=1.5x+3.5，18.5元。",
+        "函数关系式y=1.5x+3.5，应付18.5元。"
+      ],
+      "explanationZhHans": "起步价8元包含3千米，超过3千米后每千米1.5元，所以超过部分的费用为1.5(x-3)元。总费用y = 8 + 1.5(x-3) = 8 + 1.5x - 4.5 = 1.5x + 3.5。因此函数关系式为y = 1.5x + 3.5。当x=10时，y = 1.5×10 + 3.5 = 15 + 3.5 = 18.5元。答案：y = 1.5x + 3.5，当x=10时，y=18.5元。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-sa-016",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-quadratic-radicals"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions"
+      ],
+      "promptZhHans": "某打印店有两种收费方案：方案甲收取20元服务费，每张4元；方案乙不收服务费，每张6元。设打印 x 张时两种方案费用分别为 y甲、y乙。\n（1）写出 y甲、y乙 关于 x 的关系式；\n（2）当打印多少张时两种方案费用相同；\n（3）打印15张时选择哪种方案更省钱？",
+      "optionsZhHans": [],
+      "answer": "（1）y甲=4x+20，y乙=6x；（2）10张；（3）方案甲更省钱",
+      "acceptedAnswers": [
+        "（1）y甲=4x+20，y乙=6x；（2）10张；（3）方案甲更省钱",
+        "y甲=4x+20，y乙=6x；10张；方案甲"
+      ],
+      "explanationZhHans": "方案甲每张4元并收20元服务费，所以 y甲=4x+20；方案乙每张6元，所以 y乙=6x。令4x+20=6x，得x=10。打印15张时，方案甲费用为4×15+20=80元，方案乙费用为6×15=90元，所以方案甲更省钱。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-sa-017",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-pythagorean-theorem"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "promptZhHans": "已知一次函数的图象经过点(2,7)和(5,16)。\n（1）求这个一次函数的解析式；\n（2）判断点(10,31)是否在该函数图象上，并说明理由。",
+      "optionsZhHans": [],
+      "answer": "解析式为 y=3x+1，点(10,31)在图象上",
+      "acceptedAnswers": [
+        "解析式为 y=3x+1，点(10,31)在图象上",
+        "y=3x+1，在图象上",
+        "y = 3x + 1，点(10,31)在图象上"
+      ],
+      "explanationZhHans": "设一次函数为 y=kx+b。由两点可得 k=(16-7)/(5-2)=3。代入点(2,7)，得7=3×2+b，b=1，所以解析式为 y=3x+1。当x=10时，y=3×10+1=31，所以点(10,31)在图象上。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-sa-018",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-quadrilaterals"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean"
+      ],
+      "promptZhHans": "某小组8名学生一次数学小测的成绩为：76，80，82，84，84，86，90，94。求这组数据的中位数和众数，并说明计算过程。",
+      "optionsZhHans": [],
+      "answer": "中位数为84，众数为84",
+      "acceptedAnswers": [
+        "中位数为84，众数为84",
+        "中位数84，众数84",
+        "84，84"
+      ],
+      "explanationZhHans": "这组数据已经按从小到大排列，共8个数，中位数是第4个和第5个数的平均数，即(84+84)/2=84。84出现2次，次数最多，所以众数为84。因此中位数为84，众数为84。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-sa-019",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-linear-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "已知一次函数y = kx + b的图象经过点(2, 5)和(-1, -4)。求该函数的表达式，并说明图象经过哪几个象限。",
+      "optionsZhHans": [],
+      "answer": "y = 3x - 1，图象经过第一、三、四象限。",
+      "acceptedAnswers": [
+        "y = 3x - 1，图象经过第一、三、四象限。",
+        "y=3x-1，经过一、三、四象限。",
+        "表达式y=3x-1，象限：一、三、四。"
+      ],
+      "explanationZhHans": "将点(2,5)和(-1,-4)代入y=kx+b，得方程组：5 = 2k + b，-4 = -k + b。两式相减得9 = 3k，解得k = 3。代入得b = 5 - 2×3 = -1。所以函数表达式为y = 3x - 1。因为k = 3 > 0，b = -1 < 0，所以图象经过第一、三、四象限。答案：y = 3x - 1，图象经过第一、三、四象限。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-sa-020",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-data-analysis"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-proof-calculation-integrated"
+      ],
+      "promptZhHans": "某校八年级学生进行体能测试，随机抽取10名学生的立定跳远成绩（单位：cm）如下：210，205，215，200，208，212，207，203，211，209。求这组数据的方差。",
+      "optionsZhHans": [],
+      "answer": "17.8",
+      "acceptedAnswers": [
+        "17.8",
+        "17.8。",
+        "方差为17.8"
+      ],
+      "explanationZhHans": "先求平均数：x̄ = (210+205+215+200+208+212+207+203+211+209) ÷ 10 = 2080 ÷ 10 = 208 cm。再求每个数据与平均数的差的平方和：(210-208)²=4，(205-208)²=9，(215-208)²=49，(200-208)²=64，(208-208)²=0，(212-208)²=16，(207-208)²=1，(203-208)²=25，(211-208)²=9，(209-208)²=1。平方和 = 4+9+49+64+0+16+1+25+9+1 = 178。方差 = 平方和 ÷ 数据个数 = 178 ÷ 10 = 17.8。故答案为17.8。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-sa-021",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "promptZhHans": "某水果店销售苹果，进价为每千克5元，售价为每千克8元。每天固定成本（如租金、人工）为100元。设每天销售x千克苹果，总利润为y元。请写出y关于x的函数关系式，并计算每天至少销售多少千克才能不亏本。",
+      "optionsZhHans": [],
+      "answer": "y = 3x - 100，至少销售34千克。",
+      "acceptedAnswers": [
+        "y = 3x - 100，至少销售34千克。",
+        "y=3x-100，至少34千克。",
+        "函数关系式y=3x-100，不亏本需销售34千克。"
+      ],
+      "explanationZhHans": "每千克利润 = 售价 - 进价 = 8 - 5 = 3元。总利润y = 每千克利润 × 销售量 - 固定成本 = 3x - 100。不亏本即y ≥ 0，所以3x - 100 ≥ 0，解得x ≥ 100/3 ≈ 33.33。因为x为整数千克，所以至少销售34千克。答案：y = 3x - 100，至少销售34千克。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-sa-022",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-quadratic-radicals"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "一个不透明的袋子里装有3个红球和2个白球，这些球除颜色外完全相同。从中随机摸出一个球，记录颜色后放回，再随机摸出一个球。求两次都摸到红球的概率。",
+      "optionsZhHans": [],
+      "answer": "9/25",
+      "acceptedAnswers": [
+        "9/25",
+        "9/25。",
+        "概率为9/25"
+      ],
+      "explanationZhHans": "每次摸球，红球概率为3/5，白球概率为2/5。因为放回，两次摸球相互独立。两次都摸到红球的概率 = (3/5) × (3/5) = 9/25。答案：9/25。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-sa-023",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-pythagorean-theorem"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "某商场促销，顾客购物满200元可抽奖一次。抽奖箱中有10张卡片，分别标有数字1至10，抽到数字5可获得50元优惠券，抽到其他数字无奖。小明购物满200元，抽奖一次。求小明获得优惠券的概率。",
+      "optionsZhHans": [],
+      "answer": "1/10",
+      "acceptedAnswers": [
+        "1/10",
+        "1/10。",
+        "概率为1/10"
+      ],
+      "explanationZhHans": "共有10张卡片，每张被抽到的可能性相同。其中只有数字5对应获奖，即1种情况。所以获得优惠券的概率 = 1/10。答案：1/10。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

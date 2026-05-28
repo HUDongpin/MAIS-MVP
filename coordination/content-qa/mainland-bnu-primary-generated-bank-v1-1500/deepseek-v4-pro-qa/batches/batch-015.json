@@ -1,0 +1,191 @@
+{
+  "batchNumber": 15,
+  "startedAt": "2026-05-27T13:25:53.338Z",
+  "completedAt": "2026-05-27T13:26:10.683Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p2-003",
+    "bnu-primary-ds-v1-p2-004",
+    "bnu-primary-ds-v1-p2-005",
+    "bnu-primary-ds-v1-p2-006",
+    "bnu-primary-ds-v1-p2-007",
+    "bnu-primary-ds-v1-p2-008",
+    "bnu-primary-ds-v1-p2-009",
+    "bnu-primary-ds-v1-p2-010",
+    "bnu-primary-ds-v1-p2-011",
+    "bnu-primary-ds-v1-p2-012",
+    "bnu-primary-ds-v1-p2-013",
+    "bnu-primary-ds-v1-p2-014",
+    "bnu-primary-ds-v1-p2-015",
+    "bnu-primary-ds-v1-p2-016",
+    "bnu-primary-ds-v1-p2-017",
+    "bnu-primary-ds-v1-p2-018",
+    "bnu-primary-ds-v1-p2-019",
+    "bnu-primary-ds-v1-p2-020"
+  ],
+  "usage": {
+    "prompt_tokens": 3483,
+    "completion_tokens": 1291,
+    "total_tokens": 4774,
+    "prompt_tokens_details": {
+      "cached_tokens": 3456
+    },
+    "prompt_cache_hit_tokens": 3456,
+    "prompt_cache_miss_tokens": 27
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p2-003",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解析一致，适合P2加与减复习。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-004",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，唯一选项大于60，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-005",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "竖式计算正确，答案27无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-006",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "两步计算正确，答案45箱。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-007",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "理解正确，短的长度即用去总和67米。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-008",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "等式成立，填36正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-009",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，剩余17元。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-010",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "37+28=65，40+25=65，选项正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-011",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "看错数字问题，正确和64，解析清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-012",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算与验算正确，答案37本。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-013",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "32+19=51>50，唯一正确选项。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-014",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "竖式填空，个位6，十位2，答案6可接受。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-015",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "两步计算正确，小轩41下。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-016",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "人民币计算正确，21元3角。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-017",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "换钱正确，4张5元，2张10元。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-018",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "总价109元，找回11元，正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-019",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "只有5+5+5=15，选项A正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-020",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，3元4角。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案与解析一致，无歧义，适合北师大版P2。"
+    }
+  }
+}

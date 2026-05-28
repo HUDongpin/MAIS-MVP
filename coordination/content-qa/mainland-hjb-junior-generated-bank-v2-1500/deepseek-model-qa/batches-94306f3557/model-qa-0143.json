@@ -1,0 +1,110 @@
+{
+  "batchId": "model-qa-0143",
+  "ids": [
+    "hjb-junior-ds-v2-s3-137",
+    "hjb-junior-ds-v2-s3-138",
+    "hjb-junior-ds-v2-s3-139",
+    "hjb-junior-ds-v2-s3-140",
+    "hjb-junior-ds-v2-s3-141",
+    "hjb-junior-ds-v2-s3-142",
+    "hjb-junior-ds-v2-s3-143",
+    "hjb-junior-ds-v2-s3-144"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-137",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "10.0米",
+      "answerCheckZhHans": "标准答案10.0米与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-138",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为12.0，但独立计算得12.0米，解析中CD=CF+FD=10.5+1.5=12.0米，答案应为12.0米而非12.0。但答案字段为12.0，缺少单位，且acceptedAnswers仅含12.0，未覆盖带单位的答案。解析与答案数值一致，但答案格式不完整。",
+      "independentAnswerZhHans": "12.0米",
+      "answerCheckZhHans": "标准答案12.0与独立计算结果12.0米数值一致，但缺少单位，且acceptedAnswers未包含带单位的答案。",
+      "recommendedActionZhHans": "将答案改为12.0米，acceptedAnswers增加12.0米、12.0、12米等。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-139",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch",
+        "ambiguous-prompt"
+      ],
+      "issueDetailsZhHans": "题干中A、B均在O正东方向，且A、B、O在同一直线上，但OA=24米，OB=8米，则AB=16米，但未说明B在O与A之间还是O在B与A之间。若B在O与A之间，则OA=24，OB=8，AB=16；若O在B与A之间，则OA=24，OB=8，AB=32。两种情形下旗杆高度不同。解析中直接使用tan35°=h/24和tan55°=h/8，但未说明为何两个方程联立，且两个方程分别给出h≈16.8和h≈11.424，矛盾，解析称取平均约14.1，但最终答案13.4米，逻辑混乱。独立计算：若B在O与A之间，设OM=h，则tan35°=h/(OB+BA)=h/24，tan55°=h/OB=h/8，得h=24tan35°≈16.8，h=8tan55°≈11.424，矛盾，无解。若O在B与A之间，则OA=24，OB=8，AB=32，tan35°=h/24，tan55°=h/8，同样矛盾。因此题干条件矛盾，无法求解。",
+      "independentAnswerZhHans": "无法确定，条件矛盾。",
+      "answerCheckZhHans": "标准答案13.4米无法从给定条件合理推出，解析过程错误。",
+      "recommendedActionZhHans": "修改题干，明确A、B、O的位置关系，或调整数据使两个仰角对应的方程一致。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-140",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "10.0米",
+      "answerCheckZhHans": "标准答案10.0米与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-141",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "6",
+      "answerCheckZhHans": "标准答案6与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-142",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3/4",
+      "answerCheckZhHans": "标准答案3/4与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-143",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "6",
+      "answerCheckZhHans": "标准答案6与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-144",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "12/13",
+      "answerCheckZhHans": "标准答案12/13与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

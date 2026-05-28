@@ -1,0 +1,256 @@
+{
+  "batchId": "model-qa-0024",
+  "ids": [
+    "hjb-junior-ds-v2-s1-461",
+    "hjb-junior-ds-v2-s1-462",
+    "hjb-junior-ds-v2-s1-463",
+    "hjb-junior-ds-v2-s1-464",
+    "hjb-junior-ds-v2-s1-465",
+    "hjb-junior-ds-v2-s1-466",
+    "hjb-junior-ds-v2-s1-467",
+    "hjb-junior-ds-v2-s1-468",
+    "hjb-junior-ds-v2-s1-469",
+    "hjb-junior-ds-v2-s1-470",
+    "hjb-junior-ds-v2-s1-471",
+    "hjb-junior-ds-v2-s1-472",
+    "hjb-junior-ds-v2-s1-473",
+    "hjb-junior-ds-v2-s1-474",
+    "hjb-junior-ds-v2-s1-475",
+    "hjb-junior-ds-v2-s1-476",
+    "hjb-junior-ds-v2-s1-477",
+    "hjb-junior-ds-v2-s1-478",
+    "hjb-junior-ds-v2-s1-479",
+    "hjb-junior-ds-v2-s1-480"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-461",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "65°",
+      "answerCheckZhHans": "标准答案65与独立答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-462",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "40°",
+      "answerCheckZhHans": "标准答案40°与独立答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-463",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "17",
+      "answerCheckZhHans": "标准答案17与独立答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-464",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "50°",
+      "answerCheckZhHans": "标准答案50°与独立答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-465",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "独立计算得顶角为40°或140°，但解析中推导过程有误：第一种情况∠A=40°正确；第二种情况解析中∠A=140°的推导混乱且错误，实际应为140°。解析需修正。",
+      "independentAnswerZhHans": "40,140",
+      "answerCheckZhHans": "标准答案40,140与独立答案一致，但解析推导错误。",
+      "recommendedActionZhHans": "修正解析，确保推导正确。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-466",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "90°",
+      "answerCheckZhHans": "标准答案90°与独立答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-467",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "90",
+      "answerCheckZhHans": "标准答案90与独立答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-468",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "独立计算得∠DAC=30°，但解析中假设点D在BC延长线上，而题干说点D在边BC上，矛盾。若D在BC上，则AD=BD时∠BAD=∠B=70°，但∠A=40°，不可能。题干条件矛盾，无法构成图形。",
+      "independentAnswerZhHans": "无法构成图形",
+      "answerCheckZhHans": "标准答案30°基于错误假设，实际题干条件矛盾。",
+      "recommendedActionZhHans": "检查题干条件，修正或删除此题。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-469",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "30°",
+      "answerCheckZhHans": "标准答案30与独立答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-470",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "58°",
+      "answerCheckZhHans": "标准答案58°与独立答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-471",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "65°",
+      "answerCheckZhHans": "标准答案65°与独立答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-472",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "∠B = ∠C",
+      "answerCheckZhHans": "标准答案∠B = ∠C与独立答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-473",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "100°",
+      "answerCheckZhHans": "标准答案100与独立答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-474",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "8",
+      "answerCheckZhHans": "标准答案8与独立答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-475",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "5",
+      "answerCheckZhHans": "标准答案5与独立答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-476",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "30°",
+      "answerCheckZhHans": "标准答案30°与独立答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-477",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "100°",
+      "answerCheckZhHans": "标准答案100°与独立答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-478",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "30°",
+      "answerCheckZhHans": "标准答案30°与独立答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-479",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "独立计算得顶角为60°或120°，但解析中描述“高与腰的夹角等于底角或顶角”不准确，且未给出清晰推导。答案正确但解析需完善。",
+      "independentAnswerZhHans": "60°或120°",
+      "answerCheckZhHans": "标准答案60°或120°与独立答案一致，但解析不清晰。",
+      "recommendedActionZhHans": "完善解析，给出清晰分类讨论。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-480",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "36°",
+      "answerCheckZhHans": "标准答案36°与独立答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

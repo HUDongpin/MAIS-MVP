@@ -1,0 +1,368 @@
+{
+  "batchId": "batch-085",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s3-k10-mc-041",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-probability-introduction"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean"
+      ],
+      "promptZhHans": "一个不透明的袋子里装有3个红球、2个白球和1个蓝球，除颜色外其他完全相同。随机摸出一个球，记下颜色后放回，再随机摸出一个球。两次摸到相同颜色的概率是多少？",
+      "optionsZhHans": [
+        "1/3",
+        "7/18",
+        "5/18",
+        "1/2"
+      ],
+      "answer": "7/18",
+      "acceptedAnswers": [
+        "7/18",
+        "B",
+        "b"
+      ],
+      "explanationZhHans": "总共有6个球，每次摸球有6种等可能结果。两次摸球共有6×6=36种等可能结果。两次摸到相同颜色包括：两次都红（3×3=9种），两次都白（2×2=4种），两次都蓝（1×1=1种）。因此共有9+4+1=14种。概率为14/36=7/18，故选B。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-042",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-rotation-transformations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig"
+      ],
+      "promptZhHans": "将点A(3, -2)绕原点顺时针旋转90°，所得对应点的坐标是（　）。",
+      "optionsZhHans": [
+        "(-2, -3)",
+        "(-2, 3)",
+        "(2, -3)",
+        "(2, 3)"
+      ],
+      "answer": "(-2, -3)",
+      "acceptedAnswers": [
+        "(-2, -3)",
+        "A",
+        "a"
+      ],
+      "explanationZhHans": "点(x,y)绕原点顺时针旋转90°后变为(y, -x)。将A(3,-2)代入得(-2, -3)，故选A。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-043",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-dynamic-geometry-functions"
+      ],
+      "promptZhHans": "二次函数y = -2x² + 8x - 5的图象的顶点坐标是（　）。",
+      "optionsZhHans": [
+        "(2, 3)",
+        "(2, -3)",
+        "(-2, 3)",
+        "(-2, -3)"
+      ],
+      "answer": "(2, 3)",
+      "acceptedAnswers": [
+        "(2, 3)",
+        "A",
+        "a"
+      ],
+      "explanationZhHans": "将y=-2x²+8x-5配方：y=-2(x²-4x)-5=-2[(x-2)²-4]-5=-2(x-2)²+8-5=-2(x-2)²+3。顶点坐标为(2,3)，故选A。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-044",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-quadratic-equations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "关于x的一元二次方程x² - 4x + m = 0有两个相等的实数根，则m的值为（　）。",
+      "optionsZhHans": [
+        "2",
+        "4",
+        "-4",
+        "-2"
+      ],
+      "answer": "4",
+      "acceptedAnswers": [
+        "4",
+        "B",
+        "b"
+      ],
+      "explanationZhHans": "方程有两个相等的实数根，则判别式Δ=0。Δ=(-4)²-4×1×m=16-4m=0，解得m=4，故选B。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-045",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-quadratic-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-proof-calculation-integrated"
+      ],
+      "promptZhHans": "AB是⊙O的直径，点C在⊙O上，∠BOC=50°，则∠A的度数是（　）。",
+      "optionsZhHans": [
+        "25°",
+        "50°",
+        "65°",
+        "130°"
+      ],
+      "answer": "25°",
+      "acceptedAnswers": [
+        "25°",
+        "A",
+        "a",
+        "25"
+      ],
+      "explanationZhHans": "AB是直径，所以∠ACB=90°。∠BOC是圆心角，∠BAC是圆周角且它们对同弧BC，所以∠BAC=1/2∠BOC=25°。在△ABC中，∠A=25°，故选A。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-046",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-circle-geometry"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions"
+      ],
+      "promptZhHans": "一个不透明的袋子里装有2个红球和3个白球，除颜色外其他完全相同。随机摸出一个球，摸到红球的概率是（　）。",
+      "optionsZhHans": [
+        "1/5",
+        "2/5",
+        "3/5",
+        "1/2"
+      ],
+      "answer": "2/5",
+      "acceptedAnswers": [
+        "2/5",
+        "B",
+        "b"
+      ],
+      "explanationZhHans": "袋中共有5个球，红球有2个，每个球被摸到的可能性相同，所以摸到红球的概率为2/5，故选B。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-047",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-probability-introduction"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-circle-geometry"
+      ],
+      "promptZhHans": "在⊙O中，弦AB的长为8，圆心O到AB的距离为3，则⊙O的半径长为（　）。",
+      "optionsZhHans": [
+        "4",
+        "5",
+        "6",
+        "7"
+      ],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5",
+        "B",
+        "b"
+      ],
+      "explanationZhHans": "过O作OC⊥AB于C，则C为AB中点，AC=4。在Rt△AOC中，OC=3，AC=4，由勾股定理得OA=√(3²+4²)=5，即半径为5，故选B。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-048",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-rotation-transformations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "下列图形中，既是轴对称图形又是中心对称图形的是（　）。",
+      "optionsZhHans": [
+        "等边三角形",
+        "平行四边形",
+        "正五边形",
+        "圆"
+      ],
+      "answer": "圆",
+      "acceptedAnswers": [
+        "圆",
+        "D",
+        "d"
+      ],
+      "explanationZhHans": "等边三角形是轴对称但不是中心对称；平行四边形是中心对称但不一定是轴对称；正五边形是轴对称但不是中心对称；圆既是轴对称又是中心对称，故选D。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-049",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "promptZhHans": "将抛物线y = 2x²先向右平移3个单位，再向下平移1个单位，所得抛物线的解析式为（　）。",
+      "optionsZhHans": [
+        "y = 2(x-3)² - 1",
+        "y = 2(x+3)² - 1",
+        "y = 2(x-3)² + 1",
+        "y = 2(x+3)² + 1"
+      ],
+      "answer": "y = 2(x-3)² - 1",
+      "acceptedAnswers": [
+        "y = 2(x-3)² - 1",
+        "A",
+        "a"
+      ],
+      "explanationZhHans": "抛物线平移遵循“左加右减，上加下减”。向右平移3个单位，x换成x-3；向下平移1个单位，函数值减1。得y=2(x-3)²-1，故选A。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-050",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-quadratic-equations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "一元二次方程x² - 6x + 8 = 0的两个根分别是（　）。",
+      "optionsZhHans": [
+        "2和4",
+        "-2和-4",
+        "2和-4",
+        "-2和4"
+      ],
+      "answer": "2和4",
+      "acceptedAnswers": [
+        "2和4",
+        "A",
+        "a",
+        "2,4",
+        "4,2"
+      ],
+      "explanationZhHans": "方程x²-6x+8=0，因式分解得(x-2)(x-4)=0，所以x=2或x=4，故选A。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

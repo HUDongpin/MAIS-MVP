@@ -1,0 +1,137 @@
+{
+  "batchNumber": 4,
+  "startedAt": "2026-05-27T13:44:07.344Z",
+  "completedAt": "2026-05-27T13:44:25.670Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-025",
+    "bnu-high-ds-v1-s4-026",
+    "bnu-high-ds-v1-s4-027",
+    "bnu-high-ds-v1-s4-028",
+    "bnu-high-ds-v1-s4-029",
+    "bnu-high-ds-v1-s4-030",
+    "bnu-high-ds-v1-s4-031",
+    "bnu-high-ds-v1-s4-032"
+  ],
+  "usage": {
+    "prompt_tokens": 10219,
+    "completion_tokens": 1230,
+    "total_tokens": 11449,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 9707
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-025",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "4",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由基本不等式，ab ≤ ((a+b)/2)² = 4，当a=b=2时取等，可解且答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-026",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "若x² ≤ 4，则x ≤ 2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "逆否命题需交换并否定条件和结论，原命题条件x>2否定为x≤2，结论x²>4否定为x²≤4，结果正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-027",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "16",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "B是A的所有子集构成的集合，A有4个元素，子集个数为2⁴=16，可解且答案正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-028",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "a ≥ 3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "p：-1≤x≤3，p⇒q要求[-1,3]⊆(-∞,a]，故a≥3，且a=3时p是q的充分不必要条件，选项唯一正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-029",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(-1/2, 3)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "因式分解得(2x+1)(x-3)<0，解集为(-1/2, 3)，可解且答案正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-030",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "{0, 1, 1/3}",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "A={1,3}，B⊆A需考虑B为空集或单元素集，解得m=0,1,1/3，答案正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-031",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "{5, 7}",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "U={1,...,9}，A={2,3}，∁_U A={1,4,5,6,7,8,9}，B={2,3,5,7}，交集为{5,7}，选项唯一正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-032",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "-14",
+        "correctedAnswer": "-14",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "由解集知a<0，对应方程根为-1/2和1/3，韦达定理得-b/a=-1/6，2/a=-1/6，解得a=-12，b=-2，a+b=-14，但答案和解析均错误给出-10，解析中计算过程也矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第8题答案和解析均错误，正确结果应为-14，其余题目均通过审核。"
+    }
+  }
+}

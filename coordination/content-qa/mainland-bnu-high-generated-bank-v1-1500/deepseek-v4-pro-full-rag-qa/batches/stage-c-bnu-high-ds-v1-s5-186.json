@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-186",
+  "startedAt": "2026-05-28T02:55:11.700Z",
+  "completedAt": "2026-05-28T02:55:17.825Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-186"
+  ],
+  "usage": {
+    "prompt_tokens": 2167,
+    "completion_tokens": 323,
+    "total_tokens": 2490,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1783
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-186",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "(4,5,6)",
+        "correctedAnswer": "(4,5,6)",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "平面α方程为x+y+z-6=0，线段BC参数化P(4+3t,5+3t,6+3t)，t∈[0,1]，距离d=|9+9t|/√3，t=0时最小，P为B(4,5,6)。存储答案(5,6,7)错误，解析中参数设置反向导致结果错误，必须修正。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目可解且符合教材范围，但答案和解析均错误，正确最小距离点为B(4,5,6)，需修正为(4,5,6)。"
+    }
+  }
+}

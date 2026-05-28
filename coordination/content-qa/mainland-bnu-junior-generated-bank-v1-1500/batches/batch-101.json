@@ -1,0 +1,647 @@
+{
+  "batchId": "batch-101",
+  "questions": [
+    {
+      "id": "bnu-junior-ds-v1-s3-001",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-special-parallelograms",
+      "unitTitle": "特殊平行四边形",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "special-parallelograms",
+        "rhombus",
+        "rectangle",
+        "square",
+        "geometric-proof",
+        "特殊平行四边形",
+        "菱形",
+        "矩形",
+        "正方形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "性质判定",
+        "条件分析",
+        "辅助线推理",
+        "多边形证明",
+        "图形分类"
+      ],
+      "misconceptionTags": [
+        "property treated as converse without proof",
+        "square and rectangle conditions confused",
+        "visual appearance used instead of stated conditions"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-special-parallelograms"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-special-parallelograms-unit",
+        "bnu-junior-s3-upper-assessment-monthly-1-to-3-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在四边形ABCD中，对角线AC与BD相交于点O。给出下列四组条件：①AB∥CD，AD∥BC，且AC⊥BD；②AB＝CD，AD＝BC，且∠ABC＝90°；③AB∥CD，AB＝CD，且AC＝BD；④AB＝BC＝CD＝DA，且∠BAD＝90°。其中，能判定四边形ABCD是正方形的条件组是（ ）",
+      "optionsZhHans": [
+        "①④",
+        "②③",
+        "①②",
+        "③④"
+      ],
+      "answer": "①④",
+      "acceptedAnswers": [
+        "①④"
+      ],
+      "explanationZhHans": "①由两组对边平行得平行四边形，对角线垂直得菱形，邻边相等得正方形；④四边相等得菱形，一角为直角得正方形。②得矩形，③得矩形，均不能保证是正方形。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-002",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-special-parallelograms",
+      "unitTitle": "特殊平行四边形",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "special-parallelograms",
+        "rhombus",
+        "rectangle",
+        "square",
+        "geometric-proof",
+        "特殊平行四边形",
+        "菱形",
+        "矩形",
+        "正方形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "性质判定",
+        "条件分析",
+        "辅助线推理",
+        "多边形证明",
+        "图形分类"
+      ],
+      "misconceptionTags": [
+        "property treated as converse without proof",
+        "square and rectangle conditions confused",
+        "visual appearance used instead of stated conditions"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-special-parallelograms"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-special-parallelograms-unit",
+        "bnu-junior-s3-upper-assessment-monthly-1-to-3-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知：在△ABC中，D是BC边上一点，E是AD的中点，过点A作BC的平行线交CE的延长线于点F，且AF＝BD，连接BF。求证：四边形AFBD是矩形。",
+      "optionsZhHans": [],
+      "answer": "证明：∵AF∥BC，∴∠AFE＝∠DCE，∠FAE＝∠CDE。又E是AD中点，∴AE＝DE。∴△AEF≌△DEC（AAS）。∴AF＝DC。又AF＝BD，∴BD＝DC，即D是BC中点。又AF∥BD且AF＝BD，∴四边形AFBD是平行四边形。∵AB＝AC，D是BC中点，∴AD⊥BC。∴∠ADB＝90°。∴平行四边形AFBD是矩形。",
+      "acceptedAnswers": [
+        "证明：∵AF∥BC，∴∠AFE＝∠DCE，∠FAE＝∠CDE。又E是AD中点，∴AE＝DE。∴△AEF≌△DEC（AAS）。∴AF＝DC。又AF＝BD，∴BD＝DC，即D是BC中点。又AF∥BD且AF＝BD，∴四边形AFBD是平行四边形。∵AB＝AC，D是BC中点，∴AD⊥BC。∴∠ADB＝90°。∴平行四边形AFBD是矩形。"
+      ],
+      "explanationZhHans": "利用平行线性质、中点条件证三角形全等得AF=DC，结合AF=BD得D为BC中点。由等腰三角形三线合一得AD⊥BC，从而平行四边形AFBD有一个直角，故为矩形。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-003",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-special-parallelograms",
+      "unitTitle": "特殊平行四边形",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "special-parallelograms",
+        "rhombus",
+        "rectangle",
+        "square",
+        "geometric-proof",
+        "特殊平行四边形",
+        "菱形",
+        "矩形",
+        "正方形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "性质判定",
+        "条件分析",
+        "辅助线推理",
+        "多边形证明",
+        "图形分类"
+      ],
+      "misconceptionTags": [
+        "property treated as converse without proof",
+        "square and rectangle conditions confused",
+        "visual appearance used instead of stated conditions"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-special-parallelograms"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-special-parallelograms-unit",
+        "bnu-junior-s3-upper-assessment-monthly-1-to-3-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在菱形ABCD中，∠ABC＝60°，AB＝4，点E、F分别在BC、CD上，且∠EAF＝60°。则△AEF面积的最小值为______。",
+      "optionsZhHans": [],
+      "answer": "3√3",
+      "acceptedAnswers": [
+        "3√3",
+        "3倍根号3"
+      ],
+      "explanationZhHans": "连接AC，得等边△ABC与△ACD。可证△ABE≌△ACF，故AE=AF，△AEF为等边三角形。当AE最小时面积最小，AE⊥BC时AE=2√3，面积=3√3。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-004",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-special-parallelograms",
+      "unitTitle": "特殊平行四边形",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "special-parallelograms",
+        "rhombus",
+        "rectangle",
+        "square",
+        "geometric-proof",
+        "特殊平行四边形",
+        "菱形",
+        "矩形",
+        "正方形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "性质判定",
+        "条件分析",
+        "辅助线推理",
+        "多边形证明",
+        "图形分类"
+      ],
+      "misconceptionTags": [
+        "property treated as converse without proof",
+        "square and rectangle conditions confused",
+        "visual appearance used instead of stated conditions"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-special-parallelograms"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-special-parallelograms-unit",
+        "bnu-junior-s3-upper-assessment-monthly-1-to-3-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在矩形ABCD中，AB＝6，BC＝8，点E是BC边上一点，连接AE，将△ABE沿AE折叠，点B落在点B'处。当△CEB'为直角三角形时，BE的长为（ ）",
+      "optionsZhHans": [
+        "3或6",
+        "3或4",
+        "2或8",
+        "4或6"
+      ],
+      "answer": "3或6",
+      "acceptedAnswers": [
+        "3或6"
+      ],
+      "explanationZhHans": "设BE=x，则CE=8-x。折叠得AB'=6，B'E=x。△CEB'为直角三角形，分两种情况：∠B'EC=90°时，由勾股定理得x=3；∠EB'C=90°时，得x=6。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-005",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-special-parallelograms",
+      "unitTitle": "特殊平行四边形",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "special-parallelograms",
+        "rhombus",
+        "rectangle",
+        "square",
+        "geometric-proof",
+        "特殊平行四边形",
+        "菱形",
+        "矩形",
+        "正方形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "性质判定",
+        "条件分析",
+        "辅助线推理",
+        "多边形证明",
+        "图形分类"
+      ],
+      "misconceptionTags": [
+        "property treated as converse without proof",
+        "square and rectangle conditions confused",
+        "visual appearance used instead of stated conditions"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-special-parallelograms"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-special-parallelograms-unit",
+        "bnu-junior-s3-upper-assessment-monthly-1-to-3-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在正方形ABCD中，点E、F分别在边BC、CD上，且∠EAF＝45°。求证：EF＝BE＋DF。",
+      "optionsZhHans": [],
+      "answer": "证明：延长CB至点G，使BG＝DF，连接AG。由正方形性质得AB＝AD，∠ABG＝∠ADF＝90°，∴△ABG≌△ADF（SAS）。∴AG＝AF，∠BAG＝∠DAF。∵∠EAF＝45°，∴∠GAE＝∠GAB＋∠BAE＝∠DAF＋∠BAE＝90°－45°＝45°＝∠EAF。又AE＝AE，∴△AEG≌△AEF（SAS）。∴EF＝EG＝BE＋BG＝BE＋DF。",
+      "acceptedAnswers": [
+        "证明：延长CB至点G，使BG＝DF，连接AG。由正方形性质得AB＝AD，∠ABG＝∠ADF＝90°，∴△ABG≌△ADF（SAS）。∴AG＝AF，∠BAG＝∠DAF。∵∠EAF＝45°，∴∠GAE＝∠GAB＋∠BAE＝∠DAF＋∠BAE＝90°－45°＝45°＝∠EAF。又AE＝AE，∴△AEG≌△AEF（SAS）。∴EF＝EG＝BE＋BG＝BE＋DF。"
+      ],
+      "explanationZhHans": "通过旋转构造全等三角形，将DF转移到BG，证明△AEG≌△AEF，从而EF=EG=BE+BG=BE+DF。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-006",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-special-parallelograms",
+      "unitTitle": "特殊平行四边形",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "special-parallelograms",
+        "rhombus",
+        "rectangle",
+        "square",
+        "geometric-proof",
+        "特殊平行四边形",
+        "菱形",
+        "矩形",
+        "正方形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "性质判定",
+        "条件分析",
+        "辅助线推理",
+        "多边形证明",
+        "图形分类"
+      ],
+      "misconceptionTags": [
+        "property treated as converse without proof",
+        "square and rectangle conditions confused",
+        "visual appearance used instead of stated conditions"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-special-parallelograms"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-special-parallelograms-unit",
+        "bnu-junior-s3-upper-assessment-monthly-1-to-3-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在矩形ABCD中，AB＝3，BC＝4，点P是AD边上一个动点，连接BP，作点A关于BP的对称点A'。当点A'落在矩形ABCD的边上时，AP的长为______。",
+      "optionsZhHans": [],
+      "answer": "1或3",
+      "acceptedAnswers": [
+        "1或3"
+      ],
+      "explanationZhHans": "设AP=x，则PD=4-x。由对称得BA'=BA=3，PA'=PA=x。A'落在CD上时，A'D=√(9-x²)，由A'D+DP=4得x=1；A'落在BC上时，A'到B距离为3，得x=3。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-007",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-special-parallelograms",
+      "unitTitle": "特殊平行四边形",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "special-parallelograms",
+        "rhombus",
+        "rectangle",
+        "square",
+        "geometric-proof",
+        "特殊平行四边形",
+        "菱形",
+        "矩形",
+        "正方形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "性质判定",
+        "条件分析",
+        "辅助线推理",
+        "多边形证明",
+        "图形分类"
+      ],
+      "misconceptionTags": [
+        "property treated as converse without proof",
+        "square and rectangle conditions confused",
+        "visual appearance used instead of stated conditions"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-special-parallelograms"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-special-parallelograms-unit",
+        "bnu-junior-s3-upper-assessment-monthly-1-to-3-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在菱形ABCD中，∠ABC＝120°，点E、F分别在边BC、CD上，且△AEF是等边三角形。若AB＝2，则CE的长为（ ）",
+      "optionsZhHans": [
+        "2√3-2",
+        "4-2√3",
+        "√3",
+        "2"
+      ],
+      "answer": "2√3-2",
+      "acceptedAnswers": [
+        "2√3-2"
+      ],
+      "explanationZhHans": "连接AC，得等边△ABC与△ACD。可证△ABE≌△ACF，得BE=CF。设CE=x，则BE=2-x，CF=x。由∠ECF=60°，EF=AE=2√3-2，解三角形得x=2√3-2。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-008",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-special-parallelograms",
+      "unitTitle": "特殊平行四边形",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "special-parallelograms",
+        "rhombus",
+        "rectangle",
+        "square",
+        "geometric-proof",
+        "特殊平行四边形",
+        "菱形",
+        "矩形",
+        "正方形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "性质判定",
+        "条件分析",
+        "辅助线推理",
+        "多边形证明",
+        "图形分类"
+      ],
+      "misconceptionTags": [
+        "property treated as converse without proof",
+        "square and rectangle conditions confused",
+        "visual appearance used instead of stated conditions"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-special-parallelograms"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-special-parallelograms-unit",
+        "bnu-junior-s3-upper-assessment-monthly-1-to-3-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平行四边形ABCD中，对角线AC与BD相交于点O，添加下列条件中的一个后，能判定平行四边形ABCD是菱形的是：①∠ABD＝∠CBD；②AC⊥BD；③AB＝BC；④∠ABC＝90°。请写出所有正确条件的序号。",
+      "optionsZhHans": [],
+      "answer": "①②③",
+      "acceptedAnswers": [
+        "①②③"
+      ],
+      "explanationZhHans": "①由平行四边形得AD∥BC，内错角相等得∠ADB=∠CBD，结合∠ABD=∠CBD得∠ABD=∠ADB，故AB=AD，一组邻边相等得菱形；②对角线垂直得菱形；③邻边相等得菱形；④得矩形。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-009",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-special-parallelograms",
+      "unitTitle": "特殊平行四边形",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "special-parallelograms",
+        "rhombus",
+        "rectangle",
+        "square",
+        "geometric-proof",
+        "特殊平行四边形",
+        "菱形",
+        "矩形",
+        "正方形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "性质判定",
+        "条件分析",
+        "辅助线推理",
+        "多边形证明",
+        "图形分类"
+      ],
+      "misconceptionTags": [
+        "property treated as converse without proof",
+        "square and rectangle conditions confused",
+        "visual appearance used instead of stated conditions"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-special-parallelograms"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-special-parallelograms-unit",
+        "bnu-junior-s3-upper-assessment-monthly-1-to-3-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在正方形ABCD中，点E是边CD上一点，连接AE，过点B作BF⊥AE于点F，交AD于点G。若正方形的边长为4，DE＝1，则FG的长为______。",
+      "optionsZhHans": [],
+      "answer": "12/5",
+      "acceptedAnswers": [
+        "12/5",
+        "2.4"
+      ],
+      "explanationZhHans": "由勾股定理得AE=5。△ABF∽△AED，得AF=16/5，BF=12/5。由△AFG∽△ADE，得FG/DE=AF/AD，即FG/1=(16/5)/4，解得FG=4/5。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-010",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-special-parallelograms",
+      "unitTitle": "特殊平行四边形",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "special-parallelograms",
+        "rhombus",
+        "rectangle",
+        "square",
+        "geometric-proof",
+        "特殊平行四边形",
+        "菱形",
+        "矩形",
+        "正方形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "性质判定",
+        "条件分析",
+        "辅助线推理",
+        "多边形证明",
+        "图形分类"
+      ],
+      "misconceptionTags": [
+        "property treated as converse without proof",
+        "square and rectangle conditions confused",
+        "visual appearance used instead of stated conditions"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-special-parallelograms"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-special-parallelograms-unit",
+        "bnu-junior-s3-upper-assessment-monthly-1-to-3-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在矩形ABCD中，AB＝4，BC＝6，点E是边AD上一点，连接CE，将△CDE沿CE折叠，点D落在点D'处。当点D'恰好落在矩形的对角线AC上时，DE的长为（ ）",
+      "optionsZhHans": [
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2"
+      ],
+      "explanationZhHans": "设DE=x，则AE=6-x。折叠得CD'=4，D'E=x。由勾股定理得AC=2√13。由∠CD'E=90°，得AD'=√(16-x²)。由A、D'、C共线得AD'+D'C=AC，即√(16-x²)+√(x²+16)=2√13，解得x=2。"
+    }
+  ]
+}

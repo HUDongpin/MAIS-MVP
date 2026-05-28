@@ -1,0 +1,191 @@
+{
+  "batchNumber": 76,
+  "startedAt": "2026-05-27T14:02:59.654Z",
+  "completedAt": "2026-05-27T14:03:17.879Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p6-101",
+    "bnu-primary-ds-v2-p6-102",
+    "bnu-primary-ds-v2-p6-103",
+    "bnu-primary-ds-v2-p6-104",
+    "bnu-primary-ds-v2-p6-105",
+    "bnu-primary-ds-v2-p6-106",
+    "bnu-primary-ds-v2-p6-107",
+    "bnu-primary-ds-v2-p6-108",
+    "bnu-primary-ds-v2-p6-109",
+    "bnu-primary-ds-v2-p6-110",
+    "bnu-primary-ds-v2-p6-111",
+    "bnu-primary-ds-v2-p6-112",
+    "bnu-primary-ds-v2-p6-113",
+    "bnu-primary-ds-v2-p6-114",
+    "bnu-primary-ds-v2-p6-115",
+    "bnu-primary-ds-v2-p6-116",
+    "bnu-primary-ds-v2-p6-117",
+    "bnu-primary-ds-v2-p6-118"
+  ],
+  "usage": {
+    "prompt_tokens": 3282,
+    "completion_tokens": 1302,
+    "total_tokens": 4584,
+    "prompt_tokens_details": {
+      "cached_tokens": 3200
+    },
+    "prompt_cache_hit_tokens": 3200,
+    "prompt_cache_miss_tokens": 82
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p6-101",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，计算正确，答案与解释一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-102",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，计算正确，答案与解释一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-103",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，选项设置合理，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-104",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，方程解法正确，答案无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-105",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，计算过程正确，答案无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-106",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，反比关系正确，选项合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-107",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，按比例分配正确，答案无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-108",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，面积比等于半径平方比，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-109",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，计算正确，选项设置合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-110",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，连续变化计算正确，答案无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-111",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，计算正确，答案与解释一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-112",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，折扣计算正确，选项合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-113",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，单位“1”未知用除法，计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-114",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，计算正确，答案与解释一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-115",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，连续变化计算正确，选项合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-116",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，利息计算正确，答案无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-117",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，假设法计算正确，答案表述准确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-118",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，求一个数比另一个数多百分之几，计算正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版小学数学六年级要求，数学正确，答案匹配，无歧义或缺失条件，适合公共题库使用。"
+    }
+  }
+}

@@ -1,0 +1,137 @@
+{
+  "batchNumber": 16,
+  "startedAt": "2026-05-27T13:46:53.702Z",
+  "completedAt": "2026-05-27T13:47:10.927Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-121",
+    "bnu-high-ds-v1-s4-122",
+    "bnu-high-ds-v1-s4-123",
+    "bnu-high-ds-v1-s4-124",
+    "bnu-high-ds-v1-s4-125",
+    "bnu-high-ds-v1-s4-126",
+    "bnu-high-ds-v1-s4-127",
+    "bnu-high-ds-v1-s4-128"
+  ],
+  "usage": {
+    "prompt_tokens": 10693,
+    "completion_tokens": 1135,
+    "total_tokens": 11828,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10181
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-121",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "1",
+        "correctedAnswer": "B. 1",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "定点P(2,2)代入幂函数得2^b=2，解得b=1，对应选项B。题目答案选A.0错误，解析也错误地得出b=1却选A，自相矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-122",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "换底公式化简得log_2 8=3，答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-123",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(-4, 4]",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "复合函数单调性分析正确，定义域条件a>-4且对称轴条件a≤4，答案(-4,4]无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-124",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "D. c < b < a",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "a>0，b和c为负且b<c，故c<b<a，选项D正确，解析合理。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-125",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "x=2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "解对数方程并检验定义域，x=2是唯一解，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-126",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f(x)为奇函数且单调，由f(a)+f(b)=0得a+b=0，答案正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-127",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "C. (3, +∞)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "定义域x<-1或x>3，外层递增，内层在(1,+∞)递增，取交集得(3,+∞)，选项C正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-128",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "指数式化对数式，利用换底公式得1/a+1/b=log_10 2+log_10 5=1，答案正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第121题答案错误，定点P(2,2)代入幂函数得b=1，应选B，但题目答案标为A且解析自相矛盾，需修正。其余题目均正确。"
+    }
+  }
+}

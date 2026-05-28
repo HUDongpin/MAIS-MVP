@@ -1,0 +1,109 @@
+{
+  "batchId": "model-qa-0005",
+  "ids": [
+    "hjb-junior-ds-v2-s1-033",
+    "hjb-junior-ds-v2-s1-034",
+    "hjb-junior-ds-v2-s1-035",
+    "hjb-junior-ds-v2-s1-036",
+    "hjb-junior-ds-v2-s1-037",
+    "hjb-junior-ds-v2-s1-038",
+    "hjb-junior-ds-v2-s1-039",
+    "hjb-junior-ds-v2-s1-040"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-033",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案给出1，但化简后表达式为 x²-2，代入 x=-1 得 -1。解析中也指出答案为-1，与标准答案矛盾。",
+      "independentAnswerZhHans": "-1",
+      "answerCheckZhHans": "标准答案为1，但正确计算结果为-1。",
+      "recommendedActionZhHans": "将答案修正为-1，并更新 acceptedAnswers。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-034",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "B",
+      "answerCheckZhHans": "选项B中 -2ab 与 5ba 是同类项，其他选项均不是。标准答案正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-035",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x² - x - 2",
+      "answerCheckZhHans": "计算得 P = (-x²+2x-3)+(2x²-3x+1)=x²-x-2，与标准答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-036",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "5x²y - 10xy² + 11xy - 11",
+      "answerCheckZhHans": "计算 A-2B 得 5x²y-10xy²+11xy-11，按 x 降幂排列正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-037",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "1",
+      "answerCheckZhHans": "合并同类项后 x²y 系数为 3+2-4=1，选项A正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-038",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案给出1，但化简结果为-1。解析中也得出-1，与标准答案矛盾。",
+      "independentAnswerZhHans": "-1",
+      "answerCheckZhHans": "化简 3a-[5a-(2a-1)] = 3a-(5a-2a+1)=3a-(3a+1)= -1。标准答案错误。",
+      "recommendedActionZhHans": "将答案修正为-1，并更新 acceptedAnswers。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-039",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-5a²b - 7ab，值为34",
+      "answerCheckZhHans": "化简得 -5a²b-7ab，代入 a=-2,b=1 得 -5*4*1 -7*(-2)*1 = -20+14=34。标准答案正确，acceptedAnswers 覆盖了多种形式。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-040",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "C",
+      "answerCheckZhHans": "计算 A-B+C 得 6xy-4y²，对应选项C。标准答案正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

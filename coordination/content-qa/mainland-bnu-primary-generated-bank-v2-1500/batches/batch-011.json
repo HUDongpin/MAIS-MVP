@@ -1,0 +1,566 @@
+{
+  "batchId": "batch-011",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p1-101",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-within-20-add-sub",
+      "unitTitle": "加与减（二）",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "within-20-numbers",
+        "within-20-non-regrouping-add-sub",
+        "teen-numbers",
+        "20以内加减法"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "模型意识"
+      ],
+      "skillTags": [
+        "11到20认识",
+        "十和几",
+        "数的组成",
+        "不进位加法",
+        "不退位减法"
+      ],
+      "misconceptionTags": [
+        "teen digits reversed",
+        "ten and ones counted as unrelated totals",
+        "ones operation applied without place-value meaning"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-within-20-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小乐有1个十和3个一，合起来是（    ）。他送给妹妹2个一后，还剩（    ）个十和（    ）个一，也就是（    ）。",
+      "optionsZhHans": [],
+      "answer": "13,1,1,11",
+      "acceptedAnswers": [
+        "13,1,1,11"
+      ],
+      "explanationZhHans": "1个十和3个一组成13。13减去2个一，个位3减2得1，十位不变，剩下1个十和1个一，即11。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-102",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-within-20-add-sub",
+      "unitTitle": "加与减（二）",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "within-20-numbers",
+        "within-20-non-regrouping-add-sub",
+        "teen-numbers",
+        "20以内加减法"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "模型意识"
+      ],
+      "skillTags": [
+        "11到20认识",
+        "十和几",
+        "数的组成",
+        "不进位加法",
+        "不退位减法"
+      ],
+      "misconceptionTags": [
+        "teen digits reversed",
+        "ten and ones counted as unrelated totals",
+        "ones operation applied without place-value meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-within-20-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丽有1个十和3个一，合起来是多少？",
+      "optionsZhHans": [],
+      "answer": "13",
+      "acceptedAnswers": [
+        "13",
+        "十三"
+      ],
+      "explanationZhHans": "1个十是10，3个一是3，合起来是10+3=13。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-103",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-within-20-add-sub",
+      "unitTitle": "加与减（二）",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "within-20-numbers",
+        "within-20-non-regrouping-add-sub",
+        "teen-numbers",
+        "20以内加减法"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "模型意识"
+      ],
+      "skillTags": [
+        "11到20认识",
+        "十和几",
+        "数的组成",
+        "不进位加法",
+        "不退位减法"
+      ],
+      "misconceptionTags": [
+        "teen digits reversed",
+        "ten and ones counted as unrelated totals",
+        "ones operation applied without place-value meaning"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-within-20-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小乐有1个十和3个一，小云有1个十和5个一。两人一共有多少个一？",
+      "optionsZhHans": [
+        "8个一",
+        "18个一",
+        "2个十",
+        "28个一"
+      ],
+      "answer": "8个一",
+      "acceptedAnswers": [
+        "8个一"
+      ],
+      "explanationZhHans": "小乐有1个十和3个一，就是13；小云有1个十和5个一，就是15。问一共有多少个一，只把几个一相加：3个一加5个一等于8个一。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-104",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-within-20-add-sub",
+      "unitTitle": "加与减（二）",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "within-20-numbers",
+        "within-20-non-regrouping-add-sub",
+        "teen-numbers",
+        "20以内加减法"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "模型意识"
+      ],
+      "skillTags": [
+        "11到20认识",
+        "十和几",
+        "数的组成",
+        "不进位加法",
+        "不退位减法"
+      ],
+      "misconceptionTags": [
+        "teen digits reversed",
+        "ten and ones counted as unrelated totals",
+        "ones operation applied without place-value meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-within-20-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一捆小棒有10根，另外还有4根散的小棒。小乐又拿来2根散的小棒。现在一共有多少根小棒？",
+      "optionsZhHans": [],
+      "answer": "16",
+      "acceptedAnswers": [
+        "16",
+        "16根"
+      ],
+      "explanationZhHans": "一捆10根加上4根是14根，再加2根，14+2=16，所以一共16根。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-105",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-within-20-add-sub",
+      "unitTitle": "加与减（二）",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "within-20-numbers",
+        "within-20-non-regrouping-add-sub",
+        "teen-numbers",
+        "20以内加减法"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "模型意识"
+      ],
+      "skillTags": [
+        "11到20认识",
+        "十和几",
+        "数的组成",
+        "不进位加法",
+        "不退位减法"
+      ],
+      "misconceptionTags": [
+        "teen digits reversed",
+        "ten and ones counted as unrelated totals",
+        "ones operation applied without place-value meaning"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-within-20-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小乐有1个十和3个一，合起来是多少？他送给弟弟2个一，还剩多少？",
+      "optionsZhHans": [],
+      "answer": "13；11",
+      "acceptedAnswers": [
+        "13；11",
+        "13,11",
+        "13和11"
+      ],
+      "explanationZhHans": "1个十和3个一合起来是13。送给弟弟2个一，就是从3个一里去掉2个一，还剩1个一，所以13去掉2是11。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-106",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-within-20-add-sub",
+      "unitTitle": "加与减（二）",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "within-20-numbers",
+        "within-20-non-regrouping-add-sub",
+        "teen-numbers",
+        "20以内加减法"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "模型意识"
+      ],
+      "skillTags": [
+        "11到20认识",
+        "十和几",
+        "数的组成",
+        "不进位加法",
+        "不退位减法"
+      ],
+      "misconceptionTags": [
+        "teen digits reversed",
+        "ten and ones counted as unrelated totals",
+        "ones operation applied without place-value meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-within-20-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小乐有13块积木，他先搭了一座房子用掉10块，又用剩下的积木搭了一辆小车。搭小车用了几块积木？",
+      "optionsZhHans": [
+        "3块",
+        "10块",
+        "13块",
+        "23块"
+      ],
+      "answer": "3块",
+      "acceptedAnswers": [
+        "3块"
+      ],
+      "explanationZhHans": "13块积木用掉10块，剩下3块，所以搭小车用了3块。13可以分成10和3，从13里去掉10就是3。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-107",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-within-20-add-sub",
+      "unitTitle": "加与减（二）",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "within-20-numbers",
+        "within-20-non-regrouping-add-sub",
+        "teen-numbers",
+        "20以内加减法"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "模型意识"
+      ],
+      "skillTags": [
+        "11到20认识",
+        "十和几",
+        "数的组成",
+        "不进位加法",
+        "不退位减法"
+      ],
+      "misconceptionTags": [
+        "teen digits reversed",
+        "ten and ones counted as unrelated totals",
+        "ones operation applied without place-value meaning"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-within-20-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "想一想，填一填。\n一个十和3个一合起来是（  ）。\n17里面有（  ）个十和（  ）个一。\n在计数器上，十位上有1颗珠子，个位上有6颗珠子，这个数是（  ）。\n计算12 + 5时，可以先算个位上的2 + 5 = 7，再和十位上的1个十合起来，结果是（  ）。",
+      "optionsZhHans": [],
+      "answer": "13；1；7；16；17",
+      "acceptedAnswers": [
+        "13；1；7；16；17"
+      ],
+      "explanationZhHans": "一个十和3个一合起来是13。17的十位是1，个位是7，所以有1个十和7个一。十位1颗珠子、个位6颗珠子表示16。12+5，个位2+5=7，十位1不变，结果是17。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-108",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-within-20-add-sub",
+      "unitTitle": "加与减（二）",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "within-20-numbers",
+        "within-20-non-regrouping-add-sub",
+        "teen-numbers",
+        "20以内加减法"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "模型意识"
+      ],
+      "skillTags": [
+        "11到20认识",
+        "十和几",
+        "数的组成",
+        "不进位加法",
+        "不退位减法"
+      ],
+      "misconceptionTags": [
+        "teen digits reversed",
+        "ten and ones counted as unrelated totals",
+        "ones operation applied without place-value meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-within-20-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小乐有14块积木，他先拿出10块搭了一座桥，剩下的积木又放回去3块。现在他一共有多少块积木？",
+      "optionsZhHans": [],
+      "answer": "7",
+      "acceptedAnswers": [
+        "7",
+        "7块"
+      ],
+      "explanationZhHans": "14块积木拿出10块后剩下4块，再放回去3块，4+3=7，所以现在有7块。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-109",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-within-20-add-sub",
+      "unitTitle": "加与减（二）",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "within-20-numbers",
+        "within-20-non-regrouping-add-sub",
+        "teen-numbers",
+        "20以内加减法"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "模型意识"
+      ],
+      "skillTags": [
+        "11到20认识",
+        "十和几",
+        "数的组成",
+        "不进位加法",
+        "不退位减法"
+      ],
+      "misconceptionTags": [
+        "teen digits reversed",
+        "ten and ones counted as unrelated totals",
+        "ones operation applied without place-value meaning"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-within-20-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小乐有1个十和3个一，合起来是13。他又拿来2个一，现在一共有几个十和几个一？",
+      "optionsZhHans": [
+        "1个十和5个一",
+        "1个十和3个一",
+        "2个十和3个一",
+        "1个十和2个一"
+      ],
+      "answer": "1个十和5个一",
+      "acceptedAnswers": [
+        "1个十和5个一"
+      ],
+      "explanationZhHans": "13由1个十和3个一组成。加上2个一，个位上的3加2等于5，十位不变，所以是1个十和5个一，即15。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-110",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-within-20-add-sub",
+      "unitTitle": "加与减（二）",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "within-20-numbers",
+        "within-20-non-regrouping-add-sub",
+        "teen-numbers",
+        "20以内加减法"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "模型意识"
+      ],
+      "skillTags": [
+        "11到20认识",
+        "十和几",
+        "数的组成",
+        "不进位加法",
+        "不退位减法"
+      ],
+      "misconceptionTags": [
+        "teen digits reversed",
+        "ten and ones counted as unrelated totals",
+        "ones operation applied without place-value meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-within-20-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小华有1个十和3个一，合起来是（    ）。他又拿来2个一，现在一共有（    ）个一，合起来是（    ）。",
+      "optionsZhHans": [],
+      "answer": "13,5,15",
+      "acceptedAnswers": [
+        "13,5,15",
+        "13，5，15"
+      ],
+      "explanationZhHans": "1个十和3个一是13。加上2个一，个位3+2=5，十位不变，所以5个一和1个十是15。"
+    }
+  ]
+}

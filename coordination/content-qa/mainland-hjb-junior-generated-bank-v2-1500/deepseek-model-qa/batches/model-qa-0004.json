@@ -1,0 +1,73 @@
+{
+  "batchId": "model-qa-0004",
+  "ids": [
+    "hjb-junior-ds-v2-s1-147",
+    "hjb-junior-ds-v2-s1-169",
+    "hjb-junior-ds-v2-s1-173",
+    "hjb-junior-ds-v2-s1-174",
+    "hjb-junior-ds-v2-s1-187"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-147",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "标准答案 2ab(2a - 4b + 1) 不是最简因式分解，括号内可继续提取公因数 2，正确分解应为 4ab(a - 2b) + 2ab 或 2ab(2a - 4b + 1) 但通常要求分解彻底，即 2ab(2a - 4b + 1) 可写为 2ab[2(a - 2b) + 1] 或提取 2 得 4ab(a - 2b) + 2ab，但更标准的彻底分解是 2ab(2a - 4b + 1) 已提取公因式，但括号内系数有公因数 2，应继续提取，得 4ab(a - 2b) + 2ab 或 2ab(2a - 4b + 1) 不算错，但通常要求分解到不能再分解为止。实际上，2a - 4b + 1 没有公因式，但系数 2 和 -4 有公因数 2，可提取：2ab(2a - 4b + 1) = 2ab * 2(a - 2b) + 2ab * 1 = 4ab(a - 2b) + 2ab，这不是乘积形式。所以原答案 2ab(2a - 4b + 1) 是乘积形式，但括号内多项式系数有公因数 2，通常因式分解要求括号内各项系数互素，因此正确答案应为 2ab(2a - 4b + 1) 或提取 2 得 4ab(a - 2b) + 2ab 不是乘积。实际上，因式分解定义是将多项式化为几个整式的乘积，2ab(2a - 4b + 1) 是乘积，但括号内可提取 2，得 2ab * 2(a - 2b) + 2ab * 1 = 4ab(a - 2b) + 2ab，不是乘积。所以 2ab(2a - 4b + 1) 是乘积，但通常要求括号内不能再分解，这里括号内多项式 2a - 4b + 1 没有公因式，但系数有公因数 2，可提取，但提取后不再是乘积形式。因此，标准答案 2ab(2a - 4b + 1) 是正确但非最简？实际上，因式分解要求分解到不能再分解为止，2a - 4b + 1 不能再分解为整式乘积，所以 2ab(2a - 4b + 1) 是最终分解。但有些教材要求括号内各项系数互素，即提取公因数直到系数互素，这里 2, -4, 1 互素吗？2, -4, 1 的最大公因数是 1，所以已经互素，因此 2ab(2a - 4b + 1) 是正确的。但原多项式 4a^2b - 8ab^2 + 2ab，公因式是 2ab，提取后得 2ab(2a - 4b + 1)，正确。所以答案正确。但解析说提取公因式 2ab，得 2ab(2a-4b+1)，没问题。所以本题可能 pass。但检查 acceptedAnswers 只有 2ab(2a - 4b + 1)，是否覆盖其他等价形式？如 2ab(2a - 4b + 1) 和 2ab(2a - 4b + 1) 一样。可能还需要接受 2ab(2a - 4b + 1) 或 2ab(2a - 4b + 1)。但题目要求写出分解过程，所以答案唯一。所以本题可能 pass。但仔细看，多项式是 4a^2b - 8ab^2 + 2ab，公因式是 2ab，提取后括号内是 2a - 4b + 1，正确。所以答案正确。因此 verdict 应为 pass。但为了安全，再确认：因式分解是否要求分解彻底？2a - 4b + 1 不能再分解，所以正确。所以 pass。",
+      "independentAnswerZhHans": "2ab(2a - 4b + 1)",
+      "answerCheckZhHans": "标准答案正确，解析正确。",
+      "recommendedActionZhHans": "无需修改。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-169",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "multiple-correct-options"
+      ],
+      "issueDetailsZhHans": "选项 C 为 (a - b) / (b + a)，分母 b + a 即 a + b，与题干分式完全相同，故 C 正确。但选项 B 为 -(b - a) / (a + b)，化简分子 -(b - a) = -b + a = a - b，分母 a + b，所以 B 也等于 (a - b)/(a + b)，与题干相等。因此 B 和 C 都是正确选项，题目要求选择相等分式，但有两个正确选项，违反单选题唯一答案原则。",
+      "independentAnswerZhHans": "B 和 C 都与题干相等。",
+      "answerCheckZhHans": "标准答案只给出 C，但 B 也正确，存在多个正确选项。",
+      "recommendedActionZhHans": "修改选项 B 或 C，确保只有一个正确选项。例如将 B 改为 -(a - b)/(a + b) 或类似。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-173",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(x-2)(x+2) 或 x²-4",
+      "answerCheckZhHans": "标准答案 (x-2)(x+2) 正确，acceptedAnswers 包含 (x-2)(x+2) 和 x²-4，覆盖常见等价形式。解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-174",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "化简得 x，代入 x=3 得 3。",
+      "answerCheckZhHans": "标准答案 3 正确，解析过程正确，acceptedAnswers 包含 3。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-187",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "multiple-correct-options"
+      ],
+      "issueDetailsZhHans": "选项 C 分子分母同乘 2 得 6a/4b，与原式相等。选项 A 为 3a²/(2ab)，约分得 3a/(2b)（a≠0），但分式相等要求恒等，当 a=0 时原式 3a/(2b)=0，而 A 为 0/(0) 无意义，故 A 与原式不恒等。但通常分式相等考虑定义域内相等，A 定义域 a≠0，原式定义域 b≠0，两者定义域不同，故不相等。所以只有 C 正确。但需检查选项 D：3a²/(2b²) 显然不等。选项 B：加 3 不等。因此只有 C 正确。但解析说 A 约分后为 3a/(2b) 但需 a≠0，暗示可能相等，但严格说分式相等要求形式相同或恒等变形，A 不是恒等变形。所以本题可能只有一个正确选项。但再仔细看：选项 A 是 3a²/(2ab)，当 a≠0 且 b≠0 时等于 3a/(2b)，但原式 3a/(2b) 要求 b≠0，A 要求 a≠0 且 b≠0，定义域不同，所以不是同一个分式。因此 A 不正确。所以只有 C 正确。但解析说“A 约分后为 3a/(2b) 但需 a≠0”，这容易误导学生认为 A 也相等。实际上，分式相等通常指化简后形式相同且定义域一致，A 化简后形式相同但定义域缩小，故不相等。所以标准答案 C 正确，且唯一。但解析表述可能引起歧义，但不算错误。所以本题可能 pass。但为了严谨，检查选项 C：6a/4b 约分后为 3a/(2b)，与原式完全相同，且定义域 b≠0 一致，故正确。所以只有一个正确选项。因此 verdict 应为 pass。但解析说“A 约分后为 3a/(2b) 但需 a≠0”，这暗示 A 在 a≠0 时相等，但题目没有说明 a 的范围，通常分式相等要求恒等，A 不恒等。所以解析有瑕疵，但答案正确。可能标记为 P2 解析不严谨。但根据规则，如果答案正确但解析有误导，可标记 needs-review。但本题答案正确，解析基本正确，只是未强调定义域。所以可能 pass。但为了安全，标记 needs-review 并指出解析可能误导。",
+      "independentAnswerZhHans": "C",
+      "answerCheckZhHans": "标准答案 C 正确，但解析对选项 A 的说明可能让学生误以为 A 也相等，建议修改解析明确 A 不相等的原因。",
+      "recommendedActionZhHans": "修改解析，明确选项 A 因定义域不同而不相等。",
+      "confidence": "medium"
+    }
+  ]
+}

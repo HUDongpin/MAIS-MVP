@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  :root.dark {
+    color-scheme: dark;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply min-h-screen bg-slate-50 text-slate-900 antialiased dark:bg-slate-950 dark:text-slate-100;
+  }
+
+  ::selection {
+    @apply bg-cyan-300 text-slate-950;
+  }
+
+  button, input, select, textarea {
+    font: inherit;
+  }
+}
+
+@layer components {
+  .page-container {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .glass-panel {
+    @apply rounded-2xl border border-slate-200/80 bg-white/90 shadow-sm shadow-slate-900/5 backdrop-blur-md dark:border-white/10 dark:bg-slate-900/75 dark:shadow-none;
+  }
+
+  .soft-panel {
+    @apply rounded-2xl border border-slate-200/80 bg-white/85 shadow-sm shadow-slate-900/5 dark:border-white/10 dark:bg-slate-900/60 dark:shadow-none;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-cyan-500 to-indigo-500 bg-clip-text text-transparent dark:from-cyan-200 dark:to-indigo-200;
+  }
+
+  .accent-text {
+    @apply text-cyan-700 dark:text-cyan-200;
+  }
+
+  .focus-ring {
+    @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950;
+  }
+
+  .control-chip {
+    @apply rounded-full border border-slate-200/70 bg-white/75 px-3 py-1.5 text-sm font-medium text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:bg-white dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-200 dark:hover:bg-white/[0.1];
+  }
+
+  .math-text .katex {
+    font-size: 1.04em;
+  }
+
+  .math-inline {
+    display: inline;
+    max-width: 100%;
+    overflow: visible;
+    vertical-align: baseline;
+  }
+
+  .math-text:is(h1, h2, h3, h4) .katex {
+    font-size: 0.98em;
+  }
+
+  .math-text:is(h1, h2, h3, h4) .math-inline {
+    vertical-align: baseline;
+  }
+
+  .practice-question-title .katex {
+    font-size: 1em;
+    line-height: 1;
+  }
+
+  .practice-question-title .math-inline {
+    overflow: visible;
+    vertical-align: baseline;
+  }
+
+  .math-display {
+    @apply my-3 block max-w-full overflow-x-auto overflow-y-hidden;
+  }
+
+  .math-display .katex-display {
+    @apply my-0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
+}

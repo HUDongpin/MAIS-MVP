@@ -1,0 +1,109 @@
+{
+  "batchId": "model-qa-0034",
+  "ids": [
+    "hjb-junior-ds-v2-s1-265",
+    "hjb-junior-ds-v2-s1-266",
+    "hjb-junior-ds-v2-s1-267",
+    "hjb-junior-ds-v2-s1-268",
+    "hjb-junior-ds-v2-s1-269",
+    "hjb-junior-ds-v2-s1-270",
+    "hjb-junior-ds-v2-s1-271",
+    "hjb-junior-ds-v2-s1-272"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-265",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x > -3",
+      "answerCheckZhHans": "标准答案描述为从-3向右画线，-3处空心圆圈，与解集x>-3一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-266",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题干要求列出不等式并求x的取值范围，但标准答案仅给出x≤540，未列出不等式。解析中先解出x=240，但后续费用计算与x=240矛盾，且推导出的x≤540与x=240不一致。题目可能缺少条件或答案错误。",
+      "independentAnswerZhHans": "设租用45座客车y辆，则x=45y+15=60(y-1)，解得y=5，x=240。租车总费用不超过5000元：若租45座客车，400y≤5000得y≤12.5，y为整数，y≥5，故5≤y≤12，对应x=45y+15，最大x=45×12+15=555；若租60座客车，500(y-1)≤5000得y≤11，y≥5，故5≤y≤11，对应x=60(y-1)，最大x=60×10=600。但需同时满足两种租车方案？题干未明确。若仅考虑45座客车，x≤555；若仅考虑60座客车，x≤600。标准答案x≤540无依据。",
+      "answerCheckZhHans": "标准答案x≤540与解析中x=240矛盾，且解析推导过程错误。",
+      "recommendedActionZhHans": "需重新审查题目条件和答案，可能需修改题干或答案。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-267",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x ≤ 1/2",
+      "answerCheckZhHans": "标准答案x ≤ 1/2正确，解析过程无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-268",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "6 ≤ a < 9",
+      "answerCheckZhHans": "标准答案6 ≤ a < 9正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-269",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "m < -2",
+      "answerCheckZhHans": "标准答案m < -2正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-270",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析中不等式化简为x²-55x+750≤0，解得25≤x≤30，但答案却为25≤x≤28，无依据。且销量700-20x在x>35时为负，但x≤30时销量非负，无需额外限制。答案25≤x≤28错误。",
+      "independentAnswerZhHans": "设定价为x元，销量为100+20(30-x)=700-20x，利润为(x-20)(700-20x)≥1200，化简得-20x²+1100x-14000≥1200，即-20x²+1100x-15200≥0，除以-20得x²-55x+760≤0，解得(55-√(3025-3040))/2 ≤ x ≤ (55+√(3025-3040))/2，判别式为负？重新计算：利润=(x-20)(700-20x)=700x-20x²-14000+400x=-20x²+1100x-14000。不等式-20x²+1100x-14000≥1200，即-20x²+1100x-15200≥0，除以-20得x²-55x+760≤0。判别式Δ=55²-4*760=3025-3040=-15<0，无实数解？检查：x²-55x+760，顶点在27.5，值=27.5²-55*27.5+760=756.25-1512.5+760=3.75>0，故不等式无解。但题目可能数据有误。若按解析中x²-55x+750≤0，则Δ=3025-3000=25，解为(55±5)/2，即25≤x≤30。但答案却为25≤x≤28，不一致。",
+      "answerCheckZhHans": "标准答案25≤x≤28与解析中25≤x≤30矛盾，且解析中不等式化简可能有误。",
+      "recommendedActionZhHans": "需检查题目数据或答案，可能需修正不等式或答案。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-271",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x < -2",
+      "answerCheckZhHans": "标准答案x < -2正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-272",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "a = 5",
+      "answerCheckZhHans": "标准答案5正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

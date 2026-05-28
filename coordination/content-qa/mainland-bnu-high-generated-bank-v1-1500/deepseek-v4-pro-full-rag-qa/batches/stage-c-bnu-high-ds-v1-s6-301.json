@@ -1,0 +1,51 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-301",
+  "startedAt": "2026-05-28T01:49:51.596Z",
+  "completedAt": "2026-05-28T01:49:56.263Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-301"
+  ],
+  "usage": {
+    "prompt_tokens": 2718,
+    "completion_tokens": 298,
+    "total_tokens": 3016,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2334
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-301",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "independentAnswer": "10",
+        "correctedAnswer": "10",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "bad_options",
+          "explanation_contradiction",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "函数f(x)=x^3-3x^2+a在[-1,3]上的最大值为max{f(-1),f(0),f(2),f(3)}=max{a-4,a}=a，由a=10得a=10，但选项无10，题目无正确选项，不可解。存储答案4错误，解析自相矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目条件与选项不匹配，无正确选项，判定为不可解，答案错误，解析矛盾。"
+    }
+  }
+}

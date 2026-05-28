@@ -1,0 +1,330 @@
+{
+  "batchNumber": 25,
+  "startedAt": "2026-05-27T14:15:05.207Z",
+  "completedAt": "2026-05-27T14:15:37.954Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p3-221",
+    "bnu-primary-ds-v2-p3-222",
+    "bnu-primary-ds-v2-p3-223",
+    "bnu-primary-ds-v2-p3-224",
+    "bnu-primary-ds-v2-p3-225",
+    "bnu-primary-ds-v2-p3-226",
+    "bnu-primary-ds-v2-p3-227",
+    "bnu-primary-ds-v2-p3-228",
+    "bnu-primary-ds-v2-p3-229",
+    "bnu-primary-ds-v2-p3-230",
+    "bnu-primary-ds-v2-p3-231",
+    "bnu-primary-ds-v2-p3-232",
+    "bnu-primary-ds-v2-p3-233",
+    "bnu-primary-ds-v2-p3-234",
+    "bnu-primary-ds-v2-p3-235",
+    "bnu-primary-ds-v2-p3-236",
+    "bnu-primary-ds-v2-p3-237",
+    "bnu-primary-ds-v2-p3-238",
+    "bnu-primary-ds-v2-p3-239",
+    "bnu-primary-ds-v2-p3-240",
+    "bnu-primary-ds-v2-p3-241",
+    "bnu-primary-ds-v2-p3-242",
+    "bnu-primary-ds-v2-p3-243",
+    "bnu-primary-ds-v2-p3-244",
+    "bnu-primary-ds-v2-p3-245",
+    "bnu-primary-ds-v2-p3-246",
+    "bnu-primary-ds-v2-p3-247",
+    "bnu-primary-ds-v2-p3-248",
+    "bnu-primary-ds-v2-p3-249",
+    "bnu-primary-ds-v2-p3-250"
+  ],
+  "usage": {
+    "prompt_tokens": 6452,
+    "completion_tokens": 2456,
+    "total_tokens": 8908,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 6068
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p3-221",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目明确，对折两次平均分成4份，每份是四分之一，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-222",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "平均分成3份，每份是三分之一，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-223",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "数据明确，12-5=7，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-224",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "数据明确，130出现2次，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-225",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "10÷20=1/2，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-226",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "22-15=7，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-227",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "18÷9=2，选项A正确，其他选项错误，答案唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-228",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "18-12=6，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-229",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "12-6=6，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-230",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "25-12=13，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-231",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "草莓15人最多，香蕉8人最少，A正确，其他选项错误，答案唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-232",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "12-6=6，答案正确，表格数据明确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-233",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "跳绳12人最多，比踢毽子多4人，A正确，其他选项错误，答案唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-234",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "表格数据明确，12-6=6，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-235",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "葡萄5人最少，B正确，其他选项错误，答案唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-236",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "表格数据明确，草莓最多，香蕉最少，15-8=7，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-237",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "正确思路是48÷6÷2=4，选项B正确，其他选项错误，答案唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-238",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "12÷5=2余2，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-239",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "面积96平方米，草皮864元；周长40米，篱笆600元；合计1464元，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-240",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "48÷5=9余3，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-241",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "先求总数84，再除以6得14，选项B正确，答案唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-242",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "一个鸡蛋约重50克符合实际，其他选项错误，答案唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-243",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "条形统计图适合比较数据，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-244",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "4个1平方厘米小正方形拼成大正方形面积仍是4平方厘米，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-245",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "705÷5=141正确，其他选项计算错误，答案唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-246",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "对折两次后剪角，展开图形至少有2条对称轴，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-247",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "12÷4=3，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-248",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "200×3=600，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-249",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "电梯上下移动是平移，其他是旋转，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-250",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "3×8+2×5=34，答案正确。"
+      }
+    ],
+    "batchSummary": {
+      "solvableYes": 30,
+      "solvableNo": 0,
+      "answerMatchYes": 30,
+      "answerMatchNo": 0,
+      "notes": "全部30道题均可解，答案匹配，无问题。"
+    }
+  }
+}

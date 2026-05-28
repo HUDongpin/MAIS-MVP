@@ -1,0 +1,137 @@
+{
+  "batchNumber": 112,
+  "startedAt": "2026-05-27T14:02:56.424Z",
+  "completedAt": "2026-05-27T14:03:16.898Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-389",
+    "bnu-high-ds-v1-s5-390",
+    "bnu-high-ds-v1-s5-391",
+    "bnu-high-ds-v1-s5-392",
+    "bnu-high-ds-v1-s5-393",
+    "bnu-high-ds-v1-s5-394",
+    "bnu-high-ds-v1-s5-395",
+    "bnu-high-ds-v1-s5-396"
+  ],
+  "usage": {
+    "prompt_tokens": 11193,
+    "completion_tokens": 1187,
+    "total_tokens": 12380,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10681
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-389",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0.6826",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，正态分布参数明确，参考数据足够，可独立求解。答案0.6826正确，解析步骤无误，与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-390",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "1/6",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目描述清晰，不放回取球直到红球，X=3的概率计算正确。答案1/6与独立计算一致，解析过程无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-391",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0.36",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件充分，利用条件概率公式可解。答案0.36正确，选项唯一且无歧义，解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-392",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "分布列：P(X=0)=3/28，P(X=1)=15/28，P(X=2)=10/28；E(X)=5/4",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目明确，不放回取两球，红球个数分布列和期望计算正确。答案与独立求解一致，解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-393",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "无解",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "unsolvable",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件矛盾：由分布列概率和为1得a=0.4，但此时E(X)=2.3，与已知E(X)=2.5冲突。解析中尝试多种调整均无法同时满足，题目本身不可解。答案0.4错误，解析自相矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-394",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0.99968",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "二项分布问题，条件明确，计算P(X≥1)正确。答案0.99968与独立计算一致，解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-395",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0.6827",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "正态分布对称区间概率，直接使用参考数据。答案0.6827正确，解析简洁且一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-396",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2/3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "条件概率计算，第一次取白球后剩余球数明确，第二次取黑球概率为6/9=2/3。答案正确，解析无误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "8题中7题通过，1题（bnu-high-ds-v1-s5-393）因条件矛盾不可解，答案和解析均错误，需修正题目条件。"
+    }
+  }
+}

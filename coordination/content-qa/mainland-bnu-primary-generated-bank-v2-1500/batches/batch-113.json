@@ -1,0 +1,576 @@
+{
+  "batchId": "batch-113",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p5-121",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-fraction-add-sub",
+      "unitTitle": "分数加减法",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-addition-subtraction",
+        "common-denominator",
+        "equivalent-fractions",
+        "mixed-number-calculation",
+        "分数加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "符号意识"
+      ],
+      "skillTags": [
+        "同分母加减",
+        "异分母通分",
+        "带分数加减",
+        "分数估算",
+        "结果化简"
+      ],
+      "misconceptionTags": [
+        "denominators added directly",
+        "fractions with different wholes combined",
+        "equivalent conversion changes only one part of a fraction"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-fraction-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-fraction-add-sub-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算 2/7 + 3/7，结果正确的是（ ）。",
+      "optionsZhHans": [
+        "5/7",
+        "5/14",
+        "6/7",
+        "1/7"
+      ],
+      "answer": "5/7",
+      "acceptedAnswers": [
+        "5/7"
+      ],
+      "explanationZhHans": "同分母分数相加，分母不变，分子相加：2+3=5，所以结果是5/7。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-122",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-fraction-add-sub",
+      "unitTitle": "分数加减法",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-addition-subtraction",
+        "common-denominator",
+        "equivalent-fractions",
+        "mixed-number-calculation",
+        "分数加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "符号意识"
+      ],
+      "skillTags": [
+        "同分母加减",
+        "异分母通分",
+        "带分数加减",
+        "分数估算",
+        "结果化简"
+      ],
+      "misconceptionTags": [
+        "denominators added directly",
+        "fractions with different wholes combined",
+        "equivalent conversion changes only one part of a fraction"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-fraction-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-fraction-add-sub-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一根绳子长 2 3/4 米，用去 1 1/2 米，还剩多少米？请用最简分数或带分数表示。",
+      "optionsZhHans": [],
+      "answer": "1 1/4",
+      "acceptedAnswers": [
+        "1 1/4",
+        "5/4"
+      ],
+      "explanationZhHans": "2 3/4 = 11/4，1 1/2 = 6/4，相减得5/4，即1 1/4米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-123",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-fraction-add-sub",
+      "unitTitle": "分数加减法",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-addition-subtraction",
+        "common-denominator",
+        "equivalent-fractions",
+        "mixed-number-calculation",
+        "分数加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "符号意识"
+      ],
+      "skillTags": [
+        "同分母加减",
+        "异分母通分",
+        "带分数加减",
+        "分数估算",
+        "结果化简"
+      ],
+      "misconceptionTags": [
+        "denominators added directly",
+        "fractions with different wholes combined",
+        "equivalent conversion changes only one part of a fraction"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-fraction-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-fraction-add-sub-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈买了一个西瓜，第一天吃了它的1/4，第二天吃了它的2/5。两天一共吃了这个西瓜的几分之几？请写出计算过程并化简。",
+      "optionsZhHans": [],
+      "answer": "13/20",
+      "acceptedAnswers": [
+        "13/20"
+      ],
+      "explanationZhHans": "1/4 + 2/5 = 5/20 + 8/20 = 13/20，已是最简分数。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-124",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-fraction-add-sub",
+      "unitTitle": "分数加减法",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-addition-subtraction",
+        "common-denominator",
+        "equivalent-fractions",
+        "mixed-number-calculation",
+        "分数加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "符号意识"
+      ],
+      "skillTags": [
+        "同分母加减",
+        "异分母通分",
+        "带分数加减",
+        "分数估算",
+        "结果化简"
+      ],
+      "misconceptionTags": [
+        "denominators added directly",
+        "fractions with different wholes combined",
+        "equivalent conversion changes only one part of a fraction"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-fraction-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-fraction-add-sub-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个算式的结果与 5/8 + 1/4 相等？",
+      "optionsZhHans": [
+        "5/8 + 2/8",
+        "5/8 + 1/8",
+        "10/16 + 1/4",
+        "5/8 + 3/8"
+      ],
+      "answer": "5/8 + 2/8",
+      "acceptedAnswers": [
+        "5/8 + 2/8"
+      ],
+      "explanationZhHans": "1/4 = 2/8，所以5/8+1/4 = 5/8+2/8。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-125",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-fraction-add-sub",
+      "unitTitle": "分数加减法",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-addition-subtraction",
+        "common-denominator",
+        "equivalent-fractions",
+        "mixed-number-calculation",
+        "分数加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "符号意识"
+      ],
+      "skillTags": [
+        "同分母加减",
+        "异分母通分",
+        "带分数加减",
+        "分数估算",
+        "结果化简"
+      ],
+      "misconceptionTags": [
+        "denominators added directly",
+        "fractions with different wholes combined",
+        "equivalent conversion changes only one part of a fraction"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-fraction-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-fraction-add-sub-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在括号里填上适当的数：3/5 = ( )/20，使等式成立。",
+      "optionsZhHans": [],
+      "answer": "12",
+      "acceptedAnswers": [
+        "12"
+      ],
+      "explanationZhHans": "分母5乘4得20，分子3也要乘4得12，所以填12。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-126",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-fraction-add-sub",
+      "unitTitle": "分数加减法",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-addition-subtraction",
+        "common-denominator",
+        "equivalent-fractions",
+        "mixed-number-calculation",
+        "分数加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "符号意识"
+      ],
+      "skillTags": [
+        "同分母加减",
+        "异分母通分",
+        "带分数加减",
+        "分数估算",
+        "结果化简"
+      ],
+      "misconceptionTags": [
+        "denominators added directly",
+        "fractions with different wholes combined",
+        "equivalent conversion changes only one part of a fraction"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-fraction-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-fraction-add-sub-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明喝了一杯牛奶的1/3，然后加满水，又喝了半杯。他一共喝了多少杯牛奶？请写出你的想法。",
+      "optionsZhHans": [],
+      "answer": "2/3",
+      "acceptedAnswers": [
+        "2/3"
+      ],
+      "explanationZhHans": "第一次喝1/3杯牛奶；加满水后牛奶占2/3，喝半杯即喝牛奶2/3×1/2=1/3杯；共1/3+1/3=2/3杯。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-127",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-fraction-add-sub",
+      "unitTitle": "分数加减法",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-addition-subtraction",
+        "common-denominator",
+        "equivalent-fractions",
+        "mixed-number-calculation",
+        "分数加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "符号意识"
+      ],
+      "skillTags": [
+        "同分母加减",
+        "异分母通分",
+        "带分数加减",
+        "分数估算",
+        "结果化简"
+      ],
+      "misconceptionTags": [
+        "denominators added directly",
+        "fractions with different wholes combined",
+        "equivalent conversion changes only one part of a fraction"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-fraction-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-fraction-add-sub-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下列分数中，哪个与 7/12 的和等于 1？",
+      "optionsZhHans": [
+        "5/12",
+        "6/12",
+        "4/12",
+        "3/12"
+      ],
+      "answer": "5/12",
+      "acceptedAnswers": [
+        "5/12"
+      ],
+      "explanationZhHans": "1 - 7/12 = 5/12，所以选5/12。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-128",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-fraction-add-sub",
+      "unitTitle": "分数加减法",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-addition-subtraction",
+        "common-denominator",
+        "equivalent-fractions",
+        "mixed-number-calculation",
+        "分数加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "符号意识"
+      ],
+      "skillTags": [
+        "同分母加减",
+        "异分母通分",
+        "带分数加减",
+        "分数估算",
+        "结果化简"
+      ],
+      "misconceptionTags": [
+        "denominators added directly",
+        "fractions with different wholes combined",
+        "equivalent conversion changes only one part of a fraction"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-fraction-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-fraction-add-sub-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算：1 - 3/8 - 1/4 = （用最简分数表示）",
+      "optionsZhHans": [],
+      "answer": "3/8",
+      "acceptedAnswers": [
+        "3/8"
+      ],
+      "explanationZhHans": "1 = 8/8，1/4 = 2/8，8/8 - 3/8 - 2/8 = 3/8。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-129",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-fraction-add-sub",
+      "unitTitle": "分数加减法",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-addition-subtraction",
+        "common-denominator",
+        "equivalent-fractions",
+        "mixed-number-calculation",
+        "分数加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "符号意识"
+      ],
+      "skillTags": [
+        "同分母加减",
+        "异分母通分",
+        "带分数加减",
+        "分数估算",
+        "结果化简"
+      ],
+      "misconceptionTags": [
+        "denominators added directly",
+        "fractions with different wholes combined",
+        "equivalent conversion changes only one part of a fraction"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-fraction-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-fraction-add-sub-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "有两根绳子，第一根长 5/6 米，第二根长 2/3 米。第一根比第二根长多少米？请列式计算并化简。",
+      "optionsZhHans": [],
+      "answer": "1/6",
+      "acceptedAnswers": [
+        "1/6"
+      ],
+      "explanationZhHans": "5/6 - 2/3 = 5/6 - 4/6 = 1/6米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-130",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-fraction-add-sub",
+      "unitTitle": "分数加减法",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-addition-subtraction",
+        "common-denominator",
+        "equivalent-fractions",
+        "mixed-number-calculation",
+        "分数加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "符号意识"
+      ],
+      "skillTags": [
+        "同分母加减",
+        "异分母通分",
+        "带分数加减",
+        "分数估算",
+        "结果化简"
+      ],
+      "misconceptionTags": [
+        "denominators added directly",
+        "fractions with different wholes combined",
+        "equivalent conversion changes only one part of a fraction"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-fraction-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-fraction-add-sub-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面计算正确的是（ ）。",
+      "optionsZhHans": [
+        "1/3 + 1/2 = 5/6",
+        "2/5 + 1/5 = 3/10",
+        "3/4 - 1/2 = 1/2",
+        "7/8 - 3/8 = 1/2"
+      ],
+      "answer": "1/3 + 1/2 = 5/6",
+      "acceptedAnswers": [
+        "1/3 + 1/2 = 5/6"
+      ],
+      "explanationZhHans": "1/3+1/2=2/6+3/6=5/6，正确；其他选项均有误。"
+    }
+  ]
+}

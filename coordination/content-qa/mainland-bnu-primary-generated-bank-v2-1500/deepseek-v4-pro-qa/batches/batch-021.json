@@ -1,0 +1,191 @@
+{
+  "batchNumber": 21,
+  "startedAt": "2026-05-27T13:46:10.718Z",
+  "completedAt": "2026-05-27T13:46:28.602Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p2-111",
+    "bnu-primary-ds-v2-p2-112",
+    "bnu-primary-ds-v2-p2-113",
+    "bnu-primary-ds-v2-p2-114",
+    "bnu-primary-ds-v2-p2-115",
+    "bnu-primary-ds-v2-p2-116",
+    "bnu-primary-ds-v2-p2-117",
+    "bnu-primary-ds-v2-p2-118",
+    "bnu-primary-ds-v2-p2-119",
+    "bnu-primary-ds-v2-p2-120",
+    "bnu-primary-ds-v2-p2-121",
+    "bnu-primary-ds-v2-p2-122",
+    "bnu-primary-ds-v2-p2-123",
+    "bnu-primary-ds-v2-p2-124",
+    "bnu-primary-ds-v2-p2-125",
+    "bnu-primary-ds-v2-p2-126",
+    "bnu-primary-ds-v2-p2-127",
+    "bnu-primary-ds-v2-p2-128"
+  ],
+  "usage": {
+    "prompt_tokens": 3820,
+    "completion_tokens": 1279,
+    "total_tokens": 5099,
+    "prompt_tokens_details": {
+      "cached_tokens": 3712
+    },
+    "prompt_cache_hit_tokens": 3712,
+    "prompt_cache_miss_tokens": 108
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p2-111",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，符合P2乘法口诀要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-112",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项唯一正确，解释合理，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-113",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案覆盖两个乘法算式，符合口诀要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-114",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "简单应用题，答案正确，无问题。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-115",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项8×7对应口诀，其他选项不匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-116",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "填空答案正确，口诀匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-117",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "乘法应用题，答案48正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-118",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "七七四十九只能写一个乘法算式，选项正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-119",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "口诀补充完整，答案四、七正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-120",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案54正确，符合六九五十四口诀。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-121",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项A正确，其他选项错误，解释清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-122",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "填空答案六和6，符合除法意义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-123",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案完整，包含两个算式和口诀解释。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-124",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项A正确，其他选项错误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-125",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案4名正确，符合除法求份数。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-126",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案24÷6=4（个）正确，解释合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-127",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项A正确，其他选项有错误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-128",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，解释合理，符合逆运算检查。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版P2要求，数学正确，答案匹配，无歧义或缺失条件。"
+    }
+  }
+}

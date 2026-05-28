@@ -1,0 +1,330 @@
+{
+  "batchNumber": 21,
+  "startedAt": "2026-05-27T03:38:42.961Z",
+  "completedAt": "2026-05-27T03:39:13.637Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p3-101",
+    "bnu-primary-ds-v1-p3-102",
+    "bnu-primary-ds-v1-p3-103",
+    "bnu-primary-ds-v1-p3-104",
+    "bnu-primary-ds-v1-p3-105",
+    "bnu-primary-ds-v1-p3-106",
+    "bnu-primary-ds-v1-p3-107",
+    "bnu-primary-ds-v1-p3-108",
+    "bnu-primary-ds-v1-p3-109",
+    "bnu-primary-ds-v1-p3-110",
+    "bnu-primary-ds-v1-p3-111",
+    "bnu-primary-ds-v1-p3-112",
+    "bnu-primary-ds-v1-p3-113",
+    "bnu-primary-ds-v1-p3-114",
+    "bnu-primary-ds-v1-p3-115",
+    "bnu-primary-ds-v1-p3-116",
+    "bnu-primary-ds-v1-p3-117",
+    "bnu-primary-ds-v1-p3-118",
+    "bnu-primary-ds-v1-p3-119",
+    "bnu-primary-ds-v1-p3-120",
+    "bnu-primary-ds-v1-p3-121",
+    "bnu-primary-ds-v1-p3-122",
+    "bnu-primary-ds-v1-p3-123",
+    "bnu-primary-ds-v1-p3-124",
+    "bnu-primary-ds-v1-p3-125",
+    "bnu-primary-ds-v1-p3-126",
+    "bnu-primary-ds-v1-p3-127",
+    "bnu-primary-ds-v1-p3-128",
+    "bnu-primary-ds-v1-p3-129",
+    "bnu-primary-ds-v1-p3-130"
+  ],
+  "usage": {
+    "prompt_tokens": 6031,
+    "completion_tokens": 2412,
+    "total_tokens": 8443,
+    "prompt_tokens_details": {
+      "cached_tokens": 6016
+    },
+    "prompt_cache_hit_tokens": 6016,
+    "prompt_cache_miss_tokens": 15
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p3-101",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目明确，2025年不是闰年，2月28天，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-102",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "6月30日后推15天为7月15日，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-103",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "12月有31天，其他选项月份均为30天，答案唯一正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-104",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "相邻大月为7月和8月，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-105",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "7月5日至31日27天，8月31天，共58天，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-106",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "1.2最大，比较过程正确，答案唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-107",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "5元6角=5.6元，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-108",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "数射线每份0.1，点A 0.3，点B 0.8，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-109",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "0.15米=15厘米，选项唯一正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-110",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "1米2分米=1.2米，一样远，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-111",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "改写正确，排序正确，答案符合要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-112",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "0.75米在0.7和0.8之间，选项唯一合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-113",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "十分位的2表示0.2千克，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-114",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "比较过程正确，小宇最远，答案合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-115",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "小明1.2米最大，选项唯一正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-116",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "1元2角5分=1.25元，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-117",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "指出错误并解释正确，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-118",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "1.5最大，小轩最远，选项唯一正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-119",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "1米2分米=1.2米，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-120",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "排序正确，答案符合要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-121",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "思维导图最能发现联系，选项唯一正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-122",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "24÷4=6，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-123",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "正确过程及错误原因清晰，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-124",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "2米符合实际，选项唯一正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-125",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "闰年366天，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-126",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "最大正方形边长20厘米，周长80厘米，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-127",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "（15+5）×3先算加法，选项唯一正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-128",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "4×9=36分米，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-129",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "排序及进率正确，答案符合要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-130",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "列式时写单位最有效，选项唯一正确。"
+      }
+    ],
+    "batchSummary": {
+      "solvableYes": 30,
+      "solvableNo": 0,
+      "answerMatchYes": 30,
+      "answerMatchNo": 0,
+      "notes": "全部30道题目均可解，答案匹配正确，无问题。"
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-274",
+  "startedAt": "2026-05-28T01:25:36.919Z",
+  "completedAt": "2026-05-28T01:25:40.713Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-274"
+  ],
+  "usage": {
+    "prompt_tokens": 2565,
+    "completion_tokens": 221,
+    "total_tokens": 2786,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2181
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-274",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "x² + y² - 3x + 2 = 0",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，轨迹方程为 x²+y²-3x+2=0，选项 A 正确且唯一，解析合理，无歧义或错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 1,
+      "warn": 0,
+      "fail": 0,
+      "notes": "本题数学正确，选项唯一，解析一致，通过复核。"
+    }
+  }
+}

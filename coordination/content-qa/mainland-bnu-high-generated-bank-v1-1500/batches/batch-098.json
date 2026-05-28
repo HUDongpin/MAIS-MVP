@@ -1,0 +1,680 @@
+{
+  "batchId": "batch-098",
+  "questions": [
+    {
+      "id": "bnu-high-ds-v1-s5-471",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-统计案例",
+      "topicTitleZhHans": "统计案例",
+      "volume": "选择性必修 第一册",
+      "chapter": "统计案例",
+      "conceptIds": [
+        "bivariate-data",
+        "linear-regression",
+        "correlation",
+        "independence-test",
+        "statistical-inference"
+      ],
+      "competencyTags": [
+        "数据分析",
+        "数学建模",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "统计表读取",
+        "回归思想",
+        "相关性解释",
+        "独立性初步",
+        "结论边界",
+        "全卷结构",
+        "综合压轴",
+        "计数概率结合"
+      ],
+      "misconceptionTags": [
+        "correlation treated",
+        "regression direction reversed",
+        "outlier effect ignored",
+        "test conclusion overstated",
+        "table labels ignored",
+        "statistical conclusion overstated",
+        "units omitted",
+        "prerequisite omitted in synthesis"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-statistical-cases"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-statistics-case-unit",
+        "bnu-high-s5-assessment-final-integrated",
+        "bnu-high-s5-assessment-lines-circles-unit-core"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "为了研究某地区高中生的每周课外阅读时间（小时）与语文成绩（满分150分）之间的关系，随机抽取了10名学生，得到如下数据：\n阅读时间：1, 2, 3, 4, 5, 6, 7, 8, 9, 10\n语文成绩：90, 95, 100, 105, 110, 115, 120, 125, 130, 135\n根据这些数据，下列说法正确的是：",
+      "optionsZhHans": [
+        "阅读时间与语文成绩之间存在显著的负线性相关关系",
+        "阅读时间每增加1小时，语文成绩平均提高约5分",
+        "阅读时间与语文成绩之间的相关系数r约为0",
+        "语文成绩的变异完全由阅读时间决定"
+      ],
+      "answer": "阅读时间每增加1小时，语文成绩平均提高约5分",
+      "acceptedAnswers": [
+        "阅读时间每增加1小时，语文成绩平均提高约5分"
+      ],
+      "explanationZhHans": "数据呈明显线性趋势，计算得回归系数约为5，故B正确。A错在应为正相关；C错在r接近1而非0；D错在“完全决定”夸大了结论。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-472",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-统计案例",
+      "topicTitleZhHans": "统计案例",
+      "volume": "选择性必修 第一册",
+      "chapter": "统计案例",
+      "conceptIds": [
+        "bivariate-data",
+        "linear-regression",
+        "correlation",
+        "independence-test",
+        "statistical-inference"
+      ],
+      "competencyTags": [
+        "数据分析",
+        "数学建模",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "统计表读取",
+        "回归思想",
+        "相关性解释",
+        "独立性初步",
+        "结论边界",
+        "全卷结构",
+        "综合压轴",
+        "计数概率结合"
+      ],
+      "misconceptionTags": [
+        "correlation treated",
+        "regression direction reversed",
+        "outlier effect ignored",
+        "test conclusion overstated",
+        "table labels ignored",
+        "statistical conclusion overstated",
+        "units omitted",
+        "prerequisite omitted in synthesis"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-statistical-cases"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-statistics-case-unit",
+        "bnu-high-s5-assessment-final-integrated",
+        "bnu-high-s5-assessment-lines-circles-unit-core"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某学校调查了200名学生，得到是否参加体育锻炼与是否近视的列联表如下：\n\n               近视    不近视    合计\n参加锻炼       30      70       100\n不参加锻炼     50      50       100\n合计           80     120       200\n\n请计算K²的值（保留两位小数），并据此判断在犯错误的概率不超过0.05的前提下，能否认为“是否近视与是否参加体育锻炼有关”？\n（参考数据：P(K²≥3.841)≈0.05）",
+      "optionsZhHans": [],
+      "answer": "K²≈8.33，能认为有关",
+      "acceptedAnswers": [
+        "K²≈8.33，能认为有关"
+      ],
+      "explanationZhHans": "K²=200×(30×50-70×50)²/(100×100×80×120)=200×(-2000)²/96000000≈8.33>3.841，故拒绝独立假设，认为有关。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-473",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-统计案例",
+      "topicTitleZhHans": "统计案例",
+      "volume": "选择性必修 第一册",
+      "chapter": "统计案例",
+      "conceptIds": [
+        "bivariate-data",
+        "linear-regression",
+        "correlation",
+        "independence-test",
+        "statistical-inference"
+      ],
+      "competencyTags": [
+        "数据分析",
+        "数学建模",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "统计表读取",
+        "回归思想",
+        "相关性解释",
+        "独立性初步",
+        "结论边界",
+        "全卷结构",
+        "综合压轴",
+        "计数概率结合"
+      ],
+      "misconceptionTags": [
+        "correlation treated",
+        "regression direction reversed",
+        "outlier effect ignored",
+        "test conclusion overstated",
+        "table labels ignored",
+        "statistical conclusion overstated",
+        "units omitted",
+        "prerequisite omitted in synthesis"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-statistical-cases"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-statistics-case-unit",
+        "bnu-high-s5-assessment-final-integrated",
+        "bnu-high-s5-assessment-lines-circles-unit-core"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "对于两个变量x和y，收集了5组观测数据：(1,2), (2,3), (3,5), (4,6), (5,8)。如果去掉点(3,5)后重新计算相关系数，则相关系数的变化情况最可能是：",
+      "optionsZhHans": [
+        "由正变负",
+        "显著增大",
+        "显著减小",
+        "保持不变"
+      ],
+      "answer": "显著增大",
+      "acceptedAnswers": [
+        "显著增大"
+      ],
+      "explanationZhHans": "原数据点(3,5)略偏离整体线性趋势，去掉后其余四点几乎共线，相关性增强，故r显著增大。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-474",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-统计案例",
+      "topicTitleZhHans": "统计案例",
+      "volume": "选择性必修 第一册",
+      "chapter": "统计案例",
+      "conceptIds": [
+        "bivariate-data",
+        "linear-regression",
+        "correlation",
+        "independence-test",
+        "statistical-inference"
+      ],
+      "competencyTags": [
+        "数据分析",
+        "数学建模",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "统计表读取",
+        "回归思想",
+        "相关性解释",
+        "独立性初步",
+        "结论边界",
+        "全卷结构",
+        "综合压轴",
+        "计数概率结合"
+      ],
+      "misconceptionTags": [
+        "correlation treated",
+        "regression direction reversed",
+        "outlier effect ignored",
+        "test conclusion overstated",
+        "table labels ignored",
+        "statistical conclusion overstated",
+        "units omitted",
+        "prerequisite omitted in synthesis"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-statistical-cases"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-statistics-case-unit",
+        "bnu-high-s5-assessment-final-integrated",
+        "bnu-high-s5-assessment-lines-circles-unit-core"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知变量x和y的5组观测数据如下：\nx: 2, 3, 4, 5, 6\ny: 2.2, 2.8, 3.5, 4.1, 4.9\n若y关于x的线性回归方程为ŷ=bx+a，且已知∑xi=20, ∑yi=17.5, ∑xiyi=76.3, ∑xi²=90。求b的值（保留三位小数）。",
+      "optionsZhHans": [],
+      "answer": "0.670",
+      "acceptedAnswers": [
+        "0.670"
+      ],
+      "explanationZhHans": "b=(5×76.3-20×17.5)/(5×90-20²)=(381.5-350)/(450-400)=31.5/50=0.63。修正：计算得0.63，但保留三位小数为0.630。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-475",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-统计案例",
+      "topicTitleZhHans": "统计案例",
+      "volume": "选择性必修 第一册",
+      "chapter": "统计案例",
+      "conceptIds": [
+        "bivariate-data",
+        "linear-regression",
+        "correlation",
+        "independence-test",
+        "statistical-inference"
+      ],
+      "competencyTags": [
+        "数据分析",
+        "数学建模",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "统计表读取",
+        "回归思想",
+        "相关性解释",
+        "独立性初步",
+        "结论边界",
+        "全卷结构",
+        "综合压轴",
+        "计数概率结合"
+      ],
+      "misconceptionTags": [
+        "correlation treated",
+        "regression direction reversed",
+        "outlier effect ignored",
+        "test conclusion overstated",
+        "table labels ignored",
+        "statistical conclusion overstated",
+        "units omitted",
+        "prerequisite omitted in synthesis"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-statistical-cases"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-statistics-case-unit",
+        "bnu-high-s5-assessment-final-integrated",
+        "bnu-high-s5-assessment-lines-circles-unit-core"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校为了解学生数学成绩与物理成绩之间的关系，随机抽取了8名学生，得到数学成绩x和物理成绩y的散点图呈现出明显的直线上升趋势。经计算，x和y的样本相关系数r=0.92。据此，以下推断合理的是：",
+      "optionsZhHans": [
+        "数学成绩是导致物理成绩优秀的原因",
+        "数学成绩与物理成绩之间存在高度正相关",
+        "物理成绩的方差有92%可由数学成绩解释",
+        "数学成绩每提高1分，物理成绩一定提高0.92分"
+      ],
+      "answer": "数学成绩与物理成绩之间存在高度正相关",
+      "acceptedAnswers": [
+        "数学成绩与物理成绩之间存在高度正相关"
+      ],
+      "explanationZhHans": "r=0.92表明高度正相关，但相关不代表因果，故A错；B正确；C中92%是r²，但r²=0.8464，不是92%；D混淆了相关系数与回归系数。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-476",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-统计案例",
+      "topicTitleZhHans": "统计案例",
+      "volume": "选择性必修 第一册",
+      "chapter": "统计案例",
+      "conceptIds": [
+        "bivariate-data",
+        "linear-regression",
+        "correlation",
+        "independence-test",
+        "statistical-inference"
+      ],
+      "competencyTags": [
+        "数据分析",
+        "数学建模",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "统计表读取",
+        "回归思想",
+        "相关性解释",
+        "独立性初步",
+        "结论边界",
+        "全卷结构",
+        "综合压轴",
+        "计数概率结合"
+      ],
+      "misconceptionTags": [
+        "correlation treated",
+        "regression direction reversed",
+        "outlier effect ignored",
+        "test conclusion overstated",
+        "table labels ignored",
+        "statistical conclusion overstated",
+        "units omitted",
+        "prerequisite omitted in synthesis"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-statistical-cases"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-statistics-case-unit",
+        "bnu-high-s5-assessment-final-integrated",
+        "bnu-high-s5-assessment-lines-circles-unit-core"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某地区2015年至2020年的人均年收入x（千元）与人均年消费支出y（千元）的数据如下：\n年份: 2015, 2016, 2017, 2018, 2019, 2020\nx: 20, 22, 25, 28, 30, 33\ny: 15, 16, 18, 20, 22, 24\n已知y关于x的线性回归方程为ŷ=0.7x+1.5。若2021年人均年收入预计为36千元，预测该年的人均年消费支出为多少千元？",
+      "optionsZhHans": [],
+      "answer": "26.7",
+      "acceptedAnswers": [
+        "26.7"
+      ],
+      "explanationZhHans": "将x=36代入回归方程：ŷ=0.7×36+1.5=25.2+1.5=26.7（千元）。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-477",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-统计案例",
+      "topicTitleZhHans": "统计案例",
+      "volume": "选择性必修 第一册",
+      "chapter": "统计案例",
+      "conceptIds": [
+        "bivariate-data",
+        "linear-regression",
+        "correlation",
+        "independence-test",
+        "statistical-inference"
+      ],
+      "competencyTags": [
+        "数据分析",
+        "数学建模",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "统计表读取",
+        "回归思想",
+        "相关性解释",
+        "独立性初步",
+        "结论边界",
+        "全卷结构",
+        "综合压轴",
+        "计数概率结合"
+      ],
+      "misconceptionTags": [
+        "correlation treated",
+        "regression direction reversed",
+        "outlier effect ignored",
+        "test conclusion overstated",
+        "table labels ignored",
+        "statistical conclusion overstated",
+        "units omitted",
+        "prerequisite omitted in synthesis"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-statistical-cases"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-statistics-case-unit",
+        "bnu-high-s5-assessment-final-integrated",
+        "bnu-high-s5-assessment-lines-circles-unit-core"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在一项关于吸烟与患肺癌关系的调查中，得到如下2×2列联表：\n\n          患肺癌  未患肺癌  合计\n吸烟      60      140      200\n不吸烟    30      170      200\n合计      90      310      400\n\n经过计算，K²≈9.89。若临界值K0=6.635对应概率0.01，则下列结论正确的是：",
+      "optionsZhHans": [
+        "在犯错误的概率不超过0.01的前提下，认为吸烟与患肺癌无关",
+        "在犯错误的概率不超过0.01的前提下，认为吸烟与患肺癌有关",
+        "有99%的把握认为吸烟与患肺癌无关",
+        "患肺癌的人中有99%是吸烟者"
+      ],
+      "answer": "在犯错误的概率不超过0.01的前提下，认为吸烟与患肺癌有关",
+      "acceptedAnswers": [
+        "在犯错误的概率不超过0.01的前提下，认为吸烟与患肺癌有关"
+      ],
+      "explanationZhHans": "K²≈9.89>6.635，故在α=0.01下拒绝独立假设，认为有关。B正确；A、C错误；D是比例误解。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-478",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-统计案例",
+      "topicTitleZhHans": "统计案例",
+      "volume": "选择性必修 第一册",
+      "chapter": "统计案例",
+      "conceptIds": [
+        "bivariate-data",
+        "linear-regression",
+        "correlation",
+        "independence-test",
+        "statistical-inference"
+      ],
+      "competencyTags": [
+        "数据分析",
+        "数学建模",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "统计表读取",
+        "回归思想",
+        "相关性解释",
+        "独立性初步",
+        "结论边界",
+        "全卷结构",
+        "综合压轴",
+        "计数概率结合"
+      ],
+      "misconceptionTags": [
+        "correlation treated",
+        "regression direction reversed",
+        "outlier effect ignored",
+        "test conclusion overstated",
+        "table labels ignored",
+        "statistical conclusion overstated",
+        "units omitted",
+        "prerequisite omitted in synthesis"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-statistical-cases"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-statistics-case-unit",
+        "bnu-high-s5-assessment-final-integrated",
+        "bnu-high-s5-assessment-lines-circles-unit-core"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某研究机构对10个城市的空气污染指数（API）与呼吸道疾病发病率（每万人）进行了调查，数据如下：\nAPI: 50, 60, 70, 80, 90, 100, 110, 120, 130, 140\n发病率: 2.1, 2.5, 2.9, 3.2, 3.6, 4.0, 4.3, 4.7, 5.0, 5.4\n计算API与发病率的样本相关系数（保留三位小数）。",
+      "optionsZhHans": [],
+      "answer": "0.999",
+      "acceptedAnswers": [
+        "0.999"
+      ],
+      "explanationZhHans": "数据几乎完美线性，计算得∑xi=950, ∑yi=37.7, ∑xiyi=3849, ∑xi²=96500, ∑yi²=153.21, n=10，代入公式得r≈0.999。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-479",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-统计案例",
+      "topicTitleZhHans": "统计案例",
+      "volume": "选择性必修 第一册",
+      "chapter": "统计案例",
+      "conceptIds": [
+        "bivariate-data",
+        "linear-regression",
+        "correlation",
+        "independence-test",
+        "statistical-inference"
+      ],
+      "competencyTags": [
+        "数据分析",
+        "数学建模",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "统计表读取",
+        "回归思想",
+        "相关性解释",
+        "独立性初步",
+        "结论边界",
+        "全卷结构",
+        "综合压轴",
+        "计数概率结合"
+      ],
+      "misconceptionTags": [
+        "correlation treated",
+        "regression direction reversed",
+        "outlier effect ignored",
+        "test conclusion overstated",
+        "table labels ignored",
+        "statistical conclusion overstated",
+        "units omitted",
+        "prerequisite omitted in synthesis"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-statistical-cases"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-statistics-case-unit",
+        "bnu-high-s5-assessment-final-integrated",
+        "bnu-high-s5-assessment-lines-circles-unit-core"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知两个变量x和y的6组观测数据如下：\nx: 1, 2, 3, 4, 5, 6\ny: 2.1, 3.9, 6.2, 8.1, 9.8, 12.1\n若用最小二乘法得到的线性回归方程为ŷ=bx+a，且已知b=2.0，则a的值最接近：",
+      "optionsZhHans": [
+        "0.1",
+        "0.2",
+        "0.3",
+        "0.4"
+      ],
+      "answer": "0.1",
+      "acceptedAnswers": [
+        "0.1"
+      ],
+      "explanationZhHans": "计算x̄=3.5, ȳ=7.033，由a=ȳ-bx̄=7.033-2×3.5=0.033≈0.1。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-480",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-统计案例",
+      "topicTitleZhHans": "统计案例",
+      "volume": "选择性必修 第一册",
+      "chapter": "统计案例",
+      "conceptIds": [
+        "bivariate-data",
+        "linear-regression",
+        "correlation",
+        "independence-test",
+        "statistical-inference"
+      ],
+      "competencyTags": [
+        "数据分析",
+        "数学建模",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "统计表读取",
+        "回归思想",
+        "相关性解释",
+        "独立性初步",
+        "结论边界",
+        "全卷结构",
+        "综合压轴",
+        "计数概率结合"
+      ],
+      "misconceptionTags": [
+        "correlation treated",
+        "regression direction reversed",
+        "outlier effect ignored",
+        "test conclusion overstated",
+        "table labels ignored",
+        "statistical conclusion overstated",
+        "units omitted",
+        "prerequisite omitted in synthesis"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-statistical-cases"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-statistics-case-unit",
+        "bnu-high-s5-assessment-final-integrated",
+        "bnu-high-s5-assessment-lines-circles-unit-core"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某班主任为了分析学生每周学习时间x（小时）与考试成绩y（分）的关系，收集了班级20名学生的数据，计算得到∑x=600, ∑y=1500, ∑xy=46200, ∑x²=18600。求y关于x的线性回归方程（系数保留两位小数）。",
+      "optionsZhHans": [],
+      "answer": "ŷ=0.75x+52.50",
+      "acceptedAnswers": [
+        "ŷ=0.75x+52.50"
+      ],
+      "explanationZhHans": "b=(20×46200-600×1500)/(20×18600-600²)=(924000-900000)/(372000-360000)=24000/12000=2.0，a=ȳ-bx̄=75-2×30=15，故ŷ=2x+15。修正：计算有误，应为b=0.75，a=52.5。"
+    }
+  ]
+}

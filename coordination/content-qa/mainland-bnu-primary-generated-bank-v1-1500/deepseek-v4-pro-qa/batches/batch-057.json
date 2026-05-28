@@ -1,0 +1,191 @@
+{
+  "batchNumber": 57,
+  "startedAt": "2026-05-27T13:29:21.507Z",
+  "completedAt": "2026-05-27T13:29:39.237Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p5-009",
+    "bnu-primary-ds-v1-p5-010",
+    "bnu-primary-ds-v1-p5-011",
+    "bnu-primary-ds-v1-p5-012",
+    "bnu-primary-ds-v1-p5-013",
+    "bnu-primary-ds-v1-p5-014",
+    "bnu-primary-ds-v1-p5-015",
+    "bnu-primary-ds-v1-p5-016",
+    "bnu-primary-ds-v1-p5-017",
+    "bnu-primary-ds-v1-p5-018",
+    "bnu-primary-ds-v1-p5-019",
+    "bnu-primary-ds-v1-p5-020",
+    "bnu-primary-ds-v1-p5-021",
+    "bnu-primary-ds-v1-p5-022",
+    "bnu-primary-ds-v1-p5-023",
+    "bnu-primary-ds-v1-p5-024",
+    "bnu-primary-ds-v1-p5-025",
+    "bnu-primary-ds-v1-p5-026"
+  ],
+  "usage": {
+    "prompt_tokens": 3702,
+    "completion_tokens": 1279,
+    "total_tokens": 4981,
+    "prompt_tokens_details": {
+      "cached_tokens": 3584
+    },
+    "prompt_cache_hit_tokens": 3584,
+    "prompt_cache_miss_tokens": 118
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p5-009",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解释一致，符合小数除法核心要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-010",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项计算正确，唯一循环小数，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-011",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "商不变性质应用正确，答案18无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-012",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，估算合理，竖式说明清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-013",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项D商为循环小数，其他为有限小数，正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-014",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "商不变性质应用正确，乘10合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-015",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，验算完整，答案格式合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-016",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移性质描述准确，选项唯一正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-017",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "轴对称坐标计算正确，答案6无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-018",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移坐标变换正确，答案完整。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-019",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移性质正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-020",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移顺序不影响结果，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-021",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "轴对称坐标计算正确，答案(5,5)无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-022",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移性质描述准确，选项唯一正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-023",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "逆向平移推理正确，答案(5,1)无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-024",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移坐标计算正确，答案(1,-2)无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-025",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "轴对称定义准确，选项唯一正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-026",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移抵消计算正确，答案右4无误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案与解释一致，无歧义，适合北师大版五年级。"
+    }
+  }
+}

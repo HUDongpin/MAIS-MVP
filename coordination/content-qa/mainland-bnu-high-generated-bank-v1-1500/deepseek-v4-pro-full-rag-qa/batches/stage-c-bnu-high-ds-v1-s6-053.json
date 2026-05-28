@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-053",
+  "startedAt": "2026-05-28T01:38:45.561Z",
+  "completedAt": "2026-05-28T01:38:50.073Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-053"
+  ],
+  "usage": {
+    "prompt_tokens": 2510,
+    "completion_tokens": 296,
+    "total_tokens": 2806,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2126
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-053",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "a_n = 2",
+        "correctedAnswer": "a_n = 2",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "由递推得 a_{n+1}-1=(a_n-1)^2，令 b_n=a_n-1，则 b_{n+1}=b_n^2，b_1=1，故 b_n=1，a_n=2。存储答案 a_n=1+2^{2^{n-1}} 错误，解析自相矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目可解，但存储答案与解析均错误，正确通项为 a_n=2。"
+    }
+  }
+}

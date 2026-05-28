@@ -1,0 +1,573 @@
+{
+  "batchId": "batch-046",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p2-201",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-three-digit-add-sub",
+      "unitTitle": "加与减",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "three-digit-addition-subtraction",
+        "place-value-calculation",
+        "估算验算",
+        "三位数加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "三位数加法",
+        "三位数减法",
+        "连续进位退位",
+        "估算",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "columns misaligned",
+        "regrouping across zero mishandled",
+        "exact result not compared with estimate"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-three-digit-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-three-digit-add-sub",
+        "bnu-primary-p1-lower-assessment-within-100-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆有故事书 268 本，科普书比故事书多 157 本。图书馆共有多少本故事书和科普书？",
+      "optionsZhHans": [
+        "A. 693 本",
+        "B. 425 本",
+        "C. 583 本",
+        "D. 111 本"
+      ],
+      "answer": "A. 693 本",
+      "acceptedAnswers": [
+        "A. 693 本"
+      ],
+      "explanationZhHans": "科普书：268+157=425（本）；总共：268+425=693（本）。先算科普书数量，再相加。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-202",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-three-digit-add-sub",
+      "unitTitle": "加与减",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "three-digit-addition-subtraction",
+        "place-value-calculation",
+        "估算验算",
+        "三位数加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "三位数加法",
+        "三位数减法",
+        "连续进位退位",
+        "估算",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "columns misaligned",
+        "regrouping across zero mishandled",
+        "exact result not compared with estimate"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-three-digit-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-three-digit-add-sub",
+        "bnu-primary-p1-lower-assessment-within-100-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "图书馆原来有故事书264本，上午借出138本，下午还回95本。现在图书馆里故事书比原来多了还是少了？多或少几本？请先估算，再列竖式计算，并验算。",
+      "optionsZhHans": [],
+      "answer": "少了43本",
+      "acceptedAnswers": [
+        "少了43本",
+        "少了43",
+        "43本"
+      ],
+      "explanationZhHans": "先估算：264-138≈130，130+95≈225，比264少约39。竖式计算：264-138=126，126+95=221。264-221=43，所以比原来少了43本。验算：221+43=264，结果正确。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-203",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-three-digit-add-sub",
+      "unitTitle": "加与减",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "three-digit-addition-subtraction",
+        "place-value-calculation",
+        "估算验算",
+        "三位数加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "三位数加法",
+        "三位数减法",
+        "连续进位退位",
+        "估算",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "columns misaligned",
+        "regrouping across zero mishandled",
+        "exact result not compared with estimate"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-three-digit-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-three-digit-add-sub",
+        "bnu-primary-p1-lower-assessment-within-100-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "图书馆原有故事书384本，上午借出157本，下午借出126本。下面哪个算式能正确求出还剩多少本？",
+      "optionsZhHans": [
+        "384 - 157 + 126",
+        "384 - 157 - 126",
+        "384 + 157 - 126",
+        "384 + 157 + 126"
+      ],
+      "answer": "384 - 157 - 126",
+      "acceptedAnswers": [
+        "384 - 157 - 126"
+      ],
+      "explanationZhHans": "原有384本，借出就要减去。上午借出157本，下午借出126本，一共借出157+126本，所以还剩384-157-126本。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-204",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-three-digit-add-sub",
+      "unitTitle": "加与减",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "three-digit-addition-subtraction",
+        "place-value-calculation",
+        "估算验算",
+        "三位数加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "三位数加法",
+        "三位数减法",
+        "连续进位退位",
+        "估算",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "columns misaligned",
+        "regrouping across zero mishandled",
+        "exact result not compared with estimate"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-three-digit-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-three-digit-add-sub",
+        "bnu-primary-p1-lower-assessment-within-100-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "果园里上午摘了268个苹果，下午摘了175个苹果。先估一估，全天摘的苹果大约有多少个？再列竖式算一算，全天一共摘了多少个苹果？最后用减法验算一下。",
+      "optionsZhHans": [],
+      "answer": "估算：270+180=450（个）或 270+170=440（个）等合理估算；竖式计算：268+175=443；验算：443-175=268 或 443-268=175",
+      "acceptedAnswers": [
+        "估算：270+180=450（个）或 270+170=440（个）等合理估算；竖式计算：268+175=443；验算：443-175=268 或 443-268=175"
+      ],
+      "explanationZhHans": "估算时把268看作270，175看作180，和约为450。竖式计算时相同数位对齐，个位8+5=13，向十位进1；十位6+7+1=14，向百位进1；百位2+1+1=4，得443。验算用和减去一个加数等于另一个加数，如443-175=268，说明计算正确。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-205",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-three-digit-add-sub",
+      "unitTitle": "加与减",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "three-digit-addition-subtraction",
+        "place-value-calculation",
+        "估算验算",
+        "三位数加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "三位数加法",
+        "三位数减法",
+        "连续进位退位",
+        "估算",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "columns misaligned",
+        "regrouping across zero mishandled",
+        "exact result not compared with estimate"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-three-digit-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-three-digit-add-sub",
+        "bnu-primary-p1-lower-assessment-within-100-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "图书馆原有故事书268本，上午借出145本，下午归还87本。现在故事书比原来少了多少本？",
+      "optionsZhHans": [
+        "58本",
+        "145本",
+        "87本",
+        "210本"
+      ],
+      "answer": "58本",
+      "acceptedAnswers": [
+        "58本"
+      ],
+      "explanationZhHans": "借出145本使书减少，归还87本使书增加，实际减少145-87=58本。也可先算现在数量268-145+87=210本，再与原来比较268-210=58本，两种方法结果一致。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-206",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-three-digit-add-sub",
+      "unitTitle": "加与减",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "three-digit-addition-subtraction",
+        "place-value-calculation",
+        "估算验算",
+        "三位数加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "三位数加法",
+        "三位数减法",
+        "连续进位退位",
+        "估算",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "columns misaligned",
+        "regrouping across zero mishandled",
+        "exact result not compared with estimate"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-three-digit-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-three-digit-add-sub",
+        "bnu-primary-p1-lower-assessment-within-100-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆新买了一批书。故事书有268本，科技书比故事书多157本。科技书有多少本？先估算结果大约是多少，再列竖式计算，并验算。",
+      "optionsZhHans": [],
+      "answer": "估算：268接近270，157接近160，270+160=430，大约430本。竖式计算：268+157=425（本）。验算：425-157=268，正确。答：科技书有425本。",
+      "acceptedAnswers": [
+        "估算：268接近270，157接近160，270+160=430，大约430本。竖式计算：268+157=425（本）。验算：425-157=268，正确。答：科技书有425本。"
+      ],
+      "explanationZhHans": "求比一个数多几的数用加法。估算时把268看作270，157看作160，和约为430。竖式计算时相同数位对齐，个位8+7=15，向十位进1；十位6+5+1=12，向百位进1；百位2+1+1=4，得425。验算用减法425-157=268，等于故事书本数，说明计算正确。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-207",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-three-digit-add-sub",
+      "unitTitle": "加与减",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "three-digit-addition-subtraction",
+        "place-value-calculation",
+        "估算验算",
+        "三位数加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "三位数加法",
+        "三位数减法",
+        "连续进位退位",
+        "估算",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "columns misaligned",
+        "regrouping across zero mishandled",
+        "exact result not compared with estimate"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-three-digit-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-three-digit-add-sub",
+        "bnu-primary-p1-lower-assessment-within-100-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小乐计算 426 + 298 时，先估算“大约是多少”，再笔算。下面哪种做法是正确的？",
+      "optionsZhHans": [
+        "估算：426 看作 400，298 看作 300，400+300=700；笔算：426+298=724，结果比 700 多一些，合理。",
+        "估算：426 看作 430，298 看作 300，430+300=730；笔算：426+298=624，结果比 730 少很多，不合理。",
+        "估算：426 看作 400，298 看作 200，400+200=600；笔算：426+298=724，结果比 600 多很多，不合理。",
+        "估算：426 看作 500，298 看作 300，500+300=800；笔算：426+298=724，结果比 800 少一些，合理。"
+      ],
+      "answer": "估算：426 看作 400，298 看作 300，400+300=700；笔算：426+298=724，结果比 700 多一些，合理。",
+      "acceptedAnswers": [
+        "估算：426 看作 400，298 看作 300，400+300=700；笔算：426+298=724，结果比 700 多一些，合理。"
+      ],
+      "explanationZhHans": "估算时把 426 看作 400，298 看作 300，和约是 700。笔算 426+298=724，个位 6+8=14 进 1，十位 2+9+1=12 进 1，百位 4+2+1=7，得 724。724 比 700 多一些，说明计算合理。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-208",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-three-digit-add-sub",
+      "unitTitle": "加与减",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "three-digit-addition-subtraction",
+        "place-value-calculation",
+        "估算验算",
+        "三位数加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "三位数加法",
+        "三位数减法",
+        "连续进位退位",
+        "估算",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "columns misaligned",
+        "regrouping across zero mishandled",
+        "exact result not compared with estimate"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-three-digit-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-three-digit-add-sub",
+        "bnu-primary-p1-lower-assessment-within-100-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆原来有故事书 268 本，科普书 195 本。这周新买了一批书，其中故事书增加了 137 本，科普书增加了 156 本。现在故事书和科普书一共有多少本？先估一估，再列竖式计算，最后用交换加数位置的方法验算。",
+      "optionsZhHans": [],
+      "answer": "756",
+      "acceptedAnswers": [
+        "756"
+      ],
+      "explanationZhHans": "先估算：268+137≈270+140=410，195+156≈200+160=360，合计约770。竖式计算：268+137=405，195+156=351，405+351=756。验算：交换加数351+405=756，结果一致。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-209",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-plane-shapes",
+      "unitTitle": "认识图形",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "plane-shape-properties",
+        "angle-side-intuition",
+        "quadrilaterals",
+        "认识图形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "角",
+        "边",
+        "长方形",
+        "正方形",
+        "图形分类"
+      ],
+      "misconceptionTags": [
+        "orientation mistaken for shape type",
+        "side length and angle features mixed",
+        "decorative appearance used instead of properties"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-plane-shapes"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-plane-shapes",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个图形一定是长方形？",
+      "optionsZhHans": [
+        "有4条边和4个角的图形",
+        "对边相等、4个角都是直角的四边形",
+        "4条边都相等的四边形",
+        "有2条边比较长的四边形"
+      ],
+      "answer": "对边相等、4个角都是直角的四边形",
+      "acceptedAnswers": [
+        "对边相等、4个角都是直角的四边形"
+      ],
+      "explanationZhHans": "长方形的特征是：对边相等且四个角都是直角。选项A缺少边和角的特征，选项C描述的是正方形，选项D只说了边的长短，都不完整。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-210",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "lower",
+      "topicId": "bnu-primary-p2-lower-plane-shapes",
+      "unitTitle": "认识图形",
+      "volume": "二年级下册",
+      "conceptIds": [
+        "plane-shape-properties",
+        "angle-side-intuition",
+        "quadrilaterals",
+        "认识图形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "角",
+        "边",
+        "长方形",
+        "正方形",
+        "图形分类"
+      ],
+      "misconceptionTags": [
+        "orientation mistaken for shape type",
+        "side length and angle features mixed",
+        "decorative appearance used instead of properties"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-lower-plane-shapes"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-lower-assessment-plane-shapes",
+        "bnu-primary-p2-lower-assessment-division-strengthening"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面四个图形中，每个图形都有4条边和4个角，但只有一个图形是正方形。请你根据正方形的特征选出来。\n图形A：四条边都相等，四个角都是直角。\n图形B：四条边都相等，四个角都不是直角。\n图形C：只有对边相等，四个角都是直角。\n图形D：只有对边相等，四个角都不是直角。",
+      "optionsZhHans": [],
+      "answer": "图形A",
+      "acceptedAnswers": [
+        "图形A",
+        "A"
+      ],
+      "explanationZhHans": "正方形要求四条边都相等且四个角都是直角。图形A满足这两个条件，所以是正方形。图形B边相等但角不是直角，是菱形。图形C对边相等且角是直角，是长方形。图形D对边相等且角不是直角，是平行四边形。"
+    }
+  ]
+}

@@ -1,0 +1,109 @@
+{
+  "batchId": "model-qa-0011",
+  "ids": [
+    "hjb-junior-ds-v2-s1-081",
+    "hjb-junior-ds-v2-s1-082",
+    "hjb-junior-ds-v2-s1-083",
+    "hjb-junior-ds-v2-s1-084",
+    "hjb-junior-ds-v2-s1-085",
+    "hjb-junior-ds-v2-s1-086",
+    "hjb-junior-ds-v2-s1-087",
+    "hjb-junior-ds-v2-s1-088"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-081",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为 -2a^6b^4，但独立计算得 -18a^6b^4。解析中最后一步乘法结果为 -18a^6b^4，与答案矛盾。",
+      "independentAnswerZhHans": "-18a^6b^4",
+      "answerCheckZhHans": "标准答案 -2a^6b^4 错误，正确结果应为 -18a^6b^4。",
+      "recommendedActionZhHans": "修正答案为 -18a^6b^4，并更新 acceptedAnswers。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-082",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "D",
+      "answerCheckZhHans": "选项 D 正确，其他选项均有误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-083",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x^4 - 81",
+      "answerCheckZhHans": "标准答案正确，解析无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-084",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "108",
+      "answerCheckZhHans": "标准答案正确，解析无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-085",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2x^2 + 5x - 3",
+      "answerCheckZhHans": "标准答案正确，解析无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-086",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-2a^5b",
+      "answerCheckZhHans": "标准答案正确，解析无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-087",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为 20，但独立计算得 56。解析中代入后得 8+48=56，与答案矛盾。",
+      "independentAnswerZhHans": "56",
+      "answerCheckZhHans": "标准答案 20 错误，正确结果应为 56。",
+      "recommendedActionZhHans": "修正答案为 56，并更新 acceptedAnswers。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-088",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "C",
+      "answerCheckZhHans": "选项 C 正确，其他选项均有误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

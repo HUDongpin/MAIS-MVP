@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-211",
+  "startedAt": "2026-05-28T02:56:33.536Z",
+  "completedAt": "2026-05-28T02:56:39.302Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-211"
+  ],
+  "usage": {
+    "prompt_tokens": 2230,
+    "completion_tokens": 272,
+    "total_tokens": 2502,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1846
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-211",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "3√3",
+        "correctedAnswer": "3√3",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合BNU教材范围。独立计算得点D到平面α的距离为3√3，对应选项C。存储答案为2√3，解析中计算过程得出3√3却错误地给出2√3，存在数学错误、答案不匹配和解释矛盾，必须修正为3√3。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1题答案错误，解析矛盾，需修正为3√3。"
+    }
+  }
+}

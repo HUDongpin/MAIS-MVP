@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-057",
+  "startedAt": "2026-05-28T00:57:08.017Z",
+  "completedAt": "2026-05-28T00:57:13.678Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-057"
+  ],
+  "usage": {
+    "prompt_tokens": 2245,
+    "completion_tokens": 270,
+    "total_tokens": 2515,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1861
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-057",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "1",
+        "correctedAnswer": "1",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，由奇函数得 a=c=0，代入 f(1)=2 得 b=1，f(2)=10 验证一致，故 a+b+c=1。存储答案 0 错误，解析自相矛盾且最终给出错误答案。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目答案错误，正确结果为1，存储答案0与条件矛盾，解析存在矛盾，判定为blocker。"
+    }
+  }
+}

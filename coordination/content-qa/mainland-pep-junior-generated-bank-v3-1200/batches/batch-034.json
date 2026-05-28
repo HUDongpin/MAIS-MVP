@@ -1,0 +1,329 @@
+{
+  "batchId": "batch-034",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s1-k05-mc-030",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-inequalities"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "某文具店推出两种笔记本套装：A 套装含 2 本软抄和 1 支笔，售价 13 元；B 套装含 1 本软抄和 2 支笔，售价 11 元。小文买了 5 个套装，共付 57 元。设他买了 x 个 A 套装，y 个 B 套装，下列方程组正确的是（ ）。",
+      "optionsZhHans": [
+        "{ x + y = 5, 13x + 11y = 57 }",
+        "{ x + y = 5, 11x + 13y = 57 }",
+        "{ x + y = 57, 13x + 11y = 5 }",
+        "{ x + y = 57, 11x + 13y = 5 }"
+      ],
+      "answer": "{ x + y = 5, 13x + 11y = 57 }",
+      "acceptedAnswers": [
+        "{ x + y = 5, 13x + 11y = 57 }",
+        "A"
+      ],
+      "explanationZhHans": "设 A 套装买了 x 个，B 套装买了 y 个。由“买了 5 个套装”得 x + y = 5。A 套装每个 13 元，B 套装每个 11 元，共付 57 元，得 13x + 11y = 57。正确选项为 A. { x + y = 5, 13x + 11y = 57 }。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-mc-031",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "某校七年级组织研学活动，若每辆车坐 45 人，则有 15 人无座位；若每辆车坐 50 人，则空出 1 辆车。设租车 x 辆，学生 y 人，下列方程组正确的是（ ）。",
+      "optionsZhHans": [
+        "{ y = 45x + 15, y = 50(x - 1) }",
+        "{ y = 45x - 15, y = 50(x + 1) }",
+        "{ y = 45x + 15, y = 50(x + 1) }",
+        "{ y = 45x - 15, y = 50(x - 1) }"
+      ],
+      "answer": "{ y = 45x + 15, y = 50(x - 1) }",
+      "acceptedAnswers": [
+        "{ y = 45x + 15, y = 50(x - 1) }",
+        "A"
+      ],
+      "explanationZhHans": "若租车 x 辆，每车 45 人，则多出 15 人，故 y = 45x + 15。若每车 50 人，则空出 1 辆车，即实际用了 (x - 1) 辆车，故 y = 50(x - 1)。正确选项为 A. { y = 45x + 15, y = 50(x - 1) }。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-mc-032",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-data-collection"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "为了解七年级学生每天的睡眠时间，以下调查方式中最合理的是（ ）。",
+      "optionsZhHans": [
+        "对全校学生进行普查",
+        "从八年级随机抽取 100 名学生",
+        "从七年级各班随机抽取共 100 名学生",
+        "只调查七年级某班的班干部"
+      ],
+      "answer": "从七年级各班随机抽取共 100 名学生",
+      "acceptedAnswers": [
+        "从七年级各班随机抽取共 100 名学生",
+        "C"
+      ],
+      "explanationZhHans": "调查对象是七年级学生，应从中随机抽样，样本要有代表性且覆盖各班。选项 A 范围过大，B 年级不符，D 样本不随机。最合理的是 C. 从七年级各班随机抽取共 100 名学生。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-mc-033",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "下列各数中，比 √3 大且比 √10 小的数是（ ）。",
+      "optionsZhHans": [
+        "1.5",
+        "2.5",
+        "3.5",
+        "4.5"
+      ],
+      "answer": "2.5",
+      "acceptedAnswers": [
+        "2.5",
+        "B"
+      ],
+      "explanationZhHans": "√3 ≈ 1.732，√10 ≈ 3.162。1.5 < 1.732，3.5 > 3.162，4.5 > 3.162，只有 2.5 在 1.732 和 3.162 之间。故答案为 B. 2.5。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-fi-001",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-linear-systems"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "已知关于 x, y 的方程组 { 3x + 2y = 8, 2x + y = 5 } 的解为 x = a, y = b，则 a + b 的值为 ______。",
+      "optionsZhHans": [],
+      "answer": "3",
+      "acceptedAnswers": [
+        "3",
+        "3.0"
+      ],
+      "explanationZhHans": "解方程组：由 2x + y = 5 得 y = 5 - 2x。代入 3x + 2(5 - 2x) = 8，得 3x + 10 - 4x = 8，-x = -2，x = 2。则 y = 5 - 4 = 1。所以 a = 2, b = 1，a + b = 3。答案为 3。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-fi-002",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-inequalities"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "某次知识竞赛共有 20 道题，答对一题得 5 分，答错或不答扣 2 分。若小华得分超过 70 分，设他答对了 x 道题，则可列出不等式为 ______。",
+      "optionsZhHans": [],
+      "answer": "5x - 2(20 - x) > 70",
+      "acceptedAnswers": [
+        "5x - 2(20 - x) > 70",
+        "5x-2(20-x)>70",
+        "5x - 40 + 2x > 70",
+        "7x - 40 > 70"
+      ],
+      "explanationZhHans": "答对 x 题得 5x 分，答错或不答 (20 - x) 题扣 2(20 - x) 分，总分超过 70 分，即 5x - 2(20 - x) > 70。化简得 7x - 40 > 70。答案为 5x - 2(20 - x) > 70。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-fi-003",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "若 a, b 为实数，且 |a - 2| + √(b + 3) = 0，则 a + b 的值为 ______。",
+      "optionsZhHans": [],
+      "answer": "-1",
+      "acceptedAnswers": [
+        "-1",
+        "-1.0"
+      ],
+      "explanationZhHans": "由非负性，|a - 2| ≥ 0，√(b + 3) ≥ 0，和为 0 则各自为 0。所以 a - 2 = 0，得 a = 2；b + 3 = 0，得 b = -3。则 a + b = 2 + (-3) = -1。答案为 -1。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-fi-004",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-data-collection"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "某班 40 名学生参加课外小组情况如下：美术组 12 人，音乐组 15 人，体育组 8 人，科技组 5 人。若用扇形统计图表示，则美术组对应扇形的圆心角度数为 ______°。",
+      "optionsZhHans": [],
+      "answer": "108",
+      "acceptedAnswers": [
+        "108",
+        "108°",
+        "108度"
+      ],
+      "explanationZhHans": "总人数 40，美术组占 12/40 = 0.3。圆心角 = 360° × 0.3 = 108°。答案为 108。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-fi-005",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "直线 AB、CD 相交于点 O，OE 平分 ∠AOD。若 ∠AOC = 50°，则 ∠DOE 的度数为 ______°。",
+      "optionsZhHans": [],
+      "answer": "65",
+      "acceptedAnswers": [
+        "65",
+        "65°",
+        "65度"
+      ],
+      "explanationZhHans": "由对顶角相等，∠AOD = ∠BOC。∠AOC 与 ∠AOD 互补，∠AOD = 180° - 50° = 130°。OE 平分 ∠AOD，故 ∠DOE = 130° ÷ 2 = 65°。答案为 65。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-fi-006",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-real-numbers"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "某商店将进价为 80 元的商品按标价的八折出售，仍可获利 20%，则该商品的标价为 ______ 元。",
+      "optionsZhHans": [],
+      "answer": "120",
+      "acceptedAnswers": [
+        "120",
+        "120元"
+      ],
+      "explanationZhHans": "设标价为 x 元，则售价为 0.8x 元。获利 20% 即售价 = 进价 × (1 + 20%) = 80 × 1.2 = 96 元。所以 0.8x = 96，解得 x = 120。答案为 120。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

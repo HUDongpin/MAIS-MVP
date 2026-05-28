@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-193",
+  "startedAt": "2026-05-28T02:55:35.705Z",
+  "completedAt": "2026-05-28T02:55:41.279Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-193"
+  ],
+  "usage": {
+    "prompt_tokens": 2184,
+    "completion_tokens": 296,
+    "total_tokens": 2480,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1800
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-193",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "\\frac{4}{9}",
+        "correctedAnswer": "\\frac{4}{9}",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "直线方向向量s=(1,2,2)，平面法向量n=(2,-1,2)，线面角θ满足sinθ=|s·n|/(|s||n|)=4/(3×3)=4/9，选项A为4/9且唯一正确。存储答案B错误，解析自相矛盾，需修正为A。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目可解且符合教材，但存储答案错误，解析矛盾，需将答案修正为选项A。"
+    }
+  }
+}

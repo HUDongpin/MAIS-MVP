@@ -1,0 +1,109 @@
+{
+  "batchId": "model-qa-0035",
+  "ids": [
+    "hjb-junior-ds-v2-s1-273",
+    "hjb-junior-ds-v2-s1-274",
+    "hjb-junior-ds-v2-s1-275",
+    "hjb-junior-ds-v2-s1-276",
+    "hjb-junior-ds-v2-s1-277",
+    "hjb-junior-ds-v2-s1-278",
+    "hjb-junior-ds-v2-s1-279",
+    "hjb-junior-ds-v2-s1-280"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-273",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为240，但解析得出学生人数为285，答案与解析矛盾。独立求解得人数为285，故答案错误。",
+      "independentAnswerZhHans": "285",
+      "answerCheckZhHans": "标准答案240与解析285不一致，且独立计算得285，故答案错误。",
+      "recommendedActionZhHans": "将答案修正为285，并更新acceptedAnswers。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-274",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "m = -3",
+      "answerCheckZhHans": "标准答案正确，解析合理，选项唯一且互异。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-275",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-6",
+      "answerCheckZhHans": "标准答案正确，解析正确，acceptedAnswers覆盖答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-276",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题目要求写出满足的不等式，但标准答案给出的是方程45x+15=50x-10，解析中虽提及可转化为不等式，但答案本身为方程，与题目要求不符。独立求解得x=5，但不等式应为45x+15≤50x-10或类似形式。",
+      "independentAnswerZhHans": "x=5，不等式为45x+15≤50x-10",
+      "answerCheckZhHans": "标准答案给出方程而非不等式，不符合题目要求。",
+      "recommendedActionZhHans": "修正答案为不等式形式，如45x+15≤50x-10，并调整acceptedAnswers。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-277",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "A. 数轴上从-2向左画线，-2处为空心圆圈",
+      "answerCheckZhHans": "标准答案正确，解析正确，选项描述清晰且唯一正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-278",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "1，2",
+      "answerCheckZhHans": "标准答案正确，解析正确，acceptedAnswers覆盖多种格式。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-279",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3a-2≥0",
+      "answerCheckZhHans": "标准答案正确，解析正确，acceptedAnswers覆盖≥和>=。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-280",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "A. (x-15)(200-10x)≥400",
+      "answerCheckZhHans": "标准答案正确，解析正确，选项唯一且互异。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

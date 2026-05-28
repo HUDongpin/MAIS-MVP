@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-194",
+  "startedAt": "2026-05-28T02:55:41.280Z",
+  "completedAt": "2026-05-28T02:55:46.259Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-194"
+  ],
+  "usage": {
+    "prompt_tokens": 2193,
+    "completion_tokens": 261,
+    "total_tokens": 2454,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1809
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-194",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "\\sqrt{2}",
+        "correctedAnswer": "\\sqrt{2}",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，建立坐标系后计算点B到平面PCD的距离为√2，但存储答案2√3/3错误，且解析中计算过程得出√2却给出错误最终答案，存在数学错误和答案矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1题答案错误，正确距离为√2，需修正答案。"
+    }
+  }
+}

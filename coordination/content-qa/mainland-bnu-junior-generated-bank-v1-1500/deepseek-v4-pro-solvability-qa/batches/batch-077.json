@@ -1,0 +1,173 @@
+{
+  "batchNumber": 77,
+  "startedAt": "2026-05-27T17:45:04.582Z",
+  "completedAt": "2026-05-27T17:45:21.436Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s2-413",
+    "bnu-junior-ds-v1-s2-414",
+    "bnu-junior-ds-v1-s2-415",
+    "bnu-junior-ds-v1-s2-416",
+    "bnu-junior-ds-v1-s2-417",
+    "bnu-junior-ds-v1-s2-418",
+    "bnu-junior-ds-v1-s2-419",
+    "bnu-junior-ds-v1-s2-420",
+    "bnu-junior-ds-v1-s2-421",
+    "bnu-junior-ds-v1-s2-422",
+    "bnu-junior-ds-v1-s2-423",
+    "bnu-junior-ds-v1-s2-424"
+  ],
+  "usage": {
+    "prompt_tokens": 5669,
+    "completion_tokens": 1231,
+    "total_tokens": 6900,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 5157
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s2-413",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目明确，多项式可解，答案正确，解释匹配，接受答案覆盖合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-414",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "完全平方式条件充分，k=±8正确，接受答案覆盖多种写法，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-415",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项唯一正确，答案与解释一致，分解彻底，无歧义。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-416",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "条件充分，代入计算正确，答案150无误，解释清晰。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-417",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平方差公式应用正确，答案与解释匹配，接受答案覆盖顺序交换。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-418",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项D正确，其他选项错误分析合理，答案唯一，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-419",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "多项式可分解，答案正确，解释步骤清晰，接受答案覆盖顺序。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-420",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "条件充分，因式分解后代入计算正确，答案-12无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-421",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项A正确，其他选项错误分析合理，答案唯一，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-422",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "完全平方公式应用正确，答案(2a-3b)^2无误，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-423",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "十字相乘法正确，答案x-3无误，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-424",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项唯一正确，指出未分解彻底，答案与解释一致，无歧义。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版初二因式分解要求，条件充分，答案正确，解释匹配，无风险。"
+    }
+  }
+}

@@ -1,0 +1,168 @@
+{
+  "scope": "full",
+  "batchIndex": 9,
+  "startedAt": "2026-05-28T03:24:33.618Z",
+  "completedAt": "2026-05-28T03:25:13.681Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "itemIds": [
+    "10402",
+    "10403",
+    "10404",
+    "10405",
+    "10406",
+    "10407",
+    "10471",
+    "10324",
+    "10335",
+    "10367"
+  ],
+  "usage": {
+    "prompt_tokens": 2509,
+    "completion_tokens": 2508,
+    "total_tokens": 5017,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1483
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2125
+  },
+  "finishReason": "stop",
+  "jsonModeFallback": false,
+  "result": {
+    "items": [
+      {
+        "questionId": "10402",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "1,300",
+        "independentAnswer": "1300",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Simple multiplication, answer matches standard.",
+        "recommendedAction": "none"
+      },
+      {
+        "questionId": "10403",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "1,350 (分鐘/minutes)",
+        "independentAnswer": "1350",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "April has 30 days; 45*30=1350. Answer matches.",
+        "recommendedAction": "none"
+      },
+      {
+        "questionId": "10404",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "10,260 (元/dollars)",
+        "independentAnswer": "10260",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Total tickets 27 * 380 = 10260. Answer matches.",
+        "recommendedAction": "none"
+      },
+      {
+        "questionId": "10405",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "2,961",
+        "independentAnswer": "2961",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "63*47=2961. Answer matches.",
+        "recommendedAction": "none"
+      },
+      {
+        "questionId": "10406",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "9,144",
+        "independentAnswer": "9144",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "254*36=9144. Answer matches.",
+        "recommendedAction": "none"
+      },
+      {
+        "questionId": "10407",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "7,000",
+        "independentAnswer": "7000",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "7*8*125=7000. Answer matches.",
+        "recommendedAction": "none"
+      },
+      {
+        "questionId": "10471",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "4,455",
+        "independentAnswer": "4455",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "45*99=4455. Answer matches.",
+        "recommendedAction": "none"
+      },
+      {
+        "questionId": "10324",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": "59",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "472 ÷ 8 = 59, but standard answer key is missing.",
+        "recommendedAction": "Provide the correct answer: 59."
+      },
+      {
+        "questionId": "10335",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": "5",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "160 ÷ 32 = 5, but standard answer key is missing.",
+        "recommendedAction": "Provide the correct answer: 5."
+      },
+      {
+        "questionId": "10367",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "<not provided from school>",
+        "independentAnswer": "5",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P1",
+        "reason": "88 ÷ 20 = 4.4, so 5 plates needed. Standard answer key is missing.",
+        "recommendedAction": "Provide the correct answer: 5."
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "unsolvable": 0,
+      "ambiguous": 0,
+      "imageContextRequired": 0,
+      "answerMismatch": 0,
+      "missingAnswerKey": 3,
+      "notes": "All items are solvable arithmetic or simple word problems. 7 items have correct provided answers. 3 items are missing answer keys; they are solvable and independent answers are provided."
+    }
+  }
+}

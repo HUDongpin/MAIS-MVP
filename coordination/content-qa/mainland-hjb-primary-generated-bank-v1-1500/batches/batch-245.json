@@ -1,0 +1,298 @@
+{
+  "batchId": "batch-245",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p5-221",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-statistics-review",
+      "unitTitle": "统计表达与综合应用",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "statistical-displays",
+        "line-graphs",
+        "data-comparison",
+        "mixed-review",
+        "统计"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "反思整理"
+      ],
+      "skillTags": [
+        "统计图读取",
+        "数据比较",
+        "趋势描述",
+        "综合应用",
+        "错因检查"
+      ],
+      "misconceptionTags": [
+        "trend inferred from one point only",
+        "vertical scale read incorrectly",
+        "model chosen from keywords rather than quantities"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-statistics-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-data-average-unit",
+        "hjb-primary-p4-lower-assessment-line-statistics"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小杰记录了连续5天每天上午8时的气温，并绘制成折线统计图。数据如下：第1天12℃，第2天14℃，第3天11℃，第4天15℃，第5天16℃。下列说法正确的是（ ）。",
+      "optionsZhHans": [
+        "这5天的气温一直上升",
+        "第2天到第3天气温下降，第3天到第5天气温上升",
+        "第3天的气温最低，所以第3天到第4天气温上升最快",
+        "第5天的气温最高，所以第4天到第5天气温上升最快"
+      ],
+      "answer": "第2天到第3天气温下降，第3天到第5天气温上升",
+      "acceptedAnswers": [
+        "第2天到第3天气温下降，第3天到第5天气温上升"
+      ],
+      "explanationZhHans": "从数据看，第1天到第2天上升，第2天到第3天下降，第3天到第5天上升，所以B正确。A错在不是一直上升；C、D错在上升最快应比较增加量，第3到4天增加4℃，第4到5天增加1℃，第3到4天更快。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-222",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-statistics-review",
+      "unitTitle": "统计表达与综合应用",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "statistical-displays",
+        "line-graphs",
+        "data-comparison",
+        "mixed-review",
+        "统计"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "反思整理"
+      ],
+      "skillTags": [
+        "统计图读取",
+        "数据比较",
+        "趋势描述",
+        "综合应用",
+        "错因检查"
+      ],
+      "misconceptionTags": [
+        "trend inferred from one point only",
+        "vertical scale read incorrectly",
+        "model chosen from keywords rather than quantities"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-statistics-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-data-average-unit",
+        "hjb-primary-p4-lower-assessment-line-statistics"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下表是某商店一周内每天售出的笔记本数量。\n\n| 星期 | 一 | 二 | 三 | 四 | 五 | 六 | 日 |\n|------|----|----|----|----|----|----|----|\n| 数量（本） | 15 | 12 | 18 | 20 | 25 | 30 | 22 |\n\n售出数量超过20本的有______天。",
+      "optionsZhHans": [],
+      "answer": "3",
+      "acceptedAnswers": [
+        "3"
+      ],
+      "explanationZhHans": "超过20本即数量大于20。周五25本、周六30本、周日22本，共3天。注意周四20本不大于20，不算。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-223",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-statistics-review",
+      "unitTitle": "统计表达与综合应用",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "statistical-displays",
+        "line-graphs",
+        "data-comparison",
+        "mixed-review",
+        "统计"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "反思整理"
+      ],
+      "skillTags": [
+        "统计图读取",
+        "数据比较",
+        "趋势描述",
+        "综合应用",
+        "错因检查"
+      ],
+      "misconceptionTags": [
+        "trend inferred from one point only",
+        "vertical scale read incorrectly",
+        "model chosen from keywords rather than quantities"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-statistics-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-data-average-unit",
+        "hjb-primary-p4-lower-assessment-line-statistics"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是某城市2023年1~6月的月平均气温统计表。\n\n| 月份 | 1月 | 2月 | 3月 | 4月 | 5月 | 6月 |\n|------|-----|-----|-----|-----|-----|-----|\n| 气温（℃） | 2 | 5 | 10 | 16 | 22 | 28 |\n\n根据表中数据，下列说法正确的是（ ）。",
+      "optionsZhHans": [
+        "这6个月的气温一直上升",
+        "气温上升最快的是2月到3月",
+        "气温上升最快的是5月到6月",
+        "4月的气温比3月上升了6℃"
+      ],
+      "answer": "4月的气温比3月上升了6℃",
+      "acceptedAnswers": [
+        "4月的气温比3月上升了6℃"
+      ],
+      "explanationZhHans": "计算每月上升量：1→2月升3℃，2→3月升5℃，3→4月升6℃，4→5月升6℃，5→6月升6℃。上升最快的是3→4、4→5、5→6月，均为6℃，所以B、C不准确。D正确，4月16℃减3月10℃得6℃。A错在一直上升，但并非唯一结论。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-224",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-statistics-review",
+      "unitTitle": "统计表达与综合应用",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "statistical-displays",
+        "line-graphs",
+        "data-comparison",
+        "mixed-review",
+        "统计"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "反思整理"
+      ],
+      "skillTags": [
+        "统计图读取",
+        "数据比较",
+        "趋势描述",
+        "综合应用",
+        "错因检查"
+      ],
+      "misconceptionTags": [
+        "trend inferred from one point only",
+        "vertical scale read incorrectly",
+        "model chosen from keywords rather than quantities"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-statistics-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-data-average-unit",
+        "hjb-primary-p4-lower-assessment-line-statistics"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丁记录了蒜苗生长的高度，数据如下：\n\n| 第几天 | 1 | 2 | 3 | 4 | 5 | 6 | 7 |\n|--------|---|---|---|---|---|---|---|---|\n| 高度（厘米） | 2 | 3 | 5 | 8 | 12 | 17 | 23 |\n\n蒜苗高度增加最快的是第______天到第______天。",
+      "optionsZhHans": [],
+      "answer": "6,7",
+      "acceptedAnswers": [
+        "6,7",
+        "6 7",
+        "6、7",
+        "第6天到第7天"
+      ],
+      "explanationZhHans": "计算每天增加量：1→2天增1cm，2→3天增2cm，3→4天增3cm，4→5天增4cm，5→6天增5cm，6→7天增6cm。增加最快的是6→7天，增加6厘米。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-225",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-statistics-review",
+      "unitTitle": "统计表达与综合应用",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "statistical-displays",
+        "line-graphs",
+        "data-comparison",
+        "mixed-review",
+        "统计"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "反思整理"
+      ],
+      "skillTags": [
+        "统计图读取",
+        "数据比较",
+        "趋势描述",
+        "综合应用",
+        "错因检查"
+      ],
+      "misconceptionTags": [
+        "trend inferred from one point only",
+        "vertical scale read incorrectly",
+        "model chosen from keywords rather than quantities"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-statistics-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-data-average-unit",
+        "hjb-primary-p4-lower-assessment-line-statistics"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是某停车场连续5小时内的停车数量记录。\n\n| 时刻 | 8:00 | 9:00 | 10:00 | 11:00 | 12:00 |\n|------|------|------|-------|-------|-------|\n| 停车数（辆） | 20 | 35 | 50 | 45 | 30 |\n\n下列说法正确的是（ ）。",
+      "optionsZhHans": [
+        "停车数量一直在增加",
+        "停车数量一直在减少",
+        "从8:00到10:00停车数量增加，10:00到12:00停车数量减少",
+        "10:00的停车数量是50辆，所以10:00到11:00减少得最快"
+      ],
+      "answer": "从8:00到10:00停车数量增加，10:00到12:00停车数量减少",
+      "acceptedAnswers": [
+        "从8:00到10:00停车数量增加，10:00到12:00停车数量减少"
+      ],
+      "explanationZhHans": "数据变化：8:00→10:00从20增加到50，10:00→12:00从50减少到30，所以C正确。A、B与数据不符。D中10:00到11:00减少5辆，11:00到12:00减少15辆，后者减少更快，所以D错。"
+    }
+  ]
+}

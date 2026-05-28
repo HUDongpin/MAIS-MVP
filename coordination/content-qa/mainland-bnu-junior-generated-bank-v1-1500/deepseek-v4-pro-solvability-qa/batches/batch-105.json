@@ -1,0 +1,176 @@
+{
+  "batchNumber": 105,
+  "startedAt": "2026-05-27T17:58:54.858Z",
+  "completedAt": "2026-05-27T17:59:24.559Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s3-249",
+    "bnu-junior-ds-v1-s3-250",
+    "bnu-junior-ds-v1-s3-251",
+    "bnu-junior-ds-v1-s3-252",
+    "bnu-junior-ds-v1-s3-253",
+    "bnu-junior-ds-v1-s3-254",
+    "bnu-junior-ds-v1-s3-255",
+    "bnu-junior-ds-v1-s3-256",
+    "bnu-junior-ds-v1-s3-257",
+    "bnu-junior-ds-v1-s3-258",
+    "bnu-junior-ds-v1-s3-259",
+    "bnu-junior-ds-v1-s3-260"
+  ],
+  "usage": {
+    "prompt_tokens": 7296,
+    "completion_tokens": 1873,
+    "total_tokens": 9169,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 6784
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s3-249",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，由正面和左面视图可推导出最少需要4个小立方块，答案和解释正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-250",
+        "status": "fail",
+        "severity": "major",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "7个",
+        "rationale": "根据三视图，底层6个位置均有方块，主视图左列高2、中列高1、右列高2，左视图左列高2、右列高1。要满足主视图右列高2，需在右列某位置放2个；左视图右列高1限制右列只能有1个位置高1，因此右列只能有一个位置放2个，其余位置放1个。最少情况：左列两位置均放2个（满足主视图左列高2和左视图左列高2），中列两位置均放1个（满足主视图中列高1），右列一个位置放2个、另一个放1个（满足主视图右列高2和左视图右列高1），总数为2+2+1+1+2+1=9？重新分析：俯视图3行2列，共6个位置。设行从前往后为第1、2、3行，列从左到右为第1、2列。主视图：看到3列，对应俯视图的列，左列（第1列）最高2层，中列（第2列？主视图有3列，但俯视图只有2列，矛盾。题目说“从上面看，看到3行2列”，即俯视图是3行2列，但主视图有3列，说明主视图的列对应俯视图的行？通常三视图：主视图是从前面看，看到的是列（左右方向）和层（上下方向），行对应深度；俯视图是从上面看，看到行和列；左视图是从左面看，看到行和层。所以主视图的列数等于俯视图的列数，主视图的行数等于层数。这里俯视图是3行2列，所以主视图应该有2列，但题目说主视图看到3列，矛盾。可能题目描述有误：主视图“看到3列”可能是指从正面看有3列，但俯视图是3行2列，那么主视图的列数应该等于俯视图的列数，即2列。所以题目中“从正面看，看到3列”与俯视图2列不一致，无法构成合理几何体。因此题目条件矛盾，无法求解。但若强行解释：可能俯视图的“3行2列”中，行对应主视图的列？通常俯视图的行是前后方向，列是左右方向；主视图的列是左右方向，行是上下方向。所以主视图的列数应等于俯视图的列数。这里俯视图2列，主视图却3列，确实矛盾。故题目有误，无法得出正确答案。原答案6个错误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-251",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "反比例关系明确，代入求解正确，答案80个与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-252",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由图象在二、四象限得k-1<0，解得k<1，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-253",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "代入点得m=-6，图象在二、四象限，选项B正确，其他选项错误，答案唯一。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-254",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "代入求解得a=-14，表达式y=-12/x，答案和解释正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-255",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由x1<x2<0且y1>y2知在第三象限y随x增大而减小，故k>0，得m>1/2，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-256",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "验证各点，只有(-3,2)满足xy=-6，答案正确，选项无重复。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-257",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "路程240km，时间2.5h，速度96km/h，答案和解释正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-258",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "代入点得n=1，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-259",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "联立方程无解条件为k与k+1异号，解得-1<k<0，答案正确，选项唯一。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-260",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "代入交点得m=2，b=0，答案和解释正确。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 11,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第250题因主视图列数与俯视图列数矛盾，无法构成合理几何体，答案错误；其余题目均正确。"
+    }
+  }
+}

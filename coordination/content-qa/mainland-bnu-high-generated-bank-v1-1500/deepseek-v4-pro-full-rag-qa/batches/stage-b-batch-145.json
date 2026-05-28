@@ -1,0 +1,126 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-145",
+  "startedAt": "2026-05-28T01:42:12.145Z",
+  "completedAt": "2026-05-28T01:42:22.378Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-153",
+    "bnu-high-ds-v1-s6-154",
+    "bnu-high-ds-v1-s6-155",
+    "bnu-high-ds-v1-s6-156",
+    "bnu-high-ds-v1-s6-157",
+    "bnu-high-ds-v1-s6-158",
+    "bnu-high-ds-v1-s6-159",
+    "bnu-high-ds-v1-s6-160"
+  ],
+  "usage": {
+    "prompt_tokens": 11807,
+    "completion_tokens": 908,
+    "total_tokens": 12715,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 11423
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-153",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，均为3或-4，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-154",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案11与独立解一致，解析正确，唯一选项。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-155",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案a_n = n^2与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-156",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案17与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-157",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案13/16与独立解一致，解析正确，唯一选项。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-158",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案10与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-159",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案a_n = (3^n + 1)/2与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-160",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析正确，唯一选项。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8道题存储答案、解析与Stage A独立解一致，无问题。"
+    }
+  }
+}

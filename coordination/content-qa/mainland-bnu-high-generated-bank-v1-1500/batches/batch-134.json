@@ -1,0 +1,689 @@
+{
+  "batchId": "batch-134",
+  "questions": [
+    {
+      "id": "bnu-high-ds-v1-s6-331",
+      "batch": "bnu-high-v1",
+      "grade": "S6",
+      "semester": "upper",
+      "topicId": "bnu-high-s6-导数及其应用",
+      "topicTitleZhHans": "导数及其应用",
+      "volume": "选择性必修 第二册",
+      "chapter": "导数及其应用",
+      "conceptIds": [
+        "derivatives",
+        "derivative-rules",
+        "tangent-lines",
+        "monotonicity",
+        "extrema",
+        "optimization"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "数学运算",
+        "直观想象",
+        "数学建模"
+      ],
+      "skillTags": [
+        "导数计算",
+        "切线方程",
+        "单调区间",
+        "极值最值",
+        "基本求导",
+        "切线斜率",
+        "单调性判断",
+        "极值求解"
+      ],
+      "misconceptionTags": [
+        "derivative value confused with function value",
+        "critical point treated automatically",
+        "endpoint check omitted",
+        "optimization condition not tied to context",
+        "domain omitted",
+        "derivative sign and function value confused",
+        "endpoint ignored",
+        "constant derivative mishandled"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s6-selective-2-derivatives"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s6-assessment-derivatives-foundation-review",
+        "bnu-high-s6-assessment-derivatives-foundation-unit",
+        "bnu-high-s6-assessment-derivatives-comprehensive-unit"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知函数 f(x) = x³ - 3x² + a 在区间 [0, 3] 上的最大值为 3，则实数 a 的值为（ ）。",
+      "optionsZhHans": [
+        "0",
+        "1",
+        "2",
+        "3"
+      ],
+      "answer": "3",
+      "acceptedAnswers": [
+        "3"
+      ],
+      "explanationZhHans": "f'(x)=3x²-6x=3x(x-2)，驻点x=0,2。计算f(0)=a，f(2)=a-4，f(3)=a。最大值为a，由a=3得a=3。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s6-332",
+      "batch": "bnu-high-v1",
+      "grade": "S6",
+      "semester": "upper",
+      "topicId": "bnu-high-s6-导数及其应用",
+      "topicTitleZhHans": "导数及其应用",
+      "volume": "选择性必修 第二册",
+      "chapter": "导数及其应用",
+      "conceptIds": [
+        "derivatives",
+        "derivative-rules",
+        "tangent-lines",
+        "monotonicity",
+        "extrema",
+        "optimization"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "数学运算",
+        "直观想象",
+        "数学建模"
+      ],
+      "skillTags": [
+        "导数计算",
+        "切线方程",
+        "单调区间",
+        "极值最值",
+        "基本求导",
+        "切线斜率",
+        "单调性判断",
+        "极值求解"
+      ],
+      "misconceptionTags": [
+        "derivative value confused with function value",
+        "critical point treated automatically",
+        "endpoint check omitted",
+        "optimization condition not tied to context",
+        "domain omitted",
+        "derivative sign and function value confused",
+        "endpoint ignored",
+        "constant derivative mishandled"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s6-selective-2-derivatives"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s6-assessment-derivatives-foundation-review",
+        "bnu-high-s6-assessment-derivatives-foundation-unit",
+        "bnu-high-s6-assessment-derivative-parameter-monotonicity-topic"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "求函数 f(x) = x³ - 3x² - 9x + 5 在区间 [-2, 4] 上的最大值和最小值。",
+      "optionsZhHans": [],
+      "answer": "最大值为10，最小值为-22",
+      "acceptedAnswers": [
+        "最大值为10，最小值为-22",
+        "最大值10，最小值-22"
+      ],
+      "explanationZhHans": "f'(x)=3x²-6x-9=3(x-3)(x+1)，驻点x=-1,3。计算f(-2)=3，f(-1)=10，f(3)=-22，f(4)=-15。比较得最大值10，最小值-22。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s6-333",
+      "batch": "bnu-high-v1",
+      "grade": "S6",
+      "semester": "upper",
+      "topicId": "bnu-high-s6-导数及其应用",
+      "topicTitleZhHans": "导数及其应用",
+      "volume": "选择性必修 第二册",
+      "chapter": "导数及其应用",
+      "conceptIds": [
+        "derivatives",
+        "derivative-rules",
+        "tangent-lines",
+        "monotonicity",
+        "extrema",
+        "optimization"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "数学运算",
+        "直观想象",
+        "数学建模"
+      ],
+      "skillTags": [
+        "导数计算",
+        "切线方程",
+        "单调区间",
+        "极值最值",
+        "基本求导",
+        "切线斜率",
+        "单调性判断",
+        "极值求解"
+      ],
+      "misconceptionTags": [
+        "derivative value confused with function value",
+        "critical point treated automatically",
+        "endpoint check omitted",
+        "optimization condition not tied to context",
+        "domain omitted",
+        "derivative sign and function value confused",
+        "endpoint ignored",
+        "constant derivative mishandled"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s6-selective-2-derivatives"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s6-assessment-derivatives-foundation-review",
+        "bnu-high-s6-assessment-derivatives-foundation-unit",
+        "bnu-high-s6-assessment-derivatives-comprehensive-unit"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "曲线 y = x³ - 3x 在点 (1, -2) 处的切线方程为 ______。",
+      "optionsZhHans": [],
+      "answer": "y = -2",
+      "acceptedAnswers": [
+        "y = -2",
+        "y=-2"
+      ],
+      "explanationZhHans": "y'=3x²-3，在x=1处斜率为0，切线为水平线。代入点(1,-2)得y=-2。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s6-334",
+      "batch": "bnu-high-v1",
+      "grade": "S6",
+      "semester": "upper",
+      "topicId": "bnu-high-s6-导数及其应用",
+      "topicTitleZhHans": "导数及其应用",
+      "volume": "选择性必修 第二册",
+      "chapter": "导数及其应用",
+      "conceptIds": [
+        "derivatives",
+        "derivative-rules",
+        "tangent-lines",
+        "monotonicity",
+        "extrema",
+        "optimization"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "数学运算",
+        "直观想象",
+        "数学建模"
+      ],
+      "skillTags": [
+        "导数计算",
+        "切线方程",
+        "单调区间",
+        "极值最值",
+        "基本求导",
+        "切线斜率",
+        "单调性判断",
+        "极值求解"
+      ],
+      "misconceptionTags": [
+        "derivative value confused with function value",
+        "critical point treated automatically",
+        "endpoint check omitted",
+        "optimization condition not tied to context",
+        "domain omitted",
+        "derivative sign and function value confused",
+        "endpoint ignored",
+        "constant derivative mishandled"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s6-selective-2-derivatives"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s6-assessment-derivatives-foundation-review",
+        "bnu-high-s6-assessment-derivatives-foundation-unit",
+        "bnu-high-s6-assessment-derivative-parameter-monotonicity-topic"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "函数 f(x) = x³ - 3x 的单调递减区间是（ ）。",
+      "optionsZhHans": [
+        "(-∞, -1) 和 (1, +∞)",
+        "(-1, 1)",
+        "(-∞, -1] 和 [1, +∞)",
+        "[-1, 1]"
+      ],
+      "answer": "[-1, 1]",
+      "acceptedAnswers": [
+        "[-1, 1]"
+      ],
+      "explanationZhHans": "f'(x)=3x²-3=3(x-1)(x+1)。由f'(x)≤0得-1≤x≤1，故递减区间为[-1,1]。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s6-335",
+      "batch": "bnu-high-v1",
+      "grade": "S6",
+      "semester": "upper",
+      "topicId": "bnu-high-s6-导数及其应用",
+      "topicTitleZhHans": "导数及其应用",
+      "volume": "选择性必修 第二册",
+      "chapter": "导数及其应用",
+      "conceptIds": [
+        "derivatives",
+        "derivative-rules",
+        "tangent-lines",
+        "monotonicity",
+        "extrema",
+        "optimization"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "数学运算",
+        "直观想象",
+        "数学建模"
+      ],
+      "skillTags": [
+        "导数计算",
+        "切线方程",
+        "单调区间",
+        "极值最值",
+        "基本求导",
+        "切线斜率",
+        "单调性判断",
+        "极值求解"
+      ],
+      "misconceptionTags": [
+        "derivative value confused with function value",
+        "critical point treated automatically",
+        "endpoint check omitted",
+        "optimization condition not tied to context",
+        "domain omitted",
+        "derivative sign and function value confused",
+        "endpoint ignored",
+        "constant derivative mishandled"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s6-selective-2-derivatives"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s6-assessment-derivatives-foundation-review",
+        "bnu-high-s6-assessment-derivatives-foundation-unit",
+        "bnu-high-s6-assessment-derivatives-comprehensive-unit"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知函数 f(x) = x³ + ax² + bx + c 在 x = -1 处取得极大值，在 x = 3 处取得极小值，且极小值为 -25，求 a, b, c 的值。",
+      "optionsZhHans": [],
+      "answer": "a = -3, b = -9, c = 2",
+      "acceptedAnswers": [
+        "a = -3, b = -9, c = 2",
+        "a=-3,b=-9,c=2"
+      ],
+      "explanationZhHans": "f'(x)=3x²+2ax+b，由极值条件得f'(-1)=0,f'(3)=0，解得a=-3,b=-9。由f(3)=-25得c=2。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s6-336",
+      "batch": "bnu-high-v1",
+      "grade": "S6",
+      "semester": "upper",
+      "topicId": "bnu-high-s6-导数及其应用",
+      "topicTitleZhHans": "导数及其应用",
+      "volume": "选择性必修 第二册",
+      "chapter": "导数及其应用",
+      "conceptIds": [
+        "derivatives",
+        "derivative-rules",
+        "tangent-lines",
+        "monotonicity",
+        "extrema",
+        "optimization"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "数学运算",
+        "直观想象",
+        "数学建模"
+      ],
+      "skillTags": [
+        "导数计算",
+        "切线方程",
+        "单调区间",
+        "极值最值",
+        "基本求导",
+        "切线斜率",
+        "单调性判断",
+        "极值求解"
+      ],
+      "misconceptionTags": [
+        "derivative value confused with function value",
+        "critical point treated automatically",
+        "endpoint check omitted",
+        "optimization condition not tied to context",
+        "domain omitted",
+        "derivative sign and function value confused",
+        "endpoint ignored",
+        "constant derivative mishandled"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s6-selective-2-derivatives"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s6-assessment-derivatives-foundation-review",
+        "bnu-high-s6-assessment-derivatives-foundation-unit",
+        "bnu-high-s6-assessment-derivative-parameter-monotonicity-topic"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "函数 y = x² - 4x + 3 在区间 [0, 3] 上的最小值为 ______。",
+      "optionsZhHans": [],
+      "answer": "-1",
+      "acceptedAnswers": [
+        "-1"
+      ],
+      "explanationZhHans": "y'=2x-4，驻点x=2。计算y(0)=3，y(2)=-1，y(3)=0，故最小值为-1。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s6-337",
+      "batch": "bnu-high-v1",
+      "grade": "S6",
+      "semester": "upper",
+      "topicId": "bnu-high-s6-导数及其应用",
+      "topicTitleZhHans": "导数及其应用",
+      "volume": "选择性必修 第二册",
+      "chapter": "导数及其应用",
+      "conceptIds": [
+        "derivatives",
+        "derivative-rules",
+        "tangent-lines",
+        "monotonicity",
+        "extrema",
+        "optimization"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "数学运算",
+        "直观想象",
+        "数学建模"
+      ],
+      "skillTags": [
+        "导数计算",
+        "切线方程",
+        "单调区间",
+        "极值最值",
+        "基本求导",
+        "切线斜率",
+        "单调性判断",
+        "极值求解"
+      ],
+      "misconceptionTags": [
+        "derivative value confused with function value",
+        "critical point treated automatically",
+        "endpoint check omitted",
+        "optimization condition not tied to context",
+        "domain omitted",
+        "derivative sign and function value confused",
+        "endpoint ignored",
+        "constant derivative mishandled"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s6-selective-2-derivatives"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s6-assessment-derivatives-foundation-review",
+        "bnu-high-s6-assessment-derivatives-foundation-unit",
+        "bnu-high-s6-assessment-derivatives-comprehensive-unit"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "若函数 f(x) = x³ - ax 在区间 [1, +∞) 上单调递增，则实数 a 的取值范围是（ ）。",
+      "optionsZhHans": [
+        "a ≤ 0",
+        "a ≤ 3",
+        "a ≥ 3",
+        "a ≥ 0"
+      ],
+      "answer": "a ≤ 3",
+      "acceptedAnswers": [
+        "a ≤ 3"
+      ],
+      "explanationZhHans": "f'(x)=3x²-a，在[1,+∞)上需f'(x)≥0，即3x²≥a恒成立。x=1时3x²最小为3，故a≤3。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s6-338",
+      "batch": "bnu-high-v1",
+      "grade": "S6",
+      "semester": "upper",
+      "topicId": "bnu-high-s6-导数及其应用",
+      "topicTitleZhHans": "导数及其应用",
+      "volume": "选择性必修 第二册",
+      "chapter": "导数及其应用",
+      "conceptIds": [
+        "derivatives",
+        "derivative-rules",
+        "tangent-lines",
+        "monotonicity",
+        "extrema",
+        "optimization"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "数学运算",
+        "直观想象",
+        "数学建模"
+      ],
+      "skillTags": [
+        "导数计算",
+        "切线方程",
+        "单调区间",
+        "极值最值",
+        "基本求导",
+        "切线斜率",
+        "单调性判断",
+        "极值求解"
+      ],
+      "misconceptionTags": [
+        "derivative value confused with function value",
+        "critical point treated automatically",
+        "endpoint check omitted",
+        "optimization condition not tied to context",
+        "domain omitted",
+        "derivative sign and function value confused",
+        "endpoint ignored",
+        "constant derivative mishandled"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s6-selective-2-derivatives"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s6-assessment-derivatives-foundation-review",
+        "bnu-high-s6-assessment-derivatives-foundation-unit",
+        "bnu-high-s6-assessment-derivative-parameter-monotonicity-topic"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "求函数 f(x) = x³ - 6x² + 9x 的极值。",
+      "optionsZhHans": [],
+      "answer": "极大值为4，极小值为0",
+      "acceptedAnswers": [
+        "极大值为4，极小值为0",
+        "极大值4，极小值0"
+      ],
+      "explanationZhHans": "f'(x)=3x²-12x+9=3(x-1)(x-3)，驻点x=1,3。f(1)=4为极大值，f(3)=0为极小值。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s6-339",
+      "batch": "bnu-high-v1",
+      "grade": "S6",
+      "semester": "upper",
+      "topicId": "bnu-high-s6-导数及其应用",
+      "topicTitleZhHans": "导数及其应用",
+      "volume": "选择性必修 第二册",
+      "chapter": "导数及其应用",
+      "conceptIds": [
+        "derivatives",
+        "derivative-rules",
+        "tangent-lines",
+        "monotonicity",
+        "extrema",
+        "optimization"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "数学运算",
+        "直观想象",
+        "数学建模"
+      ],
+      "skillTags": [
+        "导数计算",
+        "切线方程",
+        "单调区间",
+        "极值最值",
+        "基本求导",
+        "切线斜率",
+        "单调性判断",
+        "极值求解"
+      ],
+      "misconceptionTags": [
+        "derivative value confused with function value",
+        "critical point treated automatically",
+        "endpoint check omitted",
+        "optimization condition not tied to context",
+        "domain omitted",
+        "derivative sign and function value confused",
+        "endpoint ignored",
+        "constant derivative mishandled"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s6-selective-2-derivatives"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s6-assessment-derivatives-foundation-review",
+        "bnu-high-s6-assessment-derivatives-foundation-unit",
+        "bnu-high-s6-assessment-derivatives-comprehensive-unit"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "曲线 y = x³ - 3x² + 2 在点 (2, -2) 处的切线斜率为 ______。",
+      "optionsZhHans": [],
+      "answer": "0",
+      "acceptedAnswers": [
+        "0"
+      ],
+      "explanationZhHans": "y'=3x²-6x，在x=2处y'=3×4-12=0，故切线斜率为0。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s6-340",
+      "batch": "bnu-high-v1",
+      "grade": "S6",
+      "semester": "upper",
+      "topicId": "bnu-high-s6-导数及其应用",
+      "topicTitleZhHans": "导数及其应用",
+      "volume": "选择性必修 第二册",
+      "chapter": "导数及其应用",
+      "conceptIds": [
+        "derivatives",
+        "derivative-rules",
+        "tangent-lines",
+        "monotonicity",
+        "extrema",
+        "optimization"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "数学运算",
+        "直观想象",
+        "数学建模"
+      ],
+      "skillTags": [
+        "导数计算",
+        "切线方程",
+        "单调区间",
+        "极值最值",
+        "基本求导",
+        "切线斜率",
+        "单调性判断",
+        "极值求解"
+      ],
+      "misconceptionTags": [
+        "derivative value confused with function value",
+        "critical point treated automatically",
+        "endpoint check omitted",
+        "optimization condition not tied to context",
+        "domain omitted",
+        "derivative sign and function value confused",
+        "endpoint ignored",
+        "constant derivative mishandled"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s6-selective-2-derivatives"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s6-assessment-derivatives-foundation-review",
+        "bnu-high-s6-assessment-derivatives-foundation-unit",
+        "bnu-high-s6-assessment-derivative-parameter-monotonicity-topic"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "函数 f(x) = x³ - 3x 在区间 [-2, 2] 上的最大值是（ ）。",
+      "optionsZhHans": [
+        "-2",
+        "0",
+        "2",
+        "4"
+      ],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2"
+      ],
+      "explanationZhHans": "f'(x)=3x²-3，驻点x=±1。计算f(-2)=-2，f(-1)=2，f(1)=-2，f(2)=2，故最大值为2。"
+    }
+  ]
+}

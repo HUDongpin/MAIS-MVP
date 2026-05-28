@@ -1,0 +1,118 @@
+{
+  "batchId": "model-qa-0088",
+  "ids": [
+    "hjb-junior-ds-v2-s2-197",
+    "hjb-junior-ds-v2-s2-198",
+    "hjb-junior-ds-v2-s2-199",
+    "hjb-junior-ds-v2-s2-200",
+    "hjb-junior-ds-v2-s2-201",
+    "hjb-junior-ds-v2-s2-202",
+    "hjb-junior-ds-v2-s2-203",
+    "hjb-junior-ds-v2-s2-204"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-197",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为3√10，但解析计算得9√5/2，两者不一致。独立计算得AD=9√5/2，故答案错误。",
+      "independentAnswerZhHans": "9√5/2",
+      "answerCheckZhHans": "标准答案3√10与解析9√5/2矛盾，且3√10≈9.49，9√5/2≈10.06，不相等。",
+      "recommendedActionZhHans": "修正答案为9√5/2，并更新acceptedAnswers。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-198",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为84/11，但独立计算得DE=84/11，答案正确。然而解析中提及余弦定理但未使用，且acceptedAnswers包含完整解析文本，不符合规范。",
+      "independentAnswerZhHans": "84/11",
+      "answerCheckZhHans": "答案84/11正确，但acceptedAnswers应仅包含数值或简化表达式，不应包含完整解析。",
+      "recommendedActionZhHans": "将acceptedAnswers改为['84/11']，并简化解析。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-199",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为√(240)，但独立计算得AD=4√34/5，√(240)=4√15，不一致。解析计算得AD=4√34/5，与答案矛盾。",
+      "independentAnswerZhHans": "4√34/5",
+      "answerCheckZhHans": "标准答案√(240)与解析4√34/5不相等，且√(240)≈15.49，4√34/5≈4.66，差异大。",
+      "recommendedActionZhHans": "修正答案为4√34/5，并更新选项和acceptedAnswers。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-200",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "答案3正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-201",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为12，但独立计算得AD≈12.95，解析计算得AD≈12.95，与答案12不一致。",
+      "independentAnswerZhHans": "约12.95",
+      "answerCheckZhHans": "答案12与解析12.95矛盾，且12不是精确值。",
+      "recommendedActionZhHans": "修正答案为精确值或近似值，如12.95或分数形式。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-202",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "∠A=∠B+∠C",
+      "answerCheckZhHans": "选项A正确，其他选项均不满足勾股定理或角度条件。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-203",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "答案3正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-204",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为√(65)，但独立计算得BD=√(65)？需验证。解析未完成BD计算，且∠BCD不是180°，需重新计算。",
+      "independentAnswerZhHans": "√(65)",
+      "answerCheckZhHans": "答案√(65)可能正确，但解析不完整，未给出BD计算过程。",
+      "recommendedActionZhHans": "补充BD计算过程，确保解析完整。",
+      "confidence": "medium"
+    }
+  ]
+}

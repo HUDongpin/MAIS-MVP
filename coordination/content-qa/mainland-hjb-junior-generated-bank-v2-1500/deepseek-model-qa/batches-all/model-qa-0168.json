@@ -1,0 +1,105 @@
+{
+  "batchId": "model-qa-0168",
+  "ids": [
+    "hjb-junior-ds-v2-s3-337",
+    "hjb-junior-ds-v2-s3-338",
+    "hjb-junior-ds-v2-s3-339",
+    "hjb-junior-ds-v2-s3-340",
+    "hjb-junior-ds-v2-s3-341",
+    "hjb-junior-ds-v2-s3-342",
+    "hjb-junior-ds-v2-s3-343",
+    "hjb-junior-ds-v2-s3-344"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-337",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "8 cm",
+      "answerCheckZhHans": "标准答案 8 cm 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-338",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2√3",
+      "answerCheckZhHans": "标准答案 2√3 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-339",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "证明：因为OA是半径，且l⊥OA于A，根据切线的判定定理“经过半径外端且垂直于这条半径的直线是圆的切线”，所以l是⊙O的切线。",
+      "answerCheckZhHans": "标准答案与独立证明一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-340",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "两圆有两条外公切线时，两圆外离或内含？标准答案认为d>6，但两圆内含（d<|R-r|=2）时也有两条外公切线。因此正确选项应为d>6或d<2，但选项中无此组合，导致无正确选项。",
+      "independentAnswerZhHans": "d > 6 或 d < 2",
+      "answerCheckZhHans": "标准答案 d > 6 不完整，遗漏了内含情况。",
+      "recommendedActionZhHans": "修改选项或题干，明确两圆位置关系，或增加选项覆盖内含情况。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-341",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3 cm",
+      "answerCheckZhHans": "标准答案 3 cm 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-342",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "6",
+      "answerCheckZhHans": "标准答案 6 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-343",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "8",
+      "answerCheckZhHans": "标准答案 8 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-344",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "√3",
+      "answerCheckZhHans": "标准答案 √3 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

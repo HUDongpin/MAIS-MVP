@@ -1,0 +1,289 @@
+{
+  "batchId": "batch-174",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p4-116",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-review-integration",
+      "unitTitle": "四年级上册整理与提高",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "p4-upper-integration",
+        "large-number-review",
+        "fraction-review",
+        "operation-geometry-review",
+        "整理与提高"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "大数凑整",
+        "数射线上的分数",
+        "圆与角复习",
+        "估测",
+        "综合应用"
+      ],
+      "misconceptionTags": [
+        "model chosen by surface wording",
+        "rounding and exact calculation goals mixed",
+        "geometry labels used without checking the diagram"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-review-integration"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-review-integration",
+        "hjb-primary-p4-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把 3849600 四舍五入到万位，得到的近似数是（    ）万。",
+      "optionsZhHans": [],
+      "answer": "385",
+      "acceptedAnswers": [
+        "385",
+        "385万"
+      ],
+      "explanationZhHans": "四舍五入到万位，看千位数字。3849600的千位是9，大于等于5，向万位进1。万位原来是4，进1后变成5，所以近似数是385万。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-117",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-review-integration",
+      "unitTitle": "四年级上册整理与提高",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "p4-upper-integration",
+        "large-number-review",
+        "fraction-review",
+        "operation-geometry-review",
+        "整理与提高"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "大数凑整",
+        "数射线上的分数",
+        "圆与角复习",
+        "估测",
+        "综合应用"
+      ],
+      "misconceptionTags": [
+        "model chosen by surface wording",
+        "rounding and exact calculation goals mixed",
+        "geometry labels used without checking the diagram"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-review-integration"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-review-integration",
+        "hjb-primary-p4-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个数由5个千万、3个十万、8个万和6个千组成。写出这个数，并把它四舍五入到十万位。",
+      "optionsZhHans": [],
+      "answer": "50386000，50400000",
+      "acceptedAnswers": [
+        "50386000，50400000",
+        "50386000 50400000"
+      ],
+      "explanationZhHans": "5个千万是50000000，3个十万是300000，8个万是80000，6个千是6000，合起来是50386000。四舍五入到十万位，看万位是8，进1，得50400000。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-118",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-review-integration",
+      "unitTitle": "四年级上册整理与提高",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "p4-upper-integration",
+        "large-number-review",
+        "fraction-review",
+        "operation-geometry-review",
+        "整理与提高"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "大数凑整",
+        "数射线上的分数",
+        "圆与角复习",
+        "估测",
+        "综合应用"
+      ],
+      "misconceptionTags": [
+        "model chosen by surface wording",
+        "rounding and exact calculation goals mixed",
+        "geometry labels used without checking the diagram"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-review-integration"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-review-integration",
+        "hjb-primary-p4-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个数四舍五入到亿位后约等于10亿？",
+      "optionsZhHans": [
+        "A. 949000000",
+        "B. 950000001",
+        "C. 949000001",
+        "D. 1050000000"
+      ],
+      "answer": "B. 950000001",
+      "acceptedAnswers": [
+        "B. 950000001"
+      ],
+      "explanationZhHans": "四舍五入到亿位看千万位。A千万位4舍去，约9亿。B千万位5入，约10亿。C千万位4舍去，约9亿。D千万位5入，约11亿。只有B约等于10亿。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-119",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-review-integration",
+      "unitTitle": "四年级上册整理与提高",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "p4-upper-integration",
+        "large-number-review",
+        "fraction-review",
+        "operation-geometry-review",
+        "整理与提高"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "大数凑整",
+        "数射线上的分数",
+        "圆与角复习",
+        "估测",
+        "综合应用"
+      ],
+      "misconceptionTags": [
+        "model chosen by surface wording",
+        "rounding and exact calculation goals mixed",
+        "geometry labels used without checking the diagram"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-review-integration"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-review-integration",
+        "hjb-primary-p4-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在数射线上，从0到1平均分成10份，从左往右第3个点表示的分数是（    ）。",
+      "optionsZhHans": [],
+      "answer": "3/10",
+      "acceptedAnswers": [
+        "3/10",
+        "十分之三"
+      ],
+      "explanationZhHans": "数射线0到1平均分成10份，每份是1/10。从左往右第1个点是1/10，第2个点是2/10，第3个点是3/10。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-120",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-review-integration",
+      "unitTitle": "四年级上册整理与提高",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "p4-upper-integration",
+        "large-number-review",
+        "fraction-review",
+        "operation-geometry-review",
+        "整理与提高"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "大数凑整",
+        "数射线上的分数",
+        "圆与角复习",
+        "估测",
+        "综合应用"
+      ],
+      "misconceptionTags": [
+        "model chosen by surface wording",
+        "rounding and exact calculation goals mixed",
+        "geometry labels used without checking the diagram"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-review-integration"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-review-integration",
+        "hjb-primary-p4-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "画一个半径为3厘米的圆，并在圆内画一个圆心角为60°的扇形。计算这个扇形的面积占整个圆面积的几分之几。",
+      "optionsZhHans": [],
+      "answer": "1/6",
+      "acceptedAnswers": [
+        "1/6",
+        "六分之一"
+      ],
+      "explanationZhHans": "圆心角60°占整个圆周角360°的60/360=1/6，所以扇形面积是圆面积的1/6。"
+    }
+  ]
+}

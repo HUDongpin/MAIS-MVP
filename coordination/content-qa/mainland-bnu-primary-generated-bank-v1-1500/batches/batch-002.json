@@ -1,0 +1,580 @@
+{
+  "batchId": "batch-002",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p1-011",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-life-number-sense",
+      "unitTitle": "生活中的数",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-number-sense",
+        "within-10-numbers",
+        "counting-cardinality",
+        "生活中的数",
+        "10以内数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "数一数",
+        "认读0到10",
+        "一一对应",
+        "数量描述",
+        "数序"
+      ],
+      "misconceptionTags": [
+        "counting sequence without matching objects",
+        "last counting word not linked to total quantity",
+        "zero treated as a normal counting object"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-life-number-sense"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小美在整理她的玩具盒。她把玩具一个一个地放在桌上，一边放一边数：1、2、3、4、5、6、7。她数到7的时候，桌上正好放完了所有的玩具。请问小美一共有几个玩具？",
+      "optionsZhHans": [],
+      "answer": "7",
+      "acceptedAnswers": [
+        "7",
+        "七个"
+      ],
+      "explanationZhHans": "小美一边放玩具一边数，数到7时正好放完，说明她一一对应地数了7个玩具，所以玩具总数是7。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-012",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-life-number-sense",
+      "unitTitle": "生活中的数",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-number-sense",
+        "within-10-numbers",
+        "counting-cardinality",
+        "生活中的数",
+        "10以内数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "数一数",
+        "认读0到10",
+        "一一对应",
+        "数量描述",
+        "数序"
+      ],
+      "misconceptionTags": [
+        "counting sequence without matching objects",
+        "last counting word not linked to total quantity",
+        "zero treated as a normal counting object"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-life-number-sense"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "老师让小明从0开始数到10，小明这样数：0、1、2、3、4、5、6、7、8、9、10。数完后，老师问：“你一共数了几个数？”小明想了想说：“10个。”你认为小明说得对吗？为什么？",
+      "optionsZhHans": [],
+      "answer": "不对，从0到10一共有11个数。",
+      "acceptedAnswers": [
+        "不对，从0到10一共有11个数。",
+        "不对，有11个数。",
+        "不对，11个。"
+      ],
+      "explanationZhHans": "从0数到10，包括0和10，可以数一数：0,1,2,3,4,5,6,7,8,9,10，共11个数。小明漏数了0，所以错了。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-013",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-life-number-sense",
+      "unitTitle": "生活中的数",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-number-sense",
+        "within-10-numbers",
+        "counting-cardinality",
+        "生活中的数",
+        "10以内数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "数一数",
+        "认读0到10",
+        "一一对应",
+        "数量描述",
+        "数序"
+      ],
+      "misconceptionTags": [
+        "counting sequence without matching objects",
+        "last counting word not linked to total quantity",
+        "zero treated as a normal counting object"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-life-number-sense"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个数表示一个也没有？",
+      "optionsZhHans": [
+        "0",
+        "1",
+        "2",
+        "3"
+      ],
+      "answer": "0",
+      "acceptedAnswers": [
+        "0"
+      ],
+      "explanationZhHans": "0表示一个物体也没有，所以选0。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-014",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-life-number-sense",
+      "unitTitle": "生活中的数",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-number-sense",
+        "within-10-numbers",
+        "counting-cardinality",
+        "生活中的数",
+        "10以内数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "数一数",
+        "认读0到10",
+        "一一对应",
+        "数量描述",
+        "数序"
+      ],
+      "misconceptionTags": [
+        "counting sequence without matching objects",
+        "last counting word not linked to total quantity",
+        "zero treated as a normal counting object"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-life-number-sense"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "数一数，填一填。教室里有5张桌子，每张桌子配1把椅子，现在有4把椅子。还缺___把椅子。",
+      "optionsZhHans": [],
+      "answer": "1",
+      "acceptedAnswers": [
+        "1",
+        "一"
+      ],
+      "explanationZhHans": "5张桌子需要5把椅子，现在只有4把，5-4=1，所以还缺1把椅子。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-015",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-life-number-sense",
+      "unitTitle": "生活中的数",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-number-sense",
+        "within-10-numbers",
+        "counting-cardinality",
+        "生活中的数",
+        "10以内数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "数一数",
+        "认读0到10",
+        "一一对应",
+        "数量描述",
+        "数序"
+      ],
+      "misconceptionTags": [
+        "counting sequence without matching objects",
+        "last counting word not linked to total quantity",
+        "zero treated as a normal counting object"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-life-number-sense"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小华有一些糖果，他先数出6颗给妹妹，自己还剩下0颗。小华原来有几颗糖果？请你说一说你是怎么想的。",
+      "optionsZhHans": [],
+      "answer": "6颗。因为给了妹妹6颗后自己剩下0颗，说明原来只有6颗，全部给了妹妹。",
+      "acceptedAnswers": [
+        "6颗。因为给了妹妹6颗后自己剩下0颗，说明原来只有6颗，全部给了妹妹。",
+        "6颗",
+        "6"
+      ],
+      "explanationZhHans": "给妹妹6颗后剩下0颗，说明原来糖果全部给出，所以原来有6颗。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-016",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-life-number-sense",
+      "unitTitle": "生活中的数",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-number-sense",
+        "within-10-numbers",
+        "counting-cardinality",
+        "生活中的数",
+        "10以内数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "数一数",
+        "认读0到10",
+        "一一对应",
+        "数量描述",
+        "数序"
+      ],
+      "misconceptionTags": [
+        "counting sequence without matching objects",
+        "last counting word not linked to total quantity",
+        "zero treated as a normal counting object"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-life-number-sense"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小动物们排队做操，从前往后数，小兔排在第3个，小猴排在第7个。小兔和小猴之间有几个小动物？",
+      "optionsZhHans": [
+        "2个",
+        "3个",
+        "4个",
+        "5个"
+      ],
+      "answer": "3个",
+      "acceptedAnswers": [
+        "3个"
+      ],
+      "explanationZhHans": "小兔第3，小猴第7，之间是第4、5、6，共3个小动物。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-017",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-comparison",
+      "unitTitle": "比较",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "comparison",
+        "more-less-equal",
+        "length-height-weight",
+        "比较",
+        "多少长短"
+      ],
+      "competencyTags": [
+        "数感",
+        "量感",
+        "观察比较"
+      ],
+      "skillTags": [
+        "多少比较",
+        "长短比较",
+        "高矮比较",
+        "轻重比较",
+        "符号表达"
+      ],
+      "misconceptionTags": [
+        "bigger object assumed to mean more items",
+        "comparison attribute not named",
+        "equal groups missed when arrangements differ"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-comparison"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "比一比，填一填。小丽有6支铅笔，小刚有4支铅笔。小丽的铅笔比小刚的___。",
+      "optionsZhHans": [],
+      "answer": "多",
+      "acceptedAnswers": [
+        "多",
+        "多2支"
+      ],
+      "explanationZhHans": "6比4大，所以小丽的铅笔比小刚的多。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-018",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-comparison",
+      "unitTitle": "比较",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "comparison",
+        "more-less-equal",
+        "length-height-weight",
+        "比较",
+        "多少长短"
+      ],
+      "competencyTags": [
+        "数感",
+        "量感",
+        "观察比较"
+      ],
+      "skillTags": [
+        "多少比较",
+        "长短比较",
+        "高矮比较",
+        "轻重比较",
+        "符号表达"
+      ],
+      "misconceptionTags": [
+        "bigger object assumed to mean more items",
+        "comparison attribute not named",
+        "equal groups missed when arrangements differ"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-comparison"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "两根绳子，红绳子长8米，蓝绳子长5米。哪根绳子长？长多少米？",
+      "optionsZhHans": [],
+      "answer": "红绳子长，长3米。",
+      "acceptedAnswers": [
+        "红绳子长，长3米。",
+        "红绳子长，长3米",
+        "红绳长，长3米"
+      ],
+      "explanationZhHans": "8米比5米长，8-5=3，所以红绳子长3米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-019",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-comparison",
+      "unitTitle": "比较",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "comparison",
+        "more-less-equal",
+        "length-height-weight",
+        "比较",
+        "多少长短"
+      ],
+      "competencyTags": [
+        "数感",
+        "量感",
+        "观察比较"
+      ],
+      "skillTags": [
+        "多少比较",
+        "长短比较",
+        "高矮比较",
+        "轻重比较",
+        "符号表达"
+      ],
+      "misconceptionTags": [
+        "bigger object assumed to mean more items",
+        "comparison attribute not named",
+        "equal groups missed when arrangements differ"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-comparison"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "三个小朋友比体重。小杰重25千克，小文重22千克，小宇重28千克。他们三人中，谁最重？",
+      "optionsZhHans": [
+        "小杰",
+        "小文",
+        "小宇",
+        "一样重"
+      ],
+      "answer": "小宇",
+      "acceptedAnswers": [
+        "小宇"
+      ],
+      "explanationZhHans": "比较三个数：28>25>22，所以小宇最重。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-020",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-comparison",
+      "unitTitle": "比较",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "comparison",
+        "more-less-equal",
+        "length-height-weight",
+        "比较",
+        "多少长短"
+      ],
+      "competencyTags": [
+        "数感",
+        "量感",
+        "观察比较"
+      ],
+      "skillTags": [
+        "多少比较",
+        "长短比较",
+        "高矮比较",
+        "轻重比较",
+        "符号表达"
+      ],
+      "misconceptionTags": [
+        "bigger object assumed to mean more items",
+        "comparison attribute not named",
+        "equal groups missed when arrangements differ"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-comparison"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在括号里填上“多”“少”或“同样多”。盘子里有5个苹果和5个梨，苹果和梨___。",
+      "optionsZhHans": [],
+      "answer": "同样多",
+      "acceptedAnswers": [
+        "同样多",
+        "一样多"
+      ],
+      "explanationZhHans": "苹果和梨都是5个，数量相等，所以填“同样多”。"
+    }
+  ]
+}

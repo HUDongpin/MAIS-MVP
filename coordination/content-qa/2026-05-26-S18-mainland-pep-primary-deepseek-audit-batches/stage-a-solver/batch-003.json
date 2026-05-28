@@ -1,0 +1,181 @@
+{
+  "startedAt": "2026-05-26T05:49:49.505Z",
+  "completedAt": "2026-05-26T05:50:08.970Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "usage": {
+    "prompt_tokens": 2884,
+    "completion_tokens": 1525,
+    "total_tokens": 4409,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 2884
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "questionId": "pep-primary-p1-u-mc-041",
+        "solvableStatus": "pass",
+        "independentAnswer": "9",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "总数13，一部分4，另一部分为13-4=9，选项A正确。"
+      },
+      {
+        "questionId": "pep-primary-p1-u-mc-042",
+        "solvableStatus": "pass",
+        "independentAnswer": "4",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "总数14，一部分10，另一部分为14-10=4，选项D正确。"
+      },
+      {
+        "questionId": "pep-primary-p1-u-mc-043",
+        "solvableStatus": "pass",
+        "independentAnswer": "11",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "总数15，一部分4，另一部分为15-4=11，选项C正确。"
+      },
+      {
+        "questionId": "pep-primary-p1-u-mc-044",
+        "solvableStatus": "pass",
+        "independentAnswer": "3",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "总数16，一部分13，另一部分为16-13=3，选项B正确。"
+      },
+      {
+        "questionId": "pep-primary-p1-u-mc-045",
+        "solvableStatus": "pass",
+        "independentAnswer": "9",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "总数17，一部分8，另一部分为17-8=9，选项A正确。"
+      },
+      {
+        "questionId": "pep-primary-p1-u-mc-046",
+        "solvableStatus": "pass",
+        "independentAnswer": "15",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "总数18，一部分3，另一部分为18-3=15，选项D正确。"
+      },
+      {
+        "questionId": "pep-primary-p1-u-mc-047",
+        "solvableStatus": "pass",
+        "independentAnswer": "3",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "总数19，一部分16，另一部分为19-16=3，选项C正确。"
+      },
+      {
+        "questionId": "pep-primary-p1-u-mc-048",
+        "solvableStatus": "pass",
+        "independentAnswer": "3",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "总数8，一部分5，另一部分为8-5=3，选项B正确。"
+      },
+      {
+        "questionId": "pep-primary-p1-u-mc-049",
+        "solvableStatus": "pass",
+        "independentAnswer": "5",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "总数9，一部分4，另一部分为9-4=5，选项A正确。"
+      },
+      {
+        "questionId": "pep-primary-p1-u-mc-050",
+        "solvableStatus": "pass",
+        "independentAnswer": "3",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "总数10，一部分7，另一部分为10-7=3，选项D正确。"
+      },
+      {
+        "questionId": "pep-primary-p1-u-mc-051",
+        "solvableStatus": "pass",
+        "independentAnswer": "球",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "从各个方向都能滚动的立体图形是球，选项C正确。"
+      },
+      {
+        "questionId": "pep-primary-p1-u-mc-052",
+        "solvableStatus": "pass",
+        "independentAnswer": "长方体",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "相对的面是长方形的立体图形是长方体，选项B正确。"
+      },
+      {
+        "questionId": "pep-primary-p1-u-mc-053",
+        "solvableStatus": "pass",
+        "independentAnswer": "正方体",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "每个面都是正方形的立体图形是正方体，选项A正确。"
+      },
+      {
+        "questionId": "pep-primary-p1-u-mc-054",
+        "solvableStatus": "pass",
+        "independentAnswer": "圆柱",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "有两个圆形的面的立体图形是圆柱，选项D正确。"
+      },
+      {
+        "questionId": "pep-primary-p1-u-mc-055",
+        "solvableStatus": "pass",
+        "independentAnswer": "长方体",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "相对的面形状相同，多数面是长方形，符合长方体特征，选项C正确。"
+      },
+      {
+        "questionId": "pep-primary-p1-u-mc-056",
+        "solvableStatus": "pass",
+        "independentAnswer": "长方体",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "相对的面是长方形的立体图形是长方体，选项B正确。"
+      },
+      {
+        "questionId": "pep-primary-p1-u-mc-057",
+        "solvableStatus": "pass",
+        "independentAnswer": "正方体",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "每个面都是正方形的立体图形是正方体，选项A正确。"
+      },
+      {
+        "questionId": "pep-primary-p1-u-mc-058",
+        "solvableStatus": "pass",
+        "independentAnswer": "圆柱",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "有两个圆形的面的立体图形是圆柱，选项D正确。"
+      },
+      {
+        "questionId": "pep-primary-p1-u-mc-059",
+        "solvableStatus": "pass",
+        "independentAnswer": "正方体",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "每个面都是正方形的积木是正方体，选项C正确。"
+      },
+      {
+        "questionId": "pep-primary-p1-u-mc-060",
+        "solvableStatus": "pass",
+        "independentAnswer": "长方体",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "相对的面是长方形的立体图形是长方体，选项B正确。"
+      }
+    ]
+  }
+}

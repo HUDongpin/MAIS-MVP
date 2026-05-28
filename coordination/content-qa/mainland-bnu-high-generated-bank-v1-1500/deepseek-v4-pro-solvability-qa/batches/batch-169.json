@@ -1,0 +1,137 @@
+{
+  "batchNumber": 169,
+  "startedAt": "2026-05-27T14:12:34.251Z",
+  "completedAt": "2026-05-27T14:12:49.251Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-345",
+    "bnu-high-ds-v1-s6-346",
+    "bnu-high-ds-v1-s6-347",
+    "bnu-high-ds-v1-s6-348",
+    "bnu-high-ds-v1-s6-349",
+    "bnu-high-ds-v1-s6-350",
+    "bnu-high-ds-v1-s6-351",
+    "bnu-high-ds-v1-s6-352"
+  ],
+  "usage": {
+    "prompt_tokens": 10605,
+    "completion_tokens": 993,
+    "total_tokens": 11598,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10093
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-345",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "-3",
+        "correctedAnswer": "-3",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立求解得 a+b=-3，但题目答案为 1，解析过程也得出 a+b=-3，答案与解析矛盾且错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-346",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "-3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "极小值计算正确，选项 A 为 -3，答案匹配，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-347",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "极大值点 x = -1，极小值点 x = 3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "极值点判断正确，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-348",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "9",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "切线斜率计算正确，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-349",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "-2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "最小值计算正确，选项 A 为 -2，答案匹配，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-350",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(-∞, -1) 和 (3, +∞)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "单调递增区间正确，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-351",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "32",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "M-m 计算正确，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-352",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "最大值计算正确，选项 2 匹配，解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第1题答案错误，应为-3而非1，其余题目均正确。"
+    }
+  }
+}

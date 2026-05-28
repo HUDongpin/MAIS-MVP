@@ -1,0 +1,50 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-400",
+  "startedAt": "2026-05-28T01:31:15.496Z",
+  "completedAt": "2026-05-28T01:31:19.851Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-400"
+  ],
+  "usage": {
+    "prompt_tokens": 2391,
+    "completion_tokens": 251,
+    "total_tokens": 2642,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2007
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-400",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "independentAnswer": "25/42",
+        "correctedAnswer": "25/42",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "bad_options",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目要求P(X≤1)，正确计算为25/42，但选项无此值，存储答案37/42实为P(X≥1)，解析自相矛盾，题目不可解。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目选项与正确答案不匹配，存在数学错误，判定为不可解。"
+    }
+  }
+}

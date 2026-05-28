@@ -1,0 +1,380 @@
+{
+  "batchId": "S4-s4-exp-log-01",
+  "questions": [
+    {
+      "id": "pep-high-ds-v1-s4-exp-log-001",
+      "grade": "S4",
+      "topicId": "pep-high-s4-exp-log",
+      "topicTitleZhHans": "指数函数与对数函数",
+      "chapter": "指数函数与对数函数",
+      "conceptIds": [
+        "exponential-functions",
+        "logarithmic-functions",
+        "inverse-functions",
+        "function-modeling",
+        "legacy-stream",
+        "analytic-geometry",
+        "probability-foundations",
+        "sequences"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "pep-high-exponential-logarithmic-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-legacy-stream-migration"
+      ],
+      "promptZhHans": "设 a = log_2 3，b = log_3 2，c = 2^{0.3}，则 a, b, c 的大小关系是（ ）。",
+      "optionsZhHans": [
+        "a > c > b",
+        "b > a > c",
+        "c > a > b",
+        "a > b > c"
+      ],
+      "answer": "a > c > b",
+      "acceptedAnswers": [
+        "a > c > b"
+      ],
+      "explanationZhHans": "a = log_2 3 > log_2 2 = 1；b = log_3 2 < log_3 3 = 1；c = 2^{0.3}，由指数函数单调性，1 < 2^{0.3} < 2^{0.5} ≈ 1.414。又 log_2 3 ≈ 1.585，故 a > c > b。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-exp-log-002",
+      "grade": "S4",
+      "topicId": "pep-high-s4-exp-log",
+      "topicTitleZhHans": "指数函数与对数函数",
+      "chapter": "指数函数与对数函数",
+      "conceptIds": [
+        "exponential-functions",
+        "logarithmic-functions",
+        "inverse-functions",
+        "function-modeling",
+        "legacy-stream",
+        "analytic-geometry",
+        "probability-foundations",
+        "sequences"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "pep-high-exponential-logarithmic-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-legacy-stream-migration"
+      ],
+      "promptZhHans": "已知函数 f(x) = 2^x + x - 4 的零点在区间 (k, k+1) 内，其中 k 为整数，则 k = ______。",
+      "optionsZhHans": [],
+      "answer": "1",
+      "acceptedAnswers": [
+        "1"
+      ],
+      "explanationZhHans": "计算 f(1) = 2^1 + 1 - 4 = -1 < 0，f(2) = 2^2 + 2 - 4 = 2 > 0，由零点存在定理，零点在 (1,2) 内，故 k = 1。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-exp-log-003",
+      "grade": "S4",
+      "topicId": "pep-high-s4-exp-log",
+      "topicTitleZhHans": "指数函数与对数函数",
+      "chapter": "指数函数与对数函数",
+      "conceptIds": [
+        "exponential-functions",
+        "logarithmic-functions",
+        "inverse-functions",
+        "function-modeling",
+        "legacy-stream",
+        "analytic-geometry",
+        "probability-foundations",
+        "sequences"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "pep-high-exponential-logarithmic-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-legacy-stream-migration"
+      ],
+      "promptZhHans": "解方程：log_2 (x - 1) + log_2 (x + 1) = 3。",
+      "optionsZhHans": [],
+      "answer": "x = 3",
+      "acceptedAnswers": [
+        "x = 3"
+      ],
+      "explanationZhHans": "由对数性质得 log_2 [(x-1)(x+1)] = 3，即 x^2 - 1 = 2^3 = 8，解得 x = ±3。经检验 x = -3 使真数为负，舍去，故 x = 3。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-exp-log-004",
+      "grade": "S4",
+      "topicId": "pep-high-s4-exp-log",
+      "topicTitleZhHans": "指数函数与对数函数",
+      "chapter": "指数函数与对数函数",
+      "conceptIds": [
+        "exponential-functions",
+        "logarithmic-functions",
+        "inverse-functions",
+        "function-modeling",
+        "legacy-stream",
+        "analytic-geometry",
+        "probability-foundations",
+        "sequences"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "pep-high-exponential-logarithmic-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-legacy-stream-migration"
+      ],
+      "promptZhHans": "已知函数 f(x) = a^x (a > 0 且 a ≠ 1) 在区间 [-1, 2] 上的最大值比最小值大 a/2，求 a 的值。",
+      "optionsZhHans": [],
+      "answer": "a = 2 或 a = 1/2",
+      "acceptedAnswers": [
+        "a = 2 或 a = 1/2"
+      ],
+      "explanationZhHans": "当 a > 1 时，f(x) 递增，最大 f(2)=a^2，最小 f(-1)=a^{-1}，差为 a^2 - 1/a = a/2，解得 a=2；当 0 < a < 1 时，递减，最大 f(-1)=1/a，最小 f(2)=a^2，差为 1/a - a^2 = a/2，解得 a=1/2。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-exp-log-005",
+      "grade": "S4",
+      "topicId": "pep-high-s4-exp-log",
+      "topicTitleZhHans": "指数函数与对数函数",
+      "chapter": "指数函数与对数函数",
+      "conceptIds": [
+        "exponential-functions",
+        "logarithmic-functions",
+        "inverse-functions",
+        "function-modeling",
+        "legacy-stream",
+        "analytic-geometry",
+        "probability-foundations",
+        "sequences"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "pep-high-exponential-logarithmic-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-legacy-stream-migration"
+      ],
+      "promptZhHans": "函数 y = log_{0.5} (x^2 - 3x + 2) 的单调递增区间是（ ）。",
+      "optionsZhHans": [
+        "(-∞, 1)",
+        "(2, +∞)",
+        "(-∞, 1) ∪ (2, +∞)",
+        "(1, 2)"
+      ],
+      "answer": "(-∞, 1)",
+      "acceptedAnswers": [
+        "(-∞, 1)"
+      ],
+      "explanationZhHans": "定义域 x^2 - 3x + 2 > 0 得 x < 1 或 x > 2。外层 y = log_{0.5} u 递减，内层 u = x^2 - 3x + 2 在 (-∞, 1) 递减，在 (2, +∞) 递增。复合后同增异减，故递增区间为 (-∞, 1)。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-exp-log-006",
+      "grade": "S4",
+      "topicId": "pep-high-s4-exp-log",
+      "topicTitleZhHans": "指数函数与对数函数",
+      "chapter": "指数函数与对数函数",
+      "conceptIds": [
+        "exponential-functions",
+        "logarithmic-functions",
+        "inverse-functions",
+        "function-modeling",
+        "legacy-stream",
+        "analytic-geometry",
+        "probability-foundations",
+        "sequences"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "pep-high-exponential-logarithmic-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-legacy-stream-migration"
+      ],
+      "promptZhHans": "若函数 f(x) = ln(x^2 + ax + 1) 的定义域为 R，则实数 a 的取值范围是 ______。",
+      "optionsZhHans": [],
+      "answer": "(-2, 2)",
+      "acceptedAnswers": [
+        "(-2, 2)"
+      ],
+      "explanationZhHans": "定义域为 R 要求 x^2 + ax + 1 > 0 恒成立，故判别式 Δ = a^2 - 4 < 0，解得 -2 < a < 2。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-exp-log-007",
+      "grade": "S4",
+      "topicId": "pep-high-s4-exp-log",
+      "topicTitleZhHans": "指数函数与对数函数",
+      "chapter": "指数函数与对数函数",
+      "conceptIds": [
+        "exponential-functions",
+        "logarithmic-functions",
+        "inverse-functions",
+        "function-modeling",
+        "legacy-stream",
+        "analytic-geometry",
+        "probability-foundations",
+        "sequences"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "pep-high-exponential-logarithmic-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-legacy-stream-migration"
+      ],
+      "promptZhHans": "某放射性物质的质量随时间的变化规律为 m(t) = m_0 · 2^{-t/5}，其中 m_0 为初始质量，t 为时间（单位：年）。求该物质的半衰期。",
+      "optionsZhHans": [],
+      "answer": "5 年",
+      "acceptedAnswers": [
+        "5 年"
+      ],
+      "explanationZhHans": "半衰期即质量减半所需时间，令 m(t) = m_0/2，得 2^{-t/5} = 1/2 = 2^{-1}，故 -t/5 = -1，t = 5。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-exp-log-008",
+      "grade": "S4",
+      "topicId": "pep-high-s4-exp-log",
+      "topicTitleZhHans": "指数函数与对数函数",
+      "chapter": "指数函数与对数函数",
+      "conceptIds": [
+        "exponential-functions",
+        "logarithmic-functions",
+        "inverse-functions",
+        "function-modeling",
+        "legacy-stream",
+        "analytic-geometry",
+        "probability-foundations",
+        "sequences"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "pep-high-exponential-logarithmic-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-legacy-stream-migration"
+      ],
+      "promptZhHans": "已知函数 f(x) = { 2^x, x ≤ 1; log_2 (x-1), x > 1 }，若 f(a) = 1，则 a 的所有可能值的和为（ ）。",
+      "optionsZhHans": [
+        "0",
+        "1",
+        "2",
+        "3"
+      ],
+      "answer": "3",
+      "acceptedAnswers": [
+        "3"
+      ],
+      "explanationZhHans": "当 a ≤ 1 时，2^a = 1，得 a = 0；当 a > 1 时，log_2 (a-1) = 1，得 a-1 = 2，a = 3。和 = 0 + 3 = 3。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-exp-log-009",
+      "grade": "S4",
+      "topicId": "pep-high-s4-exp-log",
+      "topicTitleZhHans": "指数函数与对数函数",
+      "chapter": "指数函数与对数函数",
+      "conceptIds": [
+        "exponential-functions",
+        "logarithmic-functions",
+        "inverse-functions",
+        "function-modeling",
+        "legacy-stream",
+        "analytic-geometry",
+        "probability-foundations",
+        "sequences"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "pep-high-exponential-logarithmic-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-legacy-stream-migration"
+      ],
+      "promptZhHans": "计算：log_2 3 · log_3 4 · log_4 5 · log_5 8 = ______。",
+      "optionsZhHans": [],
+      "answer": "3",
+      "acceptedAnswers": [
+        "3"
+      ],
+      "explanationZhHans": "利用换底公式，原式 = (lg3/lg2) · (lg4/lg3) · (lg5/lg4) · (lg8/lg5) = lg8/lg2 = log_2 8 = 3。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-exp-log-010",
+      "grade": "S4",
+      "topicId": "pep-high-s4-exp-log",
+      "topicTitleZhHans": "指数函数与对数函数",
+      "chapter": "指数函数与对数函数",
+      "conceptIds": [
+        "exponential-functions",
+        "logarithmic-functions",
+        "inverse-functions",
+        "function-modeling",
+        "legacy-stream",
+        "analytic-geometry",
+        "probability-foundations",
+        "sequences"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "pep-high-exponential-logarithmic-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-legacy-stream-migration"
+      ],
+      "promptZhHans": "已知函数 f(x) = 2^x - 2^{-x}，g(x) = 2^x + 2^{-x}。判断函数 h(x) = f(x) / g(x) 的奇偶性，并证明。",
+      "optionsZhHans": [],
+      "answer": "奇函数",
+      "acceptedAnswers": [
+        "奇函数"
+      ],
+      "explanationZhHans": "h(x) = (2^x - 2^{-x})/(2^x + 2^{-x})，定义域 R。h(-x) = (2^{-x} - 2^x)/(2^{-x} + 2^x) = -h(x)，故为奇函数。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    }
+  ]
+}

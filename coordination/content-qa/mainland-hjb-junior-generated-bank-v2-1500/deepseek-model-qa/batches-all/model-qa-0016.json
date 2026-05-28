@@ -1,0 +1,105 @@
+{
+  "batchId": "model-qa-0016",
+  "ids": [
+    "hjb-junior-ds-v2-s1-121",
+    "hjb-junior-ds-v2-s1-122",
+    "hjb-junior-ds-v2-s1-123",
+    "hjb-junior-ds-v2-s1-124",
+    "hjb-junior-ds-v2-s1-125",
+    "hjb-junior-ds-v2-s1-126",
+    "hjb-junior-ds-v2-s1-127",
+    "hjb-junior-ds-v2-s1-128"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-121",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "标准答案错误。多项式 6x²y - 9xy² + 3xy 提取公因式 3xy 后得 3xy(2x - 3y + 1)，但选项 B 为 3xy(2x - 3y + 1)，选项 C 为 xy(6x - 9y + 3)，两者等价。因此存在两个正确选项，不符合单选题要求。",
+      "independentAnswerZhHans": "3xy(2x - 3y + 1) 或 xy(6x - 9y + 3)",
+      "answerCheckZhHans": "给定答案 3xy(2x - 3y + 1) 正确，但选项 C 也正确，导致多解。",
+      "recommendedActionZhHans": "修改选项 C 或调整题目，确保只有一个正确选项。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-122",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-2a²b²(2a - 3b + 1)",
+      "answerCheckZhHans": "标准答案正确，acceptedAnswers 覆盖了等价形式。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-123",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(x² + 4y²)(x + 2y)(x - 2y)",
+      "answerCheckZhHans": "标准答案正确，acceptedAnswers 覆盖了因式顺序不同的等价形式。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-124",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2x² + x - 15",
+      "answerCheckZhHans": "展开 (2x - 5)(x + 3) 得 2x² + x - 15，与选项 A 一致，其他选项均不正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-125",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "4(4m - n)(4n - m)",
+      "answerCheckZhHans": "标准答案正确，acceptedAnswers 覆盖了因式顺序不同的等价形式。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-126",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-3x²y²(2x - 3y + 1)",
+      "answerCheckZhHans": "标准答案正确，acceptedAnswers 匹配。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-127",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(2a - 3b)²",
+      "answerCheckZhHans": "多项式为完全平方式，分解结果正确，选项 A 唯一正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-128",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "5n(m + 2)(m - 2)",
+      "answerCheckZhHans": "标准答案正确，acceptedAnswers 匹配。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

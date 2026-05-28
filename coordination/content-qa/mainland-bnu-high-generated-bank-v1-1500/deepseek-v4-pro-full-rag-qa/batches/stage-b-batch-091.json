@@ -1,0 +1,151 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-091",
+  "startedAt": "2026-05-28T01:22:23.685Z",
+  "completedAt": "2026-05-28T01:22:43.731Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-221",
+    "bnu-high-ds-v1-s5-222",
+    "bnu-high-ds-v1-s5-223",
+    "bnu-high-ds-v1-s5-224",
+    "bnu-high-ds-v1-s5-225",
+    "bnu-high-ds-v1-s5-226",
+    "bnu-high-ds-v1-s5-227",
+    "bnu-high-ds-v1-s5-228"
+  ],
+  "usage": {
+    "prompt_tokens": 13078,
+    "completion_tokens": 1395,
+    "total_tokens": 14473,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 12694
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-221",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "(6, 17/3) 或 (4, 13/3)",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction",
+          "accepted_answer_gap"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案仅给出(6,17/3)，但Stage A独立解得两个点C(6,17/3)和(4,13/3)，且解析中未提及另一解，存在漏解错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-222",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "x=5 或 3x+4y-19=0",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction",
+          "accepted_answer_gap"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案仅给出y=1，但Stage A独立解得两条直线x=5和3x+4y-19=0，解析中虽提及两解但最终答案仅写y=1，且acceptedAnswers包含y=1或3x+4y-19=0，但未包含x=5，存在漏解。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-223",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "bad_options",
+          "explanation_contradiction",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "Stage A独立解判定题目无正确选项，解得m=±√2，但选项中无此值，存储答案A.-1错误，解析推导有误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-224",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与Stage A独立解一致，直线方程4x-3y=0，栈道长度100米，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-225",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "2x-y-1=0 或 4x-3y+1=0",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction",
+          "accepted_answer_gap"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案x-2y+4=0错误，Stage A独立解得两解2x-y-1=0和4x-3y+1=0，解析中虽提及两解但最终给出错误答案。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-226",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案D.±√5与Stage A独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-227",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "(5-2√6, 5-2√6), (5+2√6, 5-2√6), (5+2√6, 5+2√6), (5-2√6, 5+2√6)",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction",
+          "accepted_answer_gap"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案顶点为整数坐标，但Stage A独立解根据对角线平行坐标轴的条件得出顶点含根号，解析中虽提及d=2√6却给出整数顶点，自相矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-228",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案(x-2)²+(y-1)²=2与Stage A独立解一致，解析正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 3,
+      "warn": 0,
+      "fail": 5,
+      "notes": "8题中3题通过，5题失败。失败题目均存在答案错误或漏解，其中221、222、225、227为漏解或错解，223为选项错误导致无解。"
+    }
+  }
+}

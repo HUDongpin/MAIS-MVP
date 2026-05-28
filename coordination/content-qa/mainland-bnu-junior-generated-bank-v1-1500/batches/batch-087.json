@@ -1,0 +1,639 @@
+{
+  "batchId": "batch-087",
+  "questions": [
+    {
+      "id": "bnu-junior-ds-v1-s2-361",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-transformations",
+      "unitTitle": "图形的平移与旋转",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "geometric-transformations",
+        "translation",
+        "rotation",
+        "pattern-design",
+        "shortest-distance",
+        "图形平移",
+        "图形旋转"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "创新意识"
+      ],
+      "skillTags": [
+        "平移性质",
+        "旋转性质",
+        "对应点",
+        "图案设计",
+        "最短距离",
+        "变换前后关系"
+      ],
+      "misconceptionTags": [
+        "movement changes shape size",
+        "rotation center ignored",
+        "corresponding points mismatched"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-transformations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-transformations-unit",
+        "bnu-junior-s2-lower-assessment-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系中，点A的坐标为(2,3)。先将点A向右平移4个单位长度，再绕原点O顺时针旋转90°，得到点A'。点A'的坐标是（ ）。",
+      "optionsZhHans": [
+        "(3, -6)",
+        "(6, -3)",
+        "(-3, 6)",
+        "(-6, 3)"
+      ],
+      "answer": "(3, -6)",
+      "acceptedAnswers": [
+        "(3, -6)"
+      ],
+      "explanationZhHans": "点A(2,3)向右平移4个单位得(6,3)。绕原点顺时针旋转90°时，点(x,y)变为(y,-x)，故(6,3)变为(3,-6)。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-362",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-transformations",
+      "unitTitle": "图形的平移与旋转",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "geometric-transformations",
+        "translation",
+        "rotation",
+        "pattern-design",
+        "shortest-distance",
+        "图形平移",
+        "图形旋转"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "创新意识"
+      ],
+      "skillTags": [
+        "平移性质",
+        "旋转性质",
+        "对应点",
+        "图案设计",
+        "最短距离",
+        "变换前后关系"
+      ],
+      "misconceptionTags": [
+        "movement changes shape size",
+        "rotation center ignored",
+        "corresponding points mismatched"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-transformations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-transformations-unit",
+        "bnu-junior-s2-lower-assessment-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系中，点A的坐标为(2, 3)。将点A先向左平移4个单位，再向下平移1个单位得到点A'。再将点A'绕原点O逆时针旋转90°得到点A''。求点A''的坐标。",
+      "optionsZhHans": [],
+      "answer": "(-2, -2)",
+      "acceptedAnswers": [
+        "(-2, -2)"
+      ],
+      "explanationZhHans": "点A(2,3)向左平移4个单位得(-2,3)，再向下平移1个单位得A'(-2,2)。绕原点逆时针旋转90°，坐标变换为(x,y)→(-y,x)，故A''坐标为(-2, -2)。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-363",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-transformations",
+      "unitTitle": "图形的平移与旋转",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "geometric-transformations",
+        "translation",
+        "rotation",
+        "pattern-design",
+        "shortest-distance",
+        "图形平移",
+        "图形旋转"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "创新意识"
+      ],
+      "skillTags": [
+        "平移性质",
+        "旋转性质",
+        "对应点",
+        "图案设计",
+        "最短距离",
+        "变换前后关系"
+      ],
+      "misconceptionTags": [
+        "movement changes shape size",
+        "rotation center ignored",
+        "corresponding points mismatched"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-transformations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-transformations-unit",
+        "bnu-junior-s2-lower-assessment-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系中，三角形ABC的顶点坐标分别为A(1,2)，B(3,1)，C(2,4)。将三角形ABC先向右平移3个单位，再向下平移2个单位，得到三角形A'B'C'。点P是三角形ABC内部一点，其坐标为(2,3)。请写出点P的对应点P'的坐标。",
+      "optionsZhHans": [],
+      "answer": "(5,1)",
+      "acceptedAnswers": [
+        "(5,1)",
+        "（5，1）"
+      ],
+      "explanationZhHans": "平移变换中，对应点的坐标变化规律为：向右平移a个单位，横坐标加a；向下平移b个单位，纵坐标减b。点P(2,3)向右平移3个单位得横坐标2+3=5，向下平移2个单位得纵坐标3-2=1，故P'的坐标为(5,1)。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-364",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-transformations",
+      "unitTitle": "图形的平移与旋转",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "geometric-transformations",
+        "translation",
+        "rotation",
+        "pattern-design",
+        "shortest-distance",
+        "图形平移",
+        "图形旋转"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "创新意识"
+      ],
+      "skillTags": [
+        "平移性质",
+        "旋转性质",
+        "对应点",
+        "图案设计",
+        "最短距离",
+        "变换前后关系"
+      ],
+      "misconceptionTags": [
+        "movement changes shape size",
+        "rotation center ignored",
+        "corresponding points mismatched"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-transformations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-transformations-unit",
+        "bnu-junior-s2-lower-assessment-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系中，点A的坐标为(2, 3)。先将点A向右平移4个单位，得到点B；再将点B绕原点O逆时针旋转90°，得到点C。点C的坐标是（　）",
+      "optionsZhHans": [
+        "(-3, 6)",
+        "(-6, 3)",
+        "(3, -6)",
+        "(6, -3)"
+      ],
+      "answer": "(-3, 6)",
+      "acceptedAnswers": [
+        "(-3, 6)"
+      ],
+      "explanationZhHans": "点A(2,3)向右平移4个单位得B(6,3)；绕原点逆时针旋转90°时，坐标(x,y)变为(-y,x)，故C(-3,6)。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-365",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-transformations",
+      "unitTitle": "图形的平移与旋转",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "geometric-transformations",
+        "translation",
+        "rotation",
+        "pattern-design",
+        "shortest-distance",
+        "图形平移",
+        "图形旋转"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "创新意识"
+      ],
+      "skillTags": [
+        "平移性质",
+        "旋转性质",
+        "对应点",
+        "图案设计",
+        "最短距离",
+        "变换前后关系"
+      ],
+      "misconceptionTags": [
+        "movement changes shape size",
+        "rotation center ignored",
+        "corresponding points mismatched"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-transformations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-transformations-unit",
+        "bnu-junior-s2-lower-assessment-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系中，已知点A的坐标为(2, 3)。将点A先向右平移4个单位长度，再向下平移1个单位长度得到点A'。再将点A'绕原点O顺时针旋转90°得到点A''。求点A''的坐标。",
+      "optionsZhHans": [],
+      "answer": "(2, -6)",
+      "acceptedAnswers": [
+        "(2, -6)",
+        "（2，-6）",
+        "2,-6",
+        "2, -6"
+      ],
+      "explanationZhHans": "点A(2,3)平移后得A'(2+4, 3-1)=(6,2)。绕原点顺时针旋转90°，坐标变换为(x,y)→(y,-x)，故A''(2,-6)。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-366",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-transformations",
+      "unitTitle": "图形的平移与旋转",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "geometric-transformations",
+        "translation",
+        "rotation",
+        "pattern-design",
+        "shortest-distance",
+        "图形平移",
+        "图形旋转"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "创新意识"
+      ],
+      "skillTags": [
+        "平移性质",
+        "旋转性质",
+        "对应点",
+        "图案设计",
+        "最短距离",
+        "变换前后关系"
+      ],
+      "misconceptionTags": [
+        "movement changes shape size",
+        "rotation center ignored",
+        "corresponding points mismatched"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-transformations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-transformations-unit",
+        "bnu-junior-s2-lower-assessment-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系中，点A的坐标为(2,3)。将点A先向右平移4个单位长度，再向下平移1个单位长度得到点A'。再将点A'绕原点O逆时针旋转90°得到点A''。求点A''的坐标。",
+      "optionsZhHans": [],
+      "answer": "(2,6)",
+      "acceptedAnswers": [
+        "(2,6)"
+      ],
+      "explanationZhHans": "点A(2,3)平移：向右4得(6,3)，向下1得(6,2)即A'。绕原点逆时针旋转90°：(x,y)→(-y,x)，故A''(-2,6)。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-367",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-transformations",
+      "unitTitle": "图形的平移与旋转",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "geometric-transformations",
+        "translation",
+        "rotation",
+        "pattern-design",
+        "shortest-distance",
+        "图形平移",
+        "图形旋转"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "创新意识"
+      ],
+      "skillTags": [
+        "平移性质",
+        "旋转性质",
+        "对应点",
+        "图案设计",
+        "最短距离",
+        "变换前后关系"
+      ],
+      "misconceptionTags": [
+        "movement changes shape size",
+        "rotation center ignored",
+        "corresponding points mismatched"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-transformations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-transformations-unit",
+        "bnu-junior-s2-lower-assessment-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系中，点A的坐标为(2, 3)。将点A先向右平移4个单位，再向下平移1个单位得到点A'。再将点A'绕原点O逆时针旋转90°得到点A''。点A''的坐标是（ ）",
+      "optionsZhHans": [
+        "(2, 6)",
+        "(-2, 6)",
+        "(6, 2)",
+        "(-6, 2)"
+      ],
+      "answer": "(-2, 6)",
+      "acceptedAnswers": [
+        "(-2, 6)"
+      ],
+      "explanationZhHans": "点A(2,3)平移后得A'(6,2)。绕原点逆时针旋转90°，坐标变换为(x,y)→(-y,x)，故A''为(-2,6)。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-368",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-transformations",
+      "unitTitle": "图形的平移与旋转",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "geometric-transformations",
+        "translation",
+        "rotation",
+        "pattern-design",
+        "shortest-distance",
+        "图形平移",
+        "图形旋转"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "创新意识"
+      ],
+      "skillTags": [
+        "平移性质",
+        "旋转性质",
+        "对应点",
+        "图案设计",
+        "最短距离",
+        "变换前后关系"
+      ],
+      "misconceptionTags": [
+        "movement changes shape size",
+        "rotation center ignored",
+        "corresponding points mismatched"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-transformations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-transformations-unit",
+        "bnu-junior-s2-lower-assessment-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系中，点A的坐标为(2,3)。先将点A向右平移4个单位长度，再绕原点O逆时针旋转90°，得到点A'。求点A'的坐标。",
+      "optionsZhHans": [],
+      "answer": "(-3,6)",
+      "acceptedAnswers": [
+        "(-3,6)"
+      ],
+      "explanationZhHans": "平移后点坐标变为(6,3)。绕原点逆时针旋转90°时，坐标(x,y)变为(-y,x)，所以A'坐标为(-3,6)。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-369",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-transformations",
+      "unitTitle": "图形的平移与旋转",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "geometric-transformations",
+        "translation",
+        "rotation",
+        "pattern-design",
+        "shortest-distance",
+        "图形平移",
+        "图形旋转"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "创新意识"
+      ],
+      "skillTags": [
+        "平移性质",
+        "旋转性质",
+        "对应点",
+        "图案设计",
+        "最短距离",
+        "变换前后关系"
+      ],
+      "misconceptionTags": [
+        "movement changes shape size",
+        "rotation center ignored",
+        "corresponding points mismatched"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-transformations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-transformations-unit",
+        "bnu-junior-s2-lower-assessment-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系中，点A的坐标是(2, 3)，点B的坐标是(5, 7)。将线段AB先向右平移4个单位长度，再向下平移2个单位长度，得到线段A'B'。点A'与点A对应，点B'与点B对应。求线段A'B'的长度。",
+      "optionsZhHans": [],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5"
+      ],
+      "explanationZhHans": "平移不改变线段的长度。先计算AB的长度：A(2,3)，B(5,7)，AB = √[(5-2)²+(7-3)²] = √(9+16) = √25 = 5。平移后A'B'的长度等于AB的长度，所以A'B' = 5。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-370",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-transformations",
+      "unitTitle": "图形的平移与旋转",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "geometric-transformations",
+        "translation",
+        "rotation",
+        "pattern-design",
+        "shortest-distance",
+        "图形平移",
+        "图形旋转"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "创新意识"
+      ],
+      "skillTags": [
+        "平移性质",
+        "旋转性质",
+        "对应点",
+        "图案设计",
+        "最短距离",
+        "变换前后关系"
+      ],
+      "misconceptionTags": [
+        "movement changes shape size",
+        "rotation center ignored",
+        "corresponding points mismatched"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-transformations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-transformations-unit",
+        "bnu-junior-s2-lower-assessment-midterm-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系中，点A的坐标为(2, 3)。先将点A向右平移4个单位长度，再绕原点顺时针旋转90°，得到点A'。则点A'的坐标是（ ）",
+      "optionsZhHans": [
+        "(3, -6)",
+        "(-3, 6)",
+        "(6, -3)",
+        "(-6, 3)"
+      ],
+      "answer": "(3, -6)",
+      "acceptedAnswers": [
+        "(3, -6)"
+      ],
+      "explanationZhHans": "点A(2,3)向右平移4个单位得(6,3)。绕原点顺时针旋转90°时，点(x,y)变为(y,-x)，故(6,3)变为(3,-6)。"
+    }
+  ]
+}

@@ -1,0 +1,372 @@
+{
+  "batchId": "batch-112",
+  "generationMode": "batch-fallback",
+  "fallbackReason": "fill-missing-local",
+  "questions": [
+    {
+      "id": "hjb-high-ds-v2-s6-111",
+      "grade": "S6",
+      "topicId": "hjb-high-s6-计数原理",
+      "topicTitleZhHans": "计数原理",
+      "volume": "选择性必修 第二册",
+      "chapter": "计数原理",
+      "conceptIds": [
+        "counting-principles",
+        "permutations-combinations",
+        "binomial-theorem",
+        "case-analysis"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-selective-2-counting-principles"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-2-counting-unit-challenge",
+        "hjb-high-selective-2-counting-unit-core",
+        "pep-high-exam-counting-method-taxonomy"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式1111：解答：从 6 个不同元素中选 2 个组成一个无序组合，共有多少种选法？",
+      "optionsZhHans": [],
+      "answer": "15",
+      "acceptedAnswers": [
+        "15"
+      ],
+      "explanationZhHans": "组合数 C(6,2)=6×5/2=15。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-112",
+      "grade": "S6",
+      "topicId": "hjb-high-s6-计数原理",
+      "topicTitleZhHans": "计数原理",
+      "volume": "选择性必修 第二册",
+      "chapter": "计数原理",
+      "conceptIds": [
+        "counting-principles",
+        "permutations-combinations",
+        "binomial-theorem",
+        "case-analysis"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-selective-2-counting-principles"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-2-counting-unit-challenge",
+        "hjb-high-selective-2-counting-unit-core",
+        "pep-high-exam-counting-method-taxonomy"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式1112：选择：从 3 个不同元素中选 2 个组成一个无序组合，共有多少种选法？",
+      "optionsZhHans": [
+        "4",
+        "2",
+        "3",
+        "5"
+      ],
+      "answer": "3",
+      "acceptedAnswers": [
+        "3"
+      ],
+      "explanationZhHans": "组合数 C(3,2)=3×2/2=3。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-113",
+      "grade": "S6",
+      "topicId": "hjb-high-s6-计数原理",
+      "topicTitleZhHans": "计数原理",
+      "volume": "选择性必修 第二册",
+      "chapter": "计数原理",
+      "conceptIds": [
+        "counting-principles",
+        "permutations-combinations",
+        "binomial-theorem",
+        "case-analysis"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-selective-2-counting-principles"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-2-counting-unit-challenge",
+        "hjb-high-selective-2-counting-unit-core",
+        "pep-high-exam-counting-method-taxonomy"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式1113：填空：从 4 个不同元素中选 2 个组成一个无序组合，共有多少种选法？",
+      "optionsZhHans": [],
+      "answer": "6",
+      "acceptedAnswers": [
+        "6"
+      ],
+      "explanationZhHans": "组合数 C(4,2)=4×3/2=6。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-114",
+      "grade": "S6",
+      "topicId": "hjb-high-s6-计数原理",
+      "topicTitleZhHans": "计数原理",
+      "volume": "选择性必修 第二册",
+      "chapter": "计数原理",
+      "conceptIds": [
+        "counting-principles",
+        "permutations-combinations",
+        "binomial-theorem",
+        "case-analysis"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-selective-2-counting-principles"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-2-counting-unit-challenge",
+        "hjb-high-selective-2-counting-unit-core",
+        "pep-high-exam-counting-method-taxonomy"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式1114：解答：从 5 个不同元素中选 2 个组成一个无序组合，共有多少种选法？",
+      "optionsZhHans": [],
+      "answer": "10",
+      "acceptedAnswers": [
+        "10"
+      ],
+      "explanationZhHans": "组合数 C(5,2)=5×4/2=10。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-115",
+      "grade": "S6",
+      "topicId": "hjb-high-s6-计数原理",
+      "topicTitleZhHans": "计数原理",
+      "volume": "选择性必修 第二册",
+      "chapter": "计数原理",
+      "conceptIds": [
+        "counting-principles",
+        "permutations-combinations",
+        "binomial-theorem",
+        "case-analysis"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-selective-2-counting-principles"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-2-counting-unit-challenge",
+        "hjb-high-selective-2-counting-unit-core",
+        "pep-high-exam-counting-method-taxonomy"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式1115：选择：从 5 个不同元素中选 2 个组成一个无序组合，共有多少种选法？",
+      "optionsZhHans": [
+        "11",
+        "9",
+        "12",
+        "10"
+      ],
+      "answer": "10",
+      "acceptedAnswers": [
+        "10"
+      ],
+      "explanationZhHans": "组合数 C(5,2)=5×4/2=10。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-116",
+      "grade": "S6",
+      "topicId": "hjb-high-s6-计数原理",
+      "topicTitleZhHans": "计数原理",
+      "volume": "选择性必修 第二册",
+      "chapter": "计数原理",
+      "conceptIds": [
+        "counting-principles",
+        "permutations-combinations",
+        "binomial-theorem",
+        "case-analysis"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-selective-2-counting-principles"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-2-counting-unit-challenge",
+        "hjb-high-selective-2-counting-unit-core",
+        "pep-high-exam-counting-method-taxonomy"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式1116：填空：从 12 个不同元素中选 2 个组成一个无序组合，共有多少种选法？",
+      "optionsZhHans": [],
+      "answer": "66",
+      "acceptedAnswers": [
+        "66"
+      ],
+      "explanationZhHans": "组合数 C(12,2)=12×11/2=66。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-117",
+      "grade": "S6",
+      "topicId": "hjb-high-s6-计数原理",
+      "topicTitleZhHans": "计数原理",
+      "volume": "选择性必修 第二册",
+      "chapter": "计数原理",
+      "conceptIds": [
+        "counting-principles",
+        "permutations-combinations",
+        "binomial-theorem",
+        "case-analysis"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-selective-2-counting-principles"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-2-counting-unit-challenge",
+        "hjb-high-selective-2-counting-unit-core",
+        "pep-high-exam-counting-method-taxonomy"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式1117：解答：从 7 个不同元素中选 2 个组成一个无序组合，共有多少种选法？",
+      "optionsZhHans": [],
+      "answer": "21",
+      "acceptedAnswers": [
+        "21"
+      ],
+      "explanationZhHans": "组合数 C(7,2)=7×6/2=21。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-118",
+      "grade": "S6",
+      "topicId": "hjb-high-s6-计数原理",
+      "topicTitleZhHans": "计数原理",
+      "volume": "选择性必修 第二册",
+      "chapter": "计数原理",
+      "conceptIds": [
+        "counting-principles",
+        "permutations-combinations",
+        "binomial-theorem",
+        "case-analysis"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-selective-2-counting-principles"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-2-counting-unit-challenge",
+        "hjb-high-selective-2-counting-unit-core",
+        "pep-high-exam-counting-method-taxonomy"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式1118：选择：从 8 个不同元素中选 2 个组成一个无序组合，共有多少种选法？",
+      "optionsZhHans": [
+        "28",
+        "29",
+        "27",
+        "30"
+      ],
+      "answer": "28",
+      "acceptedAnswers": [
+        "28"
+      ],
+      "explanationZhHans": "组合数 C(8,2)=8×7/2=28。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-119",
+      "grade": "S6",
+      "topicId": "hjb-high-s6-计数原理",
+      "topicTitleZhHans": "计数原理",
+      "volume": "选择性必修 第二册",
+      "chapter": "计数原理",
+      "conceptIds": [
+        "counting-principles",
+        "permutations-combinations",
+        "binomial-theorem",
+        "case-analysis"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-selective-2-counting-principles"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-2-counting-unit-challenge",
+        "hjb-high-selective-2-counting-unit-core",
+        "pep-high-exam-counting-method-taxonomy"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式1119：填空：从 13 个不同元素中选 2 个组成一个无序组合，共有多少种选法？",
+      "optionsZhHans": [],
+      "answer": "78",
+      "acceptedAnswers": [
+        "78"
+      ],
+      "explanationZhHans": "组合数 C(13,2)=13×12/2=78。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s6-120",
+      "grade": "S6",
+      "topicId": "hjb-high-s6-计数原理",
+      "topicTitleZhHans": "计数原理",
+      "volume": "选择性必修 第二册",
+      "chapter": "计数原理",
+      "conceptIds": [
+        "counting-principles",
+        "permutations-combinations",
+        "binomial-theorem",
+        "case-analysis"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-selective-2-counting-principles"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-2-counting-unit-challenge",
+        "hjb-high-selective-2-counting-unit-core",
+        "pep-high-exam-counting-method-taxonomy"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式1120：解答：从 9 个不同元素中选 2 个组成一个无序组合，共有多少种选法？",
+      "optionsZhHans": [],
+      "answer": "36",
+      "acceptedAnswers": [
+        "36"
+      ],
+      "explanationZhHans": "组合数 C(9,2)=9×8/2=36。"
+    }
+  ]
+}

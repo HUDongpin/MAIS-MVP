@@ -1,0 +1,306 @@
+{
+  "batchId": "batch-035",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s1-k05-fi-007",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-coordinate-plane"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "某校七年级学生参加社会实践活动，原计划租用45座客车x辆，但还有15人没有座位；如果租用60座客车，则可少租一辆且最后一辆车还空出10个座位。设学生总人数为y人，请列出关于x和y的二元一次方程组：_______________。",
+      "optionsZhHans": [],
+      "answer": "45x+15=y, 60(x-1)-10=y 或 45x+15=y, 60(x-1)=y+10",
+      "acceptedAnswers": [
+        "45x+15=y, 60(x-1)-10=y 或 45x+15=y, 60(x-1)=y+10",
+        "45x+15=y, 60(x-1)-10=y",
+        "45x+15=y, 60(x-1)=y+10",
+        "45x+15=y, 60x-60-10=y",
+        "45x+15=y, 60x-70=y"
+      ],
+      "explanationZhHans": "设原计划租用45座客车x辆，学生总人数为y人。根据第一种租车方案，45x+15=y；根据第二种方案，租用60座客车(x-1)辆，最后一辆车空出10个座位，即60(x-1)-10=y。因此方程组为45x+15=y, 60(x-1)-10=y。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-fi-008",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-linear-systems"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "已知a、b为有理数，且满足|a+1|+√(b-2)=0，则a-b的值为_______________。",
+      "optionsZhHans": [],
+      "answer": "-3",
+      "acceptedAnswers": [
+        "-3"
+      ],
+      "explanationZhHans": "由非负数的性质，|a+1|≥0，√(b-2)≥0，它们的和为0，则每个非负数必为0。所以a+1=0，得a=-1；b-2=0，得b=2。因此a-b=-1-2=-3。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-fi-009",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-inequalities"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "在平面直角坐标系中，将点P(-3,5)先向右平移4个单位，再向下平移2个单位得到点Q，则点Q的坐标为_______________。",
+      "optionsZhHans": [],
+      "answer": "(1,3)",
+      "acceptedAnswers": [
+        "(1,3)",
+        "1,3"
+      ],
+      "explanationZhHans": "点P(-3,5)向右平移4个单位，横坐标加4，得-3+4=1；向下平移2个单位，纵坐标减2，得5-2=3。所以点Q的坐标为(1,3)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-fi-010",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "某商店销售一种商品，成本为每件40元。若按每件50元出售，每月可售出500件。经调查发现，售价每提高1元，月销售量减少10件。设售价定为x元（x>50），每月利润为y元，则y关于x的函数关系式为_______________。",
+      "optionsZhHans": [],
+      "answer": "y=(x-40)(1000-10x) 或 y=-10x²+1400x-40000",
+      "acceptedAnswers": [
+        "y=(x-40)(1000-10x) 或 y=-10x²+1400x-40000",
+        "y=(x-40)(1000-10x)",
+        "y=-10x²+1400x-40000",
+        "y=(x-40)[500-10(x-50)]"
+      ],
+      "explanationZhHans": "售价为x元，则每件利润为(x-40)元。售价提高了(x-50)元，销售量减少10(x-50)件，月销售量为500-10(x-50)=1000-10x件。所以利润y=(x-40)(1000-10x)，化简得y=-10x²+1400x-40000。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-fi-011",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-data-collection"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "为了解某校七年级学生每天完成家庭作业的时间，随机调查了部分学生，得到如下频数分布表（部分数据被墨水遮盖）：\n\n| 时间t/分钟 | 频数 |\n|------------|------|\n| 30≤t<45  | 6    |\n| 45≤t<60  | 10   |\n| 60≤t<75  | ■    |\n| 75≤t<90  | 8    |\n| 90≤t<105 | 4    |\n\n已知被调查的学生中，每天作业时间在60≤t<75分钟这一组的频率为0.25，则被调查的学生共有_______________人。",
+      "optionsZhHans": [],
+      "answer": "40",
+      "acceptedAnswers": [
+        "40"
+      ],
+      "explanationZhHans": "设被调查的学生共有x人，则60≤t<75这一组的频数为0.25x。根据频数分布表，各组频数之和等于总人数，得6+10+0.25x+8+4=x，即28+0.25x=x，解得x=40。因此被调查的学生共有40人。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-fi-012",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "直线AB、CD相交于点O，OE平分∠AOD，若∠BOD=40°，则∠COE的度数为_______________°。",
+      "optionsZhHans": [],
+      "answer": "110",
+      "acceptedAnswers": [
+        "110"
+      ],
+      "explanationZhHans": "因为直线AB、CD相交于点O，所以∠AOD+∠BOD=180°（邻补角），∠BOD=40°，则∠AOD=180°-40°=140°。OE平分∠AOD，所以∠DOE=1/2∠AOD=70°。又因为∠COE与∠DOE是邻补角（或∠COE=∠COD+∠DOE，∠COD=180°），所以∠COE=180°-∠DOE=180°-70°=110°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-fi-013",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-real-numbers"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "比较大小：√5+1与3，用“>”或“<”填空：√5+1_______________3。",
+      "optionsZhHans": [],
+      "answer": ">",
+      "acceptedAnswers": [
+        ">"
+      ],
+      "explanationZhHans": "因为2<√5<3，所以√5+1大于3？估算：2.2²=4.84，2.3²=5.29，所以√5≈2.236，√5+1≈3.236>3。因此√5+1>3。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-fi-014",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-coordinate-plane"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "在平面直角坐标系中，点M在第二象限，且到x轴的距离为3，到y轴的距离为2，则点M的坐标为_______________。",
+      "optionsZhHans": [],
+      "answer": "(-2,3)",
+      "acceptedAnswers": [
+        "(-2,3)",
+        "-2,3"
+      ],
+      "explanationZhHans": "第二象限的点横坐标为负，纵坐标为正。到x轴的距离是纵坐标的绝对值，所以|y|=3，y=3；到y轴的距离是横坐标的绝对值，所以|x|=2，x=-2。因此点M的坐标为(-2,3)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-fi-015",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-linear-systems"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "已知关于x、y的二元一次方程组 { 2x+y=5k, x-2y=9k } 的解满足方程3x+2y=7，则k的值为_______________。",
+      "optionsZhHans": [],
+      "answer": "1",
+      "acceptedAnswers": [
+        "1"
+      ],
+      "explanationZhHans": "解方程组 {2x+y=5k, x-2y=9k}，消元得x=3k，y=-k。代入3x+2y=7，得9k-2k=7，7k=7，k=1。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-fi-016",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-inequalities"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "某次知识竞赛共有20道题，答对一题得5分，答错或不答扣2分。小明想要得分不低于80分，设他答对了x道题，则可列不等式为_______________。",
+      "optionsZhHans": [],
+      "answer": "5x-2(20-x)≥80",
+      "acceptedAnswers": [
+        "5x-2(20-x)≥80",
+        "5x-40+2x≥80",
+        "7x-40≥80"
+      ],
+      "explanationZhHans": "答对x题得5x分，答错或不答(20-x)题扣2(20-x)分，总得分5x-2(20-x)不低于80分，所以不等式为5x-2(20-x)≥80。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

@@ -1,0 +1,129 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-052",
+  "startedAt": "2026-05-28T01:09:05.450Z",
+  "completedAt": "2026-05-28T01:09:21.586Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-409",
+    "bnu-high-ds-v1-s4-410",
+    "bnu-high-ds-v1-s4-411",
+    "bnu-high-ds-v1-s4-412",
+    "bnu-high-ds-v1-s4-413",
+    "bnu-high-ds-v1-s4-414",
+    "bnu-high-ds-v1-s4-415",
+    "bnu-high-ds-v1-s4-416"
+  ],
+  "usage": {
+    "prompt_tokens": 12793,
+    "completion_tokens": 976,
+    "total_tokens": 13769,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 12409
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-409",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案16/65与Stage A独立解一致，解析正确指出A只能为锐角，唯一解。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-410",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案33/65与Stage A独立解一致，解析过程正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-411",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案(-4√3+3)/10与Stage A独立解(4√3-3)/10等价，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-412",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "correctedAnswer": "sin x",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "Stage A独立解为sin x，存储答案为√3 sin x，解析中计算过程得出sin x但结论错误，选项C为sin x，正确答案应为sin x。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-413",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与Stage A独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-414",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案-4/3与Stage A独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-415",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案-3/4与Stage A独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-416",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案1/4与Stage A独立解一致，解析正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第412题存储答案错误，应为sin x而非√3 sin x，其余题目均通过。"
+    }
+  }
+}

@@ -1,0 +1,285 @@
+{
+  "batchId": "batch-116",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p3-076",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-one-digit-multiplication",
+      "unitTitle": "用一位数乘",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "one-digit-multiplication",
+        "multi-digit-times-one-digit",
+        "regrouping-multiplication",
+        "一位数乘"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "符号意识"
+      ],
+      "skillTags": [
+        "口算乘法",
+        "竖式乘法",
+        "进位",
+        "估算",
+        "分步检查"
+      ],
+      "misconceptionTags": [
+        "regrouped value written in the wrong place",
+        "zero placeholder ignored",
+        "estimate not used to catch digit-size errors"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-one-digit-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-one-digit-multiplication",
+        "hjb-primary-p3-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小乐在计算 237 × 4 时，先估算了一下，然后列竖式计算。下面哪个选项正确描述了他的估算和竖式结果？",
+      "optionsZhHans": [
+        "估算：237 × 4 ≈ 800，竖式结果：948",
+        "估算：237 × 4 ≈ 900，竖式结果：948",
+        "估算：237 × 4 ≈ 800，竖式结果：928",
+        "估算：237 × 4 ≈ 1000，竖式结果：948"
+      ],
+      "answer": "估算：237 × 4 ≈ 900，竖式结果：948",
+      "acceptedAnswers": [
+        "估算：237 × 4 ≈ 900，竖式结果：948"
+      ],
+      "explanationZhHans": "237 ≈ 240，240 × 4 = 960，更接近900。竖式：4×7=28进2，4×3=12加2得14进1，4×2=8加1得9，结果是948。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-077",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-one-digit-multiplication",
+      "unitTitle": "用一位数乘",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "one-digit-multiplication",
+        "multi-digit-times-one-digit",
+        "regrouping-multiplication",
+        "一位数乘"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "符号意识"
+      ],
+      "skillTags": [
+        "口算乘法",
+        "竖式乘法",
+        "进位",
+        "估算",
+        "分步检查"
+      ],
+      "misconceptionTags": [
+        "regrouped value written in the wrong place",
+        "zero placeholder ignored",
+        "estimate not used to catch digit-size errors"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-one-digit-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-one-digit-multiplication",
+        "hjb-primary-p3-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算 305 × 6 时，积的十位上是______。",
+      "optionsZhHans": [],
+      "answer": "3",
+      "acceptedAnswers": [
+        "3"
+      ],
+      "explanationZhHans": "305 × 6 = 1830。十位是3。注意0×6=0，加上个位进位的3得3。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-078",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-one-digit-multiplication",
+      "unitTitle": "用一位数乘",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "one-digit-multiplication",
+        "multi-digit-times-one-digit",
+        "regrouping-multiplication",
+        "一位数乘"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "符号意识"
+      ],
+      "skillTags": [
+        "口算乘法",
+        "竖式乘法",
+        "进位",
+        "估算",
+        "分步检查"
+      ],
+      "misconceptionTags": [
+        "regrouped value written in the wrong place",
+        "zero placeholder ignored",
+        "estimate not used to catch digit-size errors"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-one-digit-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-one-digit-multiplication",
+        "hjb-primary-p3-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小马虎在计算一道一位数乘三位数的乘法时，把乘数6看成了9，结果得到873。正确的积应该是多少？请写出过程。",
+      "optionsZhHans": [],
+      "answer": "582",
+      "acceptedAnswers": [
+        "582"
+      ],
+      "explanationZhHans": "先求原来的三位数：873 ÷ 9 = 97。再算正确积：97 × 6 = 582。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-079",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-one-digit-multiplication",
+      "unitTitle": "用一位数乘",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "one-digit-multiplication",
+        "multi-digit-times-one-digit",
+        "regrouping-multiplication",
+        "一位数乘"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "符号意识"
+      ],
+      "skillTags": [
+        "口算乘法",
+        "竖式乘法",
+        "进位",
+        "估算",
+        "分步检查"
+      ],
+      "misconceptionTags": [
+        "regrouped value written in the wrong place",
+        "zero placeholder ignored",
+        "estimate not used to catch digit-size errors"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-one-digit-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-one-digit-multiplication",
+        "hjb-primary-p3-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "S18 remediated after DeepSeek-v4-pro QA on 2026-05-25; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算258×4，下面哪个结果正确？",
+      "optionsZhHans": [
+        "1032",
+        "1232",
+        "1002",
+        "932"
+      ],
+      "answer": "1032",
+      "acceptedAnswers": [
+        "1032"
+      ],
+      "explanationZhHans": "258×4：8×4=32，个位写2进3；5×4+3=23，十位写3进2；2×4+2=10，所以结果是1032。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-080",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-rectangle-square-geometry",
+      "unitTitle": "长方形与正方形",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "rectangle-square-properties",
+        "perimeter-introduction",
+        "shape-features",
+        "长方形正方形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "边与角",
+        "图形分类",
+        "周长理解",
+        "画图说明",
+        "长度单位"
+      ],
+      "misconceptionTags": [
+        "orientation treated as a different shape",
+        "perimeter confused with inside space",
+        "opposite sides not linked in rectangle reasoning"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-rectangle-square-geometry"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-rectangle-square-perimeter",
+        "hjb-primary-p3-upper-assessment-review-operations"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方形花坛，长是8米，宽是5米。小明沿着花坛边缘走了一圈，他一共走了______米。",
+      "optionsZhHans": [],
+      "answer": "26",
+      "acceptedAnswers": [
+        "26"
+      ],
+      "explanationZhHans": "走一圈就是求周长。长方形周长 = (长+宽)×2 = (8+5)×2 = 26米。"
+    }
+  ]
+}

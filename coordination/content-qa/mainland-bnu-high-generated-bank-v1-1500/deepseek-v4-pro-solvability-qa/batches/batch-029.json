@@ -1,0 +1,137 @@
+{
+  "batchNumber": 29,
+  "startedAt": "2026-05-27T13:48:45.088Z",
+  "completedAt": "2026-05-27T13:49:04.345Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-225",
+    "bnu-high-ds-v1-s4-226",
+    "bnu-high-ds-v1-s4-227",
+    "bnu-high-ds-v1-s4-228",
+    "bnu-high-ds-v1-s4-229",
+    "bnu-high-ds-v1-s4-230",
+    "bnu-high-ds-v1-s4-231",
+    "bnu-high-ds-v1-s4-232"
+  ],
+  "usage": {
+    "prompt_tokens": 10643,
+    "completion_tokens": 1441,
+    "total_tokens": 12084,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10131
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-225",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "3/5",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目明确，古典概型可解。总取法C(5,2)=10，和为奇数需一奇一偶，有3×2=6种，概率6/10=3/5。答案匹配，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-226",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "A. 11/15",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "总球数6，取2球总组合C(6,2)=15。颜色相同情况：两红C(3,2)=3，两蓝C(2,2)=1，共4种。颜色不同概率=1-4/15=11/15。选项A正确，解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-227",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "样本空间为{(白,白),(白,黑),(黑,白),(黑,黑)}；概率为17/32。",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "有放回摸球，每次白球概率5/8，黑球3/8。相同颜色概率=(5/8)²+(3/8)²=34/64=17/32。样本空间正确，答案匹配，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-228",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "1/2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "独立事件，密码被译出概率=1-两人都未译出=1-(2/3)(3/4)=1/2。答案正确，解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-229",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "C. 抛一枚质地均匀的硬币，观察其出现正面或反面",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "古典概型要求有限等可能。C满足；A、D非等可能；B结果无限。选项C正确，解析合理。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-230",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "样本点总数为216；概率为1/72。",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "每次6种结果，总样本点6³=216。和为4的情况有(1,1,2)排列共3种，概率3/216=1/72。答案匹配，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-231",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "{(1,3),(1,5),(3,5),(2,4)}",
+        "correctedAnswer": "{(1,3),(1,5),(3,5),(2,4)}",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "事件A：和为偶数，需两球同奇或同偶。奇数{1,3,5}组合(1,3),(1,5),(3,5)；偶数{2,4}组合(2,4)。A={(1,3),(1,5),(3,5),(2,4)}。事件B：积为奇数，需两球均为奇数，B={(1,3),(1,5),(3,5)}。A∪B=A。原答案错误包含(1,2)等，解析自相矛盾，需修正。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-232",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "事件A与事件B不互斥但也不对立",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "事件A：至少1女；事件B：恰2男即1女。B发生时A必发生，不互斥。A对立事件为全男，B非全男，不对立。选项D正确，解析合理。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第7题(bnu-high-ds-v1-s4-231)答案错误，事件A∪B应为{(1,3),(1,5),(3,5),(2,4)}，原答案和解析均不正确，需修正。其余题目均通过审核。"
+    }
+  }
+}

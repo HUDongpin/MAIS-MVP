@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-437",
+  "startedAt": "2026-05-28T01:31:27.678Z",
+  "completedAt": "2026-05-28T01:31:33.055Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-437"
+  ],
+  "usage": {
+    "prompt_tokens": 2235,
+    "completion_tokens": 355,
+    "total_tokens": 2590,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1851
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-437",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "(1) r ≈ 0.99，高度正相关；(2) 可以预测，因为数学成绩98分在样本范围内或附近，线性回归模型适用，但需注意预测的误差和适用范围。",
+        "correctedAnswer": "(1) r ≈ 0.99，高度正相关；(2) 可以预测，因为数学成绩98分在样本范围内或附近，线性回归模型适用，但需注意预测的误差和适用范围。",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案第(2)问错误认为98分超出样本范围不能预测，但样本最大值为95，98分虽略超出但仍在附近，且线性回归可外推，Stage A独立解认为可以预测但需注意误差，存储答案与独立解矛盾，属于数学错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "存储答案第(2)问错误，应修正为可以预测但需注意误差。"
+    }
+  }
+}

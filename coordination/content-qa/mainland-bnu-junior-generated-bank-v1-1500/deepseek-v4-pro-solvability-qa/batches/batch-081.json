@@ -1,0 +1,179 @@
+{
+  "batchNumber": 81,
+  "startedAt": "2026-05-27T17:46:14.525Z",
+  "completedAt": "2026-05-27T17:46:34.821Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s2-461",
+    "bnu-junior-ds-v1-s2-462",
+    "bnu-junior-ds-v1-s2-463",
+    "bnu-junior-ds-v1-s2-464",
+    "bnu-junior-ds-v1-s2-465",
+    "bnu-junior-ds-v1-s2-466",
+    "bnu-junior-ds-v1-s2-467",
+    "bnu-junior-ds-v1-s2-468",
+    "bnu-junior-ds-v1-s2-469",
+    "bnu-junior-ds-v1-s2-470",
+    "bnu-junior-ds-v1-s2-471",
+    "bnu-junior-ds-v1-s2-472"
+  ],
+  "usage": {
+    "prompt_tokens": 6851,
+    "completion_tokens": 1434,
+    "total_tokens": 8285,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 6339
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s2-461",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，分子为零得x=±2，分母因式分解为(x-3)(x+2)≠0，排除x=-2，故x=2舍去，只有x=-2，答案正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-462",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程可解，去分母得1+3(x-2)=x-1，解得x=2，检验为增根，故无解，答案和解释均正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-463",
+        "status": "fail",
+        "severity": "major",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "3组",
+        "rationale": "解释中明确②③④正确，共3组，但答案给出2组，与解释矛盾，且选项无3组，导致答案错误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-464",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "利用平行四边形性质和角平分线得BE=AB=8，BC=AD=5，CE=BE-BC=3，答案正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-465",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "①与③是一组对边平行且相等，可判定平行四边形，其他组合不能，答案正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-466",
+        "status": "fail",
+        "severity": "major",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "21",
+        "rationale": "解释中计算周长为6+6+5+4=21，但答案给出24，答案与解释矛盾，且21为正确结果。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-467",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平行四边形对角线互相平分，过O的直线产生多对全等三角形，共6对，答案正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-468",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由PD=CQ得24-t=3t，t=6，符合条件，答案正确，解释清晰。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-469",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "中点四边形为菱形时，原四边形对角线相等，答案正确，解释准确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-470",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "利用等腰三角形性质和中位线定理，通过SAS全等证明DF=EG，答案和解释正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-471",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "四组条件均能判定平行四边形，答案4组正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-472",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平行四边形邻角互补，设∠B=x，则x+(x+40°)=180°，得x=70°，∠A=110°，对角相等，∠C=110°，答案正确。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 10,
+      "warn": 0,
+      "fail": 2,
+      "notes": "共12题，10题通过，2题失败。失败题：463答案与解释矛盾，应为3组；466答案与解释矛盾，应为21。"
+    }
+  }
+}

@@ -1,0 +1,181 @@
+{
+  "startedAt": "2026-05-26T05:58:59.416Z",
+  "completedAt": "2026-05-26T05:59:17.952Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "usage": {
+    "prompt_tokens": 3411,
+    "completion_tokens": 1548,
+    "total_tokens": 4959,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 3411
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "questionId": "pep-primary-p3-u-mc-021",
+        "solvableStatus": "pass",
+        "independentAnswer": "2/5",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "平均分成5份，涂色2份，分数为2/5。"
+      },
+      {
+        "questionId": "pep-primary-p3-u-mc-022",
+        "solvableStatus": "pass",
+        "independentAnswer": "3/6",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "平均分成6份，涂色3份，分数为3/6。"
+      },
+      {
+        "questionId": "pep-primary-p3-u-mc-023",
+        "solvableStatus": "pass",
+        "independentAnswer": "6/7",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "平均分成7份，涂色6份，分数为6/7。"
+      },
+      {
+        "questionId": "pep-primary-p3-u-mc-024",
+        "solvableStatus": "pass",
+        "independentAnswer": "4/8",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "平均分成8份，涂色4份，分数为4/8。"
+      },
+      {
+        "questionId": "pep-primary-p3-u-mc-025",
+        "solvableStatus": "pass",
+        "independentAnswer": "2/4",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "平均分成4份，涂色2份，分数为2/4。"
+      },
+      {
+        "questionId": "pep-primary-p3-u-mc-026",
+        "solvableStatus": "pass",
+        "independentAnswer": "2/4",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "平均分为4份，标记2份，分数为2/4。"
+      },
+      {
+        "questionId": "pep-primary-p3-u-mc-027",
+        "solvableStatus": "pass",
+        "independentAnswer": "3/6",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "平均分成6份，涂色3份，分数为3/6。"
+      },
+      {
+        "questionId": "pep-primary-p3-u-mc-028",
+        "solvableStatus": "pass",
+        "independentAnswer": "5/7",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "平均分成7份，涂色5份，分数为5/7。"
+      },
+      {
+        "questionId": "pep-primary-p3-u-mc-029",
+        "solvableStatus": "pass",
+        "independentAnswer": "2/8",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "平均分成8份，涂色2份，分数为2/8。"
+      },
+      {
+        "questionId": "pep-primary-p3-u-mc-030",
+        "solvableStatus": "pass",
+        "independentAnswer": "1/4",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "平均分成4份，涂色1份，分数为1/4。"
+      },
+      {
+        "questionId": "pep-primary-p3-u-mc-031",
+        "solvableStatus": "pass",
+        "independentAnswer": "4/5",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "平均分成5份，涂色4份，分数为4/5。"
+      },
+      {
+        "questionId": "pep-primary-p3-u-mc-032",
+        "solvableStatus": "pass",
+        "independentAnswer": "3/6",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "平均分成6份，涂色3份，分数为3/6。"
+      },
+      {
+        "questionId": "pep-primary-p3-u-mc-033",
+        "solvableStatus": "pass",
+        "independentAnswer": "4/7",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "平均分成7份，涂色4份，分数为4/7。"
+      },
+      {
+        "questionId": "pep-primary-p3-u-mc-034",
+        "solvableStatus": "pass",
+        "independentAnswer": "7/8",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "平均分成8份，涂色7份，分数为7/8。"
+      },
+      {
+        "questionId": "pep-primary-p3-u-mc-035",
+        "solvableStatus": "pass",
+        "independentAnswer": "3/4",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "平均分成4份，涂色3份，分数为3/4。"
+      },
+      {
+        "questionId": "pep-primary-p3-u-mc-036",
+        "solvableStatus": "pass",
+        "independentAnswer": "1/5",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "平均分成5份，涂色1份，分数为1/5。"
+      },
+      {
+        "questionId": "pep-primary-p3-u-mc-037",
+        "solvableStatus": "pass",
+        "independentAnswer": "3/6",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "平均分成6份，涂色3份，分数为3/6。"
+      },
+      {
+        "questionId": "pep-primary-p3-u-mc-038",
+        "solvableStatus": "pass",
+        "independentAnswer": "3/7",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "平均分成7份，涂色3份，分数为3/7。"
+      },
+      {
+        "questionId": "pep-primary-p3-u-mc-039",
+        "solvableStatus": "pass",
+        "independentAnswer": "5/8",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "平均分成8份，涂色5份，分数为5/8。"
+      },
+      {
+        "questionId": "pep-primary-p3-u-mc-040",
+        "solvableStatus": "pass",
+        "independentAnswer": "2/4",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "平均分成4份，涂色2份，分数为2/4。"
+      }
+    ]
+  }
+}

@@ -1,0 +1,280 @@
+{
+  "batchId": "batch-003",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p1-011",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "hjb-primary-p1-upper-school-math-habits",
+      "unitTitle": "我是小学生与数学学习习惯",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-school-readiness",
+        "math-talk-listening",
+        "classroom-routines",
+        "数学学习习惯"
+      ],
+      "competencyTags": [
+        "学习习惯",
+        "数学表达",
+        "合作交流"
+      ],
+      "skillTags": [
+        "听说规则",
+        "观察描述",
+        "游戏规则表达",
+        "课堂数学语言"
+      ],
+      "misconceptionTags": [
+        "answering without listening",
+        "counting words without quantity meaning",
+        "rule-following separated from math communication"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p1-upper-school-math-habits"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-upper-assessment-school-readiness",
+        "hjb-primary-p1-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "老师说：“请小朋友听好：先拍两下手，再拍三下手，然后告诉大家一共拍了几下。”小明听完后马上说：“一共拍了5下。”老师又问：“你是怎么知道的？”小明说：“因为2和3合起来是5。”老师表扬小明听得认真、说得清楚。请你像小明一样，先听老师的话，再想一想，然后填空：老师让小朋友先拍____下手，再拍____下手，一共拍____下手。",
+      "optionsZhHans": [],
+      "answer": "2,3,5",
+      "acceptedAnswers": [
+        "2,3,5",
+        "2，3，5"
+      ],
+      "explanationZhHans": "仔细听老师的话：先拍两下，再拍三下，合起来是五下。所以填空依次是2、3、5。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-012",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "hjb-primary-p1-upper-school-math-habits",
+      "unitTitle": "我是小学生与数学学习习惯",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-school-readiness",
+        "math-talk-listening",
+        "classroom-routines",
+        "数学学习习惯"
+      ],
+      "competencyTags": [
+        "学习习惯",
+        "数学表达",
+        "合作交流"
+      ],
+      "skillTags": [
+        "听说规则",
+        "观察描述",
+        "游戏规则表达",
+        "课堂数学语言"
+      ],
+      "misconceptionTags": [
+        "answering without listening",
+        "counting words without quantity meaning",
+        "rule-following separated from math communication"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p1-upper-school-math-habits"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-upper-assessment-school-readiness",
+        "hjb-primary-p1-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在数学课上，老师让小朋友玩“听指令做动作”的游戏。老师说：“请你先跳4下，再跳2下，然后想一想，你一共跳了几下？你是怎样算出来的？”请你写出你的答案和想法。",
+      "optionsZhHans": [],
+      "answer": "一共跳了6下。因为4和2合起来是6。",
+      "acceptedAnswers": [
+        "一共跳了6下。因为4和2合起来是6。",
+        "6下。4+2=6。",
+        "6下。4和2组成6。"
+      ],
+      "explanationZhHans": "先跳4下，再跳2下，合起来就是4+2=6下。用数的组成或加法都可以。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-013",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "hjb-primary-p1-upper-school-math-habits",
+      "unitTitle": "我是小学生与数学学习习惯",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-school-readiness",
+        "math-talk-listening",
+        "classroom-routines",
+        "数学学习习惯"
+      ],
+      "competencyTags": [
+        "学习习惯",
+        "数学表达",
+        "合作交流"
+      ],
+      "skillTags": [
+        "听说规则",
+        "观察描述",
+        "游戏规则表达",
+        "课堂数学语言"
+      ],
+      "misconceptionTags": [
+        "answering without listening",
+        "counting words without quantity meaning",
+        "rule-following separated from math communication"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p1-upper-school-math-habits"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-upper-assessment-school-readiness",
+        "hjb-primary-p1-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "数学课上，老师请小红说说她看到的铅笔。小红说：“我看到3支红铅笔和2支蓝铅笔，合起来是5支铅笔。”老师又请小明说说他听到的。下面哪个小朋友的做法最好？",
+      "optionsZhHans": [
+        "A. 小刚没听小红说，自己大声喊：“5支！”",
+        "B. 小丽听完小红的话，点点头说：“小红说得对，3和2合起来是5。”",
+        "C. 小华听完后，马上说：“不对，是4支。”",
+        "D. 小强没有听，自己在玩铅笔。"
+      ],
+      "answer": "B. 小丽听完小红的话，点点头说：“小红说得对，3和2合起来是5。”",
+      "acceptedAnswers": [
+        "B. 小丽听完小红的话，点点头说：“小红说得对，3和2合起来是5。”"
+      ],
+      "explanationZhHans": "认真听别人发言，再表达自己的想法，是好的数学学习习惯。小丽先听后说，做得最好。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-014",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "hjb-primary-p1-upper-school-math-habits",
+      "unitTitle": "我是小学生与数学学习习惯",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-school-readiness",
+        "math-talk-listening",
+        "classroom-routines",
+        "数学学习习惯"
+      ],
+      "competencyTags": [
+        "学习习惯",
+        "数学表达",
+        "合作交流"
+      ],
+      "skillTags": [
+        "听说规则",
+        "观察描述",
+        "游戏规则表达",
+        "课堂数学语言"
+      ],
+      "misconceptionTags": [
+        "answering without listening",
+        "counting words without quantity meaning",
+        "rule-following separated from math communication"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p1-upper-school-math-habits"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-upper-assessment-school-readiness",
+        "hjb-primary-p1-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "老师拿出一些积木，说：“请小朋友观察这些积木，然后告诉老师你看到了什么，再说一个数学发现。”小芳说：“我看到有正方体积木和长方体积木。我发现正方体有6个一样的面。”请你像小芳一样，先观察，再填空：我看到有____和____，我发现____。",
+      "optionsZhHans": [],
+      "answer": "正方体,长方体,正方体有6个一样的面",
+      "acceptedAnswers": [
+        "正方体,长方体,正方体有6个一样的面",
+        "正方体，长方体，正方体有6个一样的面"
+      ],
+      "explanationZhHans": "观察积木的形状，说出名称和特征。小芳发现正方体有6个一样的面，这是一个数学发现。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-015",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "hjb-primary-p1-upper-school-math-habits",
+      "unitTitle": "我是小学生与数学学习习惯",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-school-readiness",
+        "math-talk-listening",
+        "classroom-routines",
+        "数学学习习惯"
+      ],
+      "competencyTags": [
+        "学习习惯",
+        "数学表达",
+        "合作交流"
+      ],
+      "skillTags": [
+        "听说规则",
+        "观察描述",
+        "游戏规则表达",
+        "课堂数学语言"
+      ],
+      "misconceptionTags": [
+        "answering without listening",
+        "counting words without quantity meaning",
+        "rule-following separated from math communication"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p1-upper-school-math-habits"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-upper-assessment-school-readiness",
+        "hjb-primary-p1-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在小组活动中，老师让每个小朋友轮流说一个数学规则。小明说：“我来说一个规则：从1数到10，每数一个数就拍一次手。”小丽说：“我来说另一个规则：从10倒数到1，每数一个数就跺一次脚。”请你选一个规则，用完整的句子写下来，并说说这个规则里有什么数学。",
+      "optionsZhHans": [],
+      "answer": "我选小明的规则：从1数到10，每数一个数就拍一次手。这个规则里有数数和一一对应。",
+      "acceptedAnswers": [
+        "我选小明的规则：从1数到10，每数一个数就拍一次手。这个规则里有数数和一一对应。",
+        "我选小丽的规则：从10倒数到1，每数一个数就跺一次脚。这个规则里有倒数。"
+      ],
+      "explanationZhHans": "选一个规则写下来，并说出其中的数学内容，如数数、倒数或一一对应。"
+    }
+  ]
+}

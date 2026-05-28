@@ -1,0 +1,330 @@
+{
+  "batchNumber": 35,
+  "startedAt": "2026-05-26T17:00:26.327Z",
+  "completedAt": "2026-05-26T17:00:57.942Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p5-021",
+    "bnu-primary-ds-v2-p5-022",
+    "bnu-primary-ds-v2-p5-023",
+    "bnu-primary-ds-v2-p5-024",
+    "bnu-primary-ds-v2-p5-025",
+    "bnu-primary-ds-v2-p5-026",
+    "bnu-primary-ds-v2-p5-027",
+    "bnu-primary-ds-v2-p5-028",
+    "bnu-primary-ds-v2-p5-029",
+    "bnu-primary-ds-v2-p5-030",
+    "bnu-primary-ds-v2-p5-031",
+    "bnu-primary-ds-v2-p5-032",
+    "bnu-primary-ds-v2-p5-033",
+    "bnu-primary-ds-v2-p5-034",
+    "bnu-primary-ds-v2-p5-035",
+    "bnu-primary-ds-v2-p5-036",
+    "bnu-primary-ds-v2-p5-037",
+    "bnu-primary-ds-v2-p5-038",
+    "bnu-primary-ds-v2-p5-039",
+    "bnu-primary-ds-v2-p5-040",
+    "bnu-primary-ds-v2-p5-041",
+    "bnu-primary-ds-v2-p5-042",
+    "bnu-primary-ds-v2-p5-043",
+    "bnu-primary-ds-v2-p5-044",
+    "bnu-primary-ds-v2-p5-045",
+    "bnu-primary-ds-v2-p5-046",
+    "bnu-primary-ds-v2-p5-047",
+    "bnu-primary-ds-v2-p5-048",
+    "bnu-primary-ds-v2-p5-049",
+    "bnu-primary-ds-v2-p5-050"
+  ],
+  "usage": {
+    "prompt_tokens": 5866,
+    "completion_tokens": 2306,
+    "total_tokens": 8172,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 5482
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p5-021",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目明确给出三角形顶点坐标和对称轴，可求解对称点坐标，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-022",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "平移性质明确，选项唯一正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-023",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "平移合成计算正确，答案唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-024",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "平移坐标计算正确，答案完整。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-025",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "轴对称图形判断正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-026",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "反向平移描述正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-027",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "平移后坐标和长度判断正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-028",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "平移性质选项唯一正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-029",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "平移合成计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-030",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "点平移坐标计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-031",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "质数判断正确，73是最大符合条件。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-032",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "因数与倍数关系正确，答案完整。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-033",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "分法对应因数，排除1和24后共6种，正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-034",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "2、3、5倍数特征判断正确，60唯一符合。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-035",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "30-40间2和3的公倍数只有36，正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-036",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "最大公因数应用正确，段数计算无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-037",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "互质数判断正确，8和9公因数只有1。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-038",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "质数合数个数统计正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-039",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "因数对和差条件求解正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-040",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "最小公倍数计算正确，36最小。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-041",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "面积因数组合完整，长≥宽条件满足。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-042",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "50以内9的倍数列举正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-043",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "公因数判断正确，6是唯一选项。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-044",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "24的因数中3的倍数列举正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-045",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "分法对应因数，答案完整。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-046",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "平行四边形面积计算正确，邻边为干扰项。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-047",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "三角形底的计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-048",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "梯形面积计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-049",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "等底等高平行四边形面积是三角形2倍，计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-050",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "平行四边形高计算正确。"
+      }
+    ],
+    "batchSummary": {
+      "solvableYes": 30,
+      "solvableNo": 0,
+      "answerMatchYes": 30,
+      "answerMatchNo": 0,
+      "notes": "全部30道题目均可解，答案匹配正确，无问题。"
+    }
+  }
+}

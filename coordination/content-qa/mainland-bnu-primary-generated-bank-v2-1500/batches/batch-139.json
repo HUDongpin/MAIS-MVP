@@ -1,0 +1,583 @@
+{
+  "batchId": "batch-139",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p6-131",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "p6-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "strategy-reflection",
+        "六年级上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "关系表达",
+        "错因分析",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "review solved as disconnected drills",
+        "formula chosen before concept identification",
+        "multi-step result accepted without checking"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-final-topic-drill",
+        "bnu-primary-p6-upper-assessment-circles-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在总复习中，老师给出了一道题：“一个圆形花坛的周长是25.12米，在花坛周围修一条宽1米的小路。小路的面积是多少平方米？”小明是这样解答的：花坛半径=25.12÷3.14÷2=4（米），小路外圆半径=4+1=5（米），小路面积=3.14×5²-3.14×4²=3.14×(25-16)=28.26（平方米）。请你检查小明的解答是否正确，如果正确，请填写“正确”；如果有错误，请写出正确的算式和结果。",
+      "optionsZhHans": [],
+      "answer": "正确",
+      "acceptedAnswers": [
+        "正确"
+      ],
+      "explanationZhHans": "小明的解答完全正确：先由周长求半径，再求外圆半径，最后用圆环面积公式计算，单位、计算均无误。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-132",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "p6-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "strategy-reflection",
+        "六年级上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "关系表达",
+        "错因分析",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "review solved as disconnected drills",
+        "formula chosen before concept identification",
+        "multi-step result accepted without checking"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-final-topic-drill",
+        "bnu-primary-p6-upper-assessment-circles-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明在复习时遇到一道题：一个圆形花坛的直径是8米，在花坛周围修一条宽1米的环形小路。他列出的算式是3.14×(8÷2+1)²−3.14×(8÷2)²。请指出这个算式求的是什么，并计算出结果。",
+      "optionsZhHans": [],
+      "answer": "这个算式求的是环形小路的面积，结果是28.26平方米。",
+      "acceptedAnswers": [
+        "这个算式求的是环形小路的面积，结果是28.26平方米。",
+        "环形小路的面积，28.26平方米。",
+        "28.26平方米"
+      ],
+      "explanationZhHans": "算式用大圆面积减小圆面积，大圆半径是花坛半径4米加小路宽1米得5米，小圆半径是4米。面积差为3.14×25−3.14×16=3.14×9=28.26平方米，即小路面积。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-133",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "p6-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "strategy-reflection",
+        "六年级上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "关系表达",
+        "错因分析",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "review solved as disconnected drills",
+        "formula chosen before concept identification",
+        "multi-step result accepted without checking"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-final-topic-drill",
+        "bnu-primary-p6-upper-assessment-circles-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在复习课上，老师让同学们判断下面哪种情况需要计算圆的面积。以下哪种说法是正确的？",
+      "optionsZhHans": [
+        "给圆形花坛围上篱笆，需要计算圆的面积",
+        "计算圆形钟面时针尖端一天走过的路程，需要计算圆的面积",
+        "给圆形桌面铺一块同样大小的玻璃，需要计算圆的面积",
+        "测量圆形水池一圈的长度，需要计算圆的面积"
+      ],
+      "answer": "给圆形桌面铺一块同样大小的玻璃，需要计算圆的面积",
+      "acceptedAnswers": [
+        "给圆形桌面铺一块同样大小的玻璃，需要计算圆的面积"
+      ],
+      "explanationZhHans": "铺玻璃需要覆盖整个桌面，求的是面的大小，应该计算面积。围篱笆、时针尖端路程、水池一圈长度都是求周长。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-134",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "p6-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "strategy-reflection",
+        "六年级上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "关系表达",
+        "错因分析",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "review solved as disconnected drills",
+        "formula chosen before concept identification",
+        "multi-step result accepted without checking"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-final-topic-drill",
+        "bnu-primary-p6-upper-assessment-circles-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小宇用一根绳子测量一棵古树的树干周长。他将绳子绕树干一周后，发现绳子还多出2.4米；接着他将绳子对折一次后再绕树干一周，这时绳子还多出0.3米。这棵古树的树干半径是多少米？（结果用含π的式子表示）",
+      "optionsZhHans": [],
+      "answer": "(2.1/π)米",
+      "acceptedAnswers": [
+        "(2.1/π)米",
+        "2.1/π",
+        "2.1÷π",
+        "21/(10π)",
+        "2.1/π米",
+        "2.1÷π米",
+        "21/(10π)米"
+      ],
+      "explanationZhHans": "设树干半径为r米，周长为2πr。绳子原长=2πr+2.4。对折后绳长=(2πr+2.4)÷2=πr+1.2。对折后绕一周多0.3米，得πr+1.2=2πr+0.3，解得πr=0.9，r=0.9/π=2.1/π米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-135",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "p6-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "strategy-reflection",
+        "六年级上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "关系表达",
+        "错因分析",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "review solved as disconnected drills",
+        "formula chosen before concept identification",
+        "multi-step result accepted without checking"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-final-topic-drill",
+        "bnu-primary-p6-upper-assessment-circles-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在整理六年级上册的数学知识时，小丽发现她经常混淆圆的周长和面积公式。她决定用一个具体的例子来帮助自己区分：一个圆形花坛的直径是8米。她先计算了花坛的周长，又计算了花坛的面积。请你分别写出周长和面积的计算过程，并说明两个结果在单位上有什么不同。",
+      "optionsZhHans": [],
+      "answer": "周长：3.14×8=25.12（米）；面积：3.14×(8÷2)²=3.14×16=50.24（平方米）。周长的单位是米，面积的单位是平方米。",
+      "acceptedAnswers": [
+        "周长：3.14×8=25.12（米）；面积：3.14×(8÷2)²=3.14×16=50.24（平方米）。周长的单位是米，面积的单位是平方米。"
+      ],
+      "explanationZhHans": "周长公式C=πd，面积公式S=πr²，半径r=d÷2=4米。周长单位是长度单位米，面积单位是面积单位平方米，两者不可混淆。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-136",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "p6-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "strategy-reflection",
+        "六年级上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "关系表达",
+        "错因分析",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "review solved as disconnected drills",
+        "formula chosen before concept identification",
+        "multi-step result accepted without checking"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-final-topic-drill",
+        "bnu-primary-p6-upper-assessment-circles-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在数学总复习中，老师让同学们整理本学期学过的概念。小丽说：“圆的周长总是直径的π倍。”小刚说：“百分数就是分母是100的分数。”小华说：“扇形统计图可以清楚地表示各部分数量与总数之间的关系。”小强说：“比的前项和后项同时乘或除以相同的数（0除外），比值不变。”这四位同学的说法中，正确的是（ ）。",
+      "optionsZhHans": [
+        "小丽、小刚和小华",
+        "小丽、小华和小强",
+        "小刚、小华和小强",
+        "小丽、小刚和小强"
+      ],
+      "answer": "小丽、小华和小强",
+      "acceptedAnswers": [
+        "小丽、小华和小强"
+      ],
+      "explanationZhHans": "小丽的说法正确，圆的周长C=πd，所以周长是直径的π倍。小刚的说法错误，百分数表示一个数是另一个数的百分之几，不是分母为100的分数。小华的说法正确，扇形统计图的特点就是表示部分与整体的关系。小强的说法正确，这是比的基本性质。因此正确的说法是小丽、小华和小强。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-137",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "p6-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "strategy-reflection",
+        "六年级上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "关系表达",
+        "错因分析",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "review solved as disconnected drills",
+        "formula chosen before concept identification",
+        "multi-step result accepted without checking"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-final-topic-drill",
+        "bnu-primary-p6-upper-assessment-circles-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明用一根长62.8米的绳子围成一个圆形花坛。他发现，如果在这个圆形花坛的外围再铺一条1米宽的小路，那么小路的外沿也是一个圆。请问，这条小路的面积是多少平方米？（π取3.14）",
+      "optionsZhHans": [],
+      "answer": "65.94",
+      "acceptedAnswers": [
+        "65.94"
+      ],
+      "explanationZhHans": "绳子长即内圆周长，内圆半径=62.8÷3.14÷2=10米。外圆半径=10+1=11米。小路面积=外圆面积-内圆面积=3.14×11²-3.14×10²=3.14×(121-100)=3.14×21=65.94平方米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-138",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "p6-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "strategy-reflection",
+        "六年级上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "关系表达",
+        "错因分析",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "review solved as disconnected drills",
+        "formula chosen before concept identification",
+        "multi-step result accepted without checking"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-final-topic-drill",
+        "bnu-primary-p6-upper-assessment-circles-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明在复习“圆”这一单元时，遇到这样一道题：一个圆形花坛的直径是8米，要在花坛周围修一条1米宽的小路。小明计算小路的面积时，列式为3.14×(8÷2+1)²−3.14×(8÷2)²。请你判断小明的列式是否正确，如果正确，请计算出结果；如果不正确，请指出错误原因并写出正确的列式。",
+      "optionsZhHans": [],
+      "answer": "正确，结果是28.26平方米",
+      "acceptedAnswers": [
+        "正确，结果是28.26平方米",
+        "正确，28.26平方米",
+        "正确，28.26",
+        "正确，结果是28.26",
+        "正确，28.26 m²",
+        "正确，结果是28.26 m²"
+      ],
+      "explanationZhHans": "小明的列式正确。外圆半径是8÷2+1=5米，内圆半径是8÷2=4米，小路面积=3.14×5²−3.14×4²=3.14×(25−16)=3.14×9=28.26平方米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-139",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "p6-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "strategy-reflection",
+        "六年级上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "关系表达",
+        "错因分析",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "review solved as disconnected drills",
+        "formula chosen before concept identification",
+        "multi-step result accepted without checking"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-final-topic-drill",
+        "bnu-primary-p6-upper-assessment-circles-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在期末复习中，小北整理了“圆”单元的知识。下面是他写的四句话，哪一句是正确的？",
+      "optionsZhHans": [
+        "圆的周长是半径的π倍",
+        "半径是2厘米的圆，它的周长和面积相等",
+        "半圆的周长等于圆周长的一半",
+        "圆的半径扩大到原来的3倍，面积扩大到原来的9倍"
+      ],
+      "answer": "圆的半径扩大到原来的3倍，面积扩大到原来的9倍",
+      "acceptedAnswers": [
+        "圆的半径扩大到原来的3倍，面积扩大到原来的9倍"
+      ],
+      "explanationZhHans": "圆的面积公式为S=πr²，半径扩大3倍，面积扩大3²=9倍，选项四正确。选项一：周长是直径的π倍，不是半径的π倍。选项二：周长与面积单位不同，不能比较。选项三：半圆周长包括直径，大于圆周长的一半。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-140",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "p6-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "strategy-reflection",
+        "六年级上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "关系表达",
+        "错因分析",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "review solved as disconnected drills",
+        "formula chosen before concept identification",
+        "multi-step result accepted without checking"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-final-topic-drill",
+        "bnu-primary-p6-upper-assessment-circles-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在数学活动课上，老师给每个小组发了一张圆形纸片，要求他们测量并计算这个圆的面积。小组成员合作完成了以下步骤：\n步骤一：将圆形纸片对折一次，找到一条直径，量得这条直径长12厘米。\n步骤二：小华说：“根据直径可以算出半径，半径是6厘米，所以圆的面积是3.14×6²=113.04平方厘米。”\n步骤三：小丽说：“我不同意小华的算法，因为3.14是圆周率的近似值，直接用3.14计算会得到近似面积，不是精确值。”\n步骤四：小明说：“我觉得小华算得不对，因为圆的面积公式是πr²，但这里直径是12厘米，应该用3.14×12²=452.16平方厘米。”\n步骤五：小红说：“我检查了大家的说法，发现只有一个人的说法是完全正确的，其他人都有错误。”\n\n请你仔细分析每个人的说法，找出那个完全正确的人，并写出他（她）的名字。",
+      "optionsZhHans": [],
+      "answer": "小丽",
+      "acceptedAnswers": [
+        "小丽"
+      ],
+      "explanationZhHans": "小华计算正确但未说明是近似值，说法不严谨；小明误将直径当作半径，公式用错；小丽指出3.14是近似值，说法正确；小红说只有一人完全正确，即小丽。"
+    }
+  ]
+}

@@ -1,0 +1,168 @@
+{
+  "scope": "full",
+  "batchIndex": 47,
+  "startedAt": "2026-05-28T03:41:20.056Z",
+  "completedAt": "2026-05-28T03:42:07.704Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "itemIds": [
+    "883",
+    "900",
+    "901",
+    "902",
+    "903",
+    "904",
+    "905",
+    "906",
+    "919",
+    "920"
+  ],
+  "usage": {
+    "prompt_tokens": 3296,
+    "completion_tokens": 3062,
+    "total_tokens": 6358,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1717
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2912
+  },
+  "finishReason": "stop",
+  "jsonModeFallback": false,
+  "result": {
+    "items": [
+      {
+        "questionId": "883",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "藍色和紅色絲帶的總長度之差\n= (4.5 \\times 2 - 1.2 \\times 3) m \t\n= (9 - 3.6) m\n= 5.4 m\n∵5.4 m不等於6 m。\n∴藍色絲帶的總長度並不比紅色絲帶的總長度多6 m。",
+        "independentAnswer": "藍色絲帶總長 = 4.5 m × 2 = 9 m；紅色絲帶總長 = 120 cm × 3 = 360 cm = 3.6 m；相差 = 9 - 3.6 = 5.4 m，不等於6 m，所以藍色絲帶總長度不比紅色絲帶多6 m。",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "題目清晰，計算直接，標準答案正確描述差異並給出結論。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "900",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "3 \\times 5\n= 15",
+        "independentAnswer": "2之後的首兩個質數是3和5，乘積 = 3 × 5 = 15。",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "題目明確，計算結果與標準答案一致。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "901",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "9;108",
+        "independentAnswer": "27和36的H.C.F. = 9，L.C.M. = 108，標準答案匹配。",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "題目直接，答案正確。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "902",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "10;210",
+        "independentAnswer": "10, 30, 70的H.C.F. = 10，L.C.M. = 210，與標準答案一致。",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "題目清晰，答案正確。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "903",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "24;720",
+        "independentAnswer": "2^3×3 與2^4×3^2×5的H.C.F. = 2^3×3 = 24，L.C.M. = 2^4×3^2×5 = 720，答案正確。",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "題目直接，計算結果匹配。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "904",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "60=2^2 \\times 3*5",
+        "independentAnswer": "60的質因數連乘積 = 2² × 3 × 5，標準答案等價。",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "標準答案中“3*5”是格式小問題，數學上正確。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "905",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "126=2 \\times 3^2 \\times 7",
+        "independentAnswer": "126的質因數分解為2 × 3² × 7，與標準答案一致。",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "題目清晰，答案正確。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "906",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "(a) 50,102 (b) 87,102 (c ) 50,95",
+        "independentAnswer": "(a) 50, 102能被2整除；(b) 87, 102能被3整除；(c) 50, 95能被5整除，均與標準答案相符。",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "整除性檢查簡單，答案無誤。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "919",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "剩餘的餅乾數目\n= 100 -4- 8 \\times 5\t\n= 100 - 4 - 40\n= 96 - 40\n= 56塊",
+        "independentAnswer": "100 - 4 - 8×5 = 100 - 4 - 40 = 56，剩餘56塊。",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "計算直接，答案匹配。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "920",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "(a) 27/10 kg (b)不同意該宣稱。",
+        "independentAnswer": "(a) 總重量 = 1½ + 1⅕ = 3/2 + 6/5 = 15/10 + 12/10 = 27/10 kg；(b) 剩餘 = 總重量 × (1 - 2/3) = 27/10 × 1/3 = 9/10 kg = 0.9 kg < 1 kg，故不同意宣稱。標準答案僅給數值結論，但解釋可推導，匹配。",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "需注意題文中「11/5」可能是筆誤，實際為1⅕，標準答案合理。",
+        "recommendedAction": "No blocking action."
+      }
+    ],
+    "batchSummary": {
+      "pass": 10,
+      "unsolvable": 0,
+      "ambiguous": 0,
+      "imageContextRequired": 0,
+      "answerMismatch": 0,
+      "missingAnswerKey": 0,
+      "notes": "所有題目均為純文字，可解，且答案與標準答案一致。"
+    }
+  }
+}

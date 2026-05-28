@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-144",
+  "startedAt": "2026-05-28T02:53:02.390Z",
+  "completedAt": "2026-05-28T02:53:07.822Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-144"
+  ],
+  "usage": {
+    "prompt_tokens": 2139,
+    "completion_tokens": 281,
+    "total_tokens": 2420,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1755
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-144",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "k < -2√3/3 或 k > 2√3/3",
+        "correctedAnswer": "k < -2√3/3 或 k > 2√3/3",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案和解析中判别式计算错误，导致k范围错误；独立解正确结果为k<-2√3/3或k>2√3/3。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目可解且符合教材范围，但提供的答案和解析存在数学错误，与正确解不一致，需修正。"
+    }
+  }
+}

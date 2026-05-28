@@ -1,0 +1,173 @@
+{
+  "batchNumber": 110,
+  "startedAt": "2026-05-27T18:00:40.661Z",
+  "completedAt": "2026-05-27T18:00:59.634Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s3-309",
+    "bnu-junior-ds-v1-s3-310",
+    "bnu-junior-ds-v1-s3-311",
+    "bnu-junior-ds-v1-s3-312",
+    "bnu-junior-ds-v1-s3-313",
+    "bnu-junior-ds-v1-s3-314",
+    "bnu-junior-ds-v1-s3-315",
+    "bnu-junior-ds-v1-s3-316",
+    "bnu-junior-ds-v1-s3-317",
+    "bnu-junior-ds-v1-s3-318",
+    "bnu-junior-ds-v1-s3-319",
+    "bnu-junior-ds-v1-s3-320"
+  ],
+  "usage": {
+    "prompt_tokens": 6679,
+    "completion_tokens": 1498,
+    "total_tokens": 8177,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 6167
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s3-309",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件完整，可解。设塔高h，由仰角得AC=h/√3，BC=h，AB=BC-AC=30，解得h=15(3+√3)米，与答案一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-310",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件完整，可解。旗杆高度=1.6+12×tan35°≈1.6+8.4=10.0米，选项B正确，答案匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-311",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件完整，可解。树高=1.5+20×tan30°≈1.5+11.547≈13.047，精确到0.1米为13.0米，答案匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-312",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件完整，可解。设塔高h，BC=h，AC=60+h，由tan30°=h/(60+h)得h=30(√3+1)米，答案匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-313",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件完整，可解。由仰角得OA=h/√3，OB=h，∠AOB=90°，由勾股定理得h=10√3米，选项A正确，答案匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-314",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件完整，可解。设塔高h，BC=h，AC=80+h，由tan30°=h/(80+h)得h=40(√3+1)米，答案匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-315",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件完整，可解。由tan30°=(h-8)/24得h≈21.856，精确到0.1米为21.9米，答案匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-316",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件完整，可解。设塔高h，AC=√3h，BC=h，由AC-BC=50得h=25(√3+1)米，选项A正确，答案匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-317",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件完整，可解。由仰角得OA=h/√3，OB=h，∠AOB=60°，由余弦定理得h=15√6米，答案匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-318",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件完整，可解。BC=12×tan30°=4√3米，答案匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-319",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件完整，可解。BC=30×tan35°≈21米，选项B正确，答案匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-320",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件完整，可解。旗杆高度=1.6+12×tan35°≈10.0米，答案匹配。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部12道题均条件完整、可解，答案与题目匹配，无问题。"
+    }
+  }
+}

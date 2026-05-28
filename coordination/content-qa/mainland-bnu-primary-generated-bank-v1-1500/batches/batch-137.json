@@ -1,0 +1,577 @@
+{
+  "batchId": "batch-137",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p6-111",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-percentage-applications",
+      "unitTitle": "百分数的应用",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "percentage-applications",
+        "increase-decrease-percent",
+        "discount-interest-tax",
+        "percent-word-problems",
+        "百分数应用"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "应用意识"
+      ],
+      "skillTags": [
+        "求一个数的百分之几",
+        "求单位一",
+        "增长率下降率",
+        "折扣利率税率",
+        "百分数问题检验"
+      ],
+      "misconceptionTags": [
+        "unit whole misidentified",
+        "increase and decrease applied to the wrong base",
+        "percent point and percent change confused"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-percentage-applications"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-percentage-applications-unit",
+        "bnu-primary-p6-upper-assessment-percentage-meaning-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆原有图书 800 本，本学期增加了 25%。现在图书馆有多少本图书？",
+      "optionsZhHans": [],
+      "answer": "1000本",
+      "acceptedAnswers": [
+        "1000本",
+        "1000",
+        "1000本图书"
+      ],
+      "explanationZhHans": "增加25%即增加800×25%=200本，现有800+200=1000本。也可用800×(1+25%)=800×1.25=1000本。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-112",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-percentage-applications",
+      "unitTitle": "百分数的应用",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "percentage-applications",
+        "increase-decrease-percent",
+        "discount-interest-tax",
+        "percent-word-problems",
+        "百分数应用"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "应用意识"
+      ],
+      "skillTags": [
+        "求一个数的百分之几",
+        "求单位一",
+        "增长率下降率",
+        "折扣利率税率",
+        "百分数问题检验"
+      ],
+      "misconceptionTags": [
+        "unit whole misidentified",
+        "increase and decrease applied to the wrong base",
+        "percent point and percent change confused"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-percentage-applications"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-percentage-applications-unit",
+        "bnu-primary-p6-upper-assessment-percentage-meaning-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一件上衣原价 200 元，现在打八五折出售。这件上衣现在的售价是多少元？",
+      "optionsZhHans": [
+        "170元",
+        "180元",
+        "160元",
+        "150元"
+      ],
+      "answer": "170元",
+      "acceptedAnswers": [
+        "170元"
+      ],
+      "explanationZhHans": "八五折即85%，200×85%=200×0.85=170元。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-113",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-percentage-applications",
+      "unitTitle": "百分数的应用",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "percentage-applications",
+        "increase-decrease-percent",
+        "discount-interest-tax",
+        "percent-word-problems",
+        "百分数应用"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "应用意识"
+      ],
+      "skillTags": [
+        "求一个数的百分之几",
+        "求单位一",
+        "增长率下降率",
+        "折扣利率税率",
+        "百分数问题检验"
+      ],
+      "misconceptionTags": [
+        "unit whole misidentified",
+        "increase and decrease applied to the wrong base",
+        "percent point and percent change confused"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-percentage-applications"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-percentage-applications-unit",
+        "bnu-primary-p6-upper-assessment-percentage-meaning-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "六（1）班有男生 25 人，女生人数比男生少 20%。女生有（ ）人。",
+      "optionsZhHans": [],
+      "answer": "20",
+      "acceptedAnswers": [
+        "20",
+        "20人"
+      ],
+      "explanationZhHans": "女生比男生少20%，即女生是男生的80%，25×80%=25×0.8=20人。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-114",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-percentage-applications",
+      "unitTitle": "百分数的应用",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "percentage-applications",
+        "increase-decrease-percent",
+        "discount-interest-tax",
+        "percent-word-problems",
+        "百分数应用"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "应用意识"
+      ],
+      "skillTags": [
+        "求一个数的百分之几",
+        "求单位一",
+        "增长率下降率",
+        "折扣利率税率",
+        "百分数问题检验"
+      ],
+      "misconceptionTags": [
+        "unit whole misidentified",
+        "increase and decrease applied to the wrong base",
+        "percent point and percent change confused"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-percentage-applications"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-percentage-applications-unit",
+        "bnu-primary-p6-upper-assessment-percentage-meaning-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明家上个月用水 12 吨，这个月比上个月节约了 25%。这个月用水多少吨？",
+      "optionsZhHans": [],
+      "answer": "9吨",
+      "acceptedAnswers": [
+        "9吨",
+        "9"
+      ],
+      "explanationZhHans": "节约25%即用水量为上个月的75%，12×75%=12×0.75=9吨。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-115",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-percentage-applications",
+      "unitTitle": "百分数的应用",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "percentage-applications",
+        "increase-decrease-percent",
+        "discount-interest-tax",
+        "percent-word-problems",
+        "百分数应用"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "应用意识"
+      ],
+      "skillTags": [
+        "求一个数的百分之几",
+        "求单位一",
+        "增长率下降率",
+        "折扣利率税率",
+        "百分数问题检验"
+      ],
+      "misconceptionTags": [
+        "unit whole misidentified",
+        "increase and decrease applied to the wrong base",
+        "percent point and percent change confused"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-percentage-applications"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-percentage-applications-unit",
+        "bnu-primary-p6-upper-assessment-percentage-meaning-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某村去年植树 150 棵，今年植树比去年多 20%。今年植树多少棵？",
+      "optionsZhHans": [
+        "180棵",
+        "170棵",
+        "160棵",
+        "190棵"
+      ],
+      "answer": "180棵",
+      "acceptedAnswers": [
+        "180棵"
+      ],
+      "explanationZhHans": "多20%即今年是去年的120%，150×120%=150×1.2=180棵。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-116",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-percentage-applications",
+      "unitTitle": "百分数的应用",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "percentage-applications",
+        "increase-decrease-percent",
+        "discount-interest-tax",
+        "percent-word-problems",
+        "百分数应用"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "应用意识"
+      ],
+      "skillTags": [
+        "求一个数的百分之几",
+        "求单位一",
+        "增长率下降率",
+        "折扣利率税率",
+        "百分数问题检验"
+      ],
+      "misconceptionTags": [
+        "unit whole misidentified",
+        "increase and decrease applied to the wrong base",
+        "percent point and percent change confused"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-percentage-applications"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-percentage-applications-unit",
+        "bnu-primary-p6-upper-assessment-percentage-meaning-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一种商品先提价 10%，再降价 10%，现价与原价相比（ ）。（填“提高了”“降低了”或“不变”）",
+      "optionsZhHans": [],
+      "answer": "降低了",
+      "acceptedAnswers": [
+        "降低了"
+      ],
+      "explanationZhHans": "设原价为1，提价10%后为1.1，再降价10%后为1.1×0.9=0.99，比原价降低了1%。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-117",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-percentage-applications",
+      "unitTitle": "百分数的应用",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "percentage-applications",
+        "increase-decrease-percent",
+        "discount-interest-tax",
+        "percent-word-problems",
+        "百分数应用"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "应用意识"
+      ],
+      "skillTags": [
+        "求一个数的百分之几",
+        "求单位一",
+        "增长率下降率",
+        "折扣利率税率",
+        "百分数问题检验"
+      ],
+      "misconceptionTags": [
+        "unit whole misidentified",
+        "increase and decrease applied to the wrong base",
+        "percent point and percent change confused"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-percentage-applications"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-percentage-applications-unit",
+        "bnu-primary-p6-upper-assessment-percentage-meaning-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "果园里有桃树 120 棵，梨树比桃树少 30%。梨树有多少棵？",
+      "optionsZhHans": [],
+      "answer": "84棵",
+      "acceptedAnswers": [
+        "84棵",
+        "84"
+      ],
+      "explanationZhHans": "少30%即梨树是桃树的70%，120×70%=120×0.7=84棵。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-118",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-percentage-applications",
+      "unitTitle": "百分数的应用",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "percentage-applications",
+        "increase-decrease-percent",
+        "discount-interest-tax",
+        "percent-word-problems",
+        "百分数应用"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "应用意识"
+      ],
+      "skillTags": [
+        "求一个数的百分之几",
+        "求单位一",
+        "增长率下降率",
+        "折扣利率税率",
+        "百分数问题检验"
+      ],
+      "misconceptionTags": [
+        "unit whole misidentified",
+        "increase and decrease applied to the wrong base",
+        "percent point and percent change confused"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-percentage-applications"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-percentage-applications-unit",
+        "bnu-primary-p6-upper-assessment-percentage-meaning-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈把 5000 元存入银行，定期两年，年利率是 2.10%。到期后妈妈一共能取回多少钱？",
+      "optionsZhHans": [
+        "5210元",
+        "5105元",
+        "5021元",
+        "5120元"
+      ],
+      "answer": "5210元",
+      "acceptedAnswers": [
+        "5210元"
+      ],
+      "explanationZhHans": "利息=5000×2.10%×2=210元，本息合计5000+210=5210元。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-119",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-percentage-applications",
+      "unitTitle": "百分数的应用",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "percentage-applications",
+        "increase-decrease-percent",
+        "discount-interest-tax",
+        "percent-word-problems",
+        "百分数应用"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "应用意识"
+      ],
+      "skillTags": [
+        "求一个数的百分之几",
+        "求单位一",
+        "增长率下降率",
+        "折扣利率税率",
+        "百分数问题检验"
+      ],
+      "misconceptionTags": [
+        "unit whole misidentified",
+        "increase and decrease applied to the wrong base",
+        "percent point and percent change confused"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-percentage-applications"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-percentage-applications-unit",
+        "bnu-primary-p6-upper-assessment-percentage-meaning-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某工厂去年产值是 400 万元，今年产值比去年增长了 15%。今年产值是（ ）万元。",
+      "optionsZhHans": [],
+      "answer": "460",
+      "acceptedAnswers": [
+        "460",
+        "460万元"
+      ],
+      "explanationZhHans": "增长15%即今年是去年的115%，400×115%=400×1.15=460万元。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-120",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-percentage-applications",
+      "unitTitle": "百分数的应用",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "percentage-applications",
+        "increase-decrease-percent",
+        "discount-interest-tax",
+        "percent-word-problems",
+        "百分数应用"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "应用意识"
+      ],
+      "skillTags": [
+        "求一个数的百分之几",
+        "求单位一",
+        "增长率下降率",
+        "折扣利率税率",
+        "百分数问题检验"
+      ],
+      "misconceptionTags": [
+        "unit whole misidentified",
+        "increase and decrease applied to the wrong base",
+        "percent point and percent change confused"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-percentage-applications"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-percentage-applications-unit",
+        "bnu-primary-p6-upper-assessment-percentage-meaning-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一套故事书原价 80 元，书店促销打七五折。现在买这套书比原价便宜多少元？",
+      "optionsZhHans": [],
+      "answer": "20元",
+      "acceptedAnswers": [
+        "20元",
+        "20"
+      ],
+      "explanationZhHans": "七五折后售价80×75%=60元，便宜80-60=20元。"
+    }
+  ]
+}

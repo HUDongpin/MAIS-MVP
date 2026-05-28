@@ -1,0 +1,349 @@
+{
+  "batchId": "batch-084",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s3-k10-mc-031",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions"
+      ],
+      "promptZhHans": "一元二次方程 2x² - 5x + 3 = 0 的两个根分别为 α 和 β，则 α + β 的值是（ ）。",
+      "optionsZhHans": [
+        "2.5",
+        "-2.5",
+        "1.5",
+        "-1.5"
+      ],
+      "answer": "2.5",
+      "acceptedAnswers": [
+        "2.5",
+        "5/2"
+      ],
+      "explanationZhHans": "根据一元二次方程根与系数的关系，对于方程 ax² + bx + c = 0，两根之和为 -b/a。这里 a = 2，b = -5，所以 α + β = -(-5)/2 = 5/2 = 2.5。因此答案是 2.5。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-032",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-quadratic-equations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-circle-geometry"
+      ],
+      "promptZhHans": "已知 ⊙O 的半径为 5 cm，圆心 O 到直线 l 的距离为 3 cm，则直线 l 与 ⊙O 的位置关系是（ ）。",
+      "optionsZhHans": [
+        "相离",
+        "相切",
+        "相交",
+        "无法确定"
+      ],
+      "answer": "相交",
+      "acceptedAnswers": [
+        "相交"
+      ],
+      "explanationZhHans": "设圆的半径为 r，圆心到直线的距离为 d。当 d < r 时，直线与圆相交。这里 r = 5 cm，d = 3 cm，因为 3 < 5，所以直线 l 与 ⊙O 相交。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-033",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-quadratic-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "一个不透明的袋子里装有 3 个红球和 2 个白球，它们除颜色外完全相同。从中随机摸出一个球，摸到红球的概率是（ ）。",
+      "optionsZhHans": [
+        "1/5",
+        "2/5",
+        "3/5",
+        "3/2"
+      ],
+      "answer": "3/5",
+      "acceptedAnswers": [
+        "3/5",
+        "0.6"
+      ],
+      "explanationZhHans": "袋中球的总数为 3 + 2 = 5 个，红球有 3 个。摸到红球的概率为红球个数除以总球数，即 3/5。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-034",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-circle-geometry"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "promptZhHans": "将抛物线 y = x² 先向右平移 2 个单位，再向上平移 3 个单位，所得抛物线的表达式为（ ）。",
+      "optionsZhHans": [
+        "y = (x - 2)² + 3",
+        "y = (x + 2)² + 3",
+        "y = (x - 2)² - 3",
+        "y = (x + 2)² - 3"
+      ],
+      "answer": "y = (x - 2)² + 3",
+      "acceptedAnswers": [
+        "y = (x - 2)² + 3"
+      ],
+      "explanationZhHans": "抛物线 y = x² 向右平移 2 个单位，根据“左加右减”原则，得到 y = (x - 2)²；再向上平移 3 个单位，根据“上加下减”原则，得到 y = (x - 2)² + 3。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-035",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-probability-introduction"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "同时抛掷两枚质地均匀的硬币，两枚硬币全部正面朝上的概率是（ ）。",
+      "optionsZhHans": [
+        "1/2",
+        "1/3",
+        "1/4",
+        "3/4"
+      ],
+      "answer": "1/4",
+      "acceptedAnswers": [
+        "1/4",
+        "0.25"
+      ],
+      "explanationZhHans": "抛掷两枚硬币，所有等可能的结果有：正正、正反、反正、反反，共 4 种。其中全部正面朝上的情况只有 1 种，所以概率为 1/4。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-036",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-rotation-transformations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models"
+      ],
+      "promptZhHans": "点 A 的坐标是 (3, 4)，将点 A 绕原点逆时针旋转 90° 得到点 B，则点 B 的坐标是（ ）。",
+      "optionsZhHans": [
+        "(-4, 3)",
+        "(4, -3)",
+        "(-3, -4)",
+        "(3, -4)"
+      ],
+      "answer": "(-4, 3)",
+      "acceptedAnswers": [
+        "(-4, 3)"
+      ],
+      "explanationZhHans": "点 (x, y) 绕原点逆时针旋转 90° 后的坐标为 (-y, x)。将 (3, 4) 代入，得 (-4, 3)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-037",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "在实数3.14、√4、π、22/7中，无理数是（ ）",
+      "optionsZhHans": [
+        "3.14",
+        "√4",
+        "π",
+        "22/7"
+      ],
+      "answer": "π",
+      "acceptedAnswers": [
+        "π"
+      ],
+      "explanationZhHans": "无理数是无限不循环小数。3.14 是有限小数，√4 = 2 是整数，22/7 是分数，它们都是有理数。π 是无限不循环小数，是无理数。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-038",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-quadratic-equations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "一元二次方程 x² - 4x + m = 0 有两个不相等的实数根，则 m 的取值范围是（ ）。",
+      "optionsZhHans": [
+        "m < 4",
+        "m ≤ 4",
+        "m > 4",
+        "m ≥ 4"
+      ],
+      "answer": "m < 4",
+      "acceptedAnswers": [
+        "m < 4"
+      ],
+      "explanationZhHans": "方程有两个不相等的实数根，则判别式 Δ = b² - 4ac > 0。这里 a = 1，b = -4，c = m，所以 Δ = (-4)² - 4×1×m = 16 - 4m > 0，解得 m < 4。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-039",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-quadratic-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions"
+      ],
+      "promptZhHans": "二次函数 y = -2(x + 1)² - 3 的顶点坐标是（ ）。",
+      "optionsZhHans": [
+        "(1, -3)",
+        "(-1, -3)",
+        "(1, 3)",
+        "(-1, 3)"
+      ],
+      "answer": "(-1, -3)",
+      "acceptedAnswers": [
+        "(-1, -3)"
+      ],
+      "explanationZhHans": "二次函数 y = a(x - h)² + k 的顶点坐标为 (h, k)。将 y = -2(x + 1)² - 3 变形为 y = -2[x - (-1)]² + (-3)，所以顶点坐标为 (-1, -3)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-040",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-circle-geometry"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "promptZhHans": "在 ⊙O 中，弦 AB 的长为 8 cm，圆心 O 到弦 AB 的距离为 3 cm，则 ⊙O 的半径为（ ）。",
+      "optionsZhHans": [
+        "4 cm",
+        "5 cm",
+        "6 cm",
+        "7 cm"
+      ],
+      "answer": "5 cm",
+      "acceptedAnswers": [
+        "5 cm",
+        "5"
+      ],
+      "explanationZhHans": "过圆心 O 作弦 AB 的垂线，垂足为 C，则 C 为 AB 的中点，AC = 4 cm。在直角三角形 OAC 中，OA 为半径，OC = 3 cm，由勾股定理得 OA = √(OC² + AC²) = √(3² + 4²) = 5 cm。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

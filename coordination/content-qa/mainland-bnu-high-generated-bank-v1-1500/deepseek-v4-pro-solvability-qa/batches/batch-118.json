@@ -1,0 +1,139 @@
+{
+  "batchNumber": 118,
+  "startedAt": "2026-05-27T14:03:49.790Z",
+  "completedAt": "2026-05-27T14:04:08.996Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-437",
+    "bnu-high-ds-v1-s5-438",
+    "bnu-high-ds-v1-s5-439",
+    "bnu-high-ds-v1-s5-440",
+    "bnu-high-ds-v1-s5-441",
+    "bnu-high-ds-v1-s5-442",
+    "bnu-high-ds-v1-s5-443",
+    "bnu-high-ds-v1-s5-444"
+  ],
+  "usage": {
+    "prompt_tokens": 11443,
+    "completion_tokens": 1200,
+    "total_tokens": 12643,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10931
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-437",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "（1）r≈0.99，高度正相关。（2）不能，因为98分超出样本范围（70~95），外推预测不可靠。",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目数据完整，可独立计算相关系数并判断；答案与独立计算一致；解析正确说明计算过程和预测限制。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-438",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "10",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件充分，可计算期望频数；答案10正确；解析步骤清晰，结果一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-439",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "x和y之间线性相关程度较强",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "选项唯一正确，r=0.8表示较强线性相关；解析正确排除其他选项。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-440",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "independentAnswer": "（1）y=5x+20；（2）b=5表示广告投入每增加1万元，销售额平均增加5万元；（3）预测销售额为65万元，预测可靠，因为9在样本范围内且线性关系强。",
+        "correctedAnswer": null,
+        "issueTags": [
+          "explanation_contradiction"
+        ],
+        "severity": "minor",
+        "confidence": "high",
+        "rationaleZhHans": "解析中误写b=2.5后又纠正，但最终答案正确；解释部分存在计算草稿痕迹，但不影响最终结论，标记为weak。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-441",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2.00",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目提供充分汇总数据，可计算斜率；答案2.00正确；解析计算无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-442",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "课外阅读时间与语文成绩有较强的正线性相关关系",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "r=0.65为正且较强，选项唯一正确；解析正确解释相关性与因果区别。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-443",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "ŷ = 0.8x + 4，预测销量为10.4万件",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目数据完整，可计算回归方程并预测；答案正确；解析步骤清晰。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-444",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "4.80",
+        "correctedAnswer": "4.80",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立计算χ²=4.80，但题目答案为6.06，解析中计算过程也得出4.80，答案与解析矛盾，且答案错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 1,
+      "fail": 1,
+      "notes": "第440题解析有草稿痕迹但不影响答案，标记为weak；第444题答案错误，应为4.80而非6.06，解析与答案矛盾，需修正。"
+    }
+  }
+}

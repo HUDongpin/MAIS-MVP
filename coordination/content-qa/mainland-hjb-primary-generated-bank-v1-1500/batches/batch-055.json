@@ -1,0 +1,294 @@
+{
+  "batchId": "batch-055",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p2-021",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-within-100-add-sub",
+      "unitTitle": "100以内数的加减法（二）",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "within-100-addition-subtraction",
+        "two-digit-subtraction",
+        "vertical-calculation",
+        "inverse-operation-check",
+        "100以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "不退位减法",
+        "退位减法",
+        "两位数加减",
+        "竖式计算",
+        "加减关系",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "place-value columns misaligned",
+        "borrowing treated as changing both digits randomly",
+        "inverse check skipped after vertical calculation"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-within-100-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-upper-assessment-within-100-add-sub-unit",
+        "hjb-primary-p2-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用竖式计算 73 - 46，并写出验算过程。",
+      "optionsZhHans": [],
+      "answer": "27",
+      "acceptedAnswers": [
+        "27"
+      ],
+      "explanationZhHans": "竖式：73-46，个位3减6不够，向十位借1，13-6=7；十位7借1剩6，6-4=2，得27。验算：27+46=73，结果正确。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-022",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-within-100-add-sub",
+      "unitTitle": "100以内数的加减法（二）",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "within-100-addition-subtraction",
+        "two-digit-subtraction",
+        "vertical-calculation",
+        "inverse-operation-check",
+        "100以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "不退位减法",
+        "退位减法",
+        "两位数加减",
+        "竖式计算",
+        "加减关系",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "place-value columns misaligned",
+        "borrowing treated as changing both digits randomly",
+        "inverse check skipped after vertical calculation"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-within-100-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-upper-assessment-within-100-add-sub-unit",
+        "hjb-primary-p2-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个竖式计算是正确的？",
+      "optionsZhHans": [
+        "52\n- 38\n----\n  24",
+        "52\n- 38\n----\n  14",
+        "52\n- 38\n----\n  26",
+        "52\n- 38\n----\n  16"
+      ],
+      "answer": "52\n- 38\n----\n  14",
+      "acceptedAnswers": [
+        "52\n- 38\n----\n  14"
+      ],
+      "explanationZhHans": "52-38，个位2减8不够，向十位借1，12-8=4；十位5借1剩4，4-3=1，得14。其他选项计算错误。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-023",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-within-100-add-sub",
+      "unitTitle": "100以内数的加减法（二）",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "within-100-addition-subtraction",
+        "two-digit-subtraction",
+        "vertical-calculation",
+        "inverse-operation-check",
+        "100以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "不退位减法",
+        "退位减法",
+        "两位数加减",
+        "竖式计算",
+        "加减关系",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "place-value columns misaligned",
+        "borrowing treated as changing both digits randomly",
+        "inverse check skipped after vertical calculation"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-within-100-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-upper-assessment-within-100-add-sub-unit",
+        "hjb-primary-p2-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在□里填上合适的数。\n  6□\n- 2 7\n----\n  3 5",
+      "optionsZhHans": [],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2"
+      ],
+      "explanationZhHans": "个位□-7=5，□=12，向十位借1，所以□=2；十位6借1剩5，5-2=3，符合。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-024",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-money-shopping",
+      "unitTitle": "人民币与购物应用",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "money-renminbi",
+        "shopping-arithmetic",
+        "unit-conversion-yuan-jiao-fen",
+        "人民币",
+        "购物"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "认识人民币",
+        "元角分",
+        "付钱找零",
+        "价格比较",
+        "购物情境表达"
+      ],
+      "misconceptionTags": [
+        "yuan jiao fen units merged as plain digits",
+        "change confused with total cost",
+        "price comparison made without common units"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-money-shopping"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-upper-assessment-money-shopping-unit",
+        "hjb-primary-p2-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明有5元，买一支铅笔用了1元2角，买一块橡皮用了8角。他还剩多少钱？",
+      "optionsZhHans": [],
+      "answer": "3元",
+      "acceptedAnswers": [
+        "3元",
+        "3元0角"
+      ],
+      "explanationZhHans": "总花费：1元2角+8角=2元。5元-2元=3元。注意统一单位计算。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-025",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-money-shopping",
+      "unitTitle": "人民币与购物应用",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "money-renminbi",
+        "shopping-arithmetic",
+        "unit-conversion-yuan-jiao-fen",
+        "人民币",
+        "购物"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "认识人民币",
+        "元角分",
+        "付钱找零",
+        "价格比较",
+        "购物情境表达"
+      ],
+      "misconceptionTags": [
+        "yuan jiao fen units merged as plain digits",
+        "change confused with total cost",
+        "price comparison made without common units"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-money-shopping"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-upper-assessment-money-shopping-unit",
+        "hjb-primary-p2-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一支钢笔8元5角，一个笔记本3元，哪个更贵？贵多少？",
+      "optionsZhHans": [
+        "钢笔贵，贵5元5角",
+        "笔记本贵，贵5元5角",
+        "钢笔贵，贵5元",
+        "笔记本贵，贵5元"
+      ],
+      "answer": "钢笔贵，贵5元5角",
+      "acceptedAnswers": [
+        "钢笔贵，贵5元5角"
+      ],
+      "explanationZhHans": "8元5角-3元=5元5角，钢笔更贵。比较时单位要统一。"
+    }
+  ]
+}

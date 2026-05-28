@@ -1,0 +1,127 @@
+import { mainlandHjbPrimaryQuestions } from "./mainlandHjbPrimaryQuestions";
+import {
+  formatHjbPrimaryVolumeTitleEn,
+  mainlandHjbPrimaryTopicMetadata,
+  mainlandHjbPrimaryTopics
+} from "./mainlandHjbPrimaryTopics";
+import { localizeHjbGeneratedText, toTraditionalHjbText } from "./hjbQuestionLocalization";
+import type { ProductionLessonBlock, ProductionLessonSeed } from "./lessons";
+import type { Difficulty, LocalizedText, Question, Topic } from "@/types";
+
+const practiceDifficultyQuotas: Array<[Difficulty, number]> = [
+  ["Foundation", 2],
+  ["Core", 3],
+  ["Challenge", 2],
+  ["Exam", 1]
+];
+
+function text(en: string, zhHans: string): LocalizedText {
+  return { en, zh: toTraditionalHjbText(zhHans), zhHans };
+}
+
+function questionIdSort(left: Question, right: Question) {
+  return left.id.localeCompare(right.id, "zh-Hans");
+}
+
+function selectPracticeQuestionIds(topicId: string) {
+  const topicQuestions = mainlandHjbPrimaryQuestions.filter((question) => question.topicId === topicId).sort(questionIdSort);
+  const picked = new Set<string>();
+
+  practiceDifficultyQuotas.forEach(([difficulty, quota]) => {
+    topicQuestions
+      .filter((question) => question.difficulty === difficulty)
+      .slice(0, quota)
+      .forEach((question) => picked.add(question.id));
+  });
+  topicQuestions.forEach((question) => {
+    if (picked.size < 8) picked.add(question.id);
+  });
+
+  return Array.from(picked).slice(0, 8);
+}
+
+function lessonBlocks(topic: Topic): ProductionLessonBlock[] {
+  const metadata = mainlandHjbPrimaryTopicMetadata[topic.id];
+  const conceptList = metadata.conceptIds.slice(0, 5).join("、");
+  const volumeEn = formatHjbPrimaryVolumeTitleEn(metadata.volume);
+  const sampleQuestion = mainlandHjbPrimaryQuestions.find((question) => question.topicId === topic.id);
+  const samplePromptZhHans = sampleQuestion?.prompt.zhHans ?? sampleQuestion?.prompt.zh ?? topic.title.zhHans ?? topic.title.zh;
+  const samplePromptEn = sampleQuestion?.prompt.en ?? localizeHjbGeneratedText(samplePromptZhHans).en;
+  const samplePromptZh = sampleQuestion?.prompt.zh ?? toTraditionalHjbText(samplePromptZhHans);
+  const sampleAnswer = sampleQuestion?.answer ?? "见课堂检查点";
+  const sampleAnswerLocalized = localizeHjbGeneratedText(sampleAnswer);
+  const sampleExplanationZhHans = sampleQuestion?.explanation.zhHans ?? sampleQuestion?.explanation.zh ?? "先读题，再选择方法并检查答案。";
+  const sampleExplanationEn = sampleQuestion?.explanation.en ?? localizeHjbGeneratedText(sampleExplanationZhHans).en;
+  const sampleExplanationZh = sampleQuestion?.explanation.zh ?? toTraditionalHjbText(sampleExplanationZhHans);
+
+  return [
+    {
+      idSuffix: "concept",
+      type: "concept",
+      title: text("Core concept", "核心概念"),
+      content: {
+        en: `${topic.title.en} follows the approved HJB primary scope for ${volumeEn}.`,
+        zh: `${topic.title.zhHans ?? topic.title.zh}以沪教版${metadata.volume}已审核小学单元展开，重点关注${conceptList}。`,
+        zhHans: `${topic.title.zhHans ?? topic.title.zh}以沪教版${metadata.volume}已审核小学单元展开，重点关注${conceptList}。`
+      }
+    },
+    {
+      idSuffix: "worked-example",
+      type: "worked-example",
+      title: text("Original worked example", "原创例题精讲"),
+      content: {
+        en: `${samplePromptEn} Answer: ${sampleAnswerLocalized.en}. ${sampleExplanationEn}`,
+        zh: `${samplePromptZh} 答案：${sampleAnswerLocalized.zh}。${sampleExplanationZh}`,
+        zhHans: `${samplePromptZhHans} 答案：${sampleAnswer}。${sampleExplanationZhHans}`
+      }
+    },
+    {
+      idSuffix: "checklist",
+      type: "checklist",
+      title: text("Before practice", "练习前检查"),
+      items: [
+        text("Read the question once and underline the known quantities.", "先读题，并圈出已知数量。"),
+        text("Name the operation, model, or shape feature being used.", "说出正在使用的运算、模型或图形特征。"),
+        text("Write one clear calculation or reasoning step.", "写出一个清楚的计算或推理步骤。"),
+        text("Check whether the answer matches the unit and question wording.", "检查答案是否符合单位和题目问法。")
+      ]
+    },
+    {
+      idSuffix: "extension",
+      type: "extension",
+      title: text("Strategy and extension", "策略与拓展"),
+      items: [
+        text("Solve one checkpoint again using a drawing, table, or number sentence.", "任选一道检查题，用画图、列表或算式再做一遍。"),
+        text("Explain one mistake a classmate might make and how to avoid it.", "说出同学可能犯的一个错误，并说明如何避免。")
+      ]
+    },
+    {
+      idSuffix: "teacher-guide",
+      type: "teacher-guide",
+      title: text("Teacher guide", "教师使用建议"),
+      content: text(
+        `Use the 8-question HJB primary checkpoint before assigning broader Practice Arena work for ${topic.title.en}.`,
+        `先用 8 题沪教版小学课堂检查点确认学生准备度，再按需要布置${topic.title.zhHans ?? topic.title.zh}的专属练习。`
+      ),
+      items: [
+        text("Ask students to say the known information before calculation.", "计算前先让学生说出已知信息。"),
+        text("Use one wrong answer to model checking with the checklist.", "用一个错误答案示范如何按清单复核。"),
+        text("Keep PEP and HJB primary practice pools separated by publisher.", "按 publisher 保持人教版与沪教版小学题库隔离。")
+      ]
+    }
+  ];
+}
+
+function toProductionLessonSeed(topic: Topic): ProductionLessonSeed {
+  return {
+    topicId: topic.id,
+    productionReady: true,
+    title: topic.title,
+    description: topic.description,
+    estimatedMinutes: topic.minutes,
+    practiceQuestionIds: selectPracticeQuestionIds(topic.id),
+    blocks: lessonBlocks(topic)
+  };
+}
+
+export const mainlandHjbPrimaryLessonSeeds: ProductionLessonSeed[] = mainlandHjbPrimaryTopics.map(toProductionLessonSeed);

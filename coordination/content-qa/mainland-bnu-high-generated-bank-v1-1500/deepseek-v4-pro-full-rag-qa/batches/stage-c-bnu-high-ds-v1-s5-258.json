@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-258",
+  "startedAt": "2026-05-28T01:25:02.714Z",
+  "completedAt": "2026-05-28T01:25:07.474Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-258"
+  ],
+  "usage": {
+    "prompt_tokens": 2229,
+    "completion_tokens": 276,
+    "total_tokens": 2505,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1845
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-258",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "0, -4/3",
+        "correctedAnswer": "0, -4/3",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合BNU建模活动要求。正确答案为k=0或k=-4/3，但存储答案为0, -20/21，解析中距离公式化简错误导致方程解错，答案与解释均不匹配，需修正。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1题答案错误，解析过程有数学错误，需修正为k=0或k=-4/3。"
+    }
+  }
+}

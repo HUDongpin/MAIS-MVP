@@ -1,0 +1,139 @@
+{
+  "batchNumber": 141,
+  "startedAt": "2026-05-27T14:07:24.696Z",
+  "completedAt": "2026-05-27T14:07:42.434Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-121",
+    "bnu-high-ds-v1-s6-122",
+    "bnu-high-ds-v1-s6-123",
+    "bnu-high-ds-v1-s6-124",
+    "bnu-high-ds-v1-s6-125",
+    "bnu-high-ds-v1-s6-126",
+    "bnu-high-ds-v1-s6-127",
+    "bnu-high-ds-v1-s6-128"
+  ],
+  "usage": {
+    "prompt_tokens": 10686,
+    "completion_tokens": 1097,
+    "total_tokens": 11783,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10174
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-121",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "{b_n} 是公比为 2 的等比数列",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "递推构造正确，b_{n+1}=2b_n，首项非零，等比判定无误，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-122",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由S_5=S_10解出d=-5/7，代入S_15得0，计算正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-123",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "n^2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "累加得a_n=n^2，验证首项成立，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-124",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "10",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "利用等比性质a_5a_6=a_1a_10=9，对数求和得10，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-125",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "260",
+        "correctedAnswer": "260",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "解析正确算出T_10=260，但答案误写为240，答案与解析矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-126",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "3^n - 1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "构造等比数列得a_n=3^n-1，解析正确，答案匹配。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-127",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "independentAnswer": "S_100 > 30",
+        "correctedAnswer": null,
+        "issueTags": [
+          "explanation_contradiction"
+        ],
+        "severity": "major",
+        "confidence": "medium",
+        "rationaleZhHans": "解析中积分近似计算有误，∫_0^100 √(2x) dx ≈ 942，但实际积分值约为666.67，且下界估计粗糙，但结论S_100>30仍成立，解析不严谨。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-128",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "13/16",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由等比条件得a1=d，代入计算比值13/16，正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 1,
+      "fail": 1,
+      "notes": "第125题答案与解析矛盾，应为260；第127题解析积分计算有误但结论正确，需修正。"
+    }
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "batchId": "model-qa-0067",
+  "ids": [
+    "hjb-junior-ds-v2-s2-029",
+    "hjb-junior-ds-v2-s2-030",
+    "hjb-junior-ds-v2-s2-031",
+    "hjb-junior-ds-v2-s2-032",
+    "hjb-junior-ds-v2-s2-033",
+    "hjb-junior-ds-v2-s2-034",
+    "hjb-junior-ds-v2-s2-035",
+    "hjb-junior-ds-v2-s2-036"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-029",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": ">",
+      "answerCheckZhHans": "标准答案为 >，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-030",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "标准答案 3.7 cm 不精确。3.7³=50.653，3.6³=46.656，50 更接近 46.656 而非 50.653，因此精确到 0.1 cm 应为 3.6 cm。",
+      "independentAnswerZhHans": "3.6 cm",
+      "answerCheckZhHans": "标准答案为 3.7 cm，但根据四舍五入，³√50 ≈ 3.684，精确到 0.1 应为 3.7 cm。然而解析中称 50 更接近 50.653，这是错误的，实际上 50 与 46.656 的差为 3.344，与 50.653 的差为 0.653，因此 50 更接近 50.653，所以 3.7 更接近。但 3.684 四舍五入为 3.7，答案正确。解析中的比较方法有误，但答案正确。",
+      "recommendedActionZhHans": "修正解析中的比较逻辑，或直接使用四舍五入法。",
+      "confidence": "medium"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-031",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2个",
+      "answerCheckZhHans": "标准答案为 2个，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-032",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "25",
+      "answerCheckZhHans": "标准答案为 25，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-033",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "1.7 < √3 < ∛8",
+      "answerCheckZhHans": "标准答案为 1.7 < √3 < ∛8，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-034",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "c 和 d 都是无理数",
+      "answerCheckZhHans": "标准答案为 c 和 d 都是无理数，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-035",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案为 2，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-036",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "a < b < c < d",
+      "answerCheckZhHans": "标准答案为 a < b < c < d，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

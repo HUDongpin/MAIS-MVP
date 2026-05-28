@@ -1,0 +1,45 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-400",
+  "startedAt": "2026-05-28T01:54:02.991Z",
+  "completedAt": "2026-05-28T01:54:07.497Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-400"
+  ],
+  "usage": {
+    "prompt_tokens": 1993,
+    "completion_tokens": 241,
+    "total_tokens": 2234,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1609
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-400",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "(-∞, -1) 和 (1, +∞)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "函数可解，导数 f'(x)=3x^2-3，令 f'(x)>0 得 x<-1 或 x>1，递增区间为 (-∞,-1) 和 (1,+∞)。选项 A 正确且唯一，解析一致，无任何问题。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 1,
+      "warn": 0,
+      "fail": 0,
+      "notes": "题目无问题，通过复核。"
+    }
+  }
+}

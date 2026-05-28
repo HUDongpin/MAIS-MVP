@@ -1,0 +1,191 @@
+{
+  "batchNumber": 22,
+  "startedAt": "2026-05-24T17:28:55.646Z",
+  "completedAt": "2026-05-24T17:29:13.795Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-candidate-k05-fi-024",
+    "pep-junior-candidate-k05-fi-025",
+    "pep-junior-candidate-k05-fi-026",
+    "pep-junior-candidate-k05-fi-027",
+    "pep-junior-candidate-k05-sa-001",
+    "pep-junior-candidate-k05-sa-002",
+    "pep-junior-candidate-k05-sa-003",
+    "pep-junior-candidate-k05-sa-004",
+    "pep-junior-candidate-k05-sa-005",
+    "pep-junior-candidate-k05-sa-006",
+    "pep-junior-candidate-k05-sa-007",
+    "pep-junior-candidate-k05-sa-008",
+    "pep-junior-candidate-k05-sa-009",
+    "pep-junior-candidate-k05-sa-010",
+    "pep-junior-candidate-k05-sa-011",
+    "pep-junior-candidate-k05-sa-012",
+    "pep-junior-candidate-k05-sa-013",
+    "pep-junior-candidate-k05-sa-014"
+  ],
+  "usage": {
+    "prompt_tokens": 2777,
+    "completion_tokens": 1290,
+    "total_tokens": 4067,
+    "prompt_tokens_details": {
+      "cached_tokens": 2688
+    },
+    "prompt_cache_hit_tokens": 2688,
+    "prompt_cache_miss_tokens": 89
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-candidate-k05-fi-024",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程组正确，答案和解释无误，填空形式合理。"
+      },
+      {
+        "id": "pep-junior-candidate-k05-fi-025",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程组正确，答案和解释无误。"
+      },
+      {
+        "id": "pep-junior-candidate-k05-fi-026",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程组正确，答案和解释无误。"
+      },
+      {
+        "id": "pep-junior-candidate-k05-fi-027",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程组正确，答案和解释无误。"
+      },
+      {
+        "id": "pep-junior-candidate-k05-sa-001",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均数计算正确，答案和解释无误。"
+      },
+      {
+        "id": "pep-junior-candidate-k05-sa-002",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均数计算正确，答案和解释无误。"
+      },
+      {
+        "id": "pep-junior-candidate-k05-sa-003",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均数计算正确，答案和解释无误。"
+      },
+      {
+        "id": "pep-junior-candidate-k05-sa-004",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均数计算正确，答案和解释无误。"
+      },
+      {
+        "id": "pep-junior-candidate-k05-sa-005",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均数计算正确，答案和解释无误。"
+      },
+      {
+        "id": "pep-junior-candidate-k05-sa-006",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均数计算正确，答案和解释无误。"
+      },
+      {
+        "id": "pep-junior-candidate-k05-sa-007",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均数计算正确，答案和解释无误。"
+      },
+      {
+        "id": "pep-junior-candidate-k05-sa-008",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均数计算正确，答案和解释无误。"
+      },
+      {
+        "id": "pep-junior-candidate-k05-sa-009",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均数计算正确，答案和解释无误。"
+      },
+      {
+        "id": "pep-junior-candidate-k05-sa-010",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均数计算正确，答案和解释无误。"
+      },
+      {
+        "id": "pep-junior-candidate-k05-sa-011",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均数计算正确，答案和解释无误。"
+      },
+      {
+        "id": "pep-junior-candidate-k05-sa-012",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均数计算正确，答案和解释无误。"
+      },
+      {
+        "id": "pep-junior-candidate-k05-sa-013",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均数计算正确，答案和解释无误。"
+      },
+      {
+        "id": "pep-junior-candidate-k05-sa-014",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均数计算正确，答案和解释无误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案与解释一致，无歧义或缺失条件，适合人教版初中数学，可直接入库。"
+    }
+  }
+}

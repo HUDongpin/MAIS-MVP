@@ -1,0 +1,191 @@
+{
+  "batchNumber": 18,
+  "startedAt": "2026-05-25T01:57:39.663Z",
+  "completedAt": "2026-05-25T01:57:59.938Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p2-057",
+    "hjb-primary-ds-v1-p2-058",
+    "hjb-primary-ds-v1-p2-059",
+    "hjb-primary-ds-v1-p2-060",
+    "hjb-primary-ds-v1-p2-061",
+    "hjb-primary-ds-v1-p2-062",
+    "hjb-primary-ds-v1-p2-063",
+    "hjb-primary-ds-v1-p2-064",
+    "hjb-primary-ds-v1-p2-065",
+    "hjb-primary-ds-v1-p2-066",
+    "hjb-primary-ds-v1-p2-067",
+    "hjb-primary-ds-v1-p2-068",
+    "hjb-primary-ds-v1-p2-069",
+    "hjb-primary-ds-v1-p2-070",
+    "hjb-primary-ds-v1-p2-071",
+    "hjb-primary-ds-v1-p2-072",
+    "hjb-primary-ds-v1-p2-073",
+    "hjb-primary-ds-v1-p2-074"
+  ],
+  "usage": {
+    "prompt_tokens": 3614,
+    "completion_tokens": 1291,
+    "total_tokens": 4905,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 3358
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p2-057",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，符合二年级方位学习要求。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-058",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "推理正确，选项唯一，难度适合挑战题。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-059",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "基础方位题，答案准确，acceptedAnswers覆盖分隔符变体。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-060",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "简单方位推理，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-061",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "多步方位推理，答案北面正确，选项无歧义。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-062",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "相对方向题，答案西正确，acceptedAnswers包含西面。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-063",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "路线描述题，答案完整，acceptedAnswers覆盖多种合理表述。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-064",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "逻辑推理题，答案小刚正确，解释清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-065",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方位推理，答案西北正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-066",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "转向题，答案北正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-067",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "相对位置题，答案西南正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-068",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "基础常识题，答案西正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-069",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "返回路线题，答案正确，acceptedAnswers覆盖多种表述。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-070",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "乘法意义辨析，选项C正确，解释合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-071",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "基础乘法填空，答案正确，acceptedAnswers覆盖顺序变体。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-072",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "乘法应用题，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-073",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "乘法适用性辨析，选项B正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-074",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "口诀写算式，答案正确，acceptedAnswers覆盖多种格式。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合沪教版二年级要求，答案正确，无歧义或错误。"
+    }
+  }
+}

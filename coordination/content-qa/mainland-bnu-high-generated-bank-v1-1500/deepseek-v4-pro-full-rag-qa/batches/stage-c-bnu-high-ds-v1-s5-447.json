@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-447",
+  "startedAt": "2026-05-28T01:31:42.837Z",
+  "completedAt": "2026-05-28T01:31:47.916Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-447"
+  ],
+  "usage": {
+    "prompt_tokens": 2421,
+    "completion_tokens": 258,
+    "total_tokens": 2679,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2037
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-447",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "-71.5",
+        "correctedAnswer": "-71.5",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合BNU统计案例范围。独立计算得截距a=-71.5，但存储答案为-22.1，且解析过程最终得出-71.5，与存储答案矛盾，存在数学错误和答案不匹配。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1题因答案错误且解析矛盾被判定为fail。"
+    }
+  }
+}

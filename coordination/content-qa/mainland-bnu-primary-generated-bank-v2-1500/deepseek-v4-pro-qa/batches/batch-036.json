@@ -1,0 +1,191 @@
+{
+  "batchNumber": 36,
+  "startedAt": "2026-05-27T13:50:33.186Z",
+  "completedAt": "2026-05-27T13:50:51.889Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p3-131",
+    "bnu-primary-ds-v2-p3-132",
+    "bnu-primary-ds-v2-p3-133",
+    "bnu-primary-ds-v2-p3-134",
+    "bnu-primary-ds-v2-p3-135",
+    "bnu-primary-ds-v2-p3-136",
+    "bnu-primary-ds-v2-p3-137",
+    "bnu-primary-ds-v2-p3-138",
+    "bnu-primary-ds-v2-p3-139",
+    "bnu-primary-ds-v2-p3-140",
+    "bnu-primary-ds-v2-p3-141",
+    "bnu-primary-ds-v2-p3-142",
+    "bnu-primary-ds-v2-p3-143",
+    "bnu-primary-ds-v2-p3-144",
+    "bnu-primary-ds-v2-p3-145",
+    "bnu-primary-ds-v2-p3-146",
+    "bnu-primary-ds-v2-p3-147",
+    "bnu-primary-ds-v2-p3-148"
+  ],
+  "usage": {
+    "prompt_tokens": 3783,
+    "completion_tokens": 1350,
+    "total_tokens": 5133,
+    "prompt_tokens_details": {
+      "cached_tokens": 3712
+    },
+    "prompt_cache_hit_tokens": 3712,
+    "prompt_cache_miss_tokens": 71
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p3-131",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，运算顺序和结果无误，符合三年级混合运算要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-132",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，周长计算和比较无误，符合三年级图形与几何要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-133",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，选项设置合理，答案唯一，符合三年级小数初步认识要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-134",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，连除计算无误，符合三年级除法应用要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-135",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，日期计算和减法应用无误，符合三年级年月日知识。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-136",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，有余数除法计算无误，选项设置合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-137",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，余数性质应用无误，符合三年级除法要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-138",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，两步计算无误，符合三年级解决问题要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-139",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，估算和精确计算均支持答案，选项设置合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-140",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，竖式过程描述准确，符合三年级除法竖式要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-141",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，商中间有0的除法计算无误，符合三年级要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-142",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，有余数除法应用无误，选项设置合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-143",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，余数性质应用无误，符合三年级除法要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-144",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，两步计算无误，符合三年级解决问题要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-145",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，估算和精确计算均支持答案，选项设置合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-146",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，竖式过程描述准确，符合三年级除法竖式要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-147",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，进一法应用无误，符合三年级解决问题要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-148",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，商中间有0的规律应用无误，选项设置合理。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版三年级数学要求，无错误或风险。"
+    }
+  }
+}

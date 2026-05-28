@@ -1,0 +1,191 @@
+{
+  "batchNumber": 74,
+  "startedAt": "2026-05-27T13:30:33.077Z",
+  "completedAt": "2026-05-27T13:30:51.641Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p6-065",
+    "bnu-primary-ds-v1-p6-066",
+    "bnu-primary-ds-v1-p6-067",
+    "bnu-primary-ds-v1-p6-068",
+    "bnu-primary-ds-v1-p6-069",
+    "bnu-primary-ds-v1-p6-070",
+    "bnu-primary-ds-v1-p6-071",
+    "bnu-primary-ds-v1-p6-072",
+    "bnu-primary-ds-v1-p6-073",
+    "bnu-primary-ds-v1-p6-074",
+    "bnu-primary-ds-v1-p6-075",
+    "bnu-primary-ds-v1-p6-076",
+    "bnu-primary-ds-v1-p6-077",
+    "bnu-primary-ds-v1-p6-078",
+    "bnu-primary-ds-v1-p6-079",
+    "bnu-primary-ds-v1-p6-080",
+    "bnu-primary-ds-v1-p6-081",
+    "bnu-primary-ds-v1-p6-082"
+  ],
+  "usage": {
+    "prompt_tokens": 3647,
+    "completion_tokens": 1333,
+    "total_tokens": 4980,
+    "prompt_tokens_details": {
+      "cached_tokens": 3584
+    },
+    "prompt_cache_hit_tokens": 3584,
+    "prompt_cache_miss_tokens": 63
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p6-065",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，出勤率=38÷40=95%，符合百分数意义。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-066",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "80÷200=40%，答案正确，表述清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-067",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "300×1.2=360，选项唯一正确，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-068",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "200×0.85=170，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-069",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "(22-18)÷18≈22.2%，答案合理，接受约22.2%。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-070",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项C表示关系，符合百分数定义，其他带单位。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-071",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "(24-16)÷16=50%，单位“1”正确，答案无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-072",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "12×(1-25%)=9吨，计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-073",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比较数量多少，条形图最合适，选项正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-074",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "总和83，83÷6≈13.83，保留整数14，正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-075",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "故事书153，科普书136，差17，计算无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-076",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "变化趋势用折线图，选项正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-077",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "15÷35≈42.9%，答案合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-078",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "趋势上升，平均每年增加5公顷，计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-079",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "表示百分比关系用扇形图，选项正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-080",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "2÷40=5%，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-081",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案完整，绘画组最多，差12人，条形图合适。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-082",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "气温变化趋势用折线图，选项正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案匹配，无歧义，符合北师大版小学数学六年级要求。"
+    }
+  }
+}

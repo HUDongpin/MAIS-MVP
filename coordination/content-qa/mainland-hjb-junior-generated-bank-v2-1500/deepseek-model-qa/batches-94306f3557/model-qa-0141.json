@@ -1,0 +1,105 @@
+{
+  "batchId": "model-qa-0141",
+  "ids": [
+    "hjb-junior-ds-v2-s3-121",
+    "hjb-junior-ds-v2-s3-122",
+    "hjb-junior-ds-v2-s3-123",
+    "hjb-junior-ds-v2-s3-124",
+    "hjb-junior-ds-v2-s3-125",
+    "hjb-junior-ds-v2-s3-126",
+    "hjb-junior-ds-v2-s3-127",
+    "hjb-junior-ds-v2-s3-128"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-121",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "5/12",
+      "answerCheckZhHans": "标准答案 5/12 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-122",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "10",
+      "answerCheckZhHans": "标准答案 10 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-123",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "54.6",
+      "answerCheckZhHans": "标准答案 54.6 与独立计算结果一致，acceptedAnswers 覆盖了带单位和不带单位的情况。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-124",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "sinA=3/5",
+      "answerCheckZhHans": "标准答案 sinA=3/5 正确，其他选项均错误，且选项互异。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-125",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "60",
+      "answerCheckZhHans": "标准答案 60 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-126",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "标准答案为 9.9米，但独立计算得 9.9米 需使用 tan35°≈0.7002，而常见近似 tan35°≈0.7002 或 0.700，若用 tan35°≈0.700 则 h=8.4，总高 9.9米；但若用更精确值 tan35°≈0.7002075，则 h≈8.40249，总高≈9.90249，四舍五入为 9.9米。然而，题目未提供 tan35° 的值，学生可能使用不同近似导致结果略有差异。但标准答案 9.9米 在合理近似下正确。然而，解析中 h=12×tan35°≈12×0.7002≈8.4024，总高 9.9024≈9.9，但若学生使用 tan35°=0.7 则得 9.9，若使用 0.7002 也得 9.9，所以答案一致。但需确认 acceptedAnswers 中的 '约9.9米' 是否合适，因为题目要求精确到0.1米，答案应为 9.9米，而非约9.9米。但这不是严重问题。主要问题：解析中未明确给出 tan35° 的取值，但答案正确。然而，我怀疑标准答案可能错误：若 tan35° 取 0.7002，则 12*0.7002=8.4024，加1.5得9.9024，四舍五入为9.9，正确。但有些教材可能用 tan35°=0.700，得8.4+1.5=9.9，也正确。所以答案无误。但 acceptedAnswers 包含 '约9.9米'，可能不精确，但可接受。无严重问题。但为了严谨，检查解析：解析说 h=12×tan35°≈12×0.7002≈8.4024米，总高=8.4024+1.5=9.9024≈9.9米。这正确。所以 verdict 应为 pass。但之前我标记 needs-review，因为担心 tan35° 取值，但实际没问题。重新考虑：题目未给 tan35° 值，学生需查表或记忆，但常见值 tan35°≈0.7002，答案 9.9 正确。所以应 pass。",
+      "independentAnswerZhHans": "9.9米",
+      "answerCheckZhHans": "标准答案 9.9米 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-127",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3/5",
+      "answerCheckZhHans": "标准答案 3/5 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-128",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "12/5",
+      "answerCheckZhHans": "标准答案 12/5 与独立计算结果一致，acceptedAnswers 包含分数和小数形式。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

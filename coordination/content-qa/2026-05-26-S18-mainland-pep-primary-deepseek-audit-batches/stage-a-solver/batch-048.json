@@ -1,0 +1,181 @@
+{
+  "startedAt": "2026-05-26T06:12:06.714Z",
+  "completedAt": "2026-05-26T06:12:27.296Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "usage": {
+    "prompt_tokens": 2546,
+    "completion_tokens": 1586,
+    "total_tokens": 4132,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 2546
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "questionId": "pep-primary-p5-l-sa-141",
+        "solvableStatus": "pass",
+        "independentAnswer": "2/9",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "同分母分数相加，分母不变，分子相加：1+1=2，结果为2/9。"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-142",
+        "solvableStatus": "pass",
+        "independentAnswer": "5/10",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "同分母分数相加：2/10+3/10=5/10，可化简为1/2，但小学阶段可能保留5/10。"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-143",
+        "solvableStatus": "pass",
+        "independentAnswer": "5/11",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "同分母分数相加：3/11+2/11=5/11。"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-144",
+        "solvableStatus": "pass",
+        "independentAnswer": "2/6",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "同分母分数相加：1/6+1/6=2/6，可化简为1/3，但小学阶段可能保留2/6。"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-145",
+        "solvableStatus": "pass",
+        "independentAnswer": "5/7",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "同分母分数相加：2/7+3/7=5/7。"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-146",
+        "solvableStatus": "pass",
+        "independentAnswer": "5/8",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "同分母分数相加：3/8+2/8=5/8。"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-147",
+        "solvableStatus": "pass",
+        "independentAnswer": "2/9",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "同分母分数相加：1/9+1/9=2/9。"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-148",
+        "solvableStatus": "pass",
+        "independentAnswer": "5/10",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "同分母分数相加：2/10+3/10=5/10，可化简为1/2。"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-149",
+        "solvableStatus": "pass",
+        "independentAnswer": "5/11",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "同分母分数相加：3/11+2/11=5/11。"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-150",
+        "solvableStatus": "pass",
+        "independentAnswer": "2/6",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "同分母分数相加：1/6+1/6=2/6，可化简为1/3。"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-151",
+        "solvableStatus": "pass",
+        "independentAnswer": "48立方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "长方体体积=长×宽×高=4×4×3=48立方厘米。"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-152",
+        "solvableStatus": "pass",
+        "independentAnswer": "60立方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "长方体体积=5×6×2=60立方厘米。"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-153",
+        "solvableStatus": "pass",
+        "independentAnswer": "90立方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "长方体体积=6×3×5=90立方厘米。"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-154",
+        "solvableStatus": "pass",
+        "independentAnswer": "56立方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "长方体体积=7×4×2=56立方厘米。"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-155",
+        "solvableStatus": "pass",
+        "independentAnswer": "48立方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "长方体体积=8×2×3=48立方厘米。"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-156",
+        "solvableStatus": "pass",
+        "independentAnswer": "24立方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "长方体体积=3×4×2=24立方厘米。"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-157",
+        "solvableStatus": "pass",
+        "independentAnswer": "120立方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "长方体体积=4×6×5=120立方厘米。"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-158",
+        "solvableStatus": "pass",
+        "independentAnswer": "60立方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "长方体体积=5×3×4=60立方厘米。"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-159",
+        "solvableStatus": "pass",
+        "independentAnswer": "90立方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "长方体体积=6×5×3=90立方厘米。"
+      },
+      {
+        "questionId": "pep-primary-p5-l-sa-160",
+        "solvableStatus": "pass",
+        "independentAnswer": "28立方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "长方体体积=7×2×2=28立方厘米。"
+      }
+    ]
+  }
+}

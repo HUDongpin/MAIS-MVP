@@ -1,0 +1,335 @@
+{
+  "batchId": "batch-016",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s1-k03-mc-017",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-geometric-figures",
+      "unitTitle": "几何图形初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-geometric-figures"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "关于几何图形延长的说法，正确的是（ ）",
+      "optionsZhHans": [
+        "延长直线AB",
+        "延长射线OA",
+        "延长线段AB",
+        "射线AB和射线BA是同一条射线"
+      ],
+      "answer": "延长线段AB",
+      "acceptedAnswers": [
+        "延长线段AB",
+        "C"
+      ],
+      "explanationZhHans": "直线是向两方无限延伸的，不能延长，故A错误；射线有一个端点，向一方无限延伸，也不能延长，故B错误；线段有两个端点，可以向一方或两方延长，故C正确；射线AB的端点是A，射线BA的端点是B，端点不同，不是同一条射线，故D错误。因此正确答案是C。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k03-mc-018",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-geometric-figures",
+      "unitTitle": "几何图形初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-geometric-figures"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-rational-number-operations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "下列立体图形中，属于四棱柱的是（ ）",
+      "optionsZhHans": [
+        "长方体",
+        "球",
+        "圆柱",
+        "圆锥"
+      ],
+      "answer": "长方体",
+      "acceptedAnswers": [
+        "长方体",
+        "A"
+      ],
+      "explanationZhHans": "棱柱有两个面互相平行，其余各面都是四边形，并且每相邻两个四边形的公共边都互相平行。长方体满足这些条件，属于四棱柱；球是球体，圆柱和圆锥的侧面是曲面，不属于棱柱。因此正确答案是A。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k03-mc-019",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-geometric-figures",
+      "unitTitle": "几何图形初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-geometric-figures"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-expression-simplification"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "用一副三角板（含30°、60°、90°和45°、45°、90°）不能画出的角度是（　）",
+      "optionsZhHans": [
+        "15°",
+        "75°",
+        "105°",
+        "125°"
+      ],
+      "answer": "125°",
+      "acceptedAnswers": [
+        "125°",
+        "D"
+      ],
+      "explanationZhHans": "一副三角板可以画出15°的整数倍的角。15°=45°-30°，75°=30°+45°，105°=60°+45°，而125°不是15°的整数倍，因此不能画出。正确答案是D。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k03-mc-020",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-geometric-figures",
+      "unitTitle": "几何图形初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-geometric-figures"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-linear-equation-modeling"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "已知线段AB=8 cm，点C在线段AB上，且AC=3 cm，点D是线段BC的中点，则线段AD的长为（　）",
+      "optionsZhHans": [
+        "4 cm",
+        "5 cm",
+        "5.5 cm",
+        "6 cm"
+      ],
+      "answer": "5.5 cm",
+      "acceptedAnswers": [
+        "5.5 cm",
+        "C"
+      ],
+      "explanationZhHans": "因为AB=8 cm，AC=3 cm，所以BC=AB-AC=5 cm。点D是BC的中点，则BD=DC=2.5 cm。AD=AC+CD=3+2.5=5.5 cm。因此正确答案是C。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k03-mc-021",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-geometric-figures",
+      "unitTitle": "几何图形初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-geometric-figures"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-geometric-figures"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "若∠α的补角是120°，则∠α的余角是（　）",
+      "optionsZhHans": [
+        "30°",
+        "40°",
+        "50°",
+        "60°"
+      ],
+      "answer": "30°",
+      "acceptedAnswers": [
+        "30°",
+        "A"
+      ],
+      "explanationZhHans": "∠α的补角是120°，所以∠α=180°-120°=60°。∠α的余角为90°-60°=30°。因此正确答案是A。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k03-mc-022",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-geometric-figures",
+      "unitTitle": "几何图形初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-geometric-figures"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "一个角的补角比它的余角的3倍少20°，则这个角的度数为（　）",
+      "optionsZhHans": [
+        "35°",
+        "40°",
+        "45°",
+        "50°"
+      ],
+      "answer": "35°",
+      "acceptedAnswers": [
+        "35°",
+        "A"
+      ],
+      "explanationZhHans": "设这个角为x°，则它的补角为(180-x)°，余角为(90-x)°。根据题意得180-x=3(90-x)-20，解得x=35。因此这个角的度数为35°，正确答案是A。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k03-fi-001",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-geometric-figures",
+      "unitTitle": "几何图形初步",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-geometric-figures"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-geometric-figures"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "已知∠A=50°17'，则∠A的余角等于______。",
+      "optionsZhHans": [],
+      "answer": "39°43'",
+      "acceptedAnswers": [
+        "39°43'",
+        "39度43分"
+      ],
+      "explanationZhHans": "余角是指两个角的和等于90°。所以∠A的余角=90°-50°17'=89°60'-50°17'=39°43'。因此答案为39°43'。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k03-fi-002",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-geometric-figures",
+      "unitTitle": "几何图形初步",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-geometric-figures"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "点C是线段AB上一点，点M是AC的中点，点N是BC的中点，若AB=10 cm，则MN=______cm。",
+      "optionsZhHans": [],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5",
+        "5cm"
+      ],
+      "explanationZhHans": "因为M是AC的中点，N是BC的中点，所以MN=MC+CN=1/2AC+1/2BC=1/2(AC+BC)=1/2AB=5 cm。因此答案为5。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k03-fi-003",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-geometric-figures",
+      "unitTitle": "几何图形初步",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-geometric-figures"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-rational-number-operations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "一个棱柱有12个顶点，则这个棱柱是______棱柱。",
+      "optionsZhHans": [],
+      "answer": "六",
+      "acceptedAnswers": [
+        "六",
+        "6"
+      ],
+      "explanationZhHans": "棱柱的顶点数等于底面边数的2倍。设底面边数为n，则2n=12，解得n=6，所以是六棱柱。因此答案为六。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k03-fi-004",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-geometric-figures",
+      "unitTitle": "几何图形初步",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-geometric-figures"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-expression-simplification"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "已知∠α与∠β互为补角，且∠α比∠β大40°，则∠β=______°。",
+      "optionsZhHans": [],
+      "answer": "70",
+      "acceptedAnswers": [
+        "70",
+        "70°"
+      ],
+      "explanationZhHans": "根据题意，∠α+∠β=180°，∠α=∠β+40°。代入得∠β+40°+∠β=180°，解得2∠β=140°，∠β=70°。因此答案为70。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

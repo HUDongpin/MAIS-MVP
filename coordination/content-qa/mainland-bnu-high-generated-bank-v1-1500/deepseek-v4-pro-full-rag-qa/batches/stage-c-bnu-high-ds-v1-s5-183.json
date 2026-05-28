@@ -1,0 +1,50 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-183",
+  "startedAt": "2026-05-28T02:54:54.268Z",
+  "completedAt": "2026-05-28T02:55:00.351Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-183"
+  ],
+  "usage": {
+    "prompt_tokens": 3047,
+    "completion_tokens": 290,
+    "total_tokens": 3337,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2663
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-183",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "0",
+        "correctedAnswer": "0",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "点A(1,2,3)、B(4,5,6)、C(7,8,9)共线，点C到直线AB的距离为0。题目给出的答案√6错误，解析过程自相矛盾，最终得出0却给出√6。题目不可解，答案不匹配，解释矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目三点共线导致距离为0，与答案√6矛盾，解析过程错误，判定为不可解且答案错误。"
+    }
+  }
+}

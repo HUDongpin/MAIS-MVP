@@ -1,0 +1,80 @@
+{
+  "batchId": "model-qa-0003",
+  "ids": [
+    "hjb-high-ds-v3-s4-331",
+    "hjb-high-ds-v3-s4-334",
+    "hjb-high-ds-v3-s4-337",
+    "hjb-high-ds-v3-s4-340",
+    "hjb-high-ds-v3-s4-343"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-high-ds-v3-s4-331",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题目中函数为 y=7sin(2x+2π/6)，即 y=7sin(2x+π/3)。最大值在 2x+π/3=π/2+2kπ 时取得，解得 x=π/12+kπ。在 [0,2π] 内，k=0,1,2 对应 x=π/12, 13π/12, 25π/12，共3次。但给定答案为2，解析也只列出k=0,1，遗漏了k=2。因此答案错误，解析不匹配。",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "标准答案为2，但正确次数应为3。",
+      "recommendedActionZhHans": "修正答案为3，并更新解析列出k=0,1,2。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-334",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "标准答案为3，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-337",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案为2，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-340",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案为2，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-343",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "标准答案为3，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    }
+  ]
+}

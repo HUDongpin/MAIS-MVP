@@ -1,0 +1,380 @@
+{
+  "batchId": "S4-s4-exp-log-07",
+  "questions": [
+    {
+      "id": "pep-high-ds-v1-s4-exp-log-061",
+      "grade": "S4",
+      "topicId": "pep-high-s4-exp-log",
+      "topicTitleZhHans": "指数函数与对数函数",
+      "chapter": "指数函数与对数函数",
+      "conceptIds": [
+        "exponential-functions",
+        "logarithmic-functions",
+        "inverse-functions",
+        "function-modeling",
+        "legacy-stream",
+        "analytic-geometry",
+        "probability-foundations",
+        "sequences"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "pep-high-exponential-logarithmic-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-legacy-stream-migration"
+      ],
+      "promptZhHans": "已知函数 \\( f(x) = 2^x - 3 \\)，则 \\( f(x) \\) 的零点所在的一个区间是（ ）。",
+      "optionsZhHans": [
+        "\\((0, 1)\\)",
+        "\\((1, 2)\\)",
+        "\\((2, 3)\\)",
+        "\\((3, 4)\\)"
+      ],
+      "answer": "\\((1, 2)\\)",
+      "acceptedAnswers": [
+        "\\((1, 2)\\)"
+      ],
+      "explanationZhHans": "计算端点值：\\( f(1) = 2^1 - 3 = -1 < 0 \\)，\\( f(2) = 2^2 - 3 = 1 > 0 \\)，由零点存在定理知零点在 \\((1, 2)\\) 内。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-exp-log-062",
+      "grade": "S4",
+      "topicId": "pep-high-s4-exp-log",
+      "topicTitleZhHans": "指数函数与对数函数",
+      "chapter": "指数函数与对数函数",
+      "conceptIds": [
+        "exponential-functions",
+        "logarithmic-functions",
+        "inverse-functions",
+        "function-modeling",
+        "legacy-stream",
+        "analytic-geometry",
+        "probability-foundations",
+        "sequences"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "pep-high-exponential-logarithmic-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-legacy-stream-migration"
+      ],
+      "promptZhHans": "方程 \\( \\log_2 (x+1) + \\log_2 (x-1) = 3 \\) 的解为 \\( x = \\) ______。",
+      "optionsZhHans": [],
+      "answer": "3",
+      "acceptedAnswers": [
+        "3"
+      ],
+      "explanationZhHans": "由对数性质得 \\( \\log_2 [(x+1)(x-1)] = 3 \\)，即 \\( x^2 - 1 = 2^3 = 8 \\)，解得 \\( x = \\pm 3 \\)。经检验，\\( x = -3 \\) 使真数为负，舍去，故解为 \\( x = 3 \\)。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-exp-log-063",
+      "grade": "S4",
+      "topicId": "pep-high-s4-exp-log",
+      "topicTitleZhHans": "指数函数与对数函数",
+      "chapter": "指数函数与对数函数",
+      "conceptIds": [
+        "exponential-functions",
+        "logarithmic-functions",
+        "inverse-functions",
+        "function-modeling",
+        "legacy-stream",
+        "analytic-geometry",
+        "probability-foundations",
+        "sequences"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "pep-high-exponential-logarithmic-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-legacy-stream-migration"
+      ],
+      "promptZhHans": "已知函数 \\( f(x) = \\ln x + 2x - 6 \\) 的零点在区间 \\((k, k+1)\\) 内，其中 \\( k \\) 为正整数，求 \\( k \\) 的值。",
+      "optionsZhHans": [],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2"
+      ],
+      "explanationZhHans": "计算 \\( f(2) = \\ln 2 - 2 < 0 \\)，\\( f(3) = \\ln 3 > 0 \\)，且 \\( f(x) \\) 连续，故零点在 \\((2, 3)\\) 内，\\( k = 2 \\)。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-exp-log-064",
+      "grade": "S4",
+      "topicId": "pep-high-s4-exp-log",
+      "topicTitleZhHans": "指数函数与对数函数",
+      "chapter": "指数函数与对数函数",
+      "conceptIds": [
+        "exponential-functions",
+        "logarithmic-functions",
+        "inverse-functions",
+        "function-modeling",
+        "legacy-stream",
+        "analytic-geometry",
+        "probability-foundations",
+        "sequences"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "pep-high-exponential-logarithmic-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-legacy-stream-migration"
+      ],
+      "promptZhHans": "已知函数 \\( f(x) = e^x + x - 4 \\) 的零点为 \\( x_0 \\)，且 \\( x_0 \\in (n, n+1) \\)，其中 \\( n \\in \\mathbb{Z} \\)，求 \\( n \\) 的值。",
+      "optionsZhHans": [],
+      "answer": "1",
+      "acceptedAnswers": [
+        "1"
+      ],
+      "explanationZhHans": "计算 \\( f(1) = e - 3 < 0 \\)，\\( f(2) = e^2 - 2 > 0 \\)，且 \\( f(x) \\) 连续，故零点在 \\((1, 2)\\) 内，\\( n = 1 \\)。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-exp-log-065",
+      "grade": "S4",
+      "topicId": "pep-high-s4-exp-log",
+      "topicTitleZhHans": "指数函数与对数函数",
+      "chapter": "指数函数与对数函数",
+      "conceptIds": [
+        "exponential-functions",
+        "logarithmic-functions",
+        "inverse-functions",
+        "function-modeling",
+        "legacy-stream",
+        "analytic-geometry",
+        "probability-foundations",
+        "sequences"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "pep-high-exponential-logarithmic-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-legacy-stream-migration"
+      ],
+      "promptZhHans": "设 \\( a = \\log_3 2 \\)，\\( b = \\ln 2 \\)，\\( c = 5^{-\\frac{1}{2}} \\)，则 \\( a, b, c \\) 的大小关系是（ ）。",
+      "optionsZhHans": [
+        "\\( a < b < c \\)",
+        "\\( c < b < a \\)",
+        "\\( a < c < b \\)",
+        "\\( b < a < c \\)"
+      ],
+      "answer": "\\( a < c < b \\)",
+      "acceptedAnswers": [
+        "\\( a < c < b \\)"
+      ],
+      "explanationZhHans": "\\( a = \\log_3 2 < \\log_3 3 = 1 \\)，\\( b = \\ln 2 < \\ln e = 1 \\)，\\( c = \\frac{1}{\\sqrt{5}} \\approx 0.447 \\)。比较 \\( a \\) 与 \\( c \\)：\\( a = \\frac{\\ln 2}{\\ln 3} \\approx \\frac{0.693}{1.099} \\approx 0.63 \\)，故 \\( c < a \\)；\\( b = 0.693 > a \\)，所以 \\( a < c < b \\)。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-exp-log-066",
+      "grade": "S4",
+      "topicId": "pep-high-s4-exp-log",
+      "topicTitleZhHans": "指数函数与对数函数",
+      "chapter": "指数函数与对数函数",
+      "conceptIds": [
+        "exponential-functions",
+        "logarithmic-functions",
+        "inverse-functions",
+        "function-modeling",
+        "legacy-stream",
+        "analytic-geometry",
+        "probability-foundations",
+        "sequences"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "pep-high-exponential-logarithmic-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-legacy-stream-migration"
+      ],
+      "promptZhHans": "若函数 \\( f(x) = \\log_a (x + \\sqrt{x^2 + 1}) \\) 是奇函数，则实数 \\( a \\) 的取值范围是 ______。",
+      "optionsZhHans": [],
+      "answer": "\\( a > 0 \\) 且 \\( a \\neq 1 \\)",
+      "acceptedAnswers": [
+        "\\( a > 0 \\) 且 \\( a \\neq 1 \\)"
+      ],
+      "explanationZhHans": "由奇函数定义，\\( f(-x) = \\log_a (-x + \\sqrt{x^2 + 1}) = \\log_a \\frac{1}{x + \\sqrt{x^2 + 1}} = -\\log_a (x + \\sqrt{x^2 + 1}) = -f(x) \\)，对任意 \\( x \\) 成立，只需对数有意义，故 \\( a > 0, a \\neq 1 \\)。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-exp-log-067",
+      "grade": "S4",
+      "topicId": "pep-high-s4-exp-log",
+      "topicTitleZhHans": "指数函数与对数函数",
+      "chapter": "指数函数与对数函数",
+      "conceptIds": [
+        "exponential-functions",
+        "logarithmic-functions",
+        "inverse-functions",
+        "function-modeling",
+        "legacy-stream",
+        "analytic-geometry",
+        "probability-foundations",
+        "sequences"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "pep-high-exponential-logarithmic-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-legacy-stream-migration"
+      ],
+      "promptZhHans": "已知函数 \\( f(x) = \\begin{cases} 2^x, & x \\leq 0 \\\\ \\log_2 x, & x > 0 \\end{cases} \\)，若 \\( f(a) = \\frac{1}{2} \\)，求 \\( a \\) 的值。",
+      "optionsZhHans": [],
+      "answer": "\\( a = -1 \\) 或 \\( a = \\sqrt{2} \\)",
+      "acceptedAnswers": [
+        "\\( a = -1 \\) 或 \\( a = \\sqrt{2} \\)"
+      ],
+      "explanationZhHans": "当 \\( a \\leq 0 \\) 时，\\( 2^a = \\frac{1}{2} \\)，得 \\( a = -1 \\)；当 \\( a > 0 \\) 时，\\( \\log_2 a = \\frac{1}{2} \\)，得 \\( a = \\sqrt{2} \\)。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-exp-log-068",
+      "grade": "S4",
+      "topicId": "pep-high-s4-exp-log",
+      "topicTitleZhHans": "指数函数与对数函数",
+      "chapter": "指数函数与对数函数",
+      "conceptIds": [
+        "exponential-functions",
+        "logarithmic-functions",
+        "inverse-functions",
+        "function-modeling",
+        "legacy-stream",
+        "analytic-geometry",
+        "probability-foundations",
+        "sequences"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "pep-high-exponential-logarithmic-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-legacy-stream-migration"
+      ],
+      "promptZhHans": "已知函数 \\( f(x) = \\ln(\\sqrt{x^2 + 1} - x) \\)，则关于 \\( f(x) \\) 的性质，下列描述正确的是（ ）。",
+      "optionsZhHans": [
+        "\\( f(x) \\) 是奇函数，且在 \\( \\mathbb{R} \\) 上单调递增",
+        "\\( f(x) \\) 是奇函数，且在 \\( \\mathbb{R} \\) 上单调递减",
+        "\\( f(x) \\) 是偶函数，且在 \\( (0, +\\infty) \\) 上单调递增",
+        "\\( f(x) \\) 是偶函数，且在 \\( (0, +\\infty) \\) 上单调递减"
+      ],
+      "answer": "\\( f(x) \\) 是奇函数，且在 \\( \\mathbb{R} \\) 上单调递减",
+      "acceptedAnswers": [
+        "\\( f(x) \\) 是奇函数，且在 \\( \\mathbb{R} \\) 上单调递减"
+      ],
+      "explanationZhHans": "由 \\( f(-x) = \\ln(\\sqrt{x^2+1} + x) = \\ln \\frac{1}{\\sqrt{x^2+1} - x} = -f(x) \\)，故为奇函数。又 \\( \\sqrt{x^2+1} - x = \\frac{1}{\\sqrt{x^2+1} + x} \\) 单调递减，故 \\( f(x) \\) 在 \\( \\mathbb{R} \\) 上单调递减。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-exp-log-069",
+      "grade": "S4",
+      "topicId": "pep-high-s4-exp-log",
+      "topicTitleZhHans": "指数函数与对数函数",
+      "chapter": "指数函数与对数函数",
+      "conceptIds": [
+        "exponential-functions",
+        "logarithmic-functions",
+        "inverse-functions",
+        "function-modeling",
+        "legacy-stream",
+        "analytic-geometry",
+        "probability-foundations",
+        "sequences"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "pep-high-exponential-logarithmic-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-legacy-stream-migration"
+      ],
+      "promptZhHans": "函数 \\( f(x) = \\log_2 (4^x + 1) - x \\) 的最小值为 ______。",
+      "optionsZhHans": [],
+      "answer": "1",
+      "acceptedAnswers": [
+        "1"
+      ],
+      "explanationZhHans": "\\( f(x) = \\log_2 (4^x + 1) - \\log_2 2^x = \\log_2 \\frac{4^x + 1}{2^x} = \\log_2 (2^x + 2^{-x}) \\geq \\log_2 2 = 1 \\)，当 \\( x = 0 \\) 时取等。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-exp-log-070",
+      "grade": "S4",
+      "topicId": "pep-high-s4-exp-log",
+      "topicTitleZhHans": "指数函数与对数函数",
+      "chapter": "指数函数与对数函数",
+      "conceptIds": [
+        "exponential-functions",
+        "logarithmic-functions",
+        "inverse-functions",
+        "function-modeling",
+        "legacy-stream",
+        "analytic-geometry",
+        "probability-foundations",
+        "sequences"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "pep-high-exponential-logarithmic-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-legacy-stream-migration"
+      ],
+      "promptZhHans": "已知函数 \\( f(x) = |\\lg x| \\)，若 \\( 0 < a < b \\)，且 \\( f(a) = f(b) \\)，证明：\\( ab = 1 \\)，并求 \\( a + 2b \\) 的取值范围。",
+      "optionsZhHans": [],
+      "answer": "证明见解析；\\( a + 2b \\) 的取值范围是 \\( (3, +\\infty) \\)",
+      "acceptedAnswers": [
+        "证明见解析；\\( a + 2b \\) 的取值范围是 \\( (3, +\\infty) \\)"
+      ],
+      "explanationZhHans": "由 \\( |\\lg a| = |\\lg b| \\) 及 \\( 0 < a < b \\) 得 \\( -\\lg a = \\lg b \\)，即 \\( \\lg ab = 0 \\)，故 \\( ab = 1 \\)。于是 \\( a + 2b = a + \\frac{2}{a} \\)，由 \\( a \\in (0,1) \\) 及对勾函数单调性得值域为 \\( (3, +\\infty) \\)。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    }
+  ]
+}

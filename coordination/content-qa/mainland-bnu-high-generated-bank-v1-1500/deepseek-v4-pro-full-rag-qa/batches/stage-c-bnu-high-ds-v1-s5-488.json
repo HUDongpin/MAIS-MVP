@@ -1,0 +1,48 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-488",
+  "startedAt": "2026-05-28T01:35:33.190Z",
+  "completedAt": "2026-05-28T01:35:38.095Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-488"
+  ],
+  "usage": {
+    "prompt_tokens": 2356,
+    "completion_tokens": 314,
+    "total_tokens": 2670,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1972
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-488",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "(1) r ≈ 0.99；(2) y = -20.91 + 0.82x；(3) 40.59万件",
+        "correctedAnswer": "(1) r ≈ 0.99；(2) y = -20.91 + 0.82x；(3) 40.59万件",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立计算得回归系数b≈0.818，a≈-20.91，预测值40.59；存储答案b=0.80，a=-19.60，预测40.40，存在计算错误，答案不匹配，需修正。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "存储答案回归系数和预测值错误，与独立解不一致，判定为blocker。"
+    }
+  }
+}

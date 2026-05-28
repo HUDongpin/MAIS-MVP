@@ -1,0 +1,50 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-412",
+  "startedAt": "2026-05-28T01:54:09.604Z",
+  "completedAt": "2026-05-28T01:54:14.727Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-412"
+  ],
+  "usage": {
+    "prompt_tokens": 2019,
+    "completion_tokens": 328,
+    "total_tokens": 2347,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1635
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-412",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "independentAnswer": "(-1, 1)",
+        "correctedAnswer": "(-1, 1)",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "ambiguous_mc",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "函数 f(x)=x³-3x，f'(x)=3x²-3=3(x-1)(x+1)。单调递减区间应满足 f'(x)<0，解得 -1<x<1，即开区间 (-1,1)，对应选项 B。存储答案 [-1,1] 错误，且解析中 f'(x)≤0 的闭区间写法导致选项 D 也正确，造成多解，违反唯一性。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目单调递减区间应为开区间 (-1,1)，选项 B 正确；存储答案和解析错误，导致多解，判定为 blocker。"
+    }
+  }
+}

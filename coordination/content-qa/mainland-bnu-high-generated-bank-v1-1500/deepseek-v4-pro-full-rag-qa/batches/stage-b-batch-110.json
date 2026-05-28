@@ -1,0 +1,126 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-110",
+  "startedAt": "2026-05-28T03:01:13.057Z",
+  "completedAt": "2026-05-28T03:01:29.264Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-373",
+    "bnu-high-ds-v1-s5-374",
+    "bnu-high-ds-v1-s5-375",
+    "bnu-high-ds-v1-s5-376",
+    "bnu-high-ds-v1-s5-377",
+    "bnu-high-ds-v1-s5-378",
+    "bnu-high-ds-v1-s5-379",
+    "bnu-high-ds-v1-s5-380"
+  ],
+  "usage": {
+    "prompt_tokens": 11640,
+    "completion_tokens": 988,
+    "total_tokens": 12628,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 11256
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-373",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案0.3与独立解一致，解析正确推导a=0.3并验证期望，无矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-374",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案0.432与独立解一致，解析使用二项分布计算正确，acceptedAnswers包含多种等价形式。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-375",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案0.3与独立解一致，解析利用对称性正确得出P(0<X<2)=0.3。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-376",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案1/2与独立解一致，解析用对立事件计算正确，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-377",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案2/5与独立解一致，解析正确应用条件概率，缩减样本空间后计算无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-378",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案4/3与独立解一致，解析通过概率和为1正确求和并解出c。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-379",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案n=6, p=0.4与独立解一致，解析利用二项分布期望方差公式正确求解，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-380",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案0.1359与独立解一致，解析利用正态分布对称性和参考数据正确计算。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8道题存储答案、解析与Stage A独立解一致，无错误或矛盾。"
+    }
+  }
+}

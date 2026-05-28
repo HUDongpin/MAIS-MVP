@@ -1,0 +1,191 @@
+{
+  "batchNumber": 37,
+  "startedAt": "2026-05-24T17:33:33.440Z",
+  "completedAt": "2026-05-24T17:33:52.974Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-candidate-k08-sa-022",
+    "pep-junior-candidate-k08-sa-023",
+    "pep-junior-candidate-k08-sa-024",
+    "pep-junior-candidate-k08-sa-025",
+    "pep-junior-candidate-k08-sa-026",
+    "pep-junior-candidate-k08-sa-027",
+    "pep-junior-candidate-k09-mc-001",
+    "pep-junior-candidate-k09-mc-002",
+    "pep-junior-candidate-k09-mc-003",
+    "pep-junior-candidate-k09-mc-004",
+    "pep-junior-candidate-k09-mc-005",
+    "pep-junior-candidate-k09-mc-006",
+    "pep-junior-candidate-k09-mc-007",
+    "pep-junior-candidate-k09-mc-008",
+    "pep-junior-candidate-k09-mc-009",
+    "pep-junior-candidate-k09-mc-010",
+    "pep-junior-candidate-k09-mc-011",
+    "pep-junior-candidate-k09-mc-012"
+  ],
+  "usage": {
+    "prompt_tokens": 2777,
+    "completion_tokens": 1405,
+    "total_tokens": 4182,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 2521
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-candidate-k08-sa-022",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解析一致，无歧义，适合人教版初中。"
+      },
+      {
+        "id": "pep-junior-candidate-k08-sa-023",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解析一致，无歧义，适合人教版初中。"
+      },
+      {
+        "id": "pep-junior-candidate-k08-sa-024",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解析一致，无歧义，适合人教版初中。"
+      },
+      {
+        "id": "pep-junior-candidate-k08-sa-025",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解析一致，无歧义，适合人教版初中。"
+      },
+      {
+        "id": "pep-junior-candidate-k08-sa-026",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解析一致，无歧义，适合人教版初中。"
+      },
+      {
+        "id": "pep-junior-candidate-k08-sa-027",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解析一致，无歧义，适合人教版初中。"
+      },
+      {
+        "id": "pep-junior-candidate-k09-mc-001",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，选项唯一，答案与解析一致，适合人教版初中。"
+      },
+      {
+        "id": "pep-junior-candidate-k09-mc-002",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，选项唯一，答案与解析一致，适合人教版初中。"
+      },
+      {
+        "id": "pep-junior-candidate-k09-mc-003",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，选项唯一，答案与解析一致，适合人教版初中。"
+      },
+      {
+        "id": "pep-junior-candidate-k09-mc-004",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，选项唯一，答案与解析一致，适合人教版初中。"
+      },
+      {
+        "id": "pep-junior-candidate-k09-mc-005",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，选项唯一，答案与解析一致，适合人教版初中。"
+      },
+      {
+        "id": "pep-junior-candidate-k09-mc-006",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，选项唯一，答案与解析一致，适合人教版初中。"
+      },
+      {
+        "id": "pep-junior-candidate-k09-mc-007",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，选项唯一，答案与解析一致，适合人教版初中。"
+      },
+      {
+        "id": "pep-junior-candidate-k09-mc-008",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，选项唯一，答案与解析一致，适合人教版初中。"
+      },
+      {
+        "id": "pep-junior-candidate-k09-mc-009",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，选项唯一，答案与解析一致，适合人教版初中。"
+      },
+      {
+        "id": "pep-junior-candidate-k09-mc-010",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，选项唯一，答案与解析一致，适合人教版初中。"
+      },
+      {
+        "id": "pep-junior-candidate-k09-mc-011",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，选项唯一，答案与解析一致，适合人教版初中。"
+      },
+      {
+        "id": "pep-junior-candidate-k09-mc-012",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，选项唯一，答案与解析一致，适合人教版初中。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案与解析一致，无歧义，适合人教版初中数学，可直接入库。"
+    }
+  }
+}

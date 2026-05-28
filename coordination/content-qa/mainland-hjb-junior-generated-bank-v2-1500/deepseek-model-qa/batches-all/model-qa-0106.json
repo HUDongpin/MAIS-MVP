@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0106",
+  "ids": [
+    "hjb-junior-ds-v2-s2-341",
+    "hjb-junior-ds-v2-s2-342",
+    "hjb-junior-ds-v2-s2-343",
+    "hjb-junior-ds-v2-s2-344",
+    "hjb-junior-ds-v2-s2-345",
+    "hjb-junior-ds-v2-s2-346",
+    "hjb-junior-ds-v2-s2-347",
+    "hjb-junior-ds-v2-s2-348"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-341",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(2, 2)",
+      "answerCheckZhHans": "标准答案 (2, 2) 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-342",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "5",
+      "answerCheckZhHans": "标准答案 5 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-343",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "C. 点M在x轴上",
+      "answerCheckZhHans": "标准答案 C 与独立计算结果一致，且其他选项均不正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-344",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(1, 4)",
+      "answerCheckZhHans": "标准答案 (1, 4) 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-345",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "点Q的坐标为(2, 3)，在第一象限。",
+      "answerCheckZhHans": "标准答案与独立计算结果一致，acceptedAnswers 覆盖了多种格式。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-346",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为“第一象限”，但解析得出点R(5,-1)在第四象限，答案与解析矛盾。独立计算：P(3,-4)右2上5得Q(5,1)，关于x轴对称得R(5,-1)，在第四象限。",
+      "independentAnswerZhHans": "第四象限",
+      "answerCheckZhHans": "标准答案“第一象限”错误，应为“第四象限”。",
+      "recommendedActionZhHans": "修正答案为“第四象限”，并更新解析。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-347",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(0,4) 或 (0,-4)",
+      "answerCheckZhHans": "标准答案与独立计算结果一致，acceptedAnswers 允许只写一个坐标。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-348",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "5√2",
+      "answerCheckZhHans": "标准答案 5√2 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,122 @@
+{
+  "batchId": "batch-116",
+  "attempt": 1,
+  "validationError": "pep-junior-v3-s3-k11-sa-024: forbidden source or diagram-dependent wording detected",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s3-k11-sa-018",
+      "promptZhHans": "在反比例函数y = k/x的图象上，有一点P，其横坐标与纵坐标之和为5，且点P到原点的距离为√17。求k的值。",
+      "optionsZhHans": [],
+      "answer": "k = 4",
+      "acceptedAnswers": [
+        "k = 4",
+        "4"
+      ],
+      "explanationZhHans": "设点P的坐标为(a, b)，则b = k/a。由题意得a + b = 5，且a² + b² = 17。将b = 5 - a代入第二个方程：a² + (5 - a)² = 17 → a² + 25 - 10a + a² = 17 → 2a² - 10a + 8 = 0 → a² - 5a + 4 = 0 → (a - 1)(a - 4) = 0。解得a = 1或a = 4。当a = 1时，b = 4，k = ab = 4；当a = 4时，b = 1，k = ab = 4。故k = 4。"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-019",
+      "promptZhHans": "如图，在△ABC中，∠C = 90°，AC = 6，BC = 8。点D在AB上，且∠BDC = 90°。求CD的长。",
+      "optionsZhHans": [],
+      "answer": "CD = 4.8",
+      "acceptedAnswers": [
+        "CD = 4.8",
+        "4.8",
+        "24/5"
+      ],
+      "explanationZhHans": "在Rt△ABC中，AB = √(6² + 8²) = 10。由∠BDC = 90°知CD⊥AB。利用面积法：S△ABC = (1/2)×AC×BC = (1/2)×6×8 = 24，又S△ABC = (1/2)×AB×CD = (1/2)×10×CD = 5CD。所以5CD = 24，解得CD = 4.8。"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-020",
+      "promptZhHans": "已知两个相似三角形的一组对应边长分别为4 cm和6 cm，且它们的面积之和为52 cm²。求较小三角形的面积。",
+      "optionsZhHans": [],
+      "answer": "16 cm²",
+      "acceptedAnswers": [
+        "16 cm²",
+        "16",
+        "16平方厘米"
+      ],
+      "explanationZhHans": "相似三角形的面积比等于相似比的平方。相似比k = 4/6 = 2/3，面积比为(2/3)² = 4/9。设较小三角形面积为4x，较大三角形面积为9x，则4x + 9x = 52 → 13x = 52 → x = 4。较小三角形面积为4x = 16 cm²。"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-021",
+      "promptZhHans": "在Rt△ABC中，∠C = 90°，sin A = 3/5，AC = 8。求△ABC的周长。",
+      "optionsZhHans": [],
+      "answer": "24",
+      "acceptedAnswers": [
+        "24",
+        "周长为24"
+      ],
+      "explanationZhHans": "由sin A = BC/AB = 3/5，设BC = 3k，AB = 5k，则AC = √(AB² - BC²) = √(25k² - 9k²) = 4k。已知AC = 8，所以4k = 8，k = 2。因此BC = 6，AB = 10，周长 = 6 + 8 + 10 = 24。"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-022",
+      "promptZhHans": "反比例函数y = (k - 1)/x的图象在每一个象限内，y随x的增大而增大，求k的取值范围。",
+      "optionsZhHans": [],
+      "answer": "k < 1",
+      "acceptedAnswers": [
+        "k < 1",
+        "k<1"
+      ],
+      "explanationZhHans": "反比例函数y = m/x的图象，当m > 0时，在每个象限内y随x增大而减小；当m < 0时，在每个象限内y随x增大而增大。这里m = k - 1，所以需要k - 1 < 0，即k < 1。"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-023",
+      "promptZhHans": "如图，从热气球C处测得地面A、B两点的俯角分别为30°和45°，如果此时热气球C处的高度CD为100米，点A、D、B在同一直线上，求A、B两点间的距离。",
+      "optionsZhHans": [],
+      "answer": "100(√3 + 1) 米",
+      "acceptedAnswers": [
+        "100(√3 + 1) 米",
+        "100(√3+1)米",
+        "100(√3+1)",
+        "100√3+100"
+      ],
+      "explanationZhHans": "由俯角定义，∠CAD = 30°，∠CBD = 45°。在Rt△ACD中，AD = CD·tan∠ACD？注意：∠ACD = 90° - 30° = 60°，所以AD = CD·tan60° = 100√3。在Rt△BCD中，∠BCD = 90° - 45° = 45°，BD = CD·tan45° = 100。所以AB = AD + BD = 100√3 + 100 = 100(√3 + 1) 米。"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-024",
+      "promptZhHans": "一个几何体由若干大小相同的小立方块搭成，从上面看到的几何体的形状图如图所示，其中小正方形中的数字表示在该位置的小立方块的个数。请画出从正面和左面看到的形状图。",
+      "optionsZhHans": [],
+      "answer": "从正面看：第一列3个，第二列2个，第三列1个；从左面看：第一列3个，第二列2个。",
+      "acceptedAnswers": [
+        "从正面看：第一列3个，第二列2个，第三列1个；从左面看：第一列3个，第二列2个。",
+        "正面：3,2,1；左面：3,2",
+        "主视图：3,2,1；左视图：3,2"
+      ],
+      "explanationZhHans": "根据俯视图的数字，从正面看，左边第一列最高3层，中间列最高2层，右边列最高1层，所以正面图为3,2,1。从左面看，左边第一列最高3层，右边列最高2层，所以左面图为3,2。"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-025",
+      "promptZhHans": "如图，在平面直角坐标系中，直线y = 2x + b与反比例函数y = k/x的图象交于点A(1, 4)。求这两个函数的解析式，并直接写出不等式2x + b > k/x的解集。",
+      "optionsZhHans": [],
+      "answer": "y = 2x + 2，y = 4/x，解集为x > 1或-2 < x < 0",
+      "acceptedAnswers": [
+        "y = 2x + 2，y = 4/x，解集为x > 1或-2 < x < 0",
+        "一次函数：y=2x+2，反比例函数：y=4/x，不等式解集：x>1或-2<x<0"
+      ],
+      "explanationZhHans": "将A(1,4)代入y = 2x + b得4 = 2×1 + b，b = 2，所以一次函数为y = 2x + 2。代入y = k/x得4 = k/1，k = 4，所以反比例函数为y = 4/x。联立求交点：2x + 2 = 4/x → 2x² + 2x - 4 = 0 → x² + x - 2 = 0 → (x+2)(x-1)=0，得x = -2或x = 1。由图象，当x > 1或-2 < x < 0时，一次函数图象在反比例函数上方，故解集为x > 1或-2 < x < 0。"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-026",
+      "promptZhHans": "如图，在△ABC中，DE∥BC，AD = 2，BD = 3，BC = 10。求DE的长。",
+      "optionsZhHans": [],
+      "answer": "DE = 4",
+      "acceptedAnswers": [
+        "DE = 4",
+        "4"
+      ],
+      "explanationZhHans": "由DE∥BC，得△ADE∽△ABC，相似比为AD/AB。AB = AD + BD = 2 + 3 = 5，所以AD/AB = 2/5。因此DE/BC = 2/5，DE = (2/5)×10 = 4。"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-027",
+      "promptZhHans": "在Rt△ABC中，∠C = 90°，tan A = 2，AB = 5√5。求△ABC的面积。",
+      "optionsZhHans": [],
+      "answer": "25",
+      "acceptedAnswers": [
+        "25",
+        "面积为25"
+      ],
+      "explanationZhHans": "由tan A = BC/AC = 2，设BC = 2k，AC = k，则AB = √(k² + (2k)²) = √5 k。已知AB = 5√5，所以√5 k = 5√5，k = 5。因此AC = 5，BC = 10，面积 = (1/2)×5×10 = 25。"
+    }
+  ]
+}

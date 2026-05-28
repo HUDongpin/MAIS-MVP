@@ -1,0 +1,616 @@
+{
+  "batchId": "batch-069",
+  "questions": [
+    {
+      "id": "bnu-junior-ds-v1-s2-181",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-linear-systems",
+      "unitTitle": "二元一次方程组",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "linear-systems-two-variables",
+        "substitution-elimination",
+        "linear-system-modeling",
+        "linear-functions",
+        "二元一次方程组"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "认识方程组",
+        "代入消元",
+        "加减消元",
+        "应用建模",
+        "方程组与函数联系"
+      ],
+      "misconceptionTags": [
+        "solution checked in only one equation",
+        "elimination signs mishandled",
+        "variables not tied back to context"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-linear-systems"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-linear-systems-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某文具店出售两种笔记本，A种笔记本每本6元，B种笔记本每本4元。小明用50元购买了这两种笔记本共11本。设小明购买A种笔记本x本，B种笔记本y本，则可列出方程组（ ）。",
+      "optionsZhHans": [
+        "x + y = 11，6x + 4y = 50",
+        "x + y = 50，6x + 4y = 11",
+        "x + y = 11，4x + 6y = 50",
+        "x + y = 50，4x + 6y = 11"
+      ],
+      "answer": "x + y = 11，6x + 4y = 50",
+      "acceptedAnswers": [
+        "x + y = 11，6x + 4y = 50"
+      ],
+      "explanationZhHans": "由总本数11得x+y=11；由总价50元得6x+4y=50。选项A正确，其他选项均将总本数与总价混淆或单价错位。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-182",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-linear-systems",
+      "unitTitle": "二元一次方程组",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "linear-systems-two-variables",
+        "substitution-elimination",
+        "linear-system-modeling",
+        "linear-functions",
+        "二元一次方程组"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "认识方程组",
+        "代入消元",
+        "加减消元",
+        "应用建模",
+        "方程组与函数联系"
+      ],
+      "misconceptionTags": [
+        "solution checked in only one equation",
+        "elimination signs mishandled",
+        "variables not tied back to context"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-linear-systems"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-linear-systems-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某文具店出售两种笔记本，A款每本6元，B款每本4元。小明买了这两种笔记本共15本，总共付款72元。问小明买了A款和B款笔记本各多少本？",
+      "optionsZhHans": [],
+      "answer": "A款6本，B款9本",
+      "acceptedAnswers": [
+        "A款6本，B款9本",
+        "6本和9本",
+        "6,9"
+      ],
+      "explanationZhHans": "设A款x本，B款y本。由总本数得x+y=15，由总价得6x+4y=72。将第一个方程乘以4得4x+4y=60，与第二个方程相减得2x=12，解得x=6，代入得y=9。检验：6+9=15，6×6+4×9=36+36=72，符合。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-183",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-linear-systems",
+      "unitTitle": "二元一次方程组",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "linear-systems-two-variables",
+        "substitution-elimination",
+        "linear-system-modeling",
+        "linear-functions",
+        "二元一次方程组"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "认识方程组",
+        "代入消元",
+        "加减消元",
+        "应用建模",
+        "方程组与函数联系"
+      ],
+      "misconceptionTags": [
+        "solution checked in only one equation",
+        "elimination signs mishandled",
+        "variables not tied back to context"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-linear-systems"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-linear-systems-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校组织八年级学生去科技馆参观，计划租用A、B两种型号的客车。已知每辆A型客车可坐45人，每辆B型客车可坐30人。若租用3辆A型客车和2辆B型客车，总座位数为195个；若租用2辆A型客车和4辆B型客车，总座位数比前一种方案多15个。求每辆A型客车和每辆B型客车的座位数。",
+      "optionsZhHans": [],
+      "answer": "A型客车每辆45人，B型客车每辆30人",
+      "acceptedAnswers": [
+        "A型客车每辆45人，B型客车每辆30人",
+        "A型客车45人，B型客车30人",
+        "45,30",
+        "45人，30人"
+      ],
+      "explanationZhHans": "设A型客车每辆坐x人，B型客车每辆坐y人。根据题意得方程组：3x+2y=195，2x+4y=195+15=210。解方程组得x=45，y=30。经检验，满足两个方程，且符合实际意义。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-184",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-linear-systems",
+      "unitTitle": "二元一次方程组",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "linear-systems-two-variables",
+        "substitution-elimination",
+        "linear-system-modeling",
+        "linear-functions",
+        "二元一次方程组"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "认识方程组",
+        "代入消元",
+        "加减消元",
+        "应用建模",
+        "方程组与函数联系"
+      ],
+      "misconceptionTags": [
+        "solution checked in only one equation",
+        "elimination signs mishandled",
+        "variables not tied back to context"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-linear-systems"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-linear-systems-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校组织八年级学生去科技馆参观，需租用客车。若租用45座客车，则恰好坐满；若租用60座客车，则可少租1辆，且最后一辆还空余15个座位。设租用45座客车x辆，学生总人数为y人，则下列方程组正确的是（ ）",
+      "optionsZhHans": [
+        "\\begin{cases} y = 45x \\\\ y = 60(x - 1) - 15 \\end{cases}",
+        "\\begin{cases} y = 45x \\\\ y = 60(x - 1) + 15 \\end{cases}",
+        "\\begin{cases} y = 45x \\\\ y = 60x - 15 \\end{cases}",
+        "\\begin{cases} y = 45x \\\\ y = 60(x + 1) - 15 \\end{cases}"
+      ],
+      "answer": "\\begin{cases} y = 45x \\\\ y = 60(x - 1) - 15 \\end{cases}",
+      "acceptedAnswers": [
+        "\\begin{cases} y = 45x \\\\ y = 60(x - 1) - 15 \\end{cases}"
+      ],
+      "explanationZhHans": "设45座客车x辆，学生总人数y人。45座客车坐满，则y=45x。60座客车少租1辆，即租(x-1)辆，最后一辆空余15座，故总座位数为60(x-1)，实际人数比总座位数少15，即y=60(x-1)-15。因此方程组为选项A。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-185",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-linear-systems",
+      "unitTitle": "二元一次方程组",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "linear-systems-two-variables",
+        "substitution-elimination",
+        "linear-system-modeling",
+        "linear-functions",
+        "二元一次方程组"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "认识方程组",
+        "代入消元",
+        "加减消元",
+        "应用建模",
+        "方程组与函数联系"
+      ],
+      "misconceptionTags": [
+        "solution checked in only one equation",
+        "elimination signs mishandled",
+        "variables not tied back to context"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-linear-systems"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-linear-systems-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某文具店销售两种笔记本，A款每本5元，B款每本8元。小华买了这两种笔记本共12本，总共付款75元。设小华购买A款笔记本x本，B款笔记本y本。\n（1）根据题意列出关于x，y的二元一次方程组；\n（2）解这个方程组，并写出小华购买A款和B款笔记本各多少本。",
+      "optionsZhHans": [],
+      "answer": "（1）方程组为：\n5x + 8y = 75\nx + y = 12\n（2）解得：x = 7，y = 5。小华购买A款笔记本7本，B款笔记本5本。",
+      "acceptedAnswers": [
+        "（1）方程组为：\n5x + 8y = 75\nx + y = 12\n（2）解得：x = 7，y = 5。小华购买A款笔记本7本，B款笔记本5本。"
+      ],
+      "explanationZhHans": "设A款x本，B款y本。由总本数得x+y=12；由总价得5x+8y=75。用代入法：由x=12-y代入得5(12-y)+8y=75，60-5y+8y=75，3y=15，y=5，则x=7。检验：7+5=12，5×7+8×5=35+40=75，符合题意。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-186",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-linear-systems",
+      "unitTitle": "二元一次方程组",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "linear-systems-two-variables",
+        "substitution-elimination",
+        "linear-system-modeling",
+        "linear-functions",
+        "二元一次方程组"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "认识方程组",
+        "代入消元",
+        "加减消元",
+        "应用建模",
+        "方程组与函数联系"
+      ],
+      "misconceptionTags": [
+        "solution checked in only one equation",
+        "elimination signs mishandled",
+        "variables not tied back to context"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-linear-systems"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-linear-systems-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校组织八年级学生去博物馆参观，计划租用A、B两种型号的客车。已知每辆A型客车可载45人，每辆B型客车可载30人。若租用3辆A型客车和2辆B型客车，则总载客量为210人，恰好坐满；若租用2辆A型客车和4辆B型客车，则总载客量为240人，也恰好坐满。求每辆A型客车和每辆B型客车的实际载客量分别是多少人？",
+      "optionsZhHans": [],
+      "answer": "A型客车载客量45人，B型客车载客量30人",
+      "acceptedAnswers": [
+        "A型客车载客量45人，B型客车载客量30人",
+        "A型客车45人，B型客车30人",
+        "45人和30人"
+      ],
+      "explanationZhHans": "设A型客车每辆载x人，B型客车每辆载y人。根据题意得方程组：3x+2y=210，2x+4y=240。用加减消元法，将第一个方程乘以2得6x+4y=420，减去第二个方程得4x=180，解得x=45。代入第一个方程得3×45+2y=210，解得y=30。经检验，x=45，y=30满足两个方程，且符合实际。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-187",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-linear-systems",
+      "unitTitle": "二元一次方程组",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "linear-systems-two-variables",
+        "substitution-elimination",
+        "linear-system-modeling",
+        "linear-functions",
+        "二元一次方程组"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "认识方程组",
+        "代入消元",
+        "加减消元",
+        "应用建模",
+        "方程组与函数联系"
+      ],
+      "misconceptionTags": [
+        "solution checked in only one equation",
+        "elimination signs mishandled",
+        "variables not tied back to context"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-linear-systems"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-linear-systems-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某文具店售卖两种笔记本，A款每本6元，B款每本4元。小明买了这两种笔记本共10本，总共付款52元。设小明买A款x本，B款y本，则可列出方程组：\n① x + y = 10\n② 6x + 4y = 52\n下列哪个选项是方程组的解，并符合实际意义？",
+      "optionsZhHans": [
+        "x = 6, y = 4",
+        "x = 4, y = 6",
+        "x = 5, y = 5",
+        "x = 7, y = 3"
+      ],
+      "answer": "x = 6, y = 4",
+      "acceptedAnswers": [
+        "x = 6, y = 4"
+      ],
+      "explanationZhHans": "将x=6,y=4代入①：6+4=10成立；代入②：6×6+4×4=36+16=52成立。其他选项代入均不满足两个方程，如x=4,y=6得6×4+4×6=24+24=48≠52。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-188",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-linear-systems",
+      "unitTitle": "二元一次方程组",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "linear-systems-two-variables",
+        "substitution-elimination",
+        "linear-system-modeling",
+        "linear-functions",
+        "二元一次方程组"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "认识方程组",
+        "代入消元",
+        "加减消元",
+        "应用建模",
+        "方程组与函数联系"
+      ],
+      "misconceptionTags": [
+        "solution checked in only one equation",
+        "elimination signs mishandled",
+        "variables not tied back to context"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-linear-systems"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-linear-systems-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某文具店出售两种笔记本，A型笔记本每本售价5元，B型笔记本每本售价8元。小丽用100元恰好买了这两种笔记本共15本。设她买了x本A型笔记本，y本B型笔记本。请列出关于x、y的二元一次方程组，并求出x和y的值。",
+      "optionsZhHans": [],
+      "answer": "x = 20/3, y = 25/3",
+      "acceptedAnswers": [
+        "x = 20/3, y = 25/3",
+        "x=20/3, y=25/3",
+        "x=20/3,y=25/3",
+        "x = 20/3 y = 25/3"
+      ],
+      "explanationZhHans": "根据题意，笔记本总数：x + y = 15；总价：5x + 8y = 100。用代入法，由x + y = 15得y = 15 - x，代入5x + 8(15 - x) = 100，化简得5x + 120 - 8x = 100，-3x = -20，x = 20/3，y = 15 - 20/3 = 25/3。经检验，满足两个方程。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-189",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-linear-systems",
+      "unitTitle": "二元一次方程组",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "linear-systems-two-variables",
+        "substitution-elimination",
+        "linear-system-modeling",
+        "linear-functions",
+        "二元一次方程组"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "认识方程组",
+        "代入消元",
+        "加减消元",
+        "应用建模",
+        "方程组与函数联系"
+      ],
+      "misconceptionTags": [
+        "solution checked in only one equation",
+        "elimination signs mishandled",
+        "variables not tied back to context"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-linear-systems"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-linear-systems-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校八年级组织研学活动，需要租用客车。若每辆客车乘坐45人，则有15人没有座位；若每辆客车乘坐50人，则最后一辆客车空出10个座位。设租用客车x辆，学生总人数为y人。请列出关于x、y的二元一次方程组，并求出学生总人数y的值。",
+      "optionsZhHans": [],
+      "answer": "y=240",
+      "acceptedAnswers": [
+        "y=240",
+        "240"
+      ],
+      "explanationZhHans": "根据题意列方程组：45x+15=y，50x-10=y。解方程组，将两式相减得5x-25=0，解得x=5。代入得y=45×5+15=240。检验：50×5-10=240，符合。故学生总人数为240人。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-190",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-linear-systems",
+      "unitTitle": "二元一次方程组",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "linear-systems-two-variables",
+        "substitution-elimination",
+        "linear-system-modeling",
+        "linear-functions",
+        "二元一次方程组"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "认识方程组",
+        "代入消元",
+        "加减消元",
+        "应用建模",
+        "方程组与函数联系"
+      ],
+      "misconceptionTags": [
+        "solution checked in only one equation",
+        "elimination signs mishandled",
+        "variables not tied back to context"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-linear-systems"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-linear-systems-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某文具店出售两种笔记本，A种每本6元，B种每本4元。小明用50元恰好买了这两种笔记本共12本。设小明买A种笔记本x本，B种笔记本y本，则可列出方程组（ ）",
+      "optionsZhHans": [
+        "x + y = 12, 6x + 4y = 50",
+        "x + y = 50, 6x + 4y = 12",
+        "x + y = 12, 4x + 6y = 50",
+        "x + y = 50, 4x + 6y = 12"
+      ],
+      "answer": "x + y = 12, 6x + 4y = 50",
+      "acceptedAnswers": [
+        "x + y = 12, 6x + 4y = 50"
+      ],
+      "explanationZhHans": "根据总本数列方程：x + y = 12；根据总钱数列方程：6x + 4y = 50。选项A正确，其他选项均不符合题意。"
+    }
+  ]
+}

@@ -1,0 +1,588 @@
+{
+  "batchId": "batch-020",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p1-191",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-plane-shapes",
+      "unitTitle": "有趣的图形",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "plane-shapes",
+        "shape-composition",
+        "geometry-play",
+        "平面图形",
+        "有趣的图形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "观察比较"
+      ],
+      "skillTags": [
+        "长方形",
+        "正方形",
+        "三角形",
+        "圆",
+        "拼摆图形"
+      ],
+      "misconceptionTags": [
+        "shape named by orientation",
+        "solid and flat shapes mixed",
+        "composition seen as picture-matching only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-plane-shapes"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-plane-shapes",
+        "bnu-primary-p1-lower-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个图形是长方形？",
+      "optionsZhHans": [
+        "有4条边，4个角，每条边都一样长",
+        "有4条边，4个角，相对的两条边一样长",
+        "有3条边，3个角",
+        "没有边，没有角，是弯弯的"
+      ],
+      "answer": "有4条边，4个角，相对的两条边一样长",
+      "acceptedAnswers": [
+        "有4条边，4个角，相对的两条边一样长"
+      ],
+      "explanationZhHans": "长方形有4条边和4个角，相对的两条边一样长，相邻的边不一样长。选项1是正方形，选项3是三角形，选项4是圆。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-192",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-plane-shapes",
+      "unitTitle": "有趣的图形",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "plane-shapes",
+        "shape-composition",
+        "geometry-play",
+        "平面图形",
+        "有趣的图形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "观察比较"
+      ],
+      "skillTags": [
+        "长方形",
+        "正方形",
+        "三角形",
+        "圆",
+        "拼摆图形"
+      ],
+      "misconceptionTags": [
+        "shape named by orientation",
+        "solid and flat shapes mixed",
+        "composition seen as picture-matching only"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-plane-shapes"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-plane-shapes",
+        "bnu-primary-p1-lower-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用两个完全一样的三角形，可以拼成一个什么图形？请写出一种。",
+      "optionsZhHans": [],
+      "answer": "平行四边形",
+      "acceptedAnswers": [
+        "平行四边形",
+        "长方形",
+        "正方形",
+        "三角形",
+        "菱形"
+      ],
+      "explanationZhHans": "两个完全一样的三角形可以拼成平行四边形、长方形、正方形或更大的三角形等。写出一种即可。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-193",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-plane-shapes",
+      "unitTitle": "有趣的图形",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "plane-shapes",
+        "shape-composition",
+        "geometry-play",
+        "平面图形",
+        "有趣的图形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "观察比较"
+      ],
+      "skillTags": [
+        "长方形",
+        "正方形",
+        "三角形",
+        "圆",
+        "拼摆图形"
+      ],
+      "misconceptionTags": [
+        "shape named by orientation",
+        "solid and flat shapes mixed",
+        "composition seen as picture-matching only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-plane-shapes"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-plane-shapes",
+        "bnu-primary-p1-lower-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个图形不是用4个同样的小正方形拼成的？",
+      "optionsZhHans": [
+        "一个大的正方形",
+        "一个长方形，长边有4个小正方形，短边有1个小正方形",
+        "一个长方形，长边有2个小正方形，短边有2个小正方形",
+        "一个长方形，长边有3个小正方形，短边有2个小正方形"
+      ],
+      "answer": "一个长方形，长边有3个小正方形，短边有2个小正方形",
+      "acceptedAnswers": [
+        "一个长方形，长边有3个小正方形，短边有2个小正方形"
+      ],
+      "explanationZhHans": "4个小正方形拼成大正方形是2×2排列；拼成长方形4×1或2×2（即正方形）。3×2需要6个小正方形，所以不是用4个拼成的。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-194",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-plane-shapes",
+      "unitTitle": "有趣的图形",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "plane-shapes",
+        "shape-composition",
+        "geometry-play",
+        "平面图形",
+        "有趣的图形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "观察比较"
+      ],
+      "skillTags": [
+        "长方形",
+        "正方形",
+        "三角形",
+        "圆",
+        "拼摆图形"
+      ],
+      "misconceptionTags": [
+        "shape named by orientation",
+        "solid and flat shapes mixed",
+        "composition seen as picture-matching only"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-plane-shapes"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-plane-shapes",
+        "bnu-primary-p1-lower-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "数一数，一个正方形有______条边，每条边都______。",
+      "optionsZhHans": [],
+      "answer": "4，一样长",
+      "acceptedAnswers": [
+        "4，一样长",
+        "4，相等",
+        "4，同样长"
+      ],
+      "explanationZhHans": "正方形有4条边，且每条边的长度都相等。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-195",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-plane-shapes",
+      "unitTitle": "有趣的图形",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "plane-shapes",
+        "shape-composition",
+        "geometry-play",
+        "平面图形",
+        "有趣的图形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "观察比较"
+      ],
+      "skillTags": [
+        "长方形",
+        "正方形",
+        "三角形",
+        "圆",
+        "拼摆图形"
+      ],
+      "misconceptionTags": [
+        "shape named by orientation",
+        "solid and flat shapes mixed",
+        "composition seen as picture-matching only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-plane-shapes"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-plane-shapes",
+        "bnu-primary-p1-lower-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个图形不是平面图形？",
+      "optionsZhHans": [
+        "长方形",
+        "正方形",
+        "圆",
+        "长方体"
+      ],
+      "answer": "长方体",
+      "acceptedAnswers": [
+        "长方体"
+      ],
+      "explanationZhHans": "长方形、正方形和圆都是平面图形，只有一个面；长方体是立体图形，有6个面。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-196",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-plane-shapes",
+      "unitTitle": "有趣的图形",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "plane-shapes",
+        "shape-composition",
+        "geometry-play",
+        "平面图形",
+        "有趣的图形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "观察比较"
+      ],
+      "skillTags": [
+        "长方形",
+        "正方形",
+        "三角形",
+        "圆",
+        "拼摆图形"
+      ],
+      "misconceptionTags": [
+        "shape named by orientation",
+        "solid and flat shapes mixed",
+        "composition seen as picture-matching only"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-plane-shapes"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-plane-shapes",
+        "bnu-primary-p1-lower-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个三角形有______条边和______个角。",
+      "optionsZhHans": [],
+      "answer": "3，3",
+      "acceptedAnswers": [
+        "3，3"
+      ],
+      "explanationZhHans": "三角形有3条直直的边和3个尖尖的角。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-197",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-plane-shapes",
+      "unitTitle": "有趣的图形",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "plane-shapes",
+        "shape-composition",
+        "geometry-play",
+        "平面图形",
+        "有趣的图形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "观察比较"
+      ],
+      "skillTags": [
+        "长方形",
+        "正方形",
+        "三角形",
+        "圆",
+        "拼摆图形"
+      ],
+      "misconceptionTags": [
+        "shape named by orientation",
+        "solid and flat shapes mixed",
+        "composition seen as picture-matching only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-plane-shapes"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-plane-shapes",
+        "bnu-primary-p1-lower-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用下面的图形拼一拼，哪个说法是正确的？",
+      "optionsZhHans": [
+        "两个三角形一定能拼成一个正方形",
+        "两个同样的长方形一定能拼成一个正方形",
+        "两个同样的正方形一定能拼成一个长方形",
+        "两个同样的圆一定能拼成一个圆"
+      ],
+      "answer": "两个同样的正方形一定能拼成一个长方形",
+      "acceptedAnswers": [
+        "两个同样的正方形一定能拼成一个长方形"
+      ],
+      "explanationZhHans": "两个同样的正方形拼在一起，可以拼成一个长方形（长是宽的两倍）。两个三角形不一定拼成正方形；两个同样的长方形不一定拼成正方形；两个圆不能拼成一个圆。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-198",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-plane-shapes",
+      "unitTitle": "有趣的图形",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "plane-shapes",
+        "shape-composition",
+        "geometry-play",
+        "平面图形",
+        "有趣的图形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "观察比较"
+      ],
+      "skillTags": [
+        "长方形",
+        "正方形",
+        "三角形",
+        "圆",
+        "拼摆图形"
+      ],
+      "misconceptionTags": [
+        "shape named by orientation",
+        "solid and flat shapes mixed",
+        "composition seen as picture-matching only"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-plane-shapes"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-plane-shapes",
+        "bnu-primary-p1-lower-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "长方形和正方形都有______条边，都有______个角。",
+      "optionsZhHans": [],
+      "answer": "4，4",
+      "acceptedAnswers": [
+        "4，4"
+      ],
+      "explanationZhHans": "长方形和正方形都是四边形，都有4条边和4个角。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-199",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-plane-shapes",
+      "unitTitle": "有趣的图形",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "plane-shapes",
+        "shape-composition",
+        "geometry-play",
+        "平面图形",
+        "有趣的图形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "观察比较"
+      ],
+      "skillTags": [
+        "长方形",
+        "正方形",
+        "三角形",
+        "圆",
+        "拼摆图形"
+      ],
+      "misconceptionTags": [
+        "shape named by orientation",
+        "solid and flat shapes mixed",
+        "composition seen as picture-matching only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-plane-shapes"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-plane-shapes",
+        "bnu-primary-p1-lower-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个图形是由一个正方形和一个三角形拼成的？",
+      "optionsZhHans": [
+        "像房子的形状：下面一个正方形，上面一个三角形",
+        "像一条鱼的形状：两个三角形拼成",
+        "像一棵树的形状：一个长方形和两个三角形",
+        "像一朵花的形状：一个圆和五个三角形"
+      ],
+      "answer": "像房子的形状：下面一个正方形，上面一个三角形",
+      "acceptedAnswers": [
+        "像房子的形状：下面一个正方形，上面一个三角形"
+      ],
+      "explanationZhHans": "房子形状由一个正方形（房身）和一个三角形（房顶）拼成。鱼是两个三角形，树是长方形和三角形，花是圆和三角形。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-200",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-plane-shapes",
+      "unitTitle": "有趣的图形",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "plane-shapes",
+        "shape-composition",
+        "geometry-play",
+        "平面图形",
+        "有趣的图形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "观察比较"
+      ],
+      "skillTags": [
+        "长方形",
+        "正方形",
+        "三角形",
+        "圆",
+        "拼摆图形"
+      ],
+      "misconceptionTags": [
+        "shape named by orientation",
+        "solid and flat shapes mixed",
+        "composition seen as picture-matching only"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-plane-shapes"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-plane-shapes",
+        "bnu-primary-p1-lower-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "圆是由______线围成的，它没有______。",
+      "optionsZhHans": [],
+      "answer": "曲，角",
+      "acceptedAnswers": [
+        "曲，角",
+        "弯，角",
+        "曲线，角"
+      ],
+      "explanationZhHans": "圆是由曲线围成的封闭图形，没有角。"
+    }
+  ]
+}

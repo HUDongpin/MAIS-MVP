@@ -1,0 +1,138 @@
+{
+  "batchNumber": 30,
+  "startedAt": "2026-05-27T13:48:53.297Z",
+  "completedAt": "2026-05-27T13:49:08.716Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-233",
+    "bnu-high-ds-v1-s4-234",
+    "bnu-high-ds-v1-s4-235",
+    "bnu-high-ds-v1-s4-236",
+    "bnu-high-ds-v1-s4-237",
+    "bnu-high-ds-v1-s4-238",
+    "bnu-high-ds-v1-s4-239",
+    "bnu-high-ds-v1-s4-240"
+  ],
+  "usage": {
+    "prompt_tokens": 10770,
+    "completion_tokens": 1104,
+    "total_tokens": 11874,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10258
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-233",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "样本空间Ω={(1,1),(1,2),(1,3),(1,4),(2,1),(2,2),(2,3),(2,4),(3,1),(3,2),(3,3),(3,4),(4,1),(4,2),(4,3),(4,4)}，概率为1/4",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目明确，样本空间和概率计算正确，解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-234",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0.94",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "独立事件，至少一人译出的概率计算正确，解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-235",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "P(A)=3/10，P(B)=2/5",
+        "correctedAnswer": "P(A)=3/10，P(B)=2/5",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "bad_options",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "事件B的和大于6，正确概率为2/5，但选项和答案均为3/5，解析中计算错误且自相矛盾，无正确选项。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-236",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "13/28",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "组合计算正确，概率为13/28，解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-237",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0.648",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "二项分布计算正确，解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-238",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "条件概率计算正确，在B发生的条件下A必然发生，解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-239",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2/5",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "组合计算正确，概率为2/5，解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-240",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0.94",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "独立事件，至少一人解出的概率计算正确，解析与答案一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第235题事件B概率计算错误，选项和答案均不正确，需修正题目或选项。"
+    }
+  }
+}

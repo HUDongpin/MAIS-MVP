@@ -1,0 +1,643 @@
+{
+  "batchId": "batch-142",
+  "questions": [
+    {
+      "id": "bnu-junior-ds-v1-s3-411",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "bnu-junior-s3-lower-circle",
+      "unitTitle": "圆",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "circle-geometry",
+        "central-angle",
+        "inscribed-angle",
+        "tangent",
+        "regular-polygons",
+        "圆",
+        "圆周角",
+        "切线"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "垂径定理",
+        "圆心角",
+        "圆周角",
+        "切线判定",
+        "正多边形",
+        "弧长面积"
+      ],
+      "misconceptionTags": [
+        "central and inscribed angle relation misapplied",
+        "tangent radius perpendicularity missed",
+        "arc and chord conditions confused"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s3-lower-circle"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-lower-assessment-circle-unit",
+        "bnu-junior-s3-lower-assessment-stage-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-circle-geometry",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在圆O中，弦AB与弦CD相交于点E，且AE=3，BE=4，CE=2。若∠AEC=90°，求DE的长。",
+      "optionsZhHans": [],
+      "answer": "6",
+      "acceptedAnswers": [
+        "6"
+      ],
+      "explanationZhHans": "由相交弦定理得AE·BE=CE·DE，即3×4=2×DE，解得DE=6。∠AEC=90°为多余条件，不影响结果。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-412",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "bnu-junior-s3-lower-circle",
+      "unitTitle": "圆",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "circle-geometry",
+        "central-angle",
+        "inscribed-angle",
+        "tangent",
+        "regular-polygons",
+        "圆",
+        "圆周角",
+        "切线"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "垂径定理",
+        "圆心角",
+        "圆周角",
+        "切线判定",
+        "正多边形",
+        "弧长面积"
+      ],
+      "misconceptionTags": [
+        "central and inscribed angle relation misapplied",
+        "tangent radius perpendicularity missed",
+        "arc and chord conditions confused"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s3-lower-circle"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-lower-assessment-circle-unit",
+        "bnu-junior-s3-lower-assessment-stage-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-circle-geometry",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知圆O的半径为5，点P在圆外，且OP=13。过点P作圆O的切线PA，A为切点。则切线长PA等于多少？",
+      "optionsZhHans": [
+        "12",
+        "8",
+        "10",
+        "√194"
+      ],
+      "answer": "12",
+      "acceptedAnswers": [
+        "12"
+      ],
+      "explanationZhHans": "连接OA，则OA⊥PA。在Rt△OAP中，OA=5，OP=13，由勾股定理得PA=√(13²-5²)=12。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-413",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "bnu-junior-s3-lower-circle",
+      "unitTitle": "圆",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "circle-geometry",
+        "central-angle",
+        "inscribed-angle",
+        "tangent",
+        "regular-polygons",
+        "圆",
+        "圆周角",
+        "切线"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "垂径定理",
+        "圆心角",
+        "圆周角",
+        "切线判定",
+        "正多边形",
+        "弧长面积"
+      ],
+      "misconceptionTags": [
+        "central and inscribed angle relation misapplied",
+        "tangent radius perpendicularity missed",
+        "arc and chord conditions confused"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s3-lower-circle"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-lower-assessment-circle-unit",
+        "bnu-junior-s3-lower-assessment-stage-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-circle-geometry",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在圆O中，直径AB垂直于弦CD，垂足为E。若AB=10，CD=8，求OE的长。",
+      "optionsZhHans": [],
+      "answer": "3",
+      "acceptedAnswers": [
+        "3"
+      ],
+      "explanationZhHans": "由垂径定理得CE=ED=4。连接OC，OC=5。在Rt△OCE中，OE=√(5²-4²)=3。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-414",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "bnu-junior-s3-lower-circle",
+      "unitTitle": "圆",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "circle-geometry",
+        "central-angle",
+        "inscribed-angle",
+        "tangent",
+        "regular-polygons",
+        "圆",
+        "圆周角",
+        "切线"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "垂径定理",
+        "圆心角",
+        "圆周角",
+        "切线判定",
+        "正多边形",
+        "弧长面积"
+      ],
+      "misconceptionTags": [
+        "central and inscribed angle relation misapplied",
+        "tangent radius perpendicularity missed",
+        "arc and chord conditions confused"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s3-lower-circle"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-lower-assessment-circle-unit",
+        "bnu-junior-s3-lower-assessment-stage-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-circle-geometry",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在圆O中，弦AB所对的圆心角∠AOB=120°，则弦AB所对的圆周角∠ACB的度数为多少？",
+      "optionsZhHans": [],
+      "answer": "60°",
+      "acceptedAnswers": [
+        "60°",
+        "60"
+      ],
+      "explanationZhHans": "同弧所对的圆周角等于圆心角的一半，所以∠ACB=120°÷2=60°。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-415",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "bnu-junior-s3-lower-circle",
+      "unitTitle": "圆",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "circle-geometry",
+        "central-angle",
+        "inscribed-angle",
+        "tangent",
+        "regular-polygons",
+        "圆",
+        "圆周角",
+        "切线"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "垂径定理",
+        "圆心角",
+        "圆周角",
+        "切线判定",
+        "正多边形",
+        "弧长面积"
+      ],
+      "misconceptionTags": [
+        "central and inscribed angle relation misapplied",
+        "tangent radius perpendicularity missed",
+        "arc and chord conditions confused"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s3-lower-circle"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-lower-assessment-circle-unit",
+        "bnu-junior-s3-lower-assessment-stage-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-circle-geometry",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知圆O的半径为6，扇形AOB的圆心角为150°，则该扇形的弧长为多少？",
+      "optionsZhHans": [
+        "5π",
+        "6π",
+        "7π",
+        "8π"
+      ],
+      "answer": "5π",
+      "acceptedAnswers": [
+        "5π"
+      ],
+      "explanationZhHans": "弧长公式为l=nπr/180，代入n=150，r=6，得l=150π×6/180=5π。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-416",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "bnu-junior-s3-lower-circle",
+      "unitTitle": "圆",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "circle-geometry",
+        "central-angle",
+        "inscribed-angle",
+        "tangent",
+        "regular-polygons",
+        "圆",
+        "圆周角",
+        "切线"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "垂径定理",
+        "圆心角",
+        "圆周角",
+        "切线判定",
+        "正多边形",
+        "弧长面积"
+      ],
+      "misconceptionTags": [
+        "central and inscribed angle relation misapplied",
+        "tangent radius perpendicularity missed",
+        "arc and chord conditions confused"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s3-lower-circle"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-lower-assessment-circle-unit",
+        "bnu-junior-s3-lower-assessment-stage-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-circle-geometry",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在圆O中，弦AB与弦CD相交于点P，且AP=4，PB=6，CP=3。求PD的长。",
+      "optionsZhHans": [],
+      "answer": "8",
+      "acceptedAnswers": [
+        "8"
+      ],
+      "explanationZhHans": "由相交弦定理得AP·PB=CP·PD，即4×6=3×PD，解得PD=8。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-417",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "bnu-junior-s3-lower-circle",
+      "unitTitle": "圆",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "circle-geometry",
+        "central-angle",
+        "inscribed-angle",
+        "tangent",
+        "regular-polygons",
+        "圆",
+        "圆周角",
+        "切线"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "垂径定理",
+        "圆心角",
+        "圆周角",
+        "切线判定",
+        "正多边形",
+        "弧长面积"
+      ],
+      "misconceptionTags": [
+        "central and inscribed angle relation misapplied",
+        "tangent radius perpendicularity missed",
+        "arc and chord conditions confused"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s3-lower-circle"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-lower-assessment-circle-unit",
+        "bnu-junior-s3-lower-assessment-stage-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-circle-geometry",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "圆O的半径为10，圆心O到直线l的距离为6，则直线l被圆O截得的弦长为多少？",
+      "optionsZhHans": [],
+      "answer": "16",
+      "acceptedAnswers": [
+        "16"
+      ],
+      "explanationZhHans": "弦心距为6，半径10，半弦长=√(10²-6²)=8，所以弦长为16。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-418",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "bnu-junior-s3-lower-circle",
+      "unitTitle": "圆",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "circle-geometry",
+        "central-angle",
+        "inscribed-angle",
+        "tangent",
+        "regular-polygons",
+        "圆",
+        "圆周角",
+        "切线"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "垂径定理",
+        "圆心角",
+        "圆周角",
+        "切线判定",
+        "正多边形",
+        "弧长面积"
+      ],
+      "misconceptionTags": [
+        "central and inscribed angle relation misapplied",
+        "tangent radius perpendicularity missed",
+        "arc and chord conditions confused"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s3-lower-circle"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-lower-assessment-circle-unit",
+        "bnu-junior-s3-lower-assessment-stage-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-circle-geometry",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知圆O中，弦AB的长为8，圆心O到弦AB的距离为3，则圆O的半径为多少？",
+      "optionsZhHans": [
+        "5",
+        "4",
+        "√73",
+        "7"
+      ],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5"
+      ],
+      "explanationZhHans": "弦心距为3，半弦长为4，由勾股定理得半径=√(3²+4²)=5。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-419",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "bnu-junior-s3-lower-circle",
+      "unitTitle": "圆",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "circle-geometry",
+        "central-angle",
+        "inscribed-angle",
+        "tangent",
+        "regular-polygons",
+        "圆",
+        "圆周角",
+        "切线"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "垂径定理",
+        "圆心角",
+        "圆周角",
+        "切线判定",
+        "正多边形",
+        "弧长面积"
+      ],
+      "misconceptionTags": [
+        "central and inscribed angle relation misapplied",
+        "tangent radius perpendicularity missed",
+        "arc and chord conditions confused"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s3-lower-circle"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-lower-assessment-circle-unit",
+        "bnu-junior-s3-lower-assessment-stage-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-circle-geometry",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在圆O中，AB是直径，C是圆上一点，且∠CAB=30°。若圆O的半径为4，求弦BC的长。",
+      "optionsZhHans": [],
+      "answer": "4√3",
+      "acceptedAnswers": [
+        "4√3",
+        "4倍根号3"
+      ],
+      "explanationZhHans": "由直径所对圆周角为直角得∠ACB=90°。在Rt△ABC中，AB=8，∠CAB=30°，则BC=AB·sin30°=8×1/2=4，或由勾股定理得BC=√(8²-4²)=4√3。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-420",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "bnu-junior-s3-lower-circle",
+      "unitTitle": "圆",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "circle-geometry",
+        "central-angle",
+        "inscribed-angle",
+        "tangent",
+        "regular-polygons",
+        "圆",
+        "圆周角",
+        "切线"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "垂径定理",
+        "圆心角",
+        "圆周角",
+        "切线判定",
+        "正多边形",
+        "弧长面积"
+      ],
+      "misconceptionTags": [
+        "central and inscribed angle relation misapplied",
+        "tangent radius perpendicularity missed",
+        "arc and chord conditions confused"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s3-lower-circle"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-lower-assessment-circle-unit",
+        "bnu-junior-s3-lower-assessment-stage-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-circle-geometry",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在圆O中，弦AB所对的圆心角∠AOB=80°，则弦AB所对的圆周角∠APB的度数为多少？",
+      "optionsZhHans": [],
+      "answer": "40°",
+      "acceptedAnswers": [
+        "40°",
+        "40"
+      ],
+      "explanationZhHans": "同弧所对的圆周角等于圆心角的一半，所以∠APB=80°÷2=40°。"
+    }
+  ]
+}

@@ -1,0 +1,296 @@
+{
+  "batchId": "batch-178",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p4-136",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-review-integration",
+      "unitTitle": "四年级上册整理与提高",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "p4-upper-integration",
+        "large-number-review",
+        "fraction-review",
+        "operation-geometry-review",
+        "整理与提高"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "大数凑整",
+        "数射线上的分数",
+        "圆与角复习",
+        "估测",
+        "综合应用"
+      ],
+      "misconceptionTags": [
+        "model chosen by surface wording",
+        "rounding and exact calculation goals mixed",
+        "geometry labels used without checking the diagram"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-review-integration"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-review-integration",
+        "hjb-primary-p4-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丁丁在复习时遇到了下面四个问题，他应该选择哪个问题用“凑整到万位”的方法来解决？",
+      "optionsZhHans": [
+        "A. 学校图书馆有藏书 38472 本，大约是几万本？",
+        "B. 一袋大米重 5 千克，8 袋大米重多少千克？",
+        "C. 一个圆的半径是 3 厘米，它的直径是多少厘米？",
+        "D. 把一条长 1 米的线段平均分成 10 份，每份是几分之几米？"
+      ],
+      "answer": "A. 学校图书馆有藏书 38472 本，大约是几万本？",
+      "acceptedAnswers": [
+        "A. 学校图书馆有藏书 38472 本，大约是几万本？"
+      ],
+      "explanationZhHans": "选项A要求将38472近似到万位，即用“四舍五入”法看千位是8，向万位进1，得到约4万本，属于大数凑整问题。其他选项分别涉及乘法、圆直径和分数，与凑整无关。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-137",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-review-integration",
+      "unitTitle": "四年级上册整理与提高",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "p4-upper-integration",
+        "large-number-review",
+        "fraction-review",
+        "operation-geometry-review",
+        "整理与提高"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "大数凑整",
+        "数射线上的分数",
+        "圆与角复习",
+        "估测",
+        "综合应用"
+      ],
+      "misconceptionTags": [
+        "model chosen by surface wording",
+        "rounding and exact calculation goals mixed",
+        "geometry labels used without checking the diagram"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-review-integration"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-review-integration",
+        "hjb-primary-p4-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在数射线上，点A表示0，点B表示1，把线段AB平均分成8份。从左往右数，第3个分点表示的分数是（ ）。",
+      "optionsZhHans": [],
+      "answer": "3/8",
+      "acceptedAnswers": [
+        "3/8",
+        "八分之三"
+      ],
+      "explanationZhHans": "把0到1的线段平均分成8份，每份是1/8。从左往右第1个分点是1/8，第2个是2/8，第3个是3/8。注意第3个分点不是第3份的终点，而是第3个等分点本身。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-138",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-review-integration",
+      "unitTitle": "四年级上册整理与提高",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "p4-upper-integration",
+        "large-number-review",
+        "fraction-review",
+        "operation-geometry-review",
+        "整理与提高"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "大数凑整",
+        "数射线上的分数",
+        "圆与角复习",
+        "估测",
+        "综合应用"
+      ],
+      "misconceptionTags": [
+        "model chosen by surface wording",
+        "rounding and exact calculation goals mixed",
+        "geometry labels used without checking the diagram"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-review-integration"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-review-integration",
+        "hjb-primary-p4-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个圆的直径是10厘米，在这个圆里画一个最大的扇形，扇形的圆心角是90°。这个扇形的半径是多少厘米？请写出你的思考过程。",
+      "optionsZhHans": [],
+      "answer": "5厘米",
+      "acceptedAnswers": [
+        "5厘米",
+        "5 cm",
+        "5"
+      ],
+      "explanationZhHans": "在圆内画扇形，扇形的半径等于圆的半径。已知直径10厘米，半径=10÷2=5厘米。圆心角90°不影响半径，所以扇形半径是5厘米。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-139",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "hjb-primary-p4-lower-review-operation-properties",
+      "unitTitle": "复习与提高",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "p4-lower-review",
+        "integer-four-operations",
+        "operation-properties",
+        "problem-solving",
+        "四则运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "推理意识",
+        "反思整理"
+      ],
+      "skillTags": [
+        "四则运算",
+        "整数运算性质",
+        "看谁算得巧",
+        "解决问题",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "operation property applied to a nonmatching structure",
+        "efficient method used without preserving value",
+        "word-problem answer lacks unit meaning"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p4-lower-review-operation-properties"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-lower-assessment-review-operation-properties",
+        "hjb-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个算式运用了乘法分配律？",
+      "optionsZhHans": [
+        "A. 25×（4×7）＝（25×4）×7",
+        "B. 125×（80＋8）＝125×80＋125×8",
+        "C. 36×25＝9×（4×25）",
+        "D. 45＋55×2＝（45＋55）×2"
+      ],
+      "answer": "B. 125×（80＋8）＝125×80＋125×8",
+      "acceptedAnswers": [
+        "B. 125×（80＋8）＝125×80＋125×8"
+      ],
+      "explanationZhHans": "乘法分配律是a×(b+c)=a×b+a×c。选项B符合这个形式，125分别乘80和8再相加。A是乘法结合律，C是拆分后结合，D错误地改变了运算顺序。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-140",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "hjb-primary-p4-lower-review-operation-properties",
+      "unitTitle": "复习与提高",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "p4-lower-review",
+        "integer-four-operations",
+        "operation-properties",
+        "problem-solving",
+        "四则运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "推理意识",
+        "反思整理"
+      ],
+      "skillTags": [
+        "四则运算",
+        "整数运算性质",
+        "看谁算得巧",
+        "解决问题",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "operation property applied to a nonmatching structure",
+        "efficient method used without preserving value",
+        "word-problem answer lacks unit meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p4-lower-review-operation-properties"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-lower-assessment-review-operation-properties",
+        "hjb-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小胖在计算“25×44”时，想到了两种方法：方法一：25×44＝25×（40＋4）＝25×40＋25×4＝1000＋100＝1100；方法二：25×44＝25×4×11＝100×11＝1100。这两种方法都正确吗？如果都正确，哪种更简便？请填空：两种方法都（ ）（填“正确”或“不正确”），更简便的是方法（ ）。",
+      "optionsZhHans": [],
+      "answer": "正确，二",
+      "acceptedAnswers": [
+        "正确，二",
+        "正确，2",
+        "正确 二",
+        "正确 2"
+      ],
+      "explanationZhHans": "方法一用了乘法分配律，方法二把44拆成4×11再用结合律，都正确且结果相等。方法二只需两步口算，更简便。"
+    }
+  ]
+}

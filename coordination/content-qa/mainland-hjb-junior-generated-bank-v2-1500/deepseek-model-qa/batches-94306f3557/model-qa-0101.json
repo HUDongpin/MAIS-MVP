@@ -1,0 +1,105 @@
+{
+  "batchId": "model-qa-0101",
+  "ids": [
+    "hjb-junior-ds-v2-s2-301",
+    "hjb-junior-ds-v2-s2-302",
+    "hjb-junior-ds-v2-s2-303",
+    "hjb-junior-ds-v2-s2-304",
+    "hjb-junior-ds-v2-s2-305",
+    "hjb-junior-ds-v2-s2-306",
+    "hjb-junior-ds-v2-s2-307",
+    "hjb-junior-ds-v2-s2-308"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-301",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "条件④ AB=CD，∠ABC=∠ADC 不能判定平行四边形，反例为等腰梯形，但标准答案认为只有②③能判定，共2组。实际上条件④也不能判定，因此能判定的只有②③，共2组，答案正确。但需确认条件④是否确实不能判定，以及是否有其他解释。经独立验证，条件④不能判定平行四边形，答案2组正确。但解析中称④不能判定，反例为等腰梯形，与答案一致。然而，条件①也不能判定，反例为等腰梯形。因此能判定的只有②③，共2组。答案正确，但需检查选项是否互异，选项为1组、2组、3组、4组，互异。无其他问题。但题目要求检查标准答案是否正确，经独立解题，答案正确。因此应pass。但之前QA标记为needs-review，可能误判。重新评估：条件④：AB=CD，∠ABC=∠ADC，不能判定平行四边形，反例为等腰梯形。条件①：AB∥CD，AD=BC，不能判定，反例为等腰梯形。条件②：两组对角相等，可判定。条件③：对角线互相平分，可判定。所以能判定的有2组，答案正确。因此verdict应为pass。但之前输出缺少recommendedActionZhHans，现在补充。",
+      "independentAnswerZhHans": "2组",
+      "answerCheckZhHans": "标准答案2组正确，与独立答案一致。",
+      "recommendedActionZhHans": "题目无误，可上线。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-302",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "6",
+      "answerCheckZhHans": "标准答案6正确，与独立答案一致。",
+      "recommendedActionZhHans": "题目无误，可上线。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-303",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "AC=2√41",
+      "answerCheckZhHans": "标准答案AC=2√41正确，与独立答案一致。",
+      "recommendedActionZhHans": "题目无误，可上线。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-304",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "C. AC = BD",
+      "answerCheckZhHans": "标准答案C正确，与独立答案一致。",
+      "recommendedActionZhHans": "题目无误，可上线。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-305",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "24",
+      "answerCheckZhHans": "标准答案24正确，与独立答案一致。",
+      "recommendedActionZhHans": "题目无误，可上线。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-306",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "70°",
+      "answerCheckZhHans": "标准答案70°正确，与独立答案一致。",
+      "recommendedActionZhHans": "题目无误，可上线。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-307",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "AC=BD",
+      "answerCheckZhHans": "标准答案AC=BD正确，与独立答案一致。",
+      "recommendedActionZhHans": "题目无误，可上线。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-308",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "6",
+      "answerCheckZhHans": "标准答案6正确，与独立答案一致。",
+      "recommendedActionZhHans": "题目无误，可上线。",
+      "confidence": "high"
+    }
+  ]
+}

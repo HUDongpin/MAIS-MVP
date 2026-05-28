@@ -1,0 +1,48 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-112",
+  "startedAt": "2026-05-28T02:08:17.097Z",
+  "completedAt": "2026-05-28T02:08:20.735Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-112"
+  ],
+  "usage": {
+    "prompt_tokens": 2283,
+    "completion_tokens": 262,
+    "total_tokens": 2545,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1899
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-112",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "(-√3/3, √3/3)",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "major",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，答案(-√3/3, √3/3)正确且选项唯一。但解析中a²=6,b²=2错误，正确应为a²=12,b²=4，导致联立方程系数错误，尽管最终k范围巧合一致，解析过程不可接受。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 1,
+      "fail": 0,
+      "notes": "答案正确但解析存在数学错误，需修正解析过程。"
+    }
+  }
+}

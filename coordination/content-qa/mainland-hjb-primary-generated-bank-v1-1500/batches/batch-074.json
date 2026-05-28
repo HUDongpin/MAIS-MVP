@@ -1,0 +1,302 @@
+{
+  "batchId": "batch-074",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p2-116",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-math-square-review",
+      "unitTitle": "二年级上册数学广场与整理复习",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "p2-upper-review",
+        "math-square-exploration",
+        "within-100-review",
+        "money-direction-multiplication-review",
+        "数学广场",
+        "复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "综合应用",
+        "规律观察",
+        "策略说明",
+        "错因检查",
+        "知识整理"
+      ],
+      "misconceptionTags": [
+        "operation chosen from surface words",
+        "unit and direction labels omitted",
+        "review treated as unrelated drill rather than model selection"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-math-square-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-math-square-review",
+        "hjb-primary-p2-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小华在整理错题时发现一道题：\"小明有3张5元，买文具花了8元，还剩多少元？\"他列式为3×5=15（元），15+8=23（元）。请写出他错在哪里，并改正。",
+      "optionsZhHans": [],
+      "answer": "他错在第二步用加法，应该用减法。改正：3×5=15（元），15-8=7（元）。",
+      "acceptedAnswers": [
+        "他错在第二步用加法，应该用减法。改正：3×5=15（元），15-8=7（元）。",
+        "第二步用加法错了，应该用减法。3×5=15元，15-8=7元。",
+        "错在15+8，应该15-8=7元。",
+        "他算错了，应该用减法，答案是7元。"
+      ],
+      "explanationZhHans": "先算总钱数3×5=15元，再减去花掉的8元，用减法15-8=7元。小华误用了加法。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-117",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-math-square-review",
+      "unitTitle": "二年级上册数学广场与整理复习",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "p2-upper-review",
+        "math-square-exploration",
+        "within-100-review",
+        "money-direction-multiplication-review",
+        "数学广场",
+        "复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "综合应用",
+        "规律观察",
+        "策略说明",
+        "错因检查",
+        "知识整理"
+      ],
+      "misconceptionTags": [
+        "operation chosen from surface words",
+        "unit and direction labels omitted",
+        "review treated as unrelated drill rather than model selection"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-math-square-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-math-square-review",
+        "hjb-primary-p2-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小芳有40元，她想买一个25元的书包和一支8元的笔。她带的钱够吗？如果够，还剩多少元？请写出计算过程和答句。",
+      "optionsZhHans": [],
+      "answer": "够，还剩7元。计算：25+8=33（元），40-33=7（元）。答：够，还剩7元。",
+      "acceptedAnswers": [
+        "够，还剩7元。计算：25+8=33（元），40-33=7（元）。答：够，还剩7元。",
+        "够，还剩7元。25+8=33元，40-33=7元。",
+        "够，7元。25+8=33，40-33=7。",
+        "够，剩下7元。"
+      ],
+      "explanationZhHans": "先求总花费25+8=33元，再与40元比较，40>33，所以够，用减法求剩余40-33=7元。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-118",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-math-square-review",
+      "unitTitle": "二年级上册数学广场与整理复习",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "p2-upper-review",
+        "math-square-exploration",
+        "within-100-review",
+        "money-direction-multiplication-review",
+        "数学广场",
+        "复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "综合应用",
+        "规律观察",
+        "策略说明",
+        "错因检查",
+        "知识整理"
+      ],
+      "misconceptionTags": [
+        "operation chosen from surface words",
+        "unit and direction labels omitted",
+        "review treated as unrelated drill rather than model selection"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-math-square-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-math-square-review",
+        "hjb-primary-p2-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪种整理复习的方法最好？",
+      "optionsZhHans": [
+        "把所有的题目重新做一遍",
+        "把错题分类，找出错误原因，再练习同类题",
+        "只看课本上的例题",
+        "只做计算题，不做应用题"
+      ],
+      "answer": "把错题分类，找出错误原因，再练习同类题",
+      "acceptedAnswers": [
+        "把错题分类，找出错误原因，再练习同类题"
+      ],
+      "explanationZhHans": "整理复习时，分类分析错题能针对薄弱点，提高效率。其他方法要么重复劳动，要么范围太窄。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-119",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-math-square-review",
+      "unitTitle": "二年级上册数学广场与整理复习",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "p2-upper-review",
+        "math-square-exploration",
+        "within-100-review",
+        "money-direction-multiplication-review",
+        "数学广场",
+        "复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "综合应用",
+        "规律观察",
+        "策略说明",
+        "错因检查",
+        "知识整理"
+      ],
+      "misconceptionTags": [
+        "operation chosen from surface words",
+        "unit and direction labels omitted",
+        "review treated as unrelated drill rather than model selection"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-math-square-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-math-square-review",
+        "hjb-primary-p2-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在数学广场活动中，同学们玩\"找规律\"游戏。观察下面的数列：2，5，8，11，__，17。请填出横线上的数，并说明规律。",
+      "optionsZhHans": [],
+      "answer": "14，规律是每次加3。",
+      "acceptedAnswers": [
+        "14，规律是每次加3。",
+        "14，每次加3。",
+        "14，+3。",
+        "14，后一个数比前一个数大3。"
+      ],
+      "explanationZhHans": "从2到5加3，5到8加3，8到11加3，所以11加3得14，验证14加3得17，符合规律。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-120",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-math-square-review",
+      "unitTitle": "二年级上册数学广场与整理复习",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "p2-upper-review",
+        "math-square-exploration",
+        "within-100-review",
+        "money-direction-multiplication-review",
+        "数学广场",
+        "复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "综合应用",
+        "规律观察",
+        "策略说明",
+        "错因检查",
+        "知识整理"
+      ],
+      "misconceptionTags": [
+        "operation chosen from surface words",
+        "unit and direction labels omitted",
+        "review treated as unrelated drill rather than model selection"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-math-square-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-math-square-review",
+        "hjb-primary-p2-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小杰在复习方向时，写了一段话：\"早晨，我面向太阳，前面是东，后面是西，左面是北，右面是南。\"他写得对吗？如果不对，请改正。",
+      "optionsZhHans": [],
+      "answer": "不对，左面是北，右面是南。改正：左面是北，右面是南。",
+      "acceptedAnswers": [
+        "不对，左面是北，右面是南。改正：左面是北，右面是南。",
+        "不对，左面是北，右面是南。",
+        "不对，左和右写反了，应该是左北右南。",
+        "不对，早晨面向太阳，前面是东，后面是西，左面是北，右面是南。"
+      ],
+      "explanationZhHans": "早晨面向太阳即面向东，按顺时针方向，右是南，后是西，左是北。小杰把左右方向写反了。"
+    }
+  ]
+}

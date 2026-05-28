@@ -1,0 +1,126 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-130",
+  "startedAt": "2026-05-28T01:35:02.742Z",
+  "completedAt": "2026-05-28T01:35:14.442Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-033",
+    "bnu-high-ds-v1-s6-034",
+    "bnu-high-ds-v1-s6-035",
+    "bnu-high-ds-v1-s6-036",
+    "bnu-high-ds-v1-s6-037",
+    "bnu-high-ds-v1-s6-038",
+    "bnu-high-ds-v1-s6-039",
+    "bnu-high-ds-v1-s6-040"
+  ],
+  "usage": {
+    "prompt_tokens": 11759,
+    "completion_tokens": 973,
+    "total_tokens": 12732,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 11375
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-033",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案2与独立解一致，解析正确推导出q=2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-034",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案101与独立解一致，解析正确推导出a_n=n^2+1，a_10=101，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-035",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案a_n=2·3^{n-1}-1与独立解一致，解析正确构造等比数列求解。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-036",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案2与独立解一致，解析正确由a_4=a_1 q^3解得q=2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-037",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案39与独立解一致，解析用S_7-S_4正确求得39，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-038",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案21与独立解一致，解析通过求a_1再算和，结果正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-039",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案2^n-1与独立解一致，解析累加求和正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-040",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案3与独立解一致，解析由a_5=a_2+3d解得d=3，选项唯一。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目存储答案、解析与Stage A独立解完全一致，无问题。"
+    }
+  }
+}

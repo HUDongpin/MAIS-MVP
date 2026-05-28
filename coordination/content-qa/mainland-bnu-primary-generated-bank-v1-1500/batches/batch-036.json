@@ -1,0 +1,563 @@
+{
+  "batchId": "batch-036",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p2-101",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-division-introduction",
+      "unitTitle": "分一分与除法",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "division-meaning",
+        "equal-sharing",
+        "equal-grouping",
+        "除法意义",
+        "分一分"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均分",
+        "包含分",
+        "除法算式",
+        "乘除联系"
+      ],
+      "misconceptionTags": [
+        "sharing and grouping models conflated",
+        "dividend and divisor roles reversed",
+        "unit of each group omitted"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-division-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-division-introduction-unit",
+        "bnu-primary-p2-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把18个苹果平均分给3个小朋友，每个小朋友分到几个苹果？请写出除法算式并填空：18 ÷ 3 = ____。",
+      "optionsZhHans": [],
+      "answer": "6",
+      "acceptedAnswers": [
+        "6"
+      ],
+      "explanationZhHans": "18个苹果平均分给3人，求每人几个，用除法18÷3。想乘法口诀“三六十八”，所以18÷3=6。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-102",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-division-introduction",
+      "unitTitle": "分一分与除法",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "division-meaning",
+        "equal-sharing",
+        "equal-grouping",
+        "除法意义",
+        "分一分"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均分",
+        "包含分",
+        "除法算式",
+        "乘除联系"
+      ],
+      "misconceptionTags": [
+        "sharing and grouping models conflated",
+        "dividend and divisor roles reversed",
+        "unit of each group omitted"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-division-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-division-introduction-unit",
+        "bnu-primary-p2-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "有24支铅笔，每6支装一盒，可以装几盒？请列出除法算式并写出答案。",
+      "optionsZhHans": [],
+      "answer": "4盒",
+      "acceptedAnswers": [
+        "4盒",
+        "4"
+      ],
+      "explanationZhHans": "求24里面有几个6，用除法24÷6=4（盒）。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-103",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-division-introduction",
+      "unitTitle": "分一分与除法",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "division-meaning",
+        "equal-sharing",
+        "equal-grouping",
+        "除法意义",
+        "分一分"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均分",
+        "包含分",
+        "除法算式",
+        "乘除联系"
+      ],
+      "misconceptionTags": [
+        "sharing and grouping models conflated",
+        "dividend and divisor roles reversed",
+        "unit of each group omitted"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-division-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-division-introduction-unit",
+        "bnu-primary-p2-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个算式表示“把15块糖平均分成5份，每份有几块”？",
+      "optionsZhHans": [
+        "15 ÷ 3 = 5",
+        "15 ÷ 5 = 3",
+        "5 × 3 = 15",
+        "3 × 5 = 15"
+      ],
+      "answer": "15 ÷ 5 = 3",
+      "acceptedAnswers": [
+        "15 ÷ 5 = 3"
+      ],
+      "explanationZhHans": "平均分用除法，总数15块糖，平均分成5份，求每份数，列式15÷5=3，每份3块。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-104",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-division-introduction",
+      "unitTitle": "分一分与除法",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "division-meaning",
+        "equal-sharing",
+        "equal-grouping",
+        "除法意义",
+        "分一分"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均分",
+        "包含分",
+        "除法算式",
+        "乘除联系"
+      ],
+      "misconceptionTags": [
+        "sharing and grouping models conflated",
+        "dividend and divisor roles reversed",
+        "unit of each group omitted"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-division-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-division-introduction-unit",
+        "bnu-primary-p2-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "20个气球，每4个扎成一束，可以扎成____束。",
+      "optionsZhHans": [],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5"
+      ],
+      "explanationZhHans": "求20里面有几个4，用除法20÷4=5（束）。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-105",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-division-introduction",
+      "unitTitle": "分一分与除法",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "division-meaning",
+        "equal-sharing",
+        "equal-grouping",
+        "除法意义",
+        "分一分"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均分",
+        "包含分",
+        "除法算式",
+        "乘除联系"
+      ],
+      "misconceptionTags": [
+        "sharing and grouping models conflated",
+        "dividend and divisor roles reversed",
+        "unit of each group omitted"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-division-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-division-introduction-unit",
+        "bnu-primary-p2-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈买了12个橘子，平均放在2个盘子里，每个盘子放几个？请用除法算式表示并解答。",
+      "optionsZhHans": [],
+      "answer": "6个",
+      "acceptedAnswers": [
+        "6个",
+        "6"
+      ],
+      "explanationZhHans": "平均分用除法，12÷2=6（个）。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-106",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-multiplication-facts-6-to-9",
+      "unitTitle": "6-9的乘法口诀",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "multiplication-facts",
+        "6-to-9-times-tables",
+        "乘法口诀",
+        "6到9乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "推理意识",
+        "数感"
+      ],
+      "skillTags": [
+        "6的口诀",
+        "7的口诀",
+        "8的口诀",
+        "9的口诀",
+        "口诀应用"
+      ],
+      "misconceptionTags": [
+        "commutativity used without explaining factors",
+        "large facts guessed from pattern only",
+        "story ignored after fact recall"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-multiplication-facts-6-to-9"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-multiplication-facts-6-to-9-unit",
+        "bnu-primary-p2-upper-assessment-multiplication-facts-2-to-5-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个算式的结果与“7×8”相同？",
+      "optionsZhHans": [
+        "7+8",
+        "8×7",
+        "8+7",
+        "7×9"
+      ],
+      "answer": "8×7",
+      "acceptedAnswers": [
+        "8×7"
+      ],
+      "explanationZhHans": "乘法有交换律，7×8和8×7都等于56。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-107",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-multiplication-facts-6-to-9",
+      "unitTitle": "6-9的乘法口诀",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "multiplication-facts",
+        "6-to-9-times-tables",
+        "乘法口诀",
+        "6到9乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "推理意识",
+        "数感"
+      ],
+      "skillTags": [
+        "6的口诀",
+        "7的口诀",
+        "8的口诀",
+        "9的口诀",
+        "口诀应用"
+      ],
+      "misconceptionTags": [
+        "commutativity used without explaining factors",
+        "large facts guessed from pattern only",
+        "story ignored after fact recall"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-multiplication-facts-6-to-9"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-multiplication-facts-6-to-9-unit",
+        "bnu-primary-p2-upper-assessment-multiplication-facts-2-to-5-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "根据口诀“六九五十四”写出两个乘法算式：6×9=____，9×6=____。",
+      "optionsZhHans": [],
+      "answer": "54",
+      "acceptedAnswers": [
+        "54"
+      ],
+      "explanationZhHans": "口诀“六九五十四”表示6个9或9个6都是54，所以两个算式都填54。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-108",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-multiplication-facts-6-to-9",
+      "unitTitle": "6-9的乘法口诀",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "multiplication-facts",
+        "6-to-9-times-tables",
+        "乘法口诀",
+        "6到9乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "推理意识",
+        "数感"
+      ],
+      "skillTags": [
+        "6的口诀",
+        "7的口诀",
+        "8的口诀",
+        "9的口诀",
+        "口诀应用"
+      ],
+      "misconceptionTags": [
+        "commutativity used without explaining factors",
+        "large facts guessed from pattern only",
+        "story ignored after fact recall"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-multiplication-facts-6-to-9"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-multiplication-facts-6-to-9-unit",
+        "bnu-primary-p2-upper-assessment-multiplication-facts-2-to-5-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一盒巧克力有8块，买6盒一共有多少块？请列式并计算。",
+      "optionsZhHans": [],
+      "answer": "48块",
+      "acceptedAnswers": [
+        "48块",
+        "48"
+      ],
+      "explanationZhHans": "求6个8是多少，用乘法8×6=48（块）。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-109",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-multiplication-facts-6-to-9",
+      "unitTitle": "6-9的乘法口诀",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "multiplication-facts",
+        "6-to-9-times-tables",
+        "乘法口诀",
+        "6到9乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "推理意识",
+        "数感"
+      ],
+      "skillTags": [
+        "6的口诀",
+        "7的口诀",
+        "8的口诀",
+        "9的口诀",
+        "口诀应用"
+      ],
+      "misconceptionTags": [
+        "commutativity used without explaining factors",
+        "large facts guessed from pattern only",
+        "story ignored after fact recall"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-multiplication-facts-6-to-9"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-multiplication-facts-6-to-9-unit",
+        "bnu-primary-p2-upper-assessment-multiplication-facts-2-to-5-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个算式的结果最大？",
+      "optionsZhHans": [
+        "6×7",
+        "5×8",
+        "9×4",
+        "7×6"
+      ],
+      "answer": "6×7",
+      "acceptedAnswers": [
+        "6×7"
+      ],
+      "explanationZhHans": "6×7=42，5×8=40，9×4=36，7×6=42，6×7和7×6相等且最大。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-110",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-multiplication-facts-6-to-9",
+      "unitTitle": "6-9的乘法口诀",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "multiplication-facts",
+        "6-to-9-times-tables",
+        "乘法口诀",
+        "6到9乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "推理意识",
+        "数感"
+      ],
+      "skillTags": [
+        "6的口诀",
+        "7的口诀",
+        "8的口诀",
+        "9的口诀",
+        "口诀应用"
+      ],
+      "misconceptionTags": [
+        "commutativity used without explaining factors",
+        "large facts guessed from pattern only",
+        "story ignored after fact recall"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-multiplication-facts-6-to-9"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-multiplication-facts-6-to-9-unit",
+        "bnu-primary-p2-upper-assessment-multiplication-facts-2-to-5-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "9×7=____，用的口诀是“七九六十三”。",
+      "optionsZhHans": [],
+      "answer": "63",
+      "acceptedAnswers": [
+        "63"
+      ],
+      "explanationZhHans": "9×7表示7个9，根据口诀“七九六十三”得63。"
+    }
+  ]
+}

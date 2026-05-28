@@ -1,0 +1,581 @@
+{
+  "batchId": "batch-094",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p4-181",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-decimal-multiplication",
+      "unitTitle": "小数乘法",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "decimal-multiplication",
+        "scaling",
+        "decimal-place-value",
+        "小数乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "小数乘整数",
+        "小数乘小数",
+        "积的估算",
+        "位值解释",
+        "应用问题"
+      ],
+      "misconceptionTags": [
+        "decimal point placed by counting digits only",
+        "multiplication always expected to make larger",
+        "estimate skipped before final decimal placement"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-decimal-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-decimal-multiplication-unit",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈买了2.5千克苹果，每千克苹果7.6元。她付了20元，应找回多少元？",
+      "optionsZhHans": [
+        "找回1.0元",
+        "找回1.5元",
+        "找回2.0元",
+        "找回2.5元"
+      ],
+      "answer": "找回1.0元",
+      "acceptedAnswers": [
+        "找回1.0元"
+      ],
+      "explanationZhHans": "先算苹果总价：2.5×7.6=19.0元。再算找回：20−19=1元。注意小数乘法中积的小数位数与因数小数位数之和相同，2.5是一位小数，7.6是一位小数，积是两位小数19.00，即19元。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-182",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-decimal-multiplication",
+      "unitTitle": "小数乘法",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "decimal-multiplication",
+        "scaling",
+        "decimal-place-value",
+        "小数乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "小数乘整数",
+        "小数乘小数",
+        "积的估算",
+        "位值解释",
+        "应用问题"
+      ],
+      "misconceptionTags": [
+        "decimal point placed by counting digits only",
+        "multiplication always expected to make larger",
+        "estimate skipped before final decimal placement"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-decimal-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-decimal-multiplication-unit",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一盒彩笔的价格是 6.5 元。美术小组要买 12 盒同样的彩笔，一共需要多少元？请先估算总价大约是多少元，再精确计算。",
+      "optionsZhHans": [],
+      "answer": "估算：6.5×12≈6×12=72（元）或 6.5×10=65（元），精确计算：6.5×12=78（元）",
+      "acceptedAnswers": [
+        "估算：6.5×12≈6×12=72（元）或 6.5×10=65（元），精确计算：6.5×12=78（元）",
+        "估算：约72元，精确：78元",
+        "估算：约65元，精确：78元",
+        "估算：6.5×12≈6×12=72元，精确：78元",
+        "估算：6.5×12≈6.5×10=65元，精确：78元"
+      ],
+      "explanationZhHans": "估算时，把6.5看作6，6×12=72；或把12看作10，6.5×10=65。精确计算：6.5×12，先算65×12=780，因数共有1位小数，积为78.0即78元。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-183",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-decimal-multiplication",
+      "unitTitle": "小数乘法",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "decimal-multiplication",
+        "scaling",
+        "decimal-place-value",
+        "小数乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "小数乘整数",
+        "小数乘小数",
+        "积的估算",
+        "位值解释",
+        "应用问题"
+      ],
+      "misconceptionTags": [
+        "decimal point placed by counting digits only",
+        "multiplication always expected to make larger",
+        "estimate skipped before final decimal placement"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-decimal-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-decimal-multiplication-unit",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈买了0.8千克苹果，每千克苹果9.5元。买苹果一共花了多少元？下面哪个选项是正确的？",
+      "optionsZhHans": [
+        "7.6元",
+        "76元",
+        "0.76元",
+        "8.5元"
+      ],
+      "answer": "7.6元",
+      "acceptedAnswers": [
+        "7.6元"
+      ],
+      "explanationZhHans": "0.8千克苹果，每千克9.5元，总价=0.8×9.5。先算8×95=760，因数一共有两位小数，积应点两位小数得7.60，即7.6元。其他选项小数点点错或计算错误。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-184",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-decimal-multiplication",
+      "unitTitle": "小数乘法",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "decimal-multiplication",
+        "scaling",
+        "decimal-place-value",
+        "小数乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "小数乘整数",
+        "小数乘小数",
+        "积的估算",
+        "位值解释",
+        "应用问题"
+      ],
+      "misconceptionTags": [
+        "decimal point placed by counting digits only",
+        "multiplication always expected to make larger",
+        "estimate skipped before final decimal placement"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-decimal-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-decimal-multiplication-unit",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈买了一块长方形桌布，长是1.2米，宽是0.8米。这块桌布的面积是多少平方米？",
+      "optionsZhHans": [],
+      "answer": "0.96",
+      "acceptedAnswers": [
+        "0.96",
+        "0.96平方米"
+      ],
+      "explanationZhHans": "长方形面积=长×宽，1.2×0.8=0.96。先按整数12×8=96，因数共有两位小数，积应有两位小数，所以是0.96平方米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-185",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-decimal-multiplication",
+      "unitTitle": "小数乘法",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "decimal-multiplication",
+        "scaling",
+        "decimal-place-value",
+        "小数乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "小数乘整数",
+        "小数乘小数",
+        "积的估算",
+        "位值解释",
+        "应用问题"
+      ],
+      "misconceptionTags": [
+        "decimal point placed by counting digits only",
+        "multiplication always expected to make larger",
+        "estimate skipped before final decimal placement"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-decimal-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-decimal-multiplication-unit",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈买了0.6千克苹果，每千克苹果8.5元。买这些苹果大约需要多少钱？下面哪种估算方法最合理？",
+      "optionsZhHans": [
+        "把0.6看作1，8.5看作9，1×9=9元",
+        "把0.6看作0.5，8.5看作8，0.5×8=4元",
+        "把0.6看作0.6，8.5看作8.5，0.6×8.5=5.1元",
+        "把0.6看作0.5，8.5看作9，0.5×9=4.5元"
+      ],
+      "answer": "把0.6看作0.5，8.5看作9，0.5×9=4.5元",
+      "acceptedAnswers": [
+        "把0.6看作0.5，8.5看作9，0.5×9=4.5元"
+      ],
+      "explanationZhHans": "估算时，将0.6近似为0.5，8.5近似为9，0.5×9=4.5元，接近精确值5.1元且计算简便。其他选项：A高估太多，B低估较多，C是精确计算而非估算。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-186",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-decimal-multiplication",
+      "unitTitle": "小数乘法",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "decimal-multiplication",
+        "scaling",
+        "decimal-place-value",
+        "小数乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "小数乘整数",
+        "小数乘小数",
+        "积的估算",
+        "位值解释",
+        "应用问题"
+      ],
+      "misconceptionTags": [
+        "decimal point placed by counting digits only",
+        "multiplication always expected to make larger",
+        "estimate skipped before final decimal placement"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-decimal-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-decimal-multiplication-unit",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一本练习本的价钱是2.5元，小华买了6本。他付了20元，应找回多少元？请先估算一下大约找回多少元，再精确计算。",
+      "optionsZhHans": [],
+      "answer": "估算：大约找回5元；精确计算：找回5元",
+      "acceptedAnswers": [
+        "估算：大约找回5元；精确计算：找回5元",
+        "大约找回5元；找回5元",
+        "估算找回5元，精确找回5元"
+      ],
+      "explanationZhHans": "估算：2.5≈3，3×6=18，20-18≈2，但更合理的是2.5×6=15，20-15=5，所以大约找回5元。精确：2.5×6=15，20-15=5，找回5元。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-187",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-decimal-multiplication",
+      "unitTitle": "小数乘法",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "decimal-multiplication",
+        "scaling",
+        "decimal-place-value",
+        "小数乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "小数乘整数",
+        "小数乘小数",
+        "积的估算",
+        "位值解释",
+        "应用问题"
+      ],
+      "misconceptionTags": [
+        "decimal point placed by counting digits only",
+        "multiplication always expected to make larger",
+        "estimate skipped before final decimal placement"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-decimal-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-decimal-multiplication-unit",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈买了0.6千克苹果，每千克苹果8.5元。买苹果一共花了多少元？",
+      "optionsZhHans": [
+        "5.1元",
+        "51元",
+        "0.51元",
+        "4.8元"
+      ],
+      "answer": "5.1元",
+      "acceptedAnswers": [
+        "5.1元"
+      ],
+      "explanationZhHans": "0.6×8.5，先算6×85=510，因数共有两位小数，积是5.10，即5.1元。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-188",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-decimal-multiplication",
+      "unitTitle": "小数乘法",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "decimal-multiplication",
+        "scaling",
+        "decimal-place-value",
+        "小数乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "小数乘整数",
+        "小数乘小数",
+        "积的估算",
+        "位值解释",
+        "应用问题"
+      ],
+      "misconceptionTags": [
+        "decimal point placed by counting digits only",
+        "multiplication always expected to make larger",
+        "estimate skipped before final decimal placement"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-decimal-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-decimal-multiplication-unit",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一盒彩笔的单价是3.6元。李老师为美术小组买了12盒，一共需要付多少元？",
+      "optionsZhHans": [],
+      "answer": "43.2",
+      "acceptedAnswers": [
+        "43.2",
+        "43.2元"
+      ],
+      "explanationZhHans": "3.6 × 12，先按整数36 × 12 = 432，因数共有1位小数，积从右起数1位点上小数点得43.2。也可估算：3.6接近4，4×12=48，实际应略小于48，43.2合理。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-189",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-decimal-multiplication",
+      "unitTitle": "小数乘法",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "decimal-multiplication",
+        "scaling",
+        "decimal-place-value",
+        "小数乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "小数乘整数",
+        "小数乘小数",
+        "积的估算",
+        "位值解释",
+        "应用问题"
+      ],
+      "misconceptionTags": [
+        "decimal point placed by counting digits only",
+        "multiplication always expected to make larger",
+        "estimate skipped before final decimal placement"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-decimal-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-decimal-multiplication-unit",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈买了0.6千克苹果，每千克苹果8.5元。买这些苹果大约需要多少元？下面哪种估算方法最合理？",
+      "optionsZhHans": [
+        "把0.6看作1，8.5看作9，估算为9元",
+        "把0.6看作0.5，8.5看作8，估算为4元",
+        "把0.6看作1，8.5看作8，估算为8元",
+        "把0.6看作0.5，8.5看作9，估算为4.5元"
+      ],
+      "answer": "把0.6看作0.5，8.5看作9，估算为4.5元",
+      "acceptedAnswers": [
+        "把0.6看作0.5，8.5看作9，估算为4.5元"
+      ],
+      "explanationZhHans": "精确计算为0.6×8.5=5.1元。选项A估算9元偏大，B估算4元偏小，C估算8元偏大，D估算4.5元最接近5.1元，且0.5和9都是易算的近似数，因此D最合理。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-190",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-decimal-multiplication",
+      "unitTitle": "小数乘法",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "decimal-multiplication",
+        "scaling",
+        "decimal-place-value",
+        "小数乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "小数乘整数",
+        "小数乘小数",
+        "积的估算",
+        "位值解释",
+        "应用问题"
+      ],
+      "misconceptionTags": [
+        "decimal point placed by counting digits only",
+        "multiplication always expected to make larger",
+        "estimate skipped before final decimal placement"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-decimal-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-decimal-multiplication-unit",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明家每天喝0.25升牛奶，一周（7天）一共喝多少升牛奶？先估算，再计算。估算：0.25接近0.3，0.3×7=2.1，所以大约______升。计算：0.25×7=______升。",
+      "optionsZhHans": [],
+      "answer": "估算：2.1，计算：1.75",
+      "acceptedAnswers": [
+        "估算：2.1，计算：1.75",
+        "2.1，1.75",
+        "2.1 1.75",
+        "2.1,1.75"
+      ],
+      "explanationZhHans": "估算时把0.25看作0.3，0.3×7=2.1。计算时，0.25×7先按整数25×7=175，因数共有两位小数，积点两位小数得1.75。"
+    }
+  ]
+}

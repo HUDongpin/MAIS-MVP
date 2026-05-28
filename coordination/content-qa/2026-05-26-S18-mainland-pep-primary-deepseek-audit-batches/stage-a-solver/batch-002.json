@@ -1,0 +1,181 @@
+{
+  "startedAt": "2026-05-26T05:49:19.766Z",
+  "completedAt": "2026-05-26T05:49:40.880Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "usage": {
+    "prompt_tokens": 2928,
+    "completion_tokens": 1569,
+    "total_tokens": 4497,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 2928
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "questionId": "pep-primary-p1-u-mc-021",
+        "solvableStatus": "pass",
+        "independentAnswer": "1",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "总数17，一部分16，另一部分为17-16=1，选项中有1。"
+      },
+      {
+        "questionId": "pep-primary-p1-u-mc-022",
+        "solvableStatus": "pass",
+        "independentAnswer": "2",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "总数18，一部分16，另一部分为18-16=2，选项中有2。"
+      },
+      {
+        "questionId": "pep-primary-p1-u-mc-023",
+        "solvableStatus": "pass",
+        "independentAnswer": "3",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "总数19，一部分16，另一部分为19-16=3，选项中有3。"
+      },
+      {
+        "questionId": "pep-primary-p1-u-mc-024",
+        "solvableStatus": "pass",
+        "independentAnswer": "5",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "总数8，一部分3，另一部分为8-3=5，选项中有5。"
+      },
+      {
+        "questionId": "pep-primary-p1-u-mc-025",
+        "solvableStatus": "pass",
+        "independentAnswer": "5",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "总数9，一部分4，另一部分为9-4=5，选项中有5。"
+      },
+      {
+        "questionId": "pep-primary-p1-u-mc-026",
+        "solvableStatus": "pass",
+        "independentAnswer": "3",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "总数10，一部分7，另一部分为10-7=3，选项中有3。"
+      },
+      {
+        "questionId": "pep-primary-p1-u-mc-027",
+        "solvableStatus": "pass",
+        "independentAnswer": "9",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "总数11，一部分2，另一部分为11-2=9，选项中有9。"
+      },
+      {
+        "questionId": "pep-primary-p1-u-mc-028",
+        "solvableStatus": "pass",
+        "independentAnswer": "4",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "总数12，一部分8，另一部分为12-8=4，选项中有4。"
+      },
+      {
+        "questionId": "pep-primary-p1-u-mc-029",
+        "solvableStatus": "pass",
+        "independentAnswer": "9",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "总数13，一部分4，另一部分为13-4=9，选项中有9。"
+      },
+      {
+        "questionId": "pep-primary-p1-u-mc-030",
+        "solvableStatus": "pass",
+        "independentAnswer": "1",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "总数14，一部分13，另一部分为14-13=1，选项中有1。"
+      },
+      {
+        "questionId": "pep-primary-p1-u-mc-031",
+        "solvableStatus": "pass",
+        "independentAnswer": "5",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "9张卡，发4张，剩余9-4=5，选项中有5。"
+      },
+      {
+        "questionId": "pep-primary-p1-u-mc-032",
+        "solvableStatus": "pass",
+        "independentAnswer": "9",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "总数16，一部分7，另一部分为16-7=9，选项中有9。"
+      },
+      {
+        "questionId": "pep-primary-p1-u-mc-033",
+        "solvableStatus": "pass",
+        "independentAnswer": "13",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "总数17，一部分4，另一部分为17-4=13，选项中有13。"
+      },
+      {
+        "questionId": "pep-primary-p1-u-mc-034",
+        "solvableStatus": "pass",
+        "independentAnswer": "17",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "总数18，一部分1，另一部分为18-1=17，选项中有17。"
+      },
+      {
+        "questionId": "pep-primary-p1-u-mc-035",
+        "solvableStatus": "pass",
+        "independentAnswer": "3",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "总数19，一部分16，另一部分为19-16=3，选项中有3。"
+      },
+      {
+        "questionId": "pep-primary-p1-u-mc-036",
+        "solvableStatus": "pass",
+        "independentAnswer": "4",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "总数8，一部分4，另一部分为8-4=4，选项中有4。"
+      },
+      {
+        "questionId": "pep-primary-p1-u-mc-037",
+        "solvableStatus": "pass",
+        "independentAnswer": "1",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "总数9，一部分8，另一部分为9-8=1，选项中有1。"
+      },
+      {
+        "questionId": "pep-primary-p1-u-mc-038",
+        "solvableStatus": "pass",
+        "independentAnswer": "3",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "总数10，一部分7，另一部分为10-7=3，选项中有3。"
+      },
+      {
+        "questionId": "pep-primary-p1-u-mc-039",
+        "solvableStatus": "pass",
+        "independentAnswer": "3",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "总数11，一部分8，另一部分为11-8=3，选项中有3。"
+      },
+      {
+        "questionId": "pep-primary-p1-u-mc-040",
+        "solvableStatus": "pass",
+        "independentAnswer": "1",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "总数12，一部分11，另一部分为12-11=1，选项中有1。"
+      }
+    ]
+  }
+}

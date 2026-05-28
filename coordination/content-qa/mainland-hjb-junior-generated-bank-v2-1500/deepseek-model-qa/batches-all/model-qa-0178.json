@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0178",
+  "ids": [
+    "hjb-junior-ds-v2-s3-417",
+    "hjb-junior-ds-v2-s3-418",
+    "hjb-junior-ds-v2-s3-419",
+    "hjb-junior-ds-v2-s3-420",
+    "hjb-junior-ds-v2-s3-421",
+    "hjb-junior-ds-v2-s3-422",
+    "hjb-junior-ds-v2-s3-423",
+    "hjb-junior-ds-v2-s3-424"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-417",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题干计算方差应为17.6，但标准答案给出16.4，解析也得出17.6，答案与解析矛盾。",
+      "independentAnswerZhHans": "平均数=(160+165+158+162+170)/5=163，方差=[(160-163)^2+(165-163)^2+(158-163)^2+(162-163)^2+(170-163)^2]/5=(9+4+25+1+49)/5=88/5=17.6。",
+      "answerCheckZhHans": "标准答案16.4错误，正确方差为17.6。",
+      "recommendedActionZhHans": "将答案修正为17.6，并更新acceptedAnswers。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-418",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "平均数=(5×4+6×8+7×5+8×3)/20=127/20=6.35，A正确。数据排序后第10、11位均为6，中位数6，B正确。6出现8次最多，众数6，C正确。数据有波动，方差大于0，D错误。",
+      "answerCheckZhHans": "标准答案D正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-419",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "新平均数=2×5+1=11，新方差=2^2×2=8。",
+      "answerCheckZhHans": "标准答案11，8正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-420",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "甲：平均数=(7+8+9+8+7+9+8+8+9+7)/10=80/10=8，方差=[(7-8)^2×3+(8-8)^2×4+(9-8)^2×3]/10=(1×3+0+1×3)/10=6/10=0.6。乙：平均数=(6+10+7+9+8+10+6+9+7+8)/10=80/10=8，方差=[(6-8)^2×2+(7-8)^2×2+(8-8)^2×2+(9-8)^2×2+(10-8)^2×2]/10=(4×2+1×2+0+1×2+4×2)/10=(8+2+0+2+8)/10=20/10=2。甲的方差小，更稳定，选C。",
+      "answerCheckZhHans": "标准答案C正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-421",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "85出现3次，90出现2次，其余各1次，众数为85。",
+      "answerCheckZhHans": "标准答案85正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-422",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "方差衡量稳定性，应选方差。",
+      "answerCheckZhHans": "标准答案方差正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-423",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "排序：158,160,162,165,165,170，中位数=(162+165)/2=163.5。",
+      "answerCheckZhHans": "标准答案163.5正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-424",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "总人数40，中位数是第20、21个数据的平均数。累计人数：60分以下2，60～69分7，70～79分19，80～89分34。第20、21个数据落在80～89分组，故中位数在此组。其他选项不一定成立。",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-157",
+  "startedAt": "2026-05-28T02:53:46.093Z",
+  "completedAt": "2026-05-28T02:53:51.150Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-157"
+  ],
+  "usage": {
+    "prompt_tokens": 2082,
+    "completion_tokens": 267,
+    "total_tokens": 2349,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1698
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-157",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "arccos(-4/9)",
+        "correctedAnswer": "arccos(-4/9)",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 arccos(4/9) 错误。两法向量夹角余弦为 -4/9，平面夹角取 [0,π]，应为 arccos(-4/9)。解析错误地取绝对值，与正确解法矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目答案错误，解析矛盾，需修正为 arccos(-4/9)。"
+    }
+  }
+}

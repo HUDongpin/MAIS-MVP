@@ -1,0 +1,27 @@
+{
+  "startedAt": "2026-05-26T06:19:12.287Z",
+  "completedAt": "2026-05-26T06:19:15.777Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "usage": {
+    "prompt_tokens": 423,
+    "completion_tokens": 110,
+    "total_tokens": 533,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 423
+  },
+  "finishReason": "stop",
+  "result": {
+    "questionId": "pep-primary-p2-l-fi-115",
+    "solvableStatus": "pass",
+    "answerMatchStatus": "pass",
+    "independentAnswer": "5袋，剩3个",
+    "confidence": "high",
+    "issueType": "none",
+    "note": "独立答案'5袋，剩3个'与题库答案'5余3'含义完全一致，表述差异不影响正确性，可接受。",
+    "recommendedAction": "pass"
+  }
+}

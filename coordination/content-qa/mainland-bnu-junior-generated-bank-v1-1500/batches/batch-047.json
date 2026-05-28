@@ -1,0 +1,628 @@
+{
+  "batchId": "batch-047",
+  "questions": [
+    {
+      "id": "bnu-junior-ds-v1-s1-461",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-probability-introduction",
+      "unitTitle": "概率初步",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "probability-introduction",
+        "random-events",
+        "equally-likely-outcomes",
+        "experimental-probability",
+        "概率初步"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "随机事件",
+        "可能性大小",
+        "等可能结果",
+        "简单概率计算",
+        "试验频率解释"
+      ],
+      "misconceptionTags": [
+        "all listed outcomes assumed equally likely",
+        "frequency treated as exact probability after few trials",
+        "event and outcome confused"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-probability-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-probability-introduction-unit",
+        "bnu-junior-s1-lower-assessment-midterm-1-to-3-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个不透明的袋子里装有3个红球、2个白球和1个蓝球，这些球除颜色外完全相同。从袋子中随机摸出一个球，摸到红球的概率是多少？",
+      "optionsZhHans": [
+        "1/2",
+        "1/3",
+        "3/5",
+        "2/3"
+      ],
+      "answer": "1/2",
+      "acceptedAnswers": [
+        "1/2",
+        "0.5",
+        "50%"
+      ],
+      "explanationZhHans": "总球数=3+2+1=6，红球有3个，所以摸到红球的概率=3/6=1/2。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-462",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-probability-introduction",
+      "unitTitle": "概率初步",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "probability-introduction",
+        "random-events",
+        "equally-likely-outcomes",
+        "experimental-probability",
+        "概率初步"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "随机事件",
+        "可能性大小",
+        "等可能结果",
+        "简单概率计算",
+        "试验频率解释"
+      ],
+      "misconceptionTags": [
+        "all listed outcomes assumed equally likely",
+        "frequency treated as exact probability after few trials",
+        "event and outcome confused"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-probability-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-probability-introduction-unit",
+        "bnu-junior-s1-lower-assessment-midterm-1-to-3-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个转盘被等分成8个扇形，分别标有数字1到8。转动转盘一次，指针指向偶数数字的概率是多少？请用分数表示。",
+      "optionsZhHans": [],
+      "answer": "1/2",
+      "acceptedAnswers": [
+        "1/2",
+        "4/8",
+        "0.5",
+        "50%"
+      ],
+      "explanationZhHans": "总结果数=8，偶数有2、4、6、8共4个，所以概率=4/8=1/2。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-463",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-probability-introduction",
+      "unitTitle": "概率初步",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "probability-introduction",
+        "random-events",
+        "equally-likely-outcomes",
+        "experimental-probability",
+        "概率初步"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "随机事件",
+        "可能性大小",
+        "等可能结果",
+        "简单概率计算",
+        "试验频率解释"
+      ],
+      "misconceptionTags": [
+        "all listed outcomes assumed equally likely",
+        "frequency treated as exact probability after few trials",
+        "event and outcome confused"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-probability-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-probability-introduction-unit",
+        "bnu-junior-s1-lower-assessment-midterm-1-to-3-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下列事件中，属于随机事件的是哪一个？",
+      "optionsZhHans": [
+        "太阳从东方升起",
+        "抛一枚硬币，正面朝上",
+        "在标准大气压下，水加热到100℃时沸腾",
+        "一个三角形的内角和等于180°"
+      ],
+      "answer": "抛一枚硬币，正面朝上",
+      "acceptedAnswers": [
+        "抛一枚硬币，正面朝上"
+      ],
+      "explanationZhHans": "随机事件是可能发生也可能不发生的事件。抛硬币正面朝上可能发生也可能不发生，而其他选项都是必然事件。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-464",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-probability-introduction",
+      "unitTitle": "概率初步",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "probability-introduction",
+        "random-events",
+        "equally-likely-outcomes",
+        "experimental-probability",
+        "概率初步"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "随机事件",
+        "可能性大小",
+        "等可能结果",
+        "简单概率计算",
+        "试验频率解释"
+      ],
+      "misconceptionTags": [
+        "all listed outcomes assumed equally likely",
+        "frequency treated as exact probability after few trials",
+        "event and outcome confused"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-probability-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-probability-introduction-unit",
+        "bnu-junior-s1-lower-assessment-midterm-1-to-3-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个不透明的盒子里有5个黄球和3个绿球，这些球除颜色外完全相同。从盒子中随机摸出一个球，摸到绿球的概率是多少？请用分数表示。",
+      "optionsZhHans": [],
+      "answer": "3/8",
+      "acceptedAnswers": [
+        "3/8",
+        "0.375",
+        "37.5%"
+      ],
+      "explanationZhHans": "总球数=5+3=8，绿球有3个，所以摸到绿球的概率=3/8。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-465",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-probability-introduction",
+      "unitTitle": "概率初步",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "probability-introduction",
+        "random-events",
+        "equally-likely-outcomes",
+        "experimental-probability",
+        "概率初步"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "随机事件",
+        "可能性大小",
+        "等可能结果",
+        "简单概率计算",
+        "试验频率解释"
+      ],
+      "misconceptionTags": [
+        "all listed outcomes assumed equally likely",
+        "frequency treated as exact probability after few trials",
+        "event and outcome confused"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-probability-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-probability-introduction-unit",
+        "bnu-junior-s1-lower-assessment-midterm-1-to-3-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个转盘被等分成6个扇形，分别涂上红色、黄色、蓝色，其中红色扇形有2个，黄色扇形有3个，蓝色扇形有1个。转动转盘一次，指针指向黄色扇形的概率是多少？",
+      "optionsZhHans": [
+        "1/6",
+        "1/3",
+        "1/2",
+        "2/3"
+      ],
+      "answer": "1/2",
+      "acceptedAnswers": [
+        "1/2",
+        "0.5",
+        "50%"
+      ],
+      "explanationZhHans": "总扇形数=6，黄色扇形有3个，所以概率=3/6=1/2。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-466",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-probability-introduction",
+      "unitTitle": "概率初步",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "probability-introduction",
+        "random-events",
+        "equally-likely-outcomes",
+        "experimental-probability",
+        "概率初步"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "随机事件",
+        "可能性大小",
+        "等可能结果",
+        "简单概率计算",
+        "试验频率解释"
+      ],
+      "misconceptionTags": [
+        "all listed outcomes assumed equally likely",
+        "frequency treated as exact probability after few trials",
+        "event and outcome confused"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-probability-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-probability-introduction-unit",
+        "bnu-junior-s1-lower-assessment-midterm-1-to-3-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "掷一枚质地均匀的骰子一次，观察朝上一面的点数。求点数大于4的概率，用分数表示。",
+      "optionsZhHans": [],
+      "answer": "1/3",
+      "acceptedAnswers": [
+        "1/3",
+        "2/6",
+        "约0.333"
+      ],
+      "explanationZhHans": "总结果数=6，点数大于4的有5、6共2个，所以概率=2/6=1/3。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-467",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-probability-introduction",
+      "unitTitle": "概率初步",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "probability-introduction",
+        "random-events",
+        "equally-likely-outcomes",
+        "experimental-probability",
+        "概率初步"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "随机事件",
+        "可能性大小",
+        "等可能结果",
+        "简单概率计算",
+        "试验频率解释"
+      ],
+      "misconceptionTags": [
+        "all listed outcomes assumed equally likely",
+        "frequency treated as exact probability after few trials",
+        "event and outcome confused"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-probability-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-probability-introduction-unit",
+        "bnu-junior-s1-lower-assessment-midterm-1-to-3-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个不透明的袋子里有4个黑球和6个白球，这些球除颜色外完全相同。从袋子中随机摸出一个球，摸到黑球的概率是多少？",
+      "optionsZhHans": [
+        "2/5",
+        "3/5",
+        "1/2",
+        "4/5"
+      ],
+      "answer": "2/5",
+      "acceptedAnswers": [
+        "2/5",
+        "0.4",
+        "40%"
+      ],
+      "explanationZhHans": "总球数=4+6=10，黑球有4个，所以概率=4/10=2/5。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-468",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-probability-introduction",
+      "unitTitle": "概率初步",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "probability-introduction",
+        "random-events",
+        "equally-likely-outcomes",
+        "experimental-probability",
+        "概率初步"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "随机事件",
+        "可能性大小",
+        "等可能结果",
+        "简单概率计算",
+        "试验频率解释"
+      ],
+      "misconceptionTags": [
+        "all listed outcomes assumed equally likely",
+        "frequency treated as exact probability after few trials",
+        "event and outcome confused"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-probability-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-probability-introduction-unit",
+        "bnu-junior-s1-lower-assessment-midterm-1-to-3-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个转盘被等分成10个扇形，分别标有数字1到10。转动转盘一次，指针指向3的倍数的概率是多少？请用分数表示。",
+      "optionsZhHans": [],
+      "answer": "3/10",
+      "acceptedAnswers": [
+        "3/10",
+        "0.3",
+        "30%"
+      ],
+      "explanationZhHans": "总结果数=10，3的倍数有3、6、9共3个，所以概率=3/10。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-469",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-probability-introduction",
+      "unitTitle": "概率初步",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "probability-introduction",
+        "random-events",
+        "equally-likely-outcomes",
+        "experimental-probability",
+        "概率初步"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "随机事件",
+        "可能性大小",
+        "等可能结果",
+        "简单概率计算",
+        "试验频率解释"
+      ],
+      "misconceptionTags": [
+        "all listed outcomes assumed equally likely",
+        "frequency treated as exact probability after few trials",
+        "event and outcome confused"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-probability-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-probability-introduction-unit",
+        "bnu-junior-s1-lower-assessment-midterm-1-to-3-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下列事件中，可能性最大的是哪一个？",
+      "optionsZhHans": [
+        "掷一枚骰子，点数是1",
+        "掷一枚骰子，点数是偶数",
+        "掷一枚骰子，点数小于3",
+        "掷一枚骰子，点数大于4"
+      ],
+      "answer": "掷一枚骰子，点数是偶数",
+      "acceptedAnswers": [
+        "掷一枚骰子，点数是偶数"
+      ],
+      "explanationZhHans": "点数是偶数的概率=3/6=1/2；点数是1的概率=1/6；点数小于3的概率=2/6=1/3；点数大于4的概率=2/6=1/3。所以偶数可能性最大。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-470",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-probability-introduction",
+      "unitTitle": "概率初步",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "probability-introduction",
+        "random-events",
+        "equally-likely-outcomes",
+        "experimental-probability",
+        "概率初步"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "随机事件",
+        "可能性大小",
+        "等可能结果",
+        "简单概率计算",
+        "试验频率解释"
+      ],
+      "misconceptionTags": [
+        "all listed outcomes assumed equally likely",
+        "frequency treated as exact probability after few trials",
+        "event and outcome confused"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-probability-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-probability-introduction-unit",
+        "bnu-junior-s1-lower-assessment-midterm-1-to-3-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个不透明的盒子里有2个红球、3个蓝球和5个绿球，这些球除颜色外完全相同。从盒子中随机摸出一个球，摸到红球或蓝球的概率是多少？请用分数表示。",
+      "optionsZhHans": [],
+      "answer": "1/2",
+      "acceptedAnswers": [
+        "1/2",
+        "5/10",
+        "0.5",
+        "50%"
+      ],
+      "explanationZhHans": "总球数=2+3+5=10，红球或蓝球共有2+3=5个，所以概率=5/10=1/2。"
+    }
+  ]
+}

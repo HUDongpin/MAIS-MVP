@@ -1,0 +1,255 @@
+{
+  "batchId": "model-qa-0028",
+  "ids": [
+    "hjb-junior-ds-v2-s2-041",
+    "hjb-junior-ds-v2-s2-042",
+    "hjb-junior-ds-v2-s2-043",
+    "hjb-junior-ds-v2-s2-044",
+    "hjb-junior-ds-v2-s2-045",
+    "hjb-junior-ds-v2-s2-046",
+    "hjb-junior-ds-v2-s2-047",
+    "hjb-junior-ds-v2-s2-048",
+    "hjb-junior-ds-v2-s2-049",
+    "hjb-junior-ds-v2-s2-050",
+    "hjb-junior-ds-v2-s2-051",
+    "hjb-junior-ds-v2-s2-052",
+    "hjb-junior-ds-v2-s2-053",
+    "hjb-junior-ds-v2-s2-054",
+    "hjb-junior-ds-v2-s2-055",
+    "hjb-junior-ds-v2-s2-056",
+    "hjb-junior-ds-v2-s2-057",
+    "hjb-junior-ds-v2-s2-058",
+    "hjb-junior-ds-v2-s2-059",
+    "hjb-junior-ds-v2-s2-060"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-041",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-2",
+      "answerCheckZhHans": "标准答案正确，解析推导无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-042",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为13-4√7，但解析计算得15-4√7，两者不一致。独立计算：a=2，b=√7-2，a²+b²=4+(7-4√7+4)=15-4√7。标准答案错误。",
+      "independentAnswerZhHans": "15-4√7",
+      "answerCheckZhHans": "标准答案13-4√7与解析结果15-4√7矛盾，且独立计算支持15-4√7。",
+      "recommendedActionZhHans": "修正答案为15-4√7，并更新解析。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-043",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2个",
+      "answerCheckZhHans": "标准答案正确，解析无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-044",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "5-2√3",
+      "answerCheckZhHans": "标准答案正确，解析无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-045",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "√2 < (√2+√3)/2 < √3",
+      "answerCheckZhHans": "标准答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-046",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "点B和点C表示的数都是有理数",
+      "answerCheckZhHans": "标准答案正确，解析无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-047",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "√10",
+      "answerCheckZhHans": "标准答案√10符合要求，acceptedAnswers覆盖了多种合理答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-048",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为6√11-2，但解析计算得6√11-11，两者不一致。独立计算：a=3，b=√11-3，a²-b²=(3)²-(√11-3)²=9-(11-6√11+9)=9-20+6√11=6√11-11。标准答案错误。",
+      "independentAnswerZhHans": "6√11-11",
+      "answerCheckZhHans": "标准答案6√11-2与解析结果6√11-11矛盾，且独立计算支持6√11-11。",
+      "recommendedActionZhHans": "修正答案为6√11-11，并更新解析。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-049",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "标准答案正确，解析无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-050",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "<",
+      "answerCheckZhHans": "标准答案正确，解析无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-051",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "49",
+      "answerCheckZhHans": "标准答案正确，解析无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-052",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "A. 无理数都是无限小数",
+      "answerCheckZhHans": "标准答案正确，解析无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-053",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "右",
+      "answerCheckZhHans": "标准答案正确，解析无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-054",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3∛3 cm",
+      "answerCheckZhHans": "标准答案正确，解析无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-055",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "multiple-correct-options"
+      ],
+      "issueDetailsZhHans": "√5≈2.236，√15≈3.873。选项2.8和3.6都在区间内，但标准答案只选了2.8。解析称“3.6在区间内但需唯一正确，2.8是唯一选项”逻辑错误，实际上3.6也在区间内，因此存在两个正确选项。",
+      "independentAnswerZhHans": "2.8和3.6均在区间内，但题目要求单选，故题干有歧义。",
+      "answerCheckZhHans": "标准答案2.8正确，但3.6也正确，导致题目有多个正确选项。",
+      "recommendedActionZhHans": "修改选项或题干，确保只有一个正确选项。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-056",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "有理数集合：b, d, e, f；无理数集合：a, c",
+      "answerCheckZhHans": "标准答案正确，解析无误，acceptedAnswers覆盖了多种格式。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-057",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "√5 < √8 < √12",
+      "answerCheckZhHans": "标准答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-058",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "点C在点D的左侧",
+      "answerCheckZhHans": "标准答案正确，解析无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-059",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "√5 < √6 < √7",
+      "answerCheckZhHans": "标准答案正确，解析无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-060",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "b < a < c",
+      "answerCheckZhHans": "标准答案正确，解析无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

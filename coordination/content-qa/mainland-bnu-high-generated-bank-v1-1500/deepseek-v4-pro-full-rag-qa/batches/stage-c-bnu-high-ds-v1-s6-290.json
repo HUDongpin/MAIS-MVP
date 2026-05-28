@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-290",
+  "startedAt": "2026-05-28T01:49:41.992Z",
+  "completedAt": "2026-05-28T01:49:46.336Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-290"
+  ],
+  "usage": {
+    "prompt_tokens": 2093,
+    "completion_tokens": 307,
+    "total_tokens": 2400,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1709
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-290",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "a ≥ 3",
+        "correctedAnswer": "a ≥ 3",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "函数f(x)=x^3-3x^2+ax在[1,2]单调递增，需f'(x)=3x^2-6x+a≥0恒成立。f'(x)在[1,2]最小值为f'(1)=a-3，故a≥3。存储答案a≥0错误，解析虽修正为a≥3但与存储答案矛盾，属严重数学错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "存储答案a≥0错误，正确为a≥3，解析与答案矛盾，判定为blocker。"
+    }
+  }
+}

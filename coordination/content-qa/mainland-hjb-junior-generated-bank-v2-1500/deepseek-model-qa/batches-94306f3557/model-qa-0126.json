@@ -1,0 +1,105 @@
+{
+  "batchId": "model-qa-0126",
+  "ids": [
+    "hjb-junior-ds-v2-s3-001",
+    "hjb-junior-ds-v2-s3-002",
+    "hjb-junior-ds-v2-s3-003",
+    "hjb-junior-ds-v2-s3-004",
+    "hjb-junior-ds-v2-s3-005",
+    "hjb-junior-ds-v2-s3-006",
+    "hjb-junior-ds-v2-s3-007",
+    "hjb-junior-ds-v2-s3-008"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-001",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "8",
+      "answerCheckZhHans": "标准答案为8，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-002",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "18",
+      "answerCheckZhHans": "标准答案为18，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-003",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "证明：若AB∥CD，则OA/OC=OB/OD。但OA/OC=2/6=1/3，OB/OD=3/4，1/3≠3/4，故AB与CD不平行。",
+      "answerCheckZhHans": "标准答案与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-004",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "multiple-correct-options"
+      ],
+      "issueDetailsZhHans": "选项C和D都正确。△ABC中∠C=70°，△DEF中∠F=60°，对应角不都相等，故不相似，C正确；同时对应边AB/DE=8/12=2/3，BC未知，但仅凭已知边无法判定相似，D也正确。但题目要求说明理由，C和D都是合理的理由，导致两个正确选项。",
+      "independentAnswerZhHans": "不相似，因为对应角不都相等（或不相似，因为对应边不成比例）",
+      "answerCheckZhHans": "标准答案选择C，但D也是正确的，存在多个正确选项。",
+      "recommendedActionZhHans": "修改选项，使只有一个正确选项，例如将D改为“不相似，因为对应边成比例”或调整选项表述。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-005",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "6",
+      "answerCheckZhHans": "标准答案为6，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-006",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "7.5",
+      "answerCheckZhHans": "标准答案为7.5，acceptedAnswers包含7.5和15/2，覆盖了答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-007",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "△ABC∽△DEF，EF=15",
+      "answerCheckZhHans": "标准答案与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-008",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "6",
+      "answerCheckZhHans": "标准答案为6，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

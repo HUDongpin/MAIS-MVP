@@ -1,0 +1,665 @@
+{
+  "batchId": "batch-072",
+  "questions": [
+    {
+      "id": "bnu-high-ds-v1-s5-211",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-空间向量与立体几何",
+      "topicTitleZhHans": "空间向量与立体几何",
+      "volume": "选择性必修 第一册",
+      "chapter": "空间向量与立体几何",
+      "conceptIds": [
+        "space-vectors",
+        "spatial-coordinate-system",
+        "line-plane-angle",
+        "distance-in-space",
+        "normal-vectors"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学运算",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "空间坐标建模",
+        "方向向量",
+        "法向量",
+        "夹角计算",
+        "距离计算",
+        "空间证明",
+        "动点参数",
+        "线面角"
+      ],
+      "misconceptionTags": [
+        "direction vector and normal vector confused",
+        "angle complement chosen incorrectly",
+        "distance formula target mismatched",
+        "coordinate system not stated",
+        "normal vector chosen incorrectly",
+        "angle complement confused",
+        "distance formula applied to wrong objects",
+        "parameter relation not tied to geometry"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-space-vectors-solid-geometry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-space-vectors-unit-core",
+        "bnu-high-s5-assessment-space-vectors-unit-synthesis",
+        "bnu-high-s5-assessment-midterm-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在空间直角坐标系中，已知点A(1,2,3)，B(4,5,6)，C(7,8,9)，D(10,11,12)。若平面α过点A且法向量为n=(1,-1,1)，则点D到平面α的距离为（ ）。",
+      "optionsZhHans": [
+        "√3",
+        "2√3",
+        "3√3",
+        "4√3"
+      ],
+      "answer": "2√3",
+      "acceptedAnswers": [
+        "2√3"
+      ],
+      "explanationZhHans": "平面α方程为(x-1)-(y-2)+(z-3)=0，即x-y+z-2=0。点D(10,11,12)到平面的距离d=|10-11+12-2|/√(1+1+1)=9/√3=3√3。但注意法向量为(1,-1,1)，代入得|10-11+12-2|=9，分母√3，故d=3√3。选项2√3错误，应为3√3。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-212",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-空间向量与立体几何",
+      "topicTitleZhHans": "空间向量与立体几何",
+      "volume": "选择性必修 第一册",
+      "chapter": "空间向量与立体几何",
+      "conceptIds": [
+        "space-vectors",
+        "spatial-coordinate-system",
+        "line-plane-angle",
+        "distance-in-space",
+        "normal-vectors"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学运算",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "空间坐标建模",
+        "方向向量",
+        "法向量",
+        "夹角计算",
+        "距离计算",
+        "空间证明",
+        "动点参数",
+        "线面角"
+      ],
+      "misconceptionTags": [
+        "direction vector and normal vector confused",
+        "angle complement chosen incorrectly",
+        "distance formula target mismatched",
+        "coordinate system not stated",
+        "normal vector chosen incorrectly",
+        "angle complement confused",
+        "distance formula applied to wrong objects",
+        "parameter relation not tied to geometry"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-space-vectors-solid-geometry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-space-vectors-unit-core",
+        "bnu-high-s5-assessment-space-vectors-unit-synthesis",
+        "bnu-high-s5-assessment-midterm-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在空间直角坐标系中，已知点A(1,0,0)，B(0,1,0)，C(0,0,1)。求平面ABC的一个法向量。",
+      "optionsZhHans": [],
+      "answer": "(1,1,1)",
+      "acceptedAnswers": [
+        "(1,1,1)"
+      ],
+      "explanationZhHans": "向量AB=(-1,1,0)，AC=(-1,0,1)。设法向量n=(x,y,z)，则n·AB=-x+y=0，n·AC=-x+z=0，得x=y=z。取x=1，得n=(1,1,1)。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-213",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-空间向量与立体几何",
+      "topicTitleZhHans": "空间向量与立体几何",
+      "volume": "选择性必修 第一册",
+      "chapter": "空间向量与立体几何",
+      "conceptIds": [
+        "space-vectors",
+        "spatial-coordinate-system",
+        "line-plane-angle",
+        "distance-in-space",
+        "normal-vectors"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学运算",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "空间坐标建模",
+        "方向向量",
+        "法向量",
+        "夹角计算",
+        "距离计算",
+        "空间证明",
+        "动点参数",
+        "线面角"
+      ],
+      "misconceptionTags": [
+        "direction vector and normal vector confused",
+        "angle complement chosen incorrectly",
+        "distance formula target mismatched",
+        "coordinate system not stated",
+        "normal vector chosen incorrectly",
+        "angle complement confused",
+        "distance formula applied to wrong objects",
+        "parameter relation not tied to geometry"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-space-vectors-solid-geometry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-space-vectors-unit-core",
+        "bnu-high-s5-assessment-space-vectors-unit-synthesis",
+        "bnu-high-s5-assessment-midterm-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在空间直角坐标系中，已知点A(1,2,3)，B(4,5,6)，C(7,8,9)。若点P在直线AB上，且AP:PB=2:1，则点P的坐标为______。",
+      "optionsZhHans": [],
+      "answer": "(3,4,5)",
+      "acceptedAnswers": [
+        "(3,4,5)"
+      ],
+      "explanationZhHans": "由定比分点公式，P=(A+2B)/(1+2)=((1+8)/3,(2+10)/3,(3+12)/3)=(3,4,5)。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-214",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-空间向量与立体几何",
+      "topicTitleZhHans": "空间向量与立体几何",
+      "volume": "选择性必修 第一册",
+      "chapter": "空间向量与立体几何",
+      "conceptIds": [
+        "space-vectors",
+        "spatial-coordinate-system",
+        "line-plane-angle",
+        "distance-in-space",
+        "normal-vectors"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学运算",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "空间坐标建模",
+        "方向向量",
+        "法向量",
+        "夹角计算",
+        "距离计算",
+        "空间证明",
+        "动点参数",
+        "线面角"
+      ],
+      "misconceptionTags": [
+        "direction vector and normal vector confused",
+        "angle complement chosen incorrectly",
+        "distance formula target mismatched",
+        "coordinate system not stated",
+        "normal vector chosen incorrectly",
+        "angle complement confused",
+        "distance formula applied to wrong objects",
+        "parameter relation not tied to geometry"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-space-vectors-solid-geometry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-space-vectors-unit-core",
+        "bnu-high-s5-assessment-space-vectors-unit-synthesis",
+        "bnu-high-s5-assessment-midterm-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在空间直角坐标系中，已知点A(1,0,0)，B(0,1,0)，C(0,0,1)，D(1,1,1)。则直线AD与平面ABC所成角的正弦值为（ ）。",
+      "optionsZhHans": [
+        "√6/3",
+        "√3/3",
+        "√2/2",
+        "1/2"
+      ],
+      "answer": "√6/3",
+      "acceptedAnswers": [
+        "√6/3"
+      ],
+      "explanationZhHans": "平面ABC法向量n=(1,1,1)。直线AD方向向量s=(0,1,1)。线面角θ满足sinθ=|cos<n,s>|=|n·s|/(|n||s|)=2/(√3·√2)=√6/3。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-215",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-空间向量与立体几何",
+      "topicTitleZhHans": "空间向量与立体几何",
+      "volume": "选择性必修 第一册",
+      "chapter": "空间向量与立体几何",
+      "conceptIds": [
+        "space-vectors",
+        "spatial-coordinate-system",
+        "line-plane-angle",
+        "distance-in-space",
+        "normal-vectors"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学运算",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "空间坐标建模",
+        "方向向量",
+        "法向量",
+        "夹角计算",
+        "距离计算",
+        "空间证明",
+        "动点参数",
+        "线面角"
+      ],
+      "misconceptionTags": [
+        "direction vector and normal vector confused",
+        "angle complement chosen incorrectly",
+        "distance formula target mismatched",
+        "coordinate system not stated",
+        "normal vector chosen incorrectly",
+        "angle complement confused",
+        "distance formula applied to wrong objects",
+        "parameter relation not tied to geometry"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-space-vectors-solid-geometry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-space-vectors-unit-core",
+        "bnu-high-s5-assessment-space-vectors-unit-synthesis",
+        "bnu-high-s5-assessment-midterm-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在空间直角坐标系中，已知点A(1,2,3)，B(4,5,6)，C(7,8,9)。证明A、B、C三点共线。",
+      "optionsZhHans": [],
+      "answer": "向量AB=(3,3,3)，AC=(6,6,6)，AC=2AB，故A、B、C共线。",
+      "acceptedAnswers": [
+        "向量AB=(3,3,3)，AC=(6,6,6)，AC=2AB，故A、B、C共线。"
+      ],
+      "explanationZhHans": "计算向量AB和AC，发现AC=2AB，因此两向量共线，又过同一点A，所以三点共线。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-216",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-空间向量与立体几何",
+      "topicTitleZhHans": "空间向量与立体几何",
+      "volume": "选择性必修 第一册",
+      "chapter": "空间向量与立体几何",
+      "conceptIds": [
+        "space-vectors",
+        "spatial-coordinate-system",
+        "line-plane-angle",
+        "distance-in-space",
+        "normal-vectors"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学运算",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "空间坐标建模",
+        "方向向量",
+        "法向量",
+        "夹角计算",
+        "距离计算",
+        "空间证明",
+        "动点参数",
+        "线面角"
+      ],
+      "misconceptionTags": [
+        "direction vector and normal vector confused",
+        "angle complement chosen incorrectly",
+        "distance formula target mismatched",
+        "coordinate system not stated",
+        "normal vector chosen incorrectly",
+        "angle complement confused",
+        "distance formula applied to wrong objects",
+        "parameter relation not tied to geometry"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-space-vectors-solid-geometry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-space-vectors-unit-core",
+        "bnu-high-s5-assessment-space-vectors-unit-synthesis",
+        "bnu-high-s5-assessment-midterm-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在空间直角坐标系中，已知点A(1,0,0)，B(0,1,0)，C(0,0,1)，则三角形ABC的面积为______。",
+      "optionsZhHans": [],
+      "answer": "√3/2",
+      "acceptedAnswers": [
+        "√3/2"
+      ],
+      "explanationZhHans": "AB=(-1,1,0)，AC=(-1,0,1)，面积=1/2|AB×AC|。AB×AC=(1,1,1)，模为√3，故面积=√3/2。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-217",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-数学建模活动-三",
+      "topicTitleZhHans": "数学建模活动（三）",
+      "volume": "选择性必修 第一册",
+      "chapter": "数学建模活动（三）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "analytic-geometry-modeling",
+        "spatial-vector-modeling",
+        "model-communication"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "参数直线",
+        "圆与直线综合",
+        "轨迹条件",
+        "几何量约束",
+        "直线与圆锥曲线联立",
+        "判别式条件",
+        "弦长与中点",
+        "参数范围"
+      ],
+      "misconceptionTags": [
+        "coordinate setup not justified",
+        "model variable not tied to context",
+        "calculation result reported without interpretation",
+        "parameter cases incomplete",
+        "special line omitted",
+        "algebraic solution not checked in the figure context",
+        "squaring introduces extra values",
+        "parameter condition unchecked"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-modeling-activity-3"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-lines-circles-unit-synthesis",
+        "bnu-high-s5-assessment-conics-unit-synthesis",
+        "bnu-high-s5-assessment-space-vectors-unit-synthesis"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系中，已知圆C：x²+y²=4，直线l过点P(3,0)且与圆C相交于A、B两点。若弦AB的长为2√3，则直线l的斜率可能为（ ）。",
+      "optionsZhHans": [
+        "±√3/3",
+        "±√2/2",
+        "±1",
+        "±√3"
+      ],
+      "answer": "±√3/3",
+      "acceptedAnswers": [
+        "±√3/3"
+      ],
+      "explanationZhHans": "设直线l: y=k(x-3)，圆心(0,0)到l的距离d=|3k|/√(k²+1)。弦长=2√(r²-d²)=2√(4-d²)=2√3，得d=1。所以|3k|/√(k²+1)=1，解得k=±√3/3。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-218",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-数学建模活动-三",
+      "topicTitleZhHans": "数学建模活动（三）",
+      "volume": "选择性必修 第一册",
+      "chapter": "数学建模活动（三）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "analytic-geometry-modeling",
+        "spatial-vector-modeling",
+        "model-communication"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "直线方程选择",
+        "斜率与位置关系",
+        "圆的方程识别",
+        "点线距离计算",
+        "坐标条件转化",
+        "参数直线",
+        "圆与直线综合",
+        "轨迹条件"
+      ],
+      "misconceptionTags": [
+        "coordinate setup not justified",
+        "model variable not tied to context",
+        "calculation result reported without interpretation",
+        "vertical line omitted",
+        "parallel and perpendicular conditions mixed",
+        "circle center and radius misread",
+        "distance formula target mismatch",
+        "parameter cases incomplete"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-modeling-activity-3"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-lines-circles-unit-core",
+        "bnu-high-s5-assessment-lines-circles-unit-synthesis",
+        "bnu-high-s5-assessment-conics-unit-core"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系中，已知点A(1,2)，B(3,4)。求线段AB的垂直平分线方程。",
+      "optionsZhHans": [],
+      "answer": "x+y-5=0",
+      "acceptedAnswers": [
+        "x+y-5=0"
+      ],
+      "explanationZhHans": "AB中点M(2,3)，斜率k_AB=1，垂直平分线斜率为-1，方程为y-3=-(x-2)，即x+y-5=0。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-219",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-数学建模活动-三",
+      "topicTitleZhHans": "数学建模活动（三）",
+      "volume": "选择性必修 第一册",
+      "chapter": "数学建模活动（三）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "analytic-geometry-modeling",
+        "spatial-vector-modeling",
+        "model-communication"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "直线方程选择",
+        "斜率与位置关系",
+        "圆的方程识别",
+        "点线距离计算",
+        "坐标条件转化",
+        "参数直线",
+        "圆与直线综合",
+        "轨迹条件"
+      ],
+      "misconceptionTags": [
+        "coordinate setup not justified",
+        "model variable not tied to context",
+        "calculation result reported without interpretation",
+        "vertical line omitted",
+        "parallel and perpendicular conditions mixed",
+        "circle center and radius misread",
+        "distance formula target mismatch",
+        "parameter cases incomplete"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-modeling-activity-3"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-lines-circles-unit-core",
+        "bnu-high-s5-assessment-lines-circles-unit-synthesis",
+        "bnu-high-s5-assessment-conics-unit-core"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系中，已知圆C：x²+y²-4x+2y-4=0，则圆心坐标为______。",
+      "optionsZhHans": [],
+      "answer": "(2,-1)",
+      "acceptedAnswers": [
+        "(2,-1)"
+      ],
+      "explanationZhHans": "配方得(x-2)²+(y+1)²=9，圆心(2,-1)。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-220",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-数学建模活动-三",
+      "topicTitleZhHans": "数学建模活动（三）",
+      "volume": "选择性必修 第一册",
+      "chapter": "数学建模活动（三）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "analytic-geometry-modeling",
+        "spatial-vector-modeling",
+        "model-communication"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "参数直线",
+        "圆与直线综合",
+        "轨迹条件",
+        "几何量约束",
+        "直线与圆锥曲线联立",
+        "判别式条件",
+        "弦长与中点",
+        "参数范围"
+      ],
+      "misconceptionTags": [
+        "coordinate setup not justified",
+        "model variable not tied to context",
+        "calculation result reported without interpretation",
+        "parameter cases incomplete",
+        "special line omitted",
+        "algebraic solution not checked in the figure context",
+        "squaring introduces extra values",
+        "parameter condition unchecked"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-modeling-activity-3"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-lines-circles-unit-synthesis",
+        "bnu-high-s5-assessment-conics-unit-synthesis",
+        "bnu-high-s5-assessment-space-vectors-unit-synthesis"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系中，已知椭圆C：x²/4+y²/3=1，直线l：y=kx+m与椭圆C交于A、B两点。若以AB为直径的圆过原点，则m与k满足的关系式为（ ）。",
+      "optionsZhHans": [
+        "3m²=4k²+3",
+        "4m²=3k²+4",
+        "3m²=4k²-3",
+        "4m²=3k²-4"
+      ],
+      "answer": "3m²=4k²+3",
+      "acceptedAnswers": [
+        "3m²=4k²+3"
+      ],
+      "explanationZhHans": "联立椭圆与直线，得(3+4k²)x²+8kmx+4m²-12=0。设A(x1,y1),B(x2,y2)，以AB为直径的圆过原点等价于OA⊥OB，即x1x2+y1y2=0。利用韦达定理和y1y2=(kx1+m)(kx2+m)，代入化简得3m²=4k²+3。"
+    }
+  ]
+}

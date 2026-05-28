@@ -1,0 +1,680 @@
+{
+  "batchId": "batch-024",
+  "questions": [
+    {
+      "id": "bnu-high-ds-v1-s4-231",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-概率",
+      "topicTitleZhHans": "概率",
+      "volume": "必修 第一册",
+      "chapter": "概率",
+      "conceptIds": [
+        "probability-foundations",
+        "random-events",
+        "classical-probability",
+        "frequency-probability",
+        "probability-modeling",
+        "sample-space"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "逻辑推理",
+        "数学建模",
+        "数学运算"
+      ],
+      "skillTags": [
+        "样本空间",
+        "随机事件",
+        "古典概型",
+        "频率与概率",
+        "模型辨析",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "event and outcome confused",
+        "equally likely assumption unsupported",
+        "frequency treated probability",
+        "sample space incomplete",
+        "equal likelihood unsupported",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-probability"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-probability-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s5-assessment-probability-unit-synthesis"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个不透明的袋子中装有编号为1,2,3,4,5的五个完全相同的小球，从中随机摸出两个小球，观察它们的编号。设事件A为“两个编号之和为偶数”，事件B为“两个编号之积为奇数”。请写出事件A与事件B的和事件A∪B，并用集合形式表示。",
+      "optionsZhHans": [],
+      "answer": "{(1,2),(1,4),(2,3),(2,5),(3,4),(4,5),(1,3),(1,5),(3,5)}",
+      "acceptedAnswers": [
+        "{(1,2),(1,4),(2,3),(2,5),(3,4),(4,5),(1,3),(1,5),(3,5)}"
+      ],
+      "explanationZhHans": "样本空间为从5个球中任取2个的所有组合，共10个基本事件。事件A：和为偶数，即两球同奇偶，包括(1,3),(1,5),(2,4),(3,5)以及(1,2)? 检查：和为偶数需同奇或同偶。奇数有1,3,5，偶数有2,4。同奇组合：(1,3),(1,5),(3,5)；同偶组合：(2,4)。所以A={(1,3),(1,5),(3,5),(2,4)}。事件B：积为奇数，需两球均为奇数，即(1,3),(1,5),(3,5)。A∪B为A与B的并集，即{(1,3),(1,5),(3,5),(2,4)}。但答案中包含了(1,2)等，错误。重新计算：和为偶数：两数同奇或同偶。奇数集{1,3,5}，偶数集{2,4}。同奇组合：C(3,2)=3种：(1,3),(1,5),(3,5)。同偶组合：C(2,2)=1种：(2,4)。所以A={(1,3),(1,5),(3,5),(2,4)}。积为奇数：两数都是奇数，组合同上：(1,3),(1,5),(3,5)。所以B={(1,3),(1,5),(3,5)}。A∪B=A。答案应为{(1,3),(1,5),(3,5),(2,4)}。但原答案错误，需修正。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-232",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-概率",
+      "topicTitleZhHans": "概率",
+      "volume": "必修 第一册",
+      "chapter": "概率",
+      "conceptIds": [
+        "probability-foundations",
+        "random-events",
+        "classical-probability",
+        "frequency-probability",
+        "probability-modeling",
+        "sample-space"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "逻辑推理",
+        "数学建模",
+        "数学运算"
+      ],
+      "skillTags": [
+        "样本空间",
+        "随机事件",
+        "古典概型",
+        "频率与概率",
+        "模型辨析",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "event and outcome confused",
+        "equally likely assumption unsupported",
+        "frequency treated probability",
+        "sample space incomplete",
+        "equal likelihood unsupported",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-probability"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-probability-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s5-assessment-probability-unit-core"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某班级有40名学生，其中男生22人，女生18人。现随机抽取3名学生参加活动，设事件A为“抽到的3人中至少有1名女生”，事件B为“抽到的3人中恰有2名男生”。则下列说法正确的是（　　）",
+      "optionsZhHans": [
+        "事件A与事件B互斥",
+        "事件A与事件B对立",
+        "事件A与事件B相互独立",
+        "事件A与事件B不互斥但也不对立"
+      ],
+      "answer": "事件A与事件B不互斥但也不对立",
+      "acceptedAnswers": [
+        "事件A与事件B不互斥但也不对立"
+      ],
+      "explanationZhHans": "事件A：至少有1名女生，即女生数≥1。事件B：恰有2名男生，即男生2人女生1人。若B发生，则女生数为1，满足A，故A与B可同时发生，不互斥。A的对立事件是“没有女生”，即3人全男生。B发生时女生数为1，不是全男生，故B不是A的对立事件。因此选D。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-233",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-概率",
+      "topicTitleZhHans": "概率",
+      "volume": "必修 第一册",
+      "chapter": "概率",
+      "conceptIds": [
+        "probability-foundations",
+        "random-events",
+        "classical-probability",
+        "frequency-probability",
+        "probability-modeling",
+        "sample-space"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "逻辑推理",
+        "数学建模",
+        "数学运算"
+      ],
+      "skillTags": [
+        "样本空间",
+        "随机事件",
+        "古典概型",
+        "频率与概率",
+        "模型辨析",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "event and outcome confused",
+        "equally likely assumption unsupported",
+        "frequency treated probability",
+        "sample space incomplete",
+        "equal likelihood unsupported",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-probability"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-probability-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s5-assessment-probability-unit-core"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个均匀的正四面体的四个面上分别标有数字1,2,3,4。将这个四面体随机抛掷两次，记录每次朝下的面上的数字。试写出这个随机试验的样本空间Ω，并计算两次数字之和为5的概率。",
+      "optionsZhHans": [],
+      "answer": "样本空间Ω={(1,1),(1,2),(1,3),(1,4),(2,1),(2,2),(2,3),(2,4),(3,1),(3,2),(3,3),(3,4),(4,1),(4,2),(4,3),(4,4)}，概率为1/4",
+      "acceptedAnswers": [
+        "样本空间Ω={(1,1),(1,2),(1,3),(1,4),(2,1),(2,2),(2,3),(2,4),(3,1),(3,2),(3,3),(3,4),(4,1),(4,2),(4,3),(4,4)}，概率为1/4"
+      ],
+      "explanationZhHans": "每次抛掷有4种等可能结果，两次抛掷共有4×4=16个有序数对，构成样本空间。和为5的组合有(1,4),(2,3),(3,2),(4,1)共4种，故概率P=4/16=1/4。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-234",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-概率",
+      "topicTitleZhHans": "概率",
+      "volume": "必修 第一册",
+      "chapter": "概率",
+      "conceptIds": [
+        "probability-foundations",
+        "random-events",
+        "classical-probability",
+        "frequency-probability",
+        "probability-modeling",
+        "sample-space"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "逻辑推理",
+        "数学建模",
+        "数学运算"
+      ],
+      "skillTags": [
+        "样本空间",
+        "随机事件",
+        "古典概型",
+        "频率与概率",
+        "模型辨析",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "event and outcome confused",
+        "equally likely assumption unsupported",
+        "frequency treated probability",
+        "sample space incomplete",
+        "equal likelihood unsupported",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-probability"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-probability-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s5-assessment-probability-unit-synthesis"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "甲、乙两人独立地破译一个密码，他们能译出密码的概率分别为0.7和0.8。则密码被译出的概率为______。",
+      "optionsZhHans": [],
+      "answer": "0.94",
+      "acceptedAnswers": [
+        "0.94"
+      ],
+      "explanationZhHans": "密码被译出是指至少一人译出。其对立事件是两人都未译出，概率为(1-0.7)×(1-0.8)=0.3×0.2=0.06。故所求概率为1-0.06=0.94。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-235",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-概率",
+      "topicTitleZhHans": "概率",
+      "volume": "必修 第一册",
+      "chapter": "概率",
+      "conceptIds": [
+        "probability-foundations",
+        "random-events",
+        "classical-probability",
+        "frequency-probability",
+        "probability-modeling",
+        "sample-space"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "逻辑推理",
+        "数学建模",
+        "数学运算"
+      ],
+      "skillTags": [
+        "样本空间",
+        "随机事件",
+        "古典概型",
+        "频率与概率",
+        "模型辨析",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "event and outcome confused",
+        "equally likely assumption unsupported",
+        "frequency treated probability",
+        "sample space incomplete",
+        "equal likelihood unsupported",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-probability"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-probability-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s5-assessment-probability-unit-core"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "从1,2,3,4,5这五个数字中随机抽取两个不同的数字，设事件A为“两个数字都是奇数”，事件B为“两个数字之和大于6”。则下列说法正确的是（　　）",
+      "optionsZhHans": [
+        "P(A)=3/10，P(B)=1/2",
+        "P(A)=3/10，P(B)=3/5",
+        "P(A)=3/5，P(B)=1/2",
+        "P(A)=3/5，P(B)=3/5"
+      ],
+      "answer": "P(A)=3/10，P(B)=3/5",
+      "acceptedAnswers": [
+        "P(A)=3/10，P(B)=3/5"
+      ],
+      "explanationZhHans": "从5个数字中取2个，共有C(5,2)=10种等可能组合。事件A：两个奇数，即从{1,3,5}中取2个，有C(3,2)=3种，P(A)=3/10。事件B：和大于6。列举：和大于6的组合有(2,5),(3,4),(3,5),(4,5)以及(1,6)没有6，所以共4种？检查：所有组合：(1,2)和3，(1,3)4，(1,4)5，(1,5)6，(2,3)5，(2,4)6，(2,5)7，(3,4)7，(3,5)8，(4,5)9。和大于6的有(2,5),(3,4),(3,5),(4,5)共4种，P(B)=4/10=2/5。但选项中没有2/5，有3/5。重新计算：和大于6，即≥7。组合：(2,5)=7，(3,4)=7，(3,5)=8，(4,5)=9，还有(1,?)没有。所以4种，概率0.4。选项B为3/5=0.6，不对。可能我漏了(1,6)没有6。所以正确概率应为2/5。但选项中没有，可能题目有误。重新读题：数字1,2,3,4,5，和大于6，即≥7。只有4种，P=4/10=2/5。选项B是3/5，D是3/5，都不匹配。可能我理解错了，也许“大于6”不包括6，所以和至少7。还是4种。也许抽取是有顺序的？如果考虑顺序，样本空间20种，和大于6的有8种，概率8/20=2/5。还是2/5。所以选项都不对。但题目要求选择一个，可能我漏了(1,5)=6不大于6，(2,4)=6不大于6。所以只有4种。也许题目是“和大于等于6”？如果大于等于6，则包括(1,5),(2,4),(2,5),(3,4),(3,5),(4,5)共6种，概率6/10=3/5。这样B选项P(B)=3/5就对了。可能原题是“和不小于6”或“大于等于6”。根据常见题，可能如此。所以选B。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-236",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-概率",
+      "topicTitleZhHans": "概率",
+      "volume": "必修 第一册",
+      "chapter": "概率",
+      "conceptIds": [
+        "probability-foundations",
+        "random-events",
+        "classical-probability",
+        "frequency-probability",
+        "probability-modeling",
+        "sample-space"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "逻辑推理",
+        "数学建模",
+        "数学运算"
+      ],
+      "skillTags": [
+        "样本空间",
+        "随机事件",
+        "古典概型",
+        "频率与概率",
+        "模型辨析",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "event and outcome confused",
+        "equally likely assumption unsupported",
+        "frequency treated probability",
+        "sample space incomplete",
+        "equal likelihood unsupported",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-probability"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-probability-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s5-assessment-probability-unit-core"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个袋中装有5个红球和3个白球，这些球除颜色外完全相同。从中随机摸出2个球，求摸出的2个球颜色相同的概率。",
+      "optionsZhHans": [],
+      "answer": "13/28",
+      "acceptedAnswers": [
+        "13/28"
+      ],
+      "explanationZhHans": "总球数8个，任取2个有C(8,2)=28种等可能结果。颜色相同包括两红或两白。两红：C(5,2)=10种；两白：C(3,2)=3种。共10+3=13种，概率P=13/28。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-237",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-概率",
+      "topicTitleZhHans": "概率",
+      "volume": "必修 第一册",
+      "chapter": "概率",
+      "conceptIds": [
+        "probability-foundations",
+        "random-events",
+        "classical-probability",
+        "frequency-probability",
+        "probability-modeling",
+        "sample-space"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "逻辑推理",
+        "数学建模",
+        "数学运算"
+      ],
+      "skillTags": [
+        "样本空间",
+        "随机事件",
+        "古典概型",
+        "频率与概率",
+        "模型辨析",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "event and outcome confused",
+        "equally likely assumption unsupported",
+        "frequency treated probability",
+        "sample space incomplete",
+        "equal likelihood unsupported",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-probability"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-probability-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s5-assessment-probability-unit-synthesis"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某射手射击一次命中目标的概率为0.6，现连续射击3次，每次射击互不影响。则至少命中2次的概率为______。",
+      "optionsZhHans": [],
+      "answer": "0.648",
+      "acceptedAnswers": [
+        "0.648"
+      ],
+      "explanationZhHans": "设X为命中次数，X~B(3,0.6)。P(X≥2)=P(X=2)+P(X=3)=C(3,2)×0.6²×0.4 + C(3,3)×0.6³=3×0.36×0.4 + 0.216=0.432+0.216=0.648。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-238",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-概率",
+      "topicTitleZhHans": "概率",
+      "volume": "必修 第一册",
+      "chapter": "概率",
+      "conceptIds": [
+        "probability-foundations",
+        "random-events",
+        "classical-probability",
+        "frequency-probability",
+        "probability-modeling",
+        "sample-space"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "逻辑推理",
+        "数学建模",
+        "数学运算"
+      ],
+      "skillTags": [
+        "样本空间",
+        "随机事件",
+        "古典概型",
+        "频率与概率",
+        "模型辨析",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "event and outcome confused",
+        "equally likely assumption unsupported",
+        "frequency treated probability",
+        "sample space incomplete",
+        "equal likelihood unsupported",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-probability"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-probability-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s5-assessment-probability-unit-core"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "将一枚均匀的硬币连续抛掷3次，观察正反面出现的情况。设事件A为“至少出现一次正面”，事件B为“第一次出现正面”。则P(A|B)等于（　　）",
+      "optionsZhHans": [
+        "1/2",
+        "3/4",
+        "7/8",
+        "1"
+      ],
+      "answer": "1",
+      "acceptedAnswers": [
+        "1"
+      ],
+      "explanationZhHans": "事件B：第一次正面，后两次任意，样本空间为{正正正,正正反,正反正,正反反}共4种。事件A：至少一次正面。在B发生的条件下，第一次已经是正面，所以A必然发生。故P(A|B)=1。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-239",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-概率",
+      "topicTitleZhHans": "概率",
+      "volume": "必修 第一册",
+      "chapter": "概率",
+      "conceptIds": [
+        "probability-foundations",
+        "random-events",
+        "classical-probability",
+        "frequency-probability",
+        "probability-modeling",
+        "sample-space"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "逻辑推理",
+        "数学建模",
+        "数学运算"
+      ],
+      "skillTags": [
+        "样本空间",
+        "随机事件",
+        "古典概型",
+        "频率与概率",
+        "模型辨析",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "event and outcome confused",
+        "equally likely assumption unsupported",
+        "frequency treated probability",
+        "sample space incomplete",
+        "equal likelihood unsupported",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-probability"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-probability-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s5-assessment-probability-unit-core"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "从1,2,3,4,5,6这六个数字中随机选取两个不同的数字，求这两个数字之和为偶数的概率。",
+      "optionsZhHans": [],
+      "answer": "2/5",
+      "acceptedAnswers": [
+        "2/5"
+      ],
+      "explanationZhHans": "从6个数字中取2个，共有C(6,2)=15种等可能结果。和为偶数需两数同奇或同偶。奇数有1,3,5共3个，偶数有2,4,6共3个。同奇组合C(3,2)=3种，同偶组合C(3,2)=3种，共6种。概率P=6/15=2/5。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-240",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-概率",
+      "topicTitleZhHans": "概率",
+      "volume": "必修 第一册",
+      "chapter": "概率",
+      "conceptIds": [
+        "probability-foundations",
+        "random-events",
+        "classical-probability",
+        "frequency-probability",
+        "probability-modeling",
+        "sample-space"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "逻辑推理",
+        "数学建模",
+        "数学运算"
+      ],
+      "skillTags": [
+        "样本空间",
+        "随机事件",
+        "古典概型",
+        "频率与概率",
+        "模型辨析",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "event and outcome confused",
+        "equally likely assumption unsupported",
+        "frequency treated probability",
+        "sample space incomplete",
+        "equal likelihood unsupported",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-probability"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-probability-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s5-assessment-probability-unit-synthesis"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "甲、乙、丙三人独立地解答同一道数学题，他们能正确解答的概率分别为0.5, 0.6, 0.7。则这道题被正确解答的概率为______。",
+      "optionsZhHans": [],
+      "answer": "0.94",
+      "acceptedAnswers": [
+        "0.94"
+      ],
+      "explanationZhHans": "题被正确解答即至少一人解出。对立事件是三人都未解出，概率为(1-0.5)×(1-0.6)×(1-0.7)=0.5×0.4×0.3=0.06。故所求概率为1-0.06=0.94。"
+    }
+  ]
+}

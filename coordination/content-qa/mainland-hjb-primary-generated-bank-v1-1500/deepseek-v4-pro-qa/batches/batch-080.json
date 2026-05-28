@@ -1,0 +1,191 @@
+{
+  "batchNumber": 80,
+  "startedAt": "2026-05-25T02:27:26.416Z",
+  "completedAt": "2026-05-25T02:27:47.429Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p6-173",
+    "hjb-primary-ds-v1-p6-174",
+    "hjb-primary-ds-v1-p6-175",
+    "hjb-primary-ds-v1-p6-176",
+    "hjb-primary-ds-v1-p6-177",
+    "hjb-primary-ds-v1-p6-178",
+    "hjb-primary-ds-v1-p6-179",
+    "hjb-primary-ds-v1-p6-180",
+    "hjb-primary-ds-v1-p6-181",
+    "hjb-primary-ds-v1-p6-182",
+    "hjb-primary-ds-v1-p6-183",
+    "hjb-primary-ds-v1-p6-184",
+    "hjb-primary-ds-v1-p6-185",
+    "hjb-primary-ds-v1-p6-186",
+    "hjb-primary-ds-v1-p6-187",
+    "hjb-primary-ds-v1-p6-188",
+    "hjb-primary-ds-v1-p6-189",
+    "hjb-primary-ds-v1-p6-190"
+  ],
+  "usage": {
+    "prompt_tokens": 3369,
+    "completion_tokens": 1338,
+    "total_tokens": 4707,
+    "prompt_tokens_details": {
+      "cached_tokens": 3328
+    },
+    "prompt_cache_hit_tokens": 3328,
+    "prompt_cache_miss_tokens": 41
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p6-173",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，比较两个负数大小，答案和解释均无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-174",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，计算过程清晰，答案和可接受答案合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-175",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，中点公式应用无误，选项唯一。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-176",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，点B在原点右侧距离5，只能是5。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-177",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，计算过程无误，答案和可接受答案合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-178",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，原点左右距离对应正负数，选项唯一。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-179",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，相反数概念清晰，答案和可接受答案合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-180",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，负数比较大小，答案和解释无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-181",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，代数式表示“3倍少2”为3a-2，选项唯一。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-182",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，代数式5x+8无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-183",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，代入计算得21，选项唯一。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-184",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，代入计算得22。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-185",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，同类项判断无误，-4m²n与7nm²是同类项。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-186",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，代数式2a-3无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-187",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，周长公式2(x+y)，选项唯一。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-188",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，代入计算得2。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-189",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，同类项判断无误，3mn与-2nm是同类项。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-190",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，路程公式vt，可接受答案合理。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合沪教版小学数学要求，数学正确，答案匹配，无歧义或缺失条件，适合公共题库推广。"
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-166",
+  "startedAt": "2026-05-28T01:03:57.926Z",
+  "completedAt": "2026-05-28T01:04:04.471Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-166"
+  ],
+  "usage": {
+    "prompt_tokens": 1911,
+    "completion_tokens": 309,
+    "total_tokens": 2220,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1527
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-166",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "0",
+        "correctedAnswer": "0",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "函数f(x)=2^x+x-3，f(0)=-2<0，f(1)=0，零点为1。零点在区间(k,k+1)内，k∈Z，则k=0时区间为(0,1)，包含零点1；k=1时区间为(1,2)，不包含零点1。存储答案1错误，解析称零点在(1,2)内与事实矛盾。正确答案为0。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目可解，RAG匹配通过，但存储答案和解析存在数学错误，答案不匹配，判定为blocker。"
+    }
+  }
+}

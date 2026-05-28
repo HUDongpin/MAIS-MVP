@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0036",
+  "ids": [
+    "hjb-junior-ds-v2-s1-281",
+    "hjb-junior-ds-v2-s1-282",
+    "hjb-junior-ds-v2-s1-283",
+    "hjb-junior-ds-v2-s1-284",
+    "hjb-junior-ds-v2-s1-285",
+    "hjb-junior-ds-v2-s1-286",
+    "hjb-junior-ds-v2-s1-287",
+    "hjb-junior-ds-v2-s1-288"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-281",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x > -7",
+      "answerCheckZhHans": "标准答案 x > -7 与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-282",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "240",
+      "answerCheckZhHans": "标准答案 240 与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-283",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x ≥ -5，数轴上从 -5 向右的射线，端点用实心圆点",
+      "answerCheckZhHans": "标准答案 B 与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-284",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "m < 2",
+      "answerCheckZhHans": "标准答案 m < 2 与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-285",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题目要求列出不等式并求x的取值范围，但标准答案和解析中给出的不等式是二次不等式，而题目属于一元一次不等式单元，且解析中展开后得到二次不等式，但最终解集正确。然而，题目要求列出关于x的不等式，标准答案中包含了不等式和取值范围，但acceptedAnswers中包含了仅取值范围的情况，这可能导致学生只写取值范围而被判错。此外，解析中展开后得到-20x²+1100x-12000 ≥ 2000，整理得x²-55x+700 ≤ 0，因式分解为(x-20)(x-35) ≤ 0，解得20 ≤ x ≤ 35，但题目要求列出不等式，标准答案中给出了不等式，但acceptedAnswers中包含了仅取值范围，这可能导致评分不一致。",
+      "independentAnswerZhHans": "不等式为 (x - 15)(800 - 20x) ≥ 2000，解得 20 ≤ x ≤ 35。",
+      "answerCheckZhHans": "独立解题结果与标准答案一致，但acceptedAnswers中包含了仅取值范围，可能造成评分歧义。",
+      "recommendedActionZhHans": "建议修改acceptedAnswers，仅保留完整的不等式和取值范围，或明确说明仅取值范围也可接受。",
+      "confidence": "medium"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-286",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x ≥ -2，数轴上从 -2 向右的射线，端点用实心圆点",
+      "answerCheckZhHans": "标准答案与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-287",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-6",
+      "answerCheckZhHans": "标准答案 -6 与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-288",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "学生 240 人，租 60 座客车 4 辆",
+      "answerCheckZhHans": "标准答案与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

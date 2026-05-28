@@ -1,0 +1,315 @@
+{
+  "batchId": "batch-299",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p6-241",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-cuboid",
+      "unitTitle": "长方体",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "cuboid",
+        "surface-area",
+        "volume",
+        "solid-geometry",
+        "长方体",
+        "体积"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "长方体特征",
+        "展开图理解",
+        "表面积",
+        "体积",
+        "单位换算"
+      ],
+      "misconceptionTags": [
+        "surface area and volume mixed",
+        "hidden faces double counted in context",
+        "square and cubic units omitted"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-cuboid"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-cylinder-cone",
+        "hjb-primary-p6-lower-assessment-ratio-proportion"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方体鱼缸，从里面量长60厘米、宽30厘米、高40厘米。现在鱼缸里水深25厘米。把一块假山石完全浸没在水中后，水面上升到32厘米。这块假山石的体积是多少立方厘米？",
+      "optionsZhHans": [
+        "12600",
+        "72000",
+        "14400",
+        "57600"
+      ],
+      "answer": "12600",
+      "acceptedAnswers": [
+        "12600"
+      ],
+      "explanationZhHans": "假山石体积等于上升的水的体积。上升的水的高度是32-25=7厘米，底面积是60×30=1800平方厘米，体积是1800×7=12600立方厘米。注意区分表面积和体积，不要用整个鱼缸的容积。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-242",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-cuboid",
+      "unitTitle": "长方体",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "cuboid",
+        "surface-area",
+        "volume",
+        "solid-geometry",
+        "长方体",
+        "体积"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "长方体特征",
+        "展开图理解",
+        "表面积",
+        "体积",
+        "单位换算"
+      ],
+      "misconceptionTags": [
+        "surface area and volume mixed",
+        "hidden faces double counted in context",
+        "square and cubic units omitted"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-cuboid"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-cylinder-cone",
+        "hjb-primary-p6-lower-assessment-ratio-proportion"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方体饼干盒，长15厘米、宽10厘米、高20厘米。如果围着它的侧面贴一圈商标纸（上、下面不贴），这张商标纸的面积至少是多少平方厘米？",
+      "optionsZhHans": [
+        "1000",
+        "1300",
+        "600",
+        "700"
+      ],
+      "answer": "1000",
+      "acceptedAnswers": [
+        "1000"
+      ],
+      "explanationZhHans": "侧面面积就是长方体的侧面积，即底面周长乘高。底面周长=(15+10)×2=50厘米，侧面积=50×20=1000平方厘米。注意题目要求只贴侧面，不要加上下底面积。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-243",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-cuboid",
+      "unitTitle": "长方体",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "cuboid",
+        "surface-area",
+        "volume",
+        "solid-geometry",
+        "长方体",
+        "体积"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "长方体特征",
+        "展开图理解",
+        "表面积",
+        "体积",
+        "单位换算"
+      ],
+      "misconceptionTags": [
+        "surface area and volume mixed",
+        "hidden faces double counted in context",
+        "square and cubic units omitted"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-cuboid"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-cylinder-cone",
+        "hjb-primary-p6-lower-assessment-ratio-proportion"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方体木块，长8厘米、宽5厘米、高4厘米。如果把它锯成一个最大的正方体，这个正方体的体积是多少立方厘米？",
+      "optionsZhHans": [
+        "64",
+        "125",
+        "160",
+        "216"
+      ],
+      "answer": "64",
+      "acceptedAnswers": [
+        "64"
+      ],
+      "explanationZhHans": "最大正方体的棱长等于长方体最短的棱，即4厘米。体积=4×4×4=64立方厘米。注意不要用长或宽作为棱长，也不能用体积除以什么。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-244",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-cuboid",
+      "unitTitle": "长方体",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "cuboid",
+        "surface-area",
+        "volume",
+        "solid-geometry",
+        "长方体",
+        "体积"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "长方体特征",
+        "展开图理解",
+        "表面积",
+        "体积",
+        "单位换算"
+      ],
+      "misconceptionTags": [
+        "surface area and volume mixed",
+        "hidden faces double counted in context",
+        "square and cubic units omitted"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-cuboid"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-cylinder-cone",
+        "hjb-primary-p6-lower-assessment-ratio-proportion"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方体游泳池，长50米、宽25米、深2米。现在要在游泳池的四壁和底面贴上瓷砖，贴瓷砖的面积是多少平方米？",
+      "optionsZhHans": [
+        "1550",
+        "1250",
+        "2500",
+        "1750"
+      ],
+      "answer": "1550",
+      "acceptedAnswers": [
+        "1550"
+      ],
+      "explanationZhHans": "贴瓷砖的面积=底面积+侧面积。底面积=50×25=1250平方米，侧面积=(50+25)×2×2=300平方米，总面积=1250+300=1550平方米。注意游泳池没有顶面，不要加上面的面积。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-245",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-cuboid",
+      "unitTitle": "长方体",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "cuboid",
+        "surface-area",
+        "volume",
+        "solid-geometry",
+        "长方体",
+        "体积"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "长方体特征",
+        "展开图理解",
+        "表面积",
+        "体积",
+        "单位换算"
+      ],
+      "misconceptionTags": [
+        "surface area and volume mixed",
+        "hidden faces double counted in context",
+        "square and cubic units omitted"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-cuboid"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-cylinder-cone",
+        "hjb-primary-p6-lower-assessment-ratio-proportion"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方体纸箱，从里面量长40厘米、宽30厘米、高25厘米。现在要放入棱长5厘米的正方体小木块，最多能放多少个？",
+      "optionsZhHans": [
+        "240",
+        "480",
+        "120",
+        "960"
+      ],
+      "answer": "240",
+      "acceptedAnswers": [
+        "240"
+      ],
+      "explanationZhHans": "先算每行能放的个数：长40÷5=8个，宽30÷5=6个，高25÷5=5个。总个数=8×6×5=240个。注意要用去尾法取整数，不能直接用体积相除，因为可能有剩余空间放不下一个完整的正方体。"
+    }
+  ]
+}

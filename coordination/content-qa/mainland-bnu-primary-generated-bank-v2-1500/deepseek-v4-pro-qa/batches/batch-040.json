@@ -1,0 +1,191 @@
+{
+  "batchNumber": 40,
+  "startedAt": "2026-05-27T13:51:43.358Z",
+  "completedAt": "2026-05-27T13:52:02.636Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p3-203",
+    "bnu-primary-ds-v2-p3-204",
+    "bnu-primary-ds-v2-p3-205",
+    "bnu-primary-ds-v2-p3-206",
+    "bnu-primary-ds-v2-p3-207",
+    "bnu-primary-ds-v2-p3-208",
+    "bnu-primary-ds-v2-p3-209",
+    "bnu-primary-ds-v2-p3-210",
+    "bnu-primary-ds-v2-p3-211",
+    "bnu-primary-ds-v2-p3-212",
+    "bnu-primary-ds-v2-p3-213",
+    "bnu-primary-ds-v2-p3-214",
+    "bnu-primary-ds-v2-p3-215",
+    "bnu-primary-ds-v2-p3-216",
+    "bnu-primary-ds-v2-p3-217",
+    "bnu-primary-ds-v2-p3-218",
+    "bnu-primary-ds-v2-p3-219",
+    "bnu-primary-ds-v2-p3-220"
+  ],
+  "usage": {
+    "prompt_tokens": 3170,
+    "completion_tokens": 1396,
+    "total_tokens": 4566,
+    "prompt_tokens_details": {
+      "cached_tokens": 3072
+    },
+    "prompt_cache_hit_tokens": 3072,
+    "prompt_cache_miss_tokens": 98
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p3-203",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项清晰，适合P3面积比较。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-204",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "周长求边长再求面积，答案81正确，符合P3基础要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-205",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "三种拼法周长计算正确，选项明确，适合P3探究周长与面积关系。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-206",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "面积单位选择合理，答案完整，符合P3基础。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-207",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "面积增加计算正确，选项无歧义，适合P3。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-208",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "已知面积和长求宽，答案6正确，基础题。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-209",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "对折三次平均分8份，答案八分之一正确，适合分数初步认识。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-210",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "线段平均分7份涂3份，答案七分之三正确，基础题。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-211",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均分8块吃3块，答案3/8正确，选项清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-212",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均剪5段，每段五分之一，答案及接受答案合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-213",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "强调平均分，正确选项为圆形平均分4份涂1份，符合1/4定义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-214",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "12个苹果平均放3盘，每盘占三分之一，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-215",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均分6段取2段，答案2/6正确，选项无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-216",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均切10块，每块十分之一，答案及接受答案合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-217",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "强调平均分，正确选项为平均分2份吃1份，符合1/2定义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-218",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "18颗巧克力平均分6人，每人六分之一，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-219",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均分8份涂3份，答案3/8正确，选项清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-220",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "1米平均分4段，每段四分之一，答案及接受答案合理。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案匹配，选项清晰，无歧义，适合北师大版P3相应单元。"
+    }
+  }
+}

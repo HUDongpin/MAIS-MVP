@@ -1,0 +1,135 @@
+{
+  "batchNumber": 147,
+  "startedAt": "2026-05-27T14:08:14.704Z",
+  "completedAt": "2026-05-27T14:08:31.061Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-169",
+    "bnu-high-ds-v1-s6-170",
+    "bnu-high-ds-v1-s6-171",
+    "bnu-high-ds-v1-s6-172",
+    "bnu-high-ds-v1-s6-173",
+    "bnu-high-ds-v1-s6-174",
+    "bnu-high-ds-v1-s6-175",
+    "bnu-high-ds-v1-s6-176"
+  ],
+  "usage": {
+    "prompt_tokens": 10670,
+    "completion_tokens": 1116,
+    "total_tokens": 11786,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10158
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-169",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "10",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "等比数列性质正确，对数运算正确，答案为10，选项A匹配，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-170",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "28",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "等差数列递推明确，通项公式正确，a10=28，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-171",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "n",
+        "correctedAnswer": null,
+        "issueTags": [
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "答案b_n=n正确，但解析中推导过程错误，得出c_n=1-(2/3)^n，b_n=3-3·(2/3)^n，与答案n矛盾，且未给出正确推导。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-172",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "10",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "等差数列性质应用正确，a5=10，选项匹配，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-173",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "a_n = 4n - 1，是等差数列",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由Sn求an正确，验证首项，判断为等差数列，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-174",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "93",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "等比数列求和公式应用正确，S5=93，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-175",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "n^2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "累加法正确，a_n=n^2，选项匹配，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-176",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "证明：①当n=1时，左边=1，右边=1，等式成立。②假设n=k时等式成立，即1+3+...+(2k-1)=k^2。则n=k+1时，左边=1+3+...+(2k-1)+(2k+1)=k^2+(2k+1)=(k+1)^2，等式也成立。由①②知，对一切正整数n等式成立。",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "数学归纳法步骤完整，证明正确，答案与解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第171题解析推导错误，与答案矛盾，其余题目均通过审核。"
+    }
+  }
+}

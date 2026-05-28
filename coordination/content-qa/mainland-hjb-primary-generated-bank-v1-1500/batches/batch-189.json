@@ -1,0 +1,301 @@
+{
+  "batchId": "batch-189",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p4-191",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "hjb-primary-p4-lower-line-statistics",
+      "unitTitle": "统计",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "line-graphs",
+        "data-trends",
+        "statistical-display",
+        "data-interpretation",
+        "折线统计图"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "折线统计图认识",
+        "折线统计图画法",
+        "趋势描述",
+        "数据比较",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "line segment read as exact data between categories",
+        "axis scale ignored",
+        "trend conclusion unsupported by values"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p4-lower-line-statistics"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-lower-assessment-line-statistics",
+        "hjb-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丁记录了上海某公园一周内每天上午8时的气温，并制成折线统计图。横轴表示星期一到星期日，纵轴表示气温（℃），每格代表1℃。数据点依次为：星期一10℃，星期二12℃，星期三11℃，星期四14℃，星期五15℃，星期六13℃，星期日16℃。下列说法正确的是（ ）。",
+      "optionsZhHans": [
+        "这一周气温一直在上升",
+        "星期三到星期四气温上升了3℃",
+        "星期六的气温比星期五低2℃",
+        "星期日的气温最高，所以这一周气温整体呈上升趋势"
+      ],
+      "answer": "星期六的气温比星期五低2℃",
+      "acceptedAnswers": [
+        "星期六的气温比星期五低2℃"
+      ],
+      "explanationZhHans": "星期五14℃，星期六12℃，相差2℃，所以星期六比星期五低2℃，选项C正确。A错误，因为气温有升有降。B错误，星期三11℃到星期四13℃上升了2℃，不是3℃。D错误，虽然星期日最高，但整体有波动，不是一直上升。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-192",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "hjb-primary-p4-lower-line-statistics",
+      "unitTitle": "统计",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "line-graphs",
+        "data-trends",
+        "statistical-display",
+        "data-interpretation",
+        "折线统计图"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "折线统计图认识",
+        "折线统计图画法",
+        "趋势描述",
+        "数据比较",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "line segment read as exact data between categories",
+        "axis scale ignored",
+        "trend conclusion unsupported by values"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p4-lower-line-statistics"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-lower-assessment-line-statistics",
+        "hjb-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小胖记录了自己连续5天每天跳绳的个数，并绘制成折线统计图。横轴表示天数（第1天到第5天），纵轴表示跳绳个数，每格代表10个。数据点：第1天120个，第2天135个，第3天130个，第4天150个，第5天145个。请填空：跳绳个数增加最多的是从第______天到第______天。",
+      "optionsZhHans": [],
+      "answer": "3,4",
+      "acceptedAnswers": [
+        "3,4",
+        "3，4",
+        "第3天到第4天",
+        "3到4"
+      ],
+      "explanationZhHans": "计算相邻两天增加个数：第1到第2天增加15个，第2到第3天减少5个，第3到第4天增加20个，第4到第5天减少5个。增加最多的是第3天到第4天，增加了20个。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-193",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "hjb-primary-p4-lower-line-statistics",
+      "unitTitle": "统计",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "line-graphs",
+        "data-trends",
+        "statistical-display",
+        "data-interpretation",
+        "折线统计图"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "折线统计图认识",
+        "折线统计图画法",
+        "趋势描述",
+        "数据比较",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "line segment read as exact data between categories",
+        "axis scale ignored",
+        "trend conclusion unsupported by values"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p4-lower-line-statistics"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-lower-assessment-line-statistics",
+        "hjb-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小亚记录了某植物一周内每天的高度，并制成折线统计图。横轴表示星期一到星期日，纵轴表示高度（厘米），每格代表2厘米。数据点：星期一6厘米，星期二8厘米，星期三10厘米，星期四10厘米，星期五12厘米，星期六14厘米，星期日14厘米。根据统计图，下列说法正确的是（ ）。",
+      "optionsZhHans": [
+        "星期二到星期三高度增加了4厘米",
+        "星期四到星期五高度没有变化",
+        "星期五到星期六高度增加了2厘米",
+        "星期日的高度是星期一的3倍"
+      ],
+      "answer": "星期五到星期六高度增加了2厘米",
+      "acceptedAnswers": [
+        "星期五到星期六高度增加了2厘米"
+      ],
+      "explanationZhHans": "星期五12厘米，星期六14厘米，增加2厘米，选项C正确。A错误，星期二8厘米到星期三10厘米增加2厘米。B错误，星期四10厘米到星期五12厘米增加2厘米。D错误，星期日14厘米不是星期一6厘米的3倍（18厘米）。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-194",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "hjb-primary-p4-lower-line-statistics",
+      "unitTitle": "统计",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "line-graphs",
+        "data-trends",
+        "statistical-display",
+        "data-interpretation",
+        "折线统计图"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "折线统计图认识",
+        "折线统计图画法",
+        "趋势描述",
+        "数据比较",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "line segment read as exact data between categories",
+        "axis scale ignored",
+        "trend conclusion unsupported by values"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p4-lower-line-statistics"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-lower-assessment-line-statistics",
+        "hjb-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小巧记录了某天上午8时到12时室外气温变化情况，并绘制成折线统计图。横轴表示时间（8时、9时、10时、11时、12时），纵轴表示气温（℃），每格代表1℃。数据点：8时15℃，9时17℃，10时20℃，11时22℃，12时21℃。请填空：从8时到12时，气温最高出现在______时，为______℃。",
+      "optionsZhHans": [],
+      "answer": "11,22",
+      "acceptedAnswers": [
+        "11,22",
+        "11，22",
+        "11时,22℃",
+        "11时，22℃"
+      ],
+      "explanationZhHans": "观察数据，11时22℃最高，12时21℃略降。所以最高气温出现在11时，为22℃。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-195",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "hjb-primary-p4-lower-line-statistics",
+      "unitTitle": "统计",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "line-graphs",
+        "data-trends",
+        "statistical-display",
+        "data-interpretation",
+        "折线统计图"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "折线统计图认识",
+        "折线统计图画法",
+        "趋势描述",
+        "数据比较",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "line segment read as exact data between categories",
+        "axis scale ignored",
+        "trend conclusion unsupported by values"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p4-lower-line-statistics"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-lower-assessment-line-statistics",
+        "hjb-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丁丁记录了自己一周内每天做作业的时间，并制成折线统计图。横轴表示星期一到星期日，纵轴表示时间（分钟），每格代表5分钟。数据点：星期一30分钟，星期二25分钟，星期三35分钟，星期四30分钟，星期五40分钟，星期六20分钟，星期日15分钟。根据统计图，下列说法正确的是（ ）。",
+      "optionsZhHans": [
+        "这一周做作业时间一直在减少",
+        "星期三做作业的时间最长",
+        "星期五到星期六时间减少了20分钟",
+        "星期四和星期一做作业的时间相同"
+      ],
+      "answer": "星期四和星期一做作业的时间相同",
+      "acceptedAnswers": [
+        "星期四和星期一做作业的时间相同"
+      ],
+      "explanationZhHans": "星期一30分钟，星期四30分钟，所以选项D正确。A错误，时间有升有降。B错误，星期五40分钟最长。C错误，星期五40分钟到星期六25分钟减少15分钟，不是20分钟。"
+    }
+  ]
+}

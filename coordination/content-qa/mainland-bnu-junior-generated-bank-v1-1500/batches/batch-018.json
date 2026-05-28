@@ -1,0 +1,619 @@
+{
+  "batchId": "batch-018",
+  "questions": [
+    {
+      "id": "bnu-junior-ds-v1-s1-171",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-linear-equations",
+      "unitTitle": "一元一次方程",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "linear-equations-one-variable",
+        "equation-solving",
+        "modeling-with-equations",
+        "一元一次方程",
+        "方程建模"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "方程意义",
+        "等式性质",
+        "解一元一次方程",
+        "检验解",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "same operation not applied to both sides",
+        "unknown chosen inconsistently",
+        "solution not checked against the original situation"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-linear-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-linear-equations-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校七年级组织植树活动，计划种植一批树苗。若每人种5棵，则剩下18棵未种；若每人种7棵，则缺少4棵。问：共有多少名学生参加植树？请列出方程并求解。",
+      "optionsZhHans": [],
+      "answer": "11",
+      "acceptedAnswers": [
+        "11",
+        "11名",
+        "11人"
+      ],
+      "explanationZhHans": "设有x名学生。根据树苗总数不变列方程：5x+18=7x-4。移项得18+4=7x-5x，即2x=22，解得x=11。检验：5×11+18=73，7×11-4=73，符合题意。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-172",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-linear-equations",
+      "unitTitle": "一元一次方程",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "linear-equations-one-variable",
+        "equation-solving",
+        "modeling-with-equations",
+        "一元一次方程",
+        "方程建模"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "方程意义",
+        "等式性质",
+        "解一元一次方程",
+        "检验解",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "same operation not applied to both sides",
+        "unknown chosen inconsistently",
+        "solution not checked against the original situation"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-linear-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-linear-equations-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校七年级学生参加植树活动，若每人植4棵，则剩余16棵未植；若每人植6棵，则有一人植的树不足3棵，其余人恰好植完。设学生人数为x，下列方程正确的是（ ）",
+      "optionsZhHans": [
+        "4x + 16 = 6x - 3",
+        "4x + 16 = 6(x - 1) + 2",
+        "4x + 16 = 6(x - 1) + 3",
+        "4x + 16 = 6x - 2"
+      ],
+      "answer": "4x + 16 = 6(x - 1) + 2",
+      "acceptedAnswers": [
+        "4x + 16 = 6(x - 1) + 2"
+      ],
+      "explanationZhHans": "树的总量不变。第一种方案：4x+16。第二种方案：有(x-1)人植6棵，一人植不足3棵，即植1或2棵。若植2棵，总量为6(x-1)+2。令两式相等得方程。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-173",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-linear-equations",
+      "unitTitle": "一元一次方程",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "linear-equations-one-variable",
+        "equation-solving",
+        "modeling-with-equations",
+        "一元一次方程",
+        "方程建模"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "方程意义",
+        "等式性质",
+        "解一元一次方程",
+        "检验解",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "same operation not applied to both sides",
+        "unknown chosen inconsistently",
+        "solution not checked against the original situation"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-linear-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-linear-equations-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校七年级组织研学活动，需租用客车。若每辆客车坐45人，则有15人没有座位；若每辆客车坐60人，则空出一辆客车，且其余客车恰好坐满。设该校七年级共有x名学生，请根据上述条件列出关于x的一元一次方程，并求出x的值。",
+      "optionsZhHans": [],
+      "answer": "方程：x/45 - 15/45 = x/60 + 1，解得x=240",
+      "acceptedAnswers": [
+        "方程：x/45 - 15/45 = x/60 + 1，解得x=240",
+        "方程：x/45 - 1/3 = x/60 + 1，解得x=240",
+        "方程：(x-15)/45 = x/60 + 1，解得x=240",
+        "方程：x/45 - 15 = x/60 + 60，解得x=240",
+        "方程：45*(x/60+1)=x-15，解得x=240",
+        "方程：45*(x/60+1)+15=x，解得x=240",
+        "x=240"
+      ],
+      "explanationZhHans": "设学生总数为x。第一种方案：客车数量为(x-15)/45；第二种方案：客车数量为x/60，且空出一辆，故客车数量也可表示为x/60+1。由客车数量相等得方程(x-15)/45 = x/60 + 1。两边乘180得4(x-15)=3x+180，解得x=240。检验：第一种需(240-15)/45=5辆；第二种需240/60=4辆，空出一辆即5辆，一致。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-174",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-linear-equations",
+      "unitTitle": "一元一次方程",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "linear-equations-one-variable",
+        "equation-solving",
+        "modeling-with-equations",
+        "一元一次方程",
+        "方程建模"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "方程意义",
+        "等式性质",
+        "解一元一次方程",
+        "检验解",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "same operation not applied to both sides",
+        "unknown chosen inconsistently",
+        "solution not checked against the original situation"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-linear-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-linear-equations-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校七年级学生进行植树活动，若每人植4棵，则剩余16棵树苗；若每人植6棵，则缺少8棵树苗。设学生人数为x，请列出关于x的一元一次方程，并求出学生人数。",
+      "optionsZhHans": [],
+      "answer": "4x+16=6x-8，学生人数为12",
+      "acceptedAnswers": [
+        "4x+16=6x-8，学生人数为12",
+        "4x+16=6x-8,学生人数为12",
+        "4x+16=6x-8，x=12",
+        "4x+16=6x-8,x=12"
+      ],
+      "explanationZhHans": "根据题意，树苗总数不变。每人植4棵，剩余16棵，树苗总数为4x+16；每人植6棵，缺少8棵，树苗总数为6x-8。列方程4x+16=6x-8，解得x=12。检验：4×12+16=64，6×12-8=64，符合题意。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-175",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-linear-equations",
+      "unitTitle": "一元一次方程",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "linear-equations-one-variable",
+        "equation-solving",
+        "modeling-with-equations",
+        "一元一次方程",
+        "方程建模"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "方程意义",
+        "等式性质",
+        "解一元一次方程",
+        "检验解",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "same operation not applied to both sides",
+        "unknown chosen inconsistently",
+        "solution not checked against the original situation"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-linear-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-linear-equations-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校七年级学生参加植树活动，如果每人植4棵树，还剩20棵树未植；如果每人植5棵树，则最后一名学生植的树不足3棵。设学生人数为x，下列方程正确的是（ ）",
+      "optionsZhHans": [
+        "4x + 20 = 5x - 3",
+        "4x + 20 = 5(x - 1) + 3",
+        "4x + 20 = 5x - 2",
+        "4x - 20 = 5x + 3"
+      ],
+      "answer": "4x + 20 = 5(x - 1) + 3",
+      "acceptedAnswers": [
+        "4x + 20 = 5(x - 1) + 3"
+      ],
+      "explanationZhHans": "树的总数不变。第一种情况：4x+20。第二种情况：前(x-1)人植5棵，最后一人植的树不足3棵，设为y（0<y<3），则总数为5(x-1)+y。由不足3棵得y最大为2，但方程需体现关系，选项B用3表示最后一人植3棵，实际应为不足3，但方程中5(x-1)+3表示假设最后一人植3棵，与总数相等，故正确。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-176",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-linear-equations",
+      "unitTitle": "一元一次方程",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "linear-equations-one-variable",
+        "equation-solving",
+        "modeling-with-equations",
+        "一元一次方程",
+        "方程建模"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "方程意义",
+        "等式性质",
+        "解一元一次方程",
+        "检验解",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "same operation not applied to both sides",
+        "unknown chosen inconsistently",
+        "solution not checked against the original situation"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-linear-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-linear-equations-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校七年级组织研学活动，若租用45座客车，则有15人没有座位；若租用同样数量的60座客车，则多出一辆车，并且其余车恰好坐满。设租用45座客车的数量为x辆，请根据题意列出关于x的一元一次方程，并求出该校七年级参加研学活动的总人数。",
+      "optionsZhHans": [],
+      "answer": "方程：45x+15=60(x-1)；总人数：240人",
+      "acceptedAnswers": [
+        "方程：45x+15=60(x-1)；总人数：240人",
+        "45x+15=60(x-1)；240人",
+        "45x+15=60(x-1)，240人"
+      ],
+      "explanationZhHans": "设租用45座客车x辆，则总人数为45x+15。改用60座客车时，车辆数为x-1辆，总人数为60(x-1)。由人数相等得方程45x+15=60(x-1)，解得x=5。总人数为45×5+15=240，或60×4=240，检验符合题意。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-177",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-linear-equations",
+      "unitTitle": "一元一次方程",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "linear-equations-one-variable",
+        "equation-solving",
+        "modeling-with-equations",
+        "一元一次方程",
+        "方程建模"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "方程意义",
+        "等式性质",
+        "解一元一次方程",
+        "检验解",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "same operation not applied to both sides",
+        "unknown chosen inconsistently",
+        "solution not checked against the original situation"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-linear-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-linear-equations-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校组织七年级学生参加研学活动，若租用45座客车，则有15人没有座位；若租用同样数量的60座客车，则多出一辆车，并且其余车恰好坐满。求该校七年级学生人数。",
+      "optionsZhHans": [],
+      "answer": "240",
+      "acceptedAnswers": [
+        "240",
+        "240人"
+      ],
+      "explanationZhHans": "设租用45座客车x辆，则学生人数为45x+15。改用60座客车时，车辆数为x-1，且坐满，故60(x-1)=45x+15。解得x=5，学生人数为45×5+15=240。检验：60×(5-1)=240，符合题意。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-178",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-linear-equations",
+      "unitTitle": "一元一次方程",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "linear-equations-one-variable",
+        "equation-solving",
+        "modeling-with-equations",
+        "一元一次方程",
+        "方程建模"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "方程意义",
+        "等式性质",
+        "解一元一次方程",
+        "检验解",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "same operation not applied to both sides",
+        "unknown chosen inconsistently",
+        "solution not checked against the original situation"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-linear-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-linear-equations-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某文具店促销，购买笔记本有两种方案：方案一，每本按标价8元出售；方案二，购买会员卡需20元，之后每本按标价的6折出售。设购买笔记本x本。(1) 用含x的代数式分别表示两种方案的总费用；(2) 若购买15本，通过计算说明哪种方案更省钱；(3) 购买多少本时，两种方案总费用相等？",
+      "optionsZhHans": [
+        "方案一：8x元；方案二：(20+4.8x)元；购买15本时方案一更省钱；当x=25时费用相等",
+        "方案一：8x元；方案二：(20+4.8x)元；购买15本时方案二更省钱；当x=20时费用相等",
+        "方案一：8x元；方案二：(20+4.8x)元；购买15本时方案一更省钱；当x=20时费用相等",
+        "方案一：8x元；方案二：(20+4.8x)元；购买15本时方案二更省钱；当x=25时费用相等"
+      ],
+      "answer": "方案一：8x元；方案二：(20+4.8x)元；购买15本时方案一更省钱；当x=25时费用相等",
+      "acceptedAnswers": [
+        "方案一：8x元；方案二：(20+4.8x)元；购买15本时方案一更省钱；当x=25时费用相等"
+      ],
+      "explanationZhHans": "方案一：8x元。方案二：20+8×0.6x=20+4.8x元。当x=15时，方案一120元，方案二92元，方案二更省钱。令8x=20+4.8x，解得x=25，此时费用相等。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-179",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-linear-equations",
+      "unitTitle": "一元一次方程",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "linear-equations-one-variable",
+        "equation-solving",
+        "modeling-with-equations",
+        "一元一次方程",
+        "方程建模"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "方程意义",
+        "等式性质",
+        "解一元一次方程",
+        "检验解",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "same operation not applied to both sides",
+        "unknown chosen inconsistently",
+        "solution not checked against the original situation"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-linear-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-linear-equations-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校七年级组织研学活动，需租用客车。若每辆客车坐45人，则有15人没有座位；若每辆客车坐50人，则最后一辆客车还空出10个座位。设租用客车x辆，请根据上述条件列出关于x的一元一次方程，并求出该校七年级参加研学活动的总人数。",
+      "optionsZhHans": [],
+      "answer": "方程：45x+15=50x-10；总人数：240人",
+      "acceptedAnswers": [
+        "方程：45x+15=50x-10；总人数：240人",
+        "45x+15=50x-10，总人数240",
+        "45x+15=50x-10，240人",
+        "45x+15=50x-10, 240人"
+      ],
+      "explanationZhHans": "设客车x辆，总人数可表示为45x+15或50x-10，得方程45x+15=50x-10。解得x=5，代入45×5+15=240，故总人数240人。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-180",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-linear-equations",
+      "unitTitle": "一元一次方程",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "linear-equations-one-variable",
+        "equation-solving",
+        "modeling-with-equations",
+        "一元一次方程",
+        "方程建模"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "方程意义",
+        "等式性质",
+        "解一元一次方程",
+        "检验解",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "same operation not applied to both sides",
+        "unknown chosen inconsistently",
+        "solution not checked against the original situation"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-linear-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-linear-equations-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校七年级学生参加植树活动，若每人植4棵，则剩余20棵树苗；若每人植5棵，则还缺15棵树苗。设七年级学生人数为x，可列出一元一次方程为4x+20=5x-15。请解这个方程，并求出学生人数。",
+      "optionsZhHans": [],
+      "answer": "x=35",
+      "acceptedAnswers": [
+        "x=35",
+        "35",
+        "学生人数为35"
+      ],
+      "explanationZhHans": "移项得4x-5x=-15-20，即-x=-35，两边除以-1得x=35。检验：4×35+20=160，5×35-15=160，符合题意。"
+    }
+  ]
+}

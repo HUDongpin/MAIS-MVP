@@ -1,0 +1,191 @@
+{
+  "batchNumber": 80,
+  "startedAt": "2026-05-27T14:04:13.399Z",
+  "completedAt": "2026-05-27T14:04:31.639Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p6-173",
+    "bnu-primary-ds-v2-p6-174",
+    "bnu-primary-ds-v2-p6-175",
+    "bnu-primary-ds-v2-p6-176",
+    "bnu-primary-ds-v2-p6-177",
+    "bnu-primary-ds-v2-p6-178",
+    "bnu-primary-ds-v2-p6-179",
+    "bnu-primary-ds-v2-p6-180",
+    "bnu-primary-ds-v2-p6-181",
+    "bnu-primary-ds-v2-p6-182",
+    "bnu-primary-ds-v2-p6-183",
+    "bnu-primary-ds-v2-p6-184",
+    "bnu-primary-ds-v2-p6-185",
+    "bnu-primary-ds-v2-p6-186",
+    "bnu-primary-ds-v2-p6-187",
+    "bnu-primary-ds-v2-p6-188",
+    "bnu-primary-ds-v2-p6-189",
+    "bnu-primary-ds-v2-p6-190"
+  ],
+  "usage": {
+    "prompt_tokens": 3199,
+    "completion_tokens": 1321,
+    "total_tokens": 4520,
+    "prompt_tokens_details": {
+      "cached_tokens": 3072
+    },
+    "prompt_cache_hit_tokens": 3072,
+    "prompt_cache_miss_tokens": 127
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p6-173",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案与解释一致，符合六年级比例应用要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-174",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案与解释一致，符合六年级比例应用要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-175",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项唯一，答案与解释一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-176",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案与解释一致，符合六年级比例应用要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-177",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案与解释一致，符合六年级比例应用要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-178",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项唯一，答案与解释一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-179",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案与解释一致，符合六年级比例尺要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-180",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案与解释一致，符合六年级比例应用要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-181",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "旋转方向判断正确，选项唯一，符合图形运动要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-182",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移性质正确，答案与解释一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-183",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目已明确旋转中心，选项唯一，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-184",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案与解释一致，符合钟面旋转角度要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-185",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "对称轴数量判断正确，选项唯一，符合要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-186",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "旋转合成正确，答案与解释一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-187",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "旋转体判断正确，选项唯一，符合要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-188",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数对平移计算正确，答案与解释一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-189",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移与旋转区分正确，选项唯一，符合要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-190",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "旋转中心判断正确，答案与解释一致，符合图形运动要求。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均通过审核，数学正确，答案匹配，无歧义或缺失条件，适合北师大版六年级下册。"
+    }
+  }
+}

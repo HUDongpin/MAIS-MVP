@@ -1,0 +1,191 @@
+{
+  "batchNumber": 82,
+  "startedAt": "2026-05-27T14:04:50.496Z",
+  "completedAt": "2026-05-27T14:05:08.212Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p6-209",
+    "bnu-primary-ds-v2-p6-210",
+    "bnu-primary-ds-v2-p6-211",
+    "bnu-primary-ds-v2-p6-212",
+    "bnu-primary-ds-v2-p6-213",
+    "bnu-primary-ds-v2-p6-214",
+    "bnu-primary-ds-v2-p6-215",
+    "bnu-primary-ds-v2-p6-216",
+    "bnu-primary-ds-v2-p6-217",
+    "bnu-primary-ds-v2-p6-218",
+    "bnu-primary-ds-v2-p6-219",
+    "bnu-primary-ds-v2-p6-220",
+    "bnu-primary-ds-v2-p6-221",
+    "bnu-primary-ds-v2-p6-222",
+    "bnu-primary-ds-v2-p6-223",
+    "bnu-primary-ds-v2-p6-224",
+    "bnu-primary-ds-v2-p6-225",
+    "bnu-primary-ds-v2-p6-226"
+  ],
+  "usage": {
+    "prompt_tokens": 3893,
+    "completion_tokens": 1264,
+    "total_tokens": 5157,
+    "prompt_tokens_details": {
+      "cached_tokens": 3840
+    },
+    "prompt_cache_hit_tokens": 3840,
+    "prompt_cache_miss_tokens": 53
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p6-209",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，和一定不成比例，选项清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-210",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "乘积一定，反比例正确，答案与解释一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-211",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比值一定，正比例，选项唯一正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-212",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "乘积一定，反比例，填空答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-213",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "xy=24乘积一定，反比例，选项正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-214",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "推导正确，a和c成反比例。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-215",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "面积一定，长宽乘积一定，反比例，选项正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-216",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "正比例比值一定，计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-217",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "连乘列式正确，符合题意。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-218",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比例尺换算正确，单位转换无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-219",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "杠杆平衡原理应用正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-220",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "条形统计图适合比较数量，理由合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-221",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "周长计算正确，刚好够用。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-222",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "除法计算正确，余数合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-223",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比例应用正确，计算无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-224",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "正方体棱长计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-225",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "侧面积计算正确，选项匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-226",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "圆锥体积与重量计算正确，保留整数合理。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部18道题目均通过审核，无数学错误、答案不匹配、歧义或年级不符等问题。"
+    }
+  }
+}

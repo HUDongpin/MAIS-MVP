@@ -1,0 +1,131 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-035",
+  "startedAt": "2026-05-28T01:05:11.804Z",
+  "completedAt": "2026-05-28T01:05:28.637Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-273",
+    "bnu-high-ds-v1-s4-274",
+    "bnu-high-ds-v1-s4-275",
+    "bnu-high-ds-v1-s4-276",
+    "bnu-high-ds-v1-s4-277",
+    "bnu-high-ds-v1-s4-278",
+    "bnu-high-ds-v1-s4-279",
+    "bnu-high-ds-v1-s4-280"
+  ],
+  "usage": {
+    "prompt_tokens": 12072,
+    "completion_tokens": 1043,
+    "total_tokens": 13115,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 11688
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-273",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析正确推导k=3并判断t=30时V=40≠0。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-274",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解均为选项A，解析正确指出各段表达式及错误选项原因。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-275",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析正确求解a=1, b=50并预测2030年人口70万。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-276",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案k≈0.07, 20年与独立解一致，解析计算过程正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-277",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "correctedAnswer": "B、C、D均正确，题目存在多个正确选项，违反单选题唯一性要求。",
+        "issueTags": [
+          "math_error",
+          "ambiguous_mc",
+          "bad_options",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立解验证B、C、D均正确，存储答案仅选C错误；解析承认B、C、D正确但强行选C，自相矛盾；单选题出现多个正确选项，严重违规。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-278",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案12小时与独立解一致，解析正确使用工作效率求解。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-279",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案10公里与独立解一致，解析正确代入分段函数求解。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-280",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案22.5件与独立解一致，解析正确利用二次函数对称轴求最大值。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "8题中7题通过，1题（bnu-high-ds-v1-s4-277）因单选题存在多个正确选项且存储答案错误而失败。"
+    }
+  }
+}

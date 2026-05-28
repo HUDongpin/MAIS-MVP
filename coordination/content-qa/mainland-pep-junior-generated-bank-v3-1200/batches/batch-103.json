@@ -1,0 +1,355 @@
+{
+  "batchId": "batch-103",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s3-k11-mc-021",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-graduation-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "某品牌手机电池的剩余电量 y（单位：毫安时）与使用时间 x（单位：小时）满足反比例关系 y = 2400/x。若电量低于 300 毫安时手机会自动关机，则手机最长连续使用时间是多少小时？",
+      "optionsZhHans": [
+        "6 小时",
+        "7 小时",
+        "8 小时",
+        "9 小时"
+      ],
+      "answer": "8 小时",
+      "acceptedAnswers": [
+        "8 小时",
+        "8"
+      ],
+      "explanationZhHans": "由 y = 2400/x，令 y = 300，得 300 = 2400/x，解得 x = 2400/300 = 8。因此手机最长连续使用时间为 8 小时。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-mc-022",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-inverse-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions"
+      ],
+      "promptZhHans": "已知反比例函数 y = k/x 的图象经过点 A(2, -3)，则 k 的值为（ ）",
+      "optionsZhHans": [
+        "6",
+        "-6",
+        "5",
+        "-5"
+      ],
+      "answer": "-6",
+      "acceptedAnswers": [
+        "-6",
+        "负6"
+      ],
+      "explanationZhHans": "将点 A(2, -3) 代入 y = k/x，得 -3 = k/2，解得 k = -6。因此 k 的值为 -6。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-mc-023",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-right-triangle-trigonometry"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "promptZhHans": "在 Rt△ABC 中，∠C = 90°，AC = 3，BC = 4，则 sin A 的值为（ ）",
+      "optionsZhHans": [
+        "3/5",
+        "4/5",
+        "3/4",
+        "4/3"
+      ],
+      "answer": "4/5",
+      "acceptedAnswers": [
+        "4/5",
+        "0.8"
+      ],
+      "explanationZhHans": "在 Rt△ABC 中，∠C = 90°，∠A 的对边为 BC = 4，斜边 AB = √(3²+4²) = 5，所以 sin A = 对边/斜边 = 4/5。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-mc-024",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-projection-views"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean"
+      ],
+      "promptZhHans": "阳光下，一根竖直旗杆在水平地面上的影长为10 m，此时太阳光线与地面的夹角为45°。旗杆的高度是（ ）",
+      "optionsZhHans": [
+        "5 m",
+        "10 m",
+        "10√2 m",
+        "20 m"
+      ],
+      "answer": "10 m",
+      "acceptedAnswers": [
+        "10 m",
+        "10米",
+        "10"
+      ],
+      "explanationZhHans": "旗杆、影子和太阳光线构成直角三角形。tan45°=旗杆高度/影长=1，所以旗杆高度=10×1=10 m。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-mc-025",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-function-geometry-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-circle-geometry"
+      ],
+      "promptZhHans": "已知反比例函数 y = 6/x 的图象上有两点 A(x₁, y₁) 和 B(x₂, y₂)，且 x₁ < x₂ < 0，则 y₁ 与 y₂ 的大小关系是（ ）",
+      "optionsZhHans": [
+        "y₁ < y₂",
+        "y₁ > y₂",
+        "y₁ = y₂",
+        "无法确定"
+      ],
+      "answer": "y₁ > y₂",
+      "acceptedAnswers": [
+        "y₁ > y₂",
+        "y1 > y2"
+      ],
+      "explanationZhHans": "反比例函数 y = 6/x 的图象分布在第一、三象限，且在每一象限内 y 随 x 的增大而减小。因为 x₁ < x₂ < 0，两点都在第三象限，所以 y₁ > y₂。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-mc-026",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-similarity"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "在△ABC 中，DE∥BC，AD = 2，DB = 3，则 DE：BC 的值为（ ）",
+      "optionsZhHans": [
+        "2：3",
+        "2：5",
+        "3：5",
+        "3：2"
+      ],
+      "answer": "2：5",
+      "acceptedAnswers": [
+        "2：5",
+        "2:5"
+      ],
+      "explanationZhHans": "由 DE∥BC，可得△ADE∽△ABC，相似比为 AD：AB = 2：(2+3) = 2：5，所以 DE：BC = 2：5。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-mc-027",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-graduation-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "在平面直角坐标系中，将点 P(2, -3) 先向右平移 4 个单位，再向上平移 2 个单位，则平移后点的坐标是（ ）",
+      "optionsZhHans": [
+        "(6, -1)",
+        "(-2, -1)",
+        "(6, -5)",
+        "(-2, -5)"
+      ],
+      "answer": "(6, -1)",
+      "acceptedAnswers": [
+        "(6, -1)",
+        "(6,-1)"
+      ],
+      "explanationZhHans": "点 P(2, -3) 向右平移 4 个单位，横坐标加 4，得 6；向上平移 2 个单位，纵坐标加 2，得 -1。所以平移后点的坐标是 (6, -1)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-mc-028",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-inverse-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-dynamic-geometry-functions"
+      ],
+      "promptZhHans": "点 P 是反比例函数 y = 4/x (x>0) 图象上一点，PA⊥x 轴于点 A，则△POA 的面积为（ ）",
+      "optionsZhHans": [
+        "1",
+        "2",
+        "4",
+        "8"
+      ],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2"
+      ],
+      "explanationZhHans": "设 P 点坐标为 (a, 4/a)，则 PA = 4/a，OA = a。△POA 的面积 = 1/2 × OA × PA = 1/2 × a × (4/a) = 2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-mc-029",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-right-triangle-trigonometry"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "从热气球 C 处测得地面 A、B 两点的俯角分别为 30°、45°，如果此时热气球 C 处的高度 CD 为 100 米，点 A、D、B 在同一直线上，则 A、B 两点的距离是（ ）",
+      "optionsZhHans": [
+        "100(√3 - 1) 米",
+        "100(√3 + 1) 米",
+        "100√3 米",
+        "200 米"
+      ],
+      "answer": "100(√3 + 1) 米",
+      "acceptedAnswers": [
+        "100(√3 + 1) 米",
+        "100(√3+1)米"
+      ],
+      "explanationZhHans": "由俯角定义，∠A = 30°，∠B = 45°。在 Rt△ACD 中，AD = CD / tan30° = 100 / (1/√3) = 100√3；在 Rt△BCD 中，BD = CD / tan45° = 100。所以 AB = AD + BD = 100√3 + 100 = 100(√3 + 1) 米。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-mc-030",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-projection-views"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-proof-calculation-integrated"
+      ],
+      "promptZhHans": "一个由若干个相同的小正方体组成的几何体的主视图和俯视图都是 2×2 的正方形，则组成这个几何体的小正方体的个数最多是（ ）",
+      "optionsZhHans": [
+        "4 个",
+        "5 个",
+        "6 个",
+        "8 个"
+      ],
+      "answer": "8 个",
+      "acceptedAnswers": [
+        "8 个",
+        "8"
+      ],
+      "explanationZhHans": "主视图和俯视图都是 2×2 的正方形，说明该几何体在 2×2 的每个位置上都至少有一个小正方体，且从正面看每列最高为 2，因此每个位置最多可以堆叠 2 个小正方体。所以最多需要 2×2×2 = 8 个小正方体。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

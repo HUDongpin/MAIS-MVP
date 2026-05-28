@@ -1,0 +1,47 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-421",
+  "startedAt": "2026-05-28T01:59:25.103Z",
+  "completedAt": "2026-05-28T01:59:29.242Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-421"
+  ],
+  "usage": {
+    "prompt_tokens": 2113,
+    "completion_tokens": 241,
+    "total_tokens": 2354,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1729
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-421",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "(-24+7√3)/50",
+        "correctedAnswer": null,
+        "issueTags": [
+          "explanation_contradiction"
+        ],
+        "severity": "major",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，选项唯一，答案匹配。解析中计算过程出现笔误，将(-24-7√3)/50误写为最终结果，与正确答案(-24+7√3)/50矛盾，需修正解析。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 1,
+      "fail": 0,
+      "notes": "1题解析存在笔误，答案正确，建议修正解析。"
+    }
+  }
+}

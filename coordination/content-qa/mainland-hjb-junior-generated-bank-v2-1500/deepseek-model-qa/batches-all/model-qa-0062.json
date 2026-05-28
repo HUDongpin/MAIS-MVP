@@ -1,0 +1,109 @@
+{
+  "batchId": "model-qa-0062",
+  "ids": [
+    "hjb-junior-ds-v2-s1-489",
+    "hjb-junior-ds-v2-s1-490",
+    "hjb-junior-ds-v2-s1-491",
+    "hjb-junior-ds-v2-s1-492",
+    "hjb-junior-ds-v2-s1-493",
+    "hjb-junior-ds-v2-s1-494",
+    "hjb-junior-ds-v2-s1-495",
+    "hjb-junior-ds-v2-s1-496"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-489",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析中先得出∠DBC=40°，但答案误写为30°。实际计算：等腰△ABC中，∠ABC=∠C=70°；BD=BC得∠BDC=∠C=70°，∠DBC=180°-70°-70°=40°。正确选项应为40°，但答案和acceptedAnswers均为30°，与解析矛盾。",
+      "independentAnswerZhHans": "40°",
+      "answerCheckZhHans": "标准答案为30°，但正确计算得40°，答案错误。",
+      "recommendedActionZhHans": "将答案和acceptedAnswers改为40°，并修正解析中的笔误。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-490",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "20°",
+      "answerCheckZhHans": "标准答案20°正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-491",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "75°",
+      "answerCheckZhHans": "标准答案75°正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-492",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "65°",
+      "answerCheckZhHans": "标准答案65°正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-493",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "30°",
+      "answerCheckZhHans": "标准答案30°正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-494",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析中得出∠DAC=30°，但答案和acceptedAnswers均为15°，矛盾。正确计算：∠A=80°，AD=BD得∠BAD=∠B=50°，∠DAC=80°-50°=30°。选项中有30°吗？选项为10°,15°,20°,25°，没有30°。因此题目可能缺条件或答案错误。",
+      "independentAnswerZhHans": "30°（但不在选项中）",
+      "answerCheckZhHans": "标准答案为15°，但正确计算得30°，且30°不在选项中，题目有误。",
+      "recommendedActionZhHans": "检查题目条件或选项，可能需修改选项或答案。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-495",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "36°",
+      "answerCheckZhHans": "标准答案36°正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-496",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "25°",
+      "answerCheckZhHans": "标准答案25°正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

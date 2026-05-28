@@ -1,0 +1,26 @@
+# Blocker Report
+
+- Date: 2026-05-25
+- Session ID: S18
+- Task: HJB junior v2 1500-question candidate package targeted DeepSeek-v4-pro repair
+- Blocker type: Other
+- What happened:
+  - Implemented the targeted repair flow and started the approved DeepSeek-v4-pro remediation run.
+  - The run completed and cached `21` repair batches, covering `105` of `201` target rows.
+  - Remaining target rows: `96` total, split as S2 `39` and S3 `57`.
+  - The next batch, `repair-0022`, failed three consecutive times due to DeepSeek transport/TLS errors: `Client network socket disconnected before secure TLS connection was established`.
+  - A direct redacted connectivity check to `api.deepseek.com` then timed out.
+- Files involved:
+  - `coordination/content-qa/mainland-hjb-junior-generated-bank-v2-1500/repair-with-deepseek.mjs`
+  - `coordination/content-qa/mainland-hjb-junior-generated-bank-v2-1500/deepseek-repair/repair-targets.json`
+  - `coordination/content-qa/mainland-hjb-junior-generated-bank-v2-1500/deepseek-repair/repair-batches/`
+  - `coordination/content-qa/mainland-hjb-junior-generated-bank-v2-1500/questions.jsonl`
+- Why the session stopped:
+  - The approved route requires DeepSeek-v4-pro. The plan explicitly says not to switch to `bl` or a local template generator without owner approval.
+  - Continuing single-target retries during a provider/network outage would spend time without improving the candidate package.
+- Decision needed from owner:
+  - Retry the same DeepSeek-v4-pro repair route once network connectivity to `api.deepseek.com` is stable, or explicitly approve another route.
+- Safe next step:
+  - Rerun `node coordination/content-qa/mainland-hjb-junior-generated-bank-v2-1500/repair-with-deepseek.mjs`.
+  - The script will reuse existing `repair-batches/repair-0001.json` through `repair-0021.json` and continue from `repair-0022`.
+  - Do not run final audit/full DeepSeek QA/Codex approval gates until all `201` repair targets are completed.

@@ -1,0 +1,191 @@
+{
+  "batchNumber": 14,
+  "startedAt": "2026-05-27T13:25:51.720Z",
+  "completedAt": "2026-05-27T13:26:08.598Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p1-235",
+    "bnu-primary-ds-v1-p1-236",
+    "bnu-primary-ds-v1-p1-237",
+    "bnu-primary-ds-v1-p1-238",
+    "bnu-primary-ds-v1-p1-239",
+    "bnu-primary-ds-v1-p1-240",
+    "bnu-primary-ds-v1-p1-241",
+    "bnu-primary-ds-v1-p1-242",
+    "bnu-primary-ds-v1-p1-243",
+    "bnu-primary-ds-v1-p1-244",
+    "bnu-primary-ds-v1-p1-245",
+    "bnu-primary-ds-v1-p1-246",
+    "bnu-primary-ds-v1-p1-247",
+    "bnu-primary-ds-v1-p1-248",
+    "bnu-primary-ds-v1-p1-249",
+    "bnu-primary-ds-v1-p1-250",
+    "bnu-primary-ds-v1-p2-001",
+    "bnu-primary-ds-v1-p2-002"
+  ],
+  "usage": {
+    "prompt_tokens": 3169,
+    "completion_tokens": 1295,
+    "total_tokens": 4464,
+    "prompt_tokens_details": {
+      "cached_tokens": 3072
+    },
+    "prompt_cache_hit_tokens": 3072,
+    "prompt_cache_miss_tokens": 97
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p1-235",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案匹配，选项清晰，适合P1。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-236",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "规律正确，答案14，适合P1。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-237",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "规律判断正确，选项D不同，适合P1。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-238",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "图形规律正确，答案△，适合P1。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-239",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "排队问题计算正确，答案12只，适合P1。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-240",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "排序正确，第二个数是28，适合P1。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-241",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "图形规律正确，答案△，适合P1。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-242",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数字规律正确，答案10，适合P1。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-243",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算方法描述正确，选项匹配，适合P1。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-244",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案15，适合P1。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-245",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分类合理，正方体不易滚动，适合P1。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-246",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "视图描述合理，答案匹配，适合P1。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-247",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "对折结果正确，圆形不可能，适合P1。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-248",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "七巧板移动概念正确，适合P1。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-249",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计数器计算正确，答案15，适合P1。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-250",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "颜色规律正确，答案黄，适合P1。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-001",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "两步计算正确，答案50张，适合P2。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-002",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "加法逆运算正确，答案27，适合P2。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案匹配，无歧义，适合对应年级，可入库。"
+    }
+  }
+}

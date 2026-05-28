@@ -1,0 +1,137 @@
+{
+  "batchNumber": 9,
+  "startedAt": "2026-05-27T13:45:04.396Z",
+  "completedAt": "2026-05-27T13:45:21.488Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-065",
+    "bnu-high-ds-v1-s4-066",
+    "bnu-high-ds-v1-s4-067",
+    "bnu-high-ds-v1-s4-068",
+    "bnu-high-ds-v1-s4-069",
+    "bnu-high-ds-v1-s4-070",
+    "bnu-high-ds-v1-s4-071",
+    "bnu-high-ds-v1-s4-072"
+  ],
+  "usage": {
+    "prompt_tokens": 10841,
+    "completion_tokens": 1139,
+    "total_tokens": 11980,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10329
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-065",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "奇函数",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目明确，定义域对称，f(-x)=-f(x)成立，答案为奇函数，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-066",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(-∞, -1]",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "定义域正确，复合函数单调性判断无误，递减区间为(-∞, -1]，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-067",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "f(x) 的值域为 (-∞, -2] ∪ [2, +∞)",
+        "correctedAnswer": "f(x) 的值域为 (-∞, -2] ∪ [2, +∞)",
+        "issueTags": [
+          "ambiguous_mc",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "选项C正确，解析也承认C正确，但答案选A且解释称奇函数判断更直接，造成多选或无唯一正确选项，违反单选题要求。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-068",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "f(x) = 2/x - x",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "方程组解法正确，解析式无误，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-069",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(3, +∞)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "定义域正确，复合函数单调性判断无误，递增区间为(3, +∞)，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-070",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "f(x) = |x|",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "选项B满足偶函数且在(0,+∞)递增，其他选项不满足，答案唯一正确，解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-071",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "定义域为 (-∞, 1] ∪ (3, +∞)；在 (3, +∞) 上单调递增。",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "定义域求解正确，单调性判断合理，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-072",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "3 或 -1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "利用奇函数性质分段求解，得到a=3或-1，答案与解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第067题单选题存在多个正确选项（A和C），解析承认C正确但答案选A，导致无唯一答案，判定为失败。其余题目均通过审核。"
+    }
+  }
+}

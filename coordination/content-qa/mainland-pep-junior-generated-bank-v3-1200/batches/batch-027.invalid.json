@@ -1,0 +1,123 @@
+{
+  "batchId": "batch-027",
+  "attempt": 1,
+  "validationError": "pep-junior-v3-s1-k04-sa-001: explanation does not visibly contain the answer; pep-junior-v3-s1-k04-sa-002: explanation does not visibly contain the answer; pep-junior-v3-s1-k04-sa-003: explanation does not visibly contain the answer",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s1-k04-fi-027",
+      "promptZhHans": "在平面直角坐标系中，点A的坐标是(-3, 4)，点B与点A关于x轴对称。请写出点B的坐标。",
+      "optionsZhHans": [],
+      "answer": "(-3, -4)",
+      "acceptedAnswers": [
+        "(-3, -4)",
+        "（-3，-4）"
+      ],
+      "explanationZhHans": "关于x轴对称的点，横坐标不变，纵坐标互为相反数。点A的横坐标为-3，纵坐标为4，所以点B的横坐标仍为-3，纵坐标为-4，因此点B的坐标是(-3, -4)。"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-fi-028",
+      "promptZhHans": "某校七年级（1）班对40名学生进行“最喜欢的课外活动”调查，结果如下：阅读12人，运动15人，绘画8人，其他5人。请计算最喜欢运动的学生所占的百分比。",
+      "optionsZhHans": [],
+      "answer": "37.5%",
+      "acceptedAnswers": [
+        "37.5%",
+        "37.5％",
+        "百分之三十七点五"
+      ],
+      "explanationZhHans": "最喜欢运动的学生有15人，总人数为40人，百分比 = (15 ÷ 40) × 100% = 0.375 × 100% = 37.5%。"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-fi-029",
+      "promptZhHans": "在平面直角坐标系中，点P的坐标是(2, -5)。若将点P向右平移3个单位，再向上平移4个单位，得到点Q，请写出点Q的坐标。",
+      "optionsZhHans": [],
+      "answer": "(5, -1)",
+      "acceptedAnswers": [
+        "(5, -1)",
+        "（5，-1）"
+      ],
+      "explanationZhHans": "点P(2, -5)向右平移3个单位，横坐标加3，得2+3=5；向上平移4个单位，纵坐标加4，得-5+4=-1。所以点Q的坐标是(5, -1)。"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-fi-030",
+      "promptZhHans": "如图，直线AB与CD相交于点O，OE平分∠AOD。若∠AOC=50°，求∠COE的度数。",
+      "optionsZhHans": [],
+      "answer": "115°",
+      "acceptedAnswers": [
+        "115°",
+        "115度",
+        "115"
+      ],
+      "explanationZhHans": "因为AB与CD相交，∠AOC与∠AOD是邻补角，所以∠AOD=180°-∠AOC=180°-50°=130°。OE平分∠AOD，所以∠AOE=∠EOD=130°÷2=65°。∠COE=∠AOC+∠AOE=50°+65°=115°。"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-fi-031",
+      "promptZhHans": "在平面直角坐标系中，点M在第二象限，且到x轴的距离为3，到y轴的距离为2。请写出点M的坐标。",
+      "optionsZhHans": [],
+      "answer": "(-2, 3)",
+      "acceptedAnswers": [
+        "(-2, 3)",
+        "（-2，3）"
+      ],
+      "explanationZhHans": "第二象限的点横坐标为负，纵坐标为正。到x轴的距离为纵坐标的绝对值，即|y|=3，所以y=3或-3，因为纵坐标为正，故y=3。到y轴的距离为横坐标的绝对值，即|x|=2，所以x=2或-2，因为横坐标为负，故x=-2。因此点M的坐标是(-2, 3)。"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-fi-032",
+      "promptZhHans": "比较大小：√15 与 3.9。（填“>”“<”或“=”）",
+      "optionsZhHans": [],
+      "answer": "<",
+      "acceptedAnswers": [
+        "<",
+        "＜",
+        "小于"
+      ],
+      "explanationZhHans": "因为3.9²=15.21，而15<15.21，所以√15<√15.21=3.9，即√15<3.9。"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-fi-033",
+      "promptZhHans": "用代入法解方程组：\n2x + y = 7\nx - 3y = -7\n则y的值为______。",
+      "optionsZhHans": [],
+      "answer": "3",
+      "acceptedAnswers": [
+        "3",
+        "y=3"
+      ],
+      "explanationZhHans": "由第二个方程得x = 3y - 7，代入第一个方程：2(3y - 7) + y = 7，即6y - 14 + y = 7，7y = 21，y = 3。"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-sa-001",
+      "promptZhHans": "在平面直角坐标系中，三角形ABC三个顶点的坐标分别为A(-2, 1)，B(1, 3)，C(0, -2)。将三角形ABC先向右平移4个单位，再向下平移1个单位，得到三角形A'B'C'。请写出平移后三角形A'B'C'各顶点的坐标，并说明平移前后对应点坐标之间的关系。",
+      "optionsZhHans": [],
+      "answer": "A'(2, 0), B'(5, 2), C'(4, -3)；平移前后对应点坐标的关系是：横坐标加4，纵坐标减1。",
+      "acceptedAnswers": [
+        "A'(2, 0), B'(5, 2), C'(4, -3)；平移前后对应点坐标的关系是：横坐标加4，纵坐标减1。",
+        "A'(2,0), B'(5,2), C'(4,-3)；横坐标加4，纵坐标减1",
+        "A'（2，0），B'（5，2），C'（4，-3）；横坐标加4，纵坐标减1"
+      ],
+      "explanationZhHans": "点A(-2, 1)向右平移4个单位，横坐标加4得2；向下平移1个单位，纵坐标减1得0，所以A'(2, 0)。点B(1, 3)平移后得B'(5, 2)。点C(0, -2)平移后得C'(4, -3)。平移前后对应点坐标的关系是：横坐标加4，纵坐标减1。"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-sa-002",
+      "promptZhHans": "如图，已知直线a∥b，直线c与a、b分别相交于点A、B，∠1=65°，求∠2的度数，并说明理由。",
+      "optionsZhHans": [],
+      "answer": "∠2=65°，理由：因为a∥b，所以∠1和∠2是同位角，两直线平行，同位角相等。",
+      "acceptedAnswers": [
+        "∠2=65°，理由：因为a∥b，所以∠1和∠2是同位角，两直线平行，同位角相等。",
+        "65°，同位角相等",
+        "65度，同位角相等"
+      ],
+      "explanationZhHans": "因为a∥b，直线c截这两条平行线，∠1和∠2是同位角。根据平行线的性质，两直线平行，同位角相等，所以∠2=∠1=65°。"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-sa-003",
+      "promptZhHans": "某商店销售A、B两种商品，A商品每件利润为20元，B商品每件利润为15元。若该商店一天共售出这两种商品50件，总利润为850元，求A、B两种商品各售出多少件？",
+      "optionsZhHans": [],
+      "answer": "A商品售出20件，B商品售出30件。",
+      "acceptedAnswers": [
+        "A商品售出20件，B商品售出30件。",
+        "A20件，B30件",
+        "A：20件，B：30件"
+      ],
+      "explanationZhHans": "设A商品售出x件，则B商品售出(50-x)件。根据总利润列方程：20x + 15(50-x) = 850。去括号得20x + 750 - 15x = 850，即5x = 100，解得x=20。所以A商品售出20件，B商品售出50-20=30件。"
+    }
+  ]
+}

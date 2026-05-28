@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-320",
+  "startedAt": "2026-05-28T03:01:41.350Z",
+  "completedAt": "2026-05-28T03:01:47.079Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-320"
+  ],
+  "usage": {
+    "prompt_tokens": 1999,
+    "completion_tokens": 264,
+    "total_tokens": 2263,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1615
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-320",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "20",
+        "correctedAnswer": "20",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合计数原理章节。独立求解得不同对数值共20个，而存储答案21错误。解析中底数不为1得25个对数，但重复值排除后应为20，非21。答案不匹配且解析矛盾，判定为严重错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1题答案错误，独立解为20，存储答案21，需修正。"
+    }
+  }
+}

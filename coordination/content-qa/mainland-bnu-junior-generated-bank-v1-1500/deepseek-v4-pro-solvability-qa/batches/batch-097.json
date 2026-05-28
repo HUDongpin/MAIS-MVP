@@ -1,0 +1,176 @@
+{
+  "batchNumber": 97,
+  "startedAt": "2026-05-27T17:56:03.244Z",
+  "completedAt": "2026-05-27T17:56:20.545Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s3-153",
+    "bnu-junior-ds-v1-s3-154",
+    "bnu-junior-ds-v1-s3-155",
+    "bnu-junior-ds-v1-s3-156",
+    "bnu-junior-ds-v1-s3-157",
+    "bnu-junior-ds-v1-s3-158",
+    "bnu-junior-ds-v1-s3-159",
+    "bnu-junior-ds-v1-s3-160",
+    "bnu-junior-ds-v1-s3-161",
+    "bnu-junior-ds-v1-s3-162",
+    "bnu-junior-ds-v1-s3-163",
+    "bnu-junior-ds-v1-s3-164"
+  ],
+  "usage": {
+    "prompt_tokens": 5285,
+    "completion_tokens": 1307,
+    "total_tokens": 6592,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 4773
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s3-153",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，由平行得比例，计算正确，答案8与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-154",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "ambiguous_mc",
+          "bad_options"
+        ],
+        "correctedAnswer": null,
+        "rationale": "选项C和D均能判定相似：C为SSS相似，D为AAA相似（三角形内角和为180°，两角相等则三角相等）。题目要求选择能判定的条件，但存在两个正确选项，导致答案不唯一。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-155",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由平行得比例，计算正确，答案10/3与解释一致，acceptedAnswers包含分数和小数形式。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-156",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "面积比等于相似比的平方，计算正确，答案2:3与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-157",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由平行得比例，计算正确，答案4与选项A匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-158",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "相似三角形对应边成比例，计算正确，答案5与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-159",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由平行得相似，面积比等于相似比的平方，计算正确，答案25与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-160",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "相似多边形面积比等于相似比的平方，列方程求解正确，答案64与选项A匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-161",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由平行得比例，计算正确，答案2 cm与解释一致，acceptedAnswers覆盖多种写法。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-162",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "相似多边形周长比等于相似比，计算正确，答案56与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-163",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由两角相等得相似，计算对应边正确，答案DF=15与选项A匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-164",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由平行得相似，计算正确，答案6与解释一致。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 11,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第154题存在两个正确选项（C和D），导致答案不唯一，判定为失败；其余题目均正确可解。"
+    }
+  }
+}

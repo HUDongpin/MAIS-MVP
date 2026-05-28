@@ -1,0 +1,324 @@
+{
+  "batchId": "batch-006",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s1-k01-sa-005",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "short-answer",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-geometric-figures"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "小明的妈妈经营一家网店，上个月盈利850元，这个月亏损230元。若把盈利记为正数、亏损记为负数，用有理数表示这两个月的盈利情况，并计算这两个月总的盈亏是多少元。",
+      "optionsZhHans": [],
+      "answer": "盈利850元记作+850，亏损230元记作-230，总盈亏为+620元",
+      "acceptedAnswers": [
+        "盈利850元记作+850，亏损230元记作-230，总盈亏为+620元",
+        "+850，-230，+620",
+        "850，-230，620",
+        "+850元，-230元，+620元"
+      ],
+      "explanationZhHans": "根据正负数的意义，盈利850元记作+850，亏损230元记作-230。总盈亏为(+850)+(-230)=+620，即总盈利620元。因此答案是盈利850元记作+850，亏损230元记作-230，总盈亏为+620元。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k01-sa-006",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "short-answer",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-rational-number-operations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "在一条东西走向的笔直公路上，小明从家出发向东走了300米到达超市，然后向西走了500米到达书店。若规定向东为正方向，用有理数表示小明从家到超市、从超市到书店的位移，并求小明最终位于家的什么方向、距离多少米。",
+      "optionsZhHans": [],
+      "answer": "从家到超市位移为+300米，从超市到书店位移为-500米，最终在家西侧200米处",
+      "acceptedAnswers": [
+        "从家到超市位移为+300米，从超市到书店位移为-500米，最终在家西侧200米处",
+        "+300，-500，西200米",
+        "300，-500，西200米",
+        "+300米，-500米，西侧200米"
+      ],
+      "explanationZhHans": "向东为正，则从家到超市向东300米记作+300米；从超市向西500米记作-500米。最终位置为(+300)+(-500)=-200，负号表示在家西侧，距离200米。因此答案是从家到超市位移为+300米，从超市到书店位移为-500米，最终在家西侧200米处。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k01-sa-007",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "short-answer",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "某冷冻室的温度由-18℃上升了5℃后，又下降了8℃。用有理数表示这两次温度变化，并求冷冻室最后的温度是多少摄氏度。",
+      "optionsZhHans": [],
+      "answer": "上升5℃记作+5，下降8℃记作-8，最后温度为-21℃",
+      "acceptedAnswers": [
+        "上升5℃记作+5，下降8℃记作-8，最后温度为-21℃",
+        "+5，-8，-21℃",
+        "5，-8，-21",
+        "+5℃，-8℃，-21℃"
+      ],
+      "explanationZhHans": "温度上升5℃记作+5，下降8℃记作-8。最后温度=(-18)+5+(-8)=(-18)+(-3)=-21，即-21℃。因此答案是上升5℃记作+5，下降8℃记作-8，最后温度为-21℃。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k01-sa-008",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "short-answer",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-expression-simplification"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "在数轴上，点A表示-3，点B表示2。若将点A向右移动5个单位长度，点B向左移动4个单位长度，求移动后点A和点B分别表示的数，并比较这两个数的大小。",
+      "optionsZhHans": [],
+      "answer": "移动后点A表示2，点B表示-2，2 > -2",
+      "acceptedAnswers": [
+        "移动后点A表示2，点B表示-2，2 > -2",
+        "A:2，B:-2，2>-2",
+        "2，-2，2大于-2",
+        "点A:2，点B:-2，2>-2"
+      ],
+      "explanationZhHans": "点A从-3向右移动5个单位：-3+5=2；点B从2向左移动4个单位：2-4=-2。所以移动后点A表示2，点B表示-2。在数轴上，右边的数大于左边的数，2在-2右边，所以2 > -2。因此答案是移动后点A表示2，点B表示-2，2 > -2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k01-sa-009",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "short-answer",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-linear-equation-modeling"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "某潜水艇从海平面开始先下潜50米，再上浮30米，最后又下潜20米。若规定海平面为0米，下潜为负，上浮为正，用有理数表示每次动作的位移，并求潜水艇最终在海平面下方多少米。",
+      "optionsZhHans": [],
+      "answer": "下潜50米记作-50，上浮30米记作+30，下潜20米记作-20，最终在海平面下方40米",
+      "acceptedAnswers": [
+        "下潜50米记作-50，上浮30米记作+30，下潜20米记作-20，最终在海平面下方40米",
+        "-50，+30，-20，下方40米",
+        "-50米，+30米，-20米，海平面下40米",
+        "下潜50:-50，上浮30:+30，下潜20:-20，最终-40米"
+      ],
+      "explanationZhHans": "下潜50米记作-50，上浮30米记作+30，下潜20米记作-20。总位移=(-50)+(+30)+(-20)=-40，负号表示在海平面下方，距离40米。因此答案是下潜50米记作-50，上浮30米记作+30，下潜20米记作-20，最终在海平面下方40米。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k01-sa-010",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "short-answer",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-geometric-figures"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "某城市一天的最高气温为8℃，最低气温为-5℃。求这天的温差是多少摄氏度。",
+      "optionsZhHans": [],
+      "answer": "13℃",
+      "acceptedAnswers": [
+        "13℃",
+        "13",
+        "13摄氏度",
+        "13度"
+      ],
+      "explanationZhHans": "温差=最高气温-最低气温=8-(-5)=8+5=13（℃）。因此答案是13℃。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k01-sa-011",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "short-answer",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-rational-number-operations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "已知数轴上点A表示的数是-2，点B表示的数是3。若点C在点A和点B之间，且点C到点A的距离是到点B距离的2倍，求点C表示的数。",
+      "optionsZhHans": [],
+      "answer": "4/3",
+      "acceptedAnswers": [
+        "4/3",
+        "1又1/3",
+        "1.33"
+      ],
+      "explanationZhHans": "设点C表示的数为x，则点C到点A的距离为|x-(-2)|=x+2（因为x>-2），点C到点B的距离为|3-x|=3-x（因为x<3）。根据题意，x+2=2(3-x)，解得x+2=6-2x，3x=4，x=4/3。因此答案是4/3。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k01-sa-012",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "short-answer",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "某地一天早晨气温为-3℃，中午上升了8℃，傍晚又下降了5℃。用有理数表示中午和傍晚的气温变化，并求傍晚的气温。",
+      "optionsZhHans": [],
+      "answer": "中午上升8℃记作+8，傍晚下降5℃记作-5，傍晚气温为0℃",
+      "acceptedAnswers": [
+        "中午上升8℃记作+8，傍晚下降5℃记作-5，傍晚气温为0℃",
+        "+8，-5，0℃",
+        "8，-5，0",
+        "+8℃，-5℃，0℃"
+      ],
+      "explanationZhHans": "中午上升8℃记作+8，傍晚下降5℃记作-5。傍晚气温=(-3)+8+(-5)=0，即0℃。因此答案是中午上升8℃记作+8，傍晚下降5℃记作-5，傍晚气温为0℃。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k01-sa-013",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "short-answer",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-expression-simplification"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "在数轴上，点A表示-4，点B表示1。若点P从点A出发，以每秒2个单位长度的速度向右移动；点Q从点B出发，以每秒1个单位长度的速度向左移动。几秒后点P和点Q相遇？相遇点表示的数是多少？",
+      "optionsZhHans": [],
+      "answer": "5/3秒后相遇，相遇点表示的数是-2/3",
+      "acceptedAnswers": [
+        "5/3秒后相遇，相遇点表示的数是-2/3",
+        "5/3秒，-2/3",
+        "1又2/3秒，-2/3",
+        "5/3 s，-2/3"
+      ],
+      "explanationZhHans": "设t秒后相遇，则点P表示的数为-4+2t，点Q表示的数为1-t。相遇时两点表示的数相等：-4+2t=1-t，解得3t=5，t=5/3。相遇点表示的数为-4+2×(5/3)=-4+10/3=-2/3。因此答案是5/3秒后相遇，相遇点表示的数是-2/3。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k01-sa-014",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "short-answer",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-linear-equation-modeling"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "某水库的水位在警戒线以下2米，记作-2米。一场暴雨使水位上升了1.5米，随后开闸放水使水位下降了0.8米。用有理数表示这两次水位变化，并求最终水位在警戒线以下多少米。",
+      "optionsZhHans": [],
+      "answer": "上升1.5米记作+1.5，下降0.8米记作-0.8，最终水位在警戒线以下1.3米",
+      "acceptedAnswers": [
+        "上升1.5米记作+1.5，下降0.8米记作-0.8，最终水位在警戒线以下1.3米",
+        "+1.5，-0.8，-1.3米",
+        "1.5，-0.8，警戒线下1.3米",
+        "+1.5米，-0.8米，-1.3米"
+      ],
+      "explanationZhHans": "上升1.5米记作+1.5，下降0.8米记作-0.8。最终水位=(-2)+1.5+(-0.8)=-1.3，即警戒线以下1.3米。因此答案是上升1.5米记作+1.5，下降0.8米记作-0.8，最终水位在警戒线以下1.3米。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

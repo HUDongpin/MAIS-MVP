@@ -1,0 +1,137 @@
+{
+  "batchNumber": 116,
+  "startedAt": "2026-05-27T14:03:33.367Z",
+  "completedAt": "2026-05-27T14:03:49.789Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-421",
+    "bnu-high-ds-v1-s5-422",
+    "bnu-high-ds-v1-s5-423",
+    "bnu-high-ds-v1-s5-424",
+    "bnu-high-ds-v1-s5-425",
+    "bnu-high-ds-v1-s5-426",
+    "bnu-high-ds-v1-s5-427",
+    "bnu-high-ds-v1-s5-428"
+  ],
+  "usage": {
+    "prompt_tokens": 10393,
+    "completion_tokens": 1098,
+    "total_tokens": 11491,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 9881
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-421",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0.6",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "条件概率计算正确，答案0.6与选项C匹配，解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-422",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "3/7",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "不放回条件概率，第一次取红后剩4红3蓝，第二次取蓝概率3/7，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-423",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "4/3",
+        "correctedAnswer": "4/3",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "分布列求和得c=4/3，但答案误写为3/4，解析过程正确但结论矛盾，需修正答案为4/3。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-424",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "36",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由E(X)=np=12，D(X)=np(1-p)=8解得p=1/3，n=36，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-425",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0.6827",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "正态分布μ=170，σ=5，区间[165,175]为μ±σ，概率0.6827，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-426",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0.3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由分布列和为1得a=0.3，且期望验证符合，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-427",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0.375",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "二项分布B(4,0.5)，P(X=2)=C(4,2)×0.5^4=0.375，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-428",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "1/2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "独立事件至少一人译出概率=1-(2/3)×(3/4)=1/2，答案与解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第423题答案错误，应为4/3而非3/4，其余题目均通过审核。"
+    }
+  }
+}

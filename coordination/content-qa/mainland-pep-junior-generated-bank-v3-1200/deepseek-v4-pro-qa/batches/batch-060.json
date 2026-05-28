@@ -1,0 +1,137 @@
+{
+  "batchNumber": 60,
+  "startedAt": "2026-05-25T03:05:53.398Z",
+  "completedAt": "2026-05-25T03:06:09.799Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s2-k09-mc-008",
+    "pep-junior-v3-s2-k09-mc-009",
+    "pep-junior-v3-s2-k09-mc-010",
+    "pep-junior-v3-s2-k09-mc-011",
+    "pep-junior-v3-s2-k09-mc-012",
+    "pep-junior-v3-s2-k09-mc-013",
+    "pep-junior-v3-s2-k09-mc-014",
+    "pep-junior-v3-s2-k09-mc-015",
+    "pep-junior-v3-s2-k09-mc-016",
+    "pep-junior-v3-s2-k09-mc-017",
+    "pep-junior-v3-s2-k09-mc-018",
+    "pep-junior-v3-s2-k09-mc-019"
+  ],
+  "usage": {
+    "prompt_tokens": 3429,
+    "completion_tokens": 971,
+    "total_tokens": 4400,
+    "prompt_tokens_details": {
+      "cached_tokens": 3328
+    },
+    "prompt_cache_hit_tokens": 3328,
+    "prompt_cache_miss_tokens": 101
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s2-k09-mc-008",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解释一致，选项无歧义，符合人教版初中数学要求。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-mc-009",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移与对称计算正确，答案与解释一致，选项清晰。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-mc-010",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "一次函数应用正确，代入求解无误，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-mc-011",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "待定系数法求k正确，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-mc-012",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "中位数计算正确，排序与取平均无误，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-mc-013",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "不等式建模与求解正确，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-mc-014",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "绝对值概念正确，0的绝对值最小，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-mc-015",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "一元一次方程建模正确，求解无误，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-mc-016",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "二次根式化简正确，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-mc-017",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "等腰三角形性质应用正确，角度计算无误，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-mc-018",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平行四边形对角线性质与三角形三边关系应用正确，推理合理，答案唯一。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-mc-019",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移坐标变化正确，答案与解释一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部12道题数学正确，答案与解释一致，选项无歧义，符合人教版初中数学要求，可直接入库。"
+    }
+  }
+}

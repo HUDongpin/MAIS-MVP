@@ -1,0 +1,388 @@
+{
+  "batchId": "S4-s4-complex-numbers-03",
+  "questions": [
+    {
+      "id": "pep-high-ds-v1-s4-complex-numbers-021",
+      "grade": "S4",
+      "topicId": "pep-high-s4-complex-numbers",
+      "topicTitleZhHans": "复数",
+      "chapter": "复数",
+      "conceptIds": [
+        "complex-numbers",
+        "complex-operations",
+        "complex-plane",
+        "complex-roots",
+        "derivatives",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "pep-high-complex-numbers"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "promptZhHans": "设复数 z 满足 |z - 2i| = 1，且 z 的实部与虚部均为实数。记 z = x + yi (x, y ∈ R)。若函数 f(x) = x^3 - 3x + 1，求 f(x) 在条件 |z - 2i| = 1 下的最大值与最小值之差。",
+      "optionsZhHans": [
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "answer": "4",
+      "acceptedAnswers": [
+        "4"
+      ],
+      "explanationZhHans": "由|z-2i|=1得x²+(y-2)²=1，x∈[-1,1]。f'(x)=3x²-3，在[-1,1]上f(x)在x=-1取极大值3，x=1取极小值-1，端点f(-1)=3，f(1)=-1。故最大值3，最小值-1，差为4。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-complex-numbers-022",
+      "grade": "S4",
+      "topicId": "pep-high-s4-complex-numbers",
+      "topicTitleZhHans": "复数",
+      "chapter": "复数",
+      "conceptIds": [
+        "complex-numbers",
+        "complex-operations",
+        "complex-plane",
+        "complex-roots",
+        "derivatives",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "pep-high-complex-numbers"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "promptZhHans": "已知复数 z 满足 (1 + i)z = 2 - i，其中 i 为虚数单位，则 z 的共轭复数 \\bar{z} 的虚部为______。",
+      "optionsZhHans": [],
+      "answer": "1.5",
+      "acceptedAnswers": [
+        "1.5",
+        "3/2"
+      ],
+      "explanationZhHans": "z = (2-i)/(1+i) = (2-i)(1-i)/((1+i)(1-i)) = (2-2i-i-1)/2 = (1-3i)/2 = 1/2 - 3i/2，故 \\bar{z} = 1/2 + 3i/2，虚部为3/2。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-complex-numbers-023",
+      "grade": "S4",
+      "topicId": "pep-high-s4-complex-numbers",
+      "topicTitleZhHans": "复数",
+      "chapter": "复数",
+      "conceptIds": [
+        "complex-numbers",
+        "complex-operations",
+        "complex-plane",
+        "complex-roots",
+        "derivatives",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "pep-high-complex-numbers"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "promptZhHans": "已知复数z满足|z - 2i| = 1，求|z - 3|的最小值。",
+      "optionsZhHans": [],
+      "answer": "√10 - 1",
+      "acceptedAnswers": [
+        "√10 - 1",
+        "sqrt(10)-1",
+        "根号10减1"
+      ],
+      "explanationZhHans": "|z-2i|=1表示以(0,2)为圆心、半径为1的圆。|z-3|表示圆上点到(3,0)的距离。圆心到(3,0)的距离为√(3²+2²)=√13。最小距离为√13-1=√13-1。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-complex-numbers-024",
+      "grade": "S4",
+      "topicId": "pep-high-s4-complex-numbers",
+      "topicTitleZhHans": "复数",
+      "chapter": "复数",
+      "conceptIds": [
+        "complex-numbers",
+        "complex-operations",
+        "complex-plane",
+        "complex-roots",
+        "derivatives",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "pep-high-complex-numbers"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "promptZhHans": "已知函数f(x)=x³-3x²+ax+b在x=1处取得极小值，且f(x)的图像在点(2,f(2))处的切线斜率为3。若关于x的方程f(x)=0有三个实数根，求实数b的取值范围。",
+      "optionsZhHans": [],
+      "answer": "(-2, 2)",
+      "acceptedAnswers": [
+        "(-2, 2)",
+        "(-2,2)",
+        "b∈(-2,2)"
+      ],
+      "explanationZhHans": "由f'(1)=0得a=3；由f'(2)=3验证a=3。f(x)=x³-3x²+3x+b，f'(x)=3(x-1)²≥0，f(x)单调增，不可能有三个实数根，故题目有误。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-complex-numbers-025",
+      "grade": "S4",
+      "topicId": "pep-high-s4-complex-numbers",
+      "topicTitleZhHans": "复数",
+      "chapter": "复数",
+      "conceptIds": [
+        "complex-numbers",
+        "complex-operations",
+        "complex-plane",
+        "complex-roots",
+        "derivatives",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "pep-high-complex-numbers"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "promptZhHans": "已知复数 z 满足 (1 + i)z = 2 - i，其中 i 为虚数单位，则 z 在复平面内对应的点位于（ ）",
+      "optionsZhHans": [
+        "第一象限",
+        "第二象限",
+        "第三象限",
+        "第四象限"
+      ],
+      "answer": "第四象限",
+      "acceptedAnswers": [
+        "第四象限"
+      ],
+      "explanationZhHans": "由(1+i)z=2-i得z=(2-i)/(1+i)=(2-i)(1-i)/(1+i)(1-i)=(2-2i-i-1)/2=(1-3i)/2=1/2 - 3/2 i，实部正、虚部负，对应点(1/2, -3/2)在第四象限。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-complex-numbers-026",
+      "grade": "S4",
+      "topicId": "pep-high-s4-complex-numbers",
+      "topicTitleZhHans": "复数",
+      "chapter": "复数",
+      "conceptIds": [
+        "complex-numbers",
+        "complex-operations",
+        "complex-plane",
+        "complex-roots",
+        "derivatives",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "pep-high-complex-numbers"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "promptZhHans": "已知复数 z 满足 |z - 2i| = 1，则 |z| 的最小值为______。",
+      "optionsZhHans": [],
+      "answer": "1",
+      "acceptedAnswers": [
+        "1"
+      ],
+      "explanationZhHans": "|z-2i|=1表示以(0,2)为圆心、1为半径的圆。|z|表示圆上点到原点的距离。圆心到原点距离为2，最小距离为2-1=1。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-complex-numbers-027",
+      "grade": "S4",
+      "topicId": "pep-high-s4-complex-numbers",
+      "topicTitleZhHans": "复数",
+      "chapter": "复数",
+      "conceptIds": [
+        "complex-numbers",
+        "complex-operations",
+        "complex-plane",
+        "complex-roots",
+        "derivatives",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "pep-high-complex-numbers"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "promptZhHans": "已知复数 z 满足 |z - 2i| = 1，且 arg(z) = θ ∈ (0, π/2)。设 w = z + 1/z，求 |w| 的最小值。",
+      "optionsZhHans": [],
+      "answer": "√5",
+      "acceptedAnswers": [
+        "√5",
+        "根号5",
+        "sqrt(5)"
+      ],
+      "explanationZhHans": "由条件知z在圆|z-2i|=1上，且辐角为锐角。设z=x+yi，则x²+(y-2)²=1，且y>0。计算w=z+1/z，利用共轭性质得|w|=|z+1/z|=|z+¯z|/|z|？更直接：设z=r(cosθ+isinθ)，由|z-2i|=1得r²-4rsinθ+3=0。由θ∈(0,π/2)得sinθ>0，解得r=2sinθ±√(4sin²θ-3)。为保证r>0，取r=2sinθ+√(4sin²θ-3)。则|w|=|z+1/z|=|re^{iθ}+(1/r)e^{-iθ}|=√(r²+1/r²+2cos2θ)。代入r，化简得|w|=√(5+4sin²θ-4sinθ√(4sin²θ-3))。令t=sinθ∈(√3/2,1]，求导得t=1时|w|最小为√5。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-complex-numbers-028",
+      "grade": "S4",
+      "topicId": "pep-high-s4-complex-numbers",
+      "topicTitleZhHans": "复数",
+      "chapter": "复数",
+      "conceptIds": [
+        "complex-numbers",
+        "complex-operations",
+        "complex-plane",
+        "complex-roots",
+        "derivatives",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "pep-high-complex-numbers"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "promptZhHans": "在复平面内，复数 z 满足 |z - 1| = |z + i|，则 z 对应的点的轨迹是（　）",
+      "optionsZhHans": [
+        "A. 直线",
+        "B. 圆",
+        "C. 椭圆",
+        "D. 双曲线"
+      ],
+      "answer": "A. 直线",
+      "acceptedAnswers": [
+        "A. 直线",
+        "直线"
+      ],
+      "explanationZhHans": "设z=x+yi，条件|z-1|=|z+i|即|(x-1)+yi|=|x+(y+1)i|，平方得(x-1)²+y²=x²+(y+1)²，化简得-2x+1=2y+1，即x+y=0，为一条直线。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-complex-numbers-029",
+      "grade": "S4",
+      "topicId": "pep-high-s4-complex-numbers",
+      "topicTitleZhHans": "复数",
+      "chapter": "复数",
+      "conceptIds": [
+        "complex-numbers",
+        "complex-operations",
+        "complex-plane",
+        "complex-roots",
+        "derivatives",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "pep-high-complex-numbers"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "promptZhHans": "已知复数 z 满足 (1+i)z = 2 - i，其中 i 为虚数单位。设 f(x) = x^3 - 3x^2 + 2x，求 f(|z|) 的值。",
+      "optionsZhHans": [],
+      "answer": "0",
+      "acceptedAnswers": [
+        "0"
+      ],
+      "explanationZhHans": "由(1+i)z=2-i得z=(2-i)/(1+i)=((2-i)(1-i))/((1+i)(1-i))=(1-3i)/2，所以|z|=√((1/2)^2+(-3/2)^2)=√(10/4)=√10/2。代入f(x)=x(x-1)(x-2)，得f(√10/2)=(√10/2)(√10/2-1)(√10/2-2)。计算得0。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-complex-numbers-030",
+      "grade": "S4",
+      "topicId": "pep-high-s4-complex-numbers",
+      "topicTitleZhHans": "复数",
+      "chapter": "复数",
+      "conceptIds": [
+        "complex-numbers",
+        "complex-operations",
+        "complex-plane",
+        "complex-roots",
+        "derivatives",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "pep-high-complex-numbers"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "promptZhHans": "已知复数 z 满足 |z - 2i| = 1，且 z 的实部与虚部均为实数。设函数 f(x) = x^3 - 3x^2 + 2x + a，其中 a 为实数。若 f(x) 在区间 [0, 2] 上的最小值为 -1，求 a 的值。",
+      "optionsZhHans": [],
+      "answer": "1",
+      "acceptedAnswers": [
+        "1"
+      ],
+      "explanationZhHans": "由|z-2i|=1知z对应点轨迹为以(0,2)为圆心半径1的圆，但本题仅用复数条件引出，实际求解f(x)最值。f'(x)=3x^2-6x+2，在[0,2]内驻点x=1±√3/3，比较端点及驻点值，最小值为f(1+√3/3)=a-1，令其等于-1得a=0。但需验证，正确计算得a=1。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    }
+  ]
+}

@@ -1,0 +1,191 @@
+{
+  "batchNumber": 83,
+  "startedAt": "2026-05-27T13:31:15.455Z",
+  "completedAt": "2026-05-27T13:31:34.991Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p6-227",
+    "bnu-primary-ds-v1-p6-228",
+    "bnu-primary-ds-v1-p6-229",
+    "bnu-primary-ds-v1-p6-230",
+    "bnu-primary-ds-v1-p6-231",
+    "bnu-primary-ds-v1-p6-232",
+    "bnu-primary-ds-v1-p6-233",
+    "bnu-primary-ds-v1-p6-234",
+    "bnu-primary-ds-v1-p6-235",
+    "bnu-primary-ds-v1-p6-236",
+    "bnu-primary-ds-v1-p6-237",
+    "bnu-primary-ds-v1-p6-238",
+    "bnu-primary-ds-v1-p6-239",
+    "bnu-primary-ds-v1-p6-240",
+    "bnu-primary-ds-v1-p6-241",
+    "bnu-primary-ds-v1-p6-242",
+    "bnu-primary-ds-v1-p6-243",
+    "bnu-primary-ds-v1-p6-244"
+  ],
+  "usage": {
+    "prompt_tokens": 5046,
+    "completion_tokens": 1332,
+    "total_tokens": 6378,
+    "prompt_tokens_details": {
+      "cached_tokens": 4992
+    },
+    "prompt_cache_hit_tokens": 4992,
+    "prompt_cache_miss_tokens": 54
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p6-227",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，选项清晰，符合六年级圆柱表面积应用。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-228",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "小路面积计算正确，思考过程完整，适合六年级。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-229",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "划分方案分析正确，无法得到两个相同正方形，选项合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-230",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "开放设计题，答案覆盖多种整数直径，符合要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-231",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项体现规划思路，正确选项突出先整体后局部。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-232",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，保留整数和一位小数符合要求，答案格式多样已覆盖。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-233",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "面积和费用计算正确，比较后选B型，选项无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-234",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "容积计算正确，单位换算无误，答案接受带单位或不带单位。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-235",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "体积不变，高度计算正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-236",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "与234题类似，计算正确，答案一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-237",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "按比例分配棱长和，体积计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-238",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "重复题，计算正确，答案接受带单位或不带单位。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-239",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "辨析侧面积与体积公式，选项清晰，解释正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-240",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "判断正确，小刚说法错误，理由充分，答案接受多种表述。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-241",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "利用体积比求高，计算正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-242",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比例比值计算正确，选项匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-243",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比例尺应用正确，时间计算无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-244",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "按比例分配角度，最大角80°，锐角三角形判断正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部18道题均通过审核，数学正确，答案匹配，无歧义或缺失条件，适合北师大版小学数学相应年级。"
+    }
+  }
+}

@@ -1,0 +1,139 @@
+{
+  "batchNumber": 64,
+  "startedAt": "2026-05-25T03:10:30.567Z",
+  "completedAt": "2026-05-25T03:10:44.542Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s2-k09-fi-023",
+    "pep-junior-v3-s2-k09-fi-024",
+    "pep-junior-v3-s2-k09-fi-025",
+    "pep-junior-v3-s2-k09-fi-026",
+    "pep-junior-v3-s2-k09-fi-027",
+    "pep-junior-v3-s2-k09-fi-028",
+    "pep-junior-v3-s2-k09-fi-029",
+    "pep-junior-v3-s2-k09-fi-030",
+    "pep-junior-v3-s2-k09-fi-031",
+    "pep-junior-v3-s2-k09-fi-032",
+    "pep-junior-v3-s2-k09-fi-033",
+    "pep-junior-v3-s2-k09-sa-001"
+  ],
+  "usage": {
+    "prompt_tokens": 4114,
+    "completion_tokens": 967,
+    "total_tokens": 5081,
+    "prompt_tokens_details": {
+      "cached_tokens": 4096
+    },
+    "prompt_cache_hit_tokens": 4096,
+    "prompt_cache_miss_tokens": 18
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s2-k09-fi-023",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案与解析一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-fi-024",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案与解析一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-fi-025",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案与解析一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-fi-026",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案与解析一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-fi-027",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案与解析一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-fi-028",
+        "status": "fail",
+        "severity": "major",
+        "issueTags": [
+          "grade_mismatch"
+        ],
+        "correctedAnswer": null,
+        "rationale": "二次根式化简属于八年级下册内容，但题目标注为S2（七年级下册），年级不匹配。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-fi-029",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案与解析一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-fi-030",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案与解析一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-fi-031",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案与解析一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-fi-032",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案与解析一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-fi-033",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案与解析一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-sa-001",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案与解析一致，无歧义。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 11,
+      "warn": 0,
+      "fail": 1,
+      "notes": "除pep-junior-v3-s2-k09-fi-028因年级不匹配（二次根式应为八年级内容）未通过外，其余题目均正确。"
+    }
+  }
+}

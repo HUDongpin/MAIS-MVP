@@ -1,0 +1,137 @@
+{
+  "batchNumber": 42,
+  "startedAt": "2026-05-25T03:00:00.884Z",
+  "completedAt": "2026-05-25T03:00:17.089Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s2-k06-sa-025",
+    "pep-junior-v3-s2-k06-sa-026",
+    "pep-junior-v3-s2-k06-sa-027",
+    "pep-junior-v3-s2-k06-sa-028",
+    "pep-junior-v3-s2-k06-sa-029",
+    "pep-junior-v3-s2-k06-sa-030",
+    "pep-junior-v3-s2-k06-sa-031",
+    "pep-junior-v3-s2-k06-sa-032",
+    "pep-junior-v3-s2-k06-sa-033",
+    "pep-junior-v3-s2-k07-mc-001",
+    "pep-junior-v3-s2-k07-mc-002",
+    "pep-junior-v3-s2-k07-mc-003"
+  ],
+  "usage": {
+    "prompt_tokens": 3416,
+    "completion_tokens": 951,
+    "total_tokens": 4367,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 3160
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s2-k06-sa-025",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解释一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-sa-026",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，SSS判定合理，对应顶点正确。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-sa-027",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "三角形内角和计算正确，答案70°无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-sa-028",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "角平分线性质应用正确，答案合理。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-sa-029",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "多项式乘法展开正确，结果2x²+x-3无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-sa-030",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "SSS全等判定正确，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-sa-031",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "等腰三角形性质应用正确，∠A=40°无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-sa-032",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "多边形内角和公式应用正确，边数为7。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-sa-033",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "等腰三角形与角度计算正确，∠BAC=108°。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-mc-001",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "幂运算法则判断正确，选项D无误，其他选项错误分析准确。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-mc-002",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分式值为零条件考虑分母不为零，答案2正确。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k07-mc-003",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "利润率公式正确，答案(b-a)/a×100%无误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案与解释一致，无歧义或错误，适合人教版初中数学。"
+    }
+  }
+}

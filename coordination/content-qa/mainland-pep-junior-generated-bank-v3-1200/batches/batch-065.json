@@ -1,0 +1,318 @@
+{
+  "batchId": "batch-065",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s2-k08-fi-008",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-quadrilaterals"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "在平面直角坐标系中，点A的坐标为(3,4)，点B的坐标为(7,1)。若将线段AB平移，使点A移到点A'(5,2)，则点B的对应点B'的坐标是______。",
+      "optionsZhHans": [],
+      "answer": "(9,-1)",
+      "acceptedAnswers": [
+        "(9,-1)",
+        "（9，-1）",
+        "9,-1",
+        "(9, -1)"
+      ],
+      "explanationZhHans": "由点A(3,4)平移到A'(5,2)，横坐标增加2，纵坐标减少2，所以平移规律为向右2个单位，向下2个单位。点B(7,1)按相同规律平移，横坐标7+2=9，纵坐标1-2=-1，故B'的坐标为(9,-1)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-fi-009",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-quadratic-radicals"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "某市出租车收费标准为：起步价8元（含3千米），超过3千米后每千米加收1.6元。小明乘坐出租车行驶了x千米（x>3），他应付车费y元。则y关于x的函数关系式为______。",
+      "optionsZhHans": [],
+      "answer": "y=1.6x+3.2",
+      "acceptedAnswers": [
+        "y=1.6x+3.2",
+        "y=1.6x+3.2（x>3）",
+        "y=1.6x+3.2(x>3)",
+        "y=1.6x+3.2 (x>3)"
+      ],
+      "explanationZhHans": "当x>3时，超出部分为(x-3)千米，费用为1.6(x-3)元，加上起步价8元，总费用y=8+1.6(x-3)=8+1.6x-4.8=1.6x+3.2，所以关系式为y=1.6x+3.2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-fi-010",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-proof-calculation-integrated"
+      ],
+      "promptZhHans": "已知一个直角三角形的两条直角边长分别为5 cm和12 cm，则该直角三角形斜边上的高为______cm。",
+      "optionsZhHans": [],
+      "answer": "60/13",
+      "acceptedAnswers": [
+        "60/13",
+        "4.61538461538",
+        "4又8/13",
+        "60/13 cm",
+        "60/13cm"
+      ],
+      "explanationZhHans": "由勾股定理得斜边长为√(5²+12²)=13 cm。直角三角形面积可用两条直角边计算：S=1/2×5×12=30 cm²。也可用斜边和斜边上的高h计算：S=1/2×13×h。所以1/2×13×h=30，解得h=60/13 cm。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-fi-011",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-linear-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean"
+      ],
+      "promptZhHans": "在平行四边形ABCD中，∠A=55°，则∠C的度数为______°。",
+      "optionsZhHans": [],
+      "answer": "55",
+      "acceptedAnswers": [
+        "55",
+        "55°",
+        "55度"
+      ],
+      "explanationZhHans": "根据平行四边形的性质，对角相等。∠A与∠C是对角，所以∠C=∠A=55°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-fi-012",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-data-analysis"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "某班7名同学的体重（单位：kg）分别为：43，45，48，50，50，52，55。这组数据的众数是______。",
+      "optionsZhHans": [],
+      "answer": "50",
+      "acceptedAnswers": [
+        "50",
+        "50kg",
+        "50 kg"
+      ],
+      "explanationZhHans": "众数是一组数据中出现次数最多的数据。在43，45，48，50，50，52，55中，50出现了2次，其他数据均出现1次，所以众数是50。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-fi-013",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-pythagorean-theorem"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "小明用一根长24 cm的细绳围成一个直角三角形，其中一条直角边长为6 cm，则另一条直角边长为______cm。",
+      "optionsZhHans": [],
+      "answer": "8",
+      "acceptedAnswers": [
+        "8",
+        "8cm",
+        "8 cm"
+      ],
+      "explanationZhHans": "设另一条直角边长为x cm，则斜边长为(24-6-x)=(18-x) cm。由勾股定理得6²+x²=(18-x)²，即36+x²=324-36x+x²，化简得36x=288，解得x=8。经检验，三边长为6,8,10，满足勾股定理且周长为24，故另一条直角边长为8 cm。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-fi-014",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-quadrilaterals"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions"
+      ],
+      "promptZhHans": "在矩形ABCD中，对角线AC与BD相交于点O。若AC=10 cm，则BO的长度为______cm。",
+      "optionsZhHans": [],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5",
+        "5cm",
+        "5 cm"
+      ],
+      "explanationZhHans": "根据矩形的性质，对角线相等且互相平分。所以AC=BD=10 cm，且点O平分BD，因此BO=1/2 BD=5 cm。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-fi-015",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-quadratic-radicals"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "promptZhHans": "若二次根式√(2x-5)有意义，则x的取值范围是______。",
+      "optionsZhHans": [],
+      "answer": "x≥5/2",
+      "acceptedAnswers": [
+        "x≥5/2",
+        "x≥2.5"
+      ],
+      "explanationZhHans": "二次根式有意义，要求被开方数非负，即2x-5≥0，解得x≥5/2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-fi-016",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "promptZhHans": "计算：√18-√8+√(1/2)=______。",
+      "optionsZhHans": [],
+      "answer": "3√2/2",
+      "acceptedAnswers": [
+        "3√2/2",
+        "(3√2)/2",
+        "3/2√2",
+        "1.5√2"
+      ],
+      "explanationZhHans": "原式=3√2-2√2+√2/2=(3-2+1/2)√2=(3/2)√2=3√2/2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-fi-017",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-linear-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "已知一次函数y=kx+b的图象经过点(2,5)和(-1,-1)，则k的值为______。",
+      "optionsZhHans": [],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2",
+        "k=2"
+      ],
+      "explanationZhHans": "将点(2,5)和(-1,-1)分别代入y=kx+b，得5=2k+b，-1=-k+b。两式相减得6=3k，解得k=2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

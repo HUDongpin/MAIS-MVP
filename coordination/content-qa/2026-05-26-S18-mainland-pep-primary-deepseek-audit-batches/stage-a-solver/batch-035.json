@@ -1,0 +1,181 @@
+{
+  "startedAt": "2026-05-26T06:05:31.717Z",
+  "completedAt": "2026-05-26T06:05:49.041Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "usage": {
+    "prompt_tokens": 2614,
+    "completion_tokens": 1361,
+    "total_tokens": 3975,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 2614
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "questionId": "pep-primary-p4-u-fi-081",
+        "solvableStatus": "pass",
+        "independentAnswer": "110°",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "平角为180°，180°-70°=110°"
+      },
+      {
+        "questionId": "pep-primary-p4-u-fi-082",
+        "solvableStatus": "pass",
+        "independentAnswer": "105°",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "180°-75°=105°"
+      },
+      {
+        "questionId": "pep-primary-p4-u-fi-083",
+        "solvableStatus": "pass",
+        "independentAnswer": "100°",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "180°-80°=100°"
+      },
+      {
+        "questionId": "pep-primary-p4-u-fi-084",
+        "solvableStatus": "pass",
+        "independentAnswer": "92°",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "180°-88°=92°"
+      },
+      {
+        "questionId": "pep-primary-p4-u-fi-085",
+        "solvableStatus": "pass",
+        "independentAnswer": "90°",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "180°-90°=90°"
+      },
+      {
+        "questionId": "pep-primary-p4-u-fi-086",
+        "solvableStatus": "pass",
+        "independentAnswer": "85°",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "180°-95°=85°"
+      },
+      {
+        "questionId": "pep-primary-p4-u-fi-087",
+        "solvableStatus": "pass",
+        "independentAnswer": "80°",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "180°-100°=80°"
+      },
+      {
+        "questionId": "pep-primary-p4-u-fi-088",
+        "solvableStatus": "pass",
+        "independentAnswer": "75°",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "180°-105°=75°"
+      },
+      {
+        "questionId": "pep-primary-p4-u-fi-089",
+        "solvableStatus": "pass",
+        "independentAnswer": "70°",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "180°-110°=70°"
+      },
+      {
+        "questionId": "pep-primary-p4-u-fi-090",
+        "solvableStatus": "pass",
+        "independentAnswer": "65°",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "180°-115°=65°"
+      },
+      {
+        "questionId": "pep-primary-p4-u-fi-091",
+        "solvableStatus": "pass",
+        "independentAnswer": "60°",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "180°-120°=60°"
+      },
+      {
+        "questionId": "pep-primary-p4-u-fi-092",
+        "solvableStatus": "pass",
+        "independentAnswer": "51°",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "180°-129°=51°"
+      },
+      {
+        "questionId": "pep-primary-p4-u-fi-093",
+        "solvableStatus": "pass",
+        "independentAnswer": "50°",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "180°-130°=50°"
+      },
+      {
+        "questionId": "pep-primary-p4-u-fi-094",
+        "solvableStatus": "pass",
+        "independentAnswer": "45°",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "180°-135°=45°"
+      },
+      {
+        "questionId": "pep-primary-p4-u-fi-095",
+        "solvableStatus": "pass",
+        "independentAnswer": "40°",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "180°-140°=40°"
+      },
+      {
+        "questionId": "pep-primary-p4-u-fi-096",
+        "solvableStatus": "pass",
+        "independentAnswer": "155°",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "180°-25°=155°"
+      },
+      {
+        "questionId": "pep-primary-p4-u-fi-097",
+        "solvableStatus": "pass",
+        "independentAnswer": "150°",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "180°-30°=150°"
+      },
+      {
+        "questionId": "pep-primary-p4-u-fi-098",
+        "solvableStatus": "pass",
+        "independentAnswer": "145°",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "180°-35°=145°"
+      },
+      {
+        "questionId": "pep-primary-p4-u-fi-099",
+        "solvableStatus": "pass",
+        "independentAnswer": "140°",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "180°-40°=140°"
+      },
+      {
+        "questionId": "pep-primary-p4-u-fi-100",
+        "solvableStatus": "pass",
+        "independentAnswer": "120°",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "邻补角即补角，180°-60°=120°"
+      }
+    ]
+  }
+}

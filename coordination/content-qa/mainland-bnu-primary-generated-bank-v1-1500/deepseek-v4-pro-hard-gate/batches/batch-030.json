@@ -1,0 +1,330 @@
+{
+  "batchNumber": 30,
+  "startedAt": "2026-05-27T03:39:44.678Z",
+  "completedAt": "2026-05-27T03:40:16.065Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p4-121",
+    "bnu-primary-ds-v1-p4-122",
+    "bnu-primary-ds-v1-p4-123",
+    "bnu-primary-ds-v1-p4-124",
+    "bnu-primary-ds-v1-p4-125",
+    "bnu-primary-ds-v1-p4-126",
+    "bnu-primary-ds-v1-p4-127",
+    "bnu-primary-ds-v1-p4-128",
+    "bnu-primary-ds-v1-p4-129",
+    "bnu-primary-ds-v1-p4-130",
+    "bnu-primary-ds-v1-p4-131",
+    "bnu-primary-ds-v1-p4-132",
+    "bnu-primary-ds-v1-p4-133",
+    "bnu-primary-ds-v1-p4-134",
+    "bnu-primary-ds-v1-p4-135",
+    "bnu-primary-ds-v1-p4-136",
+    "bnu-primary-ds-v1-p4-137",
+    "bnu-primary-ds-v1-p4-138",
+    "bnu-primary-ds-v1-p4-139",
+    "bnu-primary-ds-v1-p4-140",
+    "bnu-primary-ds-v1-p4-141",
+    "bnu-primary-ds-v1-p4-142",
+    "bnu-primary-ds-v1-p4-143",
+    "bnu-primary-ds-v1-p4-144",
+    "bnu-primary-ds-v1-p4-145",
+    "bnu-primary-ds-v1-p4-146",
+    "bnu-primary-ds-v1-p4-147",
+    "bnu-primary-ds-v1-p4-148",
+    "bnu-primary-ds-v1-p4-149",
+    "bnu-primary-ds-v1-p4-150"
+  ],
+  "usage": {
+    "prompt_tokens": 6792,
+    "completion_tokens": 2385,
+    "total_tokens": 9177,
+    "prompt_tokens_details": {
+      "cached_tokens": 6784
+    },
+    "prompt_cache_hit_tokens": 6784,
+    "prompt_cache_miss_tokens": 8
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p4-121",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目信息完整，红球最多，可能性最大，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-122",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "红色区域最多，可能性最大，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-123",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "骰子数字各两个面，可能性相等，游戏公平，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-124",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "1-10单双数各5个，可能性相等，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-125",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "下雨可能性小，晴天是可能事件，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-126",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "根据频率推测数量关系，答案合理正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-127",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "独立事件，正反面可能性相等，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-128",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "黑桃和梅花各13张，可能性相等，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-129",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "先求被除数再正确计算，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-130",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "估算判断够不够，选项A符合，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-131",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "数的组成正确，答案5037000正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-132",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "先求另一个乘数再求正确积，答案432正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-133",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "读数正确，选项A符合，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-134",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "垂直与平行性质，a⊥c，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-135",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "先求总本数再求班级数，答案18正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-136",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "三角尺拼角，130°无法拼出，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-137",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "改写并保留一位小数，答案49.6, 13.0正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-138",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "角度判断正确，题目说法正确，答案合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-139",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "积不变规律，选项D正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-140",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "四舍五入求最大最小，答案104999, 95000正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-141",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "综合题，判断和改正正确，答案完整。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-142",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "思维导图有助于发现联系，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-143",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "线与角概念填空，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-144",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "单位换算错误分析，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-145",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "百分位上的2表示2个百分之一，0.423正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-146",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "小数大小相等，计数单位不同，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-147",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "小数加减计算，答案7.05正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-148",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "1.4=1.40，选项B正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-149",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "统一计数单位，530和276正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-150",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "先求另一个加数再求正确和，答案8.1正确。"
+      }
+    ],
+    "batchSummary": {
+      "solvableYes": 30,
+      "solvableNo": 0,
+      "answerMatchYes": 30,
+      "answerMatchNo": 0,
+      "notes": "所有题目信息完整，可解，答案匹配正确。"
+    }
+  }
+}

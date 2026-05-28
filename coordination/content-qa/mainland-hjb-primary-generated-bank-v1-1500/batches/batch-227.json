@@ -1,0 +1,286 @@
+{
+  "batchId": "batch-227",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p5-131",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-factors-multiples",
+      "unitTitle": "因数、倍数与数的结构",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "factors-multiples",
+        "prime-composite",
+        "greatest-common-factor",
+        "least-common-multiple",
+        "因数倍数"
+      ],
+      "competencyTags": [
+        "数感",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "因数倍数",
+        "质数合数",
+        "公因数",
+        "公倍数",
+        "数的分类"
+      ],
+      "misconceptionTags": [
+        "factor and multiple reversed",
+        "prime number confused with odd number",
+        "least common multiple chosen without common check"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-factors-multiples"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit",
+        "hjb-primary-p5-upper-assessment-equations-relationships-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "两个数的最大公因数是6，最小公倍数是72，其中一个数是18，另一个数是多少？",
+      "optionsZhHans": [],
+      "answer": "24",
+      "acceptedAnswers": [
+        "24"
+      ],
+      "explanationZhHans": "利用两个数的乘积等于它们的最大公因数与最小公倍数的乘积。18 × 另一个数 = 6 × 72，所以另一个数 = (6 × 72) ÷ 18 = 432 ÷ 18 = 24。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-132",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-factors-multiples",
+      "unitTitle": "因数、倍数与数的结构",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "factors-multiples",
+        "prime-composite",
+        "greatest-common-factor",
+        "least-common-multiple",
+        "因数倍数"
+      ],
+      "competencyTags": [
+        "数感",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "因数倍数",
+        "质数合数",
+        "公因数",
+        "公倍数",
+        "数的分类"
+      ],
+      "misconceptionTags": [
+        "factor and multiple reversed",
+        "prime number confused with odd number",
+        "least common multiple chosen without common check"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-factors-multiples"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit",
+        "hjb-primary-p5-upper-assessment-equations-relationships-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把24个苹果和36个橘子分装到袋子里，每个袋子里的苹果个数相同，橘子个数也相同，且没有剩余。最多可以装多少袋？每袋中苹果和橘子各有多少个？",
+      "optionsZhHans": [],
+      "answer": "最多装12袋，每袋苹果2个，橘子3个",
+      "acceptedAnswers": [
+        "最多装12袋，每袋苹果2个，橘子3个",
+        "12袋，苹果2个，橘子3个"
+      ],
+      "explanationZhHans": "求最多袋数就是求24和36的最大公因数。24和36的最大公因数是12，所以最多装12袋。每袋苹果：24÷12=2个，橘子：36÷12=3个。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-133",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-factors-multiples",
+      "unitTitle": "因数、倍数与数的结构",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "factors-multiples",
+        "prime-composite",
+        "greatest-common-factor",
+        "least-common-multiple",
+        "因数倍数"
+      ],
+      "competencyTags": [
+        "数感",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "因数倍数",
+        "质数合数",
+        "公因数",
+        "公倍数",
+        "数的分类"
+      ],
+      "misconceptionTags": [
+        "factor and multiple reversed",
+        "prime number confused with odd number",
+        "least common multiple chosen without common check"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-factors-multiples"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit",
+        "hjb-primary-p5-upper-assessment-equations-relationships-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个数既是质数又是偶数？",
+      "optionsZhHans": [
+        "1",
+        "2",
+        "9",
+        "15"
+      ],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2"
+      ],
+      "explanationZhHans": "质数只有1和它本身两个因数。偶数中只有2是质数，其他偶数都有因数2。1不是质数，9和15是合数。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-134",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-factors-multiples",
+      "unitTitle": "因数、倍数与数的结构",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "factors-multiples",
+        "prime-composite",
+        "greatest-common-factor",
+        "least-common-multiple",
+        "因数倍数"
+      ],
+      "competencyTags": [
+        "数感",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "因数倍数",
+        "质数合数",
+        "公因数",
+        "公倍数",
+        "数的分类"
+      ],
+      "misconceptionTags": [
+        "factor and multiple reversed",
+        "prime number confused with odd number",
+        "least common multiple chosen without common check"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-factors-multiples"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit",
+        "hjb-primary-p5-upper-assessment-equations-relationships-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个数在30到40之间，它既是3的倍数，又是4的倍数，这个数是多少？",
+      "optionsZhHans": [],
+      "answer": "36",
+      "acceptedAnswers": [
+        "36"
+      ],
+      "explanationZhHans": "既是3的倍数又是4的倍数，就是3和4的公倍数。3和4的最小公倍数是12，在30到40之间的公倍数只有36。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-135",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-factors-multiples",
+      "unitTitle": "因数、倍数与数的结构",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "factors-multiples",
+        "prime-composite",
+        "greatest-common-factor",
+        "least-common-multiple",
+        "因数倍数"
+      ],
+      "competencyTags": [
+        "数感",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "因数倍数",
+        "质数合数",
+        "公因数",
+        "公倍数",
+        "数的分类"
+      ],
+      "misconceptionTags": [
+        "factor and multiple reversed",
+        "prime number confused with odd number",
+        "least common multiple chosen without common check"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-factors-multiples"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit",
+        "hjb-primary-p5-upper-assessment-equations-relationships-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "五年级学生排队做操，每行8人或每行10人都正好排成整行，没有剩余。五年级至少有多少人？",
+      "optionsZhHans": [],
+      "answer": "40",
+      "acceptedAnswers": [
+        "40"
+      ],
+      "explanationZhHans": "求至少有多少人，就是求8和10的最小公倍数。8和10的最小公倍数是40，所以五年级至少有40人。"
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "batchId": "model-qa-0009",
+  "ids": [
+    "hjb-high-ds-v4-s4-355",
+    "hjb-high-ds-v4-s4-358",
+    "hjb-high-ds-v4-s4-361",
+    "hjb-high-ds-v4-s4-364",
+    "hjb-high-ds-v4-s4-367"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-high-ds-v4-s4-355",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题目中函数为 y=8sin(2x+2π/6)，即 y=8sin(2x+π/3)。最大值在 2x+π/3=π/2+2kπ 时取得，解得 x=π/12+kπ。在 [0,2π] 内，k=0,1,2 对应 x=π/12, 13π/12, 25π/12，共3次。但给定答案为2，解析也只列出k=0,1，遗漏了k=2。因此答案错误，解析不完整。",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "标准答案为2，但正确次数应为3。",
+      "recommendedActionZhHans": "修正答案为3，并更新解析包含k=0,1,2。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v4-s4-358",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案为2，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v4-s4-361",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案为2，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v4-s4-364",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案为2，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v4-s4-367",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案为2，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    }
+  ]
+}

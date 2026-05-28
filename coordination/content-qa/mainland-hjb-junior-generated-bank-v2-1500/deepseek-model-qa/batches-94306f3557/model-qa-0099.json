@@ -1,0 +1,112 @@
+{
+  "batchId": "model-qa-0099",
+  "ids": [
+    "hjb-junior-ds-v2-s2-285",
+    "hjb-junior-ds-v2-s2-286",
+    "hjb-junior-ds-v2-s2-287",
+    "hjb-junior-ds-v2-s2-288",
+    "hjb-junior-ds-v2-s2-289",
+    "hjb-junior-ds-v2-s2-290",
+    "hjb-junior-ds-v2-s2-291",
+    "hjb-junior-ds-v2-s2-292"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-285",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "中点四边形EFGH应为矩形，边长分别为6.5和12，周长应为37，而非26。解析中错误地认为另一组对边中点连线长也是6.5，实际应为BD的一半即12。",
+      "independentAnswerZhHans": "37",
+      "answerCheckZhHans": "标准答案26错误，正确周长应为37。",
+      "recommendedActionZhHans": "修正答案为37，并更正解析。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-286",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "四个角为60°,90°,120°,90°，有一组对角相等（90°=90°）且同旁内角互补（60°+120°=180°），但等腰梯形需一组对边平行且另一组对边不平行，且两底角相等。该四边形满足直角梯形条件（有两个直角且一组对边平行），但等腰梯形要求两腰相等，通常底角相等。此处90°和90°为对角，不是底角，不能判定为等腰梯形。正确选项应为直角梯形。",
+      "independentAnswerZhHans": "直角梯形",
+      "answerCheckZhHans": "标准答案“等腰梯形”错误，正确选项为“直角梯形”。",
+      "recommendedActionZhHans": "修正答案为“直角梯形”，并更正解析。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-287",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "110°",
+      "answerCheckZhHans": "标准答案110°正确，解析无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-288",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "证明：由OA=OC，OB=OD，得四边形ABCD是平行四边形。又AC⊥BD，根据“对角线互相垂直的平行四边形是菱形”，所以四边形ABCD是菱形。",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-289",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "对角线互相垂直平分且相等",
+      "answerCheckZhHans": "标准答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-290",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析中相似比错误，DE∥BC，△DEG∽△FCG，相似比应为DE:FC=3:4，但无法直接得出CG=6。正确解法：由DE=3得BC=6，BF:FC=1:2得FC=4。延长DF交AC延长线于G，利用平行线分线段成比例，CG=6。但解析过程不严谨，且答案6正确，但解析有误。",
+      "independentAnswerZhHans": "6",
+      "answerCheckZhHans": "标准答案6正确，但解析中相似比和推导过程有误，需修正。",
+      "recommendedActionZhHans": "修正解析，给出正确推导过程。",
+      "confidence": "medium"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-291",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "证明：由AB=CD，AD=BC得四边形ABCD是平行四边形。又∠ABC=90°，所以平行四边形ABCD是矩形。AC=√(10²+8²)=2√41。",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-292",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "4个",
+      "answerCheckZhHans": "标准答案正确，四个条件均能判定平行四边形。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "batchId": "model-qa-0011",
+  "ids": [
+    "hjb-junior-ds-v2-s2-009",
+    "hjb-junior-ds-v2-s2-014",
+    "hjb-junior-ds-v2-s2-017",
+    "hjb-junior-ds-v2-s2-022",
+    "hjb-junior-ds-v2-s2-024"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-009",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "标准答案给出立方根为2，但正数4的立方根应为∛4，不是2。2是4的平方根，不是立方根。",
+      "independentAnswerZhHans": "∛4",
+      "answerCheckZhHans": "标准答案为2，但正确立方根应为∛4，答案错误。",
+      "recommendedActionZhHans": "将答案改为∛4，并更新acceptedAnswers。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-014",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "<",
+      "answerCheckZhHans": "标准答案<正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-017",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": ">",
+      "answerCheckZhHans": "标准答案>正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-022",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2个",
+      "answerCheckZhHans": "标准答案2个正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-024",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-1",
+      "answerCheckZhHans": "标准答案-1正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

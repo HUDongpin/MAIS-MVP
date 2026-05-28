@@ -1,0 +1,71 @@
+{
+  "batchId": "model-qa-0015",
+  "ids": [
+    "hjb-junior-ds-v2-s2-157",
+    "hjb-junior-ds-v2-s2-173",
+    "hjb-junior-ds-v2-s2-182",
+    "hjb-junior-ds-v2-s2-187",
+    "hjb-junior-ds-v2-s2-206"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-157",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "multiple-correct-options"
+      ],
+      "issueDetailsZhHans": "选项D：√(x²+1)=2 两边平方得 x²+1=4，即 x²=3，是一元二次方程。但选项B：当 m≠-1 时是一元二次方程，题干说“一定是一元二次方程”，B 不一定，所以 B 不是正确答案。然而，D 是根式方程，不是整式方程，一元二次方程必须是整式方程。因此 D 也不是一元二次方程。这样就没有正确选项。但若放宽定义，D 可化为整式方程，可能被接受。但严格来说，D 不是一元二次方程。所以存在争议，可能没有正确选项或 D 不正确。",
+      "independentAnswerZhHans": "无正确选项（严格定义下）",
+      "answerCheckZhHans": "给定答案 D 可能不正确，因为 √(x²+1)=2 是根式方程，不是整式方程，不符合一元二次方程定义。",
+      "recommendedActionZhHans": "检查一元二次方程定义是否要求整式方程，若是，则 D 不正确，需修改选项或答案。",
+      "confidence": "medium"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-173",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "9",
+      "answerCheckZhHans": "答案正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-182",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3,16",
+      "answerCheckZhHans": "答案正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-187",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "A",
+      "answerCheckZhHans": "答案正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-206",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "missing-condition"
+      ],
+      "issueDetailsZhHans": "题干未说明高 AD 的位置，可能有两种情况：高在三角形内或高在三角形外。解析中认为 AB<AC 所以高在三角形内，但这不是必然的，需要根据角度判断。若 ∠B 为钝角，高可能在三角形外，此时 BC=11。因此答案不唯一，缺少条件。",
+      "independentAnswerZhHans": "21 或 11",
+      "answerCheckZhHans": "给定答案 21 可能不完整，缺少对另一种情况的讨论。",
+      "recommendedActionZhHans": "补充条件说明高 AD 在三角形内部，或修改答案为两种情况。",
+      "confidence": "medium"
+    }
+  ]
+}

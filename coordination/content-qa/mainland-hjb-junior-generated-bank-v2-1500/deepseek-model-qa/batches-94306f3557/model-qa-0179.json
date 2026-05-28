@@ -1,0 +1,113 @@
+{
+  "batchId": "model-qa-0179",
+  "ids": [
+    "hjb-junior-ds-v2-s3-425",
+    "hjb-junior-ds-v2-s3-426",
+    "hjb-junior-ds-v2-s3-427",
+    "hjb-junior-ds-v2-s3-428",
+    "hjb-junior-ds-v2-s3-429",
+    "hjb-junior-ds-v2-s3-430",
+    "hjb-junior-ds-v2-s3-431",
+    "hjb-junior-ds-v2-s3-432"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-425",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "7",
+      "answerCheckZhHans": "标准答案为7，计算正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-426",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "multiple-correct-options"
+      ],
+      "issueDetailsZhHans": "选项C“众数是162 cm和165 cm”正确，因为162和165均出现2次，且其他数据出现次数均不超过2次，因此众数有两个。选项B“中位数是163 cm”也正确。题目要求选择正确的说法，但存在两个正确选项，违反单选题唯一正确选项的要求。",
+      "independentAnswerZhHans": "排序后数据：155,157,158,159,160,160,161,162,162,163,163,164,165,165,166,166,167,168,169,170。中位数=(163+163)/2=163，B正确。众数：162出现2次，165出现2次，其余出现1次，故众数为162和165，C正确。平均数=(155+157+158+159+160+160+161+162+162+163+163+164+165+165+166+166+167+168+169+170)/20=163.15，A错误。方差计算略，不等于15.2，D错误。因此B和C均正确。",
+      "answerCheckZhHans": "标准答案认为只有B正确，但C也正确，存在多个正确选项。",
+      "recommendedActionZhHans": "修改选项C或调整题干，确保只有一个正确选项。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-427",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "10",
+      "answerCheckZhHans": "方差计算得9.67，保留整数为10，与标准答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-428",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案认为只有A正确，但选项C“平均数约为3.8小时”也正确。用组中值计算平均数：(1×8+3×15+5×12+7×5)/40 = (8+45+60+35)/40 = 148/40 = 3.7，但解析中写的是3.7小时，而选项C是3.8小时，存在不一致。若按3.7小时，C错误；但解析说只有A正确，而实际上若C为3.7则错误，但选项C写的是3.8，因此C错误。然而，解析中计算平均数为3.7，与选项C的3.8不符，解析与选项矛盾。另外，选项D“总人数为40人”也正确，因为频数之和为40。因此存在多个正确选项（A和D）。",
+      "independentAnswerZhHans": "总人数=8+15+12+5=40，D正确。中位数位置为第20和21个，累计频数：0~2小时8，2~4小时8+15=23，所以中位数落在2~4小时组，A正确。众数落在频数最高的组，即2~4小时组，B错误。平均数用组中值计算：(1×8+3×15+5×12+7×5)/40 = 148/40 = 3.7，C选项为3.8，错误。因此A和D均正确。",
+      "answerCheckZhHans": "标准答案认为只有A正确，但D也正确，且解析中平均数计算为3.7，与选项C的3.8不符，解析存在矛盾。",
+      "recommendedActionZhHans": "修改选项C或D，确保只有一个正确选项，并修正解析中的平均数计算与选项一致。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-429",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "15",
+      "answerCheckZhHans": "数据已排序，中位数为15，与标准答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-430",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案认为甲的方差更小，但计算得甲方差为0.64，乙方差为0.84，甲方差更小，因此甲更稳定。但选项C“甲，因为甲的方差更小”正确，选项D“乙，因为乙的方差更小”错误。然而，解析中甲平均数8.4，乙平均数8.6，但实际计算：甲：8,9,7,10,8,9,9,8,7,9，总和=84，平均数=8.4；乙：9,8,10,7,9,8,9,8,10,8，总和=86，平均数=8.6。甲方差：[(8-8.4)^2+(9-8.4)^2+(7-8.4)^2+(10-8.4)^2+(8-8.4)^2+(9-8.4)^2+(9-8.4)^2+(8-8.4)^2+(7-8.4)^2+(9-8.4)^2]/10 = [0.16+0.36+1.96+2.56+0.16+0.36+0.36+0.16+1.96+0.36]/10 = 8.4/10=0.84，不是0.64。乙方差：[(9-8.6)^2+(8-8.6)^2+(10-8.6)^2+(7-8.6)^2+(9-8.6)^2+(8-8.6)^2+(9-8.6)^2+(8-8.6)^2+(10-8.6)^2+(8-8.6)^2]/10 = [0.16+0.36+1.96+2.56+0.16+0.36+0.16+0.36+1.96+0.36]/10 = 8.4/10=0.84。两者方差相等，均为0.84。因此甲和乙的稳定性相同，没有更稳定的说法。选项C和D均错误，题目无正确选项。",
+      "independentAnswerZhHans": "计算得甲和乙的方差均为0.84，稳定性相同，因此没有更稳定的运动员。选项C和D均错误。",
+      "answerCheckZhHans": "标准答案认为甲方差更小，但实际计算两者方差相等，答案错误。",
+      "recommendedActionZhHans": "修改数据或选项，确保存在唯一正确选项。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-431",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "85",
+      "answerCheckZhHans": "85出现3次，为众数，与标准答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-432",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "multiple-correct-options"
+      ],
+      "issueDetailsZhHans": "题目要求选择一个不受极端值影响的统计量代表整体水平。中位数和众数均不受极端值影响，但众数不唯一（34和35均出现5次），不能代表整体水平，因此中位数更合适。但选项C“众数”也符合“不受极端值影响”的条件，尽管不唯一，但题目并未明确要求唯一性，因此可能造成歧义。此外，解析中计算中位数为34.5，但排序后第10和11个数为34和35，中位数34.5正确。但选项B“中位数”正确，选项C“众数”也部分正确，存在多个可能正确的选项。",
+      "independentAnswerZhHans": "数据排序：32,32,32,33,33,33,34,34,34,34,35,35,35,35,35,36,36,36,37,37。中位数=(34+35)/2=34.5，B正确。众数为34和35，不唯一，但C选项“众数”本身是一个统计量，虽然不唯一，但题目未要求唯一性，因此C也可能被视为正确。但通常代表整体水平应使用唯一值，故中位数更合适。然而，从选项设置看，B和C均可能被选，存在歧义。",
+      "answerCheckZhHans": "标准答案认为中位数最合适，但众数也符合不受极端值影响的条件，可能造成多选。",
+      "recommendedActionZhHans": "修改选项C或题干，明确要求唯一代表值，或说明众数不唯一不适合。",
+      "confidence": "medium"
+    }
+  ]
+}

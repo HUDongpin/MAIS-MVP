@@ -1,0 +1,576 @@
+{
+  "batchId": "batch-132",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p6-061",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-percentage-meaning",
+      "unitTitle": "百分数",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "percentage-meaning",
+        "fraction-decimal-percent",
+        "percent-rate",
+        "百分数",
+        "百分率"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "认识百分数",
+        "分数小数百分数互化",
+        "解释百分率",
+        "比较百分数",
+        "用百分数表达关系"
+      ],
+      "misconceptionTags": [
+        "percent whole not identified",
+        "percent treated as a count rather than a rate",
+        "conversion done by moving digits without meaning"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-percentage-meaning"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-percentage-meaning-unit",
+        "bnu-primary-p6-upper-assessment-percentage-applications-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "六（1）班有40名学生，其中24名是女生。女生人数占全班人数的百分之几？",
+      "optionsZhHans": [
+        "60%",
+        "40%",
+        "24%",
+        "66.7%"
+      ],
+      "answer": "60%",
+      "acceptedAnswers": [
+        "60%"
+      ],
+      "explanationZhHans": "女生人数占全班人数的百分比 = 女生人数 ÷ 全班人数 × 100% = 24 ÷ 40 = 0.6 = 60%。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-062",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-percentage-meaning",
+      "unitTitle": "百分数",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "percentage-meaning",
+        "fraction-decimal-percent",
+        "percent-rate",
+        "百分数",
+        "百分率"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "认识百分数",
+        "分数小数百分数互化",
+        "解释百分率",
+        "比较百分数",
+        "用百分数表达关系"
+      ],
+      "misconceptionTags": [
+        "percent whole not identified",
+        "percent treated as a count rather than a rate",
+        "conversion done by moving digits without meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-percentage-meaning"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-percentage-meaning-unit",
+        "bnu-primary-p6-upper-assessment-percentage-applications-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把0.35改写成百分数是______。",
+      "optionsZhHans": [],
+      "answer": "35%",
+      "acceptedAnswers": [
+        "35%"
+      ],
+      "explanationZhHans": "小数化成百分数，把小数点向右移动两位，加上百分号。0.35 × 100% = 35%。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-063",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-percentage-meaning",
+      "unitTitle": "百分数",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "percentage-meaning",
+        "fraction-decimal-percent",
+        "percent-rate",
+        "百分数",
+        "百分率"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "认识百分数",
+        "分数小数百分数互化",
+        "解释百分率",
+        "比较百分数",
+        "用百分数表达关系"
+      ],
+      "misconceptionTags": [
+        "percent whole not identified",
+        "percent treated as a count rather than a rate",
+        "conversion done by moving digits without meaning"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-percentage-meaning"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-percentage-meaning-unit",
+        "bnu-primary-p6-upper-assessment-percentage-applications-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在一次数学测验中，六（2）班有36人及格，4人不及格。请计算这次测验的及格率，并说明及格率表示什么。",
+      "optionsZhHans": [],
+      "answer": "90%，及格率表示及格人数占全班人数的百分之几。",
+      "acceptedAnswers": [
+        "90%，及格率表示及格人数占全班人数的百分之几。"
+      ],
+      "explanationZhHans": "全班人数 = 36 + 4 = 40人。及格率 = 36 ÷ 40 × 100% = 90%。及格率表示及格人数占全班人数的百分之几。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-064",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-percentage-meaning",
+      "unitTitle": "百分数",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "percentage-meaning",
+        "fraction-decimal-percent",
+        "percent-rate",
+        "百分数",
+        "百分率"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "认识百分数",
+        "分数小数百分数互化",
+        "解释百分率",
+        "比较百分数",
+        "用百分数表达关系"
+      ],
+      "misconceptionTags": [
+        "percent whole not identified",
+        "percent treated as a count rather than a rate",
+        "conversion done by moving digits without meaning"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-percentage-meaning"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-percentage-meaning-unit",
+        "bnu-primary-p6-upper-assessment-percentage-applications-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个百分数表示的是“一半”？",
+      "optionsZhHans": [
+        "50%",
+        "100%",
+        "25%",
+        "75%"
+      ],
+      "answer": "50%",
+      "acceptedAnswers": [
+        "50%"
+      ],
+      "explanationZhHans": "一半就是二分之一，化成百分数是50%。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-065",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-percentage-meaning",
+      "unitTitle": "百分数",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "percentage-meaning",
+        "fraction-decimal-percent",
+        "percent-rate",
+        "百分数",
+        "百分率"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "认识百分数",
+        "分数小数百分数互化",
+        "解释百分率",
+        "比较百分数",
+        "用百分数表达关系"
+      ],
+      "misconceptionTags": [
+        "percent whole not identified",
+        "percent treated as a count rather than a rate",
+        "conversion done by moving digits without meaning"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-percentage-meaning"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-percentage-meaning-unit",
+        "bnu-primary-p6-upper-assessment-percentage-applications-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "六（3）班今天出勤38人，缺勤2人。今天的出勤率是______。",
+      "optionsZhHans": [],
+      "answer": "95%",
+      "acceptedAnswers": [
+        "95%"
+      ],
+      "explanationZhHans": "出勤率 = 出勤人数 ÷ 总人数 × 100% = 38 ÷ (38+2) = 38 ÷ 40 = 0.95 = 95%。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-066",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-percentage-meaning",
+      "unitTitle": "百分数",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "percentage-meaning",
+        "fraction-decimal-percent",
+        "percent-rate",
+        "百分数",
+        "百分率"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "认识百分数",
+        "分数小数百分数互化",
+        "解释百分率",
+        "比较百分数",
+        "用百分数表达关系"
+      ],
+      "misconceptionTags": [
+        "percent whole not identified",
+        "percent treated as a count rather than a rate",
+        "conversion done by moving digits without meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-percentage-meaning"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-percentage-meaning-unit",
+        "bnu-primary-p6-upper-assessment-percentage-applications-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一本书有200页，小明已经看了80页。已经看的页数占全书的百分之几？",
+      "optionsZhHans": [],
+      "answer": "40%",
+      "acceptedAnswers": [
+        "40%"
+      ],
+      "explanationZhHans": "已经看的页数占全书的百分比 = 80 ÷ 200 × 100% = 0.4 = 40%。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-067",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-percentage-meaning",
+      "unitTitle": "百分数",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "percentage-meaning",
+        "fraction-decimal-percent",
+        "percent-rate",
+        "百分数",
+        "百分率"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "认识百分数",
+        "分数小数百分数互化",
+        "解释百分率",
+        "比较百分数",
+        "用百分数表达关系"
+      ],
+      "misconceptionTags": [
+        "percent whole not identified",
+        "percent treated as a count rather than a rate",
+        "conversion done by moving digits without meaning"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-percentage-meaning"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-percentage-meaning-unit",
+        "bnu-primary-p6-upper-assessment-percentage-applications-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆有科技书300本，故事书比科技书多20%。故事书有多少本？",
+      "optionsZhHans": [
+        "360本",
+        "320本",
+        "300本",
+        "240本"
+      ],
+      "answer": "360本",
+      "acceptedAnswers": [
+        "360本"
+      ],
+      "explanationZhHans": "故事书比科技书多20%，即故事书是科技书的120%。300 × 120% = 300 × 1.2 = 360本。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-068",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-percentage-meaning",
+      "unitTitle": "百分数",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "percentage-meaning",
+        "fraction-decimal-percent",
+        "percent-rate",
+        "百分数",
+        "百分率"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "认识百分数",
+        "分数小数百分数互化",
+        "解释百分率",
+        "比较百分数",
+        "用百分数表达关系"
+      ],
+      "misconceptionTags": [
+        "percent whole not identified",
+        "percent treated as a count rather than a rate",
+        "conversion done by moving digits without meaning"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-percentage-meaning"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-percentage-meaning-unit",
+        "bnu-primary-p6-upper-assessment-percentage-applications-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一件上衣原价200元，现在打八五折出售。现价是______元。",
+      "optionsZhHans": [],
+      "answer": "170",
+      "acceptedAnswers": [
+        "170"
+      ],
+      "explanationZhHans": "八五折就是原价的85%，现价 = 200 × 85% = 200 × 0.85 = 170元。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-069",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-percentage-meaning",
+      "unitTitle": "百分数",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "percentage-meaning",
+        "fraction-decimal-percent",
+        "percent-rate",
+        "百分数",
+        "百分率"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "认识百分数",
+        "分数小数百分数互化",
+        "解释百分率",
+        "比较百分数",
+        "用百分数表达关系"
+      ],
+      "misconceptionTags": [
+        "percent whole not identified",
+        "percent treated as a count rather than a rate",
+        "conversion done by moving digits without meaning"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-percentage-meaning"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-percentage-meaning-unit",
+        "bnu-primary-p6-upper-assessment-percentage-applications-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "六（4）班有男生22人，女生18人。男生人数比女生人数多百分之几？",
+      "optionsZhHans": [],
+      "answer": "约22.2%",
+      "acceptedAnswers": [
+        "约22.2%",
+        "22.2%"
+      ],
+      "explanationZhHans": "男生比女生多的人数 = 22 - 18 = 4人。多的百分比 = 4 ÷ 18 × 100% ≈ 22.2%。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-070",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-percentage-meaning",
+      "unitTitle": "百分数",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "percentage-meaning",
+        "fraction-decimal-percent",
+        "percent-rate",
+        "百分数",
+        "百分率"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "认识百分数",
+        "分数小数百分数互化",
+        "解释百分率",
+        "比较百分数",
+        "用百分数表达关系"
+      ],
+      "misconceptionTags": [
+        "percent whole not identified",
+        "percent treated as a count rather than a rate",
+        "conversion done by moving digits without meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-percentage-meaning"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-percentage-meaning-unit",
+        "bnu-primary-p6-upper-assessment-percentage-applications-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪种情况可以用百分数表示？",
+      "optionsZhHans": [
+        "一根绳子长1/2米",
+        "一袋大米重50千克",
+        "女生人数是男生的80%",
+        "一本书有100页"
+      ],
+      "answer": "女生人数是男生的80%",
+      "acceptedAnswers": [
+        "女生人数是男生的80%"
+      ],
+      "explanationZhHans": "百分数表示一个数是另一个数的百分之几，不能带单位名称。80%表示两个量之间的关系，而其他选项都带有具体单位。"
+    }
+  ]
+}

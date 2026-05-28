@@ -1,0 +1,105 @@
+{
+  "batchId": "model-qa-0083",
+  "ids": [
+    "hjb-junior-ds-v2-s2-157",
+    "hjb-junior-ds-v2-s2-158",
+    "hjb-junior-ds-v2-s2-159",
+    "hjb-junior-ds-v2-s2-160",
+    "hjb-junior-ds-v2-s2-161",
+    "hjb-junior-ds-v2-s2-162",
+    "hjb-junior-ds-v2-s2-163",
+    "hjb-junior-ds-v2-s2-164"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-157",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "no-correct-option"
+      ],
+      "issueDetailsZhHans": "选项D：√(x²+1)=2 两边平方得 x²+1=4，即 x²=3，是一元二次方程，但原方程是根式方程，不是整式方程。一元二次方程定义要求是整式方程，因此D不是一元二次方程。四个选项均不是一定是一元二次方程，无正确选项。",
+      "independentAnswerZhHans": "无正确选项",
+      "answerCheckZhHans": "给定答案D错误，因为√(x²+1)=2不是整式方程，不符合一元二次方程定义。",
+      "recommendedActionZhHans": "修改选项或题干，确保有一个选项一定是一元二次方程。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-158",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "9",
+      "answerCheckZhHans": "答案正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-159",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "设降价x元，利润=(20-x)(300+20x)=6080，解得x=1或4，售价59元或56元。",
+      "answerCheckZhHans": "答案正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-160",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "A. (x-2)² = 5/2",
+      "answerCheckZhHans": "答案正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-161",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2.5 或 5/2",
+      "answerCheckZhHans": "答案正确，解析正确，acceptedAnswers覆盖了2.5和5/2。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-162",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x(40-2x)=150，解得x=5或x=15",
+      "answerCheckZhHans": "答案正确，解析正确，acceptedAnswers覆盖了多种表述。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-163",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "B. x² - 6x + 9 = 0",
+      "answerCheckZhHans": "答案正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-164",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "19",
+      "answerCheckZhHans": "答案正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

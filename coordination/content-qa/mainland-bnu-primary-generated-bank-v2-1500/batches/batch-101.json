@@ -1,0 +1,584 @@
+{
+  "batchId": "batch-101",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p5-001",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-decimal-division",
+      "unitTitle": "小数除法",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "decimal-division",
+        "decimal-place-value",
+        "quotient-estimation",
+        "recurring-decimals",
+        "小数除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "小数除以整数",
+        "除数是小数的除法",
+        "商的近似值",
+        "循环小数",
+        "估算检验"
+      ],
+      "misconceptionTags": [
+        "decimal point placed by digit counting only",
+        "divisor transformation applied to one number only",
+        "rounded quotient treated as exact"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-decimal-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-decimal-division-unit",
+        "bnu-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈买了2.5千克苹果，共花了16元。每千克苹果多少元？",
+      "optionsZhHans": [
+        "6.4",
+        "6.04",
+        "64",
+        "0.64"
+      ],
+      "answer": "6.4",
+      "acceptedAnswers": [
+        "6.4"
+      ],
+      "explanationZhHans": "总价÷数量=单价，16÷2.5=160÷25=6.4（元）。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-002",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-decimal-division",
+      "unitTitle": "小数除法",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "decimal-division",
+        "decimal-place-value",
+        "quotient-estimation",
+        "recurring-decimals",
+        "小数除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "小数除以整数",
+        "除数是小数的除法",
+        "商的近似值",
+        "循环小数",
+        "估算检验"
+      ],
+      "misconceptionTags": [
+        "decimal point placed by digit counting only",
+        "divisor transformation applied to one number only",
+        "rounded quotient treated as exact"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-decimal-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-decimal-division-unit",
+        "bnu-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算：3.6÷0.12=______。",
+      "optionsZhHans": [],
+      "answer": "30",
+      "acceptedAnswers": [
+        "30"
+      ],
+      "explanationZhHans": "将除数0.12乘100变成12，被除数3.6也乘100变成360，360÷12=30。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-003",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-decimal-division",
+      "unitTitle": "小数除法",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "decimal-division",
+        "decimal-place-value",
+        "quotient-estimation",
+        "recurring-decimals",
+        "小数除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "小数除以整数",
+        "除数是小数的除法",
+        "商的近似值",
+        "循环小数",
+        "估算检验"
+      ],
+      "misconceptionTags": [
+        "decimal point placed by digit counting only",
+        "divisor transformation applied to one number only",
+        "rounded quotient treated as exact"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-decimal-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-decimal-division-unit",
+        "bnu-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一根绳子长14.4米，剪成每段长0.9米的短绳，可以剪成多少段？如果每剪一次需要0.5分钟，剪完所有短绳一共需要多少分钟？",
+      "optionsZhHans": [],
+      "answer": "16段，7.5分钟",
+      "acceptedAnswers": [
+        "16段，7.5分钟",
+        "16段,7.5分钟",
+        "16段 7.5分钟"
+      ],
+      "explanationZhHans": "段数：14.4÷0.9=16（段）。剪的次数比段数少1，即15次。总时间：15×0.5=7.5（分钟）。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-004",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-decimal-division",
+      "unitTitle": "小数除法",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "decimal-division",
+        "decimal-place-value",
+        "quotient-estimation",
+        "recurring-decimals",
+        "小数除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "小数除以整数",
+        "除数是小数的除法",
+        "商的近似值",
+        "循环小数",
+        "估算检验"
+      ],
+      "misconceptionTags": [
+        "decimal point placed by digit counting only",
+        "divisor transformation applied to one number only",
+        "rounded quotient treated as exact"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-decimal-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-decimal-division-unit",
+        "bnu-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下列算式中，商最大的是（ ）。",
+      "optionsZhHans": [
+        "5.6÷0.8",
+        "5.6÷1.2",
+        "5.6÷0.9",
+        "5.6÷1.1"
+      ],
+      "answer": "5.6÷0.8",
+      "acceptedAnswers": [
+        "5.6÷0.8"
+      ],
+      "explanationZhHans": "被除数相同，除数越小商越大。0.8最小，所以5.6÷0.8的商最大。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-005",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-decimal-division",
+      "unitTitle": "小数除法",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "decimal-division",
+        "decimal-place-value",
+        "quotient-estimation",
+        "recurring-decimals",
+        "小数除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "小数除以整数",
+        "除数是小数的除法",
+        "商的近似值",
+        "循环小数",
+        "估算检验"
+      ],
+      "misconceptionTags": [
+        "decimal point placed by digit counting only",
+        "divisor transformation applied to one number only",
+        "rounded quotient treated as exact"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-decimal-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-decimal-division-unit",
+        "bnu-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把4.5÷0.18转化成除数是整数的除法，被除数和除数应同时乘______，转化后的算式是______。",
+      "optionsZhHans": [],
+      "answer": "100，450÷18",
+      "acceptedAnswers": [
+        "100，450÷18",
+        "100,450÷18",
+        "100 450÷18"
+      ],
+      "explanationZhHans": "除数0.18有两位小数，要变成整数需乘100。根据商不变性质，被除数4.5也乘100得450，算式为450÷18。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-006",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-decimal-division",
+      "unitTitle": "小数除法",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "decimal-division",
+        "decimal-place-value",
+        "quotient-estimation",
+        "recurring-decimals",
+        "小数除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "小数除以整数",
+        "除数是小数的除法",
+        "商的近似值",
+        "循环小数",
+        "估算检验"
+      ],
+      "misconceptionTags": [
+        "decimal point placed by digit counting only",
+        "divisor transformation applied to one number only",
+        "rounded quotient treated as exact"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-decimal-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-decimal-division-unit",
+        "bnu-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个油桶最多能装4.5千克油，要把60千克油全部装进桶里，至少需要多少个这样的油桶？",
+      "optionsZhHans": [],
+      "answer": "14",
+      "acceptedAnswers": [
+        "14",
+        "14个"
+      ],
+      "explanationZhHans": "60÷4.5≈13.33，桶数必须为整数，且要全部装完，所以用进一法取14个。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-007",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-decimal-division",
+      "unitTitle": "小数除法",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "decimal-division",
+        "decimal-place-value",
+        "quotient-estimation",
+        "recurring-decimals",
+        "小数除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "小数除以整数",
+        "除数是小数的除法",
+        "商的近似值",
+        "循环小数",
+        "估算检验"
+      ],
+      "misconceptionTags": [
+        "decimal point placed by digit counting only",
+        "divisor transformation applied to one number only",
+        "rounded quotient treated as exact"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-decimal-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-decimal-division-unit",
+        "bnu-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下列算式中，商是循环小数的是（ ）。",
+      "optionsZhHans": [
+        "7÷8",
+        "10÷4",
+        "5÷6",
+        "9÷2"
+      ],
+      "answer": "5÷6",
+      "acceptedAnswers": [
+        "5÷6"
+      ],
+      "explanationZhHans": "5÷6=0.8333…，小数部分3重复出现，是循环小数。其他算式都能除尽。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-008",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-decimal-division",
+      "unitTitle": "小数除法",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "decimal-division",
+        "decimal-place-value",
+        "quotient-estimation",
+        "recurring-decimals",
+        "小数除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "小数除以整数",
+        "除数是小数的除法",
+        "商的近似值",
+        "循环小数",
+        "估算检验"
+      ],
+      "misconceptionTags": [
+        "decimal point placed by digit counting only",
+        "divisor transformation applied to one number only",
+        "rounded quotient treated as exact"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-decimal-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-decimal-division-unit",
+        "bnu-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算0.56÷0.007时，把它看作______÷7来计算，这是根据______的性质。",
+      "optionsZhHans": [],
+      "answer": "560，商不变",
+      "acceptedAnswers": [
+        "560，商不变",
+        "560,商不变",
+        "560 商不变"
+      ],
+      "explanationZhHans": "除数0.007乘1000变成7，被除数0.56也乘1000变成560，算式为560÷7，依据商不变性质。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-009",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-decimal-division",
+      "unitTitle": "小数除法",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "decimal-division",
+        "decimal-place-value",
+        "quotient-estimation",
+        "recurring-decimals",
+        "小数除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "小数除以整数",
+        "除数是小数的除法",
+        "商的近似值",
+        "循环小数",
+        "估算检验"
+      ],
+      "misconceptionTags": [
+        "decimal point placed by digit counting only",
+        "divisor transformation applied to one number only",
+        "rounded quotient treated as exact"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-decimal-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-decimal-division-unit",
+        "bnu-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明在计算一道小数除法时，把被除数17.5错看成了175，得到的商比正确的商（ ）。请说明理由。",
+      "optionsZhHans": [],
+      "answer": "大10倍",
+      "acceptedAnswers": [
+        "大10倍",
+        "扩大10倍",
+        "是原来的10倍"
+      ],
+      "explanationZhHans": "除数不变，被除数乘10，商也乘10，所以商比原来大10倍。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-010",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-decimal-division",
+      "unitTitle": "小数除法",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "decimal-division",
+        "decimal-place-value",
+        "quotient-estimation",
+        "recurring-decimals",
+        "小数除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "小数除以整数",
+        "除数是小数的除法",
+        "商的近似值",
+        "循环小数",
+        "估算检验"
+      ],
+      "misconceptionTags": [
+        "decimal point placed by digit counting only",
+        "divisor transformation applied to one number only",
+        "rounded quotient treated as exact"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-decimal-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-decimal-division-unit",
+        "bnu-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个算式的商小于1？",
+      "optionsZhHans": [
+        "3.6÷2.4",
+        "1.8÷1.5",
+        "0.72÷0.9",
+        "5.4÷4.5"
+      ],
+      "answer": "0.72÷0.9",
+      "acceptedAnswers": [
+        "0.72÷0.9"
+      ],
+      "explanationZhHans": "当被除数小于除数时，商小于1。0.72<0.9，所以0.72÷0.9的商小于1。"
+    }
+  ]
+}

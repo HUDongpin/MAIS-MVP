@@ -1,0 +1,289 @@
+{
+  "batchId": "batch-177",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p4-131",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-review-integration",
+      "unitTitle": "四年级上册整理与提高",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "p4-upper-integration",
+        "large-number-review",
+        "fraction-review",
+        "operation-geometry-review",
+        "整理与提高"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "大数凑整",
+        "数射线上的分数",
+        "圆与角复习",
+        "估测",
+        "综合应用"
+      ],
+      "misconceptionTags": [
+        "model chosen by surface wording",
+        "rounding and exact calculation goals mixed",
+        "geometry labels used without checking the diagram"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-review-integration"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-review-integration",
+        "hjb-primary-p4-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把 384720 四舍五入到万位，得到的近似数是______万。",
+      "optionsZhHans": [],
+      "answer": "38",
+      "acceptedAnswers": [
+        "38",
+        "38万"
+      ],
+      "explanationZhHans": "四舍五入到万位看千位，千位是4，小于5，舍去万位后面的尾数，得38万。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-132",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-review-integration",
+      "unitTitle": "四年级上册整理与提高",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "p4-upper-integration",
+        "large-number-review",
+        "fraction-review",
+        "operation-geometry-review",
+        "整理与提高"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "大数凑整",
+        "数射线上的分数",
+        "圆与角复习",
+        "估测",
+        "综合应用"
+      ],
+      "misconceptionTags": [
+        "model chosen by surface wording",
+        "rounding and exact calculation goals mixed",
+        "geometry labels used without checking the diagram"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-review-integration"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-review-integration",
+        "hjb-primary-p4-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在数射线上，从0到1平均分成10份，从左起第3份的点表示哪个分数？请写出这个分数。",
+      "optionsZhHans": [],
+      "answer": "3/10",
+      "acceptedAnswers": [
+        "3/10",
+        "十分之三"
+      ],
+      "explanationZhHans": "把0到1平均分成10份，每份是1/10，第3份表示3个1/10，即3/10。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-133",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-review-integration",
+      "unitTitle": "四年级上册整理与提高",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "p4-upper-integration",
+        "large-number-review",
+        "fraction-review",
+        "operation-geometry-review",
+        "整理与提高"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "大数凑整",
+        "数射线上的分数",
+        "圆与角复习",
+        "估测",
+        "综合应用"
+      ],
+      "misconceptionTags": [
+        "model chosen by surface wording",
+        "rounding and exact calculation goals mixed",
+        "geometry labels used without checking the diagram"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-review-integration"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-review-integration",
+        "hjb-primary-p4-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪种情况适合用“四舍五入法”求近似数？",
+      "optionsZhHans": [
+        "计算班级总人数",
+        "统计全校学生人数大约是多少",
+        "计算买文具一共花了多少钱",
+        "计算从家到学校需要多少分钟"
+      ],
+      "answer": "统计全校学生人数大约是多少",
+      "acceptedAnswers": [
+        "统计全校学生人数大约是多少"
+      ],
+      "explanationZhHans": "统计全校人数大约是多少需要近似数，适合四舍五入；其他情况需要精确数。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-134",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-review-integration",
+      "unitTitle": "四年级上册整理与提高",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "p4-upper-integration",
+        "large-number-review",
+        "fraction-review",
+        "operation-geometry-review",
+        "整理与提高"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "大数凑整",
+        "数射线上的分数",
+        "圆与角复习",
+        "估测",
+        "综合应用"
+      ],
+      "misconceptionTags": [
+        "model chosen by surface wording",
+        "rounding and exact calculation goals mixed",
+        "geometry labels used without checking the diagram"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-review-integration"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-review-integration",
+        "hjb-primary-p4-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个圆的半径是4厘米，它的直径是______厘米。",
+      "optionsZhHans": [],
+      "answer": "8",
+      "acceptedAnswers": [
+        "8",
+        "8厘米"
+      ],
+      "explanationZhHans": "在同一个圆中，直径是半径的2倍，4×2=8厘米。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-135",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-review-integration",
+      "unitTitle": "四年级上册整理与提高",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "p4-upper-integration",
+        "large-number-review",
+        "fraction-review",
+        "operation-geometry-review",
+        "整理与提高"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "大数凑整",
+        "数射线上的分数",
+        "圆与角复习",
+        "估测",
+        "综合应用"
+      ],
+      "misconceptionTags": [
+        "model chosen by surface wording",
+        "rounding and exact calculation goals mixed",
+        "geometry labels used without checking the diagram"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-review-integration"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-review-integration",
+        "hjb-primary-p4-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小胖用步测的方法估测教室的长。他走10步大约5米，从教室前面走到后面走了24步，教室的长大约是多少米？请写出计算过程。",
+      "optionsZhHans": [],
+      "answer": "12",
+      "acceptedAnswers": [
+        "12",
+        "12米"
+      ],
+      "explanationZhHans": "10步约5米，每步约0.5米，24步约24×0.5=12米。"
+    }
+  ]
+}

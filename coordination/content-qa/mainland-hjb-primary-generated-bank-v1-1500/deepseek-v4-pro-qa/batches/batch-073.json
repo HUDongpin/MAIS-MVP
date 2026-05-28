@@ -1,0 +1,191 @@
+{
+  "batchNumber": 73,
+  "startedAt": "2026-05-25T02:24:30.055Z",
+  "completedAt": "2026-05-25T02:24:48.925Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p6-047",
+    "hjb-primary-ds-v1-p6-048",
+    "hjb-primary-ds-v1-p6-049",
+    "hjb-primary-ds-v1-p6-050",
+    "hjb-primary-ds-v1-p6-051",
+    "hjb-primary-ds-v1-p6-052",
+    "hjb-primary-ds-v1-p6-053",
+    "hjb-primary-ds-v1-p6-054",
+    "hjb-primary-ds-v1-p6-055",
+    "hjb-primary-ds-v1-p6-056",
+    "hjb-primary-ds-v1-p6-057",
+    "hjb-primary-ds-v1-p6-058",
+    "hjb-primary-ds-v1-p6-059",
+    "hjb-primary-ds-v1-p6-060",
+    "hjb-primary-ds-v1-p6-061",
+    "hjb-primary-ds-v1-p6-062",
+    "hjb-primary-ds-v1-p6-063",
+    "hjb-primary-ds-v1-p6-064"
+  ],
+  "usage": {
+    "prompt_tokens": 3467,
+    "completion_tokens": 1362,
+    "total_tokens": 4829,
+    "prompt_tokens_details": {
+      "cached_tokens": 3456
+    },
+    "prompt_cache_hit_tokens": 3456,
+    "prompt_cache_miss_tokens": 11
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p6-047",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，甜度相同，最简整数比1:5，答案与解释一致。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-048",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，实际距离340千米，时间4小时，单位换算无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-049",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "6:8=3:4，比值相等，能组成比例，选项正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-050",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "按比例分配，女生40人，计算正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-051",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "总份数201，每份6毫升，原液6毫升，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-052",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "6:10和9:15都化简为3:5，能组成比例，其他选项不能。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-053",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由3a=5b得a:b=5:3，符合比例基本性质。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-054",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "正比例，200:16=450:x，x=36，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-055",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "面积增加50.24平方厘米，计算无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-056",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "圆环面积11π平方米，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-057",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "扇形面积50π/3平方厘米，公式应用正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-058",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项D正确，90°扇形面积是圆面积的四分之一，其他选项均有错误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-059",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "弧长约10.47厘米，计算正确，保留两位小数合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-060",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "小路面积113.04平方米，圆环计算正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-061",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "周长31.4厘米，选项正确，其他选项为常见错误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-062",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "面积50.24平方厘米，计算正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-063",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "扇形面积28.26平方厘米，计算正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-064",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "半径10厘米，计算正确，选项无误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均通过审核，数学正确，答案匹配，无歧义或缺失条件，适合沪教版小学数学。"
+    }
+  }
+}

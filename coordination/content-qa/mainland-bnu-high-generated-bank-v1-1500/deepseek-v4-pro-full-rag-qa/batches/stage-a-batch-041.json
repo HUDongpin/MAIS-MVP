@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-041",
+  "startedAt": "2026-05-28T00:42:23.120Z",
+  "completedAt": "2026-05-28T00:42:37.609Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-321",
+    "bnu-high-ds-v1-s4-322",
+    "bnu-high-ds-v1-s4-323",
+    "bnu-high-ds-v1-s4-324",
+    "bnu-high-ds-v1-s4-325",
+    "bnu-high-ds-v1-s4-326",
+    "bnu-high-ds-v1-s4-327",
+    "bnu-high-ds-v1-s4-328"
+  ],
+  "usage": {
+    "prompt_tokens": 10631,
+    "completion_tokens": 914,
+    "total_tokens": 11545,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 10247
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-321",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "[0, π/12]",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "周期T=2π/3，由正弦增区间解出整体角范围，再结合x∈[0,π/2]得递增区间为[0,π/12]。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-322",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "C",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "左移π/6得y=sin[2(x+π/6)-π/3]=sin2x，对应选项C。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-323",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "1/5",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "r=5，sinα=4/5，cosα=-3/5，和为1/5。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-324",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "4π",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "T=2π/(1/2)=4π。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-325",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "B",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "点积=1，模长√5和√10，cosθ=1/(√50)=√2/10，θ=45°。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-326",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "0",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "a+b=(3,-1)，a-b=(1,3)，点积=3-3=0。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-327",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(-1/10, -3/10)",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "投影向量=(a·b/|b|²)b，a·b=-1，|b|²=10，得(-1/10,-3/10)。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-328",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "A",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "垂直则点积为0，1*x+2*1=0，x=-2。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，无数学错误、歧义或缺失条件，符合北师大版高中要求。"
+    }
+  }
+}

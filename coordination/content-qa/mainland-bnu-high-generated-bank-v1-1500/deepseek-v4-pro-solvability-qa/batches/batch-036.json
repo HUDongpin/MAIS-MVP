@@ -1,0 +1,153 @@
+{
+  "batchNumber": 36,
+  "startedAt": "2026-05-27T13:49:48.408Z",
+  "completedAt": "2026-05-27T13:50:11.896Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-281",
+    "bnu-high-ds-v1-s4-282",
+    "bnu-high-ds-v1-s4-283",
+    "bnu-high-ds-v1-s4-284",
+    "bnu-high-ds-v1-s4-285",
+    "bnu-high-ds-v1-s4-286",
+    "bnu-high-ds-v1-s4-287",
+    "bnu-high-ds-v1-s4-288"
+  ],
+  "usage": {
+    "prompt_tokens": 12486,
+    "completion_tokens": 1486,
+    "total_tokens": 13972,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 11974
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-281",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "（1）甲：y=0.425x-0.05；乙：y=0.075x²+0.5；（2）甲模型更准确；（3）5.1 m",
+        "correctedAnswer": "（1）甲：y=0.425x-0.05；乙：y=0.075x²+0.5；（2）甲模型更准确；（3）5.1 m",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立求解得甲模型更准确，预测水深5.1 m，但存储答案和解析均称乙更准且预测11.3 m，与计算矛盾，答案和解析均错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-282",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "（1）a=5, b=5；（2）150万元；（3）误差0万元，但二次函数长期增长不符合实际，不适合长期预测。",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，答案与独立求解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-283",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "无正确选项",
+        "correctedAnswer": "C. 当x=5时，保有量约为16.2万辆",
+        "issueTags": [
+          "math_error",
+          "bad_options",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "计算得x=5时y≈16.2，选项C为20.2，无正确选项；解析承认计算错误但未修正，题目不可解。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-284",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "（1）模型①误差0，模型②误差0；（2）模型①更好，误差平方和更小；（3）15分钟",
+        "correctedAnswer": "（1）模型①误差0，模型②误差0；（2）模型①更好，误差平方和更小；（3）15分钟",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案称模型②误差1，但实际计算误差为0；解析中误差平方和计算有误，导致答案与独立求解不一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-285",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "（1）y={10+0.5x, 0≤x≤3; 2.5x+4, x>3}；（2）8.4公里",
+        "correctedAnswer": "（1）y={10+0.5x, 0≤x≤3; 2.5x+4, x>3}；（2）8.4公里",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立求解得x=8.4，但存储答案为7公里；解析中方程解为8.4却给出答案7，自相矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-286",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "B",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，选项B正确，解析合理。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-287",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "无法确定，因乙模型参数与数据不符",
+        "correctedAnswer": "需修正乙模型参数或数据",
+        "issueTags": [
+          "math_error",
+          "missing_condition",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "乙模型y=4.5·1.1ᵗ在t=4时预测值约6.6，与答案7.2不符；解析承认错误但未修正，题目不可解。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-288",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "（1）模型①：17，模型②：11.125；（2）模型①更符合；（3）65百个",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，答案与独立求解一致，解析正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 3,
+      "warn": 0,
+      "fail": 5,
+      "notes": "8题中3题通过，5题失败。主要问题为计算错误、答案与解析矛盾、选项数值错误导致无正确选项或不可解。"
+    }
+  }
+}

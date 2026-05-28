@@ -1,0 +1,577 @@
+{
+  "batchId": "batch-067",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p3-161",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-shape-motion",
+      "unitTitle": "图形的运动",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "shape-motion",
+        "translation-rotation-symmetry",
+        "spatial-transformation",
+        "图形运动",
+        "轴对称"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "平移",
+        "旋转",
+        "轴对称",
+        "方向距离描述",
+        "图形变换"
+      ],
+      "misconceptionTags": [
+        "translation and rotation language mixed",
+        "shape size treated as changing after motion",
+        "symmetry axis drawn from visual guess only"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-shape-motion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-shape-motion-unit",
+        "bnu-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在方格纸上，有一个三角形，三个顶点分别是A(2,1)、B(4,1)、C(3,4)。将这个三角形向右平移5格后，点A移动到了哪个位置？请用数对表示。",
+      "optionsZhHans": [],
+      "answer": "(7,1)",
+      "acceptedAnswers": [
+        "(7,1)",
+        "7,1"
+      ],
+      "explanationZhHans": "平移时图形的大小和形状不变，只是位置改变。点A(2,1)向右平移5格，行不变，列加5，得到(7,1)。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-162",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-shape-motion",
+      "unitTitle": "图形的运动",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "shape-motion",
+        "translation-rotation-symmetry",
+        "spatial-transformation",
+        "图形运动",
+        "轴对称"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "平移",
+        "旋转",
+        "轴对称",
+        "方向距离描述",
+        "图形变换"
+      ],
+      "misconceptionTags": [
+        "translation and rotation language mixed",
+        "shape size treated as changing after motion",
+        "symmetry axis drawn from visual guess only"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-shape-motion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-shape-motion-unit",
+        "bnu-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "请你举一个生活中旋转现象的例子，并简单说明为什么它是旋转。",
+      "optionsZhHans": [],
+      "answer": "风扇叶片的转动，因为它绕着一个中心点转动。",
+      "acceptedAnswers": [
+        "风扇叶片的转动，因为它绕着一个中心点转动。",
+        "钟表指针的转动，因为它绕着一个中心点转动。",
+        "旋转木马，因为它绕着一个中心轴转动。"
+      ],
+      "explanationZhHans": "旋转是物体绕一个固定点或轴转动。风扇叶片、钟表指针、旋转木马等都是绕中心转动，属于旋转现象。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-163",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-shape-motion",
+      "unitTitle": "图形的运动",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "shape-motion",
+        "translation-rotation-symmetry",
+        "spatial-transformation",
+        "图形运动",
+        "轴对称"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "平移",
+        "旋转",
+        "轴对称",
+        "方向距离描述",
+        "图形变换"
+      ],
+      "misconceptionTags": [
+        "translation and rotation language mixed",
+        "shape size treated as changing after motion",
+        "symmetry axis drawn from visual guess only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-shape-motion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-shape-motion-unit",
+        "bnu-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个图形向右平移5格，平移后它的形状和大小会怎样？",
+      "optionsZhHans": [
+        "形状和大小都不变",
+        "形状改变，大小不变",
+        "形状不变，大小变大",
+        "形状和大小都改变"
+      ],
+      "answer": "形状和大小都不变",
+      "acceptedAnswers": [
+        "形状和大小都不变"
+      ],
+      "explanationZhHans": "平移只改变图形的位置，不改变图形的形状和大小。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-164",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-shape-motion",
+      "unitTitle": "图形的运动",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "shape-motion",
+        "translation-rotation-symmetry",
+        "spatial-transformation",
+        "图形运动",
+        "轴对称"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "平移",
+        "旋转",
+        "轴对称",
+        "方向距离描述",
+        "图形变换"
+      ],
+      "misconceptionTags": [
+        "translation and rotation language mixed",
+        "shape size treated as changing after motion",
+        "symmetry axis drawn from visual guess only"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-shape-motion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-shape-motion-unit",
+        "bnu-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个图形沿一条直线对折后，两侧的图形能够完全重合，这个图形就是______图形，这条直线叫做______。",
+      "optionsZhHans": [],
+      "answer": "轴对称，对称轴",
+      "acceptedAnswers": [
+        "轴对称，对称轴"
+      ],
+      "explanationZhHans": "根据轴对称图形的定义：如果一个图形沿着一条直线对折，两侧的图形能够完全重合，这个图形就是轴对称图形，折痕所在的这条直线叫做对称轴。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-165",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-shape-motion",
+      "unitTitle": "图形的运动",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "shape-motion",
+        "translation-rotation-symmetry",
+        "spatial-transformation",
+        "图形运动",
+        "轴对称"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "平移",
+        "旋转",
+        "轴对称",
+        "方向距离描述",
+        "图形变换"
+      ],
+      "misconceptionTags": [
+        "translation and rotation language mixed",
+        "shape size treated as changing after motion",
+        "symmetry axis drawn from visual guess only"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-shape-motion"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-shape-motion-unit",
+        "bnu-primary-p3-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在方格纸上有一个长方形，长6格，宽4格。将这个长方形向右平移3格，再向下平移2格。请描述平移后长方形的位置变化，并说明平移前后长方形的什么变了，什么没变。",
+      "optionsZhHans": [],
+      "answer": "位置变了，形状和大小没变。",
+      "acceptedAnswers": [
+        "位置变了，形状和大小没变。",
+        "位置改变，形状和大小不变。"
+      ],
+      "explanationZhHans": "平移只是图形的位置发生改变，图形的形状、大小和方向都不变。所以平移后长方形的位置变了，但长还是6格，宽还是4格。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-166",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-two-digit-multiplication",
+      "unitTitle": "乘法",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "two-digit-by-two-digit-multiplication",
+        "area-model-multiplication",
+        "multiplication-estimation",
+        "乘法",
+        "两位数乘两位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "两位数乘两位数",
+        "分步计算",
+        "竖式乘法",
+        "估算",
+        "面积模型"
+      ],
+      "misconceptionTags": [
+        "partial products not aligned by place value",
+        "zero placeholder omitted in written multiplication",
+        "estimate far from final product ignored"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-two-digit-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-two-digit-multiplication-unit",
+        "bnu-primary-p3-lower-assessment-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个算式的结果最接近1000？",
+      "optionsZhHans": [
+        "31×32",
+        "29×35",
+        "25×38",
+        "33×30"
+      ],
+      "answer": "31×32",
+      "acceptedAnswers": [
+        "31×32"
+      ],
+      "explanationZhHans": "估算：31×32≈30×30=900，实际992；29×35≈30×35=1050，实际1015；25×38≈25×40=1000，实际950；33×30=990。992最接近1000。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-167",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-two-digit-multiplication",
+      "unitTitle": "乘法",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "two-digit-by-two-digit-multiplication",
+        "area-model-multiplication",
+        "multiplication-estimation",
+        "乘法",
+        "两位数乘两位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "两位数乘两位数",
+        "分步计算",
+        "竖式乘法",
+        "估算",
+        "面积模型"
+      ],
+      "misconceptionTags": [
+        "partial products not aligned by place value",
+        "zero placeholder omitted in written multiplication",
+        "estimate far from final product ignored"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-two-digit-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-two-digit-multiplication-unit",
+        "bnu-primary-p3-lower-assessment-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算23×14时，可以先算23×10=______，再算23×4=______，最后把两次的积相加得到______。",
+      "optionsZhHans": [],
+      "answer": "230，92，322",
+      "acceptedAnswers": [
+        "230，92，322"
+      ],
+      "explanationZhHans": "23×14可以分解为23×10和23×4。23×10=230，23×4=92，230+92=322，所以23×14=322。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-168",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-two-digit-multiplication",
+      "unitTitle": "乘法",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "two-digit-by-two-digit-multiplication",
+        "area-model-multiplication",
+        "multiplication-estimation",
+        "乘法",
+        "两位数乘两位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "两位数乘两位数",
+        "分步计算",
+        "竖式乘法",
+        "估算",
+        "面积模型"
+      ],
+      "misconceptionTags": [
+        "partial products not aligned by place value",
+        "zero placeholder omitted in written multiplication",
+        "estimate far from final product ignored"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-two-digit-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-two-digit-multiplication-unit",
+        "bnu-primary-p3-lower-assessment-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆有12个书架，每个书架有4层，每层可以放25本书。这些书架一共可以放多少本书？请写出计算过程。",
+      "optionsZhHans": [],
+      "answer": "1200本",
+      "acceptedAnswers": [
+        "1200本",
+        "1200"
+      ],
+      "explanationZhHans": "先算每个书架放书：4×25=100本，再算12个书架：12×100=1200本。或者先算总层数12×4=48层，再算48×25=1200本。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-169",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-two-digit-multiplication",
+      "unitTitle": "乘法",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "two-digit-by-two-digit-multiplication",
+        "area-model-multiplication",
+        "multiplication-estimation",
+        "乘法",
+        "两位数乘两位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "两位数乘两位数",
+        "分步计算",
+        "竖式乘法",
+        "估算",
+        "面积模型"
+      ],
+      "misconceptionTags": [
+        "partial products not aligned by place value",
+        "zero placeholder omitted in written multiplication",
+        "estimate far from final product ignored"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-two-digit-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-two-digit-multiplication-unit",
+        "bnu-primary-p3-lower-assessment-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个竖式计算是正确的？",
+      "optionsZhHans": [
+        "23\n× 14\n----\n  92\n 23\n----\n 322",
+        "23\n× 14\n----\n  92\n 23\n----\n 115",
+        "23\n× 14\n----\n  82\n 23\n----\n 312",
+        "23\n× 14\n----\n  92\n 32\n----\n 412"
+      ],
+      "answer": "23\n× 14\n----\n  92\n 23\n----\n 322",
+      "acceptedAnswers": [
+        "23\n× 14\n----\n  92\n 23\n----\n 322"
+      ],
+      "explanationZhHans": "23×14，先用4乘23得92，再用十位上的1乘23得23个十，即230，末尾的0省略不写，但23要写在十位上，最后相加得322。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-170",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-two-digit-multiplication",
+      "unitTitle": "乘法",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "two-digit-by-two-digit-multiplication",
+        "area-model-multiplication",
+        "multiplication-estimation",
+        "乘法",
+        "两位数乘两位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "两位数乘两位数",
+        "分步计算",
+        "竖式乘法",
+        "估算",
+        "面积模型"
+      ],
+      "misconceptionTags": [
+        "partial products not aligned by place value",
+        "zero placeholder omitted in written multiplication",
+        "estimate far from final product ignored"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-two-digit-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-two-digit-multiplication-unit",
+        "bnu-primary-p3-lower-assessment-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一箱苹果有24个，超市运来18箱。估一估，大约有多少个苹果？",
+      "optionsZhHans": [],
+      "answer": "400个",
+      "acceptedAnswers": [
+        "400个",
+        "400",
+        "大约400个"
+      ],
+      "explanationZhHans": "把24看作20，18看作20，20×20=400，所以大约有400个苹果。实际计算24×18=432，接近400。"
+    }
+  ]
+}

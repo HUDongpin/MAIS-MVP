@@ -1,0 +1,586 @@
+{
+  "batchId": "batch-074",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p3-231",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-data-representation",
+      "unitTitle": "数据的整理和表示",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "data-organization",
+        "data-representation",
+        "tables-charts",
+        "数据整理",
+        "数据表示"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "收集数据",
+        "分类整理",
+        "读表",
+        "绘制简单统计图",
+        "比较分析"
+      ],
+      "misconceptionTags": [
+        "category labels skipped",
+        "scale or tally count misread",
+        "conclusion not supported by displayed data"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-data-representation"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-data-representation-unit",
+        "bnu-primary-p3-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "三年级一班同学最喜欢的水果调查结果如下：苹果有12人，香蕉有8人，草莓有15人，西瓜有10人。下面哪句话是正确的？",
+      "optionsZhHans": [
+        "喜欢草莓的人数最多，喜欢香蕉的人数最少。",
+        "喜欢苹果的人数比喜欢西瓜的人数多2人。",
+        "喜欢草莓和香蕉的一共有23人。",
+        "喜欢西瓜的人数比喜欢草莓的人数少5人。"
+      ],
+      "answer": "喜欢草莓的人数最多，喜欢香蕉的人数最少。",
+      "acceptedAnswers": [
+        "喜欢草莓的人数最多，喜欢香蕉的人数最少。"
+      ],
+      "explanationZhHans": "比较数据：草莓15人最多，香蕉8人最少，A正确。苹果12比西瓜10多2，不是3，B错。草莓15加香蕉8得23，不是22，C错。草莓15减西瓜10得5，不是6，D错。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-232",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-data-representation",
+      "unitTitle": "数据的整理和表示",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "data-organization",
+        "data-representation",
+        "tables-charts",
+        "数据整理",
+        "数据表示"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "收集数据",
+        "分类整理",
+        "读表",
+        "绘制简单统计图",
+        "比较分析"
+      ],
+      "misconceptionTags": [
+        "category labels skipped",
+        "scale or tally count misread",
+        "conclusion not supported by displayed data"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-data-representation"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-data-representation-unit",
+        "bnu-primary-p3-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "三（1）班同学最喜欢的水果情况如下：苹果12人，香蕉8人，橘子10人，葡萄6人。请完成下面的表格，并回答：最喜欢苹果的人数比最喜欢葡萄的多几人？\n\n| 水果 | 人数 |\n|------|------|\n| 苹果 |      |\n| 香蕉 |      |\n| 橘子 |      |\n| 葡萄 |      |",
+      "optionsZhHans": [],
+      "answer": "6",
+      "acceptedAnswers": [
+        "6",
+        "6人"
+      ],
+      "explanationZhHans": "根据数据，苹果12人，葡萄6人，相差12-6=6人。表格中苹果填12，香蕉填8，橘子填10，葡萄填6。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-233",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-data-representation",
+      "unitTitle": "数据的整理和表示",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "data-organization",
+        "data-representation",
+        "tables-charts",
+        "数据整理",
+        "数据表示"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "收集数据",
+        "分类整理",
+        "读表",
+        "绘制简单统计图",
+        "比较分析"
+      ],
+      "misconceptionTags": [
+        "category labels skipped",
+        "scale or tally count misread",
+        "conclusion not supported by displayed data"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-data-representation"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-data-representation-unit",
+        "bnu-primary-p3-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "S18 BNU primary V2 automated source-distance/structure/v1-distance gate passed with 300-row grade sample queue generated; candidate QA package only, not approved for public integration. S18 broad QA remediation applied on 2026-05-27: Make all distractors false so the data-reading multiple-choice item has exactly one correct option.",
+      "promptZhHans": "三（1）班同学调查了全班最喜欢的课间活动，结果记录如下：跳绳有12人，踢毽子有8人，拍皮球有10人，丢沙包有6人。下面哪句话是正确的？",
+      "optionsZhHans": [
+        "喜欢跳绳的人数最多，比踢毽子多4人。",
+        "喜欢拍皮球的人数比丢沙包多6人。",
+        "喜欢踢毽子的人数和丢沙包一共是15人。",
+        "全班一共有38人。"
+      ],
+      "answer": "喜欢跳绳的人数最多，比踢毽子多4人。",
+      "acceptedAnswers": [
+        "喜欢跳绳的人数最多，比踢毽子多4人。"
+      ],
+      "explanationZhHans": "跳绳12人最多，比踢毽子8人多4人，所以A正确。拍皮球10人比丢沙包6人多4人，不是6人；踢毽子和丢沙包共8+6=14人，不是15人；总人数是12+8+10+6=36人，不是38人。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-234",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-data-representation",
+      "unitTitle": "数据的整理和表示",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "data-organization",
+        "data-representation",
+        "tables-charts",
+        "数据整理",
+        "数据表示"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "收集数据",
+        "分类整理",
+        "读表",
+        "绘制简单统计图",
+        "比较分析"
+      ],
+      "misconceptionTags": [
+        "category labels skipped",
+        "scale or tally count misread",
+        "conclusion not supported by displayed data"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-data-representation"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-data-representation-unit",
+        "bnu-primary-p3-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "三（1）班同学最喜欢的课间活动调查结果如下：跳绳有12人，踢毽子有8人，拍皮球有10人，跳房子有6人。请根据调查结果完成下面的表格，并回答问题。\n\n| 活动项目 | 人数 |\n|----------|------|\n| 跳绳     |      |\n| 踢毽子   |      |\n| 拍皮球   |      |\n| 跳房子   |      |\n\n问题：最喜欢跳绳的人数比最喜欢跳房子的人数多几人？",
+      "optionsZhHans": [],
+      "answer": "表格：跳绳12，踢毽子8，拍皮球10，跳房子6；问题答案：6",
+      "acceptedAnswers": [
+        "表格：跳绳12，踢毽子8，拍皮球10，跳房子6；问题答案：6",
+        "跳绳12，踢毽子8，拍皮球10，跳房子6；6",
+        "跳绳12 踢毽子8 拍皮球10 跳房子6 6",
+        "12,8,10,6;6",
+        "12 8 10 6 6"
+      ],
+      "explanationZhHans": "根据调查结果，将人数填入对应项目：跳绳12人、踢毽子8人、拍皮球10人、跳房子6人。最喜欢跳绳的比跳房子的多12-6=6人。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-235",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-data-representation",
+      "unitTitle": "数据的整理和表示",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "data-organization",
+        "data-representation",
+        "tables-charts",
+        "数据整理",
+        "数据表示"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "收集数据",
+        "分类整理",
+        "读表",
+        "绘制简单统计图",
+        "比较分析"
+      ],
+      "misconceptionTags": [
+        "category labels skipped",
+        "scale or tally count misread",
+        "conclusion not supported by displayed data"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-data-representation"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-data-representation-unit",
+        "bnu-primary-p3-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "三（1）班同学最喜欢的水果调查结果如下：苹果有12人，香蕉有8人，草莓有15人，葡萄有5人。下面哪句话是正确的？",
+      "optionsZhHans": [
+        "喜欢草莓的人数比喜欢苹果的多2人",
+        "喜欢葡萄的人数最少",
+        "喜欢苹果和香蕉的一共有22人",
+        "喜欢草莓的人数是喜欢葡萄的4倍"
+      ],
+      "answer": "喜欢葡萄的人数最少",
+      "acceptedAnswers": [
+        "喜欢葡萄的人数最少"
+      ],
+      "explanationZhHans": "比较数据：草莓15人最多，葡萄5人最少，所以B正确。A项15-12=3，不是2，错误；C项12+8=20，不是22，错误；D项15÷5=3，不是4，错误。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-236",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-data-representation",
+      "unitTitle": "数据的整理和表示",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "data-organization",
+        "data-representation",
+        "tables-charts",
+        "数据整理",
+        "数据表示"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "收集数据",
+        "分类整理",
+        "读表",
+        "绘制简单统计图",
+        "比较分析"
+      ],
+      "misconceptionTags": [
+        "category labels skipped",
+        "scale or tally count misread",
+        "conclusion not supported by displayed data"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-data-representation"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-data-representation-unit",
+        "bnu-primary-p3-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "三（1）班同学最喜欢的水果调查结果如下：苹果有12人，香蕉有8人，草莓有15人，西瓜有10人。请根据调查结果完成下面的表格，并回答问题。\n\n| 水果 | 人数 |\n|------|------|\n| 苹果 |      |\n| 香蕉 |      |\n| 草莓 |      |\n| 西瓜 |      |\n\n（1）把表格填写完整。\n（2）喜欢（ ）的人数最多，喜欢（ ）的人数最少。\n（3）喜欢草莓的比喜欢香蕉的多几人？",
+      "optionsZhHans": [],
+      "answer": "（1）苹果：12；香蕉：8；草莓：15；西瓜：10\n（2）草莓，香蕉\n（3）7人",
+      "acceptedAnswers": [
+        "（1）苹果：12；香蕉：8；草莓：15；西瓜：10\n（2）草莓，香蕉\n（3）7人"
+      ],
+      "explanationZhHans": "（1）根据调查数据直接填入表格。（2）比较人数：15>12>10>8，所以草莓最多，香蕉最少。（3）15-8=7，喜欢草莓的比香蕉的多7人。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-237",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "p3-lower-review",
+        "mathematical-activity",
+        "integrated-application",
+        "数学好玩",
+        "下册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "整理知识",
+        "错因表达",
+        "项目式探究"
+      ],
+      "misconceptionTags": [
+        "unit choice skipped in integrated tasks",
+        "representation selected without purpose",
+        "review solved as isolated arithmetic only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-division-unit",
+        "bnu-primary-p3-lower-assessment-shape-motion-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "三年级同学为“数学好玩”活动准备材料。他们把48张彩纸平均分给6个小组，每个小组再平均分给本组的2名同学。每名同学分到多少张彩纸？下面哪种思路是正确的？",
+      "optionsZhHans": [
+        "先算一共有多少名同学：6×2＝12（名），再算每名同学分到多少张：48÷12＝4（张）",
+        "先算每个小组分到多少张：48÷6＝8（张），再算每名同学分到多少张：8÷2＝4（张）",
+        "先算每名同学分到多少张：48÷2＝24（张），再算每个小组分到多少张：24÷6＝4（张）",
+        "先算一共有多少名同学：6＋2＝8（名），再算每名同学分到多少张：48÷8＝6（张）"
+      ],
+      "answer": "先算每个小组分到多少张：48÷6＝8（张），再算每名同学分到多少张：8÷2＝4（张）",
+      "acceptedAnswers": [
+        "先算每个小组分到多少张：48÷6＝8（张），再算每名同学分到多少张：8÷2＝4（张）"
+      ],
+      "explanationZhHans": "题目已知48张彩纸平均分给6个小组，每个小组再平均分给2名同学。正确思路是先求每个小组分到的张数48÷6＝8（张），再求每名同学分到的张数8÷2＝4（张）。其他选项要么先算总人数时用加法（6＋2）错误，要么先除以2顺序颠倒，不符合题意。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-238",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "p3-lower-review",
+        "mathematical-activity",
+        "integrated-application",
+        "数学好玩",
+        "下册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "整理知识",
+        "错因表达",
+        "项目式探究"
+      ],
+      "misconceptionTags": [
+        "unit choice skipped in integrated tasks",
+        "representation selected without purpose",
+        "review solved as isolated arithmetic only"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-division-unit",
+        "bnu-primary-p3-lower-assessment-shape-motion-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "三年级一班同学在“数学好玩”活动中调查了全班同学最喜欢的课后活动，结果如下：跳绳有12人，踢毽子有8人，打篮球有10人，下棋有6人。老师让大家用画“正”字的方法整理数据。一个“正”字代表5人。请回答：跳绳的人数需要画几个“正”字，多出几笔？",
+      "optionsZhHans": [],
+      "answer": "2个“正”字，多出2笔",
+      "acceptedAnswers": [
+        "2个“正”字，多出2笔"
+      ],
+      "explanationZhHans": "跳绳有12人。一个“正”字代表5人，12÷5=2（个）……2（人）。所以需要画2个“正”字，多出2笔。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-239",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "p3-lower-review",
+        "mathematical-activity",
+        "integrated-application",
+        "数学好玩",
+        "下册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "整理知识",
+        "错因表达",
+        "项目式探究"
+      ],
+      "misconceptionTags": [
+        "unit choice skipped in integrated tasks",
+        "representation selected without purpose",
+        "review solved as isolated arithmetic only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-division-unit",
+        "bnu-primary-p3-lower-assessment-shape-motion-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "三年级学生开展“数学好玩”综合活动，需要设计一个校园小花园。花园形状是一个长方形，长12米，宽8米。同学们打算在花园里铺上草皮，每平方米草皮的价格是9元。另外，花园周围要安装一圈篱笆，每米篱笆的价格是15元。请你帮他们算一算，铺草皮和安装篱笆一共需要多少元？",
+      "optionsZhHans": [
+        "864元",
+        "1224元",
+        "1464元",
+        "1680元"
+      ],
+      "answer": "1464元",
+      "acceptedAnswers": [
+        "1464元"
+      ],
+      "explanationZhHans": "先算面积：12×8=96平方米，草皮费用96×9=864元。再算周长：(12+8)×2=40米，篱笆费用40×15=600元。总费用864+600=1464元。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-240",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-math-play-review",
+      "unitTitle": "数学好玩及整理复习",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "p3-lower-review",
+        "mathematical-activity",
+        "integrated-application",
+        "数学好玩",
+        "下册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "整理知识",
+        "错因表达",
+        "项目式探究"
+      ],
+      "misconceptionTags": [
+        "unit choice skipped in integrated tasks",
+        "representation selected without purpose",
+        "review solved as isolated arithmetic only"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-math-play-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-division-unit",
+        "bnu-primary-p3-lower-assessment-shape-motion-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "三年级同学开展“数学好玩”综合活动。第一小组用48张彩纸做手工，每5张彩纸可以做一个灯笼。他们最多能做多少个灯笼？做这些灯笼后还剩多少张彩纸？请填写：最多做（ ）个灯笼，还剩（ ）张彩纸。",
+      "optionsZhHans": [],
+      "answer": "9，3",
+      "acceptedAnswers": [
+        "9，3",
+        "9,3"
+      ],
+      "explanationZhHans": "48张彩纸，每5张做一个灯笼，用除法：48÷5=9（个）……3（张）。商9表示最多做9个灯笼，余数3表示还剩3张彩纸。"
+    }
+  ]
+}

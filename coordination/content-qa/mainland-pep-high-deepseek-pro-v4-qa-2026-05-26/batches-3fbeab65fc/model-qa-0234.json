@@ -1,0 +1,339 @@
+{
+  "batchId": "model-qa-0234",
+  "ids": [
+    "pep-high-s6-rag4-sa-126",
+    "pep-high-s6-rag4-sa-127",
+    "pep-high-s6-rag4-sa-128",
+    "pep-high-s6-rag4-sa-129",
+    "pep-high-s6-rag4-sa-130",
+    "pep-high-s6-rag4-sa-131",
+    "pep-high-s6-rag4-sa-132",
+    "pep-high-s6-rag4-sa-133",
+    "pep-high-s6-rag4-sa-134",
+    "pep-high-s6-rag4-sa-135",
+    "pep-high-s6-rag4-sa-136",
+    "pep-high-s6-rag4-sa-137",
+    "pep-high-s6-rag4-sa-138",
+    "pep-high-s6-rag4-sa-139",
+    "pep-high-s6-rag4-sa-140",
+    "pep-high-s6-rag4-sa-141",
+    "pep-high-s6-rag4-sa-142",
+    "pep-high-s6-rag4-sa-143",
+    "pep-high-s6-rag4-sa-144",
+    "pep-high-s6-rag4-sa-145"
+  ],
+  "reviews": [
+    {
+      "id": "pep-high-s6-rag4-sa-126",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "56",
+      "answerCheckZhHans": "独立计算：8个不同球，不放回依次取2个，有序结果数为8×7=56。与给定答案一致。",
+      "recommendedActionZhHans": "无需修改；模型初稿出现答案匹配/错答标记矛盾，本地一致性校验按独立答案与标准答案一致判为 pass。",
+      "confidence": "high",
+      "localValidationNotes": [
+        "corrected-model-answer-match-contradiction"
+      ]
+    },
+    {
+      "id": "pep-high-s6-rag4-sa-127",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "90",
+      "answerCheckZhHans": "独立计算：10个不同球，有序取2个，10×9=90。答案匹配。",
+      "recommendedActionZhHans": "无需修改；模型初稿出现答案匹配/错答标记矛盾，本地一致性校验按独立答案与标准答案一致判为 pass。",
+      "confidence": "high",
+      "localValidationNotes": [
+        "corrected-model-answer-match-contradiction"
+      ]
+    },
+    {
+      "id": "pep-high-s6-rag4-sa-128",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "110",
+      "answerCheckZhHans": "独立计算：11个不同球，有序取2个，11×10=110。答案匹配。",
+      "recommendedActionZhHans": "无需修改；模型初稿出现答案匹配/错答标记矛盾，本地一致性校验按独立答案与标准答案一致判为 pass。",
+      "confidence": "high",
+      "localValidationNotes": [
+        "corrected-model-answer-match-contradiction"
+      ]
+    },
+    {
+      "id": "pep-high-s6-rag4-sa-129",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "56",
+      "answerCheckZhHans": "独立计算：8个不同球，有序取2个，8×7=56。答案匹配。",
+      "recommendedActionZhHans": "无需修改；模型初稿出现答案匹配/错答标记矛盾，本地一致性校验按独立答案与标准答案一致判为 pass。",
+      "confidence": "high",
+      "localValidationNotes": [
+        "corrected-model-answer-match-contradiction"
+      ]
+    },
+    {
+      "id": "pep-high-s6-rag4-sa-130",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "72",
+      "answerCheckZhHans": "独立计算：9个不同球，有序取2个，9×8=72。答案匹配。",
+      "recommendedActionZhHans": "无需修改；模型初稿出现答案匹配/错答标记矛盾，本地一致性校验按独立答案与标准答案一致判为 pass。",
+      "confidence": "high",
+      "localValidationNotes": [
+        "corrected-model-answer-match-contradiction"
+      ]
+    },
+    {
+      "id": "pep-high-s6-rag4-sa-131",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "30",
+      "answerCheckZhHans": "独立计算：6个不同球，有序取2个，6×5=30。答案匹配。",
+      "recommendedActionZhHans": "无需修改；模型初稿出现答案匹配/错答标记矛盾，本地一致性校验按独立答案与标准答案一致判为 pass。",
+      "confidence": "high",
+      "localValidationNotes": [
+        "corrected-model-answer-match-contradiction"
+      ]
+    },
+    {
+      "id": "pep-high-s6-rag4-sa-132",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "132",
+      "answerCheckZhHans": "独立计算：12个不同球，有序取2个，12×11=132。答案匹配。",
+      "recommendedActionZhHans": "无需修改；模型初稿出现答案匹配/错答标记矛盾，本地一致性校验按独立答案与标准答案一致判为 pass。",
+      "confidence": "high",
+      "localValidationNotes": [
+        "corrected-model-answer-match-contradiction"
+      ]
+    },
+    {
+      "id": "pep-high-s6-rag4-sa-133",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "72",
+      "answerCheckZhHans": "独立计算：9个不同球，有序取2个，9×8=72。答案匹配。",
+      "recommendedActionZhHans": "无需修改；模型初稿出现答案匹配/错答标记矛盾，本地一致性校验按独立答案与标准答案一致判为 pass。",
+      "confidence": "high",
+      "localValidationNotes": [
+        "corrected-model-answer-match-contradiction"
+      ]
+    },
+    {
+      "id": "pep-high-s6-rag4-sa-134",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "90",
+      "answerCheckZhHans": "独立计算：10个不同球，有序取2个，10×9=90。答案匹配。",
+      "recommendedActionZhHans": "无需修改；模型初稿出现答案匹配/错答标记矛盾，本地一致性校验按独立答案与标准答案一致判为 pass。",
+      "confidence": "high",
+      "localValidationNotes": [
+        "corrected-model-answer-match-contradiction"
+      ]
+    },
+    {
+      "id": "pep-high-s6-rag4-sa-135",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "42",
+      "answerCheckZhHans": "独立计算：7个不同球，有序取2个，7×6=42。答案匹配。",
+      "recommendedActionZhHans": "无需修改；模型初稿出现答案匹配/错答标记矛盾，本地一致性校验按独立答案与标准答案一致判为 pass。",
+      "confidence": "high",
+      "localValidationNotes": [
+        "corrected-model-answer-match-contradiction"
+      ]
+    },
+    {
+      "id": "pep-high-s6-rag4-sa-136",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "56",
+      "answerCheckZhHans": "独立计算：8个不同球，有序取2个，8×7=56。答案匹配。",
+      "recommendedActionZhHans": "无需修改；模型初稿出现答案匹配/错答标记矛盾，本地一致性校验按独立答案与标准答案一致判为 pass。",
+      "confidence": "high",
+      "localValidationNotes": [
+        "corrected-model-answer-match-contradiction"
+      ]
+    },
+    {
+      "id": "pep-high-s6-rag4-sa-137",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "90",
+      "answerCheckZhHans": "独立计算：10个不同球，有序取2个，10×9=90。答案匹配。",
+      "recommendedActionZhHans": "无需修改；模型初稿出现答案匹配/错答标记矛盾，本地一致性校验按独立答案与标准答案一致判为 pass。",
+      "confidence": "high",
+      "localValidationNotes": [
+        "corrected-model-answer-match-contradiction"
+      ]
+    },
+    {
+      "id": "pep-high-s6-rag4-sa-138",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "110",
+      "answerCheckZhHans": "独立计算：11个不同球，有序取2个，11×10=110。答案匹配。",
+      "recommendedActionZhHans": "无需修改；模型初稿出现答案匹配/错答标记矛盾，本地一致性校验按独立答案与标准答案一致判为 pass。",
+      "confidence": "high",
+      "localValidationNotes": [
+        "corrected-model-answer-match-contradiction"
+      ]
+    },
+    {
+      "id": "pep-high-s6-rag4-sa-139",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "56",
+      "answerCheckZhHans": "独立计算：8个不同球，有序取2个，8×7=56。答案匹配。",
+      "recommendedActionZhHans": "无需修改；模型初稿出现答案匹配/错答标记矛盾，本地一致性校验按独立答案与标准答案一致判为 pass。",
+      "confidence": "high",
+      "localValidationNotes": [
+        "corrected-model-answer-match-contradiction"
+      ]
+    },
+    {
+      "id": "pep-high-s6-rag4-sa-140",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "72",
+      "answerCheckZhHans": "独立计算：9个不同球，有序取2个，9×8=72。答案匹配。",
+      "recommendedActionZhHans": "无需修改；模型初稿出现答案匹配/错答标记矛盾，本地一致性校验按独立答案与标准答案一致判为 pass。",
+      "confidence": "high",
+      "localValidationNotes": [
+        "corrected-model-answer-match-contradiction"
+      ]
+    },
+    {
+      "id": "pep-high-s6-rag4-sa-141",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "30",
+      "answerCheckZhHans": "独立计算：6个不同球，有序取2个，6×5=30。答案匹配。",
+      "recommendedActionZhHans": "无需修改；模型初稿出现答案匹配/错答标记矛盾，本地一致性校验按独立答案与标准答案一致判为 pass。",
+      "confidence": "high",
+      "localValidationNotes": [
+        "corrected-model-answer-match-contradiction"
+      ]
+    },
+    {
+      "id": "pep-high-s6-rag4-sa-142",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2/7",
+      "answerCheckZhHans": "概率=有利结果数/总结果数=2/7。答案匹配。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high",
+      "localValidationNotes": []
+    },
+    {
+      "id": "pep-high-s6-rag4-sa-143",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2/11",
+      "answerCheckZhHans": "概率=2/11。答案匹配。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high",
+      "localValidationNotes": []
+    },
+    {
+      "id": "pep-high-s6-rag4-sa-144",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "1/5",
+      "answerCheckZhHans": "概率=2/10=1/5。答案匹配。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high",
+      "localValidationNotes": []
+    },
+    {
+      "id": "pep-high-s6-rag4-sa-145",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2/9",
+      "answerCheckZhHans": "概率=2/9。答案匹配。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high",
+      "localValidationNotes": []
+    }
+  ]
+}

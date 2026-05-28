@@ -1,0 +1,330 @@
+{
+  "batchNumber": 44,
+  "startedAt": "2026-05-27T03:41:16.295Z",
+  "completedAt": "2026-05-27T03:41:43.377Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p6-041",
+    "bnu-primary-ds-v1-p6-042",
+    "bnu-primary-ds-v1-p6-043",
+    "bnu-primary-ds-v1-p6-044",
+    "bnu-primary-ds-v1-p6-045",
+    "bnu-primary-ds-v1-p6-046",
+    "bnu-primary-ds-v1-p6-047",
+    "bnu-primary-ds-v1-p6-048",
+    "bnu-primary-ds-v1-p6-049",
+    "bnu-primary-ds-v1-p6-050",
+    "bnu-primary-ds-v1-p6-051",
+    "bnu-primary-ds-v1-p6-052",
+    "bnu-primary-ds-v1-p6-053",
+    "bnu-primary-ds-v1-p6-054",
+    "bnu-primary-ds-v1-p6-055",
+    "bnu-primary-ds-v1-p6-056",
+    "bnu-primary-ds-v1-p6-057",
+    "bnu-primary-ds-v1-p6-058",
+    "bnu-primary-ds-v1-p6-059",
+    "bnu-primary-ds-v1-p6-060",
+    "bnu-primary-ds-v1-p6-061",
+    "bnu-primary-ds-v1-p6-062",
+    "bnu-primary-ds-v1-p6-063",
+    "bnu-primary-ds-v1-p6-064",
+    "bnu-primary-ds-v1-p6-065",
+    "bnu-primary-ds-v1-p6-066",
+    "bnu-primary-ds-v1-p6-067",
+    "bnu-primary-ds-v1-p6-068",
+    "bnu-primary-ds-v1-p6-069",
+    "bnu-primary-ds-v1-p6-070"
+  ],
+  "usage": {
+    "prompt_tokens": 7046,
+    "completion_tokens": 2271,
+    "total_tokens": 9317,
+    "prompt_tokens_details": {
+      "cached_tokens": 7040
+    },
+    "prompt_cache_hit_tokens": 7040,
+    "prompt_cache_miss_tokens": 6
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p6-041",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目条件充分，答案2种正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-042",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目可解，答案描述合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-043",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "最少需要5个，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-044",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "最少4个，最多5个，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-045",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "描述合理，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-046",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项A符合要求，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-047",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "需要5个，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-048",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "两种搭法均用5个，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-049",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "只有3个小正方体，不可能看到4个正方形，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-050",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "最少需要4个，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-051",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "最少4个，最多6个，推理正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-052",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项B符合要求，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-053",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "共5个，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-054",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "描述正确，答案合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-055",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "出勤率96%，缺勤率4%，选项D正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-056",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "35%和6/5，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-057",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "80%和125%，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-058",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项C直接等价于120%，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-059",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "最大67%，最小0.6，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-060",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "现价比原价低，计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-061",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "60%，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-062",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "35%，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-063",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "及格率90%，解释正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-064",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "一半是50%，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-065",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "出勤率95%，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-066",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "40%，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-067",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "360本，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-068",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "170元，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-069",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "约22.2%，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-070",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "百分数表示关系，选项C正确。"
+      }
+    ],
+    "batchSummary": {
+      "solvableYes": 30,
+      "solvableNo": 0,
+      "answerMatchYes": 30,
+      "answerMatchNo": 0,
+      "notes": "全部30道题均可解，答案匹配正确。"
+    }
+  }
+}

@@ -1,0 +1,322 @@
+{
+  "batchId": "batch-076",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s2-k09-fi-017",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-pythagorean-theorem"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "promptZhHans": "某快递公司规定：寄送物品的质量不超过1千克时，收费8元；超过1千克后，每增加0.5千克加收2元（不足0.5千克按0.5千克计算）。设物品质量为x千克（x>0），费用为y元。\n（1）当0<x≤1时，y关于x的函数解析式为______；\n（2）当x>1时，y关于x的函数解析式为______（用含x的式子表示）。",
+      "optionsZhHans": [],
+      "answer": "（1）y=8；（2）y=8+4(x-1)",
+      "acceptedAnswers": [
+        "（1）y=8；（2）y=8+4(x-1)",
+        "y=8；y=8+4(x-1)",
+        "y=8; y=8+4(x-1)",
+        "y=8,y=8+4(x-1)"
+      ],
+      "explanationZhHans": "当0<x≤1时，费用固定为8元，所以y=8。当x>1时，超出1千克的部分为(x-1)千克，每0.5千克加收2元，即每千克加收4元，所以加收费用为4(x-1)，总费用y=8+4(x-1)。故答案为（1）y=8；（2）y=8+4(x-1)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-fi-018",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-quadrilaterals"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean"
+      ],
+      "promptZhHans": "已知一次函数y=kx+b的图象经过点(1,4)和(3,10)。\n（1）求k和b的值；\n（2）若点(a,6)在该函数图象上，求a的值。",
+      "optionsZhHans": [],
+      "answer": "（1）k=3，b=1；（2）a=5/3",
+      "acceptedAnswers": [
+        "（1）k=3，b=1；（2）a=5/3",
+        "k=3，b=1；a=5/3",
+        "k=3,b=1;a=5/3",
+        "k=3,b=1,a=5/3"
+      ],
+      "explanationZhHans": "将点(1,4)和(3,10)代入y=kx+b，得方程组：k+b=4，3k+b=10。解得k=3，b=1。所以函数解析式为y=3x+1。将y=6代入得3x+1=6，解得x=5/3，即a=5/3。故答案为（1）k=3，b=1；（2）a=5/3。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-fi-019",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-linear-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "在平面直角坐标系中，将直线y=2x+1先向右平移3个单位，再向下平移2个单位，得到直线l。\n（1）直线l的解析式为______；\n（2）直线l与x轴的交点坐标为______。",
+      "optionsZhHans": [],
+      "answer": "（1）y=2x-7；（2）(3.5,0)或(7/2,0)",
+      "acceptedAnswers": [
+        "（1）y=2x-7；（2）(3.5,0)或(7/2,0)",
+        "（1）y=2x-7；（2）(3.5,0)",
+        "（1）y=2x-7；（2）(7/2,0)",
+        "y=2x-7；(3.5,0)",
+        "y=2x-7；(7/2,0)"
+      ],
+      "explanationZhHans": "直线y=2x+1向右平移3个单位，根据“左加右减”，x变为x-3，得y=2(x-3)+1=2x-5；再向下平移2个单位，根据“上加下减”，得y=2x-5-2=2x-7。所以直线l的解析式为y=2x-7。令y=0，得0=2x-7，解得x=3.5，所以交点坐标为(3.5,0)。故答案为（1）y=2x-7；（2）(3.5,0)或(7/2,0)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-fi-020",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-data-analysis"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-proof-calculation-integrated"
+      ],
+      "promptZhHans": "某校八年级（1）班20名学生的数学测验成绩（满分100分）如下：\n85, 90, 78, 92, 88, 76, 95, 89, 84, 91, 87, 83, 79, 86, 93, 80, 82, 77, 94, 81。\n（1）这组数据的众数是______；\n（2）这组数据的中位数是______。",
+      "optionsZhHans": [],
+      "answer": "（1）无众数或没有众数；（2）85.5",
+      "acceptedAnswers": [
+        "（1）无众数或没有众数；（2）85.5",
+        "（1）无众数；（2）85.5",
+        "（1）没有众数；（2）85.5",
+        "无众数；85.5",
+        "没有众数；85.5"
+      ],
+      "explanationZhHans": "将数据从小到大排序：76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95。每个数都只出现一次，所以没有众数。数据个数为20，中位数是第10和第11个数的平均数，即(85+86)/2=85.5。故答案为（1）无众数或没有众数；（2）85.5。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-fi-021",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "promptZhHans": "已知一次函数y=(m-2)x+m+1，其中m为常数。\n（1）若y随x的增大而减小，求m的取值范围；\n（2）若函数图象经过第一、二、四象限，求m的取值范围。",
+      "optionsZhHans": [],
+      "answer": "（1）m<2；（2）-1<m<2",
+      "acceptedAnswers": [
+        "（1）m<2；（2）-1<m<2",
+        "m<2；-1<m<2",
+        "m<2,-1<m<2"
+      ],
+      "explanationZhHans": "（1）y随x的增大而减小，说明一次项系数小于0，即m-2<0，解得m<2。（2）图象经过第一、二、四象限，说明k<0且b>0，即m-2<0且m+1>0，解得m<2且m>-1，所以-1<m<2。故答案为（1）m<2；（2）-1<m<2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-fi-022",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-quadratic-radicals"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "某班40名学生参加环保知识竞赛，成绩频数分布如下：\n50~60分：4人；60~70分：8人；70~80分：12人；80~90分：10人；90~100分：6人。\n（1）成绩在80分及以上的学生人数占全班人数的百分比是______；\n（2）若规定80分及以上为优秀，则优秀率是______。",
+      "optionsZhHans": [],
+      "answer": "（1）40%；（2）40%",
+      "acceptedAnswers": [
+        "（1）40%；（2）40%",
+        "40%；40%",
+        "40%,40%"
+      ],
+      "explanationZhHans": "成绩在80分及以上的学生包括80~90分和90~100分两个组，人数为10+6=16人。全班40人，所以百分比为16/40×100%=40%。优秀率也是40%。故答案为（1）40%；（2）40%。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-fi-023",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-pythagorean-theorem"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "某市出租车收费标准如下：起步价8元（含3千米），超过3千米后每千米1.5元（不足1千米按1千米计算）。设行驶路程为x千米（x>0），应付车费为y元。\n（1）当0<x≤3时，y=______；\n（2）当x>3时，y=______（用含x的式子表示）；\n（3）若小明乘坐出租车行驶了7.2千米，则应付车费______元。",
+      "optionsZhHans": [],
+      "answer": "（1）8；（2）y=8+1.5(x-3)；（3）15.5",
+      "acceptedAnswers": [
+        "（1）8；（2）y=8+1.5(x-3)；（3）15.5",
+        "8；y=8+1.5(x-3)；15.5",
+        "8,y=8+1.5(x-3),15.5"
+      ],
+      "explanationZhHans": "当0<x≤3时，车费为起步价8元。当x>3时，超出3千米的部分为(x-3)千米，每千米1.5元，所以y=8+1.5(x-3)。行驶7.2千米，按8千米计算（不足1千米按1千米），所以x=8，y=8+1.5×(8-3)=8+7.5=15.5元。故答案为（1）8；（2）y=8+1.5(x-3)；（3）15.5。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-fi-024",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-quadrilaterals"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "已知点A(2, a)在一次函数y=-3x+5的图象上。\n（1）a的值为______；\n（2）点A关于x轴对称的点B的坐标为______。",
+      "optionsZhHans": [],
+      "answer": "（1）-1；（2）(2,1)",
+      "acceptedAnswers": [
+        "（1）-1；（2）(2,1)",
+        "-1；(2,1)",
+        "-1,(2,1)"
+      ],
+      "explanationZhHans": "将x=2代入y=-3x+5，得y=-3×2+5=-1，所以a=-1，点A坐标为(2,-1)。关于x轴对称，横坐标不变，纵坐标互为相反数，所以点B坐标为(2,1)。故答案为（1）-1；（2）(2,1)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-fi-025",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-linear-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "某商店销售一种商品，每件进价40元，售价60元，每天可售出100件。经调查发现，售价每降低1元，每天多售出10件。设每件降价x元（x为整数），每天利润为y元。\n（1）降价后每件利润为______元（用含x的式子表示）；\n（2）y与x的函数关系式为______；\n（3）若每天利润要达到2250元，则每件应降价______元。",
+      "optionsZhHans": [],
+      "answer": "（1）20-x；（2）y=(20-x)(100+10x)或y=-10x²+100x+2000；（3）5",
+      "acceptedAnswers": [
+        "（1）20-x；（2）y=(20-x)(100+10x)或y=-10x²+100x+2000；（3）5",
+        "（1）20-x；（2）y=(20-x)(100+10x)；（3）5",
+        "20-x；y=(20-x)(100+10x)；5",
+        "20-x,y=(20-x)(100+10x),5"
+      ],
+      "explanationZhHans": "原来每件利润60-40=20元，降价x元后每件利润为(20-x)元；每天销量为(100+10x)件。所以y=(20-x)(100+10x)。整理得y=-10x²+100x+2000。令y=2250，得-10x²+100x+2000=2250，即x²-10x+25=0，解得x=5。故答案为（1）20-x；（2）y=(20-x)(100+10x)或y=-10x²+100x+2000；（3）5。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k09-fi-026",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-data-analysis"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions"
+      ],
+      "promptZhHans": "甲、乙两名射击运动员在一次训练中各射击10次，成绩（环数）如下：\n甲：8, 9, 7, 10, 8, 9, 9, 8, 7, 9；\n乙：9, 8, 10, 7, 8, 9, 9, 10, 8, 7。\n（1）甲成绩的方差是______（精确到0.1）；\n（2）从方差角度看，成绩更稳定的是______。",
+      "optionsZhHans": [],
+      "answer": "（1）0.8；（2）甲",
+      "acceptedAnswers": [
+        "（1）0.8；（2）甲",
+        "0.8；甲",
+        "0.8,甲"
+      ],
+      "explanationZhHans": "甲的平均数=(8+9+7+10+8+9+9+8+7+9)/10=8.4。甲的方差=[(8-8.4)²+(9-8.4)²+(7-8.4)²+(10-8.4)²+(8-8.4)²+(9-8.4)²+(9-8.4)²+(8-8.4)²+(7-8.4)²+(9-8.4)²]/10=[0.16+0.36+1.96+2.56+0.16+0.36+0.36+0.16+1.96+0.36]/10=8.4/10=0.84≈0.8。乙的平均数=(9+8+10+7+8+9+9+10+8+7)/10=8.5。乙的方差=[(9-8.5)²+(8-8.5)²+(10-8.5)²+(7-8.5)²+(8-8.5)²+(9-8.5)²+(9-8.5)²+(10-8.5)²+(8-8.5)²+(7-8.5)²]/10=[0.25+0.25+2.25+2.25+0.25+0.25+0.25+2.25+0.25+2.25]/10=10.5/10=1.05≈1.1。因为0.8<1.1，所以甲的成绩更稳定。故答案为（1）0.8；（2）甲。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

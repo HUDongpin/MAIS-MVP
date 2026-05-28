@@ -1,0 +1,577 @@
+{
+  "batchId": "batch-109",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p5-081",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-composite-area",
+      "unitTitle": "组合图形的面积",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "composite-area",
+        "decompose-recompose",
+        "irregular-area",
+        "area-strategy-selection",
+        "组合图形面积"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "分割组合图形",
+        "补形求面积",
+        "选择面积策略",
+        "标注必要长度",
+        "综合计算"
+      ],
+      "misconceptionTags": [
+        "overlap area counted twice",
+        "missing dimension inferred without justification",
+        "perimeter segments added instead of area components"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-composite-area"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-composite-area-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个不规则花坛的形状可以看作由一个长8米、宽5米的长方形和一个底6米、高4米的三角形拼接而成，长方形的一条长边与三角形的一条底边完全重合。这个花坛的面积是多少平方米？",
+      "optionsZhHans": [],
+      "answer": "52平方米",
+      "acceptedAnswers": [
+        "52平方米",
+        "52"
+      ],
+      "explanationZhHans": "长方形面积=8×5=40平方米，三角形面积=6×4÷2=12平方米，总面积=40+12=52平方米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-082",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-composite-area",
+      "unitTitle": "组合图形的面积",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "composite-area",
+        "decompose-recompose",
+        "irregular-area",
+        "area-strategy-selection",
+        "组合图形面积"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "分割组合图形",
+        "补形求面积",
+        "选择面积策略",
+        "标注必要长度",
+        "综合计算"
+      ],
+      "misconceptionTags": [
+        "overlap area counted twice",
+        "missing dimension inferred without justification",
+        "perimeter segments added instead of area components"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-composite-area"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-composite-area-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个组合图形由一个边长6厘米的正方形和一个底8厘米、高5厘米的三角形组成，正方形的一条边与三角形的底边完全重合。这个组合图形的面积是多少平方厘米？",
+      "optionsZhHans": [
+        "68平方厘米",
+        "56平方厘米",
+        "76平方厘米",
+        "48平方厘米"
+      ],
+      "answer": "56平方厘米",
+      "acceptedAnswers": [
+        "56平方厘米"
+      ],
+      "explanationZhHans": "正方形面积=6×6=36平方厘米，三角形面积=8×5÷2=20平方厘米，总面积=36+20=56平方厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-083",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-composite-area",
+      "unitTitle": "组合图形的面积",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "composite-area",
+        "decompose-recompose",
+        "irregular-area",
+        "area-strategy-selection",
+        "组合图形面积"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "分割组合图形",
+        "补形求面积",
+        "选择面积策略",
+        "标注必要长度",
+        "综合计算"
+      ],
+      "misconceptionTags": [
+        "overlap area counted twice",
+        "missing dimension inferred without justification",
+        "perimeter segments added instead of area components"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-composite-area"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-composite-area-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个组合图形由一个长10厘米、宽6厘米的长方形和一个上底4厘米、下底8厘米、高5厘米的梯形组成，长方形的一条长边与梯形的下底完全重合。这个组合图形的面积是______平方厘米。",
+      "optionsZhHans": [],
+      "answer": "90",
+      "acceptedAnswers": [
+        "90",
+        "90平方厘米"
+      ],
+      "explanationZhHans": "长方形面积=10×6=60平方厘米，梯形面积=(4+8)×5÷2=30平方厘米，总面积=60+30=90平方厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-084",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-composite-area",
+      "unitTitle": "组合图形的面积",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "composite-area",
+        "decompose-recompose",
+        "irregular-area",
+        "area-strategy-selection",
+        "组合图形面积"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "分割组合图形",
+        "补形求面积",
+        "选择面积策略",
+        "标注必要长度",
+        "综合计算"
+      ],
+      "misconceptionTags": [
+        "overlap area counted twice",
+        "missing dimension inferred without justification",
+        "perimeter segments added instead of area components"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-composite-area"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-composite-area-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个组合图形可以分割成一个平行四边形和一个三角形。平行四边形底12分米，高8分米；三角形底12分米，高5分米，且三角形的一条底边与平行四边形的一条底边完全重合。这个组合图形的面积是多少平方分米？",
+      "optionsZhHans": [],
+      "answer": "126平方分米",
+      "acceptedAnswers": [
+        "126平方分米",
+        "126"
+      ],
+      "explanationZhHans": "平行四边形面积=12×8=96平方分米，三角形面积=12×5÷2=30平方分米，总面积=96+30=126平方分米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-085",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-composite-area",
+      "unitTitle": "组合图形的面积",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "composite-area",
+        "decompose-recompose",
+        "irregular-area",
+        "area-strategy-selection",
+        "组合图形面积"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "分割组合图形",
+        "补形求面积",
+        "选择面积策略",
+        "标注必要长度",
+        "综合计算"
+      ],
+      "misconceptionTags": [
+        "overlap area counted twice",
+        "missing dimension inferred without justification",
+        "perimeter segments added instead of area components"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-composite-area"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-composite-area-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个组合图形由两个完全一样的梯形拼成，每个梯形上底3厘米、下底7厘米、高4厘米。拼成的图形面积是多少平方厘米？",
+      "optionsZhHans": [
+        "40平方厘米",
+        "20平方厘米",
+        "80平方厘米",
+        "60平方厘米"
+      ],
+      "answer": "40平方厘米",
+      "acceptedAnswers": [
+        "40平方厘米"
+      ],
+      "explanationZhHans": "一个梯形面积=(3+7)×4÷2=20平方厘米，两个梯形总面积=20×2=40平方厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-086",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-composite-area",
+      "unitTitle": "组合图形的面积",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "composite-area",
+        "decompose-recompose",
+        "irregular-area",
+        "area-strategy-selection",
+        "组合图形面积"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "分割组合图形",
+        "补形求面积",
+        "选择面积策略",
+        "标注必要长度",
+        "综合计算"
+      ],
+      "misconceptionTags": [
+        "overlap area counted twice",
+        "missing dimension inferred without justification",
+        "perimeter segments added instead of area components"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-composite-area"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-composite-area-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个组合图形由一个长15米、宽8米的长方形和一个底10米、高6米的三角形组成，长方形的一条长边与三角形的一条底边完全重合。这个组合图形的面积是______平方米。",
+      "optionsZhHans": [],
+      "answer": "150",
+      "acceptedAnswers": [
+        "150",
+        "150平方米"
+      ],
+      "explanationZhHans": "长方形面积=15×8=120平方米，三角形面积=10×6÷2=30平方米，总面积=120+30=150平方米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-087",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-composite-area",
+      "unitTitle": "组合图形的面积",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "composite-area",
+        "decompose-recompose",
+        "irregular-area",
+        "area-strategy-selection",
+        "组合图形面积"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "分割组合图形",
+        "补形求面积",
+        "选择面积策略",
+        "标注必要长度",
+        "综合计算"
+      ],
+      "misconceptionTags": [
+        "overlap area counted twice",
+        "missing dimension inferred without justification",
+        "perimeter segments added instead of area components"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-composite-area"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-composite-area-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个组合图形由一个边长9分米的正方形和一个底9分米、高7分米的三角形组成，正方形的一条边与三角形的底边完全重合。这个组合图形的面积是多少平方分米？",
+      "optionsZhHans": [],
+      "answer": "112.5平方分米",
+      "acceptedAnswers": [
+        "112.5平方分米",
+        "112.5"
+      ],
+      "explanationZhHans": "正方形面积=9×9=81平方分米，三角形面积=9×7÷2=31.5平方分米，总面积=81+31.5=112.5平方分米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-088",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-composite-area",
+      "unitTitle": "组合图形的面积",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "composite-area",
+        "decompose-recompose",
+        "irregular-area",
+        "area-strategy-selection",
+        "组合图形面积"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "分割组合图形",
+        "补形求面积",
+        "选择面积策略",
+        "标注必要长度",
+        "综合计算"
+      ],
+      "misconceptionTags": [
+        "overlap area counted twice",
+        "missing dimension inferred without justification",
+        "perimeter segments added instead of area components"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-composite-area"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-composite-area-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个组合图形由一个长12厘米、宽5厘米的长方形和一个上底5厘米、下底9厘米、高4厘米的梯形组成，长方形的一条宽与梯形的上底完全重合。这个组合图形的面积是多少平方厘米？",
+      "optionsZhHans": [
+        "88平方厘米",
+        "78平方厘米",
+        "98平方厘米",
+        "68平方厘米"
+      ],
+      "answer": "88平方厘米",
+      "acceptedAnswers": [
+        "88平方厘米"
+      ],
+      "explanationZhHans": "长方形面积=12×5=60平方厘米，梯形面积=(5+9)×4÷2=28平方厘米，总面积=60+28=88平方厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-089",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-composite-area",
+      "unitTitle": "组合图形的面积",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "composite-area",
+        "decompose-recompose",
+        "irregular-area",
+        "area-strategy-selection",
+        "组合图形面积"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "分割组合图形",
+        "补形求面积",
+        "选择面积策略",
+        "标注必要长度",
+        "综合计算"
+      ],
+      "misconceptionTags": [
+        "overlap area counted twice",
+        "missing dimension inferred without justification",
+        "perimeter segments added instead of area components"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-composite-area"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-composite-area-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个组合图形由一个长20米、宽8米的长方形和一个底16米、高6米的三角形组成，长方形的一条长边与三角形的一条底边完全重合。这个组合图形的面积是______平方米。",
+      "optionsZhHans": [],
+      "answer": "208",
+      "acceptedAnswers": [
+        "208",
+        "208平方米"
+      ],
+      "explanationZhHans": "长方形面积=20×8=160平方米，三角形面积=16×6÷2=48平方米，总面积=160+48=208平方米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-090",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-composite-area",
+      "unitTitle": "组合图形的面积",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "composite-area",
+        "decompose-recompose",
+        "irregular-area",
+        "area-strategy-selection",
+        "组合图形面积"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "分割组合图形",
+        "补形求面积",
+        "选择面积策略",
+        "标注必要长度",
+        "综合计算"
+      ],
+      "misconceptionTags": [
+        "overlap area counted twice",
+        "missing dimension inferred without justification",
+        "perimeter segments added instead of area components"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-composite-area"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-composite-area-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个组合图形由一个底14厘米、高9厘米的平行四边形和一个底14厘米、高6厘米的三角形组成，平行四边形的一条底边与三角形的一条底边完全重合。这个组合图形的面积是多少平方厘米？",
+      "optionsZhHans": [],
+      "answer": "168平方厘米",
+      "acceptedAnswers": [
+        "168平方厘米",
+        "168"
+      ],
+      "explanationZhHans": "平行四边形面积=14×9=126平方厘米，三角形面积=14×6÷2=42平方厘米，总面积=126+42=168平方厘米。"
+    }
+  ]
+}

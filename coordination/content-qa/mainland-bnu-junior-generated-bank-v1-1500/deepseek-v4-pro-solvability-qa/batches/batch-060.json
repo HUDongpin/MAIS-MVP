@@ -1,0 +1,173 @@
+{
+  "batchNumber": 60,
+  "startedAt": "2026-05-27T17:39:40.069Z",
+  "completedAt": "2026-05-27T17:39:56.646Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s2-209",
+    "bnu-junior-ds-v1-s2-210",
+    "bnu-junior-ds-v1-s2-211",
+    "bnu-junior-ds-v1-s2-212",
+    "bnu-junior-ds-v1-s2-213",
+    "bnu-junior-ds-v1-s2-214",
+    "bnu-junior-ds-v1-s2-215",
+    "bnu-junior-ds-v1-s2-216",
+    "bnu-junior-ds-v1-s2-217",
+    "bnu-junior-ds-v1-s2-218",
+    "bnu-junior-ds-v1-s2-219",
+    "bnu-junior-ds-v1-s2-220"
+  ],
+  "usage": {
+    "prompt_tokens": 6229,
+    "completion_tokens": 1222,
+    "total_tokens": 7451,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 5717
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s2-209",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目数据明确，中位数和极差计算正确，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-210",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均数计算正确，方差计算精确到0.1为3.2，答案匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-211",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项清晰，方差是衡量稳定性的正确统计量，答案唯一。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-212",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均数和中位数计算正确，方差比较合理，推荐甲班理由充分。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-213",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "去掉最高最低后数据明确，方差计算正确为18.5。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-214",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "中位数185cm正确，其他选项均有误，答案唯一。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-215",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "中位数和众数计算正确，良好人数估计合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-216",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "线性变换后平均数和方差公式应用正确，答案13和8无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-217",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方差计算正确，甲更稳定，选项C表述准确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-218",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "中位数、平均数、优秀率及估计人数均计算正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-219",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "箱线图四分位距包含50%数据，40×50%=20人正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-220",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "箱线图解读正确，一半同学在60-85分之间，其他选项错误。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部12道题均可解，答案与题目匹配，无数学错误或条件缺失，符合北师大版八年级数据分析单元要求。"
+    }
+  }
+}

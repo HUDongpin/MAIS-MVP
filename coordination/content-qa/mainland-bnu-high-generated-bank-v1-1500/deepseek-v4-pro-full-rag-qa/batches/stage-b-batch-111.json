@@ -1,0 +1,126 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-111",
+  "startedAt": "2026-05-28T01:29:45.584Z",
+  "completedAt": "2026-05-28T01:29:57.716Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-381",
+    "bnu-high-ds-v1-s5-382",
+    "bnu-high-ds-v1-s5-383",
+    "bnu-high-ds-v1-s5-384",
+    "bnu-high-ds-v1-s5-385",
+    "bnu-high-ds-v1-s5-386",
+    "bnu-high-ds-v1-s5-387",
+    "bnu-high-ds-v1-s5-388"
+  ],
+  "usage": {
+    "prompt_tokens": 11885,
+    "completion_tokens": 972,
+    "total_tokens": 12857,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 11501
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-381",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案3/7与独立解一致，解析正确推导条件概率，无矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-382",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案0.4与独立解一致，解析指出题目数据矛盾但按分布列和为1得a=0.4，解释合理。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-383",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案二项分布B(5,0.6)及分布列与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-384",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案0.3与独立解一致，解析利用正态分布对称性正确推导。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-385",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案1/2与独立解一致，解析用对立事件计算正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-386",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案0.3与独立解一致，但解析未展示具体计算过程，仅概述思路，标记为weak。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-387",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案5/4与独立解一致，解析裂项求和正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-388",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案0.7与独立解一致，解析计算E(X^2)正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题存储答案与独立解一致，解析基本正确，仅386题解析较简略标记为weak，无严重问题。"
+    }
+  }
+}

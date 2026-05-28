@@ -1,0 +1,138 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-097",
+  "startedAt": "2026-05-28T01:23:20.446Z",
+  "completedAt": "2026-05-28T01:23:35.788Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-269",
+    "bnu-high-ds-v1-s5-270",
+    "bnu-high-ds-v1-s5-271",
+    "bnu-high-ds-v1-s5-272",
+    "bnu-high-ds-v1-s5-273",
+    "bnu-high-ds-v1-s5-274",
+    "bnu-high-ds-v1-s5-275",
+    "bnu-high-ds-v1-s5-276"
+  ],
+  "usage": {
+    "prompt_tokens": 15557,
+    "completion_tokens": 1065,
+    "total_tokens": 16622,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 15173
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-269",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 (2,3) 与独立解一致，解析过程合理，无矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-270",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "(0, -6) 或 (7, 1)",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立解得 P(0,-6) 或 (7,1)，存储答案 (6,2) 或 (-2,-6) 错误，解析中计算过程混乱且最终结果与正确解不符。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-271",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "correctedAnswer": null,
+        "issueTags": [
+          "ambiguous_mc",
+          "bad_options",
+          "math_error"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "正确取值范围应排除 k=±√3，四个选项均含等号，无正确选项；存储答案与解析均未指出此缺陷。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-272",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "x=2, y=1",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "矩形边平行坐标轴，PQ 与边平行只能水平或垂直，故仅有 x=2 和 y=1；存储答案多出两条对角线平行线，解析错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-273",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析推导正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-274",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，选项 A 正确且唯一，解析合理。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-275",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 2 与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-276",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 5,
+      "warn": 0,
+      "fail": 3,
+      "notes": "270、271、272 题存储答案错误或选项缺陷，其余题目通过。"
+    }
+  }
+}

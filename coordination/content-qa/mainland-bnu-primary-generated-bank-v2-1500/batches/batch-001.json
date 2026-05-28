@@ -1,0 +1,576 @@
+{
+  "batchId": "batch-001",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p1-001",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-life-number-sense",
+      "unitTitle": "生活中的数",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-number-sense",
+        "within-10-numbers",
+        "counting-cardinality",
+        "生活中的数",
+        "10以内数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "数一数",
+        "认读0到10",
+        "一一对应",
+        "数量描述",
+        "数序"
+      ],
+      "misconceptionTags": [
+        "counting sequence without matching objects",
+        "last counting word not linked to total quantity",
+        "zero treated as a normal counting object"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-life-number-sense"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "教室里，老师让小朋友们数一数窗台上花盆的数量。小丽用手指一个一个点着花盆数：1、2、3、4、5、6。她数完后说：“一共有6个花盆。”小丽数的结果对吗？为什么？",
+      "optionsZhHans": [
+        "对，因为她数到了6，所以是6个。",
+        "不对，因为她没有用手指点每一个花盆。",
+        "对，因为她用手指点着数，最后一个数是6，所以是6个。",
+        "不对，因为她数的声音太小了。"
+      ],
+      "answer": "对，因为她用手指点着数，最后一个数是6，所以是6个。",
+      "acceptedAnswers": [
+        "对，因为她用手指点着数，最后一个数是6，所以是6个。"
+      ],
+      "explanationZhHans": "小丽用手指一个一个点着花盆数，做到了一一对应。她数的最后一个数是6，就表示一共有6个花盆，所以结果是对的。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-002",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-life-number-sense",
+      "unitTitle": "生活中的数",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-number-sense",
+        "within-10-numbers",
+        "counting-cardinality",
+        "生活中的数",
+        "10以内数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "数一数",
+        "认读0到10",
+        "一一对应",
+        "数量描述",
+        "数序"
+      ],
+      "misconceptionTags": [
+        "counting sequence without matching objects",
+        "last counting word not linked to total quantity",
+        "zero treated as a normal counting object"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-life-number-sense"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "数一数，填一填。\n文具盒里有铅笔：✏️✏️✏️✏️✏️，一共有______支铅笔。",
+      "optionsZhHans": [],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5"
+      ],
+      "explanationZhHans": "铅笔符号有5个，一个一个数，1、2、3、4、5，所以一共有5支铅笔。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-003",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-life-number-sense",
+      "unitTitle": "生活中的数",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-number-sense",
+        "within-10-numbers",
+        "counting-cardinality",
+        "生活中的数",
+        "10以内数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "数一数",
+        "认读0到10",
+        "一一对应",
+        "数量描述",
+        "数序"
+      ],
+      "misconceptionTags": [
+        "counting sequence without matching objects",
+        "last counting word not linked to total quantity",
+        "zero treated as a normal counting object"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-life-number-sense"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明有一些糖果，他数了数：1、2、3、4、5、6、7。他说：“我有7颗糖果。”可是妈妈说他数错了，实际上只有6颗。小明可能哪里数错了？请写出你的想法。",
+      "optionsZhHans": [],
+      "answer": "小明可能没有一一对应，或者重复数了某一颗糖果，或者数得太快漏掉了。",
+      "acceptedAnswers": [
+        "小明可能没有一一对应，或者重复数了某一颗糖果，或者数得太快漏掉了。"
+      ],
+      "explanationZhHans": "数数时要用手点着物体，一个接一个数，不能重复或遗漏。小明数的结果比实际多1，可能是多数了一次。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-004",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-life-number-sense",
+      "unitTitle": "生活中的数",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-number-sense",
+        "within-10-numbers",
+        "counting-cardinality",
+        "生活中的数",
+        "10以内数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "数一数",
+        "认读0到10",
+        "一一对应",
+        "数量描述",
+        "数序"
+      ],
+      "misconceptionTags": [
+        "counting sequence without matching objects",
+        "last counting word not linked to total quantity",
+        "zero treated as a normal counting object"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-life-number-sense"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "体育课上，老师让同学们数一数跳绳的次数。小红跳了0次，小刚跳了3次，小丽跳了5次。下面哪种说法是正确的？",
+      "optionsZhHans": [
+        "小红跳的次数和小刚一样多。",
+        "小刚跳的次数比小丽多。",
+        "小红一次也没有跳，所以用0表示。",
+        "小丽跳的次数比小红少。"
+      ],
+      "answer": "小红一次也没有跳，所以用0表示。",
+      "acceptedAnswers": [
+        "小红一次也没有跳，所以用0表示。"
+      ],
+      "explanationZhHans": "0表示一个也没有。小红跳了0次，就是一次也没有跳。其他选项比较错误：0<3<5，所以小刚比小丽少，小红比小刚少。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-005",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-life-number-sense",
+      "unitTitle": "生活中的数",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-number-sense",
+        "within-10-numbers",
+        "counting-cardinality",
+        "生活中的数",
+        "10以内数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "数一数",
+        "认读0到10",
+        "一一对应",
+        "数量描述",
+        "数序"
+      ],
+      "misconceptionTags": [
+        "counting sequence without matching objects",
+        "last counting word not linked to total quantity",
+        "zero treated as a normal counting object"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-life-number-sense"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "看图写数。\n鱼缸里有几条鱼？🐟🐟🐟🐟，一共有______条鱼。",
+      "optionsZhHans": [],
+      "answer": "4",
+      "acceptedAnswers": [
+        "4"
+      ],
+      "explanationZhHans": "鱼的表情符号有4个，数一数1、2、3、4，所以填4。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-006",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-life-number-sense",
+      "unitTitle": "生活中的数",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-number-sense",
+        "within-10-numbers",
+        "counting-cardinality",
+        "生活中的数",
+        "10以内数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "数一数",
+        "认读0到10",
+        "一一对应",
+        "数量描述",
+        "数序"
+      ],
+      "misconceptionTags": [
+        "counting sequence without matching objects",
+        "last counting word not linked to total quantity",
+        "zero treated as a normal counting object"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-life-number-sense"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小华数了数自己的积木：红色积木有3块，蓝色积木有5块，黄色积木有0块。请问哪种颜色的积木最多？哪种颜色的积木最少？为什么？",
+      "optionsZhHans": [],
+      "answer": "蓝色积木最多，黄色积木最少。因为5>3>0，所以蓝色最多，黄色是0表示没有，所以最少。",
+      "acceptedAnswers": [
+        "蓝色积木最多，黄色积木最少。因为5>3>0，所以蓝色最多，黄色是0表示没有，所以最少。"
+      ],
+      "explanationZhHans": "比较数量：5最大，0最小。0表示一个也没有，所以黄色积木最少。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-007",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-life-number-sense",
+      "unitTitle": "生活中的数",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-number-sense",
+        "within-10-numbers",
+        "counting-cardinality",
+        "生活中的数",
+        "10以内数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "数一数",
+        "认读0到10",
+        "一一对应",
+        "数量描述",
+        "数序"
+      ],
+      "misconceptionTags": [
+        "counting sequence without matching objects",
+        "last counting word not linked to total quantity",
+        "zero treated as a normal counting object"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-life-number-sense"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小动物们排队做操。从前往后数，小兔排在第3个，小猴排在第6个，小象排在第9个。下面哪种说法是正确的？",
+      "optionsZhHans": [
+        "小兔排在最前面。",
+        "小猴排在小兔的前面。",
+        "小象排在小猴的后面。",
+        "小兔排在小象的后面。"
+      ],
+      "answer": "小象排在小猴的后面。",
+      "acceptedAnswers": [
+        "小象排在小猴的后面。"
+      ],
+      "explanationZhHans": "从前往后，第3、第6、第9，数字越大越靠后。所以小象在第9，小猴在第6，小象在小猴后面。小兔在第3，在最前面。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-008",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-life-number-sense",
+      "unitTitle": "生活中的数",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-number-sense",
+        "within-10-numbers",
+        "counting-cardinality",
+        "生活中的数",
+        "10以内数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "数一数",
+        "认读0到10",
+        "一一对应",
+        "数量描述",
+        "数序"
+      ],
+      "misconceptionTags": [
+        "counting sequence without matching objects",
+        "last counting word not linked to total quantity",
+        "zero treated as a normal counting object"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-life-number-sense"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "按顺序填数。\n0，1，2，______，4，5，______，7，8，9，10。",
+      "optionsZhHans": [],
+      "answer": "3,6",
+      "acceptedAnswers": [
+        "3,6",
+        "3，6"
+      ],
+      "explanationZhHans": "这是0到10的顺序，缺少3和6。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-009",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-life-number-sense",
+      "unitTitle": "生活中的数",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-number-sense",
+        "within-10-numbers",
+        "counting-cardinality",
+        "生活中的数",
+        "10以内数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "数一数",
+        "认读0到10",
+        "一一对应",
+        "数量描述",
+        "数序"
+      ],
+      "misconceptionTags": [
+        "counting sequence without matching objects",
+        "last counting word not linked to total quantity",
+        "zero treated as a normal counting object"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-life-number-sense"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "说一说，0可以表示什么？请举一个生活中的例子。",
+      "optionsZhHans": [],
+      "answer": "0可以表示一个也没有。比如，盘子里一个苹果都没有，就用0表示。",
+      "acceptedAnswers": [
+        "0可以表示一个也没有。比如，盘子里一个苹果都没有，就用0表示。"
+      ],
+      "explanationZhHans": "0表示没有。生活中，如果某样东西一个也没有，就可以用0来表示。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-010",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-life-number-sense",
+      "unitTitle": "生活中的数",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-number-sense",
+        "within-10-numbers",
+        "counting-cardinality",
+        "生活中的数",
+        "10以内数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "数一数",
+        "认读0到10",
+        "一一对应",
+        "数量描述",
+        "数序"
+      ],
+      "misconceptionTags": [
+        "counting sequence without matching objects",
+        "last counting word not linked to total quantity",
+        "zero treated as a normal counting object"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-life-number-sense"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "老师拿出一些卡片，上面写着数字。下面哪一组数字是按照从小到大的顺序排列的？",
+      "optionsZhHans": [
+        "5，3，1，0",
+        "0，2，4，6",
+        "7，5，3，1",
+        "9，6，3，0"
+      ],
+      "answer": "0，2，4，6",
+      "acceptedAnswers": [
+        "0，2，4，6"
+      ],
+      "explanationZhHans": "从小到大就是数字越来越大的顺序。0<2<4<6，所以这一组是按从小到大的顺序排列的。其他组都是越来越小。"
+    }
+  ]
+}

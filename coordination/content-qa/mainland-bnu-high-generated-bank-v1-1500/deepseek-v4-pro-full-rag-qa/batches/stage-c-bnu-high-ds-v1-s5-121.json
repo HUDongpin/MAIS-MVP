@@ -1,0 +1,51 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-121",
+  "startedAt": "2026-05-28T02:08:28.671Z",
+  "completedAt": "2026-05-28T02:08:32.361Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-121"
+  ],
+  "usage": {
+    "prompt_tokens": 2768,
+    "completion_tokens": 282,
+    "total_tokens": 3050,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2384
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-121",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "independentAnswer": "k = -16/25",
+        "correctedAnswer": "k = -16/25",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "ambiguous_mc",
+          "bad_options",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立求解得 k = -16/25，不在选项中。存储答案 k = -1 错误，解析中计算得 k = -16/25 却强行取 k = -1，且选项无正确值，题目有误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目选项均不正确，正确解为 k = -16/25，存储答案和解析矛盾，判定为 blocker。"
+    }
+  }
+}

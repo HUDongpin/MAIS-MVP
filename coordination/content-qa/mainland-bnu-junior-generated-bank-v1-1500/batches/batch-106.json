@@ -1,0 +1,629 @@
+{
+  "batchId": "batch-106",
+  "questions": [
+    {
+      "id": "bnu-junior-ds-v1-s3-051",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-quadratic-equations",
+      "unitTitle": "一元二次方程",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "quadratic-equations",
+        "factoring-method",
+        "formula-method",
+        "discriminant",
+        "root-relationships",
+        "一元二次方程",
+        "判别式"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "符号意识",
+        "模型意识"
+      ],
+      "skillTags": [
+        "方程识别",
+        "配方法",
+        "公式法",
+        "因式分解法",
+        "根的判别"
+      ],
+      "misconceptionTags": [
+        "linear equation treated as quadratic",
+        "formula substitution sign error",
+        "context-ineligible root accepted"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-quadratic-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-quadratic-equations-unit",
+        "bnu-junior-s3-upper-assessment-monthly-1-to-3-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知关于 x 的一元二次方程 (k-1)x² + 2x - 3 = 0 有两个不相等的实数根，且 k 为正整数。求 k 的值。",
+      "optionsZhHans": [],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2"
+      ],
+      "explanationZhHans": "由判别式 Δ = 4 + 12(k-1) > 0 得 k > 2/3。又二次项系数 k-1 ≠ 0，故 k ≠ 1。结合 k 为正整数，得 k ≥ 2。取最小正整数 k=2，此时方程 x²+2x-3=0 的判别式 16>0，符合条件。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-052",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-quadratic-equations",
+      "unitTitle": "一元二次方程",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "quadratic-equations",
+        "factoring-method",
+        "formula-method",
+        "discriminant",
+        "root-relationships",
+        "一元二次方程",
+        "判别式"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "符号意识",
+        "模型意识"
+      ],
+      "skillTags": [
+        "方程识别",
+        "配方法",
+        "公式法",
+        "因式分解法",
+        "根的判别"
+      ],
+      "misconceptionTags": [
+        "linear equation treated as quadratic",
+        "formula substitution sign error",
+        "context-ineligible root accepted"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-quadratic-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-quadratic-equations-unit",
+        "bnu-junior-s3-upper-assessment-monthly-1-to-3-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下列方程中，属于一元二次方程的是（ ）",
+      "optionsZhHans": [
+        "A. x² + 2x = x² - 1",
+        "B. 3x + 1 = 0",
+        "C. x² - 2x - 3 = 0",
+        "D. x³ + x² = 0"
+      ],
+      "answer": "C. x² - 2x - 3 = 0",
+      "acceptedAnswers": [
+        "C. x² - 2x - 3 = 0"
+      ],
+      "explanationZhHans": "一元二次方程是整式方程且只含一个未知数，未知数最高次数为2。A化简后为2x+1=0，是一元一次方程；B是一元一次方程；D最高次数为3。只有C符合定义。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-053",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-quadratic-equations",
+      "unitTitle": "一元二次方程",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "quadratic-equations",
+        "factoring-method",
+        "formula-method",
+        "discriminant",
+        "root-relationships",
+        "一元二次方程",
+        "判别式"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "符号意识",
+        "模型意识"
+      ],
+      "skillTags": [
+        "方程识别",
+        "配方法",
+        "公式法",
+        "因式分解法",
+        "根的判别"
+      ],
+      "misconceptionTags": [
+        "linear equation treated as quadratic",
+        "formula substitution sign error",
+        "context-ineligible root accepted"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-quadratic-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-quadratic-equations-unit",
+        "bnu-junior-s3-upper-assessment-monthly-1-to-3-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用适当的方法解方程：2x² - 5x + 2 = 0。",
+      "optionsZhHans": [],
+      "answer": "x₁=2, x₂=1/2",
+      "acceptedAnswers": [
+        "x₁=2, x₂=1/2",
+        "x=2 或 x=1/2",
+        "x=2, x=0.5"
+      ],
+      "explanationZhHans": "方程可因式分解：(2x-1)(x-2)=0，得 x=1/2 或 x=2。也可用公式法，判别式 Δ=25-16=9，根为 (5±3)/4，结果相同。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-054",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-quadratic-equations",
+      "unitTitle": "一元二次方程",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "quadratic-equations",
+        "factoring-method",
+        "formula-method",
+        "discriminant",
+        "root-relationships",
+        "一元二次方程",
+        "判别式"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "符号意识",
+        "模型意识"
+      ],
+      "skillTags": [
+        "方程识别",
+        "配方法",
+        "公式法",
+        "因式分解法",
+        "根的判别"
+      ],
+      "misconceptionTags": [
+        "linear equation treated as quadratic",
+        "formula substitution sign error",
+        "context-ineligible root accepted"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-quadratic-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-quadratic-equations-unit",
+        "bnu-junior-s3-upper-assessment-monthly-1-to-3-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一元二次方程 x² - 6x + 8 = 0 的根为 x₁ 和 x₂，则 x₁ + x₂ = ______。",
+      "optionsZhHans": [],
+      "answer": "6",
+      "acceptedAnswers": [
+        "6"
+      ],
+      "explanationZhHans": "根据根与系数的关系，x₁ + x₂ = -(-6)/1 = 6。也可解方程得根为2和4，和为6。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-055",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-quadratic-equations",
+      "unitTitle": "一元二次方程",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "quadratic-equations",
+        "factoring-method",
+        "formula-method",
+        "discriminant",
+        "root-relationships",
+        "一元二次方程",
+        "判别式"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "符号意识",
+        "模型意识"
+      ],
+      "skillTags": [
+        "方程识别",
+        "配方法",
+        "公式法",
+        "因式分解法",
+        "根的判别"
+      ],
+      "misconceptionTags": [
+        "linear equation treated as quadratic",
+        "formula substitution sign error",
+        "context-ineligible root accepted"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-quadratic-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-quadratic-equations-unit",
+        "bnu-junior-s3-upper-assessment-monthly-1-to-3-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "若关于 x 的方程 (m-2)x² - 2x + 1 = 0 有实数根，则 m 的取值范围是（ ）",
+      "optionsZhHans": [
+        "A. m ≤ 3",
+        "B. m ≤ 3 且 m ≠ 2",
+        "C. m < 3",
+        "D. m < 3 且 m ≠ 2"
+      ],
+      "answer": "A. m ≤ 3",
+      "acceptedAnswers": [
+        "A. m ≤ 3"
+      ],
+      "explanationZhHans": "当 m=2 时，方程为 -2x+1=0，有实数根 x=1/2。当 m≠2 时，需 Δ=4-4(m-2)≥0，得 m≤3。综上 m≤3。注意 m=2 时方程为一元一次，仍有根，故不需排除。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-056",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-quadratic-equations",
+      "unitTitle": "一元二次方程",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "quadratic-equations",
+        "factoring-method",
+        "formula-method",
+        "discriminant",
+        "root-relationships",
+        "一元二次方程",
+        "判别式"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "符号意识",
+        "模型意识"
+      ],
+      "skillTags": [
+        "方程识别",
+        "配方法",
+        "公式法",
+        "因式分解法",
+        "根的判别"
+      ],
+      "misconceptionTags": [
+        "linear equation treated as quadratic",
+        "formula substitution sign error",
+        "context-ineligible root accepted"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-quadratic-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-quadratic-equations-unit",
+        "bnu-junior-s3-upper-assessment-monthly-1-to-3-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "解方程：x(x-3) = 4。",
+      "optionsZhHans": [],
+      "answer": "x₁=4, x₂=-1",
+      "acceptedAnswers": [
+        "x₁=4, x₂=-1",
+        "x=4 或 x=-1"
+      ],
+      "explanationZhHans": "展开得 x²-3x-4=0，因式分解为 (x-4)(x+1)=0，所以 x=4 或 x=-1。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-057",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-quadratic-equations",
+      "unitTitle": "一元二次方程",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "quadratic-equations",
+        "factoring-method",
+        "formula-method",
+        "discriminant",
+        "root-relationships",
+        "一元二次方程",
+        "判别式"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "符号意识",
+        "模型意识"
+      ],
+      "skillTags": [
+        "方程识别",
+        "配方法",
+        "公式法",
+        "因式分解法",
+        "根的判别"
+      ],
+      "misconceptionTags": [
+        "linear equation treated as quadratic",
+        "formula substitution sign error",
+        "context-ineligible root accepted"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-quadratic-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-quadratic-equations-unit",
+        "bnu-junior-s3-upper-assessment-monthly-1-to-3-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知一元二次方程 2x² - 4x + k = 0 有两个相等的实数根，则 k = ______。",
+      "optionsZhHans": [],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2"
+      ],
+      "explanationZhHans": "由判别式 Δ = 16 - 8k = 0，解得 k = 2。此时方程化为 2x²-4x+2=0，即 2(x-1)²=0，根为 x₁=x₂=1。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-058",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-quadratic-equations",
+      "unitTitle": "一元二次方程",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "quadratic-equations",
+        "factoring-method",
+        "formula-method",
+        "discriminant",
+        "root-relationships",
+        "一元二次方程",
+        "判别式"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "符号意识",
+        "模型意识"
+      ],
+      "skillTags": [
+        "方程识别",
+        "配方法",
+        "公式法",
+        "因式分解法",
+        "根的判别"
+      ],
+      "misconceptionTags": [
+        "linear equation treated as quadratic",
+        "formula substitution sign error",
+        "context-ineligible root accepted"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-quadratic-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-quadratic-equations-unit",
+        "bnu-junior-s3-upper-assessment-monthly-1-to-3-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用配方法解方程 x² + 4x - 5 = 0，配方后得到的方程是（ ）",
+      "optionsZhHans": [
+        "A. (x+2)² = 9",
+        "B. (x+2)² = 1",
+        "C. (x-2)² = 9",
+        "D. (x-2)² = 1"
+      ],
+      "answer": "A. (x+2)² = 9",
+      "acceptedAnswers": [
+        "A. (x+2)² = 9"
+      ],
+      "explanationZhHans": "移项得 x²+4x=5，两边加4得 x²+4x+4=9，即 (x+2)²=9。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-059",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-quadratic-equations",
+      "unitTitle": "一元二次方程",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "quadratic-equations",
+        "factoring-method",
+        "formula-method",
+        "discriminant",
+        "root-relationships",
+        "一元二次方程",
+        "判别式"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "符号意识",
+        "模型意识"
+      ],
+      "skillTags": [
+        "方程识别",
+        "配方法",
+        "公式法",
+        "因式分解法",
+        "根的判别"
+      ],
+      "misconceptionTags": [
+        "linear equation treated as quadratic",
+        "formula substitution sign error",
+        "context-ineligible root accepted"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-quadratic-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-quadratic-equations-unit",
+        "bnu-junior-s3-upper-assessment-monthly-1-to-3-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个直角三角形的两条直角边长相差1，斜边长为5。求两条直角边的长。",
+      "optionsZhHans": [],
+      "answer": "3 和 4",
+      "acceptedAnswers": [
+        "3 和 4",
+        "3,4",
+        "3与4",
+        "3、4"
+      ],
+      "explanationZhHans": "设较短直角边为 x，则另一边为 x+1。由勾股定理 x²+(x+1)²=25，整理得 2x²+2x-24=0，即 x²+x-12=0，解得 x=3（负值舍去）。故两边长为3和4。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-060",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "upper",
+      "topicId": "bnu-junior-s3-upper-quadratic-equations",
+      "unitTitle": "一元二次方程",
+      "volume": "九年级上册",
+      "conceptIds": [
+        "quadratic-equations",
+        "factoring-method",
+        "formula-method",
+        "discriminant",
+        "root-relationships",
+        "一元二次方程",
+        "判别式"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "符号意识",
+        "模型意识"
+      ],
+      "skillTags": [
+        "方程识别",
+        "配方法",
+        "公式法",
+        "因式分解法",
+        "根的判别"
+      ],
+      "misconceptionTags": [
+        "linear equation treated as quadratic",
+        "formula substitution sign error",
+        "context-ineligible root accepted"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s3-upper-quadratic-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-upper-assessment-quadratic-equations-unit",
+        "bnu-junior-s3-upper-assessment-monthly-1-to-3-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "方程 3x² - 6x = 0 的解为 ______。",
+      "optionsZhHans": [],
+      "answer": "x₁=0, x₂=2",
+      "acceptedAnswers": [
+        "x₁=0, x₂=2",
+        "x=0 或 x=2",
+        "0 或 2",
+        "0,2"
+      ],
+      "explanationZhHans": "因式分解得 3x(x-2)=0，所以 x=0 或 x=2。"
+    }
+  ]
+}

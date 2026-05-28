@@ -1,0 +1,103 @@
+{
+  "batchId": "model-qa-0031",
+  "ids": [
+    "hjb-junior-ds-v2-s1-241",
+    "hjb-junior-ds-v2-s1-242",
+    "hjb-junior-ds-v2-s1-243",
+    "hjb-junior-ds-v2-s1-244",
+    "hjb-junior-ds-v2-s1-245",
+    "hjb-junior-ds-v2-s1-246",
+    "hjb-junior-ds-v2-s1-247",
+    "hjb-junior-ds-v2-s1-248"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-241",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(6,-2)",
+      "answerCheckZhHans": "标准答案 (6,-2) 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-242",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(-5,4)",
+      "answerCheckZhHans": "标准答案 (-5,4) 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-243",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(3,3)",
+      "answerCheckZhHans": "标准答案 (3,3) 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-244",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(-2,3)",
+      "answerCheckZhHans": "标准答案 (-2,3) 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-245",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(-1,5)",
+      "answerCheckZhHans": "标准答案 (-1,5) 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-246",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "A'(5,1)，形状和大小不变",
+      "answerCheckZhHans": "标准答案 'A'(5,1)，形状和大小不变' 与独立计算结果一致，acceptedAnswers 覆盖了常见表述。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-247",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "以上都不改变",
+      "answerCheckZhHans": "标准答案 '以上都不改变' 与独立计算结果一致，选项互异且唯一正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-248",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "90",
+      "answerCheckZhHans": "标准答案 '90' 与独立计算结果一致，acceptedAnswers 包含 '90°' 合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

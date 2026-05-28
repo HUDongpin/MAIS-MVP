@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-162",
+  "startedAt": "2026-05-28T02:53:56.582Z",
+  "completedAt": "2026-05-28T02:54:01.997Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-162"
+  ],
+  "usage": {
+    "prompt_tokens": 2499,
+    "completion_tokens": 283,
+    "total_tokens": 2782,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2115
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-162",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "0",
+        "correctedAnswer": "0",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "平面ABC法向量n=(1,1,1)，P(1,λ,λ)，BP=(1,λ-1,λ)，由BP·n=0得2λ=0，唯一解λ=0。存储答案1/3错误，解析中λ=1/3不满足条件，且解析自相矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目可解，答案应为0，存储答案1/3错误，解析矛盾，判定为blocker。"
+    }
+  }
+}

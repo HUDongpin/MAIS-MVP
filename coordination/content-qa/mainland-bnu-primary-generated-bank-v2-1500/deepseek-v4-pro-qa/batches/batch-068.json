@@ -1,0 +1,191 @@
+{
+  "batchNumber": 68,
+  "startedAt": "2026-05-27T14:00:25.621Z",
+  "completedAt": "2026-05-27T14:00:45.074Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p5-207",
+    "bnu-primary-ds-v2-p5-208",
+    "bnu-primary-ds-v2-p5-209",
+    "bnu-primary-ds-v2-p5-210",
+    "bnu-primary-ds-v2-p5-211",
+    "bnu-primary-ds-v2-p5-212",
+    "bnu-primary-ds-v2-p5-213",
+    "bnu-primary-ds-v2-p5-214",
+    "bnu-primary-ds-v2-p5-215",
+    "bnu-primary-ds-v2-p5-216",
+    "bnu-primary-ds-v2-p5-217",
+    "bnu-primary-ds-v2-p5-218",
+    "bnu-primary-ds-v2-p5-219",
+    "bnu-primary-ds-v2-p5-220",
+    "bnu-primary-ds-v2-p5-221",
+    "bnu-primary-ds-v2-p5-222",
+    "bnu-primary-ds-v2-p5-223",
+    "bnu-primary-ds-v2-p5-224"
+  ],
+  "usage": {
+    "prompt_tokens": 3722,
+    "completion_tokens": 1311,
+    "total_tokens": 5033,
+    "prompt_tokens_details": {
+      "cached_tokens": 3712
+    },
+    "prompt_cache_hit_tokens": 3712,
+    "prompt_cache_miss_tokens": 10
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p5-207",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，选项唯一，描述清晰，适合五年级位置单元。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-208",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与接受答案一致，方向相反距离不变，适合五年级。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-209",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程正确，选项唯一，符合用方程解决问题的教学目标。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-210",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程和求解正确，答案45无误，适合五年级。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-211",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程正确，选项唯一，与题目条件一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-212",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程正确，接受答案覆盖两种顺序，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-213",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "相遇问题方程正确，选项唯一，适合五年级。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-214",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程和解正确，答案8无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-215",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "周长方程正确，选项唯一，符合题意。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-216",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程和解正确，答案10无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-217",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "年龄问题方程正确，选项唯一，适合五年级。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-218",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程和解正确，答案12无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-219",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程正确，选项唯一，符合题意。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-220",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程和解正确，答案48无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-221",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "差倍问题，方程和解正确，选项唯一，答案24本无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-222",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "和倍问题，方程和解正确，答案5千克无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-223",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "条形统计图格数计算正确，14÷2=7格，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-224",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均数计算正确，(18+20+19+21+22)÷5=20℃，答案无误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案匹配，无歧义，适合北师大版五年级相应单元。"
+    }
+  }
+}

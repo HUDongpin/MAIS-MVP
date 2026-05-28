@@ -1,0 +1,103 @@
+{
+  "batchId": "model-qa-0030",
+  "ids": [
+    "hjb-junior-ds-v2-s1-233",
+    "hjb-junior-ds-v2-s1-234",
+    "hjb-junior-ds-v2-s1-235",
+    "hjb-junior-ds-v2-s1-236",
+    "hjb-junior-ds-v2-s1-237",
+    "hjb-junior-ds-v2-s1-238",
+    "hjb-junior-ds-v2-s1-239",
+    "hjb-junior-ds-v2-s1-240"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-233",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "5 cm",
+      "answerCheckZhHans": "标准答案为5，acceptedAnswers包含5、5cm、5 cm，覆盖了独立答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-234",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "C'(3, -5)，长度相等",
+      "answerCheckZhHans": "标准答案与独立答案一致，acceptedAnswers覆盖了多种格式。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-235",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "电梯的上下移动",
+      "answerCheckZhHans": "标准答案正确，其他选项均非平移。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-236",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(7, 3)",
+      "answerCheckZhHans": "标准答案与独立答案一致，acceptedAnswers包含(7, 3)和(7,3)。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-237",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "5 cm，因为旋转不改变线段的长度。",
+      "answerCheckZhHans": "标准答案与独立答案一致，acceptedAnswers覆盖了多种表述。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-238",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(-1,5)",
+      "answerCheckZhHans": "标准答案正确，选项互异，唯一正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-239",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "120°",
+      "answerCheckZhHans": "标准答案为120°，acceptedAnswers包含120°和120，覆盖了独立答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-240",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "Q(4,3)，点P和点Q的连线被y轴垂直平分。",
+      "answerCheckZhHans": "标准答案与独立答案一致，acceptedAnswers覆盖了多种表述。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

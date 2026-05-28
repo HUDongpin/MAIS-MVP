@@ -1,0 +1,137 @@
+{
+  "batchNumber": 75,
+  "startedAt": "2026-05-25T03:14:46.593Z",
+  "completedAt": "2026-05-25T03:15:03.350Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s3-k10-fi-022",
+    "pep-junior-v3-s3-k10-fi-023",
+    "pep-junior-v3-s3-k10-fi-024",
+    "pep-junior-v3-s3-k10-fi-025",
+    "pep-junior-v3-s3-k10-fi-026",
+    "pep-junior-v3-s3-k10-fi-027",
+    "pep-junior-v3-s3-k10-fi-028",
+    "pep-junior-v3-s3-k10-fi-029",
+    "pep-junior-v3-s3-k10-fi-030",
+    "pep-junior-v3-s3-k10-fi-031",
+    "pep-junior-v3-s3-k10-fi-032",
+    "pep-junior-v3-s3-k10-fi-033"
+  ],
+  "usage": {
+    "prompt_tokens": 2921,
+    "completion_tokens": 992,
+    "total_tokens": 3913,
+    "prompt_tokens_details": {
+      "cached_tokens": 2816
+    },
+    "prompt_cache_hit_tokens": 2816,
+    "prompt_cache_miss_tokens": 105
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s3-k10-fi-022",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案60°，解释合理，符合人教版初中数学圆的知识点。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-fi-023",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "概率题正确，答案1/3，解释清晰，符合初中概率初步要求。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-fi-024",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "一元二次方程判别式题正确，答案9，计算无误。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-fi-025",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "二次函数顶点坐标题正确，答案(1,3)，acceptedAnswers包含多种格式，合理。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-fi-026",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "根与系数关系题正确，答案-3/2，acceptedAnswers包含小数和中文，合理。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-fi-027",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "配方题正确，h+k=-1，计算无误。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-fi-028",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "弦心距题正确，答案3cm，勾股定理应用合理。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-fi-029",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "概率题正确，答案3/5，acceptedAnswers包含小数和中文，合理。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-fi-030",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "旋转坐标题正确，答案(3,2)，公式应用无误。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-fi-031",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "二次函数最值题正确，答案4，配方正确。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-fi-032",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "根与系数关系求平方和题正确，答案13，计算无误。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-fi-033",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "二次函数与x轴交点距离题正确，答案4，计算无误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均通过审核，数学正确，答案与解释一致，无歧义或缺失条件，适合人教版初中数学。"
+    }
+  }
+}

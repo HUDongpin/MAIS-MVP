@@ -1,0 +1,133 @@
+{
+  "batchNumber": 145,
+  "startedAt": "2026-05-27T14:07:59.464Z",
+  "completedAt": "2026-05-27T14:08:14.703Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-153",
+    "bnu-high-ds-v1-s6-154",
+    "bnu-high-ds-v1-s6-155",
+    "bnu-high-ds-v1-s6-156",
+    "bnu-high-ds-v1-s6-157",
+    "bnu-high-ds-v1-s6-158",
+    "bnu-high-ds-v1-s6-159",
+    "bnu-high-ds-v1-s6-160"
+  ],
+  "usage": {
+    "prompt_tokens": 10483,
+    "completion_tokens": 1032,
+    "total_tokens": 11515,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 9971
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-153",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "3 或 -4",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由等比数列求和公式可独立解出 q=3 或 q=-4，答案匹配，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-154",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "11",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由 S_n 求 a_n 公式可得 a_5=11，选项唯一，答案匹配，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-155",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "a_n = n^2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "累加法可独立求得通项 a_n=n^2，答案匹配，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-156",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "17",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "递推计算可得 a_3=17，答案匹配，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-157",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "13/16",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由等差等比条件可独立解出 a1=d，代入得比值 13/16，选项唯一，答案匹配，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-158",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "10",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "利用等比数列性质和对数运算可得和为 10，答案匹配，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-159",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "a_n = (3^n + 1)/2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "累加法可独立求得通项 a_n=(3^n+1)/2，答案匹配，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-160",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "{a_n} 是公差为 2 的等差数列",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由通项公式可判断公差为 2，选项唯一正确，答案匹配，解析正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部 8 题均可独立求解，答案与解析均正确匹配，无任何问题。"
+    }
+  }
+}

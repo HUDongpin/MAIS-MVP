@@ -1,0 +1,299 @@
+{
+  "batchId": "batch-123",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p3-111",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-fraction-introduction",
+      "unitTitle": "分数的初步认识",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "fraction-introduction",
+        "equal-parts",
+        "unit-fraction",
+        "proper-fractions",
+        "几分之一",
+        "几分之几"
+      ],
+      "competencyTags": [
+        "数感",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均分",
+        "几分之一",
+        "几分之几",
+        "分数读写",
+        "整体意识"
+      ],
+      "misconceptionTags": [
+        "whole not identified",
+        "unequal parts named as fractions",
+        "denominator treated as numerator size"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-fraction-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-fraction-introduction",
+        "hjb-primary-p3-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈把一张圆形的饼平均分成了8块。小丽吃了其中的3块，小强吃了其中的2块。两人一共吃了这张饼的几分之几？",
+      "optionsZhHans": [],
+      "answer": "八分之五",
+      "acceptedAnswers": [
+        "八分之五",
+        "5/8"
+      ],
+      "explanationZhHans": "把饼平均分成8块，每块是八分之一。小丽吃3块是八分之三，小强吃2块是八分之二，合起来是八分之五。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-112",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-fraction-introduction",
+      "unitTitle": "分数的初步认识",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "fraction-introduction",
+        "equal-parts",
+        "unit-fraction",
+        "proper-fractions",
+        "几分之一",
+        "几分之几"
+      ],
+      "competencyTags": [
+        "数感",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均分",
+        "几分之一",
+        "几分之几",
+        "分数读写",
+        "整体意识"
+      ],
+      "misconceptionTags": [
+        "whole not identified",
+        "unequal parts named as fractions",
+        "denominator treated as numerator size"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-fraction-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-fraction-introduction",
+        "hjb-primary-p3-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪种情况可以用分数三分之一表示？",
+      "optionsZhHans": [
+        "把一根绳子分成3段，取其中的1段",
+        "把一块蛋糕平均分成3份，取其中的1份",
+        "把一个苹果分成3块，取最大的1块",
+        "把一张纸分成3份，取其中的1份"
+      ],
+      "answer": "把一块蛋糕平均分成3份，取其中的1份",
+      "acceptedAnswers": [
+        "把一块蛋糕平均分成3份，取其中的1份"
+      ],
+      "explanationZhHans": "分数必须建立在平均分的基础上。只有选项明确说了“平均分成3份”，才能用三分之一表示。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-113",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-fraction-introduction",
+      "unitTitle": "分数的初步认识",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "fraction-introduction",
+        "equal-parts",
+        "unit-fraction",
+        "proper-fractions",
+        "几分之一",
+        "几分之几"
+      ],
+      "competencyTags": [
+        "数感",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均分",
+        "几分之一",
+        "几分之几",
+        "分数读写",
+        "整体意识"
+      ],
+      "misconceptionTags": [
+        "whole not identified",
+        "unequal parts named as fractions",
+        "denominator treated as numerator size"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-fraction-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-fraction-introduction",
+        "hjb-primary-p3-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把一条彩带平均分成6段，每段是这条彩带的（    ）分之（    ）。",
+      "optionsZhHans": [],
+      "answer": "六、一",
+      "acceptedAnswers": [
+        "六、一",
+        "六分之一",
+        "1/6"
+      ],
+      "explanationZhHans": "平均分成6段，每段就是六分之一。分母是总份数6，分子是取出的份数1。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-114",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-fraction-introduction",
+      "unitTitle": "分数的初步认识",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "fraction-introduction",
+        "equal-parts",
+        "unit-fraction",
+        "proper-fractions",
+        "几分之一",
+        "几分之几"
+      ],
+      "competencyTags": [
+        "数感",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均分",
+        "几分之一",
+        "几分之几",
+        "分数读写",
+        "整体意识"
+      ],
+      "misconceptionTags": [
+        "whole not identified",
+        "unequal parts named as fractions",
+        "denominator treated as numerator size"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-fraction-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-fraction-introduction",
+        "hjb-primary-p3-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明有一盒巧克力，共12颗。他打算把其中的四分之三送给好朋友。他需要送出多少颗巧克力？",
+      "optionsZhHans": [],
+      "answer": "9颗",
+      "acceptedAnswers": [
+        "9颗",
+        "9"
+      ],
+      "explanationZhHans": "四分之三表示把整体平均分成4份，取3份。12颗平均分成4份，每份3颗，3份就是9颗。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-115",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-fraction-introduction",
+      "unitTitle": "分数的初步认识",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "fraction-introduction",
+        "equal-parts",
+        "unit-fraction",
+        "proper-fractions",
+        "几分之一",
+        "几分之几"
+      ],
+      "competencyTags": [
+        "数感",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均分",
+        "几分之一",
+        "几分之几",
+        "分数读写",
+        "整体意识"
+      ],
+      "misconceptionTags": [
+        "whole not identified",
+        "unequal parts named as fractions",
+        "denominator treated as numerator size"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-fraction-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-fraction-introduction",
+        "hjb-primary-p3-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个分数表示的是八分之三？",
+      "optionsZhHans": [
+        "把一个圆平均分成3份，涂色部分占8份",
+        "把一个正方形平均分成8份，涂色部分占3份",
+        "把一条线段分成8份，取其中的3份",
+        "把一个长方形分成3份，取其中的8份"
+      ],
+      "answer": "把一个正方形平均分成8份，涂色部分占3份",
+      "acceptedAnswers": [
+        "把一个正方形平均分成8份，涂色部分占3份"
+      ],
+      "explanationZhHans": "八分之三表示整体平均分成8份，取3份。选项二明确平均分成8份，取3份，符合要求。其他选项没有平均分或份数不对。"
+    }
+  ]
+}

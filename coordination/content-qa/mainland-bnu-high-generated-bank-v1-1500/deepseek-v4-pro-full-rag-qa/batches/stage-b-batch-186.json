@@ -1,0 +1,141 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-186",
+  "startedAt": "2026-05-28T01:56:30.124Z",
+  "completedAt": "2026-05-28T01:56:48.933Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-481",
+    "bnu-high-ds-v1-s6-482",
+    "bnu-high-ds-v1-s6-483",
+    "bnu-high-ds-v1-s6-484",
+    "bnu-high-ds-v1-s6-485",
+    "bnu-high-ds-v1-s6-486",
+    "bnu-high-ds-v1-s6-487",
+    "bnu-high-ds-v1-s6-488"
+  ],
+  "usage": {
+    "prompt_tokens": 15494,
+    "completion_tokens": 1263,
+    "total_tokens": 16757,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 15110
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-481",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": "D. n(n+1)/6",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案D与Stage A独立答案一致，但解析错误：解析构造等比数列得到b_n=1-(2/3)^n，S_n=n-2+2(2/3)^n，与选项D不符，且解析末尾称S_n=n(n+1)/6，自相矛盾。正确解法应得b_n=n/3，S_n=n(n+1)/6。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-482",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案、解析与Stage A独立答案一致，均为y=-3x+3。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-483",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案B正确，但解析中T_n化简错误：T_n=(1/2)(4(4^n-1)/3)=2(4^n-1)/3，不等于2^{n+2}-4，且解析末尾称化简得2^{n+2}-4，过程矛盾。正确化简应为2(4^n-1)/3=2(2^{2n}-1)/3，与2^{n+2}-4不等价。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-484",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "2",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案26错误，解析混乱且自相矛盾。正确计算：a1=2，a2=2，a3=2，a4=2。Stage A独立答案为2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-485",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": "C. 3",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案B错误，解析混乱且与条件矛盾。Stage A独立解得a=-3/2,b=1,c=7/2，a+b+c=3，对应选项C。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-486",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "160",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案160与解析中计算出的192矛盾，且解析过程错误。Stage A独立解得a_n=n·2^n，a_5=160。存储答案虽为160，但解析不支持，且解析中递推结果错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-487",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案A与Stage A独立答案一致。解析思路正确，但表述可更严谨，无严重错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-488",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案、解析与Stage A独立答案一致，均为96。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 3,
+      "warn": 0,
+      "fail": 5,
+      "notes": "8题中3题完全一致，5题存在答案错误或解析矛盾等严重问题，需修正。"
+    }
+  }
+}

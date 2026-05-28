@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-443",
+  "startedAt": "2026-05-28T01:59:34.771Z",
+  "completedAt": "2026-05-28T01:59:39.606Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-443"
+  ],
+  "usage": {
+    "prompt_tokens": 1976,
+    "completion_tokens": 305,
+    "total_tokens": 2281,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1592
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-443",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "11 - 2i",
+        "correctedAnswer": "11 + 2i",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立复核计算得 (1+2i)(3-4i)=3-4i+6i-8i²=3+2i+8=11+2i，而非 11-2i。存储答案 11+2i 正确，但独立解错误，导致答案不匹配且解析矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "独立解计算错误，正确答案为 11+2i，与存储答案一致，但独立解给出 11-2i，导致答案不匹配和解析矛盾，判定为 blocker。"
+    }
+  }
+}

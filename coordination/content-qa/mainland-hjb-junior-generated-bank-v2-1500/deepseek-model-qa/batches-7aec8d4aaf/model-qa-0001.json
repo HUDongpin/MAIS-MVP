@@ -1,0 +1,55 @@
+{
+  "batchId": "model-qa-0001",
+  "ids": [
+    "hjb-junior-ds-v2-s3-177",
+    "hjb-junior-ds-v2-s3-178",
+    "hjb-junior-ds-v2-s3-179",
+    "hjb-junior-ds-v2-s3-180"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-177",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(1) y = -5x^2 + 700x - 24000; (2) 售价70元，最大利润2500元",
+      "answerCheckZhHans": "标准答案与独立解题结果一致。解析推导正确，销量=200-5(x-60)=500-5x，利润=(x-40)(500-5x)=-5x^2+700x-24000，配方得y=-5(x-70)^2+2500，顶点(70,2500)。acceptedAnswers覆盖了标准答案的多种格式。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-178",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "A. (3, -5)",
+      "answerCheckZhHans": "标准答案A正确。原抛物线y=2x^2顶点(0,0)，向右平移3个单位得(3,0)，再向下平移5个单位得(3,-5)。选项互异，无歧义。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-179",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x = 1",
+      "answerCheckZhHans": "标准答案x=1正确。对称轴公式x=-b/(2a)，a=3,b=-6，得x=1。acceptedAnswers包含多种等价写法，覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-180",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(1) (-1, 0) 和 (3, 0); (2) -1 < x < 3",
+      "answerCheckZhHans": "标准答案与独立解题结果一致。令y=0解方程得x=-1,3；开口向下，y>0对应-1<x<3。acceptedAnswers覆盖了标准答案的多种格式。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

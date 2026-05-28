@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-489",
+  "startedAt": "2026-05-28T02:01:48.274Z",
+  "completedAt": "2026-05-28T02:01:52.376Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-489"
+  ],
+  "usage": {
+    "prompt_tokens": 2075,
+    "completion_tokens": 282,
+    "total_tokens": 2357,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1691
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-489",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "√6/2",
+        "correctedAnswer": "√6/2",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合教材范围。独立计算得点A到平面A₁BC的距离为√6/2，选项C正确。但存储答案√6/2与解析中计算出的3/2矛盾，解析等体积法计算错误，正确距离应为√6/2。答案不匹配，解析错误，严重性为阻断。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1题答案与解析矛盾，解析计算错误，正确答案为√6/2。"
+    }
+  }
+}

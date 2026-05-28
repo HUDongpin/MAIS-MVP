@@ -1,0 +1,137 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-123",
+  "startedAt": "2026-05-28T01:34:15.179Z",
+  "completedAt": "2026-05-28T01:34:30.707Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-477",
+    "bnu-high-ds-v1-s5-478",
+    "bnu-high-ds-v1-s5-479",
+    "bnu-high-ds-v1-s5-480",
+    "bnu-high-ds-v1-s5-481",
+    "bnu-high-ds-v1-s5-482",
+    "bnu-high-ds-v1-s5-483",
+    "bnu-high-ds-v1-s5-484"
+  ],
+  "usage": {
+    "prompt_tokens": 12632,
+    "completion_tokens": 1129,
+    "total_tokens": 13761,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 12248
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-477",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，均为选项B，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-478",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [
+          "explanation_contradiction"
+        ],
+        "severity": "minor",
+        "confidence": "high",
+        "rationaleZhHans": "答案0.999正确，但解析中∑xiyi、∑xi²、∑yi²数值与独立计算不一致，存在计算错误，但最终结果巧合相同。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-479",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案0.1与独立解A一致，解析计算正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-480",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "ŷ=10.00x+200.00",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案ŷ=0.75x+52.50错误，独立计算得b=10, a=200，解析中计算过程混乱且结果矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-481",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，均为选项B，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-482",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "（1）散点图略，存在线性相关关系；（2）ŷ=0.50x+1.50；（3）11.50千元",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案回归系数错误，独立计算得b=0.5, a=1.5，预测值11.5，解析中b=0.54, a=1.25与答案不一致且均错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-483",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，均为选项B，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-484",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "ŷ=10.0x+200.0",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案y=5.0x+350.0错误，独立计算得b=10, a=200，解析中分母计算错误导致b=5。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 4,
+      "warn": 1,
+      "fail": 3,
+      "notes": "共8题，4题完全通过，1题答案正确但解析有计算错误（minor），3题答案错误（blocker），需修正。"
+    }
+  }
+}

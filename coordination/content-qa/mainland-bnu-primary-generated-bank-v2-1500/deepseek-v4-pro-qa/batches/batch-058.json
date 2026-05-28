@@ -1,0 +1,191 @@
+{
+  "batchNumber": 58,
+  "startedAt": "2026-05-27T13:57:28.797Z",
+  "completedAt": "2026-05-27T13:57:45.816Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p5-027",
+    "bnu-primary-ds-v2-p5-028",
+    "bnu-primary-ds-v2-p5-029",
+    "bnu-primary-ds-v2-p5-030",
+    "bnu-primary-ds-v2-p5-031",
+    "bnu-primary-ds-v2-p5-032",
+    "bnu-primary-ds-v2-p5-033",
+    "bnu-primary-ds-v2-p5-034",
+    "bnu-primary-ds-v2-p5-035",
+    "bnu-primary-ds-v2-p5-036",
+    "bnu-primary-ds-v2-p5-037",
+    "bnu-primary-ds-v2-p5-038",
+    "bnu-primary-ds-v2-p5-039",
+    "bnu-primary-ds-v2-p5-040",
+    "bnu-primary-ds-v2-p5-041",
+    "bnu-primary-ds-v2-p5-042",
+    "bnu-primary-ds-v2-p5-043",
+    "bnu-primary-ds-v2-p5-044"
+  ],
+  "usage": {
+    "prompt_tokens": 3643,
+    "completion_tokens": 1266,
+    "total_tokens": 4909,
+    "prompt_tokens_details": {
+      "cached_tokens": 3584
+    },
+    "prompt_cache_hit_tokens": 3584,
+    "prompt_cache_miss_tokens": 59
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p5-027",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移计算正确，答案与解释一致，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-028",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项唯一正确，解释准确，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-029",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移合成正确，答案与解释一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-030",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "坐标计算正确，答案与解释一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-031",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "质数判断正确，选项唯一，解释清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-032",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "因数与倍数关系正确，答案完整。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-033",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "因数应用正确，分法数量准确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-034",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "倍数特征判断正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-035",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "公倍数计算正确，答案唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-036",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "最大公因数应用正确，段数计算无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-037",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "互质数判断正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-038",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "质数合数个数正确，答案与解释一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-039",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "因数与差条件结合正确，答案准确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-040",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "最小公倍数计算正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-041",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "因数组合完整，答案与解释一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-042",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "倍数列举正确，无遗漏。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-043",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "公因数判断正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-044",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "因数与倍数条件正确，答案完整。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案与解释一致，无歧义或缺失条件，适合北师大版五年级上册。"
+    }
+  }
+}

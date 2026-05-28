@@ -1,0 +1,565 @@
+{
+  "batchId": "batch-016",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p1-151",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-within-20-regrouping",
+      "unitTitle": "加与减（一）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-20-regrouping-add-sub",
+        "make-ten-strategy",
+        "20以内退位减法",
+        "20以内进位加法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "凑十",
+        "破十",
+        "想加算减",
+        "进位加法",
+        "退位减法"
+      ],
+      "misconceptionTags": [
+        "wrong number decomposed",
+        "ten bridge step skipped",
+        "subtraction handled by digit comparison only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-within-20-regrouping"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-100-add-sub",
+        "bnu-primary-p1-lower-assessment-within-20-addition"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算 8 + 7 时，下面哪种方法是“凑十法”？",
+      "optionsZhHans": [
+        "把 7 分成 2 和 5，先算 8 + 2 = 10，再算 10 + 5 = 15",
+        "从 8 开始往后数 7 个数：9、10、11、12、13、14、15",
+        "因为 15 - 7 = 8，所以 8 + 7 = 15",
+        "把 8 分成 5 和 3，先算 3 + 7 = 10，再算 10 + 5 = 15"
+      ],
+      "answer": "把 7 分成 2 和 5，先算 8 + 2 = 10，再算 10 + 5 = 15",
+      "acceptedAnswers": [
+        "把 7 分成 2 和 5，先算 8 + 2 = 10，再算 10 + 5 = 15"
+      ],
+      "explanationZhHans": "凑十法是把一个加数拆开，和另一个加数凑成10，再算剩下的。8+2=10，所以把7分成2和5，先算8+2=10，再算10+5=15。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-152",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-within-20-regrouping",
+      "unitTitle": "加与减（一）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-20-regrouping-add-sub",
+        "make-ten-strategy",
+        "20以内退位减法",
+        "20以内进位加法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "凑十",
+        "破十",
+        "想加算减",
+        "进位加法",
+        "退位减法"
+      ],
+      "misconceptionTags": [
+        "wrong number decomposed",
+        "ten bridge step skipped",
+        "subtraction handled by digit comparison only"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-within-20-regrouping"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-100-add-sub",
+        "bnu-primary-p1-lower-assessment-within-20-addition"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算 13 - 6 时，可以这样想：因为 6 + ___ = 13，所以 13 - 6 = ___。请填空。",
+      "optionsZhHans": [],
+      "answer": "7,7",
+      "acceptedAnswers": [
+        "7,7"
+      ],
+      "explanationZhHans": "想加算减：6加几等于13？6+7=13，所以13-6=7。两个空都填7。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-153",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-within-20-regrouping",
+      "unitTitle": "加与减（一）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-20-regrouping-add-sub",
+        "make-ten-strategy",
+        "20以内退位减法",
+        "20以内进位加法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "凑十",
+        "破十",
+        "想加算减",
+        "进位加法",
+        "退位减法"
+      ],
+      "misconceptionTags": [
+        "wrong number decomposed",
+        "ten bridge step skipped",
+        "subtraction handled by digit comparison only"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-within-20-regrouping"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-100-add-sub",
+        "bnu-primary-p1-lower-assessment-within-20-addition"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用“破十法”计算 15 - 8，写出计算过程。",
+      "optionsZhHans": [],
+      "answer": "把15分成10和5，先算10-8=2，再算2+5=7，所以15-8=7。",
+      "acceptedAnswers": [
+        "把15分成10和5，先算10-8=2，再算2+5=7，所以15-8=7。"
+      ],
+      "explanationZhHans": "破十法：个位不够减，从十位借1当10。15分成10和5，10减8得2，2加5得7。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-154",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-within-20-regrouping",
+      "unitTitle": "加与减（一）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-20-regrouping-add-sub",
+        "make-ten-strategy",
+        "20以内退位减法",
+        "20以内进位加法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "凑十",
+        "破十",
+        "想加算减",
+        "进位加法",
+        "退位减法"
+      ],
+      "misconceptionTags": [
+        "wrong number decomposed",
+        "ten bridge step skipped",
+        "subtraction handled by digit comparison only"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-within-20-regrouping"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-100-add-sub",
+        "bnu-primary-p1-lower-assessment-within-20-addition"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个算式的结果和 9 + 6 一样？",
+      "optionsZhHans": [
+        "10 + 5",
+        "8 + 8",
+        "7 + 7",
+        "12 + 4"
+      ],
+      "answer": "10 + 5",
+      "acceptedAnswers": [
+        "10 + 5"
+      ],
+      "explanationZhHans": "9+6=15。10+5=15，8+8=16，7+7=14，12+4=16。所以10+5和9+6结果相同。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-155",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-within-20-regrouping",
+      "unitTitle": "加与减（一）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-20-regrouping-add-sub",
+        "make-ten-strategy",
+        "20以内退位减法",
+        "20以内进位加法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "凑十",
+        "破十",
+        "想加算减",
+        "进位加法",
+        "退位减法"
+      ],
+      "misconceptionTags": [
+        "wrong number decomposed",
+        "ten bridge step skipped",
+        "subtraction handled by digit comparison only"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-within-20-regrouping"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-100-add-sub",
+        "bnu-primary-p1-lower-assessment-within-20-addition"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在计算 7 + 5 时，把 5 分成 ___ 和 ___，先算 7 + ___ = 10，再算 10 + ___ = 12。请填空。",
+      "optionsZhHans": [],
+      "answer": "3,2,3,2",
+      "acceptedAnswers": [
+        "3,2,3,2"
+      ],
+      "explanationZhHans": "凑十法：7加3得10，所以把5分成3和2。先算7+3=10，再算10+2=12。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-156",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-within-20-regrouping",
+      "unitTitle": "加与减（一）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-20-regrouping-add-sub",
+        "make-ten-strategy",
+        "20以内退位减法",
+        "20以内进位加法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "凑十",
+        "破十",
+        "想加算减",
+        "进位加法",
+        "退位减法"
+      ],
+      "misconceptionTags": [
+        "wrong number decomposed",
+        "ten bridge step skipped",
+        "subtraction handled by digit comparison only"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-within-20-regrouping"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-100-add-sub",
+        "bnu-primary-p1-lower-assessment-within-20-addition"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明有 12 块糖，吃了 4 块，还剩几块？写出算式和答案。",
+      "optionsZhHans": [],
+      "answer": "12-4=8（块）",
+      "acceptedAnswers": [
+        "12-4=8（块）"
+      ],
+      "explanationZhHans": "用减法：12-4=8。可以想：4+8=12，所以12-4=8。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-157",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-within-20-regrouping",
+      "unitTitle": "加与减（一）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-20-regrouping-add-sub",
+        "make-ten-strategy",
+        "20以内退位减法",
+        "20以内进位加法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "凑十",
+        "破十",
+        "想加算减",
+        "进位加法",
+        "退位减法"
+      ],
+      "misconceptionTags": [
+        "wrong number decomposed",
+        "ten bridge step skipped",
+        "subtraction handled by digit comparison only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-within-20-regrouping"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-100-add-sub",
+        "bnu-primary-p1-lower-assessment-within-20-addition"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算 14 - 9 时，下面哪种想法是正确的？",
+      "optionsZhHans": [
+        "因为 9 + 5 = 14，所以 14 - 9 = 5",
+        "因为 9 + 4 = 13，所以 14 - 9 = 4",
+        "因为 8 + 6 = 14，所以 14 - 9 = 6",
+        "因为 9 + 6 = 15，所以 14 - 9 = 6"
+      ],
+      "answer": "因为 9 + 5 = 14，所以 14 - 9 = 5",
+      "acceptedAnswers": [
+        "因为 9 + 5 = 14，所以 14 - 9 = 5"
+      ],
+      "explanationZhHans": "想加算减：9加几等于14？9+5=14，所以14-9=5。其他选项加法算式结果不对。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-158",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-within-20-regrouping",
+      "unitTitle": "加与减（一）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-20-regrouping-add-sub",
+        "make-ten-strategy",
+        "20以内退位减法",
+        "20以内进位加法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "凑十",
+        "破十",
+        "想加算减",
+        "进位加法",
+        "退位减法"
+      ],
+      "misconceptionTags": [
+        "wrong number decomposed",
+        "ten bridge step skipped",
+        "subtraction handled by digit comparison only"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-within-20-regrouping"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-100-add-sub",
+        "bnu-primary-p1-lower-assessment-within-20-addition"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算 8 + 9 时，可以把 9 分成 2 和 ___，先算 8 + 2 = 10，再算 10 + ___ = 17。请填空。",
+      "optionsZhHans": [],
+      "answer": "7,7",
+      "acceptedAnswers": [
+        "7,7"
+      ],
+      "explanationZhHans": "凑十法：8加2得10，所以把9分成2和7。先算8+2=10，再算10+7=17。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-159",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-within-20-regrouping",
+      "unitTitle": "加与减（一）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-20-regrouping-add-sub",
+        "make-ten-strategy",
+        "20以内退位减法",
+        "20以内进位加法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "凑十",
+        "破十",
+        "想加算减",
+        "进位加法",
+        "退位减法"
+      ],
+      "misconceptionTags": [
+        "wrong number decomposed",
+        "ten bridge step skipped",
+        "subtraction handled by digit comparison only"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-within-20-regrouping"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-100-add-sub",
+        "bnu-primary-p1-lower-assessment-within-20-addition"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用“想加算减”的方法计算 16 - 7，写出想法。",
+      "optionsZhHans": [],
+      "answer": "想：7+9=16，所以16-7=9。",
+      "acceptedAnswers": [
+        "想：7+9=16，所以16-7=9。"
+      ],
+      "explanationZhHans": "想加算减：因为7+9=16，所以16-7=9。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-160",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-within-20-regrouping",
+      "unitTitle": "加与减（一）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-20-regrouping-add-sub",
+        "make-ten-strategy",
+        "20以内退位减法",
+        "20以内进位加法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "凑十",
+        "破十",
+        "想加算减",
+        "进位加法",
+        "退位减法"
+      ],
+      "misconceptionTags": [
+        "wrong number decomposed",
+        "ten bridge step skipped",
+        "subtraction handled by digit comparison only"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-within-20-regrouping"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-100-add-sub",
+        "bnu-primary-p1-lower-assessment-within-20-addition"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个算式的结果最小？",
+      "optionsZhHans": [
+        "6 + 8",
+        "7 + 6",
+        "9 + 5",
+        "8 + 7"
+      ],
+      "answer": "7 + 6",
+      "acceptedAnswers": [
+        "7 + 6"
+      ],
+      "explanationZhHans": "6+8=14，7+6=13，9+5=14，8+7=15。13最小，所以7+6结果最小。"
+    }
+  ]
+}

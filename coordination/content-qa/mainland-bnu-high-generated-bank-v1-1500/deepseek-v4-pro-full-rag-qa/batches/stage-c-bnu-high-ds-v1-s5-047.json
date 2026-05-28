@@ -1,0 +1,48 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-047",
+  "startedAt": "2026-05-28T02:03:00.872Z",
+  "completedAt": "2026-05-28T02:03:05.546Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-047"
+  ],
+  "usage": {
+    "prompt_tokens": 2062,
+    "completion_tokens": 308,
+    "total_tokens": 2370,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1678
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-047",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "4x + 3y - 11 = 0",
+        "correctedAnswer": "4x + 3y - 11 = 0",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "交点(1,1)正确，垂直斜率-4/3正确，但代入点斜式y-1=-4/3(x-1)后化简错误，正确结果应为4x+3y-11=0，而非4x+3y-7=0。答案与解析均错误，需修正。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目可解，符合教材范围，但答案和解析存在计算错误，导致最终方程常数项错误，需修正为4x+3y-11=0。"
+    }
+  }
+}

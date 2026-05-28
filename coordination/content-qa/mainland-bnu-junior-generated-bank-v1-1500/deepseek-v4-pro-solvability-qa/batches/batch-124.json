@@ -1,0 +1,173 @@
+{
+  "batchNumber": 124,
+  "startedAt": "2026-05-27T18:05:01.833Z",
+  "completedAt": "2026-05-27T18:05:21.354Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s3-477",
+    "bnu-junior-ds-v1-s3-478",
+    "bnu-junior-ds-v1-s3-479",
+    "bnu-junior-ds-v1-s3-480",
+    "bnu-junior-ds-v1-s3-481",
+    "bnu-junior-ds-v1-s3-482",
+    "bnu-junior-ds-v1-s3-483",
+    "bnu-junior-ds-v1-s3-484",
+    "bnu-junior-ds-v1-s3-485",
+    "bnu-junior-ds-v1-s3-486",
+    "bnu-junior-ds-v1-s3-487",
+    "bnu-junior-ds-v1-s3-488"
+  ],
+  "usage": {
+    "prompt_tokens": 7504,
+    "completion_tokens": 1345,
+    "total_tokens": 8849,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 6992
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s3-477",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目数据完整，可解。众数14岁正确，中位数计算正确，答案与选项匹配，唯一正确选项为“14岁，15岁”。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-478",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，方差比较合理，答案正确，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-479",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "放回摸球，每次红球概率1/2，两次独立，概率1/4，选项唯一正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-480",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "标准差意义解释合理，答案覆盖核心含义，解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-481",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数据完整，众数135次正确，中位数130次，平均数134.6，方差不为0，选项A唯一正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-482",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数据可解，平均数、中位数、众数计算正确，优秀率60%，选择中位数理由合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-483",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数据可解，中位数85分钟正确，平均数87分钟，众数不唯一，D选项表述绝对化错误，B选项唯一正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-484",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数据可解，平均数86.5，中位数90，众数100，解释合理，不同意小明的理由充分。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-485",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "总人数50，超过5次20人，概率0.40，选项唯一正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-486",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数据可解，平均数85.5，中位数85.5，小明的说法错误，解释正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-487",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分组数据可解，中位数落在4～6组正确，平均数约4.8，众数为组，D选项表述不严谨但非数学错误，B选项唯一正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-488",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数据可解，平均数85.5，中位数85.5，众数为所有值，解释合理，答案开放但覆盖合理情况。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均条件充分、可解，答案与解释匹配，选项设置合理，无数学错误或歧义，适合北师大版九年级统计与概率内容。"
+    }
+  }
+}

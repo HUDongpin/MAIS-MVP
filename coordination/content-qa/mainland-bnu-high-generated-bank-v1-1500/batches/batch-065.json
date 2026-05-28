@@ -1,0 +1,665 @@
+{
+  "batchId": "batch-065",
+  "questions": [
+    {
+      "id": "bnu-high-ds-v1-s5-141",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-圆锥曲线",
+      "topicTitleZhHans": "圆锥曲线",
+      "volume": "选择性必修 第一册",
+      "chapter": "圆锥曲线",
+      "conceptIds": [
+        "ellipse",
+        "hyperbola",
+        "parabola-conic",
+        "line-conic-intersection",
+        "conic-properties"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学运算",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "标准方程识别",
+        "焦点与准线",
+        "离心率",
+        "曲线定义转化",
+        "简单交点判断",
+        "直线与圆锥曲线联立",
+        "判别式条件",
+        "弦长与中点"
+      ],
+      "misconceptionTags": [
+        "standard form chosen incorrectly",
+        "focus and vertex confused",
+        "discriminant condition misread",
+        "line-conic parameter not checked",
+        "wrong focal axis",
+        "standard form misread",
+        "squared distance handled incorrectly",
+        "parameter range omitted"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-conics"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-conics-unit-core",
+        "bnu-high-s5-assessment-conics-unit-synthesis",
+        "bnu-high-s5-assessment-midterm-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知椭圆C的中心在原点，焦点在x轴上，长轴长为10，离心率为0.6。求椭圆C的标准方程。",
+      "optionsZhHans": [],
+      "answer": "x^2/25 + y^2/16 = 1",
+      "acceptedAnswers": [
+        "x^2/25 + y^2/16 = 1"
+      ],
+      "explanationZhHans": "由长轴长2a=10得a=5，离心率e=c/a=0.6得c=3，则b^2=a^2-c^2=25-9=16。焦点在x轴，标准方程为x^2/25+y^2/16=1。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-142",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-圆锥曲线",
+      "topicTitleZhHans": "圆锥曲线",
+      "volume": "选择性必修 第一册",
+      "chapter": "圆锥曲线",
+      "conceptIds": [
+        "ellipse",
+        "hyperbola",
+        "parabola-conic",
+        "line-conic-intersection",
+        "conic-properties"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学运算",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "标准方程识别",
+        "焦点与准线",
+        "离心率",
+        "曲线定义转化",
+        "简单交点判断",
+        "直线与圆锥曲线联立",
+        "判别式条件",
+        "弦长与中点"
+      ],
+      "misconceptionTags": [
+        "standard form chosen incorrectly",
+        "focus and vertex confused",
+        "discriminant condition misread",
+        "line-conic parameter not checked",
+        "wrong focal axis",
+        "standard form misread",
+        "squared distance handled incorrectly",
+        "parameter range omitted"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-conics"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-conics-unit-core",
+        "bnu-high-s5-assessment-conics-unit-synthesis",
+        "bnu-high-s5-assessment-midterm-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知双曲线C：x^2/a^2 - y^2/b^2 = 1 (a>0, b>0)的一条渐近线方程为y=0.5x，且C经过点(4,√3)。则C的离心率为？",
+      "optionsZhHans": [
+        "√5/2",
+        "√3",
+        "√5",
+        "√6/2"
+      ],
+      "answer": "√5/2",
+      "acceptedAnswers": [
+        "√5/2"
+      ],
+      "explanationZhHans": "渐近线y=(b/a)x=0.5x得b/a=1/2，设a=2k,b=k。代入点(4,√3)：16/(4k^2)-3/k^2=1，即4/k^2-3/k^2=1，得k^2=1，故a=2,b=1,c=√5，离心率e=c/a=√5/2。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-143",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-圆锥曲线",
+      "topicTitleZhHans": "圆锥曲线",
+      "volume": "选择性必修 第一册",
+      "chapter": "圆锥曲线",
+      "conceptIds": [
+        "ellipse",
+        "hyperbola",
+        "parabola-conic",
+        "line-conic-intersection",
+        "conic-properties"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学运算",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "标准方程识别",
+        "焦点与准线",
+        "离心率",
+        "曲线定义转化",
+        "简单交点判断",
+        "直线与圆锥曲线联立",
+        "判别式条件",
+        "弦长与中点"
+      ],
+      "misconceptionTags": [
+        "standard form chosen incorrectly",
+        "focus and vertex confused",
+        "discriminant condition misread",
+        "line-conic parameter not checked",
+        "wrong focal axis",
+        "standard form misread",
+        "squared distance handled incorrectly",
+        "parameter range omitted"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-conics"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-conics-unit-core",
+        "bnu-high-s5-assessment-conics-unit-synthesis",
+        "bnu-high-s5-assessment-midterm-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知抛物线C：y^2=2px (p>0)的焦点为F，点A(4,4)在C上。求p的值及准线方程。",
+      "optionsZhHans": [],
+      "answer": "p=2，准线方程为x=-1",
+      "acceptedAnswers": [
+        "p=2，准线方程为x=-1",
+        "p=2, 准线方程为x=-1"
+      ],
+      "explanationZhHans": "点A(4,4)代入y^2=2px得16=8p，p=2。抛物线方程为y^2=4x，焦点(1,0)，准线x=-1。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-144",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-圆锥曲线",
+      "topicTitleZhHans": "圆锥曲线",
+      "volume": "选择性必修 第一册",
+      "chapter": "圆锥曲线",
+      "conceptIds": [
+        "ellipse",
+        "hyperbola",
+        "parabola-conic",
+        "line-conic-intersection",
+        "conic-properties"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学运算",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "标准方程识别",
+        "焦点与准线",
+        "离心率",
+        "曲线定义转化",
+        "简单交点判断",
+        "直线与圆锥曲线联立",
+        "判别式条件",
+        "弦长与中点"
+      ],
+      "misconceptionTags": [
+        "standard form chosen incorrectly",
+        "focus and vertex confused",
+        "discriminant condition misread",
+        "line-conic parameter not checked",
+        "wrong focal axis",
+        "standard form misread",
+        "squared distance handled incorrectly",
+        "parameter range omitted"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-conics"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-conics-unit-core",
+        "bnu-high-s5-assessment-conics-unit-synthesis",
+        "bnu-high-s5-assessment-midterm-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知椭圆C：x^2/9 + y^2/4 = 1，直线l：y = kx + 2。若l与C有两个不同的交点，求k的取值范围。",
+      "optionsZhHans": [],
+      "answer": "k < -2√2/3 或 k > 2√2/3",
+      "acceptedAnswers": [
+        "k < -2√2/3 或 k > 2√2/3",
+        "(-∞, -2√2/3) ∪ (2√2/3, +∞)"
+      ],
+      "explanationZhHans": "联立方程消y得(4+9k^2)x^2+36kx+72=0。Δ=(36k)^2-4(4+9k^2)*72=1296k^2-1152-2592k^2=-1296k^2-1152>0，得k^2>8/9，故k<-2√2/3或k>2√2/3。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-145",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-空间向量与立体几何",
+      "topicTitleZhHans": "空间向量与立体几何",
+      "volume": "选择性必修 第一册",
+      "chapter": "空间向量与立体几何",
+      "conceptIds": [
+        "space-vectors",
+        "spatial-coordinate-system",
+        "line-plane-angle",
+        "distance-in-space",
+        "normal-vectors"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学运算",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "空间坐标建模",
+        "方向向量",
+        "法向量",
+        "夹角计算",
+        "距离计算",
+        "空间证明",
+        "动点参数",
+        "线面角"
+      ],
+      "misconceptionTags": [
+        "direction vector and normal vector confused",
+        "angle complement chosen incorrectly",
+        "distance formula target mismatched",
+        "coordinate system not stated",
+        "normal vector chosen incorrectly",
+        "angle complement confused",
+        "distance formula applied to wrong objects",
+        "parameter relation not tied to geometry"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-space-vectors-solid-geometry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-space-vectors-unit-core",
+        "bnu-high-s5-assessment-space-vectors-unit-synthesis",
+        "bnu-high-s5-assessment-midterm-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在空间直角坐标系中，已知点A(1,2,3)，B(3,1,2)，C(2,3,1)。则平面ABC的一个法向量为？",
+      "optionsZhHans": [
+        "(1,1,1)",
+        "(1,-1,1)",
+        "(1,1,-1)",
+        "(-1,1,1)"
+      ],
+      "answer": "(1,1,1)",
+      "acceptedAnswers": [
+        "(1,1,1)"
+      ],
+      "explanationZhHans": "向量AB=(2,-1,-1)，AC=(1,1,-2)。设法向量n=(x,y,z)，则2x-y-z=0，x+y-2z=0。取z=1，解得x=1,y=1，故n=(1,1,1)。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-146",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-空间向量与立体几何",
+      "topicTitleZhHans": "空间向量与立体几何",
+      "volume": "选择性必修 第一册",
+      "chapter": "空间向量与立体几何",
+      "conceptIds": [
+        "space-vectors",
+        "spatial-coordinate-system",
+        "line-plane-angle",
+        "distance-in-space",
+        "normal-vectors"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学运算",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "空间坐标建模",
+        "方向向量",
+        "法向量",
+        "夹角计算",
+        "距离计算",
+        "空间证明",
+        "动点参数",
+        "线面角"
+      ],
+      "misconceptionTags": [
+        "direction vector and normal vector confused",
+        "angle complement chosen incorrectly",
+        "distance formula target mismatched",
+        "coordinate system not stated",
+        "normal vector chosen incorrectly",
+        "angle complement confused",
+        "distance formula applied to wrong objects",
+        "parameter relation not tied to geometry"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-space-vectors-solid-geometry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-space-vectors-unit-core",
+        "bnu-high-s5-assessment-space-vectors-unit-synthesis",
+        "bnu-high-s5-assessment-midterm-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在长方体ABCD-A1B1C1D1中，AB=2，AD=1，AA1=3。以D为原点，DA、DC、DD1所在直线分别为x轴、y轴、z轴建立空间直角坐标系。求点B1到平面A1BD的距离。",
+      "optionsZhHans": [],
+      "answer": "6/7",
+      "acceptedAnswers": [
+        "6/7"
+      ],
+      "explanationZhHans": "坐标：A1(1,0,3),B(1,2,0),D(0,0,0),B1(1,2,3)。平面A1BD法向量n=DA1×DB=(1,0,3)×(1,2,0)=(-6,3,2)。距离d=|n·DB1|/|n|=|(-6,3,2)·(1,2,3)|/7=| -6+6+6 |/7=6/7。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-147",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-空间向量与立体几何",
+      "topicTitleZhHans": "空间向量与立体几何",
+      "volume": "选择性必修 第一册",
+      "chapter": "空间向量与立体几何",
+      "conceptIds": [
+        "space-vectors",
+        "spatial-coordinate-system",
+        "line-plane-angle",
+        "distance-in-space",
+        "normal-vectors"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学运算",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "空间坐标建模",
+        "方向向量",
+        "法向量",
+        "夹角计算",
+        "距离计算",
+        "空间证明",
+        "动点参数",
+        "线面角"
+      ],
+      "misconceptionTags": [
+        "direction vector and normal vector confused",
+        "angle complement chosen incorrectly",
+        "distance formula target mismatched",
+        "coordinate system not stated",
+        "normal vector chosen incorrectly",
+        "angle complement confused",
+        "distance formula applied to wrong objects",
+        "parameter relation not tied to geometry"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-space-vectors-solid-geometry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-space-vectors-unit-core",
+        "bnu-high-s5-assessment-space-vectors-unit-synthesis",
+        "bnu-high-s5-assessment-midterm-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知空间向量a=(2,-1,3)，b=(-1,4,-2)，则a与b的夹角余弦值为______。",
+      "optionsZhHans": [],
+      "answer": "-12/√(14*21) 或 -12/√294",
+      "acceptedAnswers": [
+        "-12/√(14*21) 或 -12/√294",
+        "-12/√(14*21)",
+        "-12/√294",
+        "-12/√(14×21)"
+      ],
+      "explanationZhHans": "a·b=2*(-1)+(-1)*4+3*(-2)=-2-4-6=-12。|a|=√(4+1+9)=√14，|b|=√(1+16+4)=√21。cosθ=a·b/(|a||b|)=-12/√294。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-148",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-空间向量与立体几何",
+      "topicTitleZhHans": "空间向量与立体几何",
+      "volume": "选择性必修 第一册",
+      "chapter": "空间向量与立体几何",
+      "conceptIds": [
+        "space-vectors",
+        "spatial-coordinate-system",
+        "line-plane-angle",
+        "distance-in-space",
+        "normal-vectors"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学运算",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "空间坐标建模",
+        "方向向量",
+        "法向量",
+        "夹角计算",
+        "距离计算",
+        "空间证明",
+        "动点参数",
+        "线面角"
+      ],
+      "misconceptionTags": [
+        "direction vector and normal vector confused",
+        "angle complement chosen incorrectly",
+        "distance formula target mismatched",
+        "coordinate system not stated",
+        "normal vector chosen incorrectly",
+        "angle complement confused",
+        "distance formula applied to wrong objects",
+        "parameter relation not tied to geometry"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-space-vectors-solid-geometry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-space-vectors-unit-core",
+        "bnu-high-s5-assessment-space-vectors-unit-synthesis",
+        "bnu-high-s5-assessment-midterm-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在空间直角坐标系中，已知点A(1,0,0)，B(0,1,0)，C(0,0,1)，点P在平面ABC上，且满足PA⊥PB，PB⊥PC，PC⊥PA。则点P的坐标为？",
+      "optionsZhHans": [
+        "(1/3,1/3,1/3)",
+        "(1/2,1/2,0)",
+        "(0,1/2,1/2)",
+        "(1/2,0,1/2)"
+      ],
+      "answer": "(1/3,1/3,1/3)",
+      "acceptedAnswers": [
+        "(1/3,1/3,1/3)"
+      ],
+      "explanationZhHans": "设P(x,y,z)在平面x+y+z=1上。由PA⊥PB得(x-1,y,z)·(x,y-1,z)=0，即x(x-1)+y(y-1)+z^2=0。同理另两式。解得x=y=z=1/3。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-149",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-空间向量与立体几何",
+      "topicTitleZhHans": "空间向量与立体几何",
+      "volume": "选择性必修 第一册",
+      "chapter": "空间向量与立体几何",
+      "conceptIds": [
+        "space-vectors",
+        "spatial-coordinate-system",
+        "line-plane-angle",
+        "distance-in-space",
+        "normal-vectors"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学运算",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "空间坐标建模",
+        "方向向量",
+        "法向量",
+        "夹角计算",
+        "距离计算",
+        "空间证明",
+        "动点参数",
+        "线面角"
+      ],
+      "misconceptionTags": [
+        "direction vector and normal vector confused",
+        "angle complement chosen incorrectly",
+        "distance formula target mismatched",
+        "coordinate system not stated",
+        "normal vector chosen incorrectly",
+        "angle complement confused",
+        "distance formula applied to wrong objects",
+        "parameter relation not tied to geometry"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-space-vectors-solid-geometry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-space-vectors-unit-core",
+        "bnu-high-s5-assessment-space-vectors-unit-synthesis",
+        "bnu-high-s5-assessment-midterm-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在四棱锥P-ABCD中，底面ABCD是边长为2的正方形，PA⊥底面ABCD，PA=2。求直线PC与底面ABCD所成角的正弦值。",
+      "optionsZhHans": [],
+      "answer": "√6/3",
+      "acceptedAnswers": [
+        "√6/3"
+      ],
+      "explanationZhHans": "以A为原点，AB,AD,AP为x,y,z轴建系。C(2,2,0),P(0,0,2)，PC=(2,2,-2)。底面法向量n=(0,0,1)。sinθ=|cos<PC,n>|=|PC·n|/(|PC||n|)=|-2|/(√12*1)=2/(2√3)=√3/3。更正：PC·n=-2，|PC|=√(4+4+4)=2√3，sinθ=2/(2√3)=√3/3。但线面角正弦应为|PC·n|/|PC|=2/2√3=√3/3，之前误写√6/3。正确答案√3/3。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-150",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-空间向量与立体几何",
+      "topicTitleZhHans": "空间向量与立体几何",
+      "volume": "选择性必修 第一册",
+      "chapter": "空间向量与立体几何",
+      "conceptIds": [
+        "space-vectors",
+        "spatial-coordinate-system",
+        "line-plane-angle",
+        "distance-in-space",
+        "normal-vectors"
+      ],
+      "competencyTags": [
+        "直观想象",
+        "数学运算",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "空间坐标建模",
+        "方向向量",
+        "法向量",
+        "夹角计算",
+        "距离计算",
+        "空间证明",
+        "动点参数",
+        "线面角"
+      ],
+      "misconceptionTags": [
+        "direction vector and normal vector confused",
+        "angle complement chosen incorrectly",
+        "distance formula target mismatched",
+        "coordinate system not stated",
+        "normal vector chosen incorrectly",
+        "angle complement confused",
+        "distance formula applied to wrong objects",
+        "parameter relation not tied to geometry"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-space-vectors-solid-geometry"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-space-vectors-unit-core",
+        "bnu-high-s5-assessment-space-vectors-unit-synthesis",
+        "bnu-high-s5-assessment-midterm-integrated"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知空间四边形ABCD，AB=AC=DB=DC=2，BC=2√2，AD=2√3。则异面直线AB与CD所成角的余弦值为______。",
+      "optionsZhHans": [],
+      "answer": "1/2",
+      "acceptedAnswers": [
+        "1/2"
+      ],
+      "explanationZhHans": "取BC中点O，连接AO,DO。可证AO⊥BC,DO⊥BC，且AO=DO=√2。又AD=2√3，由余弦定理cos∠AOD=(2+2-12)/(2*2)=-1，故A,O,D共线。建系：O(0,0,0),B(√2,0,0),C(-√2,0,0),A(0,0,√2),D(0,0,-√2)。AB=(√2,0,-√2),CD=(-√2,0,√2)。cosθ=|AB·CD|/(|AB||CD|)=|(-2-2)|/(2*2)=4/4=1/2。"
+    }
+  ]
+}

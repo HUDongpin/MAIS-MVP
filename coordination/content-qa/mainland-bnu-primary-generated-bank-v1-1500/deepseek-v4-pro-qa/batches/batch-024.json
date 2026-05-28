@@ -1,0 +1,191 @@
+{
+  "batchNumber": 24,
+  "startedAt": "2026-05-27T13:26:48.458Z",
+  "completedAt": "2026-05-27T13:27:06.185Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p2-165",
+    "bnu-primary-ds-v1-p2-166",
+    "bnu-primary-ds-v1-p2-167",
+    "bnu-primary-ds-v1-p2-168",
+    "bnu-primary-ds-v1-p2-169",
+    "bnu-primary-ds-v1-p2-170",
+    "bnu-primary-ds-v1-p2-171",
+    "bnu-primary-ds-v1-p2-172",
+    "bnu-primary-ds-v1-p2-173",
+    "bnu-primary-ds-v1-p2-174",
+    "bnu-primary-ds-v1-p2-175",
+    "bnu-primary-ds-v1-p2-176",
+    "bnu-primary-ds-v1-p2-177",
+    "bnu-primary-ds-v1-p2-178",
+    "bnu-primary-ds-v1-p2-179",
+    "bnu-primary-ds-v1-p2-180",
+    "bnu-primary-ds-v1-p2-181",
+    "bnu-primary-ds-v1-p2-182"
+  ],
+  "usage": {
+    "prompt_tokens": 3031,
+    "completion_tokens": 1290,
+    "total_tokens": 4321,
+    "prompt_tokens_details": {
+      "cached_tokens": 2944
+    },
+    "prompt_cache_hit_tokens": 2944,
+    "prompt_cache_miss_tokens": 87
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p2-165",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，符合方向与位置知识点。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-166",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项设计合理，答案3006正确，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-167",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案5038和读法正确，符合数的组成。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-168",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "最大8530、最小3058正确，符合组数规则。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-169",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算差值正确，5012最接近5000。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-170",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "写作2048和9020正确，符合读数写数规则。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-171",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案3058正确，百位用0占位。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-172",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "6009读作六千零九，选项正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-173",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "第四位是千位，符合数位顺序。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-174",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "2050写作正确，符合读数写数。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-175",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "5090在5000和6000之间，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-176",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "最大四位数8530正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-177",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "故事书多49本，计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-178",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "3520的5在百位，表示5个百，正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-179",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "规律加10，填3000正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-180",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "4070写作正确，符合数位。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-181",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "身高用厘米合适，选项合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-182",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "5分米=50厘米，换算正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版小学数学二年级下册要求，答案正确，无歧义或错误。"
+    }
+  }
+}

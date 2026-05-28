@@ -1,0 +1,137 @@
+{
+  "batchNumber": 10,
+  "startedAt": "2026-05-27T13:45:06.450Z",
+  "completedAt": "2026-05-27T13:45:25.347Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-073",
+    "bnu-high-ds-v1-s4-074",
+    "bnu-high-ds-v1-s4-075",
+    "bnu-high-ds-v1-s4-076",
+    "bnu-high-ds-v1-s4-077",
+    "bnu-high-ds-v1-s4-078",
+    "bnu-high-ds-v1-s4-079",
+    "bnu-high-ds-v1-s4-080"
+  ],
+  "usage": {
+    "prompt_tokens": 10695,
+    "completion_tokens": 1310,
+    "total_tokens": 12005,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10183
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-073",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "a > b > c",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件充分，可独立求解。a=2^0.3>1，b=0.3^2=0.09∈(0,1)，c=log₂0.3<0，故a>b>c。选项唯一正确，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-074",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "18",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "计算：(0.008)^(-2/3)=25，(√3-1)^0=1，16^0.75=8，和为18。答案与解析一致，无歧义。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-075",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由f(2)=a^2=1/9得a=1/3，f(-1)=(1/3)^(-1)=3。答案正确，解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-076",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "f(x) 是奇函数，g(x) 是偶函数",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f(-x)=2^(-x)-2^x=-f(x)，奇函数；g(-x)=2^(-x)+2^x=g(x)，偶函数。选项B正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-077",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(-∞, 1]",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "复合函数单调性：t=x²-2x在(-∞,1]递减，y=(1/3)^t递减，故递增区间为(-∞,1]。答案与解析匹配。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-078",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0 或 2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "换元t=2^x>0，t²-5t+4=0得t=1或4，即x=0或2。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-079",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(1, 3)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "令x-1=0得x=1，f(1)=a^0+2=3，定点(1,3)。选项B正确，解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-080",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "a=2, b=0；解集为 (log₂3, +∞)",
+        "correctedAnswer": "a=2, b=0；解集为 (log₂3, +∞)",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "由条件解得a=2,b=0正确。但解不等式f(x)>6：2^(x+1)>6，即x+1>log₂6，x>log₂6-1=log₂3≈1.585，解集应为(log₂3,+∞)，而非(1,+∞)。答案和解析均错误，需修正。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "8题中7题通过，1题（bnu-high-ds-v1-s4-080）答案和解析均存在数学错误，解集应为(log₂3,+∞)而非(1,+∞)。"
+    }
+  }
+}

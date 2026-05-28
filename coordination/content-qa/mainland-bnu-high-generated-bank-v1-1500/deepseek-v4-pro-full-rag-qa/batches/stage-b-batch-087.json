@@ -1,0 +1,142 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-087",
+  "startedAt": "2026-05-28T02:51:48.799Z",
+  "completedAt": "2026-05-28T02:52:09.667Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-189",
+    "bnu-high-ds-v1-s5-190",
+    "bnu-high-ds-v1-s5-191",
+    "bnu-high-ds-v1-s5-192",
+    "bnu-high-ds-v1-s5-193",
+    "bnu-high-ds-v1-s5-194",
+    "bnu-high-ds-v1-s5-195",
+    "bnu-high-ds-v1-s5-196"
+  ],
+  "usage": {
+    "prompt_tokens": 12933,
+    "completion_tokens": 1220,
+    "total_tokens": 14153,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 12549
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-189",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [
+          "unsolvable",
+          "missing_condition",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "点B在平面ABC上，距离恒为0，与法向量求解无关；题目附加条件无法唯一确定法向量，导致题目无实际计算意义，Stage A判定不可解。存储答案0虽正确但题目本身不可解，且解析中法向量求解过程与距离0无逻辑关联，存在矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-190",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与Stage A独立解一致，均为A选项；解析计算正确，法向量和夹角公式无误，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-191",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案1与Stage A独立解一致；解析计算正确，向量共线，夹角余弦为1。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-192",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案9√14/14与Stage A独立解一致；解析使用平面方程法计算正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-193",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "correctedAnswer": "\\frac{4}{9}",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案B错误，正确正弦值为4/9，对应选项A；解析中计算得4/9但最终选择B，自相矛盾；选项A为唯一正确选项。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-194",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "\\sqrt{2}",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案2√3/3错误，正确距离为√2；解析中计算得√2，但最终答案错误，存在矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-195",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "x = -1 - 2\\sqrt{3} 或 x = -1 + 2\\sqrt{3}",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "accepted_answer_gap"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案-1错误，正确解为x=-1±2√3；解析中方程化简错误，导致漏解，且未验证所有解。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-196",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案1/3与Stage A独立解一致；解析计算正确，体积公式应用无误，选项唯一。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 4,
+      "warn": 0,
+      "fail": 4,
+      "notes": "8题中4题通过，4题失败。失败原因：1题题目不可解（189），3题答案错误（193、194、195），其中193和194解析自相矛盾，195解析错误导致漏解。"
+    }
+  }
+}

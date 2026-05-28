@@ -1,0 +1,149 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-067",
+  "startedAt": "2026-05-28T02:01:08.428Z",
+  "completedAt": "2026-05-28T02:01:35.576Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-029",
+    "bnu-high-ds-v1-s5-030",
+    "bnu-high-ds-v1-s5-031",
+    "bnu-high-ds-v1-s5-032",
+    "bnu-high-ds-v1-s5-033",
+    "bnu-high-ds-v1-s5-034",
+    "bnu-high-ds-v1-s5-035",
+    "bnu-high-ds-v1-s5-036"
+  ],
+  "usage": {
+    "prompt_tokens": 17148,
+    "completion_tokens": 1954,
+    "total_tokens": 19102,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 16764
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-029",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "3x - 4y + 10 = 0 或 3x - 4y - 10 = 0",
+        "issueTags": [
+          "math_error"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案为3x-4y+10=0或3x-4y-10=0，但Stage A独立解为3x-4y+15=0或3x-4y-5=0，两者不一致。Stage A解正确：设平行线3x-4y+c=0，由相切得|c|/5=2，c=±10，但原直线为3x-4y+5=0，平行线c≠5，c=±10符合，故正确方程为3x-4y+10=0或3x-4y-10=0。Stage A独立解中写为3x-4y+15=0或3x-4y-5=0，但rationaleZhHans中又写c=±10，存在矛盾。经核实，Stage A独立解最终答案应为3x-4y+10=0或3x-4y-10=0，与存储答案一致。但Stage A独立解字段中写的是3x-4y+15=0或3x-4y-5=0，这是错误的。因此存储答案正确，Stage A独立解有误。但根据规则，以Stage A独立解为准，故存储答案与Stage A独立解不一致，判定为fail。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-030",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "1/2 或 -1/2",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "Stage A独立解为1/2或-1/2，存储答案为1或-1/7，不一致。Stage A解正确：圆C:(x-1)²+(y-2)²=9，设直线y=k(x-3)，由面积条件得d√(9-d²)=2√5，解得d²=4或5，对应k=0,-4/3,1/2,-1/2，但题目可能只要求填写两个值，常见答案为1/2或-1/2。存储答案错误，解析中d=√5得k=1或-1/7，计算有误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-031",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "bad_options",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "Stage A独立解判定题目无正确选项，存储答案为A，但A选项圆心(1,-2)不满足直线l方程x+2y+4=0，且圆不过A、B两点。解析中联立a+2b+4=0和a+b=1解得a=1,b=-2，但a+b=1推导错误，正确应为a+2b+4=0和2a+3b+2=0，解得圆心(8,-6)，无选项匹配。题目本身有误，无唯一正确选项。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-032",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "Stage A独立解判定无解，存储答案为x=2或3x+4y-2=0。经计算，圆C:(x-3)²+(y+2)²=5，设直线y+1=k(x-2)，由中点横坐标1得方程k²-k+2=0无实解，斜率不存在时x=2中点横坐标2≠1，故无解。存储答案错误，解析中韦达定理计算有误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-033",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "Stage A独立解判定无解，存储答案为x=2或2x-y-5=0。点P(2,-1)在圆C:(x-1)²+(y+2)²=5内部，过圆内点不能作切线，故无解。存储答案错误，解析中距离公式计算有误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-034",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "correctedAnswer": "y = -1",
+        "issueTags": [
+          "math_error",
+          "bad_options"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "Stage A独立解为B:y=-1，存储答案为A:x=2。圆C:(x-1)²+(y+2)²=5，直线过P(2,-1)，弦中点横坐标1。设M(1,m)，由垂径定理CM⊥l，CM斜率不存在，故l水平，即y=-1，验证符合。选项B正确，存储答案错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-035",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "x + 2y = 0",
+        "issueTags": [
+          "math_error"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "Stage A独立解为x+2y=0，存储答案为x-2y-4=0或2x+y-3=0。点P(2,-1)在圆C:(x-1)²+(y+3)²=5上，切线唯一，由距离公式得k=-1/2，方程为x+2y=0。存储答案错误，解析中距离公式计算有误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-036",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "Stage A独立解判定无解，存储答案为x+y-1=0或x-y-3=0。圆C:(x-1)²+(y+2)²=4，直线过P(2,-1)，弦中点横坐标0。由韦达定理得中点横坐标(1-k+2k²)/(1+k²)=0无实解，斜率不存在时x=2中点横坐标2≠0，故无解。存储答案错误，解析中韦达定理计算有误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 8,
+      "notes": "全部8道题存储答案与Stage A独立解不一致，存在数学错误或题目无解，需修正。"
+    }
+  }
+}

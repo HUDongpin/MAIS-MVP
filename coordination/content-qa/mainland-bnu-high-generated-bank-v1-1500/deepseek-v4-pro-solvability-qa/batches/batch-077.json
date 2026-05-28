@@ -1,0 +1,137 @@
+{
+  "batchNumber": 77,
+  "startedAt": "2026-05-27T13:56:47.465Z",
+  "completedAt": "2026-05-27T13:57:05.365Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-109",
+    "bnu-high-ds-v1-s5-110",
+    "bnu-high-ds-v1-s5-111",
+    "bnu-high-ds-v1-s5-112",
+    "bnu-high-ds-v1-s5-113",
+    "bnu-high-ds-v1-s5-114",
+    "bnu-high-ds-v1-s5-115",
+    "bnu-high-ds-v1-s5-116"
+  ],
+  "usage": {
+    "prompt_tokens": 11325,
+    "completion_tokens": 1096,
+    "total_tokens": 12421,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10813
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-109",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由双曲线定义和条件可解出离心率最大值为2，选项唯一，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-110",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "independentAnswer": "证明：交点在直线x=2上",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，答案正确，但解析中未详细推导交点横坐标恒为2的过程，仅给出结论，可视为弱解析。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-111",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "x^2/8 + y^2/6 = 1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由离心率和点坐标可解出椭圆方程，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-112",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(-√3/3, √3/3)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由渐近线和点坐标求出双曲线方程，联立直线后根据右支两交点条件解得k范围，选项唯一，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-113",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "6",
+        "correctedAnswer": "6",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "解析中正确解得p=6，但答案字段错误写为4，答案与解析矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-114",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "±√2/2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由焦点和点坐标得椭圆方程，利用垂直条件解得斜率，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-115",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "x^2/9 - y^2/16 = 1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由焦距和离心率直接计算a、b，选项唯一，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-116",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "y = x + 1 或 y = -x - 1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "设直线方程联立抛物线，利用弦长和距离表示面积，解得斜率，答案与解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第113题答案错误，解析中p=6但答案字段为4，需修正。其余题目均通过审核。"
+    }
+  }
+}

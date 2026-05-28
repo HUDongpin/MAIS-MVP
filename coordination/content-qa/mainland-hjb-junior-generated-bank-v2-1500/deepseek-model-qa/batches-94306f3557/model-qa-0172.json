@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0172",
+  "ids": [
+    "hjb-junior-ds-v2-s3-369",
+    "hjb-junior-ds-v2-s3-370",
+    "hjb-junior-ds-v2-s3-371",
+    "hjb-junior-ds-v2-s3-372",
+    "hjb-junior-ds-v2-s3-373",
+    "hjb-junior-ds-v2-s3-374",
+    "hjb-junior-ds-v2-s3-375",
+    "hjb-junior-ds-v2-s3-376"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-369",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "√3 cm",
+      "answerCheckZhHans": "标准答案正确，解析推导无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-370",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "√39",
+      "answerCheckZhHans": "标准答案正确，解析推导无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-371",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析中由AB=CD得弧AB=弧CD，但等弦对等弧需在同圆或等圆中，且未说明弧AC=弧BD的推导。∠AEC为圆内角，应等于(弧AC+弧BD)/2，但解析直接说等于弧AC，且得出弧AC=70°，进而∠AOC=140°。实际上，若AB=CD，则弧AB=弧CD，但无法直接推出弧AC=70°。正确解法：由AB=CD得弧AB=弧CD，则弧AC=弧BD。∠AEC=(弧AC+弧BD)/2=弧AC，所以弧AC=70°，∠AOC=2×70°=140°。但解析中“∠AEC为圆内角，等于(弧AC+弧BD)/2=弧AC”这一步正确，但前面“由AB=CD得弧AB=弧CD，则弧AC=弧BD”需要说明。然而，标准答案140°可能正确，但解析不够严谨，且未考虑点E位置是否影响。独立验证：假设圆O，弦AB=CD，相交于E，∠AEC=70°，求∠AOC。连接OA、OC，∠AOC是弧AC所对圆心角。由相交弦定理，∠AEC=(弧AC+弧BD)/2。因为AB=CD，所以弧AB=弧CD，从而弧AC=弧BD。所以∠AEC=弧AC，弧AC=70°，∠AOC=140°。答案正确。但解析中“弧AC=70°”应为“弧AC的度数为70°”，表述不严谨。但整体答案正确，解析基本合理。然而，题目未给出图形，可能存在歧义：点E在圆内，但弦AB与CD相等，它们可能对称，但∠AEC=70°是否唯一确定∠AOC？若AB与CD不平行，则弧AC和弧BD可能不相等？实际上，由AB=CD可得弧AB=弧CD，但弧AC和弧BD不一定相等，除非AB与CD关于某直径对称。但解析中“则弧AC=弧BD”的推导：因为弧AB=弧CD，所以弧AB-弧BC=弧CD-弧BC，即弧AC=弧BD。这需要点E是交点，且B、C在弧上顺序。但题目未明确点的顺序，可能有两种情况：一种是A、C、B、D顺序，另一种是A、B、C、D顺序。若顺序为A、E、B和C、E、D，则弧AC和弧BD可能不相等。因此，题目条件不足，无法唯一确定∠AOC。需要图形或更明确的条件。因此，标记为needs-review。",
+      "independentAnswerZhHans": "无法唯一确定，条件不足。",
+      "answerCheckZhHans": "标准答案可能错误，解析推导不严谨，存在歧义。",
+      "recommendedActionZhHans": "补充图形或明确点的顺序，确保唯一可解。",
+      "confidence": "medium"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-372",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "6√2 cm",
+      "answerCheckZhHans": "标准答案正确，解析推导无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-373",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "A",
+      "answerCheckZhHans": "标准答案正确，解析推导无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-374",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2√3",
+      "answerCheckZhHans": "标准答案正确，解析推导无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-375",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "外切",
+      "answerCheckZhHans": "标准答案正确，解析推导无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-376",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "125/12",
+      "answerCheckZhHans": "标准答案正确，解析推导无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

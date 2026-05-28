@@ -1,0 +1,176 @@
+{
+  "batchNumber": 118,
+  "startedAt": "2026-05-27T18:03:09.038Z",
+  "completedAt": "2026-05-27T18:03:27.038Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s3-405",
+    "bnu-junior-ds-v1-s3-406",
+    "bnu-junior-ds-v1-s3-407",
+    "bnu-junior-ds-v1-s3-408",
+    "bnu-junior-ds-v1-s3-409",
+    "bnu-junior-ds-v1-s3-410",
+    "bnu-junior-ds-v1-s3-411",
+    "bnu-junior-ds-v1-s3-412",
+    "bnu-junior-ds-v1-s3-413",
+    "bnu-junior-ds-v1-s3-414",
+    "bnu-junior-ds-v1-s3-415",
+    "bnu-junior-ds-v1-s3-416"
+  ],
+  "usage": {
+    "prompt_tokens": 5505,
+    "completion_tokens": 1279,
+    "total_tokens": 6784,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 4993
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s3-405",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，弧长公式应用正确，答案2π与计算一致，解释无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-406",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "5",
+        "rationale": "题目可解，但解释中前半部分错误（∠ADC=90°、∠ADC=2∠ABC等），虽然后半部分给出正确解法并得到AC=5，但解释整体存在错误，且答案与正确结果一致，但解释不严谨。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-407",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "圆内接四边形对角互补，计算正确，答案与解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-408",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "切线性质与直角三角形边角关系应用正确，答案30°无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-409",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "垂径定理与勾股定理应用正确，答案6√3与选项匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-410",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，通过垂径定理和勾股定理可解，答案9.6正确，解释虽有错误尝试但最终给出正确解法。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-411",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "相交弦定理直接应用，答案6正确，多余条件不影响。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-412",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "切线长定理应用正确，答案12与选项匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-413",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "垂径定理与勾股定理应用正确，答案3无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-414",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "圆周角定理应用正确，答案60°无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-415",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "弧长公式应用正确，答案5π与选项匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-416",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "相交弦定理直接应用，答案8正确。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 11,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第406题解释存在错误，虽最终答案正确，但解释不严谨，判定为fail。其余题目均正确。"
+    }
+  }
+}

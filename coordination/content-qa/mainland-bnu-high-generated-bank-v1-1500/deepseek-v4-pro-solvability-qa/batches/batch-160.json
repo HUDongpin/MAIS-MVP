@@ -1,0 +1,133 @@
+{
+  "batchNumber": 160,
+  "startedAt": "2026-05-27T14:10:47.913Z",
+  "completedAt": "2026-05-27T14:11:03.830Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-273",
+    "bnu-high-ds-v1-s6-274",
+    "bnu-high-ds-v1-s6-275",
+    "bnu-high-ds-v1-s6-276",
+    "bnu-high-ds-v1-s6-277",
+    "bnu-high-ds-v1-s6-278",
+    "bnu-high-ds-v1-s6-279",
+    "bnu-high-ds-v1-s6-280"
+  ],
+  "usage": {
+    "prompt_tokens": 10449,
+    "completion_tokens": 1012,
+    "total_tokens": 11461,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 9937
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-273",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可独立求解，导数符号分析正确，极小值点为x=1，答案匹配，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-274",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(-1, 1)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，导数符号分析得单调递减区间为(-1,1)，选项唯一正确，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-275",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "r=2, h=8",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "优化问题可解，表面积函数求导得r=2，h=8，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-276",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "9",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导得斜率9，答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-277",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "闭区间最值问题可解，计算端点及临界点函数值得最大值为2，选项唯一正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-278",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "-2 < a < 2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "零点问题可解，由极值符号得a范围，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-279",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "极大值求解正确，f(-1)=2，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-280",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "y = -3x",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "切线方程可求，斜率为-3，过原点，方程为y=-3x，选项唯一正确，解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，答案正确且与解析一致，无任何问题。"
+    }
+  }
+}

@@ -1,0 +1,578 @@
+{
+  "batchId": "batch-114",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p5-131",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-fraction-add-sub",
+      "unitTitle": "分数加减法",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-addition-subtraction",
+        "common-denominator",
+        "equivalent-fractions",
+        "mixed-number-calculation",
+        "分数加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "符号意识"
+      ],
+      "skillTags": [
+        "同分母加减",
+        "异分母通分",
+        "带分数加减",
+        "分数估算",
+        "结果化简"
+      ],
+      "misconceptionTags": [
+        "denominators added directly",
+        "fractions with different wholes combined",
+        "equivalent conversion changes only one part of a fraction"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-fraction-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-fraction-add-sub-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明用一根彩带制作手工，第一次用去全长的 2/5 米，第二次用去全长的 1/3 米，两次一共用去多少米？结果用最简分数表示。",
+      "optionsZhHans": [],
+      "answer": "11/15",
+      "acceptedAnswers": [
+        "11/15"
+      ],
+      "explanationZhHans": "两次用去的长度相加：2/5 + 1/3。先通分，5和3的最小公倍数是15，2/5 = 6/15，1/3 = 5/15，相加得11/15米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-132",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-fraction-add-sub",
+      "unitTitle": "分数加减法",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-addition-subtraction",
+        "common-denominator",
+        "equivalent-fractions",
+        "mixed-number-calculation",
+        "分数加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "符号意识"
+      ],
+      "skillTags": [
+        "同分母加减",
+        "异分母通分",
+        "带分数加减",
+        "分数估算",
+        "结果化简"
+      ],
+      "misconceptionTags": [
+        "denominators added directly",
+        "fractions with different wholes combined",
+        "equivalent conversion changes only one part of a fraction"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-fraction-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-fraction-add-sub-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算：3/4 + 1/6 - 1/2。写出通分和计算过程，结果化为最简分数。",
+      "optionsZhHans": [],
+      "answer": "5/12",
+      "acceptedAnswers": [
+        "5/12"
+      ],
+      "explanationZhHans": "先通分，分母4、6、2的最小公倍数是12。3/4=9/12，1/6=2/12，1/2=6/12。计算：9/12+2/12-6/12=5/12。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-133",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-fraction-add-sub",
+      "unitTitle": "分数加减法",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-addition-subtraction",
+        "common-denominator",
+        "equivalent-fractions",
+        "mixed-number-calculation",
+        "分数加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "符号意识"
+      ],
+      "skillTags": [
+        "同分母加减",
+        "异分母通分",
+        "带分数加减",
+        "分数估算",
+        "结果化简"
+      ],
+      "misconceptionTags": [
+        "denominators added directly",
+        "fractions with different wholes combined",
+        "equivalent conversion changes only one part of a fraction"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-fraction-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-fraction-add-sub-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算1/2＋1/3时，下面哪一步正确地把两个分数化成同分母？",
+      "optionsZhHans": [
+        "1/2＝3/6，1/3＝2/6",
+        "1/2＝1/6，1/3＝1/6",
+        "1/2＝2/5，1/3＝3/5",
+        "1/2＝2/6，1/3＝3/6"
+      ],
+      "answer": "1/2＝3/6，1/3＝2/6",
+      "acceptedAnswers": [
+        "1/2＝3/6，1/3＝2/6"
+      ],
+      "explanationZhHans": "2和3的最小公倍数是6，1/2＝3/6，1/3＝2/6，所以这一步通分正确。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-134",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-fraction-add-sub",
+      "unitTitle": "分数加减法",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-addition-subtraction",
+        "common-denominator",
+        "equivalent-fractions",
+        "mixed-number-calculation",
+        "分数加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "符号意识"
+      ],
+      "skillTags": [
+        "同分母加减",
+        "异分母通分",
+        "带分数加减",
+        "分数估算",
+        "结果化简"
+      ],
+      "misconceptionTags": [
+        "denominators added directly",
+        "fractions with different wholes combined",
+        "equivalent conversion changes only one part of a fraction"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-fraction-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-fraction-add-sub-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一桶油连桶重 5 又 1/4 千克，倒出一半油后，连桶重 2 又 3/4 千克。这桶油原来净重多少千克？用分数表示。",
+      "optionsZhHans": [],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5"
+      ],
+      "explanationZhHans": "一半油的重量为 5又1/4 - 2又3/4 = 21/4 - 11/4 = 10/4 = 5/2 千克。原来油重 5/2 × 2 = 5 千克。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-135",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-fraction-add-sub",
+      "unitTitle": "分数加减法",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-addition-subtraction",
+        "common-denominator",
+        "equivalent-fractions",
+        "mixed-number-calculation",
+        "分数加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "符号意识"
+      ],
+      "skillTags": [
+        "同分母加减",
+        "异分母通分",
+        "带分数加减",
+        "分数估算",
+        "结果化简"
+      ],
+      "misconceptionTags": [
+        "denominators added directly",
+        "fractions with different wholes combined",
+        "equivalent conversion changes only one part of a fraction"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-fraction-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-fraction-add-sub-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小红喝一杯果汁，第一次喝了 1/4，第二次喝了剩下的 1/3。她一共喝了这杯果汁的几分之几？写出思考过程。",
+      "optionsZhHans": [],
+      "answer": "1/2",
+      "acceptedAnswers": [
+        "1/2"
+      ],
+      "explanationZhHans": "第一次喝1/4，剩下3/4。第二次喝剩下的1/3，即3/4×1/3=1/4。两次共喝1/4+1/4=1/2。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-136",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-cuboid-introduction",
+      "unitTitle": "长方体（一）",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "cuboid-cube-features",
+        "nets",
+        "surface-area",
+        "spatial-visualization",
+        "长方体",
+        "正方体"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "认识长方体正方体",
+        "棱面顶点",
+        "展开图",
+        "表面积",
+        "单位面积"
+      ],
+      "misconceptionTags": [
+        "hidden or opposite faces omitted",
+        "edge length confused with area unit",
+        "net assembled without checking matching faces"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-cuboid-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-cuboid-introduction-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方体有6个面，下面关于面的说法正确的是哪一项？",
+      "optionsZhHans": [
+        "6个面一定都是长方形",
+        "相对的面形状相同，大小相等",
+        "最多有4个面是正方形",
+        "每个面都有4条边，所以长方体共有24条棱"
+      ],
+      "answer": "相对的面形状相同，大小相等",
+      "acceptedAnswers": [
+        "相对的面形状相同，大小相等"
+      ],
+      "explanationZhHans": "长方体相对的面完全相同。A项错误，可能有2个正方形面；C项错误，最多2个正方形面；D项错误，长方体有12条棱。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-137",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-cuboid-introduction",
+      "unitTitle": "长方体（一）",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "cuboid-cube-features",
+        "nets",
+        "surface-area",
+        "spatial-visualization",
+        "长方体",
+        "正方体"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "认识长方体正方体",
+        "棱面顶点",
+        "展开图",
+        "表面积",
+        "单位面积"
+      ],
+      "misconceptionTags": [
+        "hidden or opposite faces omitted",
+        "edge length confused with area unit",
+        "net assembled without checking matching faces"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-cuboid-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-cuboid-introduction-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个正方体的棱长总和是60厘米，它的表面积是多少平方厘米？",
+      "optionsZhHans": [],
+      "answer": "150",
+      "acceptedAnswers": [
+        "150",
+        "150平方厘米"
+      ],
+      "explanationZhHans": "正方体有12条棱，每条棱长60÷12＝5厘米。表面积＝6×5×5＝150平方厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-138",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-cuboid-introduction",
+      "unitTitle": "长方体（一）",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "cuboid-cube-features",
+        "nets",
+        "surface-area",
+        "spatial-visualization",
+        "长方体",
+        "正方体"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "认识长方体正方体",
+        "棱面顶点",
+        "展开图",
+        "表面积",
+        "单位面积"
+      ],
+      "misconceptionTags": [
+        "hidden or opposite faces omitted",
+        "edge length confused with area unit",
+        "net assembled without checking matching faces"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-cuboid-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-cuboid-introduction-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方体纸盒，长8厘米，宽5厘米，高4厘米。计算它的表面积，并说明计算时需要注意什么。",
+      "optionsZhHans": [],
+      "answer": "184平方厘米",
+      "acceptedAnswers": [
+        "184平方厘米",
+        "184"
+      ],
+      "explanationZhHans": "表面积=(8×5+8×4+5×4)×2=(40+32+20)×2=92×2=184平方厘米。注意相对的面面积相等，不要漏乘2。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-139",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-cuboid-introduction",
+      "unitTitle": "长方体（一）",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "cuboid-cube-features",
+        "nets",
+        "surface-area",
+        "spatial-visualization",
+        "长方体",
+        "正方体"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "认识长方体正方体",
+        "棱面顶点",
+        "展开图",
+        "表面积",
+        "单位面积"
+      ],
+      "misconceptionTags": [
+        "hidden or opposite faces omitted",
+        "edge length confused with area unit",
+        "net assembled without checking matching faces"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-cuboid-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-cuboid-introduction-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个正方体有多少个面？",
+      "optionsZhHans": [
+        "4个",
+        "6个",
+        "8个",
+        "12个"
+      ],
+      "answer": "6个",
+      "acceptedAnswers": [
+        "6个",
+        "6"
+      ],
+      "explanationZhHans": "正方体由6个完全相同的正方形面围成，所以有6个面。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-140",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-cuboid-introduction",
+      "unitTitle": "长方体（一）",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "cuboid-cube-features",
+        "nets",
+        "surface-area",
+        "spatial-visualization",
+        "长方体",
+        "正方体"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "认识长方体正方体",
+        "棱面顶点",
+        "展开图",
+        "表面积",
+        "单位面积"
+      ],
+      "misconceptionTags": [
+        "hidden or opposite faces omitted",
+        "edge length confused with area unit",
+        "net assembled without checking matching faces"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-cuboid-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-cuboid-introduction-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方体木块，长10厘米，宽8厘米，高6厘米。如果把它切成两个完全相同的长方体，表面积最少增加多少平方厘米？",
+      "optionsZhHans": [],
+      "answer": "96",
+      "acceptedAnswers": [
+        "96"
+      ],
+      "explanationZhHans": "要使增加的表面积最少，应平行于最小的面切开。最小面是宽×高=8×6=48平方厘米，增加两个面，即48×2=96平方厘米。"
+    }
+  ]
+}

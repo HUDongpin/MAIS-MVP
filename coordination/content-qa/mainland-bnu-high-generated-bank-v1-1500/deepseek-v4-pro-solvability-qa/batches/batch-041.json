@@ -1,0 +1,142 @@
+{
+  "batchNumber": 41,
+  "startedAt": "2026-05-27T13:50:32.966Z",
+  "completedAt": "2026-05-27T13:50:49.775Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-321",
+    "bnu-high-ds-v1-s4-322",
+    "bnu-high-ds-v1-s4-323",
+    "bnu-high-ds-v1-s4-324",
+    "bnu-high-ds-v1-s4-325",
+    "bnu-high-ds-v1-s4-326",
+    "bnu-high-ds-v1-s4-327",
+    "bnu-high-ds-v1-s4-328"
+  ],
+  "usage": {
+    "prompt_tokens": 12506,
+    "completion_tokens": 1146,
+    "total_tokens": 13652,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 11994
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-321",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "[0, π/12] 和 [5π/12, π/2]",
+        "correctedAnswer": "[0, π/12] 和 [5π/12, π/2]",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，但答案错误。正确单调递增区间为[0, π/12]和[5π/12, π/2]，而非[π/4, π/2]。解析中已指出错误但未修正答案，导致答案与解析矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-322",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "C. y = sin 2x",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，向左平移π/6后函数为y=sin2x，选项C正确。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-323",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "1/5",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，sinα+cosα=1/5，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-324",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "4π",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，最小正周期为4π，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-325",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "无正确选项",
+        "correctedAnswer": "修改题目或选项",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "bad_options",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，但计算得cosθ=√2/10，夹角非特殊角，无选项匹配。解析承认设计有误，答案B错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-326",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，结果为0，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-327",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(-1/10, -3/10)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，投影向量坐标为(-1/10, -3/10)，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-328",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "A. -2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，x=-2，选项A正确，答案与解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 0,
+      "fail": 2,
+      "notes": "8题中6题通过，2题失败：321题答案错误，325题无正确选项。"
+    }
+  }
+}

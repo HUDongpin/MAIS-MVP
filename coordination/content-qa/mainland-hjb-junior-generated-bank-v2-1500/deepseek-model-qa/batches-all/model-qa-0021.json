@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0021",
+  "ids": [
+    "hjb-junior-ds-v2-s1-161",
+    "hjb-junior-ds-v2-s1-162",
+    "hjb-junior-ds-v2-s1-163",
+    "hjb-junior-ds-v2-s1-164",
+    "hjb-junior-ds-v2-s1-165",
+    "hjb-junior-ds-v2-s1-166",
+    "hjb-junior-ds-v2-s1-167",
+    "hjb-junior-ds-v2-s1-168"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-161",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-3",
+      "answerCheckZhHans": "标准答案为-3，与独立解题结果一致。解析正确：分子为零得x=±3，分母不为零排除x=3，故x=-3。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-162",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为3，但独立化简后代入x=-1得-1。解析也得出-1，与答案矛盾。",
+      "independentAnswerZhHans": "-1",
+      "answerCheckZhHans": "化简：(x^2-4)/(x^2-2x)=(x+2)(x-2)/[x(x-2)]=(x+2)/x (x≠0,2)。代入x=-1得(-1+2)/(-1)=1/(-1)=-1。标准答案3错误，解析正确但答案不一致。",
+      "recommendedActionZhHans": "将答案修正为-1，或检查题目是否有误。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-163",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-1",
+      "answerCheckZhHans": "标准答案为-1，与独立解题结果一致。解析正确：(a-b)/(b-a)=(a-b)/[-(a-b)]=-1 (a≠b)。选项互异，唯一正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-164",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x ≠ ±2",
+      "answerCheckZhHans": "标准答案为x ≠ ±2，与独立解题结果一致。解析正确：分母x^2-4≠0得x≠±2。acceptedAnswers覆盖了多种等价表述。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-165",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2/(x-1) (x≠±1)",
+      "answerCheckZhHans": "标准答案为2/(x-1)，与独立解题结果一致。解析正确：通分后分子为2(x+1)，约分得2/(x-1)，并注明x≠±1。acceptedAnswers包含带条件的形式。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-166",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x ≠ 2 且 x ≠ -2",
+      "answerCheckZhHans": "标准答案为x ≠ 2 且 x ≠ -2，与独立解题结果一致。解析正确：分母为零得x=±2，故x≠2且x≠-2。选项C正确，其他选项错误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-167",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "标准答案为3，与独立解题结果一致。解析正确：分子为零得x=3，分母不为零。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-168",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "7",
+      "answerCheckZhHans": "标准答案为7，与独立解题结果一致。解析正确：化简得(x+3)/(x-3)，代入x=4得7。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

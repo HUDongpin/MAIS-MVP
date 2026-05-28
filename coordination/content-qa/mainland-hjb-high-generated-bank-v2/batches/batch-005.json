@@ -1,0 +1,385 @@
+{
+  "batchId": "batch-005",
+  "generationMode": "targeted-local-repair",
+  "fallbackReason": "targeted-local-repair",
+  "questions": [
+    {
+      "id": "hjb-high-ds-v2-s4-041",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-集合与逻辑",
+      "topicTitleZhHans": "集合与逻辑",
+      "volume": "必修 第一册",
+      "chapter": "集合与逻辑",
+      "conceptIds": [
+        "sets",
+        "set-operations",
+        "logic-conditions",
+        "quantifiers"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-sets-logic"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-sets-logic-unit-core",
+        "hjb-high-compulsory-1-sets-logic-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "设全集U={1,2,3,4,5,6,7,8}，集合A={2,4,6}，B={3,4,5}。则(A∪B)的补集为______。（用列举法表示）",
+      "optionsZhHans": [],
+      "answer": "{1,7,8}",
+      "acceptedAnswers": [
+        "{1,7,8}",
+        "{1,8,7}",
+        "{7,1,8}",
+        "{7,8,1}",
+        "{8,1,7}",
+        "{8,7,1}"
+      ],
+      "explanationZhHans": "A∪B={2,3,4,5,6}，全集U中不属于A∪B的元素为1,7,8，故补集为{1,7,8}。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-042",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-集合与逻辑",
+      "topicTitleZhHans": "集合与逻辑",
+      "volume": "必修 第一册",
+      "chapter": "集合与逻辑",
+      "conceptIds": [
+        "sets",
+        "set-operations",
+        "logic-conditions",
+        "quantifiers"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-sets-logic"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-sets-logic-unit-core",
+        "hjb-high-compulsory-1-sets-logic-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "已知集合A={x|x²-5x+6=0}，B={x|ax-1=0}。若B⊆A，求实数a的所有可能取值。",
+      "optionsZhHans": [],
+      "answer": "0, 1/2, 1/3",
+      "acceptedAnswers": [
+        "0, 1/2, 1/3",
+        "0,1/2,1/3",
+        "0, 1/3, 1/2",
+        "0,1/3,1/2",
+        "1/2, 0, 1/3",
+        "1/2,1/3,0",
+        "1/3, 0, 1/2",
+        "1/3,1/2,0"
+      ],
+      "explanationZhHans": "A={2,3}。B⊆A，分情况：若B=∅，则a=0；若B≠∅，则x=1/a，令1/a=2得a=1/2，令1/a=3得a=1/3。综上a=0,1/2,1/3。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-043",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-集合与逻辑",
+      "topicTitleZhHans": "集合与逻辑",
+      "volume": "必修 第一册",
+      "chapter": "集合与逻辑",
+      "conceptIds": [
+        "sets",
+        "set-operations",
+        "logic-conditions",
+        "quantifiers"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-sets-logic"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-sets-logic-unit-core",
+        "hjb-high-compulsory-1-sets-logic-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0043：选择：设集合 A={1,2,3,...,30}，集合 B 为其中能被 2 整除的数。求集合 B 的元素个数。",
+      "optionsZhHans": [
+        "16",
+        "15",
+        "14",
+        "17"
+      ],
+      "answer": "15",
+      "acceptedAnswers": [
+        "15"
+      ],
+      "explanationZhHans": "B 中元素为不超过 30 的 2 的倍数，共 floor(30/2)=15 个。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-044",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-集合与逻辑",
+      "topicTitleZhHans": "集合与逻辑",
+      "volume": "必修 第一册",
+      "chapter": "集合与逻辑",
+      "conceptIds": [
+        "sets",
+        "set-operations",
+        "logic-conditions",
+        "quantifiers"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-sets-logic"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-sets-logic-unit-core",
+        "hjb-high-compulsory-1-sets-logic-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "命题p：∀x∈R，x²+2x+a>0。若p为真命题，则实数a的取值范围是______。",
+      "optionsZhHans": [],
+      "answer": "(1,+∞)",
+      "acceptedAnswers": [
+        "(1,+∞)",
+        "a>1",
+        "1到正无穷",
+        "(1,正无穷)"
+      ],
+      "explanationZhHans": "∀x∈R，x²+2x+a>0恒成立，需Δ=4-4a<0，得a>1，故a∈(1,+∞)。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-045",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-集合与逻辑",
+      "topicTitleZhHans": "集合与逻辑",
+      "volume": "必修 第一册",
+      "chapter": "集合与逻辑",
+      "conceptIds": [
+        "sets",
+        "set-operations",
+        "logic-conditions",
+        "quantifiers"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-sets-logic"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-sets-logic-unit-core",
+        "hjb-high-compulsory-1-sets-logic-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "已知p：x>2，q：x>a。若p是q的充分不必要条件，求实数a的取值范围。",
+      "optionsZhHans": [],
+      "answer": "a<2",
+      "acceptedAnswers": [
+        "a<2",
+        "(-∞,2)",
+        "负无穷到2"
+      ],
+      "explanationZhHans": "p⇒q，即x>2⇒x>a，需a≤2；q⇏p，即x>a不一定推出x>2，需a<2。综上a<2。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-046",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-集合与逻辑",
+      "topicTitleZhHans": "集合与逻辑",
+      "volume": "必修 第一册",
+      "chapter": "集合与逻辑",
+      "conceptIds": [
+        "sets",
+        "set-operations",
+        "logic-conditions",
+        "quantifiers"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-sets-logic"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-sets-logic-unit-core",
+        "hjb-high-compulsory-1-sets-logic-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "设集合A={1,2,3,4,5}，B={x|x∈A且x²∈A}。则B的子集个数为（ ）",
+      "optionsZhHans": [
+        "2",
+        "4",
+        "8",
+        "16"
+      ],
+      "answer": "4",
+      "acceptedAnswers": [
+        "4"
+      ],
+      "explanationZhHans": "B={1,2}，因为1²=1∈A，2²=4∈A，3²=9∉A等。B有2个元素，子集个数为2²=4。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-047",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-集合与逻辑",
+      "topicTitleZhHans": "集合与逻辑",
+      "volume": "必修 第一册",
+      "chapter": "集合与逻辑",
+      "conceptIds": [
+        "sets",
+        "set-operations",
+        "logic-conditions",
+        "quantifiers"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-sets-logic"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-sets-logic-unit-core",
+        "hjb-high-compulsory-1-sets-logic-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "用描述法表示集合“被3除余1的正整数”为______。",
+      "optionsZhHans": [],
+      "answer": "{x|x=3k+1, k∈N}",
+      "acceptedAnswers": [
+        "{x|x=3k+1, k∈N}",
+        "{x|x=3k+1,k∈N}",
+        "{x|x=3k+1，k∈N}"
+      ],
+      "explanationZhHans": "被3除余1的正整数可写成3k+1，其中k为自然数，故描述法为{x|x=3k+1, k∈N}。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-048",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-集合与逻辑",
+      "topicTitleZhHans": "集合与逻辑",
+      "volume": "必修 第一册",
+      "chapter": "集合与逻辑",
+      "conceptIds": [
+        "sets",
+        "set-operations",
+        "logic-conditions",
+        "quantifiers"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-sets-logic"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-sets-logic-unit-core",
+        "hjb-high-compulsory-1-sets-logic-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "已知集合A={x|x²-2x-3≤0}，B={x|m≤x≤m+2}。若A∪B=A，求实数m的取值范围。",
+      "optionsZhHans": [],
+      "answer": "[-1,1]",
+      "acceptedAnswers": [
+        "[-1,1]",
+        "m∈[-1,1]",
+        "-1≤m≤1"
+      ],
+      "explanationZhHans": "A=[-1,3]。A∪B=A⇔B⊆A，需m≥-1且m+2≤3，解得-1≤m≤1。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-049",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-集合与逻辑",
+      "topicTitleZhHans": "集合与逻辑",
+      "volume": "必修 第一册",
+      "chapter": "集合与逻辑",
+      "conceptIds": [
+        "sets",
+        "set-operations",
+        "logic-conditions",
+        "quantifiers"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-sets-logic"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-sets-logic-unit-core",
+        "hjb-high-compulsory-1-sets-logic-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0049：选择：设集合 A={1,2,3,...,22}，集合 B 为其中能被 3 整除的数。求集合 B 的元素个数。",
+      "optionsZhHans": [
+        "8",
+        "6",
+        "9",
+        "7"
+      ],
+      "answer": "7",
+      "acceptedAnswers": [
+        "7"
+      ],
+      "explanationZhHans": "B 中元素为不超过 22 的 3 的倍数，共 floor(22/3)=7 个。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-050",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-集合与逻辑",
+      "topicTitleZhHans": "集合与逻辑",
+      "volume": "必修 第一册",
+      "chapter": "集合与逻辑",
+      "conceptIds": [
+        "sets",
+        "set-operations",
+        "logic-conditions",
+        "quantifiers"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-sets-logic"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-sets-logic-unit-core",
+        "hjb-high-compulsory-1-sets-logic-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "设集合A={x|x=2n, n∈Z}，B={x|x=3n, n∈Z}，则A∩B=______。（用描述法表示）",
+      "optionsZhHans": [],
+      "answer": "{x|x=6n, n∈Z}",
+      "acceptedAnswers": [
+        "{x|x=6n, n∈Z}",
+        "{x|x=6n,n∈Z}",
+        "{x|x=6n，n∈Z}"
+      ],
+      "explanationZhHans": "A是偶数集，B是3的倍数集，交集为6的倍数集，即{x|x=6n, n∈Z}。"
+    }
+  ]
+}

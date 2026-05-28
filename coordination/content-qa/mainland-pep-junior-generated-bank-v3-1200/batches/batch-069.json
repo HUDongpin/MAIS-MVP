@@ -1,0 +1,304 @@
+{
+  "batchId": "batch-069",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s2-k08-sa-014",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-quadrilaterals"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions"
+      ],
+      "promptZhHans": "在平行四边形ABCD中，AB=8，BC=6，∠B=60°。过点A作AE⊥BC于点E，求对角线AC的长。",
+      "optionsZhHans": [],
+      "answer": "2√13",
+      "acceptedAnswers": [
+        "2√13",
+        "2倍根号13"
+      ],
+      "explanationZhHans": "过点A作AE⊥BC于点E。在Rt△ABE中，∠B=60°，AB=8，则BE=AB·cos60°=4，AE=AB·sin60°=4√3。在平行四边形中，BC=6，则CE=BC-BE=6-4=2。在Rt△AEC中，AC²=AE²+CE²=(4√3)²+2²=48+4=52，所以AC=√52=2√13。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-sa-015",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-quadratic-radicals"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "promptZhHans": "化简√(48) - √(27) + √(12)。",
+      "optionsZhHans": [],
+      "answer": "3√3",
+      "acceptedAnswers": [
+        "3√3",
+        "3倍根号3"
+      ],
+      "explanationZhHans": "√48=√(16×3)=4√3，√27=√(9×3)=3√3，√12=√(4×3)=2√3。原式=4√3-3√3+2√3=(4-3+2)√3=3√3。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-sa-016",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "promptZhHans": "已知直角三角形的两条直角边分别为5和12，求斜边上的高。",
+      "optionsZhHans": [],
+      "answer": "60/13",
+      "acceptedAnswers": [
+        "60/13",
+        "13分之60"
+      ],
+      "explanationZhHans": "由勾股定理得斜边=√(5²+12²)=13。直角三角形的面积=1/2×5×12=30，也等于1/2×斜边×斜边上的高，即1/2×13×h=30，解得h=60/13。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-sa-017",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-linear-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "已知直角三角形的两条直角边长分别为√3和√6，求斜边长。",
+      "optionsZhHans": [],
+      "answer": "3",
+      "acceptedAnswers": [
+        "3"
+      ],
+      "explanationZhHans": "根据勾股定理，斜边长的平方等于两直角边的平方和。斜边长² = (√3)² + (√6)² = 3 + 6 = 9，所以斜边长 = √9 = 3。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-sa-018",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-data-analysis"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "一组数据：3，5，2，6，4，5，7。求这组数据的中位数和众数。",
+      "optionsZhHans": [],
+      "answer": "中位数5，众数5",
+      "acceptedAnswers": [
+        "中位数5，众数5",
+        "中位数5,众数5",
+        "中位数5 众数5"
+      ],
+      "explanationZhHans": "将数据从小到大排列：2，3，4，5，5，6，7。共有7个数据，中位数为第4个数，即5。5出现2次，次数最多，所以众数为5。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-sa-019",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-pythagorean-theorem"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "一根竹竿长10米，斜靠在一面墙上，竹竿底端离墙6米。如果竹竿顶端沿墙下滑1米，那么底端将向外滑动多少米？",
+      "optionsZhHans": [],
+      "answer": "√51 - 6",
+      "acceptedAnswers": [
+        "√51 - 6",
+        "根号51减6"
+      ],
+      "explanationZhHans": "初始时，竹竿、墙和地面构成直角三角形，竹竿为斜边10米，底端离墙6米为一条直角边，则墙上的高度为√(10²-6²)=8米。下滑后，墙上高度变为7米，竹竿长仍为10米，此时底端离墙距离为√(10²-7²)=√51米。所以底端向外滑动(√51 - 6)米。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-sa-020",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-quadrilaterals"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-proof-calculation-integrated"
+      ],
+      "promptZhHans": "在矩形ABCD中，AB=6，BC=8，对角线AC与BD相交于点O。求点O到边AB的距离。",
+      "optionsZhHans": [],
+      "answer": "4",
+      "acceptedAnswers": [
+        "4"
+      ],
+      "explanationZhHans": "矩形对角线互相平分，点O为AC中点。点O到AB的距离等于点C到AB距离的一半。因为BC⊥AB，BC=8为点C到AB的距离，所以点O到AB的距离为8/2=4。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-sa-021",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-quadratic-radicals"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean"
+      ],
+      "promptZhHans": "已知a=√5+2，b=√5-2，求a²b+ab²的值。",
+      "optionsZhHans": [],
+      "answer": "2√5",
+      "acceptedAnswers": [
+        "2√5",
+        "2倍根号5"
+      ],
+      "explanationZhHans": "a²b+ab²=ab(a+b)。ab=(√5+2)(√5-2)=(√5)²-2²=5-4=1。a+b=(√5+2)+(√5-2)=2√5。所以原式=1×2√5=2√5。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-sa-022",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "比较√6+√2与√5+√3的大小。",
+      "optionsZhHans": [],
+      "answer": "√6+√2 < √5+√3",
+      "acceptedAnswers": [
+        "√6+√2 < √5+√3",
+        "根号6加根号2小于根号5加根号3"
+      ],
+      "explanationZhHans": "因为(√6+√2)²=6+2+2√12=8+4√3，(√5+√3)²=5+3+2√15=8+2√15。比较4√3与2√15，两边平方得(4√3)²=48，(2√15)²=60，48<60，所以4√3<2√15，因此(√6+√2)² < (√5+√3)²，又因为两数均为正，所以√6+√2 < √5+√3。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-sa-023",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-linear-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "某市出租车收费标准：起步价8元（含3千米），超过3千米后每千米1.5元。写出车费y（元）与行驶路程x（千米）之间的函数关系式，并求行驶10千米的车费。",
+      "optionsZhHans": [],
+      "answer": "y=8 (0<x≤3); y=8+1.5(x-3) (x>3)，车费18.5元",
+      "acceptedAnswers": [
+        "y=8 (0<x≤3); y=8+1.5(x-3) (x>3)，车费18.5元",
+        "y=8(0<x≤3);y=8+1.5(x-3)(x>3)，车费18.5元"
+      ],
+      "explanationZhHans": "当0<x≤3时，y=8。当x>3时，y=8+1.5(x-3)。行驶10千米，x=10>3，代入得y=8+1.5×(10-3)=8+1.5×7=8+10.5=18.5元。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

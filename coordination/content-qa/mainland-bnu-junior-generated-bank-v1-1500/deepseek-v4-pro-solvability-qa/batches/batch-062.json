@@ -1,0 +1,201 @@
+{
+  "batchNumber": 62,
+  "startedAt": "2026-05-27T17:40:12.312Z",
+  "completedAt": "2026-05-27T17:40:36.801Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s2-233",
+    "bnu-junior-ds-v1-s2-234",
+    "bnu-junior-ds-v1-s2-235",
+    "bnu-junior-ds-v1-s2-236",
+    "bnu-junior-ds-v1-s2-237",
+    "bnu-junior-ds-v1-s2-238",
+    "bnu-junior-ds-v1-s2-239",
+    "bnu-junior-ds-v1-s2-240",
+    "bnu-junior-ds-v1-s2-241",
+    "bnu-junior-ds-v1-s2-242",
+    "bnu-junior-ds-v1-s2-243",
+    "bnu-junior-ds-v1-s2-244"
+  ],
+  "usage": {
+    "prompt_tokens": 8555,
+    "completion_tokens": 1867,
+    "total_tokens": 10422,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 8043
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s2-233",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目数据明确，计算平均数、中位数、方差均可解，答案与解释一致，符合北师大版八年级数据分析要求。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-234",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数据完整，方差计算正确，答案与解释匹配，符合方差应用与决策要求。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-235",
+        "status": "fail",
+        "severity": "major",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch",
+          "ambiguous_mc"
+        ],
+        "correctedAnswer": "①",
+        "rationale": "条件①中∠EGB=60°与∠GHD=120°是同旁内角，互补可判定平行；条件③中∠BGH与∠DHF是同位角，相等可判定平行。题目要求选一个条件，但①和③均正确，答案③不唯一，且解释中错误否定①，导致答案与解释矛盾。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-236",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "AB与CD不平行。因为∠AGE与∠CHF是同位角，但∠AGE=70°，∠CHF=110°，不相等也不互补，故不能判定平行。",
+        "rationale": "∠AGE与∠CHF是同位角，同位角相等才平行，70°≠110°，且同位角互补不是判定定理，答案错误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-237",
+        "status": "fail",
+        "severity": "major",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "①,③,④",
+        "rationale": "条件④中∠AGE=50°，∠CHG=130°，是同旁内角互补，可判定平行，答案遗漏④。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-238",
+        "status": "fail",
+        "severity": "major",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "2个",
+        "rationale": "条件③中∠EGB=50°，∠CHF=130°，∠CHF与∠GHD是对顶角，得∠GHD=130°，与∠EGB不相等，不能判定平行。故只有①②正确，共2个。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-239",
+        "status": "fail",
+        "severity": "major",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "①能，同旁内角互补，两直线平行；②能，同位角相等，两直线平行；③能，内错角相等，两直线平行；④能，同旁内角互补，两直线平行。",
+        "rationale": "条件④中∠BGH=80°，∠CHF=100°，∠CHF与∠DHG是对顶角，得∠DHG=100°，与∠BGH是同旁内角，互补，可判定平行。答案错误否定④。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-240",
+        "status": "fail",
+        "severity": "major",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "②③④",
+        "rationale": "条件④中∠BGH=80°，∠CHG=100°，是同旁内角互补，可判定平行，答案遗漏④。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-241",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "三个条件均为平行线判定定理，答案正确，选项设计合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-242",
+        "status": "fail",
+        "severity": "major",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "选择条件①和②或③和④。证明：若选①和②，∠AGE=60°，∠CHF=120°，∠AGE与∠CHF是同旁内角，互补，故AB∥CD；若选③和④，∠BGE=120°，∠DHF=60°，∠BGE与∠DHF是同旁内角，互补，故AB∥CD。",
+        "rationale": "条件③和④组合也可判定平行，答案仅给出一种组合，未覆盖所有可能，且解释中称其他组合无法推出平行，不准确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-243",
+        "status": "fail",
+        "severity": "major",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "3",
+        "rationale": "条件③中∠BGH=110°，∠DHF=110°，∠DHF与∠CHG是对顶角，得∠CHG=110°，与∠BGH是内错角，相等，可判定平行。故①②③正确，共3个。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-244",
+        "status": "fail",
+        "severity": "major",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "3个",
+        "rationale": "条件③中∠BGH=80°，∠DHF=100°，∠DHF与∠CHG是对顶角，得∠CHG=100°，与∠BGH是同旁内角，互补，可判定平行。故①③④正确，共3个。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 3,
+      "warn": 0,
+      "fail": 9,
+      "notes": "12道题中3道通过，9道因答案或解释错误未通过，主要问题集中在平行线判定中角关系识别错误，导致答案遗漏或误判。"
+    }
+  }
+}

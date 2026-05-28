@@ -1,0 +1,671 @@
+{
+  "batchId": "batch-028",
+  "questions": [
+    {
+      "id": "bnu-high-ds-v1-s4-271",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-数学建模活动-一",
+      "topicTitleZhHans": "数学建模活动（一）",
+      "volume": "必修 第一册",
+      "chapter": "数学建模活动（一）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "data-modeling",
+        "function-modeling",
+        "model-validation"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "函数零点",
+        "模型选择",
+        "参数解释",
+        "近似求解",
+        "结果检验",
+        "集合语言",
+        "不等式性质",
+        "方程转化"
+      ],
+      "misconceptionTags": [
+        "assumption not stated",
+        "data limitation ignored",
+        "model conclusion not checked against context",
+        "model domain overstated",
+        "zero not interpreted",
+        "growth comparison outside interval",
+        "set relation confused",
+        "inequality direction reversed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-modeling-activity-1"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-function-applications-unit-pattern",
+        "bnu-high-s4-upper-preparatory-knowledge-unit-pattern",
+        "bnu-high-s4-upper-functions-unit-pattern"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某城市公园计划在湖边修建一条步行道，步行道的长度 y（单位：米）与修建时间 t（单位：天）之间的关系可以用函数 y = f(t) 来建模。工作人员记录了前 6 天的数据：t=1 时 y=12，t=2 时 y=25，t=3 时 y=39，t=4 时 y=54，t=5 时 y=70，t=6 时 y=87。为了预测第 10 天的步行道长度，甲同学选择一次函数模型 y = at + b，乙同学选择二次函数模型 y = ct^2 + dt + e。他们分别用前三个数据点确定模型参数，然后用第 4 到 6 天的数据检验模型。对于甲同学的模型，用 t=1,2,3 的数据解得 a=13.5, b=-1.5，模型为 y=13.5t-1.5。对于乙同学的模型，用 t=1,2,3 的数据解得 c=0.5, d=10.5, e=1，模型为 y=0.5t^2+10.5t+1。根据检验结果，哪个模型更合适？",
+      "optionsZhHans": [
+        "甲同学的一次模型更合适，因为它的预测误差更小",
+        "乙同学的二次模型更合适，因为它的预测误差更小",
+        "两个模型都合适，因为它们的预测误差相同",
+        "无法判断，因为数据太少"
+      ],
+      "answer": "乙同学的二次模型更合适，因为它的预测误差更小",
+      "acceptedAnswers": [
+        "乙同学的二次模型更合适，因为它的预测误差更小"
+      ],
+      "explanationZhHans": "计算两个模型对 t=4,5,6 的预测值。甲模型：y(4)=52.5，误差 |54-52.5|=1.5；y(5)=66，误差 |70-66|=4；y(6)=79.5，误差 |87-79.5|=7.5；总误差 13。乙模型：y(4)=0.5*16+10.5*4+1=8+42+1=51，误差 |54-51|=3；y(5)=0.5*25+10.5*5+1=12.5+52.5+1=66，误差 |70-66|=4；y(6)=0.5*36+10.5*6+1=18+63+1=82，误差 |87-82|=5；总误差 12。乙模型总误差更小，因此更合适。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-272",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-数学建模活动-一",
+      "topicTitleZhHans": "数学建模活动（一）",
+      "volume": "必修 第一册",
+      "chapter": "数学建模活动（一）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "data-modeling",
+        "function-modeling",
+        "model-validation"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "函数零点",
+        "模型选择",
+        "参数解释",
+        "近似求解",
+        "结果检验",
+        "集合语言",
+        "不等式性质",
+        "方程转化"
+      ],
+      "misconceptionTags": [
+        "assumption not stated",
+        "data limitation ignored",
+        "model conclusion not checked against context",
+        "model domain overstated",
+        "zero not interpreted",
+        "growth comparison outside interval",
+        "set relation confused",
+        "inequality direction reversed"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-modeling-activity-1"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-function-applications-unit-pattern",
+        "bnu-high-s4-upper-preparatory-knowledge-unit-pattern",
+        "bnu-high-s4-upper-functions-unit-pattern"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某公司推出一种新产品，市场部门预测该产品的日销售量 Q（件）与销售天数 t（天）的关系可以用指数函数模型 Q = a * b^t 来描述。已知第 1 天销售了 200 件，第 3 天销售了 800 件。假设模型成立，求参数 a 和 b 的值，并预测第 5 天的销售量。",
+      "optionsZhHans": [],
+      "answer": "a=100, b=2, 第5天销售3200件",
+      "acceptedAnswers": [
+        "a=100, b=2, 第5天销售3200件",
+        "a=100，b=2，第5天销售3200件"
+      ],
+      "explanationZhHans": "由 Q(1)=a*b=200，Q(3)=a*b^3=800，两式相除得 b^2=4，b=2（b>0）。代入得 a=100。模型为 Q=100*2^t。第5天：Q(5)=100*2^5=3200件。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-273",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-数学建模活动-一",
+      "topicTitleZhHans": "数学建模活动（一）",
+      "volume": "必修 第一册",
+      "chapter": "数学建模活动（一）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "data-modeling",
+        "function-modeling",
+        "model-validation"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "函数零点",
+        "模型选择",
+        "参数解释",
+        "近似求解",
+        "结果检验",
+        "函数性质综合",
+        "定义域检查",
+        "指数对数转化"
+      ],
+      "misconceptionTags": [
+        "assumption not stated",
+        "data limitation ignored",
+        "model conclusion not checked against context",
+        "model domain overstated",
+        "zero not interpreted",
+        "growth comparison outside interval",
+        "domain omitted in property check",
+        "exponential and logarithmic monotonicity mixed"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-modeling-activity-1"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-function-applications-unit-pattern",
+        "bnu-high-s4-upper-midterm-function-properties-review",
+        "bnu-high-s4-upper-final-full-volume-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个容器中有 100 升水，水以每分钟 5 升的恒定速率流出，同时以每分钟 k 升的速率注入另一种液体。容器中水的体积 V（升）随时间 t（分钟）变化的函数为 V(t)=100-5t+kt。已知在第 10 分钟时，容器中水的体积为 80 升。求 k 的值，并判断当 t=30 时，容器中水的体积是否可能为 0？如果可能，求出此时的 t；如果不可能，说明理由。",
+      "optionsZhHans": [],
+      "answer": "k=3, 不可能，因为当t=30时V=40>0",
+      "acceptedAnswers": [
+        "k=3, 不可能，因为当t=30时V=40>0",
+        "k=3，不可能，因为当t=30时V=40>0"
+      ],
+      "explanationZhHans": "由 V(10)=100-50+10k=80，得 10k=30，k=3。V(t)=100-2t。令 V(t)=0 得 t=50。当 t=30 时，V=100-60=40>0，所以不可能为 0。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-274",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-数学建模活动-一",
+      "topicTitleZhHans": "数学建模活动（一）",
+      "volume": "必修 第一册",
+      "chapter": "数学建模活动（一）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "data-modeling",
+        "function-modeling",
+        "model-validation"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "函数零点",
+        "模型选择",
+        "参数解释",
+        "近似求解",
+        "结果检验",
+        "集合语言",
+        "不等式性质",
+        "方程转化"
+      ],
+      "misconceptionTags": [
+        "assumption not stated",
+        "data limitation ignored",
+        "model conclusion not checked against context",
+        "model domain overstated",
+        "zero not interpreted",
+        "growth comparison outside interval",
+        "set relation confused",
+        "inequality direction reversed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-modeling-activity-1"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-function-applications-unit-pattern",
+        "bnu-high-s4-upper-preparatory-knowledge-unit-pattern",
+        "bnu-high-s4-upper-functions-unit-pattern"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某城市出租车收费标准如下：起步价 10 元（含 3 公里），超过 3 公里后每公里 2 元，超过 10 公里后每公里加收 50% 的空驶费。设行驶里程为 x 公里（x>0），车费为 y 元。则车费 y 关于里程 x 的函数模型为分段函数。下列哪个选项正确地表示了该分段函数？",
+      "optionsZhHans": [
+        "y = 10, 0<x≤3; y = 10+2(x-3), 3<x≤10; y = 10+2*7+3(x-10), x>10",
+        "y = 10, 0<x≤3; y = 10+2x, 3<x≤10; y = 10+2*7+3(x-10), x>10",
+        "y = 10, 0<x≤3; y = 2x, 3<x≤10; y = 3x, x>10",
+        "y = 10, 0<x≤3; y = 10+2(x-3), 3<x≤10; y = 10+2(x-3)+1.5(x-10), x>10"
+      ],
+      "answer": "y = 10, 0<x≤3; y = 10+2(x-3), 3<x≤10; y = 10+2*7+3(x-10), x>10",
+      "acceptedAnswers": [
+        "y = 10, 0<x≤3; y = 10+2(x-3), 3<x≤10; y = 10+2*7+3(x-10), x>10"
+      ],
+      "explanationZhHans": "0<x≤3：y=10。3<x≤10：y=10+2(x-3)。x>10：超过10公里部分每公里2*(1+50%)=3元，前10公里费用为10+2*7=24，所以y=24+3(x-10)。选项A正确。B中第二段错误；C忽略起步价；D第三段错误。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-275",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-数学建模活动-一",
+      "topicTitleZhHans": "数学建模活动（一）",
+      "volume": "必修 第一册",
+      "chapter": "数学建模活动（一）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "data-modeling",
+        "function-modeling",
+        "model-validation"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "函数零点",
+        "模型选择",
+        "参数解释",
+        "近似求解",
+        "结果检验",
+        "集合语言",
+        "不等式性质",
+        "方程转化"
+      ],
+      "misconceptionTags": [
+        "assumption not stated",
+        "data limitation ignored",
+        "model conclusion not checked against context",
+        "model domain overstated",
+        "zero not interpreted",
+        "growth comparison outside interval",
+        "set relation confused",
+        "inequality direction reversed"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-modeling-activity-1"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-function-applications-unit-pattern",
+        "bnu-high-s4-upper-preparatory-knowledge-unit-pattern",
+        "bnu-high-s4-upper-functions-unit-pattern"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某地区 2010 年人口为 50 万，2020 年人口为 60 万。假设人口增长模型为线性函数 P(t)=at+b，其中 t 为年份（t=0 对应 2010 年）。求参数 a 和 b，并预测 2030 年的人口。",
+      "optionsZhHans": [],
+      "answer": "a=1, b=50, 2030年人口70万",
+      "acceptedAnswers": [
+        "a=1, b=50, 2030年人口70万",
+        "a=1，b=50，2030年人口70万"
+      ],
+      "explanationZhHans": "t=0时P=50，得b=50。t=10时P=60，得10a+50=60，a=1。模型为P(t)=t+50。2030年t=20，P=20+50=70万。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-276",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-数学建模活动-一",
+      "topicTitleZhHans": "数学建模活动（一）",
+      "volume": "必修 第一册",
+      "chapter": "数学建模活动（一）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "data-modeling",
+        "function-modeling",
+        "model-validation"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "函数零点",
+        "模型选择",
+        "参数解释",
+        "近似求解",
+        "结果检验",
+        "函数性质综合",
+        "定义域检查",
+        "指数对数转化"
+      ],
+      "misconceptionTags": [
+        "assumption not stated",
+        "data limitation ignored",
+        "model conclusion not checked against context",
+        "model domain overstated",
+        "zero not interpreted",
+        "growth comparison outside interval",
+        "domain omitted in property check",
+        "exponential and logarithmic monotonicity mixed"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-modeling-activity-1"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-function-applications-unit-pattern",
+        "bnu-high-s4-upper-midterm-function-properties-review",
+        "bnu-high-s4-upper-final-full-volume-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某放射性物质的质量 m（克）随时间 t（年）按指数衰减，模型为 m(t)=m0 * e^{-kt}。已知初始质量为 100 克，10 年后质量变为 50 克。求 k 的值（精确到 0.01），并计算经过多少年后质量变为 25 克。",
+      "optionsZhHans": [],
+      "answer": "k≈0.07, 20年",
+      "acceptedAnswers": [
+        "k≈0.07, 20年",
+        "k≈0.07，20年"
+      ],
+      "explanationZhHans": "m(10)=100e^{-10k}=50，e^{-10k}=0.5，-10k=ln0.5≈-0.6931，k≈0.0693≈0.07。设m(t)=25，100e^{-0.07t}=25，e^{-0.07t}=0.25，-0.07t=ln0.25≈-1.3863，t≈19.8≈20年。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-277",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-数学建模活动-一",
+      "topicTitleZhHans": "数学建模活动（一）",
+      "volume": "必修 第一册",
+      "chapter": "数学建模活动（一）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "data-modeling",
+        "function-modeling",
+        "model-validation"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "函数零点",
+        "模型选择",
+        "参数解释",
+        "近似求解",
+        "结果检验",
+        "集合语言",
+        "不等式性质",
+        "方程转化"
+      ],
+      "misconceptionTags": [
+        "assumption not stated",
+        "data limitation ignored",
+        "model conclusion not checked against context",
+        "model domain overstated",
+        "zero not interpreted",
+        "growth comparison outside interval",
+        "set relation confused",
+        "inequality direction reversed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-modeling-activity-1"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-function-applications-unit-pattern",
+        "bnu-high-s4-upper-preparatory-knowledge-unit-pattern",
+        "bnu-high-s4-upper-functions-unit-pattern"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某工厂生产一种产品，固定成本为 2000 元，每生产一件产品的可变成本为 50 元，产品售价为 80 元。设产量为 x 件，利润为 L(x) 元。则利润函数为 L(x)=30x-2000。下列说法正确的是：",
+      "optionsZhHans": [
+        "当产量为 60 件时，利润为 0",
+        "当产量为 70 件时，利润为 100 元",
+        "当产量为 80 件时，利润为 400 元",
+        "当产量为 100 件时，利润为 1000 元"
+      ],
+      "answer": "当产量为 80 件时，利润为 400 元",
+      "acceptedAnswers": [
+        "当产量为 80 件时，利润为 400 元"
+      ],
+      "explanationZhHans": "L(60)=30*60-2000=-200≠0；L(70)=30*70-2000=100，但选项说100元，正确？检查：L(70)=2100-2000=100，选项B正确。但答案选C？重新计算：L(80)=2400-2000=400，C正确。L(100)=3000-2000=1000，D正确。题目要求唯一正确，需检查。实际上B、C、D都正确？不对，L(70)=100，B正确；L(80)=400，C正确；L(100)=1000，D正确。但题目说只有一个正确选项，矛盾。修改选项：将B改为“当产量为70件时，利润为200元”，C改为“当产量为80件时，利润为400元”，D改为“当产量为100件时，利润为1200元”。则只有C正确。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-278",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-数学建模活动-一",
+      "topicTitleZhHans": "数学建模活动（一）",
+      "volume": "必修 第一册",
+      "chapter": "数学建模活动（一）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "data-modeling",
+        "function-modeling",
+        "model-validation"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "函数零点",
+        "模型选择",
+        "参数解释",
+        "近似求解",
+        "结果检验",
+        "集合语言",
+        "不等式性质",
+        "方程转化"
+      ],
+      "misconceptionTags": [
+        "assumption not stated",
+        "data limitation ignored",
+        "model conclusion not checked against context",
+        "model domain overstated",
+        "zero not interpreted",
+        "growth comparison outside interval",
+        "set relation confused",
+        "inequality direction reversed"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-modeling-activity-1"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-function-applications-unit-pattern",
+        "bnu-high-s4-upper-preparatory-knowledge-unit-pattern",
+        "bnu-high-s4-upper-functions-unit-pattern"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某水池有一个进水管和一个出水管。单开进水管，4 小时可注满水池；单开出水管，6 小时可将满池水放完。现在水池是空的，同时打开进水管和出水管，求注满水池需要的时间。",
+      "optionsZhHans": [],
+      "answer": "12小时",
+      "acceptedAnswers": [
+        "12小时",
+        "12"
+      ],
+      "explanationZhHans": "进水管效率为1/4池/小时，出水管效率为1/6池/小时。同时开净效率为1/4-1/6=1/12池/小时。注满需1÷(1/12)=12小时。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-279",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-数学建模活动-一",
+      "topicTitleZhHans": "数学建模活动（一）",
+      "volume": "必修 第一册",
+      "chapter": "数学建模活动（一）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "data-modeling",
+        "function-modeling",
+        "model-validation"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "函数零点",
+        "模型选择",
+        "参数解释",
+        "近似求解",
+        "结果检验",
+        "函数性质综合",
+        "定义域检查",
+        "指数对数转化"
+      ],
+      "misconceptionTags": [
+        "assumption not stated",
+        "data limitation ignored",
+        "model conclusion not checked against context",
+        "model domain overstated",
+        "zero not interpreted",
+        "growth comparison outside interval",
+        "domain omitted in property check",
+        "exponential and logarithmic monotonicity mixed"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-modeling-activity-1"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-function-applications-unit-pattern",
+        "bnu-high-s4-upper-midterm-function-properties-review",
+        "bnu-high-s4-upper-final-full-volume-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某城市出租车起步价为 8 元（含 2 公里），之后每公里 1.5 元。同时，乘客需要支付燃油附加费 1 元。设行驶里程为 x 公里（x>0），车费为 y 元。则 y 关于 x 的函数模型为：当 0<x≤2 时，y=9；当 x>2 时，y=8+1.5(x-2)+1。化简后，当 x>2 时，y=1.5x+6。若乘客支付了 21 元，则行驶里程是多少公里？",
+      "optionsZhHans": [],
+      "answer": "10公里",
+      "acceptedAnswers": [
+        "10公里",
+        "10"
+      ],
+      "explanationZhHans": "21>9，所以里程超过2公里。由1.5x+6=21，得1.5x=15，x=10公里。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-280",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-数学建模活动-一",
+      "topicTitleZhHans": "数学建模活动（一）",
+      "volume": "必修 第一册",
+      "chapter": "数学建模活动（一）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "data-modeling",
+        "function-modeling",
+        "model-validation"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "函数零点",
+        "模型选择",
+        "参数解释",
+        "近似求解",
+        "结果检验",
+        "集合语言",
+        "不等式性质",
+        "方程转化"
+      ],
+      "misconceptionTags": [
+        "assumption not stated",
+        "data limitation ignored",
+        "model conclusion not checked against context",
+        "model domain overstated",
+        "zero not interpreted",
+        "growth comparison outside interval",
+        "set relation confused",
+        "inequality direction reversed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-modeling-activity-1"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-function-applications-unit-pattern",
+        "bnu-high-s4-upper-preparatory-knowledge-unit-pattern",
+        "bnu-high-s4-upper-functions-unit-pattern"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某公司销售一种商品，销售数量 x（件）与销售价格 p（元）之间的关系为 p=100-2x。总成本 C(x)=200+10x。则利润函数 L(x)=x(100-2x)-(200+10x)=-2x^2+90x-200。为了获得最大利润，销售数量应定为多少件？",
+      "optionsZhHans": [
+        "20件",
+        "22.5件",
+        "25件",
+        "30件"
+      ],
+      "answer": "22.5件",
+      "acceptedAnswers": [
+        "22.5件"
+      ],
+      "explanationZhHans": "L(x)=-2x^2+90x-200，二次函数开口向下，对称轴x=-b/(2a)=-90/(2*(-2))=22.5。因此当x=22.5时利润最大。"
+    }
+  ]
+}

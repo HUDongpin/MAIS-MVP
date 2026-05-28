@@ -1,0 +1,191 @@
+{
+  "batchNumber": 22,
+  "startedAt": "2026-05-25T01:59:21.453Z",
+  "completedAt": "2026-05-25T01:59:41.088Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p2-129",
+    "hjb-primary-ds-v1-p2-130",
+    "hjb-primary-ds-v1-p2-131",
+    "hjb-primary-ds-v1-p2-132",
+    "hjb-primary-ds-v1-p2-133",
+    "hjb-primary-ds-v1-p2-134",
+    "hjb-primary-ds-v1-p2-135",
+    "hjb-primary-ds-v1-p2-136",
+    "hjb-primary-ds-v1-p2-137",
+    "hjb-primary-ds-v1-p2-138",
+    "hjb-primary-ds-v1-p2-139",
+    "hjb-primary-ds-v1-p2-140",
+    "hjb-primary-ds-v1-p2-141",
+    "hjb-primary-ds-v1-p2-142",
+    "hjb-primary-ds-v1-p2-143",
+    "hjb-primary-ds-v1-p2-144",
+    "hjb-primary-ds-v1-p2-145",
+    "hjb-primary-ds-v1-p2-146"
+  ],
+  "usage": {
+    "prompt_tokens": 3834,
+    "completion_tokens": 1306,
+    "total_tokens": 5140,
+    "prompt_tokens_details": {
+      "cached_tokens": 3712
+    },
+    "prompt_cache_hit_tokens": 3712,
+    "prompt_cache_miss_tokens": 122
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p2-129",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方向推理正确，答案和解释一致，适合二年级。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-130",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均分概念清晰，选项B正确，其他选项均非平均分。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-131",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "乘法应用正确，错误分析合理，答案覆盖多种表述。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-132",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案和解释一致，符合生活实际。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-133",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方向相对性表述正确，其他选项有逻辑错误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-134",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "加法改乘法正确，答案接受两种顺序，符合二年级要求。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-135",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "排序和计算正确，答案覆盖多种格式。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-136",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "付钱方法正确，选项分析合理，无歧义。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-137",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "图形代换推理正确，答案唯一。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-138",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "测量问题计算正确，答案和解释一致。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-139",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "除法算式选择正确，其他选项分析到位。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-140",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "包含分问题，答案正确，接受带单位或不带单位。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-141",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均分问题，算式和答案正确，单位合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-142",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "包含分问题，算式选择正确，解释清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-143",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "根据口诀写除法算式正确，答案覆盖多种分隔符。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-144",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均分问题，答案正确，接受多种表述。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-145",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "除法意义理解正确，选项分析合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-146",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均分问题，算式和答案正确，单位合理。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合沪教版二年级数学要求，答案正确，解释合理，无歧义或错误。"
+    }
+  }
+}

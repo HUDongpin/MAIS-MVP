@@ -1,0 +1,330 @@
+{
+  "batchNumber": 34,
+  "startedAt": "2026-05-27T14:16:16.183Z",
+  "completedAt": "2026-05-27T14:16:47.362Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p4-241",
+    "bnu-primary-ds-v2-p4-242",
+    "bnu-primary-ds-v2-p4-243",
+    "bnu-primary-ds-v2-p4-244",
+    "bnu-primary-ds-v2-p4-245",
+    "bnu-primary-ds-v2-p4-246",
+    "bnu-primary-ds-v2-p4-247",
+    "bnu-primary-ds-v2-p4-248",
+    "bnu-primary-ds-v2-p4-249",
+    "bnu-primary-ds-v2-p4-250",
+    "bnu-primary-ds-v2-p5-001",
+    "bnu-primary-ds-v2-p5-002",
+    "bnu-primary-ds-v2-p5-003",
+    "bnu-primary-ds-v2-p5-004",
+    "bnu-primary-ds-v2-p5-005",
+    "bnu-primary-ds-v2-p5-006",
+    "bnu-primary-ds-v2-p5-007",
+    "bnu-primary-ds-v2-p5-008",
+    "bnu-primary-ds-v2-p5-009",
+    "bnu-primary-ds-v2-p5-010",
+    "bnu-primary-ds-v2-p5-011",
+    "bnu-primary-ds-v2-p5-012",
+    "bnu-primary-ds-v2-p5-013",
+    "bnu-primary-ds-v2-p5-014",
+    "bnu-primary-ds-v2-p5-015",
+    "bnu-primary-ds-v2-p5-016",
+    "bnu-primary-ds-v2-p5-017",
+    "bnu-primary-ds-v2-p5-018",
+    "bnu-primary-ds-v2-p5-019",
+    "bnu-primary-ds-v2-p5-020"
+  ],
+  "usage": {
+    "prompt_tokens": 7026,
+    "completion_tokens": 2337,
+    "total_tokens": 9363,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 6642
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p4-241",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目信息完整，计算正确，答案0.62无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-242",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目明确，条形统计图适合比较数量，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-243",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "分类标准合理，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-244",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项A正确，其他选项错误，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-245",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项B错误，其他正确，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-246",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "只有选项A正确表示0.6，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-247",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项B体现分类思路，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-248",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "分类并总结要点有助于发现规律，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-249",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "3.6和3.60大小相等意义不同，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-250",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "每份数×份数＝总数模型适用，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-001",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "计算正确，答案6.4无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-002",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "计算正确，答案30无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-003",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "段数和时间计算正确，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-004",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "除数最小商最大，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-005",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "转化正确，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-006",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "进一法取14，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-007",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "5÷6是循环小数，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-008",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "转化正确，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-009",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "被除数乘10商也乘10，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-010",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "0.72<0.9，商小于1，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-011",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "整除，答案45个，0米正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-012",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "计算正确，四舍五入得2.9，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-013",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "计算正确，答案6.6元无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-014",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "被除数应乘10得37.8，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-015",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "计算正确，答案18.72无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-016",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "平移计算正确，答案(7,6)无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-017",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "平移计算正确，答案(7,3)匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-018",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "平移计算正确，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-019",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "平移性质正确，选项B正确，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-020",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "平移计算正确，答案(6,1)无误。"
+      }
+    ],
+    "batchSummary": {
+      "solvableYes": 30,
+      "solvableNo": 0,
+      "answerMatchYes": 30,
+      "answerMatchNo": 0,
+      "notes": "所有题目均可解，答案匹配，无问题。"
+    }
+  }
+}

@@ -1,0 +1,330 @@
+{
+  "batchNumber": 18,
+  "startedAt": "2026-05-26T16:58:26.915Z",
+  "completedAt": "2026-05-26T16:59:00.229Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p3-011",
+    "bnu-primary-ds-v2-p3-012",
+    "bnu-primary-ds-v2-p3-013",
+    "bnu-primary-ds-v2-p3-014",
+    "bnu-primary-ds-v2-p3-015",
+    "bnu-primary-ds-v2-p3-016",
+    "bnu-primary-ds-v2-p3-017",
+    "bnu-primary-ds-v2-p3-018",
+    "bnu-primary-ds-v2-p3-019",
+    "bnu-primary-ds-v2-p3-020",
+    "bnu-primary-ds-v2-p3-021",
+    "bnu-primary-ds-v2-p3-022",
+    "bnu-primary-ds-v2-p3-023",
+    "bnu-primary-ds-v2-p3-024",
+    "bnu-primary-ds-v2-p3-025",
+    "bnu-primary-ds-v2-p3-026",
+    "bnu-primary-ds-v2-p3-027",
+    "bnu-primary-ds-v2-p3-028",
+    "bnu-primary-ds-v2-p3-029",
+    "bnu-primary-ds-v2-p3-030",
+    "bnu-primary-ds-v2-p3-031",
+    "bnu-primary-ds-v2-p3-032",
+    "bnu-primary-ds-v2-p3-033",
+    "bnu-primary-ds-v2-p3-034",
+    "bnu-primary-ds-v2-p3-035",
+    "bnu-primary-ds-v2-p3-036",
+    "bnu-primary-ds-v2-p3-037",
+    "bnu-primary-ds-v2-p3-038",
+    "bnu-primary-ds-v2-p3-039",
+    "bnu-primary-ds-v2-p3-040"
+  ],
+  "usage": {
+    "prompt_tokens": 7195,
+    "completion_tokens": 2396,
+    "total_tokens": 9591,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 6811
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p3-011",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目信息完整，综合算式正确，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-012",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "条件充分，计算正确，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-013",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项明确，A符合先乘后减，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-014",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "运算顺序和结果正确，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-015",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "正确与错误结果计算无误，相差20，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-016",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "根据视图可确定立体图形，右面看是竖着2个正方形，选项A正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-017",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "由视图可推得左面看到上下两个正方形，位置描述合理，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-018",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "正方体各面相同，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-019",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "由视图可确定需要4个小正方体，选项B正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-020",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "三个正方体排成一行，右面看到1个正方形，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-021",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "由视图可知最高两层，答案2正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-022",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "从上面看中间后面有正方体，正面不可能只看到竖着一列两个，选项正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-023",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "由正面和上面可确定最高两层，答案2正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-024",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "描述的一种搭法符合视图要求，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-025",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "由上面视图可推得正面左一右二，选项正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-026",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "最高层只有1个，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-027",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "分析合理，共有2种搭法，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-028",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项描述符合正面和上面视图，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-029",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "前排最多3个，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-030",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "右面看到左列两个右列一个，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-031",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "计算正确，连环画336本，选项匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-032",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "实际减少69本，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-033",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "计算正确，连环画212本，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-034",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "估算合理，500+400=900最合适，选项正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-035",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "竖式计算正确，和是913，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-036",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "估算和精确计算正确，答案1305本匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-037",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "算式527+368-45正确，选项匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-038",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "计算正确，总数737本，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-039",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "看错数字多加53，正确和599，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-040",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "计算正确，故事书比科技书多60本，选项匹配。"
+      }
+    ],
+    "batchSummary": {
+      "solvableYes": 30,
+      "solvableNo": 0,
+      "answerMatchYes": 30,
+      "answerMatchNo": 0,
+      "notes": "全部30道题均可解，答案匹配，无问题。"
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-123",
+  "startedAt": "2026-05-28T02:08:32.362Z",
+  "completedAt": "2026-05-28T02:08:36.590Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-123"
+  ],
+  "usage": {
+    "prompt_tokens": 2236,
+    "completion_tokens": 283,
+    "total_tokens": 2519,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1852
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-123",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "k=±√3/2",
+        "correctedAnswer": "k=±√3/2",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立求解得k=±√3/2，存储答案k=1/2错误，解析中韦达定理计算有误，导致k²=1/4而非正确的3/4，且未考虑两个解均满足判别式，属于严重数学错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目可解，符合教材范围，但答案和解析均错误，需修正为k=±√3/2。"
+    }
+  }
+}

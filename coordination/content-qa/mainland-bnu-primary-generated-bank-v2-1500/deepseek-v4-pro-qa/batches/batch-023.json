@@ -1,0 +1,191 @@
+{
+  "batchNumber": 23,
+  "startedAt": "2026-05-27T13:46:45.405Z",
+  "completedAt": "2026-05-27T13:47:02.348Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p2-147",
+    "bnu-primary-ds-v2-p2-148",
+    "bnu-primary-ds-v2-p2-149",
+    "bnu-primary-ds-v2-p2-150",
+    "bnu-primary-ds-v2-p2-151",
+    "bnu-primary-ds-v2-p2-152",
+    "bnu-primary-ds-v2-p2-153",
+    "bnu-primary-ds-v2-p2-154",
+    "bnu-primary-ds-v2-p2-155",
+    "bnu-primary-ds-v2-p2-156",
+    "bnu-primary-ds-v2-p2-157",
+    "bnu-primary-ds-v2-p2-158",
+    "bnu-primary-ds-v2-p2-159",
+    "bnu-primary-ds-v2-p2-160",
+    "bnu-primary-ds-v2-p2-161",
+    "bnu-primary-ds-v2-p2-162",
+    "bnu-primary-ds-v2-p2-163",
+    "bnu-primary-ds-v2-p2-164"
+  ],
+  "usage": {
+    "prompt_tokens": 3066,
+    "completion_tokens": 1251,
+    "total_tokens": 4317,
+    "prompt_tokens_details": {
+      "cached_tokens": 2944
+    },
+    "prompt_cache_hit_tokens": 2944,
+    "prompt_cache_miss_tokens": 122
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p2-147",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案和解释无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-148",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，选项和答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-149",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案和解释无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-150",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案和解释无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-151",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方向推理正确，答案西无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-152",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "相对方向正确，答案西无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-153",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "路线计算正确，最终在东北方向。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-154",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方向推理正确，学校在家的东北方。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-155",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "早晨面向东，左边是北，正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-156",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "回家路线与上学相反，描述正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-157",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "相对方向正确，答案东无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-158",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "傍晚面向西，后面是东，正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-159",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方向推理正确，小狗在小猫东南方。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-160",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "相对方向正确，答案南无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-161",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "路线计算正确，超市在东南方向。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-162",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "东西抵消，最终在学校北面，正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-163",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "路线推理正确，先向北再向西。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-164",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方向变化正确，最终面向东。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版小学数学要求，数学正确，答案匹配，无歧义或缺失条件。"
+    }
+  }
+}

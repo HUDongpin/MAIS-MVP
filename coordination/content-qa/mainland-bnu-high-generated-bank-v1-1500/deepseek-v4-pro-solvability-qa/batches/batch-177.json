@@ -1,0 +1,133 @@
+{
+  "batchNumber": 177,
+  "startedAt": "2026-05-27T14:13:38.923Z",
+  "completedAt": "2026-05-27T14:13:56.216Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-409",
+    "bnu-high-ds-v1-s6-410",
+    "bnu-high-ds-v1-s6-411",
+    "bnu-high-ds-v1-s6-412",
+    "bnu-high-ds-v1-s6-413",
+    "bnu-high-ds-v1-s6-414",
+    "bnu-high-ds-v1-s6-415",
+    "bnu-high-ds-v1-s6-416"
+  ],
+  "usage": {
+    "prompt_tokens": 10577,
+    "completion_tokens": 1123,
+    "total_tokens": 11700,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10065
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-409",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(-∞, -1) 和 (3, +∞)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导后解不等式 f'(x)>0 得 x<-1 或 x>3，单调递增区间为 (-∞,-1) 和 (3,+∞)，与答案一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-410",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "y = 9x - 16",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导得斜率 9，点斜式得切线方程 y=9x-16，与答案及解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-411",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "4",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导得驻点 0 和 2，比较端点及驻点函数值得最大值为 a，由条件 a=4，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-412",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "[-1, 1]",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导解 f'(x)≤0 得 -1≤x≤1，单调递减区间为闭区间 [-1,1]，选项 D 正确，解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-413",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "最大值为 10，最小值为 -22",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导得驻点 -1 和 3，比较端点及驻点函数值得最大值 10，最小值 -22，与答案及解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-414",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导代入 x=1 得斜率 1，与答案及解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-415",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "-3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由极值点导数为零列方程组解得 a=-3，选项 A 正确，解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-416",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(-∞, 0) 和 (2, +∞)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导解 f'(x)>0 得 x<0 或 x>2，递增区间为 (-∞,0) 和 (2,+∞)，与答案及解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部 8 题均可独立求解，答案与解析均正确匹配，无任何问题。"
+    }
+  }
+}

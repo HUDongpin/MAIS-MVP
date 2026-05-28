@@ -1,0 +1,45 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-383",
+  "startedAt": "2026-05-28T02:44:15.786Z",
+  "completedAt": "2026-05-28T02:44:20.579Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-383"
+  ],
+  "usage": {
+    "prompt_tokens": 2074,
+    "completion_tokens": 245,
+    "total_tokens": 2319,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1690
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-383",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "8小时",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，答案8小时正确，与独立解一致。解析中区间描述有误（应为[2π+arcsin(1/4), 3π-arcsin(1/4)]等），但最终结果正确，不影响答案，故解释匹配为弱，无严重问题。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 1,
+      "warn": 0,
+      "fail": 0,
+      "notes": "题目可解，答案正确，解析有小瑕疵但不影响结果，整体通过。"
+    }
+  }
+}

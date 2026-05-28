@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-377",
+  "startedAt": "2026-05-28T01:53:49.672Z",
+  "completedAt": "2026-05-28T01:53:54.761Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-377"
+  ],
+  "usage": {
+    "prompt_tokens": 2080,
+    "completion_tokens": 338,
+    "total_tokens": 2418,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1696
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-377",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "a = 3, b = 3",
+        "correctedAnswer": "a = 3, b = 3",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 a=0, b=-3 错误。由 f(-1)=2 得 -1+a-b+1=2 → a-b=2；由 f'(-1)=0 得 3-2a+b=0。联立解得 a=3, b=3。解析中方程 a-b=2 与 3-2a+b=0 联立应得 a=3, b=3，但解析却给出 a=0, b=-3，自相矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目可解，但存储答案错误，解析自相矛盾，需修正为 a=3, b=3。"
+    }
+  }
+}

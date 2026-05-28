@@ -1,0 +1,168 @@
+{
+  "scope": "full",
+  "batchIndex": 62,
+  "startedAt": "2026-05-28T03:45:22.681Z",
+  "completedAt": "2026-05-28T03:46:03.151Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "itemIds": [
+    "1178",
+    "1179",
+    "1180",
+    "1181",
+    "1182",
+    "1187",
+    "1188",
+    "1189",
+    "1190",
+    "1191"
+  ],
+  "usage": {
+    "prompt_tokens": 2575,
+    "completion_tokens": 2409,
+    "total_tokens": 4984,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1602
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2191
+  },
+  "finishReason": "stop",
+  "jsonModeFallback": false,
+  "result": {
+    "items": [
+      {
+        "questionId": "1178",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "720",
+        "independentAnswer": "720",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "计算正确，答案匹配。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "1179",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "32",
+        "independentAnswer": "32",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "计算正确，答案匹配。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "1180",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "8",
+        "independentAnswer": "8",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "计算正确，答案匹配。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "1181",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "540",
+        "independentAnswer": "540",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "计算正确，答案匹配。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "1182",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "104",
+        "independentAnswer": "104",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "计算正确，答案匹配。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "1187",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "7-Apr",
+        "independentAnswer": "4/7",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "mismatch",
+        "severity": "P0",
+        "reason": "standardAnswer 为 '7-Apr'，正确结果为 4/7，答案键错误。",
+        "recommendedAction": "更正答案为 4/7。"
+      },
+      {
+        "questionId": "1188",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "3-Jan",
+        "independentAnswer": "1/3",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "mismatch",
+        "severity": "P0",
+        "reason": "standardAnswer 为 '3-Jan'，正确结果为 1/3，答案键错误。",
+        "recommendedAction": "更正答案为 1/3。"
+      },
+      {
+        "questionId": "1189",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "5 5/8 (or 45/8)",
+        "independentAnswer": "5 5/8",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "计算正确，答案匹配（以混合数或假分数形式均可）。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "1190",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "2 2/5 (or 12/5)",
+        "independentAnswer": "2 2/5",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "计算正确，答案匹配（以混合数或假分数形式均可）。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "1191",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "9-Apr",
+        "independentAnswer": "4/9",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "mismatch",
+        "severity": "P0",
+        "reason": "standardAnswer 为 '9-Apr'，正确结果为 4/9，答案键错误。",
+        "recommendedAction": "更正答案为 4/9。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "unsolvable": 0,
+      "ambiguous": 0,
+      "imageContextRequired": 0,
+      "answerMismatch": 3,
+      "missingAnswerKey": 0,
+      "notes": "3 items (1187,1188,1191) have incorrect answer keys (date strings instead of fractions). All items are text-only and solvable."
+    }
+  }
+}

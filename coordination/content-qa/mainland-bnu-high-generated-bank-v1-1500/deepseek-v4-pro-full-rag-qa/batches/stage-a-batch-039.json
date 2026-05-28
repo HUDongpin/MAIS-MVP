@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-039",
+  "startedAt": "2026-05-28T00:41:45.238Z",
+  "completedAt": "2026-05-28T00:42:05.509Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-305",
+    "bnu-high-ds-v1-s4-306",
+    "bnu-high-ds-v1-s4-307",
+    "bnu-high-ds-v1-s4-308",
+    "bnu-high-ds-v1-s4-309",
+    "bnu-high-ds-v1-s4-310",
+    "bnu-high-ds-v1-s4-311",
+    "bnu-high-ds-v1-s4-312"
+  ],
+  "usage": {
+    "prompt_tokens": 10278,
+    "completion_tokens": 1174,
+    "total_tokens": 11452,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9894
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-305",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "x = π/2, 7π/6, 11π/6",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "方程可因式分解为(2sin x+1)(sin x-1)=0，得sin x=1或sin x=-1/2。在[0,2π)内，sin x=1的解为x=π/2；sin x=-1/2的解为x=7π/6和11π/6。共三个解，符合区间要求。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-306",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "y = sin(2x + π/3)",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "横坐标变为原来的1/2得y=sin 2x；再向左平移π/6，注意平移是对x本身，故y=sin[2(x+π/6)]=sin(2x+π/3)。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-307",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "A",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "y=2 sin(π/3-2x)=-2 sin(2x-π/3)。求原函数的单调递减区间即求sin(2x-π/3)的递增区间。由-π/2+2kπ≤2x-π/3≤π/2+2kπ解得-π/12+kπ≤x≤5π/12+kπ，即选项A。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-308",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "9 cm",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "弧长公式l=|α|r，圆心角120°=2π/3弧度，代入6π=(2π/3)r，解得r=9 cm。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-309",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "5",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "正弦函数最大值为1，故y_max=3×1+2=5。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-310",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "B",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "y=cos 2x的最小正周期T=2π/2=π，且cos是偶函数，满足条件。A周期π但奇函数；C周期π/2且奇函数；D周期2π奇函数。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-311",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "[π/8 + 2kπ/3, 5π/8 + 2kπ/3], k∈Z",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f(x)=2 sin(3x-π/4)+1，求递增区间即解-π/2+2kπ≤3x-π/4≤π/2+2kπ，得-π/12+2kπ/3≤x≤π/4+2kπ/3，化简为[π/8+2kπ/3, 5π/8+2kπ/3]。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-312",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "7π/6",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "210°=210×π/180=7π/6。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均能独立求解，无数学错误、歧义或缺失条件，符合北师大版高中三角函数章节要求。"
+    }
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "batchId": "model-qa-0151",
+  "ids": [
+    "hjb-junior-ds-v2-s3-201",
+    "hjb-junior-ds-v2-s3-202",
+    "hjb-junior-ds-v2-s3-203",
+    "hjb-junior-ds-v2-s3-204",
+    "hjb-junior-ds-v2-s3-205",
+    "hjb-junior-ds-v2-s3-206",
+    "hjb-junior-ds-v2-s3-207",
+    "hjb-junior-ds-v2-s3-208"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-201",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(1) 顶点坐标(-3, 8)，对称轴为直线x = -3；(2) 平移后解析式为y = -2(x - 2)^2 + 6；(3) 最大值为6，最小值为-2。",
+      "answerCheckZhHans": "标准答案与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-202",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为0≤x≤5，但解析推导出5≤x≤10，且解析中解不等式x²-25x+50≤0得5≤x≤20，与边长非负0≤x≤10取交集得5≤x≤10，与答案矛盾。独立解题得x的取值范围为5≤x≤10，故答案错误。",
+      "independentAnswerZhHans": "5≤x≤10",
+      "answerCheckZhHans": "标准答案0≤x≤5与独立解题结果5≤x≤10不一致，且解析也支持5≤x≤10，答案错误。",
+      "recommendedActionZhHans": "修正答案为5≤x≤10，并更新acceptedAnswers。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-203",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "顶点坐标为(-3, 5)，对称轴为直线x = -3",
+      "answerCheckZhHans": "标准答案与独立解题结果一致，acceptedAnswers覆盖了多种合理表述。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-204",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案中x的取值范围为0 < x ≤ 12.5，但解析中由墙长限制得x ≥ 7.5，故定义域应为7.5 ≤ x < 20。独立解题得定义域为7.5 ≤ x < 20，最大面积在x=10时取得200 m²，但x=10在定义域内，答案中最大面积正确但定义域错误。",
+      "independentAnswerZhHans": "(1) S = -2x² + 40x，7.5 ≤ x < 20；(2) 当x = 10时，面积最大，最大面积为200 m²",
+      "answerCheckZhHans": "标准答案中定义域0 < x ≤ 12.5与解析矛盾，且解析中正确推导出7.5 ≤ x < 20，故答案错误。",
+      "recommendedActionZhHans": "修正答案为(1) S = -2x² + 40x，7.5 ≤ x < 20；(2) 当x = 10时，面积最大，最大面积为200 m²，并更新acceptedAnswers。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-205",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "顶点坐标为 (-3, 8)，开口向下",
+      "answerCheckZhHans": "标准答案与独立解题结果一致，选项B正确且唯一。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-206",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "顶点式：y = -2(x - 2)² + 3；顶点坐标：(2, 3)；对称轴：直线 x = 2",
+      "answerCheckZhHans": "标准答案与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-207",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(1) y = -2x² + 180x - 4000，40 < x < 50；(2) 售价45元，最大利润50元",
+      "answerCheckZhHans": "标准答案与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-208",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "a + b + c = 3",
+      "answerCheckZhHans": "标准答案与独立解题结果一致，选项A正确且唯一。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

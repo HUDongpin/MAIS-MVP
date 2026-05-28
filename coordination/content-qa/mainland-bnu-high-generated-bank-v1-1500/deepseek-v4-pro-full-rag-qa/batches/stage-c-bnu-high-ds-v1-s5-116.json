@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-116",
+  "startedAt": "2026-05-28T02:08:20.735Z",
+  "completedAt": "2026-05-28T02:08:25.032Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-116"
+  ],
+  "usage": {
+    "prompt_tokens": 2261,
+    "completion_tokens": 310,
+    "total_tokens": 2571,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1877
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-116",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "x-√5y+1=0或x+√5y+1=0",
+        "correctedAnswer": "x-√5y+1=0或x+√5y+1=0",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，独立求解得直线方程为x±√5y+1=0。存储答案y=x+1或y=-x-1错误，解析中弦长计算错误导致m=±1，与正确结果m=±√5不符，属于严重数学错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "该题答案和解析均存在数学错误，正确直线方程为x±√5y+1=0，需修正。"
+    }
+  }
+}

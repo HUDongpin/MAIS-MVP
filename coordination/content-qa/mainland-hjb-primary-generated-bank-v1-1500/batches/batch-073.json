@@ -1,0 +1,294 @@
+{
+  "batchId": "batch-073",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p2-111",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-classification",
+      "unitTitle": "分类与整理",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "classification",
+        "attribute-sorting",
+        "data-organization",
+        "simple-tables",
+        "分类"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "按标准分类",
+        "分类计数",
+        "整理信息",
+        "简单统计表",
+        "分类标准说明"
+      ],
+      "misconceptionTags": [
+        "classification rule changes midway",
+        "one item placed in multiple groups under a single rule",
+        "counts compared without category labels"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-classification"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-upper-assessment-final-integrated",
+        "hjb-primary-p2-upper-assessment-within-100-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "二（1）班同学最喜欢的水果调查结果如下：苹果有12人，香蕉有8人，草莓有15人，橘子有5人。请按照喜欢的人数从多到少排列这些水果，并写出排列顺序。",
+      "optionsZhHans": [],
+      "answer": "草莓、苹果、香蕉、橘子",
+      "acceptedAnswers": [
+        "草莓、苹果、香蕉、橘子",
+        "草莓，苹果，香蕉，橘子",
+        "草莓 苹果 香蕉 橘子"
+      ],
+      "explanationZhHans": "比较人数：草莓15人最多，苹果12人第二，香蕉8人第三，橘子5人最少。按从多到少排列为草莓、苹果、香蕉、橘子。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-112",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-classification",
+      "unitTitle": "分类与整理",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "classification",
+        "attribute-sorting",
+        "data-organization",
+        "simple-tables",
+        "分类"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "按标准分类",
+        "分类计数",
+        "整理信息",
+        "简单统计表",
+        "分类标准说明"
+      ],
+      "misconceptionTags": [
+        "classification rule changes midway",
+        "one item placed in multiple groups under a single rule",
+        "counts compared without category labels"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-classification"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-upper-assessment-final-integrated",
+        "hjb-primary-p2-upper-assessment-within-100-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "二（1）班同学在活动课上选择自己喜欢的球类运动，每人只选一种。老师把结果整理成下表：\n\n| 球类运动 | 人数 |\n|----------|------|\n| 篮球     | 8    |\n| 足球     | 12   |\n| 乒乓球   | 10   |\n| 羽毛球   | 6    |\n\n老师是按照什么标准来分类的？",
+      "optionsZhHans": [
+        "按球的大小分类",
+        "按球的颜色分类",
+        "按球类运动的种类分类",
+        "按喜欢的人数分类"
+      ],
+      "answer": "按球类运动的种类分类",
+      "acceptedAnswers": [
+        "按球类运动的种类分类"
+      ],
+      "explanationZhHans": "表格中列出了篮球、足球、乒乓球和羽毛球四种不同的球类运动，并统计了选择每种运动的人数，所以分类标准是球类运动的种类。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-113",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-classification",
+      "unitTitle": "分类与整理",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "classification",
+        "attribute-sorting",
+        "data-organization",
+        "simple-tables",
+        "分类"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "按标准分类",
+        "分类计数",
+        "整理信息",
+        "简单统计表",
+        "分类标准说明"
+      ],
+      "misconceptionTags": [
+        "classification rule changes midway",
+        "one item placed in multiple groups under a single rule",
+        "counts compared without category labels"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-classification"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-upper-assessment-final-integrated",
+        "hjb-primary-p2-upper-assessment-within-100-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "二（1）班同学最喜欢吃的水果情况如下：苹果有12人，香蕉有8人，草莓有15人，橘子有5人。\n\n（1）按照水果的种类分一分，数一数，填在下面的表格中。\n\n水果种类 | 苹果 | 香蕉 | 草莓 | 橘子\n人数     |      |      |      |\n\n（2）最喜欢吃（　　）的人数最多，最喜欢吃（　　）的人数最少。\n（3）最喜欢吃草莓的比最喜欢吃香蕉的多（　　）人。",
+      "optionsZhHans": [],
+      "answer": "（1）12, 8, 15, 5；（2）草莓, 橘子；（3）7",
+      "acceptedAnswers": [
+        "（1）12, 8, 15, 5；（2）草莓, 橘子；（3）7",
+        "（1）12，8，15，5；（2）草莓，橘子；（3）7",
+        "（1）12 8 15 5 （2）草莓 橘子 （3）7"
+      ],
+      "explanationZhHans": "（1）按水果种类分类，直接填入对应人数：苹果12、香蕉8、草莓15、橘子5。（2）15最大，5最小，所以草莓最多，橘子最少。（3）15-8=7，多7人。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-114",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-classification",
+      "unitTitle": "分类与整理",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "classification",
+        "attribute-sorting",
+        "data-organization",
+        "simple-tables",
+        "分类"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "按标准分类",
+        "分类计数",
+        "整理信息",
+        "简单统计表",
+        "分类标准说明"
+      ],
+      "misconceptionTags": [
+        "classification rule changes midway",
+        "one item placed in multiple groups under a single rule",
+        "counts compared without category labels"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-classification"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-upper-assessment-final-integrated",
+        "hjb-primary-p2-upper-assessment-within-100-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是二（1）班同学最喜欢的运动项目调查结果：\n跳绳：正正正\n踢毽子：正正\n拍皮球：正\n跑步：正正\n\n（1）请根据调查结果完成下面的统计表。\n\n| 运动项目 | 人数 |\n|----------|------|\n| 跳绳     |      |\n| 踢毽子   |      |\n| 拍皮球   |      |\n| 跑步     |      |\n\n（2）最喜欢（    ）的人数最多，最喜欢（    ）的人数最少。\n（3）这个班一共有（    ）人参加了这次调查。",
+      "optionsZhHans": [],
+      "answer": "（1）跳绳：15；踢毽子：10；拍皮球：5；跑步：10\n（2）跳绳；拍皮球\n（3）40",
+      "acceptedAnswers": [
+        "（1）跳绳：15；踢毽子：10；拍皮球：5；跑步：10\n（2）跳绳；拍皮球\n（3）40"
+      ],
+      "explanationZhHans": "每个“正”字代表5人。跳绳3个正字共15人，踢毽子2个正字共10人，拍皮球1个正字共5人，跑步2个正字共10人。比较人数，跳绳最多，拍皮球最少。总人数为15+10+5+10=40人。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-115",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-classification",
+      "unitTitle": "分类与整理",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "classification",
+        "attribute-sorting",
+        "data-organization",
+        "simple-tables",
+        "分类"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "按标准分类",
+        "分类计数",
+        "整理信息",
+        "简单统计表",
+        "分类标准说明"
+      ],
+      "misconceptionTags": [
+        "classification rule changes midway",
+        "one item placed in multiple groups under a single rule",
+        "counts compared without category labels"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-classification"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-upper-assessment-final-integrated",
+        "hjb-primary-p2-upper-assessment-within-100-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "二（1）班同学在整理图书角时，把图书分成了三类：故事书、科普书和漫画书。他们数了数，故事书有15本，科普书有8本，漫画书有12本。请问他们是用什么标准进行分类的？",
+      "optionsZhHans": [
+        "按书的大小分类",
+        "按书的颜色分类",
+        "按书的内容分类",
+        "按书的价格分类"
+      ],
+      "answer": "按书的内容分类",
+      "acceptedAnswers": [
+        "按书的内容分类"
+      ],
+      "explanationZhHans": "故事书、科普书和漫画书是根据书的内容不同来区分的，所以分类标准是“书的内容”。"
+    }
+  ]
+}

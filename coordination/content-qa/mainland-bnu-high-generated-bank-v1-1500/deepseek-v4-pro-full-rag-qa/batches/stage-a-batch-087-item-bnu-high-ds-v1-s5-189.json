@@ -1,0 +1,44 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-087-item-bnu-high-ds-v1-s5-189",
+  "startedAt": "2026-05-28T02:47:31.681Z",
+  "completedAt": "2026-05-28T02:47:36.669Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-189"
+  ],
+  "usage": {
+    "prompt_tokens": 1694,
+    "completion_tokens": 232,
+    "total_tokens": 1926,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1310
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-189",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "independentAnswer": null,
+        "issueTags": [
+          "unsolvable",
+          "missing_condition"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "点B在平面ABC上，因此点B到平面ABC的距离为0。题目要求计算距离，但结果恒为0，与法向量n的求解无关，且n的附加条件（坐标均为正数、模为√3）无法唯一确定，导致题目无实际计算意义。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目要求计算点B到平面ABC的距离，但点B在平面上，距离恒为0，与法向量条件无关，无法构成有效计算题。"
+    }
+  }
+}

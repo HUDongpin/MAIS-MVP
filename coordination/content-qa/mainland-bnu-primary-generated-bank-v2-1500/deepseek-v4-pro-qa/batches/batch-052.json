@@ -1,0 +1,191 @@
+{
+  "batchNumber": 52,
+  "startedAt": "2026-05-27T13:55:43.764Z",
+  "completedAt": "2026-05-27T13:56:01.822Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p4-169",
+    "bnu-primary-ds-v2-p4-170",
+    "bnu-primary-ds-v2-p4-171",
+    "bnu-primary-ds-v2-p4-172",
+    "bnu-primary-ds-v2-p4-173",
+    "bnu-primary-ds-v2-p4-174",
+    "bnu-primary-ds-v2-p4-175",
+    "bnu-primary-ds-v2-p4-176",
+    "bnu-primary-ds-v2-p4-177",
+    "bnu-primary-ds-v2-p4-178",
+    "bnu-primary-ds-v2-p4-179",
+    "bnu-primary-ds-v2-p4-180",
+    "bnu-primary-ds-v2-p4-181",
+    "bnu-primary-ds-v2-p4-182",
+    "bnu-primary-ds-v2-p4-183",
+    "bnu-primary-ds-v2-p4-184",
+    "bnu-primary-ds-v2-p4-185",
+    "bnu-primary-ds-v2-p4-186"
+  ],
+  "usage": {
+    "prompt_tokens": 3633,
+    "completion_tokens": 1310,
+    "total_tokens": 4943,
+    "prompt_tokens_details": {
+      "cached_tokens": 3584
+    },
+    "prompt_cache_hit_tokens": 3584,
+    "prompt_cache_miss_tokens": 49
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p4-169",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，符合四年级认识四边形的要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-170",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目明确，答案正确，符合正方形特征。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-171",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "按边分类正确，理由充分，符合要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-172",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项明确，等腰三角形是轴对称图形，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-173",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "梯形定义准确，答案“梯”或“梯形”均可接受。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-174",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "画图题，答案明确为直角三角形，无问题。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-175",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "按角分类正确，最大角80°为锐角，选项无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-176",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "小数乘法计算正确，答案4.2无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-177",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "竖式计算要求合理，答案21元正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-178",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算比较正确，0.56最小，答案无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-179",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "积的变化规律应用正确，答案3.6无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-180",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "面积计算正确，答案26平方米无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-181",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，找回1元，选项表述清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-182",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估算与精确计算均正确，答案覆盖多种合理估算。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-183",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "小数乘法计算正确，选项7.6元无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-184",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "面积计算正确，答案0.96平方米无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-185",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估算方法合理，选项D最接近且简便，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-186",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估算与精确计算均正确，找回5元无误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版小学数学要求，数学正确，答案匹配，无歧义或缺失条件。"
+    }
+  }
+}

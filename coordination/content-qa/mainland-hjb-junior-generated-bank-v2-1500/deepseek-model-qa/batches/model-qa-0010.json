@@ -1,0 +1,73 @@
+{
+  "batchId": "model-qa-0010",
+  "ids": [
+    "hjb-junior-ds-v2-s1-484",
+    "hjb-junior-ds-v2-s1-487",
+    "hjb-junior-ds-v2-s1-492",
+    "hjb-junior-ds-v2-s1-495",
+    "hjb-junior-ds-v2-s1-499"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-484",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "multiple-correct-options",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "选项C（BD = AD）和选项D（AB = BD）均能判定△ABD是等腰三角形。解析中仅认为BD=AD正确，但若AB=BD，则△ABD中AB=BD，也是等腰三角形。因此存在多个正确选项，且解析与答案不一致。",
+      "independentAnswerZhHans": "选项C和D均正确。",
+      "answerCheckZhHans": "给定答案仅为BD=AD，但AB=BD也满足等腰三角形定义。",
+      "recommendedActionZhHans": "修改题干或选项，确保唯一正确选项。例如，可增加限制条件或调整选项。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-487",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析错误地认为AD⊥BC。等腰三角形中，AD平分∠BAC，但D点仅在BC上，未说明D是BC中点，因此AD不一定是高。正确解法：由AB=AC得∠C=∠B=70°，∠BAC=40°。AD平分∠BAC，故∠BAD=20°。在△ABD中，∠ADC=∠B+∠BAD=70°+20°=90°。虽然结果仍是90°，但解析理由错误。",
+      "independentAnswerZhHans": "90°",
+      "answerCheckZhHans": "答案90°正确，但解析错误。",
+      "recommendedActionZhHans": "修正解析，说明利用外角性质或三角形内角和求解，而非直接使用三线合一。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-492",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "65°",
+      "answerCheckZhHans": "答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-495",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "36°",
+      "answerCheckZhHans": "答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-499",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "25°",
+      "answerCheckZhHans": "答案正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

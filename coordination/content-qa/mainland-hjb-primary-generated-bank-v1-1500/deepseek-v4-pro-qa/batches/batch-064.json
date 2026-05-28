@@ -1,0 +1,191 @@
+{
+  "batchNumber": 64,
+  "startedAt": "2026-05-25T02:20:46.521Z",
+  "completedAt": "2026-05-25T02:21:06.691Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p5-135",
+    "hjb-primary-ds-v1-p5-136",
+    "hjb-primary-ds-v1-p5-137",
+    "hjb-primary-ds-v1-p5-138",
+    "hjb-primary-ds-v1-p5-139",
+    "hjb-primary-ds-v1-p5-140",
+    "hjb-primary-ds-v1-p5-141",
+    "hjb-primary-ds-v1-p5-142",
+    "hjb-primary-ds-v1-p5-143",
+    "hjb-primary-ds-v1-p5-144",
+    "hjb-primary-ds-v1-p5-145",
+    "hjb-primary-ds-v1-p5-146",
+    "hjb-primary-ds-v1-p5-147",
+    "hjb-primary-ds-v1-p5-148",
+    "hjb-primary-ds-v1-p5-149",
+    "hjb-primary-ds-v1-p5-150",
+    "hjb-primary-ds-v1-p5-151",
+    "hjb-primary-ds-v1-p5-152"
+  ],
+  "usage": {
+    "prompt_tokens": 3772,
+    "completion_tokens": 1297,
+    "total_tokens": 5069,
+    "prompt_tokens_details": {
+      "cached_tokens": 3712
+    },
+    "prompt_cache_hit_tokens": 3712,
+    "prompt_cache_miss_tokens": 60
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p5-135",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，符合五年级因数倍数知识点。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-136",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项唯一正确，解析无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-137",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "质数组合正确，最大两位数73无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-138",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "最大公因数计算正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-139",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "27是合数，其他为质数，选项无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-140",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "利用两数积等于最大公因数乘最小公倍数，计算正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-141",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "求最大公因数，答案12正确，接受答案合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-142",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项12个正确，解析清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-143",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "最大公因数12厘米，总段数9段，答案和接受答案均正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-144",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "与141题类似，答案12正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-145",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项12人正确，解析无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-146",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "甲数18，乙数24，最大公因数6正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-147",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "求最大公因数，答案12正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-148",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "21是42的因数且是7的倍数，选项唯一正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-149",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案15,30,60正确，接受答案覆盖多种分隔符。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-150",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "最小公倍数24正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-151",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "5不是24的因数，选项正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-152",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "所有可能长宽组合的最大公因数正确，接受答案合理。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合沪教版五年级因数倍数知识点，答案正确，解析清晰，无歧义或错误。"
+    }
+  }
+}

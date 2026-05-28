@@ -1,0 +1,133 @@
+{
+  "batchNumber": 66,
+  "startedAt": "2026-05-27T13:54:50.803Z",
+  "completedAt": "2026-05-27T13:55:10.173Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-021",
+    "bnu-high-ds-v1-s5-022",
+    "bnu-high-ds-v1-s5-023",
+    "bnu-high-ds-v1-s5-024",
+    "bnu-high-ds-v1-s5-025",
+    "bnu-high-ds-v1-s5-026",
+    "bnu-high-ds-v1-s5-027",
+    "bnu-high-ds-v1-s5-028"
+  ],
+  "usage": {
+    "prompt_tokens": 11086,
+    "completion_tokens": 1193,
+    "total_tokens": 12279,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10574
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-021",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "x + 2y = 0",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件充分，可独立求解。直线2x-y+3=0斜率为2，垂直直线斜率-1/2，点斜式得x+2y=0，与答案一致。解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-022",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0或4/3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件充分，可解。圆心(2,3)，半径2，弦长2√3得弦心距1，解方程得k=0或4/3，选项A正确。解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-023",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "3x + y - 5 = 0",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "两点确定直线，斜率-3，点斜式得3x+y-5=0，答案正确。解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-024",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "x - 2y - 3 = 0 或 2x + y - 11 = 0",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "圆方程配方得圆心(2,-3)半径5，设直线点斜式，由面积4得弦心距√5或2√5，解出k=1/2或-2，对应两直线方程，答案正确。解析过程无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-025",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "-2或3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "两直线平行条件为系数比相等且常数比不等，得a(a-1)=6，解出a=-2或3，均满足不等关系。选项C正确。解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-026",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(x - 3)² + (y - 3)² = 10",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "设圆心(a,a)，由|CA|=|CB|得a=3，半径平方10，标准方程正确。解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-027",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "1/5",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "直接代入距离公式得1/5，答案正确。解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-028",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "[2, 2√2)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "曲线为上半圆，直线与上半圆有两个交点需满足圆心到直线距离小于半径且直线在(2,0)上方，得2≤b<2√2，选项A正确。解析正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，答案与解析均正确匹配，无任何问题。"
+    }
+  }
+}

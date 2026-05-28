@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-378",
+  "startedAt": "2026-05-28T02:43:59.018Z",
+  "completedAt": "2026-05-28T02:44:04.976Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-378"
+  ],
+  "usage": {
+    "prompt_tokens": 2329,
+    "completion_tokens": 292,
+    "total_tokens": 2621,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1945
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-378",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "21.2",
+        "correctedAnswer": "21.2",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合建模活动章节。Stage A独立解正确：设塔高h，AD=h·cot45°=h，BD=h·cot30°=√3 h，在△ABD中用余弦定理得h=30/√2≈21.2米。存储答案15.0错误，解析中余弦定理方程错误且结果自相矛盾，与正确解不符。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1题答案错误，解析矛盾，需修正为21.2米。"
+    }
+  }
+}

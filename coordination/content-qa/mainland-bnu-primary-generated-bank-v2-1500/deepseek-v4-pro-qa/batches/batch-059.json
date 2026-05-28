@@ -1,0 +1,191 @@
+{
+  "batchNumber": 59,
+  "startedAt": "2026-05-27T13:57:45.817Z",
+  "completedAt": "2026-05-27T13:58:03.529Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p5-045",
+    "bnu-primary-ds-v2-p5-046",
+    "bnu-primary-ds-v2-p5-047",
+    "bnu-primary-ds-v2-p5-048",
+    "bnu-primary-ds-v2-p5-049",
+    "bnu-primary-ds-v2-p5-050",
+    "bnu-primary-ds-v2-p5-051",
+    "bnu-primary-ds-v2-p5-052",
+    "bnu-primary-ds-v2-p5-053",
+    "bnu-primary-ds-v2-p5-054",
+    "bnu-primary-ds-v2-p5-055",
+    "bnu-primary-ds-v2-p5-056",
+    "bnu-primary-ds-v2-p5-057",
+    "bnu-primary-ds-v2-p5-058",
+    "bnu-primary-ds-v2-p5-059",
+    "bnu-primary-ds-v2-p5-060",
+    "bnu-primary-ds-v2-p5-061",
+    "bnu-primary-ds-v2-p5-062"
+  ],
+  "usage": {
+    "prompt_tokens": 3145,
+    "completion_tokens": 1280,
+    "total_tokens": 4425,
+    "prompt_tokens_details": {
+      "cached_tokens": 3072
+    },
+    "prompt_cache_hit_tokens": 3072,
+    "prompt_cache_miss_tokens": 73
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p5-045",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，符合五年级倍数与因数内容。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-046",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "面积计算正确，干扰项合理，选项无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-047",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "三角形底的计算正确，符合挑战难度。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-048",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "梯形面积计算正确，要求写出过程，符合考试题型。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-049",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "等底等高关系正确，选项设置合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-050",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平行四边形高计算正确，基础题无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-051",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "高与底的对应关系分析正确，答案合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-052",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "等底等高三角形面积是平行四边形一半，正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-053",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平行四边形面积计算正确，填空答案无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-054",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "梯形面积计算正确，过程完整。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-055",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "拼组图形面积计算正确，选项无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-056",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "三角形高计算正确，符合考试难度。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-057",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平行四边形高计算正确，过程清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-058",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "三角形面积计算正确，选项区分度好。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-059",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "梯形下底计算正确，挑战题无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-060",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "面积与产量计算正确，应用题合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-061",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分数意义理解正确，选项区分了整体与部分。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-062",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分数表示正确，基础题无误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均通过审核，数学正确，答案匹配，无歧义或缺失条件，适合北师大版五年级上册。"
+    }
+  }
+}

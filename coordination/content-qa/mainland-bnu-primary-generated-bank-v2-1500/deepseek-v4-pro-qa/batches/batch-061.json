@@ -1,0 +1,191 @@
+{
+  "batchNumber": 61,
+  "startedAt": "2026-05-27T13:58:22.839Z",
+  "completedAt": "2026-05-27T13:58:39.925Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p5-081",
+    "bnu-primary-ds-v2-p5-082",
+    "bnu-primary-ds-v2-p5-083",
+    "bnu-primary-ds-v2-p5-084",
+    "bnu-primary-ds-v2-p5-085",
+    "bnu-primary-ds-v2-p5-086",
+    "bnu-primary-ds-v2-p5-087",
+    "bnu-primary-ds-v2-p5-088",
+    "bnu-primary-ds-v2-p5-089",
+    "bnu-primary-ds-v2-p5-090",
+    "bnu-primary-ds-v2-p5-091",
+    "bnu-primary-ds-v2-p5-092",
+    "bnu-primary-ds-v2-p5-093",
+    "bnu-primary-ds-v2-p5-094",
+    "bnu-primary-ds-v2-p5-095",
+    "bnu-primary-ds-v2-p5-096",
+    "bnu-primary-ds-v2-p5-097",
+    "bnu-primary-ds-v2-p5-098"
+  ],
+  "usage": {
+    "prompt_tokens": 3527,
+    "completion_tokens": 1278,
+    "total_tokens": 4805,
+    "prompt_tokens_details": {
+      "cached_tokens": 3456
+    },
+    "prompt_cache_hit_tokens": 3456,
+    "prompt_cache_miss_tokens": 71
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p5-081",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案匹配，表述清晰，适合五年级组合图形面积。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-082",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，选项唯一，答案匹配，适合基础题。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-083",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案匹配，填空形式合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-084",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案匹配，表述清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-085",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，选项唯一，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-086",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案匹配，填空形式合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-087",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案匹配，小数结果合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-088",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，选项唯一，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-089",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案匹配，填空形式合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-090",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案匹配，表述清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-091",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "可能性判断正确，选项唯一，适合基础题。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-092",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分数答案正确，填空形式合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-093",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "公平性判断正确，理由充分，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-094",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "可能性相等判断正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-095",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分数答案正确，接受约分形式，合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-096",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "可能性最小判断正确，理由充分，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-097",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "可能性最小判断正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-098",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分数答案正确，接受约分形式，合理。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部18道题均通过审核，数学正确，答案匹配，表述清晰，适合北师大版五年级相应单元。"
+    }
+  }
+}

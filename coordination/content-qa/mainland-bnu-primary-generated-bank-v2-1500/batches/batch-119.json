@@ -1,0 +1,580 @@
+{
+  "batchId": "batch-119",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p5-181",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-fraction-division",
+      "unitTitle": "分数除法",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-division",
+        "reciprocal",
+        "measurement-division",
+        "partitive-division",
+        "分数除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "倒数",
+        "分数除以整数",
+        "整数除以分数",
+        "分数除以分数",
+        "方程联系"
+      ],
+      "misconceptionTags": [
+        "reciprocal applied to the wrong factor",
+        "division context ignored in word problems",
+        "quotient size judged from whole-number rules only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-fraction-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-fraction-division-unit",
+        "bnu-primary-p5-lower-assessment-fraction-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把一根长 3/4 米的绳子平均分成 3 段，每段长多少米？正确的列式是（ ）。",
+      "optionsZhHans": [
+        "3/4 ÷ 3",
+        "3 ÷ 3/4",
+        "3/4 × 3",
+        "3/4 ÷ 1/3"
+      ],
+      "answer": "3/4 ÷ 3",
+      "acceptedAnswers": [
+        "3/4 ÷ 3"
+      ],
+      "explanationZhHans": "把 3/4 米平均分成 3 份，求每份是多少，用除法：3/4 ÷ 3 = 1/4 米。选项 B 是 3 除以 3/4，意义不同；C 是乘法；D 是除以 1/3，相当于乘 3，都不符合平均分。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-182",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-fraction-division",
+      "unitTitle": "分数除法",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-division",
+        "reciprocal",
+        "measurement-division",
+        "partitive-division",
+        "分数除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "倒数",
+        "分数除以整数",
+        "整数除以分数",
+        "分数除以分数",
+        "方程联系"
+      ],
+      "misconceptionTags": [
+        "reciprocal applied to the wrong factor",
+        "division context ignored in word problems",
+        "quotient size judged from whole-number rules only"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-fraction-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-fraction-division-unit",
+        "bnu-primary-p5-lower-assessment-fraction-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "4/5 的倒数是（ ）。",
+      "optionsZhHans": [],
+      "answer": "5/4",
+      "acceptedAnswers": [
+        "5/4"
+      ],
+      "explanationZhHans": "求一个分数的倒数，交换分子和分母的位置。4/5 的分子是 4，分母是 5，交换后得到 5/4。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-183",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-fraction-division",
+      "unitTitle": "分数除法",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-division",
+        "reciprocal",
+        "measurement-division",
+        "partitive-division",
+        "分数除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "倒数",
+        "分数除以整数",
+        "整数除以分数",
+        "分数除以分数",
+        "方程联系"
+      ],
+      "misconceptionTags": [
+        "reciprocal applied to the wrong factor",
+        "division context ignored in word problems",
+        "quotient size judged from whole-number rules only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-fraction-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-fraction-division-unit",
+        "bnu-primary-p5-lower-assessment-fraction-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一辆汽车行驶 3/2 千米用了 3/10 升汽油，照这样计算，1 升汽油可以行驶多少千米？正确的算式是（ ）。",
+      "optionsZhHans": [
+        "3/2 ÷ 3/10",
+        "3/10 ÷ 3/2",
+        "3/2 × 3/10",
+        "3/2 + 3/10"
+      ],
+      "answer": "3/2 ÷ 3/10",
+      "acceptedAnswers": [
+        "3/2 ÷ 3/10"
+      ],
+      "explanationZhHans": "求 1 升汽油行驶的千米数，用行驶路程除以耗油量：3/2 ÷ 3/10 = 3/2 × 10/3 = 5 千米。选项 B 是耗油量除以路程，意义相反；C 是乘法；D 是加法，都不正确。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-184",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-fraction-division",
+      "unitTitle": "分数除法",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-division",
+        "reciprocal",
+        "measurement-division",
+        "partitive-division",
+        "分数除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "倒数",
+        "分数除以整数",
+        "整数除以分数",
+        "分数除以分数",
+        "方程联系"
+      ],
+      "misconceptionTags": [
+        "reciprocal applied to the wrong factor",
+        "division context ignored in word problems",
+        "quotient size judged from whole-number rules only"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-fraction-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-fraction-division-unit",
+        "bnu-primary-p5-lower-assessment-fraction-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算：2/3 ÷ 4 =（ ）。（填最简分数）",
+      "optionsZhHans": [],
+      "answer": "1/6",
+      "acceptedAnswers": [
+        "1/6"
+      ],
+      "explanationZhHans": "分数除以整数，等于分数乘整数的倒数。2/3 ÷ 4 = 2/3 × 1/4 = 2/12 = 1/6。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-185",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-fraction-division",
+      "unitTitle": "分数除法",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-division",
+        "reciprocal",
+        "measurement-division",
+        "partitive-division",
+        "分数除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "倒数",
+        "分数除以整数",
+        "整数除以分数",
+        "分数除以分数",
+        "方程联系"
+      ],
+      "misconceptionTags": [
+        "reciprocal applied to the wrong factor",
+        "division context ignored in word problems",
+        "quotient size judged from whole-number rules only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-fraction-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-fraction-division-unit",
+        "bnu-primary-p5-lower-assessment-fraction-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面算式中，结果大于 1 的是（ ）。",
+      "optionsZhHans": [
+        "3/4 ÷ 2",
+        "5/6 ÷ 3/2",
+        "7/8 ÷ 1/2",
+        "4/9 ÷ 4/5"
+      ],
+      "answer": "7/8 ÷ 1/2",
+      "acceptedAnswers": [
+        "7/8 ÷ 1/2"
+      ],
+      "explanationZhHans": "A：3/4 ÷ 2 = 3/8 < 1；B：5/6 ÷ 3/2 = 5/6 × 2/3 = 10/18 = 5/9 < 1；C：7/8 ÷ 1/2 = 7/8 × 2 = 7/4 = 1.75 > 1；D：4/9 ÷ 4/5 = 4/9 × 5/4 = 5/9 < 1。只有 C 大于 1。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-186",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-fraction-division",
+      "unitTitle": "分数除法",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-division",
+        "reciprocal",
+        "measurement-division",
+        "partitive-division",
+        "分数除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "倒数",
+        "分数除以整数",
+        "整数除以分数",
+        "分数除以分数",
+        "方程联系"
+      ],
+      "misconceptionTags": [
+        "reciprocal applied to the wrong factor",
+        "division context ignored in word problems",
+        "quotient size judged from whole-number rules only"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-fraction-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-fraction-division-unit",
+        "bnu-primary-p5-lower-assessment-fraction-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个数的 3/5 是 12，这个数是（ ）。",
+      "optionsZhHans": [],
+      "answer": "20",
+      "acceptedAnswers": [
+        "20"
+      ],
+      "explanationZhHans": "已知一个数的几分之几是多少，求这个数用除法。12 ÷ 3/5 = 12 × 5/3 = 20。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-187",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-fraction-division",
+      "unitTitle": "分数除法",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-division",
+        "reciprocal",
+        "measurement-division",
+        "partitive-division",
+        "分数除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "倒数",
+        "分数除以整数",
+        "整数除以分数",
+        "分数除以分数",
+        "方程联系"
+      ],
+      "misconceptionTags": [
+        "reciprocal applied to the wrong factor",
+        "division context ignored in word problems",
+        "quotient size judged from whole-number rules only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-fraction-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-fraction-division-unit",
+        "bnu-primary-p5-lower-assessment-fraction-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明 2/3 小时走了 2 千米，照这样计算，他走 1 千米需要多少小时？正确的算式是（ ）。",
+      "optionsZhHans": [
+        "2/3 ÷ 2",
+        "2 ÷ 2/3",
+        "2/3 × 2",
+        "2/3 + 2"
+      ],
+      "answer": "2/3 ÷ 2",
+      "acceptedAnswers": [
+        "2/3 ÷ 2"
+      ],
+      "explanationZhHans": "求走 1 千米需要的时间，用时间除以路程：2/3 ÷ 2 = 1/3 小时。选项 B 是路程除以时间，求的是速度；C 是乘法；D 是加法，都不符合。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-188",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-fraction-division",
+      "unitTitle": "分数除法",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-division",
+        "reciprocal",
+        "measurement-division",
+        "partitive-division",
+        "分数除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "倒数",
+        "分数除以整数",
+        "整数除以分数",
+        "分数除以分数",
+        "方程联系"
+      ],
+      "misconceptionTags": [
+        "reciprocal applied to the wrong factor",
+        "division context ignored in word problems",
+        "quotient size judged from whole-number rules only"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-fraction-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-fraction-division-unit",
+        "bnu-primary-p5-lower-assessment-fraction-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在〇里填上“>”“<”或“=”。 5/6 ÷ 3/4 〇 5/6",
+      "optionsZhHans": [],
+      "answer": ">",
+      "acceptedAnswers": [
+        ">"
+      ],
+      "explanationZhHans": "一个数（0 除外）除以小于 1 的数，商大于原数。因为 3/4 < 1，所以 5/6 ÷ 3/4 > 5/6。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-189",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-fraction-division",
+      "unitTitle": "分数除法",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-division",
+        "reciprocal",
+        "measurement-division",
+        "partitive-division",
+        "分数除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "倒数",
+        "分数除以整数",
+        "整数除以分数",
+        "分数除以分数",
+        "方程联系"
+      ],
+      "misconceptionTags": [
+        "reciprocal applied to the wrong factor",
+        "division context ignored in word problems",
+        "quotient size judged from whole-number rules only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-fraction-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-fraction-division-unit",
+        "bnu-primary-p5-lower-assessment-fraction-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一根木料长 4/5 米，如果锯成每段长 2/15 米的小段，可以锯成多少段？正确的算式是（ ）。",
+      "optionsZhHans": [
+        "4/5 ÷ 2/15",
+        "2/15 ÷ 4/5",
+        "4/5 × 2/15",
+        "4/5 - 2/15"
+      ],
+      "answer": "4/5 ÷ 2/15",
+      "acceptedAnswers": [
+        "4/5 ÷ 2/15"
+      ],
+      "explanationZhHans": "求总长里面包含多少个每段长，用除法：4/5 ÷ 2/15 = 4/5 × 15/2 = 6 段。选项 B 是每段长除以总长，意义不同；C 是乘法；D 是减法，都不正确。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-190",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-fraction-division",
+      "unitTitle": "分数除法",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-division",
+        "reciprocal",
+        "measurement-division",
+        "partitive-division",
+        "分数除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "倒数",
+        "分数除以整数",
+        "整数除以分数",
+        "分数除以分数",
+        "方程联系"
+      ],
+      "misconceptionTags": [
+        "reciprocal applied to the wrong factor",
+        "division context ignored in word problems",
+        "quotient size judged from whole-number rules only"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-fraction-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-fraction-division-unit",
+        "bnu-primary-p5-lower-assessment-fraction-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "解方程：2/7 x = 4/21，x =（ ）。",
+      "optionsZhHans": [],
+      "answer": "2/3",
+      "acceptedAnswers": [
+        "2/3"
+      ],
+      "explanationZhHans": "根据等式的性质，两边同时除以 2/7，即 x = 4/21 ÷ 2/7 = 4/21 × 7/2 = 28/42 = 2/3。"
+    }
+  ]
+}

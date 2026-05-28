@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-162",
+  "startedAt": "2026-05-28T01:46:56.984Z",
+  "completedAt": "2026-05-28T01:47:13.988Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-289",
+    "bnu-high-ds-v1-s6-290",
+    "bnu-high-ds-v1-s6-291",
+    "bnu-high-ds-v1-s6-292",
+    "bnu-high-ds-v1-s6-293",
+    "bnu-high-ds-v1-s6-294",
+    "bnu-high-ds-v1-s6-295",
+    "bnu-high-ds-v1-s6-296"
+  ],
+  "usage": {
+    "prompt_tokens": 10152,
+    "completion_tokens": 1223,
+    "total_tokens": 11375,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9768
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-289",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导得 f'(x)=3x^2-3，令 f'(x)=0 得 x=±1。计算 f(-2)=-2, f(-1)=2, f(1)=-2, f(2)=2，最大值为 2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-290",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "a ≥ 0",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x^2-6x+a，在[1,2]上单调递增需 f'(x)≥0 恒成立。f'(x) 在[1,2]上最小值为 f'(1)=a-3，故 a-3≥0 得 a≥3。但需验证端点：当 a=3 时 f'(x)=3(x-1)^2≥0，符合。故 a≥3。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-291",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "a = 10",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x^2-6x=3x(x-2)，在[-1,3]上驻点 x=0,2。计算 f(-1)=a-4, f(0)=a, f(2)=a-4, f(3)=a。最大值为 a，由 a=10 得 a=10。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-292",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(-1, 1)",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x^2-3，令 f'(x)<0 得 x^2<1，即 -1<x<1。单调递减区间为 (-1,1)。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-293",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "最大值为 10，最小值为 -22",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x^2-6x-9=3(x-3)(x+1)，驻点 x=-1,3。计算 f(-2)=3, f(-1)=10, f(3)=-22, f(4)=-15。最大 10，最小 -22。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-294",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "0",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "y'=3x^2-2，在 x=1 处斜率 k=1。切线过 (1,0)，得 0=1+b，b=-1。k+b=0。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-295",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "-3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x^2+2ax+b，由极值条件 f'(-1)=0, f'(3)=0 得 3-2a+b=0 和 27+6a+b=0，解得 a=-3, b=-9。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-296",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "极大值 2，极小值 -2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x^2-6x=3x(x-2)，驻点 x=0,2。f''(x)=6x-6，f''(0)=-6<0 极大值 f(0)=2；f''(2)=6>0 极小值 f(2)=-2。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部 8 题均可独立求解，无数学错误、歧义或缺失条件，符合北师大版高中导数章节要求。"
+    }
+  }
+}

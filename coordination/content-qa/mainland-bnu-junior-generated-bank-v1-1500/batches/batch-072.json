@@ -1,0 +1,670 @@
+{
+  "batchId": "batch-072",
+  "questions": [
+    {
+      "id": "bnu-junior-ds-v1-s2-211",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-data-analysis",
+      "unitTitle": "数据的分析",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "data-analysis",
+        "mean",
+        "median",
+        "variance",
+        "box-plot",
+        "data-decision",
+        "平均数",
+        "方差",
+        "中位数",
+        "箱线图"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均数",
+        "方差",
+        "中位数",
+        "箱线图",
+        "数据比较",
+        "决策解释"
+      ],
+      "misconceptionTags": [
+        "mean used without checking spread",
+        "median position counted incorrectly",
+        "box-plot features treated as raw data values"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-data-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-data-analysis-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校八年级（1）班10名同学参加一分钟跳绳比赛，成绩（单位：次）如下：\n145，148，150，152，155，155，158，160，162，165。\n教练想选一名成绩稳定的同学代表班级参加校级比赛，下列统计量中最适合用来判断稳定性的是",
+      "optionsZhHans": [
+        "平均数",
+        "中位数",
+        "方差",
+        "众数"
+      ],
+      "answer": "方差",
+      "acceptedAnswers": [
+        "方差"
+      ],
+      "explanationZhHans": "方差衡量数据波动大小，方差越小成绩越稳定，适合判断稳定性。平均数、中位数、众数反映集中趋势，不能直接衡量稳定性。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-212",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-data-analysis",
+      "unitTitle": "数据的分析",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "data-analysis",
+        "mean",
+        "median",
+        "variance",
+        "box-plot",
+        "data-decision",
+        "平均数",
+        "方差",
+        "中位数",
+        "箱线图"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均数",
+        "方差",
+        "中位数",
+        "箱线图",
+        "数据比较",
+        "决策解释"
+      ],
+      "misconceptionTags": [
+        "mean used without checking spread",
+        "median position counted incorrectly",
+        "box-plot features treated as raw data values"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-data-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-data-analysis-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校八年级两个班各5名同学的立定跳远成绩（单位：cm）如下：\n甲班：180，185，190，195，200\n乙班：175，188，190，192，205\n（1）分别计算甲班和乙班成绩的平均数和中位数；\n（2）如果学校要选派一个班参加比赛，要求成绩更整齐，你会推荐哪个班？请结合数据说明理由。",
+      "optionsZhHans": [],
+      "answer": "（1）甲班平均数190cm，中位数190cm；乙班平均数190cm，中位数190cm。（2）推荐甲班，因为甲班成绩的方差较小，成绩更整齐。",
+      "acceptedAnswers": [
+        "（1）甲班平均数190cm，中位数190cm；乙班平均数190cm，中位数190cm。（2）推荐甲班，因为甲班成绩的方差较小，成绩更整齐。",
+        "（1）甲班平均数190，中位数190；乙班平均数190，中位数190。（2）推荐甲班，因为甲班成绩的方差较小，成绩更整齐。"
+      ],
+      "explanationZhHans": "甲班平均数=(180+185+190+195+200)/5=190，中位数为190；乙班平均数=(175+188+190+192+205)/5=190，中位数为190。计算方差：甲班方差=50，乙班方差=98，甲班方差小，成绩更整齐，故推荐甲班。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-213",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-data-analysis",
+      "unitTitle": "数据的分析",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "data-analysis",
+        "mean",
+        "median",
+        "variance",
+        "box-plot",
+        "data-decision",
+        "平均数",
+        "方差",
+        "中位数",
+        "箱线图"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均数",
+        "方差",
+        "中位数",
+        "箱线图",
+        "数据比较",
+        "决策解释"
+      ],
+      "misconceptionTags": [
+        "mean used without checking spread",
+        "median position counted incorrectly",
+        "box-plot features treated as raw data values"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-data-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-data-analysis-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某小组6名同学的数学测验成绩为：78，82，85，88，92，95。若去掉一个最高分和一个最低分，剩下4名同学成绩的方差是______。",
+      "optionsZhHans": [],
+      "answer": "18.5",
+      "acceptedAnswers": [
+        "18.5",
+        "18.5分²"
+      ],
+      "explanationZhHans": "去掉最高分95和最低分78，剩下82，85，88，92。平均数=(82+85+88+92)/4=86.75。方差=[(82-86.75)²+(85-86.75)²+(88-86.75)²+(92-86.75)²]/4=18.5。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-214",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-data-analysis",
+      "unitTitle": "数据的分析",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "data-analysis",
+        "mean",
+        "median",
+        "variance",
+        "box-plot",
+        "data-decision",
+        "平均数",
+        "方差",
+        "中位数",
+        "箱线图"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均数",
+        "方差",
+        "中位数",
+        "箱线图",
+        "数据比较",
+        "决策解释"
+      ],
+      "misconceptionTags": [
+        "mean used without checking spread",
+        "median position counted incorrectly",
+        "box-plot features treated as raw data values"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-data-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-data-analysis-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校篮球队5名主力队员的身高（单位：cm）为：180，185，185，190，195。关于这组数据，下列说法正确的是",
+      "optionsZhHans": [
+        "平均数是185cm",
+        "中位数是185cm",
+        "众数是190cm",
+        "方差是0"
+      ],
+      "answer": "中位数是185cm",
+      "acceptedAnswers": [
+        "中位数是185cm"
+      ],
+      "explanationZhHans": "数据排序为180，185，185，190，195，中位数为185cm。平均数为(180+185+185+190+195)/5=187cm，众数为185cm，方差大于0。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-215",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-data-analysis",
+      "unitTitle": "数据的分析",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "data-analysis",
+        "mean",
+        "median",
+        "variance",
+        "box-plot",
+        "data-decision",
+        "平均数",
+        "方差",
+        "中位数",
+        "箱线图"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均数",
+        "方差",
+        "中位数",
+        "箱线图",
+        "数据比较",
+        "决策解释"
+      ],
+      "misconceptionTags": [
+        "mean used without checking spread",
+        "median position counted incorrectly",
+        "box-plot features treated as raw data values"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-data-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-data-analysis-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某社区为了解居民对垃圾分类的知晓情况，随机调查了20位居民，得分如下：\n65，70，72，75，75，78，80，80，82，85，85，85，88，90，90，92，95，95，98，100。\n（1）求这组数据的中位数和众数；\n（2）如果得分在85分及以上为“良好”，请估计该社区2000位居民中达到“良好”等级的人数。",
+      "optionsZhHans": [],
+      "answer": "（1）中位数是85分，众数是85分。（2）约900人。",
+      "acceptedAnswers": [
+        "（1）中位数是85分，众数是85分。（2）约900人。",
+        "（1）中位数85，众数85。（2）约900人。"
+      ],
+      "explanationZhHans": "数据已排序，第10和11位均为85，中位数85；85出现3次最多，众数85。20人中85分及以上有9人，占比9/20=0.45，估计2000×0.45=900人。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-216",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-data-analysis",
+      "unitTitle": "数据的分析",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "data-analysis",
+        "mean",
+        "median",
+        "variance",
+        "box-plot",
+        "data-decision",
+        "平均数",
+        "方差",
+        "中位数",
+        "箱线图"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均数",
+        "方差",
+        "中位数",
+        "箱线图",
+        "数据比较",
+        "决策解释"
+      ],
+      "misconceptionTags": [
+        "mean used without checking spread",
+        "median position counted incorrectly",
+        "box-plot features treated as raw data values"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-data-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-data-analysis-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知一组数据x₁，x₂，x₃，x₄，x₅的平均数是6，方差是2。则数据2x₁+1，2x₂+1，2x₃+1，2x₄+1，2x₅+1的平均数是______，方差是______。",
+      "optionsZhHans": [],
+      "answer": "13，8",
+      "acceptedAnswers": [
+        "13，8",
+        "13,8"
+      ],
+      "explanationZhHans": "新数据平均数=2×6+1=13。新数据方差=2²×2=8。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-217",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-data-analysis",
+      "unitTitle": "数据的分析",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "data-analysis",
+        "mean",
+        "median",
+        "variance",
+        "box-plot",
+        "data-decision",
+        "平均数",
+        "方差",
+        "中位数",
+        "箱线图"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均数",
+        "方差",
+        "中位数",
+        "箱线图",
+        "数据比较",
+        "决策解释"
+      ],
+      "misconceptionTags": [
+        "mean used without checking spread",
+        "median position counted incorrectly",
+        "box-plot features treated as raw data values"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-data-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-data-analysis-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某射击队要从甲、乙两名选手中选拔一人参加比赛，两人在相同条件下各射击5次，成绩（环）如下：\n甲：7，8，9，8，8\n乙：5，10，10，7，8\n教练决定选择成绩更稳定的选手，应选择",
+      "optionsZhHans": [
+        "甲，因为甲的平均数高",
+        "乙，因为乙的中位数高",
+        "甲，因为甲的方差小",
+        "乙，因为乙的众数大"
+      ],
+      "answer": "甲，因为甲的方差小",
+      "acceptedAnswers": [
+        "甲，因为甲的方差小"
+      ],
+      "explanationZhHans": "甲平均数8，方差0.4；乙平均数8，方差3.6。甲方差小，成绩更稳定，应选甲。平均数、中位数、众数不能直接反映稳定性。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-218",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-data-analysis",
+      "unitTitle": "数据的分析",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "data-analysis",
+        "mean",
+        "median",
+        "variance",
+        "box-plot",
+        "data-decision",
+        "平均数",
+        "方差",
+        "中位数",
+        "箱线图"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均数",
+        "方差",
+        "中位数",
+        "箱线图",
+        "数据比较",
+        "决策解释"
+      ],
+      "misconceptionTags": [
+        "mean used without checking spread",
+        "median position counted incorrectly",
+        "box-plot features treated as raw data values"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-data-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-data-analysis-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校八年级学生进行体质测试，随机抽取20名学生的坐位体前屈成绩（单位：cm）如下：\n5，6，7，8，8，9，10，10，11，12，12，13，14，14，15，16，17，18，19，20。\n（1）求这组数据的中位数和平均数；\n（2）若规定成绩不低于15cm为优秀，请计算这20名学生中优秀率，并估计全年级400名学生中大约有多少人能达到优秀。",
+      "optionsZhHans": [],
+      "answer": "（1）中位数是12cm，平均数是12.5cm。（2）优秀率30%，估计约120人。",
+      "acceptedAnswers": [
+        "（1）中位数是12cm，平均数是12.5cm。（2）优秀率30%，估计约120人。",
+        "（1）中位数12，平均数12.5。（2）优秀率30%，估计约120人。"
+      ],
+      "explanationZhHans": "数据已排序，第10、11位为12、12，中位数12；平均数=(5+6+...+20)/20=12.5。不低于15cm的有6人，优秀率6/20=30%，估计400×30%=120人。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-219",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-data-analysis",
+      "unitTitle": "数据的分析",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "data-analysis",
+        "mean",
+        "median",
+        "variance",
+        "box-plot",
+        "data-decision",
+        "平均数",
+        "方差",
+        "中位数",
+        "箱线图"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均数",
+        "方差",
+        "中位数",
+        "箱线图",
+        "数据比较",
+        "决策解释"
+      ],
+      "misconceptionTags": [
+        "mean used without checking spread",
+        "median position counted incorrectly",
+        "box-plot features treated as raw data values"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-data-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-data-analysis-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某班40名同学一周课外阅读时间（单位：小时）的箱线图特征如下：最小值2，下四分位数4，中位数6，上四分位数8，最大值12。则阅读时间在4小时至8小时之间的同学大约有______人。",
+      "optionsZhHans": [],
+      "answer": "20",
+      "acceptedAnswers": [
+        "20"
+      ],
+      "explanationZhHans": "箱线图中，下四分位数到上四分位数之间包含约50%的数据。40×50%=20人。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-220",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-data-analysis",
+      "unitTitle": "数据的分析",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "data-analysis",
+        "mean",
+        "median",
+        "variance",
+        "box-plot",
+        "data-decision",
+        "平均数",
+        "方差",
+        "中位数",
+        "箱线图"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均数",
+        "方差",
+        "中位数",
+        "箱线图",
+        "数据比较",
+        "决策解释"
+      ],
+      "misconceptionTags": [
+        "mean used without checking spread",
+        "median position counted incorrectly",
+        "box-plot features treated as raw data values"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-data-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-data-analysis-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某班一次数学测验成绩的箱线图特征为：最小值45，下四分位数60，中位数75，上四分位数85，最大值98。关于这次成绩，下列说法正确的是",
+      "optionsZhHans": [
+        "有一半同学的成绩在60分到85分之间",
+        "成绩的平均数是75分",
+        "成绩的众数是75分",
+        "最低分与最高分相差43分"
+      ],
+      "answer": "有一半同学的成绩在60分到85分之间",
+      "acceptedAnswers": [
+        "有一半同学的成绩在60分到85分之间"
+      ],
+      "explanationZhHans": "箱线图中，下四分位数到上四分位数包含中间50%的数据，即一半同学成绩在60到85之间。中位数75不代表平均数或众数，极差=98-45=53。"
+    }
+  ]
+}

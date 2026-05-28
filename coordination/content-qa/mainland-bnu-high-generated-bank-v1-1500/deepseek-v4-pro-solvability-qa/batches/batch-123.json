@@ -1,0 +1,135 @@
+{
+  "batchNumber": 123,
+  "startedAt": "2026-05-27T14:04:33.976Z",
+  "completedAt": "2026-05-27T14:04:52.039Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-477",
+    "bnu-high-ds-v1-s5-478",
+    "bnu-high-ds-v1-s5-479",
+    "bnu-high-ds-v1-s5-480",
+    "bnu-high-ds-v1-s5-481",
+    "bnu-high-ds-v1-s5-482",
+    "bnu-high-ds-v1-s5-483",
+    "bnu-high-ds-v1-s5-484"
+  ],
+  "usage": {
+    "prompt_tokens": 11334,
+    "completion_tokens": 1100,
+    "total_tokens": 12434,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10822
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-477",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "在犯错误的概率不超过0.01的前提下，认为吸烟与患肺癌有关",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "K²≈9.89>6.635，拒绝独立假设，结论正确；选项唯一且解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-478",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0.999",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "数据线性极强，计算得r≈0.999，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-479",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0.1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由x̄=3.5, ȳ≈7.033, b=2.0得a≈0.033，最接近0.1，选项合理。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-480",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "ŷ=0.75x+52.50",
+        "correctedAnswer": null,
+        "issueTags": [
+          "explanation_contradiction"
+        ],
+        "severity": "major",
+        "confidence": "high",
+        "rationaleZhHans": "解析前半段计算错误（b=2.0, a=15），虽然后面修正，但整体矛盾，应删除错误部分。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-481",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "API与发病率之间存在较强的正相关关系",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "r=0.82表明较强正相关，不能推断因果，选项正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-482",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "（1）散点图略，存在线性相关关系；（2）y = 0.54x + 1.25；（3）12.05千元",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "计算正确，回归方程与预测值均与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-483",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "课外阅读时间与语文成绩无关",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "χ²≈0.347<3.841，不拒绝独立假设，结论正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-484",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "y = 5.0x + 350.0",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "计算得b=5, a=350，回归方程正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第480题解析包含错误计算过程，虽最终修正但前后矛盾，需清理。其余题目均通过审核。"
+    }
+  }
+}

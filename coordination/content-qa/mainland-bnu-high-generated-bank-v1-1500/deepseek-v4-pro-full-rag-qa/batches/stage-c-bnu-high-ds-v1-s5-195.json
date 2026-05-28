@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-195",
+  "startedAt": "2026-05-28T02:55:46.260Z",
+  "completedAt": "2026-05-28T02:55:52.037Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-195"
+  ],
+  "usage": {
+    "prompt_tokens": 2140,
+    "completion_tokens": 294,
+    "total_tokens": 2434,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1756
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-195",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "x = -1 - 2√3 或 x = -1 + 2√3",
+        "correctedAnswer": "x = -1 - 2√3 或 x = -1 + 2√3",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "accepted_answer_gap"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合北师大版空间向量章节。正确答案为x=-1±2√3，但存储答案-1错误，解析中方程化简错误导致漏解，且未验证所有解，故判定为严重错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "存储答案错误，解析过程有误，需修正为x=-1±2√3。"
+    }
+  }
+}

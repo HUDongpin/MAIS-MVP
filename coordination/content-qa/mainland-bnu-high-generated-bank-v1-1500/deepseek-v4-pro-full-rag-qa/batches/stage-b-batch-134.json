@@ -1,0 +1,139 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-134",
+  "startedAt": "2026-05-28T01:37:46.644Z",
+  "completedAt": "2026-05-28T01:38:01.101Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-065",
+    "bnu-high-ds-v1-s6-066",
+    "bnu-high-ds-v1-s6-067",
+    "bnu-high-ds-v1-s6-068",
+    "bnu-high-ds-v1-s6-069",
+    "bnu-high-ds-v1-s6-070",
+    "bnu-high-ds-v1-s6-071",
+    "bnu-high-ds-v1-s6-072"
+  ],
+  "usage": {
+    "prompt_tokens": 12797,
+    "completion_tokens": 1084,
+    "total_tokens": 13881,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 12413
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-065",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "39",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案为45，但独立解为39。解析中计算S7-S4=39，与存储答案矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-066",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案2与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-067",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "correctedAnswer": "b_n = (3/2)^n - 1",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction",
+          "ambiguous_mc"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案为b_n = (3/2)^{n-1}，但独立解为b_n = (3/2)^n - 1。解析中推导出b_n = (3/2)^n - 1，却错误地选择了不匹配的选项。选项B为(3/2)^n - 1，但存储答案未对应。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-068",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "146",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案为155，但独立解为146。解析中计算a_10=146，与存储答案矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-069",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案2与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-070",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案12与独立解一致，解析正确，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-071",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-072",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案10与独立解一致，解析正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 5,
+      "warn": 0,
+      "fail": 3,
+      "notes": "8题中5题通过，3题失败：065存储答案45应为39；067存储答案错误且选项匹配混乱；068存储答案155应为146。"
+    }
+  }
+}

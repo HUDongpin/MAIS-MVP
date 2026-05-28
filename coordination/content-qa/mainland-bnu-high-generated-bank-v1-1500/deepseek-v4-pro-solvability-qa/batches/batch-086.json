@@ -1,0 +1,146 @@
+{
+  "batchNumber": 86,
+  "startedAt": "2026-05-27T13:58:13.843Z",
+  "completedAt": "2026-05-27T13:58:35.833Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-181",
+    "bnu-high-ds-v1-s5-182",
+    "bnu-high-ds-v1-s5-183",
+    "bnu-high-ds-v1-s5-184",
+    "bnu-high-ds-v1-s5-185",
+    "bnu-high-ds-v1-s5-186",
+    "bnu-high-ds-v1-s5-187",
+    "bnu-high-ds-v1-s5-188"
+  ],
+  "usage": {
+    "prompt_tokens": 14144,
+    "completion_tokens": 1506,
+    "total_tokens": 15650,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 13632
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-181",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "√21/7",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可独立求解。计算得DP方向向量(3,4,1)，平面A₁C₁D法向量(4,3,-6)，线面角正弦值=18/√1586=√21/7，与答案一致。解析过程正确，无矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-182",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "(1) 2√3/3；(2) (3/2,1/2,5/2)或(9/2,-1/2,3/2)",
+        "correctedAnswer": "(1) 2√3/3；(2) (3/2,1/2,5/2)或(9/2,-1/2,3/2)",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立计算得(1)距离为2√3/3，非√3/3；(2) P坐标为(3/2,1/2,5/2)或(9/2,-1/2,3/2)，与答案(2,1/2,5/2)或(4,-1/2,3/2)不符。解析中(1)距离计算错误，(2)参数t解错导致坐标错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-183",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "0",
+        "correctedAnswer": "√6",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "原题点C(7,8,9)在直线AB上，距离为0，与答案√6矛盾。解析中自行修改点C坐标，但题目未改，导致不可解。需修正题目或答案。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-184",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "√6/3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "条件充分，可解。平面法向量(1,1,1)，P满足x+y+z=6，取P(2,2,2)计算距离得√6/3，与答案一致。解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-185",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "4√61/61",
+        "correctedAnswer": "4√61/61",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立计算得P(8/3,2,2)，平面A₁BC₁方程为3x+4y+6z-24=0，距离为4/√61=4√61/61，非6√61/61。解析中计算混乱，最终结果错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-186",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(5,6,7)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，P参数化后距离函数为|18-9t|/√3，t=2/3时最小，得P(5,6,7)，与答案一致。解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-187",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2√5/15",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "坐标系建立正确，P(4,0,1)，PC₁方向(0,3,1)，平面A₁BD法向量(3,4,-6)，线面角正弦=6/√610=2√5/15，与答案一致。解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-188",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(1) n=(1,1,1)；(2) λ=1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，法向量计算正确，P坐标参数化合理，由正弦值方程解得t=1/2，λ=1，与答案一致。解析过程正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 4,
+      "warn": 0,
+      "fail": 4,
+      "notes": "8题中4题通过，4题失败。失败原因：182题距离和坐标计算错误；183题点C在直线上导致距离为0，与答案矛盾；185题距离计算错误；其余题目答案与解析一致。"
+    }
+  }
+}

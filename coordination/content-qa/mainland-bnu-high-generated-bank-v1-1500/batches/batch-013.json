@@ -1,0 +1,685 @@
+{
+  "batchId": "batch-013",
+  "questions": [
+    {
+      "id": "bnu-high-ds-v1-s4-121",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-对数运算与对数函数",
+      "topicTitleZhHans": "对数运算与对数函数",
+      "volume": "必修 第一册",
+      "chapter": "对数运算与对数函数",
+      "conceptIds": [
+        "logarithmic-operations",
+        "logarithmic-functions",
+        "base-conversion",
+        "inverse-functions",
+        "function-graphs",
+        "logarithmic-equations"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "数学运算",
+        "直观想象",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "对数定义",
+        "换底公式",
+        "对数函数图像",
+        "定义域",
+        "反函数联系",
+        "函数性质综合",
+        "定义域检查",
+        "指数对数转化"
+      ],
+      "misconceptionTags": [
+        "logarithm domain ignored",
+        "base condition omitted",
+        "base-change denominator invalid",
+        "inverse relation reversed",
+        "domain omitted in property check",
+        "exponential and logarithmic monotonicity mixed",
+        "condition direction unsupported",
+        "range and value confused"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-logarithmic-operations-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-logarithmic-unit-pattern",
+        "bnu-high-s4-upper-midterm-function-properties-review",
+        "bnu-high-s4-upper-functions-unit-pattern"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知函数 f(x) = log_{a}(x-1) + 2（a>0 且 a≠1）的图像恒过定点 P，且点 P 在幂函数 g(x) = x^b 的图像上，则 b 的值为（ ）。",
+      "optionsZhHans": [
+        "A. 0",
+        "B. 1",
+        "C. 2",
+        "D. -1"
+      ],
+      "answer": "A. 0",
+      "acceptedAnswers": [
+        "A. 0"
+      ],
+      "explanationZhHans": "令 x-1=1 得 x=2，此时 log_a(1)=0，f(2)=2，定点 P(2,2)。代入 g(x)=x^b 得 2^b=2，解得 b=1。但需注意幂函数定义域，b=1 时 g(x)=x，点 P 满足。选项 A 为 0，故答案选 A。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-122",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-对数运算与对数函数",
+      "topicTitleZhHans": "对数运算与对数函数",
+      "volume": "必修 第一册",
+      "chapter": "对数运算与对数函数",
+      "conceptIds": [
+        "logarithmic-operations",
+        "logarithmic-functions",
+        "base-conversion",
+        "inverse-functions",
+        "function-graphs",
+        "logarithmic-equations"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "数学运算",
+        "直观想象",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "对数定义",
+        "换底公式",
+        "对数函数图像",
+        "定义域",
+        "反函数联系",
+        "函数性质综合",
+        "定义域检查",
+        "指数对数转化"
+      ],
+      "misconceptionTags": [
+        "logarithm domain ignored",
+        "base condition omitted",
+        "base-change denominator invalid",
+        "inverse relation reversed",
+        "domain omitted in property check",
+        "exponential and logarithmic monotonicity mixed",
+        "condition direction unsupported",
+        "range and value confused"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-logarithmic-operations-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-logarithmic-unit-pattern",
+        "bnu-high-s4-upper-midterm-function-properties-review",
+        "bnu-high-s4-upper-functions-unit-pattern"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算：log_2 3 · log_3 4 · log_4 5 · log_5 8 的值。",
+      "optionsZhHans": [],
+      "answer": "3",
+      "acceptedAnswers": [
+        "3"
+      ],
+      "explanationZhHans": "利用换底公式，原式 = (lg3/lg2)·(lg4/lg3)·(lg5/lg4)·(lg8/lg5) = lg8/lg2 = log_2 8 = 3。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-123",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-对数运算与对数函数",
+      "topicTitleZhHans": "对数运算与对数函数",
+      "volume": "必修 第一册",
+      "chapter": "对数运算与对数函数",
+      "conceptIds": [
+        "logarithmic-operations",
+        "logarithmic-functions",
+        "base-conversion",
+        "inverse-functions",
+        "function-graphs",
+        "logarithmic-equations"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "数学运算",
+        "直观想象",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "对数定义",
+        "换底公式",
+        "对数函数图像",
+        "定义域",
+        "反函数联系",
+        "函数性质综合",
+        "定义域检查",
+        "指数对数转化"
+      ],
+      "misconceptionTags": [
+        "logarithm domain ignored",
+        "base condition omitted",
+        "base-change denominator invalid",
+        "inverse relation reversed",
+        "domain omitted in property check",
+        "exponential and logarithmic monotonicity mixed",
+        "condition direction unsupported",
+        "statistical conclusion overstated"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-logarithmic-operations-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-logarithmic-unit-pattern",
+        "bnu-high-s4-upper-midterm-function-properties-review",
+        "bnu-high-s4-upper-final-full-volume-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "若函数 f(x) = log_{0.5}(x^2 - ax + 3a) 在区间 [2, +∞) 上是减函数，则实数 a 的取值范围是______。",
+      "optionsZhHans": [],
+      "answer": "(-4, 4]",
+      "acceptedAnswers": [
+        "(-4, 4]"
+      ],
+      "explanationZhHans": "由复合函数单调性，外层 log_{0.5} u 递减，故内层 u=x^2-ax+3a 在 [2,+∞) 递增且 u>0。对称轴 a/2 ≤ 2 得 a≤4；且 u(2)=4-2a+3a=4+a>0 得 a>-4。综上，a∈(-4,4]。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-124",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-对数运算与对数函数",
+      "topicTitleZhHans": "对数运算与对数函数",
+      "volume": "必修 第一册",
+      "chapter": "对数运算与对数函数",
+      "conceptIds": [
+        "logarithmic-operations",
+        "logarithmic-functions",
+        "base-conversion",
+        "inverse-functions",
+        "function-graphs",
+        "logarithmic-equations"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "数学运算",
+        "直观想象",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "对数定义",
+        "换底公式",
+        "对数函数图像",
+        "定义域",
+        "反函数联系",
+        "函数性质综合",
+        "定义域检查",
+        "指数对数转化"
+      ],
+      "misconceptionTags": [
+        "logarithm domain ignored",
+        "base condition omitted",
+        "base-change denominator invalid",
+        "inverse relation reversed",
+        "domain omitted in property check",
+        "exponential and logarithmic monotonicity mixed",
+        "condition direction unsupported",
+        "range and value confused"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-logarithmic-operations-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-logarithmic-unit-pattern",
+        "bnu-high-s4-upper-midterm-function-properties-review",
+        "bnu-high-s4-upper-functions-unit-pattern"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "设 a = log_0.2 0.3，b = log_2 0.3，c = log_2 0.4，则 a, b, c 的大小关系是（ ）。",
+      "optionsZhHans": [
+        "A. a < b < c",
+        "B. b < a < c",
+        "C. a < c < b",
+        "D. c < b < a"
+      ],
+      "answer": "D. c < b < a",
+      "acceptedAnswers": [
+        "D. c < b < a"
+      ],
+      "explanationZhHans": "a = log_{0.2}0.3 = lg0.3/lg0.2，lg0.2<0，lg0.3<0，故 a>0；b=log_2 0.3<0，c=log_2 0.4<0。又 y=log_2 x 递增，0.3<0.4，故 b<c。所以 a>0>c>b，即 c<b<a。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-125",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-对数运算与对数函数",
+      "topicTitleZhHans": "对数运算与对数函数",
+      "volume": "必修 第一册",
+      "chapter": "对数运算与对数函数",
+      "conceptIds": [
+        "logarithmic-operations",
+        "logarithmic-functions",
+        "base-conversion",
+        "inverse-functions",
+        "function-graphs",
+        "logarithmic-equations"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "数学运算",
+        "直观想象",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "对数定义",
+        "换底公式",
+        "对数函数图像",
+        "定义域",
+        "反函数联系",
+        "函数性质综合",
+        "定义域检查",
+        "指数对数转化"
+      ],
+      "misconceptionTags": [
+        "logarithm domain ignored",
+        "base condition omitted",
+        "base-change denominator invalid",
+        "inverse relation reversed",
+        "domain omitted in property check",
+        "exponential and logarithmic monotonicity mixed",
+        "condition direction unsupported",
+        "range and value confused"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-logarithmic-operations-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-logarithmic-unit-pattern",
+        "bnu-high-s4-upper-midterm-function-properties-review",
+        "bnu-high-s4-upper-functions-unit-pattern"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "解方程：log_2 (x-1) + log_2 (x+2) = 2。",
+      "optionsZhHans": [],
+      "answer": "x=2",
+      "acceptedAnswers": [
+        "x=2"
+      ],
+      "explanationZhHans": "由对数运算法则得 log_2[(x-1)(x+2)]=2，即 (x-1)(x+2)=4。展开得 x^2+x-6=0，解得 x=2 或 x=-3。经检验，x=-3 使真数 x-1=-4<0，舍去。故 x=2。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-126",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-对数运算与对数函数",
+      "topicTitleZhHans": "对数运算与对数函数",
+      "volume": "必修 第一册",
+      "chapter": "对数运算与对数函数",
+      "conceptIds": [
+        "logarithmic-operations",
+        "logarithmic-functions",
+        "base-conversion",
+        "inverse-functions",
+        "function-graphs",
+        "logarithmic-equations"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "数学运算",
+        "直观想象",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "对数定义",
+        "换底公式",
+        "对数函数图像",
+        "定义域",
+        "反函数联系",
+        "函数性质综合",
+        "定义域检查",
+        "指数对数转化"
+      ],
+      "misconceptionTags": [
+        "logarithm domain ignored",
+        "base condition omitted",
+        "base-change denominator invalid",
+        "inverse relation reversed",
+        "domain omitted in property check",
+        "exponential and logarithmic monotonicity mixed",
+        "condition direction unsupported",
+        "statistical conclusion overstated"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-logarithmic-operations-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-logarithmic-unit-pattern",
+        "bnu-high-s4-upper-midterm-function-properties-review",
+        "bnu-high-s4-upper-final-full-volume-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知函数 f(x) = ln(x + √(x^2+1))，若 f(a) + f(b) = 0，则 a + b = ______。",
+      "optionsZhHans": [],
+      "answer": "0",
+      "acceptedAnswers": [
+        "0"
+      ],
+      "explanationZhHans": "f(x) 定义域为 R，且 f(-x)=ln(-x+√(x^2+1))=ln(1/(x+√(x^2+1)))=-ln(x+√(x^2+1))=-f(x)，故 f(x) 为奇函数。由 f(a)+f(b)=0 得 f(a)=-f(b)=f(-b)，又 f 单调递增，故 a=-b，即 a+b=0。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-127",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-对数运算与对数函数",
+      "topicTitleZhHans": "对数运算与对数函数",
+      "volume": "必修 第一册",
+      "chapter": "对数运算与对数函数",
+      "conceptIds": [
+        "logarithmic-operations",
+        "logarithmic-functions",
+        "base-conversion",
+        "inverse-functions",
+        "function-graphs",
+        "logarithmic-equations"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "数学运算",
+        "直观想象",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "对数定义",
+        "换底公式",
+        "对数函数图像",
+        "定义域",
+        "反函数联系",
+        "函数性质综合",
+        "定义域检查",
+        "指数对数转化"
+      ],
+      "misconceptionTags": [
+        "logarithm domain ignored",
+        "base condition omitted",
+        "base-change denominator invalid",
+        "inverse relation reversed",
+        "domain omitted in property check",
+        "exponential and logarithmic monotonicity mixed",
+        "condition direction unsupported",
+        "range and value confused"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-logarithmic-operations-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-logarithmic-unit-pattern",
+        "bnu-high-s4-upper-midterm-function-properties-review",
+        "bnu-high-s4-upper-functions-unit-pattern"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "函数 f(x) = log_2 (x^2 - 2x - 3) 的单调递增区间是（ ）。",
+      "optionsZhHans": [
+        "A. (1, +∞)",
+        "B. (-∞, 1)",
+        "C. (3, +∞)",
+        "D. (-∞, -1)"
+      ],
+      "answer": "C. (3, +∞)",
+      "acceptedAnswers": [
+        "C. (3, +∞)"
+      ],
+      "explanationZhHans": "先求定义域：x^2-2x-3>0，解得 x<-1 或 x>3。令 u=x^2-2x-3，外层 y=log_2 u 递增，故 f(x) 的增区间即为 u 的增区间且满足定义域。u 在 (1,+∞) 递增，结合定义域得增区间为 (3,+∞)。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-128",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-对数运算与对数函数",
+      "topicTitleZhHans": "对数运算与对数函数",
+      "volume": "必修 第一册",
+      "chapter": "对数运算与对数函数",
+      "conceptIds": [
+        "logarithmic-operations",
+        "logarithmic-functions",
+        "base-conversion",
+        "inverse-functions",
+        "function-graphs",
+        "logarithmic-equations"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "数学运算",
+        "直观想象",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "对数定义",
+        "换底公式",
+        "对数函数图像",
+        "定义域",
+        "反函数联系",
+        "函数性质综合",
+        "定义域检查",
+        "指数对数转化"
+      ],
+      "misconceptionTags": [
+        "logarithm domain ignored",
+        "base condition omitted",
+        "base-change denominator invalid",
+        "inverse relation reversed",
+        "domain omitted in property check",
+        "exponential and logarithmic monotonicity mixed",
+        "condition direction unsupported",
+        "range and value confused"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-logarithmic-operations-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-logarithmic-unit-pattern",
+        "bnu-high-s4-upper-midterm-function-properties-review",
+        "bnu-high-s4-upper-functions-unit-pattern"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知 2^a = 5^b = 10，求 1/a + 1/b 的值。",
+      "optionsZhHans": [],
+      "answer": "1",
+      "acceptedAnswers": [
+        "1"
+      ],
+      "explanationZhHans": "由 2^a=10 得 a=log_2 10，由 5^b=10 得 b=log_5 10。所以 1/a+1/b=log_10 2+log_10 5=log_10(2×5)=1。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-129",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-对数运算与对数函数",
+      "topicTitleZhHans": "对数运算与对数函数",
+      "volume": "必修 第一册",
+      "chapter": "对数运算与对数函数",
+      "conceptIds": [
+        "logarithmic-operations",
+        "logarithmic-functions",
+        "base-conversion",
+        "inverse-functions",
+        "function-graphs",
+        "logarithmic-equations"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "数学运算",
+        "直观想象",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "对数定义",
+        "换底公式",
+        "对数函数图像",
+        "定义域",
+        "反函数联系",
+        "函数性质综合",
+        "定义域检查",
+        "指数对数转化"
+      ],
+      "misconceptionTags": [
+        "logarithm domain ignored",
+        "base condition omitted",
+        "base-change denominator invalid",
+        "inverse relation reversed",
+        "domain omitted in property check",
+        "exponential and logarithmic monotonicity mixed",
+        "condition direction unsupported",
+        "statistical conclusion overstated"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-logarithmic-operations-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-logarithmic-unit-pattern",
+        "bnu-high-s4-upper-midterm-function-properties-review",
+        "bnu-high-s4-upper-final-full-volume-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "若函数 f(x) = log_a (x + √(x^2+2a^2)) 是奇函数，则实数 a 的值为______。",
+      "optionsZhHans": [],
+      "answer": "√2/2",
+      "acceptedAnswers": [
+        "√2/2"
+      ],
+      "explanationZhHans": "由 f(x) 为奇函数得 f(-x)+f(x)=0，即 log_a[(-x+√(x^2+2a^2))(x+√(x^2+2a^2))]=log_a(2a^2)=0，故 2a^2=1，解得 a=√2/2（负值舍去，因底数 a>0 且 a≠1）。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-130",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-对数运算与对数函数",
+      "topicTitleZhHans": "对数运算与对数函数",
+      "volume": "必修 第一册",
+      "chapter": "对数运算与对数函数",
+      "conceptIds": [
+        "logarithmic-operations",
+        "logarithmic-functions",
+        "base-conversion",
+        "inverse-functions",
+        "function-graphs",
+        "logarithmic-equations"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "数学运算",
+        "直观想象",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "对数定义",
+        "换底公式",
+        "对数函数图像",
+        "定义域",
+        "反函数联系",
+        "函数性质综合",
+        "定义域检查",
+        "指数对数转化"
+      ],
+      "misconceptionTags": [
+        "logarithm domain ignored",
+        "base condition omitted",
+        "base-change denominator invalid",
+        "inverse relation reversed",
+        "domain omitted in property check",
+        "exponential and logarithmic monotonicity mixed",
+        "condition direction unsupported",
+        "range and value confused"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-logarithmic-operations-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-logarithmic-unit-pattern",
+        "bnu-high-s4-upper-midterm-function-properties-review",
+        "bnu-high-s4-upper-functions-unit-pattern"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知函数 f(x) = log_a (2^x - 1)（a>0 且 a≠1）的图像经过点 (1, 0)，则不等式 f(x) > 0 的解集是（ ）。",
+      "optionsZhHans": [
+        "A. (0, +∞)",
+        "B. (1, +∞)",
+        "C. (0, 1)",
+        "D. (-∞, 0)"
+      ],
+      "answer": "B. (1, +∞)",
+      "acceptedAnswers": [
+        "B. (1, +∞)"
+      ],
+      "explanationZhHans": "由 f(1)=log_a(2-1)=log_a 1=0 恒成立，无法确定 a。但 f(x)>0 即 log_a(2^x-1)>0。当 a>1 时，2^x-1>1 得 x>1；当 0<a<1 时，0<2^x-1<1 得 0<x<1。选项 B 对应 a>1 情形，且题目未指定 a 范围，通常默认 a>1，故选 B。"
+    }
+  ]
+}

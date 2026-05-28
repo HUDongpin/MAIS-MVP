@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-019",
+  "startedAt": "2026-05-28T00:56:13.181Z",
+  "completedAt": "2026-05-28T00:56:18.444Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-019"
+  ],
+  "usage": {
+    "prompt_tokens": 2214,
+    "completion_tokens": 244,
+    "total_tokens": 2458,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1830
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-019",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "independentAnswer": null,
+        "correctedAnswer": null,
+        "issueTags": [
+          "ambiguous_mc",
+          "bad_options",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "单选题存在两个正确选项：A ∈ B 和 {1} ∈ B 均正确，解析也承认 {1} ∈ B 正确，但答案仅选 A，导致多解，题目不可用。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目为单选题但有两个正确选项，违反唯一解原则，判定为 blocker。"
+    }
+  }
+}

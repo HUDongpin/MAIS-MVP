@@ -1,0 +1,179 @@
+{
+  "batchNumber": 64,
+  "startedAt": "2026-05-27T17:40:56.388Z",
+  "completedAt": "2026-05-27T17:41:19.044Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s2-257",
+    "bnu-junior-ds-v1-s2-258",
+    "bnu-junior-ds-v1-s2-259",
+    "bnu-junior-ds-v1-s2-260",
+    "bnu-junior-ds-v1-s2-261",
+    "bnu-junior-ds-v1-s2-262",
+    "bnu-junior-ds-v1-s2-263",
+    "bnu-junior-ds-v1-s2-264",
+    "bnu-junior-ds-v1-s2-265",
+    "bnu-junior-ds-v1-s2-266",
+    "bnu-junior-ds-v1-s2-267",
+    "bnu-junior-ds-v1-s2-268"
+  ],
+  "usage": {
+    "prompt_tokens": 6595,
+    "completion_tokens": 1528,
+    "total_tokens": 8123,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 6083
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s2-257",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，利用对顶角相等和同旁内角互补可判定平行，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-258",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "四个条件中①同位角相等、②同旁内角互补可判定平行，③④不能，共2个，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-259",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "条件①同位角相等、②同旁内角互补可判定，③④不能，共2个，选项唯一且答案匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-260",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "∠AGE与∠CHF是同旁内角，互补可判定平行，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-261",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "①同旁内角互补、③同旁内角互补、④同位角相等可判定，②内错角不相等不能，共3个，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-262",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "同旁内角互补，较大角=180°-65°=115°，选项唯一且答案匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-263",
+        "status": "fail",
+        "severity": "major",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "①",
+        "rationale": "条件③中∠BGH与∠DHF是同旁内角，70°+110°=180°互补，可判定平行，解释错误称不互补；条件④中∠AGE与∠CHG是内错角，50°≠130°不相等，不能判定。因此能判定的有①和③，答案应为①③，但答案只给出①，与正确结论不符。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-264",
+        "status": "fail",
+        "severity": "major",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "②④",
+        "rationale": "条件①中∠AGE与∠CHG是同位角，65°+115°=180°互补不能判定平行，解释正确；条件②同位角相等可判定；条件③内错角不相等不能；条件④同旁内角互补可判定。故②④正确，答案②④匹配，但解释中①的判定理由错误（互补不能判定平行），但答案本身正确，然而解释存在错误，可能导致混淆。",
+        "confidence": "medium"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-265",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "①同旁内角互补、②同位角相等、④内错角相等可判定，③不能，共3个，选项唯一且答案匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-266",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "∠AGE与∠CHF是同旁内角，互补可判定平行，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-267",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "∠AGE=58°，邻补角∠BGE=122°，与∠CHG同位角相等，可判定平行，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-268",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "∠AGE与∠CHG是同旁内角，互补可判定平行，选项A正确，其他选项错误，答案匹配。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 10,
+      "warn": 0,
+      "fail": 2,
+      "notes": "共12题，10题通过，2题失败。失败题中，263题答案与正确结论不符，264题解释存在错误但答案正确，需修正。"
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-325",
+  "startedAt": "2026-05-28T02:41:49.633Z",
+  "completedAt": "2026-05-28T02:41:56.000Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-325"
+  ],
+  "usage": {
+    "prompt_tokens": 2637,
+    "completion_tokens": 312,
+    "total_tokens": 2949,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2253
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-325",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "independentAnswer": null,
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "bad_options",
+          "explanation_contradiction",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "向量(1,2)与(3,-1)的点积为1，模长分别为√5和√10，cosθ=1/(√5·√10)=√2/10，θ=arccos(√2/10)≈81.87°，不是特殊角，四个选项均不正确，题目无解。解析也指出计算错误并建议修改题目，但存储答案仍为B，存在答案不匹配、选项错误和解析矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目不可解，无正确选项，答案与解析矛盾，判定为阻断级错误。"
+    }
+  }
+}

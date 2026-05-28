@@ -1,0 +1,191 @@
+{
+  "batchNumber": 56,
+  "startedAt": "2026-05-27T14:12:23.092Z",
+  "completedAt": "2026-05-27T14:12:42.061Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p4-241",
+    "bnu-primary-ds-v2-p4-242",
+    "bnu-primary-ds-v2-p4-243",
+    "bnu-primary-ds-v2-p4-244",
+    "bnu-primary-ds-v2-p4-245",
+    "bnu-primary-ds-v2-p4-246",
+    "bnu-primary-ds-v2-p4-247",
+    "bnu-primary-ds-v2-p4-248",
+    "bnu-primary-ds-v2-p4-249",
+    "bnu-primary-ds-v2-p4-250",
+    "bnu-primary-ds-v2-p5-001",
+    "bnu-primary-ds-v2-p5-002",
+    "bnu-primary-ds-v2-p5-003",
+    "bnu-primary-ds-v2-p5-004",
+    "bnu-primary-ds-v2-p5-005",
+    "bnu-primary-ds-v2-p5-006",
+    "bnu-primary-ds-v2-p5-007",
+    "bnu-primary-ds-v2-p5-008"
+  ],
+  "usage": {
+    "prompt_tokens": 4401,
+    "completion_tokens": 1281,
+    "total_tokens": 5682,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 4017
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p4-241",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项合理，解释清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-242",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "条形统计图适合比较数量，符合题意。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-243",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "按两组对边是否分别平行分类合理，其他选项不恰当。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-244",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "小宇的说法正确，其他选项均有错误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-245",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项B错误，计数器表示60不等于0.6。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-246",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "只有A正确表示0.6，其他选项分数分母不对。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-247",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项B体现先分类再选方法的思路。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-248",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "按位数分类并总结要点有助于发现规律。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-249",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "3.6和3.60大小相等但意义不同，符合题意。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-250",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "每份数×份数＝总数概括了三个数量关系。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-001",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-002",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案30。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-003",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "段数和时间计算正确，答案完整。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-004",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "除数最小商最大，选项合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-005",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "转化正确，答案符合要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-006",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "进一法取14个，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-007",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "5÷6是循环小数，其他能除尽。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-008",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "转化正确，依据商不变性质。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均通过审核，无数学错误、答案不匹配、歧义或年级不匹配等问题。"
+    }
+  }
+}

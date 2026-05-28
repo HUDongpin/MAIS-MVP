@@ -1,0 +1,574 @@
+{
+  "batchId": "batch-112",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p5-111",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "p5-upper-review",
+        "integrated-application",
+        "mathematical-activity",
+        "strategy-reflection",
+        "五年级上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "错因分析",
+        "整理知识",
+        "表达理由"
+      ],
+      "misconceptionTags": [
+        "formula selected before concept identification",
+        "multi-step work not checked",
+        "review treated as isolated drill rather than connected reasoning"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-final-topic-drill",
+        "bnu-primary-p5-lower-assessment-final-topic-drill"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在五年级上册的学习中，我们接触了小数除法、图形的面积、分数意义和可能性等知识。请你从下面两个任务中选择一个完成，并写出你的思考过程。\n任务A：设计一个用小数除法解决的实际问题，要求计算结果在1到10之间，并解释为什么用除法。\n任务B：画一个你学过的平面图形，用文字描述它的特征，并写出它的面积公式，再举一个计算面积的例子。",
+      "optionsZhHans": [],
+      "answer": "（开放题，学生选择任务并给出合理回答即可）",
+      "acceptedAnswers": [
+        "（开放题，学生选择任务并给出合理回答即可）"
+      ],
+      "explanationZhHans": "本题为综合开放题，学生需回顾小数除法或图形面积知识，并用自己的语言表达。任务A要求设计问题并解释除法意义；任务B要求描述图形特征和面积公式。只要回答合理、符合数学事实即可。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-112",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "p5-upper-review",
+        "integrated-application",
+        "mathematical-activity",
+        "strategy-reflection",
+        "五年级上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "错因分析",
+        "整理知识",
+        "表达理由"
+      ],
+      "misconceptionTags": [
+        "formula selected before concept identification",
+        "multi-step work not checked",
+        "review treated as isolated drill rather than connected reasoning"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-final-topic-drill",
+        "bnu-primary-p5-lower-assessment-final-topic-drill"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在整理五年级上册的错题时，小华发现一道题：计算 3.6÷0.4，他错算成了 3.6÷4=0.9。下面哪种说法最能解释他出错的原因？",
+      "optionsZhHans": [
+        "他忘记了小数除法的计算法则",
+        "他把除数0.4当成了整数4，没有同时将被除数扩大相同的倍数",
+        "他计算时把被除数3.6看成了36",
+        "他以为除法就是大数除以小数"
+      ],
+      "answer": "他把除数0.4当成了整数4，没有同时将被除数扩大相同的倍数",
+      "acceptedAnswers": [
+        "他把除数0.4当成了整数4，没有同时将被除数扩大相同的倍数"
+      ],
+      "explanationZhHans": "小数除法需将除数转化为整数，被除数也扩大相同倍数。小华只把0.4变成4，未将3.6变为36，导致错误。选项B准确指出了这一常见错误原因。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-113",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "p5-upper-review",
+        "integrated-application",
+        "mathematical-activity",
+        "strategy-reflection",
+        "五年级上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "错因分析",
+        "整理知识",
+        "表达理由"
+      ],
+      "misconceptionTags": [
+        "formula selected before concept identification",
+        "multi-step work not checked",
+        "review treated as isolated drill rather than connected reasoning"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-final-topic-drill",
+        "bnu-primary-p5-lower-assessment-final-topic-drill"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在“数学好玩”活动中，老师让同学们用一张长24厘米、宽18厘米的长方形纸剪出最大的正方形，且不能浪费。小丽说可以剪出边长6厘米的正方形，小刚说可以剪出边长8厘米的正方形。你认为谁说得对？最大正方形的边长是____厘米。",
+      "optionsZhHans": [],
+      "answer": "6",
+      "acceptedAnswers": [
+        "6",
+        "6厘米"
+      ],
+      "explanationZhHans": "要剪出最大的正方形且不浪费，边长应是长方形长和宽的公因数。24和18的最大公因数是6，所以边长6厘米的正方形可以正好剪完。边长8厘米不是18的因数，会有剩余。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-114",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "p5-upper-review",
+        "integrated-application",
+        "mathematical-activity",
+        "strategy-reflection",
+        "五年级上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "错因分析",
+        "整理知识",
+        "表达理由"
+      ],
+      "misconceptionTags": [
+        "formula selected before concept identification",
+        "multi-step work not checked",
+        "review treated as isolated drill rather than connected reasoning"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-final-topic-drill",
+        "bnu-primary-p5-lower-assessment-final-topic-drill"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在复习“多边形的面积”时，小明总结了梯形面积公式的推导过程。他写道：“两个完全一样的梯形可以拼成一个平行四边形，平行四边形的底等于梯形的上底加下底，高等于梯形的高，所以梯形面积等于平行四边形面积的一半。”请你评价小明的总结是否正确，并说明理由。",
+      "optionsZhHans": [],
+      "answer": "正确。因为两个完全一样的梯形拼成的平行四边形面积是梯形面积的2倍，所以梯形面积=平行四边形面积÷2=（上底+下底）×高÷2。",
+      "acceptedAnswers": [
+        "正确。因为两个完全一样的梯形拼成的平行四边形面积是梯形面积的2倍，所以梯形面积=平行四边形面积÷2=（上底+下底）×高÷2。"
+      ],
+      "explanationZhHans": "小明的总结正确描述了梯形面积公式的推导逻辑。两个全等梯形拼成平行四边形，平行四边形底为梯形上下底之和，高相等，面积是梯形2倍，因此梯形面积为平行四边形面积一半。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-115",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "p5-upper-review",
+        "integrated-application",
+        "mathematical-activity",
+        "strategy-reflection",
+        "五年级上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "错因分析",
+        "整理知识",
+        "表达理由"
+      ],
+      "misconceptionTags": [
+        "formula selected before concept identification",
+        "multi-step work not checked",
+        "review treated as isolated drill rather than connected reasoning"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-final-topic-drill",
+        "bnu-primary-p5-lower-assessment-final-topic-drill"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在总复习中，老师让同学们判断下面哪句话是正确的。请你选出正确的一项。",
+      "optionsZhHans": [
+        "一个数除以小数，商一定比这个数小",
+        "两个面积相等的三角形一定能拼成一个平行四边形",
+        "分数的分子和分母同时乘或除以相同的数，分数的大小不变",
+        "抛一枚硬币，正面朝上的可能性是二分之一"
+      ],
+      "answer": "抛一枚硬币，正面朝上的可能性是二分之一",
+      "acceptedAnswers": [
+        "抛一枚硬币，正面朝上的可能性是二分之一"
+      ],
+      "explanationZhHans": "A错误，除以小于1的小数商大于原数；B错误，面积相等不一定形状相同，需完全一样；C错误，需“0除外”；D正确，硬币只有正反两面，可能性相等。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-116",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "p5-upper-review",
+        "integrated-application",
+        "mathematical-activity",
+        "strategy-reflection",
+        "五年级上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "错因分析",
+        "整理知识",
+        "表达理由"
+      ],
+      "misconceptionTags": [
+        "formula selected before concept identification",
+        "multi-step work not checked",
+        "review treated as isolated drill rather than connected reasoning"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-final-topic-drill",
+        "bnu-primary-p5-lower-assessment-final-topic-drill"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在“图形中的规律”活动中，小芳用小棒摆三角形：摆1个三角形用3根小棒，摆2个三角形用5根小棒，摆3个三角形用7根小棒。照这样摆下去，摆n个三角形需要____根小棒。",
+      "optionsZhHans": [],
+      "answer": "2n+1",
+      "acceptedAnswers": [
+        "2n+1",
+        "2n+1根"
+      ],
+      "explanationZhHans": "摆1个三角形需3根，之后每增加一个三角形增加2根。所以摆n个三角形需3+2(n-1)=2n+1根小棒。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-117",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "p5-upper-review",
+        "integrated-application",
+        "mathematical-activity",
+        "strategy-reflection",
+        "五年级上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "错因分析",
+        "整理知识",
+        "表达理由"
+      ],
+      "misconceptionTags": [
+        "formula selected before concept identification",
+        "multi-step work not checked",
+        "review treated as isolated drill rather than connected reasoning"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-final-topic-drill",
+        "bnu-primary-p5-lower-assessment-final-topic-drill"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在“尝试与猜测”活动中，小明用列表法解决“鸡兔同笼”问题：鸡和兔共有8个头，26条腿。他列出了下面的表格，但有几处空白。请你帮他补充完整，并写出鸡和兔各有多少只。\n鸡的只数 兔的只数 腿的总数\n1 7 30\n2 6 28\n3 5 26\n... ... ...",
+      "optionsZhHans": [],
+      "answer": "鸡3只，兔5只",
+      "acceptedAnswers": [
+        "鸡3只，兔5只",
+        "鸡有3只，兔有5只"
+      ],
+      "explanationZhHans": "从表格可见，当鸡3只、兔5只时，腿数为3×2+5×4=26，符合题意。所以鸡3只，兔5只。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-118",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "p5-upper-review",
+        "integrated-application",
+        "mathematical-activity",
+        "strategy-reflection",
+        "五年级上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "错因分析",
+        "整理知识",
+        "表达理由"
+      ],
+      "misconceptionTags": [
+        "formula selected before concept identification",
+        "multi-step work not checked",
+        "review treated as isolated drill rather than connected reasoning"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-final-topic-drill",
+        "bnu-primary-p5-lower-assessment-final-topic-drill"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在整理“倍数与因数”单元时，小红忘记了如何判断一个数是不是3的倍数。下面哪种方法正确？",
+      "optionsZhHans": [
+        "看个位上是3、6、9的数就是3的倍数",
+        "各个数位上的数字之和是3的倍数，这个数就是3的倍数",
+        "末尾两位数是3的倍数，这个数就是3的倍数",
+        "把数字倒过来读，如果还是原来的数，就是3的倍数"
+      ],
+      "answer": "各个数位上的数字之和是3的倍数，这个数就是3的倍数",
+      "acceptedAnswers": [
+        "各个数位上的数字之和是3的倍数，这个数就是3的倍数"
+      ],
+      "explanationZhHans": "3的倍数特征：一个数各位上的数字之和是3的倍数，这个数就是3的倍数。A错误，如13个位是3但不是3的倍数；C、D均不是正确方法。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-119",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "p5-upper-review",
+        "integrated-application",
+        "mathematical-activity",
+        "strategy-reflection",
+        "五年级上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "错因分析",
+        "整理知识",
+        "表达理由"
+      ],
+      "misconceptionTags": [
+        "formula selected before concept identification",
+        "multi-step work not checked",
+        "review treated as isolated drill rather than connected reasoning"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-final-topic-drill",
+        "bnu-primary-p5-lower-assessment-final-topic-drill"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在“设计秋游方案”活动中，全班42名同学去公园划船。大船限坐6人，租金10元；小船限坐4人，租金8元。请你设计一种最省钱的租船方案：大船租____条，小船租____条。",
+      "optionsZhHans": [],
+      "answer": "大船5条，小船3条",
+      "acceptedAnswers": [
+        "大船5条，小船3条",
+        "5条大船，3条小船"
+      ],
+      "explanationZhHans": "大船每人租金约1.67元，小船每人2元，优先大船。42人全租大船需7条，正好坐满，租金70元。若租5大3小，租金74元，更高。所以最省方案为7条大船，0条小船。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-120",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "p5-upper-review",
+        "integrated-application",
+        "mathematical-activity",
+        "strategy-reflection",
+        "五年级上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "错因分析",
+        "整理知识",
+        "表达理由"
+      ],
+      "misconceptionTags": [
+        "formula selected before concept identification",
+        "multi-step work not checked",
+        "review treated as isolated drill rather than connected reasoning"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-final-topic-drill",
+        "bnu-primary-p5-lower-assessment-final-topic-drill"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在总复习中，老师让同学们用“转化”的思想解释平行四边形面积公式的推导。请你用自己的话说一说，如何把平行四边形转化成长方形，并写出面积公式。",
+      "optionsZhHans": [],
+      "answer": "沿平行四边形的高剪下一个直角三角形，平移补到另一边，拼成一个长方形。长方形的长等于平行四边形的底，宽等于高，面积不变，所以平行四边形面积=底×高。",
+      "acceptedAnswers": [
+        "沿平行四边形的高剪下一个直角三角形，平移补到另一边，拼成一个长方形。长方形的长等于平行四边形的底，宽等于高，面积不变，所以平行四边形面积=底×高。"
+      ],
+      "explanationZhHans": "通过割补法将平行四边形转化为长方形，利用长方形面积公式推导出平行四边形面积公式，体现了转化的数学思想。"
+    }
+  ]
+}

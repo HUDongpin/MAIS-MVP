@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0153",
+  "ids": [
+    "hjb-junior-ds-v2-s3-217",
+    "hjb-junior-ds-v2-s3-218",
+    "hjb-junior-ds-v2-s3-219",
+    "hjb-junior-ds-v2-s3-220",
+    "hjb-junior-ds-v2-s3-221",
+    "hjb-junior-ds-v2-s3-222",
+    "hjb-junior-ds-v2-s3-223",
+    "hjb-junior-ds-v2-s3-224"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-217",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "y = (60 + x - 40)(300 - 10x)",
+      "answerCheckZhHans": "标准答案与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-218",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "向下，(-1, -4)，直线 x = -1",
+      "answerCheckZhHans": "标准答案与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-219",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(1) (-1, 0) 和 (5, 0)；(2) x > 2",
+      "answerCheckZhHans": "标准答案与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-220",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "根据表格数据，对称轴应为x=2，开口向上，当x>2时y随x增大而增大，但选项C表述为“当 x > 2 时，y 随 x 的增大而增大”，这本身正确。然而，选项D“方程 ax² + bx + c = 0 的根为 x₁ = 0，x₂ = 4”也正确，因为由对称性可知x=0和x=4时y=5，且开口向上，最小值在x=2处y=1，故方程无实根？实际上，由表知y值均大于0，方程无实根，选项D错误。但选项A“开口向下”错误，选项B“对称轴是直线 x = 1”错误。因此只有选项C正确。但解析中称“x=0和x=4时y均为5”来推断对称轴，但表格中并未给出x=4的值，解析有误。实际上，由x=1和x=3时y=2，x=0和x=2时y=5和1，可推断对称轴为x=2。选项C正确，但解析中错误地使用了未给出的x=4数据，且未正确说明选项D为何错误。因此，答案正确但解析存在错误和误导。",
+      "independentAnswerZhHans": "C",
+      "answerCheckZhHans": "标准答案为C，但解析存在错误。",
+      "recommendedActionZhHans": "修正解析，正确推导对称轴，并说明选项D错误的原因。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-221",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(-3, 8)",
+      "answerCheckZhHans": "标准答案与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-222",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(1) y = -10x^2 + 1100x - 28000，50 ≤ x ≤ 70；(2) 售价定为55元时，最大利润为2250元。",
+      "answerCheckZhHans": "标准答案与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-223",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "B. y = 3(x + 2)^2 - 5",
+      "answerCheckZhHans": "标准答案与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-224",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "y = -1/2(x - 2)^2 + 5",
+      "answerCheckZhHans": "标准答案与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,687 @@
+{
+  "batchId": "batch-017",
+  "questions": [
+    {
+      "id": "bnu-high-ds-v1-s4-161",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-函数应用",
+      "topicTitleZhHans": "函数应用",
+      "volume": "必修 第一册",
+      "chapter": "函数应用",
+      "conceptIds": [
+        "function-applications",
+        "function-zero",
+        "mathematical-modeling",
+        "growth-models",
+        "approximation",
+        "model-interpretation"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学运算",
+        "应用意识"
+      ],
+      "skillTags": [
+        "函数零点",
+        "模型选择",
+        "参数解释",
+        "近似求解",
+        "结果检验",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "zero meaning not interpreted",
+        "model domain overstated",
+        "growth comparison outside interval",
+        "parameter conclusion unsupported",
+        "zero not interpreted",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-function-applications"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-function-applications-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s4-upper-functions-unit-pattern"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某城市出租车收费标准如下：起步价10元（含3公里），超过3公里后每公里2.5元。若乘客从甲地到乙地共支付车费35元，求甲、乙两地间的距离。",
+      "optionsZhHans": [],
+      "answer": "13公里",
+      "acceptedAnswers": [
+        "13公里",
+        "13"
+      ],
+      "explanationZhHans": "设距离为x公里（x>3）。车费=10+2.5(x-3)=35，解得x=13。检验：10+2.5×10=35，符合。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-162",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-函数应用",
+      "topicTitleZhHans": "函数应用",
+      "volume": "必修 第一册",
+      "chapter": "函数应用",
+      "conceptIds": [
+        "function-applications",
+        "function-zero",
+        "mathematical-modeling",
+        "growth-models",
+        "approximation",
+        "model-interpretation"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学运算",
+        "应用意识"
+      ],
+      "skillTags": [
+        "函数零点",
+        "模型选择",
+        "参数解释",
+        "近似求解",
+        "结果检验",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "zero meaning not interpreted",
+        "model domain overstated",
+        "growth comparison outside interval",
+        "parameter conclusion unsupported",
+        "zero not interpreted",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-function-applications"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-function-applications-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s4-upper-midterm-function-properties-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知函数f(x)=x^3-3x+1在区间[-2,2]上有三个零点，其中一个零点在区间(0,1)内。用二分法求该零点的近似值，精确到0.1。",
+      "optionsZhHans": [],
+      "answer": "0.3",
+      "acceptedAnswers": [
+        "0.3",
+        "0.3左右"
+      ],
+      "explanationZhHans": "f(0)=1>0，f(1)=-1<0，零点在(0,1)。二分：f(0.5)=-0.375<0，区间(0,0.5)；f(0.25)=0.2656>0，区间(0.25,0.5)；f(0.375)≈-0.072<0，区间(0.25,0.375)；f(0.3125)≈0.093>0，区间(0.3125,0.375)。中点0.34375≈0.3。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-163",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-函数应用",
+      "topicTitleZhHans": "函数应用",
+      "volume": "必修 第一册",
+      "chapter": "函数应用",
+      "conceptIds": [
+        "function-applications",
+        "function-zero",
+        "mathematical-modeling",
+        "growth-models",
+        "approximation",
+        "model-interpretation"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学运算",
+        "应用意识"
+      ],
+      "skillTags": [
+        "函数零点",
+        "模型选择",
+        "参数解释",
+        "近似求解",
+        "结果检验",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "zero meaning not interpreted",
+        "model domain overstated",
+        "growth comparison outside interval",
+        "parameter conclusion unsupported",
+        "zero not interpreted",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-function-applications"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-function-applications-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s4-upper-functions-unit-pattern"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某公司今年1月份的产值为100万元，以后每月比上月增长5%。设第x个月（x≥1）的产值为y万元，则y关于x的函数模型是（ ）。",
+      "optionsZhHans": [
+        "y=100+5x",
+        "y=100×1.05^x",
+        "y=100×1.05^(x-1)",
+        "y=100+5(x-1)"
+      ],
+      "answer": "y=100×1.05^(x-1)",
+      "acceptedAnswers": [
+        "y=100×1.05^(x-1)"
+      ],
+      "explanationZhHans": "1月份产值100万元，2月份100×1.05，3月份100×1.05^2，故第x个月为100×1.05^(x-1)。选项C正确。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-164",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-函数应用",
+      "topicTitleZhHans": "函数应用",
+      "volume": "必修 第一册",
+      "chapter": "函数应用",
+      "conceptIds": [
+        "function-applications",
+        "function-zero",
+        "mathematical-modeling",
+        "growth-models",
+        "approximation",
+        "model-interpretation"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学运算",
+        "应用意识"
+      ],
+      "skillTags": [
+        "函数零点",
+        "模型选择",
+        "参数解释",
+        "近似求解",
+        "结果检验",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "zero meaning not interpreted",
+        "model domain overstated",
+        "growth comparison outside interval",
+        "parameter conclusion unsupported",
+        "zero not interpreted",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-function-applications"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-function-applications-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s4-upper-functions-unit-pattern"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某商品进价为每件40元，售价为每件60元时，每月可售出200件。市场调查表明：售价每上涨1元，月销量减少5件。设售价为x元，月利润为y元，求y与x的函数关系式，并指出x的取值范围。",
+      "optionsZhHans": [],
+      "answer": "y=(x-40)[200-5(x-60)]，x∈[60,100]",
+      "acceptedAnswers": [
+        "y=(x-40)[200-5(x-60)]，x∈[60,100]",
+        "y=(x-40)(500-5x)，x∈[60,100]"
+      ],
+      "explanationZhHans": "销量=200-5(x-60)=500-5x，利润y=(x-40)(500-5x)。由销量≥0得500-5x≥0，x≤100；又x≥60，故x∈[60,100]。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-165",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-函数应用",
+      "topicTitleZhHans": "函数应用",
+      "volume": "必修 第一册",
+      "chapter": "函数应用",
+      "conceptIds": [
+        "function-applications",
+        "function-zero",
+        "mathematical-modeling",
+        "growth-models",
+        "approximation",
+        "model-interpretation"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学运算",
+        "应用意识"
+      ],
+      "skillTags": [
+        "函数零点",
+        "模型选择",
+        "参数解释",
+        "近似求解",
+        "结果检验",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "zero meaning not interpreted",
+        "model domain overstated",
+        "growth comparison outside interval",
+        "parameter conclusion unsupported",
+        "zero not interpreted",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-function-applications"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-function-applications-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s4-upper-midterm-function-properties-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用二分法求方程ln x + x - 2 = 0在区间[1,2]内的近似解，精确到0.1。",
+      "optionsZhHans": [],
+      "answer": "1.6",
+      "acceptedAnswers": [
+        "1.6",
+        "1.6左右"
+      ],
+      "explanationZhHans": "设f(x)=ln x+x-2。f(1)=-1<0，f(2)=ln2≈0.693>0。二分：f(1.5)=ln1.5-0.5≈-0.0945<0，区间[1.5,2]；f(1.75)=ln1.75-0.25≈0.3096>0，区间[1.5,1.75]；f(1.625)=ln1.625-0.375≈0.110>0，区间[1.5,1.625]；f(1.5625)≈-0.007<0，区间[1.5625,1.625]；中点1.59375≈1.6。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-166",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-函数应用",
+      "topicTitleZhHans": "函数应用",
+      "volume": "必修 第一册",
+      "chapter": "函数应用",
+      "conceptIds": [
+        "function-applications",
+        "function-zero",
+        "mathematical-modeling",
+        "growth-models",
+        "approximation",
+        "model-interpretation"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学运算",
+        "应用意识"
+      ],
+      "skillTags": [
+        "函数零点",
+        "模型选择",
+        "参数解释",
+        "近似求解",
+        "结果检验",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "zero meaning not interpreted",
+        "model domain overstated",
+        "growth comparison outside interval",
+        "parameter conclusion unsupported",
+        "zero not interpreted",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-function-applications"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-function-applications-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s4-upper-functions-unit-pattern"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知函数f(x)=2^x+x-3的零点在区间(k,k+1)内，k∈Z，则k=（ ）。",
+      "optionsZhHans": [
+        "0",
+        "1",
+        "2",
+        "3"
+      ],
+      "answer": "1",
+      "acceptedAnswers": [
+        "1"
+      ],
+      "explanationZhHans": "f(1)=2+1-3=0，故零点为1，在区间(1,2)内，k=1。注意：零点恰好为整数，但题目要求区间(k,k+1)包含零点，k=1满足。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-167",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-函数应用",
+      "topicTitleZhHans": "函数应用",
+      "volume": "必修 第一册",
+      "chapter": "函数应用",
+      "conceptIds": [
+        "function-applications",
+        "function-zero",
+        "mathematical-modeling",
+        "growth-models",
+        "approximation",
+        "model-interpretation"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学运算",
+        "应用意识"
+      ],
+      "skillTags": [
+        "函数零点",
+        "模型选择",
+        "参数解释",
+        "近似求解",
+        "结果检验",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "zero meaning not interpreted",
+        "model domain overstated",
+        "growth comparison outside interval",
+        "parameter conclusion unsupported",
+        "zero not interpreted",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-function-applications"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-function-applications-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s4-upper-functions-unit-pattern"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某地出租车计费规则：3公里以内收费8元，超过3公里后每公里收费1.8元。若乘客支付车费20.6元，求乘车里程。",
+      "optionsZhHans": [],
+      "answer": "10公里",
+      "acceptedAnswers": [
+        "10公里",
+        "10"
+      ],
+      "explanationZhHans": "设里程x公里（x>3）。8+1.8(x-3)=20.6，解得x=10。检验：8+1.8×7=20.6，符合。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-168",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-函数应用",
+      "topicTitleZhHans": "函数应用",
+      "volume": "必修 第一册",
+      "chapter": "函数应用",
+      "conceptIds": [
+        "function-applications",
+        "function-zero",
+        "mathematical-modeling",
+        "growth-models",
+        "approximation",
+        "model-interpretation"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学运算",
+        "应用意识"
+      ],
+      "skillTags": [
+        "函数零点",
+        "模型选择",
+        "参数解释",
+        "近似求解",
+        "结果检验",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "zero meaning not interpreted",
+        "model domain overstated",
+        "growth comparison outside interval",
+        "parameter conclusion unsupported",
+        "zero not interpreted",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-function-applications"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-function-applications-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s4-upper-midterm-function-properties-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知函数f(x)=x^2-2x-3在区间[1,4]上有零点，用二分法求该零点的近似值，精确到0.1。",
+      "optionsZhHans": [],
+      "answer": "3.0",
+      "acceptedAnswers": [
+        "3.0",
+        "3"
+      ],
+      "explanationZhHans": "f(x)=x^2-2x-3=(x-3)(x+1)，零点为-1和3。在[1,4]上的零点是3。二分法验证：f(1)=-4<0，f(4)=5>0，中点2.5，f(2.5)=-1.75<0，区间[2.5,4]；f(3.25)=1.0625>0，区间[2.5,3.25]；f(2.875)≈-0.484<0，区间[2.875,3.25]；f(3.0625)≈0.1289>0，区间[2.875,3.0625]；中点2.96875≈3.0。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-169",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-函数应用",
+      "topicTitleZhHans": "函数应用",
+      "volume": "必修 第一册",
+      "chapter": "函数应用",
+      "conceptIds": [
+        "function-applications",
+        "function-zero",
+        "mathematical-modeling",
+        "growth-models",
+        "approximation",
+        "model-interpretation"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学运算",
+        "应用意识"
+      ],
+      "skillTags": [
+        "函数零点",
+        "模型选择",
+        "参数解释",
+        "近似求解",
+        "结果检验",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "zero meaning not interpreted",
+        "model domain overstated",
+        "growth comparison outside interval",
+        "parameter conclusion unsupported",
+        "zero not interpreted",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-function-applications"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-function-applications-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s4-upper-functions-unit-pattern"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某工厂生产一种产品，固定成本为200万元，每生产一件产品的可变成本为500元。若产品售价为每件800元，则盈亏平衡点（利润为零时的产量）为（ ）件。",
+      "optionsZhHans": [
+        "4000",
+        "5000",
+        "6667",
+        "10000"
+      ],
+      "answer": "6667",
+      "acceptedAnswers": [
+        "6667"
+      ],
+      "explanationZhHans": "设产量为x件。总成本C=2000000+500x，总收入R=800x。由R=C得800x=2000000+500x，300x=2000000，x≈6666.67，取整为6667件。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-170",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-函数应用",
+      "topicTitleZhHans": "函数应用",
+      "volume": "必修 第一册",
+      "chapter": "函数应用",
+      "conceptIds": [
+        "function-applications",
+        "function-zero",
+        "mathematical-modeling",
+        "growth-models",
+        "approximation",
+        "model-interpretation"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学运算",
+        "应用意识"
+      ],
+      "skillTags": [
+        "函数零点",
+        "模型选择",
+        "参数解释",
+        "近似求解",
+        "结果检验",
+        "全卷结构",
+        "函数综合",
+        "统计解释"
+      ],
+      "misconceptionTags": [
+        "zero meaning not interpreted",
+        "model domain overstated",
+        "growth comparison outside interval",
+        "parameter conclusion unsupported",
+        "zero not interpreted",
+        "statistical conclusion overstated",
+        "probability model incomplete",
+        "function result not interpreted"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-function-applications"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-function-applications-unit-pattern",
+        "bnu-high-s4-upper-final-full-volume-review",
+        "bnu-high-s4-upper-functions-unit-pattern"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某公司推出新产品，市场调研显示：产品定价为每件50元时，月销量为1000件；定价每降低1元，月销量增加20件。设定价为x元，月利润为y元，成本为每件30元。求y与x的函数关系式，并指出x的取值范围。",
+      "optionsZhHans": [],
+      "answer": "y=(x-30)[1000+20(50-x)]，x∈[30,100]",
+      "acceptedAnswers": [
+        "y=(x-30)[1000+20(50-x)]，x∈[30,100]",
+        "y=(x-30)(2000-20x)，x∈[30,100]"
+      ],
+      "explanationZhHans": "销量=1000+20(50-x)=2000-20x，利润y=(x-30)(2000-20x)。由销量≥0得2000-20x≥0，x≤100；又x≥30，故x∈[30,100]。"
+    }
+  ]
+}

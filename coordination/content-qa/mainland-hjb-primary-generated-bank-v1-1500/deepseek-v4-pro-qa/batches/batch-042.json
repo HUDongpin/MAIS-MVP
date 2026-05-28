@@ -1,0 +1,191 @@
+{
+  "batchNumber": 42,
+  "startedAt": "2026-05-25T02:07:20.788Z",
+  "completedAt": "2026-05-25T02:07:43.265Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p3-239",
+    "hjb-primary-ds-v1-p3-240",
+    "hjb-primary-ds-v1-p3-241",
+    "hjb-primary-ds-v1-p3-242",
+    "hjb-primary-ds-v1-p3-243",
+    "hjb-primary-ds-v1-p3-244",
+    "hjb-primary-ds-v1-p3-245",
+    "hjb-primary-ds-v1-p3-246",
+    "hjb-primary-ds-v1-p3-247",
+    "hjb-primary-ds-v1-p3-248",
+    "hjb-primary-ds-v1-p3-249",
+    "hjb-primary-ds-v1-p3-250",
+    "hjb-primary-ds-v1-p4-001",
+    "hjb-primary-ds-v1-p4-002",
+    "hjb-primary-ds-v1-p4-003",
+    "hjb-primary-ds-v1-p4-004",
+    "hjb-primary-ds-v1-p4-005",
+    "hjb-primary-ds-v1-p4-006"
+  ],
+  "usage": {
+    "prompt_tokens": 4034,
+    "completion_tokens": 1363,
+    "total_tokens": 5397,
+    "prompt_tokens_details": {
+      "cached_tokens": 3968
+    },
+    "prompt_cache_hit_tokens": 3968,
+    "prompt_cache_miss_tokens": 66
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p3-239",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "规律正确，答案16根无误，选项清晰，适合三年级。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-240",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "小数比较正确，答案>无误，要求填写比较方法合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-241",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "策略判断正确，②题需先求边长再求面积，其他选项分析合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-242",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "小数与整数比较正确，选项设置合理，答案无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-243",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "面积求周长正确，边长7米，周长28米，选项分析合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-244",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "知识领域归类正确，统计不属于图形与几何，答案无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-245",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平方数规律正确，第5个25个，选项清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-246",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "两句均错误，分析正确，选项设置合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-247",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均数逆推正确，星期五11千克，计算无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-248",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "周长固定面积最大问题，正方形面积最大，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-249",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "统计比较正确，篮球比乒乓球少2人，其他选项计算错误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-250",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "错中求解正确，另一个加数4.2，正确结果7.8。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-001",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "乘除法关系正确，选项清晰，适合四年级。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-002",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "逆运算填空正确，答案17无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-003",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "逆运算检查正确，答案8，过程合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-004",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分数意义正确，每段是整体的1/5，选项区分了具体长度和分率。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-005",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "求一个数的几分之几正确，24÷3=8块。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p4-006",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "错中求解正确，多加了9，正确和69，过程清晰。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案匹配，选项无歧义，条件完整，年级和主题合适，无视觉或来源风险，语言清晰，适合公共题库。"
+    }
+  }
+}

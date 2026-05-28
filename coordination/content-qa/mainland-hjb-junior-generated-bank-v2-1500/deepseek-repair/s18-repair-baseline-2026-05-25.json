@@ -1,0 +1,843 @@
+{
+  "createdAt": "2026-05-25T04:44:06.984Z",
+  "sessionId": "S18",
+  "purpose": "Baseline before resuming HJB Junior V2 candidate repair",
+  "baseline": [
+    {
+      "file": "questions.jsonl",
+      "bytes": 2745389,
+      "mtime": "2026-05-25T02:18:37.895Z",
+      "sha256": "37cff6d4345e8e035e64b6a5b7d757e5f194fdb7b9835187b9b3445832dae053"
+    },
+    {
+      "file": "question-pack.json",
+      "bytes": 3548685,
+      "mtime": "2026-05-25T02:18:37.917Z",
+      "sha256": "f1bdbd078eae01efa2c13a30f1be1ad3a25bc17ed28a4275468ce207650edfe6"
+    },
+    {
+      "file": "deepseek-repair/repair-targets.json",
+      "bytes": 129916,
+      "mtime": "2026-05-25T02:18:37.094Z",
+      "sha256": "c57d202959a0dec4aee6f750c88d1f5bc78f9ef7e9b76c810f86e026cf087b8b"
+    },
+    {
+      "file": "deepseek-repair/s18-repair-report.md",
+      "bytes": 1435,
+      "mtime": "2026-05-25T02:27:26.812Z",
+      "sha256": "514cbc79ded847bacf4621eee69df830dec90093042fbc1c7b5a11624b3015b9"
+    },
+    {
+      "file": "s18-promotability-decision.md",
+      "bytes": 1288,
+      "mtime": "2026-05-25T02:27:54.630Z",
+      "sha256": "6d781f23859c768f362ba9ad8320df31758a6b308a49dea8ffe06815c13c3d2b"
+    },
+    {
+      "file": "qa-report.md",
+      "bytes": 1266,
+      "mtime": "2026-05-25T02:18:37.928Z",
+      "sha256": "8c866e56028f450e99d98945acdbd629ca32c1935151c9d93b35168f77a4e5cd"
+    }
+  ],
+  "repairBatchFiles": [
+    "repair-0001.json",
+    "repair-0002.json",
+    "repair-0003.json",
+    "repair-0004.json",
+    "repair-0005.json",
+    "repair-0006.json",
+    "repair-0007.json",
+    "repair-0008.json",
+    "repair-0009.json",
+    "repair-0010.json",
+    "repair-0011.json",
+    "repair-0012.json",
+    "repair-0013.json",
+    "repair-0014.json",
+    "repair-0015.json",
+    "repair-0016.json",
+    "repair-0017.json",
+    "repair-0018.json",
+    "repair-0019.json",
+    "repair-0020.json",
+    "repair-0021.json"
+  ],
+  "targetCount": 201,
+  "repairedCount": 105,
+  "remainingCount": 96,
+  "remainingByGrade": {
+    "S2": 39,
+    "S3": 57
+  },
+  "remaining": [
+    {
+      "id": "hjb-junior-ds-v2-s2-206",
+      "grade": "S2",
+      "topicId": "hjb-junior-s2-upper-right-triangles",
+      "unitTitle": "直角三角形",
+      "type": "fill-in",
+      "difficulty": "Core"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-212",
+      "grade": "S2",
+      "topicId": "hjb-junior-s2-upper-right-triangles",
+      "unitTitle": "直角三角形",
+      "type": "fill-in",
+      "difficulty": "Core"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-216",
+      "grade": "S2",
+      "topicId": "hjb-junior-s2-upper-right-triangles",
+      "unitTitle": "直角三角形",
+      "type": "short-answer",
+      "difficulty": "Exam"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-220",
+      "grade": "S2",
+      "topicId": "hjb-junior-s2-upper-right-triangles",
+      "unitTitle": "直角三角形",
+      "type": "multiple-choice",
+      "difficulty": "Foundation"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-222",
+      "grade": "S2",
+      "topicId": "hjb-junior-s2-upper-right-triangles",
+      "unitTitle": "直角三角形",
+      "type": "short-answer",
+      "difficulty": "Exam"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-225",
+      "grade": "S2",
+      "topicId": "hjb-junior-s2-upper-right-triangles",
+      "unitTitle": "直角三角形",
+      "type": "short-answer",
+      "difficulty": "Exam"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-228",
+      "grade": "S2",
+      "topicId": "hjb-junior-s2-upper-right-triangles",
+      "unitTitle": "直角三角形",
+      "type": "short-answer",
+      "difficulty": "Exam"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-237",
+      "grade": "S2",
+      "topicId": "hjb-junior-s2-upper-right-triangles",
+      "unitTitle": "直角三角形",
+      "type": "short-answer",
+      "difficulty": "Exam"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-238",
+      "grade": "S2",
+      "topicId": "hjb-junior-s2-upper-right-triangles",
+      "unitTitle": "直角三角形",
+      "type": "multiple-choice",
+      "difficulty": "Foundation"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-240",
+      "grade": "S2",
+      "topicId": "hjb-junior-s2-upper-right-triangles",
+      "unitTitle": "直角三角形",
+      "type": "short-answer",
+      "difficulty": "Exam"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-241",
+      "grade": "S2",
+      "topicId": "hjb-junior-s2-upper-right-triangles",
+      "unitTitle": "直角三角形",
+      "type": "multiple-choice",
+      "difficulty": "Foundation"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-242",
+      "grade": "S2",
+      "topicId": "hjb-junior-s2-upper-right-triangles",
+      "unitTitle": "直角三角形",
+      "type": "fill-in",
+      "difficulty": "Core"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-244",
+      "grade": "S2",
+      "topicId": "hjb-junior-s2-upper-right-triangles",
+      "unitTitle": "直角三角形",
+      "type": "multiple-choice",
+      "difficulty": "Foundation"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-255",
+      "grade": "S2",
+      "topicId": "hjb-junior-s2-lower-quadrilaterals",
+      "unitTitle": "四边形",
+      "type": "short-answer",
+      "difficulty": "Exam"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-261",
+      "grade": "S2",
+      "topicId": "hjb-junior-s2-lower-quadrilaterals",
+      "unitTitle": "四边形",
+      "type": "short-answer",
+      "difficulty": "Exam"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-276",
+      "grade": "S2",
+      "topicId": "hjb-junior-s2-lower-quadrilaterals",
+      "unitTitle": "四边形",
+      "type": "short-answer",
+      "difficulty": "Exam"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-277",
+      "grade": "S2",
+      "topicId": "hjb-junior-s2-lower-quadrilaterals",
+      "unitTitle": "四边形",
+      "type": "multiple-choice",
+      "difficulty": "Foundation"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-278",
+      "grade": "S2",
+      "topicId": "hjb-junior-s2-lower-quadrilaterals",
+      "unitTitle": "四边形",
+      "type": "fill-in",
+      "difficulty": "Core"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-279",
+      "grade": "S2",
+      "topicId": "hjb-junior-s2-lower-quadrilaterals",
+      "unitTitle": "四边形",
+      "type": "short-answer",
+      "difficulty": "Exam"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-282",
+      "grade": "S2",
+      "topicId": "hjb-junior-s2-lower-quadrilaterals",
+      "unitTitle": "四边形",
+      "type": "short-answer",
+      "difficulty": "Exam"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-283",
+      "grade": "S2",
+      "topicId": "hjb-junior-s2-lower-quadrilaterals",
+      "unitTitle": "四边形",
+      "type": "multiple-choice",
+      "difficulty": "Foundation"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-284",
+      "grade": "S2",
+      "topicId": "hjb-junior-s2-lower-quadrilaterals",
+      "unitTitle": "四边形",
+      "type": "fill-in",
+      "difficulty": "Core"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-285",
+      "grade": "S2",
+      "topicId": "hjb-junior-s2-lower-quadrilaterals",
+      "unitTitle": "四边形",
+      "type": "short-answer",
+      "difficulty": "Exam"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-286",
+      "grade": "S2",
+      "topicId": "hjb-junior-s2-lower-quadrilaterals",
+      "unitTitle": "四边形",
+      "type": "multiple-choice",
+      "difficulty": "Foundation"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-290",
+      "grade": "S2",
+      "topicId": "hjb-junior-s2-lower-quadrilaterals",
+      "unitTitle": "四边形",
+      "type": "fill-in",
+      "difficulty": "Core"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-300",
+      "grade": "S2",
+      "topicId": "hjb-junior-s2-lower-quadrilaterals",
+      "unitTitle": "四边形",
+      "type": "short-answer",
+      "difficulty": "Core"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-301",
+      "grade": "S2",
+      "topicId": "hjb-junior-s2-lower-quadrilaterals",
+      "unitTitle": "四边形",
+      "type": "multiple-choice",
+      "difficulty": "Exam"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-302",
+      "grade": "S2",
+      "topicId": "hjb-junior-s2-lower-quadrilaterals",
+      "unitTitle": "四边形",
+      "type": "fill-in",
+      "difficulty": "Core"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-303",
+      "grade": "S2",
+      "topicId": "hjb-junior-s2-lower-quadrilaterals",
+      "unitTitle": "四边形",
+      "type": "short-answer",
+      "difficulty": "Exam"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-309",
+      "grade": "S2",
+      "topicId": "hjb-junior-s2-lower-quadrilaterals",
+      "unitTitle": "四边形",
+      "type": "short-answer",
+      "difficulty": "Exam"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-312",
+      "grade": "S2",
+      "topicId": "hjb-junior-s2-lower-quadrilaterals",
+      "unitTitle": "四边形",
+      "type": "short-answer",
+      "difficulty": "Core"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-319",
+      "grade": "S2",
+      "topicId": "hjb-junior-s2-lower-coordinate-plane",
+      "unitTitle": "平面直角坐标系",
+      "type": "multiple-choice",
+      "difficulty": "Core"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-346",
+      "grade": "S2",
+      "topicId": "hjb-junior-s2-lower-coordinate-plane",
+      "unitTitle": "平面直角坐标系",
+      "type": "multiple-choice",
+      "difficulty": "Core"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-376",
+      "grade": "S2",
+      "topicId": "hjb-junior-s2-lower-linear-functions",
+      "unitTitle": "一次函数",
+      "type": "multiple-choice",
+      "difficulty": "Core"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-419",
+      "grade": "S2",
+      "topicId": "hjb-junior-s2-lower-linear-functions",
+      "unitTitle": "一次函数",
+      "type": "fill-in",
+      "difficulty": "Core"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-424",
+      "grade": "S2",
+      "topicId": "hjb-junior-s2-lower-linear-functions",
+      "unitTitle": "一次函数",
+      "type": "multiple-choice",
+      "difficulty": "Core"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-440",
+      "grade": "S2",
+      "topicId": "hjb-junior-s2-lower-inverse-functions",
+      "unitTitle": "反比例函数",
+      "type": "multiple-choice",
+      "difficulty": "Core"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-448",
+      "grade": "S2",
+      "topicId": "hjb-junior-s2-lower-inverse-functions",
+      "unitTitle": "反比例函数",
+      "type": "multiple-choice",
+      "difficulty": "Core"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-476",
+      "grade": "S2",
+      "topicId": "hjb-junior-s2-lower-inverse-functions",
+      "unitTitle": "反比例函数",
+      "type": "multiple-choice",
+      "difficulty": "Core"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-003",
+      "grade": "S3",
+      "topicId": "hjb-junior-s3-upper-similar-triangles",
+      "unitTitle": "相似三角形",
+      "type": "short-answer",
+      "difficulty": "Challenge"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-009",
+      "grade": "S3",
+      "topicId": "hjb-junior-s3-upper-similar-triangles",
+      "unitTitle": "相似三角形",
+      "type": "short-answer",
+      "difficulty": "Core"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-019",
+      "grade": "S3",
+      "topicId": "hjb-junior-s3-upper-similar-triangles",
+      "unitTitle": "相似三角形",
+      "type": "multiple-choice",
+      "difficulty": "Challenge"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-022",
+      "grade": "S3",
+      "topicId": "hjb-junior-s3-upper-similar-triangles",
+      "unitTitle": "相似三角形",
+      "type": "multiple-choice",
+      "difficulty": "Exam"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-055",
+      "grade": "S3",
+      "topicId": "hjb-junior-s3-upper-similar-triangles",
+      "unitTitle": "相似三角形",
+      "type": "multiple-choice",
+      "difficulty": "Challenge"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-062",
+      "grade": "S3",
+      "topicId": "hjb-junior-s3-upper-similar-triangles",
+      "unitTitle": "相似三角形",
+      "type": "fill-in",
+      "difficulty": "Exam"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-073",
+      "grade": "S3",
+      "topicId": "hjb-junior-s3-upper-similar-triangles",
+      "unitTitle": "相似三角形",
+      "type": "multiple-choice",
+      "difficulty": "Core"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-089",
+      "grade": "S3",
+      "topicId": "hjb-junior-s3-upper-acute-trigonometry",
+      "unitTitle": "锐角的三角比",
+      "type": "fill-in",
+      "difficulty": "Core"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-090",
+      "grade": "S3",
+      "topicId": "hjb-junior-s3-upper-acute-trigonometry",
+      "unitTitle": "锐角的三角比",
+      "type": "short-answer",
+      "difficulty": "Exam"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-091",
+      "grade": "S3",
+      "topicId": "hjb-junior-s3-upper-acute-trigonometry",
+      "unitTitle": "锐角的三角比",
+      "type": "multiple-choice",
+      "difficulty": "Challenge"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-102",
+      "grade": "S3",
+      "topicId": "hjb-junior-s3-upper-acute-trigonometry",
+      "unitTitle": "锐角的三角比",
+      "type": "short-answer",
+      "difficulty": "Exam"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-138",
+      "grade": "S3",
+      "topicId": "hjb-junior-s3-upper-acute-trigonometry",
+      "unitTitle": "锐角的三角比",
+      "type": "short-answer",
+      "difficulty": "Exam"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-139",
+      "grade": "S3",
+      "topicId": "hjb-junior-s3-upper-acute-trigonometry",
+      "unitTitle": "锐角的三角比",
+      "type": "multiple-choice",
+      "difficulty": "Challenge"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-146",
+      "grade": "S3",
+      "topicId": "hjb-junior-s3-upper-acute-trigonometry",
+      "unitTitle": "锐角的三角比",
+      "type": "fill-in",
+      "difficulty": "Exam"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-153",
+      "grade": "S3",
+      "topicId": "hjb-junior-s3-upper-acute-trigonometry",
+      "unitTitle": "锐角的三角比",
+      "type": "short-answer",
+      "difficulty": "Core"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-156",
+      "grade": "S3",
+      "topicId": "hjb-junior-s3-upper-acute-trigonometry",
+      "unitTitle": "锐角的三角比",
+      "type": "short-answer",
+      "difficulty": "Foundation"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-166",
+      "grade": "S3",
+      "topicId": "hjb-junior-s3-upper-acute-trigonometry",
+      "unitTitle": "锐角的三角比",
+      "type": "multiple-choice",
+      "difficulty": "Challenge"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-172",
+      "grade": "S3",
+      "topicId": "hjb-junior-s3-upper-quadratic-functions",
+      "unitTitle": "二次函数",
+      "type": "multiple-choice",
+      "difficulty": "Challenge"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-175",
+      "grade": "S3",
+      "topicId": "hjb-junior-s3-upper-quadratic-functions",
+      "unitTitle": "二次函数",
+      "type": "multiple-choice",
+      "difficulty": "Challenge"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-183",
+      "grade": "S3",
+      "topicId": "hjb-junior-s3-upper-quadratic-functions",
+      "unitTitle": "二次函数",
+      "type": "short-answer",
+      "difficulty": "Exam"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-202",
+      "grade": "S3",
+      "topicId": "hjb-junior-s3-upper-quadratic-functions",
+      "unitTitle": "二次函数",
+      "type": "multiple-choice",
+      "difficulty": "Challenge"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-204",
+      "grade": "S3",
+      "topicId": "hjb-junior-s3-upper-quadratic-functions",
+      "unitTitle": "二次函数",
+      "type": "short-answer",
+      "difficulty": "Exam"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-208",
+      "grade": "S3",
+      "topicId": "hjb-junior-s3-upper-quadratic-functions",
+      "unitTitle": "二次函数",
+      "type": "multiple-choice",
+      "difficulty": "Challenge"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-228",
+      "grade": "S3",
+      "topicId": "hjb-junior-s3-upper-quadratic-functions",
+      "unitTitle": "二次函数",
+      "type": "short-answer",
+      "difficulty": "Exam"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-244",
+      "grade": "S3",
+      "topicId": "hjb-junior-s3-upper-quadratic-functions",
+      "unitTitle": "二次函数",
+      "type": "multiple-choice",
+      "difficulty": "Exam"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-245",
+      "grade": "S3",
+      "topicId": "hjb-junior-s3-upper-quadratic-functions",
+      "unitTitle": "二次函数",
+      "type": "fill-in",
+      "difficulty": "Core"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-250",
+      "grade": "S3",
+      "topicId": "hjb-junior-s3-upper-quadratic-functions",
+      "unitTitle": "二次函数",
+      "type": "multiple-choice",
+      "difficulty": "Exam"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-255",
+      "grade": "S3",
+      "topicId": "hjb-junior-s3-lower-circle-regular-polygons",
+      "unitTitle": "圆与正多边形",
+      "type": "short-answer",
+      "difficulty": "Core"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-292",
+      "grade": "S3",
+      "topicId": "hjb-junior-s3-lower-circle-regular-polygons",
+      "unitTitle": "圆与正多边形",
+      "type": "multiple-choice",
+      "difficulty": "Exam"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-296",
+      "grade": "S3",
+      "topicId": "hjb-junior-s3-lower-circle-regular-polygons",
+      "unitTitle": "圆与正多边形",
+      "type": "fill-in",
+      "difficulty": "Exam"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-306",
+      "grade": "S3",
+      "topicId": "hjb-junior-s3-lower-circle-regular-polygons",
+      "unitTitle": "圆与正多边形",
+      "type": "short-answer",
+      "difficulty": "Exam"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-313",
+      "grade": "S3",
+      "topicId": "hjb-junior-s3-lower-circle-regular-polygons",
+      "unitTitle": "圆与正多边形",
+      "type": "multiple-choice",
+      "difficulty": "Core"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-324",
+      "grade": "S3",
+      "topicId": "hjb-junior-s3-lower-circle-regular-polygons",
+      "unitTitle": "圆与正多边形",
+      "type": "short-answer",
+      "difficulty": "Exam"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-340",
+      "grade": "S3",
+      "topicId": "hjb-junior-s3-lower-circle-regular-polygons",
+      "unitTitle": "圆与正多边形",
+      "type": "multiple-choice",
+      "difficulty": "Exam"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-347",
+      "grade": "S3",
+      "topicId": "hjb-junior-s3-lower-circle-regular-polygons",
+      "unitTitle": "圆与正多边形",
+      "type": "fill-in",
+      "difficulty": "Core"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-348",
+      "grade": "S3",
+      "topicId": "hjb-junior-s3-lower-circle-regular-polygons",
+      "unitTitle": "圆与正多边形",
+      "type": "short-answer",
+      "difficulty": "Exam"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-356",
+      "grade": "S3",
+      "topicId": "hjb-junior-s3-lower-circle-regular-polygons",
+      "unitTitle": "圆与正多边形",
+      "type": "fill-in",
+      "difficulty": "Exam"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-371",
+      "grade": "S3",
+      "topicId": "hjb-junior-s3-lower-circle-regular-polygons",
+      "unitTitle": "圆与正多边形",
+      "type": "fill-in",
+      "difficulty": "Core"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-372",
+      "grade": "S3",
+      "topicId": "hjb-junior-s3-lower-circle-regular-polygons",
+      "unitTitle": "圆与正多边形",
+      "type": "short-answer",
+      "difficulty": "Exam"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-376",
+      "grade": "S3",
+      "topicId": "hjb-junior-s3-lower-circle-regular-polygons",
+      "unitTitle": "圆与正多边形",
+      "type": "multiple-choice",
+      "difficulty": "Exam"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-386",
+      "grade": "S3",
+      "topicId": "hjb-junior-s3-lower-circle-regular-polygons",
+      "unitTitle": "圆与正多边形",
+      "type": "multiple-choice",
+      "difficulty": "Exam"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-416",
+      "grade": "S3",
+      "topicId": "hjb-junior-s3-lower-statistics-introduction",
+      "unitTitle": "统计初步",
+      "type": "multiple-choice",
+      "difficulty": "Exam"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-417",
+      "grade": "S3",
+      "topicId": "hjb-junior-s3-lower-statistics-introduction",
+      "unitTitle": "统计初步",
+      "type": "fill-in",
+      "difficulty": "Core"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-426",
+      "grade": "S3",
+      "topicId": "hjb-junior-s3-lower-statistics-introduction",
+      "unitTitle": "统计初步",
+      "type": "multiple-choice",
+      "difficulty": "Exam"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-427",
+      "grade": "S3",
+      "topicId": "hjb-junior-s3-lower-statistics-introduction",
+      "unitTitle": "统计初步",
+      "type": "fill-in",
+      "difficulty": "Core"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-428",
+      "grade": "S3",
+      "topicId": "hjb-junior-s3-lower-statistics-introduction",
+      "unitTitle": "统计初步",
+      "type": "multiple-choice",
+      "difficulty": "Exam"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-432",
+      "grade": "S3",
+      "topicId": "hjb-junior-s3-lower-statistics-introduction",
+      "unitTitle": "统计初步",
+      "type": "multiple-choice",
+      "difficulty": "Exam"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-443",
+      "grade": "S3",
+      "topicId": "hjb-junior-s3-lower-statistics-introduction",
+      "unitTitle": "统计初步",
+      "type": "fill-in",
+      "difficulty": "Core"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-447",
+      "grade": "S3",
+      "topicId": "hjb-junior-s3-lower-statistics-introduction",
+      "unitTitle": "统计初步",
+      "type": "fill-in",
+      "difficulty": "Core"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-456",
+      "grade": "S3",
+      "topicId": "hjb-junior-s3-lower-statistics-introduction",
+      "unitTitle": "统计初步",
+      "type": "multiple-choice",
+      "difficulty": "Exam"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-457",
+      "grade": "S3",
+      "topicId": "hjb-junior-s3-lower-statistics-introduction",
+      "unitTitle": "统计初步",
+      "type": "fill-in",
+      "difficulty": "Core"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-460",
+      "grade": "S3",
+      "topicId": "hjb-junior-s3-lower-statistics-introduction",
+      "unitTitle": "统计初步",
+      "type": "multiple-choice",
+      "difficulty": "Exam"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-466",
+      "grade": "S3",
+      "topicId": "hjb-junior-s3-lower-statistics-introduction",
+      "unitTitle": "统计初步",
+      "type": "multiple-choice",
+      "difficulty": "Exam"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-474",
+      "grade": "S3",
+      "topicId": "hjb-junior-s3-lower-statistics-introduction",
+      "unitTitle": "统计初步",
+      "type": "multiple-choice",
+      "difficulty": "Exam"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-476",
+      "grade": "S3",
+      "topicId": "hjb-junior-s3-lower-statistics-introduction",
+      "unitTitle": "统计初步",
+      "type": "multiple-choice",
+      "difficulty": "Exam"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-492",
+      "grade": "S3",
+      "topicId": "hjb-junior-s3-lower-statistics-introduction",
+      "unitTitle": "统计初步",
+      "type": "multiple-choice",
+      "difficulty": "Core"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-497",
+      "grade": "S3",
+      "topicId": "hjb-junior-s3-lower-statistics-introduction",
+      "unitTitle": "统计初步",
+      "type": "multiple-choice",
+      "difficulty": "Core"
+    }
+  ]
+}

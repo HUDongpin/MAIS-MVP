@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-239",
+  "startedAt": "2026-05-28T01:46:26.240Z",
+  "completedAt": "2026-05-28T01:46:30.641Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-239"
+  ],
+  "usage": {
+    "prompt_tokens": 2026,
+    "completion_tokens": 273,
+    "total_tokens": 2299,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1642
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-239",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "a = e - 1",
+        "correctedAnswer": "a = e - 1",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，独立求解得 a = e - 1。存储答案 a = 1 错误，解析中 a > 1 时解得 a = 1 矛盾，且未考虑 a = e - 1 的情况，导致答案与解释均不匹配。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1 题答案错误，需修正为 a = e - 1。"
+    }
+  }
+}

@@ -1,0 +1,189 @@
+{
+  "batchNumber": 63,
+  "startedAt": "2026-05-27T17:40:36.802Z",
+  "completedAt": "2026-05-27T17:40:56.388Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s2-245",
+    "bnu-junior-ds-v1-s2-246",
+    "bnu-junior-ds-v1-s2-247",
+    "bnu-junior-ds-v1-s2-248",
+    "bnu-junior-ds-v1-s2-249",
+    "bnu-junior-ds-v1-s2-250",
+    "bnu-junior-ds-v1-s2-251",
+    "bnu-junior-ds-v1-s2-252",
+    "bnu-junior-ds-v1-s2-253",
+    "bnu-junior-ds-v1-s2-254",
+    "bnu-junior-ds-v1-s2-255",
+    "bnu-junior-ds-v1-s2-256"
+  ],
+  "usage": {
+    "prompt_tokens": 6967,
+    "completion_tokens": 1403,
+    "total_tokens": 8370,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 6455
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s2-245",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件完整，角度关系明确，可判定平行条件个数为3，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-246",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "条件清晰，能判定平行的序号为①②④，答案与解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-247",
+        "status": "fail",
+        "severity": "major",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "2个",
+        "rationale": "解释中判定①②④正确，但③错误，应为2个，答案却为3个，与解释矛盾。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-248",
+        "status": "fail",
+        "severity": "major",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "①②④",
+        "rationale": "解释中条件①同旁内角互补可判定平行，条件④同旁内角互补也可判定，但答案仅②③，与解释矛盾。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-249",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "条件①②可判定平行，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-250",
+        "status": "fail",
+        "severity": "major",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "2个",
+        "rationale": "解释中条件③通过等量代换可判定平行，但条件④不能，故应为2个，答案3个错误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-251",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "条件①④同旁内角互补，②同位角相等，共3个可判定，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-252",
+        "status": "fail",
+        "severity": "major",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "①②③",
+        "rationale": "解释中条件①同旁内角互补可判定平行，但答案仅②③，遗漏①。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-253",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "条件①②可判定平行，共2个，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-254",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "通过邻补角转化得同位角相等，判定平行，答案与解释正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-255",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "同旁内角互补判定平行，答案与解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-256",
+        "status": "fail",
+        "severity": "major",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch",
+          "ambiguous_mc"
+        ],
+        "correctedAnswer": "①",
+        "rationale": "解释中条件①同位角相等可判定平行，但答案选②，且条件②同旁内角互补也可判定，导致多解，选项不唯一。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 5,
+      "notes": "共12题，7题通过，5题因答案与解释矛盾或选项不唯一而失败。主要问题为平行判定条件计数错误或答案与解释不一致。"
+    }
+  }
+}

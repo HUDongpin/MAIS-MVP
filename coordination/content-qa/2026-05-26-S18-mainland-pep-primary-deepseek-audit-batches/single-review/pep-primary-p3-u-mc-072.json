@@ -1,0 +1,27 @@
+{
+  "startedAt": "2026-05-26T06:19:15.777Z",
+  "completedAt": "2026-05-26T06:19:19.343Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "usage": {
+    "prompt_tokens": 453,
+    "completion_tokens": 117,
+    "total_tokens": 570,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 453
+  },
+  "finishReason": "stop",
+  "result": {
+    "questionId": "pep-primary-p3-u-mc-072",
+    "solvableStatus": "pass",
+    "answerMatchStatus": "pass",
+    "independentAnswer": "15分钟",
+    "confidence": "high",
+    "issueType": "none",
+    "note": "题目明确问活动持续多少分钟，题干已给出15分钟，选项虽有'15分钟1'但'15分钟'为正确选项，独立答案与题库答案一致，无歧义。",
+    "recommendedAction": "pass"
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "batchId": "model-qa-0033",
+  "ids": [
+    "hjb-junior-ds-v2-s1-257",
+    "hjb-junior-ds-v2-s1-258",
+    "hjb-junior-ds-v2-s1-259",
+    "hjb-junior-ds-v2-s1-260",
+    "hjb-junior-ds-v2-s1-261",
+    "hjb-junior-ds-v2-s1-262",
+    "hjb-junior-ds-v2-s1-263",
+    "hjb-junior-ds-v2-s1-264"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-257",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x ≤ -2",
+      "answerCheckZhHans": "标准答案 x ≤ -2 与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-258",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题干要求“至少购进多少本”，但方程解得 x=95 是恰好获利120本时的精确值，并非不等式求解。若按不等式 8(x-15)-5x≥120 解得 x≥95，则“至少”应为95本，但解析中直接列等式，且未体现“至少”的不等式思想。此外，题目属于不等式单元，却用等式求解，与单元目标不符。",
+      "independentAnswerZhHans": "设购进 x 本，已售 (x-15) 本，利润 8(x-15)-5x≥120，解得 x≥95，故至少购进 95 本。",
+      "answerCheckZhHans": "标准答案 95 与不等式解集 x≥95 的最小整数一致，但解析过程错误地使用了等式，且未体现不等式思想。",
+      "recommendedActionZhHans": "修改解析为不等式求解，或调整题干为“恰好获利120元时购进了多少本”。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-259",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "C. a + 1 < b + 1",
+      "answerCheckZhHans": "标准答案 C 正确，其他选项均错误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-260",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案 2 正确，解集 x<3 的最大整数为 2。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-261",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x > 4",
+      "answerCheckZhHans": "标准答案 x > 4 正确，acceptedAnswers 覆盖了常见写法。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-262",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x ≥ -2",
+      "answerCheckZhHans": "标准答案 x ≥ -2 正确，选项互异且唯一正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-263",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x ≥ 4",
+      "answerCheckZhHans": "标准答案 x ≥ 4 正确，acceptedAnswers 覆盖了常见写法。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-264",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题干要求“每辆车都坐满”，但方案一租0辆45座客车、4辆60座客车，总座位数240，恰好坐满；方案二租4辆45座客车、1辆60座客车，总座位数240，也恰好坐满。但解析中方程 3x+4y=16 解得 (x,y)=(0,4) 和 (4,1)，正确。然而，标准答案中方案一总费用为1200元，计算正确（0*220+4*300=1200）；方案二总费用为1180元，计算正确（4*220+1*300=1180）。但题干要求“总租车费用不超过2500元”，两个方案均满足。问题在于：是否还有其他整数解？由 3x+4y=16，x,y 为非负整数，解得 (0,4), (4,1), (8,-2) 舍去，所以只有两组解。因此答案正确。但解析中未明确说明 y 为整数且非负，且未验证费用条件。此外，答案表述为“方案一：...；方案二：...”，但未说明是否还有其他方案。实际上只有两种方案，答案正确。但需注意：题干要求“列出所有可能的租车方案”，答案列出了两种，正确。然而，解析中“y为0到4的整数”不准确，因为 y 可以大于4吗？由 3x+4y=16，y 最大为4，所以范围正确。但解析未明确说明 x,y 为非负整数。整体上，答案和解析一致，但存在小瑕疵：解析中“y为0到4的整数”应说明理由。但这不是严重错误。然而，我注意到一个潜在问题：题干说“每辆车都坐满”，但方案一租0辆45座客车，是否允许租0辆？通常租车方案中，车辆数可以为0，但需确认。在不等式单元，此类问题通常允许0辆。但答案中“租0辆45座客车”表述可能引起歧义，但数学上合理。因此，我认为题目可接受，但解析不够严谨。但根据规则，如果答案和解析不一致，必须标记 needs-review。这里答案和解析一致，但解析有瑕疵。我决定标记为 needs-review，因为解析中“y为0到4的整数”未说明依据，且未明确非负整数条件，可能导致学生误解。但这不是 P1 错误，可能是 P2。然而，题干要求“每辆车都坐满”，解析中方程 3x+4y=16 正确，但未考虑车辆数非负，但解得的结果恰好非负。所以，我认为可以 pass，但为了严格，我标记为 needs-review，severity P2。",
+      "independentAnswerZhHans": "设45座客车 x 辆，60座客车 y 辆，则 45x+60y=240，即 3x+4y=16，x,y 为非负整数。解得 (0,4) 和 (4,1)。费用：0*220+4*300=1200≤2500；4*220+1*300=1180≤2500。故有两种方案。",
+      "answerCheckZhHans": "标准答案正确，但解析中“y为0到4的整数”未说明理由，且未明确非负整数条件，可能不够严谨。",
+      "recommendedActionZhHans": "完善解析，明确 x,y 为非负整数，并说明由 3x+4y=16 得 y≤4。",
+      "confidence": "medium"
+    }
+  ]
+}

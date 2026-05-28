@@ -1,0 +1,191 @@
+{
+  "batchNumber": 46,
+  "startedAt": "2026-05-27T13:54:01.015Z",
+  "completedAt": "2026-05-27T13:54:19.320Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p4-061",
+    "bnu-primary-ds-v2-p4-062",
+    "bnu-primary-ds-v2-p4-063",
+    "bnu-primary-ds-v2-p4-064",
+    "bnu-primary-ds-v2-p4-065",
+    "bnu-primary-ds-v2-p4-066",
+    "bnu-primary-ds-v2-p4-067",
+    "bnu-primary-ds-v2-p4-068",
+    "bnu-primary-ds-v2-p4-069",
+    "bnu-primary-ds-v2-p4-070",
+    "bnu-primary-ds-v2-p4-071",
+    "bnu-primary-ds-v2-p4-072",
+    "bnu-primary-ds-v2-p4-073",
+    "bnu-primary-ds-v2-p4-074",
+    "bnu-primary-ds-v2-p4-075",
+    "bnu-primary-ds-v2-p4-076",
+    "bnu-primary-ds-v2-p4-077",
+    "bnu-primary-ds-v2-p4-078"
+  ],
+  "usage": {
+    "prompt_tokens": 4705,
+    "completion_tokens": 1298,
+    "total_tokens": 6003,
+    "prompt_tokens_details": {
+      "cached_tokens": 4608
+    },
+    "prompt_cache_hit_tokens": 4608,
+    "prompt_cache_miss_tokens": 97
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p4-061",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，选项区分明确，答案正确，解释合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-062",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "填空答案正确，交换律表述清晰，符合要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-063",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "简答题答案完整，运算律判断正确，简便性理由充分。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-064",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项设计合理，正确选项体现分配律且简便，解释准确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-065",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方向与距离计算正确，答案表述清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-066",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方向判断和距离计算正确，答案覆盖多种表述。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-067",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方向与距离计算正确，选项无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-068",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "观测点互换方向描述正确，答案覆盖多种表述。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-069",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "路线分析正确，最终位置描述准确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-070",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方向互换正确，选项清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-071",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方向描述正确，答案覆盖多种表述。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-072",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "返回路线方向与顺序正确，答案完整。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-073",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数对方向判断正确，选项无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-074",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "观测点互换方向正确，答案覆盖多种表述。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-075",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "返回路线方向与顺序正确，答案完整。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-076",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数对方向判断正确，选项无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-077",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "观测点互换方向正确，答案覆盖多种表述。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-078",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "返回路线方向与顺序正确，答案完整。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版小学数学要求，数学正确，答案匹配，无歧义或缺失条件，适合对应年级和主题。"
+    }
+  }
+}

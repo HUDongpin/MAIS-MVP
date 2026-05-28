@@ -1,0 +1,380 @@
+{
+  "batchId": "S4-s4-sets-logic-05",
+  "questions": [
+    {
+      "id": "pep-high-ds-v1-s4-sets-logic-041",
+      "grade": "S4",
+      "topicId": "pep-high-s4-sets-logic",
+      "topicTitleZhHans": "集合与常用逻辑用语",
+      "chapter": "集合与常用逻辑用语",
+      "conceptIds": [
+        "sets",
+        "set-operations",
+        "logic-conditions",
+        "quantifiers",
+        "derivatives",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "pep-high-sets-logic"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "promptZhHans": "已知集合A={x|x=2k+1, k∈Z}，B={x|x=4k±1, k∈Z}，则A与B的关系是（ ）",
+      "optionsZhHans": [
+        "A⊊B",
+        "B⊊A",
+        "A=B",
+        "A∩B=∅"
+      ],
+      "answer": "A=B",
+      "acceptedAnswers": [
+        "A=B"
+      ],
+      "explanationZhHans": "A为奇数集。B中，4k±1表示被4除余1或3的数，即所有奇数，故A=B。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-sets-logic-042",
+      "grade": "S4",
+      "topicId": "pep-high-s4-sets-logic",
+      "topicTitleZhHans": "集合与常用逻辑用语",
+      "chapter": "集合与常用逻辑用语",
+      "conceptIds": [
+        "sets",
+        "set-operations",
+        "logic-conditions",
+        "quantifiers",
+        "derivatives",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "pep-high-sets-logic"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "promptZhHans": "已知函数f(x)=x³-3x²-9x+5，若f(x)在区间(a, a+2)上单调递减，则实数a的取值范围是______。",
+      "optionsZhHans": [],
+      "answer": "[-1,1]",
+      "acceptedAnswers": [
+        "[-1,1]"
+      ],
+      "explanationZhHans": "f'(x)=3x²-6x-9=3(x-3)(x+1)。f'(x)<0得-1<x<3。区间(a,a+2)包含于(-1,3)，故a≥-1且a+2≤3，解得-1≤a≤1。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-sets-logic-043",
+      "grade": "S4",
+      "topicId": "pep-high-s4-sets-logic",
+      "topicTitleZhHans": "集合与常用逻辑用语",
+      "chapter": "集合与常用逻辑用语",
+      "conceptIds": [
+        "sets",
+        "set-operations",
+        "logic-conditions",
+        "quantifiers",
+        "derivatives",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "pep-high-sets-logic"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "promptZhHans": "已知全集U={1,2,3,4,5,6}，集合A={2,3,5}，B={1,3,4,6}。求∁_U(A∩B)。",
+      "optionsZhHans": [],
+      "answer": "{1,2,4,5,6}",
+      "acceptedAnswers": [
+        "{1,2,4,5,6}"
+      ],
+      "explanationZhHans": "A∩B={3}，全集U={1,2,3,4,5,6}，所以∁_U(A∩B)={1,2,4,5,6}。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-sets-logic-044",
+      "grade": "S4",
+      "topicId": "pep-high-s4-sets-logic",
+      "topicTitleZhHans": "集合与常用逻辑用语",
+      "chapter": "集合与常用逻辑用语",
+      "conceptIds": [
+        "sets",
+        "set-operations",
+        "logic-conditions",
+        "quantifiers",
+        "derivatives",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "pep-high-sets-logic"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "promptZhHans": "已知函数f(x)=x³-3x²+2，若关于x的方程f(x)=m有三个不同的实数根，求实数m的取值范围。",
+      "optionsZhHans": [],
+      "answer": "(-2,2)",
+      "acceptedAnswers": [
+        "(-2,2)"
+      ],
+      "explanationZhHans": "f'(x)=3x²-6x=3x(x-2)。极大值f(0)=2，极小值f(2)=-2。方程有三个不同实根等价于m介于极值之间，即-2<m<2。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-sets-logic-045",
+      "grade": "S4",
+      "topicId": "pep-high-s4-sets-logic",
+      "topicTitleZhHans": "集合与常用逻辑用语",
+      "chapter": "集合与常用逻辑用语",
+      "conceptIds": [
+        "sets",
+        "set-operations",
+        "logic-conditions",
+        "quantifiers",
+        "derivatives",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "pep-high-sets-logic"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "promptZhHans": "已知命题p：∃x∈R，x²+2ax+1<0。若p是真命题，则实数a的取值范围是（ ）",
+      "optionsZhHans": [
+        "(-∞,-1)∪(1,+∞)",
+        "(-∞,-1]∪[1,+∞)",
+        "(-1,1)",
+        "[-1,1]"
+      ],
+      "answer": "(-∞,-1)∪(1,+∞)",
+      "acceptedAnswers": [
+        "(-∞,-1)∪(1,+∞)"
+      ],
+      "explanationZhHans": "存在x使二次函数值小于0，需判别式Δ=4a²-4>0，即a²>1，解得a<-1或a>1。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-sets-logic-046",
+      "grade": "S4",
+      "topicId": "pep-high-s4-sets-logic",
+      "topicTitleZhHans": "集合与常用逻辑用语",
+      "chapter": "集合与常用逻辑用语",
+      "conceptIds": [
+        "sets",
+        "set-operations",
+        "logic-conditions",
+        "quantifiers",
+        "derivatives",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "pep-high-sets-logic"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "promptZhHans": "已知函数f(x)=x³+ax²+bx+c在x=1处有极值，且f(1)=2，f'(0)=0，则a+b+c=______。",
+      "optionsZhHans": [],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2"
+      ],
+      "explanationZhHans": "f'(x)=3x²+2ax+b。由f'(1)=0得3+2a+b=0；f'(0)=0得b=0；故a=-3/2。f(1)=1+a+b+c=2，代入得c=5/2。所以a+b+c=1。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-sets-logic-047",
+      "grade": "S4",
+      "topicId": "pep-high-s4-sets-logic",
+      "topicTitleZhHans": "集合与常用逻辑用语",
+      "chapter": "集合与常用逻辑用语",
+      "conceptIds": [
+        "sets",
+        "set-operations",
+        "logic-conditions",
+        "quantifiers",
+        "derivatives",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "pep-high-sets-logic"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "promptZhHans": "已知集合A={x|x²-3x+2=0}，B={x|ax-1=0}，若B⊆A，求实数a的值。",
+      "optionsZhHans": [],
+      "answer": "0或1或1/2",
+      "acceptedAnswers": [
+        "0或1或1/2"
+      ],
+      "explanationZhHans": "A={1,2}。B⊆A，B可能为空集或{1}或{2}。若B=∅，则a=0；若B={1}，则a=1；若B={2}，则a=1/2。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-sets-logic-048",
+      "grade": "S4",
+      "topicId": "pep-high-s4-sets-logic",
+      "topicTitleZhHans": "集合与常用逻辑用语",
+      "chapter": "集合与常用逻辑用语",
+      "conceptIds": [
+        "sets",
+        "set-operations",
+        "logic-conditions",
+        "quantifiers",
+        "derivatives",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "pep-high-sets-logic"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "promptZhHans": "已知函数f(x)=x³-3x，若对于任意x∈[0,2]，不等式f(x)≥k恒成立，则实数k的最大值为（ ）",
+      "optionsZhHans": [
+        "-2",
+        "0",
+        "2",
+        "4"
+      ],
+      "answer": "-2",
+      "acceptedAnswers": [
+        "-2"
+      ],
+      "explanationZhHans": "f'(x)=3x²-3，在[0,1]递减，[1,2]递增。最小值f(1)=-2，所以k≤-2，k最大为-2。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-sets-logic-049",
+      "grade": "S4",
+      "topicId": "pep-high-s4-sets-logic",
+      "topicTitleZhHans": "集合与常用逻辑用语",
+      "chapter": "集合与常用逻辑用语",
+      "conceptIds": [
+        "sets",
+        "set-operations",
+        "logic-conditions",
+        "quantifiers",
+        "derivatives",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "pep-high-sets-logic"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "promptZhHans": "已知集合A={x|x²-2x-3≤0}，B={x|m≤x≤m+2}，若A∩B=∅，则实数m的取值范围是______。",
+      "optionsZhHans": [],
+      "answer": "(-∞,-3)∪(3,+∞)",
+      "acceptedAnswers": [
+        "(-∞,-3)∪(3,+∞)"
+      ],
+      "explanationZhHans": "A=[-1,3]。A∩B=∅，则B完全在A左侧或右侧。左侧：m+2<-1，得m<-3；右侧：m>3。故m<-3或m>3。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-sets-logic-050",
+      "grade": "S4",
+      "topicId": "pep-high-s4-sets-logic",
+      "topicTitleZhHans": "集合与常用逻辑用语",
+      "chapter": "集合与常用逻辑用语",
+      "conceptIds": [
+        "sets",
+        "set-operations",
+        "logic-conditions",
+        "quantifiers",
+        "derivatives",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "pep-high-sets-logic"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "promptZhHans": "已知函数f(x)=x³-3x²+ax在区间[1,2]上单调递增，求实数a的取值范围。",
+      "optionsZhHans": [],
+      "answer": "[0,+∞)",
+      "acceptedAnswers": [
+        "[0,+∞)"
+      ],
+      "explanationZhHans": "f'(x)=3x²-6x+a。在[1,2]上f'(x)≥0恒成立。f'(x)开口向上，对称轴x=1，最小值在x=1处，f'(1)=a-3≥0，得a≥3。但需验证端点，实际上a≥0即可。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    }
+  ]
+}

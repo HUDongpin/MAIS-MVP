@@ -1,0 +1,634 @@
+{
+  "batchId": "batch-013",
+  "questions": [
+    {
+      "id": "bnu-junior-ds-v1-s1-121",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-algebraic-expressions",
+      "unitTitle": "整式及其加减",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "algebraic-expressions",
+        "monomials-polynomials",
+        "like-terms",
+        "polynomial-addition-subtraction",
+        "整式",
+        "同类项"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "列代数式",
+        "识别单项式和多项式",
+        "合并同类项",
+        "去括号",
+        "整式加减"
+      ],
+      "misconceptionTags": [
+        "like terms judged by coefficient only",
+        "minus sign lost before parentheses",
+        "variable part changed during simplification"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-algebraic-expressions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-algebraic-expressions-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方形的长是 (3a + 2) 米，宽是 (2a - 1) 米，其中 a > 0.5。用整式表示它的周长，并化简。",
+      "optionsZhHans": [
+        "10a + 2",
+        "10a + 1",
+        "5a + 1",
+        "10a + 3"
+      ],
+      "answer": "10a + 2",
+      "acceptedAnswers": [
+        "10a + 2"
+      ],
+      "explanationZhHans": "周长 = 2 × (长 + 宽) = 2 × [(3a + 2) + (2a - 1)] = 2 × (5a + 1) = 10a + 2。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-122",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-algebraic-expressions",
+      "unitTitle": "整式及其加减",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "algebraic-expressions",
+        "monomials-polynomials",
+        "like-terms",
+        "polynomial-addition-subtraction",
+        "整式",
+        "同类项"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "列代数式",
+        "识别单项式和多项式",
+        "合并同类项",
+        "去括号",
+        "整式加减"
+      ],
+      "misconceptionTags": [
+        "like terms judged by coefficient only",
+        "minus sign lost before parentheses",
+        "variable part changed during simplification"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-algebraic-expressions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-algebraic-expressions-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校七年级组织研学活动，共有学生a人，老师b人。若每辆大巴可乘坐45人，需要租用大巴的数量用代数式表示为______；若实际租了x辆大巴，且每辆大巴租金为800元，总租金为______元。请将两个代数式分别写出，并说明第二个代数式中数字800表示什么。",
+      "optionsZhHans": [],
+      "answer": "需要租用大巴的数量为 (a+b)/45；总租金为 800x 元；800表示每辆大巴的租金单价。",
+      "acceptedAnswers": [
+        "需要租用大巴的数量为 (a+b)/45；总租金为 800x 元；800表示每辆大巴的租金单价。",
+        "需要租用大巴的数量为 (a+b)/45；总租金为 800x；800表示每辆大巴的租金单价。",
+        "需要租用大巴的数量为 (a+b)/45；总租金为 800x 元；800表示每辆大巴的租金。",
+        "需要租用大巴的数量为 (a+b)/45；总租金为 800x；800表示每辆大巴的租金。"
+      ],
+      "explanationZhHans": "总人数为(a+b)人，每辆45人，故大巴数量为(a+b)/45。总租金=每辆租金×辆数=800x，其中800是每辆大巴的租金单价。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-123",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-algebraic-expressions",
+      "unitTitle": "整式及其加减",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "algebraic-expressions",
+        "monomials-polynomials",
+        "like-terms",
+        "polynomial-addition-subtraction",
+        "整式",
+        "同类项"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "列代数式",
+        "识别单项式和多项式",
+        "合并同类项",
+        "去括号",
+        "整式加减"
+      ],
+      "misconceptionTags": [
+        "like terms judged by coefficient only",
+        "minus sign lost before parentheses",
+        "variable part changed during simplification"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-algebraic-expressions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-algebraic-expressions-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校七年级学生参加植树活动，一班有a人，每人植树5棵；二班人数比一班多3人，每人植树4棵。用含a的式子表示两个班植树的总棵数，并化简。",
+      "optionsZhHans": [],
+      "answer": "9a+12",
+      "acceptedAnswers": [
+        "9a+12",
+        "9a + 12",
+        "12+9a",
+        "12 + 9a"
+      ],
+      "explanationZhHans": "一班植树5a棵；二班有(a+3)人，植树4(a+3)棵。总棵数为5a+4(a+3)=5a+4a+12=9a+12。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-124",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-algebraic-expressions",
+      "unitTitle": "整式及其加减",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "algebraic-expressions",
+        "monomials-polynomials",
+        "like-terms",
+        "polynomial-addition-subtraction",
+        "整式",
+        "同类项"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "列代数式",
+        "识别单项式和多项式",
+        "合并同类项",
+        "去括号",
+        "整式加减"
+      ],
+      "misconceptionTags": [
+        "like terms judged by coefficient only",
+        "minus sign lost before parentheses",
+        "variable part changed during simplification"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-algebraic-expressions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-algebraic-expressions-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方形的长是宽的3倍少2米，宽为x米。用代数式表示这个长方形的周长，并化简。",
+      "optionsZhHans": [
+        "8x - 4",
+        "8x + 4",
+        "4x - 2",
+        "6x - 4"
+      ],
+      "answer": "8x - 4",
+      "acceptedAnswers": [
+        "8x - 4"
+      ],
+      "explanationZhHans": "宽为x米，则长为(3x-2)米。周长=2(长+宽)=2[(3x-2)+x]=2(4x-2)=8x-4。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-125",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-algebraic-expressions",
+      "unitTitle": "整式及其加减",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "algebraic-expressions",
+        "monomials-polynomials",
+        "like-terms",
+        "polynomial-addition-subtraction",
+        "整式",
+        "同类项"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "列代数式",
+        "识别单项式和多项式",
+        "合并同类项",
+        "去括号",
+        "整式加减"
+      ],
+      "misconceptionTags": [
+        "like terms judged by coefficient only",
+        "minus sign lost before parentheses",
+        "variable part changed during simplification"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-algebraic-expressions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-algebraic-expressions-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明在计算一个多项式减去 $2x^2 - 3x + 1$ 时，误将减法看成了加法，得到的结果是 $5x^2 + 2x - 3$。请你帮小明求出正确的计算结果，并写出化简过程。",
+      "optionsZhHans": [],
+      "answer": "$x^2 + 8x - 5$",
+      "acceptedAnswers": [
+        "$x^2 + 8x - 5$",
+        "x^2+8x-5"
+      ],
+      "explanationZhHans": "设原多项式为A，则A+(2x²-3x+1)=5x²+2x-3，得A=3x²+5x-4。正确计算：A-(2x²-3x+1)=(3x²+5x-4)-(2x²-3x+1)=x²+8x-5。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-126",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-algebraic-expressions",
+      "unitTitle": "整式及其加减",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "algebraic-expressions",
+        "monomials-polynomials",
+        "like-terms",
+        "polynomial-addition-subtraction",
+        "整式",
+        "同类项"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "列代数式",
+        "识别单项式和多项式",
+        "合并同类项",
+        "去括号",
+        "整式加减"
+      ],
+      "misconceptionTags": [
+        "like terms judged by coefficient only",
+        "minus sign lost before parentheses",
+        "variable part changed during simplification"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-algebraic-expressions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-algebraic-expressions-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方形的长是 (3a + 2b) 米，宽是 (2a - b) 米。求这个长方形的周长（用含 a, b 的式子表示）。",
+      "optionsZhHans": [],
+      "answer": "10a + 2b 米",
+      "acceptedAnswers": [
+        "10a + 2b 米",
+        "10a+2b",
+        "10a+2b米",
+        "10a + 2b"
+      ],
+      "explanationZhHans": "周长 = 2(长 + 宽) = 2[(3a+2b)+(2a-b)] = 2(5a+b) = 10a+2b（米）。去括号时注意符号，合并同类项时只合并系数，字母部分不变。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-127",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-plane-figures",
+      "unitTitle": "基本平面图形",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "basic-plane-figures",
+        "line-ray-segment",
+        "angles",
+        "angle-measure",
+        "平面图形",
+        "线段",
+        "角"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "空间观念",
+        "推理意识"
+      ],
+      "skillTags": [
+        "线段射线直线",
+        "角的表示",
+        "角度计算",
+        "线段比较",
+        "图形语言表达"
+      ],
+      "misconceptionTags": [
+        "line segment and ray notation mixed",
+        "angle vertex not identified",
+        "diagram appearance used without stated condition"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-plane-figures"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-plane-figures-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知点A、B、C在同一条直线上，且AB=5 cm，BC=3 cm。若点B在点A和点C之间，则线段AC的长度是多少？",
+      "optionsZhHans": [
+        "2 cm",
+        "8 cm",
+        "5 cm",
+        "3 cm"
+      ],
+      "answer": "8 cm",
+      "acceptedAnswers": [
+        "8 cm"
+      ],
+      "explanationZhHans": "因为点B在点A和点C之间，所以AC = AB + BC = 5 + 3 = 8 cm。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-128",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-plane-figures",
+      "unitTitle": "基本平面图形",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "basic-plane-figures",
+        "line-ray-segment",
+        "angles",
+        "angle-measure",
+        "平面图形",
+        "线段",
+        "角"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "空间观念",
+        "推理意识"
+      ],
+      "skillTags": [
+        "线段射线直线",
+        "角的表示",
+        "角度计算",
+        "线段比较",
+        "图形语言表达"
+      ],
+      "misconceptionTags": [
+        "line segment and ray notation mixed",
+        "angle vertex not identified",
+        "diagram appearance used without stated condition"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-plane-figures"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-plane-figures-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知点A、B、C在同一条直线上，点D不在该直线上。连接DA、DB、DC。若∠ADB = 40°，∠BDC = 60°，且射线DB在∠ADC的内部。求∠ADC的度数，并写出推理过程。",
+      "optionsZhHans": [],
+      "answer": "100°",
+      "acceptedAnswers": [
+        "100°",
+        "100度"
+      ],
+      "explanationZhHans": "因为射线DB在∠ADC内部，所以∠ADC = ∠ADB + ∠BDC。已知∠ADB = 40°，∠BDC = 60°，相加得100°。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-129",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-plane-figures",
+      "unitTitle": "基本平面图形",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "basic-plane-figures",
+        "line-ray-segment",
+        "angles",
+        "angle-measure",
+        "平面图形",
+        "线段",
+        "角"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "空间观念",
+        "推理意识"
+      ],
+      "skillTags": [
+        "线段射线直线",
+        "角的表示",
+        "角度计算",
+        "线段比较",
+        "图形语言表达"
+      ],
+      "misconceptionTags": [
+        "line segment and ray notation mixed",
+        "angle vertex not identified",
+        "diagram appearance used without stated condition"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-plane-figures"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-plane-figures-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知点A、B、C在同一条直线上，且线段AB = 5 cm，线段BC = 3 cm。若点B在点A和点C之间，则线段AC的长度为多少厘米？",
+      "optionsZhHans": [],
+      "answer": "8",
+      "acceptedAnswers": [
+        "8",
+        "8 cm",
+        "8厘米"
+      ],
+      "explanationZhHans": "因为点B在A和C之间，所以AC = AB + BC = 5 + 3 = 8 cm。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-130",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-plane-figures",
+      "unitTitle": "基本平面图形",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "basic-plane-figures",
+        "line-ray-segment",
+        "angles",
+        "angle-measure",
+        "平面图形",
+        "线段",
+        "角"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "空间观念",
+        "推理意识"
+      ],
+      "skillTags": [
+        "线段射线直线",
+        "角的表示",
+        "角度计算",
+        "线段比较",
+        "图形语言表达"
+      ],
+      "misconceptionTags": [
+        "line segment and ray notation mixed",
+        "angle vertex not identified",
+        "diagram appearance used without stated condition"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-plane-figures"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-plane-figures-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知线段AB=10 cm，点C在线段AB上，且AC=4 cm。点D是线段BC的中点。求线段AD的长度。",
+      "optionsZhHans": [
+        "6 cm",
+        "7 cm",
+        "8 cm",
+        "9 cm"
+      ],
+      "answer": "7 cm",
+      "acceptedAnswers": [
+        "7 cm",
+        "7厘米",
+        "7cm"
+      ],
+      "explanationZhHans": "由AB=10 cm，AC=4 cm，得BC=AB-AC=6 cm。D是BC中点，故BD=3 cm。AD=AB-BD=10-3=7 cm。"
+    }
+  ]
+}

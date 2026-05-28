@@ -1,0 +1,330 @@
+{
+  "batchNumber": 36,
+  "startedAt": "2026-05-27T03:40:17.478Z",
+  "completedAt": "2026-05-27T03:40:46.509Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p5-051",
+    "bnu-primary-ds-v1-p5-052",
+    "bnu-primary-ds-v1-p5-053",
+    "bnu-primary-ds-v1-p5-054",
+    "bnu-primary-ds-v1-p5-055",
+    "bnu-primary-ds-v1-p5-056",
+    "bnu-primary-ds-v1-p5-057",
+    "bnu-primary-ds-v1-p5-058",
+    "bnu-primary-ds-v1-p5-059",
+    "bnu-primary-ds-v1-p5-060",
+    "bnu-primary-ds-v1-p5-061",
+    "bnu-primary-ds-v1-p5-062",
+    "bnu-primary-ds-v1-p5-063",
+    "bnu-primary-ds-v1-p5-064",
+    "bnu-primary-ds-v1-p5-065",
+    "bnu-primary-ds-v1-p5-066",
+    "bnu-primary-ds-v1-p5-067",
+    "bnu-primary-ds-v1-p5-068",
+    "bnu-primary-ds-v1-p5-069",
+    "bnu-primary-ds-v1-p5-070",
+    "bnu-primary-ds-v1-p5-071",
+    "bnu-primary-ds-v1-p5-072",
+    "bnu-primary-ds-v1-p5-073",
+    "bnu-primary-ds-v1-p5-074",
+    "bnu-primary-ds-v1-p5-075",
+    "bnu-primary-ds-v1-p5-076",
+    "bnu-primary-ds-v1-p5-077",
+    "bnu-primary-ds-v1-p5-078",
+    "bnu-primary-ds-v1-p5-079",
+    "bnu-primary-ds-v1-p5-080"
+  ],
+  "usage": {
+    "prompt_tokens": 5616,
+    "completion_tokens": 2237,
+    "total_tokens": 7853,
+    "prompt_tokens_details": {
+      "cached_tokens": 5504
+    },
+    "prompt_cache_hit_tokens": 5504,
+    "prompt_cache_miss_tokens": 112
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p5-051",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目条件充分，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-052",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项明确，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-053",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "计算正确，答案无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-054",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "直接应用公式，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-055",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "等底等高关系明确，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-056",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "直角边明确，面积计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-057",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "已知面积求高，计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-058",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项唯一，平行四边形符合底×高。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-059",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "已知面积和高求底，计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-060",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "面积和产量计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-061",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "求分率，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-062",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "分数与除法关系，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-063",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "按比例分配，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-064",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "有限小数判定正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-065",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "分数基本性质应用正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-066",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "区分具体数量和分率，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-067",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "分数值变化分析正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-068",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "质数合数概念正确，转化正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-069",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "通分比较大小正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-070",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "与1的差最小，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-071",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "分率和具体长度区分正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-072",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "分数意义表述正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-073",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "分数基本性质，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-074",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "与063题类似，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-075",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "分数基本性质应用正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-076",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "组合图形面积计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-077",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "分割法求面积正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-078",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "挖补法求面积正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-079",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项描述清晰，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-080",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "两个梯形面积和计算正确。"
+      }
+    ],
+    "batchSummary": {
+      "solvableYes": 30,
+      "solvableNo": 0,
+      "answerMatchYes": 30,
+      "answerMatchNo": 0,
+      "notes": "全部30道题均可解，答案匹配正确，无问题。"
+    }
+  }
+}

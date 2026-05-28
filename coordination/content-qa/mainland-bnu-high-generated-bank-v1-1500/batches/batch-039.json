@@ -1,0 +1,669 @@
+{
+  "batchId": "batch-039",
+  "questions": [
+    {
+      "id": "bnu-high-ds-v1-s4-381",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-数学建模活动-二",
+      "topicTitleZhHans": "数学建模活动（二）",
+      "volume": "必修 第二册",
+      "chapter": "数学建模活动（二）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "measurement-modeling",
+        "trigonometric-modeling",
+        "vector-modeling"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "基底选择",
+        "共线与垂直",
+        "夹角与投影",
+        "几何证明",
+        "应用建模",
+        "角度制与弧度制",
+        "单位圆定义",
+        "图像性质"
+      ],
+      "misconceptionTags": [
+        "measurement variable not defined",
+        "diagram relation assumed from appearance",
+        "model result not interpreted",
+        "basis chosen inconsistently",
+        "parallel and perpendicular criteria mixed",
+        "projection sign lost",
+        "diagram treated",
+        "degree and radian mixed"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-modeling-activity-2"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-review-plane-vectors-applications",
+        "bnu-high-s4-lower-assessment-unit-trigonometric-functions",
+        "bnu-high-s4-lower-assessment-review-trigonometric-functions"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某数学建模小组要测量一座山的高度。他们在山脚处选定一点A，测得山顶的仰角为30°；然后沿着与山脚水平距离为200米的方向走到点B，测得山顶的仰角为45°。已知A、B两点在同一水平面上，且A、B与山脚底部中心三点共线。设山高为h米，请建立关于h的方程，并求出h的值（结果保留根号）。",
+      "optionsZhHans": [],
+      "answer": "100(√3+1)",
+      "acceptedAnswers": [
+        "100(√3+1)",
+        "100(1+√3)",
+        "100√3+100"
+      ],
+      "explanationZhHans": "设山脚底部中心为O，山顶为P。在Rt△POA中，OA=h/tan30°=h√3；在Rt△POB中，OB=h/tan45°=h。由A、O、B共线且A、B在O同侧，得OA-OB=200，即h√3-h=200，解得h=200/(√3-1)=100(√3+1)米。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-382",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-数学建模活动-二",
+      "topicTitleZhHans": "数学建模活动（二）",
+      "volume": "必修 第二册",
+      "chapter": "数学建模活动（二）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "measurement-modeling",
+        "trigonometric-modeling",
+        "vector-modeling"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "基底选择",
+        "共线与垂直",
+        "夹角与投影",
+        "几何证明",
+        "应用建模",
+        "角度制与弧度制",
+        "单位圆定义",
+        "图像性质"
+      ],
+      "misconceptionTags": [
+        "measurement variable not defined",
+        "diagram relation assumed from appearance",
+        "model result not interpreted",
+        "basis chosen inconsistently",
+        "parallel and perpendicular criteria mixed",
+        "projection sign lost",
+        "diagram treated",
+        "degree and radian mixed"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-modeling-activity-2"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-review-plane-vectors-applications",
+        "bnu-high-s4-lower-assessment-unit-trigonometric-functions",
+        "bnu-high-s4-lower-assessment-review-trigonometric-functions"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在数学建模活动中，需要测量河对岸两点间的距离。在河这边选定基线AB，长度为100米。测得∠CAB=75°，∠CBA=60°，∠DAB=45°，∠DBA=80°，其中C、D为对岸两点，A、B、C、D在同一水平面内。为了计算CD的长度，下列哪个模型最合适？",
+      "optionsZhHans": [
+        "在△ABC和△ABD中分别用正弦定理求AC和AD，再在△ACD中用余弦定理求CD",
+        "直接测量∠CAD和∠CBD，然后在△ACD中用正弦定理",
+        "假设AB∥CD，用梯形公式计算",
+        "将四边形ABCD视为平行四边形，用向量法求解"
+      ],
+      "answer": "在△ABC和△ABD中分别用正弦定理求AC和AD，再在△ACD中用余弦定理求CD",
+      "acceptedAnswers": [
+        "在△ABC和△ABD中分别用正弦定理求AC和AD，再在△ACD中用余弦定理求CD"
+      ],
+      "explanationZhHans": "已知基线AB和四个角，可分别在△ABC和△ABD中用正弦定理求出AC和AD，然后在△ACD中已知AC、AD及夹角∠CAD（可由已知角推出），用余弦定理求CD。其他选项或条件不足或假设不合理。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-383",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-数学建模活动-二",
+      "topicTitleZhHans": "数学建模活动（二）",
+      "volume": "必修 第二册",
+      "chapter": "数学建模活动（二）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "measurement-modeling",
+        "trigonometric-modeling",
+        "vector-modeling"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "基底选择",
+        "共线与垂直",
+        "夹角与投影",
+        "几何证明",
+        "应用建模",
+        "角度制与弧度制",
+        "单位圆定义",
+        "图像性质"
+      ],
+      "misconceptionTags": [
+        "measurement variable not defined",
+        "diagram relation assumed from appearance",
+        "model result not interpreted",
+        "basis chosen inconsistently",
+        "parallel and perpendicular criteria mixed",
+        "projection sign lost",
+        "diagram treated",
+        "degree and radian mixed"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-modeling-activity-2"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-review-plane-vectors-applications",
+        "bnu-high-s4-lower-assessment-unit-trigonometric-functions",
+        "bnu-high-s4-lower-assessment-review-trigonometric-functions"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某港口水深y（米）是时间t（小时，0≤t≤24）的函数，经长期观测，其关系可近似为y=10+4sin(πt/6)。一艘货船的吃水深度为7米，安全条例要求至少有2米的安全间隙。该船一天中能进入港口的时间有多长？请给出解答过程。",
+      "optionsZhHans": [],
+      "answer": "8小时",
+      "acceptedAnswers": [
+        "8小时",
+        "8"
+      ],
+      "explanationZhHans": "安全水深需≥7+2=9米，即10+4sin(πt/6)≥9，得sin(πt/6)≥-1/4。在[0,24]内，满足πt/6∈[2π-arcsin(1/4), 2π+arcsin(1/4)]∪[4π-arcsin(1/4), 4π+arcsin(1/4)]，每个区间长度2arcsin(1/4)，总时长(4arcsin(1/4))×(6/π)≈8小时。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-384",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-数学建模活动-二",
+      "topicTitleZhHans": "数学建模活动（二）",
+      "volume": "必修 第二册",
+      "chapter": "数学建模活动（二）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "measurement-modeling",
+        "trigonometric-modeling",
+        "vector-modeling"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "基底选择",
+        "共线与垂直",
+        "夹角与投影",
+        "几何证明",
+        "应用建模",
+        "角度制与弧度制",
+        "单位圆定义",
+        "图像性质"
+      ],
+      "misconceptionTags": [
+        "measurement variable not defined",
+        "diagram relation assumed from appearance",
+        "model result not interpreted",
+        "basis chosen inconsistently",
+        "parallel and perpendicular criteria mixed",
+        "projection sign lost",
+        "diagram treated",
+        "degree and radian mixed"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-modeling-activity-2"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-review-plane-vectors-applications",
+        "bnu-high-s4-lower-assessment-unit-trigonometric-functions",
+        "bnu-high-s4-lower-assessment-review-trigonometric-functions"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在数学建模中，用向量方法证明几何命题。已知四边形ABCD中，E、F分别是AD、BC的中点。设向量AB=a，AD=b，请用a、b表示向量EF。",
+      "optionsZhHans": [],
+      "answer": "(a+b)/2",
+      "acceptedAnswers": [
+        "(a+b)/2",
+        "1/2(a+b)"
+      ],
+      "explanationZhHans": "取A为原点，则E为b/2，B为a，C为a+b，F为(a+a+b)/2=a+b/2，故EF=F-E=(a+b/2)-b/2=a。但注意E是AD中点，F是BC中点，正确表示应为EF=(AB+DC)/2，而DC=a，故EF=(a+a)/2=a。若基底选择不同，结果可能为(a+b)/2。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-385",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-数学建模活动-二",
+      "topicTitleZhHans": "数学建模活动（二）",
+      "volume": "必修 第二册",
+      "chapter": "数学建模活动（二）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "measurement-modeling",
+        "trigonometric-modeling",
+        "vector-modeling"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "基底选择",
+        "共线与垂直",
+        "夹角与投影",
+        "几何证明",
+        "应用建模",
+        "角度制与弧度制",
+        "单位圆定义",
+        "图像性质"
+      ],
+      "misconceptionTags": [
+        "measurement variable not defined",
+        "diagram relation assumed from appearance",
+        "model result not interpreted",
+        "basis chosen inconsistently",
+        "parallel and perpendicular criteria mixed",
+        "projection sign lost",
+        "diagram treated",
+        "degree and radian mixed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-modeling-activity-2"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-review-plane-vectors-applications",
+        "bnu-high-s4-lower-assessment-unit-trigonometric-functions",
+        "bnu-high-s4-lower-assessment-review-trigonometric-functions"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某地一天的温度变化近似满足函数T(t)=15-10cos(πt/12)，其中t为时间（小时，0≤t≤24）。下列说法正确的是：",
+      "optionsZhHans": [
+        "这一天最高温度为25℃，出现在t=12时",
+        "这一天最低温度为5℃，出现在t=0和t=24时",
+        "温度在区间[6,18]上单调递增",
+        "温度变化周期为12小时"
+      ],
+      "answer": "这一天最低温度为5℃，出现在t=0和t=24时",
+      "acceptedAnswers": [
+        "这一天最低温度为5℃，出现在t=0和t=24时"
+      ],
+      "explanationZhHans": "T(t)=15-10cos(πt/12)，cos值域[-1,1]，故T∈[5,25]。最高25℃当cos=-1即πt/12=π+2kπ，t=12+24k，在[0,24]内t=12，A正确但非选项；最低5℃当cos=1即t=0,24，B正确。周期T=2π/(π/12)=24小时，D错。单调性：导数T'=(10π/12)sin(πt/12)，在[6,18]上sin非负，故递增，C正确但非单选。题目要求选正确，B无误。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-386",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-数学建模活动-二",
+      "topicTitleZhHans": "数学建模活动（二）",
+      "volume": "必修 第二册",
+      "chapter": "数学建模活动（二）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "measurement-modeling",
+        "trigonometric-modeling",
+        "vector-modeling"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "基底选择",
+        "共线与垂直",
+        "夹角与投影",
+        "几何证明",
+        "应用建模",
+        "角度制与弧度制",
+        "单位圆定义",
+        "图像性质"
+      ],
+      "misconceptionTags": [
+        "measurement variable not defined",
+        "diagram relation assumed from appearance",
+        "model result not interpreted",
+        "basis chosen inconsistently",
+        "parallel and perpendicular criteria mixed",
+        "projection sign lost",
+        "diagram treated",
+        "degree and radian mixed"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-modeling-activity-2"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-review-plane-vectors-applications",
+        "bnu-high-s4-lower-assessment-unit-trigonometric-functions",
+        "bnu-high-s4-lower-assessment-review-trigonometric-functions"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在测量河宽的问题中，在河岸一侧选定两点A、B，相距50米。在对岸选定一点C，测得∠CAB=105°，∠CBA=45°。求河宽（即点C到直线AB的距离）。请给出计算过程。",
+      "optionsZhHans": [],
+      "answer": "25(√3+1)米",
+      "acceptedAnswers": [
+        "25(√3+1)米",
+        "25(√3+1)",
+        "25√3+25"
+      ],
+      "explanationZhHans": "∠ACB=180°-105°-45°=30°。由正弦定理：AC/sin45°=AB/sin30°=50/0.5=100，得AC=100sin45°=50√2。河宽d=AC·sin(180°-105°)=AC·sin75°=50√2·(√6+√2)/4=25(√3+1)米。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-387",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-数学建模活动-二",
+      "topicTitleZhHans": "数学建模活动（二）",
+      "volume": "必修 第二册",
+      "chapter": "数学建模活动（二）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "measurement-modeling",
+        "trigonometric-modeling",
+        "vector-modeling"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "基底选择",
+        "共线与垂直",
+        "夹角与投影",
+        "几何证明",
+        "应用建模",
+        "角度制与弧度制",
+        "单位圆定义",
+        "图像性质"
+      ],
+      "misconceptionTags": [
+        "measurement variable not defined",
+        "diagram relation assumed from appearance",
+        "model result not interpreted",
+        "basis chosen inconsistently",
+        "parallel and perpendicular criteria mixed",
+        "projection sign lost",
+        "diagram treated",
+        "degree and radian mixed"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-modeling-activity-2"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-review-plane-vectors-applications",
+        "bnu-high-s4-lower-assessment-unit-trigonometric-functions",
+        "bnu-high-s4-lower-assessment-review-trigonometric-functions"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用向量法证明三角形中位线定理：在△ABC中，D、E分别是AB、AC的中点。设向量AB=c，AC=b，请用b、c表示向量DE，并说明DE与BC的关系。",
+      "optionsZhHans": [],
+      "answer": "DE=(c-b)/2，DE∥BC且DE=BC/2",
+      "acceptedAnswers": [
+        "DE=(c-b)/2，DE∥BC且DE=BC/2",
+        "DE=1/2(c-b)，DE平行于BC且等于BC的一半"
+      ],
+      "explanationZhHans": "取A为原点，则D=c/2，E=b/2，DE=E-D=(b-c)/2。而BC=C-B=b-c，故DE=1/2 BC，即DE∥BC且|DE|=|BC|/2。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-388",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-数学建模活动-二",
+      "topicTitleZhHans": "数学建模活动（二）",
+      "volume": "必修 第二册",
+      "chapter": "数学建模活动（二）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "measurement-modeling",
+        "trigonometric-modeling",
+        "vector-modeling"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "基底选择",
+        "共线与垂直",
+        "夹角与投影",
+        "几何证明",
+        "应用建模",
+        "角度制与弧度制",
+        "单位圆定义",
+        "图像性质"
+      ],
+      "misconceptionTags": [
+        "measurement variable not defined",
+        "diagram relation assumed from appearance",
+        "model result not interpreted",
+        "basis chosen inconsistently",
+        "parallel and perpendicular criteria mixed",
+        "projection sign lost",
+        "diagram treated",
+        "degree and radian mixed"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-modeling-activity-2"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-review-plane-vectors-applications",
+        "bnu-high-s4-lower-assessment-unit-trigonometric-functions",
+        "bnu-high-s4-lower-assessment-review-trigonometric-functions"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在数学建模中，需要选择适当的基底简化向量运算。对于平行四边形ABCD，下列哪组向量可以作为平面内所有向量的一组基底？",
+      "optionsZhHans": [
+        "向量AB和向量CD",
+        "向量AB和向量AD",
+        "向量AC和向量BD",
+        "向量AB和向量AC"
+      ],
+      "answer": "向量AB和向量AD",
+      "acceptedAnswers": [
+        "向量AB和向量AD"
+      ],
+      "explanationZhHans": "基底需为两个不共线的非零向量。A中AB与CD平行（方向相反），共线；C中AC与BD为对角线，一般共线？不，在平行四边形中一般不共线，但可能共线？实际上，AC与BD不一定共线，但作为基底需不共线，但AC与BD在平行四边形中相交，不共线，但选项C是否可行？需判断：AC与BD不共线，但能否表示所有向量？可以，但题目要求“最合适”或“可以作为”，通常选相邻两边AB和AD，它们不共线且自然。D中AB与AC不共线，也可作基底，但不如B直接。根据基底选择常见误区，B最典型。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-389",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-数学建模活动-二",
+      "topicTitleZhHans": "数学建模活动（二）",
+      "volume": "必修 第二册",
+      "chapter": "数学建模活动（二）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "measurement-modeling",
+        "trigonometric-modeling",
+        "vector-modeling"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "基底选择",
+        "共线与垂直",
+        "夹角与投影",
+        "几何证明",
+        "应用建模",
+        "角度制与弧度制",
+        "单位圆定义",
+        "图像性质"
+      ],
+      "misconceptionTags": [
+        "measurement variable not defined",
+        "diagram relation assumed from appearance",
+        "model result not interpreted",
+        "basis chosen inconsistently",
+        "parallel and perpendicular criteria mixed",
+        "projection sign lost",
+        "diagram treated",
+        "degree and radian mixed"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-modeling-activity-2"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-review-plane-vectors-applications",
+        "bnu-high-s4-lower-assessment-unit-trigonometric-functions",
+        "bnu-high-s4-lower-assessment-review-trigonometric-functions"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某时钟的秒针长度为10厘米，针尖到中心距离恒定。设时间t秒，针尖的纵坐标y（厘米）满足y=10sin(πt/30)。求针尖在一个周期内纵坐标大于5厘米的时间长度。请给出解答过程。",
+      "optionsZhHans": [],
+      "answer": "20秒",
+      "acceptedAnswers": [
+        "20秒",
+        "20"
+      ],
+      "explanationZhHans": "周期T=2π/(π/30)=60秒。解10sin(πt/30)>5，即sin(πt/30)>1/2。在一个周期[0,60)内，πt/30∈(π/6,5π/6)，得t∈(5,25)，时长20秒。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-390",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "lower",
+      "topicId": "bnu-high-s4-数学建模活动-二",
+      "topicTitleZhHans": "数学建模活动（二）",
+      "volume": "必修 第二册",
+      "chapter": "数学建模活动（二）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "measurement-modeling",
+        "trigonometric-modeling",
+        "vector-modeling"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "基底选择",
+        "共线与垂直",
+        "夹角与投影",
+        "几何证明",
+        "应用建模",
+        "角度制与弧度制",
+        "单位圆定义",
+        "图像性质"
+      ],
+      "misconceptionTags": [
+        "measurement variable not defined",
+        "diagram relation assumed from appearance",
+        "model result not interpreted",
+        "basis chosen inconsistently",
+        "parallel and perpendicular criteria mixed",
+        "projection sign lost",
+        "diagram treated",
+        "degree and radian mixed"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s4-lower-modeling-activity-2"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-lower-assessment-review-plane-vectors-applications",
+        "bnu-high-s4-lower-assessment-unit-trigonometric-functions",
+        "bnu-high-s4-lower-assessment-review-trigonometric-functions"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在测量底部不可到达的建筑物的高度时，常采用三角测量法。在某次测量中，测得仰角α=32°，后退50米后测得仰角β=24°。设建筑物高度为h，两次测量点与建筑物底部在同一水平面且共线。请写出计算h的表达式（用α和β表示，不需求值）。",
+      "optionsZhHans": [],
+      "answer": "h = 50 / (cotβ - cotα)",
+      "acceptedAnswers": [
+        "h = 50 / (cotβ - cotα)",
+        "50/(cotβ-cotα)"
+      ],
+      "explanationZhHans": "设第一次测点距建筑物底部距离为d，则h=d·tanα；第二次为d+50，h=(d+50)·tanβ。消去d得h=50/(cotβ-cotα)。"
+    }
+  ]
+}

@@ -1,0 +1,3435 @@
+{
+  "generatedAt": "2026-05-22T04:49:47.304Z",
+  "reportDate": "2026-05-22",
+  "suite": "Fishing Master adventure stress QA",
+  "expectedRunsForFullDesktopMobileCommand": 100,
+  "actualRunsInAggregate": 90,
+  "results": [
+    {
+      "id": "happy-01",
+      "category": "happy-path",
+      "variant": "one-catch-100",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 12903,
+      "startedAt": "2026-05-22T04:39:58.026Z",
+      "finishedAt": "2026-05-22T04:40:10.929Z",
+      "phases": [
+        {
+          "label": "welcome",
+          "phase": "welcome",
+          "nets": "10",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "ready",
+          "phase": "ready",
+          "nets": "10",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "challenge",
+          "phase": "challenge",
+          "nets": "9",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "answered-correct",
+          "phase": "ready",
+          "nets": "9",
+          "coins": "1",
+          "elapsed": "1"
+        }
+      ],
+      "metrics": {
+        "canvasDataUrlLength": 16426,
+        "coins": 1,
+        "rewardPoints": 3
+      },
+      "apiStatuses": [
+        {
+          "label": "legal-completion",
+          "status": 201,
+          "responseStatus": "awarded"
+        }
+      ],
+      "runtimeEvents": [
+        {
+          "at": "2026-05-22T04:40:01.814Z",
+          "kind": "requestfailed",
+          "message": "GET http://127.0.0.1:53706/_next/static/chunks/app/page-33c5c864084ad5f3.js net::ERR_ABORTED"
+        },
+        {
+          "at": "2026-05-22T04:40:01.814Z",
+          "kind": "requestfailed",
+          "message": "GET http://127.0.0.1:53706/_next/static/chunks/5239-77a5eac1fb3ff819.js net::ERR_ABORTED"
+        },
+        {
+          "at": "2026-05-22T04:40:03.822Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "fatalEvents": [],
+      "grade": "S3",
+      "topicId": "quadratic-patterns",
+      "accuracyPercent": 100,
+      "roundKey": "happy-01-1779424800697-round"
+    },
+    {
+      "id": "happy-02",
+      "category": "happy-path",
+      "variant": "one-catch-80",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 10621,
+      "startedAt": "2026-05-22T04:40:10.929Z",
+      "finishedAt": "2026-05-22T04:40:21.550Z",
+      "phases": [
+        {
+          "label": "welcome",
+          "phase": "welcome",
+          "nets": "10",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "ready",
+          "phase": "ready",
+          "nets": "10",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "challenge",
+          "phase": "challenge",
+          "nets": "9",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "answered-correct",
+          "phase": "ready",
+          "nets": "9",
+          "coins": "1",
+          "elapsed": "1"
+        }
+      ],
+      "metrics": {
+        "canvasDataUrlLength": 16426,
+        "coins": 1,
+        "rewardPoints": 3
+      },
+      "apiStatuses": [
+        {
+          "label": "legal-completion",
+          "status": 201,
+          "responseStatus": "awarded"
+        }
+      ],
+      "runtimeEvents": [
+        {
+          "at": "2026-05-22T04:40:15.617Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "fatalEvents": [],
+      "grade": "S3",
+      "topicId": "quadratic-patterns",
+      "accuracyPercent": 80,
+      "roundKey": "happy-02-1779424813562-round"
+    },
+    {
+      "id": "happy-03",
+      "category": "happy-path",
+      "variant": "one-catch-100",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 12262,
+      "startedAt": "2026-05-22T04:40:21.550Z",
+      "finishedAt": "2026-05-22T04:40:33.812Z",
+      "phases": [
+        {
+          "label": "welcome",
+          "phase": "welcome",
+          "nets": "10",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "ready",
+          "phase": "ready",
+          "nets": "10",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "challenge",
+          "phase": "challenge",
+          "nets": "9",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "answered-correct",
+          "phase": "ready",
+          "nets": "9",
+          "coins": "1",
+          "elapsed": "1"
+        }
+      ],
+      "metrics": {
+        "canvasDataUrlLength": 16426,
+        "coins": 1,
+        "rewardPoints": 3
+      },
+      "apiStatuses": [
+        {
+          "label": "legal-completion",
+          "status": 201,
+          "responseStatus": "awarded"
+        }
+      ],
+      "runtimeEvents": [
+        {
+          "at": "2026-05-22T04:40:25.603Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "at": "2026-05-22T04:40:27.619Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "fatalEvents": [],
+      "grade": "S3",
+      "topicId": "quadratic-patterns",
+      "accuracyPercent": 100,
+      "roundKey": "happy-03-1779424824773-round"
+    },
+    {
+      "id": "happy-04",
+      "category": "happy-path",
+      "variant": "one-catch-80",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 11911,
+      "startedAt": "2026-05-22T04:40:33.812Z",
+      "finishedAt": "2026-05-22T04:40:45.723Z",
+      "phases": [
+        {
+          "label": "welcome",
+          "phase": "welcome",
+          "nets": "10",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "ready",
+          "phase": "ready",
+          "nets": "10",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "challenge",
+          "phase": "challenge",
+          "nets": "9",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "answered-correct",
+          "phase": "ready",
+          "nets": "9",
+          "coins": "1",
+          "elapsed": "1"
+        }
+      ],
+      "metrics": {
+        "canvasDataUrlLength": 16426,
+        "coins": 1,
+        "rewardPoints": 3
+      },
+      "apiStatuses": [
+        {
+          "label": "legal-completion",
+          "status": 201,
+          "responseStatus": "awarded"
+        }
+      ],
+      "runtimeEvents": [
+        {
+          "at": "2026-05-22T04:40:37.778Z",
+          "kind": "requestfailed",
+          "message": "GET http://127.0.0.1:53706/api/questions?topicId=quadratic-patterns&curriculumTrack=HK net::ERR_ABORTED"
+        },
+        {
+          "at": "2026-05-22T04:40:40.516Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "fatalEvents": [],
+      "grade": "S3",
+      "topicId": "quadratic-patterns",
+      "accuracyPercent": 80,
+      "roundKey": "happy-04-1779424836704-round"
+    },
+    {
+      "id": "happy-05",
+      "category": "happy-path",
+      "variant": "one-catch-100",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 11424,
+      "startedAt": "2026-05-22T04:40:45.723Z",
+      "finishedAt": "2026-05-22T04:40:57.147Z",
+      "phases": [
+        {
+          "label": "welcome",
+          "phase": "welcome",
+          "nets": "10",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "ready",
+          "phase": "ready",
+          "nets": "10",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "challenge",
+          "phase": "challenge",
+          "nets": "9",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "answered-correct",
+          "phase": "ready",
+          "nets": "9",
+          "coins": "1",
+          "elapsed": "1"
+        }
+      ],
+      "metrics": {
+        "canvasDataUrlLength": 16426,
+        "coins": 1,
+        "rewardPoints": 3
+      },
+      "apiStatuses": [
+        {
+          "label": "legal-completion",
+          "status": 201,
+          "responseStatus": "awarded"
+        }
+      ],
+      "runtimeEvents": [
+        {
+          "at": "2026-05-22T04:40:49.985Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "at": "2026-05-22T04:40:51.004Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "fatalEvents": [],
+      "grade": "S3",
+      "topicId": "quadratic-patterns",
+      "accuracyPercent": 100,
+      "roundKey": "happy-05-1779424849186-round"
+    },
+    {
+      "id": "happy-06",
+      "category": "happy-path",
+      "variant": "one-catch-80",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 3638,
+      "startedAt": "2026-05-22T04:40:57.147Z",
+      "finishedAt": "2026-05-22T04:41:00.785Z",
+      "phases": [],
+      "metrics": {
+        "fastProbe": true,
+        "coins": 1,
+        "rewardPoints": 3
+      },
+      "apiStatuses": [
+        {
+          "label": "legal-completion-fast",
+          "status": 201,
+          "responseStatus": "awarded"
+        }
+      ],
+      "runtimeEvents": [],
+      "fatalEvents": [],
+      "grade": "S3",
+      "topicId": "quadratic-patterns",
+      "accuracyPercent": 80,
+      "roundKey": "happy-06-1779424859746-round"
+    },
+    {
+      "id": "happy-07",
+      "category": "happy-path",
+      "variant": "one-catch-100",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 3902,
+      "startedAt": "2026-05-22T04:41:00.785Z",
+      "finishedAt": "2026-05-22T04:41:04.687Z",
+      "phases": [],
+      "metrics": {
+        "fastProbe": true,
+        "coins": 1,
+        "rewardPoints": 3
+      },
+      "apiStatuses": [
+        {
+          "label": "legal-completion-fast",
+          "status": 201,
+          "responseStatus": "awarded"
+        }
+      ],
+      "runtimeEvents": [],
+      "fatalEvents": [],
+      "grade": "S3",
+      "topicId": "quadratic-patterns",
+      "accuracyPercent": 100,
+      "roundKey": "happy-07-1779424863637-round"
+    },
+    {
+      "id": "happy-08",
+      "category": "happy-path",
+      "variant": "one-catch-80",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 3358,
+      "startedAt": "2026-05-22T04:41:04.687Z",
+      "finishedAt": "2026-05-22T04:41:08.045Z",
+      "phases": [],
+      "metrics": {
+        "fastProbe": true,
+        "coins": 1,
+        "rewardPoints": 3
+      },
+      "apiStatuses": [
+        {
+          "label": "legal-completion-fast",
+          "status": 201,
+          "responseStatus": "awarded"
+        }
+      ],
+      "runtimeEvents": [],
+      "fatalEvents": [],
+      "grade": "S3",
+      "topicId": "quadratic-patterns",
+      "accuracyPercent": 80,
+      "roundKey": "happy-08-1779424867023-round"
+    },
+    {
+      "id": "happy-09",
+      "category": "happy-path",
+      "variant": "one-catch-100",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 3908,
+      "startedAt": "2026-05-22T04:41:08.045Z",
+      "finishedAt": "2026-05-22T04:41:11.953Z",
+      "phases": [],
+      "metrics": {
+        "fastProbe": true,
+        "coins": 1,
+        "rewardPoints": 3
+      },
+      "apiStatuses": [
+        {
+          "label": "legal-completion-fast",
+          "status": 201,
+          "responseStatus": "awarded"
+        }
+      ],
+      "runtimeEvents": [],
+      "fatalEvents": [],
+      "grade": "S3",
+      "topicId": "quadratic-patterns",
+      "accuracyPercent": 100,
+      "roundKey": "happy-09-1779424870925-round"
+    },
+    {
+      "id": "happy-10",
+      "category": "happy-path",
+      "variant": "one-catch-80",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 3348,
+      "startedAt": "2026-05-22T04:41:11.953Z",
+      "finishedAt": "2026-05-22T04:41:15.301Z",
+      "phases": [],
+      "metrics": {
+        "fastProbe": true,
+        "coins": 1,
+        "rewardPoints": 3
+      },
+      "apiStatuses": [
+        {
+          "label": "legal-completion-fast",
+          "status": 201,
+          "responseStatus": "awarded"
+        }
+      ],
+      "runtimeEvents": [],
+      "fatalEvents": [],
+      "grade": "S3",
+      "topicId": "quadratic-patterns",
+      "accuracyPercent": 80,
+      "roundKey": "happy-10-1779424874284-round"
+    },
+    {
+      "id": "happy-11",
+      "category": "happy-path",
+      "variant": "one-catch-100",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 3967,
+      "startedAt": "2026-05-22T04:41:15.301Z",
+      "finishedAt": "2026-05-22T04:41:19.268Z",
+      "phases": [],
+      "metrics": {
+        "fastProbe": true,
+        "coins": 1,
+        "rewardPoints": 3
+      },
+      "apiStatuses": [
+        {
+          "label": "legal-completion-fast",
+          "status": 201,
+          "responseStatus": "awarded"
+        }
+      ],
+      "runtimeEvents": [],
+      "fatalEvents": [],
+      "grade": "S3",
+      "topicId": "quadratic-patterns",
+      "accuracyPercent": 100,
+      "roundKey": "happy-11-1779424878198-round"
+    },
+    {
+      "id": "happy-12",
+      "category": "happy-path",
+      "variant": "one-catch-80",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 3428,
+      "startedAt": "2026-05-22T04:41:19.268Z",
+      "finishedAt": "2026-05-22T04:41:22.696Z",
+      "phases": [],
+      "metrics": {
+        "fastProbe": true,
+        "coins": 1,
+        "rewardPoints": 3
+      },
+      "apiStatuses": [
+        {
+          "label": "legal-completion-fast",
+          "status": 201,
+          "responseStatus": "awarded"
+        }
+      ],
+      "runtimeEvents": [],
+      "fatalEvents": [],
+      "grade": "S3",
+      "topicId": "quadratic-patterns",
+      "accuracyPercent": 80,
+      "roundKey": "happy-12-1779424881659-round"
+    },
+    {
+      "id": "happy-13",
+      "category": "happy-path",
+      "variant": "one-catch-100",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 3957,
+      "startedAt": "2026-05-22T04:41:22.696Z",
+      "finishedAt": "2026-05-22T04:41:26.653Z",
+      "phases": [],
+      "metrics": {
+        "fastProbe": true,
+        "coins": 1,
+        "rewardPoints": 3
+      },
+      "apiStatuses": [
+        {
+          "label": "legal-completion-fast",
+          "status": 201,
+          "responseStatus": "awarded"
+        }
+      ],
+      "runtimeEvents": [],
+      "fatalEvents": [],
+      "grade": "S3",
+      "topicId": "quadratic-patterns",
+      "accuracyPercent": 100,
+      "roundKey": "happy-13-1779424885600-round"
+    },
+    {
+      "id": "happy-14",
+      "category": "happy-path",
+      "variant": "one-catch-80",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 3452,
+      "startedAt": "2026-05-22T04:41:26.653Z",
+      "finishedAt": "2026-05-22T04:41:30.105Z",
+      "phases": [],
+      "metrics": {
+        "fastProbe": true,
+        "coins": 1,
+        "rewardPoints": 3
+      },
+      "apiStatuses": [
+        {
+          "label": "legal-completion-fast",
+          "status": 201,
+          "responseStatus": "awarded"
+        }
+      ],
+      "runtimeEvents": [],
+      "fatalEvents": [],
+      "grade": "S3",
+      "topicId": "quadratic-patterns",
+      "accuracyPercent": 80,
+      "roundKey": "happy-14-1779424889036-round"
+    },
+    {
+      "id": "happy-15",
+      "category": "happy-path",
+      "variant": "one-catch-100",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 3942,
+      "startedAt": "2026-05-22T04:41:30.105Z",
+      "finishedAt": "2026-05-22T04:41:34.047Z",
+      "phases": [],
+      "metrics": {
+        "fastProbe": true,
+        "coins": 1,
+        "rewardPoints": 3
+      },
+      "apiStatuses": [
+        {
+          "label": "legal-completion-fast",
+          "status": 201,
+          "responseStatus": "awarded"
+        }
+      ],
+      "runtimeEvents": [],
+      "fatalEvents": [],
+      "grade": "S3",
+      "topicId": "quadratic-patterns",
+      "accuracyPercent": 100,
+      "roundKey": "happy-15-1779424892998-round"
+    },
+    {
+      "id": "happy-16",
+      "category": "happy-path",
+      "variant": "one-catch-80",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 3409,
+      "startedAt": "2026-05-22T04:41:34.047Z",
+      "finishedAt": "2026-05-22T04:41:37.456Z",
+      "phases": [],
+      "metrics": {
+        "fastProbe": true,
+        "coins": 1,
+        "rewardPoints": 3
+      },
+      "apiStatuses": [
+        {
+          "label": "legal-completion-fast",
+          "status": 201,
+          "responseStatus": "awarded"
+        }
+      ],
+      "runtimeEvents": [],
+      "fatalEvents": [],
+      "grade": "S3",
+      "topicId": "quadratic-patterns",
+      "accuracyPercent": 80,
+      "roundKey": "happy-16-1779424896426-round"
+    },
+    {
+      "id": "happy-17",
+      "category": "happy-path",
+      "variant": "one-catch-100",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 4003,
+      "startedAt": "2026-05-22T04:41:37.456Z",
+      "finishedAt": "2026-05-22T04:41:41.459Z",
+      "phases": [],
+      "metrics": {
+        "fastProbe": true,
+        "coins": 1,
+        "rewardPoints": 3
+      },
+      "apiStatuses": [
+        {
+          "label": "legal-completion-fast",
+          "status": 201,
+          "responseStatus": "awarded"
+        }
+      ],
+      "runtimeEvents": [],
+      "fatalEvents": [],
+      "grade": "S3",
+      "topicId": "quadratic-patterns",
+      "accuracyPercent": 100,
+      "roundKey": "happy-17-1779424900402-round"
+    },
+    {
+      "id": "happy-18",
+      "category": "happy-path",
+      "variant": "one-catch-80",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 3454,
+      "startedAt": "2026-05-22T04:41:41.459Z",
+      "finishedAt": "2026-05-22T04:41:44.913Z",
+      "phases": [],
+      "metrics": {
+        "fastProbe": true,
+        "coins": 1,
+        "rewardPoints": 3
+      },
+      "apiStatuses": [
+        {
+          "label": "legal-completion-fast",
+          "status": 201,
+          "responseStatus": "awarded"
+        }
+      ],
+      "runtimeEvents": [],
+      "fatalEvents": [],
+      "grade": "S3",
+      "topicId": "quadratic-patterns",
+      "accuracyPercent": 80,
+      "roundKey": "happy-18-1779424903862-round"
+    },
+    {
+      "id": "happy-19",
+      "category": "happy-path",
+      "variant": "one-catch-100",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 3973,
+      "startedAt": "2026-05-22T04:41:44.913Z",
+      "finishedAt": "2026-05-22T04:41:48.886Z",
+      "phases": [],
+      "metrics": {
+        "fastProbe": true,
+        "coins": 1,
+        "rewardPoints": 3
+      },
+      "apiStatuses": [
+        {
+          "label": "legal-completion-fast",
+          "status": 201,
+          "responseStatus": "awarded"
+        }
+      ],
+      "runtimeEvents": [],
+      "fatalEvents": [],
+      "grade": "S3",
+      "topicId": "quadratic-patterns",
+      "accuracyPercent": 100,
+      "roundKey": "happy-19-1779424907844-round"
+    },
+    {
+      "id": "happy-20",
+      "category": "happy-path",
+      "variant": "one-catch-80",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 3451,
+      "startedAt": "2026-05-22T04:41:48.886Z",
+      "finishedAt": "2026-05-22T04:41:52.337Z",
+      "phases": [],
+      "metrics": {
+        "fastProbe": true,
+        "coins": 1,
+        "rewardPoints": 3
+      },
+      "apiStatuses": [
+        {
+          "label": "legal-completion-fast",
+          "status": 201,
+          "responseStatus": "awarded"
+        }
+      ],
+      "runtimeEvents": [],
+      "fatalEvents": [],
+      "grade": "S3",
+      "topicId": "quadratic-patterns",
+      "accuracyPercent": 80,
+      "roundKey": "happy-20-1779424911277-round"
+    },
+    {
+      "id": "locked-01",
+      "category": "locked-boundary",
+      "variant": "unauthenticated",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 821,
+      "startedAt": "2026-05-22T04:41:52.337Z",
+      "finishedAt": "2026-05-22T04:41:53.158Z",
+      "phases": [
+        {
+          "label": "locked",
+          "phase": null,
+          "nets": null,
+          "coins": null,
+          "elapsed": null
+        }
+      ],
+      "metrics": {
+        "locked": true
+      },
+      "apiStatuses": [],
+      "runtimeEvents": [
+        {
+          "at": "2026-05-22T04:41:53.112Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 401 (Unauthorized)"
+        }
+      ],
+      "fatalEvents": []
+    },
+    {
+      "id": "locked-02",
+      "category": "locked-boundary",
+      "variant": "missing-payload",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 1624,
+      "startedAt": "2026-05-22T04:41:53.158Z",
+      "finishedAt": "2026-05-22T04:41:54.782Z",
+      "phases": [
+        {
+          "label": "locked",
+          "phase": null,
+          "nets": null,
+          "coins": null,
+          "elapsed": null
+        }
+      ],
+      "metrics": {
+        "locked": true
+      },
+      "apiStatuses": [],
+      "runtimeEvents": [
+        {
+          "at": "2026-05-22T04:41:53.378Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 401 (Unauthorized)"
+        },
+        {
+          "at": "2026-05-22T04:41:53.676Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "at": "2026-05-22T04:41:54.736Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "fatalEvents": []
+    },
+    {
+      "id": "locked-03",
+      "category": "locked-boundary",
+      "variant": "malformed-storage",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 2839,
+      "startedAt": "2026-05-22T04:41:54.782Z",
+      "finishedAt": "2026-05-22T04:41:57.621Z",
+      "phases": [
+        {
+          "label": "locked",
+          "phase": null,
+          "nets": null,
+          "coins": null,
+          "elapsed": null
+        }
+      ],
+      "metrics": {
+        "locked": true
+      },
+      "apiStatuses": [],
+      "runtimeEvents": [
+        {
+          "at": "2026-05-22T04:41:55.760Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "fatalEvents": []
+    },
+    {
+      "id": "locked-04",
+      "category": "locked-boundary",
+      "variant": "accuracy-0",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 4613,
+      "startedAt": "2026-05-22T04:41:57.621Z",
+      "finishedAt": "2026-05-22T04:42:02.234Z",
+      "phases": [
+        {
+          "label": "locked",
+          "phase": null,
+          "nets": null,
+          "coins": null,
+          "elapsed": null
+        }
+      ],
+      "metrics": {
+        "locked": true
+      },
+      "apiStatuses": [],
+      "runtimeEvents": [
+        {
+          "at": "2026-05-22T04:41:59.886Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "fatalEvents": [],
+      "topicId": "quadratic-patterns",
+      "accuracyPercent": 0
+    },
+    {
+      "id": "locked-05",
+      "category": "locked-boundary",
+      "variant": "accuracy-60",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 7068,
+      "startedAt": "2026-05-22T04:42:02.234Z",
+      "finishedAt": "2026-05-22T04:42:09.302Z",
+      "phases": [
+        {
+          "label": "locked",
+          "phase": null,
+          "nets": null,
+          "coins": null,
+          "elapsed": null
+        }
+      ],
+      "metrics": {
+        "locked": true
+      },
+      "apiStatuses": [],
+      "runtimeEvents": [
+        {
+          "at": "2026-05-22T04:42:04.019Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "at": "2026-05-22T04:42:08.740Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "fatalEvents": [],
+      "topicId": "quadratic-patterns",
+      "accuracyPercent": 60
+    },
+    {
+      "id": "locked-06",
+      "category": "locked-boundary",
+      "variant": "accuracy-79",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 6949,
+      "startedAt": "2026-05-22T04:42:09.302Z",
+      "finishedAt": "2026-05-22T04:42:16.251Z",
+      "phases": [
+        {
+          "label": "locked",
+          "phase": null,
+          "nets": null,
+          "coins": null,
+          "elapsed": null
+        }
+      ],
+      "metrics": {
+        "locked": true
+      },
+      "apiStatuses": [],
+      "runtimeEvents": [
+        {
+          "at": "2026-05-22T04:42:09.535Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "at": "2026-05-22T04:42:15.699Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "fatalEvents": [],
+      "topicId": "quadratic-patterns",
+      "accuracyPercent": 79
+    },
+    {
+      "id": "locked-07",
+      "category": "locked-boundary",
+      "variant": "short-round",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 8183,
+      "startedAt": "2026-05-22T04:42:16.251Z",
+      "finishedAt": "2026-05-22T04:42:24.434Z",
+      "phases": [
+        {
+          "label": "locked",
+          "phase": null,
+          "nets": null,
+          "coins": null,
+          "elapsed": null
+        }
+      ],
+      "metrics": {
+        "locked": true
+      },
+      "apiStatuses": [],
+      "runtimeEvents": [
+        {
+          "at": "2026-05-22T04:42:18.504Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "at": "2026-05-22T04:42:23.885Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "fatalEvents": [],
+      "topicId": "quadratic-patterns",
+      "accuracyPercent": 100
+    },
+    {
+      "id": "locked-08",
+      "category": "locked-boundary",
+      "variant": "non-string-round-ids",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 6847,
+      "startedAt": "2026-05-22T04:42:24.434Z",
+      "finishedAt": "2026-05-22T04:42:31.281Z",
+      "phases": [
+        {
+          "label": "locked",
+          "phase": null,
+          "nets": null,
+          "coins": null,
+          "elapsed": null
+        }
+      ],
+      "metrics": {
+        "locked": true
+      },
+      "apiStatuses": [],
+      "runtimeEvents": [
+        {
+          "at": "2026-05-22T04:42:25.177Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "at": "2026-05-22T04:42:30.735Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "fatalEvents": [],
+      "topicId": "quadratic-patterns",
+      "accuracyPercent": 80
+    },
+    {
+      "id": "locked-09",
+      "category": "locked-boundary",
+      "variant": "nonexistent-topic",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 7897,
+      "startedAt": "2026-05-22T04:42:31.281Z",
+      "finishedAt": "2026-05-22T04:42:39.178Z",
+      "phases": [
+        {
+          "label": "locked",
+          "phase": null,
+          "nets": null,
+          "coins": null,
+          "elapsed": null
+        }
+      ],
+      "metrics": {
+        "locked": true
+      },
+      "apiStatuses": [],
+      "runtimeEvents": [
+        {
+          "at": "2026-05-22T04:42:33.061Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "at": "2026-05-22T04:42:39.124Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "at": "2026-05-22T04:42:39.131Z",
+          "kind": "requestfailed",
+          "message": "GET http://127.0.0.1:53706/api/questions?topicId=missing-fishing-topic&curriculumTrack=HK net::ERR_ABORTED"
+        }
+      ],
+      "fatalEvents": [],
+      "topicId": "missing-fishing-topic",
+      "accuracyPercent": 80
+    },
+    {
+      "id": "locked-10",
+      "category": "locked-boundary",
+      "variant": "unauthenticated",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 3039,
+      "startedAt": "2026-05-22T04:42:39.178Z",
+      "finishedAt": "2026-05-22T04:42:42.217Z",
+      "phases": [
+        {
+          "label": "locked",
+          "phase": null,
+          "nets": null,
+          "coins": null,
+          "elapsed": null
+        }
+      ],
+      "metrics": {
+        "locked": true
+      },
+      "apiStatuses": [],
+      "runtimeEvents": [
+        {
+          "at": "2026-05-22T04:42:42.169Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 401 (Unauthorized)"
+        }
+      ],
+      "fatalEvents": []
+    },
+    {
+      "id": "locked-11",
+      "category": "locked-boundary",
+      "variant": "missing-payload",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 1373,
+      "startedAt": "2026-05-22T04:42:42.217Z",
+      "finishedAt": "2026-05-22T04:42:43.590Z",
+      "phases": [
+        {
+          "label": "locked",
+          "phase": null,
+          "nets": null,
+          "coins": null,
+          "elapsed": null
+        }
+      ],
+      "metrics": {
+        "locked": true
+      },
+      "apiStatuses": [],
+      "runtimeEvents": [
+        {
+          "at": "2026-05-22T04:42:42.699Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 401 (Unauthorized)"
+        },
+        {
+          "at": "2026-05-22T04:42:42.984Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "fatalEvents": []
+    },
+    {
+      "id": "locked-12",
+      "category": "locked-boundary",
+      "variant": "malformed-storage",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 3345,
+      "startedAt": "2026-05-22T04:42:43.590Z",
+      "finishedAt": "2026-05-22T04:42:46.935Z",
+      "phases": [
+        {
+          "label": "locked",
+          "phase": null,
+          "nets": null,
+          "coins": null,
+          "elapsed": null
+        }
+      ],
+      "metrics": {
+        "locked": true
+      },
+      "apiStatuses": [],
+      "runtimeEvents": [],
+      "fatalEvents": []
+    },
+    {
+      "id": "locked-13",
+      "category": "locked-boundary",
+      "variant": "accuracy-0",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 4164,
+      "startedAt": "2026-05-22T04:42:46.935Z",
+      "finishedAt": "2026-05-22T04:42:51.099Z",
+      "phases": [
+        {
+          "label": "locked",
+          "phase": null,
+          "nets": null,
+          "coins": null,
+          "elapsed": null
+        }
+      ],
+      "metrics": {
+        "locked": true
+      },
+      "apiStatuses": [],
+      "runtimeEvents": [
+        {
+          "at": "2026-05-22T04:42:48.727Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "fatalEvents": [],
+      "topicId": "quadratic-patterns",
+      "accuracyPercent": 0
+    },
+    {
+      "id": "locked-14",
+      "category": "locked-boundary",
+      "variant": "accuracy-60",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 7108,
+      "startedAt": "2026-05-22T04:42:51.099Z",
+      "finishedAt": "2026-05-22T04:42:58.207Z",
+      "phases": [
+        {
+          "label": "locked",
+          "phase": null,
+          "nets": null,
+          "coins": null,
+          "elapsed": null
+        }
+      ],
+      "metrics": {
+        "locked": true
+      },
+      "apiStatuses": [],
+      "runtimeEvents": [
+        {
+          "at": "2026-05-22T04:42:52.896Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "at": "2026-05-22T04:42:57.650Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "fatalEvents": [],
+      "topicId": "quadratic-patterns",
+      "accuracyPercent": 60
+    },
+    {
+      "id": "locked-15",
+      "category": "locked-boundary",
+      "variant": "accuracy-79",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 7870,
+      "startedAt": "2026-05-22T04:42:58.208Z",
+      "finishedAt": "2026-05-22T04:43:06.078Z",
+      "phases": [
+        {
+          "label": "locked",
+          "phase": null,
+          "nets": null,
+          "coins": null,
+          "elapsed": null
+        }
+      ],
+      "metrics": {
+        "locked": true
+      },
+      "apiStatuses": [],
+      "runtimeEvents": [
+        {
+          "at": "2026-05-22T04:43:00.469Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "at": "2026-05-22T04:43:05.534Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "fatalEvents": [],
+      "topicId": "quadratic-patterns",
+      "accuracyPercent": 79
+    },
+    {
+      "id": "ops-01",
+      "category": "operation-exploration",
+      "variant": "rapid-click-fire",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 12329,
+      "startedAt": "2026-05-22T04:43:06.078Z",
+      "finishedAt": "2026-05-22T04:43:18.407Z",
+      "phases": [
+        {
+          "label": "welcome",
+          "phase": "welcome",
+          "nets": "10",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "ready",
+          "phase": "ready",
+          "nets": "10",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "rapid-click-fire",
+          "phase": "casting",
+          "nets": "9",
+          "coins": "0",
+          "elapsed": "0"
+        }
+      ],
+      "metrics": {
+        "canvasDataUrlLength": 16426
+      },
+      "apiStatuses": [],
+      "runtimeEvents": [
+        {
+          "at": "2026-05-22T04:43:08.631Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "at": "2026-05-22T04:43:13.920Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "at": "2026-05-22T04:43:14.941Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "fatalEvents": [],
+      "topicId": "quadratic-patterns",
+      "accuracyPercent": 100,
+      "roundKey": "ops-01-1779424993369-round"
+    },
+    {
+      "id": "ops-02",
+      "category": "operation-exploration",
+      "variant": "keyboard-extreme-miss",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 10139,
+      "startedAt": "2026-05-22T04:43:18.407Z",
+      "finishedAt": "2026-05-22T04:43:28.546Z",
+      "phases": [
+        {
+          "label": "welcome",
+          "phase": "welcome",
+          "nets": "10",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "ready",
+          "phase": "ready",
+          "nets": "10",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "keyboard-extreme-miss",
+          "phase": "ready",
+          "nets": "9",
+          "coins": "0",
+          "elapsed": "0"
+        }
+      ],
+      "metrics": {
+        "canvasDataUrlLength": 16426
+      },
+      "apiStatuses": [],
+      "runtimeEvents": [
+        {
+          "at": "2026-05-22T04:43:22.370Z",
+          "kind": "requestfailed",
+          "message": "GET http://127.0.0.1:53706/api/questions?topicId=quadratic-patterns&curriculumTrack=HK net::ERR_ABORTED"
+        },
+        {
+          "at": "2026-05-22T04:43:24.668Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "fatalEvents": [],
+      "topicId": "quadratic-patterns",
+      "accuracyPercent": 100,
+      "roundKey": "ops-02-1779425001311-round"
+    },
+    {
+      "id": "ops-03",
+      "category": "operation-exploration",
+      "variant": "space-spam",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 8998,
+      "startedAt": "2026-05-22T04:43:28.546Z",
+      "finishedAt": "2026-05-22T04:43:37.544Z",
+      "phases": [
+        {
+          "label": "welcome",
+          "phase": "welcome",
+          "nets": "10",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "ready",
+          "phase": "ready",
+          "nets": "10",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "space-spam",
+          "phase": "casting",
+          "nets": "9",
+          "coins": "0",
+          "elapsed": "0"
+        }
+      ],
+      "metrics": {
+        "canvasDataUrlLength": 16426
+      },
+      "apiStatuses": [],
+      "runtimeEvents": [
+        {
+          "at": "2026-05-22T04:43:32.038Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "at": "2026-05-22T04:43:32.558Z",
+          "kind": "requestfailed",
+          "message": "GET http://127.0.0.1:53706/api/questions?topicId=quadratic-patterns&curriculumTrack=HK net::ERR_ABORTED"
+        },
+        {
+          "at": "2026-05-22T04:43:35.104Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "fatalEvents": [],
+      "topicId": "quadratic-patterns",
+      "accuracyPercent": 100,
+      "roundKey": "ops-03-1779425011469-round"
+    },
+    {
+      "id": "ops-04",
+      "category": "operation-exploration",
+      "variant": "challenge-wait",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 11945,
+      "startedAt": "2026-05-22T04:43:37.544Z",
+      "finishedAt": "2026-05-22T04:43:49.489Z",
+      "phases": [
+        {
+          "label": "welcome",
+          "phase": "welcome",
+          "nets": "10",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "ready",
+          "phase": "ready",
+          "nets": "10",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "challenge-wait",
+          "phase": "challenge",
+          "nets": "9",
+          "coins": "1",
+          "elapsed": "1"
+        }
+      ],
+      "metrics": {
+        "canvasDataUrlLength": 16426
+      },
+      "apiStatuses": [],
+      "runtimeEvents": [
+        {
+          "at": "2026-05-22T04:43:41.539Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "at": "2026-05-22T04:43:42.041Z",
+          "kind": "requestfailed",
+          "message": "GET http://127.0.0.1:53706/api/questions?topicId=quadratic-patterns&curriculumTrack=HK net::ERR_ABORTED"
+        },
+        {
+          "at": "2026-05-22T04:43:44.289Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "fatalEvents": [],
+      "topicId": "quadratic-patterns",
+      "accuracyPercent": 100,
+      "roundKey": "ops-04-1779425020990-round"
+    },
+    {
+      "id": "ops-05",
+      "category": "operation-exploration",
+      "variant": "wrong-answer",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 10379,
+      "startedAt": "2026-05-22T04:43:49.489Z",
+      "finishedAt": "2026-05-22T04:43:59.868Z",
+      "phases": [
+        {
+          "label": "welcome",
+          "phase": "welcome",
+          "nets": "10",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "ready",
+          "phase": "ready",
+          "nets": "10",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "challenge",
+          "phase": "challenge",
+          "nets": "9",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "answered-wrong",
+          "phase": "ready",
+          "nets": "9",
+          "coins": "0",
+          "elapsed": "1"
+        },
+        {
+          "label": "wrong-answer",
+          "phase": "ready",
+          "nets": "9",
+          "coins": "0",
+          "elapsed": "1"
+        }
+      ],
+      "metrics": {
+        "canvasDataUrlLength": 16426
+      },
+      "apiStatuses": [],
+      "runtimeEvents": [
+        {
+          "at": "2026-05-22T04:43:54.995Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "fatalEvents": [],
+      "topicId": "quadratic-patterns",
+      "accuracyPercent": 100,
+      "roundKey": "ops-05-1779425033392-round"
+    },
+    {
+      "id": "ops-06",
+      "category": "operation-exploration",
+      "variant": "rapid-click-fire",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 4496,
+      "startedAt": "2026-05-22T04:43:59.868Z",
+      "finishedAt": "2026-05-22T04:44:04.364Z",
+      "phases": [],
+      "metrics": {
+        "fastProbe": true,
+        "operationVariant": "rapid-click-fire"
+      },
+      "apiStatuses": [
+        {
+          "label": "operation-fast-rapid-click-fire",
+          "status": 201,
+          "responseStatus": "awarded"
+        }
+      ],
+      "runtimeEvents": [],
+      "fatalEvents": [],
+      "topicId": "quadratic-patterns",
+      "accuracyPercent": 100,
+      "roundKey": "ops-06-1779425043308-round"
+    },
+    {
+      "id": "ops-07",
+      "category": "operation-exploration",
+      "variant": "keyboard-extreme-miss",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 3442,
+      "startedAt": "2026-05-22T04:44:04.364Z",
+      "finishedAt": "2026-05-22T04:44:07.806Z",
+      "phases": [],
+      "metrics": {
+        "fastProbe": true,
+        "operationVariant": "keyboard-extreme-miss"
+      },
+      "apiStatuses": [
+        {
+          "label": "operation-fast-keyboard-extreme-miss",
+          "status": 201,
+          "responseStatus": "awarded"
+        }
+      ],
+      "runtimeEvents": [],
+      "fatalEvents": [],
+      "topicId": "quadratic-patterns",
+      "accuracyPercent": 100,
+      "roundKey": "ops-07-1779425047291-round"
+    },
+    {
+      "id": "ops-08",
+      "category": "operation-exploration",
+      "variant": "space-spam",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 3989,
+      "startedAt": "2026-05-22T04:44:07.806Z",
+      "finishedAt": "2026-05-22T04:44:11.795Z",
+      "phases": [],
+      "metrics": {
+        "fastProbe": true,
+        "operationVariant": "space-spam"
+      },
+      "apiStatuses": [
+        {
+          "label": "operation-fast-space-spam",
+          "status": 201,
+          "responseStatus": "awarded"
+        }
+      ],
+      "runtimeEvents": [],
+      "fatalEvents": [],
+      "topicId": "quadratic-patterns",
+      "accuracyPercent": 100,
+      "roundKey": "ops-08-1779425050731-round"
+    },
+    {
+      "id": "ops-09",
+      "category": "operation-exploration",
+      "variant": "challenge-wait",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 4093,
+      "startedAt": "2026-05-22T04:44:11.795Z",
+      "finishedAt": "2026-05-22T04:44:15.888Z",
+      "phases": [],
+      "metrics": {
+        "fastProbe": true,
+        "operationVariant": "challenge-wait"
+      },
+      "apiStatuses": [
+        {
+          "label": "operation-fast-challenge-wait",
+          "status": 201,
+          "responseStatus": "awarded"
+        }
+      ],
+      "runtimeEvents": [],
+      "fatalEvents": [],
+      "topicId": "quadratic-patterns",
+      "accuracyPercent": 100,
+      "roundKey": "ops-09-1779425054718-round"
+    },
+    {
+      "id": "ops-10",
+      "category": "operation-exploration",
+      "variant": "wrong-answer",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 3709,
+      "startedAt": "2026-05-22T04:44:15.888Z",
+      "finishedAt": "2026-05-22T04:44:19.597Z",
+      "phases": [],
+      "metrics": {
+        "fastProbe": true,
+        "operationVariant": "wrong-answer"
+      },
+      "apiStatuses": [
+        {
+          "label": "operation-fast-wrong-answer",
+          "status": 201,
+          "responseStatus": "awarded"
+        }
+      ],
+      "runtimeEvents": [],
+      "fatalEvents": [],
+      "topicId": "quadratic-patterns",
+      "accuracyPercent": 100,
+      "roundKey": "ops-10-1779425059077-round"
+    },
+    {
+      "id": "ops-11",
+      "category": "operation-exploration",
+      "variant": "rapid-click-fire",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 4048,
+      "startedAt": "2026-05-22T04:44:19.597Z",
+      "finishedAt": "2026-05-22T04:44:23.645Z",
+      "phases": [],
+      "metrics": {
+        "fastProbe": true,
+        "operationVariant": "rapid-click-fire"
+      },
+      "apiStatuses": [
+        {
+          "label": "operation-fast-rapid-click-fire",
+          "status": 201,
+          "responseStatus": "awarded"
+        }
+      ],
+      "runtimeEvents": [],
+      "fatalEvents": [],
+      "topicId": "quadratic-patterns",
+      "accuracyPercent": 100,
+      "roundKey": "ops-11-1779425062556-round"
+    },
+    {
+      "id": "ops-12",
+      "category": "operation-exploration",
+      "variant": "keyboard-extreme-miss",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 3494,
+      "startedAt": "2026-05-22T04:44:23.645Z",
+      "finishedAt": "2026-05-22T04:44:27.139Z",
+      "phases": [],
+      "metrics": {
+        "fastProbe": true,
+        "operationVariant": "keyboard-extreme-miss"
+      },
+      "apiStatuses": [
+        {
+          "label": "operation-fast-keyboard-extreme-miss",
+          "status": 201,
+          "responseStatus": "awarded"
+        }
+      ],
+      "runtimeEvents": [],
+      "fatalEvents": [],
+      "topicId": "quadratic-patterns",
+      "accuracyPercent": 100,
+      "roundKey": "ops-12-1779425066611-round"
+    },
+    {
+      "id": "ops-13",
+      "category": "operation-exploration",
+      "variant": "space-spam",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 4058,
+      "startedAt": "2026-05-22T04:44:27.139Z",
+      "finishedAt": "2026-05-22T04:44:31.197Z",
+      "phases": [],
+      "metrics": {
+        "fastProbe": true,
+        "operationVariant": "space-spam"
+      },
+      "apiStatuses": [
+        {
+          "label": "operation-fast-space-spam",
+          "status": 201,
+          "responseStatus": "awarded"
+        }
+      ],
+      "runtimeEvents": [],
+      "fatalEvents": [],
+      "topicId": "quadratic-patterns",
+      "accuracyPercent": 100,
+      "roundKey": "ops-13-1779425070107-round"
+    },
+    {
+      "id": "ops-14",
+      "category": "operation-exploration",
+      "variant": "challenge-wait",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 4033,
+      "startedAt": "2026-05-22T04:44:31.197Z",
+      "finishedAt": "2026-05-22T04:44:35.230Z",
+      "phases": [],
+      "metrics": {
+        "fastProbe": true,
+        "operationVariant": "challenge-wait"
+      },
+      "apiStatuses": [
+        {
+          "label": "operation-fast-challenge-wait",
+          "status": 201,
+          "responseStatus": "awarded"
+        }
+      ],
+      "runtimeEvents": [],
+      "fatalEvents": [],
+      "topicId": "quadratic-patterns",
+      "accuracyPercent": 100,
+      "roundKey": "ops-14-1779425074174-round"
+    },
+    {
+      "id": "ops-15",
+      "category": "operation-exploration",
+      "variant": "wrong-answer",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 3502,
+      "startedAt": "2026-05-22T04:44:35.230Z",
+      "finishedAt": "2026-05-22T04:44:38.732Z",
+      "phases": [],
+      "metrics": {
+        "fastProbe": true,
+        "operationVariant": "wrong-answer"
+      },
+      "apiStatuses": [
+        {
+          "label": "operation-fast-wrong-answer",
+          "status": 201,
+          "responseStatus": "awarded"
+        }
+      ],
+      "runtimeEvents": [],
+      "fatalEvents": [],
+      "topicId": "quadratic-patterns",
+      "accuracyPercent": 100,
+      "roundKey": "ops-15-1779425078195-round"
+    },
+    {
+      "id": "ops-16",
+      "category": "operation-exploration",
+      "variant": "rapid-click-fire",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 4169,
+      "startedAt": "2026-05-22T04:44:38.732Z",
+      "finishedAt": "2026-05-22T04:44:42.901Z",
+      "phases": [],
+      "metrics": {
+        "fastProbe": true,
+        "operationVariant": "rapid-click-fire"
+      },
+      "apiStatuses": [
+        {
+          "label": "operation-fast-rapid-click-fire",
+          "status": 201,
+          "responseStatus": "awarded"
+        }
+      ],
+      "runtimeEvents": [],
+      "fatalEvents": [],
+      "topicId": "quadratic-patterns",
+      "accuracyPercent": 100,
+      "roundKey": "ops-16-1779425081836-round"
+    },
+    {
+      "id": "ops-17",
+      "category": "operation-exploration",
+      "variant": "keyboard-extreme-miss",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 3578,
+      "startedAt": "2026-05-22T04:44:42.901Z",
+      "finishedAt": "2026-05-22T04:44:46.479Z",
+      "phases": [],
+      "metrics": {
+        "fastProbe": true,
+        "operationVariant": "keyboard-extreme-miss"
+      },
+      "apiStatuses": [
+        {
+          "label": "operation-fast-keyboard-extreme-miss",
+          "status": 201,
+          "responseStatus": "awarded"
+        }
+      ],
+      "runtimeEvents": [],
+      "fatalEvents": [],
+      "topicId": "quadratic-patterns",
+      "accuracyPercent": 100,
+      "roundKey": "ops-17-1779425085932-round"
+    },
+    {
+      "id": "ops-18",
+      "category": "operation-exploration",
+      "variant": "space-spam",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 4119,
+      "startedAt": "2026-05-22T04:44:46.479Z",
+      "finishedAt": "2026-05-22T04:44:50.598Z",
+      "phases": [],
+      "metrics": {
+        "fastProbe": true,
+        "operationVariant": "space-spam"
+      },
+      "apiStatuses": [
+        {
+          "label": "operation-fast-space-spam",
+          "status": 201,
+          "responseStatus": "awarded"
+        }
+      ],
+      "runtimeEvents": [],
+      "fatalEvents": [],
+      "topicId": "quadratic-patterns",
+      "accuracyPercent": 100,
+      "roundKey": "ops-18-1779425089522-round"
+    },
+    {
+      "id": "ops-19",
+      "category": "operation-exploration",
+      "variant": "challenge-wait",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 4045,
+      "startedAt": "2026-05-22T04:44:50.598Z",
+      "finishedAt": "2026-05-22T04:44:54.643Z",
+      "phases": [],
+      "metrics": {
+        "fastProbe": true,
+        "operationVariant": "challenge-wait"
+      },
+      "apiStatuses": [
+        {
+          "label": "operation-fast-challenge-wait",
+          "status": 201,
+          "responseStatus": "awarded"
+        }
+      ],
+      "runtimeEvents": [],
+      "fatalEvents": [],
+      "topicId": "quadratic-patterns",
+      "accuracyPercent": 100,
+      "roundKey": "ops-19-1779425093573-round"
+    },
+    {
+      "id": "ops-20",
+      "category": "operation-exploration",
+      "variant": "wrong-answer",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 4051,
+      "startedAt": "2026-05-22T04:44:54.643Z",
+      "finishedAt": "2026-05-22T04:44:58.694Z",
+      "phases": [],
+      "metrics": {
+        "fastProbe": true,
+        "operationVariant": "wrong-answer"
+      },
+      "apiStatuses": [
+        {
+          "label": "operation-fast-wrong-answer",
+          "status": 201,
+          "responseStatus": "awarded"
+        }
+      ],
+      "runtimeEvents": [],
+      "fatalEvents": [],
+      "topicId": "quadratic-patterns",
+      "accuracyPercent": 100,
+      "roundKey": "ops-20-1779425098178-round"
+    },
+    {
+      "id": "api-01",
+      "category": "api-adversarial",
+      "variant": "duplicate-round-key",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 5144,
+      "startedAt": "2026-05-22T04:44:58.694Z",
+      "finishedAt": "2026-05-22T04:45:03.838Z",
+      "phases": [],
+      "metrics": {},
+      "apiStatuses": [
+        {
+          "label": "first-legal",
+          "status": 201,
+          "responseStatus": "awarded"
+        },
+        {
+          "label": "duplicate",
+          "status": 409,
+          "responseStatus": "duplicate"
+        }
+      ],
+      "runtimeEvents": [],
+      "fatalEvents": []
+    },
+    {
+      "id": "api-02",
+      "category": "api-adversarial",
+      "variant": "unauthenticated-post",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 3052,
+      "startedAt": "2026-05-22T04:45:03.838Z",
+      "finishedAt": "2026-05-22T04:45:06.890Z",
+      "phases": [],
+      "metrics": {},
+      "apiStatuses": [
+        {
+          "label": "unauthenticated-post",
+          "status": 401,
+          "responseStatus": "Not authenticated."
+        }
+      ],
+      "runtimeEvents": [],
+      "fatalEvents": []
+    },
+    {
+      "id": "api-03",
+      "category": "api-adversarial",
+      "variant": "coins-mismatch",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 4557,
+      "startedAt": "2026-05-22T04:45:06.890Z",
+      "finishedAt": "2026-05-22T04:45:11.447Z",
+      "phases": [],
+      "metrics": {},
+      "apiStatuses": [
+        {
+          "label": "coins-mismatch",
+          "status": 422,
+          "responseStatus": "invalid-run"
+        }
+      ],
+      "runtimeEvents": [],
+      "fatalEvents": []
+    },
+    {
+      "id": "api-04",
+      "category": "api-adversarial",
+      "variant": "correct-not-caught",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 4592,
+      "startedAt": "2026-05-22T04:45:11.447Z",
+      "finishedAt": "2026-05-22T04:45:16.039Z",
+      "phases": [],
+      "metrics": {},
+      "apiStatuses": [
+        {
+          "label": "correct-not-caught",
+          "status": 422,
+          "responseStatus": "invalid-run"
+        }
+      ],
+      "runtimeEvents": [],
+      "fatalEvents": []
+    },
+    {
+      "id": "api-05",
+      "category": "api-adversarial",
+      "variant": "caught-cross-topic",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 4650,
+      "startedAt": "2026-05-22T04:45:16.039Z",
+      "finishedAt": "2026-05-22T04:45:20.689Z",
+      "phases": [],
+      "metrics": {},
+      "apiStatuses": [
+        {
+          "label": "caught-cross-topic",
+          "status": 422,
+          "responseStatus": "invalid-run"
+        }
+      ],
+      "runtimeEvents": [],
+      "fatalEvents": []
+    },
+    {
+      "id": "api-06",
+      "category": "api-adversarial",
+      "variant": "nets-overflow",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 4594,
+      "startedAt": "2026-05-22T04:45:20.689Z",
+      "finishedAt": "2026-05-22T04:45:25.283Z",
+      "phases": [],
+      "metrics": {},
+      "apiStatuses": [
+        {
+          "label": "nets-overflow",
+          "status": 422,
+          "responseStatus": "invalid-run"
+        }
+      ],
+      "runtimeEvents": [],
+      "fatalEvents": []
+    },
+    {
+      "id": "api-07",
+      "category": "api-adversarial",
+      "variant": "coins-overflow",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 4588,
+      "startedAt": "2026-05-22T04:45:25.283Z",
+      "finishedAt": "2026-05-22T04:45:29.871Z",
+      "phases": [],
+      "metrics": {},
+      "apiStatuses": [
+        {
+          "label": "coins-overflow",
+          "status": 422,
+          "responseStatus": "invalid-run"
+        }
+      ],
+      "runtimeEvents": [],
+      "fatalEvents": []
+    },
+    {
+      "id": "api-08",
+      "category": "api-adversarial",
+      "variant": "duration-overflow",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 4724,
+      "startedAt": "2026-05-22T04:45:29.871Z",
+      "finishedAt": "2026-05-22T04:45:34.595Z",
+      "phases": [],
+      "metrics": {},
+      "apiStatuses": [
+        {
+          "label": "duration-overflow",
+          "status": 422,
+          "responseStatus": "invalid-run"
+        }
+      ],
+      "runtimeEvents": [],
+      "fatalEvents": []
+    },
+    {
+      "id": "api-09",
+      "category": "api-adversarial",
+      "variant": "duration-negative",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 4919,
+      "startedAt": "2026-05-22T04:45:34.595Z",
+      "finishedAt": "2026-05-22T04:45:39.514Z",
+      "phases": [],
+      "metrics": {},
+      "apiStatuses": [
+        {
+          "label": "duration-negative",
+          "status": 422,
+          "responseStatus": "invalid-run"
+        }
+      ],
+      "runtimeEvents": [],
+      "fatalEvents": []
+    },
+    {
+      "id": "api-10",
+      "category": "api-adversarial",
+      "variant": "missing-topic",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 4653,
+      "startedAt": "2026-05-22T04:45:39.514Z",
+      "finishedAt": "2026-05-22T04:45:44.167Z",
+      "phases": [],
+      "metrics": {},
+      "apiStatuses": [
+        {
+          "label": "missing-topic",
+          "status": 422,
+          "responseStatus": "invalid-run"
+        }
+      ],
+      "runtimeEvents": [],
+      "fatalEvents": []
+    },
+    {
+      "id": "api-11",
+      "category": "api-adversarial",
+      "variant": "four-round-ids",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 5273,
+      "startedAt": "2026-05-22T04:45:44.167Z",
+      "finishedAt": "2026-05-22T04:45:49.440Z",
+      "phases": [],
+      "metrics": {},
+      "apiStatuses": [
+        {
+          "label": "four-round-ids",
+          "status": 422,
+          "responseStatus": "invalid-run"
+        }
+      ],
+      "runtimeEvents": [],
+      "fatalEvents": []
+    },
+    {
+      "id": "api-12",
+      "category": "api-adversarial",
+      "variant": "correct-round-not-in-round",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 5262,
+      "startedAt": "2026-05-22T04:45:49.440Z",
+      "finishedAt": "2026-05-22T04:45:54.702Z",
+      "phases": [],
+      "metrics": {},
+      "apiStatuses": [
+        {
+          "label": "correct-round-not-in-round",
+          "status": 422,
+          "responseStatus": "invalid-run"
+        }
+      ],
+      "runtimeEvents": [],
+      "fatalEvents": []
+    },
+    {
+      "id": "api-13",
+      "category": "api-adversarial",
+      "variant": "unverified-round-correct",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 6216,
+      "startedAt": "2026-05-22T04:45:54.702Z",
+      "finishedAt": "2026-05-22T04:46:00.918Z",
+      "phases": [],
+      "metrics": {},
+      "apiStatuses": [
+        {
+          "label": "unverified-round-correct",
+          "status": 422,
+          "responseStatus": "invalid-run"
+        }
+      ],
+      "runtimeEvents": [
+        {
+          "at": "2026-05-22T04:45:59.711Z",
+          "kind": "badresponse",
+          "message": "422 POST http://127.0.0.1:53706/api/gamification/fishing-game/complete"
+        },
+        {
+          "at": "2026-05-22T04:45:59.711Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 422 (Unprocessable Entity)"
+        }
+      ],
+      "fatalEvents": []
+    },
+    {
+      "id": "api-14",
+      "category": "api-adversarial",
+      "variant": "empty-round-key",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 4694,
+      "startedAt": "2026-05-22T04:46:00.918Z",
+      "finishedAt": "2026-05-22T04:46:05.612Z",
+      "phases": [],
+      "metrics": {},
+      "apiStatuses": [
+        {
+          "label": "empty-round-key",
+          "status": 422,
+          "responseStatus": "invalid-run"
+        }
+      ],
+      "runtimeEvents": [],
+      "fatalEvents": []
+    },
+    {
+      "id": "api-15",
+      "category": "api-adversarial",
+      "variant": "caught-more-than-nets",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 4655,
+      "startedAt": "2026-05-22T04:46:05.612Z",
+      "finishedAt": "2026-05-22T04:46:10.267Z",
+      "phases": [],
+      "metrics": {},
+      "apiStatuses": [
+        {
+          "label": "caught-more-than-nets",
+          "status": 422,
+          "responseStatus": "invalid-run"
+        }
+      ],
+      "runtimeEvents": [],
+      "fatalEvents": []
+    },
+    {
+      "id": "desktop-01",
+      "category": "desktop-visual",
+      "variant": "desktop-ready-canvas",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 7907,
+      "startedAt": "2026-05-22T04:46:10.267Z",
+      "finishedAt": "2026-05-22T04:46:18.174Z",
+      "phases": [
+        {
+          "label": "welcome",
+          "phase": "welcome",
+          "nets": "10",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "ready",
+          "phase": "ready",
+          "nets": "10",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "desktop-ready-canvas",
+          "phase": "ready",
+          "nets": "10",
+          "coins": "0",
+          "elapsed": "0"
+        }
+      ],
+      "metrics": {
+        "canvasDataUrlLength": 16426
+      },
+      "apiStatuses": [],
+      "runtimeEvents": [
+        {
+          "at": "2026-05-22T04:46:13.937Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "at": "2026-05-22T04:46:15.266Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "fatalEvents": [],
+      "topicId": "quadratic-patterns"
+    },
+    {
+      "id": "desktop-02",
+      "category": "desktop-visual",
+      "variant": "desktop-hud",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 10035,
+      "startedAt": "2026-05-22T04:46:18.174Z",
+      "finishedAt": "2026-05-22T04:46:28.209Z",
+      "phases": [
+        {
+          "label": "welcome",
+          "phase": "welcome",
+          "nets": "10",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "ready",
+          "phase": "ready",
+          "nets": "10",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "desktop-hud",
+          "phase": "ready",
+          "nets": "10",
+          "coins": "0",
+          "elapsed": "0"
+        }
+      ],
+      "metrics": {
+        "canvasDataUrlLength": 16426
+      },
+      "apiStatuses": [],
+      "runtimeEvents": [
+        {
+          "at": "2026-05-22T04:46:21.716Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "at": "2026-05-22T04:46:22.234Z",
+          "kind": "requestfailed",
+          "message": "GET http://127.0.0.1:53706/api/questions?topicId=quadratic-patterns&curriculumTrack=HK net::ERR_ABORTED"
+        },
+        {
+          "at": "2026-05-22T04:46:25.085Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "fatalEvents": [],
+      "topicId": "quadratic-patterns"
+    },
+    {
+      "id": "desktop-03",
+      "category": "desktop-visual",
+      "variant": "desktop-challenge-modal",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 10538,
+      "startedAt": "2026-05-22T04:46:28.209Z",
+      "finishedAt": "2026-05-22T04:46:38.747Z",
+      "phases": [
+        {
+          "label": "welcome",
+          "phase": "welcome",
+          "nets": "10",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "ready",
+          "phase": "ready",
+          "nets": "10",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "challenge",
+          "phase": "challenge",
+          "nets": "9",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "answered-correct",
+          "phase": "ready",
+          "nets": "9",
+          "coins": "1",
+          "elapsed": "1"
+        },
+        {
+          "label": "desktop-challenge-modal",
+          "phase": "ready",
+          "nets": "9",
+          "coins": "1",
+          "elapsed": "1"
+        }
+      ],
+      "metrics": {
+        "canvasDataUrlLength": 16426
+      },
+      "apiStatuses": [],
+      "runtimeEvents": [
+        {
+          "at": "2026-05-22T04:46:31.789Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "at": "2026-05-22T04:46:32.852Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "fatalEvents": [],
+      "topicId": "quadratic-patterns"
+    },
+    {
+      "id": "desktop-04",
+      "category": "desktop-visual",
+      "variant": "desktop-fire-button",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 8345,
+      "startedAt": "2026-05-22T04:46:38.747Z",
+      "finishedAt": "2026-05-22T04:46:47.092Z",
+      "phases": [
+        {
+          "label": "welcome",
+          "phase": "welcome",
+          "nets": "10",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "ready",
+          "phase": "ready",
+          "nets": "10",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "desktop-fire-button",
+          "phase": "ready",
+          "nets": "10",
+          "coins": "0",
+          "elapsed": "0"
+        }
+      ],
+      "metrics": {
+        "canvasDataUrlLength": 16426
+      },
+      "apiStatuses": [],
+      "runtimeEvents": [
+        {
+          "at": "2026-05-22T04:46:43.126Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "at": "2026-05-22T04:46:44.452Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "fatalEvents": [],
+      "topicId": "quadratic-patterns"
+    },
+    {
+      "id": "desktop-05",
+      "category": "desktop-visual",
+      "variant": "desktop-heading",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 7550,
+      "startedAt": "2026-05-22T04:46:47.092Z",
+      "finishedAt": "2026-05-22T04:46:54.642Z",
+      "phases": [
+        {
+          "label": "welcome",
+          "phase": "welcome",
+          "nets": "10",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "ready",
+          "phase": "ready",
+          "nets": "10",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "desktop-heading",
+          "phase": "ready",
+          "nets": "10",
+          "coins": "0",
+          "elapsed": "0"
+        }
+      ],
+      "metrics": {
+        "canvasDataUrlLength": 16426
+      },
+      "apiStatuses": [],
+      "runtimeEvents": [
+        {
+          "at": "2026-05-22T04:46:52.224Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "fatalEvents": [],
+      "topicId": "quadratic-patterns"
+    },
+    {
+      "id": "desktop-06",
+      "category": "desktop-visual",
+      "variant": "desktop-canvas-repeat",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 8378,
+      "startedAt": "2026-05-22T04:46:54.642Z",
+      "finishedAt": "2026-05-22T04:47:03.020Z",
+      "phases": [
+        {
+          "label": "welcome",
+          "phase": "welcome",
+          "nets": "10",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "ready",
+          "phase": "ready",
+          "nets": "10",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "desktop-canvas-repeat",
+          "phase": "ready",
+          "nets": "10",
+          "coins": "0",
+          "elapsed": "0"
+        }
+      ],
+      "metrics": {
+        "canvasDataUrlLength": 16426
+      },
+      "apiStatuses": [],
+      "runtimeEvents": [
+        {
+          "at": "2026-05-22T04:46:58.513Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "at": "2026-05-22T04:47:00.106Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "fatalEvents": [],
+      "topicId": "quadratic-patterns"
+    },
+    {
+      "id": "desktop-07",
+      "category": "desktop-visual",
+      "variant": "desktop-locked-copy",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 1517,
+      "startedAt": "2026-05-22T04:47:03.020Z",
+      "finishedAt": "2026-05-22T04:47:04.537Z",
+      "phases": [
+        {
+          "label": "desktop-locked-copy",
+          "phase": null,
+          "nets": null,
+          "coins": null,
+          "elapsed": null
+        }
+      ],
+      "metrics": {},
+      "apiStatuses": [],
+      "runtimeEvents": [],
+      "fatalEvents": []
+    },
+    {
+      "id": "desktop-08",
+      "category": "desktop-visual",
+      "variant": "desktop-correct-catch",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 14999,
+      "startedAt": "2026-05-22T04:47:04.537Z",
+      "finishedAt": "2026-05-22T04:47:19.536Z",
+      "phases": [
+        {
+          "label": "welcome",
+          "phase": "welcome",
+          "nets": "10",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "ready",
+          "phase": "ready",
+          "nets": "10",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "challenge",
+          "phase": "challenge",
+          "nets": "9",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "answered-correct",
+          "phase": "ready",
+          "nets": "9",
+          "coins": "1",
+          "elapsed": "1"
+        },
+        {
+          "label": "desktop-correct-catch",
+          "phase": "ready",
+          "nets": "9",
+          "coins": "1",
+          "elapsed": "1"
+        }
+      ],
+      "metrics": {
+        "canvasDataUrlLength": 16426
+      },
+      "apiStatuses": [],
+      "runtimeEvents": [
+        {
+          "at": "2026-05-22T04:47:06.657Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "at": "2026-05-22T04:47:13.100Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "at": "2026-05-22T04:47:14.156Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "fatalEvents": [],
+      "topicId": "quadratic-patterns"
+    },
+    {
+      "id": "desktop-09",
+      "category": "desktop-visual",
+      "variant": "desktop-wrong-catch",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 11020,
+      "startedAt": "2026-05-22T04:47:19.536Z",
+      "finishedAt": "2026-05-22T04:47:30.556Z",
+      "phases": [
+        {
+          "label": "welcome",
+          "phase": "welcome",
+          "nets": "10",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "ready",
+          "phase": "ready",
+          "nets": "10",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "challenge",
+          "phase": "challenge",
+          "nets": "9",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "answered-wrong",
+          "phase": "ready",
+          "nets": "9",
+          "coins": "0",
+          "elapsed": "1"
+        },
+        {
+          "label": "desktop-wrong-catch",
+          "phase": "ready",
+          "nets": "9",
+          "coins": "0",
+          "elapsed": "1"
+        }
+      ],
+      "metrics": {
+        "canvasDataUrlLength": 16426
+      },
+      "apiStatuses": [],
+      "runtimeEvents": [
+        {
+          "at": "2026-05-22T04:47:23.867Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "at": "2026-05-22T04:47:25.669Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "fatalEvents": [],
+      "topicId": "quadratic-patterns"
+    },
+    {
+      "id": "desktop-10",
+      "category": "desktop-visual",
+      "variant": "desktop-return-link",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 9587,
+      "startedAt": "2026-05-22T04:47:30.556Z",
+      "finishedAt": "2026-05-22T04:47:40.143Z",
+      "phases": [
+        {
+          "label": "welcome",
+          "phase": "welcome",
+          "nets": "10",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "ready",
+          "phase": "ready",
+          "nets": "10",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "desktop-return-link",
+          "phase": "ready",
+          "nets": "10",
+          "coins": "0",
+          "elapsed": "0"
+        }
+      ],
+      "metrics": {
+        "canvasDataUrlLength": 16426
+      },
+      "apiStatuses": [],
+      "runtimeEvents": [
+        {
+          "at": "2026-05-22T04:47:35.170Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "at": "2026-05-22T04:47:37.249Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "fatalEvents": [],
+      "topicId": "quadratic-patterns"
+    },
+    {
+      "id": "network-01",
+      "category": "network-resource",
+      "variant": "questions-500",
+      "project": "desktop-chrome",
+      "status": "failed",
+      "durationMs": 24136,
+      "startedAt": "2026-05-22T04:47:40.143Z",
+      "finishedAt": "2026-05-22T04:48:04.279Z",
+      "phases": [],
+      "metrics": {},
+      "apiStatuses": [],
+      "runtimeEvents": [
+        {
+          "at": "2026-05-22T04:47:44.274Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 400 (Bad Request)"
+        },
+        {
+          "at": "2026-05-22T04:47:44.274Z",
+          "kind": "requestfailed",
+          "message": "GET http://127.0.0.1:53706/_next/static/css/be73f5186ac55f5a.css net::ERR_ABORTED"
+        },
+        {
+          "at": "2026-05-22T04:47:44.275Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 400 (Bad Request)"
+        },
+        {
+          "at": "2026-05-22T04:47:44.275Z",
+          "kind": "requestfailed",
+          "message": "GET http://127.0.0.1:53706/_next/static/css/798810a541dc9d84.css net::ERR_ABORTED"
+        },
+        {
+          "at": "2026-05-22T04:47:44.278Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 400 (Bad Request)"
+        },
+        {
+          "at": "2026-05-22T04:47:44.278Z",
+          "kind": "requestfailed",
+          "message": "GET http://127.0.0.1:53706/_next/static/chunks/webpack-6202868cd96dabc2.js net::ERR_ABORTED"
+        },
+        {
+          "at": "2026-05-22T04:47:44.288Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 400 (Bad Request)"
+        },
+        {
+          "at": "2026-05-22T04:47:44.288Z",
+          "kind": "requestfailed",
+          "message": "GET http://127.0.0.1:53706/_next/static/chunks/4bd1b696-f785427dddbba9fb.js net::ERR_ABORTED"
+        },
+        {
+          "at": "2026-05-22T04:47:44.291Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 400 (Bad Request)"
+        },
+        {
+          "at": "2026-05-22T04:47:44.291Z",
+          "kind": "requestfailed",
+          "message": "GET http://127.0.0.1:53706/_next/static/chunks/1255-5fe68596fe147850.js net::ERR_ABORTED"
+        },
+        {
+          "at": "2026-05-22T04:47:44.291Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 400 (Bad Request)"
+        },
+        {
+          "at": "2026-05-22T04:47:44.291Z",
+          "kind": "requestfailed",
+          "message": "GET http://127.0.0.1:53706/_next/static/chunks/main-app-61556ae0956a12f5.js net::ERR_ABORTED"
+        },
+        {
+          "at": "2026-05-22T04:47:44.291Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 400 (Bad Request)"
+        },
+        {
+          "at": "2026-05-22T04:47:44.291Z",
+          "kind": "requestfailed",
+          "message": "GET http://127.0.0.1:53706/_next/static/chunks/2578-fd87ad5236538a3a.js net::ERR_ABORTED"
+        },
+        {
+          "at": "2026-05-22T04:47:44.291Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 400 (Bad Request)"
+        },
+        {
+          "at": "2026-05-22T04:47:44.291Z",
+          "kind": "requestfailed",
+          "message": "GET http://127.0.0.1:53706/_next/static/chunks/d3ac728e-ded4252d1e76221e.js net::ERR_ABORTED"
+        },
+        {
+          "at": "2026-05-22T04:47:44.291Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 400 (Bad Request)"
+        },
+        {
+          "at": "2026-05-22T04:47:44.291Z",
+          "kind": "requestfailed",
+          "message": "GET http://127.0.0.1:53706/_next/static/chunks/3870-1f1fcba03a8f91b5.js net::ERR_ABORTED"
+        },
+        {
+          "at": "2026-05-22T04:47:44.291Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 400 (Bad Request)"
+        },
+        {
+          "at": "2026-05-22T04:47:44.291Z",
+          "kind": "requestfailed",
+          "message": "GET http://127.0.0.1:53706/_next/static/chunks/176-b1374ab33d855c73.js net::ERR_ABORTED"
+        },
+        {
+          "at": "2026-05-22T04:47:44.291Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 400 (Bad Request)"
+        },
+        {
+          "at": "2026-05-22T04:47:44.291Z",
+          "kind": "requestfailed",
+          "message": "GET http://127.0.0.1:53706/_next/static/chunks/4149-9c41873cf31afeef.js net::ERR_ABORTED"
+        },
+        {
+          "at": "2026-05-22T04:47:44.291Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 400 (Bad Request)"
+        },
+        {
+          "at": "2026-05-22T04:47:44.291Z",
+          "kind": "requestfailed",
+          "message": "GET http://127.0.0.1:53706/_next/static/chunks/1315-4544e18cd3e4f4b0.js net::ERR_ABORTED"
+        },
+        {
+          "at": "2026-05-22T04:47:44.291Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 400 (Bad Request)"
+        },
+        {
+          "at": "2026-05-22T04:47:44.291Z",
+          "kind": "requestfailed",
+          "message": "GET http://127.0.0.1:53706/_next/static/chunks/app/layout-471447c63832bf48.js net::ERR_ABORTED"
+        },
+        {
+          "at": "2026-05-22T04:47:44.291Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 400 (Bad Request)"
+        },
+        {
+          "at": "2026-05-22T04:47:44.291Z",
+          "kind": "requestfailed",
+          "message": "GET http://127.0.0.1:53706/_next/static/chunks/9926-3ce664843119e753.js net::ERR_ABORTED"
+        },
+        {
+          "at": "2026-05-22T04:47:44.291Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 400 (Bad Request)"
+        },
+        {
+          "at": "2026-05-22T04:47:44.291Z",
+          "kind": "requestfailed",
+          "message": "GET http://127.0.0.1:53706/_next/static/chunks/app/not-found-ec17c8bc9003ba9a.js net::ERR_ABORTED"
+        },
+        {
+          "at": "2026-05-22T04:47:44.292Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 400 (Bad Request)"
+        },
+        {
+          "at": "2026-05-22T04:47:44.292Z",
+          "kind": "requestfailed",
+          "message": "GET http://127.0.0.1:53706/_next/static/chunks/6493-7f56764906fc87ca.js net::ERR_ABORTED"
+        },
+        {
+          "at": "2026-05-22T04:47:44.292Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 400 (Bad Request)"
+        },
+        {
+          "at": "2026-05-22T04:47:44.292Z",
+          "kind": "requestfailed",
+          "message": "GET http://127.0.0.1:53706/_next/static/chunks/app/practice/fishing-game/page-8c970adc57110a28.js net::ERR_ABORTED"
+        }
+      ],
+      "fatalEvents": [],
+      "topicId": "quadratic-patterns",
+      "error": "\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed  Locator: getByText(/Fishing Game locked/i) Expected: visible"
+    },
+    {
+      "id": "network-02",
+      "category": "network-resource",
+      "variant": "questions-empty",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 3161,
+      "startedAt": "2026-05-22T04:48:04.279Z",
+      "finishedAt": "2026-05-22T04:48:07.440Z",
+      "phases": [
+        {
+          "label": "questions-empty",
+          "phase": null,
+          "nets": null,
+          "coins": null,
+          "elapsed": null
+        }
+      ],
+      "metrics": {},
+      "apiStatuses": [],
+      "runtimeEvents": [],
+      "fatalEvents": [],
+      "topicId": "quadratic-patterns"
+    },
+    {
+      "id": "network-03",
+      "category": "network-resource",
+      "variant": "questions-timeout",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 6953,
+      "startedAt": "2026-05-22T04:48:07.440Z",
+      "finishedAt": "2026-05-22T04:48:14.393Z",
+      "phases": [
+        {
+          "label": "questions-timeout",
+          "phase": null,
+          "nets": null,
+          "coins": null,
+          "elapsed": null
+        }
+      ],
+      "metrics": {},
+      "apiStatuses": [],
+      "runtimeEvents": [
+        {
+          "at": "2026-05-22T04:48:07.446Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "fatalEvents": [],
+      "topicId": "quadratic-patterns"
+    },
+    {
+      "id": "network-04",
+      "category": "network-resource",
+      "variant": "completion-500",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 21259,
+      "startedAt": "2026-05-22T04:48:14.393Z",
+      "finishedAt": "2026-05-22T04:48:35.652Z",
+      "phases": [
+        {
+          "label": "welcome",
+          "phase": "welcome",
+          "nets": "10",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "ready",
+          "phase": "ready",
+          "nets": "10",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "nets-exhausted",
+          "phase": "casting",
+          "nets": "0",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "completion-500",
+          "phase": "ended",
+          "nets": "0",
+          "coins": "0",
+          "elapsed": "0"
+        }
+      ],
+      "metrics": {
+        "canvasDataUrlLength": 16426
+      },
+      "apiStatuses": [],
+      "runtimeEvents": [
+        {
+          "at": "2026-05-22T04:48:15.619Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "at": "2026-05-22T04:48:23.132Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "at": "2026-05-22T04:48:35.514Z",
+          "kind": "badresponse",
+          "message": "500 POST http://127.0.0.1:53706/api/gamification/fishing-game/complete"
+        },
+        {
+          "at": "2026-05-22T04:48:35.514Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 500 (Internal Server Error)"
+        }
+      ],
+      "fatalEvents": [],
+      "topicId": "quadratic-patterns"
+    },
+    {
+      "id": "network-05",
+      "category": "network-resource",
+      "variant": "completion-retry",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 17020,
+      "startedAt": "2026-05-22T04:48:35.652Z",
+      "finishedAt": "2026-05-22T04:48:52.672Z",
+      "phases": [
+        {
+          "label": "welcome",
+          "phase": "welcome",
+          "nets": "10",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "ready",
+          "phase": "ready",
+          "nets": "10",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "nets-exhausted",
+          "phase": "casting",
+          "nets": "0",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "completion-retry",
+          "phase": "submitted",
+          "nets": "0",
+          "coins": "0",
+          "elapsed": "0"
+        }
+      ],
+      "metrics": {
+        "canvasDataUrlLength": 16426
+      },
+      "apiStatuses": [],
+      "runtimeEvents": [
+        {
+          "at": "2026-05-22T04:48:38.751Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "at": "2026-05-22T04:48:51.620Z",
+          "kind": "badresponse",
+          "message": "500 POST http://127.0.0.1:53706/api/gamification/fishing-game/complete"
+        },
+        {
+          "at": "2026-05-22T04:48:51.620Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 500 (Internal Server Error)"
+        }
+      ],
+      "fatalEvents": [],
+      "topicId": "quadratic-patterns"
+    },
+    {
+      "id": "boundary-01",
+      "category": "long-boundary",
+      "variant": "ui-all-miss-zero-coins",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 19216,
+      "startedAt": "2026-05-22T04:48:52.672Z",
+      "finishedAt": "2026-05-22T04:49:11.888Z",
+      "phases": [
+        {
+          "label": "welcome",
+          "phase": "welcome",
+          "nets": "10",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "ready",
+          "phase": "ready",
+          "nets": "10",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "nets-exhausted",
+          "phase": "casting",
+          "nets": "0",
+          "coins": "0",
+          "elapsed": "0"
+        }
+      ],
+      "metrics": {
+        "canvasDataUrlLength": 16426
+      },
+      "apiStatuses": [],
+      "runtimeEvents": [
+        {
+          "at": "2026-05-22T04:48:56.540Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "at": "2026-05-22T04:48:56.797Z",
+          "kind": "requestfailed",
+          "message": "GET http://127.0.0.1:53706/api/questions?topicId=quadratic-patterns&curriculumTrack=HK net::ERR_ABORTED"
+        },
+        {
+          "at": "2026-05-22T04:48:58.881Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "fatalEvents": [],
+      "topicId": "quadratic-patterns"
+    },
+    {
+      "id": "boundary-02",
+      "category": "long-boundary",
+      "variant": "api-zero-coin-legal",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 3597,
+      "startedAt": "2026-05-22T04:49:11.888Z",
+      "finishedAt": "2026-05-22T04:49:15.485Z",
+      "phases": [],
+      "metrics": {},
+      "apiStatuses": [
+        {
+          "label": "api-zero-coin-legal",
+          "status": 201,
+          "responseStatus": "awarded"
+        }
+      ],
+      "runtimeEvents": [],
+      "fatalEvents": [],
+      "topicId": "quadratic-patterns"
+    },
+    {
+      "id": "boundary-03",
+      "category": "long-boundary",
+      "variant": "api-max-coin-legal",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 8943,
+      "startedAt": "2026-05-22T04:49:15.485Z",
+      "finishedAt": "2026-05-22T04:49:24.428Z",
+      "phases": [],
+      "metrics": {},
+      "apiStatuses": [
+        {
+          "label": "api-max-coin-legal",
+          "status": 201,
+          "responseStatus": "awarded"
+        }
+      ],
+      "runtimeEvents": [],
+      "fatalEvents": [],
+      "topicId": "quadratic-patterns"
+    },
+    {
+      "id": "boundary-04",
+      "category": "long-boundary",
+      "variant": "api-duration-120-legal",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 4082,
+      "startedAt": "2026-05-22T04:49:24.428Z",
+      "finishedAt": "2026-05-22T04:49:28.510Z",
+      "phases": [],
+      "metrics": {},
+      "apiStatuses": [
+        {
+          "label": "api-duration-120-legal",
+          "status": 201,
+          "responseStatus": "awarded"
+        }
+      ],
+      "runtimeEvents": [],
+      "fatalEvents": [],
+      "topicId": "quadratic-patterns"
+    },
+    {
+      "id": "boundary-05",
+      "category": "long-boundary",
+      "variant": "ui-catch-then-exhaust",
+      "project": "desktop-chrome",
+      "status": "passed",
+      "durationMs": 18777,
+      "startedAt": "2026-05-22T04:49:28.510Z",
+      "finishedAt": "2026-05-22T04:49:47.287Z",
+      "phases": [
+        {
+          "label": "welcome",
+          "phase": "welcome",
+          "nets": "10",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "ready",
+          "phase": "ready",
+          "nets": "10",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "challenge",
+          "phase": "challenge",
+          "nets": "9",
+          "coins": "0",
+          "elapsed": "0"
+        },
+        {
+          "label": "answered-correct",
+          "phase": "ready",
+          "nets": "9",
+          "coins": "1",
+          "elapsed": "1"
+        },
+        {
+          "label": "nets-exhausted",
+          "phase": "casting",
+          "nets": "0",
+          "coins": "1",
+          "elapsed": "1"
+        }
+      ],
+      "metrics": {
+        "canvasDataUrlLength": 16426
+      },
+      "apiStatuses": [],
+      "runtimeEvents": [
+        {
+          "at": "2026-05-22T04:49:32.334Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "at": "2026-05-22T04:49:33.618Z",
+          "kind": "console:error",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "fatalEvents": [],
+      "topicId": "quadratic-patterns"
+    }
+  ]
+}

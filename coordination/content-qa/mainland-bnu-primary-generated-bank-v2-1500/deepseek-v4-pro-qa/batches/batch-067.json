@@ -1,0 +1,191 @@
+{
+  "batchNumber": 67,
+  "startedAt": "2026-05-27T14:00:08.384Z",
+  "completedAt": "2026-05-27T14:00:25.620Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p5-189",
+    "bnu-primary-ds-v2-p5-190",
+    "bnu-primary-ds-v2-p5-191",
+    "bnu-primary-ds-v2-p5-192",
+    "bnu-primary-ds-v2-p5-193",
+    "bnu-primary-ds-v2-p5-194",
+    "bnu-primary-ds-v2-p5-195",
+    "bnu-primary-ds-v2-p5-196",
+    "bnu-primary-ds-v2-p5-197",
+    "bnu-primary-ds-v2-p5-198",
+    "bnu-primary-ds-v2-p5-199",
+    "bnu-primary-ds-v2-p5-200",
+    "bnu-primary-ds-v2-p5-201",
+    "bnu-primary-ds-v2-p5-202",
+    "bnu-primary-ds-v2-p5-203",
+    "bnu-primary-ds-v2-p5-204",
+    "bnu-primary-ds-v2-p5-205",
+    "bnu-primary-ds-v2-p5-206"
+  ],
+  "usage": {
+    "prompt_tokens": 4066,
+    "completion_tokens": 1257,
+    "total_tokens": 5323,
+    "prompt_tokens_details": {
+      "cached_tokens": 3968
+    },
+    "prompt_cache_hit_tokens": 3968,
+    "prompt_cache_miss_tokens": 98
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p5-189",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，算式选择合理，解释清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-190",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程求解正确，答案化简为最简分数。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-191",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均分用除法，列式正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-192",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分数除以整数计算正确，结果最简。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-193",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "求单位耗油量用除法，算式正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-194",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "已知部分求整体用除法，计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-195",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "观测点互换方向相反，描述正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-196",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "返回路线方向相反，填空正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-197",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "观测点互换方向相反，选项正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-198",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "返回路线方向相反，填空正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-199",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "观测点互换方向相反，选项正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-200",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "返回路线方向相反，填空正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-201",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "观测点互换方向相反，选项正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-202",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "观测点互换方向相反，填空正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-203",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "返回路线方向相反，选项正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-204",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "观测点互换方向相反，填空正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-205",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "观测点互换方向相反，选项正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-206",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "返回路线方向相反，填空正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版小学数学要求，数学正确，答案匹配，无歧义或缺失条件。"
+    }
+  }
+}

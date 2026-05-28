@@ -1,0 +1,50 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-433",
+  "startedAt": "2026-05-28T01:31:24.500Z",
+  "completedAt": "2026-05-28T01:31:30.062Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-433"
+  ],
+  "usage": {
+    "prompt_tokens": 4592,
+    "completion_tokens": 322,
+    "total_tokens": 4914,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 4208
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-433",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "independentAnswer": "χ²≈3.0，没有充分理由认为两者有关",
+        "correctedAnswer": "χ²≈3.0，没有充分理由认为两者有关",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction",
+          "bad_options"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "根据列联表计算χ²=3.0<3.841，不能拒绝独立假设，正确结论应为“没有充分理由认为两者有关”。但所有选项均未包含χ²≈3.0，且存储答案选χ²≈4.08并认为有关，与正确计算矛盾，选项设计有误，题目不可解。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目列联表数据计算得χ²=3.0，但选项无对应值，且存储答案错误，导致题目不可解，判定为blocker。"
+    }
+  }
+}

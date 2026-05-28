@@ -1,0 +1,50 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-199",
+  "startedAt": "2026-05-28T01:04:15.960Z",
+  "completedAt": "2026-05-28T01:04:22.275Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-199"
+  ],
+  "usage": {
+    "prompt_tokens": 1910,
+    "completion_tokens": 308,
+    "total_tokens": 2218,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1526
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-199",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "independentAnswer": "正相关",
+        "correctedAnswer": "正相关",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "ambiguous_mc",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "数据满足y=2x+1，既是函数关系也是正相关。选项D“函数关系”和A“正相关”均正确，但题目为单选题，导致答案不唯一。存储答案“函数关系”与独立解“正相关”不一致，解析承认函数关系但未说明正相关，存在矛盾。题目设计有歧义，应修改选项或明确意图。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目存在歧义，选项A和D均正确，导致单选题答案不唯一，存储答案与独立解不一致，解析矛盾，判定为blocker。"
+    }
+  }
+}

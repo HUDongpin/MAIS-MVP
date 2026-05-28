@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-115",
+  "startedAt": "2026-05-28T01:28:52.888Z",
+  "completedAt": "2026-05-28T01:29:09.100Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-413",
+    "bnu-high-ds-v1-s5-414",
+    "bnu-high-ds-v1-s5-415",
+    "bnu-high-ds-v1-s5-416",
+    "bnu-high-ds-v1-s5-417",
+    "bnu-high-ds-v1-s5-418",
+    "bnu-high-ds-v1-s5-419",
+    "bnu-high-ds-v1-s5-420"
+  ],
+  "usage": {
+    "prompt_tokens": 10031,
+    "completion_tokens": 1216,
+    "total_tokens": 11247,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9647
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-413",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "X~B(5,0.6)，分布列为P(X=k)=C(5,k)*0.6^k*0.4^(5-k)，k=0,1,2,3,4,5。",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "独立重复射击5次，命中次数X服从二项分布B(5,0.6)，可直接写出分布列。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-414",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "0.5",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "正态分布N(2,9)的均值为2，由对称性知P(X<2)=0.5。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-415",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "1/2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "密码被译出为至少一人译出，P=1-(1-1/3)*(1-1/4)=1-(2/3)*(3/4)=1-1/2=1/2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-416",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "0.16",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "第一次取球影响第二次取球时新球数量，需分情况计算。第一次取2新、1新1旧、2旧概率分别为C(6,2)/C(10,2)=1/3，C(6,1)C(4,1)/C(10,2)=8/15，C(4,2)/C(10,2)=2/15。放回后第二次取2新球概率对应为C(4,2)/C(10,2)=2/15，C(5,2)/C(10,2)=2/9，C(6,2)/C(10,2)=1/3。全概率公式得(1/3)*(2/15)+(8/15)*(2/9)+(2/15)*(1/3)=0.16。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-417",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "0.4",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由分布列概率和得0.2+a+0.3+0.1=1，解得a=0.4。验证E(X)=1*0.2+2*0.4+3*0.3+4*0.1=2.5，符合条件。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-418",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "2.1",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "二项分布B(10,0.3)的方差D(X)=np(1-p)=10*0.3*0.7=2.1。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-419",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "0.6827",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "身高X~N(170,25)，σ=5，区间(165,175)即(μ-σ,μ+σ)，由参考数据得概率约0.6827。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-420",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "3/10",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "从5个数字中取2个不同数字，总组合数C(5,2)=10。X=4即较大数为4，较小数需从1,2,3中取，共3种，故P(X=4)=3/10。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，无数学错误、歧义或缺失条件，符合北师大版高中概率章节核心要求。"
+    }
+  }
+}

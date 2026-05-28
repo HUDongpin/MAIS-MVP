@@ -1,0 +1,182 @@
+{
+  "batchNumber": 25,
+  "startedAt": "2026-05-27T17:28:29.766Z",
+  "completedAt": "2026-05-27T17:28:53.039Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s1-289",
+    "bnu-junior-ds-v1-s1-290",
+    "bnu-junior-ds-v1-s1-291",
+    "bnu-junior-ds-v1-s1-292",
+    "bnu-junior-ds-v1-s1-293",
+    "bnu-junior-ds-v1-s1-294",
+    "bnu-junior-ds-v1-s1-295",
+    "bnu-junior-ds-v1-s1-296",
+    "bnu-junior-ds-v1-s1-297",
+    "bnu-junior-ds-v1-s1-298",
+    "bnu-junior-ds-v1-s1-299",
+    "bnu-junior-ds-v1-s1-300"
+  ],
+  "usage": {
+    "prompt_tokens": 6896,
+    "completion_tokens": 1576,
+    "total_tokens": 8472,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 6384
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s1-289",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目明确，选项均为多项式乘积，平方差公式要求一项相同、一项相反，B符合，答案正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-290",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，利用平方差公式变形计算，答案a^2-4b^2+4b-1正确，解释步骤清晰。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-291",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "整式乘除混合运算，按顺序计算得6x^7y^2，答案正确，解释无误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-292",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "-72a^5b^3",
+        "rationale": "题目计算(-2a^2)^3·(3ab^2)^2÷(a^3b)，正确结果为-72a^5b^3，但答案给出-72a^4b^3，解释中也错误地得出-72a^5b^3，答案与解释矛盾且均错误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-293",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "72a^5b^3",
+        "rationale": "题目计算(-2a^2b)^3·(3ab^2)^2÷(-a^3b^4)，正确结果为72a^5b^3，但答案给出72a^3b^3，解释中得出72a^5b^3，答案与解释不一致且答案错误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-294",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目计算(-2a^2)^3÷(a^3)^2·(-3a)，正确结果为24a，答案正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-295",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "几何角度计算，利用对顶角、角平分线性质，得∠AOF=130°，答案正确，解释清晰。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-296",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "10°",
+        "rationale": "题目求∠EOD，由∠AOC=130°得∠AOD=50°，∠EOD=∠AOD-∠AOE=10°，但答案给出90°，解释中得出10°，答案与解释矛盾且答案错误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-297",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "利用平角和对顶角性质，由∠COE=90°，∠AOC=50°得∠DOE=40°，答案正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-298",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "设未知数列方程求解，得∠AOC=60°，答案正确，解释清晰。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-299",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由∠AOE和∠COE求∠AOC，再根据对顶角相等得∠BOD=70°，答案正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-300",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由垂直得∠EOD=90°，∠AOD=140°，邻补角得∠BOD=40°，答案正确，解释清晰。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 9,
+      "warn": 0,
+      "fail": 3,
+      "notes": "共12题，9题通过，3题失败。失败题目均为答案与解释不匹配或答案错误：292题答案应为-72a^5b^3，293题答案应为72a^5b^3，296题答案应为10°。"
+    }
+  }
+}

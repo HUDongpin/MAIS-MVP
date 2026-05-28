@@ -1,0 +1,179 @@
+{
+  "batchNumber": 74,
+  "startedAt": "2026-05-27T17:44:15.209Z",
+  "completedAt": "2026-05-27T17:44:33.306Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s2-377",
+    "bnu-junior-ds-v1-s2-378",
+    "bnu-junior-ds-v1-s2-379",
+    "bnu-junior-ds-v1-s2-380",
+    "bnu-junior-ds-v1-s2-381",
+    "bnu-junior-ds-v1-s2-382",
+    "bnu-junior-ds-v1-s2-383",
+    "bnu-junior-ds-v1-s2-384",
+    "bnu-junior-ds-v1-s2-385",
+    "bnu-junior-ds-v1-s2-386",
+    "bnu-junior-ds-v1-s2-387",
+    "bnu-junior-ds-v1-s2-388"
+  ],
+  "usage": {
+    "prompt_tokens": 7033,
+    "completion_tokens": 1409,
+    "total_tokens": 8442,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 6521
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s2-377",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，旋转中心明确，计算正确，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-378",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移规则清晰，横坐标计算正确，答案与解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-379",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移向量计算正确，选项唯一且答案匹配，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-380",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "旋转角度和中心明确，使用旋转公式计算正确，答案包含根号形式，解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-381",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "√34",
+        "rationale": "题目中A(2,3)平移后得A'(6,2)，B(-1,2)旋转后得B'(-2,-1)，距离为√[(6+2)²+(2+1)²]=√73，但解释中错误使用了A(0,0)和B(4,0)，导致答案5错误。正确答案应为√73，但题目要求距离，可能需化简，但明显答案与解释均不匹配题目。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-382",
+        "status": "fail",
+        "severity": "major",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "ambiguous_mc",
+          "answer_mismatch"
+        ],
+        "correctedAnswer": "点P'的横坐标比点P的横坐标大3",
+        "rationale": "选项D中C'坐标计算正确为(7,-1)，但题目要求选择一定正确的选项，A和D均正确，但A更具一般性，然而D也是正确的陈述，导致多选题意。解释中认为D不是一定正确的性质，但D是具体坐标，也是正确的，因此存在歧义。应修改选项或明确唯一正确选项。",
+        "confidence": "medium"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-383",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移和旋转规则明确，计算正确，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-384",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移和旋转步骤清晰，计算正确，答案与解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-385",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移和旋转计算正确，选项唯一，答案匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-386",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移和顺时针旋转规则正确，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-387",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "因式分解正确，公因式提取完整，答案与解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-388",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "因式分解步骤正确，选项唯一且答案匹配，解释合理。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 10,
+      "warn": 0,
+      "fail": 2,
+      "notes": "第381题答案与解释均错误，与题目数据不符；第382题存在两个正确选项，导致多选题意。其余题目均通过审核。"
+    }
+  }
+}

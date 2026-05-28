@@ -1,0 +1,370 @@
+{
+  "batchId": "S4-s4-plane-vectors-02",
+  "questions": [
+    {
+      "id": "pep-high-ds-v1-s4-plane-vectors-011",
+      "grade": "S4",
+      "topicId": "pep-high-s4-plane-vectors",
+      "topicTitleZhHans": "平面向量及其应用",
+      "chapter": "平面向量及其应用",
+      "conceptIds": [
+        "plane-vectors",
+        "vector-operations",
+        "dot-product",
+        "vector-applications",
+        "sine-theorem",
+        "cosine-theorem",
+        "triangle-modeling"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "pep-high-plane-vectors"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-sine-cosine-vector-applications"
+      ],
+      "promptZhHans": "已知向量 a = (1, 2)，b = (3, -1)，则 a 与 b 的夹角为（　）",
+      "optionsZhHans": [
+        "锐角",
+        "直角",
+        "钝角",
+        "平角"
+      ],
+      "answer": "锐角",
+      "acceptedAnswers": [
+        "锐角"
+      ],
+      "explanationZhHans": "计算 a·b = 1×3 + 2×(-1) = 1 > 0，所以夹角为锐角。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-plane-vectors-012",
+      "grade": "S4",
+      "topicId": "pep-high-s4-plane-vectors",
+      "topicTitleZhHans": "平面向量及其应用",
+      "chapter": "平面向量及其应用",
+      "conceptIds": [
+        "plane-vectors",
+        "vector-operations",
+        "dot-product",
+        "vector-applications",
+        "sine-theorem",
+        "cosine-theorem",
+        "triangle-modeling"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "pep-high-plane-vectors"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-sine-cosine-vector-applications"
+      ],
+      "promptZhHans": "在△ABC中，角A、B、C所对的边分别为a、b、c。已知a=3，b=5，c=7，则cosC=______。",
+      "optionsZhHans": [],
+      "answer": "-1/2",
+      "acceptedAnswers": [
+        "-1/2"
+      ],
+      "explanationZhHans": "由余弦定理，cosC = (a²+b²-c²)/(2ab) = (9+25-49)/(30) = -15/30 = -1/2。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-plane-vectors-013",
+      "grade": "S4",
+      "topicId": "pep-high-s4-plane-vectors",
+      "topicTitleZhHans": "平面向量及其应用",
+      "chapter": "平面向量及其应用",
+      "conceptIds": [
+        "plane-vectors",
+        "vector-operations",
+        "dot-product",
+        "vector-applications",
+        "sine-theorem",
+        "cosine-theorem",
+        "triangle-modeling"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "pep-high-plane-vectors"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-sine-cosine-vector-applications"
+      ],
+      "promptZhHans": "在△ABC中，角A、B、C所对的边分别为a、b、c。已知a=2，b=3，且△ABC的面积为(3√3)/2，C=60°。求c的值。",
+      "optionsZhHans": [],
+      "answer": "√7",
+      "acceptedAnswers": [
+        "√7"
+      ],
+      "explanationZhHans": "由面积公式 S = (1/2)ab sinC，得 sinC = √3/2，C=60°。再由余弦定理 c² = a²+b²-2ab cosC = 4+9-12×0.5 = 7，故 c=√7。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-plane-vectors-014",
+      "grade": "S4",
+      "topicId": "pep-high-s4-plane-vectors",
+      "topicTitleZhHans": "平面向量及其应用",
+      "chapter": "平面向量及其应用",
+      "conceptIds": [
+        "plane-vectors",
+        "vector-operations",
+        "dot-product",
+        "vector-applications",
+        "sine-theorem",
+        "cosine-theorem",
+        "triangle-modeling"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "pep-high-plane-vectors"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-sine-cosine-vector-applications"
+      ],
+      "promptZhHans": "已知向量 a = (2, -1)，b = (1, 3)，求 a·b。",
+      "optionsZhHans": [],
+      "answer": "-1",
+      "acceptedAnswers": [
+        "-1"
+      ],
+      "explanationZhHans": "a·b = 2×1 + (-1)×3 = 2 - 3 = -1。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-plane-vectors-015",
+      "grade": "S4",
+      "topicId": "pep-high-s4-plane-vectors",
+      "topicTitleZhHans": "平面向量及其应用",
+      "chapter": "平面向量及其应用",
+      "conceptIds": [
+        "plane-vectors",
+        "vector-operations",
+        "dot-product",
+        "vector-applications",
+        "sine-theorem",
+        "cosine-theorem",
+        "triangle-modeling"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "pep-high-plane-vectors"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-sine-cosine-vector-applications"
+      ],
+      "promptZhHans": "在△ABC中，角A、B、C所对的边分别为a、b、c。若a=4，b=5，c=6，则△ABC的形状是（　）",
+      "optionsZhHans": [
+        "锐角三角形",
+        "直角三角形",
+        "钝角三角形",
+        "无法确定"
+      ],
+      "answer": "锐角三角形",
+      "acceptedAnswers": [
+        "锐角三角形"
+      ],
+      "explanationZhHans": "最大边c=6，c²=36，a²+b²=16+25=41>36，故最大角C为锐角，三角形为锐角三角形。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-plane-vectors-016",
+      "grade": "S4",
+      "topicId": "pep-high-s4-plane-vectors",
+      "topicTitleZhHans": "平面向量及其应用",
+      "chapter": "平面向量及其应用",
+      "conceptIds": [
+        "plane-vectors",
+        "vector-operations",
+        "dot-product",
+        "vector-applications",
+        "sine-theorem",
+        "cosine-theorem",
+        "triangle-modeling"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "pep-high-plane-vectors"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-sine-cosine-vector-applications"
+      ],
+      "promptZhHans": "在△ABC中，角A、B、C所对的边分别为a、b、c。已知a=2，b=√6，A=45°，则满足条件的三角形有______个。",
+      "optionsZhHans": [],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2"
+      ],
+      "explanationZhHans": "由正弦定理 sinB = b sinA / a = (√6 × √2/2)/2 = √12/4 = √3/2，B=60°或120°，均满足A+B<180°，故有两解。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-plane-vectors-017",
+      "grade": "S4",
+      "topicId": "pep-high-s4-plane-vectors",
+      "topicTitleZhHans": "平面向量及其应用",
+      "chapter": "平面向量及其应用",
+      "conceptIds": [
+        "plane-vectors",
+        "vector-operations",
+        "dot-product",
+        "vector-applications",
+        "sine-theorem",
+        "cosine-theorem",
+        "triangle-modeling"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "pep-high-plane-vectors"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-sine-cosine-vector-applications"
+      ],
+      "promptZhHans": "在△ABC中，角A、B、C所对的边分别为a、b、c。已知a=3，b=4，C=60°，求边c的长。",
+      "optionsZhHans": [],
+      "answer": "√13",
+      "acceptedAnswers": [
+        "√13"
+      ],
+      "explanationZhHans": "由余弦定理 c² = a²+b²-2ab cosC = 9+16-24×0.5 = 13，故 c=√13。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-plane-vectors-018",
+      "grade": "S4",
+      "topicId": "pep-high-s4-plane-vectors",
+      "topicTitleZhHans": "平面向量及其应用",
+      "chapter": "平面向量及其应用",
+      "conceptIds": [
+        "plane-vectors",
+        "vector-operations",
+        "dot-product",
+        "vector-applications",
+        "sine-theorem",
+        "cosine-theorem",
+        "triangle-modeling"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "pep-high-plane-vectors"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-sine-cosine-vector-applications"
+      ],
+      "promptZhHans": "已知向量 a = (2, 3)，b = (x, 6)，且 a 与 b 共线，则 x 的值为（　）",
+      "optionsZhHans": [
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "answer": "4",
+      "acceptedAnswers": [
+        "4"
+      ],
+      "explanationZhHans": "由共线条件得 2×6 = 3×x，即 12 = 3x，解得 x=4。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-plane-vectors-019",
+      "grade": "S4",
+      "topicId": "pep-high-s4-plane-vectors",
+      "topicTitleZhHans": "平面向量及其应用",
+      "chapter": "平面向量及其应用",
+      "conceptIds": [
+        "plane-vectors",
+        "vector-operations",
+        "dot-product",
+        "vector-applications",
+        "sine-theorem",
+        "cosine-theorem",
+        "triangle-modeling"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "pep-high-plane-vectors"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-sine-cosine-vector-applications"
+      ],
+      "promptZhHans": "在△ABC中，角A、B、C所对的边分别为a、b、c。已知a=7，b=8，c=9，则△ABC的面积为______。",
+      "optionsZhHans": [],
+      "answer": "12√5",
+      "acceptedAnswers": [
+        "12√5"
+      ],
+      "explanationZhHans": "半周长 p=12，由海伦公式 S=√[12×(12-7)×(12-8)×(12-9)]=√(12×5×4×3)=√720=12√5。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-plane-vectors-020",
+      "grade": "S4",
+      "topicId": "pep-high-s4-plane-vectors",
+      "topicTitleZhHans": "平面向量及其应用",
+      "chapter": "平面向量及其应用",
+      "conceptIds": [
+        "plane-vectors",
+        "vector-operations",
+        "dot-product",
+        "vector-applications",
+        "sine-theorem",
+        "cosine-theorem",
+        "triangle-modeling"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "pep-high-plane-vectors"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-sine-cosine-vector-applications"
+      ],
+      "promptZhHans": "在△ABC中，角A、B、C所对的边分别为a、b、c。已知a=5，b=7，c=8，求cosB的值。",
+      "optionsZhHans": [],
+      "answer": "1/2",
+      "acceptedAnswers": [
+        "1/2"
+      ],
+      "explanationZhHans": "由余弦定理 cosB = (a²+c²-b²)/(2ac) = (25+64-49)/(80) = 40/80 = 1/2。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    }
+  ]
+}

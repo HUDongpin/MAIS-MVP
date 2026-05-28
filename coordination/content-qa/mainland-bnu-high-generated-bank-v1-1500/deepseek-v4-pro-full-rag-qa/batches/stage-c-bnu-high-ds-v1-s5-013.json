@@ -1,0 +1,50 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-013",
+  "startedAt": "2026-05-28T02:02:06.374Z",
+  "completedAt": "2026-05-28T02:02:11.505Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-013"
+  ],
+  "usage": {
+    "prompt_tokens": 2133,
+    "completion_tokens": 320,
+    "total_tokens": 2453,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1749
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-013",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "independentAnswer": "x - 2y - 5 = 0",
+        "correctedAnswer": "x - 2y - 5 = 0",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "ambiguous_mc",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "Stage A 独立解得唯一正确答案为 x-2y-5=0，存储答案 2x+y=0 错误。解析中虽列出两个解，但选项 B 并非正确选项，且题目为单选题，存储答案与正确选项不符，导致答案错误、解析与答案矛盾、单选题无唯一正确选项。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目答案错误，正确选项应为 x-2y-5=0，存储答案 2x+y=0 与解析矛盾，单选题无唯一正确选项，判定为 blocker。"
+    }
+  }
+}

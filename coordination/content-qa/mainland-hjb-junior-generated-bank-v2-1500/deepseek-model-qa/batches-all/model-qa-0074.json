@@ -1,0 +1,109 @@
+{
+  "batchId": "model-qa-0074",
+  "ids": [
+    "hjb-junior-ds-v2-s2-085",
+    "hjb-junior-ds-v2-s2-086",
+    "hjb-junior-ds-v2-s2-087",
+    "hjb-junior-ds-v2-s2-088",
+    "hjb-junior-ds-v2-s2-089",
+    "hjb-junior-ds-v2-s2-090",
+    "hjb-junior-ds-v2-s2-091",
+    "hjb-junior-ds-v2-s2-092"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-085",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "√(48)",
+      "answerCheckZhHans": "标准答案正确。√12=2√3，√48=4√3，被开方数相同，是同类二次根式。其他选项：√8=2√2，√18=3√2，√27=3√3，只有√48与√12同类。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-086",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为0，但根据解析，x=0时2x+3=3，|3|√2=3√2为最简二次根式，a+b=3+2=5。然而，x=-1时2x+3=1，|1|√2=√2，a+b=1+2=3，更小。x=-2时2x+3=-1，| -1|√2=√2，同样a+b=3。x=-3时2x+3=-3，| -3|√2=3√2，a+b=5。因此最小值为3，对应x=-1或-2。但题目要求整数x的最小值，x=-2比0小，故答案应为-2。解析中列举了x=4,5,...，但未考虑负整数，且最终结论为3，与答案0矛盾。",
+      "independentAnswerZhHans": "x的最小值为-2。由√(2x+6)有意义得x≥-3。化简√(8x^2+24x+18)=|2x+3|√2。要求结果为最简二次根式，即|2x+3|为正整数且不含平方因子。|2x+3|可能取1,2,3,...，但需满足x≥-3且为整数。当|2x+3|=1时，2x+3=±1，得x=-1或x=-2，均≥-3。x=-2更小，此时√(2x+6)=√2有意义，化简结果为√2，最简。故最小整数x=-2。",
+      "answerCheckZhHans": "标准答案0错误，解析自相矛盾。解析中列举x=4得a+b=3，但未考虑x=-1或-2，且最终说最小值为3，但答案却为0。",
+      "recommendedActionZhHans": "修正答案为-2，并更新解析，考虑负整数情况。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-087",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x ≥ 2",
+      "answerCheckZhHans": "标准答案正确。由3x-6≥0得x≥2。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-088",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "a ≥ 3",
+      "answerCheckZhHans": "标准答案正确。√((a-3)²)=|a-3|=a-3，当且仅当a-3≥0，即a≥3。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-089",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为5，但解析中计算得最小值为3（x=4时√2，a=1,b=2，a+b=3）。解析最后说“比较得最小值为3”，但答案却为5，矛盾。且x=4时√2符合最简二次根式，a+b=3，小于5。",
+      "independentAnswerZhHans": "最小值为3。由2x-6≥0得x≥3。x为整数，x=3时√0=0，不是a√b形式（a,b为正整数）；x=4时√2，a=1,b=2，a+b=3；x=5时√4=2，不是最简二次根式；x=6时√6，a=1,b=6，a+b=7；x=7时√8=2√2，a=2,b=2，a+b=4；x=8时√10，a=1,b=10，a+b=11；x=9时√12=2√3，a=2,b=3，a+b=5；x=10时√14，a=1,b=14，a+b=15。比较得最小值为3。",
+      "answerCheckZhHans": "标准答案5错误，解析已得出最小值为3，但答案写为5。",
+      "recommendedActionZhHans": "修正答案为3，并确保解析与答案一致。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-090",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "（1）x=4，a=3；（2）b=(4√3)/3；（3）a+b=3+(4√3)/3",
+      "answerCheckZhHans": "标准答案正确。由8-2x≥0且x-4≥0得x=4，a=3。b=3√3-2√3+√3/3=(4√3)/3。a+b=3+(4√3)/3。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-091",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "B. x ≥ 3",
+      "answerCheckZhHans": "标准答案正确。由2x-6≥0得x≥3。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-092",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "标准答案正确。同类二次根式要求被开方数相同，故a+2=5，a=3。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

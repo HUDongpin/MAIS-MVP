@@ -1,0 +1,330 @@
+{
+  "batchNumber": 9,
+  "startedAt": "2026-05-26T16:57:25.717Z",
+  "completedAt": "2026-05-26T16:57:57.834Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p1-241",
+    "bnu-primary-ds-v2-p1-242",
+    "bnu-primary-ds-v2-p1-243",
+    "bnu-primary-ds-v2-p1-244",
+    "bnu-primary-ds-v2-p1-245",
+    "bnu-primary-ds-v2-p1-246",
+    "bnu-primary-ds-v2-p1-247",
+    "bnu-primary-ds-v2-p1-248",
+    "bnu-primary-ds-v2-p1-249",
+    "bnu-primary-ds-v2-p1-250",
+    "bnu-primary-ds-v2-p2-001",
+    "bnu-primary-ds-v2-p2-002",
+    "bnu-primary-ds-v2-p2-003",
+    "bnu-primary-ds-v2-p2-004",
+    "bnu-primary-ds-v2-p2-005",
+    "bnu-primary-ds-v2-p2-006",
+    "bnu-primary-ds-v2-p2-007",
+    "bnu-primary-ds-v2-p2-008",
+    "bnu-primary-ds-v2-p2-009",
+    "bnu-primary-ds-v2-p2-010",
+    "bnu-primary-ds-v2-p2-011",
+    "bnu-primary-ds-v2-p2-012",
+    "bnu-primary-ds-v2-p2-013",
+    "bnu-primary-ds-v2-p2-014",
+    "bnu-primary-ds-v2-p2-015",
+    "bnu-primary-ds-v2-p2-016",
+    "bnu-primary-ds-v2-p2-017",
+    "bnu-primary-ds-v2-p2-018",
+    "bnu-primary-ds-v2-p2-019",
+    "bnu-primary-ds-v2-p2-020"
+  ],
+  "usage": {
+    "prompt_tokens": 6638,
+    "completion_tokens": 2413,
+    "total_tokens": 9051,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 6254
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p1-241",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目明确，选项A正确，其他选项错误，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-242",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "规律清晰，第五层为3块，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-243",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "规律为△□重复，下一个是△，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-244",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "每层递增1块，第四层5块，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-245",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项描述符合三视图，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-246",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "规律为△□重复，横线上为△，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-247",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "每层递减1块，第四层0块，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-248",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "卡片D是减法，不能用凑十法解释，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-249",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项A正确使用凑十法，其他选项错误，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-250",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "从正前方能看到3块积木，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-001",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "45+18=63，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-002",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "72-29=43，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-003",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "36-18=18，答案正确，接受答案覆盖多种格式。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-004",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "34+28=62>50，其他选项均不大于50，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-005",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "83-47=36，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-006",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "50-38=12，答案正确，接受答案覆盖多种格式。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-007",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "正确和为70，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-008",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "65-27=38，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-009",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "34-19+16=31，答案正确，接受答案覆盖多种格式。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-010",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "28+35=63，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-011",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "总钱数15元5角，最多凑1个10元，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-012",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "估算、计算、验算均正确，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-013",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "正确和为65，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-014",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "故事书72本，科普书19本，共91本，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-015",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "正确和为78，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-016",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "总价81元，找回19元，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-017",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "6元5角+4元8角=11元3角，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-018",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "20元-3元5角=16元5角，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-019",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "总价10元3角，找回9元7角，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-020",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "总价10元9角，找回9元1角，答案正确，接受多种算式格式。"
+      }
+    ],
+    "batchSummary": {
+      "solvableYes": 30,
+      "solvableNo": 0,
+      "answerMatchYes": 30,
+      "answerMatchNo": 0,
+      "notes": "全部30道题目均可解，答案匹配，无问题。"
+    }
+  }
+}

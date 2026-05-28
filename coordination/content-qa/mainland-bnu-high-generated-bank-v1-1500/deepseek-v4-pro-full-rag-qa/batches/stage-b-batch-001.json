@@ -1,0 +1,129 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-001",
+  "startedAt": "2026-05-28T00:54:26.578Z",
+  "completedAt": "2026-05-28T00:54:42.266Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-001",
+    "bnu-high-ds-v1-s4-002",
+    "bnu-high-ds-v1-s4-003",
+    "bnu-high-ds-v1-s4-004",
+    "bnu-high-ds-v1-s4-005",
+    "bnu-high-ds-v1-s4-006",
+    "bnu-high-ds-v1-s4-007",
+    "bnu-high-ds-v1-s4-008"
+  ],
+  "usage": {
+    "prompt_tokens": 11481,
+    "completion_tokens": 975,
+    "total_tokens": 12456,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 11481
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-001",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案(2,3)与独立解一致，解析正确，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-002",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案(2,3]与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-003",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案(-∞,+∞)或全体实数与独立解R一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-004",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": "必要不充分条件",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案为充要条件，但独立解为必要不充分条件，解析也指出p是q的必要不充分条件，答案与解析矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-005",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案9与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-006",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案{1,2}与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-007",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案[1,3]与独立解一致，解析正确，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-008",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案[-1/2,2]与独立解一致，解析正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第4题存储答案为充要条件，但正确应为必要不充分条件，解析也指出是必要不充分条件，存在答案错误和解析矛盾。其余题目均通过。"
+    }
+  }
+}

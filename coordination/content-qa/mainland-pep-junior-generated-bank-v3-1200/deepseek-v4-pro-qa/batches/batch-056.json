@@ -1,0 +1,137 @@
+{
+  "batchNumber": 56,
+  "startedAt": "2026-05-25T03:04:33.021Z",
+  "completedAt": "2026-05-25T03:04:48.771Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s2-k08-fi-028",
+    "pep-junior-v3-s2-k08-fi-029",
+    "pep-junior-v3-s2-k08-fi-030",
+    "pep-junior-v3-s2-k08-fi-031",
+    "pep-junior-v3-s2-k08-fi-032",
+    "pep-junior-v3-s2-k08-fi-033",
+    "pep-junior-v3-s2-k08-fi-034",
+    "pep-junior-v3-s2-k08-sa-001",
+    "pep-junior-v3-s2-k08-sa-002",
+    "pep-junior-v3-s2-k08-sa-003",
+    "pep-junior-v3-s2-k08-sa-004",
+    "pep-junior-v3-s2-k08-sa-005"
+  ],
+  "usage": {
+    "prompt_tokens": 3344,
+    "completion_tokens": 936,
+    "total_tokens": 4280,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 3088
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s2-k08-fi-028",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移计算正确，答案与解释一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-fi-029",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "不等式求解正确，答案x≥7符合整数条件，解释清晰。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-fi-030",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方差计算正确，保留两位小数2.53，解释过程无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-fi-031",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "直角三角形判定及高计算正确，答案4.8无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-fi-032",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平行四边形对角相等，答案110°正确。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-fi-033",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "二次根式化简正确，答案4ab√(3b)无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-fi-034",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分式值为零条件正确，x=-2无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-sa-001",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "直角三角形判定正确，解释合理。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-sa-002",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平行四边形面积计算正确，答案30√3无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-sa-003",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "代数式求值正确，答案为5。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-sa-004",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "勾股定理应用正确，斜边长13 cm无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-sa-005",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "二次根式化简正确，答案4√3无误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案与解释一致，无歧义或缺失条件，适合人教版初中数学。"
+    }
+  }
+}

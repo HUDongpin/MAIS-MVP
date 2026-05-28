@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-004",
+  "startedAt": "2026-05-28T00:33:03.697Z",
+  "completedAt": "2026-05-28T00:33:08.903Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-004"
+  ],
+  "usage": {
+    "prompt_tokens": 2069,
+    "completion_tokens": 296,
+    "total_tokens": 2365,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 2069
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-004",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "充分不必要条件",
+        "correctedAnswer": "充分不必要条件",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，p的解集为[1,3]，q的解集为[2,3]，p是q的真子集，故p⇒q但q⇏p，p是q的充分不必要条件。存储答案“充要条件”错误，解析虽指出p不是q的子集、q是p的子集，却错误推断为必要不充分，且与存储答案矛盾。正确选项为“充分不必要条件”。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目答案错误，解析矛盾，正确选项为充分不必要条件。"
+    }
+  }
+}

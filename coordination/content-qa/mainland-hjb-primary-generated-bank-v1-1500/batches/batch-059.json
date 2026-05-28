@@ -1,0 +1,288 @@
+{
+  "batchId": "batch-059",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p2-041",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-money-shopping",
+      "unitTitle": "人民币与购物应用",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "money-renminbi",
+        "shopping-arithmetic",
+        "unit-conversion-yuan-jiao-fen",
+        "人民币",
+        "购物"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "认识人民币",
+        "元角分",
+        "付钱找零",
+        "价格比较",
+        "购物情境表达"
+      ],
+      "misconceptionTags": [
+        "yuan jiao fen units merged as plain digits",
+        "change confused with total cost",
+        "price comparison made without common units"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-money-shopping"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-upper-assessment-money-shopping-unit",
+        "hjb-primary-p2-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丽有1张5元、2张1元和3枚1角，她一共有______元______角。",
+      "optionsZhHans": [],
+      "answer": "7元3角",
+      "acceptedAnswers": [
+        "7元3角"
+      ],
+      "explanationZhHans": "5元+2元=7元，3枚1角=3角，合起来是7元3角。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-042",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-money-shopping",
+      "unitTitle": "人民币与购物应用",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "money-renminbi",
+        "shopping-arithmetic",
+        "unit-conversion-yuan-jiao-fen",
+        "人民币",
+        "购物"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "认识人民币",
+        "元角分",
+        "付钱找零",
+        "价格比较",
+        "购物情境表达"
+      ],
+      "misconceptionTags": [
+        "yuan jiao fen units merged as plain digits",
+        "change confused with total cost",
+        "price comparison made without common units"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-money-shopping"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-upper-assessment-money-shopping-unit",
+        "hjb-primary-p2-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一支铅笔8角，一块橡皮5角。小明买一支铅笔和一块橡皮，付了2元，应找回多少钱？请写出计算过程并注明单位。",
+      "optionsZhHans": [],
+      "answer": "7角",
+      "acceptedAnswers": [
+        "7角",
+        "0.7元"
+      ],
+      "explanationZhHans": "铅笔8角+橡皮5角=13角=1元3角。付2元=20角，20角-13角=7角，所以找回7角。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-043",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-money-shopping",
+      "unitTitle": "人民币与购物应用",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "money-renminbi",
+        "shopping-arithmetic",
+        "unit-conversion-yuan-jiao-fen",
+        "人民币",
+        "购物"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "认识人民币",
+        "元角分",
+        "付钱找零",
+        "价格比较",
+        "购物情境表达"
+      ],
+      "misconceptionTags": [
+        "yuan jiao fen units merged as plain digits",
+        "change confused with total cost",
+        "price comparison made without common units"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-money-shopping"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-upper-assessment-money-shopping-unit",
+        "hjb-primary-p2-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪种付钱方法正好能买一本6元5角的笔记本？",
+      "optionsZhHans": [
+        "1张5元、1张1元、1枚5角",
+        "1张5元、2张1元、1枚1角",
+        "1张5元、1张2元、1枚5角",
+        "1张5元、3张5角"
+      ],
+      "answer": "1张5元、1张1元、1枚5角",
+      "acceptedAnswers": [
+        "1张5元、1张1元、1枚5角"
+      ],
+      "explanationZhHans": "6元5角=5元+1元+5角。选项一正好是5元+1元+5角，其他选项钱数不对。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-044",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-money-shopping",
+      "unitTitle": "人民币与购物应用",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "money-renminbi",
+        "shopping-arithmetic",
+        "unit-conversion-yuan-jiao-fen",
+        "人民币",
+        "购物"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "认识人民币",
+        "元角分",
+        "付钱找零",
+        "价格比较",
+        "购物情境表达"
+      ],
+      "misconceptionTags": [
+        "yuan jiao fen units merged as plain digits",
+        "change confused with total cost",
+        "price comparison made without common units"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-money-shopping"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-upper-assessment-money-shopping-unit",
+        "hjb-primary-p2-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在○里填“>”“<”或“=”。\n4元6角○46角",
+      "optionsZhHans": [],
+      "answer": "=",
+      "acceptedAnswers": [
+        "=",
+        "等于"
+      ],
+      "explanationZhHans": "4元=40角，40角+6角=46角，所以4元6角=46角。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-045",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-money-shopping",
+      "unitTitle": "人民币与购物应用",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "money-renminbi",
+        "shopping-arithmetic",
+        "unit-conversion-yuan-jiao-fen",
+        "人民币",
+        "购物"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "认识人民币",
+        "元角分",
+        "付钱找零",
+        "价格比较",
+        "购物情境表达"
+      ],
+      "misconceptionTags": [
+        "yuan jiao fen units merged as plain digits",
+        "change confused with total cost",
+        "price comparison made without common units"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-money-shopping"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-upper-assessment-money-shopping-unit",
+        "hjb-primary-p2-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小东有10元钱，他想买一个7元8角的文具盒，售货员应该找他多少钱？请写出算式和答案。",
+      "optionsZhHans": [],
+      "answer": "2元2角",
+      "acceptedAnswers": [
+        "2元2角",
+        "2.2元"
+      ],
+      "explanationZhHans": "10元=100角，7元8角=78角，100-78=22角=2元2角。"
+    }
+  ]
+}

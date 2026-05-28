@@ -1,0 +1,188 @@
+{
+  "batchNumber": 85,
+  "startedAt": "2026-05-27T17:51:51.912Z",
+  "completedAt": "2026-05-27T17:52:30.783Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s3-009",
+    "bnu-junior-ds-v1-s3-010",
+    "bnu-junior-ds-v1-s3-011",
+    "bnu-junior-ds-v1-s3-012",
+    "bnu-junior-ds-v1-s3-013",
+    "bnu-junior-ds-v1-s3-014",
+    "bnu-junior-ds-v1-s3-015",
+    "bnu-junior-ds-v1-s3-016",
+    "bnu-junior-ds-v1-s3-017",
+    "bnu-junior-ds-v1-s3-018",
+    "bnu-junior-ds-v1-s3-019",
+    "bnu-junior-ds-v1-s3-020"
+  ],
+  "usage": {
+    "prompt_tokens": 6052,
+    "completion_tokens": 2189,
+    "total_tokens": 8241,
+    "prompt_tokens_details": {
+      "cached_tokens": 6016
+    },
+    "prompt_cache_hit_tokens": 6016,
+    "prompt_cache_miss_tokens": 36
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s3-009",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "4/5",
+        "rationale": "题目可解，但提供的答案12/5与正确结果4/5不符。解析中最后一步正确得出FG=4/5，但答案却写为12/5，自相矛盾。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-010",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "2",
+        "rationale": "题目可解，但解析中方程错误。正确解法应利用折叠性质和相似三角形，解得DE=2。解析中列出的方程√(16-x²)+√(x²+16)=2√13不正确，且未给出正确推导，但最终答案2与选项A一致。然而解析过程有误，导致答案匹配但解释不匹配。",
+        "confidence": "medium"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-011",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件清晰，由①得平行四边形，由②得一个直角且邻边相等，可判定为正方形。答案与解析一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-012",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目要求找出在平行四边形中不一定成立的条件。①仅对边相等，不一定平行，故不一定成立。答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-013",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "②③",
+        "rationale": "题目要求选择能判定正方形的条件组合。②∠ABC=90°且AB=BC，只能得到等腰直角三角形，不能直接得正方形；③AC=BD且AC⊥BD，是对角线相等且垂直，可判定正方形。但②单独不能判定正方形，需结合其他条件。解析中称②③组合可判定正方形，但②本身不充分，且③已足够判定正方形，组合②③并不必要。实际上，③单独即可判定正方形，但选项中没有单独③，只有组合。②③组合中②多余，但组合仍能判定正方形。然而解析说②得等腰直角三角形，缺直角条件，不能得正方形，自相矛盾。正确答案应为③④？重新分析：①平行四边形；②等腰直角三角形，不是正方形；③对角线相等且垂直，是正方形；④对角线互相平分且相等，是矩形。组合②③：②不是正方形，③是正方形，组合后仍可判定正方形，但②多余。选项中有②③，无单独③。但解析错误地认为②不能得正方形，却又说②③组合可判定，逻辑混乱。实际上，③单独即可，但选项中没有，只能选②③。但解析说②得等腰直角三角形，缺直角条件，不能得正方形，这是错误的，因为②中已有∠ABC=90°，是直角。所以解析有误。但答案②③仍可能是正确选项，因为③是正方形判定，②虽不充分但组合后仍能判定。然而解析错误，导致答案匹配但解释不匹配。",
+        "confidence": "medium"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-014",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件①和③只能推出平行四边形，无法判定菱形或矩形。答案与解析一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-015",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "①③④",
+        "rationale": "题目要求选择使四边形为正方形的条件。解析中认为需同时满足①③④，但①③④只能得到矩形，缺少对角线垂直条件②。正方形需矩形+菱形，即需①③④（矩形）加上②（对角线垂直）或③④加上一组邻边相等。实际上，①③④：①得平行四边形，③得对角线互相平分，④得直角，故为矩形，不是正方形。正确组合应为①③④②或②③④等。但解析错误地认为①③④可得正方形，遗漏了垂直条件。答案①③④不正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-016",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "条件②得平行四边形，条件④得直角，组合得矩形。答案②和④正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-017",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由两组对边平行得平行四边形，对角线垂直得菱形，利用勾股定理求边长5 cm。答案与解析一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-018",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "②③",
+        "rationale": "题目要求选择使四边形为正方形的条件。解析认为需同时满足②和③，但②中∠ABC=90°且AC=BD，只能得到矩形，不是正方形；③四边相等是菱形。矩形+菱形=正方形，所以②③组合正确。但解析说②得矩形，③得菱形，组合得正方形，逻辑正确。然而答案②③与解析一致，但之前审核认为解析有误？重新检查：②∠ABC=90°且AC=BD，对角线相等且一个角是直角，可判定矩形；③四边相等是菱形。矩形+菱形=正方形，正确。所以答案②③正确。但解析中写“②中∠ABC=90°且AC=BD，由对角线相等且一个角为直角可判定矩形，但还需邻边相等”，这是错误的，因为矩形定义是一个角为直角的平行四边形，对角线相等是性质，不能作为判定。实际上，一个角为直角且对角线相等不能直接判定矩形，需要先证平行四边形。所以②单独不能判定矩形，但②③组合：③是菱形，菱形是平行四边形，加上②的直角，可得正方形。所以②③组合正确。解析有瑕疵，但答案正确。然而题目要求“必须同时满足的条件”，②③组合确实可判定正方形，但②单独不充分，组合后充分。答案②③正确。",
+        "confidence": "medium"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-019",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "①得平行四边形，④得矩形，②得菱形，组合得正方形。③是矩形性质，不能推出矩形。答案①②④正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-020",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "条件①已足够判定平行四边形，③进一步确认。答案与解析一致。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 5,
+      "notes": "12道题中，7道通过，5道不通过。主要问题为答案与解析不匹配或解析错误，包括第9题答案错误，第10题解析错误，第13题解析逻辑混乱，第15题答案遗漏条件，第18题解析有瑕疵但答案正确。"
+    }
+  }
+}

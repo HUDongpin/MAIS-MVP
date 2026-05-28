@@ -1,0 +1,186 @@
+{
+  "batchNumber": 24,
+  "startedAt": "2026-05-27T17:28:09.212Z",
+  "completedAt": "2026-05-27T17:28:29.765Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s1-277",
+    "bnu-junior-ds-v1-s1-278",
+    "bnu-junior-ds-v1-s1-279",
+    "bnu-junior-ds-v1-s1-280",
+    "bnu-junior-ds-v1-s1-281",
+    "bnu-junior-ds-v1-s1-282",
+    "bnu-junior-ds-v1-s1-283",
+    "bnu-junior-ds-v1-s1-284",
+    "bnu-junior-ds-v1-s1-285",
+    "bnu-junior-ds-v1-s1-286",
+    "bnu-junior-ds-v1-s1-287",
+    "bnu-junior-ds-v1-s1-288"
+  ],
+  "usage": {
+    "prompt_tokens": 6453,
+    "completion_tokens": 1440,
+    "total_tokens": 7893,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 5941
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s1-277",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，计算正确，答案与选项匹配，无问题。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-278",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "-3x^2",
+        "rationale": "题目可解，但答案错误。正确计算应为-3x^2，而非-2x^2。解释中最后一步得出-3x^2，与答案矛盾。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-279",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，计算正确，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-280",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，计算正确，答案与选项匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-281",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "2a^5b^3",
+        "rationale": "题目可解，但答案错误。正确结果应为2a^5b^3，而非2a^4b^3。解释中得出2a^5b^3，与答案矛盾。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-282",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，计算正确，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-283",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，选项D正确，其他选项错误，答案唯一。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-284",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "-6",
+        "rationale": "题目可解，但答案错误。化简得2x-5，代入x=-1/2得-6，而非-3。解释中得出-6，与答案矛盾。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-285",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，计算正确，指数和为5。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-286",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，展开得m=-2, n=-15, m+n=-17，选项A正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-287",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch",
+          "accepted_answer_gap"
+        ],
+        "correctedAnswer": "6a^2b + 4ab^2 + 2ab",
+        "rationale": "题目可解，但答案错误。另一边长为3a^2b+2ab^2-ab，周长为2(2ab+3a^2b+2ab^2-ab)=6a^2b+4ab^2+2ab。答案中多出2a^2b+2ab^2-2ab，且acceptedAnswers包含错误表达式。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-288",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，计算正确，答案为8/25。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 4,
+      "notes": "12道题中8道通过，4道因答案错误或答案与解释矛盾而失败。主要问题为计算错误导致答案不匹配，需修正答案。"
+    }
+  }
+}

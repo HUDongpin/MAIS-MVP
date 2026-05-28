@@ -1,0 +1,580 @@
+{
+  "batchId": "batch-062",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p3-111",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-decimal-introduction",
+      "unitTitle": "认识小数",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "decimal-introduction",
+        "tenths-hundredths-contexts",
+        "decimal-comparison",
+        "认识小数",
+        "小数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "读写小数",
+        "小数意义",
+        "比较小数",
+        "元角分或测量情境",
+        "数轴表示"
+      ],
+      "misconceptionTags": [
+        "more decimal digits assumed to mean larger value",
+        "decimal point ignored during comparison",
+        "tenths and hundredths roles reversed"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-decimal-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-decimal-introduction-unit",
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在跳远比赛中，小杰跳了1米4分米，小宇跳了1.35米，小轩跳了1米5厘米。请把三个人的成绩都改写成用米作单位的小数，并按从远到近的顺序排列。",
+      "optionsZhHans": [],
+      "answer": "小杰1.4米，小宇1.35米，小轩1.05米；从远到近：小杰、小宇、小轩",
+      "acceptedAnswers": [
+        "小杰1.4米，小宇1.35米，小轩1.05米；从远到近：小杰、小宇、小轩",
+        "1.4米 > 1.35米 > 1.05米，小杰最远，小轩最近",
+        "小杰1.4米，小宇1.35米，小轩1.05米，排序：小杰、小宇、小轩"
+      ],
+      "explanationZhHans": "1米4分米=1.4米，1米5厘米=1.05米。比较小数先看整数部分，都是1；再比十分位：4>3>0，所以1.4>1.35>1.05，从远到近为小杰、小宇、小轩。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-112",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-decimal-introduction",
+      "unitTitle": "认识小数",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "decimal-introduction",
+        "tenths-hundredths-contexts",
+        "decimal-comparison",
+        "认识小数",
+        "小数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "读写小数",
+        "小数意义",
+        "比较小数",
+        "元角分或测量情境",
+        "数轴表示"
+      ],
+      "misconceptionTags": [
+        "more decimal digits assumed to mean larger value",
+        "decimal point ignored during comparison",
+        "tenths and hundredths roles reversed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-decimal-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-decimal-introduction-unit",
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明用1米长的尺子量课桌的高度，发现课桌比7分米高一点，但不到8分米。他用小数记录课桌的高度，下面哪个小数最有可能表示课桌的高度？",
+      "optionsZhHans": [
+        "0.75米",
+        "7.5米",
+        "0.8米",
+        "7.0米"
+      ],
+      "answer": "0.75米",
+      "acceptedAnswers": [
+        "0.75米"
+      ],
+      "explanationZhHans": "1米=10分米，7分米=0.7米，8分米=0.8米。课桌高度在0.7米和0.8米之间，0.75米符合。7.5米远大于1米，0.8米等于8分米，7.0米也不合理。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-113",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-decimal-introduction",
+      "unitTitle": "认识小数",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "decimal-introduction",
+        "tenths-hundredths-contexts",
+        "decimal-comparison",
+        "认识小数",
+        "小数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "读写小数",
+        "小数意义",
+        "比较小数",
+        "元角分或测量情境",
+        "数轴表示"
+      ],
+      "misconceptionTags": [
+        "more decimal digits assumed to mean larger value",
+        "decimal point ignored during comparison",
+        "tenths and hundredths roles reversed"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-decimal-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-decimal-introduction-unit",
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈买了一个哈密瓜，称重显示是1.28千克。其中“2”表示多少？",
+      "optionsZhHans": [],
+      "answer": "2表示0.2千克，也就是2个0.1千克。",
+      "acceptedAnswers": [
+        "2表示0.2千克，也就是2个0.1千克。",
+        "2表示0.2千克",
+        "0.2千克",
+        "2个0.1千克"
+      ],
+      "explanationZhHans": "1.28千克中，小数点后第一位是十分位，第二位是百分位。“2”在十分位上，表示2个0.1千克，也就是0.2千克。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-114",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-decimal-introduction",
+      "unitTitle": "认识小数",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "decimal-introduction",
+        "tenths-hundredths-contexts",
+        "decimal-comparison",
+        "认识小数",
+        "小数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "读写小数",
+        "小数意义",
+        "比较小数",
+        "元角分或测量情境",
+        "数轴表示"
+      ],
+      "misconceptionTags": [
+        "more decimal digits assumed to mean larger value",
+        "decimal point ignored during comparison",
+        "tenths and hundredths roles reversed"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-decimal-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-decimal-introduction-unit",
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在跳远比赛中，小杰跳了1.26米，小宇跳了1.3米，小轩跳了1.09米。他们三人中谁跳得最远？请写出你的比较过程。",
+      "optionsZhHans": [],
+      "answer": "小宇跳得最远。比较过程：1.3米 = 1.30米，1.30 > 1.26 > 1.09，所以小宇跳得最远。",
+      "acceptedAnswers": [
+        "小宇跳得最远。比较过程：1.3米 = 1.30米，1.30 > 1.26 > 1.09，所以小宇跳得最远。",
+        "小宇跳得最远。因为1.3米可以看成1.30米，1.30比1.26大，也比1.09大。",
+        "小宇跳得最远。比较1.3、1.26和1.09，1.3最大。"
+      ],
+      "explanationZhHans": "比较小数时，先比较整数部分，都是1；再比较十分位，1.3的十分位是3，1.26的十分位是2，1.09的十分位是0，3>2>0，所以1.3最大，小宇最远。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-115",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-decimal-introduction",
+      "unitTitle": "认识小数",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "decimal-introduction",
+        "tenths-hundredths-contexts",
+        "decimal-comparison",
+        "认识小数",
+        "小数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "读写小数",
+        "小数意义",
+        "比较小数",
+        "元角分或测量情境",
+        "数轴表示"
+      ],
+      "misconceptionTags": [
+        "more decimal digits assumed to mean larger value",
+        "decimal point ignored during comparison",
+        "tenths and hundredths roles reversed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-decimal-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-decimal-introduction-unit",
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在跳远比赛中，小明的成绩是1.2米，小红的成绩是1.15米，小刚的成绩是0.98米。谁跳得最远？",
+      "optionsZhHans": [
+        "小明",
+        "小红",
+        "小刚",
+        "无法比较"
+      ],
+      "answer": "小明",
+      "acceptedAnswers": [
+        "小明"
+      ],
+      "explanationZhHans": "比较小数时，先看整数部分，1.2和1.15的整数部分都是1，0.98的整数部分是0，所以小刚最近。再比较十分位，1.2的十分位是2，1.15的十分位是1，2>1，所以1.2>1.15，小明跳得最远。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-116",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-decimal-introduction",
+      "unitTitle": "认识小数",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "decimal-introduction",
+        "tenths-hundredths-contexts",
+        "decimal-comparison",
+        "认识小数",
+        "小数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "读写小数",
+        "小数意义",
+        "比较小数",
+        "元角分或测量情境",
+        "数轴表示"
+      ],
+      "misconceptionTags": [
+        "more decimal digits assumed to mean larger value",
+        "decimal point ignored during comparison",
+        "tenths and hundredths roles reversed"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-decimal-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-decimal-introduction-unit",
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一支铅笔的价钱是1元2角5分，用小数表示是多少元？",
+      "optionsZhHans": [],
+      "answer": "1.25",
+      "acceptedAnswers": [
+        "1.25",
+        "1.25元"
+      ],
+      "explanationZhHans": "1元2角5分，1元是整数部分，2角是0.2元，5分是0.05元，合起来是1.25元。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-117",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-decimal-introduction",
+      "unitTitle": "认识小数",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "decimal-introduction",
+        "tenths-hundredths-contexts",
+        "decimal-comparison",
+        "认识小数",
+        "小数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "读写小数",
+        "小数意义",
+        "比较小数",
+        "元角分或测量情境",
+        "数轴表示"
+      ],
+      "misconceptionTags": [
+        "more decimal digits assumed to mean larger value",
+        "decimal point ignored during comparison",
+        "tenths and hundredths roles reversed"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-decimal-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-decimal-introduction-unit",
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小乐在测量身高时，用小数记录为1.3米。他说：“1.3米就是1米3厘米。”小乐的这句话对吗？如果不对，请写出正确的解释。",
+      "optionsZhHans": [],
+      "answer": "不对。1.3米中的0.3表示3分米，也就是30厘米，所以1.3米是1米30厘米，不是1米3厘米。",
+      "acceptedAnswers": [
+        "不对。1.3米中的0.3表示3分米，也就是30厘米，所以1.3米是1米30厘米，不是1米3厘米。"
+      ],
+      "explanationZhHans": "1.3米中，整数部分1表示1米，小数部分0.3表示3分米，因为1米=10分米，所以0.3米=3分米=30厘米。小乐误把0.3当成3厘米，混淆了分米和厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-118",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-decimal-introduction",
+      "unitTitle": "认识小数",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "decimal-introduction",
+        "tenths-hundredths-contexts",
+        "decimal-comparison",
+        "认识小数",
+        "小数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "读写小数",
+        "小数意义",
+        "比较小数",
+        "元角分或测量情境",
+        "数轴表示"
+      ],
+      "misconceptionTags": [
+        "more decimal digits assumed to mean larger value",
+        "decimal point ignored during comparison",
+        "tenths and hundredths roles reversed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-decimal-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-decimal-introduction-unit",
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在跳远比赛中，小杰跳了1.4米，小宇跳了1.35米，小轩跳了1.5米。谁跳得最远？",
+      "optionsZhHans": [
+        "小杰",
+        "小宇",
+        "小轩",
+        "无法比较"
+      ],
+      "answer": "小轩",
+      "acceptedAnswers": [
+        "小轩"
+      ],
+      "explanationZhHans": "比较1.4、1.35和1.5。先看整数部分：1=1=1；再看十分位：1.4的十分位是4，1.35的十分位是3，1.5的十分位是5。5最大，所以1.5最大，小轩跳得最远。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-119",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-decimal-introduction",
+      "unitTitle": "认识小数",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "decimal-introduction",
+        "tenths-hundredths-contexts",
+        "decimal-comparison",
+        "认识小数",
+        "小数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "读写小数",
+        "小数意义",
+        "比较小数",
+        "元角分或测量情境",
+        "数轴表示"
+      ],
+      "misconceptionTags": [
+        "more decimal digits assumed to mean larger value",
+        "decimal point ignored during comparison",
+        "tenths and hundredths roles reversed"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-decimal-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-decimal-introduction-unit",
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在跳远比赛中，小明的成绩是1米2分米，用小数表示是（    ）米。",
+      "optionsZhHans": [],
+      "answer": "1.2",
+      "acceptedAnswers": [
+        "1.2"
+      ],
+      "explanationZhHans": "1米2分米中，1米是整数部分，2分米是0.2米，合起来是1.2米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-120",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-decimal-introduction",
+      "unitTitle": "认识小数",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "decimal-introduction",
+        "tenths-hundredths-contexts",
+        "decimal-comparison",
+        "认识小数",
+        "小数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "读写小数",
+        "小数意义",
+        "比较小数",
+        "元角分或测量情境",
+        "数轴表示"
+      ],
+      "misconceptionTags": [
+        "more decimal digits assumed to mean larger value",
+        "decimal point ignored during comparison",
+        "tenths and hundredths roles reversed"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-decimal-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-decimal-introduction-unit",
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在跳远比赛中，小杰跳了1.4米，小宇跳了1.35米，小轩跳了1.5米。请将他们的成绩按照从远到近的顺序排列，并写出排列后的姓名。",
+      "optionsZhHans": [],
+      "answer": "小轩、小杰、小宇",
+      "acceptedAnswers": [
+        "小轩、小杰、小宇",
+        "小轩,小杰,小宇",
+        "小轩 小杰 小宇"
+      ],
+      "explanationZhHans": "比较小数时先看整数部分，都是1；再比十分位：小轩1.5的十分位是5，小杰1.4的十分位是4，小宇1.35的十分位是3，所以从远到近为小轩、小杰、小宇。"
+    }
+  ]
+}

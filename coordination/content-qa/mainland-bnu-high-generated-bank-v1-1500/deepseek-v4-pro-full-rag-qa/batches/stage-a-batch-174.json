@@ -1,0 +1,122 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-174",
+  "startedAt": "2026-05-28T01:52:15.887Z",
+  "completedAt": "2026-05-28T01:52:35.055Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-385",
+    "bnu-high-ds-v1-s6-386",
+    "bnu-high-ds-v1-s6-387",
+    "bnu-high-ds-v1-s6-388",
+    "bnu-high-ds-v1-s6-389",
+    "bnu-high-ds-v1-s6-390",
+    "bnu-high-ds-v1-s6-391",
+    "bnu-high-ds-v1-s6-392"
+  ],
+  "usage": {
+    "prompt_tokens": 10212,
+    "completion_tokens": 1390,
+    "total_tokens": 11602,
+    "prompt_tokens_details": {
+      "cached_tokens": 10112
+    },
+    "prompt_cache_hit_tokens": 10112,
+    "prompt_cache_miss_tokens": 100
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-385",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "1",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由 f'(x)=3x^2+2ax+b，f'(-1)=3-2a+b=0，f'(-2)=12-4a+b=0，解得 a=9/2, b=6，a+b=21/2，但选项无此值。检查发现 f'(-2)=0 应为 f'(-2)=0 即 12-4a+b=0，与 f'(-1)=0 联立得 a=9/2, b=6，a+b=21/2，选项均不匹配。可能题目有误，但按条件计算得 a+b=21/2，无正确选项。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-386",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "最大值为 10，最小值为 1",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=4x^3-12x^2+8x=4x(x-1)(x-2)，临界点 x=0,1,2。计算 f(-1)=10, f(0)=1, f(1)=2, f(2)=1, f(3)=10，故最大值为 10，最小值为 1。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-387",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "y = 0",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x^2-6x，f'(2)=0，切线斜率为 0，过点 (2,-2)，切线方程为 y = -2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-388",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x^2-6x=3x(x-2)，临界点 x=0,2。x<0 时 f'>0，0<x<2 时 f'<0，x>2 时 f'>0，故极大值为 f(0)=2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-389",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "independentAnswer": null,
+        "issueTags": [
+          "missing_condition"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "利润函数 L(x)=20x-(200+10x)=10x-200，为线性函数，无最大值（x 无上限）。题目未给出产量上限或市场约束，无法求最大化产量。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-390",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "-2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x^2-3，临界点 x=-1,1。计算 f(-2)=-2, f(-1)=2, f(1)=-2, f(2)=2，最小值为 -2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-391",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "independentAnswer": null,
+        "issueTags": [
+          "ambiguous_mc"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x^2-6x-9=3(x-3)(x+1)，临界点 x=-1,3。x<-1 时 f'>0，-1<x<3 时 f'<0，x>3 时 f'>0。故 f(x) 在 x=-1 取极大值，x=3 取极小值；单调增区间为 (-∞,-1) 和 (3,+∞)，单调减区间为 (-1,3)。选项 A、B、C、D 均正确，但题目要求单选，存在多个正确选项。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-392",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "最大值为 5，最小值为 1",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x^2-12x+9=3(x-1)(x-3)，临界点 x=1,3。计算 f(0)=1, f(1)=5, f(3)=1, f(4)=5，故最大值为 5，最小值为 1。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 0,
+      "fail": 2,
+      "notes": "8 题中 6 题通过，2 题失败：bnu-high-ds-v1-s6-385 计算得 a+b=21/2 无匹配选项，可能题目条件有误；bnu-high-ds-v1-s6-389 缺少产量上限导致无最大值；bnu-high-ds-v1-s6-391 四个选项均正确，不符合单选题要求。"
+    }
+  }
+}

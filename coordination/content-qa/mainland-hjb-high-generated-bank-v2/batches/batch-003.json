@@ -1,0 +1,366 @@
+{
+  "batchId": "batch-003",
+  "questions": [
+    {
+      "id": "hjb-high-ds-v2-s4-021",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-集合与逻辑",
+      "topicTitleZhHans": "集合与逻辑",
+      "volume": "必修 第一册",
+      "chapter": "集合与逻辑",
+      "conceptIds": [
+        "sets",
+        "set-operations",
+        "logic-conditions",
+        "quantifiers"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-sets-logic"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-sets-logic-unit-core",
+        "hjb-high-compulsory-1-sets-logic-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "已知集合 A = { x | x = 3k + 1, k ∈ Z }，B = { x | x = 3k - 2, k ∈ Z }。判断 A 与 B 的关系，并说明理由。",
+      "optionsZhHans": [],
+      "answer": "A = B",
+      "acceptedAnswers": [
+        "A = B",
+        "A=B"
+      ],
+      "explanationZhHans": "A 中元素为 3k+1，B 中元素为 3k-2 = 3(k-1)+1。令 k' = k-1，则 B = { x | x = 3k' + 1, k' ∈ Z }，与 A 相同，故 A = B。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-022",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-集合与逻辑",
+      "topicTitleZhHans": "集合与逻辑",
+      "volume": "必修 第一册",
+      "chapter": "集合与逻辑",
+      "conceptIds": [
+        "sets",
+        "set-operations",
+        "logic-conditions",
+        "quantifiers"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-sets-logic"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-sets-logic-unit-core",
+        "hjb-high-compulsory-1-sets-logic-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "设全集 U = { 1, 2, 3, 4, 5, 6 }，集合 A = { 1, 2, 3 }，B = { 2, 3, 4 }。则集合 (∁_U A) ∩ B 等于（ ）",
+      "optionsZhHans": [
+        "{ 4 }",
+        "{ 1, 4 }",
+        "{ 2, 3 }",
+        "{ 5, 6 }"
+      ],
+      "answer": "{ 4 }",
+      "acceptedAnswers": [
+        "{ 4 }"
+      ],
+      "explanationZhHans": "∁_U A = { 4, 5, 6 }，与 B = { 2, 3, 4 } 的交集为 { 4 }。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-023",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-集合与逻辑",
+      "topicTitleZhHans": "集合与逻辑",
+      "volume": "必修 第一册",
+      "chapter": "集合与逻辑",
+      "conceptIds": [
+        "sets",
+        "set-operations",
+        "logic-conditions",
+        "quantifiers"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-sets-logic"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-sets-logic-unit-core",
+        "hjb-high-compulsory-1-sets-logic-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "用列举法表示集合 { x | x 是小于 10 的正偶数 }。",
+      "optionsZhHans": [],
+      "answer": "{ 2, 4, 6, 8 }",
+      "acceptedAnswers": [
+        "{ 2, 4, 6, 8 }",
+        "{2,4,6,8}"
+      ],
+      "explanationZhHans": "小于 10 的正偶数为 2, 4, 6, 8，用列举法表示为 { 2, 4, 6, 8 }。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-024",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-集合与逻辑",
+      "topicTitleZhHans": "集合与逻辑",
+      "volume": "必修 第一册",
+      "chapter": "集合与逻辑",
+      "conceptIds": [
+        "sets",
+        "set-operations",
+        "logic-conditions",
+        "quantifiers"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-sets-logic"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-sets-logic-unit-core",
+        "hjb-high-compulsory-1-sets-logic-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "已知命题 p：∃ x ∈ R，x² + 2x + a = 0。若 p 是真命题，求实数 a 的取值范围。",
+      "optionsZhHans": [],
+      "answer": "a ≤ 1",
+      "acceptedAnswers": [
+        "a ≤ 1",
+        "a<=1"
+      ],
+      "explanationZhHans": "方程有实根，判别式 Δ = 4 - 4a ≥ 0，解得 a ≤ 1。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-025",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-集合与逻辑",
+      "topicTitleZhHans": "集合与逻辑",
+      "volume": "必修 第一册",
+      "chapter": "集合与逻辑",
+      "conceptIds": [
+        "sets",
+        "set-operations",
+        "logic-conditions",
+        "quantifiers"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-sets-logic"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-sets-logic-unit-core",
+        "hjb-high-compulsory-1-sets-logic-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "设 x ∈ R，则“x > 2”是“x² > 4”的（ ）",
+      "optionsZhHans": [
+        "充分不必要条件",
+        "必要不充分条件",
+        "充要条件",
+        "既不充分也不必要条件"
+      ],
+      "answer": "充分不必要条件",
+      "acceptedAnswers": [
+        "充分不必要条件"
+      ],
+      "explanationZhHans": "x > 2 ⇒ x² > 4，但 x² > 4 时 x 可能小于 -2，故充分不必要。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-026",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-集合与逻辑",
+      "topicTitleZhHans": "集合与逻辑",
+      "volume": "必修 第一册",
+      "chapter": "集合与逻辑",
+      "conceptIds": [
+        "sets",
+        "set-operations",
+        "logic-conditions",
+        "quantifiers"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-sets-logic"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-sets-logic-unit-core",
+        "hjb-high-compulsory-1-sets-logic-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "已知集合 A = { x | -2 ≤ x ≤ 5 }，B = { x | m ≤ x ≤ 2m + 1 }。若 B ⊆ A，求实数 m 的取值范围。",
+      "optionsZhHans": [],
+      "answer": "-1 ≤ m ≤ 2",
+      "acceptedAnswers": [
+        "-1 ≤ m ≤ 2",
+        "-1<=m<=2"
+      ],
+      "explanationZhHans": "B ⊆ A 需满足 m ≥ -2 且 2m+1 ≤ 5，且 m ≤ 2m+1。解得 m ≥ -1，m ≤ 2，且 m ≥ -1，综合得 -1 ≤ m ≤ 2。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-027",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-集合与逻辑",
+      "topicTitleZhHans": "集合与逻辑",
+      "volume": "必修 第一册",
+      "chapter": "集合与逻辑",
+      "conceptIds": [
+        "sets",
+        "set-operations",
+        "logic-conditions",
+        "quantifiers"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-sets-logic"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-sets-logic-unit-core",
+        "hjb-high-compulsory-1-sets-logic-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "已知集合 A = { 1, 2, 3 }，写出 A 的所有子集。",
+      "optionsZhHans": [],
+      "answer": "∅, { 1 }, { 2 }, { 3 }, { 1, 2 }, { 1, 3 }, { 2, 3 }, { 1, 2, 3 }",
+      "acceptedAnswers": [
+        "∅, { 1 }, { 2 }, { 3 }, { 1, 2 }, { 1, 3 }, { 2, 3 }, { 1, 2, 3 }"
+      ],
+      "explanationZhHans": "子集包括空集、单元素集、双元素集和本身，共 8 个。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-028",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-集合与逻辑",
+      "topicTitleZhHans": "集合与逻辑",
+      "volume": "必修 第一册",
+      "chapter": "集合与逻辑",
+      "conceptIds": [
+        "sets",
+        "set-operations",
+        "logic-conditions",
+        "quantifiers"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-sets-logic"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-sets-logic-unit-core",
+        "hjb-high-compulsory-1-sets-logic-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "已知命题 p：∀ x ∈ R，x² + 1 ≥ 2x。则命题 p 的否定为（ ）",
+      "optionsZhHans": [
+        "∃ x ∈ R，x² + 1 < 2x",
+        "∀ x ∈ R，x² + 1 < 2x",
+        "∃ x ∈ R，x² + 1 ≥ 2x",
+        "∀ x ∈ R，x² + 1 ≤ 2x"
+      ],
+      "answer": "∃ x ∈ R，x² + 1 < 2x",
+      "acceptedAnswers": [
+        "∃ x ∈ R，x² + 1 < 2x"
+      ],
+      "explanationZhHans": "全称量词命题的否定是存在量词命题，并将结论否定。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-029",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-集合与逻辑",
+      "topicTitleZhHans": "集合与逻辑",
+      "volume": "必修 第一册",
+      "chapter": "集合与逻辑",
+      "conceptIds": [
+        "sets",
+        "set-operations",
+        "logic-conditions",
+        "quantifiers"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-sets-logic"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-sets-logic-unit-core",
+        "hjb-high-compulsory-1-sets-logic-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "设全集 U = R，集合 A = { x | x² - 3x + 2 = 0 }，则 ∁_U A = ______。",
+      "optionsZhHans": [],
+      "answer": "{ x | x ≠ 1 且 x ≠ 2 }",
+      "acceptedAnswers": [
+        "{ x | x ≠ 1 且 x ≠ 2 }",
+        "{x|x≠1且x≠2}"
+      ],
+      "explanationZhHans": "A = { 1, 2 }，补集为实数集中去掉 1 和 2。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-030",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-集合与逻辑",
+      "topicTitleZhHans": "集合与逻辑",
+      "volume": "必修 第一册",
+      "chapter": "集合与逻辑",
+      "conceptIds": [
+        "sets",
+        "set-operations",
+        "logic-conditions",
+        "quantifiers"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-sets-logic"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-sets-logic-unit-core",
+        "hjb-high-compulsory-1-sets-logic-topic-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "已知集合 A = { x | ax² + 2x + 1 = 0 } 中只有一个元素，求实数 a 的值。",
+      "optionsZhHans": [],
+      "answer": "0 或 1",
+      "acceptedAnswers": [
+        "0 或 1",
+        "a=0或a=1"
+      ],
+      "explanationZhHans": "当 a=0 时，方程为 2x+1=0，解唯一；当 a≠0 时，判别式 Δ=4-4a=0，得 a=1。故 a=0 或 1。"
+    }
+  ]
+}

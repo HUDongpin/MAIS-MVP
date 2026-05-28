@@ -1,0 +1,133 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-124",
+  "startedAt": "2026-05-28T01:34:18.965Z",
+  "completedAt": "2026-05-28T01:34:34.747Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-485",
+    "bnu-high-ds-v1-s5-486",
+    "bnu-high-ds-v1-s5-487",
+    "bnu-high-ds-v1-s5-488",
+    "bnu-high-ds-v1-s5-489",
+    "bnu-high-ds-v1-s5-490",
+    "bnu-high-ds-v1-s5-491",
+    "bnu-high-ds-v1-s5-492"
+  ],
+  "usage": {
+    "prompt_tokens": 12681,
+    "completion_tokens": 1146,
+    "total_tokens": 13827,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 12297
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-485",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立答案一致，均为选项D；解析基本正确，但称“ε的方差小说明拟合好”与独立解认为C错误有轻微矛盾，但未影响最终答案，故为weak。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-486",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立答案一致，均为r=-1.000，回归方程y=-2.5x+75.0，预测25件；解析计算正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-487",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立答案一致，均为选项B；解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-488",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "（1）r ≈ 0.99；（2）y = -20.91 + 0.82x；（3）40.59万件",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案的回归系数和预测值与独立解不一致，独立解计算得b≈0.818，a≈-20.91，预测40.59；存储答案为b=0.80，a=-19.60，预测40.40，存在计算错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-489",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立答案一致，均为选项B；解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-490",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立答案一致，均为r=1.000，回归方程y=5.0x+20.0，预测65万元；解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-491",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立答案一致，均为选项B；解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-492",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "y = -1.00 + 0.60x",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案为y=0.45x+1.25，但解析中计算得b=0.6，a=-1，方程应为y=0.6x-1，与独立解一致；存储答案与解析矛盾且错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 0,
+      "fail": 2,
+      "notes": "8题中6题通过，2题失败：488题回归系数计算错误，492题存储答案与解析矛盾且错误。"
+    }
+  }
+}

@@ -1,0 +1,126 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-028",
+  "startedAt": "2026-05-28T01:03:27.637Z",
+  "completedAt": "2026-05-28T01:03:40.793Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-217",
+    "bnu-high-ds-v1-s4-218",
+    "bnu-high-ds-v1-s4-219",
+    "bnu-high-ds-v1-s4-220",
+    "bnu-high-ds-v1-s4-221",
+    "bnu-high-ds-v1-s4-222",
+    "bnu-high-ds-v1-s4-223",
+    "bnu-high-ds-v1-s4-224"
+  ],
+  "usage": {
+    "prompt_tokens": 11204,
+    "completion_tokens": 927,
+    "total_tokens": 12131,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 10820
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-217",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，均为“不互斥也不对立”，解析正确说明交集非空、并集非全集。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-218",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，样本空间和概率均正确，解析完整。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-219",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案15/28与独立解一致，解析计算正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-220",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案0.5与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-221",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案样本空间和概率1/6与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-222",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案3/5与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-223",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案D与独立解一致，解析正确指出其他选项误解概率。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-224",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，样本空间和概率3/4均正确，解析完整。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8道题存储答案、解析与Stage A独立解一致，无问题。"
+    }
+  }
+}

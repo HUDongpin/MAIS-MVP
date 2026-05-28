@@ -1,0 +1,313 @@
+{
+  "batchId": "model-qa-0008",
+  "ids": [
+    "hjb-high-ds-v3-s4-358",
+    "hjb-high-ds-v3-s4-361",
+    "hjb-high-ds-v3-s4-364",
+    "hjb-high-ds-v3-s4-367",
+    "hjb-high-ds-v3-s4-370",
+    "hjb-high-ds-v3-s4-373",
+    "hjb-high-ds-v3-s4-376",
+    "hjb-high-ds-v3-s5-127",
+    "hjb-high-ds-v4-s4-051",
+    "hjb-high-ds-v4-s4-053",
+    "hjb-high-ds-v4-s4-055",
+    "hjb-high-ds-v4-s4-057",
+    "hjb-high-ds-v4-s4-059",
+    "hjb-high-ds-v4-s4-061",
+    "hjb-high-ds-v4-s4-081",
+    "hjb-high-ds-v4-s4-316",
+    "hjb-high-ds-v4-s4-319",
+    "hjb-high-ds-v4-s4-322",
+    "hjb-high-ds-v4-s4-325",
+    "hjb-high-ds-v4-s4-328"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-high-ds-v3-s4-358",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "函数 y=3sin(2x+7π/6) 在 [0,2π] 内取得最大值的次数应为 2，但解析中 x=π(3-7)/12+kπ 计算错误，应为 x=-π/3+kπ，k=1,2 时 x=2π/3, 5π/3，共2次，答案2正确但解析有误。",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案为2，独立计算得2，答案匹配。",
+      "recommendedActionZhHans": "修正解析中的计算错误。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-361",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "函数 y=12sin(2x+10π/6) 在 [0,2π] 内取得最大值的次数应为 2，但解析中 x=π(3-10)/12+kπ 计算错误，应为 x=-7π/12+kπ，k=1,2 时 x=5π/12, 17π/12，共2次，答案2正确但解析有误。",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案为2，独立计算得2，答案匹配。",
+      "recommendedActionZhHans": "修正解析中的计算错误。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-364",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "函数 y=4sin(2x+7π/6) 在 [0,2π] 内取得最大值的次数应为 2，但解析中 x=π(3-7)/12+kπ 计算错误，应为 x=-π/3+kπ，k=1,2 时 x=2π/3, 5π/3，共2次，答案2正确但解析有误。",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案为2，独立计算得2，答案匹配。",
+      "recommendedActionZhHans": "修正解析中的计算错误。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-367",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "函数 y=7sin(2x+8π/6) 在 [0,2π] 内取得最大值的次数应为 2，但解析中 x=π(3-8)/12+kπ 计算错误，应为 x=-5π/12+kπ，k=1,2 时 x=7π/12, 19π/12，共2次，答案2正确但解析有误。",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案为2，独立计算得2，答案匹配。",
+      "recommendedActionZhHans": "修正解析中的计算错误。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-370",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "函数 y=5sin(2x+12π/6) 在 [0,2π] 内取得最大值的次数应为 2，但解析中 x=π(3-12)/12+kπ 计算错误，应为 x=-3π/4+kπ，k=1,2 时 x=π/4, 5π/4，共2次，答案2正确但解析有误。",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案为2，独立计算得2，答案匹配。",
+      "recommendedActionZhHans": "修正解析中的计算错误。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-373",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "函数 y=5sin(2x+6π/6) 在 [0,2π] 内取得最大值的次数应为 2，但解析中 x=π(3-6)/12+kπ 计算错误，应为 x=-π/4+kπ，k=1,2 时 x=3π/4, 7π/4，共2次，答案2正确但解析有误。",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案为2，独立计算得2，答案匹配。",
+      "recommendedActionZhHans": "修正解析中的计算错误。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s4-376",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "函数 y=9sin(2x+9π/6) 在 [0,2π] 内取得最大值的次数应为 2，但解析中 x=π(3-9)/12+kπ 计算错误，应为 x=-π/2+kπ，k=1,2 时 x=π/2, 3π/2，共2次，答案2正确但解析有误。",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案为2，独立计算得2，答案匹配。",
+      "recommendedActionZhHans": "修正解析中的计算错误。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v3-s5-127",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "总球数为7+17=24，红球7个，概率应为7/24，但选项中有7/24，答案正确。解析中写7/24=7/24无意义，但无实质错误。",
+      "independentAnswerZhHans": "7/24",
+      "answerCheckZhHans": "标准答案为7/24，独立计算得7/24，答案匹配。",
+      "recommendedActionZhHans": "解析可简化，但无错误。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v4-s4-051",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "4",
+      "answerCheckZhHans": "标准答案为4，独立计算得4，答案匹配。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v4-s4-053",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "12",
+      "answerCheckZhHans": "标准答案为12，独立计算得12，答案匹配。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v4-s4-055",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "8",
+      "answerCheckZhHans": "标准答案为8，独立计算得8，答案匹配。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v4-s4-057",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "6",
+      "answerCheckZhHans": "标准答案为6，独立计算得6，答案匹配。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v4-s4-059",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "8",
+      "answerCheckZhHans": "标准答案为8，独立计算得8，答案匹配。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v4-s4-061",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "11",
+      "answerCheckZhHans": "标准答案为11，独立计算得11，答案匹配。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v4-s4-081",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "10",
+      "answerCheckZhHans": "标准答案为10，独立计算得10，答案匹配。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v4-s4-316",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "函数 y=5sin(2x+10π/6) 在 [0,2π] 内取得最大值的次数应为 2，但解析中 x=π(3-10)/12+kπ 计算错误，应为 x=-7π/12+kπ，k=1,2 时 x=5π/12, 17π/12，共2次，答案2正确但解析有误。",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案为2，独立计算得2，答案匹配。",
+      "recommendedActionZhHans": "修正解析中的计算错误。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v4-s4-319",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "函数 y=7sin(2x+8π/6) 在 [0,2π] 内取得最大值的次数应为 2，但解析中 x=π(3-8)/12+kπ 计算错误，应为 x=-5π/12+kπ，k=1,2 时 x=7π/12, 19π/12，共2次，答案2正确但解析有误。",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案为2，独立计算得2，答案匹配。",
+      "recommendedActionZhHans": "修正解析中的计算错误。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v4-s4-322",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "函数 y=10sin(2x+6π/6) 在 [0,2π] 内取得最大值的次数应为 2，但解析中 x=π(3-6)/12+kπ 计算错误，应为 x=-π/4+kπ，k=1,2 时 x=3π/4, 7π/4，共2次，答案2正确但解析有误。",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案为2，独立计算得2，答案匹配。",
+      "recommendedActionZhHans": "修正解析中的计算错误。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v4-s4-325",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "函数 y=9sin(2x+3π/6) 在 [0,2π] 内取得最大值的次数应为 3，解析中 x=π(3-3)/12+kπ 计算错误，应为 x=0+kπ，k=0,1,2 时 x=0,π,2π，共3次，答案3正确但解析有误。",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "标准答案为3，独立计算得3，答案匹配。",
+      "recommendedActionZhHans": "修正解析中的计算错误。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v4-s4-328",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "函数 y=4sin(2x+10π/6) 在 [0,2π] 内取得最大值的次数应为 2，但解析中 x=π(3-10)/12+kπ 计算错误，应为 x=-7π/12+kπ，k=1,2 时 x=5π/12, 17π/12，共2次，答案2正确但解析有误。",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案为2，独立计算得2，答案匹配。",
+      "recommendedActionZhHans": "修正解析中的计算错误。",
+      "confidence": "high"
+    }
+  ]
+}

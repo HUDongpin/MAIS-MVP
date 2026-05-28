@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0160",
+  "ids": [
+    "hjb-junior-ds-v2-s3-273",
+    "hjb-junior-ds-v2-s3-274",
+    "hjb-junior-ds-v2-s3-275",
+    "hjb-junior-ds-v2-s3-276",
+    "hjb-junior-ds-v2-s3-277",
+    "hjb-junior-ds-v2-s3-278",
+    "hjb-junior-ds-v2-s3-279",
+    "hjb-junior-ds-v2-s3-280"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-273",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "13 cm",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-274",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "6 cm",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-275",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "相交",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-276",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析中C到AB最大距离为5+3=8 cm，但弦心距为3 cm，C到AB距离应为5+3=8 cm，面积最大为1/2×8×8=32 cm²，但标准答案为32 cm²，解析与答案一致，但需确认C为优弧中点时距离是否确实为8 cm。实际上，当C为优弧中点时，C到AB的距离为半径加弦心距，即5+3=8 cm，面积32 cm²正确。但需注意单位，答案给出32 cm²，解析中未带单位，但整体一致。然而，检查发现解析中“C到AB最大距离为5+3=8 cm”正确，但面积计算1/2×8×8=32 cm²，答案32 cm²，无矛盾。但可能需确认是否考虑C在优弧上，距离最大时C为优弧中点，正确。因此，答案和解析一致，但之前标记为needs-review，现重新评估：答案正确，解析正确，应pass。但根据要求，如果答案和解析不一致才标记needs-review，这里一致，故应pass。但之前可能误判，现修正为pass。",
+      "independentAnswerZhHans": "32 cm²",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改，题目正确。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-277",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2<d<8",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-278",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3√3",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-279",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "8",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-280",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "12",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

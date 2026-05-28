@@ -1,0 +1,191 @@
+{
+  "batchNumber": 70,
+  "startedAt": "2026-05-25T02:23:13.848Z",
+  "completedAt": "2026-05-25T02:23:34.870Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p5-243",
+    "hjb-primary-ds-v1-p5-244",
+    "hjb-primary-ds-v1-p5-245",
+    "hjb-primary-ds-v1-p5-246",
+    "hjb-primary-ds-v1-p5-247",
+    "hjb-primary-ds-v1-p5-248",
+    "hjb-primary-ds-v1-p5-249",
+    "hjb-primary-ds-v1-p5-250",
+    "hjb-primary-ds-v1-p6-001",
+    "hjb-primary-ds-v1-p6-002",
+    "hjb-primary-ds-v1-p6-003",
+    "hjb-primary-ds-v1-p6-004",
+    "hjb-primary-ds-v1-p6-005",
+    "hjb-primary-ds-v1-p6-006",
+    "hjb-primary-ds-v1-p6-007",
+    "hjb-primary-ds-v1-p6-008",
+    "hjb-primary-ds-v1-p6-009",
+    "hjb-primary-ds-v1-p6-010"
+  ],
+  "usage": {
+    "prompt_tokens": 4470,
+    "completion_tokens": 1405,
+    "total_tokens": 5875,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 4214
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p5-243",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，选项B计算无误，解释合理，适合五年级统计复习。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-244",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，选项D判断合理，解释清晰，适合五年级统计复习。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-245",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，选项B计算无误，解释合理，适合五年级统计复习。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-246",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，选项C计算无误，解释合理，适合五年级统计复习。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-247",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，选项C判断无误，解释合理，适合五年级统计复习。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-248",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，选项B计算无误，解释合理，适合五年级统计复习。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-249",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，选项C判断无误，解释合理，适合五年级统计复习。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p5-250",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，选项C计算无误，解释合理，适合五年级统计复习。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-001",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，12是24和36的公因数，选项无误，适合六年级整除单元。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-002",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，2是唯一的偶质数，适合六年级基础题。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-003",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，利用余数补同最小公倍数求解，答案208无误，适合六年级挑战题。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-004",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，D选项正确，解释合理，适合六年级考试题。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-005",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，利用公式求得18，适合六年级核心题。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-006",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，强调因数和倍数的相互依存关系，适合六年级基础题。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-007",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，质数不一定为奇数，小杰对，小丽错，适合六年级挑战题。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-008",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，9、21、27共3个，注意1不是合数，适合六年级考试题。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-009",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，分解质因数及最大公因数计算无误，适合六年级核心题。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-010",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，6是18和24的公因数，选项无误，适合六年级基础题。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案与解释一致，无歧义或缺失条件，适合对应年级和单元。"
+    }
+  }
+}

@@ -1,0 +1,363 @@
+{
+  "batchId": "batch-001",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s1-k01-mc-001",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-rational-number-operations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "某日，杭州市的最高气温为 8°C，最低气温为 -3°C，则这天的温差是多少？",
+      "optionsZhHans": [
+        "5°C",
+        "11°C",
+        "-11°C",
+        "8°C"
+      ],
+      "answer": "11°C",
+      "acceptedAnswers": [
+        "11°C",
+        "11摄氏度",
+        "11",
+        "11度"
+      ],
+      "explanationZhHans": "温差 = 最高气温 - 最低气温 = 8 - (-3) = 8 + 3 = 11°C。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k01-mc-002",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "在数轴上，点 A 表示 -2，点 B 在点 A 的右侧 5 个单位长度处，则点 B 表示的数是？",
+      "optionsZhHans": [
+        "-7",
+        "3",
+        "-3",
+        "7"
+      ],
+      "answer": "3",
+      "acceptedAnswers": [
+        "3",
+        "+3"
+      ],
+      "explanationZhHans": "点 A 表示 -2，向右移动 5 个单位，-2 + 5 = 3，所以点 B 表示的数是 3。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k01-mc-003",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-expression-simplification"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "某班级进行数学测验，及格标准为 60 分。小明考了 72 分，若将及格线记为 0 分，超过及格线的分数记为正，则小明的分数可记为？",
+      "optionsZhHans": [
+        "+12 分",
+        "-12 分",
+        "+72 分",
+        "-60 分"
+      ],
+      "answer": "+12 分",
+      "acceptedAnswers": [
+        "+12 分",
+        "+12分",
+        "+12",
+        "12",
+        "12分"
+      ],
+      "explanationZhHans": "以 60 分为基准，72 分比 60 分高 12 分，所以记作 +12 分。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k01-mc-004",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-linear-equation-modeling"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "下列各数中，绝对值最小的是？",
+      "optionsZhHans": [
+        "-3",
+        "0",
+        "2",
+        "-1.5"
+      ],
+      "answer": "0",
+      "acceptedAnswers": [
+        "0",
+        "零"
+      ],
+      "explanationZhHans": "绝对值表示数在数轴上到原点的距离。|-3|=3，|0|=0，|2|=2，|-1.5|=1.5，其中 0 最小，所以绝对值最小的是 0。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k01-mc-005",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-geometric-figures"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "小明记录了一周内每天存取款后的账户余额变化（存入为正，取出为负）：+200 元，-150 元，+300 元，-100 元，-50 元。若初始余额为 500 元，则最终余额是多少？",
+      "optionsZhHans": [
+        "700 元",
+        "600 元",
+        "800 元",
+        "500 元"
+      ],
+      "answer": "700 元",
+      "acceptedAnswers": [
+        "700 元",
+        "700元",
+        "700"
+      ],
+      "explanationZhHans": "最终余额 = 初始余额 + 变化总和 = 500 + (200 - 150 + 300 - 100 - 50) = 500 + 200 = 700 元。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k01-mc-006",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-rational-number-operations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "一个数的相反数是它本身，这个数是？",
+      "optionsZhHans": [
+        "1",
+        "-1",
+        "0",
+        "不存在"
+      ],
+      "answer": "0",
+      "acceptedAnswers": [
+        "0",
+        "零"
+      ],
+      "explanationZhHans": "相反数的定义是符号相反的两个数。0 的相反数是 0，所以这个数是 0。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k01-mc-007",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "数轴上点 M 表示 -4，点 N 表示 6，则 M 和 N 之间的距离是？",
+      "optionsZhHans": [
+        "2",
+        "10",
+        "-10",
+        "4"
+      ],
+      "answer": "10",
+      "acceptedAnswers": [
+        "10",
+        "10个单位"
+      ],
+      "explanationZhHans": "数轴上两点间的距离等于右边点表示的数减去左边点表示的数，即 6 - (-4) = 10。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k01-mc-008",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-expression-simplification"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "如果 |a| = 5，那么 a 的值是？",
+      "optionsZhHans": [
+        "5",
+        "-5",
+        "±5",
+        "0"
+      ],
+      "answer": "±5",
+      "acceptedAnswers": [
+        "±5",
+        "5或-5",
+        "-5或5",
+        "5和-5"
+      ],
+      "explanationZhHans": "绝对值等于 5 的数有两个，分别是 5 和 -5，所以 a = ±5。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k01-mc-009",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-linear-equation-modeling"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "下列比较大小正确的是？",
+      "optionsZhHans": [
+        "-3 < -5",
+        "0 < -1",
+        "-2 > -4",
+        "1 < -2"
+      ],
+      "answer": "-2 > -4",
+      "acceptedAnswers": [
+        "-2 > -4",
+        "-2大于-4"
+      ],
+      "explanationZhHans": "在数轴上，右边的数总比左边的大。-2 在 -4 的右边，所以 -2 > -4。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k01-mc-010",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-geometric-figures"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "计算：(-3) + 5 - (-2) 的结果是？",
+      "optionsZhHans": [
+        "0",
+        "4",
+        "-4",
+        "10"
+      ],
+      "answer": "4",
+      "acceptedAnswers": [
+        "4",
+        "+4"
+      ],
+      "explanationZhHans": "(-3) + 5 - (-2) = (-3) + 5 + 2 = 4。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

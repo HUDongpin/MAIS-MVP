@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-015",
+  "startedAt": "2026-05-28T02:02:07.821Z",
+  "completedAt": "2026-05-28T02:02:13.702Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-015"
+  ],
+  "usage": {
+    "prompt_tokens": 2364,
+    "completion_tokens": 349,
+    "total_tokens": 2713,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1980
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-015",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "3x - 4y - 7.5 = 0 或 6x - 8y - 15 = 0",
+        "correctedAnswer": "3x - 4y - 7.5 = 0 或 6x - 8y - 15 = 0",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合教材范围。独立求解得垂直平分线方程为 3x-4y-7.5=0 或 6x-8y-15=0。提供的答案 3x-4y-7=0 错误，中点 (2.5,0) 代入不成立。解析虽指出错误，但最终答案仍为错误值，且 acceptedAnswers 包含错误答案，导致答案与解析矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "答案错误，解析矛盾，判定为 blocker。"
+    }
+  }
+}

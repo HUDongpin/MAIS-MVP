@@ -1,0 +1,69 @@
+{
+  "batchId": "model-qa-0021",
+  "ids": [
+    "hjb-junior-ds-v2-s3-025",
+    "hjb-junior-ds-v2-s3-037",
+    "hjb-junior-ds-v2-s3-038",
+    "hjb-junior-ds-v2-s3-065",
+    "hjb-junior-ds-v2-s3-080"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-025",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "multiple-correct-options"
+      ],
+      "issueDetailsZhHans": "选项A和C都正确。由DE∥BC得AD/DB=AE/EC=2/3，故A正确；AE/AC=AD/AB=2/5，故C也正确。题目要求选择正确结论，但存在两个正确选项。",
+      "independentAnswerZhHans": "A和C均正确",
+      "answerCheckZhHans": "标准答案仅给出A，但C也正确，因此答案不唯一。",
+      "recommendedActionZhHans": "修改选项，确保只有一个正确选项，或调整题目为多选题。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-037",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "5",
+      "answerCheckZhHans": "标准答案5正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-038",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "6",
+      "answerCheckZhHans": "标准答案6正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-065",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "25",
+      "answerCheckZhHans": "标准答案25正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-080",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "4",
+      "answerCheckZhHans": "标准答案4正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

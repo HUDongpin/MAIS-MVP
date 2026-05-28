@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-066",
+  "startedAt": "2026-05-28T01:12:15.473Z",
+  "completedAt": "2026-05-28T01:12:44.290Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-021",
+    "bnu-high-ds-v1-s5-022",
+    "bnu-high-ds-v1-s5-023",
+    "bnu-high-ds-v1-s5-024",
+    "bnu-high-ds-v1-s5-025",
+    "bnu-high-ds-v1-s5-026",
+    "bnu-high-ds-v1-s5-027",
+    "bnu-high-ds-v1-s5-028"
+  ],
+  "usage": {
+    "prompt_tokens": 10367,
+    "completion_tokens": 1499,
+    "total_tokens": 11866,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9983
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-021",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "x + 2y = 0",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "直线2x - y + 3 = 0的斜率为2，垂直直线斜率乘积为-1，故l的斜率为-1/2。过点P(2, -1)的点斜式方程为y + 1 = -1/2 (x - 2)，化为一般式得x + 2y = 0。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-022",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "0或4/3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "圆C圆心(2,3)，半径r=2。弦长|AB|=2√3，故弦心距d=√(r² - (|AB|/2)²)=1。直线y=kx+1即kx-y+1=0，点(2,3)到直线距离d=|2k-3+1|/√(k²+1)=|2k-2|/√(k²+1)=1。解得k=0或k=4/3。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-023",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "3x + y - 5 = 0",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由两点A(1,2)、B(3,-4)得斜率k=(-4-2)/(3-1)=-3。点斜式y-2=-3(x-1)，化为一般式3x+y-5=0。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-024",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "x - 2y - 3 = 0 或 2x - y - 9 = 0",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "圆C化为标准方程(x-2)²+(y+3)²=25，圆心C(2,-3)，半径r=5。△CMN面积S=1/2·r²·sin∠MCN=4，得sin∠MCN=8/25，弦心距d=r·cos(∠MCN/2)。由cos∠MCN=√(1-sin²)=√(609)/25，半角公式得d=√((1+cos)/2)·r。计算得d=√17或d=2√2。设直线l: y-1=k(x-5)，即kx-y+1-5k=0，点C到直线距离d=|2k+3+1-5k|/√(k²+1)=|4-3k|/√(k²+1)。分别令d=√17和d=2√2，解得k=1/2或k=2。对应直线方程为x-2y-3=0和2x-y-9=0。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-025",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "-2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "两直线平行条件：a(a-1)=3×2且a×1≠1×2（避免重合）。解得a²-a-6=0，a=-2或3。检验a=3时两直线重合，舍去；a=-2时平行。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-026",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(x - 3)² + (y - 3)² = 10",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "设圆心C(a,a)在y=x上，由|CA|=|CB|得(a-2)²+a²=a²+(a-4)²，解得a=3。半径r=|CA|=√((3-2)²+3²)=√10。标准方程(x-3)²+(y-3)²=10。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-027",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "1/5",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "点P(2,3)到直线3x-4y+5=0的距离d=|3×2-4×3+5|/√(3²+(-4)²)=|6-12+5|/5=1/5。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-028",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "[2, 2√2)",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "曲线y=√(4-x²)表示上半圆，圆心(0,0)，半径2。直线y=x+b与上半圆有两个交点，需满足：直线在y轴截距b≥2（过点(-2,0)时b=2），且与圆相切时b=2√2（上半圆切线截距正值）。有两个交点时b∈[2, 2√2)。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，无数学错误、歧义或缺失条件，符合北师大版高中直线与圆章节要求。"
+    }
+  }
+}

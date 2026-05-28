@@ -1,0 +1,586 @@
+{
+  "batchId": "batch-078",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p4-021",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-lines-angles",
+      "unitTitle": "线与角",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "lines-angles",
+        "angle-measurement",
+        "parallel-perpendicular",
+        "线与角",
+        "角度"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "认识线段射线直线",
+        "量角",
+        "画角",
+        "平行垂直",
+        "角的分类"
+      ],
+      "misconceptionTags": [
+        "ray and line segment names mixed",
+        "protractor baseline not aligned",
+        "angle size judged from side length rather than opening"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-lines-angles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-lines-angles-unit",
+        "bnu-primary-p4-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "从一点出发可以画多少条射线？",
+      "optionsZhHans": [],
+      "answer": "无数条",
+      "acceptedAnswers": [
+        "无数条"
+      ],
+      "explanationZhHans": "射线有一个端点，可以向另一端无限延伸。从一点出发，可以向任意方向画射线，因此可以画无数条。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-022",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-lines-angles",
+      "unitTitle": "线与角",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "lines-angles",
+        "angle-measurement",
+        "parallel-perpendicular",
+        "线与角",
+        "角度"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "认识线段射线直线",
+        "量角",
+        "画角",
+        "平行垂直",
+        "角的分类"
+      ],
+      "misconceptionTags": [
+        "ray and line segment names mixed",
+        "protractor baseline not aligned",
+        "angle size judged from side length rather than opening"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-lines-angles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-lines-angles-unit",
+        "bnu-primary-p4-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪句话是正确的？A. 线段有两个端点，射线只有一个端点，直线没有端点。B. 角的大小与边的长短有关，边越长角越大。C. 用三角尺可以量出所有角的度数。D. 两条直线不相交就一定平行。",
+      "optionsZhHans": [
+        "A. 线段有两个端点，射线只有一个端点，直线没有端点。",
+        "B. 角的大小与边的长短有关，边越长角越大。",
+        "C. 用三角尺可以量出所有角的度数。",
+        "D. 两条直线不相交就一定平行。"
+      ],
+      "answer": "A. 线段有两个端点，射线只有一个端点，直线没有端点。",
+      "acceptedAnswers": [
+        "A. 线段有两个端点，射线只有一个端点，直线没有端点。"
+      ],
+      "explanationZhHans": "A正确，线段有两个端点，射线有一个端点，直线没有端点。B错误，角的大小由两边张开的程度决定，与边的长短无关。C错误，三角尺只能量特定角度，量角要用量角器。D错误，在空间中，两条直线不相交也可能不平行（异面直线），但在同一平面内不相交才平行，这里未说明同一平面，所以说法不严谨。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-023",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-lines-angles",
+      "unitTitle": "线与角",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "lines-angles",
+        "angle-measurement",
+        "parallel-perpendicular",
+        "线与角",
+        "角度"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "认识线段射线直线",
+        "量角",
+        "画角",
+        "平行垂直",
+        "角的分类"
+      ],
+      "misconceptionTags": [
+        "ray and line segment names mixed",
+        "protractor baseline not aligned",
+        "angle size judged from side length rather than opening"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-lines-angles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-lines-angles-unit",
+        "bnu-primary-p4-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小亮用量角器量一个角时，把量角器的中心和角的顶点重合，0°刻度线和角的一条边重合，他看另一条边指着内圈刻度125°。小亮说这个角是125°。小丽说：“不对，你量角的时候把量角器放反了，应该看外圈刻度。”这个角实际是多少度？它属于什么角？",
+      "optionsZhHans": [],
+      "answer": "55°，锐角",
+      "acceptedAnswers": [
+        "55°，锐角",
+        "55度，锐角",
+        "55° 锐角",
+        "55度 锐角"
+      ],
+      "explanationZhHans": "量角器内外圈刻度之和为180°。小亮误读了内圈125°，实际应看外圈刻度：180°-125°=55°。55°小于90°，所以是锐角。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-024",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-lines-angles",
+      "unitTitle": "线与角",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "lines-angles",
+        "angle-measurement",
+        "parallel-perpendicular",
+        "线与角",
+        "角度"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "认识线段射线直线",
+        "量角",
+        "画角",
+        "平行垂直",
+        "角的分类"
+      ],
+      "misconceptionTags": [
+        "ray and line segment names mixed",
+        "protractor baseline not aligned",
+        "angle size judged from side length rather than opening"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-lines-angles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-lines-angles-unit",
+        "bnu-primary-p4-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小华在练习量角时，用量角器测量一个角，他这样描述操作过程：把角的顶点与量角器的中心点重合，角的一条边与量角器的0°刻度线重合，然后看角的另一条边指向的刻度。他测量后说这个角是70°。小红检查后发现，小华在读数时把量角器的内圈刻度和外圈刻度看反了。请问这个角正确的度数是多少度？",
+      "optionsZhHans": [],
+      "answer": "110°",
+      "acceptedAnswers": [
+        "110°",
+        "110度"
+      ],
+      "explanationZhHans": "小华误读为70°，看反内外圈刻度。量角器上同一位置内外圈刻度之和为180°，所以正确度数是180°－70°＝110°。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-025",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-lines-angles",
+      "unitTitle": "线与角",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "lines-angles",
+        "angle-measurement",
+        "parallel-perpendicular",
+        "线与角",
+        "角度"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "认识线段射线直线",
+        "量角",
+        "画角",
+        "平行垂直",
+        "角的分类"
+      ],
+      "misconceptionTags": [
+        "ray and line segment names mixed",
+        "protractor baseline not aligned",
+        "angle size judged from side length rather than opening"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-lines-angles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-lines-angles-unit",
+        "bnu-primary-p4-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面关于线段、射线和直线的说法，哪一项是正确的？",
+      "optionsZhHans": [
+        "线段有两个端点，可以量出长度",
+        "射线有一个端点，可以量出长度",
+        "直线没有端点，可以量出长度",
+        "线段和射线都是无限长的"
+      ],
+      "answer": "线段有两个端点，可以量出长度",
+      "acceptedAnswers": [
+        "线段有两个端点，可以量出长度"
+      ],
+      "explanationZhHans": "线段有两个端点，长度有限，可以测量；射线只有一个端点，另一端无限延伸，不能测量长度；直线没有端点，两端无限延伸，也不能测量长度。因此只有第一项正确。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-026",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-lines-angles",
+      "unitTitle": "线与角",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "lines-angles",
+        "angle-measurement",
+        "parallel-perpendicular",
+        "线与角",
+        "角度"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "认识线段射线直线",
+        "量角",
+        "画角",
+        "平行垂直",
+        "角的分类"
+      ],
+      "misconceptionTags": [
+        "ray and line segment names mixed",
+        "protractor baseline not aligned",
+        "angle size judged from side length rather than opening"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-lines-angles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-lines-angles-unit",
+        "bnu-primary-p4-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一条线段的一个端点是A，从A出发向一个方向无限延长，得到的图形是什么？",
+      "optionsZhHans": [],
+      "answer": "射线",
+      "acceptedAnswers": [
+        "射线"
+      ],
+      "explanationZhHans": "线段有两个端点，从其中一个端点向一个方向无限延长，就得到一个端点和无限延伸的部分，这样的图形叫作射线。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-027",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-lines-angles",
+      "unitTitle": "线与角",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "lines-angles",
+        "angle-measurement",
+        "parallel-perpendicular",
+        "线与角",
+        "角度"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "认识线段射线直线",
+        "量角",
+        "画角",
+        "平行垂直",
+        "角的分类"
+      ],
+      "misconceptionTags": [
+        "ray and line segment names mixed",
+        "protractor baseline not aligned",
+        "angle size judged from side length rather than opening"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-lines-angles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-lines-angles-unit",
+        "bnu-primary-p4-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小华画了一个角，他用量角器测量时，将量角器的中心与角的顶点重合，0°刻度线与角的一条边重合，然后从0°开始数起，看到角的另一条边指向内圈刻度135°。小华说这个角是135°。小红用同样的方法测量同一个角，但她将0°刻度线与角的同一条边重合后，从0°开始数起，看到另一条边指向外圈刻度45°。小红说这个角是45°。请问这个角的实际度数是多少？请说明理由。",
+      "optionsZhHans": [],
+      "answer": "135°",
+      "acceptedAnswers": [
+        "135°",
+        "135度",
+        "135"
+      ],
+      "explanationZhHans": "小华使用内圈刻度读得135°，小红使用外圈刻度读得45°。因为量角器上内圈和外圈刻度之和为180°，且角的开口方向决定使用哪一圈。从测量过程可知，角的实际大小应以正确使用的那一圈读数为准。小华从0°开始沿内圈数到135°，说明角的一条边与0°刻度线重合，另一条边指向135°，这个角是135°。小红误读了外圈刻度，所以45°是错误的。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-028",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-lines-angles",
+      "unitTitle": "线与角",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "lines-angles",
+        "angle-measurement",
+        "parallel-perpendicular",
+        "线与角",
+        "角度"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "认识线段射线直线",
+        "量角",
+        "画角",
+        "平行垂直",
+        "角的分类"
+      ],
+      "misconceptionTags": [
+        "ray and line segment names mixed",
+        "protractor baseline not aligned",
+        "angle size judged from side length rather than opening"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-lines-angles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-lines-angles-unit",
+        "bnu-primary-p4-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪条射线与射线BA是同一条射线？\nA. 射线AB\nB. 射线BC\nC. 射线BD\nD. 射线BE",
+      "optionsZhHans": [
+        "射线AC",
+        "射线BA",
+        "射线BC",
+        "射线CA"
+      ],
+      "answer": "射线AC",
+      "acceptedAnswers": [
+        "射线AC"
+      ],
+      "explanationZhHans": "射线AB的端点是A，经过B向右延伸；射线AC的端点是A，经过C向右延伸。因为B和C都在A的右侧，所以它们的方向相同，表示同一条射线。射线BA端点是B，方向向左；射线BC端点是B，方向向右；射线CA端点是C，方向向左，均不同。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-029",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-lines-angles",
+      "unitTitle": "线与角",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "lines-angles",
+        "angle-measurement",
+        "parallel-perpendicular",
+        "线与角",
+        "角度"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "认识线段射线直线",
+        "量角",
+        "画角",
+        "平行垂直",
+        "角的分类"
+      ],
+      "misconceptionTags": [
+        "ray and line segment names mixed",
+        "protractor baseline not aligned",
+        "angle size judged from side length rather than opening"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-lines-angles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-lines-angles-unit",
+        "bnu-primary-p4-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "从一点出发可以画（ ）条射线；经过两点可以画（ ）条直线。",
+      "optionsZhHans": [],
+      "answer": "无数；一",
+      "acceptedAnswers": [
+        "无数；一",
+        "无数;一",
+        "无数,一",
+        "无数 一",
+        "无数条；一条",
+        "无数条;一条",
+        "无数条,一条",
+        "无数条 一条"
+      ],
+      "explanationZhHans": "从一点出发可以向任意方向画射线，因此可以画无数条射线。经过两点只能确定一条直线，所以只能画一条直线。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-030",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-lines-angles",
+      "unitTitle": "线与角",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "lines-angles",
+        "angle-measurement",
+        "parallel-perpendicular",
+        "线与角",
+        "角度"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "认识线段射线直线",
+        "量角",
+        "画角",
+        "平行垂直",
+        "角的分类"
+      ],
+      "misconceptionTags": [
+        "ray and line segment names mixed",
+        "protractor baseline not aligned",
+        "angle size judged from side length rather than opening"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-lines-angles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-lines-angles-unit",
+        "bnu-primary-p4-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小华在纸上画了一个角，用量角器测量时，他先把量角器的中心点对准角的顶点，再把量角器的0°刻度线与角的一条边重合，然后观察另一条边指向量角器内圈刻度65°。请问这个角是多少度？它属于哪一类角？",
+      "optionsZhHans": [],
+      "answer": "65°，锐角",
+      "acceptedAnswers": [
+        "65°，锐角",
+        "65度，锐角",
+        "65° 锐角",
+        "65度 锐角"
+      ],
+      "explanationZhHans": "量角器内圈刻度65°即为角的度数。65°小于90°，所以是锐角。"
+    }
+  ]
+}

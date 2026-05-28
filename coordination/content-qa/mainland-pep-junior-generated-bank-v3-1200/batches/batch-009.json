@@ -1,0 +1,352 @@
+{
+  "batchId": "batch-009",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s1-k02-mc-013",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "学校组织七年级学生去科技馆参观，共有学生 240 人，计划租用 A、B 两种型号的大巴车。每辆 A 型车可坐 45 人，每辆 B 型车可坐 30 人。若租用 6 辆车恰好全部坐满，则租用 A 型车的数量为多少辆？",
+      "optionsZhHans": [
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "answer": "4",
+      "acceptedAnswers": [
+        "4",
+        "四",
+        "4辆"
+      ],
+      "explanationZhHans": "设租用 A 型车 x 辆，则 B 型车为 (6−x) 辆。根据总人数列方程：45x + 30(6−x) = 240。解得 x = 4。因此租用 A 型车 4 辆。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-mc-014",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-rational-number-operations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "已知关于 x 的方程 2(x − 1) + 3a = 5 的解是 x = 4，则 a 的值为多少？",
+      "optionsZhHans": [
+        "−1",
+        "0",
+        "1",
+        "2"
+      ],
+      "answer": "−1",
+      "acceptedAnswers": [
+        "−1",
+        "-1",
+        "负1"
+      ],
+      "explanationZhHans": "将 x = 4 代入方程得 2(4 − 1) + 3a = 5，即 6 + 3a = 5，解得 a = −1。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-mc-015",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-geometric-figures"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "一个两位数，十位上的数字比个位上的数字大 3。若将十位与个位上的数字交换，所得的新数比原数小 27。设原数个位上的数字为 x，则十位上的数字为 x+3。根据题意可列方程：",
+      "optionsZhHans": [
+        "10(x+3) + x − [10x + (x+3)] = 27",
+        "[10x + (x+3)] − 10(x+3) + x = 27",
+        "10(x+3) + x = 10x + (x+3) − 27",
+        "10x + (x+3) = 10(x+3) + x − 27"
+      ],
+      "answer": "10(x+3) + x = 10x + (x+3) − 27",
+      "acceptedAnswers": [
+        "10(x+3) + x = 10x + (x+3) − 27"
+      ],
+      "explanationZhHans": "原数为 10(x+3) + x，新数为 10x + (x+3)。根据新数比原数小 27，得方程 10(x+3) + x = 10x + (x+3) − 27。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-mc-016",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-expression-simplification"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "某商店将进价为 80 元/件的商品按标价的 8 折出售，仍可获利 20%。若该商品的标价为 x 元，则下列方程正确的是：",
+      "optionsZhHans": [
+        "0.8x − 80 = 80 × 20%",
+        "0.8x = 80 × 20%",
+        "80 − 0.8x = 80 × 20%",
+        "0.8x − 80 = 80 ÷ 20%"
+      ],
+      "answer": "0.8x − 80 = 80 × 20%",
+      "acceptedAnswers": [
+        "0.8x − 80 = 80 × 20%"
+      ],
+      "explanationZhHans": "售价为 0.8x 元，利润为售价减去进价，即 0.8x − 80。获利 20% 指利润是进价的 20%，所以 0.8x − 80 = 80 × 20%。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-mc-017",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-linear-equation-modeling"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "一项工程，甲单独做需要 12 天完成，乙单独做需要 18 天完成。若甲、乙合作若干天后，乙因故离开，甲又单独做了 2 天才完成全部工程。设乙工作了 x 天，则下列方程正确的是：",
+      "optionsZhHans": [
+        "(1/12 + 1/18)x + 1/12 × 2 = 1",
+        "1/12 x + 1/18 × 2 = 1",
+        "(1/12 + 1/18) × 2 + 1/12 x = 1",
+        "1/12 (x+2) + 1/18 x = 1"
+      ],
+      "answer": "1/12 (x+2) + 1/18 x = 1",
+      "acceptedAnswers": [
+        "1/12 (x+2) + 1/18 x = 1",
+        "(x+2)/12 + x/18 = 1"
+      ],
+      "explanationZhHans": "甲的工作效率为 1/12，乙的工作效率为 1/18。甲工作了 (x+2) 天，乙工作了 x 天。根据总工作量为 1，得方程 1/12 (x+2) + 1/18 x = 1。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-mc-018",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "已知代数式 3x² − 2x + 1 的值为 5，则代数式 6x² − 4x − 3 的值为多少？",
+      "optionsZhHans": [
+        "5",
+        "7",
+        "9",
+        "11"
+      ],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5",
+        "五"
+      ],
+      "explanationZhHans": "由 3x² − 2x + 1 = 5 得 3x² − 2x = 4。所求代数式 6x² − 4x − 3 = 2(3x² − 2x) − 3 = 2×4 − 3 = 5。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-mc-019",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-rational-number-operations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "某校七年级学生进行两次数学测验，第一次及格人数比不及格人数的 3 倍多 4 人，第二次及格人数增加了 5 人，正好是不及格人数的 6 倍。设第一次不及格人数为 x 人，则第一次及格人数为 (3x+4) 人。根据第二次情况可列方程：",
+      "optionsZhHans": [
+        "3x+4+5 = 6(x−5)",
+        "3x+4+5 = 6x",
+        "3x+4 = 6(x−5)",
+        "3x+4+5 = 6(x+5)"
+      ],
+      "answer": "3x+4+5 = 6(x−5)",
+      "acceptedAnswers": [
+        "3x+4+5 = 6(x−5)"
+      ],
+      "explanationZhHans": "第二次及格人数为 (3x+4)+5，第二次不及格人数为 x−5。根据第二次及格人数是不及格人数的 6 倍，得方程 3x+4+5 = 6(x−5)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-mc-020",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-geometric-figures"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "一个长方形的周长是 36 cm，若长减少 2 cm，宽增加 2 cm，就变成了一个正方形。设原长方形的长为 x cm，则宽为 (18−x) cm。根据题意可列方程：",
+      "optionsZhHans": [
+        "x−2 = 18−x+2",
+        "x−2 = 18−x−2",
+        "x+2 = 18−x−2",
+        "x+2 = 18−x+2"
+      ],
+      "answer": "x−2 = 18−x+2",
+      "acceptedAnswers": [
+        "x−2 = 18−x+2"
+      ],
+      "explanationZhHans": "由周长 36 cm 得长+宽=18，宽为 18−x。变化后长为 x−2，宽为 (18−x)+2。变成正方形时长宽相等，所以 x−2 = 18−x+2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-mc-021",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-expression-simplification"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "已知关于 x 的方程 4x − 3m = 2x + 6 的解是正数，则 m 的取值范围是：",
+      "optionsZhHans": [
+        "m > −2",
+        "m < −2",
+        "m > 2",
+        "m < 2"
+      ],
+      "answer": "m > −2",
+      "acceptedAnswers": [
+        "m > −2",
+        "m>-2"
+      ],
+      "explanationZhHans": "解方程得 2x = 3m + 6，x = (3m+6)/2。由 x > 0 得 3m+6 > 0，解得 m > −2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k02-mc-022",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-linear-equation-modeling"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "某商店销售一种成本为 40 元/千克的食品，若按 50 元/千克销售，一个月可售出 500 千克。销售单价每涨 1 元，月销售量就减少 10 千克。设销售单价为 x 元/千克，则月销售利润为 y 元。下列 y 与 x 的关系式正确的是：",
+      "optionsZhHans": [
+        "y = (x−40)[500−10(x−50)]",
+        "y = (x−40)(500−10x)",
+        "y = (x−40)[500+10(x−50)]",
+        "y = (x−40)(500+10x)"
+      ],
+      "answer": "y = (x−40)[500−10(x−50)]",
+      "acceptedAnswers": [
+        "y = (x−40)[500−10(x−50)]"
+      ],
+      "explanationZhHans": "每千克利润为 (x−40) 元。单价涨了 (x−50) 元，销售量减少 10(x−50) 千克，实际销售量为 500−10(x−50) 千克。所以利润 y = (x−40)[500−10(x−50)]。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

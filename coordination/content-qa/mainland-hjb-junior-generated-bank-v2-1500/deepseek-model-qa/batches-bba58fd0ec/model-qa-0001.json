@@ -1,0 +1,64 @@
+{
+  "batchId": "model-qa-0001",
+  "ids": [
+    "hjb-junior-ds-v2-s2-197",
+    "hjb-junior-ds-v2-s2-198",
+    "hjb-junior-ds-v2-s2-199",
+    "hjb-junior-ds-v2-s2-200"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-197",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案给出 AD=√(60)/2，但解析中计算得 AD=√45=3√5，两者不一致。√(60)/2 = √15 ≈ 3.873，而 3√5 ≈ 6.708，显然不同。根据题干条件，三角形为直角三角形，∠C=90°，由角平分线性质得 BD=5, CD=3，在 Rt△ACD 中 AD=√(6²+3²)=√45=3√5，因此正确答案应为 3√5 或 √45。标准答案错误，解析与答案矛盾。",
+      "independentAnswerZhHans": "是，AD=3√5",
+      "answerCheckZhHans": "标准答案 AD=√(60)/2 错误，正确为 AD=3√5。",
+      "recommendedActionZhHans": "修正答案为“是，AD=3√5”或“是，AD=√45”，并更新 acceptedAnswers 和解析。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-198",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案和解析中计算 DE=84/11，但面积计算有误。海伦公式计算 S△ABC=√(27×14×7×6)=√15876，而 15876=126²，所以面积应为 126。但 27×14×7×6=15876，开方得 126，正确。然而，由面积法：(1/2)(13+20)DE=126，得 DE=252/33=84/11≈7.636。但需验证：BD=7，CD=14，在△ABD中，由余弦定理求 cos∠BAD，但 AD 未知。另一种方法：利用角平分线长公式 AD²=AB·AC-BD·CD=13×20-7×14=260-98=162，AD=√162=9√2。再在△ABD中，由面积 S△ABD=(1/2)·AB·DE=(1/2)·13·DE，也可用海伦公式求 S△ABD：半周长 s=(13+7+9√2)/2，计算复杂。但已知 S△ABC=126，且 S△ABD:S△ACD=BD:CD=7:14=1:2，所以 S△ABD=42，S△ACD=84。由 S△ABD=(1/2)·13·DE=42，得 DE=84/13≈6.4615，与 84/11 矛盾。因此，标准答案 DE=84/11 错误，正确应为 DE=84/13。解析中面积和方程错误，未正确分配面积比例。",
+      "independentAnswerZhHans": "证明：略。DE=84/13",
+      "answerCheckZhHans": "标准答案 DE=84/11 错误，正确为 DE=84/13。",
+      "recommendedActionZhHans": "修正答案为 DE=84/13，并更新解析和 acceptedAnswers。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-199",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案选择“△ABC是直角三角形，且AD=√(65)”，但解析中计算 AD²=325/9，AD=√(325/9)=√325/3=5√13/3，并非 √65。√65=√(65)，而 5√13/3≈6.0，√65≈8.06，两者不等。解析中错误地将 √(325/9) 化简为 √65，实际应为 (5√13)/3。正确计算：AB=5, BC=12, AC=13，满足勾股定理，∠B=90°。BD:DC=AB:AC=5:13，BD=5/18×12=10/3。在 Rt△ABD 中，AD²=AB²+BD²=25+100/9=325/9，AD=√(325/9)=√325/3=5√13/3。因此，所有选项均不正确。",
+      "independentAnswerZhHans": "△ABC是直角三角形，且AD=5√13/3",
+      "answerCheckZhHans": "标准答案 AD=√(65) 错误，正确为 AD=5√13/3。",
+      "recommendedActionZhHans": "修正选项和答案，或修改题目数据使答案合理。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-200",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "标准答案 3 正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

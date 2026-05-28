@@ -1,0 +1,137 @@
+{
+  "batchNumber": 23,
+  "startedAt": "2026-05-25T02:52:23.859Z",
+  "completedAt": "2026-05-25T02:52:40.287Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s1-k04-fi-031",
+    "pep-junior-v3-s1-k04-fi-032",
+    "pep-junior-v3-s1-k04-fi-033",
+    "pep-junior-v3-s1-k04-sa-001",
+    "pep-junior-v3-s1-k04-sa-002",
+    "pep-junior-v3-s1-k04-sa-003",
+    "pep-junior-v3-s1-k04-sa-004",
+    "pep-junior-v3-s1-k04-sa-005",
+    "pep-junior-v3-s1-k04-sa-006",
+    "pep-junior-v3-s1-k04-sa-007",
+    "pep-junior-v3-s1-k04-sa-008",
+    "pep-junior-v3-s1-k04-sa-009"
+  ],
+  "usage": {
+    "prompt_tokens": 3995,
+    "completion_tokens": 926,
+    "total_tokens": 4921,
+    "prompt_tokens_details": {
+      "cached_tokens": 3968
+    },
+    "prompt_cache_hit_tokens": 3968,
+    "prompt_cache_miss_tokens": 27
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s1-k04-fi-031",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解析一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-fi-032",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "中点公式应用正确，答案与解析一致，接受多种格式。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-fi-033",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程组求解正确，a+b=4无误。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-sa-001",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移坐标计算正确，规律说明清晰。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-sa-002",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平行线同旁内角互补，计算正确。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-sa-003",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方案比较正确，最少花费800元。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-sa-004",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移后坐标(7,-1)，第四象限判断正确。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-sa-005",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "移动后坐标与学校重合，理由充分。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-sa-006",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "第二象限距离坐标转换正确。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-sa-007",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移后落在x轴，b=-3正确。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-sa-008",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移不改变长度，AB=4正确。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k04-sa-009",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "同旁内角不互补，判断不平行正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部12道题数学正确，答案与解析一致，无歧义或缺失条件，适合人教版初中数学。"
+    }
+  }
+}

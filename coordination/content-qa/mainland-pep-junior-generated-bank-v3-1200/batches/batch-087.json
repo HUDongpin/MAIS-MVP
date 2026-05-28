@@ -1,0 +1,340 @@
+{
+  "batchId": "batch-087",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s3-k10-mc-061",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions"
+      ],
+      "promptZhHans": "已知关于x的一元二次方程 x² + kx + 4 = 0 有两个相等的实数根，则k的值为（ ）",
+      "optionsZhHans": [
+        "4",
+        "－4",
+        "±4",
+        "0"
+      ],
+      "answer": "±4",
+      "acceptedAnswers": [
+        "±4",
+        "4或-4",
+        "-4或4"
+      ],
+      "explanationZhHans": "由一元二次方程有两个相等的实数根，得判别式 Δ = 0。这里 Δ = k² － 4×1×4 = k² － 16。令 k² － 16 = 0，解得 k² = 16，所以 k = ±4。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-062",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-quadratic-equations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-circle-geometry"
+      ],
+      "promptZhHans": "在⊙O中，弦AB的长为8，圆心O到AB的距离为3，则⊙O的半径为（ ）",
+      "optionsZhHans": [
+        "4",
+        "5",
+        "6",
+        "7"
+      ],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5"
+      ],
+      "explanationZhHans": "过点O作OC⊥AB于点C，则AC = BC = 4。在Rt△AOC中，OA² = OC² + AC² = 3² + 4² = 25，所以半径OA = 5。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-063",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-quadratic-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "一个不透明的袋子里装有2个红球和3个白球，它们除颜色外完全相同。从袋子里随机摸出两个球，摸出的两个球都是红球的概率是（ ）",
+      "optionsZhHans": [
+        "1/10",
+        "1/5",
+        "3/10",
+        "2/5"
+      ],
+      "answer": "1/10",
+      "acceptedAnswers": [
+        "1/10",
+        "0.1"
+      ],
+      "explanationZhHans": "从5个球中任取2个，共有10种等可能的结果。其中两个球都是红球的结果只有1种，所以概率为 1/10。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-064",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-circle-geometry"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "promptZhHans": "在平面直角坐标系中，将点A(2, 3)绕原点逆时针旋转90°，得到点B，则点B的坐标为（ ）",
+      "optionsZhHans": [
+        "(3, 2)",
+        "(－3, 2)",
+        "(－2, 3)",
+        "(3, －2)"
+      ],
+      "answer": "(－3, 2)",
+      "acceptedAnswers": [
+        "(－3, 2)",
+        "(-3,2)",
+        "(-3, 2)"
+      ],
+      "explanationZhHans": "点(x, y)绕原点逆时针旋转90°后坐标为(－y, x)。所以A(2, 3)旋转后为(－3, 2)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-065",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-probability-introduction"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "二次函数y=-2(x+1)²-3的顶点坐标为（ ）",
+      "optionsZhHans": [
+        "(1, －3)",
+        "(－1, 3)",
+        "(－1, －3)",
+        "(1, 3)"
+      ],
+      "answer": "(－1, －3)",
+      "acceptedAnswers": [
+        "(－1, －3)",
+        "(-1,-3)",
+        "(-1, -3)"
+      ],
+      "explanationZhHans": "二次函数 y = a(x － h)² + k 的顶点为(h, k)。将 y = －2(x + 1)² － 3 写成 y = －2[x － (－1)]² + (－3)，得顶点为(－1, －3)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-066",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-rotation-transformations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models"
+      ],
+      "promptZhHans": "反比例函数 y = (k－1)/x 的图象在每一象限内，y随x的增大而增大，则k的取值范围是（ ）",
+      "optionsZhHans": [
+        "k > 1",
+        "k < 1",
+        "k ≥ 1",
+        "k ≤ 1"
+      ],
+      "answer": "k < 1",
+      "acceptedAnswers": [
+        "k < 1",
+        "k<1"
+      ],
+      "explanationZhHans": "反比例函数 y = m/x，当 m < 0 时，在每一象限内y随x的增大而增大。这里 m = k－1，所以 k－1 < 0，即 k < 1。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-067",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "在实数√4、3.14、π/2、0.1010010001中，无理数是（ ）",
+      "optionsZhHans": [
+        "√4",
+        "3.14",
+        "π/2",
+        "0.1010010001"
+      ],
+      "answer": "π/2",
+      "acceptedAnswers": [
+        "π/2",
+        "π÷2"
+      ],
+      "explanationZhHans": "√4 = 2，是有理数；3.14是有限小数，是有理数；0.1010010001是有限小数，是有理数；π是无理数，所以 π/2 也是无理数。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-fi-001",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions"
+      ],
+      "promptZhHans": "一元二次方程 2x² － 3x － 1 = 0 的根的判别式的值是______。",
+      "optionsZhHans": [],
+      "answer": "17",
+      "acceptedAnswers": [
+        "17"
+      ],
+      "explanationZhHans": "对于方程 2x² － 3x － 1 = 0，a = 2，b = －3，c = －1。判别式 Δ = b² － 4ac = (－3)² － 4×2×(－1) = 9 + 8 = 17。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-fi-002",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-quadratic-equations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-circle-geometry"
+      ],
+      "promptZhHans": "在半径为5的⊙O中，一条弦的弦心距为4，则该弦的长为______。",
+      "optionsZhHans": [],
+      "answer": "6",
+      "acceptedAnswers": [
+        "6"
+      ],
+      "explanationZhHans": "设弦为AB，弦心距OC = 4，半径OA = 5。在Rt△AOC中，AC = √(OA² － OC²) = √(25 － 16) = 3，所以 AB = 2AC = 6。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-fi-003",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-quadratic-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "将二次函数 y = x² － 4x + 1 化为 y = (x － h)² + k 的形式，则 h + k = ______。",
+      "optionsZhHans": [],
+      "answer": "－1",
+      "acceptedAnswers": [
+        "－1",
+        "-1"
+      ],
+      "explanationZhHans": "y = x² － 4x + 1 = (x² － 4x + 4) － 4 + 1 = (x － 2)² － 3，所以 h = 2，k = －3，h + k = 2 + (－3) = －1。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

@@ -1,0 +1,191 @@
+{
+  "batchNumber": 45,
+  "startedAt": "2026-05-27T13:28:25.774Z",
+  "completedAt": "2026-05-27T13:28:43.924Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p4-043",
+    "bnu-primary-ds-v1-p4-044",
+    "bnu-primary-ds-v1-p4-045",
+    "bnu-primary-ds-v1-p4-046",
+    "bnu-primary-ds-v1-p4-047",
+    "bnu-primary-ds-v1-p4-048",
+    "bnu-primary-ds-v1-p4-049",
+    "bnu-primary-ds-v1-p4-050",
+    "bnu-primary-ds-v1-p4-051",
+    "bnu-primary-ds-v1-p4-052",
+    "bnu-primary-ds-v1-p4-053",
+    "bnu-primary-ds-v1-p4-054",
+    "bnu-primary-ds-v1-p4-055",
+    "bnu-primary-ds-v1-p4-056",
+    "bnu-primary-ds-v1-p4-057",
+    "bnu-primary-ds-v1-p4-058",
+    "bnu-primary-ds-v1-p4-059",
+    "bnu-primary-ds-v1-p4-060"
+  ],
+  "usage": {
+    "prompt_tokens": 4706,
+    "completion_tokens": 1309,
+    "total_tokens": 6015,
+    "prompt_tokens_details": {
+      "cached_tokens": 4608
+    },
+    "prompt_cache_hit_tokens": 4608,
+    "prompt_cache_miss_tokens": 98
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p4-043",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目合理，估算方法比较清晰，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-044",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案2400元，符合要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-045",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估算和精确计算均正确，答案覆盖多种合理表述。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-046",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估算方法合理，选项C正确，其他选项有明显错误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-047",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估算和精确计算均正确，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-048",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估算和实际计算正确，答案覆盖多种表述。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-049",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项B正确运用乘法分配律，其他选项错误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-050",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "等式运用乘法交换律，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-051",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "运用乘法结合律，解释合理，答案覆盖多种表述。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-052",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项B正确运用乘法分配律，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-053",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "运用加法交换律和结合律，填36正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-054",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "两种方法分别运用结合律和分配律，比较合理，答案覆盖多种表述。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-055",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项B正确运用加法结合律，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-056",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "乘法分配律逆用，填26和14正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-057",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "运用乘法分配律，解释合理，答案覆盖多种表述。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-058",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项C正确运用乘法分配律，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-059",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "运用乘法交换律和结合律，填125正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-060",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "运用乘法结合律，解释合理，答案覆盖多种表述。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版小学数学要求，数学正确，答案匹配，无歧义或缺失条件。"
+    }
+  }
+}

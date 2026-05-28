@@ -1,0 +1,26 @@
+{
+  "generatedAt": "2026-05-24T06:36:41.810Z",
+  "packageId": "mainland-hjb-high-lessons-v1",
+  "verdict": "BLOCKED",
+  "lessonCount": 21,
+  "gradeCounts": {
+    "S4": 9,
+    "S5": 8,
+    "S6": 4
+  },
+  "volumeCounts": {
+    "必修 第一册": 5,
+    "必修 第二册": 4,
+    "必修 第三册": 4,
+    "选择性必修 第一册": 4,
+    "选择性必修 第二册": 4
+  },
+  "validationReportStatus": "passed",
+  "blockers": [
+    "HJB Lesson seeds must consume the approved lesson pack JSON",
+    "HJB Lesson seeds must not import generated question-bank data"
+  ],
+  "warnings": [],
+  "teacherSignoff": "pending-independent-teacher-review",
+  "questionBankGate": "no Mainland HJB generated questions imported by data/questions.ts or HJB lesson seeds"
+}

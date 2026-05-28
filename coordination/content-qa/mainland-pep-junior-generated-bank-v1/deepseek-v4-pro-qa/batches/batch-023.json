@@ -1,0 +1,191 @@
+{
+  "batchNumber": 23,
+  "startedAt": "2026-05-24T17:29:13.795Z",
+  "completedAt": "2026-05-24T17:29:31.813Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-candidate-k05-sa-015",
+    "pep-junior-candidate-k05-sa-016",
+    "pep-junior-candidate-k05-sa-017",
+    "pep-junior-candidate-k05-sa-018",
+    "pep-junior-candidate-k05-sa-019",
+    "pep-junior-candidate-k05-sa-020",
+    "pep-junior-candidate-k05-sa-021",
+    "pep-junior-candidate-k05-sa-022",
+    "pep-junior-candidate-k05-sa-023",
+    "pep-junior-candidate-k05-sa-024",
+    "pep-junior-candidate-k05-sa-025",
+    "pep-junior-candidate-k05-sa-026",
+    "pep-junior-candidate-k05-sa-027",
+    "pep-junior-candidate-k06-mc-001",
+    "pep-junior-candidate-k06-mc-002",
+    "pep-junior-candidate-k06-mc-003",
+    "pep-junior-candidate-k06-mc-004",
+    "pep-junior-candidate-k06-mc-005"
+  ],
+  "usage": {
+    "prompt_tokens": 2737,
+    "completion_tokens": 1274,
+    "total_tokens": 4011,
+    "prompt_tokens_details": {
+      "cached_tokens": 2688
+    },
+    "prompt_cache_hit_tokens": 2688,
+    "prompt_cache_miss_tokens": 49
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-candidate-k05-sa-015",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，平均数计算无误，适合七年级下数据初步。"
+      },
+      {
+        "id": "pep-junior-candidate-k05-sa-016",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，平均数计算无误。"
+      },
+      {
+        "id": "pep-junior-candidate-k05-sa-017",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，平均数计算无误。"
+      },
+      {
+        "id": "pep-junior-candidate-k05-sa-018",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，平均数计算无误。"
+      },
+      {
+        "id": "pep-junior-candidate-k05-sa-019",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，平均数计算无误。"
+      },
+      {
+        "id": "pep-junior-candidate-k05-sa-020",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，平均数计算无误。"
+      },
+      {
+        "id": "pep-junior-candidate-k05-sa-021",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，平均数计算无误。"
+      },
+      {
+        "id": "pep-junior-candidate-k05-sa-022",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，平均数计算无误。"
+      },
+      {
+        "id": "pep-junior-candidate-k05-sa-023",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，平均数计算无误。"
+      },
+      {
+        "id": "pep-junior-candidate-k05-sa-024",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，平均数计算无误。"
+      },
+      {
+        "id": "pep-junior-candidate-k05-sa-025",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，平均数计算无误。"
+      },
+      {
+        "id": "pep-junior-candidate-k05-sa-026",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，平均数计算无误。"
+      },
+      {
+        "id": "pep-junior-candidate-k05-sa-027",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，平均数计算无误。"
+      },
+      {
+        "id": "pep-junior-candidate-k06-mc-001",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "三角形内角和计算正确，选项唯一，适合八年级上。"
+      },
+      {
+        "id": "pep-junior-candidate-k06-mc-002",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "三角形内角和计算正确，选项唯一。"
+      },
+      {
+        "id": "pep-junior-candidate-k06-mc-003",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "三角形内角和计算正确，选项唯一。"
+      },
+      {
+        "id": "pep-junior-candidate-k06-mc-004",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "三角形内角和计算正确，选项唯一。"
+      },
+      {
+        "id": "pep-junior-candidate-k06-mc-005",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "三角形内角和计算正确，选项唯一。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案与解析一致，无歧义，适合对应年级，可直接入库。"
+    }
+  }
+}

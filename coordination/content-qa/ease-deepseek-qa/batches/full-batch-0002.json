@@ -1,0 +1,168 @@
+{
+  "scope": "full",
+  "batchIndex": 2,
+  "startedAt": "2026-05-28T03:22:33.858Z",
+  "completedAt": "2026-05-28T03:23:00.234Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "itemIds": [
+    "10631",
+    "10632",
+    "10633",
+    "10634",
+    "10635",
+    "10636",
+    "10637",
+    "10638",
+    "10639",
+    "10640"
+  ],
+  "usage": {
+    "prompt_tokens": 2719,
+    "completion_tokens": 1956,
+    "total_tokens": 4675,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 921
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2335
+  },
+  "finishReason": "stop",
+  "jsonModeFallback": false,
+  "result": {
+    "items": [
+      {
+        "questionId": "10631",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "100-(40+20)",
+        "independentAnswer": "100-(40+20)",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "题目可解，答案正确添加括号使等式成立。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10632",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "2911",
+        "independentAnswer": "2911",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "题目可解，计算结果正确。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10633",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "137",
+        "independentAnswer": "137",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "题目可解，答案计算正确。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10634",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "105",
+        "independentAnswer": "105",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "题目可解，计算结果正确。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10635",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "240",
+        "independentAnswer": "240",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "题目可解，计算结果正确。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10636",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "136",
+        "independentAnswer": "136",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "题目可解，计算结果正确。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10637",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": ">",
+        "independentAnswer": ">",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "题目可解，比较结果正确为大。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10638",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "73",
+        "independentAnswer": "73",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "题目可解，答案计算正确。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10639",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "245",
+        "independentAnswer": "245",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "题目可解，答案计算正确。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10640",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "56",
+        "independentAnswer": "56",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "题目可解，答案计算正确。",
+        "recommendedAction": "No blocking action."
+      }
+    ],
+    "batchSummary": {
+      "pass": 10,
+      "unsolvable": 0,
+      "ambiguous": 0,
+      "imageContextRequired": 0,
+      "answerMismatch": 0,
+      "missingAnswerKey": 0,
+      "notes": "All 10 questions are solvable from text, and all standard answers match the independently computed answers."
+    }
+  }
+}

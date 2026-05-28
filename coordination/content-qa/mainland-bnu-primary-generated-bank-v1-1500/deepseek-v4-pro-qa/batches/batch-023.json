@@ -1,0 +1,191 @@
+{
+  "batchNumber": 23,
+  "startedAt": "2026-05-27T13:26:45.039Z",
+  "completedAt": "2026-05-27T13:27:01.610Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p2-147",
+    "bnu-primary-ds-v1-p2-148",
+    "bnu-primary-ds-v1-p2-149",
+    "bnu-primary-ds-v1-p2-150",
+    "bnu-primary-ds-v1-p2-151",
+    "bnu-primary-ds-v1-p2-152",
+    "bnu-primary-ds-v1-p2-153",
+    "bnu-primary-ds-v1-p2-154",
+    "bnu-primary-ds-v1-p2-155",
+    "bnu-primary-ds-v1-p2-156",
+    "bnu-primary-ds-v1-p2-157",
+    "bnu-primary-ds-v1-p2-158",
+    "bnu-primary-ds-v1-p2-159",
+    "bnu-primary-ds-v1-p2-160",
+    "bnu-primary-ds-v1-p2-161",
+    "bnu-primary-ds-v1-p2-162",
+    "bnu-primary-ds-v1-p2-163",
+    "bnu-primary-ds-v1-p2-164"
+  ],
+  "usage": {
+    "prompt_tokens": 2971,
+    "completion_tokens": 1221,
+    "total_tokens": 4192,
+    "prompt_tokens_details": {
+      "cached_tokens": 2944
+    },
+    "prompt_cache_hit_tokens": 2944,
+    "prompt_cache_miss_tokens": 27
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p2-147",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案与解释一致，符合P2除法内容。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-148",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项设计合理，唯一正确答案，解释清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-149",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "基础概念题，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-150",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "进一法应用正确，答案合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-151",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方向判断正确，符合生活常识。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-152",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "路线方向合成正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-153",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "相对位置判断正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-154",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方向推理正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-155",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方向推理正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-156",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "反向路线描述正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-157",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "面向东，右边是南，正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-158",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方向合成正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-159",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "相对位置判断正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-160",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方向合成正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-161",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方向推理正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-162",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "返回路线描述正确，答案覆盖多种表述。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-163",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方向推理正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-164",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方向填空正确，答案覆盖多种分隔符。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版P2内容，数学正确，答案匹配，无歧义或缺失条件。"
+    }
+  }
+}

@@ -1,0 +1,330 @@
+{
+  "batchNumber": 49,
+  "startedAt": "2026-05-26T17:02:05.109Z",
+  "completedAt": "2026-05-26T17:02:32.406Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p6-191",
+    "bnu-primary-ds-v2-p6-192",
+    "bnu-primary-ds-v2-p6-193",
+    "bnu-primary-ds-v2-p6-194",
+    "bnu-primary-ds-v2-p6-195",
+    "bnu-primary-ds-v2-p6-196",
+    "bnu-primary-ds-v2-p6-197",
+    "bnu-primary-ds-v2-p6-198",
+    "bnu-primary-ds-v2-p6-199",
+    "bnu-primary-ds-v2-p6-200",
+    "bnu-primary-ds-v2-p6-201",
+    "bnu-primary-ds-v2-p6-202",
+    "bnu-primary-ds-v2-p6-203",
+    "bnu-primary-ds-v2-p6-204",
+    "bnu-primary-ds-v2-p6-205",
+    "bnu-primary-ds-v2-p6-206",
+    "bnu-primary-ds-v2-p6-207",
+    "bnu-primary-ds-v2-p6-208",
+    "bnu-primary-ds-v2-p6-209",
+    "bnu-primary-ds-v2-p6-210",
+    "bnu-primary-ds-v2-p6-211",
+    "bnu-primary-ds-v2-p6-212",
+    "bnu-primary-ds-v2-p6-213",
+    "bnu-primary-ds-v2-p6-214",
+    "bnu-primary-ds-v2-p6-215",
+    "bnu-primary-ds-v2-p6-216",
+    "bnu-primary-ds-v2-p6-217",
+    "bnu-primary-ds-v2-p6-218",
+    "bnu-primary-ds-v2-p6-219",
+    "bnu-primary-ds-v2-p6-220"
+  ],
+  "usage": {
+    "prompt_tokens": 6588,
+    "completion_tokens": 2307,
+    "total_tokens": 8895,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 6204
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p6-191",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目条件完整，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-192",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目直接给出平移顺序，填空答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-193",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项清晰，钟摆摆动是旋转，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-194",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "等边三角形最小旋转角120°，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-195",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "旋转性质正确，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-196",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "旋转公式应用正确，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-197",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "平行四边形非菱形无对称轴，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-198",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "平移旋转不改变大小形状，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-199",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "速度一定时路程与时间成正比例，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-200",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "乘积一定，成反比例，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-201",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "比值一定，成正比例，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-202",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "路程一定，速度与时间成反比例，计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-203",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "比值一定，成正比例，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-204",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "乘积一定，成反比例，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-205",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "比值一定，成正比例，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-206",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "比值一定，成正比例，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-207",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "比值一定，成正比例，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-208",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "比值一定，成正比例，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-209",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "和一定，不成比例，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-210",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "乘积一定，成反比例，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-211",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "比值一定，成正比例，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-212",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "乘积一定，成反比例，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-213",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "xy=24乘积一定，成反比例，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-214",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "推导正确，a和c成反比例。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-215",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "面积一定时长宽成反比例，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-216",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "正比例比值一定，计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-217",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "列式正确，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-218",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "比例尺换算正确，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-219",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "杠杆原理应用正确，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-220",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "条形统计图适合表示数量，答案正确。"
+      }
+    ],
+    "batchSummary": {
+      "solvableYes": 30,
+      "solvableNo": 0,
+      "answerMatchYes": 30,
+      "answerMatchNo": 0,
+      "notes": "全部30道题均可解，答案匹配正确。"
+    }
+  }
+}

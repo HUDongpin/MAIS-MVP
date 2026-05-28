@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-345",
+  "startedAt": "2026-05-28T02:42:26.484Z",
+  "completedAt": "2026-05-28T02:42:31.666Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-345"
+  ],
+  "usage": {
+    "prompt_tokens": 2039,
+    "completion_tokens": 270,
+    "total_tokens": 2309,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1655
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-345",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "5/4",
+        "correctedAnswer": "5/4",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合北师大版平面向量垂直条件。Stage A 独立计算得 k=5/4，正确。存储答案为 9/4，解析过程错误得出 17/9，且与存储答案矛盾，存在严重数学错误和解释矛盾，必须阻断。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1 题因答案错误、解析矛盾且与正确解不一致，判定为阻断。"
+    }
+  }
+}

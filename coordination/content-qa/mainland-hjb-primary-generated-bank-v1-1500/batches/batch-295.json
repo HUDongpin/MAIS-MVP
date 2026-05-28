@@ -1,0 +1,320 @@
+{
+  "batchId": "batch-295",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p6-221",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-segments-angles",
+      "unitTitle": "线段与角",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "segments",
+        "angles",
+        "angle-measurement",
+        "geometric-language",
+        "线段",
+        "角",
+        "射线",
+        "直线"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "直线射线线段辨析",
+        "线段和差",
+        "角的表示",
+        "角的度量",
+        "角关系推理"
+      ],
+      "misconceptionTags": [
+        "line ray and segment names confused",
+        "angle named without a clear vertex",
+        "diagram appearance treated as proof"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-segments-angles"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-six-up-assessment-segments-angles-unit",
+        "hjb-primary-p6-six-up-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知线段AB长8厘米，点C在线段AB上，且AC长3厘米，点D是线段CB的中点。下列说法正确的是（ ）。",
+      "optionsZhHans": [
+        "A. 线段CB长5厘米，线段CD长2.5厘米",
+        "B. 线段CB长5厘米，线段CD长5厘米",
+        "C. 线段CB长3厘米，线段CD长1.5厘米",
+        "D. 线段CB长8厘米，线段CD长4厘米"
+      ],
+      "answer": "A. 线段CB长5厘米，线段CD长2.5厘米",
+      "acceptedAnswers": [
+        "A. 线段CB长5厘米，线段CD长2.5厘米"
+      ],
+      "explanationZhHans": "因为AB=8厘米，AC=3厘米，所以CB=AB-AC=5厘米。D是CB的中点，所以CD=CB÷2=2.5厘米。选项A正确。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-222",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-segments-angles",
+      "unitTitle": "线段与角",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "segments",
+        "angles",
+        "angle-measurement",
+        "geometric-language",
+        "线段",
+        "角",
+        "射线",
+        "直线"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "直线射线线段辨析",
+        "线段和差",
+        "角的表示",
+        "角的度量",
+        "角关系推理"
+      ],
+      "misconceptionTags": [
+        "line ray and segment names confused",
+        "angle named without a clear vertex",
+        "diagram appearance treated as proof"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-segments-angles"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-six-up-assessment-segments-angles-unit",
+        "hjb-primary-p6-six-up-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知线段AB = 8 cm，延长AB到点C，使BC = 3 cm。如果M是线段AC的中点，那么线段AM的长度是____cm。",
+      "optionsZhHans": [],
+      "answer": "5.5",
+      "acceptedAnswers": [
+        "5.5",
+        "5.5cm",
+        "5.5 cm"
+      ],
+      "explanationZhHans": "先求AC = AB + BC = 8 + 3 = 11 cm。M是AC中点，所以AM = AC ÷ 2 = 11 ÷ 2 = 5.5 cm。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-223",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-segments-angles",
+      "unitTitle": "线段与角",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "segments",
+        "angles",
+        "angle-measurement",
+        "geometric-language",
+        "线段",
+        "角",
+        "射线",
+        "直线"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "直线射线线段辨析",
+        "线段和差",
+        "角的表示",
+        "角的度量",
+        "角关系推理"
+      ],
+      "misconceptionTags": [
+        "line ray and segment names confused",
+        "angle named without a clear vertex",
+        "diagram appearance treated as proof"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-segments-angles"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-six-up-assessment-segments-angles-unit",
+        "hjb-primary-p6-six-up-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知点A、B、C在同一条直线上，点B在点A与点C之间，线段AB的长度是5厘米，线段BC的长度是3厘米。下列选项中，哪一项正确地表示了线段AC的长度？",
+      "optionsZhHans": [
+        "2厘米",
+        "8厘米",
+        "5厘米",
+        "3厘米"
+      ],
+      "answer": "8厘米",
+      "acceptedAnswers": [
+        "8厘米"
+      ],
+      "explanationZhHans": "因为点B在A与C之间，所以AC = AB + BC = 5 + 3 = 8厘米。选项中的2厘米是AB - BC，但不符合点的位置关系。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-224",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-segments-angles",
+      "unitTitle": "线段与角",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "segments",
+        "angles",
+        "angle-measurement",
+        "geometric-language",
+        "线段",
+        "角",
+        "射线",
+        "直线"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "直线射线线段辨析",
+        "线段和差",
+        "角的表示",
+        "角的度量",
+        "角关系推理"
+      ],
+      "misconceptionTags": [
+        "line ray and segment names confused",
+        "angle named without a clear vertex",
+        "diagram appearance treated as proof"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-segments-angles"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-six-up-assessment-segments-angles-unit",
+        "hjb-primary-p6-six-up-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知点A、B、C在同一条直线上，点B在点A与点C之间，线段AB＝5 cm，线段BC＝3 cm。请写出图中所有不同的射线，并计算线段AC的长度。",
+      "optionsZhHans": [],
+      "answer": "射线有射线AB、射线BA、射线BC、射线CB、射线AC、射线CA；线段AC＝8 cm",
+      "acceptedAnswers": [
+        "射线有射线AB、射线BA、射线BC、射线CB、射线AC、射线CA；线段AC＝8 cm",
+        "射线有射线AB,射线BA,射线BC,射线CB,射线AC,射线CA；线段AC＝8 cm",
+        "射线AB、射线BA、射线BC、射线CB、射线AC、射线CA；AC＝8 cm",
+        "射线AB,射线BA,射线BC,射线CB,射线AC,射线CA；AC=8 cm"
+      ],
+      "explanationZhHans": "三点共线且B在A、C之间，所以A、B、C顺序为A—B—C。以每个点为端点向两个方向延伸得到射线：A向右得射线AB（即AC），A向左得射线BA的反向延长线即射线AC？更正：射线需用端点和另一点表示。射线AB端点为A经过B向右；射线BA端点为B经过A向左；射线BC端点为B经过C向右；射线CB端点为C经过B向左；射线AC端点为A经过C向右；射线CA端点为C经过A向左。共6条。线段AC＝AB＋BC＝5＋3＝8 cm。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-225",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-segments-angles",
+      "unitTitle": "线段与角",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "segments",
+        "angles",
+        "angle-measurement",
+        "geometric-language",
+        "线段",
+        "角",
+        "射线",
+        "直线"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "直线射线线段辨析",
+        "线段和差",
+        "角的表示",
+        "角的度量",
+        "角关系推理"
+      ],
+      "misconceptionTags": [
+        "line ray and segment names confused",
+        "angle named without a clear vertex",
+        "diagram appearance treated as proof"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-segments-angles"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-six-up-assessment-segments-angles-unit",
+        "hjb-primary-p6-six-up-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知点A、B、C在同一条直线上，且AB=5 cm，BC=3 cm。如果点B在点A和点C之间，那么线段AC的长度是多少？",
+      "optionsZhHans": [
+        "2 cm",
+        "5 cm",
+        "8 cm",
+        "15 cm"
+      ],
+      "answer": "8 cm",
+      "acceptedAnswers": [
+        "8 cm"
+      ],
+      "explanationZhHans": "因为点B在A、C之间，所以AC = AB + BC = 5 + 3 = 8 cm。注意线段和差关系，不能误用减法。"
+    }
+  ]
+}

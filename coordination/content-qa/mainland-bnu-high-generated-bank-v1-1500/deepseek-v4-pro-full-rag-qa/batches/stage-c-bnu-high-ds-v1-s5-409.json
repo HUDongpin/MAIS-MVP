@@ -1,0 +1,47 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-409",
+  "startedAt": "2026-05-28T01:31:15.604Z",
+  "completedAt": "2026-05-28T01:31:19.508Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-409"
+  ],
+  "usage": {
+    "prompt_tokens": 2041,
+    "completion_tokens": 236,
+    "total_tokens": 2277,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1657
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-409",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "5",
+        "correctedAnswer": null,
+        "issueTags": [
+          "explanation_contradiction"
+        ],
+        "severity": "minor",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，答案5正确且唯一。解析中“P(X>3+2)=0.5-0.4772=0.0228”计算错误，与结论矛盾，但不影响最终答案，属轻微瑕疵。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 1,
+      "warn": 0,
+      "fail": 0,
+      "notes": "题目无严重问题，仅解析存在轻微计算错误，整体通过。"
+    }
+  }
+}

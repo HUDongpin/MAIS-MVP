@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0044",
+  "ids": [
+    "hjb-junior-ds-v2-s1-345",
+    "hjb-junior-ds-v2-s1-346",
+    "hjb-junior-ds-v2-s1-347",
+    "hjb-junior-ds-v2-s1-348",
+    "hjb-junior-ds-v2-s1-349",
+    "hjb-junior-ds-v2-s1-350",
+    "hjb-junior-ds-v2-s1-351",
+    "hjb-junior-ds-v2-s1-352"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-345",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "110°",
+      "answerCheckZhHans": "标准答案110°正确，解析推导无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-346",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "84°",
+      "answerCheckZhHans": "标准答案84°正确，解析推导无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-347",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "70",
+      "answerCheckZhHans": "标准答案70正确，解析推导无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-348",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题干条件不足，无法唯一确定∠AOE。点E在射线OB上，但∠COE=80°无法同时满足，因为∠COB=130°，∠COE=80°时E不在OB上。解析错误地认为OE与OB重合，得出130°，但此时∠COE应为130°而非80°。若E在OB上，则∠COE=∠COB=130°，与80°矛盾。因此题目无解或答案错误。",
+      "independentAnswerZhHans": "无法确定，条件矛盾。",
+      "answerCheckZhHans": "标准答案130°错误，解析与条件矛盾。",
+      "recommendedActionZhHans": "修改题干条件或删除此题。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-349",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "70°",
+      "answerCheckZhHans": "标准答案70°正确，解析推导无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-350",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "115°",
+      "answerCheckZhHans": "标准答案115°正确，解析推导无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-351",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "50°",
+      "answerCheckZhHans": "标准答案50°正确，解析推导无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-352",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "a∥b，因为同旁内角互补",
+      "answerCheckZhHans": "标准答案正确，解析推导无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

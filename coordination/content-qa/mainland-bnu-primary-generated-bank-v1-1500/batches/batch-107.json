@@ -1,0 +1,580 @@
+{
+  "batchId": "batch-107",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p5-061",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-fraction-meaning",
+      "unitTitle": "分数的意义",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "fraction-meaning",
+        "fraction-division-relationship",
+        "equivalent-fractions",
+        "improper-mixed-fractions",
+        "分数意义"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "单位一",
+        "分数与除法",
+        "真分数假分数",
+        "带分数",
+        "分数基本性质"
+      ],
+      "misconceptionTags": [
+        "unit whole not identified",
+        "numerator and denominator interpreted as separate whole numbers",
+        "equivalent fractions changed by adding the same number"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-fraction-meaning"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-fraction-meaning-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把一根3米长的彩带平均分成5段，每段占全长的几分之几？",
+      "optionsZhHans": [
+        "1/5",
+        "1/3",
+        "3/5",
+        "5/3"
+      ],
+      "answer": "1/5",
+      "acceptedAnswers": [
+        "1/5"
+      ],
+      "explanationZhHans": "把全长看作单位“1”，平均分成5段，每段占全长的1÷5=1/5。注意不是求每段的具体长度，而是求部分与整体的关系。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-062",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-fraction-meaning",
+      "unitTitle": "分数的意义",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "fraction-meaning",
+        "fraction-division-relationship",
+        "equivalent-fractions",
+        "improper-mixed-fractions",
+        "分数意义"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "单位一",
+        "分数与除法",
+        "真分数假分数",
+        "带分数",
+        "分数基本性质"
+      ],
+      "misconceptionTags": [
+        "unit whole not identified",
+        "numerator and denominator interpreted as separate whole numbers",
+        "equivalent fractions changed by adding the same number"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-fraction-meaning"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-fraction-meaning-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把7块月饼平均分给4个小朋友，每个小朋友分到（ ）块月饼，用分数表示是（ ）块。",
+      "optionsZhHans": [],
+      "answer": "7/4",
+      "acceptedAnswers": [
+        "7/4",
+        "1又3/4"
+      ],
+      "explanationZhHans": "7÷4=7/4（块），也可以写成带分数1又3/4块。分数与除法关系：被除数÷除数=被除数/除数。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-063",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-fraction-meaning",
+      "unitTitle": "分数的意义",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "fraction-meaning",
+        "fraction-division-relationship",
+        "equivalent-fractions",
+        "improper-mixed-fractions",
+        "分数意义"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "单位一",
+        "分数与除法",
+        "真分数假分数",
+        "带分数",
+        "分数基本性质"
+      ],
+      "misconceptionTags": [
+        "unit whole not identified",
+        "numerator and denominator interpreted as separate whole numbers",
+        "equivalent fractions changed by adding the same number"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-fraction-meaning"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-fraction-meaning-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个分数，分子与分母的和是28，约分后是3/4。原来的分数是多少？",
+      "optionsZhHans": [],
+      "answer": "12/16",
+      "acceptedAnswers": [
+        "12/16"
+      ],
+      "explanationZhHans": "约分后是3/4，说明分子占3份，分母占4份，共7份。28÷7=4，每份是4。分子3×4=12，分母4×4=16，原分数为12/16。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-064",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-fraction-meaning",
+      "unitTitle": "分数的意义",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "fraction-meaning",
+        "fraction-division-relationship",
+        "equivalent-fractions",
+        "improper-mixed-fractions",
+        "分数意义"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "单位一",
+        "分数与除法",
+        "真分数假分数",
+        "带分数",
+        "分数基本性质"
+      ],
+      "misconceptionTags": [
+        "unit whole not identified",
+        "numerator and denominator interpreted as separate whole numbers",
+        "equivalent fractions changed by adding the same number"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-fraction-meaning"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-fraction-meaning-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个分数不能化成有限小数？",
+      "optionsZhHans": [
+        "7/20",
+        "9/25",
+        "5/12",
+        "3/8"
+      ],
+      "answer": "5/12",
+      "acceptedAnswers": [
+        "5/12"
+      ],
+      "explanationZhHans": "一个最简分数，分母只含有质因数2和5时，才能化成有限小数。5/12的分母12=2×2×3，含有质因数3，所以不能化成有限小数。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-065",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-fraction-meaning",
+      "unitTitle": "分数的意义",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "fraction-meaning",
+        "fraction-division-relationship",
+        "equivalent-fractions",
+        "improper-mixed-fractions",
+        "分数意义"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "单位一",
+        "分数与除法",
+        "真分数假分数",
+        "带分数",
+        "分数基本性质"
+      ],
+      "misconceptionTags": [
+        "unit whole not identified",
+        "numerator and denominator interpreted as separate whole numbers",
+        "equivalent fractions changed by adding the same number"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-fraction-meaning"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-fraction-meaning-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在括号里填上适当的数：3/4 = ( )/12 = 15/( )",
+      "optionsZhHans": [],
+      "answer": "9,20",
+      "acceptedAnswers": [
+        "9,20",
+        "9和20"
+      ],
+      "explanationZhHans": "3/4的分子分母同时乘3得9/12；同时乘5得15/20。利用分数的基本性质：分子分母同时乘或除以相同的数（0除外），分数大小不变。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-066",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-fraction-meaning",
+      "unitTitle": "分数的意义",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "fraction-meaning",
+        "fraction-division-relationship",
+        "equivalent-fractions",
+        "improper-mixed-fractions",
+        "分数意义"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "单位一",
+        "分数与除法",
+        "真分数假分数",
+        "带分数",
+        "分数基本性质"
+      ],
+      "misconceptionTags": [
+        "unit whole not identified",
+        "numerator and denominator interpreted as separate whole numbers",
+        "equivalent fractions changed by adding the same number"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-fraction-meaning"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-fraction-meaning-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把一根5米长的绳子平均分成8段，每段长多少米？每段占全长的几分之几？",
+      "optionsZhHans": [],
+      "answer": "5/8米,1/8",
+      "acceptedAnswers": [
+        "5/8米,1/8",
+        "5/8米 1/8"
+      ],
+      "explanationZhHans": "每段长度：5÷8=5/8（米）。每段占全长的1÷8=1/8。注意区分具体数量和分率。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-067",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-fraction-meaning",
+      "unitTitle": "分数的意义",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "fraction-meaning",
+        "fraction-division-relationship",
+        "equivalent-fractions",
+        "improper-mixed-fractions",
+        "分数意义"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "单位一",
+        "分数与除法",
+        "真分数假分数",
+        "带分数",
+        "分数基本性质"
+      ],
+      "misconceptionTags": [
+        "unit whole not identified",
+        "numerator and denominator interpreted as separate whole numbers",
+        "equivalent fractions changed by adding the same number"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-fraction-meaning"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-fraction-meaning-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个分数的分子扩大到原来的3倍，分母缩小到原来的1/2，这个分数值会怎样变化？",
+      "optionsZhHans": [
+        "扩大到原来的6倍",
+        "扩大到原来的1.5倍",
+        "缩小到原来的1/6",
+        "不变"
+      ],
+      "answer": "扩大到原来的6倍",
+      "acceptedAnswers": [
+        "扩大到原来的6倍"
+      ],
+      "explanationZhHans": "分子扩大3倍，分数值扩大3倍；分母缩小到1/2，分数值扩大2倍。总共扩大3×2=6倍。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-068",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-fraction-meaning",
+      "unitTitle": "分数的意义",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "fraction-meaning",
+        "fraction-division-relationship",
+        "equivalent-fractions",
+        "improper-mixed-fractions",
+        "分数意义"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "单位一",
+        "分数与除法",
+        "真分数假分数",
+        "带分数",
+        "分数基本性质"
+      ],
+      "misconceptionTags": [
+        "unit whole not identified",
+        "numerator and denominator interpreted as separate whole numbers",
+        "equivalent fractions changed by adding the same number"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-fraction-meaning"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-fraction-meaning-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个带分数，它的整数部分是最小的质数，分数部分的分母是5，分子是最小的合数，这个带分数是（ ），化成假分数是（ ）。",
+      "optionsZhHans": [],
+      "answer": "2又4/5,14/5",
+      "acceptedAnswers": [
+        "2又4/5,14/5",
+        "2又4/5 14/5"
+      ],
+      "explanationZhHans": "最小质数是2，最小合数是4，所以带分数为2又4/5。化成假分数：2×5+4=14，分母不变，得14/5。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-069",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-fraction-meaning",
+      "unitTitle": "分数的意义",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "fraction-meaning",
+        "fraction-division-relationship",
+        "equivalent-fractions",
+        "improper-mixed-fractions",
+        "分数意义"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "单位一",
+        "分数与除法",
+        "真分数假分数",
+        "带分数",
+        "分数基本性质"
+      ],
+      "misconceptionTags": [
+        "unit whole not identified",
+        "numerator and denominator interpreted as separate whole numbers",
+        "equivalent fractions changed by adding the same number"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-fraction-meaning"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-fraction-meaning-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "比较5/6和7/8的大小，写出比较过程。",
+      "optionsZhHans": [],
+      "answer": "5/6 < 7/8",
+      "acceptedAnswers": [
+        "5/6 < 7/8",
+        "5/6小于7/8"
+      ],
+      "explanationZhHans": "通分：5/6=20/24，7/8=21/24，因为20/24<21/24，所以5/6<7/8。或化成小数比较。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-070",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-fraction-meaning",
+      "unitTitle": "分数的意义",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "fraction-meaning",
+        "fraction-division-relationship",
+        "equivalent-fractions",
+        "improper-mixed-fractions",
+        "分数意义"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "单位一",
+        "分数与除法",
+        "真分数假分数",
+        "带分数",
+        "分数基本性质"
+      ],
+      "misconceptionTags": [
+        "unit whole not identified",
+        "numerator and denominator interpreted as separate whole numbers",
+        "equivalent fractions changed by adding the same number"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-fraction-meaning"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-fraction-meaning-unit",
+        "bnu-primary-p5-upper-assessment-decimal-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个分数最接近1？",
+      "optionsZhHans": [
+        "4/5",
+        "5/6",
+        "7/8",
+        "8/9"
+      ],
+      "answer": "8/9",
+      "acceptedAnswers": [
+        "8/9"
+      ],
+      "explanationZhHans": "分别计算1与各分数的差：1-4/5=1/5，1-5/6=1/6，1-7/8=1/8，1-8/9=1/9。差最小的是1/9，所以8/9最接近1。"
+    }
+  ]
+}

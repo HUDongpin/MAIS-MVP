@@ -1,0 +1,191 @@
+{
+  "batchNumber": 19,
+  "startedAt": "2026-05-25T01:58:05.559Z",
+  "completedAt": "2026-05-25T01:58:29.606Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p2-075",
+    "hjb-primary-ds-v1-p2-076",
+    "hjb-primary-ds-v1-p2-077",
+    "hjb-primary-ds-v1-p2-078",
+    "hjb-primary-ds-v1-p2-079",
+    "hjb-primary-ds-v1-p2-080",
+    "hjb-primary-ds-v1-p2-081",
+    "hjb-primary-ds-v1-p2-082",
+    "hjb-primary-ds-v1-p2-083",
+    "hjb-primary-ds-v1-p2-084",
+    "hjb-primary-ds-v1-p2-085",
+    "hjb-primary-ds-v1-p2-086",
+    "hjb-primary-ds-v1-p2-087",
+    "hjb-primary-ds-v1-p2-088",
+    "hjb-primary-ds-v1-p2-089",
+    "hjb-primary-ds-v1-p2-090",
+    "hjb-primary-ds-v1-p2-091",
+    "hjb-primary-ds-v1-p2-092"
+  ],
+  "usage": {
+    "prompt_tokens": 3801,
+    "completion_tokens": 1489,
+    "total_tokens": 5290,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 3545
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p2-075",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目为间隔问题，非乘法，但放在表内乘法单元作为辨析题合理。答案正确，表述清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-076",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项设计合理，正确选项4×7=28表示总数，其他选项为干扰项。答案唯一，无歧义。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-077",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "看图填空，答案18正确，乘法算式3×6=18或6×3=18均可，acceptedAnswers覆盖全面。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-078",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "要求两种方法，答案20个正确，acceptedAnswers包含多种形式，无问题。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-079",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项C为不同加数，不能用乘法，正确。其他选项均为等组情况，可用乘法。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-080",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "根据口诀写算式，答案4×6=24和6×4=24均正确，acceptedAnswers覆盖。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-081",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "简单乘法应用题，答案4×6=24（支）或6×4=24（支）正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-082",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项C为不同数量，不能用乘法，正确。其他选项均为等组情况。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-083",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "加法与乘法算式均正确，acceptedAnswers包含两种乘法顺序。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-084",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "两种方法列式正确，答案15张，acceptedAnswers覆盖。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-085",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "3+7得10，与3×7得21不同，正确。其他选项均得21。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-086",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "看图填空，每盘5个，3盘，共15个，乘法算式5×3=15或3×5=15，口诀三五十五，正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-087",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案4×6=24（颗），口诀四六二十四，正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-088",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项C为不同加数，不能用乘法，正确。其他选项均为等组情况。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-089",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "4个7相加，乘法算式4×7=28或7×4=28，口诀四七二十八，正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-090",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "根据口诀写算式，5×6=30和6×5=30正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-091",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "小华4×6=24，小丽3×8=24，一样多，正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-092",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "根据口诀写算式，4×7=28和7×4=28正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合沪教版二年级上册表内乘法要求，答案正确，表述清晰，无歧义或错误。"
+    }
+  }
+}

@@ -1,0 +1,285 @@
+{
+  "batchId": "batch-031",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p1-151",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "hjb-primary-p1-lower-within-100-number-sense",
+      "unitTitle": "100以内的数",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-100-numbers",
+        "place-value-tens-ones",
+        "number-order-within-100",
+        "100以内数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "数到100",
+        "整十数",
+        "十位个位",
+        "数的大小比较",
+        "数位表示"
+      ],
+      "misconceptionTags": [
+        "digits reversed when reading two-digit numbers",
+        "ones compared before tens",
+        "ten treated as a single loose object"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p1-lower-within-100-number-sense"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-lower-assessment-within-100-number-sense",
+        "hjb-primary-p1-lower-assessment-midterm-1-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小乐用一捆一捆的小棒表示数。他摆了3捆和5根散的小棒，这个数是多少？",
+      "optionsZhHans": [
+        "35",
+        "53",
+        "8",
+        "30"
+      ],
+      "answer": "35",
+      "acceptedAnswers": [
+        "35"
+      ],
+      "explanationZhHans": "3捆表示3个十，是30；5根散的小棒表示5个一。合起来是35。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-152",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "hjb-primary-p1-lower-within-100-number-sense",
+      "unitTitle": "100以内的数",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-100-numbers",
+        "place-value-tens-ones",
+        "number-order-within-100",
+        "100以内数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "数到100",
+        "整十数",
+        "十位个位",
+        "数的大小比较",
+        "数位表示"
+      ],
+      "misconceptionTags": [
+        "digits reversed when reading two-digit numbers",
+        "ones compared before tens",
+        "ten treated as a single loose object"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p1-lower-within-100-number-sense"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-lower-assessment-within-100-number-sense",
+        "hjb-primary-p1-lower-assessment-midterm-1-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个两位数，十位上是6，个位上是2，这个数写作______。",
+      "optionsZhHans": [],
+      "answer": "62",
+      "acceptedAnswers": [
+        "62"
+      ],
+      "explanationZhHans": "十位是6表示6个十，个位是2表示2个一，合起来是62。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-153",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "hjb-primary-p1-lower-within-100-number-sense",
+      "unitTitle": "100以内的数",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-100-numbers",
+        "place-value-tens-ones",
+        "number-order-within-100",
+        "100以内数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "数到100",
+        "整十数",
+        "十位个位",
+        "数的大小比较",
+        "数位表示"
+      ],
+      "misconceptionTags": [
+        "digits reversed when reading two-digit numbers",
+        "ones compared before tens",
+        "ten treated as a single loose object"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p1-lower-within-100-number-sense"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-lower-assessment-within-100-number-sense",
+        "hjb-primary-p1-lower-assessment-midterm-1-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "按规律填数：78，76，74，______，70。",
+      "optionsZhHans": [],
+      "answer": "72",
+      "acceptedAnswers": [
+        "72"
+      ],
+      "explanationZhHans": "从78开始每次减少2：78-2=76，76-2=74，74-2=72，72-2=70。所以填72。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-154",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "hjb-primary-p1-lower-within-100-number-sense",
+      "unitTitle": "100以内的数",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-100-numbers",
+        "place-value-tens-ones",
+        "number-order-within-100",
+        "100以内数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "数到100",
+        "整十数",
+        "十位个位",
+        "数的大小比较",
+        "数位表示"
+      ],
+      "misconceptionTags": [
+        "digits reversed when reading two-digit numbers",
+        "ones compared before tens",
+        "ten treated as a single loose object"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p1-lower-within-100-number-sense"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-lower-assessment-within-100-number-sense",
+        "hjb-primary-p1-lower-assessment-midterm-1-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个数比45大，比50小？",
+      "optionsZhHans": [
+        "44",
+        "47",
+        "51",
+        "40"
+      ],
+      "answer": "47",
+      "acceptedAnswers": [
+        "47"
+      ],
+      "explanationZhHans": "47在45和50之间，44比45小，51比50大，40比45小。所以选47。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-155",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "hjb-primary-p1-lower-within-100-number-sense",
+      "unitTitle": "100以内的数",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-100-numbers",
+        "place-value-tens-ones",
+        "number-order-within-100",
+        "100以内数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "数到100",
+        "整十数",
+        "十位个位",
+        "数的大小比较",
+        "数位表示"
+      ],
+      "misconceptionTags": [
+        "digits reversed when reading two-digit numbers",
+        "ones compared before tens",
+        "ten treated as a single loose object"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p1-lower-within-100-number-sense"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-lower-assessment-within-100-number-sense",
+        "hjb-primary-p1-lower-assessment-midterm-1-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在计数器上，十位拨了4颗珠子，个位拨了9颗珠子，这个数是______。",
+      "optionsZhHans": [],
+      "answer": "49",
+      "acceptedAnswers": [
+        "49"
+      ],
+      "explanationZhHans": "十位4颗珠子表示4个十，个位9颗珠子表示9个一，合起来是49。"
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0001",
+  "ids": [
+    "hjb-junior-ds-v2-s1-001",
+    "hjb-junior-ds-v2-s1-002",
+    "hjb-junior-ds-v2-s1-003",
+    "hjb-junior-ds-v2-s1-004",
+    "hjb-junior-ds-v2-s1-005",
+    "hjb-junior-ds-v2-s1-006",
+    "hjb-junior-ds-v2-s1-007",
+    "hjb-junior-ds-v2-s1-008"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-001",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "B",
+      "answerCheckZhHans": "标准答案B正确，解析正确，选项互异，无其他问题。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-002",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2x + 3y",
+      "answerCheckZhHans": "标准答案正确，解析正确，acceptedAnswers覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-003",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为0，但独立计算得20。解析中代入计算得20，与答案0矛盾。",
+      "independentAnswerZhHans": "20",
+      "answerCheckZhHans": "标准答案0错误，解析计算得20，应为20。",
+      "recommendedActionZhHans": "修正答案为20，并更新acceptedAnswers。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-004",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "C",
+      "answerCheckZhHans": "标准答案C正确，解析正确，选项互异，无其他问题。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-005",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "4",
+      "answerCheckZhHans": "标准答案正确，解析正确，acceptedAnswers覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-006",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "7x² - 8xy + 13，常数项为13",
+      "answerCheckZhHans": "标准答案正确，解析正确，acceptedAnswers覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-007",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "12x - y",
+      "answerCheckZhHans": "标准答案正确，解析正确，选项互异，无其他问题。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-008",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "4",
+      "answerCheckZhHans": "标准答案正确，解析正确，acceptedAnswers覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

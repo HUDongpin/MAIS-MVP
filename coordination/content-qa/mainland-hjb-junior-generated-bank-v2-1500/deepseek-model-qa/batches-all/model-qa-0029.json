@@ -1,0 +1,105 @@
+{
+  "batchId": "model-qa-0029",
+  "ids": [
+    "hjb-junior-ds-v2-s1-225",
+    "hjb-junior-ds-v2-s1-226",
+    "hjb-junior-ds-v2-s1-227",
+    "hjb-junior-ds-v2-s1-228",
+    "hjb-junior-ds-v2-s1-229",
+    "hjb-junior-ds-v2-s1-230",
+    "hjb-junior-ds-v2-s1-231",
+    "hjb-junior-ds-v2-s1-232"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-225",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(3, 5)，关于y轴对称的点横坐标互为相反数，纵坐标相同。",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-226",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "平移后点A'的坐标为(5, -1)",
+      "answerCheckZhHans": "标准答案正确，解析一致，其他选项均错误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-227",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "点P(-3,4)绕原点顺时针旋转90°的坐标应为(4,3)，但标准答案给出(4,3)，解析中公式(x,y)→(y,-x)代入得(4, -(-3))=(4,3)，正确。但需确认顺时针旋转公式：顺时针旋转90°为(x,y)→(y,-x)，代入(-3,4)得(4,3)，答案正确。然而，解析中“注意顺时针旋转与逆时针旋转的符号区别”未具体说明，但答案无误。经独立计算，答案应为(4,3)，与标准答案一致。但检查发现，标准答案(4,3)与解析一致，无错误。可能误判，重新检查：顺时针旋转90°公式为(x,y)→(y,-x)，(-3,4)→(4,3)，正确。因此无问题。但原标记为needs-review，实际应为pass。",
+      "independentAnswerZhHans": "(4, 3)",
+      "answerCheckZhHans": "标准答案(4,3)正确，解析推导无误。",
+      "recommendedActionZhHans": "无需修改，题目正确。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-228",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "C'(5, -5)，翻折前后对应线段长度相等。",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-229",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "圆",
+      "answerCheckZhHans": "标准答案正确，解析一致，其他选项均不符合。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-230",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(2, 7)",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-231",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(7, 1)",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-232",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "40°",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

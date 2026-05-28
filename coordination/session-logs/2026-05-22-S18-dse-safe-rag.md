@@ -1,0 +1,17 @@
+# Agent Daily Work Report
+
+- Date: 2026-05-22
+- Session ID: S18
+- Workstream: Curriculum/content QA and HK DSE Safe-RAG
+- Status: Completed
+- Objective: Implement the owner-approved Hong Kong DSE Mathematics past-paper Safe-RAG plan without committing source papers, OCR text, stems, answers, solutions, images, or embeddings.
+- Summary of work completed: Implemented HK DSE Mathematics exam-pattern Safe-RAG cards, deterministic retrieval, combined HK evidence pack, AI Tutor HK evidence integration, metadata-only manifest tooling, RAG tests, and a safety decision note. Generated a local `.local/rag/hk-dse/hk-dse-math-manifest.json` manifest from the owner-provided English and Chinese archives without extracting or parsing PDF content.
+- Files changed: `types/index.ts`; `data/rag/hongKongDseMathExamPatterns.ts`; `lib/rag/hongKongDseMath.ts`; `lib/rag/hongKongMath.ts`; `lib/rag/hongKongDseMath.test.ts`; `scripts/build-hk-dse-math-manifest.py`; `package.json`; `app/api/ai-tutor/route.ts`; `coordination/decisions/2026-05-22-hk-dse-math-safe-rag.md`; this session log.
+- Checks run: `python3 scripts/build-hk-dse-math-manifest.py --self-test` passed. `python3 scripts/build-hk-dse-up-textbook-manifest.py --self-test` passed for the concurrently present textbook layer. `npm run rag:hk-dse-manifest -- <English ZIP> <Chinese ZIP>` passed and found 71 PDFs, 36 English, 35 Chinese, 2012-2023 coverage, 2023 missing answer-file metadata for both languages, and the English 2018 Paper 2 duplicate/variant. Targeted TypeScript compile for new HK DSE RAG files passed. Targeted TypeScript compile for `app/api/ai-tutor/route.ts` passed. Targeted Node tests for HK EDB, HK DSE exam-pattern, and the concurrently present HK DSE UP layer passed: 17/17. Safety scans over new DSE production RAG files found no source-copying artifact patterns. Binary-source scan found no new committed ZIP/PDF/DOC/DOCX under `data`, `lib`, `scripts`, `app`, or `types`.
+- Checks not run: Full `npm run type-check` and full `npm run test:rag` were attempted, but the project `tsc` process repeatedly hung without diagnostics while opening a deleted FileProvider path outside the repo. `npm run build` was not run because a same-project Next dev server was active and build would write `.next`.
+- Blockers: None.
+- Risks: Shared files are involved (`types/index.ts`, `package.json`, AI Tutor route). Owner explicitly requested implementation of the plan, so this session treated the request as cross-scope approval while keeping changes additive and safe. Related HK DSE UP textbook-layer files appeared concurrently and were not reverted. Full project TypeScript/build validation still needs a clean run after the local `tsc` hang and active dev-server conflict are cleared.
+- Assumptions: First phase covers 2012-2023 DSE Mathematics Compulsory Part Paper 1, Paper 2, and answer-file metadata from the provided Chinese and English ZIP files only.
+- Coordination notes for other sessions: S07 should review AI Tutor prompt/evidence behavior before live provider use; S10 should include the new script in release reporting; S18 should review safe cards before using them for batch item generation.
+- Follow-up recommendations: Add a teacher/admin review queue before any DSE-style generated questions are inserted into the student-visible bank.
+- Next suggested owner/session: S18 for content QA, S07 for AI Tutor behavior review, S10 for reporting/tooling coordination.

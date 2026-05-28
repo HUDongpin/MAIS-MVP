@@ -1,0 +1,120 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-091",
+  "startedAt": "2026-05-28T01:19:51.498Z",
+  "completedAt": "2026-05-28T01:20:09.325Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-221",
+    "bnu-high-ds-v1-s5-222",
+    "bnu-high-ds-v1-s5-223",
+    "bnu-high-ds-v1-s5-224",
+    "bnu-high-ds-v1-s5-225",
+    "bnu-high-ds-v1-s5-226",
+    "bnu-high-ds-v1-s5-227",
+    "bnu-high-ds-v1-s5-228"
+  ],
+  "usage": {
+    "prompt_tokens": 10424,
+    "completion_tokens": 1089,
+    "total_tokens": 11513,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 10040
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-221",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "C(6, 17/3) 或 C(4, 13/3)",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件明确，可建立坐标系，利用定比分点公式求解，得到两个可能的点C坐标。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-222",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "x=5 或 3x+4y-19=0",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由圆方程得圆心和半径，利用弦长和点到直线距离公式求出直线斜率，注意斜率不存在的情况，得到两条直线。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-223",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "independentAnswer": null,
+        "issueTags": [
+          "bad_options"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "求解得m=±√2，但选项中无此值，选项A、B、C、D均不正确，题目无正确选项。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-224",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "直线方程：4x-3y=0，栈道长度：100米",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "栈道经过湖心(0,0)和点A(30,40)，直线方程为y=(4/3)x，即4x-3y=0；长度为直径100米。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-225",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "x-2y+4=0",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由A、B到直线距离相等得直线过AB中点或与AB平行，结合过点P和倾斜角锐角，求得直线方程为x-2y+4=0。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-226",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "D",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "联立直线与圆，利用以MN为直径的圆过原点得OM⊥ON，结合韦达定理求得k=±√5。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-227",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(5-2√6, 5-2√6), (5+2√6, 5-2√6), (5+2√6, 5+2√6), (5-2√6, 5+2√6)",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "对角线平行于坐标轴，矩形边与坐标轴成45°，设半对角线长d，由面积得d=2√6，顶点坐标为中心加减d。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-228",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(x-2)²+(y-1)²=2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "设圆心(t,2t-3)，由|CA|=|CB|解得t=2，圆心(2,1)，半径平方=2，得标准方程。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第223题求解得m=±√2，但选项中无此值，题目无正确选项，标记为失败。其余题目均可独立求解且符合北师大版要求。"
+    }
+  }
+}

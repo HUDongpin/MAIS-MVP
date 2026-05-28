@@ -1,0 +1,149 @@
+{
+  "batchNumber": 107,
+  "startedAt": "2026-05-27T14:02:02.916Z",
+  "completedAt": "2026-05-27T14:02:20.953Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-349",
+    "bnu-high-ds-v1-s5-350",
+    "bnu-high-ds-v1-s5-351",
+    "bnu-high-ds-v1-s5-352",
+    "bnu-high-ds-v1-s5-353",
+    "bnu-high-ds-v1-s5-354",
+    "bnu-high-ds-v1-s5-355",
+    "bnu-high-ds-v1-s5-356"
+  ],
+  "usage": {
+    "prompt_tokens": 12059,
+    "completion_tokens": 1138,
+    "total_tokens": 13197,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 11547
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-349",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "36",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，分组分配模型清晰，独立计算得36，与答案一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-350",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "166",
+        "correctedAnswer": "166",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立计算得166，但题目答案和解析均给出180，解析过程自相矛盾且最终结果错误，必须修正为166。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-351",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "3750",
+        "correctedAnswer": "3750",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立计算得3750，但题目答案和解析均误写为37500，解析过程正确但最终结果多一个零，必须修正为3750。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-352",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "-160",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "二项式定理应用正确，独立计算得-160，与答案和解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-353",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "250",
+        "correctedAnswer": "250",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立计算得250，但题目答案和解析均误为215，解析过程正确但最终结果错误，必须修正为250。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-354",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "60",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "先选书给甲，剩余分组分配，独立计算得60，与答案和解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-355",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "30",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "分类讨论末位0和非0偶数，独立计算得30，与答案和解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-356",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "960",
+        "correctedAnswer": "960",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立计算得960，但题目答案和解析均误为7200，解析过程正确但最终结果错误，必须修正为960。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 4,
+      "warn": 0,
+      "fail": 4,
+      "notes": "8题中4题通过，4题因答案和解析错误而失败，错误均为最终结果计算错误，需修正答案和解析。"
+    }
+  }
+}

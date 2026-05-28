@@ -1,0 +1,103 @@
+{
+  "batchId": "model-qa-0122",
+  "ids": [
+    "hjb-junior-ds-v2-s2-469",
+    "hjb-junior-ds-v2-s2-470",
+    "hjb-junior-ds-v2-s2-471",
+    "hjb-junior-ds-v2-s2-472",
+    "hjb-junior-ds-v2-s2-473",
+    "hjb-junior-ds-v2-s2-474",
+    "hjb-junior-ds-v2-s2-475",
+    "hjb-junior-ds-v2-s2-476"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-469",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "0.8",
+      "answerCheckZhHans": "标准答案 0.8 与独立求解结果一致。解析推导正确：由点 (1.6,60) 得 k=96，由 p≤120 得 96/V≤120，解得 V≥0.8。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-470",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "D. 当 x < 0 时，y 随 x 的增大而减小",
+      "answerCheckZhHans": "标准答案 D 正确。反比例函数 y=-2/x，k<0，图像在二、四象限，在每个象限内 y 随 x 增大而增大。选项 D 说 x<0 时 y 随 x 增大而减小，错误。其他选项均正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-471",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "k = -12，图像位于第二、四象限",
+      "answerCheckZhHans": "标准答案与独立求解一致。代入点 (3,-4) 得 k=-12，k<0 故图像在二、四象限。acceptedAnswers 覆盖了常见写法。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-472",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "C. (3, -2)",
+      "answerCheckZhHans": "标准答案 C 正确。代入验证：A. 2*3=6≠-6；B. -2*(-3)=6≠-6；C. 3*(-2)=-6；D. -3*(-2)=6≠-6。仅 C 满足。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-473",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "y = 24/x，x ≠ 0",
+      "answerCheckZhHans": "标准答案与独立求解一致。由 x=4,y=6 得 k=24，解析式 y=24/x，分母不为零得 x≠0。acceptedAnswers 覆盖了常见写法。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-474",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "A. m > 1",
+      "answerCheckZhHans": "标准答案 A 正确。当 x>0 时 y 随 x 增大而减小，说明在第一象限内函数递减，反比例函数递减要求系数为正，即 m-1>0，得 m>1。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-475",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "y = 1200/x，15 天",
+      "answerCheckZhHans": "标准答案与独立求解一致。总量 60*20=1200，y=1200/x，当 x=80 时 y=15。acceptedAnswers 覆盖了常见写法。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-476",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(4, -1.5)",
+      "answerCheckZhHans": "标准答案 (4, -1.5) 正确。由点 P(-2,3) 得 k=-6，验证各选项：4*(-1.5)=-6，符合；其他选项乘积均不为 -6。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

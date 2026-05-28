@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-317",
+  "startedAt": "2026-05-28T01:07:24.940Z",
+  "completedAt": "2026-05-28T01:07:33.197Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-317"
+  ],
+  "usage": {
+    "prompt_tokens": 2182,
+    "completion_tokens": 372,
+    "total_tokens": 2554,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1798
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-317",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "x = π/4, 7π/12, 5π/4, 19π/12",
+        "correctedAnswer": "x = π/4, 7π/12, 5π/4, 19π/12",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "方程2cos(2x-π/3)=1的解为x=π/4+2kπ或x=7π/12+2kπ，在[0,2π]内得π/4,7π/12,5π/4,19π/12。存储答案13π/12错误，解析中x=π/3+kπ或kπ与最终答案矛盾，且未正确筛选区间内解。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目可解且符合教材范围，但存储答案和解析均存在数学错误，答案不匹配，需修正为π/4,7π/12,5π/4,19π/12。"
+    }
+  }
+}

@@ -1,0 +1,134 @@
+{
+  "batchIndex": 4,
+  "completedAt": "2026-05-25T01:19:32.233Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s1-k05-sa-031",
+    "pep-junior-v3-s1-k05-sa-032",
+    "pep-junior-v3-s2-k06-mc-011",
+    "pep-junior-v3-s2-k06-mc-012",
+    "pep-junior-v3-s2-k06-mc-031",
+    "pep-junior-v3-s2-k06-fi-009"
+  ],
+  "usage": {
+    "prompt_tokens": 2469,
+    "completion_tokens": 1886,
+    "total_tokens": 4355,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 2213
+  },
+  "items": [
+    {
+      "id": "pep-junior-v3-s1-k05-sa-031",
+      "action": "repair",
+      "confidence": "high",
+      "remediationNotes": "原题答案与解释矛盾，修正答案为m>4，并更新解释。",
+      "question": {
+        "promptZhHans": "已知关于x、y的方程组\n3x + 2y = m + 1\n2x + y = m - 1\n的解满足x > y，求m的取值范围。",
+        "optionsZhHans": [],
+        "answer": "m > 4",
+        "acceptedAnswers": [
+          "m > 4",
+          "m>4"
+        ],
+        "explanationZhHans": "解方程组：由2x+y=m-1得y=m-1-2x，代入3x+2y=m+1得3x+2(m-1-2x)=m+1，解得x=m-3，进而y=5-m。由x>y得m-3>5-m，解得m>4。因此答案为m>4。"
+      }
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-sa-032",
+      "action": "repair",
+      "confidence": "high",
+      "remediationNotes": "平均时间计算错误，修正为1.3小时，并更新答案和解释。",
+      "question": {
+        "promptZhHans": "某校为了解七年级学生每天完成家庭作业所用的时间，从各班随机抽取了共50名学生进行调查，并将调查结果绘制成如下频数分布表（未完成）：\n\n时间x（小时）\t频数\n0≤x<0.5\t5\n0.5≤x<1\t10\n1≤x<1.5\ta\n1.5≤x<2\t12\n2≤x<2.5\t8\n\n已知时间在1≤x<1.5小时的频率为0.3。\n（1）求a的值，并补全表格；\n（2）请估计该校七年级学生每天完成家庭作业的平均时间（精确到0.1小时）。",
+        "optionsZhHans": [],
+        "answer": "（1）a=15；（2）1.3小时",
+        "acceptedAnswers": [
+          "（1）a=15；（2）1.3小时",
+          "（1）a=15。（2）1.3小时。"
+        ],
+        "explanationZhHans": "（1）频率0.3，总人数50，所以a=50×0.3=15。（2）各组组中值：0.25,0.75,1.25,1.75,2.25。平均时间=(5×0.25+10×0.75+15×1.25+12×1.75+8×2.25)/50=66.5/50=1.33≈1.3小时。因此答案为（1）a=15；（2）1.3小时。"
+      }
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-mc-011",
+      "action": "keep_false_positive",
+      "confidence": "medium",
+      "remediationNotes": "原题数学正确，表述清晰，虽与010题类似但属于基础知识点正常考查，非抄袭风险，保留原题。",
+      "question": {
+        "promptZhHans": "在△ABC和△DEF中，已知AB = DE，∠A = ∠D。若要用“边角边”（SAS）判定这两个三角形全等，还需要添加的条件是（ ）。",
+        "optionsZhHans": [
+          "BC = EF",
+          "AC = DF",
+          "∠B = ∠E",
+          "∠C = ∠F"
+        ],
+        "answer": "AC = DF",
+        "acceptedAnswers": [
+          "AC = DF",
+          "AC=DF"
+        ],
+        "explanationZhHans": "用SAS判定全等需要两边及其夹角对应相等。已知AB = DE，∠A = ∠D，其中∠A是AB和AC的夹角，∠D是DE和DF的夹角，因此需要添加AC = DF，使夹角的两边分别对应相等。所以答案是AC = DF。"
+      }
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-mc-012",
+      "action": "repair",
+      "confidence": "high",
+      "remediationNotes": "原题答案错误，翻折后对应角相等，∠A与∠A'是对应角，必然相等，因此结论一定正确，应修改为其他不一定正确的选项。修改题目为求不一定正确的结论，并调整选项和答案。",
+      "question": {
+        "promptZhHans": "将△ABC沿直线l翻折后得到△A'B'C'，若点A与点A'是对称点，线段AA'与直线l交于点O，则下列结论不一定正确的是（ ）。",
+        "optionsZhHans": [
+          "AO = A'O",
+          "AA' ⊥ l",
+          "AB = A'B'",
+          "∠BAC = ∠B'A'C'"
+        ],
+        "answer": "∠BAC = ∠B'A'C'",
+        "acceptedAnswers": [
+          "∠BAC = ∠B'A'C'",
+          "∠BAC=∠B'A'C'"
+        ],
+        "explanationZhHans": "翻折是轴对称变换，对称轴l是对称点连线的垂直平分线，所以AO = A'O且AA' ⊥ l；翻折前后的图形全等，对应边AB = A'B'。但∠BAC与∠B'A'C'不一定相等，因为点A与A'是对称点，但∠BAC和∠B'A'C'的顶点不同，它们不是对应角，所以不一定相等。因此答案是∠BAC = ∠B'A'C'。"
+      }
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-mc-031",
+      "action": "keep_false_positive",
+      "confidence": "medium",
+      "remediationNotes": "原题数学正确，表述清晰，虽与022题类似但属于基础知识点正常考查，非抄袭风险，保留原题。",
+      "question": {
+        "promptZhHans": "在△ABC和△DEF中，已知AB = DE，∠A = ∠D。若要使△ABC ≌ △DEF，还需添加一个条件。下列条件中不能保证全等的是（ ）。",
+        "optionsZhHans": [
+          "AC = DF",
+          "BC = EF",
+          "∠B = ∠E",
+          "∠C = ∠F"
+        ],
+        "answer": "BC = EF",
+        "acceptedAnswers": [
+          "BC = EF"
+        ],
+        "explanationZhHans": "已知AB = DE，∠A = ∠D。添加AC = DF，可用SAS判定全等；添加∠B = ∠E，可用ASA判定全等；添加∠C = ∠F，可用AAS判定全等。添加BC = EF，则已知两边和其中一边的对角对应相等，不能保证全等。因此，不能保证全等的条件是BC = EF。"
+      }
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-fi-009",
+      "action": "repair",
+      "confidence": "high",
+      "remediationNotes": "原题答案不完整，第三边可为6、8、10，修改答案为8或10，并调整题目条件使答案唯一。修改题目为第三边长为偶数且为最长边，则第三边长为8或10，但需唯一，故改为第三边长为偶数且三角形为等腰三角形，则第三边长为8。",
+      "question": {
+        "promptZhHans": "一个三角形的两边长分别为3和8，若第三边长为偶数，且这个三角形是等腰三角形，则第三边的长为______。",
+        "optionsZhHans": [],
+        "answer": "8",
+        "acceptedAnswers": [
+          "8"
+        ],
+        "explanationZhHans": "设第三边长为x，根据三角形三边关系，8-3<x<8+3，即5<x<11。x为偶数，在5到11之间的偶数有6、8、10。又因为三角形是等腰三角形，两边长分别为3和8，若腰长为3，则3+3=6<8，不能构成三角形；若腰长为8，则第三边为8，满足三边关系；若底边为8，则腰长为3和3，不能构成三角形。因此第三边只能为8。"
+      }
+    }
+  ]
+}

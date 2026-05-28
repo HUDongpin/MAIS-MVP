@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-093",
+  "startedAt": "2026-05-28T03:03:59.066Z",
+  "completedAt": "2026-05-28T03:04:04.868Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-093"
+  ],
+  "usage": {
+    "prompt_tokens": 2111,
+    "completion_tokens": 268,
+    "total_tokens": 2379,
+    "prompt_tokens_details": {
+      "cached_tokens": 2048
+    },
+    "prompt_cache_hit_tokens": 2048,
+    "prompt_cache_miss_tokens": 63
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-093",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "2",
+        "correctedAnswer": null,
+        "issueTags": [
+          "ambiguous_mc",
+          "missing_condition",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件“公比 q 为整数”导致 q=2 和 q=-3 均满足，答案不唯一。解析承认 q=-3 也成立，但最终答案仅给出 2，存在矛盾。需补充条件（如 q 为正整数）以确保唯一解。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目因缺少限制条件导致答案不唯一，解析自相矛盾，判定为不可解。"
+    }
+  }
+}

@@ -1,0 +1,110 @@
+{
+  "batchId": "model-qa-0169",
+  "ids": [
+    "hjb-junior-ds-v2-s3-345",
+    "hjb-junior-ds-v2-s3-346",
+    "hjb-junior-ds-v2-s3-347",
+    "hjb-junior-ds-v2-s3-348",
+    "hjb-junior-ds-v2-s3-349",
+    "hjb-junior-ds-v2-s3-350",
+    "hjb-junior-ds-v2-s3-351",
+    "hjb-junior-ds-v2-s3-352"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-345",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "13",
+      "answerCheckZhHans": "标准答案13正确，解析推导一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-346",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "120/13",
+      "answerCheckZhHans": "标准答案120/13正确，解析推导一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-347",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch",
+        "ambiguous-prompt"
+      ],
+      "issueDetailsZhHans": "题干求弦DE的长，但点E定义不清（OC与⊙O的交点有两个，E在O、C之间，但C在圆内，OC延长线交圆于D，则OC与圆交于两点，E是哪个？）。解析中答案8 cm与推导过程矛盾（推导得6√2 cm），且8 cm的得出无依据。独立计算：由垂径定理，OC=3 cm，设OE=x，则CE=3-x，DE=2√(25-x²)，由相交弦定理得(3-x)(3+x)=16，解得x=√7，DE=2√18=6√2 cm。标准答案8 cm错误。",
+      "independentAnswerZhHans": "6√2 cm",
+      "answerCheckZhHans": "标准答案8 cm错误，应为6√2 cm。",
+      "recommendedActionZhHans": "修正答案和解析，或明确点E的定义。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-348",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题干要求证明AD是公切线，但AD是公共弦，不可能同时是两圆的公切线（除非两圆重合）。解析中利用∠O1DO2=90°和AD⊥O1O2推出AD⊥O1D和AD⊥O2D，但AD⊥O1O2是连心线垂直平分公共弦的性质，而O1D和O2D是半径，若AD⊥O1D，则AD是⊙O1的切线，但AD经过点D，且D在圆上，若AD是切线，则AD与圆只有一个交点D，但A也是交点，矛盾。实际上，AD是公共弦，不是切线。题目可能误将“公切线”当作“公共弦”或“连心线”。标准答案错误。",
+      "independentAnswerZhHans": "无法证明，AD是公共弦，不是公切线。",
+      "answerCheckZhHans": "标准答案错误，AD不是公切线。",
+      "recommendedActionZhHans": "修改题干或答案，明确证明对象。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-349",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "8 cm",
+      "answerCheckZhHans": "标准答案8 cm正确，解析推导一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-350",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "20√3/3",
+      "answerCheckZhHans": "标准答案20√3/3正确，解析推导一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-351",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(2.5, 2.5√3)",
+      "answerCheckZhHans": "标准答案(2.5, 2.5√3)正确，解析推导一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-352",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "6 cm",
+      "answerCheckZhHans": "标准答案6 cm正确，解析推导一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

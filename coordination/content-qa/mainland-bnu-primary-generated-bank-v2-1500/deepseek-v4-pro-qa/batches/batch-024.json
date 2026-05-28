@@ -1,0 +1,191 @@
+{
+  "batchNumber": 24,
+  "startedAt": "2026-05-27T13:47:02.349Z",
+  "completedAt": "2026-05-27T13:47:20.618Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p2-165",
+    "bnu-primary-ds-v2-p2-166",
+    "bnu-primary-ds-v2-p2-167",
+    "bnu-primary-ds-v2-p2-168",
+    "bnu-primary-ds-v2-p2-169",
+    "bnu-primary-ds-v2-p2-170",
+    "bnu-primary-ds-v2-p2-171",
+    "bnu-primary-ds-v2-p2-172",
+    "bnu-primary-ds-v2-p2-173",
+    "bnu-primary-ds-v2-p2-174",
+    "bnu-primary-ds-v2-p2-175",
+    "bnu-primary-ds-v2-p2-176",
+    "bnu-primary-ds-v2-p2-177",
+    "bnu-primary-ds-v2-p2-178",
+    "bnu-primary-ds-v2-p2-179",
+    "bnu-primary-ds-v2-p2-180",
+    "bnu-primary-ds-v2-p2-181",
+    "bnu-primary-ds-v2-p2-182"
+  ],
+  "usage": {
+    "prompt_tokens": 3908,
+    "completion_tokens": 1321,
+    "total_tokens": 5229,
+    "prompt_tokens_details": {
+      "cached_tokens": 3840
+    },
+    "prompt_cache_hit_tokens": 3840,
+    "prompt_cache_miss_tokens": 68
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p2-165",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目逻辑清晰，答案正确，符合二年级方向与位置要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-166",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项设置合理，答案唯一，考查大数读写，无问题。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-167",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，最接近5000的数是5048，符合要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-168",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "写作和读作均正确，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-169",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "最大三位数853，最小305，和1158，选项A正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-170",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案3058正确，与168题类似但无读作要求，无问题。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-171",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "最大8530，最小3058，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-172",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项6007正确，其他选项干扰有效。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-173",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "4069正确，百位用0占位，符合要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-174",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "3250和5004正确，中间有零处理得当。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-175",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比较大小正确，选项设置合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-176",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "规律填数正确，进位处理无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-177",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "18个四位数，最大7530，最小3057，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-178",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "8008只读一个零，其他选项分析正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-179",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数位顺序正确，符合二年级要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-180",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "写作和读作均正确，零的处理恰当。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-181",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "硬币厚度用毫米合适，选项合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-182",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "单位换算正确，3千米=3000米。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版小学数学二年级要求，数学正确，答案匹配，无歧义或缺失条件，适合公共题库推广。"
+    }
+  }
+}

@@ -1,0 +1,569 @@
+{
+  "batchId": "batch-033",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p2-071",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-multiplication-facts-2-to-5",
+      "unitTitle": "2-5的乘法口诀",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "multiplication-facts",
+        "2-to-5-times-tables",
+        "乘法口诀",
+        "2到5乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "推理意识",
+        "数感"
+      ],
+      "skillTags": [
+        "2的口诀",
+        "3的口诀",
+        "4的口诀",
+        "5的口诀",
+        "口诀应用"
+      ],
+      "misconceptionTags": [
+        "facts memorized without quantity meaning",
+        "factor order confused",
+        "nearby fact relation not used"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-multiplication-facts-2-to-5"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-multiplication-facts-2-to-5-unit",
+        "bnu-primary-p2-upper-assessment-multiplication-facts-6-to-9-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "每个小朋友分到3块饼干，4个小朋友一共分到多少块饼干？用乘法算式表示，并写出得数。",
+      "optionsZhHans": [],
+      "answer": "3×4=12",
+      "acceptedAnswers": [
+        "3×4=12",
+        "4×3=12"
+      ],
+      "explanationZhHans": "每人3块，4人就是4个3，乘法算式为3×4=12或4×3=12，得数12块。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-072",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-multiplication-facts-2-to-5",
+      "unitTitle": "2-5的乘法口诀",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "multiplication-facts",
+        "2-to-5-times-tables",
+        "乘法口诀",
+        "2到5乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "推理意识",
+        "数感"
+      ],
+      "skillTags": [
+        "2的口诀",
+        "3的口诀",
+        "4的口诀",
+        "5的口诀",
+        "口诀应用"
+      ],
+      "misconceptionTags": [
+        "facts memorized without quantity meaning",
+        "factor order confused",
+        "nearby fact relation not used"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-multiplication-facts-2-to-5"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-multiplication-facts-2-to-5-unit",
+        "bnu-primary-p2-upper-assessment-multiplication-facts-6-to-9-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明想计算5×4，但他只记得5×3=15。请你帮他想一想，怎样利用5×3=15算出5×4的得数？写出你的想法和结果。",
+      "optionsZhHans": [],
+      "answer": "5×4比5×3多一个5，所以15+5=20，5×4=20。",
+      "acceptedAnswers": [
+        "5×4比5×3多一个5，所以15+5=20，5×4=20。",
+        "因为5×3=15，再加一个5就是20，所以5×4=20。",
+        "5×4=5×3+5=15+5=20"
+      ],
+      "explanationZhHans": "利用已知口诀5×3=15，5×4表示4个5，比3个5多1个5，所以15+5=20。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-073",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-multiplication-facts-2-to-5",
+      "unitTitle": "2-5的乘法口诀",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "multiplication-facts",
+        "2-to-5-times-tables",
+        "乘法口诀",
+        "2到5乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "推理意识",
+        "数感"
+      ],
+      "skillTags": [
+        "2的口诀",
+        "3的口诀",
+        "4的口诀",
+        "5的口诀",
+        "口诀应用"
+      ],
+      "misconceptionTags": [
+        "facts memorized without quantity meaning",
+        "factor order confused",
+        "nearby fact relation not used"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-multiplication-facts-2-to-5"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-multiplication-facts-2-to-5-unit",
+        "bnu-primary-p2-upper-assessment-multiplication-facts-6-to-9-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪道算式的得数与2×8相等？",
+      "optionsZhHans": [
+        "4×4",
+        "3×6",
+        "5×3",
+        "2×9"
+      ],
+      "answer": "4×4",
+      "acceptedAnswers": [
+        "4×4"
+      ],
+      "explanationZhHans": "2×8=16，4×4=16，所以选4×4。其他选项：3×6=18，5×3=15，2×9=18，都不等于16。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-074",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-multiplication-facts-2-to-5",
+      "unitTitle": "2-5的乘法口诀",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "multiplication-facts",
+        "2-to-5-times-tables",
+        "乘法口诀",
+        "2到5乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "推理意识",
+        "数感"
+      ],
+      "skillTags": [
+        "2的口诀",
+        "3的口诀",
+        "4的口诀",
+        "5的口诀",
+        "口诀应用"
+      ],
+      "misconceptionTags": [
+        "facts memorized without quantity meaning",
+        "factor order confused",
+        "nearby fact relation not used"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-multiplication-facts-2-to-5"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-multiplication-facts-2-to-5-unit",
+        "bnu-primary-p2-upper-assessment-multiplication-facts-6-to-9-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一盒铅笔有4支，3盒铅笔一共有多少支？用乘法算式表示，并写出得数。",
+      "optionsZhHans": [],
+      "answer": "4×3=12",
+      "acceptedAnswers": [
+        "4×3=12",
+        "3×4=12"
+      ],
+      "explanationZhHans": "每盒4支，3盒就是3个4，乘法算式为4×3=12或3×4=12，得数12支。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-075",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-multiplication-facts-2-to-5",
+      "unitTitle": "2-5的乘法口诀",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "multiplication-facts",
+        "2-to-5-times-tables",
+        "乘法口诀",
+        "2到5乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "推理意识",
+        "数感"
+      ],
+      "skillTags": [
+        "2的口诀",
+        "3的口诀",
+        "4的口诀",
+        "5的口诀",
+        "口诀应用"
+      ],
+      "misconceptionTags": [
+        "facts memorized without quantity meaning",
+        "factor order confused",
+        "nearby fact relation not used"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-multiplication-facts-2-to-5"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-multiplication-facts-2-to-5-unit",
+        "bnu-primary-p2-upper-assessment-multiplication-facts-6-to-9-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小红在计算3×6时忘记了得数，但她记得3×5=15。你能帮她用3×5=15算出3×6的得数吗？写出你的想法和结果。",
+      "optionsZhHans": [],
+      "answer": "3×6比3×5多一个3，所以15+3=18，3×6=18。",
+      "acceptedAnswers": [
+        "3×6比3×5多一个3，所以15+3=18，3×6=18。",
+        "因为3×5=15，再加一个3就是18，所以3×6=18。",
+        "3×6=3×5+3=15+3=18"
+      ],
+      "explanationZhHans": "利用已知口诀3×5=15，3×6表示6个3，比5个3多1个3，所以15+3=18。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-076",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-measurement",
+      "unitTitle": "测量",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "length-measurement",
+        "centimeter-meter",
+        "measurement-units",
+        "测量"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "应用意识"
+      ],
+      "skillTags": [
+        "厘米",
+        "米",
+        "估测",
+        "选择单位",
+        "测量记录"
+      ],
+      "misconceptionTags": [
+        "starting point not aligned",
+        "centimeter and meter confused",
+        "larger unit count read as longer object"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-measurement-unit",
+        "bnu-primary-p2-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "教室门的高度大约是2（ ），应填哪个长度单位？",
+      "optionsZhHans": [
+        "厘米",
+        "米",
+        "分米",
+        "毫米"
+      ],
+      "answer": "米",
+      "acceptedAnswers": [
+        "米"
+      ],
+      "explanationZhHans": "教室门比较高，用米作单位合适。2厘米、2分米和2毫米都太短。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-077",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-measurement",
+      "unitTitle": "测量",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "length-measurement",
+        "centimeter-meter",
+        "measurement-units",
+        "测量"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "应用意识"
+      ],
+      "skillTags": [
+        "厘米",
+        "米",
+        "估测",
+        "选择单位",
+        "测量记录"
+      ],
+      "misconceptionTags": [
+        "starting point not aligned",
+        "centimeter and meter confused",
+        "larger unit count read as longer object"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-measurement-unit",
+        "bnu-primary-p2-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "量一量，你的文具盒长大约是多少厘米？填写数字和单位。",
+      "optionsZhHans": [],
+      "answer": "20厘米",
+      "acceptedAnswers": [
+        "20厘米",
+        "约20厘米",
+        "大约20厘米"
+      ],
+      "explanationZhHans": "文具盒长度一般在20厘米左右，用厘米作单位。学生可实际测量，答案合理即可。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-078",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-measurement",
+      "unitTitle": "测量",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "length-measurement",
+        "centimeter-meter",
+        "measurement-units",
+        "测量"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "应用意识"
+      ],
+      "skillTags": [
+        "厘米",
+        "米",
+        "估测",
+        "选择单位",
+        "测量记录"
+      ],
+      "misconceptionTags": [
+        "starting point not aligned",
+        "centimeter and meter confused",
+        "larger unit count read as longer object"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-measurement-unit",
+        "bnu-primary-p2-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一根绳子用尺子测量，一端对准0刻度，另一端对准刻度15。这根绳子长多少厘米？如果用它测量课桌的长度，量了3次正好量完，课桌长约多少厘米？",
+      "optionsZhHans": [],
+      "answer": "绳子长15厘米，课桌长约45厘米。",
+      "acceptedAnswers": [
+        "绳子长15厘米，课桌长约45厘米。",
+        "15厘米，45厘米"
+      ],
+      "explanationZhHans": "从0到15是15厘米。量3次，课桌长15+15+15=45厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-079",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-measurement",
+      "unitTitle": "测量",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "length-measurement",
+        "centimeter-meter",
+        "measurement-units",
+        "测量"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "应用意识"
+      ],
+      "skillTags": [
+        "厘米",
+        "米",
+        "估测",
+        "选择单位",
+        "测量记录"
+      ],
+      "misconceptionTags": [
+        "starting point not aligned",
+        "centimeter and meter confused",
+        "larger unit count read as longer object"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-measurement-unit",
+        "bnu-primary-p2-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小华用断尺测量一支铅笔，他从刻度2开始量，铅笔的另一端对着刻度11。这支铅笔长多少厘米？",
+      "optionsZhHans": [
+        "11厘米",
+        "9厘米",
+        "13厘米",
+        "2厘米"
+      ],
+      "answer": "9厘米",
+      "acceptedAnswers": [
+        "9厘米"
+      ],
+      "explanationZhHans": "从刻度2到11，长度为11-2=9厘米。不能直接读11，要减去起点刻度。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-080",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-measurement",
+      "unitTitle": "测量",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "length-measurement",
+        "centimeter-meter",
+        "measurement-units",
+        "测量"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "应用意识"
+      ],
+      "skillTags": [
+        "厘米",
+        "米",
+        "估测",
+        "选择单位",
+        "测量记录"
+      ],
+      "misconceptionTags": [
+        "starting point not aligned",
+        "centimeter and meter confused",
+        "larger unit count read as longer object"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-measurement-unit",
+        "bnu-primary-p2-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在括号里填上合适的单位：一棵大树高约8（ ）。",
+      "optionsZhHans": [],
+      "answer": "米",
+      "acceptedAnswers": [
+        "米"
+      ],
+      "explanationZhHans": "大树的高度用米作单位比较合适，8厘米太矮，所以填“米”。"
+    }
+  ]
+}

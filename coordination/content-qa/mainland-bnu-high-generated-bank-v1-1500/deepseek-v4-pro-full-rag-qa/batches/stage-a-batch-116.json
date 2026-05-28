@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-116",
+  "startedAt": "2026-05-28T01:28:55.997Z",
+  "completedAt": "2026-05-28T01:29:08.861Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-421",
+    "bnu-high-ds-v1-s5-422",
+    "bnu-high-ds-v1-s5-423",
+    "bnu-high-ds-v1-s5-424",
+    "bnu-high-ds-v1-s5-425",
+    "bnu-high-ds-v1-s5-426",
+    "bnu-high-ds-v1-s5-427",
+    "bnu-high-ds-v1-s5-428"
+  ],
+  "usage": {
+    "prompt_tokens": 10097,
+    "completion_tokens": 949,
+    "total_tokens": 11046,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9713
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-421",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "0.600",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "条件概率：P(足球|篮球)=P(篮球∩足球)/P(篮球)=15/25=0.6。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-422",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "3/7",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "不放回抽样，第一次红球后剩4红3蓝，第二次蓝球概率为3/7。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-423",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "4/3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由∑P(X=k)=1得c(1/2+1/6+1/12)=1，解得c=4/3。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-424",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "36",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "二项分布E(X)=np=12，D(X)=np(1-p)=8，解得p=1/3，n=36。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-425",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "0.6827",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "正态分布N(170,5^2)，区间(165,175]即(μ-σ,μ+σ]，概率为0.6827。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-426",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "0.3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由∑P=1得a=0.3，且E(X)=1×0.2+2×0.3+3×0.5=2.3，一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-427",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "0.375",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "X~B(4,0.5)，P(X=2)=C(4,2)×0.5^4=6/16=0.375。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-428",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "1/2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "密码被译出=1-两人都未译出=1-(2/3)×(3/4)=1-1/2=1/2。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均能独立求解，答案明确，符合北师大版高中概率章节要求。"
+    }
+  }
+}

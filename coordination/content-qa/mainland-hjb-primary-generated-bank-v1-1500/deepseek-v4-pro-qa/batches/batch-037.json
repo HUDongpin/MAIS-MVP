@@ -1,0 +1,191 @@
+{
+  "batchNumber": 37,
+  "startedAt": "2026-05-25T02:05:24.060Z",
+  "completedAt": "2026-05-25T02:05:43.396Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p3-149",
+    "hjb-primary-ds-v1-p3-150",
+    "hjb-primary-ds-v1-p3-151",
+    "hjb-primary-ds-v1-p3-152",
+    "hjb-primary-ds-v1-p3-153",
+    "hjb-primary-ds-v1-p3-154",
+    "hjb-primary-ds-v1-p3-155",
+    "hjb-primary-ds-v1-p3-156",
+    "hjb-primary-ds-v1-p3-157",
+    "hjb-primary-ds-v1-p3-158",
+    "hjb-primary-ds-v1-p3-159",
+    "hjb-primary-ds-v1-p3-160",
+    "hjb-primary-ds-v1-p3-161",
+    "hjb-primary-ds-v1-p3-162",
+    "hjb-primary-ds-v1-p3-163",
+    "hjb-primary-ds-v1-p3-164",
+    "hjb-primary-ds-v1-p3-165",
+    "hjb-primary-ds-v1-p3-166"
+  ],
+  "usage": {
+    "prompt_tokens": 3642,
+    "completion_tokens": 1284,
+    "total_tokens": 4926,
+    "prompt_tokens_details": {
+      "cached_tokens": 3584
+    },
+    "prompt_cache_hit_tokens": 3584,
+    "prompt_cache_miss_tokens": 58
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p3-149",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案拆分法符合沪教版三年级乘法分配律的常用说法，无错误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-150",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，验算方法符合要求，答案格式覆盖多种写法，无问题。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-151",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项C正确，解释合理，无歧义。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-152",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案104无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-153",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案表述清晰，覆盖多种合理说法，无问题。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-154",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项B正确，先乘后除，符合题意。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-155",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估算方法正确，答案800无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-156",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案1680本无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-157",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，还需1辆，选项无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-158",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案432块无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-159",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "买5送1问题处理正确，最少付300元。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-160",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "先减剩余再除，得15箱，正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-161",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，每个班级22本。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-162",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估算和精确计算均正确，能运走。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-163",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项A正确，其他选项错误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-164",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，816人。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-165",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，最多7袋。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-166",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，36本。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合沪教版三年级要求，数学正确，答案匹配，无歧义或缺失条件，适合公共题库使用。"
+    }
+  }
+}

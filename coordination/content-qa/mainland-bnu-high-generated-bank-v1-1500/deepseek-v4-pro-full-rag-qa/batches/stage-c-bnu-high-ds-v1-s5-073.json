@@ -1,0 +1,48 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-073",
+  "startedAt": "2026-05-28T02:07:38.310Z",
+  "completedAt": "2026-05-28T02:07:43.877Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-073"
+  ],
+  "usage": {
+    "prompt_tokens": 2073,
+    "completion_tokens": 278,
+    "total_tokens": 2351,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1689
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-073",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "5/4",
+        "correctedAnswer": "5/4",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "椭圆焦点F1(-2,0),F2(2,0)，由PF1⊥PF2得x^2+y^2=4，与椭圆方程联立解得y^2=25/16，故|y|=5/4。存储答案5/3错误，解析中消元计算有误，导致答案矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目可解，符合教材范围，但答案错误，解析计算矛盾，需修正为5/4。"
+    }
+  }
+}

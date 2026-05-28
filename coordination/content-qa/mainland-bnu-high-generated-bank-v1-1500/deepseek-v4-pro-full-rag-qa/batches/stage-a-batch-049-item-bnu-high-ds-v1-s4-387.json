@@ -1,0 +1,41 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-049-item-bnu-high-ds-v1-s4-387",
+  "startedAt": "2026-05-28T02:30:10.049Z",
+  "completedAt": "2026-05-28T02:30:18.105Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-387"
+  ],
+  "usage": {
+    "prompt_tokens": 1652,
+    "completion_tokens": 229,
+    "total_tokens": 1881,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1268
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-387",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "DE = (1/2)(b - c)，DE平行于BC且长度等于BC的一半",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可用向量法独立求解。由中点得AD=(1/2)c，AE=(1/2)b，则DE=AE-AD=(1/2)(b-c)。又BC=AC-AB=b-c，故DE=(1/2)BC，即DE与BC平行且模长为BC的一半，符合三角形中位线定理。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 1,
+      "warn": 0,
+      "fail": 0,
+      "notes": "1道题均通过盲审，无问题。"
+    }
+  }
+}

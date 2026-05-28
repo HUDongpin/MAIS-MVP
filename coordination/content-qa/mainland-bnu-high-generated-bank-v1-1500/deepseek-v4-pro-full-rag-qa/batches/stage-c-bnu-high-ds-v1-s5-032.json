@@ -1,0 +1,48 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-032",
+  "startedAt": "2026-05-28T02:02:31.857Z",
+  "completedAt": "2026-05-28T02:02:36.945Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-032"
+  ],
+  "usage": {
+    "prompt_tokens": 2867,
+    "completion_tokens": 279,
+    "total_tokens": 3146,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2483
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-032",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": null,
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件矛盾：圆C圆心(3,-2)，半径√5，直线过P(2,-1)，弦中点横坐标为1。设直线斜率k，由垂径定理得k²-k+2=0无实解；斜率不存在时x=2中点横坐标2≠1。故无满足条件的直线，题目不可解。存储答案错误，解析中韦达定理计算有误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目条件矛盾，无解，存储答案错误，判定为不可解。"
+    }
+  }
+}

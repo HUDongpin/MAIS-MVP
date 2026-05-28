@@ -1,0 +1,176 @@
+{
+  "batchNumber": 94,
+  "startedAt": "2026-05-27T17:55:11.141Z",
+  "completedAt": "2026-05-27T17:55:26.892Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s3-117",
+    "bnu-junior-ds-v1-s3-118",
+    "bnu-junior-ds-v1-s3-119",
+    "bnu-junior-ds-v1-s3-120",
+    "bnu-junior-ds-v1-s3-121",
+    "bnu-junior-ds-v1-s3-122",
+    "bnu-junior-ds-v1-s3-123",
+    "bnu-junior-ds-v1-s3-124",
+    "bnu-junior-ds-v1-s3-125",
+    "bnu-junior-ds-v1-s3-126",
+    "bnu-junior-ds-v1-s3-127",
+    "bnu-junior-ds-v1-s3-128"
+  ],
+  "usage": {
+    "prompt_tokens": 6241,
+    "completion_tokens": 1331,
+    "total_tokens": 7572,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 5729
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s3-117",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，不放回摸球，计算正确，答案3/5与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-118",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "有放回摸球，选项唯一正确，答案1/2与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-119",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "不放回摸球，计算正确，答案7/15与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-120",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "有放回摸球，计算正确，答案5/8与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-121",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "放回摸球，选项唯一正确，答案12/25与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-122",
+        "status": "fail",
+        "severity": "major",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "公平，因为小明和小亮每次得分的期望值都是0.5分。",
+        "rationale": "题目要求判断游戏是否公平并说明理由。解释中明确计算期望值相等，结论应为公平，但答案字段开头为“不公平”，与解释矛盾。acceptedAnswers中第一个答案也以“不公平”开头，但第二个答案正确。答案字段应修正为“公平”。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-123",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "密码锁问题，计算正确，答案1/100与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-124",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "扑克牌问题，去掉大小王共52张，红桃13张，概率1/4，选项唯一正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-125",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "摸球问题，组合计算正确，答案1/2与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-126",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "频率估计概率，观察数据稳定在0.9，答案0.9正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-127",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "石头剪刀布游戏，等可能结果9种，甲获胜3种，概率1/3，选项唯一正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-128",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "放回摸球，计算正确，答案13/25与解释一致。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 11,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第122题答案字段与解释矛盾，结论应为公平但答案写为不公平，已标记为fail。其余题目均正确。"
+    }
+  }
+}

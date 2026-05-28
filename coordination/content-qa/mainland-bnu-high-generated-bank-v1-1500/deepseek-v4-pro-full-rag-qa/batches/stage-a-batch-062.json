@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-062",
+  "startedAt": "2026-05-28T01:11:04.584Z",
+  "completedAt": "2026-05-28T01:11:22.358Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-489",
+    "bnu-high-ds-v1-s4-490",
+    "bnu-high-ds-v1-s4-491",
+    "bnu-high-ds-v1-s4-492",
+    "bnu-high-ds-v1-s4-493",
+    "bnu-high-ds-v1-s4-494",
+    "bnu-high-ds-v1-s4-495",
+    "bnu-high-ds-v1-s4-496"
+  ],
+  "usage": {
+    "prompt_tokens": 10481,
+    "completion_tokens": 935,
+    "total_tokens": 11416,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 10097
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-489",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "√6/2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "建立坐标系，用点面距公式计算得距离为√6/2，选项C正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-490",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "9√3 + 36",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "正三棱锥底面为正三角形，侧棱相等，可求斜高为4，表面积=底面积+3个侧面积=9√3+36。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-491",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "直线A₁C₁",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "通过线面平行判定，A₁C₁平行于平面BDE内的直线OE，故与平面BDE平行。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-492",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "16/3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "正四棱锥底面正方形对角线一半为2√2，由侧棱长求得高为2，体积=1/3×底面积×高=16/3。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-493",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "若m⊥α，n⊥β，α⊥β，则m⊥n",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "选项B正确：由面面垂直和线面垂直的性质可推出m⊥n。其他选项均有反例。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-494",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "15π",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "圆锥侧面积公式S=πrl，代入r=3，l=5得15π。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-495",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "1/7",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "建立空间直角坐标系，用向量法求得异面直线A₁B与B₁C所成角的余弦值为1/7。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-496",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "18",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "正三棱柱侧面积=底面周长×侧棱长=3×2×3=18。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，无数学错误、歧义或缺失条件，符合北师大版高中立体几何初步要求。"
+    }
+  }
+}

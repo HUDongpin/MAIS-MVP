@@ -1,0 +1,191 @@
+{
+  "batchNumber": 2,
+  "startedAt": "2026-05-27T13:24:58.460Z",
+  "completedAt": "2026-05-27T13:25:16.929Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p1-019",
+    "bnu-primary-ds-v1-p1-020",
+    "bnu-primary-ds-v1-p1-021",
+    "bnu-primary-ds-v1-p1-022",
+    "bnu-primary-ds-v1-p1-023",
+    "bnu-primary-ds-v1-p1-024",
+    "bnu-primary-ds-v1-p1-025",
+    "bnu-primary-ds-v1-p1-026",
+    "bnu-primary-ds-v1-p1-027",
+    "bnu-primary-ds-v1-p1-028",
+    "bnu-primary-ds-v1-p1-029",
+    "bnu-primary-ds-v1-p1-030",
+    "bnu-primary-ds-v1-p1-031",
+    "bnu-primary-ds-v1-p1-032",
+    "bnu-primary-ds-v1-p1-033",
+    "bnu-primary-ds-v1-p1-034",
+    "bnu-primary-ds-v1-p1-035",
+    "bnu-primary-ds-v1-p1-036"
+  ],
+  "usage": {
+    "prompt_tokens": 2895,
+    "completion_tokens": 1304,
+    "total_tokens": 4199,
+    "prompt_tokens_details": {
+      "cached_tokens": 2816
+    },
+    "prompt_cache_hit_tokens": 2816,
+    "prompt_cache_miss_tokens": 79
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p1-019",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，比较数字大小，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-020",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数量相等，答案“同样多”正确，接受“一样多”合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-021",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比较和减法，答案正确，接受多种表述。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-022",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比较长度，选项清晰，答案C正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-023",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "生活经验比较轻重，答案“西瓜”正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-024",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数量相等，答案“一样多”正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-025",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比较数量，2最少，答案D正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-026",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "求差，8-3=5，答案“5米”正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-027",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比较多少，6-4=2，答案“2个”正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-028",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "判断大小关系，C正确，其他错误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-029",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "求重量差，12-4=8，答案“8千克”正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-030",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比较和减法，答案正确，接受多种表述。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-031",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比较数量，青苹果多，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-032",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数量相等，答案“一样多”正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-033",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "加法应用题，算式和得数正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-034",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "减法算式选择，8-3=5正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-035",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "逆向加法，6+2=8，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p1-036",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "加法应用题，算式和得数正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版小学数学一年级上册要求，数学正确，答案匹配，表述清晰，无风险。"
+    }
+  }
+}

@@ -1,0 +1,133 @@
+{
+  "batchNumber": 101,
+  "startedAt": "2026-05-27T14:01:08.499Z",
+  "completedAt": "2026-05-27T14:01:28.403Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-301",
+    "bnu-high-ds-v1-s5-302",
+    "bnu-high-ds-v1-s5-303",
+    "bnu-high-ds-v1-s5-304",
+    "bnu-high-ds-v1-s5-305",
+    "bnu-high-ds-v1-s5-306",
+    "bnu-high-ds-v1-s5-307",
+    "bnu-high-ds-v1-s5-308"
+  ],
+  "usage": {
+    "prompt_tokens": 10501,
+    "completion_tokens": 1293,
+    "total_tokens": 11794,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 9989
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-301",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "195",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，总选法C(10,4)=210，无女生选法C(6,4)=15，至少1名女生选法210-15=195，与选项A一致。解析正确，无问题。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-302",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "65",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "分类计算：2数2物C(5,2)C(3,2)=30，3数1物C(5,3)C(3,1)=30，4数C(5,4)=5，总和65。答案65正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-303",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "-160",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "通项T_{r+1}=C(6,r)(2x)^{6-r}(-1)^r，令6-r=3得r=3，系数C(6,3)*2^3*(-1)^3=20*8*(-1)=-160。答案-160正确，解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-304",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "30",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "偶数个位为0,2,4。个位0：A(4,2)=12；个位2：百位非0有3种，十位剩3种，3×3=9；个位4同理9种。共12+9+9=30。答案A正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-305",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "36",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "先分组：4本书分成2,1,1三组，选2本成组C(4,2)=6，其余自然成组。再分配：三组全排列给3人A(3,3)=6。总6×6=36。答案36正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-306",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "9",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "C(n,2)=n(n-1)/2=36，得n(n-1)=72，解得n=9（负值舍去）。答案9正确，解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-307",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "30",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "分类：A1B2：C(3,1)C(4,2)=18；A2B1：C(3,2)C(4,1)=12。总和30。答案A正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-308",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "24",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "通项T_{r+1}=C(4,r)x^{4-r}(-2/x)^r=C(4,r)(-2)^r x^{4-2r}，令4-2r=0得r=2，常数项C(4,2)(-2)^2=6×4=24。答案24正确，解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，答案与解析均正确且一致，无任何问题。"
+    }
+  }
+}

@@ -1,0 +1,168 @@
+{
+  "scope": "full",
+  "batchIndex": 31,
+  "startedAt": "2026-05-28T03:30:46.570Z",
+  "completedAt": "2026-05-28T03:31:30.279Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "itemIds": [
+    "10592",
+    "10593",
+    "10594",
+    "10595",
+    "10596",
+    "10597",
+    "10598",
+    "10599",
+    "10600",
+    "10601"
+  ],
+  "usage": {
+    "prompt_tokens": 2856,
+    "completion_tokens": 2781,
+    "total_tokens": 5637,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1647
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2472
+  },
+  "finishReason": "stop",
+  "jsonModeFallback": false,
+  "result": {
+    "items": [
+      {
+        "questionId": "10592",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "平方米 或 m^2",
+        "independentAnswer": "平方米",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Question is clear; independently derived unit matches standard answer.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10593",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "平方厘米 或 cm^2",
+        "independentAnswer": "平方厘米",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Question is clear; independently derived unit matches standard answer.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10594",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "$7 \\times 7 = \\mathbf{49}$",
+        "independentAnswer": "49",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Question is clear; computed area matches standard answer (49 cm² implicitly).",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10595",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "8 米",
+        "independentAnswer": "8米",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Question is clear; computed side length matches standard answer.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10596",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "10 厘米",
+        "independentAnswer": "10厘米",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Question is clear; computed side length matches standard answer.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10597",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "$12 \\times 5 = \\mathbf{60}$ 平方厘米",
+        "independentAnswer": "60平方厘米",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Question is clear; computed area matches standard answer.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10598",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "$48 \\div 8 = \\mathbf{6}$ 米",
+        "independentAnswer": "6米",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Question is clear; computed width matches standard answer.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10599",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "兩者相等 (Both are equal)",
+        "independentAnswer": "两者相等",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Question is clear; computed areas are equal, matches standard answer.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10600",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "$6 \\times 4 \\times 120 = 24 \\times 120 = \\mathbf{2,880}$ 元",
+        "independentAnswer": "2880元",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Question is clear; computed total cost matches standard answer.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10601",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "32 平方厘米",
+        "independentAnswer": "32平方厘米",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Question is clear; computed area matches standard answer.",
+        "recommendedAction": "No blocking action."
+      }
+    ],
+    "batchSummary": {
+      "pass": 10,
+      "unsolvable": 0,
+      "ambiguous": 0,
+      "imageContextRequired": 0,
+      "answerMismatch": 0,
+      "missingAnswerKey": 0,
+      "notes": "All items are solvable and answer keys are consistent."
+    }
+  }
+}

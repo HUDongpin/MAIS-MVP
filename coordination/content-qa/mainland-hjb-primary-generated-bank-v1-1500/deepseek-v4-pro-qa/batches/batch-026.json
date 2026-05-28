@@ -1,0 +1,191 @@
+{
+  "batchNumber": 26,
+  "startedAt": "2026-05-25T02:00:50.747Z",
+  "completedAt": "2026-05-25T02:01:07.559Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p2-201",
+    "hjb-primary-ds-v1-p2-202",
+    "hjb-primary-ds-v1-p2-203",
+    "hjb-primary-ds-v1-p2-204",
+    "hjb-primary-ds-v1-p2-205",
+    "hjb-primary-ds-v1-p2-206",
+    "hjb-primary-ds-v1-p2-207",
+    "hjb-primary-ds-v1-p2-208",
+    "hjb-primary-ds-v1-p2-209",
+    "hjb-primary-ds-v1-p2-210",
+    "hjb-primary-ds-v1-p2-211",
+    "hjb-primary-ds-v1-p2-212",
+    "hjb-primary-ds-v1-p2-213",
+    "hjb-primary-ds-v1-p2-214",
+    "hjb-primary-ds-v1-p2-215",
+    "hjb-primary-ds-v1-p2-216",
+    "hjb-primary-ds-v1-p2-217",
+    "hjb-primary-ds-v1-p2-218"
+  ],
+  "usage": {
+    "prompt_tokens": 3534,
+    "completion_tokens": 1256,
+    "total_tokens": 4790,
+    "prompt_tokens_details": {
+      "cached_tokens": 3456
+    },
+    "prompt_cache_hit_tokens": 3456,
+    "prompt_cache_miss_tokens": 78
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p2-201",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目逻辑正确，答案唯一，解析清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-202",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，解析到位，符合基础要求。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-203",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项合理，答案唯一。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-204",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数位顺序正确，答案无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-205",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比较大小逻辑正确，最大填3无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-206",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案3058正确，强调0占位。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-207",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "减法计算正确，选项区分度好。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-208",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "加法计算正确，答案621无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-209",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "减法计算正确，答案177无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-210",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估算合理，答案900正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-211",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估算与精确计算匹配，答案623正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-212",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "竖式计算正确，答案2,6,8无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-213",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "退位判断正确，432-156需连续退位。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-214",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估算正确，答案500无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-215",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "连减算式正确，答案唯一。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-216",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "加法计算正确，答案623无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-217",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "各选项计算正确，D最接近500。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-218",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "退位减法正确，答案245无误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案匹配，无歧义，适合沪教版P2年级。"
+    }
+  }
+}

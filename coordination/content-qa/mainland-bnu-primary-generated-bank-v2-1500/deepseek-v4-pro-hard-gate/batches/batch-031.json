@@ -1,0 +1,330 @@
+{
+  "batchNumber": 31,
+  "startedAt": "2026-05-26T16:59:55.496Z",
+  "completedAt": "2026-05-26T17:00:26.558Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p4-151",
+    "bnu-primary-ds-v2-p4-152",
+    "bnu-primary-ds-v2-p4-153",
+    "bnu-primary-ds-v2-p4-154",
+    "bnu-primary-ds-v2-p4-155",
+    "bnu-primary-ds-v2-p4-156",
+    "bnu-primary-ds-v2-p4-157",
+    "bnu-primary-ds-v2-p4-158",
+    "bnu-primary-ds-v2-p4-159",
+    "bnu-primary-ds-v2-p4-160",
+    "bnu-primary-ds-v2-p4-161",
+    "bnu-primary-ds-v2-p4-162",
+    "bnu-primary-ds-v2-p4-163",
+    "bnu-primary-ds-v2-p4-164",
+    "bnu-primary-ds-v2-p4-165",
+    "bnu-primary-ds-v2-p4-166",
+    "bnu-primary-ds-v2-p4-167",
+    "bnu-primary-ds-v2-p4-168",
+    "bnu-primary-ds-v2-p4-169",
+    "bnu-primary-ds-v2-p4-170",
+    "bnu-primary-ds-v2-p4-171",
+    "bnu-primary-ds-v2-p4-172",
+    "bnu-primary-ds-v2-p4-173",
+    "bnu-primary-ds-v2-p4-174",
+    "bnu-primary-ds-v2-p4-175",
+    "bnu-primary-ds-v2-p4-176",
+    "bnu-primary-ds-v2-p4-177",
+    "bnu-primary-ds-v2-p4-178",
+    "bnu-primary-ds-v2-p4-179",
+    "bnu-primary-ds-v2-p4-180"
+  ],
+  "usage": {
+    "prompt_tokens": 5604,
+    "completion_tokens": 2446,
+    "total_tokens": 8050,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 5220
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p4-151",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目完整，计算正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-152",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "比较小数大小，0.61最大，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-153",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "通过错误结果反推正确结果，计算无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-154",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "3.02中的2在百分位，表示2个百分之一，选项唯一正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-155",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "减法计算正确，2.45-0.7=1.75。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-156",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "加法计算正确，58.6+12.35=70.95。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-157",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "10.00-3.45=6.55，与10-3.45相等，选项唯一正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-158",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "单位换算正确，3元5角6分=3.56元。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-159",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "比较大小正确，顺序为1.9米>1.85米>1.78米。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-160",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "5.06读作五点零六，选项唯一正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-161",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "对边平行且相等，符合平行四边形定义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-162",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "两组对边分别相等，相邻边不相等，是平行四边形，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-163",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "四边相等且四个直角，是正方形，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-164",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "四边相等且四个直角，是正方形。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-165",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "三角形三边关系正确，第三边可取4~12厘米。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-166",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "四边相等且四个直角，是正方形，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-167",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "只有一组对边平行，是梯形。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-168",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "两组对边分别平行，一定是平行四边形，回答“是”正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-169",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "两组对边平行且四边相等，非直角，是菱形，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-170",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "四边相等且四个直角，是正方形。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-171",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "两边相等，是等腰三角形，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-172",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "等腰三角形一定是轴对称图形，选项唯一正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-173",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "只有一组对边平行，是梯形，答案“梯”或“梯形”均可。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-174",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "直角三角形按角分类名称正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-175",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "最大角80°，三个角都小于90°，是锐角三角形，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-176",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "0.6×7=4.2，计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-177",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "2.5×8.4=21，计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-178",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "0.8×0.7=0.56最小，选项唯一正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-179",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "2.4×1.5=3.6，积的小数位数正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-180",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "6.5×4=26，面积计算正确。"
+      }
+    ],
+    "batchSummary": {
+      "solvableYes": 30,
+      "solvableNo": 0,
+      "answerMatchYes": 30,
+      "answerMatchNo": 0,
+      "notes": "全部30道题目均可解，答案匹配正确，无问题。"
+    }
+  }
+}

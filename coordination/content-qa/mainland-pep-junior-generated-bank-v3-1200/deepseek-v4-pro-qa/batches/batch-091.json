@@ -1,0 +1,140 @@
+{
+  "batchNumber": 91,
+  "startedAt": "2026-05-24T23:04:03.670Z",
+  "completedAt": "2026-05-24T23:04:17.676Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s3-k11-fi-015",
+    "pep-junior-v3-s3-k11-fi-016",
+    "pep-junior-v3-s3-k11-fi-017",
+    "pep-junior-v3-s3-k11-fi-018",
+    "pep-junior-v3-s3-k11-fi-019",
+    "pep-junior-v3-s3-k11-fi-020",
+    "pep-junior-v3-s3-k11-fi-021",
+    "pep-junior-v3-s3-k11-fi-022",
+    "pep-junior-v3-s3-k11-fi-023",
+    "pep-junior-v3-s3-k11-fi-024",
+    "pep-junior-v3-s3-k11-fi-025",
+    "pep-junior-v3-s3-k11-fi-026"
+  ],
+  "usage": {
+    "prompt_tokens": 3405,
+    "completion_tokens": 969,
+    "total_tokens": 4374,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 3149
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s3-k11-fi-015",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案与解析一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-fi-016",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案与解析一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-fi-017",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案与解析一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-fi-018",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案与解析一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-fi-019",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案与解析一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-fi-020",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案与解析一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-fi-021",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案与解析一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-fi-022",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案与解析一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-fi-023",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案与解析一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-fi-024",
+        "status": "fail",
+        "severity": "blocker",
+        "issueTags": [
+          "answer_mismatch",
+          "ambiguous_mc"
+        ],
+        "correctedAnswer": "15",
+        "rationale": "解析自相矛盾：先算得15，后为凑答案改为20。从正面看通常看到长和高，面积应为5×3=15，答案20错误。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-fi-025",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案与解析一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-fi-026",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案与解析一致，无歧义。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 11,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第24题答案错误，解析自相矛盾，正面面积应为15而非20。其余题目均正确。"
+    }
+  }
+}

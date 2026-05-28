@@ -1,0 +1,692 @@
+{
+  "batchId": "batch-008",
+  "questions": [
+    {
+      "id": "bnu-high-ds-v1-s4-071",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-函数",
+      "topicTitleZhHans": "函数",
+      "volume": "必修 第一册",
+      "chapter": "函数",
+      "conceptIds": [
+        "function-definition",
+        "domain-range",
+        "function-representations",
+        "monotonicity",
+        "parity",
+        "piecewise-functions"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "直观想象",
+        "逻辑推理",
+        "数学表达"
+      ],
+      "skillTags": [
+        "函数定义",
+        "定义域值域",
+        "单调性",
+        "奇偶性",
+        "分段函数",
+        "函数性质综合",
+        "定义域检查",
+        "指数对数转化"
+      ],
+      "misconceptionTags": [
+        "domain omitted",
+        "range and value confused",
+        "increasing interval confused with positive value",
+        "parity checked outside domain",
+        "monotonicity inferred from sign only",
+        "parity checked outside the domain",
+        "domain omitted in property check",
+        "exponential and logarithmic monotonicity mixed"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-functions-unit-pattern",
+        "bnu-high-s4-upper-midterm-function-properties-review",
+        "bnu-high-s4-upper-exponential-unit-pattern"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知函数 f(x) = √(x² - 4x + 3) + 1/(x - 2)。求 f(x) 的定义域，并判断 f(x) 在区间 (3, +∞) 上的单调性，说明理由。",
+      "optionsZhHans": [],
+      "answer": "定义域为 (-∞, 1] ∪ (3, +∞)；在 (3, +∞) 上单调递增。",
+      "acceptedAnswers": [
+        "定义域为 (-∞, 1] ∪ (3, +∞)；在 (3, +∞) 上单调递增。",
+        "定义域：(-∞, 1] ∪ (3, +∞)；单调递增",
+        "定义域 (-∞, 1] ∪ (3, +∞)，单调递增"
+      ],
+      "explanationZhHans": "由 x² - 4x + 3 ≥ 0 得 x ≤ 1 或 x ≥ 3，且分母 x - 2 ≠ 0 即 x ≠ 2，综合得定义域 (-∞, 1] ∪ (3, +∞)。在 (3, +∞) 上，√(x² - 4x + 3) 和 1/(x - 2) 均随 x 增大而增大，故 f(x) 单调递增。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-072",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-函数",
+      "topicTitleZhHans": "函数",
+      "volume": "必修 第一册",
+      "chapter": "函数",
+      "conceptIds": [
+        "function-definition",
+        "domain-range",
+        "function-representations",
+        "monotonicity",
+        "parity",
+        "piecewise-functions"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "直观想象",
+        "逻辑推理",
+        "数学表达"
+      ],
+      "skillTags": [
+        "函数定义",
+        "定义域值域",
+        "单调性",
+        "奇偶性",
+        "分段函数",
+        "函数性质综合",
+        "定义域检查",
+        "指数对数转化"
+      ],
+      "misconceptionTags": [
+        "domain omitted",
+        "range and value confused",
+        "increasing interval confused with positive value",
+        "parity checked outside domain",
+        "monotonicity inferred from sign only",
+        "parity checked outside the domain",
+        "domain omitted in property check",
+        "exponential and logarithmic monotonicity mixed"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-functions-unit-pattern",
+        "bnu-high-s4-upper-midterm-function-properties-review",
+        "bnu-high-s4-upper-exponential-unit-pattern"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知函数 f(x) 是定义在 R 上的奇函数，当 x ≥ 0 时，f(x) = x² - 2x。若 f(a) = 3，则 a 的所有可能值为______。",
+      "optionsZhHans": [],
+      "answer": "3 或 -1",
+      "acceptedAnswers": [
+        "3 或 -1",
+        "3, -1",
+        "-1 或 3",
+        "-1, 3"
+      ],
+      "explanationZhHans": "当 a ≥ 0 时，解 a² - 2a = 3 得 a = 3（a = -1 舍去）。当 a < 0 时，由奇函数 f(a) = -f(-a)，-a > 0，f(-a) = (-a)² - 2(-a) = a² + 2a，故 - (a² + 2a) = 3，解得 a = -1（a = -3 舍去）。综上 a = 3 或 -1。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-073",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-指数运算与指数函数",
+      "topicTitleZhHans": "指数运算与指数函数",
+      "volume": "必修 第一册",
+      "chapter": "指数运算与指数函数",
+      "conceptIds": [
+        "exponents",
+        "radicals",
+        "exponential-operations",
+        "exponential-functions",
+        "function-graphs",
+        "exponential-growth"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "数学运算",
+        "直观想象",
+        "数学建模"
+      ],
+      "skillTags": [
+        "指数运算",
+        "根式转化",
+        "指数函数图像",
+        "单调性",
+        "增长模型",
+        "函数性质综合",
+        "定义域检查",
+        "指数对数转化"
+      ],
+      "misconceptionTags": [
+        "power law overgeneralized",
+        "base condition forgotten",
+        "exponential monotonicity reversed",
+        "model parameter misread",
+        "power rule overgeneralized",
+        "base condition omitted",
+        "monotonicity direction reversed",
+        "domain omitted in property check"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-exponential-operations-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-exponential-unit-pattern",
+        "bnu-high-s4-upper-midterm-function-properties-review",
+        "bnu-high-s4-upper-functions-unit-pattern"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "设 a = 2^0.3, b = 0.3^2, c = log₂0.3，则 a, b, c 的大小关系是（　）",
+      "optionsZhHans": [
+        "a > b > c",
+        "b > a > c",
+        "c > a > b",
+        "a > c > b"
+      ],
+      "answer": "a > b > c",
+      "acceptedAnswers": [
+        "a > b > c"
+      ],
+      "explanationZhHans": "a = 2^0.3 > 2^0 = 1；b = 0.3^2 = 0.09，0 < b < 1；c = log₂0.3 < log₂1 = 0。故 a > b > c。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-074",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-指数运算与指数函数",
+      "topicTitleZhHans": "指数运算与指数函数",
+      "volume": "必修 第一册",
+      "chapter": "指数运算与指数函数",
+      "conceptIds": [
+        "exponents",
+        "radicals",
+        "exponential-operations",
+        "exponential-functions",
+        "function-graphs",
+        "exponential-growth"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "数学运算",
+        "直观想象",
+        "数学建模"
+      ],
+      "skillTags": [
+        "指数运算",
+        "根式转化",
+        "指数函数图像",
+        "单调性",
+        "增长模型",
+        "函数性质综合",
+        "定义域检查",
+        "指数对数转化"
+      ],
+      "misconceptionTags": [
+        "power law overgeneralized",
+        "base condition forgotten",
+        "exponential monotonicity reversed",
+        "model parameter misread",
+        "power rule overgeneralized",
+        "base condition omitted",
+        "monotonicity direction reversed",
+        "domain omitted in property check"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-exponential-operations-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-exponential-unit-pattern",
+        "bnu-high-s4-upper-midterm-function-properties-review",
+        "bnu-high-s4-upper-functions-unit-pattern"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算： (0.008)^(-2/3) + (√3 - 1)^0 - 16^0.75。",
+      "optionsZhHans": [],
+      "answer": "18",
+      "acceptedAnswers": [
+        "18"
+      ],
+      "explanationZhHans": "(0.008)^(-2/3) = (8/1000)^(-2/3) = (1000/8)^(2/3) = (125)^(2/3) = (5^3)^(2/3) = 5^2 = 25；(√3 - 1)^0 = 1；16^0.75 = 16^(3/4) = (2^4)^(3/4) = 2^3 = 8。原式 = 25 + 1 - 8 = 18。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-075",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-指数运算与指数函数",
+      "topicTitleZhHans": "指数运算与指数函数",
+      "volume": "必修 第一册",
+      "chapter": "指数运算与指数函数",
+      "conceptIds": [
+        "exponents",
+        "radicals",
+        "exponential-operations",
+        "exponential-functions",
+        "function-graphs",
+        "exponential-growth"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "数学运算",
+        "直观想象",
+        "数学建模"
+      ],
+      "skillTags": [
+        "指数运算",
+        "根式转化",
+        "指数函数图像",
+        "单调性",
+        "增长模型",
+        "函数性质综合",
+        "定义域检查",
+        "指数对数转化"
+      ],
+      "misconceptionTags": [
+        "power law overgeneralized",
+        "base condition forgotten",
+        "exponential monotonicity reversed",
+        "model parameter misread",
+        "power rule overgeneralized",
+        "base condition omitted",
+        "monotonicity direction reversed",
+        "domain omitted in property check"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-exponential-operations-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-exponential-unit-pattern",
+        "bnu-high-s4-upper-midterm-function-properties-review",
+        "bnu-high-s4-upper-final-full-volume-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "若指数函数 f(x) = a^x (a > 0 且 a ≠ 1) 的图像经过点 (2, 1/9)，则 f(-1) = ______。",
+      "optionsZhHans": [],
+      "answer": "3",
+      "acceptedAnswers": [
+        "3"
+      ],
+      "explanationZhHans": "由 f(2) = a^2 = 1/9，得 a = 1/3（a > 0）。所以 f(x) = (1/3)^x，f(-1) = (1/3)^(-1) = 3。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-076",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-指数运算与指数函数",
+      "topicTitleZhHans": "指数运算与指数函数",
+      "volume": "必修 第一册",
+      "chapter": "指数运算与指数函数",
+      "conceptIds": [
+        "exponents",
+        "radicals",
+        "exponential-operations",
+        "exponential-functions",
+        "function-graphs",
+        "exponential-growth"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "数学运算",
+        "直观想象",
+        "数学建模"
+      ],
+      "skillTags": [
+        "指数运算",
+        "根式转化",
+        "指数函数图像",
+        "单调性",
+        "增长模型",
+        "函数性质综合",
+        "定义域检查",
+        "指数对数转化"
+      ],
+      "misconceptionTags": [
+        "power law overgeneralized",
+        "base condition forgotten",
+        "exponential monotonicity reversed",
+        "model parameter misread",
+        "power rule overgeneralized",
+        "base condition omitted",
+        "monotonicity direction reversed",
+        "domain omitted in property check"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-exponential-operations-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-exponential-unit-pattern",
+        "bnu-high-s4-upper-midterm-function-properties-review",
+        "bnu-high-s4-upper-functions-unit-pattern"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知函数 f(x) = 2^x - 2^(-x)，g(x) = 2^x + 2^(-x)，则下列结论正确的是（　）",
+      "optionsZhHans": [
+        "f(x) 是偶函数，g(x) 是奇函数",
+        "f(x) 是奇函数，g(x) 是偶函数",
+        "f(x) 和 g(x) 都是奇函数",
+        "f(x) 和 g(x) 都是偶函数"
+      ],
+      "answer": "f(x) 是奇函数，g(x) 是偶函数",
+      "acceptedAnswers": [
+        "f(x) 是奇函数，g(x) 是偶函数"
+      ],
+      "explanationZhHans": "f(-x) = 2^(-x) - 2^x = -f(x)，故 f(x) 为奇函数；g(-x) = 2^(-x) + 2^x = g(x)，故 g(x) 为偶函数。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-077",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-指数运算与指数函数",
+      "topicTitleZhHans": "指数运算与指数函数",
+      "volume": "必修 第一册",
+      "chapter": "指数运算与指数函数",
+      "conceptIds": [
+        "exponents",
+        "radicals",
+        "exponential-operations",
+        "exponential-functions",
+        "function-graphs",
+        "exponential-growth"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "数学运算",
+        "直观想象",
+        "数学建模"
+      ],
+      "skillTags": [
+        "指数运算",
+        "根式转化",
+        "指数函数图像",
+        "单调性",
+        "增长模型",
+        "函数性质综合",
+        "定义域检查",
+        "指数对数转化"
+      ],
+      "misconceptionTags": [
+        "power law overgeneralized",
+        "base condition forgotten",
+        "exponential monotonicity reversed",
+        "model parameter misread",
+        "power rule overgeneralized",
+        "base condition omitted",
+        "monotonicity direction reversed",
+        "domain omitted in property check"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-exponential-operations-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-exponential-unit-pattern",
+        "bnu-high-s4-upper-midterm-function-properties-review",
+        "bnu-high-s4-upper-functions-unit-pattern"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "求函数 y = (1/3)^(x² - 2x) 的单调递增区间。",
+      "optionsZhHans": [],
+      "answer": "(-∞, 1]",
+      "acceptedAnswers": [
+        "(-∞, 1]",
+        "(-∞, 1)",
+        "(-∞, 1] 或 x ≤ 1"
+      ],
+      "explanationZhHans": "令 t = x² - 2x = (x - 1)² - 1，t 在 (-∞, 1] 上递减，在 [1, +∞) 上递增。y = (1/3)^t 是减函数，故 y 的递增区间对应 t 的递减区间，即 (-∞, 1]。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-078",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-指数运算与指数函数",
+      "topicTitleZhHans": "指数运算与指数函数",
+      "volume": "必修 第一册",
+      "chapter": "指数运算与指数函数",
+      "conceptIds": [
+        "exponents",
+        "radicals",
+        "exponential-operations",
+        "exponential-functions",
+        "function-graphs",
+        "exponential-growth"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "数学运算",
+        "直观想象",
+        "数学建模"
+      ],
+      "skillTags": [
+        "指数运算",
+        "根式转化",
+        "指数函数图像",
+        "单调性",
+        "增长模型",
+        "函数性质综合",
+        "定义域检查",
+        "指数对数转化"
+      ],
+      "misconceptionTags": [
+        "power law overgeneralized",
+        "base condition forgotten",
+        "exponential monotonicity reversed",
+        "model parameter misread",
+        "power rule overgeneralized",
+        "base condition omitted",
+        "monotonicity direction reversed",
+        "domain omitted in property check"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-exponential-operations-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-exponential-unit-pattern",
+        "bnu-high-s4-upper-midterm-function-properties-review",
+        "bnu-high-s4-upper-functions-unit-pattern"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "方程 2^(2x) - 5·2^x + 4 = 0 的解为 x = ______。",
+      "optionsZhHans": [],
+      "answer": "0 或 2",
+      "acceptedAnswers": [
+        "0 或 2",
+        "0, 2",
+        "2 或 0",
+        "2, 0"
+      ],
+      "explanationZhHans": "令 t = 2^x > 0，则 t² - 5t + 4 = 0，解得 t = 1 或 t = 4。即 2^x = 1 得 x = 0；2^x = 4 得 x = 2。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-079",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-指数运算与指数函数",
+      "topicTitleZhHans": "指数运算与指数函数",
+      "volume": "必修 第一册",
+      "chapter": "指数运算与指数函数",
+      "conceptIds": [
+        "exponents",
+        "radicals",
+        "exponential-operations",
+        "exponential-functions",
+        "function-graphs",
+        "exponential-growth"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "数学运算",
+        "直观想象",
+        "数学建模"
+      ],
+      "skillTags": [
+        "指数运算",
+        "根式转化",
+        "指数函数图像",
+        "单调性",
+        "增长模型",
+        "函数性质综合",
+        "定义域检查",
+        "指数对数转化"
+      ],
+      "misconceptionTags": [
+        "power law overgeneralized",
+        "base condition forgotten",
+        "exponential monotonicity reversed",
+        "model parameter misread",
+        "power rule overgeneralized",
+        "base condition omitted",
+        "monotonicity direction reversed",
+        "domain omitted in property check"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-exponential-operations-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-exponential-unit-pattern",
+        "bnu-high-s4-upper-midterm-function-properties-review",
+        "bnu-high-s4-upper-final-full-volume-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "函数 f(x) = a^(x - 1) + 2 (a > 0 且 a ≠ 1) 的图像恒过定点（　）",
+      "optionsZhHans": [
+        "(0, 3)",
+        "(1, 3)",
+        "(1, 2)",
+        "(0, 2)"
+      ],
+      "answer": "(1, 3)",
+      "acceptedAnswers": [
+        "(1, 3)"
+      ],
+      "explanationZhHans": "指数函数 y = a^x 恒过 (0, 1)。f(x) = a^(x - 1) + 2 由 y = a^x 向右平移 1 个单位，向上平移 2 个单位得到，故恒过 (1, 3)。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s4-080",
+      "batch": "bnu-high-v1",
+      "grade": "S4",
+      "semester": "upper",
+      "topicId": "bnu-high-s4-指数运算与指数函数",
+      "topicTitleZhHans": "指数运算与指数函数",
+      "volume": "必修 第一册",
+      "chapter": "指数运算与指数函数",
+      "conceptIds": [
+        "exponents",
+        "radicals",
+        "exponential-operations",
+        "exponential-functions",
+        "function-graphs",
+        "exponential-growth"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "数学运算",
+        "直观想象",
+        "数学建模"
+      ],
+      "skillTags": [
+        "指数运算",
+        "根式转化",
+        "指数函数图像",
+        "单调性",
+        "增长模型",
+        "函数性质综合",
+        "定义域检查",
+        "指数对数转化"
+      ],
+      "misconceptionTags": [
+        "power law overgeneralized",
+        "base condition forgotten",
+        "exponential monotonicity reversed",
+        "model parameter misread",
+        "power rule overgeneralized",
+        "base condition omitted",
+        "monotonicity direction reversed",
+        "domain omitted in property check"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s4-upper-exponential-operations-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s4-upper-exponential-unit-pattern",
+        "bnu-high-s4-upper-midterm-function-properties-review",
+        "bnu-high-s4-upper-functions-unit-pattern"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知函数 f(x) = a·2^x + b 的图像经过点 (0, 2) 和 (2, 10)。求 a, b 的值，并解不等式 f(x) > 6。",
+      "optionsZhHans": [],
+      "answer": "a = 2, b = 0；解集为 (1, +∞)",
+      "acceptedAnswers": [
+        "a = 2, b = 0；解集为 (1, +∞)",
+        "a=2, b=0；x>1",
+        "a=2,b=0；解集 (1,+∞)"
+      ],
+      "explanationZhHans": "由 f(0) = a + b = 2，f(2) = 4a + b = 10，解得 a = 2, b = 0。f(x) = 2·2^x = 2^(x+1) > 6，即 2^(x+1) > 2^log₂6，得 x+1 > log₂6，x > log₂6 - 1 = log₂3 ≈ 1.585，故解集为 (1, +∞)。"
+    }
+  ]
+}

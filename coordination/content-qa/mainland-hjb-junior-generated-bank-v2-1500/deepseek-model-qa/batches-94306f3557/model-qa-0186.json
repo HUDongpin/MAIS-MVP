@@ -1,0 +1,103 @@
+{
+  "batchId": "model-qa-0186",
+  "ids": [
+    "hjb-junior-ds-v2-s3-481",
+    "hjb-junior-ds-v2-s3-482",
+    "hjb-junior-ds-v2-s3-483",
+    "hjb-junior-ds-v2-s3-484",
+    "hjb-junior-ds-v2-s3-485",
+    "hjb-junior-ds-v2-s3-486",
+    "hjb-junior-ds-v2-s3-487",
+    "hjb-junior-ds-v2-s3-488"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-481",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "中位数",
+      "answerCheckZhHans": "标准答案正确。数据排序后为3,4,5,5,6,6,6,7,8,10，中位数为(6+6)/2=6，不受极端值10影响，能反映一般水平。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-482",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "条形统计图",
+      "answerCheckZhHans": "标准答案正确。条形统计图适合展示分组数据的频数分布，扇形图适合比例，折线图适合趋势，茎叶图适合原始数据。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-483",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "方差",
+      "answerCheckZhHans": "标准答案正确。方差衡量数据波动大小，反映稳定性。计算得甲方差2，乙方差0.4，乙更稳定。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-484",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "中位数是87.5",
+      "answerCheckZhHans": "标准答案正确。平均数=(70+80+85+90+95+100)/6≈86.67，中位数=(85+90)/2=87.5，无众数，方差大于0。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-485",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "该校学生每天使用手机时间的平均水平约为1.5小时",
+      "answerCheckZhHans": "标准答案正确。样本平均数可估计总体平均水平，不能推断个体值、中位数或上限。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-486",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "中位数",
+      "answerCheckZhHans": "标准答案正确。数据排序后为78,80,82,85,85,85,88,90,92,95，中位数为85，不受极端值78和95影响，能反映集中趋势。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-487",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "方差",
+      "answerCheckZhHans": "标准答案正确。方差衡量波动程度，平均数、中位数、众数反映集中趋势。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-488",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "37.5%",
+      "answerCheckZhHans": "标准答案正确。50≤x<55频数为15，总人数40，百分比=15/40×100%=37.5%。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

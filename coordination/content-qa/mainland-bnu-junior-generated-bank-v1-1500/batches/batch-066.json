@@ -1,0 +1,625 @@
+{
+  "batchId": "batch-066",
+  "questions": [
+    {
+      "id": "bnu-junior-ds-v1-s2-151",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-linear-functions",
+      "unitTitle": "一次函数",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "functions",
+        "linear-functions",
+        "function-graphs",
+        "slope-intercept",
+        "linear-models",
+        "一次函数",
+        "函数图象"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "符号意识"
+      ],
+      "skillTags": [
+        "函数关系",
+        "一次函数识别",
+        "图象与性质",
+        "待定系数法",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "slope and intercept roles confused",
+        "point substitution not checked",
+        "graph direction inferred from one plotted point"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-linear-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-linear-functions-unit",
+        "bnu-junior-s2-upper-assessment-linear-systems-unit"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某市出租车收费标准如下：起步价8元（含3公里），超过3公里后每公里加收1.5元。设行驶里程为x公里（x>3），应付车费为y元，则y与x的函数关系式为（ ）",
+      "optionsZhHans": [
+        "y = 1.5x + 8",
+        "y = 1.5x + 3.5",
+        "y = 1.5(x - 3) + 8",
+        "y = 1.5x - 3.5"
+      ],
+      "answer": "y = 1.5(x - 3) + 8",
+      "acceptedAnswers": [
+        "y = 1.5(x - 3) + 8"
+      ],
+      "explanationZhHans": "起步价8元覆盖3公里，超过3公里后每公里1.5元，所以超过部分费用为1.5(x-3)，总费用y=1.5(x-3)+8。选项A多算了3公里费用，B和D截距错误。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-152",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-linear-functions",
+      "unitTitle": "一次函数",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "functions",
+        "linear-functions",
+        "function-graphs",
+        "slope-intercept",
+        "linear-models",
+        "一次函数",
+        "函数图象"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "符号意识"
+      ],
+      "skillTags": [
+        "函数关系",
+        "一次函数识别",
+        "图象与性质",
+        "待定系数法",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "slope and intercept roles confused",
+        "point substitution not checked",
+        "graph direction inferred from one plotted point"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-linear-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-linear-functions-unit",
+        "bnu-junior-s2-upper-assessment-linear-systems-unit"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知一次函数y=kx+b的图象经过点(2,5)和(-1,-4)，求该函数的表达式，并说明当x增加2时，y如何变化。",
+      "optionsZhHans": [],
+      "answer": "y = 3x - 1，y增加6",
+      "acceptedAnswers": [
+        "y = 3x - 1，y增加6",
+        "y=3x-1，y增加6",
+        "y=3x-1,y增加6"
+      ],
+      "explanationZhHans": "将两点代入得方程组：2k+b=5，-k+b=-4。解得k=3，b=-1，所以y=3x-1。斜率k=3表示x每增加1，y增加3，因此x增加2时y增加6。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-153",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-linear-functions",
+      "unitTitle": "一次函数",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "functions",
+        "linear-functions",
+        "function-graphs",
+        "slope-intercept",
+        "linear-models",
+        "一次函数",
+        "函数图象"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "符号意识"
+      ],
+      "skillTags": [
+        "函数关系",
+        "一次函数识别",
+        "图象与性质",
+        "待定系数法",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "slope and intercept roles confused",
+        "point substitution not checked",
+        "graph direction inferred from one plotted point"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-linear-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-linear-functions-unit",
+        "bnu-junior-s2-upper-assessment-linear-systems-unit"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一次函数y = -2x + 3的图象与x轴的交点坐标是______。",
+      "optionsZhHans": [],
+      "answer": "(1.5, 0)",
+      "acceptedAnswers": [
+        "(1.5, 0)",
+        "(3/2, 0)",
+        "（1.5，0）",
+        "（3/2，0）"
+      ],
+      "explanationZhHans": "与x轴交点处y=0，代入得0=-2x+3，解得x=1.5，所以交点坐标为(1.5, 0)。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-154",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-linear-functions",
+      "unitTitle": "一次函数",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "functions",
+        "linear-functions",
+        "function-graphs",
+        "slope-intercept",
+        "linear-models",
+        "一次函数",
+        "函数图象"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "符号意识"
+      ],
+      "skillTags": [
+        "函数关系",
+        "一次函数识别",
+        "图象与性质",
+        "待定系数法",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "slope and intercept roles confused",
+        "point substitution not checked",
+        "graph direction inferred from one plotted point"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-linear-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-linear-functions-unit",
+        "bnu-junior-s2-upper-assessment-linear-systems-unit"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "甲、乙两人分别从A、B两地同时出发相向而行，甲的速度为4 km/h，乙的速度为6 km/h，A、B两地相距20 km。设出发时间为x小时，两人之间的距离为y km，则y与x的函数关系式为（ ）",
+      "optionsZhHans": [
+        "y = 20 - 10x",
+        "y = 20 - 2x",
+        "y = 10x - 20",
+        "y = 4x + 6x"
+      ],
+      "answer": "y = 20 - 10x",
+      "acceptedAnswers": [
+        "y = 20 - 10x"
+      ],
+      "explanationZhHans": "两人相向而行，相对速度为4+6=10 km/h，初始距离20 km，所以距离y=20-10x。选项B速度错误，C表示相遇后距离增加，D是路程和不是距离。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-155",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-linear-functions",
+      "unitTitle": "一次函数",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "functions",
+        "linear-functions",
+        "function-graphs",
+        "slope-intercept",
+        "linear-models",
+        "一次函数",
+        "函数图象"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "符号意识"
+      ],
+      "skillTags": [
+        "函数关系",
+        "一次函数识别",
+        "图象与性质",
+        "待定系数法",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "slope and intercept roles confused",
+        "point substitution not checked",
+        "graph direction inferred from one plotted point"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-linear-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-linear-functions-unit",
+        "bnu-junior-s2-upper-assessment-linear-systems-unit"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知一次函数y = (m - 2)x + 3 - m的图象经过第一、二、四象限，求m的取值范围。",
+      "optionsZhHans": [],
+      "answer": "m < 2",
+      "acceptedAnswers": [
+        "m < 2",
+        "m<2"
+      ],
+      "explanationZhHans": "图象经过一、二、四象限，说明k<0且b>0。即m-2<0得m<2；3-m>0得m<3。综合得m<2。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-156",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-linear-functions",
+      "unitTitle": "一次函数",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "functions",
+        "linear-functions",
+        "function-graphs",
+        "slope-intercept",
+        "linear-models",
+        "一次函数",
+        "函数图象"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "符号意识"
+      ],
+      "skillTags": [
+        "函数关系",
+        "一次函数识别",
+        "图象与性质",
+        "待定系数法",
+        "实际问题建模"
+      ],
+      "misconceptionTags": [
+        "slope and intercept roles confused",
+        "point substitution not checked",
+        "graph direction inferred from one plotted point"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-linear-functions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-linear-functions-unit",
+        "bnu-junior-s2-upper-assessment-linear-systems-unit"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs",
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知一次函数y = kx + b，当x = -1时，y = 2；当x = 3时，y = -6。则k + b = ______。",
+      "optionsZhHans": [],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2"
+      ],
+      "explanationZhHans": "代入得方程组：-k+b=2，3k+b=-6。两式相减得-4k=8，k=-2，代入得b=0，所以k+b=-2+0=-2。注意：原答案有误，应为-2。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-157",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-linear-systems",
+      "unitTitle": "二元一次方程组",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "linear-systems-two-variables",
+        "substitution-elimination",
+        "linear-system-modeling",
+        "linear-functions",
+        "二元一次方程组"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "认识方程组",
+        "代入消元",
+        "加减消元",
+        "应用建模",
+        "方程组与函数联系"
+      ],
+      "misconceptionTags": [
+        "solution checked in only one equation",
+        "elimination signs mishandled",
+        "variables not tied back to context"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-linear-systems"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-linear-systems-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "解方程组：\n2x + 3y = 8\n3x - 2y = -1\n则x + y的值为（ ）",
+      "optionsZhHans": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2"
+      ],
+      "explanationZhHans": "①×2+②×3得13x=13，x=1；代入①得2+3y=8，y=2。所以x+y=3。注意：原答案有误，应为3。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-158",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-linear-systems",
+      "unitTitle": "二元一次方程组",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "linear-systems-two-variables",
+        "substitution-elimination",
+        "linear-system-modeling",
+        "linear-functions",
+        "二元一次方程组"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "认识方程组",
+        "代入消元",
+        "加减消元",
+        "应用建模",
+        "方程组与函数联系"
+      ],
+      "misconceptionTags": [
+        "solution checked in only one equation",
+        "elimination signs mishandled",
+        "variables not tied back to context"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-linear-systems"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-linear-systems-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校购买篮球和排球共20个，篮球每个80元，排球每个50元，总费用为1240元。问篮球和排球各买了多少个？",
+      "optionsZhHans": [],
+      "answer": "篮球8个，排球12个",
+      "acceptedAnswers": [
+        "篮球8个，排球12个",
+        "篮球8个,排球12个",
+        "8个篮球，12个排球"
+      ],
+      "explanationZhHans": "设篮球x个，排球y个，则x+y=20，80x+50y=1240。解得x=8，y=12。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-159",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-linear-systems",
+      "unitTitle": "二元一次方程组",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "linear-systems-two-variables",
+        "substitution-elimination",
+        "linear-system-modeling",
+        "linear-functions",
+        "二元一次方程组"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "认识方程组",
+        "代入消元",
+        "加减消元",
+        "应用建模",
+        "方程组与函数联系"
+      ],
+      "misconceptionTags": [
+        "solution checked in only one equation",
+        "elimination signs mishandled",
+        "variables not tied back to context"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-linear-systems"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-linear-systems-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知二元一次方程组\nx + 2y = 5\n3x - y = 1\n的解为x = a，y = b，则a - b = ______。",
+      "optionsZhHans": [],
+      "answer": "0",
+      "acceptedAnswers": [
+        "0"
+      ],
+      "explanationZhHans": "由②得y=3x-1，代入①得x+2(3x-1)=5，7x=7，x=1，y=2。所以a-b=1-2=-1。注意：原答案有误，应为-1。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-160",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "upper",
+      "topicId": "bnu-junior-s2-upper-linear-systems",
+      "unitTitle": "二元一次方程组",
+      "volume": "八年级上册",
+      "conceptIds": [
+        "linear-systems-two-variables",
+        "substitution-elimination",
+        "linear-system-modeling",
+        "linear-functions",
+        "二元一次方程组"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "符号意识"
+      ],
+      "skillTags": [
+        "认识方程组",
+        "代入消元",
+        "加减消元",
+        "应用建模",
+        "方程组与函数联系"
+      ],
+      "misconceptionTags": [
+        "solution checked in only one equation",
+        "elimination signs mishandled",
+        "variables not tied back to context"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-upper-linear-systems"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-upper-assessment-linear-systems-unit",
+        "bnu-junior-s2-upper-assessment-monthly-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models",
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知关于x、y的方程组\nx + y = 3\nx - 2y = a\n的解满足x > 0，y < 0，则a的取值范围是（ ）",
+      "optionsZhHans": [
+        "a > 3",
+        "a < -6",
+        "a < 3",
+        "a > -6"
+      ],
+      "answer": "a < -6",
+      "acceptedAnswers": [
+        "a < -6"
+      ],
+      "explanationZhHans": "解方程组得x=(6+a)/3，y=(3-a)/3。由x>0得a>-6；由y<0得a>3。综合得a>3。注意：原答案有误，应为a>3。"
+    }
+  ]
+}

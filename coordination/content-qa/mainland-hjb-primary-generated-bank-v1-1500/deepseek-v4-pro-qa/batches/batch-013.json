@@ -1,0 +1,191 @@
+{
+  "batchNumber": 13,
+  "startedAt": "2026-05-25T01:50:38.265Z",
+  "completedAt": "2026-05-25T01:50:57.329Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p1-217",
+    "hjb-primary-ds-v1-p1-218",
+    "hjb-primary-ds-v1-p1-219",
+    "hjb-primary-ds-v1-p1-220",
+    "hjb-primary-ds-v1-p1-221",
+    "hjb-primary-ds-v1-p1-222",
+    "hjb-primary-ds-v1-p1-223",
+    "hjb-primary-ds-v1-p1-224",
+    "hjb-primary-ds-v1-p1-225",
+    "hjb-primary-ds-v1-p1-226",
+    "hjb-primary-ds-v1-p1-227",
+    "hjb-primary-ds-v1-p1-228",
+    "hjb-primary-ds-v1-p1-229",
+    "hjb-primary-ds-v1-p1-230",
+    "hjb-primary-ds-v1-p1-231",
+    "hjb-primary-ds-v1-p1-232",
+    "hjb-primary-ds-v1-p1-233",
+    "hjb-primary-ds-v1-p1-234"
+  ],
+  "usage": {
+    "prompt_tokens": 3448,
+    "completion_tokens": 1304,
+    "total_tokens": 4752,
+    "prompt_tokens_details": {
+      "cached_tokens": 3328
+    },
+    "prompt_cache_hit_tokens": 3328,
+    "prompt_cache_miss_tokens": 120
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p1-217",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，解释合理，适合一年级。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-218",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案和接受答案覆盖合理，无歧义。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-219",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项区分度好，答案正确，解释恰当。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-220",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "开放题，答案合理，接受答案覆盖多种表述，无问题。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-221",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算12×5=60，选项正确，无错误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-222",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "40×8=320，答案正确，接受答案合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-223",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项明确，答案正确，解释合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-224",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "周期问题，10÷3=3余1，红色正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-225",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项合理，答案正确，解释恰当。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-226",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "1厘米×18=18厘米，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-227",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "一拃约15-20厘米，最接近20厘米，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-228",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "30×8=240，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-229",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "课桌长度适合用拃，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-230",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "120×2=240，单位换算正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-231",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "1米×3=3米，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-232",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "凑十法分解正确，答案5和3。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-233",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "读数与写数对应正确，选项无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-234",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "钟面认读正确，答案8时30分。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合沪教版一年级要求，数学正确，答案匹配，无歧义或风险。"
+    }
+  }
+}

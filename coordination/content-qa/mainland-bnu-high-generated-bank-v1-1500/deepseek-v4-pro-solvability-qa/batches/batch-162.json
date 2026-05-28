@@ -1,0 +1,141 @@
+{
+  "batchNumber": 162,
+  "startedAt": "2026-05-27T14:11:22.754Z",
+  "completedAt": "2026-05-27T14:11:37.868Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-289",
+    "bnu-high-ds-v1-s6-290",
+    "bnu-high-ds-v1-s6-291",
+    "bnu-high-ds-v1-s6-292",
+    "bnu-high-ds-v1-s6-293",
+    "bnu-high-ds-v1-s6-294",
+    "bnu-high-ds-v1-s6-295",
+    "bnu-high-ds-v1-s6-296"
+  ],
+  "usage": {
+    "prompt_tokens": 10642,
+    "completion_tokens": 1053,
+    "total_tokens": 11695,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10130
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-289",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "可解，答案正确，解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-290",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "a ≥ 3",
+        "correctedAnswer": "a ≥ 3",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，但原答案 a≥0 错误，正确应为 a≥3；解析指出原答案有误并给出正确结果，但答案字段未修正，导致答案与解析矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-291",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "10",
+        "correctedAnswer": "10",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，正确 a=10，但答案字段为 6，解析中计算过程得出 a=10 却未修正答案，答案与解析矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-292",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "[-1, 1]",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "可解，答案正确，解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-293",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "最大值为 10，最小值为 -22",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "可解，答案正确，解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-294",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "可解，答案正确，解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-295",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "-3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "可解，答案正确，解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-296",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "极大值 2，极小值 -2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "可解，答案正确，解析与答案一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 0,
+      "fail": 2,
+      "notes": "8题中6题通过，2题（290、291）因答案错误且与解析矛盾而失败，需修正答案。"
+    }
+  }
+}

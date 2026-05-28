@@ -1,0 +1,48 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-426",
+  "startedAt": "2026-05-28T01:54:19.814Z",
+  "completedAt": "2026-05-28T01:54:24.485Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-426"
+  ],
+  "usage": {
+    "prompt_tokens": 1978,
+    "completion_tokens": 293,
+    "total_tokens": 2271,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1594
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-426",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "-2",
+        "correctedAnswer": "-2",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "函数 f(x)=x^3-3x^2+2 在 [-1,1] 上，f'(x)=3x^2-6x，驻点 x=0。比较端点与驻点：f(-1)=-2，f(0)=2，f(1)=0，最小值为 -2。存储答案 0 错误，解析中列出 f(-1)=-2 却得出最小值 0，自相矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "答案错误，解析矛盾，最小值为 -2 而非 0。"
+    }
+  }
+}

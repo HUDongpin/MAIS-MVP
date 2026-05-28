@@ -1,0 +1,379 @@
+{
+  "batchId": "batch-010",
+  "generationMode": "targeted-local-repair",
+  "fallbackReason": "targeted-local-repair",
+  "questions": [
+    {
+      "id": "hjb-high-ds-v2-s4-091",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-等式与不等式",
+      "topicTitleZhHans": "等式与不等式",
+      "volume": "必修 第一册",
+      "chapter": "等式与不等式",
+      "conceptIds": [
+        "inequality-properties",
+        "quadratic-equations",
+        "quadratic-inequalities",
+        "basic-inequality"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities-unit-core",
+        "hjb-high-compulsory-1-equations-inequalities-topic-review",
+        "pep-high-exam-basic-inequality-optimization"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "已知 a, b 是正实数，且 a + b = 4，则 ab 的最大值为（ ）",
+      "optionsZhHans": [
+        "2",
+        "4",
+        "8",
+        "16"
+      ],
+      "answer": "4",
+      "acceptedAnswers": [
+        "4"
+      ],
+      "explanationZhHans": "由基本不等式，a+b≥2√(ab)，即4≥2√(ab)，得√(ab)≤2，ab≤4。当a=b=2时取等号，故最大值为4。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-092",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-等式与不等式",
+      "topicTitleZhHans": "等式与不等式",
+      "volume": "必修 第一册",
+      "chapter": "等式与不等式",
+      "conceptIds": [
+        "inequality-properties",
+        "quadratic-equations",
+        "quadratic-inequalities",
+        "basic-inequality"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities-unit-core",
+        "hjb-high-compulsory-1-equations-inequalities-topic-review",
+        "pep-high-exam-basic-inequality-optimization"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "不等式 x² - 5x + 6 < 0 的解集为______。",
+      "optionsZhHans": [],
+      "answer": "(2,3)",
+      "acceptedAnswers": [
+        "(2,3)",
+        "2<x<3"
+      ],
+      "explanationZhHans": "因式分解得(x-2)(x-3)<0，对应方程两根为2和3，抛物线开口向上，小于0取两根之间，故解集为(2,3)。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-093",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-等式与不等式",
+      "topicTitleZhHans": "等式与不等式",
+      "volume": "必修 第一册",
+      "chapter": "等式与不等式",
+      "conceptIds": [
+        "inequality-properties",
+        "quadratic-equations",
+        "quadratic-inequalities",
+        "basic-inequality"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities-unit-core",
+        "hjb-high-compulsory-1-equations-inequalities-topic-review",
+        "pep-high-exam-basic-inequality-optimization"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "解不等式：|2x - 1| ≤ 3。",
+      "optionsZhHans": [],
+      "answer": "[-1,2]",
+      "acceptedAnswers": [
+        "[-1,2]",
+        "-1≤x≤2"
+      ],
+      "explanationZhHans": "由绝对值不等式得-3≤2x-1≤3，加1得-2≤2x≤4，除以2得-1≤x≤2，解集为[-1,2]。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-094",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-等式与不等式",
+      "topicTitleZhHans": "等式与不等式",
+      "volume": "必修 第一册",
+      "chapter": "等式与不等式",
+      "conceptIds": [
+        "inequality-properties",
+        "quadratic-equations",
+        "quadratic-inequalities",
+        "basic-inequality"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities-unit-core",
+        "hjb-high-compulsory-1-equations-inequalities-topic-review",
+        "pep-high-exam-basic-inequality-optimization"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0094：选择：解不等式 x+5>5，求 x 的取值范围右端常数 5-5 的值。",
+      "optionsZhHans": [
+        "1",
+        "0",
+        "-1",
+        "2"
+      ],
+      "answer": "0",
+      "acceptedAnswers": [
+        "0"
+      ],
+      "explanationZhHans": "两边同时减去 5，得 x>5-5=0。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-095",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-等式与不等式",
+      "topicTitleZhHans": "等式与不等式",
+      "volume": "必修 第一册",
+      "chapter": "等式与不等式",
+      "conceptIds": [
+        "inequality-properties",
+        "quadratic-equations",
+        "quadratic-inequalities",
+        "basic-inequality"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities-unit-core",
+        "hjb-high-compulsory-1-equations-inequalities-topic-review",
+        "pep-high-exam-basic-inequality-optimization"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "已知 x > 0，则 x + 1/x 的最小值为______。",
+      "optionsZhHans": [],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2"
+      ],
+      "explanationZhHans": "由基本不等式，x+1/x≥2√(x·1/x)=2，当且仅当x=1时取等号，故最小值为2。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-096",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-等式与不等式",
+      "topicTitleZhHans": "等式与不等式",
+      "volume": "必修 第一册",
+      "chapter": "等式与不等式",
+      "conceptIds": [
+        "inequality-properties",
+        "quadratic-equations",
+        "quadratic-inequalities",
+        "basic-inequality"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities-unit-core",
+        "hjb-high-compulsory-1-equations-inequalities-topic-review",
+        "pep-high-exam-basic-inequality-optimization"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "某工厂生产一种产品，固定成本为200万元，每生产一件产品的可变成本为0.5万元，售价为1万元。若要使利润不低于100万元，则至少需要生产多少件产品？",
+      "optionsZhHans": [],
+      "answer": "600",
+      "acceptedAnswers": [
+        "600"
+      ],
+      "explanationZhHans": "设生产x件，利润为(1-0.5)x-200≥100，即0.5x≥300，x≥600，故至少生产600件。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-097",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-等式与不等式",
+      "topicTitleZhHans": "等式与不等式",
+      "volume": "必修 第一册",
+      "chapter": "等式与不等式",
+      "conceptIds": [
+        "inequality-properties",
+        "quadratic-equations",
+        "quadratic-inequalities",
+        "basic-inequality"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities-unit-core",
+        "hjb-high-compulsory-1-equations-inequalities-topic-review",
+        "pep-high-exam-basic-inequality-optimization"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "下列不等式中，解集为 {x | x < 1 或 x > 3} 的是（ ）",
+      "optionsZhHans": [
+        "x² - 4x + 3 > 0",
+        "x² - 4x + 3 < 0",
+        "x² - 2x - 3 > 0",
+        "x² - 2x - 3 < 0"
+      ],
+      "answer": "x² - 4x + 3 > 0",
+      "acceptedAnswers": [
+        "x² - 4x + 3 > 0"
+      ],
+      "explanationZhHans": "不等式x²-4x+3>0即(x-1)(x-3)>0，解集为x<1或x>3，符合题意。其他选项解集不同。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-098",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-等式与不等式",
+      "topicTitleZhHans": "等式与不等式",
+      "volume": "必修 第一册",
+      "chapter": "等式与不等式",
+      "conceptIds": [
+        "inequality-properties",
+        "quadratic-equations",
+        "quadratic-inequalities",
+        "basic-inequality"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities-unit-core",
+        "hjb-high-compulsory-1-equations-inequalities-topic-review",
+        "pep-high-exam-basic-inequality-optimization"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "已知正数 x, y 满足 x + 2y = 1，则 1/x + 1/y 的最小值为______。",
+      "optionsZhHans": [],
+      "answer": "3+2√2",
+      "acceptedAnswers": [
+        "3+2√2"
+      ],
+      "explanationZhHans": "1/x+1/y=(x+2y)(1/x+1/y)=3+2y/x+x/y≥3+2√2，当x=√2y时取等，结合x+2y=1得最小值3+2√2。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-099",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-等式与不等式",
+      "topicTitleZhHans": "等式与不等式",
+      "volume": "必修 第一册",
+      "chapter": "等式与不等式",
+      "conceptIds": [
+        "inequality-properties",
+        "quadratic-equations",
+        "quadratic-inequalities",
+        "basic-inequality"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities-unit-core",
+        "hjb-high-compulsory-1-equations-inequalities-topic-review",
+        "pep-high-exam-basic-inequality-optimization"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "解关于 x 的不等式：x² - (a+1)x + a < 0，其中 a 为实数。",
+      "optionsZhHans": [],
+      "answer": "当a<1时，解集为(a,1)；当a=1时，解集为空集；当a>1时，解集为(1,a)。",
+      "acceptedAnswers": [
+        "当a<1时，解集为(a,1)；当a=1时，解集为空集；当a>1时，解集为(1,a)。"
+      ],
+      "explanationZhHans": "不等式化为(x-1)(x-a)<0，比较1和a的大小：a<1时解集(a,1)；a=1时无解；a>1时解集(1,a)。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-100",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-等式与不等式",
+      "topicTitleZhHans": "等式与不等式",
+      "volume": "必修 第一册",
+      "chapter": "等式与不等式",
+      "conceptIds": [
+        "inequality-properties",
+        "quadratic-equations",
+        "quadratic-inequalities",
+        "basic-inequality"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities-unit-core",
+        "hjb-high-compulsory-1-equations-inequalities-topic-review",
+        "pep-high-exam-basic-inequality-optimization"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "若不等式 ax² + bx + c > 0 的解集为 (-2, 3)，则不等式 cx² + bx + a < 0 的解集为（ ）",
+      "optionsZhHans": [
+        "(-1/2, 1/3)",
+        "(-∞, -1/2) ∪ (1/3, +∞)",
+        "(-1/3, 1/2)",
+        "(-∞, -1/3) ∪ (1/2, +∞)"
+      ],
+      "answer": "(-∞, -1/2) ∪ (1/3, +∞)",
+      "acceptedAnswers": [
+        "(-∞, -1/2) ∪ (1/3, +∞)"
+      ],
+      "explanationZhHans": "由解集知a<0且-2,3是ax²+bx+c=0的根，得b/a=-1,c/a=-6，即b=-a,c=-6a。代入cx²+bx+a<0得-6ax²-ax+a<0，除以-a(正)得6x²+x-1>0，解集为x<-1/2或x>1/3。"
+    }
+  ]
+}

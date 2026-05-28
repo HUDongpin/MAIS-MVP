@@ -1,0 +1,191 @@
+{
+  "batchNumber": 47,
+  "startedAt": "2026-05-27T13:28:35.013Z",
+  "completedAt": "2026-05-27T13:28:52.408Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p4-079",
+    "bnu-primary-ds-v1-p4-080",
+    "bnu-primary-ds-v1-p4-081",
+    "bnu-primary-ds-v1-p4-082",
+    "bnu-primary-ds-v1-p4-083",
+    "bnu-primary-ds-v1-p4-084",
+    "bnu-primary-ds-v1-p4-085",
+    "bnu-primary-ds-v1-p4-086",
+    "bnu-primary-ds-v1-p4-087",
+    "bnu-primary-ds-v1-p4-088",
+    "bnu-primary-ds-v1-p4-089",
+    "bnu-primary-ds-v1-p4-090",
+    "bnu-primary-ds-v1-p4-091",
+    "bnu-primary-ds-v1-p4-092",
+    "bnu-primary-ds-v1-p4-093",
+    "bnu-primary-ds-v1-p4-094",
+    "bnu-primary-ds-v1-p4-095",
+    "bnu-primary-ds-v1-p4-096"
+  ],
+  "usage": {
+    "prompt_tokens": 3947,
+    "completion_tokens": 1260,
+    "total_tokens": 5207,
+    "prompt_tokens_details": {
+      "cached_tokens": 3840
+    },
+    "prompt_cache_hit_tokens": 3840,
+    "prompt_cache_miss_tokens": 107
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p4-079",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方向描述正确，选项无歧义，符合四年级方向与位置要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-080",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "相对位置描述正确，答案覆盖多种合理写法。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-081",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，估算与竖式验算完整，符合挑战题要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-082",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "试商过程描述准确，正确选项唯一，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-083",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "商的位数判断正确，答案格式灵活。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-084",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "时间计算正确，答案覆盖多种时间表示法。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-085",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "商位数判断正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-086",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "试商方法描述正确，答案合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-087",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "竖式推理正确，答案覆盖两种可能算式。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-088",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "错中求解正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-089",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "余数与被除数计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-090",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "解题思路清晰，计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-091",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "除法计算正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-092",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "带余除法计算正确，答案格式灵活。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-093",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "价格计算正确，步骤清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-094",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "速度计算正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-095",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "余数与被除数计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-096",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "装箱问题计算正确，答案合理。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版四年级数学要求，无错误或歧义。"
+    }
+  }
+}

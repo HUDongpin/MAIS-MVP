@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-079",
+  "startedAt": "2026-05-28T01:39:03.675Z",
+  "completedAt": "2026-05-28T01:39:08.116Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-079"
+  ],
+  "usage": {
+    "prompt_tokens": 2716,
+    "completion_tokens": 264,
+    "total_tokens": 2980,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2332
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-079",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "a_100 < 20",
+        "correctedAnswer": "a_100 < 20",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合BNU数列章节。独立求解得a_100 < 20，但存储答案为a_100 > 20，解析中估计a_100 < 20却给出>20，自相矛盾，属严重错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目答案错误，解析矛盾，需修正答案为a_100 < 20。"
+    }
+  }
+}

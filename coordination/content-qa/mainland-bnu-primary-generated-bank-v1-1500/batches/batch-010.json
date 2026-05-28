@@ -1,0 +1,581 @@
+{
+  "batchId": "batch-010",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p1-091",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-solid-shapes",
+      "unitTitle": "认识图形",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "solid-shapes",
+        "shape-classification",
+        "cuboid-cube-cylinder-sphere",
+        "立体图形",
+        "认识图形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "观察比较",
+        "数学表达"
+      ],
+      "skillTags": [
+        "长方体",
+        "正方体",
+        "圆柱",
+        "球",
+        "按形状分类"
+      ],
+      "misconceptionTags": [
+        "orientation treated as a new shape",
+        "object name used instead of shape name",
+        "flat and solid shapes mixed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-solid-shapes"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-solid-shapes",
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面这些物品中，哪一个的形状是圆柱？\nA. 一个魔方\nB. 一个薯片筒\nC. 一个弹珠\nD. 一个鞋盒",
+      "optionsZhHans": [
+        "A. 一个魔方",
+        "B. 一个薯片筒",
+        "C. 一个弹珠",
+        "D. 一个鞋盒"
+      ],
+      "answer": "B. 一个薯片筒",
+      "acceptedAnswers": [
+        "B. 一个薯片筒"
+      ],
+      "explanationZhHans": "薯片筒上下一样粗，两头是圆形，可以滚动，是圆柱。魔方是正方体，弹珠是球，鞋盒是长方体。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-092",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-solid-shapes",
+      "unitTitle": "认识图形",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "solid-shapes",
+        "shape-classification",
+        "cuboid-cube-cylinder-sphere",
+        "立体图形",
+        "认识图形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "观察比较",
+        "数学表达"
+      ],
+      "skillTags": [
+        "长方体",
+        "正方体",
+        "圆柱",
+        "球",
+        "按形状分类"
+      ],
+      "misconceptionTags": [
+        "orientation treated as a new shape",
+        "object name used instead of shape name",
+        "flat and solid shapes mixed"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-solid-shapes"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-solid-shapes",
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在下面的物品中，圈出所有形状是球的物品。\n物品有：篮球、字典、乒乓球、魔方、玻璃珠、纸巾盒。",
+      "optionsZhHans": [],
+      "answer": "篮球、乒乓球、玻璃珠",
+      "acceptedAnswers": [
+        "篮球、乒乓球、玻璃珠",
+        "篮球，乒乓球，玻璃珠",
+        "篮球 乒乓球 玻璃珠"
+      ],
+      "explanationZhHans": "篮球、乒乓球和玻璃珠都是圆圆的，可以到处滚动，没有平平的面，它们是球。字典和纸巾盒是长方体，魔方是正方体。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-093",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-solid-shapes",
+      "unitTitle": "认识图形",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "solid-shapes",
+        "shape-classification",
+        "cuboid-cube-cylinder-sphere",
+        "立体图形",
+        "认识图形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "观察比较",
+        "数学表达"
+      ],
+      "skillTags": [
+        "长方体",
+        "正方体",
+        "圆柱",
+        "球",
+        "按形状分类"
+      ],
+      "misconceptionTags": [
+        "orientation treated as a new shape",
+        "object name used instead of shape name",
+        "flat and solid shapes mixed"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-solid-shapes"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-solid-shapes",
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "你有下面这些物品：一个牙膏盒、一个魔方、一个易拉罐、一个弹珠。\n（1）哪些物品能滚动？\n（2）哪些物品有平平的面？",
+      "optionsZhHans": [],
+      "answer": "（1）易拉罐、弹珠；（2）牙膏盒、魔方、易拉罐",
+      "acceptedAnswers": [
+        "（1）易拉罐、弹珠；（2）牙膏盒、魔方、易拉罐",
+        "（1）易拉罐和弹珠；（2）牙膏盒、魔方和易拉罐",
+        "（1）易拉罐 弹珠；（2）牙膏盒 魔方 易拉罐"
+      ],
+      "explanationZhHans": "易拉罐是圆柱，能滚动；弹珠是球，能滚动。牙膏盒是长方体，魔方是正方体，它们都有平平的面；易拉罐上下也有平平的面。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-094",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-solid-shapes",
+      "unitTitle": "认识图形",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "solid-shapes",
+        "shape-classification",
+        "cuboid-cube-cylinder-sphere",
+        "立体图形",
+        "认识图形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "观察比较",
+        "数学表达"
+      ],
+      "skillTags": [
+        "长方体",
+        "正方体",
+        "圆柱",
+        "球",
+        "按形状分类"
+      ],
+      "misconceptionTags": [
+        "orientation treated as a new shape",
+        "object name used instead of shape name",
+        "flat and solid shapes mixed"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-solid-shapes"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-solid-shapes",
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个物品的形状是正方体？\nA. 一个皮球\nB. 一个魔方\nC. 一个茶叶罐\nD. 一个铅笔盒",
+      "optionsZhHans": [
+        "A. 一个皮球",
+        "B. 一个魔方",
+        "C. 一个茶叶罐",
+        "D. 一个铅笔盒"
+      ],
+      "answer": "B. 一个魔方",
+      "acceptedAnswers": [
+        "B. 一个魔方"
+      ],
+      "explanationZhHans": "魔方每个面都是大小一样的正方形，它是正方体。皮球是球，茶叶罐是圆柱，铅笔盒是长方体。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-095",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-solid-shapes",
+      "unitTitle": "认识图形",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "solid-shapes",
+        "shape-classification",
+        "cuboid-cube-cylinder-sphere",
+        "立体图形",
+        "认识图形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "观察比较",
+        "数学表达"
+      ],
+      "skillTags": [
+        "长方体",
+        "正方体",
+        "圆柱",
+        "球",
+        "按形状分类"
+      ],
+      "misconceptionTags": [
+        "orientation treated as a new shape",
+        "object name used instead of shape name",
+        "flat and solid shapes mixed"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-solid-shapes"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-solid-shapes",
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "数一数，下面的积木中，长方体有____个，正方体有____个，圆柱有____个，球有____个。\n积木有：一个长条积木（长方体），一个正方体积木，一个圆柱积木，一个球，还有一个扁扁的长方体积木。",
+      "optionsZhHans": [],
+      "answer": "2,1,1,1",
+      "acceptedAnswers": [
+        "2,1,1,1",
+        "2，1，1，1",
+        "2 1 1 1"
+      ],
+      "explanationZhHans": "长条积木和扁扁的长方体积木都是长方体，共2个；正方体积木1个；圆柱积木1个；球1个。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-096",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-solid-shapes",
+      "unitTitle": "认识图形",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "solid-shapes",
+        "shape-classification",
+        "cuboid-cube-cylinder-sphere",
+        "立体图形",
+        "认识图形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "观察比较",
+        "数学表达"
+      ],
+      "skillTags": [
+        "长方体",
+        "正方体",
+        "圆柱",
+        "球",
+        "按形状分类"
+      ],
+      "misconceptionTags": [
+        "orientation treated as a new shape",
+        "object name used instead of shape name",
+        "flat and solid shapes mixed"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-solid-shapes"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-solid-shapes",
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "说一说，为什么下面的物品是圆柱？\n一个固体胶棒。",
+      "optionsZhHans": [],
+      "answer": "因为它上下一样粗，两头是圆形，可以滚动。",
+      "acceptedAnswers": [
+        "因为它上下一样粗，两头是圆形，可以滚动。",
+        "上下一样粗，两头是圆形，可以滚动",
+        "上下一样粗，两头是圆圆的，可以滚动"
+      ],
+      "explanationZhHans": "固体胶棒上下一样粗细，两头是平平的圆形，竖着放很稳，横着放可以滚动，这些是圆柱的特点。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-097",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-within-20-add-sub",
+      "unitTitle": "加与减（二）",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "within-20-numbers",
+        "within-20-non-regrouping-add-sub",
+        "teen-numbers",
+        "20以内加减法"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "模型意识"
+      ],
+      "skillTags": [
+        "11到20认识",
+        "十和几",
+        "数的组成",
+        "不进位加法",
+        "不退位减法"
+      ],
+      "misconceptionTags": [
+        "teen digits reversed",
+        "ten and ones counted as unrelated totals",
+        "ones operation applied without place-value meaning"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-within-20-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丽有13块糖，她吃了3块，还剩多少块？\nA. 10块\nB. 16块\nC. 11块\nD. 15块",
+      "optionsZhHans": [
+        "A. 10块",
+        "B. 16块",
+        "C. 11块",
+        "D. 15块"
+      ],
+      "answer": "A. 10块",
+      "acceptedAnswers": [
+        "A. 10块"
+      ],
+      "explanationZhHans": "13块糖，吃了3块，就是去掉3块，13-3=10，所以还剩10块。13是由1个十和3个一组成，减去3个一，剩下1个十，就是10。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-098",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-within-20-add-sub",
+      "unitTitle": "加与减（二）",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "within-20-numbers",
+        "within-20-non-regrouping-add-sub",
+        "teen-numbers",
+        "20以内加减法"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "模型意识"
+      ],
+      "skillTags": [
+        "11到20认识",
+        "十和几",
+        "数的组成",
+        "不进位加法",
+        "不退位减法"
+      ],
+      "misconceptionTags": [
+        "teen digits reversed",
+        "ten and ones counted as unrelated totals",
+        "ones operation applied without place-value meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-within-20-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "1个十和6个一合起来是____。",
+      "optionsZhHans": [],
+      "answer": "16",
+      "acceptedAnswers": [
+        "16"
+      ],
+      "explanationZhHans": "1个十是10，6个一是6，10和6合起来是16。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-099",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-within-20-add-sub",
+      "unitTitle": "加与减（二）",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "within-20-numbers",
+        "within-20-non-regrouping-add-sub",
+        "teen-numbers",
+        "20以内加减法"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "模型意识"
+      ],
+      "skillTags": [
+        "11到20认识",
+        "十和几",
+        "数的组成",
+        "不进位加法",
+        "不退位减法"
+      ],
+      "misconceptionTags": [
+        "teen digits reversed",
+        "ten and ones counted as unrelated totals",
+        "ones operation applied without place-value meaning"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-within-20-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明有15支铅笔，送给同学5支，他还剩多少支？请写出算式和得数。",
+      "optionsZhHans": [],
+      "answer": "15-5=10",
+      "acceptedAnswers": [
+        "15-5=10",
+        "15-5=10（支）",
+        "15-5=10支"
+      ],
+      "explanationZhHans": "15支铅笔，送出5支，用减法：15-5=10。15里面有1个十和5个一，减去5个一，剩下1个十，就是10支。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-100",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-within-20-add-sub",
+      "unitTitle": "加与减（二）",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "within-20-numbers",
+        "within-20-non-regrouping-add-sub",
+        "teen-numbers",
+        "20以内加减法"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "模型意识"
+      ],
+      "skillTags": [
+        "11到20认识",
+        "十和几",
+        "数的组成",
+        "不进位加法",
+        "不退位减法"
+      ],
+      "misconceptionTags": [
+        "teen digits reversed",
+        "ten and ones counted as unrelated totals",
+        "ones operation applied without place-value meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-within-20-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个算式的结果是12？\nA. 10+3\nB. 15-2\nC. 11+1\nD. 14-3",
+      "optionsZhHans": [
+        "A. 10+3",
+        "B. 15-2",
+        "C. 11+1",
+        "D. 14-3"
+      ],
+      "answer": "C. 11+1",
+      "acceptedAnswers": [
+        "C. 11+1"
+      ],
+      "explanationZhHans": "10+3=13，15-2=13，11+1=12，14-3=11。所以结果是12的是11+1。"
+    }
+  ]
+}

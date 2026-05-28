@@ -1,0 +1,50 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-184",
+  "startedAt": "2026-05-28T02:55:00.351Z",
+  "completedAt": "2026-05-28T02:55:05.907Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-184"
+  ],
+  "usage": {
+    "prompt_tokens": 2189,
+    "completion_tokens": 298,
+    "total_tokens": 2487,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1805
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-184",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "independentAnswer": null,
+        "correctedAnswer": null,
+        "issueTags": [
+          "ambiguous_mc",
+          "unsolvable",
+          "missing_condition",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "条件“向量AP与平面ABC的法向量垂直”等价于AP平行于平面ABC，但P已在平面ABC上，该条件恒成立，无法唯一确定P。结合x+y+z=6，P有无穷多解，点P到直线AB的距离不唯一，题目不可解。解析中取特例P(2,2,2)无依据，答案√6/3无效。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目条件不足，无法唯一确定点P，导致距离不唯一，属于严重错误，判定为不可解。"
+    }
+  }
+}

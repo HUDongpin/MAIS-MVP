@@ -1,0 +1,346 @@
+{
+  "batchId": "batch-063",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s2-k08-mc-021",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-quadratic-radicals"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean"
+      ],
+      "promptZhHans": "若二次根式√(2x-6)在实数范围内有意义，则x的取值范围是（　）",
+      "optionsZhHans": [
+        "x≥3",
+        "x>3",
+        "x≤3",
+        "x<3"
+      ],
+      "answer": "x≥3",
+      "acceptedAnswers": [
+        "x≥3"
+      ],
+      "explanationZhHans": "二次根式√(a)有意义的条件是被开方数a≥0。这里a=2x-6，所以2x-6≥0，解得x≥3。因此答案为x≥3。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-mc-022",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "下列二次根式中，与√3是同类二次根式的是（　）",
+      "optionsZhHans": [
+        "√6",
+        "√12",
+        "√18",
+        "√24"
+      ],
+      "answer": "√12",
+      "acceptedAnswers": [
+        "√12"
+      ],
+      "explanationZhHans": "同类二次根式是指化简后被开方数相同的二次根式。√12=2√3，与√3的被开方数都是3，所以它们是同类二次根式。其他选项化简后分别为√6、3√2、2√6，被开方数不是3。因此答案为√12。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-mc-023",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-linear-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "在△ABC中，∠C=90°，AC=6，BC=8，则AB的长为（　）",
+      "optionsZhHans": [
+        "10",
+        "2√7",
+        "√14",
+        "14"
+      ],
+      "answer": "10",
+      "acceptedAnswers": [
+        "10"
+      ],
+      "explanationZhHans": "在直角三角形中，由勾股定理得AB²=AC²+BC²。已知AC=6，BC=8，所以AB²=6²+8²=36+64=100，因此AB=√100=10。答案为10。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-mc-024",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-data-analysis"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions"
+      ],
+      "promptZhHans": "下列长度的三条线段能组成直角三角形的是（　）",
+      "optionsZhHans": [
+        "2, 3, 4",
+        "3, 4, 5",
+        "4, 5, 6",
+        "5, 6, 7"
+      ],
+      "answer": "3, 4, 5",
+      "acceptedAnswers": [
+        "3, 4, 5"
+      ],
+      "explanationZhHans": "判断三条线段能否组成直角三角形，需要验证是否满足勾股定理的逆定理，即最长边的平方是否等于另外两边的平方和。选项B中，3²+4²=9+16=25，5²=25，相等，所以能组成直角三角形。其他选项均不满足。答案为3, 4, 5。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-mc-025",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-pythagorean-theorem"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "promptZhHans": "在平行四边形ABCD中，∠B=130°，则∠D的度数为（ ）",
+      "optionsZhHans": [
+        "50°",
+        "130°",
+        "40°",
+        "100°"
+      ],
+      "answer": "130°",
+      "acceptedAnswers": [
+        "130°",
+        "130度"
+      ],
+      "explanationZhHans": "平行四边形的对角相等，∠D与∠B是对角，所以∠D=∠B=130°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-mc-026",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-quadrilaterals"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "promptZhHans": "在矩形ABCD中，对角线AC与BD相交于点O，若AC=10，则BO的长为（　）",
+      "optionsZhHans": [
+        "5",
+        "10",
+        "2.5",
+        "√10"
+      ],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5"
+      ],
+      "explanationZhHans": "矩形的对角线相等且互相平分，所以BO=BD/2=AC/2=10/2=5。因此答案为5。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-mc-027",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-quadratic-radicals"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "菱形具有而矩形不一定具有的性质是（　）",
+      "optionsZhHans": [
+        "对角线互相平分",
+        "对角线相等",
+        "四个角都是直角",
+        "对角线互相垂直"
+      ],
+      "answer": "对角线互相垂直",
+      "acceptedAnswers": [
+        "对角线互相垂直"
+      ],
+      "explanationZhHans": "菱形的对角线互相垂直，而矩形的对角线不一定垂直。选项A是平行四边形共有的性质，选项B和C是矩形的性质，菱形不一定具备。因此答案为对角线互相垂直。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-mc-028",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "下列条件中，能判定四边形ABCD是平行四边形的是（　）",
+      "optionsZhHans": [
+        "AB∥CD，AD=BC",
+        "∠A=∠B，∠C=∠D",
+        "AB=CD，AD∥BC",
+        "AB∥CD，AB=CD"
+      ],
+      "answer": "AB∥CD，AB=CD",
+      "acceptedAnswers": [
+        "AB∥CD，AB=CD"
+      ],
+      "explanationZhHans": "一组对边平行且相等的四边形是平行四边形。选项D满足这个条件。选项A和C可能为等腰梯形，选项B可能为一般四边形。因此答案为AB∥CD，AB=CD。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-mc-029",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-linear-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "若正方形的边长为2，则其对角线的长为（　）",
+      "optionsZhHans": [
+        "2",
+        "2√2",
+        "4",
+        "√2"
+      ],
+      "answer": "2√2",
+      "acceptedAnswers": [
+        "2√2"
+      ],
+      "explanationZhHans": "正方形的对角线将正方形分成两个等腰直角三角形，对角线是斜边。由勾股定理得对角线长=√(2²+2²)=√8=2√2。因此答案为2√2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-mc-030",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-data-analysis"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-proof-calculation-integrated"
+      ],
+      "promptZhHans": "某校八年级（1）班有40名学生，一次数学测验的成绩统计如下：100分有5人，90分有10人，80分有15人，70分有8人，60分有2人。则这次测验成绩的中位数是（　）",
+      "optionsZhHans": [
+        "80分",
+        "85分",
+        "90分",
+        "75分"
+      ],
+      "answer": "80分",
+      "acceptedAnswers": [
+        "80分"
+      ],
+      "explanationZhHans": "中位数是将数据从小到大排序后处于中间位置的数。总人数40为偶数，中位数是第20和第21个数据的平均数。成绩排序后，60分（2人）、70分（8人）、80分（15人）、90分（10人）、100分（5人）。第20和第21个数据都在80分这一组，所以中位数为80分。因此答案为80分。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

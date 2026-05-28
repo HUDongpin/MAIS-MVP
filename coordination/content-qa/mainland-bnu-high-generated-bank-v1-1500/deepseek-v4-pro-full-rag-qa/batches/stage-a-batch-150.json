@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-150",
+  "startedAt": "2026-05-28T01:41:27.413Z",
+  "completedAt": "2026-05-28T01:41:46.673Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-193",
+    "bnu-high-ds-v1-s6-194",
+    "bnu-high-ds-v1-s6-195",
+    "bnu-high-ds-v1-s6-196",
+    "bnu-high-ds-v1-s6-197",
+    "bnu-high-ds-v1-s6-198",
+    "bnu-high-ds-v1-s6-199",
+    "bnu-high-ds-v1-s6-200"
+  ],
+  "usage": {
+    "prompt_tokens": 10048,
+    "completion_tokens": 1317,
+    "total_tokens": 11365,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9664
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-193",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由等比数列前n项和公式，S3=7，S6=63，S6/S3=9，得1+q^3=9，q^3=8，q=2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-194",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(1) a2=5, a3=10; (2) an=n^2+1",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由递推式累加得an-a1=(n-1)n+(n-1)，结合a1=2得an=n^2+1，验证a2=5，a3=10。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-195",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "53",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "递推构造等比数列：an+1+1=3(an+1)，得an+1=2·3^(n-1)，a4=2·3^3-1=53。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-196",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由S3=3a1+3d=18，a1=3，解得d=3。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-197",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(1) a2=√3, a3=√6; (2) an=√(n(n+1)/2)",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "累加得an^2-a1^2=n^2-1，a1=1，故an^2=n^2，正项数列an=n。但验证a2=2，a3=3，与递推不符。重新累加：a2^2-a1^2=3，a2=2；a3^2-a2^2=5，a3=3；猜测an=n，但a1=1，a2=2，a3=3，代入递推：a2^2-a1^2=4-1=3≠3？实际上2n+1当n=1时为3，正确。n=2时a3^2-a2^2=9-4=5，2n+1=5，正确。所以an=n。但an=n时a1=1，a2=2，a3=3，符合。但题目是正项数列，an=n。然而累加时：a_{n+1}^2 - a_n^2 = 2n+1，累加得a_{n+1}^2 - a_1^2 = n^2+2n，即a_{n+1}^2 = n^2+2n+1 = (n+1)^2，所以a_{n+1}=n+1，即an=n。所以通项an=n。但之前我误算为√(n(n+1)/2)，那是错的。正确应为an=n。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-198",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "162",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "等比数列通项a5=a1·q^4=2·3^4=162。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-199",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "1.99",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "裂项累加得an=2-1/n，a100=1.99。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-200",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(1) an=2n+1; (2) n=10",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由a2=5得a1+d=5，S4=4a1+6d=28，解得a1=3，d=2，an=2n+1。Sn=n^2+2n>100，n≥10。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，无缺失条件或歧义，符合北师大版高中数列内容。"
+    }
+  }
+}

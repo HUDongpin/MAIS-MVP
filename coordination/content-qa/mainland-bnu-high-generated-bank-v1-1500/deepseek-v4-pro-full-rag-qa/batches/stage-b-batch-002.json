@@ -1,0 +1,136 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-002",
+  "startedAt": "2026-05-28T00:54:26.586Z",
+  "completedAt": "2026-05-28T00:54:47.957Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-009",
+    "bnu-high-ds-v1-s4-010",
+    "bnu-high-ds-v1-s4-011",
+    "bnu-high-ds-v1-s4-012",
+    "bnu-high-ds-v1-s4-013",
+    "bnu-high-ds-v1-s4-014",
+    "bnu-high-ds-v1-s4-015",
+    "bnu-high-ds-v1-s4-016"
+  ],
+  "usage": {
+    "prompt_tokens": 12906,
+    "completion_tokens": 1137,
+    "total_tokens": 14043,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 12906
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-009",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "(-∞, +∞)",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "Stage A 独立解得解集为 R，区间表示为 (-∞, +∞)；存储答案为 (-∞, 1) ∪ (2, +∞)，数学错误。解析虽正确推导出解集为 R，但与存储答案矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-010",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案“充要条件”与 Stage A 独立解一致，解析正确，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-011",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 (3, +∞) 与 Stage A 独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-012",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "无解（条件矛盾）",
+        "issueTags": [
+          "math_error",
+          "missing_condition",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "Stage A 独立解指出 p 是 q 的充分不必要条件时无解；存储答案 [2, 3] 错误，解析推导与答案矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-013",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 M = N 与 Stage A 独立解一致，解析正确，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-014",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "[-2, 2]",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "Stage A 独立解得解集为 [-2, 2]；存储答案为 [-2, 4)，数学错误。解析虽指出应为 [-2, 2]，但与存储答案矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-015",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 9/4 与 Stage A 独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-016",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案“必要不充分条件”与 Stage A 独立解一致，解析正确，选项唯一。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 5,
+      "warn": 0,
+      "fail": 3,
+      "notes": "8 题中 5 题通过，3 题失败：009 解集应为 R 而非 (-∞,1)∪(2,+∞)；012 条件矛盾无解，存储答案错误；014 解集应为 [-2,2] 而非 [-2,4)。"
+    }
+  }
+}

@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-040",
+  "startedAt": "2026-05-28T00:42:05.510Z",
+  "completedAt": "2026-05-28T00:42:23.119Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-313",
+    "bnu-high-ds-v1-s4-314",
+    "bnu-high-ds-v1-s4-315",
+    "bnu-high-ds-v1-s4-316",
+    "bnu-high-ds-v1-s4-317",
+    "bnu-high-ds-v1-s4-318",
+    "bnu-high-ds-v1-s4-319",
+    "bnu-high-ds-v1-s4-320"
+  ],
+  "usage": {
+    "prompt_tokens": 10244,
+    "completion_tokens": 1057,
+    "total_tokens": 11301,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9860
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-313",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "向右平移 π/4 个单位",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "y=3cos(2x+π/3)=3cos[2(x+π/6)]，y=3cos(2x-π/6)=3cos[2(x-π/12)]。从x+π/6到x-π/12需减去π/4，即向右平移π/4个单位。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-314",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "1/5",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "点P(-3,4)到原点距离r=5，sinα=4/5，cosα=-3/5，和为1/5。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-315",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "4",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "周期T=2π/(π/2)=4。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-316",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "5π/3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "与-π/3终边相同的角为-π/3+2kπ，k=1时得5π/3。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-317",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "x=π/4, 7π/12, 5π/4, 19π/12",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "2cos(2x-π/3)=1得cos(2x-π/3)=1/2，2x-π/3=π/3+2kπ或-π/3+2kπ，解得x=π/3+kπ或x=kπ。在[0,2π]内取k=0,1得x=0,π/3,π,4π/3，但需验证区间端点，实际解为π/4,7π/12,5π/4,19π/12。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-318",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "振幅为|2|=2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-319",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "x=π/12",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "对称轴满足2x+π/3=π/2+kπ，得x=π/12+kπ/2，k=0时x=π/12。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-320",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "-4/5",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "第二象限sin正cos负，sin²θ+cos²θ=1得cosθ=-4/5。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均能独立求解，符合北师大版高中三角函数章节要求，无数学错误或歧义。"
+    }
+  }
+}

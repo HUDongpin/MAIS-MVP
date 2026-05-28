@@ -1,0 +1,586 @@
+{
+  "batchId": "batch-096",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p4-201",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "observe-objects",
+        "spatial-visualization",
+        "views-of-solids",
+        "观察物体",
+        "视图"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "从不同方向观察",
+        "视图匹配",
+        "立体想象",
+        "还原物体",
+        "相对位置"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "front and side views interchanged",
+        "hidden cubes counted as visible"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-observe-objects-unit",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个由小正方体搭成的立体图形，从正面看是横着的一排3个小正方形，从左面看是竖着的一列2个小正方形。这个立体图形最少由几个小正方体搭成？",
+      "optionsZhHans": [
+        "3个",
+        "4个",
+        "5个",
+        "6个"
+      ],
+      "answer": "4个",
+      "acceptedAnswers": [
+        "4个"
+      ],
+      "explanationZhHans": "从正面看一排3个，说明第一层至少有3个；从左面看一列2个，说明高度为2。最少情况是第一层3个，第二层只在左面能看到的那个位置放1个，共4个。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-202",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "observe-objects",
+        "spatial-visualization",
+        "views-of-solids",
+        "观察物体",
+        "视图"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "从不同方向观察",
+        "视图匹配",
+        "立体想象",
+        "还原物体",
+        "相对位置"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "front and side views interchanged",
+        "hidden cubes counted as visible"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-observe-objects-unit",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用4个同样的小正方体搭成一个立体图形。从正面看是横着的一排3个小正方形，从左面看是横着的一排2个小正方形。这个立体图形从上面看是什么形状？请用“第1行几个，第2行几个”的格式描述。（假设从上面看，靠近观察者的为第1行，远离观察者的为第2行）",
+      "optionsZhHans": [],
+      "answer": "第1行2个，第2行2个",
+      "acceptedAnswers": [
+        "第1行2个，第2行2个",
+        "第一行2个，第二行2个"
+      ],
+      "explanationZhHans": "从正面看一排3个，说明第一层至少有3个；从左面看一排2个，说明深度为2。4个小正方体搭成两行两列，第一层3个，第二层1个。从上面看，第一行有2个，第二行有2个。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-203",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "observe-objects",
+        "spatial-visualization",
+        "views-of-solids",
+        "观察物体",
+        "视图"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "从不同方向观察",
+        "视图匹配",
+        "立体想象",
+        "还原物体",
+        "相对位置"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "front and side views interchanged",
+        "hidden cubes counted as visible"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-observe-objects-unit",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个立体图形由5个同样的小正方体搭成。从正面看是横着的一排3个小正方形，从左面看是横着的一排2个小正方形。这个立体图形从上面看不可能是什么形状？",
+      "optionsZhHans": [
+        "两行，第一行3个，第二行1个",
+        "两行，第一行2个，第二行2个",
+        "两行，第一行1个，第二行3个",
+        "两行，第一行3个，第二行2个"
+      ],
+      "answer": "两行，第一行3个，第二行2个",
+      "acceptedAnswers": [
+        "两行，第一行3个，第二行2个"
+      ],
+      "explanationZhHans": "从正面看一排3个，说明第一层至少有3个；从左面看一排2个，说明深度为2。5个小正方体搭成两行三列，第一层3个，第二层2个。从上面看，第一行最多3个，第二行最多2个，但总数为5，所以不可能第一行3个且第二行2个（那样需要5个以上）。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-204",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "observe-objects",
+        "spatial-visualization",
+        "views-of-solids",
+        "观察物体",
+        "视图"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "从不同方向观察",
+        "视图匹配",
+        "立体想象",
+        "还原物体",
+        "相对位置"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "front and side views interchanged",
+        "hidden cubes counted as visible"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-observe-objects-unit",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用6个同样的小正方体搭成一个立体图形。从正面看是横着的一排3个小正方形，从左面看是横着的一排2个小正方形，从上面看是两行三列，其中第一行有2个小正方形，第二行有3个小正方形。这个立体图形一共有几层？",
+      "optionsZhHans": [],
+      "answer": "2层",
+      "acceptedAnswers": [
+        "2层",
+        "两层"
+      ],
+      "explanationZhHans": "从上面看两行三列，第一行2个，第二行3个，共5个位置有正方体。但总共有6个，说明有一处叠放2层。从正面看一排3个，说明第二行3个都在第一层；从左面看一排2个，说明第一行2个中有一个叠放第二层。所以共2层。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-205",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "observe-objects",
+        "spatial-visualization",
+        "views-of-solids",
+        "观察物体",
+        "视图"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "从不同方向观察",
+        "视图匹配",
+        "立体想象",
+        "还原物体",
+        "相对位置"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "front and side views interchanged",
+        "hidden cubes counted as visible"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-observe-objects-unit",
+        "bnu-primary-p1-lower-assessment-shape-transformation"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个立体图形由同样的小正方体搭成，所有小正方体都放在同一层。若从正面能看到横着一排4个位置，从左面能看到横着一排3个位置，最少需要几个小正方体？",
+      "optionsZhHans": [
+        "4个",
+        "5个",
+        "6个",
+        "7个"
+      ],
+      "answer": "4个",
+      "acceptedAnswers": [
+        "4个",
+        "4"
+      ],
+      "explanationZhHans": "单层中4个小正方体可分别放在3个不同前后排且覆盖4个左右列，如第1排2个、第2排1个、第3排1个，所以最少4个。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-206",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-equations",
+      "unitTitle": "认识方程",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "equations-introduction",
+        "unknown-quantity",
+        "equality",
+        "认识方程",
+        "方程"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "用字母表示未知数",
+        "等量关系",
+        "列方程",
+        "解简单方程",
+        "检验"
+      ],
+      "misconceptionTags": [
+        "unknown chosen after equation writing",
+        "equals sign read as calculate-next only",
+        "solution not checked in the original context"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-equations-unit",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "根据等量关系列方程：小明有x张邮票，小华的邮票张数是小明的3倍还多5张，两人一共有65张邮票。下面哪个方程是正确的？",
+      "optionsZhHans": [],
+      "answer": "x + 3x + 5 = 65",
+      "acceptedAnswers": [
+        "x + 3x + 5 = 65",
+        "x+3x+5=65"
+      ],
+      "explanationZhHans": "小明的邮票数为x，小华的邮票数为3x+5，两人总数为x + (3x+5) = 65，即x+3x+5=65。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-207",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-equations",
+      "unitTitle": "认识方程",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "equations-introduction",
+        "unknown-quantity",
+        "equality",
+        "认识方程",
+        "方程"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "用字母表示未知数",
+        "等量关系",
+        "列方程",
+        "解简单方程",
+        "检验"
+      ],
+      "misconceptionTags": [
+        "unknown chosen after equation writing",
+        "equals sign read as calculate-next only",
+        "solution not checked in the original context"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-equations-unit",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "解方程：4x + 8 = 32。x的值是多少？",
+      "optionsZhHans": [
+        "x=6",
+        "x=8",
+        "x=10",
+        "x=24"
+      ],
+      "answer": "x=6",
+      "acceptedAnswers": [
+        "x=6"
+      ],
+      "explanationZhHans": "4x+8=32，两边减8得4x=24，两边除以4得x=6。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-208",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-equations",
+      "unitTitle": "认识方程",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "equations-introduction",
+        "unknown-quantity",
+        "equality",
+        "认识方程",
+        "方程"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "用字母表示未知数",
+        "等量关系",
+        "列方程",
+        "解简单方程",
+        "检验"
+      ],
+      "misconceptionTags": [
+        "unknown chosen after equation writing",
+        "equals sign read as calculate-next only",
+        "solution not checked in the original context"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-equations-unit",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方形的周长是24厘米，长是宽的2倍。设宽为x厘米，列出方程并求解，宽是多少厘米？",
+      "optionsZhHans": [],
+      "answer": "4厘米",
+      "acceptedAnswers": [
+        "4厘米",
+        "4"
+      ],
+      "explanationZhHans": "设宽为x厘米，则长为2x厘米。周长=2(x+2x)=6x=24，解得x=4。所以宽是4厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-209",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-equations",
+      "unitTitle": "认识方程",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "equations-introduction",
+        "unknown-quantity",
+        "equality",
+        "认识方程",
+        "方程"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "用字母表示未知数",
+        "等量关系",
+        "列方程",
+        "解简单方程",
+        "检验"
+      ],
+      "misconceptionTags": [
+        "unknown chosen after equation writing",
+        "equals sign read as calculate-next only",
+        "solution not checked in the original context"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-equations-unit",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "根据题意列方程：学校买来5个篮球和8个足球，共用去510元。每个篮球a元，每个足球b元。下面哪个方程正确表示了总价？",
+      "optionsZhHans": [
+        "5a + 8b = 510",
+        "5a + 8b = 510元",
+        "a + b = 510",
+        "5 + 8 = 510"
+      ],
+      "answer": "5a + 8b = 510",
+      "acceptedAnswers": [
+        "5a + 8b = 510"
+      ],
+      "explanationZhHans": "5个篮球总价5a元，8个足球总价8b元，总价510元，所以方程是5a+8b=510。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-210",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-equations",
+      "unitTitle": "认识方程",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "equations-introduction",
+        "unknown-quantity",
+        "equality",
+        "认识方程",
+        "方程"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "用字母表示未知数",
+        "等量关系",
+        "列方程",
+        "解简单方程",
+        "检验"
+      ],
+      "misconceptionTags": [
+        "unknown chosen after equation writing",
+        "equals sign read as calculate-next only",
+        "solution not checked in the original context"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-equations-unit",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "检验x=5是否是方程3x - 4 = 11的解。请写出检验过程并判断。",
+      "optionsZhHans": [],
+      "answer": "把x=5代入方程，左边=3×5-4=11，右边=11，左边=右边，所以x=5是方程的解。",
+      "acceptedAnswers": [
+        "把x=5代入方程，左边=3×5-4=11，右边=11，左边=右边，所以x=5是方程的解。",
+        "左边=3×5-4=11，右边=11，所以是解"
+      ],
+      "explanationZhHans": "将x=5代入方程左边得3×5-4=11，与右边相等，所以x=5是方程的解。"
+    }
+  ]
+}

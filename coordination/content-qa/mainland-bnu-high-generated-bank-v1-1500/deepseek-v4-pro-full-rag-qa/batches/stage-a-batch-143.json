@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-143",
+  "startedAt": "2026-05-28T01:40:34.151Z",
+  "completedAt": "2026-05-28T01:40:47.769Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-137",
+    "bnu-high-ds-v1-s6-138",
+    "bnu-high-ds-v1-s6-139",
+    "bnu-high-ds-v1-s6-140",
+    "bnu-high-ds-v1-s6-141",
+    "bnu-high-ds-v1-s6-142",
+    "bnu-high-ds-v1-s6-143",
+    "bnu-high-ds-v1-s6-144"
+  ],
+  "usage": {
+    "prompt_tokens": 9998,
+    "completion_tokens": 1070,
+    "total_tokens": 11068,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9614
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-137",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "a_n = 2^n - 1, S_n = 2^{n+1} - n - 2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "递推关系 a_{n+1}=2a_n+1 可构造等比数列，解得通项 a_n=2^n-1，前 n 项和 S_n=2^{n+1}-n-2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-138",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由 a_4 = a_1 q^3 得 24 = 3 q^3，解得 q=2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-139",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "2^n - 1",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "累加法：a_n = a_1 + Σ_{k=1}^{n-1} 2^k = 1 + (2^n - 2) = 2^n - 1。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-140",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "a_n = 3n - 1",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由 a_2=5, a_5=14 得公差 d=3，a_1=2，通项 a_n=3n-1。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-141",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "b_n 是首项 4、公比 3 的等比数列；S_n = 2·3^n - 2n - 2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由 b_n = a_n+2 得 b_{n+1}=3b_n，b_1=4，故 b_n=4·3^{n-1}，a_n=4·3^{n-1}-2，S_n=2·3^n-2n-2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-142",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "19",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由 a_3=7, S_5=30 得 a_1=3, d=2，a_8=3+7×2=19。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-143",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "a_n = 3^n - 2^n",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "两边同除以 2^{n+1} 构造等差数列，或待定系数法，得 a_n = 3^n - 2^n。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-144",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "48",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "a_5 = a_1 q^4 = 3 × 2^4 = 48。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部 8 题均可独立求解，无歧义或缺失条件，符合北师大版高中数列章节要求。"
+    }
+  }
+}

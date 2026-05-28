@@ -1,0 +1,130 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-030",
+  "startedAt": "2026-05-28T01:03:42.561Z",
+  "completedAt": "2026-05-28T01:03:57.925Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-233",
+    "bnu-high-ds-v1-s4-234",
+    "bnu-high-ds-v1-s4-235",
+    "bnu-high-ds-v1-s4-236",
+    "bnu-high-ds-v1-s4-237",
+    "bnu-high-ds-v1-s4-238",
+    "bnu-high-ds-v1-s4-239",
+    "bnu-high-ds-v1-s4-240"
+  ],
+  "usage": {
+    "prompt_tokens": 12564,
+    "completion_tokens": 988,
+    "total_tokens": 13552,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 12180
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-233",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，样本空间和概率均正确，解析完整。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-234",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案0.94与独立解一致，解析正确使用对立事件计算。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-235",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "bad_options",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立解计算得P(A)=3/10，P(B)=2/5，但所有选项均不匹配，且存储答案P(B)=3/5错误，解析中列举组合数矛盾，题目无正确选项。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-236",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案13/28与独立解一致，解析正确使用组合数计算。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-237",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案0.648与独立解一致，解析正确使用二项分布计算。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-238",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案1与独立解一致，解析正确说明条件概率为1。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-239",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案2/5与独立解一致，解析正确使用奇偶分类计算。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-240",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案0.94与独立解一致，解析正确使用对立事件计算。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第235题因选项错误导致无正确选项，存储答案和解析均错误，其余题目均通过。"
+    }
+  }
+}

@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-037",
+  "startedAt": "2026-05-28T00:41:19.378Z",
+  "completedAt": "2026-05-28T00:41:40.581Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-289",
+    "bnu-high-ds-v1-s4-290",
+    "bnu-high-ds-v1-s4-291",
+    "bnu-high-ds-v1-s4-292",
+    "bnu-high-ds-v1-s4-293",
+    "bnu-high-ds-v1-s4-294",
+    "bnu-high-ds-v1-s4-295",
+    "bnu-high-ds-v1-s4-296"
+  ],
+  "usage": {
+    "prompt_tokens": 10324,
+    "completion_tokens": 1244,
+    "total_tokens": 11568,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9940
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-289",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "D",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "函数f(x)=2sin(3x-π/4)+1，周期T=2π/3，A错误；对称轴由3x-π/4=π/2+kπ解得x=π/4+kπ/3，x=π/4不是对称轴，B错误；x∈[0,π/6]时3x-π/4∈[-π/4,π/4]，正弦在此区间递增，故f(x)递增，C正确；最大值为2+1=3，D正确。但题目要求选正确结论，C和D均正确，存在多个正确选项，不符合单选题要求。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-290",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "sinα=4/5, cosα=-3/5, tanα=-4/3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由终边点P(-3,4)得r=5，根据定义sinα=y/r=4/5，cosα=x/r=-3/5，tanα=y/x=-4/3。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-291",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "[0, π/12] ∪ [7π/12, π]",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f(x)=3sin(2x-π/3)+1，由-π/2+2kπ≤2x-π/3≤π/2+2kπ得递增区间[-π/12+kπ,5π/12+kπ]，与[0,π]取交集得[0,π/12]∪[7π/12,π]。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-292",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "A",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "y=sin(2x+π/4)右移π/8得y=sin[2(x-π/8)+π/4]=sin2x，横坐标变为2倍得y=sin(2·(x/2))=sin x。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-293",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "1/5",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由P(-3,4)得sinα=4/5，cosα=-3/5，sinα+cosα=1/5。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-294",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "π/6",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "函数y=2cos(3x+π/6)的初相为x=0时的相位，即π/6。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-295",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "B",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "y=sin2x周期π，奇函数；y=cos2x周期π，偶函数；y=tanx周期π，奇函数；y=|sinx|周期π，偶函数。但y=|sinx|不是基本三角函数，通常不视为余弦型偶函数，且题目可能期望y=cos2x。严格来说B和D均满足，但D的周期为π且为偶函数，存在歧义。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-296",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "1/3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "分子分母同除以cosθ得(tanθ-1)/(tanθ+1)=(2-1)/(2+1)=1/3。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均可独立求解，但第289题存在C和D两个正确选项，不符合单选题要求；第295题B和D均满足条件，存在歧义。其余题目无问题。"
+    }
+  }
+}

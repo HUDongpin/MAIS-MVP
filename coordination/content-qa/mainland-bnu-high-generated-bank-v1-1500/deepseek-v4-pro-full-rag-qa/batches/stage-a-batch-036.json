@@ -1,0 +1,120 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-036",
+  "startedAt": "2026-05-28T00:41:15.475Z",
+  "completedAt": "2026-05-28T00:41:45.238Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-281",
+    "bnu-high-ds-v1-s4-282",
+    "bnu-high-ds-v1-s4-283",
+    "bnu-high-ds-v1-s4-284",
+    "bnu-high-ds-v1-s4-285",
+    "bnu-high-ds-v1-s4-286",
+    "bnu-high-ds-v1-s4-287",
+    "bnu-high-ds-v1-s4-288"
+  ],
+  "usage": {
+    "prompt_tokens": 10470,
+    "completion_tokens": 1487,
+    "total_tokens": 11957,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 10086
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-281",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(1) 甲：y=0.85x-0.9；乙：y=0.0625x²+0.55；(2) 乙模型更准确；(3) 9.6 m",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可独立求解。用前三个数据点分别确定一次和二次模型参数，再用第四个点检验误差，最后用较优模型预测。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-282",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(1) a=5, b=5；(2) 150万元；(3) 预测误差0万元，但模型①为二次函数，长期会无限增长，不适合长期预测。",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可独立求解。利用2020年(t=1,y=10)和2023年(t=4,y=100)数据解出a,b，再预测2024年(t=5)，计算误差并评价模型长期适用性。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-283",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "C",
+        "issueTags": [
+          "bad_options"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "选项C计算值应为约16.2万辆，而非20.2万辆，选项数值错误。其他选项均明显错误，导致无正确选项。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-284",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(1) 模型①误差0分钟，模型②误差1分钟；(2) 模型①拟合更好，因为对所有数据点误差更小；(3) 15分钟",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可独立求解。分别计算两个模型在(4,9)的预测误差，再比较所有数据点的拟合情况，最后用较优模型预测x=7时的y值。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-285",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(1) y={10, 0≤x≤3; 10+2(x-3)+0.5x=2.5x+4, x>3}；(2) x=8.4公里",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可独立求解。根据收费标准写出分段函数，再解方程求x。注意燃油附加费按实际里程计算，起步价含3公里。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-286",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "B",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "指数模型线性化通常取对数，选项B正确。A底数错误，C、D不是线性化方法。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-287",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(1) 甲：7.1万元，乙：约7.2万元；(2) 甲模型更准确；(3) 9.2万元",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可独立求解。t为年份减2018，2022年t=4，分别代入模型计算预测值，比较误差，再用较优模型预测2025年(t=7)。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-288",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(1) 模型①：17，模型②：约11.125；(2) 模型①更符合，因为与数据完全吻合；(3) 65百个",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可独立求解。分别计算t=4时预测值，比较数据趋势，模型①与所有数据点吻合，故更优，预测t=6时y=2^6+1=65。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第283题选项C数值错误，导致无正确选项，标记为失败。其余题目均可独立求解，符合北师大版高一数学建模活动要求。"
+    }
+  }
+}

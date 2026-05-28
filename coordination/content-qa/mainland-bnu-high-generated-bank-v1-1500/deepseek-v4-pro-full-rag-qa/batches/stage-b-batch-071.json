@@ -1,0 +1,142 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-071",
+  "startedAt": "2026-05-28T02:05:44.704Z",
+  "completedAt": "2026-05-28T02:06:03.810Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-061",
+    "bnu-high-ds-v1-s5-062",
+    "bnu-high-ds-v1-s5-063",
+    "bnu-high-ds-v1-s5-064",
+    "bnu-high-ds-v1-s5-065",
+    "bnu-high-ds-v1-s5-066",
+    "bnu-high-ds-v1-s5-067",
+    "bnu-high-ds-v1-s5-068"
+  ],
+  "usage": {
+    "prompt_tokens": 12757,
+    "completion_tokens": 1197,
+    "total_tokens": 13954,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 12373
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-061",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，均为x+2y=0，解析正确，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-062",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "(x-2)^2 + (y-1)^2 = 1",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案为(x-2)^2+(y-1)^2=2，但独立解为(x-2)^2+(y-1)^2=1。解析中半径r=√2错误，实际r=1。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-063",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "k = -1 或 k = -21",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案为1或-19，但独立解为-1或-21。解析中|11+k|=10解得k=-1或-21，与存储答案矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-064",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，均为(-∞, -√3) ∪ (√3, +∞)，解析正确，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-065",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，均为x=1或3x-4y+5=0，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-066",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "8/5",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案为2，但独立解为8/5。解析中计算得8/5=1.6，却给出答案2，矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-067",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，均为y=1或3x+4y-4=0，解析正确，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-068",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "x + 3y - 25 = 0",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案为x+y-11=0，但独立解为x+3y-25=0。解析中正确推导出x+3y-25=0，却给出错误答案。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 4,
+      "warn": 0,
+      "fail": 4,
+      "notes": "8题中4题通过，4题失败。失败题目均为存储答案与独立解不一致，且解析与答案矛盾，需修正。"
+    }
+  }
+}

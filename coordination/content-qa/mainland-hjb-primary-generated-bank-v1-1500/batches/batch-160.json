@@ -1,0 +1,296 @@
+{
+  "batchId": "batch-160",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p4-046",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-large-numbers-measurement",
+      "unitTitle": "数与量",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "large-numbers",
+        "rounding",
+        "area-units",
+        "mass-capacity-units",
+        "大数",
+        "四舍五入"
+      ],
+      "competencyTags": [
+        "数感",
+        "量感",
+        "符号意识"
+      ],
+      "skillTags": [
+        "大数读写",
+        "数位顺序",
+        "四舍五入",
+        "平方千米",
+        "吨",
+        "毫升",
+        "升"
+      ],
+      "misconceptionTags": [
+        "zeros skipped when reading large numbers",
+        "rounding place confused with retained digits",
+        "unit conversion treated as digit decoration"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-large-numbers-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-large-numbers-measurement",
+        "hjb-primary-p4-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个城市的人口约为三百零五万六千。这个数写作多少？",
+      "optionsZhHans": [
+        "3056000",
+        "30506000",
+        "3560000",
+        "30056000"
+      ],
+      "answer": "3056000",
+      "acceptedAnswers": [
+        "3056000"
+      ],
+      "explanationZhHans": "三百零五万六千：万级是305，个级是6000，合起来是3056000。注意中间零的读法，不要漏写或错位。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-047",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-fraction-extension",
+      "unitTitle": "分数的初步认识（二）",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "fraction-comparison",
+        "fraction-addition-subtraction",
+        "same-denominator-fractions",
+        "fraction-wall",
+        "分数大小比较"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "几何直观"
+      ],
+      "skillTags": [
+        "同分母分数",
+        "分数大小比较",
+        "分数加减",
+        "整体不变",
+        "图示解释"
+      ],
+      "misconceptionTags": [
+        "wholes compared without being the same size",
+        "denominators added directly",
+        "fraction size judged by larger denominator only"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-fraction-extension"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-fraction-extension",
+        "hjb-primary-p4-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "有两根同样长的彩带。第一根平均分成5份，取其中的2份；第二根平均分成5份，取其中的3份。取出的部分相比，哪一根更长？请用分数表示你的比较结果，并说明理由。",
+      "optionsZhHans": [],
+      "answer": "第二根更长，因为2/5 < 3/5",
+      "acceptedAnswers": [
+        "第二根更长，因为2/5 < 3/5",
+        "第二根更长，因为2/5小于3/5",
+        "第二根长，2/5 < 3/5"
+      ],
+      "explanationZhHans": "两根彩带同样长，整体相同。第一根取2/5，第二根取3/5，分母相同，分子大的分数大，所以3/5 > 2/5，第二根取出的部分更长。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-048",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-fraction-extension",
+      "unitTitle": "分数的初步认识（二）",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "fraction-comparison",
+        "fraction-addition-subtraction",
+        "same-denominator-fractions",
+        "fraction-wall",
+        "分数大小比较"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "几何直观"
+      ],
+      "skillTags": [
+        "同分母分数",
+        "分数大小比较",
+        "分数加减",
+        "整体不变",
+        "图示解释"
+      ],
+      "misconceptionTags": [
+        "wholes compared without being the same size",
+        "denominators added directly",
+        "fraction size judged by larger denominator only"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-fraction-extension"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-fraction-extension",
+        "hjb-primary-p4-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小华和小明各有一块同样大小的长方形蛋糕。小华吃了自己蛋糕的2/8，小明吃了自己蛋糕的3/8。谁吃的蛋糕多？请用分数比较说明，并解释为什么不能直接比较2/8和3/8的分子大小就得出结论。",
+      "optionsZhHans": [],
+      "answer": "小明吃的多，因为3/8 > 2/8，且两块蛋糕同样大，整体相同，分母相同，分子大的分数大。",
+      "acceptedAnswers": [
+        "小明吃的多，因为3/8 > 2/8，且两块蛋糕同样大，整体相同，分母相同，分子大的分数大。",
+        "小明吃的多，因为3/8大于2/8，整体相同，分母相同，分子大的分数大。"
+      ],
+      "explanationZhHans": "比较分数大小时，必须确保整体相同。这里两块蛋糕同样大，整体相同，分母都是8，分子3大于2，所以3/8 > 2/8，小明吃的多。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-049",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-fraction-extension",
+      "unitTitle": "分数的初步认识（二）",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "fraction-comparison",
+        "fraction-addition-subtraction",
+        "same-denominator-fractions",
+        "fraction-wall",
+        "分数大小比较"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "几何直观"
+      ],
+      "skillTags": [
+        "同分母分数",
+        "分数大小比较",
+        "分数加减",
+        "整体不变",
+        "图示解释"
+      ],
+      "misconceptionTags": [
+        "wholes compared without being the same size",
+        "denominators added directly",
+        "fraction size judged by larger denominator only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-fraction-extension"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-fraction-extension",
+        "hjb-primary-p4-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个分数最大？",
+      "optionsZhHans": [
+        "3/7",
+        "5/7",
+        "2/7",
+        "6/7"
+      ],
+      "answer": "6/7",
+      "acceptedAnswers": [
+        "6/7"
+      ],
+      "explanationZhHans": "四个分数分母都是7，整体相同，分子越大分数越大。6/7的分子最大，所以6/7最大。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-050",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-fraction-extension",
+      "unitTitle": "分数的初步认识（二）",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "fraction-comparison",
+        "fraction-addition-subtraction",
+        "same-denominator-fractions",
+        "fraction-wall",
+        "分数大小比较"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "几何直观"
+      ],
+      "skillTags": [
+        "同分母分数",
+        "分数大小比较",
+        "分数加减",
+        "整体不变",
+        "图示解释"
+      ],
+      "misconceptionTags": [
+        "wholes compared without being the same size",
+        "denominators added directly",
+        "fraction size judged by larger denominator only"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-fraction-extension"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-fraction-extension",
+        "hjb-primary-p4-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算：4/9 + 3/9 = ?",
+      "optionsZhHans": [],
+      "answer": "7/9",
+      "acceptedAnswers": [
+        "7/9"
+      ],
+      "explanationZhHans": "同分母分数相加，分母不变，分子相加。4+3=7，所以结果是7/9。"
+    }
+  ]
+}

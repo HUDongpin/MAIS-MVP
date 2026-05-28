@@ -1,0 +1,133 @@
+{
+  "batchNumber": 24,
+  "startedAt": "2026-05-27T13:48:05.147Z",
+  "completedAt": "2026-05-27T13:48:19.079Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-185",
+    "bnu-high-ds-v1-s4-186",
+    "bnu-high-ds-v1-s4-187",
+    "bnu-high-ds-v1-s4-188",
+    "bnu-high-ds-v1-s4-189",
+    "bnu-high-ds-v1-s4-190",
+    "bnu-high-ds-v1-s4-191",
+    "bnu-high-ds-v1-s4-192"
+  ],
+  "usage": {
+    "prompt_tokens": 9984,
+    "completion_tokens": 1094,
+    "total_tokens": 11078,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 9472
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-185",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "22",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "数据已排序，n=8，第60百分位数位置i=0.6×8=4.8，向上取整为5，第5个数据为22，答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-186",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0.111",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "离散系数=标准差/平均数=8/72≈0.1111，保留三位小数得0.111，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-187",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "x与y负相关",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "x增大y减小，属于负相关；非严格递减排除函数关系，选项唯一正确，解析合理。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-188",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "166",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "按比例分层抽样，总体均值估计=(400×172+400×160)/800=166cm，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-189",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "24",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "极差=最大值92-最小值68=24，答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-190",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "频率",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "频率分布直方图中小长方形面积=组距×(频率/组距)=频率，选项唯一正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-191",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "估计平均数为49分钟。使用每组区间中点值乘以频率求和的方法进行估计。",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "各组中点10,30,50,70,90，频率0.1,0.25,0.35,0.2,0.1，加权平均得49分钟，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-192",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "50,30",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "抽样比80/800=0.1，男生500×0.1=50，女生300×0.1=30，答案与解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，答案正确，解析与题目和答案一致，无任何问题。"
+    }
+  }
+}

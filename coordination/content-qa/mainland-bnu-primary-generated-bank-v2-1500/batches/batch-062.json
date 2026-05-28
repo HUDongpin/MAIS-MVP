@@ -1,0 +1,581 @@
+{
+  "batchId": "batch-062",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p3-111",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-decimal-introduction",
+      "unitTitle": "认识小数",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "decimal-introduction",
+        "tenths-hundredths-contexts",
+        "decimal-comparison",
+        "认识小数",
+        "小数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "读写小数",
+        "小数意义",
+        "比较小数",
+        "元角分或测量情境",
+        "数轴表示"
+      ],
+      "misconceptionTags": [
+        "more decimal digits assumed to mean larger value",
+        "decimal point ignored during comparison",
+        "tenths and hundredths roles reversed"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-decimal-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-decimal-introduction-unit",
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在一条数轴上，0和1之间被平均分成了10个小格。点A在从0开始向右的第3个小格处，点B在从0开始向右的第8个小格处。请用小数写出点A和点B表示的数，并比较它们的大小，用“<”连接。",
+      "optionsZhHans": [],
+      "answer": "0.3 < 0.8",
+      "acceptedAnswers": [
+        "0.3 < 0.8",
+        "0.3<0.8",
+        "0.3 ＜ 0.8"
+      ],
+      "explanationZhHans": "每个小格表示0.1，点A在3格处是0.3，点B在8格处是0.8。比较十分位，3<8，所以0.3<0.8。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-112",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-decimal-introduction",
+      "unitTitle": "认识小数",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "decimal-introduction",
+        "tenths-hundredths-contexts",
+        "decimal-comparison",
+        "认识小数",
+        "小数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "读写小数",
+        "小数意义",
+        "比较小数",
+        "元角分或测量情境",
+        "数轴表示"
+      ],
+      "misconceptionTags": [
+        "more decimal digits assumed to mean larger value",
+        "decimal point ignored during comparison",
+        "tenths and hundredths roles reversed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-decimal-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-decimal-introduction-unit",
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈买了三种水果，苹果每千克5元6角，香蕉每千克4元8角，橘子每千克6元3角。用小数表示，哪种水果最便宜？",
+      "optionsZhHans": [
+        "5.6元",
+        "4.8元",
+        "6.3元",
+        "无法比较"
+      ],
+      "answer": "4.8元",
+      "acceptedAnswers": [
+        "4.8元"
+      ],
+      "explanationZhHans": "5元6角=5.6元，4元8角=4.8元，6元3角=6.3元。比较整数部分，4最小，所以4.8元最便宜。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-113",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-decimal-introduction",
+      "unitTitle": "认识小数",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "decimal-introduction",
+        "tenths-hundredths-contexts",
+        "decimal-comparison",
+        "认识小数",
+        "小数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "读写小数",
+        "小数意义",
+        "比较小数",
+        "元角分或测量情境",
+        "数轴表示"
+      ],
+      "misconceptionTags": [
+        "more decimal digits assumed to mean larger value",
+        "decimal point ignored during comparison",
+        "tenths and hundredths roles reversed"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-decimal-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-decimal-introduction-unit",
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一支铅笔的长度是1分米2厘米，用小数表示是______分米。",
+      "optionsZhHans": [],
+      "answer": "1.2",
+      "acceptedAnswers": [
+        "1.2",
+        "1.2分米"
+      ],
+      "explanationZhHans": "1分米2厘米，2厘米是0.2分米，合起来是1.2分米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-114",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-decimal-introduction",
+      "unitTitle": "认识小数",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "decimal-introduction",
+        "tenths-hundredths-contexts",
+        "decimal-comparison",
+        "认识小数",
+        "小数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "读写小数",
+        "小数意义",
+        "比较小数",
+        "元角分或测量情境",
+        "数轴表示"
+      ],
+      "misconceptionTags": [
+        "more decimal digits assumed to mean larger value",
+        "decimal point ignored during comparison",
+        "tenths and hundredths roles reversed"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-decimal-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-decimal-introduction-unit",
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丽在计算器上输入了一个小数，她先按了“5”，然后按了小数点，接着按了“0”和“9”。她看到屏幕上显示的是5.09。她以为这个数比5.9大，因为509比59大。请写出正确的比较结果，并说明理由。",
+      "optionsZhHans": [],
+      "answer": "5.09 < 5.9",
+      "acceptedAnswers": [
+        "5.09 < 5.9",
+        "5.09<5.9",
+        "5.09 ＜ 5.9"
+      ],
+      "explanationZhHans": "5.09是5又百分之九，5.9是5又十分之九即百分之九十。比较十分位，0<9，所以5.09<5.9。不能只看数字大小。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-115",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-decimal-introduction",
+      "unitTitle": "认识小数",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "decimal-introduction",
+        "tenths-hundredths-contexts",
+        "decimal-comparison",
+        "认识小数",
+        "小数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "读写小数",
+        "小数意义",
+        "比较小数",
+        "元角分或测量情境",
+        "数轴表示"
+      ],
+      "misconceptionTags": [
+        "more decimal digits assumed to mean larger value",
+        "decimal point ignored during comparison",
+        "tenths and hundredths roles reversed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-decimal-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-decimal-introduction-unit",
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面四个小数，哪一个在数轴上最接近1？",
+      "optionsZhHans": [
+        "0.09",
+        "0.99",
+        "1.01",
+        "0.9"
+      ],
+      "answer": "0.99",
+      "acceptedAnswers": [
+        "0.99"
+      ],
+      "explanationZhHans": "0.09离1差0.91，0.99差0.01，1.01差0.01，0.9差0.1。0.99和1.01都差0.01，但0.99小于1，1.01大于1，通常认为0.99更接近。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-116",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-decimal-introduction",
+      "unitTitle": "认识小数",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "decimal-introduction",
+        "tenths-hundredths-contexts",
+        "decimal-comparison",
+        "认识小数",
+        "小数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "读写小数",
+        "小数意义",
+        "比较小数",
+        "元角分或测量情境",
+        "数轴表示"
+      ],
+      "misconceptionTags": [
+        "more decimal digits assumed to mean larger value",
+        "decimal point ignored during comparison",
+        "tenths and hundredths roles reversed"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-decimal-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-decimal-introduction-unit",
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把1元平均分成100份，每份是______元，用小数表示是______元。",
+      "optionsZhHans": [],
+      "answer": "0.01",
+      "acceptedAnswers": [
+        "0.01",
+        "0.01元"
+      ],
+      "explanationZhHans": "1元=100分，平均分成100份，每份是1分，即0.01元。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-117",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-decimal-introduction",
+      "unitTitle": "认识小数",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "decimal-introduction",
+        "tenths-hundredths-contexts",
+        "decimal-comparison",
+        "认识小数",
+        "小数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "读写小数",
+        "小数意义",
+        "比较小数",
+        "元角分或测量情境",
+        "数轴表示"
+      ],
+      "misconceptionTags": [
+        "more decimal digits assumed to mean larger value",
+        "decimal point ignored during comparison",
+        "tenths and hundredths roles reversed"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-decimal-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-decimal-introduction-unit",
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "体育课上，小明跳远成绩是1米6分米5厘米，小刚跳远成绩是1米72厘米。请用小数表示两人的成绩（单位：米），并判断谁跳得更远。",
+      "optionsZhHans": [],
+      "answer": "小明1.65米，小刚1.72米，小刚跳得更远。",
+      "acceptedAnswers": [
+        "小明1.65米，小刚1.72米，小刚跳得更远。",
+        "小明1.65米 小刚1.72米 小刚跳得更远",
+        "1.65米，1.72米，小刚"
+      ],
+      "explanationZhHans": "1米6分米5厘米=1.65米，1米72厘米=1.72米。比较十分位，6<7，所以1.65<1.72，小刚更远。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-118",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-decimal-introduction",
+      "unitTitle": "认识小数",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "decimal-introduction",
+        "tenths-hundredths-contexts",
+        "decimal-comparison",
+        "认识小数",
+        "小数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "读写小数",
+        "小数意义",
+        "比较小数",
+        "元角分或测量情境",
+        "数轴表示"
+      ],
+      "misconceptionTags": [
+        "more decimal digits assumed to mean larger value",
+        "decimal point ignored during comparison",
+        "tenths and hundredths roles reversed"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-decimal-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-decimal-introduction-unit",
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个小数读作“三点零五”？",
+      "optionsZhHans": [
+        "3.5",
+        "3.05",
+        "3.50",
+        "3.005"
+      ],
+      "answer": "3.05",
+      "acceptedAnswers": [
+        "3.05"
+      ],
+      "explanationZhHans": "三点零五，整数部分3，小数部分零五即05，所以是3.05。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-119",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-decimal-introduction",
+      "unitTitle": "认识小数",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "decimal-introduction",
+        "tenths-hundredths-contexts",
+        "decimal-comparison",
+        "认识小数",
+        "小数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "读写小数",
+        "小数意义",
+        "比较小数",
+        "元角分或测量情境",
+        "数轴表示"
+      ],
+      "misconceptionTags": [
+        "more decimal digits assumed to mean larger value",
+        "decimal point ignored during comparison",
+        "tenths and hundredths roles reversed"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-decimal-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-decimal-introduction-unit",
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在括号里填上合适的小数：8角 = （ ）元",
+      "optionsZhHans": [],
+      "answer": "0.8",
+      "acceptedAnswers": [
+        "0.8",
+        "0.8元"
+      ],
+      "explanationZhHans": "1元=10角，8角是8/10元，即0.8元。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-120",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-decimal-introduction",
+      "unitTitle": "认识小数",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "decimal-introduction",
+        "tenths-hundredths-contexts",
+        "decimal-comparison",
+        "认识小数",
+        "小数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "读写小数",
+        "小数意义",
+        "比较小数",
+        "元角分或测量情境",
+        "数轴表示"
+      ],
+      "misconceptionTags": [
+        "more decimal digits assumed to mean larger value",
+        "decimal point ignored during comparison",
+        "tenths and hundredths roles reversed"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-decimal-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-decimal-introduction-unit",
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用3、0、5和小数点组成一个零都不读的小数，且这个小数小于1。请写出所有符合条件的小数。",
+      "optionsZhHans": [],
+      "answer": "0.35和0.53",
+      "acceptedAnswers": [
+        "0.35和0.53",
+        "0.35、0.53",
+        "0.35 0.53"
+      ],
+      "explanationZhHans": "小于1，整数部分只能是0。小数部分用3和5，不读零，所以不能有0。组成0.35和0.53，都读作零点三五和零点五三，不读零。"
+    }
+  ]
+}

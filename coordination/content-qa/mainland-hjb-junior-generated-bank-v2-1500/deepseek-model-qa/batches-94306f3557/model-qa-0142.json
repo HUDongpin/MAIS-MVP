@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0142",
+  "ids": [
+    "hjb-junior-ds-v2-s3-129",
+    "hjb-junior-ds-v2-s3-130",
+    "hjb-junior-ds-v2-s3-131",
+    "hjb-junior-ds-v2-s3-132",
+    "hjb-junior-ds-v2-s3-133",
+    "hjb-junior-ds-v2-s3-134",
+    "hjb-junior-ds-v2-s3-135",
+    "hjb-junior-ds-v2-s3-136"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-129",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "8",
+      "answerCheckZhHans": "标准答案8正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-130",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "7.7米",
+      "answerCheckZhHans": "标准答案7.7米正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-131",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "17.9米",
+      "answerCheckZhHans": "标准答案17.9正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-132",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案10.0米与解析计算不符。解析中tan35°≈0.7002，计算得h≈10.0米，但实际tan35°≈0.7002时，12×0.7002=8.4024，加1.6得10.0024，四舍五入为10.0米，但通常tan35°≈0.7002是近似值，若用更精确值tan35°≈0.7002075，则12×0.7002075=8.40249，加1.6=10.00249，四舍五入为10.0米。但题目未提供tan35°的值，解析中直接使用0.7002，而常见近似为0.70，若用0.70则得10.0米，但解析中写的是0.7002，导致结果10.0024，四舍五入为10.0米，但严格来说10.0024精确到0.1米是10.0米，但解析中写“h ≈ 10.0米”是正确的。然而，题目未给出tan35°的值，学生需自行查表或使用计算器，但题目未说明参考数据，可能导致答案不唯一。此外，标准答案“10.0米”与解析一致，但解析中使用了tan35°≈0.7002，而题目未提供此值，属于缺失条件。",
+      "independentAnswerZhHans": "无法确定，因为未提供tan35°的值。",
+      "answerCheckZhHans": "标准答案10.0米在给定tan35°≈0.70时正确，但题目未提供参考数据，解析中使用了0.7002，与常见近似0.70不同，可能导致学生困惑。",
+      "recommendedActionZhHans": "建议在题目中补充参考数据，如tan35°≈0.70，或明确允许使用计算器。",
+      "confidence": "medium"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-133",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "9.9米",
+      "answerCheckZhHans": "标准答案9.9米正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-134",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "10(√3+1)米",
+      "answerCheckZhHans": "标准答案10(√3+1)米正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-135",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "6(√3+1)米",
+      "answerCheckZhHans": "标准答案6(√3+1)米正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-136",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "8.5米",
+      "answerCheckZhHans": "标准答案8.5米正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

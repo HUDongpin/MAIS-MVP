@@ -1,0 +1,191 @@
+{
+  "batchNumber": 37,
+  "startedAt": "2026-05-27T13:50:51.889Z",
+  "completedAt": "2026-05-27T13:51:09.263Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p3-149",
+    "bnu-primary-ds-v2-p3-150",
+    "bnu-primary-ds-v2-p3-151",
+    "bnu-primary-ds-v2-p3-152",
+    "bnu-primary-ds-v2-p3-153",
+    "bnu-primary-ds-v2-p3-154",
+    "bnu-primary-ds-v2-p3-155",
+    "bnu-primary-ds-v2-p3-156",
+    "bnu-primary-ds-v2-p3-157",
+    "bnu-primary-ds-v2-p3-158",
+    "bnu-primary-ds-v2-p3-159",
+    "bnu-primary-ds-v2-p3-160",
+    "bnu-primary-ds-v2-p3-161",
+    "bnu-primary-ds-v2-p3-162",
+    "bnu-primary-ds-v2-p3-163",
+    "bnu-primary-ds-v2-p3-164",
+    "bnu-primary-ds-v2-p3-165",
+    "bnu-primary-ds-v2-p3-166"
+  ],
+  "usage": {
+    "prompt_tokens": 3693,
+    "completion_tokens": 1305,
+    "total_tokens": 4998,
+    "prompt_tokens_details": {
+      "cached_tokens": 3584
+    },
+    "prompt_cache_hit_tokens": 3584,
+    "prompt_cache_miss_tokens": 109
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p3-149",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案与解释一致，符合三年级除法要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-150",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案与解释一致，符合三年级乘法与加法应用。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-151",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，选项清晰，答案与解释一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-152",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案与解释一致，符合平移性质。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-153",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案与解释一致，数对表示规范。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-154",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，选项清晰，答案与解释一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-155",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案与解释一致，填空格式合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-156",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案与解释一致，问题清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-157",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，选项唯一，答案与解释一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-158",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案与解释一致，连线题表述清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-159",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案与解释一致，符合平移性质。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-160",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，选项清晰，答案与解释一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-161",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案与解释一致，定义准确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-162",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案与解释一致，平移计算无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-163",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，选项清晰，答案与解释一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-164",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案与解释一致，填空合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-165",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案与解释一致，最短路线正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p3-166",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，选项唯一，答案与解释一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均通过审核，无数学错误、答案不匹配、歧义或年级不符等问题。"
+    }
+  }
+}

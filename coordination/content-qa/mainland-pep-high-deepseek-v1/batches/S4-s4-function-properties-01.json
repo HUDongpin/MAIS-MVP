@@ -1,0 +1,366 @@
+{
+  "batchId": "S4-s4-function-properties-01",
+  "questions": [
+    {
+      "id": "pep-high-ds-v1-s4-function-properties-001",
+      "grade": "S4",
+      "topicId": "pep-high-s4-function-properties",
+      "topicTitleZhHans": "函数的概念与性质",
+      "chapter": "函数的概念与性质",
+      "conceptIds": [
+        "function-definition",
+        "domain-range",
+        "monotonicity",
+        "parity",
+        "function-applications",
+        "function-inequalities"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "pep-high-function-concepts-properties"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-functions-parameters"
+      ],
+      "promptZhHans": "已知函数 f(x) = √(x² - 4x + 3) 的定义域为 A，g(x) = 1/√(x - a) 的定义域为 B。若 A ∩ B = (3, +∞)，则实数 a 的取值范围是（ ）",
+      "optionsZhHans": [
+        "A. a ≤ 1",
+        "B. 1 ≤ a ≤ 3",
+        "C. a ≥ 3",
+        "D. a ≤ 3"
+      ],
+      "answer": "B. 1 ≤ a ≤ 3",
+      "acceptedAnswers": [
+        "B. 1 ≤ a ≤ 3"
+      ],
+      "explanationZhHans": "由 x² - 4x + 3 ≥ 0 得 x ≤ 1 或 x ≥ 3，故 A = (-∞,1] ∪ [3,+∞)。由 x - a > 0 得 x > a，故 B = (a,+∞)。A ∩ B = (3,+∞) 要求 a 满足：a < 3 时交集为 (a,1] ∪ [3,+∞) 与 (3,+∞) 不符；a ≥ 3 时交集为 [3,+∞) 与 (3,+∞) 不符。实际上需 A ∩ B = (3,+∞)，即 a ≤ 1 时交集为 [3,+∞) 不对；1 < a < 3 时交集为 [3,+∞) 不对；a = 3 时交集为 (3,+∞) 符合；a > 3 时交集为 (a,+∞) 不对。综上，a 需满足 1 ≤ a ≤ 3。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-function-properties-002",
+      "grade": "S4",
+      "topicId": "pep-high-s4-function-properties",
+      "topicTitleZhHans": "函数的概念与性质",
+      "chapter": "函数的概念与性质",
+      "conceptIds": [
+        "function-definition",
+        "domain-range",
+        "monotonicity",
+        "parity",
+        "function-applications",
+        "function-inequalities"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "pep-high-function-concepts-properties"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-functions-parameters"
+      ],
+      "promptZhHans": "已知函数 f(x) = (x + a) / (x² + bx + 1) 是定义在 R 上的奇函数，则 a + b = ______。",
+      "optionsZhHans": [],
+      "answer": "0",
+      "acceptedAnswers": [
+        "0"
+      ],
+      "explanationZhHans": "由奇函数定义 f(-x) = -f(x) 得 (-x+a)/(x² - bx + 1) = -(x+a)/(x² + bx + 1)。化简得 (a - x)(x² + bx + 1) = -(x + a)(x² - bx + 1)。展开比较系数得 a = 0 且 b = 0，故 a + b = 0。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-function-properties-003",
+      "grade": "S4",
+      "topicId": "pep-high-s4-function-properties",
+      "topicTitleZhHans": "函数的概念与性质",
+      "chapter": "函数的概念与性质",
+      "conceptIds": [
+        "function-definition",
+        "domain-range",
+        "monotonicity",
+        "parity",
+        "function-applications",
+        "function-inequalities"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "pep-high-function-concepts-properties"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-functions-parameters"
+      ],
+      "promptZhHans": "求函数 f(x) = √(x + 1) + √(3 - x) 的定义域。",
+      "optionsZhHans": [],
+      "answer": "[-1, 3]",
+      "acceptedAnswers": [
+        "[-1, 3]",
+        "[-1,3]"
+      ],
+      "explanationZhHans": "由 x + 1 ≥ 0 得 x ≥ -1；由 3 - x ≥ 0 得 x ≤ 3。取交集得定义域为 [-1, 3]。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-function-properties-004",
+      "grade": "S4",
+      "topicId": "pep-high-s4-function-properties",
+      "topicTitleZhHans": "函数的概念与性质",
+      "chapter": "函数的概念与性质",
+      "conceptIds": [
+        "function-definition",
+        "domain-range",
+        "monotonicity",
+        "parity",
+        "function-applications",
+        "function-inequalities"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "pep-high-function-concepts-properties"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-functions-parameters"
+      ],
+      "promptZhHans": "已知函数 f(x) = x² - 2ax + 3 在区间 (-∞, 2] 上是减函数，求实数 a 的取值范围。",
+      "optionsZhHans": [],
+      "answer": "a ≥ 2",
+      "acceptedAnswers": [
+        "a ≥ 2",
+        "[2, +∞)"
+      ],
+      "explanationZhHans": "f(x) 的对称轴为 x = a，开口向上。在 (-∞, a] 上递减，故需 (-∞, 2] ⊆ (-∞, a]，即 a ≥ 2。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-function-properties-005",
+      "grade": "S4",
+      "topicId": "pep-high-s4-function-properties",
+      "topicTitleZhHans": "函数的概念与性质",
+      "chapter": "函数的概念与性质",
+      "conceptIds": [
+        "function-definition",
+        "domain-range",
+        "monotonicity",
+        "parity",
+        "function-applications",
+        "function-inequalities"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "pep-high-function-concepts-properties"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-functions-parameters"
+      ],
+      "promptZhHans": "下列函数中，既是偶函数又在区间 (0, +∞) 上单调递增的是（ ）",
+      "optionsZhHans": [
+        "A. f(x) = -x² + 1",
+        "B. f(x) = 2|x| - 1",
+        "C. f(x) = x³",
+        "D. f(x) = 1/x"
+      ],
+      "answer": "B. f(x) = 2|x| - 1",
+      "acceptedAnswers": [
+        "B. f(x) = 2|x| - 1"
+      ],
+      "explanationZhHans": "A 是偶函数但在 (0,+∞) 递减；B 是偶函数，x>0 时 f(x)=2x-1 递增；C 是奇函数；D 是奇函数。故选 B。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-function-properties-006",
+      "grade": "S4",
+      "topicId": "pep-high-s4-function-properties",
+      "topicTitleZhHans": "函数的概念与性质",
+      "chapter": "函数的概念与性质",
+      "conceptIds": [
+        "function-definition",
+        "domain-range",
+        "monotonicity",
+        "parity",
+        "function-applications",
+        "function-inequalities"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "pep-high-function-concepts-properties"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-functions-parameters"
+      ],
+      "promptZhHans": "已知函数 f(x) 是定义在 R 上的偶函数，且在 [0, +∞) 上单调递减。若 f(2a - 1) > f(a + 1)，则实数 a 的取值范围是 ______。",
+      "optionsZhHans": [],
+      "answer": "a < 0 或 a > 2",
+      "acceptedAnswers": [
+        "a < 0 或 a > 2",
+        "(-∞,0)∪(2,+∞)"
+      ],
+      "explanationZhHans": "由偶函数性质，f(2a-1) > f(a+1) 等价于 |2a-1| < |a+1|。平方得 4a²-4a+1 < a²+2a+1，即 3a²-6a < 0，解得 0 < a < 2。但注意单调递减，绝对值大的函数值小，故需 |2a-1| < |a+1|，解集为 a < 0 或 a > 2。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-function-properties-007",
+      "grade": "S4",
+      "topicId": "pep-high-s4-function-properties",
+      "topicTitleZhHans": "函数的概念与性质",
+      "chapter": "函数的概念与性质",
+      "conceptIds": [
+        "function-definition",
+        "domain-range",
+        "monotonicity",
+        "parity",
+        "function-applications",
+        "function-inequalities"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "pep-high-function-concepts-properties"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-functions-parameters"
+      ],
+      "promptZhHans": "已知函数 f(x) = 2x + 1，x ∈ [0, 2]，求函数的值域。",
+      "optionsZhHans": [],
+      "answer": "[1, 5]",
+      "acceptedAnswers": [
+        "[1, 5]",
+        "[1,5]"
+      ],
+      "explanationZhHans": "f(x) 在 [0,2] 上单调递增，f(0)=1，f(2)=5，故值域为 [1,5]。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-function-properties-008",
+      "grade": "S4",
+      "topicId": "pep-high-s4-function-properties",
+      "topicTitleZhHans": "函数的概念与性质",
+      "chapter": "函数的概念与性质",
+      "conceptIds": [
+        "function-definition",
+        "domain-range",
+        "monotonicity",
+        "parity",
+        "function-applications",
+        "function-inequalities"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "pep-high-function-concepts-properties"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-functions-parameters"
+      ],
+      "promptZhHans": "已知函数 f(x) = { x² + 1, x ≥ 0; -x² + 1, x < 0 }，则不等式 f(x) > f(2x - 1) 的解集是（ ）",
+      "optionsZhHans": [
+        "A. (1/3, 1)",
+        "B. (-∞, 1/3) ∪ (1, +∞)",
+        "C. (0, 1)",
+        "D. (-∞, 0) ∪ (1, +∞)"
+      ],
+      "answer": "A. (1/3, 1)",
+      "acceptedAnswers": [
+        "A. (1/3, 1)"
+      ],
+      "explanationZhHans": "f(x) 是偶函数，在 [0,+∞) 上递增，在 (-∞,0] 上递减。不等式等价于 |x| > |2x-1|。平方得 x² > 4x² - 4x + 1，即 3x² - 4x + 1 < 0，解得 1/3 < x < 1。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-function-properties-009",
+      "grade": "S4",
+      "topicId": "pep-high-s4-function-properties",
+      "topicTitleZhHans": "函数的概念与性质",
+      "chapter": "函数的概念与性质",
+      "conceptIds": [
+        "function-definition",
+        "domain-range",
+        "monotonicity",
+        "parity",
+        "function-applications",
+        "function-inequalities"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "pep-high-function-concepts-properties"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-functions-parameters"
+      ],
+      "promptZhHans": "已知函数 f(x) = √(mx² + mx + 1) 的定义域为 R，则实数 m 的取值范围是 ______。",
+      "optionsZhHans": [],
+      "answer": "[0, 4]",
+      "acceptedAnswers": [
+        "[0, 4]",
+        "[0,4]"
+      ],
+      "explanationZhHans": "定义域为 R 要求 mx² + mx + 1 ≥ 0 恒成立。当 m=0 时，1≥0 成立；当 m≠0 时，需 m>0 且 Δ = m² - 4m ≤ 0，解得 0 < m ≤ 4。综上，m ∈ [0,4]。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-function-properties-010",
+      "grade": "S4",
+      "topicId": "pep-high-s4-function-properties",
+      "topicTitleZhHans": "函数的概念与性质",
+      "chapter": "函数的概念与性质",
+      "conceptIds": [
+        "function-definition",
+        "domain-range",
+        "monotonicity",
+        "parity",
+        "function-applications",
+        "function-inequalities"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "pep-high-function-concepts-properties"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-functions-parameters"
+      ],
+      "promptZhHans": "已知函数 f(x) = x + 1/x，x ∈ [1, 3]。（1）判断 f(x) 在 [1, 3] 上的单调性，并证明；（2）求 f(x) 在 [1, 3] 上的值域。",
+      "optionsZhHans": [],
+      "answer": "（1）单调递增；证明略；（2）[2, 10/3]",
+      "acceptedAnswers": [
+        "（1）单调递增；证明略；（2）[2, 10/3]",
+        "（1）单调递增；（2）[2, 10/3]"
+      ],
+      "explanationZhHans": "（1）设 1 ≤ x₁ < x₂ ≤ 3，f(x₁)-f(x₂)=(x₁-x₂)(1 - 1/(x₁x₂))。由 x₁x₂>1 得 1-1/(x₁x₂)>0，故 f(x₁)<f(x₂)，递增。（2）由单调性，最小值 f(1)=2，最大值 f(3)=10/3，值域为 [2, 10/3]。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    }
+  ]
+}

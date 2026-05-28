@@ -1,0 +1,140 @@
+{
+  "batchNumber": 98,
+  "startedAt": "2026-05-27T14:00:32.700Z",
+  "completedAt": "2026-05-27T14:01:08.499Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-277",
+    "bnu-high-ds-v1-s5-278",
+    "bnu-high-ds-v1-s5-279",
+    "bnu-high-ds-v1-s5-280",
+    "bnu-high-ds-v1-s5-281",
+    "bnu-high-ds-v1-s5-282",
+    "bnu-high-ds-v1-s5-283",
+    "bnu-high-ds-v1-s5-284"
+  ],
+  "usage": {
+    "prompt_tokens": 12969,
+    "completion_tokens": 2018,
+    "total_tokens": 14987,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 12457
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-277",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(-∞, -2] ∪ [0, +∞)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可独立求解。设直线方程、联立圆、利用中点坐标和垂直条件推导出k(k+2)≥0，结合判别式得k≤-2或k≥0，与答案一致。解析过程正确，无矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-278",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "(1) 四个顶点坐标为(4,3), (4,-3), (-4,-3), (-4,3)（顺序可不同）\n(2) P到各顶点距离分别为√10, √34, √50, √26，最大为√50=5√2≈7.07，故最小喷水半径r=5√2米\n(3) 恰好覆盖。因为花坛内任意点(x,y)满足|x|≤4,|y|≤3，到P的距离平方=(x-1)²+(y-2)²，最大值在顶点(-4,-3)处为50，故r=5√2覆盖整个花坛。",
+        "correctedAnswer": "(1) 四个顶点坐标为(4,3), (4,-3), (-4,-3), (-4,3)（顺序可不同）\n(2) P到各顶点距离分别为√10, √34, √50, √26，最大为√50=5√2≈7.07，故最小喷水半径r=5√2米\n(3) 恰好覆盖。因为花坛内任意点(x,y)满足|x|≤4,|y|≤3，到P的距离平方=(x-1)²+(y-2)²，最大值在顶点(-4,-3)处为50，故r=5√2覆盖整个花坛。",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，但存储答案错误。独立计算得P到四个顶点距离分别为√10、√34、√50、√26，最大为√50=5√2，故最小半径应为5√2米，而非5米。解析中正确指出最大距离为√50，但答案却写为5米，且解释(3)中“所有点到中心的距离不超过对角线的一半5米”与喷头不在中心矛盾，解析与答案不一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-279",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "1, -1/2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件充分，可解。圆方程配方得圆心(3,-2)半径2，设直线点斜式，利用弦中点性质（CM⊥l）和中点在y=x上，联立解得k=1或-1/2，经检验均满足相交条件。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-280",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "B. -1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解。设直线y=k(x-1)，联立圆，利用中点坐标和OM⊥AB条件得k²+2k+1=0，解得k=-1，且判别式>0。选项唯一，答案B正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-281",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "(1) y-2=(4/5)(x-3) 或 y=(4/5)x-2/5\n(2) 截距为 -2/5\n(3) 不能，因为水柱轨迹是从P出发的射线，沿该方向只能到达点(8,6)，无法覆盖边界y=6上的其他点。",
+        "correctedAnswer": "(1) y-2=(4/5)(x-3) 或 y=(4/5)x-2/5\n(2) 截距为 -2/5\n(3) 不能，因为水柱轨迹是从P出发的射线，沿该方向只能到达点(8,6)，无法覆盖边界y=6上的其他点。",
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，但答案与解析存在矛盾。第(2)问要求“若水柱的轨迹直线经过点P且与花坛的边界x=8相交，求该直线在y轴上的截距”，解析中直接取k=4/5，但题目并未限定水柱必须经过A(8,6)，仅要求与x=8相交，因此k可为任意值，截距不唯一。答案强行指定k=4/5，与题意不符。第(3)问基于此错误前提，结论虽为“不能”，但理由牵强。整体答案不匹配。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-282",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(4,4) 或 (-4,4)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件明确，可解。由圆方程和距离条件y=|x|联立，分x≥0和x<0解得(4,4)和(-4,4)。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-283",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "x + y - 3 = 0",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解。圆配方得圆心(3,4)半径2，设直线点斜式，联立求中点坐标，消参得x+y-3=0。选项A正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-284",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(1) 以水平方向为x轴，竖直方向为y轴，建立平面直角坐标系。道路所在直线经过A(2,1)和B(5,5)，斜率k=4/3，直线方程为4x-3y-5=0。\n(2) 半径r=18/5=3.6\n(3) 点D(10,4)到圆心距离√5≈2.236<3.6，在公园内部。",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可解。坐标系自然建立，直线方程、点到直线距离、点与圆位置关系计算正确，答案与解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 0,
+      "fail": 2,
+      "notes": "8题中6题通过，2题失败。bnu-high-ds-v1-s5-278答案错误，半径应为5√2而非5；bnu-high-ds-v1-s5-281第(2)问条件不唯一，答案强行指定斜率导致不匹配。"
+    }
+  }
+}

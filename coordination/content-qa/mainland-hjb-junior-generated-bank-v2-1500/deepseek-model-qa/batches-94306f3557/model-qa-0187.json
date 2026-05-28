@@ -1,0 +1,108 @@
+{
+  "batchId": "model-qa-0187",
+  "ids": [
+    "hjb-junior-ds-v2-s3-489",
+    "hjb-junior-ds-v2-s3-490",
+    "hjb-junior-ds-v2-s3-491",
+    "hjb-junior-ds-v2-s3-492",
+    "hjb-junior-ds-v2-s3-493",
+    "hjb-junior-ds-v2-s3-494",
+    "hjb-junior-ds-v2-s3-495",
+    "hjb-junior-ds-v2-s3-496"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-489",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "81",
+      "answerCheckZhHans": "标准答案为81，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-490",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "方差",
+      "answerCheckZhHans": "标准答案为方差，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-491",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "题干要求反映集中趋势，数据中175并非极端值（仅比170大5），且数据分布较均匀，平均数更能综合所有数据反映整体水平。中位数165会丢失信息，因此平均数更合适。标准答案中位数可能不正确。",
+      "independentAnswerZhHans": "平均数",
+      "answerCheckZhHans": "标准答案为中位数，但独立分析认为平均数更合适。",
+      "recommendedActionZhHans": "建议将答案改为平均数，或修改题干明确存在极端值。",
+      "confidence": "medium"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-492",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "计算得方差约为31.22，最接近选项32，而非36。解析中计算过程得出31.22，却选择36，自相矛盾。",
+      "independentAnswerZhHans": "32",
+      "answerCheckZhHans": "标准答案为36，但独立计算得31.22，最接近32。",
+      "recommendedActionZhHans": "建议将答案改为32，并修正解析。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-493",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "直方图",
+      "answerCheckZhHans": "标准答案为直方图，与独立判断一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-494",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "95",
+      "answerCheckZhHans": "标准答案为95，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-495",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "方差",
+      "answerCheckZhHans": "标准答案为方差，与独立判断一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-496",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "平均数",
+      "answerCheckZhHans": "标准答案为平均数，与独立判断一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

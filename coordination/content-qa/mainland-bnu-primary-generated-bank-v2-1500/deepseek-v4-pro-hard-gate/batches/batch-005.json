@@ -1,0 +1,330 @@
+{
+  "batchNumber": 5,
+  "startedAt": "2026-05-27T14:13:53.667Z",
+  "completedAt": "2026-05-27T14:14:26.985Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p1-121",
+    "bnu-primary-ds-v2-p1-122",
+    "bnu-primary-ds-v2-p1-123",
+    "bnu-primary-ds-v2-p1-124",
+    "bnu-primary-ds-v2-p1-125",
+    "bnu-primary-ds-v2-p1-126",
+    "bnu-primary-ds-v2-p1-127",
+    "bnu-primary-ds-v2-p1-128",
+    "bnu-primary-ds-v2-p1-129",
+    "bnu-primary-ds-v2-p1-130",
+    "bnu-primary-ds-v2-p1-131",
+    "bnu-primary-ds-v2-p1-132",
+    "bnu-primary-ds-v2-p1-133",
+    "bnu-primary-ds-v2-p1-134",
+    "bnu-primary-ds-v2-p1-135",
+    "bnu-primary-ds-v2-p1-136",
+    "bnu-primary-ds-v2-p1-137",
+    "bnu-primary-ds-v2-p1-138",
+    "bnu-primary-ds-v2-p1-139",
+    "bnu-primary-ds-v2-p1-140",
+    "bnu-primary-ds-v2-p1-141",
+    "bnu-primary-ds-v2-p1-142",
+    "bnu-primary-ds-v2-p1-143",
+    "bnu-primary-ds-v2-p1-144",
+    "bnu-primary-ds-v2-p1-145",
+    "bnu-primary-ds-v2-p1-146",
+    "bnu-primary-ds-v2-p1-147",
+    "bnu-primary-ds-v2-p1-148",
+    "bnu-primary-ds-v2-p1-149",
+    "bnu-primary-ds-v2-p1-150"
+  ],
+  "usage": {
+    "prompt_tokens": 6326,
+    "completion_tokens": 2453,
+    "total_tokens": 8779,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 5942
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p1-121",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目描述清晰，分针指向12为整时，时针指向8即8时，选项唯一正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-122",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "钟面描述明确，答案为3时，填空答案“3”正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-123",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "从9时到12时经过3小时，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-124",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "下午5时放学回家合理，其他选项时间不符，答案唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-125",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "6时再过1小时是7时，答案“6,7”正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-126",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "从晚上8时到早上7时共11小时，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-127",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "分针指向6为30分，时针在10和11之间为10时多，答案10时30分正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-128",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "时针分针都指向12为12时，答案“12”正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-129",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目明确小红上午10时和下午2时都在上课，因此她在学校，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-130",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "整时分针指向12，选项A符合，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-131",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "和是13，差是8，答案“13，8”正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-132",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "求总数用加法，5+4=9，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-133",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "小刚的回答最完整，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-134",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "5表示树上还剩的小鸟只数，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-135",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "12-7=5，答案“5”正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-136",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "②用加法，其他用减法，答案②正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-137",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "三个错误及正确答案均正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-138",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "用到了比较多少和减法知识，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-139",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "凑十法描述正确，其他选项有误，答案唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-140",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "合起来用加法，8+6=14，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-141",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "先算12-5=7，再算7+3=10，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-142",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "20在19后面所以大，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-143",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "8+7=15，15-6=9，答案“7,15”正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-144",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "分类合理，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-145",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "凑十法为把6分成1和5，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-146",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "想加算减，8+5=13，所以13-8=5，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-147",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "破十法过程正确，答案8。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-148",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "13-9个位不够减需退位，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-149",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "凑十法填3、3、13，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-150",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "15-9=6，答案正确。"
+      }
+    ],
+    "batchSummary": {
+      "solvableYes": 30,
+      "solvableNo": 0,
+      "answerMatchYes": 30,
+      "answerMatchNo": 0,
+      "notes": "全部30道题均可解，答案匹配正确，无问题。"
+    }
+  }
+}

@@ -1,0 +1,133 @@
+{
+  "batchNumber": 173,
+  "startedAt": "2026-05-27T14:13:04.957Z",
+  "completedAt": "2026-05-27T14:13:20.631Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-377",
+    "bnu-high-ds-v1-s6-378",
+    "bnu-high-ds-v1-s6-379",
+    "bnu-high-ds-v1-s6-380",
+    "bnu-high-ds-v1-s6-381",
+    "bnu-high-ds-v1-s6-382",
+    "bnu-high-ds-v1-s6-383",
+    "bnu-high-ds-v1-s6-384"
+  ],
+  "usage": {
+    "prompt_tokens": 10615,
+    "completion_tokens": 1030,
+    "total_tokens": 11645,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10103
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-377",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "a = 0, b = -3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由极值条件列方程组可解，答案正确，解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-378",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "-2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导得驻点，比较端点与驻点函数值得最小值-2，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-379",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(-∞, -1] 和 [3, +∞)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由f'(x)≥0解得递增区间，选项D正确，解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-380",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "极大值为 1，极小值为 -3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导得驻点，二阶导判极值，答案正确，解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-381",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "5",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导得驻点，比较端点与驻点函数值得最大值a=5，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-382",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(-1, 1)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由f'(x)<0解得递减区间(-1,1)，选项B正确，解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-383",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "极大值 10，极小值 -22",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导得驻点，二阶导判极值，计算得极大值10极小值-22，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-384",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "-1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导代入x=1得斜率-1，答案与解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可解，答案正确，解析与答案一致，无问题。"
+    }
+  }
+}

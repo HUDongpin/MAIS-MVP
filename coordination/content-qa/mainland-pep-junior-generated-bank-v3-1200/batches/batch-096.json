@@ -1,0 +1,318 @@
+{
+  "batchId": "batch-096",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s3-k10-sa-018",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-rotation-transformations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "解一元二次方程：2x² - 5x + 1 = 0。",
+      "optionsZhHans": [],
+      "answer": "x = (5 + √17)/4 或 x = (5 - √17)/4",
+      "acceptedAnswers": [
+        "x = (5 + √17)/4 或 x = (5 - √17)/4",
+        "x=(5+√17)/4 或 x=(5-√17)/4",
+        "x = (5 ± √17)/4",
+        "x=(5±√17)/4"
+      ],
+      "explanationZhHans": "方程 2x² - 5x + 1 = 0 中，a=2，b=-5，c=1。判别式 Δ = b² - 4ac = (-5)² - 4×2×1 = 25 - 8 = 17 > 0，故有两个不相等的实数根。由求根公式 x = (-b ± √Δ)/(2a) = (5 ± √17)/4，所以 x = (5 + √17)/4 或 x = (5 - √17)/4。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-sa-019",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "promptZhHans": "已知二次函数 y = -x² + 4x - 3，求该函数图象的顶点坐标和对称轴方程。",
+      "optionsZhHans": [],
+      "answer": "顶点坐标为(2, 1)，对称轴方程为直线x=2",
+      "acceptedAnswers": [
+        "顶点坐标为(2, 1)，对称轴方程为直线x=2",
+        "顶点(2,1)，对称轴x=2",
+        "(2,1)和x=2",
+        "顶点坐标(2,1)，对称轴直线x=2"
+      ],
+      "explanationZhHans": "二次函数 y = -x² + 4x - 3 可配方为 y = -(x² - 4x) - 3 = -(x² - 4x + 4 - 4) - 3 = -(x - 2)² + 4 - 3 = -(x - 2)² + 1。所以顶点坐标为(2, 1)，对称轴方程为直线x=2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-sa-020",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-quadratic-equations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "在平面直角坐标系中，点A的坐标为(3, -2)。将点A绕原点顺时针旋转90°，求旋转后对应点A'的坐标。",
+      "optionsZhHans": [],
+      "answer": "(-2, -3)",
+      "acceptedAnswers": [
+        "(-2, -3)",
+        "(-2,-3)",
+        "（-2，-3）"
+      ],
+      "explanationZhHans": "点(x, y)绕原点顺时针旋转90°后的坐标为(y, -x)。将A(3, -2)代入，得A'(-2, -3)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-sa-021",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-quadratic-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models"
+      ],
+      "promptZhHans": "某商品每件进价40元，售价60元时每月可售出200件。调查发现，售价每提高1元，月销量减少5件。设售价提高x元，月利润为y元。写出y关于x的函数关系式，并指出x的取值范围。",
+      "optionsZhHans": [],
+      "answer": "y = -5x² + 100x + 4000，0 ≤ x ≤ 40，且x为整数",
+      "acceptedAnswers": [
+        "y = -5x² + 100x + 4000，0 ≤ x ≤ 40，且x为整数",
+        "y=-5x²+100x+4000，0≤x≤40，x为整数",
+        "y = -5x² + 100x + 4000 (0 ≤ x ≤ 40, x为整数)"
+      ],
+      "explanationZhHans": "售价提高x元后，售价为(60+x)元，每件利润为(60+x-40)=(20+x)元。月销量为(200-5x)件。月利润y=(20+x)(200-5x)=4000+200x-100x-5x²=-5x²+100x+4000。销量不能为负，故200-5x≥0，得x≤40；又x≥0，且x为整数，所以0≤x≤40，x为整数。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-sa-022",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-circle-geometry"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "在⊙O中，弦AB与弦CD相交于点E，且AE=3，BE=5，CE=4。求DE的长。",
+      "optionsZhHans": [],
+      "answer": "15/4 或 3.75",
+      "acceptedAnswers": [
+        "15/4 或 3.75",
+        "15/4",
+        "3.75"
+      ],
+      "explanationZhHans": "根据相交弦定理，AE·BE = CE·DE。代入已知：3×5 = 4×DE，即15 = 4DE，解得DE = 15/4 = 3.75。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-sa-023",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-probability-introduction"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "一个不透明的袋子里装有3个红球和2个白球，除颜色外其他完全相同。随机摸出一个小球，放回并摇匀，再随机摸出一个小球。求两次摸到的小球颜色相同的概率。",
+      "optionsZhHans": [],
+      "answer": "13/25",
+      "acceptedAnswers": [
+        "13/25",
+        "0.52",
+        "52%"
+      ],
+      "explanationZhHans": "总球数5个。第一次摸球放回，第二次摸球仍有5个球。两次颜色相同包括两种情况：两次都摸到红球，概率为(3/5)×(3/5)=9/25；两次都摸到白球，概率为(2/5)×(2/5)=4/25。所以总概率为9/25+4/25=13/25。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-sa-024",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-rotation-transformations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions"
+      ],
+      "promptZhHans": "将△ABC绕点C逆时针旋转70°得到△A'B'C，若∠ACB=30°，求∠A'CB'的度数。",
+      "optionsZhHans": [],
+      "answer": "30°",
+      "acceptedAnswers": [
+        "30°",
+        "30度",
+        "30"
+      ],
+      "explanationZhHans": "旋转不改变图形的形状和大小，对应角相等。△A'B'C由△ABC旋转得到，所以∠A'CB'与∠ACB是对应角，故∠A'CB'=∠ACB=30°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-sa-025",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "promptZhHans": "已知关于x的一元二次方程 x² - 2x + m = 0 有两个不相等的实数根，求m的取值范围。",
+      "optionsZhHans": [],
+      "answer": "m < 1",
+      "acceptedAnswers": [
+        "m < 1",
+        "m<1",
+        "m小于1"
+      ],
+      "explanationZhHans": "方程有两个不相等的实数根，则判别式Δ > 0。Δ = (-2)² - 4×1×m = 4 - 4m > 0，解得m < 1。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-sa-026",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-quadratic-equations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean"
+      ],
+      "promptZhHans": "用配方法解方程：x² + 6x - 7 = 0。",
+      "optionsZhHans": [],
+      "answer": "x₁ = 1, x₂ = -7",
+      "acceptedAnswers": [
+        "x₁ = 1, x₂ = -7",
+        "x1=1, x2=-7",
+        "x=1或x=-7",
+        "1和-7"
+      ],
+      "explanationZhHans": "移项得 x² + 6x = 7。配方：x² + 6x + 9 = 7 + 9，即 (x + 3)² = 16。开平方得 x + 3 = ±4，所以 x = -3 ± 4，即 x₁ = 1, x₂ = -7。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-sa-027",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-quadratic-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig"
+      ],
+      "promptZhHans": "二次函数 y = 2x² - 8x + 5 的图象与x轴的交点个数是多少？请说明理由。",
+      "optionsZhHans": [],
+      "answer": "2个",
+      "acceptedAnswers": [
+        "2个",
+        "两个",
+        "2"
+      ],
+      "explanationZhHans": "令y=0，得2x² - 8x + 5 = 0。判别式Δ = (-8)² - 4×2×5 = 64 - 40 = 24 > 0，所以方程有两个不相等的实数根，因此图象与x轴有2个交点。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

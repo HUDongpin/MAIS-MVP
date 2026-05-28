@@ -1,0 +1,293 @@
+{
+  "batchId": "batch-221",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p5-101",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "hjb-primary-p5-upper-data-average",
+      "unitTitle": "数据整理与平均数",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "data-organization",
+        "average",
+        "statistical-displays",
+        "data-interpretation",
+        "平均数"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "量感",
+        "数学表达"
+      ],
+      "skillTags": [
+        "收集整理数据",
+        "统计表",
+        "统计图",
+        "平均数意义",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "average treated as the most common value",
+        "chart scale read incorrectly",
+        "conclusion not supported by data"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p5-upper-data-average"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-data-average-unit",
+        "hjb-primary-p5-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小杰记录了学校图书馆连续5天每天借出的图书数量：12本、15本、10本、18本、15本。他计算了这5天的平均借出量，并说：“平均每天借出14本，所以借出14本的天数最多。”他的说法正确吗？如果不正确，请写出正确的平均借出量，并说明平均数的意义。",
+      "optionsZhHans": [],
+      "answer": "不正确，平均每天借出14本，但平均数不代表出现次数最多的数，它表示这5天借出量的整体水平。",
+      "acceptedAnswers": [
+        "不正确，平均每天借出14本，但平均数不代表出现次数最多的数，它表示这5天借出量的整体水平。",
+        "不正确，平均每天借出14本，平均数不是出现最多的数，它反映整体水平。",
+        "不正确，平均数是14本，但平均数不是众数，它表示整体平均水平。"
+      ],
+      "explanationZhHans": "总借出量=12+15+10+18+15=70本，天数=5，平均=70÷5=14本。小杰误以为平均数就是出现次数最多的数，实际上平均数表示整体水平，出现次数最多的是15本（2次）。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-102",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "hjb-primary-p5-upper-data-average",
+      "unitTitle": "数据整理与平均数",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "data-organization",
+        "average",
+        "statistical-displays",
+        "data-interpretation",
+        "平均数"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "量感",
+        "数学表达"
+      ],
+      "skillTags": [
+        "收集整理数据",
+        "统计表",
+        "统计图",
+        "平均数意义",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "average treated as the most common value",
+        "chart scale read incorrectly",
+        "conclusion not supported by data"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p5-upper-data-average"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-data-average-unit",
+        "hjb-primary-p5-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是四（1）班第一小组同学1分钟跳绳成绩的统计表：\n\n| 姓名 | 跳绳个数 |\n|------|----------|\n| 小明 | 120 |\n| 小红 | 135 |\n| 小刚 | 110 |\n| 小丽 | 125 |\n| 小强 | 130 |\n\n请计算这个小组同学1分钟跳绳的平均个数，并回答：这个平均个数能代表每个人的跳绳水平吗？为什么？",
+      "optionsZhHans": [],
+      "answer": "平均个数是124个。这个平均个数能代表小组的整体水平，但不能完全代表每个人的水平，因为有的人高于平均，有的人低于平均。",
+      "acceptedAnswers": [
+        "平均个数是124个。这个平均个数能代表小组的整体水平，但不能完全代表每个人的水平，因为有的人高于平均，有的人低于平均。",
+        "平均124个。能代表整体水平，但不能代表每个人，因为有个体差异。",
+        "平均124个。可以代表整体，但不能代表每个人，因为有人跳得多有人跳得少。"
+      ],
+      "explanationZhHans": "总个数=120+135+110+125+130=620个，人数=5，平均=620÷5=124个。平均数反映整体水平，但每个同学的成绩有高有低，所以不能完全代表个人。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-103",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "hjb-primary-p5-upper-data-average",
+      "unitTitle": "数据整理与平均数",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "data-organization",
+        "average",
+        "statistical-displays",
+        "data-interpretation",
+        "平均数"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "量感",
+        "数学表达"
+      ],
+      "skillTags": [
+        "收集整理数据",
+        "统计表",
+        "统计图",
+        "平均数意义",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "average treated as the most common value",
+        "chart scale read incorrectly",
+        "conclusion not supported by data"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p5-upper-data-average"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-data-average-unit",
+        "hjb-primary-p5-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小玲统计了自己一周内每天做作业所用的时间（单位：分钟）：30、35、25、40、30、45、30。下面关于这组数据的说法，正确的是（ ）。",
+      "optionsZhHans": [
+        "平均时间是30分钟，所以每天都是30分钟",
+        "平均时间大约是33.6分钟，它表示这周每天作业时间的一般水平",
+        "平均时间是35分钟，因为出现次数最多的是30",
+        "平均时间无法计算，因为数据太多"
+      ],
+      "answer": "平均时间大约是33.6分钟，它表示这周每天作业时间的一般水平",
+      "acceptedAnswers": [
+        "平均时间大约是33.6分钟，它表示这周每天作业时间的一般水平"
+      ],
+      "explanationZhHans": "总时间=30+35+25+40+30+45+30=235分钟，天数=7，平均=235÷7≈33.6分钟。平均数表示一般水平，不是每天的具体值，也不是出现次数最多的数。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-104",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "hjb-primary-p5-upper-data-average",
+      "unitTitle": "数据整理与平均数",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "data-organization",
+        "average",
+        "statistical-displays",
+        "data-interpretation",
+        "平均数"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "量感",
+        "数学表达"
+      ],
+      "skillTags": [
+        "收集整理数据",
+        "统计表",
+        "统计图",
+        "平均数意义",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "average treated as the most common value",
+        "chart scale read incorrectly",
+        "conclusion not supported by data"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p5-upper-data-average"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-data-average-unit",
+        "hjb-primary-p5-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是五年级两个班在“爱心义卖”活动中各班捐款金额的统计表：\n\n| 班级 | 捐款总金额（元） | 人数 |\n|------|------------------|------|\n| 五（1）班 | 450 | 30 |\n| 五（2）班 | 480 | 32 |\n\n哪个班的人均捐款金额更高？请计算并填空：五（1）班人均捐款______元，五（2）班人均捐款______元，所以______班的人均捐款金额更高。",
+      "optionsZhHans": [],
+      "answer": "五（1）班人均捐款15元，五（2）班人均捐款15元，所以两个班的人均捐款金额一样高。",
+      "acceptedAnswers": [
+        "五（1）班人均捐款15元，五（2）班人均捐款15元，所以两个班的人均捐款金额一样高。",
+        "15，15，两个班的人均捐款金额一样高",
+        "15元，15元，两个班一样高"
+      ],
+      "explanationZhHans": "五（1）班人均=450÷30=15元，五（2）班人均=480÷32=15元。虽然总金额不同，但人均相同，所以一样高。不能只看总金额。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-105",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "hjb-primary-p5-upper-data-average",
+      "unitTitle": "数据整理与平均数",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "data-organization",
+        "average",
+        "statistical-displays",
+        "data-interpretation",
+        "平均数"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "量感",
+        "数学表达"
+      ],
+      "skillTags": [
+        "收集整理数据",
+        "统计表",
+        "统计图",
+        "平均数意义",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "average treated as the most common value",
+        "chart scale read incorrectly",
+        "conclusion not supported by data"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p5-upper-data-average"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-data-average-unit",
+        "hjb-primary-p5-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是某商店一周内每天卖出书包数量的统计表：\n\n| 星期 | 一 | 二 | 三 | 四 | 五 | 六 | 日 |\n|------|----|----|----|----|----|----|----|\n| 数量（个） | 8 | 6 | 9 | 7 | 10 | 12 | 11 |\n\n（1）这一周平均每天卖出多少个书包？\n（2）哪几天卖出的数量高于平均数？请写出来。",
+      "optionsZhHans": [],
+      "answer": "（1）平均每天卖出9个书包。（2）星期三、星期五、星期六、星期日卖出的数量高于平均数。",
+      "acceptedAnswers": [
+        "（1）平均每天卖出9个书包。（2）星期三、星期五、星期六、星期日卖出的数量高于平均数。",
+        "（1）9个。（2）三、五、六、日",
+        "（1）平均9个。（2）星期三、五、六、日"
+      ],
+      "explanationZhHans": "总数量=8+6+9+7+10+12+11=63个，天数=7，平均=63÷7=9个。高于9个的有：星期三9个（等于不算高于）、星期五10个、星期六12个、星期日11个。注意星期三9个等于平均数，不算高于。"
+    }
+  ]
+}

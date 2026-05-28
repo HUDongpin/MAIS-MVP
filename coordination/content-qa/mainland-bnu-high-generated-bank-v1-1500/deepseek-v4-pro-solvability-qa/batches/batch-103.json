@@ -1,0 +1,137 @@
+{
+  "batchNumber": 103,
+  "startedAt": "2026-05-27T14:01:28.403Z",
+  "completedAt": "2026-05-27T14:01:44.506Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-317",
+    "bnu-high-ds-v1-s5-318",
+    "bnu-high-ds-v1-s5-319",
+    "bnu-high-ds-v1-s5-320",
+    "bnu-high-ds-v1-s5-321",
+    "bnu-high-ds-v1-s5-322",
+    "bnu-high-ds-v1-s5-323",
+    "bnu-high-ds-v1-s5-324"
+  ],
+  "usage": {
+    "prompt_tokens": 10378,
+    "completion_tokens": 1004,
+    "total_tokens": 11382,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 9866
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-317",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "1316",
+        "correctedAnswer": "1316",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立计算得1316，与存储答案686不符；解析指出原计算有误并给出1316，但答案仍为686，解析与答案矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-318",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "36",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "分组分配正确，答案36无误，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-319",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "±2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "二项式系数计算正确，选项C为±2，答案匹配，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-320",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "independentAnswer": "21",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "medium",
+        "rationaleZhHans": "独立计算得21，与答案一致；解析提及重复值排除但未列出具体重复项，可接受但不够详细。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-321",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "50",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "分类计数正确，答案50无误，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-322",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "-160",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "二项式系数计算正确，选项A为-160，答案匹配，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-323",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "48",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "分步计数正确，答案48无误，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-324",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "120",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "插空法正确，答案120无误，解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第317题答案错误，应为1316而非686，解析已指出错误但答案未修正；其余题目均正确。"
+    }
+  }
+}

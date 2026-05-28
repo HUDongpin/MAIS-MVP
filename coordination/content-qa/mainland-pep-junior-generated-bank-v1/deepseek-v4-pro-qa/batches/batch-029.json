@@ -1,0 +1,191 @@
+{
+  "batchNumber": 29,
+  "startedAt": "2026-05-24T17:31:02.910Z",
+  "completedAt": "2026-05-24T17:31:20.879Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-candidate-k07-mc-014",
+    "pep-junior-candidate-k07-mc-015",
+    "pep-junior-candidate-k07-mc-016",
+    "pep-junior-candidate-k07-mc-017",
+    "pep-junior-candidate-k07-mc-018",
+    "pep-junior-candidate-k07-mc-019",
+    "pep-junior-candidate-k07-mc-020",
+    "pep-junior-candidate-k07-mc-021",
+    "pep-junior-candidate-k07-mc-022",
+    "pep-junior-candidate-k07-mc-023",
+    "pep-junior-candidate-k07-mc-024",
+    "pep-junior-candidate-k07-mc-025",
+    "pep-junior-candidate-k07-mc-026",
+    "pep-junior-candidate-k07-mc-027",
+    "pep-junior-candidate-k07-fi-001",
+    "pep-junior-candidate-k07-fi-002",
+    "pep-junior-candidate-k07-fi-003",
+    "pep-junior-candidate-k07-fi-004"
+  ],
+  "usage": {
+    "prompt_tokens": 3489,
+    "completion_tokens": 1294,
+    "total_tokens": 4783,
+    "prompt_tokens_details": {
+      "cached_tokens": 3456
+    },
+    "prompt_cache_hit_tokens": 3456,
+    "prompt_cache_miss_tokens": 33
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-candidate-k07-mc-014",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "因式分解正确，选项唯一，解释合理。"
+      },
+      {
+        "id": "pep-junior-candidate-k07-mc-015",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "因式分解正确，选项唯一，解释合理。"
+      },
+      {
+        "id": "pep-junior-candidate-k07-mc-016",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "因式分解正确，选项唯一，解释合理。"
+      },
+      {
+        "id": "pep-junior-candidate-k07-mc-017",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "因式分解正确，选项唯一，解释合理。"
+      },
+      {
+        "id": "pep-junior-candidate-k07-mc-018",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "因式分解正确，选项唯一，解释合理。"
+      },
+      {
+        "id": "pep-junior-candidate-k07-mc-019",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "因式分解正确，选项唯一，解释合理。"
+      },
+      {
+        "id": "pep-junior-candidate-k07-mc-020",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "因式分解正确，选项唯一，解释合理。"
+      },
+      {
+        "id": "pep-junior-candidate-k07-mc-021",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "因式分解正确，选项唯一，解释合理。"
+      },
+      {
+        "id": "pep-junior-candidate-k07-mc-022",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "因式分解正确，选项唯一，解释合理。"
+      },
+      {
+        "id": "pep-junior-candidate-k07-mc-023",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "因式分解正确，选项唯一，解释合理。"
+      },
+      {
+        "id": "pep-junior-candidate-k07-mc-024",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "因式分解正确，选项唯一，解释合理。"
+      },
+      {
+        "id": "pep-junior-candidate-k07-mc-025",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "因式分解正确，选项唯一，解释合理。"
+      },
+      {
+        "id": "pep-junior-candidate-k07-mc-026",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "因式分解正确，选项唯一，解释合理。"
+      },
+      {
+        "id": "pep-junior-candidate-k07-mc-027",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "因式分解正确，选项唯一，解释合理。"
+      },
+      {
+        "id": "pep-junior-candidate-k07-fi-001",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案格式合理。"
+      },
+      {
+        "id": "pep-junior-candidate-k07-fi-002",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案格式合理。"
+      },
+      {
+        "id": "pep-junior-candidate-k07-fi-003",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案格式合理。"
+      },
+      {
+        "id": "pep-junior-candidate-k07-fi-004",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案格式合理。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均正确无误，适合入库。"
+    }
+  }
+}

@@ -1,0 +1,360 @@
+{
+  "batchId": "batch-061",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s2-k08-mc-001",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-pythagorean-theorem"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean"
+      ],
+      "promptZhHans": "直角三角形的两条直角边长分别为5 cm和12 cm，斜边上的高是多少厘米？",
+      "optionsZhHans": [
+        "13 cm",
+        "60/13 cm",
+        "30/13 cm",
+        "17 cm"
+      ],
+      "answer": "60/13 cm",
+      "acceptedAnswers": [
+        "60/13 cm",
+        "60/13",
+        "4.615 cm",
+        "4.62 cm"
+      ],
+      "explanationZhHans": "先由勾股定理求出斜边长：√(5²+12²)=13 cm。直角三角形面积可用两条直角边计算：1/2×5×12=30 cm²，也可用斜边和斜边上的高计算：1/2×13×h。由面积相等得1/2×13×h=30，解得h=60/13 cm。因此答案为60/13 cm。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-mc-002",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-quadrilaterals"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "在平行四边形ABCD中，已知∠A=70°，则∠C的度数是多少？",
+      "optionsZhHans": [
+        "70°",
+        "110°",
+        "20°",
+        "140°"
+      ],
+      "answer": "70°",
+      "acceptedAnswers": [
+        "70°",
+        "70",
+        "70度"
+      ],
+      "explanationZhHans": "根据平行四边形的性质，对角相等。∠A和∠C是对角，所以∠C=∠A=70°。因此答案为70°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-mc-003",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-quadratic-radicals"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "下列二次根式中，与√3是同类二次根式的是哪一个？",
+      "optionsZhHans": [
+        "√12",
+        "√18",
+        "√27",
+        "√24"
+      ],
+      "answer": "√27",
+      "acceptedAnswers": [
+        "√27",
+        "根号27"
+      ],
+      "explanationZhHans": "同类二次根式是指化简后被开方数相同的二次根式。化简各选项：√12=2√3，√18=3√2，√27=3√3，√24=2√6。其中√27化简后为3√3，与√3的被开方数相同，所以是同类二次根式。因此答案为√27。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-mc-004",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions"
+      ],
+      "promptZhHans": "若√(x-3)是二次根式，则x的取值范围是？",
+      "optionsZhHans": [
+        "x>3",
+        "x≥3",
+        "x<3",
+        "x≤3"
+      ],
+      "answer": "x≥3",
+      "acceptedAnswers": [
+        "x≥3",
+        "x大于等于3"
+      ],
+      "explanationZhHans": "二次根式√(x-3)有意义的条件是被开方数x-3≥0，解得x≥3。因此答案为x≥3。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-mc-005",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-linear-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "promptZhHans": "一根旗杆在离地面6米处折断，旗杆顶部落在离旗杆底部8米处。旗杆原来有多高？",
+      "optionsZhHans": [
+        "10米",
+        "12米",
+        "14米",
+        "16米"
+      ],
+      "answer": "16米",
+      "acceptedAnswers": [
+        "16米",
+        "16",
+        "16m"
+      ],
+      "explanationZhHans": "折断部分与地面构成直角三角形，折断处到顶部为斜边。由勾股定理，斜边长=√(6²+8²)=10米。旗杆原高为折断部分长度加上未折断部分长度，即10+6=16米。因此答案为16米。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-mc-006",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-data-analysis"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "promptZhHans": "某班7名同学的体重（单位：kg）分别为：45，48，50，50，52，55，56。这组数据的众数和中位数分别是多少？",
+      "optionsZhHans": [
+        "50，50",
+        "50，52",
+        "50，51",
+        "52，50"
+      ],
+      "answer": "50，50",
+      "acceptedAnswers": [
+        "50，50",
+        "50和50"
+      ],
+      "explanationZhHans": "众数是出现次数最多的数，50出现了两次，其他数各出现一次，所以众数为50。中位数是将数据从小到大排列后位于中间的数，数据已排序，共7个，第4个数是50，所以中位数为50。因此答案为50，50。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-mc-007",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-pythagorean-theorem"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "以下列各组数为边长，能构成直角三角形的是哪一组？",
+      "optionsZhHans": [
+        "2，3，4",
+        "3，4，5",
+        "4，5，6",
+        "5，6，7"
+      ],
+      "answer": "3，4，5",
+      "acceptedAnswers": [
+        "3，4，5",
+        "3,4,5"
+      ],
+      "explanationZhHans": "根据勾股定理的逆定理，若两短边的平方和等于最长边的平方，则能构成直角三角形。选项A：2²+3²=13≠4²；选项B：3²+4²=25=5²，符合；选项C：4²+5²=41≠6²；选项D：5²+6²=61≠7²。因此答案为3，4，5。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-mc-008",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-quadrilaterals"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "矩形具有而一般平行四边形不一定具有的性质是？",
+      "optionsZhHans": [
+        "对边平行且相等",
+        "对角线互相平分",
+        "对角线相等",
+        "对角相等"
+      ],
+      "answer": "对角线相等",
+      "acceptedAnswers": [
+        "对角线相等",
+        "对角线相等。"
+      ],
+      "explanationZhHans": "矩形是特殊的平行四边形，除了具有平行四边形的所有性质外，还具有对角线相等的性质。一般平行四边形的对角线不一定相等。因此答案为对角线相等。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-mc-009",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-quadratic-radicals"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "计算√8+√18的结果是？",
+      "optionsZhHans": [
+        "√26",
+        "5√2",
+        "13√2",
+        "2√5"
+      ],
+      "answer": "5√2",
+      "acceptedAnswers": [
+        "5√2",
+        "5根号2"
+      ],
+      "explanationZhHans": "先化简各二次根式：√8=2√2，√18=3√2。合并同类二次根式：2√2+3√2=5√2。因此答案为5√2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k08-mc-010",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-proof-calculation-integrated"
+      ],
+      "promptZhHans": "在菱形ABCD中，对角线AC=6 cm，BD=8 cm，则菱形的边长是多少厘米？",
+      "optionsZhHans": [
+        "5 cm",
+        "10 cm",
+        "14 cm",
+        "48 cm"
+      ],
+      "answer": "5 cm",
+      "acceptedAnswers": [
+        "5 cm",
+        "5",
+        "5厘米"
+      ],
+      "explanationZhHans": "菱形的对角线互相垂直且平分，因此对角线的一半分别为3 cm和4 cm。菱形的边长是直角三角形的斜边，由勾股定理得边长=√(3²+4²)=5 cm。因此答案为5 cm。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

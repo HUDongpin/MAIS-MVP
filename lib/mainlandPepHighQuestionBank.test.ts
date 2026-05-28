@@ -1,0 +1,1253 @@
+import assert from "node:assert/strict";
+import test from "node:test";
+import {
+  mainlandPepHighQuestionGenerationMetadata,
+  mainlandPepHighQuestions,
+  mainlandPepHighRagV4QuestionGenerationMetadata,
+  mainlandPepHighRagV4Questions,
+  mainlandPepHighRagV3Questions,
+  mainlandPepHighRagV2Questions,
+  mainlandPepHighSeedV1Questions
+} from "../data/mainlandPepHighQuestions";
+import {
+  mainlandBnuHighQuestionGenerationMetadata,
+  mainlandBnuHighQuestions
+} from "../data/mainlandBnuHighQuestions";
+import {
+  mainlandHjbHighQuestionGenerationMetadata,
+  mainlandHjbHighQuestions,
+  mainlandHjbHighV1Questions,
+  mainlandHjbHighV2Questions,
+  mainlandHjbHighV3RemediatedQuestions,
+  mainlandHjbHighV4RemediatedQuestions
+} from "../data/mainlandHjbHighQuestions";
+import {
+  mainlandHjbPrimaryQuestionGenerationMetadata,
+  mainlandHjbPrimaryQuestions
+} from "../data/mainlandHjbPrimaryQuestions";
+import { mainlandHjbHighTopics } from "../data/mainlandHjbHighTopics";
+import { mainlandBnuHighTopics } from "../data/mainlandBnuHighTopics";
+import {
+  mainlandHjbJuniorQuestionGenerationMetadata,
+  mainlandHjbJuniorQuestions
+} from "../data/mainlandHjbJuniorQuestions";
+import { mainlandHjbJuniorTopics } from "../data/mainlandHjbJuniorTopics";
+import { mainlandHjbPrimaryTopics } from "../data/mainlandHjbPrimaryTopics";
+import { mainlandPepHighTopics } from "../data/mainlandPepHighTopics";
+import { questions } from "../data/questions";
+import { topics } from "../data/topics";
+import { mainlandPepHighRagCards } from "../data/rag/mainlandPepHigh";
+import { mainlandPepHighExamPatternCards } from "../data/rag/mainlandPepHighExamPatterns";
+import { GET as getQuestionsRoute } from "../app/api/questions/route";
+import { questionAnswerMatches } from "./server/answerGrading";
+import {
+  buildMainlandHighQuestionQualityComparison,
+  validateMainlandHighQuestionQualityComparison
+} from "../scripts/compare-mainland-high-question-quality";
+import { buildMainlandHighRagV4PublicSolvabilityAudit } from "./questionBankSolvability";
+import { createSessionToken, SESSION_COOKIE_NAME } from "./session";
+import {
+  addStudentToTeacherClass,
+  authenticateUser,
+  buildAITutorDatabaseContext,
+  createStudentUser,
+  getAdaptiveLearningDecision,
+  getDashboardData,
+  getLessonBySlug,
+  getLessonEntryTarget,
+  getProgressData,
+  getPublicQuestions,
+  getRoadmapData,
+  getTeacherAssessmentCreateData,
+  getTeacherDashboardData,
+  getTeacherResourceLibraryData,
+  joinClassByInviteCode,
+  submitQuestionAttempt
+} from "./server/userStore";
+import type { CurriculumProfile, GradeId, QuestionType } from "@/types";
+
+const seniorGrades: Extract<GradeId, "S4" | "S5" | "S6">[] = ["S4", "S5", "S6"];
+const juniorGrades: Extract<GradeId, "S1" | "S2" | "S3">[] = ["S1", "S2", "S3"];
+const primaryGrades: Extract<GradeId, "P1" | "P2" | "P3" | "P4" | "P5" | "P6">[] = ["P1", "P2", "P3", "P4", "P5", "P6"];
+const generatedTypes: Exclude<QuestionType, "graph">[] = ["multiple-choice", "fill-in", "short-answer"];
+const hkEphProfile: CurriculumProfile = { region: "HK", publisher: "HK_EPH_MIF" };
+const mainlandPepProfile: CurriculumProfile = { region: "MAINLAND", publisher: "MAINLAND_PEP" };
+const mainlandBnuProfile: CurriculumProfile = { region: "MAINLAND", publisher: "MAINLAND_BNU" };
+const mainlandHjbProfile: CurriculumProfile = { region: "MAINLAND", publisher: "MAINLAND_HJB" };
+const cjkPattern = /[\u3400-\u9fff]/;
+const hjbGeneratorPrefixPattern = /^(?:(?:V\d+\s*)?(?:修复|安全)?变式|二轮变式)\d{1,4}[：:]\s*(?:解答|填空|选择)?[：:]?/;
+const simplifiedTraditionalPairs: Array<[string, string]> = [
+  ["题", "題"],
+  ["范围", "範圍"],
+  ["选择", "選擇"],
+  ["函数", "函數"],
+  ["图像", "圖像"],
+  ["图象", "圖像"],
+  ["检查", "檢查"],
+  ["计算", "計算"],
+  ["练习", "練習"],
+  ["学生", "學生"],
+  ["老师", "老師"]
+];
+
+const mainlandPepHighAllGeneratedQuestions = mainlandPepHighQuestions;
+const mainlandPepHighAllGenerationMetadata = mainlandPepHighQuestionGenerationMetadata;
+
+function assertHjbGeneratedQuestionLocalization(bankName: string, bankQuestions = mainlandHjbHighQuestions) {
+  bankQuestions.forEach((question) => {
+    const values = [
+      [`${question.id} prompt`, question.prompt],
+      [`${question.id} explanation`, question.explanation],
+      ...(question.options ?? []).map((option, index) => [`${question.id} option ${index + 1}`, option] as const)
+    ] as const;
+
+    values.forEach(([label, value]) => {
+      assert.ok(value.en.trim(), `${label} should have English text`);
+      assert.ok(value.zh.trim(), `${label} should have Traditional Chinese text`);
+      assert.ok((value.zhHans ?? "").trim(), `${label} should have Simplified Chinese text`);
+      assert.doesNotMatch(value.zhHans ?? value.zh, hjbGeneratorPrefixPattern, `${label} should not expose generator prompt labels`);
+      assert.doesNotMatch(value.en, cjkPattern, `${label} English text should not leak Chinese characters`);
+
+      simplifiedTraditionalPairs.forEach(([simplified, traditional]) => {
+        if ((value.zhHans ?? "").includes(simplified)) {
+          assert.ok(value.zh.includes(traditional), `${label} should render ${simplified} as ${traditional} in Traditional Chinese`);
+        }
+      });
+    });
+
+    if (question.type === "multiple-choice") {
+      const options = question.options ?? [];
+      const correctOption = options.find((option) =>
+        [option.zhHans, option.zh, option.en].some((optionText) => Boolean(optionText && question.acceptedAnswers?.includes(optionText)))
+      );
+      assert.ok(correctOption, `${bankName} ${question.id} should retain a localized correct option alias`);
+      if (!correctOption) return;
+
+      const gradingQuestion = {
+        answer: question.answer,
+        accepted_answers: question.acceptedAnswers ?? null,
+        options
+      };
+      assert.equal(questionAnswerMatches(gradingQuestion, correctOption.en), true, `${question.id} should grade the English correct option`);
+      assert.equal(questionAnswerMatches(gradingQuestion, correctOption.zh), true, `${question.id} should grade the Traditional correct option`);
+      assert.equal(
+        questionAnswerMatches(gradingQuestion, correctOption.zhHans ?? correctOption.zh),
+        true,
+        `${question.id} should grade the Simplified correct option`
+      );
+    }
+  });
+}
+
+test("Mainland PEP high question bank has the requested grade and type coverage", () => {
+  assert.equal(mainlandPepHighSeedV1Questions.length, 900);
+  assert.equal(mainlandPepHighRagV2Questions.length, 900);
+  assert.equal(mainlandPepHighRagV3Questions.length, 1500);
+  assert.equal(mainlandPepHighRagV4Questions.length, 1500);
+  assert.equal(mainlandPepHighQuestions.length, 4800);
+
+  seniorGrades.forEach((grade) => {
+    const gradeQuestions = mainlandPepHighQuestions.filter((question) => question.grade === grade);
+    const ragV2GradeQuestions = mainlandPepHighRagV2Questions.filter((question) => question.grade === grade);
+    const ragV3GradeQuestions = mainlandPepHighRagV3Questions.filter((question) => question.grade === grade);
+    const ragV4GradeQuestions = mainlandPepHighRagV4Questions.filter((question) => question.grade === grade);
+    assert.equal(gradeQuestions.length, 1600);
+    assert.equal(ragV2GradeQuestions.length, 300);
+    assert.equal(ragV3GradeQuestions.length, 500);
+    assert.equal(ragV4GradeQuestions.length, 500);
+
+    generatedTypes.forEach((type) => {
+      const expectedGradeTypeTotal = type === "multiple-choice" ? 540 : 530;
+      const expectedRagV3TypeTotal = type === "multiple-choice" ? 170 : 165;
+      assert.equal(gradeQuestions.filter((question) => question.type === type).length, expectedGradeTypeTotal);
+      assert.equal(ragV2GradeQuestions.filter((question) => question.type === type).length, 100);
+      assert.equal(ragV3GradeQuestions.filter((question) => question.type === type).length, expectedRagV3TypeTotal);
+      assert.equal(ragV4GradeQuestions.filter((question) => question.type === type).length, expectedRagV3TypeTotal);
+    });
+  });
+});
+
+test("Mainland HJB high approved banks are integrated as a 6000-question publisher-scoped pool", () => {
+  assert.equal(mainlandHjbHighQuestions.length, 6000);
+  assert.equal(mainlandHjbHighV1Questions.length, 1500);
+  assert.equal(mainlandHjbHighV2Questions.length, 1500);
+  assert.equal(mainlandHjbHighV3RemediatedQuestions.length, 1500);
+  assert.equal(mainlandHjbHighV4RemediatedQuestions.length, 1500);
+  assert.equal(mainlandHjbHighTopics.length, 30);
+
+  assert.deepEqual(
+    Object.fromEntries(seniorGrades.map((grade) => [grade, mainlandHjbHighQuestions.filter((question) => question.grade === grade).length])),
+    { S4: 2000, S5: 2000, S6: 2000 }
+  );
+  assert.deepEqual(
+    Object.fromEntries(seniorGrades.map((grade) => [grade, mainlandHjbHighTopics.filter((topic) => topic.grade === grade).length])),
+    { S4: 9, S5: 8, S6: 13 }
+  );
+
+  assert.equal(new Set(mainlandHjbHighQuestions.map((question) => question.id)).size, 6000);
+  assert.ok(mainlandHjbHighQuestions.every((question) => /^hjb-high-ds-v[1-4]-/.test(question.id)));
+  assert.ok(mainlandHjbHighQuestions.every((question) => !hjbGeneratorPrefixPattern.test(question.prompt.zhHans ?? question.prompt.zh)));
+  assert.deepEqual(
+    Object.fromEntries(generatedTypes.map((type) => [type, mainlandHjbHighQuestions.filter((question) => question.type === type).length])),
+    { "multiple-choice": 2400, "fill-in": 2100, "short-answer": 1500 }
+  );
+  assert.deepEqual(
+    Object.fromEntries(
+      ["hjb-v1", "hjb-v2", "hjb-v3-remediated", "hjb-v4-remediated"].map((batch) => [
+        batch,
+        mainlandHjbHighQuestions.filter((question) => mainlandHjbHighQuestionGenerationMetadata[question.id]?.batch === batch).length
+      ])
+    ),
+    { "hjb-v1": 1500, "hjb-v2": 1500, "hjb-v3-remediated": 1500, "hjb-v4-remediated": 1500 }
+  );
+
+  const topicIds = new Set(mainlandHjbHighTopics.map((topic) => topic.id));
+  mainlandHjbHighTopics.forEach((topic) => {
+    assert.equal(topic.curriculumTrack, "MAINLAND_PEP_HIGH");
+    assert.equal(topic.region, "MAINLAND");
+    assert.equal(topic.publisher, "MAINLAND_HJB");
+    assert.deepEqual(topic.curriculumProfile, mainlandHjbProfile);
+  });
+  mainlandHjbHighQuestions.forEach((question) => {
+    assert.equal(question.curriculumTrack, "MAINLAND_PEP_HIGH");
+    assert.equal(question.region, "MAINLAND");
+    assert.equal(question.publisher, "MAINLAND_HJB");
+    assert.deepEqual(question.curriculumProfile, mainlandHjbProfile);
+    assert.ok(topicIds.has(question.topicId), `${question.id} references missing HJB topic ${question.topicId}`);
+    assert.equal(mainlandHjbHighQuestionGenerationMetadata[question.id]?.manualQaStatus, "approved");
+  });
+  const exportedHjbHighQuestions = questions.filter((question) => question.publisher === "MAINLAND_HJB" && /^hjb-high-ds-v[1-4]-/.test(question.id));
+  assert.equal(exportedHjbHighQuestions.length, 6000);
+});
+
+test("Mainland BNU high approved bank is integrated as a 1500-question publisher-scoped pool", () => {
+  assert.equal(mainlandBnuHighQuestions.length, 1500);
+  assert.equal(mainlandBnuHighTopics.length, 24);
+
+  assert.deepEqual(
+    Object.fromEntries(seniorGrades.map((grade) => [grade, mainlandBnuHighQuestions.filter((question) => question.grade === grade).length])),
+    { S4: 500, S5: 500, S6: 500 }
+  );
+  assert.deepEqual(
+    Object.fromEntries(generatedTypes.map((type) => [type, mainlandBnuHighQuestions.filter((question) => question.type === type).length])),
+    { "multiple-choice": 525, "fill-in": 450, "short-answer": 525 }
+  );
+
+  const topicIds = new Set(mainlandBnuHighTopics.map((topic) => topic.id));
+  mainlandBnuHighTopics.forEach((topic) => {
+    assert.equal(topic.curriculumTrack, "MAINLAND_PEP_HIGH");
+    assert.equal(topic.region, "MAINLAND");
+    assert.equal(topic.publisher, "MAINLAND_BNU");
+    assert.deepEqual(topic.curriculumProfile, mainlandBnuProfile);
+  });
+  mainlandBnuHighQuestions.forEach((question) => {
+    assert.equal(question.curriculumTrack, "MAINLAND_PEP_HIGH");
+    assert.equal(question.region, "MAINLAND");
+    assert.equal(question.publisher, "MAINLAND_BNU");
+    assert.deepEqual(question.curriculumProfile, mainlandBnuProfile);
+    assert.match(question.id, /^bnu-high-ds-v1-/);
+    assert.ok(topicIds.has(question.topicId), `${question.id} references missing BNU high topic ${question.topicId}`);
+    assert.equal(mainlandBnuHighQuestionGenerationMetadata[question.id]?.manualQaStatus, "approved");
+  });
+  const exportedBnuHighQuestions = questions.filter((question) => question.publisher === "MAINLAND_BNU" && /^bnu-high-ds-v1-/.test(question.id));
+  assert.equal(exportedBnuHighQuestions.length, 1500);
+});
+
+test("Mainland HJB primary V1 bank is integrated as a 1500-question publisher-scoped pool", () => {
+  assert.equal(mainlandHjbPrimaryQuestions.length, 1500);
+  assert.equal(mainlandHjbPrimaryTopics.length, 70);
+
+  assert.deepEqual(
+    Object.fromEntries(primaryGrades.map((grade) => [grade, mainlandHjbPrimaryQuestions.filter((question) => question.grade === grade).length])),
+    { P1: 250, P2: 250, P3: 250, P4: 250, P5: 250, P6: 250 }
+  );
+  assert.deepEqual(
+    Object.fromEntries(generatedTypes.map((type) => [type, mainlandHjbPrimaryQuestions.filter((question) => question.type === type).length])),
+    { "multiple-choice": 600, "fill-in": 540, "short-answer": 360 }
+  );
+
+  const topicIds = new Set(mainlandHjbPrimaryTopics.map((topic) => topic.id));
+  mainlandHjbPrimaryTopics.forEach((topic) => {
+    assert.equal(topic.curriculumTrack, "MAINLAND_PEP_HIGH");
+    assert.equal(topic.region, "MAINLAND");
+    assert.equal(topic.publisher, "MAINLAND_HJB");
+    assert.deepEqual(topic.curriculumProfile, mainlandHjbProfile);
+  });
+  mainlandHjbPrimaryQuestions.forEach((question) => {
+    assert.equal(question.curriculumTrack, "MAINLAND_PEP_HIGH");
+    assert.equal(question.region, "MAINLAND");
+    assert.equal(question.publisher, "MAINLAND_HJB");
+    assert.deepEqual(question.curriculumProfile, mainlandHjbProfile);
+    assert.ok(topicIds.has(question.topicId), `${question.id} references missing HJB primary topic ${question.topicId}`);
+    assert.equal(mainlandHjbPrimaryQuestionGenerationMetadata[question.id]?.batch, "hjb-primary-v1");
+    assert.equal(mainlandHjbPrimaryQuestionGenerationMetadata[question.id]?.manualQaStatus, "approved");
+  });
+
+  const exportedHjbPrimaryQuestions = questions.filter((question) => question.publisher === "MAINLAND_HJB" && /^hjb-primary-ds-v1-/.test(question.id));
+  assert.equal(exportedHjbPrimaryQuestions.length, 1500);
+  assert.equal(new Set(exportedHjbPrimaryQuestions.map((question) => question.prompt.zhHans ?? question.prompt.zh)).size, 1500);
+});
+
+test("Mainland HJB junior V2 bank is integrated as a 1500-question publisher-scoped pool", () => {
+  assert.equal(mainlandHjbJuniorQuestions.length, 1500);
+  assert.equal(mainlandHjbJuniorTopics.length, 22);
+
+  assert.deepEqual(
+    Object.fromEntries(juniorGrades.map((grade) => [grade, mainlandHjbJuniorQuestions.filter((question) => question.grade === grade).length])),
+    { S1: 500, S2: 500, S3: 500 }
+  );
+  assert.deepEqual(
+    Object.fromEntries(generatedTypes.map((type) => [type, mainlandHjbJuniorQuestions.filter((question) => question.type === type).length])),
+    { "multiple-choice": 600, "fill-in": 525, "short-answer": 375 }
+  );
+
+  const topicIds = new Set(mainlandHjbJuniorTopics.map((topic) => topic.id));
+  mainlandHjbJuniorTopics.forEach((topic) => {
+    assert.equal(topic.curriculumTrack, "MAINLAND_PEP_HIGH");
+    assert.equal(topic.region, "MAINLAND");
+    assert.equal(topic.publisher, "MAINLAND_HJB");
+    assert.deepEqual(topic.curriculumProfile, mainlandHjbProfile);
+  });
+  mainlandHjbJuniorQuestions.forEach((question) => {
+    assert.equal(question.curriculumTrack, "MAINLAND_PEP_HIGH");
+    assert.equal(question.region, "MAINLAND");
+    assert.equal(question.publisher, "MAINLAND_HJB");
+    assert.deepEqual(question.curriculumProfile, mainlandHjbProfile);
+    assert.ok(topicIds.has(question.topicId), `${question.id} references missing HJB junior topic ${question.topicId}`);
+    assert.equal(mainlandHjbJuniorQuestionGenerationMetadata[question.id]?.batch, "hjb-junior-v2-1500");
+    assert.equal(mainlandHjbJuniorQuestionGenerationMetadata[question.id]?.manualQaStatus, "approved");
+  });
+
+  const exportedHjbJuniorQuestions = questions.filter((question) => question.publisher === "MAINLAND_HJB" && /^hjb-junior-ds-v2-/.test(question.id));
+  assert.equal(exportedHjbJuniorQuestions.length, 1500);
+  assert.equal(new Set(exportedHjbJuniorQuestions.map((question) => question.prompt.zhHans ?? question.prompt.zh)).size, 1500);
+});
+
+test("Mainland HJB generated banks clean generator labels and expose English and Traditional Chinese", () => {
+  assertHjbGeneratedQuestionLocalization("HJB high", mainlandHjbHighQuestions);
+  assertHjbGeneratedQuestionLocalization("HJB primary", mainlandHjbPrimaryQuestions);
+  assertHjbGeneratedQuestionLocalization("HJB junior", mainlandHjbJuniorQuestions);
+});
+
+test("Mainland PEP rag-v2 questions follow the requested topic distribution", () => {
+  const expectedByGrade: Record<Extract<GradeId, "S4" | "S5" | "S6">, Record<string, number>> = {
+    S4: Object.fromEntries(mainlandPepHighTopics.filter((topic) => topic.grade === "S4").map((topic) => [topic.id, 30])),
+    S5: Object.fromEntries(mainlandPepHighTopics.filter((topic) => topic.grade === "S5").map((topic) => [topic.id, 60])),
+    S6: {
+      "pep-high-s6-counting": 43,
+      "pep-high-s6-random-variables": 43,
+      "pep-high-s6-bivariate-data": 43,
+      "pep-high-s6-derivative-synthesis": 43,
+      "pep-high-s6-analytic-geometry-synthesis": 43,
+      "pep-high-s6-probability-statistics-synthesis": 43,
+      "pep-high-s6-exam-practice": 42
+    }
+  };
+
+  seniorGrades.forEach((grade) => {
+    Object.entries(expectedByGrade[grade]).forEach(([topicId, expectedCount]) => {
+      assert.equal(
+        mainlandPepHighRagV2Questions.filter((question) => question.grade === grade && question.topicId === topicId).length,
+        expectedCount,
+        `${grade} rag-v2 topic ${topicId} should have ${expectedCount} questions`
+      );
+    });
+  });
+});
+
+test("Mainland PEP rag-v3 questions follow the requested topic and type distribution", () => {
+  const expectedByGrade: Record<Extract<GradeId, "S4" | "S5" | "S6">, Record<string, number>> = {
+    S4: Object.fromEntries(mainlandPepHighTopics.filter((topic) => topic.grade === "S4").map((topic) => [topic.id, 50])),
+    S5: Object.fromEntries(mainlandPepHighTopics.filter((topic) => topic.grade === "S5").map((topic) => [topic.id, 100])),
+    S6: {
+      "pep-high-s6-counting": 72,
+      "pep-high-s6-random-variables": 72,
+      "pep-high-s6-bivariate-data": 72,
+      "pep-high-s6-derivative-synthesis": 71,
+      "pep-high-s6-analytic-geometry-synthesis": 71,
+      "pep-high-s6-probability-statistics-synthesis": 71,
+      "pep-high-s6-exam-practice": 71
+    }
+  };
+
+  seniorGrades.forEach((grade) => {
+    Object.entries(expectedByGrade[grade]).forEach(([topicId, expectedCount]) => {
+      assert.equal(
+        mainlandPepHighRagV3Questions.filter((question) => question.grade === grade && question.topicId === topicId).length,
+        expectedCount,
+        `${grade} rag-v3 topic ${topicId} should have ${expectedCount} questions`
+      );
+    });
+  });
+});
+
+test("Mainland PEP rag-v4 public questions follow the requested topic and type distribution", () => {
+  const expectedByGrade: Record<Extract<GradeId, "S4" | "S5" | "S6">, Record<string, number>> = {
+    S4: Object.fromEntries(mainlandPepHighTopics.filter((topic) => topic.grade === "S4").map((topic) => [topic.id, 50])),
+    S5: Object.fromEntries(mainlandPepHighTopics.filter((topic) => topic.grade === "S5").map((topic) => [topic.id, 100])),
+    S6: {
+      "pep-high-s6-counting": 72,
+      "pep-high-s6-random-variables": 72,
+      "pep-high-s6-bivariate-data": 72,
+      "pep-high-s6-derivative-synthesis": 71,
+      "pep-high-s6-analytic-geometry-synthesis": 71,
+      "pep-high-s6-probability-statistics-synthesis": 71,
+      "pep-high-s6-exam-practice": 71
+    }
+  };
+
+  seniorGrades.forEach((grade) => {
+    Object.entries(expectedByGrade[grade]).forEach(([topicId, expectedCount]) => {
+      assert.equal(
+        mainlandPepHighRagV4Questions.filter((question) => question.grade === grade && question.topicId === topicId).length,
+        expectedCount,
+        `${grade} rag-v4 topic ${topicId} should have ${expectedCount} public questions`
+      );
+    });
+  });
+});
+
+test("Mainland PEP rag-v2, rag-v3, and rag-v4 public questions are traceable to safe RAG cards", () => {
+  const ragCardIds = new Set(mainlandPepHighRagCards.map((card) => card.id));
+  const examPatternCardIds = new Set(mainlandPepHighExamPatternCards.map((card) => card.id));
+  const requiredEvidenceTopics = new Map([
+    ["trigonometry", "pep-high-s4-trigonometry"],
+    ["sequences", "pep-high-s5-sequences"],
+    ["derivatives", "pep-high-s5-derivatives"],
+    ["space vectors", "pep-high-s5-space-vectors"],
+    ["probability statistics", "pep-high-s6-probability-statistics-synthesis"],
+    ["conics", "pep-high-s6-analytic-geometry-synthesis"]
+  ]);
+
+  [...mainlandPepHighRagV2Questions, ...mainlandPepHighRagV3Questions, ...mainlandPepHighRagV4Questions].forEach((question) => {
+    const metadata = mainlandPepHighAllGenerationMetadata[question.id];
+    assert.ok(metadata, `${question.id} is missing generation metadata`);
+    assert.ok(
+      metadata.batch === "rag-v2" || metadata.batch === "rag-v3" || metadata.batch === "rag-v4",
+      `${question.id} has unexpected batch ${metadata.batch}`
+    );
+    assert.equal(metadata.sourceDistanceStatus, "passed");
+    assert.ok(metadata.evidenceCardIds.length > 0, `${question.id} should cite at least one safe RAG card`);
+    assert.ok(metadata.evidenceCardIds.every((cardId) => ragCardIds.has(cardId)), `${question.id} has an unknown RAG card`);
+    assert.ok(
+      metadata.examPatternCardIds.every((cardId) => examPatternCardIds.has(cardId)),
+      `${question.id} has an unknown exam-pattern card`
+    );
+  });
+
+  requiredEvidenceTopics.forEach((topicId, label) => {
+    assert.ok(
+      mainlandPepHighRagV3Questions.some((question) => question.topicId === topicId),
+      `rag-v3 coverage should include ${label}`
+    );
+    assert.ok(
+      mainlandPepHighRagV4Questions.some((question) => question.topicId === topicId),
+      `rag-v4 public coverage should include ${label}`
+    );
+  });
+});
+
+test("Mainland PEP seed-v1, rag-v2, rag-v3, and rag-v4 public QA comparison covers all batches", () => {
+  const report = buildMainlandHighQuestionQualityComparison("2026-05-21");
+  validateMainlandHighQuestionQualityComparison(report);
+
+  assert.equal(report.comparison.baselineBatch, "seed-v1");
+  assert.deepEqual(report.comparison.ragBatches, ["rag-v2", "rag-v3", "rag-v4"]);
+  assert.equal(report.comparison.noRawSourceAccess, true);
+  assert.equal(report.summary.batchSummaries["seed-v1"].count, 900);
+  assert.equal(report.summary.batchSummaries["rag-v2"].count, 900);
+  assert.equal(report.summary.batchSummaries["rag-v3"].count, 1500);
+  assert.equal(report.summary.batchSummaries["rag-v4"].count, 1500);
+  assert.equal(report.rows.length, 4800);
+  assert.equal(report.sampleReviewQueue.length, 480);
+
+  report.rows.forEach((row) => {
+    assert.ok(row.qualityScore >= 0 && row.qualityScore <= 100, `${row.questionId} has invalid quality score`);
+    assert.ok(row.knowledgeMatchScore >= 0 && row.knowledgeMatchScore <= 100, `${row.questionId} has invalid knowledge score`);
+    assert.ok(row.solvabilityScore >= 0 && row.solvabilityScore <= 100, `${row.questionId} has invalid solvability score`);
+    assert.ok(row.reviewRecommendation, `${row.questionId} is missing review recommendation`);
+  });
+});
+
+test("Mainland PEP rag-v4 solvability audit passes every promoted row", () => {
+  const report = buildMainlandHighRagV4PublicSolvabilityAudit("2026-05-23");
+
+  assert.equal(report.summary.publicIntegrated, true);
+  assert.equal(report.summary.expectedQuestions, 1500);
+  assert.equal(report.summary.totalQuestions, 1500);
+  assert.equal(report.summary.publicRagV4Questions, 1500);
+  assert.equal(report.summary.publicMainlandPepHighQuestions, 4800);
+  assert.deepEqual(report.summary.gradeCounts, { S4: 500, S5: 500, S6: 500 });
+  assert.equal(report.summary.duplicateIdCount, 0);
+  assert.equal(report.summary.duplicateExactPromptCount, 0);
+  assert.equal(report.summary.passRows, 1500);
+  assert.equal(report.summary.failingRows, 0);
+  assert.equal(report.inventoryIssues.length, 0);
+  assert.equal(report.summary.statusCounts.pass, 1500);
+  assert.deepEqual(report.summary.batchCounts, { "rag-v4": 1500 });
+});
+
+test("Mainland PEP high questions are track-scoped, linked to Mainland topics, and answerable", () => {
+  const topicIds = new Set(mainlandPepHighTopics.map((topic) => topic.id));
+  const ids = new Set<string>();
+
+  mainlandPepHighAllGeneratedQuestions.forEach((question) => {
+    assert.equal(question.curriculumTrack, "MAINLAND_PEP_HIGH");
+    assert.ok(topicIds.has(question.topicId), `${question.id} uses missing topic ${question.topicId}`);
+    assert.ok(!ids.has(question.id), `duplicate question id ${question.id}`);
+    ids.add(question.id);
+    assert.ok(question.answer.trim(), `${question.id} is missing an answer`);
+    assert.ok(question.explanation.en.trim() && question.explanation.zh.trim(), `${question.id} is missing an explanation`);
+
+    if (question.type === "multiple-choice") {
+      assert.equal(question.options?.length, 4, `${question.id} should have four options`);
+      assert.ok(question.options?.some((option) => option.en === question.answer), `${question.id} answer is not in options`);
+    }
+  });
+});
+
+test("Mainland PEP conic short-answer answer keys match y^2=2px", () => {
+  const conicShortAnswerIds = [
+    "pep-high-s5-sa-003",
+    "pep-high-s5-sa-008",
+    "pep-high-s5-sa-013",
+    "pep-high-s5-sa-018",
+    "pep-high-s5-sa-023",
+    "pep-high-s5-sa-028",
+    "pep-high-s5-sa-033",
+    "pep-high-s5-sa-038",
+    "pep-high-s5-sa-043",
+    "pep-high-s5-sa-048",
+    "pep-high-s5-sa-053",
+    "pep-high-s5-sa-058",
+    "pep-high-s5-sa-063",
+    "pep-high-s5-sa-068",
+    "pep-high-s5-sa-073",
+    "pep-high-s5-sa-078",
+    "pep-high-s5-sa-083",
+    "pep-high-s5-sa-088",
+    "pep-high-s5-sa-093",
+    "pep-high-s5-sa-098",
+    "pep-high-s6-sa-005",
+    "pep-high-s6-sa-012",
+    "pep-high-s6-sa-019",
+    "pep-high-s6-sa-026",
+    "pep-high-s6-sa-033",
+    "pep-high-s6-sa-040",
+    "pep-high-s6-sa-047",
+    "pep-high-s6-sa-054",
+    "pep-high-s6-sa-061",
+    "pep-high-s6-sa-068",
+    "pep-high-s6-sa-075",
+    "pep-high-s6-sa-082",
+    "pep-high-s6-sa-089",
+    "pep-high-s6-sa-096"
+  ];
+  const conicShortAnswerIdSet = new Set(conicShortAnswerIds);
+  const conicShortAnswers = mainlandPepHighQuestions.filter((question) => conicShortAnswerIdSet.has(question.id));
+
+  assert.equal(conicShortAnswers.length, 34);
+  assert.deepEqual(conicShortAnswers.map((question) => question.id), conicShortAnswerIds);
+
+  conicShortAnswers.forEach((question) => {
+    assert.equal(question.type, "short-answer");
+    assert.ok(
+      question.topicId === "pep-high-s5-conics" || question.topicId === "pep-high-s6-analytic-geometry-synthesis",
+      `${question.id} should be a conics short-answer question`
+    );
+
+    const coefficientMatch = /y\^2=([0-9]+(?:\.[0-9]+)?)x/.exec(question.prompt.en);
+    assert.ok(coefficientMatch, `${question.id} is missing a readable y^2=Cx prompt`);
+
+    const coefficient = Number(coefficientMatch[1]);
+    const expectedP = coefficient / 2;
+    assert.equal(Number(question.answer), expectedP, `${question.id} should store p=${expectedP}`);
+  });
+});
+
+test("Mainland PEP exp/log short-answer explanations include the coefficient step", () => {
+  const expLogShortAnswers = mainlandPepHighQuestions.filter((question) =>
+    question.topicId === "pep-high-s4-exp-log" &&
+    question.type === "short-answer" &&
+    /\\log_/.test(question.prompt.en)
+  );
+
+  assert.ok(expLogShortAnswers.length > 0);
+  expLogShortAnswers.forEach((question) => {
+    const coefficientMatch = /Simplify \\\(([0-9]+)\\log_/.exec(question.prompt.en);
+    assert.ok(coefficientMatch, `${question.id} is missing a readable coefficient in the prompt`);
+    const coefficient = Number(coefficientMatch[1]);
+    const answer = Number(question.answer);
+
+    if (coefficient <= 1) return;
+    assert.match(question.explanation.en, /multiplying by the coefficient/, `${question.id} should explain coefficient multiplication`);
+    assert.match(question.explanation.zh, /乘以前面的系数/, `${question.id} should explain coefficient multiplication in Chinese`);
+    assert.ok(question.explanation.en.includes(`=${answer}`), `${question.id} explanation should reach the stored answer`);
+    assert.ok(question.explanation.zh.includes(`=${answer}`), `${question.id} Chinese explanation should reach the stored answer`);
+  });
+});
+
+test("combined seed question IDs remain unique across HK and Mainland tracks", () => {
+  const ids = new Set<string>();
+  questions.forEach((question) => {
+    assert.ok(!ids.has(question.id), `duplicate combined question id ${question.id}`);
+    ids.add(question.id);
+  });
+});
+
+test("question API defaults to HK and returns publisher-scoped Mainland questions when requested", async () => {
+  const defaultS4Questions = await getPublicQuestions({ grade: "S4" });
+  assert.ok(defaultS4Questions.length > 0);
+  assert.ok(defaultS4Questions.every((question) => question.curriculumTrack === "HK"));
+
+  const mainlandS4Questions = await getPublicQuestions({ grade: "S4", curriculumTrack: "MAINLAND_PEP_HIGH" });
+  assert.equal(mainlandS4Questions.length, 1600);
+  assert.ok(mainlandS4Questions.every((question) => question.curriculumTrack === "MAINLAND_PEP_HIGH"));
+
+  const hkEphQuestions = await getPublicQuestions({ grade: "P1", curriculumProfile: hkEphProfile });
+  assert.ok(hkEphQuestions.length > 0);
+  assert.ok(hkEphQuestions.every((question) => question.region === "HK"));
+
+  const bnuQuestions = await getPublicQuestions({ grade: "S4", curriculumProfile: mainlandBnuProfile });
+  assert.equal(bnuQuestions.length, 500);
+  assert.ok(bnuQuestions.every((question) => question.publisher === "MAINLAND_BNU" && /^bnu-high-ds-v1-/.test(question.id)));
+});
+
+test("authenticated question route cannot be widened to another curriculum by query params", async () => {
+  const hkToken = await createSessionToken("student-peter");
+  const hkResponse = await getQuestionsRoute(new Request("http://localhost/api/questions?grade=S4&curriculumTrack=MAINLAND_PEP_HIGH&publisher=MAINLAND_PEP", {
+    headers: { cookie: `${SESSION_COOKIE_NAME}=${encodeURIComponent(hkToken)}` }
+  }));
+  const hkBody = await hkResponse.json() as { questions?: unknown[] };
+  assert.equal(hkResponse.status, 200);
+  assert.deepEqual(hkBody.questions, []);
+
+  const usToken = await createSessionToken("student-shirleen-us");
+  const usResponse = await getQuestionsRoute(new Request("http://localhost/api/questions?grade=S4&publisher=MAINLAND_PEP", {
+    headers: { cookie: `${SESSION_COOKIE_NAME}=${encodeURIComponent(usToken)}` }
+  }));
+  const usBody = await usResponse.json() as { questions?: unknown[] };
+  assert.equal(usResponse.status, 200);
+  assert.deepEqual(usBody.questions, []);
+
+  const guestResponse = await getQuestionsRoute(new Request("http://localhost/api/questions?grade=S4&publisher=MAINLAND_PEP"));
+  const guestBody = await guestResponse.json() as { questions?: unknown[] };
+  assert.equal(guestResponse.status, 200);
+  assert.deepEqual(guestBody.questions, []);
+
+  const mainlandToken = await createSessionToken("student-li-mainland");
+  const mainlandResponse = await getQuestionsRoute(new Request("http://localhost/api/questions?grade=S4&publisher=MAINLAND_PEP", {
+    headers: { cookie: `${SESSION_COOKIE_NAME}=${encodeURIComponent(mainlandToken)}` }
+  }));
+  const mainlandBody = await mainlandResponse.json() as { questions?: Array<{ curriculumTrack?: string; publisher?: string }> };
+  assert.equal(mainlandResponse.status, 200);
+  assert.ok((mainlandBody.questions ?? []).length > 0);
+  assert.ok((mainlandBody.questions ?? []).every((question) => question.curriculumTrack === "MAINLAND_PEP_HIGH" && question.publisher === "MAINLAND_PEP"));
+
+  const bnuStudent = await createStudentUser({
+    name: "Mainland BNU API Scope",
+    username: `mainland-bnu-api-scope-${Date.now()}@example.test`,
+    password: "start12345",
+    grade: "S4",
+    curriculumProfile: mainlandBnuProfile,
+    language: "zh-Hans",
+    theme: "dark"
+  });
+  assert.equal(bnuStudent.status, "created");
+  if (bnuStudent.status !== "created") return;
+
+  const bnuToken = await createSessionToken(bnuStudent.session.user.id);
+  const bnuSeniorResponse = await getQuestionsRoute(new Request("http://localhost/api/questions?grade=S4&publisher=MAINLAND_BNU", {
+    headers: { cookie: `${SESSION_COOKIE_NAME}=${encodeURIComponent(bnuToken)}` }
+  }));
+  const bnuSeniorBody = await bnuSeniorResponse.json() as { questions?: Array<{ id?: string; publisher?: string }> };
+  assert.equal(bnuSeniorResponse.status, 200);
+  assert.equal((bnuSeniorBody.questions ?? []).length, 500);
+  assert.ok((bnuSeniorBody.questions ?? []).every((question) => question.publisher === "MAINLAND_BNU" && /^bnu-high-ds-v1-/.test(question.id ?? "")));
+
+  const bnuJuniorResponse = await getQuestionsRoute(new Request("http://localhost/api/questions?grade=S1&publisher=MAINLAND_BNU", {
+    headers: { cookie: `${SESSION_COOKIE_NAME}=${encodeURIComponent(bnuToken)}` }
+  }));
+  const bnuJuniorBody = await bnuJuniorResponse.json() as { questions?: Array<{ id?: string; publisher?: string }> };
+  assert.equal(bnuJuniorResponse.status, 200);
+  assert.equal((bnuJuniorBody.questions ?? []).length, 500);
+  assert.ok((bnuJuniorBody.questions ?? []).every((question) => question.publisher === "MAINLAND_BNU" && /^bnu-junior-ds-v1-/.test(question.id ?? "")));
+});
+
+test("student accounts require and persist curriculum profile", async () => {
+  const missingTrack = await createStudentUser({
+    name: "Missing Track",
+    username: `missing-track-${Date.now()}@example.test`,
+    password: "start12345",
+    grade: "S4"
+  } as Parameters<typeof createStudentUser>[0]);
+  assert.equal(missingTrack.status, "invalid");
+
+  const result = await createStudentUser({
+    name: "Mainland Track",
+    username: `mainland-track-${Date.now()}@example.test`,
+    password: "start12345",
+    grade: "S4",
+    curriculumProfile: mainlandPepProfile,
+    language: "zh-Hans",
+    theme: "dark"
+  });
+
+  assert.equal(result.status, "created");
+  if (result.status !== "created") return;
+  assert.equal(result.session.user.curriculumTrack, "MAINLAND_PEP_HIGH");
+  assert.deepEqual(result.session.user.curriculumProfile, mainlandPepProfile);
+  assert.equal(result.session.settings.selectedGrade, "S4");
+});
+
+test("learning APIs stay scoped to the signed-in curriculum track", async () => {
+  const hk = await createStudentUser({
+    name: "HK Scope",
+    username: `hk-scope-${Date.now()}@example.test`,
+    password: "start12345",
+    grade: "S4",
+    curriculumTrack: "HK",
+    language: "en",
+    theme: "dark"
+  });
+  const mainland = await createStudentUser({
+    name: "Mainland Scope",
+    username: `mainland-scope-${Date.now()}@example.test`,
+    password: "start12345",
+    grade: "S4",
+    curriculumProfile: mainlandPepProfile,
+    language: "zh-Hans",
+    theme: "dark"
+  });
+  assert.equal(hk.status, "created");
+  assert.equal(mainland.status, "created");
+  if (hk.status !== "created" || mainland.status !== "created") return;
+
+  const hkDashboard = await getDashboardData(hk.session.user.id, "S4", "HK");
+  assert.ok(hkDashboard.gradeTopics.length > 0);
+  assert.ok(hkDashboard.gradeTopics.every((topic) => topic.curriculumTrack === "HK"));
+
+  const mainlandDashboard = await getDashboardData(mainland.session.user.id, "S4", mainland.session.user.curriculumProfile);
+  assert.ok(mainlandDashboard.gradeTopics.length > 0);
+  assert.ok(mainlandDashboard.gradeTopics.every((topic) => topic.curriculumTrack === "MAINLAND_PEP_HIGH"));
+
+  const mainlandRoadmap = await getRoadmapData(mainland.session.user.id, "S4", mainland.session.user.curriculumProfile);
+  assert.deepEqual(mainlandRoadmap.curriculumProfile, mainlandPepProfile);
+  assert.ok(mainlandRoadmap.topics.every((topic) => topic.curriculumTrack === "MAINLAND_PEP_HIGH"));
+
+  const mainlandProgress = await getProgressData(mainland.session.user.id, "S4", "7d", mainland.session.user.curriculumProfile);
+  assert.equal(mainlandProgress.curriculumTrack, "MAINLAND_PEP_HIGH");
+
+  const mainlandDecision = await getAdaptiveLearningDecision({
+    userId: mainland.session.user.id,
+    grade: "S4",
+    curriculumTrack: mainland.session.user.curriculumProfile
+  });
+  assert.equal(mainlandDecision?.topic.curriculumTrack, "MAINLAND_PEP_HIGH");
+});
+
+test("HK EPH profile uses HK baseline while BNU junior and senior are live", async () => {
+  const hkEph = await createStudentUser({
+    name: "HK EPH",
+    username: `hk-eph-${Date.now()}@example.test`,
+    password: "start12345",
+    grade: "P1",
+    curriculumProfile: hkEphProfile,
+    language: "zh",
+    theme: "dark"
+  });
+  const mainlandBnu = await createStudentUser({
+    name: "Mainland BNU",
+    username: `mainland-bnu-${Date.now()}@example.test`,
+    password: "start12345",
+    grade: "S4",
+    curriculumProfile: mainlandBnuProfile,
+    language: "zh-Hans",
+    theme: "dark"
+  });
+  assert.equal(hkEph.status, "created");
+  assert.equal(mainlandBnu.status, "created");
+  if (hkEph.status !== "created" || mainlandBnu.status !== "created") return;
+
+  const ephRoadmap = await getRoadmapData(hkEph.session.user.id, "P1", hkEph.session.user.curriculumProfile);
+  assert.deepEqual(ephRoadmap.curriculumProfile, hkEphProfile);
+  assert.ok(ephRoadmap.topics.length > 0);
+  assert.ok(ephRoadmap.topics.every((topic) => topic.region === "HK"));
+
+  const bnuRoadmap = await getRoadmapData(mainlandBnu.session.user.id, "S4", mainlandBnu.session.user.curriculumProfile);
+  assert.deepEqual(bnuRoadmap.curriculumProfile, mainlandBnuProfile);
+  assert.equal(bnuRoadmap.contentUnavailable, null);
+  assert.equal(bnuRoadmap.topics.length, 14);
+  assert.ok(bnuRoadmap.topics.every((topic) => topic.publisher === "MAINLAND_BNU"));
+
+  const bnuQuestions = await getPublicQuestions({ grade: "S4", curriculumProfile: mainlandBnu.session.user.curriculumProfile });
+  assert.equal(bnuQuestions.length, 500);
+  assert.ok(bnuQuestions.every((question) => question.publisher === "MAINLAND_BNU" && /^bnu-high-ds-v1-/.test(question.id)));
+
+  const bnuJuniorRoadmap = await getRoadmapData(mainlandBnu.session.user.id, "S1", mainlandBnu.session.user.curriculumProfile);
+  assert.equal(bnuJuniorRoadmap.contentUnavailable, null);
+  assert.equal(bnuJuniorRoadmap.topics.length, 12);
+  assert.ok(bnuJuniorRoadmap.topics.every((topic) => topic.publisher === "MAINLAND_BNU"));
+
+  const bnuJuniorQuestions = await getPublicQuestions({ grade: "S1", curriculumProfile: mainlandBnu.session.user.curriculumProfile });
+  assert.equal(bnuJuniorQuestions.length, 500);
+  assert.ok(bnuJuniorQuestions.every((question) => question.publisher === "MAINLAND_BNU" && /^bnu-junior-ds-v1-/.test(question.id)));
+});
+
+test("Mainland junior grades use Mainland PEP content and do not fall back to HK", async () => {
+  const result = await createStudentUser({
+    name: "Mainland Junior",
+    username: `mainland-junior-${Date.now()}@example.test`,
+    password: "start12345",
+    grade: "S1",
+    curriculumTrack: "MAINLAND_PEP_HIGH",
+    language: "zh-Hans",
+    theme: "dark"
+  });
+  assert.equal(result.status, "created");
+  if (result.status !== "created") return;
+
+  const dashboard = await getDashboardData(result.session.user.id, "S1", "MAINLAND_PEP_HIGH");
+  assert.equal(dashboard.contentUnavailable, null);
+  assert.equal(dashboard.gradeTopics.length, 5);
+  assert.ok(dashboard.gradeTopics.every((topic) => topic.curriculumTrack === "MAINLAND_PEP_HIGH"));
+
+  const roadmap = await getRoadmapData(result.session.user.id, "S1", "MAINLAND_PEP_HIGH");
+  assert.equal(roadmap.contentUnavailable, null);
+  assert.equal(roadmap.topics.length, 5);
+  assert.ok(roadmap.topics.every((topic) => topic.curriculumTrack === "MAINLAND_PEP_HIGH"));
+
+  const mainlandJuniorQuestions = await getPublicQuestions({ grade: "S1", curriculumTrack: "MAINLAND_PEP_HIGH" });
+  assert.equal(
+    mainlandJuniorQuestions.length,
+    questions.filter((question) => question.curriculumTrack === "MAINLAND_PEP_HIGH" && question.publisher === "MAINLAND_PEP" && question.grade === "S1").length
+  );
+  assert.ok(mainlandJuniorQuestions.every((question) => question.curriculumTrack === "MAINLAND_PEP_HIGH" && question.publisher === "MAINLAND_PEP"));
+
+  const decision = await getAdaptiveLearningDecision({
+    userId: result.session.user.id,
+    grade: "S1",
+    curriculumTrack: "MAINLAND_PEP_HIGH"
+  });
+  assert.equal(decision?.topic.curriculumTrack, "MAINLAND_PEP_HIGH");
+});
+
+test("Mainland PEP P1-S6 student surfaces expose only Mainland PEP lessons, questions, and adaptive choices", async () => {
+  const gradesToCheck: GradeId[] = ["P1", "P6", "S1", "S3", "S4", "S6"];
+
+  for (const grade of gradesToCheck) {
+    const result = await createStudentUser({
+      name: `Mainland ${grade} Scope`,
+      username: `mainland-${grade.toLowerCase()}-scope-${Date.now()}@example.test`,
+      password: "start12345",
+      grade,
+      curriculumProfile: mainlandPepProfile,
+      language: "zh-Hans",
+      theme: "dark"
+    });
+    assert.equal(result.status, "created");
+    if (result.status !== "created") continue;
+
+    const roadmap = await getRoadmapData(result.session.user.id, grade, result.session.user.curriculumProfile);
+    assert.equal(roadmap.contentUnavailable, null);
+    assert.ok(roadmap.topics.length > 0, `${grade} should have Mainland PEP topics`);
+    assert.ok(roadmap.topics.every((topic) => topic.curriculumTrack === "MAINLAND_PEP_HIGH" && topic.publisher === "MAINLAND_PEP"));
+
+    const questionsForGrade = await getPublicQuestions({ grade, curriculumProfile: result.session.user.curriculumProfile });
+    assert.ok(questionsForGrade.length > 0, `${grade} should have Mainland PEP questions`);
+    assert.ok(questionsForGrade.every((question) => question.curriculumTrack === "MAINLAND_PEP_HIGH" && question.publisher === "MAINLAND_PEP"));
+
+    const entryTarget = await getLessonEntryTarget(result.session.user.id, grade, result.session.user.curriculumProfile);
+    assert.ok(entryTarget, `${grade} should resolve a Mainland PEP lesson entry`);
+    const lesson = entryTarget ? await getLessonBySlug(result.session.user.id, entryTarget.slug, result.session.user.curriculumProfile) : null;
+    assert.ok(lesson, `${grade} should load the scoped Mainland PEP lesson`);
+    assert.equal(lesson?.publisher, "MAINLAND_PEP");
+    assert.equal(lesson?.topic.curriculumTrack, "MAINLAND_PEP_HIGH");
+    assert.ok(lesson?.practiceQuestions.every((question) => question.curriculumTrack === "MAINLAND_PEP_HIGH"));
+
+    const decision = await getAdaptiveLearningDecision({
+      userId: result.session.user.id,
+      grade,
+      curriculumTrack: result.session.user.curriculumProfile
+    });
+    assert.equal(decision?.topic.curriculumTrack, "MAINLAND_PEP_HIGH");
+    assert.ok(decision?.questions.every((question) => question.curriculumTrack === "MAINLAND_PEP_HIGH"));
+  }
+});
+
+test("Mainland HJB S4-S6 lesson surfaces expose approved HJB topics and 8-question checkpoints", async () => {
+  const hjbQuestionIds = new Set(mainlandHjbHighQuestions.map((question) => question.id));
+
+  for (const grade of seniorGrades) {
+    const result = await createStudentUser({
+      name: `Mainland HJB ${grade} Scope`,
+      username: `mainland-hjb-${grade.toLowerCase()}-scope-${Date.now()}@example.test`,
+      password: "start12345",
+      grade,
+      curriculumProfile: mainlandHjbProfile,
+      language: "zh-Hans",
+      theme: "dark"
+    });
+    assert.equal(result.status, "created");
+    if (result.status !== "created") continue;
+
+    const roadmap = await getRoadmapData(result.session.user.id, grade, result.session.user.curriculumProfile);
+    assert.equal(roadmap.contentUnavailable, null);
+    assert.equal(roadmap.topics.length, grade === "S4" ? 9 : grade === "S5" ? 8 : 13);
+    assert.ok(roadmap.topics.every((topic) => topic.curriculumTrack === "MAINLAND_PEP_HIGH" && topic.publisher === "MAINLAND_HJB"));
+
+    const questionsForGrade = await getPublicQuestions({ grade, curriculumProfile: result.session.user.curriculumProfile });
+    assert.equal(questionsForGrade.length, 2000);
+    assert.ok(questionsForGrade.every((question) => question.curriculumTrack === "MAINLAND_PEP_HIGH" && question.publisher === "MAINLAND_HJB"));
+    assert.ok(questionsForGrade.every((question) => /^hjb-high-ds-v[1-4]-/.test(question.id)));
+    assert.deepEqual(
+      Object.fromEntries(["v1", "v2", "v3", "v4"].map((version) => [version, questionsForGrade.filter((question) => new RegExp(`^hjb-high-ds-${version}-`).test(question.id)).length])),
+      { v1: 500, v2: 500, v3: 500, v4: 500 }
+    );
+
+    const entryTarget = await getLessonEntryTarget(result.session.user.id, grade, result.session.user.curriculumProfile);
+    assert.ok(entryTarget, `${grade} should resolve a Mainland HJB lesson entry`);
+    assert.match(entryTarget?.slug ?? "", /^hjb-high-/);
+    const lesson = entryTarget ? await getLessonBySlug(result.session.user.id, entryTarget.slug, result.session.user.curriculumProfile) : null;
+    assert.ok(lesson, `${grade} should load the scoped Mainland HJB lesson`);
+    assert.equal(lesson?.publisher, "MAINLAND_HJB");
+    assert.equal(lesson?.topic.curriculumTrack, "MAINLAND_PEP_HIGH");
+    assert.equal(lesson?.topic.publisher, "MAINLAND_HJB");
+    assert.equal(lesson?.practiceQuestions.length, 8);
+    assert.ok(lesson?.practiceQuestions.every((question) => question.publisher === "MAINLAND_HJB" && hjbQuestionIds.has(question.id) && /^hjb-high-ds-v[1-4]-/.test(question.id)));
+    assert.ok(lesson?.blocks.some((block) => block.type === "teacher-guide"));
+
+    const teacherView = entryTarget ? await getLessonBySlug(null, entryTarget.slug, mainlandHjbProfile) : null;
+    assert.equal(teacherView?.publisher, "MAINLAND_HJB");
+    assert.equal(teacherView?.practiceQuestions.length, 8);
+    assert.ok(teacherView?.practiceQuestions.every((question) => question.publisher === "MAINLAND_HJB" && /^hjb-high-ds-v[1-4]-/.test(question.id)));
+    assert.ok(teacherView?.blocks.some((block) => block.type === "teacher-guide"));
+  }
+
+  const pepS4Questions = await getPublicQuestions({ grade: "S4", curriculumProfile: mainlandPepProfile });
+  assert.equal(pepS4Questions.some((question) => hjbQuestionIds.has(question.id)), false);
+  assert.ok(pepS4Questions.every((question) => question.publisher === "MAINLAND_PEP"));
+});
+
+test("Mainland HJB S1-S3 lesson and practice surfaces expose only HJB junior V2 content", async () => {
+  const hjbJuniorQuestionIds = new Set(mainlandHjbJuniorQuestions.map((question) => question.id));
+  const expectedTopicCounts: Record<(typeof juniorGrades)[number], number> = { S1: 9, S2: 8, S3: 5 };
+  assert.equal(mainlandHjbJuniorTopics.length, 22);
+
+  for (const grade of juniorGrades) {
+    const result = await createStudentUser({
+      name: `Mainland HJB ${grade} Junior Scope`,
+      username: `mainland-hjb-${grade.toLowerCase()}-junior-scope-${Date.now()}@example.test`,
+      password: "start12345",
+      grade,
+      curriculumProfile: mainlandHjbProfile,
+      language: "zh-Hans",
+      theme: "dark"
+    });
+    assert.equal(result.status, "created");
+    if (result.status !== "created") continue;
+
+    const roadmap = await getRoadmapData(result.session.user.id, grade, result.session.user.curriculumProfile);
+    assert.equal(roadmap.contentUnavailable, null);
+    assert.equal(roadmap.topics.length, expectedTopicCounts[grade]);
+    assert.ok(roadmap.topics.every((topic) => topic.curriculumTrack === "MAINLAND_PEP_HIGH" && topic.publisher === "MAINLAND_HJB"));
+
+    const questionsForGrade = await getPublicQuestions({ grade, curriculumProfile: result.session.user.curriculumProfile });
+    assert.equal(questionsForGrade.length, 500);
+    assert.ok(questionsForGrade.every((question) => question.curriculumTrack === "MAINLAND_PEP_HIGH" && question.publisher === "MAINLAND_HJB"));
+    assert.ok(questionsForGrade.every((question) => /^hjb-junior-ds-v2-/.test(question.id)));
+
+    const entryTarget = await getLessonEntryTarget(result.session.user.id, grade, result.session.user.curriculumProfile);
+    assert.ok(entryTarget, `${grade} should resolve a Mainland HJB junior lesson entry`);
+    assert.match(entryTarget?.slug ?? "", /^hjb-junior-/);
+    const lesson = entryTarget ? await getLessonBySlug(result.session.user.id, entryTarget.slug, result.session.user.curriculumProfile) : null;
+    assert.ok(lesson, `${grade} should load the scoped Mainland HJB junior lesson`);
+    assert.equal(lesson?.publisher, "MAINLAND_HJB");
+    assert.equal(lesson?.topic.curriculumTrack, "MAINLAND_PEP_HIGH");
+    assert.equal(lesson?.topic.publisher, "MAINLAND_HJB");
+    assert.equal(lesson?.practiceQuestions.length, 8);
+    assert.ok(lesson?.practiceQuestions.every((question) => question.publisher === "MAINLAND_HJB" && hjbJuniorQuestionIds.has(question.id) && /^hjb-junior-ds-v2-/.test(question.id)));
+    assert.ok(lesson?.blocks.some((block) => block.type === "teacher-guide"));
+
+    const teacherView = entryTarget ? await getLessonBySlug(null, entryTarget.slug, mainlandHjbProfile) : null;
+    assert.equal(teacherView?.publisher, "MAINLAND_HJB");
+    assert.equal(teacherView?.practiceQuestions.length, 8);
+    assert.ok(teacherView?.practiceQuestions.every((question) => question.publisher === "MAINLAND_HJB" && /^hjb-junior-ds-v2-/.test(question.id)));
+    assert.ok(teacherView?.blocks.some((block) => block.type === "teacher-guide"));
+  }
+
+  const pepS1Questions = await getPublicQuestions({ grade: "S1", curriculumProfile: mainlandPepProfile });
+  assert.equal(pepS1Questions.some((question) => question.publisher === "MAINLAND_HJB"), false);
+  assert.ok(pepS1Questions.every((question) => question.publisher === "MAINLAND_PEP"));
+});
+
+test("Mainland HJB P1-P6 lesson and practice surfaces expose only HJB primary V1 content", async () => {
+  const hjbPrimaryQuestionIds = new Set(mainlandHjbPrimaryQuestions.map((question) => question.id));
+  const expectedTopicCounts: Record<(typeof primaryGrades)[number], number> = { P1: 13, P2: 11, P3: 13, P4: 11, P5: 8, P6: 14 };
+
+  for (const grade of primaryGrades) {
+    const result = await createStudentUser({
+      name: `Mainland HJB ${grade} Primary Scope`,
+      username: `mainland-hjb-${grade.toLowerCase()}-primary-scope-${Date.now()}@example.test`,
+      password: "start12345",
+      grade,
+      curriculumProfile: mainlandHjbProfile,
+      language: "zh-Hans",
+      theme: "dark"
+    });
+    assert.equal(result.status, "created");
+    if (result.status !== "created") continue;
+
+    const roadmap = await getRoadmapData(result.session.user.id, grade, result.session.user.curriculumProfile);
+    assert.equal(roadmap.contentUnavailable, null);
+    assert.equal(roadmap.topics.length, expectedTopicCounts[grade]);
+    assert.ok(roadmap.topics.every((topic) => topic.curriculumTrack === "MAINLAND_PEP_HIGH" && topic.publisher === "MAINLAND_HJB"));
+
+    const questionsForGrade = await getPublicQuestions({ grade, curriculumProfile: result.session.user.curriculumProfile });
+    assert.equal(questionsForGrade.length, 250);
+    assert.ok(questionsForGrade.every((question) => question.curriculumTrack === "MAINLAND_PEP_HIGH" && question.publisher === "MAINLAND_HJB"));
+    assert.ok(questionsForGrade.every((question) => /^hjb-primary-ds-v1-/.test(question.id)));
+    assert.equal(questionsForGrade.some((question) => /^hjb-high-ds-v1-/.test(question.id)), false);
+
+    const entryTarget = await getLessonEntryTarget(result.session.user.id, grade, result.session.user.curriculumProfile);
+    assert.ok(entryTarget, `${grade} should resolve a Mainland HJB primary lesson entry`);
+    assert.match(entryTarget?.slug ?? "", /^hjb-primary-/);
+    const lesson = entryTarget ? await getLessonBySlug(result.session.user.id, entryTarget.slug, result.session.user.curriculumProfile) : null;
+    assert.ok(lesson, `${grade} should load the scoped Mainland HJB primary lesson`);
+    assert.equal(lesson?.publisher, "MAINLAND_HJB");
+    assert.equal(lesson?.topic.curriculumTrack, "MAINLAND_PEP_HIGH");
+    assert.equal(lesson?.topic.publisher, "MAINLAND_HJB");
+    assert.equal(lesson?.practiceQuestions.length, 8);
+    assert.ok(lesson?.practiceQuestions.every((question) => question.publisher === "MAINLAND_HJB" && hjbPrimaryQuestionIds.has(question.id) && /^hjb-primary-ds-v1-/.test(question.id)));
+    assert.ok(lesson?.blocks.some((block) => block.type === "teacher-guide"));
+  }
+
+  const pepP1Questions = await getPublicQuestions({ grade: "P1", curriculumProfile: mainlandPepProfile });
+  assert.equal(pepP1Questions.some((question) => hjbPrimaryQuestionIds.has(question.id)), false);
+  assert.ok(pepP1Questions.every((question) => question.publisher === "MAINLAND_PEP"));
+});
+
+test("teacher-facing data is scoped by the teacher curriculum profile", async () => {
+  const hkTeacher = await authenticateUser("HK Teacher Chan", "12345");
+  const mainlandTeacher = await authenticateUser("Mainland Teacher Phoebe", "12345");
+  assert.ok(hkTeacher);
+  assert.ok(mainlandTeacher);
+  if (!hkTeacher || !mainlandTeacher) return;
+
+  const mainlandTopicIds = new Set(topics.filter((topic) => topic.curriculumTrack === "MAINLAND_PEP_HIGH").map((topic) => topic.id));
+  const questionById = new Map(questions.map((question) => [question.id, question]));
+
+  const hkDashboard = await getTeacherDashboardData(hkTeacher.user.id);
+  assert.ok(hkDashboard);
+  assert.ok(hkDashboard?.masteryHeatmap.every((cell) => !mainlandTopicIds.has(cell.topicId)));
+
+  const mainlandDashboard = await getTeacherDashboardData(mainlandTeacher.user.id);
+  assert.ok(mainlandDashboard);
+  assert.ok((mainlandDashboard?.masteryHeatmap.length ?? 0) > 0);
+  assert.ok(mainlandDashboard?.masteryHeatmap.every((cell) => mainlandTopicIds.has(cell.topicId)));
+
+  const hkAssessmentData = await getTeacherAssessmentCreateData(hkTeacher.user.id);
+  assert.ok(hkAssessmentData);
+  assert.ok(hkAssessmentData?.questionBank.every((question) => questionById.get(question.id)?.curriculumTrack !== "MAINLAND_PEP_HIGH"));
+
+  const mainlandAssessmentData = await getTeacherAssessmentCreateData(mainlandTeacher.user.id);
+  assert.ok(mainlandAssessmentData);
+  assert.ok((mainlandAssessmentData?.questionBank.length ?? 0) > 0);
+  assert.ok(mainlandAssessmentData?.questionBank.every((question) => questionById.get(question.id)?.curriculumTrack === "MAINLAND_PEP_HIGH"));
+
+  const hkResourceData = await getTeacherResourceLibraryData(hkTeacher.user.id);
+  assert.ok(hkResourceData);
+  assert.ok(hkResourceData?.topicOptions.every((topic) => !mainlandTopicIds.has(topic.id)));
+
+  const mainlandResourceData = await getTeacherResourceLibraryData(mainlandTeacher.user.id);
+  assert.ok(mainlandResourceData);
+  assert.ok((mainlandResourceData?.topicOptions.length ?? 0) > 0);
+  assert.ok(mainlandResourceData?.topicOptions.every((topic) => mainlandTopicIds.has(topic.id)));
+});
+
+test("class enrollment rejects cross-curriculum teacher/student pairing", async () => {
+  const addResult = await addStudentToTeacherClass({
+    teacherId: "teacher-ms-chan",
+    classId: "class-s3a-2026",
+    username: "Mainland Student Ludwig"
+  });
+  assert.equal(addResult.status, "curriculum-mismatch");
+
+  const joinResult = await joinClassByInviteCode({
+    studentId: "student-li-mainland",
+    inviteCode: "S3A-MAIS"
+  });
+  assert.equal(joinResult.status, "curriculum-mismatch");
+});
+
+test("AI Tutor database context ignores spoofed Mainland question and topic ids for HK users", async () => {
+  const mainlandQuestion = questions.find((question) => question.curriculumTrack === "MAINLAND_PEP_HIGH" && question.grade === "S4");
+  assert.ok(mainlandQuestion);
+  if (!mainlandQuestion) return;
+
+  const hkContext = await buildAITutorDatabaseContext("student-peter", {
+    grade: "S4",
+    language: "en",
+    questionId: mainlandQuestion.id,
+    topicId: mainlandQuestion.topicId
+  });
+  assert.match(hkContext.text, /Curriculum track: HK/);
+  assert.doesNotMatch(hkContext.text, /MAINLAND_PEP_HIGH/);
+  assert.ok(!hkContext.text.includes(mainlandQuestion.prompt.en));
+
+  const mainlandContext = await buildAITutorDatabaseContext("student-li-mainland", {
+    grade: "S4",
+    language: "zh-Hans",
+    questionId: mainlandQuestion.id,
+    topicId: mainlandQuestion.topicId
+  });
+  assert.match(mainlandContext.text, /Curriculum track: MAINLAND_PEP_HIGH/);
+  assert.ok(mainlandContext.text.includes(mainlandQuestion.prompt.en));
+});
+
+test("tracked attempts reject questions outside the learner curriculum track", async () => {
+  const result = await createStudentUser({
+    name: "Attempt Scope",
+    username: `attempt-scope-${Date.now()}@example.test`,
+    password: "start12345",
+    grade: "S4",
+    curriculumTrack: "MAINLAND_PEP_HIGH",
+    language: "zh-Hans",
+    theme: "dark"
+  });
+  assert.equal(result.status, "created");
+  if (result.status !== "created") return;
+
+  const hkQuestion = questions.find((question) => question.curriculumTrack === "HK" && question.grade === "S4");
+  const mainlandQuestion = questions.find((question) => question.curriculumTrack === "MAINLAND_PEP_HIGH" && question.grade === "S4");
+  assert.ok(hkQuestion);
+  assert.ok(mainlandQuestion);
+
+  const rejected = await submitQuestionAttempt({
+    userId: result.session.user.id,
+    questionId: hkQuestion.id,
+    selectedAnswer: "A",
+    curriculumTrack: result.session.user.curriculumProfile
+  });
+  assert.equal(rejected, null);
+
+  const accepted = await submitQuestionAttempt({
+    userId: result.session.user.id,
+    questionId: mainlandQuestion.id,
+    selectedAnswer: mainlandQuestion.answer,
+    curriculumTrack: result.session.user.curriculumProfile
+  });
+  assert.equal(accepted?.correct, true);
+});
+
+test("Mainland PEP generated questions do not contain source-copying artifacts", () => {
+  const joined = (...parts: string[]) => parts.join("");
+  const forbiddenPatterns = [
+    joined("高考", "真题"),
+    joined("解析", "卷"),
+    joined("空白", "卷"),
+    joined("官方", "解析"),
+    joined("答案", "原句"),
+    joined("教", "材", "原", "文"),
+    /第[0-9０-９]+页/,
+    /page [0-9]+/i,
+    /p\.[0-9]+/i
+  ];
+  const serialized = JSON.stringify(mainlandPepHighAllGeneratedQuestions);
+
+  forbiddenPatterns.forEach((pattern) => {
+    if (typeof pattern === "string") {
+      assert.equal(serialized.includes(pattern), false, `Generated questions contain forbidden text: ${pattern}`);
+    } else {
+      assert.equal(pattern.test(serialized), false, `Generated questions match forbidden pattern: ${pattern}`);
+    }
+  });
+});
+
+test("Mainland PEP rag-v2 generated questions avoid exact prompt duplication", () => {
+  const seenPrompts = new Set<string>();
+  mainlandPepHighRagV2Questions.forEach((question) => {
+    const normalized = `${question.grade}:${question.type}:${question.prompt.zh}`.replace(/\s+/g, "");
+    assert.ok(!seenPrompts.has(normalized), `${question.id} duplicates a rag-v2 prompt`);
+    seenPrompts.add(normalized);
+  });
+});
+
+test("Mainland PEP rag-v3 generated questions avoid exact prompt duplication and reach answers", () => {
+  const seenPrompts = new Set<string>();
+  const canonicalClusters = new Map<string, number>();
+
+  mainlandPepHighRagV3Questions.forEach((question) => {
+    const normalized = `${question.grade}:${question.type}:${question.prompt.zh}`.replace(/\s+/g, "");
+    assert.ok(!seenPrompts.has(normalized), `${question.id} duplicates a rag-v3 prompt`);
+    seenPrompts.add(normalized);
+
+    const canonical = question.prompt.zh
+      .replace(/RAG-v3\s+(概念辨析|参数讨论|反例判断|图像信息|建模情境|误区诊断|综合拆步)\s+[0-9]+（[^）]+）：/g, "")
+      .replace(/\\\([^)]*\\\)/g, "\\(math\\)")
+      .replace(/[0-9]+(?:\.[0-9]+)?/g, "#")
+      .replace(/\s+/g, "");
+    canonicalClusters.set(canonical, (canonicalClusters.get(canonical) ?? 0) + 1);
+
+    const metadata = mainlandPepHighQuestionGenerationMetadata[question.id];
+    assert.ok(metadata, `${question.id} is missing rag-v3 metadata`);
+    assert.equal(metadata.batch, "rag-v3");
+    assert.ok(metadata.evidenceCardIds.length > 0, `${question.id} should have RAG evidence`);
+
+    if (question.type !== "multiple-choice") {
+      const normalizedAnswer = question.answer.toLowerCase().replace(/\s+/g, "");
+      const normalizedExplanation = `${question.explanation.en} ${question.explanation.zh}`.toLowerCase().replace(/\s+/g, "");
+      assert.ok(
+        normalizedExplanation.includes(normalizedAnswer),
+        `${question.id} explanation should explicitly reach answer ${question.answer}`
+      );
+    }
+  });
+
+  const largestNearTemplateCluster = Math.max(...canonicalClusters.values());
+  assert.ok(
+    largestNearTemplateCluster <= 50,
+    `rag-v3 near-template cluster is too large: ${largestNearTemplateCluster}`
+  );
+});
+
+test("Mainland PEP rag-v4 promoted questions avoid exact prompt duplication and reach answers", () => {
+  const seenPrompts = new Set<string>();
+  const canonicalClusters = new Map<string, number>();
+
+  mainlandPepHighRagV4Questions.forEach((question) => {
+    const normalized = `${question.grade}:${question.type}:${question.prompt.zh}`.replace(/\s+/g, "");
+    assert.ok(!seenPrompts.has(normalized), `${question.id} duplicates a rag-v4 public prompt`);
+    seenPrompts.add(normalized);
+
+    const canonical = question.prompt.zh
+      .replace(/RAG-v4 候选题\s+[0-9]+（[^）]+）：(安全抽象|题型结构|误区修正|多步推理|表征转换|建模迁移|运算复核)(选择题|填空题|解答题)任务。/g, "")
+      .replace(/\\\([^)]*\\\)/g, "\\(math\\)")
+      .replace(/[0-9]+(?:\.[0-9]+)?/g, "#")
+      .replace(/\s+/g, "");
+    canonicalClusters.set(canonical, (canonicalClusters.get(canonical) ?? 0) + 1);
+
+    const metadata = mainlandPepHighRagV4QuestionGenerationMetadata[question.id];
+    assert.ok(metadata, `${question.id} is missing rag-v4 metadata`);
+    assert.equal(metadata.batch, "rag-v4");
+    assert.ok(metadata.evidenceCardIds.length > 0, `${question.id} should have RAG evidence`);
+    const publicMetadata = mainlandPepHighQuestionGenerationMetadata[question.id];
+    assert.ok(publicMetadata, `${question.id} should be in public metadata after promotion`);
+    assert.equal(publicMetadata.batch, "rag-v4");
+
+    if (question.type !== "multiple-choice") {
+      const normalizedAnswer = question.answer.toLowerCase().replace(/\s+/g, "");
+      const normalizedExplanation = `${question.explanation.en} ${question.explanation.zh}`.toLowerCase().replace(/\s+/g, "");
+      assert.ok(
+        normalizedExplanation.includes(normalizedAnswer),
+        `${question.id} explanation should explicitly reach answer ${question.answer}`
+      );
+    }
+  });
+
+  const largestNearTemplateCluster = Math.max(...canonicalClusters.values());
+  assert.ok(
+    largestNearTemplateCluster <= 100,
+    `rag-v4 public near-template cluster is too large: ${largestNearTemplateCluster}`
+  );
+});

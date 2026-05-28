@@ -1,0 +1,194 @@
+{
+  "batchNumber": 67,
+  "startedAt": "2026-05-27T17:42:00.185Z",
+  "completedAt": "2026-05-27T17:42:26.097Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s2-293",
+    "bnu-junior-ds-v1-s2-294",
+    "bnu-junior-ds-v1-s2-295",
+    "bnu-junior-ds-v1-s2-296",
+    "bnu-junior-ds-v1-s2-297",
+    "bnu-junior-ds-v1-s2-298",
+    "bnu-junior-ds-v1-s2-299",
+    "bnu-junior-ds-v1-s2-300",
+    "bnu-junior-ds-v1-s2-301",
+    "bnu-junior-ds-v1-s2-302",
+    "bnu-junior-ds-v1-s2-303",
+    "bnu-junior-ds-v1-s2-304"
+  ],
+  "usage": {
+    "prompt_tokens": 6078,
+    "completion_tokens": 1823,
+    "total_tokens": 7901,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 5566
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s2-293",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，计算正确，答案130°与四边形内角和推导一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-294",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "140°",
+        "rationale": "题目可解，但答案110°错误。正确计算：∠BAD=∠CAD=20°，DE⊥AB，DF⊥AC，四边形AEDF中∠A=40°，∠AED=∠AFD=90°，故∠EDF=360°-40°-90°-90°=140°。解释中虽得出140°，但答案写为110°，矛盾。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-295",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，计算正确，∠ADC=80°与选项匹配，唯一正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-296",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "90°",
+        "rationale": "题目可解，但答案110°错误。正确计算：∠B=∠C=70°，∠CAD=20°，在△ADC中∠ADC=180°-70°-20°=90°。解释中得出90°，但答案写为110°，矛盾。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-297",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "90°",
+        "rationale": "题目可解，但答案110°错误。正确计算：∠C=40°，∠BAC=100°，∠CAD=50°，在△ADC中∠ADC=180°-40°-50°=90°。解释中得出90°，但答案写为110°，矛盾。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-298",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，计算正确，∠BDC=100°与选项匹配，唯一正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-299",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "∠BDE = 110°",
+        "rationale": "题目可解，但答案∠BDE = 110°与解释矛盾。解释中∠BDE=∠BDA+∠ADE，∠BDA=180°-∠B-∠BAD=180°-70°-20°=90°，∠ADE=70°，故∠BDE=160°，但解释写为110°。正确计算：∠B=70°，∠BAD=20°，∠BDA=90°；DE垂直平分AC，则DA=DC，∠DAC=∠DCA=20°，∠ADC=140°，∠ADE=70°，所以∠BDE=90°+70°=160°。答案错误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-300",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "90°",
+        "rationale": "题目可解，但答案110°错误。正确计算：∠B=∠C=70°，∠CAD=20°，在△ADC中∠ADC=180°-70°-20°=90°。解释中得出90°，但答案写为110°，矛盾。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-301",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": false,
+        "answerMatches": false,
+        "issueTags": [
+          "missing_condition",
+          "answer_mismatch"
+        ],
+        "correctedAnswer": null,
+        "rationale": "题目条件矛盾：AB=AC，∠A=40°，则∠B=∠C=70°。若BD=AD，则∠BAD=∠B=70°，但∠BAC=40°，∠BAD>∠BAC，点D不可能在边BC上。解释中承认矛盾并假设D在延长线上，但题目明确“点D在边BC上”，故不可解。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-302",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，利用面积法计算正确，DE+DF=9.6，答案匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-303",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "90°",
+        "rationale": "题目可解，但答案115°错误。正确计算：∠C=50°，∠BAC=80°，∠CAD=40°，在△ADC中∠ADC=180°-50°-40°=90°。解释中得出90°，但答案写为115°，矛盾。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-304",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，利用等腰三角形三线合一，∠BAD=40°，选项唯一正确。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 5,
+      "warn": 0,
+      "fail": 7,
+      "notes": "共12题，5题通过，7题不通过。主要问题为答案与解释矛盾（如294、296、297、300、303），以及条件矛盾导致不可解（301）或解释计算错误（299）。"
+    }
+  }
+}

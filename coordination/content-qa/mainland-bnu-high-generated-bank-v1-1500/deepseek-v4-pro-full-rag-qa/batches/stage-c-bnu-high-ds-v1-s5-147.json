@@ -1,0 +1,48 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-147",
+  "startedAt": "2026-05-28T02:53:13.474Z",
+  "completedAt": "2026-05-28T02:53:18.930Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-147"
+  ],
+  "usage": {
+    "prompt_tokens": 2094,
+    "completion_tokens": 261,
+    "total_tokens": 2355,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1710
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-147",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "weak",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "-2√6/7",
+        "correctedAnswer": "-2√6/7",
+        "issueTags": [
+          "accepted_answer_gap",
+          "answer_mismatch"
+        ],
+        "severity": "major",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合北师大版空间向量章节。独立计算得 cosθ = -2√6/7，但存储答案和 acceptedAnswers 均未化简，缺少最简形式，且解析未给出最终化简结果，导致答案匹配失败。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 1,
+      "fail": 0,
+      "notes": "1 题答案未化简，需补充最简形式 -2√6/7。"
+    }
+  }
+}

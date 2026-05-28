@@ -1,0 +1,47 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-055",
+  "startedAt": "2026-05-28T00:56:57.122Z",
+  "completedAt": "2026-05-28T00:57:02.386Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-055"
+  ],
+  "usage": {
+    "prompt_tokens": 2045,
+    "completion_tokens": 243,
+    "total_tokens": 2288,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1661
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-055",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "(1/3, 1)",
+        "correctedAnswer": null,
+        "issueTags": [
+          "explanation_contradiction"
+        ],
+        "severity": "major",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，答案(1/3,1)正确且唯一。解析中先解得m<1/3或m>1，后称检验得(1/3,1)，前后矛盾且未给出正确推导过程，易误导学生。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 1,
+      "fail": 0,
+      "notes": "1题答案正确但解析存在矛盾，需修正解析。"
+    }
+  }
+}

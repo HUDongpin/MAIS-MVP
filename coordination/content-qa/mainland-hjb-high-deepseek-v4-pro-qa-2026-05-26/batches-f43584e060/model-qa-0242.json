@@ -1,0 +1,301 @@
+{
+  "batchId": "model-qa-0242",
+  "ids": [
+    "hjb-high-ds-v4-s4-321",
+    "hjb-high-ds-v4-s4-322",
+    "hjb-high-ds-v4-s4-323",
+    "hjb-high-ds-v4-s4-324",
+    "hjb-high-ds-v4-s4-325",
+    "hjb-high-ds-v4-s4-326",
+    "hjb-high-ds-v4-s4-327",
+    "hjb-high-ds-v4-s4-328",
+    "hjb-high-ds-v4-s4-329",
+    "hjb-high-ds-v4-s4-330",
+    "hjb-high-ds-v4-s4-331",
+    "hjb-high-ds-v4-s4-332",
+    "hjb-high-ds-v4-s4-333",
+    "hjb-high-ds-v4-s4-334",
+    "hjb-high-ds-v4-s4-335",
+    "hjb-high-ds-v4-s4-336",
+    "hjb-high-ds-v4-s4-337",
+    "hjb-high-ds-v4-s4-338",
+    "hjb-high-ds-v4-s4-339",
+    "hjb-high-ds-v4-s4-340"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-high-ds-v4-s4-321",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "π",
+      "answerCheckZhHans": "标准答案为π，可接受答案列表包含π，解析正确推导出周期为π。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v4-s4-322",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "题目：y=10sin(2x+6π/6)在[0,2π]内取得最大值的次数。解析：最大值在2x+6π/6=π/2+2kπ时取得，即x=π(3-6)/12+kπ。化简得x=-π/4+kπ。在[0,2π]内，k=1,2,3时x=3π/4,7π/4,11π/4（超出），实际只有k=1,2两个解，但k=0时x=-π/4不在区间内。因此次数为2，与答案2一致。但解析中x=π(3-6)/12+kπ=-3π/12+kπ=-π/4+kπ，正确。然而，检查选项：4,2,3,1，答案2是其中之一。但需验证是否唯一正确选项。计算：最大值点满足2x+π=π/2+2kπ => 2x=-π/2+2kπ => x=-π/4+kπ。k=1: x=3π/4; k=2: x=7π/4; k=3: x=11π/4>2π。所以2次。答案正确。但解析中写“x=π(3-6)/12+kπ”有误：应为x=π(3-6)/12+kπ? 实际上，从2x+6π/6=π/2+2kπ => 2x+π=π/2+2kπ => 2x=-π/2+2kπ => x=-π/4+kπ。而π(3-6)/12 = -3π/12 = -π/4，所以解析表达式正确。但解析说“可得符合条件的整数k有2个”，正确。因此答案匹配。但需检查选项是否唯一：选项有4,2,3,1，2是唯一正确。所以此题应pass。但之前标记为needs-review，可能误判。重新评估：题目可解，答案正确，解析正确，选项唯一。应pass。",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案为2，可接受答案列表包含2，解析正确推导出2次。",
+      "recommendedActionZhHans": "重新检查，此题应通过。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v4-s4-323",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "π",
+      "answerCheckZhHans": "标准答案为π，可接受答案列表包含π，解析正确。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v4-s4-324",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "π",
+      "answerCheckZhHans": "标准答案为π，可接受答案列表包含π，解析正确。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v4-s4-325",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "题目：y=9sin(2x+3π/6)在[0,2π]内取得最大值的次数。解析：最大值在2x+3π/6=π/2+2kπ时取得，即x=π(3-3)/12+kπ=0+kπ=kπ。在[0,2π]内，k=0,1,2时x=0,π,2π，共3个。但需检查端点：x=0和x=2π是否算作区间内？通常闭区间[0,2π]包括端点，所以3次。选项有2,5,3,4，3是其中之一。但需验证是否唯一正确选项。计算：2x+π/2=π/2+2kπ => 2x=2kπ => x=kπ。k=0,1,2给出0,π,2π，共3个。答案3正确。但解析中写“x=π(3-3)/12+kπ”正确。因此答案匹配。但之前标记为needs-review，可能误判。应pass。",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "标准答案为3，可接受答案列表包含3，解析正确推导出3次。",
+      "recommendedActionZhHans": "重新检查，此题应通过。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v4-s4-326",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "π",
+      "answerCheckZhHans": "标准答案为π，可接受答案列表包含π，解析正确。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v4-s4-327",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "π",
+      "answerCheckZhHans": "标准答案为π，可接受答案列表包含π，解析正确。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v4-s4-328",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "题目：y=4sin(2x+10π/6)在[0,2π]内取得最大值的次数。解析：最大值在2x+10π/6=π/2+2kπ时取得，即x=π(3-10)/12+kπ=-7π/12+kπ。在[0,2π]内，k=1时x=5π/12，k=2时x=17π/12，k=3时x=29π/12>2π，所以2次。答案2正确。选项有3,1,4,2，2是唯一正确。应pass。",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案为2，可接受答案列表包含2，解析正确推导出2次。",
+      "recommendedActionZhHans": "重新检查，此题应通过。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v4-s4-329",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "π",
+      "answerCheckZhHans": "标准答案为π，可接受答案列表包含π，解析正确。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v4-s4-330",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "π",
+      "answerCheckZhHans": "标准答案为π，可接受答案列表包含π，解析正确。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v4-s4-331",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "题目：y=7sin(2x+2π/6)在[0,2π]内取得最大值的次数。解析：最大值在2x+2π/6=π/2+2kπ时取得，即x=π(3-2)/12+kπ=π/12+kπ。在[0,2π]内，k=0时x=π/12，k=1时x=13π/12，k=2时x=25π/12>2π，所以2次。答案2正确。选项有4,2,3,1，2是唯一正确。应pass。",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案为2，可接受答案列表包含2，解析正确推导出2次。",
+      "recommendedActionZhHans": "重新检查，此题应通过。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v4-s4-332",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "π",
+      "answerCheckZhHans": "标准答案为π，可接受答案列表包含π，解析正确。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v4-s4-333",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "π",
+      "answerCheckZhHans": "标准答案为π，可接受答案列表包含π，解析正确。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v4-s4-334",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "题目：y=10sin(2x+3π/6)在[0,2π]内取得最大值的次数。解析：最大值在2x+3π/6=π/2+2kπ时取得，即x=π(3-3)/12+kπ=kπ。在[0,2π]内，k=0,1,2时x=0,π,2π，共3次。答案3正确。选项有3,4,2,5，3是唯一正确。应pass。",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "标准答案为3，可接受答案列表包含3，解析正确推导出3次。",
+      "recommendedActionZhHans": "重新检查，此题应通过。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v4-s4-335",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "π",
+      "answerCheckZhHans": "标准答案为π，可接受答案列表包含π，解析正确。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v4-s4-336",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "π",
+      "answerCheckZhHans": "标准答案为π，可接受答案列表包含π，解析正确。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v4-s4-337",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "题目：y=2sin(2x+1π/6)在[0,2π]内取得最大值的次数。解析：最大值在2x+1π/6=π/2+2kπ时取得，即x=π(3-1)/12+kπ=π/6+kπ。在[0,2π]内，k=0时x=π/6，k=1时x=7π/6，k=2时x=13π/6>2π，所以2次。答案2正确。选项有3,1,4,2，2是唯一正确。应pass。",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案为2，可接受答案列表包含2，解析正确推导出2次。",
+      "recommendedActionZhHans": "重新检查，此题应通过。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v4-s4-338",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "π",
+      "answerCheckZhHans": "标准答案为π，可接受答案列表包含π，解析正确。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v4-s4-339",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "π",
+      "answerCheckZhHans": "标准答案为π，可接受答案列表包含π，解析正确。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-high-ds-v4-s4-340",
+      "verdict": "needs-review",
+      "solvable": true,
+      "answerMatches": false,
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "题目：y=11sin(2x+4π/6)在[0,2π]内取得最大值的次数。解析：最大值在2x+4π/6=π/2+2kπ时取得，即x=π(3-4)/12+kπ=-π/12+kπ。在[0,2π]内，k=1时x=11π/12，k=2时x=23π/12，k=3时x=35π/12>2π，所以2次。答案2正确。选项有4,2,3,1，2是唯一正确。应pass。",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案为2，可接受答案列表包含2，解析正确推导出2次。",
+      "recommendedActionZhHans": "重新检查，此题应通过。",
+      "confidence": "high"
+    }
+  ]
+}

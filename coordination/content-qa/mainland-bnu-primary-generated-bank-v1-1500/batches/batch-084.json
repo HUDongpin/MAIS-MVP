@@ -1,0 +1,590 @@
+{
+  "batchId": "batch-084",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p4-081",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-division",
+      "unitTitle": "除法",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "multi-digit-division",
+        "two-digit-divisor",
+        "quotient-estimation",
+        "除法",
+        "除数是两位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "除数是两位数",
+        "试商调商",
+        "有余数除法",
+        "验算",
+        "除法应用"
+      ],
+      "misconceptionTags": [
+        "trial quotient too large or too small without adjustment",
+        "remainder larger than divisor accepted",
+        "context ignored when interpreting the remainder"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-division-unit",
+        "bnu-primary-p4-upper-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆新购进了 598 本故事书，管理员要把这些书平均分给 23 个班级。每个班级最多能分到多少本？还剩多少本？请你先估算一下商大约是多少，再列竖式计算，并验算。",
+      "optionsZhHans": [],
+      "answer": "每个班级分到 26 本，还剩 0 本。",
+      "acceptedAnswers": [
+        "每个班级分到 26 本，还剩 0 本。",
+        "26本，0本",
+        "26 0",
+        "26本 0本"
+      ],
+      "explanationZhHans": "估算：598≈600，23≈20，600÷20=30，商大约是30。竖式计算：598÷23，试商23×2=46，59-46=13，落下8得138，23×6=138，正好除尽。所以598÷23=26。验算：26×23=598，正确。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-082",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-division",
+      "unitTitle": "除法",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "multi-digit-division",
+        "two-digit-divisor",
+        "quotient-estimation",
+        "除法",
+        "除数是两位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "除数是两位数",
+        "试商调商",
+        "有余数除法",
+        "验算",
+        "除法应用"
+      ],
+      "misconceptionTags": [
+        "trial quotient too large or too small without adjustment",
+        "remainder larger than divisor accepted",
+        "context ignored when interpreting the remainder"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-division-unit",
+        "bnu-primary-p4-upper-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在计算 672÷24 时，下面哪种试商过程是正确的？",
+      "optionsZhHans": [
+        "把24看作20试商，初商3，24×3=72，67-72不够减，改商2。",
+        "把24看作30试商，初商2，24×2=48，67-48=19，落下2得192，再商8，24×8=192，正好除尽。",
+        "把24看作25试商，初商2，24×2=48，67-48=19，落下2得192，再商7，24×7=168，192-168=24，余数等于除数，改商8。",
+        "把24看作20试商，初商3，24×3=72，67-72不够减，改商2，24×2=48，67-48=19，落下2得192，再商9，24×9=216，192-216不够减，改商8。"
+      ],
+      "answer": "把24看作25试商，初商2，24×2=48，67-48=19，落下2得192，再商7，24×7=168，192-168=24，余数等于除数，改商8。",
+      "acceptedAnswers": [
+        "把24看作25试商，初商2，24×2=48，67-48=19，落下2得192，再商7，24×7=168，192-168=24，余数等于除数，改商8。"
+      ],
+      "explanationZhHans": "672÷24，把24看作25试商比较接近。67÷24商2，24×2=48，67-48=19，落下2得192，192÷24商7，24×7=168，192-168=24，余数24等于除数，说明商7小了，应改商8。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-083",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-division",
+      "unitTitle": "除法",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "multi-digit-division",
+        "two-digit-divisor",
+        "quotient-estimation",
+        "除法",
+        "除数是两位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "除数是两位数",
+        "试商调商",
+        "有余数除法",
+        "验算",
+        "除法应用"
+      ],
+      "misconceptionTags": [
+        "trial quotient too large or too small without adjustment",
+        "remainder larger than divisor accepted",
+        "context ignored when interpreting the remainder"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-division-unit",
+        "bnu-primary-p4-upper-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在算式 435÷17 中，商是 ___ 位数，最高位在 ___ 位。",
+      "optionsZhHans": [],
+      "answer": "两，十",
+      "acceptedAnswers": [
+        "两，十",
+        "2，十",
+        "两 十",
+        "2 十"
+      ],
+      "explanationZhHans": "435÷17，被除数前两位43大于17，所以商是两位数，最高位在十位。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-084",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-division",
+      "unitTitle": "除法",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "multi-digit-division",
+        "two-digit-divisor",
+        "quotient-estimation",
+        "除法",
+        "除数是两位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "除数是两位数",
+        "试商调商",
+        "有余数除法",
+        "验算",
+        "除法应用"
+      ],
+      "misconceptionTags": [
+        "trial quotient too large or too small without adjustment",
+        "remainder larger than divisor accepted",
+        "context ignored when interpreting the remainder"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-division-unit",
+        "bnu-primary-p4-upper-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "李叔叔开车从甲地到乙地，全程 384 千米，他每小时行驶 48 千米。如果上午 8 时出发，中途休息 30 分钟，他最早什么时间到达乙地？请写出计算过程。",
+      "optionsZhHans": [],
+      "answer": "下午 4 时 30 分",
+      "acceptedAnswers": [
+        "下午 4 时 30 分",
+        "16时30分",
+        "16:30",
+        "下午4时30分"
+      ],
+      "explanationZhHans": "行驶时间：384÷48=8（小时）。总时间：8小时+30分钟=8小时30分钟。8时+8小时30分钟=16时30分，即下午4时30分。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-085",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-division",
+      "unitTitle": "除法",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "multi-digit-division",
+        "two-digit-divisor",
+        "quotient-estimation",
+        "除法",
+        "除数是两位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "除数是两位数",
+        "试商调商",
+        "有余数除法",
+        "验算",
+        "除法应用"
+      ],
+      "misconceptionTags": [
+        "trial quotient too large or too small without adjustment",
+        "remainder larger than divisor accepted",
+        "context ignored when interpreting the remainder"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-division-unit",
+        "bnu-primary-p4-upper-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个算式的商是两位数？",
+      "optionsZhHans": [
+        "256÷32",
+        "432÷18",
+        "315÷45",
+        "168÷24"
+      ],
+      "answer": "432÷18",
+      "acceptedAnswers": [
+        "432÷18"
+      ],
+      "explanationZhHans": "432÷18，被除数前两位43大于除数18，商是两位数。256÷32，25<32，商是一位数。315÷45，31<45，商是一位数。168÷24，16<24，商是一位数。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-086",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-division",
+      "unitTitle": "除法",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "multi-digit-division",
+        "two-digit-divisor",
+        "quotient-estimation",
+        "除法",
+        "除数是两位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "除数是两位数",
+        "试商调商",
+        "有余数除法",
+        "验算",
+        "除法应用"
+      ],
+      "misconceptionTags": [
+        "trial quotient too large or too small without adjustment",
+        "remainder larger than divisor accepted",
+        "context ignored when interpreting the remainder"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-division-unit",
+        "bnu-primary-p4-upper-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算 756÷28 时，可以把 28 看作 ___ 来试商，初商可能偏 ___，需要调 ___。",
+      "optionsZhHans": [],
+      "answer": "30，小，大",
+      "acceptedAnswers": [
+        "30，小，大",
+        "30 小 大",
+        "30,小,大"
+      ],
+      "explanationZhHans": "28接近30，用“五入”法看作30试商，除数看大，初商可能偏小，需要调大。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-087",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-division",
+      "unitTitle": "除法",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "multi-digit-division",
+        "two-digit-divisor",
+        "quotient-estimation",
+        "除法",
+        "除数是两位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "除数是两位数",
+        "试商调商",
+        "有余数除法",
+        "验算",
+        "除法应用"
+      ],
+      "misconceptionTags": [
+        "trial quotient too large or too small without adjustment",
+        "remainder larger than divisor accepted",
+        "context ignored when interpreting the remainder"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-division-unit",
+        "bnu-primary-p4-upper-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在下面的除法竖式中，有一些数字被墨水弄脏了。已知这道题没有余数，请把竖式补充完整，并写出原来的除法算式。\n\n      □□\n   ______\n 2□ ) 8 □ 2\n      6 □\n      ---\n       □ 2\n       □ 2\n      ---\n        0",
+      "optionsZhHans": [],
+      "answer": "除法算式是 832÷26=32 或 832÷32=26",
+      "acceptedAnswers": [
+        "除法算式是 832÷26=32 或 832÷32=26",
+        "832÷26=32",
+        "832÷32=26",
+        "除法算式是 832÷26=32",
+        "除法算式是 832÷32=26"
+      ],
+      "explanationZhHans": "由竖式结构，除数是二十几，商是两位数。最后一步乘积是□2，且没有余数，所以商的个位乘除数得□2。尝试26×32=832，符合竖式：26×3=78，83-78=5，落下2得52，26×2=52，0。所以算式是832÷26=32或832÷32=26。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-088",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-division",
+      "unitTitle": "除法",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "multi-digit-division",
+        "two-digit-divisor",
+        "quotient-estimation",
+        "除法",
+        "除数是两位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "除数是两位数",
+        "试商调商",
+        "有余数除法",
+        "验算",
+        "除法应用"
+      ],
+      "misconceptionTags": [
+        "trial quotient too large or too small without adjustment",
+        "remainder larger than divisor accepted",
+        "context ignored when interpreting the remainder"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-division-unit",
+        "bnu-primary-p4-upper-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明在计算一道除法时，把除数 36 看成了 63，结果得到的商是 14，余数是 18。正确的商应该是多少？",
+      "optionsZhHans": [
+        "24",
+        "25",
+        "26",
+        "27"
+      ],
+      "answer": "25",
+      "acceptedAnswers": [
+        "25"
+      ],
+      "explanationZhHans": "先根据错误的算式求出被除数：63×14+18=882+18=900。再用正确的除数计算：900÷36=25。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-089",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-division",
+      "unitTitle": "除法",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "multi-digit-division",
+        "two-digit-divisor",
+        "quotient-estimation",
+        "除法",
+        "除数是两位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "除数是两位数",
+        "试商调商",
+        "有余数除法",
+        "验算",
+        "除法应用"
+      ],
+      "misconceptionTags": [
+        "trial quotient too large or too small without adjustment",
+        "remainder larger than divisor accepted",
+        "context ignored when interpreting the remainder"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-division-unit",
+        "bnu-primary-p4-upper-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在算式 A÷27=15……B 中，余数 B 最大是 ___，这时被除数 A 是 ___。",
+      "optionsZhHans": [],
+      "answer": "26，431",
+      "acceptedAnswers": [
+        "26，431",
+        "26 431",
+        "26,431"
+      ],
+      "explanationZhHans": "余数必须小于除数，所以B最大是26。被除数=27×15+26=405+26=431。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-090",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-division",
+      "unitTitle": "除法",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "multi-digit-division",
+        "two-digit-divisor",
+        "quotient-estimation",
+        "除法",
+        "除数是两位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "除数是两位数",
+        "试商调商",
+        "有余数除法",
+        "验算",
+        "除法应用"
+      ],
+      "misconceptionTags": [
+        "trial quotient too large or too small without adjustment",
+        "remainder larger than divisor accepted",
+        "context ignored when interpreting the remainder"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-division"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-division-unit",
+        "bnu-primary-p4-upper-assessment-monthly-5-to-6-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "四年级同学去植树，一共要种 450 棵树。如果每个小组种 28 棵，最后剩下 2 棵树没有种完。一共有多少个小组参加了植树？请你写出思考过程和算式。",
+      "optionsZhHans": [],
+      "answer": "16 个小组",
+      "acceptedAnswers": [
+        "16 个小组",
+        "16个小组",
+        "16",
+        "16个"
+      ],
+      "explanationZhHans": "种了的树：450-2=448（棵）。小组数：448÷28=16（个）。验算：28×16+2=448+2=450，符合题意。"
+    }
+  ]
+}

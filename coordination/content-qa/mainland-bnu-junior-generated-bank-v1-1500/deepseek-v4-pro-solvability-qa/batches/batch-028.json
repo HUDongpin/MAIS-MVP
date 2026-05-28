@@ -1,0 +1,188 @@
+{
+  "batchNumber": 28,
+  "startedAt": "2026-05-27T17:29:35.262Z",
+  "completedAt": "2026-05-27T17:29:56.398Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s1-325",
+    "bnu-junior-ds-v1-s1-326",
+    "bnu-junior-ds-v1-s1-327",
+    "bnu-junior-ds-v1-s1-328",
+    "bnu-junior-ds-v1-s1-329",
+    "bnu-junior-ds-v1-s1-330",
+    "bnu-junior-ds-v1-s1-331",
+    "bnu-junior-ds-v1-s1-332",
+    "bnu-junior-ds-v1-s1-333",
+    "bnu-junior-ds-v1-s1-334",
+    "bnu-junior-ds-v1-s1-335",
+    "bnu-junior-ds-v1-s1-336"
+  ],
+  "usage": {
+    "prompt_tokens": 6562,
+    "completion_tokens": 1548,
+    "total_tokens": 8110,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 6050
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s1-325",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "15°",
+        "rationale": "题目中∠AOC=50°，但解释中错误地认为∠AOD=50°，实际∠AOD=180°-50°=130°，∠EOD=130°-35°=95°，与答案15°不符。题目条件与答案矛盾，无法得出15°。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-326",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，解答正确：由OE平分∠AOD得∠AOD=70°，邻补角得∠BOD=110°。答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-327",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "95°",
+        "rationale": "题目与325题类似，但解释中正确计算出∠DOE=95°，而答案却为15°，答案与解释矛盾，且15°错误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-328",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "35°",
+        "rationale": "解释中正确计算出∠EOD=35°，但答案却为75°，答案与解释不符，且75°错误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-329",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，解答正确：∠AOD=130°，OE平分得∠AOE=65°，∠COE=50°+65°=115°。答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-330",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，解答正确：由∠COE=110°和∠AOE=50°得∠AOC=60°，对顶角得∠BOD=60°。答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-331",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，解答正确：∠BOD=50°，∠DOE=90°，∠BOE=140°。答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-332",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "不平行",
+        "rationale": "解释中正确推导出OE与OF不平行，但答案却为“平行”，答案与解释矛盾。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-333",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，解答正确：∠AOD=150°，∠EOD=100°。答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-334",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，解答正确：∠BOC=90°，OF平分得∠COF=45°。答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-335",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，解答正确：推导出AB⊥CD，∠AOM=140°，∠AON=5°，同位角不相等，故不平行。答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-336",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "45°",
+        "rationale": "解释中正确计算出∠BOF=45°，但答案却为55°，答案与解释矛盾。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 4,
+      "notes": "共12题，8题通过，4题因答案与解释或正确结果不符而失败。主要问题为答案错误或与解释矛盾，需修正答案。"
+    }
+  }
+}

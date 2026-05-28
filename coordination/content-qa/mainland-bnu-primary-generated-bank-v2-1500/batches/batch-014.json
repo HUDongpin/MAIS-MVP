@@ -1,0 +1,571 @@
+{
+  "batchId": "batch-014",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p1-131",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-review",
+      "unitTitle": "一年级上册整理与复习",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-upper-review",
+        "within-20-review",
+        "shape-position-review",
+        "上册复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "数感",
+        "空间观念"
+      ],
+      "skillTags": [
+        "整理知识",
+        "综合应用",
+        "说理检查",
+        "错因表达"
+      ],
+      "misconceptionTags": [
+        "review treated as answer memorization",
+        "operation and comparison vocabulary mixed",
+        "checking skipped after counting"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-final-integrated",
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小乐在整理数学知识。他写了两个算式：8 + 5 = 13，13 - 5 = 8。他想说：这两个算式用了相同的三个数，只是顺序不同。请帮小乐填一填：加法算式中的“和”是（ ），减法算式中的“差”是（ ）。",
+      "optionsZhHans": [],
+      "answer": "13，8",
+      "acceptedAnswers": [
+        "13，8",
+        "13 8",
+        "13和8"
+      ],
+      "explanationZhHans": "在8+5=13中，和是13；在13-5=8中，差是8。小乐发现加法和减法用了相同的三个数，只是顺序不同。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-132",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-review",
+      "unitTitle": "一年级上册整理与复习",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-upper-review",
+        "within-20-review",
+        "shape-position-review",
+        "上册复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "数感",
+        "空间观念"
+      ],
+      "skillTags": [
+        "整理知识",
+        "综合应用",
+        "说理检查",
+        "错因表达"
+      ],
+      "misconceptionTags": [
+        "review treated as answer memorization",
+        "operation and comparison vocabulary mixed",
+        "checking skipped after counting"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-final-integrated",
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小乐整理书包时，先数了数数学本有5本，又数了数田字格本有4本。他想知道这两种本子一共有多少本，应该用什么方法计算？为什么？请写出算式和得数，并简单说一说你的想法。",
+      "optionsZhHans": [],
+      "answer": "加法，因为是把两部分合起来求总数。5+4=9。",
+      "acceptedAnswers": [
+        "加法，因为是把两部分合起来求总数。5+4=9。",
+        "加法，因为求一共用加法。5+4=9。",
+        "用加法，因为合起来。5+4=9。",
+        "加法。5+4=9。"
+      ],
+      "explanationZhHans": "求两种本子的总数，就是把5本和4本合起来，用加法计算，5+4=9。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-133",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-review",
+      "unitTitle": "一年级上册整理与复习",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-upper-review",
+        "within-20-review",
+        "shape-position-review",
+        "上册复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "数感",
+        "空间观念"
+      ],
+      "skillTags": [
+        "整理知识",
+        "综合应用",
+        "说理检查",
+        "错因表达"
+      ],
+      "misconceptionTags": [
+        "review treated as answer memorization",
+        "operation and comparison vocabulary mixed",
+        "checking skipped after counting"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-final-integrated",
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一年级整理复习课上，老师请同学们说一说下面这道题用到了哪些学过的知识。\n题目：树上有8只小鸟，又飞来了5只，现在树上一共有多少只小鸟？\n下面哪个小朋友说得最完整？",
+      "optionsZhHans": [
+        "小明说：这道题用到了加法的知识。",
+        "小红说：这道题用到了8加5的知识。",
+        "小刚说：这道题用到了数一数和加法的知识，把8和5合起来用加法计算。",
+        "小丽说：这道题用到了小鸟的知识。"
+      ],
+      "answer": "小刚说：这道题用到了数一数和加法的知识，把8和5合起来用加法计算。",
+      "acceptedAnswers": [
+        "小刚说：这道题用到了数一数和加法的知识，把8和5合起来用加法计算。"
+      ],
+      "explanationZhHans": "题目要求用加法解决“合起来”的问题。小刚既说出了用加法计算，又说出了数一数的方法，还解释了把两部分合起来，所以说得最完整。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-134",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-review",
+      "unitTitle": "一年级上册整理与复习",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-upper-review",
+        "within-20-review",
+        "shape-position-review",
+        "上册复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "数感",
+        "空间观念"
+      ],
+      "skillTags": [
+        "整理知识",
+        "综合应用",
+        "说理检查",
+        "错因表达"
+      ],
+      "misconceptionTags": [
+        "review treated as answer memorization",
+        "operation and comparison vocabulary mixed",
+        "checking skipped after counting"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-final-integrated",
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丽在整理数学笔记。她看到这样一道题：树上有8只小鸟，飞走了3只，还剩几只？她列出了算式8-3=5。请你帮小丽想一想，这个算式中的“5”表示什么？",
+      "optionsZhHans": [],
+      "answer": "树上还剩的小鸟只数",
+      "acceptedAnswers": [
+        "树上还剩的小鸟只数",
+        "还剩的小鸟只数",
+        "剩下的小鸟只数",
+        "树上剩下的鸟的数量",
+        "剩下的小鸟数量",
+        "剩下的鸟的数量",
+        "还剩5只小鸟",
+        "剩下5只小鸟"
+      ],
+      "explanationZhHans": "题目中8表示原来的小鸟总数，3表示飞走的只数，5是减法结果，表示树上还剩下的小鸟只数。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-135",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-review",
+      "unitTitle": "一年级上册整理与复习",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-upper-review",
+        "within-20-review",
+        "shape-position-review",
+        "上册复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "数感",
+        "空间观念"
+      ],
+      "skillTags": [
+        "整理知识",
+        "综合应用",
+        "说理检查",
+        "错因表达"
+      ],
+      "misconceptionTags": [
+        "review treated as answer memorization",
+        "operation and comparison vocabulary mixed",
+        "checking skipped after counting"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-final-integrated",
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小红有12块糖，她给了小明一些后，还剩7块。小红给了小明几块糖？先想一想这道题用到了我们学过的哪个知识，再列式算一算，最后说说你是怎么检查的。",
+      "optionsZhHans": [],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5",
+        "5块",
+        "5块糖"
+      ],
+      "explanationZhHans": "题目用到了20以内的减法。小红原来有12块糖，剩下7块，求给了多少块，用减法：12-7=5。检查时可以用加法：5+7=12，和原来一样，说明算对了。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-136",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-review",
+      "unitTitle": "一年级上册整理与复习",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-upper-review",
+        "within-20-review",
+        "shape-position-review",
+        "上册复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "数感",
+        "空间观念"
+      ],
+      "skillTags": [
+        "整理知识",
+        "综合应用",
+        "说理检查",
+        "错因表达"
+      ],
+      "misconceptionTags": [
+        "review treated as answer memorization",
+        "operation and comparison vocabulary mixed",
+        "checking skipped after counting"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-final-integrated",
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在整理数学知识时，小乐发现下面有一道题的想法和其他题不一样。请你帮他找出来。\n① 树上有8只小鸟，飞走了3只，还剩几只？\n② 妈妈买了5个苹果，又买了4个梨，一共买了多少个水果？\n③ 停车场原来有9辆车，开走了2辆，现在还有几辆？\n④ 书架上有7本书，拿走了1本，还剩几本？",
+      "optionsZhHans": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ],
+      "answer": "②",
+      "acceptedAnswers": [
+        "②"
+      ],
+      "explanationZhHans": "①③④都是求“还剩多少”，用减法；②是求“一共多少”，用加法。所以②的想法和其他题不一样。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-137",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-review",
+      "unitTitle": "一年级上册整理与复习",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-upper-review",
+        "within-20-review",
+        "shape-position-review",
+        "上册复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "数感",
+        "空间观念"
+      ],
+      "skillTags": [
+        "整理知识",
+        "综合应用",
+        "说理检查",
+        "错因表达"
+      ],
+      "misconceptionTags": [
+        "review treated as answer memorization",
+        "operation and comparison vocabulary mixed",
+        "checking skipped after counting"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-final-integrated",
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明在整理数学知识时，写下了下面的内容。请你读一读，找出错误的地方，并在横线上写出正确的答案。\n\n1. 比大小：15 < 9\n2. 计算：7 + 8 = 14\n3. 认图形：足球的形状是圆形。\n\n错误1：______，正确应为______。\n错误2：______，正确应为______。\n错误3：______，正确应为______。",
+      "optionsZhHans": [],
+      "answer": "错误1：15 < 9，正确应为15 > 9。错误2：7 + 8 = 14，正确应为7 + 8 = 15。错误3：足球的形状是圆形，正确应为足球的形状是球。",
+      "acceptedAnswers": [
+        "错误1：15 < 9，正确应为15 > 9。错误2：7 + 8 = 14，正确应为7 + 8 = 15。错误3：足球的形状是圆形，正确应为足球的形状是球。"
+      ],
+      "explanationZhHans": "15比9大，应该用大于号；7加8等于15，不是14；足球是立体图形，叫球，圆形是平面图形。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-138",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-review",
+      "unitTitle": "一年级上册整理与复习",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-upper-review",
+        "within-20-review",
+        "shape-position-review",
+        "上册复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "数感",
+        "空间观念"
+      ],
+      "skillTags": [
+        "整理知识",
+        "综合应用",
+        "说理检查",
+        "错因表达"
+      ],
+      "misconceptionTags": [
+        "review treated as answer memorization",
+        "operation and comparison vocabulary mixed",
+        "checking skipped after counting"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-final-integrated",
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小乐整理了上册学过的知识。他先数了数文具盒里的物品：铅笔7支，橡皮3块，尺子2把。他想知道铅笔比橡皮多几支，列式是7-3=4。请你说一说，这道题用到了上册学过的什么知识？",
+      "optionsZhHans": [],
+      "answer": "用到了比较两个数量的多少和减法计算的知识。",
+      "acceptedAnswers": [
+        "用到了比较两个数量的多少和减法计算的知识。",
+        "比较多少和减法",
+        "比较和减法",
+        "求一个数比另一个数多几用减法计算",
+        "减法解决比较问题"
+      ],
+      "explanationZhHans": "题目要求找出铅笔比橡皮多几支，就是比较7和3的多少，用减法7-3=4。这需要用到上册学过的比较数量多少和减法运算的知识。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-139",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-review",
+      "unitTitle": "一年级上册整理与复习",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-upper-review",
+        "within-20-review",
+        "shape-position-review",
+        "上册复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "数感",
+        "空间观念"
+      ],
+      "skillTags": [
+        "整理知识",
+        "综合应用",
+        "说理检查",
+        "错因表达"
+      ],
+      "misconceptionTags": [
+        "review treated as answer memorization",
+        "operation and comparison vocabulary mixed",
+        "checking skipped after counting"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-final-integrated",
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小乐在整理数学知识时，写下了下面几句话。哪一句的说法是正确的？",
+      "optionsZhHans": [
+        "计算9+5时，可以先算9+1=10，再算10+4=14。",
+        "长方体只有6个面，没有顶点。",
+        "比较多少时，只要看数字大小，不用一一对应。",
+        "分类时，可以按颜色分，也可以按形状分，但一次只能按一种标准分。"
+      ],
+      "answer": "计算9+5时，可以先算9+1=10，再算10+4=14。",
+      "acceptedAnswers": [
+        "计算9+5时，可以先算9+1=10，再算10+4=14。"
+      ],
+      "explanationZhHans": "9+5用凑十法：把5分成1和4，先算9+1=10，再算10+4=14，说法正确。长方体有6个面和8个顶点，第二句错。比较多少要用一一对应，第三句错。分类时一次可按一个标准分，但也可按不同标准多次分，第四句不准确。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-140",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-review",
+      "unitTitle": "一年级上册整理与复习",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-upper-review",
+        "within-20-review",
+        "shape-position-review",
+        "上册复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "数感",
+        "空间观念"
+      ],
+      "skillTags": [
+        "整理知识",
+        "综合应用",
+        "说理检查",
+        "错因表达"
+      ],
+      "misconceptionTags": [
+        "review treated as answer memorization",
+        "operation and comparison vocabulary mixed",
+        "checking skipped after counting"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-final-integrated",
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小红有8块积木，小明有6块积木。他们想把积木合在一起玩，合起来后一共有多少块积木？请你先说出这道题是用加法还是减法，再写出算式和得数，最后检查一遍。",
+      "optionsZhHans": [],
+      "answer": "加法，8+6=14",
+      "acceptedAnswers": [
+        "加法，8+6=14",
+        "加法,8+6=14",
+        "加法 8+6=14",
+        "加法8+6=14"
+      ],
+      "explanationZhHans": "把两部分合起来用加法。8块和6块合起来是14块，所以算式是8+6=14。检查：从8往后数6个，9、10、11、12、13、14，正确。"
+    }
+  ]
+}

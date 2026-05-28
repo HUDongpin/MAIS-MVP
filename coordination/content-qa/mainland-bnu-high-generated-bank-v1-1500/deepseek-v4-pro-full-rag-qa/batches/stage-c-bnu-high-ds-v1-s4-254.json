@@ -1,0 +1,48 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-254",
+  "startedAt": "2026-05-28T01:06:23.169Z",
+  "completedAt": "2026-05-28T01:06:30.044Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-254"
+  ],
+  "usage": {
+    "prompt_tokens": 2218,
+    "completion_tokens": 346,
+    "total_tokens": 2564,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1834
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-254",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "a=1.0, b≈1.5, 预测t=5时y≈7.6",
+        "correctedAnswer": "a=1.0，b≈1.5，预测t=5时细菌数量约为7.6百个。",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，RAG匹配。独立计算得a=1.0，b≈1.5，t=5时y=1.5^5=7.59375，四舍五入保留一位小数为7.6。存储答案和解析均给出7.7，与正确结果7.6矛盾，且解析内部计算7.59375后却取7.7，存在数学错误和解释矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1题答案错误，预测值应为7.6而非7.7，解析自相矛盾，判定为blocker。"
+    }
+  }
+}

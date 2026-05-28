@@ -1,0 +1,121 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-173",
+  "startedAt": "2026-05-28T01:50:33.995Z",
+  "completedAt": "2026-05-28T01:50:49.609Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-377",
+    "bnu-high-ds-v1-s6-378",
+    "bnu-high-ds-v1-s6-379",
+    "bnu-high-ds-v1-s6-380",
+    "bnu-high-ds-v1-s6-381",
+    "bnu-high-ds-v1-s6-382",
+    "bnu-high-ds-v1-s6-383",
+    "bnu-high-ds-v1-s6-384"
+  ],
+  "usage": {
+    "prompt_tokens": 10149,
+    "completion_tokens": 1091,
+    "total_tokens": 11240,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9765
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-377",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "a = 3, b = 3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由极值条件得 f(-1)=2 且 f'(-1)=0，解得 a=3, b=3。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-378",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "-2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导得 f'(x)=3x^2-3，驻点 x=±1，在 [0,2] 上比较 f(0)=0, f(1)=-2, f(2)=2，最小值为 -2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-379",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "independentAnswer": null,
+        "issueTags": [
+          "ambiguous_mc",
+          "bad_options"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "单调递增区间应为 (-∞, -1) 和 (3, +∞)，但选项 C 和 D 均包含端点，且 C 表述矛盾（“且包含 -1 和 3”与开区间写法冲突），无唯一正确选项。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-380",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "极大值 f(0)=1，极小值 f(2)=-3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x^2-6x=3x(x-2)，驻点 x=0,2，由导数符号变化得极大值 f(0)=1，极小值 f(2)=-3。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-381",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "a = 5",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x^2-6x，驻点 x=0,2，在 [0,3] 上 f(0)=a, f(2)=a-4, f(3)=a，最大值为 a=5。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-382",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "B",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x^2-3，当 -1<x<1 时 f'(x)<0，单调递减区间为 (-1,1)。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-383",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "极大值 f(-1)=10，极小值 f(3)=-22",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x^2-6x-9=3(x+1)(x-3)，驻点 x=-1,3，由符号变化得极大值 f(-1)=10，极小值 f(3)=-22。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-384",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "-1",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "y'=3x^2-4x，在 x=1 处斜率为 3-4=-1。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第379题选项设计有歧义，无唯一正确选项，判定为失败；其余题目均可独立求解且符合北师大版要求。"
+    }
+  }
+}

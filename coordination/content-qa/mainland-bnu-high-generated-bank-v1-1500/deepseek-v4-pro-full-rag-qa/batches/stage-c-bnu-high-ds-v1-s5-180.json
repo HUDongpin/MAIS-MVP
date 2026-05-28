@@ -1,0 +1,48 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-180",
+  "startedAt": "2026-05-28T02:54:43.415Z",
+  "completedAt": "2026-05-28T02:54:47.301Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-180"
+  ],
+  "usage": {
+    "prompt_tokens": 1918,
+    "completion_tokens": 239,
+    "total_tokens": 2157,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1534
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-180",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": null,
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "A、B、C、D四点共线，无法构成四面体，题目条件错误，体积无定义，存储答案0虽反映共线但题目要求四面体体积，属于数学错误，不可用。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目条件错误，四点共线无法构成四面体，应判定为不可解。"
+    }
+  }
+}

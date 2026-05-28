@@ -1,0 +1,191 @@
+{
+  "batchNumber": 1,
+  "startedAt": "2026-05-27T13:40:21.551Z",
+  "completedAt": "2026-05-27T13:40:37.387Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p1-001",
+    "bnu-primary-ds-v2-p1-002",
+    "bnu-primary-ds-v2-p1-003",
+    "bnu-primary-ds-v2-p1-004",
+    "bnu-primary-ds-v2-p1-005",
+    "bnu-primary-ds-v2-p1-006",
+    "bnu-primary-ds-v2-p1-007",
+    "bnu-primary-ds-v2-p1-008",
+    "bnu-primary-ds-v2-p1-009",
+    "bnu-primary-ds-v2-p1-010",
+    "bnu-primary-ds-v2-p1-011",
+    "bnu-primary-ds-v2-p1-012",
+    "bnu-primary-ds-v2-p1-013",
+    "bnu-primary-ds-v2-p1-014",
+    "bnu-primary-ds-v2-p1-015",
+    "bnu-primary-ds-v2-p1-016",
+    "bnu-primary-ds-v2-p1-017",
+    "bnu-primary-ds-v2-p1-018"
+  ],
+  "usage": {
+    "prompt_tokens": 3463,
+    "completion_tokens": 1251,
+    "total_tokens": 4714,
+    "prompt_tokens_details": {
+      "cached_tokens": 3456
+    },
+    "prompt_cache_hit_tokens": 3456,
+    "prompt_cache_miss_tokens": 7
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p1-001",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，选项合理，答案与解释一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-002",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案与解释一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-003",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "开放题，答案合理，解释清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-004",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，选项唯一，答案与解释一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-005",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案与解释一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-006",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案与解释一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-007",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，选项唯一，答案与解释一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-008",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案与解释一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-009",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "开放题，答案合理，解释清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-010",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，选项唯一，答案与解释一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-011",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案与解释一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-012",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案与解释一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-013",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，选项唯一，答案与解释一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-014",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案与解释一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-015",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案与解释一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-016",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，选项唯一，答案与解释一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-017",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案与解释一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-018",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案与解释一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版小学数学一年级上册要求，无错误或风险。"
+    }
+  }
+}

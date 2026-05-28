@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-270",
+  "startedAt": "2026-05-28T01:25:31.669Z",
+  "completedAt": "2026-05-28T01:25:36.471Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-270"
+  ],
+  "usage": {
+    "prompt_tokens": 2818,
+    "completion_tokens": 286,
+    "total_tokens": 3104,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2434
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-270",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "(0, -6) 或 (7, 1)",
+        "correctedAnswer": "(0, -6) 或 (7, 1)",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合BNU解析几何建模要求。独立求解得P(0,-6)或(7,1)，但存储答案(6,2)或(-2,-6)错误，解析计算混乱且最终结果与正确解矛盾，属严重数学错误和答案不匹配。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1题答案错误，解析矛盾，判定为blocker。"
+    }
+  }
+}

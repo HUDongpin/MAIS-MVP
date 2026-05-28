@@ -1,0 +1,563 @@
+{
+  "batchId": "batch-027",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p2-011",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-add-sub-review",
+      "unitTitle": "加与减",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "within-100-add-sub-fluency",
+        "addition-subtraction-relationships",
+        "100以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "口算",
+        "竖式",
+        "估算",
+        "验算",
+        "解决问题"
+      ],
+      "misconceptionTags": [
+        "place-value alignment error",
+        "regrouping step omitted",
+        "calculation result not checked against story"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-add-sub-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-within-100-add-sub-unit",
+        "bnu-primary-p2-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明的存钱罐里有1元、5角和1角的硬币。他数了数，1元硬币有8枚，5角硬币有12枚，1角硬币有15枚。小明想用这些硬币正好凑出10元，他最多能凑出几个10元？请写出你的计算过程和答案。",
+      "optionsZhHans": [],
+      "answer": "最多能凑出1个10元。",
+      "acceptedAnswers": [
+        "最多能凑出1个10元。",
+        "1个",
+        "1",
+        "1个10元"
+      ],
+      "explanationZhHans": "先算总钱数：8元 + 12×5角 = 8元 + 60角 = 8元 + 6元 = 14元；15×1角 = 15角 = 1元5角。总钱数 = 14元 + 1元5角 = 15元5角。10元需要1000分，15元5角 = 1550分，1550 ÷ 1000 = 1（个）……550分，所以最多凑出1个10元。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-012",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-add-sub-review",
+      "unitTitle": "加与减",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "within-100-add-sub-fluency",
+        "addition-subtraction-relationships",
+        "100以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "口算",
+        "竖式",
+        "估算",
+        "验算",
+        "解决问题"
+      ],
+      "misconceptionTags": [
+        "place-value alignment error",
+        "regrouping step omitted",
+        "calculation result not checked against story"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-add-sub-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-within-100-add-sub-unit",
+        "bnu-primary-p2-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小红有48张贴纸，送给小明19张后，又买了25张。小红现在有多少张贴纸？请先估算结果大约是多少，再列竖式计算，最后用逆运算验算。",
+      "optionsZhHans": [],
+      "answer": "估算：大约50张；计算：48-19+25=54；验算：54-25=29，29+19=48，与原数相符。",
+      "acceptedAnswers": [
+        "估算：大约50张；计算：48-19+25=54；验算：54-25=29，29+19=48，与原数相符。",
+        "估算：大约50张；计算：48-19+25=54；验算：54-25=29，29+19=48，与原数相符"
+      ],
+      "explanationZhHans": "先估算：48接近50，19接近20，25接近30，50-20+30=60，但实际计算更精确，可估为50左右。竖式计算：48-19=29，29+25=54。验算：用54减25得29，再加19得48，说明计算正确。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-013",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-add-sub-review",
+      "unitTitle": "加与减",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "within-100-add-sub-fluency",
+        "addition-subtraction-relationships",
+        "100以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "口算",
+        "竖式",
+        "估算",
+        "验算",
+        "解决问题"
+      ],
+      "misconceptionTags": [
+        "place-value alignment error",
+        "regrouping step omitted",
+        "calculation result not checked against story"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-add-sub-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-within-100-add-sub-unit",
+        "bnu-primary-p2-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小乐在计算一道加法题时，把第二个加数 36 看成了 28，算出的结果是 57。正确的和应该是多少？",
+      "optionsZhHans": [
+        "65",
+        "66",
+        "75",
+        "76"
+      ],
+      "answer": "65",
+      "acceptedAnswers": [
+        "65"
+      ],
+      "explanationZhHans": "先求第一个加数：57 - 28 = 29。再求正确的和：29 + 36 = 65。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-014",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-add-sub-review",
+      "unitTitle": "加与减",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "within-100-add-sub-fluency",
+        "addition-subtraction-relationships",
+        "100以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "口算",
+        "竖式",
+        "估算",
+        "验算",
+        "解决问题"
+      ],
+      "misconceptionTags": [
+        "place-value alignment error",
+        "regrouping step omitted",
+        "calculation result not checked against story"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-add-sub-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-within-100-add-sub-unit",
+        "bnu-primary-p2-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一（2）班图书角原来有故事书45本，科普书38本。这周同学们又捐了27本故事书，同时借走了19本科普书。现在图书角的故事书和科普书一共有多少本？",
+      "optionsZhHans": [],
+      "answer": "91",
+      "acceptedAnswers": [
+        "91",
+        "91本"
+      ],
+      "explanationZhHans": "先算故事书现有：45+27=72本；再算科普书现有：38-19=19本；最后合计：72+19=91本。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-015",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-add-sub-review",
+      "unitTitle": "加与减",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "within-100-add-sub-fluency",
+        "addition-subtraction-relationships",
+        "100以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "口算",
+        "竖式",
+        "估算",
+        "验算",
+        "解决问题"
+      ],
+      "misconceptionTags": [
+        "place-value alignment error",
+        "regrouping step omitted",
+        "calculation result not checked against story"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-add-sub-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-within-100-add-sub-unit",
+        "bnu-primary-p2-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小乐在计算一道两位数加两位数的题目时，把其中一个加数36看成了39，算出的和是81。正确的和应该是多少？请写出你的思考过程。",
+      "optionsZhHans": [],
+      "answer": "78",
+      "acceptedAnswers": [
+        "78"
+      ],
+      "explanationZhHans": "看错的加数多了39-36=3，所以和也多了3。正确的和是81-3=78。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-016",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-shopping-money",
+      "unitTitle": "购物",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "money",
+        "renminbi",
+        "shopping-contexts",
+        "人民币",
+        "购物"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数感"
+      ],
+      "skillTags": [
+        "元角分",
+        "付款找零",
+        "价格比较",
+        "简单购物问题"
+      ],
+      "misconceptionTags": [
+        "yuan-jiao-fen relation confused",
+        "unit omitted from answer",
+        "change calculated in wrong direction"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-shopping-money"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-within-100-add-sub-unit",
+        "bnu-primary-p2-upper-assessment-measurement-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈去超市买了下面这些物品：一袋大米 28 元，一桶油 35 元，一盒鸡蛋 18 元。她付给收银员一张 100 元的人民币。收银员应该找回妈妈多少钱？",
+      "optionsZhHans": [
+        "19 元",
+        "29 元",
+        "81 元",
+        "71 元"
+      ],
+      "answer": "19 元",
+      "acceptedAnswers": [
+        "19 元"
+      ],
+      "explanationZhHans": "先算总价：28 + 35 = 63 元，63 + 18 = 81 元。再用 100 元减去总价：100 - 81 = 19 元。找回的钱是 19 元。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-017",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-shopping-money",
+      "unitTitle": "购物",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "money",
+        "renminbi",
+        "shopping-contexts",
+        "人民币",
+        "购物"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数感"
+      ],
+      "skillTags": [
+        "元角分",
+        "付款找零",
+        "价格比较",
+        "简单购物问题"
+      ],
+      "misconceptionTags": [
+        "yuan-jiao-fen relation confused",
+        "unit omitted from answer",
+        "change calculated in wrong direction"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-shopping-money"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-within-100-add-sub-unit",
+        "bnu-primary-p2-upper-assessment-measurement-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈去超市买了一盒牛奶，价格是6元5角，又买了一袋面包，价格是4元8角。妈妈一共要付多少钱？",
+      "optionsZhHans": [],
+      "answer": "11元3角",
+      "acceptedAnswers": [
+        "11元3角"
+      ],
+      "explanationZhHans": "把元与元相加，角与角相加：6元 + 4元 = 10元，5角 + 8角 = 13角。因为10角 = 1元，所以13角 = 1元3角。10元 + 1元3角 = 11元3角。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-018",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-shopping-money",
+      "unitTitle": "购物",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "money",
+        "renminbi",
+        "shopping-contexts",
+        "人民币",
+        "购物"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数感"
+      ],
+      "skillTags": [
+        "元角分",
+        "付款找零",
+        "价格比较",
+        "简单购物问题"
+      ],
+      "misconceptionTags": [
+        "yuan-jiao-fen relation confused",
+        "unit omitted from answer",
+        "change calculated in wrong direction"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-shopping-money"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-within-100-add-sub-unit",
+        "bnu-primary-p2-upper-assessment-measurement-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明买了一本故事书，付了20元，找回3元5角。这本故事书多少钱？",
+      "optionsZhHans": [],
+      "answer": "16元5角",
+      "acceptedAnswers": [
+        "16元5角"
+      ],
+      "explanationZhHans": "付的钱减去找回的钱就是书的价钱。20元 = 20元0角，20元0角 - 3元5角 = 16元5角。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-019",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-shopping-money",
+      "unitTitle": "购物",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "money",
+        "renminbi",
+        "shopping-contexts",
+        "人民币",
+        "购物"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数感"
+      ],
+      "skillTags": [
+        "元角分",
+        "付款找零",
+        "价格比较",
+        "简单购物问题"
+      ],
+      "misconceptionTags": [
+        "yuan-jiao-fen relation confused",
+        "unit omitted from answer",
+        "change calculated in wrong direction"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-shopping-money"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-within-100-add-sub-unit",
+        "bnu-primary-p2-upper-assessment-measurement-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈在超市买了下面几样东西：一盒牛奶4元5角，一袋面包3元，一包饼干2元8角。她付给收银员一张20元，收银员应该找回多少钱？",
+      "optionsZhHans": [
+        "9元7角",
+        "10元3角",
+        "10元7角",
+        "9元3角"
+      ],
+      "answer": "9元7角",
+      "acceptedAnswers": [
+        "9元7角"
+      ],
+      "explanationZhHans": "先算总价：4元5角+3元=7元5角，再加2元8角得10元3角。付20元，找回20元-10元3角=9元7角。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-020",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-shopping-money",
+      "unitTitle": "购物",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "money",
+        "renminbi",
+        "shopping-contexts",
+        "人民币",
+        "购物"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数感"
+      ],
+      "skillTags": [
+        "元角分",
+        "付款找零",
+        "价格比较",
+        "简单购物问题"
+      ],
+      "misconceptionTags": [
+        "yuan-jiao-fen relation confused",
+        "unit omitted from answer",
+        "change calculated in wrong direction"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-shopping-money"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-within-100-add-sub-unit",
+        "bnu-primary-p2-upper-assessment-measurement-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈去超市买了下面这些物品：一盒牛奶5元6角，一袋面包3元8角，一个苹果1元5角。妈妈付给收银员20元，收银员应该找回多少钱？请写出算式和结果，并注明单位。",
+      "optionsZhHans": [],
+      "answer": "20元 - 5元6角 - 3元8角 - 1元5角 = 9元1角",
+      "acceptedAnswers": [
+        "20元 - 5元6角 - 3元8角 - 1元5角 = 9元1角",
+        "5元6角 + 3元8角 + 1元5角 = 10元9角，20元 - 10元9角 = 9元1角",
+        "20 - 5.6 - 3.8 - 1.5 = 9.1元",
+        "9元1角"
+      ],
+      "explanationZhHans": "先算总价：5元6角+3元8角=9元4角，再加1元5角得10元9角。付20元，找回20元-10元9角=9元1角。单位要写完整。"
+    }
+  ]
+}

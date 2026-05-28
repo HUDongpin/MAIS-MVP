@@ -1,0 +1,372 @@
+{
+  "batchId": "batch-061",
+  "generationMode": "batch-fallback",
+  "fallbackReason": "fill-missing-local",
+  "questions": [
+    {
+      "id": "hjb-high-ds-v2-s5-101",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-简单几何体",
+      "topicTitleZhHans": "简单几何体",
+      "volume": "必修 第三册",
+      "chapter": "简单几何体",
+      "conceptIds": [
+        "solid-geometry",
+        "surface-volume",
+        "polyhedra",
+        "rotational-solids"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-3-simple-solids"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-3-midterm-chapters-10-11",
+        "hjb-high-compulsory-3-space-vector-midterm-bridge",
+        "pep-high-exam-space-vectors-geometry"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0601：填空：一个长方体的长、宽、高分别为 6、6、7，求体积。",
+      "optionsZhHans": [],
+      "answer": "252",
+      "acceptedAnswers": [
+        "252"
+      ],
+      "explanationZhHans": "长方体体积=长×宽×高=6×6×7=252。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-102",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-简单几何体",
+      "topicTitleZhHans": "简单几何体",
+      "volume": "必修 第三册",
+      "chapter": "简单几何体",
+      "conceptIds": [
+        "solid-geometry",
+        "surface-volume",
+        "polyhedra",
+        "rotational-solids"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-3-simple-solids"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-3-midterm-chapters-10-11",
+        "hjb-high-compulsory-3-space-vector-midterm-bridge",
+        "pep-high-exam-space-vectors-geometry"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0602：解答：一个长方体的长、宽、高分别为 10、10、15，求体积。",
+      "optionsZhHans": [],
+      "answer": "1500",
+      "acceptedAnswers": [
+        "1500"
+      ],
+      "explanationZhHans": "长方体体积=长×宽×高=10×10×15=1500。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-103",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-简单几何体",
+      "topicTitleZhHans": "简单几何体",
+      "volume": "必修 第三册",
+      "chapter": "简单几何体",
+      "conceptIds": [
+        "solid-geometry",
+        "surface-volume",
+        "polyhedra",
+        "rotational-solids"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-3-simple-solids"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-3-midterm-chapters-10-11",
+        "hjb-high-compulsory-3-space-vector-midterm-bridge",
+        "pep-high-exam-space-vectors-geometry"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0603：选择：一个长方体的长、宽、高分别为 3、3、16，求体积。",
+      "optionsZhHans": [
+        "147",
+        "144",
+        "141",
+        "150"
+      ],
+      "answer": "144",
+      "acceptedAnswers": [
+        "144"
+      ],
+      "explanationZhHans": "长方体体积=长×宽×高=3×3×16=144。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-104",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-简单几何体",
+      "topicTitleZhHans": "简单几何体",
+      "volume": "必修 第三册",
+      "chapter": "简单几何体",
+      "conceptIds": [
+        "solid-geometry",
+        "surface-volume",
+        "polyhedra",
+        "rotational-solids"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-3-simple-solids"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-3-midterm-chapters-10-11",
+        "hjb-high-compulsory-3-space-vector-midterm-bridge",
+        "pep-high-exam-space-vectors-geometry"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0604：填空：一个长方体的长、宽、高分别为 11、11、19，求体积。",
+      "optionsZhHans": [],
+      "answer": "2299",
+      "acceptedAnswers": [
+        "2299"
+      ],
+      "explanationZhHans": "长方体体积=长×宽×高=11×11×19=2299。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-105",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-简单几何体",
+      "topicTitleZhHans": "简单几何体",
+      "volume": "必修 第三册",
+      "chapter": "简单几何体",
+      "conceptIds": [
+        "solid-geometry",
+        "surface-volume",
+        "polyhedra",
+        "rotational-solids"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-3-simple-solids"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-3-midterm-chapters-10-11",
+        "hjb-high-compulsory-3-space-vector-midterm-bridge",
+        "pep-high-exam-space-vectors-geometry"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0605：解答：一个长方体的长、宽、高分别为 6、6、14，求体积。",
+      "optionsZhHans": [],
+      "answer": "504",
+      "acceptedAnswers": [
+        "504"
+      ],
+      "explanationZhHans": "长方体体积=长×宽×高=6×6×14=504。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-106",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-简单几何体",
+      "topicTitleZhHans": "简单几何体",
+      "volume": "必修 第三册",
+      "chapter": "简单几何体",
+      "conceptIds": [
+        "solid-geometry",
+        "surface-volume",
+        "polyhedra",
+        "rotational-solids"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-3-simple-solids"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-3-midterm-chapters-10-11",
+        "hjb-high-compulsory-3-space-vector-midterm-bridge",
+        "pep-high-exam-space-vectors-geometry"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0606：选择：一个长方体的长、宽、高分别为 7、7、13，求体积。",
+      "optionsZhHans": [
+        "644",
+        "630",
+        "637",
+        "651"
+      ],
+      "answer": "637",
+      "acceptedAnswers": [
+        "637"
+      ],
+      "explanationZhHans": "长方体体积=长×宽×高=7×7×13=637。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-107",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-简单几何体",
+      "topicTitleZhHans": "简单几何体",
+      "volume": "必修 第三册",
+      "chapter": "简单几何体",
+      "conceptIds": [
+        "solid-geometry",
+        "surface-volume",
+        "polyhedra",
+        "rotational-solids"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-3-simple-solids"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-3-midterm-chapters-10-11",
+        "hjb-high-compulsory-3-space-vector-midterm-bridge",
+        "pep-high-exam-space-vectors-geometry"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0607：填空：一个长方体的长、宽、高分别为 4、4、12，求体积。",
+      "optionsZhHans": [],
+      "answer": "192",
+      "acceptedAnswers": [
+        "192"
+      ],
+      "explanationZhHans": "长方体体积=长×宽×高=4×4×12=192。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-108",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-简单几何体",
+      "topicTitleZhHans": "简单几何体",
+      "volume": "必修 第三册",
+      "chapter": "简单几何体",
+      "conceptIds": [
+        "solid-geometry",
+        "surface-volume",
+        "polyhedra",
+        "rotational-solids"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-3-simple-solids"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-3-midterm-chapters-10-11",
+        "hjb-high-compulsory-3-space-vector-midterm-bridge",
+        "pep-high-exam-space-vectors-geometry"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0608：解答：一个长方体的长、宽、高分别为 9、9、17，求体积。",
+      "optionsZhHans": [],
+      "answer": "1377",
+      "acceptedAnswers": [
+        "1377"
+      ],
+      "explanationZhHans": "长方体体积=长×宽×高=9×9×17=1377。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-109",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-简单几何体",
+      "topicTitleZhHans": "简单几何体",
+      "volume": "必修 第三册",
+      "chapter": "简单几何体",
+      "conceptIds": [
+        "solid-geometry",
+        "surface-volume",
+        "polyhedra",
+        "rotational-solids"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-3-simple-solids"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-3-midterm-chapters-10-11",
+        "hjb-high-compulsory-3-space-vector-midterm-bridge",
+        "pep-high-exam-space-vectors-geometry"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0609：选择：一个长方体的长、宽、高分别为 10、10、15，求体积。",
+      "optionsZhHans": [
+        "1510",
+        "1490",
+        "1520",
+        "1500"
+      ],
+      "answer": "1500",
+      "acceptedAnswers": [
+        "1500"
+      ],
+      "explanationZhHans": "长方体体积=长×宽×高=10×10×15=1500。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-110",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-简单几何体",
+      "topicTitleZhHans": "简单几何体",
+      "volume": "必修 第三册",
+      "chapter": "简单几何体",
+      "conceptIds": [
+        "solid-geometry",
+        "surface-volume",
+        "polyhedra",
+        "rotational-solids"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-3-simple-solids"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-3-midterm-chapters-10-11",
+        "hjb-high-compulsory-3-space-vector-midterm-bridge",
+        "pep-high-exam-space-vectors-geometry"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0610：填空：一个长方体的长、宽、高分别为 8、8、8，求体积。",
+      "optionsZhHans": [],
+      "answer": "512",
+      "acceptedAnswers": [
+        "512"
+      ],
+      "explanationZhHans": "长方体体积=长×宽×高=8×8×8=512。"
+    }
+  ]
+}

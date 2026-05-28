@@ -1,0 +1,137 @@
+{
+  "batchNumber": 50,
+  "startedAt": "2026-05-27T13:52:26.038Z",
+  "completedAt": "2026-05-27T13:52:44.621Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-393",
+    "bnu-high-ds-v1-s4-394",
+    "bnu-high-ds-v1-s4-395",
+    "bnu-high-ds-v1-s4-396",
+    "bnu-high-ds-v1-s4-397",
+    "bnu-high-ds-v1-s4-398",
+    "bnu-high-ds-v1-s4-399",
+    "bnu-high-ds-v1-s4-400"
+  ],
+  "usage": {
+    "prompt_tokens": 11095,
+    "completion_tokens": 1158,
+    "total_tokens": 12253,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10583
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-393",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "√13",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可直接计算向量模长，答案√13正确，解析过程无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-394",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "60°或120°",
+        "correctedAnswer": "B. 60° 或 C. 120°（题目条件不足，无法唯一确定）",
+        "issueTags": [
+          "ambiguous_mc",
+          "missing_condition",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "由面积得sinC=√3/2，C=60°或120°，均满足三角形内角条件，无其他限制，无法唯一确定，选择题出现两个合理选项，题目有歧义。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-395",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "√3/3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件明确，利用正切函数可解，答案√3/3正确，解析合理。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-396",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "-(4+3√3)/10",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由sinα和象限得cosα，再用和角公式计算，答案正确，解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-397",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2cos10°",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "利用平方关系化简，去绝对值时判断符号，结果2cos10°正确，解析清晰。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-398",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "证明：左边=sinα/cosα+sinβ/cosβ=(sinαcosβ+cosαsinβ)/(cosαcosβ)=sin(α+β)/(cosαcosβ)=右边。",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "恒等式证明，从左边通分，用和角公式即得右边，答案和解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-399",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "8/3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "展开平方和，利用平方关系和差角公式，代入cos(α-β)=1/3得8/3，答案正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-400",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "4/5",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "用万能公式sin2α=2tanα/(1+tan²α)计算，得4/5，答案正确，解析简洁。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第394题因缺少唯一确定角C的条件，导致60°和120°均合理，选择题出现歧义，判定为失败；其余题目均正确可解。"
+    }
+  }
+}

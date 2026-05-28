@@ -1,0 +1,109 @@
+{
+  "batchId": "model-qa-0069",
+  "ids": [
+    "hjb-junior-ds-v2-s2-045",
+    "hjb-junior-ds-v2-s2-046",
+    "hjb-junior-ds-v2-s2-047",
+    "hjb-junior-ds-v2-s2-048",
+    "hjb-junior-ds-v2-s2-049",
+    "hjb-junior-ds-v2-s2-050",
+    "hjb-junior-ds-v2-s2-051",
+    "hjb-junior-ds-v2-s2-052"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-045",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "答案和解析都错误地认为 (√2+√3)/2 介于 √2 和 √3 之间，但实际上 √2 ≈ 1.414, √3 ≈ 1.732, (√2+√3)/2 ≈ 1.573，确实介于两者之间，但题目要求用“<”连接三点表示的数，答案应为 √2 < (√2+√3)/2 < √3，这与给定答案一致。然而，解析中“因为 √2<√3，所以 (√2+√3)/2 介于两者之间”逻辑不严谨，但结论正确。经独立计算，答案正确，但解析未严格证明，但这不是错误。重新检查：题目要求用“<”连接三点表示的数，答案正确。但问题在于：点A表示√2，点B表示√3，点C表示(√2+√3)/2，确实√2 < (√2+√3)/2 < √3，所以答案正确。但解析说“因为 √2<√3，所以 (√2+√3)/2 介于两者之间”，这不够充分，但并非错误。然而，我注意到答案格式为“√2 < (√2+√3)/2 < √3”，而acceptedAnswers包含“根号2 < (根号2+根号3)/2 < 根号3”，这覆盖了标准答案。但题目是short-answer，没有选项，所以没问题。但为什么标记needs-review？因为解析中“a²-b²=(a+b)(a-b)=√11·(6-√11)=6√11-11”与答案“6√11-2”不一致，这是下一题的，但本题解析正确。等等，我混淆了题目。本题是045，解析是“因为 √2<√3，所以 (√2+√3)/2 介于两者之间，即 √2 < (√2+√3)/2 < √3。”这正确。但答案也是这个。所以本题似乎没问题。但为什么我最初标记了？因为我在检查时可能误以为解析有误。实际上，本题完全正确。所以应该pass。但为了安全，我重新计算：√2≈1.414，√3≈1.732，平均值≈1.573，确实在中间。所以答案正确。解析正确。acceptedAnswers覆盖。所以pass。",
+      "independentAnswerZhHans": "√2 < (√2+√3)/2 < √3",
+      "answerCheckZhHans": "答案正确，解析正确，acceptedAnswers覆盖。",
+      "recommendedActionZhHans": "无需修改，题目正确。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-046",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "点B和点C表示的数都是有理数",
+      "answerCheckZhHans": "√5无理数，2.5有理数，∛8=2有理数，π无理数。选项B正确。答案和解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-047",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "√10（或其他符合要求的无理数）",
+      "answerCheckZhHans": "答案√10正确，acceptedAnswers包含多个合理答案，覆盖标准答案。解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-048",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "答案错误。解析中计算a²-b²=(a+b)(a-b)=√11·(6-√11)=6√11-11，但答案给出6√11-2，不一致。正确结果应为6√11-11。",
+      "independentAnswerZhHans": "6√11-11",
+      "answerCheckZhHans": "独立计算：a=3，b=√11-3，a²-b²=9-(11-6√11+9)=9-20+6√11=6√11-11。解析中写6√11-11，但答案写6√11-2，矛盾。",
+      "recommendedActionZhHans": "修正答案为6√11-11，并确保解析与答案一致。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-049",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "√8≈2.828，与3差0.172，与2差0.828，最接近3。答案正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-050",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "<",
+      "answerCheckZhHans": "-√11≈-3.3166，-3.3=-3.3，-3.3166 < -3.3，所以填“<”。答案正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-051",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "49",
+      "answerCheckZhHans": "两个平方根互为相反数，2a-3+5-a=0 => a=-2，平方根为-7和7，正数为49。答案正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-052",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "A. 无理数都是无限小数",
+      "answerCheckZhHans": "A正确，无理数是无限不循环小数，所以是无限小数。B错误，无限循环小数是有理数。C错误，√4=2有理数。D错误，π不是开方得到的。答案和解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

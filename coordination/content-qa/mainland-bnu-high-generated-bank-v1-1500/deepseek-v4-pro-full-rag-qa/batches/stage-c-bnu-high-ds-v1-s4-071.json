@@ -1,0 +1,48 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-071",
+  "startedAt": "2026-05-28T00:57:36.654Z",
+  "completedAt": "2026-05-28T00:57:42.401Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-071"
+  ],
+  "usage": {
+    "prompt_tokens": 2477,
+    "completion_tokens": 298,
+    "total_tokens": 2775,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2093
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-071",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "定义域：(-∞,1] ∪ [3,+∞)；在(3,+∞)上单调递增。",
+        "correctedAnswer": "定义域：(-∞,1] ∪ [3,+∞)；在(3,+∞)上单调递增。",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案定义域错误地排除了 x=3，应为 (-∞,1] ∪ [3,+∞)；解析中称 1/(x-2) 在 (3,+∞) 上递增，实际为递减，单调性理由不成立。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "存储答案定义域错误，解析单调性理由错误，判定为 blocker。"
+    }
+  }
+}

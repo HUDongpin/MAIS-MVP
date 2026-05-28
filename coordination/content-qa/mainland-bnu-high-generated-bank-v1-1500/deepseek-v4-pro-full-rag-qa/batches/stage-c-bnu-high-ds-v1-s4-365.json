@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-365",
+  "startedAt": "2026-05-28T02:43:11.138Z",
+  "completedAt": "2026-05-28T02:43:16.104Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-365"
+  ],
+  "usage": {
+    "prompt_tokens": 2259,
+    "completion_tokens": 284,
+    "total_tokens": 2543,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1875
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-365",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "影长 8√3 ≈ 13.86 米，影子不会超出南边界。",
+        "correctedAnswer": "影长 8√3 ≈ 13.86 米，影子不会超出南边界。",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "冬至正午太阳在正南，影子朝北，公园在主干道北侧，影子向北不会超出南边界。存储答案“影子会超出南边界”错误，与正确建模结论矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "存储答案方向判断错误，影子不会超出南边界，需修正。"
+    }
+  }
+}

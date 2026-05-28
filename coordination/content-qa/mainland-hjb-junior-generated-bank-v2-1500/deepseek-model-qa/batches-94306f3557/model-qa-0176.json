@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0176",
+  "ids": [
+    "hjb-junior-ds-v2-s3-401",
+    "hjb-junior-ds-v2-s3-402",
+    "hjb-junior-ds-v2-s3-403",
+    "hjb-junior-ds-v2-s3-404",
+    "hjb-junior-ds-v2-s3-405",
+    "hjb-junior-ds-v2-s3-406",
+    "hjb-junior-ds-v2-s3-407",
+    "hjb-junior-ds-v2-s3-408"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-401",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "7",
+      "answerCheckZhHans": "标准答案为7，与独立解题结果一致。acceptedAnswers包含'7'和'7个'，覆盖标准答案。解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-402",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "中位数",
+      "answerCheckZhHans": "标准答案为中位数，与独立解题结果一致。选项互异，中位数是唯一正确选项。解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-403",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "89",
+      "answerCheckZhHans": "标准答案为89，与独立解题结果一致。acceptedAnswers包含'89'和'89分'，覆盖标准答案。解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-404",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "独立计算得甲、乙平均数均为8.8，但甲方差为0.56，乙方差为1.56，与解析一致。但选项'甲，因为甲的方差更小'正确，而标准答案也是该选项，似乎无矛盾。然而，检查选项发现'甲，因为甲的平均数更高'和'乙，因为乙的平均数更高'均错误，因为平均数相同。'乙，因为乙的方差更小'错误。因此唯一正确选项为'甲，因为甲的方差更小'。但解析中计算甲方差为0.56，乙方差为1.56，正确。但题目要求选择发挥更稳定的运动员，方差小更稳定，应选甲。标准答案与解析一致。但为何标记为needs-review？因为独立解题发现甲方差计算可能有误？重新计算：甲数据：8,9,8,10,9,8,10,9,8,9。平均数=(8+9+8+10+9+8+10+9+8+9)/10=88/10=8.8。方差=[(8-8.8)^2+(9-8.8)^2+(8-8.8)^2+(10-8.8)^2+(9-8.8)^2+(8-8.8)^2+(10-8.8)^2+(9-8.8)^2+(8-8.8)^2+(9-8.8)^2]/10 = [0.64+0.04+0.64+1.44+0.04+0.64+1.44+0.04+0.64+0.04]/10 = 5.6/10=0.56。乙数据：9,8,10,7,10,9,7,10,8,10。平均数=(9+8+10+7+10+9+7+10+8+10)/10=88/10=8.8。方差=[(9-8.8)^2+(8-8.8)^2+(10-8.8)^2+(7-8.8)^2+(10-8.8)^2+(9-8.8)^2+(7-8.8)^2+(10-8.8)^2+(8-8.8)^2+(10-8.8)^2]/10 = [0.04+0.64+1.44+3.24+1.44+0.04+3.24+1.44+0.64+1.44]/10 = 13.6/10=1.36，不是1.56。解析中乙方差为1.56，计算错误。因此解析与标准答案矛盾：标准答案选甲因为甲方差更小，但解析中乙方差1.56大于甲方差0.56，结论仍正确，但数值错误。这属于explanation-mismatch，且可能误导。另外，如果乙方差实际为1.36，仍大于0.56，结论不变，但解析错误。因此需要修正解析。",
+      "independentAnswerZhHans": "甲，因为甲的方差更小",
+      "answerCheckZhHans": "标准答案为'甲，因为甲的方差更小'，与独立解题结果一致。但解析中乙方差计算错误（1.56应为1.36），导致解析与答案虽然结论一致但过程有误。",
+      "recommendedActionZhHans": "修正解析中乙方差的计算：乙方差应为1.36，不是1.56。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-405",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "161",
+      "answerCheckZhHans": "标准答案为161，与独立解题结果一致。acceptedAnswers包含'161'和'161次'，覆盖标准答案。解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-406",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "中位数",
+      "answerCheckZhHans": "标准答案为中位数，与独立解题结果一致。选项互异，中位数是唯一正确选项。解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-407",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "90",
+      "answerCheckZhHans": "标准答案为90，与独立解题结果一致。acceptedAnswers包含'90'，覆盖标准答案。解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-408",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "方差",
+      "answerCheckZhHans": "标准答案为方差，与独立解题结果一致。选项互异，方差是唯一正确选项。解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

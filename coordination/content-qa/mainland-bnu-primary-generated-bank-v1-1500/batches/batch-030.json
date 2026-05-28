@@ -1,0 +1,564 @@
+{
+  "batchId": "batch-030",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p2-041",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-multiplication-introduction",
+      "unitTitle": "数一数与乘法",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "multiplication-meaning",
+        "equal-groups",
+        "arrays",
+        "乘法意义",
+        "数一数与乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "几个几",
+        "重复加法",
+        "乘法算式",
+        "阵列模型"
+      ],
+      "misconceptionTags": [
+        "unequal groups treated as multiplication",
+        "factor meaning not linked to group count and group size",
+        "product found by counting without structure"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-multiplication-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-multiplication-introduction-unit",
+        "bnu-primary-p2-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一盒铅笔有6支。老师买了4盒，一共有多少支铅笔？\n加法算式：____________________\n乘法算式：____________________",
+      "optionsZhHans": [],
+      "answer": "加法算式：6+6+6+6=24，乘法算式：4×6=24",
+      "acceptedAnswers": [
+        "加法算式：6+6+6+6=24，乘法算式：4×6=24",
+        "加法算式：6+6+6+6=24，乘法算式：6×4=24"
+      ],
+      "explanationZhHans": "每盒6支，4盒就是4个6相加，写成加法是6+6+6+6=24，乘法是4×6=24或6×4=24。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-042",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-multiplication-introduction",
+      "unitTitle": "数一数与乘法",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "multiplication-meaning",
+        "equal-groups",
+        "arrays",
+        "乘法意义",
+        "数一数与乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "几个几",
+        "重复加法",
+        "乘法算式",
+        "阵列模型"
+      ],
+      "misconceptionTags": [
+        "unequal groups treated as multiplication",
+        "factor meaning not linked to group count and group size",
+        "product found by counting without structure"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-multiplication-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-multiplication-introduction-unit",
+        "bnu-primary-p2-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明有3个笔筒，每个笔筒里放5支铅笔。小红有2个笔筒，每个笔筒里放8支铅笔。谁可以用乘法计算铅笔总数？为什么？",
+      "optionsZhHans": [],
+      "answer": "小明可以用乘法计算，因为每个笔筒铅笔数相同（都是5支），是几个几相加；小红每个笔筒铅笔数相同（都是8支），也可以用乘法计算。两人都可以用乘法计算。",
+      "acceptedAnswers": [
+        "小明可以用乘法计算，因为每个笔筒铅笔数相同（都是5支），是几个几相加；小红每个笔筒铅笔数相同（都是8支），也可以用乘法计算。两人都可以用乘法计算。",
+        "两人都可以用乘法计算，因为他们的每个笔筒里铅笔数都相同。"
+      ],
+      "explanationZhHans": "乘法要求每份同样多。小明3个5，小红2个8，每份都相等，所以都能用乘法。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-043",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-multiplication-introduction",
+      "unitTitle": "数一数与乘法",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "multiplication-meaning",
+        "equal-groups",
+        "arrays",
+        "乘法意义",
+        "数一数与乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "几个几",
+        "重复加法",
+        "乘法算式",
+        "阵列模型"
+      ],
+      "misconceptionTags": [
+        "unequal groups treated as multiplication",
+        "factor meaning not linked to group count and group size",
+        "product found by counting without structure"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-multiplication-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-multiplication-introduction-unit",
+        "bnu-primary-p2-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪种情况不能用乘法算式表示？",
+      "optionsZhHans": [
+        "每袋有7个苹果，3袋一共有多少个苹果？",
+        "有3行树，每行5棵，一共有多少棵树？",
+        "小明第一天看4页书，第二天看5页书，第三天看6页书，三天一共看了多少页？",
+        "每个小朋友分到2块糖，6个小朋友一共分到多少块糖？"
+      ],
+      "answer": "小明第一天看4页书，第二天看5页书，第三天看6页书，三天一共看了多少页？",
+      "acceptedAnswers": [
+        "小明第一天看4页书，第二天看5页书，第三天看6页书，三天一共看了多少页？"
+      ],
+      "explanationZhHans": "乘法表示几个几相加，要求每份同样多。选项C中每天看的页数不同，不是相同加数，不能用乘法。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-044",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-multiplication-introduction",
+      "unitTitle": "数一数与乘法",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "multiplication-meaning",
+        "equal-groups",
+        "arrays",
+        "乘法意义",
+        "数一数与乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "几个几",
+        "重复加法",
+        "乘法算式",
+        "阵列模型"
+      ],
+      "misconceptionTags": [
+        "unequal groups treated as multiplication",
+        "factor meaning not linked to group count and group size",
+        "product found by counting without structure"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-multiplication-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-multiplication-introduction-unit",
+        "bnu-primary-p2-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "看图写算式：\n有3排花盆，每排摆4盆。\n加法算式：____________________\n乘法算式：____________________",
+      "optionsZhHans": [],
+      "answer": "加法算式：4+4+4=12，乘法算式：3×4=12",
+      "acceptedAnswers": [
+        "加法算式：4+4+4=12，乘法算式：3×4=12",
+        "加法算式：4+4+4=12，乘法算式：4×3=12"
+      ],
+      "explanationZhHans": "3排花盆，每排4盆，就是3个4相加，加法为4+4+4=12，乘法为3×4=12或4×3=12。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-045",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-multiplication-introduction",
+      "unitTitle": "数一数与乘法",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "multiplication-meaning",
+        "equal-groups",
+        "arrays",
+        "乘法意义",
+        "数一数与乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "几个几",
+        "重复加法",
+        "乘法算式",
+        "阵列模型"
+      ],
+      "misconceptionTags": [
+        "unequal groups treated as multiplication",
+        "factor meaning not linked to group count and group size",
+        "product found by counting without structure"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-multiplication-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-multiplication-introduction-unit",
+        "bnu-primary-p2-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用你喜欢的方式画图表示3×5，并写出它表示几个几相加。",
+      "optionsZhHans": [],
+      "answer": "可以画3行圆，每行5个，表示3个5相加；或者画5行圆，每行3个，表示5个3相加。",
+      "acceptedAnswers": [
+        "可以画3行圆，每行5个，表示3个5相加；或者画5行圆，每行3个，表示5个3相加。",
+        "画3组，每组5个，表示3个5相加。",
+        "画5组，每组3个，表示5个3相加。"
+      ],
+      "explanationZhHans": "3×5可以表示3个5相加，也可以表示5个3相加，画图时每份数量要相同。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-046",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-shape-transformations",
+      "unitTitle": "图形的变化",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "shape-transformations",
+        "symmetry",
+        "translation-rotation-intuition",
+        "图形变化"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "平移直观",
+        "旋转直观",
+        "轴对称",
+        "图形观察"
+      ],
+      "misconceptionTags": [
+        "turn and slide language mixed",
+        "shape size assumed to change after movement",
+        "symmetry line guessed from decoration"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-shape-transformations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-shape-motion-unit",
+        "bnu-primary-p2-upper-assessment-within-100-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪种运动是旋转？",
+      "optionsZhHans": [
+        "电梯上下移动",
+        "推拉窗户",
+        "风车转动",
+        "汽车直线行驶"
+      ],
+      "answer": "风车转动",
+      "acceptedAnswers": [
+        "风车转动"
+      ],
+      "explanationZhHans": "旋转是物体绕着一个点或轴转动。风车叶片绕中心转动，属于旋转；其他选项都是沿直线移动，属于平移。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-047",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-shape-transformations",
+      "unitTitle": "图形的变化",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "shape-transformations",
+        "symmetry",
+        "translation-rotation-intuition",
+        "图形变化"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "平移直观",
+        "旋转直观",
+        "轴对称",
+        "图形观察"
+      ],
+      "misconceptionTags": [
+        "turn and slide language mixed",
+        "shape size assumed to change after movement",
+        "symmetry line guessed from decoration"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-shape-transformations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-shape-motion-unit",
+        "bnu-primary-p2-upper-assessment-within-100-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪些数字是对称的？请写出两个。\n0  1  2  3  4  5  6  7  8  9",
+      "optionsZhHans": [],
+      "answer": "0和8",
+      "acceptedAnswers": [
+        "0和8",
+        "0,8",
+        "0 8"
+      ],
+      "explanationZhHans": "轴对称图形对折后两边完全重合。数字0和8可以找到一条对折线使两边重合，其他数字不能。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-048",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-shape-transformations",
+      "unitTitle": "图形的变化",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "shape-transformations",
+        "symmetry",
+        "translation-rotation-intuition",
+        "图形变化"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "平移直观",
+        "旋转直观",
+        "轴对称",
+        "图形观察"
+      ],
+      "misconceptionTags": [
+        "turn and slide language mixed",
+        "shape size assumed to change after movement",
+        "symmetry line guessed from decoration"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-shape-transformations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-shape-motion-unit",
+        "bnu-primary-p2-upper-assessment-within-100-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一张正方形纸对折一次后剪出一个爱心，展开后纸上会有几个爱心？它们的位置有什么关系？",
+      "optionsZhHans": [],
+      "answer": "展开后会有2个爱心，它们关于折痕对称。",
+      "acceptedAnswers": [
+        "展开后会有2个爱心，它们关于折痕对称。",
+        "2个爱心，对称。"
+      ],
+      "explanationZhHans": "对折一次剪出的图形，展开后得到两个完全一样的图形，且关于折痕对称。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-049",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-shape-transformations",
+      "unitTitle": "图形的变化",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "shape-transformations",
+        "symmetry",
+        "translation-rotation-intuition",
+        "图形变化"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "平移直观",
+        "旋转直观",
+        "轴对称",
+        "图形观察"
+      ],
+      "misconceptionTags": [
+        "turn and slide language mixed",
+        "shape size assumed to change after movement",
+        "symmetry line guessed from decoration"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-shape-transformations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-shape-motion-unit",
+        "bnu-primary-p2-upper-assessment-within-100-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个图形不是轴对称图形？",
+      "optionsZhHans": [
+        "长方形",
+        "正方形",
+        "平行四边形（非特殊）",
+        "等腰三角形"
+      ],
+      "answer": "平行四边形（非特殊）",
+      "acceptedAnswers": [
+        "平行四边形（非特殊）"
+      ],
+      "explanationZhHans": "一般平行四边形对折后两边不能完全重合，不是轴对称图形。长方形、正方形、等腰三角形都有对称轴。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-050",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-shape-transformations",
+      "unitTitle": "图形的变化",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "shape-transformations",
+        "symmetry",
+        "translation-rotation-intuition",
+        "图形变化"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "平移直观",
+        "旋转直观",
+        "轴对称",
+        "图形观察"
+      ],
+      "misconceptionTags": [
+        "turn and slide language mixed",
+        "shape size assumed to change after movement",
+        "symmetry line guessed from decoration"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-shape-transformations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-shape-motion-unit",
+        "bnu-primary-p2-upper-assessment-within-100-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面现象中，是平移的画“○”，是旋转的画“△”。\n（1）钟面上指针的运动：______\n（2）升国旗时国旗的运动：______",
+      "optionsZhHans": [],
+      "answer": "（1）△ （2）○",
+      "acceptedAnswers": [
+        "（1）△ （2）○",
+        "（1）旋转 （2）平移"
+      ],
+      "explanationZhHans": "指针绕中心点转动是旋转；国旗沿直线上升是平移。"
+    }
+  ]
+}

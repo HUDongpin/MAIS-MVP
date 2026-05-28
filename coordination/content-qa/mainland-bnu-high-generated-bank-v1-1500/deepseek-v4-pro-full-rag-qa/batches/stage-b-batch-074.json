@@ -1,0 +1,137 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-074",
+  "startedAt": "2026-05-28T02:06:03.811Z",
+  "completedAt": "2026-05-28T02:06:21.968Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-085",
+    "bnu-high-ds-v1-s5-086",
+    "bnu-high-ds-v1-s5-087",
+    "bnu-high-ds-v1-s5-088",
+    "bnu-high-ds-v1-s5-089",
+    "bnu-high-ds-v1-s5-090",
+    "bnu-high-ds-v1-s5-091",
+    "bnu-high-ds-v1-s5-092"
+  ],
+  "usage": {
+    "prompt_tokens": 12994,
+    "completion_tokens": 1094,
+    "total_tokens": 14088,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 12610
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-085",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": "2",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案2正确，但解析中设a=2t得t=2后错误得出a=4，与答案矛盾且数学错误。Stage A独立解得a=2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-086",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "答案3与Stage A一致，解析过程正确，无问题。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-087",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "答案x²/9+y²/5=1与Stage A一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-088",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [
+          "accepted_answer_gap"
+        ],
+        "severity": "minor",
+        "confidence": "medium",
+        "rationaleZhHans": "答案1正确，但解析推导不完整，未明确解出a=1，仅说明b=3符合，存在逻辑跳跃。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-089",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "k = 1",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案k=-2或1/2错误，Stage A独立解得k=1。解析中化简过程有误，导致错误结果。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-090",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "答案3x+4y-7=0与Stage A一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-091",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "答案x²/25+y²/9=1与Stage A一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-092",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "x²/9 - y²/16 = 1",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案x²/9-y²/16=1正确，但解析错误得出y²/16-x²/9=1，与答案矛盾且数学错误。Stage A独立解得x²/9-y²/16=1。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 4,
+      "warn": 1,
+      "fail": 3,
+      "notes": "8题中4题完全一致，1题解析不完整，3题存在答案或解析错误，需修正。"
+    }
+  }
+}

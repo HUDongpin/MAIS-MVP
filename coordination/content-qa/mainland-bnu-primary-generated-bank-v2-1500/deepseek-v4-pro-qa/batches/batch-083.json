@@ -1,0 +1,191 @@
+{
+  "batchNumber": 83,
+  "startedAt": "2026-05-27T14:05:08.214Z",
+  "completedAt": "2026-05-27T14:05:25.194Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p6-227",
+    "bnu-primary-ds-v2-p6-228",
+    "bnu-primary-ds-v2-p6-229",
+    "bnu-primary-ds-v2-p6-230",
+    "bnu-primary-ds-v2-p6-231",
+    "bnu-primary-ds-v2-p6-232",
+    "bnu-primary-ds-v2-p6-233",
+    "bnu-primary-ds-v2-p6-234",
+    "bnu-primary-ds-v2-p6-235",
+    "bnu-primary-ds-v2-p6-236",
+    "bnu-primary-ds-v2-p6-237",
+    "bnu-primary-ds-v2-p6-238",
+    "bnu-primary-ds-v2-p6-239",
+    "bnu-primary-ds-v2-p6-240",
+    "bnu-primary-ds-v2-p6-241",
+    "bnu-primary-ds-v2-p6-242",
+    "bnu-primary-ds-v2-p6-243",
+    "bnu-primary-ds-v2-p6-244"
+  ],
+  "usage": {
+    "prompt_tokens": 3674,
+    "completion_tokens": 1320,
+    "total_tokens": 4994,
+    "prompt_tokens_details": {
+      "cached_tokens": 3584
+    },
+    "prompt_cache_hit_tokens": 3584,
+    "prompt_cache_miss_tokens": 90
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p6-227",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比例尺计算正确，单位换算无误，面积公式应用准确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-228",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "体积转换正确，圆锥体积公式应用无误，保留整数合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-229",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "等底等高圆柱与圆锥体积关系正确，方程求解无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-230",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "侧面展开为正方形时高等于底面周长，计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-231",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "小路宽度忽略不计，总面积恒为基地面积，推理正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-232",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "面积比转化为概率，计算正确，最简分数无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-233",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "规律为连续奇数，第6层为11，求和列式正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-234",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "圆柱体积计算正确，单位换算为升无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-235",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "正比例关系判断正确，其他选项均不成正比例。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-236",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比例尺计算正确，单位换算及时间计算无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-237",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "按比例分配求最大角，判断三角形类型正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-238",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "锯成两段增加两个底面积，体积计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-239",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "对称轴数量比较正确，圆有无数条。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-240",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "圆锥体积及质量计算正确，保留整数合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-241",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "四个算式结果比较正确，最大值判断无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-242",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "圆柱容积公式正确，选项区分清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-243",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "求多百分之几的列式正确，单位“1”判断无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-244",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "与第237题相同，三角形类型判断正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案与解析一致，无歧义或缺失条件，适合北师大版小学数学。"
+    }
+  }
+}

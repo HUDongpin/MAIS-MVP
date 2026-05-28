@@ -1,0 +1,181 @@
+{
+  "startedAt": "2026-05-26T05:54:56.931Z",
+  "completedAt": "2026-05-26T05:55:14.462Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "usage": {
+    "prompt_tokens": 3316,
+    "completion_tokens": 1409,
+    "total_tokens": 4725,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 3316
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "questionId": "pep-primary-p2-u-mc-061",
+        "solvableStatus": "pass",
+        "independentAnswer": "39厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "31+8=39，选项A正确。"
+      },
+      {
+        "questionId": "pep-primary-p2-u-mc-062",
+        "solvableStatus": "pass",
+        "independentAnswer": "65厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "58+7=65，选项D正确。"
+      },
+      {
+        "questionId": "pep-primary-p2-u-mc-063",
+        "solvableStatus": "pass",
+        "independentAnswer": "70厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "62+8=70，选项C正确。"
+      },
+      {
+        "questionId": "pep-primary-p2-u-mc-064",
+        "solvableStatus": "pass",
+        "independentAnswer": "75厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "66+9=75，选项B正确。"
+      },
+      {
+        "questionId": "pep-primary-p2-u-mc-065",
+        "solvableStatus": "pass",
+        "independentAnswer": "80厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "70+10=80，选项A正确。"
+      },
+      {
+        "questionId": "pep-primary-p2-u-mc-066",
+        "solvableStatus": "pass",
+        "independentAnswer": "85厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "74+11=85，选项D正确。"
+      },
+      {
+        "questionId": "pep-primary-p2-u-mc-067",
+        "solvableStatus": "pass",
+        "independentAnswer": "90厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "78+12=90，选项C正确。"
+      },
+      {
+        "questionId": "pep-primary-p2-u-mc-068",
+        "solvableStatus": "pass",
+        "independentAnswer": "95厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "82+13=95，选项B正确。"
+      },
+      {
+        "questionId": "pep-primary-p2-u-mc-069",
+        "solvableStatus": "pass",
+        "independentAnswer": "100厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "86+14=100，选项A正确。"
+      },
+      {
+        "questionId": "pep-primary-p2-u-mc-070",
+        "solvableStatus": "pass",
+        "independentAnswer": "35厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "20+15=35，选项D正确。"
+      },
+      {
+        "questionId": "pep-primary-p2-u-mc-071",
+        "solvableStatus": "pass",
+        "independentAnswer": "40厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "24+16=40，选项C正确。"
+      },
+      {
+        "questionId": "pep-primary-p2-u-mc-072",
+        "solvableStatus": "pass",
+        "independentAnswer": "33厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "28+5=33，选项B正确。"
+      },
+      {
+        "questionId": "pep-primary-p2-u-mc-073",
+        "solvableStatus": "pass",
+        "independentAnswer": "38厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "32+6=38，选项A正确。"
+      },
+      {
+        "questionId": "pep-primary-p2-u-mc-074",
+        "solvableStatus": "pass",
+        "independentAnswer": "43厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "36+7=43，选项D正确。"
+      },
+      {
+        "questionId": "pep-primary-p2-u-mc-075",
+        "solvableStatus": "pass",
+        "independentAnswer": "48厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "40+8=48，选项C正确。"
+      },
+      {
+        "questionId": "pep-primary-p2-u-mc-076",
+        "solvableStatus": "pass",
+        "independentAnswer": "53厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "44+9=53，选项B正确。"
+      },
+      {
+        "questionId": "pep-primary-p2-u-mc-077",
+        "solvableStatus": "pass",
+        "independentAnswer": "58厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "48+10=58，选项A正确。"
+      },
+      {
+        "questionId": "pep-primary-p2-u-mc-078",
+        "solvableStatus": "pass",
+        "independentAnswer": "63厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "52+11=63，选项D正确。"
+      },
+      {
+        "questionId": "pep-primary-p2-u-mc-079",
+        "solvableStatus": "pass",
+        "independentAnswer": "68厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "56+12=68，选项C正确。"
+      },
+      {
+        "questionId": "pep-primary-p2-u-mc-080",
+        "solvableStatus": "pass",
+        "independentAnswer": "73厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "60+13=73，选项B正确。"
+      }
+    ]
+  }
+}

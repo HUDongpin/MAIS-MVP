@@ -1,0 +1,27 @@
+{
+  "startedAt": "2026-05-26T06:19:19.343Z",
+  "completedAt": "2026-05-26T06:19:23.034Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "usage": {
+    "prompt_tokens": 418,
+    "completion_tokens": 107,
+    "total_tokens": 525,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 418
+  },
+  "finishReason": "stop",
+  "result": {
+    "questionId": "pep-primary-p3-l-sa-151",
+    "solvableStatus": "pass",
+    "answerMatchStatus": "pass",
+    "independentAnswer": "8下",
+    "confidence": "high",
+    "issueType": "none",
+    "note": "独立答案'8下'与题库答案'8'数值一致，单位'下'为合理补充，不影响正确性，应视为匹配。",
+    "recommendedAction": "pass"
+  }
+}

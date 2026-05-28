@@ -1,0 +1,588 @@
+{
+  "batchId": "batch-132",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p6-061",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-percentage-meaning",
+      "unitTitle": "百分数",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "percentage-meaning",
+        "fraction-decimal-percent",
+        "percent-rate",
+        "百分数",
+        "百分率"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "认识百分数",
+        "分数小数百分数互化",
+        "解释百分率",
+        "比较百分数",
+        "用百分数表达关系"
+      ],
+      "misconceptionTags": [
+        "percent whole not identified",
+        "percent treated as a count rather than a rate",
+        "conversion done by moving digits without meaning"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-percentage-meaning"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-percentage-meaning-unit",
+        "bnu-primary-p6-upper-assessment-percentage-applications-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "六（1）班共有40名学生，体育课上老师对全班进行了一次1分钟跳绳测试。测试结果如下：跳了120个及以上的学生人数占全班人数的55%，跳了100~119个的学生人数占全班人数的30%，其余学生跳了100个以下。跳了100个以下的学生有多少人？",
+      "optionsZhHans": [
+        "6人",
+        "10人",
+        "12人",
+        "15人"
+      ],
+      "answer": "6人",
+      "acceptedAnswers": [
+        "6人"
+      ],
+      "explanationZhHans": "全班40人，跳120个及以上的占55%，即40×55%=22人；跳100~119个的占30%，即40×30%=12人。100个以下的人数=40-22-12=6人。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-062",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-percentage-meaning",
+      "unitTitle": "百分数",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "percentage-meaning",
+        "fraction-decimal-percent",
+        "percent-rate",
+        "百分数",
+        "百分率"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "认识百分数",
+        "分数小数百分数互化",
+        "解释百分率",
+        "比较百分数",
+        "用百分数表达关系"
+      ],
+      "misconceptionTags": [
+        "percent whole not identified",
+        "percent treated as a count rather than a rate",
+        "conversion done by moving digits without meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-percentage-meaning"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-percentage-meaning-unit",
+        "bnu-primary-p6-upper-assessment-percentage-applications-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "六（1）班有40名学生，今天有2人请假。今天六（1）班的出勤率是多少？请用百分数表示。",
+      "optionsZhHans": [],
+      "answer": "95%",
+      "acceptedAnswers": [
+        "95%",
+        "百分之九十五"
+      ],
+      "explanationZhHans": "出勤率 = 出勤人数 ÷ 总人数 × 100%。出勤人数为40 - 2 = 38人，所以出勤率 = 38 ÷ 40 = 0.95 = 95%。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-063",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-percentage-meaning",
+      "unitTitle": "百分数",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "percentage-meaning",
+        "fraction-decimal-percent",
+        "percent-rate",
+        "百分数",
+        "百分率"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "认识百分数",
+        "分数小数百分数互化",
+        "解释百分率",
+        "比较百分数",
+        "用百分数表达关系"
+      ],
+      "misconceptionTags": [
+        "percent whole not identified",
+        "percent treated as a count rather than a rate",
+        "conversion done by moving digits without meaning"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-percentage-meaning"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-percentage-meaning-unit",
+        "bnu-primary-p6-upper-assessment-percentage-applications-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "六（1）班有男生25人，女生20人。在数学单元练习中，男生优秀人数占男生总人数的60%，女生优秀人数占女生总人数的55%。全班优秀人数占全班总人数的百分之几？（百分号前保留一位小数）",
+      "optionsZhHans": [],
+      "answer": "57.8%",
+      "acceptedAnswers": [
+        "57.8%",
+        "57.8",
+        "百分之五十七点八"
+      ],
+      "explanationZhHans": "先求男生优秀人数：25×60%=15人；女生优秀人数：20×55%=11人。全班优秀总人数：15+11=26人。全班总人数：25+20=45人。全班优秀率：26÷45≈0.5778=57.78%，保留一位小数约57.8%。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-064",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-percentage-meaning",
+      "unitTitle": "百分数",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "percentage-meaning",
+        "fraction-decimal-percent",
+        "percent-rate",
+        "百分数",
+        "百分率"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "认识百分数",
+        "分数小数百分数互化",
+        "解释百分率",
+        "比较百分数",
+        "用百分数表达关系"
+      ],
+      "misconceptionTags": [
+        "percent whole not identified",
+        "percent treated as a count rather than a rate",
+        "conversion done by moving digits without meaning"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-percentage-meaning"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-percentage-meaning-unit",
+        "bnu-primary-p6-upper-assessment-percentage-applications-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "六（1）班同学参加跳绳比赛，达标规则是每分钟跳120下。小宇跳了150下，小雯跳了108下。下面说法正确的是（ ）。",
+      "optionsZhHans": [
+        "小宇的达标率是125%",
+        "小雯的达标率是90%",
+        "小宇跳的比小雯多42%",
+        "小雯跳的比小宇少28%"
+      ],
+      "answer": "小雯的达标率是90%",
+      "acceptedAnswers": [
+        "小雯的达标率是90%"
+      ],
+      "explanationZhHans": "达标率=实际跳的下数÷达标下数×100%。小雯：108÷120=0.9=90%，B正确。A：150÷120=125%，但达标率不能超过100%，A错。C：小宇比小雯多(150-108)÷108≈38.9%，C错。D：小雯比小宇少(150-108)÷150=28%，D错。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-065",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-percentage-meaning",
+      "unitTitle": "百分数",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "percentage-meaning",
+        "fraction-decimal-percent",
+        "percent-rate",
+        "百分数",
+        "百分率"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "认识百分数",
+        "分数小数百分数互化",
+        "解释百分率",
+        "比较百分数",
+        "用百分数表达关系"
+      ],
+      "misconceptionTags": [
+        "percent whole not identified",
+        "percent treated as a count rather than a rate",
+        "conversion done by moving digits without meaning"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-percentage-meaning"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-percentage-meaning-unit",
+        "bnu-primary-p6-upper-assessment-percentage-applications-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "六（1）班共有40名学生，今天有2人请假。请计算今天的出勤率，并用百分数表示。",
+      "optionsZhHans": [],
+      "answer": "95%",
+      "acceptedAnswers": [
+        "95%",
+        "百分之九十五"
+      ],
+      "explanationZhHans": "出勤率 = 出勤人数 ÷ 总人数 × 100%。出勤人数 = 40 - 2 = 38人，所以出勤率 = 38 ÷ 40 = 0.95 = 95%。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-066",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-percentage-meaning",
+      "unitTitle": "百分数",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "percentage-meaning",
+        "fraction-decimal-percent",
+        "percent-rate",
+        "百分数",
+        "百分率"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "认识百分数",
+        "分数小数百分数互化",
+        "解释百分率",
+        "比较百分数",
+        "用百分数表达关系"
+      ],
+      "misconceptionTags": [
+        "percent whole not identified",
+        "percent treated as a count rather than a rate",
+        "conversion done by moving digits without meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-percentage-meaning"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-percentage-meaning-unit",
+        "bnu-primary-p6-upper-assessment-percentage-applications-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "六（1）班今天的出勤率是96%，六（1）班共有50人。今天六（1）班有多少人缺勤？",
+      "optionsZhHans": [],
+      "answer": "2人",
+      "acceptedAnswers": [
+        "2人",
+        "2"
+      ],
+      "explanationZhHans": "出勤率96%表示出勤人数占全班人数的96%，全班50人，出勤人数为50×96%=50×0.96=48人，缺勤人数为50−48=2人。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-067",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-percentage-meaning",
+      "unitTitle": "百分数",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "percentage-meaning",
+        "fraction-decimal-percent",
+        "percent-rate",
+        "百分数",
+        "百分率"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "认识百分数",
+        "分数小数百分数互化",
+        "解释百分率",
+        "比较百分数",
+        "用百分数表达关系"
+      ],
+      "misconceptionTags": [
+        "percent whole not identified",
+        "percent treated as a count rather than a rate",
+        "conversion done by moving digits without meaning"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-percentage-meaning"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-percentage-meaning-unit",
+        "bnu-primary-p6-upper-assessment-percentage-applications-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "六（1）班男生人数是女生人数的80%。下面哪种说法是正确的？",
+      "optionsZhHans": [
+        "男生人数比女生人数少20%",
+        "女生人数比男生人数多20%",
+        "男生人数占全班人数的80%",
+        "女生人数占全班人数的80%"
+      ],
+      "answer": "男生人数比女生人数少20%",
+      "acceptedAnswers": [
+        "男生人数比女生人数少20%"
+      ],
+      "explanationZhHans": "把女生人数看作单位“1”，男生人数是80%。男生比女生少1-80%=20%，所以A正确。女生比男生多(1-80%)÷80%=25%，B错误。男生占全班人数的80%÷(1+80%)≈44.4%，女生占1÷(1+80%)≈55.6%，C和D错误。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-068",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-percentage-meaning",
+      "unitTitle": "百分数",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "percentage-meaning",
+        "fraction-decimal-percent",
+        "percent-rate",
+        "百分数",
+        "百分率"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "认识百分数",
+        "分数小数百分数互化",
+        "解释百分率",
+        "比较百分数",
+        "用百分数表达关系"
+      ],
+      "misconceptionTags": [
+        "percent whole not identified",
+        "percent treated as a count rather than a rate",
+        "conversion done by moving digits without meaning"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-percentage-meaning"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-percentage-meaning-unit",
+        "bnu-primary-p6-upper-assessment-percentage-applications-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "六（1）班男生人数与女生人数的比是4∶5。男生人数是女生人数的（ ）%，女生人数是全班人数的（ ）%。（百分号前保留一位小数）",
+      "optionsZhHans": [],
+      "answer": "80;55.6",
+      "acceptedAnswers": [
+        "80;55.6",
+        "80; 55.6",
+        "80%;55.6%",
+        "80%; 55.6%",
+        "80％;55.6％",
+        "80％; 55.6％"
+      ],
+      "explanationZhHans": "男生是女生的4÷5=0.8=80%。女生是全班人数的5÷(4+5)=5÷9≈0.556=55.6%。注意百分号前保留一位小数。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-069",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-percentage-meaning",
+      "unitTitle": "百分数",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "percentage-meaning",
+        "fraction-decimal-percent",
+        "percent-rate",
+        "百分数",
+        "百分率"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "认识百分数",
+        "分数小数百分数互化",
+        "解释百分率",
+        "比较百分数",
+        "用百分数表达关系"
+      ],
+      "misconceptionTags": [
+        "percent whole not identified",
+        "percent treated as a count rather than a rate",
+        "conversion done by moving digits without meaning"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-percentage-meaning"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-percentage-meaning-unit",
+        "bnu-primary-p6-upper-assessment-percentage-applications-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "六（1）班有45名学生，今天有3人请假。请计算出今天的出勤率，并用百分数表示。",
+      "optionsZhHans": [],
+      "answer": "93.3%",
+      "acceptedAnswers": [
+        "93.3%",
+        "约93.3%",
+        "93.33%",
+        "约93.33%"
+      ],
+      "explanationZhHans": "出勤率 = (出勤人数 ÷ 总人数) × 100%。出勤人数 = 45 - 3 = 42人，所以出勤率 = 42 ÷ 45 ≈ 0.9333 = 93.3%。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-070",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-percentage-meaning",
+      "unitTitle": "百分数",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "percentage-meaning",
+        "fraction-decimal-percent",
+        "percent-rate",
+        "百分数",
+        "百分率"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "认识百分数",
+        "分数小数百分数互化",
+        "解释百分率",
+        "比较百分数",
+        "用百分数表达关系"
+      ],
+      "misconceptionTags": [
+        "percent whole not identified",
+        "percent treated as a count rather than a rate",
+        "conversion done by moving digits without meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-percentage-meaning"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-percentage-meaning-unit",
+        "bnu-primary-p6-upper-assessment-percentage-applications-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "六（1）班有40名学生，其中女生有22名。下面哪个百分数表示女生人数占全班人数的百分之几？",
+      "optionsZhHans": [
+        "55%",
+        "45%",
+        "22%",
+        "40%"
+      ],
+      "answer": "55%",
+      "acceptedAnswers": [
+        "55%"
+      ],
+      "explanationZhHans": "女生22人，全班40人，求女生占全班的百分之几，用22÷40=0.55=55%。选项45%是男生占比，22%和40%是直接使用人数或全班人数，没有正确计算百分率。"
+    }
+  ]
+}

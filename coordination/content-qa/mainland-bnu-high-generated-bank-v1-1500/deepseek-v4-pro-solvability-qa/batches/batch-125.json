@@ -1,0 +1,145 @@
+{
+  "batchNumber": 125,
+  "startedAt": "2026-05-27T14:04:52.040Z",
+  "completedAt": "2026-05-27T14:05:15.959Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-493",
+    "bnu-high-ds-v1-s5-494",
+    "bnu-high-ds-v1-s5-495",
+    "bnu-high-ds-v1-s5-496",
+    "bnu-high-ds-v1-s5-497",
+    "bnu-high-ds-v1-s5-498",
+    "bnu-high-ds-v1-s5-499",
+    "bnu-high-ds-v1-s5-500"
+  ],
+  "usage": {
+    "prompt_tokens": 12070,
+    "completion_tokens": 1505,
+    "total_tokens": 13575,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 11558
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-493",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "在犯错误的概率不超过0.01的前提下，可以认为X与Y有关",
+        "correctedAnswer": "在犯错误的概率不超过0.01的前提下，可以认为X与Y有关",
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_contradiction",
+          "ambiguous_mc"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "χ²≈12.5>6.635，在0.01水平下拒绝独立性假设，正确结论应为“在犯错误的概率不超过0.01的前提下，可以认为X与Y有关”。选项A仅提到0.05水平，虽也正确但非最精确；选项B、C、D均错误。题目要求选择正确结论，但四个选项中无完全匹配的表述，且解析自相矛盾（称A错误但表述正确），导致答案不唯一或错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-494",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "（1）3/5；（2）y = 2.5x - 3；（3）可靠",
+        "correctedAnswer": "（1）3/5；（2）y = 2.5x - 3；（3）可靠",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立计算得回归方程为y=2.5x-3，而非答案中的y=2.5x-2.5。解析中计算a=27-2.5×12=-3，但答案错误写为-2.5。答案与解析矛盾，且答案错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-495",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "有95%的把握认为性别与是否喜欢数学有关",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "k=4.2>3.841，在0.05水平下拒绝独立性假设，即有95%把握认为有关。选项A正确，其他选项错误。解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-496",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "（2）y = 0.7x + 54；（3）103分钟",
+        "correctedAnswer": "（2）y = 0.7x + 54；（3）103分钟",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立计算得b=0.7，a=54，回归方程为y=0.7x+54，预测70个零件需103分钟。答案中给出y=0.67x+54.9和约101.8分钟，与正确结果不符。解析中计算过程正确但答案错误，存在矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-497",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "回归直线 y = bx + a 一定经过点 (x̄, ȳ)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "回归直线必过样本中心点，选项B正确。其他选项均错误：|r|越接近1线性相关越强；所有点在直线上且斜率为负时r=-1；b>0为正相关。解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-498",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "（1）有关系；（2）能",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "计算χ²≈11.538>6.635，在0.01水平下拒绝独立性假设，故有关系且能认为有关。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-499",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "所有样本点都在斜率为正的直线上，完全正相关，相关系数为1。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-500",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "（2）不具有线性相关关系；（3）令 u = ln y，则 u = ln c + d x，变量为 x 和 u",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "散点图呈指数增长，不是线性相关；通过取对数可转化为线性回归。答案与解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 5,
+      "warn": 0,
+      "fail": 3,
+      "notes": "8题中5题通过，3题失败。失败原因：493题选项无精确匹配且解析矛盾；494题答案回归方程截距错误；496题答案回归方程系数和预测值错误。"
+    }
+  }
+}

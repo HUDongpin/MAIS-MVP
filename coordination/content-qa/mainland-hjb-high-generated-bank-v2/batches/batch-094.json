@@ -1,0 +1,392 @@
+{
+  "batchId": "batch-094",
+  "generationMode": "batch-fallback",
+  "fallbackReason": "fill-missing-local",
+  "questions": [
+    {
+      "id": "hjb-high-ds-v2-s5-431",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-数列",
+      "topicTitleZhHans": "数列",
+      "volume": "选择性必修 第一册",
+      "chapter": "数列",
+      "conceptIds": [
+        "sequences",
+        "arithmetic-sequences",
+        "geometric-sequences",
+        "recurrence",
+        "mathematical-induction"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-selective-1-sequences"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-1-sequences-unit-core",
+        "hjb-high-selective-1-sequences-unit-challenge",
+        "pep-high-exam-sequences-recursion"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0931：填空：等差数列首项为 6，公差为 1，求第 3 项。",
+      "optionsZhHans": [],
+      "answer": "8",
+      "acceptedAnswers": [
+        "8"
+      ],
+      "explanationZhHans": "a_3=a_1+(3-1)d=6+2×1=8。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-432",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-数列",
+      "topicTitleZhHans": "数列",
+      "volume": "选择性必修 第一册",
+      "chapter": "数列",
+      "conceptIds": [
+        "sequences",
+        "arithmetic-sequences",
+        "geometric-sequences",
+        "recurrence",
+        "mathematical-induction"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-selective-1-sequences"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-1-sequences-unit-core",
+        "hjb-high-selective-1-sequences-unit-challenge",
+        "pep-high-exam-sequences-recursion"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0932：选择：等差数列首项为 8，公差为 1，求第 12 项。",
+      "optionsZhHans": [
+        "20",
+        "18",
+        "19",
+        "21"
+      ],
+      "answer": "19",
+      "acceptedAnswers": [
+        "19"
+      ],
+      "explanationZhHans": "a_12=a_1+(12-1)d=8+11×1=19。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-433",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-数列",
+      "topicTitleZhHans": "数列",
+      "volume": "选择性必修 第一册",
+      "chapter": "数列",
+      "conceptIds": [
+        "sequences",
+        "arithmetic-sequences",
+        "geometric-sequences",
+        "recurrence",
+        "mathematical-induction"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-selective-1-sequences"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-1-sequences-unit-core",
+        "hjb-high-selective-1-sequences-unit-challenge",
+        "pep-high-exam-sequences-recursion"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0933：填空：等差数列首项为 11，公差为 9，求第 12 项。",
+      "optionsZhHans": [],
+      "answer": "110",
+      "acceptedAnswers": [
+        "110"
+      ],
+      "explanationZhHans": "a_12=a_1+(12-1)d=11+11×9=110。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-434",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-数列",
+      "topicTitleZhHans": "数列",
+      "volume": "选择性必修 第一册",
+      "chapter": "数列",
+      "conceptIds": [
+        "sequences",
+        "arithmetic-sequences",
+        "geometric-sequences",
+        "recurrence",
+        "mathematical-induction"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-selective-1-sequences"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-1-sequences-unit-core",
+        "hjb-high-selective-1-sequences-unit-challenge",
+        "pep-high-exam-sequences-recursion"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0934：选择：等差数列首项为 8，公差为 1，求第 3 项。",
+      "optionsZhHans": [
+        "10",
+        "11",
+        "9",
+        "12"
+      ],
+      "answer": "10",
+      "acceptedAnswers": [
+        "10"
+      ],
+      "explanationZhHans": "a_3=a_1+(3-1)d=8+2×1=10。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-435",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-数列",
+      "topicTitleZhHans": "数列",
+      "volume": "选择性必修 第一册",
+      "chapter": "数列",
+      "conceptIds": [
+        "sequences",
+        "arithmetic-sequences",
+        "geometric-sequences",
+        "recurrence",
+        "mathematical-induction"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-selective-1-sequences"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-1-sequences-unit-core",
+        "hjb-high-selective-1-sequences-unit-challenge",
+        "pep-high-exam-sequences-recursion"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0935：填空：等差数列首项为 10，公差为 5，求第 9 项。",
+      "optionsZhHans": [],
+      "answer": "50",
+      "acceptedAnswers": [
+        "50"
+      ],
+      "explanationZhHans": "a_9=a_1+(9-1)d=10+8×5=50。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-436",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-数列",
+      "topicTitleZhHans": "数列",
+      "volume": "选择性必修 第一册",
+      "chapter": "数列",
+      "conceptIds": [
+        "sequences",
+        "arithmetic-sequences",
+        "geometric-sequences",
+        "recurrence",
+        "mathematical-induction"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-selective-1-sequences"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-1-sequences-unit-core",
+        "hjb-high-selective-1-sequences-unit-challenge",
+        "pep-high-exam-sequences-recursion"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0936：选择：等差数列首项为 11，公差为 3，求第 4 项。",
+      "optionsZhHans": [
+        "21",
+        "19",
+        "20",
+        "22"
+      ],
+      "answer": "20",
+      "acceptedAnswers": [
+        "20"
+      ],
+      "explanationZhHans": "a_4=a_1+(4-1)d=11+3×3=20。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-437",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-数列",
+      "topicTitleZhHans": "数列",
+      "volume": "选择性必修 第一册",
+      "chapter": "数列",
+      "conceptIds": [
+        "sequences",
+        "arithmetic-sequences",
+        "geometric-sequences",
+        "recurrence",
+        "mathematical-induction"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-selective-1-sequences"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-1-sequences-unit-core",
+        "hjb-high-selective-1-sequences-unit-challenge",
+        "pep-high-exam-sequences-recursion"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0937：填空：等差数列首项为 5，公差为 1，求第 7 项。",
+      "optionsZhHans": [],
+      "answer": "11",
+      "acceptedAnswers": [
+        "11"
+      ],
+      "explanationZhHans": "a_7=a_1+(7-1)d=5+6×1=11。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-438",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-数列",
+      "topicTitleZhHans": "数列",
+      "volume": "选择性必修 第一册",
+      "chapter": "数列",
+      "conceptIds": [
+        "sequences",
+        "arithmetic-sequences",
+        "geometric-sequences",
+        "recurrence",
+        "mathematical-induction"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-selective-1-sequences"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-1-sequences-unit-core",
+        "hjb-high-selective-1-sequences-unit-challenge",
+        "pep-high-exam-sequences-recursion"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0938：选择：等差数列首项为 5，公差为 9，求第 7 项。",
+      "optionsZhHans": [
+        "59",
+        "60",
+        "58",
+        "61"
+      ],
+      "answer": "59",
+      "acceptedAnswers": [
+        "59"
+      ],
+      "explanationZhHans": "a_7=a_1+(7-1)d=5+6×9=59。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-439",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-数列",
+      "topicTitleZhHans": "数列",
+      "volume": "选择性必修 第一册",
+      "chapter": "数列",
+      "conceptIds": [
+        "sequences",
+        "arithmetic-sequences",
+        "geometric-sequences",
+        "recurrence",
+        "mathematical-induction"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-selective-1-sequences"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-1-sequences-unit-core",
+        "hjb-high-selective-1-sequences-unit-challenge",
+        "pep-high-exam-sequences-recursion"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0939：填空：等差数列首项为 3，公差为 1，求第 11 项。",
+      "optionsZhHans": [],
+      "answer": "13",
+      "acceptedAnswers": [
+        "13"
+      ],
+      "explanationZhHans": "a_11=a_1+(11-1)d=3+10×1=13。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s5-440",
+      "grade": "S5",
+      "topicId": "hjb-high-s5-数列",
+      "topicTitleZhHans": "数列",
+      "volume": "选择性必修 第一册",
+      "chapter": "数列",
+      "conceptIds": [
+        "sequences",
+        "arithmetic-sequences",
+        "geometric-sequences",
+        "recurrence",
+        "mathematical-induction"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-selective-1-sequences"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-selective-1-sequences-unit-core",
+        "hjb-high-selective-1-sequences-unit-challenge",
+        "pep-high-exam-sequences-recursion"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0940：选择：等差数列首项为 7，公差为 6，求第 6 项。",
+      "optionsZhHans": [
+        "38",
+        "36",
+        "39",
+        "37"
+      ],
+      "answer": "37",
+      "acceptedAnswers": [
+        "37"
+      ],
+      "explanationZhHans": "a_6=a_1+(6-1)d=7+5×6=37。"
+    }
+  ]
+}

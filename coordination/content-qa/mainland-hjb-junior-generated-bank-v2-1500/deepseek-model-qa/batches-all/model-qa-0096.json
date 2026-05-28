@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0096",
+  "ids": [
+    "hjb-junior-ds-v2-s2-261",
+    "hjb-junior-ds-v2-s2-262",
+    "hjb-junior-ds-v2-s2-263",
+    "hjb-junior-ds-v2-s2-264",
+    "hjb-junior-ds-v2-s2-265",
+    "hjb-junior-ds-v2-s2-266",
+    "hjb-junior-ds-v2-s2-267",
+    "hjb-junior-ds-v2-s2-268"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-261",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题干给出平行四边形ABCD，AB=10，BC=6，∠ABC=60°，E为AD中点，F为BC中点，求EF。解析错误地认为四边形ABFE是平行四边形，得出EF=AB=10。实际上，在一般平行四边形中，EF的长度需通过几何计算求得，正确答案为2√19。标准答案2√19正确，但解析错误，导致答案与解析矛盾。",
+      "independentAnswerZhHans": "2√19",
+      "answerCheckZhHans": "标准答案2√19正确，但解析错误地得出10，与答案矛盾。",
+      "recommendedActionZhHans": "修正解析，给出正确的计算过程。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-262",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3个",
+      "answerCheckZhHans": "标准答案3个正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-263",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "8",
+      "answerCheckZhHans": "标准答案8正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-264",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "10/3",
+      "answerCheckZhHans": "标准答案10/3正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-265",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "1.5",
+      "answerCheckZhHans": "标准答案1.5正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-266",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "110",
+      "answerCheckZhHans": "标准答案110正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-267",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "6",
+      "answerCheckZhHans": "标准答案6正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-268",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "一组对边平行且相等",
+      "answerCheckZhHans": "标准答案正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

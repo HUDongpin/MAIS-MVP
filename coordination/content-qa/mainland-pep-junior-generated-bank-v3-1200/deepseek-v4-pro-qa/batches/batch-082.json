@@ -1,0 +1,137 @@
+{
+  "batchNumber": 82,
+  "startedAt": "2026-05-24T23:01:41.278Z",
+  "completedAt": "2026-05-24T23:01:56.492Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s3-k10-sa-040",
+    "pep-junior-v3-s3-k10-sa-041",
+    "pep-junior-v3-s3-k10-sa-042",
+    "pep-junior-v3-s3-k10-sa-043",
+    "pep-junior-v3-s3-k10-sa-044",
+    "pep-junior-v3-s3-k10-sa-045",
+    "pep-junior-v3-s3-k10-sa-046",
+    "pep-junior-v3-s3-k10-sa-047",
+    "pep-junior-v3-s3-k10-sa-048",
+    "pep-junior-v3-s3-k10-sa-049",
+    "pep-junior-v3-s3-k10-sa-050",
+    "pep-junior-v3-s3-k10-sa-051"
+  ],
+  "usage": {
+    "prompt_tokens": 4196,
+    "completion_tokens": 971,
+    "total_tokens": 5167,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 3940
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s3-k10-sa-040",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "相交弦定理应用正确，计算无误，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-sa-041",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "放回摸球概率计算正确，答案12/25准确。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-sa-042",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "旋转坐标变换公式应用正确，结果(2,3)无误。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-sa-043",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "判别式求解正确，k<1/4无误。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-sa-044",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "利润函数关系式及自变量取值范围推导正确。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-sa-045",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "二次函数区间最值求解正确，最大值1最小值-7无误。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-sa-046",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "切线性质与角度计算正确，∠D=30°无误。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-sa-047",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "放回抽取数字和为奇数的概率计算正确，1/2无误。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-sa-048",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "因式分解解方程正确，解为3和-1/2。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-sa-049",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "顶点坐标计算正确，(2,3)无误。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-sa-050",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "旋转坐标变换正确，结果(4,3)无误。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-sa-051",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "一元二次方程应用题列式与求解正确，长10宽6无误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部12道题均通过审核，数学正确，答案与解释一致，无歧义或缺失条件，适合人教版初中数学。"
+    }
+  }
+}

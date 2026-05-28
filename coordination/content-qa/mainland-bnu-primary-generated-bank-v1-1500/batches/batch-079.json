@@ -1,0 +1,583 @@
+{
+  "batchId": "batch-079",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p4-031",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-lines-angles",
+      "unitTitle": "线与角",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "lines-angles",
+        "angle-measurement",
+        "parallel-perpendicular",
+        "线与角",
+        "角度"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "认识线段射线直线",
+        "量角",
+        "画角",
+        "平行垂直",
+        "角的分类"
+      ],
+      "misconceptionTags": [
+        "ray and line segment names mixed",
+        "protractor baseline not aligned",
+        "angle size judged from side length rather than opening"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-lines-angles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-lines-angles-unit",
+        "bnu-primary-p4-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面有四条关于图形的说法，哪一条是正确的？\nA. 射线AB和射线BA是同一条射线。\nB. 线段有两个端点，直线没有端点。\nC. 角的大小与边的长短有关，边越长角越大。\nD. 用量角器量角时，只要把量角器的中心与角的顶点重合，就能准确读出度数。",
+      "optionsZhHans": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "B",
+      "acceptedAnswers": [
+        "B"
+      ],
+      "explanationZhHans": "线段有两个端点，长度有限；直线没有端点，可以无限延伸，所以B正确。射线AB以A为端点向B方向延伸，射线BA以B为端点向A方向延伸，不是同一条射线，A错误。角的大小由两条边张开的程度决定，与边的长短无关，C错误。量角时除了中心与顶点重合，还要让0°刻度线与角的一条边重合，D错误。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-032",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-lines-angles",
+      "unitTitle": "线与角",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "lines-angles",
+        "angle-measurement",
+        "parallel-perpendicular",
+        "线与角",
+        "角度"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "认识线段射线直线",
+        "量角",
+        "画角",
+        "平行垂直",
+        "角的分类"
+      ],
+      "misconceptionTags": [
+        "ray and line segment names mixed",
+        "protractor baseline not aligned",
+        "angle size judged from side length rather than opening"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-lines-angles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-lines-angles-unit",
+        "bnu-primary-p4-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个角的一条边与量角器内圈0°刻度线重合，另一条边指向内圈刻度75°；如果改用外圈刻度读数，这个角是多少度？请填写度数。",
+      "optionsZhHans": [],
+      "answer": "105°",
+      "acceptedAnswers": [
+        "105°",
+        "105度"
+      ],
+      "explanationZhHans": "量角器内圈和外圈刻度之和为180°。内圈读数为75°时，外圈对应刻度为180°−75°=105°。所以改用外圈读数，这个角是105°。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-033",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-multiplication",
+      "unitTitle": "乘法",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "multi-digit-multiplication",
+        "three-digit-by-two-digit",
+        "multiplication-estimation",
+        "乘法",
+        "三位数乘两位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "两位数乘三位数",
+        "竖式乘法",
+        "估算积",
+        "积的变化规律",
+        "乘法应用"
+      ],
+      "misconceptionTags": [
+        "partial products not aligned by place value",
+        "zero placeholder omitted",
+        "estimate not used to check product size"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-multiplication-unit",
+        "bnu-primary-p4-upper-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校要为24个班各配备一台打印机，每台打印机328元。总务处老师估算大约需要多少钱，他应该怎样估算？请写出估算过程，并说明估算结果比实际需要的钱多还是少。",
+      "optionsZhHans": [],
+      "answer": "把328看作300，24看作20，300×20=6000（元），估算结果比实际需要的钱少。",
+      "acceptedAnswers": [
+        "把328看作300，24看作20，300×20=6000（元），估算结果比实际需要的钱少。",
+        "328≈300，24≈20，300×20=6000，估算结果比实际需要的钱少。"
+      ],
+      "explanationZhHans": "估算时，通常把两个因数都往小估或都往大估，以便判断范围。这里把328估成300，24估成20，300×20=6000，两个因数都估小了，所以估算结果比实际需要的钱少。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-034",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-multiplication",
+      "unitTitle": "乘法",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "multi-digit-multiplication",
+        "three-digit-by-two-digit",
+        "multiplication-estimation",
+        "乘法",
+        "三位数乘两位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "两位数乘三位数",
+        "竖式乘法",
+        "估算积",
+        "积的变化规律",
+        "乘法应用"
+      ],
+      "misconceptionTags": [
+        "partial products not aligned by place value",
+        "zero placeholder omitted",
+        "estimate not used to check product size"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-multiplication-unit",
+        "bnu-primary-p4-upper-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算125×32时，下面哪种方法运用了乘法结合律？\nA. 125×32 = 125×8×4\nB. 125×32 = 125×30 + 125×2\nC. 125×32 = 100×32 + 25×32\nD. 125×32 = 125×16×2",
+      "optionsZhHans": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "A",
+      "acceptedAnswers": [
+        "A"
+      ],
+      "explanationZhHans": "乘法结合律是指三个数相乘，先把前两个数相乘或先把后两个数相乘，积不变。A选项把32拆成8×4，然后125×8×4，运用了结合律。B、C是乘法分配律，D只是拆分，未体现结合律。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-035",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-multiplication",
+      "unitTitle": "乘法",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "multi-digit-multiplication",
+        "three-digit-by-two-digit",
+        "multiplication-estimation",
+        "乘法",
+        "三位数乘两位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "两位数乘三位数",
+        "竖式乘法",
+        "估算积",
+        "积的变化规律",
+        "乘法应用"
+      ],
+      "misconceptionTags": [
+        "partial products not aligned by place value",
+        "zero placeholder omitted",
+        "estimate not used to check product size"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-multiplication-unit",
+        "bnu-primary-p4-upper-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在竖式计算308×25时，小明是这样写的：先算308×5=1540，再算308×20=616，最后把1540和616相加得到2156。他的计算对吗？如果不对，请指出错误并写出正确的竖式过程。",
+      "optionsZhHans": [],
+      "answer": "不对。错误在于308×20的积应该是6160，他漏写了末尾的0。正确计算：308×25，先算308×5=1540，再算308×20=6160，最后1540+6160=7700。",
+      "acceptedAnswers": [
+        "不对。错误在于308×20的积应该是6160，他漏写了末尾的0。正确计算：308×25，先算308×5=1540，再算308×20=6160，最后1540+6160=7700。",
+        "不对。308×20=6160，不是616，漏了0。正确结果是7700。"
+      ],
+      "explanationZhHans": "三位数乘两位数，用两位数十位上的数去乘三位数，积的末位要与十位对齐，表示多少个十。308×20表示308×2个十，得616个十，即6160。小明漏写了十位乘积末尾的0，导致结果错误。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-036",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-multiplication",
+      "unitTitle": "乘法",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "multi-digit-multiplication",
+        "three-digit-by-two-digit",
+        "multiplication-estimation",
+        "乘法",
+        "三位数乘两位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "两位数乘三位数",
+        "竖式乘法",
+        "估算积",
+        "积的变化规律",
+        "乘法应用"
+      ],
+      "misconceptionTags": [
+        "partial products not aligned by place value",
+        "zero placeholder omitted",
+        "estimate not used to check product size"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-multiplication-unit",
+        "bnu-primary-p4-upper-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一列火车有12节硬座车厢，每节车厢有118个座位；还有6节软卧车厢，每节有36个铺位。这列火车硬座座位和软卧铺位一共有多少个？",
+      "optionsZhHans": [],
+      "answer": "硬座座位：118×12=1416（个），软卧铺位：36×6=216（个），一共：1416+216=1632（个）。",
+      "acceptedAnswers": [
+        "硬座座位：118×12=1416（个），软卧铺位：36×6=216（个），一共：1416+216=1632（个）。",
+        "1632个",
+        "1632"
+      ],
+      "explanationZhHans": "先分别计算硬座座位数和软卧铺位数，再相加。118×12=1416，36×6=216，1416+216=1632。注意硬座是12节，软卧是6节，不要混淆。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-037",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-multiplication",
+      "unitTitle": "乘法",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "multi-digit-multiplication",
+        "three-digit-by-two-digit",
+        "multiplication-estimation",
+        "乘法",
+        "三位数乘两位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "两位数乘三位数",
+        "竖式乘法",
+        "估算积",
+        "积的变化规律",
+        "乘法应用"
+      ],
+      "misconceptionTags": [
+        "partial products not aligned by place value",
+        "zero placeholder omitted",
+        "estimate not used to check product size"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-multiplication-unit",
+        "bnu-primary-p4-upper-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个算式的积与298×31的积最接近？\nA. 300×30\nB. 300×31\nC. 290×30\nD. 298×30",
+      "optionsZhHans": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "A",
+      "acceptedAnswers": [
+        "A"
+      ],
+      "explanationZhHans": "298接近300，31接近30，所以298×31≈300×30=9000。B选项300×31=9300偏大，C选项290×30=8700偏小，D选项298×30=8940偏小。A最接近。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-038",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-multiplication",
+      "unitTitle": "乘法",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "multi-digit-multiplication",
+        "three-digit-by-two-digit",
+        "multiplication-estimation",
+        "乘法",
+        "三位数乘两位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "两位数乘三位数",
+        "竖式乘法",
+        "估算积",
+        "积的变化规律",
+        "乘法应用"
+      ],
+      "misconceptionTags": [
+        "partial products not aligned by place value",
+        "zero placeholder omitted",
+        "estimate not used to check product size"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-multiplication-unit",
+        "bnu-primary-p4-upper-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "根据24×15=360，直接写出下面算式的积：240×15=______，24×150=______。",
+      "optionsZhHans": [],
+      "answer": "240×15=3600，24×150=3600",
+      "acceptedAnswers": [
+        "240×15=3600，24×150=3600",
+        "3600,3600"
+      ],
+      "explanationZhHans": "一个因数不变，另一个因数乘几，积也乘几。240×15，24乘10变为240，所以积360乘10得3600；24×150，15乘10变为150，积也乘10得3600。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-039",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-multiplication",
+      "unitTitle": "乘法",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "multi-digit-multiplication",
+        "three-digit-by-two-digit",
+        "multiplication-estimation",
+        "乘法",
+        "三位数乘两位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "两位数乘三位数",
+        "竖式乘法",
+        "估算积",
+        "积的变化规律",
+        "乘法应用"
+      ],
+      "misconceptionTags": [
+        "partial products not aligned by place value",
+        "zero placeholder omitted",
+        "estimate not used to check product size"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-multiplication-unit",
+        "bnu-primary-p4-upper-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用2、3、4、5、6组成一个三位数和一个两位数，要使乘积最大，应该怎样组合？请写出你的组合和乘积。",
+      "optionsZhHans": [],
+      "answer": "组合：542×63，乘积：34146。",
+      "acceptedAnswers": [
+        "组合：542×63，乘积：34146。",
+        "542×63=34146",
+        "542×63，34146"
+      ],
+      "explanationZhHans": "要使乘积最大，两个因数的最高位应尽量大，且两个因数的大小越接近，乘积越大。尝试后，542×63=34146最大。其他组合如632×54=34128，643×52=33436等均较小。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-040",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-multiplication",
+      "unitTitle": "乘法",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "multi-digit-multiplication",
+        "three-digit-by-two-digit",
+        "multiplication-estimation",
+        "乘法",
+        "三位数乘两位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "两位数乘三位数",
+        "竖式乘法",
+        "估算积",
+        "积的变化规律",
+        "乘法应用"
+      ],
+      "misconceptionTags": [
+        "partial products not aligned by place value",
+        "zero placeholder omitted",
+        "estimate not used to check product size"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-multiplication-unit",
+        "bnu-primary-p4-upper-assessment-monthly-3-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校买来45套课桌椅，每套128元。下面竖式中箭头所指的这一步表示什么？\n   128\n×   45\n─────\n   640  ← 这一步\n  512\n─────\n  5760\nA. 5套课桌椅的价钱\nB. 40套课桌椅的价钱\nC. 45套课桌椅的价钱\nD. 4套课桌椅的价钱",
+      "optionsZhHans": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "B",
+      "acceptedAnswers": [
+        "B"
+      ],
+      "explanationZhHans": "竖式中640是128×40的积，因为45中的4在十位上表示40，所以128×40=5120，但竖式中简写为640，末尾的0省略，表示640个十，即40套课桌椅的价钱。"
+    }
+  ]
+}

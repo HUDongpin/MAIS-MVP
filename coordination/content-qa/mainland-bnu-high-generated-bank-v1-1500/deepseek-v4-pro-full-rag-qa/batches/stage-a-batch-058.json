@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-058",
+  "startedAt": "2026-05-28T00:49:37.674Z",
+  "completedAt": "2026-05-28T00:49:55.831Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-457",
+    "bnu-high-ds-v1-s4-458",
+    "bnu-high-ds-v1-s4-459",
+    "bnu-high-ds-v1-s4-460",
+    "bnu-high-ds-v1-s4-461",
+    "bnu-high-ds-v1-s4-462",
+    "bnu-high-ds-v1-s4-463",
+    "bnu-high-ds-v1-s4-464"
+  ],
+  "usage": {
+    "prompt_tokens": 9955,
+    "completion_tokens": 1017,
+    "total_tokens": 10972,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9571
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-457",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "1",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "计算 z = (1-i)/(1+i)，分子分母同乘分母共轭 (1-i) 得 z = -i，模为 1。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-458",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由 (2-i)z=5 得 z=5/(2-i)=5(2+i)/5=2+i，实部为 2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-459",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "1 + i",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "设 z=x+yi，由点在 y=x 上得 x=y；由 |z-1|=|z+i| 得 (x-1)^2+y^2=x^2+(y+1)^2，代入 x=y 解得 x=y=1，故 z=1+i。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-460",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "±√3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "设 z=a+bi，则 z·z̄=a^2+b^2=4，z+z̄=2a=2 得 a=1，代入得 b^2=3，虚部 b=±√3。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-461",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "第一象限",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由 (1+i)z=3-i 得 z=(3-i)/(1+i)=1-2i，共轭为 1+2i，对应点 (1,2) 在第一象限。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-462",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "-i",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "i 的幂周期为 4，2023÷4 余 3，故 i^2023 = i^3 = -i。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-463",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "必要不充分条件",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "纯虚数要求 a=0 且 b≠0，故 a=0 是必要条件但不充分（b 可能为 0）。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-464",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "√10",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "A(2,3), B(-1,4)，距离为 √[(2+1)^2+(3-4)^2]=√(9+1)=√10。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部 8 题均可独立求解，无歧义或错误，符合北师大版高中复数章节核心要求。"
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-256",
+  "startedAt": "2026-05-28T01:24:58.528Z",
+  "completedAt": "2026-05-28T01:25:02.714Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-256"
+  ],
+  "usage": {
+    "prompt_tokens": 2261,
+    "completion_tokens": 238,
+    "total_tokens": 2499,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1877
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-256",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "A",
+        "correctedAnswer": null,
+        "issueTags": [
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，选项唯一，答案匹配选项A。但解析中推导出k²=1/3，与最终答案k²≥1/3矛盾，且未正确推导出不等式条件，解析存在严重错误，需修正。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "解析推导与答案矛盾，判定为严重错误，需修正解析。"
+    }
+  }
+}

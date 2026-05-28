@@ -1,0 +1,181 @@
+{
+  "startedAt": "2026-05-26T05:51:45.798Z",
+  "completedAt": "2026-05-26T05:52:02.777Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "usage": {
+    "prompt_tokens": 2249,
+    "completion_tokens": 1349,
+    "total_tokens": 3598,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 2249
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "questionId": "pep-primary-p1-l-fi-121",
+        "solvableStatus": "pass",
+        "independentAnswer": "92",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "77+15=92，计算正确。"
+      },
+      {
+        "questionId": "pep-primary-p1-l-fi-122",
+        "solvableStatus": "pass",
+        "independentAnswer": "14",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "34-20=14，计算正确。"
+      },
+      {
+        "questionId": "pep-primary-p1-l-fi-123",
+        "solvableStatus": "pass",
+        "independentAnswer": "48",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "41+7=48，计算正确。"
+      },
+      {
+        "questionId": "pep-primary-p1-l-fi-124",
+        "solvableStatus": "pass",
+        "independentAnswer": "20",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "40-20=20，计算正确。"
+      },
+      {
+        "questionId": "pep-primary-p1-l-fi-125",
+        "solvableStatus": "pass",
+        "independentAnswer": "72",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "55+17=72，计算正确。"
+      },
+      {
+        "questionId": "pep-primary-p1-l-fi-126",
+        "solvableStatus": "pass",
+        "independentAnswer": "58",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "62-4=58，计算正确。"
+      },
+      {
+        "questionId": "pep-primary-p1-l-fi-127",
+        "solvableStatus": "pass",
+        "independentAnswer": "78",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "69+9=78，计算正确。"
+      },
+      {
+        "questionId": "pep-primary-p1-l-fi-128",
+        "solvableStatus": "pass",
+        "independentAnswer": "62",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "76-14=62，计算正确。"
+      },
+      {
+        "questionId": "pep-primary-p1-l-fi-129",
+        "solvableStatus": "pass",
+        "independentAnswer": "52",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "33+19=52，计算正确。"
+      },
+      {
+        "questionId": "pep-primary-p1-l-fi-130",
+        "solvableStatus": "pass",
+        "independentAnswer": "34",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "40-6=34，计算正确。"
+      },
+      {
+        "questionId": "pep-primary-p1-l-fi-131",
+        "solvableStatus": "pass",
+        "independentAnswer": "58",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "47+11=58，计算正确。"
+      },
+      {
+        "questionId": "pep-primary-p1-l-fi-132",
+        "solvableStatus": "pass",
+        "independentAnswer": "38",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "54-16=38，计算正确。"
+      },
+      {
+        "questionId": "pep-primary-p1-l-fi-133",
+        "solvableStatus": "pass",
+        "independentAnswer": "82",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "61+21=82，计算正确。"
+      },
+      {
+        "questionId": "pep-primary-p1-l-fi-134",
+        "solvableStatus": "pass",
+        "independentAnswer": "60",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "68-8=60，计算正确。"
+      },
+      {
+        "questionId": "pep-primary-p1-l-fi-135",
+        "solvableStatus": "pass",
+        "independentAnswer": "88",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "75+13=88，计算正确。"
+      },
+      {
+        "questionId": "pep-primary-p1-l-fi-136",
+        "solvableStatus": "pass",
+        "independentAnswer": "14",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "32-18=14，计算正确。"
+      },
+      {
+        "questionId": "pep-primary-p1-l-fi-137",
+        "solvableStatus": "pass",
+        "independentAnswer": "44",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "39+5=44，计算正确。"
+      },
+      {
+        "questionId": "pep-primary-p1-l-fi-138",
+        "solvableStatus": "pass",
+        "independentAnswer": "36",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "46-10=36，计算正确。"
+      },
+      {
+        "questionId": "pep-primary-p1-l-fi-139",
+        "solvableStatus": "pass",
+        "independentAnswer": "68",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "53+15=68，计算正确。"
+      },
+      {
+        "questionId": "pep-primary-p1-l-fi-140",
+        "solvableStatus": "pass",
+        "independentAnswer": "40",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "60-20=40，计算正确。"
+      }
+    ]
+  }
+}

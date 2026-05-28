@@ -1,0 +1,570 @@
+{
+  "batchId": "batch-004",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p1-031",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-comparison",
+      "unitTitle": "比较",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "comparison",
+        "more-less-equal",
+        "length-height-weight",
+        "比较",
+        "多少长短"
+      ],
+      "competencyTags": [
+        "数感",
+        "量感",
+        "观察比较"
+      ],
+      "skillTags": [
+        "多少比较",
+        "长短比较",
+        "高矮比较",
+        "轻重比较",
+        "符号表达"
+      ],
+      "misconceptionTags": [
+        "bigger object assumed to mean more items",
+        "comparison attribute not named",
+        "equal groups missed when arrangements differ"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-comparison"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "桌上有3个红苹果和5个青苹果。哪种苹果多？",
+      "optionsZhHans": [
+        "红苹果多",
+        "青苹果多",
+        "一样多",
+        "无法比较"
+      ],
+      "answer": "青苹果多",
+      "acceptedAnswers": [
+        "青苹果多"
+      ],
+      "explanationZhHans": "红苹果有3个，青苹果有5个，5比3大，所以青苹果多。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-032",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-comparison",
+      "unitTitle": "比较",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "comparison",
+        "more-less-equal",
+        "length-height-weight",
+        "比较",
+        "多少长短"
+      ],
+      "competencyTags": [
+        "数感",
+        "量感",
+        "观察比较"
+      ],
+      "skillTags": [
+        "多少比较",
+        "长短比较",
+        "高矮比较",
+        "轻重比较",
+        "符号表达"
+      ],
+      "misconceptionTags": [
+        "bigger object assumed to mean more items",
+        "comparison attribute not named",
+        "equal groups missed when arrangements differ"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-comparison"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明的铅笔盒里有4支铅笔，小红的铅笔盒里有4支铅笔。谁的铅笔多？填“小明多”“小红多”或“一样多”。",
+      "optionsZhHans": [],
+      "answer": "一样多",
+      "acceptedAnswers": [
+        "一样多"
+      ],
+      "explanationZhHans": "小明有4支，小红也有4支，4和4相等，所以一样多。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-033",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-within-10-add-sub",
+      "unitTitle": "加与减（一）",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "within-10-addition-subtraction",
+        "join-separate",
+        "part-whole",
+        "10以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "加法含义",
+        "减法含义",
+        "看图列式",
+        "分与合",
+        "算式表达"
+      ],
+      "misconceptionTags": [
+        "operation chosen from surface keyword",
+        "part and whole reversed",
+        "minus sign read as counting backward without story meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-within-10-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-within-10-add-sub",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "树上有2只鸟，又飞来3只鸟。现在树上一共有几只鸟？请写出算式和得数。",
+      "optionsZhHans": [],
+      "answer": "2+3=5",
+      "acceptedAnswers": [
+        "2+3=5",
+        "5"
+      ],
+      "explanationZhHans": "原来有2只，飞来3只，合起来用加法，2+3=5。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-034",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-within-10-add-sub",
+      "unitTitle": "加与减（一）",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "within-10-addition-subtraction",
+        "join-separate",
+        "part-whole",
+        "10以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "加法含义",
+        "减法含义",
+        "看图列式",
+        "分与合",
+        "算式表达"
+      ],
+      "misconceptionTags": [
+        "operation chosen from surface keyword",
+        "part and whole reversed",
+        "minus sign read as counting backward without story meaning"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-within-10-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-within-10-add-sub",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈买了8个鸡蛋，用了3个。还剩几个鸡蛋？正确的算式是哪一个？",
+      "optionsZhHans": [
+        "8+3=11",
+        "8-3=5",
+        "3+5=8",
+        "8-5=3"
+      ],
+      "answer": "8-3=5",
+      "acceptedAnswers": [
+        "8-3=5"
+      ],
+      "explanationZhHans": "从8个里面去掉3个，用减法，8-3=5，还剩5个。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-035",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-within-10-add-sub",
+      "unitTitle": "加与减（一）",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "within-10-addition-subtraction",
+        "join-separate",
+        "part-whole",
+        "10以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "加法含义",
+        "减法含义",
+        "看图列式",
+        "分与合",
+        "算式表达"
+      ],
+      "misconceptionTags": [
+        "operation chosen from surface keyword",
+        "part and whole reversed",
+        "minus sign read as counting backward without story meaning"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-within-10-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-within-10-add-sub",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "盒子里有一些糖，吃掉2颗后还剩6颗。盒子里原来有□颗糖。□里填几？",
+      "optionsZhHans": [],
+      "answer": "8",
+      "acceptedAnswers": [
+        "8"
+      ],
+      "explanationZhHans": "剩下的6颗加上吃掉的2颗就是原来的，6+2=8。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-036",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-within-10-add-sub",
+      "unitTitle": "加与减（一）",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "within-10-addition-subtraction",
+        "join-separate",
+        "part-whole",
+        "10以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "加法含义",
+        "减法含义",
+        "看图列式",
+        "分与合",
+        "算式表达"
+      ],
+      "misconceptionTags": [
+        "operation chosen from surface keyword",
+        "part and whole reversed",
+        "minus sign read as counting backward without story meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-within-10-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-within-10-add-sub",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "鱼缸里有5条金鱼，爸爸又放进去2条。现在鱼缸里一共有几条金鱼？请写出算式和得数。",
+      "optionsZhHans": [],
+      "answer": "5+2=7",
+      "acceptedAnswers": [
+        "5+2=7",
+        "7"
+      ],
+      "explanationZhHans": "原来5条，增加2条，求总数用加法，5+2=7。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-037",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-within-10-add-sub",
+      "unitTitle": "加与减（一）",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "within-10-addition-subtraction",
+        "join-separate",
+        "part-whole",
+        "10以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "加法含义",
+        "减法含义",
+        "看图列式",
+        "分与合",
+        "算式表达"
+      ],
+      "misconceptionTags": [
+        "operation chosen from surface keyword",
+        "part and whole reversed",
+        "minus sign read as counting backward without story meaning"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-within-10-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-within-10-add-sub",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "篮子里有7个橘子，小朋友拿走一些后还剩4个。拿走了几个橘子？正确的算式是哪一个？",
+      "optionsZhHans": [
+        "7+4=11",
+        "7-4=3",
+        "4+3=7",
+        "7-3=4"
+      ],
+      "answer": "7-4=3",
+      "acceptedAnswers": [
+        "7-4=3"
+      ],
+      "explanationZhHans": "从7个里去掉剩下的4个，就是拿走的，7-4=3。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-038",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-within-10-add-sub",
+      "unitTitle": "加与减（一）",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "within-10-addition-subtraction",
+        "join-separate",
+        "part-whole",
+        "10以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "加法含义",
+        "减法含义",
+        "看图列式",
+        "分与合",
+        "算式表达"
+      ],
+      "misconceptionTags": [
+        "operation chosen from surface keyword",
+        "part and whole reversed",
+        "minus sign read as counting backward without story meaning"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-within-10-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-within-10-add-sub",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小红有□块积木，送给弟弟3块后还剩5块。□里填几？",
+      "optionsZhHans": [],
+      "answer": "8",
+      "acceptedAnswers": [
+        "8"
+      ],
+      "explanationZhHans": "剩下的5块加上送出的3块就是原来的，5+3=8。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-039",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-within-10-add-sub",
+      "unitTitle": "加与减（一）",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "within-10-addition-subtraction",
+        "join-separate",
+        "part-whole",
+        "10以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "加法含义",
+        "减法含义",
+        "看图列式",
+        "分与合",
+        "算式表达"
+      ],
+      "misconceptionTags": [
+        "operation chosen from surface keyword",
+        "part and whole reversed",
+        "minus sign read as counting backward without story meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-within-10-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-within-10-add-sub",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "停车场原来有4辆汽车，开走了1辆。停车场现在有几辆汽车？请写出算式和得数。",
+      "optionsZhHans": [],
+      "answer": "4-1=3",
+      "acceptedAnswers": [
+        "4-1=3",
+        "3"
+      ],
+      "explanationZhHans": "从4辆里去掉开走的1辆，用减法，4-1=3。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-040",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-within-10-add-sub",
+      "unitTitle": "加与减（一）",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "within-10-addition-subtraction",
+        "join-separate",
+        "part-whole",
+        "10以内加减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数感"
+      ],
+      "skillTags": [
+        "加法含义",
+        "减法含义",
+        "看图列式",
+        "分与合",
+        "算式表达"
+      ],
+      "misconceptionTags": [
+        "operation chosen from surface keyword",
+        "part and whole reversed",
+        "minus sign read as counting backward without story meaning"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-within-10-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-within-10-add-sub",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明有6张贴纸，小红有同样多的贴纸。他们一共有多少张贴纸？正确的算式是哪一个？",
+      "optionsZhHans": [
+        "6+6=12",
+        "6-6=0",
+        "6+0=6",
+        "12-6=6"
+      ],
+      "answer": "6+6=12",
+      "acceptedAnswers": [
+        "6+6=12"
+      ],
+      "explanationZhHans": "小明6张，小红也是6张，合起来用加法，6+6=12。"
+    }
+  ]
+}

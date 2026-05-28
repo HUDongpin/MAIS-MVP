@@ -1,0 +1,103 @@
+{
+  "batchId": "model-qa-0123",
+  "ids": [
+    "hjb-junior-ds-v2-s2-477",
+    "hjb-junior-ds-v2-s2-478",
+    "hjb-junior-ds-v2-s2-479",
+    "hjb-junior-ds-v2-s2-480",
+    "hjb-junior-ds-v2-s2-481",
+    "hjb-junior-ds-v2-s2-482",
+    "hjb-junior-ds-v2-s2-483",
+    "hjb-junior-ds-v2-s2-484"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-477",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "m < 1",
+      "answerCheckZhHans": "标准答案 m < 1 正确。由反比例函数图像在第二、四象限得系数 m-1 < 0，解得 m < 1。选项 B 为 m < 1，其他选项均不正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-478",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-5",
+      "answerCheckZhHans": "标准答案 -5 正确。代入 A(-2, a) 得 a = 6/(-2) = -3；代入 B(b, -3) 得 -3 = 6/b，解得 b = -2。a + b = -5。选项 A 为 -5。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-479",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "10 天",
+      "answerCheckZhHans": "标准答案 10 天 正确。由反比例关系设 y = k/x，代入 (50, 12) 得 k = 600。当 x = 60 时，y = 600/60 = 10。选项 B 为 10 天。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-480",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "增大",
+      "answerCheckZhHans": "标准答案 增大 正确。k = -4 < 0，图像在第二、四象限。当 x > 0 时，分支在第四象限，y 随 x 增大而增大（从负无穷增至 0）。选项 A 为增大。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-481",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "k = -8，图像位于第二、四象限",
+      "answerCheckZhHans": "标准答案正确。代入 P(4, -2) 得 k = -8，k < 0 故图像在第二、四象限。选项 B 正确，其他选项错误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-482",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "m < -1",
+      "answerCheckZhHans": "标准答案 m < -1 正确。A 横坐标为负，B 横坐标为正，y1 > y2，说明图像在二、四象限，故 m+1 < 0，得 m < -1。选项 B 为 m < -1。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-483",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-1",
+      "answerCheckZhHans": "标准答案 -1 正确。代入 A(2, a) 得 a = -6/2 = -3；代入 B(b, -3) 得 -3 = -6/b，解得 b = 2。a + b = -1。选项 A 为 -1。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-484",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-3/2",
+      "answerCheckZhHans": "标准答案 -3/2 正确。代入 M(-1, 3) 得 k = -3，函数为 y = -3/x。当 x = 2 时，y = -3/2。选项 A 为 -3/2。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

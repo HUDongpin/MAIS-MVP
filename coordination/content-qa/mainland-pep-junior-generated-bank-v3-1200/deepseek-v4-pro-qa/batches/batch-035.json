@@ -1,0 +1,143 @@
+{
+  "batchNumber": 35,
+  "startedAt": "2026-05-25T02:57:39.095Z",
+  "completedAt": "2026-05-25T02:58:00.104Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s2-k06-mc-009",
+    "pep-junior-v3-s2-k06-mc-010",
+    "pep-junior-v3-s2-k06-mc-011",
+    "pep-junior-v3-s2-k06-mc-012",
+    "pep-junior-v3-s2-k06-mc-013",
+    "pep-junior-v3-s2-k06-mc-014",
+    "pep-junior-v3-s2-k06-mc-015",
+    "pep-junior-v3-s2-k06-mc-016",
+    "pep-junior-v3-s2-k06-mc-017",
+    "pep-junior-v3-s2-k06-mc-018",
+    "pep-junior-v3-s2-k06-mc-019",
+    "pep-junior-v3-s2-k06-mc-020"
+  ],
+  "usage": {
+    "prompt_tokens": 3496,
+    "completion_tokens": 1191,
+    "total_tokens": 4687,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 3240
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s2-k06-mc-009",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程正确，降价后单价为x-0.5，多买2支对应20/(x-0.5)-20/x=2，选项B符合，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-mc-010",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "SAS需两边及夹角，已知AB=DE，∠A=∠D，需AC=DF，选项B正确，解释清晰。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-mc-011",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "与010题类似，SAS判定需AC=DF，选项B正确，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-mc-012",
+        "status": "fail",
+        "severity": "blocker",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch"
+        ],
+        "correctedAnswer": "∠BAC = ∠B'A'C'",
+        "rationale": "翻折是全等变换，对应角相等，∠BAC与∠B'A'C'是对应角，一定相等。题目问不一定正确的结论，选项D一定正确，故答案错误。正确选项应为其他，但所有选项均正确，题目本身有误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-mc-013",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "等腰三角形底角相等，计算得∠B=65°，选项B正确。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-mc-014",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "两个锐角相等不能判定全等，选项D正确，解释合理。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-mc-015",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "角度比为2:3:4，最大角80°，为锐角三角形，选项A正确。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-mc-016",
+        "status": "fail",
+        "severity": "blocker",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch"
+        ],
+        "correctedAnswer": "∠ACB = ∠DBC",
+        "rationale": "已知AC=BD，BC=CB，若用SAS需夹角∠ACB=∠DBC，选项C正确。解释中称添加∠ABC=∠DCB满足SAS，但此时两边为AC与BC，夹角为∠ACB，并非∠ABC，推理错误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-mc-017",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平方差公式正确，结果为x²-9，选项A正确。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-mc-018",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分子因式分解后约分得x-2，选项A正确，需注明x≠-2。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-mc-019",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "底角50°，顶角80°，选项C正确。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-mc-020",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "一般平行四边形不是轴对称图形，选项C正确，解释合理。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 10,
+      "warn": 0,
+      "fail": 2,
+      "notes": "12题中2题存在数学错误：012题翻折对应角相等，题目结论设置错误；016题SAS判定条件推理错误，正确答案应为∠ACB=∠DBC。其余题目通过。"
+    }
+  }
+}

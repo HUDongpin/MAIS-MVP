@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-230",
+  "startedAt": "2026-05-28T01:24:15.420Z",
+  "completedAt": "2026-05-28T01:24:19.820Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-230"
+  ],
+  "usage": {
+    "prompt_tokens": 2466,
+    "completion_tokens": 319,
+    "total_tokens": 2785,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2082
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-230",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "圆的方程为(x-5)²+(y-3)²=20，半径2√5",
+        "correctedAnswer": "圆的方程：(x-5)²+(y-3)²=20，半径：2√5",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，圆心在x=5上，由|CA|=|CB|解得圆心(5,3)，半径2√5。存储答案圆心(5,1)半径4错误，解析中计算b=1但半径算得4√2与答案4矛盾，且正确圆心应为(5,3)。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "存储答案与解析均错误，正确圆心(5,3)半径2√5，需修正。"
+    }
+  }
+}

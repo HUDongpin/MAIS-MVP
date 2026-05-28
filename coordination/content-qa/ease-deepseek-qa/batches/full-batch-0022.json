@@ -1,0 +1,168 @@
+{
+  "scope": "full",
+  "batchIndex": 22,
+  "startedAt": "2026-05-28T03:28:28.472Z",
+  "completedAt": "2026-05-28T03:29:08.871Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "itemIds": [
+    "10508",
+    "10509",
+    "10510",
+    "10511",
+    "10512",
+    "10513",
+    "10514",
+    "10515",
+    "10516",
+    "10517"
+  ],
+  "usage": {
+    "prompt_tokens": 3216,
+    "completion_tokens": 3157,
+    "total_tokens": 6373,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 2199
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2832
+  },
+  "finishReason": "stop",
+  "jsonModeFallback": false,
+  "result": {
+    "items": [
+      {
+        "questionId": "10508",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "$\\frac{5}{12} + (\\frac{5}{12} + \\frac{2}{12}) = \\frac{12}{12} = \\mathbf{1}$ (升/L)",
+        "independentAnswer": "1",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Solvable fraction addition; answer matches.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10509",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "$1 - \\frac{2}{8} - \\frac{3}{8} = \\frac{8}{8} - \\frac{5}{8} = \\mathbf{\\frac{3}{8}}$",
+        "independentAnswer": "3/8",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Solvable fraction subtraction; answer matches.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10510",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "$4 - 1\\frac{1}{5} + \\frac{4}{5} = 2\\frac{4}{5} + \\frac{4}{5} = 2\\frac{8}{5} = \\mathbf{3\\frac{3}{5}}$ (米/m)",
+        "independentAnswer": "3 3/5",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Solvable mixed number operations; answer matches.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10511",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "0.7",
+        "independentAnswer": "0.7",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Solvable fraction to decimal conversion; answer matches.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10512",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "$\\frac{23}{100}$",
+        "independentAnswer": "23/100",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Solvable decimal to fraction conversion; answer matches.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10513",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "0.125",
+        "independentAnswer": "0.125",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Solvable fraction to decimal conversion; answer matches.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10514",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "0.1",
+        "independentAnswer": "0.1",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Solvable decimal place value; answer matches.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10515",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "(a) 百分位 (hundredths place) ; (b) 萬分位 (ten-thousandths place)",
+        "independentAnswer": "(a) hundredths; (b) ten-thousandths",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Solvable decimal place identification; answer matches.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10516",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "0.07",
+        "independentAnswer": "0.07",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Solvable digit value; answer matches.",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "10517",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "$0.045 < \\frac{2}{5} (0.4) < 0.45 < \\frac{1}{2} (0.5)$",
+        "independentAnswer": "0.045 < 2/5 < 0.45 < 1/2",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "Solvable ordering fractions and decimals; answer matches.",
+        "recommendedAction": "No blocking action."
+      }
+    ],
+    "batchSummary": {
+      "pass": 10,
+      "unsolvable": 0,
+      "ambiguous": 0,
+      "imageContextRequired": 0,
+      "answerMismatch": 0,
+      "missingAnswerKey": 0,
+      "notes": "All 10 questions are solvable and answer keys are correct."
+    }
+  }
+}

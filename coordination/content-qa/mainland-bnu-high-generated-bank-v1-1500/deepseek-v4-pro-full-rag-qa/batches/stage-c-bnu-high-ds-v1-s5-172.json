@@ -1,0 +1,52 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-172",
+  "startedAt": "2026-05-28T02:54:19.285Z",
+  "completedAt": "2026-05-28T02:54:25.908Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-172"
+  ],
+  "usage": {
+    "prompt_tokens": 2411,
+    "completion_tokens": 359,
+    "total_tokens": 2770,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2027
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-172",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "independentAnswer": null,
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "ambiguous_mc",
+          "bad_options",
+          "explanation_contradiction",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "直线l过Q(0,1,0)且方向向量s=(1,-1,0)，平面α过P(1,0,0)且法向量n=(1,1,1)。平面方程为x+y+z=1，Q代入得0+1+0=1，故Q在平面内，直线l在平面α内，线面角为0°，正弦值为0。选项无0，且存储答案√6/6与解析中错误方向向量(1,0,0)所得√3/3均不正确，题目无正确选项，不可解。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目存在数学错误：直线在平面内，线面角正弦为0，但选项无0，且解析与答案矛盾，判定为不可解。"
+    }
+  }
+}

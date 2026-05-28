@@ -1,0 +1,115 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-049",
+  "startedAt": "2026-05-28T02:35:42.871Z",
+  "completedAt": "2026-05-28T02:37:56.664Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-385",
+    "bnu-high-ds-v1-s4-386",
+    "bnu-high-ds-v1-s4-387",
+    "bnu-high-ds-v1-s4-388",
+    "bnu-high-ds-v1-s4-389",
+    "bnu-high-ds-v1-s4-390",
+    "bnu-high-ds-v1-s4-391",
+    "bnu-high-ds-v1-s4-392"
+  ],
+  "usage": {
+    "prompt_tokens": 11667,
+    "completion_tokens": 1604,
+    "total_tokens": 13271
+  },
+  "finishReason": "split_fallback",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-385",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "B",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "函数T(t)=15-10cos(πt/12)，振幅10，垂直位移15，最高25℃出现在cos=-1即t=12时，最低5℃出现在cos=1即t=0和24时，周期24小时，[6,18]上cos从0到-1再到0，T从15到25再到15，非单调。故B正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-386",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "河宽为 25(3+√3) 米，约 118.3 米。",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可解。在△ABC中，AB=50，∠CAB=105°，∠CBA=45°，得∠ACB=30°。由正弦定理求AC=50√2，河宽为点C到AB的距离，即AC·sin(180°-105°)=50√2·sin75°=25(3+√3)。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-387",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "DE = (1/2)(b - c)，DE平行于BC且长度等于BC的一半",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可用向量法独立求解。由中点得AD=(1/2)c，AE=(1/2)b，则DE=AE-AD=(1/2)(b-c)。又BC=AC-AB=b-c，故DE=(1/2)BC，即DE与BC平行且模长为BC的一半，符合三角形中位线定理。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-388",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "向量AB和向量AD",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "在平行四边形ABCD中，向量AB和向量AD不共线，可以作为平面内所有向量的一组基底。其他选项均不满足基底条件：向量AB和向量CD共线；向量AC和向量BD可能共线（如矩形时）；向量AB和向量AC共线。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-389",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "10秒",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可直接求解。由y=10sin(πt/30)>5得sin(πt/30)>1/2，在一个周期[0,60]内解得t∈(5,25)∪(35,55)，总时长20秒。但需注意纵坐标大于5厘米的时间长度应为10秒（每个区间5秒，共两个区间）。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-390",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "h = \\frac{50}{\\cot \\beta - \\cot \\alpha}",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可建立两个直角三角形，利用仰角正切关系列出方程，消去水平距离后得到高度表达式。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-391",
+        "solvableStatus": "uncertain",
+        "ragFitStatus": "uncertain",
+        "independentAnswer": null,
+        "issueTags": [
+          "provider_timeout"
+        ],
+        "severity": "blocker",
+        "confidence": "low",
+        "rationaleZhHans": "DeepSeek provider request failed or timed out during stage-a; mark as blocker for S18 rerun/manual adjudication. Error: terminated"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-392",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "8小时",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可直接求解。解不等式3sin(πt/6)+5>7得sin(πt/6)>2/3，在0≤t≤24内，πt/6∈[0,4π]，满足条件的区间为(arcsin(2/3), π-arcsin(2/3))和(2π+arcsin(2/3), 3π-arcsin(2/3))，每个区间长度均为π-2arcsin(2/3)，总长度为2π-4arcsin(2/3)，对应时间t= (6/π)*(2π-4arcsin(2/3)) = 12 - (24/π)arcsin(2/3)。利用arcsin(2/3)≈0.7297，计算得累计时间约为8小时。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "Merged from single-item fallback calls after batch-level retry failure."
+    }
+  }
+}

@@ -1,0 +1,179 @@
+{
+  "batchNumber": 3,
+  "startedAt": "2026-05-27T17:21:29.852Z",
+  "completedAt": "2026-05-27T17:21:51.450Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s1-025",
+    "bnu-junior-ds-v1-s1-026",
+    "bnu-junior-ds-v1-s1-027",
+    "bnu-junior-ds-v1-s1-028",
+    "bnu-junior-ds-v1-s1-029",
+    "bnu-junior-ds-v1-s1-030",
+    "bnu-junior-ds-v1-s1-031",
+    "bnu-junior-ds-v1-s1-032",
+    "bnu-junior-ds-v1-s1-033",
+    "bnu-junior-ds-v1-s1-034",
+    "bnu-junior-ds-v1-s1-035",
+    "bnu-junior-ds-v1-s1-036"
+  ],
+  "usage": {
+    "prompt_tokens": 5856,
+    "completion_tokens": 1345,
+    "total_tokens": 7201,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 5344
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s1-025",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目描述明确，可解；答案“六棱柱”正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-026",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "√145 cm",
+        "rationale": "题目要求最短路线，解释中计算了三种路径：√185、13、√145，其中√145≈12.04最小，但答案却给出√185，与解释矛盾，答案错误。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-027",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，可解；答案5正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-028",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "3",
+        "rationale": "解释中得出3对面是4，因此与4相对的面是3，答案正确，但选项中有3，答案匹配。然而解释中“正方体相对面数字之和为7”是错误前提，题目未说明数字是1-6且相对面和为7，但根据相邻和可推导出正确结果，答案3正确。但解释逻辑有误，应基于条件推导。不过答案与选项匹配，且可解。但解释错误，应标记。",
+        "confidence": "medium"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-029",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，答案5√41 cm正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-030",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，答案正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-031",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，答案三棱柱正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-032",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，答案150正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-033",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，答案18正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-034",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，答案正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-035",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，答案圆形正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-036",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目可解，答案长方体正确，解释合理。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 10,
+      "warn": 0,
+      "fail": 2,
+      "notes": "第026题答案与解释矛盾，最短应为√145 cm；第028题解释中前提错误但答案正确，需修正解释。其余题目均通过。"
+    }
+  }
+}

@@ -1,0 +1,381 @@
+{
+  "batchId": "S4-s4-complex-numbers-04",
+  "questions": [
+    {
+      "id": "pep-high-ds-v1-s4-complex-numbers-031",
+      "grade": "S4",
+      "topicId": "pep-high-s4-complex-numbers",
+      "topicTitleZhHans": "复数",
+      "chapter": "复数",
+      "conceptIds": [
+        "complex-numbers",
+        "complex-operations",
+        "complex-plane",
+        "complex-roots",
+        "derivatives",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "pep-high-complex-numbers"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "promptZhHans": "已知复数 z 满足 (1+i)z = 2i，其中 i 为虚数单位，则 z 在复平面内对应的点位于（　　）",
+      "optionsZhHans": [
+        "第一象限",
+        "第二象限",
+        "第三象限",
+        "第四象限"
+      ],
+      "answer": "第一象限",
+      "acceptedAnswers": [
+        "第一象限"
+      ],
+      "explanationZhHans": "由 (1+i)z=2i 得 z=2i/(1+i)=2i(1-i)/[(1+i)(1-i)]=2i(1-i)/2=i(1-i)=i+1=1+i，对应点 (1,1) 在第一象限。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-complex-numbers-032",
+      "grade": "S4",
+      "topicId": "pep-high-s4-complex-numbers",
+      "topicTitleZhHans": "复数",
+      "chapter": "复数",
+      "conceptIds": [
+        "complex-numbers",
+        "complex-operations",
+        "complex-plane",
+        "complex-roots",
+        "derivatives",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "pep-high-complex-numbers"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "promptZhHans": "若复数 z 满足 |z - 2i| = 1，则 |z| 的最大值为______。",
+      "optionsZhHans": [],
+      "answer": "3",
+      "acceptedAnswers": [
+        "3"
+      ],
+      "explanationZhHans": "|z-2i|=1 表示以 (0,2) 为圆心、半径为 1 的圆。|z| 表示圆上点到原点的距离，最大值为圆心到原点的距离加半径，即 2+1=3。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-complex-numbers-033",
+      "grade": "S4",
+      "topicId": "pep-high-s4-complex-numbers",
+      "topicTitleZhHans": "复数",
+      "chapter": "复数",
+      "conceptIds": [
+        "complex-numbers",
+        "complex-operations",
+        "complex-plane",
+        "complex-roots",
+        "derivatives",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "pep-high-complex-numbers"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "promptZhHans": "已知复数z满足|z|=1，且z的辐角主值为θ∈(0,π/2)。设函数f(x)=x^3 - 3x + 2，若复数w = f(z)（其中f(z)表示将z代入多项式计算），求|w|的最大值，并求出取得最大值时z的代数形式。",
+      "optionsZhHans": [],
+      "answer": "最大值为4，此时z=i",
+      "acceptedAnswers": [
+        "最大值为4，此时z=i"
+      ],
+      "explanationZhHans": "设z=cosθ+isinθ，代入f(z)得w=(cos3θ+isin3θ)-3(cosθ+isinθ)+2。分离实虚部，利用三角恒等式化简得|w|^2=8(1-cosθ)^2。由θ∈(0,π/2)知cosθ∈(0,1)，当cosθ=0即θ=π/2时|w|最大为4，此时z=i。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-complex-numbers-034",
+      "grade": "S4",
+      "topicId": "pep-high-s4-complex-numbers",
+      "topicTitleZhHans": "复数",
+      "chapter": "复数",
+      "conceptIds": [
+        "complex-numbers",
+        "complex-operations",
+        "complex-plane",
+        "complex-roots",
+        "derivatives",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "pep-high-complex-numbers"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "promptZhHans": "已知复数z满足|z|=1，且z的辐角主值为θ∈(0,π/2)。设函数f(x)=x^3 - 3x + 2，若复数w = f(z)（其中f(z)表示将z代入多项式计算），求|w|的最小值，并求出取得最小值时z的代数形式。",
+      "optionsZhHans": [],
+      "answer": "最小值为0，此时z=1",
+      "acceptedAnswers": [
+        "最小值为0，此时z=1"
+      ],
+      "explanationZhHans": "设z=cosθ+isinθ，代入f(z)得w=(cos3θ+isin3θ)-3(cosθ+isinθ)+2。分离实虚部，利用三角恒等式化简得|w|^2=8(1-cosθ)^2。由θ∈(0,π/2)知cosθ∈(0,1)，当cosθ=1即θ=0时|w|最小为0，此时z=1。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-complex-numbers-035",
+      "grade": "S4",
+      "topicId": "pep-high-s4-complex-numbers",
+      "topicTitleZhHans": "复数",
+      "chapter": "复数",
+      "conceptIds": [
+        "complex-numbers",
+        "complex-operations",
+        "complex-plane",
+        "complex-roots",
+        "derivatives",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "pep-high-complex-numbers"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "promptZhHans": "已知复数 z 满足 (1+i)z = 2i，其中 i 为虚数单位，则 z 在复平面内对应的点位于（　　）",
+      "optionsZhHans": [
+        "第一象限",
+        "第二象限",
+        "第三象限",
+        "第四象限"
+      ],
+      "answer": "第一象限",
+      "acceptedAnswers": [
+        "第一象限"
+      ],
+      "explanationZhHans": "由 (1+i)z=2i 得 z=2i/(1+i)=2i(1-i)/2=1+i，实部1>0，虚部1>0，对应点(1,1)在第一象限。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-complex-numbers-036",
+      "grade": "S4",
+      "topicId": "pep-high-s4-complex-numbers",
+      "topicTitleZhHans": "复数",
+      "chapter": "复数",
+      "conceptIds": [
+        "complex-numbers",
+        "complex-operations",
+        "complex-plane",
+        "complex-roots",
+        "derivatives",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "pep-high-complex-numbers"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "promptZhHans": "设复数 z 满足 |z - 2i| = 1，则 |z| 的最小值为______。",
+      "optionsZhHans": [],
+      "answer": "1",
+      "acceptedAnswers": [
+        "1"
+      ],
+      "explanationZhHans": "|z-2i|=1表示以(0,2)为圆心、1为半径的圆，|z|为圆上点到原点的距离，最小值为圆心到原点距离减半径，即2-1=1。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-complex-numbers-037",
+      "grade": "S4",
+      "topicId": "pep-high-s4-complex-numbers",
+      "topicTitleZhHans": "复数",
+      "chapter": "复数",
+      "conceptIds": [
+        "complex-numbers",
+        "complex-operations",
+        "complex-plane",
+        "complex-roots",
+        "derivatives",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "pep-high-complex-numbers"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "promptZhHans": "已知复数 $z$ 满足 $(1+i)z = 2 - i$，其中 $i$ 为虚数单位。求 $z$ 的共轭复数 $\\overline{z}$。",
+      "optionsZhHans": [],
+      "answer": "$\\frac{1}{2} + \\frac{3}{2}i$",
+      "acceptedAnswers": [
+        "$\\frac{1}{2} + \\frac{3}{2}i$"
+      ],
+      "explanationZhHans": "由 $(1+i)z=2-i$ 得 $z=\\frac{2-i}{1+i}=\\frac{(2-i)(1-i)}{(1+i)(1-i)}=\\frac{2-2i-i+i^2}{2}=\\frac{1-3i}{2}=\\frac12-\\frac32i$，故 $\\overline{z}=\\frac12+\\frac32i$。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-complex-numbers-038",
+      "grade": "S4",
+      "topicId": "pep-high-s4-complex-numbers",
+      "topicTitleZhHans": "复数",
+      "chapter": "复数",
+      "conceptIds": [
+        "complex-numbers",
+        "complex-operations",
+        "complex-plane",
+        "complex-roots",
+        "derivatives",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "pep-high-complex-numbers"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "promptZhHans": "在复平面内，复数 $z$ 满足 $|z - 1| = |z + i|$，则 $z$ 对应的点的轨迹是（　）",
+      "optionsZhHans": [
+        "A. 直线",
+        "B. 圆",
+        "C. 椭圆",
+        "D. 双曲线"
+      ],
+      "answer": "A. 直线",
+      "acceptedAnswers": [
+        "A. 直线"
+      ],
+      "explanationZhHans": "设 $z=x+yi$，则 $|(x-1)+yi|=|x+(y+1)i|$，平方得 $(x-1)^2+y^2=x^2+(y+1)^2$，化简得 $x+y=0$，为一条直线。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-complex-numbers-039",
+      "grade": "S4",
+      "topicId": "pep-high-s4-complex-numbers",
+      "topicTitleZhHans": "复数",
+      "chapter": "复数",
+      "conceptIds": [
+        "complex-numbers",
+        "complex-operations",
+        "complex-plane",
+        "complex-roots",
+        "derivatives",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "pep-high-complex-numbers"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "promptZhHans": "已知复数 z 满足 |z - 2i| = 1，且 z 的实部与虚部均为实数。设 w = z + 1/z，求 |w| 的最大值。",
+      "optionsZhHans": [],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2"
+      ],
+      "explanationZhHans": "设 z = x + yi，由 |z-2i|=1 得 x²+(y-2)²=1。计算 w = z+1/z = (x+yi)+(x-yi)/(x²+y²) = x(1+1/(x²+y²)) + y(1-1/(x²+y²))i。由圆方程得 x²+y²=4y-3，代入化简得 |w|² = (x²+y²)+1/(x²+y²)+2x²/(x²+y²)。利用参数方程 x=cosθ, y=2+sinθ，得 x²+y²=5+4sinθ。令 t=x²+y²∈[1,9]，则 |w|² = t+1/t+2(1-(y-2)²)/t。经分析，当 t=1 时 |w|²=4，故 |w| 最大值为 2。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-complex-numbers-040",
+      "grade": "S4",
+      "topicId": "pep-high-s4-complex-numbers",
+      "topicTitleZhHans": "复数",
+      "chapter": "复数",
+      "conceptIds": [
+        "complex-numbers",
+        "complex-operations",
+        "complex-plane",
+        "complex-roots",
+        "derivatives",
+        "monotonicity-extrema",
+        "optimization",
+        "function-inequalities"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "pep-high-complex-numbers"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-derivatives-optimization"
+      ],
+      "promptZhHans": "已知复数 z 满足 (1+i)z = 2i，求 z 的共轭复数。",
+      "optionsZhHans": [],
+      "answer": "1 - i",
+      "acceptedAnswers": [
+        "1 - i",
+        "1-i"
+      ],
+      "explanationZhHans": "由 (1+i)z = 2i，得 z = 2i/(1+i) = 2i(1-i)/((1+i)(1-i)) = (2i+2)/2 = 1+i。所以 z 的共轭复数为 1-i。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    }
+  ]
+}

@@ -1,0 +1,137 @@
+{
+  "batchNumber": 87,
+  "startedAt": "2026-05-24T23:03:05.098Z",
+  "completedAt": "2026-05-24T23:03:20.498Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s3-k11-mc-033",
+    "pep-junior-v3-s3-k11-mc-034",
+    "pep-junior-v3-s3-k11-mc-035",
+    "pep-junior-v3-s3-k11-mc-036",
+    "pep-junior-v3-s3-k11-mc-037",
+    "pep-junior-v3-s3-k11-mc-038",
+    "pep-junior-v3-s3-k11-mc-039",
+    "pep-junior-v3-s3-k11-mc-040",
+    "pep-junior-v3-s3-k11-mc-041",
+    "pep-junior-v3-s3-k11-mc-042",
+    "pep-junior-v3-s3-k11-mc-043",
+    "pep-junior-v3-s3-k11-mc-044"
+  ],
+  "usage": {
+    "prompt_tokens": 4046,
+    "completion_tokens": 1034,
+    "total_tokens": 5080,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 3790
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s3-k11-mc-033",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "一次函数建模正确，计算无误，选项唯一，答案匹配。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-mc-034",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "判别式条件正确，m<4，仅2符合，答案无误。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-mc-035",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "实数性质判断正确，C选项需隐含a,b≥0，但初中默认被开方数非负，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-mc-036",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "配套问题方程正确，2×12x=18y，选项B匹配。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-mc-037",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分式化简正确，约分后得(x+2)/(x-2)，选项A匹配。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-mc-038",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "全等判定分析正确，BD=CD是已知条件，无法作为新增判定，答案合理。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-mc-039",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平行四边形判定条件正确，①②③可判定，④不能，共3组。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-mc-040",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "切线性质与角度计算正确，∠D=40°，选项B匹配。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-mc-041",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "反比例函数应用计算正确，牵引力减少30牛，答案匹配。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-mc-042",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "视图判断正确，正面看为长6米、宽3米的长方形，选项A匹配。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-mc-043",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "反比例函数求值正确，a=6，b=-4，a+b=2，答案匹配。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-mc-044",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分段函数关系式正确，y=10+2.5(x-3)，选项C匹配。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部12题数学正确，答案与解析一致，选项无歧义，适合人教版初中数学，无公共发布风险。"
+    }
+  }
+}

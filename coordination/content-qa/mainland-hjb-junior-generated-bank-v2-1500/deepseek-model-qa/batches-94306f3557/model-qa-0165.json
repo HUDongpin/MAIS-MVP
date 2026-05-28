@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0165",
+  "ids": [
+    "hjb-junior-ds-v2-s3-313",
+    "hjb-junior-ds-v2-s3-314",
+    "hjb-junior-ds-v2-s3-315",
+    "hjb-junior-ds-v2-s3-316",
+    "hjb-junior-ds-v2-s3-317",
+    "hjb-junior-ds-v2-s3-318",
+    "hjb-junior-ds-v2-s3-319",
+    "hjb-junior-ds-v2-s3-320"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-313",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为140°，但根据解析，∠AOC=2∠EOF=220°，取360°-220°=140°。然而，解析中∠EOF=110°的推导有误：在四边形OEPF中，∠OEP=∠OFP=90°，∠EPF=70°，则∠EOF=360°-90°-90°-70°=110°，但∠AOC与∠EOF的关系并非简单的2倍。实际上，由弦AB=CD，可得OE=OF，但∠AOC是圆心角，对应弧AC，而∠EOF是弦心距夹角，两者无直接2倍关系。正确解法：连接OA、OC，由AB=CD=8，半径5，可求弦心距OE=OF=3，但无法直接得到∠AOC。题目条件不足，无法唯一确定∠AOC。",
+      "independentAnswerZhHans": "无法确定",
+      "answerCheckZhHans": "标准答案140°错误，解析推导不成立。",
+      "recommendedActionZhHans": "修正题目或解析，确保条件充分且答案正确。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-314",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2√3 cm",
+      "answerCheckZhHans": "标准答案正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-315",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "√39 cm",
+      "answerCheckZhHans": "标准答案正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-316",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "12 cm",
+      "answerCheckZhHans": "标准答案正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-317",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "12 cm",
+      "answerCheckZhHans": "标准答案正确，解析正确。acceptedAnswers覆盖了标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-318",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "12 cm",
+      "answerCheckZhHans": "标准答案正确，解析正确。acceptedAnswers覆盖了标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-319",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "8 cm",
+      "answerCheckZhHans": "标准答案正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-320",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2 cm",
+      "answerCheckZhHans": "标准答案正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

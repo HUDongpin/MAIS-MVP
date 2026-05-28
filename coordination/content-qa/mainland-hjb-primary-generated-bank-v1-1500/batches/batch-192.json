@@ -1,0 +1,302 @@
+{
+  "batchId": "batch-192",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p4-206",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "hjb-primary-p4-lower-line-statistics",
+      "unitTitle": "统计",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "line-graphs",
+        "data-trends",
+        "statistical-display",
+        "data-interpretation",
+        "折线统计图"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "折线统计图认识",
+        "折线统计图画法",
+        "趋势描述",
+        "数据比较",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "line segment read as exact data between categories",
+        "axis scale ignored",
+        "trend conclusion unsupported by values"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p4-lower-line-statistics"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-lower-assessment-line-statistics",
+        "hjb-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下表记录了学校气象小组一周内每天下午2时的气温。\n\n| 星期 | 一 | 二 | 三 | 四 | 五 | 六 | 日 |\n|------|----|----|----|----|----|----|----|\n| 气温（℃） | 12 | 14 | 13 | 16 | 18 | 17 | 15 |\n\n根据表中数据，在折线统计图中，表示星期五气温的点应该画在横轴“五”的上方，纵轴对应（    ）℃的位置。",
+      "optionsZhHans": [],
+      "answer": "18",
+      "acceptedAnswers": [
+        "18",
+        "18℃",
+        "18摄氏度"
+      ],
+      "explanationZhHans": "从表中找到星期五的气温是18℃，所以纵轴对应18℃。画折线统计图时，先根据数据确定点的位置，再连线。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-207",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "hjb-primary-p4-lower-vertical-parallel-lines",
+      "unitTitle": "几何小实践",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "perpendicular-lines",
+        "parallel-lines",
+        "geometric-construction",
+        "position-relationships",
+        "垂直",
+        "平行"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "垂直",
+        "平行",
+        "画垂线",
+        "画平行线",
+        "三角尺作图",
+        "位置关系"
+      ],
+      "misconceptionTags": [
+        "near-parallel lines assumed parallel",
+        "perpendicular treated as any crossing",
+        "construction tool used without checking the right angle"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p4-lower-vertical-parallel-lines"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-lower-assessment-vertical-parallel-lines",
+        "hjb-primary-p4-lower-assessment-review-operation-properties"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪句话是正确的？\nA. 两条直线相交，它们一定互相垂直。\nB. 在同一平面内，不相交的两条直线叫做平行线。\nC. 两条直线互相垂直，它们一定相交成直角。\nD. 两条直线互相平行，它们一定长度相等。",
+      "optionsZhHans": [
+        "A. 两条直线相交，它们一定互相垂直。",
+        "B. 在同一平面内，不相交的两条直线叫做平行线。",
+        "C. 两条直线互相垂直，它们一定相交成直角。",
+        "D. 两条直线互相平行，它们一定长度相等。"
+      ],
+      "answer": "C. 两条直线互相垂直，它们一定相交成直角。",
+      "acceptedAnswers": [
+        "C. 两条直线互相垂直，它们一定相交成直角。"
+      ],
+      "explanationZhHans": "A错，相交不一定垂直；B错，缺少“在同一平面内”的前提；D错，平行与长度无关。垂直的定义是相交成直角，所以C正确。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-208",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "hjb-primary-p4-lower-vertical-parallel-lines",
+      "unitTitle": "几何小实践",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "perpendicular-lines",
+        "parallel-lines",
+        "geometric-construction",
+        "position-relationships",
+        "垂直",
+        "平行"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "垂直",
+        "平行",
+        "画垂线",
+        "画平行线",
+        "三角尺作图",
+        "位置关系"
+      ],
+      "misconceptionTags": [
+        "near-parallel lines assumed parallel",
+        "perpendicular treated as any crossing",
+        "construction tool used without checking the right angle"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p4-lower-vertical-parallel-lines"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-lower-assessment-vertical-parallel-lines",
+        "hjb-primary-p4-lower-assessment-review-operation-properties"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用三角尺画一条直线L的垂线时，应该把三角尺的一条（    ）边与直线L重合，然后沿另一条直角边画线。",
+      "optionsZhHans": [],
+      "answer": "直角",
+      "acceptedAnswers": [
+        "直角",
+        "直角边"
+      ],
+      "explanationZhHans": "画垂线要用三角尺的直角，一条直角边与已知直线重合，沿另一条直角边画出的直线就是已知直线的垂线。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-209",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "hjb-primary-p4-lower-vertical-parallel-lines",
+      "unitTitle": "几何小实践",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "perpendicular-lines",
+        "parallel-lines",
+        "geometric-construction",
+        "position-relationships",
+        "垂直",
+        "平行"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "垂直",
+        "平行",
+        "画垂线",
+        "画平行线",
+        "三角尺作图",
+        "位置关系"
+      ],
+      "misconceptionTags": [
+        "near-parallel lines assumed parallel",
+        "perpendicular treated as any crossing",
+        "construction tool used without checking the right angle"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p4-lower-vertical-parallel-lines"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-lower-assessment-vertical-parallel-lines",
+        "hjb-primary-p4-lower-assessment-review-operation-properties"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪组直线是互相平行的？\nA. 两条直线相交成60°角。\nB. 两条直线之间的距离处处相等。\nC. 两条直线相交成90°角。\nD. 两条直线有无数个交点。",
+      "optionsZhHans": [
+        "A. 两条直线相交成60°角。",
+        "B. 两条直线之间的距离处处相等。",
+        "C. 两条直线相交成90°角。",
+        "D. 两条直线有无数个交点。"
+      ],
+      "answer": "B. 两条直线之间的距离处处相等。",
+      "acceptedAnswers": [
+        "B. 两条直线之间的距离处处相等。"
+      ],
+      "explanationZhHans": "平行线的特征是同一平面内不相交，且距离处处相等。A和C是相交，D是重合，只有B符合平行线的性质。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-210",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "hjb-primary-p4-lower-vertical-parallel-lines",
+      "unitTitle": "几何小实践",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "perpendicular-lines",
+        "parallel-lines",
+        "geometric-construction",
+        "position-relationships",
+        "垂直",
+        "平行"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "垂直",
+        "平行",
+        "画垂线",
+        "画平行线",
+        "三角尺作图",
+        "位置关系"
+      ],
+      "misconceptionTags": [
+        "near-parallel lines assumed parallel",
+        "perpendicular treated as any crossing",
+        "construction tool used without checking the right angle"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p4-lower-vertical-parallel-lines"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-lower-assessment-vertical-parallel-lines",
+        "hjb-primary-p4-lower-assessment-review-operation-properties"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在同一平面内，如果直线a垂直于直线b，直线b垂直于直线c，那么直线a和直线c互相（    ）。",
+      "optionsZhHans": [],
+      "answer": "平行",
+      "acceptedAnswers": [
+        "平行",
+        "互相平行"
+      ],
+      "explanationZhHans": "根据垂直的性质，垂直于同一条直线的两条直线互相平行。所以a和c都垂直于b，它们互相平行。"
+    }
+  ]
+}

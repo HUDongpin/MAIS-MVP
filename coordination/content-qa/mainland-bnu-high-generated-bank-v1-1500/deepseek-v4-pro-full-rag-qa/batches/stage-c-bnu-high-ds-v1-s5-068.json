@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-068",
+  "startedAt": "2026-05-28T02:07:30.326Z",
+  "completedAt": "2026-05-28T02:07:36.187Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-068"
+  ],
+  "usage": {
+    "prompt_tokens": 2214,
+    "completion_tokens": 287,
+    "total_tokens": 2501,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1830
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-068",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "x + 3y - 25 = 0",
+        "correctedAnswer": "x + 3y - 25 = 0",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合教材范围。独立求解得直线方程为 x+3y-25=0，但存储答案为 x+y-11=0，且解析中正确推导出 x+3y-25=0 却给出错误答案，存在答案不匹配和解释矛盾，属于严重错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1题答案错误，解析与答案矛盾，判定为阻断级别。"
+    }
+  }
+}

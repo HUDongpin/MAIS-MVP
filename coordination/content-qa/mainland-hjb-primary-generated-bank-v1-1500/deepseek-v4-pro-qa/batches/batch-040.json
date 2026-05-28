@@ -1,0 +1,191 @@
+{
+  "batchNumber": 40,
+  "startedAt": "2026-05-25T02:06:33.326Z",
+  "completedAt": "2026-05-25T02:06:52.644Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p3-203",
+    "hjb-primary-ds-v1-p3-204",
+    "hjb-primary-ds-v1-p3-205",
+    "hjb-primary-ds-v1-p3-206",
+    "hjb-primary-ds-v1-p3-207",
+    "hjb-primary-ds-v1-p3-208",
+    "hjb-primary-ds-v1-p3-209",
+    "hjb-primary-ds-v1-p3-210",
+    "hjb-primary-ds-v1-p3-211",
+    "hjb-primary-ds-v1-p3-212",
+    "hjb-primary-ds-v1-p3-213",
+    "hjb-primary-ds-v1-p3-214",
+    "hjb-primary-ds-v1-p3-215",
+    "hjb-primary-ds-v1-p3-216",
+    "hjb-primary-ds-v1-p3-217",
+    "hjb-primary-ds-v1-p3-218",
+    "hjb-primary-ds-v1-p3-219",
+    "hjb-primary-ds-v1-p3-220"
+  ],
+  "usage": {
+    "prompt_tokens": 3751,
+    "completion_tokens": 1349,
+    "total_tokens": 5100,
+    "prompt_tokens_details": {
+      "cached_tokens": 3712
+    },
+    "prompt_cache_hit_tokens": 3712,
+    "prompt_cache_miss_tokens": 39
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p3-203",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，最大正方形边长取宽15厘米，面积225平方厘米，答案与解释一致。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-204",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "周长36厘米，边长9厘米，面积81平方厘米，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-205",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "面积均为6平方厘米，周长分别为10厘米和14厘米，选项B正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-206",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "8×5=40个，面积40平方厘米，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-207",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "面积24平方米，周长20米，选项B正确，其他选项单位或数值错误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-208",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "25×25=625平方厘米，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-209",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "周长(10+6)×2=32厘米，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-210",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "(12+8)×2=40米，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-211",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "周长26米，面积40平方米，选项B正确，单位区分清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-212",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "6×4=24个小正方形，面积24平方厘米，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-213",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "20÷5=4，选项A正确，其他选项存在逻辑或计算错误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-214",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "星期六25本最多，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-215",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "135下最大，选项A正确，其他选项有误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-216",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "香蕉12人最多，橘子5人最少，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-217",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "三个说法均正确，选项D“以上都对”正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-218",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "20-10=10本，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-219",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "第二组14节最少，选项C错误，符合题目要求。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-220",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "12-6=6人，答案正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案与解释一致，无歧义，适合沪教版P3年级。"
+    }
+  }
+}

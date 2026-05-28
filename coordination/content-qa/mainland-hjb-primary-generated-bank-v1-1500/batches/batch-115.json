@@ -1,0 +1,287 @@
+{
+  "batchId": "batch-115",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p3-071",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-one-digit-multiplication",
+      "unitTitle": "用一位数乘",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "one-digit-multiplication",
+        "multi-digit-times-one-digit",
+        "regrouping-multiplication",
+        "一位数乘"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "符号意识"
+      ],
+      "skillTags": [
+        "口算乘法",
+        "竖式乘法",
+        "进位",
+        "估算",
+        "分步检查"
+      ],
+      "misconceptionTags": [
+        "regrouped value written in the wrong place",
+        "zero placeholder ignored",
+        "estimate not used to catch digit-size errors"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-one-digit-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-one-digit-multiplication",
+        "hjb-primary-p3-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算 236 × 4 时，个位 6 × 4 = 24，向十位进（  ），个位写（  ）。",
+      "optionsZhHans": [],
+      "answer": "2,4",
+      "acceptedAnswers": [
+        "2,4",
+        "2 4",
+        "2、4"
+      ],
+      "explanationZhHans": "6×4=24，满十进一，进到十位的数是2，个位写4。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-072",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-one-digit-multiplication",
+      "unitTitle": "用一位数乘",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "one-digit-multiplication",
+        "multi-digit-times-one-digit",
+        "regrouping-multiplication",
+        "一位数乘"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "符号意识"
+      ],
+      "skillTags": [
+        "口算乘法",
+        "竖式乘法",
+        "进位",
+        "估算",
+        "分步检查"
+      ],
+      "misconceptionTags": [
+        "regrouped value written in the wrong place",
+        "zero placeholder ignored",
+        "estimate not used to catch digit-size errors"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-one-digit-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-one-digit-multiplication",
+        "hjb-primary-p3-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丁每分钟写8个大字，他从9:05写到9:17，一共写了多少个大字？请写出计算过程。",
+      "optionsZhHans": [],
+      "answer": "96",
+      "acceptedAnswers": [
+        "96",
+        "96个"
+      ],
+      "explanationZhHans": "从9:05到9:17经过12分钟，8×12=96。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-073",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-one-digit-multiplication",
+      "unitTitle": "用一位数乘",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "one-digit-multiplication",
+        "multi-digit-times-one-digit",
+        "regrouping-multiplication",
+        "一位数乘"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "符号意识"
+      ],
+      "skillTags": [
+        "口算乘法",
+        "竖式乘法",
+        "进位",
+        "估算",
+        "分步检查"
+      ],
+      "misconceptionTags": [
+        "regrouped value written in the wrong place",
+        "zero placeholder ignored",
+        "estimate not used to catch digit-size errors"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-one-digit-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-one-digit-multiplication",
+        "hjb-primary-p3-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个算式的积最接近 1200？",
+      "optionsZhHans": [
+        "298 × 4",
+        "403 × 3",
+        "242 × 5",
+        "601 × 2"
+      ],
+      "answer": "403 × 3",
+      "acceptedAnswers": [
+        "403 × 3"
+      ],
+      "explanationZhHans": "298×4≈1200，403×3=1209，242×5=1210，601×2=1202，1209最接近1200。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-074",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-one-digit-multiplication",
+      "unitTitle": "用一位数乘",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "one-digit-multiplication",
+        "multi-digit-times-one-digit",
+        "regrouping-multiplication",
+        "一位数乘"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "符号意识"
+      ],
+      "skillTags": [
+        "口算乘法",
+        "竖式乘法",
+        "进位",
+        "估算",
+        "分步检查"
+      ],
+      "misconceptionTags": [
+        "regrouped value written in the wrong place",
+        "zero placeholder ignored",
+        "estimate not used to catch digit-size errors"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-one-digit-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-one-digit-multiplication",
+        "hjb-primary-p3-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "竖式计算 407 × 5 时，十位上的 0 × 5 得 0，这个 0 应该写在积的（  ）位上。",
+      "optionsZhHans": [],
+      "answer": "十",
+      "acceptedAnswers": [
+        "十",
+        "十位"
+      ],
+      "explanationZhHans": "十位上的0乘任何数都得0，写在积的十位上，不能省略。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-075",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-one-digit-multiplication",
+      "unitTitle": "用一位数乘",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "one-digit-multiplication",
+        "multi-digit-times-one-digit",
+        "regrouping-multiplication",
+        "一位数乘"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "符号意识"
+      ],
+      "skillTags": [
+        "口算乘法",
+        "竖式乘法",
+        "进位",
+        "估算",
+        "分步检查"
+      ],
+      "misconceptionTags": [
+        "regrouped value written in the wrong place",
+        "zero placeholder ignored",
+        "estimate not used to catch digit-size errors"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-one-digit-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-one-digit-multiplication",
+        "hjb-primary-p3-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一箱矿泉水有24瓶，学校买了8箱。如果每班分5瓶，最多可以分给多少个班？还剩几瓶？请写出计算过程。",
+      "optionsZhHans": [],
+      "answer": "38,2",
+      "acceptedAnswers": [
+        "38,2",
+        "38 2",
+        "38个班，2瓶",
+        "38个班,2瓶"
+      ],
+      "explanationZhHans": "24×8=192瓶，192÷5=38（个）……2（瓶）。"
+    }
+  ]
+}

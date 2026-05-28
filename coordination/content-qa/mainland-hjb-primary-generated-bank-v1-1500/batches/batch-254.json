@@ -1,0 +1,300 @@
+{
+  "batchId": "batch-254",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p6-016",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "hjb-primary-p6-upper-divisibility",
+      "unitTitle": "数的整除",
+      "volume": "6年级上册",
+      "conceptIds": [
+        "divisibility",
+        "factors-multiples",
+        "prime-composite",
+        "common-factor-multiple",
+        "数的整除",
+        "因数倍数"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "推理意识"
+      ],
+      "skillTags": [
+        "整除判断",
+        "因数与倍数",
+        "质数合数",
+        "公因数公倍数",
+        "数的分类"
+      ],
+      "misconceptionTags": [
+        "factor and multiple reversed",
+        "prime number treated as any odd number",
+        "common multiple found before checking common factor need"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p6-upper-divisibility"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-ratio-proportion",
+        "hjb-primary-p6-lower-assessment-circle-sector"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面说法中，正确的是（ ）。\nA. 一个数的倍数一定比它的因数大。\nB. 所有的奇数都是质数。\nC. 两个数的公倍数一定比这两个数都大。\nD. 一个合数至少有3个因数。",
+      "optionsZhHans": [
+        "A. 一个数的倍数一定比它的因数大。",
+        "B. 所有的奇数都是质数。",
+        "C. 两个数的公倍数一定比这两个数都大。",
+        "D. 一个合数至少有3个因数。"
+      ],
+      "answer": "D. 一个合数至少有3个因数。",
+      "acceptedAnswers": [
+        "D. 一个合数至少有3个因数。",
+        "D"
+      ],
+      "explanationZhHans": "合数除了1和本身外还有别的因数，所以至少有3个因数。A错，因为一个数的最小倍数等于最大因数（本身）。B错，如9是奇数但不是质数。C错，如2和4的最小公倍数是4，并不比4大。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-017",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "hjb-primary-p6-upper-divisibility",
+      "unitTitle": "数的整除",
+      "volume": "6年级上册",
+      "conceptIds": [
+        "divisibility",
+        "factors-multiples",
+        "prime-composite",
+        "common-factor-multiple",
+        "数的整除",
+        "因数倍数"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "推理意识"
+      ],
+      "skillTags": [
+        "整除判断",
+        "因数与倍数",
+        "质数合数",
+        "公因数公倍数",
+        "数的分类"
+      ],
+      "misconceptionTags": [
+        "factor and multiple reversed",
+        "prime number treated as any odd number",
+        "common multiple found before checking common factor need"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p6-upper-divisibility"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-ratio-proportion",
+        "hjb-primary-p6-lower-assessment-circle-sector"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在1到20的自然数中，既是合数又是奇数的数有哪些？请写出所有满足条件的数，并用逗号分隔。",
+      "optionsZhHans": [],
+      "answer": "9,15",
+      "acceptedAnswers": [
+        "9,15",
+        "9, 15",
+        "15,9",
+        "15, 9"
+      ],
+      "explanationZhHans": "1到20中奇数有1,3,5,7,9,11,13,15,17,19。其中合数需有除1和自身外的因数：9=3×3，15=3×5，其余奇数均为质数或1。因此答案是9和15。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-018",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "hjb-primary-p6-upper-divisibility",
+      "unitTitle": "数的整除",
+      "volume": "6年级上册",
+      "conceptIds": [
+        "divisibility",
+        "factors-multiples",
+        "prime-composite",
+        "common-factor-multiple",
+        "数的整除",
+        "因数倍数"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "推理意识"
+      ],
+      "skillTags": [
+        "整除判断",
+        "因数与倍数",
+        "质数合数",
+        "公因数公倍数",
+        "数的分类"
+      ],
+      "misconceptionTags": [
+        "factor and multiple reversed",
+        "prime number treated as any odd number",
+        "common multiple found before checking common factor need"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p6-upper-divisibility"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-ratio-proportion",
+        "hjb-primary-p6-lower-assessment-circle-sector"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "从0、2、3、5、7中选出三个不同的数字，组成一个能同时被2、3、5整除的最大三位数。这个三位数是多少？",
+      "optionsZhHans": [],
+      "answer": "750",
+      "acceptedAnswers": [
+        "750"
+      ],
+      "explanationZhHans": "能同时被2、3、5整除，即被30整除。个位必须是0，且各位数字之和是3的倍数。从给定数字选三个不同数字，最大组合尝试：7、5、0，和12是3的倍数，组成最大数750。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-019",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "hjb-primary-p6-upper-fractions",
+      "unitTitle": "分数",
+      "volume": "6年级上册",
+      "conceptIds": [
+        "fraction-equivalence",
+        "fraction-operations",
+        "mixed-numbers",
+        "fraction-comparison",
+        "分数",
+        "约分通分"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "数学表达"
+      ],
+      "skillTags": [
+        "分数意义",
+        "约分",
+        "通分",
+        "分数加减乘除",
+        "结果合理性检查"
+      ],
+      "misconceptionTags": [
+        "denominators added directly",
+        "whole not identified before interpreting fraction",
+        "mixed-number conversion error"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p6-upper-fractions"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-review-operations-fractions",
+        "hjb-primary-p4-upper-assessment-fraction-extension"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小杰有一盒巧克力，他先吃了整盒的1/4，又吃了剩下的1/3，最后盒子里还剩12颗巧克力。原来这盒巧克力有多少颗？",
+      "optionsZhHans": [
+        "24颗",
+        "30颗",
+        "36颗",
+        "48颗"
+      ],
+      "answer": "24颗",
+      "acceptedAnswers": [
+        "24颗"
+      ],
+      "explanationZhHans": "把原来巧克力看作整体1。先吃1/4，剩下3/4；再吃剩下的1/3，即吃去3/4×1/3=1/4，共吃1/4+1/4=1/2，剩下1/2对应12颗。所以原来有12÷1/2=24颗。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-020",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "hjb-primary-p6-upper-fractions",
+      "unitTitle": "分数",
+      "volume": "6年级上册",
+      "conceptIds": [
+        "fraction-equivalence",
+        "fraction-operations",
+        "mixed-numbers",
+        "fraction-comparison",
+        "分数",
+        "约分通分"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "数学表达"
+      ],
+      "skillTags": [
+        "分数意义",
+        "约分",
+        "通分",
+        "分数加减乘除",
+        "结果合理性检查"
+      ],
+      "misconceptionTags": [
+        "denominators added directly",
+        "whole not identified before interpreting fraction",
+        "mixed-number conversion error"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p6-upper-fractions"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-review-operations-fractions",
+        "hjb-primary-p4-upper-assessment-fraction-extension"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小杰有一盒巧克力，他先吃了整盒的1/4，又吃了剩下的1/3，最后盒子里还剩12颗巧克力。这盒巧克力原来有多少颗？",
+      "optionsZhHans": [],
+      "answer": "24",
+      "acceptedAnswers": [
+        "24",
+        "24颗"
+      ],
+      "explanationZhHans": "把原来巧克力看作单位“1”。先吃1/4，剩下3/4。再吃剩下的1/3，即吃了3/4×1/3=1/4。两次共吃1/4+1/4=1/2，剩下1/2。剩下12颗，所以原来有12÷1/2=24颗。"
+    }
+  ]
+}

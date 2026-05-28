@@ -1,0 +1,191 @@
+{
+  "batchNumber": 75,
+  "startedAt": "2026-05-27T13:30:40.213Z",
+  "completedAt": "2026-05-27T13:30:59.265Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p6-083",
+    "bnu-primary-ds-v1-p6-084",
+    "bnu-primary-ds-v1-p6-085",
+    "bnu-primary-ds-v1-p6-086",
+    "bnu-primary-ds-v1-p6-087",
+    "bnu-primary-ds-v1-p6-088",
+    "bnu-primary-ds-v1-p6-089",
+    "bnu-primary-ds-v1-p6-090",
+    "bnu-primary-ds-v1-p6-091",
+    "bnu-primary-ds-v1-p6-092",
+    "bnu-primary-ds-v1-p6-093",
+    "bnu-primary-ds-v1-p6-094",
+    "bnu-primary-ds-v1-p6-095",
+    "bnu-primary-ds-v1-p6-096",
+    "bnu-primary-ds-v1-p6-097",
+    "bnu-primary-ds-v1-p6-098",
+    "bnu-primary-ds-v1-p6-099",
+    "bnu-primary-ds-v1-p6-100"
+  ],
+  "usage": {
+    "prompt_tokens": 3833,
+    "completion_tokens": 1336,
+    "total_tokens": 5169,
+    "prompt_tokens_details": {
+      "cached_tokens": 3712
+    },
+    "prompt_cache_hit_tokens": 3712,
+    "prompt_cache_miss_tokens": 121
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p6-083",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，答案与解释一致，填空清晰，适合P6数据处理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-084",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，解释合理，简答题要求明确，适合P6。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-085",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项唯一正确，条形统计图适合比较数量，符合基础要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-086",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案10毫米合理，解释充分，填空无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-087",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，复式条形统计图选择合理，简答题清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-088",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "扇形统计图适合百分比，选项唯一正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-089",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案2月、4月、100元正确，数据匹配，填空清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-090",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，趋势描述合理，简答题要求明确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-091",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "按比分配计算正确，选项唯一，适合基础题。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-092",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案16吨，填空无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-093",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "时间比和比值正确，acceptedAnswers覆盖分数形式，合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-094",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "6:8与3:4比值相等，选项唯一正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-095",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "三角形内角和按比分配正确，最大角90°。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-096",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "差对应份数计算正确，答案100棵。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-097",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "盐和盐水比1:11正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-098",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均数求总和再按比分配正确，甲数30。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-099",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "按比分配求总量正确，答案135本。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-100",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "速度比与时间比成反比，5:4正确，选项唯一。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案匹配，无歧义，适合北师大版小学数学相应年级和单元。"
+    }
+  }
+}

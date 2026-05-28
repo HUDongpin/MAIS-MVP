@@ -1,0 +1,258 @@
+{
+  "batchId": "model-qa-0027",
+  "ids": [
+    "hjb-junior-ds-v2-s2-021",
+    "hjb-junior-ds-v2-s2-022",
+    "hjb-junior-ds-v2-s2-023",
+    "hjb-junior-ds-v2-s2-024",
+    "hjb-junior-ds-v2-s2-025",
+    "hjb-junior-ds-v2-s2-026",
+    "hjb-junior-ds-v2-s2-027",
+    "hjb-junior-ds-v2-s2-028",
+    "hjb-junior-ds-v2-s2-029",
+    "hjb-junior-ds-v2-s2-030",
+    "hjb-junior-ds-v2-s2-031",
+    "hjb-junior-ds-v2-s2-032",
+    "hjb-junior-ds-v2-s2-033",
+    "hjb-junior-ds-v2-s2-034",
+    "hjb-junior-ds-v2-s2-035",
+    "hjb-junior-ds-v2-s2-036",
+    "hjb-junior-ds-v2-s2-037",
+    "hjb-junior-ds-v2-s2-038",
+    "hjb-junior-ds-v2-s2-039",
+    "hjb-junior-ds-v2-s2-040"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-021",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "标准答案 49/25 错误。由平方根互为相反数得 (3a-2)+(2a+1)=0，解得 a=1/5。平方根为 3*(1/5)-2 = -7/5 和 2*(1/5)+1 = 7/5，正数为 (7/5)^2 = 49/25。但 49/25 的平方根是 ±7/5，而 3a-2 = -7/5，2a+1 = 7/5，符合条件。然而，题目说“一个正数的平方根是 3a-2 与 2a+1”，通常一个正数的两个平方根互为相反数，但这里 3a-2 和 2a+1 不一定就是这两个平方根，它们可能相等（即平方根为0，但正数平方根不能为0）。若相等，则 3a-2=2a+1，得 a=3，平方根为 7，正数为 49。此时两个平方根都是 7，但正数的平方根应是一正一负，除非该正数为0，但0不是正数。因此 a=3 不符合“正数”条件。所以只有 a=1/5 符合，正数为 49/25。但 49/25 的平方根是 ±7/5，而 3a-2 = -7/5，2a+1 = 7/5，确实互为相反数。所以答案 49/25 正确。但需检查：若 a=1/5，3a-2 = -1.4，2a+1 = 1.4，平方根一正一负，符合。因此答案正确。但解析中写“平方根为 3/5-2=-7/5 和 2/5+1=7/5”，3/5 应为 3*(1/5)=3/5，没错。所以答案正确。但需注意：题目未明确说明这两个平方根是全部平方根还是其中一个，但通常理解为该正数的两个平方根。因此答案 49/25 正确。但检查 acceptedAnswers 包含 1.96，1.96 = 49/25，正确。所以本题无问题。",
+      "independentAnswerZhHans": "49/25",
+      "answerCheckZhHans": "标准答案 49/25 正确，解析推导无误。",
+      "recommendedActionZhHans": "无需修改。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-022",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2个",
+      "answerCheckZhHans": "标准答案正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-023",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "标准答案“<”错误。比较 -√5 和 -2.3：√5≈2.236，-√5≈-2.236，-2.236 > -2.3，故应填“>”。解析中写“因为 -2.236 < -2.3”错误。",
+      "independentAnswerZhHans": ">",
+      "answerCheckZhHans": "标准答案“<”错误，应为“>”。",
+      "recommendedActionZhHans": "将答案改为“>”，并修正解析。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-024",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-1",
+      "answerCheckZhHans": "标准答案正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-025",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x≥1",
+      "answerCheckZhHans": "标准答案正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-026",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "25",
+      "answerCheckZhHans": "标准答案正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-027",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "有理数集合：{√9，0，³√-8，22/7}；无理数集合：{π，-√5，0.1010010001…}",
+      "answerCheckZhHans": "标准答案正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-028",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "C. 5和6之间",
+      "answerCheckZhHans": "标准答案正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-029",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": ">",
+      "answerCheckZhHans": "标准答案正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-030",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3.7 cm",
+      "answerCheckZhHans": "标准答案正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-031",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2个",
+      "answerCheckZhHans": "标准答案正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-032",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "25",
+      "answerCheckZhHans": "标准答案正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-033",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "标准答案“∛8 < 1.7 < √3”错误。∛8=2，√3≈1.732，1.7=1.7，从小到大应为 1.7 < √3 < ∛8。解析中写“比较得2>1.732>1.7，所以从小到大为∛8<1.7<√3”自相矛盾。",
+      "independentAnswerZhHans": "1.7 < √3 < ∛8",
+      "answerCheckZhHans": "标准答案错误，应为 1.7 < √3 < ∛8。",
+      "recommendedActionZhHans": "将答案改为“1.7 < √3 < ∛8”，并修正解析。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-034",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "c 和 d 都是无理数",
+      "answerCheckZhHans": "标准答案正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-035",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-036",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "a < b < c < d",
+      "answerCheckZhHans": "标准答案正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-037",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "C. 0.1010010001…（相邻两个1之间0的个数逐次增加1）",
+      "answerCheckZhHans": "标准答案正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-038",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案 10 可能错误。解析中求 a² 得到 2，但 a = √(3+√5) - √(3-√5)，平方后应为 (3+√5)+(3-√5)-2√((3+√5)(3-√5)) = 6 - 2√(9-5) = 6 - 4 = 2，正确。求 b³：设 u=³√(7+5√2), v=³√(7-5√2)，则 u³+v³=14, uv=³√(49-50)= -1。由 (u+v)³ = u³+v³+3uv(u+v) 得 b³ = 14 + 3(-1)b，即 b³+3b-14=0。因式分解 (b-2)(b²+2b+7)=0，得 b=2，故 b³=8。所以 a²+b³=2+8=10。但需验证 b=2 是否满足原式：³√(7+5√2)+³√(7-5√2) 是否等于 2？计算 (1+√2)³ = 1+3√2+6+2√2 = 7+5√2，所以 ³√(7+5√2)=1+√2；同理 (1-√2)³ = 1-3√2+6-2√2 = 7-5√2，所以 ³√(7-5√2)=1-√2。因此 b = (1+√2)+(1-√2)=2，正确。所以答案 10 正确。但解析中写“b³+3b-14=0，解得 b=2，故 b³=8”无误。因此本题无问题。",
+      "independentAnswerZhHans": "10",
+      "answerCheckZhHans": "标准答案正确，解析正确。",
+      "recommendedActionZhHans": "无需修改。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-039",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "标准答案“<”错误。比较 -√6 和 -2.4：√6≈2.449，-√6≈-2.449，-2.449 < -2.4，故应填“<”。但解析中写“因为-2.449<-2.4，所以-√6<-2.4”，结论正确。但需注意：-2.449 确实小于 -2.4，所以 -√6 < -2.4。因此答案“<”正确。但之前我误判为错误，实际正确。",
+      "independentAnswerZhHans": "<",
+      "answerCheckZhHans": "标准答案正确，解析正确。",
+      "recommendedActionZhHans": "无需修改。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-040",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "A. 无理数都是无限不循环小数",
+      "answerCheckZhHans": "标准答案正确，解析正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "batchId": "model-qa-0023",
+  "ids": [
+    "hjb-junior-ds-v2-s3-170",
+    "hjb-junior-ds-v2-s3-179",
+    "hjb-junior-ds-v2-s3-186",
+    "hjb-junior-ds-v2-s3-187",
+    "hjb-junior-ds-v2-s3-192"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-170",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(-3, -4)",
+      "answerCheckZhHans": "标准答案 (-3, -4) 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-179",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x = 1",
+      "answerCheckZhHans": "标准答案 x = 1 与独立计算结果一致。acceptedAnswers 覆盖了多种等价写法。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-186",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "（1）y = -2x² + 140x - 2000，20 ≤ x ≤ 50；（2）售价定为35元时，每天的利润最大，最大利润是450元。",
+      "answerCheckZhHans": "标准答案与独立计算结果一致。acceptedAnswers 覆盖了多种格式。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-187",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "A. a = 1, b = -4, c = 3",
+      "answerCheckZhHans": "标准答案 A 与独立计算结果一致。其他选项均不正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-192",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(1) y = -10x^2 + 100x + 2000；(2) 降价5元，最大利润2025元",
+      "answerCheckZhHans": "标准答案与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

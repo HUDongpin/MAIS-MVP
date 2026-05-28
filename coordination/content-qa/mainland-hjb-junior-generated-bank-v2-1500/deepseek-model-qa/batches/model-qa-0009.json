@@ -1,0 +1,70 @@
+{
+  "batchId": "model-qa-0009",
+  "ids": [
+    "hjb-junior-ds-v2-s1-372",
+    "hjb-junior-ds-v2-s1-380",
+    "hjb-junior-ds-v2-s1-427",
+    "hjb-junior-ds-v2-s1-445",
+    "hjb-junior-ds-v2-s1-452"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-372",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "65°",
+      "answerCheckZhHans": "标准答案65°正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-380",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "∠E=50°",
+      "answerCheckZhHans": "标准答案∠E=50°正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-427",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "100",
+      "answerCheckZhHans": "标准答案100正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-445",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析中设∠BAD=50°与题干已知∠BAD=30°矛盾，且推导过程有误。独立求解得∠C=37.5°，与标准答案50°不符。",
+      "independentAnswerZhHans": "37.5°",
+      "answerCheckZhHans": "标准答案50°错误，解析自相矛盾。",
+      "recommendedActionZhHans": "修正答案和解析，或检查题目条件。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-452",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "55°",
+      "answerCheckZhHans": "标准答案55°正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

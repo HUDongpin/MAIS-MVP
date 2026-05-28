@@ -1,0 +1,287 @@
+{
+  "batchId": "batch-027",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p1-131",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "hjb-primary-p1-lower-within-20-regrouping",
+      "unitTitle": "20以内数的加减法（二）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-20-regrouping-add-sub",
+        "make-ten-strategy",
+        "decompose-subtrahend",
+        "20以内退位减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "凑十",
+        "分拆减数",
+        "想加算减",
+        "进位加法",
+        "退位减法"
+      ],
+      "misconceptionTags": [
+        "decomposition breaks the wrong number",
+        "ten bridge step skipped",
+        "subtraction handled by digit comparison only"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p1-lower-within-20-regrouping"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-lower-assessment-within-20-regrouping",
+        "hjb-primary-p1-lower-assessment-midterm-1-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小乐有13颗糖，送给朋友一些后还剩7颗。小乐送出了多少颗糖？请用退位减法计算，并写出你用的方法（如“破十法”或“想加算减”）。",
+      "optionsZhHans": [],
+      "answer": "6",
+      "acceptedAnswers": [
+        "6",
+        "6颗"
+      ],
+      "explanationZhHans": "13-7，个位3减7不够，从十位借1当10，13分成10和3，10-7=3，3+3=6，所以送出6颗。也可以用想加算减：7+6=13，所以13-7=6。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-132",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "hjb-primary-p1-lower-within-20-regrouping",
+      "unitTitle": "20以内数的加减法（二）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-20-regrouping-add-sub",
+        "make-ten-strategy",
+        "decompose-subtrahend",
+        "20以内退位减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "凑十",
+        "分拆减数",
+        "想加算减",
+        "进位加法",
+        "退位减法"
+      ],
+      "misconceptionTags": [
+        "decomposition breaks the wrong number",
+        "ten bridge step skipped",
+        "subtraction handled by digit comparison only"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p1-lower-within-20-regrouping"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-lower-assessment-within-20-regrouping",
+        "hjb-primary-p1-lower-assessment-midterm-1-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算：8 + 7 = □。请用凑十法写出计算过程。",
+      "optionsZhHans": [],
+      "answer": "15",
+      "acceptedAnswers": [
+        "15",
+        "8+2=10,10+5=15",
+        "8+7=15"
+      ],
+      "explanationZhHans": "把7分成2和5，8+2=10，10+5=15。或者把8分成5和3，7+3=10，10+5=15。凑十法能帮助快速进位。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-133",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "hjb-primary-p1-lower-within-20-regrouping",
+      "unitTitle": "20以内数的加减法（二）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-20-regrouping-add-sub",
+        "make-ten-strategy",
+        "decompose-subtrahend",
+        "20以内退位减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "凑十",
+        "分拆减数",
+        "想加算减",
+        "进位加法",
+        "退位减法"
+      ],
+      "misconceptionTags": [
+        "decomposition breaks the wrong number",
+        "ten bridge step skipped",
+        "subtraction handled by digit comparison only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p1-lower-within-20-regrouping"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-lower-assessment-within-20-regrouping",
+        "hjb-primary-p1-lower-assessment-midterm-1-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪道题的计算过程使用了“破十法”？",
+      "optionsZhHans": [
+        "12 - 5 = 7，因为5 + 7 = 12",
+        "12 - 5，先算10 - 5 = 5，再算5 + 2 = 7",
+        "12 - 5，先算12 - 2 = 10，再算10 - 3 = 7",
+        "12 - 5 = 7，因为12可以分成6和6"
+      ],
+      "answer": "12 - 5，先算10 - 5 = 5，再算5 + 2 = 7",
+      "acceptedAnswers": [
+        "12 - 5，先算10 - 5 = 5，再算5 + 2 = 7"
+      ],
+      "explanationZhHans": "破十法是把十几分成10和几，先用10减，再加剩下的数。选项B正是这样：12分成10和2，10-5=5，5+2=7。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-134",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "hjb-primary-p1-lower-within-20-regrouping",
+      "unitTitle": "20以内数的加减法（二）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-20-regrouping-add-sub",
+        "make-ten-strategy",
+        "decompose-subtrahend",
+        "20以内退位减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "凑十",
+        "分拆减数",
+        "想加算减",
+        "进位加法",
+        "退位减法"
+      ],
+      "misconceptionTags": [
+        "decomposition breaks the wrong number",
+        "ten bridge step skipped",
+        "subtraction handled by digit comparison only"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p1-lower-within-20-regrouping"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-lower-assessment-within-20-regrouping",
+        "hjb-primary-p1-lower-assessment-midterm-1-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在计算15 - 8时，小明想：8 + □ = 15，□里应该填几？",
+      "optionsZhHans": [],
+      "answer": "7",
+      "acceptedAnswers": [
+        "7"
+      ],
+      "explanationZhHans": "想加算减：因为8+7=15，所以15-8=7。这是利用加减法关系来退位。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-135",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "hjb-primary-p1-lower-within-20-regrouping",
+      "unitTitle": "20以内数的加减法（二）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-20-regrouping-add-sub",
+        "make-ten-strategy",
+        "decompose-subtrahend",
+        "20以内退位减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "凑十",
+        "分拆减数",
+        "想加算减",
+        "进位加法",
+        "退位减法"
+      ],
+      "misconceptionTags": [
+        "decomposition breaks the wrong number",
+        "ten bridge step skipped",
+        "subtraction handled by digit comparison only"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p1-lower-within-20-regrouping"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-lower-assessment-within-20-regrouping",
+        "hjb-primary-p1-lower-assessment-midterm-1-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "树上有14只小鸟，飞走了一些，还剩9只。飞走了多少只？请列出算式并计算。",
+      "optionsZhHans": [],
+      "answer": "14 - 9 = 5",
+      "acceptedAnswers": [
+        "14 - 9 = 5",
+        "14-9=5",
+        "14-9=5（只）",
+        "5",
+        "5只"
+      ],
+      "explanationZhHans": "用退位减法：14-9，个位4减9不够，把14分成10和4，10-9=1，1+4=5。所以飞走了5只。"
+    }
+  ]
+}

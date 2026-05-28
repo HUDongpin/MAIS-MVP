@@ -1,0 +1,378 @@
+{
+  "batchId": "batch-009",
+  "generationMode": "targeted-local-repair",
+  "fallbackReason": "targeted-local-repair",
+  "questions": [
+    {
+      "id": "hjb-high-ds-v2-s4-081",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-等式与不等式",
+      "topicTitleZhHans": "等式与不等式",
+      "volume": "必修 第一册",
+      "chapter": "等式与不等式",
+      "conceptIds": [
+        "inequality-properties",
+        "quadratic-equations",
+        "quadratic-inequalities",
+        "basic-inequality"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities-unit-core",
+        "hjb-high-compulsory-1-equations-inequalities-topic-review",
+        "pep-high-exam-basic-inequality-optimization"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "已知关于x的不等式组：\n(1) x² - 5x + 6 ≤ 0\n(2) |x - 2| > 1\n求同时满足(1)和(2)的x的取值范围。",
+      "optionsZhHans": [],
+      "answer": "2 ≤ x < 3",
+      "acceptedAnswers": [
+        "2 ≤ x < 3",
+        "[2,3)"
+      ],
+      "explanationZhHans": "解(1)得2≤x≤3；解(2)得x<1或x>3。取交集得2≤x<3。注意端点：x=3不满足(2)，故开区间。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-082",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-等式与不等式",
+      "topicTitleZhHans": "等式与不等式",
+      "volume": "必修 第一册",
+      "chapter": "等式与不等式",
+      "conceptIds": [
+        "inequality-properties",
+        "quadratic-equations",
+        "quadratic-inequalities",
+        "basic-inequality"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities-unit-core",
+        "hjb-high-compulsory-1-equations-inequalities-topic-review",
+        "pep-high-exam-basic-inequality-optimization"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "若关于x的不等式ax² + bx + c > 0的解集为{x | 1 < x < 2}，且a < 0，则不等式cx² + bx + a < 0的解集为？",
+      "optionsZhHans": [
+        "{x | x < 1/2 或 x > 1}",
+        "{x | 1/2 < x < 1}",
+        "{x | x < -1 或 x > -1/2}",
+        "{x | -1 < x < -1/2}"
+      ],
+      "answer": "{x | x < 1/2 或 x > 1}",
+      "acceptedAnswers": [
+        "{x | x < 1/2 或 x > 1}"
+      ],
+      "explanationZhHans": "由解集知a<0且1,2为ax²+bx+c=0的根，故b=-3a，c=2a。代入cx²+bx+a<0得2ax²-3ax+a<0，因a<0，除以a变号：2x²-3x+1>0，解得x<1/2或x>1。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-083",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-等式与不等式",
+      "topicTitleZhHans": "等式与不等式",
+      "volume": "必修 第一册",
+      "chapter": "等式与不等式",
+      "conceptIds": [
+        "inequality-properties",
+        "quadratic-equations",
+        "quadratic-inequalities",
+        "basic-inequality"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities-unit-core",
+        "hjb-high-compulsory-1-equations-inequalities-topic-review",
+        "pep-high-exam-basic-inequality-optimization"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "已知x > 0，y > 0，且x + 2y = 1，则1/x + 1/y的最小值为______。",
+      "optionsZhHans": [],
+      "answer": "3 + 2√2",
+      "acceptedAnswers": [
+        "3 + 2√2",
+        "3+2√2",
+        "3+2根号2"
+      ],
+      "explanationZhHans": "1/x+1/y=(x+2y)(1/x+1/y)=3+2y/x+x/y≥3+2√(2y/x·x/y)=3+2√2，当x=√2y时取等，结合x+2y=1得x=√2-1，y=1-√2/2。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-084",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-等式与不等式",
+      "topicTitleZhHans": "等式与不等式",
+      "volume": "必修 第一册",
+      "chapter": "等式与不等式",
+      "conceptIds": [
+        "inequality-properties",
+        "quadratic-equations",
+        "quadratic-inequalities",
+        "basic-inequality"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities-unit-core",
+        "hjb-high-compulsory-1-equations-inequalities-topic-review",
+        "pep-high-exam-basic-inequality-optimization"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "已知函数f(x) = x² + ax + b (a, b ∈ R)，若对于任意x ∈ [0,1]，都有|f(x)| ≤ 1，求a + b的最大值。",
+      "optionsZhHans": [],
+      "answer": "1",
+      "acceptedAnswers": [
+        "1"
+      ],
+      "explanationZhHans": "由|f(0)|=|b|≤1，|f(1)|=|1+a+b|≤1，|f(1/2)|=|1/4+a/2+b|≤1。利用线性规划或绝对值不等式，可得a+b≤1，且当a=0,b=1时取等，满足条件。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-085",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-等式与不等式",
+      "topicTitleZhHans": "等式与不等式",
+      "volume": "必修 第一册",
+      "chapter": "等式与不等式",
+      "conceptIds": [
+        "inequality-properties",
+        "quadratic-equations",
+        "quadratic-inequalities",
+        "basic-inequality"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities-unit-core",
+        "hjb-high-compulsory-1-equations-inequalities-topic-review",
+        "pep-high-exam-basic-inequality-optimization"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "已知a, b, c ∈ R，且a > b > c，则下列不等式一定成立的是？",
+      "optionsZhHans": [
+        "ac > bc",
+        "a|c| > b|c|",
+        "a² > b² > c²",
+        "a - c > b - c"
+      ],
+      "answer": "a - c > b - c",
+      "acceptedAnswers": [
+        "a - c > b - c"
+      ],
+      "explanationZhHans": "由a>b，两边同减c得a-c>b-c，故D正确。A未考虑c符号；B未考虑c=0；C反例：a=1,b=0,c=-2时a²=1,c²=4。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-086",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-等式与不等式",
+      "topicTitleZhHans": "等式与不等式",
+      "volume": "必修 第一册",
+      "chapter": "等式与不等式",
+      "conceptIds": [
+        "inequality-properties",
+        "quadratic-equations",
+        "quadratic-inequalities",
+        "basic-inequality"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities-unit-core",
+        "hjb-high-compulsory-1-equations-inequalities-topic-review",
+        "pep-high-exam-basic-inequality-optimization"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "若关于x的不等式x² - (m+1)x + m ≤ 0的解集中恰有3个整数，则实数m的取值范围是______。",
+      "optionsZhHans": [],
+      "answer": "[-2, -1) ∪ (3, 4]",
+      "acceptedAnswers": [
+        "[-2, -1) ∪ (3, 4]",
+        "[-2,-1)∪(3,4]",
+        "[-2,-1)U(3,4]"
+      ],
+      "explanationZhHans": "不等式化为(x-1)(x-m)≤0。讨论m与1大小：若m<1，解集[m,1]，含整数个数为1-m+1=2-m，令2-m=3得m=-1，但m=-1时解集[-1,1]含3个整数，边界调整得m∈[-2,-1)；若m>1，解集[1,m]，含整数个数m-1+1=m，令m=3得m=3，但m=3时解集[1,3]含3个整数，边界调整得m∈(3,4]。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-087",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-等式与不等式",
+      "topicTitleZhHans": "等式与不等式",
+      "volume": "必修 第一册",
+      "chapter": "等式与不等式",
+      "conceptIds": [
+        "inequality-properties",
+        "quadratic-equations",
+        "quadratic-inequalities",
+        "basic-inequality"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities-unit-core",
+        "hjb-high-compulsory-1-equations-inequalities-topic-review",
+        "pep-high-exam-basic-inequality-optimization"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0087：解答：解不等式 x+10>10，求 x 的取值范围右端常数 10-10 的值。",
+      "optionsZhHans": [],
+      "answer": "0",
+      "acceptedAnswers": [
+        "0"
+      ],
+      "explanationZhHans": "两边同时减去 10，得 x>10-10=0。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-088",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-等式与不等式",
+      "topicTitleZhHans": "等式与不等式",
+      "volume": "必修 第一册",
+      "chapter": "等式与不等式",
+      "conceptIds": [
+        "inequality-properties",
+        "quadratic-equations",
+        "quadratic-inequalities",
+        "basic-inequality"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities-unit-core",
+        "hjb-high-compulsory-1-equations-inequalities-topic-review",
+        "pep-high-exam-basic-inequality-optimization"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "已知正实数a, b满足ab = 1，则(1/a + 1/b)(a² + b²)的最小值为？",
+      "optionsZhHans": [
+        "2",
+        "4",
+        "8",
+        "16"
+      ],
+      "answer": "4",
+      "acceptedAnswers": [
+        "4"
+      ],
+      "explanationZhHans": "由ab=1得1/a+1/b=(a+b)/ab=a+b。又a²+b²≥2ab=2，故原式=(a+b)(a²+b²)≥2√(ab)·2=4，当a=b=1时取等。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-089",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-等式与不等式",
+      "topicTitleZhHans": "等式与不等式",
+      "volume": "必修 第一册",
+      "chapter": "等式与不等式",
+      "conceptIds": [
+        "inequality-properties",
+        "quadratic-equations",
+        "quadratic-inequalities",
+        "basic-inequality"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities-unit-core",
+        "hjb-high-compulsory-1-equations-inequalities-topic-review",
+        "pep-high-exam-basic-inequality-optimization"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "已知关于x的方程x² + (k-2)x + 4 - k = 0有两个不相等的正实数根，则实数k的取值范围是______。",
+      "optionsZhHans": [],
+      "answer": "k < -2",
+      "acceptedAnswers": [
+        "k < -2",
+        "(-∞,-2)"
+      ],
+      "explanationZhHans": "判别式Δ=(k-2)²-4(4-k)>0得k²>12，即k>2√3或k<-2√3。又两根之和=2-k>0得k<2，两根之积=4-k>0得k<4。综合得k<-2√3，但需满足k<2，故k<-2√3≈-3.46，而k<-2更严格，检验k=-3时Δ=25-28=-3<0，故最终k<-2。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-090",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-等式与不等式",
+      "topicTitleZhHans": "等式与不等式",
+      "volume": "必修 第一册",
+      "chapter": "等式与不等式",
+      "conceptIds": [
+        "inequality-properties",
+        "quadratic-equations",
+        "quadratic-inequalities",
+        "basic-inequality"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-equations-inequalities-unit-core",
+        "hjb-high-compulsory-1-equations-inequalities-topic-review",
+        "pep-high-exam-basic-inequality-optimization"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "已知函数f(x) = ax² + bx + c (a ≠ 0)，若f(0) = 1，f(1) = 2，且对于任意x ∈ R，f(x) ≥ 0恒成立，求a + b + c的值。",
+      "optionsZhHans": [],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2"
+      ],
+      "explanationZhHans": "由f(0)=c=1，f(1)=a+b+1=2得a+b=1。f(x)≥0恒成立，则a>0且Δ=b²-4a≤0。代入b=1-a得(1-a)²-4a≤0，即a²-6a+1≤0，解得3-2√2≤a≤3+2√2。又a+b=1，故a+b+c=2。"
+    }
+  ]
+}

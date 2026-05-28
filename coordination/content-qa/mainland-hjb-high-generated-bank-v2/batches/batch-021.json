@@ -1,0 +1,399 @@
+{
+  "batchId": "batch-021",
+  "generationMode": "targeted-local-repair",
+  "fallbackReason": "targeted-local-repair",
+  "questions": [
+    {
+      "id": "hjb-high-ds-v2-s4-201",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-函数的概念-性质及应用",
+      "topicTitleZhHans": "函数的概念、性质及应用",
+      "volume": "必修 第一册",
+      "chapter": "函数的概念、性质及应用",
+      "conceptIds": [
+        "function-definition",
+        "domain-range",
+        "monotonicity",
+        "parity",
+        "function-zero",
+        "inverse-functions"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-function-concepts-applications"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-function-concepts-applications-topic-review",
+        "hjb-high-compulsory-1-function-concepts-applications-unit-core",
+        "pep-high-exam-functions-parameters"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "已知函数 f(x) = √(x² - 4x + 3) + 1/(x - 2)。求函数 f(x) 的定义域，并用区间表示。",
+      "optionsZhHans": [],
+      "answer": "(-∞, 1] ∪ (2, +∞)",
+      "acceptedAnswers": [
+        "(-∞, 1] ∪ (2, +∞)",
+        "(-∞,1]∪(2,+∞)",
+        "(-∞, 1] U (2, +∞)"
+      ],
+      "explanationZhHans": "由根号得 x²-4x+3≥0，解得 x≤1 或 x≥3；由分母得 x≠2。取交集得 x≤1 或 x>2，即 (-∞,1]∪(2,+∞)。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-202",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-函数的概念-性质及应用",
+      "topicTitleZhHans": "函数的概念、性质及应用",
+      "volume": "必修 第一册",
+      "chapter": "函数的概念、性质及应用",
+      "conceptIds": [
+        "function-definition",
+        "domain-range",
+        "monotonicity",
+        "parity",
+        "function-zero",
+        "inverse-functions"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-function-concepts-applications"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-function-concepts-applications-topic-review",
+        "hjb-high-compulsory-1-function-concepts-applications-unit-core",
+        "pep-high-exam-functions-parameters"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0202：选择：已知 f(x)=9x+9，求 f(14)。",
+      "optionsZhHans": [
+        "135",
+        "144",
+        "126",
+        "153"
+      ],
+      "answer": "135",
+      "acceptedAnswers": [
+        "135"
+      ],
+      "explanationZhHans": "f(14)=9×14+9=135。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-203",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-函数的概念-性质及应用",
+      "topicTitleZhHans": "函数的概念、性质及应用",
+      "volume": "必修 第一册",
+      "chapter": "函数的概念、性质及应用",
+      "conceptIds": [
+        "function-definition",
+        "domain-range",
+        "monotonicity",
+        "parity",
+        "function-zero",
+        "inverse-functions"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-function-concepts-applications"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-function-concepts-applications-topic-review",
+        "hjb-high-compulsory-1-function-concepts-applications-unit-core",
+        "pep-high-exam-functions-parameters"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "若函数 f(x) = (x + a) / (x² + 1) 是奇函数，则实数 a = ______。",
+      "optionsZhHans": [],
+      "answer": "0",
+      "acceptedAnswers": [
+        "0"
+      ],
+      "explanationZhHans": "奇函数满足 f(-x) = -f(x)。代入得 (-x+a)/(x²+1) = -(x+a)/(x²+1)，化简得 -x+a = -x-a，即 a = -a，故 a=0。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-204",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-函数的概念-性质及应用",
+      "topicTitleZhHans": "函数的概念、性质及应用",
+      "volume": "必修 第一册",
+      "chapter": "函数的概念、性质及应用",
+      "conceptIds": [
+        "function-definition",
+        "domain-range",
+        "monotonicity",
+        "parity",
+        "function-zero",
+        "inverse-functions"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-function-concepts-applications"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-function-concepts-applications-topic-review",
+        "hjb-high-compulsory-1-function-concepts-applications-unit-core",
+        "pep-high-exam-functions-parameters"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "已知函数 f(x) = x² - 2|x| - 3。写出函数 f(x) 的单调递增区间。",
+      "optionsZhHans": [],
+      "answer": "[-1, 0] 和 [1, +∞)",
+      "acceptedAnswers": [
+        "[-1, 0] 和 [1, +∞)",
+        "[-1,0]和[1,+∞)",
+        "[-1,0]∪[1,+∞)"
+      ],
+      "explanationZhHans": "f(x) 是偶函数。当 x≥0 时 f(x)=x²-2x-3=(x-1)²-4，递增区间为 [1,+∞)；由对称性，x<0 时递增区间为 [-1,0]。故递增区间为 [-1,0] 和 [1,+∞)。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-205",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-函数的概念-性质及应用",
+      "topicTitleZhHans": "函数的概念、性质及应用",
+      "volume": "必修 第一册",
+      "chapter": "函数的概念、性质及应用",
+      "conceptIds": [
+        "function-definition",
+        "domain-range",
+        "monotonicity",
+        "parity",
+        "function-zero",
+        "inverse-functions"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-function-concepts-applications"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-function-concepts-applications-topic-review",
+        "hjb-high-compulsory-1-function-concepts-applications-unit-core",
+        "pep-high-exam-functions-parameters"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0205：选择：已知 f(x)=7x+4，求 f(20)。",
+      "optionsZhHans": [
+        "151",
+        "144",
+        "137",
+        "158"
+      ],
+      "answer": "144",
+      "acceptedAnswers": [
+        "144"
+      ],
+      "explanationZhHans": "f(20)=7×20+4=144。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-206",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-函数的概念-性质及应用",
+      "topicTitleZhHans": "函数的概念、性质及应用",
+      "volume": "必修 第一册",
+      "chapter": "函数的概念、性质及应用",
+      "conceptIds": [
+        "function-definition",
+        "domain-range",
+        "monotonicity",
+        "parity",
+        "function-zero",
+        "inverse-functions"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-function-concepts-applications"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-function-concepts-applications-topic-review",
+        "hjb-high-compulsory-1-function-concepts-applications-unit-core",
+        "pep-high-exam-functions-parameters"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "函数 f(x) = √(x² - 2x - 3) 的单调递减区间是 ______。",
+      "optionsZhHans": [],
+      "answer": "(-∞, -1]",
+      "acceptedAnswers": [
+        "(-∞, -1]",
+        "(-∞,-1]"
+      ],
+      "explanationZhHans": "定义域 x²-2x-3≥0 得 x≤-1 或 x≥3。外层根号递增，内层二次函数在 (-∞,1] 递减，取交集得递减区间 (-∞,-1]。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-207",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-函数的概念-性质及应用",
+      "topicTitleZhHans": "函数的概念、性质及应用",
+      "volume": "必修 第一册",
+      "chapter": "函数的概念、性质及应用",
+      "conceptIds": [
+        "function-definition",
+        "domain-range",
+        "monotonicity",
+        "parity",
+        "function-zero",
+        "inverse-functions"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-function-concepts-applications"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-function-concepts-applications-topic-review",
+        "hjb-high-compulsory-1-function-concepts-applications-unit-core",
+        "pep-high-exam-functions-parameters"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "已知函数 f(x) = 2x + 1，g(x) = x² - 2。求方程 f(g(x)) = g(f(x)) 的解集。",
+      "optionsZhHans": [],
+      "answer": "{-1, 2}",
+      "acceptedAnswers": [
+        "{-1, 2}",
+        "{-1,2}"
+      ],
+      "explanationZhHans": "f(g(x))=2(x²-2)+1=2x²-3；g(f(x))=(2x+1)²-2=4x²+4x-1。令相等得 2x²-3=4x²+4x-1，整理得 2x²+4x+2=0，即 x²+2x+1=0，解得 x=-1。代入验证成立，故解集为 {-1}。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-208",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-函数的概念-性质及应用",
+      "topicTitleZhHans": "函数的概念、性质及应用",
+      "volume": "必修 第一册",
+      "chapter": "函数的概念、性质及应用",
+      "conceptIds": [
+        "function-definition",
+        "domain-range",
+        "monotonicity",
+        "parity",
+        "function-zero",
+        "inverse-functions"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-function-concepts-applications"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-function-concepts-applications-topic-review",
+        "hjb-high-compulsory-1-function-concepts-applications-unit-core",
+        "pep-high-exam-functions-parameters"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0208：选择：已知 f(x)=6x+3，求 f(13)。",
+      "optionsZhHans": [
+        "87",
+        "75",
+        "81",
+        "93"
+      ],
+      "answer": "81",
+      "acceptedAnswers": [
+        "81"
+      ],
+      "explanationZhHans": "f(13)=6×13+3=81。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-209",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-函数的概念-性质及应用",
+      "topicTitleZhHans": "函数的概念、性质及应用",
+      "volume": "必修 第一册",
+      "chapter": "函数的概念、性质及应用",
+      "conceptIds": [
+        "function-definition",
+        "domain-range",
+        "monotonicity",
+        "parity",
+        "function-zero",
+        "inverse-functions"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-function-concepts-applications"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-function-concepts-applications-topic-review",
+        "hjb-high-compulsory-1-function-concepts-applications-unit-core",
+        "pep-high-exam-functions-parameters"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "若函数 f(x) = { x² + 1, x ≤ 0; -x² + 2x + 1, x > 0 }，则方程 f(x) = 2 的所有实数根之和为 ______。",
+      "optionsZhHans": [],
+      "answer": "1",
+      "acceptedAnswers": [
+        "1"
+      ],
+      "explanationZhHans": "x≤0 时 x²+1=2 得 x=-1；x>0 时 -x²+2x+1=2 得 x²-2x+1=0，x=1。两根之和为 0。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-210",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-函数的概念-性质及应用",
+      "topicTitleZhHans": "函数的概念、性质及应用",
+      "volume": "必修 第一册",
+      "chapter": "函数的概念、性质及应用",
+      "conceptIds": [
+        "function-definition",
+        "domain-range",
+        "monotonicity",
+        "parity",
+        "function-zero",
+        "inverse-functions"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-1-function-concepts-applications"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-1-function-concepts-applications-topic-review",
+        "hjb-high-compulsory-1-function-concepts-applications-unit-core",
+        "pep-high-exam-functions-parameters"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
+      "promptZhHans": "已知函数 f(x) = x / (x² + 1)。判断函数 f(x) 的奇偶性，并求其值域。",
+      "optionsZhHans": [],
+      "answer": "奇函数，值域为 [-1/2, 1/2]",
+      "acceptedAnswers": [
+        "奇函数，值域为 [-1/2, 1/2]",
+        "奇函数，值域为[-1/2,1/2]"
+      ],
+      "explanationZhHans": "定义域 R，f(-x)=-x/(x²+1)=-f(x)，为奇函数。x=0时y=0；x>0时y=1/(x+1/x)≤1/2，由奇函数对称得值域 [-1/2,1/2]。"
+    }
+  ]
+}

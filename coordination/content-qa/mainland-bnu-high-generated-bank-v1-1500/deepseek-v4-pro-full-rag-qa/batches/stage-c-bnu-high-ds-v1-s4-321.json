@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-321",
+  "startedAt": "2026-05-28T02:41:43.794Z",
+  "completedAt": "2026-05-28T02:41:49.632Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-321"
+  ],
+  "usage": {
+    "prompt_tokens": 2689,
+    "completion_tokens": 337,
+    "total_tokens": 3026,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2305
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-321",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "[0, π/12] 和 [5π/12, π/2]",
+        "correctedAnswer": "[0, π/12] 和 [5π/12, π/2]",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合教材范围。但存储答案包含错误区间[π/4, π/2]，正确单调递增区间应为[0, π/12]和[5π/12, π/2]。解析中虽指出k=1时交集为[5π/12, π/2]，却错误地给出[π/4, π/2]，存在数学错误和解释矛盾，必须修正。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1题答案错误，需修正为[0, π/12]和[5π/12, π/2]。"
+    }
+  }
+}

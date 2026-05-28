@@ -1,0 +1,47 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-029",
+  "startedAt": "2026-05-28T02:02:24.359Z",
+  "completedAt": "2026-05-28T02:02:29.660Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-029"
+  ],
+  "usage": {
+    "prompt_tokens": 2405,
+    "completion_tokens": 363,
+    "total_tokens": 2768,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2021
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-029",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "3x - 4y + 10 = 0 或 3x - 4y - 10 = 0",
+        "correctedAnswer": "3x - 4y + 10 = 0 或 3x - 4y - 10 = 0",
+        "issueTags": [
+          "answer_mismatch"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "Stage A独立解字段错误写为3x-4y+15=0或3x-4y-5=0，但其推理过程得出c=±10，正确方程应为3x-4y+10=0或3x-4y-10=0，与存储答案一致。因独立解字段与正确解不符，导致答案匹配失败，但实际数学正确，需修正独立解字段。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "Stage A独立解字段存在笔误，正确方程应为3x-4y+10=0或3x-4y-10=0，与存储答案一致，但字段错误导致匹配失败，需修正。"
+    }
+  }
+}

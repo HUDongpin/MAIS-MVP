@@ -1,0 +1,137 @@
+{
+  "batchNumber": 23,
+  "startedAt": "2026-05-27T13:47:54.830Z",
+  "completedAt": "2026-05-27T13:48:11.973Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-177",
+    "bnu-high-ds-v1-s4-178",
+    "bnu-high-ds-v1-s4-179",
+    "bnu-high-ds-v1-s4-180",
+    "bnu-high-ds-v1-s4-181",
+    "bnu-high-ds-v1-s4-182",
+    "bnu-high-ds-v1-s4-183",
+    "bnu-high-ds-v1-s4-184"
+  ],
+  "usage": {
+    "prompt_tokens": 10212,
+    "completion_tokens": 1149,
+    "total_tokens": 11361,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 9700
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-177",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "[100,100]",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "利润函数L(x)=20x-500，定义域0≤x≤100。解20x-500≥1500得x≥100，结合定义域得x=100，答案[100,100]正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-178",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f(1)=-1<0，f(2)=ln2>0，零点在(1,2)内，k=1，选项唯一正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-179",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "35",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "解100e^{0.02t}=200得t=50ln2≈34.65，四舍五入为35年，答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-180",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "6",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "区间长度40，要求精度1，二分次数n满足40/2^n≤1，得n≥log2(40)≈5.32，至少6次，答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-181",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "35分钟是该市所有高一学生平均每天课外阅读时间的一个估计值",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "样本平均数是总体平均数的估计值，选项C正确，其他选项错误，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-182",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "76.5",
+        "correctedAnswer": "76.5",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "组中值计算得3060/40=76.5，精确到0.1为76.5，但答案给出77.0，解析也错误地得出76.5却与答案矛盾，实际应为76.5。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-183",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "5.76",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "方差=标准差²=2.4²=5.76，答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-184",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "分层抽样",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "按年级分层抽取，属于分层抽样，选项正确，解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第182题答案错误，应为76.5而非77.0，解析与答案矛盾；其余题目均通过审核。"
+    }
+  }
+}

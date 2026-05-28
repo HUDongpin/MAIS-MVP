@@ -1,0 +1,285 @@
+{
+  "batchId": "batch-180",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p4-146",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "hjb-primary-p4-lower-review-operation-properties",
+      "unitTitle": "复习与提高",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "p4-lower-review",
+        "integer-four-operations",
+        "operation-properties",
+        "problem-solving",
+        "四则运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "推理意识",
+        "反思整理"
+      ],
+      "skillTags": [
+        "四则运算",
+        "整数运算性质",
+        "看谁算得巧",
+        "解决问题",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "operation property applied to a nonmatching structure",
+        "efficient method used without preserving value",
+        "word-problem answer lacks unit meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p4-lower-review-operation-properties"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-lower-assessment-review-operation-properties",
+        "hjb-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算 25 × 36，下面哪种方法用到了乘法结合律？",
+      "optionsZhHans": [],
+      "answer": "25 × 36 = 25 × (4 × 9) = (25 × 4) × 9 = 100 × 9 = 900",
+      "acceptedAnswers": [
+        "25 × 36 = 25 × (4 × 9) = (25 × 4) × 9 = 100 × 9 = 900"
+      ],
+      "explanationZhHans": "乘法结合律：三个数相乘，先把前两个数相乘，或先把后两个数相乘，积不变。把36拆成4×9，再先算25×4得100，最后乘9，用了结合律。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-147",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "hjb-primary-p4-lower-review-operation-properties",
+      "unitTitle": "复习与提高",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "p4-lower-review",
+        "integer-four-operations",
+        "operation-properties",
+        "problem-solving",
+        "四则运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "推理意识",
+        "反思整理"
+      ],
+      "skillTags": [
+        "四则运算",
+        "整数运算性质",
+        "看谁算得巧",
+        "解决问题",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "operation property applied to a nonmatching structure",
+        "efficient method used without preserving value",
+        "word-problem answer lacks unit meaning"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p4-lower-review-operation-properties"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-lower-assessment-review-operation-properties",
+        "hjb-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆新买来故事书和科技书共240本，其中故事书的本数是科技书的3倍。故事书和科技书各有多少本？请先写出数量关系，再列式解答。",
+      "optionsZhHans": [],
+      "answer": "科技书：240 ÷ (3 + 1) = 60（本），故事书：60 × 3 = 180（本）",
+      "acceptedAnswers": [
+        "科技书：240 ÷ (3 + 1) = 60（本），故事书：60 × 3 = 180（本）"
+      ],
+      "explanationZhHans": "数量关系：科技书本数 + 故事书本数 = 总本数，故事书本数 = 科技书本数 × 3。把科技书本数看作1份，故事书就是3份，共4份。240÷4=60，科技书60本，故事书180本。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-148",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "hjb-primary-p4-lower-review-operation-properties",
+      "unitTitle": "复习与提高",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "p4-lower-review",
+        "integer-four-operations",
+        "operation-properties",
+        "problem-solving",
+        "四则运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "推理意识",
+        "反思整理"
+      ],
+      "skillTags": [
+        "四则运算",
+        "整数运算性质",
+        "看谁算得巧",
+        "解决问题",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "operation property applied to a nonmatching structure",
+        "efficient method used without preserving value",
+        "word-problem answer lacks unit meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p4-lower-review-operation-properties"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-lower-assessment-review-operation-properties",
+        "hjb-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪道题的计算过程运用了乘法分配律？",
+      "optionsZhHans": [
+        "125 × 7 × 8 = 125 × 8 × 7 = 1000 × 7 = 7000",
+        "36 × 25 = 9 × (4 × 25) = 9 × 100 = 900",
+        "48 × 12 = 48 × 10 + 48 × 2 = 480 + 96 = 576",
+        "25 × 32 × 125 = (25 × 4) × (8 × 125) = 100 × 1000 = 100000"
+      ],
+      "answer": "48 × 12 = 48 × 10 + 48 × 2 = 480 + 96 = 576",
+      "acceptedAnswers": [
+        "48 × 12 = 48 × 10 + 48 × 2 = 480 + 96 = 576"
+      ],
+      "explanationZhHans": "乘法分配律：两个数的和与一个数相乘，可以先把它们与这个数分别相乘，再相加。48×12把12拆成10+2，分别乘48再相加，用了分配律。其他选项用了交换律或结合律。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-149",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "hjb-primary-p4-lower-review-operation-properties",
+      "unitTitle": "复习与提高",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "p4-lower-review",
+        "integer-four-operations",
+        "operation-properties",
+        "problem-solving",
+        "四则运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "推理意识",
+        "反思整理"
+      ],
+      "skillTags": [
+        "四则运算",
+        "整数运算性质",
+        "看谁算得巧",
+        "解决问题",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "operation property applied to a nonmatching structure",
+        "efficient method used without preserving value",
+        "word-problem answer lacks unit meaning"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p4-lower-review-operation-properties"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-lower-assessment-review-operation-properties",
+        "hjb-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在下面的横线上填上合适的数，使计算简便，并写出运用了什么运算性质。\n167 + 58 + 42 = 167 + (____ + ____)，运用了________。",
+      "optionsZhHans": [],
+      "answer": "58，42，加法结合律",
+      "acceptedAnswers": [
+        "58，42，加法结合律"
+      ],
+      "explanationZhHans": "加法结合律：三个数相加，先把前两个数相加，或先把后两个数相加，和不变。先算58+42得100，再与167相加更简便。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-150",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "hjb-primary-p4-lower-review-operation-properties",
+      "unitTitle": "复习与提高",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "p4-lower-review",
+        "integer-four-operations",
+        "operation-properties",
+        "problem-solving",
+        "四则运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "推理意识",
+        "反思整理"
+      ],
+      "skillTags": [
+        "四则运算",
+        "整数运算性质",
+        "看谁算得巧",
+        "解决问题",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "operation property applied to a nonmatching structure",
+        "efficient method used without preserving value",
+        "word-problem answer lacks unit meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p4-lower-review-operation-properties"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-lower-assessment-review-operation-properties",
+        "hjb-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "水果店运来苹果和梨共360千克，苹果的重量是梨的2倍。运来的梨有多少千克？请列式解答，并说说你是怎样验算的。",
+      "optionsZhHans": [],
+      "answer": "360 ÷ (2 + 1) = 120（千克）\n验算：苹果120×2=240千克，120+240=360千克，符合总重量。",
+      "acceptedAnswers": [
+        "360 ÷ (2 + 1) = 120（千克）\n验算：苹果120×2=240千克，120+240=360千克，符合总重量。"
+      ],
+      "explanationZhHans": "把梨的重量看作1份，苹果是2份，共3份。360÷3=120，梨120千克。验算时用梨的重量乘2得苹果重量，相加看是否等于总重量。"
+    }
+  ]
+}

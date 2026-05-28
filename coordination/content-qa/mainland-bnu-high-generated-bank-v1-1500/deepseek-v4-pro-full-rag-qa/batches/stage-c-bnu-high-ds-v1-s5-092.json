@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-092",
+  "startedAt": "2026-05-28T02:07:56.399Z",
+  "completedAt": "2026-05-28T02:08:03.420Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-092"
+  ],
+  "usage": {
+    "prompt_tokens": 2334,
+    "completion_tokens": 308,
+    "total_tokens": 2642,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1950
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-092",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "x²/9 - y²/16 = 1",
+        "correctedAnswer": "x²/9 - y²/16 = 1",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合BNU圆锥曲线范围。Stage A独立解得x²/9 - y²/16 = 1，正确。存储答案x^2/9 - y^2/16 = 1正确，但解析过程错误得出y²/16 - x²/9 = 1，与答案矛盾且数学推导有误，构成严重错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1题因解析错误且与答案矛盾，判定为blocker，需修正解析。"
+    }
+  }
+}

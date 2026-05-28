@@ -1,0 +1,105 @@
+{
+  "batchId": "model-qa-0016",
+  "ids": [
+    "hjb-junior-ds-v2-s1-121",
+    "hjb-junior-ds-v2-s1-122",
+    "hjb-junior-ds-v2-s1-123",
+    "hjb-junior-ds-v2-s1-124",
+    "hjb-junior-ds-v2-s1-125",
+    "hjb-junior-ds-v2-s1-126",
+    "hjb-junior-ds-v2-s1-127",
+    "hjb-junior-ds-v2-s1-128"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-121",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "multiple-correct-options"
+      ],
+      "issueDetailsZhHans": "选项A和B等价，都是正确的因式分解结果。提取公因式-6x²y得-6x²y(2x-3y+1)，提取6x²y得6x²y(-2x+3y-1)，两者相等。因此存在两个正确选项。",
+      "independentAnswerZhHans": "提取公因式-6x²y：-12x³y+18x²y²-6x²y = -6x²y(2x-3y+1)。提取公因式6x²y：6x²y(-2x+3y-1)。两者相等，故A和B都正确。",
+      "answerCheckZhHans": "标准答案A正确，但B也正确，因为-6x²y(2x-3y+1)=6x²y(-2x+3y-1)。",
+      "recommendedActionZhHans": "修改选项，使只有一个正确选项，例如将B改为6x²y(2x-3y+1)或其他不等价形式。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-122",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "提取公因式-2a²b²：-4a³b²+6a²b³-2a²b² = -2a²b²(2a-3b+1)。",
+      "answerCheckZhHans": "标准答案正确，acceptedAnswers覆盖了等价形式。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-123",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x⁴-16y⁴ = (x²)²-(4y²)² = (x²+4y²)(x²-4y²) = (x²+4y²)(x+2y)(x-2y)。",
+      "answerCheckZhHans": "标准答案正确，acceptedAnswers覆盖了因式顺序不同的等价形式。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-124",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "展开(2x-5)(x+3)=2x²+6x-5x-15=2x²+x-15。",
+      "answerCheckZhHans": "标准答案正确，其他选项均不等于展开式。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-125",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "9(m+n)²-25(m-n)² = [3(m+n)]²-[5(m-n)]² = [3(m+n)+5(m-n)][3(m+n)-5(m-n)] = (8m-2n)(-2m+8n) = 2(4m-n)·2(-m+4n) = 4(4m-n)(4n-m)。",
+      "answerCheckZhHans": "标准答案正确，acceptedAnswers覆盖了等价形式。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-126",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "提取公因式-3x²y²：-6x³y²+9x²y³-3x²y² = -3x²y²(2x-3y+1)。",
+      "answerCheckZhHans": "标准答案正确，acceptedAnswers匹配。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-127",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "4a²-12ab+9b² = (2a)²-2·2a·3b+(3b)² = (2a-3b)²。",
+      "answerCheckZhHans": "标准答案正确，其他选项均不正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-128",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "5m²n-20n = 5n(m²-4) = 5n(m+2)(m-2)。",
+      "answerCheckZhHans": "标准答案正确，acceptedAnswers匹配。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

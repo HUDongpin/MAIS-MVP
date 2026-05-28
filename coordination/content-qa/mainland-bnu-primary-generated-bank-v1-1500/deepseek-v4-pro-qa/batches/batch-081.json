@@ -1,0 +1,191 @@
+{
+  "batchNumber": 81,
+  "startedAt": "2026-05-27T13:31:08.844Z",
+  "completedAt": "2026-05-27T13:31:26.614Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p6-191",
+    "bnu-primary-ds-v1-p6-192",
+    "bnu-primary-ds-v1-p6-193",
+    "bnu-primary-ds-v1-p6-194",
+    "bnu-primary-ds-v1-p6-195",
+    "bnu-primary-ds-v1-p6-196",
+    "bnu-primary-ds-v1-p6-197",
+    "bnu-primary-ds-v1-p6-198",
+    "bnu-primary-ds-v1-p6-199",
+    "bnu-primary-ds-v1-p6-200",
+    "bnu-primary-ds-v1-p6-201",
+    "bnu-primary-ds-v1-p6-202",
+    "bnu-primary-ds-v1-p6-203",
+    "bnu-primary-ds-v1-p6-204",
+    "bnu-primary-ds-v1-p6-205",
+    "bnu-primary-ds-v1-p6-206",
+    "bnu-primary-ds-v1-p6-207",
+    "bnu-primary-ds-v1-p6-208"
+  ],
+  "usage": {
+    "prompt_tokens": 3649,
+    "completion_tokens": 1288,
+    "total_tokens": 4937,
+    "prompt_tokens_details": {
+      "cached_tokens": 3584
+    },
+    "prompt_cache_hit_tokens": 3584,
+    "prompt_cache_miss_tokens": 65
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p6-191",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，选项清晰，适合P6图形运动。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-192",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，表述清晰，符合平移性质。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-193",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项D明确为平移，其他为旋转，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-194",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "旋转180°重合即中心对称，概念准确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-195",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数字6旋转180°为9，符合常识。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-196",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "等腰三角形对称轴为1条，正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-197",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项C正确，其他错误，解释合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-198",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "逆推计算正确，旋转中心为(1,1)。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-199",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "速度一定时路程与时间成正比例，选项C正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-200",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "乘积一定，成反比例，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-201",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比值一定，成正比例，选项正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-202",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "乘积一定，成反比例，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-203",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "正方形周长与边长成正比例，选项正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-204",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "y=8x，比值一定，成正比例。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-205",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "三角形面积一定时底和高成反比例，正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-206",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "反比例传递得正比例，推理正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-207",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "xy=12乘积一定，成反比例，选项正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-208",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "底和高乘积一定，成反比例，答案正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案匹配，表述清晰，适合北师大版P6。"
+    }
+  }
+}

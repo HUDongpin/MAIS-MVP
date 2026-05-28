@@ -1,0 +1,112 @@
+{
+  "batchId": "model-qa-0012",
+  "ids": [
+    "hjb-junior-ds-v2-s1-089",
+    "hjb-junior-ds-v2-s1-090",
+    "hjb-junior-ds-v2-s1-091",
+    "hjb-junior-ds-v2-s1-092",
+    "hjb-junior-ds-v2-s1-093",
+    "hjb-junior-ds-v2-s1-094",
+    "hjb-junior-ds-v2-s1-095",
+    "hjb-junior-ds-v2-s1-096"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-089",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "175",
+      "answerCheckZhHans": "标准答案 175 与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-090",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为 15，但独立计算得 29。解析中代入计算过程为 8×4 + 7(-2)(1) -6(-2) -1 = 32 -14 +12 -1 = 29，与答案 15 矛盾。",
+      "independentAnswerZhHans": "29",
+      "answerCheckZhHans": "标准答案 15 错误，正确结果应为 29。",
+      "recommendedActionZhHans": "修正答案为 29，并更新 acceptedAnswers。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-091",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-2x^3y^2",
+      "answerCheckZhHans": "标准答案 -2x^3y^2 与独立计算结果一致，且为唯一正确选项。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-092",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "4x^5",
+      "answerCheckZhHans": "标准答案 4x^5 与独立计算结果一致，acceptedAnswers 覆盖了常见写法。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-093",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为 -1/2 a^3 b^3，但独立计算得 -1/2 a^5 b^3。解析中最后一步乘法 -2a^3b · 1/4 a^2b^2 = -1/2 a^5 b^3，与答案矛盾。",
+      "independentAnswerZhHans": "-1/2 a^5 b^3",
+      "answerCheckZhHans": "标准答案 -1/2 a^3 b^3 错误，正确结果应为 -1/2 a^5 b^3。",
+      "recommendedActionZhHans": "修正答案为 -1/2 a^5 b^3，并更新 acceptedAnswers。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-094",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为 -72a^{12}，但独立计算得 -108a^{12}。解析中计算过程为 4a^6 · (-27a^6) = -108a^{12}，与答案矛盾。",
+      "independentAnswerZhHans": "-108a^{12}",
+      "answerCheckZhHans": "标准答案 -72a^{12} 错误，正确结果应为 -108a^{12}。",
+      "recommendedActionZhHans": "修正答案为 -108a^{12}，并更新选项和 acceptedAnswers。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-095",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-8a^4b",
+      "answerCheckZhHans": "标准答案 -8a^4b 与独立计算结果一致，acceptedAnswers 覆盖了常见写法。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-096",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "商式为 2x^2 - x + 2，余式为 -3",
+      "answerCheckZhHans": "标准答案与独立计算结果一致，acceptedAnswers 覆盖了多种表述。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

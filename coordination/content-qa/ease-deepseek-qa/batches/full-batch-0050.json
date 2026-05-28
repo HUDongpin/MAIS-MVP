@@ -1,0 +1,168 @@
+{
+  "scope": "full",
+  "batchIndex": 50,
+  "startedAt": "2026-05-28T03:42:34.637Z",
+  "completedAt": "2026-05-28T03:43:14.782Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "itemIds": [
+    "1058",
+    "1059",
+    "1060",
+    "1061",
+    "1062",
+    "1063",
+    "1064",
+    "1065",
+    "1066",
+    "1067"
+  ],
+  "usage": {
+    "prompt_tokens": 2734,
+    "completion_tokens": 2813,
+    "total_tokens": 5547,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1562
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2350
+  },
+  "finishReason": "stop",
+  "jsonModeFallback": false,
+  "result": {
+    "items": [
+      {
+        "questionId": "1058",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "否",
+        "independentAnswer": "否",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "183 不能被 6 整除，答案正確。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "1059",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "否",
+        "independentAnswer": "否",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "2512 不能被 6 整除，答案正確。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "1060",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "可",
+        "independentAnswer": "可",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "4692 能被 6 整除，答案正確。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "1061",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "798",
+        "independentAnswer": "798",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "小於 800 且能被 3 整除的最大整數是 798，答案正確。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "1062",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "1504",
+        "independentAnswer": "1504",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "大於 1500 且能被 8 整除的最小整數是 1504，答案正確。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "1063",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "0, 4, 8",
+        "independentAnswer": "0, 4, 8",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "78♥ 被 4 整除當且僅當 8♥ 被 4 整除，♥ 可為 0, 4, 8，答案正確。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "1064",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "1, 3, 5, 7, 9",
+        "independentAnswer": "1, 3, 5, 7, 9",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "3♥2 被 4 整除當且僅當 ♥2 被 4 整除，♥ 可為奇數 1,3,5,7,9，答案正確。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "1065",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "2, 5, 8",
+        "independentAnswer": "2, 5, 8",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "41♥2 數字和為 7+♥，被 3 整除要求 ♥ mod 3 = 2，即 2,5,8，答案正確。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "1066",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "0, 9",
+        "independentAnswer": "0, 9",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "5♥13 數字和為 9+♥，被 9 整除要求 ♥ 為 0 或 9，答案正確。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "1067",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "可",
+        "independentAnswer": "可",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "1560 可被 5 和 8 整除，答案正確。",
+        "recommendedAction": "No blocking action."
+      }
+    ],
+    "batchSummary": {
+      "pass": 10,
+      "unsolvable": 0,
+      "ambiguous": 0,
+      "imageContextRequired": 0,
+      "answerMismatch": 0,
+      "missingAnswerKey": 0,
+      "notes": "所有題目均為基礎整除測試，無圖片，題目清晰可解，答案鍵完全正確。"
+    }
+  }
+}

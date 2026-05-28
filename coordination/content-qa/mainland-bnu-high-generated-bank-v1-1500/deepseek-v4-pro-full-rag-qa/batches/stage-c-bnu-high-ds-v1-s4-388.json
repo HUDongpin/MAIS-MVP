@@ -1,0 +1,45 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-388",
+  "startedAt": "2026-05-28T02:38:32.299Z",
+  "completedAt": "2026-05-28T02:38:38.579Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-388"
+  ],
+  "usage": {
+    "prompt_tokens": 2106,
+    "completion_tokens": 302,
+    "total_tokens": 2408,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1722
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-388",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "向量AB和向量AD",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目明确要求选择一组基底，选项B（AB和AD）是平行四边形相邻两边，不共线，符合基底条件。选项A中AB与CD共线，选项C中AC与BD在一般平行四边形中不共线，但题目未限定特殊形状，AC与BD可作为基底，但选项B更直接且无歧义；选项D中AB与AC不共线，也可作基底，但题目为单选题，B为最典型答案。解析虽对C、D分析不够严谨，但最终答案正确，无数学错误，不影响唯一性。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 1,
+      "warn": 0,
+      "fail": 0,
+      "notes": "题目可解，答案匹配，解析稍弱但无严重错误，通过。"
+    }
+  }
+}

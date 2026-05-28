@@ -1,0 +1,41 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-087-item-bnu-high-ds-v1-s5-193",
+  "startedAt": "2026-05-28T02:47:51.748Z",
+  "completedAt": "2026-05-28T02:47:56.261Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-193"
+  ],
+  "usage": {
+    "prompt_tokens": 1681,
+    "completion_tokens": 228,
+    "total_tokens": 1909,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1297
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-193",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "\\frac{4}{9}",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "直线方向向量s=(1,2,2)，平面法向量n=(2,-1,2)。线面角θ满足sinθ=|cos〈s,n〉|=|s·n|/(|s||n|)=|1×2+2×(-1)+2×2|/(3×3)=4/9。选项A为4/9，唯一正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 1,
+      "warn": 0,
+      "fail": 0,
+      "notes": "题目可独立求解，符合北师大版空间向量与立体几何章节要求，答案明确。"
+    }
+  }
+}

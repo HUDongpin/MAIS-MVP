@@ -1,0 +1,312 @@
+{
+  "batchId": "batch-094",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s3-k10-fi-064",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-circle-geometry"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "promptZhHans": "在圆O中，弦AB与弦CD相交于点P。已知AP=3，PB=5，CP=2，求PD的长度。",
+      "optionsZhHans": [],
+      "answer": "7.5",
+      "acceptedAnswers": [
+        "7.5",
+        "15/2"
+      ],
+      "explanationZhHans": "根据相交弦定理，圆内两弦相交，交点分弦所得线段的乘积相等，即AP·PB = CP·PD。代入已知值：3×5 = 2×PD，解得PD = 15/2 = 7.5。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-fi-065",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-probability-introduction"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "一个不透明的袋子里装有3个红球和5个白球，除颜色外其他完全相同。从中随机摸出一个球，摸到红球的概率是多少？",
+      "optionsZhHans": [],
+      "answer": "3/8",
+      "acceptedAnswers": [
+        "3/8",
+        "0.375"
+      ],
+      "explanationZhHans": "袋中总球数为3+5=8个，红球有3个。随机摸出一个球，摸到红球的概率为红球个数除以总球数，即3/8。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-fi-066",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-rotation-transformations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models"
+      ],
+      "promptZhHans": "在平面直角坐标系中，点A的坐标为(2, -3)。将点A绕原点逆时针旋转90°，得到点B，求点B的坐标。",
+      "optionsZhHans": [],
+      "answer": "(3, 2)",
+      "acceptedAnswers": [
+        "(3, 2)",
+        "(3,2)",
+        "（3，2）"
+      ],
+      "explanationZhHans": "点(x, y)绕原点逆时针旋转90°后的坐标为(-y, x)。将A(2, -3)代入，得B(-(-3), 2) = (3, 2)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-sa-001",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions"
+      ],
+      "promptZhHans": "已知关于x的一元二次方程x² - 6x + k = 0有两个不相等的实数根。求k的取值范围。",
+      "optionsZhHans": [],
+      "answer": "k < 9",
+      "acceptedAnswers": [
+        "k < 9",
+        "k<9",
+        "k<9且k为实数"
+      ],
+      "explanationZhHans": "一元二次方程有两个不相等的实数根，则判别式Δ > 0。Δ = (-6)² - 4×1×k = 36 - 4k > 0，解得k < 9。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-sa-002",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-quadratic-equations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-circle-geometry"
+      ],
+      "promptZhHans": "AB是⊙O的直径，C是⊙O上一点，连接AC、BC。若∠BAC=30°，求∠ABC的度数。",
+      "optionsZhHans": [],
+      "answer": "60°",
+      "acceptedAnswers": [
+        "60°",
+        "60度",
+        "60"
+      ],
+      "explanationZhHans": "AB是直径，所以∠ACB是直径所对的圆周角，为90°。在△ABC中，∠BAC=30°，∠ACB=90°，则∠ABC=180°-30°-90°=60°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-sa-003",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-quadratic-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "二次函数y = -2(x+1)² + 3的图象开口方向是什么？顶点坐标是什么？",
+      "optionsZhHans": [],
+      "answer": "开口向下，顶点坐标为(-1, 3)",
+      "acceptedAnswers": [
+        "开口向下，顶点坐标为(-1, 3)",
+        "开口向下，顶点坐标为(-1,3)",
+        "向下，(-1,3)"
+      ],
+      "explanationZhHans": "二次函数y = a(x-h)² + k的顶点式为y = -2(x+1)² + 3，其中a=-2<0，所以开口向下；顶点坐标为(h, k) = (-1, 3)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-sa-004",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-circle-geometry"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "promptZhHans": "已知圆的半径为5，圆心到直线l的距离为3，判断直线l与圆的位置关系。",
+      "optionsZhHans": [],
+      "answer": "相交",
+      "acceptedAnswers": [
+        "相交",
+        "直线与圆相交"
+      ],
+      "explanationZhHans": "设圆的半径为r=5，圆心到直线的距离为d=3。因为d < r，即3 < 5，所以直线与圆相交。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-sa-005",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-probability-introduction"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "同时抛掷两枚质地均匀的硬币，求恰有一枚正面朝上的概率。",
+      "optionsZhHans": [],
+      "answer": "1/2",
+      "acceptedAnswers": [
+        "1/2",
+        "0.5"
+      ],
+      "explanationZhHans": "两枚硬币的等可能结果为（正，正）、（正，反）、（反，正）、（反，反）共4种。恰有一枚正面朝上的结果有2种，所以概率为2/4=1/2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-sa-006",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-rotation-transformations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models"
+      ],
+      "promptZhHans": "将点P(-3, 4)先向右平移2个单位，再向下平移1个单位，求平移后点的坐标。",
+      "optionsZhHans": [],
+      "answer": "(-1, 3)",
+      "acceptedAnswers": [
+        "(-1, 3)",
+        "(-1,3)",
+        "（-1，3）"
+      ],
+      "explanationZhHans": "点(x, y)向右平移a个单位，向下平移b个单位后的坐标为(x+a, y-b)。将P(-3, 4)代入，得(-3+2, 4-1) = (-1, 3)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-sa-007",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "已知二次函数y = x² - 4x + 3，求该函数图象与x轴的交点坐标。",
+      "optionsZhHans": [],
+      "answer": "(1, 0)和(3, 0)",
+      "acceptedAnswers": [
+        "(1, 0)和(3, 0)",
+        "(1,0)和(3,0)",
+        "（1，0）和（3，0）",
+        "x=1和x=3"
+      ],
+      "explanationZhHans": "求与x轴的交点，令y=0，得x² - 4x + 3 = 0。因式分解为(x-1)(x-3)=0，解得x₁=1，x₂=3。所以交点坐标为(1, 0)和(3, 0)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

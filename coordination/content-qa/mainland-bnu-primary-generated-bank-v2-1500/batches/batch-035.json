@@ -1,0 +1,577 @@
+{
+  "batchId": "batch-035",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p2-091",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-division-introduction",
+      "unitTitle": "分一分与除法",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "division-meaning",
+        "equal-sharing",
+        "equal-grouping",
+        "除法意义",
+        "分一分"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均分",
+        "包含分",
+        "除法算式",
+        "乘除联系"
+      ],
+      "misconceptionTags": [
+        "sharing and grouping models conflated",
+        "dividend and divisor roles reversed",
+        "unit of each group omitted"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-division-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-division-introduction-unit",
+        "bnu-primary-p2-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "李老师有36本故事书，要平均分给一些小组，每个小组分得同样多。下面哪种分法是正确的？",
+      "optionsZhHans": [
+        "分给4个小组，每组分9本",
+        "分给5个小组，每组分7本",
+        "分给6个小组，每组分5本",
+        "分给8个小组，每组分5本"
+      ],
+      "answer": "分给4个小组，每组分9本",
+      "acceptedAnswers": [
+        "分给4个小组，每组分9本"
+      ],
+      "explanationZhHans": "36本故事书平均分给4个小组，每组分得36÷4=9本，符合平均分。其他选项：5×7=35，6×5=30，8×5=40，都不等于36，所以只有第一种分法正确。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-092",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-division-introduction",
+      "unitTitle": "分一分与除法",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "division-meaning",
+        "equal-sharing",
+        "equal-grouping",
+        "除法意义",
+        "分一分"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均分",
+        "包含分",
+        "除法算式",
+        "乘除联系"
+      ],
+      "misconceptionTags": [
+        "sharing and grouping models conflated",
+        "dividend and divisor roles reversed",
+        "unit of each group omitted"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-division-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-division-introduction-unit",
+        "bnu-primary-p2-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把24块糖果平均放在3个盘子里，每个盘子放______块。",
+      "optionsZhHans": [],
+      "answer": "8",
+      "acceptedAnswers": [
+        "8",
+        "8块"
+      ],
+      "explanationZhHans": "24块糖果平均分成3份，求每份是多少，用除法：24÷3=8（块）。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-093",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-division-introduction",
+      "unitTitle": "分一分与除法",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "division-meaning",
+        "equal-sharing",
+        "equal-grouping",
+        "除法意义",
+        "分一分"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均分",
+        "包含分",
+        "除法算式",
+        "乘除联系"
+      ],
+      "misconceptionTags": [
+        "sharing and grouping models conflated",
+        "dividend and divisor roles reversed",
+        "unit of each group omitted"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-division-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-division-introduction-unit",
+        "bnu-primary-p2-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "有30个苹果，每5个装一袋，可以装几袋？请写出除法算式并回答。",
+      "optionsZhHans": [],
+      "answer": "30÷5=6（袋）",
+      "acceptedAnswers": [
+        "30÷5=6（袋）",
+        "30÷5=6",
+        "6袋",
+        "6"
+      ],
+      "explanationZhHans": "这是包含分问题：求30里面有几个5，用除法30÷5=6（袋）。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-094",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-division-introduction",
+      "unitTitle": "分一分与除法",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "division-meaning",
+        "equal-sharing",
+        "equal-grouping",
+        "除法意义",
+        "分一分"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均分",
+        "包含分",
+        "除法算式",
+        "乘除联系"
+      ],
+      "misconceptionTags": [
+        "sharing and grouping models conflated",
+        "dividend and divisor roles reversed",
+        "unit of each group omitted"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-division-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-division-introduction-unit",
+        "bnu-primary-p2-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "二（1）班有42名同学，每6人一组做游戏，可以分成几组？下面哪个算式和结果正确？",
+      "optionsZhHans": [
+        "42÷6=7（组）",
+        "42÷7=6（组）",
+        "6×7=42（组）",
+        "42-6=36（组）"
+      ],
+      "answer": "42÷6=7（组）",
+      "acceptedAnswers": [
+        "42÷6=7（组）"
+      ],
+      "explanationZhHans": "求42里面有几个6，用除法42÷6=7（组）。选项B除数错误，C是乘法，D是减法，都不符合题意。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-095",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-division-introduction",
+      "unitTitle": "分一分与除法",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "division-meaning",
+        "equal-sharing",
+        "equal-grouping",
+        "除法意义",
+        "分一分"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均分",
+        "包含分",
+        "除法算式",
+        "乘除联系"
+      ],
+      "misconceptionTags": [
+        "sharing and grouping models conflated",
+        "dividend and divisor roles reversed",
+        "unit of each group omitted"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-division-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-division-introduction-unit",
+        "bnu-primary-p2-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "18个小朋友跳绳，平均分成2组，每组有______人。",
+      "optionsZhHans": [],
+      "answer": "9",
+      "acceptedAnswers": [
+        "9",
+        "9人"
+      ],
+      "explanationZhHans": "18平均分成2份，每份是18÷2=9（人）。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-096",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-division-introduction",
+      "unitTitle": "分一分与除法",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "division-meaning",
+        "equal-sharing",
+        "equal-grouping",
+        "除法意义",
+        "分一分"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均分",
+        "包含分",
+        "除法算式",
+        "乘除联系"
+      ],
+      "misconceptionTags": [
+        "sharing and grouping models conflated",
+        "dividend and divisor roles reversed",
+        "unit of each group omitted"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-division-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-division-introduction-unit",
+        "bnu-primary-p2-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈买了20个橘子，每个袋子装4个，需要几个袋子？请列式解答。",
+      "optionsZhHans": [],
+      "answer": "20÷4=5（个）",
+      "acceptedAnswers": [
+        "20÷4=5（个）",
+        "20÷4=5",
+        "5个",
+        "5"
+      ],
+      "explanationZhHans": "求20里面有几个4，用除法20÷4=5（个）。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-097",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-division-introduction",
+      "unitTitle": "分一分与除法",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "division-meaning",
+        "equal-sharing",
+        "equal-grouping",
+        "除法意义",
+        "分一分"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均分",
+        "包含分",
+        "除法算式",
+        "乘除联系"
+      ],
+      "misconceptionTags": [
+        "sharing and grouping models conflated",
+        "dividend and divisor roles reversed",
+        "unit of each group omitted"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-division-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-division-introduction-unit",
+        "bnu-primary-p2-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "王老师把32支铅笔平均分给一些同学，每人分得同样多。下面哪种情况不可能发生？",
+      "optionsZhHans": [
+        "分给8人，每人4支",
+        "分给4人，每人8支",
+        "分给6人，每人5支",
+        "分给2人，每人16支"
+      ],
+      "answer": "分给6人，每人5支",
+      "acceptedAnswers": [
+        "分给6人，每人5支"
+      ],
+      "explanationZhHans": "32支铅笔平均分，人数×每人支数=32。选项C：6×5=30≠32，所以不可能。其他选项乘积均为32。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-098",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-division-introduction",
+      "unitTitle": "分一分与除法",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "division-meaning",
+        "equal-sharing",
+        "equal-grouping",
+        "除法意义",
+        "分一分"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均分",
+        "包含分",
+        "除法算式",
+        "乘除联系"
+      ],
+      "misconceptionTags": [
+        "sharing and grouping models conflated",
+        "dividend and divisor roles reversed",
+        "unit of each group omitted"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-division-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-division-introduction-unit",
+        "bnu-primary-p2-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把15朵花插在3个花瓶里，平均每个花瓶插______朵。",
+      "optionsZhHans": [],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5",
+        "5朵"
+      ],
+      "explanationZhHans": "15朵花平均分成3份，每份是15÷3=5（朵）。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-099",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-division-introduction",
+      "unitTitle": "分一分与除法",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "division-meaning",
+        "equal-sharing",
+        "equal-grouping",
+        "除法意义",
+        "分一分"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均分",
+        "包含分",
+        "除法算式",
+        "乘除联系"
+      ],
+      "misconceptionTags": [
+        "sharing and grouping models conflated",
+        "dividend and divisor roles reversed",
+        "unit of each group omitted"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-division-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-division-introduction-unit",
+        "bnu-primary-p2-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "有28块饼干，每7块装一盒，可以装几盒？请写出除法算式并回答。",
+      "optionsZhHans": [],
+      "answer": "28÷7=4（盒）",
+      "acceptedAnswers": [
+        "28÷7=4（盒）",
+        "28÷7=4",
+        "4盒",
+        "4"
+      ],
+      "explanationZhHans": "求28里面有几个7，用除法28÷7=4（盒）。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-100",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-division-introduction",
+      "unitTitle": "分一分与除法",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "division-meaning",
+        "equal-sharing",
+        "equal-grouping",
+        "除法意义",
+        "分一分"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "平均分",
+        "包含分",
+        "除法算式",
+        "乘除联系"
+      ],
+      "misconceptionTags": [
+        "sharing and grouping models conflated",
+        "dividend and divisor roles reversed",
+        "unit of each group omitted"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-division-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-division-introduction-unit",
+        "bnu-primary-p2-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "有27个足球，平均分给3个班，每个班分到几个？正确的算式是（ ）。",
+      "optionsZhHans": [
+        "27÷3=9",
+        "27÷9=3",
+        "3×9=27",
+        "27-3=24"
+      ],
+      "answer": "27÷3=9",
+      "acceptedAnswers": [
+        "27÷3=9"
+      ],
+      "explanationZhHans": "平均分用除法，总数27除以份数3，得每份9个。选项B除数错误，C是乘法，D是减法。"
+    }
+  ]
+}

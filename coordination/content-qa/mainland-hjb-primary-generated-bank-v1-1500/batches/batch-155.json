@@ -1,0 +1,299 @@
+{
+  "batchId": "batch-155",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p4-021",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-review-operations-fractions",
+      "unitTitle": "复习与提高",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "p4-upper-review",
+        "operation-relationships",
+        "fraction-review",
+        "两位数乘除",
+        "分数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "反思整理"
+      ],
+      "skillTags": [
+        "加减关系",
+        "乘除关系",
+        "两位数乘除",
+        "分数意义",
+        "错因检查"
+      ],
+      "misconceptionTags": [
+        "inverse relationship used only after an error",
+        "fraction denominator read as a count to add",
+        "review facts applied without context check"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-review-operations-fractions"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-review-operations-fractions",
+        "hjb-primary-p4-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小杰在计算一道题时，先用 24 × 15 = 360，然后想用逆运算来检查。他应该用哪个算式来验算？请写出验算算式，并说明理由。",
+      "optionsZhHans": [],
+      "answer": "360 ÷ 15 = 24 或 360 ÷ 24 = 15，理由：乘法可以用除法来验算，因为乘法和除法互为逆运算。",
+      "acceptedAnswers": [
+        "360 ÷ 15 = 24 或 360 ÷ 24 = 15，理由：乘法可以用除法来验算，因为乘法和除法互为逆运算。",
+        "360 ÷ 15 = 24",
+        "360 ÷ 24 = 15"
+      ],
+      "explanationZhHans": "乘法的逆运算是除法。用积除以一个因数，应得另一个因数。360 ÷ 15 = 24，或 360 ÷ 24 = 15，说明原计算正确。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-022",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-review-operations-fractions",
+      "unitTitle": "复习与提高",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "p4-upper-review",
+        "operation-relationships",
+        "fraction-review",
+        "两位数乘除",
+        "分数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "反思整理"
+      ],
+      "skillTags": [
+        "加减关系",
+        "乘除关系",
+        "两位数乘除",
+        "分数意义",
+        "错因检查"
+      ],
+      "misconceptionTags": [
+        "inverse relationship used only after an error",
+        "fraction denominator read as a count to add",
+        "review facts applied without context check"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-review-operations-fractions"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-review-operations-fractions",
+        "hjb-primary-p4-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个分数表示的是整个图形被平均分成8份，取其中的3份？",
+      "optionsZhHans": [
+        "3/8",
+        "8/3",
+        "3/5",
+        "5/8"
+      ],
+      "answer": "3/8",
+      "acceptedAnswers": [
+        "3/8"
+      ],
+      "explanationZhHans": "分母表示平均分的份数，分子表示取的份数。平均分成8份，取3份，写作3/8。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-023",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-review-operations-fractions",
+      "unitTitle": "复习与提高",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "p4-upper-review",
+        "operation-relationships",
+        "fraction-review",
+        "两位数乘除",
+        "分数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "反思整理"
+      ],
+      "skillTags": [
+        "加减关系",
+        "乘除关系",
+        "两位数乘除",
+        "分数意义",
+        "错因检查"
+      ],
+      "misconceptionTags": [
+        "inverse relationship used only after an error",
+        "fraction denominator read as a count to add",
+        "review facts applied without context check"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-review-operations-fractions"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-review-operations-fractions",
+        "hjb-primary-p4-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在算式 □ ÷ 12 = 15 中，□ 代表的数是多少？",
+      "optionsZhHans": [],
+      "answer": "180",
+      "acceptedAnswers": [
+        "180"
+      ],
+      "explanationZhHans": "被除数 = 除数 × 商，12 × 15 = 180。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-024",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-large-numbers-measurement",
+      "unitTitle": "数与量",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "large-numbers",
+        "rounding",
+        "area-units",
+        "mass-capacity-units",
+        "大数",
+        "四舍五入"
+      ],
+      "competencyTags": [
+        "数感",
+        "量感",
+        "符号意识"
+      ],
+      "skillTags": [
+        "大数读写",
+        "数位顺序",
+        "四舍五入",
+        "平方千米",
+        "吨",
+        "毫升",
+        "升"
+      ],
+      "misconceptionTags": [
+        "zeros skipped when reading large numbers",
+        "rounding place confused with retained digits",
+        "unit conversion treated as digit decoration"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-large-numbers-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-large-numbers-measurement",
+        "hjb-primary-p4-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个大型仓库的占地面积约为50000平方米，合多少平方千米？",
+      "optionsZhHans": [],
+      "answer": "0.05平方千米",
+      "acceptedAnswers": [
+        "0.05平方千米",
+        "0.05 km²"
+      ],
+      "explanationZhHans": "1平方千米 = 1000000平方米，50000 ÷ 1000000 = 0.05，所以是0.05平方千米。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-025",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "hjb-primary-p4-upper-large-numbers-measurement",
+      "unitTitle": "数与量",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "large-numbers",
+        "rounding",
+        "area-units",
+        "mass-capacity-units",
+        "大数",
+        "四舍五入"
+      ],
+      "competencyTags": [
+        "数感",
+        "量感",
+        "符号意识"
+      ],
+      "skillTags": [
+        "大数读写",
+        "数位顺序",
+        "四舍五入",
+        "平方千米",
+        "吨",
+        "毫升",
+        "升"
+      ],
+      "misconceptionTags": [
+        "zeros skipped when reading large numbers",
+        "rounding place confused with retained digits",
+        "unit conversion treated as digit decoration"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p4-upper-large-numbers-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-upper-assessment-large-numbers-measurement",
+        "hjb-primary-p4-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把 3075020 四舍五入到万位，得到的近似数是多少？",
+      "optionsZhHans": [
+        "3070000",
+        "3080000",
+        "3075000",
+        "3100000"
+      ],
+      "answer": "3080000",
+      "acceptedAnswers": [
+        "3080000"
+      ],
+      "explanationZhHans": "四舍五入到万位看千位。3075020的千位是5，向万位进1，万位7变8，后面全为0，得3080000。"
+    }
+  ]
+}

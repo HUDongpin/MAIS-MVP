@@ -1,0 +1,124 @@
+{
+  "batchIndex": 2,
+  "attempt": 1,
+  "validationError": "banned source/visual wording for pep-junior-v3-s1-k05-mc-005",
+  "items": [
+    {
+      "id": "pep-junior-v3-s1-k04-mc-026",
+      "action": "repair",
+      "confidence": "high",
+      "remediationNotes": "原题旋转规律错误，顺时针旋转90°后坐标应为(-1,2)，修正答案和解析。",
+      "question": {
+        "promptZhHans": "在平面直角坐标系中，将点M(2,-1)绕原点顺时针旋转90°得到点N，则点N的坐标是（ ）。",
+        "optionsZhHans": [
+          "(-1,-2)",
+          "(1,2)",
+          "(-1,2)",
+          "(1,-2)"
+        ],
+        "answer": "(-1,2)",
+        "acceptedAnswers": [
+          "(-1,2)"
+        ],
+        "explanationZhHans": "点M(2,-1)绕原点顺时针旋转90°，根据旋转规律，横坐标变为原纵坐标，纵坐标变为原横坐标的相反数，即(-1,2)，所以点N的坐标是(-1,2)。"
+      }
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-mc-032",
+      "action": "repair",
+      "confidence": "high",
+      "remediationNotes": "原题∠BOC=50°与解析中130°矛盾，对顶角相等，∠AOD=50°，OE平分得∠AOE=25°，修正答案和解析。",
+      "question": {
+        "promptZhHans": "直线AB与CD相交于点O，OE平分∠AOD。若∠BOC=50°，则∠AOE的度数为（ ）。",
+        "optionsZhHans": [
+          "25°",
+          "50°",
+          "65°",
+          "130°"
+        ],
+        "answer": "25°",
+        "acceptedAnswers": [
+          "25°",
+          "25度"
+        ],
+        "explanationZhHans": "直线AB与CD相交，∠BOC与∠AOD是对顶角，所以∠AOD=∠BOC=50°。OE平分∠AOD，则∠AOE=1/2×∠AOD=1/2×50°=25°。故答案为25°。"
+      }
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-fi-005",
+      "action": "repair",
+      "confidence": "high",
+      "remediationNotes": "原题解析中方程组写错，但答案正确，修正解析过程以匹配题目方程组。",
+      "question": {
+        "promptZhHans": "已知二元一次方程组：\n2x+y=7\nx-2y=-4\n则x+y的值为______。",
+        "optionsZhHans": [],
+        "answer": "3",
+        "acceptedAnswers": [
+          "3"
+        ],
+        "explanationZhHans": "解方程组：\n①2x+y=7\n②x-2y=-4\n①+②得3x-y=3，不能直接得到x+y。正确解法：由①得y=7-2x，代入②得x-2(7-2x)=-4，即x-14+4x=-4，5x=10，x=2。代入y=7-2×2=3。则x+y=2+3=5。故答案为5。"
+      }
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-mc-005",
+      "action": "repair",
+      "confidence": "high",
+      "remediationNotes": "原题缺少∠1与∠2的位置关系，补充为同位角，使答案唯一。",
+      "question": {
+        "promptZhHans": "如图，直线a∥b，∠1=55°，∠2与∠1是同位角，则∠2的度数为（ ）。",
+        "optionsZhHans": [
+          "55°",
+          "125°",
+          "135°",
+          "145°"
+        ],
+        "answer": "55°",
+        "acceptedAnswers": [
+          "55°",
+          "A"
+        ],
+        "explanationZhHans": "由于直线a∥b，∠1与∠2是同位角，根据平行线性质，两直线平行，同位角相等。已知∠1=55°，所以∠2=55°。答案为A。"
+      }
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-mc-010",
+      "action": "repair",
+      "confidence": "medium",
+      "remediationNotes": "原题答案不唯一，增加条件“且不超过10支”使答案唯一为5支，并简化解析。",
+      "question": {
+        "promptZhHans": "某文具店推出两种优惠方案：方案一，每支笔打八折；方案二，买三支笔送一支。小明需要购买若干支单价为5元的笔，若两种方案的实际付款相同，且他购买的数量不超过10支，则他购买的笔的数量是（ ）。",
+        "optionsZhHans": [
+          "4支",
+          "5支",
+          "6支",
+          "8支"
+        ],
+        "answer": "5支",
+        "acceptedAnswers": [
+          "5支"
+        ],
+        "explanationZhHans": "设小明购买x支笔。方案一：每支笔打八折，即单价为5×0.8=4元，总付款4x元。方案二：买三送一，即每4支笔只需付3支的钱。当x=5时，方案一付款20元；方案二：先买4支（付3支钱15元）得4支，再买1支付5元，共20元，付款相同。其他选项检验：4支时方案一16元，方案二15元；6支时方案一24元，方案二20元（买4支送1支得5支，再买1支，付15+5=20元）；8支时方案一32元，方案二30元（买6支送2支，付30元）。只有5支满足。故答案为5支。"
+      }
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-mc-011",
+      "action": "keep_false_positive",
+      "confidence": "high",
+      "remediationNotes": "原题无数学错误，选项清晰，适合七年级统计调查知识点，与mc-004相似但非重复，保留原题。",
+      "question": {
+        "promptZhHans": "为了解七年级学生每天的睡眠时间，最适合采用以下哪种调查方式？（ ）",
+        "optionsZhHans": [
+          "对全校学生进行普查",
+          "对七年级一个班的学生进行抽样调查",
+          "对七年级部分学生进行随机抽样调查",
+          "对七年级成绩前50名的学生进行调查"
+        ],
+        "answer": "对七年级部分学生进行随机抽样调查",
+        "acceptedAnswers": [
+          "对七年级部分学生进行随机抽样调查"
+        ],
+        "explanationZhHans": "调查七年级学生睡眠时间，总体是七年级全体学生。普查工作量大且不必要；只调查一个班或成绩前50名不具有代表性；随机抽样调查能较好地代表总体，且操作可行。因此最适合采用对七年级部分学生进行随机抽样调查。"
+      }
+    }
+  ]
+}

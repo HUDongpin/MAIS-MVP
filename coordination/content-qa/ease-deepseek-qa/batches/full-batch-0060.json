@@ -1,0 +1,168 @@
+{
+  "scope": "full",
+  "batchIndex": 60,
+  "startedAt": "2026-05-28T03:45:03.425Z",
+  "completedAt": "2026-05-28T03:45:22.681Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "itemIds": [
+    "1158",
+    "1159",
+    "1160",
+    "1161",
+    "1162",
+    "1163",
+    "1164",
+    "1165",
+    "1166",
+    "1167"
+  ],
+  "usage": {
+    "prompt_tokens": 2468,
+    "completion_tokens": 1504,
+    "total_tokens": 3972,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 447
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2084
+  },
+  "finishReason": "stop",
+  "jsonModeFallback": false,
+  "result": {
+    "items": [
+      {
+        "questionId": "1158",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "22",
+        "independentAnswer": "22",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "算術表達式清晰，計算結果一致",
+        "recommendedAction": "無"
+      },
+      {
+        "questionId": "1159",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "40",
+        "independentAnswer": "40",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "算術表達式清晰，計算結果一致",
+        "recommendedAction": "無"
+      },
+      {
+        "questionId": "1160",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "78",
+        "independentAnswer": "78",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "算術表達式清晰，計算結果一致",
+        "recommendedAction": "無"
+      },
+      {
+        "questionId": "1161",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "36",
+        "independentAnswer": "36",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "算術表達式清晰，計算結果一致",
+        "recommendedAction": "無"
+      },
+      {
+        "questionId": "1162",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "5",
+        "independentAnswer": "5",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "算術表達式清晰，計算結果一致",
+        "recommendedAction": "無"
+      },
+      {
+        "questionId": "1163",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "98",
+        "independentAnswer": "98",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "算術表達式清晰，計算結果一致",
+        "recommendedAction": "無"
+      },
+      {
+        "questionId": "1164",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "0",
+        "independentAnswer": "0",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "算術表達式清晰，計算結果一致",
+        "recommendedAction": "無"
+      },
+      {
+        "questionId": "1165",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "71",
+        "independentAnswer": "71",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "算術表達式清晰，計算結果一致",
+        "recommendedAction": "無"
+      },
+      {
+        "questionId": "1166",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "35",
+        "independentAnswer": "35",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "算術表達式清晰，計算結果一致",
+        "recommendedAction": "無"
+      },
+      {
+        "questionId": "1167",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "24",
+        "independentAnswer": "24",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "算術表達式清晰，計算結果一致",
+        "recommendedAction": "無"
+      }
+    ],
+    "batchSummary": {
+      "pass": 10,
+      "unsolvable": 0,
+      "ambiguous": 0,
+      "imageContextRequired": 0,
+      "answerMismatch": 0,
+      "missingAnswerKey": 0,
+      "notes": "全部 10 題為基本四則運算，文字清晰無需圖片，標準答案均正確"
+    }
+  }
+}

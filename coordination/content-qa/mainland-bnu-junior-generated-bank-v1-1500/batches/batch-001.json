@@ -1,0 +1,624 @@
+{
+  "batchId": "batch-001",
+  "questions": [
+    {
+      "id": "bnu-junior-ds-v1-s1-001",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-spatial-figures",
+      "unitTitle": "丰富的图形世界",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "solid-geometry-introduction",
+        "spatial-figures",
+        "views-of-objects",
+        "nets",
+        "几何体",
+        "展开与折叠"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "识别常见几何体",
+        "描述面棱顶点",
+        "观察物体视图",
+        "展开图判断",
+        "空间想象"
+      ],
+      "misconceptionTags": [
+        "flat shape confused with solid",
+        "net foldability judged by appearance only",
+        "viewpoint not stated before describing an object"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-spatial-figures"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-spatial-figures-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个几何体由5个面围成，其中3个面是四边形，2个面是三角形，所有面都是平面图形。这个几何体是（ ）",
+      "optionsZhHans": [
+        "四棱柱",
+        "三棱柱",
+        "三棱锥",
+        "四棱锥"
+      ],
+      "answer": "三棱柱",
+      "acceptedAnswers": [
+        "三棱柱"
+      ],
+      "explanationZhHans": "三棱柱有5个面：2个三角形底面和3个四边形侧面，符合条件。四棱柱有6个面，三棱锥有4个面，四棱锥有5个面但底面是四边形、侧面是三角形，与题意不符。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-002",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-spatial-figures",
+      "unitTitle": "丰富的图形世界",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "solid-geometry-introduction",
+        "spatial-figures",
+        "views-of-objects",
+        "nets",
+        "几何体",
+        "展开与折叠"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "识别常见几何体",
+        "描述面棱顶点",
+        "观察物体视图",
+        "展开图判断",
+        "空间想象"
+      ],
+      "misconceptionTags": [
+        "flat shape confused with solid",
+        "net foldability judged by appearance only",
+        "viewpoint not stated before describing an object"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-spatial-figures"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-spatial-figures-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个透明塑料盒的形状是长方体，长8 cm、宽5 cm、高3 cm。从正前方观察这个盒子，看到的是一个长方形。请写出这个长方形的长和宽（单位：cm），并说明理由。",
+      "optionsZhHans": [],
+      "answer": "长8 cm，宽3 cm。理由：从正前方观察，看到的是长方体的前面，前面的长是长方体的长8 cm，宽是长方体的高3 cm。",
+      "acceptedAnswers": [
+        "长8 cm，宽3 cm。理由：从正前方观察，看到的是长方体的前面，前面的长是长方体的长8 cm，宽是长方体的高3 cm。",
+        "长8 cm，宽3 cm",
+        "8 cm和3 cm",
+        "长8厘米，宽3厘米"
+      ],
+      "explanationZhHans": "从正前方看长方体，看到的是前面。前面的尺寸由长方体的长和高决定，因此长为8 cm，宽为3 cm。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-003",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-spatial-figures",
+      "unitTitle": "丰富的图形世界",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "solid-geometry-introduction",
+        "spatial-figures",
+        "views-of-objects",
+        "nets",
+        "几何体",
+        "展开与折叠"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "识别常见几何体",
+        "描述面棱顶点",
+        "观察物体视图",
+        "展开图判断",
+        "空间想象"
+      ],
+      "misconceptionTags": [
+        "flat shape confused with solid",
+        "net foldability judged by appearance only",
+        "viewpoint not stated before describing an object"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-spatial-figures"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-spatial-figures-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个几何体由若干个大小相同的小立方块搭成。从正面看，看到两列，左边一列最高有3层，右边一列最高有2层；从左面看，看到两列，左边一列最高有3层，右边一列最高有1层。搭成这个几何体最少需要多少个小立方块？",
+      "optionsZhHans": [],
+      "answer": "6",
+      "acceptedAnswers": [
+        "6"
+      ],
+      "explanationZhHans": "由正面看可知几何体有两列，左列最高3层，右列最高2层；由左面看可知有两排，前排最高3层，后排最高1层。最少时，让最高层数出现在重叠位置：前排左列放3个，后排左列放1个，前排右列放2个，后排右列放0个，共3+1+2=6个。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-004",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-spatial-figures",
+      "unitTitle": "丰富的图形世界",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "solid-geometry-introduction",
+        "spatial-figures",
+        "views-of-objects",
+        "nets",
+        "几何体",
+        "展开与折叠"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "识别常见几何体",
+        "描述面棱顶点",
+        "观察物体视图",
+        "展开图判断",
+        "空间想象"
+      ],
+      "misconceptionTags": [
+        "flat shape confused with solid",
+        "net foldability judged by appearance only",
+        "viewpoint not stated before describing an object"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-spatial-figures"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-spatial-figures-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "有一个几何体，它的表面展开图由两个全等的圆和一个长方形组成，且长方形的长等于圆的周长。关于这个几何体，下列说法正确的是：",
+      "optionsZhHans": [
+        "它是棱柱，有3个面",
+        "它是圆柱，侧面展开图是长方形",
+        "它是圆锥，底面是圆",
+        "它是球，表面不能展开成平面图形"
+      ],
+      "answer": "它是圆柱，侧面展开图是长方形",
+      "acceptedAnswers": [
+        "它是圆柱，侧面展开图是长方形"
+      ],
+      "explanationZhHans": "两个全等的圆作为底面，长方形作为侧面，且长方形的长等于圆的周长，这正是圆柱的展开图特征。圆柱由两个底面和一个侧面组成，侧面展开为长方形，因此正确选项是“它是圆柱，侧面展开图是长方形”。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-005",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-spatial-figures",
+      "unitTitle": "丰富的图形世界",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "solid-geometry-introduction",
+        "spatial-figures",
+        "views-of-objects",
+        "nets",
+        "几何体",
+        "展开与折叠"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "识别常见几何体",
+        "描述面棱顶点",
+        "观察物体视图",
+        "展开图判断",
+        "空间想象"
+      ],
+      "misconceptionTags": [
+        "flat shape confused with solid",
+        "net foldability judged by appearance only",
+        "viewpoint not stated before describing an object"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-spatial-figures"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-spatial-figures-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个几何体由若干个大小相同的小立方块搭成。从正面看，看到3列，从左到右每列小立方块的个数依次为2、1、2；从左面看，看到2列，从左到右每列小立方块的个数依次为2、1。这个几何体最少由几个小立方块搭成？",
+      "optionsZhHans": [],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5"
+      ],
+      "explanationZhHans": "由从正面看可得该几何体共3列，第1列2层，第2列1层，第3列2层；从左面看可得共2行，第1行2层，第2行1层。要小立方块总数最少，则第2行第1列与第2行第3列位置不放小立方块，此时数量为2+1+2=5。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-006",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-spatial-figures",
+      "unitTitle": "丰富的图形世界",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "solid-geometry-introduction",
+        "spatial-figures",
+        "views-of-objects",
+        "nets",
+        "几何体",
+        "展开与折叠"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "识别常见几何体",
+        "描述面棱顶点",
+        "观察物体视图",
+        "展开图判断",
+        "空间想象"
+      ],
+      "misconceptionTags": [
+        "flat shape confused with solid",
+        "net foldability judged by appearance only",
+        "viewpoint not stated before describing an object"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-spatial-figures"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-spatial-figures-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个几何体由4个大小相同的小正方体搭成，从正面看和从左面看得到的形状都是“田”字形（即2行2列的正方形排列）。这个几何体最少由几个小正方体组成？最多由几个小正方体组成？请分别写出最少和最多的个数。",
+      "optionsZhHans": [],
+      "answer": "最少4个，最多4个",
+      "acceptedAnswers": [
+        "最少4个，最多4个",
+        "最少4个,最多4个",
+        "4,4",
+        "4 4"
+      ],
+      "explanationZhHans": "从正面看和从左面看都是田字形，说明几何体在2×2的底面上每个位置都至少有一个小正方体，且高度一致。因此只能是4个小正方体排成2行2列一层，最少和最多都是4个。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-007",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-spatial-figures",
+      "unitTitle": "丰富的图形世界",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "solid-geometry-introduction",
+        "spatial-figures",
+        "views-of-objects",
+        "nets",
+        "几何体",
+        "展开与折叠"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "识别常见几何体",
+        "描述面棱顶点",
+        "观察物体视图",
+        "展开图判断",
+        "空间想象"
+      ],
+      "misconceptionTags": [
+        "flat shape confused with solid",
+        "net foldability judged by appearance only",
+        "viewpoint not stated before describing an object"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-spatial-figures"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-spatial-figures-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个几何体由若干个大小相同的小立方块搭成，从正面和左面看到的形状分别如下：从正面看，第一列最高2层，第二列最高1层，第三列最高1层；从左面看，第一列最高2层，第二列最高1层。这个几何体最少需要多少个小立方块？",
+      "optionsZhHans": [
+        "4个",
+        "5个",
+        "6个",
+        "7个"
+      ],
+      "answer": "4个",
+      "acceptedAnswers": [
+        "4个"
+      ],
+      "explanationZhHans": "由正面看，第一列有2层，第二、三列各1层，故至少第一列有2个，第二列1个，第三列1个。从左面看，第一列最高2层，第二列最高1层，对应几何体前后排布。最少时，第一列2个可前后重叠，第二列1个与第三列1个可共用后排位置，共需4个小立方块。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-008",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-spatial-figures",
+      "unitTitle": "丰富的图形世界",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "solid-geometry-introduction",
+        "spatial-figures",
+        "views-of-objects",
+        "nets",
+        "几何体",
+        "展开与折叠"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "识别常见几何体",
+        "描述面棱顶点",
+        "观察物体视图",
+        "展开图判断",
+        "空间想象"
+      ],
+      "misconceptionTags": [
+        "flat shape confused with solid",
+        "net foldability judged by appearance only",
+        "viewpoint not stated before describing an object"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-spatial-figures"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-spatial-figures-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个透明塑料长方体容器，从正面看是一个长 8 cm、宽 5 cm 的长方形，从左面看是一个长 6 cm、宽 5 cm 的长方形，从上面看是一个长 8 cm、宽 6 cm 的长方形。容器内装有水，水面高度为 4 cm。若将容器密封后翻转，使原来朝上的面变为朝下，此时水面高度变为 3 cm。请计算容器内水的体积，并判断翻转后水是否完全淹没原来朝下的面。",
+      "optionsZhHans": [],
+      "answer": "水的体积为 192 cm³，翻转后水没有完全淹没原来朝下的面。",
+      "acceptedAnswers": [
+        "水的体积为 192 cm³，翻转后水没有完全淹没原来朝下的面。",
+        "192 cm³，没有完全淹没",
+        "192，没有"
+      ],
+      "explanationZhHans": "由三视图得长方体长8 cm、宽6 cm、高5 cm。底面积48 cm²，水体积48×4=192 cm³。翻转后底面积变为8×5=40 cm²，水高192÷40=4.8 cm，但容器高仅6 cm，且原朝下面为6×5面，高5 cm，水高4.8 cm<5 cm，故未完全淹没。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-009",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-spatial-figures",
+      "unitTitle": "丰富的图形世界",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "solid-geometry-introduction",
+        "spatial-figures",
+        "views-of-objects",
+        "nets",
+        "几何体",
+        "展开与折叠"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "识别常见几何体",
+        "描述面棱顶点",
+        "观察物体视图",
+        "展开图判断",
+        "空间想象"
+      ],
+      "misconceptionTags": [
+        "flat shape confused with solid",
+        "net foldability judged by appearance only",
+        "viewpoint not stated before describing an object"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-spatial-figures"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-spatial-figures-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个几何体由若干个大小相同的小立方块搭成。从正面看，看到3列，从左到右每列小立方块的个数分别为2、1、2；从左面看，看到2列，从左到右每列小立方块的个数分别为2、1。这个几何体最少由多少个小立方块搭成？",
+      "optionsZhHans": [],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5"
+      ],
+      "explanationZhHans": "由从正面看和从左面看的信息，可推断几何体的俯视图为2行3列。要使小立方块总数最少，应在满足视图的条件下尽可能少放。分析可得最少需要5个小立方块，例如在(1,1)、(1,3)、(2,1)、(2,2)、(2,3)位置各放1个。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-010",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-spatial-figures",
+      "unitTitle": "丰富的图形世界",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "solid-geometry-introduction",
+        "spatial-figures",
+        "views-of-objects",
+        "nets",
+        "几何体",
+        "展开与折叠"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "数学表达"
+      ],
+      "skillTags": [
+        "识别常见几何体",
+        "描述面棱顶点",
+        "观察物体视图",
+        "展开图判断",
+        "空间想象"
+      ],
+      "misconceptionTags": [
+        "flat shape confused with solid",
+        "net foldability judged by appearance only",
+        "viewpoint not stated before describing an object"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-spatial-figures"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-spatial-figures-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个几何体由若干个大小相同的小立方块搭成。从正面看，看到两列，左边一列最高2层，右边一列最高1层；从左面看，看到两列，左边一列最高2层，右边一列最高1层；从上面看，看到两行两列，每个位置都有小立方块。搭成这个几何体最少需要多少个小立方块？",
+      "optionsZhHans": [
+        "4个",
+        "5个",
+        "6个",
+        "7个"
+      ],
+      "answer": "5个",
+      "acceptedAnswers": [
+        "5个",
+        "5"
+      ],
+      "explanationZhHans": "由俯视图知底层有4个小立方块。主视图左列最高2层，左视图左列最高2层，说明左前位置有2层；其余位置只需1层。故最少需要4+1=5个小立方块。"
+    }
+  ]
+}

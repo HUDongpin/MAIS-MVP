@@ -1,0 +1,370 @@
+{
+  "batchId": "S4-s4-quadratic-inequalities-04",
+  "questions": [
+    {
+      "id": "pep-high-ds-v1-s4-quadratic-inequalities-031",
+      "grade": "S4",
+      "topicId": "pep-high-s4-quadratic-inequalities",
+      "topicTitleZhHans": "一元二次函数、方程和不等式",
+      "chapter": "一元二次函数、方程和不等式",
+      "conceptIds": [
+        "quadratic-functions",
+        "quadratic-equations",
+        "quadratic-inequalities",
+        "basic-inequality",
+        "inequality-properties",
+        "optimization",
+        "algebraic-transformations"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "pep-high-quadratic-inequalities"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-basic-inequality-optimization"
+      ],
+      "promptZhHans": "若关于x的不等式ax²+bx+2>0的解集为(-1,2)，则a+b的值为（ ）",
+      "optionsZhHans": [
+        "A. -1",
+        "B. 0",
+        "C. 1",
+        "D. 2"
+      ],
+      "answer": "B. 0",
+      "acceptedAnswers": [
+        "B. 0"
+      ],
+      "explanationZhHans": "由解集知a<0且-1和2是方程ax²+bx+2=0的根。由韦达定理得-1+2=-b/a，-1×2=2/a，解得a=-1，b=1，故a+b=0。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-quadratic-inequalities-032",
+      "grade": "S4",
+      "topicId": "pep-high-s4-quadratic-inequalities",
+      "topicTitleZhHans": "一元二次函数、方程和不等式",
+      "chapter": "一元二次函数、方程和不等式",
+      "conceptIds": [
+        "quadratic-functions",
+        "quadratic-equations",
+        "quadratic-inequalities",
+        "basic-inequality",
+        "inequality-properties",
+        "optimization",
+        "algebraic-transformations"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "pep-high-quadratic-inequalities"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-basic-inequality-optimization"
+      ],
+      "promptZhHans": "已知x>0，y>0，且x+2y=1，则1/x+1/y的最小值为______。",
+      "optionsZhHans": [],
+      "answer": "3+2√2",
+      "acceptedAnswers": [
+        "3+2√2"
+      ],
+      "explanationZhHans": "1/x+1/y=(x+2y)(1/x+1/y)=1+2y/x+x/y+2=3+2y/x+x/y≥3+2√(2y/x·x/y)=3+2√2，当x=√2y时取等。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-quadratic-inequalities-033",
+      "grade": "S4",
+      "topicId": "pep-high-s4-quadratic-inequalities",
+      "topicTitleZhHans": "一元二次函数、方程和不等式",
+      "chapter": "一元二次函数、方程和不等式",
+      "conceptIds": [
+        "quadratic-functions",
+        "quadratic-equations",
+        "quadratic-inequalities",
+        "basic-inequality",
+        "inequality-properties",
+        "optimization",
+        "algebraic-transformations"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "pep-high-quadratic-inequalities"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-basic-inequality-optimization"
+      ],
+      "promptZhHans": "解关于x的不等式：x²-(a+1)x+a≤0，其中a∈R。",
+      "optionsZhHans": [],
+      "answer": "当a<1时，解集为[a,1]；当a=1时，解集为{1}；当a>1时，解集为[1,a]。",
+      "acceptedAnswers": [
+        "当a<1时，解集为[a,1]；当a=1时，解集为{1}；当a>1时，解集为[1,a]。"
+      ],
+      "explanationZhHans": "不等式化为(x-a)(x-1)≤0。比较a与1的大小：a<1时，解为a≤x≤1；a=1时，解为x=1；a>1时，解为1≤x≤a。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-quadratic-inequalities-034",
+      "grade": "S4",
+      "topicId": "pep-high-s4-quadratic-inequalities",
+      "topicTitleZhHans": "一元二次函数、方程和不等式",
+      "chapter": "一元二次函数、方程和不等式",
+      "conceptIds": [
+        "quadratic-functions",
+        "quadratic-equations",
+        "quadratic-inequalities",
+        "basic-inequality",
+        "inequality-properties",
+        "optimization",
+        "algebraic-transformations"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "pep-high-quadratic-inequalities"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-basic-inequality-optimization"
+      ],
+      "promptZhHans": "某工厂生产某种产品，年固定成本为200万元，每生产x千件产品，需另投入成本C(x)万元，且C(x)=10x²+20x，若每千件产品售价为50万元，且生产的产品能全部售出。求年利润L(x)（万元）关于年产量x（千件）的函数解析式，并求当年产量为多少千件时，年利润最大？",
+      "optionsZhHans": [],
+      "answer": "L(x)=-10x²+30x-200，x=1.5千件时最大利润为-177.5万元（即亏损最小）。",
+      "acceptedAnswers": [
+        "L(x)=-10x²+30x-200，x=1.5千件时最大利润为-177.5万元（即亏损最小）。"
+      ],
+      "explanationZhHans": "收入为50x万元，总成本为200+10x²+20x，利润L(x)=50x-(200+10x²+20x)=-10x²+30x-200。二次函数开口向下，对称轴x=1.5，此时L(1.5)=-177.5。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-quadratic-inequalities-035",
+      "grade": "S4",
+      "topicId": "pep-high-s4-quadratic-inequalities",
+      "topicTitleZhHans": "一元二次函数、方程和不等式",
+      "chapter": "一元二次函数、方程和不等式",
+      "conceptIds": [
+        "quadratic-functions",
+        "quadratic-equations",
+        "quadratic-inequalities",
+        "basic-inequality",
+        "inequality-properties",
+        "optimization",
+        "algebraic-transformations"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "pep-high-quadratic-inequalities"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-basic-inequality-optimization"
+      ],
+      "promptZhHans": "若不等式(a-2)x²+2(a-2)x-4<0对一切x∈R恒成立，则实数a的取值范围是（ ）",
+      "optionsZhHans": [
+        "A. (-∞,2]",
+        "B. (-2,2]",
+        "C. (-2,2)",
+        "D. (-∞,-2)"
+      ],
+      "answer": "B. (-2,2]",
+      "acceptedAnswers": [
+        "B. (-2,2]"
+      ],
+      "explanationZhHans": "当a-2=0即a=2时，不等式为-4<0恒成立。当a≠2时，需a-2<0且判别式Δ=4(a-2)²+16(a-2)<0，解得-2<a<2。综上-2<a≤2。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-quadratic-inequalities-036",
+      "grade": "S4",
+      "topicId": "pep-high-s4-quadratic-inequalities",
+      "topicTitleZhHans": "一元二次函数、方程和不等式",
+      "chapter": "一元二次函数、方程和不等式",
+      "conceptIds": [
+        "quadratic-functions",
+        "quadratic-equations",
+        "quadratic-inequalities",
+        "basic-inequality",
+        "inequality-properties",
+        "optimization",
+        "algebraic-transformations"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "pep-high-quadratic-inequalities"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-basic-inequality-optimization"
+      ],
+      "promptZhHans": "已知正数a，b满足ab=a+b+3，则ab的最小值为______。",
+      "optionsZhHans": [],
+      "answer": "9",
+      "acceptedAnswers": [
+        "9"
+      ],
+      "explanationZhHans": "由ab=a+b+3≥2√(ab)+3，令t=√(ab)>0，得t²-2t-3≥0，解得t≥3，故ab≥9，当a=b=3时取等。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-quadratic-inequalities-037",
+      "grade": "S4",
+      "topicId": "pep-high-s4-quadratic-inequalities",
+      "topicTitleZhHans": "一元二次函数、方程和不等式",
+      "chapter": "一元二次函数、方程和不等式",
+      "conceptIds": [
+        "quadratic-functions",
+        "quadratic-equations",
+        "quadratic-inequalities",
+        "basic-inequality",
+        "inequality-properties",
+        "optimization",
+        "algebraic-transformations"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "pep-high-quadratic-inequalities"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-basic-inequality-optimization"
+      ],
+      "promptZhHans": "已知二次函数f(x)=x²+mx+1，若对于任意x∈[0,2]，都有f(x)≥0成立，求实数m的取值范围。",
+      "optionsZhHans": [],
+      "answer": "m≥-2",
+      "acceptedAnswers": [
+        "m≥-2"
+      ],
+      "explanationZhHans": "对称轴x=-m/2。分三种情况：当-m/2≤0即m≥0时，f(0)=1≥0恒成立；当0<-m/2<2即-4<m<0时，需Δ=m²-4≤0得-2≤m≤2，故-2≤m<0；当-m/2≥2即m≤-4时，f(2)=5+2m≥0得m≥-2.5，矛盾。综上m≥-2。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-quadratic-inequalities-038",
+      "grade": "S4",
+      "topicId": "pep-high-s4-quadratic-inequalities",
+      "topicTitleZhHans": "一元二次函数、方程和不等式",
+      "chapter": "一元二次函数、方程和不等式",
+      "conceptIds": [
+        "quadratic-functions",
+        "quadratic-equations",
+        "quadratic-inequalities",
+        "basic-inequality",
+        "inequality-properties",
+        "optimization",
+        "algebraic-transformations"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "pep-high-quadratic-inequalities"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-basic-inequality-optimization"
+      ],
+      "promptZhHans": "已知a>0，b>0，若不等式m/(a+b)≤(1/a+4/b)恒成立，则m的最大值为（ ）",
+      "optionsZhHans": [
+        "A. 9",
+        "B. 8",
+        "C. 7",
+        "D. 6"
+      ],
+      "answer": "A. 9",
+      "acceptedAnswers": [
+        "A. 9"
+      ],
+      "explanationZhHans": "由(1/a+4/b)(a+b)=1+4a/b+b/a+4≥5+2√(4a/b·b/a)=9，当b=2a时取等。故m≤9，m最大值为9。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-quadratic-inequalities-039",
+      "grade": "S4",
+      "topicId": "pep-high-s4-quadratic-inequalities",
+      "topicTitleZhHans": "一元二次函数、方程和不等式",
+      "chapter": "一元二次函数、方程和不等式",
+      "conceptIds": [
+        "quadratic-functions",
+        "quadratic-equations",
+        "quadratic-inequalities",
+        "basic-inequality",
+        "inequality-properties",
+        "optimization",
+        "algebraic-transformations"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "pep-high-quadratic-inequalities"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-basic-inequality-optimization"
+      ],
+      "promptZhHans": "不等式x²-3x+2<0的解集为______。",
+      "optionsZhHans": [],
+      "answer": "(1,2)",
+      "acceptedAnswers": [
+        "(1,2)"
+      ],
+      "explanationZhHans": "不等式化为(x-1)(x-2)<0，对应方程两根为1和2，抛物线开口向上，小于0取两根之间，故解集为(1,2)。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-quadratic-inequalities-040",
+      "grade": "S4",
+      "topicId": "pep-high-s4-quadratic-inequalities",
+      "topicTitleZhHans": "一元二次函数、方程和不等式",
+      "chapter": "一元二次函数、方程和不等式",
+      "conceptIds": [
+        "quadratic-functions",
+        "quadratic-equations",
+        "quadratic-inequalities",
+        "basic-inequality",
+        "inequality-properties",
+        "optimization",
+        "algebraic-transformations"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "pep-high-quadratic-inequalities"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-basic-inequality-optimization"
+      ],
+      "promptZhHans": "已知关于x的不等式kx²-2x+6k<0的解集为空集，求实数k的取值范围。",
+      "optionsZhHans": [],
+      "answer": "k≥√6/6",
+      "acceptedAnswers": [
+        "k≥√6/6"
+      ],
+      "explanationZhHans": "解集为空集即不等式恒不成立，即kx²-2x+6k≥0恒成立。当k=0时，-2x≥0不恒成立；当k≠0时，需k>0且Δ=4-24k²≤0，解得k≥√6/6。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    }
+  ]
+}

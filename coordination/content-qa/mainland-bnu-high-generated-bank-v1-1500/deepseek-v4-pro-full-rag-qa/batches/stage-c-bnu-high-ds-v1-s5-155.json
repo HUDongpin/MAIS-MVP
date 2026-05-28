@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-155",
+  "startedAt": "2026-05-28T02:53:41.245Z",
+  "completedAt": "2026-05-28T02:53:46.093Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-155"
+  ],
+  "usage": {
+    "prompt_tokens": 2164,
+    "completion_tokens": 276,
+    "total_tokens": 2440,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1780
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-155",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "2√3/3",
+        "correctedAnswer": "2√3/3",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，平面ABC方程为x+y+z=1，点D(1,1,1)到平面距离为2√3/3。存储答案√3/3错误，解析中计算过程得出2√3/3，但为凑答案修改题目，自相矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目答案错误，解析自相矛盾，需修正答案为2√3/3。"
+    }
+  }
+}

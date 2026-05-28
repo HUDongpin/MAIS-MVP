@@ -1,0 +1,355 @@
+{
+  "batchId": "batch-041",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s2-k06-mc-001",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-axis-symmetry-isosceles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "promptZhHans": "在△ABC中，AB = AC，点D在BC上，且AD平分∠BAC。若∠BAD = 35°，则∠B的度数是多少？",
+      "optionsZhHans": [
+        "55°",
+        "70°",
+        "35°",
+        "110°"
+      ],
+      "answer": "55°",
+      "acceptedAnswers": [
+        "55°",
+        "55"
+      ],
+      "explanationZhHans": "因为AB = AC，所以△ABC是等腰三角形，∠B = ∠C。AD平分∠BAC，所以∠BAC = 2∠BAD = 70°。三角形内角和为180°，故∠B + ∠C = 180° - 70° = 110°，所以∠B = 55°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-mc-002",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "已知点A(2, -3)关于x轴对称的点是B，则点B的坐标是？",
+      "optionsZhHans": [
+        "(2, 3)",
+        "(-2, -3)",
+        "(-2, 3)",
+        "(2, -3)"
+      ],
+      "answer": "(2, 3)",
+      "acceptedAnswers": [
+        "(2, 3)",
+        "2,3",
+        "(2,3)"
+      ],
+      "explanationZhHans": "关于x轴对称的点，横坐标不变，纵坐标互为相反数。所以点A(2, -3)关于x轴对称的点B的坐标为(2, 3)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-mc-003",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-triangle-angle-relations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean"
+      ],
+      "promptZhHans": "在△ABC中，∠A = 50°，∠B = 60°，则∠C的外角等于多少度？",
+      "optionsZhHans": [
+        "70°",
+        "110°",
+        "120°",
+        "130°"
+      ],
+      "answer": "110°",
+      "acceptedAnswers": [
+        "110°",
+        "110"
+      ],
+      "explanationZhHans": "∠C = 180° - ∠A - ∠B = 180° - 50° - 60° = 70°。∠C的外角等于与它不相邻的两个内角之和，即∠A + ∠B = 50° + 60° = 110°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-mc-004",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-congruence-proof"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "下列各组数中，能作为直角三角形三边长的是？",
+      "optionsZhHans": [
+        "1, 2, 3",
+        "4, 5, 6",
+        "5, 12, 13",
+        "7, 8, 9"
+      ],
+      "answer": "5, 12, 13",
+      "acceptedAnswers": [
+        "5, 12, 13",
+        "5,12,13"
+      ],
+      "explanationZhHans": "根据勾股定理的逆定理，若两短边的平方和等于最长边的平方，则能构成直角三角形。5² + 12² = 25 + 144 = 169 = 13²，所以5, 12, 13能作为直角三角形三边长。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-mc-005",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-polynomial-multiplication-factorization"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "计算 (2x - 3)(x + 4) 的结果是？",
+      "optionsZhHans": [
+        "2x² + 5x - 12",
+        "2x² - 5x - 12",
+        "2x² + 11x - 12",
+        "2x² - 11x - 12"
+      ],
+      "answer": "2x² + 5x - 12",
+      "acceptedAnswers": [
+        "2x² + 5x - 12",
+        "2x^2+5x-12"
+      ],
+      "explanationZhHans": "多项式乘法：(2x - 3)(x + 4) = 2x·x + 2x·4 - 3·x - 3·4 = 2x² + 8x - 3x - 12 = 2x² + 5x - 12。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-mc-006",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-algebraic-fractions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions"
+      ],
+      "promptZhHans": "若分式 (x - 1) / (x + 2) 的值为0，则x的值为？",
+      "optionsZhHans": [
+        "1",
+        "-2",
+        "0",
+        "无解"
+      ],
+      "answer": "1",
+      "acceptedAnswers": [
+        "1"
+      ],
+      "explanationZhHans": "分式的值为0的条件是分子为0且分母不为0。令x - 1 = 0，得x = 1。当x = 1时，分母x + 2 = 3 ≠ 0，所以x = 1。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-mc-007",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-axis-symmetry-isosceles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "promptZhHans": "等腰三角形的一个底角是50°，则它的顶角是多少度？",
+      "optionsZhHans": [
+        "50°",
+        "80°",
+        "100°",
+        "130°"
+      ],
+      "answer": "80°",
+      "acceptedAnswers": [
+        "80°",
+        "80"
+      ],
+      "explanationZhHans": "等腰三角形的两个底角相等，所以另一个底角也是50°。三角形内角和为180°，顶角 = 180° - 50° - 50° = 80°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-mc-008",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "某班50名学生，在一次数学测验中，成绩为：80分有15人，85分有20人，90分有10人，95分有5人。则这次测验成绩的众数是多少分？",
+      "optionsZhHans": [
+        "80",
+        "85",
+        "90",
+        "95"
+      ],
+      "answer": "85",
+      "acceptedAnswers": [
+        "85",
+        "85分"
+      ],
+      "explanationZhHans": "众数是一组数据中出现次数最多的数据。85分出现了20次，是出现次数最多的，所以众数是85。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-mc-009",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-triangle-angle-relations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "小明用20元买了若干支笔，若每支笔降价0.5元，则用20元可多买2支。设原来每支笔x元，则所列方程正确的是？",
+      "optionsZhHans": [
+        "20/x - 20/(x-0.5) = 2",
+        "20/(x-0.5) - 20/x = 2",
+        "20/x - 20/(x+0.5) = 2",
+        "20/(x+0.5) - 20/x = 2"
+      ],
+      "answer": "20/(x-0.5) - 20/x = 2",
+      "acceptedAnswers": [
+        "20/(x-0.5) - 20/x = 2",
+        "20/(x-0.5)-20/x=2"
+      ],
+      "explanationZhHans": "原来每支x元，20元可买20/x支。降价后每支(x-0.5)元，20元可买20/(x-0.5)支。根据多买2支，得20/(x-0.5) - 20/x = 2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-mc-010",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-congruence-proof"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-proof-calculation-integrated"
+      ],
+      "promptZhHans": "在△ABC和△DEF中，已知AB = DE，∠A = ∠D，要利用“SAS”证明△ABC ≌ △DEF，还需添加的条件是？",
+      "optionsZhHans": [
+        "BC = EF",
+        "AC = DF",
+        "∠B = ∠E",
+        "∠C = ∠F"
+      ],
+      "answer": "AC = DF",
+      "acceptedAnswers": [
+        "AC = DF",
+        "AC=DF"
+      ],
+      "explanationZhHans": "SAS判定需要两边及其夹角对应相等。已知AB = DE，∠A = ∠D，需添加夹∠A的另一边AC = DF，才能满足SAS。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

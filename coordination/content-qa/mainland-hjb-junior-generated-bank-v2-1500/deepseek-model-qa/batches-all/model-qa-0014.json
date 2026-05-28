@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0014",
+  "ids": [
+    "hjb-junior-ds-v2-s1-105",
+    "hjb-junior-ds-v2-s1-106",
+    "hjb-junior-ds-v2-s1-107",
+    "hjb-junior-ds-v2-s1-108",
+    "hjb-junior-ds-v2-s1-109",
+    "hjb-junior-ds-v2-s1-110",
+    "hjb-junior-ds-v2-s1-111",
+    "hjb-junior-ds-v2-s1-112"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-105",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2xy(x+2y)(x-2y)",
+      "answerCheckZhHans": "标准答案正确，解析推导无误，acceptedAnswers覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-106",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "multiple-correct-options",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "选项A和B均正确。A：6x²y-9xy²=3xy(2x-3y)正确；B：x²-4x+4=(x-2)²正确。解析称B正确但答案只选A，矛盾。",
+      "independentAnswerZhHans": "A和B都正确",
+      "answerCheckZhHans": "标准答案只选A，但B也正确，导致多个正确选项。解析与答案不一致。",
+      "recommendedActionZhHans": "修改题干或选项，确保只有一个正确选项；或调整答案和解析。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-107",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3ab(a-2b)",
+      "answerCheckZhHans": "标准答案正确，解析无误，acceptedAnswers匹配。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-108",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(x²+4)(x+2)(x-2)",
+      "answerCheckZhHans": "标准答案正确，解析正确，acceptedAnswers覆盖不同顺序。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-109",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-2x(x-4)",
+      "answerCheckZhHans": "标准答案A正确，解析正确，其他选项错误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-110",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(2m+3n)(2m-3n)",
+      "answerCheckZhHans": "标准答案正确，解析正确，acceptedAnswers覆盖顺序交换。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-111",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-3x²y(2x-3y+1)",
+      "answerCheckZhHans": "标准答案正确，解析正确，acceptedAnswers覆盖等价形式。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-112",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "C",
+      "answerCheckZhHans": "标准答案C正确，解析正确，其他选项不符合平方差公式。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

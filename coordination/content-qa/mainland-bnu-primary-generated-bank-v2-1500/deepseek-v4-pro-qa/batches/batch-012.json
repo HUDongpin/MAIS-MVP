@@ -1,0 +1,191 @@
+{
+  "batchNumber": 12,
+  "startedAt": "2026-05-27T13:43:32.613Z",
+  "completedAt": "2026-05-27T13:43:51.268Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p1-199",
+    "bnu-primary-ds-v2-p1-200",
+    "bnu-primary-ds-v2-p1-201",
+    "bnu-primary-ds-v2-p1-202",
+    "bnu-primary-ds-v2-p1-203",
+    "bnu-primary-ds-v2-p1-204",
+    "bnu-primary-ds-v2-p1-205",
+    "bnu-primary-ds-v2-p1-206",
+    "bnu-primary-ds-v2-p1-207",
+    "bnu-primary-ds-v2-p1-208",
+    "bnu-primary-ds-v2-p1-209",
+    "bnu-primary-ds-v2-p1-210",
+    "bnu-primary-ds-v2-p1-211",
+    "bnu-primary-ds-v2-p1-212",
+    "bnu-primary-ds-v2-p1-213",
+    "bnu-primary-ds-v2-p1-214",
+    "bnu-primary-ds-v2-p1-215",
+    "bnu-primary-ds-v2-p1-216"
+  ],
+  "usage": {
+    "prompt_tokens": 3879,
+    "completion_tokens": 1309,
+    "total_tokens": 5188,
+    "prompt_tokens_details": {
+      "cached_tokens": 3840
+    },
+    "prompt_cache_hit_tokens": 3840,
+    "prompt_cache_miss_tokens": 39
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p1-199",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，选项描述准确，答案正确，符合P1平面图形认知。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-200",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "填空题答案正确，接受多种合理表述，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-201",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项与题干要求一致，答案唯一，无错误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-202",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "直接填写给定信息，答案明确，无争议。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-203",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项区分平面与立体图形，答案正确，适合P1。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-204",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案覆盖多种合理拼法，符合开放性要求，无错误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-205",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项与描述一致，答案正确，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-206",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "简单加法，答案正确，接受带单位或不带单位。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-207",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "两步计算正确，选项唯一，无错误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-208",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "加法计算正确，答案明确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-209",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "减法比较，计算正确，选项无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-210",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "两步计算正确，答案接受带单位或不带单位。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-211",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项设计合理，错误选项有典型错误，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-212",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "过程填空，答案覆盖多种合理表述，无错误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-213",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "简单加法，答案正确，选项无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-214",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "过程填空，答案正确，接受多种表述。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-215",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "整十数加法，计算正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-216",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "加法计算正确，答案明确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版P1要求，数学正确，答案匹配，无歧义或缺失条件，适合公共题库使用。"
+    }
+  }
+}

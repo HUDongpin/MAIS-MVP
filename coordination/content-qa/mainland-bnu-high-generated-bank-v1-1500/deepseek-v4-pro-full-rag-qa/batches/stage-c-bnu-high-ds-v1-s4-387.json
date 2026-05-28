@@ -1,0 +1,45 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-387",
+  "startedAt": "2026-05-28T02:38:27.609Z",
+  "completedAt": "2026-05-28T02:38:32.299Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-387"
+  ],
+  "usage": {
+    "prompt_tokens": 2069,
+    "completion_tokens": 221,
+    "total_tokens": 2290,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1685
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-387",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "DE = (1/2)(b - c)，DE平行于BC且长度等于BC的一半",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，向量表示明确，可独立求解。独立解与存储答案一致，解析过程正确，无数学错误或歧义。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 1,
+      "warn": 0,
+      "fail": 0,
+      "notes": "该题通过所有检查，无问题。"
+    }
+  }
+}

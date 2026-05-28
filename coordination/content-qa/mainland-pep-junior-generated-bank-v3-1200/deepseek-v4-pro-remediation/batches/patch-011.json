@@ -1,0 +1,128 @@
+{
+  "batchIndex": 10,
+  "completedAt": "2026-05-25T01:41:33.654Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s3-k10-sa-030",
+    "pep-junior-v3-s3-k10-sa-032",
+    "pep-junior-v3-s3-k10-sa-036",
+    "pep-junior-v3-s3-k10-sa-066",
+    "pep-junior-v3-s3-k11-mc-012",
+    "pep-junior-v3-s3-k11-mc-013"
+  ],
+  "usage": {
+    "prompt_tokens": 3316,
+    "completion_tokens": 2113,
+    "total_tokens": 5429,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 3060
+  },
+  "items": [
+    {
+      "id": "pep-junior-v3-s3-k10-sa-030",
+      "action": "repair",
+      "confidence": "high",
+      "remediationNotes": "原题证明中误用∠ACE=40°，实际应为∠ACD=40°，导致解释有数学错误。修复后保持证明思路不变，修正角度标注。",
+      "question": {
+        "promptZhHans": "在△ABC中，AB=AC，∠BAC=100°。将△ABC绕点A逆时针旋转40°得到△ADE，点B的对应点为D，点C的对应点为E，连接BD。求证：BD=AC。",
+        "optionsZhHans": [],
+        "answer": "证明：由旋转性质，AB=AD，∠BAD=40°。又AB=AC，所以AD=AC。在△ABD中，AB=AD，∠BAD=40°，所以∠ABD=∠ADB=(180°-40°)/2=70°。因为∠BAC=100°，所以∠ABC=∠ACB=40°。故∠DBC=∠ABD-∠ABC=70°-40°=30°。在△BDC中，∠DBC=30°，∠BCD=∠ACB+∠ACD=40°+40°=80°，所以∠BDC=180°-30°-80°=70°。因此∠BDC=∠ABD=70°，所以BD=AD=AC。",
+        "acceptedAnswers": [
+          "证明：由旋转性质，AB=AD，∠BAD=40°。又AB=AC，所以AD=AC。在△ABD中，AB=AD，∠BAD=40°，所以∠ABD=∠ADB=(180°-40°)/2=70°。因为∠BAC=100°，所以∠ABC=∠ACB=40°。故∠DBC=∠ABD-∠ABC=70°-40°=30°。在△BDC中，∠DBC=30°，∠BCD=∠ACB+∠ACD=40°+40°=80°，所以∠BDC=180°-30°-80°=70°。因此∠BDC=∠ABD=70°，所以BD=AD=AC。"
+        ],
+        "explanationZhHans": "证明：由旋转性质，AB=AD，∠BAD=40°。又AB=AC，所以AD=AC。在△ABD中，AB=AD，∠BAD=40°，所以∠ABD=∠ADB=(180°-40°)/2=70°。因为∠BAC=100°，所以∠ABC=∠ACB=40°。故∠DBC=∠ABD-∠ABC=70°-40°=30°。在△BDC中，∠DBC=30°，∠BCD=∠ACB+∠ACD=40°+40°=80°，所以∠BDC=180°-30°-80°=70°。因此∠BDC=∠ABD=70°，所以BD=AD=AC。"
+      }
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-sa-032",
+      "action": "repair",
+      "confidence": "high",
+      "remediationNotes": "原题答案与解释矛盾，解释中计算得120°，答案误写为30°。修复答案为120°，并修正解释中的笔误。",
+      "question": {
+        "promptZhHans": "AB是⊙O的直径，C是⊙O上一点，过点C的切线与AB的延长线交于点P。若∠P=30°，求∠ACP的度数。",
+        "optionsZhHans": [],
+        "answer": "120°",
+        "acceptedAnswers": [
+          "120°",
+          "120度"
+        ],
+        "explanationZhHans": "连接OC，则OC⊥PC。在Rt△POC中，∠P=30°，所以∠POC=60°。因为OC=OA，所以∠OAC=∠OCA=30°。∠ACP=∠ACO+∠OCP=30°+90°=120°。故∠ACP的度数为120°。"
+      }
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-sa-036",
+      "action": "repair",
+      "confidence": "high",
+      "remediationNotes": "原题答案与解释矛盾，解释中计算得3√2，答案误写为5√2。修复答案为3√2。",
+      "question": {
+        "promptZhHans": "在△ABC中，∠ACB=90°，AC=3，BC=4。将△ABC绕点C逆时针旋转90°得到△DEC，点A的对应点为D，点B的对应点为E。求线段AD的长。",
+        "optionsZhHans": [],
+        "answer": "3√2",
+        "acceptedAnswers": [
+          "3√2",
+          "3倍根号2"
+        ],
+        "explanationZhHans": "由旋转性质，CD=CA=3，且∠ACD=90°。在Rt△ACD中，AD=√(AC²+CD²)=√(3²+3²)=3√2。故线段AD的长为3√2。"
+      }
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-sa-066",
+      "action": "repair",
+      "confidence": "high",
+      "remediationNotes": "原题答案与解释矛盾，解释中解方程得x=1760，答案误写为1600。修复答案为1760，并修正解释中的笔误。",
+      "question": {
+        "promptZhHans": "某工厂生产一批零件，计划每天生产80个，可按期完成。实际每天生产100个，结果提前4天完成，且多生产了40个。求原计划生产零件多少个？",
+        "optionsZhHans": [],
+        "answer": "1760",
+        "acceptedAnswers": [
+          "1760",
+          "1760个"
+        ],
+        "explanationZhHans": "设原计划生产x个零件，则计划天数为x/80。实际生产了x+40个，实际天数为(x+40)/100。根据提前4天得：x/80 - (x+40)/100 = 4。解方程：5x - 4(x+40) = 1600，5x-4x-160=1600，x=1760。检验：计划天数1760/80=22，实际天数(1760+40)/100=18，22-18=4，符合。所以原计划生产1760个零件。"
+      }
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-mc-012",
+      "action": "repair",
+      "confidence": "medium",
+      "remediationNotes": "原题俯视图描述不清晰，导致左视图可能不唯一。修复为更明确的几何体描述，确保左视图唯一。",
+      "question": {
+        "promptZhHans": "一个几何体由几个大小相同的小立方块搭成，从上面看得到的形状图是3列，从左到右每列最高层数分别为2、1、1，且第一列有两排，前排2个后排1个。这个几何体从左面看得到的形状图是（ ）",
+        "optionsZhHans": [
+          "两列，左边一列最高2层，右边一列最高1层",
+          "两列，左边一列最高1层，右边一列最高2层",
+          "三列，中间一列最高2层，两边最高1层",
+          "两列，左右两列最高都是2层"
+        ],
+        "answer": "两列，左边一列最高2层，右边一列最高1层",
+        "acceptedAnswers": [
+          "两列，左边一列最高2层，右边一列最高1层"
+        ],
+        "explanationZhHans": "根据俯视图信息，从左面看时，该几何体共有两列，左边一列最高有2层，右边一列最高有1层，因此左视图应为选项A. 两列，左边一列最高2层，右边一列最高1层。"
+      }
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-mc-013",
+      "action": "repair",
+      "confidence": "high",
+      "remediationNotes": "原题解释中面积公式推导有瑕疵，AB=|k|/a与面积=k/2不一致。修复解释，统一使用k>0，AB=k/a，面积=k/2。",
+      "question": {
+        "promptZhHans": "在平面直角坐标系中，点A是反比例函数y=k/x（x>0）图象上一点，AB⊥x轴于点B，点C是y轴上一点，且△ABC的面积为4，则k的值为（ ）",
+        "optionsZhHans": [
+          "4",
+          "-4",
+          "8",
+          "-8"
+        ],
+        "answer": "8",
+        "acceptedAnswers": [
+          "8"
+        ],
+        "explanationZhHans": "设A(a, k/a)，则B(a,0)，AB=k/a（因为x>0，k>0）。△ABC中AB为底，点C到AB的距离为a，故面积=1/2·(k/a)·a = k/2 = 4，解得k=8。"
+      }
+    }
+  ]
+}

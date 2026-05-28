@@ -1,0 +1,589 @@
+{
+  "batchId": "batch-078",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p4-021",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-lines-angles",
+      "unitTitle": "线与角",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "lines-angles",
+        "angle-measurement",
+        "parallel-perpendicular",
+        "线与角",
+        "角度"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "认识线段射线直线",
+        "量角",
+        "画角",
+        "平行垂直",
+        "角的分类"
+      ],
+      "misconceptionTags": [
+        "ray and line segment names mixed",
+        "protractor baseline not aligned",
+        "angle size judged from side length rather than opening"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-lines-angles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-lines-angles-unit",
+        "bnu-primary-p4-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "从一点出发可以画出多少条射线？请写出答案并简要说明理由。",
+      "optionsZhHans": [],
+      "answer": "无数条",
+      "acceptedAnswers": [
+        "无数条",
+        "无数条。从一点可以向任意方向画射线，所以有无数条。",
+        "无数条，因为从一点可以向各个方向画射线。"
+      ],
+      "explanationZhHans": "射线只有一个端点，从端点可以向任意方向无限延伸，因此从一点可以画出无数条射线。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-022",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-lines-angles",
+      "unitTitle": "线与角",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "lines-angles",
+        "angle-measurement",
+        "parallel-perpendicular",
+        "线与角",
+        "角度"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "认识线段射线直线",
+        "量角",
+        "画角",
+        "平行垂直",
+        "角的分类"
+      ],
+      "misconceptionTags": [
+        "ray and line segment names mixed",
+        "protractor baseline not aligned",
+        "angle size judged from side length rather than opening"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-lines-angles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-lines-angles-unit",
+        "bnu-primary-p4-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个图形表示的是射线？",
+      "optionsZhHans": [
+        "A. 有两个端点，长度固定",
+        "B. 有一个端点，向一端无限延伸",
+        "C. 没有端点，向两端无限延伸",
+        "D. 弯曲的线，有两个端点"
+      ],
+      "answer": "B. 有一个端点，向一端无限延伸",
+      "acceptedAnswers": [
+        "B. 有一个端点，向一端无限延伸"
+      ],
+      "explanationZhHans": "射线只有一个端点，另一端无限延伸。A是线段，C是直线，D是曲线，都不符合射线的定义。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-023",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-lines-angles",
+      "unitTitle": "线与角",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "lines-angles",
+        "angle-measurement",
+        "parallel-perpendicular",
+        "线与角",
+        "角度"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "认识线段射线直线",
+        "量角",
+        "画角",
+        "平行垂直",
+        "角的分类"
+      ],
+      "misconceptionTags": [
+        "ray and line segment names mixed",
+        "protractor baseline not aligned",
+        "angle size judged from side length rather than opening"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-lines-angles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-lines-angles-unit",
+        "bnu-primary-p4-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个角的两条边在量角器上对应的刻度分别是：一条边对齐内圈0°刻度线，另一条边指向内圈125°。这个角是______角，它的度数是______°。",
+      "optionsZhHans": [],
+      "answer": "钝，125",
+      "acceptedAnswers": [
+        "钝，125",
+        "钝角，125",
+        "钝角，125°",
+        "钝，125°"
+      ],
+      "explanationZhHans": "从内圈0°到125°，度数是125°，大于90°且小于180°，所以是钝角。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-024",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-lines-angles",
+      "unitTitle": "线与角",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "lines-angles",
+        "angle-measurement",
+        "parallel-perpendicular",
+        "线与角",
+        "角度"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "认识线段射线直线",
+        "量角",
+        "画角",
+        "平行垂直",
+        "角的分类"
+      ],
+      "misconceptionTags": [
+        "ray and line segment names mixed",
+        "protractor baseline not aligned",
+        "angle size judged from side length rather than opening"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-lines-angles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-lines-angles-unit",
+        "bnu-primary-p4-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "画一个比直角大45°的角，并写出它的名称和度数。",
+      "optionsZhHans": [],
+      "answer": "钝角，135°",
+      "acceptedAnswers": [
+        "钝角，135°",
+        "钝角，135度",
+        "135°，钝角",
+        "135度，钝角"
+      ],
+      "explanationZhHans": "直角是90°，加上45°得到135°，135°大于90°且小于180°，属于钝角。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-025",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-lines-angles",
+      "unitTitle": "线与角",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "lines-angles",
+        "angle-measurement",
+        "parallel-perpendicular",
+        "线与角",
+        "角度"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "认识线段射线直线",
+        "量角",
+        "画角",
+        "平行垂直",
+        "角的分类"
+      ],
+      "misconceptionTags": [
+        "ray and line segment names mixed",
+        "protractor baseline not aligned",
+        "angle size judged from side length rather than opening"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-lines-angles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-lines-angles-unit",
+        "bnu-primary-p4-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在同一平面内，两条直线不相交，下面说法正确的是（　）。",
+      "optionsZhHans": [
+        "A. 这两条直线一定互相垂直",
+        "B. 这两条直线一定互相平行",
+        "C. 这两条直线可能互相平行也可能互相垂直",
+        "D. 这两条直线一定相交"
+      ],
+      "answer": "B. 这两条直线一定互相平行",
+      "acceptedAnswers": [
+        "B. 这两条直线一定互相平行"
+      ],
+      "explanationZhHans": "在同一平面内，不相交的两条直线叫做平行线。垂直是相交的特殊情况，所以不相交一定平行。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-026",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-lines-angles",
+      "unitTitle": "线与角",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "lines-angles",
+        "angle-measurement",
+        "parallel-perpendicular",
+        "线与角",
+        "角度"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "认识线段射线直线",
+        "量角",
+        "画角",
+        "平行垂直",
+        "角的分类"
+      ],
+      "misconceptionTags": [
+        "ray and line segment names mixed",
+        "protractor baseline not aligned",
+        "angle size judged from side length rather than opening"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-lines-angles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-lines-angles-unit",
+        "bnu-primary-p4-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把一张半圆形的纸对折一次，得到的角是______角，是______°。",
+      "optionsZhHans": [],
+      "answer": "直，90",
+      "acceptedAnswers": [
+        "直，90",
+        "直角，90",
+        "直角，90°",
+        "直，90°"
+      ],
+      "explanationZhHans": "半圆形纸的圆心角是180°，对折一次后，180°平均分成两份，每份是90°，即直角。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-027",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-lines-angles",
+      "unitTitle": "线与角",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "lines-angles",
+        "angle-measurement",
+        "parallel-perpendicular",
+        "线与角",
+        "角度"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "认识线段射线直线",
+        "量角",
+        "画角",
+        "平行垂直",
+        "角的分类"
+      ],
+      "misconceptionTags": [
+        "ray and line segment names mixed",
+        "protractor baseline not aligned",
+        "angle size judged from side length rather than opening"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-lines-angles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-lines-angles-unit",
+        "bnu-primary-p4-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用一副三角尺可以拼出多少种不同的钝角？（提示：一副三角尺包含90°、60°、30°和90°、45°、45°的角）请写出所有可能的度数。",
+      "optionsZhHans": [],
+      "answer": "4种，分别是120°、135°、150°、105°",
+      "acceptedAnswers": [
+        "4种，分别是120°、135°、150°、105°",
+        "4种：120°、135°、150°、105°",
+        "120°、135°、150°、105°",
+        "120°,135°,150°,105°"
+      ],
+      "explanationZhHans": "用两个三角尺的角相加：90°+30°=120°，90°+45°=135°，90°+60°=150°，60°+45°=105°，都是钝角。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-028",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-lines-angles",
+      "unitTitle": "线与角",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "lines-angles",
+        "angle-measurement",
+        "parallel-perpendicular",
+        "线与角",
+        "角度"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "认识线段射线直线",
+        "量角",
+        "画角",
+        "平行垂直",
+        "角的分类"
+      ],
+      "misconceptionTags": [
+        "ray and line segment names mixed",
+        "protractor baseline not aligned",
+        "angle size judged from side length rather than opening"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-lines-angles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-lines-angles-unit",
+        "bnu-primary-p4-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个度数的角不能用一副三角尺直接拼出来？",
+      "optionsZhHans": [
+        "A. 75°",
+        "B. 100°",
+        "C. 120°",
+        "D. 135°"
+      ],
+      "answer": "B. 100°",
+      "acceptedAnswers": [
+        "B. 100°"
+      ],
+      "explanationZhHans": "75°=30°+45°，120°=90°+30°，135°=90°+45°。100°无法用三角尺上的角相加或相减得到。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-029",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-lines-angles",
+      "unitTitle": "线与角",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "lines-angles",
+        "angle-measurement",
+        "parallel-perpendicular",
+        "线与角",
+        "角度"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "认识线段射线直线",
+        "量角",
+        "画角",
+        "平行垂直",
+        "角的分类"
+      ],
+      "misconceptionTags": [
+        "ray and line segment names mixed",
+        "protractor baseline not aligned",
+        "angle size judged from side length rather than opening"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-lines-angles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-lines-angles-unit",
+        "bnu-primary-p4-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "钟面上，3时整，时针和分针组成的角是______角；5时整，时针和分针组成的角是______角。",
+      "optionsZhHans": [],
+      "answer": "直，钝",
+      "acceptedAnswers": [
+        "直，钝",
+        "直角，钝角",
+        "直角，钝",
+        "直，钝角"
+      ],
+      "explanationZhHans": "3时整，时针指向3，分针指向12，夹角90°，是直角；5时整，时针指向5，分针指向12，夹角150°，是钝角。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-030",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-lines-angles",
+      "unitTitle": "线与角",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "lines-angles",
+        "angle-measurement",
+        "parallel-perpendicular",
+        "线与角",
+        "角度"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "认识线段射线直线",
+        "量角",
+        "画角",
+        "平行垂直",
+        "角的分类"
+      ],
+      "misconceptionTags": [
+        "ray and line segment names mixed",
+        "protractor baseline not aligned",
+        "angle size judged from side length rather than opening"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-lines-angles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-lines-angles-unit",
+        "bnu-primary-p4-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "过直线外一点画这条直线的平行线，可以画几条？请写出答案并说明理由。",
+      "optionsZhHans": [],
+      "answer": "1条",
+      "acceptedAnswers": [
+        "1条",
+        "1条。过直线外一点有且只有一条直线与已知直线平行。",
+        "一条，因为过直线外一点只能画一条直线与已知直线平行。"
+      ],
+      "explanationZhHans": "根据平行公理，过直线外一点有且只有一条直线与已知直线平行。"
+    }
+  ]
+}

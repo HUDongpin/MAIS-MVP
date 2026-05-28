@@ -1,0 +1,575 @@
+{
+  "batchId": "batch-029",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p2-031",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-multiplication-introduction",
+      "unitTitle": "数一数与乘法",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "multiplication-meaning",
+        "equal-groups",
+        "arrays",
+        "乘法意义",
+        "数一数与乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "几个几",
+        "重复加法",
+        "乘法算式",
+        "阵列模型"
+      ],
+      "misconceptionTags": [
+        "unequal groups treated as multiplication",
+        "factor meaning not linked to group count and group size",
+        "product found by counting without structure"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-multiplication-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-multiplication-introduction-unit",
+        "bnu-primary-p2-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪种情况可以用乘法算式 3×4 表示？",
+      "optionsZhHans": [
+        "每盘有3个苹果，有4盘",
+        "左边有3个苹果，右边有4个苹果",
+        "有3个苹果，又拿来4个苹果",
+        "有3个苹果，吃掉4个苹果"
+      ],
+      "answer": "每盘有3个苹果，有4盘",
+      "acceptedAnswers": [
+        "每盘有3个苹果，有4盘"
+      ],
+      "explanationZhHans": "乘法表示几个相同加数的和。选项1是4个3相加，写成3×4；其他选项是不同加数或减法，不能用乘法。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-032",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-multiplication-introduction",
+      "unitTitle": "数一数与乘法",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "multiplication-meaning",
+        "equal-groups",
+        "arrays",
+        "乘法意义",
+        "数一数与乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "几个几",
+        "重复加法",
+        "乘法算式",
+        "阵列模型"
+      ],
+      "misconceptionTags": [
+        "unequal groups treated as multiplication",
+        "factor meaning not linked to group count and group size",
+        "product found by counting without structure"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-multiplication-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-multiplication-introduction-unit",
+        "bnu-primary-p2-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一盒巧克力有4颗，妈妈买了3盒。下面哪个算式不能表示一共有多少颗巧克力？",
+      "optionsZhHans": [],
+      "answer": "4+3",
+      "acceptedAnswers": [
+        "4+3"
+      ],
+      "explanationZhHans": "每盒4颗，3盒就是3个4，可以用4+4+4或3×4表示。4+3表示4和3合起来，不是3个4，所以不能表示总颗数。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-033",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-multiplication-introduction",
+      "unitTitle": "数一数与乘法",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "multiplication-meaning",
+        "equal-groups",
+        "arrays",
+        "乘法意义",
+        "数一数与乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "几个几",
+        "重复加法",
+        "乘法算式",
+        "阵列模型"
+      ],
+      "misconceptionTags": [
+        "unequal groups treated as multiplication",
+        "factor meaning not linked to group count and group size",
+        "product found by counting without structure"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-multiplication-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-multiplication-introduction-unit",
+        "bnu-primary-p2-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一盒巧克力有4颗，妈妈买了3盒。下面哪个说法是正确的？\nA. 一共有4+3=7颗巧克力\nB. 一共有4×3=12颗巧克力，表示3个4相加\nC. 一共有3×4=12颗巧克力，表示4个3相加\nD. 一共有4×4=16颗巧克力",
+      "optionsZhHans": [],
+      "answer": "B. 一共有4×3=12颗巧克力，表示3个4相加",
+      "acceptedAnswers": [
+        "B. 一共有4×3=12颗巧克力，表示3个4相加"
+      ],
+      "explanationZhHans": "每盒4颗，有3盒，是3个4相加，写成乘法是4×3或3×4，但意义是3个4。选项B正确表达了3个4相加。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-034",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-multiplication-introduction",
+      "unitTitle": "数一数与乘法",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "multiplication-meaning",
+        "equal-groups",
+        "arrays",
+        "乘法意义",
+        "数一数与乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "几个几",
+        "重复加法",
+        "乘法算式",
+        "阵列模型"
+      ],
+      "misconceptionTags": [
+        "unequal groups treated as multiplication",
+        "factor meaning not linked to group count and group size",
+        "product found by counting without structure"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-multiplication-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-multiplication-introduction-unit",
+        "bnu-primary-p2-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小雅有5个盘子，每个盘子里放同样多的草莓。下面哪种放法可以用乘法算式表示？\nA. 第一个盘子放2颗，第二个盘子放3颗，第三个盘子放2颗，第四个盘子放3颗，第五个盘子放2颗\nB. 每个盘子都放4颗草莓\nC. 第一个盘子放1颗，第二个盘子放2颗，第三个盘子放3颗，第四个盘子放4颗，第五个盘子放5颗\nD. 第一个盘子放5颗，第二个盘子放4颗，第三个盘子放3颗，第四个盘子放2颗，第五个盘子放1颗",
+      "optionsZhHans": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "B",
+      "acceptedAnswers": [
+        "B"
+      ],
+      "explanationZhHans": "乘法表示几个相同的数相加。选项B中每个盘子都放4颗草莓，是5个4相加，可以用乘法5×4或4×5表示。其他选项每盘草莓数不同，不能用乘法。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-035",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-multiplication-introduction",
+      "unitTitle": "数一数与乘法",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "multiplication-meaning",
+        "equal-groups",
+        "arrays",
+        "乘法意义",
+        "数一数与乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "几个几",
+        "重复加法",
+        "乘法算式",
+        "阵列模型"
+      ],
+      "misconceptionTags": [
+        "unequal groups treated as multiplication",
+        "factor meaning not linked to group count and group size",
+        "product found by counting without structure"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-multiplication-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-multiplication-introduction-unit",
+        "bnu-primary-p2-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一盒巧克力有4颗，妈妈买了3盒。一共有多少颗巧克力？\n（1）用加法算式表示：______\n（2）用乘法算式表示：______\n（3）乘法算式中的第一个数4表示______，第二个数3表示______。",
+      "optionsZhHans": [],
+      "answer": "（1）4+4+4=12；（2）4×3=12；（3）每盒的颗数，盒数",
+      "acceptedAnswers": [
+        "（1）4+4+4=12；（2）4×3=12；（3）每盒的颗数，盒数",
+        "（1）4+4+4=12；（2）4×3=12；（3）每盒的颗数，盒数。",
+        "（1）4+4+4=12；（2）4×3=12；（3）每盒的颗数、盒数",
+        "（1）4+4+4=12 （2）4×3=12 （3）每盒的颗数，盒数",
+        "（1）4+4+4=12 （2）4×3=12 （3）每盒的颗数、盒数"
+      ],
+      "explanationZhHans": "3盒巧克力，每盒4颗，是3个4相加，加法算式为4+4+4=12。乘法算式4×3=12中，4是每盒的颗数，3是盒数。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-036",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-multiplication-introduction",
+      "unitTitle": "数一数与乘法",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "multiplication-meaning",
+        "equal-groups",
+        "arrays",
+        "乘法意义",
+        "数一数与乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "几个几",
+        "重复加法",
+        "乘法算式",
+        "阵列模型"
+      ],
+      "misconceptionTags": [
+        "unequal groups treated as multiplication",
+        "factor meaning not linked to group count and group size",
+        "product found by counting without structure"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-multiplication-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-multiplication-introduction-unit",
+        "bnu-primary-p2-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小乐有3个笔筒，每个笔筒里都有4支铅笔。他一共有多少支铅笔？请写出一个加法算式和一个乘法算式。",
+      "optionsZhHans": [],
+      "answer": "加法算式：4+4+4=12（支），乘法算式：3×4=12（支）或4×3=12（支）",
+      "acceptedAnswers": [
+        "加法算式：4+4+4=12（支），乘法算式：3×4=12（支）或4×3=12（支）",
+        "加法算式：4+4+4=12（支），乘法算式：3×4=12（支）",
+        "加法算式：4+4+4=12（支），乘法算式：4×3=12（支）",
+        "4+4+4=12，3×4=12",
+        "4+4+4=12，4×3=12"
+      ],
+      "explanationZhHans": "每个笔筒4支铅笔，有3个笔筒，就是3个4。加法算式是4+4+4=12。乘法算式可以写成3×4=12或4×3=12，表示3个4相加。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-037",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-multiplication-introduction",
+      "unitTitle": "数一数与乘法",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "multiplication-meaning",
+        "equal-groups",
+        "arrays",
+        "乘法意义",
+        "数一数与乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "几个几",
+        "重复加法",
+        "乘法算式",
+        "阵列模型"
+      ],
+      "misconceptionTags": [
+        "unequal groups treated as multiplication",
+        "factor meaning not linked to group count and group size",
+        "product found by counting without structure"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-multiplication-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-multiplication-introduction-unit",
+        "bnu-primary-p2-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小乐在整理糖果，他把糖果摆成了下面的样子：第一排有3颗，第二排有4颗，第三排有3颗。小乐说：“可以用乘法算出一共有多少颗糖果。”你认为小乐说得对吗？为什么？",
+      "optionsZhHans": [
+        "对，因为一共有3排，每排都有糖果",
+        "对，因为可以写成3×4=12",
+        "不对，因为每排的糖果数不一样多",
+        "不对，因为糖果总数是10颗，不能用乘法"
+      ],
+      "answer": "不对，因为每排的糖果数不一样多",
+      "acceptedAnswers": [
+        "不对，因为每排的糖果数不一样多"
+      ],
+      "explanationZhHans": "乘法要求每份同样多。这里第一排3颗、第二排4颗、第三排3颗，不是同样多，所以不能直接用乘法算总数。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-038",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-multiplication-introduction",
+      "unitTitle": "数一数与乘法",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "multiplication-meaning",
+        "equal-groups",
+        "arrays",
+        "乘法意义",
+        "数一数与乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "几个几",
+        "重复加法",
+        "乘法算式",
+        "阵列模型"
+      ],
+      "misconceptionTags": [
+        "unequal groups treated as multiplication",
+        "factor meaning not linked to group count and group size",
+        "product found by counting without structure"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-multiplication-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-multiplication-introduction-unit",
+        "bnu-primary-p2-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "每束气球有5个，共4束。一共有多少个气球？\n（1）这是（ ）个（ ）相加。\n（2）写成乘法算式是（ ）×（ ）。",
+      "optionsZhHans": [],
+      "answer": "（1）4 5 （2）4 5",
+      "acceptedAnswers": [
+        "（1）4 5 （2）4 5"
+      ],
+      "explanationZhHans": "每束5个气球，有4束，就是4个5相加。乘法算式为4×5，其中4表示组数，5表示每组个数。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-039",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-multiplication-introduction",
+      "unitTitle": "数一数与乘法",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "multiplication-meaning",
+        "equal-groups",
+        "arrays",
+        "乘法意义",
+        "数一数与乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "几个几",
+        "重复加法",
+        "乘法算式",
+        "阵列模型"
+      ],
+      "misconceptionTags": [
+        "unequal groups treated as multiplication",
+        "factor meaning not linked to group count and group size",
+        "product found by counting without structure"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-multiplication-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-multiplication-introduction-unit",
+        "bnu-primary-p2-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小美有3个笔筒，每个笔筒里放4支铅笔。小美一共有多少支铅笔？\n（1）列出加法算式。\n（2）列出乘法算式，并说出乘法算式中每个数表示的意思。",
+      "optionsZhHans": [],
+      "answer": "（1）4+4+4=12（支）\n（2）3×4=12（支）或4×3=12（支）；3表示笔筒的个数，4表示每个笔筒里铅笔的支数，12表示铅笔的总支数。",
+      "acceptedAnswers": [
+        "（1）4+4+4=12（支）\n（2）3×4=12（支）或4×3=12（支）；3表示笔筒的个数，4表示每个笔筒里铅笔的支数，12表示铅笔的总支数。",
+        "（1）4+4+4=12（支）\n（2）3×4=12（支）；3表示笔筒的个数，4表示每个笔筒里铅笔的支数，12表示铅笔的总支数。",
+        "（1）4+4+4=12（支）\n（2）4×3=12（支）；3表示笔筒的个数，4表示每个笔筒里铅笔的支数，12表示铅笔的总支数。"
+      ],
+      "explanationZhHans": "每个笔筒有4支铅笔，3个笔筒就是3个4相加，加法算式是4+4+4=12。乘法算式可以写成3×4=12或4×3=12，其中3是组数（笔筒个数），4是每组个数（每筒铅笔数），12是总数。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p2-040",
+      "batch": "bnu-primary-v2",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-multiplication-introduction",
+      "unitTitle": "数一数与乘法",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "multiplication-meaning",
+        "equal-groups",
+        "arrays",
+        "乘法意义",
+        "数一数与乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "推理意识"
+      ],
+      "skillTags": [
+        "几个几",
+        "重复加法",
+        "乘法算式",
+        "阵列模型"
+      ],
+      "misconceptionTags": [
+        "unequal groups treated as multiplication",
+        "factor meaning not linked to group count and group size",
+        "product found by counting without structure"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-multiplication-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-multiplication-introduction-unit",
+        "bnu-primary-p2-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪幅图能用乘法算式 3×4 表示？\nA. 第一堆有3个苹果，第二堆有4个苹果，第三堆有3个苹果。\nB. 每盒有3块糖，有4盒。\nC. 左边有3只小鸟，右边有4只小鸟。\nD. 花丛中有3只蝴蝶，又飞来4只蝴蝶。",
+      "optionsZhHans": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "B",
+      "acceptedAnswers": [
+        "B"
+      ],
+      "explanationZhHans": "乘法表示几个相同的数相加。选项B是4个3相加，即3+3+3+3，可写成3×4。选项A和C的两部分数量不同，不是相同加数；选项D是3+4，也不是相同加数相加，所以都不能用乘法表示。"
+    }
+  ]
+}

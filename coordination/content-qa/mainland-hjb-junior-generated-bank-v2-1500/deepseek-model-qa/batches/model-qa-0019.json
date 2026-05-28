@@ -1,0 +1,71 @@
+{
+  "batchId": "model-qa-0019",
+  "ids": [
+    "hjb-junior-ds-v2-s2-424",
+    "hjb-junior-ds-v2-s2-427",
+    "hjb-junior-ds-v2-s2-438",
+    "hjb-junior-ds-v2-s2-443",
+    "hjb-junior-ds-v2-s2-447"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-424",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch",
+        "multiple-correct-options"
+      ],
+      "issueDetailsZhHans": "标准答案标记为(0,3)，但代入验证：-2*0+3=3，点(0,3)满足方程，故(0,3)在图像上。解析中称A. 0→3≠2，计算错误。同时(2,-1)代入得-2*2+3=-1，也在图像上。因此存在两个正确选项(0,3)和(2,-1)，题目不唯一。",
+      "independentAnswerZhHans": "将各点代入y=-2x+3：(0,3)→3=3，在图像上；(1,1)→1=1，在图像上？-2*1+3=1，也在图像上；(-1,5)→-2*(-1)+3=5，在图像上；(2,-1)→-2*2+3=-1，在图像上。实际上所有点都满足？检查：-2*0+3=3，正确；-2*1+3=1，正确；-2*(-1)+3=2+3=5，正确；-2*2+3=-4+3=-1，正确。所有选项都在图像上，题目有误。",
+      "answerCheckZhHans": "标准答案(0,3)在图像上，但其他选项也在图像上，因此不是唯一正确选项。解析错误地认为只有(2,-1)正确，且计算错误。",
+      "recommendedActionZhHans": "修正题目或选项，确保只有一个正确选项。例如修改函数或点坐标。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-427",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "将(4,-12)代入y=kx得-12=4k，k=-3。",
+      "answerCheckZhHans": "标准答案-3正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-438",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "y=-0.5x+4，令y=0得x=8，令x=0得y=4，面积=1/2*8*4=16。",
+      "answerCheckZhHans": "标准答案16正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-443",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "设y=k/x，代入(4,3)得k=12，解析式为y=12/x。",
+      "answerCheckZhHans": "标准答案y=12/x正确，acceptedAnswers覆盖。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-447",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "反比例函数y=(m+1)/x，在每个象限内y随x增大而减小，则图像在一、三象限，所以m+1>0，m>-1。",
+      "answerCheckZhHans": "标准答案m>-1正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

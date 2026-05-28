@@ -1,0 +1,585 @@
+{
+  "batchId": "batch-059",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p3-081",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-multi-digit-multiplication",
+      "unitTitle": "乘法",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "multi-digit-by-one-digit-multiplication",
+        "place-value-multiplication",
+        "regrouping-multiplication",
+        "乘法",
+        "多位数乘一位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "一位数乘多位数",
+        "竖式乘法",
+        "进位",
+        "估算积",
+        "乘法应用"
+      ],
+      "misconceptionTags": [
+        "place-value parts multiplied as isolated digits",
+        "carried value added to the wrong place",
+        "product estimate not used to catch unreasonable results"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-multi-digit-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-two-digit-multiplication-unit",
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "果园里有苹果树 6 行，每行 124 棵。李叔叔估算苹果树大约有 600 棵，他的估算合理吗？先写出你的判断，再列竖式算出准确的棵数。",
+      "optionsZhHans": [],
+      "answer": "不合理，准确棵数是 744 棵。",
+      "acceptedAnswers": [
+        "不合理，准确棵数是 744 棵。",
+        "不合理，准确棵数是744棵。",
+        "不合理，准确棵数是744",
+        "不合理，744棵",
+        "不合理，744"
+      ],
+      "explanationZhHans": "估算时把124看作100，6×100=600，但124更接近120，6×120=720，所以600偏小，估算不合理。竖式计算：124×6，个位4×6=24，写4进2；十位2×6=12，加进位2得14，写4进1；百位1×6=6，加进位1得7，结果是744。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-082",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-multi-digit-multiplication",
+      "unitTitle": "乘法",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "multi-digit-by-one-digit-multiplication",
+        "place-value-multiplication",
+        "regrouping-multiplication",
+        "乘法",
+        "多位数乘一位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "一位数乘多位数",
+        "竖式乘法",
+        "进位",
+        "估算积",
+        "乘法应用"
+      ],
+      "misconceptionTags": [
+        "place-value parts multiplied as isolated digits",
+        "carried value added to the wrong place",
+        "product estimate not used to catch unreasonable results"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-multi-digit-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-two-digit-multiplication-unit",
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一箱矿泉水有24瓶，学校买了3箱。下面哪个算式能正确算出总瓶数？",
+      "optionsZhHans": [
+        "24 × 3 = 72（瓶）",
+        "24 + 3 = 27（瓶）",
+        "24 × 3 = 62（瓶）",
+        "24 ÷ 3 = 8（瓶）"
+      ],
+      "answer": "24 × 3 = 72（瓶）",
+      "acceptedAnswers": [
+        "24 × 3 = 72（瓶）"
+      ],
+      "explanationZhHans": "求3个24是多少，用乘法：24×3。先算4×3=12，个位写2向十位进1；再算2×3=6，加上进位的1得7，十位写7，结果是72。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-083",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-multi-digit-multiplication",
+      "unitTitle": "乘法",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "multi-digit-by-one-digit-multiplication",
+        "place-value-multiplication",
+        "regrouping-multiplication",
+        "乘法",
+        "多位数乘一位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "一位数乘多位数",
+        "竖式乘法",
+        "进位",
+        "估算积",
+        "乘法应用"
+      ],
+      "misconceptionTags": [
+        "place-value parts multiplied as isolated digits",
+        "carried value added to the wrong place",
+        "product estimate not used to catch unreasonable results"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-multi-digit-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-two-digit-multiplication-unit",
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一箱矿泉水有24瓶，学校运动会买了3箱。一共买了多少瓶？",
+      "optionsZhHans": [],
+      "answer": "72",
+      "acceptedAnswers": [
+        "72",
+        "72瓶"
+      ],
+      "explanationZhHans": "求3个24是多少，用乘法：24×3。先算4×3=12，写2进1；再算2×3=6，加上进位的1得7，结果是72。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-084",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-multi-digit-multiplication",
+      "unitTitle": "乘法",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "multi-digit-by-one-digit-multiplication",
+        "place-value-multiplication",
+        "regrouping-multiplication",
+        "乘法",
+        "多位数乘一位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "一位数乘多位数",
+        "竖式乘法",
+        "进位",
+        "估算积",
+        "乘法应用"
+      ],
+      "misconceptionTags": [
+        "place-value parts multiplied as isolated digits",
+        "carried value added to the wrong place",
+        "product estimate not used to catch unreasonable results"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-multi-digit-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-two-digit-multiplication-unit",
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校组织三年级学生去博物馆参观，每辆大巴车可以坐48人。三年级一共有6个班，每班人数相同，全部学生刚好坐满9辆大巴车。请问三年级每个班有多少人？",
+      "optionsZhHans": [],
+      "answer": "72",
+      "acceptedAnswers": [
+        "72",
+        "72人"
+      ],
+      "explanationZhHans": "先求总人数：48×9=432人。再求每班人数：432÷6=72人。所以每个班有72人。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-085",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-multi-digit-multiplication",
+      "unitTitle": "乘法",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "multi-digit-by-one-digit-multiplication",
+        "place-value-multiplication",
+        "regrouping-multiplication",
+        "乘法",
+        "多位数乘一位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "一位数乘多位数",
+        "竖式乘法",
+        "进位",
+        "估算积",
+        "乘法应用"
+      ],
+      "misconceptionTags": [
+        "place-value parts multiplied as isolated digits",
+        "carried value added to the wrong place",
+        "product estimate not used to catch unreasonable results"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-multi-digit-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-two-digit-multiplication-unit",
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一箱矿泉水有24瓶，每瓶2元。学校买3箱，一共要付多少元？下面哪个算式是正确的？",
+      "optionsZhHans": [
+        "24 × 2 × 3",
+        "24 × 3",
+        "2 × 3",
+        "24 + 2 + 3"
+      ],
+      "answer": "24 × 2 × 3",
+      "acceptedAnswers": [
+        "24 × 2 × 3"
+      ],
+      "explanationZhHans": "先算一箱的总价：24瓶×2元=48元，再算3箱的总价：48元×3=144元。综合算式为24×2×3，所以选项“24 × 2 × 3”正确。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-086",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-multi-digit-multiplication",
+      "unitTitle": "乘法",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "multi-digit-by-one-digit-multiplication",
+        "place-value-multiplication",
+        "regrouping-multiplication",
+        "乘法",
+        "多位数乘一位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "一位数乘多位数",
+        "竖式乘法",
+        "进位",
+        "估算积",
+        "乘法应用"
+      ],
+      "misconceptionTags": [
+        "place-value parts multiplied as isolated digits",
+        "carried value added to the wrong place",
+        "product estimate not used to catch unreasonable results"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-multi-digit-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-two-digit-multiplication-unit",
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一箱矿泉水有24瓶，学校运动会买了3箱。一共买了多少瓶？先估一估，再列竖式计算。",
+      "optionsZhHans": [],
+      "answer": "估算：24≈20，20×3=60，大约60瓶。竖式计算：24×3=72，一共买了72瓶。",
+      "acceptedAnswers": [
+        "估算：24≈20，20×3=60，大约60瓶。竖式计算：24×3=72，一共买了72瓶。",
+        "估算：24≈20，20×3=60，大约60瓶。竖式计算：24×3=72，一共72瓶。",
+        "估算：24≈20，20×3=60，约60瓶。竖式计算：24×3=72，共72瓶。",
+        "估算：约60瓶，竖式：72瓶。",
+        "约60瓶，72瓶",
+        "60瓶，72瓶",
+        "72瓶"
+      ],
+      "explanationZhHans": "把24看作20估算：20×3=60（瓶）。竖式计算：先算4×3=12，向十位进1；再算2×3=6，加上进位的1得7，所以24×3=72（瓶）。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-087",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-multi-digit-multiplication",
+      "unitTitle": "乘法",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "multi-digit-by-one-digit-multiplication",
+        "place-value-multiplication",
+        "regrouping-multiplication",
+        "乘法",
+        "多位数乘一位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "一位数乘多位数",
+        "竖式乘法",
+        "进位",
+        "估算积",
+        "乘法应用"
+      ],
+      "misconceptionTags": [
+        "place-value parts multiplied as isolated digits",
+        "carried value added to the wrong place",
+        "product estimate not used to catch unreasonable results"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-multi-digit-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-two-digit-multiplication-unit",
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明计算 246×7 时，先估算 246×7 的结果大约是多少，然后列竖式计算。他的竖式如下：\n\n   2 4 6\n×     7\n--------\n 1 7 2 2\n\n（1）请写出你的估算过程，并判断小明的计算结果是否合理。\n（2）请指出小明竖式中的错误，并写出正确的竖式和结果。",
+      "optionsZhHans": [],
+      "answer": "（1）估算：246接近250，250×7=1750，所以结果大约是1750。小明的结果是1722，与1750接近，所以结果合理。\n（2）错误：小明在计算十位时，4×7=28，加上个位进的4得32，他写了2进3，但百位计算时没有加进位3。正确的竖式：246×7=1722，竖式中十位写2进3，百位2×7=14，加3得17，所以结果是1722。",
+      "acceptedAnswers": [
+        "（1）估算：246接近250，250×7=1750，所以结果大约是1750。小明的结果是1722，与1750接近，所以结果合理。\n（2）错误：小明在计算十位时，4×7=28，加上个位进的4得32，他写了2进3，但百位计算时没有加进位3。正确的竖式：246×7=1722，竖式中十位写2进3，百位2×7=14，加3得17，所以结果是1722。"
+      ],
+      "explanationZhHans": "估算时把246看作250，250×7=1750，1722接近1750，所以合理。竖式错误是百位漏加进位3，正确计算：个位6×7=42，写2进4；十位4×7=28，加4得32，写2进3；百位2×7=14，加3得17，结果为1722。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-088",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-multi-digit-multiplication",
+      "unitTitle": "乘法",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "multi-digit-by-one-digit-multiplication",
+        "place-value-multiplication",
+        "regrouping-multiplication",
+        "乘法",
+        "多位数乘一位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "一位数乘多位数",
+        "竖式乘法",
+        "进位",
+        "估算积",
+        "乘法应用"
+      ],
+      "misconceptionTags": [
+        "place-value parts multiplied as isolated digits",
+        "carried value added to the wrong place",
+        "product estimate not used to catch unreasonable results"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-multi-digit-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-two-digit-multiplication-unit",
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一箱矿泉水有24瓶，张老师为运动会买了4箱。他先估算：把24看作20，20×4=80，所以大约有80瓶。实际计算时，下面哪个竖式是正确的？",
+      "optionsZhHans": [
+        "24\n×  4\n----\n  82",
+        "24\n×  4\n----\n  96",
+        "24\n×  4\n----\n 816",
+        "24\n×  4\n----\n  28"
+      ],
+      "answer": "24\n×  4\n----\n  96",
+      "acceptedAnswers": [
+        "24\n×  4\n----\n  96"
+      ],
+      "explanationZhHans": "24×4，先算4×4=16，个位写6向十位进1；再算2×4=8，加上进位的1得9，十位写9，结果是96。估算20×4=80，96接近80，说明计算合理。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-089",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-multi-digit-multiplication",
+      "unitTitle": "乘法",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "multi-digit-by-one-digit-multiplication",
+        "place-value-multiplication",
+        "regrouping-multiplication",
+        "乘法",
+        "多位数乘一位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "一位数乘多位数",
+        "竖式乘法",
+        "进位",
+        "估算积",
+        "乘法应用"
+      ],
+      "misconceptionTags": [
+        "place-value parts multiplied as isolated digits",
+        "carried value added to the wrong place",
+        "product estimate not used to catch unreasonable results"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-multi-digit-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-two-digit-multiplication-unit",
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一箱矿泉水有24瓶，阳光小学三年级有6个班，每班发3箱。学校一共发了多少瓶矿泉水？",
+      "optionsZhHans": [],
+      "answer": "432",
+      "acceptedAnswers": [
+        "432",
+        "432瓶"
+      ],
+      "explanationZhHans": "先求总箱数：6×3=18箱，再求总瓶数：18×24=432瓶。计算18×24时，可先算18×20=360，18×4=72，360+72=432。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-090",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-multi-digit-multiplication",
+      "unitTitle": "乘法",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "multi-digit-by-one-digit-multiplication",
+        "place-value-multiplication",
+        "regrouping-multiplication",
+        "乘法",
+        "多位数乘一位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "一位数乘多位数",
+        "竖式乘法",
+        "进位",
+        "估算积",
+        "乘法应用"
+      ],
+      "misconceptionTags": [
+        "place-value parts multiplied as isolated digits",
+        "carried value added to the wrong place",
+        "product estimate not used to catch unreasonable results"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-multi-digit-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-two-digit-multiplication-unit",
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明的妈妈买了4袋大米，每袋大米重15千克。她先用一辆小推车运走了2袋，剩下的打算分两次运完，每次运的重量相同。请问每次需要运多少千克？请写出你的计算过程。",
+      "optionsZhHans": [],
+      "answer": "每次需要运15千克。计算过程：先算出剩下的大米重量：15×2=30（千克），再算出每次运的重量：30÷2=15（千克）。",
+      "acceptedAnswers": [
+        "每次需要运15千克。计算过程：先算出剩下的大米重量：15×2=30（千克），再算出每次运的重量：30÷2=15（千克）。",
+        "15千克",
+        "15"
+      ],
+      "explanationZhHans": "先求剩下的大米：4袋运走2袋，剩2袋，每袋15千克，共15×2=30千克。分两次运完，每次30÷2=15千克。"
+    }
+  ]
+}

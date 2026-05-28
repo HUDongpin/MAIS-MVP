@@ -1,0 +1,392 @@
+{
+  "batchId": "batch-043",
+  "generationMode": "batch-fallback",
+  "fallbackReason": "fill-missing-local",
+  "questions": [
+    {
+      "id": "hjb-high-ds-v2-s4-421",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-平面向量",
+      "topicTitleZhHans": "平面向量",
+      "volume": "必修 第二册",
+      "chapter": "平面向量",
+      "conceptIds": [
+        "plane-vectors",
+        "vector-operations",
+        "dot-product",
+        "vector-coordinates",
+        "vector-applications"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-2-plane-vectors"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-2-plane-vectors-unit-core",
+        "hjb-high-compulsory-2-plane-vectors-unit-challenge",
+        "pep-high-exam-sine-cosine-vector-applications"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0421：填空：已知向量 u=(7,4)，v=(5,5)，求 u·v。",
+      "optionsZhHans": [],
+      "answer": "55",
+      "acceptedAnswers": [
+        "55"
+      ],
+      "explanationZhHans": "u·v=7×5+4×5=55。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-422",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-平面向量",
+      "topicTitleZhHans": "平面向量",
+      "volume": "必修 第二册",
+      "chapter": "平面向量",
+      "conceptIds": [
+        "plane-vectors",
+        "vector-operations",
+        "dot-product",
+        "vector-coordinates",
+        "vector-applications"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-2-plane-vectors"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-2-plane-vectors-unit-core",
+        "hjb-high-compulsory-2-plane-vectors-unit-challenge",
+        "pep-high-exam-sine-cosine-vector-applications"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0422：选择：已知向量 u=(11,8)，v=(4,9)，求 u·v。",
+      "optionsZhHans": [
+        "116",
+        "135",
+        "97",
+        "154"
+      ],
+      "answer": "116",
+      "acceptedAnswers": [
+        "116"
+      ],
+      "explanationZhHans": "u·v=11×4+8×9=116。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-423",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-平面向量",
+      "topicTitleZhHans": "平面向量",
+      "volume": "必修 第二册",
+      "chapter": "平面向量",
+      "conceptIds": [
+        "plane-vectors",
+        "vector-operations",
+        "dot-product",
+        "vector-coordinates",
+        "vector-applications"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-2-plane-vectors"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-2-plane-vectors-unit-core",
+        "hjb-high-compulsory-2-plane-vectors-unit-challenge",
+        "pep-high-exam-sine-cosine-vector-applications"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0423：填空：已知向量 u=(9,8)，v=(7,9)，求 u·v。",
+      "optionsZhHans": [],
+      "answer": "135",
+      "acceptedAnswers": [
+        "135"
+      ],
+      "explanationZhHans": "u·v=9×7+8×9=135。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-424",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-平面向量",
+      "topicTitleZhHans": "平面向量",
+      "volume": "必修 第二册",
+      "chapter": "平面向量",
+      "conceptIds": [
+        "plane-vectors",
+        "vector-operations",
+        "dot-product",
+        "vector-coordinates",
+        "vector-applications"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-2-plane-vectors"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-2-plane-vectors-unit-core",
+        "hjb-high-compulsory-2-plane-vectors-unit-challenge",
+        "pep-high-exam-sine-cosine-vector-applications"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0424：选择：已知向量 u=(5,11)，v=(12,12)，求 u·v。",
+      "optionsZhHans": [
+        "208",
+        "176",
+        "192",
+        "224"
+      ],
+      "answer": "192",
+      "acceptedAnswers": [
+        "192"
+      ],
+      "explanationZhHans": "u·v=5×12+11×12=192。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-425",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-平面向量",
+      "topicTitleZhHans": "平面向量",
+      "volume": "必修 第二册",
+      "chapter": "平面向量",
+      "conceptIds": [
+        "plane-vectors",
+        "vector-operations",
+        "dot-product",
+        "vector-coordinates",
+        "vector-applications"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-2-plane-vectors"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-2-plane-vectors-unit-core",
+        "hjb-high-compulsory-2-plane-vectors-unit-challenge",
+        "pep-high-exam-sine-cosine-vector-applications"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0425：填空：已知向量 u=(7,12)，v=(5,13)，求 u·v。",
+      "optionsZhHans": [],
+      "answer": "191",
+      "acceptedAnswers": [
+        "191"
+      ],
+      "explanationZhHans": "u·v=7×5+12×13=191。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-426",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-平面向量",
+      "topicTitleZhHans": "平面向量",
+      "volume": "必修 第二册",
+      "chapter": "平面向量",
+      "conceptIds": [
+        "plane-vectors",
+        "vector-operations",
+        "dot-product",
+        "vector-coordinates",
+        "vector-applications"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-2-plane-vectors"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-2-plane-vectors-unit-core",
+        "hjb-high-compulsory-2-plane-vectors-unit-challenge",
+        "pep-high-exam-sine-cosine-vector-applications"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0426：选择：已知向量 u=(7,11)，v=(8,12)，求 u·v。",
+      "optionsZhHans": [
+        "188",
+        "206",
+        "170",
+        "224"
+      ],
+      "answer": "188",
+      "acceptedAnswers": [
+        "188"
+      ],
+      "explanationZhHans": "u·v=7×8+11×12=188。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-427",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-平面向量",
+      "topicTitleZhHans": "平面向量",
+      "volume": "必修 第二册",
+      "chapter": "平面向量",
+      "conceptIds": [
+        "plane-vectors",
+        "vector-operations",
+        "dot-product",
+        "vector-coordinates",
+        "vector-applications"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-2-plane-vectors"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-2-plane-vectors-unit-core",
+        "hjb-high-compulsory-2-plane-vectors-unit-challenge",
+        "pep-high-exam-sine-cosine-vector-applications"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0427：填空：已知向量 u=(3,9)，v=(7,10)，求 u·v。",
+      "optionsZhHans": [],
+      "answer": "111",
+      "acceptedAnswers": [
+        "111"
+      ],
+      "explanationZhHans": "u·v=3×7+9×10=111。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-428",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-平面向量",
+      "topicTitleZhHans": "平面向量",
+      "volume": "必修 第二册",
+      "chapter": "平面向量",
+      "conceptIds": [
+        "plane-vectors",
+        "vector-operations",
+        "dot-product",
+        "vector-coordinates",
+        "vector-applications"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-2-plane-vectors"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-2-plane-vectors-unit-core",
+        "hjb-high-compulsory-2-plane-vectors-unit-challenge",
+        "pep-high-exam-sine-cosine-vector-applications"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0428：选择：已知向量 u=(4,9)，v=(16,10)，求 u·v。",
+      "optionsZhHans": [
+        "167",
+        "141",
+        "154",
+        "180"
+      ],
+      "answer": "154",
+      "acceptedAnswers": [
+        "154"
+      ],
+      "explanationZhHans": "u·v=4×16+9×10=154。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-429",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-平面向量",
+      "topicTitleZhHans": "平面向量",
+      "volume": "必修 第二册",
+      "chapter": "平面向量",
+      "conceptIds": [
+        "plane-vectors",
+        "vector-operations",
+        "dot-product",
+        "vector-coordinates",
+        "vector-applications"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-2-plane-vectors"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-2-plane-vectors-unit-core",
+        "hjb-high-compulsory-2-plane-vectors-unit-challenge",
+        "pep-high-exam-sine-cosine-vector-applications"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0429：填空：已知向量 u=(3,1)，v=(7,2)，求 u·v。",
+      "optionsZhHans": [],
+      "answer": "23",
+      "acceptedAnswers": [
+        "23"
+      ],
+      "explanationZhHans": "u·v=3×7+1×2=23。"
+    },
+    {
+      "id": "hjb-high-ds-v2-s4-430",
+      "grade": "S4",
+      "topicId": "hjb-high-s4-平面向量",
+      "topicTitleZhHans": "平面向量",
+      "volume": "必修 第二册",
+      "chapter": "平面向量",
+      "conceptIds": [
+        "plane-vectors",
+        "vector-operations",
+        "dot-product",
+        "vector-coordinates",
+        "vector-applications"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-high-compulsory-2-plane-vectors"
+      ],
+      "examPatternCardIds": [
+        "hjb-high-compulsory-2-plane-vectors-unit-core",
+        "hjb-high-compulsory-2-plane-vectors-unit-challenge",
+        "pep-high-exam-sine-cosine-vector-applications"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated as V2 offline candidate by deterministic MAIS safe-template fallback from committed HJB safe-RAG metadata after live DeepSeek transport failed; manual S18 sampling required before app integration.",
+      "promptZhHans": "二轮变式0430：选择：已知向量 u=(4,5)，v=(4,6)，求 u·v。",
+      "optionsZhHans": [
+        "55",
+        "37",
+        "64",
+        "46"
+      ],
+      "answer": "46",
+      "acceptedAnswers": [
+        "46"
+      ],
+      "explanationZhHans": "u·v=4×4+5×6=46。"
+    }
+  ]
+}

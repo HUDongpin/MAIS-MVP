@@ -1,0 +1,191 @@
+{
+  "batchNumber": 30,
+  "startedAt": "2026-05-27T13:27:19.506Z",
+  "completedAt": "2026-05-27T13:27:38.221Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p3-023",
+    "bnu-primary-ds-v1-p3-024",
+    "bnu-primary-ds-v1-p3-025",
+    "bnu-primary-ds-v1-p3-026",
+    "bnu-primary-ds-v1-p3-027",
+    "bnu-primary-ds-v1-p3-028",
+    "bnu-primary-ds-v1-p3-029",
+    "bnu-primary-ds-v1-p3-030",
+    "bnu-primary-ds-v1-p3-031",
+    "bnu-primary-ds-v1-p3-032",
+    "bnu-primary-ds-v1-p3-033",
+    "bnu-primary-ds-v1-p3-034",
+    "bnu-primary-ds-v1-p3-035",
+    "bnu-primary-ds-v1-p3-036",
+    "bnu-primary-ds-v1-p3-037",
+    "bnu-primary-ds-v1-p3-038",
+    "bnu-primary-ds-v1-p3-039",
+    "bnu-primary-ds-v1-p3-040"
+  ],
+  "usage": {
+    "prompt_tokens": 5504,
+    "completion_tokens": 1332,
+    "total_tokens": 6836,
+    "prompt_tokens_details": {
+      "cached_tokens": 5376
+    },
+    "prompt_cache_hit_tokens": 5376,
+    "prompt_cache_miss_tokens": 128
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p3-023",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目逻辑清晰，答案正确，符合三年级观察物体要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-024",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目描述准确，答案与解析一致，难度适合考试。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-025",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项描述清晰，答案唯一，符合核心难度。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-026",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "推理正确，答案1个，适合基础练习。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-027",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案描述准确，覆盖多种表述，挑战题合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-028",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项C正确，其他选项不符合视图，考试题合适。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-029",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案2列正确，解析清晰，核心题恰当。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-030",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "描述准确，答案覆盖多种表述，基础题合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-031",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "算式正确，选项无歧义，挑战题合适。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-032",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估算、竖式、验算完整，答案正确，考试题合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-033",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估算与精确计算正确，验算方法合理，核心题恰当。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-034",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估算方法最接近精确值，选项B正确，基础题合适。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-035",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案930本，挑战题合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-036",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估算、精确计算、验算均正确，考试题恰当。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-037",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项C正确，其他选项有误，核心题合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-038",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "减法计算正确，答案279本，基础题合适。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-039",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估算、竖式、验算均正确，答案覆盖多种表述，挑战题合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-040",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项C正确，其他选项不完整或错误，考试题恰当。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均通过审核，数学正确，答案匹配，无歧义，适合北师大版三年级上册。"
+    }
+  }
+}

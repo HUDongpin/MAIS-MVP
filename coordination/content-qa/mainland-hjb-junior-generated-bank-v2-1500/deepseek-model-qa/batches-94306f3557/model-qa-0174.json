@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0174",
+  "ids": [
+    "hjb-junior-ds-v2-s3-385",
+    "hjb-junior-ds-v2-s3-386",
+    "hjb-junior-ds-v2-s3-387",
+    "hjb-junior-ds-v2-s3-388",
+    "hjb-junior-ds-v2-s3-389",
+    "hjb-junior-ds-v2-s3-390",
+    "hjb-junior-ds-v2-s3-391",
+    "hjb-junior-ds-v2-s3-392"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-385",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "6 cm",
+      "answerCheckZhHans": "标准答案 6 cm 与独立解答一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-386",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "4 cm",
+      "answerCheckZhHans": "标准答案 4 cm 与独立解答一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-387",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题干给出 AB 与 CD 之间的距离为 7，但根据计算，两弦距离可能为 7 或 1。若距离为 7，则 O 到 AB 的距离 d1 只能是 3（此时 d2=4，两弦在异侧，距离为 3+4=7）或 4（此时 d2=3，两弦在异侧，距离为 4+3=7）。但解析中写“d1=3或4”，并说“已知距离为7，故d1=3或4”，逻辑不严谨：当 d1=3 时，d2=4，距离为 7；当 d1=4 时，d2=3，距离也为 7。所以 d1 确实可以是 3 或 4。但答案写“3或4”，而 acceptedAnswers 包含“3”和“4”单独值，这可能导致只填一个数字也被判对，但题目是填空题，标准答案应为“3或4”。另外，解析最后一句“故d1=3或4”与前面“距离为|d1±d2|，即7或1”矛盾，因为距离已固定为7，不应出现1。解析应修正。",
+      "independentAnswerZhHans": "3或4",
+      "answerCheckZhHans": "标准答案“3或4”与独立解答一致，但 acceptedAnswers 包含“3”和“4”单独值，可能造成评分歧义。",
+      "recommendedActionZhHans": "修正解析，明确当距离为7时，d1=3或4；并考虑 acceptedAnswers 是否应仅接受“3或4”。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-388",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "24",
+      "answerCheckZhHans": "标准答案 24 与独立解答一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-389",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案 2 与独立解答一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-390",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "外切",
+      "answerCheckZhHans": "标准答案“外切”与独立解答一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-391",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "7.5",
+      "answerCheckZhHans": "标准答案 7.5 与独立解答一致，acceptedAnswers 包含 7.5 和 15/2，覆盖合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-392",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "√39",
+      "answerCheckZhHans": "标准答案 √39 与独立解答一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

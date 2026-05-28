@@ -1,0 +1,290 @@
+{
+  "batchId": "batch-102",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p3-006",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-review-place-value-operations",
+      "unitTitle": "三年级上册复习与数的运算",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "p3-upper-review",
+        "place-value-review",
+        "multi-digit-add-sub-review",
+        "operation-relationships",
+        "复习与提高"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "反思整理"
+      ],
+      "skillTags": [
+        "位值复习",
+        "加减验算",
+        "乘除关系",
+        "估算检查",
+        "错因说明"
+      ],
+      "misconceptionTags": [
+        "place value read as digit name only",
+        "inverse relationship used after error only",
+        "estimate disconnected from exact calculation"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-review-place-value-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-review-operations",
+        "hjb-primary-p3-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算 234 + 567 之前，先说出每个加数中每个数字表示的意义，再计算并验算。",
+      "optionsZhHans": [],
+      "answer": "234 中，2 表示 2 个百，3 表示 3 个十，4 表示 4 个一；567 中，5 表示 5 个百，6 表示 6 个十，7 表示 7 个一。计算：234 + 567 = 801。验算：801 - 567 = 234，或 801 - 234 = 567，结果正确。",
+      "acceptedAnswers": [
+        "234 中，2 表示 2 个百，3 表示 3 个十，4 表示 4 个一；567 中，5 表示 5 个百，6 表示 6 个十，7 表示 7 个一。计算：234 + 567 = 801。验算：801 - 567 = 234，或 801 - 234 = 567，结果正确。"
+      ],
+      "explanationZhHans": "先根据位值说出每个数字的意义，再计算。个位 4+7=11，向十位进 1，十位 3+6+1=10，向百位进 1，百位 2+5+1=8，得 801。用减法验算：801-567=234，符合原加数。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-007",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-review-place-value-operations",
+      "unitTitle": "三年级上册复习与数的运算",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "p3-upper-review",
+        "place-value-review",
+        "multi-digit-add-sub-review",
+        "operation-relationships",
+        "复习与提高"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "反思整理"
+      ],
+      "skillTags": [
+        "位值复习",
+        "加减验算",
+        "乘除关系",
+        "估算检查",
+        "错因说明"
+      ],
+      "misconceptionTags": [
+        "place value read as digit name only",
+        "inverse relationship used after error only",
+        "estimate disconnected from exact calculation"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-review-place-value-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-review-operations",
+        "hjb-primary-p3-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小马虎计算 345 + 278 时，得到 513。他可能错在哪里？下面哪种说法最合理？",
+      "optionsZhHans": [
+        "个位相加时忘记进位",
+        "十位相加时忘记进位",
+        "百位相加时忘记进位",
+        "把加法看成了减法"
+      ],
+      "answer": "十位相加时忘记进位",
+      "acceptedAnswers": [
+        "十位相加时忘记进位"
+      ],
+      "explanationZhHans": "正确结果：345+278=623。个位 5+8=13，向十位进 1；十位 4+7+1=12，向百位进 1；百位 3+2+1=6。若十位忘记进位，得 4+7=11，百位 3+2=5，结果为 513，与错误答案一致。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-008",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-review-place-value-operations",
+      "unitTitle": "三年级上册复习与数的运算",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "p3-upper-review",
+        "place-value-review",
+        "multi-digit-add-sub-review",
+        "operation-relationships",
+        "复习与提高"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "反思整理"
+      ],
+      "skillTags": [
+        "位值复习",
+        "加减验算",
+        "乘除关系",
+        "估算检查",
+        "错因说明"
+      ],
+      "misconceptionTags": [
+        "place value read as digit name only",
+        "inverse relationship used after error only",
+        "estimate disconnected from exact calculation"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-review-place-value-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-review-operations",
+        "hjb-primary-p3-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在算式 8 × □ = 72 中，□ 里应该填（ ）。",
+      "optionsZhHans": [],
+      "answer": "9",
+      "acceptedAnswers": [
+        "9"
+      ],
+      "explanationZhHans": "根据乘除关系，一个因数 = 积 ÷ 另一个因数，所以 □ = 72 ÷ 8 = 9。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-009",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-review-place-value-operations",
+      "unitTitle": "三年级上册复习与数的运算",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "p3-upper-review",
+        "place-value-review",
+        "multi-digit-add-sub-review",
+        "operation-relationships",
+        "复习与提高"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "反思整理"
+      ],
+      "skillTags": [
+        "位值复习",
+        "加减验算",
+        "乘除关系",
+        "估算检查",
+        "错因说明"
+      ],
+      "misconceptionTags": [
+        "place value read as digit name only",
+        "inverse relationship used after error only",
+        "estimate disconnected from exact calculation"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-review-place-value-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-review-operations",
+        "hjb-primary-p3-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "先估算 598 + 304 的结果大约是多少，再精确计算，并比较估算与精确结果。",
+      "optionsZhHans": [],
+      "answer": "估算：598 接近 600，304 接近 300，600 + 300 = 900。精确计算：598 + 304 = 902。估算结果 900 与精确结果 902 很接近，相差 2。",
+      "acceptedAnswers": [
+        "估算：598 接近 600，304 接近 300，600 + 300 = 900。精确计算：598 + 304 = 902。估算结果 900 与精确结果 902 很接近，相差 2。"
+      ],
+      "explanationZhHans": "把 598 看作 600，304 看作 300，估算得 900。精确计算：个位 8+4=12，十位 9+0+1=10，百位 5+3+1=9，得 902。估算与精确结果相差 2，说明估算合理。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-010",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "hjb-primary-p3-upper-review-place-value-operations",
+      "unitTitle": "三年级上册复习与数的运算",
+      "volume": "三年级上册（老课本暂用）",
+      "conceptIds": [
+        "p3-upper-review",
+        "place-value-review",
+        "multi-digit-add-sub-review",
+        "operation-relationships",
+        "复习与提高"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "反思整理"
+      ],
+      "skillTags": [
+        "位值复习",
+        "加减验算",
+        "乘除关系",
+        "估算检查",
+        "错因说明"
+      ],
+      "misconceptionTags": [
+        "place value read as digit name only",
+        "inverse relationship used after error only",
+        "estimate disconnected from exact calculation"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p3-upper-review-place-value-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-upper-assessment-review-operations",
+        "hjb-primary-p3-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个算式的结果与 456 + 198 相等？",
+      "optionsZhHans": [
+        "456 + 200 - 2",
+        "456 + 200 + 2",
+        "456 - 200 + 2",
+        "456 - 200 - 2"
+      ],
+      "answer": "456 + 200 - 2",
+      "acceptedAnswers": [
+        "456 + 200 - 2"
+      ],
+      "explanationZhHans": "198 接近 200，加 198 等于加 200 再减 2，所以 456+198 = 456+200-2。其他选项改变了运算符号或数值，结果不同。"
+    }
+  ]
+}

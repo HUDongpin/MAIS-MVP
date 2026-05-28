@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-284",
+  "startedAt": "2026-05-28T01:06:55.942Z",
+  "completedAt": "2026-05-28T01:07:03.668Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-284"
+  ],
+  "usage": {
+    "prompt_tokens": 2227,
+    "completion_tokens": 348,
+    "total_tokens": 2575,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1843
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-284",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "(1) 模型①误差0分钟，模型②误差1分钟；(2) 模型①拟合更好，因为对所有数据点误差更小；(3) 15分钟",
+        "correctedAnswer": "(1) 模型①误差0分钟，模型②误差1分钟；(2) 模型①拟合更好，因为对所有数据点误差更小；(3) 15分钟",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案中模型②在(4,9)的误差计算错误（应为1分钟而非0），导致模型比较结论错误（模型①整体误差更小），解析中误差计算矛盾。正确答案应为模型①误差0、模型②误差1，模型①拟合更好，预测15分钟。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "存储答案存在数学错误，模型②在(4,9)的误差计算错误，导致拟合比较结论错误，需修正。"
+    }
+  }
+}

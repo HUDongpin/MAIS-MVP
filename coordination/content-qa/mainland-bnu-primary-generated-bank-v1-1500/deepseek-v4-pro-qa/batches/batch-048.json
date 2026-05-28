@@ -1,0 +1,191 @@
+{
+  "batchNumber": 48,
+  "startedAt": "2026-05-27T13:28:35.352Z",
+  "completedAt": "2026-05-27T13:28:52.691Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p4-097",
+    "bnu-primary-ds-v1-p4-098",
+    "bnu-primary-ds-v1-p4-099",
+    "bnu-primary-ds-v1-p4-100",
+    "bnu-primary-ds-v1-p4-101",
+    "bnu-primary-ds-v1-p4-102",
+    "bnu-primary-ds-v1-p4-103",
+    "bnu-primary-ds-v1-p4-104",
+    "bnu-primary-ds-v1-p4-105",
+    "bnu-primary-ds-v1-p4-106",
+    "bnu-primary-ds-v1-p4-107",
+    "bnu-primary-ds-v1-p4-108",
+    "bnu-primary-ds-v1-p4-109",
+    "bnu-primary-ds-v1-p4-110",
+    "bnu-primary-ds-v1-p4-111",
+    "bnu-primary-ds-v1-p4-112",
+    "bnu-primary-ds-v1-p4-113",
+    "bnu-primary-ds-v1-p4-114"
+  ],
+  "usage": {
+    "prompt_tokens": 3523,
+    "completion_tokens": 1281,
+    "total_tokens": 4804,
+    "prompt_tokens_details": {
+      "cached_tokens": 3456
+    },
+    "prompt_cache_hit_tokens": 3456,
+    "prompt_cache_miss_tokens": 67
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p4-097",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项合理，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-098",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数轴移动计算正确，答案明确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-099",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "鸡兔同笼变式，计算正确，答案合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-100",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "负数比较大小，选项唯一，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-101",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "正负数表示，答案正确，接受答案覆盖合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-102",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "正负数位移计算，答案正确，接受答案覆盖合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-103",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数轴表示，选项描述清晰，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-104",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "楼层表示，答案正确，接受答案覆盖合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-105",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "负数排序，答案正确，接受答案覆盖合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-106",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "负数应用场景，选项唯一，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-107",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数轴距离计算，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-108",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "正负数求和，答案正确，接受答案覆盖合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-109",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "负数比较大小，选项唯一，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-110",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "得分计算，答案正确，接受答案覆盖合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-111",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "气温变化计算，答案正确，接受答案覆盖合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-112",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "正负数表示方向，选项唯一，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-113",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "可能性大小比较，答案正确，接受答案覆盖合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-114",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "可能性比较，答案正确，接受答案覆盖合理。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版小学数学要求，无错误或风险。"
+    }
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "batchId": "model-qa-0181",
+  "ids": [
+    "hjb-junior-ds-v2-s3-441",
+    "hjb-junior-ds-v2-s3-442",
+    "hjb-junior-ds-v2-s3-443",
+    "hjb-junior-ds-v2-s3-444",
+    "hjb-junior-ds-v2-s3-445",
+    "hjb-junior-ds-v2-s3-446",
+    "hjb-junior-ds-v2-s3-447",
+    "hjb-junior-ds-v2-s3-448"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-441",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "175",
+      "answerCheckZhHans": "标准答案为175，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-442",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "中位数是8分，众数是8分",
+      "answerCheckZhHans": "标准答案与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-443",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "独立计算乙的方差为1.05，保留一位小数应为1.1，而非1.0。解析中计算方差为1.05，但答案却写为1.0，存在错误。",
+      "independentAnswerZhHans": "1.1",
+      "answerCheckZhHans": "标准答案为1.0，但正确结果应为1.1。",
+      "recommendedActionZhHans": "修正答案为1.1，并更新解析。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-444",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "方差",
+      "answerCheckZhHans": "标准答案与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-445",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "独立计算甲厂方差为1.5，乙厂方差为5.25，丙厂方差约为0.609375，丙厂方差最小，最稳定。但解析中丙厂平均计算错误（应为5.875，但实际平均为5.875，方差计算正确），答案丙厂正确，但解析中平均数的表述有误。",
+      "independentAnswerZhHans": "丙",
+      "answerCheckZhHans": "标准答案为丙，与独立解题结果一致，但解析中丙厂平均数的计算有误。",
+      "recommendedActionZhHans": "修正解析中丙厂平均数的计算。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-446",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "A. 平均数为86分，中位数为85分，众数为85分",
+      "answerCheckZhHans": "标准答案与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-447",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "独立计算方差约为1.77，与标准答案一致。但解析中平均数计算为6.27，实际应为6.2727...，方差计算过程有误，最终结果1.77正确，但解析步骤不严谨。",
+      "independentAnswerZhHans": "1.77",
+      "answerCheckZhHans": "标准答案为1.77，与独立解题结果一致，但解析中平均数近似值有误。",
+      "recommendedActionZhHans": "修正解析中平均数的计算，使用更精确的值。",
+      "confidence": "medium"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-448",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "B. 样本的30%优秀率可以估计全市八年级学生的优秀率，但存在误差",
+      "answerCheckZhHans": "标准答案与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

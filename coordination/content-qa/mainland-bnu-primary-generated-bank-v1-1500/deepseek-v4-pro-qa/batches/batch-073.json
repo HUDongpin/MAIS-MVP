@@ -1,0 +1,191 @@
+{
+  "batchNumber": 73,
+  "startedAt": "2026-05-27T13:30:31.410Z",
+  "completedAt": "2026-05-27T13:30:51.617Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p6-047",
+    "bnu-primary-ds-v1-p6-048",
+    "bnu-primary-ds-v1-p6-049",
+    "bnu-primary-ds-v1-p6-050",
+    "bnu-primary-ds-v1-p6-051",
+    "bnu-primary-ds-v1-p6-052",
+    "bnu-primary-ds-v1-p6-053",
+    "bnu-primary-ds-v1-p6-054",
+    "bnu-primary-ds-v1-p6-055",
+    "bnu-primary-ds-v1-p6-056",
+    "bnu-primary-ds-v1-p6-057",
+    "bnu-primary-ds-v1-p6-058",
+    "bnu-primary-ds-v1-p6-059",
+    "bnu-primary-ds-v1-p6-060",
+    "bnu-primary-ds-v1-p6-061",
+    "bnu-primary-ds-v1-p6-062",
+    "bnu-primary-ds-v1-p6-063",
+    "bnu-primary-ds-v1-p6-064"
+  ],
+  "usage": {
+    "prompt_tokens": 4597,
+    "completion_tokens": 1376,
+    "total_tokens": 5973,
+    "prompt_tokens_details": {
+      "cached_tokens": 4480
+    },
+    "prompt_cache_hit_tokens": 4480,
+    "prompt_cache_miss_tokens": 117
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p6-047",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，答案正确，推理清晰，适合P6挑战难度。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-048",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目要求两种搭法，答案给出两种且均正确，解释合理，适合考试难度。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-049",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项描述清晰，答案正确，解释合理，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-050",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "最少需要4个，答案正确，推理符合视图要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-051",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "最少4个最多6个，推理过程正确，答案覆盖多种表述。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-052",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项B符合视图要求，其他选项均不符合，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-053",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "从上面看4个位置，正面中列高2个需叠1个，共5个，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-054",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "描述搭法正确，满足正面和左面视图，答案合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-055",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "出勤率96%，缺勤率4%，选项D正确，其他选项错误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-056",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "0.35=35%，120%=6/5，答案正确，接受多种分数表示。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-057",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，科技书是故事书的80%，故事书是科技书的125%。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-058",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "120%即1.2倍，选项C直接等价，其他选项表述不同或错误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-059",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比较大小正确，67%最大，0.6最小。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-060",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，现价比原价低，推理清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-061",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "24÷40=60%，答案正确，选项无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-062",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "0.35=35%，基础题，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-063",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "及格率90%，解释正确，计算无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-064",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "一半即50%，答案正确，选项清晰。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均通过审核，数学正确，答案匹配，无歧义或缺失条件，适合北师大版P6年级。"
+    }
+  }
+}

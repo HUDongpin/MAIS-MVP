@@ -1,0 +1,306 @@
+{
+  "batchId": "batch-048",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s2-k06-sa-003",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-triangle-angle-relations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean"
+      ],
+      "promptZhHans": "在△ABC中，∠A = 50°，∠B = 60°，求∠C的度数。",
+      "optionsZhHans": [],
+      "answer": "70°",
+      "acceptedAnswers": [
+        "70°",
+        "70度"
+      ],
+      "explanationZhHans": "三角形内角和为180°，所以∠C = 180° - ∠A - ∠B = 180° - 50° - 60° = 70°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-sa-004",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-congruence-proof"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "在△ABC和△DEF中，AB = DE，∠A = ∠D，AC = DF。求证：△ABC ≌ △DEF。",
+      "optionsZhHans": [],
+      "answer": "证明：在△ABC和△DEF中，AB = DE，∠A = ∠D，AC = DF，所以△ABC ≌ △DEF（SAS）。",
+      "acceptedAnswers": [
+        "证明：在△ABC和△DEF中，AB = DE，∠A = ∠D，AC = DF，所以△ABC ≌ △DEF（SAS）。",
+        "△ABC ≌ △DEF（SAS）"
+      ],
+      "explanationZhHans": "根据已知条件，AB = DE，∠A = ∠D，AC = DF，满足两边及其夹角对应相等，因此△ABC ≌ △DEF（SAS）。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-sa-005",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-polynomial-multiplication-factorization"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "计算：(x + 3)(x - 2)。",
+      "optionsZhHans": [],
+      "answer": "x² + x - 6",
+      "acceptedAnswers": [
+        "x² + x - 6",
+        "x^2 + x - 6"
+      ],
+      "explanationZhHans": "根据多项式乘法法则，(x + 3)(x - 2) = x·x + x·(-2) + 3·x + 3·(-2) = x² - 2x + 3x - 6 = x² + x - 6。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-sa-006",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-algebraic-fractions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions"
+      ],
+      "promptZhHans": "化简分式： (x² - 4) / (x + 2) ，并写出x的取值范围。",
+      "optionsZhHans": [],
+      "answer": "x - 2，x ≠ -2",
+      "acceptedAnswers": [
+        "x - 2，x ≠ -2",
+        "x-2，x≠-2"
+      ],
+      "explanationZhHans": "原式 = (x + 2)(x - 2) / (x + 2) = x - 2。分母x + 2 ≠ 0，所以x ≠ -2。答案为x - 2，x ≠ -2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-sa-007",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-axis-symmetry-isosceles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "promptZhHans": "已知点A(2, 3)关于y轴对称的点为B，求点B的坐标。",
+      "optionsZhHans": [],
+      "answer": "(-2, 3)",
+      "acceptedAnswers": [
+        "(-2, 3)",
+        "(-2,3)"
+      ],
+      "explanationZhHans": "关于y轴对称的点，纵坐标不变，横坐标互为相反数。所以B的坐标为(-2, 3)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-sa-008",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "某班40名学生数学成绩如下：85分有10人，90分有15人，95分有10人，100分有5人。求该班数学成绩的平均分。",
+      "optionsZhHans": [],
+      "answer": "91.25",
+      "acceptedAnswers": [
+        "91.25",
+        "91.25分"
+      ],
+      "explanationZhHans": "平均分 = (85×10 + 90×15 + 95×10 + 100×5) / 40 = (850 + 1350 + 950 + 500) / 40 = 3650 / 40 = 91.25。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-sa-009",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-triangle-angle-relations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "某商店销售一种商品，进价为每件20元，售价为每件30元，每天可售出100件。如果每件降价1元，每天可多售出10件。设每件降价x元，每天的利润为y元，求y与x的函数关系式。",
+      "optionsZhHans": [],
+      "answer": "y = (10 - x)(100 + 10x)",
+      "acceptedAnswers": [
+        "y = (10 - x)(100 + 10x)",
+        "y=(10-x)(100+10x)"
+      ],
+      "explanationZhHans": "降价后售价为(30 - x)元，每件利润为(30 - x - 20) = (10 - x)元。每天销量为(100 + 10x)件。所以利润y = (10 - x)(100 + 10x)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-sa-010",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-congruence-proof"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-proof-calculation-integrated"
+      ],
+      "promptZhHans": "在△ABC中，AB = AC，D是BC的中点，连接AD。求证：AD ⊥ BC。",
+      "optionsZhHans": [],
+      "answer": "证明：∵AB = AC，D是BC的中点，∴AD是等腰△ABC底边上的中线，∴AD ⊥ BC（等腰三角形三线合一）。",
+      "acceptedAnswers": [
+        "证明：∵AB = AC，D是BC的中点，∴AD是等腰△ABC底边上的中线，∴AD ⊥ BC（等腰三角形三线合一）。",
+        "AD ⊥ BC"
+      ],
+      "explanationZhHans": "因为AB = AC，所以△ABC是等腰三角形，又因为D是BC的中点，所以AD是底边BC的中线。根据等腰三角形三线合一的性质，中线也是高线，所以AD ⊥ BC。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-sa-011",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-polynomial-multiplication-factorization"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "promptZhHans": "已知两个三角形的三边分别对应为3 cm、4 cm、5 cm和3 cm、4 cm、5 cm，判断这两个三角形是否全等，并写出依据。",
+      "optionsZhHans": [],
+      "answer": "全等，依据SSS",
+      "acceptedAnswers": [
+        "全等，依据SSS",
+        "全等，三边对应相等",
+        "两个三角形全等，SSS"
+      ],
+      "explanationZhHans": "两个三角形的三边长度分别对应相等，满足三边对应相等的全等判定条件SSS，所以这两个三角形全等。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k06-sa-012",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-algebraic-fractions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "解分式方程： 2/(x - 1) = 3/(x + 1) 。",
+      "optionsZhHans": [],
+      "answer": "x = 5",
+      "acceptedAnswers": [
+        "x = 5",
+        "x=5"
+      ],
+      "explanationZhHans": "方程两边同乘(x - 1)(x + 1)，得2(x + 1) = 3(x - 1)，去括号得2x + 2 = 3x - 3，移项得2 + 3 = 3x - 2x，即5 = x。检验：当x = 5时，分母不为0，所以x = 5是原方程的解。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

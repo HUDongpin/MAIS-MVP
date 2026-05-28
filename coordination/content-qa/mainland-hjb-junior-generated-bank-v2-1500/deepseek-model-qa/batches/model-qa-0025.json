@@ -1,0 +1,71 @@
+{
+  "batchId": "model-qa-0025",
+  "ids": [
+    "hjb-junior-ds-v2-s3-227",
+    "hjb-junior-ds-v2-s3-230",
+    "hjb-junior-ds-v2-s3-238",
+    "hjb-junior-ds-v2-s3-241",
+    "hjb-junior-ds-v2-s3-251"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-227",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "标准答案中 x 的取值范围为 0 ≤ x ≤ 40，但根据销量非负条件 200 - 5x ≥ 0 得 x ≤ 40，且售价上涨 x 元后售价为 60 + x，需保证售价不低于进价 40 元，即 60 + x ≥ 40 恒成立，故 x ≥ 0。但 x 为正整数，所以 x 的取值范围应为 0 ≤ x ≤ 40 且 x 为整数，但题目要求 x 为正整数，通常正整数从 1 开始，0 不是正整数。若 x 为 0 表示未上涨，但题目设售价上涨 x 元，x 为正整数，则 x 最小为 1，最大为 40。因此标准答案中 x 的取值范围包含 0 与“x 为正整数”矛盾。",
+      "independentAnswerZhHans": "y = -5x^2 + 100x + 4000，1 ≤ x ≤ 40 且 x 为整数",
+      "answerCheckZhHans": "标准答案为 y = -5x^2 + 100x + 4000，0 ≤ x ≤ 40 且 x 为整数，但题目明确 x 为正整数，0 不是正整数，故取值范围错误。",
+      "recommendedActionZhHans": "将 x 的取值范围改为 1 ≤ x ≤ 40 且 x 为整数，或修改题目中“x 为正整数”的表述。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-230",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "标准答案中 x 的取值范围为 20 ≤ x ≤ 80，但根据销售量 y = -5x + 400 ≥ 0 得 x ≤ 80，且 x ≥ 20。然而，当 x = 80 时，y = 0，利润为 0，但题目未明确是否允许销售量为 0。通常在实际问题中，销售量应为正整数，但题目未明确要求。此外，x 为销售单价，通常为整数或小数，但题目未说明。若允许 x = 80，则利润为 0，最大利润在 x = 50 时取得，答案正确。但需注意 x 的取值范围是否包含端点 80，若销售量必须为正，则 x < 80。题目未明确，但标准答案包含 80，可能引起争议。",
+      "independentAnswerZhHans": "（1）w = -5x² + 500x - 8000，20 ≤ x ≤ 80；（2）当销售单价定为 50 元时，每天的利润最大，最大利润是 4500 元。",
+      "answerCheckZhHans": "标准答案与独立解题结果一致，但 x 的取值范围包含 80 时销售量为 0，可能不符合实际意义。",
+      "recommendedActionZhHans": "建议在题目中明确销售量的取值范围，或修改 x 的取值范围为 20 ≤ x < 80。",
+      "confidence": "medium"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-238",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "B. 向下，(-1, -2)",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-241",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "开口向下，顶点坐标为 (2, 4)",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-251",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

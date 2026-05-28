@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-060",
+  "startedAt": "2026-05-28T00:57:19.248Z",
+  "completedAt": "2026-05-28T00:57:24.628Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-060"
+  ],
+  "usage": {
+    "prompt_tokens": 2162,
+    "completion_tokens": 278,
+    "total_tokens": 2440,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1778
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-060",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "2024^2 - 2024 + 1",
+        "correctedAnswer": "2024^2 - 2024 + 1",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，独立求解得 f(2024)=2024^2-2024+1，与存储答案 2023×2024+1 不等价。解析中累加过程错误，且与题目递推关系不符，属严重数学错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1 题答案错误，解析矛盾，判定为 blocker。"
+    }
+  }
+}

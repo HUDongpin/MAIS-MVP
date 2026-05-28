@@ -1,0 +1,286 @@
+{
+  "batchId": "batch-024",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p1-116",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "hjb-primary-p1-upper-review",
+      "unitTitle": "一年级上册整理与复习",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-upper-review",
+        "within-20-review",
+        "solid-shape-review",
+        "number-operation-review",
+        "上册复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "数感",
+        "空间观念"
+      ],
+      "skillTags": [
+        "整理知识",
+        "说理检查",
+        "综合应用",
+        "错因表达"
+      ],
+      "misconceptionTags": [
+        "review treated as memorizing answers",
+        "operation and shape vocabulary mixed",
+        "checking skipped after counting"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p1-upper-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-upper-assessment-final-oral-calculation-integrated",
+        "hjb-primary-p1-upper-assessment-school-readiness"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在整理数学知识时，小明把下面的内容分成了三类：① 数数、② 加法、③ 减法、④ 长方体、⑤ 正方体、⑥ 圆柱。你觉得他分得对吗？如果不对，请把分类错误的地方写出来。",
+      "optionsZhHans": [],
+      "answer": "不对，④⑤⑥应该单独分为一类，它们是立体图形，①②③是数和运算。",
+      "acceptedAnswers": [
+        "不对，④⑤⑥应该单独分为一类，它们是立体图形，①②③是数和运算。",
+        "不对，④⑤⑥是立体图形，①②③是数和运算。",
+        "不对，④⑤⑥是图形，①②③是数和运算。"
+      ],
+      "explanationZhHans": "①数数、②加法、③减法都属于数和运算，④长方体、⑤正方体、⑥圆柱都是立体图形。小明把图形和运算混在一起了，应该把图形单独分成一类。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-117",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "hjb-primary-p1-upper-review",
+      "unitTitle": "一年级上册整理与复习",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-upper-review",
+        "within-20-review",
+        "solid-shape-review",
+        "number-operation-review",
+        "上册复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "数感",
+        "空间观念"
+      ],
+      "skillTags": [
+        "整理知识",
+        "说理检查",
+        "综合应用",
+        "错因表达"
+      ],
+      "misconceptionTags": [
+        "review treated as memorizing answers",
+        "operation and shape vocabulary mixed",
+        "checking skipped after counting"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p1-upper-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-upper-assessment-final-oral-calculation-integrated",
+        "hjb-primary-p1-upper-assessment-school-readiness"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丽在整理20以内的加法时，发现一道题算错了：8+5=12。请你帮小丽检查，并说说她可能错在哪里。",
+      "optionsZhHans": [],
+      "answer": "8+5=13，不是12。她可能忘记进位，把8+5算成了8+2+2=12，少算了1。",
+      "acceptedAnswers": [
+        "8+5=13，不是12。她可能忘记进位，把8+5算成了8+2+2=12，少算了1。",
+        "8+5=13，她可能忘记进位了。",
+        "8+5=13，她可能没有用凑十法。"
+      ],
+      "explanationZhHans": "8+5应该用凑十法：把5分成2和3，8+2=10，10+3=13。小丽可能把5分成了2和2，得到8+2+2=12，少加了1。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-118",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "hjb-primary-p1-lower-within-20-regrouping",
+      "unitTitle": "20以内数的加减法（二）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-20-regrouping-add-sub",
+        "make-ten-strategy",
+        "decompose-subtrahend",
+        "20以内退位减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "凑十",
+        "分拆减数",
+        "想加算减",
+        "进位加法",
+        "退位减法"
+      ],
+      "misconceptionTags": [
+        "decomposition breaks the wrong number",
+        "ten bridge step skipped",
+        "subtraction handled by digit comparison only"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p1-lower-within-20-regrouping"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-lower-assessment-within-20-regrouping",
+        "hjb-primary-p1-lower-assessment-midterm-1-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算13-6时，下面哪种方法是对的？",
+      "optionsZhHans": [
+        "把6分成3和3，13-3=10，10-3=7",
+        "把13分成10和3，10-6=4，4+3=7",
+        "因为6+7=13，所以13-6=7",
+        "以上都对"
+      ],
+      "answer": "以上都对",
+      "acceptedAnswers": [
+        "以上都对"
+      ],
+      "explanationZhHans": "三种方法都是正确的退位减法策略：分拆减数、破十法、想加算减。它们都能得到正确答案7。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-119",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "hjb-primary-p1-lower-within-20-regrouping",
+      "unitTitle": "20以内数的加减法（二）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-20-regrouping-add-sub",
+        "make-ten-strategy",
+        "decompose-subtrahend",
+        "20以内退位减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "凑十",
+        "分拆减数",
+        "想加算减",
+        "进位加法",
+        "退位减法"
+      ],
+      "misconceptionTags": [
+        "decomposition breaks the wrong number",
+        "ten bridge step skipped",
+        "subtraction handled by digit comparison only"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p1-lower-within-20-regrouping"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-lower-assessment-within-20-regrouping",
+        "hjb-primary-p1-lower-assessment-midterm-1-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用凑十法计算7+6时，先把6分成____和____，7+____=10，10+____=____。",
+      "optionsZhHans": [],
+      "answer": "3；3；3；3；13",
+      "acceptedAnswers": [
+        "3；3；3；3；13",
+        "3,3,3,3,13"
+      ],
+      "explanationZhHans": "凑十法：看大数7，想到7+3=10，所以把6分成3和3，先算7+3=10，再算10+3=13。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-120",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "hjb-primary-p1-lower-within-20-regrouping",
+      "unitTitle": "20以内数的加减法（二）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-20-regrouping-add-sub",
+        "make-ten-strategy",
+        "decompose-subtrahend",
+        "20以内退位减法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "凑十",
+        "分拆减数",
+        "想加算减",
+        "进位加法",
+        "退位减法"
+      ],
+      "misconceptionTags": [
+        "decomposition breaks the wrong number",
+        "ten bridge step skipped",
+        "subtraction handled by digit comparison only"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p1-lower-within-20-regrouping"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-lower-assessment-within-20-regrouping",
+        "hjb-primary-p1-lower-assessment-midterm-1-to-4-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈买了15个苹果，吃了8个，还剩几个？请用两种不同的方法计算，并写出过程。",
+      "optionsZhHans": [],
+      "answer": "方法一：15-8=7，把8分成5和3，15-5=10，10-3=7。方法二：因为8+7=15，所以15-8=7。",
+      "acceptedAnswers": [
+        "方法一：15-8=7，把8分成5和3，15-5=10，10-3=7。方法二：因为8+7=15，所以15-8=7。",
+        "方法一：15-8=7，15-5=10，10-3=7。方法二：8+7=15，15-8=7。"
+      ],
+      "explanationZhHans": "可以用分拆减数：把8分成5和3，15-5=10，10-3=7；也可以用想加算减：因为8+7=15，所以15-8=7。"
+    }
+  ]
+}

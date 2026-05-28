@@ -1,0 +1,330 @@
+{
+  "batchNumber": 8,
+  "startedAt": "2026-05-26T16:56:59.858Z",
+  "completedAt": "2026-05-26T16:57:30.495Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p1-211",
+    "bnu-primary-ds-v2-p1-212",
+    "bnu-primary-ds-v2-p1-213",
+    "bnu-primary-ds-v2-p1-214",
+    "bnu-primary-ds-v2-p1-215",
+    "bnu-primary-ds-v2-p1-216",
+    "bnu-primary-ds-v2-p1-217",
+    "bnu-primary-ds-v2-p1-218",
+    "bnu-primary-ds-v2-p1-219",
+    "bnu-primary-ds-v2-p1-220",
+    "bnu-primary-ds-v2-p1-221",
+    "bnu-primary-ds-v2-p1-222",
+    "bnu-primary-ds-v2-p1-223",
+    "bnu-primary-ds-v2-p1-224",
+    "bnu-primary-ds-v2-p1-225",
+    "bnu-primary-ds-v2-p1-226",
+    "bnu-primary-ds-v2-p1-227",
+    "bnu-primary-ds-v2-p1-228",
+    "bnu-primary-ds-v2-p1-229",
+    "bnu-primary-ds-v2-p1-230",
+    "bnu-primary-ds-v2-p1-231",
+    "bnu-primary-ds-v2-p1-232",
+    "bnu-primary-ds-v2-p1-233",
+    "bnu-primary-ds-v2-p1-234",
+    "bnu-primary-ds-v2-p1-235",
+    "bnu-primary-ds-v2-p1-236",
+    "bnu-primary-ds-v2-p1-237",
+    "bnu-primary-ds-v2-p1-238",
+    "bnu-primary-ds-v2-p1-239",
+    "bnu-primary-ds-v2-p1-240"
+  ],
+  "usage": {
+    "prompt_tokens": 6263,
+    "completion_tokens": 2357,
+    "total_tokens": 8620,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 5879
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p1-211",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目信息完整，选项中有唯一正确算式23+40=63。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-212",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目要求明确，答案正确，acceptedAnswers覆盖多种合理表述。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-213",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "简单加法，选项唯一正确28本。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-214",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目清晰，答案正确，区分加一位数与整十数。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-215",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "36+20=56，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-216",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "23+40=63，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-217",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "35+20=55，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-218",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "36-20=16，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-219",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "36-10-6=20，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-220",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "23+5=28，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-221",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "求送出张数用减法，36-19=17，选项B正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-222",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "54+28=82，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-223",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "45-18=27，选项B正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-224",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "32-15+9=26，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-225",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "求一共花的钱用加法35+8=43，选项B正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-226",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "63-27=36，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-227",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "40-23=17，选项B正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-228",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "24+19=43，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-229",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "58-26+14=46，选项B正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-230",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "72-25-18=29，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-231",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "36-19=17，选项B正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-232",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "逆向推理，下去12人，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-233",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "先求一班人数再求和，选项B正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-234",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "53-28=25，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-235",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "先算两天共看页数，选项C正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-236",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "规律+3，填14，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-237",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "两个完全一样的三角形可拼平行四边形，选项C正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-238",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "圆柱从上面看圆，侧面看长方形，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-239",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "把8分成5和3，选项A正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-240",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "十位至少1颗，最多4颗，答案正确。"
+      }
+    ],
+    "batchSummary": {
+      "solvableYes": 30,
+      "solvableNo": 0,
+      "answerMatchYes": 30,
+      "answerMatchNo": 0,
+      "notes": "全部30道题均可解，答案匹配正确，无问题。"
+    }
+  }
+}

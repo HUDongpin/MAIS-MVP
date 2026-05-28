@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-175",
+  "startedAt": "2026-05-28T01:50:49.609Z",
+  "completedAt": "2026-05-28T01:51:04.563Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-393",
+    "bnu-high-ds-v1-s6-394",
+    "bnu-high-ds-v1-s6-395",
+    "bnu-high-ds-v1-s6-396",
+    "bnu-high-ds-v1-s6-397",
+    "bnu-high-ds-v1-s6-398",
+    "bnu-high-ds-v1-s6-399",
+    "bnu-high-ds-v1-s6-400"
+  ],
+  "usage": {
+    "prompt_tokens": 10148,
+    "completion_tokens": 1117,
+    "total_tokens": 11265,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9764
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-393",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "y = 5x - 8",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导得 y'=3x^2-4x+1，在 x=2 处斜率 k=5，点斜式得切线 y-2=5(x-2)，即 y=5x-8。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-394",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x^2-3，驻点 x=±1，比较 f(-2)=-2, f(-1)=2, f(1)=-2, f(2)=2，最大值为 2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-395",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "a = -3, b = -9, c = 5",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x^2+2ax+b，由极值条件得 f'(-1)=0, f'(3)=0，解得 a=-3, b=-9；代入 f(-1)=10, f(3)=-22 得 c=5。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-396",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(0, 2)",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x^2-6x=3x(x-2)，令 f'(x)<0 得 0<x<2，故递减区间为 (0,2)。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-397",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "x = 3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x^2-6x-9=3(x-3)(x+1)，驻点 x=-1,3，x=-1 左正右负为极大值点，x=3 左负右正为极小值点。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-398",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "y = -2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "y'=3x^2-3，在 x=1 处斜率 k=0，切线为 y=-2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-399",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "-2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x^2-6x=3x(x-2)，驻点 x=0,2，比较 f(-1)=-2, f(0)=2, f(2)=-2, f(3)=2，最小值为 -2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-400",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(-∞, -1) 和 (1, +∞)",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x^2-3=3(x-1)(x+1)，f'(x)>0 得 x<-1 或 x>1，单调递增区间为 (-∞,-1) 和 (1,+∞)。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部 8 题均可独立求解，无数学错误、歧义或缺失条件，符合北师大版高中导数章节要求。"
+    }
+  }
+}

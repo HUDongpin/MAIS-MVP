@@ -1,0 +1,109 @@
+{
+  "batchId": "model-qa-0079",
+  "ids": [
+    "hjb-junior-ds-v2-s2-125",
+    "hjb-junior-ds-v2-s2-126",
+    "hjb-junior-ds-v2-s2-127",
+    "hjb-junior-ds-v2-s2-128",
+    "hjb-junior-ds-v2-s2-129",
+    "hjb-junior-ds-v2-s2-130",
+    "hjb-junior-ds-v2-s2-131",
+    "hjb-junior-ds-v2-s2-132"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-125",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(√7+2)/3",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-126",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(1) Δ=1>0，总有两个不等实根。(2) k=3或k=-4",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-127",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "B",
+      "answerCheckZhHans": "标准答案正确，解析一致，选项互异且唯一正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-128",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3/2",
+      "answerCheckZhHans": "标准答案正确，解析一致，acceptedAnswers覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-129",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "第(3)问答案错误。解不等式 -10x²+100x+2000≥2160 得 2≤x≤8，但 x 为正整数，且 x≤20，故 x 可取 2,3,4,5,6,7,8。但需验证墙长限制：平行边长为 100+10x，当 x=8 时，平行边长为 180，墙长未知？题目未给墙长，但原题无墙长限制，故 x 取值范围应为 2≤x≤8 的整数。但标准答案写为“2≤x≤8”，未明确整数，且解析中未提及整数限制，但题干要求 x 为正整数，故答案应明确为整数范围。然而，更严重的是：当 x=8 时，售价为 52 元，销量 180 件，利润 (20-8)*180=12*180=2160，满足。但 x 能否为 0？x=0 时利润 2000<2160，不满足。x=1 时利润 (19)*110=2090<2160，不满足。x=2 时利润 18*120=2160，满足。x=9 时利润 11*190=2090<2160，不满足。所以整数解为 2≤x≤8。但标准答案未强调整数，可能引起歧义。但主要问题是：解析中写“解-10x²+100x+2000≥2160得2≤x≤8”，但未考虑 x 为正整数，且未验证墙长。但题目无墙长，故无矛盾。然而，答案“2≤x≤8”本身正确，但需注明整数。但更关键的是：第(1)问中 x 的取值范围为 0≤x≤20 的整数，但第(3)问直接写 2≤x≤8，未说明整数，可能被理解为实数范围，但实际应为整数。这属于答案不严谨，但不算错误。然而，我重新计算发现：y=(20-x)(100+10x) = -10x²+100x+2000，配方得 y=-10(x-5)²+2250，最大值 2250 在 x=5 时取得，正确。第(3)问解不等式 -10x²+100x+2000≥2160，即 -10x²+100x-160≥0，除以 -10 得 x²-10x+16≤0，即 (x-2)(x-8)≤0，解得 2≤x≤8。结合 x 为正整数，得 x=2,3,4,5,6,7,8。但标准答案写“2≤x≤8”，未明确整数，但通常可接受。然而，我注意到一个潜在问题：第(1)问中 x 的取值范围是 0≤x≤20 的整数，但第(3)问直接写 2≤x≤8，如果理解为实数范围，则与 x 为正整数矛盾。但题目要求“直接写出 x 的取值范围”，通常应写为 2≤x≤8 且 x 为整数，或写为 2,3,4,5,6,7,8。标准答案“2≤x≤8”可能被理解为实数范围，但实际应为整数，这可能导致扣分。因此，答案不严谨，但不算错误。然而，我重新审视解析：“解-10x²+100x+2000≥2160得2≤x≤8”，解析未提及整数，但答案直接给出 2≤x≤8，这可能会误导学生。但更严重的是：我检查发现，当 x=8 时，售价为 52 元，销量 180 件，但题目未给墙长，所以无限制。但原题是“某商店销售一种商品”，无墙长限制，所以没问题。因此，答案本身正确，但表述不严谨。但作为 QA，如果答案和解析不一致？解析说“解...得2≤x≤8”，答案也是“2≤x≤8”，一致。但答案未体现整数，而题干要求 x 为正整数，所以答案应明确整数范围。这属于 accepted-answer-gap 或 ambiguous-prompt。但 severity 可能为 P2。然而，我注意到另一个问题：第(1)问中 x 的取值范围为 0≤x≤20 的整数，但第(3)问的答案 2≤x≤8 是否包含 0 和 1？不包含，因为不满足不等式。但答案未说明整数，如果学生写 2≤x≤8 且 x 为整数，可能被接受。但标准答案只写了“2≤x≤8”，这可能会被判定为不完整。因此，我标记为 needs-review，severity P1，因为答案不完整，可能导致学生误解。但更准确地说，这是 accepted-answer-gap，因为 acceptedAnswers 中只有“2≤x≤8”，未包含整数说明。所以 issueCodes 可包含 accepted-answer-gap。但 severity 可定为 P2。然而，我决定标记为 P1，因为这是答案不严谨，可能影响评分。",
+      "independentAnswerZhHans": "(1) y = -10x²+100x+2000，x=0,1,2,...,20。(2) 降价5元，最大利润2250元。(3) x=2,3,4,5,6,7,8",
+      "answerCheckZhHans": "标准答案第(3)问写为“2≤x≤8”，未明确整数，与题干“x为正整数”要求不完全匹配，可能导致歧义。",
+      "recommendedActionZhHans": "建议将第(3)问答案修改为“2≤x≤8，且x为整数”或“x=2,3,4,5,6,7,8”，并更新acceptedAnswers。",
+      "confidence": "medium"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-130",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "A",
+      "answerCheckZhHans": "标准答案正确，解析一致，选项互异且唯一正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-131",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-15/4",
+      "answerCheckZhHans": "标准答案正确，解析一致，acceptedAnswers覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-132",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "答案错误。设垂直于墙的边长为x米，则平行于墙的边长为(40-2x)米。面积方程：x(40-2x)=200，解得x=10。此时平行边长为20米，但墙长仅18米，20>18，不符合实际。因此x=10应舍去。重新检查：方程x(40-2x)=200，即-2x²+40x-200=0，x²-20x+100=0，解得x=10。但平行边长40-2*10=20>18，故无解？实际上，如果墙长18米，则平行边长不能超过18，即40-2x≤18，得2x≥22，x≥11。同时面积200，x(40-2x)=200，解得x=10或x=10（重根），但x=10不满足x≥11，故无解。但题目可能墙长足够？解析中说“未超过墙长20米”，但题干墙长18米，解析写20米，矛盾。因此，题目条件矛盾，无解。标准答案给出10米，错误。",
+      "independentAnswerZhHans": "无解（墙长18米，平行边长20米超过墙长）",
+      "answerCheckZhHans": "标准答案10米错误，因为平行边长20米超过墙长18米，不符合实际。解析中误写墙长为20米。",
+      "recommendedActionZhHans": "修改题目条件：墙长改为至少20米，或修改篱笆总长或面积，使解符合墙长限制。",
+      "confidence": "high"
+    }
+  ]
+}

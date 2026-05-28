@@ -1,0 +1,135 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-017",
+  "startedAt": "2026-05-28T00:59:36.785Z",
+  "completedAt": "2026-05-28T00:59:56.956Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-129",
+    "bnu-high-ds-v1-s4-130",
+    "bnu-high-ds-v1-s4-131",
+    "bnu-high-ds-v1-s4-132",
+    "bnu-high-ds-v1-s4-133",
+    "bnu-high-ds-v1-s4-134",
+    "bnu-high-ds-v1-s4-135",
+    "bnu-high-ds-v1-s4-136"
+  ],
+  "usage": {
+    "prompt_tokens": 12834,
+    "completion_tokens": 1119,
+    "total_tokens": 13953,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 12450
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-129",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，均为√2/2，解析正确推导出2a^2=1并舍去负值。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-130",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "ambiguous_mc",
+          "missing_condition",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目未指定a>1或0<a<1，f(1)=0无法确定a，导致解集不唯一。存储答案B仅对应a>1情形，忽略0<a<1时解集(0,1)，造成多解且选项不唯一，解析错误默认a>1。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-131",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案4与独立解一致，解析正确使用对数运算法则和换底公式。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-132",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "unsolvable",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "定点P(1,0)代入幂函数得1^α=0无解，题目条件矛盾无法求解。存储答案α=0错误，解析中0=1^α推得α=0不成立。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-133",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案A与独立解一致，解析正确考虑根号非负和对数真数条件，得出(1,2]。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-134",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案(3+ab)/(1+a+ab)与独立解一致，解析正确使用换底公式和已知条件。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-135",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案(-4,4]与独立解一致，解析正确利用复合函数单调性和真数恒正条件。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-136",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案B与独立解一致，解析正确判断各数范围并比较大小。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 0,
+      "fail": 2,
+      "notes": "8题中6题通过，2题失败：130题因a不确定导致多解且选项不唯一，132题因定点条件矛盾无法求解且存储答案错误。"
+    }
+  }
+}

@@ -1,0 +1,311 @@
+{
+  "batchId": "batch-200",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p4-246",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "hjb-primary-p4-lower-review-integration",
+      "unitTitle": "四年级下册整理与提高",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "p4-lower-integration",
+        "decimal-review",
+        "statistics-review",
+        "geometry-review",
+        "整理与提高"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "解决问题",
+        "小数与近似数",
+        "垂直与平行",
+        "五舍六入",
+        "位置表示",
+        "综合整理"
+      ],
+      "misconceptionTags": [
+        "approximation rule applied without place value",
+        "decimal and whole-number scales mixed",
+        "parallel or perpendicular language used from visual guess only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p4-lower-review-integration"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-lower-assessment-review-integration",
+        "hjb-primary-p4-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "S18 remediated after DeepSeek-v4-pro QA on 2026-05-25; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小马虎用“五舍六入”法将一个小数保留一位小数后得到 3.5。下面哪个数可能是原来的小数？",
+      "optionsZhHans": [
+        "3.44",
+        "3.55",
+        "3.62",
+        "3.66"
+      ],
+      "answer": "3.55",
+      "acceptedAnswers": [
+        "3.55"
+      ],
+      "explanationZhHans": "五舍六入保留一位小数，看百分位。3.55百分位是5，舍去后得3.5；3.44得3.4，3.62得3.6，3.66得3.7。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-247",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "hjb-primary-p4-lower-review-integration",
+      "unitTitle": "四年级下册整理与提高",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "p4-lower-integration",
+        "decimal-review",
+        "statistics-review",
+        "geometry-review",
+        "整理与提高"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "解决问题",
+        "小数与近似数",
+        "垂直与平行",
+        "五舍六入",
+        "位置表示",
+        "综合整理"
+      ],
+      "misconceptionTags": [
+        "approximation rule applied without place value",
+        "decimal and whole-number scales mixed",
+        "parallel or perpendicular language used from visual guess only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p4-lower-review-integration"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-lower-assessment-review-integration",
+        "hjb-primary-p4-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪一组直线互相平行？",
+      "optionsZhHans": [
+        "直线a与直线b相交成直角",
+        "直线c与直线d在同一平面内，且它们之间的距离处处相等",
+        "直线e与直线f有且只有一个交点",
+        "直线g与直线h相交成60°角"
+      ],
+      "answer": "直线c与直线d在同一平面内，且它们之间的距离处处相等",
+      "acceptedAnswers": [
+        "直线c与直线d在同一平面内，且它们之间的距离处处相等"
+      ],
+      "explanationZhHans": "平行线定义：同一平面内不相交的两条直线，且它们之间的距离处处相等。选项B符合。A是垂直，C是相交，D是相交成60°。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-248",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "hjb-primary-p4-lower-review-integration",
+      "unitTitle": "四年级下册整理与提高",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "p4-lower-integration",
+        "decimal-review",
+        "statistics-review",
+        "geometry-review",
+        "整理与提高"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "解决问题",
+        "小数与近似数",
+        "垂直与平行",
+        "五舍六入",
+        "位置表示",
+        "综合整理"
+      ],
+      "misconceptionTags": [
+        "approximation rule applied without place value",
+        "decimal and whole-number scales mixed",
+        "parallel or perpendicular language used from visual guess only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p4-lower-review-integration"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-lower-assessment-review-integration",
+        "hjb-primary-p4-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校气象小组记录了一周每天上午8时的气温，并制成折线统计图。从图中看出，气温整体呈上升趋势，且周三到周四上升最快。下面哪组数据符合这个描述？",
+      "optionsZhHans": [
+        "周一18℃，周二19℃，周三20℃，周四22℃，周五21℃",
+        "周一20℃，周二21℃，周三22℃，周四23℃，周五24℃",
+        "周一22℃，周二21℃，周三20℃，周四19℃，周五18℃",
+        "周一18℃，周二20℃，周三21℃，周四25℃，周五26℃"
+      ],
+      "answer": "周一18℃，周二20℃，周三21℃，周四25℃，周五26℃",
+      "acceptedAnswers": [
+        "周一18℃，周二20℃，周三21℃，周四25℃，周五26℃"
+      ],
+      "explanationZhHans": "整体上升，排除C（下降）。周三到周四上升最快，计算差值：A周四-周三=2℃，B=1℃，D=4℃，D上升最快，且整体上升，符合。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-249",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "hjb-primary-p4-lower-review-integration",
+      "unitTitle": "四年级下册整理与提高",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "p4-lower-integration",
+        "decimal-review",
+        "statistics-review",
+        "geometry-review",
+        "整理与提高"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "解决问题",
+        "小数与近似数",
+        "垂直与平行",
+        "五舍六入",
+        "位置表示",
+        "综合整理"
+      ],
+      "misconceptionTags": [
+        "approximation rule applied without place value",
+        "decimal and whole-number scales mixed",
+        "parallel or perpendicular language used from visual guess only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p4-lower-review-integration"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-lower-assessment-review-integration",
+        "hjb-primary-p4-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "S18 remediated after DeepSeek-v4-pro QA on 2026-05-25; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用数对表示位置时，小军在教室的位置是（4，3），他的右侧同桌与他在同一行、相邻一列。下面哪个数对可能是他右侧同桌的位置？",
+      "optionsZhHans": [
+        "（5，3）",
+        "（4，4）",
+        "（3，3）",
+        "（4，2）"
+      ],
+      "answer": "（5，3）",
+      "acceptedAnswers": [
+        "（5，3）",
+        "(5,3)"
+      ],
+      "explanationZhHans": "右侧同桌与小军在同一行，所以第二个数仍是3；右侧相邻一列，列数从4变为5，因此位置是（5，3）。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-250",
+      "batch": "hjb-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "hjb-primary-p4-lower-review-integration",
+      "unitTitle": "四年级下册整理与提高",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "p4-lower-integration",
+        "decimal-review",
+        "statistics-review",
+        "geometry-review",
+        "整理与提高"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "解决问题",
+        "小数与近似数",
+        "垂直与平行",
+        "五舍六入",
+        "位置表示",
+        "综合整理"
+      ],
+      "misconceptionTags": [
+        "approximation rule applied without place value",
+        "decimal and whole-number scales mixed",
+        "parallel or perpendicular language used from visual guess only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p4-lower-review-integration"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p4-lower-assessment-review-integration",
+        "hjb-primary-p4-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "S18 remediated after DeepSeek-v4-pro QA on 2026-05-25; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个小数在“五舍六入”保留一位小数后是 2.0？",
+      "optionsZhHans": [
+        "1.95",
+        "2.14",
+        "1.96",
+        "2.15"
+      ],
+      "answer": "1.96",
+      "acceptedAnswers": [
+        "1.96"
+      ],
+      "explanationZhHans": "五舍六入保留一位小数，看百分位。1.96百分位是6，十分位9入1后向个位进1，得2.0。其他选项分别得1.9、2.1、2.1。"
+    }
+  ]
+}

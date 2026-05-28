@@ -1,0 +1,140 @@
+{
+  "batchNumber": 84,
+  "startedAt": "2026-05-24T23:02:11.238Z",
+  "completedAt": "2026-05-24T23:02:25.848Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s3-k10-sa-064",
+    "pep-junior-v3-s3-k10-sa-065",
+    "pep-junior-v3-s3-k10-sa-066",
+    "pep-junior-v3-s3-k10-sa-067",
+    "pep-junior-v3-s3-k11-mc-001",
+    "pep-junior-v3-s3-k11-mc-002",
+    "pep-junior-v3-s3-k11-mc-003",
+    "pep-junior-v3-s3-k11-mc-004",
+    "pep-junior-v3-s3-k11-mc-005",
+    "pep-junior-v3-s3-k11-mc-006",
+    "pep-junior-v3-s3-k11-mc-007",
+    "pep-junior-v3-s3-k11-mc-008"
+  ],
+  "usage": {
+    "prompt_tokens": 3256,
+    "completion_tokens": 963,
+    "total_tokens": 4219,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 3000
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s3-k10-sa-064",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，解答无误，答案与解析一致。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-sa-065",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平移计算正确，答案与解析一致。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-sa-066",
+        "status": "fail",
+        "severity": "blocker",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch"
+        ],
+        "correctedAnswer": "1760",
+        "rationale": "解析中解方程得x=1760，但答案误写为1600，答案与解析矛盾，正确答案应为1760。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-sa-067",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "二次根式化简与绝对值计算正确，答案与解析一致。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-mc-001",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "相似三角形应用正确，计算无误，选项唯一。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-mc-002",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "反比例函数求k值正确，选项无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-mc-003",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "一次函数求参数正确，选项合理。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-mc-004",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "判别式应用正确，不等式方向无误。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-mc-005",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "绝对值比较大小正确，选项唯一。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-mc-006",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "利润函数关系式正确，选项无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-mc-007",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "多项式乘法计算正确，选项合理。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k11-mc-008",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "相似比计算正确，选项无歧义。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 11,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第3题答案错误，解析中解出x=1760，但答案写为1600，需修正为1760。其余题目均正确。"
+    }
+  }
+}

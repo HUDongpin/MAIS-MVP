@@ -1,0 +1,130 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-085",
+  "startedAt": "2026-05-28T01:18:37.214Z",
+  "completedAt": "2026-05-28T01:18:50.812Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-173",
+    "bnu-high-ds-v1-s5-174",
+    "bnu-high-ds-v1-s5-175",
+    "bnu-high-ds-v1-s5-176",
+    "bnu-high-ds-v1-s5-177",
+    "bnu-high-ds-v1-s5-178",
+    "bnu-high-ds-v1-s5-179",
+    "bnu-high-ds-v1-s5-180"
+  ],
+  "usage": {
+    "prompt_tokens": 10302,
+    "completion_tokens": 1020,
+    "total_tokens": 11322,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9918
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-173",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "√3/3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "平面ABC的方程为x+y+z=2，法向量(1,1,1)，点D到平面的距离为|1+1+1-2|/√3=1/√3=√3/3。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-174",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "independentAnswer": null,
+        "issueTags": [
+          "math_error",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "A、B、C三点共线，无法构成三角形，面积为0，但题目要求三角形面积，存在数学错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-175",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(1/√3, 1/√3, 1/√3)",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "平面ABC的法向量为(1,1,1)，单位化得(1/√3, 1/√3, 1/√3)，对应选项A。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-176",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "independentAnswer": null,
+        "issueTags": [
+          "math_error",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "A、B、C、D四点共线，无法构成四边形，更不可能是平行四边形，题目条件错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-177",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "√3/2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "三角形ABC为等边三角形，边长√2，面积=√3/4*(√2)^2=√3/2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-178",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "independentAnswer": null,
+        "issueTags": [
+          "math_error",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "A、B、C、D四点共线，AB与CD共线，异面直线距离无定义或为0，但选项无0，题目条件错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-179",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "√3/3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "平面ABC方程为x+y+z=1，原点O到平面的距离为|0+0+0-1|/√3=1/√3=√3/3。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-180",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "independentAnswer": null,
+        "issueTags": [
+          "math_error",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "A、B、C、D四点共线，无法构成四面体，体积为0，题目条件错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 4,
+      "warn": 0,
+      "fail": 4,
+      "notes": "4题通过，4题因四点共线导致无法构成几何图形而失败，需修正坐标。"
+    }
+  }
+}

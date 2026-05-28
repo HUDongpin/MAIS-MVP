@@ -1,0 +1,3230 @@
+{
+  "schemaVersion": "mainland-pep-junior-starter-questions-v1",
+  "generatedAt": "2026-05-23T21:35:00+08:00",
+  "sourcePolicy": "safe-rag-original-starter-set",
+  "releaseStatus": "starter-reviewed",
+  "sourceCandidateBank": "coordination/content-qa/mainland-pep-junior-generated-bank-v1/questions.jsonl",
+  "selectionSource": "coordination/content-qa/mainland-pep-junior-generated-bank-v1/manual-review-queue.csv",
+  "topicQuestionCount": {
+    "pep-junior-s1-upper-rational-numbers": 9,
+    "pep-junior-s1-upper-expressions-linear-equations": 9,
+    "pep-junior-s1-upper-geometric-figures": 9,
+    "pep-junior-s1-lower-lines-coordinates": 9,
+    "pep-junior-s1-lower-equations-inequalities-data": 9,
+    "pep-junior-s2-upper-triangles-congruence": 9,
+    "pep-junior-s2-upper-polynomials-fractions": 9,
+    "pep-junior-s2-lower-roots-pythagorean-quadrilaterals": 9,
+    "pep-junior-s2-lower-linear-functions-data": 9,
+    "pep-junior-s3-upper-quadratics-circle-probability": 9,
+    "pep-junior-s3-lower-inverse-similarity-trigonometry": 9
+  },
+  "questions": [
+    {
+      "id": "pep-junior-candidate-k01-mc-001",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "promptZhHans": "某地清晨气温为-13℃，中午上升17℃，傍晚又下降4℃。傍晚气温是多少？",
+      "optionsZhHans": [
+        "2",
+        "-2",
+        "1",
+        "0"
+      ],
+      "answer": "0",
+      "acceptedAnswers": [
+        "0"
+      ],
+      "explanationZhHans": "按正负变化计算：-13+17-4=0，所以傍晚气温是0℃。",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-rational-number-operations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k01-mc-015",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "promptZhHans": "某地清晨气温为-18℃，中午上升23℃，傍晚又下降6℃。傍晚气温是多少？",
+      "optionsZhHans": [
+        "0",
+        "-1",
+        "1",
+        "-3"
+      ],
+      "answer": "-1",
+      "acceptedAnswers": [
+        "-1"
+      ],
+      "explanationZhHans": "按正负变化计算：-18+23-6=-1，所以傍晚气温是-1℃。",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-axis-symmetry-isosceles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-proof-calculation-integrated"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k01-mc-028",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "promptZhHans": "某地清晨气温为-13℃，中午上升16℃，傍晚又下降7℃。傍晚气温是多少？",
+      "optionsZhHans": [
+        "-4",
+        "-2",
+        "-6",
+        "4"
+      ],
+      "answer": "-4",
+      "acceptedAnswers": [
+        "-4"
+      ],
+      "explanationZhHans": "按正负变化计算：-13+16-7=-4，所以傍晚气温是-4℃。",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-expression-simplification"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k01-fi-001",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "promptZhHans": "数轴上点A表示-10，点B表示4。A、B两点之间的距离是____。",
+      "optionsZhHans": [],
+      "answer": "14",
+      "acceptedAnswers": [
+        "14"
+      ],
+      "explanationZhHans": "两点距离为4-(-10)=14，所以距离是14。",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-rational-number-operations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k01-fi-014",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "promptZhHans": "数轴上点A表示-7，点B表示8。A、B两点之间的距离是____。",
+      "optionsZhHans": [],
+      "answer": "15",
+      "acceptedAnswers": [
+        "15"
+      ],
+      "explanationZhHans": "两点距离为8-(-7)=15，所以距离是15。",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-congruence-proof"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-dynamic-geometry-functions"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k01-fi-027",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "promptZhHans": "数轴上点A表示-12，点B表示5。A、B两点之间的距离是____。",
+      "optionsZhHans": [],
+      "answer": "17",
+      "acceptedAnswers": [
+        "17"
+      ],
+      "explanationZhHans": "两点距离为5-(-12)=17，所以距离是17。",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-inequalities"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k01-sa-001",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "short-answer",
+      "difficulty": "Foundation",
+      "promptZhHans": "计算并说明符号：-33+32-21。",
+      "optionsZhHans": [],
+      "answer": "-22",
+      "acceptedAnswers": [
+        "-22"
+      ],
+      "explanationZhHans": "先合并正负变化，-33+32-21=-22，结果为负数。",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-rational-number-operations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k01-sa-014",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "short-answer",
+      "difficulty": "Foundation",
+      "promptZhHans": "计算并说明符号：-46+29-11。",
+      "optionsZhHans": [],
+      "answer": "-28",
+      "acceptedAnswers": [
+        "-28"
+      ],
+      "explanationZhHans": "先合并正负变化，-46+29-11=-28，结果为负数。",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-congruence-proof"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-dynamic-geometry-functions"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k01-sa-027",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "short-answer",
+      "difficulty": "Foundation",
+      "promptZhHans": "计算并说明符号：-28+26-24。",
+      "optionsZhHans": [],
+      "answer": "-26",
+      "acceptedAnswers": [
+        "-26"
+      ],
+      "explanationZhHans": "先合并正负变化，-28+26-24=-26，结果为负数。",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-inequalities"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k02-mc-001",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "promptZhHans": "化简：(3x+3)+(3x-4)。",
+      "optionsZhHans": [
+        "6x+7",
+        "9x-4",
+        "0x+-1",
+        "6x-1"
+      ],
+      "answer": "6x-1",
+      "acceptedAnswers": [
+        "6x-1"
+      ],
+      "explanationZhHans": "同类项合并得(3+3)x+(3-4)=6x-1。",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-expression-simplification"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k02-mc-014",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "promptZhHans": "化简：(6x+9)+(1x-3)。",
+      "optionsZhHans": [
+        "16x-3",
+        "5x+6",
+        "7x+6",
+        "7x+12"
+      ],
+      "answer": "7x+6",
+      "acceptedAnswers": [
+        "7x+6"
+      ],
+      "explanationZhHans": "同类项合并得(6+1)x+(9-3)=7x+6。",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-dynamic-geometry-functions"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k02-mc-027",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "promptZhHans": "化简：(4x+8)+(3x-2)。",
+      "optionsZhHans": [
+        "1x+6",
+        "7x+6",
+        "7x+10",
+        "15x-2"
+      ],
+      "answer": "7x+6",
+      "acceptedAnswers": [
+        "7x+6"
+      ],
+      "explanationZhHans": "同类项合并得(4+3)x+(8-2)=7x+6。",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-linear-equation-modeling"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-circle-geometry"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k02-fi-001",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "promptZhHans": "解方程：3x+12=27。x=____。",
+      "optionsZhHans": [],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5"
+      ],
+      "explanationZhHans": "两边减12得3x=15，再除以3，x=5。",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-expression-simplification"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k02-fi-015",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "promptZhHans": "解方程：5x+6=56。x=____。",
+      "optionsZhHans": [],
+      "answer": "10",
+      "acceptedAnswers": [
+        "10"
+      ],
+      "explanationZhHans": "两边减6得5x=50，再除以5，x=10。",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-triangle-angle-relations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-proof-calculation-integrated"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k02-fi-028",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "promptZhHans": "解方程：2x+5=15。x=____。",
+      "optionsZhHans": [],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5"
+      ],
+      "explanationZhHans": "两边减5得2x=10，再除以2，x=5。",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k02-sa-001",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "promptZhHans": "每本练习本x元，买4本后又花8元买笔，共用24元。写出求x的方程。",
+      "optionsZhHans": [],
+      "answer": "4x+8=24",
+      "acceptedAnswers": [
+        "4x+8=24",
+        "8+4x=24"
+      ],
+      "explanationZhHans": "4本练习本花4x元，加上8元等于24元，方程是4x+8=24。",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-expression-simplification"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k02-sa-014",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "promptZhHans": "每本练习本x元，买7本后又花7元买笔，共用49元。写出求x的方程。",
+      "optionsZhHans": [],
+      "answer": "7x+7=49",
+      "acceptedAnswers": [
+        "7x+7=49",
+        "7+7x=49"
+      ],
+      "explanationZhHans": "7本练习本花7x元，加上7元等于49元，方程是7x+7=49。",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-dynamic-geometry-functions"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k02-sa-027",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-expressions-linear-equations",
+      "unitTitle": "整式初步与一元一次方程",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "promptZhHans": "每本练习本x元，买5本后又花6元买笔，共用16元。写出求x的方程。",
+      "optionsZhHans": [],
+      "answer": "5x+6=16",
+      "acceptedAnswers": [
+        "5x+6=16",
+        "6+5x=16"
+      ],
+      "explanationZhHans": "5本练习本花5x元，加上6元等于16元，方程是5x+6=16。",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-expressions-linear-equations"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-linear-equation-modeling"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-circle-geometry"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k03-mc-001",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-geometric-figures",
+      "unitTitle": "几何图形初步",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "promptZhHans": "两个角组成平角，其中一个角是42°，另一个角是多少？",
+      "optionsZhHans": [
+        "42°",
+        "78°",
+        "180°",
+        "138°"
+      ],
+      "answer": "138°",
+      "acceptedAnswers": [
+        "138°",
+        "138"
+      ],
+      "explanationZhHans": "平角为180°，另一个角是180°-42°=138°。",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-geometric-figures"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-geometric-figures"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k03-mc-014",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-geometric-figures",
+      "unitTitle": "几何图形初步",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "promptZhHans": "两个角组成平角，其中一个角是133°，另一个角是多少？",
+      "optionsZhHans": [
+        "77°",
+        "180°",
+        "47°",
+        "133°"
+      ],
+      "answer": "47°",
+      "acceptedAnswers": [
+        "47°",
+        "47"
+      ],
+      "explanationZhHans": "平角为180°，另一个角是180°-133°=47°。",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-geometric-figures"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-congruence-proof"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-dynamic-geometry-functions"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k03-mc-027",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-geometric-figures",
+      "unitTitle": "几何图形初步",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "promptZhHans": "两个角组成平角，其中一个角是124°，另一个角是多少？",
+      "optionsZhHans": [
+        "180°",
+        "56°",
+        "124°",
+        "86°"
+      ],
+      "answer": "56°",
+      "acceptedAnswers": [
+        "56°",
+        "56"
+      ],
+      "explanationZhHans": "平角为180°，另一个角是180°-124°=56°。",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-geometric-figures"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-rational-number-operations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k03-fi-001",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-geometric-figures",
+      "unitTitle": "几何图形初步",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "promptZhHans": "线段AB长14厘米，点C是AB的中点。AC=____。",
+      "optionsZhHans": [],
+      "answer": "7厘米",
+      "acceptedAnswers": [
+        "7厘米",
+        "7",
+        "7cm"
+      ],
+      "explanationZhHans": "中点把线段平均分成两段，AC=14÷2=7厘米。",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-geometric-figures"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-geometric-figures"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k03-fi-014",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-geometric-figures",
+      "unitTitle": "几何图形初步",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "promptZhHans": "线段AB长40厘米，点C是AB的中点。AC=____。",
+      "optionsZhHans": [],
+      "answer": "20厘米",
+      "acceptedAnswers": [
+        "20厘米",
+        "20",
+        "20cm"
+      ],
+      "explanationZhHans": "中点把线段平均分成两段，AC=40÷2=20厘米。",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-geometric-figures"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-congruence-proof"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-dynamic-geometry-functions"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k03-fi-027",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-geometric-figures",
+      "unitTitle": "几何图形初步",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "promptZhHans": "线段AB长66厘米，点C是AB的中点。AC=____。",
+      "optionsZhHans": [],
+      "answer": "33厘米",
+      "acceptedAnswers": [
+        "33厘米",
+        "33",
+        "33cm"
+      ],
+      "explanationZhHans": "中点把线段平均分成两段，AC=66÷2=33厘米。",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-geometric-figures"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-rational-number-operations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k03-sa-001",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-geometric-figures",
+      "unitTitle": "几何图形初步",
+      "type": "short-answer",
+      "difficulty": "Foundation",
+      "promptZhHans": "两个角互余，其中一个角是40°。求另一个角的度数，并写出理由。",
+      "optionsZhHans": [],
+      "answer": "50°",
+      "acceptedAnswers": [
+        "50°",
+        "50"
+      ],
+      "explanationZhHans": "互余两角和为90°，所以另一个角是90°-40°=50°。",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-geometric-figures"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-geometric-figures"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k03-sa-015",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-geometric-figures",
+      "unitTitle": "几何图形初步",
+      "type": "short-answer",
+      "difficulty": "Foundation",
+      "promptZhHans": "两个角互余，其中一个角是69°。求另一个角的度数，并写出理由。",
+      "optionsZhHans": [],
+      "answer": "21°",
+      "acceptedAnswers": [
+        "21°",
+        "21"
+      ],
+      "explanationZhHans": "互余两角和为90°，所以另一个角是90°-69°=21°。",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-geometric-figures"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-axis-symmetry-isosceles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-proof-calculation-integrated"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k03-sa-028",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-geometric-figures",
+      "unitTitle": "几何图形初步",
+      "type": "short-answer",
+      "difficulty": "Foundation",
+      "promptZhHans": "两个角互余，其中一个角是22°。求另一个角的度数，并写出理由。",
+      "optionsZhHans": [],
+      "answer": "68°",
+      "acceptedAnswers": [
+        "68°",
+        "68"
+      ],
+      "explanationZhHans": "互余两角和为90°，所以另一个角是90°-22°=68°。",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-geometric-figures"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-expression-simplification"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k04-mc-001",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "promptZhHans": "点P(4,1)先向右平移3个单位，再向下平移3个单位，所得点的坐标是？",
+      "optionsZhHans": [
+        "(1,-2)",
+        "(7,4)",
+        "(-2,7)",
+        "(7,-2)"
+      ],
+      "answer": "(7,-2)",
+      "acceptedAnswers": [
+        "(7,-2)",
+        "(7, -2)"
+      ],
+      "explanationZhHans": "向右使x加3，向下使y减3，所以坐标为(7,-2)。",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-coordinate-plane"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k04-mc-014",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "promptZhHans": "点P(-5,1)先向右平移6个单位，再向下平移1个单位，所得点的坐标是？",
+      "optionsZhHans": [
+        "(1,2)",
+        "(0,1)",
+        "(1,0)",
+        "(-11,0)"
+      ],
+      "answer": "(1,0)",
+      "acceptedAnswers": [
+        "(1,0)",
+        "(1, 0)"
+      ],
+      "explanationZhHans": "向右使x加6，向下使y减1，所以坐标为(1,0)。",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-pythagorean-theorem"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-dynamic-geometry-functions"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k04-mc-027",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "promptZhHans": "点P(-3,1)先向右平移4个单位，再向下平移3个单位，所得点的坐标是？",
+      "optionsZhHans": [
+        "(-2,1)",
+        "(1,-2)",
+        "(-7,-2)",
+        "(1,4)"
+      ],
+      "answer": "(1,-2)",
+      "acceptedAnswers": [
+        "(1,-2)",
+        "(1, -2)"
+      ],
+      "explanationZhHans": "向右使x加4，向下使y减3，所以坐标为(1,-2)。",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k04-fi-001",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "promptZhHans": "两条平行直线被一条截线所截，一组同位角中一个角为109°，另一个同位角为____。",
+      "optionsZhHans": [],
+      "answer": "109°",
+      "acceptedAnswers": [
+        "109°",
+        "109"
+      ],
+      "explanationZhHans": "两直线平行，同位角相等，所以另一个同位角也是109°。",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-coordinate-plane"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k04-fi-014",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "promptZhHans": "两条平行直线被一条截线所截，一组同位角中一个角为66°，另一个同位角为____。",
+      "optionsZhHans": [],
+      "answer": "66°",
+      "acceptedAnswers": [
+        "66°",
+        "66"
+      ],
+      "explanationZhHans": "两直线平行，同位角相等，所以另一个同位角也是66°。",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-pythagorean-theorem"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-dynamic-geometry-functions"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k04-fi-027",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "promptZhHans": "两条平行直线被一条截线所截，一组同位角中一个角为103°，另一个同位角为____。",
+      "optionsZhHans": [],
+      "answer": "103°",
+      "acceptedAnswers": [
+        "103°",
+        "103"
+      ],
+      "explanationZhHans": "两直线平行，同位角相等，所以另一个同位角也是103°。",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k04-sa-001",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "promptZhHans": "点Q(13,-19)位于哪个象限？说明判断依据。",
+      "optionsZhHans": [],
+      "answer": "第四象限",
+      "acceptedAnswers": [
+        "第四象限",
+        "第IV象限",
+        "第4象限"
+      ],
+      "explanationZhHans": "横坐标为正、纵坐标为负，点Q位于第四象限。",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-coordinate-plane"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k04-sa-014",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "promptZhHans": "点Q(26,-14)位于哪个象限？说明判断依据。",
+      "optionsZhHans": [],
+      "answer": "第四象限",
+      "acceptedAnswers": [
+        "第四象限",
+        "第IV象限",
+        "第4象限"
+      ],
+      "explanationZhHans": "横坐标为正、纵坐标为负，点Q位于第四象限。",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-pythagorean-theorem"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-dynamic-geometry-functions"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k04-sa-027",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "promptZhHans": "点Q(10,-9)位于哪个象限？说明判断依据。",
+      "optionsZhHans": [],
+      "answer": "第四象限",
+      "acceptedAnswers": [
+        "第四象限",
+        "第IV象限",
+        "第4象限"
+      ],
+      "explanationZhHans": "横坐标为正、纵坐标为负，点Q位于第四象限。",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k05-mc-001",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "promptZhHans": "解不等式：2x-8 > 8。",
+      "optionsZhHans": [
+        "x<8",
+        "x>16",
+        "x<16",
+        "x>8"
+      ],
+      "answer": "x>8",
+      "acceptedAnswers": [
+        "x>8",
+        "x＞8"
+      ],
+      "explanationZhHans": "2x-8>8，得2x>16，所以x>8。",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-linear-systems"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k05-mc-015",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "promptZhHans": "解不等式：2x-22 > 22。",
+      "optionsZhHans": [
+        "x<44",
+        "x>22",
+        "x<22",
+        "x>44"
+      ],
+      "answer": "x>22",
+      "acceptedAnswers": [
+        "x>22",
+        "x＞22"
+      ],
+      "explanationZhHans": "2x-22>22，得2x>44，所以x>22。",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-quadrilaterals"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-proof-calculation-integrated"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k05-mc-028",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "promptZhHans": "解不等式：2x-35 > 35。",
+      "optionsZhHans": [
+        "x>35",
+        "x<35",
+        "x>70",
+        "x<70"
+      ],
+      "answer": "x>35",
+      "acceptedAnswers": [
+        "x>35",
+        "x＞35"
+      ],
+      "explanationZhHans": "2x-35>35，得2x>70，所以x>35。",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-data-collection"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k05-fi-001",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "promptZhHans": "方程组x+y=28，x-y=-10的解是____。",
+      "optionsZhHans": [],
+      "answer": "(9,19)",
+      "acceptedAnswers": [
+        "(9,19)",
+        "x=9,y=19",
+        "(9, 19)"
+      ],
+      "explanationZhHans": "两式相加得2x=18，x=9；代回得y=19，解为(9,19)。",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-linear-systems"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k05-fi-014",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "promptZhHans": "方程组x+y=36，x-y=8的解是____。",
+      "optionsZhHans": [],
+      "answer": "(22,14)",
+      "acceptedAnswers": [
+        "(22,14)",
+        "x=22,y=14",
+        "(22, 14)"
+      ],
+      "explanationZhHans": "两式相加得2x=44，x=22；代回得y=14，解为(22,14)。",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-pythagorean-theorem"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-dynamic-geometry-functions"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k05-fi-027",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "promptZhHans": "方程组x+y=21，x-y=3的解是____。",
+      "optionsZhHans": [],
+      "answer": "(12,9)",
+      "acceptedAnswers": [
+        "(12,9)",
+        "x=12,y=9",
+        "(12, 9)"
+      ],
+      "explanationZhHans": "两式相加得2x=24，x=12；代回得y=9，解为(12,9)。",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k05-sa-001",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "promptZhHans": "某小组三次测量的数据分别是28、31、34。求这三次数据的平均数。",
+      "optionsZhHans": [],
+      "answer": "31",
+      "acceptedAnswers": [
+        "31"
+      ],
+      "explanationZhHans": "平均数=(28+31+34)÷3=31。",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-linear-systems"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k05-sa-014",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "promptZhHans": "某小组三次测量的数据分别是41、44、47。求这三次数据的平均数。",
+      "optionsZhHans": [],
+      "answer": "44",
+      "acceptedAnswers": [
+        "44"
+      ],
+      "explanationZhHans": "平均数=(41+44+47)÷3=44。",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-pythagorean-theorem"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-dynamic-geometry-functions"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k05-sa-027",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-equations-inequalities-data",
+      "unitTitle": "二元一次方程组、不等式与数据初步",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "promptZhHans": "某小组三次测量的数据分别是17、20、23。求这三次数据的平均数。",
+      "optionsZhHans": [],
+      "answer": "20",
+      "acceptedAnswers": [
+        "20"
+      ],
+      "explanationZhHans": "平均数=(17+20+23)÷3=20。",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-equations-inequalities-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k06-mc-001",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "promptZhHans": "三角形的两个内角分别为65°和67°，第三个内角是多少？",
+      "optionsZhHans": [
+        "132°",
+        "85°",
+        "113°",
+        "48°"
+      ],
+      "answer": "48°",
+      "acceptedAnswers": [
+        "48°",
+        "48"
+      ],
+      "explanationZhHans": "三角形内角和为180°，第三个角是180°-65°-67°=48°。",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-axis-symmetry-isosceles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k06-mc-014",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "promptZhHans": "三角形的两个内角分别为40°和48°，第三个内角是多少？",
+      "optionsZhHans": [
+        "90°",
+        "132°",
+        "92°",
+        "88°"
+      ],
+      "answer": "92°",
+      "acceptedAnswers": [
+        "92°",
+        "92"
+      ],
+      "explanationZhHans": "三角形内角和为180°，第三个角是180°-40°-48°=92°。",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-similarity"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k06-mc-027",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "promptZhHans": "三角形的两个内角分别为60°和84°，第三个内角是多少？",
+      "optionsZhHans": [
+        "96°",
+        "36°",
+        "144°",
+        "90°"
+      ],
+      "answer": "36°",
+      "acceptedAnswers": [
+        "36°",
+        "36"
+      ],
+      "explanationZhHans": "三角形内角和为180°，第三个角是180°-60°-84°=36°。",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-axis-symmetry-isosceles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k06-fi-001",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "promptZhHans": "等腰三角形的顶角为72°，每个底角为____。",
+      "optionsZhHans": [],
+      "answer": "54°",
+      "acceptedAnswers": [
+        "54°",
+        "54"
+      ],
+      "explanationZhHans": "两个底角相等，每个底角=(180°-72°)÷2=54°。",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-axis-symmetry-isosceles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k06-fi-015",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "promptZhHans": "等腰三角形的顶角为100°，每个底角为____。",
+      "optionsZhHans": [],
+      "answer": "40°",
+      "acceptedAnswers": [
+        "40°",
+        "40"
+      ],
+      "explanationZhHans": "两个底角相等，每个底角=(180°-100°)÷2=40°。",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-rational-number-operations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-dynamic-geometry-functions"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k06-fi-028",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "promptZhHans": "等腰三角形的顶角为126°，每个底角为____。",
+      "optionsZhHans": [],
+      "answer": "27°",
+      "acceptedAnswers": [
+        "27°",
+        "27"
+      ],
+      "explanationZhHans": "两个底角相等，每个底角=(180°-126°)÷2=27°。",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-circle-geometry"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k06-sa-001",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "promptZhHans": "在△ABC和△DEF中，AB=DE=6厘米，BC=EF=8厘米，AC=DF=9厘米。可用哪一种判定说明两个三角形全等？",
+      "optionsZhHans": [],
+      "answer": "SSS",
+      "acceptedAnswers": [
+        "SSS",
+        "边边边"
+      ],
+      "explanationZhHans": "三组对应边分别相等，可用边边边判定，即SSS。",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-axis-symmetry-isosceles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k06-sa-014",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "promptZhHans": "在△ABC和△DEF中，AB=DE=13厘米，BC=EF=18厘米，AC=DF=20厘米。可用哪一种判定说明两个三角形全等？",
+      "optionsZhHans": [],
+      "answer": "SSS",
+      "acceptedAnswers": [
+        "SSS",
+        "边边边"
+      ],
+      "explanationZhHans": "三组对应边分别相等，可用边边边判定，即SSS。",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-similarity"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k06-sa-027",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-triangles-congruence",
+      "unitTitle": "三角形、全等与轴对称",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "promptZhHans": "在△ABC和△DEF中，AB=DE=14厘米，BC=EF=17厘米，AC=DF=20厘米。可用哪一种判定说明两个三角形全等？",
+      "optionsZhHans": [],
+      "answer": "SSS",
+      "acceptedAnswers": [
+        "SSS",
+        "边边边"
+      ],
+      "explanationZhHans": "三组对应边分别相等，可用边边边判定，即SSS。",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-triangles-congruence"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-axis-symmetry-isosceles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k07-mc-001",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "promptZhHans": "因式分解：x²+19x+18。",
+      "optionsZhHans": [
+        "(x+19)(x+1)",
+        "(x-18)(x-1)",
+        "(x+18)(x-1)",
+        "(x+18)(x+1)"
+      ],
+      "answer": "(x+18)(x+1)",
+      "acceptedAnswers": [
+        "(x+18)(x+1)"
+      ],
+      "explanationZhHans": "18+1=19，18×1=18，所以分解为(x+18)(x+1)。",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-polynomial-multiplication-factorization"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k07-mc-014",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "promptZhHans": "因式分解：x²+22x+120。",
+      "optionsZhHans": [
+        "(x-12)(x-10)",
+        "(x+12)(x-10)",
+        "(x+12)(x+10)",
+        "(x+22)(x+1)"
+      ],
+      "answer": "(x+12)(x+10)",
+      "acceptedAnswers": [
+        "(x+12)(x+10)"
+      ],
+      "explanationZhHans": "12+10=22，12×10=120，所以分解为(x+12)(x+10)。",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k07-mc-027",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "promptZhHans": "因式分解：x²+8x+12。",
+      "optionsZhHans": [
+        "(x+6)(x-2)",
+        "(x+6)(x+2)",
+        "(x+8)(x+1)",
+        "(x-6)(x-2)"
+      ],
+      "answer": "(x+6)(x+2)",
+      "acceptedAnswers": [
+        "(x+6)(x+2)"
+      ],
+      "explanationZhHans": "6+2=8，6×2=12，所以分解为(x+6)(x+2)。",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-triangle-angle-relations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-circle-geometry"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k07-fi-001",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "promptZhHans": "计算：7x·5x=____。",
+      "optionsZhHans": [],
+      "answer": "35x²",
+      "acceptedAnswers": [
+        "35x²",
+        "35x^2"
+      ],
+      "explanationZhHans": "系数相乘、同底数幂相乘，7x·5x=35x²。",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-polynomial-multiplication-factorization"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k07-fi-014",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "promptZhHans": "计算：2x·6x=____。",
+      "optionsZhHans": [],
+      "answer": "12x²",
+      "acceptedAnswers": [
+        "12x²",
+        "12x^2"
+      ],
+      "explanationZhHans": "系数相乘、同底数幂相乘，2x·6x=12x²。",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k07-fi-027",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "promptZhHans": "计算：3x·7x=____。",
+      "optionsZhHans": [],
+      "answer": "21x²",
+      "acceptedAnswers": [
+        "21x²",
+        "21x^2"
+      ],
+      "explanationZhHans": "系数相乘、同底数幂相乘，3x·7x=21x²。",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-triangle-angle-relations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-circle-geometry"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k07-sa-001",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "promptZhHans": "化简分式(3x+15)/(x+5)，并注明x不能等于什么。",
+      "optionsZhHans": [],
+      "answer": "3，x≠-5",
+      "acceptedAnswers": [
+        "3，x≠-5",
+        "3,x≠-5",
+        "3且x≠-5",
+        "3，x不能等于-5"
+      ],
+      "explanationZhHans": "分子提公因式得3(x+5)，约分后为3，且x≠-5。",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-polynomial-multiplication-factorization"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k07-sa-015",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "promptZhHans": "化简分式(9x+45)/(x+5)，并注明x不能等于什么。",
+      "optionsZhHans": [],
+      "answer": "9，x≠-5",
+      "acceptedAnswers": [
+        "9，x≠-5",
+        "9,x≠-5",
+        "9且x≠-5",
+        "9，x不能等于-5"
+      ],
+      "explanationZhHans": "分子提公因式得9(x+5)，约分后为9，且x≠-5。",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-rational-number-operations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-dynamic-geometry-functions"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k07-sa-028",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "promptZhHans": "化简分式(6x+12)/(x+2)，并注明x不能等于什么。",
+      "optionsZhHans": [],
+      "answer": "6，x≠-2",
+      "acceptedAnswers": [
+        "6，x≠-2",
+        "6,x≠-2",
+        "6且x≠-2",
+        "6，x不能等于-2"
+      ],
+      "explanationZhHans": "分子提公因式得6(x+2)，约分后为6，且x≠-2。",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-congruence-proof"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k08-mc-001",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "promptZhHans": "化简：√27。",
+      "optionsZhHans": [
+        "9√3",
+        "√9",
+        "3√9",
+        "3√3"
+      ],
+      "answer": "3√3",
+      "acceptedAnswers": [
+        "3√3"
+      ],
+      "explanationZhHans": "√27=√(3²×3)=3√3。",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-pythagorean-theorem"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k08-mc-014",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "promptZhHans": "化简：√28。",
+      "optionsZhHans": [
+        "√14",
+        "2√14",
+        "2√7",
+        "14√7"
+      ],
+      "answer": "2√7",
+      "acceptedAnswers": [
+        "2√7"
+      ],
+      "explanationZhHans": "√28=√(2²×7)=2√7。",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-real-numbers"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k08-mc-027",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "promptZhHans": "化简：√320。",
+      "optionsZhHans": [
+        "8√40",
+        "8√5",
+        "40√5",
+        "√40"
+      ],
+      "answer": "8√5",
+      "acceptedAnswers": [
+        "8√5"
+      ],
+      "explanationZhHans": "√320=√(8²×5)=8√5。",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-quadrilaterals"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-circle-geometry"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k08-fi-001",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "promptZhHans": "直角三角形两条直角边分别为20厘米和48厘米，斜边长____。",
+      "optionsZhHans": [],
+      "answer": "52厘米",
+      "acceptedAnswers": [
+        "52厘米",
+        "52"
+      ],
+      "explanationZhHans": "由勾股定理，斜边=√(20²+48²)=52厘米。",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-pythagorean-theorem"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k08-fi-014",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "promptZhHans": "直角三角形两条直角边分别为27厘米和120厘米，斜边长____。",
+      "optionsZhHans": [],
+      "answer": "123厘米",
+      "acceptedAnswers": [
+        "123厘米",
+        "123"
+      ],
+      "explanationZhHans": "由勾股定理，斜边=√(27²+120²)=123厘米。",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-real-numbers"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k08-fi-027",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "promptZhHans": "直角三角形两条直角边分别为14厘米和48厘米，斜边长____。",
+      "optionsZhHans": [],
+      "answer": "50厘米",
+      "acceptedAnswers": [
+        "50厘米",
+        "50"
+      ],
+      "explanationZhHans": "由勾股定理，斜边=√(14²+48²)=50厘米。",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-quadrilaterals"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-circle-geometry"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k08-sa-001",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "promptZhHans": "平行四边形ABCD中，AB=29厘米。若CD与AB是对边，CD长多少？",
+      "optionsZhHans": [],
+      "answer": "29厘米",
+      "acceptedAnswers": [
+        "29厘米",
+        "29"
+      ],
+      "explanationZhHans": "平行四边形对边相等，所以CD=AB=29厘米。",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-pythagorean-theorem"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k08-sa-014",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "promptZhHans": "平行四边形ABCD中，AB=42厘米。若CD与AB是对边，CD长多少？",
+      "optionsZhHans": [],
+      "answer": "42厘米",
+      "acceptedAnswers": [
+        "42厘米",
+        "42"
+      ],
+      "explanationZhHans": "平行四边形对边相等，所以CD=AB=42厘米。",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-real-numbers"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k08-sa-027",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+      "unitTitle": "二次根式、勾股定理与平行四边形",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "promptZhHans": "平行四边形ABCD中，AB=18厘米。若CD与AB是对边，CD长多少？",
+      "optionsZhHans": [],
+      "answer": "18厘米",
+      "acceptedAnswers": [
+        "18厘米",
+        "18"
+      ],
+      "explanationZhHans": "平行四边形对边相等，所以CD=AB=18厘米。",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-quadrilaterals"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-circle-geometry"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k09-mc-001",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "promptZhHans": "一次函数y=3x-4，当x=2时，y的值是多少？",
+      "optionsZhHans": [
+        "5",
+        "-1",
+        "3",
+        "2"
+      ],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2"
+      ],
+      "explanationZhHans": "代入x=2，y=3×2-4=2。",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-linear-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k09-mc-015",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "promptZhHans": "一次函数y=2x+2，当x=8时，y的值是多少？",
+      "optionsZhHans": [
+        "4",
+        "18",
+        "20",
+        "16"
+      ],
+      "answer": "18",
+      "acceptedAnswers": [
+        "18"
+      ],
+      "explanationZhHans": "代入x=8，y=2×8+2=18。",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-dynamic-geometry-functions"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k09-mc-028",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "promptZhHans": "一次函数y=5x-4，当x=5时，y的值是多少？",
+      "optionsZhHans": [
+        "21",
+        "26",
+        "16",
+        "1"
+      ],
+      "answer": "21",
+      "acceptedAnswers": [
+        "21"
+      ],
+      "explanationZhHans": "代入x=5，y=5×5-4=21。",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-linear-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-circle-geometry"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k09-fi-001",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "promptZhHans": "一次函数图象经过点(2,6)和(4,16)，它的斜率是____。",
+      "optionsZhHans": [],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5"
+      ],
+      "explanationZhHans": "斜率=(16-6)÷(4-2)=5。",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-linear-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k09-fi-014",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "promptZhHans": "一次函数图象经过点(5,4)和(7,12)，它的斜率是____。",
+      "optionsZhHans": [],
+      "answer": "4",
+      "acceptedAnswers": [
+        "4"
+      ],
+      "explanationZhHans": "斜率=(12-4)÷(7-5)=4。",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-quadratic-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k09-fi-027",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "promptZhHans": "一次函数图象经过点(3,2)和(5,8)，它的斜率是____。",
+      "optionsZhHans": [],
+      "answer": "3",
+      "acceptedAnswers": [
+        "3"
+      ],
+      "explanationZhHans": "斜率=(8-2)÷(5-3)=3。",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k09-sa-001",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "short-answer",
+      "difficulty": "Exam",
+      "promptZhHans": "一组数据按从小到大排列为36、38、40、42。求这组数据的中位数。",
+      "optionsZhHans": [],
+      "answer": "39",
+      "acceptedAnswers": [
+        "39"
+      ],
+      "explanationZhHans": "共有4个数，中位数是中间两个数的平均数：(38+40)÷2=39。",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-lower-paper-linear-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k09-sa-014",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "short-answer",
+      "difficulty": "Exam",
+      "promptZhHans": "一组数据按从小到大排列为12、14、16、18。求这组数据的中位数。",
+      "optionsZhHans": [],
+      "answer": "15",
+      "acceptedAnswers": [
+        "15"
+      ],
+      "explanationZhHans": "共有4个数，中位数是中间两个数的平均数：(14+16)÷2=15。",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-quadratic-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k09-sa-027",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S2",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s2-lower-linear-functions-data",
+      "unitTitle": "一次函数与数据分析",
+      "type": "short-answer",
+      "difficulty": "Exam",
+      "promptZhHans": "一组数据按从小到大排列为25、27、29、31。求这组数据的中位数。",
+      "optionsZhHans": [],
+      "answer": "28",
+      "acceptedAnswers": [
+        "28"
+      ],
+      "explanationZhHans": "共有4个数，中位数是中间两个数的平均数：(27+29)÷2=28。",
+      "evidenceCardIds": [
+        "pep-junior-s2-lower-linear-functions-data"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k10-mc-001",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "promptZhHans": "解方程：(x-9)(x-14)=0。",
+      "optionsZhHans": [
+        "x=9",
+        "x=14",
+        "x=-9或x=-14",
+        "x=9或x=14"
+      ],
+      "answer": "x=9或x=14",
+      "acceptedAnswers": [
+        "x=9或x=14",
+        "x=9,x=14"
+      ],
+      "explanationZhHans": "两个因式乘积为0，所以x-9=0或x-14=0，答案是x=9或x=14。",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k10-mc-014",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "promptZhHans": "解方程：(x-22)(x-29)=0。",
+      "optionsZhHans": [
+        "x=29",
+        "x=-22或x=-29",
+        "x=22或x=29",
+        "x=22"
+      ],
+      "answer": "x=22或x=29",
+      "acceptedAnswers": [
+        "x=22或x=29",
+        "x=22,x=29"
+      ],
+      "explanationZhHans": "两个因式乘积为0，所以x-22=0或x-29=0，答案是x=22或x=29。",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-rational-number-operations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k10-mc-027",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "promptZhHans": "解方程：(x-12)(x-21)=0。",
+      "optionsZhHans": [
+        "x=-12或x=-21",
+        "x=12或x=21",
+        "x=12",
+        "x=21"
+      ],
+      "answer": "x=12或x=21",
+      "acceptedAnswers": [
+        "x=12或x=21",
+        "x=12,x=21"
+      ],
+      "explanationZhHans": "两个因式乘积为0，所以x-12=0或x-21=0，答案是x=12或x=21。",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-quadratic-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k10-fi-001",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "promptZhHans": "二次函数y=(x-10)²+21的对称轴是____。",
+      "optionsZhHans": [],
+      "answer": "x=10",
+      "acceptedAnswers": [
+        "x=10"
+      ],
+      "explanationZhHans": "顶点式y=(x-10)²+21的对称轴为x=10。",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k10-fi-015",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "promptZhHans": "二次函数y=(x+7)²+20的对称轴是____。",
+      "optionsZhHans": [],
+      "answer": "x=-7",
+      "acceptedAnswers": [
+        "x=-7"
+      ],
+      "explanationZhHans": "顶点式y=(x+7)²+20的对称轴为x=-7。",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-expression-simplification"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-proof-calculation-integrated"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k10-fi-028",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "promptZhHans": "二次函数y=(x-6)²+17的对称轴是____。",
+      "optionsZhHans": [],
+      "answer": "x=6",
+      "acceptedAnswers": [
+        "x=6"
+      ],
+      "explanationZhHans": "顶点式y=(x-6)²+17的对称轴为x=6。",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-circle-geometry"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-dynamic-geometry-functions"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k10-sa-001",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "short-answer",
+      "difficulty": "Exam",
+      "promptZhHans": "袋中有6个红球和13个蓝球，随机摸出1个球。摸到红球的概率是多少？",
+      "optionsZhHans": [],
+      "answer": "6/19",
+      "acceptedAnswers": [
+        "6/19"
+      ],
+      "explanationZhHans": "共有19个球，其中红球6个，所以概率是6/19=6/19。",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k10-sa-014",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "short-answer",
+      "difficulty": "Exam",
+      "promptZhHans": "袋中有2个红球和20个蓝球，随机摸出1个球。摸到红球的概率是多少？",
+      "optionsZhHans": [],
+      "answer": "1/11",
+      "acceptedAnswers": [
+        "1/11"
+      ],
+      "explanationZhHans": "共有22个球，其中红球2个，所以概率是2/22=1/11。",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-rational-number-operations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k10-sa-027",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "short-answer",
+      "difficulty": "Exam",
+      "promptZhHans": "袋中有15个红球和8个蓝球，随机摸出1个球。摸到红球的概率是多少？",
+      "optionsZhHans": [],
+      "answer": "15/23",
+      "acceptedAnswers": [
+        "15/23"
+      ],
+      "explanationZhHans": "共有23个球，其中红球15个，所以概率是15/23=15/23。",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-quadratic-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k11-mc-001",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "promptZhHans": "反比例函数y=k/x经过点(27,10)，k的值是多少？",
+      "optionsZhHans": [
+        "37",
+        "-17",
+        "297",
+        "270"
+      ],
+      "answer": "270",
+      "acceptedAnswers": [
+        "270"
+      ],
+      "explanationZhHans": "把点(27,10)代入y=k/x，得k=27×10=270。",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-function-geometry-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k11-mc-014",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "promptZhHans": "反比例函数y=k/x经过点(11,5)，k的值是多少？",
+      "optionsZhHans": [
+        "-6",
+        "66",
+        "55",
+        "16"
+      ],
+      "answer": "55",
+      "acceptedAnswers": [
+        "55"
+      ],
+      "explanationZhHans": "把点(11,5)代入y=k/x，得k=11×5=55。",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-probability-introduction"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k11-mc-027",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "promptZhHans": "反比例函数y=k/x经过点(24,31)，k的值是多少？",
+      "optionsZhHans": [
+        "768",
+        "744",
+        "55",
+        "7"
+      ],
+      "answer": "744",
+      "acceptedAnswers": [
+        "744"
+      ],
+      "explanationZhHans": "把点(24,31)代入y=k/x，得k=24×31=744。",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-function-geometry-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k11-fi-001",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "promptZhHans": "两个相似三角形的相似比为3:1，小三角形一条对应边长3厘米，大三角形对应边长____。",
+      "optionsZhHans": [],
+      "answer": "9厘米",
+      "acceptedAnswers": [
+        "9厘米",
+        "9"
+      ],
+      "explanationZhHans": "对应边按相似比放大3倍，所以大三角形对应边长3×3=9厘米。",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-function-geometry-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k11-fi-014",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "promptZhHans": "两个相似三角形的相似比为4:1，小三角形一条对应边长8厘米，大三角形对应边长____。",
+      "optionsZhHans": [],
+      "answer": "32厘米",
+      "acceptedAnswers": [
+        "32厘米",
+        "32"
+      ],
+      "explanationZhHans": "对应边按相似比放大4倍，所以大三角形对应边长4×8=32厘米。",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-probability-introduction"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k11-fi-027",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "promptZhHans": "两个相似三角形的相似比为5:1，小三角形一条对应边长6厘米，大三角形对应边长____。",
+      "optionsZhHans": [],
+      "answer": "30厘米",
+      "acceptedAnswers": [
+        "30厘米",
+        "30"
+      ],
+      "explanationZhHans": "对应边按相似比放大5倍，所以大三角形对应边长5×6=30厘米。",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-function-geometry-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k11-sa-001",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "short-answer",
+      "difficulty": "Exam",
+      "promptZhHans": "测得旗杆顶端的仰角为45°，测量点到旗杆底部的水平距离为31米。若忽略测量高度，旗杆高约多少？",
+      "optionsZhHans": [],
+      "answer": "31米",
+      "acceptedAnswers": [
+        "31米",
+        "31"
+      ],
+      "explanationZhHans": "tan45°=1，高度=水平距离×1=31米。",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-function-geometry-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k11-sa-015",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "short-answer",
+      "difficulty": "Exam",
+      "promptZhHans": "测得旗杆顶端的仰角为45°，测量点到旗杆底部的水平距离为8米。若忽略测量高度，旗杆高约多少？",
+      "optionsZhHans": [],
+      "answer": "8米",
+      "acceptedAnswers": [
+        "8米",
+        "8"
+      ],
+      "explanationZhHans": "tan45°=1，高度=水平距离×1=8米。",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-proof-calculation-integrated"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    },
+    {
+      "id": "pep-junior-candidate-k11-sa-028",
+      "batch": "junior-rag-v1-starter",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "short-answer",
+      "difficulty": "Challenge",
+      "promptZhHans": "测得旗杆顶端的仰角为45°，测量点到旗杆底部的水平距离为21米。若忽略测量高度，旗杆高约多少？",
+      "optionsZhHans": [],
+      "answer": "21米",
+      "acceptedAnswers": [
+        "21米",
+        "21"
+      ],
+      "explanationZhHans": "tan45°=1，高度=水平距离×1=21米。",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-similarity"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-dynamic-geometry-functions"
+      ],
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "pass",
+      "reviewNotes": "deterministic-original-candidate; selected-from-manual-review-queue; owner-authorized-starter-release",
+      "releaseStatus": "starter-reviewed"
+    }
+  ]
+}

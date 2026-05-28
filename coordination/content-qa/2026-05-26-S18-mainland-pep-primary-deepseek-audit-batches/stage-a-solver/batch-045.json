@@ -1,0 +1,181 @@
+{
+  "startedAt": "2026-05-26T06:10:30.567Z",
+  "completedAt": "2026-05-26T06:10:49.224Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "usage": {
+    "prompt_tokens": 2493,
+    "completion_tokens": 1455,
+    "total_tokens": 3948,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 2493
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "questionId": "pep-primary-p5-u-fi-081",
+        "solvableStatus": "pass",
+        "independentAnswer": "21平方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "三角形面积=底×高÷2=7×6÷2=21平方厘米"
+      },
+      {
+        "questionId": "pep-primary-p5-u-fi-082",
+        "solvableStatus": "pass",
+        "independentAnswer": "32平方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "三角形面积=8×8÷2=32平方厘米"
+      },
+      {
+        "questionId": "pep-primary-p5-u-fi-083",
+        "solvableStatus": "pass",
+        "independentAnswer": "45平方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "三角形面积=9×10÷2=45平方厘米"
+      },
+      {
+        "questionId": "pep-primary-p5-u-fi-084",
+        "solvableStatus": "pass",
+        "independentAnswer": "20平方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "三角形面积=10×4÷2=20平方厘米"
+      },
+      {
+        "questionId": "pep-primary-p5-u-fi-085",
+        "solvableStatus": "pass",
+        "independentAnswer": "33平方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "三角形面积=11×6÷2=33平方厘米"
+      },
+      {
+        "questionId": "pep-primary-p5-u-fi-086",
+        "solvableStatus": "pass",
+        "independentAnswer": "48平方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "三角形面积=12×8÷2=48平方厘米"
+      },
+      {
+        "questionId": "pep-primary-p5-u-fi-087",
+        "solvableStatus": "pass",
+        "independentAnswer": "27平方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "三角形面积=6×9÷2=27平方厘米"
+      },
+      {
+        "questionId": "pep-primary-p5-u-fi-088",
+        "solvableStatus": "pass",
+        "independentAnswer": "28平方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "三角形面积=14×4÷2=28平方厘米"
+      },
+      {
+        "questionId": "pep-primary-p5-u-fi-089",
+        "solvableStatus": "pass",
+        "independentAnswer": "45平方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "三角形面积=15×6÷2=45平方厘米"
+      },
+      {
+        "questionId": "pep-primary-p5-u-fi-090",
+        "solvableStatus": "pass",
+        "independentAnswer": "24平方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "三角形面积=6×8÷2=24平方厘米"
+      },
+      {
+        "questionId": "pep-primary-p5-u-fi-091",
+        "solvableStatus": "pass",
+        "independentAnswer": "35平方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "三角形面积=7×10÷2=35平方厘米"
+      },
+      {
+        "questionId": "pep-primary-p5-u-fi-092",
+        "solvableStatus": "pass",
+        "independentAnswer": "16平方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "三角形面积=8×4÷2=16平方厘米"
+      },
+      {
+        "questionId": "pep-primary-p5-u-fi-093",
+        "solvableStatus": "pass",
+        "independentAnswer": "27平方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "三角形面积=9×6÷2=27平方厘米"
+      },
+      {
+        "questionId": "pep-primary-p5-u-fi-094",
+        "solvableStatus": "pass",
+        "independentAnswer": "40平方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "三角形面积=10×8÷2=40平方厘米"
+      },
+      {
+        "questionId": "pep-primary-p5-u-fi-095",
+        "solvableStatus": "pass",
+        "independentAnswer": "55平方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "三角形面积=11×10÷2=55平方厘米"
+      },
+      {
+        "questionId": "pep-primary-p5-u-fi-096",
+        "solvableStatus": "pass",
+        "independentAnswer": "24平方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "三角形面积=12×4÷2=24平方厘米"
+      },
+      {
+        "questionId": "pep-primary-p5-u-fi-097",
+        "solvableStatus": "pass",
+        "independentAnswer": "39平方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "三角形面积=13×6÷2=39平方厘米"
+      },
+      {
+        "questionId": "pep-primary-p5-u-fi-098",
+        "solvableStatus": "pass",
+        "independentAnswer": "56平方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "三角形面积=14×8÷2=56平方厘米"
+      },
+      {
+        "questionId": "pep-primary-p5-u-fi-099",
+        "solvableStatus": "pass",
+        "independentAnswer": "75平方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "三角形面积=15×10÷2=75平方厘米"
+      },
+      {
+        "questionId": "pep-primary-p5-u-fi-100",
+        "solvableStatus": "pass",
+        "independentAnswer": "20平方厘米",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "三角形面积=10×4÷2=20平方厘米"
+      }
+    ]
+  }
+}

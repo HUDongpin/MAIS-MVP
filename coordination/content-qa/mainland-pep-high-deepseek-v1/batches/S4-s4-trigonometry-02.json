@@ -1,0 +1,341 @@
+{
+  "batchId": "S4-s4-trigonometry-02",
+  "questions": [
+    {
+      "id": "pep-high-ds-v1-s4-trigonometry-011",
+      "grade": "S4",
+      "topicId": "pep-high-s4-trigonometry",
+      "topicTitleZhHans": "三角函数",
+      "chapter": "三角函数",
+      "conceptIds": [
+        "unit-circle",
+        "trigonometric-functions",
+        "trigonometric-graphs",
+        "trigonometric-identities"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "pep-high-trigonometric-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-trigonometric-graphs"
+      ],
+      "promptZhHans": "已知函数 f(x)=2sin(ωx+φ) (ω>0, 0<φ<π) 的部分图像如下：图像经过点 (0,1)，且相邻两条对称轴之间的距离为 π/2。将 f(x) 的图像向右平移 π/6 个单位长度后得到 g(x) 的图像。若 g(x) 在区间 [a,b] 上单调递增，且 b-a 的最大值为 π/3，则 a 的一个可能值为（　　）",
+      "optionsZhHans": [
+        "A. -π/12",
+        "B. -π/6",
+        "C. π/12",
+        "D. π/6"
+      ],
+      "answer": "A. -π/12",
+      "acceptedAnswers": [
+        "A. -π/12"
+      ],
+      "explanationZhHans": "由相邻对称轴距离π/2得T=π，ω=2。代入(0,1)得2sinφ=1，sinφ=1/2，φ=π/6或5π/6，结合图像得φ=π/6。f(x)=2sin(2x+π/6)。平移后g(x)=2sin(2x-π/6)。g(x)增区间由-π/2+2kπ≤2x-π/6≤π/2+2kπ得-π/6+kπ≤x≤π/3+kπ。区间长π/3，最大区间为[-π/6,π/3]平移kπ。a可能为-π/12。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-trigonometry-012",
+      "grade": "S4",
+      "topicId": "pep-high-s4-trigonometry",
+      "topicTitleZhHans": "三角函数",
+      "chapter": "三角函数",
+      "conceptIds": [
+        "unit-circle",
+        "trigonometric-functions",
+        "trigonometric-graphs",
+        "trigonometric-identities"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "pep-high-trigonometric-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-trigonometric-graphs"
+      ],
+      "promptZhHans": "若角α的终边经过点P(-3,4)，则sin(α+π/4)的值为______。",
+      "optionsZhHans": [],
+      "answer": "√2/10",
+      "acceptedAnswers": [
+        "√2/10",
+        "根号2/10"
+      ],
+      "explanationZhHans": "由P(-3,4)得r=5，sinα=4/5，cosα=-3/5。sin(α+π/4)=sinαcosπ/4+cosαsinπ/4=(4/5)*(√2/2)+(-3/5)*(√2/2)=√2/10。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-trigonometry-013",
+      "grade": "S4",
+      "topicId": "pep-high-s4-trigonometry",
+      "topicTitleZhHans": "三角函数",
+      "chapter": "三角函数",
+      "conceptIds": [
+        "unit-circle",
+        "trigonometric-functions",
+        "trigonometric-graphs",
+        "trigonometric-identities"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "pep-high-trigonometric-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-trigonometric-graphs"
+      ],
+      "promptZhHans": "已知函数f(x)=cos(2x+π/3)+2sin²x。求f(x)的最小正周期和单调递增区间。",
+      "optionsZhHans": [],
+      "answer": "最小正周期为π；单调递增区间为[kπ-π/3, kπ+π/6] (k∈Z)",
+      "acceptedAnswers": [
+        "最小正周期为π；单调递增区间为[kπ-π/3, kπ+π/6] (k∈Z)"
+      ],
+      "explanationZhHans": "f(x)=cos2xcosπ/3-sin2xsinπ/3+1-cos2x=1/2cos2x-√3/2sin2x+1-cos2x=-1/2cos2x-√3/2sin2x+1=-sin(2x+π/6)+1。T=π。由π/2+2kπ≤2x+π/6≤3π/2+2kπ得π/6+kπ≤x≤2π/3+kπ，即增区间[kπ-π/3,kπ+π/6]。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-trigonometry-014",
+      "grade": "S4",
+      "topicId": "pep-high-s4-trigonometry",
+      "topicTitleZhHans": "三角函数",
+      "chapter": "三角函数",
+      "conceptIds": [
+        "unit-circle",
+        "trigonometric-functions",
+        "trigonometric-graphs",
+        "trigonometric-identities"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "pep-high-trigonometric-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-trigonometric-graphs"
+      ],
+      "promptZhHans": "在△ABC中，角A,B,C的对边分别为a,b,c，已知a=2√3，b=6，且满足sin(A+π/6)+cosA=1。求角A的大小及△ABC的面积。",
+      "optionsZhHans": [],
+      "answer": "A=π/3；面积为3√3或6√3",
+      "acceptedAnswers": [
+        "A=π/3；面积为3√3或6√3"
+      ],
+      "explanationZhHans": "sin(A+π/6)+cosA=√3/2sinA+1/2cosA+cosA=√3/2sinA+3/2cosA=√3sin(A+π/3)=1，sin(A+π/3)=√3/3，A+π/3=π-arcsin(√3/3)或arcsin(√3/3)，A=π/3。由余弦定理a²=b²+c²-2bccosA得12=36+c²-6c，c²-6c+24=0无解？修正：sin(A+π/6)+cosA=sinAcosπ/6+cosAsinπ/6+cosA=√3/2sinA+3/2cosA=√3sin(A+π/3)=1，sin(A+π/3)=1/√3，A+π/3=π-arcsin(1/√3)或arcsin(1/√3)，A=π/3。由余弦定理得c=2或4，面积S=1/2bcsinA=3√3或6√3。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-trigonometry-015",
+      "grade": "S4",
+      "topicId": "pep-high-s4-trigonometry",
+      "topicTitleZhHans": "三角函数",
+      "chapter": "三角函数",
+      "conceptIds": [
+        "unit-circle",
+        "trigonometric-functions",
+        "trigonometric-graphs",
+        "trigonometric-identities"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "pep-high-trigonometric-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-trigonometric-graphs"
+      ],
+      "promptZhHans": "将函数y=sin(2x-π/3)的图像向左平移φ(φ>0)个单位长度后，所得图像关于y轴对称，则φ的最小值为（　　）",
+      "optionsZhHans": [
+        "A. π/12",
+        "B. π/6",
+        "C. 5π/12",
+        "D. 7π/12"
+      ],
+      "answer": "C. 5π/12",
+      "acceptedAnswers": [
+        "C. 5π/12"
+      ],
+      "explanationZhHans": "平移后y=sin[2(x+φ)-π/3]=sin(2x+2φ-π/3)。关于y轴对称即偶函数，2φ-π/3=π/2+kπ，φ=5π/12+kπ/2，最小正数φ=5π/12。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-trigonometry-016",
+      "grade": "S4",
+      "topicId": "pep-high-s4-trigonometry",
+      "topicTitleZhHans": "三角函数",
+      "chapter": "三角函数",
+      "conceptIds": [
+        "unit-circle",
+        "trigonometric-functions",
+        "trigonometric-graphs",
+        "trigonometric-identities"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "pep-high-trigonometric-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-trigonometric-graphs"
+      ],
+      "promptZhHans": "已知tanθ=2，则sinθcosθ+cos²θ的值为______。",
+      "optionsZhHans": [],
+      "answer": "3/5",
+      "acceptedAnswers": [
+        "3/5"
+      ],
+      "explanationZhHans": "sinθcosθ+cos²θ=(sinθcosθ+cos²θ)/(sin²θ+cos²θ)=(tanθ+1)/(tan²θ+1)=(2+1)/(4+1)=3/5。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-trigonometry-017",
+      "grade": "S4",
+      "topicId": "pep-high-s4-trigonometry",
+      "topicTitleZhHans": "三角函数",
+      "chapter": "三角函数",
+      "conceptIds": [
+        "unit-circle",
+        "trigonometric-functions",
+        "trigonometric-graphs",
+        "trigonometric-identities"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "pep-high-trigonometric-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-trigonometric-graphs"
+      ],
+      "promptZhHans": "已知函数f(x)=2sin(ωx+φ) (ω>0, |φ|<π/2)的图像与直线y=2的相邻两个交点的距离为π，且图像过点(π/6,0)。求f(x)的解析式，并求f(x)在[0,π/2]上的值域。",
+      "optionsZhHans": [],
+      "answer": "f(x)=2sin(2x-π/6)；值域为[-1,2]",
+      "acceptedAnswers": [
+        "f(x)=2sin(2x-π/6)；值域为[-1,2]"
+      ],
+      "explanationZhHans": "与y=2交点距离π即周期T=π，ω=2。过(π/6,0)得sin(π/3+φ)=0，φ=kπ-π/3，|φ|<π/2得φ=-π/6。f(x)=2sin(2x-π/6)。x∈[0,π/2]时2x-π/6∈[-π/6,5π/6]，sin值∈[-1/2,1]，f(x)∈[-1,2]。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-trigonometry-018",
+      "grade": "S4",
+      "topicId": "pep-high-s4-trigonometry",
+      "topicTitleZhHans": "三角函数",
+      "chapter": "三角函数",
+      "conceptIds": [
+        "unit-circle",
+        "trigonometric-functions",
+        "trigonometric-graphs",
+        "trigonometric-identities"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "pep-high-trigonometric-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-trigonometric-graphs"
+      ],
+      "promptZhHans": "在△ABC中，角A,B,C的对边分别为a,b,c，若a=2，b=3，且满足(a+b+c)(a+b-c)=3ab，则△ABC的面积为（　　）",
+      "optionsZhHans": [
+        "A. √3/2",
+        "B. 3√3/2",
+        "C. 3√3/4",
+        "D. √3"
+      ],
+      "answer": "B. 3√3/2",
+      "acceptedAnswers": [
+        "B. 3√3/2"
+      ],
+      "explanationZhHans": "(a+b+c)(a+b-c)=(a+b)²-c²=3ab，a²+2ab+b²-c²=3ab，a²+b²-c²=ab，cosC=(a²+b²-c²)/(2ab)=1/2，C=π/3。S=1/2absinC=1/2*2*3*√3/2=3√3/2。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-trigonometry-019",
+      "grade": "S4",
+      "topicId": "pep-high-s4-trigonometry",
+      "topicTitleZhHans": "三角函数",
+      "chapter": "三角函数",
+      "conceptIds": [
+        "unit-circle",
+        "trigonometric-functions",
+        "trigonometric-graphs",
+        "trigonometric-identities"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "pep-high-trigonometric-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-trigonometric-graphs"
+      ],
+      "promptZhHans": "已知函数f(x)=sin(ωx+φ) (ω>0, 0<φ<π)的最小正周期为π，且其图像关于直线x=π/8对称，则φ的值为______。",
+      "optionsZhHans": [],
+      "answer": "π/4",
+      "acceptedAnswers": [
+        "π/4"
+      ],
+      "explanationZhHans": "T=2π/ω=π，ω=2。对称轴2*π/8+φ=π/2+kπ，φ=π/4+kπ，0<φ<π得φ=π/4。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    },
+    {
+      "id": "pep-high-ds-v1-s4-trigonometry-020",
+      "grade": "S4",
+      "topicId": "pep-high-s4-trigonometry",
+      "topicTitleZhHans": "三角函数",
+      "chapter": "三角函数",
+      "conceptIds": [
+        "unit-circle",
+        "trigonometric-functions",
+        "trigonometric-graphs",
+        "trigonometric-identities"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "pep-high-trigonometric-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-high-exam-trigonometric-graphs"
+      ],
+      "promptZhHans": "已知函数f(x)=4cosxsin(x+π/6)-1。求f(x)的最小正周期和最大值，并求f(x)取得最大值时x的集合。",
+      "optionsZhHans": [],
+      "answer": "最小正周期为π；最大值为2；取得最大值时x的集合为{x|x=kπ+π/6, k∈Z}",
+      "acceptedAnswers": [
+        "最小正周期为π；最大值为2；取得最大值时x的集合为{x|x=kπ+π/6, k∈Z}"
+      ],
+      "explanationZhHans": "f(x)=4cosx(sinxcosπ/6+cosxsinπ/6)-1=4cosx(√3/2sinx+1/2cosx)-1=2√3sinxcosx+2cos²x-1=√3sin2x+cos2x=2sin(2x+π/6)。T=π，最大值2，此时2x+π/6=π/2+2kπ，x=π/6+kπ。",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-manual",
+      "terminologyQaStatus": "pending-manual",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration."
+    }
+  ]
+}

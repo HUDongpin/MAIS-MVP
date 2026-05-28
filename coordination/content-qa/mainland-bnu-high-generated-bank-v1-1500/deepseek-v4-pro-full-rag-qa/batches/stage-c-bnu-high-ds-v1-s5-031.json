@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-031",
+  "startedAt": "2026-05-28T02:02:29.660Z",
+  "completedAt": "2026-05-28T02:02:34.484Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-031"
+  ],
+  "usage": {
+    "prompt_tokens": 3267,
+    "completion_tokens": 280,
+    "total_tokens": 3547,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2883
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-031",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "independentAnswer": null,
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "bad_options",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件矛盾：直线l方程为x+2y+4=0，AB中垂线为2x+3y+2=0，联立得圆心(8,-6)，半径√65，与所有选项均不匹配。解析中错误推导a+b=1导致虚假解(1,-2)，实际该点不在l上且圆不过A、B。题目无正确选项，不可解。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目存在数学错误，无正确选项，判定为不可解。"
+    }
+  }
+}

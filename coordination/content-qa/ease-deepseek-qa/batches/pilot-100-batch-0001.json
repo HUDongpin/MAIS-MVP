@@ -1,0 +1,103 @@
+{
+  "scope": "pilot-100",
+  "batchIndex": 1,
+  "startedAt": "2026-05-28T03:12:34.309Z",
+  "completedAt": "2026-05-28T03:13:10.181Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "itemIds": [
+    "100000080",
+    "100000043",
+    "192",
+    "54",
+    "100000027"
+  ],
+  "usage": {
+    "prompt_tokens": 1633,
+    "completion_tokens": 2010,
+    "total_tokens": 3643,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1352
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 1633
+  },
+  "finishReason": "stop",
+  "jsonModeFallback": false,
+  "result": {
+    "items": [
+      {
+        "questionId": "100000080",
+        "questionType": "BFQ",
+        "hasImage": true,
+        "standardAnswer": "7.85",
+        "independentAnswer": null,
+        "solvabilityStatus": "image-context-required",
+        "answerMatchStatus": "not-checkable",
+        "severity": "P1",
+        "reason": "三角形未知量，需要圖片提供邊長/角度資訊。",
+        "recommendedAction": "補充圖片或改為文字描述，使題目可供審查。"
+      },
+      {
+        "questionId": "100000043",
+        "questionType": "BFQ",
+        "hasImage": false,
+        "standardAnswer": "A",
+        "independentAnswer": "A",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "48與180的GCD為12，LCM為720，與選項A一致。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "192",
+        "questionType": "FRQ",
+        "hasImage": true,
+        "standardAnswer": "[@]192a.png[@]",
+        "independentAnswer": null,
+        "solvabilityStatus": "image-context-required",
+        "answerMatchStatus": "not-checkable",
+        "severity": "P1",
+        "reason": "需數線圖片才能標示相反數，且答案為圖片無法比對。",
+        "recommendedAction": "提供圖片描述或以文字指出相反數，使審查可行。"
+      },
+      {
+        "questionId": "54",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "4,120",
+        "independentAnswer": "4,120",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "20與24的HCF=4，LCM=120，與答案吻合。",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "100000027",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "",
+        "independentAnswer": null,
+        "solvabilityStatus": "unsolvable",
+        "answerMatchStatus": "missing-answer-key",
+        "severity": "P0",
+        "reason": "題目文字為空，無法作答。",
+        "recommendedAction": "補充完整題目及標準答案。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 2,
+      "unsolvable": 1,
+      "ambiguous": 0,
+      "imageContextRequired": 2,
+      "answerMismatch": 0,
+      "missingAnswerKey": 1,
+      "notes": "2題需圖片，1題無題目，2題通過。"
+    }
+  }
+}

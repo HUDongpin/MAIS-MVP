@@ -1,0 +1,330 @@
+{
+  "batchNumber": 10,
+  "startedAt": "2026-05-26T16:57:28.456Z",
+  "completedAt": "2026-05-26T16:58:02.543Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p2-021",
+    "bnu-primary-ds-v2-p2-022",
+    "bnu-primary-ds-v2-p2-023",
+    "bnu-primary-ds-v2-p2-024",
+    "bnu-primary-ds-v2-p2-025",
+    "bnu-primary-ds-v2-p2-026",
+    "bnu-primary-ds-v2-p2-027",
+    "bnu-primary-ds-v2-p2-028",
+    "bnu-primary-ds-v2-p2-029",
+    "bnu-primary-ds-v2-p2-030",
+    "bnu-primary-ds-v2-p2-031",
+    "bnu-primary-ds-v2-p2-032",
+    "bnu-primary-ds-v2-p2-033",
+    "bnu-primary-ds-v2-p2-034",
+    "bnu-primary-ds-v2-p2-035",
+    "bnu-primary-ds-v2-p2-036",
+    "bnu-primary-ds-v2-p2-037",
+    "bnu-primary-ds-v2-p2-038",
+    "bnu-primary-ds-v2-p2-039",
+    "bnu-primary-ds-v2-p2-040",
+    "bnu-primary-ds-v2-p2-041",
+    "bnu-primary-ds-v2-p2-042",
+    "bnu-primary-ds-v2-p2-043",
+    "bnu-primary-ds-v2-p2-044",
+    "bnu-primary-ds-v2-p2-045",
+    "bnu-primary-ds-v2-p2-046",
+    "bnu-primary-ds-v2-p2-047",
+    "bnu-primary-ds-v2-p2-048",
+    "bnu-primary-ds-v2-p2-049",
+    "bnu-primary-ds-v2-p2-050"
+  ],
+  "usage": {
+    "prompt_tokens": 7442,
+    "completion_tokens": 2537,
+    "total_tokens": 9979,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 7058
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p2-021",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目信息完整，计算正确，找回7角。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-022",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项唯一正确，4元-3元5角=5角。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-023",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "计算正确，12元8角+4元5角=17元3角。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-024",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "计算正确，够，找回1元9角。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-025",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项一总和6元7角，唯一正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-026",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "计算正确，5元6角+3元8角=9元4角。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-027",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "小东共5元2角，不够，差2元6角，计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-028",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "28元+9元5角=37元5角，选项唯一正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-029",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "1元=10角，换5角需2张，换2角需5张，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-030",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "10元-4元5角=5元5角，计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-031",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项1是4个3，可用3×4，其他不是相同加数。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-032",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "4+3不能表示3个4，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-033",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项B正确表达3个4相加，其他错误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-034",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "只有B每盘同样多，可用乘法。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-035",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "答案正确，加法4+4+4=12，乘法4×3=12，解释合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-036",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "加法4+4+4=12，乘法3×4或4×3均可，答案涵盖。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-037",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "每排数量不同，不能用乘法，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-038",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "4个5相加，乘法4×5，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-039",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "答案正确，加法4+4+4=12，乘法3×4或4×3，解释合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-040",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "只有B是4个3，可用3×4，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-041",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "答案正确，3个4相加，加法4+4+4=12，乘法3×4或4×3。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-042",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "答案正确，5个2相加，加法2+2+2+2+2=10，乘法5×2或2×5。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-043",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "C是3+4，不能用3×4，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-044",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "答案正确，3份每份4颗，加法4+4+4=12，乘法3×4或4×3。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-045",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "答案正确，6个5相加，加法5+5+5+5+5+5=30，乘法6×5或5×6。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-046",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "风车转动是旋转，其他是平移，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-047",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "长方形和圆形对折重合，平行四边形不重合，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-048",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "对折两次剪角得4个对称洞，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-049",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "一般平行四边形不是轴对称图形，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-050",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "火车行驶和升国旗是平移，指针和风扇是旋转，答案正确。"
+      }
+    ],
+    "batchSummary": {
+      "solvableYes": 30,
+      "solvableNo": 0,
+      "answerMatchYes": 30,
+      "answerMatchNo": 0,
+      "notes": "全部30道题均可解，答案匹配，无错误。"
+    }
+  }
+}

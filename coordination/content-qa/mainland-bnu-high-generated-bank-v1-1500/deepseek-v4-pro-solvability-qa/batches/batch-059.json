@@ -1,0 +1,137 @@
+{
+  "batchNumber": 59,
+  "startedAt": "2026-05-27T13:53:45.524Z",
+  "completedAt": "2026-05-27T13:54:06.561Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-465",
+    "bnu-high-ds-v1-s4-466",
+    "bnu-high-ds-v1-s4-467",
+    "bnu-high-ds-v1-s4-468",
+    "bnu-high-ds-v1-s4-469",
+    "bnu-high-ds-v1-s4-470",
+    "bnu-high-ds-v1-s4-471",
+    "bnu-high-ds-v1-s4-472"
+  ],
+  "usage": {
+    "prompt_tokens": 10898,
+    "completion_tokens": 1324,
+    "total_tokens": 12222,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10386
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-465",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可独立求解。|z-2i|=1表示以(0,2)为圆心、1为半径的圆，|z|最大值为圆心到原点距离加半径，即2+1=3。答案3正确，解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-466",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2/3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可独立求解。以D₁为顶点，底面△BDE面积计算得2，D₁到平面BDE距离为1，体积=1/3×2×1=2/3。答案2/3正确，解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-467",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0 条",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可独立求解。若平面α内存在直线与l平行，则l平行于α，与l与α相交矛盾，故不存在。答案0条正确，解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-468",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "16 + 8√5",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可独立求解。底面积16，斜高√(3²-2²)=√5，侧面积4×1/2×4×√5=8√5，表面积16+8√5。答案正确，解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-469",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "若 m⊥α，n⊥α，则 m∥n",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可独立求解。垂直于同一平面的两条直线平行，选项B正确。其他选项均有反例。答案正确，解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-470",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "6π/5",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可独立求解。底面周长6π，扇形弧长等于底面周长，半径等于母线长5，圆心角=6π/5。答案正确，解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-471",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "无法确定",
+        "correctedAnswer": "无法确定",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件中AE:EB=AH:HD=2:1，故EH∥BD；但CF:FB=2:1，CG:GD=3:1，比例不同，FG不平行于BD，因此EH与FG可能相交或异面，无法确定位置关系。解析中承认比例不同，却仍给出平行结论，自相矛盾。答案应为“无法确定”，原答案“平行”错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-472",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "84 cm²",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可独立求解。底面积36，斜高4，侧面积48，全面积84 cm²。答案正确，解析与答案一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第7题（bnu-high-ds-v1-s4-471）因条件比例不一致导致无法确定位置关系，原答案“平行”错误，解析自相矛盾，判定为失败。其余7题均通过审核。"
+    }
+  }
+}

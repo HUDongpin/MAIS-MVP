@@ -1,0 +1,41 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-049-item-bnu-high-ds-v1-s4-385",
+  "startedAt": "2026-05-28T02:29:38.996Z",
+  "completedAt": "2026-05-28T02:30:02.119Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-385"
+  ],
+  "usage": {
+    "prompt_tokens": 1686,
+    "completion_tokens": 221,
+    "total_tokens": 1907,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1302
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-385",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "B",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "函数T(t)=15-10cos(πt/12)，振幅10，垂直位移15，最高25℃出现在cos=-1即t=12时，最低5℃出现在cos=1即t=0和24时，周期24小时，[6,18]上cos从0到-1再到0，T从15到25再到15，非单调。故B正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 1,
+      "warn": 0,
+      "fail": 0,
+      "notes": "题目清晰，选项唯一正确，符合北师大版S4三角函数建模要求。"
+    }
+  }
+}

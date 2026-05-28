@@ -1,0 +1,135 @@
+{
+  "batchNumber": 182,
+  "startedAt": "2026-05-27T14:14:31.475Z",
+  "completedAt": "2026-05-27T14:14:46.681Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-449",
+    "bnu-high-ds-v1-s6-450",
+    "bnu-high-ds-v1-s6-451",
+    "bnu-high-ds-v1-s6-452",
+    "bnu-high-ds-v1-s6-453",
+    "bnu-high-ds-v1-s6-454",
+    "bnu-high-ds-v1-s6-455",
+    "bnu-high-ds-v1-s6-456"
+  ],
+  "usage": {
+    "prompt_tokens": 11992,
+    "completion_tokens": 1073,
+    "total_tokens": 13065,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 11480
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-449",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "18 m²",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可独立求解。答案18 m²正确，解析过程无误，与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-450",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(-∞, 3]",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可独立求解。答案(-∞, 3]正确，解析过程无误，与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-451",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "3",
+        "correctedAnswer": null,
+        "issueTags": [
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，答案3正确。但解析中bn定义错误：题目设bn=an+2n，解析却写bn=an+2n+1，导致推导过程与题目条件不符，解析与题目矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-452",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "an = 2n + 1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可独立求解。答案an=2n+1正确，解析过程无误，与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-453",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(-1, 3)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可独立求解。答案(-1,3)正确，解析过程无误，与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-454",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "62",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可独立求解。答案62正确，解析过程无误，与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-455",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "31",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可独立求解。答案31正确，解析过程无误，与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-456",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "y = 3x - 2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，可独立求解。答案y=3x-2正确，解析过程无误，与答案一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第451题解析中bn定义与题目不符，导致解析错误，其余题目均通过审核。"
+    }
+  }
+}

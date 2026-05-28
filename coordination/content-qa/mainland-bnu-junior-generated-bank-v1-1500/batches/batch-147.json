@@ -1,0 +1,635 @@
+{
+  "batchId": "batch-147",
+  "questions": [
+    {
+      "id": "bnu-junior-ds-v1-s3-461",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "bnu-junior-s3-lower-statistics-probability",
+      "unitTitle": "统计与概率",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "statistics-probability",
+        "data-analysis",
+        "probability",
+        "frequency",
+        "statistical-measures",
+        "统计",
+        "概率"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "数据整理分析",
+        "平均数中位数众数",
+        "方差波动",
+        "频率估计概率",
+        "随机事件判断"
+      ],
+      "misconceptionTags": [
+        "average used without checking distribution",
+        "frequency treated as exact probability",
+        "sample conclusion overgeneralized"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s3-lower-statistics-probability"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-lower-assessment-statistics-probability-unit",
+        "bnu-junior-s3-lower-assessment-stage-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校九年级学生进行投篮测试，每人投10次，记录投中次数。随机抽取20名学生的成绩如下：5, 7, 8, 6, 9, 7, 6, 8, 7, 5, 8, 9, 7, 6, 8, 7, 9, 6, 8, 7。下列说法正确的是：",
+      "optionsZhHans": [
+        "这组数据的众数是7和8",
+        "这组数据的中位数是7",
+        "这组数据的平均数是7.2",
+        "这组数据的方差是1.2"
+      ],
+      "answer": "这组数据的众数是7和8",
+      "acceptedAnswers": [
+        "这组数据的众数是7和8"
+      ],
+      "explanationZhHans": "数据排序：5,5,6,6,6,6,7,7,7,7,7,7,8,8,8,8,8,9,9,9。7出现6次，8出现5次，众数为7和8。中位数为第10和11个数的平均数(7+7)/2=7。平均数=(5×2+6×4+7×6+8×5+9×3)/20=7.1。方差计算得1.29，不是1.2。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-462",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "bnu-junior-s3-lower-statistics-probability",
+      "unitTitle": "统计与概率",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "statistics-probability",
+        "data-analysis",
+        "probability",
+        "frequency",
+        "statistical-measures",
+        "统计",
+        "概率"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "数据整理分析",
+        "平均数中位数众数",
+        "方差波动",
+        "频率估计概率",
+        "随机事件判断"
+      ],
+      "misconceptionTags": [
+        "average used without checking distribution",
+        "frequency treated as exact probability",
+        "sample conclusion overgeneralized"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s3-lower-statistics-probability"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-lower-assessment-statistics-probability-unit",
+        "bnu-junior-s3-lower-assessment-stage-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某班40名学生一次数学测验成绩分组如下：50~60分：2人；60~70分：5人；70~80分：12人；80~90分：14人；90~100分：7人。请计算该班成绩的中位数所在的分数段，并说明理由。",
+      "optionsZhHans": [],
+      "answer": "中位数在80~90分段",
+      "acceptedAnswers": [
+        "中位数在80~90分段",
+        "80~90分"
+      ],
+      "explanationZhHans": "总人数40，中位数是第20和21个数据的平均数。累计人数：50~60分2人，60~70分累计7人，70~80分累计19人，80~90分累计33人。第20和21个数据落在80~90分段，所以中位数在该段。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-463",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "bnu-junior-s3-lower-statistics-probability",
+      "unitTitle": "统计与概率",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "statistics-probability",
+        "data-analysis",
+        "probability",
+        "frequency",
+        "statistical-measures",
+        "统计",
+        "概率"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "数据整理分析",
+        "平均数中位数众数",
+        "方差波动",
+        "频率估计概率",
+        "随机事件判断"
+      ],
+      "misconceptionTags": [
+        "average used without checking distribution",
+        "frequency treated as exact probability",
+        "sample conclusion overgeneralized"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s3-lower-statistics-probability"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-lower-assessment-statistics-probability-unit",
+        "bnu-junior-s3-lower-assessment-stage-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "甲、乙两名射击运动员在相同条件下各射击10次，成绩（环）如下：甲：7,8,8,9,7,8,9,8,7,9；乙：6,10,7,9,8,10,6,9,7,8。若要选择一名发挥更稳定的运动员参赛，应选谁？",
+      "optionsZhHans": [
+        "甲，因为甲的平均数更高",
+        "乙，因为乙的平均数更高",
+        "甲，因为甲的方差更小",
+        "乙，因为乙的方差更小"
+      ],
+      "answer": "甲，因为甲的方差更小",
+      "acceptedAnswers": [
+        "甲，因为甲的方差更小"
+      ],
+      "explanationZhHans": "甲平均8环，方差0.8；乙平均8环，方差2.0。两人平均数相同，但甲方差小，成绩更稳定，所以选甲。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-464",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "bnu-junior-s3-lower-statistics-probability",
+      "unitTitle": "统计与概率",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "statistics-probability",
+        "data-analysis",
+        "probability",
+        "frequency",
+        "statistical-measures",
+        "统计",
+        "概率"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "数据整理分析",
+        "平均数中位数众数",
+        "方差波动",
+        "频率估计概率",
+        "随机事件判断"
+      ],
+      "misconceptionTags": [
+        "average used without checking distribution",
+        "frequency treated as exact probability",
+        "sample conclusion overgeneralized"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s3-lower-statistics-probability"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-lower-assessment-statistics-probability-unit",
+        "bnu-junior-s3-lower-assessment-stage-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个不透明的袋子里有红、黄、蓝三种颜色的小球，除颜色外无其他差别。已知红球有3个，黄球有2个，蓝球有1个。从袋子中随机摸出一个小球，摸到红球的概率是多少？摸到黄球的概率是多少？",
+      "optionsZhHans": [],
+      "answer": "摸到红球的概率是1/2，摸到黄球的概率是1/3",
+      "acceptedAnswers": [
+        "摸到红球的概率是1/2，摸到黄球的概率是1/3",
+        "红球1/2，黄球1/3"
+      ],
+      "explanationZhHans": "总球数=3+2+1=6。P(红)=3/6=1/2；P(黄)=2/6=1/3。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-465",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "bnu-junior-s3-lower-statistics-probability",
+      "unitTitle": "统计与概率",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "statistics-probability",
+        "data-analysis",
+        "probability",
+        "frequency",
+        "statistical-measures",
+        "统计",
+        "概率"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "数据整理分析",
+        "平均数中位数众数",
+        "方差波动",
+        "频率估计概率",
+        "随机事件判断"
+      ],
+      "misconceptionTags": [
+        "average used without checking distribution",
+        "frequency treated as exact probability",
+        "sample conclusion overgeneralized"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s3-lower-statistics-probability"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-lower-assessment-statistics-probability-unit",
+        "bnu-junior-s3-lower-assessment-stage-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校调查了八年级200名学生每周课外阅读时间，整理得到频数分布表：0~2小时：40人；2~4小时：60人；4~6小时：50人；6~8小时：30人；8~10小时：20人。为了解大多数学生的阅读时间，最合适的统计量是：",
+      "optionsZhHans": [
+        "平均数",
+        "中位数",
+        "众数",
+        "方差"
+      ],
+      "answer": "中位数",
+      "acceptedAnswers": [
+        "中位数"
+      ],
+      "explanationZhHans": "课外阅读时间分布可能不对称，平均数易受极端值影响。中位数反映中间水平，适合描述大多数学生的阅读时间。众数只反映最频繁的组，方差衡量波动，不合适。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-466",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "bnu-junior-s3-lower-statistics-probability",
+      "unitTitle": "统计与概率",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "statistics-probability",
+        "data-analysis",
+        "probability",
+        "frequency",
+        "statistical-measures",
+        "统计",
+        "概率"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "数据整理分析",
+        "平均数中位数众数",
+        "方差波动",
+        "频率估计概率",
+        "随机事件判断"
+      ],
+      "misconceptionTags": [
+        "average used without checking distribution",
+        "frequency treated as exact probability",
+        "sample conclusion overgeneralized"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s3-lower-statistics-probability"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-lower-assessment-statistics-probability-unit",
+        "bnu-junior-s3-lower-assessment-stage-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个口袋中装有4个白球和若干个黑球，这些球除颜色外都相同。从口袋中随机摸出一个球，记下颜色后放回，摇匀后再摸。重复试验100次，其中摸到白球25次。估计口袋中黑球的数量。",
+      "optionsZhHans": [],
+      "answer": "12个",
+      "acceptedAnswers": [
+        "12个",
+        "12"
+      ],
+      "explanationZhHans": "摸到白球的频率为25/100=0.25。设黑球x个，则总球数4+x，P(白)=4/(4+x)≈0.25，解得x=12。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-467",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "bnu-junior-s3-lower-statistics-probability",
+      "unitTitle": "统计与概率",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "statistics-probability",
+        "data-analysis",
+        "probability",
+        "frequency",
+        "statistical-measures",
+        "统计",
+        "概率"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "数据整理分析",
+        "平均数中位数众数",
+        "方差波动",
+        "频率估计概率",
+        "随机事件判断"
+      ],
+      "misconceptionTags": [
+        "average used without checking distribution",
+        "frequency treated as exact probability",
+        "sample conclusion overgeneralized"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s3-lower-statistics-probability"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-lower-assessment-statistics-probability-unit",
+        "bnu-junior-s3-lower-assessment-stage-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "从分别写有数字1,2,3,4,5的五张卡片中随机抽取一张，记下数字后放回，再随机抽取一张。两次抽取的数字之和为偶数的概率是：",
+      "optionsZhHans": [
+        "12/25",
+        "13/25",
+        "1/2",
+        "3/5"
+      ],
+      "answer": "13/25",
+      "acceptedAnswers": [
+        "13/25"
+      ],
+      "explanationZhHans": "总结果5×5=25种。和为偶数的情况：两奇或两偶。奇数3个，偶数2个。两奇：3×3=9种，两偶：2×2=4种，共13种。概率=13/25。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-468",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "bnu-junior-s3-lower-statistics-probability",
+      "unitTitle": "统计与概率",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "statistics-probability",
+        "data-analysis",
+        "probability",
+        "frequency",
+        "statistical-measures",
+        "统计",
+        "概率"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "数据整理分析",
+        "平均数中位数众数",
+        "方差波动",
+        "频率估计概率",
+        "随机事件判断"
+      ],
+      "misconceptionTags": [
+        "average used without checking distribution",
+        "frequency treated as exact probability",
+        "sample conclusion overgeneralized"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s3-lower-statistics-probability"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-lower-assessment-statistics-probability-unit",
+        "bnu-junior-s3-lower-assessment-stage-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校七年级两个班各50名学生进行立定跳远测试，成绩数据如下：一班平均成绩1.85米，方差0.04；二班平均成绩1.82米，方差0.09。请比较两个班成绩的整齐程度，并说明理由。",
+      "optionsZhHans": [],
+      "answer": "一班成绩更整齐，因为方差更小",
+      "acceptedAnswers": [
+        "一班成绩更整齐，因为方差更小",
+        "一班更整齐"
+      ],
+      "explanationZhHans": "方差反映数据波动大小。一班方差0.04小于二班0.09，说明一班成绩波动小，更整齐。平均数差异不影响整齐程度比较。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-469",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "bnu-junior-s3-lower-statistics-probability",
+      "unitTitle": "统计与概率",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "statistics-probability",
+        "data-analysis",
+        "probability",
+        "frequency",
+        "statistical-measures",
+        "统计",
+        "概率"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "数据整理分析",
+        "平均数中位数众数",
+        "方差波动",
+        "频率估计概率",
+        "随机事件判断"
+      ],
+      "misconceptionTags": [
+        "average used without checking distribution",
+        "frequency treated as exact probability",
+        "sample conclusion overgeneralized"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s3-lower-statistics-probability"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-lower-assessment-statistics-probability-unit",
+        "bnu-junior-s3-lower-assessment-stage-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某市去年5月份每天的最高气温（℃）记录如下：22,24,23,25,26,24,23,25,24,26,27,25,24,23,26,25,24,27,25,26,24,23,25,26,24,27,25,26,24,25,23。这组数据的众数和中位数分别是：",
+      "optionsZhHans": [
+        "24和25",
+        "25和24",
+        "24和24.5",
+        "25和25"
+      ],
+      "answer": "24和25",
+      "acceptedAnswers": [
+        "24和25"
+      ],
+      "explanationZhHans": "数据共31个。众数：24出现10次最多。排序后第16个数是中位数，为25。所以众数24，中位数25。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-470",
+      "batch": "bnu-junior-v1",
+      "grade": "S3",
+      "semester": "lower",
+      "topicId": "bnu-junior-s3-lower-statistics-probability",
+      "unitTitle": "统计与概率",
+      "volume": "九年级下册",
+      "conceptIds": [
+        "statistics-probability",
+        "data-analysis",
+        "probability",
+        "frequency",
+        "statistical-measures",
+        "统计",
+        "概率"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "数据整理分析",
+        "平均数中位数众数",
+        "方差波动",
+        "频率估计概率",
+        "随机事件判断"
+      ],
+      "misconceptionTags": [
+        "average used without checking distribution",
+        "frequency treated as exact probability",
+        "sample conclusion overgeneralized"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s3-lower-statistics-probability"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s3-lower-assessment-statistics-probability-unit",
+        "bnu-junior-s3-lower-assessment-stage-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-statistics-probability",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个不透明的盒子里有红、白两种颜色的球共20个，除颜色外无差别。通过多次摸球试验发现，摸到红球的频率稳定在0.6左右。估计盒子里红球和白球各有多少个。",
+      "optionsZhHans": [],
+      "answer": "红球12个，白球8个",
+      "acceptedAnswers": [
+        "红球12个，白球8个",
+        "红12白8"
+      ],
+      "explanationZhHans": "频率稳定在0.6，可估计P(红)=0.6。红球数≈20×0.6=12，白球数≈20-12=8。"
+    }
+  ]
+}

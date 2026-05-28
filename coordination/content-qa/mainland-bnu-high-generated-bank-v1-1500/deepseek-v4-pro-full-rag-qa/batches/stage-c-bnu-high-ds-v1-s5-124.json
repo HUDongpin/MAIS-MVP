@@ -1,0 +1,52 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-124",
+  "startedAt": "2026-05-28T02:08:34.235Z",
+  "completedAt": "2026-05-28T02:08:40.644Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-124"
+  ],
+  "usage": {
+    "prompt_tokens": 3119,
+    "completion_tokens": 518,
+    "total_tokens": 3637,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2735
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-124",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "independentAnswer": null,
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "ambiguous_mc",
+          "bad_options",
+          "missing_condition",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件矛盾：离心率e=√3/2，椭圆上点P到左焦点距离与到右准线距离之比为1:2。根据椭圆第二定义，点P到左焦点距离与到左准线距离之比为e，到右焦点距离与到右准线距离之比为e。但条件涉及左焦点与右准线，无直接定义关系。设椭圆方程x²/a²+y²/b²=1，a=2t，c=√3t，b=t，右准线x=a²/c=4t/√3。设P(x,y)，|PF1|=a+ex=2t+√3t x，d右=|x-4t/√3|。由|PF1|/d右=1/2得(2t+√3t x)/(4t/√3 - x)=1/2，解得x=0，此时|PF1|=2t，d右=4t/√3，比值为√3/2≠1/2。若比值为2:1，解得x=2/√3，代入椭圆得y²=2/3，|PF1|=3，d右=2/√3，比值为3√3/2≠2。因此无解。所有选项均不满足条件，题目不可解。存储答案x²/16+y²/4=1错误，解析推导有误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目条件矛盾，无正确选项，判定为不可解。"
+    }
+  }
+}

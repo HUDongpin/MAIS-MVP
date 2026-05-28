@@ -1,0 +1,173 @@
+{
+  "batchNumber": 14,
+  "startedAt": "2026-05-27T17:24:57.972Z",
+  "completedAt": "2026-05-27T17:25:17.174Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s1-157",
+    "bnu-junior-ds-v1-s1-158",
+    "bnu-junior-ds-v1-s1-159",
+    "bnu-junior-ds-v1-s1-160",
+    "bnu-junior-ds-v1-s1-161",
+    "bnu-junior-ds-v1-s1-162",
+    "bnu-junior-ds-v1-s1-163",
+    "bnu-junior-ds-v1-s1-164",
+    "bnu-junior-ds-v1-s1-165",
+    "bnu-junior-ds-v1-s1-166",
+    "bnu-junior-ds-v1-s1-167",
+    "bnu-junior-ds-v1-s1-168"
+  ],
+  "usage": {
+    "prompt_tokens": 5466,
+    "completion_tokens": 1408,
+    "total_tokens": 6874,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 4954
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s1-157",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件明确，点R在直线PQ上且不在线段PQ上，结合PR=4 cm，PQ=10 cm，可唯一确定RQ=14 cm，答案与解析一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-158",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "邻补角和为180°，设∠BOC=x，则∠AOB=2x，得3x=180°，x=60°，∠AOB=120°，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-159",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "点B在A、C之间，AC=AB+BC=10 cm，答案10或10 cm均可接受，解析正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-160",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "OC平分∠AOB得∠AOC=40°，∠AOD=40°-15°=25°，∠BOD=80°-25°=55°，选项唯一，答案匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-161",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "AB=5，BC=3，AC=8，M、N为中点，MB=2.5，BN=1.5，MN=4 cm，答案与解析一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-162",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "OC平分∠AOB，∠AOB=2×35°=70°，答案70°正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-163",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "点C在直线AB上且不在线段AB上，AC=4，AB=10，BC=14 cm，选项唯一，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-164",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "∠AOD=80°，对顶角∠BOC=80°，OF平分得∠BOF=40°，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-165",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "点C在线段AB上，AC=AB-BC=6 cm，答案6 cm正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-166",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "当以某点为顶点的角只有一个时，可用顶点字母表示，选项B符合，答案唯一正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-167",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "AC=12 cm，AM=6 cm，BM=AM-AB=1 cm，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-168",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "设∠BOC=x，则∠AOC=x+20°，2x+20°=80°，x=30°，∠AOC=50°，答案正确。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部12道题均条件充分、可解，答案与解析匹配，无错误或歧义，适合北师大版七年级上册基本平面图形单元使用。"
+    }
+  }
+}

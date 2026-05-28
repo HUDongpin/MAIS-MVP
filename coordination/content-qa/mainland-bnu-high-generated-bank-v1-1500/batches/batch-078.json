@@ -1,0 +1,668 @@
+{
+  "batchId": "batch-078",
+  "generationMode": "single-target-retry",
+  "questions": [
+    {
+      "id": "bnu-high-ds-v1-s5-271",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-数学建模活动-三",
+      "topicTitleZhHans": "数学建模活动（三）",
+      "volume": "选择性必修 第一册",
+      "chapter": "数学建模活动（三）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "analytic-geometry-modeling",
+        "spatial-vector-modeling",
+        "model-communication"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "参数直线",
+        "圆与直线综合",
+        "轨迹条件",
+        "几何量约束",
+        "直线与圆锥曲线联立",
+        "判别式条件",
+        "弦长与中点",
+        "参数范围"
+      ],
+      "misconceptionTags": [
+        "coordinate setup not justified",
+        "model variable not tied to context",
+        "calculation result reported without interpretation",
+        "parameter cases incomplete",
+        "special line omitted",
+        "algebraic solution not checked in the figure context",
+        "squaring introduces extra values",
+        "parameter condition unchecked"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-modeling-activity-3"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-lines-circles-unit-synthesis",
+        "bnu-high-s5-assessment-conics-unit-synthesis",
+        "bnu-high-s5-assessment-space-vectors-unit-synthesis"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系中，已知圆C的方程为 (x-2)²+(y+1)²=9，直线l过定点P(0,3)，且与圆C相交于A、B两点。若弦AB的中点M满足OM⊥AB（O为坐标原点），求直线l的斜率k的取值范围。",
+      "optionsZhHans": [
+        "(-∞, -√3] ∪ [√3, +∞)",
+        "(-∞, -√3/3] ∪ [√3/3, +∞)",
+        "(-∞, -1] ∪ [1, +∞)",
+        "(-∞, -2] ∪ [2, +∞)"
+      ],
+      "answer": "(-∞, -√3] ∪ [√3, +∞)",
+      "acceptedAnswers": [
+        "(-∞, -√3] ∪ [√3, +∞)"
+      ],
+      "explanationZhHans": "设直线l: y=kx+3，代入圆方程得(1+k²)x²+(8k-4)x+4=0。由弦中点M坐标及OM⊥AB得k·(y_M/x_M)=-1，结合韦达定理化简得3k²-3≥0，解得|k|≥√3。需验证判别式Δ>0，当|k|≥√3时Δ恒正，故k∈(-∞,-√3]∪[√3,+∞)。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-272",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-数学建模活动-三",
+      "topicTitleZhHans": "数学建模活动（三）",
+      "volume": "选择性必修 第一册",
+      "chapter": "数学建模活动（三）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "analytic-geometry-modeling",
+        "spatial-vector-modeling",
+        "model-communication"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "直线方程选择",
+        "斜率与位置关系",
+        "圆的方程识别",
+        "点线距离计算",
+        "坐标条件转化",
+        "参数直线",
+        "圆与直线综合",
+        "轨迹条件"
+      ],
+      "misconceptionTags": [
+        "coordinate setup not justified",
+        "model variable not tied to context",
+        "calculation result reported without interpretation",
+        "vertical line omitted",
+        "parallel and perpendicular conditions mixed",
+        "circle center and radius misread",
+        "distance formula target mismatch",
+        "parameter cases incomplete"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-modeling-activity-3"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-lines-circles-unit-core",
+        "bnu-high-s5-assessment-lines-circles-unit-synthesis",
+        "bnu-high-s5-assessment-conics-unit-core"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某数学建模小组研究校园内一个矩形花坛的喷灌系统。花坛边界为矩形ABCD，其中AB=8 m，AD=6 m。以A为原点，AB所在直线为x轴，AD所在直线为y轴建立平面直角坐标系。喷头位于点P(2,1)处，喷出的水柱沿直线方向运动，且水柱恰好能浇灌到花坛边界上的点Q，使得水柱路径PQ与矩形的一边平行。请写出所有可能的直线PQ的方程，并说明你的建模假设和计算过程。",
+      "optionsZhHans": [],
+      "answer": "x=2, y=1, y=(3/4)x-1/2, y=(-4/3)x+11/3",
+      "acceptedAnswers": [
+        "x=2, y=1, y=(3/4)x-1/2, y=(-4/3)x+11/3"
+      ],
+      "explanationZhHans": "建模假设：水柱沿直线运动，忽略重力影响；喷头位置固定；水柱恰好到达边界点Q。根据题意，PQ与矩形一边平行，矩形边分别平行于坐标轴，故PQ的斜率可能为0、不存在、或等于矩形对角线的斜率。矩形顶点坐标：A(0,0), B(8,0), C(8,6), D(0,6)。对角线AC斜率为3/4，BD斜率为-4/3。当PQ平行于AB时，方程为y=1；平行于AD时，方程为x=2；平行于AC时，过P且斜率为3/4，方程为y-1=(3/4)(x-2)，即y=(3/4)x-1/2；平行于BD时，过P且斜率为-4/3，方程为y-1=(-4/3)(x-2)，即y=(-4/3)x+11/3。经检验，这些直线均与矩形边界相交于有效点。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-273",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-数学建模活动-三",
+      "topicTitleZhHans": "数学建模活动（三）",
+      "volume": "选择性必修 第一册",
+      "chapter": "数学建模活动（三）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "analytic-geometry-modeling",
+        "spatial-vector-modeling",
+        "model-communication"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "直线方程选择",
+        "斜率与位置关系",
+        "圆的方程识别",
+        "点线距离计算",
+        "坐标条件转化",
+        "参数直线",
+        "圆与直线综合",
+        "轨迹条件"
+      ],
+      "misconceptionTags": [
+        "coordinate setup not justified",
+        "model variable not tied to context",
+        "calculation result reported without interpretation",
+        "vertical line omitted",
+        "parallel and perpendicular conditions mixed",
+        "circle center and radius misread",
+        "distance formula target mismatch",
+        "parameter cases incomplete"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-modeling-activity-3"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-lines-circles-unit-core",
+        "bnu-high-s5-assessment-lines-circles-unit-synthesis",
+        "bnu-high-s5-assessment-conics-unit-core"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某数学建模小组研究一个几何优化问题：在平面直角坐标系中，有一条经过点 P(2, 1) 的直线 l，它与 x 轴、y 轴的正半轴分别交于 A、B 两点。设 O 为坐标原点。\n\n(1) 若直线 l 的斜率为 k，写出 k 的取值范围，并说明理由。\n\n(2) 当 △AOB 的面积最小时，求直线 l 的方程。\n\n(3) 验证你得到的直线 l 是否确实使 △AOB 的面积最小，并简要说明你的验证方法。",
+      "optionsZhHans": [],
+      "answer": "(1) k < 0；理由：直线与 x 轴、y 轴正半轴相交，故斜率必须为负。\n(2) x + 2y - 4 = 0\n(3) 验证方法：设直线方程为 y - 1 = k(x - 2)，求出 A、B 坐标，得到面积 S = (1/2)(2 - 1/k)(1 - 2k)，利用基本不等式或二次函数求最小值，当 k = -1/2 时 S 最小，此时直线方程为 x + 2y - 4 = 0。",
+      "acceptedAnswers": [
+        "(1) k < 0；理由：直线与 x 轴、y 轴正半轴相交，故斜率必须为负。\n(2) x + 2y - 4 = 0\n(3) 验证方法：设直线方程为 y - 1 = k(x - 2)，求出 A、B 坐标，得到面积 S = (1/2)(2 - 1/k)(1 - 2k)，利用基本不等式或二次函数求最小值，当 k = -1/2 时 S 最小，此时直线方程为 x + 2y - 4 = 0。"
+      ],
+      "explanationZhHans": "(1) 直线与两正半轴相交，倾斜角为钝角，故 k<0。(2) 设 l: y-1=k(x-2)，得 A(2-1/k,0), B(0,1-2k)。面积 S=½(2-1/k)(1-2k)=½(4-4k-1/k)。由 k<0，-4k-1/k≥4，当 k=-½ 时取等，S_min=4。此时 l: y-1=-½(x-2)，即 x+2y-4=0。(3) 验证即上述推导，确认等号成立条件。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-274",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-数学建模活动-三",
+      "topicTitleZhHans": "数学建模活动（三）",
+      "volume": "选择性必修 第一册",
+      "chapter": "数学建模活动（三）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "analytic-geometry-modeling",
+        "spatial-vector-modeling",
+        "model-communication"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "参数直线",
+        "圆与直线综合",
+        "轨迹条件",
+        "几何量约束",
+        "直线与圆锥曲线联立",
+        "判别式条件",
+        "弦长与中点",
+        "参数范围"
+      ],
+      "misconceptionTags": [
+        "coordinate setup not justified",
+        "model variable not tied to context",
+        "calculation result reported without interpretation",
+        "parameter cases incomplete",
+        "special line omitted",
+        "algebraic solution not checked in the figure context",
+        "squaring introduces extra values",
+        "parameter condition unchecked"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-modeling-activity-3"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-lines-circles-unit-synthesis",
+        "bnu-high-s5-assessment-conics-unit-synthesis",
+        "bnu-high-s5-assessment-space-vectors-unit-synthesis"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系中，已知圆C的方程为 x² + y² = 4，点A的坐标为 (3, 0)。过点A作两条互相垂直的直线l₁和l₂，分别交圆C于P、Q两点（P、Q均不同于A）。设线段PQ的中点为M。当l₁绕点A旋转时，求点M的轨迹方程。下列选项中正确的是：",
+      "optionsZhHans": [
+        "x² + y² - 3x + 2 = 0",
+        "x² + y² - 3x + 1 = 0",
+        "x² + y² - 2x + 1 = 0",
+        "x² + y² - 2x + 2 = 0"
+      ],
+      "answer": "x² + y² - 3x + 2 = 0",
+      "acceptedAnswers": [
+        "x² + y² - 3x + 2 = 0"
+      ],
+      "explanationZhHans": "设l₁方程为y=k(x-3)，则l₂方程为y=(-1/k)(x-3)。分别与圆联立，利用韦达定理求出P、Q坐标，再得中点M坐标，消去参数k即得轨迹方程x²+y²-3x+2=0。需验证k不存在时也满足。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-275",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-数学建模活动-三",
+      "topicTitleZhHans": "数学建模活动（三）",
+      "volume": "选择性必修 第一册",
+      "chapter": "数学建模活动（三）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "analytic-geometry-modeling",
+        "spatial-vector-modeling",
+        "model-communication"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "直线方程选择",
+        "斜率与位置关系",
+        "圆的方程识别",
+        "点线距离计算",
+        "坐标条件转化",
+        "参数直线",
+        "圆与直线综合",
+        "轨迹条件"
+      ],
+      "misconceptionTags": [
+        "coordinate setup not justified",
+        "model variable not tied to context",
+        "calculation result reported without interpretation",
+        "vertical line omitted",
+        "parallel and perpendicular conditions mixed",
+        "circle center and radius misread",
+        "distance formula target mismatch",
+        "parameter cases incomplete"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-modeling-activity-3"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-lines-circles-unit-core",
+        "bnu-high-s5-assessment-lines-circles-unit-synthesis",
+        "bnu-high-s5-assessment-conics-unit-core"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某数学建模小组要研究校园内一个矩形花坛的灌溉问题。花坛的边界由直线围成，四个顶点坐标分别为 A(0,0)，B(8,0)，C(8,6)，D(0,6)。现在花坛内部有一个圆形喷灌区域，其圆心在点 P(3,2)，半径需要根据以下条件确定：喷灌区域必须完全位于花坛内部，且圆心到花坛边界的最近距离等于半径。请你建立适当的数学模型，求出该圆形喷灌区域的半径，并说明你的建模假设和计算过程。",
+      "optionsZhHans": [],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2",
+        "2.0"
+      ],
+      "explanationZhHans": "建模假设：花坛边界为直线段，喷灌区域为圆，圆心到边界的最近距离即圆心到四条边界直线距离的最小值。计算：圆心 P(3,2) 到四条边界 x=0, x=8, y=0, y=6 的距离分别为 3, 5, 2, 4，最小值为 2。因此半径 r=2。验证：圆完全在矩形内，符合条件。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-276",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-数学建模活动-三",
+      "topicTitleZhHans": "数学建模活动（三）",
+      "volume": "选择性必修 第一册",
+      "chapter": "数学建模活动（三）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "analytic-geometry-modeling",
+        "spatial-vector-modeling",
+        "model-communication"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "直线方程选择",
+        "斜率与位置关系",
+        "圆的方程识别",
+        "点线距离计算",
+        "坐标条件转化",
+        "参数直线",
+        "圆与直线综合",
+        "轨迹条件"
+      ],
+      "misconceptionTags": [
+        "coordinate setup not justified",
+        "model variable not tied to context",
+        "calculation result reported without interpretation",
+        "vertical line omitted",
+        "parallel and perpendicular conditions mixed",
+        "circle center and radius misread",
+        "distance formula target mismatch",
+        "parameter cases incomplete"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-modeling-activity-3"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-lines-circles-unit-core",
+        "bnu-high-s5-assessment-lines-circles-unit-synthesis",
+        "bnu-high-s5-assessment-conics-unit-core"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某数学建模小组研究校园内一条直线型道路与一个圆形花坛的位置关系。他们以花坛中心为原点，正东方向为x轴正方向，正北方向为y轴正方向建立平面直角坐标系（单位：米）。测得花坛半径为5米，道路恰好经过点A(8,1)和点B(2,7)。请完成以下任务：\n(1) 写出道路所在直线的方程（化为一般式）；\n(2) 计算花坛中心到道路的距离；\n(3) 判断道路与花坛的位置关系（相交、相切或相离），并说明理由。",
+      "optionsZhHans": [],
+      "answer": "(1) x+y-9=0\n(2) 9√2/2 米\n(3) 相离，因为圆心到直线的距离大于半径",
+      "acceptedAnswers": [
+        "(1) x+y-9=0\n(2) 9√2/2 米\n(3) 相离，因为圆心到直线的距离大于半径"
+      ],
+      "explanationZhHans": "(1) 由两点式得直线斜率k=(7-1)/(2-8)=-1，点斜式y-1=-(x-8)，整理得x+y-9=0。(2) 圆心(0,0)到直线距离d=|0+0-9|/√(1²+1²)=9/√2=9√2/2米。(3) 半径r=5，d≈6.36>5，故相离。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-277",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-数学建模活动-三",
+      "topicTitleZhHans": "数学建模活动（三）",
+      "volume": "选择性必修 第一册",
+      "chapter": "数学建模活动（三）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "analytic-geometry-modeling",
+        "spatial-vector-modeling",
+        "model-communication"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "参数直线",
+        "圆与直线综合",
+        "轨迹条件",
+        "几何量约束",
+        "直线与圆锥曲线联立",
+        "判别式条件",
+        "弦长与中点",
+        "参数范围"
+      ],
+      "misconceptionTags": [
+        "coordinate setup not justified",
+        "model variable not tied to context",
+        "calculation result reported without interpretation",
+        "parameter cases incomplete",
+        "special line omitted",
+        "algebraic solution not checked in the figure context",
+        "squaring introduces extra values",
+        "parameter condition unchecked"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-modeling-activity-3"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-lines-circles-unit-synthesis",
+        "bnu-high-s5-assessment-conics-unit-synthesis",
+        "bnu-high-s5-assessment-space-vectors-unit-synthesis"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系中，已知圆C的方程为 (x-2)²+(y-1)²=5，直线l过定点P(0,3)，且与圆C相交于A、B两点。若弦AB的中点M满足 OM⊥AB（O为坐标原点），则直线l的斜率k的取值范围是（ ）。",
+      "optionsZhHans": [
+        "(-∞, -2] ∪ [0, +∞)",
+        "(-∞, -2) ∪ (0, +∞)",
+        "[-2, 0]",
+        "(-2, 0)"
+      ],
+      "answer": "(-∞, -2] ∪ [0, +∞)",
+      "acceptedAnswers": [
+        "(-∞, -2] ∪ [0, +∞)"
+      ],
+      "explanationZhHans": "设l: y=kx+3，代入圆得(1+k²)x²+(4k-4)x+3=0。中点M横坐标x_M=(2-2k)/(1+k²)，纵坐标y_M=(3+2k+k²)/(1+k²)。由OM⊥AB得k_OM·k=-1，即(y_M/x_M)·k=-1，代入化简得k(k+2)≥0，且需判别式Δ>0保证相交，解得k≤-2或k≥0。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-278",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-数学建模活动-三",
+      "topicTitleZhHans": "数学建模活动（三）",
+      "volume": "选择性必修 第一册",
+      "chapter": "数学建模活动（三）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "analytic-geometry-modeling",
+        "spatial-vector-modeling",
+        "model-communication"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "直线方程选择",
+        "斜率与位置关系",
+        "圆的方程识别",
+        "点线距离计算",
+        "坐标条件转化",
+        "参数直线",
+        "圆与直线综合",
+        "轨迹条件"
+      ],
+      "misconceptionTags": [
+        "coordinate setup not justified",
+        "model variable not tied to context",
+        "calculation result reported without interpretation",
+        "vertical line omitted",
+        "parallel and perpendicular conditions mixed",
+        "circle center and radius misread",
+        "distance formula target mismatch",
+        "parameter cases incomplete"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-modeling-activity-3"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-lines-circles-unit-core",
+        "bnu-high-s5-assessment-lines-circles-unit-synthesis",
+        "bnu-high-s5-assessment-conics-unit-core"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某校数学建模小组研究校园内一个矩形花坛的喷灌系统。花坛的长边沿东西方向，长为8米；短边沿南北方向，宽为6米。为简化问题，小组以花坛中心为原点，正东为x轴正方向，正北为y轴正方向建立平面直角坐标系。喷头位于点P(1,2)处，可360度旋转，喷水半径可调。现需设置喷水半径r米，使喷灌区域恰好覆盖花坛的四个顶点，且不浪费水。请你完成以下任务：\n(1) 写出花坛四个顶点的坐标；\n(2) 求喷头P到四个顶点的距离，并确定最小的喷水半径r；\n(3) 验证当半径为r时，喷灌区域是否恰好覆盖整个花坛内部，并说明理由。",
+      "optionsZhHans": [],
+      "answer": "(1) 四个顶点坐标为A(4,3), B(4,-3), C(-4,-3), D(-4,3)（顺序可不同）\n(2) P到各顶点距离均为5米，最小喷水半径r=5米\n(3) 恰好覆盖。因为花坛是矩形，其所有点到中心的距离不超过对角线的一半5米，而喷灌区域是以P为圆心、5为半径的圆，该圆包含以原点为中心、5为半径的圆，故覆盖整个花坛。",
+      "acceptedAnswers": [
+        "(1) 四个顶点坐标为A(4,3), B(4,-3), C(-4,-3), D(-4,3)（顺序可不同）\n(2) P到各顶点距离均为5米，最小喷水半径r=5米\n(3) 恰好覆盖。因为花坛是矩形，其所有点到中心的距离不超过对角线的一半5米，而喷灌区域是以P为圆心、5为半径的圆，该圆包含以原点为中心、5为半径的圆，故覆盖整个花坛。"
+      ],
+      "explanationZhHans": "(1) 由长8宽6得顶点(±4,±3)。(2) 计算P(1,2)到(4,3)距离√[(4-1)²+(3-2)²]=√10≈3.16，但到(4,-3)距离√[(4-1)²+(-3-2)²]=√34≈5.83，到(-4,-3)距离√[(-4-1)²+(-3-2)²]=√50≈7.07，到(-4,3)距离√[(-4-1)²+(3-2)²]=√26≈5.10，最大为√50=5√2≈7.07，故r=5√2米。(3) 花坛内点(x,y)满足|x|≤4,|y|≤3，到P距离平方=(x-1)²+(y-2)²，最大在顶点(-4,-3)处为50，故r=5√2覆盖全花坛。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-279",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-数学建模活动-三",
+      "topicTitleZhHans": "数学建模活动（三）",
+      "volume": "选择性必修 第一册",
+      "chapter": "数学建模活动（三）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "analytic-geometry-modeling",
+        "spatial-vector-modeling",
+        "model-communication"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "直线方程选择",
+        "斜率与位置关系",
+        "圆的方程识别",
+        "点线距离计算",
+        "坐标条件转化",
+        "参数直线",
+        "圆与直线综合",
+        "轨迹条件"
+      ],
+      "misconceptionTags": [
+        "coordinate setup not justified",
+        "model variable not tied to context",
+        "calculation result reported without interpretation",
+        "vertical line omitted",
+        "parallel and perpendicular conditions mixed",
+        "circle center and radius misread",
+        "distance formula target mismatch",
+        "parameter cases incomplete"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-modeling-activity-3"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-lines-circles-unit-core",
+        "bnu-high-s5-assessment-lines-circles-unit-synthesis",
+        "bnu-high-s5-assessment-conics-unit-core"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "某数学建模小组研究一个几何问题：在平面直角坐标系中，有一条直线l经过点P(2, -1)，且与圆C：x² + y² - 6x + 4y + 9 = 0 相交于A、B两点。若弦AB的中点M恰好落在直线y = x上，求直线l的斜率。请写出所有可能的斜率值，用逗号分隔。",
+      "optionsZhHans": [],
+      "answer": "1, -1/2",
+      "acceptedAnswers": [
+        "1, -1/2",
+        "-1/2, 1"
+      ],
+      "explanationZhHans": "圆C化为标准方程(x-3)²+(y+2)²=4，圆心C(3,-2)，半径r=2。设直线l方程为y+1=k(x-2)，即kx-y-2k-1=0。弦中点M满足CM⊥l，故k_CM·k=-1。设M(x₀,y₀)，则(y₀+2)/(x₀-3)·k=-1，且M在l上，又在y=x上，联立解得k=1或k=-1/2。经检验，两斜率均使直线与圆相交，符合题意。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s5-280",
+      "batch": "bnu-high-v1",
+      "grade": "S5",
+      "semester": "lower",
+      "topicId": "bnu-high-s5-数学建模活动-三",
+      "topicTitleZhHans": "数学建模活动（三）",
+      "volume": "选择性必修 第一册",
+      "chapter": "数学建模活动（三）",
+      "conceptIds": [
+        "mathematical-modeling",
+        "analytic-geometry-modeling",
+        "spatial-vector-modeling",
+        "model-communication"
+      ],
+      "competencyTags": [
+        "数学建模",
+        "直观想象",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "参数直线",
+        "圆与直线综合",
+        "轨迹条件",
+        "几何量约束",
+        "直线与圆锥曲线联立",
+        "判别式条件",
+        "弦长与中点",
+        "参数范围"
+      ],
+      "misconceptionTags": [
+        "coordinate setup not justified",
+        "model variable not tied to context",
+        "calculation result reported without interpretation",
+        "parameter cases incomplete",
+        "special line omitted",
+        "algebraic solution not checked in the figure context",
+        "squaring introduces extra values",
+        "parameter condition unchecked"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s5-selective-1-modeling-activity-3"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s5-assessment-lines-circles-unit-synthesis",
+        "bnu-high-s5-assessment-conics-unit-synthesis",
+        "bnu-high-s5-assessment-space-vectors-unit-synthesis"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在平面直角坐标系中，已知圆C的方程为 (x-2)²+(y+1)²=9，直线l过定点P(1,0)，且与圆C相交于A、B两点。若弦AB的中点M满足OM⊥AB（O为坐标原点），则直线l的斜率为（ ）。",
+      "optionsZhHans": [
+        "A. -2",
+        "B. -1",
+        "C. 1",
+        "D. 2"
+      ],
+      "answer": "B. -1",
+      "acceptedAnswers": [
+        "B. -1"
+      ],
+      "explanationZhHans": "设直线l: y=k(x-1)，代入圆方程得(1+k²)x²-(4+2k²+2k)x+(k²+2k-4)=0。中点M横坐标x_M=(2+k²+k)/(1+k²)，纵坐标y_M=k(x_M-1)。由OM⊥AB得k_OM·k=-1，即(y_M/x_M)·k=-1。代入化简得k²+2k+1=0，解得k=-1。检验判别式Δ>0，符合题意。"
+    }
+  ]
+}

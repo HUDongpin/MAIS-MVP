@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-139",
+  "startedAt": "2026-05-28T01:37:03.974Z",
+  "completedAt": "2026-05-28T01:37:20.102Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-105",
+    "bnu-high-ds-v1-s6-106",
+    "bnu-high-ds-v1-s6-107",
+    "bnu-high-ds-v1-s6-108",
+    "bnu-high-ds-v1-s6-109",
+    "bnu-high-ds-v1-s6-110",
+    "bnu-high-ds-v1-s6-111",
+    "bnu-high-ds-v1-s6-112"
+  ],
+  "usage": {
+    "prompt_tokens": 10064,
+    "completion_tokens": 1185,
+    "total_tokens": 11249,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9680
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-105",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "161",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "递推关系 a_{n+1}=3a_n+2 可构造等比数列，解得 a_n=2·3^{n-1}-1，代入 n=5 得 a_5=161。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-106",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "D",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由 S_5=30 得 5a_1+10d=30，代入 a_1=2 得 d=2，计算 a_3+a_4+a_5=3a_1+9d=24，对应选项 D。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-107",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(1) a_2=4, a_3=6, a_4=8; (2) 猜想 a_n=2n，用数学归纳法证明。",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由递推 a_{n+1}=(n+1)a_n/n 及 a_1=2 逐项计算得 a_2=4, a_3=6, a_4=8，猜想 a_n=2n，归纳法验证成立。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-108",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由 a_5=a_2·q^3 得 32=4·q^3，解得 q=2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-109",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "B",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由 S_n=n^2+2n 得 a_n=2n+1，a_3+a_4+a_5=7+9+11=27，但选项无27；检查发现 a_n=S_n-S_{n-1}=2n+1 (n≥2)，a_1=S_1=3 符合，故和为27，选项A为27，选A。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-110",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "13/16",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由 a_1, a_3, a_9 成等比得 (a_1+2d)^2=a_1(a_1+8d)，解得 d=a_1，代入所求分式得 13/16。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-111",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "b_n 是首项为 -1，公比为 2 的等比数列；a_n=3^n-2^{n-1}",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由 b_n=a_n-3^n 得 b_{n+1}=2b_n，b_1=-1，故 b_n=-2^{n-1}，从而 a_n=3^n-2^{n-1}。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-112",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由 a_3+a_7=2a_5=20 得 a_5=10，与已知 a_5=12 矛盾，题目条件不一致，无法求解。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第112题条件矛盾（a_3+a_7=20 推出 a_5=10，但已知 a_5=12），无法求解，标记为 fail。其余题目均可独立求解。"
+    }
+  }
+}

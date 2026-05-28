@@ -1,0 +1,575 @@
+{
+  "batchId": "batch-129",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p6-031",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-fraction-mixed-operations",
+      "unitTitle": "分数混合运算",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "fraction-mixed-operations",
+        "operation-order",
+        "fraction-word-problems",
+        "equation-relationships",
+        "分数混合运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "符号意识"
+      ],
+      "skillTags": [
+        "分数四则混合运算",
+        "运算顺序",
+        "数量关系分析",
+        "画图建模",
+        "检验结果"
+      ],
+      "misconceptionTags": [
+        "operation chosen from keywords only",
+        "multiplication and division order reversed",
+        "fractions combined without a shared referent whole"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-fraction-mixed-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-fraction-mixed-operations-unit",
+        "bnu-primary-p6-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆新购一批图书，其中科普书占总数的3/8，文学书占剩下的2/5，其余是绘本。绘本有126本。这批图书共有多少本？",
+      "optionsZhHans": [
+        "A. 280本",
+        "B. 336本",
+        "C. 420本",
+        "D. 504本"
+      ],
+      "answer": "B. 336本",
+      "acceptedAnswers": [
+        "B. 336本"
+      ],
+      "explanationZhHans": "设总数为x。科普书为(3/8)x，剩余为(5/8)x。文学书占剩下的2/5，即(2/5)×(5/8)x=(1/4)x。绘本为x-(3/8)x-(1/4)x=(3/8)x。由(3/8)x=126得x=336。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-032",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-fraction-mixed-operations",
+      "unitTitle": "分数混合运算",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "fraction-mixed-operations",
+        "operation-order",
+        "fraction-word-problems",
+        "equation-relationships",
+        "分数混合运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "符号意识"
+      ],
+      "skillTags": [
+        "分数四则混合运算",
+        "运算顺序",
+        "数量关系分析",
+        "画图建模",
+        "检验结果"
+      ],
+      "misconceptionTags": [
+        "operation chosen from keywords only",
+        "multiplication and division order reversed",
+        "fractions combined without a shared referent whole"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-fraction-mixed-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-fraction-mixed-operations-unit",
+        "bnu-primary-p6-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算：3/4 + 1/6 × 2/5 ÷ 1/3 = ______。",
+      "optionsZhHans": [],
+      "answer": "19/20",
+      "acceptedAnswers": [
+        "19/20"
+      ],
+      "explanationZhHans": "先算乘除：1/6×2/5=1/15，除以1/3等于乘以3，1/15×3=1/5。再算加法：3/4+1/5=15/20+4/20=19/20。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-033",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-fraction-mixed-operations",
+      "unitTitle": "分数混合运算",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "fraction-mixed-operations",
+        "operation-order",
+        "fraction-word-problems",
+        "equation-relationships",
+        "分数混合运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "符号意识"
+      ],
+      "skillTags": [
+        "分数四则混合运算",
+        "运算顺序",
+        "数量关系分析",
+        "画图建模",
+        "检验结果"
+      ],
+      "misconceptionTags": [
+        "operation chosen from keywords only",
+        "multiplication and division order reversed",
+        "fractions combined without a shared referent whole"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-fraction-mixed-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-fraction-mixed-operations-unit",
+        "bnu-primary-p6-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一桶油连桶重15千克，用去一半油后，连桶重8千克。桶重多少千克？",
+      "optionsZhHans": [],
+      "answer": "1千克",
+      "acceptedAnswers": [
+        "1千克"
+      ],
+      "explanationZhHans": "一半油的重量为15-8=7千克，油总重14千克，桶重15-14=1千克。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-034",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-fraction-mixed-operations",
+      "unitTitle": "分数混合运算",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "fraction-mixed-operations",
+        "operation-order",
+        "fraction-word-problems",
+        "equation-relationships",
+        "分数混合运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "符号意识"
+      ],
+      "skillTags": [
+        "分数四则混合运算",
+        "运算顺序",
+        "数量关系分析",
+        "画图建模",
+        "检验结果"
+      ],
+      "misconceptionTags": [
+        "operation chosen from keywords only",
+        "multiplication and division order reversed",
+        "fractions combined without a shared referent whole"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-fraction-mixed-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-fraction-mixed-operations-unit",
+        "bnu-primary-p6-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面算式中，先算加法的是哪个？",
+      "optionsZhHans": [
+        "A. 1/2 + 1/3 × 1/4",
+        "B. (1/2 + 1/3) × 1/4",
+        "C. 1/2 × 1/3 + 1/4",
+        "D. 1/2 ÷ 1/3 + 1/4"
+      ],
+      "answer": "B. (1/2 + 1/3) × 1/4",
+      "acceptedAnswers": [
+        "B. (1/2 + 1/3) × 1/4"
+      ],
+      "explanationZhHans": "有括号先算括号内的加法。A先算乘法，C先算乘法，D先算除法。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-035",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-fraction-mixed-operations",
+      "unitTitle": "分数混合运算",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "fraction-mixed-operations",
+        "operation-order",
+        "fraction-word-problems",
+        "equation-relationships",
+        "分数混合运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "符号意识"
+      ],
+      "skillTags": [
+        "分数四则混合运算",
+        "运算顺序",
+        "数量关系分析",
+        "画图建模",
+        "检验结果"
+      ],
+      "misconceptionTags": [
+        "operation chosen from keywords only",
+        "multiplication and division order reversed",
+        "fractions combined without a shared referent whole"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-fraction-mixed-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-fraction-mixed-operations-unit",
+        "bnu-primary-p6-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一根绳子，第一次用去全长的1/3，第二次用去余下的1/4，还剩6米。这根绳子原长______米。",
+      "optionsZhHans": [],
+      "answer": "12",
+      "acceptedAnswers": [
+        "12"
+      ],
+      "explanationZhHans": "设原长x米。第一次用去x/3，余2x/3。第二次用去(2x/3)×(1/4)=x/6。剩余x - x/3 - x/6 = x/2 =6，x=12。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-036",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-fraction-mixed-operations",
+      "unitTitle": "分数混合运算",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "fraction-mixed-operations",
+        "operation-order",
+        "fraction-word-problems",
+        "equation-relationships",
+        "分数混合运算"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "符号意识"
+      ],
+      "skillTags": [
+        "分数四则混合运算",
+        "运算顺序",
+        "数量关系分析",
+        "画图建模",
+        "检验结果"
+      ],
+      "misconceptionTags": [
+        "operation chosen from keywords only",
+        "multiplication and division order reversed",
+        "fractions combined without a shared referent whole"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-fraction-mixed-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-fraction-mixed-operations-unit",
+        "bnu-primary-p6-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "水果店运来苹果和梨共240千克，苹果的质量是梨的3/5。运来梨多少千克？",
+      "optionsZhHans": [],
+      "answer": "150千克",
+      "acceptedAnswers": [
+        "150千克"
+      ],
+      "explanationZhHans": "设梨为x千克，则苹果为(3/5)x。x+(3/5)x=240，(8/5)x=240，x=150。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-037",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "viewpoints",
+        "three-dimensional-arrangements",
+        "spatial-visualization",
+        "front-side-top-views",
+        "观察物体"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "辨认不同视图",
+        "根据视图推断搭法",
+        "比较观察位置",
+        "空间想象",
+        "表达观察理由"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "hidden cubes counted as visible",
+        "left-right relations reversed after changing position"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-observe-objects-unit",
+        "bnu-primary-p6-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用5个相同的小正方体搭成一个立体图形。从正面看是3个小正方形排成一排，从左面看是2个小正方形上下排列。下面哪种搭法符合要求？",
+      "optionsZhHans": [
+        "A. 第一层摆3个成一排，第二层在中间上面摆1个，第三层在第二层的上面再摆1个",
+        "B. 第一层摆3个成一排，第二层在最左边上面摆1个，第三层在最右边上面摆1个",
+        "C. 第一层摆3个成一排，第二层在最左边上面摆1个，第三层在第二层的上面再摆1个",
+        "D. 第一层摆2个，第二层摆2个，第三层摆1个"
+      ],
+      "answer": "A. 第一层摆3个成一排，第二层在中间上面摆1个，第三层在第二层的上面再摆1个",
+      "acceptedAnswers": [
+        "A. 第一层摆3个成一排，第二层在中间上面摆1个，第三层在第二层的上面再摆1个"
+      ],
+      "explanationZhHans": "正面看一排3个，说明底层至少有3个并排。左面看上下2个，说明从左边看只有2列高度。选项A底层3个，中间上方叠2个，从左看正好是2个上下排列，符合。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-038",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "viewpoints",
+        "three-dimensional-arrangements",
+        "spatial-visualization",
+        "front-side-top-views",
+        "观察物体"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "辨认不同视图",
+        "根据视图推断搭法",
+        "比较观察位置",
+        "空间想象",
+        "表达观察理由"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "hidden cubes counted as visible",
+        "left-right relations reversed after changing position"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-observe-objects-unit",
+        "bnu-primary-p6-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个立体图形从上面看是3个小正方形排成一排，从正面看是2个小正方形上下排列。搭成这个立体图形最少需要______个小正方体。",
+      "optionsZhHans": [],
+      "answer": "4",
+      "acceptedAnswers": [
+        "4"
+      ],
+      "explanationZhHans": "从上面看一排3个，底层至少3个。正面看上下2个，说明有一列高2层。最少情况：底层3个，其中一列上面加1个，共4个。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-039",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "viewpoints",
+        "three-dimensional-arrangements",
+        "spatial-visualization",
+        "front-side-top-views",
+        "观察物体"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "辨认不同视图",
+        "根据视图推断搭法",
+        "比较观察位置",
+        "空间想象",
+        "表达观察理由"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "hidden cubes counted as visible",
+        "left-right relations reversed after changing position"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-observe-objects-unit",
+        "bnu-primary-p6-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用4个同样的小正方体搭立体图形，从正面看是3个小正方形排成一排，从左面看也是3个小正方形排成一排。请描述一种可能的搭法。",
+      "optionsZhHans": [],
+      "answer": "底层摆3个成一排，剩下的1个摆在底层中间那个的后面（或前面），使正面和左面都能看到3个一排。",
+      "acceptedAnswers": [
+        "底层摆3个成一排，剩下的1个摆在底层中间那个的后面（或前面），使正面和左面都能看到3个一排。"
+      ],
+      "explanationZhHans": "正面看一排3个，底层至少有3个并排。左面看一排3个，说明从左边看也有3个并排。将第4个放在中间后面，从正面仍看到3个，从左面看到前后两排各1个和2个，但总宽度为3，满足。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-040",
+      "batch": "bnu-primary-v1",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-observe-objects",
+      "unitTitle": "观察物体",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "viewpoints",
+        "three-dimensional-arrangements",
+        "spatial-visualization",
+        "front-side-top-views",
+        "观察物体"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "辨认不同视图",
+        "根据视图推断搭法",
+        "比较观察位置",
+        "空间想象",
+        "表达观察理由"
+      ],
+      "misconceptionTags": [
+        "viewpoint ignored",
+        "hidden cubes counted as visible",
+        "left-right relations reversed after changing position"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-observe-objects"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-observe-objects-unit",
+        "bnu-primary-p6-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个立体图形从正面看是4个小正方形排成“田”字形，从上面看是3个小正方形排成一排。这个立体图形至少由几个小正方体搭成？",
+      "optionsZhHans": [
+        "A. 4个",
+        "B. 5个",
+        "C. 6个",
+        "D. 7个"
+      ],
+      "answer": "B. 5个",
+      "acceptedAnswers": [
+        "B. 5个"
+      ],
+      "explanationZhHans": "正面看田字形，说明有上下两层，每层至少2个并排。上面看一排3个，说明底层至少有3个并排。最少情况：底层3个，上层在中间两个位置放2个，共5个。"
+    }
+  ]
+}

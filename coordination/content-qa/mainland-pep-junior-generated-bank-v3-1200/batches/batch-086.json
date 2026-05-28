@@ -1,0 +1,345 @@
+{
+  "batchId": "batch-086",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s3-k10-mc-051",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-quadratic-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models"
+      ],
+      "promptZhHans": "已知二次函数 y = -x² + 4x - 3，下列说法正确的是：",
+      "optionsZhHans": [
+        "函数图象开口向上",
+        "函数图象的顶点坐标为 (2, 1)",
+        "函数图象与 x 轴没有交点",
+        "当 x > 2 时，y 随 x 增大而增大"
+      ],
+      "answer": "函数图象的顶点坐标为 (2, 1)",
+      "acceptedAnswers": [
+        "函数图象的顶点坐标为 (2, 1)"
+      ],
+      "explanationZhHans": "二次函数 y = -x² + 4x - 3，a = -1 < 0，开口向下，A 错误。化为顶点式：y = -(x - 2)² + 1，顶点坐标为 (2, 1)，B 正确。判别式 Δ = 4² - 4×(-1)×(-3) = 16 - 12 = 4 > 0，与 x 轴有两个交点，C 错误。当 x > 2 时，开口向下，y 随 x 增大而减小，D 错误。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-052",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-circle-geometry"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "在圆 O 中，弦 AB 与弦 CD 相交于点 E，若弧 AC 的度数为 60°，弧 BD 的度数为 100°，则 ∠AEC 的度数为：",
+      "optionsZhHans": [
+        "30°",
+        "50°",
+        "80°",
+        "100°"
+      ],
+      "answer": "80°",
+      "acceptedAnswers": [
+        "80°"
+      ],
+      "explanationZhHans": "圆内角 ∠AEC 的度数等于它所对弧的度数与它的对顶角所对弧的度数之和的一半。∠AEC 所对的弧是弧 AC 和弧 BD，所以 ∠AEC = (60° + 100°) / 2 = 80°。故答案为 80°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-053",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-probability-introduction"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "在一个不透明的盒子中装有 3 个红球和 2 个白球，这些球除颜色外完全相同。从中随机摸出两个球，恰好都是红球的概率是：",
+      "optionsZhHans": [
+        "3/10",
+        "3/5",
+        "9/25",
+        "1/10"
+      ],
+      "answer": "3/10",
+      "acceptedAnswers": [
+        "3/10"
+      ],
+      "explanationZhHans": "从 5 个球中随机摸出两个球，总情况数为 C(5,2) = 10。摸出两个红球的情况数为 C(3,2) = 3。所以概率为 3/10。故答案为 3/10。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-054",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-rotation-transformations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions"
+      ],
+      "promptZhHans": "点 P 的坐标为 (-3, 2)，将点 P 绕原点顺时针旋转 90° 后得到的点的坐标是：",
+      "optionsZhHans": [
+        "(2, 3)",
+        "(-2, -3)",
+        "(3, -2)",
+        "(-3, -2)"
+      ],
+      "answer": "(2, 3)",
+      "acceptedAnswers": [
+        "(2, 3)"
+      ],
+      "explanationZhHans": "点 (x, y) 绕原点顺时针旋转 90° 后坐标为 (y, -x)。所以 (-3, 2) 旋转后为 (2, 3)。故答案为 (2, 3)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-055",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "promptZhHans": "一元二次方程 2x² - 5x + 1 = 0 的根的情况是：",
+      "optionsZhHans": [
+        "有两个相等的实数根",
+        "有两个不相等的实数根",
+        "没有实数根",
+        "无法判断"
+      ],
+      "answer": "有两个不相等的实数根",
+      "acceptedAnswers": [
+        "有两个不相等的实数根"
+      ],
+      "explanationZhHans": "判别式 Δ = (-5)² - 4×2×1 = 25 - 8 = 17 > 0，所以方程有两个不相等的实数根。故答案为有两个不相等的实数根。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-056",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-quadratic-equations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean"
+      ],
+      "promptZhHans": "二次函数 y = x² - 2x - 3 的图象与 x 轴的交点坐标是：",
+      "optionsZhHans": [
+        "(1, 0) 和 (-3, 0)",
+        "(-1, 0) 和 (3, 0)",
+        "(1, 0) 和 (3, 0)",
+        "(-1, 0) 和 (-3, 0)"
+      ],
+      "answer": "(-1, 0) 和 (3, 0)",
+      "acceptedAnswers": [
+        "(-1, 0) 和 (3, 0)"
+      ],
+      "explanationZhHans": "令 y = 0，得 x² - 2x - 3 = 0，因式分解为 (x + 1)(x - 3) = 0，解得 x = -1 或 x = 3，所以交点坐标为 (-1, 0) 和 (3, 0)。故答案为 (-1, 0) 和 (3, 0)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-057",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-quadratic-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig"
+      ],
+      "promptZhHans": "将抛物线 y = 2x² 向左平移 3 个单位，再向上平移 5 个单位，得到的抛物线解析式为：",
+      "optionsZhHans": [
+        "y = 2(x - 3)² + 5",
+        "y = 2(x + 3)² + 5",
+        "y = 2(x - 3)² - 5",
+        "y = 2(x + 3)² - 5"
+      ],
+      "answer": "y = 2(x + 3)² + 5",
+      "acceptedAnswers": [
+        "y = 2(x + 3)² + 5"
+      ],
+      "explanationZhHans": "抛物线平移遵循“左加右减，上加下减”。向左平移 3 个单位，x 替换为 x + 3；向上平移 5 个单位，整体加 5。所以解析式为 y = 2(x + 3)² + 5。故答案为 y = 2(x + 3)² + 5。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-058",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-circle-geometry"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-dynamic-geometry-functions"
+      ],
+      "promptZhHans": "已知圆的半径为 5，一条弦的长度为 8，则弦到圆心的距离为：",
+      "optionsZhHans": [
+        "3",
+        "4",
+        "5",
+        "6"
+      ],
+      "answer": "3",
+      "acceptedAnswers": [
+        "3"
+      ],
+      "explanationZhHans": "弦到圆心的距离、弦长的一半和半径构成直角三角形。弦长的一半为 4，半径为 5，由勾股定理得距离 = √(5² - 4²) = √9 = 3。故答案为 3。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-059",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-probability-introduction"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "同时抛掷两枚质地均匀的硬币，出现一正一反的概率是：",
+      "optionsZhHans": [
+        "1/4",
+        "1/2",
+        "3/4",
+        "1"
+      ],
+      "answer": "1/2",
+      "acceptedAnswers": [
+        "1/2"
+      ],
+      "explanationZhHans": "抛掷两枚硬币，等可能的结果有：正正、正反、反正、反反，共 4 种。一正一反包含正反和反正两种情况，概率为 2/4 = 1/2。故答案为 1/2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-mc-060",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-rotation-transformations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-proof-calculation-integrated"
+      ],
+      "promptZhHans": "下列图形中，既是轴对称图形又是中心对称图形的是：",
+      "optionsZhHans": [
+        "等边三角形",
+        "平行四边形",
+        "正五边形",
+        "圆"
+      ],
+      "answer": "圆",
+      "acceptedAnswers": [
+        "圆"
+      ],
+      "explanationZhHans": "等边三角形是轴对称图形但不是中心对称图形；平行四边形是中心对称图形但不一定是轴对称图形（除非是菱形、矩形等）；正五边形是轴对称图形但不是中心对称图形；圆既是轴对称图形（任意直径所在直线都是对称轴）又是中心对称图形（圆心是对称中心）。故答案为圆。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

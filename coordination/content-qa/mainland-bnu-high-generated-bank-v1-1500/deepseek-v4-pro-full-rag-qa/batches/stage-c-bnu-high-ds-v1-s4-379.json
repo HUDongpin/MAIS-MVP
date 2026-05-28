@@ -1,0 +1,50 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-379",
+  "startedAt": "2026-05-28T02:44:04.976Z",
+  "completedAt": "2026-05-28T02:44:10.477Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-379"
+  ],
+  "usage": {
+    "prompt_tokens": 2506,
+    "completion_tokens": 290,
+    "total_tokens": 2796,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2122
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-379",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "independentAnswer": null,
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "ambiguous_mc",
+          "bad_options",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目四个选项均存在几何关系错误：A、B、D不共线，选项A、C、D的共线或垂直关系均不成立；选项B中C、D、A不共线且AC与AD不垂直。无正确选项，无法求解塔高。存储答案A与解析矛盾，解析中仰角关系错误。题目不可解，选项无效。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目无正确选项，四个选项均存在几何关系错误，不可解，判定为blocker。"
+    }
+  }
+}

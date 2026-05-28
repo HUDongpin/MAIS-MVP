@@ -1,0 +1,135 @@
+{
+  "batchNumber": 76,
+  "startedAt": "2026-05-27T13:56:26.131Z",
+  "completedAt": "2026-05-27T13:56:52.978Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-101",
+    "bnu-high-ds-v1-s5-102",
+    "bnu-high-ds-v1-s5-103",
+    "bnu-high-ds-v1-s5-104",
+    "bnu-high-ds-v1-s5-105",
+    "bnu-high-ds-v1-s5-106",
+    "bnu-high-ds-v1-s5-107",
+    "bnu-high-ds-v1-s5-108"
+  ],
+  "usage": {
+    "prompt_tokens": 10826,
+    "completion_tokens": 1642,
+    "total_tokens": 12468,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10314
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-101",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "x^2/25 + y^2/16 = 1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由长轴长2a=10得a=5，离心率e=c/a=3/5得c=3，b²=a²-c²=16，焦点在x轴，标准方程为x²/25+y²/16=1。题目条件充分，答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-102",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "x^2/9 - y^2/16 = 1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "渐近线斜率b/a=4/3，焦距2c=10得c=5，由c²=a²+b²解得a²=9，b²=16，实轴在x轴，方程为x²/9-y²/16=1。条件充分，答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-103",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "4",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "y²=8x中2p=8，p=4，焦点到准线距离为p=4。选项唯一正确，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-104",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "9x+8y-26=0",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "利用点差法，由中点P(2,1)得斜率k=-9/8，点斜式得9x+8y-26=0。条件充分，答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-105",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(2, 7/2)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "椭圆要求分母为正且不等，焦点在y轴则5-k>k-2>0，解得2<k<7/2。条件充分，答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-106",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "√2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "设直线y=x-c，联立双曲线，利用弦长公式和|AB|=4，化简得a=b，离心率e=√2。条件充分，答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-107",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "independentAnswer": "(3, 2√3) 或 (3, -2√3)",
+        "correctedAnswer": null,
+        "issueTags": [
+          "explanation_contradiction"
+        ],
+        "severity": "minor",
+        "confidence": "high",
+        "rationaleZhHans": "抛物线y²=4x，焦点F(1,0)，准线x=-1。设P(x,y)，由定义|PF|=x+1，|PQ|=x+1。正三角形得|PF|=|FQ|，而|FQ|=2，故x+1=2，x=1，但代入抛物线得y²=4，y=±2，此时P(1,±2)，但|PF|=2，|FQ|=2，|PQ|=2，确实构成正三角形。然而解析中写“检验得x=3”，与计算矛盾，且最终答案(3,±2√3)满足|PF|=4，|FQ|=4，但|FQ|应为2？实际上F(1,0)，Q(-1,y)，|FQ|=√((1+1)²+y²)=√(4+y²)，若P(3,2√3)，则Q(-1,2√3)，|FQ|=√(4+12)=4，|PF|=4，|PQ|=4，确实为正三角形。但解析中“由|FQ|=2得x+1=2”错误，应为|FQ|=|PF|，设|PF|=t，则t=√((x-1)²+y²)，由定义t=x+1，且|FQ|=√((x+1)²+y²)？实际上Q(-1,y)，F(1,0)，|FQ|=√((1+1)²+y²)=√(4+y²)，由正三角形得√(4+y²)=x+1，结合y²=4x，解得x=3。解析表述有误，但最终答案正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-108",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(3/5, 0)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "右顶点(3,0)，以AB为直径的圆过该点得(x₁-3)(x₂-3)+y₁y₂=0，联立直线与椭圆，韦达定理代入得m与k关系，解得定点(3/5,0)。条件充分，答案正确，解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 1,
+      "fail": 0,
+      "notes": "第7题解析存在推导表述错误（由|FQ|=2得x+1=2不正确），但最终答案正确，标记为weak；其余题目均通过。"
+    }
+  }
+}

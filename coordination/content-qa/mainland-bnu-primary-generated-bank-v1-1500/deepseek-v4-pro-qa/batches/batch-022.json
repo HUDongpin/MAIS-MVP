@@ -1,0 +1,191 @@
+{
+  "batchNumber": 22,
+  "startedAt": "2026-05-27T13:26:33.283Z",
+  "completedAt": "2026-05-27T13:26:50.788Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p2-129",
+    "bnu-primary-ds-v1-p2-130",
+    "bnu-primary-ds-v1-p2-131",
+    "bnu-primary-ds-v1-p2-132",
+    "bnu-primary-ds-v1-p2-133",
+    "bnu-primary-ds-v1-p2-134",
+    "bnu-primary-ds-v1-p2-135",
+    "bnu-primary-ds-v1-p2-136",
+    "bnu-primary-ds-v1-p2-137",
+    "bnu-primary-ds-v1-p2-138",
+    "bnu-primary-ds-v1-p2-139",
+    "bnu-primary-ds-v1-p2-140",
+    "bnu-primary-ds-v1-p2-141",
+    "bnu-primary-ds-v1-p2-142",
+    "bnu-primary-ds-v1-p2-143",
+    "bnu-primary-ds-v1-p2-144",
+    "bnu-primary-ds-v1-p2-145",
+    "bnu-primary-ds-v1-p2-146"
+  ],
+  "usage": {
+    "prompt_tokens": 3342,
+    "completion_tokens": 1257,
+    "total_tokens": 4599,
+    "prompt_tokens_details": {
+      "cached_tokens": 3328
+    },
+    "prompt_cache_hit_tokens": 3328,
+    "prompt_cache_miss_tokens": 14
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p2-129",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，符合P2除法基础要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-130",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项唯一正确，无歧义，适合P2。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-131",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案完整，要求写出算式和口诀，符合题意。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-132",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "简单平均分问题，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-133",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项唯一正确，口诀匹配无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-134",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "填空答案正确，口诀对应。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-135",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "要求写出算式和口诀说明，答案完整。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-136",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "有余数除法应用，选项唯一正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-137",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "填空答案正确，符合题意。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-138",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "有余数除法，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-139",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项唯一正确，余数计算无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-140",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "余数最大问题，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-141",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，acceptedAnswers覆盖多种表述。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-142",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项唯一正确，注意“装满”含义。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-143",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，acceptedAnswers覆盖多种格式。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-144",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，acceptedAnswers合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-145",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "逆向思维题，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-146",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "被除数计算，答案正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部18道题均通过审核，无数学错误、答案不匹配、歧义或年级不匹配等问题。"
+    }
+  }
+}

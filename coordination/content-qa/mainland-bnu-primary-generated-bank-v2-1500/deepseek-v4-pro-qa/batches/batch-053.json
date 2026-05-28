@@ -1,0 +1,191 @@
+{
+  "batchNumber": 53,
+  "startedAt": "2026-05-27T14:12:00.307Z",
+  "completedAt": "2026-05-27T14:12:17.945Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p4-187",
+    "bnu-primary-ds-v2-p4-188",
+    "bnu-primary-ds-v2-p4-189",
+    "bnu-primary-ds-v2-p4-190",
+    "bnu-primary-ds-v2-p4-191",
+    "bnu-primary-ds-v2-p4-192",
+    "bnu-primary-ds-v2-p4-193",
+    "bnu-primary-ds-v2-p4-194",
+    "bnu-primary-ds-v2-p4-195",
+    "bnu-primary-ds-v2-p4-196",
+    "bnu-primary-ds-v2-p4-197",
+    "bnu-primary-ds-v2-p4-198",
+    "bnu-primary-ds-v2-p4-199",
+    "bnu-primary-ds-v2-p4-200",
+    "bnu-primary-ds-v2-p4-201",
+    "bnu-primary-ds-v2-p4-202",
+    "bnu-primary-ds-v2-p4-203",
+    "bnu-primary-ds-v2-p4-204"
+  ],
+  "usage": {
+    "prompt_tokens": 4486,
+    "completion_tokens": 1214,
+    "total_tokens": 5700,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 4102
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p4-187",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项合理，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-188",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案格式灵活，无问题。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-189",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估算合理，选项唯一，解释清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-190",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估算与计算正确，答案格式可接受。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-191",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "视图推理正确，选项描述清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-192",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计数正确，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-193",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "最少数量推理正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-194",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "位置判断正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-195",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "视图推理正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-196",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数量推理正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-197",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "第二层数量推理正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-198",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "第一层数量正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-199",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "最少数量判断正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-200",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "位置判断正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-201",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "最少数量推理正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-202",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "俯视图描述正确，答案格式灵活。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-203",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "不可能形状推理正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p4-204",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "层数判断正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均通过审核，无数学错误、答案不匹配、歧义或年级不匹配等问题。"
+    }
+  }
+}

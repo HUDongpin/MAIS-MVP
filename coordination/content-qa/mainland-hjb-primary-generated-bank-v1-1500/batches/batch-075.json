@@ -1,0 +1,298 @@
+{
+  "batchId": "batch-075",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p2-121",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-math-square-review",
+      "unitTitle": "二年级上册数学广场与整理复习",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "p2-upper-review",
+        "math-square-exploration",
+        "within-100-review",
+        "money-direction-multiplication-review",
+        "数学广场",
+        "复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "综合应用",
+        "规律观察",
+        "策略说明",
+        "错因检查",
+        "知识整理"
+      ],
+      "misconceptionTags": [
+        "operation chosen from surface words",
+        "unit and direction labels omitted",
+        "review treated as unrelated drill rather than model selection"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-math-square-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-math-square-review",
+        "hjb-primary-p2-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小乐在整理自己的错题本时，看到一道题：\"一盒巧克力有6颗，妈妈买了4盒，一共有多少颗巧克力？\" 他列的算式是6+4=10（颗）。小乐出错的原因是什么？",
+      "optionsZhHans": [
+        "把乘法问题当成了加法",
+        "没有写单位名称",
+        "计算错误",
+        "题目看错了数字"
+      ],
+      "answer": "把乘法问题当成了加法",
+      "acceptedAnswers": [
+        "把乘法问题当成了加法"
+      ],
+      "explanationZhHans": "每盒6颗，4盒就是4个6，应该用乘法6×4=24（颗）。小乐用了加法，说明他根据“一共”这个词就选了加法，没有分析数量关系。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-122",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-math-square-review",
+      "unitTitle": "二年级上册数学广场与整理复习",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "p2-upper-review",
+        "math-square-exploration",
+        "within-100-review",
+        "money-direction-multiplication-review",
+        "数学广场",
+        "复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "综合应用",
+        "规律观察",
+        "策略说明",
+        "错因检查",
+        "知识整理"
+      ],
+      "misconceptionTags": [
+        "operation chosen from surface words",
+        "unit and direction labels omitted",
+        "review treated as unrelated drill rather than model selection"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-math-square-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-math-square-review",
+        "hjb-primary-p2-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明在复习方向时，画了一个简单的方位图：他站在操场中心，面向北。他的后面是（  ），左面是（  ），右面是（  ）。请按顺序填空。",
+      "optionsZhHans": [],
+      "answer": "南，西，东",
+      "acceptedAnswers": [
+        "南，西，东",
+        "南 西 东"
+      ],
+      "explanationZhHans": "面向北时，后面是南，左面是西，右面是东。要记住方向的相对关系，并标清每个空的方向词。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-123",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-math-square-review",
+      "unitTitle": "二年级上册数学广场与整理复习",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "p2-upper-review",
+        "math-square-exploration",
+        "within-100-review",
+        "money-direction-multiplication-review",
+        "数学广场",
+        "复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "综合应用",
+        "规律观察",
+        "策略说明",
+        "错因检查",
+        "知识整理"
+      ],
+      "misconceptionTags": [
+        "operation chosen from surface words",
+        "unit and direction labels omitted",
+        "review treated as unrelated drill rather than model selection"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-math-square-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-math-square-review",
+        "hjb-primary-p2-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小芳有35元，她买了一个文具盒花了18元，又买了一支笔花了5元。她想检查剩下的钱对不对，可以用两种方法。请写出其中一种检查方法。",
+      "optionsZhHans": [],
+      "answer": "用原来的钱减去花掉的总钱数：35-(18+5)=12（元），再和剩下的钱比较。",
+      "acceptedAnswers": [
+        "用原来的钱减去花掉的总钱数：35-(18+5)=12（元），再和剩下的钱比较。",
+        "先算第一次剩下的钱：35-18=17（元），再减去笔的钱：17-5=12（元），看是否等于剩下的钱。"
+      ],
+      "explanationZhHans": "检查时可以分步减，也可以先加后减，两种方法结果应相同。这样能发现计算错误，培养反思习惯。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-124",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-math-square-review",
+      "unitTitle": "二年级上册数学广场与整理复习",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "p2-upper-review",
+        "math-square-exploration",
+        "within-100-review",
+        "money-direction-multiplication-review",
+        "数学广场",
+        "复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "综合应用",
+        "规律观察",
+        "策略说明",
+        "错因检查",
+        "知识整理"
+      ],
+      "misconceptionTags": [
+        "operation chosen from surface words",
+        "unit and direction labels omitted",
+        "review treated as unrelated drill rather than model selection"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-math-square-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-math-square-review",
+        "hjb-primary-p2-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "复习课上，老师让同学们把下面的算式分类：① 3×5  ② 2+2+2  ③ 4×6  ④ 5+5+5。下面哪种分类是正确的？",
+      "optionsZhHans": [
+        "乘法算式：①③，加法算式：②④",
+        "结果是15的：①④，结果是12的：②③",
+        "加数相同的加法：②④，乘法：①③",
+        "乘法算式：①②，加法算式：③④"
+      ],
+      "answer": "乘法算式：①③，加法算式：②④",
+      "acceptedAnswers": [
+        "乘法算式：①③，加法算式：②④"
+      ],
+      "explanationZhHans": "①和③是乘法算式，②和④是加法算式。分类时要根据运算符号，不能只看数字或结果。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p2-125",
+      "batch": "hjb-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "hjb-primary-p2-upper-math-square-review",
+      "unitTitle": "二年级上册数学广场与整理复习",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "p2-upper-review",
+        "math-square-exploration",
+        "within-100-review",
+        "money-direction-multiplication-review",
+        "数学广场",
+        "复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "综合应用",
+        "规律观察",
+        "策略说明",
+        "错因检查",
+        "知识整理"
+      ],
+      "misconceptionTags": [
+        "operation chosen from surface words",
+        "unit and direction labels omitted",
+        "review treated as unrelated drill rather than model selection"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p2-upper-math-square-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p2-lower-assessment-math-square-review",
+        "hjb-primary-p2-upper-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在数学广场活动中，小亮观察一组图形：△□○△□○△□○…… 他发现规律是每3个图形重复一次。按照这个规律，第10个图形是（  ）。",
+      "optionsZhHans": [],
+      "answer": "△",
+      "acceptedAnswers": [
+        "△",
+        "三角形"
+      ],
+      "explanationZhHans": "周期是3，10÷3=3组余1个，余1就是周期里的第1个图形△。注意余数对应位置，余0才是最后一个。"
+    }
+  ]
+}

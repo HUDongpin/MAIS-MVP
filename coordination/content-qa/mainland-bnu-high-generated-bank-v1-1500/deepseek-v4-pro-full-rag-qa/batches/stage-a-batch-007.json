@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-007",
+  "startedAt": "2026-05-28T00:35:11.698Z",
+  "completedAt": "2026-05-28T00:35:29.739Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-049",
+    "bnu-high-ds-v1-s4-050",
+    "bnu-high-ds-v1-s4-051",
+    "bnu-high-ds-v1-s4-052",
+    "bnu-high-ds-v1-s4-053",
+    "bnu-high-ds-v1-s4-054",
+    "bnu-high-ds-v1-s4-055",
+    "bnu-high-ds-v1-s4-056"
+  ],
+  "usage": {
+    "prompt_tokens": 9985,
+    "completion_tokens": 1143,
+    "total_tokens": 11128,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9601
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-049",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(0, 2) ∪ (2, 4)",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由f(x+1)为偶函数得f(x)关于x=1对称，结合x≥1时f(x)=x^2-4x+3，解f(x)<0得1<x<3，利用对称性得解集为(0,2)∪(2,4)。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-050",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "[2, +∞)",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f(x)=x^2-2|x|+3为偶函数，当x≥0时f(x)=x^2-2x+3=(x-1)^2+2≥2，故值域为[2,+∞)。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-051",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "11",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由f(x+2)=f(x)+2递推得f(9)=f(1)+4×2=3+8=11。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-052",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(-∞, -2/3)",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "奇函数在R上单调递增，由f(2a-1)+f(a+3)<0得f(2a-1)<-f(a+3)=f(-a-3)，故2a-1<-a-3，解得a<-2/3。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-053",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "（1）偶函数；（2）[-1,0]和[1,+∞)",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f(x)=x^2-2|x|-3，定义域R，f(-x)=f(x)为偶函数；x≥0时f(x)=x^2-2x-3，递增区间为[1,+∞)，由偶函数对称得[-1,0]也是递增区间。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-054",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "[-2, 1) ∪ (1, 2]",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由4-x^2≥0得-2≤x≤2，分母x-1≠0得x≠1，故定义域为[-2,1)∪(1,2]。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-055",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(1/3, 1)",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "偶函数在[0,+∞)递减，f(m)>f(2m-1)等价于|m|<|2m-1|，解得1/3<m<1。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-056",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "令y=1得f(x+1)=f(x)+f(1)+2x，即f(x+1)-f(x)=2x+1，累加得f(x)=x^2，故f(-3)=9。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，无数学错误、歧义或缺失条件，符合北师大版高一函数章节要求。"
+    }
+  }
+}

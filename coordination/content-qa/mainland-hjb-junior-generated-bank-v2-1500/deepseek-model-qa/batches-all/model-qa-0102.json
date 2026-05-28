@@ -1,0 +1,109 @@
+{
+  "batchId": "model-qa-0102",
+  "ids": [
+    "hjb-junior-ds-v2-s2-309",
+    "hjb-junior-ds-v2-s2-310",
+    "hjb-junior-ds-v2-s2-311",
+    "hjb-junior-ds-v2-s2-312",
+    "hjb-junior-ds-v2-s2-313",
+    "hjb-junior-ds-v2-s2-314",
+    "hjb-junior-ds-v2-s2-315",
+    "hjb-junior-ds-v2-s2-316"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-309",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为5，但解析中计算OE=AB/2=4，且解析末尾自相矛盾（先写OE=AB/2=4，又写OE=AB/2=4）。根据平行四边形性质，O为AC中点，E为BC中点，OE是△ABC的中位线，OE=AB/2=4。答案应为4，而非5。",
+      "independentAnswerZhHans": "4",
+      "answerCheckZhHans": "标准答案5与解析推导的4不一致，且解析本身存在矛盾。",
+      "recommendedActionZhHans": "将答案修正为4，并统一解析。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-310",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "它是正方形",
+      "answerCheckZhHans": "四边相等且一个角为直角，四边形为正方形。选项D正确，其他选项不全面或错误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-311",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2√13",
+      "answerCheckZhHans": "由两组对边平行得平行四边形，在△ABC中用余弦定理计算AC=√(8²+6²-2*8*6*cos60°)=√(64+36-48)=√52=2√13。答案正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-312",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为2:1，但解析中先猜测AG=GF（1:1），后提出正确解法但未给出最终结果，且解析不完整。根据中位线性质，DE∥BC，延长DE交BC延长线于H，利用相似可得AG:GF=2:1。但需验证：取AF中点G'，则DG'∥BF，但BF≠FC，故G与G'不重合。实际上，由梅涅劳斯定理或重心性质，G为△ABC重心？D、E为中点，AF为中线，DE与AF交点G为重心，重心分中线为2:1，故AG:GF=2:1。答案正确，但解析混乱且未给出明确推导。",
+      "independentAnswerZhHans": "2:1",
+      "answerCheckZhHans": "答案2:1正确，但解析存在矛盾且不完整，需修正。",
+      "recommendedActionZhHans": "修正解析，给出清晰推导：由D、E为中点，DE∥BC，连接AF，G为重心，故AG:GF=2:1。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-313",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3组",
+      "answerCheckZhHans": "①两组对边相等，是判定定理；②一组对边平行且另一组对边相等，不能判定（反例：等腰梯形）；③对角线互相平分，是判定定理；④两组对角相等，是判定定理。故①③④正确，共3组。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-314",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-2",
+      "answerCheckZhHans": "P(a,0)，平移后Q(a+3,2)，关于x轴对称得R(a+3,-2)，由R(1,-2)得a+3=1，a=-2。答案正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-315",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(-3,-4)",
+      "answerCheckZhHans": "平移向量为A' - A = (-2,-5)，B' = B + (-2,-5) = (-3,-4)。答案正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-316",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "第四象限",
+      "answerCheckZhHans": "P(-3,5)右移4得(1,5)，下移2得Q(1,3)，关于x轴对称得R(1,-3)，在第四象限。答案正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

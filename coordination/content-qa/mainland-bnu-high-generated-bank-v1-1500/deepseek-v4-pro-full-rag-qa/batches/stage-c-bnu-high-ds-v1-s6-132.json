@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-132",
+  "startedAt": "2026-05-28T01:43:04.541Z",
+  "completedAt": "2026-05-28T01:43:09.043Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-132"
+  ],
+  "usage": {
+    "prompt_tokens": 2311,
+    "completion_tokens": 272,
+    "total_tokens": 2583,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1927
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-132",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "无解",
+        "correctedAnswer": "无解",
+        "issueTags": [
+          "math_error",
+          "unsolvable",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "由等差数列性质 a3+a7=2a5=20 得 a5=10，与已知 a5=9 矛盾，题目条件冲突无解。存储答案 d=2 错误，解析承认矛盾但强行修正数据，不可接受。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目条件矛盾，无解，答案错误，解析自相矛盾，判定为 blocker。"
+    }
+  }
+}

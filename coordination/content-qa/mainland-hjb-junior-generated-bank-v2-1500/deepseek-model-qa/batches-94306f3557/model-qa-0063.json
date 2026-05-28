@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0063",
+  "ids": [
+    "hjb-junior-ds-v2-s1-497",
+    "hjb-junior-ds-v2-s1-498",
+    "hjb-junior-ds-v2-s1-499",
+    "hjb-junior-ds-v2-s1-500",
+    "hjb-junior-ds-v2-s2-001",
+    "hjb-junior-ds-v2-s2-002",
+    "hjb-junior-ds-v2-s2-003",
+    "hjb-junior-ds-v2-s2-004"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-497",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "90°",
+      "answerCheckZhHans": "标准答案为90°，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-498",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "题干要求添加条件后仍无法判定△BDE≌△CDF。由已知AB=AC，∠A=40°，得∠B=∠C=70°。AD平分∠BAC且AB=AC，故AD是底边中线，BD=CD。已知DE=DF。选项A：BD=CD是已知条件，添加后不能作为新条件，但题干问的是“添加下列哪个条件后，仍无法判定”，即添加后仍不能判定全等。实际上，添加BD=CD后，结合已知DE=DF，∠B=∠C，可用SAS（BD=CD，∠B=∠C，DE=DF）判定全等，因此添加BD=CD后可以判定，与答案“BD=CD”矛盾。解析称BD=CD为已知，不能作为新增条件判定全等，但题干并未说明BD=CD是已知，而是由等腰三角形三线合一推出，但题目并未明确给出D是BC中点，仅说AD平分∠BAC，在等腰三角形中，顶角平分线也是底边中线，所以BD=CD是隐含条件。因此，添加BD=CD后，实际上可以判定全等，故选项A不是正确答案。正确答案应为无法判定的选项，但所有选项似乎都能判定。需重新审查。",
+      "independentAnswerZhHans": "无法判定，所有选项添加后均可判定全等。",
+      "answerCheckZhHans": "标准答案为BD=CD，但独立分析发现添加BD=CD后可以判定全等，与答案矛盾。",
+      "recommendedActionZhHans": "建议修改题干或选项，确保只有一个选项添加后无法判定全等。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-499",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "25°",
+      "answerCheckZhHans": "标准答案为25°，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-500",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "90°",
+      "answerCheckZhHans": "标准答案为90°，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-001",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "π",
+      "answerCheckZhHans": "标准答案为π，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-002",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "√5",
+      "answerCheckZhHans": "标准答案为√5，与独立解题结果一致。acceptedAnswers包含√5和根号5，覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-003",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": ">",
+      "answerCheckZhHans": "标准答案为>，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-004",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "6-√10",
+      "answerCheckZhHans": "标准答案为6-√10，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

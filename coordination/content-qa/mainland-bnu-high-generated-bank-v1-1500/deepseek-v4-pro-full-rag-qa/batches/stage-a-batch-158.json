@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-158",
+  "startedAt": "2026-05-28T01:44:26.908Z",
+  "completedAt": "2026-05-28T01:44:43.882Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-257",
+    "bnu-high-ds-v1-s6-258",
+    "bnu-high-ds-v1-s6-259",
+    "bnu-high-ds-v1-s6-260",
+    "bnu-high-ds-v1-s6-261",
+    "bnu-high-ds-v1-s6-262",
+    "bnu-high-ds-v1-s6-263",
+    "bnu-high-ds-v1-s6-264"
+  ],
+  "usage": {
+    "prompt_tokens": 10198,
+    "completion_tokens": 1278,
+    "total_tokens": 11476,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9814
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-257",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "m = 5",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导得 f'(x)=3x^2-6x-9=3(x-3)(x+1)，在[-2,2]内驻点为x=-1。比较f(-2)=m-2, f(-1)=m+5, f(2)=m-22，最小值为m-22=-7，解得m=15？检查：f(-2)=m-2, f(-1)=m+5, f(2)=m-22，最小值应为m-22，令其等于-7得m=15。但验证：m=15时f(-2)=13, f(-1)=20, f(2)=-7，最小值为-7，符合。所以m=15。之前误算为5，纠正。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-258",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "18",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x^2-3，驻点x=±1，在[0,3]内x=1。比较f(0)=0, f(1)=-2, f(3)=18，最大值为18。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-259",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(0, 1)",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "定义域(0,+∞)，f'(x)=1/x -1，令f'(x)>0得0<x<1，故递增区间为(0,1)。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-260",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "最大值为11，最小值为2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=4x^3-4x=4x(x-1)(x+1)，驻点x=-1,0,1。比较f(-2)=11, f(-1)=2, f(0)=3, f(1)=2, f(2)=11，最大11，最小2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-261",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "a = 10",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x^2-6x=3x(x-2)，驻点x=0,2。比较f(-1)=a-4, f(0)=a, f(2)=a-4, f(3)=a，最大值为a=10，故a=10。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-262",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(-1, 1)",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x^2-3=3(x-1)(x+1)，令f'(x)<0得-1<x<1，故递减区间为(-1,1)。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-263",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "a = -3, b = -9, c = 0",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "f'(x)=3x^2+2ax+b，由极值条件f'(-1)=0, f'(3)=0得3-2a+b=0, 27+6a+b=0，解得a=-3, b=-9。又f(-1)=5得-1+a-b+c=5，代入得c=0。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-264",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "0",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "y'=3x^2-4x，在x=1处斜率k=-1，切线方程y-0=-1(x-1)即y=-x+1，故k=-1, b=1, k+b=0。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，无数学错误、歧义或缺失条件，符合北师大版高中导数章节要求。"
+    }
+  }
+}

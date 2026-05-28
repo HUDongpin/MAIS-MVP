@@ -1,0 +1,103 @@
+{
+  "scope": "pilot-100",
+  "batchIndex": 6,
+  "startedAt": "2026-05-28T03:15:41.326Z",
+  "completedAt": "2026-05-28T03:16:52.530Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "itemIds": [
+    "100000136",
+    "9917",
+    "4055",
+    "9937",
+    "4519"
+  ],
+  "usage": {
+    "prompt_tokens": 2704,
+    "completion_tokens": 3949,
+    "total_tokens": 6653,
+    "prompt_tokens_details": {
+      "cached_tokens": 2688
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 3367
+    },
+    "prompt_cache_hit_tokens": 2688,
+    "prompt_cache_miss_tokens": 16
+  },
+  "finishReason": "stop",
+  "jsonModeFallback": false,
+  "result": {
+    "items": [
+      {
+        "questionId": "100000136",
+        "questionType": "BFQ",
+        "hasImage": false,
+        "standardAnswer": "5/2",
+        "independentAnswer": "5/2",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "可獨立求解，答案相符",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "9917",
+        "questionType": "FRQ",
+        "hasImage": true,
+        "standardAnswer": "D",
+        "independentAnswer": null,
+        "solvabilityStatus": "image-context-required",
+        "answerMatchStatus": "not-checkable",
+        "severity": "P1",
+        "reason": "需要圖片才能判斷圓內接四邊形",
+        "recommendedAction": "提供圖片說明或文字描述"
+      },
+      {
+        "questionId": "4055",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "-5",
+        "independentAnswer": "-5",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "可獨立求解，答案相符",
+        "recommendedAction": "No blocking action."
+      },
+      {
+        "questionId": "9937",
+        "questionType": "MCQ",
+        "hasImage": true,
+        "standardAnswer": "B",
+        "independentAnswer": null,
+        "solvabilityStatus": "image-context-required",
+        "answerMatchStatus": "not-checkable",
+        "severity": "P1",
+        "reason": "需要圖片才能驗證扇形重疊與幾何關係",
+        "recommendedAction": "提供圖片說明或文字描述"
+      },
+      {
+        "questionId": "4519",
+        "questionType": "MCQ",
+        "hasImage": false,
+        "standardAnswer": "A",
+        "independentAnswer": "A",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "可獨立判斷，答案相符",
+        "recommendedAction": "No blocking action."
+      }
+    ],
+    "batchSummary": {
+      "pass": 3,
+      "unsolvable": 0,
+      "ambiguous": 0,
+      "imageContextRequired": 2,
+      "answerMismatch": 0,
+      "missingAnswerKey": 0,
+      "notes": "2 items require image, uncheckable; others pass."
+    }
+  }
+}

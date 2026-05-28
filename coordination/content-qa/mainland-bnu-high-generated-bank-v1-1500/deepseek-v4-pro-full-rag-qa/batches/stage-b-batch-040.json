@@ -1,0 +1,130 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-040",
+  "startedAt": "2026-05-28T01:06:01.609Z",
+  "completedAt": "2026-05-28T01:06:16.983Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-313",
+    "bnu-high-ds-v1-s4-314",
+    "bnu-high-ds-v1-s4-315",
+    "bnu-high-ds-v1-s4-316",
+    "bnu-high-ds-v1-s4-317",
+    "bnu-high-ds-v1-s4-318",
+    "bnu-high-ds-v1-s4-319",
+    "bnu-high-ds-v1-s4-320"
+  ],
+  "usage": {
+    "prompt_tokens": 11629,
+    "completion_tokens": 983,
+    "total_tokens": 12612,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 11245
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-313",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案与独立解一致，均为向右平移π/4个单位，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-314",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案1/5与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-315",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案4与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-316",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案5π/3与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-317",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "x = π/4, 7π/12, 5π/4, 19π/12",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案13π/12错误，独立解得5π/4；解析中x=π/3+kπ或kπ与最终答案矛盾，且未正确筛选区间内解。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-318",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案2与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-319",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案x=π/12与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-320",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案-4/5与独立解一致，解析正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第317题存储答案错误，应为5π/4而非13π/12，解析与答案矛盾，其余题目均通过。"
+    }
+  }
+}

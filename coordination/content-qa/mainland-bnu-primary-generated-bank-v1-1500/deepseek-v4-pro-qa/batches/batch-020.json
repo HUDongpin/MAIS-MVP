@@ -1,0 +1,191 @@
+{
+  "batchNumber": 20,
+  "startedAt": "2026-05-27T13:26:26.829Z",
+  "completedAt": "2026-05-27T13:26:45.039Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p2-093",
+    "bnu-primary-ds-v1-p2-094",
+    "bnu-primary-ds-v1-p2-095",
+    "bnu-primary-ds-v1-p2-096",
+    "bnu-primary-ds-v1-p2-097",
+    "bnu-primary-ds-v1-p2-098",
+    "bnu-primary-ds-v1-p2-099",
+    "bnu-primary-ds-v1-p2-100",
+    "bnu-primary-ds-v1-p2-101",
+    "bnu-primary-ds-v1-p2-102",
+    "bnu-primary-ds-v1-p2-103",
+    "bnu-primary-ds-v1-p2-104",
+    "bnu-primary-ds-v1-p2-105",
+    "bnu-primary-ds-v1-p2-106",
+    "bnu-primary-ds-v1-p2-107",
+    "bnu-primary-ds-v1-p2-108",
+    "bnu-primary-ds-v1-p2-109",
+    "bnu-primary-ds-v1-p2-110"
+  ],
+  "usage": {
+    "prompt_tokens": 3348,
+    "completion_tokens": 1298,
+    "total_tokens": 4646,
+    "prompt_tokens_details": {
+      "cached_tokens": 3328
+    },
+    "prompt_cache_hit_tokens": 3328,
+    "prompt_cache_miss_tokens": 20
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p2-093",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，符合P2除法初步要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-094",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项明确，正确选项唯一，平均分概念清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-095",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "填空格式合理，答案正确，符合除法基础练习。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-096",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目要求写出算式并检查，答案和解释完整，无问题。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-097",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项设计合理，正确选项唯一，符合除法应用。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-098",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "填空答案正确，平均分除法基础题。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-099",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目要求写出算式和想法，答案正确，符合要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-100",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项区分度好，正确选项唯一，平均分意义明确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-101",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "填空答案6正确，符合除法口诀。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-102",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案4盒正确，acceptedAnswers覆盖合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-103",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项正确，唯一对应平均分除法算式。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-104",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "填空答案5正确，简单除法应用。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-105",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案6个正确，符合平均分除法。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-106",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "乘法交换律，选项正确，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-107",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "填空答案54正确，口诀应用合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-108",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案48块正确，乘法基础应用题。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-109",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算结果正确，6×7最大，选项无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-110",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案63正确，口诀匹配。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部18道题均符合北师大版小学数学要求，数学正确，答案匹配，无歧义或缺失条件，适合对应年级和主题。"
+    }
+  }
+}

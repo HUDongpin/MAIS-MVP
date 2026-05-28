@@ -1,0 +1,147 @@
+{
+  "batchNumber": 88,
+  "startedAt": "2026-05-27T13:58:35.833Z",
+  "completedAt": "2026-05-27T13:58:56.833Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-197",
+    "bnu-high-ds-v1-s5-198",
+    "bnu-high-ds-v1-s5-199",
+    "bnu-high-ds-v1-s5-200",
+    "bnu-high-ds-v1-s5-201",
+    "bnu-high-ds-v1-s5-202",
+    "bnu-high-ds-v1-s5-203",
+    "bnu-high-ds-v1-s5-204"
+  ],
+  "usage": {
+    "prompt_tokens": 11780,
+    "completion_tokens": 1353,
+    "total_tokens": 13133,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 11268
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-197",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "两平面重合",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "平面β方程除以2得x+2y+3z=6，与α完全相同，故两平面重合。题目可解，答案匹配，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-198",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "向量AB=(3,3,3)，AC=(6,6,6)，共线，三点共线，三角形面积为0。题目可解，答案匹配，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-199",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "相交但不垂直",
+        "correctedAnswer": "相交但不垂直",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "方向向量(2,1,-1)与法向量(1,2,1)点积为3≠0，不垂直；点(1,0,2)在平面上，故直线与平面相交但不垂直。正确选项为C，答案误设为A，解析也指出错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-200",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(1/3,1/3,1/3)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由PA=PB=PC得x=y=z，代入平面x+y+z=1得P(1/3,1/3,1/3)。题目可解，答案匹配，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-201",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": null,
+        "correctedAnswer": null,
+        "issueTags": [
+          "unsolvable",
+          "missing_condition",
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "A(1,2,3),B(4,5,6),C(7,8,9)三点共线，无法确定平面，不存在唯一法向量。题目条件错误，不可解，答案和解析均无效。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-202",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "√6/3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "AB=(-1,1,0)，平面BCD法向量n=(-1,1,1)，sinθ=|AB·n|/(|AB||n|)=2/√6=√6/3。题目可解，答案匹配，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-203",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "1/3",
+        "correctedAnswer": "1/3",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "点P(1,2,3)到平面2x-y+2z-5=0的距离为|2-2+6-5|/3=1/3，不是2。答案错误，解析也承认不符。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-204",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "√3/2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "AB=(-1,1,0)，AC=(-1,0,1)，AB×AC=(1,1,1)，面积=1/2×√3=√3/2。题目可解，答案匹配，解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 5,
+      "warn": 0,
+      "fail": 3,
+      "notes": "8题中5题通过，3题失败：199题答案与解析矛盾，正确选项为C；201题三点共线无法确定平面，题目不可解；203题距离计算错误，答案为1/3而非2。"
+    }
+  }
+}

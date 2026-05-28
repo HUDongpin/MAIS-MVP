@@ -1,0 +1,142 @@
+{
+  "batchNumber": 97,
+  "startedAt": "2026-05-27T14:00:17.745Z",
+  "completedAt": "2026-05-27T14:00:41.282Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-269",
+    "bnu-high-ds-v1-s5-270",
+    "bnu-high-ds-v1-s5-271",
+    "bnu-high-ds-v1-s5-272",
+    "bnu-high-ds-v1-s5-273",
+    "bnu-high-ds-v1-s5-274",
+    "bnu-high-ds-v1-s5-275",
+    "bnu-high-ds-v1-s5-276"
+  ],
+  "usage": {
+    "prompt_tokens": 12899,
+    "completion_tokens": 1317,
+    "total_tokens": 14216,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 12387
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-269",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "无法唯一确定中心坐标，条件不足",
+        "correctedAnswer": null,
+        "issueTags": [
+          "missing_condition",
+          "unsolvable",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目仅给出矩形两条邻边所在直线和一个对角顶点所在直线，但未指定矩形另外两边的方向或长度，无法唯一确定顶点C，因此中心坐标不唯一。解析中假设AB沿l1、AD沿l2，但无依据，且计算出的C(3,3)不满足在l3上。题目不可解，答案和解析均错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-270",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "(0, -6) 或 (7, 1)",
+        "correctedAnswer": "(0, -6) 或 (7, 1)",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立求解得P(0,-6)或(7,1)，但答案字段为(6,2)或(-2,-6)，解析中虽有正确计算过程但最终答案错误，且解析内部自相矛盾。答案与解析均不匹配正确结果。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-271",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "independentAnswer": "(-∞, -√3] ∪ [√3, +∞)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件充分，可解。独立求解得k∈(-∞,-√3]∪[√3,+∞)，与答案一致。解析过程正确，但未详细验证判别式恒正，可视为weak。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-272",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "x=2, y=1, y=(3/4)x-1/2, y=(-4/3)x+11/3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件明确，可解。独立求解得四条直线方程，与答案一致。解析合理，建模假设清晰。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-273",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(1) k<0; (2) x+2y-4=0; (3) 验证方法正确",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，答案正确，解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-274",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "independentAnswer": "x² + y² - 3x + 2 = 0",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，独立求解得轨迹方程x²+y²-3x+2=0，与答案一致。解析概述正确，但未展示详细消参过程，可视为weak。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-275",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，半径应为圆心到边界最小距离2，答案正确，解析合理。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-276",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(1) x+y-9=0; (2) 9√2/2; (3) 相离",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，答案正确，解析与答案一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 0,
+      "fail": 2,
+      "notes": "269题条件不足无法唯一确定中心，答案错误；270题答案与正确解不符，解析自相矛盾。其余题目通过审核。"
+    }
+  }
+}

@@ -1,0 +1,137 @@
+{
+  "batchNumber": 83,
+  "startedAt": "2026-05-27T13:57:44.691Z",
+  "completedAt": "2026-05-27T13:58:00.895Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-157",
+    "bnu-high-ds-v1-s5-158",
+    "bnu-high-ds-v1-s5-159",
+    "bnu-high-ds-v1-s5-160",
+    "bnu-high-ds-v1-s5-161",
+    "bnu-high-ds-v1-s5-162",
+    "bnu-high-ds-v1-s5-163",
+    "bnu-high-ds-v1-s5-164"
+  ],
+  "usage": {
+    "prompt_tokens": 11117,
+    "completion_tokens": 1133,
+    "total_tokens": 12250,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10605
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-157",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "arccos(4/9)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目明确给出两平面法向量，可独立计算夹角余弦绝对值，得到arccos(4/9)，选项唯一且正确，解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-158",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2√3/3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "坐标系已建立，可独立求出点C到平面PBD的距离为2√3/3，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-159",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(0, -1/2, -1/2)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "投影向量公式明确，计算得(0, -1/2, -1/2)，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-160",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(1/3, 1/3, 1/3)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由PA=PB=PC及平面ABC方程可解出唯一解(1/3,1/3,1/3)，选项唯一且正确，解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-161",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "三点共线，直线在平面内，线面角为0，正弦值为0，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-162",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "0",
+        "correctedAnswer": "0",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立计算得λ=0，但题目答案为1/3，解析中同时出现λ=0和λ=1/3且自相矛盾，正确答案应为0。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-163",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(1,1,1)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由AB和AC可求法向量为(1,1,1)，选项唯一且正确，解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-164",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "independentAnswer": "1/2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "medium",
+        "rationaleZhHans": "独立计算得λ=1/2，答案正确，但解析中距离公式推导有跳步，未详细验证，标记为weak。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第162题答案错误，正确λ=0而非1/3，解析自相矛盾；其余题目均通过审核。"
+    }
+  }
+}

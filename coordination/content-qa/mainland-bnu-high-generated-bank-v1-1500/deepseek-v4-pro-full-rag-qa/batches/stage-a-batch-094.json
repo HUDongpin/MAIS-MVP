@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-094",
+  "startedAt": "2026-05-28T01:20:12.853Z",
+  "completedAt": "2026-05-28T01:20:29.361Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-245",
+    "bnu-high-ds-v1-s5-246",
+    "bnu-high-ds-v1-s5-247",
+    "bnu-high-ds-v1-s5-248",
+    "bnu-high-ds-v1-s5-249",
+    "bnu-high-ds-v1-s5-250",
+    "bnu-high-ds-v1-s5-251",
+    "bnu-high-ds-v1-s5-252"
+  ],
+  "usage": {
+    "prompt_tokens": 10506,
+    "completion_tokens": 1139,
+    "total_tokens": 11645,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 10122
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-245",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(x-3)^2+(y-4)^2=50",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "设圆心为(a, a+1)，由|CA|=|CB|解得a=3，圆心(3,4)，半径r=√50，圆方程为(x-3)^2+(y-4)^2=50。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-246",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "m=0 或 m=-20",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由点到直线距离公式得|10+m|/5=2，解得m=0或m=-20。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-247",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "±√7/4",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "联立椭圆与直线方程，令判别式Δ=0，解得k=±√7/4。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-248",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(x-3)^2+(y-4)^2=8",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "设圆心为(a, 2a-2)，由|CA|=|CB|解得a=3，圆心(3,4)，半径r=√8，圆方程为(x-3)^2+(y-4)^2=8。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-249",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "m=10 或 m=-30",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "将l2化为3x+4y+m/2=0，由平行线距离公式得|m/2+5|/5=2，解得m=10或m=-30。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-250",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "0 或 1",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "联立抛物线方程与直线方程，得k^2 x^2+(4k-8)x+4=0。当k=0时，直线y=2与抛物线交于一点；当k≠0时，令Δ=0解得k=1。故k=0或1。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-251",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(1) A(0,0), B(8,0), C(8,6), D(0,6); (2) r=5; (3) 以A为原点，AB为x轴，AD为y轴，使顶点坐标简单，便于计算。",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "矩形顶点坐标易得；喷头P(3,2)到各顶点距离最大为5，故最小半径r=5；坐标系选择使坐标均为非负整数，简化计算。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-252",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "k=3/4 或 k=-3/4",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "设直线为y-1=k(x-7)，圆心到直线距离d=3，由弦长8得半径5满足d=3，解得k=±3/4。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，无数学错误、歧义或缺失条件，符合北师大版S5解析几何与数学建模要求。"
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-011",
+  "startedAt": "2026-05-28T01:35:52.003Z",
+  "completedAt": "2026-05-28T01:35:56.228Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-011"
+  ],
+  "usage": {
+    "prompt_tokens": 2093,
+    "completion_tokens": 260,
+    "total_tokens": 2353,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1709
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-011",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "a_n = 3^n - 2^n",
+        "correctedAnswer": null,
+        "issueTags": [
+          "explanation_contradiction"
+        ],
+        "severity": "minor",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，答案正确，与教材范围匹配。但解析中除以2^{n+1}后累加过程有误，实际应除以3^{n+1}构造等比数列，解析方法存在矛盾，但最终答案正确，故标记为弱匹配。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 1,
+      "fail": 0,
+      "notes": "1题解析存在方法错误但答案正确，标记为弱匹配，建议修正解析。"
+    }
+  }
+}

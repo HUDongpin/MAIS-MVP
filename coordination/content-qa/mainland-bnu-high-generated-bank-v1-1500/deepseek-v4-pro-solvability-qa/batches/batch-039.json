@@ -1,0 +1,133 @@
+{
+  "batchNumber": 39,
+  "startedAt": "2026-05-27T13:50:14.361Z",
+  "completedAt": "2026-05-27T13:50:32.966Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-305",
+    "bnu-high-ds-v1-s4-306",
+    "bnu-high-ds-v1-s4-307",
+    "bnu-high-ds-v1-s4-308",
+    "bnu-high-ds-v1-s4-309",
+    "bnu-high-ds-v1-s4-310",
+    "bnu-high-ds-v1-s4-311",
+    "bnu-high-ds-v1-s4-312"
+  ],
+  "usage": {
+    "prompt_tokens": 10735,
+    "completion_tokens": 1332,
+    "total_tokens": 12067,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10223
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-305",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "π/2, 7π/6, 11π/6",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "方程可因式分解为(2 sin x + 1)(sin x - 1)=0，解得 sin x = 1 或 sin x = -1/2。在[0, 2π)内，sin x = 1 得 x = π/2；sin x = -1/2 得 x = 7π/6, 11π/6。答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-306",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "y = sin(2x + π/3)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "横坐标变为1/2得 y = sin 2x，再向左平移π/6得 y = sin[2(x + π/6)] = sin(2x + π/3)。答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-307",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "[kπ - π/12, kπ + 5π/12], k ∈ Z",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "y = 2 sin(π/3 - 2x) = -2 sin(2x - π/3)，求减区间即求 sin(2x - π/3) 的增区间。由 2kπ - π/2 ≤ 2x - π/3 ≤ 2kπ + π/2 解得 kπ - π/12 ≤ x ≤ kπ + 5π/12。选项A正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-308",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "9 cm",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "120° = 2π/3 rad，弧长 l = |α| r，即 6π = (2π/3) r，解得 r = 9 cm。答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-309",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "5",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "sin(2x + π/6) 最大值为1，故 y_max = 3×1 + 2 = 5。答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-310",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "y = cos 2x",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "y = cos 2x 周期为 π，且 cos(-2x) = cos 2x 为偶函数。其他选项不满足条件。答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-311",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "[2kπ/3 - π/12, 2kπ/3 + π/4], k∈Z",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "令 3x - π/4 ∈ [-π/2 + 2kπ, π/2 + 2kπ]，解得 x ∈ [2kπ/3 - π/12, 2kπ/3 + π/4]。答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-312",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "7π/6",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "210° = 210 × π/180 = 7π/6。答案正确，解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可解，答案与解析均正确且一致，无任何问题。"
+    }
+  }
+}

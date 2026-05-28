@@ -1,0 +1,251 @@
+{
+  "batchId": "model-qa-0010",
+  "ids": [
+    "hjb-junior-ds-v2-s1-181",
+    "hjb-junior-ds-v2-s1-182",
+    "hjb-junior-ds-v2-s1-183",
+    "hjb-junior-ds-v2-s1-184",
+    "hjb-junior-ds-v2-s1-185",
+    "hjb-junior-ds-v2-s1-186",
+    "hjb-junior-ds-v2-s1-187",
+    "hjb-junior-ds-v2-s1-188",
+    "hjb-junior-ds-v2-s1-189",
+    "hjb-junior-ds-v2-s1-190",
+    "hjb-junior-ds-v2-s1-191",
+    "hjb-junior-ds-v2-s1-192",
+    "hjb-junior-ds-v2-s1-193",
+    "hjb-junior-ds-v2-s1-194",
+    "hjb-junior-ds-v2-s1-195",
+    "hjb-junior-ds-v2-s1-196",
+    "hjb-junior-ds-v2-s1-197",
+    "hjb-junior-ds-v2-s1-198",
+    "hjb-junior-ds-v2-s1-199",
+    "hjb-junior-ds-v2-s1-200"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-181",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "C. x ≠ 2 且 x ≠ -2",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-182",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-183",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "1",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-184",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "multiple-correct-options"
+      ],
+      "issueDetailsZhHans": "选项A化简后为2/(x-3) (x≠0,3)，选项C化简后为2/(x-3) (x≠3)。在x≠0,3时两者均与给定分式相等，但题目未限定x的取值范围，导致A和C均可视为正确。",
+      "independentAnswerZhHans": "A和C均正确",
+      "answerCheckZhHans": "标准答案仅选C，但A在定义域内也成立，存在多个正确选项。",
+      "recommendedActionZhHans": "修改选项A或增加限制条件，确保唯一正确选项。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-185",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x(x+2)(x-2)",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-186",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "（1）x≠2；（2）2(x+2)/(x-2)；（3）10",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-187",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "multiple-correct-options"
+      ],
+      "issueDetailsZhHans": "选项A和B化简后均为2a/(3b)，但定义域不同。原分式定义域为ab≠0，选项A定义域为b≠0，选项B定义域为b≠0。在ab≠0时，A和B均与原分式相等，但题目未明确要求定义域完全一致，导致A和B均可视为正确。",
+      "independentAnswerZhHans": "A和B均正确",
+      "answerCheckZhHans": "标准答案仅选A，但B在定义域内也成立，存在多个正确选项。",
+      "recommendedActionZhHans": "修改选项B或增加限制条件，确保唯一正确选项。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-188",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "±1",
+      "answerCheckZhHans": "标准答案正确，解析一致，acceptedAnswers覆盖多种写法。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-189",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "1",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-190",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(5x-1)/(x^2-1)",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-191",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "5/2",
+      "answerCheckZhHans": "标准答案正确，解析一致，acceptedAnswers覆盖多种写法。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-192",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "5/3",
+      "answerCheckZhHans": "标准答案正确，解析一致，acceptedAnswers覆盖多种写法。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-193",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-1",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-194",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3(x-2)/(x+2)",
+      "answerCheckZhHans": "标准答案正确，解析一致，acceptedAnswers覆盖多种写法。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-195",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "1/(x+1)，x≠1且x≠-1",
+      "answerCheckZhHans": "标准答案正确，解析一致，acceptedAnswers覆盖多种写法。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-196",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "C. x ≠ 3 且 x ≠ -3",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-197",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "无意义",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-198",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "化简得 (x-2)/(x+2)，值为 -1/3",
+      "answerCheckZhHans": "标准答案正确，解析一致，acceptedAnswers覆盖多种写法。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-199",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3/(a+2)",
+      "answerCheckZhHans": "标准答案正确，解析一致。选项B和C未化简，D错误，仅A正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-200",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(x-3)/(x^2-1)",
+      "answerCheckZhHans": "标准答案正确，解析一致，acceptedAnswers覆盖多种写法。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

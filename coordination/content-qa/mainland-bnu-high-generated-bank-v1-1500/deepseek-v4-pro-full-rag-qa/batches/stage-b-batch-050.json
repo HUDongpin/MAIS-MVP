@@ -1,0 +1,130 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-050",
+  "startedAt": "2026-05-28T02:41:29.950Z",
+  "completedAt": "2026-05-28T02:41:43.792Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-393",
+    "bnu-high-ds-v1-s4-394",
+    "bnu-high-ds-v1-s4-395",
+    "bnu-high-ds-v1-s4-396",
+    "bnu-high-ds-v1-s4-397",
+    "bnu-high-ds-v1-s4-398",
+    "bnu-high-ds-v1-s4-399",
+    "bnu-high-ds-v1-s4-400"
+  ],
+  "usage": {
+    "prompt_tokens": 12935,
+    "completion_tokens": 975,
+    "total_tokens": 13910,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 12551
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-393",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案√13与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-394",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "fail",
+        "correctedAnswer": "B或C，题目有歧义",
+        "issueTags": [
+          "ambiguous_mc",
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "由面积得sinC=√3/2，C=60°或120°均满足，单选题有两个正确选项，存储答案仅选B错误，解析未合理排除120°。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-395",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案√3/3与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-396",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案-(4+3√3)/10与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-397",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案A. 2cos10°与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-398",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储证明与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-399",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案8/3与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-400",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案A. 4/5与独立解一致，解析正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第394题因单选题存在两个正确选项（60°和120°），存储答案仅选B错误，判定为fail。其余题目均通过。"
+    }
+  }
+}

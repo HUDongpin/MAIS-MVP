@@ -1,0 +1,642 @@
+{
+  "batchId": "batch-095",
+  "questions": [
+    {
+      "id": "bnu-junior-ds-v1-s2-441",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-algebraic-fractions-equations",
+      "unitTitle": "分式与分式方程",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "algebraic-fractions",
+        "fraction-domain",
+        "fraction-operations",
+        "fraction-equations",
+        "extraneous-solutions",
+        "分式",
+        "分式方程"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "分式意义",
+        "分式基本性质",
+        "分式运算",
+        "分式方程",
+        "增根检验",
+        "取值限制"
+      ],
+      "misconceptionTags": [
+        "denominator restriction ignored",
+        "terms cancelled instead of factors",
+        "extraneous solution not checked"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-algebraic-fractions-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-algebraic-fractions-unit",
+        "bnu-junior-s2-lower-assessment-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "当x=______时，分式 (x+2)/(x^2 - 9) 无意义。",
+      "optionsZhHans": [],
+      "answer": "3或-3",
+      "acceptedAnswers": [
+        "3或-3",
+        "x=3或x=-3",
+        "3,-3",
+        "±3"
+      ],
+      "explanationZhHans": "分式无意义当分母为零。x^2 - 9=0，解得x=3或x=-3。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-442",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-algebraic-fractions-equations",
+      "unitTitle": "分式与分式方程",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "algebraic-fractions",
+        "fraction-domain",
+        "fraction-operations",
+        "fraction-equations",
+        "extraneous-solutions",
+        "分式",
+        "分式方程"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "分式意义",
+        "分式基本性质",
+        "分式运算",
+        "分式方程",
+        "增根检验",
+        "取值限制"
+      ],
+      "misconceptionTags": [
+        "denominator restriction ignored",
+        "terms cancelled instead of factors",
+        "extraneous solution not checked"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-algebraic-fractions-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-algebraic-fractions-unit",
+        "bnu-junior-s2-lower-assessment-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下列分式中，与 (x-1)/(x^2 - 1) 相等的是（ ）",
+      "optionsZhHans": [
+        "1/(x+1)",
+        "1/(x-1)",
+        "(x-1)/(x+1)",
+        "1/(x^2 - 1)"
+      ],
+      "answer": "1/(x+1)",
+      "acceptedAnswers": [
+        "1/(x+1)"
+      ],
+      "explanationZhHans": "原式分子分母因式分解：(x-1)/((x+1)(x-1))，约去公因式(x-1)得1/(x+1)，但x≠1。选项A符合。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-443",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-algebraic-fractions-equations",
+      "unitTitle": "分式与分式方程",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "algebraic-fractions",
+        "fraction-domain",
+        "fraction-operations",
+        "fraction-equations",
+        "extraneous-solutions",
+        "分式",
+        "分式方程"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "分式意义",
+        "分式基本性质",
+        "分式运算",
+        "分式方程",
+        "增根检验",
+        "取值限制"
+      ],
+      "misconceptionTags": [
+        "denominator restriction ignored",
+        "terms cancelled instead of factors",
+        "extraneous solution not checked"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-algebraic-fractions-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-algebraic-fractions-unit",
+        "bnu-junior-s2-lower-assessment-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "解分式方程：2/(x-3) = 1/(x+1)。",
+      "optionsZhHans": [],
+      "answer": "x = -5",
+      "acceptedAnswers": [
+        "x = -5",
+        "x=-5",
+        "-5"
+      ],
+      "explanationZhHans": "两边乘(x-3)(x+1)：2(x+1)=x-3，2x+2=x-3，x=-5。检验：分母不为零，是原方程的解。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-444",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-algebraic-fractions-equations",
+      "unitTitle": "分式与分式方程",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "algebraic-fractions",
+        "fraction-domain",
+        "fraction-operations",
+        "fraction-equations",
+        "extraneous-solutions",
+        "分式",
+        "分式方程"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "分式意义",
+        "分式基本性质",
+        "分式运算",
+        "分式方程",
+        "增根检验",
+        "取值限制"
+      ],
+      "misconceptionTags": [
+        "denominator restriction ignored",
+        "terms cancelled instead of factors",
+        "extraneous solution not checked"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-algebraic-fractions-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-algebraic-fractions-unit",
+        "bnu-junior-s2-lower-assessment-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "化简分式 (a^2 - 4)/(a^2 + 4a + 4) 的结果是______。",
+      "optionsZhHans": [],
+      "answer": "(a-2)/(a+2)",
+      "acceptedAnswers": [
+        "(a-2)/(a+2)",
+        "a-2/a+2"
+      ],
+      "explanationZhHans": "分子=(a+2)(a-2)，分母=(a+2)^2，约去(a+2)得(a-2)/(a+2)，a≠-2。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-445",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-algebraic-fractions-equations",
+      "unitTitle": "分式与分式方程",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "algebraic-fractions",
+        "fraction-domain",
+        "fraction-operations",
+        "fraction-equations",
+        "extraneous-solutions",
+        "分式",
+        "分式方程"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "分式意义",
+        "分式基本性质",
+        "分式运算",
+        "分式方程",
+        "增根检验",
+        "取值限制"
+      ],
+      "misconceptionTags": [
+        "denominator restriction ignored",
+        "terms cancelled instead of factors",
+        "extraneous solution not checked"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-algebraic-fractions-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-algebraic-fractions-unit",
+        "bnu-junior-s2-lower-assessment-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "若分式 (|x|-3)/(x-3) 的值为0，则x的值为（ ）",
+      "optionsZhHans": [
+        "3",
+        "-3",
+        "±3",
+        "0"
+      ],
+      "answer": "-3",
+      "acceptedAnswers": [
+        "-3"
+      ],
+      "explanationZhHans": "分式值为0需分子为零且分母不为零。|x|-3=0得x=±3；x=3时分母为0，舍去；x=-3时分母-6≠0，符合。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-446",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-algebraic-fractions-equations",
+      "unitTitle": "分式与分式方程",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "algebraic-fractions",
+        "fraction-domain",
+        "fraction-operations",
+        "fraction-equations",
+        "extraneous-solutions",
+        "分式",
+        "分式方程"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "分式意义",
+        "分式基本性质",
+        "分式运算",
+        "分式方程",
+        "增根检验",
+        "取值限制"
+      ],
+      "misconceptionTags": [
+        "denominator restriction ignored",
+        "terms cancelled instead of factors",
+        "extraneous solution not checked"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-algebraic-fractions-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-algebraic-fractions-unit",
+        "bnu-junior-s2-lower-assessment-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "先化简，再求值：(1 - 1/(x+1)) ÷ (x/(x^2 - 1))，其中x=2。",
+      "optionsZhHans": [],
+      "answer": "3/2",
+      "acceptedAnswers": [
+        "3/2",
+        "1.5"
+      ],
+      "explanationZhHans": "原式=(x/(x+1)) × ((x^2-1)/x) = (x/(x+1)) × ((x+1)(x-1)/x) = x-1。x=2时，值为1。注意：x≠0,±1。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-447",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-algebraic-fractions-equations",
+      "unitTitle": "分式与分式方程",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "algebraic-fractions",
+        "fraction-domain",
+        "fraction-operations",
+        "fraction-equations",
+        "extraneous-solutions",
+        "分式",
+        "分式方程"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "分式意义",
+        "分式基本性质",
+        "分式运算",
+        "分式方程",
+        "增根检验",
+        "取值限制"
+      ],
+      "misconceptionTags": [
+        "denominator restriction ignored",
+        "terms cancelled instead of factors",
+        "extraneous solution not checked"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-algebraic-fractions-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-algebraic-fractions-unit",
+        "bnu-junior-s2-lower-assessment-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "分式方程 1/(x-2) + 3 = (1-x)/(2-x) 的解是x=______。",
+      "optionsZhHans": [],
+      "answer": "3",
+      "acceptedAnswers": [
+        "3",
+        "x=3"
+      ],
+      "explanationZhHans": "方程化为1/(x-2)+3=(x-1)/(x-2)，两边乘(x-2)：1+3(x-2)=x-1，解得x=3。检验：x=3时分母不为零。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-448",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-algebraic-fractions-equations",
+      "unitTitle": "分式与分式方程",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "algebraic-fractions",
+        "fraction-domain",
+        "fraction-operations",
+        "fraction-equations",
+        "extraneous-solutions",
+        "分式",
+        "分式方程"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "分式意义",
+        "分式基本性质",
+        "分式运算",
+        "分式方程",
+        "增根检验",
+        "取值限制"
+      ],
+      "misconceptionTags": [
+        "denominator restriction ignored",
+        "terms cancelled instead of factors",
+        "extraneous solution not checked"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-algebraic-fractions-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-algebraic-fractions-unit",
+        "bnu-junior-s2-lower-assessment-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算 (2x)/(x^2 - 4) - 1/(x+2) 的结果是（ ）",
+      "optionsZhHans": [
+        "1/(x-2)",
+        "1/(x+2)",
+        "(x-2)/(x+2)",
+        "(x+2)/(x-2)"
+      ],
+      "answer": "1/(x-2)",
+      "acceptedAnswers": [
+        "1/(x-2)"
+      ],
+      "explanationZhHans": "原式=2x/((x+2)(x-2)) - (x-2)/((x+2)(x-2)) = (2x-x+2)/((x+2)(x-2)) = (x+2)/((x+2)(x-2)) = 1/(x-2)。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-449",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-algebraic-fractions-equations",
+      "unitTitle": "分式与分式方程",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "algebraic-fractions",
+        "fraction-domain",
+        "fraction-operations",
+        "fraction-equations",
+        "extraneous-solutions",
+        "分式",
+        "分式方程"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "分式意义",
+        "分式基本性质",
+        "分式运算",
+        "分式方程",
+        "增根检验",
+        "取值限制"
+      ],
+      "misconceptionTags": [
+        "denominator restriction ignored",
+        "terms cancelled instead of factors",
+        "extraneous solution not checked"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-algebraic-fractions-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-algebraic-fractions-unit",
+        "bnu-junior-s2-lower-assessment-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知关于x的分式方程 (2x+m)/(x-1) = 1 的解为正数，求m的取值范围。",
+      "optionsZhHans": [],
+      "answer": "m < -1 且 m ≠ -3",
+      "acceptedAnswers": [
+        "m < -1 且 m ≠ -3",
+        "m<-1且m≠-3"
+      ],
+      "explanationZhHans": "去分母得2x+m=x-1，x=-m-1。解为正数：-m-1>0，m<-1。又分母x-1≠0，即-m-1≠1，m≠-3。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-450",
+      "batch": "bnu-junior-v1",
+      "grade": "S2",
+      "semester": "lower",
+      "topicId": "bnu-junior-s2-lower-algebraic-fractions-equations",
+      "unitTitle": "分式与分式方程",
+      "volume": "八年级下册",
+      "conceptIds": [
+        "algebraic-fractions",
+        "fraction-domain",
+        "fraction-operations",
+        "fraction-equations",
+        "extraneous-solutions",
+        "分式",
+        "分式方程"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "逻辑推理"
+      ],
+      "skillTags": [
+        "分式意义",
+        "分式基本性质",
+        "分式运算",
+        "分式方程",
+        "增根检验",
+        "取值限制"
+      ],
+      "misconceptionTags": [
+        "denominator restriction ignored",
+        "terms cancelled instead of factors",
+        "extraneous solution not checked"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s2-lower-algebraic-fractions-equations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s2-lower-assessment-algebraic-fractions-unit",
+        "bnu-junior-s2-lower-assessment-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions",
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "若分式 (x+3)/(x^2 - 2x - 3) 有意义，则x的取值范围是______。",
+      "optionsZhHans": [],
+      "answer": "x ≠ -1 且 x ≠ 3",
+      "acceptedAnswers": [
+        "x ≠ -1 且 x ≠ 3",
+        "x≠-1且x≠3",
+        "x≠-1, x≠3",
+        "x≠-1和x≠3"
+      ],
+      "explanationZhHans": "分母x^2-2x-3=(x+1)(x-3)≠0，所以x≠-1且x≠3。"
+    }
+  ]
+}

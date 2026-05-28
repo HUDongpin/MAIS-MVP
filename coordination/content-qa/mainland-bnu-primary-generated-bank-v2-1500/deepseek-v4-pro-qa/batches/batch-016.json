@@ -1,0 +1,191 @@
+{
+  "batchNumber": 16,
+  "startedAt": "2026-05-27T13:44:41.741Z",
+  "completedAt": "2026-05-27T13:44:59.413Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p2-021",
+    "bnu-primary-ds-v2-p2-022",
+    "bnu-primary-ds-v2-p2-023",
+    "bnu-primary-ds-v2-p2-024",
+    "bnu-primary-ds-v2-p2-025",
+    "bnu-primary-ds-v2-p2-026",
+    "bnu-primary-ds-v2-p2-027",
+    "bnu-primary-ds-v2-p2-028",
+    "bnu-primary-ds-v2-p2-029",
+    "bnu-primary-ds-v2-p2-030",
+    "bnu-primary-ds-v2-p2-031",
+    "bnu-primary-ds-v2-p2-032",
+    "bnu-primary-ds-v2-p2-033",
+    "bnu-primary-ds-v2-p2-034",
+    "bnu-primary-ds-v2-p2-035",
+    "bnu-primary-ds-v2-p2-036",
+    "bnu-primary-ds-v2-p2-037",
+    "bnu-primary-ds-v2-p2-038"
+  ],
+  "usage": {
+    "prompt_tokens": 3954,
+    "completion_tokens": 1282,
+    "total_tokens": 5236,
+    "prompt_tokens_details": {
+      "cached_tokens": 3840
+    },
+    "prompt_cache_hit_tokens": 3840,
+    "prompt_cache_miss_tokens": 114
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p2-021",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案与解释一致，符合二年级购物主题。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-022",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项唯一，符合二年级水平。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-023",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案格式符合要求，难度适合挑战。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-024",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案完整，解释清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-025",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项一正确，其他选项总和错误，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-026",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案格式符合要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-027",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案完整，解释清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-028",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项唯一，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-029",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，符合人民币换算知识。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-030",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案与解释一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-031",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项正确，解释清晰，符合乘法初步认识。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-032",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，解释合理，题目要求明确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-033",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项B正确，解释清晰，符合乘法意义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-034",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项B正确，其他选项每份数量不同，不能用乘法。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-035",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，acceptedAnswers覆盖多种合理写法。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-036",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，acceptedAnswers覆盖两种乘法顺序。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-037",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，解释清晰，符合乘法要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-038",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，解释清晰，符合乘法初步认识。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均通过审核，无数学错误、答案不匹配、歧义或年级不匹配等问题。"
+    }
+  }
+}

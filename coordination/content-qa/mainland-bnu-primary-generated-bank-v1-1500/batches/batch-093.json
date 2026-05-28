@@ -1,0 +1,568 @@
+{
+  "batchId": "batch-093",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p4-171",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-triangles-quadrilaterals",
+      "unitTitle": "认识三角形和四边形",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "triangles-quadrilaterals",
+        "shape-classification",
+        "angle-side-properties",
+        "认识三角形",
+        "四边形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "三角形分类",
+        "四边形分类",
+        "边角特征",
+        "图形性质",
+        "画图验证"
+      ],
+      "misconceptionTags": [
+        "orientation treated as changing the shape class",
+        "all four-sided figures called rectangles",
+        "shape name chosen without property evidence"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-triangles-quadrilaterals"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-triangles-quadrilaterals-unit",
+        "bnu-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个三角形三条边的长度分别是5厘米、5厘米、8厘米。按边分类，这个三角形是什么三角形？请写出它的名称，并说明理由。",
+      "optionsZhHans": [],
+      "answer": "等腰三角形",
+      "acceptedAnswers": [
+        "等腰三角形"
+      ],
+      "explanationZhHans": "有两条边长度相等（5厘米=5厘米），符合等腰三角形的定义，所以是等腰三角形。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-172",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-triangles-quadrilaterals",
+      "unitTitle": "认识三角形和四边形",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "triangles-quadrilaterals",
+        "shape-classification",
+        "angle-side-properties",
+        "认识三角形",
+        "四边形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "三角形分类",
+        "四边形分类",
+        "边角特征",
+        "图形性质",
+        "画图验证"
+      ],
+      "misconceptionTags": [
+        "orientation treated as changing the shape class",
+        "all four-sided figures called rectangles",
+        "shape name chosen without property evidence"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-triangles-quadrilaterals"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-triangles-quadrilaterals-unit",
+        "bnu-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个图形一定是平行四边形？",
+      "optionsZhHans": [
+        "A. 只有一组对边平行的四边形",
+        "B. 两组对边分别平行的四边形",
+        "C. 四条边都相等的四边形",
+        "D. 四个角都是直角的四边形"
+      ],
+      "answer": "B. 两组对边分别平行的四边形",
+      "acceptedAnswers": [
+        "B. 两组对边分别平行的四边形"
+      ],
+      "explanationZhHans": "平行四边形的定义是两组对边分别平行。A是梯形，C是菱形（不一定是平行四边形），D是矩形（是特殊的平行四边形，但B更直接符合定义）。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-173",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-triangles-quadrilaterals",
+      "unitTitle": "认识三角形和四边形",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "triangles-quadrilaterals",
+        "shape-classification",
+        "angle-side-properties",
+        "认识三角形",
+        "四边形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "三角形分类",
+        "四边形分类",
+        "边角特征",
+        "图形性质",
+        "画图验证"
+      ],
+      "misconceptionTags": [
+        "orientation treated as changing the shape class",
+        "all four-sided figures called rectangles",
+        "shape name chosen without property evidence"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-triangles-quadrilaterals"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-triangles-quadrilaterals-unit",
+        "bnu-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个四边形，它的两组对边分别相等，并且四个角都是直角。这个四边形是______。",
+      "optionsZhHans": [],
+      "answer": "长方形",
+      "acceptedAnswers": [
+        "长方形",
+        "矩形"
+      ],
+      "explanationZhHans": "两组对边分别相等且四个角都是直角的四边形是长方形。正方形是特殊的长方形，但这里没有说四边相等，所以填长方形更准确。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-174",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-triangles-quadrilaterals",
+      "unitTitle": "认识三角形和四边形",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "triangles-quadrilaterals",
+        "shape-classification",
+        "angle-side-properties",
+        "认识三角形",
+        "四边形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "三角形分类",
+        "四边形分类",
+        "边角特征",
+        "图形性质",
+        "画图验证"
+      ],
+      "misconceptionTags": [
+        "orientation treated as changing the shape class",
+        "all four-sided figures called rectangles",
+        "shape name chosen without property evidence"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-triangles-quadrilaterals"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-triangles-quadrilaterals-unit",
+        "bnu-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "画一个三角形，使得它既是直角三角形，又是等腰三角形。请描述你画的三角形的特征。",
+      "optionsZhHans": [],
+      "answer": "等腰直角三角形",
+      "acceptedAnswers": [
+        "等腰直角三角形"
+      ],
+      "explanationZhHans": "有一个角是直角，且两条直角边长度相等，这样的三角形是等腰直角三角形。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-175",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-triangles-quadrilaterals",
+      "unitTitle": "认识三角形和四边形",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "triangles-quadrilaterals",
+        "shape-classification",
+        "angle-side-properties",
+        "认识三角形",
+        "四边形"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "三角形分类",
+        "四边形分类",
+        "边角特征",
+        "图形性质",
+        "画图验证"
+      ],
+      "misconceptionTags": [
+        "orientation treated as changing the shape class",
+        "all four-sided figures called rectangles",
+        "shape name chosen without property evidence"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-triangles-quadrilaterals"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-triangles-quadrilaterals-unit",
+        "bnu-primary-p4-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个三角形的三个内角分别是45°、45°、90°。按角分类，这个三角形是什么三角形？",
+      "optionsZhHans": [
+        "A. 锐角三角形",
+        "B. 直角三角形",
+        "C. 钝角三角形",
+        "D. 等边三角形"
+      ],
+      "answer": "B. 直角三角形",
+      "acceptedAnswers": [
+        "B. 直角三角形"
+      ],
+      "explanationZhHans": "有一个角是90°，所以是直角三角形。另外两个角都是45°，说明它也是等腰直角三角形。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-176",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-decimal-multiplication",
+      "unitTitle": "小数乘法",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "decimal-multiplication",
+        "scaling",
+        "decimal-place-value",
+        "小数乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "小数乘整数",
+        "小数乘小数",
+        "积的估算",
+        "位值解释",
+        "应用问题"
+      ],
+      "misconceptionTags": [
+        "decimal point placed by counting digits only",
+        "multiplication always expected to make larger",
+        "estimate skipped before final decimal placement"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-decimal-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-decimal-multiplication-unit",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算 0.7 × 8 = ______。",
+      "optionsZhHans": [],
+      "answer": "5.6",
+      "acceptedAnswers": [
+        "5.6"
+      ],
+      "explanationZhHans": "0.7×8，先算7×8=56，因为0.7是一位小数，所以积也是一位小数，即5.6。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-177",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-decimal-multiplication",
+      "unitTitle": "小数乘法",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "decimal-multiplication",
+        "scaling",
+        "decimal-place-value",
+        "小数乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "小数乘整数",
+        "小数乘小数",
+        "积的估算",
+        "位值解释",
+        "应用问题"
+      ],
+      "misconceptionTags": [
+        "decimal point placed by counting digits only",
+        "multiplication always expected to make larger",
+        "estimate skipped before final decimal placement"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-decimal-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-decimal-multiplication-unit",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈买了2.5千克苹果，每千克苹果6.4元。一共需要付多少元？请列式并计算。",
+      "optionsZhHans": [],
+      "answer": "16元",
+      "acceptedAnswers": [
+        "16元",
+        "16"
+      ],
+      "explanationZhHans": "2.5×6.4=16（元）。先算25×64=1600，因数共有两位小数，所以积是16.00，即16元。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-178",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-decimal-multiplication",
+      "unitTitle": "小数乘法",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "decimal-multiplication",
+        "scaling",
+        "decimal-place-value",
+        "小数乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "小数乘整数",
+        "小数乘小数",
+        "积的估算",
+        "位值解释",
+        "应用问题"
+      ],
+      "misconceptionTags": [
+        "decimal point placed by counting digits only",
+        "multiplication always expected to make larger",
+        "estimate skipped before final decimal placement"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-decimal-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-decimal-multiplication-unit",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个算式的积大于第一个乘数？",
+      "optionsZhHans": [
+        "A. 3.2 × 0.9",
+        "B. 3.2 × 1.1",
+        "C. 3.2 × 0.5",
+        "D. 3.2 × 1"
+      ],
+      "answer": "B. 3.2 × 1.1",
+      "acceptedAnswers": [
+        "B. 3.2 × 1.1"
+      ],
+      "explanationZhHans": "一个数（0除外）乘大于1的数，积比原数大。1.1>1，所以3.2×1.1>3.2。其他选项乘数都≤1。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-179",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-decimal-multiplication",
+      "unitTitle": "小数乘法",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "decimal-multiplication",
+        "scaling",
+        "decimal-place-value",
+        "小数乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "小数乘整数",
+        "小数乘小数",
+        "积的估算",
+        "位值解释",
+        "应用问题"
+      ],
+      "misconceptionTags": [
+        "decimal point placed by counting digits only",
+        "multiplication always expected to make larger",
+        "estimate skipped before final decimal placement"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-decimal-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-decimal-multiplication-unit",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "根据 23 × 15 = 345，直接写出 2.3 × 1.5 = ______。",
+      "optionsZhHans": [],
+      "answer": "3.45",
+      "acceptedAnswers": [
+        "3.45"
+      ],
+      "explanationZhHans": "2.3是一位小数，1.5是一位小数，积是两位小数。345变成两位小数是3.45。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-180",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-decimal-multiplication",
+      "unitTitle": "小数乘法",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "decimal-multiplication",
+        "scaling",
+        "decimal-place-value",
+        "小数乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "小数乘整数",
+        "小数乘小数",
+        "积的估算",
+        "位值解释",
+        "应用问题"
+      ],
+      "misconceptionTags": [
+        "decimal point placed by counting digits only",
+        "multiplication always expected to make larger",
+        "estimate skipped before final decimal placement"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-decimal-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-decimal-multiplication-unit",
+        "bnu-primary-p4-lower-assessment-decimal-meaning-add-sub-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一根绳子长4.8米，剪成每段0.6米长的小段。可以剪成多少段？请列式并计算。",
+      "optionsZhHans": [],
+      "answer": "8段",
+      "acceptedAnswers": [
+        "8段",
+        "8"
+      ],
+      "explanationZhHans": "4.8÷0.6=8（段）。可以想：48个0.1米里面有几个6个0.1米，48÷6=8。"
+    }
+  ]
+}

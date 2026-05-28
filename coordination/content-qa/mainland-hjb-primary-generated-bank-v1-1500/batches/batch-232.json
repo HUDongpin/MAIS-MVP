@@ -1,0 +1,296 @@
+{
+  "batchId": "batch-232",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p5-156",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-factors-multiples",
+      "unitTitle": "因数、倍数与数的结构",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "factors-multiples",
+        "prime-composite",
+        "greatest-common-factor",
+        "least-common-multiple",
+        "因数倍数"
+      ],
+      "competencyTags": [
+        "数感",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "因数倍数",
+        "质数合数",
+        "公因数",
+        "公倍数",
+        "数的分类"
+      ],
+      "misconceptionTags": [
+        "factor and multiple reversed",
+        "prime number confused with odd number",
+        "least common multiple chosen without common check"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-factors-multiples"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit",
+        "hjb-primary-p5-upper-assessment-equations-relationships-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把24个同样大小的正方形拼成一个长方形，要求每行个数相同。拼成的长方形每行可能有几个正方形？请写出所有可能的情况。",
+      "optionsZhHans": [],
+      "answer": "1,2,3,4,6,8,12,24",
+      "acceptedAnswers": [
+        "1,2,3,4,6,8,12,24",
+        "1、2、3、4、6、8、12、24",
+        "1 2 3 4 6 8 12 24"
+      ],
+      "explanationZhHans": "每行个数必须是24的因数。24的因数有1,2,3,4,6,8,12,24，所以每行可能有这些个数。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-157",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-factors-multiples",
+      "unitTitle": "因数、倍数与数的结构",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "factors-multiples",
+        "prime-composite",
+        "greatest-common-factor",
+        "least-common-multiple",
+        "因数倍数"
+      ],
+      "competencyTags": [
+        "数感",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "因数倍数",
+        "质数合数",
+        "公因数",
+        "公倍数",
+        "数的分类"
+      ],
+      "misconceptionTags": [
+        "factor and multiple reversed",
+        "prime number confused with odd number",
+        "least common multiple chosen without common check"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-factors-multiples"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit",
+        "hjb-primary-p5-upper-assessment-equations-relationships-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪一组数中的两个数都是质数？",
+      "optionsZhHans": [
+        "9和15",
+        "2和7",
+        "1和11",
+        "21和23"
+      ],
+      "answer": "2和7",
+      "acceptedAnswers": [
+        "2和7"
+      ],
+      "explanationZhHans": "质数是只有1和它本身两个因数的数。2和7都只有两个因数，是质数。9有因数3，15有因数3和5，1不是质数，21有因数3和7，所以选2和7。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-158",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-fractions-equivalence-operations",
+      "unitTitle": "分数意义、性质与加减",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-equivalence",
+        "simplifying-fractions",
+        "common-denominators",
+        "fraction-addition-subtraction",
+        "分数"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "数学表达"
+      ],
+      "skillTags": [
+        "分数意义",
+        "分数基本性质",
+        "约分",
+        "通分",
+        "异分母加减"
+      ],
+      "misconceptionTags": [
+        "whole not identified before naming fraction",
+        "numerators and denominators added directly",
+        "common denominator selected without preserving value"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-fractions-equivalence-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit",
+        "hjb-primary-p5-upper-assessment-equations-relationships-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把3/8和5/6通分，用它们的最小公分母。通分后3/8 = ( )/( ), 5/6 = ( )/( )。",
+      "optionsZhHans": [],
+      "answer": "9/24,20/24",
+      "acceptedAnswers": [
+        "9/24,20/24",
+        "9/24 20/24",
+        "9/24、20/24"
+      ],
+      "explanationZhHans": "8和6的最小公倍数是24。3/8分子分母同乘3得9/24，5/6分子分母同乘4得20/24。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-159",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-fractions-equivalence-operations",
+      "unitTitle": "分数意义、性质与加减",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-equivalence",
+        "simplifying-fractions",
+        "common-denominators",
+        "fraction-addition-subtraction",
+        "分数"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "数学表达"
+      ],
+      "skillTags": [
+        "分数意义",
+        "分数基本性质",
+        "约分",
+        "通分",
+        "异分母加减"
+      ],
+      "misconceptionTags": [
+        "whole not identified before naming fraction",
+        "numerators and denominators added directly",
+        "common denominator selected without preserving value"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-fractions-equivalence-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit",
+        "hjb-primary-p5-upper-assessment-equations-relationships-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一盒巧克力有15颗。小华吃了这盒巧克力的2/5，小丽吃了剩下的1/3。小丽吃了多少颗巧克力？",
+      "optionsZhHans": [],
+      "answer": "3",
+      "acceptedAnswers": [
+        "3",
+        "3颗",
+        "3颗巧克力"
+      ],
+      "explanationZhHans": "小华吃了15×2/5=6颗，剩下9颗。小丽吃了剩下的1/3，即9×1/3=3颗。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-160",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "hjb-primary-p5-lower-fractions-equivalence-operations",
+      "unitTitle": "分数意义、性质与加减",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "fraction-equivalence",
+        "simplifying-fractions",
+        "common-denominators",
+        "fraction-addition-subtraction",
+        "分数"
+      ],
+      "competencyTags": [
+        "数感",
+        "运算能力",
+        "数学表达"
+      ],
+      "skillTags": [
+        "分数意义",
+        "分数基本性质",
+        "约分",
+        "通分",
+        "异分母加减"
+      ],
+      "misconceptionTags": [
+        "whole not identified before naming fraction",
+        "numerators and denominators added directly",
+        "common denominator selected without preserving value"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p5-lower-fractions-equivalence-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit",
+        "hjb-primary-p5-upper-assessment-equations-relationships-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个分数与2/3相等？",
+      "optionsZhHans": [
+        "4/9",
+        "6/9",
+        "3/4",
+        "5/6"
+      ],
+      "answer": "6/9",
+      "acceptedAnswers": [
+        "6/9"
+      ],
+      "explanationZhHans": "分数的分子和分母同时乘或除以相同的数（0除外），分数大小不变。2/3分子分母同乘3得6/9，所以6/9与2/3相等。"
+    }
+  ]
+}

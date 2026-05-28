@@ -1,0 +1,130 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-148",
+  "startedAt": "2026-05-28T01:42:34.533Z",
+  "completedAt": "2026-05-28T01:42:47.907Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-177",
+    "bnu-high-ds-v1-s6-178",
+    "bnu-high-ds-v1-s6-179",
+    "bnu-high-ds-v1-s6-180",
+    "bnu-high-ds-v1-s6-181",
+    "bnu-high-ds-v1-s6-182",
+    "bnu-high-ds-v1-s6-183",
+    "bnu-high-ds-v1-s6-184"
+  ],
+  "usage": {
+    "prompt_tokens": 11593,
+    "completion_tokens": 1034,
+    "total_tokens": 12627,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 11209
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-177",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 3^n - 1 与独立解一致，解析正确构造等比数列，无问题。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-178",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 n^2 与独立解一致，解析正确使用等差数列求和公式，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-179",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 a_n = 1/(2n - 1) 与独立解一致，解析取倒数构造等差数列正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-180",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 3 与独立解一致，解析利用 a_5 = a_2 + 3d 正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-181",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 3 与独立解一致，解析构造等比数列正确，选项唯一。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-182",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "a_n = 2n - 1",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 a_n = n + 2 错误，独立解为 a_n = 2n - 1。解析中 a_1=3, d=1 与条件矛盾，正确解为 a_1=1, d=2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-183",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 n^2 与独立解一致，解析累加法正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-184",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案 -24 与独立解一致，解析正确计算 a_4，选项唯一。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第182题存储答案错误，应为 a_n = 2n - 1，其余题目均通过。"
+    }
+  }
+}

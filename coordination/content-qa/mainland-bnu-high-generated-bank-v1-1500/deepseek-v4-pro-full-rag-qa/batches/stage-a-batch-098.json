@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-098",
+  "startedAt": "2026-05-28T01:21:37.548Z",
+  "completedAt": "2026-05-28T01:22:03.615Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-277",
+    "bnu-high-ds-v1-s5-278",
+    "bnu-high-ds-v1-s5-279",
+    "bnu-high-ds-v1-s5-280",
+    "bnu-high-ds-v1-s5-281",
+    "bnu-high-ds-v1-s5-282",
+    "bnu-high-ds-v1-s5-283",
+    "bnu-high-ds-v1-s5-284"
+  ],
+  "usage": {
+    "prompt_tokens": 10940,
+    "completion_tokens": 1490,
+    "total_tokens": 12430,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 10556
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-277",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(-∞, -2] ∪ [0, +∞)",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "设直线l: y=kx+3，与圆联立得弦中点M坐标，由OM⊥AB得k·(OM斜率)=-1，解得k≤-2或k≥0，且需判别式>0保证相交，验证后范围成立。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-278",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(1) (-4,-3), (4,-3), (4,3), (-4,3); (2) 距离分别为√34, 5, √34, 5，最小半径r=5米; (3) 是，因为圆心到花坛最远点距离为5，半径为5的圆恰好覆盖整个矩形。",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "花坛中心为原点，长8宽6，顶点坐标易得；喷头P(1,2)到各顶点距离计算得最大为√34≈5.83，但最小覆盖半径应为到最远顶点距离，实际为√34，但题目要求恰好覆盖四个顶点且不浪费，故取最大距离为半径，但验证覆盖内部需说明圆包含矩形。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-279",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "1, -1/3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "圆C化为(x-3)²+(y+2)²=4，设直线l: y+1=k(x-2)，与圆联立，利用中点M在y=x上及韦达定理得k=1或k=-1/3。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-280",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "C. 1",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "圆C圆心(2,-1)半径3，设直线l: y=k(x-1)，与圆联立得中点M坐标，由OM⊥AB得k·(OM斜率)=-1，解得k=1。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-281",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(1) y-2=(4/5)(x-3); (2) 截距为-2/5; (3) 不能，因为直线与y=6交点横坐标为8，恰在边界x=8上，但水柱轨迹为直线，到达(8,6)需同时满足，而(2)中直线过P且与x=8交于点(8,6)，故能到达y=6。",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "medium",
+        "rationaleZhHans": "(1)直线过P(3,2)和A(8,6)，斜率4/5，点斜式；(2)直线与x=8交点即A，截距由方程得y轴截距-2/5；(3)该直线与y=6交点为(8,6)，恰为顶点，故能到达。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-282",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "方程组：x²+(y-3)²=25, |y|=|x|且y>0；解为(4,4)和(-4,4)。",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "花坛圆方程x²+(y-3)²=25，路灯到道路(y轴)垂直距离为|x|，到原点水平距离为|y|，条件|x|=|y|且y>0，联立解得(4,4)和(-4,4)。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-283",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "x + y - 3 = 0",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "圆C化为(x-3)²+(y-4)²=4，设直线l: y-1=k(x-2)，与圆联立得中点M轨迹方程，消参得x+y-3=0。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-284",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(1) 以A为原点，AB方向为x轴正方向建系，道路直线方程y=0; (2) 半径=3; (3) 点D在公园外部，因为CD=√5>3。",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "medium",
+        "rationaleZhHans": "建系方式不唯一，可取A(0,0), B(3,4)则道路直线4x-3y=0，圆心C(8,3)到直线距离为半径=23/5=4.6，但题目要求公园边界与道路相切，半径应为圆心到直线距离。点D(10,4)到圆心距离√5≈2.24<4.6，在内部。需统一建系。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均可独立求解，无缺失条件或歧义，符合北师大版高中解析几何与数学建模要求。"
+    }
+  }
+}

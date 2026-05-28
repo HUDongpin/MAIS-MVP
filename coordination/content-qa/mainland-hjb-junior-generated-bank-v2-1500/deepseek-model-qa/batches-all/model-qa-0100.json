@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0100",
+  "ids": [
+    "hjb-junior-ds-v2-s2-293",
+    "hjb-junior-ds-v2-s2-294",
+    "hjb-junior-ds-v2-s2-295",
+    "hjb-junior-ds-v2-s2-296",
+    "hjb-junior-ds-v2-s2-297",
+    "hjb-junior-ds-v2-s2-298",
+    "hjb-junior-ds-v2-s2-299",
+    "hjb-junior-ds-v2-s2-300"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-293",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "8",
+      "answerCheckZhHans": "标准答案为8，与独立解题结果一致。解析正确推导出n=8。acceptedAnswers包含8和八，覆盖标准答案。无歧义或缺失条件。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-294",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "30",
+      "answerCheckZhHans": "标准答案为30，与独立解题结果一致。解析利用中位线定理正确得出周长关系。acceptedAnswers包含30和三十，覆盖标准答案。无问题。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-295",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "24",
+      "answerCheckZhHans": "标准答案为24，与独立解题结果一致。解析正确应用菱形面积公式。选项互异，只有24正确。acceptedAnswers包含24，覆盖标准答案。无问题。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-296",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "九",
+      "answerCheckZhHans": "标准答案为九，与独立解题结果一致。解析正确解出n=9。acceptedAnswers包含九和9，覆盖标准答案。无问题。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-297",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "菱形",
+      "answerCheckZhHans": "标准答案为菱形，与独立解题结果一致。解析正确应用平行四边形判定和菱形判定。acceptedAnswers包含菱形，覆盖标准答案。无问题。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-298",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "√19",
+      "answerCheckZhHans": "标准答案为√19，与独立解题结果一致。解析正确应用余弦定理。选项互异，只有√19正确。acceptedAnswers包含√19，覆盖标准答案。无问题。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-299",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "6",
+      "answerCheckZhHans": "标准答案为6，与独立解题结果一致。解析正确应用相似三角形面积比。acceptedAnswers包含6，覆盖标准答案。无问题。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-300",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为4.8，但独立解题结果为24/√13≈6.66。解析中面积法计算错误：S△ABE应为½×AB×AD=½×8×6=24，但AE长度计算错误，应为√(AD²+DE²)=√(6²+4²)=√52=2√13，BF=2S△ABE/AE=48/(2√13)=24/√13≈6.66，而非4.8。解析中错误地使用了48/(2√13)=24/√13，但后续化简为24√13/13≈6.66，却给出近似值4.8，自相矛盾。正确答案应为24/√13或24√13/13，约6.66。",
+      "independentAnswerZhHans": "24/√13",
+      "answerCheckZhHans": "标准答案4.8错误，应为24/√13≈6.66。解析过程自相矛盾，最终近似值错误。",
+      "recommendedActionZhHans": "修正答案为24/√13或24√13/13，并更正解析中的计算错误和近似值。",
+      "confidence": "high"
+    }
+  ]
+}

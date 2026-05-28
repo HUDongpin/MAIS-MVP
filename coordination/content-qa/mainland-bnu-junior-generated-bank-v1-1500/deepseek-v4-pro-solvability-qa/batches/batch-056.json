@@ -1,0 +1,173 @@
+{
+  "batchNumber": 56,
+  "startedAt": "2026-05-27T17:38:30.123Z",
+  "completedAt": "2026-05-27T17:38:46.280Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s2-161",
+    "bnu-junior-ds-v1-s2-162",
+    "bnu-junior-ds-v1-s2-163",
+    "bnu-junior-ds-v1-s2-164",
+    "bnu-junior-ds-v1-s2-165",
+    "bnu-junior-ds-v1-s2-166",
+    "bnu-junior-ds-v1-s2-167",
+    "bnu-junior-ds-v1-s2-168",
+    "bnu-junior-ds-v1-s2-169",
+    "bnu-junior-ds-v1-s2-170",
+    "bnu-junior-ds-v1-s2-171",
+    "bnu-junior-ds-v1-s2-172"
+  ],
+  "usage": {
+    "prompt_tokens": 6661,
+    "completion_tokens": 1303,
+    "total_tokens": 7964,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 6149
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s2-161",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，方程组正确，求解过程无误，答案与解释一致，符合北师大版八年级二元一次方程组要求。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-162",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件完整，方程组正确，求解结果x=5, y=4满足总人数和车辆数量关系，答案与解释匹配。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-163",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项A正确，其他选项均有错误，答案唯一且与解释一致，符合基础题要求。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-164",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程组正确，求解得x=5, y=12，满足总本数和总花费，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-165",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程组正确，解得学生总人数240人，答案与解释一致，符合考试难度。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-166",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项A正确，其他选项均有错误，答案唯一且与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-167",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程组正确，解得学生240人、大巴5辆，答案与解释一致，符合核心题要求。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-168",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程组正确，解得x=40, y=45，满足两条件，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-169",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项A正确，其他选项均有错误，答案唯一且与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-170",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程组正确，解得A型6本、B型6本，满足总本数和总花费，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-171",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程组正确，解得x=230, y=190，满足总人数和总费用，答案与解释一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s2-172",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程组正确，解得x=2, y=-1，选项A正确，其他选项错误，答案唯一且与解释一致。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均条件充分、可解，答案与解释匹配，符合北师大版八年级二元一次方程组要求，无任何问题。"
+    }
+  }
+}

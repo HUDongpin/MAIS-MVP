@@ -1,0 +1,137 @@
+{
+  "batchNumber": 2,
+  "startedAt": "2026-05-25T02:45:28.211Z",
+  "completedAt": "2026-05-25T02:45:42.753Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s1-k01-mc-013",
+    "pep-junior-v3-s1-k01-mc-014",
+    "pep-junior-v3-s1-k01-mc-015",
+    "pep-junior-v3-s1-k01-mc-016",
+    "pep-junior-v3-s1-k01-mc-017",
+    "pep-junior-v3-s1-k01-mc-018",
+    "pep-junior-v3-s1-k01-mc-019",
+    "pep-junior-v3-s1-k01-mc-020",
+    "pep-junior-v3-s1-k01-mc-021",
+    "pep-junior-v3-s1-k01-mc-022",
+    "pep-junior-v3-s1-k01-mc-023",
+    "pep-junior-v3-s1-k01-fi-001"
+  ],
+  "usage": {
+    "prompt_tokens": 2976,
+    "completion_tokens": 951,
+    "total_tokens": 3927,
+    "prompt_tokens_details": {
+      "cached_tokens": 2944
+    },
+    "prompt_cache_hit_tokens": 2944,
+    "prompt_cache_miss_tokens": 32
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s1-k01-mc-013",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案与解释一致，选项无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k01-mc-014",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，绝对值计算无误，选项清晰。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k01-mc-015",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，结果为0，选项无重复。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k01-mc-016",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "水位变化计算正确，答案3米，选项合理。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k01-mc-017",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "整数列举正确，共4个，选项无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k01-mc-018",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "绝对值方程解为±5，选项包含“5或-5”，正确。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k01-mc-019",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "负数比较大小正确，-1/3更大，解释清晰。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k01-mc-020",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "总盈亏计算正确，140元，选项无重复。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k01-mc-021",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "气温变化计算正确，傍晚0℃，选项清晰。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k01-mc-022",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数轴移动计算正确，点C为0，选项无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k01-mc-023",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "相反数与绝对值结合，答案4或-4，正确。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k01-fi-001",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "填空计算正确，结果为7，解释无误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均通过审核，数学正确，答案与解释一致，选项无歧义，适合人教版初中数学。"
+    }
+  }
+}

@@ -1,0 +1,580 @@
+{
+  "batchId": "batch-070",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p3-191",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-mass-units",
+      "unitTitle": "千克、克、吨",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "mass-measurement",
+        "kilogram-gram-ton",
+        "unit-conversion",
+        "质量单位",
+        "千克克吨"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数感"
+      ],
+      "skillTags": [
+        "选择质量单位",
+        "单位换算",
+        "估测质量",
+        "比较质量",
+        "解决实际问题"
+      ],
+      "misconceptionTags": [
+        "larger numeral assumed to mean heavier despite units",
+        "mass units treated like length units",
+        "ton used for everyday small objects"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-mass-units"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-mass-units-unit",
+        "bnu-primary-p3-lower-assessment-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一箱苹果重 5 千克，一箱梨重 3000 克，一箱橘子重 4 千克 500 克。这三种水果中，哪一箱最重？",
+      "optionsZhHans": [
+        "苹果",
+        "梨",
+        "橘子",
+        "一样重"
+      ],
+      "answer": "苹果",
+      "acceptedAnswers": [
+        "苹果"
+      ],
+      "explanationZhHans": "将单位统一为千克：梨 3000 克 = 3 千克，橘子 4 千克 500 克 = 4.5 千克。比较 5 千克、3 千克、4.5 千克，苹果最重。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-192",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-mass-units",
+      "unitTitle": "千克、克、吨",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "mass-measurement",
+        "kilogram-gram-ton",
+        "unit-conversion",
+        "质量单位",
+        "千克克吨"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数感"
+      ],
+      "skillTags": [
+        "选择质量单位",
+        "单位换算",
+        "估测质量",
+        "比较质量",
+        "解决实际问题"
+      ],
+      "misconceptionTags": [
+        "larger numeral assumed to mean heavier despite units",
+        "mass units treated like length units",
+        "ton used for everyday small objects"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-mass-units"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-mass-units-unit",
+        "bnu-primary-p3-lower-assessment-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一头牛的质量大约是 500 千克，一头大象的质量大约是这头牛的 8 倍。这头大象的质量大约是（ ）吨。",
+      "optionsZhHans": [],
+      "answer": "4",
+      "acceptedAnswers": [
+        "4"
+      ],
+      "explanationZhHans": "大象质量 = 500 × 8 = 4000 千克。因为 1 吨 = 1000 千克，所以 4000 千克 = 4 吨。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-193",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-mass-units",
+      "unitTitle": "千克、克、吨",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "mass-measurement",
+        "kilogram-gram-ton",
+        "unit-conversion",
+        "质量单位",
+        "千克克吨"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数感"
+      ],
+      "skillTags": [
+        "选择质量单位",
+        "单位换算",
+        "估测质量",
+        "比较质量",
+        "解决实际问题"
+      ],
+      "misconceptionTags": [
+        "larger numeral assumed to mean heavier despite units",
+        "mass units treated like length units",
+        "ton used for everyday small objects"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-mass-units"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-mass-units-unit",
+        "bnu-primary-p3-lower-assessment-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下列哪种物品的质量最适合用“吨”作单位？",
+      "optionsZhHans": [
+        "一个鸡蛋",
+        "一袋大米",
+        "一辆卡车的载重量",
+        "一本数学书"
+      ],
+      "answer": "一辆卡车的载重量",
+      "acceptedAnswers": [
+        "一辆卡车的载重量"
+      ],
+      "explanationZhHans": "吨是较大的质量单位，常用于计量较重的物体。鸡蛋、大米、数学书质量较小，用克或千克；卡车载重量大，用吨合适。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-194",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-mass-units",
+      "unitTitle": "千克、克、吨",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "mass-measurement",
+        "kilogram-gram-ton",
+        "unit-conversion",
+        "质量单位",
+        "千克克吨"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数感"
+      ],
+      "skillTags": [
+        "选择质量单位",
+        "单位换算",
+        "估测质量",
+        "比较质量",
+        "解决实际问题"
+      ],
+      "misconceptionTags": [
+        "larger numeral assumed to mean heavier despite units",
+        "mass units treated like length units",
+        "ton used for everyday small objects"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-mass-units"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-mass-units-unit",
+        "bnu-primary-p3-lower-assessment-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一袋面粉重 25 千克，一辆小货车最多能装 80 袋这样的面粉。这辆小货车最多能装（ ）吨面粉。",
+      "optionsZhHans": [],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2"
+      ],
+      "explanationZhHans": "总质量 = 25 × 80 = 2000 千克。因为 1 吨 = 1000 千克，所以 2000 千克 = 2 吨。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-195",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-area",
+      "unitTitle": "面积",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "area",
+        "square-units",
+        "rectangle-area",
+        "面积",
+        "面积单位"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "几何直观"
+      ],
+      "skillTags": [
+        "认识面积",
+        "面积单位",
+        "长方形面积",
+        "正方形面积",
+        "周长面积辨析"
+      ],
+      "misconceptionTags": [
+        "perimeter formula used for area",
+        "non-square units counted as area units",
+        "side lengths multiplied without unit meaning"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-area"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-area-unit",
+        "bnu-primary-p3-lower-assessment-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方形花坛，长 6 米，宽 4 米。这个花坛的面积是多少平方米？",
+      "optionsZhHans": [
+        "10 平方米",
+        "20 平方米",
+        "24 平方米",
+        "100 平方米"
+      ],
+      "answer": "24 平方米",
+      "acceptedAnswers": [
+        "24 平方米"
+      ],
+      "explanationZhHans": "长方形面积 = 长 × 宽 = 6 × 4 = 24（平方米）。注意面积单位是平方米，不是周长。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-196",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-area",
+      "unitTitle": "面积",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "area",
+        "square-units",
+        "rectangle-area",
+        "面积",
+        "面积单位"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "几何直观"
+      ],
+      "skillTags": [
+        "认识面积",
+        "面积单位",
+        "长方形面积",
+        "正方形面积",
+        "周长面积辨析"
+      ],
+      "misconceptionTags": [
+        "perimeter formula used for area",
+        "non-square units counted as area units",
+        "side lengths multiplied without unit meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-area"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-area-unit",
+        "bnu-primary-p3-lower-assessment-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用边长 1 厘米的小正方形拼成一个长 8 厘米、宽 3 厘米的长方形，需要（ ）个这样的小正方形。",
+      "optionsZhHans": [],
+      "answer": "24",
+      "acceptedAnswers": [
+        "24"
+      ],
+      "explanationZhHans": "长方形面积 = 长 × 宽 = 8 × 3 = 24（平方厘米），每个小正方形面积是 1 平方厘米，所以需要 24 个。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-197",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-area",
+      "unitTitle": "面积",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "area",
+        "square-units",
+        "rectangle-area",
+        "面积",
+        "面积单位"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "几何直观"
+      ],
+      "skillTags": [
+        "认识面积",
+        "面积单位",
+        "长方形面积",
+        "正方形面积",
+        "周长面积辨析"
+      ],
+      "misconceptionTags": [
+        "perimeter formula used for area",
+        "non-square units counted as area units",
+        "side lengths multiplied without unit meaning"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-area"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-area-unit",
+        "bnu-primary-p3-lower-assessment-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个正方形的边长是 5 厘米，它的面积是多少平方厘米？",
+      "optionsZhHans": [
+        "10 平方厘米",
+        "20 平方厘米",
+        "25 平方厘米",
+        "15 平方厘米"
+      ],
+      "answer": "25 平方厘米",
+      "acceptedAnswers": [
+        "25 平方厘米"
+      ],
+      "explanationZhHans": "正方形面积 = 边长 × 边长 = 5 × 5 = 25（平方厘米）。选项 10 和 20 可能是误用周长公式。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-198",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-area",
+      "unitTitle": "面积",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "area",
+        "square-units",
+        "rectangle-area",
+        "面积",
+        "面积单位"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "几何直观"
+      ],
+      "skillTags": [
+        "认识面积",
+        "面积单位",
+        "长方形面积",
+        "正方形面积",
+        "周长面积辨析"
+      ],
+      "misconceptionTags": [
+        "perimeter formula used for area",
+        "non-square units counted as area units",
+        "side lengths multiplied without unit meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-area"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-area-unit",
+        "bnu-primary-p3-lower-assessment-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一块长方形桌布，长 12 分米，宽 8 分米。它的面积是（ ）平方分米。",
+      "optionsZhHans": [],
+      "answer": "96",
+      "acceptedAnswers": [
+        "96"
+      ],
+      "explanationZhHans": "长方形面积 = 长 × 宽 = 12 × 8 = 96（平方分米）。直接计算即可。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-199",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-area",
+      "unitTitle": "面积",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "area",
+        "square-units",
+        "rectangle-area",
+        "面积",
+        "面积单位"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "几何直观"
+      ],
+      "skillTags": [
+        "认识面积",
+        "面积单位",
+        "长方形面积",
+        "正方形面积",
+        "周长面积辨析"
+      ],
+      "misconceptionTags": [
+        "perimeter formula used for area",
+        "non-square units counted as area units",
+        "side lengths multiplied without unit meaning"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-area"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-area-unit",
+        "bnu-primary-p3-lower-assessment-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个图形的面积与周长在数值上相等？（单位：厘米）",
+      "optionsZhHans": [
+        "边长 4 厘米的正方形",
+        "长 5 厘米、宽 3 厘米的长方形",
+        "边长 3 厘米的正方形",
+        "长 6 厘米、宽 2 厘米的长方形"
+      ],
+      "answer": "边长 4 厘米的正方形",
+      "acceptedAnswers": [
+        "边长 4 厘米的正方形"
+      ],
+      "explanationZhHans": "边长 4 厘米的正方形：面积 4×4=16，周长 4×4=16，数值相等。其他图形面积与周长数值不同。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-200",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "bnu-primary-p3-lower-area",
+      "unitTitle": "面积",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "area",
+        "square-units",
+        "rectangle-area",
+        "面积",
+        "面积单位"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "几何直观"
+      ],
+      "skillTags": [
+        "认识面积",
+        "面积单位",
+        "长方形面积",
+        "正方形面积",
+        "周长面积辨析"
+      ],
+      "misconceptionTags": [
+        "perimeter formula used for area",
+        "non-square units counted as area units",
+        "side lengths multiplied without unit meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-lower-area"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-area-unit",
+        "bnu-primary-p3-lower-assessment-division-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方形游泳池，长 25 米，宽 10 米。它的面积是（ ）平方米。",
+      "optionsZhHans": [],
+      "answer": "250",
+      "acceptedAnswers": [
+        "250"
+      ],
+      "explanationZhHans": "长方形面积 = 长 × 宽 = 25 × 10 = 250（平方米）。直接计算即可。"
+    }
+  ]
+}

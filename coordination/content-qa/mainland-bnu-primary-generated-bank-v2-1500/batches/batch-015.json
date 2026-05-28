@@ -1,0 +1,570 @@
+{
+  "batchId": "batch-015",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p1-141",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-review",
+      "unitTitle": "一年级上册整理与复习",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-upper-review",
+        "within-20-review",
+        "shape-position-review",
+        "上册复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "数感",
+        "空间观念"
+      ],
+      "skillTags": [
+        "整理知识",
+        "综合应用",
+        "说理检查",
+        "错因表达"
+      ],
+      "misconceptionTags": [
+        "review treated as answer memorization",
+        "operation and comparison vocabulary mixed",
+        "checking skipped after counting"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-final-integrated",
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明在整理数学知识时，发现一道题：草地上原来有12只小鸟，飞走了5只，又飞来了3只。小明想先算飞走后还剩几只，再算现在一共有几只。请你写出他先算的算式和结果，再写出后算的算式和结果。",
+      "optionsZhHans": [],
+      "answer": "先算：12-5=7，后算：7+3=10",
+      "acceptedAnswers": [
+        "先算：12-5=7，后算：7+3=10",
+        "12-5=7，7+3=10",
+        "12-5=7 7+3=10"
+      ],
+      "explanationZhHans": "小明先算飞走后剩下的：12-5=7（只），再算飞来后现在的：7+3=10（只）。分步计算更清楚。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-142",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-review",
+      "unitTitle": "一年级上册整理与复习",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-upper-review",
+        "within-20-review",
+        "shape-position-review",
+        "上册复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "数感",
+        "空间观念"
+      ],
+      "skillTags": [
+        "整理知识",
+        "综合应用",
+        "说理检查",
+        "错因表达"
+      ],
+      "misconceptionTags": [
+        "review treated as answer memorization",
+        "operation and comparison vocabulary mixed",
+        "checking skipped after counting"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-final-integrated",
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪句话在比较两个数的大小时说得对？",
+      "optionsZhHans": [
+        "15比18大，因为5比8大",
+        "13比11大，因为3比1大",
+        "20比19大，因为20在19的后面",
+        "17比14小，因为7比4大"
+      ],
+      "answer": "20比19大，因为20在19的后面",
+      "acceptedAnswers": [
+        "20比19大，因为20在19的后面"
+      ],
+      "explanationZhHans": "比较20以内数的大小，可以看数的顺序：排在后面的数大。20在19的后面，所以20>19。不能只看个位数字。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-143",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-review",
+      "unitTitle": "一年级上册整理与复习",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-upper-review",
+        "within-20-review",
+        "shape-position-review",
+        "上册复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "数感",
+        "空间观念"
+      ],
+      "skillTags": [
+        "整理知识",
+        "综合应用",
+        "说理检查",
+        "错因表达"
+      ],
+      "misconceptionTags": [
+        "review treated as answer memorization",
+        "operation and comparison vocabulary mixed",
+        "checking skipped after counting"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-final-integrated",
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在括号里填上合适的数，使等号两边相等。\n8 + (   ) = 15\n(   ) - 6 = 9",
+      "optionsZhHans": [],
+      "answer": "7, 15",
+      "acceptedAnswers": [
+        "7, 15",
+        "7 15",
+        "7、15"
+      ],
+      "explanationZhHans": "8+7=15，想8加几等于15；15-6=9，想几减6等于9，因为9+6=15。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-144",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-review",
+      "unitTitle": "一年级上册整理与复习",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-upper-review",
+        "within-20-review",
+        "shape-position-review",
+        "上册复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "数感",
+        "空间观念"
+      ],
+      "skillTags": [
+        "整理知识",
+        "综合应用",
+        "说理检查",
+        "错因表达"
+      ],
+      "misconceptionTags": [
+        "review treated as answer memorization",
+        "operation and comparison vocabulary mixed",
+        "checking skipped after counting"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-final-integrated",
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小红在整理书包时，把铅笔、橡皮、尺子、故事书、练习本放在一起。她说这些都是学习用品。你觉得她的分类对吗？为什么？请简单写一写。",
+      "optionsZhHans": [],
+      "answer": "对，因为它们都是学习时用的东西。",
+      "acceptedAnswers": [
+        "对，因为它们都是学习时用的东西。",
+        "对，都是学习用品。",
+        "对。"
+      ],
+      "explanationZhHans": "铅笔、橡皮、尺子、故事书、练习本都是学习时会用到的物品，所以可以归为学习用品一类。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-145",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-within-20-regrouping",
+      "unitTitle": "加与减（一）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-20-regrouping-add-sub",
+        "make-ten-strategy",
+        "20以内退位减法",
+        "20以内进位加法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "凑十",
+        "破十",
+        "想加算减",
+        "进位加法",
+        "退位减法"
+      ],
+      "misconceptionTags": [
+        "wrong number decomposed",
+        "ten bridge step skipped",
+        "subtraction handled by digit comparison only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-within-20-regrouping"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-100-add-sub",
+        "bnu-primary-p1-lower-assessment-within-20-addition"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算9+6时，下面哪种方法用的是凑十法？",
+      "optionsZhHans": [
+        "从9往后数6个，10、11、12、13、14、15",
+        "把6分成1和5，9+1=10，10+5=15",
+        "先算10+6=16，再减1得15",
+        "记住9+6=15"
+      ],
+      "answer": "把6分成1和5，9+1=10，10+5=15",
+      "acceptedAnswers": [
+        "把6分成1和5，9+1=10，10+5=15"
+      ],
+      "explanationZhHans": "凑十法是把一个加数拆开，与另一个加数凑成10，再加剩下的部分。9+6中，把6分成1和5，9+1=10，10+5=15。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-146",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-within-20-regrouping",
+      "unitTitle": "加与减（一）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-20-regrouping-add-sub",
+        "make-ten-strategy",
+        "20以内退位减法",
+        "20以内进位加法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "凑十",
+        "破十",
+        "想加算减",
+        "进位加法",
+        "退位减法"
+      ],
+      "misconceptionTags": [
+        "wrong number decomposed",
+        "ten bridge step skipped",
+        "subtraction handled by digit comparison only"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-within-20-regrouping"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-100-add-sub",
+        "bnu-primary-p1-lower-assessment-within-20-addition"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "计算13-8时，可以想8加几等于13。\n8 + (   ) = 13，所以13-8 = (   )。",
+      "optionsZhHans": [],
+      "answer": "5, 5",
+      "acceptedAnswers": [
+        "5, 5",
+        "5 5",
+        "5、5"
+      ],
+      "explanationZhHans": "想加算减：因为8+5=13，所以13-8=5。这是退位减法的常用方法。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-147",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-within-20-regrouping",
+      "unitTitle": "加与减（一）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-20-regrouping-add-sub",
+        "make-ten-strategy",
+        "20以内退位减法",
+        "20以内进位加法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "凑十",
+        "破十",
+        "想加算减",
+        "进位加法",
+        "退位减法"
+      ],
+      "misconceptionTags": [
+        "wrong number decomposed",
+        "ten bridge step skipped",
+        "subtraction handled by digit comparison only"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-within-20-regrouping"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-100-add-sub",
+        "bnu-primary-p1-lower-assessment-within-20-addition"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小华有14块糖，他吃了6块，还剩几块？请你用破十法写出计算过程。",
+      "optionsZhHans": [],
+      "answer": "14-6=8。把14分成10和4，10-6=4，4+4=8。",
+      "acceptedAnswers": [
+        "14-6=8。把14分成10和4，10-6=4，4+4=8。",
+        "14-6=8，把14分成10和4，10-6=4，4+4=8",
+        "14-6=8 14分成10和4 10-6=4 4+4=8"
+      ],
+      "explanationZhHans": "破十法：把14拆成10和4，先用10减6得4，再把剩下的4和个位的4合起来是8。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-148",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-within-20-regrouping",
+      "unitTitle": "加与减（一）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-20-regrouping-add-sub",
+        "make-ten-strategy",
+        "20以内退位减法",
+        "20以内进位加法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "凑十",
+        "破十",
+        "想加算减",
+        "进位加法",
+        "退位减法"
+      ],
+      "misconceptionTags": [
+        "wrong number decomposed",
+        "ten bridge step skipped",
+        "subtraction handled by digit comparison only"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-within-20-regrouping"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-100-add-sub",
+        "bnu-primary-p1-lower-assessment-within-20-addition"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪道题计算时个位不够减，需要退位？",
+      "optionsZhHans": [
+        "17-5",
+        "15-3",
+        "13-9",
+        "18-8"
+      ],
+      "answer": "13-9",
+      "acceptedAnswers": [
+        "13-9"
+      ],
+      "explanationZhHans": "13-9中，个位3减9不够减，需要从十位退1当10，变成13-9=4。其他题个位都够减。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-149",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-within-20-regrouping",
+      "unitTitle": "加与减（一）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-20-regrouping-add-sub",
+        "make-ten-strategy",
+        "20以内退位减法",
+        "20以内进位加法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "凑十",
+        "破十",
+        "想加算减",
+        "进位加法",
+        "退位减法"
+      ],
+      "misconceptionTags": [
+        "wrong number decomposed",
+        "ten bridge step skipped",
+        "subtraction handled by digit comparison only"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-within-20-regrouping"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-100-add-sub",
+        "bnu-primary-p1-lower-assessment-within-20-addition"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在括号里填上合适的数。\n7 + 6 = 7 + (   ) + (   ) = (   )",
+      "optionsZhHans": [],
+      "answer": "3, 3, 13",
+      "acceptedAnswers": [
+        "3, 3, 13",
+        "3 3 13",
+        "3、3、13"
+      ],
+      "explanationZhHans": "用凑十法：把6分成3和3，7+3=10，10+3=13。所以填3、3、13。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-150",
+      "batch": "bnu-primary-v2",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "bnu-primary-p1-lower-within-20-regrouping",
+      "unitTitle": "加与减（一）",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "within-20-regrouping-add-sub",
+        "make-ten-strategy",
+        "20以内退位减法",
+        "20以内进位加法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "凑十",
+        "破十",
+        "想加算减",
+        "进位加法",
+        "退位减法"
+      ],
+      "misconceptionTags": [
+        "wrong number decomposed",
+        "ten bridge step skipped",
+        "subtraction handled by digit comparison only"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-lower-within-20-regrouping"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-lower-assessment-within-100-add-sub",
+        "bnu-primary-p1-lower-assessment-within-20-addition"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "树上有15只鸟，飞走了一些，还剩下9只。飞走了几只？请写出算式和答案。",
+      "optionsZhHans": [],
+      "answer": "15-9=6（只）",
+      "acceptedAnswers": [
+        "15-9=6（只）",
+        "15-9=6",
+        "15-9=6只"
+      ],
+      "explanationZhHans": "原来有15只，剩下9只，飞走的部分用减法：15-9=6（只）。可以想9+6=15来检验。"
+    }
+  ]
+}

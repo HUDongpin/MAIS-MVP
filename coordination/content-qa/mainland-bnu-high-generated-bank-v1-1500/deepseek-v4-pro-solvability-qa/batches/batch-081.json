@@ -1,0 +1,133 @@
+{
+  "batchNumber": 81,
+  "startedAt": "2026-05-27T13:57:24.697Z",
+  "completedAt": "2026-05-27T13:57:44.691Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-141",
+    "bnu-high-ds-v1-s5-142",
+    "bnu-high-ds-v1-s5-143",
+    "bnu-high-ds-v1-s5-144",
+    "bnu-high-ds-v1-s5-145",
+    "bnu-high-ds-v1-s5-146",
+    "bnu-high-ds-v1-s5-147",
+    "bnu-high-ds-v1-s5-148"
+  ],
+  "usage": {
+    "prompt_tokens": 11057,
+    "completion_tokens": 1312,
+    "total_tokens": 12369,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10545
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-141",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "x^2/25 + y^2/16 = 1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由长轴长2a=10得a=5，离心率e=c/a=0.6得c=3，b^2=a^2-c^2=16，焦点在x轴，标准方程为x^2/25+y^2/16=1。题目条件充分，答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-142",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "√5/2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由渐近线y=0.5x得b/a=1/2，设a=2k,b=k，代入点(4,√3)得k^2=1，故a=2,b=1,c=√5，离心率e=√5/2。选项唯一正确，解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-143",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "p=2，准线方程为x=-1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "点(4,4)代入y^2=2px得16=8p，p=2，抛物线为y^2=4x，准线x=-1。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-144",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "k < -2√2/3 或 k > 2√2/3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "联立椭圆与直线方程，消y得(4+9k^2)x^2+36kx+72=0，Δ>0解得k^2>8/9，即k<-2√2/3或k>2√2/3。答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-145",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(1,1,1)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "向量AB=(2,-1,-1)，AC=(1,1,-2)，设法向量n=(x,y,z)，由点积为零得方程组，取z=1解得x=1,y=1，n=(1,1,1)。选项唯一正确，解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-146",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "6/7",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "建立坐标系得各点坐标，平面A1BD法向量n=(-6,3,2)，点B1到平面距离d=|n·DB1|/|n|=6/7。答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-147",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "-12/√294",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "a·b=-12，|a|=√14，|b|=√21，cosθ=-12/√294。答案与解析一致，acceptedAnswers覆盖多种等价形式。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-148",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(1/3,1/3,1/3)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "P在平面x+y+z=1上，由PA⊥PB等条件列方程，解得x=y=z=1/3。选项唯一正确，解析无误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，答案正确，解析与题目一致，无任何问题。"
+    }
+  }
+}

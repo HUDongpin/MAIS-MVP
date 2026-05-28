@@ -1,0 +1,329 @@
+{
+  "batchId": "batch-107",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s3-k11-mc-061",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-function-geometry-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig"
+      ],
+      "promptZhHans": "在△ABC中，∠C=90°，AC=6，BC=8。点D在边AB上，且∠BDC=90°。则sin∠BCD的值为（ ）",
+      "optionsZhHans": [
+        "\\frac{3}{5}",
+        "\\frac{4}{5}",
+        "\\frac{3}{4}",
+        "\\frac{4}{3}"
+      ],
+      "answer": "\\frac{4}{5}",
+      "acceptedAnswers": [
+        "\\frac{4}{5}",
+        "4/5"
+      ],
+      "explanationZhHans": "在Rt△ABC中，由勾股定理得AB=√(AC²+BC²)=√(6²+8²)=10。由∠BDC=90°知CD⊥AB，利用面积法：S△ABC=½·AC·BC=½·AB·CD，即½×6×8=½×10×CD，解得CD=4.8。在Rt△BCD中，sin∠BCD=对边BD/斜边BC。由射影定理或勾股定理得BD=BC²/AB=64/10=6.4，故sin∠BCD=BD/BC=6.4/8=4/5。因此答案为\\frac{4}{5}。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-mc-062",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-similarity"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models"
+      ],
+      "promptZhHans": "已知反比例函数y=\\frac{k}{x}（k≠0）的图象经过点A(2,-3)。若点B(-1,m)也在该函数图象上，则m的值为（ ）",
+      "optionsZhHans": [
+        "6",
+        "-6",
+        "\\frac{3}{2}",
+        "-\\frac{3}{2}"
+      ],
+      "answer": "6",
+      "acceptedAnswers": [
+        "6"
+      ],
+      "explanationZhHans": "将点A(2,-3)代入y=k/x得-3=k/2，解得k=-6。所以反比例函数为y=-6/x。将点B(-1,m)代入得m=-6/(-1)=6。因此答案为6。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-mc-063",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-graduation-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "promptZhHans": "一次函数y=2x-1与y=-x+5的图象交于点P，则点P的坐标是（ ）",
+      "optionsZhHans": [
+        "(2,3)",
+        "(3,2)",
+        "(1,1)",
+        "(4,7)"
+      ],
+      "answer": "(2,3)",
+      "acceptedAnswers": [
+        "(2,3)",
+        "2,3"
+      ],
+      "explanationZhHans": "解方程组{y=2x-1, y=-x+5}得2x-1=-x+5，3x=6，x=2，代入得y=3。所以交点P的坐标为(2,3)。因此答案为(2,3)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-mc-064",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-inverse-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions"
+      ],
+      "promptZhHans": "关于x的一元二次方程x²-4x+m=0有两个不相等的实数根，则m的取值范围是（ ）",
+      "optionsZhHans": [
+        "m>4",
+        "m<4",
+        "m≥4",
+        "m≤4"
+      ],
+      "answer": "m<4",
+      "acceptedAnswers": [
+        "m<4"
+      ],
+      "explanationZhHans": "方程有两个不相等的实数根，则判别式Δ>0。Δ=(-4)²-4×1×m=16-4m>0，解得m<4。因此答案为m<4。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-mc-065",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-right-triangle-trigonometry"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "下列实数中，无理数是（ ）",
+      "optionsZhHans": [
+        "\\sqrt{4}",
+        "\\frac{22}{7}",
+        "\\sqrt{8}",
+        "0.\\dot{3}"
+      ],
+      "answer": "\\sqrt{8}",
+      "acceptedAnswers": [
+        "\\sqrt{8}",
+        "√8"
+      ],
+      "explanationZhHans": "√4=2是有理数；22/7是分数，有理数；0.3循环是循环小数，有理数；√8=2√2，是无理数。因此答案为\\sqrt{8}。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-mc-066",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "multiple-choice",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-projection-views"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "某商店将进价为每件8元的商品按每件10元出售，每天可售出200件。经调查发现，每件商品每涨价0.5元，每天的销售量就减少10件。若商店希望每天的利润达到640元，且售价尽可能低，则每件商品的售价应定为（ ）元。",
+      "optionsZhHans": [
+        "12",
+        "14",
+        "16",
+        "18"
+      ],
+      "answer": "12",
+      "acceptedAnswers": [
+        "12"
+      ],
+      "explanationZhHans": "设每件涨价x个0.5元，则售价为10+0.5x元，销售量为200-10x件。单件利润为(10+0.5x-8)=2+0.5x元。总利润为(2+0.5x)(200-10x)=640。化简得(2+0.5x)(200-10x)=640，即400-20x+100x-5x²=640，整理得5x²-80x+240=0，除以5得x²-16x+48=0。解得x=4或x=12。当x=4时，售价为10+2=12元；当x=12时，售价为10+6=16元。要求售价尽可能低，故取12元。因此答案为12。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-fi-001",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-function-geometry-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-similarity-right-triangle-trig"
+      ],
+      "promptZhHans": "在Rt△ABC中，∠C=90°，AB=10，sinA=\\frac{3}{5}，则BC=______。",
+      "optionsZhHans": [],
+      "answer": "6",
+      "acceptedAnswers": [
+        "6"
+      ],
+      "explanationZhHans": "在Rt△ABC中，sinA=∠A的对边BC/斜边AB，即BC/10=3/5，解得BC=6。因此答案为6。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-fi-002",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-similarity"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models"
+      ],
+      "promptZhHans": "若反比例函数y=\\frac{k}{x}的图象在第二、四象限，则k的取值范围是______。",
+      "optionsZhHans": [],
+      "answer": "k<0",
+      "acceptedAnswers": [
+        "k<0"
+      ],
+      "explanationZhHans": "反比例函数y=k/x的图象在第二、四象限时，k<0。因此答案为k<0。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-fi-003",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-graduation-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "promptZhHans": "一次函数y=3x+b的图象经过点(1,5)，则b=______。",
+      "optionsZhHans": [],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2"
+      ],
+      "explanationZhHans": "将点(1,5)代入y=3x+b得5=3×1+b，解得b=2。因此答案为2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-fi-004",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s3-lower-inverse-similarity-trigonometry",
+      "unitTitle": "反比例函数、相似与锐角三角函数",
+      "type": "fill-in",
+      "difficulty": "Exam",
+      "evidenceCardIds": [
+        "pep-junior-s3-lower-inverse-similarity-trigonometry"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-lower-paper-inverse-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions"
+      ],
+      "promptZhHans": "抛物线y=x²-2x-3的顶点坐标是______。",
+      "optionsZhHans": [],
+      "answer": "(1,-4)",
+      "acceptedAnswers": [
+        "(1,-4)",
+        "1,-4"
+      ],
+      "explanationZhHans": "将y=x²-2x-3配方得y=(x-1)²-4，所以顶点坐标为(1,-4)。因此答案为(1,-4)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0071",
+  "ids": [
+    "hjb-junior-ds-v2-s2-061",
+    "hjb-junior-ds-v2-s2-062",
+    "hjb-junior-ds-v2-s2-063",
+    "hjb-junior-ds-v2-s2-064",
+    "hjb-junior-ds-v2-s2-065",
+    "hjb-junior-ds-v2-s2-066",
+    "hjb-junior-ds-v2-s2-067",
+    "hjb-junior-ds-v2-s2-068"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-061",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2个",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-062",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "12 和 13",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-063",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x≥3",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-064",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-2ab√(3a)",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-065",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x≥2",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-066",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "a=6",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-067",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "√(x²+y²)（其中x>0，y>0）",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-068",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "解析中由2(x-2)=x+1解得x=5，但代入原式：√(2*5-4)=√6，√(5+1)=√6，化简后均为√6，可合并。但解析中写“√(2x-4)=√[2(x-2)]，√(x+1)已最简，故2(x-2)=x+1”逻辑不严谨：合并同类二次根式要求化简后被开方数相同，但√(2(x-2))与√(x+1)被开方数分别为2(x-2)和x+1，直接令其相等解得x=5，但需验证此时两者均为最简二次根式且被开方数相同。实际上，当x=5时，√(2x-4)=√6，√(x+1)=√6，确实可合并。但解析中未说明为何能直接令2(x-2)=x+1，且未验证化简后是否为最简二次根式。更严重的是，若考虑二次根式可合并的条件是化简后被开方数相同，但√(2x-4)化简为√[2(x-2)]，若2(x-2)不是完全平方数，则已最简；√(x+1)已最简。令2(x-2)=x+1得x=5，此时被开方数均为6，正确。但若x有其他值使得化简后被开方数相同呢？例如，若2(x-2)和x+1有公因数，但需相等。实际上，方程2(x-2)=x+1是唯一可能。但解析中未考虑定义域：x≥2，x=5满足。然而，标准答案x=5正确，但解析过程有瑕疵：直接令2(x-2)=x+1缺乏依据，应说明因为两者都是最简二次根式，所以被开方数相等。但√(2x-4)不一定是最简，需先化简。实际上，√(2x-4)=√[2(x-2)]，若x-2含有因数2，则可进一步化简。例如，若x=4，则√(2*4-4)=√4=2，不是二次根式；若x=6，则√(2*6-4)=√8=2√2，√(6+1)=√7，不能合并。所以直接令2(x-2)=x+1的前提是两者都已是最简二次根式，但解析未说明。更严谨的做法：设化简后√(2x-4)=k√m，√(x+1)=l√m，但这样复杂。通常解法：由同类二次根式定义，得2x-4与x+1化简后被开方数相同，但需先化简。实际上，2x-4=2(x-2)，x+1已最简，所以2(x-2)与x+1应相等，否则需考虑倍数关系？同类二次根式要求被开方数相同，不是倍数关系。所以直接相等是合理的，但需说明因为两者都是最简二次根式（需验证）。当x=5时，2x-4=6，x+1=6，都是最简二次根式，正确。但解析中未验证最简性，且直接写“故2(x-2)=x+1”可能让学生误解。因此，解析存在逻辑漏洞，但答案正确。标记为needs-review，建议完善解析。",
+      "independentAnswerZhHans": "x=5",
+      "answerCheckZhHans": "标准答案正确，但解析过程不严谨，需补充说明。",
+      "recommendedActionZhHans": "修改解析，明确说明：因为√(2x-4)与√(x+1)可合并为最简二次根式，所以它们化简后被开方数相同。√(2x-4)=√[2(x-2)]，√(x+1)已最简，故2(x-2)=x+1，解得x=5，经检验满足定义域且均为最简二次根式。",
+      "confidence": "medium"
+    }
+  ]
+}

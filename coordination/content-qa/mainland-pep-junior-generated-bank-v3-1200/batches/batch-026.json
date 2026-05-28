@@ -1,0 +1,310 @@
+{
+  "batchId": "batch-026",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s1-k04-fi-017",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "在平面直角坐标系中，点A的坐标是（－3，5），点B与点A关于x轴对称。点B的坐标是（____，____）。",
+      "optionsZhHans": [],
+      "answer": "－3，－5",
+      "acceptedAnswers": [
+        "－3，－5",
+        "(-3,-5)",
+        "（－3，－5）"
+      ],
+      "explanationZhHans": "关于x轴对称的点，横坐标不变，纵坐标互为相反数。点A的横坐标是－3，纵坐标是5，所以点B的横坐标也是－3，纵坐标是－5，因此点B的坐标是－3，－5。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-fi-018",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-real-numbers"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "已知点P（a，b）在第二象限，且|a|＝4，|b|＝2，则点P的坐标是（____，____）。",
+      "optionsZhHans": [],
+      "answer": "－4，2",
+      "acceptedAnswers": [
+        "－4，2",
+        "(-4,2)",
+        "（－4，2）"
+      ],
+      "explanationZhHans": "第二象限的点横坐标为负，纵坐标为正。由|a|＝4得a＝±4，取负值a＝－4；由|b|＝2得b＝±2，取正值b＝2。所以点P的坐标是－4，2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-fi-019",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-linear-systems"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "某班40名学生参加一次数学测验，成绩统计如下：得100分的有5人，得90分的有12人，得80分的有15人，得70分的有6人，其余为60分。若随机抽取一名学生，抽到成绩不低于80分的概率是____（用最简分数表示）。",
+      "optionsZhHans": [],
+      "answer": "4/5",
+      "acceptedAnswers": [
+        "4/5",
+        "0.8",
+        "80%"
+      ],
+      "explanationZhHans": "总人数为40。成绩不低于80分的人数包括100分5人、90分12人、80分15人，合计5+12+15=32人。概率为32/40，化简得4/5。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-fi-020",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-inequalities"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "某商店推出两种优惠方案：方案一，每件商品打八折；方案二，每件商品满100元减25元。若购买一件原价x元的商品，当x满足____时，方案一更省钱（用不等式表示）。",
+      "optionsZhHans": [],
+      "answer": "x＞125",
+      "acceptedAnswers": [
+        "x＞125",
+        "x>125"
+      ],
+      "explanationZhHans": "方案一实际付款0.8x元，方案二实际付款x－25元。方案一更省钱即0.8x＜x－25，解得－0.2x＜－25，即x＞125。所以当x＞125时方案一更省钱。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-fi-021",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-data-collection"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "将点M（2，－3）先向右平移4个单位，再向上平移5个单位，得到点N。点N的坐标是（____，____）。",
+      "optionsZhHans": [],
+      "answer": "6，2",
+      "acceptedAnswers": [
+        "6，2",
+        "(6,2)",
+        "（6，2）"
+      ],
+      "explanationZhHans": "向右平移4个单位，横坐标加4：2＋4＝6；向上平移5个单位，纵坐标加5：－3＋5＝2。所以点N的坐标是6，2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-fi-022",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-coordinate-plane"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "在平面直角坐标系中，点Q在x轴上，且到原点的距离等于3，则点Q的坐标是（____，____）或（____，____）。",
+      "optionsZhHans": [],
+      "answer": "3，0 或 －3，0",
+      "acceptedAnswers": [
+        "3，0 或 －3，0",
+        "3,0 或 -3,0",
+        "（3，0）或（－3，0）"
+      ],
+      "explanationZhHans": "x轴上的点纵坐标为0。到原点的距离为3，则横坐标的绝对值为3，所以横坐标为3或－3。因此点Q的坐标是3，0或－3，0。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-fi-023",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-lines-parallel-angles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "直线AB∥CD，EF与AB、CD分别相交于点G、H。若∠EGB＝50°，则∠GHD的度数是____°。",
+      "optionsZhHans": [],
+      "answer": "130",
+      "acceptedAnswers": [
+        "130",
+        "130°"
+      ],
+      "explanationZhHans": "因为AB∥CD，所以∠EGB与∠GHD是同旁内角，两直线平行，同旁内角互补。∠EGB＝50°，所以∠GHD＝180°－50°＝130°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-fi-024",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "某校七年级学生进行跳绳测试，随机抽取20名学生的成绩（单位：次/分钟）如下：85，92，78，88，95，102，76，89，91，86，79，93，97，81，84，90，87，83，94，80。这组数据的中位数是____次/分钟。",
+      "optionsZhHans": [],
+      "answer": "87.5",
+      "acceptedAnswers": [
+        "87.5",
+        "87.5次/分钟"
+      ],
+      "explanationZhHans": "将20个数据从小到大排序：76,78,79,80,81,83,84,85,86,87,88,89,90,91,92,93,94,95,97,102。第10和第11个数分别是87和88，中位数为(87+88)/2=87.5。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-fi-025",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-real-numbers"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "比较大小：√15____4（填“＞”“＜”或“＝”）。",
+      "optionsZhHans": [],
+      "answer": "＜",
+      "acceptedAnswers": [
+        "＜",
+        "<"
+      ],
+      "explanationZhHans": "因为4²=16，而15＜16，所以√15＜√16=4，即√15＜4。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-fi-026",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "lower",
+      "knowledgePointId": "pep-junior-s1-lower-lines-coordinates",
+      "unitTitle": "相交线、平行线与平面直角坐标系",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-lower-lines-coordinates"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-lower-paper-linear-systems"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "已知点A（－1，2）和点B（3，2），将线段AB向下平移3个单位，则平移后线段A'B'的长度是____。",
+      "optionsZhHans": [],
+      "answer": "4",
+      "acceptedAnswers": [
+        "4",
+        "4个单位"
+      ],
+      "explanationZhHans": "点A和点B的纵坐标相同，线段AB平行于x轴，长度等于横坐标差的绝对值：|3－(－1)|＝4。平移不改变线段的长度，所以平移后线段A'B'的长度仍是4。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

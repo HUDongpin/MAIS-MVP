@@ -1,0 +1,83 @@
+{
+  "batchNumber": 84,
+  "startedAt": "2026-05-27T14:05:25.195Z",
+  "completedAt": "2026-05-27T14:05:33.655Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p6-245",
+    "bnu-primary-ds-v2-p6-246",
+    "bnu-primary-ds-v2-p6-247",
+    "bnu-primary-ds-v2-p6-248",
+    "bnu-primary-ds-v2-p6-249",
+    "bnu-primary-ds-v2-p6-250"
+  ],
+  "usage": {
+    "prompt_tokens": 1624,
+    "completion_tokens": 497,
+    "total_tokens": 2121,
+    "prompt_tokens_details": {
+      "cached_tokens": 1536
+    },
+    "prompt_cache_hit_tokens": 1536,
+    "prompt_cache_miss_tokens": 88
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p6-245",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，选项清晰，解释合理，适合P6总复习。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-246",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "圆锥体积公式应用正确，算式符合要求，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-247",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程列式正确，选项区分度好，适合式与方程复习。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-248",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "众数概念正确，数据无重复，答案合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-249",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "体积变化计算正确，选项无干扰，适合图形与几何复习。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p6-250",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "熔铸问题体积相等，圆锥高计算正确，算式无误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案与解释一致，选项无歧义，适合北师大版P6总复习使用。"
+    }
+  }
+}

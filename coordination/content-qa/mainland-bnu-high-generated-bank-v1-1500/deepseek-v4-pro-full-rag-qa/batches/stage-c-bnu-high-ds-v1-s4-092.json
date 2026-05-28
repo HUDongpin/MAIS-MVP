@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-092",
+  "startedAt": "2026-05-28T01:00:49.693Z",
+  "completedAt": "2026-05-28T01:00:55.715Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-092"
+  ],
+  "usage": {
+    "prompt_tokens": 2635,
+    "completion_tokens": 258,
+    "total_tokens": 2893,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2251
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-092",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "70/3天",
+        "correctedAnswer": "70/3天",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合北师大版指数函数应用。独立求解得总天数为70/3天，但存储答案为70，解析中计算过程矛盾且最终答案错误，属于严重错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目bnu-high-ds-v1-s4-092答案错误，应修正为70/3天。"
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-467",
+  "startedAt": "2026-05-28T01:57:02.638Z",
+  "completedAt": "2026-05-28T01:57:08.120Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-467"
+  ],
+  "usage": {
+    "prompt_tokens": 2727,
+    "completion_tokens": 298,
+    "total_tokens": 3025,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2343
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-467",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "3^n - 1",
+        "correctedAnswer": "3^n - 1",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合BNU数列递推与求和范围。独立求解得T_n=3^n-1，对应选项C。但存储答案和解析均指向A (3^{n+1}-3)/2，解析过程却算出3^n-1，自相矛盾。正确答案唯一，选项C正确，A错误。判定为答案错误、解析矛盾，严重程度为blocker。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目答案错误，解析自相矛盾，需修正答案为3^n-1（选项C）。"
+    }
+  }
+}

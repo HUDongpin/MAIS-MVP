@@ -1,0 +1,293 @@
+{
+  "batchId": "batch-047",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p1-231",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "hjb-primary-p1-lower-body-rulers-math-square",
+      "unitTitle": "身体上的尺子与数学广场",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "body-benchmark-measurement",
+        "math-square-exploration",
+        "estimation",
+        "身体尺"
+      ],
+      "competencyTags": [
+        "量感",
+        "探索意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "身体参照量",
+        "估测长度",
+        "规律观察",
+        "合作探究"
+      ],
+      "misconceptionTags": [
+        "personal benchmark treated as universal exact unit",
+        "estimate given without comparison basis",
+        "pattern guessed from one example only"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p1-lower-body-rulers-math-square"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-lower-assessment-within-20-regrouping",
+        "hjb-primary-p1-lower-assessment-within-100-number-sense"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小美想估测教室黑板的长度。她先张开双臂，发现自己的双臂张开长度大约是1米。然后她用这个长度去量黑板，发现黑板大约有3个双臂张开那么长。这块黑板大约有多长？",
+      "optionsZhHans": [
+        "2米",
+        "3米",
+        "4米",
+        "5米"
+      ],
+      "answer": "3米",
+      "acceptedAnswers": [
+        "3米"
+      ],
+      "explanationZhHans": "小美双臂张开长度约1米，黑板有3个这样的长度，1米+1米+1米=3米，所以选3米。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-232",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "hjb-primary-p1-lower-review",
+      "unitTitle": "一年级下册整理与复习",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "p1-lower-review",
+        "within-100-review",
+        "time-length-review",
+        "operation-strategy-review",
+        "复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "数感",
+        "量感"
+      ],
+      "skillTags": [
+        "综合整理",
+        "策略比较",
+        "错因说明",
+        "应用表达"
+      ],
+      "misconceptionTags": [
+        "strategy chosen after computing only",
+        "measurement and number operation units mixed",
+        "review seen as isolated drills"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p1-lower-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-lower-assessment-final-integrated",
+        "hjb-primary-p1-lower-assessment-within-20-regrouping"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在计算45+8时，小杰先算45+5=50，再算50+3=53。他用的方法是把8分成了几和几？请填空：8分成了______和______。",
+      "optionsZhHans": [],
+      "answer": "5和3",
+      "acceptedAnswers": [
+        "5和3",
+        "5,3",
+        "5 3"
+      ],
+      "explanationZhHans": "小杰先加5凑成整十数50，再加剩下的3，所以把8分成了5和3。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-233",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "hjb-primary-p1-lower-review",
+      "unitTitle": "一年级下册整理与复习",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "p1-lower-review",
+        "within-100-review",
+        "time-length-review",
+        "operation-strategy-review",
+        "复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "数感",
+        "量感"
+      ],
+      "skillTags": [
+        "综合整理",
+        "策略比较",
+        "错因说明",
+        "应用表达"
+      ],
+      "misconceptionTags": [
+        "strategy chosen after computing only",
+        "measurement and number operation units mixed",
+        "review seen as isolated drills"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p1-lower-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-lower-assessment-final-integrated",
+        "hjb-primary-p1-lower-assessment-within-20-regrouping"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个数读作“六十三”？",
+      "optionsZhHans": [
+        "36",
+        "63",
+        "60",
+        "3"
+      ],
+      "answer": "63",
+      "acceptedAnswers": [
+        "63"
+      ],
+      "explanationZhHans": "六十三的十位是6，个位是3，写作63。36读作三十六，60读作六十，3读作三。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-234",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "hjb-primary-p1-lower-review",
+      "unitTitle": "一年级下册整理与复习",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "p1-lower-review",
+        "within-100-review",
+        "time-length-review",
+        "operation-strategy-review",
+        "复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "数感",
+        "量感"
+      ],
+      "skillTags": [
+        "综合整理",
+        "策略比较",
+        "错因说明",
+        "应用表达"
+      ],
+      "misconceptionTags": [
+        "strategy chosen after computing only",
+        "measurement and number operation units mixed",
+        "review seen as isolated drills"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p1-lower-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-lower-assessment-final-integrated",
+        "hjb-primary-p1-lower-assessment-within-20-regrouping"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丽看钟面，时针指向8和9之间，分针指向6。这时是几时几分？请填空：______时______分。",
+      "optionsZhHans": [],
+      "answer": "8时30分",
+      "acceptedAnswers": [
+        "8时30分",
+        "8:30",
+        "8时半"
+      ],
+      "explanationZhHans": "时针在8和9之间是8时多，分针指向6表示30分，所以是8时30分。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-235",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "hjb-primary-p1-lower-review",
+      "unitTitle": "一年级下册整理与复习",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "p1-lower-review",
+        "within-100-review",
+        "time-length-review",
+        "operation-strategy-review",
+        "复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "数感",
+        "量感"
+      ],
+      "skillTags": [
+        "综合整理",
+        "策略比较",
+        "错因说明",
+        "应用表达"
+      ],
+      "misconceptionTags": [
+        "strategy chosen after computing only",
+        "measurement and number operation units mixed",
+        "review seen as isolated drills"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p1-lower-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-lower-assessment-final-integrated",
+        "hjb-primary-p1-lower-assessment-within-20-regrouping"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一根绳子长50厘米，另一根绳子长30厘米。两根绳子接在一起，接头处用去5厘米。接好后的绳子长多少厘米？",
+      "optionsZhHans": [
+        "75厘米",
+        "80厘米",
+        "85厘米",
+        "70厘米"
+      ],
+      "answer": "75厘米",
+      "acceptedAnswers": [
+        "75厘米"
+      ],
+      "explanationZhHans": "50+30=80厘米，接头用去5厘米，80-5=75厘米。注意接头处重叠，要减去。"
+    }
+  ]
+}

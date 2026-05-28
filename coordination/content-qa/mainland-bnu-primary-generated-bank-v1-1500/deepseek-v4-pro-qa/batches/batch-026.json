@@ -1,0 +1,191 @@
+{
+  "batchNumber": 26,
+  "startedAt": "2026-05-27T13:27:01.611Z",
+  "completedAt": "2026-05-27T13:27:19.504Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p2-201",
+    "bnu-primary-ds-v1-p2-202",
+    "bnu-primary-ds-v1-p2-203",
+    "bnu-primary-ds-v1-p2-204",
+    "bnu-primary-ds-v1-p2-205",
+    "bnu-primary-ds-v1-p2-206",
+    "bnu-primary-ds-v1-p2-207",
+    "bnu-primary-ds-v1-p2-208",
+    "bnu-primary-ds-v1-p2-209",
+    "bnu-primary-ds-v1-p2-210",
+    "bnu-primary-ds-v1-p2-211",
+    "bnu-primary-ds-v1-p2-212",
+    "bnu-primary-ds-v1-p2-213",
+    "bnu-primary-ds-v1-p2-214",
+    "bnu-primary-ds-v1-p2-215",
+    "bnu-primary-ds-v1-p2-216",
+    "bnu-primary-ds-v1-p2-217",
+    "bnu-primary-ds-v1-p2-218"
+  ],
+  "usage": {
+    "prompt_tokens": 3933,
+    "completion_tokens": 1254,
+    "total_tokens": 5187,
+    "prompt_tokens_details": {
+      "cached_tokens": 3840
+    },
+    "prompt_cache_hit_tokens": 3840,
+    "prompt_cache_miss_tokens": 93
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p2-201",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，计算正确，选项合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-202",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目完整，答案与解释一致，估算合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-203",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "算式选择正确，选项无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-204",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估算、计算、验算步骤完整，答案合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-205",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目逻辑清晰，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-206",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估算、计算、验算完整，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-207",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估算与笔算对比合理，选项设置恰当。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-208",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目完整，计算正确，验算方法合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-209",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "长方形特征描述准确，选项区分度好。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-210",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "正方形特征明确，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-211",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "描述符合长方形特征，答案无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-212",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "正方形定义清晰，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-213",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "三角形特征简单明确，选项无干扰。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-214",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "描述符合平行四边形特征，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-215",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "正方形特征明确，选项合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-216",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "基础概念题，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-217",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "对角线分割常识，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-218",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "正方形特征填空，答案正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版小学数学二年级要求，无数学错误、答案不匹配、歧义或缺失条件等问题。"
+    }
+  }
+}

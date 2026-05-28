@@ -1,0 +1,592 @@
+{
+  "batchId": "batch-098",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p4-221",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-data-representation-analysis",
+      "unitTitle": "数据的表示和分析",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "data-representation-analysis",
+        "statistical-charts",
+        "average",
+        "数据表示",
+        "数据分析"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "收集整理数据",
+        "读统计图",
+        "比较数据",
+        "平均数",
+        "解释结论"
+      ],
+      "misconceptionTags": [
+        "chart scale ignored",
+        "average treated as a required actual value",
+        "conclusion not supported by the displayed data"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-data-representation-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-data-representation-analysis-unit",
+        "bnu-primary-p5-lower-assessment-data-analysis-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "四年级（3）班环保小组记录了上周每天收集的废纸数量（单位：千克）：星期一 3，星期二 5，星期三 4，星期四 6，星期五 2。这五天平均每天收集废纸多少千克？",
+      "optionsZhHans": [
+        "3千克",
+        "4千克",
+        "5千克",
+        "6千克"
+      ],
+      "answer": "4千克",
+      "acceptedAnswers": [
+        "4千克"
+      ],
+      "explanationZhHans": "五天收集废纸的总量为3+5+4+6+2=20千克。平均每天收集量为20÷5=4千克。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-222",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-data-representation-analysis",
+      "unitTitle": "数据的表示和分析",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "data-representation-analysis",
+        "statistical-charts",
+        "average",
+        "数据表示",
+        "数据分析"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "收集整理数据",
+        "读统计图",
+        "比较数据",
+        "平均数",
+        "解释结论"
+      ],
+      "misconceptionTags": [
+        "chart scale ignored",
+        "average treated as a required actual value",
+        "conclusion not supported by the displayed data"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-data-representation-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-data-representation-analysis-unit",
+        "bnu-primary-p5-lower-assessment-data-analysis-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是四（1）班第一小组5名同学1分钟跳绳的成绩（单位：下）：\n小宇：120  小雯：135  小浩：110  小悦：125  小凯：130\n\n（1）这5名同学1分钟跳绳的平均成绩是多少下？\n（2）如果小凯的成绩记作0下，小宇的成绩比小凯少10下，那么小雯的成绩可以怎样记录？",
+      "optionsZhHans": [],
+      "answer": "（1）124下；（2）+5下",
+      "acceptedAnswers": [
+        "（1）124下；（2）+5下",
+        "（1）124；（2）+5",
+        "（1）124下 （2）+5下",
+        "（1）124 （2）+5"
+      ],
+      "explanationZhHans": "（1）平均成绩 = (120+135+110+125+130)÷5 = 620÷5 = 124（下）。\n（2）以小凯的130下为0，小雯135下比130多5下，记作+5下。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-223",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-data-representation-analysis",
+      "unitTitle": "数据的表示和分析",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "data-representation-analysis",
+        "statistical-charts",
+        "average",
+        "数据表示",
+        "数据分析"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "收集整理数据",
+        "读统计图",
+        "比较数据",
+        "平均数",
+        "解释结论"
+      ],
+      "misconceptionTags": [
+        "chart scale ignored",
+        "average treated as a required actual value",
+        "conclusion not supported by the displayed data"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-data-representation-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-data-representation-analysis-unit",
+        "bnu-primary-p5-lower-assessment-data-analysis-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是四（1）班同学最喜欢的水果统计表。\n水果：苹果、香蕉、橘子、草莓、葡萄\n人数：12、8、5、15、10\n根据统计表，下面哪种说法是正确的？",
+      "optionsZhHans": [
+        "喜欢草莓的人数最多。",
+        "喜欢苹果的人数是喜欢橘子的2倍多。",
+        "喜欢香蕉和橘子的人数总和比喜欢草莓的人数多。",
+        "喜欢葡萄的人数比喜欢香蕉的人数少。"
+      ],
+      "answer": "喜欢草莓的人数最多。",
+      "acceptedAnswers": [
+        "喜欢草莓的人数最多。"
+      ],
+      "explanationZhHans": "草莓15人最多，A正确。苹果12人不是橘子5人的2倍多（2倍是10人），B错误。香蕉8人加橘子5人共13人，比草莓15人少，C错误。葡萄10人比香蕉8人多，D错误。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-224",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-data-representation-analysis",
+      "unitTitle": "数据的表示和分析",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "data-representation-analysis",
+        "statistical-charts",
+        "average",
+        "数据表示",
+        "数据分析"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "收集整理数据",
+        "读统计图",
+        "比较数据",
+        "平均数",
+        "解释结论"
+      ],
+      "misconceptionTags": [
+        "chart scale ignored",
+        "average treated as a required actual value",
+        "conclusion not supported by the displayed data"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-data-representation-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-data-representation-analysis-unit",
+        "bnu-primary-p5-lower-assessment-data-analysis-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是四（1）班第一小组5名同学1分钟跳绳的成绩记录：\n小杰：142下，小雯：135下，小宇：148下，小菲：130下，小豪：140下。\n（1）这5名同学1分钟跳绳的平均成绩是______下。\n（2）如果小杰因为失误少跳了2下，那么这5名同学的平均成绩会变成______下。",
+      "optionsZhHans": [],
+      "answer": "139, 138.6",
+      "acceptedAnswers": [
+        "139, 138.6",
+        "139,138.6",
+        "139 138.6",
+        "139和138.6",
+        "139、138.6"
+      ],
+      "explanationZhHans": "（1）总成绩：142+135+148+130+140=695下，平均：695÷5=139下。（2）小杰成绩变为140下，新总成绩：140+135+148+130+140=693下，新平均：693÷5=138.6下。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-225",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-data-representation-analysis",
+      "unitTitle": "数据的表示和分析",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "data-representation-analysis",
+        "statistical-charts",
+        "average",
+        "数据表示",
+        "数据分析"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "收集整理数据",
+        "读统计图",
+        "比较数据",
+        "平均数",
+        "解释结论"
+      ],
+      "misconceptionTags": [
+        "chart scale ignored",
+        "average treated as a required actual value",
+        "conclusion not supported by the displayed data"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-data-representation-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-data-representation-analysis-unit",
+        "bnu-primary-p5-lower-assessment-data-analysis-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "四（1）班同学参加“环保小卫士”活动，收集废旧电池。第一小组5名同学收集的数量如下表：\n\n| 姓名 | 小明 | 小红 | 小刚 | 小丽 | 小华 |\n|------|------|------|------|------|------|\n| 数量（节） | 12 | 9 | 15 | 10 | 14 |\n\n根据表中数据，下面哪种说法是正确的？",
+      "optionsZhHans": [
+        "这组同学收集的废旧电池总数是50节。",
+        "小红收集的数量比小刚多。",
+        "这组同学收集的废旧电池平均数是12节。",
+        "小丽收集的数量是最多的。"
+      ],
+      "answer": "这组同学收集的废旧电池平均数是12节。",
+      "acceptedAnswers": [
+        "这组同学收集的废旧电池平均数是12节。"
+      ],
+      "explanationZhHans": "总数：12+9+15+10+14=60节，A错。小红9节，小刚15节，小红比小刚少，B错。平均数：60÷5=12节，C正确。小丽10节，不是最多，D错。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-226",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-data-representation-analysis",
+      "unitTitle": "数据的表示和分析",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "data-representation-analysis",
+        "statistical-charts",
+        "average",
+        "数据表示",
+        "数据分析"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "收集整理数据",
+        "读统计图",
+        "比较数据",
+        "平均数",
+        "解释结论"
+      ],
+      "misconceptionTags": [
+        "chart scale ignored",
+        "average treated as a required actual value",
+        "conclusion not supported by the displayed data"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-data-representation-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-data-representation-analysis-unit",
+        "bnu-primary-p5-lower-assessment-data-analysis-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是四（1）班第一小组5名同学1分钟跳绳的成绩记录：\n小明：132下\n小红：145下\n小刚：128下\n小兰：136下\n小强：119下\n\n这5名同学1分钟跳绳的平均成绩是多少下？",
+      "optionsZhHans": [],
+      "answer": "132",
+      "acceptedAnswers": [
+        "132",
+        "132下"
+      ],
+      "explanationZhHans": "平均成绩 = 总成绩 ÷ 人数。总成绩：132+145+128+136+119 = 660下，人数为5，660÷5=132下。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-227",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-data-representation-analysis",
+      "unitTitle": "数据的表示和分析",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "data-representation-analysis",
+        "statistical-charts",
+        "average",
+        "数据表示",
+        "数据分析"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "收集整理数据",
+        "读统计图",
+        "比较数据",
+        "平均数",
+        "解释结论"
+      ],
+      "misconceptionTags": [
+        "chart scale ignored",
+        "average treated as a required actual value",
+        "conclusion not supported by the displayed data"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-data-representation-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-data-representation-analysis-unit",
+        "bnu-primary-p5-lower-assessment-data-analysis-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "四（1）班第一小组6名同学的1分钟跳绳成绩如下（单位：下）：\n小明：120，小红：135，小刚：110，小丽：125，小强：130，小芳：100。\n关于这组数据，下面哪种说法是正确的？",
+      "optionsZhHans": [
+        "这组数据的平均数是120下。",
+        "小红跳得最多，所以平均数一定大于135下。",
+        "平均数是130下，因为小强正好跳了130下。",
+        "平均数在100下到135下之间。"
+      ],
+      "answer": "平均数在100下到135下之间。",
+      "acceptedAnswers": [
+        "平均数在100下到135下之间。"
+      ],
+      "explanationZhHans": "先求和：120+135+110+125+130+100=720下，再除以6得平均数120下。120在最小值100和最大值135之间，所以选项D正确。选项A计算错误，选项B和C误解了平均数的意义。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-228",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-data-representation-analysis",
+      "unitTitle": "数据的表示和分析",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "data-representation-analysis",
+        "statistical-charts",
+        "average",
+        "数据表示",
+        "数据分析"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "收集整理数据",
+        "读统计图",
+        "比较数据",
+        "平均数",
+        "解释结论"
+      ],
+      "misconceptionTags": [
+        "chart scale ignored",
+        "average treated as a required actual value",
+        "conclusion not supported by the displayed data"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-data-representation-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-data-representation-analysis-unit",
+        "bnu-primary-p5-lower-assessment-data-analysis-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是四（1）班第一小组5名同学1分钟跳绳成绩的统计表。\n\n| 姓名 | 小明 | 小红 | 小刚 | 小丽 | 小宇 |\n|------|------|------|------|------|------|\n| 成绩（下） | 142 | 135 | 148 | 130 | 140 |\n\n这5名同学1分钟跳绳的平均成绩是多少下？",
+      "optionsZhHans": [],
+      "answer": "139",
+      "acceptedAnswers": [
+        "139",
+        "139下"
+      ],
+      "explanationZhHans": "平均成绩=总成绩÷人数。总成绩=142+135+148+130+140=695下，人数=5，平均成绩=695÷5=139下。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-229",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-data-representation-analysis",
+      "unitTitle": "数据的表示和分析",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "data-representation-analysis",
+        "statistical-charts",
+        "average",
+        "数据表示",
+        "数据分析"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "收集整理数据",
+        "读统计图",
+        "比较数据",
+        "平均数",
+        "解释结论"
+      ],
+      "misconceptionTags": [
+        "chart scale ignored",
+        "average treated as a required actual value",
+        "conclusion not supported by the displayed data"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-data-representation-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-data-representation-analysis-unit",
+        "bnu-primary-p5-lower-assessment-data-analysis-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是四（1）班第一小组5名同学1分钟跳绳成绩的统计表。\n\n| 姓名 | 跳绳个数（下） |\n|------|---------------|\n| 小杰 | 142 |\n| 小芳 | 138 |\n| 小刚 | 145 |\n| 小丽 | 140 |\n| 小宇 | 135 |\n\n根据统计表，下面哪种说法是正确的？",
+      "optionsZhHans": [
+        "小刚跳得最多，小宇跳得最少",
+        "小杰跳得最少",
+        "小芳比小丽多跳2下",
+        "小刚比小杰多跳5下"
+      ],
+      "answer": "小刚跳得最多，小宇跳得最少",
+      "acceptedAnswers": [
+        "小刚跳得最多，小宇跳得最少"
+      ],
+      "explanationZhHans": "从表中可知：小刚145下最多，小宇135下最少，A正确。小杰142下不是最少，B错。小芳138下比小丽140下少2下，C错。小刚比小杰多3下（145-142=3），D错。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-230",
+      "batch": "bnu-primary-v1",
+      "grade": "P4",
+      "semester": "lower",
+      "topicId": "bnu-primary-p4-lower-data-representation-analysis",
+      "unitTitle": "数据的表示和分析",
+      "volume": "四年级下册",
+      "conceptIds": [
+        "data-representation-analysis",
+        "statistical-charts",
+        "average",
+        "数据表示",
+        "数据分析"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "收集整理数据",
+        "读统计图",
+        "比较数据",
+        "平均数",
+        "解释结论"
+      ],
+      "misconceptionTags": [
+        "chart scale ignored",
+        "average treated as a required actual value",
+        "conclusion not supported by the displayed data"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-lower-data-representation-analysis"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-lower-assessment-data-representation-analysis-unit",
+        "bnu-primary-p5-lower-assessment-data-analysis-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是四（1）班第一小组5名同学1分钟跳绳的成绩记录（单位：下）：\n小芳：128\n小东：135\n小丽：142\n小刚：118\n小宇：137\n\n（1）这5名同学1分钟跳绳的平均成绩是多少下？\n（2）如果小刚再跳一次，成绩是122下，这时全组的平均成绩会怎样变化？请说明理由。",
+      "optionsZhHans": [],
+      "answer": "（1）132下；（2）平均成绩会下降，因为小刚新跳的122下比原来的平均成绩132下低，加入后会使总平均降低。",
+      "acceptedAnswers": [
+        "（1）132下；（2）平均成绩会下降，因为小刚新跳的122下比原来的平均成绩132下低，加入后会使总平均降低。",
+        "（1）132；（2）下降，因为122<132",
+        "（1）132下；（2）下降，因为新成绩低于原平均",
+        "（1）132下；（2）平均成绩会下降，因为小刚新跳的122下比原来的平均成绩132下低，加入后会使总平均降低"
+      ],
+      "explanationZhHans": "（1）平均成绩 = (128+135+142+118+137)÷5 = 660÷5 = 132下。（2）小刚新成绩122下比原平均132下低，加入后总成绩增加122，人数增加1，新平均 = (660+122)÷6 ≈ 130.33下，比132下低，所以平均成绩下降。"
+    }
+  ]
+}

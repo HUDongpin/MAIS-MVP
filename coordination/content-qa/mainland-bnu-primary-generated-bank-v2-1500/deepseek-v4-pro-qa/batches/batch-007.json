@@ -1,0 +1,191 @@
+{
+  "batchNumber": 7,
+  "startedAt": "2026-05-27T13:42:02.688Z",
+  "completedAt": "2026-05-27T13:42:21.566Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p1-109",
+    "bnu-primary-ds-v2-p1-110",
+    "bnu-primary-ds-v2-p1-111",
+    "bnu-primary-ds-v2-p1-112",
+    "bnu-primary-ds-v2-p1-113",
+    "bnu-primary-ds-v2-p1-114",
+    "bnu-primary-ds-v2-p1-115",
+    "bnu-primary-ds-v2-p1-116",
+    "bnu-primary-ds-v2-p1-117",
+    "bnu-primary-ds-v2-p1-118",
+    "bnu-primary-ds-v2-p1-119",
+    "bnu-primary-ds-v2-p1-120",
+    "bnu-primary-ds-v2-p1-121",
+    "bnu-primary-ds-v2-p1-122",
+    "bnu-primary-ds-v2-p1-123",
+    "bnu-primary-ds-v2-p1-124",
+    "bnu-primary-ds-v2-p1-125",
+    "bnu-primary-ds-v2-p1-126"
+  ],
+  "usage": {
+    "prompt_tokens": 2888,
+    "completion_tokens": 1344,
+    "total_tokens": 4232,
+    "prompt_tokens_details": {
+      "cached_tokens": 2816
+    },
+    "prompt_cache_hit_tokens": 2816,
+    "prompt_cache_miss_tokens": 72
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p1-109",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，符合一年级上册20以内加减法要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-110",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "填空题答案正确，接受多种分隔符，符合要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-111",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "简答题答案正确，允许带单位或不带单位，符合一年级水平。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-112",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选择题选项唯一，答案正确，减法运算无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-113",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "认识整时，答案正确，接受数字或带“时”的答案。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-114",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算经过时间，答案10小时正确，符合一年级要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-115",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "12时整时针分针都指向12，选项唯一，正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-116",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "从上午10时到下午4时经过6小时，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-117",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分针指向12，时针在5和6之间，读作5时，符合一年级认识钟表要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-118",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "整时定义明确，选项描述清晰，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-119",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "经过时间计算正确，答案2小时无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-120",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "从早上7时到晚上6时是11小时，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-121",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "整时读法正确，选项无歧义，答案8时正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-122",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "填空答案正确，接受数字或带“时”的答案。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-123",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "简答题答案正确，接受多种表达，符合要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-124",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "生活常识题，选项合理，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-125",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "填空答案正确，接受多种分隔符，计算无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-126",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "简答题答案正确，计算经过时间无误，接受多种表达。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版一年级上册数学要求，答案正确，无歧义或错误。"
+    }
+  }
+}

@@ -1,0 +1,142 @@
+{
+  "batchNumber": 108,
+  "startedAt": "2026-05-27T14:02:20.954Z",
+  "completedAt": "2026-05-27T14:02:40.255Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-357",
+    "bnu-high-ds-v1-s5-358",
+    "bnu-high-ds-v1-s5-359",
+    "bnu-high-ds-v1-s5-360",
+    "bnu-high-ds-v1-s5-361",
+    "bnu-high-ds-v1-s5-362",
+    "bnu-high-ds-v1-s5-363",
+    "bnu-high-ds-v1-s5-364"
+  ],
+  "usage": {
+    "prompt_tokens": 11144,
+    "completion_tokens": 1184,
+    "total_tokens": 12328,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10632
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-357",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "14",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件明确，由二项式系数对称性C(n,4)=C(n,10)得4+10=n，n=14，答案正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-358",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "390",
+        "correctedAnswer": "390",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立计算得390种，解析也得出390，但答案误为540，答案与解析矛盾，且无正确选项。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-359",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "1/2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "独立事件对立概率计算正确，1-(2/3)*(3/4)=1/2，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-360",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "3/7",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "条件概率缩减样本空间，第一次红后剩4红3白，第二次白概率3/7，正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-361",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0.6",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "条件概率P(A|B)=0.3/0.5=0.6，选项C正确，解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-362",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0.6826",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "正态分布标准化后P(-1<Z<1)=0.6826，计算正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-363",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(1) X的可能取值为0,1,2。分布列为：P(X=0)=3/28，P(X=1)=15/28，P(X=2)=10/28。(2) E(X)=5/4。",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "超几何分布计算正确，分布列与期望均无误，acceptedAnswers覆盖多种等价表述。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-364",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "0.0271",
+        "correctedAnswer": "0.0271",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction",
+          "bad_options"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "条件概率应为0.0228/0.8413≈0.0271，解析承认此值但强行选0.0228，无正确选项，答案错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 5,
+      "warn": 0,
+      "fail": 3,
+      "notes": "8题中5题通过，3题失败：358题答案与解析矛盾且无正确选项；364题条件概率计算错误，无正确选项；其余题目均正确。"
+    }
+  }
+}

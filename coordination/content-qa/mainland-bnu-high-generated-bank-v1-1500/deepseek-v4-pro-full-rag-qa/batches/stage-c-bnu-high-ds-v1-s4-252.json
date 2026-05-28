@@ -1,0 +1,48 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-252",
+  "startedAt": "2026-05-28T01:06:22.558Z",
+  "completedAt": "2026-05-28T01:06:31.248Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-252"
+  ],
+  "usage": {
+    "prompt_tokens": 2136,
+    "completion_tokens": 374,
+    "total_tokens": 2510,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1752
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-252",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "估计白球数量为8个；前提条件：试验次数足够多，且每次摸球是等可能的随机试验。",
+        "correctedAnswer": "估计白球有8个；前提是每次摸球等可能且试验次数足够多时频率稳定于概率。",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目已知红球12个，总球20个，故白球实际为8个。频率估计：白球频率72/200=0.36，估计白球数20×0.36=7.2，四舍五入为7，但实际白球8个，频率估计应接近8，解析中四舍五入为7与答案8矛盾，且与已知条件冲突。正确答案应为8，解析错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "解析中计算白球估计值为7.2并四舍五入为7，与答案8矛盾，且与已知红球12个、白球8个的事实不符，存在数学错误和解释矛盾，判定为blocker。"
+    }
+  }
+}

@@ -1,0 +1,568 @@
+{
+  "batchId": "batch-007",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p1-061",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-classification",
+      "unitTitle": "分类",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "classification",
+        "sorting-rules",
+        "data-awareness",
+        "分类"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "按属性分类",
+        "说明分类标准",
+        "整理记录",
+        "比较类别"
+      ],
+      "misconceptionTags": [
+        "sorting by multiple rules at once",
+        "category rule left implicit",
+        "object purpose confused with mathematical attribute"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-classification"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-classification",
+        "bnu-primary-p1-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小美把下面的水果分成了两类：第一类有苹果、梨、桃子，第二类有香蕉、橘子。她的分类标准是什么？",
+      "optionsZhHans": [
+        "按颜色分",
+        "按形状分",
+        "按有没有核分",
+        "按大小分"
+      ],
+      "answer": "按有没有核分",
+      "acceptedAnswers": [
+        "按有没有核分"
+      ],
+      "explanationZhHans": "苹果、梨、桃子都有核，香蕉、橘子没有核，所以是按有没有核分的。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-062",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-classification",
+      "unitTitle": "分类",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "classification",
+        "sorting-rules",
+        "data-awareness",
+        "分类"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "按属性分类",
+        "说明分类标准",
+        "整理记录",
+        "比较类别"
+      ],
+      "misconceptionTags": [
+        "sorting by multiple rules at once",
+        "category rule left implicit",
+        "object purpose confused with mathematical attribute"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-classification"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-classification",
+        "bnu-primary-p1-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把下面的动物分成两类，并写出分类标准。动物：金鱼、海豚、螃蟹、鲨鱼、青蛙、乌龟。第一类：金鱼、海豚、鲨鱼；第二类：螃蟹、青蛙、乌龟。分类标准是：______。",
+      "optionsZhHans": [],
+      "answer": "按生活的地方分，一类生活在水里，一类生活在水边或陆地",
+      "acceptedAnswers": [
+        "按生活的地方分，一类生活在水里，一类生活在水边或陆地",
+        "按生活环境分，一类水生，一类水陆两栖",
+        "按是否完全水生分"
+      ],
+      "explanationZhHans": "金鱼、海豚、鲨鱼都生活在水里；螃蟹、青蛙、乌龟可以在水边或陆地生活，所以是按生活环境分的。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-063",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-classification",
+      "unitTitle": "分类",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "classification",
+        "sorting-rules",
+        "data-awareness",
+        "分类"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "按属性分类",
+        "说明分类标准",
+        "整理记录",
+        "比较类别"
+      ],
+      "misconceptionTags": [
+        "sorting by multiple rules at once",
+        "category rule left implicit",
+        "object purpose confused with mathematical attribute"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-classification"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-classification",
+        "bnu-primary-p1-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面有一些图形：红色圆形、蓝色正方形、红色三角形、蓝色圆形、红色正方形。请你按颜色分一分，并说一说红色图形和蓝色图形各有多少个。",
+      "optionsZhHans": [],
+      "answer": "红色图形有3个，蓝色图形有2个",
+      "acceptedAnswers": [
+        "红色图形有3个，蓝色图形有2个",
+        "红色：3个，蓝色：2个"
+      ],
+      "explanationZhHans": "红色图形有圆形、三角形、正方形，共3个；蓝色图形有正方形、圆形，共2个。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-064",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-classification",
+      "unitTitle": "分类",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "classification",
+        "sorting-rules",
+        "data-awareness",
+        "分类"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "按属性分类",
+        "说明分类标准",
+        "整理记录",
+        "比较类别"
+      ],
+      "misconceptionTags": [
+        "sorting by multiple rules at once",
+        "category rule left implicit",
+        "object purpose confused with mathematical attribute"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-classification"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-classification",
+        "bnu-primary-p1-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "老师让同学们把书包里的东西分一分。下面哪种分法最合理？",
+      "optionsZhHans": [
+        "按新旧分",
+        "按大小分",
+        "按用途分，分成学习用品和生活用品",
+        "按颜色分"
+      ],
+      "answer": "按用途分，分成学习用品和生活用品",
+      "acceptedAnswers": [
+        "按用途分，分成学习用品和生活用品"
+      ],
+      "explanationZhHans": "书包里的东西主要是学习用的，比如书本、笔，也可能有生活用品，比如纸巾，按用途分最清楚。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-065",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-position-order",
+      "unitTitle": "位置与顺序",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "position-language",
+        "ordinality",
+        "left-right",
+        "位置",
+        "顺序"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "数学表达",
+        "观察比较"
+      ],
+      "skillTags": [
+        "前后左右上下",
+        "第几",
+        "位置描述",
+        "路线表达"
+      ],
+      "misconceptionTags": [
+        "left and right reversed by viewpoint",
+        "quantity confused with order",
+        "position described without reference object"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-position-order"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小动物们排队做操。从前往后数，小兔排在第3个；从后往前数，小兔排在第5个。这一队一共有多少只小动物？",
+      "optionsZhHans": [],
+      "answer": "7",
+      "acceptedAnswers": [
+        "7",
+        "7只"
+      ],
+      "explanationZhHans": "从前往后数小兔是第3个，说明小兔前面有2只；从后往前数小兔是第5个，说明小兔后面有4只。所以一共有2+1+4=7只。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-066",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-position-order",
+      "unitTitle": "位置与顺序",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "position-language",
+        "ordinality",
+        "left-right",
+        "位置",
+        "顺序"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "数学表达",
+        "观察比较"
+      ],
+      "skillTags": [
+        "前后左右上下",
+        "第几",
+        "位置描述",
+        "路线表达"
+      ],
+      "misconceptionTags": [
+        "left and right reversed by viewpoint",
+        "quantity confused with order",
+        "position described without reference object"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-position-order"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "教室里有5张桌子排成一排。红红坐在从左数第2张桌子，明明坐在从右数第2张桌子。红红和明明之间有几张桌子？",
+      "optionsZhHans": [],
+      "answer": "1",
+      "acceptedAnswers": [
+        "1",
+        "1张"
+      ],
+      "explanationZhHans": "从左数红红在第2张，从右数明明在第2张，也就是从左数明明在第4张。所以红红和明明之间是第3张桌子，只有1张。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-067",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-position-order",
+      "unitTitle": "位置与顺序",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "position-language",
+        "ordinality",
+        "left-right",
+        "位置",
+        "顺序"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "数学表达",
+        "观察比较"
+      ],
+      "skillTags": [
+        "前后左右上下",
+        "第几",
+        "位置描述",
+        "路线表达"
+      ],
+      "misconceptionTags": [
+        "left and right reversed by viewpoint",
+        "quantity confused with order",
+        "position described without reference object"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-position-order"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小华站在小丽的左边，小丽站在小军的左边。小华在小军的哪一边？",
+      "optionsZhHans": [
+        "左边",
+        "右边",
+        "前面",
+        "后面"
+      ],
+      "answer": "左边",
+      "acceptedAnswers": [
+        "左边"
+      ],
+      "explanationZhHans": "小华在小丽左边，小丽在小军左边，所以小华在最左边，小军在右边，小华在小军的左边。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-068",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-position-order",
+      "unitTitle": "位置与顺序",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "position-language",
+        "ordinality",
+        "left-right",
+        "位置",
+        "顺序"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "数学表达",
+        "观察比较"
+      ],
+      "skillTags": [
+        "前后左右上下",
+        "第几",
+        "位置描述",
+        "路线表达"
+      ],
+      "misconceptionTags": [
+        "left and right reversed by viewpoint",
+        "quantity confused with order",
+        "position described without reference object"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-position-order"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "书架上有一些书。故事书放在最上层，下层是图画书，中间一层是手工书。手工书在故事书的______面，在图画书的______面。",
+      "optionsZhHans": [],
+      "answer": "下，上",
+      "acceptedAnswers": [
+        "下，上",
+        "下面，上面"
+      ],
+      "explanationZhHans": "故事书在最上层，手工书在中间，所以手工书在故事书的下面；图画书在最下层，所以手工书在图画书的上面。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-069",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-position-order",
+      "unitTitle": "位置与顺序",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "position-language",
+        "ordinality",
+        "left-right",
+        "位置",
+        "顺序"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "数学表达",
+        "观察比较"
+      ],
+      "skillTags": [
+        "前后左右上下",
+        "第几",
+        "位置描述",
+        "路线表达"
+      ],
+      "misconceptionTags": [
+        "left and right reversed by viewpoint",
+        "quantity confused with order",
+        "position described without reference object"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-position-order"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小动物们住在不同的楼层。小猴住在小兔的上面，小兔住在小狗的上面。请你按从高到低的顺序说出它们住的楼层。",
+      "optionsZhHans": [],
+      "answer": "小猴、小兔、小狗",
+      "acceptedAnswers": [
+        "小猴、小兔、小狗",
+        "小猴，小兔，小狗"
+      ],
+      "explanationZhHans": "小猴在小兔上面，小兔在小狗上面，所以从高到低依次是小猴、小兔、小狗。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-070",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-position-order",
+      "unitTitle": "位置与顺序",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "position-language",
+        "ordinality",
+        "left-right",
+        "位置",
+        "顺序"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "数学表达",
+        "观察比较"
+      ],
+      "skillTags": [
+        "前后左右上下",
+        "第几",
+        "位置描述",
+        "路线表达"
+      ],
+      "misconceptionTags": [
+        "left and right reversed by viewpoint",
+        "quantity confused with order",
+        "position described without reference object"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-position-order"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "体育课上，同学们站成一排。老师说：小明的前面有3人，后面有4人。这一排一共有多少人？",
+      "optionsZhHans": [
+        "6人",
+        "7人",
+        "8人",
+        "9人"
+      ],
+      "answer": "8人",
+      "acceptedAnswers": [
+        "8人"
+      ],
+      "explanationZhHans": "小明前面有3人，后面有4人，再加上小明自己，一共是3+4+1=8人。"
+    }
+  ]
+}

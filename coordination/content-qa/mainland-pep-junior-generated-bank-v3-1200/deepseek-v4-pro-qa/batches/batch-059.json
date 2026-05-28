@@ -1,0 +1,137 @@
+{
+  "batchNumber": 59,
+  "startedAt": "2026-05-25T03:05:34.511Z",
+  "completedAt": "2026-05-25T03:05:49.913Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s2-k08-sa-030",
+    "pep-junior-v3-s2-k08-sa-031",
+    "pep-junior-v3-s2-k08-sa-032",
+    "pep-junior-v3-s2-k08-sa-033",
+    "pep-junior-v3-s2-k08-sa-034",
+    "pep-junior-v3-s2-k09-mc-001",
+    "pep-junior-v3-s2-k09-mc-002",
+    "pep-junior-v3-s2-k09-mc-003",
+    "pep-junior-v3-s2-k09-mc-004",
+    "pep-junior-v3-s2-k09-mc-005",
+    "pep-junior-v3-s2-k09-mc-006",
+    "pep-junior-v3-s2-k09-mc-007"
+  ],
+  "usage": {
+    "prompt_tokens": 3658,
+    "completion_tokens": 922,
+    "total_tokens": 4580,
+    "prompt_tokens_details": {
+      "cached_tokens": 3584
+    },
+    "prompt_cache_hit_tokens": 3584,
+    "prompt_cache_miss_tokens": 74
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s2-k08-sa-030",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "众数和中位数计算正确，答案与解释一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-sa-031",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "等腰三角形高计算正确，勾股定理应用无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-sa-032",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平行四边形邻角互补，计算正确。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-sa-033",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平方比较法正确，答案无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-sa-034",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "斜边和高计算正确，答案形式合理。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-mc-001",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分段函数图象分析正确，选项描述准确。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-mc-002",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均数、中位数、众数计算正确，选项唯一。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-mc-003",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "阶梯水费计算正确，表达式无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-mc-004",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "同类二次根式判断正确，化简无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-mc-005",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "勾股定理逆定理应用正确，选项明确。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-mc-006",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平行四边形角度计算正确，答案唯一。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-mc-007",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "等腰三角形性质与30°直角三角形计算正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案与解释一致，选项无歧义，适合人教版初中数学。"
+    }
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "batchId": "model-qa-0145",
+  "ids": [
+    "hjb-junior-ds-v2-s3-153",
+    "hjb-junior-ds-v2-s3-154",
+    "hjb-junior-ds-v2-s3-155",
+    "hjb-junior-ds-v2-s3-156",
+    "hjb-junior-ds-v2-s3-157",
+    "hjb-junior-ds-v2-s3-158",
+    "hjb-junior-ds-v2-s3-159",
+    "hjb-junior-ds-v2-s3-160"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-153",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案 13.95 与解析矛盾。解析使用 sin35°≈0.5736 计算得 8/0.5736≈13.95，但 sin35° 更精确值为 0.573576，8/0.573576≈13.947，四舍五入到两位小数应为 13.95，但若使用更精确值可能得 13.95 或 13.94。解析中写 sin35°≈0.5736 不准确，且答案给出 13.95 和 13.94 两个 acceptedAnswers，但解析只支持 13.95。需确认精确度要求。",
+      "independentAnswerZhHans": "AB = AC / sin35° = 8 / sin35°。sin35° ≈ 0.573576，8 / 0.573576 ≈ 13.947，四舍五入到 0.01 得 13.95。若用 0.5736 得 13.95。但 acceptedAnswers 包含 13.94，可能因不同舍入导致。解析应明确 sin35° 取值。",
+      "answerCheckZhHans": "标准答案 13.95 与解析一致，但 acceptedAnswers 包含 13.94，解析未说明为何接受 13.94。",
+      "recommendedActionZhHans": "统一答案和解析，明确 sin35° 取值，或只接受 13.95。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-154",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "由勾股定理，AC = √(13² - 5²) = 12。tanA = 对边/邻边 = BC/AC = 5/12。选项 A 正确。",
+      "answerCheckZhHans": "标准答案 5/12 正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-155",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "cosA = AC/AB = 5/13，AB=26，AC = 26 × 5/13 = 10。",
+      "answerCheckZhHans": "标准答案 10 正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-156",
+      "verdict": "needs-review",
+      "severity": "P2",
+      "issueCodes": [
+        "accepted-answer-gap"
+      ],
+      "issueDetailsZhHans": "acceptedAnswers 包含 5.74、5.7、5.735，但标准答案只有 5.74。解析得 5.736≈5.74，5.7 精度不足，5.735 是中间值。应统一为 5.74 或明确精度要求。",
+      "independentAnswerZhHans": "BC = 10 × sin35° ≈ 10 × 0.573576 = 5.73576，四舍五入到 0.01 得 5.74。",
+      "answerCheckZhHans": "标准答案 5.74 正确，但 acceptedAnswers 包含 5.7 和 5.735，可能引起混淆。",
+      "recommendedActionZhHans": "建议 acceptedAnswers 只保留 5.74，或明确说明可接受的精度。",
+      "confidence": "medium"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-157",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "sinB = AC/AB，所以 AB = AC/sinB = 6/sin40°。选项 A 正确。",
+      "answerCheckZhHans": "标准答案正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-158",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "tanA = BC/AC = 5/12，设 BC=5k, AC=12k，则 AB=13k=26，k=2，BC=10。",
+      "answerCheckZhHans": "标准答案 10 正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-159",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "物高与影长成正比：h/9 = 2/1.5，h = 9 × 2 / 1.5 = 12。",
+      "answerCheckZhHans": "标准答案 12 正确，解析一致。acceptedAnswers 包含单位，合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-160",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "AC = √(5² - 3²) = 4，sinA = BC/AB = 3/5。选项 A 正确。",
+      "answerCheckZhHans": "标准答案 3/5 正确，解析一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

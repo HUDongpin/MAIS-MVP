@@ -1,0 +1,191 @@
+{
+  "batchNumber": 28,
+  "startedAt": "2026-05-27T13:27:08.407Z",
+  "completedAt": "2026-05-27T13:27:24.481Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p2-237",
+    "bnu-primary-ds-v1-p2-238",
+    "bnu-primary-ds-v1-p2-239",
+    "bnu-primary-ds-v1-p2-240",
+    "bnu-primary-ds-v1-p2-241",
+    "bnu-primary-ds-v1-p2-242",
+    "bnu-primary-ds-v1-p2-243",
+    "bnu-primary-ds-v1-p2-244",
+    "bnu-primary-ds-v1-p2-245",
+    "bnu-primary-ds-v1-p2-246",
+    "bnu-primary-ds-v1-p2-247",
+    "bnu-primary-ds-v1-p2-248",
+    "bnu-primary-ds-v1-p2-249",
+    "bnu-primary-ds-v1-p2-250",
+    "bnu-primary-ds-v1-p3-001",
+    "bnu-primary-ds-v1-p3-002",
+    "bnu-primary-ds-v1-p3-003",
+    "bnu-primary-ds-v1-p3-004"
+  ],
+  "usage": {
+    "prompt_tokens": 3594,
+    "completion_tokens": 1252,
+    "total_tokens": 4846,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 3338
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p2-237",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，数据正确，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-238",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，计算正确，答案合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-239",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，计算正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-240",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，计算正确，答案合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-241",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，计算正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-242",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，计算正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-243",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，计算正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-244",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，计算正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-245",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，计算正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-246",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，计算正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-247",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，计算正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-248",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，计算正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-249",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，计算正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p2-250",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，计算正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-001",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，选项正确，答案唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-002",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，运算顺序正确，答案合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-003",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，分步与综合算式正确，答案合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p3-004",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，选项正确，答案唯一。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版小学数学要求，无错误或风险。"
+    }
+  }
+}

@@ -1,0 +1,567 @@
+{
+  "batchId": "batch-013",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p1-121",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-clock-introduction",
+      "unitTitle": "认识钟表",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "clock-reading",
+        "whole-hour",
+        "daily-time",
+        "认识钟表",
+        "时间"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "整时",
+        "钟面观察",
+        "时针分针",
+        "时间顺序"
+      ],
+      "misconceptionTags": [
+        "hour and minute hands confused",
+        "event order inferred from preference",
+        "whole hour read from minute hand only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-clock-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明的周末安排：上午8时写作业，上午10时去公园，中午12时吃午饭。下面哪句话是正确的？",
+      "optionsZhHans": [
+        "写作业的时间是8时",
+        "去公园的时间是12时",
+        "吃午饭的时间是10时",
+        "写作业的时间是10时"
+      ],
+      "answer": "写作业的时间是8时",
+      "acceptedAnswers": [
+        "写作业的时间是8时"
+      ],
+      "explanationZhHans": "根据安排，写作业是8时，去公园是10时，吃午饭是12时。选项A正确，其他选项时间与事件不对应。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-122",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-clock-introduction",
+      "unitTitle": "认识钟表",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "clock-reading",
+        "whole-hour",
+        "daily-time",
+        "认识钟表",
+        "时间"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "整时",
+        "钟面观察",
+        "时针分针",
+        "时间顺序"
+      ],
+      "misconceptionTags": [
+        "hour and minute hands confused",
+        "event order inferred from preference",
+        "whole hour read from minute hand only"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-clock-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "钟面上，时针指向9，分针指向12，这时是____时。",
+      "optionsZhHans": [],
+      "answer": "9",
+      "acceptedAnswers": [
+        "9"
+      ],
+      "explanationZhHans": "分针指向12表示整时，时针指向9就是9时。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-123",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-clock-introduction",
+      "unitTitle": "认识钟表",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "clock-reading",
+        "whole-hour",
+        "daily-time",
+        "认识钟表",
+        "时间"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "整时",
+        "钟面观察",
+        "时针分针",
+        "时间顺序"
+      ],
+      "misconceptionTags": [
+        "hour and minute hands confused",
+        "event order inferred from preference",
+        "whole hour read from minute hand only"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-clock-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丽每天下午4时放学回家。请你用文字描述下午4时钟面上时针和分针的位置。",
+      "optionsZhHans": [],
+      "answer": "时针指向4，分针指向12。",
+      "acceptedAnswers": [
+        "时针指向4，分针指向12。",
+        "时针指向4，分针指向12"
+      ],
+      "explanationZhHans": "整时时刻，分针都指向12，时针指向几就是几时。下午4时，时针指向4，分针指向12。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-124",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-clock-introduction",
+      "unitTitle": "认识钟表",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "clock-reading",
+        "whole-hour",
+        "daily-time",
+        "认识钟表",
+        "时间"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "整时",
+        "钟面观察",
+        "时针分针",
+        "时间顺序"
+      ],
+      "misconceptionTags": [
+        "hour and minute hands confused",
+        "event order inferred from preference",
+        "whole hour read from minute hand only"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-clock-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个钟面表示的时间是6时？",
+      "optionsZhHans": [
+        "时针指向6，分针指向12",
+        "时针指向12，分针指向6",
+        "时针指向6，分针指向6",
+        "时针指向12，分针指向12"
+      ],
+      "answer": "时针指向6，分针指向12",
+      "acceptedAnswers": [
+        "时针指向6，分针指向12"
+      ],
+      "explanationZhHans": "6时是整时，分针指向12，时针指向6。其他选项分针位置不对或时针不对。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-125",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-clock-introduction",
+      "unitTitle": "认识钟表",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "clock-reading",
+        "whole-hour",
+        "daily-time",
+        "认识钟表",
+        "时间"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "整时",
+        "钟面观察",
+        "时针分针",
+        "时间顺序"
+      ],
+      "misconceptionTags": [
+        "hour and minute hands confused",
+        "event order inferred from preference",
+        "whole hour read from minute hand only"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-clock-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈晚上9时睡觉。在钟面上，时针指向____，分针指向____。",
+      "optionsZhHans": [],
+      "answer": "9,12",
+      "acceptedAnswers": [
+        "9,12",
+        "9，12"
+      ],
+      "explanationZhHans": "晚上9时是整时，时针指向9，分针指向12。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-126",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-clock-introduction",
+      "unitTitle": "认识钟表",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "clock-reading",
+        "whole-hour",
+        "daily-time",
+        "认识钟表",
+        "时间"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "整时",
+        "钟面观察",
+        "时针分针",
+        "时间顺序"
+      ],
+      "misconceptionTags": [
+        "hour and minute hands confused",
+        "event order inferred from preference",
+        "whole hour read from minute hand only"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-clock-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小强说：“我每天上午11时吃午饭。”你觉得他说得对吗？为什么？请用时间知识简单说明。",
+      "optionsZhHans": [],
+      "answer": "不对，因为上午11时通常不是吃午饭的时间，吃午饭一般在中午12时左右。",
+      "acceptedAnswers": [
+        "不对，因为上午11时通常不是吃午饭的时间，吃午饭一般在中午12时左右。",
+        "不对，因为上午11时不是吃午饭的时间，吃午饭一般在中午12时左右。"
+      ],
+      "explanationZhHans": "根据日常生活，吃午饭通常在中午12时左右，上午11时更接近上午活动时间，所以说上午11时吃午饭不合理。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-127",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-clock-introduction",
+      "unitTitle": "认识钟表",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "clock-reading",
+        "whole-hour",
+        "daily-time",
+        "认识钟表",
+        "时间"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "整时",
+        "钟面观察",
+        "时针分针",
+        "时间顺序"
+      ],
+      "misconceptionTags": [
+        "hour and minute hands confused",
+        "event order inferred from preference",
+        "whole hour read from minute hand only"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-clock-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个时间最可能是小朋友晚上睡觉的时间？",
+      "optionsZhHans": [
+        "上午9时",
+        "中午12时",
+        "下午3时",
+        "晚上9时"
+      ],
+      "answer": "晚上9时",
+      "acceptedAnswers": [
+        "晚上9时"
+      ],
+      "explanationZhHans": "小朋友通常在晚上睡觉，晚上9时是合理的睡觉时间。其他时间都是白天活动时间。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-128",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-clock-introduction",
+      "unitTitle": "认识钟表",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "clock-reading",
+        "whole-hour",
+        "daily-time",
+        "认识钟表",
+        "时间"
+      ],
+      "competencyTags": [
+        "量感",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "整时",
+        "钟面观察",
+        "时针分针",
+        "时间顺序"
+      ],
+      "misconceptionTags": [
+        "hour and minute hands confused",
+        "event order inferred from preference",
+        "whole hour read from minute hand only"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-clock-introduction"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense",
+        "bnu-primary-p1-upper-assessment-within-5-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "钟面上，分针指向12，时针指向7，这时是____时。",
+      "optionsZhHans": [],
+      "answer": "7",
+      "acceptedAnswers": [
+        "7"
+      ],
+      "explanationZhHans": "分针指向12表示整时，时针指向7就是7时。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-129",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-review",
+      "unitTitle": "一年级上册整理与复习",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-upper-review",
+        "within-20-review",
+        "shape-position-review",
+        "上册复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "数感",
+        "空间观念"
+      ],
+      "skillTags": [
+        "整理知识",
+        "综合应用",
+        "说理检查",
+        "错因表达"
+      ],
+      "misconceptionTags": [
+        "review treated as answer memorization",
+        "operation and comparison vocabulary mixed",
+        "checking skipped after counting"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-final-integrated",
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明在整理自己的数学知识，他写下了两句话：① 分针指向12，时针指向8，是8时。② 分针指向12，时针指向12，是12时。请你检查这两句话，如果有错误，请指出并改正。",
+      "optionsZhHans": [],
+      "answer": "两句话都正确，没有错误。",
+      "acceptedAnswers": [
+        "两句话都正确，没有错误。",
+        "两句话都正确，没有错误"
+      ],
+      "explanationZhHans": "分针指向12时，时针指向几就是几时。第一句时针指向8是8时，第二句时针指向12是12时，都正确。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-130",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-review",
+      "unitTitle": "一年级上册整理与复习",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "p1-upper-review",
+        "within-20-review",
+        "shape-position-review",
+        "上册复习"
+      ],
+      "competencyTags": [
+        "反思整理",
+        "数感",
+        "空间观念"
+      ],
+      "skillTags": [
+        "整理知识",
+        "综合应用",
+        "说理检查",
+        "错因表达"
+      ],
+      "misconceptionTags": [
+        "review treated as answer memorization",
+        "operation and comparison vocabulary mixed",
+        "checking skipped after counting"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-review"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-final-integrated",
+        "bnu-primary-p1-upper-assessment-school-readiness-number-sense"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪句话的说法是正确的？",
+      "optionsZhHans": [
+        "分针指向6，时针指向3，是3时",
+        "分针指向12，时针指向5，是5时",
+        "分针指向12，时针指向9，是9时半",
+        "分针指向6，时针指向12，是12时半"
+      ],
+      "answer": "分针指向12，时针指向5，是5时",
+      "acceptedAnswers": [
+        "分针指向12，时针指向5，是5时"
+      ],
+      "explanationZhHans": "整时时刻分针指向12，时针指向几就是几时。选项B符合。A分针指向6不是整时；C分针指向12是整时，不能说9时半；D分针指向6不是整时。"
+    }
+  ]
+}

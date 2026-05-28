@@ -1,0 +1,580 @@
+{
+  "batchId": "batch-077",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p4-011",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-large-numbers",
+      "unitTitle": "认识更大的数",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "large-numbers",
+        "place-value",
+        "rounding-estimation",
+        "认识更大的数",
+        "大数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "读写大数",
+        "数位顺序",
+        "比较大数",
+        "改写近似数",
+        "估算检查"
+      ],
+      "misconceptionTags": [
+        "zeros skipped when reading large numbers",
+        "digit value confused with digit face value",
+        "rounding place chosen without context"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-large-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-large-numbers-unit",
+        "bnu-primary-p4-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用4、0、0、8、5、2这六个数字组成一个六位数，要求只读出一个零，且这个零不在万级末尾。这样的六位数中，最大的一个是多少？",
+      "optionsZhHans": [],
+      "answer": "850402",
+      "acceptedAnswers": [
+        "850402"
+      ],
+      "explanationZhHans": "六位数最高位不能为0。要最大，十万位选最大数字8，万位5，千位0，百位4，十位0，个位2，组成850402。读作八十五万零四百零二，只读一个零，且零不在万级末尾，符合条件。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-012",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-large-numbers",
+      "unitTitle": "认识更大的数",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "large-numbers",
+        "place-value",
+        "rounding-estimation",
+        "认识更大的数",
+        "大数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "读写大数",
+        "数位顺序",
+        "比较大数",
+        "改写近似数",
+        "估算检查"
+      ],
+      "misconceptionTags": [
+        "zeros skipped when reading large numbers",
+        "digit value confused with digit face value",
+        "rounding place chosen without context"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-large-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-large-numbers-unit",
+        "bnu-primary-p4-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个数省略万位后面的尾数约是50万。这个数最大是多少？最小是多少？请分别写出这两个数。",
+      "optionsZhHans": [],
+      "answer": "最大是504999，最小是495000",
+      "acceptedAnswers": [
+        "最大是504999，最小是495000",
+        "504999和495000",
+        "最大504999，最小495000"
+      ],
+      "explanationZhHans": "省略万位后面尾数约50万，根据四舍五入，千位是4时舍去最大为504999，千位是5时入上最小为495000。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-013",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-large-numbers",
+      "unitTitle": "认识更大的数",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "large-numbers",
+        "place-value",
+        "rounding-estimation",
+        "认识更大的数",
+        "大数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "读写大数",
+        "数位顺序",
+        "比较大数",
+        "改写近似数",
+        "估算检查"
+      ],
+      "misconceptionTags": [
+        "zeros skipped when reading large numbers",
+        "digit value confused with digit face value",
+        "rounding place chosen without context"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-large-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-large-numbers-unit",
+        "bnu-primary-p4-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面各数中，读出两个零的是哪一个？",
+      "optionsZhHans": [
+        "6006060",
+        "6600060",
+        "6060600",
+        "6006600"
+      ],
+      "answer": "6060600",
+      "acceptedAnswers": [
+        "6060600"
+      ],
+      "explanationZhHans": "6060600读作六百零六万零六百，读出两个零。A读一个零，B读一个零，D一个零也不读。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-014",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-large-numbers",
+      "unitTitle": "认识更大的数",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "large-numbers",
+        "place-value",
+        "rounding-estimation",
+        "认识更大的数",
+        "大数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "读写大数",
+        "数位顺序",
+        "比较大数",
+        "改写近似数",
+        "估算检查"
+      ],
+      "misconceptionTags": [
+        "zeros skipped when reading large numbers",
+        "digit value confused with digit face value",
+        "rounding place chosen without context"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-large-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-large-numbers-unit",
+        "bnu-primary-p4-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个数由8个千万、5个十万、3个万和9个百组成。这个数写作__________。",
+      "optionsZhHans": [],
+      "answer": "80530900",
+      "acceptedAnswers": [
+        "80530900"
+      ],
+      "explanationZhHans": "8个千万是80000000，5个十万是500000，3个万是30000，9个百是900，合起来是80530900。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-015",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-large-numbers",
+      "unitTitle": "认识更大的数",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "large-numbers",
+        "place-value",
+        "rounding-estimation",
+        "认识更大的数",
+        "大数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "读写大数",
+        "数位顺序",
+        "比较大数",
+        "改写近似数",
+        "估算检查"
+      ],
+      "misconceptionTags": [
+        "zeros skipped when reading large numbers",
+        "digit value confused with digit face value",
+        "rounding place chosen without context"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-large-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-large-numbers-unit",
+        "bnu-primary-p4-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用0、1、3、5、7、9这六个数字组成两个三位数，使它们的和最大。这两个三位数分别是多少？它们的和是多少？",
+      "optionsZhHans": [],
+      "answer": "两个三位数是951和730，和是1681",
+      "acceptedAnswers": [
+        "两个三位数是951和730，和是1681",
+        "951和730，和是1681",
+        "951和730，1681",
+        "951,730,1681"
+      ],
+      "explanationZhHans": "要使得和最大，两个三位数的百位应选最大的两个数字9和7，十位选5和3，个位选1和0。组合为951和730，和是1681。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-016",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-large-numbers",
+      "unitTitle": "认识更大的数",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "large-numbers",
+        "place-value",
+        "rounding-estimation",
+        "认识更大的数",
+        "大数"
+      ],
+      "competencyTags": [
+        "数感",
+        "符号意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "读写大数",
+        "数位顺序",
+        "比较大数",
+        "改写近似数",
+        "估算检查"
+      ],
+      "misconceptionTags": [
+        "zeros skipped when reading large numbers",
+        "digit value confused with digit face value",
+        "rounding place chosen without context"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-large-numbers"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-large-numbers-unit",
+        "bnu-primary-p4-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把下面各数按从小到大的顺序排列，正确的是哪一个？\n① 505000  ② 500500  ③ 550000  ④ 500050",
+      "optionsZhHans": [
+        "④ < ② < ① < ③",
+        "② < ④ < ① < ③",
+        "④ < ② < ③ < ①",
+        "② < ④ < ③ < ①"
+      ],
+      "answer": "④ < ② < ① < ③",
+      "acceptedAnswers": [
+        "④ < ② < ① < ③"
+      ],
+      "explanationZhHans": "比较数的大小，从最高位开始。500050最小，然后是500500，接着505000，最大是550000。所以④<②<①<③。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-017",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-lines-angles",
+      "unitTitle": "线与角",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "lines-angles",
+        "angle-measurement",
+        "parallel-perpendicular",
+        "线与角",
+        "角度"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "认识线段射线直线",
+        "量角",
+        "画角",
+        "平行垂直",
+        "角的分类"
+      ],
+      "misconceptionTags": [
+        "ray and line segment names mixed",
+        "protractor baseline not aligned",
+        "angle size judged from side length rather than opening"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-lines-angles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-lines-angles-unit",
+        "bnu-primary-p4-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "从一点出发可以画无数条射线。这句话对吗？如果对，请说明理由；如果不对，请改正。",
+      "optionsZhHans": [],
+      "answer": "对。因为从一点出发可以向任意方向画射线，所以有无数条。",
+      "acceptedAnswers": [
+        "对。因为从一点出发可以向任意方向画射线，所以有无数条。",
+        "对，因为从一点出发可以向任意方向画射线，所以有无数条。"
+      ],
+      "explanationZhHans": "射线有一个端点，可以向一个方向无限延伸。从一点出发可以向不同方向画射线，所以有无数条。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-018",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-lines-angles",
+      "unitTitle": "线与角",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "lines-angles",
+        "angle-measurement",
+        "parallel-perpendicular",
+        "线与角",
+        "角度"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "认识线段射线直线",
+        "量角",
+        "画角",
+        "平行垂直",
+        "角的分类"
+      ],
+      "misconceptionTags": [
+        "ray and line segment names mixed",
+        "protractor baseline not aligned",
+        "angle size judged from side length rather than opening"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-lines-angles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-lines-angles-unit",
+        "bnu-primary-p4-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个角的度数是35°，这个角是什么角？它的余角是多少度？",
+      "optionsZhHans": [],
+      "answer": "锐角，余角是55°",
+      "acceptedAnswers": [
+        "锐角，余角是55°",
+        "锐角，55°",
+        "锐角，55度"
+      ],
+      "explanationZhHans": "小于90°的角是锐角。两个角的和是90°时互为余角，所以余角=90°-35°=55°。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-019",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-lines-angles",
+      "unitTitle": "线与角",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "lines-angles",
+        "angle-measurement",
+        "parallel-perpendicular",
+        "线与角",
+        "角度"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "认识线段射线直线",
+        "量角",
+        "画角",
+        "平行垂直",
+        "角的分类"
+      ],
+      "misconceptionTags": [
+        "ray and line segment names mixed",
+        "protractor baseline not aligned",
+        "angle size judged from side length rather than opening"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-lines-angles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-lines-angles-unit",
+        "bnu-primary-p4-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面说法正确的是哪一个？",
+      "optionsZhHans": [
+        "线段是直线的一部分。",
+        "大于90°的角是钝角。",
+        "两条直线不相交就平行。",
+        "角的两条边越长，角就越大。"
+      ],
+      "answer": "线段是直线的一部分。",
+      "acceptedAnswers": [
+        "线段是直线的一部分。"
+      ],
+      "explanationZhHans": "线段有两个端点，是直线上两点间的一段，所以线段是直线的一部分。钝角是大于90°且小于180°的角；不相交的直线可能不在同一平面；角的大小与边的长短无关。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-020",
+      "batch": "bnu-primary-v2",
+      "grade": "P4",
+      "semester": "upper",
+      "topicId": "bnu-primary-p4-upper-lines-angles",
+      "unitTitle": "线与角",
+      "volume": "四年级上册",
+      "conceptIds": [
+        "lines-angles",
+        "angle-measurement",
+        "parallel-perpendicular",
+        "线与角",
+        "角度"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "量感"
+      ],
+      "skillTags": [
+        "认识线段射线直线",
+        "量角",
+        "画角",
+        "平行垂直",
+        "角的分类"
+      ],
+      "misconceptionTags": [
+        "ray and line segment names mixed",
+        "protractor baseline not aligned",
+        "angle size judged from side length rather than opening"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p4-upper-lines-angles"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p4-upper-assessment-lines-angles-unit",
+        "bnu-primary-p4-upper-assessment-monthly-1-to-2-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "钟面上3时整，时针和分针组成的角是______度，这是一个______角。",
+      "optionsZhHans": [],
+      "answer": "90，直",
+      "acceptedAnswers": [
+        "90，直",
+        "90度，直角",
+        "90，直角"
+      ],
+      "explanationZhHans": "钟面一周360°，有12大格，每大格30°。3时整，时针指向3，分针指向12，中间有3大格，角度为90°，是直角。"
+    }
+  ]
+}

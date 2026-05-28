@@ -1,0 +1,191 @@
+{
+  "batchNumber": 83,
+  "startedAt": "2026-05-25T02:28:35.573Z",
+  "completedAt": "2026-05-25T02:28:54.484Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p6-227",
+    "hjb-primary-ds-v1-p6-228",
+    "hjb-primary-ds-v1-p6-229",
+    "hjb-primary-ds-v1-p6-230",
+    "hjb-primary-ds-v1-p6-231",
+    "hjb-primary-ds-v1-p6-232",
+    "hjb-primary-ds-v1-p6-233",
+    "hjb-primary-ds-v1-p6-234",
+    "hjb-primary-ds-v1-p6-235",
+    "hjb-primary-ds-v1-p6-236",
+    "hjb-primary-ds-v1-p6-237",
+    "hjb-primary-ds-v1-p6-238",
+    "hjb-primary-ds-v1-p6-239",
+    "hjb-primary-ds-v1-p6-240",
+    "hjb-primary-ds-v1-p6-241",
+    "hjb-primary-ds-v1-p6-242",
+    "hjb-primary-ds-v1-p6-243",
+    "hjb-primary-ds-v1-p6-244"
+  ],
+  "usage": {
+    "prompt_tokens": 3617,
+    "completion_tokens": 1282,
+    "total_tokens": 4899,
+    "prompt_tokens_details": {
+      "cached_tokens": 3584
+    },
+    "prompt_cache_hit_tokens": 3584,
+    "prompt_cache_miss_tokens": 33
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p6-227",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，选项清晰，解释合理，适合P6线段与角。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-228",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，acceptedAnswers覆盖合理，解释清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-229",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项唯一，解释合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-230",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，acceptedAnswers包含单位，解释清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-231",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项唯一，解释合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-232",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案正确，acceptedAnswers包含两种写法，解释清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-233",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，选项清晰，解释合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-234",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案唯一，解释清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-235",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项唯一，解释合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-236",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，acceptedAnswers包含单位，解释清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-237",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项唯一，解释合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-238",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，acceptedAnswers包含单位，解释清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-239",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项唯一，解释合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-240",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，acceptedAnswers包含单位，解释清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-241",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项唯一，解释合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-242",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项唯一，解释合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-243",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项唯一，解释合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p6-244",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项唯一，解释合理。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案匹配，选项清晰，无歧义，适合沪教版P6相应单元。"
+    }
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "batchId": "model-qa-0138",
+  "ids": [
+    "hjb-junior-ds-v2-s3-097",
+    "hjb-junior-ds-v2-s3-098",
+    "hjb-junior-ds-v2-s3-099",
+    "hjb-junior-ds-v2-s3-100",
+    "hjb-junior-ds-v2-s3-101",
+    "hjb-junior-ds-v2-s3-102",
+    "hjb-junior-ds-v2-s3-103",
+    "hjb-junior-ds-v2-s3-104"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-097",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "BC = 6 ÷ tan40°",
+      "answerCheckZhHans": "标准答案正确，解析推导一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-098",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "10(√3+1)",
+      "answerCheckZhHans": "标准答案正确，解析推导一致，acceptedAnswers 覆盖了等价形式。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-099",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为13.91，但解析中cos22°≈0.9272，15×0.9272=13.908，四舍五入应为13.91，但实际计算15×cos22°（cos22°≈0.9271838546）得13.9077578，四舍五入到两位小数是13.91，但解析给出的近似值0.9272导致乘积为13.908，四舍五入为13.91，但若用更精确值，结果仍为13.91，但解析中“四舍五入得13.91”与13.908四舍五入得13.91一致，但标准答案13.91与13.908四舍五入一致，但若严格按解析计算，13.908四舍五入为13.91，但通常13.908四舍五入到两位小数是13.91，但13.908的千分位是8，所以进位，13.91正确。然而，acceptedAnswers中包含13.9和13.909，13.9是保留一位小数，13.909是保留三位小数，与要求“保留两位小数”不符，可能造成评分歧义。另外，解析中cos22°≈0.9272，但实际cos22°≈0.92718，15×0.92718=13.9077，四舍五入为13.91，但若学生使用更精确值可能得到13.91，但若使用0.9272则得到13.908，四舍五入为13.91，但13.908四舍五入到两位小数是13.91，但13.908的百分位是0，千分位是8，所以进位得13.91，正确。但acceptedAnswers中的13.9和13.909不符合要求，应移除或调整。",
+      "independentAnswerZhHans": "13.91",
+      "answerCheckZhHans": "标准答案13.91正确，但acceptedAnswers包含不符合精度要求的答案。",
+      "recommendedActionZhHans": "移除acceptedAnswers中的13.9和13.909，仅保留13.91。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-100",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "5/13",
+      "answerCheckZhHans": "标准答案正确，解析推导一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-101",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为10.0米，但解析中计算BD=12×0.70=8.4米，BC=8.4+1.6=10.0米，正确。但题干中“旗杆的高度BC”可能引起歧义，因为通常旗杆高度是从地面到顶端，而BC可能被理解为从底部C到顶部B，但题干说“旗杆的高度BC”，且图中可能标注B为顶端，C为底部，但题干描述“测得A点到旗杆底部C的距离为12米”，所以C是底部，B是顶端，BC就是旗杆高度，正确。但解析中“过小明眼睛作水平线交旗杆于D，则CD=1.6米”，然后BC=BD+CD，正确。但acceptedAnswers中包含“10米”，而要求精确到0.1米，10米不符合精度要求，应移除。",
+      "independentAnswerZhHans": "10.0米",
+      "answerCheckZhHans": "标准答案10.0米正确，但acceptedAnswers中的“10米”不符合精确到0.1米的要求。",
+      "recommendedActionZhHans": "移除acceptedAnswers中的“10米”，仅保留“10.0米”和“10.0”。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-102",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为12.5，但解析中计算h=16/(1/tan20°-1/tan35°)≈12.5米，但未给出tan20°和tan35°的近似值，且未说明如何得到12.5。若使用tan20°≈0.3640，tan35°≈0.7002，则1/tan20°≈2.7473，1/tan35°≈1.4281，差为1.3192，16/1.3192≈12.13，并非12.5。若使用tan20°≈0.36397，tan35°≈0.70021，则16/(1/0.36397-1/0.70021)=16/(2.7475-1.4281)=16/1.3194≈12.13。若使用tan20°=0.3640，tan35°=0.7002，得12.13。若使用tan20°=0.3639，tan35°=0.7002，得12.13。若使用tan20°=0.364，tan35°=0.700，得16/(1/0.364-1/0.700)=16/(2.74725-1.42857)=16/1.31868≈12.13。均不是12.5。可能解析中使用了不同的近似值或计算错误。标准答案12.5可能错误。",
+      "independentAnswerZhHans": "约12.1米",
+      "answerCheckZhHans": "标准答案12.5与独立计算不符，可能错误。",
+      "recommendedActionZhHans": "重新计算并修正标准答案，或提供正确的参考数据。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-103",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "8.40米",
+      "answerCheckZhHans": "标准答案正确，解析推导一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-104",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "9.9米",
+      "answerCheckZhHans": "标准答案正确，解析推导一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

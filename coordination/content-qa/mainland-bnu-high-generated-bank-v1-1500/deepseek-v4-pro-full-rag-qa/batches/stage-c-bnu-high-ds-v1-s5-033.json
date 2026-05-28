@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-033",
+  "startedAt": "2026-05-28T02:02:34.484Z",
+  "completedAt": "2026-05-28T02:02:38.662Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-033"
+  ],
+  "usage": {
+    "prompt_tokens": 2670,
+    "completion_tokens": 260,
+    "total_tokens": 2930,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2286
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-033",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": null,
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "unsolvable",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "点P(2,-1)在圆C内部（圆心距√2<半径√5），过圆内点无法作切线，题目无解。存储答案x=2或2x-y-5=0错误，且解析中距离计算有误，导致矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目无解，存储答案错误，解析矛盾，判定为blocker。"
+    }
+  }
+}

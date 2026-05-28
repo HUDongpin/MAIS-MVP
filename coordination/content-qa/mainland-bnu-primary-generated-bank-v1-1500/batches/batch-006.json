@@ -1,0 +1,557 @@
+{
+  "batchId": "batch-006",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p1-051",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-classification",
+      "unitTitle": "分类",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "classification",
+        "sorting-rules",
+        "data-awareness",
+        "分类"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "按属性分类",
+        "说明分类标准",
+        "整理记录",
+        "比较类别"
+      ],
+      "misconceptionTags": [
+        "sorting by multiple rules at once",
+        "category rule left implicit",
+        "object purpose confused with mathematical attribute"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-classification"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-classification",
+        "bnu-primary-p1-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面有一些水果：苹果、香蕉、橘子、西瓜、草莓。请你按一种特点把它们分成两组，写出每组有哪些水果，并说出你是按什么分的。",
+      "optionsZhHans": [],
+      "answer": "示例：按颜色分：红色组有苹果、草莓；非红色组有香蕉、橘子、西瓜。分类标准是颜色。",
+      "acceptedAnswers": [
+        "示例：按颜色分：红色组有苹果、草莓；非红色组有香蕉、橘子、西瓜。分类标准是颜色。"
+      ],
+      "explanationZhHans": "先观察水果的特点，比如颜色、大小或形状。选一个特点，比如颜色，把红色的苹果和草莓放一组，其他颜色的放另一组，并说出分类标准。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-052",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-classification",
+      "unitTitle": "分类",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "classification",
+        "sorting-rules",
+        "data-awareness",
+        "分类"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "按属性分类",
+        "说明分类标准",
+        "整理记录",
+        "比较类别"
+      ],
+      "misconceptionTags": [
+        "sorting by multiple rules at once",
+        "category rule left implicit",
+        "object purpose confused with mathematical attribute"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-classification"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-classification",
+        "bnu-primary-p1-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面这些动物：猫、狗、金鱼、小鸟。按生活地点分类，下面哪种分法是正确的？",
+      "optionsZhHans": [
+        "猫和狗一组，金鱼和小鸟一组",
+        "猫和金鱼一组，狗和小鸟一组",
+        "猫和小鸟一组，狗和金鱼一组",
+        "猫、狗、金鱼、小鸟各一组"
+      ],
+      "answer": "猫和狗一组，金鱼和小鸟一组",
+      "acceptedAnswers": [
+        "猫和狗一组，金鱼和小鸟一组"
+      ],
+      "explanationZhHans": "猫和狗主要生活在陆地上，金鱼生活在水里，小鸟主要在空中。按生活地点分，陆地上的猫和狗一组，水里的金鱼和空中的小鸟不是同一类，但这里金鱼和小鸟都不是陆地动物，所以猫和狗一组，金鱼和小鸟一组。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-053",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-classification",
+      "unitTitle": "分类",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "classification",
+        "sorting-rules",
+        "data-awareness",
+        "分类"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "按属性分类",
+        "说明分类标准",
+        "整理记录",
+        "比较类别"
+      ],
+      "misconceptionTags": [
+        "sorting by multiple rules at once",
+        "category rule left implicit",
+        "object purpose confused with mathematical attribute"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-classification"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-classification",
+        "bnu-primary-p1-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丽把一些图形分成两组：第一组有圆形、三角形、正方形；第二组有长方形、平行四边形。她可能是按什么标准分的？填在横线上：按______分类。",
+      "optionsZhHans": [],
+      "answer": "是否有曲线或是否由曲线围成（或：是否由直线围成）",
+      "acceptedAnswers": [
+        "是否有曲线或是否由曲线围成（或：是否由直线围成）",
+        "是否有曲线",
+        "是否由曲线围成",
+        "是否由直线围成"
+      ],
+      "explanationZhHans": "第一组的圆形有曲线，三角形和正方形由直线围成；第二组的长方形和平行四边形都由直线围成。但圆形有曲线，其他图形都没有曲线，所以可能是按“是否有曲线”或“是否由曲线围成”分类。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-054",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-classification",
+      "unitTitle": "分类",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "classification",
+        "sorting-rules",
+        "data-awareness",
+        "分类"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "按属性分类",
+        "说明分类标准",
+        "整理记录",
+        "比较类别"
+      ],
+      "misconceptionTags": [
+        "sorting by multiple rules at once",
+        "category rule left implicit",
+        "object purpose confused with mathematical attribute"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-classification"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-classification",
+        "bnu-primary-p1-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "教室里有这些物品：黑板、粉笔、课桌、椅子、书包、铅笔。请你按用途把它们分成两类，写出每类有哪些物品，并说出分类标准。",
+      "optionsZhHans": [],
+      "answer": "示例：学习用品类：粉笔、书包、铅笔；家具类：黑板、课桌、椅子。分类标准是用途。",
+      "acceptedAnswers": [
+        "示例：学习用品类：粉笔、书包、铅笔；家具类：黑板、课桌、椅子。分类标准是用途。"
+      ],
+      "explanationZhHans": "观察物品的用途，粉笔、书包、铅笔是学习时用的，黑板、课桌、椅子是教室里的家具。按用途分成学习用品和家具两类。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-055",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-classification",
+      "unitTitle": "分类",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "classification",
+        "sorting-rules",
+        "data-awareness",
+        "分类"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "按属性分类",
+        "说明分类标准",
+        "整理记录",
+        "比较类别"
+      ],
+      "misconceptionTags": [
+        "sorting by multiple rules at once",
+        "category rule left implicit",
+        "object purpose confused with mathematical attribute"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-classification"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-classification",
+        "bnu-primary-p1-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面有一些树叶：枫叶、柳叶、银杏叶、松针。按形状分类，下面哪种分法是正确的？",
+      "optionsZhHans": [
+        "枫叶和银杏叶一组，柳叶和松针一组",
+        "枫叶和柳叶一组，银杏叶和松针一组",
+        "枫叶和松针一组，柳叶和银杏叶一组",
+        "枫叶、柳叶、银杏叶、松针各一组"
+      ],
+      "answer": "枫叶和银杏叶一组，柳叶和松针一组",
+      "acceptedAnswers": [
+        "枫叶和银杏叶一组，柳叶和松针一组"
+      ],
+      "explanationZhHans": "枫叶和银杏叶都是宽大的叶片，柳叶和松针都是细长的。按形状分，宽大的叶片一组，细长的叶片一组。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-056",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-classification",
+      "unitTitle": "分类",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "classification",
+        "sorting-rules",
+        "data-awareness",
+        "分类"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "按属性分类",
+        "说明分类标准",
+        "整理记录",
+        "比较类别"
+      ],
+      "misconceptionTags": [
+        "sorting by multiple rules at once",
+        "category rule left implicit",
+        "object purpose confused with mathematical attribute"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-classification"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-classification",
+        "bnu-primary-p1-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明把一些数字卡片分成两组：第一组有1、3、5、7、9；第二组有2、4、6、8、10。他可能是按什么标准分的？填在横线上：按______分类。",
+      "optionsZhHans": [],
+      "answer": "单数和双数（或奇数和偶数）",
+      "acceptedAnswers": [
+        "单数和双数（或奇数和偶数）",
+        "单数和双数",
+        "奇数和偶数"
+      ],
+      "explanationZhHans": "第一组的数字都是单数（奇数），第二组的数字都是双数（偶数）。所以是按单数和双数分类的。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-057",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-classification",
+      "unitTitle": "分类",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "classification",
+        "sorting-rules",
+        "data-awareness",
+        "分类"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "按属性分类",
+        "说明分类标准",
+        "整理记录",
+        "比较类别"
+      ],
+      "misconceptionTags": [
+        "sorting by multiple rules at once",
+        "category rule left implicit",
+        "object purpose confused with mathematical attribute"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-classification"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-classification",
+        "bnu-primary-p1-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面有一些玩具：皮球、积木、布娃娃、小汽车。请你按材质把它们分成两类，写出每类有哪些玩具，并说出分类标准。",
+      "optionsZhHans": [],
+      "answer": "示例：塑料类：皮球、积木、小汽车；布类：布娃娃。分类标准是材质。",
+      "acceptedAnswers": [
+        "示例：塑料类：皮球、积木、小汽车；布类：布娃娃。分类标准是材质。"
+      ],
+      "explanationZhHans": "观察玩具的材质，皮球、积木、小汽车通常是塑料做的，布娃娃是布做的。按材质分成塑料类和布类。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-058",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-classification",
+      "unitTitle": "分类",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "classification",
+        "sorting-rules",
+        "data-awareness",
+        "分类"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "按属性分类",
+        "说明分类标准",
+        "整理记录",
+        "比较类别"
+      ],
+      "misconceptionTags": [
+        "sorting by multiple rules at once",
+        "category rule left implicit",
+        "object purpose confused with mathematical attribute"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-classification"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-classification",
+        "bnu-primary-p1-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面这些食物：米饭、面条、苹果、香蕉。按是不是主食分类，下面哪种分法是正确的？",
+      "optionsZhHans": [
+        "米饭和面条一组，苹果和香蕉一组",
+        "米饭和苹果一组，面条和香蕉一组",
+        "米饭和香蕉一组，面条和苹果一组",
+        "米饭、面条、苹果、香蕉各一组"
+      ],
+      "answer": "米饭和面条一组，苹果和香蕉一组",
+      "acceptedAnswers": [
+        "米饭和面条一组，苹果和香蕉一组"
+      ],
+      "explanationZhHans": "米饭和面条是主食，苹果和香蕉是水果。按是不是主食分，主食一组，水果一组。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-059",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-classification",
+      "unitTitle": "分类",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "classification",
+        "sorting-rules",
+        "data-awareness",
+        "分类"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "按属性分类",
+        "说明分类标准",
+        "整理记录",
+        "比较类别"
+      ],
+      "misconceptionTags": [
+        "sorting by multiple rules at once",
+        "category rule left implicit",
+        "object purpose confused with mathematical attribute"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-classification"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-classification",
+        "bnu-primary-p1-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "老师把一些同学分成两组：第一组有穿红色衣服的同学、穿黄色衣服的同学；第二组有穿蓝色衣服的同学、穿绿色衣服的同学。老师可能是按什么标准分的？填在横线上：按______分类。",
+      "optionsZhHans": [],
+      "answer": "衣服颜色是否是暖色（或是否是冷色）",
+      "acceptedAnswers": [
+        "衣服颜色是否是暖色（或是否是冷色）",
+        "衣服颜色是否是暖色",
+        "是否是冷色"
+      ],
+      "explanationZhHans": "红色和黄色是暖色，蓝色和绿色是冷色。老师可能是按衣服颜色是暖色还是冷色来分类的。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-060",
+      "batch": "bnu-primary-v1",
+      "grade": "P1",
+      "semester": "upper",
+      "topicId": "bnu-primary-p1-upper-classification",
+      "unitTitle": "分类",
+      "volume": "一年级上册",
+      "conceptIds": [
+        "classification",
+        "sorting-rules",
+        "data-awareness",
+        "分类"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "按属性分类",
+        "说明分类标准",
+        "整理记录",
+        "比较类别"
+      ],
+      "misconceptionTags": [
+        "sorting by multiple rules at once",
+        "category rule left implicit",
+        "object purpose confused with mathematical attribute"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p1-upper-classification"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p1-upper-assessment-classification",
+        "bnu-primary-p1-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面有一些交通工具：自行车、小汽车、公共汽车、飞机、轮船。请你按行驶的地方把它们分成两类，写出每类有哪些交通工具，并说出分类标准。",
+      "optionsZhHans": [],
+      "answer": "示例：陆地交通工具：自行车、小汽车、公共汽车；非陆地交通工具：飞机、轮船。分类标准是行驶的地方。",
+      "acceptedAnswers": [
+        "示例：陆地交通工具：自行车、小汽车、公共汽车；非陆地交通工具：飞机、轮船。分类标准是行驶的地方。"
+      ],
+      "explanationZhHans": "自行车、小汽车、公共汽车在陆地上行驶，飞机在空中飞行，轮船在水上航行。按行驶的地方分成陆地交通工具和非陆地交通工具。"
+    }
+  ]
+}

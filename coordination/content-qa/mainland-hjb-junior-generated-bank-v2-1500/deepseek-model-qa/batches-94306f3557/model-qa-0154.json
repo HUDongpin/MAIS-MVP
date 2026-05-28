@@ -1,0 +1,103 @@
+{
+  "batchId": "model-qa-0154",
+  "ids": [
+    "hjb-junior-ds-v2-s3-225",
+    "hjb-junior-ds-v2-s3-226",
+    "hjb-junior-ds-v2-s3-227",
+    "hjb-junior-ds-v2-s3-228",
+    "hjb-junior-ds-v2-s3-229",
+    "hjb-junior-ds-v2-s3-230",
+    "hjb-junior-ds-v2-s3-231",
+    "hjb-junior-ds-v2-s3-232"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-225",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(1) y = (x - 2)^2 + 3，顶点坐标为 (2, 3)，对称轴为直线 x = 2；(2) 将 y = x^2 向右平移2个单位，再向上平移3个单位。",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致，acceptedAnswers 覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-226",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "当 x = 1 时，y 有最大值 8",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致，选项互异且唯一正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-227",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "y = -5x^2 + 100x + 4000，0 ≤ x ≤ 40 且 x 为整数",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致，acceptedAnswers 覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-228",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(1) y = -10x² + 900x - 18000，40 ≤ x ≤ 60；(2) 当 x = 45 时，利润最大，最大利润为 2250 元",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致，acceptedAnswers 覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-229",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "抛物线的顶点坐标为 (2, -4)，开口向上",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致，选项互异且唯一正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-230",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "（1）w = -5x² + 500x - 8000，20 ≤ x ≤ 80；（2）当销售单价定为50元时，每天的利润最大，最大利润是4500元",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致，acceptedAnswers 覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-231",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "（1）顶点坐标 (-3, 8)，对称轴为直线 x = -3。\n（2）当 x > -3 时，y 随 x 的增大而减小。\n（3）平移后的解析式为 y = -2(x + 1)^2 + 3。",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致，acceptedAnswers 覆盖标准答案。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-232",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "A. y = 2(x - 2)^2 - 2",
+      "answerCheckZhHans": "标准答案正确，解析与答案一致，选项互异且唯一正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

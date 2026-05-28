@@ -1,0 +1,105 @@
+{
+  "batchId": "model-qa-0060",
+  "ids": [
+    "hjb-junior-ds-v2-s1-473",
+    "hjb-junior-ds-v2-s1-474",
+    "hjb-junior-ds-v2-s1-475",
+    "hjb-junior-ds-v2-s1-476",
+    "hjb-junior-ds-v2-s1-477",
+    "hjb-junior-ds-v2-s1-478",
+    "hjb-junior-ds-v2-s1-479",
+    "hjb-junior-ds-v2-s1-480"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-473",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "100°",
+      "answerCheckZhHans": "标准答案为100，acceptedAnswers包含100和100°，均与独立答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-474",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "8",
+      "answerCheckZhHans": "标准答案为8，acceptedAnswers包含8，与独立答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-475",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "5",
+      "answerCheckZhHans": "标准答案为5，acceptedAnswers包含5，与独立答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-476",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "30°",
+      "answerCheckZhHans": "标准答案为30°，acceptedAnswers包含30°，与独立答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-477",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "100°",
+      "answerCheckZhHans": "标准答案为100°，acceptedAnswers包含100°，与独立答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-478",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "30°",
+      "answerCheckZhHans": "标准答案为30°，acceptedAnswers包含30°，与独立答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-479",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "标准答案为60°或120°，但根据等腰三角形一腰上的高与另一腰的夹角为30°，分类讨论：若高在三角形内部，顶角为60°；若高在三角形外部，顶角为120°。但选项C为30°或150°，选项D为60°或120°。独立计算得顶角为60°或120°，与选项D一致。但标准答案与选项D相同，为何标记？检查发现：标准答案正确，但选项C和D均包含可能的值，需确认是否唯一正确选项。选项C：30°或150°不正确；选项D：60°或120°正确。因此只有一个正确选项，答案正确。但解析中“高与腰的夹角等于底角或顶角？”表述不清晰，但最终结论正确。无错误。重新评估：独立计算得60°或120°，与标准答案一致，选项D正确。因此应pass。但之前标记为needs-review，需修正。",
+      "independentAnswerZhHans": "60°或120°",
+      "answerCheckZhHans": "标准答案为60°或120°，与独立答案一致，选项D正确。",
+      "recommendedActionZhHans": "改为pass",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-480",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "36°",
+      "answerCheckZhHans": "标准答案为36°，acceptedAnswers包含36°，与独立答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

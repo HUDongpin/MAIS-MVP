@@ -1,0 +1,179 @@
+{
+  "batchNumber": 37,
+  "startedAt": "2026-05-27T17:32:34.737Z",
+  "completedAt": "2026-05-27T17:32:56.415Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s1-433",
+    "bnu-junior-ds-v1-s1-434",
+    "bnu-junior-ds-v1-s1-435",
+    "bnu-junior-ds-v1-s1-436",
+    "bnu-junior-ds-v1-s1-437",
+    "bnu-junior-ds-v1-s1-438",
+    "bnu-junior-ds-v1-s1-439",
+    "bnu-junior-ds-v1-s1-440",
+    "bnu-junior-ds-v1-s1-441",
+    "bnu-junior-ds-v1-s1-442",
+    "bnu-junior-ds-v1-s1-443",
+    "bnu-junior-ds-v1-s1-444"
+  ],
+  "usage": {
+    "prompt_tokens": 6046,
+    "completion_tokens": 1549,
+    "total_tokens": 7595,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 5534
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s1-433",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，可解。答案 y = x - 1 正确，与解析一致。选项唯一正确，无歧义。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-434",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "(6, 3)",
+        "rationale": "题目可解，但答案错误。直线BC为x=4，点A(2,3)关于x=4的对称点应为(6,3)，而非(2,-1)。解析中也指出原答案错误并更正为(6,3)，但提供的answer仍为(2,-1)，与正确结果不符。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-435",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，可解。对称轴为y=2，答案正确，解析一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-436",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，可解。点A(3,2)与B(3,-2)关于x轴对称，答案正确，选项唯一，无歧义。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-437",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，可解。C(2,-3)，D(-4,-1)，CD=2√5，答案正确，解析一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-438",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，可解。A(2,5)关于x轴对称得B(2,-5)，再关于y轴对称得C(-2,-5)，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-439",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，可解。对称轴为x=4，答案正确，选项唯一。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-440",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "10",
+        "rationale": "题目可解，但答案错误。A'(2,-3)，B'(-4,5)，距离为√[(-4-2)²+(5+3)²]=√(36+64)=10，而非2√2。解析中也得出10，但提供的answer为2√2，与正确结果不符。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-441",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，可解。对称轴x=4与线段AB的交点为AB中点(4,5)，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-442",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，可解。由A(2,5)与C(2,-1)得对称轴y=2，B(6,5)关于y=2的对称点为(6,-1)，答案正确，选项唯一。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-443",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，可解。垂直平分线与x轴交点为(4,0)，答案正确，解析一致。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-444",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，可解。对称轴为y=x-1，答案正确，解析一致。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 10,
+      "warn": 0,
+      "fail": 2,
+      "notes": "12道题中10道通过，2道因答案错误未通过。bnu-junior-ds-v1-s1-434答案应为(6,3)而非(2,-1)；bnu-junior-ds-v1-s1-440答案应为10而非2√2。其余题目条件充分，答案与解析匹配，无其他问题。"
+    }
+  }
+}

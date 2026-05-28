@@ -1,0 +1,569 @@
+{
+  "batchId": "batch-032",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p2-061",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-multiplication-facts-2-to-5",
+      "unitTitle": "2-5的乘法口诀",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "multiplication-facts",
+        "2-to-5-times-tables",
+        "乘法口诀",
+        "2到5乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "推理意识",
+        "数感"
+      ],
+      "skillTags": [
+        "2的口诀",
+        "3的口诀",
+        "4的口诀",
+        "5的口诀",
+        "口诀应用"
+      ],
+      "misconceptionTags": [
+        "facts memorized without quantity meaning",
+        "factor order confused",
+        "nearby fact relation not used"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-multiplication-facts-2-to-5"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-multiplication-facts-2-to-5-unit",
+        "bnu-primary-p2-upper-assessment-multiplication-facts-6-to-9-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小乐有3盒彩笔，每盒有4支。他想用这些彩笔摆出几个同样的正方形，每个正方形用4支彩笔，可以摆几个正方形？",
+      "optionsZhHans": [
+        "2个",
+        "3个",
+        "4个",
+        "6个"
+      ],
+      "answer": "3个",
+      "acceptedAnswers": [
+        "3个"
+      ],
+      "explanationZhHans": "先算彩笔总数：3×4=12（支）。每个正方形用4支，12÷4=3（个），所以可以摆3个正方形。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-062",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-multiplication-facts-2-to-5",
+      "unitTitle": "2-5的乘法口诀",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "multiplication-facts",
+        "2-to-5-times-tables",
+        "乘法口诀",
+        "2到5乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "推理意识",
+        "数感"
+      ],
+      "skillTags": [
+        "2的口诀",
+        "3的口诀",
+        "4的口诀",
+        "5的口诀",
+        "口诀应用"
+      ],
+      "misconceptionTags": [
+        "facts memorized without quantity meaning",
+        "factor order confused",
+        "nearby fact relation not used"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-multiplication-facts-2-to-5"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-multiplication-facts-2-to-5-unit",
+        "bnu-primary-p2-upper-assessment-multiplication-facts-6-to-9-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把口诀补充完整：三（ ）十二",
+      "optionsZhHans": [],
+      "answer": "四",
+      "acceptedAnswers": [
+        "四"
+      ],
+      "explanationZhHans": "根据4的乘法口诀，3×4=12，所以填“四”。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-063",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-multiplication-facts-2-to-5",
+      "unitTitle": "2-5的乘法口诀",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "multiplication-facts",
+        "2-to-5-times-tables",
+        "乘法口诀",
+        "2到5乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "推理意识",
+        "数感"
+      ],
+      "skillTags": [
+        "2的口诀",
+        "3的口诀",
+        "4的口诀",
+        "5的口诀",
+        "口诀应用"
+      ],
+      "misconceptionTags": [
+        "facts memorized without quantity meaning",
+        "factor order confused",
+        "nearby fact relation not used"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-multiplication-facts-2-to-5"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-multiplication-facts-2-to-5-unit",
+        "bnu-primary-p2-upper-assessment-multiplication-facts-6-to-9-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明每天吃2个苹果，吃了5天，一共吃了多少个苹果？",
+      "optionsZhHans": [],
+      "answer": "10个",
+      "acceptedAnswers": [
+        "10个",
+        "10"
+      ],
+      "explanationZhHans": "每天吃2个，5天就是5个2，用乘法2×5=10（个），口诀是二五一十。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-064",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-multiplication-facts-2-to-5",
+      "unitTitle": "2-5的乘法口诀",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "multiplication-facts",
+        "2-to-5-times-tables",
+        "乘法口诀",
+        "2到5乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "推理意识",
+        "数感"
+      ],
+      "skillTags": [
+        "2的口诀",
+        "3的口诀",
+        "4的口诀",
+        "5的口诀",
+        "口诀应用"
+      ],
+      "misconceptionTags": [
+        "facts memorized without quantity meaning",
+        "factor order confused",
+        "nearby fact relation not used"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-multiplication-facts-2-to-5"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-multiplication-facts-2-to-5-unit",
+        "bnu-primary-p2-upper-assessment-multiplication-facts-6-to-9-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个算式的结果与4×3相同？",
+      "optionsZhHans": [
+        "4+3",
+        "3+3+3+3",
+        "4+4+4+4",
+        "3×3"
+      ],
+      "answer": "3+3+3+3",
+      "acceptedAnswers": [
+        "3+3+3+3"
+      ],
+      "explanationZhHans": "4×3表示3个4相加，即4+4+4；或者4个3相加，即3+3+3+3。所以3+3+3+3与4×3结果相同，都是12。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-065",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-multiplication-facts-2-to-5",
+      "unitTitle": "2-5的乘法口诀",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "multiplication-facts",
+        "2-to-5-times-tables",
+        "乘法口诀",
+        "2到5乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "推理意识",
+        "数感"
+      ],
+      "skillTags": [
+        "2的口诀",
+        "3的口诀",
+        "4的口诀",
+        "5的口诀",
+        "口诀应用"
+      ],
+      "misconceptionTags": [
+        "facts memorized without quantity meaning",
+        "factor order confused",
+        "nearby fact relation not used"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-multiplication-facts-2-to-5"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-multiplication-facts-2-to-5-unit",
+        "bnu-primary-p2-upper-assessment-multiplication-facts-6-to-9-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "根据口诀“四五二十”写出一个乘法算式：（ ）×（ ）=（ ）",
+      "optionsZhHans": [],
+      "answer": "4×5=20",
+      "acceptedAnswers": [
+        "4×5=20",
+        "5×4=20"
+      ],
+      "explanationZhHans": "口诀“四五二十”可以写成4×5=20或5×4=20。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-066",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-multiplication-facts-2-to-5",
+      "unitTitle": "2-5的乘法口诀",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "multiplication-facts",
+        "2-to-5-times-tables",
+        "乘法口诀",
+        "2到5乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "推理意识",
+        "数感"
+      ],
+      "skillTags": [
+        "2的口诀",
+        "3的口诀",
+        "4的口诀",
+        "5的口诀",
+        "口诀应用"
+      ],
+      "misconceptionTags": [
+        "facts memorized without quantity meaning",
+        "factor order confused",
+        "nearby fact relation not used"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-multiplication-facts-2-to-5"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-multiplication-facts-2-to-5-unit",
+        "bnu-primary-p2-upper-assessment-multiplication-facts-6-to-9-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一盒巧克力有5块，妈妈买了4盒，一共有多少块巧克力？",
+      "optionsZhHans": [],
+      "answer": "20块",
+      "acceptedAnswers": [
+        "20块",
+        "20"
+      ],
+      "explanationZhHans": "每盒5块，4盒就是4个5，用乘法5×4=20（块），口诀是四五二十。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-067",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-multiplication-facts-2-to-5",
+      "unitTitle": "2-5的乘法口诀",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "multiplication-facts",
+        "2-to-5-times-tables",
+        "乘法口诀",
+        "2到5乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "推理意识",
+        "数感"
+      ],
+      "skillTags": [
+        "2的口诀",
+        "3的口诀",
+        "4的口诀",
+        "5的口诀",
+        "口诀应用"
+      ],
+      "misconceptionTags": [
+        "facts memorized without quantity meaning",
+        "factor order confused",
+        "nearby fact relation not used"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-multiplication-facts-2-to-5"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-multiplication-facts-2-to-5-unit",
+        "bnu-primary-p2-upper-assessment-multiplication-facts-6-to-9-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小芳在计算一个乘法时，忘了“四六”的口诀，但她记得“四六二十四”的前一句是“四五二十”。她可以用下面哪种方法算出4×6的结果？",
+      "optionsZhHans": [
+        "20+4",
+        "20+6",
+        "20-4",
+        "24-6"
+      ],
+      "answer": "20+4",
+      "acceptedAnswers": [
+        "20+4"
+      ],
+      "explanationZhHans": "4×5=20，4×6比4×5多一个4，所以20+4=24，即四六二十四。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-068",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-multiplication-facts-2-to-5",
+      "unitTitle": "2-5的乘法口诀",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "multiplication-facts",
+        "2-to-5-times-tables",
+        "乘法口诀",
+        "2到5乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "推理意识",
+        "数感"
+      ],
+      "skillTags": [
+        "2的口诀",
+        "3的口诀",
+        "4的口诀",
+        "5的口诀",
+        "口诀应用"
+      ],
+      "misconceptionTags": [
+        "facts memorized without quantity meaning",
+        "factor order confused",
+        "nearby fact relation not used"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-multiplication-facts-2-to-5"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-multiplication-facts-2-to-5-unit",
+        "bnu-primary-p2-upper-assessment-multiplication-facts-6-to-9-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在（ ）里填上“>”“<”或“=”。 3×5（ ）5×3",
+      "optionsZhHans": [],
+      "answer": "=",
+      "acceptedAnswers": [
+        "="
+      ],
+      "explanationZhHans": "3×5和5×3都表示3和5相乘，结果都是15，所以相等。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-069",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-multiplication-facts-2-to-5",
+      "unitTitle": "2-5的乘法口诀",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "multiplication-facts",
+        "2-to-5-times-tables",
+        "乘法口诀",
+        "2到5乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "推理意识",
+        "数感"
+      ],
+      "skillTags": [
+        "2的口诀",
+        "3的口诀",
+        "4的口诀",
+        "5的口诀",
+        "口诀应用"
+      ],
+      "misconceptionTags": [
+        "facts memorized without quantity meaning",
+        "factor order confused",
+        "nearby fact relation not used"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-multiplication-facts-2-to-5"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-multiplication-facts-2-to-5-unit",
+        "bnu-primary-p2-upper-assessment-multiplication-facts-6-to-9-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "教室里有4排桌子，每排5张，一共有多少张桌子？",
+      "optionsZhHans": [],
+      "answer": "20张",
+      "acceptedAnswers": [
+        "20张",
+        "20"
+      ],
+      "explanationZhHans": "4排，每排5张，就是4个5，用乘法5×4=20（张），口诀是四五二十。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-070",
+      "batch": "bnu-primary-v1",
+      "grade": "P2",
+      "semester": "upper",
+      "topicId": "bnu-primary-p2-upper-multiplication-facts-2-to-5",
+      "unitTitle": "2-5的乘法口诀",
+      "volume": "二年级上册",
+      "conceptIds": [
+        "multiplication-facts",
+        "2-to-5-times-tables",
+        "乘法口诀",
+        "2到5乘法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "推理意识",
+        "数感"
+      ],
+      "skillTags": [
+        "2的口诀",
+        "3的口诀",
+        "4的口诀",
+        "5的口诀",
+        "口诀应用"
+      ],
+      "misconceptionTags": [
+        "facts memorized without quantity meaning",
+        "factor order confused",
+        "nearby fact relation not used"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p2-upper-multiplication-facts-2-to-5"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p2-upper-assessment-multiplication-facts-2-to-5-unit",
+        "bnu-primary-p2-upper-assessment-multiplication-facts-6-to-9-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个问题可以用“3×4”解决？",
+      "optionsZhHans": [
+        "小明有3本书，小红有4本书，他们一共有几本书？",
+        "每个小朋友分3块糖，4个小朋友一共分几块糖？",
+        "树上有3只鸟，又飞来4只，现在有几只？",
+        "妈妈买了3个苹果和4个梨，一共买了几个水果？"
+      ],
+      "answer": "每个小朋友分3块糖，4个小朋友一共分几块糖？",
+      "acceptedAnswers": [
+        "每个小朋友分3块糖，4个小朋友一共分几块糖？"
+      ],
+      "explanationZhHans": "3×4表示4个3相加。每个小朋友3块糖，4个小朋友就是4个3，用乘法。其他选项都是加法。"
+    }
+  ]
+}

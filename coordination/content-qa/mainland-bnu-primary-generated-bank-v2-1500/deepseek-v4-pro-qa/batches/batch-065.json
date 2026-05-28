@@ -1,0 +1,191 @@
+{
+  "batchNumber": 65,
+  "startedAt": "2026-05-27T13:59:33.417Z",
+  "completedAt": "2026-05-27T13:59:50.445Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p5-153",
+    "bnu-primary-ds-v2-p5-154",
+    "bnu-primary-ds-v2-p5-155",
+    "bnu-primary-ds-v2-p5-156",
+    "bnu-primary-ds-v2-p5-157",
+    "bnu-primary-ds-v2-p5-158",
+    "bnu-primary-ds-v2-p5-159",
+    "bnu-primary-ds-v2-p5-160",
+    "bnu-primary-ds-v2-p5-161",
+    "bnu-primary-ds-v2-p5-162",
+    "bnu-primary-ds-v2-p5-163",
+    "bnu-primary-ds-v2-p5-164",
+    "bnu-primary-ds-v2-p5-165",
+    "bnu-primary-ds-v2-p5-166",
+    "bnu-primary-ds-v2-p5-167",
+    "bnu-primary-ds-v2-p5-168",
+    "bnu-primary-ds-v2-p5-169",
+    "bnu-primary-ds-v2-p5-170"
+  ],
+  "usage": {
+    "prompt_tokens": 3234,
+    "completion_tokens": 1242,
+    "total_tokens": 4476,
+    "prompt_tokens_details": {
+      "cached_tokens": 3200
+    },
+    "prompt_cache_hit_tokens": 3200,
+    "prompt_cache_miss_tokens": 34
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p5-153",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，计算无误，符合分数乘法要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-154",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项计算正确，唯一答案小于1，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-155",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，约分结果准确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-156",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "整数乘分数计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-157",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比较乘数大小判断积的大小，逻辑正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-158",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "两步计算正确，结果无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-159",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分数减法与乘法应用正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-160",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "正方形周长计算正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-161",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "整数乘分数计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-162",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "求一个数的几分之几，计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-163",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "利用乘数与1的关系判断，正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-164",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分数乘法计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-165",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "整数乘分数计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-166",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "正方体体积计算正确，选项区分度好。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-167",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "长方体容积计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-168",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "体积不变求高，计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-169",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "体积计算正确，选项设置合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p5-170",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由棱长总和求体积，步骤正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版小学数学要求，数学正确，答案匹配，无歧义或缺失条件。"
+    }
+  }
+}

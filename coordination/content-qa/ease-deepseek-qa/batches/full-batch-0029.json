@@ -1,0 +1,168 @@
+{
+  "scope": "full",
+  "batchIndex": 29,
+  "startedAt": "2026-05-28T03:30:07.848Z",
+  "completedAt": "2026-05-28T03:30:37.587Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "itemIds": [
+    "10572",
+    "10573",
+    "10574",
+    "10575",
+    "10576",
+    "10577",
+    "10578",
+    "10579",
+    "10580",
+    "10581"
+  ],
+  "usage": {
+    "prompt_tokens": 3098,
+    "completion_tokens": 2138,
+    "total_tokens": 5236,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1093
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2714
+  },
+  "finishReason": "stop",
+  "jsonModeFallback": false,
+  "result": {
+    "items": [
+      {
+        "questionId": "10572",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "30 厘米",
+        "independentAnswer": "30 厘米",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "题目清晰，计算正确，答案一致。",
+        "recommendedAction": "无"
+      },
+      {
+        "questionId": "10573",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "$5+6+4+7+8 = \\mathbf{30}$ 厘米",
+        "independentAnswer": "30 厘米",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "题目清晰，计算正确，答案一致。",
+        "recommendedAction": "无"
+      },
+      {
+        "questionId": "10574",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "$12 \\times 4 = \\mathbf{48}$ 厘米",
+        "independentAnswer": "48 厘米",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "题目清晰，计算正确，答案一致。",
+        "recommendedAction": "无"
+      },
+      {
+        "questionId": "10575",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "$48 \\div 4 = \\mathbf{12}$ 厘米",
+        "independentAnswer": "12 厘米",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "题目清晰，计算正确，答案一致。",
+        "recommendedAction": "无"
+      },
+      {
+        "questionId": "10576",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "$(15 \\times 4) \\times 3 = 60 \\times 3 = \\mathbf{180}$ 米",
+        "independentAnswer": "180 米",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "题目清晰，计算正确，答案一致。",
+        "recommendedAction": "无"
+      },
+      {
+        "questionId": "10577",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "$(25 + 18) \\times 2 = 43 \\times 2 = \\mathbf{86}$ 米",
+        "independentAnswer": "86 米",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "题目清晰，计算正确，答案一致。",
+        "recommendedAction": "无"
+      },
+      {
+        "questionId": "10578",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "一樣長",
+        "independentAnswer": "一样长",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "题目清晰，周长相等，答案一致。",
+        "recommendedAction": "无"
+      },
+      {
+        "questionId": "10579",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "$200 \\div 2 - 60 = 100 - 60 = \\mathbf{40}$ 厘米",
+        "independentAnswer": "40 厘米",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "题目清晰，计算正确，答案一致。",
+        "recommendedAction": "无"
+      },
+      {
+        "questionId": "10580",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "36 厘米",
+        "independentAnswer": "36 厘米",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "题目清晰，计算正确，答案一致。",
+        "recommendedAction": "无"
+      },
+      {
+        "questionId": "10581",
+        "questionType": "FRQ",
+        "hasImage": false,
+        "standardAnswer": "$40 \\div 2 - 14 = 20 - 14 = \\mathbf{6}$ 厘米",
+        "independentAnswer": "6 厘米",
+        "solvabilityStatus": "pass",
+        "answerMatchStatus": "pass",
+        "severity": "none",
+        "reason": "题目清晰，计算正确，答案一致。",
+        "recommendedAction": "无"
+      }
+    ],
+    "batchSummary": {
+      "pass": 10,
+      "unsolvable": 0,
+      "ambiguous": 0,
+      "imageContextRequired": 0,
+      "answerMismatch": 0,
+      "missingAnswerKey": 0,
+      "notes": "All items are solvable and answer keys match."
+    }
+  }
+}

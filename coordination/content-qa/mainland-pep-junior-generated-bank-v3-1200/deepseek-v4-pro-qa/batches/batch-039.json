@@ -1,0 +1,137 @@
+{
+  "batchNumber": 39,
+  "startedAt": "2026-05-25T02:58:51.453Z",
+  "completedAt": "2026-05-25T02:59:07.672Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s2-k06-fi-023",
+    "pep-junior-v3-s2-k06-fi-024",
+    "pep-junior-v3-s2-k06-fi-025",
+    "pep-junior-v3-s2-k06-fi-026",
+    "pep-junior-v3-s2-k06-fi-027",
+    "pep-junior-v3-s2-k06-fi-028",
+    "pep-junior-v3-s2-k06-fi-029",
+    "pep-junior-v3-s2-k06-fi-030",
+    "pep-junior-v3-s2-k06-fi-031",
+    "pep-junior-v3-s2-k06-fi-032",
+    "pep-junior-v3-s2-k06-fi-033",
+    "pep-junior-v3-s2-k06-fi-034"
+  ],
+  "usage": {
+    "prompt_tokens": 2944,
+    "completion_tokens": 931,
+    "total_tokens": 3875,
+    "prompt_tokens_details": {
+      "cached_tokens": 2816
+    },
+    "prompt_cache_hit_tokens": 2816,
+    "prompt_cache_miss_tokens": 128
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s2-k06-fi-023",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案与解释一致，无歧义。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-fi-024",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分式值为零条件处理正确，舍去增根，答案准确。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-fi-025",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "等腰三角形底角与顶角关系正确，计算无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-fi-026",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "三线合一性质应用正确，角度计算准确。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-fi-027",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "外角计算正确，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-fi-028",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "全等判定方法正确，答案SAS符合条件。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-fi-029",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "多项式乘法展开正确，答案无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-fi-030",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分式化简正确，约分后得x-2，符合条件。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-fi-031",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "等腰三角形角度计算正确，答案100无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-fi-032",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "关于x轴对称点坐标正确，横坐标不变，纵坐标相反。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-fi-033",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "多边形内角和公式应用正确，边数为5。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k06-fi-034",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "勾股定理计算正确，AB=10。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部12道题均通过审核，数学正确，答案与解释一致，无歧义或错误。"
+    }
+  }
+}

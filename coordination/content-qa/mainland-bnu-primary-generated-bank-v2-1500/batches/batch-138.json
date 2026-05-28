@@ -1,0 +1,579 @@
+{
+  "batchId": "batch-138",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p6-121",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-percentage-applications",
+      "unitTitle": "百分数的应用",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "percentage-applications",
+        "increase-decrease-percent",
+        "discount-interest-tax",
+        "percent-word-problems",
+        "百分数应用"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "应用意识"
+      ],
+      "skillTags": [
+        "求一个数的百分之几",
+        "求单位一",
+        "增长率下降率",
+        "折扣利率税率",
+        "百分数问题检验"
+      ],
+      "misconceptionTags": [
+        "unit whole misidentified",
+        "increase and decrease applied to the wrong base",
+        "percent point and percent change confused"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-percentage-applications"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-percentage-applications-unit",
+        "bnu-primary-p6-upper-assessment-percentage-meaning-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆原有图书1500本，本学期增加了20%。后来又淘汰了现有图书的10%。现在图书馆有多少本图书？",
+      "optionsZhHans": [
+        "1620本",
+        "1650本",
+        "1680本",
+        "1700本"
+      ],
+      "answer": "1620本",
+      "acceptedAnswers": [
+        "1620本"
+      ],
+      "explanationZhHans": "先求增加后的数量：1500×(1+20%)=1800本。再淘汰10%，即剩下90%：1800×(1-10%)=1620本。注意两次变化的基数不同。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-122",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-percentage-applications",
+      "unitTitle": "百分数的应用",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "percentage-applications",
+        "increase-decrease-percent",
+        "discount-interest-tax",
+        "percent-word-problems",
+        "百分数应用"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "应用意识"
+      ],
+      "skillTags": [
+        "求一个数的百分之几",
+        "求单位一",
+        "增长率下降率",
+        "折扣利率税率",
+        "百分数问题检验"
+      ],
+      "misconceptionTags": [
+        "unit whole misidentified",
+        "increase and decrease applied to the wrong base",
+        "percent point and percent change confused"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-percentage-applications"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-percentage-applications-unit",
+        "bnu-primary-p6-upper-assessment-percentage-meaning-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "六年级（1）班开展“节约用水”活动，计划这个月比上个月节约用水15%，结果实际用水量比上个月节约了20%。已知上个月用水量为10吨，这个月实际用水量比计划用水量少多少吨？",
+      "optionsZhHans": [],
+      "answer": "0.5",
+      "acceptedAnswers": [
+        "0.5",
+        "0.5吨"
+      ],
+      "explanationZhHans": "上个月用水10吨，计划用水量：10×(1-15%)=8.5吨；实际用水量：10×(1-20%)=8吨；实际比计划少：8.5-8=0.5吨。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-123",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-percentage-applications",
+      "unitTitle": "百分数的应用",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "percentage-applications",
+        "increase-decrease-percent",
+        "discount-interest-tax",
+        "percent-word-problems",
+        "百分数应用"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "应用意识"
+      ],
+      "skillTags": [
+        "求一个数的百分之几",
+        "求单位一",
+        "增长率下降率",
+        "折扣利率税率",
+        "百分数问题检验"
+      ],
+      "misconceptionTags": [
+        "unit whole misidentified",
+        "increase and decrease applied to the wrong base",
+        "percent point and percent change confused"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-percentage-applications"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-percentage-applications-unit",
+        "bnu-primary-p6-upper-assessment-percentage-meaning-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆原有图书8000册，本学期新购入了25%的图书，后来又淘汰了现有图书的10%。现在图书馆有多少册图书？",
+      "optionsZhHans": [],
+      "answer": "9000",
+      "acceptedAnswers": [
+        "9000",
+        "9000册"
+      ],
+      "explanationZhHans": "先求购入后的数量：8000×(1+25%)=8000×1.25=10000册。再淘汰10%后剩下：10000×(1-10%)=10000×0.9=9000册。注意两次变化的单位“1”不同。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-124",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-percentage-applications",
+      "unitTitle": "百分数的应用",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "percentage-applications",
+        "increase-decrease-percent",
+        "discount-interest-tax",
+        "percent-word-problems",
+        "百分数应用"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "应用意识"
+      ],
+      "skillTags": [
+        "求一个数的百分之几",
+        "求单位一",
+        "增长率下降率",
+        "折扣利率税率",
+        "百分数问题检验"
+      ],
+      "misconceptionTags": [
+        "unit whole misidentified",
+        "increase and decrease applied to the wrong base",
+        "percent point and percent change confused"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-percentage-applications"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-percentage-applications-unit",
+        "bnu-primary-p6-upper-assessment-percentage-meaning-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "六年级一班有40名学生，其中男生人数占全班人数的45%。后来转来几名男生，这时男生人数占全班人数的50%。转来了多少名男生？",
+      "optionsZhHans": [
+        "2名",
+        "4名",
+        "5名",
+        "8名"
+      ],
+      "answer": "4名",
+      "acceptedAnswers": [
+        "4名"
+      ],
+      "explanationZhHans": "原来男生：40×45%=18人。设转来x名男生，则(18+x)÷(40+x)=50%，解方程得x=4。检验：转来后总人数44，男生22，22÷44=50%，符合题意。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-125",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-percentage-applications",
+      "unitTitle": "百分数的应用",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "percentage-applications",
+        "increase-decrease-percent",
+        "discount-interest-tax",
+        "percent-word-problems",
+        "百分数应用"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "应用意识"
+      ],
+      "skillTags": [
+        "求一个数的百分之几",
+        "求单位一",
+        "增长率下降率",
+        "折扣利率税率",
+        "百分数问题检验"
+      ],
+      "misconceptionTags": [
+        "unit whole misidentified",
+        "increase and decrease applied to the wrong base",
+        "percent point and percent change confused"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-percentage-applications"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-percentage-applications-unit",
+        "bnu-primary-p6-upper-assessment-percentage-meaning-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "王叔叔在商场购买了一台标价为5000元的电视机。商场推出“满3000元减300元”的优惠活动，同时王叔叔还有一张会员卡，可以在优惠后的价格上再享受九五折。王叔叔最终实际支付了多少元？",
+      "optionsZhHans": [],
+      "answer": "4465",
+      "acceptedAnswers": [
+        "4465",
+        "4465元"
+      ],
+      "explanationZhHans": "先计算满减后的价格：5000元满3000元减300元，所以5000 - 300 = 4700元。再打九五折，即4700 × 95% = 4700 × 0.95 = 4465元。因此最终支付4465元。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-126",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-percentage-applications",
+      "unitTitle": "百分数的应用",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "percentage-applications",
+        "increase-decrease-percent",
+        "discount-interest-tax",
+        "percent-word-problems",
+        "百分数应用"
+      ],
+      "competencyTags": [
+        "模型意识",
+        "运算能力",
+        "应用意识"
+      ],
+      "skillTags": [
+        "求一个数的百分之几",
+        "求单位一",
+        "增长率下降率",
+        "折扣利率税率",
+        "百分数问题检验"
+      ],
+      "misconceptionTags": [
+        "unit whole misidentified",
+        "increase and decrease applied to the wrong base",
+        "percent point and percent change confused"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-percentage-applications"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-percentage-applications-unit",
+        "bnu-primary-p6-upper-assessment-percentage-meaning-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "六年级（1）班有40名学生，其中男生占55%。这学期又转来2名男生，现在男生人数占全班人数的百分之几？（百分号前保留一位小数）",
+      "optionsZhHans": [],
+      "answer": "57.1%",
+      "acceptedAnswers": [
+        "57.1%"
+      ],
+      "explanationZhHans": "原来男生：40×55%=22人。转来2名男生后，男生24人，全班42人。现在男生占比：24÷42≈0.5714=57.1%。注意单位“1”变为42人，不能直接用55%+2÷40。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-127",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "p6-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "strategy-reflection",
+        "六年级上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "关系表达",
+        "错因分析",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "review solved as disconnected drills",
+        "formula chosen before concept identification",
+        "multi-step result accepted without checking"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-final-topic-drill",
+        "bnu-primary-p6-upper-assessment-circles-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在整理六年级上册的数学知识时，小明发现有些题目需要先判断该用哪个概念再列式。下面哪种做法能更好地避免“公式选错”的错误？",
+      "optionsZhHans": [
+        "先看题目里有没有半径或直径，有就用圆周长公式",
+        "先问自己“要求的是长度还是面积”，再选对应的公式",
+        "把两个公式都写出来，算完后选一个合理的答案",
+        "记住圆周长公式里有π，圆面积公式里也有π，所以可以通用"
+      ],
+      "answer": "先问自己“要求的是长度还是面积”，再选对应的公式",
+      "acceptedAnswers": [
+        "先问自己“要求的是长度还是面积”，再选对应的公式"
+      ],
+      "explanationZhHans": "避免公式选错的关键是先明确所求的量是长度（周长）还是面积，再选择对应公式。选项A只凭有无半径直径就选周长公式，可能忽略面积问题；选项C先算再选不合理；选项D认为公式通用是错误的。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-128",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "p6-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "strategy-reflection",
+        "六年级上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "关系表达",
+        "错因分析",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "review solved as disconnected drills",
+        "formula chosen before concept identification",
+        "multi-step result accepted without checking"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-final-topic-drill",
+        "bnu-primary-p6-upper-assessment-circles-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明用一根长25.12米的绳子围成一个圆形花坛。他想在花坛里种两种花：月季花种在花坛面积的60%，其余种菊花。种菊花的面积是多少平方米？（π取3.14）",
+      "optionsZhHans": [],
+      "answer": "20.096",
+      "acceptedAnswers": [
+        "20.096"
+      ],
+      "explanationZhHans": "先求半径：25.12÷3.14÷2=4米，花坛面积：3.14×4²=50.24平方米。菊花占1-60%=40%，面积：50.24×0.4=20.096平方米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-129",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "p6-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "strategy-reflection",
+        "六年级上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "关系表达",
+        "错因分析",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "review solved as disconnected drills",
+        "formula chosen before concept identification",
+        "multi-step result accepted without checking"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-final-topic-drill",
+        "bnu-primary-p6-upper-assessment-circles-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在数学好玩活动中，小北用一根长62.8米的绳子围成一个圆形花坛。他想知道这个花坛的占地面积是多少平方米。请你先判断要求的是圆的什么量，再列式计算，最后写出检查过程。",
+      "optionsZhHans": [],
+      "answer": "要求的是圆的面积。花坛的占地面积是314平方米。检查：半径10米，周长2×3.14×10=62.8米，符合条件；面积3.14×10²=314平方米，计算正确。",
+      "acceptedAnswers": [
+        "要求的是圆的面积。花坛的占地面积是314平方米。检查：半径10米，周长2×3.14×10=62.8米，符合条件；面积3.14×10²=314平方米，计算正确。",
+        "面积，314平方米，检查：半径=62.8÷3.14÷2=10米，面积=3.14×10²=314平方米，周长验证正确。"
+      ],
+      "explanationZhHans": "已知周长求面积，先由周长公式C=2πr求出半径r=62.8÷3.14÷2=10米，再用面积公式S=πr²计算得3.14×10²=314平方米。检查时用半径反算周长，确认与条件一致。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-130",
+      "batch": "bnu-primary-v2",
+      "grade": "P6",
+      "semester": "upper",
+      "topicId": "bnu-primary-p6-upper-review-activity",
+      "unitTitle": "数学好玩与总复习",
+      "volume": "六年级上册",
+      "conceptIds": [
+        "p6-upper-review",
+        "mathematical-activity",
+        "integrated-application",
+        "strategy-reflection",
+        "六年级上册复习"
+      ],
+      "competencyTags": [
+        "应用意识",
+        "反思整理",
+        "推理意识"
+      ],
+      "skillTags": [
+        "综合应用",
+        "策略选择",
+        "关系表达",
+        "错因分析",
+        "结果检验"
+      ],
+      "misconceptionTags": [
+        "review solved as disconnected drills",
+        "formula chosen before concept identification",
+        "multi-step result accepted without checking"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p6-upper-review-activity"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p6-upper-assessment-final-topic-drill",
+        "bnu-primary-p6-upper-assessment-circles-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在复习“圆”这一单元时，四位同学分别说出了自己对圆的理解。谁的说法是正确的？",
+      "optionsZhHans": [
+        "A. 圆的直径是半径的2倍，所以直径是半径的两倍长。",
+        "B. 圆的周长总是它直径的π倍，所以周长除以直径的商是π。",
+        "C. 圆的面积公式是πr²，所以面积与半径成正比例。",
+        "D. 半圆的周长就是圆周长的一半。"
+      ],
+      "answer": "B. 圆的周长总是它直径的π倍，所以周长除以直径的商是π。",
+      "acceptedAnswers": [
+        "B. 圆的周长总是它直径的π倍，所以周长除以直径的商是π。"
+      ],
+      "explanationZhHans": "选项A错误，必须在同一个圆中直径才是半径的2倍；选项C错误，面积与半径的平方成正比例，与半径不成正比例；选项D错误，半圆周长是圆周长的一半加一条直径。选项B正确，圆周率π就是周长与直径的比值。"
+    }
+  ]
+}

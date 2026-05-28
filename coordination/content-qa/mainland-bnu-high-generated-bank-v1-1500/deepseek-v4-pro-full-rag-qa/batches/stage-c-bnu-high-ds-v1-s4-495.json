@@ -1,0 +1,51 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-495",
+  "startedAt": "2026-05-28T02:01:57.349Z",
+  "completedAt": "2026-05-28T02:02:02.427Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-495"
+  ],
+  "usage": {
+    "prompt_tokens": 3230,
+    "completion_tokens": 310,
+    "total_tokens": 3540,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2846
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-495",
+        "solvableStatus": "fail",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "1/7",
+        "correctedAnswer": "1/7",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "bad_options",
+          "unsolvable",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目给定AB=BC=2，AA₁=3，正确计算得异面直线A₁B与B₁C所成角余弦值为1/7，但选项均不包含1/7，且存储答案2/7错误，解析中计算得9/13后强行修改题目，导致题目不可解且答案不匹配。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目数据与选项不匹配，正确答案为1/7，但选项无此值，存储答案2/7错误，解析矛盾，判定为不可解。"
+    }
+  }
+}

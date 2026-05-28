@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-146",
+  "startedAt": "2026-05-28T02:53:07.822Z",
+  "completedAt": "2026-05-28T02:53:13.474Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-146"
+  ],
+  "usage": {
+    "prompt_tokens": 2156,
+    "completion_tokens": 273,
+    "total_tokens": 2429,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1772
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-146",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "6√61/61",
+        "correctedAnswer": "6√61/61",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立求解得点B1到平面A1BD的距离为6√61/61，而存储答案为6/7，两者不等价。解析中法向量模计算错误，导致距离错误，属于数学错误和答案不匹配，严重程度为阻断。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目可解且符合教材范围，但存储答案错误，需修正为6√61/61。"
+    }
+  }
+}

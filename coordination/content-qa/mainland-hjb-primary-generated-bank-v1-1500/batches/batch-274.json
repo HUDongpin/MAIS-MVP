@@ -1,0 +1,308 @@
+{
+  "batchId": "batch-274",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p6-116",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-probability-statistics",
+      "unitTitle": "可能性与统计图表",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "probability",
+        "data-display",
+        "statistical-tables-graphs",
+        "可能性",
+        "统计图表",
+        "统计"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "可能性判断",
+        "数据整理",
+        "统计表读取",
+        "统计图比较",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "likelihood judged by preference rather than sample space",
+        "graph scale read as one-to-one count",
+        "conclusion made from a single entry only",
+        "table totals ignored"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-probability-statistics"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-probability-statistics",
+        "hjb-primary-p6-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个不透明的袋子里装有大小、形状相同的红球、蓝球和绿球。下表是三种颜色球的数量统计：\n\n| 颜色 | 数量（个） |\n|------|------------|\n| 红球 | 12         |\n| 蓝球 | 8          |\n| 绿球 | 5          |\n\n从袋中任意摸出一个球，摸到红球的可能性是摸到绿球的可能性的多少倍？",
+      "optionsZhHans": [],
+      "answer": "2.4",
+      "acceptedAnswers": [
+        "2.4",
+        "12/5",
+        "2.4倍"
+      ],
+      "explanationZhHans": "摸到红球的可能性为12/25，摸到绿球的可能性为5/25。12/25 ÷ 5/25 = 12/5 = 2.4，所以是2.4倍。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-117",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-probability-statistics",
+      "unitTitle": "可能性与统计图表",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "probability",
+        "data-display",
+        "statistical-tables-graphs",
+        "可能性",
+        "统计图表",
+        "统计"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "可能性判断",
+        "数据整理",
+        "统计表读取",
+        "统计图比较",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "likelihood judged by preference rather than sample space",
+        "graph scale read as one-to-one count",
+        "conclusion made from a single entry only",
+        "table totals ignored"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-probability-statistics"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-probability-statistics",
+        "hjb-primary-p6-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面是某小学六年级（1）班同学最喜欢的运动项目统计表。\n\n| 运动项目 | 人数 |\n|----------|------|\n| 篮球     | 12   |\n| 足球     | 8    |\n| 乒乓球   | 10   |\n| 羽毛球   | 6    |\n| 其他     | 4    |\n\n根据统计表回答：\n（1）这个班一共有多少名同学？\n（2）喜欢篮球的人数比喜欢羽毛球的人数多几人？\n（3）如果从这个班任意抽取一名同学，他最喜欢的运动项目是足球的可能性大，还是乒乓球的可能性大？请说明理由。",
+      "optionsZhHans": [],
+      "answer": "（1）40名；（2）6人；（3）乒乓球的可能性大，因为喜欢乒乓球的人数（10人）比喜欢足球的人数（8人）多，所以抽到乒乓球的概率更高。",
+      "acceptedAnswers": [
+        "（1）40名；（2）6人；（3）乒乓球的可能性大，因为喜欢乒乓球的人数（10人）比喜欢足球的人数（8人）多，所以抽到乒乓球的概率更高。",
+        "（1）40名；（2）6人；（3）乒乓球的可能性大，因为喜欢乒乓球的人数比喜欢足球的人数多。",
+        "（1）40名；（2）6人；（3）乒乓球的可能性大，因为10>8。",
+        "（1）40名；（2）6人；（3）乒乓球的可能性大。"
+      ],
+      "explanationZhHans": "（1）总人数=12+8+10+6+4=40；（2）12-6=6；（3）比较人数：乒乓球10人，足球8人，10>8，所以抽到乒乓球的可能性更大。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-118",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-probability-statistics",
+      "unitTitle": "可能性与统计图表",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "probability",
+        "data-display",
+        "statistical-tables-graphs",
+        "可能性",
+        "统计图表",
+        "统计"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "可能性判断",
+        "数据整理",
+        "统计表读取",
+        "统计图比较",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "likelihood judged by preference rather than sample space",
+        "graph scale read as one-to-one count",
+        "conclusion made from a single entry only",
+        "table totals ignored"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-probability-statistics"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-probability-statistics",
+        "hjb-primary-p6-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个不透明的袋子里装有5个红球、3个蓝球和2个黄球，这些球除颜色外完全相同。从袋子中任意摸出一个球，下面哪种说法是正确的？",
+      "optionsZhHans": [
+        "摸到红球的可能性最大",
+        "摸到蓝球的可能性比摸到黄球的可能性小",
+        "摸到黄球的可能性最大",
+        "摸到红球和摸到蓝球的可能性一样大"
+      ],
+      "answer": "摸到红球的可能性最大",
+      "acceptedAnswers": [
+        "摸到红球的可能性最大"
+      ],
+      "explanationZhHans": "红球5个最多，所以摸到红球的可能性最大。蓝球3个，黄球2个，蓝球比黄球多，摸到蓝球的可能性比黄球大。红球和蓝球数量不同，可能性不一样。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-119",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-probability-statistics",
+      "unitTitle": "可能性与统计图表",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "probability",
+        "data-display",
+        "statistical-tables-graphs",
+        "可能性",
+        "统计图表",
+        "统计"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "可能性判断",
+        "数据整理",
+        "统计表读取",
+        "统计图比较",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "likelihood judged by preference rather than sample space",
+        "graph scale read as one-to-one count",
+        "conclusion made from a single entry only",
+        "table totals ignored"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-probability-statistics"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-probability-statistics",
+        "hjb-primary-p6-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个不透明的袋子里装有红、黄、蓝三种颜色的球共20个，每种颜色至少有一个。下表是随机摸球实验的部分记录（每次摸出一个球，记录颜色后放回并摇匀）。\n\n| 实验次数 | 摸到红球次数 | 摸到黄球次数 | 摸到蓝球次数 |\n|----------|--------------|--------------|--------------|\n| 100      | 32           | 45           | 23           |\n| 200      | 68           | 88           | 44           |\n| 500      | 165          | 220          | 115          |\n\n根据表中数据，摸到黄球的可能性最______（填“大”或“小”），理由是：从实验数据看，黄球出现的频率最______（填“高”或“低”）。",
+      "optionsZhHans": [],
+      "answer": "大，高",
+      "acceptedAnswers": [
+        "大，高",
+        "大,高"
+      ],
+      "explanationZhHans": "比较三种颜色在每次实验中的次数，黄球次数均最多（45>32>23，88>68>44，220>165>115），频率最高，因此摸到黄球的可能性最大。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-120",
+      "batch": "hjb-primary-v1",
+      "grade": "P6",
+      "semester": "lower",
+      "topicId": "hjb-primary-p6-lower-probability-statistics",
+      "unitTitle": "可能性与统计图表",
+      "volume": "六年级下册",
+      "conceptIds": [
+        "probability",
+        "data-display",
+        "statistical-tables-graphs",
+        "可能性",
+        "统计图表",
+        "统计"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "推理意识",
+        "应用意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "可能性判断",
+        "数据整理",
+        "统计表读取",
+        "统计图比较",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "likelihood judged by preference rather than sample space",
+        "graph scale read as one-to-one count",
+        "conclusion made from a single entry only",
+        "table totals ignored"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p6-lower-probability-statistics"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p6-lower-assessment-probability-statistics",
+        "hjb-primary-p6-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "S18 remediated after DeepSeek-v4-pro QA on 2026-05-25; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "六（1）班同学在“最喜欢的课间活动”调查中，统计结果如下：跳绳12人，踢毽子8人，下棋6人，阅读4人。请写出一个正确说法，并说明理由。",
+      "optionsZhHans": [],
+      "answer": "喜欢跳绳的人数最多，占总人数的40%。",
+      "acceptedAnswers": [
+        "喜欢跳绳的人数最多，占总人数的40%。",
+        "跳绳人数最多，占40%。",
+        "跳绳最多，占40%。"
+      ],
+      "explanationZhHans": "总人数为12+8+6+4=30人。跳绳12人，占比12÷30=0.4=40%，且人数最多，所以这个说法正确。"
+    }
+  ]
+}

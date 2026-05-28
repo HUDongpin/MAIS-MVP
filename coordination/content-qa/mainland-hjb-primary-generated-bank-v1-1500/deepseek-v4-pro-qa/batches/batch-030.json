@@ -1,0 +1,191 @@
+{
+  "batchNumber": 30,
+  "startedAt": "2026-05-25T02:02:31.329Z",
+  "completedAt": "2026-05-25T02:02:50.518Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p3-023",
+    "hjb-primary-ds-v1-p3-024",
+    "hjb-primary-ds-v1-p3-025",
+    "hjb-primary-ds-v1-p3-026",
+    "hjb-primary-ds-v1-p3-027",
+    "hjb-primary-ds-v1-p3-028",
+    "hjb-primary-ds-v1-p3-029",
+    "hjb-primary-ds-v1-p3-030",
+    "hjb-primary-ds-v1-p3-031",
+    "hjb-primary-ds-v1-p3-032",
+    "hjb-primary-ds-v1-p3-033",
+    "hjb-primary-ds-v1-p3-034",
+    "hjb-primary-ds-v1-p3-035",
+    "hjb-primary-ds-v1-p3-036",
+    "hjb-primary-ds-v1-p3-037",
+    "hjb-primary-ds-v1-p3-038",
+    "hjb-primary-ds-v1-p3-039",
+    "hjb-primary-ds-v1-p3-040"
+  ],
+  "usage": {
+    "prompt_tokens": 4039,
+    "completion_tokens": 1388,
+    "total_tokens": 5427,
+    "prompt_tokens_details": {
+      "cached_tokens": 3968
+    },
+    "prompt_cache_hit_tokens": 3968,
+    "prompt_cache_miss_tokens": 71
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p3-023",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案与解释一致，符合P3乘除余数要求。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-024",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案38人，计算无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-025",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，24÷5=4余4，最多分给4个小朋友，选项无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-026",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，35÷4=8余3，答案与解释一致。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-027",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，分掉28颗剩2颗，总30颗，符合逻辑。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-028",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，必须知道总根数才能求班数，选项B正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-029",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，求4个6用乘法，算式6×4=24或4×6=24，答案覆盖全面。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-030",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，12的3倍是36，答案无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-031",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，45÷6=7余3，选项A正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-032",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，8和5的最小公倍数40，答案无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-033",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，86÷9=9余5，最后一个书架放5本。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-034",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，24×3=72，选项C正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-035",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，3和4的最小公倍数12，答案无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-036",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，97÷4=24余1，答案与解释一致。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-037",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，求倍数用乘法，36×3正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-038",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，45÷6=7余3，答案无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-039",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，58÷3=19余1，19÷5=3余4，解答完整。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-040",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，24是4和6的公倍数，选项B正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合P3乘除拓展要求，数学正确，答案与解释一致，无歧义或错误。"
+    }
+  }
+}

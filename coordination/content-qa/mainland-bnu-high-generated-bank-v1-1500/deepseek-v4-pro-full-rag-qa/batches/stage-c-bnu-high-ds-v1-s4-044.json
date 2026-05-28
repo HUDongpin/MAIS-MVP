@@ -1,0 +1,48 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-044",
+  "startedAt": "2026-05-28T00:56:35.541Z",
+  "completedAt": "2026-05-28T00:56:41.927Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-044"
+  ],
+  "usage": {
+    "prompt_tokens": 2023,
+    "completion_tokens": 279,
+    "total_tokens": 2302,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1639
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-044",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "a = -1 或 a = 3",
+        "correctedAnswer": "a = -1 或 a = 3",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合北师大版函数章节。独立求解得 a=-1 或 a=3，但存储答案为 a=-3 或 a=3，且解析错误地认为 f(-3)=-3，实际 f(-3)=3。答案与解析均错误，须修正。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "存储答案错误，解析矛盾，需修正为 a=-1 或 a=3。"
+    }
+  }
+}

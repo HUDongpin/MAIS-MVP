@@ -1,0 +1,293 @@
+{
+  "batchId": "batch-203",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p5-011",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "hjb-primary-p5-upper-decimal-operations",
+      "unitTitle": "小数乘除法与估算",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "decimal-multiplication",
+        "decimal-division",
+        "decimal-estimation",
+        "place-value-decimals",
+        "小数乘除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "小数乘法",
+        "小数除法",
+        "积商估算",
+        "小数点位置",
+        "结果合理性检查"
+      ],
+      "misconceptionTags": [
+        "decimal point placed by counting digits only",
+        "quotient size judged without estimating",
+        "unit meaning lost after calculation"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p5-upper-decimal-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit",
+        "hjb-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小杰在计算一道小数除法时，将被除数 4.56 错看成了 45.6，除数不变，得到的商是 3.8。请你先估算正确的商大约是多少，再计算出正确的商，并说明你的估算方法。",
+      "optionsZhHans": [],
+      "answer": "正确的商是 0.38。估算方法：被除数 4.56 约是 4.5，除数不变，商应约为 4.5 ÷ 12 = 0.375，接近 0.38。",
+      "acceptedAnswers": [
+        "正确的商是 0.38。估算方法：被除数 4.56 约是 4.5，除数不变，商应约为 4.5 ÷ 12 = 0.375，接近 0.38。",
+        "0.38",
+        "0.38，估算：4.56≈4.5，除数12，4.5÷12=0.375≈0.38"
+      ],
+      "explanationZhHans": "先求除数：45.6 ÷ 3.8 = 12。正确商：4.56 ÷ 12 = 0.38。估算时把4.56看作4.5，4.5÷12=0.375，与0.38接近，说明小数点位置正确。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-012",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "hjb-primary-p5-upper-decimal-operations",
+      "unitTitle": "小数乘除法与估算",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "decimal-multiplication",
+        "decimal-division",
+        "decimal-estimation",
+        "place-value-decimals",
+        "小数乘除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "小数乘法",
+        "小数除法",
+        "积商估算",
+        "小数点位置",
+        "结果合理性检查"
+      ],
+      "misconceptionTags": [
+        "decimal point placed by counting digits only",
+        "quotient size judged without estimating",
+        "unit meaning lost after calculation"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p5-upper-decimal-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit",
+        "hjb-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "妈妈买了 2.5 千克苹果，每千克 7.8 元；又买了 1.6 千克香蕉，每千克 5.5 元。她付了 50 元，应找回多少元？请先估算总价的范围，再列式计算，并判断找回的钱是否合理。",
+      "optionsZhHans": [],
+      "answer": "估算：苹果约 2.5×8=20 元，香蕉约 1.6×5.5≈8.8 元，总价约 28.8 元，找回约 21.2 元。计算：2.5×7.8=19.5 元，1.6×5.5=8.8 元，总价 28.3 元，50-28.3=21.7 元。找回 21.7 元合理。",
+      "acceptedAnswers": [
+        "估算：苹果约 2.5×8=20 元，香蕉约 1.6×5.5≈8.8 元，总价约 28.8 元，找回约 21.2 元。计算：2.5×7.8=19.5 元，1.6×5.5=8.8 元，总价 28.3 元，50-28.3=21.7 元。找回 21.7 元合理。",
+        "21.7元",
+        "21.7"
+      ],
+      "explanationZhHans": "苹果：2.5×7.8=19.5元；香蕉：1.6×5.5=8.8元；总价28.3元；找回50-28.3=21.7元。估算总价约28.8元，找回约21.2元，与计算结果接近，合理。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-013",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "hjb-primary-p5-upper-decimal-operations",
+      "unitTitle": "小数乘除法与估算",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "decimal-multiplication",
+        "decimal-division",
+        "decimal-estimation",
+        "place-value-decimals",
+        "小数乘除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "小数乘法",
+        "小数除法",
+        "积商估算",
+        "小数点位置",
+        "结果合理性检查"
+      ],
+      "misconceptionTags": [
+        "decimal point placed by counting digits only",
+        "quotient size judged without estimating",
+        "unit meaning lost after calculation"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p5-upper-decimal-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit",
+        "hjb-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "S18 remediated after DeepSeek-v4-pro QA on 2026-05-25; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下列算式中，积最小的是哪一个？",
+      "optionsZhHans": [
+        "0.42 × 0.73",
+        "4.2 × 0.073",
+        "42 × 0.0073",
+        "0.042 × 0.73"
+      ],
+      "answer": "0.042 × 0.73",
+      "acceptedAnswers": [
+        "0.042 × 0.73",
+        "0.042×0.73",
+        "D"
+      ],
+      "explanationZhHans": "前三个算式的积都是0.3066；0.042×0.73=0.03066，明显更小，所以积最小的是0.042×0.73。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-014",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "hjb-primary-p5-upper-decimal-operations",
+      "unitTitle": "小数乘除法与估算",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "decimal-multiplication",
+        "decimal-division",
+        "decimal-estimation",
+        "place-value-decimals",
+        "小数乘除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "小数乘法",
+        "小数除法",
+        "积商估算",
+        "小数点位置",
+        "结果合理性检查"
+      ],
+      "misconceptionTags": [
+        "decimal point placed by counting digits only",
+        "quotient size judged without estimating",
+        "unit meaning lost after calculation"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p5-upper-decimal-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit",
+        "hjb-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "根据 23 × 15 = 345，直接写出下面算式的积：2.3 × 1.5 = ______。",
+      "optionsZhHans": [],
+      "answer": "3.45",
+      "acceptedAnswers": [
+        "3.45"
+      ],
+      "explanationZhHans": "2.3是一位小数，1.5是一位小数，积应有两位小数。23×15=345，所以2.3×1.5=3.45。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-015",
+      "batch": "hjb-primary-v1",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "hjb-primary-p5-upper-decimal-operations",
+      "unitTitle": "小数乘除法与估算",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "decimal-multiplication",
+        "decimal-division",
+        "decimal-estimation",
+        "place-value-decimals",
+        "小数乘除法"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "小数乘法",
+        "小数除法",
+        "积商估算",
+        "小数点位置",
+        "结果合理性检查"
+      ],
+      "misconceptionTags": [
+        "decimal point placed by counting digits only",
+        "quotient size judged without estimating",
+        "unit meaning lost after calculation"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "hjb-primary-p5-upper-decimal-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p5-upper-assessment-decimal-operations-unit",
+        "hjb-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方形的面积是 7.2 平方米，长是 3.6 米。如果宽不变，长增加 1.2 米，那么新的长方形面积是多少平方米？请先写出数量关系，再列式计算。",
+      "optionsZhHans": [],
+      "answer": "宽：7.2 ÷ 3.6 = 2 米；新长：3.6 + 1.2 = 4.8 米；新面积：4.8 × 2 = 9.6 平方米。",
+      "acceptedAnswers": [
+        "宽：7.2 ÷ 3.6 = 2 米；新长：3.6 + 1.2 = 4.8 米；新面积：4.8 × 2 = 9.6 平方米。",
+        "9.6平方米",
+        "9.6"
+      ],
+      "explanationZhHans": "先求宽：面积÷长=7.2÷3.6=2米。新长：3.6+1.2=4.8米。新面积：长×宽=4.8×2=9.6平方米。"
+    }
+  ]
+}

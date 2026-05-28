@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-053",
+  "startedAt": "2026-05-28T00:47:08.363Z",
+  "completedAt": "2026-05-28T00:47:28.322Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-417",
+    "bnu-high-ds-v1-s4-418",
+    "bnu-high-ds-v1-s4-419",
+    "bnu-high-ds-v1-s4-420",
+    "bnu-high-ds-v1-s4-421",
+    "bnu-high-ds-v1-s4-422",
+    "bnu-high-ds-v1-s4-423",
+    "bnu-high-ds-v1-s4-424"
+  ],
+  "usage": {
+    "prompt_tokens": 10295,
+    "completion_tokens": 1011,
+    "total_tokens": 11306,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9911
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-417",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "33/65",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由条件及象限确定cosβ=-12/13，sin(α-β)=4/5，利用sinα=sin[(α-β)+β]展开计算得33/65。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-418",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "辅助角公式得f(x)=2sin(x+π/3)，最大值为2。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-419",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "-1",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "tan2α=tan[(α+β)+(α-β)]，代入公式得(3+2)/(1-3×2)=-1。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-420",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "√3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "利用tan45°=1，原式=tan(45°+15°)=tan60°=√3。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-421",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(-24+7√3)/50",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由点P得sinα=4/5, cosα=-3/5，计算sin2α=-24/25, cos2α=-7/25，代入和角公式得(-24+7√3)/50。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-422",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "证明：左式分子分母分别用倍角公式化简，分子=sinθ(1+2cosθ)，分母=cosθ(1+2cosθ)，约分得tanθ=右式。",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "恒等式证明，利用sin2θ=2sinθcosθ, cos2θ=2cos²θ-1，化简后约分即得。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-423",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "3/22",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "tan(α+π/4)=tan[(α+β)-(β-π/4)]，代入公式得(2/5-1/4)/(1+2/5×1/4)=3/22。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-424",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "2",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "辅助角公式得f(x)=2sin(x+π/3)，在[0,π]上最大值为2。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，符合北师大版三角恒等变换章节要求，无数学错误或歧义。"
+    }
+  }
+}

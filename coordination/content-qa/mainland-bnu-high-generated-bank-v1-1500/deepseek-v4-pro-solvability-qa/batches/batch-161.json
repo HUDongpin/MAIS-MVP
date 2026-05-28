@@ -1,0 +1,136 @@
+{
+  "batchNumber": 161,
+  "startedAt": "2026-05-27T14:11:03.831Z",
+  "completedAt": "2026-05-27T14:11:22.754Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-281",
+    "bnu-high-ds-v1-s6-282",
+    "bnu-high-ds-v1-s6-283",
+    "bnu-high-ds-v1-s6-284",
+    "bnu-high-ds-v1-s6-285",
+    "bnu-high-ds-v1-s6-286",
+    "bnu-high-ds-v1-s6-287",
+    "bnu-high-ds-v1-s6-288"
+  ],
+  "usage": {
+    "prompt_tokens": 10611,
+    "completion_tokens": 1155,
+    "total_tokens": 11766,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10099
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-281",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "a = 4",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件完整，求导后比较端点与临界点函数值得最大值为a，由最大值4得a=4，答案与解析均正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-282",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "y = -2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导得斜率0，切线为水平线y=-2，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-283",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "[-1, 1]",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由f'(x)≤0解得-1≤x≤1，选项D正确，解析与答案匹配。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-284",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "最大值为10，最小值为-22",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导得临界点，计算端点与临界点函数值，最大值10最小值-22，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-285",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "8",
+        "correctedAnswer": "8",
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "由f(1)=10得a+b=8，由f'(1)=0得3+2a+b=0，联立解得a=-11,b=19，a+b=8。题目问a+b，答案应为8，但存储答案为-3，解析也错误地得出-3，实际解析中已自我纠正为8，但最终答案仍为-3，矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-286",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导得临界点0和2，f(0)=1为极大值，选项A正确，解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-287",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "18 m²",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "设垂直墙边长为x，面积S=x(12-2x)，求导得x=3时最大面积18，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-288",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导得y'=3x^2+a，代入x=1得3+a=5，a=2，答案与解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第285题答案错误：由条件得a+b=8，但存储答案为-3，解析也自相矛盾，需修正为8。其余题目均正确。"
+    }
+  }
+}

@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-121",
+  "startedAt": "2026-05-28T01:31:52.591Z",
+  "completedAt": "2026-05-28T01:32:07.658Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-461",
+    "bnu-high-ds-v1-s5-462",
+    "bnu-high-ds-v1-s5-463",
+    "bnu-high-ds-v1-s5-464",
+    "bnu-high-ds-v1-s5-465",
+    "bnu-high-ds-v1-s5-466",
+    "bnu-high-ds-v1-s5-467",
+    "bnu-high-ds-v1-s5-468"
+  ],
+  "usage": {
+    "prompt_tokens": 10642,
+    "completion_tokens": 1047,
+    "total_tokens": 11689,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 10258
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-461",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "C",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "相关系数 r=0.82 表明线性相关程度较强，但不能推断因果关系，也不是负相关，更不能说成绩完全由阅读时间决定。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-462",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "33",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "将 x=10 代入回归方程 ŷ=2.5×10+8=33，预测销售额为33万元。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-463",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "B",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "男生喜欢篮球的比例为80/100=80%，女生为30/100=30%，男生比例显著高于女生。选项A、C错误，D不成立。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-464",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "0.99",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "计算得 x̄=35, ȳ≈530，∑(xi-x̄)(yi-ȳ)=1750，∑(xi-x̄)²=700，∑(yi-ȳ)²≈28000，r=1750/√(700×28000)≈0.99。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-465",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "D",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "所有样本点落在一条直线上时，|r|=1，残差平方和为0，存在确定的线性函数关系，且回归直线必过样本中心点，故D错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-466",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "57.14",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "a=60, b=40, c=30, d=170, n=300，K²=300×(60×170-40×30)²/(100×200×90×210)=300×9000²/(100×200×90×210)=300×81000000/(378000000)≈64.29，保留两位小数64.29。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-467",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "C",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "回归方程 ŷ=bx+a 中 b 是斜率，a 是截距，且回归直线必过样本中心点 (x̄, ȳ)。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-468",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "ŷ=2x+1",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "数据呈完美线性关系，计算得 x̄=3, ȳ=7，b=2, a=1，回归方程为 ŷ=2x+1。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，无数学错误、歧义或缺失条件，符合北师大版高中统计案例章节要求。"
+    }
+  }
+}

@@ -1,0 +1,179 @@
+{
+  "batchNumber": 113,
+  "startedAt": "2026-05-27T18:01:31.663Z",
+  "completedAt": "2026-05-27T18:02:01.880Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s3-345",
+    "bnu-junior-ds-v1-s3-346",
+    "bnu-junior-ds-v1-s3-347",
+    "bnu-junior-ds-v1-s3-348",
+    "bnu-junior-ds-v1-s3-349",
+    "bnu-junior-ds-v1-s3-350",
+    "bnu-junior-ds-v1-s3-351",
+    "bnu-junior-ds-v1-s3-352",
+    "bnu-junior-ds-v1-s3-353",
+    "bnu-junior-ds-v1-s3-354",
+    "bnu-junior-ds-v1-s3-355",
+    "bnu-junior-ds-v1-s3-356"
+  ],
+  "usage": {
+    "prompt_tokens": 8005,
+    "completion_tokens": 1893,
+    "total_tokens": 9898,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 7493
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s3-345",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，可解；答案54.6米与计算一致，解释正确，acceptedAnswers覆盖合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-346",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "10米",
+        "rationale": "题目可解，但提供的解释和答案均错误。正确解法：设AB=h，BC=h/tan30°=√3 h，BD=h/tan15°≈h/0.27，CD=BD-BC=20，得h/0.27-√3 h=20，代入√3≈1.73，解得h≈10米。但选项中有10米，答案应为10米，而题目给出的答案也是10米，但解释中计算过程有误（h/0.27-√3 h=20，代入√3≈1.73，得h≈10米，但解释中未给出正确计算步骤，且最终答案10米与选项A一致）。实际上，解释中“h/0.27-√3 h=20，代入√3≈1.73解得h≈10米”是正确的，但解释中未展示详细计算，且答案10米与选项A匹配。然而，题目给出的答案“10米”与选项A一致，但解释中未明确说明选项，且计算过程不完整。但题目本身可解，答案正确，解释基本正确，但解释中未给出详细计算步骤，且未指出选项。但题目要求是审核答案是否匹配，答案10米与选项A匹配，解释正确，因此应pass。但仔细检查：解释中“h/0.27-√3 h=20，代入√3≈1.73解得h≈10米”是正确的，但未给出具体计算，但答案正确。因此，应pass。但之前判断为fail，需重新评估。实际上，题目可解，答案正确，解释正确，应pass。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-347",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，可解；答案10√3米正确，解释中余弦定理应用正确，acceptedAnswers覆盖合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-348",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，可解；答案15(3+√3)米正确，解释中方程建立正确，acceptedAnswers覆盖合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-349",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch"
+        ],
+        "correctedAnswer": "15(3+√3)米",
+        "rationale": "题目可解，但解释中方程错误：应为BC-AC=30，即h - h/√3 = 30，解得h=15(3+√3)米，与选项C一致。但解释中写“BC-AC=30，即h-h/√3=30，解得h=15(3+√3)米”，这是正确的。但题目给出的答案也是15(3+√3)米，与选项C一致。因此，答案匹配，解释正确。但之前判断为fail，需重新评估。实际上，解释正确，答案正确，应pass。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-350",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，可解；答案20(√3+1)米正确，解释中方程建立正确，acceptedAnswers覆盖合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-351",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，可解；答案y=2(x-2)²-3，顶点(2,-3)正确，解释中配方过程正确，acceptedAnswers覆盖合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-352",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，可解；答案直线x=-1正确，解释正确，选项唯一且正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-353",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，可解；答案y=-10x²+1200x-32000，售价60元时最大利润4000元正确，解释中建模和顶点计算正确，acceptedAnswers覆盖合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-354",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，可解；答案4正确，解释中求根和距离计算正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-355",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，可解；答案-1正确，解释中由交点得解析式并求和正确，选项唯一且正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-356",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，可解；答案y=-2x²+20x，0<x<10正确，解释中建模和定义域正确，acceptedAnswers覆盖合理。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 10,
+      "warn": 0,
+      "fail": 2,
+      "notes": "共12题，10题通过，2题失败。失败题：bnu-junior-ds-v1-s3-346和bnu-junior-ds-v1-s3-349，但经复核，两题答案和解释均正确，应通过。"
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-285",
+  "startedAt": "2026-05-28T01:06:58.449Z",
+  "completedAt": "2026-05-28T01:07:05.147Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-285"
+  ],
+  "usage": {
+    "prompt_tokens": 2235,
+    "completion_tokens": 339,
+    "total_tokens": 2574,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1851
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-285",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "(1) y={10, 0≤x≤3; 2.5x+4, x>3}；(2) x=8.4公里",
+        "correctedAnswer": "(1) y={10, 0≤x≤3; 2.5x+4, x>3}；(2) x=8.4公里",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "分段函数表达式错误：x≤3时总费用应为10元，不含燃油附加费0.5x；x>3时表达式正确但答案未简化。解方程得x=8.4公里，非7公里。解析中计算过程与答案矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目存在数学错误和答案不匹配，分段函数定义错误，最终答案错误，解析自相矛盾，判定为阻断性问题。"
+    }
+  }
+}

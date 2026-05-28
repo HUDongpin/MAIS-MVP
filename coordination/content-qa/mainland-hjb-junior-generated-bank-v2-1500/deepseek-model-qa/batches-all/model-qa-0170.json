@@ -1,0 +1,106 @@
+{
+  "batchId": "model-qa-0170",
+  "ids": [
+    "hjb-junior-ds-v2-s3-353",
+    "hjb-junior-ds-v2-s3-354",
+    "hjb-junior-ds-v2-s3-355",
+    "hjb-junior-ds-v2-s3-356",
+    "hjb-junior-ds-v2-s3-357",
+    "hjb-junior-ds-v2-s3-358",
+    "hjb-junior-ds-v2-s3-359",
+    "hjb-junior-ds-v2-s3-360"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-353",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "6 cm",
+      "answerCheckZhHans": "标准答案为6，acceptedAnswers包含6和6 cm，均与独立答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-354",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "8 cm",
+      "answerCheckZhHans": "标准答案为8 cm，acceptedAnswers包含8 cm和8，均与独立答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-355",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "12 cm",
+      "answerCheckZhHans": "标准答案为12 cm，acceptedAnswers包含12 cm，与独立答案一致。选项互异，唯一正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-356",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "独立计算得B点坐标约为(-1.96, 4.60)，不在第一象限。解析中先得(-1.96,4.60)后改为(1.96,4.60)但未说明为何取α-60°，且(1.96,4.60)对应角度约为66.87°，与A点角度53.13°之差为13.74°，并非60°。标准答案(1.96,4.60)与∠AOB=60°矛盾。",
+      "independentAnswerZhHans": "(-1.96, 4.60) 或 (5cos(α-60°), 5sin(α-60°)) ≈ (1.96, -4.60) 均不在第一象限。满足第一象限且∠AOB=60°的点不存在。",
+      "answerCheckZhHans": "标准答案(1.96,4.60)与独立答案不符，且解析存在逻辑矛盾。",
+      "recommendedActionZhHans": "修改题干或答案，确保存在满足条件的点B。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-357",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3 cm，依据垂径定理",
+      "answerCheckZhHans": "标准答案为3 cm，依据垂径定理，acceptedAnswers包含两种格式，均与独立答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-358",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "8 cm",
+      "answerCheckZhHans": "标准答案为8 cm，acceptedAnswers包含8 cm，与独立答案一致。选项互异，唯一正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-359",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "√3",
+      "answerCheckZhHans": "标准答案为√3，acceptedAnswers包含√3和根号3，均与独立答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-360",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "4",
+      "answerCheckZhHans": "标准答案为4，acceptedAnswers包含4，与独立答案一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

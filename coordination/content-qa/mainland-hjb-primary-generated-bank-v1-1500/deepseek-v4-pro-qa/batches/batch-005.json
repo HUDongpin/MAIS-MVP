@@ -1,0 +1,191 @@
+{
+  "batchNumber": 5,
+  "startedAt": "2026-05-25T01:47:27.245Z",
+  "completedAt": "2026-05-25T01:47:46.977Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p1-073",
+    "hjb-primary-ds-v1-p1-074",
+    "hjb-primary-ds-v1-p1-075",
+    "hjb-primary-ds-v1-p1-076",
+    "hjb-primary-ds-v1-p1-077",
+    "hjb-primary-ds-v1-p1-078",
+    "hjb-primary-ds-v1-p1-079",
+    "hjb-primary-ds-v1-p1-080",
+    "hjb-primary-ds-v1-p1-081",
+    "hjb-primary-ds-v1-p1-082",
+    "hjb-primary-ds-v1-p1-083",
+    "hjb-primary-ds-v1-p1-084",
+    "hjb-primary-ds-v1-p1-085",
+    "hjb-primary-ds-v1-p1-086",
+    "hjb-primary-ds-v1-p1-087",
+    "hjb-primary-ds-v1-p1-088",
+    "hjb-primary-ds-v1-p1-089",
+    "hjb-primary-ds-v1-p1-090"
+  ],
+  "usage": {
+    "prompt_tokens": 2929,
+    "completion_tokens": 1329,
+    "total_tokens": 4258,
+    "prompt_tokens_details": {
+      "cached_tokens": 2816
+    },
+    "prompt_cache_hit_tokens": 2816,
+    "prompt_cache_miss_tokens": 113
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p1-073",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，选项唯一正确，符合一年级10以内加法要求。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-074",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "减法应用题，答案正确，接受答案覆盖算式和得数，无歧义。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-075",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "逆向加法题，答案9-3=6正确，符合一年级水平。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-076",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "简单减法，选项唯一正确，无问题。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-077",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "加法填空，答案8正确，接受答案包含单位。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-078",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "逆向减法题，答案7正确，接受答案包含单位。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-079",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选择题，正确选项8-5=3，其他选项干扰合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-080",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数的组成填空，答案16正确，接受中文数字。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-081",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "小棒计数，答案16正确，接受答案包含单位。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-082",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数的组成选择题，选项14唯一正确，无歧义。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-083",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数的分解填空，答案1,7正确，接受多种分隔形式。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-084",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计数器读数，答案15正确，无问题。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-085",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "不退位减法选择题，答案10正确，选项干扰合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-086",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "与083类似，答案1,7正确，无问题。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-087",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "不退位减法，答案11块正确，接受答案包含单位。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-088",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数的大小比较，选项16唯一正确，无歧义。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-089",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数的组成填空，答案16正确，无问题。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-090",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计数器读数，答案14正确，无问题。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合沪教版一年级上学期数学要求，答案正确，表述清晰，无歧义或错误。"
+    }
+  }
+}

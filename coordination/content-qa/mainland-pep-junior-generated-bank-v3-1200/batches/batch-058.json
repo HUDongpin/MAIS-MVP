@@ -1,0 +1,321 @@
+{
+  "batchId": "batch-058",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s2-k07-sa-004",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-triangle-angle-relations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "promptZhHans": "已知多项式 A = 2x^2 + 3x - 5，B = x^2 - 2x + 4。求 A - 2B 的结果，并说明合并同类项时需要注意什么。",
+      "optionsZhHans": [],
+      "answer": "A - 2B = (2x^2 + 3x - 5) - 2(x^2 - 2x + 4) = 2x^2 + 3x - 5 - 2x^2 + 4x - 8 = 7x - 13。合并同类项时要注意系数的符号，尤其是去括号时括号前是负号的情况。",
+      "acceptedAnswers": [
+        "A - 2B = (2x^2 + 3x - 5) - 2(x^2 - 2x + 4) = 2x^2 + 3x - 5 - 2x^2 + 4x - 8 = 7x - 13。合并同类项时要注意系数的符号，尤其是去括号时括号前是负号的情况。",
+        "A - 2B = 7x - 13",
+        "7x - 13",
+        "合并同类项时要注意系数的符号，尤其是去括号时括号前是负号的情况"
+      ],
+      "explanationZhHans": "先计算 2B = 2(x^2 - 2x + 4) = 2x^2 - 4x + 8。然后 A - 2B = (2x^2 + 3x - 5) - (2x^2 - 4x + 8) = 2x^2 + 3x - 5 - 2x^2 + 4x - 8 = (2x^2 - 2x^2) + (3x + 4x) + (-5 - 8) = 7x - 13。合并同类项时要注意系数的符号，尤其是去括号时括号前是负号的情况，各项符号要变号。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-sa-005",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-congruence-proof"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "promptZhHans": "因式分解：3a^2b - 6ab^2 + 9ab。请写出分解过程并指出用了哪种因式分解的方法。",
+      "optionsZhHans": [],
+      "answer": "原式 = 3ab(a - 2b + 3)，用的是提公因式法。",
+      "acceptedAnswers": [
+        "原式 = 3ab(a - 2b + 3)，用的是提公因式法。",
+        "3ab(a - 2b + 3)",
+        "提公因式法",
+        "3ab(a - 2b + 3)，用的是提公因式法"
+      ],
+      "explanationZhHans": "观察多项式 3a^2b - 6ab^2 + 9ab，各项系数 3、-6、9 的最大公约数是 3，各项都含有字母因式 a 和 b，最低次幂分别是 a 和 b，所以公因式为 3ab。提取公因式 3ab 后，剩余因式为 a - 2b + 3，因此原式 = 3ab(a - 2b + 3)。用的是提公因式法。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-sa-006",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-axis-symmetry-isosceles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean"
+      ],
+      "promptZhHans": "化简分式：\\(\\frac{x^2 - 9}{x^2 - 6x + 9}\\)，并写出化简过程中分母的限制条件。",
+      "optionsZhHans": [],
+      "answer": "化简得 \\(\\frac{x+3}{x-3}\\)，其中 x ≠ 3。",
+      "acceptedAnswers": [
+        "化简得 \\(\\frac{x+3}{x-3}\\)，其中 x ≠ 3。",
+        "\\(\\frac{x+3}{x-3}\\)，x ≠ 3",
+        "x ≠ 3，\\(\\frac{x+3}{x-3}\\)",
+        "\\(\\frac{x+3}{x-3}\\) (x ≠ 3)"
+      ],
+      "explanationZhHans": "分子 x^2 - 9 = (x+3)(x-3)，分母 x^2 - 6x + 9 = (x-3)^2。原式 = \\(\\frac{(x+3)(x-3)}{(x-3)^2}\\)。约分时，分母不能为零，所以 x-3 ≠ 0，即 x ≠ 3。约去公因式 (x-3) 得 \\(\\frac{x+3}{x-3}\\)。因此化简得 \\(\\frac{x+3}{x-3}\\)，其中 x ≠ 3。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-sa-007",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-polynomial-multiplication-factorization"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "计算：(2x + 1)(x - 3) - (x - 2)^2。请写出展开和化简的过程。",
+      "optionsZhHans": [],
+      "answer": "原式 = (2x^2 - 6x + x - 3) - (x^2 - 4x + 4) = 2x^2 - 5x - 3 - x^2 + 4x - 4 = x^2 - x - 7。",
+      "acceptedAnswers": [
+        "原式 = (2x^2 - 6x + x - 3) - (x^2 - 4x + 4) = 2x^2 - 5x - 3 - x^2 + 4x - 4 = x^2 - x - 7。",
+        "x^2 - x - 7",
+        "原式 = x^2 - x - 7"
+      ],
+      "explanationZhHans": "先计算 (2x+1)(x-3) = 2x·x + 2x·(-3) + 1·x + 1·(-3) = 2x^2 - 6x + x - 3 = 2x^2 - 5x - 3。再计算 (x-2)^2 = x^2 - 4x + 4。然后相减：(2x^2 - 5x - 3) - (x^2 - 4x + 4) = 2x^2 - 5x - 3 - x^2 + 4x - 4 = (2x^2 - x^2) + (-5x + 4x) + (-3 - 4) = x^2 - x - 7。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-sa-008",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-algebraic-fractions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "解分式方程：\\(\\frac{3}{x-2} = \\frac{1}{x} + 1\\)。请写出求解过程并检验根。",
+      "optionsZhHans": [],
+      "answer": "方程两边乘 x(x-2) 得：3x = (x-2) + x(x-2)，整理得 x^2 - 4x + 2 = 0，解得 x = 2 ± √2。经检验，x = 2 ± √2 均不为 0 和 2，所以原方程的解为 x = 2 + √2 和 x = 2 - √2。",
+      "acceptedAnswers": [
+        "方程两边乘 x(x-2) 得：3x = (x-2) + x(x-2)，整理得 x^2 - 4x + 2 = 0，解得 x = 2 ± √2。经检验，x = 2 ± √2 均不为 0 和 2，所以原方程的解为 x = 2 + √2 和 x = 2 - √2。",
+        "x = 2 + √2 和 x = 2 - √2",
+        "x = 2 ± √2",
+        "x = 2 + √2, x = 2 - √2"
+      ],
+      "explanationZhHans": "分母 x-2 和 x 不能为零，所以 x ≠ 2 且 x ≠ 0。方程两边同乘最简公分母 x(x-2)：3·x = 1·(x-2) + 1·x(x-2)，得 3x = x - 2 + x^2 - 2x，移项合并得 x^2 - 4x + 2 = 0。用求根公式解得 x = 2 ± √2。检验：当 x = 2 + √2 时，x-2 = √2 ≠ 0，x ≠ 0，分母不为零；当 x = 2 - √2 时，x-2 = -√2 ≠ 0，x ≠ 0，分母也不为零。所以原方程的解为 x = 2 + √2 和 x = 2 - √2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-sa-009",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "先化简，再求值：\\(\\frac{a^2 - 4}{a^2 - 4a + 4} \\div \\frac{a + 2}{a - 2}\\)，其中 a = 2023。请写出化简步骤和代入结果。",
+      "optionsZhHans": [],
+      "answer": "化简得 1，代入 a = 2023 后值为 1。",
+      "acceptedAnswers": [
+        "化简得 1，代入 a = 2023 后值为 1。",
+        "1",
+        "化简得 1，值为 1"
+      ],
+      "explanationZhHans": "原式 = \\(\\frac{a^2 - 4}{a^2 - 4a + 4} \\cdot \\frac{a - 2}{a + 2}\\)。分子 a^2 - 4 = (a+2)(a-2)，分母 a^2 - 4a + 4 = (a-2)^2。所以原式 = \\(\\frac{(a+2)(a-2)}{(a-2)^2} \\cdot \\frac{a-2}{a+2} = \\frac{a+2}{a-2} \\cdot \\frac{a-2}{a+2} = 1\\)。注意 a ≠ 2 且 a ≠ -2，而 a = 2023 满足条件，所以代入后值为 1。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-sa-010",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-triangle-angle-relations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-proof-calculation-integrated"
+      ],
+      "promptZhHans": "已知长方形的面积为 (2x^2 + 5x - 3) 平方米，其中一边长为 (x + 3) 米，求另一边的长。请写出计算过程。",
+      "optionsZhHans": [],
+      "answer": "另一边长为 (2x - 1) 米。",
+      "acceptedAnswers": [
+        "另一边长为 (2x - 1) 米。",
+        "2x - 1",
+        "(2x - 1) 米",
+        "2x - 1 米"
+      ],
+      "explanationZhHans": "长方形面积 = 长 × 宽，所以另一边长 = 面积 ÷ 已知边长 = (2x^2 + 5x - 3) ÷ (x + 3)。对多项式 2x^2 + 5x - 3 进行因式分解：2x^2 + 5x - 3 = (2x - 1)(x + 3)。因此另一边长为 (2x - 1) 米。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-sa-011",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-congruence-proof"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions"
+      ],
+      "promptZhHans": "因式分解：x^4 - 16。请写出分解过程并指出最终结果。",
+      "optionsZhHans": [],
+      "answer": "x^4 - 16 = (x^2 + 4)(x + 2)(x - 2)。",
+      "acceptedAnswers": [
+        "x^4 - 16 = (x^2 + 4)(x + 2)(x - 2)。",
+        "(x^2 + 4)(x + 2)(x - 2)",
+        "x^4 - 16 = (x^2 + 4)(x + 2)(x - 2)"
+      ],
+      "explanationZhHans": "x^4 - 16 可看作 (x^2)^2 - 4^2，先用平方差公式：x^4 - 16 = (x^2 + 4)(x^2 - 4)。其中 x^2 - 4 还可继续分解为 (x + 2)(x - 2)，而 x^2 + 4 在实数范围内不能再分解。所以最终结果为 x^4 - 16 = (x^2 + 4)(x + 2)(x - 2)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-sa-012",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-axis-symmetry-isosceles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "计算：\\(\\frac{2x}{x^2 - 1} - \\frac{1}{x - 1}\\)。请写出通分和化简的过程。",
+      "optionsZhHans": [],
+      "answer": "原式 = \\(\\frac{2x}{(x+1)(x-1)} - \\frac{x+1}{(x+1)(x-1)} = \\frac{2x - (x+1)}{(x+1)(x-1)} = \\frac{x - 1}{(x+1)(x-1)} = \\frac{1}{x+1}\\)，其中 x ≠ ±1。",
+      "acceptedAnswers": [
+        "原式 = \\(\\frac{2x}{(x+1)(x-1)} - \\frac{x+1}{(x+1)(x-1)} = \\frac{2x - (x+1)}{(x+1)(x-1)} = \\frac{x - 1}{(x+1)(x-1)} = \\frac{1}{x+1}\\)，其中 x ≠ ±1。",
+        "\\(\\frac{1}{x+1}\\)，x ≠ ±1",
+        "\\(\\frac{1}{x+1}\\) (x ≠ ±1)",
+        "1/(x+1)，x ≠ ±1"
+      ],
+      "explanationZhHans": "分母 x^2 - 1 = (x+1)(x-1)，所以最简公分母为 (x+1)(x-1)。将第二个分式分子分母同乘 (x+1)：\\(\\frac{1}{x-1} = \\frac{x+1}{(x+1)(x-1)}\\)。原式 = \\(\\frac{2x}{(x+1)(x-1)} - \\frac{x+1}{(x+1)(x-1)} = \\frac{2x - (x+1)}{(x+1)(x-1)} = \\frac{x - 1}{(x+1)(x-1)}\\)。约去公因式 (x-1)，得 \\(\\frac{1}{x+1}\\)。注意分母不能为零，所以 x ≠ 1 且 x ≠ -1，即 x ≠ ±1。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-sa-013",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-polynomial-multiplication-factorization"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "已知 a + b = 5，ab = 3，求 a^2 + b^2 的值。请写出推导过程。",
+      "optionsZhHans": [],
+      "answer": "a^2 + b^2 = (a + b)^2 - 2ab = 5^2 - 2×3 = 25 - 6 = 19。",
+      "acceptedAnswers": [
+        "a^2 + b^2 = (a + b)^2 - 2ab = 5^2 - 2×3 = 25 - 6 = 19。",
+        "19",
+        "a^2 + b^2 = 19"
+      ],
+      "explanationZhHans": "利用完全平方公式 (a + b)^2 = a^2 + 2ab + b^2，可得 a^2 + b^2 = (a + b)^2 - 2ab。将 a + b = 5，ab = 3 代入，得 a^2 + b^2 = 5^2 - 2×3 = 25 - 6 = 19。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

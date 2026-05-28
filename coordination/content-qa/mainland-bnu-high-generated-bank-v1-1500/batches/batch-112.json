@@ -1,0 +1,685 @@
+{
+  "batchId": "batch-112",
+  "questions": [
+    {
+      "id": "bnu-high-ds-v1-s6-111",
+      "batch": "bnu-high-v1",
+      "grade": "S6",
+      "semester": "upper",
+      "topicId": "bnu-high-s6-数列",
+      "topicTitleZhHans": "数列",
+      "volume": "选择性必修 第二册",
+      "chapter": "数列",
+      "conceptIds": [
+        "sequences",
+        "arithmetic-sequences",
+        "geometric-sequences",
+        "recurrence",
+        "series-sums",
+        "mathematical-induction"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "逻辑推理",
+        "数学运算",
+        "数学建模"
+      ],
+      "skillTags": [
+        "等差等比识别",
+        "递推关系转化",
+        "通项公式求解",
+        "前n项和求解",
+        "单元综合检查",
+        "通项公式",
+        "递推关系",
+        "求和"
+      ],
+      "misconceptionTags": [
+        "term index off by one",
+        "arithmetic and geometric structures confused",
+        "recurrence condition incomplete",
+        "induction step assumes the conclusion",
+        "sequence type inferred from one term gap",
+        "initial index shifted",
+        "common ratio sign ignored",
+        "summation formula used outside conditions"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s6-selective-2-sequences"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s6-assessment-sequences-unit-core",
+        "bnu-high-s6-assessment-sequences-foundation-review",
+        "bnu-high-s6-assessment-sequences-general-term-topic"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知数列 {a_n} 满足 a_1 = 2，且对任意正整数 n，有 a_{n+1} = 2a_n + 3^n。设 b_n = a_n - 3^n，证明数列 {b_n} 是等比数列，并求 a_n 的通项公式。",
+      "optionsZhHans": [],
+      "answer": "a_n = 3^n - 2^{n-1}",
+      "acceptedAnswers": [
+        "a_n = 3^n - 2^{n-1}",
+        "a_n = 3^n - 2^(n-1)"
+      ],
+      "explanationZhHans": "由 b_n = a_n - 3^n，代入递推得 b_{n+1} = 2b_n，且 b_1 = -1，故 {b_n} 是公比为2的等比数列，b_n = -2^{n-1}，所以 a_n = 3^n - 2^{n-1}。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s6-112",
+      "batch": "bnu-high-v1",
+      "grade": "S6",
+      "semester": "upper",
+      "topicId": "bnu-high-s6-数列",
+      "topicTitleZhHans": "数列",
+      "volume": "选择性必修 第二册",
+      "chapter": "数列",
+      "conceptIds": [
+        "sequences",
+        "arithmetic-sequences",
+        "geometric-sequences",
+        "recurrence",
+        "series-sums",
+        "mathematical-induction"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "逻辑推理",
+        "数学运算",
+        "数学建模"
+      ],
+      "skillTags": [
+        "等差等比识别",
+        "递推关系转化",
+        "通项公式求解",
+        "前n项和求解",
+        "单元综合检查",
+        "通项公式",
+        "递推关系",
+        "求和"
+      ],
+      "misconceptionTags": [
+        "term index off by one",
+        "arithmetic and geometric structures confused",
+        "recurrence condition incomplete",
+        "induction step assumes the conclusion",
+        "sequence type inferred from one term gap",
+        "initial index shifted",
+        "common ratio sign ignored",
+        "summation formula used outside conditions"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s6-selective-2-sequences"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s6-assessment-sequences-unit-core",
+        "bnu-high-s6-assessment-sequences-foundation-review",
+        "bnu-high-s6-assessment-sequences-general-term-topic"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在等差数列 {a_n} 中，已知 a_3 + a_7 = 20，a_5 = 12，则 a_1 等于（ ）。",
+      "optionsZhHans": [
+        "2",
+        "4",
+        "6",
+        "8"
+      ],
+      "answer": "4",
+      "acceptedAnswers": [
+        "4"
+      ],
+      "explanationZhHans": "由等差数列性质，a_3 + a_7 = 2a_5 = 20，得 a_5 = 10，与已知矛盾，故需重新计算。设公差为d，a_3 = a_1 + 2d，a_7 = a_1 + 6d，相加得 2a_1 + 8d = 20，又 a_5 = a_1 + 4d = 12，解得 a_1 = 4。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s6-113",
+      "batch": "bnu-high-v1",
+      "grade": "S6",
+      "semester": "upper",
+      "topicId": "bnu-high-s6-数列",
+      "topicTitleZhHans": "数列",
+      "volume": "选择性必修 第二册",
+      "chapter": "数列",
+      "conceptIds": [
+        "sequences",
+        "arithmetic-sequences",
+        "geometric-sequences",
+        "recurrence",
+        "series-sums",
+        "mathematical-induction"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "逻辑推理",
+        "数学运算",
+        "数学建模"
+      ],
+      "skillTags": [
+        "等差等比识别",
+        "递推关系转化",
+        "通项公式求解",
+        "前n项和求解",
+        "单元综合检查",
+        "通项公式",
+        "递推关系",
+        "求和"
+      ],
+      "misconceptionTags": [
+        "term index off by one",
+        "arithmetic and geometric structures confused",
+        "recurrence condition incomplete",
+        "induction step assumes the conclusion",
+        "sequence type inferred from one term gap",
+        "initial index shifted",
+        "common ratio sign ignored",
+        "summation formula used outside conditions"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s6-selective-2-sequences"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s6-assessment-sequences-unit-core",
+        "bnu-high-s6-assessment-sequences-foundation-review",
+        "bnu-high-s6-assessment-sequences-gaokao-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知数列 {a_n} 的前 n 项和为 S_n = n^2 + 2n。求 a_n 的通项公式，并判断该数列是否为等差数列。",
+      "optionsZhHans": [],
+      "answer": "a_n = 2n + 1，是等差数列",
+      "acceptedAnswers": [
+        "a_n = 2n + 1，是等差数列",
+        "a_n=2n+1，是等差数列"
+      ],
+      "explanationZhHans": "当 n=1 时，a_1 = S_1 = 3；当 n≥2 时，a_n = S_n - S_{n-1} = 2n+1，对 n=1 也成立。故 a_n = 2n+1，a_{n+1} - a_n = 2，为等差数列。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s6-114",
+      "batch": "bnu-high-v1",
+      "grade": "S6",
+      "semester": "upper",
+      "topicId": "bnu-high-s6-数列",
+      "topicTitleZhHans": "数列",
+      "volume": "选择性必修 第二册",
+      "chapter": "数列",
+      "conceptIds": [
+        "sequences",
+        "arithmetic-sequences",
+        "geometric-sequences",
+        "recurrence",
+        "series-sums",
+        "mathematical-induction"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "逻辑推理",
+        "数学运算",
+        "数学建模"
+      ],
+      "skillTags": [
+        "等差等比识别",
+        "递推关系转化",
+        "通项公式求解",
+        "前n项和求解",
+        "单元综合检查",
+        "通项公式",
+        "递推关系",
+        "求和"
+      ],
+      "misconceptionTags": [
+        "term index off by one",
+        "arithmetic and geometric structures confused",
+        "recurrence condition incomplete",
+        "induction step assumes the conclusion",
+        "sequence type inferred from one term gap",
+        "initial index shifted",
+        "common ratio sign ignored",
+        "summation formula used outside conditions"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s6-selective-2-sequences"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s6-assessment-sequences-unit-core",
+        "bnu-high-s6-assessment-sequences-foundation-review",
+        "bnu-high-s6-assessment-sequences-general-term-topic"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在等比数列 {a_n} 中，a_1 = 3，公比 q = -2，则 a_4 的值为______。",
+      "optionsZhHans": [],
+      "answer": "-24",
+      "acceptedAnswers": [
+        "-24"
+      ],
+      "explanationZhHans": "由等比数列通项公式 a_n = a_1 q^{n-1}，得 a_4 = 3 × (-2)^3 = 3 × (-8) = -24。注意公比为负，奇次幂为负。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s6-115",
+      "batch": "bnu-high-v1",
+      "grade": "S6",
+      "semester": "upper",
+      "topicId": "bnu-high-s6-数列",
+      "topicTitleZhHans": "数列",
+      "volume": "选择性必修 第二册",
+      "chapter": "数列",
+      "conceptIds": [
+        "sequences",
+        "arithmetic-sequences",
+        "geometric-sequences",
+        "recurrence",
+        "series-sums",
+        "mathematical-induction"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "逻辑推理",
+        "数学运算",
+        "数学建模"
+      ],
+      "skillTags": [
+        "等差等比识别",
+        "递推关系转化",
+        "通项公式求解",
+        "前n项和求解",
+        "单元综合检查",
+        "通项公式",
+        "递推关系",
+        "求和"
+      ],
+      "misconceptionTags": [
+        "term index off by one",
+        "arithmetic and geometric structures confused",
+        "recurrence condition incomplete",
+        "induction step assumes the conclusion",
+        "sequence type inferred from one term gap",
+        "initial index shifted",
+        "common ratio sign ignored",
+        "summation formula used outside conditions"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s6-selective-2-sequences"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s6-assessment-sequences-unit-core",
+        "bnu-high-s6-assessment-sequences-foundation-review",
+        "bnu-high-s6-assessment-sequences-general-term-topic"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知数列 {a_n} 满足 a_1 = 1，a_{n+1} = a_n + 2n + 1，则 a_{10} 的值为（ ）。",
+      "optionsZhHans": [
+        "100",
+        "121",
+        "144",
+        "169"
+      ],
+      "answer": "100",
+      "acceptedAnswers": [
+        "100"
+      ],
+      "explanationZhHans": "由递推式得 a_{n+1} - a_n = 2n+1，利用累加法：a_n = a_1 + Σ_{k=1}^{n-1} (2k+1) = 1 + (n-1)n + (n-1) = n^2，故 a_{10} = 100。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s6-116",
+      "batch": "bnu-high-v1",
+      "grade": "S6",
+      "semester": "upper",
+      "topicId": "bnu-high-s6-数列",
+      "topicTitleZhHans": "数列",
+      "volume": "选择性必修 第二册",
+      "chapter": "数列",
+      "conceptIds": [
+        "sequences",
+        "arithmetic-sequences",
+        "geometric-sequences",
+        "recurrence",
+        "series-sums",
+        "mathematical-induction"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "逻辑推理",
+        "数学运算",
+        "数学建模"
+      ],
+      "skillTags": [
+        "等差等比识别",
+        "递推关系转化",
+        "通项公式求解",
+        "前n项和求解",
+        "单元综合检查",
+        "通项公式",
+        "递推关系",
+        "求和"
+      ],
+      "misconceptionTags": [
+        "term index off by one",
+        "arithmetic and geometric structures confused",
+        "recurrence condition incomplete",
+        "induction step assumes the conclusion",
+        "sequence type inferred from one term gap",
+        "initial index shifted",
+        "common ratio sign ignored",
+        "summation formula used outside conditions"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s6-selective-2-sequences"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s6-assessment-sequences-unit-core",
+        "bnu-high-s6-assessment-sequences-foundation-review",
+        "bnu-high-s6-assessment-sequences-general-term-topic"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知数列 {a_n} 满足 a_1 = 1，a_{n+1} = 3a_n + 2，求 a_n 的通项公式。",
+      "optionsZhHans": [],
+      "answer": "a_n = 2·3^{n-1} - 1",
+      "acceptedAnswers": [
+        "a_n = 2·3^{n-1} - 1",
+        "a_n = 2*3^(n-1) - 1"
+      ],
+      "explanationZhHans": "构造等比数列：设 a_{n+1} + λ = 3(a_n + λ)，解得 λ=1，故 {a_n+1} 是首项为2、公比为3的等比数列，a_n+1 = 2·3^{n-1}，得 a_n = 2·3^{n-1} - 1。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s6-117",
+      "batch": "bnu-high-v1",
+      "grade": "S6",
+      "semester": "upper",
+      "topicId": "bnu-high-s6-数列",
+      "topicTitleZhHans": "数列",
+      "volume": "选择性必修 第二册",
+      "chapter": "数列",
+      "conceptIds": [
+        "sequences",
+        "arithmetic-sequences",
+        "geometric-sequences",
+        "recurrence",
+        "series-sums",
+        "mathematical-induction"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "逻辑推理",
+        "数学运算",
+        "数学建模"
+      ],
+      "skillTags": [
+        "等差等比识别",
+        "递推关系转化",
+        "通项公式求解",
+        "前n项和求解",
+        "单元综合检查",
+        "通项公式",
+        "递推关系",
+        "求和"
+      ],
+      "misconceptionTags": [
+        "term index off by one",
+        "arithmetic and geometric structures confused",
+        "recurrence condition incomplete",
+        "induction step assumes the conclusion",
+        "sequence type inferred from one term gap",
+        "initial index shifted",
+        "common ratio sign ignored",
+        "summation formula used outside conditions"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s6-selective-2-sequences"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s6-assessment-sequences-unit-core",
+        "bnu-high-s6-assessment-sequences-foundation-review",
+        "bnu-high-s6-assessment-sequences-gaokao-review"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知等差数列 {a_n} 的前 n 项和为 S_n，且 S_5 = 25，S_10 = 100，则公差 d = ______。",
+      "optionsZhHans": [],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2"
+      ],
+      "explanationZhHans": "由等差数列求和公式 S_n = n a_1 + n(n-1)d/2，代入 S_5 和 S_10 得方程组：5a_1+10d=25，10a_1+45d=100，解得 d=2。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s6-118",
+      "batch": "bnu-high-v1",
+      "grade": "S6",
+      "semester": "upper",
+      "topicId": "bnu-high-s6-数列",
+      "topicTitleZhHans": "数列",
+      "volume": "选择性必修 第二册",
+      "chapter": "数列",
+      "conceptIds": [
+        "sequences",
+        "arithmetic-sequences",
+        "geometric-sequences",
+        "recurrence",
+        "series-sums",
+        "mathematical-induction"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "逻辑推理",
+        "数学运算",
+        "数学建模"
+      ],
+      "skillTags": [
+        "等差等比识别",
+        "递推关系转化",
+        "通项公式求解",
+        "前n项和求解",
+        "单元综合检查",
+        "通项公式",
+        "递推关系",
+        "求和"
+      ],
+      "misconceptionTags": [
+        "term index off by one",
+        "arithmetic and geometric structures confused",
+        "recurrence condition incomplete",
+        "induction step assumes the conclusion",
+        "sequence type inferred from one term gap",
+        "initial index shifted",
+        "common ratio sign ignored",
+        "summation formula used outside conditions"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-high-s6-selective-2-sequences"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s6-assessment-sequences-unit-core",
+        "bnu-high-s6-assessment-sequences-foundation-review",
+        "bnu-high-s6-assessment-sequences-general-term-topic"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知数列 {a_n} 的通项公式为 a_n = 2^n + n，则其前 n 项和 S_n 等于（ ）。",
+      "optionsZhHans": [
+        "2^{n+1} + n(n+1)/2 - 2",
+        "2^{n+1} + n(n+1)/2 - 1",
+        "2^{n+1} + n(n+1)/2",
+        "2^{n+1} + n(n+1)/2 + 1"
+      ],
+      "answer": "2^{n+1} + n(n+1)/2 - 2",
+      "acceptedAnswers": [
+        "2^{n+1} + n(n+1)/2 - 2"
+      ],
+      "explanationZhHans": "分组求和：S_n = Σ(2^k) + Σk = (2^{n+1} - 2) + n(n+1)/2 = 2^{n+1} + n(n+1)/2 - 2。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s6-119",
+      "batch": "bnu-high-v1",
+      "grade": "S6",
+      "semester": "upper",
+      "topicId": "bnu-high-s6-数列",
+      "topicTitleZhHans": "数列",
+      "volume": "选择性必修 第二册",
+      "chapter": "数列",
+      "conceptIds": [
+        "sequences",
+        "arithmetic-sequences",
+        "geometric-sequences",
+        "recurrence",
+        "series-sums",
+        "mathematical-induction"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "逻辑推理",
+        "数学运算",
+        "数学建模"
+      ],
+      "skillTags": [
+        "等差等比识别",
+        "递推关系转化",
+        "通项公式求解",
+        "前n项和求解",
+        "单元综合检查",
+        "通项公式",
+        "递推关系",
+        "求和"
+      ],
+      "misconceptionTags": [
+        "term index off by one",
+        "arithmetic and geometric structures confused",
+        "recurrence condition incomplete",
+        "induction step assumes the conclusion",
+        "sequence type inferred from one term gap",
+        "initial index shifted",
+        "common ratio sign ignored",
+        "summation formula used outside conditions"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-high-s6-selective-2-sequences"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s6-assessment-sequences-unit-core",
+        "bnu-high-s6-assessment-sequences-foundation-review",
+        "bnu-high-s6-assessment-sequences-general-term-topic"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知数列 {a_n} 满足 a_1 = 1，a_{n+1} = a_n / (2a_n + 1)，求 a_n 的通项公式。",
+      "optionsZhHans": [],
+      "answer": "a_n = 1/(2n - 1)",
+      "acceptedAnswers": [
+        "a_n = 1/(2n - 1)",
+        "a_n = 1/(2n-1)"
+      ],
+      "explanationZhHans": "取倒数得 1/a_{n+1} = 1/a_n + 2，故 {1/a_n} 是公差为2的等差数列，1/a_n = 1 + 2(n-1) = 2n-1，所以 a_n = 1/(2n-1)。"
+    },
+    {
+      "id": "bnu-high-ds-v1-s6-120",
+      "batch": "bnu-high-v1",
+      "grade": "S6",
+      "semester": "upper",
+      "topicId": "bnu-high-s6-数列",
+      "topicTitleZhHans": "数列",
+      "volume": "选择性必修 第二册",
+      "chapter": "数列",
+      "conceptIds": [
+        "sequences",
+        "arithmetic-sequences",
+        "geometric-sequences",
+        "recurrence",
+        "series-sums",
+        "mathematical-induction"
+      ],
+      "competencyTags": [
+        "数学抽象",
+        "逻辑推理",
+        "数学运算",
+        "数学建模"
+      ],
+      "skillTags": [
+        "等差等比识别",
+        "递推关系转化",
+        "通项公式求解",
+        "前n项和求解",
+        "单元综合检查",
+        "通项公式",
+        "递推关系",
+        "求和"
+      ],
+      "misconceptionTags": [
+        "term index off by one",
+        "arithmetic and geometric structures confused",
+        "recurrence condition incomplete",
+        "induction step assumes the conclusion",
+        "sequence type inferred from one term gap",
+        "initial index shifted",
+        "common ratio sign ignored",
+        "summation formula used outside conditions"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-high-s6-selective-2-sequences"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-high-s6-assessment-sequences-unit-core",
+        "bnu-high-s6-assessment-sequences-foundation-review",
+        "bnu-high-s6-assessment-sequences-general-term-topic"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU high-school safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知等比数列 {a_n} 的前 n 项和为 S_n，若 a_1 = 2，S_3 = 14，则公比 q = ______。",
+      "optionsZhHans": [],
+      "answer": "2 或 -3",
+      "acceptedAnswers": [
+        "2 或 -3",
+        "2或-3"
+      ],
+      "explanationZhHans": "由 S_3 = a_1(1 - q^3)/(1 - q) = 14，代入 a_1=2 得 (1 - q^3)/(1 - q) = 7，化简得 q^2 + q - 6 = 0，解得 q = 2 或 q = -3。"
+    }
+  ]
+}

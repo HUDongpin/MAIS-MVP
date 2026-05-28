@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-051",
+  "startedAt": "2026-05-28T01:38:40.254Z",
+  "completedAt": "2026-05-28T01:38:45.561Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-051"
+  ],
+  "usage": {
+    "prompt_tokens": 3529,
+    "completion_tokens": 306,
+    "total_tokens": 3835,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 3145
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-051",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "b_n = 3 - 2·(2/3)^{n-1}",
+        "correctedAnswer": "b_n = 3 - 2·(2/3)^{n-1}",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，符合BNU数列章节范围。独立求解得b_n=3-2·(2/3)^{n-1}，而存储答案b_n=n错误，解析推导过程有误且自相矛盾，导致答案不匹配。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1道填空题答案错误，解析推导矛盾，需修正为b_n=3-2·(2/3)^{n-1}。"
+    }
+  }
+}

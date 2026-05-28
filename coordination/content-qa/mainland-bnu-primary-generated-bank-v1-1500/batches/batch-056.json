@@ -1,0 +1,576 @@
+{
+  "batchId": "batch-056",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p3-051",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-multiplication-division-fluency",
+      "unitTitle": "乘与除",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "multiplication-division-relationships",
+        "fact-fluency",
+        "mental-calculation",
+        "乘与除",
+        "乘除关系"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "推理意识"
+      ],
+      "skillTags": [
+        "口算乘除",
+        "乘除互逆",
+        "倍数关系",
+        "估算",
+        "应用题建模"
+      ],
+      "misconceptionTags": [
+        "division treated only as sharing",
+        "factor and product roles confused",
+        "inverse check not connected to the story"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-multiplication-division-fluency"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小雅在计算一道除法题时，把被除数看成了它的3倍，除数不变，得到的商是27。正确的商是多少？请写出你的思考过程。",
+      "optionsZhHans": [],
+      "answer": "9",
+      "acceptedAnswers": [
+        "9"
+      ],
+      "explanationZhHans": "被除数变成原来的3倍，除数不变，商也变成原来的3倍。所以正确的商是27÷3=9。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-052",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-multiplication-division-fluency",
+      "unitTitle": "乘与除",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "multiplication-division-relationships",
+        "fact-fluency",
+        "mental-calculation",
+        "乘与除",
+        "乘除关系"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "推理意识"
+      ],
+      "skillTags": [
+        "口算乘除",
+        "乘除互逆",
+        "倍数关系",
+        "估算",
+        "应用题建模"
+      ],
+      "misconceptionTags": [
+        "division treated only as sharing",
+        "factor and product roles confused",
+        "inverse check not connected to the story"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-multiplication-division-fluency"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校买来一些跳绳，每班分8根，正好可以分给6个班。如果每班分6根，可以分给几个班？",
+      "optionsZhHans": [
+        "6个班",
+        "7个班",
+        "8个班",
+        "9个班"
+      ],
+      "answer": "8个班",
+      "acceptedAnswers": [
+        "8个班"
+      ],
+      "explanationZhHans": "先求跳绳总数：8×6=48（根）。再求每班分6根时的班数：48÷6=8（个）。所以可以分给8个班。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-053",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-multiplication-division-fluency",
+      "unitTitle": "乘与除",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "multiplication-division-relationships",
+        "fact-fluency",
+        "mental-calculation",
+        "乘与除",
+        "乘除关系"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "推理意识"
+      ],
+      "skillTags": [
+        "口算乘除",
+        "乘除互逆",
+        "倍数关系",
+        "估算",
+        "应用题建模"
+      ],
+      "misconceptionTags": [
+        "division treated only as sharing",
+        "factor and product roles confused",
+        "inverse check not connected to the story"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-multiplication-division-fluency"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校买来一些跳绳，每根跳绳长2米。体育老师把这些跳绳首尾相接连成一条长绳，正好是24米。体育老师一共用了多少根跳绳？",
+      "optionsZhHans": [],
+      "answer": "12根",
+      "acceptedAnswers": [
+        "12根",
+        "12"
+      ],
+      "explanationZhHans": "已知总长度24米，每根跳绳长2米，求跳绳根数，用除法：24 ÷ 2 = 12（根）。也可以用乘法检验：12 × 2 = 24，符合题意。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-054",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-multiplication-division-fluency",
+      "unitTitle": "乘与除",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "multiplication-division-relationships",
+        "fact-fluency",
+        "mental-calculation",
+        "乘与除",
+        "乘除关系"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "推理意识"
+      ],
+      "skillTags": [
+        "口算乘除",
+        "乘除互逆",
+        "倍数关系",
+        "估算",
+        "应用题建模"
+      ],
+      "misconceptionTags": [
+        "division treated only as sharing",
+        "factor and product roles confused",
+        "inverse check not connected to the story"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-multiplication-division-fluency"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "体育课上，李老师把一些跳绳平均分给4个小组，每个小组分到12根，还剩下3根。李老师原来有多少根跳绳？",
+      "optionsZhHans": [],
+      "answer": "51根",
+      "acceptedAnswers": [
+        "51根",
+        "51"
+      ],
+      "explanationZhHans": "先用乘法求分出的跳绳：4×12=48（根），再加上剩下的3根：48+3=51（根）。所以李老师原来有51根跳绳。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-055",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-multiplication-division-fluency",
+      "unitTitle": "乘与除",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "multiplication-division-relationships",
+        "fact-fluency",
+        "mental-calculation",
+        "乘与除",
+        "乘除关系"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "推理意识"
+      ],
+      "skillTags": [
+        "口算乘除",
+        "乘除互逆",
+        "倍数关系",
+        "估算",
+        "应用题建模"
+      ],
+      "misconceptionTags": [
+        "division treated only as sharing",
+        "factor and product roles confused",
+        "inverse check not connected to the story"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-multiplication-division-fluency"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "李老师把48本练习本平均分给6个小组，每个小组分到多少本？下面哪个算式可以正确解决这个问题？",
+      "optionsZhHans": [
+        "48 × 6",
+        "48 ÷ 6",
+        "48 + 6",
+        "48 - 6"
+      ],
+      "answer": "48 ÷ 6",
+      "acceptedAnswers": [
+        "48 ÷ 6"
+      ],
+      "explanationZhHans": "把48本平均分给6个小组，求每份是多少，用除法计算。48 ÷ 6 = 8（本），所以选择48 ÷ 6。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-056",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-multiplication-division-fluency",
+      "unitTitle": "乘与除",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "multiplication-division-relationships",
+        "fact-fluency",
+        "mental-calculation",
+        "乘与除",
+        "乘除关系"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "推理意识"
+      ],
+      "skillTags": [
+        "口算乘除",
+        "乘除互逆",
+        "倍数关系",
+        "估算",
+        "应用题建模"
+      ],
+      "misconceptionTags": [
+        "division treated only as sharing",
+        "factor and product roles confused",
+        "inverse check not connected to the story"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-multiplication-division-fluency"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆买来一些新书，每班分到8本，正好分给6个班。如果把这些书平均分给4个班，每班能分到多少本？",
+      "optionsZhHans": [],
+      "answer": "12本",
+      "acceptedAnswers": [
+        "12本",
+        "12"
+      ],
+      "explanationZhHans": "先算总本数：8×6=48（本）。再算分给4个班每班本数：48÷4=12（本）。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-057",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-multiplication-division-fluency",
+      "unitTitle": "乘与除",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "multiplication-division-relationships",
+        "fact-fluency",
+        "mental-calculation",
+        "乘与除",
+        "乘除关系"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "推理意识"
+      ],
+      "skillTags": [
+        "口算乘除",
+        "乘除互逆",
+        "倍数关系",
+        "估算",
+        "应用题建模"
+      ],
+      "misconceptionTags": [
+        "division treated only as sharing",
+        "factor and product roles confused",
+        "inverse check not connected to the story"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-multiplication-division-fluency"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一盒巧克力有8块，老师买了若干盒，平均分给6个小组，每个小组分到12块，正好分完。老师一共买了多少盒巧克力？请写出你的思考过程。",
+      "optionsZhHans": [],
+      "answer": "9盒",
+      "acceptedAnswers": [
+        "9盒",
+        "9"
+      ],
+      "explanationZhHans": "先求巧克力总块数：6个小组，每组12块，总块数为6×12=72块。每盒8块，盒数为72÷8=9盒。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-058",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-multiplication-division-fluency",
+      "unitTitle": "乘与除",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "multiplication-division-relationships",
+        "fact-fluency",
+        "mental-calculation",
+        "乘与除",
+        "乘除关系"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "推理意识"
+      ],
+      "skillTags": [
+        "口算乘除",
+        "乘除互逆",
+        "倍数关系",
+        "估算",
+        "应用题建模"
+      ],
+      "misconceptionTags": [
+        "division treated only as sharing",
+        "factor and product roles confused",
+        "inverse check not connected to the story"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-multiplication-division-fluency"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一盒巧克力有6排，每排8块。小丽吃了12块，还剩下多少块？正确的算式是哪一个？",
+      "optionsZhHans": [
+        "6 × 8 - 12",
+        "6 × 8 + 12",
+        "12 - 6 × 8",
+        "6 + 8 - 12"
+      ],
+      "answer": "6 × 8 - 12",
+      "acceptedAnswers": [
+        "6 × 8 - 12"
+      ],
+      "explanationZhHans": "先算总块数：6排每排8块，用乘法6×8=48块。再减去吃掉的12块，所以用6×8-12。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-059",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-multiplication-division-fluency",
+      "unitTitle": "乘与除",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "multiplication-division-relationships",
+        "fact-fluency",
+        "mental-calculation",
+        "乘与除",
+        "乘除关系"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "推理意识"
+      ],
+      "skillTags": [
+        "口算乘除",
+        "乘除互逆",
+        "倍数关系",
+        "估算",
+        "应用题建模"
+      ],
+      "misconceptionTags": [
+        "division treated only as sharing",
+        "factor and product roles confused",
+        "inverse check not connected to the story"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-multiplication-division-fluency"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆新买来一批书，每班分到8本，正好分给6个班。如果把这些书平均分给4个班，每班能分到多少本？",
+      "optionsZhHans": [],
+      "answer": "12",
+      "acceptedAnswers": [
+        "12",
+        "12本"
+      ],
+      "explanationZhHans": "先求书的总数：8×6=48（本）。再求分给4个班时每班的本数：48÷4=12（本）。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-060",
+      "batch": "bnu-primary-v1",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-multiplication-division-fluency",
+      "unitTitle": "乘与除",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "multiplication-division-relationships",
+        "fact-fluency",
+        "mental-calculation",
+        "乘与除",
+        "乘除关系"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "推理意识"
+      ],
+      "skillTags": [
+        "口算乘除",
+        "乘除互逆",
+        "倍数关系",
+        "估算",
+        "应用题建模"
+      ],
+      "misconceptionTags": [
+        "division treated only as sharing",
+        "factor and product roles confused",
+        "inverse check not connected to the story"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-multiplication-division-fluency"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小乐在计算一道除法算式时，把除数6看成了9，得到的商是4。正确的商是多少？请写出你的思考过程。",
+      "optionsZhHans": [],
+      "answer": "6",
+      "acceptedAnswers": [
+        "6",
+        "正确的商是6"
+      ],
+      "explanationZhHans": "先根据错误的除数和商求出被除数：9×4=36。被除数是36，正确的除数是6，所以正确的商是36÷6=6。"
+    }
+  ]
+}

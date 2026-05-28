@@ -1,0 +1,191 @@
+{
+  "batchNumber": 2,
+  "startedAt": "2026-05-27T13:40:37.387Z",
+  "completedAt": "2026-05-27T13:40:53.271Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p1-019",
+    "bnu-primary-ds-v2-p1-020",
+    "bnu-primary-ds-v2-p1-021",
+    "bnu-primary-ds-v2-p1-022",
+    "bnu-primary-ds-v2-p1-023",
+    "bnu-primary-ds-v2-p1-024",
+    "bnu-primary-ds-v2-p1-025",
+    "bnu-primary-ds-v2-p1-026",
+    "bnu-primary-ds-v2-p1-027",
+    "bnu-primary-ds-v2-p1-028",
+    "bnu-primary-ds-v2-p1-029",
+    "bnu-primary-ds-v2-p1-030",
+    "bnu-primary-ds-v2-p1-031",
+    "bnu-primary-ds-v2-p1-032",
+    "bnu-primary-ds-v2-p1-033",
+    "bnu-primary-ds-v2-p1-034",
+    "bnu-primary-ds-v2-p1-035",
+    "bnu-primary-ds-v2-p1-036"
+  ],
+  "usage": {
+    "prompt_tokens": 3367,
+    "completion_tokens": 1270,
+    "total_tokens": 4637,
+    "prompt_tokens_details": {
+      "cached_tokens": 3328
+    },
+    "prompt_cache_hit_tokens": 3328,
+    "prompt_cache_miss_tokens": 39
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p1-019",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目考察比较概念，选项C正确，其他选项错误理由合理，无问题。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-020",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，acceptedAnswers覆盖合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-021",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目简单，答案正确，acceptedAnswers考虑了多种表述。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-022",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项唯一正确，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-023",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目通过小木棍间接比较，答案正确，acceptedAnswers合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-024",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "简单相等比较，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-025",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "直接比较高度，选项A正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-026",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "天平推理题，答案正确，符合一年级挑战难度。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-027",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数量比较，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-028",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比较跳绳数量，选项A正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-029",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比较积木数量，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-030",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比较鸭子数量，答案正确，acceptedAnswers合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-031",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项B正确，其他选项错误明显。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-032",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "填空答案正确，acceptedAnswers包含中文数字。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-033",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "加法应用题，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-034",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "减法算式选择，选项B正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-035",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "减法填空，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-036",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "加法应用题，答案正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版小学数学一年级要求，无数学错误、答案不匹配、歧义或缺失条件等问题。"
+    }
+  }
+}

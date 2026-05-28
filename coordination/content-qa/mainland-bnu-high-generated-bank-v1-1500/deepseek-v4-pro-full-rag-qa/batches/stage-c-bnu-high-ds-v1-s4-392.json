@@ -1,0 +1,48 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-392",
+  "startedAt": "2026-05-28T02:38:51.701Z",
+  "completedAt": "2026-05-28T02:38:57.582Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-392"
+  ],
+  "usage": {
+    "prompt_tokens": 2466,
+    "completion_tokens": 308,
+    "total_tokens": 2774,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2082
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-392",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "约6.4小时",
+        "correctedAnswer": "约6.4小时",
+        "issueTags": [
+          "math_error",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，但存储答案8小时错误。正确解为：解 sin(πt/6)>2/3，在[0,24]内有两个周期，每个周期内满足条件的区间长度约为3.212小时，累计约6.424小时，约6.4小时。解析过程计算混乱，最终给出错误答案，与正确结果矛盾。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目答案错误，解析矛盾，需修正答案为约6.4小时。"
+    }
+  }
+}

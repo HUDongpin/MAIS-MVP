@@ -1,0 +1,133 @@
+{
+  "batchNumber": 110,
+  "startedAt": "2026-05-27T14:02:39.316Z",
+  "completedAt": "2026-05-27T14:02:56.424Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-373",
+    "bnu-high-ds-v1-s5-374",
+    "bnu-high-ds-v1-s5-375",
+    "bnu-high-ds-v1-s5-376",
+    "bnu-high-ds-v1-s5-377",
+    "bnu-high-ds-v1-s5-378",
+    "bnu-high-ds-v1-s5-379",
+    "bnu-high-ds-v1-s5-380"
+  ],
+  "usage": {
+    "prompt_tokens": 10428,
+    "completion_tokens": 1124,
+    "total_tokens": 11552,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 9916
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-373",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0.3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "分布列概率和为1得a=0.3，且E(X)=2.3验证一致，选项C正确，解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-374",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0.432",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "有放回抽取，每次一等品概率0.6，二项分布C(3,2)*0.6^2*0.4=0.432，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-375",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0.3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "正态分布对称性，P(X<2)=0.5，P(2<X<4)=0.3，故P(0<X<2)=0.3，答案与解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-376",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "1/2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "独立事件，密码被译出概率=1-(2/3)*(3/4)=1/2，选项A正确，解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-377",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2/5",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "条件概率，第一次白球后剩3白2黑，第二次黑球概率2/5，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-378",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "4/3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "分布列概率和=1，裂项求和得c*(3/4)=1，c=4/3，答案与解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-379",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "n=6, p=0.4",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "二项分布期望np=2.4，方差np(1-p)=1.44，解得p=0.4，n=6，选项B正确，解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-380",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "0.1359",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "正态分布，80到90分对应μ+σ到μ+2σ，概率=(0.9544-0.6826)/2=0.1359，答案与解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可解，答案与解析匹配，无错误或歧义。"
+    }
+  }
+}

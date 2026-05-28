@@ -1,0 +1,145 @@
+{
+  "batchNumber": 174,
+  "startedAt": "2026-05-27T14:13:11.173Z",
+  "completedAt": "2026-05-27T14:13:31.112Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-385",
+    "bnu-high-ds-v1-s6-386",
+    "bnu-high-ds-v1-s6-387",
+    "bnu-high-ds-v1-s6-388",
+    "bnu-high-ds-v1-s6-389",
+    "bnu-high-ds-v1-s6-390",
+    "bnu-high-ds-v1-s6-391",
+    "bnu-high-ds-v1-s6-392"
+  ],
+  "usage": {
+    "prompt_tokens": 10990,
+    "completion_tokens": 1187,
+    "total_tokens": 12177,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10478
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-385",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "无解",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "bad_options",
+          "explanation_contradiction",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "由条件 f'(-1)=0 和 f'(-2)=0 解得 a=9/2, b=6, a+b=10.5，不在选项中。解析中尝试重新设计条件但未修正题目，导致题目不可解且答案错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-386",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "最大值 10，最小值 1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导得驻点，计算端点和驻点函数值，最大10最小1，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-387",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "y = -2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导得斜率0，切线为y=-2，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-388",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导得驻点0和2，二阶导判断极大值在x=0处为2，选项匹配。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-389",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "无最大值",
+        "correctedAnswer": null,
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "missing_condition",
+          "explanation_contradiction",
+          "unsolvable"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "原题利润函数L(x)=10x-200为线性递增，无最大值。解析承认题目有误并自行修改条件，但题目未修正，答案20不匹配。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-390",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "-2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导得驻点，计算端点和驻点函数值，最小值为-2，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-391",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "f(x) 在 x = -1 处取得极大值",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导分析单调性，x=-1处取得极大值，选项A正确，其他选项均正确但题目要求单选，A为唯一指定答案，解析支持。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s6-392",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "最大值为 5，最小值为 1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "求导得驻点，计算端点和驻点函数值，最大5最小1，答案与解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 6,
+      "warn": 0,
+      "fail": 2,
+      "notes": "8题中6题通过，2题失败：385题条件矛盾导致无解且选项不匹配；389题利润函数线性无最大值，题目错误。"
+    }
+  }
+}

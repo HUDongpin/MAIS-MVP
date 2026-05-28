@@ -1,0 +1,355 @@
+{
+  "batchId": "batch-015",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s1-k03-mc-007",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-geometric-figures",
+      "unitTitle": "几何图形初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-geometric-figures"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "关于直线、射线和线段，下列说法正确的是（ ）",
+      "optionsZhHans": [
+        "直线AB和直线BA是同一条直线",
+        "射线AB和射线BA是同一条射线",
+        "线段AB和线段BA不是同一条线段",
+        "直线AB和线段AB是同一种图形"
+      ],
+      "answer": "直线AB和直线BA是同一条直线",
+      "acceptedAnswers": [
+        "直线AB和直线BA是同一条直线",
+        "A"
+      ],
+      "explanationZhHans": "直线没有方向，所以直线AB和直线BA表示同一条直线，因此选项A正确。射线有端点，射线AB的端点是A，射线BA的端点是B，它们不是同一条射线，故B错误。线段AB和线段BA表示同一条线段，因为线段没有方向，故C错误。直线和线段是不同的图形，直线没有端点，线段有两个端点，故D错误。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k03-mc-008",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-geometric-figures",
+      "unitTitle": "几何图形初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-geometric-figures"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-rational-number-operations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "已知点A、B、C在同一条直线上，AB=5 cm，BC=3 cm，则AC的长度为（ ）",
+      "optionsZhHans": [
+        "2 cm",
+        "8 cm",
+        "2 cm或8 cm",
+        "无法确定"
+      ],
+      "answer": "2 cm或8 cm",
+      "acceptedAnswers": [
+        "2 cm或8 cm",
+        "C"
+      ],
+      "explanationZhHans": "当点C在线段AB上时，AC=AB-BC=5-3=2 cm；当点C在线段AB的延长线上时，AC=AB+BC=5+3=8 cm。所以AC的长度为2 cm或8 cm，故选C。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k03-mc-009",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-geometric-figures",
+      "unitTitle": "几何图形初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-geometric-figures"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-expression-simplification"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "用一副三角尺（含30°-60°-90°和45°-45°-90°）不能画出的角度是（ ）",
+      "optionsZhHans": [
+        "15°",
+        "75°",
+        "105°",
+        "125°"
+      ],
+      "answer": "125°",
+      "acceptedAnswers": [
+        "125°",
+        "D"
+      ],
+      "explanationZhHans": "一副三角尺可以画出的角是15°的整数倍，因为45°-30°=15°，75°=45°+30°，105°=45°+60°，而125°不是15°的整数倍，所以不能画出，故选D。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k03-mc-010",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-geometric-figures",
+      "unitTitle": "几何图形初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-geometric-figures"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-linear-equation-modeling"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "下列图形中，属于棱柱的是（ ）",
+      "optionsZhHans": [
+        "正方体",
+        "圆柱",
+        "圆锥",
+        "球"
+      ],
+      "answer": "正方体",
+      "acceptedAnswers": [
+        "正方体",
+        "A"
+      ],
+      "explanationZhHans": "棱柱有两个平行的底面，侧面是平行四边形。正方体符合棱柱的特征，底面是正方形，侧面是长方形，所以正方体是棱柱。圆柱、圆锥、球都不是棱柱，故选A。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k03-mc-011",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-geometric-figures",
+      "unitTitle": "几何图形初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-geometric-figures"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-geometric-figures"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "已知∠α=35°，则∠α的余角的补角为（ ）",
+      "optionsZhHans": [
+        "55°",
+        "125°",
+        "145°",
+        "155°"
+      ],
+      "answer": "125°",
+      "acceptedAnswers": [
+        "125°",
+        "B"
+      ],
+      "explanationZhHans": "∠α的余角为90°-35°=55°，55°的补角为180°-55°=125°，所以∠α的余角的补角为125°，故选B。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k03-mc-012",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-geometric-figures",
+      "unitTitle": "几何图形初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-geometric-figures"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "下列语句中，属于命题的是（ ）",
+      "optionsZhHans": [
+        "画线段AB=3 cm",
+        "两点之间线段最短",
+        "你吃饭了吗？",
+        "请安静！"
+      ],
+      "answer": "两点之间线段最短",
+      "acceptedAnswers": [
+        "两点之间线段最短",
+        "B"
+      ],
+      "explanationZhHans": "命题是判断一件事情的语句。选项B“两点之间线段最短”是一个判断，是命题；选项A是作图语句；选项C是疑问句；选项D是祈使句，都不是命题，故选B。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k03-mc-013",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-geometric-figures",
+      "unitTitle": "几何图形初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-geometric-figures"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-rational-number-operations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "已知线段AB=8 cm，点C是AB的中点，点D是CB的中点，则AD的长度为（ ）",
+      "optionsZhHans": [
+        "2 cm",
+        "4 cm",
+        "6 cm",
+        "8 cm"
+      ],
+      "answer": "6 cm",
+      "acceptedAnswers": [
+        "6 cm",
+        "C"
+      ],
+      "explanationZhHans": "因为C是AB的中点，所以AC=CB=4 cm。D是CB的中点，所以CD=DB=2 cm。AD=AC+CD=4+2=6 cm，故选C。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k03-mc-014",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-geometric-figures",
+      "unitTitle": "几何图形初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-geometric-figures"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-expression-simplification"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "下列四个图形中，能用∠1、∠AOB、∠O三种方法表示同一个角的是（ ）",
+      "optionsZhHans": [
+        "以O为顶点，射线OA和射线OB组成的角",
+        "以O为顶点，射线OA和射线OC组成的角",
+        "以O为顶点，射线OB和射线OC组成的角",
+        "以O为顶点，射线OA、OB、OC任意两条组成的角"
+      ],
+      "answer": "以O为顶点，射线OA和射线OB组成的角",
+      "acceptedAnswers": [
+        "以O为顶点，射线OA和射线OB组成的角",
+        "A"
+      ],
+      "explanationZhHans": "只有当以O为顶点的角只有一个时，才能用∠O表示。选项A中，以O为顶点只有射线OA和OB，所以∠1、∠AOB、∠O都表示同一个角。其他选项中，以O为顶点的角不止一个，∠O不能唯一确定一个角，故选A。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k03-mc-015",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-geometric-figures",
+      "unitTitle": "几何图形初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-geometric-figures"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-linear-equation-modeling"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "一个角的补角比它的余角的2倍大30°，则这个角为（ ）",
+      "optionsZhHans": [
+        "30°",
+        "60°",
+        "90°",
+        "120°"
+      ],
+      "answer": "30°",
+      "acceptedAnswers": [
+        "30°",
+        "A"
+      ],
+      "explanationZhHans": "设这个角为x°，则它的补角为(180-x)°，余角为(90-x)°。根据题意，180-x=2(90-x)+30，解得x=30，所以这个角为30°，故选A。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k03-mc-016",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-geometric-figures",
+      "unitTitle": "几何图形初步",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-geometric-figures"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-geometric-figures"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "下列几何体中，从正面看是长方形的是（ ）",
+      "optionsZhHans": [
+        "圆锥",
+        "圆柱",
+        "球",
+        "四棱锥"
+      ],
+      "answer": "圆柱",
+      "acceptedAnswers": [
+        "圆柱",
+        "B"
+      ],
+      "explanationZhHans": "圆柱从正面看是一个长方形（当视线垂直于底面时）。圆锥从正面看是三角形，球从正面看是圆，四棱锥从正面看是三角形或四边形（取决于方向），所以选B。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

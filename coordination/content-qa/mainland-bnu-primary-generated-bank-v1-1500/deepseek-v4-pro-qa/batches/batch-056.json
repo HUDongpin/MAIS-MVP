@@ -1,0 +1,191 @@
+{
+  "batchNumber": 56,
+  "startedAt": "2026-05-27T13:29:12.175Z",
+  "completedAt": "2026-05-27T13:29:28.996Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p4-241",
+    "bnu-primary-ds-v1-p4-242",
+    "bnu-primary-ds-v1-p4-243",
+    "bnu-primary-ds-v1-p4-244",
+    "bnu-primary-ds-v1-p4-245",
+    "bnu-primary-ds-v1-p4-246",
+    "bnu-primary-ds-v1-p4-247",
+    "bnu-primary-ds-v1-p4-248",
+    "bnu-primary-ds-v1-p4-249",
+    "bnu-primary-ds-v1-p4-250",
+    "bnu-primary-ds-v1-p5-001",
+    "bnu-primary-ds-v1-p5-002",
+    "bnu-primary-ds-v1-p5-003",
+    "bnu-primary-ds-v1-p5-004",
+    "bnu-primary-ds-v1-p5-005",
+    "bnu-primary-ds-v1-p5-006",
+    "bnu-primary-ds-v1-p5-007",
+    "bnu-primary-ds-v1-p5-008"
+  ],
+  "usage": {
+    "prompt_tokens": 4353,
+    "completion_tokens": 1238,
+    "total_tokens": 5591,
+    "prompt_tokens_details": {
+      "cached_tokens": 4352
+    },
+    "prompt_cache_hit_tokens": 4352,
+    "prompt_cache_miss_tokens": 1
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p4-241",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项分析正确，答案无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-242",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "优化问题经典，小红方案正确，其他选项错误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-243",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程定义辨析，选项C正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-244",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "小数加减计算，仅B正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-245",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "观察物体，选项B符合视图。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-246",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "小数稠密性，无数个正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-247",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "密铺知识，正五边形不能密铺。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-248",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "和倍问题，A方程正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-249",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，无错误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p4-250",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "三角形分类，等边三角形是锐角三角形正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-001",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "单价计算，列式正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-002",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "小数除法转化，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-003",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "有余数除法，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-004",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "商的变化规律，B最大。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-005",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "小数点移动，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-006",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "被除数变化，商变大。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-007",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "除数小于1商变大，B最大。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p5-008",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "商的变化规律，计算正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均通过审核，无数学错误、答案不匹配、歧义或年级不符等问题。"
+    }
+  }
+}

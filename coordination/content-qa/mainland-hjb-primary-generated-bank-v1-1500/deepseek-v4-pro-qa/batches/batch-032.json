@@ -1,0 +1,191 @@
+{
+  "batchNumber": 32,
+  "startedAt": "2026-05-25T02:03:16.946Z",
+  "completedAt": "2026-05-25T02:03:39.673Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p3-059",
+    "hjb-primary-ds-v1-p3-060",
+    "hjb-primary-ds-v1-p3-061",
+    "hjb-primary-ds-v1-p3-062",
+    "hjb-primary-ds-v1-p3-063",
+    "hjb-primary-ds-v1-p3-064",
+    "hjb-primary-ds-v1-p3-065",
+    "hjb-primary-ds-v1-p3-066",
+    "hjb-primary-ds-v1-p3-067",
+    "hjb-primary-ds-v1-p3-068",
+    "hjb-primary-ds-v1-p3-069",
+    "hjb-primary-ds-v1-p3-070",
+    "hjb-primary-ds-v1-p3-071",
+    "hjb-primary-ds-v1-p3-072",
+    "hjb-primary-ds-v1-p3-073",
+    "hjb-primary-ds-v1-p3-074",
+    "hjb-primary-ds-v1-p3-075",
+    "hjb-primary-ds-v1-p3-076"
+  ],
+  "usage": {
+    "prompt_tokens": 4600,
+    "completion_tokens": 1444,
+    "total_tokens": 6044,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 4344
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p3-059",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "时间计算正确，8:20加40分钟得9:00，答案和解释一致。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-060",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "90分钟=1小时30分，9:10加1小时30分得10:40，计算正确，解释清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-061",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "247×3=741，选项A描述正确，其他选项结果错误，无歧义。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-062",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "305×4竖式填空，十位0×4=0，加进位2得2，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-063",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "168×7正确计算为1176，解释清楚，答案覆盖完整。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-064",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "389×6=2334，390×6=2340最接近，选项正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-065",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "24×3竖式分解填空，答案72正确，顺序合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-066",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "307×6=1842，十位处理正确，答案和解释一致。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-067",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估算20×8=160，精确192，合理且能帮助发现错误，选项正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-068",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "208×5竖式填空，十位0×5=0，加进位4得4，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-069",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "125×4=500，竖式过程正确，进位错误分析合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-070",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "4×270=1080个位为0，其他选项个位非0，正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-071",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "236×4个位6×4=24，进2写4，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-072",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "9:05到9:17共12分钟，8×12=96，计算正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-073",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "403×3=1209最接近1200，其他选项距离更大，正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-074",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "407×5十位0×5=0，写在十位，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-075",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "24×8=192，192÷5=38余2，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p3-076",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "237×4=948，估算240×4=960≈900，选项B正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案与解释一致，无歧义或缺失条件，适合沪教版P3年级。"
+    }
+  }
+}

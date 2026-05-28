@@ -1,0 +1,181 @@
+{
+  "startedAt": "2026-05-26T05:55:55.936Z",
+  "completedAt": "2026-05-26T05:56:14.881Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "usage": {
+    "prompt_tokens": 2620,
+    "completion_tokens": 1473,
+    "total_tokens": 4093,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 2620
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "questionId": "pep-primary-p2-l-fi-101",
+        "solvableStatus": "pass",
+        "independentAnswer": "商3余5",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "23÷6=3余5，直接计算即可。"
+      },
+      {
+        "questionId": "pep-primary-p2-l-fi-102",
+        "solvableStatus": "pass",
+        "independentAnswer": "商9余3",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "39÷4=9余3，直接计算即可。"
+      },
+      {
+        "questionId": "pep-primary-p2-l-fi-103",
+        "solvableStatus": "pass",
+        "independentAnswer": "商6余5",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "47÷7=6余5，直接计算即可。"
+      },
+      {
+        "questionId": "pep-primary-p2-l-fi-104",
+        "solvableStatus": "pass",
+        "independentAnswer": "7袋，剩5个",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "54÷7=7余5，直接计算即可。"
+      },
+      {
+        "questionId": "pep-primary-p2-l-fi-105",
+        "solvableStatus": "pass",
+        "independentAnswer": "商3余1",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "7÷2=3余1，直接计算即可。"
+      },
+      {
+        "questionId": "pep-primary-p2-l-fi-106",
+        "solvableStatus": "pass",
+        "independentAnswer": "商5余1",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "16÷3=5余1，直接计算即可。"
+      },
+      {
+        "questionId": "pep-primary-p2-l-fi-107",
+        "solvableStatus": "pass",
+        "independentAnswer": "商7余3",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "31÷4=7余3，直接计算即可。"
+      },
+      {
+        "questionId": "pep-primary-p2-l-fi-108",
+        "solvableStatus": "pass",
+        "independentAnswer": "商9余3",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "48÷5=9余3，直接计算即可。"
+      },
+      {
+        "questionId": "pep-primary-p2-l-fi-109",
+        "solvableStatus": "pass",
+        "independentAnswer": "商4余1",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "25÷6=4余1，直接计算即可。"
+      },
+      {
+        "questionId": "pep-primary-p2-l-fi-110",
+        "solvableStatus": "pass",
+        "independentAnswer": "商6余5",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "47÷7=6余5，直接计算即可。"
+      },
+      {
+        "questionId": "pep-primary-p2-l-fi-111",
+        "solvableStatus": "pass",
+        "independentAnswer": "商8余7",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "71÷8=8余7，直接计算即可。"
+      },
+      {
+        "questionId": "pep-primary-p2-l-fi-112",
+        "solvableStatus": "pass",
+        "independentAnswer": "商3余1",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "7÷2=3余1，直接计算即可。"
+      },
+      {
+        "questionId": "pep-primary-p2-l-fi-113",
+        "solvableStatus": "pass",
+        "independentAnswer": "商5余2",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "17÷3=5余2，直接计算即可。"
+      },
+      {
+        "questionId": "pep-primary-p2-l-fi-114",
+        "solvableStatus": "pass",
+        "independentAnswer": "商7余2",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "30÷4=7余2，直接计算即可。"
+      },
+      {
+        "questionId": "pep-primary-p2-l-fi-115",
+        "solvableStatus": "pass",
+        "independentAnswer": "5袋，剩3个",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "43÷8=5余3，直接计算即可。"
+      },
+      {
+        "questionId": "pep-primary-p2-l-fi-116",
+        "solvableStatus": "pass",
+        "independentAnswer": "商4余2",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "26÷6=4余2，直接计算即可。"
+      },
+      {
+        "questionId": "pep-primary-p2-l-fi-117",
+        "solvableStatus": "pass",
+        "independentAnswer": "商6余5",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "47÷7=6余5，直接计算即可。"
+      },
+      {
+        "questionId": "pep-primary-p2-l-fi-118",
+        "solvableStatus": "pass",
+        "independentAnswer": "商8余6",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "70÷8=8余6，直接计算即可。"
+      },
+      {
+        "questionId": "pep-primary-p2-l-fi-119",
+        "solvableStatus": "pass",
+        "independentAnswer": "商3余1",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "7÷2=3余1，直接计算即可。"
+      },
+      {
+        "questionId": "pep-primary-p2-l-fi-120",
+        "solvableStatus": "pass",
+        "independentAnswer": "商9余5",
+        "confidence": "high",
+        "issueType": "none",
+        "note": "68÷7=9余5，直接计算即可。"
+      }
+    ]
+  }
+}

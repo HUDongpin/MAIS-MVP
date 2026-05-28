@@ -1,0 +1,191 @@
+{
+  "batchNumber": 19,
+  "startedAt": "2026-05-27T13:45:35.686Z",
+  "completedAt": "2026-05-27T13:45:53.340Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p2-075",
+    "bnu-primary-ds-v2-p2-076",
+    "bnu-primary-ds-v2-p2-077",
+    "bnu-primary-ds-v2-p2-078",
+    "bnu-primary-ds-v2-p2-079",
+    "bnu-primary-ds-v2-p2-080",
+    "bnu-primary-ds-v2-p2-081",
+    "bnu-primary-ds-v2-p2-082",
+    "bnu-primary-ds-v2-p2-083",
+    "bnu-primary-ds-v2-p2-084",
+    "bnu-primary-ds-v2-p2-085",
+    "bnu-primary-ds-v2-p2-086",
+    "bnu-primary-ds-v2-p2-087",
+    "bnu-primary-ds-v2-p2-088",
+    "bnu-primary-ds-v2-p2-089",
+    "bnu-primary-ds-v2-p2-090",
+    "bnu-primary-ds-v2-p2-091",
+    "bnu-primary-ds-v2-p2-092"
+  ],
+  "usage": {
+    "prompt_tokens": 2949,
+    "completion_tokens": 1264,
+    "total_tokens": 4213,
+    "prompt_tokens_details": {
+      "cached_tokens": 2944
+    },
+    "prompt_cache_hit_tokens": 2944,
+    "prompt_cache_miss_tokens": 5
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p2-075",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，符合二年级乘法口诀要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-076",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项合理，答案唯一，适合测量单位选择。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-077",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "开放题，答案范围合理，符合实际。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-078",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比较长度，单位换算正确，答案清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-079",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "断尺测量计算正确，选项无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-080",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "单位选择合理，答案唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-081",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "测量读数正确，答案明确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-082",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项贴近生活，答案唯一，解释合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-083",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "单位填空正确，与080题类似但无重复风险。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-084",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "非零起点测量计算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-085",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "断尺测量，计算正确，选项合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-086",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "单位选择合理，答案唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-087",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估测活动题，答案开放合理。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-088",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项包含100厘米，无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-089",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "基本换算，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-090",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "复名数换算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-091",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "除法应用，选项唯一正确，解释清晰。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-092",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均分计算正确，答案明确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版二年级要求，数学正确，答案匹配，无歧义或缺失条件，适合公共题库使用。"
+    }
+  }
+}

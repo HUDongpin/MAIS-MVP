@@ -1,0 +1,586 @@
+{
+  "batchId": "batch-051",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p3-001",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-mixed-operations",
+      "unitTitle": "混合运算",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "mixed-operations",
+        "operation-order",
+        "addition-subtraction-multiplication-division",
+        "混合运算",
+        "运算顺序"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "两步计算",
+        "运算顺序",
+        "数量关系",
+        "列综合算式",
+        "估算检查"
+      ],
+      "misconceptionTags": [
+        "operations applied strictly left to right",
+        "intermediate quantity not named",
+        "keyword-based operation choice"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-mixed-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "文具店里有8盒铅笔，每盒6支，卖出15支后，又进货4盒。现在文具店里有多少支铅笔？下面列式正确的是（ ）。",
+      "optionsZhHans": [
+        "8×6－15＋4×6",
+        "8×6－15＋4",
+        "8＋6－15＋4×6",
+        "8×6＋15－4×6"
+      ],
+      "answer": "8×6－15＋4×6",
+      "acceptedAnswers": [
+        "8×6－15＋4×6"
+      ],
+      "explanationZhHans": "先算原有铅笔：8盒每盒6支，共8×6=48支。卖出15支后剩48－15=33支。又进货4盒，每盒6支，增加4×6=24支。综合算式为8×6－15＋4×6，先算乘法再从左到右加减。选项B误把进货4盒当成4支；C误加盒数；D误用加法。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-002",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-mixed-operations",
+      "unitTitle": "混合运算",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "mixed-operations",
+        "operation-order",
+        "addition-subtraction-multiplication-division",
+        "混合运算",
+        "运算顺序"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "两步计算",
+        "运算顺序",
+        "数量关系",
+        "列综合算式",
+        "估算检查"
+      ],
+      "misconceptionTags": [
+        "operations applied strictly left to right",
+        "intermediate quantity not named",
+        "keyword-based operation choice"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-mixed-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "同学们去公园划船，每条大船坐6人，每条小船坐4人。三年级一班有42人，租了5条大船，剩下的人坐小船，需要租几条小船？请写出综合算式并计算。",
+      "optionsZhHans": [],
+      "answer": "(42 - 6 × 5) ÷ 4 = 3（条）",
+      "acceptedAnswers": [
+        "(42 - 6 × 5) ÷ 4 = 3（条）",
+        "(42 - 5 × 6) ÷ 4 = 3（条）",
+        "42 - 6 × 5 = 12，12 ÷ 4 = 3（条）"
+      ],
+      "explanationZhHans": "先算5条大船坐的人数：6×5=30（人），再算剩下的人数：42-30=12（人），最后算小船数量：12÷4=3（条）。综合算式为(42-6×5)÷4，注意小括号保证先算乘法再减法，最后除法。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-003",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-mixed-operations",
+      "unitTitle": "混合运算",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "mixed-operations",
+        "operation-order",
+        "addition-subtraction-multiplication-division",
+        "混合运算",
+        "运算顺序"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "两步计算",
+        "运算顺序",
+        "数量关系",
+        "列综合算式",
+        "估算检查"
+      ],
+      "misconceptionTags": [
+        "operations applied strictly left to right",
+        "intermediate quantity not named",
+        "keyword-based operation choice"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-mixed-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "李老师买了3盒水彩笔，每盒有8支。她把其中的12支送给美术小组，剩下的平均分给4个班，每个班分到多少支？请写出一个综合算式并计算。",
+      "optionsZhHans": [],
+      "answer": "(3×8-12)÷4=3（支）",
+      "acceptedAnswers": [
+        "(3×8-12)÷4=3（支）",
+        "3支",
+        "3"
+      ],
+      "explanationZhHans": "先算一共有多少支：3×8=24（支）。再算剩下多少支：24-12=12（支）。最后平均分给4个班：12÷4=3（支）。综合算式是(3×8-12)÷4=3（支）。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-004",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-mixed-operations",
+      "unitTitle": "混合运算",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "mixed-operations",
+        "operation-order",
+        "addition-subtraction-multiplication-division",
+        "混合运算",
+        "运算顺序"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "两步计算",
+        "运算顺序",
+        "数量关系",
+        "列综合算式",
+        "估算检查"
+      ],
+      "misconceptionTags": [
+        "operations applied strictly left to right",
+        "intermediate quantity not named",
+        "keyword-based operation choice"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-mixed-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "三年级一班有男生18人，女生22人。他们一起乘车去参观科技馆，每辆面包车最多坐8人。已经开走了3辆坐满的面包车，剩下的学生还需要坐几辆这样的面包车？",
+      "optionsZhHans": [
+        "2辆",
+        "3辆",
+        "4辆",
+        "5辆"
+      ],
+      "answer": "2辆",
+      "acceptedAnswers": [
+        "2辆"
+      ],
+      "explanationZhHans": "先算总人数：18+22=40（人）。已走3辆满车，即3×8=24（人）。剩下：40-24=16（人）。每辆8人，需要：16÷8=2（辆）。注意运算顺序：先加后乘再减最后除，列综合算式时需加括号：(18+22-3×8)÷8=2。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-005",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-mixed-operations",
+      "unitTitle": "混合运算",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "mixed-operations",
+        "operation-order",
+        "addition-subtraction-multiplication-division",
+        "混合运算",
+        "运算顺序"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "两步计算",
+        "运算顺序",
+        "数量关系",
+        "列综合算式",
+        "估算检查"
+      ],
+      "misconceptionTags": [
+        "operations applied strictly left to right",
+        "intermediate quantity not named",
+        "keyword-based operation choice"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-mixed-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆原来有故事书240本，又买来3包新书，每包25本。现在图书馆共有多少本故事书？请列一个综合算式并计算。",
+      "optionsZhHans": [],
+      "answer": "240 + 3 × 25 = 315（本）",
+      "acceptedAnswers": [
+        "240 + 3 × 25 = 315（本）",
+        "240 + 3 × 25 = 315",
+        "240+3×25=315",
+        "240+3×25=315（本）"
+      ],
+      "explanationZhHans": "先算买来的新书本数：每包25本，3包就是3×25=75本。再求总数：原来的240本加上买来的75本，240+75=315本。综合算式为240+3×25，乘加混合时先算乘法，结果为315本。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-006",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-mixed-operations",
+      "unitTitle": "混合运算",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "mixed-operations",
+        "operation-order",
+        "addition-subtraction-multiplication-division",
+        "混合运算",
+        "运算顺序"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "两步计算",
+        "运算顺序",
+        "数量关系",
+        "列综合算式",
+        "估算检查"
+      ],
+      "misconceptionTags": [
+        "operations applied strictly left to right",
+        "intermediate quantity not named",
+        "keyword-based operation choice"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-mixed-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆新买来一批书。科技书有45本，故事书的本数是科技书的3倍。把这些书平均放到5个书架上，每个书架放多少本？",
+      "optionsZhHans": [],
+      "answer": "36",
+      "acceptedAnswers": [
+        "36",
+        "36本"
+      ],
+      "explanationZhHans": "先求故事书的本数：45×3=135（本）；再求总本数：45+135=180（本）；最后平均分：180÷5=36（本）。列综合算式：(45+45×3)÷5=36（本）。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-007",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-mixed-operations",
+      "unitTitle": "混合运算",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "mixed-operations",
+        "operation-order",
+        "addition-subtraction-multiplication-division",
+        "混合运算",
+        "运算顺序"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "两步计算",
+        "运算顺序",
+        "数量关系",
+        "列综合算式",
+        "估算检查"
+      ],
+      "misconceptionTags": [
+        "operations applied strictly left to right",
+        "intermediate quantity not named",
+        "keyword-based operation choice"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-mixed-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "超市运来5箱苹果，每箱8千克，卖出26千克后，还剩下多少千克？下面列式正确的是（   ）。",
+      "optionsZhHans": [
+        "5×8－26",
+        "5×8＋26",
+        "26－5×8",
+        "5×8÷26"
+      ],
+      "answer": "5×8－26",
+      "acceptedAnswers": [
+        "5×8－26"
+      ],
+      "explanationZhHans": "先算苹果总质量：5×8＝40（千克），再减去卖出的26千克，综合算式为5×8－26。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-008",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-mixed-operations",
+      "unitTitle": "混合运算",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "mixed-operations",
+        "operation-order",
+        "addition-subtraction-multiplication-division",
+        "混合运算",
+        "运算顺序"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "两步计算",
+        "运算顺序",
+        "数量关系",
+        "列综合算式",
+        "估算检查"
+      ],
+      "misconceptionTags": [
+        "operations applied strictly left to right",
+        "intermediate quantity not named",
+        "keyword-based operation choice"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-mixed-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "三年级同学去公园划船，每条大船坐6人，每条小船坐4人。三（1）班租了5条大船和3条小船，正好全部坐满。三（1）班一共有多少人？列一个综合算式解答。",
+      "optionsZhHans": [],
+      "answer": "6×5+4×3=42（人）",
+      "acceptedAnswers": [
+        "6×5+4×3=42（人）",
+        "6×5+4×3=42",
+        "42人",
+        "42"
+      ],
+      "explanationZhHans": "先分别算出大船和小船坐的人数：大船5条共6×5=30人，小船3条共4×3=12人，再相加得总人数30+12=42人。综合算式为6×5+4×3，先算乘法再算加法，结果为42人。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-009",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-mixed-operations",
+      "unitTitle": "混合运算",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "mixed-operations",
+        "operation-order",
+        "addition-subtraction-multiplication-division",
+        "混合运算",
+        "运算顺序"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "两步计算",
+        "运算顺序",
+        "数量关系",
+        "列综合算式",
+        "估算检查"
+      ],
+      "misconceptionTags": [
+        "operations applied strictly left to right",
+        "intermediate quantity not named",
+        "keyword-based operation choice"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-mixed-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小雅买了3本同样的笔记本，付了20元，找回2元。她想知道每本笔记本多少元，列出的综合算式是（20－2）÷3。这个算式先算什么？为什么？",
+      "optionsZhHans": [],
+      "answer": "先算20－2，因为小括号里的运算要先算，20－2表示买笔记本实际花的钱。",
+      "acceptedAnswers": [
+        "先算20－2，因为小括号里的运算要先算，20－2表示买笔记本实际花的钱。"
+      ],
+      "explanationZhHans": "综合算式里有小括号，要先算小括号里面的20－2，求出实际花的钱是18元，再除以3得到每本6元。这样符合先求中间量再除的运算顺序。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-010",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-mixed-operations",
+      "unitTitle": "混合运算",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "mixed-operations",
+        "operation-order",
+        "addition-subtraction-multiplication-division",
+        "混合运算",
+        "运算顺序"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "模型意识",
+        "应用意识"
+      ],
+      "skillTags": [
+        "两步计算",
+        "运算顺序",
+        "数量关系",
+        "列综合算式",
+        "估算检查"
+      ],
+      "misconceptionTags": [
+        "operations applied strictly left to right",
+        "intermediate quantity not named",
+        "keyword-based operation choice"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-mixed-operations"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit",
+        "bnu-primary-p3-upper-assessment-measurement-two-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明买了4本笔记本，每本6元；又买了一支钢笔，花了8元。他付给售货员50元，应找回多少元？下面哪个算式是正确的？",
+      "optionsZhHans": [
+        "50 - 4 × 6 + 8",
+        "50 - 4 × 6 - 8",
+        "50 - (4 × 6 + 8)",
+        "50 - 4 × (6 + 8)"
+      ],
+      "answer": "50 - (4 × 6 + 8)",
+      "acceptedAnswers": [
+        "50 - (4 × 6 + 8)"
+      ],
+      "explanationZhHans": "先算笔记本总价：4×6=24元，再加上钢笔的8元，共花24+8=32元。找回的钱是50-32=18元。综合算式需加括号：50-(4×6+8)。选项A先减后加，顺序错；B先减4×6再减8，但没括号时减8在最后，实际运算顺序不对；D括号位置错，多算了钢笔。"
+    }
+  ]
+}

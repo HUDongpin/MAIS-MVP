@@ -1,0 +1,137 @@
+{
+  "batchNumber": 5,
+  "startedAt": "2026-05-27T13:44:25.670Z",
+  "completedAt": "2026-05-27T13:44:43.792Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-033",
+    "bnu-high-ds-v1-s4-034",
+    "bnu-high-ds-v1-s4-035",
+    "bnu-high-ds-v1-s4-036",
+    "bnu-high-ds-v1-s4-037",
+    "bnu-high-ds-v1-s4-038",
+    "bnu-high-ds-v1-s4-039",
+    "bnu-high-ds-v1-s4-040"
+  ],
+  "usage": {
+    "prompt_tokens": 10546,
+    "completion_tokens": 1234,
+    "total_tokens": 11780,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10034
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-033",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "(-1, 2]",
+        "correctedAnswer": "(-1, 2]",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立求解得A=[-1,2]，B=(-1,5)，交集为(-1,2]。题目答案[-1,5)错误，解析虽正确得出(-1,2]但与答案矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-034",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "必要不充分条件",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "p:x>2，q:x>3，q⇒p成立，p⇒q不成立，故p是q的必要不充分条件。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-035",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "最小值为9，a=1/3",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "利用基本不等式求得最小值为9，当a=1/3时取等。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-036",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "{0, 1, 1/2}",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "A={1,2}，B⊆A需考虑B=∅得a=0，B≠∅时1/a=1或2得a=1或1/2。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-037",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "[3, +∞)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "定义域x≤1或x≥3，内层二次函数在[3,+∞)递增且非负，故f(x)递增区间为[3,+∞)。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-038",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "f(x) = { x² - 2x, x > 0; 0, x = 0; -x² - 2x, x < 0 }",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由奇函数性质得x<0时f(x)=-x²-2x，x=0时f(0)=0。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-039",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "(-∞, 3]",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "x≤0时值域[1,+∞)，x>0时值域(-∞,3]，合并得(-∞,3]。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-040",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "6",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由函数方程递推得f(3)=12，利用f(-x)=2x²-f(x)得f(-3)=6。答案与解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第033题答案错误，应为(-1,2]而非[-1,5)，解析虽正确但与答案矛盾，需修正。其余题目均通过审核。"
+    }
+  }
+}

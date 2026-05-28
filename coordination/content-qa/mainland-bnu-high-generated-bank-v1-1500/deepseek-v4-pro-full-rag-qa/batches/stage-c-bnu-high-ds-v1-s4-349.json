@@ -1,0 +1,48 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s4-349",
+  "startedAt": "2026-05-28T02:42:31.667Z",
+  "completedAt": "2026-05-28T02:42:36.253Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-349"
+  ],
+  "usage": {
+    "prompt_tokens": 2061,
+    "completion_tokens": 273,
+    "total_tokens": 2334,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1677
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-349",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "weak",
+        "mcUniquenessStatus": "fail",
+        "independentAnswer": "B",
+        "correctedAnswer": "B",
+        "issueTags": [
+          "ambiguous_mc",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "向量a=(2,1), b=(1,-2)，计算得a·b=0，故a⊥b，B正确；|a|=√5，|b|=√5，故|a|=|b|，C也正确。单选题出现两个正确选项，答案不唯一，且解析未说明C也正确，存在歧义。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "单选题存在两个正确选项B和C，答案不唯一，需修正题目或选项。"
+    }
+  }
+}

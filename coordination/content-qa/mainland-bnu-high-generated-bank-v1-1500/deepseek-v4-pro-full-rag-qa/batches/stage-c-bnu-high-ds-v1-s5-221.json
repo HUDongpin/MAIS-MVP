@@ -1,0 +1,50 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-221",
+  "startedAt": "2026-05-28T01:24:00.821Z",
+  "completedAt": "2026-05-28T01:24:05.455Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-221"
+  ],
+  "usage": {
+    "prompt_tokens": 2185,
+    "completion_tokens": 305,
+    "total_tokens": 2490,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1801
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-221",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "C(6, 17/3) 或 C(4, 13/3)",
+        "correctedAnswer": "(6, 17/3) 或 (4, 13/3)",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction",
+          "accepted_answer_gap"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目要求点C到A距离是到B距离的2倍，应有两个解（内分点和外分点）。存储答案仅给出(6,17/3)，漏掉(4,13/3)，且解析未提及另一解，存在数学错误和答案不完整。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目存在漏解，答案不完整，需修正为两个坐标。"
+    }
+  }
+}

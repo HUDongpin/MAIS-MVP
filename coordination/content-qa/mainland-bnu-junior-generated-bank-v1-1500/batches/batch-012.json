@@ -1,0 +1,622 @@
+{
+  "batchId": "batch-012",
+  "questions": [
+    {
+      "id": "bnu-junior-ds-v1-s1-111",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-algebraic-expressions",
+      "unitTitle": "整式及其加减",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "algebraic-expressions",
+        "monomials-polynomials",
+        "like-terms",
+        "polynomial-addition-subtraction",
+        "整式",
+        "同类项"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "列代数式",
+        "识别单项式和多项式",
+        "合并同类项",
+        "去括号",
+        "整式加减"
+      ],
+      "misconceptionTags": [
+        "like terms judged by coefficient only",
+        "minus sign lost before parentheses",
+        "variable part changed during simplification"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-algebraic-expressions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-algebraic-expressions-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知多项式 A = 3x² - 2xy + 5 与多项式 B = -x² + 4xy - 7。计算 A - 2B 的结果，并将结果按 x 的降幂排列。",
+      "optionsZhHans": [],
+      "answer": "5x² - 10xy + 19",
+      "acceptedAnswers": [
+        "5x² - 10xy + 19",
+        "5x^2-10xy+19",
+        "5x²-10xy+19",
+        "5x^2 - 10xy + 19"
+      ],
+      "explanationZhHans": "先计算 2B = -2x² + 8xy - 14，然后 A - 2B = (3x² - 2xy + 5) - (-2x² + 8xy - 14) = 3x² - 2xy + 5 + 2x² - 8xy + 14 = 5x² - 10xy + 19。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-112",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-algebraic-expressions",
+      "unitTitle": "整式及其加减",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "algebraic-expressions",
+        "monomials-polynomials",
+        "like-terms",
+        "polynomial-addition-subtraction",
+        "整式",
+        "同类项"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "列代数式",
+        "识别单项式和多项式",
+        "合并同类项",
+        "去括号",
+        "整式加减"
+      ],
+      "misconceptionTags": [
+        "like terms judged by coefficient only",
+        "minus sign lost before parentheses",
+        "variable part changed during simplification"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-algebraic-expressions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-algebraic-expressions-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下列各组式子中，属于同类项的是哪一组？",
+      "optionsZhHans": [
+        "3a²b 与 3ab²",
+        "2x²y 与 -3x²y",
+        "4mn 与 5m²n",
+        "6xy 与 6xyz"
+      ],
+      "answer": "2x²y 与 -3x²y",
+      "acceptedAnswers": [
+        "2x²y 与 -3x²y"
+      ],
+      "explanationZhHans": "同类项要求所含字母相同且相同字母的指数也相同。选项B中两者均含 x²y，指数一致，系数不同，是同类项。其他选项字母或指数不完全相同。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-113",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-algebraic-expressions",
+      "unitTitle": "整式及其加减",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "algebraic-expressions",
+        "monomials-polynomials",
+        "like-terms",
+        "polynomial-addition-subtraction",
+        "整式",
+        "同类项"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "列代数式",
+        "识别单项式和多项式",
+        "合并同类项",
+        "去括号",
+        "整式加减"
+      ],
+      "misconceptionTags": [
+        "like terms judged by coefficient only",
+        "minus sign lost before parentheses",
+        "variable part changed during simplification"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-algebraic-expressions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-algebraic-expressions-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "先化简，再求值：3(2a² - ab) - 2(3a² - 2ab + 1)，其中 a = -1，b = 2。",
+      "optionsZhHans": [],
+      "answer": "ab - 2 = -4",
+      "acceptedAnswers": [
+        "ab - 2 = -4",
+        "-4",
+        "ab-2=-4"
+      ],
+      "explanationZhHans": "原式 = 6a² - 3ab - 6a² + 4ab - 2 = ab - 2。代入 a = -1, b = 2 得 (-1)×2 - 2 = -2 - 2 = -4。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-114",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-algebraic-expressions",
+      "unitTitle": "整式及其加减",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "algebraic-expressions",
+        "monomials-polynomials",
+        "like-terms",
+        "polynomial-addition-subtraction",
+        "整式",
+        "同类项"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "列代数式",
+        "识别单项式和多项式",
+        "合并同类项",
+        "去括号",
+        "整式加减"
+      ],
+      "misconceptionTags": [
+        "like terms judged by coefficient only",
+        "minus sign lost before parentheses",
+        "variable part changed during simplification"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-algebraic-expressions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-algebraic-expressions-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个多项式减去 2x² - 3x + 1 等于 4x² + x - 5，求这个多项式。",
+      "optionsZhHans": [],
+      "answer": "6x² - 2x - 4",
+      "acceptedAnswers": [
+        "6x² - 2x - 4",
+        "6x^2-2x-4",
+        "6x²-2x-4"
+      ],
+      "explanationZhHans": "设所求多项式为 M，则 M - (2x² - 3x + 1) = 4x² + x - 5，所以 M = (4x² + x - 5) + (2x² - 3x + 1) = 6x² - 2x - 4。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-115",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-algebraic-expressions",
+      "unitTitle": "整式及其加减",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "algebraic-expressions",
+        "monomials-polynomials",
+        "like-terms",
+        "polynomial-addition-subtraction",
+        "整式",
+        "同类项"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "列代数式",
+        "识别单项式和多项式",
+        "合并同类项",
+        "去括号",
+        "整式加减"
+      ],
+      "misconceptionTags": [
+        "like terms judged by coefficient only",
+        "minus sign lost before parentheses",
+        "variable part changed during simplification"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-algebraic-expressions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-algebraic-expressions-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "化简 -2(x - 3y) + 3(2x - y) 的结果是哪一个？",
+      "optionsZhHans": [
+        "4x + 3y",
+        "4x - 9y",
+        "8x + 3y",
+        "8x - 9y"
+      ],
+      "answer": "4x + 3y",
+      "acceptedAnswers": [
+        "4x + 3y"
+      ],
+      "explanationZhHans": "原式 = -2x + 6y + 6x - 3y = 4x + 3y。注意去括号时符号变化。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-116",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-algebraic-expressions",
+      "unitTitle": "整式及其加减",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "algebraic-expressions",
+        "monomials-polynomials",
+        "like-terms",
+        "polynomial-addition-subtraction",
+        "整式",
+        "同类项"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "列代数式",
+        "识别单项式和多项式",
+        "合并同类项",
+        "去括号",
+        "整式加减"
+      ],
+      "misconceptionTags": [
+        "like terms judged by coefficient only",
+        "minus sign lost before parentheses",
+        "variable part changed during simplification"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-algebraic-expressions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-algebraic-expressions-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知 A = 2x² + xy - 3y²，B = x² - 2xy + y²。求 2A - 3B 的值，其中 x = 2，y = -1。",
+      "optionsZhHans": [],
+      "answer": "x² + 8xy - 9y² = -21",
+      "acceptedAnswers": [
+        "x² + 8xy - 9y² = -21",
+        "-21",
+        "x^2+8xy-9y^2=-21"
+      ],
+      "explanationZhHans": "2A - 3B = 2(2x²+xy-3y²)-3(x²-2xy+y²)=4x²+2xy-6y²-3x²+6xy-3y²=x²+8xy-9y²。代入 x=2,y=-1 得 4-16-9=-21。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-117",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-algebraic-expressions",
+      "unitTitle": "整式及其加减",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "algebraic-expressions",
+        "monomials-polynomials",
+        "like-terms",
+        "polynomial-addition-subtraction",
+        "整式",
+        "同类项"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "列代数式",
+        "识别单项式和多项式",
+        "合并同类项",
+        "去括号",
+        "整式加减"
+      ],
+      "misconceptionTags": [
+        "like terms judged by coefficient only",
+        "minus sign lost before parentheses",
+        "variable part changed during simplification"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-algebraic-expressions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-algebraic-expressions-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "若单项式 5xᵐ⁺¹y² 与 -2x³yⁿ⁻¹ 是同类项，则 m + n 的值为多少？",
+      "optionsZhHans": [],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5"
+      ],
+      "explanationZhHans": "由同类项定义得 m+1=3 且 2=n-1，解得 m=2，n=3，所以 m+n=5。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-118",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-algebraic-expressions",
+      "unitTitle": "整式及其加减",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "algebraic-expressions",
+        "monomials-polynomials",
+        "like-terms",
+        "polynomial-addition-subtraction",
+        "整式",
+        "同类项"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "列代数式",
+        "识别单项式和多项式",
+        "合并同类项",
+        "去括号",
+        "整式加减"
+      ],
+      "misconceptionTags": [
+        "like terms judged by coefficient only",
+        "minus sign lost before parentheses",
+        "variable part changed during simplification"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-algebraic-expressions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-algebraic-expressions-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个多项式与 x² - 2x + 1 的和是 3x² + 4x - 2，则这个多项式是哪一个？",
+      "optionsZhHans": [
+        "2x² + 6x - 3",
+        "2x² + 2x - 1",
+        "4x² + 2x - 1",
+        "4x² + 6x - 3"
+      ],
+      "answer": "2x² + 6x - 3",
+      "acceptedAnswers": [
+        "2x² + 6x - 3"
+      ],
+      "explanationZhHans": "所求多项式 = (3x²+4x-2) - (x²-2x+1) = 2x²+6x-3。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-119",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-algebraic-expressions",
+      "unitTitle": "整式及其加减",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "algebraic-expressions",
+        "monomials-polynomials",
+        "like-terms",
+        "polynomial-addition-subtraction",
+        "整式",
+        "同类项"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "列代数式",
+        "识别单项式和多项式",
+        "合并同类项",
+        "去括号",
+        "整式加减"
+      ],
+      "misconceptionTags": [
+        "like terms judged by coefficient only",
+        "minus sign lost before parentheses",
+        "variable part changed during simplification"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-algebraic-expressions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-algebraic-expressions-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知长方形的周长为 10a + 6b，其中长为 3a + 2b，求宽。",
+      "optionsZhHans": [],
+      "answer": "2a + b",
+      "acceptedAnswers": [
+        "2a + b",
+        "2a+b"
+      ],
+      "explanationZhHans": "周长 = 2(长+宽)，所以宽 = 周长÷2 - 长 = (10a+6b)/2 - (3a+2b) = 5a+3b - 3a - 2b = 2a+b。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-120",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "upper",
+      "topicId": "bnu-junior-s1-upper-algebraic-expressions",
+      "unitTitle": "整式及其加减",
+      "volume": "七年级上册",
+      "conceptIds": [
+        "algebraic-expressions",
+        "monomials-polynomials",
+        "like-terms",
+        "polynomial-addition-subtraction",
+        "整式",
+        "同类项"
+      ],
+      "competencyTags": [
+        "符号意识",
+        "运算能力",
+        "数学抽象"
+      ],
+      "skillTags": [
+        "列代数式",
+        "识别单项式和多项式",
+        "合并同类项",
+        "去括号",
+        "整式加减"
+      ],
+      "misconceptionTags": [
+        "like terms judged by coefficient only",
+        "minus sign lost before parentheses",
+        "variable part changed during simplification"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-upper-algebraic-expressions"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-upper-assessment-algebraic-expressions-unit",
+        "bnu-junior-s1-upper-assessment-midterm-final-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "当 k = ___ 时，多项式 x² - 3kxy - 3y² + xy - 8 中不含 xy 项。",
+      "optionsZhHans": [],
+      "answer": "1/3",
+      "acceptedAnswers": [
+        "1/3",
+        "三分之一",
+        "1/3 (三分之一)"
+      ],
+      "explanationZhHans": "合并 xy 项：-3kxy + xy = (1-3k)xy，令系数为 0 得 1-3k=0，解得 k=1/3。"
+    }
+  ]
+}

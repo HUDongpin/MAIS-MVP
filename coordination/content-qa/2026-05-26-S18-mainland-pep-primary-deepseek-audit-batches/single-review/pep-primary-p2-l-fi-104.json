@@ -1,0 +1,27 @@
+{
+  "startedAt": "2026-05-26T06:19:09.269Z",
+  "completedAt": "2026-05-26T06:19:12.286Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "usage": {
+    "prompt_tokens": 423,
+    "completion_tokens": 115,
+    "total_tokens": 538,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 423
+  },
+  "finishReason": "stop",
+  "result": {
+    "questionId": "pep-primary-p2-l-fi-104",
+    "solvableStatus": "pass",
+    "answerMatchStatus": "pass",
+    "independentAnswer": "7袋，剩5个",
+    "confidence": "high",
+    "issueType": "none",
+    "note": "独立答案'7袋，剩5个'与题库答案'7余5'含义一致，均为54÷7=7余5，表述差异不影响正确性。",
+    "recommendedAction": "pass"
+  }
+}

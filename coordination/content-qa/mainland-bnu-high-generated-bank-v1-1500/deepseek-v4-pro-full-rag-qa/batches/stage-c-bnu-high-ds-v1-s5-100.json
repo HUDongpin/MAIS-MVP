@@ -1,0 +1,48 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-100",
+  "startedAt": "2026-05-28T02:08:08.206Z",
+  "completedAt": "2026-05-28T02:08:13.545Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-100"
+  ],
+  "usage": {
+    "prompt_tokens": 5441,
+    "completion_tokens": 262,
+    "total_tokens": 5703,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 5057
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-100",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "pass",
+        "independentAnswer": "[2, +∞)",
+        "correctedAnswer": "[2, +∞)",
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，独立解为[2,+∞)。存储答案[2,+∞)正确，但解析错误推导出(1,2]并选B，自相矛盾。正确条件为√3 ≤ b/a，得e≥2。选项A唯一匹配。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1题答案与解析矛盾，解析错误，需修正为[2,+∞)。"
+    }
+  }
+}

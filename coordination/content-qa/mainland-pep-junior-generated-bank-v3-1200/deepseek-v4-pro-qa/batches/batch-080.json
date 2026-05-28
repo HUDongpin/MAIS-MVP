@@ -1,0 +1,137 @@
+{
+  "batchNumber": 80,
+  "startedAt": "2026-05-24T23:00:56.788Z",
+  "completedAt": "2026-05-24T23:01:12.410Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s3-k10-sa-016",
+    "pep-junior-v3-s3-k10-sa-017",
+    "pep-junior-v3-s3-k10-sa-018",
+    "pep-junior-v3-s3-k10-sa-019",
+    "pep-junior-v3-s3-k10-sa-020",
+    "pep-junior-v3-s3-k10-sa-021",
+    "pep-junior-v3-s3-k10-sa-022",
+    "pep-junior-v3-s3-k10-sa-023",
+    "pep-junior-v3-s3-k10-sa-024",
+    "pep-junior-v3-s3-k10-sa-025",
+    "pep-junior-v3-s3-k10-sa-026",
+    "pep-junior-v3-s3-k10-sa-027"
+  ],
+  "usage": {
+    "prompt_tokens": 3728,
+    "completion_tokens": 922,
+    "total_tokens": 4650,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 3472
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s3-k10-sa-016",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，解答无误，符合初中数学要求。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-sa-017",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "概率计算正确，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-sa-018",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程求解正确，判别式及求根公式应用无误。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-sa-019",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "顶点坐标和对称轴计算正确，配方过程无误。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-sa-020",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "旋转坐标变换正确，符合顺时针旋转90°的规则。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-sa-021",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "函数关系式及取值范围正确，符合实际意义。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-sa-022",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "相交弦定理应用正确，计算无误。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-sa-023",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "放回摸球概率计算正确，分类清晰。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-sa-024",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "旋转性质应用正确，对应角相等。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-sa-025",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "判别式应用正确，不等式求解无误。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-sa-026",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "配方法步骤正确，解无误。"
+      },
+      {
+        "id": "pep-junior-v3-s3-k10-sa-027",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "判别式判断交点个数正确，理由充分。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均通过审核，数学正确，答案与解释一致，无歧义或错误。"
+    }
+  }
+}

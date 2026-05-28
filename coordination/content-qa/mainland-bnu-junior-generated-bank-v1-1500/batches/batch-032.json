@@ -1,0 +1,630 @@
+{
+  "batchId": "batch-032",
+  "questions": [
+    {
+      "id": "bnu-junior-ds-v1-s1-311",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-intersecting-parallel-lines",
+      "unitTitle": "相交线与平行线",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "intersecting-lines",
+        "parallel-lines",
+        "transversal-angles",
+        "angle-relations",
+        "平行线",
+        "相交线"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "邻补角",
+        "对顶角",
+        "垂线",
+        "平行线性质",
+        "平行线判定",
+        "角度推理"
+      ],
+      "misconceptionTags": [
+        "parallel condition assumed from the drawing",
+        "corresponding and alternate angles confused",
+        "supplementary relation overgeneralized"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-intersecting-parallel-lines"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-intersecting-parallel-lines-unit",
+        "bnu-junior-s1-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知直线AB与直线CD相交于点O，射线OE在∠AOD内部，且∠AOE＝30°，∠EOD＝70°。直线MN过点O，且MN⊥CD，垂足为O，点M在直线AB的上方。求∠BOM的度数。",
+      "optionsZhHans": [],
+      "answer": "∠BOM＝40°",
+      "acceptedAnswers": [
+        "∠BOM＝40°",
+        "40°",
+        "40"
+      ],
+      "explanationZhHans": "由∠AOE＝20°，∠EOD＝30°得∠AOD＝50°，对顶角∠BOC＝50°，邻补角∠BOD＝130°。因MN⊥CD，∠MOD＝90°。点M在AB上方，故OM在∠BOD内部，∠BOM＝∠BOD－∠MOD＝130°－90°＝40°。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-312",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-intersecting-parallel-lines",
+      "unitTitle": "相交线与平行线",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "intersecting-lines",
+        "parallel-lines",
+        "transversal-angles",
+        "angle-relations",
+        "平行线",
+        "相交线"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "邻补角",
+        "对顶角",
+        "垂线",
+        "平行线性质",
+        "平行线判定",
+        "角度推理"
+      ],
+      "misconceptionTags": [
+        "parallel condition assumed from the drawing",
+        "corresponding and alternate angles confused",
+        "supplementary relation overgeneralized"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-intersecting-parallel-lines"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-intersecting-parallel-lines-unit",
+        "bnu-junior-s1-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知直线AB与CD相交于点O，射线OE在∠AOD内部，且∠AOE=35°。若∠AOC=80°，求∠EOD的度数。",
+      "optionsZhHans": [],
+      "answer": "45°",
+      "acceptedAnswers": [
+        "45°",
+        "45度"
+      ],
+      "explanationZhHans": "由对顶角相等得∠BOD=∠AOC=80°。∠AOD与∠BOD是邻补角，故∠AOD=180°-80°=100°。射线OE在∠AOD内部，所以∠EOD=∠AOD-∠AOE=100°-35°=65°。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-313",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-intersecting-parallel-lines",
+      "unitTitle": "相交线与平行线",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "intersecting-lines",
+        "parallel-lines",
+        "transversal-angles",
+        "angle-relations",
+        "平行线",
+        "相交线"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "邻补角",
+        "对顶角",
+        "垂线",
+        "平行线性质",
+        "平行线判定",
+        "角度推理"
+      ],
+      "misconceptionTags": [
+        "parallel condition assumed from the drawing",
+        "corresponding and alternate angles confused",
+        "supplementary relation overgeneralized"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-intersecting-parallel-lines"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-intersecting-parallel-lines-unit",
+        "bnu-junior-s1-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知直线AB与CD相交于点O，射线OE在∠AOD内部，且∠AOE=50°，∠EOD=30°。若OF是∠BOC的平分线，求∠COF的度数。",
+      "optionsZhHans": [
+        "40°",
+        "50°",
+        "80°",
+        "100°"
+      ],
+      "answer": "40°",
+      "acceptedAnswers": [
+        "40°"
+      ],
+      "explanationZhHans": "由对顶角相等得∠BOC=∠AOD=50°+30°=80°。OF平分∠BOC，故∠COF=80°÷2=40°。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-314",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-intersecting-parallel-lines",
+      "unitTitle": "相交线与平行线",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "intersecting-lines",
+        "parallel-lines",
+        "transversal-angles",
+        "angle-relations",
+        "平行线",
+        "相交线"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "邻补角",
+        "对顶角",
+        "垂线",
+        "平行线性质",
+        "平行线判定",
+        "角度推理"
+      ],
+      "misconceptionTags": [
+        "parallel condition assumed from the drawing",
+        "corresponding and alternate angles confused",
+        "supplementary relation overgeneralized"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-intersecting-parallel-lines"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-intersecting-parallel-lines-unit",
+        "bnu-junior-s1-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知直线AB与CD相交于点O，射线OE在∠AOD内部，且∠AOE＝35°。若∠COE＝145°，求∠BOD的度数。",
+      "optionsZhHans": [],
+      "answer": "110°",
+      "acceptedAnswers": [
+        "110°",
+        "110"
+      ],
+      "explanationZhHans": "由邻补角得∠AOD＝180°－∠BOD。又∠AOD＝∠AOE＋∠EOD，而∠COE与∠EOD互补，故∠EOD＝180°－145°＝35°，所以∠AOD＝35°＋35°＝70°，因此∠BOD＝180°－70°＝110°。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-315",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-intersecting-parallel-lines",
+      "unitTitle": "相交线与平行线",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "intersecting-lines",
+        "parallel-lines",
+        "transversal-angles",
+        "angle-relations",
+        "平行线",
+        "相交线"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "邻补角",
+        "对顶角",
+        "垂线",
+        "平行线性质",
+        "平行线判定",
+        "角度推理"
+      ],
+      "misconceptionTags": [
+        "parallel condition assumed from the drawing",
+        "corresponding and alternate angles confused",
+        "supplementary relation overgeneralized"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-intersecting-parallel-lines"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-intersecting-parallel-lines-unit",
+        "bnu-junior-s1-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知直线AB与CD相交于点O，射线OE在∠AOD内部，且∠AOE=35°。若∠BOD=50°，求∠EOD的度数。",
+      "optionsZhHans": [],
+      "answer": "15°",
+      "acceptedAnswers": [
+        "15°",
+        "15度"
+      ],
+      "explanationZhHans": "由对顶角相等得∠AOC=∠BOD=50°。∠AOD与∠AOC互补，故∠AOD=180°-50°=130°。∠EOD=∠AOD-∠AOE=130°-35°=95°。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-316",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-intersecting-parallel-lines",
+      "unitTitle": "相交线与平行线",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "intersecting-lines",
+        "parallel-lines",
+        "transversal-angles",
+        "angle-relations",
+        "平行线",
+        "相交线"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "邻补角",
+        "对顶角",
+        "垂线",
+        "平行线性质",
+        "平行线判定",
+        "角度推理"
+      ],
+      "misconceptionTags": [
+        "parallel condition assumed from the drawing",
+        "corresponding and alternate angles confused",
+        "supplementary relation overgeneralized"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-intersecting-parallel-lines"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-intersecting-parallel-lines-unit",
+        "bnu-junior-s1-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知直线AB与CD相交于点O，射线OE在∠AOD内部，且∠AOE＝40°，∠EOD＝30°。直线OF是∠BOC的平分线。求∠BOF的度数。",
+      "optionsZhHans": [
+        "35°",
+        "40°",
+        "55°",
+        "70°"
+      ],
+      "answer": "35°",
+      "acceptedAnswers": [
+        "35°"
+      ],
+      "explanationZhHans": "由对顶角相等得∠BOC＝∠AOD＝40°＋30°＝70°。OF平分∠BOC，故∠BOF＝70°÷2＝35°。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-317",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-intersecting-parallel-lines",
+      "unitTitle": "相交线与平行线",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "intersecting-lines",
+        "parallel-lines",
+        "transversal-angles",
+        "angle-relations",
+        "平行线",
+        "相交线"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "邻补角",
+        "对顶角",
+        "垂线",
+        "平行线性质",
+        "平行线判定",
+        "角度推理"
+      ],
+      "misconceptionTags": [
+        "parallel condition assumed from the drawing",
+        "corresponding and alternate angles confused",
+        "supplementary relation overgeneralized"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-intersecting-parallel-lines"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-intersecting-parallel-lines-unit",
+        "bnu-junior-s1-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知直线AB与直线CD相交于点O，射线OE在∠AOD内部，且∠AOE＝50°。若∠COE＝130°，求∠BOD的度数，并说明每一步推理的依据。",
+      "optionsZhHans": [],
+      "answer": "∠BOD＝50°。理由：由∠AOE＝50°，∠COE＝130°，得∠AOC＝∠COE－∠AOE＝80°。因为∠AOC与∠BOD是对顶角，所以∠BOD＝∠AOC＝80°。",
+      "acceptedAnswers": [
+        "∠BOD＝50°。理由：由∠AOE＝50°，∠COE＝130°，得∠AOC＝∠COE－∠AOE＝80°。因为∠AOC与∠BOD是对顶角，所以∠BOD＝∠AOC＝80°。",
+        "∠BOD＝80°",
+        "80°"
+      ],
+      "explanationZhHans": "由∠AOE＝50°，∠COE＝130°，得∠AOC＝130°－50°＝80°。∠AOC与∠BOD为对顶角，对顶角相等，故∠BOD＝80°。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-318",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-intersecting-parallel-lines",
+      "unitTitle": "相交线与平行线",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "intersecting-lines",
+        "parallel-lines",
+        "transversal-angles",
+        "angle-relations",
+        "平行线",
+        "相交线"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "邻补角",
+        "对顶角",
+        "垂线",
+        "平行线性质",
+        "平行线判定",
+        "角度推理"
+      ],
+      "misconceptionTags": [
+        "parallel condition assumed from the drawing",
+        "corresponding and alternate angles confused",
+        "supplementary relation overgeneralized"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-intersecting-parallel-lines"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-intersecting-parallel-lines-unit",
+        "bnu-junior-s1-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知直线AB与CD相交于点O，OE平分∠AOC，OF平分∠BOD。若∠AOE=35°，求∠EOF的度数。",
+      "optionsZhHans": [],
+      "answer": "180°",
+      "acceptedAnswers": [
+        "180°",
+        "180度"
+      ],
+      "explanationZhHans": "由OE平分∠AOC得∠AOC=2×35°=70°。对顶角∠BOD=∠AOC=70°，OF平分∠BOD得∠BOF=35°。∠AOB是平角180°，∠EOF=∠EOB+∠BOF，而∠EOB=∠AOB-∠AOE=180°-35°=145°，故∠EOF=145°+35°=180°。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-319",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-intersecting-parallel-lines",
+      "unitTitle": "相交线与平行线",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "intersecting-lines",
+        "parallel-lines",
+        "transversal-angles",
+        "angle-relations",
+        "平行线",
+        "相交线"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "邻补角",
+        "对顶角",
+        "垂线",
+        "平行线性质",
+        "平行线判定",
+        "角度推理"
+      ],
+      "misconceptionTags": [
+        "parallel condition assumed from the drawing",
+        "corresponding and alternate angles confused",
+        "supplementary relation overgeneralized"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-intersecting-parallel-lines"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-intersecting-parallel-lines-unit",
+        "bnu-junior-s1-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知直线AB与直线CD相交于点O，射线OE在∠AOD内部，且∠COE = 90°。若∠AOC = 50°，求∠BOE的度数。",
+      "optionsZhHans": [
+        "40°",
+        "50°",
+        "130°",
+        "140°"
+      ],
+      "answer": "140°",
+      "acceptedAnswers": [
+        "140°"
+      ],
+      "explanationZhHans": "由对顶角相等得∠BOD = ∠AOC = 50°。∠COE = 90°，故∠DOE = 90° - ∠COD？需重新推导：∠AOD = 180° - ∠AOC = 130°。射线OE在∠AOD内部，∠COE = 90°，而∠COD = 180°（平角），所以∠DOE = 180° - 90° = 90°？不对。正确：∠AOE = ∠COE - ∠AOC = 90° - 50° = 40°，则∠BOE = 180° - ∠AOE = 140°。"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-320",
+      "batch": "bnu-junior-v1",
+      "grade": "S1",
+      "semester": "lower",
+      "topicId": "bnu-junior-s1-lower-intersecting-parallel-lines",
+      "unitTitle": "相交线与平行线",
+      "volume": "七年级下册",
+      "conceptIds": [
+        "intersecting-lines",
+        "parallel-lines",
+        "transversal-angles",
+        "angle-relations",
+        "平行线",
+        "相交线"
+      ],
+      "competencyTags": [
+        "几何直观",
+        "逻辑推理",
+        "空间观念"
+      ],
+      "skillTags": [
+        "邻补角",
+        "对顶角",
+        "垂线",
+        "平行线性质",
+        "平行线判定",
+        "角度推理"
+      ],
+      "misconceptionTags": [
+        "parallel condition assumed from the drawing",
+        "corresponding and alternate angles confused",
+        "supplementary relation overgeneralized"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-junior-s1-lower-intersecting-parallel-lines"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-junior-s1-lower-assessment-intersecting-parallel-lines-unit",
+        "bnu-junior-s1-lower-assessment-monthly-1-to-2-integrated"
+      ],
+      "zhongkaoPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers",
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "已知直线AB与CD相交于点O，OE平分∠AOD。若∠AOC＝50°，求∠BOE的度数。",
+      "optionsZhHans": [],
+      "answer": "155°",
+      "acceptedAnswers": [
+        "155°",
+        "155度",
+        "155"
+      ],
+      "explanationZhHans": "由对顶角相等得∠BOD＝∠AOC＝50°。∠AOD与∠AOC互为邻补角，故∠AOD＝180°－50°＝130°。OE平分∠AOD，则∠DOE＝65°。∠BOE＝∠BOD＋∠DOE＝50°＋65°＝115°。"
+    }
+  ]
+}

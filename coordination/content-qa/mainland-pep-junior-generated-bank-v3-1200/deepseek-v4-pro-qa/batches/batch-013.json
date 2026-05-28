@@ -1,0 +1,137 @@
+{
+  "batchNumber": 13,
+  "startedAt": "2026-05-25T02:48:55.805Z",
+  "completedAt": "2026-05-25T02:49:09.709Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s1-k03-mc-011",
+    "pep-junior-v3-s1-k03-mc-012",
+    "pep-junior-v3-s1-k03-mc-013",
+    "pep-junior-v3-s1-k03-mc-014",
+    "pep-junior-v3-s1-k03-mc-015",
+    "pep-junior-v3-s1-k03-mc-016",
+    "pep-junior-v3-s1-k03-mc-017",
+    "pep-junior-v3-s1-k03-mc-018",
+    "pep-junior-v3-s1-k03-mc-019",
+    "pep-junior-v3-s1-k03-mc-020",
+    "pep-junior-v3-s1-k03-mc-021",
+    "pep-junior-v3-s1-k03-mc-022"
+  ],
+  "usage": {
+    "prompt_tokens": 3073,
+    "completion_tokens": 913,
+    "total_tokens": 3986,
+    "prompt_tokens_details": {
+      "cached_tokens": 3072
+    },
+    "prompt_cache_hit_tokens": 3072,
+    "prompt_cache_miss_tokens": 1
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s1-k03-mc-011",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项无歧义，解释清晰。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k03-mc-012",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "命题定义正确，选项区分明确。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k03-mc-013",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "中点计算正确，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k03-mc-014",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "角的表示法正确，唯一性条件清晰。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k03-mc-015",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程列式与求解正确。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k03-mc-016",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "视图判断正确，圆柱主视图为长方形。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k03-mc-017",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "延长概念正确，射线端点辨析清晰。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k03-mc-018",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "棱柱定义正确，长方体属于四棱柱。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k03-mc-019",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "三角板可画角度为15°整数倍，125°不能。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k03-mc-020",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "线段和差与中点计算正确。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k03-mc-021",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "补角余角计算正确。"
+      },
+      {
+        "id": "pep-junior-v3-s1-k03-mc-022",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方程列式与求解正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部12道题均通过审核，数学正确，选项无歧义，解释清晰，适合人教版初中数学。"
+    }
+  }
+}

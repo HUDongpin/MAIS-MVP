@@ -1,0 +1,590 @@
+{
+  "batchId": "batch-118",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v1-p5-171",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-cuboid-volume",
+      "unitTitle": "长方体（二）",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "volume",
+        "cuboid-volume",
+        "cube-volume",
+        "volume-units",
+        "capacity-connection",
+        "长方体体积"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "模型意识"
+      ],
+      "skillTags": [
+        "认识体积",
+        "体积单位",
+        "长方体体积",
+        "正方体体积",
+        "容积与体积"
+      ],
+      "misconceptionTags": [
+        "surface-area formula used for volume",
+        "cubic units omitted",
+        "capacity and volume units converted without meaning"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-cuboid-volume"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-cuboid-volume-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方体纸箱，从里面量长40厘米、宽30厘米、高25厘米。这个纸箱的容积是多少立方厘米？合多少升？",
+      "optionsZhHans": [],
+      "answer": "30000立方厘米，合30升",
+      "acceptedAnswers": [
+        "30000立方厘米，合30升",
+        "30000立方厘米 30升",
+        "30000 cm³ 30 L",
+        "30000立方厘米和30升"
+      ],
+      "explanationZhHans": "容积=长×宽×高=40×30×25=30000（立方厘米）。1升=1000立方厘米，所以30000立方厘米=30升。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-172",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-cuboid-volume",
+      "unitTitle": "长方体（二）",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "volume",
+        "cuboid-volume",
+        "cube-volume",
+        "volume-units",
+        "capacity-connection",
+        "长方体体积"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "模型意识"
+      ],
+      "skillTags": [
+        "认识体积",
+        "体积单位",
+        "长方体体积",
+        "正方体体积",
+        "容积与体积"
+      ],
+      "misconceptionTags": [
+        "surface-area formula used for volume",
+        "cubic units omitted",
+        "capacity and volume units converted without meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-cuboid-volume"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-cuboid-volume-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个正方体的棱长是5厘米，它的体积是多少？",
+      "optionsZhHans": [
+        "25立方厘米",
+        "125立方厘米",
+        "150立方厘米",
+        "100立方厘米"
+      ],
+      "answer": "125立方厘米",
+      "acceptedAnswers": [
+        "125立方厘米"
+      ],
+      "explanationZhHans": "正方体体积=棱长×棱长×棱长=5×5×5=125（立方厘米）。注意不要用表面积公式。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-173",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-cuboid-volume",
+      "unitTitle": "长方体（二）",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "volume",
+        "cuboid-volume",
+        "cube-volume",
+        "volume-units",
+        "capacity-connection",
+        "长方体体积"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "模型意识"
+      ],
+      "skillTags": [
+        "认识体积",
+        "体积单位",
+        "长方体体积",
+        "正方体体积",
+        "容积与体积"
+      ],
+      "misconceptionTags": [
+        "surface-area formula used for volume",
+        "cubic units omitted",
+        "capacity and volume units converted without meaning"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-cuboid-volume"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-cuboid-volume-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方体的长是8分米，宽是6分米，高是4分米，它的体积是______立方分米。",
+      "optionsZhHans": [],
+      "answer": "192",
+      "acceptedAnswers": [
+        "192",
+        "192立方分米"
+      ],
+      "explanationZhHans": "长方体体积=长×宽×高=8×6×4=192（立方分米）。注意单位是立方分米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-174",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-cuboid-volume",
+      "unitTitle": "长方体（二）",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "volume",
+        "cuboid-volume",
+        "cube-volume",
+        "volume-units",
+        "capacity-connection",
+        "长方体体积"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "模型意识"
+      ],
+      "skillTags": [
+        "认识体积",
+        "体积单位",
+        "长方体体积",
+        "正方体体积",
+        "容积与体积"
+      ],
+      "misconceptionTags": [
+        "surface-area formula used for volume",
+        "cubic units omitted",
+        "capacity and volume units converted without meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-cuboid-volume"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-cuboid-volume-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方体水箱，从里面量长2米、宽1.5米、高1米。这个水箱最多能装水多少升？",
+      "optionsZhHans": [],
+      "answer": "3000升",
+      "acceptedAnswers": [
+        "3000升",
+        "3000L",
+        "3000升水"
+      ],
+      "explanationZhHans": "容积=2×1.5×1=3（立方米）=3000立方分米。1立方分米=1升，所以是3000升。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-175",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-cuboid-volume",
+      "unitTitle": "长方体（二）",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "volume",
+        "cuboid-volume",
+        "cube-volume",
+        "volume-units",
+        "capacity-connection",
+        "长方体体积"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "模型意识"
+      ],
+      "skillTags": [
+        "认识体积",
+        "体积单位",
+        "长方体体积",
+        "正方体体积",
+        "容积与体积"
+      ],
+      "misconceptionTags": [
+        "surface-area formula used for volume",
+        "cubic units omitted",
+        "capacity and volume units converted without meaning"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-cuboid-volume"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-cuboid-volume-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个正方体木块的棱长总和是48厘米，它的体积是多少？",
+      "optionsZhHans": [
+        "64立方厘米",
+        "96立方厘米",
+        "128立方厘米",
+        "512立方厘米"
+      ],
+      "answer": "64立方厘米",
+      "acceptedAnswers": [
+        "64立方厘米"
+      ],
+      "explanationZhHans": "正方体有12条棱，棱长=48÷12=4厘米，体积=4×4×4=64（立方厘米）。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-176",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-cuboid-volume",
+      "unitTitle": "长方体（二）",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "volume",
+        "cuboid-volume",
+        "cube-volume",
+        "volume-units",
+        "capacity-connection",
+        "长方体体积"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "模型意识"
+      ],
+      "skillTags": [
+        "认识体积",
+        "体积单位",
+        "长方体体积",
+        "正方体体积",
+        "容积与体积"
+      ],
+      "misconceptionTags": [
+        "surface-area formula used for volume",
+        "cubic units omitted",
+        "capacity and volume units converted without meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-cuboid-volume"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-cuboid-volume-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "填上合适的单位：一台微波炉的体积大约是40______。",
+      "optionsZhHans": [],
+      "answer": "立方分米",
+      "acceptedAnswers": [
+        "立方分米",
+        "dm³"
+      ],
+      "explanationZhHans": "微波炉的体积通常用立方分米表示，40立方分米比较符合实际大小。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-177",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-cuboid-volume",
+      "unitTitle": "长方体（二）",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "volume",
+        "cuboid-volume",
+        "cube-volume",
+        "volume-units",
+        "capacity-connection",
+        "长方体体积"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "模型意识"
+      ],
+      "skillTags": [
+        "认识体积",
+        "体积单位",
+        "长方体体积",
+        "正方体体积",
+        "容积与体积"
+      ],
+      "misconceptionTags": [
+        "surface-area formula used for volume",
+        "cubic units omitted",
+        "capacity and volume units converted without meaning"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-cuboid-volume"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-cuboid-volume-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方体沙坑，长5米、宽3米、深0.4米。填满这个沙坑需要多少立方米的沙子？",
+      "optionsZhHans": [],
+      "answer": "6立方米",
+      "acceptedAnswers": [
+        "6立方米",
+        "6m³"
+      ],
+      "explanationZhHans": "沙坑的体积=5×3×0.4=6（立方米）。注意深就是高，直接用长方体体积公式。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-178",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-cuboid-volume",
+      "unitTitle": "长方体（二）",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "volume",
+        "cuboid-volume",
+        "cube-volume",
+        "volume-units",
+        "capacity-connection",
+        "长方体体积"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "模型意识"
+      ],
+      "skillTags": [
+        "认识体积",
+        "体积单位",
+        "长方体体积",
+        "正方体体积",
+        "容积与体积"
+      ],
+      "misconceptionTags": [
+        "surface-area formula used for volume",
+        "cubic units omitted",
+        "capacity and volume units converted without meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-cuboid-volume"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-cuboid-volume-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方体的体积是240立方厘米，它的长是10厘米，宽是8厘米，高是多少？",
+      "optionsZhHans": [
+        "2厘米",
+        "3厘米",
+        "4厘米",
+        "5厘米"
+      ],
+      "answer": "3厘米",
+      "acceptedAnswers": [
+        "3厘米"
+      ],
+      "explanationZhHans": "高=体积÷(长×宽)=240÷(10×8)=240÷80=3（厘米）。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-179",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-cuboid-volume",
+      "unitTitle": "长方体（二）",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "volume",
+        "cuboid-volume",
+        "cube-volume",
+        "volume-units",
+        "capacity-connection",
+        "长方体体积"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "模型意识"
+      ],
+      "skillTags": [
+        "认识体积",
+        "体积单位",
+        "长方体体积",
+        "正方体体积",
+        "容积与体积"
+      ],
+      "misconceptionTags": [
+        "surface-area formula used for volume",
+        "cubic units omitted",
+        "capacity and volume units converted without meaning"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-cuboid-volume"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-cuboid-volume-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个正方体的体积是27立方厘米，它的棱长是______厘米。",
+      "optionsZhHans": [],
+      "answer": "3",
+      "acceptedAnswers": [
+        "3",
+        "3厘米"
+      ],
+      "explanationZhHans": "因为3×3×3=27，所以棱长是3厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-180",
+      "batch": "bnu-primary-v1",
+      "grade": "P5",
+      "semester": "lower",
+      "topicId": "bnu-primary-p5-lower-cuboid-volume",
+      "unitTitle": "长方体（二）",
+      "volume": "五年级下册",
+      "conceptIds": [
+        "volume",
+        "cuboid-volume",
+        "cube-volume",
+        "volume-units",
+        "capacity-connection",
+        "长方体体积"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "模型意识"
+      ],
+      "skillTags": [
+        "认识体积",
+        "体积单位",
+        "长方体体积",
+        "正方体体积",
+        "容积与体积"
+      ],
+      "misconceptionTags": [
+        "surface-area formula used for volume",
+        "cubic units omitted",
+        "capacity and volume units converted without meaning"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-lower-cuboid-volume"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-lower-assessment-cuboid-volume-unit",
+        "bnu-primary-p5-lower-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方体容器，从里面量长20厘米、宽15厘米、高10厘米。将6升水倒入容器，水深多少厘米？",
+      "optionsZhHans": [],
+      "answer": "20厘米",
+      "acceptedAnswers": [
+        "20厘米",
+        "20cm"
+      ],
+      "explanationZhHans": "6升=6000立方厘米。底面积=20×15=300平方厘米。水深=6000÷300=20（厘米）。"
+    }
+  ]
+}

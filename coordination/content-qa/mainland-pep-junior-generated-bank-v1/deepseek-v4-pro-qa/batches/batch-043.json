@@ -1,0 +1,191 @@
+{
+  "batchNumber": 43,
+  "startedAt": "2026-05-24T17:35:30.411Z",
+  "completedAt": "2026-05-24T17:35:47.892Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-candidate-k10-mc-021",
+    "pep-junior-candidate-k10-mc-022",
+    "pep-junior-candidate-k10-mc-023",
+    "pep-junior-candidate-k10-mc-024",
+    "pep-junior-candidate-k10-mc-025",
+    "pep-junior-candidate-k10-mc-026",
+    "pep-junior-candidate-k10-mc-027",
+    "pep-junior-candidate-k10-fi-001",
+    "pep-junior-candidate-k10-fi-002",
+    "pep-junior-candidate-k10-fi-003",
+    "pep-junior-candidate-k10-fi-004",
+    "pep-junior-candidate-k10-fi-005",
+    "pep-junior-candidate-k10-fi-006",
+    "pep-junior-candidate-k10-fi-007",
+    "pep-junior-candidate-k10-fi-008",
+    "pep-junior-candidate-k10-fi-009",
+    "pep-junior-candidate-k10-fi-010",
+    "pep-junior-candidate-k10-fi-011"
+  ],
+  "usage": {
+    "prompt_tokens": 3159,
+    "completion_tokens": 1264,
+    "total_tokens": 4423,
+    "prompt_tokens_details": {
+      "cached_tokens": 3072
+    },
+    "prompt_cache_hit_tokens": 3072,
+    "prompt_cache_miss_tokens": 87
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-candidate-k10-mc-021",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，选项无歧义，答案匹配。"
+      },
+      {
+        "id": "pep-junior-candidate-k10-mc-022",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，选项无歧义，答案匹配。"
+      },
+      {
+        "id": "pep-junior-candidate-k10-mc-023",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，选项无歧义，答案匹配。"
+      },
+      {
+        "id": "pep-junior-candidate-k10-mc-024",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，选项无歧义，答案匹配。"
+      },
+      {
+        "id": "pep-junior-candidate-k10-mc-025",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，选项无歧义，答案匹配。"
+      },
+      {
+        "id": "pep-junior-candidate-k10-mc-026",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，选项无歧义，答案匹配。"
+      },
+      {
+        "id": "pep-junior-candidate-k10-mc-027",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，选项无歧义，答案匹配。"
+      },
+      {
+        "id": "pep-junior-candidate-k10-fi-001",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案匹配。"
+      },
+      {
+        "id": "pep-junior-candidate-k10-fi-002",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案匹配。"
+      },
+      {
+        "id": "pep-junior-candidate-k10-fi-003",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案匹配。"
+      },
+      {
+        "id": "pep-junior-candidate-k10-fi-004",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案匹配。"
+      },
+      {
+        "id": "pep-junior-candidate-k10-fi-005",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案匹配。"
+      },
+      {
+        "id": "pep-junior-candidate-k10-fi-006",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案匹配。"
+      },
+      {
+        "id": "pep-junior-candidate-k10-fi-007",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案匹配。"
+      },
+      {
+        "id": "pep-junior-candidate-k10-fi-008",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案匹配。"
+      },
+      {
+        "id": "pep-junior-candidate-k10-fi-009",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案匹配。"
+      },
+      {
+        "id": "pep-junior-candidate-k10-fi-010",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案匹配。"
+      },
+      {
+        "id": "pep-junior-candidate-k10-fi-011",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案匹配。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均正确，无数学错误、答案不匹配、选项歧义或缺失条件，适合人教版初中数学。"
+    }
+  }
+}

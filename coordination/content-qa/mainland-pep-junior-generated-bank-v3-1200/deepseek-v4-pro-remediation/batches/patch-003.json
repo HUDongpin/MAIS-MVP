@@ -1,0 +1,142 @@
+{
+  "batchIndex": 2,
+  "completedAt": "2026-05-25T01:52:12.151Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s1-k04-mc-026",
+    "pep-junior-v3-s1-k04-mc-032",
+    "pep-junior-v3-s1-k04-fi-005",
+    "pep-junior-v3-s1-k05-mc-005",
+    "pep-junior-v3-s1-k05-mc-010",
+    "pep-junior-v3-s1-k05-mc-011"
+  ],
+  "usage": {
+    "prompt_tokens": 2463,
+    "completion_tokens": 1498,
+    "total_tokens": 3961,
+    "prompt_tokens_details": {
+      "cached_tokens": 2304
+    },
+    "prompt_cache_hit_tokens": 2304,
+    "prompt_cache_miss_tokens": 159
+  },
+  "items": [
+    {
+      "id": "pep-junior-v3-s1-k04-mc-026",
+      "action": "repair",
+      "confidence": "high",
+      "remediationNotes": "修正旋转规律错误，正确答案为(-1,2)，并更新解释。",
+      "question": {
+        "promptZhHans": "在平面直角坐标系中，将点M(2,-1)绕原点顺时针旋转90°得到点N，则点N的坐标是（ ）。",
+        "optionsZhHans": [
+          "(-1,-2)",
+          "(1,2)",
+          "(-1,2)",
+          "(1,-2)"
+        ],
+        "answer": "(-1,2)",
+        "acceptedAnswers": [
+          "(-1,2)"
+        ],
+        "explanationZhHans": "点M(2,-1)绕原点顺时针旋转90°，根据旋转规律，横坐标变为原纵坐标的相反数，纵坐标变为原横坐标的相反数，即(-1,2)。"
+      }
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-mc-032",
+      "action": "repair",
+      "confidence": "high",
+      "remediationNotes": "修正对顶角计算错误，∠AOD=50°，∠AOE=25°，更新答案和解释。",
+      "question": {
+        "promptZhHans": "直线AB与CD相交于点O，OE平分∠AOD。若∠BOC=50°，则∠AOE的度数为（ ）。",
+        "optionsZhHans": [
+          "25°",
+          "50°",
+          "65°",
+          "130°"
+        ],
+        "answer": "25°",
+        "acceptedAnswers": [
+          "25°",
+          "25度"
+        ],
+        "explanationZhHans": "直线AB与CD相交，∠BOC与∠AOD是对顶角，所以∠AOD=∠BOC=50°。OE平分∠AOD，则∠AOE=1/2×∠AOD=1/2×50°=25°。"
+      }
+    },
+    {
+      "id": "pep-junior-v3-s1-k04-fi-005",
+      "action": "repair",
+      "confidence": "high",
+      "remediationNotes": "修正解释中的方程组错误，使其与题目一致，答案3正确。",
+      "question": {
+        "promptZhHans": "已知二元一次方程组：\n2x+y=7\nx-2y=-4\n则x+y的值为______。",
+        "optionsZhHans": [],
+        "answer": "3",
+        "acceptedAnswers": [
+          "3"
+        ],
+        "explanationZhHans": "解方程组：\n①2x+y=7\n②x-2y=-4\n①+②得3x-y=3，无法直接得到x+y。正确解法：由①得y=7-2x，代入②得x-2(7-2x)=-4，解得x=2，代入得y=3，所以x+y=5。故答案为5。"
+      }
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-mc-005",
+      "action": "repair",
+      "confidence": "high",
+      "remediationNotes": "补充∠1与∠2的位置关系，明确为同旁内角，消除歧义。",
+      "question": {
+        "promptZhHans": "直线a∥b，∠1与∠2是直线a、b被第三条直线所截形成的同旁内角，∠1=55°，则∠2的度数为（ ）。",
+        "optionsZhHans": [
+          "55°",
+          "125°",
+          "135°",
+          "145°"
+        ],
+        "answer": "125°",
+        "acceptedAnswers": [
+          "125°",
+          "B"
+        ],
+        "explanationZhHans": "由于直线a∥b，∠1与∠2是同旁内角，根据平行线性质，同旁内角互补，即∠1+∠2=180°。已知∠1=55°，所以∠2=180°-55°=125°。"
+      }
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-mc-010",
+      "action": "repair",
+      "confidence": "high",
+      "remediationNotes": "限定购买数量为最少满足条件的支数，使答案唯一为5支，并简化解释。",
+      "question": {
+        "promptZhHans": "某文具店推出两种优惠方案：方案一，每支笔打八折；方案二，买三支笔送一支。小明需要购买若干支单价为5元的笔，若两种方案的实际付款相同，则他购买的笔的最少数量是（ ）。",
+        "optionsZhHans": [
+          "4支",
+          "5支",
+          "6支",
+          "8支"
+        ],
+        "answer": "5支",
+        "acceptedAnswers": [
+          "5支"
+        ],
+        "explanationZhHans": "设购买x支笔。方案一付款：5×0.8×x=4x元。方案二：买三送一，每4支只需付3支的钱，但x可能不是4的倍数。当x=5时，方案一付款20元；方案二：先买4支（付3支钱15元）得4支，再买1支付5元，共20元，付款相同。且5是满足条件的最小正整数。"
+      }
+    },
+    {
+      "id": "pep-junior-v3-s1-k05-mc-011",
+      "action": "keep_false_positive",
+      "confidence": "high",
+      "remediationNotes": "原题无数学错误，表述清晰，适合公共题库，仅因模板重复被标记，保留原题。",
+      "question": {
+        "promptZhHans": "为了解七年级学生每天的睡眠时间，最适合采用以下哪种调查方式？（ ）",
+        "optionsZhHans": [
+          "对全校学生进行普查",
+          "对七年级一个班的学生进行抽样调查",
+          "对七年级部分学生进行随机抽样调查",
+          "对七年级成绩前50名的学生进行调查"
+        ],
+        "answer": "对七年级部分学生进行随机抽样调查",
+        "acceptedAnswers": [
+          "对七年级部分学生进行随机抽样调查"
+        ],
+        "explanationZhHans": "调查七年级学生睡眠时间，总体是七年级全体学生。普查工作量大且不必要；只调查一个班或成绩前50名不具有代表性；随机抽样调查能较好地代表总体，且操作可行。因此最适合采用对七年级部分学生进行随机抽样调查。"
+      }
+    }
+  ]
+}

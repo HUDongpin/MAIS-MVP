@@ -1,0 +1,327 @@
+{
+  "batchId": "batch-003",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s1-k01-mc-021",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-rational-number-operations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "某城市冬季某日早晨气温为 -5℃，中午上升了 8℃，傍晚又下降了 3℃。傍晚的气温是多少？",
+      "optionsZhHans": [
+        "-6℃",
+        "0℃",
+        "6℃",
+        "10℃"
+      ],
+      "answer": "0℃",
+      "acceptedAnswers": [
+        "0℃",
+        "B",
+        "0度"
+      ],
+      "explanationZhHans": "早晨气温为 -5℃，中午上升 8℃：-5 + 8 = 3℃；傍晚下降 3℃：3 - 3 = 0℃。因此傍晚气温为 B. 0℃。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k01-mc-022",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "在数轴上，点 A 表示 -2，点 B 在点 A 右侧 5 个单位长度处，点 C 在点 B 左侧 3 个单位长度处。点 C 表示的数是多少？",
+      "optionsZhHans": [
+        "-4",
+        "0",
+        "1",
+        "6"
+      ],
+      "answer": "0",
+      "acceptedAnswers": [
+        "0",
+        "B"
+      ],
+      "explanationZhHans": "点 A 为 -2，点 B 在 A 右侧 5 个单位：-2 + 5 = 3；点 C 在 B 左侧 3 个单位：3 - 3 = 0。所以点 C 表示的数是 B. 0。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k01-mc-023",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "multiple-choice",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-expression-simplification"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "若 a 与 b 互为相反数，且 |a| = 4，则 b 的值是多少？",
+      "optionsZhHans": [
+        "4",
+        "-4",
+        "4 或 -4",
+        "0"
+      ],
+      "answer": "4 或 -4",
+      "acceptedAnswers": [
+        "4 或 -4",
+        "C",
+        "4或-4"
+      ],
+      "explanationZhHans": "由 |a| = 4 得 a = 4 或 a = -4。因为 a 与 b 互为相反数，所以当 a = 4 时 b = -4，当 a = -4 时 b = 4。因此 b 的值是 C. 4 或 -4。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k01-fi-001",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-rational-number-operations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "计算：-3 + 8 - (-2) = ______。",
+      "optionsZhHans": [],
+      "answer": "7",
+      "acceptedAnswers": [
+        "7",
+        "+7"
+      ],
+      "explanationZhHans": "-3 + 8 = 5，减去 -2 等于加上 2：5 + 2 = 7。所以结果是 7。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k01-fi-002",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "某水库警戒水位为 0 米，上午水位为 -0.8 米（低于警戒水位），下午上升了 1.2 米，晚上又下降了 0.5 米。晚上水位为 ______ 米。",
+      "optionsZhHans": [],
+      "answer": "-0.1",
+      "acceptedAnswers": [
+        "-0.1",
+        "-0.1米"
+      ],
+      "explanationZhHans": "上午 -0.8 米，上升 1.2 米：-0.8 + 1.2 = 0.4 米；下降 0.5 米：0.4 - 0.5 = -0.1 米。所以晚上水位为 -0.1 米。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k01-fi-003",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-expression-simplification"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "比较大小：-2.5 ______ -3.1（填“>”或“<”）。",
+      "optionsZhHans": [],
+      "answer": ">",
+      "acceptedAnswers": [
+        ">",
+        "大于"
+      ],
+      "explanationZhHans": "两个负数比较，绝对值大的反而小。|-2.5| = 2.5，|-3.1| = 3.1，因为 2.5 < 3.1，所以 -2.5 > -3.1。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k01-fi-004",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-linear-equation-modeling"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "数轴上点 P 表示的数是 -4，将点 P 先向右移动 6 个单位，再向左移动 2 个单位，此时点 P 表示的数是 ______。",
+      "optionsZhHans": [],
+      "answer": "0",
+      "acceptedAnswers": [
+        "0"
+      ],
+      "explanationZhHans": "-4 + 6 = 2，2 - 2 = 0。所以移动后点 P 表示的数是 0。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k01-fi-005",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-geometric-figures"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "若 |x - 3| = 5，则 x = ______。",
+      "optionsZhHans": [],
+      "answer": "8 或 -2",
+      "acceptedAnswers": [
+        "8 或 -2",
+        "8或-2",
+        "-2或8",
+        "8,-2",
+        "-2,8"
+      ],
+      "explanationZhHans": "|x - 3| = 5 表示 x - 3 = 5 或 x - 3 = -5，解得 x = 8 或 x = -2。所以答案为 8 或 -2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k01-fi-006",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-rational-number-operations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "某地一天的最高气温为 7℃，最低气温为 -3℃，则这天的温差是 ______℃。",
+      "optionsZhHans": [],
+      "answer": "10",
+      "acceptedAnswers": [
+        "10",
+        "10℃"
+      ],
+      "explanationZhHans": "温差 = 最高气温 - 最低气温 = 7 - (-3) = 7 + 3 = 10℃。所以温差是 10℃。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s1-k01-fi-007",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S1",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s1-upper-rational-numbers",
+      "unitTitle": "有理数与数轴基础",
+      "type": "fill-in",
+      "difficulty": "Foundation",
+      "evidenceCardIds": [
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s1-upper-paper-midterm-final-integrated"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "在数轴上，与表示 -1 的点距离为 3 个单位长度的点表示的数是 ______。",
+      "optionsZhHans": [],
+      "answer": "2 或 -4",
+      "acceptedAnswers": [
+        "2 或 -4",
+        "2或-4",
+        "-4或2",
+        "2,-4",
+        "-4,2"
+      ],
+      "explanationZhHans": "设该点表示的数为 x，则 |x - (-1)| = 3，即 |x + 1| = 3，所以 x + 1 = 3 或 x + 1 = -3，解得 x = 2 或 x = -4。所以答案是 2 或 -4。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

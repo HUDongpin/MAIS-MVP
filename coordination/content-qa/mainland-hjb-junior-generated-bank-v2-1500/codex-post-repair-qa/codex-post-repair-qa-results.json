@@ -1,0 +1,159 @@
+{
+  "generatedAt": "2026-05-25T06:46:06.433Z",
+  "sessionId": "S18",
+  "candidatePackage": "mainland-hjb-junior-generated-bank-v2-1500",
+  "qaMode": "codex-only-post-repair-review",
+  "deepseekFreshQaStatus": "stopped-and-not-used-per-owner-instruction",
+  "decision": "production-integration-approved",
+  "counts": {
+    "totalRows": 1500,
+    "repairTargets": 201,
+    "repairedIdsInCache": 201,
+    "repairBatchFiles": 41,
+    "manualReviewQueueRows": 150,
+    "codexCorrections": 25,
+    "duplicateIdGroups": 0,
+    "duplicatePromptGroups": 0,
+    "rowIssueRows": 0,
+    "numericEchoMisses": 0,
+    "blockers": 0
+  },
+  "gradeCounts": {
+    "S1": 500,
+    "S2": 500,
+    "S3": 500
+  },
+  "typeCounts": {
+    "multiple-choice": 600,
+    "fill-in": 525,
+    "short-answer": 375
+  },
+  "blockers": [],
+  "codexCorrections": [
+    {
+      "id": "hjb-junior-ds-v2-s1-003",
+      "issueType": "answer-mismatch",
+      "codexAction": "Changed answer from 20 to -3 to match the algebraic evaluation."
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-090",
+      "issueType": "answer-mismatch",
+      "codexAction": "Changed answer from -4 to -10 to match direct substitution."
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-338",
+      "issueType": "answer-mismatch",
+      "codexAction": "Changed angle answer from 119 degrees to 151 degrees."
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-343",
+      "issueType": "multiple-correct-options",
+      "codexAction": "Changed one distractor so only the same-position equal-angle condition is correct."
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-360",
+      "issueType": "answer-mismatch",
+      "codexAction": "Changed angle answer from 100 degrees to 80 degrees."
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-441",
+      "issueType": "duplicate-and-inconsistent-item",
+      "codexAction": "Changed angle data and answer to remove a duplicate prompt and make the isosceles-triangle item consistent."
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-448",
+      "issueType": "answer-mismatch",
+      "codexAction": "Changed answer from 110 degrees to 90 degrees."
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-481",
+      "issueType": "generator-rationale-residue",
+      "codexAction": "Changed the given angle and cleaned the explanation so answer 30 degrees is valid and unique."
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-489",
+      "issueType": "invalid-condition",
+      "codexAction": "Rewrote the isosceles-triangle condition to avoid an impossible point-on-side setup."
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-494",
+      "issueType": "generator-rationale-residue",
+      "codexAction": "Replaced self-correction residue and fixed the options/answer at 30 degrees."
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-033",
+      "issueType": "ordering-error",
+      "codexAction": "Changed the ascending order to 1.7 < sqrt(3) < cube-root(8)."
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-055",
+      "issueType": "multiple-correct-options",
+      "codexAction": "Changed one numeric distractor so only 2.8 lies between sqrt(5) and sqrt(15)."
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-064",
+      "issueType": "invalid-radicand-condition",
+      "codexAction": "Changed sign conditions so the quadratic radical is real and the selected simplification is valid."
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-086",
+      "issueType": "answer-mismatch",
+      "codexAction": "Changed answer from -2 to 4."
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-203",
+      "issueType": "answer-mismatch",
+      "codexAction": "Changed distance answer from 12/5 to 3."
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-261",
+      "issueType": "answer-mismatch",
+      "codexAction": "Changed parallelogram midpoint answer from 2sqrt(19) to 12 and rewrote the solution."
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-278",
+      "issueType": "area-error",
+      "codexAction": "Changed triangle area answer from 4 to 6."
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-424",
+      "issueType": "multiple-correct-options",
+      "codexAction": "Changed the linear function to y=2x-3 so only (2,1) lies on the graph."
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-245",
+      "issueType": "answer-mismatch",
+      "codexAction": "Changed vertex-form value from 2025 to 2000."
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-322",
+      "issueType": "explanation-polish",
+      "codexAction": "Removed wording that contradicted the point-on-line condition."
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-362",
+      "issueType": "explanation-polish",
+      "codexAction": "Added the explicit side length 2 cm to the explanation."
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-386",
+      "issueType": "invalid-chord-condition",
+      "codexAction": "Rewrote the chord-distance item so answer 4 cm is valid."
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-443",
+      "issueType": "answer-mismatch",
+      "codexAction": "Changed variance answer from 2.1 to 2.0."
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-447",
+      "issueType": "answer-mismatch",
+      "codexAction": "Changed variance answer from 7.09 to 7.27."
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-457",
+      "issueType": "answer-mismatch",
+      "codexAction": "Changed rounded variance answer from 13 to 10."
+    }
+  ]
+}

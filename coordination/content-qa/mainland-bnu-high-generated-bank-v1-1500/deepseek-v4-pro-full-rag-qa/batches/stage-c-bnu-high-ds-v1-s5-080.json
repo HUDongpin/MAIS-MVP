@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s5-080",
+  "startedAt": "2026-05-28T02:07:46.884Z",
+  "completedAt": "2026-05-28T02:07:53.033Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-080"
+  ],
+  "usage": {
+    "prompt_tokens": 3253,
+    "completion_tokens": 335,
+    "total_tokens": 3588,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 2869
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-080",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "x^2/(6√2) + y^2/(3√2) = 1",
+        "correctedAnswer": "x^2/(6√2) + y^2/(3√2) = 1",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立求解得椭圆方程为 x^2/(6√2) + y^2/(3√2) = 1，而存储答案为 x^2/8 + y^2/4 = 1，且解析声称解得 a^2=8，与计算矛盾，存在数学错误，答案不匹配。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "题目可解，但存储答案错误，独立解为 x^2/(6√2) + y^2/(3√2) = 1，与给定答案不符，解析过程有误。"
+    }
+  }
+}

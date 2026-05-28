@@ -1,0 +1,110 @@
+{
+  "batchId": "model-qa-0035",
+  "ids": [
+    "hjb-junior-ds-v2-s1-273",
+    "hjb-junior-ds-v2-s1-274",
+    "hjb-junior-ds-v2-s1-275",
+    "hjb-junior-ds-v2-s1-276",
+    "hjb-junior-ds-v2-s1-277",
+    "hjb-junior-ds-v2-s1-278",
+    "hjb-junior-ds-v2-s1-279",
+    "hjb-junior-ds-v2-s1-280"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-273",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案和解析均错误。设学生人数为x，租45座客车x/45辆，租60座客车(x/45-1)辆，则60(x/45-1)-10=x，解得x=270。但代入验证：270人，45座需6辆，60座需5辆（少租1辆），5辆60座可坐300人，空10座即坐290人，不等于270。正确解法：设租45座客车a辆，则人数=45a；租60座客车(a-1)辆，则60(a-1)-10=45a，解得a=14/3，非整数，题目条件矛盾。若理解为“有一辆车空10个座位”指该车坐了50人，则60(a-2)+50=45a，解得a=14/3，仍矛盾。题目可能缺条件或数据有误。",
+      "independentAnswerZhHans": "无解（条件矛盾）",
+      "answerCheckZhHans": "标准答案270人错误，代入验证不符。",
+      "recommendedActionZhHans": "修正题目数据或条件，确保有整数解。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-274",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "m = -3",
+      "answerCheckZhHans": "标准答案正确。第四象限纵坐标为负，到x轴距离为|m|=3，故m=-3。选项A正确，其他选项错误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-275",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "-6",
+      "answerCheckZhHans": "标准答案正确。解不等式得x≤-5，最大整数解为-6。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-276",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch",
+        "ambiguous-prompt"
+      ],
+      "issueDetailsZhHans": "题目要求列出不等式表示“租用45座客车时人数超过座位数”，并求x的最小整数值。标准答案给出不等式“45x<45x+10”，该不等式恒成立，不能用于求解x。解析中又通过方程50x-20=45x+10解得x=6，但x=6时人数=45*6+10=280，45座客车座位数=270，确实超过，但x=1时人数=55，座位数=45，也超过，所以最小整数值应为1。但题目可能意图是求满足两种租车情况下的x，而“人数超过座位数”只是其中一个条件，表述不清。标准答案中x的最小整数值为1，但若结合两种租车情况，x应为6。题目存在歧义。",
+      "independentAnswerZhHans": "不等式：45x < 45x+10（恒成立）；若仅考虑该不等式，x最小整数值为1；若结合两种租车情况，由50x-20=45x+10得x=6。",
+      "answerCheckZhHans": "标准答案中不等式正确但无意义，x的最小整数值1与解析中x=6矛盾。",
+      "recommendedActionZhHans": "明确题目要求，是仅根据不等式求x，还是结合两种租车情况求x。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-277",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "A. 数轴上从-2向左画线，-2处为空心圆圈",
+      "answerCheckZhHans": "标准答案正确。解不等式得x<-2，数轴表示应为从-2向左，空心圆圈。选项A描述正确。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-278",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "1，2",
+      "answerCheckZhHans": "标准答案正确。解不等式得x≤2，正整数解为1和2。acceptedAnswers覆盖了常见写法。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-279",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3a-2≥0",
+      "answerCheckZhHans": "标准答案正确。非负数即≥0，3倍与2的差为3a-2。acceptedAnswers包含≥和>=。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-280",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "A. (x-15)(200-10x)≥400",
+      "answerCheckZhHans": "标准答案正确。利润=(售价-进价)×销量，不低于即≥。选项A符合。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

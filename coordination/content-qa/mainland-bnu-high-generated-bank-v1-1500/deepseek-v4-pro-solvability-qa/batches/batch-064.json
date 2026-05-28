@@ -1,0 +1,133 @@
+{
+  "batchNumber": 64,
+  "startedAt": "2026-05-27T13:54:32.558Z",
+  "completedAt": "2026-05-27T13:54:50.802Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-005",
+    "bnu-high-ds-v1-s5-006",
+    "bnu-high-ds-v1-s5-007",
+    "bnu-high-ds-v1-s5-008",
+    "bnu-high-ds-v1-s5-009",
+    "bnu-high-ds-v1-s5-010",
+    "bnu-high-ds-v1-s5-011",
+    "bnu-high-ds-v1-s5-012"
+  ],
+  "usage": {
+    "prompt_tokens": 11143,
+    "completion_tokens": 1189,
+    "total_tokens": 12332,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10631
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-005",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "3x - 4y + 5 = 0",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "联立l1与l2得交点P(1,2)，设平行线为3x-4y+C=0，代入得C=5，方程正确。解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-006",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "±√2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "圆心到直线距离d=r-1=1，由距离公式得|b|/√2=1，b=±√2。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-007",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2条",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "截距相等分过原点和不过原点两种情况，分别得x+y-7=0和4x-3y=0，共2条。选项唯一正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-008",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "m = -3/4，最短弦长为2√7",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "直线过定点(3,1)在圆内，恒相交。弦长最短时定点与圆心连线垂直于直线，解得m=-3/4，弦心距√5，弦长2√7。解析与答案一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-009",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "x = 1 或 3x - 4y + 5 = 0",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "斜率不存在时x=1满足；斜率存在时由距离公式得k=3/4，直线为3x-4y+5=0。答案完整，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-010",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "√2 - 1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "弦心距d=1，由距离公式|a+1|/√2=1，a>0得a=√2-1。选项唯一正确，解析无误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-011",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "4x + 3y - 5 = 0",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "垂直斜率乘积为-1，得l斜率为-4/3，点斜式得4x+3y-5=0。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-012",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "1",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "弦被点平分，则圆心与中点连线垂直于弦，斜率乘积为-1，得弦斜率为1。解析正确，答案匹配。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，答案与解析均正确匹配，无任何问题。"
+    }
+  }
+}

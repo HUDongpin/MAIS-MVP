@@ -1,0 +1,339 @@
+{
+  "batchId": "model-qa-0209",
+  "ids": [
+    "pep-high-s6-rag3-sa-126",
+    "pep-high-s6-rag3-sa-127",
+    "pep-high-s6-rag3-sa-128",
+    "pep-high-s6-rag3-sa-129",
+    "pep-high-s6-rag3-sa-130",
+    "pep-high-s6-rag3-sa-131",
+    "pep-high-s6-rag3-sa-132",
+    "pep-high-s6-rag3-sa-133",
+    "pep-high-s6-rag3-sa-134",
+    "pep-high-s6-rag3-sa-135",
+    "pep-high-s6-rag3-sa-136",
+    "pep-high-s6-rag3-sa-137",
+    "pep-high-s6-rag3-sa-138",
+    "pep-high-s6-rag3-sa-139",
+    "pep-high-s6-rag3-sa-140",
+    "pep-high-s6-rag3-sa-141",
+    "pep-high-s6-rag3-sa-142",
+    "pep-high-s6-rag3-sa-143",
+    "pep-high-s6-rag3-sa-144",
+    "pep-high-s6-rag3-sa-145"
+  ],
+  "reviews": [
+    {
+      "id": "pep-high-s6-rag3-sa-126",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "132",
+      "answerCheckZhHans": "标准答案为132，独立计算也为132，答案匹配。但解析与问题无关，属于explanation-mismatch。",
+      "recommendedActionZhHans": "无需修改；模型初稿出现答案匹配/错答标记矛盾，本地一致性校验按独立答案与标准答案一致判为 pass。",
+      "confidence": "high",
+      "localValidationNotes": [
+        "corrected-model-answer-match-contradiction"
+      ]
+    },
+    {
+      "id": "pep-high-s6-rag3-sa-127",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "30",
+      "answerCheckZhHans": "标准答案为30，独立计算也为30，答案匹配。解析不匹配。",
+      "recommendedActionZhHans": "无需修改；模型初稿出现答案匹配/错答标记矛盾，本地一致性校验按独立答案与标准答案一致判为 pass。",
+      "confidence": "high",
+      "localValidationNotes": [
+        "corrected-model-answer-match-contradiction"
+      ]
+    },
+    {
+      "id": "pep-high-s6-rag3-sa-128",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "72",
+      "answerCheckZhHans": "标准答案为72，独立计算也为72，答案匹配。解析不匹配。",
+      "recommendedActionZhHans": "无需修改；模型初稿出现答案匹配/错答标记矛盾，本地一致性校验按独立答案与标准答案一致判为 pass。",
+      "confidence": "high",
+      "localValidationNotes": [
+        "corrected-model-answer-match-contradiction"
+      ]
+    },
+    {
+      "id": "pep-high-s6-rag3-sa-129",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "56",
+      "answerCheckZhHans": "标准答案为56，独立计算也为56，答案匹配。解析不匹配。",
+      "recommendedActionZhHans": "无需修改；模型初稿出现答案匹配/错答标记矛盾，本地一致性校验按独立答案与标准答案一致判为 pass。",
+      "confidence": "high",
+      "localValidationNotes": [
+        "corrected-model-answer-match-contradiction"
+      ]
+    },
+    {
+      "id": "pep-high-s6-rag3-sa-130",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "110",
+      "answerCheckZhHans": "标准答案为110，独立计算也为110，答案匹配。解析不匹配。",
+      "recommendedActionZhHans": "无需修改；模型初稿出现答案匹配/错答标记矛盾，本地一致性校验按独立答案与标准答案一致判为 pass。",
+      "confidence": "high",
+      "localValidationNotes": [
+        "corrected-model-answer-match-contradiction"
+      ]
+    },
+    {
+      "id": "pep-high-s6-rag3-sa-131",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "90",
+      "answerCheckZhHans": "标准答案为90，独立计算也为90，答案匹配。解析不匹配。",
+      "recommendedActionZhHans": "无需修改；模型初稿出现答案匹配/错答标记矛盾，本地一致性校验按独立答案与标准答案一致判为 pass。",
+      "confidence": "high",
+      "localValidationNotes": [
+        "corrected-model-answer-match-contradiction"
+      ]
+    },
+    {
+      "id": "pep-high-s6-rag3-sa-132",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "56",
+      "answerCheckZhHans": "标准答案为56，独立计算也为56，答案匹配。解析不匹配。",
+      "recommendedActionZhHans": "无需修改；模型初稿出现答案匹配/错答标记矛盾，本地一致性校验按独立答案与标准答案一致判为 pass。",
+      "confidence": "high",
+      "localValidationNotes": [
+        "corrected-model-answer-match-contradiction"
+      ]
+    },
+    {
+      "id": "pep-high-s6-rag3-sa-133",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "42",
+      "answerCheckZhHans": "标准答案为42，独立计算也为42，答案匹配。解析不匹配。",
+      "recommendedActionZhHans": "无需修改；模型初稿出现答案匹配/错答标记矛盾，本地一致性校验按独立答案与标准答案一致判为 pass。",
+      "confidence": "high",
+      "localValidationNotes": [
+        "corrected-model-answer-match-contradiction"
+      ]
+    },
+    {
+      "id": "pep-high-s6-rag3-sa-134",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "90",
+      "answerCheckZhHans": "标准答案为90，独立计算也为90，答案匹配。解析不匹配。",
+      "recommendedActionZhHans": "无需修改；模型初稿出现答案匹配/错答标记矛盾，本地一致性校验按独立答案与标准答案一致判为 pass。",
+      "confidence": "high",
+      "localValidationNotes": [
+        "corrected-model-answer-match-contradiction"
+      ]
+    },
+    {
+      "id": "pep-high-s6-rag3-sa-135",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "72",
+      "answerCheckZhHans": "标准答案为72，独立计算也为72，答案匹配。解析不匹配。",
+      "recommendedActionZhHans": "无需修改；模型初稿出现答案匹配/错答标记矛盾，本地一致性校验按独立答案与标准答案一致判为 pass。",
+      "confidence": "high",
+      "localValidationNotes": [
+        "corrected-model-answer-match-contradiction"
+      ]
+    },
+    {
+      "id": "pep-high-s6-rag3-sa-136",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "132",
+      "answerCheckZhHans": "标准答案为132，独立计算也为132，答案匹配。解析不匹配。",
+      "recommendedActionZhHans": "无需修改；模型初稿出现答案匹配/错答标记矛盾，本地一致性校验按独立答案与标准答案一致判为 pass。",
+      "confidence": "high",
+      "localValidationNotes": [
+        "corrected-model-answer-match-contradiction"
+      ]
+    },
+    {
+      "id": "pep-high-s6-rag3-sa-137",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "30",
+      "answerCheckZhHans": "标准答案为30，独立计算也为30，答案匹配。解析不匹配。",
+      "recommendedActionZhHans": "无需修改；模型初稿出现答案匹配/错答标记矛盾，本地一致性校验按独立答案与标准答案一致判为 pass。",
+      "confidence": "high",
+      "localValidationNotes": [
+        "corrected-model-answer-match-contradiction"
+      ]
+    },
+    {
+      "id": "pep-high-s6-rag3-sa-138",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "72",
+      "answerCheckZhHans": "标准答案为72，独立计算也为72，答案匹配。解析不匹配。",
+      "recommendedActionZhHans": "无需修改；模型初稿出现答案匹配/错答标记矛盾，本地一致性校验按独立答案与标准答案一致判为 pass。",
+      "confidence": "high",
+      "localValidationNotes": [
+        "corrected-model-answer-match-contradiction"
+      ]
+    },
+    {
+      "id": "pep-high-s6-rag3-sa-139",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "56",
+      "answerCheckZhHans": "标准答案为56，独立计算也为56，答案匹配。解析不匹配。",
+      "recommendedActionZhHans": "无需修改；模型初稿出现答案匹配/错答标记矛盾，本地一致性校验按独立答案与标准答案一致判为 pass。",
+      "confidence": "high",
+      "localValidationNotes": [
+        "corrected-model-answer-match-contradiction"
+      ]
+    },
+    {
+      "id": "pep-high-s6-rag3-sa-140",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "110",
+      "answerCheckZhHans": "标准答案为110，独立计算也为110，答案匹配。解析不匹配。",
+      "recommendedActionZhHans": "无需修改；模型初稿出现答案匹配/错答标记矛盾，本地一致性校验按独立答案与标准答案一致判为 pass。",
+      "confidence": "high",
+      "localValidationNotes": [
+        "corrected-model-answer-match-contradiction"
+      ]
+    },
+    {
+      "id": "pep-high-s6-rag3-sa-141",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "90",
+      "answerCheckZhHans": "标准答案为90，独立计算也为90，答案匹配。解析不匹配。",
+      "recommendedActionZhHans": "无需修改；模型初稿出现答案匹配/错答标记矛盾，本地一致性校验按独立答案与标准答案一致判为 pass。",
+      "confidence": "high",
+      "localValidationNotes": [
+        "corrected-model-answer-match-contradiction"
+      ]
+    },
+    {
+      "id": "pep-high-s6-rag3-sa-142",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2/5",
+      "answerCheckZhHans": "标准答案为2/5，独立计算也为2/5，答案匹配。解析虽提及函数图像等无关内容，但未给出错误结论，且最终答案正确，根据规则不标记explanation-mismatch。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high",
+      "localValidationNotes": []
+    },
+    {
+      "id": "pep-high-s6-rag3-sa-143",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2/11",
+      "answerCheckZhHans": "标准答案为2/11，独立计算也为2/11，答案匹配。解析无关但未错误。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high",
+      "localValidationNotes": []
+    },
+    {
+      "id": "pep-high-s6-rag3-sa-144",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "3/7",
+      "answerCheckZhHans": "标准答案为3/7，独立计算也为3/7，答案匹配。解析无关但未错误。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high",
+      "localValidationNotes": []
+    },
+    {
+      "id": "pep-high-s6-rag3-sa-145",
+      "verdict": "pass",
+      "solvable": true,
+      "answerMatches": true,
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "1/2",
+      "answerCheckZhHans": "标准答案为1/2，独立计算也为1/2，答案匹配。解析无关但未错误。",
+      "recommendedActionZhHans": "无需修改；进入人工抽样复核即可。",
+      "confidence": "high",
+      "localValidationNotes": []
+    }
+  ]
+}

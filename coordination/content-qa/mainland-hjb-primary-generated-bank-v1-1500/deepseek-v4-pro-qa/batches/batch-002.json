@@ -1,0 +1,191 @@
+{
+  "batchNumber": 2,
+  "startedAt": "2026-05-25T01:46:23.017Z",
+  "completedAt": "2026-05-25T01:46:41.649Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p1-019",
+    "hjb-primary-ds-v1-p1-020",
+    "hjb-primary-ds-v1-p1-021",
+    "hjb-primary-ds-v1-p1-022",
+    "hjb-primary-ds-v1-p1-023",
+    "hjb-primary-ds-v1-p1-024",
+    "hjb-primary-ds-v1-p1-025",
+    "hjb-primary-ds-v1-p1-026",
+    "hjb-primary-ds-v1-p1-027",
+    "hjb-primary-ds-v1-p1-028",
+    "hjb-primary-ds-v1-p1-029",
+    "hjb-primary-ds-v1-p1-030",
+    "hjb-primary-ds-v1-p1-031",
+    "hjb-primary-ds-v1-p1-032",
+    "hjb-primary-ds-v1-p1-033",
+    "hjb-primary-ds-v1-p1-034",
+    "hjb-primary-ds-v1-p1-035",
+    "hjb-primary-ds-v1-p1-036"
+  ],
+  "usage": {
+    "prompt_tokens": 4306,
+    "completion_tokens": 1282,
+    "total_tokens": 5588,
+    "prompt_tokens_details": {
+      "cached_tokens": 4224
+    },
+    "prompt_cache_hit_tokens": 4224,
+    "prompt_cache_miss_tokens": 82
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p1-019",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，答案正确，符合一年级数学学习习惯。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-020",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "指令明确，答案合理，接受答案覆盖多种表述。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-021",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "物品特征描述准确，答案正确，接受答案格式灵活。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-022",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项清晰，骰子是典型正方体，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-023",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计数准确，答案格式灵活，符合要求。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-024",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "特征描述与图形名称匹配，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-025",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "圆柱既能滚动又能堆叠，其他选项不符合，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-026",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分类正确，接受答案覆盖顺序变化。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-027",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "理由充分，答案合理，接受多种表述。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-028",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "水杯是典型圆柱，选项区分度好，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-029",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计数准确，答案格式灵活，符合要求。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-030",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "魔方和骰子是正方体，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-031",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项描述准确，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-032",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "魔方是正方体，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-033",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "答案合理，接受多种球类物品。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-034",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "圆柱形积木最容易滚动，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-035",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "粉笔盒是长方体，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-036",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分类正确，接受答案覆盖顺序变化。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合沪教版一年级数学要求，答案正确，表述清晰，无风险。"
+    }
+  }
+}

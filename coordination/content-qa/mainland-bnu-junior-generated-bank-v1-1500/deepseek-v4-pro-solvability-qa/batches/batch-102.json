@@ -1,0 +1,173 @@
+{
+  "batchNumber": 102,
+  "startedAt": "2026-05-27T17:57:45.541Z",
+  "completedAt": "2026-05-27T17:58:02.236Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s3-213",
+    "bnu-junior-ds-v1-s3-214",
+    "bnu-junior-ds-v1-s3-215",
+    "bnu-junior-ds-v1-s3-216",
+    "bnu-junior-ds-v1-s3-217",
+    "bnu-junior-ds-v1-s3-218",
+    "bnu-junior-ds-v1-s3-219",
+    "bnu-junior-ds-v1-s3-220",
+    "bnu-junior-ds-v1-s3-221",
+    "bnu-junior-ds-v1-s3-222",
+    "bnu-junior-ds-v1-s3-223",
+    "bnu-junior-ds-v1-s3-224"
+  ],
+  "usage": {
+    "prompt_tokens": 5801,
+    "completion_tokens": 1342,
+    "total_tokens": 7143,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 5289
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s3-213",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，利用平行投影中杆高与影长比等于tan30°=1/√3，可解出第二根旗杆高度为4√3米，答案正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-214",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "正投影方向垂直于底面，投影为底面正三角形，选项A正确且唯一，其他选项不符合。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-215",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由三视图可唯一确定几何体为圆锥，答案正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-216",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "根据主视图和俯视图可推导出左视图有两种可能形状，答案2正确，解释清晰。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-217",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "俯视图只有三个位置有立方块，结合主视图要求，最少需要5个，选项B正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-218",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "三视图均为全等正方形，唯一可能是正方体，答案正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-219",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "正四棱柱左视图为高b、宽a的矩形，答案b,a正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-220",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "俯视图有3个位置，主左视图均为2×2，最少需要7个，选项B正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-221",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "光线垂直于正面，投影面积为长×高=8×4=32 cm²，答案正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-222",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "由俯视图底层分布和主视图层数要求，最少需要5个小正方体，答案正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-223",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "俯视图底层左2右1，主视图左列最高2层右列1层，最少4块，选项A正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s3-224",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "光线平行于底面，投影为矩形，宽为直径6 cm，高10 cm，面积60 cm²，答案正确，解释合理。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目条件充分、可解，答案与解释匹配，无错误或歧义，适合北师大版九年级投影与视图单元。"
+    }
+  }
+}

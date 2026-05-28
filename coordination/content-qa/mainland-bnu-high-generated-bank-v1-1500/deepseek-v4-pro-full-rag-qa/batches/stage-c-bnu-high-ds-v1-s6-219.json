@@ -1,0 +1,49 @@
+{
+  "stage": "stage-c",
+  "cacheKey": "bnu-high-ds-v1-s6-219",
+  "startedAt": "2026-05-28T01:46:15.327Z",
+  "completedAt": "2026-05-28T01:46:19.808Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s6-219"
+  ],
+  "usage": {
+    "prompt_tokens": 2055,
+    "completion_tokens": 252,
+    "total_tokens": 2307,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1671
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s6-219",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "independentAnswer": "39",
+        "correctedAnswer": "39",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目可解，独立求解得 a_5+a_6+a_7=39。存储答案45错误，解析中计算过程得出39但最终答案写为45，自相矛盾。判定为严重错误，需修正答案为39。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 0,
+      "warn": 0,
+      "fail": 1,
+      "notes": "1题答案错误且解析矛盾，需修正答案为39。"
+    }
+  }
+}

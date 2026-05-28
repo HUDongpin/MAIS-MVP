@@ -1,0 +1,105 @@
+{
+  "batchId": "model-qa-0182",
+  "ids": [
+    "hjb-junior-ds-v2-s3-449",
+    "hjb-junior-ds-v2-s3-450",
+    "hjb-junior-ds-v2-s3-451",
+    "hjb-junior-ds-v2-s3-452",
+    "hjb-junior-ds-v2-s3-453",
+    "hjb-junior-ds-v2-s3-454",
+    "hjb-junior-ds-v2-s3-455",
+    "hjb-junior-ds-v2-s3-456"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-449",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "70～80",
+      "answerCheckZhHans": "标准答案为70～80，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-450",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "C. 甲，因为甲的方差更小",
+      "answerCheckZhHans": "标准答案为C，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-451",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "21.6",
+      "answerCheckZhHans": "标准答案为21.6，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-452",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "中位数",
+      "answerCheckZhHans": "标准答案为中位数，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-453",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "80",
+      "answerCheckZhHans": "标准答案为80，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-454",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "方差",
+      "answerCheckZhHans": "标准答案为方差，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-455",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "161",
+      "answerCheckZhHans": "标准答案为161，与独立解题结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-456",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer"
+      ],
+      "issueDetailsZhHans": "题目要求反映集中趋势，数据无明显极端值，平均数、中位数、众数均可反映集中趋势，但众数可能不唯一（85和90均出现5次），且众数不一定代表一般水平。通常平均数最常用，但解析称众数最合适理由不充分。标准答案可能错误。",
+      "independentAnswerZhHans": "平均数或中位数",
+      "answerCheckZhHans": "标准答案为众数，但独立解题认为平均数或中位数更合适，存在争议。",
+      "recommendedActionZhHans": "建议重新评估题目，确认最合适的统计量，或修改选项/解析。",
+      "confidence": "medium"
+    }
+  ]
+}

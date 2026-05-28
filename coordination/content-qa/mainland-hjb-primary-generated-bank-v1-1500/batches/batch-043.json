@@ -1,0 +1,289 @@
+{
+  "batchId": "batch-043",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p1-211",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "hjb-primary-p1-lower-length-measurement",
+      "unitTitle": "长度的比较与测量",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "length-comparison",
+        "measurement-units",
+        "direct-indirect-comparison",
+        "长度测量"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "应用意识"
+      ],
+      "skillTags": [
+        "长短比较",
+        "直接比较",
+        "间接比较",
+        "选择测量单位",
+        "估测"
+      ],
+      "misconceptionTags": [
+        "starting point not aligned",
+        "larger unit count misread as longer object",
+        "curved or separated objects compared unfairly"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p1-lower-length-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-lower-assessment-length-measurement",
+        "hjb-primary-p1-lower-assessment-within-20-regrouping"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丁和小方想比一比谁的铅笔更长。小丁的铅笔放在桌面上，小方的铅笔也放在桌面上，但两支铅笔的笔尖没有对齐。下面哪种做法能公平地比较出哪支铅笔更长？",
+      "optionsZhHans": [
+        "看哪支铅笔的颜色更鲜艳",
+        "把两支铅笔的笔尖对齐后再比较",
+        "用手掂一掂哪支更重",
+        "把两支铅笔竖起来比高矮"
+      ],
+      "answer": "把两支铅笔的笔尖对齐后再比较",
+      "acceptedAnswers": [
+        "把两支铅笔的笔尖对齐后再比较"
+      ],
+      "explanationZhHans": "比较长度时，必须把物体的一端对齐，再看另一端。笔尖对齐后，哪支铅笔的另一端更远，哪支就更长。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-212",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "hjb-primary-p1-lower-length-measurement",
+      "unitTitle": "长度的比较与测量",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "length-comparison",
+        "measurement-units",
+        "direct-indirect-comparison",
+        "长度测量"
+      ],
+      "competencyTags": [
+        "量感",
+        "空间观念",
+        "应用意识"
+      ],
+      "skillTags": [
+        "长短比较",
+        "直接比较",
+        "间接比较",
+        "选择测量单位",
+        "估测"
+      ],
+      "misconceptionTags": [
+        "starting point not aligned",
+        "larger unit count misread as longer object",
+        "curved or separated objects compared unfairly"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p1-lower-length-measurement"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-lower-assessment-length-measurement",
+        "hjb-primary-p1-lower-assessment-within-20-regrouping"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小胖用回形针测量数学书的长度，他把回形针一个接一个排好，一共用了8个回形针。小亚用同样的回形针测量同一本数学书，但她没有排紧，回形针之间有空隙，结果用了9个回形针。谁测出的长度更接近数学书的实际长度？为什么？\n答：______测出的长度更接近实际长度，因为测量时回形针要______。",
+      "optionsZhHans": [],
+      "answer": "小胖；一个接一个排紧，中间不能有空隙",
+      "acceptedAnswers": [
+        "小胖；一个接一个排紧，中间不能有空隙",
+        "小胖；排紧",
+        "小胖；一个接一个排紧"
+      ],
+      "explanationZhHans": "用回形针测量时，要一个紧挨一个排，不能有空隙。小胖排得紧，8个回形针就是书的长度；小亚有空隙，9个回形针比实际长度长。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-213",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "hjb-primary-p1-lower-body-rulers-math-square",
+      "unitTitle": "身体上的尺子与数学广场",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "body-benchmark-measurement",
+        "math-square-exploration",
+        "estimation",
+        "身体尺"
+      ],
+      "competencyTags": [
+        "量感",
+        "探索意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "身体参照量",
+        "估测长度",
+        "规律观察",
+        "合作探究"
+      ],
+      "misconceptionTags": [
+        "personal benchmark treated as universal exact unit",
+        "estimate given without comparison basis",
+        "pattern guessed from one example only"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p1-lower-body-rulers-math-square"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-lower-assessment-within-20-regrouping",
+        "hjb-primary-p1-lower-assessment-within-100-number-sense"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丁想用“身体尺”估测教室黑板的长度。下面哪种“身体尺”最合适？",
+      "optionsZhHans": [
+        "手指的宽度",
+        "一拃（张开大拇指和中指两端的距离）",
+        "一步的长度",
+        "一庹（两臂左右平伸，两手指尖的距离）"
+      ],
+      "answer": "一庹（两臂左右平伸，两手指尖的距离）",
+      "acceptedAnswers": [
+        "一庹（两臂左右平伸，两手指尖的距离）"
+      ],
+      "explanationZhHans": "黑板比较长，用较大的“身体尺”更方便。一庹大约1米多，适合量黑板；手指宽度和一拃太小，一步不够灵活。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-214",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "hjb-primary-p1-lower-body-rulers-math-square",
+      "unitTitle": "身体上的尺子与数学广场",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "body-benchmark-measurement",
+        "math-square-exploration",
+        "estimation",
+        "身体尺"
+      ],
+      "competencyTags": [
+        "量感",
+        "探索意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "身体参照量",
+        "估测长度",
+        "规律观察",
+        "合作探究"
+      ],
+      "misconceptionTags": [
+        "personal benchmark treated as universal exact unit",
+        "estimate given without comparison basis",
+        "pattern guessed from one example only"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p1-lower-body-rulers-math-square"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-lower-assessment-within-20-regrouping",
+        "hjb-primary-p1-lower-assessment-within-100-number-sense"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小亚用“一拃”量课桌的长边，量了5次正好量完。小胖也用“一拃”量同一张课桌的长边，但他量了6次。谁的一拃更长？\n答：______的一拃更长。",
+      "optionsZhHans": [],
+      "answer": "小亚",
+      "acceptedAnswers": [
+        "小亚"
+      ],
+      "explanationZhHans": "同一张课桌，量出的次数越少，说明一拃越长。小亚量了5次，小胖量了6次，所以小亚的一拃更长。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-215",
+      "batch": "hjb-primary-v1",
+      "grade": "P1",
+      "semester": "lower",
+      "topicId": "hjb-primary-p1-lower-body-rulers-math-square",
+      "unitTitle": "身体上的尺子与数学广场",
+      "volume": "一年级下册",
+      "conceptIds": [
+        "body-benchmark-measurement",
+        "math-square-exploration",
+        "estimation",
+        "身体尺"
+      ],
+      "competencyTags": [
+        "量感",
+        "探索意识",
+        "数学表达"
+      ],
+      "skillTags": [
+        "身体参照量",
+        "估测长度",
+        "规律观察",
+        "合作探究"
+      ],
+      "misconceptionTags": [
+        "personal benchmark treated as universal exact unit",
+        "estimate given without comparison basis",
+        "pattern guessed from one example only"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p1-lower-body-rulers-math-square"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p1-lower-assessment-within-20-regrouping",
+        "hjb-primary-p1-lower-assessment-within-100-number-sense"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "数学广场上，小丁和小方在玩“找规律”游戏。他们看到一排彩旗：红、黄、蓝、红、黄、蓝、红、黄、？。接下来一面彩旗应该是什么颜色？",
+      "optionsZhHans": [
+        "红",
+        "黄",
+        "蓝",
+        "绿"
+      ],
+      "answer": "蓝",
+      "acceptedAnswers": [
+        "蓝"
+      ],
+      "explanationZhHans": "彩旗按“红、黄、蓝”三个一组重复出现。红、黄、蓝之后又是红、黄、蓝，所以黄后面应该是蓝。"
+    }
+  ]
+}

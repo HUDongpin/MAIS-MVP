@@ -1,0 +1,141 @@
+{
+  "startedAt": "2026-05-26T06:02:24.585Z",
+  "completedAt": "2026-05-26T06:02:38.509Z",
+  "model": "deepseek-v4-pro",
+  "apiHost": "api.deepseek.com",
+  "usage": {
+    "prompt_tokens": 1321,
+    "completion_tokens": 1103,
+    "total_tokens": 2424,
+    "prompt_tokens_details": {
+      "cached_tokens": 128
+    },
+    "prompt_cache_hit_tokens": 128,
+    "prompt_cache_miss_tokens": 1193
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "questionId": "pep-primary-p3-l-fi-141",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案与题库答案完全一致"
+      },
+      {
+        "questionId": "pep-primary-p3-l-fi-142",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案与题库答案完全一致"
+      },
+      {
+        "questionId": "pep-primary-p3-l-fi-143",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案与题库答案完全一致"
+      },
+      {
+        "questionId": "pep-primary-p3-l-fi-144",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案与题库答案完全一致"
+      },
+      {
+        "questionId": "pep-primary-p3-l-fi-145",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案与题库答案完全一致"
+      },
+      {
+        "questionId": "pep-primary-p3-l-fi-146",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案与题库答案完全一致"
+      },
+      {
+        "questionId": "pep-primary-p3-l-fi-147",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案与题库答案完全一致"
+      },
+      {
+        "questionId": "pep-primary-p3-l-fi-148",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案与题库答案完全一致"
+      },
+      {
+        "questionId": "pep-primary-p3-l-fi-149",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案与题库答案完全一致"
+      },
+      {
+        "questionId": "pep-primary-p3-l-fi-150",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案与题库答案完全一致"
+      },
+      {
+        "questionId": "pep-primary-p3-l-sa-151",
+        "answerMatchStatus": "review",
+        "issueType": "ambiguous",
+        "note": "独立答案'8下'包含单位'下'，题库答案为纯数字'8'，需人工判断是否接受带单位的答案"
+      },
+      {
+        "questionId": "pep-primary-p3-l-sa-152",
+        "answerMatchStatus": "review",
+        "issueType": "ambiguous",
+        "note": "独立答案'14下'包含单位'下'，题库答案为纯数字'14'，需人工判断是否接受带单位的答案"
+      },
+      {
+        "questionId": "pep-primary-p3-l-sa-153",
+        "answerMatchStatus": "review",
+        "issueType": "ambiguous",
+        "note": "独立答案'8支'包含单位'支'，题库答案为纯数字'8'，需人工判断是否接受带单位的答案"
+      },
+      {
+        "questionId": "pep-primary-p3-l-sa-154",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案与题库答案完全一致"
+      },
+      {
+        "questionId": "pep-primary-p3-l-sa-155",
+        "answerMatchStatus": "review",
+        "issueType": "ambiguous",
+        "note": "独立答案'8支'包含单位'支'，题库答案为纯数字'8'，需人工判断是否接受带单位的答案"
+      },
+      {
+        "questionId": "pep-primary-p3-l-sa-156",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案与题库答案完全一致"
+      },
+      {
+        "questionId": "pep-primary-p3-l-sa-157",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案与题库答案完全一致"
+      },
+      {
+        "questionId": "pep-primary-p3-l-sa-158",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案与题库答案完全一致"
+      },
+      {
+        "questionId": "pep-primary-p3-l-sa-159",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案与题库答案完全一致"
+      },
+      {
+        "questionId": "pep-primary-p3-l-sa-160",
+        "answerMatchStatus": "pass",
+        "issueType": "none",
+        "note": "独立答案与题库答案完全一致"
+      }
+    ]
+  }
+}

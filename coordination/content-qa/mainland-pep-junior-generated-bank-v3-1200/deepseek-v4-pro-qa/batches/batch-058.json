@@ -1,0 +1,137 @@
+{
+  "batchNumber": 58,
+  "startedAt": "2026-05-25T03:05:11.865Z",
+  "completedAt": "2026-05-25T03:05:29.774Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s2-k08-sa-018",
+    "pep-junior-v3-s2-k08-sa-019",
+    "pep-junior-v3-s2-k08-sa-020",
+    "pep-junior-v3-s2-k08-sa-021",
+    "pep-junior-v3-s2-k08-sa-022",
+    "pep-junior-v3-s2-k08-sa-023",
+    "pep-junior-v3-s2-k08-sa-024",
+    "pep-junior-v3-s2-k08-sa-025",
+    "pep-junior-v3-s2-k08-sa-026",
+    "pep-junior-v3-s2-k08-sa-027",
+    "pep-junior-v3-s2-k08-sa-028",
+    "pep-junior-v3-s2-k08-sa-029"
+  ],
+  "usage": {
+    "prompt_tokens": 3385,
+    "completion_tokens": 1011,
+    "total_tokens": 4396,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 3129
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s2-k08-sa-018",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数据正确，中位数和众数计算无误，答案与解释一致。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-sa-019",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "勾股定理应用正确，下滑后底端距离计算无误，答案√51-6准确。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-sa-020",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "矩形性质应用正确，点O到AB距离为BC的一半，答案4无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-sa-021",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "因式分解和平方差公式运用正确，计算得2√5，答案准确。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-sa-022",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平方法比较大小正确，计算无误，结论√6+√2 < √5+√3成立。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-sa-023",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分段函数正确，车费计算无误，答案18.5元准确。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-sa-024",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "二次根式有意义条件正确，解得x≥2，最小整数2无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-sa-025",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "勾股定理和面积法正确，斜边上的高60/13准确。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-sa-026",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平行四边形邻角互补、对角相等性质应用正确，∠C=110°无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-sa-027",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "二次根式化简和除法正确，结果为1，答案准确。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-sa-028",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "勾股数6,8,10满足周长24，面积24正确。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k08-sa-029",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "函数关系式化简正确，y=1.5x+3.5无误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案与解释一致，无歧义或错误，适合人教版初中数学。"
+    }
+  }
+}

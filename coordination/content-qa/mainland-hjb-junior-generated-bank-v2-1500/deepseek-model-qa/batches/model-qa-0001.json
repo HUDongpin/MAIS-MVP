@@ -1,0 +1,73 @@
+{
+  "batchId": "model-qa-0001",
+  "ids": [
+    "hjb-junior-ds-v2-s1-003",
+    "hjb-junior-ds-v2-s1-010",
+    "hjb-junior-ds-v2-s1-022",
+    "hjb-junior-ds-v2-s1-045",
+    "hjb-junior-ds-v2-s1-052"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-003",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为0，但化简结果为5a²b-5ab，代入a=-1,b=2得20，解析也得出20，与答案矛盾。",
+      "independentAnswerZhHans": "20",
+      "answerCheckZhHans": "标准答案0错误，正确结果为20。",
+      "recommendedActionZhHans": "将答案修正为20，并更新acceptedAnswers。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-010",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "7x² - x - 3",
+      "answerCheckZhHans": "标准答案B正确，解析无误。",
+      "recommendedActionZhHans": "无需修改。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-022",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2a³b 与 -4a³b",
+      "answerCheckZhHans": "标准答案正确，解析无误。",
+      "recommendedActionZhHans": "无需修改。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-045",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "标准答案为-10，但化简结果为-5x²y+5xy，代入x=-1,y=2得-20，解析也得出-20，与答案矛盾。",
+      "independentAnswerZhHans": "-20",
+      "answerCheckZhHans": "标准答案-10错误，正确结果为-20。",
+      "recommendedActionZhHans": "将答案修正为-20，并更新acceptedAnswers。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-052",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "64",
+      "answerCheckZhHans": "标准答案64正确，解析无误。",
+      "recommendedActionZhHans": "无需修改。",
+      "confidence": "high"
+    }
+  ]
+}

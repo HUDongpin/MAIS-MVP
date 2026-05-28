@@ -1,0 +1,580 @@
+{
+  "batchId": "batch-054",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p3-031",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-three-digit-add-sub",
+      "unitTitle": "加与减",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "three-digit-addition-subtraction",
+        "regrouping",
+        "estimation-check",
+        "加与减",
+        "三位数加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "三位数加法",
+        "三位数减法",
+        "连续进退位",
+        "估算",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "digits not aligned by place value",
+        "regrouping recorded in the wrong column",
+        "estimate ignored after exact calculation"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-three-digit-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-large-number-add-sub-unit",
+        "bnu-primary-p2-lower-assessment-three-digit-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书室新购一批图书，故事书有268本，科普书比故事书多157本，连环画比科普书少89本。连环画有多少本？",
+      "optionsZhHans": [
+        "336本",
+        "425本",
+        "514本",
+        "246本"
+      ],
+      "answer": "336本",
+      "acceptedAnswers": [
+        "336本"
+      ],
+      "explanationZhHans": "先求科普书：268+157=425本。再求连环画：425-89=336本。计算时注意个位相加满十向十位进一，十位相加满十向百位进一；减法时个位不够减从十位退一。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-032",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-three-digit-add-sub",
+      "unitTitle": "加与减",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "three-digit-addition-subtraction",
+        "regrouping",
+        "estimation-check",
+        "加与减",
+        "三位数加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "三位数加法",
+        "三位数减法",
+        "连续进退位",
+        "估算",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "digits not aligned by place value",
+        "regrouping recorded in the wrong column",
+        "estimate ignored after exact calculation"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-three-digit-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-large-number-add-sub-unit",
+        "bnu-primary-p2-lower-assessment-three-digit-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "图书馆原有故事书 586 本，上午借出 197 本，下午归还 128 本。现在故事书比原来少了多少本？",
+      "optionsZhHans": [],
+      "answer": "69",
+      "acceptedAnswers": [
+        "69"
+      ],
+      "explanationZhHans": "上午借出 197 本，下午归还 128 本，实际减少的数量为借出的减去归还的：197 - 128 = 69（本）。所以比原来少了 69 本。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-033",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-three-digit-add-sub",
+      "unitTitle": "加与减",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "three-digit-addition-subtraction",
+        "regrouping",
+        "estimation-check",
+        "加与减",
+        "三位数加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "三位数加法",
+        "三位数减法",
+        "连续进退位",
+        "估算",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "digits not aligned by place value",
+        "regrouping recorded in the wrong column",
+        "estimate ignored after exact calculation"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-three-digit-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-large-number-add-sub-unit",
+        "bnu-primary-p2-lower-assessment-three-digit-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆新买了一批书，其中故事书有268本，科技书比故事书少145本，连环画比科技书多89本。连环画有多少本？",
+      "optionsZhHans": [],
+      "answer": "212本",
+      "acceptedAnswers": [
+        "212本",
+        "212"
+      ],
+      "explanationZhHans": "先求科技书：268 - 145 = 123（本）。再求连环画：123 + 89 = 212（本）。注意退位减法时借位要准确，加法进位要正确。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-034",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-three-digit-add-sub",
+      "unitTitle": "加与减",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "three-digit-addition-subtraction",
+        "regrouping",
+        "estimation-check",
+        "加与减",
+        "三位数加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "三位数加法",
+        "三位数减法",
+        "连续进退位",
+        "估算",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "digits not aligned by place value",
+        "regrouping recorded in the wrong column",
+        "estimate ignored after exact calculation"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-three-digit-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-large-number-add-sub-unit",
+        "bnu-primary-p2-lower-assessment-three-digit-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "果园里上午摘了 487 千克苹果，下午摘了 356 千克苹果。下面哪个算式最适合用来估算一天大约摘了多少千克苹果？",
+      "optionsZhHans": [
+        "500 + 400 = 900",
+        "487 + 356 = 843",
+        "480 + 350 = 830",
+        "400 + 300 = 700"
+      ],
+      "answer": "500 + 400 = 900",
+      "acceptedAnswers": [
+        "500 + 400 = 900"
+      ],
+      "explanationZhHans": "估算时把 487 看作 500，356 看作 400，500 + 400 = 900，所以大约摘了 900 千克。选项 B 是精确计算，不是估算；C 和 D 的近似值不够接近，误差较大。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-035",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-three-digit-add-sub",
+      "unitTitle": "加与减",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "three-digit-addition-subtraction",
+        "regrouping",
+        "estimation-check",
+        "加与减",
+        "三位数加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "三位数加法",
+        "三位数减法",
+        "连续进退位",
+        "估算",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "digits not aligned by place value",
+        "regrouping recorded in the wrong column",
+        "estimate ignored after exact calculation"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-three-digit-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-large-number-add-sub-unit",
+        "bnu-primary-p2-lower-assessment-three-digit-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小丽计算 527 + 386 时，得到结果是 813。她用估算检查：527 接近 530，386 接近 390，530 + 390 = 920，所以实际结果应该接近 920，但 813 与 920 相差很大，说明计算有误。请你帮小丽重新列竖式计算，正确的和是多少？",
+      "optionsZhHans": [],
+      "answer": "913",
+      "acceptedAnswers": [
+        "913"
+      ],
+      "explanationZhHans": "估算提示结果应接近920。竖式计算：个位7+6=13，写3进1；十位2+8+1=11，写1进1；百位5+3+1=9，得913。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-036",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-three-digit-add-sub",
+      "unitTitle": "加与减",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "three-digit-addition-subtraction",
+        "regrouping",
+        "estimation-check",
+        "加与减",
+        "三位数加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "三位数加法",
+        "三位数减法",
+        "连续进退位",
+        "估算",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "digits not aligned by place value",
+        "regrouping recorded in the wrong column",
+        "estimate ignored after exact calculation"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-three-digit-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-large-number-add-sub-unit",
+        "bnu-primary-p2-lower-assessment-three-digit-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆原有故事书 528 本，科技书 364 本。这学期新购了 175 本故事书和 238 本科技书。现在故事书和科技书一共有多少本？先估算结果大约是多少，再列竖式精确计算，最后验算。",
+      "optionsZhHans": [],
+      "answer": "估算：故事书约 700 本，科技书约 600 本，一共约 1300 本。精确计算：528 + 175 = 703，364 + 238 = 602，703 + 602 = 1305。验算：1305 - 703 = 602，1305 - 602 = 703，计算正确。答：现在一共有 1305 本。",
+      "acceptedAnswers": [
+        "估算：故事书约 700 本，科技书约 600 本，一共约 1300 本。精确计算：528 + 175 = 703，364 + 238 = 602，703 + 602 = 1305。验算：1305 - 703 = 602，1305 - 602 = 703，计算正确。答：现在一共有 1305 本。",
+        "1305",
+        "1305本",
+        "1305 本"
+      ],
+      "explanationZhHans": "先分别估算：528≈500，175≈200，故事书约700本；364≈400，238≈200，科技书约600本，合计约1300本。精确计算时，对齐数位，528+175=703，364+238=602，再求和703+602=1305。验算可用减法：1305-703=602，1305-602=703，结果一致，说明计算正确。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-037",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-three-digit-add-sub",
+      "unitTitle": "加与减",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "three-digit-addition-subtraction",
+        "regrouping",
+        "estimation-check",
+        "加与减",
+        "三位数加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "三位数加法",
+        "三位数减法",
+        "连续进退位",
+        "估算",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "digits not aligned by place value",
+        "regrouping recorded in the wrong column",
+        "estimate ignored after exact calculation"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-three-digit-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-large-number-add-sub-unit",
+        "bnu-primary-p2-lower-assessment-three-digit-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆原有故事书 527 本，这学期新买了 368 本，后来发现其中 45 本有破损需要下架。现在故事书有多少本？下面哪个算式是正确的？",
+      "optionsZhHans": [
+        "527 + 368 - 45",
+        "527 - 368 + 45",
+        "527 + 368 + 45",
+        "527 - 368 - 45"
+      ],
+      "answer": "527 + 368 - 45",
+      "acceptedAnswers": [
+        "527 + 368 - 45"
+      ],
+      "explanationZhHans": "原有 527 本，新买 368 本后共有 527+368 本，再下架 45 本，所以用 527+368-45 计算。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-038",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-three-digit-add-sub",
+      "unitTitle": "加与减",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "three-digit-addition-subtraction",
+        "regrouping",
+        "estimation-check",
+        "加与减",
+        "三位数加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "三位数加法",
+        "三位数减法",
+        "连续进退位",
+        "估算",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "digits not aligned by place value",
+        "regrouping recorded in the wrong column",
+        "estimate ignored after exact calculation"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-three-digit-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-large-number-add-sub-unit",
+        "bnu-primary-p2-lower-assessment-three-digit-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆有故事书 458 本，科技书比故事书少 179 本。两种书一共有多少本？",
+      "optionsZhHans": [],
+      "answer": "737",
+      "acceptedAnswers": [
+        "737"
+      ],
+      "explanationZhHans": "先求科技书数量：458 - 179 = 279（本）。再求总数：458 + 279 = 737（本）。计算时注意退位和进位。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-039",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-three-digit-add-sub",
+      "unitTitle": "加与减",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "three-digit-addition-subtraction",
+        "regrouping",
+        "estimation-check",
+        "加与减",
+        "三位数加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "三位数加法",
+        "三位数减法",
+        "连续进退位",
+        "估算",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "digits not aligned by place value",
+        "regrouping recorded in the wrong column",
+        "estimate ignored after exact calculation"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-three-digit-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-large-number-add-sub-unit",
+        "bnu-primary-p2-lower-assessment-three-digit-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小明在计算一道三位数加法时，把个位上的6看成了9，把十位上的3看成了8，这样得到的和是652。正确的和是多少？请写出计算过程。",
+      "optionsZhHans": [],
+      "answer": "599",
+      "acceptedAnswers": [
+        "599",
+        "正确的和是599"
+      ],
+      "explanationZhHans": "个位把6看成9多加3，十位把3看成8多加50，一共多加53。错误和652减53，正确和是599。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-040",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-three-digit-add-sub",
+      "unitTitle": "加与减",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "three-digit-addition-subtraction",
+        "regrouping",
+        "estimation-check",
+        "加与减",
+        "三位数加减"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "应用意识"
+      ],
+      "skillTags": [
+        "三位数加法",
+        "三位数减法",
+        "连续进退位",
+        "估算",
+        "验算"
+      ],
+      "misconceptionTags": [
+        "digits not aligned by place value",
+        "regrouping recorded in the wrong column",
+        "estimate ignored after exact calculation"
+      ],
+      "difficulty": "Exam",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-three-digit-add-sub"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-upper-assessment-large-number-add-sub-unit",
+        "bnu-primary-p2-lower-assessment-three-digit-add-sub"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆原有故事书 468 本，科技书 375 本。这学期新买了 156 本故事书和 189 本科技书。现在故事书比科技书多多少本？",
+      "optionsZhHans": [
+        "60 本",
+        "54 本",
+        "66 本",
+        "72 本"
+      ],
+      "answer": "60 本",
+      "acceptedAnswers": [
+        "60 本"
+      ],
+      "explanationZhHans": "先求现在故事书数量：468+156=624（本）；现在科技书数量：375+189=564（本）；再求差：624-564=60（本）。所以故事书比科技书多60本。"
+    }
+  ]
+}

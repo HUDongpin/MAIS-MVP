@@ -1,0 +1,305 @@
+{
+  "batchId": "batch-097",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s3-k10-sa-028",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-circle-geometry"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-dynamic-geometry-functions"
+      ],
+      "promptZhHans": "在平面直角坐标系中，点A的坐标为(2, 0)，点B的坐标为(0, 4)。将线段AB绕点A顺时针旋转90°得到线段AC，连接BC。求点C的坐标。",
+      "optionsZhHans": [],
+      "answer": "(6, 2)",
+      "acceptedAnswers": [
+        "(6, 2)",
+        "(6,2)"
+      ],
+      "explanationZhHans": "点A(2,0)，点B(0,4)。将线段AB绕点A顺时针旋转90°，点B的对应点为C。设C(x,y)，则向量AB = (-2, 4)。顺时针旋转90°后，向量AC = (4, 2)。所以C = A + AC = (2+4, 0+2) = (6, 2)。故点C的坐标为(6, 2)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-sa-029",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-probability-introduction"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-applied-modeling-finance-rate"
+      ],
+      "promptZhHans": "在一个不透明的布袋中装有3个红球和2个白球，它们除颜色外完全相同。从袋中随机摸出1个球，记录颜色后放回，摇匀后再随机摸出1个球。求两次摸出的球颜色相同的概率。",
+      "optionsZhHans": [],
+      "answer": "13/25",
+      "acceptedAnswers": [
+        "13/25",
+        "0.52"
+      ],
+      "explanationZhHans": "所有可能的结果有5×5=25种。两次颜色相同包括两次都红或两次都白。两次都红有3×3=9种，两次都白有2×2=4种，共9+4=13种。所以概率为13/25。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-sa-030",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-rotation-transformations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-proof-calculation-integrated"
+      ],
+      "promptZhHans": "已知二次函数 y=x²-4x+3。\n（1）求图象的顶点坐标；\n（2）求图象与 x 轴的交点坐标。",
+      "optionsZhHans": [],
+      "answer": "顶点坐标为(2,-1)，与x轴的交点为(1,0)和(3,0)",
+      "acceptedAnswers": [
+        "顶点坐标为(2,-1)，与x轴的交点为(1,0)和(3,0)",
+        "顶点(2,-1)，交点(1,0)、(3,0)",
+        "顶点坐标(2,-1)，x轴交点(1,0)和(3,0)"
+      ],
+      "explanationZhHans": "配方得 y=x²-4x+3=(x-2)²-1，所以顶点坐标为(2,-1)。令y=0，得x²-4x+3=0，即(x-1)(x-3)=0，解得x=1或x=3，因此与x轴的交点为(1,0)和(3,0)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-sa-031",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadratic-equations-functions"
+      ],
+      "promptZhHans": "已知关于x的一元二次方程x²-(2k-1)x+k²-k=0。求证：无论k取何实数，该方程总有两个不相等的实数根。",
+      "optionsZhHans": [],
+      "answer": "证明：Δ=(2k-1)²-4(k²-k)=1>0，所以方程总有两个不相等的实数根。",
+      "acceptedAnswers": [
+        "证明：Δ=(2k-1)²-4(k²-k)=1>0，所以方程总有两个不相等的实数根。",
+        "Δ=1>0，方程总有两个不相等的实数根"
+      ],
+      "explanationZhHans": "对于方程x²-(2k-1)x+k²-k=0，判别式Δ=[-(2k-1)]²-4(k²-k)=(2k-1)²-4k²+4k=4k²-4k+1-4k²+4k=1。因为1>0，所以无论k取何实数，方程总有两个不相等的实数根。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-sa-032",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-quadratic-equations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-circle-geometry"
+      ],
+      "promptZhHans": "AB是⊙O的直径，C是⊙O上一点，过点C的切线与AB的延长线交于点P。若∠P=30°，求∠ACP的度数。",
+      "optionsZhHans": [],
+      "answer": "120°",
+      "acceptedAnswers": [
+        "120°",
+        "120度"
+      ],
+      "explanationZhHans": "连接OC，则OC⊥PC。在Rt△POC中，∠P=30°，所以∠POC=60°。因为OC=OA，所以∠OAC=∠OCA=30°。∠ACP=∠ACO+∠OCP=30°+90°=120°。故∠ACP的度数为120°。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-sa-033",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-quadratic-functions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-statistics-probability"
+      ],
+      "promptZhHans": "在一个不透明的盒子中装有4张卡片，分别写有数字1, 2, 3, 4。这些卡片除数字外完全相同。先从盒子中随机抽取一张卡片，记下数字后放回，摇匀后再随机抽取一张卡片。求两次抽取的数字之和为奇数的概率。",
+      "optionsZhHans": [],
+      "answer": "1/2",
+      "acceptedAnswers": [
+        "1/2",
+        "0.5"
+      ],
+      "explanationZhHans": "所有可能的结果有4×4=16种。和为奇数的情况：第一次奇数（1或3）第二次偶数（2或4）：2×2=4种；第一次偶数（2或4）第二次奇数（1或3）：2×2=4种；共8种。所以概率为8/16=1/2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-sa-034",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-circle-geometry"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "promptZhHans": "在平面直角坐标系中，直线y=2x+1与x轴交于点A，与y轴交于点B。将直线AB绕点B逆时针旋转90°得到直线l，求直线l的解析式。",
+      "optionsZhHans": [],
+      "answer": "y = -1/2 x + 1",
+      "acceptedAnswers": [
+        "y = -1/2 x + 1",
+        "y=-1/2x+1"
+      ],
+      "explanationZhHans": "直线y=2x+1的斜率为2，与y轴交于点B(0,1)。绕点B逆时针旋转90°后，新直线的斜率为原斜率的负倒数，即-1/2。又过点B(0,1)，所以解析式为y = -1/2 x + 1。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-sa-035",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-probability-introduction"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-coordinate-transformations"
+      ],
+      "promptZhHans": "在一个不透明的布袋中装有2个红球和3个白球，它们除颜色外完全相同。从袋中随机摸出2个球，求摸出的2个球颜色不同的概率。",
+      "optionsZhHans": [],
+      "answer": "3/5",
+      "acceptedAnswers": [
+        "3/5",
+        "0.6"
+      ],
+      "explanationZhHans": "从5个球中任取2个，共有C(5,2)=10种等可能结果。颜色不同即1红1白，有C(2,1)×C(3,1)=2×3=6种。所以概率为6/10=3/5。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-sa-036",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-rotation-transformations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-inverse-proportion-models"
+      ],
+      "promptZhHans": "在△ABC中，∠ACB=90°，AC=3，BC=4。将△ABC绕点C逆时针旋转90°得到△DEC，点A的对应点为D，点B的对应点为E。求线段AD的长。",
+      "optionsZhHans": [],
+      "answer": "3√2",
+      "acceptedAnswers": [
+        "3√2",
+        "3倍根号2"
+      ],
+      "explanationZhHans": "由旋转性质，CD=CA=3，且∠ACD=90°。在Rt△ACD中，AD=√(AC²+CD²)=√(3²+3²)=3√2。故线段AD的长为3√2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s3-k10-sa-037",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S3",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s3-upper-quadratics-circle-probability",
+      "unitTitle": "一元二次方程、二次函数、圆与概率初步",
+      "type": "short-answer",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s3-upper-quadratics-circle-probability"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s3-upper-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "已知a、b为实数，且满足a² + b² + 5 = 2(a + 2b)，求a + b的值。",
+      "optionsZhHans": [],
+      "answer": "3",
+      "acceptedAnswers": [
+        "3"
+      ],
+      "explanationZhHans": "将等式变形：a² + b² + 5 - 2a - 4b = 0，即(a² - 2a + 1) + (b² - 4b + 4) = 0，也就是(a-1)² + (b-2)² = 0。所以a-1=0且b-2=0，得a=1，b=2。因此a+b=3。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

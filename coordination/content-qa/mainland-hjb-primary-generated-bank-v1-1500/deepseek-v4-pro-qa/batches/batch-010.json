@@ -1,0 +1,191 @@
+{
+  "batchNumber": 10,
+  "startedAt": "2026-05-25T01:49:23.945Z",
+  "completedAt": "2026-05-25T01:49:40.348Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p1-163",
+    "hjb-primary-ds-v1-p1-164",
+    "hjb-primary-ds-v1-p1-165",
+    "hjb-primary-ds-v1-p1-166",
+    "hjb-primary-ds-v1-p1-167",
+    "hjb-primary-ds-v1-p1-168",
+    "hjb-primary-ds-v1-p1-169",
+    "hjb-primary-ds-v1-p1-170",
+    "hjb-primary-ds-v1-p1-171",
+    "hjb-primary-ds-v1-p1-172",
+    "hjb-primary-ds-v1-p1-173",
+    "hjb-primary-ds-v1-p1-174",
+    "hjb-primary-ds-v1-p1-175",
+    "hjb-primary-ds-v1-p1-176",
+    "hjb-primary-ds-v1-p1-177",
+    "hjb-primary-ds-v1-p1-178",
+    "hjb-primary-ds-v1-p1-179",
+    "hjb-primary-ds-v1-p1-180"
+  ],
+  "usage": {
+    "prompt_tokens": 3680,
+    "completion_tokens": 1273,
+    "total_tokens": 4953,
+    "prompt_tokens_details": {
+      "cached_tokens": 3584
+    },
+    "prompt_cache_hit_tokens": 3584,
+    "prompt_cache_miss_tokens": 96
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p1-163",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案唯一，选项无歧义。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-164",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案与解释一致，acceptedAnswers覆盖合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-165",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案45人无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-166",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，选项区分度好，答案唯一。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-167",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，填空顺序清晰，答案唯一。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-168",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案33个无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-169",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，计算无误，选项唯一。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-170",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，填空顺序清晰，答案唯一。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-171",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案54本无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-172",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，选项区分度好，答案唯一。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-173",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案63无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-174",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案25辆无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-175",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，半时特征描述准确，选项唯一。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-176",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案7时半无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-177",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，时间顺序合理，答案唯一。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-178",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，整时特征描述准确，选项唯一。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-179",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案描述准确，acceptedAnswers覆盖合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p1-180",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目正确，答案8时无误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合沪教版小学数学一年级要求，数学正确，答案唯一，无歧义或缺失条件。"
+    }
+  }
+}

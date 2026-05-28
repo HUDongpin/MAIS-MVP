@@ -1,0 +1,105 @@
+{
+  "batchId": "model-qa-0122",
+  "ids": [
+    "hjb-junior-ds-v2-s2-469",
+    "hjb-junior-ds-v2-s2-470",
+    "hjb-junior-ds-v2-s2-471",
+    "hjb-junior-ds-v2-s2-472",
+    "hjb-junior-ds-v2-s2-473",
+    "hjb-junior-ds-v2-s2-474",
+    "hjb-junior-ds-v2-s2-475",
+    "hjb-junior-ds-v2-s2-476"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-469",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "0.8",
+      "answerCheckZhHans": "标准答案为0.8，解析正确，无矛盾。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-470",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "D. 当 x < 0 时，y 随 x 的增大而减小",
+      "answerCheckZhHans": "标准答案D正确，解析指出D错误，与题干要求一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-471",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "k = -12，图像位于第二、四象限",
+      "answerCheckZhHans": "标准答案正确，acceptedAnswers覆盖了常见变体。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-472",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "C. (3, -2)",
+      "answerCheckZhHans": "标准答案C正确，其他选项均不满足函数关系。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-473",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "y = 24/x，x ≠ 0",
+      "answerCheckZhHans": "标准答案正确，acceptedAnswers覆盖了常见变体。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-474",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "A. m > 1",
+      "answerCheckZhHans": "标准答案A正确，解析合理。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-475",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "y = 1200/x，15 天",
+      "answerCheckZhHans": "标准答案正确，acceptedAnswers覆盖了常见变体。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-476",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "multiple-correct-options"
+      ],
+      "issueDetailsZhHans": "点(-3,4)和(2,-6)均满足xy=-12，因此有两个正确选项，但题目为单选题。",
+      "independentAnswerZhHans": "(-3, 4) 和 (2, -6) 都在图像上",
+      "answerCheckZhHans": "标准答案只给出(2,-6)，但(-3,4)也满足，导致多个正确选项。",
+      "recommendedActionZhHans": "修改选项，确保只有一个正确选项，或改为多选题。",
+      "confidence": "high"
+    }
+  ]
+}

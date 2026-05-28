@@ -1,0 +1,149 @@
+{
+  "batchNumber": 48,
+  "startedAt": "2026-05-27T13:51:44.363Z",
+  "completedAt": "2026-05-27T13:52:05.967Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-377",
+    "bnu-high-ds-v1-s4-378",
+    "bnu-high-ds-v1-s4-379",
+    "bnu-high-ds-v1-s4-380",
+    "bnu-high-ds-v1-s4-381",
+    "bnu-high-ds-v1-s4-382",
+    "bnu-high-ds-v1-s4-383",
+    "bnu-high-ds-v1-s4-384"
+  ],
+  "usage": {
+    "prompt_tokens": 12399,
+    "completion_tokens": 1297,
+    "total_tokens": 13696,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 11887
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-377",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "（1）A(0,0), B(120,0), C(120√3/(√3+1), 120/(√3+1))；（2）距离为120/(√3+1)=60(√3-1)≈43.92米，大于20米，满足要求。",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件充分，可独立求解。答案与独立解一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-378",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "12.5",
+        "correctedAnswer": "12.5",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件可解，但独立计算得CD≈12.5米，与给定答案15.0不符。解析中自相矛盾，先得12.5后称15.0，且未给出正确推导。答案错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-379",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "无正确选项",
+        "correctedAnswer": null,
+        "issueTags": [
+          "bad_options",
+          "missing_condition",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目假设A、B、D共线，但由仰角条件可推出矛盾，无法建立合理模型。选项A声称A、B、D共线，但实际无法求解，且解析中前后矛盾，无正确选项。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-380",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "20√(2+√3) 米",
+        "correctedAnswer": "20√(2+√3) 米",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立求解得h=20√(2+√3)米，与答案20√2不符。解析中余弦定理计算错误，导致答案错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-381",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "100(√3+1)",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件充分，可解。独立解与答案一致，解析正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-382",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "在△ABC和△ABD中分别用正弦定理求AC和AD，再在△ACD中用余弦定理求CD",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "选项分析正确，唯一可行模型。答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-383",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "weak",
+        "independentAnswer": "8小时",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "可解，答案正确。解析中区间描述不够精确，但结论正确，可接受。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-384",
+        "solvableStatus": "fail",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "a",
+        "correctedAnswer": "a",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "题目条件不足（未说明四边形形状），若为任意四边形，EF无法仅用a、b表示。若假设为平行四边形，则EF=a，与答案(a+b)/2不符。解析自相矛盾，答案错误。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 4,
+      "warn": 0,
+      "fail": 4,
+      "notes": "8题中4题通过，4题失败。失败原因包括答案错误、解析矛盾、条件不足或选项无效。"
+    }
+  }
+}

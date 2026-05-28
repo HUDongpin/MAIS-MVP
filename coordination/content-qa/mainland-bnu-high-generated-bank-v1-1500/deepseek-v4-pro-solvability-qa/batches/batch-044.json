@@ -1,0 +1,137 @@
+{
+  "batchNumber": 44,
+  "startedAt": "2026-05-27T13:51:08.499Z",
+  "completedAt": "2026-05-27T13:51:23.602Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s4-345",
+    "bnu-high-ds-v1-s4-346",
+    "bnu-high-ds-v1-s4-347",
+    "bnu-high-ds-v1-s4-348",
+    "bnu-high-ds-v1-s4-349",
+    "bnu-high-ds-v1-s4-350",
+    "bnu-high-ds-v1-s4-351",
+    "bnu-high-ds-v1-s4-352"
+  ],
+  "usage": {
+    "prompt_tokens": 10842,
+    "completion_tokens": 1089,
+    "total_tokens": 11931,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 10330
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s4-345",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "independentAnswer": "17/9",
+        "correctedAnswer": "17/9",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "独立计算得 k=17/9，但题目答案和 acceptedAnswers 均为 9/4，解析中虽纠正为 17/9 却与答案矛盾，答案错误。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-346",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "2√13",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "向量和 (4,6)，模长 √52=2√13，选项 A 正确，解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-347",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "5/2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "二维叉积模长 |2×(-1)-3×1|=5，面积 5/2，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-348",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "4/5",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "点积 4，模长均为 √5，cosθ=4/5，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-349",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "B",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "a·b=0 得垂直，|a|=|b| 也成立但 B 正确，解析指出垂直优先，无歧义。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-350",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "约 14°",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "cosθ=63/65≈0.9692，θ≈14°，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-351",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "-3/2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由共线条件得 λ=2，k=-3/2，答案与解析一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s4-352",
+        "solvableStatus": "pass",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "independentAnswer": "3/2",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "垂直得 2x-3=0，x=3/2，选项匹配，解析一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第1题答案错误，应为17/9而非9/4，解析虽纠正但与答案矛盾，需修正答案。其余7题均正确。"
+    }
+  }
+}

@@ -1,0 +1,191 @@
+{
+  "batchNumber": 17,
+  "startedAt": "2026-05-25T01:57:06.816Z",
+  "completedAt": "2026-05-25T01:57:25.139Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "hjb-primary-ds-v1-p2-039",
+    "hjb-primary-ds-v1-p2-040",
+    "hjb-primary-ds-v1-p2-041",
+    "hjb-primary-ds-v1-p2-042",
+    "hjb-primary-ds-v1-p2-043",
+    "hjb-primary-ds-v1-p2-044",
+    "hjb-primary-ds-v1-p2-045",
+    "hjb-primary-ds-v1-p2-046",
+    "hjb-primary-ds-v1-p2-047",
+    "hjb-primary-ds-v1-p2-048",
+    "hjb-primary-ds-v1-p2-049",
+    "hjb-primary-ds-v1-p2-050",
+    "hjb-primary-ds-v1-p2-051",
+    "hjb-primary-ds-v1-p2-052",
+    "hjb-primary-ds-v1-p2-053",
+    "hjb-primary-ds-v1-p2-054",
+    "hjb-primary-ds-v1-p2-055",
+    "hjb-primary-ds-v1-p2-056"
+  ],
+  "usage": {
+    "prompt_tokens": 3337,
+    "completion_tokens": 1315,
+    "total_tokens": 4652,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 2825
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "hjb-primary-ds-v1-p2-039",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，答案与解释一致，符合二年级人民币减法要求。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-040",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "找回金额计算正确，选项唯一，acceptedAnswers覆盖合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-041",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "人民币合计计算正确，填空答案明确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-042",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算过程与答案正确，找回7角无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-043",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项一金额正好6元5角，其他选项金额不符，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-044",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "单位换算正确，4元6角等于46角，填“=”无误。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-045",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "找回2元2角计算正确，acceptedAnswers合理。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-046",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "总价3元3角，找回1元7角，计算正确，选项唯一。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-047",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方位推理正确，图书馆在操场东北方向。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-048",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "回家路线方向反转正确，答案表述清晰。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-049",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "方位推理正确，小丽在小红东南方向。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-050",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "大门朝南，正对方向为北，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-051",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "操场在校门北面，推理正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-052",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "面向北时左边为西，图书馆在西面，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-053",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "直接根据描述，办公楼在花坛西面，答案正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-054",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "电影院在学校东北方向，推理正确。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-055",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "回程路线方向反转正确，选项一符合。"
+      },
+      {
+        "id": "hjb-primary-ds-v1-p2-056",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "教学楼在校门东北方向，推理正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案与解释一致，无歧义或错误，适合沪教版二年级。"
+    }
+  }
+}

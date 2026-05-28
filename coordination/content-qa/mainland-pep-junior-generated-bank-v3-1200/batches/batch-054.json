@@ -1,0 +1,327 @@
+{
+  "batchId": "batch-054",
+  "questions": [
+    {
+      "id": "pep-junior-v3-s2-k07-mc-030",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-axis-symmetry-isosceles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-proof-calculation-integrated"
+      ],
+      "promptZhHans": "下列四个代数式的因式分解中，正确的是（ ）",
+      "optionsZhHans": [
+        "2a² - 8 = 2(a - 2)²",
+        "x² - 4x + 4 = (x - 2)²",
+        "3x² - 6x = 3x(x - 6)",
+        "y² + 2y - 1 = (y - 1)²"
+      ],
+      "answer": "x² - 4x + 4 = (x - 2)²",
+      "acceptedAnswers": [
+        "x² - 4x + 4 = (x - 2)²",
+        "B"
+      ],
+      "explanationZhHans": "选项A中，2a² - 8 = 2(a² - 4) = 2(a + 2)(a - 2)，不等于2(a - 2)²，错误。选项B中，x² - 4x + 4是完全平方式，等于(x - 2)²，正确。选项C中，3x² - 6x = 3x(x - 2)，不是3x(x - 6)，错误。选项D中，y² + 2y - 1不是完全平方式，因为(y - 1)² = y² - 2y + 1，不等于原式，错误。因此正确答案是x² - 4x + 4 = (x - 2)²。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-mc-031",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-polynomial-multiplication-factorization"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions"
+      ],
+      "promptZhHans": "计算 (3a - 2b)(2a + b) 的结果是（ ）",
+      "optionsZhHans": [
+        "6a² - ab - 2b²",
+        "6a² + ab - 2b²",
+        "6a² - ab + 2b²",
+        "6a² + ab + 2b²"
+      ],
+      "answer": "6a² - ab - 2b²",
+      "acceptedAnswers": [
+        "6a² - ab - 2b²",
+        "A"
+      ],
+      "explanationZhHans": "使用多项式乘法法则：(3a - 2b)(2a + b) = 3a·2a + 3a·b - 2b·2a - 2b·b = 6a² + 3ab - 4ab - 2b² = 6a² - ab - 2b²。因此正确答案是6a² - ab - 2b²。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-mc-032",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-algebraic-fractions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "若分式 (x - 2)/(x² - 4) 的值为0，则x的值为（ ）",
+      "optionsZhHans": [
+        "2",
+        "-2",
+        "2或-2",
+        "无解"
+      ],
+      "answer": "无解",
+      "acceptedAnswers": [
+        "无解",
+        "D"
+      ],
+      "explanationZhHans": "分式值为0的条件是分子为0且分母不为0。分子x - 2 = 0得x = 2。分母x² - 4 = (x + 2)(x - 2)，当x = 2时分母为0，分式无意义。因此不存在使分式值为0的x值，正确答案是无解。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-mc-033",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "multiple-choice",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "某工厂计划生产一批零件，若每天生产40个，则比原计划晚2天完成；若每天生产50个，则比原计划提前3天完成。设原计划生产x天，可列方程为（ ）",
+      "optionsZhHans": [
+        "40(x + 2) = 50(x - 3)",
+        "40(x - 2) = 50(x + 3)",
+        "40x + 2 = 50x - 3",
+        "40x - 2 = 50x + 3"
+      ],
+      "answer": "40(x + 2) = 50(x - 3)",
+      "acceptedAnswers": [
+        "40(x + 2) = 50(x - 3)",
+        "A"
+      ],
+      "explanationZhHans": "设原计划生产x天，则零件总数为40(x + 2)或50(x - 3)。根据零件总数不变，得方程40(x + 2) = 50(x - 3)。因此正确答案是40(x + 2) = 50(x - 3)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-fi-001",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-polynomial-multiplication-factorization"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-polynomial-factorization-fractions"
+      ],
+      "promptZhHans": "因式分解：3m²n - 6mn² = _______。",
+      "optionsZhHans": [],
+      "answer": "3mn(m - 2n)",
+      "acceptedAnswers": [
+        "3mn(m - 2n)",
+        "3mn(m-2n)"
+      ],
+      "explanationZhHans": "提取公因式3mn，得3m²n - 6mn² = 3mn(m - 2n)。因此答案是3mn(m - 2n)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-fi-002",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-algebraic-fractions"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-number-sense-real-numbers"
+      ],
+      "promptZhHans": "化简分式 (x² - 9)/(x² - 6x + 9) 的结果是 _______。",
+      "optionsZhHans": [],
+      "answer": "(x + 3)/(x - 3)",
+      "acceptedAnswers": [
+        "(x + 3)/(x - 3)",
+        "(x+3)/(x-3)"
+      ],
+      "explanationZhHans": "分子因式分解：x² - 9 = (x + 3)(x - 3)；分母因式分解：x² - 6x + 9 = (x - 3)²。约分得 (x + 3)/(x - 3)。因此答案是(x + 3)/(x - 3)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-fi-003",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-integrated-review"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-equation-inequality-models"
+      ],
+      "promptZhHans": "解分式方程 2/(x - 1) = 3/(x + 1) 时，去分母后得到的整式方程是 _______。",
+      "optionsZhHans": [],
+      "answer": "2(x + 1) = 3(x - 1)",
+      "acceptedAnswers": [
+        "2(x + 1) = 3(x - 1)",
+        "2x+2=3x-3",
+        "2x + 2 = 3x - 3"
+      ],
+      "explanationZhHans": "方程两边同乘最简公分母(x - 1)(x + 1)，得2(x + 1) = 3(x - 1)。因此答案是2(x + 1) = 3(x - 1)。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-fi-004",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-triangle-angle-relations"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-linear-functions-graphs"
+      ],
+      "promptZhHans": "若多项式x² + kx + 25是完全平方式，则k的值为 _______。",
+      "optionsZhHans": [],
+      "answer": "±10",
+      "acceptedAnswers": [
+        "±10",
+        "10或-10",
+        "10或－10"
+      ],
+      "explanationZhHans": "完全平方式的形式为(x ± a)² = x² ± 2ax + a²。比较得a² = 25，所以a = ±5。则k = ±2a = ±10。因此答案是±10。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-fi-005",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-congruence-proof"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-triangles-congruence-proof"
+      ],
+      "promptZhHans": "已知a + b = 5，ab = 3，则a²b + ab²的值为 _______。",
+      "optionsZhHans": [],
+      "answer": "15",
+      "acceptedAnswers": [
+        "15"
+      ],
+      "explanationZhHans": "a²b + ab² = ab(a + b) = 3 × 5 = 15。因此答案是15。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    },
+    {
+      "id": "pep-junior-v3-s2-k07-fi-006",
+      "batch": "junior-rag-v3-1200",
+      "grade": "S2",
+      "semester": "upper",
+      "knowledgePointId": "pep-junior-s2-upper-polynomials-fractions",
+      "unitTitle": "整式乘法、因式分解与分式",
+      "type": "fill-in",
+      "difficulty": "Core",
+      "evidenceCardIds": [
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "paperPatternCardIds": [
+        "pep-junior-s2-upper-paper-axis-symmetry-isosceles"
+      ],
+      "examPatternCardIds": [
+        "pep-junior-exam-quadrilaterals-pythagorean"
+      ],
+      "promptZhHans": "若分式 (x + 2)/(x² - 4) 有意义，则x的取值范围是 _______。",
+      "optionsZhHans": [],
+      "answer": "x ≠ ±2",
+      "acceptedAnswers": [
+        "x ≠ ±2",
+        "x≠2且x≠-2",
+        "x≠2且x≠－2"
+      ],
+      "explanationZhHans": "分式有意义的条件是分母不为0。分母x² - 4 = (x + 2)(x - 2) ≠ 0，所以x ≠ 2且x ≠ -2，即x ≠ ±2。因此答案是x ≠ ±2。",
+      "sourceDistanceStatus": "passed",
+      "mathQaStatus": "needs-review",
+      "reviewNotes": "deepseek-original-v3-1200; pending-s18-manual-review"
+    }
+  ]
+}

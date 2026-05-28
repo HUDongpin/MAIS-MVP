@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-120",
+  "startedAt": "2026-05-28T01:29:24.681Z",
+  "completedAt": "2026-05-28T01:29:40.379Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-453",
+    "bnu-high-ds-v1-s5-454",
+    "bnu-high-ds-v1-s5-455",
+    "bnu-high-ds-v1-s5-456",
+    "bnu-high-ds-v1-s5-457",
+    "bnu-high-ds-v1-s5-458",
+    "bnu-high-ds-v1-s5-459",
+    "bnu-high-ds-v1-s5-460"
+  ],
+  "usage": {
+    "prompt_tokens": 10548,
+    "completion_tokens": 1053,
+    "total_tokens": 11601,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 10164
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-453",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "A",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "回归系数0.7表示x每增加1单位，y平均增加0.7单位；选项B方向反了；选项C预测2010年超出数据范围且用“一定”不准确；选项D相关系数不表示因果关系。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-454",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "（1）60%；（2）比较实际频数与假设独立时期望频数的差异，若差异大则认为有关。",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "（1）喜欢数学共100人，男生60人，比例60%；（2）独立性检验基本思想：若性别与喜欢数学独立，则期望频数应接近，否则认为有关。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-455",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "D",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "残差图可检验模型合适性、异常点、正态性，但不能直接确定相关系数大小。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-456",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "（1）ŷ = 2x + 1；（2）13",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "数据完全线性，计算得x̄=3，ȳ=7，b=2，a=1，回归方程ŷ=2x+1；x=6时ŷ=13。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-457",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "A",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "比例差异表明有关联，但不能直接推断因果；B、C绝对化；D混淆条件概率。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-458",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "（1）r≈0.99；（2）高度正线性相关",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "计算得∑x=175，∑y=3740，∑xy=100450，∑x²=5075，∑y²=2025400，代入公式得r≈0.99，接近1，线性关系极强。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-459",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "B",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "异常点不应随意删除或修改，应先分析原因；保留并分析是最合理的做法。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-460",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "（1）ŷ = 5x + 20；（2）60万元",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "数据完全线性，x̄=4.5，ȳ=42.5，b=5，a=20，回归方程ŷ=5x+20；x=8时ŷ=60。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均能独立求解，无数学错误、歧义或缺失条件，符合北师大版高中统计案例章节要求。"
+    }
+  }
+}

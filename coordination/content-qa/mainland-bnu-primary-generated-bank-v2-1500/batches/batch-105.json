@@ -1,0 +1,580 @@
+{
+  "batchId": "batch-105",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p5-041",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-multiples-factors",
+      "unitTitle": "倍数与因数",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "factors-multiples",
+        "divisibility",
+        "prime-composite",
+        "common-factors-multiples",
+        "倍数",
+        "因数"
+      ],
+      "competencyTags": [
+        "数感",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "找因数",
+        "找倍数",
+        "判断整除",
+        "质数合数",
+        "公因数公倍数"
+      ],
+      "misconceptionTags": [
+        "factor and multiple roles reversed",
+        "one treated as a prime number",
+        "largest listed multiple mistaken for greatest possible multiple"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-multiples-factors"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-multiples-factors-unit",
+        "bnu-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个长方形的长是整数厘米，宽也是整数厘米，面积是36平方厘米。这个长方形的长和宽可能是多少厘米？请写出所有可能的长和宽的组合。（长≥宽）",
+      "optionsZhHans": [],
+      "answer": "(36,1)、(18,2)、(12,3)、(9,4)、(6,6)",
+      "acceptedAnswers": [
+        "(36,1)、(18,2)、(12,3)、(9,4)、(6,6)"
+      ],
+      "explanationZhHans": "长和宽都是36的因数，且长×宽=36。36的因数有1,2,3,4,6,9,12,18,36。满足长≥宽的组合为(36,1)、(18,2)、(12,3)、(9,4)、(6,6)。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-042",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-multiples-factors",
+      "unitTitle": "倍数与因数",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "factors-multiples",
+        "divisibility",
+        "prime-composite",
+        "common-factors-multiples",
+        "倍数",
+        "因数"
+      ],
+      "competencyTags": [
+        "数感",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "找因数",
+        "找倍数",
+        "判断整除",
+        "质数合数",
+        "公因数公倍数"
+      ],
+      "misconceptionTags": [
+        "factor and multiple roles reversed",
+        "one treated as a prime number",
+        "largest listed multiple mistaken for greatest possible multiple"
+      ],
+      "difficulty": "Foundation",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-multiples-factors"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-multiples-factors-unit",
+        "bnu-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "写出50以内所有9的倍数。",
+      "optionsZhHans": [],
+      "answer": "9,18,27,36,45",
+      "acceptedAnswers": [
+        "9,18,27,36,45"
+      ],
+      "explanationZhHans": "9的倍数即9乘自然数。9×1=9，9×2=18，9×3=27，9×4=36，9×5=45，9×6=54超过50，所以50以内有5个。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-043",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-multiples-factors",
+      "unitTitle": "倍数与因数",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "factors-multiples",
+        "divisibility",
+        "prime-composite",
+        "common-factors-multiples",
+        "倍数",
+        "因数"
+      ],
+      "competencyTags": [
+        "数感",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "找因数",
+        "找倍数",
+        "判断整除",
+        "质数合数",
+        "公因数公倍数"
+      ],
+      "misconceptionTags": [
+        "factor and multiple roles reversed",
+        "one treated as a prime number",
+        "largest listed multiple mistaken for greatest possible multiple"
+      ],
+      "difficulty": "Challenge",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-multiples-factors"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-multiples-factors-unit",
+        "bnu-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个数既是12的因数，又是18的因数？",
+      "optionsZhHans": [
+        "4",
+        "6",
+        "8",
+        "9"
+      ],
+      "answer": "6",
+      "acceptedAnswers": [
+        "6"
+      ],
+      "explanationZhHans": "12的因数有1,2,3,4,6,12；18的因数有1,2,3,6,9,18。公因数为1,2,3,6，选项中只有6符合。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-044",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-multiples-factors",
+      "unitTitle": "倍数与因数",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "factors-multiples",
+        "divisibility",
+        "prime-composite",
+        "common-factors-multiples",
+        "倍数",
+        "因数"
+      ],
+      "competencyTags": [
+        "数感",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "找因数",
+        "找倍数",
+        "判断整除",
+        "质数合数",
+        "公因数公倍数"
+      ],
+      "misconceptionTags": [
+        "factor and multiple roles reversed",
+        "one treated as a prime number",
+        "largest listed multiple mistaken for greatest possible multiple"
+      ],
+      "difficulty": "Exam",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-multiples-factors"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-multiples-factors-unit",
+        "bnu-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个数既是24的因数，又是3的倍数，这个数可能是多少？请写出所有可能的答案。",
+      "optionsZhHans": [],
+      "answer": "3,6,12,24",
+      "acceptedAnswers": [
+        "3,6,12,24"
+      ],
+      "explanationZhHans": "24的因数有1,2,3,4,6,8,12,24。其中是3的倍数的有3,6,12,24。注意1和2等不是3的倍数。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-045",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-multiples-factors",
+      "unitTitle": "倍数与因数",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "factors-multiples",
+        "divisibility",
+        "prime-composite",
+        "common-factors-multiples",
+        "倍数",
+        "因数"
+      ],
+      "competencyTags": [
+        "数感",
+        "推理意识",
+        "运算能力"
+      ],
+      "skillTags": [
+        "找因数",
+        "找倍数",
+        "判断整除",
+        "质数合数",
+        "公因数公倍数"
+      ],
+      "misconceptionTags": [
+        "factor and multiple roles reversed",
+        "one treated as a prime number",
+        "largest listed multiple mistaken for greatest possible multiple"
+      ],
+      "difficulty": "Core",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-multiples-factors"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-multiples-factors-unit",
+        "bnu-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "把24个苹果平均分给小朋友，每个小朋友分得的苹果数相同且大于1，小于24。有几种分法？每种分法可以分给几个小朋友？",
+      "optionsZhHans": [],
+      "answer": "6种。分给2个、3个、4个、6个、8个、12个小朋友。",
+      "acceptedAnswers": [
+        "6种。分给2个、3个、4个、6个、8个、12个小朋友。"
+      ],
+      "explanationZhHans": "分法对应24的大于1且小于24的因数：2,3,4,6,8,12。共6种。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-046",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-polygon-area",
+      "unitTitle": "多边形的面积",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "polygon-area",
+        "parallelogram-area",
+        "triangle-area",
+        "trapezoid-area",
+        "area-transformation",
+        "多边形面积"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "平行四边形面积",
+        "三角形面积",
+        "梯形面积",
+        "割补转化",
+        "面积公式解释"
+      ],
+      "misconceptionTags": [
+        "slanted side used as height",
+        "triangle area missing the half factor",
+        "area formula recalled without identifying matching base and height"
+      ],
+      "difficulty": "Foundation",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-polygon-area"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-polygon-area-unit",
+        "bnu-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个平行四边形的底是10厘米，高是6厘米。另一条邻边长8厘米。这个平行四边形的面积是多少平方厘米？",
+      "optionsZhHans": [
+        "48",
+        "60",
+        "80",
+        "96"
+      ],
+      "answer": "60",
+      "acceptedAnswers": [
+        "60"
+      ],
+      "explanationZhHans": "平行四边形面积=底×高=10×6=60平方厘米。邻边8厘米是干扰条件，不能用于计算面积。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-047",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-polygon-area",
+      "unitTitle": "多边形的面积",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "polygon-area",
+        "parallelogram-area",
+        "triangle-area",
+        "trapezoid-area",
+        "area-transformation",
+        "多边形面积"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "平行四边形面积",
+        "三角形面积",
+        "梯形面积",
+        "割补转化",
+        "面积公式解释"
+      ],
+      "misconceptionTags": [
+        "slanted side used as height",
+        "triangle area missing the half factor",
+        "area formula recalled without identifying matching base and height"
+      ],
+      "difficulty": "Challenge",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-polygon-area"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-polygon-area-unit",
+        "bnu-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个三角形的面积是24平方厘米，高是6厘米。这个三角形对应的底是多少厘米？",
+      "optionsZhHans": [],
+      "answer": "8",
+      "acceptedAnswers": [
+        "8"
+      ],
+      "explanationZhHans": "三角形面积=底×高÷2，所以底=面积×2÷高=24×2÷6=8厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-048",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-polygon-area",
+      "unitTitle": "多边形的面积",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "polygon-area",
+        "parallelogram-area",
+        "triangle-area",
+        "trapezoid-area",
+        "area-transformation",
+        "多边形面积"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "平行四边形面积",
+        "三角形面积",
+        "梯形面积",
+        "割补转化",
+        "面积公式解释"
+      ],
+      "misconceptionTags": [
+        "slanted side used as height",
+        "triangle area missing the half factor",
+        "area formula recalled without identifying matching base and height"
+      ],
+      "difficulty": "Exam",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-polygon-area"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-polygon-area-unit",
+        "bnu-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个梯形的上底是4厘米，下底是10厘米，高是5厘米。它的面积是多少平方厘米？请写出计算过程。",
+      "optionsZhHans": [],
+      "answer": "35",
+      "acceptedAnswers": [
+        "35"
+      ],
+      "explanationZhHans": "梯形面积=(上底+下底)×高÷2=(4+10)×5÷2=14×5÷2=35平方厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-049",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-polygon-area",
+      "unitTitle": "多边形的面积",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "polygon-area",
+        "parallelogram-area",
+        "triangle-area",
+        "trapezoid-area",
+        "area-transformation",
+        "多边形面积"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "平行四边形面积",
+        "三角形面积",
+        "梯形面积",
+        "割补转化",
+        "面积公式解释"
+      ],
+      "misconceptionTags": [
+        "slanted side used as height",
+        "triangle area missing the half factor",
+        "area formula recalled without identifying matching base and height"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-polygon-area"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-polygon-area-unit",
+        "bnu-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个三角形的底是12厘米，高是5厘米。与它等底等高的平行四边形的面积是多少平方厘米？",
+      "optionsZhHans": [
+        "30",
+        "60",
+        "120",
+        "180"
+      ],
+      "answer": "60",
+      "acceptedAnswers": [
+        "60"
+      ],
+      "explanationZhHans": "三角形面积=12×5÷2=30平方厘米。等底等高的平行四边形面积是三角形的2倍，即30×2=60平方厘米。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-050",
+      "batch": "bnu-primary-v2",
+      "grade": "P5",
+      "semester": "upper",
+      "topicId": "bnu-primary-p5-upper-polygon-area",
+      "unitTitle": "多边形的面积",
+      "volume": "五年级上册",
+      "conceptIds": [
+        "polygon-area",
+        "parallelogram-area",
+        "triangle-area",
+        "trapezoid-area",
+        "area-transformation",
+        "多边形面积"
+      ],
+      "competencyTags": [
+        "空间观念",
+        "几何直观",
+        "推理意识"
+      ],
+      "skillTags": [
+        "平行四边形面积",
+        "三角形面积",
+        "梯形面积",
+        "割补转化",
+        "面积公式解释"
+      ],
+      "misconceptionTags": [
+        "slanted side used as height",
+        "triangle area missing the half factor",
+        "area formula recalled without identifying matching base and height"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p5-upper-polygon-area"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p5-upper-assessment-polygon-area-unit",
+        "bnu-primary-p5-upper-assessment-midterm-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一个平行四边形的面积是48平方厘米，底是8厘米。它的高是多少厘米？",
+      "optionsZhHans": [],
+      "answer": "6",
+      "acceptedAnswers": [
+        "6"
+      ],
+      "explanationZhHans": "平行四边形面积=底×高，高=面积÷底=48÷8=6厘米。"
+    }
+  ]
+}

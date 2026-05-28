@@ -1,0 +1,330 @@
+{
+  "batchNumber": 7,
+  "startedAt": "2026-05-26T16:56:58.063Z",
+  "completedAt": "2026-05-26T16:57:28.455Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p1-181",
+    "bnu-primary-ds-v2-p1-182",
+    "bnu-primary-ds-v2-p1-183",
+    "bnu-primary-ds-v2-p1-184",
+    "bnu-primary-ds-v2-p1-185",
+    "bnu-primary-ds-v2-p1-186",
+    "bnu-primary-ds-v2-p1-187",
+    "bnu-primary-ds-v2-p1-188",
+    "bnu-primary-ds-v2-p1-189",
+    "bnu-primary-ds-v2-p1-190",
+    "bnu-primary-ds-v2-p1-191",
+    "bnu-primary-ds-v2-p1-192",
+    "bnu-primary-ds-v2-p1-193",
+    "bnu-primary-ds-v2-p1-194",
+    "bnu-primary-ds-v2-p1-195",
+    "bnu-primary-ds-v2-p1-196",
+    "bnu-primary-ds-v2-p1-197",
+    "bnu-primary-ds-v2-p1-198",
+    "bnu-primary-ds-v2-p1-199",
+    "bnu-primary-ds-v2-p1-200",
+    "bnu-primary-ds-v2-p1-201",
+    "bnu-primary-ds-v2-p1-202",
+    "bnu-primary-ds-v2-p1-203",
+    "bnu-primary-ds-v2-p1-204",
+    "bnu-primary-ds-v2-p1-205",
+    "bnu-primary-ds-v2-p1-206",
+    "bnu-primary-ds-v2-p1-207",
+    "bnu-primary-ds-v2-p1-208",
+    "bnu-primary-ds-v2-p1-209",
+    "bnu-primary-ds-v2-p1-210"
+  ],
+  "usage": {
+    "prompt_tokens": 5209,
+    "completion_tokens": 2241,
+    "total_tokens": 7450,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 4825
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p1-181",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目信息完整，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-182",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "题目清晰，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-183",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项唯一正确，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-184",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "按顺序填数，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-185",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "计数器表示正确，答案匹配。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-186",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "计数器读数正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-187",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "最接近70的数是71，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-188",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "两位数推理正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-189",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "排序正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-190",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "计数器拨数正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-191",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "长方形特征描述正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-192",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "答案在可接受范围内。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-193",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "3×2需要6个小正方形，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-194",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "正方形特征正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-195",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "长方体是立体图形，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-196",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "三角形特征正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-197",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "两个同样的正方形拼成长方形，正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-198",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "长方形和正方形都有4条边和4个角。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-199",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "房子形状由正方形和三角形拼成。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-200",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "圆的特征正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-201",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "选项A符合要求。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-202",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "直接填写给定数量，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-203",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "第三组全是平面图形。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-204",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "答案在可接受范围内。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-205",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "三角形、长方形、正方形，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-206",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "10+5=15，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-207",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "42-20+15=37，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-208",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "23+5=28，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-209",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "45-30=15，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p1-210",
+        "solvable": "yes",
+        "answerMatches": "yes",
+        "severity": "none",
+        "issueTags": [],
+        "correctAnswer": null,
+        "rationale": "36-20+8=24，答案正确。"
+      }
+    ],
+    "batchSummary": {
+      "solvableYes": 30,
+      "solvableNo": 0,
+      "answerMatchYes": 30,
+      "answerMatchNo": 0,
+      "notes": "全部30道题目均可解，答案匹配，无问题。"
+    }
+  }
+}

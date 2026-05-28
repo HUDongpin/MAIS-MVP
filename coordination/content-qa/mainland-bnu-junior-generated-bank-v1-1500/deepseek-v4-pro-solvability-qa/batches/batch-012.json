@@ -1,0 +1,185 @@
+{
+  "batchNumber": 12,
+  "startedAt": "2026-05-27T17:24:16.158Z",
+  "completedAt": "2026-05-27T17:24:38.063Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-junior-ds-v1-s1-133",
+    "bnu-junior-ds-v1-s1-134",
+    "bnu-junior-ds-v1-s1-135",
+    "bnu-junior-ds-v1-s1-136",
+    "bnu-junior-ds-v1-s1-137",
+    "bnu-junior-ds-v1-s1-138",
+    "bnu-junior-ds-v1-s1-139",
+    "bnu-junior-ds-v1-s1-140",
+    "bnu-junior-ds-v1-s1-141",
+    "bnu-junior-ds-v1-s1-142",
+    "bnu-junior-ds-v1-s1-143",
+    "bnu-junior-ds-v1-s1-144"
+  ],
+  "usage": {
+    "prompt_tokens": 5423,
+    "completion_tokens": 1463,
+    "total_tokens": 6886,
+    "prompt_tokens_details": {
+      "cached_tokens": 512
+    },
+    "prompt_cache_hit_tokens": 512,
+    "prompt_cache_miss_tokens": 4911
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-junior-ds-v1-s1-133",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目条件充分，点C在直线AB上，需分类讨论，答案正确，选项设计合理，唯一正确选项为C。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-134",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "对顶角相等，直接得出∠2=35°，答案正确，解释合理。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-135",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "点C在线段AB上，D为AB中点，计算得CD=1 cm，答案正确，解释清晰。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-136",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "角平分线及内部射线角度计算，∠BOD=80°，答案正确，选项唯一。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-137",
+        "status": "fail",
+        "severity": "major",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch",
+          "missing_condition"
+        ],
+        "correctedAnswer": "7.5 cm 或 3.5 cm",
+        "rationale": "题目未明确点C的位置，需分类讨论：C在AB延长线上时MN=7.5 cm；C在线段AB上时MN=3.5 cm。原答案仅给出一种情况，不完整。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-138",
+        "status": "fail",
+        "severity": "major",
+        "solvable": true,
+        "answerMatches": false,
+        "issueTags": [
+          "answer_mismatch",
+          "explanation_mismatch",
+          "missing_condition"
+        ],
+        "correctedAnswer": "50° 或 150°",
+        "rationale": "射线OC在∠AOB外部有两种情况，∠BOC可能为50°或150°，原答案仅取较小角，但题目未限定，应给出两种可能。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-139",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "中点计算，AD=6 cm，答案正确，选项唯一。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-140",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "角度倍数关系，列方程求解，∠AOC=60°，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-141",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "点B在A、C之间，直接相加得AC=8 cm，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-142",
+        "status": "fail",
+        "severity": "blocker",
+        "solvable": false,
+        "answerMatches": false,
+        "issueTags": [
+          "unsolvable",
+          "missing_condition",
+          "answer_mismatch"
+        ],
+        "correctedAnswer": null,
+        "rationale": "点O为直线AB上一点，则∠AOB为平角180°，但题目说射线OC在∠AOB内部，且给出∠AOC=50°、∠BOC=30°，这与平角矛盾，条件冲突，无法求解。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-143",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "线段比例关系，列方程求解，AC=8 cm，CB=4 cm，答案正确。",
+        "confidence": "high"
+      },
+      {
+        "id": "bnu-junior-ds-v1-s1-144",
+        "status": "pass",
+        "severity": "none",
+        "solvable": true,
+        "answerMatches": true,
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "角度减法，∠BOC=80°，答案正确。",
+        "confidence": "high"
+      }
+    ],
+    "batchSummary": {
+      "pass": 9,
+      "warn": 0,
+      "fail": 3,
+      "notes": "共12题，9题通过，3题不通过。不通过原因：第137题未分类讨论点C位置，答案不完整；第138题未考虑射线OC在∠AOB外部的两种情况，答案不完整；第142题条件矛盾，无法求解。"
+    }
+  }
+}

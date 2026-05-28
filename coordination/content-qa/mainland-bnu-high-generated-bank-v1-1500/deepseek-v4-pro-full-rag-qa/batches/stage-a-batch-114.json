@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-114",
+  "startedAt": "2026-05-28T01:28:36.622Z",
+  "completedAt": "2026-05-28T01:28:52.887Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-405",
+    "bnu-high-ds-v1-s5-406",
+    "bnu-high-ds-v1-s5-407",
+    "bnu-high-ds-v1-s5-408",
+    "bnu-high-ds-v1-s5-409",
+    "bnu-high-ds-v1-s5-410",
+    "bnu-high-ds-v1-s5-411",
+    "bnu-high-ds-v1-s5-412"
+  ],
+  "usage": {
+    "prompt_tokens": 10082,
+    "completion_tokens": 1276,
+    "total_tokens": 11358,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 9698
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-405",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "0.432",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "二项分布B(3,0.4)，P(X=1)=C(3,1)*0.4^1*0.6^2=3*0.4*0.36=0.432。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-406",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "0.3",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "由分布列和为1得0.2+a+0.5=1，a=0.3；验证E(X)=1*0.2+2*0.3+3*0.5=2.3，符合。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-407",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "0.83692",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "X~B(5,0.7)，P(X≥3)=P(X=3)+P(X=4)+P(X=5)=C(5,3)*0.7^3*0.3^2 + C(5,4)*0.7^4*0.3 + C(5,5)*0.7^5 = 10*0.343*0.09 + 5*0.2401*0.3 + 0.16807 = 0.3087 + 0.36015 + 0.16807 = 0.83692。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-408",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "1",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "分布列：P(X=1)=0.1, P(X=2)=0.2, P(X=3)=0.3, P(X=4)=0.4。E(X)=1*0.1+2*0.2+3*0.3+4*0.4=3，E(X^2)=1*0.1+4*0.2+9*0.3+16*0.4=10，D(X)=E(X^2)-[E(X)]^2=10-9=1。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-409",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "5",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "X~N(3,4)，σ=2。P(X>a)=0.16，则P(X≤a)=0.84。由参考数据，P(X≤μ+σ)=0.5+0.3413=0.8413≈0.84，故a≈μ+σ=3+2=5。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-410",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "0.46",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "恰两人达标有三种情况：甲乙达标丙不达标0.8*0.6*0.5=0.24；甲丙达标乙不达标0.8*0.4*0.5=0.16；乙丙达标甲不达标0.2*0.6*0.5=0.06。总和0.24+0.16+0.06=0.46。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-411",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "3/7",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "条件概率：第一次红球后剩4红3蓝，第二次蓝球概率为3/7。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-412",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "1.4",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "E(X)=0*0.2+1*0.3+2*0.4+3*0.1=0+0.3+0.8+0.3=1.4。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均能独立求解，答案明确，无歧义或缺失条件，符合北师大版高中概率章节要求。"
+    }
+  }
+}

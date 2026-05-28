@@ -1,0 +1,130 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-116",
+  "startedAt": "2026-05-28T01:30:22.608Z",
+  "completedAt": "2026-05-28T01:30:36.825Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-421",
+    "bnu-high-ds-v1-s5-422",
+    "bnu-high-ds-v1-s5-423",
+    "bnu-high-ds-v1-s5-424",
+    "bnu-high-ds-v1-s5-425",
+    "bnu-high-ds-v1-s5-426",
+    "bnu-high-ds-v1-s5-427",
+    "bnu-high-ds-v1-s5-428"
+  ],
+  "usage": {
+    "prompt_tokens": 11432,
+    "completion_tokens": 1013,
+    "total_tokens": 12445,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 11048
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-421",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案0.600与独立解一致；解析正确使用条件概率公式，计算无误；单选题选项唯一正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-422",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案3/7与独立解一致；解析正确描述不放回抽样后剩余球数及概率计算。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-423",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "4/3",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案3/4错误，独立解为4/3；解析中计算过程得出c=4/3，但答案字段却为3/4，自相矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-424",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案36与独立解一致；解析正确利用二项分布期望方差公式求解n。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-425",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案0.6827与独立解一致；解析正确识别μ±σ区间并引用参考数据。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-426",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案0.3与独立解一致；解析先由分布列和为1求a，再验证期望，正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-427",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案0.375与独立解一致；解析正确使用二项分布概率公式计算。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-428",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案1/2与独立解一致；解析正确利用对立事件和独立事件乘法公式。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 7,
+      "warn": 0,
+      "fail": 1,
+      "notes": "第423题存储答案错误，解析与答案矛盾，其余题目均通过。"
+    }
+  }
+}

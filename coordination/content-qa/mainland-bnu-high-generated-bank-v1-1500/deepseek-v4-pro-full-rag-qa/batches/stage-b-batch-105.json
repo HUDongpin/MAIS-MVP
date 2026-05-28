@@ -1,0 +1,142 @@
+{
+  "stage": "stage-b",
+  "cacheKey": "batch-105",
+  "startedAt": "2026-05-28T02:59:51.293Z",
+  "completedAt": "2026-05-28T03:00:08.647Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-333",
+    "bnu-high-ds-v1-s5-334",
+    "bnu-high-ds-v1-s5-335",
+    "bnu-high-ds-v1-s5-336",
+    "bnu-high-ds-v1-s5-337",
+    "bnu-high-ds-v1-s5-338",
+    "bnu-high-ds-v1-s5-339",
+    "bnu-high-ds-v1-s5-340"
+  ],
+  "usage": {
+    "prompt_tokens": 13298,
+    "completion_tokens": 1117,
+    "total_tokens": 14415,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 12914
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-333",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "645",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案560错误，正确应为645（C(13,4)-C(8,4)=715-70=645）。解析中虽提及645但最终保留错误答案，矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-334",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案150正确，解析分组分配计算无误，与独立解一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-335",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案96正确，解析首位非零排列无误，与独立解一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-336",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "9",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案8错误，正确应为9。解析中方程(n-2)(n-3)=42解得n=9或-4，但错误给出n=8，矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-337",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案96正确，解析用补集法计算无误，与独立解一致。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-338",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "-672",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案-21/2错误，正确应为-672。解析中计算得-672但保留错误答案，矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-339",
+        "answerMatchStatus": "fail",
+        "explanationMatchStatus": "fail",
+        "mcUniquenessStatus": "not_applicable",
+        "correctedAnswer": "406456",
+        "issueTags": [
+          "math_error",
+          "answer_mismatch",
+          "explanation_contradiction"
+        ],
+        "severity": "blocker",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案1086008错误，正确应为406456（C(50,5)-C(48,5)=2118760-1712304）。解析中计算得406456但保留错误答案，矛盾。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-340",
+        "answerMatchStatus": "pass",
+        "explanationMatchStatus": "pass",
+        "mcUniquenessStatus": "pass",
+        "correctedAnswer": null,
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "存储答案36正确，解析分组分配计算无误，与独立解一致。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 4,
+      "warn": 0,
+      "fail": 4,
+      "notes": "8题中4题通过，4题失败。失败题目均为存储答案错误且解析矛盾，需修正为独立解答案。"
+    }
+  }
+}

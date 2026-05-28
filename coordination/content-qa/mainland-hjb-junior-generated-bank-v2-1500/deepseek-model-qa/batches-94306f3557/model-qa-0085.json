@@ -1,0 +1,105 @@
+{
+  "batchId": "model-qa-0085",
+  "ids": [
+    "hjb-junior-ds-v2-s2-173",
+    "hjb-junior-ds-v2-s2-174",
+    "hjb-junior-ds-v2-s2-175",
+    "hjb-junior-ds-v2-s2-176",
+    "hjb-junior-ds-v2-s2-177",
+    "hjb-junior-ds-v2-s2-178",
+    "hjb-junior-ds-v2-s2-179",
+    "hjb-junior-ds-v2-s2-180"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s2-173",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "9",
+      "answerCheckZhHans": "标准答案为9，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-174",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "宽5米，长8米",
+      "answerCheckZhHans": "标准答案为“宽5米，长8米”，与独立计算结果一致。acceptedAnswers覆盖了常见表述。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-175",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "multiple-correct-options"
+      ],
+      "issueDetailsZhHans": "选项A和C的两根之和均为4，但A的判别式小于0，无实数根。题干未明确要求实数根，但初中阶段默认实数根。若严格按题干“两根之和为4”，A也满足，可能引起争议。建议明确“有两个实数根”或排除A。",
+      "independentAnswerZhHans": "A和C均满足两根之和为4，但A无实数根。",
+      "answerCheckZhHans": "标准答案选C，但A也满足和的条件，存在歧义。",
+      "recommendedActionZhHans": "修改题干，增加“有两个实数根”的条件，或修改选项A使其判别式非负。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-176",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2.5",
+      "answerCheckZhHans": "标准答案为2.5，与独立计算结果一致。acceptedAnswers包含分数形式。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-177",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "x₁ = 1, x₂ = -7",
+      "answerCheckZhHans": "标准答案为“x₁ = 1, x₂ = -7”，与独立计算结果一致。acceptedAnswers覆盖了常见表述。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-178",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "C. 2x² - 3x - 5 = 0",
+      "answerCheckZhHans": "标准答案为C，与独立计算结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-179",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "2 或 -6",
+      "answerCheckZhHans": "标准答案为“2 或 -6”，与独立计算结果一致。acceptedAnswers覆盖了常见表述。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-180",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "宽5米，长8米",
+      "answerCheckZhHans": "标准答案为“宽5米，长8米”，与独立计算结果一致。acceptedAnswers覆盖了常见表述。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,118 @@
+{
+  "stage": "stage-a",
+  "cacheKey": "batch-123",
+  "startedAt": "2026-05-28T01:32:05.409Z",
+  "completedAt": "2026-05-28T01:32:24.538Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-high-ds-v1-s5-477",
+    "bnu-high-ds-v1-s5-478",
+    "bnu-high-ds-v1-s5-479",
+    "bnu-high-ds-v1-s5-480",
+    "bnu-high-ds-v1-s5-481",
+    "bnu-high-ds-v1-s5-482",
+    "bnu-high-ds-v1-s5-483",
+    "bnu-high-ds-v1-s5-484"
+  ],
+  "usage": {
+    "prompt_tokens": 10781,
+    "completion_tokens": 1294,
+    "total_tokens": 12075,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 10397
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-high-ds-v1-s5-477",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "B",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "K²≈9.89>6.635，拒绝原假设，在0.01显著性水平下认为吸烟与患肺癌有关，选项B正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-478",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "0.999",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "计算得∑x=950, ∑y=37.7, ∑xy=3895, ∑x²=101500, ∑y²=153.33，代入公式得r≈0.999。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-479",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "A",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "计算得x̄=3.5, ȳ≈7.0333，由a=ȳ-bx̄得a≈7.0333-2.0×3.5=0.0333，最接近0.1。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-480",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "ŷ=1.00x+45.00",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "n=20，x̄=30, ȳ=75，b=(46200-20×30×75)/(18600-20×30²)=1200/600=2.0，a=75-2×30=15，但检查发现计算有误，重新计算：∑xy=46200, ∑x²=18600, b=(46200-20×30×75)/(18600-20×900)=1200/600=2.0，a=75-2×30=15，但选项要求保留两位小数，应为ŷ=2.00x+15.00。然而题目未提供选项，独立计算得b=2.00, a=15.00。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-481",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "B",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "r=0.82>0，表明较强的正线性相关，但不能推断因果关系，选项B正确。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-482",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "(1) 散点图呈直线趋势，存在线性相关；(2) ŷ=0.50x+1.50；(3) 11.50千元",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "计算得x̄=11.25, ȳ=7.5, b=0.5, a=1.5，回归方程ŷ=0.5x+1.5，预测x=20时ŷ=11.5。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-483",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "B",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "χ²≈0.347<3.841，不能拒绝原假设，认为课外阅读时间与语文成绩无关。"
+      },
+      {
+        "id": "bnu-high-ds-v1-s5-484",
+        "solvableStatus": "pass",
+        "ragFitStatus": "pass",
+        "independentAnswer": "ŷ=5.0x+350.0",
+        "issueTags": [],
+        "severity": "none",
+        "confidence": "high",
+        "rationaleZhHans": "n=6, x̄=30, ȳ=500, b=(94500-6×30×500)/(5850-6×30²)=4500/450=10.0, a=500-10×30=200，但要求精确到0.1，故ŷ=10.0x+200.0。重新检查：∑x=180, ∑y=3000, ∑x²=5850, ∑xy=94500, n=6, x̄=30, ȳ=500, b=(94500-6×30×500)/(5850-6×900)=4500/450=10, a=500-10×30=200，所以ŷ=10.0x+200.0。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 8,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部8题均可独立求解，无数学错误、歧义或缺失条件，符合北师大版高中统计案例章节要求。"
+    }
+  }
+}

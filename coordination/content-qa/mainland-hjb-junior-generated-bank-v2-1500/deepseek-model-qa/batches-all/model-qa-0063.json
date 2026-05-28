@@ -1,0 +1,107 @@
+{
+  "batchId": "model-qa-0063",
+  "ids": [
+    "hjb-junior-ds-v2-s1-497",
+    "hjb-junior-ds-v2-s1-498",
+    "hjb-junior-ds-v2-s1-499",
+    "hjb-junior-ds-v2-s1-500",
+    "hjb-junior-ds-v2-s2-001",
+    "hjb-junior-ds-v2-s2-002",
+    "hjb-junior-ds-v2-s2-003",
+    "hjb-junior-ds-v2-s2-004"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s1-497",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "90°",
+      "answerCheckZhHans": "标准答案90°正确，解析推导无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-498",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "multiple-correct-options"
+      ],
+      "issueDetailsZhHans": "选项A（BD=CD）和选项C（BE=CF）均能判定△BDE≌△CDF。由已知AB=AC，∠A=40°，得∠B=∠C=70°。AD平分∠BAC，且AB=AC，故AD是底边中线，BD=CD。已知DE=DF。若添加BD=CD，则SSS全等；若添加BE=CF，则SAS全等（BD=CD，∠B=∠C，BE=CF）。因此存在两个正确选项。",
+      "independentAnswerZhHans": "A和C均可",
+      "answerCheckZhHans": "标准答案仅给出A，但C也正确，题目不满足唯一正确选项要求。",
+      "recommendedActionZhHans": "修改选项或题干，确保只有一个正确选项。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-499",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "25°",
+      "answerCheckZhHans": "标准答案25°正确，解析推导无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-500",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "90°",
+      "answerCheckZhHans": "标准答案90°正确，解析推导无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-001",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "π",
+      "answerCheckZhHans": "标准答案π正确，解析推导无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-002",
+      "verdict": "needs-review",
+      "severity": "P2",
+      "issueCodes": [
+        "ambiguous-prompt"
+      ],
+      "issueDetailsZhHans": "题干“√(16)的算术平方根”表述有歧义，可能被理解为“√16的算术平方根”即4的算术平方根为2，但也可理解为“16的算术平方根的算术平方根”，即√(√16)=√4=2，结果相同但表述不够严谨。建议改为“√16的算术平方根是______”或“16的算术平方根的算术平方根是______”。",
+      "independentAnswerZhHans": "2",
+      "answerCheckZhHans": "标准答案2正确，但题干表述可能引起混淆。",
+      "recommendedActionZhHans": "优化题干表述，避免歧义。",
+      "confidence": "medium"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-003",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": ">",
+      "answerCheckZhHans": "标准答案>正确，解析推导无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s2-004",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "6-√10",
+      "answerCheckZhHans": "标准答案6-√10正确，解析推导无误。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    }
+  ]
+}

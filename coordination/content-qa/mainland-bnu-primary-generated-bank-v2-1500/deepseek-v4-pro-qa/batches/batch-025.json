@@ -1,0 +1,191 @@
+{
+  "batchNumber": 25,
+  "startedAt": "2026-05-27T13:47:20.619Z",
+  "completedAt": "2026-05-27T13:47:35.098Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v2-p2-183",
+    "bnu-primary-ds-v2-p2-184",
+    "bnu-primary-ds-v2-p2-185",
+    "bnu-primary-ds-v2-p2-186",
+    "bnu-primary-ds-v2-p2-187",
+    "bnu-primary-ds-v2-p2-188",
+    "bnu-primary-ds-v2-p2-189",
+    "bnu-primary-ds-v2-p2-190",
+    "bnu-primary-ds-v2-p2-191",
+    "bnu-primary-ds-v2-p2-192",
+    "bnu-primary-ds-v2-p2-193",
+    "bnu-primary-ds-v2-p2-194",
+    "bnu-primary-ds-v2-p2-195",
+    "bnu-primary-ds-v2-p2-196",
+    "bnu-primary-ds-v2-p2-197",
+    "bnu-primary-ds-v2-p2-198",
+    "bnu-primary-ds-v2-p2-199",
+    "bnu-primary-ds-v2-p2-200"
+  ],
+  "usage": {
+    "prompt_tokens": 2782,
+    "completion_tokens": 1221,
+    "total_tokens": 4003,
+    "prompt_tokens_details": {
+      "cached_tokens": 2688
+    },
+    "prompt_cache_hit_tokens": 2688,
+    "prompt_cache_miss_tokens": 94
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v2-p2-183",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "题目清晰，选项合理，答案正确，解释恰当。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-184",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "单位换算正确，答案无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-185",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "情境合理，单位选择正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-186",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "换算正确，答案无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-187",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "单位选择恰当，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-188",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "换算正确，答案无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-189",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "选项贴近生活，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-190",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "换算正确，答案无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-191",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "单位选择合理，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-192",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "基本换算，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-193",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "换算正确，选项无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-194",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "单位填写合理，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-195",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "计算正确，选项唯一。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-196",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "退位减法正确，答案无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-197",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "估算合理，答案正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-198",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "加法逆运算正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-199",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "减法应用正确，选项无歧义。"
+      },
+      {
+        "id": "bnu-primary-ds-v2-p2-200",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "加法计算正确。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目均符合北师大版小学数学二年级要求，无数学错误、答案不匹配或歧义，适合公共题库使用。"
+    }
+  }
+}

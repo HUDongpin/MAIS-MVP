@@ -1,0 +1,119 @@
+{
+  "batchIndex": 14,
+  "completedAt": "2026-05-25T02:30:30Z",
+  "model": "deepseek-v4-pro+s18-tail-fallback",
+  "itemIds": [
+    "pep-junior-v3-s3-k11-sa-044",
+    "pep-junior-v3-s3-k11-sa-045",
+    "pep-junior-v3-s3-k11-sa-047",
+    "pep-junior-v3-s3-k11-sa-049",
+    "pep-junior-v3-s3-k11-sa-057",
+    "pep-junior-v3-s3-k11-sa-059"
+  ],
+  "usage": null,
+  "items": [
+    {
+      "id": "pep-junior-v3-s3-k11-sa-044",
+      "action": "repair",
+      "confidence": "high",
+      "remediationNotes": "去除与标准影子折算不一致的多余距离条件，保留相似三角形测高思路。",
+      "question": {
+        "promptZhHans": "小明在测量学校旗杆高度时，发现旗杆的影子一部分落在地面上，一部分落在教学楼的墙上。他测得落在地面上的影子长8米，落在墙上的影子高2米。同一时刻，他测得一根1米长的竹竿竖直放置时，地面上的影子长0.8米。求旗杆的高度。",
+        "optionsZhHans": [],
+        "answer": "12米",
+        "acceptedAnswers": [
+          "12米",
+          "12m",
+          "12"
+        ],
+        "explanationZhHans": "设旗杆高度为h米。同一时刻物高与影长成正比，竹竿的物高与影长比为1:0.8=5:4。墙上影子高2米对应的部分若落在地面上，影长应为2×0.8=1.6米，所以旗杆的等效地面影长为8+1.6=9.6米。由h:9.6=5:4，得h=12。旗杆高度为12米。"
+      }
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-045",
+      "action": "repair",
+      "confidence": "high",
+      "remediationNotes": "将无实数解的相似三角形条件改为坐标垂足与反比例函数的直接应用。",
+      "question": {
+        "promptZhHans": "在平面直角坐标系中，反比例函数 y=k/x（k≠0）的图象经过点 A(2,3)。过点 A 作 AB⊥x轴，垂足为 B；过点 A 作 AC⊥y轴，垂足为 C。求反比例函数的解析式，并写出点 B、点 C 的坐标。",
+        "optionsZhHans": [],
+        "answer": "y=6/x，B(2,0)，C(0,3)",
+        "acceptedAnswers": [
+          "y=6/x，B(2,0)，C(0,3)",
+          "y=6/x, B(2,0), C(0,3)",
+          "B(2,0)，C(0,3)，y=6/x"
+        ],
+        "explanationZhHans": "点 A(2,3) 在反比例函数 y=k/x 上，代入得 k=2×3=6，所以解析式为 y=6/x。点 B 是点 A 到 x 轴的垂足，横坐标不变且纵坐标为0，所以 B(2,0)。点 C 是点 A 到 y 轴的垂足，横坐标为0且纵坐标不变，所以 C(0,3)。"
+      }
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-047",
+      "action": "keep_false_positive",
+      "confidence": "high",
+      "remediationNotes": "复核后计算链条成立，仰角与测角仪高度处理正确。",
+      "question": {
+        "promptZhHans": "某校数学兴趣小组在测量活动中，需要计算旗杆的高度。他们在地面点A处测得旗杆顶端C的仰角为30°，然后向旗杆方向前进20米到达点B，此时测得旗杆顶端C的仰角为45°。已知测角仪的高度为1.5米，且点A、B与旗杆底部D在同一直线上。请计算旗杆CD的高度（结果保留根号）。",
+        "optionsZhHans": [],
+        "answer": "10√3 + 11.5",
+        "acceptedAnswers": [
+          "10√3 + 11.5",
+          "10√3+11.5",
+          "11.5 + 10√3",
+          "11.5+10√3"
+        ],
+        "explanationZhHans": "设旗杆底部D到点B的水平距离为x米。由题意，在点B处仰角为45°，所以从测角仪位置E（B上方1.5米）看，CE = x米；在点A处仰角为30°，从测角仪位置F（A上方1.5米）看，CF = (x+20)米，且∠CFE=30°。在直角三角形CFE中，tan30° = CE/CF = x/(x+20) = 1/√3，解得x = 10√3 + 10。因此旗杆高度CD = CE + 1.5 = x + 1.5 = 10√3 + 11.5米。"
+      }
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-049",
+      "action": "repair",
+      "confidence": "high",
+      "remediationNotes": "去除y轴垂足落在反比例函数上的不可能条件，改为求参数与矩形面积。",
+      "question": {
+        "promptZhHans": "已知反比例函数 y=k/x（k≠0）的图象经过点 A(2,-3)。过点 A 分别作 x 轴、y 轴的垂线，垂足为 B、C。求 k 的值，并求矩形 OBAC 的面积。",
+        "optionsZhHans": [],
+        "answer": "k=-6，面积为6",
+        "acceptedAnswers": [
+          "k=-6，面积为6",
+          "k = -6，面积为6",
+          "-6，6",
+          "k=-6, 面积=6"
+        ],
+        "explanationZhHans": "点 A(2,-3) 在反比例函数 y=k/x 上，代入得 -3=k/2，所以 k=-6。点 B 为 (2,0)，点 C 为 (0,-3)，矩形 OBAC 的两条邻边长分别为2和3，因此面积为2×3=6。"
+      }
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-057",
+      "action": "repair",
+      "confidence": "high",
+      "remediationNotes": "纠正两次逆时针旋转后的坐标计算。",
+      "question": {
+        "promptZhHans": "在平面直角坐标系中，点A的坐标为(2, 0)，点B的坐标为(0, 4)。将线段AB绕点A逆时针旋转90°得到线段AC，再将线段AC绕点C逆时针旋转90°得到线段CD。求点D的坐标。",
+        "optionsZhHans": [],
+        "answer": "(-4, 2)",
+        "acceptedAnswers": [
+          "(-4, 2)",
+          "(-4,2)",
+          "（-4，2）"
+        ],
+        "explanationZhHans": "向量 AB=(0-2,4-0)=(-2,4)。逆时针旋转90°后变为(-4,-2)，所以 C=(2,0)+(-4,-2)=(-2,-2)。再看向量 CA=(2-(-2),0-(-2))=(4,2)，逆时针旋转90°后变为(-2,4)，所以 D=(-2,-2)+(-2,4)=(-4,2)。"
+      }
+    },
+    {
+      "id": "pep-junior-v3-s3-k11-sa-059",
+      "action": "repair",
+      "confidence": "high",
+      "remediationNotes": "明确利息公式中百分数值的换算，消除480与48000的歧义。",
+      "question": {
+        "promptZhHans": "某银行推出一种“成长储蓄”计划：一年利息 I 满足 I=P×r/100，其中 P 为本金（元），r 为年利率的百分数值（例如4%写作4）。如果希望一年利息为2400元，且年利率不超过5%，那么本金至少需要存入多少元？请写出计算过程并给出答案。",
+        "optionsZhHans": [],
+        "answer": "48000元",
+        "acceptedAnswers": [
+          "48000元",
+          "48000"
+        ],
+        "explanationZhHans": "由 I=P×r/100 且 I=2400，得 P×r/100=2400，即 P×r=240000。要求年利率不超过5%，即 r≤5。要使本金 P 尽可能小，应取允许的最大年利率 r=5。于是 P=240000÷5=48000。因此，本金至少需要存入48000元。"
+      }
+    }
+  ]
+}

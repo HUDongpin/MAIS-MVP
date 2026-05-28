@@ -1,0 +1,137 @@
+{
+  "batchNumber": 63,
+  "startedAt": "2026-05-25T03:09:04.272Z",
+  "completedAt": "2026-05-25T03:09:22.047Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "pep-junior-v3-s2-k09-fi-011",
+    "pep-junior-v3-s2-k09-fi-012",
+    "pep-junior-v3-s2-k09-fi-013",
+    "pep-junior-v3-s2-k09-fi-014",
+    "pep-junior-v3-s2-k09-fi-015",
+    "pep-junior-v3-s2-k09-fi-016",
+    "pep-junior-v3-s2-k09-fi-017",
+    "pep-junior-v3-s2-k09-fi-018",
+    "pep-junior-v3-s2-k09-fi-019",
+    "pep-junior-v3-s2-k09-fi-020",
+    "pep-junior-v3-s2-k09-fi-021",
+    "pep-junior-v3-s2-k09-fi-022"
+  ],
+  "usage": {
+    "prompt_tokens": 4097,
+    "completion_tokens": 1036,
+    "total_tokens": 5133,
+    "prompt_tokens_details": {
+      "cached_tokens": 4096
+    },
+    "prompt_cache_hit_tokens": 4096,
+    "prompt_cache_miss_tokens": 1
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "pep-junior-v3-s2-k09-fi-011",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "几何折叠题，勾股定理求解正确，答案3无误。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-fi-012",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "平均数性质应用正确，新平均数=2×5+1=11。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-fi-013",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分段计费计算正确，8+10.5+4.5=23元。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-fi-014",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "二次根式比较大小正确，3√5=√45>√44=2√11。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-fi-015",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "二次方程利润问题，解得x=2或10，符合题意。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-fi-016",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "代数式求值，xy=1，x+y=2√5，结果2√5正确。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-fi-017",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "分段函数解析式正确，第二段每千克加收4元，y=8+4(x-1)。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-fi-018",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "待定系数法求一次函数解析式，k=3,b=1，代入得a=5/3，正确。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-fi-019",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "直线平移规律正确，得y=2x-7，与x轴交点(3.5,0)或(7/2,0)。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-fi-020",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数据无重复，众数不存在；中位数(85+86)/2=85.5，正确。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-fi-021",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "一次函数性质应用正确，m<2且m>-1得-1<m<2。"
+      },
+      {
+        "id": "pep-junior-v3-s2-k09-fi-022",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "频数统计正确，80分及以上16人，占比40%。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 12,
+      "warn": 0,
+      "fail": 0,
+      "notes": "全部12道题数学正确，答案与解析一致，无歧义或缺失条件，适合人教版初中数学。"
+    }
+  }
+}

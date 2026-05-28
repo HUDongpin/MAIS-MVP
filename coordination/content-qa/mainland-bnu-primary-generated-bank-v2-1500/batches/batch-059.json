@@ -1,0 +1,573 @@
+{
+  "batchId": "batch-059",
+  "questions": [
+    {
+      "id": "bnu-primary-ds-v2-p3-081",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-multi-digit-multiplication",
+      "unitTitle": "乘法",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "multi-digit-by-one-digit-multiplication",
+        "place-value-multiplication",
+        "regrouping-multiplication",
+        "乘法",
+        "多位数乘一位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "一位数乘多位数",
+        "竖式乘法",
+        "进位",
+        "估算积",
+        "乘法应用"
+      ],
+      "misconceptionTags": [
+        "place-value parts multiplied as isolated digits",
+        "carried value added to the wrong place",
+        "product estimate not used to catch unreasonable results"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-multi-digit-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-two-digit-multiplication-unit",
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校组织三年级学生去植物园参观，每张门票8元。三年级共有6个班，每班有48人。如果给每人买一张门票，一共需要多少元？",
+      "optionsZhHans": [],
+      "answer": "2304",
+      "acceptedAnswers": [
+        "2304",
+        "2304元"
+      ],
+      "explanationZhHans": "先算总人数：48×6=288人。再算总票价：288×8，计算时288×8=2304元。注意进位：8×8=64，写4进6；8×8=64加进位6得70，写0进7；8×2=16加进位7得23，结果是2304。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-082",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-multi-digit-multiplication",
+      "unitTitle": "乘法",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "multi-digit-by-one-digit-multiplication",
+        "place-value-multiplication",
+        "regrouping-multiplication",
+        "乘法",
+        "多位数乘一位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "一位数乘多位数",
+        "竖式乘法",
+        "进位",
+        "估算积",
+        "乘法应用"
+      ],
+      "misconceptionTags": [
+        "place-value parts multiplied as isolated digits",
+        "carried value added to the wrong place",
+        "product estimate not used to catch unreasonable results"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-multi-digit-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-two-digit-multiplication-unit",
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个算式的积最接近2000？",
+      "optionsZhHans": [
+        "498×4",
+        "602×3",
+        "399×5",
+        "251×8"
+      ],
+      "answer": "399×5",
+      "acceptedAnswers": [
+        "399×5"
+      ],
+      "explanationZhHans": "估算：498×4≈500×4=2000，但498<500，积略小于2000；602×3≈600×3=1800；399×5≈400×5=2000，且399接近400；251×8≈250×8=2000，但251×8=2008，399×5=1995，1995更接近2000。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-083",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-multi-digit-multiplication",
+      "unitTitle": "乘法",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "multi-digit-by-one-digit-multiplication",
+        "place-value-multiplication",
+        "regrouping-multiplication",
+        "乘法",
+        "多位数乘一位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "一位数乘多位数",
+        "竖式乘法",
+        "进位",
+        "估算积",
+        "乘法应用"
+      ],
+      "misconceptionTags": [
+        "place-value parts multiplied as isolated digits",
+        "carried value added to the wrong place",
+        "product estimate not used to catch unreasonable results"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-multi-digit-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-two-digit-multiplication-unit",
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在计算236×4时，用4乘十位上的3，得到12个十，也就是120，再加上个位进上来的2个十，十位上应该写______。",
+      "optionsZhHans": [],
+      "answer": "4",
+      "acceptedAnswers": [
+        "4"
+      ],
+      "explanationZhHans": "236×4，先算个位6×4=24，写4进2；再算十位3×4=12，加上进位2得14，十位写4，向百位进1；最后百位2×4=8加进位1得9。所以十位写4。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-084",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-multi-digit-multiplication",
+      "unitTitle": "乘法",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "multi-digit-by-one-digit-multiplication",
+        "place-value-multiplication",
+        "regrouping-multiplication",
+        "乘法",
+        "多位数乘一位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "一位数乘多位数",
+        "竖式乘法",
+        "进位",
+        "估算积",
+        "乘法应用"
+      ],
+      "misconceptionTags": [
+        "place-value parts multiplied as isolated digits",
+        "carried value added to the wrong place",
+        "product estimate not used to catch unreasonable results"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-multi-digit-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-two-digit-multiplication-unit",
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小马虎在做一道乘法题时，把乘数6看成了9，结果得到的积是873。正确的积应该是多少？",
+      "optionsZhHans": [],
+      "answer": "582",
+      "acceptedAnswers": [
+        "582"
+      ],
+      "explanationZhHans": "先求另一个乘数：873÷9=97。再求正确的积：97×6=582。计算97×6时，7×6=42，写2进4；9×6=54加进位4得58，结果是582。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-085",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-multi-digit-multiplication",
+      "unitTitle": "乘法",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "multi-digit-by-one-digit-multiplication",
+        "place-value-multiplication",
+        "regrouping-multiplication",
+        "乘法",
+        "多位数乘一位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "一位数乘多位数",
+        "竖式乘法",
+        "进位",
+        "估算积",
+        "乘法应用"
+      ],
+      "misconceptionTags": [
+        "place-value parts multiplied as isolated digits",
+        "carried value added to the wrong place",
+        "product estimate not used to catch unreasonable results"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-multi-digit-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-two-digit-multiplication-unit",
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面竖式中，箭头所指的“6”表示什么意思？\n\n  1 2 6\n×    4\n-------\n  5 0 4\n\n（箭头指向十位上的6）",
+      "optionsZhHans": [
+        "6个一",
+        "6个十",
+        "6个百",
+        "6个千"
+      ],
+      "answer": "6个十",
+      "acceptedAnswers": [
+        "6个十"
+      ],
+      "explanationZhHans": "竖式中126×4，先算个位6×4=24，写4进2；再算十位2×4=8，加进位2得10，写0进1；最后百位1×4=4加进位1得5。箭头所指的6是乘数126十位上的2与4相乘得到的8加上进位2得到的10中的十位数字，但这里箭头指向的是被乘数十位上的6，表示6个十。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-086",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-multi-digit-multiplication",
+      "unitTitle": "乘法",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "multi-digit-by-one-digit-multiplication",
+        "place-value-multiplication",
+        "regrouping-multiplication",
+        "乘法",
+        "多位数乘一位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "一位数乘多位数",
+        "竖式乘法",
+        "进位",
+        "估算积",
+        "乘法应用"
+      ],
+      "misconceptionTags": [
+        "place-value parts multiplied as isolated digits",
+        "carried value added to the wrong place",
+        "product estimate not used to catch unreasonable results"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-multi-digit-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-two-digit-multiplication-unit",
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "要使□34×3的积是四位数，□里最小填______。",
+      "optionsZhHans": [],
+      "answer": "3",
+      "acceptedAnswers": [
+        "3"
+      ],
+      "explanationZhHans": "□34×3，当□=2时，234×3=702，是三位数；当□=3时，334×3=1002，是四位数。所以最小填3。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-087",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-multi-digit-multiplication",
+      "unitTitle": "乘法",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "multi-digit-by-one-digit-multiplication",
+        "place-value-multiplication",
+        "regrouping-multiplication",
+        "乘法",
+        "多位数乘一位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "一位数乘多位数",
+        "竖式乘法",
+        "进位",
+        "估算积",
+        "乘法应用"
+      ],
+      "misconceptionTags": [
+        "place-value parts multiplied as isolated digits",
+        "carried value added to the wrong place",
+        "product estimate not used to catch unreasonable results"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-multi-digit-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-two-digit-multiplication-unit",
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "用2、3、5、7这四个数字组成一个三位数乘一位数的算式，每个数字只能用一次。要使积最大，这个算式应该是什么？请写出算式并计算。",
+      "optionsZhHans": [],
+      "answer": "532×7=3724",
+      "acceptedAnswers": [
+        "532×7=3724",
+        "532×7"
+      ],
+      "explanationZhHans": "要使积最大，一位数应选最大的7，三位数用剩下的2、3、5组成最大的数532。计算532×7：2×7=14，写4进1；3×7=21加1得22，写2进2；5×7=35加2得37，积为3724。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-088",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-multi-digit-multiplication",
+      "unitTitle": "乘法",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "multi-digit-by-one-digit-multiplication",
+        "place-value-multiplication",
+        "regrouping-multiplication",
+        "乘法",
+        "多位数乘一位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "一位数乘多位数",
+        "竖式乘法",
+        "进位",
+        "估算积",
+        "乘法应用"
+      ],
+      "misconceptionTags": [
+        "place-value parts multiplied as isolated digits",
+        "carried value added to the wrong place",
+        "product estimate not used to catch unreasonable results"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-multi-digit-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-two-digit-multiplication-unit",
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校图书馆新买来9包数学绘本，每包25本。如果把这些书平均分给6个年级，每个年级分得多少本？",
+      "optionsZhHans": [
+        "37本",
+        "38本",
+        "37本余3本",
+        "225本"
+      ],
+      "answer": "37本余3本",
+      "acceptedAnswers": [
+        "37本余3本"
+      ],
+      "explanationZhHans": "先算总本数：25×9=225本。再平均分：225÷6=37（本）余3（本）。因为225÷6，商37，37×6=222，225-222=3。所以每个年级分得37本，还剩3本。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-089",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-multi-digit-multiplication",
+      "unitTitle": "乘法",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "multi-digit-by-one-digit-multiplication",
+        "place-value-multiplication",
+        "regrouping-multiplication",
+        "乘法",
+        "多位数乘一位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "一位数乘多位数",
+        "竖式乘法",
+        "进位",
+        "估算积",
+        "乘法应用"
+      ],
+      "misconceptionTags": [
+        "place-value parts multiplied as isolated digits",
+        "carried value added to the wrong place",
+        "product estimate not used to catch unreasonable results"
+      ],
+      "difficulty": "Foundation",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-multi-digit-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-two-digit-multiplication-unit",
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在括号里填上合适的数：6×（ ）=480。",
+      "optionsZhHans": [],
+      "answer": "80",
+      "acceptedAnswers": [
+        "80"
+      ],
+      "explanationZhHans": "想乘法口诀：六八四十八，所以6×80=480。也可以想480÷6=80。"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-090",
+      "batch": "bnu-primary-v2",
+      "grade": "P3",
+      "semester": "upper",
+      "topicId": "bnu-primary-p3-upper-multi-digit-multiplication",
+      "unitTitle": "乘法",
+      "volume": "三年级上册",
+      "conceptIds": [
+        "multi-digit-by-one-digit-multiplication",
+        "place-value-multiplication",
+        "regrouping-multiplication",
+        "乘法",
+        "多位数乘一位数"
+      ],
+      "competencyTags": [
+        "运算能力",
+        "数感",
+        "模型意识"
+      ],
+      "skillTags": [
+        "一位数乘多位数",
+        "竖式乘法",
+        "进位",
+        "估算积",
+        "乘法应用"
+      ],
+      "misconceptionTags": [
+        "place-value parts multiplied as isolated digits",
+        "carried value added to the wrong place",
+        "product estimate not used to catch unreasonable results"
+      ],
+      "difficulty": "Challenge",
+      "type": "short-answer",
+      "evidenceCardIds": [
+        "bnu-primary-p3-upper-multi-digit-multiplication"
+      ],
+      "assessmentPatternCardIds": [
+        "bnu-primary-p3-lower-assessment-two-digit-multiplication-unit",
+        "bnu-primary-p3-upper-assessment-mixed-operations-unit"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline as BNU primary V2 with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "一列火车有8节车厢，每节车厢有118个座位。这列火车一共有多少个座位？",
+      "optionsZhHans": [],
+      "answer": "944",
+      "acceptedAnswers": [
+        "944",
+        "944个"
+      ],
+      "explanationZhHans": "118×8，先算个位8×8=64，写4进6；十位1×8=8加进位6得14，写4进1；百位1×8=8加进位1得9，结果是944个座位。"
+    }
+  ]
+}

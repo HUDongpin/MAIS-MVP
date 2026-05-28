@@ -1,0 +1,109 @@
+{
+  "batchId": "model-qa-0155",
+  "ids": [
+    "hjb-junior-ds-v2-s3-233",
+    "hjb-junior-ds-v2-s3-234",
+    "hjb-junior-ds-v2-s3-235",
+    "hjb-junior-ds-v2-s3-236",
+    "hjb-junior-ds-v2-s3-237",
+    "hjb-junior-ds-v2-s3-238",
+    "hjb-junior-ds-v2-s3-239",
+    "hjb-junior-ds-v2-s3-240"
+  ],
+  "reviews": [
+    {
+      "id": "hjb-junior-ds-v2-s3-233",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(3, 3)",
+      "answerCheckZhHans": "标准答案 (3, 3) 与独立求解结果一致。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-234",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "第（1）问中 x 的取值范围应为 1 ≤ x ≤ 30（x 为正整数），但解析中由销量 ≥ 0 得 x ≤ 30，未考虑 x 为正整数，且答案中写为“x 为正整数，且 1 ≤ x ≤ 30”，但解析未明确说明 x 从 1 开始。此外，第（2）问中最大利润计算正确，但答案中售价为 65 元，利润为 6250 元，与解析一致。然而，第（1）问的答案中 x 的取值范围表述为“x 为正整数，且 1 ≤ x ≤ 30”，但解析中未提及 x 为正整数，且未说明 x 为何从 1 开始，存在不一致。",
+      "independentAnswerZhHans": "（1）y = -10x^2 + 100x + 6000，x 为正整数，且 1 ≤ x ≤ 30。（2）每件售价定为 65 元时，利润最大，最大利润为 6250 元。",
+      "answerCheckZhHans": "独立求解结果与标准答案一致，但解析中未明确 x 为正整数，且未说明 x 从 1 开始，与答案表述不完全匹配。",
+      "recommendedActionZhHans": "建议修改解析，明确 x 为正整数，且 x 的取值范围为 1 ≤ x ≤ 30，与答案保持一致。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-235",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "B",
+      "answerCheckZhHans": "标准答案 B 正确，且其他选项均错误，唯一正确选项。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-236",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "(-3, 5); x = -3",
+      "answerCheckZhHans": "标准答案与独立求解结果一致，acceptedAnswers 覆盖了常见格式。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-237",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "y = (x - 2)^2 - 3；顶点 (2, -3)；对称轴 x = 2",
+      "answerCheckZhHans": "标准答案与独立求解结果一致，acceptedAnswers 覆盖了常见格式。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-238",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "B",
+      "answerCheckZhHans": "标准答案 B 正确，且其他选项均错误，唯一正确选项。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-239",
+      "verdict": "pass",
+      "severity": "none",
+      "issueCodes": [],
+      "issueDetailsZhHans": "",
+      "independentAnswerZhHans": "y = 2(x + 3)^2 - 4",
+      "answerCheckZhHans": "标准答案与独立求解结果一致，acceptedAnswers 覆盖了常见格式。",
+      "recommendedActionZhHans": "无需修改；保留进入人工抽样复核。",
+      "confidence": "high"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s3-240",
+      "verdict": "needs-review",
+      "severity": "P1",
+      "issueCodes": [
+        "wrong-answer",
+        "explanation-mismatch"
+      ],
+      "issueDetailsZhHans": "第（1）问中 x 的取值范围应为 40 < x < 100，但解析中由销量 >0 得 x < 100，且 x > 40，故 40 < x < 100，但答案中写为“40 < x < 100”，解析未明确说明 x 是否为正整数或实数，且未考虑售价通常为整数，但题目未明确要求，故答案可接受。然而，第（2）问中最大利润计算正确，但答案中售价为 70 元，利润为 1800 元，与解析一致。但解析中配方得 y = -2(x - 70)^2 + 1800，当 x = 70 时，y 最大为 1800，但未验证 x = 70 是否在取值范围内，实际上 70 在 (40, 100) 内，故正确。但答案中 x 的取值范围为 40 < x < 100，解析中未明确说明 x 是否为正整数，存在不一致。",
+      "independentAnswerZhHans": "（1）y = -2x^2 + 280x - 8000，40 < x < 100；（2）70 元，1800 元",
+      "answerCheckZhHans": "独立求解结果与标准答案一致，但解析中未明确 x 的取值范围是否包含整数要求，与答案表述不完全匹配。",
+      "recommendedActionZhHans": "建议修改解析，明确 x 的取值范围为 40 < x < 100，并说明 x 为售价，通常为整数，但题目未明确要求，故可接受。",
+      "confidence": "medium"
+    }
+  ]
+}

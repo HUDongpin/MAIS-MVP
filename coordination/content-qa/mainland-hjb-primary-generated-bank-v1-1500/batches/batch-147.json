@@ -1,0 +1,297 @@
+{
+  "batchId": "batch-147",
+  "questions": [
+    {
+      "id": "hjb-primary-ds-v1-p3-231",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-data-statistics",
+      "unitTitle": "数据整理与统计表达",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "data-organization",
+        "table-reading",
+        "bar-chart-reading",
+        "comparison-statements",
+        "统计"
+      ],
+      "competencyTags": [
+        "数据意识",
+        "数学表达",
+        "应用意识"
+      ],
+      "skillTags": [
+        "分类整理",
+        "统计表",
+        "条形图",
+        "比较数量",
+        "结论表达"
+      ],
+      "misconceptionTags": [
+        "largest bar read from visual height without scale",
+        "category labels ignored",
+        "unsupported conclusion beyond the data"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-data-statistics"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-data-statistics",
+        "hjb-primary-p3-lower-assessment-final-integrated"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "S18 remediated after DeepSeek-v4-pro QA on 2026-05-25; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "三（1）班同学最喜欢的水果统计如下：苹果8人，香蕉12人，橘子5人，草莓15人。下面哪句话是正确的？",
+      "optionsZhHans": [
+        "喜欢草莓的人数最多，是15人",
+        "喜欢香蕉的人数比苹果多3人",
+        "喜欢橘子的人数最多，是5人",
+        "喜欢草莓的人数比橘子多9人"
+      ],
+      "answer": "喜欢草莓的人数最多，是15人",
+      "acceptedAnswers": [
+        "喜欢草莓的人数最多，是15人"
+      ],
+      "explanationZhHans": "草莓15人最多。香蕉比苹果多12-8=4人，不是3人；橘子5人最少；草莓比橘子多15-5=10人，不是9人。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-232",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-math-square-review",
+      "unitTitle": "三年级下册数学广场与整理复习",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "p3-lower-review",
+        "math-square-exploration",
+        "decimal-area-data-review",
+        "数学广场",
+        "整理复习"
+      ],
+      "competencyTags": [
+        "推理意识",
+        "反思整理",
+        "综合应用"
+      ],
+      "skillTags": [
+        "规律探索",
+        "综合复习",
+        "策略比较",
+        "错因修正",
+        "表达检查"
+      ],
+      "misconceptionTags": [
+        "decimal and whole-number comparison rules mixed",
+        "area chosen when boundary length is asked",
+        "data claim made without evidence"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-math-square-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-math-square-review",
+        "hjb-primary-p2-lower-assessment-math-square-review"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "在数学广场活动中，小明发现一个规律：1×9=9，2×9=18，3×9=27，4×9=36。按照这个规律，5×9的结果是多少？",
+      "optionsZhHans": [],
+      "answer": "45",
+      "acceptedAnswers": [
+        "45"
+      ],
+      "explanationZhHans": "观察规律：1×9=9，2×9=18，3×9=27，4×9=36，每次增加9。所以5×9=45。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-233",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-math-square-review",
+      "unitTitle": "三年级下册数学广场与整理复习",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "p3-lower-review",
+        "math-square-exploration",
+        "decimal-area-data-review",
+        "数学广场",
+        "整理复习"
+      ],
+      "competencyTags": [
+        "推理意识",
+        "反思整理",
+        "综合应用"
+      ],
+      "skillTags": [
+        "规律探索",
+        "综合复习",
+        "策略比较",
+        "错因修正",
+        "表达检查"
+      ],
+      "misconceptionTags": [
+        "decimal and whole-number comparison rules mixed",
+        "area chosen when boundary length is asked",
+        "data claim made without evidence"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-math-square-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-math-square-review",
+        "hjb-primary-p2-lower-assessment-math-square-review"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "下面哪个问题适合用“先算一共有多少，再平均分”的方法解决？",
+      "optionsZhHans": [
+        "小明有12块糖，吃掉4块，还剩几块？",
+        "小红有8支铅笔，小蓝有6支铅笔，他们把铅笔合起来平均放在2个笔筒里，每个笔筒放几支？",
+        "一本书有20页，每天看5页，几天看完？",
+        "一根绳子长18米，剪成3米一段，可以剪几段？"
+      ],
+      "answer": "小红有8支铅笔，小蓝有6支铅笔，他们把铅笔合起来平均放在2个笔筒里，每个笔筒放几支？",
+      "acceptedAnswers": [
+        "小红有8支铅笔，小蓝有6支铅笔，他们把铅笔合起来平均放在2个笔筒里，每个笔筒放几支？"
+      ],
+      "explanationZhHans": "选项B需要先求铅笔总数8+6=14支，再平均分成2份，14÷2=7支。其他选项只需一步运算，不符合“先算一共再平均分”的策略。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-234",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-math-square-review",
+      "unitTitle": "三年级下册数学广场与整理复习",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "p3-lower-review",
+        "math-square-exploration",
+        "decimal-area-data-review",
+        "数学广场",
+        "整理复习"
+      ],
+      "competencyTags": [
+        "推理意识",
+        "反思整理",
+        "综合应用"
+      ],
+      "skillTags": [
+        "规律探索",
+        "综合复习",
+        "策略比较",
+        "错因修正",
+        "表达检查"
+      ],
+      "misconceptionTags": [
+        "decimal and whole-number comparison rules mixed",
+        "area chosen when boundary length is asked",
+        "data claim made without evidence"
+      ],
+      "difficulty": "Core",
+      "type": "fill-in",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-math-square-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-math-square-review",
+        "hjb-primary-p2-lower-assessment-math-square-review"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "小马虎在计算小数加法时，把2.5+3.2算成了2+3=5，他忘记加什么了？请写出正确结果。",
+      "optionsZhHans": [],
+      "answer": "他忘记加小数部分0.5和0.2，正确结果是5.7",
+      "acceptedAnswers": [
+        "他忘记加小数部分0.5和0.2，正确结果是5.7",
+        "忘记加小数部分，正确结果是5.7",
+        "5.7"
+      ],
+      "explanationZhHans": "2.5由2和0.5组成，3.2由3和0.2组成。小马虎只加了整数部分2+3=5，忘记加0.5+0.2=0.7，所以正确结果是5.7。"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p3-235",
+      "batch": "hjb-primary-v1",
+      "grade": "P3",
+      "semester": "lower",
+      "topicId": "hjb-primary-p3-lower-math-square-review",
+      "unitTitle": "三年级下册数学广场与整理复习",
+      "volume": "三年级下册",
+      "conceptIds": [
+        "p3-lower-review",
+        "math-square-exploration",
+        "decimal-area-data-review",
+        "数学广场",
+        "整理复习"
+      ],
+      "competencyTags": [
+        "推理意识",
+        "反思整理",
+        "综合应用"
+      ],
+      "skillTags": [
+        "规律探索",
+        "综合复习",
+        "策略比较",
+        "错因修正",
+        "表达检查"
+      ],
+      "misconceptionTags": [
+        "decimal and whole-number comparison rules mixed",
+        "area chosen when boundary length is asked",
+        "data claim made without evidence"
+      ],
+      "difficulty": "Core",
+      "type": "multiple-choice",
+      "evidenceCardIds": [
+        "hjb-primary-p3-lower-math-square-review"
+      ],
+      "assessmentPatternCardIds": [
+        "hjb-primary-p3-lower-assessment-math-square-review",
+        "hjb-primary-p2-lower-assessment-math-square-review"
+      ],
+      "paperPatternCardIds": [],
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "pending-s18-review",
+      "terminologyQaStatus": "pending-s18-review",
+      "manualQaStatus": "pending-s18-review",
+      "reviewNotes": "S18 remediated after DeepSeek-v4-pro QA on 2026-05-25; candidate QA package only, not approved for public integration.",
+      "promptZhHans": "学校举行跳绳比赛，记录了三（2）班四名同学一分钟跳绳的次数：小杰跳了142下，小文跳了135下，小宇跳了148下，小琪跳了139下。下面哪个结论是正确的？",
+      "optionsZhHans": [
+        "小宇跳得最多，是148下",
+        "小杰比小文多跳6下",
+        "小琪跳得最少，是139下",
+        "小宇比小琪多跳8下"
+      ],
+      "answer": "小宇跳得最多，是148下",
+      "acceptedAnswers": [
+        "小宇跳得最多，是148下"
+      ],
+      "explanationZhHans": "比较数据：148>142>139>135，所以小宇跳得最多。小杰比小文多7下，小文跳得最少，小宇比小琪多9下。"
+    }
+  ]
+}

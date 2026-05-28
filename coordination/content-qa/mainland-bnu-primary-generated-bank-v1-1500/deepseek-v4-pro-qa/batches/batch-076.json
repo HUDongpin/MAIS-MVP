@@ -1,0 +1,191 @@
+{
+  "batchNumber": 76,
+  "startedAt": "2026-05-27T13:30:41.746Z",
+  "completedAt": "2026-05-27T13:30:59.625Z",
+  "model": "deepseek-v4-pro",
+  "itemIds": [
+    "bnu-primary-ds-v1-p6-101",
+    "bnu-primary-ds-v1-p6-102",
+    "bnu-primary-ds-v1-p6-103",
+    "bnu-primary-ds-v1-p6-104",
+    "bnu-primary-ds-v1-p6-105",
+    "bnu-primary-ds-v1-p6-106",
+    "bnu-primary-ds-v1-p6-107",
+    "bnu-primary-ds-v1-p6-108",
+    "bnu-primary-ds-v1-p6-109",
+    "bnu-primary-ds-v1-p6-110",
+    "bnu-primary-ds-v1-p6-111",
+    "bnu-primary-ds-v1-p6-112",
+    "bnu-primary-ds-v1-p6-113",
+    "bnu-primary-ds-v1-p6-114",
+    "bnu-primary-ds-v1-p6-115",
+    "bnu-primary-ds-v1-p6-116",
+    "bnu-primary-ds-v1-p6-117",
+    "bnu-primary-ds-v1-p6-118"
+  ],
+  "usage": {
+    "prompt_tokens": 3086,
+    "completion_tokens": 1279,
+    "total_tokens": 4365,
+    "prompt_tokens_details": {
+      "cached_tokens": 3072
+    },
+    "prompt_cache_hit_tokens": 3072,
+    "prompt_cache_miss_tokens": 14
+  },
+  "finishReason": "stop",
+  "result": {
+    "items": [
+      {
+        "id": "bnu-primary-ds-v1-p6-101",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "数学正确，单位换算清晰，答案与解释一致。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-102",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "按比分配正确，总人数计算无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-103",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比值相等判断正确，选项8:10化简为4:5。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-104",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "按比分配求差正确，计算无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-105",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "按比例分配正确，水泥吨数计算无误。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-106",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "盐与盐水比正确，化简为1:6。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-107",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "三角形内角和按比分配正确，最大角80°。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-108",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "速度比与时间比成反比，正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-109",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "折扣计算正确，170元。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-110",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "成数计算正确，375万千瓦时。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-111",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "增加百分比计算正确，1000本。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-112",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "折扣计算正确，170元。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-113",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "比男生少20%计算正确，20人。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-114",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "节约百分比计算正确，9吨。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-115",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "增加百分比计算正确，180棵。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-116",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "提价再降价后现价降低，正确。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-117",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "少30%计算正确，84棵。"
+      },
+      {
+        "id": "bnu-primary-ds-v1-p6-118",
+        "status": "pass",
+        "severity": "none",
+        "issueTags": [],
+        "correctedAnswer": null,
+        "rationale": "利息计算正确，本息合计5210元。"
+      }
+    ],
+    "batchSummary": {
+      "pass": 18,
+      "warn": 0,
+      "fail": 0,
+      "notes": "所有题目数学正确，答案与解释一致，无歧义或缺失条件，适合北师大版六年级上册。"
+    }
+  }
+}
